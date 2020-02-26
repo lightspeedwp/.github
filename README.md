@@ -1,4 +1,4 @@
-# LightSpeed WordPress Development Community Health Files
+# LightSpeed Default Community Health Files
 
 > Adds community files to repos that haven't setup their own.
 
