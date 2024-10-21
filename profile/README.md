@@ -54,7 +54,7 @@ Our flagship block-based WordPress theme, **LSX Design**, offers a flexible and 
 The **LSX Tour Operator** plugin is a powerful extension built for travel agencies and tour companies, enabling them to manage bookings, destinations, itineraries, and more — all within the WordPress dashboard.
 
 - **Features**: Custom tour post types, itinerary management, destination pages, and seamless WooCommerce integration.
-- **Get Started**: [Download LSX Tour Operator Plugin](https://wordpress.org/plugins/lsx-tour-operator/)
+- **Get Started**: [Download LSX Tour Operator Plugin](https://wordpress.org/plugins/tour-operator/)
 
 ## Contributing
 
