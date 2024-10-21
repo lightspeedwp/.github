@@ -50,8 +50,8 @@ Our flagship block-based WordPress theme, **LSX Design**, offers a flexible and 
 - **Features**: Full block editor integration, responsive layouts, WooCommerce-ready, and SEO-friendly.
 - **Get Started**: [Download LSX Design](https://wordpress.org/themes/lsx-design/)
 
-### LSX Tour Operator Plugin
-The **LSX Tour Operator** plugin is a powerful extension built for travel agencies and tour companies, enabling them to manage bookings, destinations, itineraries, and more — all within the WordPress dashboard.
+### Tour Operator Plugin
+The **Tour Operator** plugin is a powerful extension built for travel agencies and tour companies, enabling them to manage bookings, destinations, itineraries, and more — all within the WordPress dashboard.
 
 - **Features**: Custom tour post types, itinerary management, destination pages, and seamless WooCommerce integration.
 - **Get Started**: [Download LSX Tour Operator Plugin](https://wordpress.org/plugins/tour-operator/)
