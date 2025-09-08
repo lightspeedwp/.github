@@ -1,0 +1,25 @@
+# Auto detect text files and ensure proper line endings
+* text=auto
+
+# Force LF (Unix) line endings for all common text-based files
+*.php text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.html text eol=lf
+*.txt text eol=lf
+*.xml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Treat images and fonts as binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.woff binary
+*.woff2 binary
+*.ttf binary

@@ -1,0 +1,41 @@
+---
+name: "Coding Standards"
+about: "WordPress coding standards and best practices for all LightSpeed projects."
+title: "[Instructions] Coding Standards"
+description: "WordPress coding standards and best practices for all LightSpeed projects."
+labels: ["instructions", "coding-standards", "wordpress"]
+assignees: []
+projects: []
+milestone: ""
+type: "instructions"
+mode: "agent"
+---
+
+# Coding Standards Instructions
+
+These guidelines apply to all WordPress projects maintained by LightSpeed.
+
+## PHP
+- Follow [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/)
+- Use 4 spaces for indentation, no tabs
+- Escape and sanitize all dynamic output
+- Use meaningful, descriptive function and variable names
+- Add inline documentation using phpdoc
+
+## JavaScript
+- Follow [WordPress JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/)
+- Use ES6+ features where supported
+- Prefer core WordPress scripts and libraries
+- Document functions and modules with jsdoc
+
+## CSS
+- Follow [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/)
+- Use semantic class names (BEM or utility-first)
+- Avoid inline styles; use theme.json or stylesheet files
+
+## General
+- Write accessible, semantic markup
+- Use comments to explain complex logic
+- Keep code modular and reusable
+
+Refer to the `.github/.github/instructions/` directory for more specific instructions by file type.

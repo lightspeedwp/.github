@@ -1,0 +1,56 @@
+---
+# Add 'documentation' label to any changes to markdown or text files
+documentation:
+  - '**/*.md'
+  - '**/*.txt'
+  - 'docs/**/*'
+
+# Add 'theme' label to any change to theme files
+theme:
+  - 'style.css'
+  - 'theme.json'
+  - 'functions.php'
+  - 'assets/**/*'
+
+# Add 'pattern' label to any change within the patterns directory
+pattern:
+  - 'patterns/**/*'
+
+# Add 'template' label to any change within the templates directory
+template:
+  - 'templates/**/*'
+  - 'parts/**/*'
+
+# Add 'css' label to any change to CSS files
+css:
+  - '**/*.css'
+  - '**/*.scss'
+
+# Add 'js' label to any change to JS files
+js:
+  - '**/*.js'
+
+# Add 'php' label to any change to PHP files
+php:
+  - '**/*.php'
+
+# Add 'configuration' label to any change to configuration files
+configuration:
+  - '.github/**/*.yml'
+  - '.github/linters/**/*'
+  - '*.json'
+  - '.editorconfig'
+  - '.gitignore'
+  - 'package.json'
+
+# Add 'test' label to any change to test files
+test:
+  - 'tests/**/*'
+  - 'playwright.config.js'
+  - '.github/linters/phpunit.xml'
+
+# Add 'woocommerce' to any change to WooCommerce templates/styles/functions
+woocommerce:
+  - 'woocommerce/**/*'
+  - '**/woocommerce*.css'
+  - '**/woocommerce*.php'
