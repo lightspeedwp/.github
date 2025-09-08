@@ -1,11 +1,12 @@
 ---
-name: "❓ Need Help with WordPress?"
+name: '❓ Need Help with WordPress?'
 about: Submit your WordPress-related questions here. We're happy to assist!
-title: "[Help] "
+title: '[Help] '
 labels: [question, support, wordpress]
+assignees: []
 projects: []
-milestone: ""
-assignees: ""
+milestone: ''
+type: 'question'
 ---
 
 <!--

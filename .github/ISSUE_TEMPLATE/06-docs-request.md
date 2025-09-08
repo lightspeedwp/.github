@@ -1,11 +1,12 @@
 ---
-name: "📚 Documentation Request"
+name: '📚 Documentation Request'
 about: Request additional documentation or clarification on existing documentation for this WordPress project
+title: '[Docs] '
 labels: [documentation, needs-triage]
-title: "[Docs] "
-assignees: ""
+assignees: []
 projects: []
-milestone: ""
+milestone: ''
+type: 'documentation'
 ---
 
 ## What documentation is needed?
@@ -18,11 +19,11 @@ Explain how this documentation would help you or others better use the project.
 
 ## Acceptance Criteria
 
-- [ ] Documentation is clear, accurate, and up-to-date
-- [ ] Follows [WordPress documentation standards](https://developer.wordpress.org/coding-standards/inline-documentation/)
-- [ ] Includes code examples or screenshots if applicable
-- [ ] Documentation is accessible and easy to find
-- [ ] ...add any other relevant criteria
+-   [ ] Documentation is clear, accurate, and up-to-date
+-   [ ] Follows [WordPress documentation standards](https://developer.wordpress.org/coding-standards/inline-documentation/)
+-   [ ] Includes code examples or screenshots if applicable
+-   [ ] Documentation is accessible and easy to find
+-   [ ] ...add any other relevant criteria
 
 ## Additional context
 

@@ -1,11 +1,12 @@
 ---
-name: "📝 Task"
+name: '📝 Task'
 about: Propose a task or checklist item for this WordPress project
+title: '[Task] '
 labels: [task, needs-triage]
-title: "[Task] "
-assignees: ""
+assignees: []
 projects: []
-milestone: ""
+milestone: ''
+type: 'task'
 ---
 
 ## Task Description
@@ -14,11 +15,11 @@ A clear and concise description of the task or checklist item.
 
 ## Acceptance Criteria
 
-- [ ] Task is clearly defined and actionable
-- [ ] Task is relevant to project goals
-- [ ] Documentation is updated if needed
-- [ ] Changelog.md is updated if applicable
-- [ ] ...add any other relevant criteria
+-   [ ] Task is clearly defined and actionable
+-   [ ] Task is relevant to project goals
+-   [ ] Documentation is updated if needed
+-   [ ] Changelog.md is updated if applicable
+-   [ ] ...add any other relevant criteria
 
 ## Additional context
 

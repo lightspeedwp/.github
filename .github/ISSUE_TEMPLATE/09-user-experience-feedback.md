@@ -1,11 +1,12 @@
 ---
-name: "💡 User Experience Feedback"
+name: '💡 User Experience Feedback'
 about: Share feedback on the usability and interface design of this WordPress project
+title: '[UX] '
 labels: [ux, feedback, needs-triage]
-title: "[UX] "
-assignees: ""
+assignees: []
 projects: []
-milestone: ""
+milestone: ''
+type: 'ux'
 ---
 
 ## Describe your experience
@@ -22,10 +23,10 @@ If applicable, please add screenshots that highlight the user experience issues 
 
 ## Acceptance Criteria
 
-- [ ] Feedback is clear and actionable
-- [ ] Suggestions are evaluated for feasibility and impact
-- [ ] Documentation is updated if needed
-- [ ] ...add any other relevant criteria
+-   [ ] Feedback is clear and actionable
+-   [ ] Suggestions are evaluated for feasibility and impact
+-   [ ] Documentation is updated if needed
+-   [ ] ...add any other relevant criteria
 
 ## Additional context
 

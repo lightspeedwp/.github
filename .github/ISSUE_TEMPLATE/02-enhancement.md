@@ -1,11 +1,12 @@
 ---
-name: "🚀 Enhancement / Feature Request"
+name: '🚀 Enhancement / Feature Request'
 about: Suggest a new feature or improvement for this WordPress project
-title: "[Enhancement] "
+title: '[Enhancement] '
 labels: [enhancement, needs-triage]
+assignees: []
 projects: []
-milestone: ""
-assignees: ""
+milestone: ''
+type: 'enhancement'
 ---
 
 <!-- Thank you for suggesting an idea to make this WordPress project better! Please fill in as much of the template below as you can. -->
@@ -24,22 +25,22 @@ If applicable, add mockups, screenshots, or links to Figma/Sketch/other design f
 
 ## Accessibility Considerations
 
-- Does this enhancement need to meet any [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
-- Are there any specific accessibility requirements or user needs to consider?
+-   Does this enhancement need to meet any [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
+-   Are there any specific accessibility requirements or user needs to consider?
 
 ## Acceptance Criteria
 
 Please list the requirements that must be met for this enhancement to be considered complete. Acceptance criteria should be clear, testable, and relevant to WordPress best practices. For example:
 
-- [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/) (PHP, JS, CSS, etc.)
-- [ ] Includes appropriate inline documentation (phpdoc, jsdoc, etc.)
-- [ ] Passes all automated and manual tests
-- [ ] Meets accessibility guidelines (where applicable)
-- [ ] Includes documentation updates (if needed)
-- [ ] Changelog.md is updated with a summary of the enhancement
-- [ ] Works with latest WordPress core and major plugins/themes
-- [ ] No adverse impact on performance or security
-- [ ] ...add any other relevant criteria
+-   [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/) (PHP, JS, CSS, etc.)
+-   [ ] Includes appropriate inline documentation (phpdoc, jsdoc, etc.)
+-   [ ] Passes all automated and manual tests
+-   [ ] Meets accessibility guidelines (where applicable)
+-   [ ] Includes documentation updates (if needed)
+-   [ ] Changelog.md is updated with a summary of the enhancement
+-   [ ] Works with latest WordPress core and major plugins/themes
+-   [ ] No adverse impact on performance or security
+-   [ ] ...add any other relevant criteria
 
 ## Testing Requirements
 

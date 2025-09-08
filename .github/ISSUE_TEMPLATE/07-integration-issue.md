@@ -1,11 +1,12 @@
 ---
-name: "🔗 Integration Issue"
+name: '🔗 Integration Issue'
 about: Report issues related to integrating this WordPress project with other tools or platforms
+title: '[Integration] '
 labels: [integration, needs-triage]
-title: "[Integration] "
-assignees: ""
+assignees: []
 projects: []
-milestone: ""
+milestone: ''
+type: 'integration'
 ---
 
 ## Describe the integration issue
@@ -34,11 +35,11 @@ If applicable, please add screenshots, logs, or other relevant files that can he
 
 ## Acceptance Criteria
 
-- [ ] Issue is reproducible and clearly documented
-- [ ] Integration works as expected after fix
-- [ ] No adverse impact on other integrations or core functionality
-- [ ] Documentation is updated if needed
-- [ ] ...add any other relevant criteria
+-   [ ] Issue is reproducible and clearly documented
+-   [ ] Integration works as expected after fix
+-   [ ] No adverse impact on other integrations or core functionality
+-   [ ] Documentation is updated if needed
+-   [ ] ...add any other relevant criteria
 
 ## Additional context
 

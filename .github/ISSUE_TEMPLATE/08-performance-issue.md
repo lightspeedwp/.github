@@ -1,11 +1,12 @@
 ---
-name: "⚡ Performance Issue"
+name: '⚡ Performance Issue'
 about: Report performance-related issues such as slow response times or high resource usage in this WordPress project
+title: '[Performance] '
 labels: [performance, needs-triage]
-title: "[Performance] "
-assignees: ""
+assignees: []
 projects: []
-milestone: ""
+milestone: ''
+type: 'performance'
 ---
 
 ## Describe the performance issue
@@ -31,19 +32,19 @@ If applicable, add screenshots, logs, or other relevant files that can help diag
 
 ## Environment (please complete the following information):
 
-- OS: [e.g., Windows 10, macOS Big Sur]
-- WordPress Version: [e.g. 6.4]
-- PHP Version: [e.g. 8.1]
-- Hosting Provider: [e.g. SiteGround, WP Engine, etc.]
-- Other relevant environment details:
+-   OS: [e.g., Windows 10, macOS Big Sur]
+-   WordPress Version: [e.g. 6.4]
+-   PHP Version: [e.g. 8.1]
+-   Hosting Provider: [e.g. SiteGround, WP Engine, etc.]
+-   Other relevant environment details:
 
 ## Acceptance Criteria
 
-- [ ] Performance issue is reproducible and clearly documented
-- [ ] Performance meets expected benchmarks after fix
-- [ ] No adverse impact on other functionality
-- [ ] Documentation is updated if needed
-- [ ] ...add any other relevant criteria
+-   [ ] Performance issue is reproducible and clearly documented
+-   [ ] Performance meets expected benchmarks after fix
+-   [ ] No adverse impact on other functionality
+-   [ ] Documentation is updated if needed
+-   [ ] ...add any other relevant criteria
 
 ## Additional context
 

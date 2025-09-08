@@ -1,56 +1,97 @@
-<!--
-### Requirements
+---
+name: 'Pull Request'
+about: 'Submit a pull request to propose changes to a LightSpeed WordPress project.'
+title: '[PR] <Short summary of your change>'
+description: 'Pull request template for all LightSpeed WordPress projects.'
+labels: ['needs review', 'pull request', 'triage']
+assignees: []
+projects: []
+milestone: ''
+type: 'pull_request'
+mode: 'agent'
+---
 
-Filling out the template is required. Any pull request that does not include enough information to be reviewed in a timely manner may be closed at the maintainers' discretion.  All new code requires documentation and tests to ensure against regressions.
+<!--
+Thank you for contributing to a LightSpeed project! Please fill out this template as completely as possible to help us review your pull request efficiently.
+For guidance, see our [CONTRIBUTING guidelines](../.github/CONTRIBUTING.md) and [Code of Conduct](../.github/CODE_OF_CONDUCT.md).
 -->
 
-### Description of the Change
+## Description
 
-<!--
-We must be able to understand the design of your change from this description. If we can't get a good idea of what the code will be doing from the description here, the pull request may be closed at the maintainers' discretion. Keep in mind that the maintainer reviewing this PR may not be familiar with or have worked with the code here recently, so please walk us through the concepts.  Please include screenshots (if appropriate).
--->
+<!-- Clearly describe what this pull request changes. Include screenshots, code samples, or references to issues if helpful. -->
 
-### Alternate Designs
+---
 
-<!-- Explain what other alternates were considered and why the proposed version was selected. -->
+## Type of Change
 
-### Benefits
+<!-- _Put an `x` in the boxes that apply_ -->
+
+-   [ ] Bugfix (non-breaking change which fixes an issue)
+-   [ ] New feature (non-breaking change which adds functionality)
+-   [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+-   [ ] Documentation Update
+-   [ ] Code Refactor / Review
+-   [ ] Performance Improvement
+-   [ ] Test or CI Update
+-   [ ] Other (please describe):
+
+---
+
+## Benefits
 
 <!-- What benefits will be realized by the code change? -->
 
-### Possible Drawbacks
+## Possible Drawbacks
 
 <!-- What are the possible side-effects or negative impacts of the code change? -->
 
-### Verification Process
+## Alternate Designs
+
+<!-- Explain what other alternatives were considered and why this approach was chosen. -->
+
+---
+
+## Checklist
+
+-   [ ] I agree to follow this project's [Code of Conduct](../.github/CODE_OF_CONDUCT.md)
+-   [ ] I have read the [CONTRIBUTING guidelines](../.github/CONTRIBUTING.md)
+-   [ ] My code follows the code style of this project
+-   [ ] Linting and tests pass locally with my changes
+-   [ ] I have added or updated documentation as needed
+-   [ ] I have added tests to cover my change
+-   [ ] All new and existing tests pass
+
+---
+
+## How to Test
+
+<!-- Please provide steps on how to test or validate that the change in this PR works as described. List commands, UI actions, or other verification steps. -->
+
+---
+
+## Applicable Issues
+
+<!-- List any related issues, e.g. "Closes #123" -->
+
+---
+
+## Changelog Entry
 
 <!--
-What process did you follow to verify that your change has the desired effects?
-
-- How did you verify that all new functionality works as expected?
-- How did you verify that all changed functionality works as expected?
-- How did you verify that the change has not introduced any regressions?
-
-Describe the actions you performed (e.g., commands you ran, text you typed, buttons you clicked) and describe the results you observed.
+Please include a summary for this PR, noting whether this is something being Added / Changed / Deprecated / Removed / Fixed / or Security related. Use the format:
+> Added - New feature
+> Changed - Existing functionality
+> Deprecated - Soon-to-be removed feature
+> Removed - Feature
+> Fixed - Bug fix
+> Security - Vulnerability
+> Developer - Non-functional update
 -->
 
-### Checklist:
+---
 
-<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
-<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
-- [ ] I have read the [**CONTRIBUTING**](/CONTRIBUTING.md) document.
-- [ ] My code follows the code style of this project.
-- [ ] My change requires a change to the documentation.
-- [ ] I have updated the documentation accordingly.
-- [ ] I have added tests to cover my change.
-- [ ] All new and existing tests passed.
+## Credits
 
-<!-- _NOTE: these things are not required to open a PR and can be done afterwards / while the PR is open._ -->
+<!-- Please list any and all contributors on this PR so that they can be added to this project's CREDITS.md file. -->
 
-### Applicable Issues
-
-<!-- Enter any applicable Issues here -->
-
-### Changelog Entry
-
-<!-- Add sample CHANGELOG.md entry for this PR, noting whether this is something being Added / Changed / Deprecated / Removed / Fixed / or Security related. -->
+Props @username, @username2, ...

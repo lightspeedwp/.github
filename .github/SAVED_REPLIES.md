@@ -1,3 +1,5 @@
+
+
 # LightSpeed Saved Replies
 
 In order to help reduce the time it takes to respond to open Issues and Pull Requests, we should leverage [GitHub’s Saved Replies](https://help.github.com/en/articles/about-saved-replies) to help when we are continually responding in the same manner.  The following are various Saved Replies that the LightSpeed team should use to respond to Issues and Pull Requests to ensure our community responses are similar and to minimize the amount of time crafting the same response to different requests.

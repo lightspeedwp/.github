@@ -1,11 +1,12 @@
 ---
-name: "🚀 Feature Request"
+name: '🚀 Feature Request'
 about: Suggest a new feature for this WordPress project
+title: '[Feature] '
 labels: [feature, needs-triage]
-title: "[Feature] "
-assignees: ""
+assignees: []
 projects: []
-milestone: ""
+milestone: ''
+type: 'feature'
 ---
 
 <!-- Thank you for suggesting a feature! Please fill in as much of the template as you can. -->
@@ -24,22 +25,22 @@ If applicable, add mockups, screenshots, or links to Figma/Sketch/other design f
 
 ## Accessibility Considerations
 
-- Does this feature need to meet any [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
-- Are there any specific accessibility requirements or user needs to consider?
+-   Does this feature need to meet any [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
+-   Are there any specific accessibility requirements or user needs to consider?
 
 ## Acceptance Criteria
 
 Please list the requirements that must be met for this feature to be considered complete. For example:
 
-- [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/) (PHP, JS, CSS, etc.)
-- [ ] Includes appropriate inline documentation (phpdoc, jsdoc, etc.)
-- [ ] Passes all automated and manual tests
-- [ ] Meets accessibility guidelines (where applicable)
-- [ ] Includes documentation updates (if needed)
-- [ ] Changelog.md is updated with a summary of the feature
-- [ ] Works with latest WordPress core and major plugins/themes
-- [ ] No adverse impact on performance or security
-- [ ] ...add any other relevant criteria
+-   [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/) (PHP, JS, CSS, etc.)
+-   [ ] Includes appropriate inline documentation (phpdoc, jsdoc, etc.)
+-   [ ] Passes all automated and manual tests
+-   [ ] Meets accessibility guidelines (where applicable)
+-   [ ] Includes documentation updates (if needed)
+-   [ ] Changelog.md is updated with a summary of the feature
+-   [ ] Works with latest WordPress core and major plugins/themes
+-   [ ] No adverse impact on performance or security
+-   [ ] ...add any other relevant criteria
 
 ## Testing Requirements
 
