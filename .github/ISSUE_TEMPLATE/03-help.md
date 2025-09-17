@@ -17,6 +17,28 @@ Please provide as much detail as possible to help us assist you efficiently.
 
 ## Question Summary
 
+ author: "LightSpeedWP Team"
+ contributors:
+	 - name: "Ash"
+		 github: "ash"
+	 - name: "LightSpeedWP"
+		 github: "lightspeedwp"
+ date: "2025-09-17"
+ last_modified: "2025-09-17"
+ tags:
+	 - help
+	 - support
+	 - question
+	 - wordpress
+ categories:
+	 - issue
+	 - support
+	 - question
+ version: "1.0.0"
+ permalink: "/issue-template/help"
+ license: "MIT"
+ related_links:
+	 - "https://github.com/lightspeedwp/.github"
 <!--
 Clearly describe your question or the issue you are facing with WordPress and this project.
 -->

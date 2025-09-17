@@ -1,23 +1,46 @@
 ---
-name: "Coding Standards"
-about: "WordPress coding standards and best practices for all LightSpeed projects."
-title: "[Instructions] Coding Standards"
-description: "WordPress coding standards and best practices for all LightSpeed projects."
-labels: ["instructions", "coding-standards", "wordpress"]
-assignees: []
-projects: []
-milestone: ""
-type: "instructions"
-mode: "agent"
----
+title: "WordPress Coding Standards Instructions"
+description: "Comprehensive coding standards and best practices for all LightSpeed WordPress projects."
+author: "LightSpeedWP Team"
+contributors:
+  - name: "Ash Shaw"
+    github: "ashleyshaw"
+  - name: "LightSpeedWP"
+    github: "lightspeedwp"
+date: "2025-09-17"
+last_modified: "2025-09-17"
+tags:
+  name: "Coding Standards"
+  about: "Comprehensive coding standards and best practices for all LightSpeed WordPress projects."
+  title: "[Instructions] Coding Standards"
+  - coding-standards
+  author: "LightSpeedWP Team"
+  contributors:
+    - name: "Ash Shaw"
+      github: "ashleyshaw"
+    - name: "LightSpeedWP"
+      github: "lightspeedwp"
+  - instructions
+  - guides
+version: "1.0.0"
+    - wordpress
+    - coding-standards
+    - php
+    - javascript
+    - css
+    - best-practices
+  - "https://github.com/lightspeedwp/.github"
+    - documentation
+    - instructions
+    - guides
 
 # Coding Standards Instructions
 
-These guidelines apply to all WordPress projects maintained by LightSpeed.
-
-## PHP
-- Follow [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/)
-- Use 4 spaces for indentation, no tabs
+  related_links:
+    - "https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/"
+    - "https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/"
+    - "https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/"
+    - "https://github.com/lightspeedwp/.github"
 - Escape and sanitize all dynamic output
 - Use meaningful, descriptive function and variable names
 - Add inline documentation using phpdoc

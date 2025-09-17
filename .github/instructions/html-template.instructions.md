@@ -3,23 +3,48 @@ name: "HTML Template"
 about: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
 title: "[Instructions] HTML Template"
 description: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
-labels: ["instructions", "html", "template"]
-assignees: []
-projects: []
-milestone: ""
-type: "instructions"
+author: "LightSpeedWP Team"
+contributors:
+  - name: "Ash Shaw"
+    github: "ashleyshaw"
+  - name: "LightSpeedWP"
+    github: "lightspeedwp"
+date: "2025-09-17"
+last_modified: "2025-09-17"
+tags:
+  - html
+  - template
+  name: "HTML Template"
+  about: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
+  title: "[Instructions] HTML Template"
+  - accessibility
+  author: "LightSpeedWP Team"
+  contributors:
+    - name: "Ash Shaw"
+      github: "ashleyshaw"
+    - name: "LightSpeedWP"
+      github: "lightspeedwp"
+version: "1.0.0"
+permalink: "/instructions/html-template"
+license: "MIT"
+    - html
+    - template
+    - wordpress
+    - accessibility
+    - responsive
+    - performance
 mode: "agent"
-applyTo: "**/*.html"
----
-
+    - documentation
+    - instructions
+    - guides
 # HTML Template Instructions
 
 ## Block Template Structure
-
-- Use semantic HTML elements (header, main, footer, section, article).
-- Maintain proper nesting and hierarchy of block elements.
-- Follow progressive enhancement principles for markup.
-- Keep templates modular and reusable where possible.
+  related_links:
+    - "https://developer.wordpress.org/themes/block-themes/templates/"
+    - "https://developer.wordpress.org/themes/block-themes/template-parts/"
+    - "https://developer.wordpress.org/block-editor/reference-guides/template-structure/"
+    - "https://github.com/lightspeedwp/.github"
 - Test templates with both light and dark color schemes.
 
 ## Template Parts
