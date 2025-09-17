@@ -4,11 +4,31 @@ about: "Instructions for PHP files related to block patterns or theme setup in a
 title: "[Instructions] PHP Block & Theme Setup"
 description: "Instructions for PHP files related to block patterns or theme setup in any LightSpeed WordPress project."
 labels: ["instructions", "php", "block", "theme"]
-assignees: []
-projects: []
-milestone: ""
+contributors:
+  - name: "Ash Shaw"
+    github: "ashleyshaw"
+  - name: "LightSpeedWP"
+    github: "lightspeedwp"
 type: "instructions"
 mode: "agent"
+excludePaths: ["vendor/**", "node_modules/**"]
+version: "1.0.0"
+author: "LightSpeed Team"
+priority: "high"
+examples:
+    - "patterns/cta/newsletter.php"
+    - "inc/blocks/register-patterns.php"
+tags:
+  - php
+  - wordpress
+  - block
+  - theme
+  - pattern
+  - instructions
+categories:
+  - documentation
+  - instructions
+  - guides
 applyTo: "**/*.php"
 ---
 
@@ -63,3 +83,5 @@ applyTo: "**/*.php"
 - Optimize image usage in patterns (use appropriate sizes and formats).
 - Consider render blocking when adding custom scripts.
 - Use WordPress core blocks whenever possible instead of custom solutions.
+
+

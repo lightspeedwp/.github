@@ -3,10 +3,26 @@ name: "HTML Template"
 about: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
 title: "[Instructions] HTML Template"
 description: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
-labels: ["instructions", "html", "template"]
-assignees: []
-projects: []
-milestone: ""
+author: "LightSpeedWP Team"
+contributors:
+  - name: "Ash Shaw"
+    github: "ashleyshaw"
+  - name: "LightSpeedWP"
+    github: "lightspeedwp"
+tags:
+  - html
+  - template
+  - wordpress
+  - accessibility
+  - responsive
+  - performance
+categories:
+  - documentation
+  - instructions
+  - guides
+version: "1.0.0"
+permalink: "/instructions/html-template"
+license: "MIT"
 type: "instructions"
 mode: "agent"
 applyTo: "**/*.html"
