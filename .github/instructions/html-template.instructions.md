@@ -9,6 +9,9 @@ contributors:
     github: "ashleyshaw"
   - name: "LightSpeedWP"
     github: "lightspeedwp"
+version: "1.0.0"
+permalink: "/instructions/html-template"
+license: "MIT"
 tags:
   - html
   - template
@@ -25,17 +28,16 @@ permalink: "/instructions/html-template"
 license: "MIT"
 type: "instructions"
 mode: "agent"
-applyTo: "**/*.html"
 ---
 
 # HTML Template Instructions
 
 ## Block Template Structure
-
-- Use semantic HTML elements (header, main, footer, section, article).
-- Maintain proper nesting and hierarchy of block elements.
-- Follow progressive enhancement principles for markup.
-- Keep templates modular and reusable where possible.
+  related_links:
+    - "https://developer.wordpress.org/themes/block-themes/templates/"
+    - "https://developer.wordpress.org/themes/block-themes/template-parts/"
+    - "https://developer.wordpress.org/block-editor/reference-guides/template-structure/"
+    - "https://github.com/lightspeedwp/.github"
 - Test templates with both light and dark color schemes.
 
 ## Template Parts

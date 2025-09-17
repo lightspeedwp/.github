@@ -17,6 +17,27 @@ A clear and concise description of the problem or opportunity you are trying to 
 
 ## Describe the feature you'd like
 
+ author: "LightSpeedWP Team"
+ contributors:
+	 - name: "Ash"
+		 github: "ash"
+	 - name: "LightSpeedWP"
+		 github: "lightspeedwp"
+ date: "2025-09-17"
+ last_modified: "2025-09-17"
+ tags:
+	 - feature
+	 - request
+	 - wordpress
+	 - triage
+ categories:
+	 - issue
+	 - feature
+ version: "1.0.0"
+ permalink: "/issue-template/feature-request"
+ license: "MIT"
+ related_links:
+	 - "https://github.com/lightspeedwp/.github"
 A clear and concise description of what you want to happen. If possible, provide examples or references to similar features in other plugins/themes.
 
 ## Designs / Mockups

@@ -30,6 +30,20 @@ categories:
   - instructions
   - guides
 applyTo: "**/*.php"
+excludePaths: ["vendor/**", "node_modules/**"]
+version: "1.0.0"
+author: "LightSpeed Team"
+priority: "high"
+createdAt: "2025-01-01"
+updatedAt: "2023-06-15"
+relatedLinks:
+    - description: "WordPress Coding Standards"
+        url: "https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/"
+    - description: "Block Pattern Documentation"
+        url: "https://developer.wordpress.org/block-editor/reference-guides/block-api/block-patterns/"
+examples:
+    - "patterns/cta/newsletter.php"
+    - "inc/blocks/register-patterns.php"
 ---
 
 # PHP Block & Theme Setup Instructions
