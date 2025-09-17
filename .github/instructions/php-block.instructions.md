@@ -11,6 +11,24 @@ contributors:
     github: "lightspeedwp"
 type: "instructions"
 mode: "agent"
+excludePaths: ["vendor/**", "node_modules/**"]
+version: "1.0.0"
+author: "LightSpeed Team"
+priority: "high"
+examples:
+    - "patterns/cta/newsletter.php"
+    - "inc/blocks/register-patterns.php"
+tags:
+  - php
+  - wordpress
+  - block
+  - theme
+  - pattern
+  - instructions
+categories:
+  - documentation
+  - instructions
+  - guides
 applyTo: "**/*.php"
 excludePaths: ["vendor/**", "node_modules/**"]
 version: "1.0.0"
@@ -79,3 +97,5 @@ examples:
 - Optimize image usage in patterns (use appropriate sizes and formats).
 - Consider render blocking when adding custom scripts.
 - Use WordPress core blocks whenever possible instead of custom solutions.
+
+

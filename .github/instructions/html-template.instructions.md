@@ -9,34 +9,27 @@ contributors:
     github: "ashleyshaw"
   - name: "LightSpeedWP"
     github: "lightspeedwp"
-date: "2025-09-17"
-last_modified: "2025-09-17"
-tags:
-  - html
-  - template
-  name: "HTML Template"
-  about: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
-  title: "[Instructions] HTML Template"
-  - accessibility
-  author: "LightSpeedWP Team"
-  contributors:
-    - name: "Ash Shaw"
-      github: "ashleyshaw"
-    - name: "LightSpeedWP"
-      github: "lightspeedwp"
 version: "1.0.0"
 permalink: "/instructions/html-template"
 license: "MIT"
-    - html
-    - template
-    - wordpress
-    - accessibility
-    - responsive
-    - performance
+tags:
+  - html
+  - template
+  - wordpress
+  - accessibility
+  - responsive
+  - performance
+categories:
+  - documentation
+  - instructions
+  - guides
+version: "1.0.0"
+permalink: "/instructions/html-template"
+license: "MIT"
+type: "instructions"
 mode: "agent"
-    - documentation
-    - instructions
-    - guides
+---
+
 # HTML Template Instructions
 
 ## Block Template Structure

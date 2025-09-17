@@ -9,33 +9,27 @@ contributors:
     github: "ashleyshaw"
   - name: "LightSpeedWP"
     github: "lightspeedwp"
-date: "2025-09-17"
-last_modified: "2025-09-17"
+version: "1.0.0"
+permalink: "/instructions/pattern-development"
 tags:
   - pattern
-  name: "Block Pattern Development"
-  about: "Guidelines for creating and modifying block patterns in any LightSpeed WordPress project."
-  title: "[Instructions] Block Pattern Development"
+  - wordpress
   - block
-  author: "LightSpeedWP Team"
-  contributors:
-    - name: "Ash Shaw"
-      github: "ashleyshaw"
-    - name: "LightSpeedWP"
-      github: "lightspeedwp"
+  - template
+  - advanced
+  - instructions
+categories:
+  - documentation
+  - instructions
   - guides
 version: "1.0.0"
 permalink: "/instructions/pattern-development"
-    - pattern
-    - wordpress
-    - block
-    - template
-    - advanced
-    - instructions
+license: "MIT"
+type: "instructions"
 mode: "agent"
-    - documentation
-    - instructions
-    - guides
+applyTo: "**/patterns/**/*.php"
+---
+
 # Block Pattern Development Instructions
 
 ## Pattern Structure

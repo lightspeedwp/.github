@@ -7,21 +7,6 @@ contributors:
     github: "ashleyshaw"
   - name: "LightSpeedWP"
     github: "lightspeedwp"
-date: "2025-09-17"
-last_modified: "2025-09-17"
-tags:
-  name: "Coding Standards"
-  about: "Comprehensive coding standards and best practices for all LightSpeed WordPress projects."
-  title: "[Instructions] Coding Standards"
-  - coding-standards
-  author: "LightSpeedWP Team"
-  contributors:
-    - name: "Ash Shaw"
-      github: "ashleyshaw"
-    - name: "LightSpeedWP"
-      github: "lightspeedwp"
-  - instructions
-  - guides
 version: "1.0.0"
     - wordpress
     - coding-standards
@@ -33,6 +18,23 @@ version: "1.0.0"
     - documentation
     - instructions
     - guides
+tags:
+  - wordpress
+  - coding-standards
+  - php
+  - javascript
+  - css
+  - best-practices
+categories:
+  - documentation
+  - instructions
+  - guides
+version: "1.0.0"
+permalink: "/instructions/coding-standards"
+license: "MIT"
+type: "instructions"
+mode: "agent"
+---
 
 # Coding Standards Instructions
 
@@ -62,3 +64,4 @@ version: "1.0.0"
 - Keep code modular and reusable
 
 Refer to the `.github/.github/instructions/` directory for more specific instructions by file type.
+
