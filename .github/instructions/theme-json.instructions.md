@@ -9,6 +9,7 @@ projects: []
 milestone: ""
 type: "instructions"
 mode: "agent"
+license: "GPL-3.0"
 applyTo: "**/theme.json"
 ---
 

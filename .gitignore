@@ -1,0 +1,49 @@
+# Dependencies
+/node_modules
+/vendor
+
+# Build directories
+/build
+/dist
+/out
+
+# WordPress specific
+/wp-content/uploads
+/wp-content/upgrade
+/wp-content/backup-db
+/wp-content/cache
+/wp-content/backups
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE and editor files
+.idea
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.sublime-project
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing and coverage
+/coverage
+/.nyc_output
+
+# Misc
+*.zip
+*.tar.gz
+*.tgz

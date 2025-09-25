@@ -11,6 +11,7 @@ contributors:
     github: "lightspeedwp"
 type: "instructions"
 mode: "agent"
+license: "GPL-3.0"
 excludePaths: ["vendor/**", "node_modules/**"]
 version: "1.0.0"
 author: "LightSpeed Team"

@@ -1,6 +1,12 @@
 ---
-title: "Playwright Copilot Space Instructions"
-description: "Comprehensive guide for Playwright browser automation, test generation, debugging, and best practices for LightSpeed projects."
+title: "Playwr  - documentation
+  - instructions
+  - guides
+version: "1.0.0"
+permalink: "/instructions/playwright-tests"
+license: "GPL-3.0"
+type: "instructions"
+mode: "agent"
 author: "LightSpeedWP Team"
 contributors:
   - name: "Ash Shaw"
@@ -21,12 +27,10 @@ categories:
     - guides
 version: "1.0.0"
 permalink: "/instructions/playwright-tests"
-license: "MIT"
+
 type: "instructions"
 mode: "agent"
 ---
-
-
 # Playwright Test Instructions
 
 These guidelines outline best practices for writing, organizing, and maintaining Playwright tests for LightSpeed projects, with a focus on WordPress themes, blocks, and custom patterns.
@@ -45,6 +49,7 @@ These guidelines outline best practices for writing, organizing, and maintaining
   ```bash
   npm install --save-dev @wordpress/e2e-test-utils-playwright
   ```
+
   Reference: [WordPress E2E Test Utils](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-e2e-test-utils-playwright/)
 
 ---
@@ -99,6 +104,7 @@ Ensure tests cover:
 - Accessibility and device compatibility.
 
 More resources:
+
 - [Theme Testing](https://developer.wordpress.org/themes/releasing-your-theme/testing/)
 - [Build Process Integration](https://developer.wordpress.org/themes/advanced-topics/build-process/)
 
@@ -140,7 +146,7 @@ More resources:
 ## Resources
 
 - [Playwright Documentation](https://playwright.dev/docs/intro)
-- [Agents & Automation](https://playwright.dev/agents)
+- [Agents &amp; Automation](https://playwright.dev/agents)
 - [Best Practices](https://playwright.dev/docs/best-practices)
 - [WordPress Theme Testing](https://developer.wordpress.org/themes/advanced-topics/theme-testing/)
 - [Block Editor E2E Utils](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-e2e-test-utils-playwright/)
@@ -156,8 +162,9 @@ More resources:
 
 ---
 
-**Maximum for this folder:**  
-- This file is located in: `@lightspeedwp/.github/files/.github/instructions`  
+**Maximum for this folder:**
+
+- This file is located in: `@lightspeedwp/.github/files/.github/instructions`
 - All instructions files in this folder must follow [LightSpeed organizational guidelines](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md).
 
 ---

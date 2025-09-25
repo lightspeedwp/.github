@@ -1,3 +1,4 @@
+
 # Theme Development Setup
 
 This document guides you through setting up your local development environment for this WordPress theme.
@@ -12,68 +13,79 @@ This document guides you through setting up your local development environment f
 ## Installation
 
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/<your-org>/<your-theme-repo>.git
-    cd <your-theme-repo>
-    ```
+
+```bash
+git clone https://github.com/<your-org>/<your-theme-repo>.git
+cd <your-theme-repo>
+```
 
 2. Install dependencies:
-    ```bash
-    npm install
-    ```
+
+```bash
+npm install
+```
 
 3. Setup Husky git hooks:
-    ```bash
-    npm run prepare
-    ```
+
+```bash
+npm run prepare
+```
 
 ## Development Workflow
 
 ### Building Assets
 
 - Start development mode with hot reloading:
-  ```bash
-  npm start
-  ```
+
+```bash
+npm start
+```
 
 - Build for production:
-  ```bash
-  npm run build
-  ```
+
+```bash
+npm run build
+```
 
 ### Code Quality
 
 - Lint JavaScript:
-  ```bash
-  npm run lint:js
-  ```
+
+```bash
+npm run lint:js
+```
 
 - Lint CSS:
-  ```bash
-  npm run lint:css
-  ```
+
+```bash
+npm run lint:css
+```
 
 - Run all linters:
-  ```bash
-  npm run lint
-  ```
+
+```bash
+npm run lint
+```
 
 ### Testing
 
 - Run all tests:
-  ```bash
-  npm test
-  ```
+
+```bash
+npm test
+```
 
 - Run accessibility tests only:
-  ```bash
-  npm run test:accessibility
-  ```
+
+```bash
+npm run test:accessibility
+```
 
 - Run end-to-end tests only:
-  ```bash
-  npm run test:e2e
-  ```
+
+```bash
+npm run test:e2e
+```
 
 ## WordPress Integration
 
@@ -98,17 +110,20 @@ This project follows the WordPress coding standards. The linting tools are confi
 ## Git Workflow
 
 1. Create a feature branch for your work:
+
     ```bash
     git checkout -b feature/your-feature-name
     ```
 
 2. Make your changes and commit them:
+
     ```bash
     git add .
     git commit -m "Your descriptive commit message"
     ```
 
 3. Push your changes and create a pull request:
+
     ```bash
     git push origin feature/your-feature-name
     ```
@@ -117,10 +132,16 @@ This project follows the WordPress coding standards. The linting tools are confi
 
 ## Need Help?
 
-- Check the [documentation](./docs/README.md)
-- Review the [GitHub Copilot instructions](./.github/copilot-instructions.md)
-- Use the prompt files in `.github/prompts/` for guidance
+ - Check the [documentation](./docs/README.md)
+ - Review the [GitHub Copilot instructions](./.github/copilot-instructions.md)
+ - Use the prompt files in `.github/prompts/` for guidance
 
 ## Contributing and Code of Conduct
 
 We welcome contributions! Please review our [Contributing Guidelines](https://github.com/lightspeedwp/.github/blob/master/.github/CONTRIBUTING.md) and [Code of Conduct](https://github.com/lightspeedwp/.github/blob/master/.github/CODE_OF_CONDUCT.md) before submitting pull requests or engaging with the project.
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)

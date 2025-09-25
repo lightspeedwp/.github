@@ -9,6 +9,7 @@ projects: []
 milestone: ""
 type: "prompt"
 mode: "agent"
+license: "GPL-3.0"
 ---
 
 # Refactor Theme Types
