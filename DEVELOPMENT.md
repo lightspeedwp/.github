@@ -132,8 +132,8 @@ This project follows the WordPress coding standards. The linting tools are confi
 
 ## Need Help?
 
- - Check the [documentation](./docs/README.md)
- - Review the [GitHub Copilot instructions](./.github/copilot-instructions.md)
+ - Check the repository documentation and README files
+ - Review the [GitHub Copilot custom instructions](./.github/custom-instructions.md) 
  - Use the prompt files in `.github/prompts/` for guidance
 
 ## Contributing and Code of Conduct

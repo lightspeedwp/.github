@@ -30,7 +30,10 @@ jobs:
       - name: Default PR status on open → status:needs-review
         if: contains(fromJson('["opened","reopened","ready_for_review"]'), github.event.action)
         run: |
-          gh pr edit ${{ github.event.pull_request.number }} --add-label "status:needs-review"
+          labels=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+          if ! echo "$labels" | grep -q '^status:'; then
+            gh pr edit ${{ github.event.pull_request.number }} --add-label "status:needs-review"
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -72,19 +72,22 @@ jobs:
 
           # Type mapping (from branch for PRs; optional)
           TYPE=""
-          HEAD='${{ github.head_ref }}'
+          HEAD="$HEAD_REF"
           if [ -n "$HEAD" ]; then
-            [[ "$HEAD" =~ ^feat/  ]] && TYPE='Feature'
-            [[ "$HEAD" =~ ^fix/   ]] && TYPE='Bug'
-            [[ "$HEAD" =~ ^docs?/ ]] && TYPE='Documentation'
-            [[ "$HEAD" =~ ^(chore/|build/) ]] && TYPE='Task'
+            case "$HEAD" in
+              feat/*)           TYPE='Feature'       ;;
+              fix/*)            TYPE='Bug'           ;;
+              doc/*|docs/*)     TYPE='Documentation' ;;
+              chore/*|build/*)  TYPE='Task'          ;;
+            esac
           fi
 
-          echo "status=$STATUS"   >> $GITHUB_OUTPUT
+          echo "status=$STATUS"    >> $GITHUB_OUTPUT
           echo "priority=$PRIORITY" >> $GITHUB_OUTPUT
-          echo "type=$TYPE"       >> $GITHUB_OUTPUT
+          echo "type=$TYPE"         >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REF: ${{ github.head_ref }}
 
       - name: Update project fields
         if: steps.addp.outputs.itemId != ''
