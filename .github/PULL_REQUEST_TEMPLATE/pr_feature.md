@@ -13,42 +13,52 @@ labels: ["status:needs-review"]
 -->
 
 ## Summary
+
 **Linked issues**: Closes #<id> (and/or) Relates to #<id>
 
 ## User Story / Acceptance Criteria
+
 - Story: <link>
 - AC: <bullets>
 
 ## Solution Overview
+
 - <points>
 
 ## Screenshots / UI (if applicable)
+
 <add images or remove section>
 
 ## Accessibility (a11y) Notes
+
 - Keyboard/focus:
 - Screen reader:
 - Contrast/zoom/RTL:
 
 ## Observability
+
 - Metrics/logs/traces added or updated:
 - Alerts/dashboards impacted:
 
 ## Feature Flags / Migrations
+
 - Flagged? <Yes/No> — name:
 - Data or schema changes:
 - Rollout plan (staged? percentage?):
 
 ## Test Plan
+
 - [ ] Unit tests for new logic
 - [ ] E2E/regression steps listed
 - [ ] Cross-browser/devices (list)
 
 ## Risk & Rollback
+
 - Risk level: Low / Medium / High
 - Rollback plan: <how to revert / disable flag / migration rollback>
 
 ---
+
 ### Checklist (Global DoD / PR)
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)

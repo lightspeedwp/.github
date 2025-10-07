@@ -11,20 +11,25 @@ labels: ["status:needs-review", "area:ci"]
 -->
 
 ## Build/CI change
+
 - What: <summarise>
 - Why: <reliability/speed/consistency>
 
 ## Baseline & Target
+
 - Before: <times/flakes>
 - After: <times/flakes>
 
 ## Rollback
+
 - Plan: <how to revert>
 
 ## Notes
+
 - Secrets/permissions considerations: <details>
 
 ---
+
 ### Checklist (Global DoD / PR)
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)
