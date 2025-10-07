@@ -17,6 +17,30 @@ A clear and concise description of what the bug is.
 
 ## To Reproduce
 
+ author: "LightSpeedWP Team"
+ contributors:
+	 - name: "Ash"
+		 github: "ash"
+	 - name: "LightSpeedWP"
+		 github: "lightspeedwp"
+ date: "2025-09-17"
+ last_modified: "2025-09-17"
+ tags:
+	 - bug
+	 - wordpress
+	 - report
+	 - issue
+	 - triage
+ categories:
+	 - issue
+	 - bug
+	 - report
+ version: "1.0.0"
+ permalink: "/issue-template/bug-report"
+ license: "MIT"
+ related_links:
+	 - "https://github.com/lightspeedwp/.github"
+	 - "https://developer.wordpress.org/coding-standards/"
 Steps to reproduce the behavior:
 
 1. Go to '...'

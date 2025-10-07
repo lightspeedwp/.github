@@ -17,6 +17,28 @@ type: 'refactor'
 -   [ ] Admin interface
 -   [ ] Integrations
 -   [ ] Other:
+ author: "LightSpeedWP Team"
+ contributors:
+   - name: "Ash"
+     github: "ash"
+   - name: "LightSpeedWP"
+     github: "lightspeedwp"
+ date: "2025-09-17"
+ last_modified: "2025-09-17"
+ tags:
+   - refactor
+   - code quality
+   - review
+   - wordpress
+ categories:
+   - issue
+   - refactor
+   - review
+ version: "1.0.0"
+ permalink: "/issue-template/code-refactoring"
+ license: "MIT"
+ related_links:
+   - "https://github.com/lightspeedwp/.github"
 
 ## Is your code refactoring request related to a problem?
 

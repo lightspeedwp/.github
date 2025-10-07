@@ -1,0 +1,31 @@
+{
+    "name": "lsx-example-block",
+    "version": "1.0.0",
+    "description": "Example WordPress block following LightSpeed standards",
+    "main": "build/index.js",
+    "scripts": {
+        "build": "wp-scripts build",
+        "start": "wp-scripts start",
+        "lint:css": "wp-scripts lint-style",
+        "lint:js": "wp-scripts lint-js",
+        "format": "wp-scripts format",
+        "packages-update": "wp-scripts packages-update"
+    },
+    "keywords": [
+        "wordpress",
+        "block",
+        "lsx",
+        "lightspeed"
+    ],
+    "author": "LightSpeed WP",
+    "license": "MIT",
+    "devDependencies": {
+        "@wordpress/scripts": "^26.19.0"
+    },
+    "dependencies": {
+        "@wordpress/block-editor": "^12.17.0",
+        "@wordpress/blocks": "^12.26.0",
+        "@wordpress/components": "^25.16.0",
+        "@wordpress/i18n": "^4.49.0"
+    }
+}
