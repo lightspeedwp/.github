@@ -1,5 +1,5 @@
 ---
-title: "Playwr  - documentation
+title: "Playwright Tests Instructions"
   - instructions
   - guides
 version: "1.0.0"
