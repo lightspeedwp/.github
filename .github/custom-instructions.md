@@ -13,10 +13,10 @@ This repository provides organization-wide Copilot instructions and prompt templ
 
 -   Follow WordPress coding standards for PHP, JavaScript, and CSS
 -   Use comprehensive inline documentation following WordPress standards:
-    -   [WordPress PHP Documentation Standards](https://github.com/WordPress/wpcs-docs/blob/master/inline-documentation-standards/php.md)
-    -   [WordPress JavaScript Documentation Standards](https://github.com/WordPress/wpcs-docs/blob/master/inline-documentation-standards/javascript.md)
-    -   [WordPress Inline Documentation Guidelines](https://github.com/WordPress/wpcs-docs/blob/master/inline-documentation-standards.md)
-    -   [WordPress CSS Style Guide](https://github.com/WordPress/wpcs-docs/blob/master/styleguide.md)
+    -   [WordPress PHP Documentation Standards](https://developer.wordpress.org/coding-standards/inline-documentation-standards/php/)
+    -   [WordPress JavaScript Documentation Standards](https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/)
+    -   [Inline Documentation Standards (Overview)](https://developer.wordpress.org/coding-standards/inline-documentation-standards/)
+    -   [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/)
 -   Use `theme.json` for color palettes, typography, spacing, and layout settings
 -   Prefer native WordPress block patterns and core blocks
 -   Maintain accessibility: semantic HTML, ARIA roles, alt text, and correct heading hierarchy

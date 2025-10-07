@@ -1,5 +1,6 @@
 ---
 description: "Prompt for adding comprehensive inline documentation to PHP and JavaScript code following WordPress standards."
+license: "GPL-3.0"
 ---
 
 # WordPress Inline Documentation Prompt
@@ -11,7 +12,7 @@ Use this prompt to add comprehensive inline documentation to WordPress PHP and J
 Add proper inline documentation to the provided code following these guidelines:
 
 ### For PHP Code:
-- Add file headers with package information, since version, author, and description
+- Add file headers with package information, since version, and description (omit per-file @author)
 - Document all functions with PHPDoc format including @since, @param, @return tags
 - Document all class properties and methods
 - Include hook documentation for WordPress actions and filters
@@ -27,7 +28,7 @@ Add proper inline documentation to the provided code following these guidelines:
 - Follow WordPress JavaScript documentation standards
 
 ### Documentation Requirements:
-1. **@since tag** - Always include version number (use 1.0.0 if not specified)
+1. **@since tag** - Always include the project/plugin/theme version (or "Unreleased" during development)
 2. **@param tags** - Document all parameters with type and description
 3. **@return tags** - Document return values with type and description  
 4. **Descriptions** - Write clear, concise explanations of functionality
