@@ -1,0 +1,97 @@
+name: Projects • Add & Sync meta from labels
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled, reopened, closed]
+  pull_request:
+    types: [opened, edited, labeled, unlabeled, reopened, ready_for_review, synchronize, closed]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+env:
+  PROJECT_URL: ${{ vars.LS_PROJECT_URL }}    # e.g. https://github.com/orgs/LightSpeed/projects/1
+
+jobs:
+  add-and-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub App installation token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.LS_APP_ID }}
+          private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
+          # Optionally scope permissions tighter (inherits installation perms by default)
+          # permission-issues: read
+          # permission-pull-requests: read
+          # permission-projects: write
+
+      - name: Add item to project (new issues/PRs)
+        id: addp
+        uses: actions/add-to-project@v1
+        with:
+          project-url: ${{ env.PROJECT_URL }}
+          github-token: ${{ steps.app-token.outputs.token }}
+        # Optionally filter by labels:
+        #  labeled: status:ready,status:in-progress
+        #  label-operator: OR
+
+      - name: Derive Status/Priority/Type from labels & branch
+        id: derive
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "issues" ]; then
+            NUMBER=${{ github.event.issue.number }}
+            LABELS=$(gh issue view $NUMBER --json labels --jq '.labels[].name')
+          else
+            NUMBER=${{ github.event.pull_request.number }}
+            LABELS=$(gh pr view $NUMBER --json labels --jq '.labels[].name')
+          fi
+
+          # Status mapping (labels → project field values)
+          STATUS=""
+          echo "$LABELS" | grep -q '^status:in-progress' && STATUS='In progress'
+          echo "$LABELS" | grep -q '^status:needs-review' && STATUS='In review'
+          echo "$LABELS" | grep -q '^status:needs-qa' && STATUS='In QA'
+          echo "$LABELS" | grep -q '^status:blocked' && STATUS='Blocked'
+          echo "$LABELS" | grep -q '^status:ready' && STATUS='Ready'
+          # Closed/merged → Done
+          if [ "${{ github.event_name }}" = "issues" ] && [ "${{ github.event.action }}" = "closed" ]; then STATUS='Done'; fi
+          if [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.action }}" = "closed" ] && [ "${{ github.event.pull_request.merged }}" = "true" ]; then STATUS='Done'; fi
+          [ -z "$STATUS" ] && STATUS='Triage'
+
+          # Priority mapping
+          PRIORITY=""
+          echo "$LABELS" | grep -q '^priority:critical'  && PRIORITY='Critical'
+          echo "$LABELS" | grep -q '^priority:important' && PRIORITY='Important'
+          echo "$LABELS" | grep -q '^priority:normal'    && PRIORITY='Normal'
+          echo "$LABELS" | grep -q '^priority:minor'     && PRIORITY='Minor'
+
+          # Type mapping (from branch for PRs; optional)
+          TYPE=""
+          HEAD='${{ github.head_ref }}'
+          if [ -n "$HEAD" ]; then
+            [[ "$HEAD" =~ ^feat/  ]] && TYPE='Feature'
+            [[ "$HEAD" =~ ^fix/   ]] && TYPE='Bug'
+            [[ "$HEAD" =~ ^docs?/ ]] && TYPE='Documentation'
+            [[ "$HEAD" =~ ^(chore/|build/) ]] && TYPE='Task'
+          fi
+
+          echo "status=$STATUS"   >> $GITHUB_OUTPUT
+          echo "priority=$PRIORITY" >> $GITHUB_OUTPUT
+          echo "type=$TYPE"       >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update project fields
+        if: steps.addp.outputs.itemId != ''
+        uses: titoportas/update-project-fields@v0.1.0
+        with:
+          project-url: ${{ env.PROJECT_URL }}
+          github-token: ${{ steps.app-token.outputs.token }}
+          item-id: ${{ steps.addp.outputs.itemId }}
+          field-keys: Status,Priority,Type
+          field-values: ${{ steps.derive.outputs.status }},${{ steps.derive.outputs.priority }},${{ steps.derive.outputs.type }}

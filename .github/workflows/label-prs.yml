@@ -1,0 +1,81 @@
+name: Auto-label PRs (front matter + heuristics)
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Parse front matter & apply labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const number = pr.number;
+            const body = pr.body || "";
+            const labelsToAdd = new Set();
+
+            // Front matter labels
+            const fmMatch = body.match(/^---\n([\s\S]*?)\n---/);
+            if (fmMatch) {
+              const fm = fmMatch[1];
+              const arr = fm.match(/labels\s*:\s*\[(.*?)\]/);
+              if (arr && arr[1]) {
+                arr[1].split(',').map(s => s.trim().replace(/^["']|["']$/g, '')).filter(Boolean).forEach(l => labelsToAdd.add(l));
+              } else {
+                const lines = fm.split(/\n/);
+                let inBlock = false;
+                for (const line of lines) {
+                  if (/^labels\s*:\s*$/.test(line)) { inBlock = true; continue; }
+                  if (inBlock) {
+                    const m = line.match(/^\s*-\s*(.+?)\s*$/);
+                    if (m) labelsToAdd.add(m[1].replace(/^["']|["']$/g, ''));
+                    else if (line.trim()==="") continue;
+                    else if (!line.startsWith(" ")) break;
+                  }
+                }
+              }
+            }
+
+            // Files heuristics
+            const files = await github.paginate(github.rest.pulls.listFiles, { owner, repo, pull_number: number });
+            const paths = files.map(f => f.filename);
+
+            const has = (re) => paths.some(p => re.test(p));
+
+            if (has(/^\.github\/workflows\//)) labelsToAdd.add('area:ci');
+            if (has(/(^|\/)package\.json$/) || has(/(^|\/)package-lock\.json$/) || has(/(^|\/)pnpm-lock\.yaml$/) ||
+                has(/(^|\/)yarn\.lock$/) || has(/(^|\/)composer\.json$/) || has(/(^|\/)composer\.lock$/)) {
+              labelsToAdd.add('area:dependencies');
+            }
+            const onlyMd = paths.length > 0 && paths.every(p => p.toLowerCase().endswith('.md') || p.toLowerCase().endswith('.mdx'));
+            if (onlyMd) labelsToAdd.add('lang:md');
+            if (has(/(^|\/)block\.json$/)) labelsToAdd.add('comp:block-json');
+            if (has(/(^|\/)theme\.json$/)) labelsToAdd.add('comp:theme-json');
+
+            // Template markers
+            if (/^##\s+Release/m.test(body)) { labelsToAdd.add('area:deployment'); labelsToAdd.add('env:staging'); }
+            if (/^##\s+Build\/CI change/m.test(body)) { labelsToAdd.add('area:ci'); }
+            if (/^##\s+Maintenance summary/m.test(body)) { labelsToAdd.add('area:dependencies'); }
+
+            // Apply (skip already present)
+            const current = (await github.rest.issues.listLabelsOnIssue({ owner, repo, issue_number: number })).data.map(l => l.name);
+            const toAdd = [...labelsToAdd].filter(l => !current.includes(l));
+            if (toAdd.length) {
+              try {
+                await github.rest.issues.addLabels({ owner, repo, issue_number: number, labels: toAdd });
+                core.info(`Added labels: ${toAdd.join(', ')}`);
+              } catch (e) {
+                core.warning(`Failed to add some labels (ensure they exist in the repo): ${e.message}`);
+              }
+            } else {
+              core.info('No new labels to add.');
+            }

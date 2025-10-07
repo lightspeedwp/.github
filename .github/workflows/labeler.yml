@@ -1,15 +1,31 @@
-name: Label issues and PRs
+# Label families → keep to the canonical names from labels-guide
 
-on:
-  issues:
-    types: [opened]
-  pull_request:
-    types: [opened]
+# Head branch → status hints (works on PRs)
+"status:needs-review":
+  - head-branch: ['^feat/.*', '^fix/.*', '^docs?/.*', '^(chore|build)/.*']
 
-jobs:
-  label:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/labeler@v5
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+# Blocks & Editor surfaces
+"area:block-editor":
+  - changed-files:
+      - any-glob-to-any-file: ['**/block.json', '**/src/blocks/**']
+
+"area:theme":
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['**/theme.json', '**/templates/**', '**/patterns/**', '**/parts/**']
+
+# Languages / formats
+"lang:php":
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.php']
+"lang:javascript":
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.{js,jsx,ts,tsx}']
+"lang:css":
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.{css,scss}']
+
+# CI / Ops
+"area:ci":
+  - changed-files:
+      - any-glob-to-any-file: ['.github/workflows/**']
