@@ -1,0 +1,284 @@
+# Organisation-wide default labels (lightspeedwp) — v1.10
+# Source of truth for sync to all repos.
+
+- name: priority:critical
+  color: B60205
+  description: Production/launch-blocking
+- name: priority:important
+  color: D93F0B
+  description: Must-do in current/next iteration
+- name: priority:normal
+  color: 0052CC
+  description: Default priority
+- name: priority:minor
+  color: C2E0C6
+  description: Nice-to-have / low urgency
+
+# Status (single current state)
+- name: status:needs-triage
+  color: BFD4F2
+  description: New/ungroomed; needs review by PM/lead
+- name: status:ready
+  color: 0E8A16
+  description: Groomed and ready to start
+- name: status:in-progress
+  color: 1D76DB
+  description: Work actively underway
+- name: status:on-hold
+  color: F9D0C4
+  description: Paused, awaiting external input
+- name: status:needs-design
+  color: C5DEF5
+  description: Early execution signal (triage queue for design)
+- name: status:needs-design-review
+  color: D4C5F9
+  description: Awaiting design review
+- name: status:needs-figma-update
+  color: C5DEF5
+  description: Existing Figma design needs updating
+- name: status:needs-dev
+  color: C5DEF5
+  description: Early execution signal (triage queue for engineering)
+- name: status:needs-review
+  color: BFD4F2
+  description: Awaiting code review
+- name: status:needs-qa
+  color: FBCA04
+  description: QA pass required
+- name: status:needs-testing
+  color: FEF2C0
+  description: Testing needed (manual/auto)
+- name: status:in-discussion
+  color: BFD4F2
+  description: Needs alignment/decision
+- name: status:needs-more-info
+  color: BFD4F2
+  description: Missing details to proceed
+- name: status:blocked
+  color: E99695
+  description: Blocked; see Blocked reason
+- name: status:duplicate
+  color: E99695
+  description: Duplicate of another issue
+- name: status:wontfix
+  color: E1E4E8
+  description: Not planned to address
+
+# Components (editor/theme surfaces)
+- name: comp:block-editor
+  color: C5DEF5
+  description: Block/site editor work
+- name: comp:block-inserter
+  color: C5DEF5
+  description: Inserter UI/behaviour
+- name: comp:block-variations
+  color: C5DEF5
+  description: Block variations
+- name: comp:block-supports
+  color: C5DEF5
+  description: Block supports
+- name: comp:block-locking
+  color: C5DEF5
+  description: Block locking
+- name: comp:block-bindings
+  color: C5DEF5
+  description: Block bindings
+- name: comp:block-templates
+  color: C5DEF5
+  description: Template files/editor
+- name: comp:block-patterns
+  color: C5DEF5
+  description: Patterns library/registration
+- name: comp:template-parts
+  color: C5DEF5
+  description: Header/footer/loop/nav parts
+- name: comp:block-json
+  color: C5DEF5
+  description: Block metadata (block.json)
+- name: comp:theme-json
+  color: C5DEF5
+  description: Tokens, presets, settings
+- name: comp:wp-admin
+  color: C5DEF5
+  description: WP Admin screens
+- name: comp:settings
+  color: C5DEF5
+  description: Global/settings UX
+- name: comp:post-settings
+  color: C5DEF5
+  description: Post editor settings panel
+- name: comp:help-tabs
+  color: C5DEF5
+  description: WP help tabs
+- name: comp:style-variations
+  color: C5DEF5
+  description: JSON style variations
+- name: comp:block-styles
+  color: C5DEF5
+  description: Styles registered via JSON
+- name: comp:color-palette
+  color: C5DEF5
+  description: Palette tokens/usage
+- name: comp:typography
+  color: C5DEF5
+  description: Type scale/fluids
+- name: comp:section-styles
+  color: C5DEF5
+  description: Section/background styles
+- name: comp:spacing
+  color: C5DEF5
+  description: Spacing tokens/layout gaps
+
+# Areas (broader functional surfaces)
+- name: area:ci
+  color: BFD4F2
+  description: Build and CI pipelines
+- name: area:infrastructure
+  color: 006B75
+  description: Infrastructure
+- name: area:deployment
+  color: 006B75
+  description: Deploy/release operations
+- name: area:content
+  color: C5DEF5
+  description: Anything that needs copy-editing assistance
+- name: area:forms
+  color: C5DEF5
+  description: Forms (Gravity Forms etc.)
+- name: area:theme
+  color: C5DEF5
+  description: Theme & styles (templates, template parts, FSE)
+- name: area:plugins
+  color: C5DEF5
+  description: Plugin configuration/internals
+- name: area:navigation
+  color: C5DEF5
+  description: Menus & nav UX
+- name: area:search
+  color: C5DEF5
+  description: Search/filters (incl. FacetWP)
+- name: area:seo
+  color: C2E0C6
+  description: Technical SEO (meta/schema/sitemaps)
+- name: area:analytics
+  color: C2E0C6
+  description: Analytics & tracking
+- name: area:woocommerce
+  color: D4C5F9
+  description: WooCommerce templates, blocks, hooks
+- name: area:i18n
+  color: C5DEF5
+  description: Internationalisation
+- name: area:dependencies
+  color: F9D0C4
+  description: Composer/npm dependency work
+- name: area:design-system
+  color: C5DEF5
+  description: Tokens/components guidelines
+- name: area:integration
+  color: D93F0B
+  description: External integrations
+
+# Languages / formats
+- name: lang:php
+  color: C5DEF5
+  description: PHP code
+- name: lang:js
+  color: C5DEF5
+  description: JavaScript/TypeScript
+- name: lang:css
+  color: C5DEF5
+  description: Stylesheets
+- name: lang:html
+  color: C5DEF5
+  description: Markup
+- name: lang:md
+  color: C5DEF5
+  description: Markdown content/docs
+- name: lang:json
+  color: C5DEF5
+  description: JSON config/content
+- name: lang:yaml
+  color: C5DEF5
+  description: YAML config
+
+# Environments
+- name: env:prototype
+  color: E1E4E8
+  description: Prototype/sandbox
+- name: env:staging
+  color: BFD4F2
+  description: Staging/UAT
+- name: env:live
+  color: 0E8A16
+  description: Live/production
+
+# Compatibility (matrix)
+- name: compat:wordpress
+  color: D93F0B
+  description: Core/Gutenberg versions
+- name: compat:php
+  color: D93F0B
+  description: Min/tested-up-to PHP
+- name: compat:woocommerce
+  color: D93F0B
+  description: WooCommerce versions
+- name: compat:gutenberg
+  color: D93F0B
+  description: Package compatibility
+- name: compat:multisite
+  color: F9D0C4
+  description: Multisite/network considerations.
+
+# Content Types
+- name: cpt:posts
+  color: C5DEF5
+  description: WordPress Posts
+- name: cpt:pages
+  color: C5DEF5
+  description: WordPress Pages
+
+# Meta (ops/automation)
+- name: meta:has-pr
+  color: E1E4E8
+  description: Issue has a linked PR
+- name: meta:no-issue-activity
+  color: E1E4E8
+  description: No recent issue activity
+- name: meta:no-pr-activity
+  color: E1E4E8
+  description: No recent PR activity
+- name: meta:stale
+  color: 9198A1
+  description: Marked as stale
+
+# AI-Ops
+- name: ai-ops:instructions
+  color: 0052CC
+  description: AI instruction docs
+- name: ai-ops:chat-modes
+  color: 0052CC
+  description: Prompt sets / modes
+- name: ai-ops:agents
+  color: 0052CC
+  description: Agent definitions
+- name: ai-ops:prompts
+  color: 0052CC
+  description: Reusable prompts
+- name: ai-ops:datasets
+  color: BFD4F2
+  description: Training/eval datasets
+- name: ai-ops:evaluations
+  color: BFD4F2
+  description: Evaluation results
+- name: ai-ops:tools
+  color: BFD4F2
+  description: Tool/plugin manifests
+
+# Community
+- name: contrib:help-wanted
+  color: C2E0C6
+  description: Maintainer requests help.
+- name: contrib:good-first-issue
+  color: D4C5F9
+  description: Good for first-time contributors.

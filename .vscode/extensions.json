@@ -1,0 +1,75 @@
+{
+    "recommendations": [
+        // AI Related Extensions - Advanced AI assistance for development
+        "anthropic.claude-code",
+        "google.gemini-cli-vscode-ide-companion",
+        "google.geminicodeassist",
+        "coderabbit.coderabbit-vscode",
+        "openai.chatgpt",
+
+        // GitHub Extensions - Essential GitHub workflow tools
+        "github.codespaces",
+        "github.copilot",
+        "github.copilot-chat",
+        "github.remotehub",
+        "github.vscode-github-actions",
+        "github.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+
+        // Microsoft Extensions - Official Microsoft development tools
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode-remote.remote-ssh-edit",
+        "ms-vscode-remote.remote-wsl",
+        "ms-vscode-remote.vscode-remote-extensionpack",
+        "ms-vscode.azure-repos",
+        "ms-vscode.live-server",
+        "ms-vscode.remote-explorer",
+        "ms-vscode.remote-repositories",
+        "ms-vscode.remote-server",
+        "ms-vscode.vscode-commander",
+        "ms-vscode.vscode-copilot-vision",
+        "ms-vscode.vscode-github-issue-notebooks",
+        "ms-vscode.vscode-speech",
+        "ms-vscode.vscode-speech-language-pack-en-gb",
+        "ms-vscode.vscode-websearchforcopilot",
+        "ms-vscode.wordcount",
+
+        // Dev Container Extensions - Docker and container development
+        "ms-azuretools.vscode-containers",
+        "ms-azuretools.vscode-docker",
+
+        // Unit Testing Extensions - Automated testing tools
+        "ms-playwright.playwright",
+
+        // Linting Extensions - Code quality and formatting
+        "esbenp.prettier-vscode",
+        "davidanson.vscode-markdownlint",
+        "syler.sass-indented",
+        "stylelint.vscode-stylelint",
+        "sibiraj-s.vscode-scss-formatter",
+        "mrmlnc.vscode-scss",
+        "michelemelluso.code-beautifier",
+        "dbaeumer.vscode-eslint",
+
+        // WordPress Development - WordPress specific tools
+        "wordpresstoolbox.wordpress-toolbox",
+        "wordpress.wordpress-hooks-intellisense",
+        "bmewburn.vscode-intelephense-client",
+        "devsense.phptools-vscode",
+
+        // Debug and Coding Standards - PHP debugging and code intelligence
+        "xdebug.php-pack",
+        "christian-kohler.npm-intellisense",
+        "phpcs.phpcs",
+        "squizlabs.php-codesniffer",
+
+        // JSON and Configuration - Enhanced JSON support
+        "zainchen.json",
+        "quicktype.quicktype",
+
+        // Core development tools
+        "editorconfig.editorconfig"
+    ]
+}

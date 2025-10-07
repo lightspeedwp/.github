@@ -1,0 +1,37 @@
+{
+  "projectName": "ai-block-theme-template",
+  "projectOwner": "lightspeedwp",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectDescription": "Starter repository for WordPress block theme projects with AI support",
+  "projectWebsite": "https://lightspeedwp.agency",
+  "license": "GPL-3.0-or-later",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "conventional",
+  "contributors": [
+    {
+      "login": "lightspeedwp",
+      "name": "LightSpeedWP",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13472139?v=4",
+      "profile": "https://github.com/lightspeedwp",
+      "contributions": [
+        "ideas",
+        "fundingFinding",
+        "projectManagement",
+        "business",
+        "code",
+        "design",
+        "doc",
+        "infra",
+        "maintenance",
+        "test"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": true
+}

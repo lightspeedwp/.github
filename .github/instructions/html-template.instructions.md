@@ -25,7 +25,7 @@ categories:
   - guides
 version: "1.0.0"
 permalink: "/instructions/html-template"
-license: "MIT"
+license: "GPL-3.0"
 type: "instructions"
 mode: "agent"
 ---

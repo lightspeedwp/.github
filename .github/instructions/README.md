@@ -38,3 +38,7 @@ These instructions should evolve as our project standards and requirements chang
 2. Keep the instructions concise and actionable
 3. Consider backward compatibility with existing code
 4. Document significant changes in the commit message
+
+## License
+
+These instruction files are part of the LightSpeed organization's community health files, licensed under the GNU General Public License v3.0.

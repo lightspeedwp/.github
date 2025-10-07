@@ -11,3 +11,7 @@ For paid support, contact our team:
 We aim to respond to paid support requests within 2 business days.
 
 For more information, please refer to our documentation or FAQ if available.
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](../LICENSE) file for details.

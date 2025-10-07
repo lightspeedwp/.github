@@ -1,0 +1,93 @@
+name: Labels • Issues & PRs
+
+on:
+  issues:
+    types: [opened, edited, reopened, labeled, unlabeled, transferred]
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review, edited, labeled, unlabeled]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: labels-${{ github.event_name }}-${{ github.event.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  pr-labels:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: File & branch labeler (actions/labeler)
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml
+          sync-labels: true
+
+      - name: Default PR status on open → status:needs-review
+        if: contains(fromJson('["opened","reopened","ready_for_review"]'), github.event.action)
+        run: |
+          gh pr edit ${{ github.event.pull_request.number }} --add-label "status:needs-review"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enforce exactly one status:* label (PR)
+        id: enforce-status-pr
+        run: |
+          set -euo pipefail
+          labels=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+          count=$(echo "$labels" | grep -E '^status:' | wc -l | xargs)
+          if [ "$count" -eq 0 ]; then
+            echo "::notice::No status:* found → adding status:needs-review"
+            gh pr edit ${{ github.event.pull_request.number }} --add-label "status:needs-review"
+          elif [ "$count" -gt 1 ]; then
+            echo "::error::Multiple status:* labels present. Keep exactly one."
+            echo "found=$count" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Nudge for changelog label (adds meta:needs-changelog if missing)
+        run: |
+          labels=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+          if ! echo "$labels" | grep -Eq '^(no-changelog|changelog:(added|changed|fixed|security|deprecated|removed))$'; then
+            echo "::warning::No changelog label found → adding meta:needs-changelog"
+            gh pr edit ${{ github.event.pull_request.number }} --add-label "meta:needs-changelog"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  issue-intake:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Default issue status on open → status:needs-triage
+        if: contains(fromJson('["opened","reopened","transferred"]'), github.event.action)
+        run: gh issue edit ${{ github.event.issue.number }} --add-label "status:needs-triage"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ensure one status:* label (Issue)
+        run: |
+          set -euo pipefail
+          labels=$(gh issue view ${{ github.event.issue.number }} --json labels --jq '.labels[].name')
+          count=$(echo "$labels" | grep -E '^status:' | wc -l | xargs)
+          if [ "$count" -gt 1 ]; then
+            echo "::error::Multiple status:* labels present. Keep exactly one."
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Default priority if missing → priority:normal
+        run: |
+          labels=$(gh issue view ${{ github.event.issue.number }} --json labels --jq '.labels[].name')
+          if ! echo "$labels" | grep -q '^priority:'; then
+            gh issue edit ${{ github.event.issue.number }} --add-label "priority:normal"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
