@@ -1,0 +1,75 @@
+/**
+ * Frontend styles for LSX Example Block
+ *
+ * These styles are applied on both the frontend and in the editor.
+ * Use theme.json variables when possible for consistency.
+ *
+ * @since 1.0.0
+ */
+
+.wp-block-lsx-example-block {
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+
+    // Default styling
+    background-color: var(--wp--preset--color--light-gray, #f8f9fa);
+    color: var(--wp--preset--color--dark-gray, #333);
+
+    // Typography
+    font-family: var(--wp--preset--font-family--system, inherit);
+    font-size: var(--wp--preset--font-size--medium, 1rem);
+    line-height: var(--wp--preset--line-height--normal, 1.6);
+
+    // Alignment styles
+    &.has-text-align-left {
+        text-align: left;
+    }
+
+    &.has-text-align-center {
+        text-align: center;
+    }
+
+    &.has-text-align-right {
+        text-align: right;
+    }
+
+    // Content paragraph styling
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    // Responsive design
+    @media (max-width: 768px) {
+        padding: 1rem;
+        margin: 0.5rem 0;
+    }
+
+    // Hover effects for interactive elements
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    // Focus styles for accessibility
+    &:focus-within {
+        outline: 2px solid var(--wp--preset--color--primary, #007cba);
+        outline-offset: 2px;
+    }
+
+    // High contrast mode support
+    @media (prefers-contrast: high) {
+        border: 2px solid currentColor;
+    }
+
+    // Reduced motion support
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+        
+        &:hover {
+            transform: none;
+        }
+    }
+}

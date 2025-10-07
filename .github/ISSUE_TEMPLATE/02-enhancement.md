@@ -17,6 +17,30 @@ A clear and concise description of the problem or opportunity you are trying to 
 
 ## Describe the solution you'd like
 
+ author: "LightSpeedWP Team"
+ contributors:
+	 - name: "Ash"
+		 github: "ash"
+	 - name: "LightSpeedWP"
+		 github: "lightspeedwp"
+ date: "2025-09-17"
+ last_modified: "2025-09-17"
+ tags:
+	 - enhancement
+	 - feature
+	 - wordpress
+	 - request
+	 - triage
+ categories:
+	 - issue
+	 - enhancement
+	 - feature
+ version: "1.0.0"
+ permalink: "/issue-template/enhancement-request"
+ license: "MIT"
+ related_links:
+	 - "https://github.com/lightspeedwp/.github"
+	 - "https://developer.wordpress.org/coding-standards/"
 A clear and concise description of what you want to happen. If possible, provide examples or references to similar features in other plugins/themes.
 
 ## Designs / Mockups

@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "lsx/example-block",
+    "version": "1.0.0",
+    "title": "LSX Example Block",
+    "category": "lsx-blocks",
+    "icon": "smiley",
+    "description": "An example block demonstrating typical WordPress block structure for LightSpeed projects.",
+    "keywords": [
+        "example",
+        "lsx",
+        "lightspeed"
+    ],
+    "supports": {
+        "html": false,
+        "color": {
+            "background": true,
+            "text": true,
+            "gradients": true
+        },
+        "spacing": {
+            "padding": true,
+            "margin": true
+        },
+        "typography": {
+            "fontSize": true,
+            "lineHeight": true
+        },
+        "anchor": true
+    },
+    "attributes": {
+        "content": {
+            "type": "string",
+            "source": "html",
+            "selector": "p",
+            "default": "Hello from LSX Example Block!"
+        },
+        "alignment": {
+            "type": "string",
+            "default": "center"
+        },
+        "backgroundColor": {
+            "type": "string"
+        },
+        "textColor": {
+            "type": "string"
+        }
+    },
+    "example": {
+        "attributes": {
+            "content": "This is an example of the LSX Example Block in action.",
+            "alignment": "center"
+        }
+    },
+    "textdomain": "lsx-theme",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./editor.css",
+    "style": "file:./style.css"
+}

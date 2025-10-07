@@ -7,6 +7,17 @@ contributors:
     github: "ashleyshaw"
   - name: "LightSpeedWP"
     github: "lightspeedwp"
+version: "1.0.0"
+    - wordpress
+    - coding-standards
+    - php
+    - javascript
+    - css
+    - best-practices
+  - "https://github.com/lightspeedwp/.github"
+    - documentation
+    - instructions
+    - guides
 tags:
   - wordpress
   - coding-standards
@@ -27,11 +38,11 @@ mode: "agent"
 
 # Coding Standards Instructions
 
-These guidelines apply to all WordPress projects maintained by LightSpeed.
-
-## PHP
-- Follow [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/)
-- Use 4 spaces for indentation, no tabs
+  related_links:
+    - "https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/"
+    - "https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/"
+    - "https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/"
+    - "https://github.com/lightspeedwp/.github"
 - Escape and sanitize all dynamic output
 - Use meaningful, descriptive function and variable names
 - Add inline documentation using phpdoc

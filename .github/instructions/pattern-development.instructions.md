@@ -9,6 +9,8 @@ contributors:
     github: "ashleyshaw"
   - name: "LightSpeedWP"
     github: "lightspeedwp"
+version: "1.0.0"
+permalink: "/instructions/pattern-development"
 tags:
   - pattern
   - wordpress
@@ -31,10 +33,10 @@ applyTo: "**/patterns/**/*.php"
 # Block Pattern Development Instructions
 
 ## Pattern Structure
-
-- Use descriptive comments to document each section of the pattern.
-- Follow a logical structure with clear parent-child relationships.
-- Group related blocks using the Group block where appropriate.
+  related_links:
+    - "https://developer.wordpress.org/themes/patterns/"
+    - "https://developer.wordpress.org/themes/patterns/starter-patterns/"
+    - "https://developer.wordpress.org/themes/patterns/usage-in-templates/"
 - Use appropriate block variations based on content needs.
 - Test pattern across different viewport sizes.
 
