@@ -1,8 +1,5 @@
 {
-    "mcp.autoStart": true,
-    "mcp.servers.github.autoStart": true,
-    "mcp.servers.playwright.autoStart": true,
-    "chat.mcp.access": "all",
+
     "github.copilot.chat.virtualTools.threshold": 128,
     "github.copilot.chat.enableMcp": true,
     "github.copilot.chat.allowMcpPrompts": true,
@@ -11,21 +8,8 @@
     "git.autofetch": true,
     "git.confirmSync": true,
     "github.authenticate": "on",
-    "mcp.enableAllModels": true,
-    "mcp.autoSelectModel": true,
-    "mcp.modelPreference": "auto",
-    "copilot.enable": {
-        "*": true,
-        "php": true,
-        "javascript": true,
-        "css": true,
-        "scss": true,
-        "json": true,
-        "yaml": true,
-        "python": false,
-        "plaintext": false,
-        "markdown": true
-    },
+
+
     "github.copilot.enable": {
         "*": true,
         "php": true,
@@ -38,26 +22,7 @@
         "plaintext": false,
         "markdown": true
     },
-    "chat.modeFilesLocations": {
-        "**/.github/chatmodes": true,
-        "chatmodes": true
-    },
-    "chat.promptFilesLocations": {
-        "**/.github/prompts": true,
-        "prompts": true
-    },
-    "chat.instructionsFilesLocations": {
-        "**/.github/instructions": true,
-        "instructions": true
-    },
-    "chat.inlineDocumentationFiles": {
-        "**/.github/instructions/php-inline-documentation.instructions.md": true,
-        "**/.github/instructions/javascript-inline-documentation.instructions.md": true
-    },
-    "chat.agentFilesLocations": {
-        "**/.github/agents": true,
-        ".github/agents": true
-    },
+
     "files.eol": "\n",
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
@@ -96,8 +61,8 @@
         "php": "html"
     },
     "php.suggest.basic": false,
-    "wordpress.phpcs.enable": true,
-    "wordpress.phpcs.standard": "WordPress",
+    "phpcs.enable": true,
+    "phpcs.standard": "WordPress",
     "files.exclude": {
         "**/node_modules": true,
         "**/vendor": true,

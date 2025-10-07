@@ -368,7 +368,7 @@ function dispatchCustomEvent( message ) {
 ## Best Practices
 
 ### Formatting
-- Use proper indentation (2 or 4 spaces consistently)
+- Use tabs for indentation in line with the WordPress JavaScript coding standards
 - Align parameter descriptions when helpful
 - Keep line lengths reasonable (under 80-120 characters)
 - Use sentence case for descriptions

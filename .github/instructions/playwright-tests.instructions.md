@@ -1,7 +1,6 @@
 ---
-title: "Playwright Tests Instructions"
-  - instructions
-  - guides
+title: "Playwright Test Instructions"
+description: "Guidelines for creating and running Playwright tests in LightSpeed WordPress projects."
 version: "1.0.0"
 permalink: "/instructions/playwright-tests"
 license: "GPL-3.0"
@@ -25,11 +24,6 @@ categories:
     - documentation
     - instructions
     - guides
-version: "1.0.0"
-permalink: "/instructions/playwright-tests"
-
-type: "instructions"
-mode: "agent"
 ---
 # Playwright Test Instructions
 

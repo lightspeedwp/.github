@@ -1,31 +1,18 @@
-# Label families → keep to the canonical names from labels-guide
+name: Label PRs
 
-# Head branch → status hints (works on PRs)
-"status:needs-review":
-  - head-branch: ['^feat/.*', '^fix/.*', '^docs?/.*', '^(chore|build)/.*']
+on:
+  pull_request:
+    types: [opened, synchronize]
 
-# Blocks & Editor surfaces
-"area:block-editor":
-  - changed-files:
-      - any-glob-to-any-file: ['**/block.json', '**/src/blocks/**']
+permissions:
+  contents: read
+  pull-requests: write
 
-"area:theme":
-  - any:
-      - changed-files:
-          - any-glob-to-any-file: ['**/theme.json', '**/templates/**', '**/patterns/**', '**/parts/**']
-
-# Languages / formats
-"lang:php":
-  - changed-files:
-      - any-glob-to-any-file: ['**/*.php']
-"lang:javascript":
-  - changed-files:
-      - any-glob-to-any-file: ['**/*.{js,jsx,ts,tsx}']
-"lang:css":
-  - changed-files:
-      - any-glob-to-any-file: ['**/*.{css,scss}']
-
-# CI / Ops
-"area:ci":
-  - changed-files:
-      - any-glob-to-any-file: ['.github/workflows/**']
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml

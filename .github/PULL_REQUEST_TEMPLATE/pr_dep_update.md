@@ -13,19 +13,23 @@ labels: ["status:needs-review", "area:dependencies"]
 -->
 
 ## Maintenance summary
+
 - Packages bumped: <list>
 - Rationale: <security / compatibility / hygiene>
 
 ## Impact assessment
+
 - Build/bundle deltas: <sizes/time>
 - Risk notes: <breaking changes / peer deps>
 
 ## Test scope
+
 - [ ] Install & build
 - [ ] Smoke tests
 - [ ] Key pages/components checked
 
 ---
+
 ### Checklist (Global DoD / PR)
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)

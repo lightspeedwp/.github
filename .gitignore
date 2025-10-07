@@ -24,6 +24,8 @@
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
 *.sublime-project
 *.sublime-workspace
 
@@ -38,6 +40,8 @@ Desktop.ini
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.eslintcache
+.phpcs-cache
 
 # Testing and coverage
 /coverage

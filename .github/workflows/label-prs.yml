@@ -56,7 +56,7 @@ jobs:
                 has(/(^|\/)yarn\.lock$/) || has(/(^|\/)composer\.json$/) || has(/(^|\/)composer\.lock$/)) {
               labelsToAdd.add('area:dependencies');
             }
-            const onlyMd = paths.length > 0 && paths.every(p => p.toLowerCase().endswith('.md') || p.toLowerCase().endswith('.mdx'));
+            const onlyMd = paths.length > 0 && paths.every(p => p.toLowerCase().endsWith('.md') || p.toLowerCase().endsWith('.mdx'));
             if (onlyMd) labelsToAdd.add('lang:md');
             if (has(/(^|\/)block\.json$/)) labelsToAdd.add('comp:block-json');
             if (has(/(^|\/)theme\.json$/)) labelsToAdd.add('comp:theme-json');

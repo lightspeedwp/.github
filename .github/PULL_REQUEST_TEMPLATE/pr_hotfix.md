@@ -12,25 +12,31 @@ labels: ["status:needs-review", "priority:critical"]
 -->
 
 ## Context
+
 - Severity/Impact: <High/Medium/Low>
 - Affected versions/environments: <list>
 
 ## Reproduction
+
 - Steps: 1) … 2) … 3) …
 - Expected vs Actual: <summary>
 
 ## Fix Summary
+
 - <what changed and why>
 
 ## Verification
+
 - [ ] Added/updated tests
 - [ ] Verified on staging/live (list browsers/devices)
 
 ## Risk & Rollback
+
 - Risk level: <Low/Medium/High>
 - Rollback plan: <tag/restore/feature-flag>
 
 ---
+
 ### Checklist (Global DoD / PR)
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)

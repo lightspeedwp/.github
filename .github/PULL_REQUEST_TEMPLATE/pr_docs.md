@@ -11,19 +11,24 @@ labels: ["status:needs-review", "lang:md"]
 -->
 
 ## What changed
+
 - <doc/guide name>
 
 ## Audience & placement
+
 - Audience: <contributors/users/clients>
 - Location: <README/docs/wiki/site>
 
 ## Preview / Screenshots
+
 <images or links>
 
 ## Notes
+
 - Sources/references: <links>
 
 ---
+
 ### Checklist (Global DoD / PR)
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)

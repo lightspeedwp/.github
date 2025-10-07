@@ -63,7 +63,7 @@
         "xdebug.php-pack",
         "christian-kohler.npm-intellisense",
         "phpcs.phpcs",
-        "squizlabs.php-codesniffer",
+        "wongjn.php-sniffer",
 
         // JSON and Configuration - Enhanced JSON support
         "zainchen.json",

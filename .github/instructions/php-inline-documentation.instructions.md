@@ -238,7 +238,7 @@ public function example_method( $param ) {
 ## Best Practices
 
 ### Formatting
-- Use proper indentation (4 spaces for WordPress)
+- Use tabs for indentation (with spaces reserved for alignment) to follow the WordPress PHP coding standards
 - Align parameter descriptions
 - Keep line lengths reasonable (typically under 80-120 characters)
 - Use sentence case for descriptions

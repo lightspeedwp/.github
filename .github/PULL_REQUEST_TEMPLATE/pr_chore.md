@@ -11,25 +11,31 @@ labels: ["status:needs-review"]
 -->
 
 ## Summary
+
 **Linked issues**: Closes #<id> (and/or) Relates to #<id>
 
 ## Changes
+
 - <list>
 
 ## Impact / Compatibility
+
 - Runtime/behaviour changes: <None expected>
 - Build/dev-experience impact: <notes>
 
 ## Verification
+
 - [ ] CI passes
 - [ ] Local build and smoke tests
 - [ ] Docs updated if developer-facing
 
 ## Risk & Rollback
+
 - Risk level: Low / Medium / High
 - Rollback plan: <revert commit>
 
 ---
+
 ### Checklist (Global DoD / PR)
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)

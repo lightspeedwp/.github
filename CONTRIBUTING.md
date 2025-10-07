@@ -6,7 +6,7 @@ Thank you for your interest in contributing to LightSpeed! Please follow this wo
 
 ### 1. Start with the GitHub Issue
 
--   Use the appropriate [issue template](https://github.com/lightspeedwp/REPONAME/issues/new/choose) for bug reports, enhancements, or questions.
+-   Use the appropriate [issue template](https://github.com/lightspeedwp/<REPOSITORY>/issues/new/choose) for bug reports, enhancements, or questions.
 -   Clearly describe the problem, feature, or task. Include as much detail as possible (steps to reproduce, expected behavior, environment, etc.).
 -   Discuss your intended approach in the issue before starting work, if needed.
 
@@ -47,6 +47,6 @@ Thank you for your interest in contributing to LightSpeed! Please follow this wo
 
 ## License
 
-By contributing to this project, you agree that your contributions will be licensed under the GNU General Public License v3.0. See the [LICENSE](../LICENSE) file for details.
+By contributing to this project, you agree that your contributions will be licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
 
 Thank you for helping us make LightSpeed better!

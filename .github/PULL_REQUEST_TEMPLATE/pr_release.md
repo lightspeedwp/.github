@@ -11,26 +11,31 @@ labels: ["status:needs-review", "area:deployment", "env:staging"]
 -->
 
 ## Release
+
 - Version: v<X.Y.Z>
 - Target date: <YYYY-MM-DD>
 - Environments: staging → live
 
 ## Scope
+
 - Changes included (changelog bullets):
   - <pkg>@<ver> — <note>
   - …
 - Migrations/flags: <details or N/A>
 
 ## Verification plan
+
 - [ ] Smoke tests on staging passed
 - [ ] Critical paths verified (list)
 - [ ] Docs/Readme/Changelog updated
 
 ## Rollout & Rollback
+
 - Rollout steps: <deploy action / action run / wp.org release>
 - Rollback plan: <how to revert / tags / DB backup>
 
 ---
+
 ### Checklist (Global DoD / PR)
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)
