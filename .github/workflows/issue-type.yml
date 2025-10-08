@@ -1,0 +1,58 @@
+name: Apply Issue Type
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  set-issue-type:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write # Necessary permission for the job
+
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Determine and apply issue type
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const issue_title = context.payload.issue.title.toLowerCase();
+            let issue_type_name = null;
+
+            if (issue_title.startsWith('bug:')) {
+              issue_type_name = 'bug';
+            } else if (issue_title.startsWith('feature:')) {
+              issue_type_name = 'feature';
+            } else if (issue_title.startsWith('task:')) {
+              issue_type_name = 'task';
+            } else {
+              console.log('No matching prefix found. Skipping issue type application.');
+              return;
+            }
+
+            // Fetch all available issue types for the organization
+            const { data: orgIssueTypes } = await github.request('GET /orgs/{org}/issue_types', {
+              org: context.repo.owner,
+            });
+
+            // Find the ID for the target issue type
+            const targetIssueType = orgIssueTypes.find(type => type.name.toLowerCase() === issue_type_name);
+
+            if (targetIssueType) {
+              await github.request('PATCH /repos/{owner}/{repo}/issues/{issue_number}', {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue.number,
+                issue_type: targetIssueType.id,
+              });
+              console.log(`Successfully set issue type to "${issue_type_name}".`);
+            } else {
+              console.log(`Issue type "${issue_type_name}" not found in organization settings.`);
+            }

@@ -251,6 +251,9 @@
 - name: meta:stale
   color: 9198A1
   description: Marked as stale
+- name: meta:needs-changelog
+  color: E1E4E8
+  description: Requires a changelog entry before merge
 
 # AI-Ops
 - name: ai-ops:instructions
