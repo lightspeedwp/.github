@@ -64,6 +64,20 @@
   color: E1E4E8
   description: Not planned to address
 
+# Releases  (major, minor, patch)
+- name: release:major
+  color: F85149
+  description: Breaking changes requiring a MAJOR version bump
+- name: release:minor
+  color: 58A6FF
+  description: Backwards‑compatible enhancements requiring a MINOR version bump
+- name: release:patch
+  color: 3FB950
+  description: Backwards‑compatible bug fixes requiring a PATCH version bump
+- name: release:hotfix
+  color: D29922
+  description: Urgent correction to a released version outside the normal cadence 
+
 # Components (editor/theme surfaces)
 - name: comp:block-editor
   color: C5DEF5
