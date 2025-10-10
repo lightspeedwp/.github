@@ -1,14 +1,20 @@
+> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
+
 ---
 name: "Docs-only PR"
 about: "Documentation updates: READMEs, guides, contributor docs"
 title: "docs: <short summary>"
 labels: ["status:needs-review", "lang:md"]
 ---
-<!-- Note: YAML front matter is parsed by our labeler workflow; GitHub itself does not apply labels from front matter. -->
 
-<!-- Suggested additional labels (pick as relevant):
-- area:design-system
+## Linked issues
+
+<!--
+List any related issues by number (e.g. closes #123, relates to #789).
 -->
+
+Relates to #
 
 ## What changed
 
@@ -27,6 +33,34 @@ labels: ["status:needs-review", "lang:md"]
 
 - Sources/references: <links>
 
+## Changelog
+
+<!--
+Required for release automation.
+Format: Keep a Changelog.
+Categories: Added, Changed, Fixed, Removed.
+User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+Example:
+### Added
+- Added setup guide for staging deployments. (Relates to #789)
+-->
+
+### Added
+- 
+
+### Changed
+- 
+
+### Fixed
+- 
+
+### Removed
+- 
+
+<!--
+If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+-->
+
 ---
 
 ### Checklist (Global DoD / PR)
@@ -37,4 +71,3 @@ labels: ["status:needs-review", "lang:md"]
 - [ ] Security/perf impact reviewed where relevant
 - [ ] Code/design reviews approved
 - [ ] CI green; linked issues closed; release notes prepared (if shipping)
-

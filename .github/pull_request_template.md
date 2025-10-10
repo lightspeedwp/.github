@@ -1,41 +1,40 @@
----
-name: "Default PR"
-about: "General change; use for features, improvements, refactors when no specific template fits"
-title: "change: <short summary>"
-labels: ["status:needs-review"]
----
-<!-- Note: YAML front matter is parsed by our labeler workflow; GitHub itself does not apply labels from front matter. -->
+> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
-<!-- Suggested additional labels (pick as relevant):
-- area:* or comp:*
-- env:* (for UAT/production)
-- compat:* (if versions matter)
+## Linked issues
+
+<!--
+List any related issues by number (e.g. closes #123, fixes #456, relates to #789).
 -->
 
-## Summary
-**Linked issues**: Closes #<id> (and/or) Relates to #<id>
+Closes #
 
-## Changes
-- <bullet list of notable changes>
+## Changelog
 
-## Screenshots / UI (if applicable)
-<add images or remove section>
+<!--
+Required for release automation.
+Format: Keep a Changelog.
+Categories: Added, Changed, Fixed, Removed.
+User-facing notes only. Internal-only PRs (rare) may use the `skip-changelog` label.
+Example:
+### Changed
+- Bump WooCommerce tested version to 8.1.
+### Fixed
+- Correct VAT rounding on order totals in EU regions. (Fixes #456)
+-->
 
-## Test Notes
-- [ ] Steps to verify (browsers/devices):
-- [ ] Edge cases covered:
+### Added
+- 
 
-## Risk & Rollback
-- Risk level: Low / Medium / High
-- Rollback plan: <how to revert / flags / migrations>
+### Changed
+- 
 
----
-### Checklist (Global DoD / PR)
-- [ ] All AC met and demonstrated
-- [ ] Tests added/updated (unit/E2E as appropriate)
-- [ ] A11y considerations addressed where relevant
-- [ ] Docs/readme/changelog updated (if user-facing)
-- [ ] Security/perf impact reviewed where relevant
-- [ ] Code/design reviews approved
-- [ ] CI green; linked issues closed; release notes prepared (if shipping)
+### Fixed
+- 
 
+### Removed
+- 
+
+<!--
+If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+-->

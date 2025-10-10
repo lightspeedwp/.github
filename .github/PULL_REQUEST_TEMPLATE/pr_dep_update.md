@@ -1,16 +1,20 @@
+> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
+
 ---
 name: "Dependencies/Maintenance PR"
 about: "Routine upkeep: dependency bumps, lint/format, low-risk hygiene"
 title: "chore(deps): <packages>"
 labels: ["status:needs-review", "area:dependencies"]
 ---
-<!-- Note: YAML front matter is parsed by our labeler workflow; GitHub itself does not apply labels from front matter. -->
 
-<!-- Suggested additional labels (pick as relevant):
-- compat:php
-- compat:wordpress
-- compat:woocommerce
+## Linked issues
+
+<!--
+List any related issues by number (e.g. closes #123, relates to #789).
 -->
+
+Relates to #
 
 ## Maintenance summary
 
@@ -28,6 +32,34 @@ labels: ["status:needs-review", "area:dependencies"]
 - [ ] Smoke tests
 - [ ] Key pages/components checked
 
+## Changelog
+
+<!--
+Required for release automation.
+Format: Keep a Changelog.
+Categories: Added, Changed, Fixed, Removed.
+User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+Example:
+### Changed
+- Updated WooCommerce dependency to v8.1 for compatibility. (Relates to #123)
+-->
+
+### Added
+- 
+
+### Changed
+- 
+
+### Fixed
+- 
+
+### Removed
+- 
+
+<!--
+If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+-->
+
 ---
 
 ### Checklist (Global DoD / PR)
@@ -38,4 +70,3 @@ labels: ["status:needs-review", "area:dependencies"]
 - [ ] Security/perf impact reviewed where relevant
 - [ ] Code/design reviews approved
 - [ ] CI green; linked issues closed; release notes prepared (if shipping)
-

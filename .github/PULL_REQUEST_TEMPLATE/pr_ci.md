@@ -1,14 +1,20 @@
+> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
+
 ---
 name: "Build/CI PR"
 about: "Pipelines, linting, packaging, or release automation"
 title: "build(ci): <short summary>"
 labels: ["status:needs-review", "area:ci"]
 ---
-<!-- Note: YAML front matter is parsed by our labeler workflow; GitHub itself does not apply labels from front matter. -->
 
-<!-- Suggested additional labels (pick as relevant):
-- compat:wordpress (if build targets)
+## Linked issues
+
+<!--
+List any related issues by number (e.g. closes #123, relates to #789).
 -->
+
+Relates to #
 
 ## Build/CI change
 
@@ -28,6 +34,34 @@ labels: ["status:needs-review", "area:ci"]
 
 - Secrets/permissions considerations: <details>
 
+## Changelog
+
+<!--
+Required for release automation.
+Format: Keep a Changelog.
+Categories: Added, Changed, Fixed, Removed.
+User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+Example:
+### Changed
+- Switched to action/cache@v3 for build speedup. (Relates to #789)
+-->
+
+### Added
+- 
+
+### Changed
+- 
+
+### Fixed
+- 
+
+### Removed
+- 
+
+<!--
+If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+-->
+
 ---
 
 ### Checklist (Global DoD / PR)
@@ -38,4 +72,3 @@ labels: ["status:needs-review", "area:ci"]
 - [ ] Security/perf impact reviewed where relevant
 - [ ] Code/design reviews approved
 - [ ] CI green; linked issues closed; release notes prepared (if shipping)
-
