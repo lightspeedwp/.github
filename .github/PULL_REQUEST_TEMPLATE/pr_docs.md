@@ -1,11 +1,15 @@
+# Documentation Pull Request
+
 > This repository enforces changelog, release, and label automation for all PRs and issues.  
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ---
-name: "Docs-only PR"
-about: "Documentation updates: READMEs, guides, contributor docs"
-title: "docs: <short summary>"
-labels: ["status:needs-review", "lang:md"]
+
+name: "Docs-only PR"  
+about: "Documentation updates: READMEs, guides, contributor docs"  
+title: "docs: {short summary}"  
+labels: ["status:needs-review", "lang:md"]  
+
 ---
 
 ## Linked issues
@@ -27,11 +31,11 @@ Relates to #
 
 ## Preview / Screenshots
 
-<images or links>
+(images or links)
 
 ## Notes
 
-- Sources/references: <links>
+- Sources/references: (links)
 
 ## Changelog
 
@@ -46,16 +50,20 @@ Example:
 -->
 
 ### Added
-- 
+
+- [placeholder]
 
 ### Changed
-- 
+
+- [placeholder]
 
 ### Fixed
-- 
+
+- [placeholder]
 
 ### Removed
-- 
+
+- [placeholder]
 
 <!--
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
@@ -63,7 +71,9 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 ---
 
+
 ### Checklist (Global DoD / PR)
+
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)
 - [ ] A11y considerations addressed where relevant

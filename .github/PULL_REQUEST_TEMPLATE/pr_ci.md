@@ -1,11 +1,15 @@
+# Build/CI Pull Request
+
 > This repository enforces changelog, release, and label automation for all PRs and issues.  
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ---
-name: "Build/CI PR"
-about: "Pipelines, linting, packaging, or release automation"
-title: "build(ci): <short summary>"
-labels: ["status:needs-review", "area:ci"]
+
+name: "Build/CI PR"  
+about: "Pipelines, linting, packaging, or release automation"  
+title: "build(ci): {short summary}"  
+labels: ["status:needs-review", "area:ci"]  
+
 ---
 
 ## Linked issues
@@ -18,8 +22,8 @@ Relates to #
 
 ## Build/CI change
 
-- What: <summarise>
-- Why: <reliability/speed/consistency>
+- What: (summarise)
+- Why: (reliability/speed/consistency)
 
 ## Baseline & Target
 
@@ -28,11 +32,11 @@ Relates to #
 
 ## Rollback
 
-- Plan: <how to revert>
+- Plan: (how to revert)
 
 ## Notes
 
-- Secrets/permissions considerations: <details>
+- Secrets/permissions considerations: (details)
 
 ## Changelog
 
@@ -47,16 +51,20 @@ Example:
 -->
 
 ### Added
-- 
+
+- [placeholder]
 
 ### Changed
-- 
+
+- [placeholder]
 
 ### Fixed
-- 
+
+- [placeholder]
 
 ### Removed
-- 
+
+- [placeholder]
 
 <!--
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
@@ -64,7 +72,9 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 ---
 
+
 ### Checklist (Global DoD / PR)
+
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)
 - [ ] A11y considerations addressed where relevant

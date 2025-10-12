@@ -1,11 +1,15 @@
+# Refactor Pull Request
+
 > This repository enforces changelog, release, and label automation for all PRs and issues.  
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ---
-name: "Refactor PR"
-about: "Internal code improvement; no external behaviour change"
-title: "refactor: <scope>"
-labels: ["status:needs-review"]
+
+name: "Refactor PR"  
+about: "Internal code improvement; no external behaviour change"  
+title: "refactor: {scope}"  
+labels: ["status:needs-review"]  
+
 ---
 
 ## Linked issues
@@ -31,8 +35,8 @@ Closes #
 
 ## Metrics / Benchmarks (if applicable)
 
-- Before: <numbers>
-- After: <numbers>
+- Before: (numbers)
+- After: (numbers)
 
 ## Verification
 
@@ -58,16 +62,20 @@ Example:
 -->
 
 ### Added
-- 
+
+- [placeholder]
 
 ### Changed
-- 
+
+- [placeholder]
 
 ### Fixed
-- 
+
+- [placeholder]
 
 ### Removed
-- 
+
+- [placeholder]
 
 <!--
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
@@ -75,7 +83,9 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 ---
 
+
 ### Checklist (Global DoD / PR)
+
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)
 - [ ] A11y considerations addressed where relevant

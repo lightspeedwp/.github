@@ -1,3 +1,5 @@
+# Feature Pull Request
+
 > This repository enforces changelog, release, and label automation for all PRs and issues.  
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
@@ -24,16 +26,20 @@ Example:
 -->
 
 ### Added
-- 
+
+- [placeholder]
 
 ### Changed
-- 
+
+- [placeholder]
 
 ### Fixed
-- 
+
+- [placeholder]
 
 ### Removed
-- 
+
+- [placeholder]
 
 <!--
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
