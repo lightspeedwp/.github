@@ -1,18 +1,26 @@
 ---
-name: "Refactor PR"
-about: "Internal code improvement; no external behaviour change"
-title: "refactor: <scope>"
-labels: ["status:needs-review"]
----
-<!-- Note: YAML front matter is parsed by our labeler workflow; GitHub itself does not apply labels from front matter. -->
 
-<!-- Suggested additional labels (pick as relevant):
-- area:* or comp:*
+name: "Refactor PR"  
+about: "Internal code improvement; no external behaviour change"  
+title: "refactor: {scope}"  
+labels: ["status:needs-review"]  
+
+---
+
+# Refactor Pull Request
+
+> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
+
+## Linked issues
+
+<!--
+List any related issues by number (e.g. closes #123, relates to #456).
 -->
 
-## Summary
+Closes #
 
-**Linked issues**: Closes #<id> (and/or) Relates to #<id>
+## Summary
 
 ## Safety Nets
 
@@ -27,8 +35,8 @@ labels: ["status:needs-review"]
 
 ## Metrics / Benchmarks (if applicable)
 
-- Before: <numbers>
-- After: <numbers>
+- Before: (numbers)
+- After: (numbers)
 
 ## Verification
 
@@ -41,9 +49,43 @@ labels: ["status:needs-review"]
 - Risk level: Low / Medium / High
 - Rollback plan: <revert commit / guarded behind no-ops>
 
+## Changelog
+
+<!--
+Required for release automation.
+Format: Keep a Changelog.
+Categories: Added, Changed, Fixed, Removed.
+User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+Example:
+### Changed
+- Refactored cart logic for maintainability. No user-facing change. (Relates to #789)
+-->
+
+### Added
+
+- [placeholder]
+
+### Changed
+
+- [placeholder]
+
+### Fixed
+
+- [placeholder]
+
+### Removed
+
+- [placeholder]
+
+<!--
+If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+-->
+
 ---
 
+
 ### Checklist (Global DoD / PR)
+
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)
 - [ ] A11y considerations addressed where relevant
@@ -51,4 +93,3 @@ labels: ["status:needs-review"]
 - [ ] Security/perf impact reviewed where relevant
 - [ ] Code/design reviews approved
 - [ ] CI green; linked issues closed; release notes prepared (if shipping)
-
