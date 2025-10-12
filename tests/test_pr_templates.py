@@ -14,7 +14,9 @@ class TestPullRequestTemplates(unittest.TestCase):
         """
         Prepare the list of pull request template files to validate.
         
-        Populates self.templates with the subset of candidate PR template paths that exist in the repository. Candidates are taken from changed paths (via list_changed_paths_vs_main and filter_pr_templates); if no changed templates are found, the repository is scanned for templates under .github/PULL_REQUEST_TEMPLATE and the optional .github/pull_request_template.md.
+        - Populates self.templates with the subset of candidate PR template paths that exist in the repository.
+        - Candidates are taken from changed paths (via list_changed_paths_vs_main and filter_pr_templates).
+        - If no changed templates are found, the repository is scanned for templates under .github/PULL_REQUEST_TEMPLATE and the optional .github/pull_request_template.md.
         """
         changed = list_changed_paths_vs_main()
         candidates = filter_pr_templates(changed)
