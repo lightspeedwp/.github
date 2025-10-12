@@ -34,7 +34,11 @@ class TestPullRequestTemplates(unittest.TestCase):
         """
         Verify each PR template contains the required headings and checklist bullet.
         
-        For every path in self.templates, read the template file and assert it includes at least one heading that matches each pattern in REQUIRED_HEADINGS and a checklist item that matches REQUIRED_CHECKLIST_BULLET. Fails with a message identifying the missing element and the template path.
+        For each path in self.templates:
+            - Read the template file.
+            - Assert it includes at least one heading that matches each pattern in REQUIRED_HEADINGS.
+            - Assert it includes a checklist item that matches REQUIRED_CHECKLIST_BULLET.
+            - If an element is missing, fail with a message identifying the missing element and the template path.
         """
         for p in self.templates:
             with self.subTest(p=p):
