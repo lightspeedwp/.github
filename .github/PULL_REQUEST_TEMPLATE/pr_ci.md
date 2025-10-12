@@ -1,8 +1,3 @@
-# Build/CI Pull Request
-
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
-
 ---
 
 name: "Build/CI PR"  
@@ -11,6 +6,11 @@ title: "build(ci): {short summary}"
 labels: ["status:needs-review", "area:ci"]  
 
 ---
+
+# Build/CI Pull Request
+
+> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues
 

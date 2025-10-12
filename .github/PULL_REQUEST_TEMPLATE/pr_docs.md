@@ -1,8 +1,3 @@
-# Documentation Pull Request
-
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
-
 ---
 
 name: "Docs-only PR"  
@@ -11,6 +6,11 @@ title: "docs: {short summary}"
 labels: ["status:needs-review", "lang:md"]  
 
 ---
+
+# Documentation Pull Request
+
+> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues
 
