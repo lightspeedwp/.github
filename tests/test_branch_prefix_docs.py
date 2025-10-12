@@ -18,7 +18,20 @@ class TestBranchPrefixDocs(unittest.TestCase):
             with self.subTest(doc=rel):
                 text = open(path, "r", encoding="utf-8", errors="replace").read()
                 # Find a line that looks like a branch enforcement regex
-                m = re.search(r"^\s*`\s*`?\s*`\s*\n(.*?)\n\s*`\s*`?\s*`", text, flags=re.S)
+                # Match a fenced code block with optional spaces and backticks
+                code_block_pattern = re.compile(r"""
+                    ^\s*         # Start of line, optional leading whitespace
+                    `\s*         # First backtick, optional spaces
+                    `?           # Optional second backtick
+                    \s*`         # Optional spaces, third backtick
+                    \s*\n        # Optional spaces, newline
+                    (.*?)        # Non-greedy capture of code block contents
+                    \n\s*        # Newline, optional spaces
+                    `\s*         # Closing backtick, optional spaces
+                    `?           # Optional second closing backtick
+                    \s*`         # Optional spaces, third closing backtick
+                """, re.S | re.VERBOSE)
+                m = code_block_pattern.search(text)
                 # If generic fence search fails, search for the specific regex example
                 rx = re.search(r"^\^\((feat\|fix\|.*)\)\\?\/\[a-z0-9._-]\+\$$", text, flags=re.M)
                 candidate = None
