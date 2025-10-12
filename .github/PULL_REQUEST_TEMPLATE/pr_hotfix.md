@@ -1,48 +1,59 @@
 ---
-name: "Hotfix/Security PR"
-about: "Urgent bug or security fix with fast rollback path"
-title: "hotfix: <short summary>"
-labels: ["status:needs-review", "priority:critical"]
----
-<!-- Note: YAML front matter is parsed by our labeler workflow; GitHub itself does not apply labels from front matter. -->
 
-<!-- Suggested additional labels (pick as relevant):
-- env:staging (UAT)
-- env:live (post-deploy)
+name: "Hotfix PR"  
+about: "Critical fixes for production issues"  
+title: "fix: {short summary}"  
+labels: ["status:needs-review", "area:hotfix"]  
+
+---
+
+# Hotfix Pull Request
+
+> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for contributor rules.
+
+## Linked issues
+
+<!--
+List any related issues by number (e.g. fixes #456, incident ref #789).
 -->
 
-## Context
+Fixes #
 
-- Severity/Impact: <High/Medium/Low>
-- Affected versions/environments: <list>
+## Incident / Root Cause
 
-## Reproduction
+<!--
+Summarise the incident or bug and the root cause (add links if needed).
+-->
 
-- Steps: 1) … 2) … 3) …
-- Expected vs Actual: <summary>
+## Changelog
 
-## Fix Summary
+<!--
+Required for release automation.
+Format: Keep a Changelog.
+Categories: Added, Changed, Fixed, Removed.
+User-facing notes only. Internal-only PRs (rare) may use the `skip-changelog` label.
+Example:
+### Fixed
+- Checkout fails when shipping method changes on mobile. (Fixes #456)
+-->
 
-- <what changed and why>
+### Added
 
-## Verification
+- [placeholder]
 
-- [ ] Added/updated tests
-- [ ] Verified on staging/live (list browsers/devices)
+### Changed
 
-## Risk & Rollback
+- [placeholder]
 
-- Risk level: <Low/Medium/High>
-- Rollback plan: <tag/restore/feature-flag>
+### Fixed
 
----
+- [placeholder]
 
-### Checklist (Global DoD / PR)
-- [ ] All AC met and demonstrated
-- [ ] Tests added/updated (unit/E2E as appropriate)
-- [ ] A11y considerations addressed where relevant
-- [ ] Docs/readme/changelog updated (if user-facing)
-- [ ] Security/perf impact reviewed where relevant
-- [ ] Code/design reviews approved
-- [ ] CI green; linked issues closed; release notes prepared (if shipping)
+### Removed
 
+- [placeholder]
+
+<!--
+If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+-->

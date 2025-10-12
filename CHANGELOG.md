@@ -5,7 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.0] - 2025-09-25
+## [Unreleased]
+
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+---
+
+## [0.1.0] - 2025-10-10
 
 ### Added
 - Initial release of LightSpeed WordPress organization community health files
@@ -38,17 +49,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Saved replies for common support scenarios
 - Organization profile README showcasing LightSpeed projects
 
-### Fixed
-- Standardized YAML frontmatter across all instruction files
-- Corrected indentation and formatting inconsistencies
-- Aligned VS Code settings with repository structure
-- Removed non-standard configuration keys for better compatibility
-
 ### Changed
 - Updated author attribution to "LightSpeedWP Team" for consistency
 - Standardized related_links format as simple URL lists
 - Enhanced MCP configuration for WordPress development context
 - Improved file associations and discovery paths for AI tools
+
+### Deprecated
+- *(None)*
+
+### Removed
+- Non-standard configuration keys for better compatibility
+
+### Fixed
+- Standardized YAML frontmatter across all instruction files
+- Corrected indentation and formatting inconsistencies
+- Aligned VS Code settings with repository structure
 
 ### Documentation
 - Added comprehensive README files for instructions and prompts
@@ -60,3 +76,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented proper input sanitization and output escaping in examples
 - Added security guidelines in coding standards
 - Established secure development practices in instruction files
+
