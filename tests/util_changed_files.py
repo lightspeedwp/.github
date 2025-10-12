@@ -8,7 +8,7 @@ def _run_git(*args) -> str:
     try:
         out = subprocess.check_output(["git", *args], cwd=REPO_ROOT, stderr=subprocess.STDOUT)
         return out.decode("utf-8", errors="replace")
-    except Exception:
+    except (subprocess.CalledProcessError, FileNotFoundError, OSError):
         return ""
 
 def list_changed_paths_vs_main() -> List[str]:
