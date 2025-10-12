@@ -10,6 +10,16 @@ DOCS = [
 
 class TestBranchPrefixDocs(unittest.TestCase):
     def test_contains_enforcement_regex(self):
+        """
+        Validate that each file in DOCS contains a branch-name enforcement regular expression.
+        
+        For each listed documentation path this test:
+        - skips the file if it does not exist,
+        - searches the file for either a direct regex example or a fenced code block containing a branch-name pattern,
+        - heuristically selects a candidate line that includes branch prefixes (e.g. "feat" and "fix") and a "/" character,
+        - asserts a candidate was found and fails the test if not,
+        - verifies the candidate compiles as a Python regular expression and fails the test with the compilation error if it does not.
+        """
         for rel in DOCS:
             path = repo_abspath(rel)
             if not os.path.exists(path):
