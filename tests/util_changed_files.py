@@ -78,11 +78,11 @@ def filter_pr_templates(paths: Iterable[str]) -> List[str]:
     Selects pull request template Markdown files from an iterable of repository-relative paths.
     
     Parameters:
-    	paths (Iterable[str]): Iterable of repository-relative file paths to filter.
+        paths (Iterable[str]): Iterable of repository-relative file paths to filter.
     
     Returns:
-    	pr_template_paths (List[str]): List of paths that are pull request templates — files under
-    	".github/PULL_REQUEST_TEMPLATE/" with a ".md" suffix, and the file ".github/pull_request_template.md".
+        pr_template_paths (List[str]): List of paths that are pull request templates — files under
+        ".github/PULL_REQUEST_TEMPLATE/" with a ".md" suffix, and the file ".github/pull_request_template.md".
     """
     res = []
     for p in paths:
