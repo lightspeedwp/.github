@@ -45,7 +45,8 @@ class TestMarkdownStructure(unittest.TestCase):
         for p in self.docs:
             with self.subTest(p=p):
                 text = open(repo_abspath(p), "r", encoding="utf-8", errors="replace").read().lstrip()
-                first_line = text.splitlines()[0] if text else ""
+                lines = text.splitlines()
+                first_line = lines[0] if lines else ""
                 self.assertTrue(first_line.startswith("#"), f"Expected H1 heading at top of {p}")
 
     def test_eof_newline(self):
