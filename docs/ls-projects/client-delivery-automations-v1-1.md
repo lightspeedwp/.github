@@ -4,6 +4,8 @@
 
 > Lean, predictable automations. Apply in **Project settings → Automations**.
 
+---
+
 ## Core rules (enable all)
 
 1. **On item added** → set **Status = Backlog**
@@ -47,3 +49,5 @@
 - [ ] QA verified on Staging  
 - [ ] UAT approved by client (if applicable)  
 - [ ] Release notes prepared; monitoring in place  
+
+---

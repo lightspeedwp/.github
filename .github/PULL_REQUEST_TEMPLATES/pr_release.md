@@ -1,24 +1,26 @@
 ---
 
-name: "Pull Request"  
-about: "General changes, refactors, and maintenance"  
-title: "PR: {short summary}"  
-labels: ["status:needs-review"]  
+name: "Release PR"  
+about: "Release new features or enhancements"  
+title: "release: {short summary}"  
+labels: ["status:needs-review", "area:release"]  
 
 ---
 
-# Pull Request
+# Release Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
-## Linked issues
+## Linked issues & merged PRs
 
 <!--
-List any related issues by number (e.g. closes #123, fixes #456, relates to #789).
+List all issues and PRs included in this release (e.g. closes #123, includes #456).
 -->
 
-Closes #
+Includes:
+
+- (PRs/Issues)
 
 ## Changelog
 
@@ -28,10 +30,10 @@ Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
 User-facing notes only. Internal-only PRs (rare) may use the `skip-changelog` label.
 Example:
-### Changed
-- Bump WooCommerce tested version to 8.1.
+### Added
+- New VAT support for EU regions.
 ### Fixed
-- Correct VAT rounding on order totals in EU regions. (Fixes #456)
+- Corrected shipping fee rounding. (Fixes #789)
 -->
 
 ### Added
@@ -53,6 +55,9 @@ Example:
 <!--
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
 -->
+
+---
+
 
 ### Checklist (Global DoD / PR)
 

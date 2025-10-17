@@ -4,6 +4,8 @@
 
 > Use `{}` to indicate placeholders (e.g., `Client – {ClientName}`).
 
+---
+
 ## Project name
 
 `Client – {ClientName}`
@@ -98,3 +100,5 @@ Backlog → To-do → In progress → In review → In QA → Done
 - [ ] QA verified on Staging
 - [ ] UAT approved by client (if applicable)
 - [ ] Release notes prepared; monitoring in place
+
+---

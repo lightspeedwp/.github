@@ -4,6 +4,8 @@
 
 > Use `{}` to indicate placeholders (e.g., `Product – {ProductName}`).
 
+---
+
 ## Project name
 
 `Product – {ProductName}`
@@ -95,3 +97,5 @@ Backlog → Ready → In progress → In review → In QA → Done
 - [ ] Version bump (where required)
 - [ ] QA pass on staging
 - [ ] Release notes drafted; monitors/alerts set
+
+---

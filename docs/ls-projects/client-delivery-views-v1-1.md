@@ -4,6 +4,8 @@
 
 > Opinionated saved views for GitHub Projects. Assumes these fields exist: **Status, Priority, Size, Severity, Environment, Issue Type, Phase, Theme, Area, Estimate (number), Start Date (date), Deadline (date), Milestone (iteration)**.
 
+---
+
 ## Summary table
 
 | View name                | Type    | Filter                                                                 | Group by       | Sort                           | Extras                    |
@@ -63,3 +65,5 @@ Use these columns unless noted: **Title, Assignee, Priority, Size, Severity, Env
 - [ ] QA verified on Staging  
 - [ ] UAT approved by client (if applicable)  
 - [ ] Release notes prepared; monitoring in place  
+
+---

@@ -5,6 +5,8 @@
 > Single-select tables use the format: **Fields | description | colour**.  
 > Size uses numeric prefixes to guarantee sort order in GitHub “Sort by field” views.
 
+---
+
 ## Theme
 
 * **Field:** Theme
@@ -320,3 +322,5 @@
 * **Don’t:** Treat as SLA for research spikes.
 * **Examples:** Legal page update → 2025-11-01
 * **Related fields:** Start Date, Priority
+
+---

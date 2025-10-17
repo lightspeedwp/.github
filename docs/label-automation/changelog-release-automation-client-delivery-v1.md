@@ -3,7 +3,6 @@
 ## *Client Delivery Workflow*
 
 ***Version:*** 1.0 • ***Last updated:*** 9 Oct 2025  
-
 ---
 
 [Pull Request Changelog Content](#pull-request-changelog-content)

@@ -1,0 +1,99 @@
+# Org-wide Issue Types — v1.10
+# Use in workflows/scripts to set the 'Type' field and/or add a companion label
+
+issue_types:
+- name: Task
+  color: 4393F8
+  description: "Small, well‑scoped unit of work: adjust a template part, update `theme.json` tokens, tweak CI, add a block setting, write a micro‑migration, or tidy copy. Typically ≤2 days with minimal discovery."
+  label: type:task
+- name: Bug
+  color: 9F3734
+  description: "Broken/incorrect behaviour: PHP errors, block render issues, CSS regressions, JS console errors, REST faults, Woo checkout breakage. Provide repro steps, expected/actual, and affected environment(s)."
+  label: type:bug
+- name: Feature
+  color: 3FB950
+  description: "Net‑new capability: new block/pattern, screen, API, or editorial workflow. Includes design/spec, implementation, review, QA and rollout plan across environments."
+  label: type:feature
+- name: Design
+  color: AB7DF8
+  description: "Design artefacts/decisions: UX flows, wireframes, hi‑fi Figma, block/pattern specs, `theme.json` tokens, component states, microcopy, a11y checks, and developer handoff notes."
+  label: type:design
+- name: Epic
+  color: AB7DF8
+  description: "Parent issue grouping stories/tasks across repos to realise a larger outcome. Defines scope, timebox, and KPIs. Tracks progress via linked child issues and milestones."
+  label: type:feature
+- name: Story
+  color: 4393F8
+  description: "User‑centred vertical slice within an Epic. Delivers a demonstrable capability with acceptance criteria, ready for UAT and release when verified."
+  label: type:feature
+- name: Improvement
+  color: 9198A1
+  description: "Enhance existing behaviour or UX without adding a new feature. Examples: copy, validation, empty states, small editor polish, incremental UI consistency."
+  label: type:improve
+- name: Code Refactor
+  color: 9198A1
+  description: "Internal restructure to improve readability/testability/maintainability without changing behaviour. Ideal for paying down technical debt and preparing for features."
+- name: Build & CI
+  color: 4393F8
+  description: "Tooling, pipelines, packaging, releases, deploys. Includes actions, test runners, caching, matrix builds, and release automation."
+- name: Automation
+  color: 4393F8
+  description: "Bots/actions/scripts that reduce toil: labelers, sync scripts, scaffolding, changelog generators, stale‑sweeps."
+- name: Test Coverage
+  color: D29922
+  description: "Add or expand tests: unit, integration, E2E. Raise confidence and guard regressions across blocks, templates, and PHP APIs."
+- name: Performance
+  color: D29922
+  description: "Improve speed/efficiency: render and bundle sizes, query counts, LCP/CLS, lazy‑loading, asset strategy. Must include a baseline and target."
+  label: type:performance
+- name: A11y
+  color: DB61A2
+  description: "Accessibility to WCAG 2.1 AA: semantics, focus, contrast, keyboard paths, screen reader support. Includes audits, fixes, and verification."
+- name: Security
+  color: 9F3734
+  description: "Hardening and fixes: sanitise/escape, nonces, capabilities, dependency CVEs, secrets handling, permission checks. Confidential handling as needed."
+  label: type:compat
+- name: Compatibility
+  color: 8D4821
+  description: "Work to align with version/platform constraints: WordPress/Gutenberg updates, PHP min/tested‑up‑to, Woo compatibility, RTL support."
+  label: type:compat
+- name: Integration
+  color: 8D4821
+  description: "Integrating external plugins/services/APIs (payments, search, analytics). Includes sandboxing, fail‑path handling, logging and observability."
+  label: type:dev
+- name: Release
+  color: 3FB950
+  description: "Plan, cut and ship a release/hotfix. Coordinates changelog, tagging, deployment, and comms. Serves as the shipping record for environments."
+  label: type:dev
+- name: Maintenance
+  color: 9198A1
+  description: "Routine upkeep: dependency bumps, lint/format, small housekeeping. Low risk but keeps repos healthy and secure."
+  label: type:chore
+- name: Documentation
+  color: 9198A1
+  description: "Docs & guides for developers, editors, or contributors. Includes READMEs, user docs, saved replies, and in‑repo handbooks."
+  label: type:content-management
+- name: Research
+  color: 9198A1
+  description: "Time‑boxed exploration to reduce uncertainty: compare approaches, PoC a pattern, validate feasibility, or gather metrics to decide a direction."
+  label: type:ux
+- name: Chore
+  color: 9198A1
+  description: "Small housekeeping: file moves, ignore rules, repo settings, GH Actions tweaks. Quicker than Tasks; often unblocks other work."
+  label: type:chore
+- name: Audit
+  color: 9198A1
+  description: "Structured review of current state, producing findings and actions: a11y, performance, security, content, or SEO audits."
+  label: type:dev
+- name: Code Review
+  color: 4393F8
+  description: "Focused review tasks not tied to a single PR (cross‑cutting, security sweeps, migration reviews) or formal approvals on complex changes."
+  label: type:dev
+- name: AI Ops
+  color: 4393F8
+  description: "Manage AI assets and workflows: instructions, prompts, chat modes, agents, datasets, evaluations and tools that live in the repo."
+  label: type:dev
+- name: Content Modelling
+  color: AB7DF8
+  description: "Define post types/taxonomies/fields and map to templates/patterns. Aligns with editor experience, tokens, and migrations for authoring at scale."
+  label: type:content-management

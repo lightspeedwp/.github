@@ -4,6 +4,8 @@
 
 > Lean Scrumban rhythm tuned for agency delivery. Uses the saved **Views** and **Automations** docs.
 
+---
+
 ## Purpose
 
 Keep client work flowing from intake → UAT → release with clear checkpoints, predictable ceremonies, and fast feedback on risk (blocked, live bugs, date slippage).
@@ -84,3 +86,5 @@ Keep client work flowing from intake → UAT → release with clear checkpoints,
 
 - **Environment default:** **Staging** for new items unless explicitly Live/Prototype.
 - Keep **Theme** stable across issues to preserve reporting; move **Phase** as the release window changes.
+
+---

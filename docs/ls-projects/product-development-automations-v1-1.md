@@ -4,6 +4,8 @@
 
 > Lean, predictable automations. Apply in **Project settings → Automations**.
 
+---
+
 ## Core rules (enable all)
 
 1. **On item added** → set **Status = Backlog**
@@ -46,3 +48,5 @@
 - [ ] Version bump (where required)  
 - [ ] QA pass on staging  
 - [ ] Release notes drafted; monitors/alerts set  
+
+---

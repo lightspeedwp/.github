@@ -4,6 +4,8 @@
 
 > Release‑train rhythm: predictable minors monthly; patches as needed. Uses the saved **Views** and **Automations** docs.
 
+---
+
 ## Purpose
 
 Ship product increments on a regular train (**vX.Y.Z**), with tight QA, changelogs, and clear decision points.
@@ -81,3 +83,5 @@ Ship product increments on a regular train (**vX.Y.Z**), with tight QA, changelo
 
 - **Environment default:** **Prototype/Staging** (per flow); flip to **Live** only for production changes.
 - Keep **Theme** stable across releases; use **Milestone** for the anchor and **Iteration** for sprint optics (optional).
+
+---
