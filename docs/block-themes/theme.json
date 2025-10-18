@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "settings": {
+    "color": {
+      "palette": [
+        { "name": "Primary", "slug": "primary", "color": "{{primary_color}}" },
+        { "name": "Secondary", "slug": "secondary", "color": "{{secondary_color}}" }
+      ]
+    },
+    "fontFamilies": [
+      { "name": "Body Font", "slug": "body", "fontFamily": "{{body_font}}" }
+    ]
+  },
+  "styles": {
+    "color": {
+      "background": "{{background_color}}",
+      "text": "{{text_color}}"
+    }
+  }
+}
