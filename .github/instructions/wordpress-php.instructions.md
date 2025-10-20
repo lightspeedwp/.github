@@ -8,6 +8,8 @@ owners: ["LightSpeed Engineering"]
 
 # WordPress PHP Coding Standards
 
+WordPress uses a customized documentation schema that draws inspiration from PHPDoc, an evolving standard for providing documentation to PHP code, which is maintained by [phpDocumentor](http://phpdoc.org/).
+
 ## Mission
 Ensure PHP code follows WordPress conventions for style, security and internationalisation while delivering high performance.
 
@@ -105,10 +107,6 @@ function ls_get_current_user_display_name() {
     return isset( $user->display_name ) ? esc_html( $user->display_name ) : '';
 }
 ```
-
-# PHP Documentation Standards
-
-WordPress uses a customized documentation schema that draws inspiration from PHPDoc, an evolving standard for providing documentation to PHP code, which is maintained by [phpDocumentor](http://phpdoc.org/).
 
 ## What Should Be Documented
 
