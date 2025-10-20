@@ -1,45 +1,11 @@
 ---
 applyTo: ['**/*.html', '**/*.htm', '**/*.php']
-description: "Enforce WordPress HTML standards and semantic markup."
+description: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
+author: "LightSpeedWP Team. Enforce WordPress HTML standards and semantic markup."
 last_updated: "2025-10-19"
 version: "v1.0"
 owners: ["LightSpeed Engineering"]
----
-
-# Mission
-Guide developers to write semantic, accessible HTML templates and PHP files that embed HTML.
-
-# Language & Frameworks
-- HTML5. When working within WordPress, leverage template parts, block patterns and `theme.json` to structure content.
-
-# Project Structure
-- Place template files under `templates/` or `partials/`.
-- Use descriptive file names (e.g. `header.php`, `footer.php`, `archive.html`).
-
-# Coding Standards
-- Use valid, semantic markup; avoid presentational attributes (`align`, `bgcolor`).
-- Ensure headings (`<h1>`–`<h6>`) follow a hierarchical order and reflect document structure.
-- Wrap form controls with `<label>` elements and associate them using the `for` attribute.
-- Provide `alt` attributes for images and only use ARIA attributes when native semantics are insufficient.
-- Avoid inline styles and JavaScript; separate structure, presentation and behaviour.
-
-# Testing & Quality
-- Validate markup with tools such as the W3C HTML validator.
-- Use accessibility testing tools (e.g. axe‑core) to catch missing labels and ARIA misuse.
-
-# Performance & Security
-- Escape dynamic content using appropriate PHP functions (`esc_html`, `esc_attr`, etc.).
-- Avoid client‑side injection vulnerabilities; never trust user input directly.
-
-# Documentation
-- Comment complex template logic and describe the purpose of custom wrappers or ARIA landmarks.
-
----
-name: "HTML Template"
-about: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
 title: "[Instructions] HTML Template"
-description: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
-author: "LightSpeedWP Team"
 contributors:
   - name: "Ash Shaw"
     github: "ashleyshaw"
@@ -66,7 +32,33 @@ type: "instructions"
 mode: "agent"
 ---
 
-# HTML Template Instructions
+## Mission
+Guide developers to write semantic, accessible HTML templates and PHP files that embed HTML.
+
+## Language & Frameworks
+- HTML5. When working within WordPress, leverage template parts, block patterns and `theme.json` to structure content.
+
+## Project Structure
+- Place template files under `templates/` or `partials/`.
+- Use descriptive file names (e.g. `header.php`, `footer.php`, `archive.html`).
+
+## Coding Standards
+- Use valid, semantic markup; avoid presentational attributes (`align`, `bgcolor`).
+- Ensure headings (`<h1>`–`<h6>`) follow a hierarchical order and reflect document structure.
+- Wrap form controls with `<label>` elements and associate them using the `for` attribute.
+- Provide `alt` attributes for images and only use ARIA attributes when native semantics are insufficient.
+- Avoid inline styles and JavaScript; separate structure, presentation and behaviour.
+
+## Testing & Quality
+- Validate markup with tools such as the W3C HTML validator.
+- Use accessibility testing tools (e.g. axe‑core) to catch missing labels and ARIA misuse.
+
+## Performance & Security
+- Escape dynamic content using appropriate PHP functions (`esc_html`, `esc_attr`, etc.).
+- Avoid client‑side injection vulnerabilities; never trust user input directly.
+
+## Documentation
+- Comment complex template logic and describe the purpose of custom wrappers or ARIA landmarks.
 
 ## Block Template Structure
   related_links:
