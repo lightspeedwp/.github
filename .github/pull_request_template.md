@@ -1,10 +1,8 @@
 ---
-
-name: "Pull Request"  
-about: "General changes, refactors, and maintenance"  
-title: "PR: {short summary}"  
-labels: ["status:needs-review"]  
-
+name: "Pull Request"
+about: "General changes, refactors, and maintenance"
+title: "PR: {short summary}"
+labels: ["status:needs-review"]
 ---
 
 # Pull Request

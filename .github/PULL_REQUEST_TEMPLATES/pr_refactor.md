@@ -1,10 +1,8 @@
 ---
-
-name: "Refactor PR"  
-about: "Internal code improvement; no external behaviour change"  
-title: "refactor: {scope}"  
-labels: ["status:needs-review"]  
-
+name: "Refactor PR"
+about: "Internal code improvement; no external behaviour change"
+title: "refactor: {scope}"
+labels: ["type:refactor", "status:needs-review"]
 ---
 
 # Refactor Pull Request

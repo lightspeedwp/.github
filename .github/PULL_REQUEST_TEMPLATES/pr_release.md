@@ -1,10 +1,8 @@
 ---
-
-name: "Release PR"  
-about: "Release new features or enhancements"  
-title: "release: {short summary}"  
-labels: ["status:needs-review", "area:release"]  
-
+name: "Release PR"
+about: "Release new features or enhancements"
+title: "release: {short summary}"
+labels: ["type:task", "status:needs-review", "area:release", "release:patch"]
 ---
 
 # Release Pull Request
