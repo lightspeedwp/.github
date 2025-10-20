@@ -1,9 +1,14 @@
 # .github/ISSUE_TYPES.md
 
 ## Purpose
-Organisation-wide reference for **Issue Types** usage, aligned with LightSpeed Projects/Issues/Labels strategy and BugHerd families.
+
+Defines the organisation-wide standard for **Issue Types** in LightSpeed projects.  
+Use this reference to classify issues consistently, apply correct labels, and align with org-wide automation and reporting.
+
+This guide is designed to work alongside the Projects/Issues/Labels strategy and the default label families ([Org-wide Labels v1.14](../docs/git-workflow/org-wide-labels-v1-14.md)) used across all LightSpeed repositories.
 
 ## Issue Types
+
 - **Task** — Small, well-scoped unit of work (e.g., template tweak, config update, copy edit).
   *Label:* `type:task`
   *Colour:* Blue `#4393f8`
@@ -78,11 +83,13 @@ Organisation-wide reference for **Issue Types** usage, aligned with LightSpeed P
   *Colour:* Purple `#ab7df8`
 
 ## Usage
+
 - **Pick one Issue Type** per issue for classification.
 - Add routing labels: **Priority + Status + Area/Component**
 - Add **Lang/Env/Compat/CPT** as needed.
 
 ## Colour Palette
+
 - Grey `#9198a1`
 - Blue `#4393f8`
 - Green `#3fb950`
@@ -93,6 +100,13 @@ Organisation-wide reference for **Issue Types** usage, aligned with LightSpeed P
 - Purple `#ab7df8`
 
 ## Reference
-See also: [ISSUE_LABELS.md](./ISSUE_LABELS.md), [PR_LABELS.md](./PR_LABELS.md)
 
-*This Issue Types standard extends the LightSpeed Projects/Issues/Labels strategy and is aligned with org-wide label and workflow automation.*
+- [Org-wide Issue Labels](./ISSUE_LABELS.md): Full list of default labels and usage guidance.
+- [Pull Request Labels](./PR_LABELS.md): Standards for PR classification and automation.
+- [Issue Types YAML](./issue-types.yml): Machine-readable list of all issue types for workflow and script automation.
+- [Canonical Label Definitions](./labels.yml): Source of truth for all label names, colours, and descriptions.
+- [Automated Label Assignment Rules](./labeler.yml): Automation for applying labels based on file changes and branch patterns.
+
+Use these resources to set the 'Type' field, apply companion labels, and ensure full alignment between documentation, label definitions, and automation.
+
+*This Issue Types standard extends the LightSpeed Projects/Issues/Labels strategy and supports org-wide label and workflow automation. All guidance here is directly reflected in labels.yml and labeler.yml for traceability and consistency.*
