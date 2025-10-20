@@ -23,8 +23,7 @@ The WordPress commitment is to conform to all WCAG 2.2 Level A and Level AA guid
 * **Level A** success criteria address concerns considered to be accessibility barriers on a very wide scale that will prevent many people from accessing the site and the minimum set of accomplished goals required for the majority of web-based interfaces.
 * **Level AA** success criteria address concerns that are generally somewhat more complicated to address and may impact smaller groups of people, but are still common needs with broad reach.
 * **Level AAA** success criteria are mostly targeted at very specific needs and may be quite difficult to implement effectively.
-
-[W3C Quick Reference to WCAG 2.2 Level A and Level AA Requirements](https://www.w3.org/WAI/WCAG22/quickref/?versions=2.2&currentsidebar=%23col_customize&levels=aaa)
+* [W3C Quick Reference to WCAG 2.2 Level A and Level AA Requirements](https://www.w3.org/WAI/WCAG22/quickref/?versions=2.2&currentsidebar=%23col_customize&levels=aaa)
 
 ## Applying WCAG Conformance Levels
 
