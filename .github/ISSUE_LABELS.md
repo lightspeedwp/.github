@@ -86,6 +86,12 @@ Assign colours by family using the canonical palette. See `labels.yml` for autho
 
 **See [Canonical Label Definitions](./labels.yml) and [Automated Label Assignment Rules](./labeler.yml) for automation details.**
 
+## Branching Strategy Reference
+
+Branch prefixes and Issue Types are tightly linked. See [Org-wide Branching Strategy](../docs/git-workflow/org-wide-branching-strategy.md) for conventions.  
+Your branch prefix (e.g. `feat/`, `fix/`, `docs/`, etc.) determines which PR/issue template is used, the labels applied, and the automation that will run.  
+Always use the correct prefix for your branch to ensure full automation and proper issue classification.
+
 ## Reference
 
 - [Org-wide Issue Labels](./ISSUE_LABELS.md): Full list of default labels and usage guidance.
