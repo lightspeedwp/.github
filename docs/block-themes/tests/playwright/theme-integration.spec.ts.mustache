@@ -1,0 +1,8 @@
+// Playwright test for {{theme_name}}
+import { test, expect } from '@playwright/test';
+test('Theme can be activated and homepage loads', async ({ page }) => {
+  await page.goto('/wp-admin/themes.php');
+  await expect(page.locator('text={{theme_name}}')).toBeVisible();
+  await page.goto('/');
+  await expect(page).toHaveTitle(/{{theme_name}}/i);
+});

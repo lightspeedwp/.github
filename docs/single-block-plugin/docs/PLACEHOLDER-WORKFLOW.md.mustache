@@ -1,0 +1,41 @@
+# Mustache Placeholder Replacement Workflow for {{projectName}}
+
+## Overview
+
+All template/config/source files use mustache-style placeholders.
+
+## Adding Assets
+
+The `assets/` folder stores images, SVGs, and static files for your block/plugin.  
+Add a `.gitkeep` or `README.md` so it is tracked in git.
+
+## Mustache Mapping Config
+
+Create your config based on [`mustache-config.schema.json.mustache`](../mustache-config.schema.json.mustache).
+
+Example mapping:  
+```json
+{
+  "slug": "copyright-date-block",
+  "namespace": "lightspeedwp",
+  "author": "Ashley Shaw",
+  "version": "1.0.0",
+  "description": "A WordPress block plugin that displays a copyright date.",
+  "license": "GPL-2.0-or-later",
+  "textdomain": "copyright-date-block",
+  "projectName": "Copyright Date Block"
+}
+```
+
+## How to Use
+
+1. Prepare your mapping file (see above).
+2. Run the script:
+   ```sh
+   node bin/replace-placeholders.js.mustache mustache-mapping.example.json.mustache .
+   ```
+3. The script will process all `.mustache` files, replace placeholders, and rename files.
+
+## Validation
+
+- Use `/tests/placeholder.test.js.mustache` to ensure no placeholders remain.

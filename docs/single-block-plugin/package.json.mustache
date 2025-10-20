@@ -1,0 +1,22 @@
+{
+  "name": "{{slug}}",
+  "version": "{{version}}",
+  "description": "{{description}}",
+  "author": "{{author}}",
+  "license": "{{license}}",
+  "main": "src/js/index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "test": "jest",
+    "test:e2e": "playwright test",
+    "lint:js": "wp-scripts lint-js",
+    "lint:css": "wp-scripts lint-style",
+    "lint": "npm run lint:js && npm run lint:css"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^26.0.0",
+    "jest": "^29.0.0",
+    "@playwright/test": "^1.40.0"
+  }
+}

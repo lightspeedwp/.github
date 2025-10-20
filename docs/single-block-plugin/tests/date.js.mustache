@@ -1,0 +1,11 @@
+// Utilities for {{slug}} block plugin
+
+function getCurrentYear() {
+  return new Date().getFullYear();
+}
+
+function formatDateRange(start, end) {
+  return (start === end) ? `${start}` : `${start}–${end}`;
+}
+
+module.exports = { getCurrentYear, formatDateRange };

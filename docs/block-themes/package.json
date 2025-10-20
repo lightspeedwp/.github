@@ -1,0 +1,18 @@
+{
+  "name": "{{theme_slug}}",
+  "version": "{{version}}",
+  "description": "{{description}}",
+  "author": "{{author}}",
+  "license": "{{license}}",
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "lint:js": "wp-scripts lint-js",
+    "lint:css": "wp-scripts lint-style",
+    "lint": "npm run lint:js && npm run lint:css"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^26.0.0",
+    "webpack-remove-empty-scripts": "^2.0.0"
+  }
+}

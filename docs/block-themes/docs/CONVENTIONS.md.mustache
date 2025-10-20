@@ -1,0 +1,45 @@
+---
+title: "Theme Scaffold Conventions"
+version: "{{version}}"
+last_updated: "{{last_updated}}"
+author: "{{author}}"
+theme_slug: "{{slug}}"
+type: "conventions"
+copilot_ready: true
+---
+
+# Theme Scaffold Conventions
+
+## 1. Folder Structure
+
+- `templates/` for block templates
+- `parts/` for template parts (no subfolders)
+- `patterns/` for block patterns (PHP or JSON)
+- `styles/` for style variation JSON files
+- `assets/` for source JS/SCSS/images/fonts
+- `inc/` for extra PHP includes
+- `tests/` for Jest and Playwright tests
+- `bin/` for scripts
+
+## 2. File Naming
+
+- Use `kebab-case` for slugs, lowercase for most files.
+- Use `.mustache` for all files with placeholders.
+- Use YAML front matter for Copilot/automation.
+
+## 3. Placeholders
+
+- All variable fields must be defined in [placeholder-schema-and-usage.md](./placeholder-schema-and-usage.md).
+- Document all new uses.
+
+## 4. Coding Standards
+
+- Follow WordPress Coding Standards for PHP, JS, CSS/SCSS.
+- Use automated linters/formatters.
+
+## 5. Adding Files
+
+- Add a front matter block to all new files for Copilot.
+- Update all relevant docs and mapping schemas.
+
+---

@@ -1,0 +1,43 @@
+---
+title: "Adding and Extending Theme Variations"
+version: "{{version}}"
+last_updated: "{{last_updated}}"
+author: "{{author}}"
+theme_slug: "{{slug}}"
+type: "howto"
+copilot_ready: true
+---
+
+# Adding and Extending Theme Variations
+
+## Add a New Style Variation
+
+1. Copy any existing JSON file in `styles/` (e.g. `styles/dark.json.mustache`).
+2. Rename it (e.g. `styles/modern.json.mustache`).
+3. Adjust color palettes, fonts, or settings in the JSON as needed.
+4. Add a front matter block if desired for Copilot automation.
+
+---
+
+## Add a New Template or Pattern
+
+1. Copy a file in `templates/`, `parts/`, or `patterns/`.
+2. Add or update mustache variables as needed.
+3. Document the new file and its slug in this guide and in the main `repo-template.md`.
+
+---
+
+## Register New Variations or Patterns
+
+- Register new style variations in `theme.json` if needed.
+- For patterns, update any PHP registration code in `functions.php` or document the new pattern via file headers.
+
+---
+
+## Best Practices
+
+- Use descriptive file names and slugs.
+- Document all new variations and patterns in the README and in this file.
+- Keep mustache variables consistent and add to [placeholder-schema-and-usage.md](./placeholder-schema-and-usage.md) as needed.
+
+---

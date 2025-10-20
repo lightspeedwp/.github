@@ -1,0 +1,42 @@
+---
+title: "Copilot & Automation Agent Guide"
+version: "{{version}}"
+last_updated: "{{last_updated}}"
+author: "{{author}}"
+theme_slug: "{{slug}}"
+type: "automation-guide"
+copilot_ready: true
+---
+
+# Copilot & Automation Agent Guide
+
+This guide explains how Copilot and other automation agents interact with the theme scaffold.
+
+## 1. Front Matter & Mustache Integration
+
+- All `.mustache` files should have a YAML front matter block for Copilot.
+- Key metadata: `title`, `version`, `slug`, `author`, `type`, `copilot_ready`.
+
+## 2. Prompts, Instructions & Chatmodes
+
+- See `.github/` for prompts, instructions, and chatmode templates.
+- Link each prompt/instruction to the relevant doc or script.
+
+## 3. Automation Workflow
+
+- Copilot/agents should:
+  - Detect all `.mustache` files.
+  - Parse front matter and replace all placeholders.
+  - Output production-ready theme files.
+  - Validate that no placeholders remain.
+
+## 4. Extending Automation
+
+- When adding new automation, update this file and [repo-template.md](./repo-template.md).
+- Document any new front matter fields or Copilot-specific requirements.
+
+## 5. Reference
+
+- [placeholder-schema-and-usage.md](./placeholder-schema-and-usage.md)
+- [SCAFFOLD-USAGE.md](./SCAFFOLD-USAGE.md)
+- [repo-template.md](./repo-template.md)

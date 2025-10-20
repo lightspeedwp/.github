@@ -1,0 +1,17 @@
+// Validates that all mustache placeholders are replaced in {{projectName}} after scaffolding
+
+const fs = require('fs');
+const glob = require('glob');
+
+describe('mustache placeholder replacement', () => {
+  it('should not contain any {{key}} placeholders in project files', () => {
+    const files = glob.sync('src/**/*.{js,php,scss,md}', { nodir: true }).concat(
+      glob.sync('tests/**/*.{js,php,scss,md}', { nodir: true }),
+      glob.sync('*.{js,php,scss,md,json}', { nodir: true })
+    );
+    files.forEach(file => {
+      const content = fs.readFileSync(file, 'utf8');
+      expect(content).not.toMatch(/{{\s*\w+\s*}}/);
+    });
+  });
+});

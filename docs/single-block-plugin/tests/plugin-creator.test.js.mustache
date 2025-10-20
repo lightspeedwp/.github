@@ -1,0 +1,14 @@
+// Jest test: Validate plugin scaffolding from mustache templates for {{projectName}}
+
+const fs = require('fs');
+const glob = require('glob');
+
+describe('plugin template scaffolding', () => {
+  it('should have no unresolved mustache placeholders after processing', () => {
+    const files = glob.sync('**/*', { nodir: true, ignore: ['node_modules/**', '**/*.mustache'] });
+    files.forEach(file => {
+      const content = fs.readFileSync(file, 'utf8');
+      expect(content).not.toMatch(/{{\s*\w+\s*}}/);
+    });
+  });
+});

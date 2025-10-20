@@ -1,0 +1,93 @@
+---
+title: "Theme Scaffold Usage Guide"
+version: "{{version}}"
+last_updated: "{{last_updated}}"
+author: "{{author}}"
+theme_slug: "{{slug}}"
+type: "scaffold-usage"
+copilot_ready: true
+---
+
+# Theme Scaffold Usage Guide
+
+This guide explains how to use the {{theme_name}} WordPress block theme scaffold with mustache templating and automation, enabling rapid, standards-compliant theme generation.
+
+---
+
+## 1. Clone or Copy the Scaffold
+
+- Download or clone the scaffold repository.
+- All files with `.mustache` extension are templates containing placeholders for project-specific values.
+
+---
+
+## 2. Fill Out the Mapping File
+
+- Create a `mapping.json` (see [placeholder-schema-and-usage.md](./placeholder-schema-and-usage.md)) with values for all mustache variables (e.g., `theme_name`, `slug`, `author`, `version`, etc.).
+- Example:
+
+```json
+{
+  "theme_name": "Marvellous Starter",
+  "slug": "marvellous-starter",
+  "author": "Ashley Shaw",
+  "version": "1.0.0",
+  "description": "A modern WordPress block theme scaffold."
+}
+```
+
+---
+
+## 3. Run the Replacement Script
+
+- Use the provided script (e.g., `bin/replace-placeholders.js`) to process all `.mustache` files:
+
+```sh
+node bin/replace-placeholders.js --map mapping.json
+```
+
+- The script will:
+  - Replace all `{{variable}}` placeholders.
+  - Remove `.mustache` extensions.
+  - Output ready-to-use theme files.
+
+---
+
+## 4. Customize and Rename
+
+- Update any slugs or namespaces in the output as needed.
+- Add or remove templates, style variations, or patterns to suit your project.
+
+---
+
+## 5. Install Dependencies and Start Development
+
+```sh
+npm install
+composer install
+npm run start
+```
+
+- See [DEVELOPMENT.md](./DEVELOPMENT.md) for detailed workflow.
+
+---
+
+## 6. Build and Test
+
+- Run `npm run build` for production assets.
+- Run `npm test` and `npm run lint` to validate code quality.
+
+---
+
+## 7. Distribute or Activate
+
+- Archive (zip) the theme and upload to WordPress, or activate in your local environment.
+
+---
+
+For more, see:
+- [Mustache Placeholder Reference](./placeholder-schema-and-usage.md)
+- [Getting Started](./README.md)
+- [Automation Agent Guide](./COPILOT-INTEGRATION.md)
+
+---
