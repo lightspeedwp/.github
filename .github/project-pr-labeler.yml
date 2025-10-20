@@ -1,51 +1,83 @@
-# This is a sample workflow to help you get started with Actions
+# Expanded PR labeler config for documented workflow
 
-# Add 'documentation' label to any changes to markdown or text files
-documentation:
+# Documentation
+area:documentation:
   - '**/*.md'
   - '**/*.txt'
   - 'docs/**/*'
+  - 'README.md'
+  - 'CHANGELOG.md'
+  - '**/README.md'
+  - '**/CHANGELOG.md'
 
-# Add 'theme' label to any change to theme files
-theme:
+# Theme & Design System
+area:theme:
   - 'style.css'
   - 'theme.json'
   - 'functions.php'
   - 'assets/**/*'
+  - 'theme/**/*'
+  - 'design-system/**/*'
 
-# Add 'pattern' label to any change within the patterns directory
+theme:tokens:
+  - 'theme.json'
+  - 'tokens/*.json'
+  - 'design-system/tokens/**/*'
+
+# Patterns & Templates
 pattern:
   - 'patterns/**/*'
-
-# Add 'template' label to any change within the templates directory
 template:
   - 'templates/**/*'
   - 'parts/**/*'
+template-part:
+  - 'template-parts/**/*'
+block:
+  - 'src/blocks/**/*'
+  - '**/block.json'
 
-# Add 'css' label to any change to CSS files
-css:
+# CSS & JS
+lang:css:
   - '**/*.css'
   - '**/*.scss'
-
-# Add 'js' label to any change to JS files
-js:
+  - '**/*.sass'
+  - '**/*.less'
+lang:js:
   - '**/*.js'
+  - '**/*.jsx'
+  - '**/*.ts'
+  - '**/*.tsx'
+  - 'package.json'
+  - 'package-lock.json'
+  - 'tsconfig.json'
 
-# Add 'php' label to any change to PHP files
-php:
+# PHP & Test Files
+lang:php:
   - '**/*.php'
+  - 'composer.json'
+  - 'composer.lock'
+  - 'phpunit.xml'
+test:
+  - 'tests/**/*'
+  - 'playwright.config.js'
+  - '.github/linters/phpunit.xml'
+  - '**/*.spec.*'
+  - '**/*.test.*'
+  - '**/__tests__/**'
 
-#Add 'build' label to any change to build files
+# Build, Scripts, Utility
 build:
   - 'build/**/*'
+area:scripts:
+  - 'scripts/**/*'
+  - '**/*.sh'
+  - '**/*.bash'
+  - 'utility/**/*'
 
-# Add 'src' label to any change to source files
-src:
-  - 'src/**/*'
-
-# Add 'configuration' label to any change to configuration files
-configuration:
+# Configuration & Ops
+area:configuration:
   - '.github/**/*.yml'
+  - '.github/**/*.yaml'
   - '.github/linters/**/*'
   - '.stylelintrc.json'
   - '.eslintrc.json'
@@ -53,6 +85,8 @@ configuration:
   - 'phpunit.xml'
   - 'webpack.config.js'
   - '*.json'
+  - '*.yml'
+  - '*.yaml'
   - '.editorconfig'
   - '.gitignore'
   - 'package.json'
@@ -60,15 +94,164 @@ configuration:
   - 'composer.json'
   - 'composer.lock'
 
-# Add 'test' label to any change to test files
-test:
-  - 'tests/**/*'
-  - 'playwright.config.js'
-  - '.github/linters/phpunit.xml'
+area:ci:
+  - '.github/workflows/**'
+  - '.github/actions/**'
+  - 'ci/**/*'
 
-# Add 'woocommerce' to any change to WooCommerce templates/styles/functions
-woocommerce:
+# Assets
+area:assets:
+  - 'assets/**/*'
+  - 'images/**/*'
+  - '**/*.png'
+  - '**/*.jpg'
+  - '**/*.jpeg'
+  - '**/*.gif'
+  - '**/*.svg'
+  - '**/*.ico'
+  - '**/*.webp'
+
+# WooCommerce
+area:woocommerce:
   - 'woocommerce/**/*'
   - '**/woocommerce*.css'
   - '**/woocommerce*.php'
   - '**/woocommerce*.js'
+
+# Milestones, Changelog, Release
+meta:changelog:
+  - 'CHANGELOG.md'
+  - '**/CHANGELOG.md'
+release:patch:
+  - 'patch/**/*'
+release:hotfix:
+  - 'hotfix/**/*'
+release:beta:
+  - 'beta/**/*'
+release:rc:
+  - 'rc/**/*'
+
+# Security, Compliance, Accessibility, Deprecation
+type:security:
+  - 'security/**/*'
+type:compliance:
+  - 'compliance/**/*'
+type:accessibility-audit:
+  - 'a11y/**/*'
+  - 'accessibility/**/*'
+type:deprecation:
+  - 'deprecate/**/*'
+
+# Monitoring, Audit, QA
+area:monitoring:
+  - 'monitoring/**/*'
+type:audit:
+  - 'audit/**/*'
+type:qa:
+  - 'qa/**/*'
+
+# Device, Layout, Environment, Phase, Page
+device:mobile:
+  - '**/*mobile*.*'
+device:desktop:
+  - '**/*desktop*.*'
+device:tablet-landscape:
+  - '**/*tablet-landscape*.*'
+device:tablet-portrait:
+  - '**/*tablet-portrait*.*'
+layout:grid:
+  - '**/grid*.*'
+env:staging:
+  - '**/staging*.*'
+env:live:
+  - '**/live*.*'
+phase:post-launch:
+  - '**/post-launch*.*'
+phase:pre-launch:
+  - '**/pre-launch*.*'
+page:home:
+  - '**/home*.*'
+page:faq:
+  - '**/faq*.*'
+
+# Add comp:*/area:* for routing
+comp:block-editor:
+  - 'src/block-editor/**/*'
+comp:theme-json:
+  - 'theme.json'
+comp:template-parts:
+  - 'template-parts/**/*'
+area:analytics:
+  - 'analytics/**/*'
+area:forms:
+  - 'forms/**/*'
+area:gallery:
+  - 'gallery/**/*'
+area:integration:
+  - 'integration/**/*'
+area:emails:
+  - 'emails/**/*'
+area:navigation:
+  - 'navigation/**/*'
+area:slider:
+  - 'slider/**/*'
+area:testimonials:
+  - 'testimonials/**/*'
+
+# Priority, Status, Type (via branch)
+priority:critical:
+  - head-branch: ['^hotfix/.*']
+priority:normal:
+  - head-branch: ['^feat/.*', '^fix/.*', '^docs/.*', '^chore/.*']
+
+status:needs-review:
+  - head-branch: ['^feat/.*', '^fix/.*', '^docs?/.*', '^(chore|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry)/.*']
+
+type:feature:
+  - head-branch: ['^feat/.*']
+type:bug:
+  - head-branch: ['^fix/.*', '^hotfix/.*']
+type:chore:
+  - head-branch: ['^chore/.*', '^build/.*', '^ci/.*']
+type:refactor:
+  - head-branch: ['^refactor/.*']
+type:test:
+  - head-branch: ['^test/.*']
+type:documentation:
+  - head-branch: ['^docs/.*']
+type:performance:
+  - head-branch: ['^perf/.*']
+type:design:
+  - head-branch: ['^design/.*']
+type:a11y:
+  - head-branch: ['^a11y/.*']
+type:qa:
+  - head-branch: ['^qa/.*', '^uat/.*']
+type:content:
+  - head-branch: ['^content/.*']
+type:seo:
+  - head-branch: ['^seo/.*']
+type:config:
+  - head-branch: ['^config/.*']
+type:migrate:
+  - head-branch: ['^migrate/.*']
+type:proto:
+  - head-branch: ['^proto/.*']
+type:ds:
+  - head-branch: ['^ds/.*']
+type:api:
+  - head-branch: ['^api/.*']
+type:schema:
+  - head-branch: ['^schema/.*']
+type:telemetry:
+  - head-branch: ['^telemetry/.*', '^analytics/.*']
+type:i18n:
+  - head-branch: ['^i18n/.*']
+type:ops:
+  - head-branch: ['^ops/.*']
+type:ux:
+  - head-branch: ['^ux/.*']
+
+# For product-specific prefixes from your workflow (optional)
+type:research:
+  - head-branch: ['^research/.*']

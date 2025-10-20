@@ -1,31 +1,159 @@
-# Label families → keep to the canonical names from labels-guide
+# Label families → canonical names from labels-guide
 
-# Head branch → status hints (works on PRs)
+# Branch status kick-off
 "status:needs-review":
-  - head-branch: ['^feat/.*', '^fix/.*', '^docs?/.*', '^(chore|build)/.*']
+  - head-branch: ['^feat/.*', '^fix/.*', '^docs?/.*', '^(chore|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry)/.*']
 
-# Blocks & Editor surfaces
+# Blocks & Editor
 "area:block-editor":
   - changed-files:
-      - any-glob-to-any-file: ['**/block.json', '**/src/blocks/**']
+      - any-glob-to-any-file: ['**/block.json', '**/src/blocks/**', 'src/block-editor/**/*']
 
 "area:theme":
-  - any:
-      - changed-files:
-          - any-glob-to-any-file: ['**/theme.json', '**/templates/**', '**/patterns/**', '**/parts/**']
+  - changed-files:
+      - any-glob-to-any-file: ['**/theme.json', '**/templates/**', '**/patterns/**', '**/parts/**', 'theme/**/*']
 
-# Languages / formats
+# Language & Formats
 "lang:php":
   - changed-files:
-      - any-glob-to-any-file: ['**/*.php']
+      - any-glob-to-any-file: ['**/*.php', 'composer.json', 'composer.lock', 'phpunit.xml']
 "lang:javascript":
   - changed-files:
-      - any-glob-to-any-file: ['**/*.{js,jsx,ts,tsx}']
+      - any-glob-to-any-file: ['**/*.{js,jsx,ts,tsx}', 'package.json', 'package-lock.json', 'tsconfig.json']
 "lang:css":
   - changed-files:
-      - any-glob-to-any-file: ['**/*.{css,scss}']
+      - any-glob-to-any-file: ['**/*.{css,scss,sass,less}']
 
 # CI / Ops
 "area:ci":
   - changed-files:
-      - any-glob-to-any-file: ['.github/workflows/**']
+      - any-glob-to-any-file: ['.github/workflows/**', '.github/actions/**', 'ci/**/*']
+
+# Documentation & Changelog
+"area:documentation":
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.md', 'docs/**', 'README.md', '**/README.md']
+"meta:changelog":
+  - changed-files:
+      - any-glob-to-any-file: ['CHANGELOG.md', '**/CHANGELOG.md']
+
+# Build, Scripts, Assets
+"build":
+  - changed-files:
+      - any-glob-to-any-file: ['build/**/*']
+"area:scripts":
+  - changed-files:
+      - any-glob-to-any-file: ['scripts/**/*', '**/*.sh', '**/*.bash']
+"area:assets":
+  - changed-files:
+      - any-glob-to-any-file: ['assets/**/*', 'images/**/*', '**/*.png', '**/*.jpg', '**/*.svg']
+
+# Tests & QA
+"area:tests":
+  - changed-files:
+      - any-glob-to-any-file: ['tests/**/*', '**/*.test.*', '**/*.spec.*', '**/__tests__/**']
+"type:qa":
+  - changed-files:
+      - any-glob-to-any-file: ['qa/**/*']
+
+# WooCommerce
+"area:woocommerce":
+  - changed-files:
+      - any-glob-to-any-file: ['woocommerce/**/*', '**/woocommerce*.css', '**/woocommerce*.php', '**/woocommerce*.js']
+
+# Template, Pattern, Block, Theme, etc.
+"template":
+  - changed-files:
+      - any-glob-to-any-file: ['templates/**/*', 'parts/**/*']
+"pattern":
+  - changed-files:
+      - any-glob-to-any-file: ['patterns/**/*']
+"block":
+  - changed-files:
+      - any-glob-to-any-file: ['src/blocks/**/*', '**/block.json']
+
+# Monitoring, Audit, Security, Compliance, Accessibility, Deprecation
+"area:monitoring":
+  - changed-files:
+      - any-glob-to-any-file: ['monitoring/**/*']
+"type:audit":
+  - changed-files:
+      - any-glob-to-any-file: ['audit/**/*']
+"type:security":
+  - changed-files:
+      - any-glob-to-any-file: ['security/**/*']
+"type:compliance":
+  - changed-files:
+      - any-glob-to-any-file: ['compliance/**/*']
+"type:accessibility-audit":
+  - changed-files:
+      - any-glob-to-any-file: ['a11y/**/*', 'accessibility/**/*']
+"type:deprecation":
+  - changed-files:
+      - any-glob-to-any-file: ['deprecate/**/*']
+
+# Device, Layout, Environment, Phase, Page, Comp, etc.
+"device:mobile":
+  - changed-files:
+      - any-glob-to-any-file: ['**/*mobile*.*']
+"device:desktop":
+  - changed-files:
+      - any-glob-to-any-file: ['**/*desktop*.*']
+"layout:grid":
+  - changed-files:
+      - any-glob-to-any-file: ['**/grid*.*']
+"env:staging":
+  - changed-files:
+      - any-glob-to-any-file: ['**/staging*.*']
+"env:live":
+  - changed-files:
+      - any-glob-to-any-file: ['**/live*.*']
+"phase:post-launch":
+  - changed-files:
+      - any-glob-to-any-file: ['**/post-launch*.*']
+"phase:pre-launch":
+  - changed-files:
+      - any-glob-to-any-file: ['**/pre-launch*.*']
+"page:home":
+  - changed-files:
+      - any-glob-to-any-file: ['**/home*.*']
+"page:faq":
+  - changed-files:
+      - any-glob-to-any-file: ['**/faq*.*']
+"comp:block-editor":
+  - changed-files:
+      - any-glob-to-any-file: ['src/block-editor/**/*']
+"comp:theme-json":
+  - changed-files:
+      - any-glob-to-any-file: ['theme.json']
+"comp:template-parts":
+  - changed-files:
+      - any-glob-to-any-file: ['template-parts/**/*']
+
+# Priority, Status, Type (via branch)
+"priority:critical":
+  - head-branch: ['^hotfix/.*']
+"priority:normal":
+  - head-branch: ['^feat/.*', '^fix/.*', '^docs/.*', '^chore/.*']
+"type:feature":
+  - head-branch: ['^feat/.*']
+"type:bug":
+  - head-branch: ['^fix/.*', '^hotfix/.*']
+"type:chore":
+  - head-branch: ['^chore/.*', '^build/.*', '^ci/.*']
+"type:refactor":
+  - head-branch: ['^refactor/.*']
+"type:test":
+  - head-branch: ['^test/.*']
+"type:documentation":
+  - head-branch: ['^docs/.*']
+"type:performance":
+  - head-branch: ['^perf/.*']
+"type:design":
+  - head-branch: ['^design/.*']
+"type:a11y":
+  - head-branch: ['^a11y/.*']
+"type:qa":
+  - head-branch: ['^qa/.*']
+
+# Add more as needed for full org coverage!
