@@ -5,9 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - DD-MM-YYYY
+
+<!--
+Guidelines:
+- One entry per change; use simple past tense.
+- Group by sections above.
+- Link issues/PRs where useful.
+-->
+
+### Added
+
+- [placeholder]
+
+### Changed
+
+- [placeholder]
+
+### Deprecated
+
+- [placeholder]
+
+### Removed
+
+- [placeholder]
+
+### Fixed
+
+- [placeholder]
+
+### Security
+
+- [placeholder]
+
 ## [0.1.0] - 2025-09-25
 
 ### Added
+
 - Initial release of LightSpeed WordPress organization community health files
 - GitHub Copilot custom instructions and organization-wide guidelines
 - Comprehensive instruction files for WordPress development:
@@ -39,24 +73,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Organization profile README showcasing LightSpeed projects
 
 ### Fixed
+
 - Standardized YAML frontmatter across all instruction files
 - Corrected indentation and formatting inconsistencies
 - Aligned VS Code settings with repository structure
 - Removed non-standard configuration keys for better compatibility
 
 ### Changed
+
 - Updated author attribution to "LightSpeedWP Team" for consistency
 - Standardized related_links format as simple URL lists
 - Enhanced MCP configuration for WordPress development context
 - Improved file associations and discovery paths for AI tools
 
 ### Documentation
+
 - Added comprehensive README files for instructions and prompts
 - Created implementation guide for WordPress block development
 - Established clear contribution guidelines and coding standards
 - Documented VS Code configuration and MCP setup procedures
 
 ### Security
+
 - Implemented proper input sanitization and output escaping in examples
 - Added security guidelines in coding standards
 - Established secure development practices in instruction files
+
+## Reference
+
+- [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
+- [CONTRIBUTING.md](./CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
+- [AUTOMATION_GOVERNANCE.md](.github/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
+- [Org-wide Issue Labels](.github/ISSUE_LABELS.md): Default labels and usage guidance.
+- [Pull Request Labels](.github/PR_LABELS.md): PR classification and automation standards.
+- [Issue Types Guide](.github/ISSUE_TYPES.md): Classification and usage of issue types.

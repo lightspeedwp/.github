@@ -9,29 +9,7 @@ milestone: ''
 type: 'refactor'
 ---
 
-
- author: "LightSpeedWP Team"
- contributors:
-   - name: "Ash"
-     github: "ash"
-   - name: "LightSpeedWP"
-     github: "lightspeedwp"
- date: "2025-09-17"
- last_modified: "2025-09-17"
- tags:
-   - refactor
-   - code quality
-   - review
-   - wordpress
- categories:
-   - issue
-   - refactor
-   - review
- version: "1.0.0"
- permalink: "/issue-template/code-refactoring"
- license: "MIT"
- related_links:
-   - "https://github.com/lightspeedwp/.github"
+<!-- Thank you for proposing a code refactoring or review task! Please fill in as much of the template below as you can. -->
 
 ## Is your code refactoring request related to a problem?
 
@@ -41,11 +19,11 @@ Describe the current pain points or risks (e.g., technical debt, code smells, in
 
 Provide a clear outline of the refactoring or code review objectives. Consider including:
 
--   Scope of the refactor (e.g., files, modules, components)
--   Goals (e.g., improve readability, modularize logic, remove dead code)
--   Guidance for using automated tools such as linters, Copilot, or code-review bots
--   Areas to focus on (naming, structure, code style, documentation, etc.)
--   Modularization, component separation, and performance considerations
+- Scope of the refactor (e.g., files, modules, components)
+- Goals (e.g., improve readability, modularize logic, remove dead code)
+- Guidance for using automated tools such as linters, Copilot, or code-review bots
+- Areas to focus on (naming, structure, code style, documentation, etc.)
+- Modularization, component separation, and performance considerations
 
 ## Use Case
 

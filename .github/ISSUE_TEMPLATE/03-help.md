@@ -15,35 +15,7 @@ If your issue is a bug report or a feature/enhancement request, please use the a
 Please provide as much detail as possible to help us assist you efficiently.
 -->
 
-## Question Summary
-
-```md
----
-author: "LightSpeedWP Team"
-contributors:
-	- name: "Ash"
-		github: "ash"
-	- name: "LightSpeedWP"
-		github: "lightspeedwp"
-date: "2025-09-17"
-last_modified: "2025-09-17"
-tags:
-	- help
-	- support
-	- question
-	- wordpress
-categories:
-	- issue
-	- support
-	- question
-version: "1.0.0"
-permalink: "/issue-template/help"
-license: "MIT"
-related_links:
-	- "https://github.com/lightspeedwp/.github"
----
-```
-
+## Question / Issue Description
 
 <!--
 Clearly describe your question or the issue you are facing with WordPress and this project.
@@ -59,4 +31,19 @@ List any steps you have already tried to resolve your question.
 
 <!--
 Add any other context, screenshots, or code snippets that might help us understand your question better.
+Link to related docs, issues, or saved replies if applicable.
 -->
+
+## References
+
+- [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
+- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
+- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
+- [CHANGELOG.md](../CHANGELOG.md)
+
+---
+
+### Maintainer Checklist
+- [ ] Issue resolved or routed to correct template
+- [ ] Saved reply used if applicable

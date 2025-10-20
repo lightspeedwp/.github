@@ -1,7 +1,7 @@
 ---
 name: '🚀 Feature Request'
 about: Suggest a new feature for this WordPress project
-title: '[Feature] '
+title: '[Feature] <short title>'
 labels: [feature, needs-triage]
 assignees: []
 projects: []
@@ -11,66 +11,62 @@ type: 'feature'
 
 <!-- Thank you for suggesting a feature! Please fill in as much of the template as you can. -->
 
-## Is your feature request related to a problem? Please describe.
+## Summary
 
 A clear and concise description of the problem or opportunity you are trying to solve.
 
-## Describe the feature you'd like
+## Solution
 
- author: "LightSpeedWP Team"
- contributors:
-	 - name: "Ash"
-		 github: "ash"
-	 - name: "LightSpeedWP"
-		 github: "lightspeedwp"
- date: "2025-09-17"
- last_modified: "2025-09-17"
- tags:
-	 - feature
-	 - request
-	 - wordpress
-	 - triage
- categories:
-	 - issue
-	 - feature
- version: "1.0.0"
- permalink: "/issue-template/feature-request"
- license: "MIT"
- related_links:
-	 - "https://github.com/lightspeedwp/.github"
-A clear and concise description of what you want to happen. If possible, provide examples or references to similar features in other plugins/themes.
-
-## Designs / Mockups
-
-If applicable, add mockups, screenshots, or links to Figma/Sketch/other design files to help explain your feature.
-
-## Accessibility Considerations
-
-- Does this feature need to meet any [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
-- Are there any specific accessibility requirements or user needs to consider?
+A clear and concise description of the feature you would like to see, with examples or references.
 
 ## Acceptance Criteria
 
-Please list the requirements that must be met for this feature to be considered complete. For example:
+- [ ] (Given/When/Then...)
+- [ ] Docs/changelog/notes updated
+- [ ] Tests added/updated
+- [ ] Correct branch prefix for PR: feat/
+- [ ] Labels/types match org standards
 
-- [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/) (PHP, JS, CSS, etc.)
-- [ ] Includes appropriate inline documentation (phpdoc, jsdoc, etc.)
-- [ ] Passes all automated and manual tests
-- [ ] Meets accessibility guidelines (where applicable)
-- [ ] Includes documentation updates (if needed)
-- [ ] Changelog.md is updated with a summary of the feature
-- [ ] Works with latest WordPress core and major plugins/themes
-- [ ] No adverse impact on performance or security
-- [ ] ...add any other relevant criteria
+## Designs / References
 
-## Testing Requirements
+Attach or link to design files/specs/references.
 
-Describe any specific testing that should be performed (e.g., browser/device coverage, multisite, RTL, PHP versions, etc.).
+## Dependencies
 
-## Describe alternatives you've considered
+List any dependencies or related issues.
 
-Please describe alternative solutions or features you have considered.
+## Testing Approach
 
-## Additional context
+How will this be tested/verified?
 
-Add any other context or information about the feature here.
+## Additional Context
+
+<!-- 
+Add any other context, screenshots, or notes here.
+Link any related issues or pull requests (e.g. #123, fixes #456).
+Use correct branch prefix (feat/) for any related PR.
+-->
+
+## References
+
+- [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
+- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
+- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
+- [CHANGELOG.md](../CHANGELOG.md)
+
+---
+
+### Definition of Ready (DoR)
+- [ ] Problem/opportunity defined
+- [ ] Acceptance criteria written
+- [ ] Designs attached (if relevant)
+- [ ] Dependencies mapped
+- [ ] Estimate added
+
+### Definition of Done (DoD)
+- [ ] All AC met and demonstrated
+- [ ] Documentation and changelog updated
+- [ ] Tests added/updated
+- [ ] Correct labels/types applied
+- [ ] PR uses correct branch prefix

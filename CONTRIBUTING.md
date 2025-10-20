@@ -1,49 +1,93 @@
 # Contributing
 
-Thank you for your interest in contributing to LightSpeed! Please follow this workflow to help us maintain a high-quality, consistent codebase and community.
+**Last Updated:** 2025-10-21 • **Version:** v0.2.0
 
-## Ideal Contribution Workflow
+Thank you for your interest in contributing to LightSpeed!  
+To maintain a consistent, high-quality codebase and community, please follow these guidelines.
 
-### 1. Start with the GitHub Issue
+---
 
--   Use the appropriate [issue template](https://github.com/lightspeedwp/<REPOSITORY>/issues/new/choose) for bug reports, enhancements, or questions.
--   Clearly describe the problem, feature, or task. Include as much detail as possible (steps to reproduce, expected behavior, environment, etc.).
--   Discuss your intended approach in the issue before starting work, if needed.
+## Getting Started
 
-### 2. Create a Branch
+### 1. Start with a GitHub Issue
 
--   Use a descriptive branch name, such as `feature/short-description`, `bugfix/short-description`, or `chore/short-description`.
+- **Select the correct [Issue template](https://github.com/lightspeedwp/.github/issues/new/choose)** for your contribution type:
+  - Bug report, feature/enhancement, documentation, integration, performance, UX feedback, task, code refactor, instructions, prompts, saved replies, or support question.
+  - Templates are designed to collect all required information, labels, and metadata for automation and efficient triage.
+- **Provide thorough details:**
+  - For bugs: include reproduction steps, expected vs actual behavior, screenshots, logs, and environment info.
+  - For features/enhancements: describe the problem/opportunity, proposed solution, mockups/designs, and acceptance criteria.
+  - For other types: explain context, goals, action items, and impact.
+- **Reference relevant docs or standards:**  
+  See [Coding Standards](.github/instructions/coding-standards.instructions.md), [Pattern Development](.github/instructions/pattern-development.instructions.md), [Theme JSON](.github/instructions/theme-json.instructions.md), etc.
+- **Outline your planned approach for complex issues** and request feedback before implementation.
+- **Automation:** Well-formed issues using the right template are automatically labeled, routed, and prioritized.
 
-### 3. Develop Your Solution
+### 2. Branching & Development
 
--   Follow the coding standards and style guides used in this repository. If a linter or formatter is configured (e.g., ESLint, Prettier, PHPCS), ensure your code passes all checks before submitting.
--   Write clear, concise commit messages.
+- **Branch naming:**  
+  Use `{type}/{scope}-{short-title}` format (e.g., `feat/cart-coupon-flow`, `fix/wp6-6-compat`, `docs/readme-install-steps`, `chore/deps-2025-09`).
+- **Allowed prefixes:**  
+  `feat/`, `fix/`, `docs/`, `chore/`, `build/`, `refactor/`, `test/`, `perf/`, `ci/`, `release/`, `hotfix/`, `design/`, `research/`.
+- See [Org-wide Branching Strategy](.github/git-org-wide-branching-strategy.md) for full rules and automation mapping.
+- Ensure your branch maps to the correct issue type and PR template for automated labeling and changelog governance.
+
+### 3. Coding Standards
+
+- Follow [LightSpeed coding standards](.github/instructions/coding-standards.instructions.md) for PHP, JS, CSS, and other languages.
+- Use configured linters/formatters (e.g. ESLint, Prettier, PHPCS) and ensure all code passes checks.
+- Write clear, concise commit messages and document significant changes inline.
+
+---
+
+## Pull Requests
 
 ### 4. Create a Pull Request (PR)
 
--   Open a PR from your branch to the appropriate base branch (e.g., `trunk` or `trunk 2.1`).
--   **All PRs must have a description.** Make sure the description is accurate and updated if changes are made.
--   **All PRs must include a link to the related GitHub Issue in the description.** If a ticket does not exist, please create one.
--   **All PRs must include information on how the change can be tested.** Provide a detailed list of steps or a video demonstration.
--   **All PRs must contain screenshot(s) of any UI changes.** Add screenshots in the PR details and update them as needed in comments.
--   **Tests should not be skipped!** If you must skip a test, provide your justification.
--   **PRs with module version bumps should have a link to the release notes and a summary of notable changes.**
--   **Any PR that doesn't meet the criteria in this list should be converted to a draft PR until it is ready to go.**
+- **Select the correct PR template:**  
+  Bugfix, Feature, Chore, Docs, Build/CI, Dependencies/Maintenance, Hotfix, Release, Refactor, or General PR template.
+  - Your branch prefix should match the PR template (e.g., `fix/` → Bugfix PR, `feat/` → Feature PR).
+  - See [PR_LABELS.md](.github/PR_LABELS.md) for template-to-label mapping and automation.
+- **Required PR details:**
+  - Accurate, up-to-date description.
+  - Link to the related GitHub Issue.
+  - Testing instructions or demo (video/screenshots preferred for UI changes).
+  - Changelog entry following [CHANGELOG.md](./CHANGELOG.md) guidelines, grouped under the correct section.
+  - Document any skipped tests and provide justification.
+  - For version bumps, include release notes and summary.
+- **Draft PRs:** If not ready for review, open as Draft. Convert to ready once complete.
 
-### 5. Review Process
+### 5. Review & Merge
 
--   PRs will be reviewed by maintainers, Copilot, or designated reviewers. For simple tasks, Copilot review may be sufficient and a maintainer review may not be required.
--   Be responsive to feedback and make requested changes as needed.
--   Only maintainers can approve and merge PRs.
+- PRs are reviewed by maintainers, Copilot, or designated reviewers.
+- Respond to feedback and make requested changes.
+- Only maintainers can approve and merge PRs.
+- PRs must pass all CI checks/tests before merging.
 
-### 6. Merge
-
--   Once your PR is approved and all checks pass, it can be merged into the base branch.
+---
 
 ## Additional Guidelines
 
--   **Use [Saved Replies](./SAVED_REPLIES.md) for common responses.** Reviewers and maintainers are encouraged to use or adapt the saved replies for consistent and efficient communication.
--   All PRs must pass automated tests and checks before being merged. Please review any CI failures and address them promptly.
+- **Saved Replies:** Use [SAVED_REPLIES.md](.github/SAVED_REPLIES.md) for common responses and efficient communication.
+- **Documentation:** Update relevant docs (README, instructions) for any user-facing change.
+- **Automation & Labels:** Ensure your issue/PR complies with [AUTOMATION_GOVERNANCE.md](.github/AUTOMATION_GOVERNANCE.md), [ISSUE_LABELS.md](.github/ISSUE_LABELS.md), and [ISSUE_TYPES.md](.github/ISSUE_TYPES.md).
+- **Changelog:** All user-facing changes, fixes, and features must be entered in [CHANGELOG.md](./CHANGELOG.md) in Keep a Changelog format. See example sections in the changelog for proper grouping and linking.
+
+---
+
+## References
+
+- [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
+- [AUTOMATION_GOVERNANCE.md](.github/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, label, and release strategy.
+- [ISSUE_TYPES.md](.github/ISSUE_TYPES.md): Issue type mapping and usage.
+- [ISSUE_LABELS.md](.github/ISSUE_LABELS.md): Label families, triage, and workflow.
+- [PR_LABELS.md](.github/PR_LABELS.md): PR labeling, templates, and automation.
+- [Org-wide Branching Strategy](.github/git-org-wide-branching-strategy.md): Full branching convention and rules.
+- [Coding Standards](.github/instructions/coding-standards.instructions.md)
+- [Pattern Development](.github/instructions/pattern-development.instructions.md)
+- [Theme JSON](.github/instructions/theme-json.instructions.md)
+
+---
 
 ## License
 

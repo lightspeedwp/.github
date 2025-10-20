@@ -17,33 +17,7 @@ A clear and concise description of what the bug is.
 
 ## To Reproduce
 
-```md
-author: "LightSpeedWP Team"
-contributors:
-	- name: "Ash"
-		github: "ash"
-	- name: "LightSpeedWP"
-		github: "lightspeedwp"
-date: "2025-09-17"
-last_modified: "2025-09-17"
-tags:
-	- bug
-	- wordpress
-	- report
-	- issue
-	- triage
-categories:
-	- issue
-	- bug
-	- report
-version: "1.0.0"
-permalink: "/issue-template/bug-report"
-license: "MIT"
-related_links:
-	- "https://github.com/lightspeedwp/.github"
-	- "https://developer.wordpress.org/coding-standards/"
 Steps to reproduce the behavior:
-```
 
 1. Go to '...'
 2. Click on '...'
@@ -60,51 +34,66 @@ If applicable, add screenshots to help explain your problem.
 
 ## WordPress Environment
 
--   WordPress Version: [e.g. 6.4]
--   PHP Version: [e.g. 8.1]
--   Active Theme: [e.g. Twenty Twenty-Four 1.0]
--   Other Active Plugins: [list relevant plugins and versions]
--   Hosting Provider: [e.g. SiteGround, WP Engine, etc.]
--   Site Language: [e.g. en_US]
--   Multisite: [Yes/No]
--   Any custom code snippets? [Yes/No]
+- WordPress Version: [e.g. 6.4]
+- PHP Version: [e.g. 8.1]
+- Active Theme: [e.g. Twenty Twenty-Four 1.0]
+- Other Active Plugins: [list relevant plugins and versions]
+- Hosting Provider: [e.g. SiteGround, WP Engine, etc.]
+- Site Language: [e.g. en_US]
+- Multisite: [Yes/No]
+- Any custom code snippets? [Yes/No]
 
 <details>
 <summary>Site Health Info (recommended)</summary>
-
 <!-- Go to Tools > Site Health > Info tab, click "Copy site info to clipboard", and paste those details here. -->
-
 </details>
 
 ## Device and Browser Info
 
 ### Desktop (please complete the following information):
-
--   OS: [e.g. macOS, Windows, Linux]
--   Browser: [e.g. Chrome, Firefox, Safari]
--   Version: [e.g. 22]
+- OS: [e.g. macOS, Windows, Linux]
+- Browser: [e.g. Chrome, Firefox, Safari]
+- Version: [e.g. 22]
 
 ### Smartphone (if applicable):
+- Device: [e.g. iPhone 12, Pixel 5]
+- OS: [e.g. iOS 17, Android 14]
+- Browser: [e.g. Safari, Chrome]
+- Version: [e.g. 22]
 
--   Device: [e.g. iPhone 12, Pixel 5]
--   OS: [e.g. iOS 17, Android 14]
--   Browser: [e.g. Safari, Chrome]
--   Version: [e.g. 22]
+## Additional Context
 
-## Additional context
+<!-- 
+Add any other context, screenshots, or notes here.
+Link any related issues or pull requests (e.g. #123, fixes #456). 
+For any PR, use the correct branch prefix (fix/) as per Branching Strategy.
+-->
 
-Add any other context about the problem here.
+## References
 
-## Maintainer Checklist (for maintainers only)
+- [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
+- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
+- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
+- [CHANGELOG.md](../CHANGELOG.md)
 
--   [ ] Bug confirmed and reproducible
--   [ ] Fix implemented
--   [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/) (PHP, JS, CSS, etc.)
--   [ ] Includes appropriate inline documentation (phpdoc, jsdoc, etc.)
--   [ ] Meets accessibility guidelines (where applicable)
--   [ ] Changelog.md updated with a summary of the fix
--   [ ] Tests added/updated
--   [ ] Documentation updated (if applicable)
--   [ ] QA performed in supported browsers and devices
--   [ ] Works with latest WordPress core and major plugins/themes
--   [ ] No adverse impact on performance or security
+---
+
+### Definition of Ready (DoR)
+- [ ] Bug is reproducible and clearly described
+- [ ] Environment details provided
+- [ ] Steps to reproduce written
+- [ ] Screenshots/logs included (if possible)
+- [ ] Linked to existing issues/PRs (if any)
+- [ ] Estimate added (if relevant)
+- [ ] Ready for triage
+
+### Definition of Done (DoD)
+- [ ] Bug confirmed and reproducible
+- [ ] Fix implemented and tested (all supported browsers/devices)
+- [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/)
+- [ ] Documentation updated (if needed)
+- [ ] Changelog entry prepared for PR (CHANGELOG.md)
+- [ ] QA performed
+- [ ] No adverse impact on performance or security
+- [ ] Linked issue closed

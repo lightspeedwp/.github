@@ -17,67 +17,62 @@ A clear and concise description of the problem or opportunity you are trying to 
 
 ## Describe the solution you'd like
 
-```md
----
-author: "LightSpeedWP Team"
-contributors:
-	- name: "Ash"
-		github: "ash"
-	- name: "LightSpeedWP"
-		github: "lightspeedwp"
-date: "2025-09-17"
-last_modified: "2025-09-17"
-tags:
-	- enhancement
-	- feature
-	- wordpress
-	- request
-	- triage
-categories:
-	- issue
-	- enhancement
-	- feature
-version: "1.0.0"
-permalink: "/issue-template/enhancement-request"
-license: "MIT"
-related_links:
-	- "https://github.com/lightspeedwp/.github"
-	- "https://developer.wordpress.org/coding-standards/"
 A clear and concise description of what you want to happen. If possible, provide examples or references to similar features in other plugins/themes.
----
-```
 
 ## Designs / Mockups
 
-If applicable, add mockups, screenshots, or links to Figma/Sketch/other design files to help explain your solution.
+Add mockups/screenshots/links if relevant.
 
 ## Accessibility Considerations
 
-- Does this enhancement need to meet any [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
-- Are there any specific accessibility requirements or user needs to consider?
+- Does this enhancement need to meet [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
+- Any specific requirements?
 
 ## Acceptance Criteria
 
-Please list the requirements that must be met for this enhancement to be considered complete. Acceptance criteria should be clear, testable, and relevant to WordPress best practices. For example:
-
-- [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/) (PHP, JS, CSS, etc.)
-- [ ] Includes appropriate inline documentation (phpdoc, jsdoc, etc.)
-- [ ] Passes all automated and manual tests
-- [ ] Meets accessibility guidelines (where applicable)
 - [ ] Includes documentation updates (if needed)
-- [ ] Changelog.md is updated with a summary of the enhancement
-- [ ] Works with latest WordPress core and major plugins/themes
-- [ ] No adverse impact on performance or security
-- [ ] ...add any other relevant criteria
+- [ ] Changelog entry prepared for PR (CHANGELOG.md)
+- [ ] Tests added/updated
+- [ ] Labels and types match org standards
+- [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/)
+- [ ] Branch prefix for PR: feat/ or enhancement/
 
 ## Testing Requirements
 
-Describe any specific testing that should be performed (e.g., browser/device coverage, multisite, RTL, PHP versions, etc.).
+Describe any testing needed (browser/device coverage, etc.).
 
 ## Describe alternatives you've considered
 
-Please describe alternative solutions or features you have considered.
+List any alternative solutions.
 
-## Additional context
+## Additional Context
 
-Add any other context or information about the enhancement here.
+<!-- 
+Add any other context, screenshots, or notes here.
+Link any related issues or pull requests (e.g. #123, fixes #456). 
+Use correct branch prefix (feat/ or enhancement/) for PRs.
+-->
+
+## References
+
+- [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
+- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
+- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
+- [CHANGELOG.md](../CHANGELOG.md)
+
+---
+
+### Definition of Ready (DoR)
+- [ ] Problem/opportunity defined
+- [ ] Acceptance criteria written
+- [ ] Designs attached (if relevant)
+- [ ] Dependencies mapped
+- [ ] Estimate added (if relevant)
+
+### Definition of Done (DoD)
+- [ ] All AC met and demonstrated
+- [ ] Documentation and changelog updated
+- [ ] Tests added/updated
+- [ ] Correct labels/types applied
+- [ ] PR uses correct branch prefix
