@@ -1,4 +1,5 @@
 ---
+applyTo: '**/*'
 title: "WordPress Coding Standards Instructions"
 description: "Comprehensive coding standards and best practices for all LightSpeed WordPress projects."
 author: "LightSpeedWP Team"
