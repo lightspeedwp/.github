@@ -138,24 +138,25 @@ This document governs **automation for changelog enforcement, release creation, 
 
 ---
 
-## References
-
-- [GitHub Labels Guide](https://github.com/lightspeedwp/.github/blob/main/.github/labels-guide.md)
-- [Issue Types Guide](https://github.com/lightspeedwp/.github/blob/main/.github/issue-types.md)
-- [Branching Strategy](https://github.com/lightspeedwp/.github/blob/main/.github/branching-strategy.md)
-- [PR Template](https://github.com/lightspeedwp/.github/blob/main/.github/PULL_REQUEST_TEMPLATE.md)
-- [Project Templates](https://github.com/lightspeedwp/.github/tree/main/.github/project-templates/)
-- [Labelling & Project Automation Workflows](https://github.com/lightspeedwp/.github/tree/main/.github/workflows/)
-- [Org instructions for Copilot](https://docs.github.com/en/copilot/customizing-copilot/adding-organization-custom-instructions-for-github-copilot)
-
----
-
 ## How to use this document
 
 - Reference this file in repo-level README, CONTRIBUTING, and PR templates.
 - Link to it in project onboarding docs and contributor guides.
 - Treat as the single source of truth for automation, changelog, release, and labelling policies.
 - Update as automation or org-wide standards evolve; changes should be reviewed by maintainers.
+
+---
+
+## Reference
+
+- [CHANGELOG.md](../CHANGELOG.md): Changelog format, release notes, and versioning.
+- [CONTRIBUTING.md](../CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
+- [AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
+- [Org-wide Issue Labels](./ISSUE_LABELS.md): Default labels and usage guidance.
+- [Pull Request Labels](./PR_LABELS.md): PR classification and automation standards.
+- [Issue Types YAML](./issue-types.yml): Machine-readable issue types for workflow and automation.
+- [Canonical Label Definitions](./labels.yml): Label names, colours, and descriptions.
+- [Automated Label Assignment Rules](./labeler.yml): Automation for applying labels based on file changes and branch patterns.
 
 ---
 

@@ -108,11 +108,13 @@ Always use the correct prefix for your branch to ensure full automation and prop
 
 ## Reference
 
-- [CONTRIBUTING.md](../CONTRIBUTING.md): Full contribution guidelines, templates, and coding standards.
-- [Org-wide Issue Labels](./ISSUE_LABELS.md): Full list of default labels and usage guidance.
-- [Pull Request Labels](./PR_LABELS.md): Standards for PR classification and automation.
-- [Issue Types YAML](./issue-types.yml): Machine-readable list of all issue types for workflow and script automation.
-- [Canonical Label Definitions](./labels.yml): Source of truth for all label names, colours, and descriptions.
+- [CHANGELOG.md](../CHANGELOG.md): Changelog format, release notes, and versioning.
+- [CONTRIBUTING.md](../CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
+- [AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
+- [Org-wide Issue Labels](./ISSUE_LABELS.md): Default labels and usage guidance.
+- [Pull Request Labels](./PR_LABELS.md): PR classification and automation standards.
+- [Issue Types YAML](./issue-types.yml): Machine-readable issue types for workflow and automation.
+- [Canonical Label Definitions](./labels.yml): Label names, colours, and descriptions.
 - [Automated Label Assignment Rules](./labeler.yml): Automation for applying labels based on file changes and branch patterns.
 
 Use these resources to set the 'Type' field, apply companion labels, and ensure full alignment between documentation, label definitions, and automation.
