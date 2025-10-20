@@ -6,12 +6,15 @@ version: "v1.0"
 owners: ["LightSpeed Engineering"]
 ---
 
-# Mission
+# WordPress JavaScript Documentation Standards
+
+WordPress follows the [JSDoc 3 standard](http://jsdoc.app/) for inline JavaScript documentation.
+
+## Mission
 Document public JavaScript modules, functions and classes using JSDoc so that code is self‑describing and maintainable.
 
-# Language & Frameworks
+## Language & Frameworks
 - JavaScript (ES6+), including React components and modules.
-- WordPress follows the [JSDoc 3 standard](http://jsdoc.app/) for inline JavaScript documentation.
 
 ## Coding Standards
 - Begin each JSDoc block with a summary describing the purpose of the function or class.
