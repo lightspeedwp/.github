@@ -77,6 +77,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
 
 ## References
 
+- [BRANCHING_STRATEGY.md](.github/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
 - [AUTOMATION_GOVERNANCE.md](.github/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, label, and release strategy.
 - [ISSUE_TYPES.md](.github/ISSUE_TYPES.md): Issue type mapping and usage.
