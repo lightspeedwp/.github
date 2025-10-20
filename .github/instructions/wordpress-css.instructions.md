@@ -6,7 +6,7 @@ version: "v1.0"
 owners: ["LightSpeed Engineering"]
 ---
 
-# LightSpeed's Coding Standards
+# WordPress CSS Coding Standards
 
 ## Mission
 Provide clear guidelines for writing CSS (and Sass) consistent with the WordPress coding standards. Aim to keep styles readable, maintainable and accessible.
