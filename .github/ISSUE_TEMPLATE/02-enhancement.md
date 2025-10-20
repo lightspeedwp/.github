@@ -17,31 +17,35 @@ A clear and concise description of the problem or opportunity you are trying to 
 
 ## Describe the solution you'd like
 
- author: "LightSpeedWP Team"
- contributors:
-	 - name: "Ash"
-		 github: "ash"
-	 - name: "LightSpeedWP"
-		 github: "lightspeedwp"
- date: "2025-09-17"
- last_modified: "2025-09-17"
- tags:
-	 - enhancement
-	 - feature
-	 - wordpress
-	 - request
-	 - triage
- categories:
-	 - issue
-	 - enhancement
-	 - feature
- version: "1.0.0"
- permalink: "/issue-template/enhancement-request"
- license: "MIT"
- related_links:
-	 - "https://github.com/lightspeedwp/.github"
-	 - "https://developer.wordpress.org/coding-standards/"
+```md
+---
+author: "LightSpeedWP Team"
+contributors:
+	- name: "Ash"
+		github: "ash"
+	- name: "LightSpeedWP"
+		github: "lightspeedwp"
+date: "2025-09-17"
+last_modified: "2025-09-17"
+tags:
+	- enhancement
+	- feature
+	- wordpress
+	- request
+	- triage
+categories:
+	- issue
+	- enhancement
+	- feature
+version: "1.0.0"
+permalink: "/issue-template/enhancement-request"
+license: "MIT"
+related_links:
+	- "https://github.com/lightspeedwp/.github"
+	- "https://developer.wordpress.org/coding-standards/"
 A clear and concise description of what you want to happen. If possible, provide examples or references to similar features in other plugins/themes.
+---
+```
 
 ## Designs / Mockups
 
@@ -49,22 +53,22 @@ If applicable, add mockups, screenshots, or links to Figma/Sketch/other design f
 
 ## Accessibility Considerations
 
--   Does this enhancement need to meet any [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
--   Are there any specific accessibility requirements or user needs to consider?
+- Does this enhancement need to meet any [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
+- Are there any specific accessibility requirements or user needs to consider?
 
 ## Acceptance Criteria
 
 Please list the requirements that must be met for this enhancement to be considered complete. Acceptance criteria should be clear, testable, and relevant to WordPress best practices. For example:
 
--   [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/) (PHP, JS, CSS, etc.)
--   [ ] Includes appropriate inline documentation (phpdoc, jsdoc, etc.)
--   [ ] Passes all automated and manual tests
--   [ ] Meets accessibility guidelines (where applicable)
--   [ ] Includes documentation updates (if needed)
--   [ ] Changelog.md is updated with a summary of the enhancement
--   [ ] Works with latest WordPress core and major plugins/themes
--   [ ] No adverse impact on performance or security
--   [ ] ...add any other relevant criteria
+- [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/) (PHP, JS, CSS, etc.)
+- [ ] Includes appropriate inline documentation (phpdoc, jsdoc, etc.)
+- [ ] Passes all automated and manual tests
+- [ ] Meets accessibility guidelines (where applicable)
+- [ ] Includes documentation updates (if needed)
+- [ ] Changelog.md is updated with a summary of the enhancement
+- [ ] Works with latest WordPress core and major plugins/themes
+- [ ] No adverse impact on performance or security
+- [ ] ...add any other relevant criteria
 
 ## Testing Requirements
 

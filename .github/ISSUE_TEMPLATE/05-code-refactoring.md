@@ -9,14 +9,7 @@ milestone: ''
 type: 'refactor'
 ---
 
-## Code Area(s) Impacted
 
--   [ ] Frontend
--   [ ] Backend
--   [ ] REST API
--   [ ] Admin interface
--   [ ] Integrations
--   [ ] Other:
  author: "LightSpeedWP Team"
  contributors:
    - name: "Ash"
@@ -90,3 +83,12 @@ function save_booking($data) { ... }
 -   [ ] Code is peer-reviewed and follows project standards
 -   [ ] Tests are added or updated as needed
 -   [ ] Changelog.md is updated if applicable
+
+## Code Area(s) Impacted
+
+-   [ ] Frontend
+-   [ ] Backend
+-   [ ] REST API
+-   [ ] Admin interface
+-   [ ] Integrations
+-   [ ] Other:
