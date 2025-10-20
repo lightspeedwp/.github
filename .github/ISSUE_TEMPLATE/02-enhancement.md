@@ -1,55 +1,76 @@
 ---
 name: '🚀 Enhancement / Feature Request'
 about: Suggest a new feature or improvement for this WordPress project
-title: '[Enhancement] '
-labels: [enhancement, needs-triage]
+title: '[Enhancement] <Short description>'
+labels: [status:needs-triage, priority:normal, type:feature, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: 'enhancement'
+type: feature
+references:
+  - CONTRIBUTING.md
+  - ISSUE_TYPES.md
+  - PR_LABELS.md
+  - AUTOMATION_GOVERNANCE.md
 ---
-
-<!-- Thank you for suggesting an idea to make this WordPress project better! Please fill in as much of the template below as you can. -->
+<!--
+Thank you for suggesting an enhancement!
+Please fill in as much of the template below as you can.
+-->
 
 ## Is your enhancement related to a problem? Please describe.
 
-A clear and concise description of the problem or opportunity you are trying to solve.
+<!--
+Describe the problem or opportunity you are trying to solve.
+-->
 
 ## Describe the solution you'd like
 
-A clear and concise description of what you want to happen. If possible, provide examples or references to similar features in other plugins/themes.
+<!--
+Describe what you want to happen. If possible, provide examples or references to similar features in other plugins/themes.
+-->
 
 ## Designs / Mockups
 
-Add mockups/screenshots/links if relevant.
+<!--
+Add mockups, screenshots, or links if relevant.
+-->
 
 ## Accessibility Considerations
 
-- Does this enhancement need to meet [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
-- Any specific requirements?
+<!--
+Does this enhancement need to meet [WordPress Accessibility Guidelines](https://make.wordpress.org/accessibility/handbook/)?
+Any specific requirements or user needs?
+-->
 
 ## Acceptance Criteria
 
-- [ ] Includes documentation updates (if needed)
-- [ ] Changelog entry prepared for PR (CHANGELOG.md)
+<!--
+List requirements for completion, e.g. documentation, tests, correct labels, etc.
+-->
+
+- [ ] All acceptance criteria met
+- [ ] Documentation/changelog updated
 - [ ] Tests added/updated
-- [ ] Labels and types match org standards
-- [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/)
-- [ ] Branch prefix for PR: feat/ or enhancement/
+- [ ] PR uses correct branch prefix (feat/ or enhancement/)
+- [ ] Labels/types match org standards
 
 ## Testing Requirements
 
+<!--
 Describe any testing needed (browser/device coverage, etc.).
+-->
 
 ## Describe alternatives you've considered
 
-List any alternative solutions.
+<!--
+List alternative solutions or features you have considered.
+-->
 
 ## Additional Context
 
-<!-- 
-Add any other context, screenshots, or notes here.
-Link any related issues or pull requests (e.g. #123, fixes #456). 
+<!--
+Add any other context, screenshots, notes, or references to related issues/PRs.
 Use correct branch prefix (feat/ or enhancement/) for PRs.
 -->
 
@@ -60,6 +81,7 @@ Use correct branch prefix (feat/ or enhancement/) for PRs.
 - [ISSUE_LABELS.md](../ISSUE_LABELS.md)
 - [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
 - [CHANGELOG.md](../CHANGELOG.md)
+- [Coding Standards](../instructions/coding-standards.instructions.md)
 
 ---
 
@@ -76,3 +98,14 @@ Use correct branch prefix (feat/ or enhancement/) for PRs.
 - [ ] Tests added/updated
 - [ ] Correct labels/types applied
 - [ ] PR uses correct branch prefix
+
+---
+
+## Directions & Next Steps
+
+- Double-check all details, requirements, and references above.
+- For related PRs, use the branch prefix `feat/` or `enhancement/` (see [Branching Strategy](../AUTOMATION_GOVERNANCE.md)).
+- Reference this issue in your PR using keywords like `fixes #{issue_number}` for auto-closing.
+- Tag a maintainer for review or triage if needed.
+- See [Contribution Guidelines](../CONTRIBUTING.md) and [Coding Standards](../instructions/coding-standards.instructions.md).
+- For automation, labels, and issue types, review [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).

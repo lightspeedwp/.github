@@ -2,15 +2,16 @@
 name: "🗨️ Saved Replies Proposal"
 about: "Propose or update saved replies for this repository"
 title: "[Saved Reply] <Brief description of the new or updated reply>"
-labels: ["saved replies", "communication", "enhancement"]
+labels: [status:needs-triage, priority:normal, type:communication, area:saved-replies]
 assignees: []
 projects: []
-author: "<your GitHub username>"
-target_file: "<e.g. /.github/SAVED_REPLIES.md or /.github/saved-replies/<topic>.saved_reply.md>"
-affected_process: "<Where will this reply be used? Issues, PRs, Discussions, etc.>"
-related_issues: []
-created: "<yyyy-mm-dd>"
-updated: "<yyyy-mm-dd>"
+milestone: ''
+type: communication
+references:
+  - CONTRIBUTING.md
+  - ISSUE_TYPES.md
+  - PR_LABELS.md
+  - AUTOMATION_GOVERNANCE.md
 ---
 
 ## Summary

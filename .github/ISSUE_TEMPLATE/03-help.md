@@ -1,12 +1,17 @@
 ---
 name: '❓ Need Help with WordPress?'
 about: Submit your WordPress-related questions here. We're happy to assist!
-title: '[Help] '
-labels: [question, support, wordpress]
+title: '[Help] <Short summary of your question>'
+labels: [status:needs-triage, priority:normal, type:support, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: 'question'
+type: support
+references:
+  - CONTRIBUTING.md
+  - ISSUE_TYPES.md
+  - PR_LABELS.md
+  - AUTOMATION_GOVERNANCE.md
 ---
 
 <!--
@@ -41,9 +46,25 @@ Link to related docs, issues, or saved replies if applicable.
 - [ISSUE_LABELS.md](../ISSUE_LABELS.md)
 - [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
 - [CHANGELOG.md](../CHANGELOG.md)
+- [Coding Standards](../instructions/coding-standards.instructions.md)
 
 ---
 
-### Maintainer Checklist
+### Definition of Ready (DoR)
+- [ ] Question or issue clearly described
+- [ ] Steps taken provided
+- [ ] Context/screenshots attached (if applicable)
+
+### Definition of Done (DoD)
 - [ ] Issue resolved or routed to correct template
-- [ ] Saved reply used if applicable
+- [ ] Maintainer saved reply used if applicable
+- [ ] Documentation or help resources referenced (if needed)
+
+---
+
+## Directions & Next Steps
+
+- Review your submission for completeness and clarity.
+- Tag a maintainer if you need triage or a faster response.
+- Check [Contribution Guidelines](../CONTRIBUTING.md) and [Coding Standards](../instructions/coding-standards.instructions.md) for further help.
+- For automation, labels, and issue types, review [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).

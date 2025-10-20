@@ -1,161 +1,100 @@
 ---
-title: "Prompts Template (master)"
-version: "v1.0"
-last_updated: "2025-10-19"
-author: "LightSpeed"
+title: "LightSpeed Copilot Prompts Index"
+version: "v1.1"
+last_updated: "2025-10-20"
+author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
-description: "Master prompt index and guidance. Cross-references Copilot instructions, agents, chatmodes, and all prompt files."
-tags: ["lightspeed","templates","copilot","agents","prompts","models"]
+description: "Master prompt index for all Copilot Chat and automation prompts in the LightSpeed organisation. Lists and cross-references all prompt files and related instructions."
+tags: ["lightspeed", "copilot", "prompts", "automation", "review", "workflow"]
 type: "prompt"
 ---
 
-# Role (required)
-You are a [role]. Follow our [framework/patterns] to [type of task]. Avoid [practices or tools] unless specified.
+# LightSpeed Copilot Prompt Library
 
-# Index
-- Use `/copilot/templates/template.prompt.md` for new prompts.
-- See [custom-instructions.md](../custom-instructions.md) for the central Copilot and agent standards, instructions, and prompts.
-- See [AGENTS.md](../../AGENTS.md) for global AI rules.
-- See [agents/agent.md](../agents/agent.md) and [chatmodes/chatmodes.md](../chatmodes/chatmodes.md) for workflow and chatmode guidance.
-- All prompt files in this folder:
-  - `accessibility-review.prompt.md`
-  - `add-frontmatter.prompt.md`
-  - `audit-jsdoc.prompt.md`
-  - `audit-phpdoc.prompt.md`
-  - `author-json-schema.prompt.md`
-  - `build-agent-and-tests.prompt.md`
-  - `dev-code-review.prompt.md`
-  - `fix-javascript-lint.prompt.md`
-  - `fix-php-lint.prompt.md`
-  - `generate-gh-workflow.prompt.md`
-  - `increase-test-coverage.prompt.md`
-  - `inline-documentation.prompt.md`
-  - `label-issues.prompt.md`
-  - `pattern-generation.prompt.md`
-  - `refactor-theme-types.prompt.md`
-  - `validate-json.prompt.md`
+This folder contains reusable prompts for common development and review tasks in any LightSpeed WordPress project.  
+Prompts are designed for Copilot Chat, GitHub Actions, and automation workflows.
 
-# Purpose
-- Write a clear, outcome-focused prompt that uses the linked instructions.
-
-# Paste or reference instructions
-- Reference: `../templates/coplan-instructions.md`
-- If instructions are missing, pause and request them.
-
-# User input checklist
-- What you need from the user (files, links, constraints, acceptance criteria).
-
-# System constraints (e.g., length, tone, outputs)
-- UK English; concise; cite sources when browsing.
-- Respect any length caps (4,000 chars for Space instructions).
-
-# Example first message to Copilot
-- “Use `../templates/coplan-instructions.md`. My goal is […]. Inputs are […]. Produce […]. Show your plan then proceed.”
-
-# Verification steps (what “good” looks like)
-- Meets acceptance criteria; includes a short changelog; no tool sprawl; runnable outputs.
-
-# Style (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Purpose (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Type of Task (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# How to ask for help (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Conventions (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Process (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Examples (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Important notes (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Who is this for (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Responsibilities (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Patterns or Frameworks to Follow (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Practices (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Tools (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Coverage (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Constraints (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# What to do (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# What not do (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Best Practices (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Guardrails (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Checklist relevant to instructions (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Outputs (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Contribution & Collaboration (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Non-goals (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Resource links (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
-# Prompt (required — see D2)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+To run a prompt, open the file or use `/filename` in Copilot Chat.
 
 ---
-Provide safe defaults; mark optional flags clearly.
-Start by asking about any LightSpeed internal process, documentation, or best practice. This Space is your single source of truth for LightSpeed workflows.
-Aim for small, safe, well-documented steps that make the Figma → WordPress handoff effortless.
+
+## Dynamic Reference
+
+All prompt files in this directory:
+- [`*.prompt.md`](./) — All Markdown files ending with `.prompt.md` are considered reusable prompts for Copilot Chat, GitHub Actions, and agent workflows.
+
+> **When adding a new prompt file, ensure it has clear YAML frontmatter, follows project conventions, and is listed below.**
+
+---
+
+## Explicit Prompt File Index
+
+Below are all prompt files available in this folder. Each file is reusable for Copilot Chat, review automation, or workflow scripting.
+
+| File                                                    | Description                                               |
+| ------------------------------------------------------- | --------------------------------------------------------- |
+| [accessibility-review.prompt.md](./accessibility-review.prompt.md)         | Accessibility review checklist and automation for any LightSpeed WordPress project. |
+| [add-frontmatter.prompt.md](./add-frontmatter.prompt.md)                 | Insert or normalise YAML frontmatter in docs and instructions. |
+| [audit-jsdoc.prompt.md](./audit-jsdoc.prompt.md)                         | Audit JS files for JSDoc coverage per WordPress guidance; add/fix inline docs. |
+| [audit-phpdoc.prompt.md](./audit-phpdoc.prompt.md)                       | Audit PHP files for WordPress DocBlocks and fix missing/incorrect tags. |
+| [author-json-schema.prompt.md](./author-json-schema.prompt.md)            | Draft a JSON Schema from sample data and business rules. |
+| [build-agent-and-tests.prompt.md](./build-agent-and-tests.prompt.md)      | Create a minimal agent (capabilities, tools, guardrails) and tests. |
+| [dev-code-review.prompt.md](./dev-code-review.prompt.md)                  | Guidelines for providing feedback to junior developers in any LightSpeed WordPress project. |
+| [fix-javascript-lint.prompt.md](./fix-javascript-lint.prompt.md)          | Fix ESLint/Prettier issues; align with WordPress JS style. |
+| [fix-php-lint.prompt.md](./fix-php-lint.prompt.md)                        | Run PHPCS cleanup for WordPress PHP style; safe auto-fixes only. |
+| [generate-gh-workflow.prompt.md](./generate-gh-workflow.prompt.md)        | Generate a secure, cache-efficient GitHub Actions workflow for this repo. |
+| [increase-test-coverage.prompt.md](./increase-test-coverage.prompt.md)    | Expand test coverage focusing on risk and critical paths. |
+| [inline-documentation.prompt.md](./inline-documentation.prompt.md)        | Add comprehensive inline documentation to PHP/JS code (WordPress standards). |
+| [label-issues.prompt.md](./label-issues.prompt.md)                        | Apply org label rules to a PR via GitHub Action (not issues). |
+| [pattern-generation.prompt.md](./pattern-generation.prompt.md)            | Template for creating new WordPress block patterns in any LightSpeed project. |
+| [refactor-theme-types.prompt.md](./refactor-theme-types.prompt.md)        | Refactor the typography section in theme.json for any LightSpeed WordPress project. |
+| [validate-json.prompt.md](./validate-json.prompt.md)                      | Validate JSON files against schemas and report exact errors. |
+
+> _This list must be updated if any prompt files are added, removed, or renamed._
+
+---
+
+## How to Use
+
+1. Copy the content of the relevant prompt.
+2. Paste it into GitHub Copilot Chat.
+3. Customize the prompt with your specific requirements.
+4. Use the generated response as a starting point.
+
+---
+
+## Creating New Prompts
+
+When creating new prompts for this directory, please follow these guidelines:
+
+1. Use clear, descriptive filenames with the `.prompt.md` extension for agent mode prompts.
+2. Include a YAML frontmatter with `mode` and `description` fields.
+3. Structure the prompt with clear instructions.
+4. Update this index to include the new prompt.
+
+---
+
+## Maintaining Prompts
+
+Prompts should evolve as our project standards and requirements change. When updating:
+
+1. Ensure changes align with our project guidelines and instructions.
+2. Test the updated prompt with GitHub Copilot before committing.
+3. Consider backward compatibility with existing code.
+4. Document significant changes in the commit message.
+
+---
+
+## Related Guidance
+
+- [Custom Instructions (Org-wide)](../custom-instructions.md)
+- [Global AI Rules (AGENTS.md)](../../AGENTS.md)
+- [Agent Index](../agents/agent.md)
+- [Chat Modes](../chatmodes/chatmodes.md)
+- [Instructions Directory](../instructions/)
+
+## License
+
+These prompt files are part of the LightSpeed organization's community health files, licensed under the GNU General Public License v3.0.
+
+---
