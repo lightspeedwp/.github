@@ -8,12 +8,12 @@ owners: ["LightSpeed Engineering"]
 
 # WordPress CSS Coding Standards
 
-## Mission
-Provide clear guidelines for writing CSS (and Sass) consistent with the WordPress coding standards. Aim to keep styles readable, maintainable and accessible.
-
 Like any coding standard, the purpose of the WordPress CSS Coding Standards is to create a baseline for collaboration and review within various aspects of the WordPress open source project and community, from core code to themes to plugins. Files within a project should appear as though created by a single entity. Above all else, create code that is readable, meaningful, consistent, and beautiful.
 
 Within core stylesheets, inconsistencies will often be found. We are working on addressing these and make every effort to have patches and commits from this point forward follow the CSS coding standards. More information on the above and contributing to UI/front-end development will be forthcoming in a separate set of guidelines.
+
+## Mission
+Provide clear guidelines for writing CSS (and Sass) consistent with the WordPress coding standards. Aim to keep styles readable, maintainable and accessible.
 
 ## Language & Frameworks
 - CSS and SCSS. When possible, leverage WordPress’s block API and `theme.json` presets instead of custom styles.
