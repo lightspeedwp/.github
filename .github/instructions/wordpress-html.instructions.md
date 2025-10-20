@@ -32,7 +32,7 @@ type: "instructions"
 mode: "agent"
 ---
 
-# HTML Coding Standards Instructions
+# WordPress HTML Coding Standards
 
 ## Mission
 Guide developers to write semantic, accessible HTML templates and PHP files that embed HTML.
