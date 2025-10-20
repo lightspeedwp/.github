@@ -6,7 +6,7 @@ version: "v1.0"
 owners: ["LightSpeed Engineering"]
 ---
 
-# JavaScript Coding Standards Instructions
+# WordPress JavaScript Coding Standards
 
 JavaScript has become a critical component in developing WordPress-based applications (themes and plugins) as well as WordPress core. Standards are needed for formatting and styling JavaScript code to maintain the same code consistency as the WordPress standards provide for core PHP, HTML, and CSS code.
 
