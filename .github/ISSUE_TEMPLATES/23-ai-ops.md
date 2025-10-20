@@ -12,15 +12,21 @@ references:
   - ISSUE_TYPES.md
   - PR_LABELS.md
   - AUTOMATION_GOVERNANCE.md
+  - LightSpeed General Instructions
+  - Coding Standards
 ---
 
 ## AI Ops Summary
 
-Describe the AI workflow, agent, or dataset involved.
+<!-- Describe the AI workflow, agent, or dataset involved. -->
 
 ## Problem / Opportunity
 
-Outline challenges, improvements, or goals.
+<!-- Outline challenges, improvements, or goals. -->
+
+## Approach / Solution
+
+<!-- Describe the solution, approach, or required automation. -->
 
 ## Acceptance Criteria
 
@@ -32,6 +38,18 @@ Outline challenges, improvements, or goals.
 - [ ] Approved by at least one maintainer
 
 ## Additional Context
+
+<!-- Add links to datasets, models, logs, or related issues. -->
+
+## References
+
+- [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
+- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
+- [PR_LABELS.md](../PR_LABELS.md)
+- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
+- [LightSpeed General Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
+- [Coding Standards](../instructions/coding-standards.instructions.md)
 
 ---
 
@@ -46,5 +64,3 @@ Outline challenges, improvements, or goals.
 - [ ] Solution/automation verified
 - [ ] Documentation updated
 - [ ] PR uses correct branch prefix (ai/)
-
----

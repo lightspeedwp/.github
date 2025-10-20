@@ -12,15 +12,17 @@ references:
   - ISSUE_TYPES.md
   - PR_LABELS.md
   - AUTOMATION_GOVERNANCE.md
+  - LightSpeed General Instructions
+  - Coding Standards
 ---
 
 ## Review Summary
 
-Describe the code/PR needing review, goals, and checklist.
+<!-- Describe the code/PR needing review, goals, and checklist. -->
 
 ## Areas to Review
 
-List files, features, or flows for review.
+<!-- List files, features, or flows for review. -->
 
 ## Review Checklist
 
@@ -30,7 +32,26 @@ List files, features, or flows for review.
 - [ ] Performance and security checked
 - [ ] Approvals/feedback given
 
+## Acceptance Criteria
+
+- [ ] Review goals/areas completed
+- [ ] Feedback/action applied
+- [ ] Documentation updated
+- [ ] PR merged/closed
+
 ## Additional Context
+
+<!-- Add any other info, links to PRs, related issues, or reviewer notes. -->
+
+## References
+
+- [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
+- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
+- [PR_LABELS.md](../PR_LABELS.md)
+- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
+- [LightSpeed General Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
+- [Coding Standards](../instructions/coding-standards.instructions.md)
 
 ---
 
@@ -44,5 +65,3 @@ List files, features, or flows for review.
 - [ ] Feedback/action applied
 - [ ] Documentation updated
 - [ ] PR merged/closed
-
----

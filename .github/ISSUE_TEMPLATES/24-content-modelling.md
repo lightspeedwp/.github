@@ -12,11 +12,21 @@ references:
   - ISSUE_TYPES.md
   - PR_LABELS.md
   - AUTOMATION_GOVERNANCE.md
+  - LightSpeed General Instructions
+  - Coding Standards
 ---
 
 ## Content Modelling Summary
 
-Describe the content model, CPT, taxonomy, or structural change.
+<!-- Describe the content model, CPT, taxonomy, or structural change. -->
+
+## Models / Taxonomies
+
+<!-- List the content models, taxonomies, or structures to be created or changed. -->
+
+## Use Cases
+
+<!-- Explain why these models/taxonomies are needed. Who benefits? -->
 
 ## Acceptance Criteria
 
@@ -26,6 +36,18 @@ Describe the content model, CPT, taxonomy, or structural change.
 - [ ] Stakeholder/maintainer reviewed
 
 ## Additional Context
+
+<!-- Add links, diagrams, references, or related docs. -->
+
+## References
+
+- [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
+- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
+- [PR_LABELS.md](../PR_LABELS.md)
+- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
+- [LightSpeed General Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
+- [Coding Standards](../instructions/coding-standards.instructions.md)
 
 ---
 
@@ -39,5 +61,3 @@ Describe the content model, CPT, taxonomy, or structural change.
 - [ ] All acceptance criteria met
 - [ ] Structure/model tested and verified
 - [ ] Documentation updated
-
----
