@@ -1,19 +1,22 @@
 ---
 name: "🤖 Automation"
-about: "Propose, fix, or improve automation (actions, scripts, bots)"
-title: "[Automation] <Brief summary>"
+about: "Propose, fix, or improve automation (actions, scripts, bots)."
+title: "[Automation] <Short summary>"
 labels: [type:automation, status:needs-triage, area:automation]
 assignees: []
 projects: []
 milestone: ''
 type: automation
 references:
-  - CONTRIBUTING.md
-  - ISSUE_TYPES.md
-  - PR_LABELS.md
-  - AUTOMATION_GOVERNANCE.md
-  - LightSpeed General Instructions
-  - Coding Standards
+  - ../CONTRIBUTING.md
+  - .github/BRANCHING_STRATEGY.md
+  - .github/AUTOMATION_GOVERNANCE.md
+  - .github/PR_LABELS.md
+  - .github/SAVED_REPLIES.md
+  - .github/PROJECT_META.md
+  - .github/labeler.yml
+  - .github/labels.yml
+  - .github/issue-types.yml
 ---
 
 ## Automation Summary

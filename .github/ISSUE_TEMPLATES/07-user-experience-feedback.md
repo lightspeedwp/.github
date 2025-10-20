@@ -2,16 +2,21 @@
 name: '💡 User Experience Feedback'
 about: Share feedback on the usability and interface design of this WordPress project
 title: '[UX] <Short summary>'
-labels: [status:needs-triage, priority:normal, type:improve, area:ux]
+labels: [type:improve, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ''
 type: improve
 references:
-  - CONTRIBUTING.md
-  - ISSUE_TYPES.md
-  - PR_LABELS.md
-  - AUTOMATION_GOVERNANCE.md
+  - ../CONTRIBUTING.md
+  - .github/BRANCHING_STRATEGY.md
+  - .github/AUTOMATION_GOVERNANCE.md
+  - .github/PR_LABELS.md
+  - .github/SAVED_REPLIES.md
+  - .github/PROJECT_META.md
+  - .github/labeler.yml
+  - .github/labels.yml
+  - .github/issue-types.yml
 ---
 
 ## Describe your experience
@@ -41,11 +46,15 @@ Add any other relevant information or examples.
 
 ## References
 
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
-- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
-- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
-- [CHANGELOG.md](../CHANGELOG.md)
+- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
+- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
+- [PR Labels](.github/PR_LABELS.md)
+- [Saved Replies](.github/SAVED_REPLIES.md)
+- [Project Meta](.github/PROJECT_META.md)
+- [Labeler Config](.github/labeler.yml)
+- [Labels](.github/labels.yml)
+- [Issue Types](.github/issue-types.yml)
 
 ---
 

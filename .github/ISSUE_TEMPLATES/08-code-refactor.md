@@ -1,17 +1,22 @@
 ---
-name: '🛠️ Code Refactoring / Review'
-about: Request or propose a code refactoring or review task to improve code quality, maintainability, and consistency in this WordPress project
-title: '[Refactor] <Short summary>'
-labels: [status:needs-triage, priority:normal, type:refactor, area:core]
+name: "♻️ Code Refactor"
+about: "Request or propose a code refactoring or review to improve code quality, maintainability, and consistency."
+title: "[Refactor] <Short summary>"
+labels: [type:refactor, status:needs-review, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ''
 type: refactor
 references:
-  - CONTRIBUTING.md
-  - ISSUE_TYPES.md
-  - PR_LABELS.md
-  - AUTOMATION_GOVERNANCE.md
+  - ../CONTRIBUTING.md
+  - .github/BRANCHING_STRATEGY.md
+  - .github/AUTOMATION_GOVERNANCE.md
+  - .github/PR_LABELS.md
+  - .github/SAVED_REPLIES.md
+  - .github/PROJECT_META.md
+  - .github/labeler.yml
+  - .github/labels.yml
+  - .github/issue-types.yml
 ---
 
 <!--
@@ -111,15 +116,15 @@ Tick all that apply and/or describe in detail.
 
 ## References
 
-<!--
-Link to documentation, standards, guidelines, or related issues/PRs.
-For example:
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
-- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
-- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
-- [CHANGELOG.md](../CHANGELOG.md)
-- [Coding Standards](../instructions/coding-standards.instructions.md)
+- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
+- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
+- [PR Labels](.github/PR_LABELS.md)
+- [Saved Replies](.github/SAVED_REPLIES.md)
+- [Project Meta](.github/PROJECT_META.md)
+- [Labeler Config](.github/labeler.yml)
+- [Labels](.github/labels.yml)
+- [Issue Types](.github/issue-types.yml)
 -->
 
 ---

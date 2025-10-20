@@ -1,23 +1,22 @@
 ---
-name: "🧪 Testing Proposal"
-about: "Propose, create, or refactor Playwright or other automated tests for this repository"
-title: "[Test] <Brief description of the new, updated, or refactored test>"
-labels: [status:needs-triage, priority:normal, type:test, area:testing]
+name: "🧪 Test Coverage"
+about: "Propose, add, or expand tests (unit, integration, E2E)."
+title: "[Test Coverage] <Short summary>"
+labels: [type:test, status:needs-triage, priority:normal, area:testing]
 assignees: []
 projects: []
 milestone: ''
 type: test
 references:
-  - CONTRIBUTING.md
-  - ISSUE_TYPES.md
-  - PR_LABELS.md
-  - AUTOMATION_GOVERNANCE.md
-  - LightSpeed General Instructions
-  - Coding Standards
-  - HTML Templates
-  - Pattern Development
-  - PHP Block Instructions
-  - Theme JSON
+  - ../CONTRIBUTING.md
+  - .github/BRANCHING_STRATEGY.md
+  - .github/AUTOMATION_GOVERNANCE.md
+  - .github/PR_LABELS.md
+  - .github/SAVED_REPLIES.md
+  - .github/PROJECT_META.md
+  - .github/labeler.yml
+  - .github/labels.yml
+  - .github/issue-types.yml
 ---
 
 <!--

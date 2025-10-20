@@ -1,17 +1,22 @@
 ---
 name: "🎨 Design"
 about: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
-title: "[Design] <Brief summary of the design need>"
+title: "[Design] <Brief summary>"
 labels: [type:design, status:needs-design-review, priority:normal, area:design-system]
 assignees: []
 projects: []
 milestone: ''
 type: design
 references:
-  - CONTRIBUTING.md
-  - ISSUE_TYPES.md
-  - PR_LABELS.md
-  - AUTOMATION_GOVERNANCE.md
+  - ../CONTRIBUTING.md
+  - .github/BRANCHING_STRATEGY.md
+  - .github/AUTOMATION_GOVERNANCE.md
+  - .github/PR_LABELS.md
+  - .github/SAVED_REPLIES.md
+  - .github/PROJECT_META.md
+  - .github/labeler.yml
+  - .github/labels.yml
+  - .github/issue-types.yml
 ---
 
 <!--
@@ -71,14 +76,15 @@ Add links, screenshots, references, or other design docs.
 
 ## References
 
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
-- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
-- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
-- [CHANGELOG.md](../CHANGELOG.md)
-- [Coding Standards](../instructions/coding-standards.instructions.md)
-- [Pattern Development](../instructions/pattern-development.instructions.md)
-- [Theme JSON](../instructions/theme-json.instructions.md)
+- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
+- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
+- [PR Labels](.github/PR_LABELS.md)
+- [Saved Replies](.github/SAVED_REPLIES.md)
+- [Project Meta](.github/PROJECT_META.md)
+- [Labeler Config](.github/labeler.yml)
+- [Labels](.github/labels.yml)
+- [Issue Types](.github/issue-types.yml)
 
 ---
 

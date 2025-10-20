@@ -1,22 +1,27 @@
 ---
-name: '📝 Task'
-about: Propose a task or checklist item for this WordPress project
-title: '[Task] <Short summary>'
-labels: [status:needs-triage, priority:normal, type:task, area:core]
+name: "📝 Task"
+about: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
+title: "[Task] <Short summary>"
+labels: [type:task, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ''
 type: task
 references:
-  - CONTRIBUTING.md
-  - ISSUE_TYPES.md
-  - PR_LABELS.md
-  - AUTOMATION_GOVERNANCE.md
+  - ../CONTRIBUTING.md
+  - .github/BRANCHING_STRATEGY.md
+  - .github/AUTOMATION_GOVERNANCE.md
+  - .github/PR_LABELS.md
+  - .github/SAVED_REPLIES.md
+  - .github/PROJECT_META.md
+  - .github/labeler.yml
+  - .github/labels.yml
+  - .github/issue-types.yml
 ---
 
-## Task Description
+## Task Summary
 
-Describe the task or checklist item.
+<!-- Briefly describe the task or checklist item. What is the goal or outcome? -->
 
 ## Acceptance Criteria
 
@@ -26,20 +31,29 @@ Describe the task or checklist item.
 - [ ] Changelog entry prepared for PR if task completed via PR
 - [ ] Correct branch prefix for PR: chore/ or task/
 
+## Steps / Checklist
+
+<!-- List any steps, sub-tasks, or items for completion. -->
+
+## Dependencies
+
+<!-- List any dependencies, blockers, or related issues. -->
+
 ## Additional Context
 
-<!-- 
-Add other context or info about the task.
-Use correct branch prefix (chore/ or task/) for PRs.
--->
+<!-- Add other context, screenshots, links, or info about the task. -->
 
 ## References
 
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
-- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
-- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
-- [CHANGELOG.md](../CHANGELOG.md)
+- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
+- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
+- [PR Labels](.github/PR_LABELS.md)
+- [Saved Replies](.github/SAVED_REPLIES.md)
+- [Project Meta](.github/PROJECT_META.md)
+- [Labeler Config](.github/labeler.yml)
+- [Labels](.github/labels.yml)
+- [Issue Types](.github/issue-types.yml)
 
 ---
 

@@ -1,19 +1,22 @@
 ---
 name: "🔍 Research"
-about: "Propose or document technical research, investigation, or exploratory work"
-title: "[Research] <Brief summary of the research>"
+about: "Propose or document technical research, investigation, or exploratory work."
+title: "[Research] <Brief summary>"
 labels: [type:research, status:needs-review, priority:minor, area:core]
 assignees: []
 projects: []
 milestone: ''
 type: research
 references:
-  - CONTRIBUTING.md
-  - ISSUE_TYPES.md
-  - PR_LABELS.md
-  - AUTOMATION_GOVERNANCE.md
-  - LightSpeed General Instructions
-  - Coding Standards
+  - ../CONTRIBUTING.md
+  - .github/BRANCHING_STRATEGY.md
+  - .github/AUTOMATION_GOVERNANCE.md
+  - .github/PR_LABELS.md
+  - .github/SAVED_REPLIES.md
+  - .github/PROJECT_META.md
+  - .github/labeler.yml
+  - .github/labels.yml
+  - .github/issue-types.yml
 ---
 
 ## Research Goal
@@ -42,13 +45,15 @@ references:
 
 ## References
 
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
-- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
-- [PR_LABELS.md](../PR_LABELS.md)
-- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
-- [LightSpeed General Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-- [Coding Standards](../instructions/coding-standards.instructions.md)
+- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
+- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
+- [PR Labels](.github/PR_LABELS.md)
+- [Saved Replies](.github/SAVED_REPLIES.md)
+- [Project Meta](.github/PROJECT_META.md)
+- [Labeler Config](.github/labeler.yml)
+- [Labels](.github/labels.yml)
+- [Issue Types](.github/issue-types.yml)
 
 ---
 
