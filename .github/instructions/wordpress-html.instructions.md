@@ -5,7 +5,7 @@ author: "LightSpeedWP Team. Enforce WordPress HTML standards and semantic markup
 last_updated: "2025-10-19"
 version: "v1.0"
 owners: ["LightSpeed Engineering"]
-title: "[Instructions] HTML Template"
+title: "[Instructions] HTML Coding Standards"
 contributors:
   - name: "Ash Shaw"
     github: "ashleyshaw"
@@ -31,6 +31,8 @@ license: "GPL-3.0"
 type: "instructions"
 mode: "agent"
 ---
+
+# HTML Coding Standards Instructions
 
 ## Mission
 Guide developers to write semantic, accessible HTML templates and PHP files that embed HTML.
