@@ -1,25 +1,62 @@
-# LightSpeed Community Health Repo Project Governance
+# LightSpeed Community Health Repo Governance
 
-## Maintainers
+## Overview
+
+This document explains how the LightSpeed community health repository is governed. It describes project roles, responsibilities, decision-making processes, and references key organisational standards and policies. The goal is to ensure a transparent, inclusive, and maintainable project.
+
+## Roles & Responsibilities
+
+### Maintainers
+
+#### Current Maintainers
 
 - [Ash Shaw](https://github.com/ashleyshaw)
 
-Maintainers are responsible for issue/PR triage, feature additions, maintenance, bugfixes, security fixes, releases, promoting existing contributors to maintainers, managing repo and CI configuration, etc.
+#### Responsibilities
 
-Promoting contributors to maintainers is done by a maintainer after a significant number of high-quality PRs.
+- Triage issues and pull requests
+- Review, merge, and release features and fixes
+- Ensure code quality, security, and documentation standards
+- Manage repo configuration and CI/CD
+- Promote contributors to maintainers
+- Update governance, automation, and workflow documents
 
-## Contributors
+### Promotion criteria
 
-Anyone who contributes code or content or time, via issues or pull requests or otherwise. Contributors have access to triaging issues/PRs and commit access to the repository.
+Contributors may be promoted to maintainer after a significant number of high-quality PRs, consistent engagement, and demonstration of LightSpeed standards. Promotion is at the discretion of existing maintainers.
 
-## Governance Reference Documents
+### Contributors
 
-- [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
-- [CHANGELOG.md](../CHANGELOG.md): Changelog format, release notes, and versioning.
-- [CONTRIBUTING.md](../CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
-- [AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
-- [Org-wide Issue Labels](./ISSUE_LABELS.md): Default labels and usage guidance.
-- [Pull Request Labels](./PR_LABELS.md): PR classification and automation standards.
-- [Issue Types YAML](./issue-types.yml): Machine-readable issue types for workflow and automation.
-- [Canonical Label Definitions](./labels.yml): Label names, colours, and descriptions.
-- [Automated Label Assignment Rules](./labeler.yml): Automation for applying labels based on file changes and branch patterns.
+- Anyone submitting code, content, or participating via issues or PRs.
+- Can triage issues and PRs, and have commit access once approved.
+- Expected to follow contribution guidelines and review requirements.
+
+## Decision Making
+
+- **Routine changes:** Maintainers review and merge PRs based on coding standards and contribution guidelines.
+- **Major changes:** Discussed openly, decided by consensus among maintainers. If consensus cannot be reached, lead maintainer decides.
+- **Conflict resolution:** Maintainers will mediate. Issues can be escalated via [contact methods](#reporting--contact).
+
+## Change Process
+
+- Governance changes are proposed via pull request and require review and approval from at least one maintainer.
+
+## Reporting & Contact
+
+- For governance or code of conduct concerns, open a GitHub issue or contact a maintainer directly.
+
+## Key Documents & Standards
+
+- [General Org Instructions](./.github/custom-instructions.md)
+- [Coding Standards](./.github/instructions/coding-standards.instructions.md)
+- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Branching Strategy](./BRANCHING_STRATEGY.md)
+- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
+- [Issue & PR Labels](./ISSUE_LABELS.md), [./PR_LABELS.md](./PR_LABELS.md), [./labels.yml](./labels.yml), [./labeler.yml](./labeler.yml)
+- [Issue Types YAML](./issue-types.yml)
+- [Pull Request Template](./.github/PULL_REQUEST_TEMPLATE.md)
+- [CHANGELOG](../CHANGELOG.md)
+
+---
+
+_This document is maintained by the LightSpeed community. Propose changes via pull request._
