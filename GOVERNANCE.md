@@ -1,16 +1,27 @@
 # LightSpeed Community Health Repo Governance
 
+Defines maintainer/contributor roles and decision making.  
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
 ## Overview
 
 This document explains how the LightSpeed community health repository is governed. It describes project roles, responsibilities, decision-making processes, and references key organisational standards and policies. The goal is to ensure a transparent, inclusive, and maintainable project.
 
+## Maintainers
+
+| Name             | GitHub Username                    | Profile URL                                |
+|------------------|-----------------------------------|--------------------------------------------|
+| Ash Shaw         | @ashleyshaw                       | [ashleyshaw](https://github.com/ashleyshaw)  |
+| Warwick Booth    | @krugazul                         | [krugazul](https://github.com/krugazul)      |
+| Chris Vancoillie | @eleshar                          | [eleshar](https://github.com/eleshar)        |
+| Zared Rogers     | @ZaredRogers                      | [ZaredRogers](https://github.com/ZaredRogers)|
+
+## Decision Making
+
+- **Routine:** Maintainers review and merge PRs.
+- **Major:** Consensus among maintainers.
+
 ## Roles & Responsibilities
-
-### Maintainers
-
-#### Current Maintainers
-
-- [Ash Shaw](https://github.com/ashleyshaw)
 
 #### Responsibilities
 
