@@ -1,110 +1,182 @@
-<!-- Paste the following two sections into your org `.github` repo’s `README.md`. 
-The H2 headings match the anchors in your links so `#projects-bot` and `#setup-projects-automation` will work immediately. -->
+# LightSpeed Organisation `.github` Community Health Repository
 
-## Projects Bot
-
-**Purpose.** Automates labels and syncs Issues/PRs into GitHub Projects (Status / Priority / Type) across LightSpeed repos. Runs entirely in GitHub Actions using a GitHub App installation token—no external server, no user OAuth.
-
-**What it does.**
-
-- Applies labels on Issues/PRs (file‑ and branch‑based) and enforces exactly one `status:*`.
-- Adds Issues/PRs to your Project (Beta) and updates **Status / Priority / Type** from labels & PR branch prefix.
-- Nudges PRs without a changelog category via `meta:needs-changelog`.
-
-**Workflows.**
-
-- `.github/workflows/labels-issues-prs.yml` – Issue & PR labelling
-- `.github/workflows/project-meta-sync.yml` – Add to Project + field sync
-- `.github/labeler.yml` – label rules (file globs & branch regex)
-
-**Required Project fields.** Single‑select options must match these values (or update the workflow mapping):
-
-- **Status** → `Triage`, `Ready`, `In progress`, `In review`, `In QA`, `Blocked`, `Done`
-- **Priority** → `Critical`, `Important`, `Normal`, `Minor`
-- **Type** (optional) → `Feature`, `Bug`, `Documentation`, `Task`
-
-**GitHub App (recommended).**
-
-- **Org permissions:** Projects **Read & write**.
-- **Repo permissions:** Issues **Read**, Pull requests **Read**, Contents **Read**.
-- **Secrets/variables:**
-  - `LS_APP_ID` (org/repo **variable**): your App ID
-  - `LS_APP_PRIVATE_KEY` (org/repo **secret**): your App private key (PEM)
-  - `LS_PROJECT_URL` (org/repo **variable**): e.g. `https://github.com/orgs/LightSpeed/projects/1`
-- The sync workflow mints an installation token with `actions/create-github-app-token@v2` and passes it to the project steps.
-
-**PAT fallback (optional).** If you can’t use a GitHub App, set `LS_PROJECT_PAT` (fine‑grained/classic PAT with Projects read/write + Repo read) and change `github-token:` inputs accordingly.
-
-**Security.** No webhooks or callback URL required; the App only grants Actions a short‑lived installation token. Keep the private key in Actions secrets.
-
-**Troubleshooting.**
-
-- 403 on project updates → the App likely lacks **Org → Projects: Read & write**, or isn’t installed on the repo.
-- Items not added to project → check `LS_PROJECT_URL` and that it’s a **Projects (Beta)** board, not Classic.
-- Labels not applied → ensure `.github/labeler.yml` exists and patterns match the repo.
+> Central hub for all shared GitHub, Copilot, and workflow files across the LightSpeed WordPress organisation.
 
 ---
 
-## Setup Projects Automation
+## Purpose & Overview
 
-Follow these steps once per organisation; then drop the workflows into any repo that should be automated.
+This repository’s `.github` folder serves as the **single source of truth** for all organisation-wide community health files, automation rules, standards, and AI/Copilot instructions for LightSpeed projects. By centralising these files, we ensure consistency, discoverability, and maintainability across every repo in the organisation.
 
-### 1) Create & install the GitHub App
+**Key goals:**
+- Standardise contribution, code quality, review, and labelling across all repos.
+- Automate issue/PR labelling, project syncing, and governance.
+- Provide a canonical set of instructions for AI agents & Copilot.
+- Centralise saved replies, prompts, chatmodes, and reusable workflows.
+- Enable fast onboarding and safe, scalable development.
 
-1. Org **Settings → Developer settings → GitHub Apps → New GitHub App**.
-2. Name it (e.g. *LightSpeed Projects Bot*). Webhooks/callback not needed.
-3. **Permissions:** Org → Projects **Read & write**. Repo → Issues **Read**, Pull requests **Read**, Contents **Read**.
-4. **Generate private key** (download `.pem`).
-5. **Install** the App to the org (all or selected repos).
+See [GitHub: About organisation-wide community health files](https://github.blog/changelog/2019-02-21-organization-wide-community-health-files/) and [Creating a default community health file for your organization](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file) for more context.
 
-### 2) Add Actions secrets & variables
+### How Organisation-wide Health Files Work
 
-At the **org level** (recommended) or per repo:
+Organizations can add community health files to a specially named `.github` repository, which then serves as the organisation-wide default for all repositories. You can include `CONTRIBUTING`, `SUPPORT`, `CODE_OF_CONDUCT`, `ISSUE_TEMPLATE(S)`, or `PULL_REQUEST_TEMPLATE(S)` files here. If a repository does not have its own version of a given file, the org-wide default from `.github` will be surfaced throughout developer workflows (e.g., when opening issues or PRs, or via the Community Profile), as if it were committed directly to that repo.
 
-- Variables: `LS_APP_ID`, `LS_PROJECT_URL`
-- Secrets: `LS_APP_PRIVATE_KEY`
+> While the file itself won’t appear in the file browser or Git history for each repository, it will be surfaced throughout developers’ workflows, such as when opening a new issue or when viewing the Community Profile, just as if it were committed to the repository directly.
 
-**CLI (example):**
-```bash
-gh variable set LS_APP_ID --org LightSpeed --body 123456
-gh variable set LS_PROJECT_URL --org LightSpeed --body https://github.com/orgs/LightSpeed/projects/1
-gh secret set LS_APP_PRIVATE_KEY --org LightSpeed < path/to/private-key.pem
+---
+
+## Labelling & Automation
+
+This repository is the **canonical, organisation-wide source** for:
+
+- **Labels** ([automation/labels.yml](./automation/labels.yml)): Official label names, colours, and descriptions.
+- **Labeler Rules** ([automation/labeler.yml](./automation/labeler.yml)): Automation for applying labels based on file paths, branch names, or PR type.
+- **Issue Types** ([automation/issue-types.yml](./automation/issue-types.yml)): Machine-readable definitions mapping issue templates, types, and automation.
+
+**How it works:**
+- Labels, labeler, and issue types from this repo are referenced by reusable workflows and automation across all LightSpeed repositories.
+- If a repository does not have its own label or labeler config, the defaults from this repo apply.
+- **Automated labelling** ensures consistent triage, prioritisation, and project management across the organisation.
+- Maintainers should update labels and labeler rules *here* to synchronise org-wide conventions.
+- For more detail, see [AUTOMATION_GOVERNANCE.md](./automation/AUTOMATION_GOVERNANCE.md) and [ISSUE_LABELS.md](./automation/ISSUE_LABELS.md).
+
+**Quick links:**
+- [Label Definitions](./automation/labels.yml)
+- [Labeler Rules](./automation/labeler.yml)
+- [Issue Types](./automation/issue-types.yml)
+- [Automation Governance](./automation/AUTOMATION_GOVERNANCE.md)
+
+---
+
+## Folder Structure
+
+The `.github` folder is organised for maximum clarity and modularity, grouping related files for easy reference and automation.
+
+```
+.github/
+├── instructions/           # Coding, linting, template, pattern, and workflow instructions
+│   ├── coding-standards.instructions.md
+│   ├── linting.instructions.md
+│   ├── html-template.instructions.md
+│   ├── pattern-development.instructions.md
+│   ├── php-block.instructions.md
+│   ├── theme-json.instructions.md
+│   └── ... (topic-specific instructions)
+│
+├── prompts/                # AI prompt templates (accessibility, code review, block patterns, etc.)
+│   └── *.prompt.md
+│
+├── chatmodes/              # Chat mode indexes & usage guides for Copilot/agents
+│   └── chatmodes.md
+│
+├── agents/                 # Agent specs and agentic workflow documentation
+│   └── agent.md
+│
+├── workflows/              # Reusable GitHub Actions workflows
+│   ├── labels-issues-prs.yml
+│   ├── project-meta-sync.yml
+│   └── ... (other workflows)
+│
+├── issue-templates/        # Issue templates for bugs, features, docs, tasks, etc.
+│   └── *.md
+│
+├── pr-templates/           # Pull request templates (feature, fix, docs, etc.)
+│   └── *.md
+│
+├── saved-replies/          # Canonical saved replies for support and triage
+│   └── SAVED_REPLIES.md
+│
+├── automation/             # Labeler rules, automation governance, branching, etc.
+│   ├── labeler.yml
+│   ├── labels.yml
+│   ├── issue-types.yml
+│   ├── AUTOMATION_GOVERNANCE.md
+│   ├── BRANCHING_STRATEGY.md
+│   └── ... (automation reference files)
+│
+├── custom-instructions.md  # Org-wide Copilot and agent instructions
+├── AGENTS.md               # Global agent rules and contribution principles
+├── GEMINI.md               # Gemini agent guidance
+├── CLAUDE.md               # Claude agent guidance
+├── README.md               # This file: folder overview and usage
+└── ... (other shared files)
 ```
 
-### 3) Create/align Project fields
+---
 
-In your Project (Beta), add single‑select fields with these options:
+## How It Works
 
-- **Status**: `Triage`, `Ready`, `In progress`, `In review`, `In QA`, `Blocked`, `Done`
-- **Priority**: `Critical`, `Important`, `Normal`, `Minor`
-- **Type** (optional): `Feature`, `Bug`, `Documentation`, `Task`
+- **Instructions**: The `instructions/` folder contains canonical, versioned standards for coding, linting, HTML templates, WordPress pattern development, PHP blocks, and theme configuration. Always reference these before starting work or reviewing code.
+- **Prompts & Chat Modes**: Modular prompt templates and chat modes designed for Copilot, Gemini, Claude, and custom agents—enabling consistent AI-assisted workflows and reviews.
+- **Agents**: Agent specs and rules (see `AGENTS.md`, `GEMINI.md`, `CLAUDE.md`) detail expected behaviour, standards, and escalation procedures for all automated or AI contributors.
+- **Workflows & Automation**: Includes reusable GitHub Actions workflows for labelling, project syncing, and more. The `automation/` folder covers label rules, branching, and governance files.
+- **Templates**: Issue and PR templates standardise reporting, changelog, and review for all repos, supporting automation and reducing triage effort. Saved replies help maintainers respond consistently.
+- **Custom Instructions**: The root-level `custom-instructions.md` and agent files define Copilot/AI behaviour org-wide, so all automated actions and suggestions follow LightSpeed rules.
+- **Discoverability & Onboarding**: All files are indexed, referenced, and cross-linked for easy discoverability. New contributors can start in this folder and be directed to relevant standards, templates, or automation docs.
 
-### 4) Add the workflows & label config
+---
 
-Commit these files to each target repo (or call reusable workflows from `.github`):
+## Community & Q&A
 
-- `.github/workflows/labels-issues-prs.yml`
-- `.github/workflows/project-meta-sync.yml`
-- `.github/labeler.yml`
+Have questions, feedback, or want to propose an idea? Visit our [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) for open conversation and community support.
 
-### 5) Protect branches & adopt branch naming
+---
 
-- Protect `main` and (if used) `develop` (require PR + review).
-- Use prefixes: `feat/…`, `fix/…`, `docs/…`, `chore/…` (drives the **Type** field for PRs).
+## Contribution Guidelines & Instruction Index
 
-### 6) Smoke test (5 minutes)
+For all contributors, please reference these key guidelines and indexes:
 
-1. Create an **issue** → should get `status:needs-triage`, be added to the Project, and have Status `Triage`.
-2. Open a **PR** from `feat/my-change` → labeler applies area/lang labels; PR gets `status:needs-review`; Project fields set (Status `In review`, Type `Feature`).
-3. Merge the PR → Project Status becomes `Done`.
+- [LightSpeed General Copilot Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
+- [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
+- [HTML Templates](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/html-template.instructions.md)
+- [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/pattern-development.instructions.md)
+- [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/php-block.instructions.md)
+- [Theme JSON](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/theme-json.instructions.md)
+- When generating a summary for pull requests, use this [pull request template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md).
 
-### 7) Roll out at scale
+---
 
-- Put these files in the org `.github` repo as **reusable workflows**, or script repo bootstrap with `gh`.
-- Keep `labels.yml` canonical in `.github` and sync (optional) via script.
+## For Contributors & Maintainers
 
-### 8) FAQ
+- **Always start here** when onboarding, contributing, or reviewing.
+- Reference **instructions** for standards, **templates** for issues/PRs, and **automation** docs for workflows and governance.
+- Use **saved replies** for common support scenarios; update them as needed.
+- For agent/Copilot questions, see the agent guides and custom instructions.
+- Update this folder when org-wide standards, workflows, or automation rules change.
 
-- **Do we need OAuth / callback URLs?** No. We use a GitHub **App** installation token inside Actions.
-- **Can we use a PAT instead?** Yes (fallback), but a GitHub App is safer and org‑wide.
-- **Classic vs Beta Projects?** These workflows target **Projects (Beta)**.
+---
+
+## Related Root-Level Organisation Files
+
+These files typically reside in the root of the repository for visibility but are managed from this `.github` folder:
+
+- [README.md](../README.md) — High-level overview of the organisation and community health repository.
+- [CONTRIBUTING.md](../CONTRIBUTING.md) — Full contribution guidelines (reference [.github/instructions/](./instructions/) for standards).
+- [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) — Organisation code of conduct, aligned with WordPress community standards.
+- [SECURITY.md](../SECURITY.md) — Security policy and responsible disclosure instructions.
+- [SUPPORT.md](../SUPPORT.md) — Support policy and contact details.
+- [GOVERNANCE.md](../GOVERNANCE.md) — Maintainer and contributor governance, responsibilities, and process.
+- [CHANGELOG.md](../CHANGELOG.md) — Keep-a-Changelog format, linking to standards and change log instructions.
+- [DEVELOPMENT.md](../DEVELOPMENT.md) — Developer setup, scripts, linting, and workflow guidance.
+
+**Reference and update these root-level files as needed, but maintain canonical instructions, templates, and workflows in `.github/`.**
+
+---
+
+## Best Practices
+
+- **Modularity**: Reuse files as much as possible across repos; avoid duplication.
+- **Discoverability**: Cross-link instructions, templates, and automation docs.
+- **Automation**: Use labeler, workflows, and governance rules for consistent triage and release.
+- **Security & Accessibility**: Adhere to WordPress standards and OWASP top 10 in every template, instruction, and workflow.
+- **AI/Copilot Enablement**: Leverage prompts, agent rules, and custom instructions to optimise AI-powered workflows safely.
+
+---
+
+## License
+
+This repository and all its contents are licensed under the GNU General Public License v3.0 — see the [LICENSE](../LICENSE) file.
+
+---
+
+> For questions, improvement proposals, or onboarding support, open an issue, start a [Discussion](https://github.com/orgs/lightspeedwp/discussions), or contact [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency).
