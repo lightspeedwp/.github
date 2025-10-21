@@ -5,7 +5,80 @@ applyTo: "**/*.js"
 
 # JavaScript Inline Documentation Instructions
 
-These guidelines follow the [WordPress JavaScript Inline Documentation Standards](https://github.com/WordPress/wpcs-docs/blob/master/inline-documentation-standards/javascript.md) for consistent, comprehensive code documentation.
+LightSpeedWP standard for **inline documentation in JavaScript/TypeScript** using JSDoc (and TSDoc flavour when using TS). These guidelines follow the [WordPress JavaScript Inline Documentation Standards](https://github.com/WordPress/wpcs-docs/blob/master/inline-documentation-standards/javascript.md) for consistent, comprehensive code documentation.
+
+## Principles
+
+- Document **public functions, classes, React components, hooks and utilities**.
+- Keep comments **close to the code**; prefer JSDoc over long prose in code.
+- Prefer **examples over theory**; include one realistic `@example` when helpful.
+- Align with **ESLint/TypeScript** types; JSDoc shouldn’t contradict types.
+
+## Required blocks
+
+- **File header** (optional for short files): purpose, key exports.
+- **Function/Class docs** (public APIs):
+  - `@param` for each parameter (name, type, purpose).
+  - `@returns` for return value; use `void` for none.
+  - `@throws` for expected errors.
+  - `@example` when non-trivial.
+  - `@deprecated` with replacement if applicable.
+  - `@see` for links (docs, issues).
+
+## Tags we use
+
+- `@param {Type} name - description`
+- `@returns {Type} description`
+- `@template T` for generic helpers
+- `@typedef` / `@property` for shared shapes
+- `@async` for async functions
+- `@deprecated` (include “since vX.Y.Z”)
+- `@see` (URL) and `@link` for inline links
+
+## WordPress specifics (when applicable)
+
+- Prefer WordPress packages (`@wordpress/data`, `@wordpress/components`, etc.).
+- Use `// translators:` comments next to strings that will be translated.
+- Escape/encode user content before rendering in the DOM.
+
+## Examples
+
+### Function
+
+```js
+/**
+ * Get a paginated slice.
+ * @param {T[]} items - The full list.
+ * @param {number} page - Page index (0-based).
+ * @param {number} perPage - Items per page.
+ * @returns {T[]} The items to render on this page.
+ * @template T
+ * @example
+ * getPage([1,2,3,4], 1, 2) // => [3,4]
+ */
+export function getPage(items, page, perPage) {
+  const start = page * perPage;
+  return items.slice(start, start + perPage);
+}
+```
+
+### React component
+
+```tsx
+/**
+ * SearchBox component.
+ * @param {{ value: string; onChange: (v:string)=>void; placeholder?: string }} props
+ * @returns {JSX.Element}
+ */
+export function SearchBox({ value, onChange, placeholder = "Search…" }) {
+  return <input
+    aria-label="Search"
+    value={value}
+    onChange={e => onChange(e.target.value)}
+    placeholder={placeholder}
+  />;
+}
+```
 
 ## File Headers
 

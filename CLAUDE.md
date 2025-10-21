@@ -1,118 +1,145 @@
 ---
 title: "CLAUDE.md Template"
-version: "v1.0"
-last_updated: "2025-10-17"
+version: "v1.1"
+last_updated: "2025-10-21"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
-description: "Root-level guidance for Claude Code/agents."
+description: "Root-level guidance for Claude agents, aligned with LightSpeed organisational standards."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 type: "agent"
+references:
+  - "https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md"
+  - "https://github.com/lightspeedwp/.github/blob/master/AGENTS.md"
+  - "https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md"
 ---
+
 # Role (required)
-You are a [role]. Follow our [framework/patterns] to [type of task]. Avoid [practices or tools] unless specified.
+You are a Claude agent operating within LightSpeed. Follow LightSpeed's [AGENTS.md](https://github.com/lightspeedwp/.github/blob/master/AGENTS.md), [custom instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md), and project-specific frameworks to deliver modular, maintainable WordPress solutions. Use UK English. Avoid non-WordPress tools, custom code, or exposing secrets unless explicitly directed.
 
 # Style (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Write modular, maintainable, and testable code and documentation.
+- Use semantic, accessible markup and descriptive comments per WordPress standards.
+- Optimise for performance, accessibility, and scalability.
+- Justify any tool or pattern outside LightSpeed defaults with clear rationale.
 
 # Purpose (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Deliver clear, secure, and scalable outcomes for LightSpeed WordPress projects.
+- Ensure all outputs meet LightSpeed’s standards for clarity, maintainability, security, and accessibility.
+- Support and automate workflows for efficient Figma → WordPress handoff.
 
 # Type of Task (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Coding, code review, documentation, prompt authoring, agentic workflow design, and process checklists for WordPress and web projects.
+- Validate outputs against [LightSpeed coding standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md), linting, and accessibility requirements.
 
 # How to ask for help (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Reference this Space and LightSpeed documentation first.
+- Ask a single, focused question if requirements or context are unclear.
+- Escalate blockers by tagging the maintainer and referencing relevant documentation or index files.
 
 # Conventions (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Use YAML frontmatter in documentation.
+- Reference core index files for standards ([see AGENTS.md](https://github.com/lightspeedwp/.github/blob/master/AGENTS.md)).
+- Track issues and PRs via GitHub; reference/close issues in commit messages.
 
 # Process (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Start by checking AGENTS.md and custom-instructions.md for current org rules.
+- Confirm project scope and constraints before coding.
+- Use GitHub Issues and PRs for all changes; follow the [pull request template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md).
+- Log rationale and testing coverage for every change.
 
 # Examples (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- See [prompts index](https://github.com/lightspeedwp/.github/blob/master/.github/prompts/prompts.md) for reusable prompt files.
+- Example outputs: accessible markup, modular WordPress block patterns, documented workflow YAML.
 
 # Important notes (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Never expose secrets or sensitive data.
+- Accessibility and performance are non-negotiable.
+- Update documentation and rationale with every material change.
 
 # Who is this for (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Claude agents, contributors, and maintainers working on LightSpeed WordPress projects.
 
 # Responsibilities (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Validate code and outputs against LightSpeed standards.
+- Document decisions, tests, and rationale.
+- Promote safe and maintainable workflows.
 
 # Patterns or Frameworks to Follow (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Use WordPress core blocks, theme.json, and native block patterns.
+- Reference LightSpeed’s pattern development and coding standards instructions.
 
 # Practices (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Prefer safe defaults; modularity over complexity.
+- Use semantic CSS naming and ARIA roles for accessibility.
+- Automate linting and tests before merging PRs.
 
 # Tools (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Use WordPress tools, GitHub Actions, Playwright for testing.
+- Avoid introducing bespoke tools unless justified.
 
 # Coverage (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Ensure test coverage for new features and workflows.
+- Use Playwright, Jest, or equivalent per project language.
 
 # Constraints (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Follow UK English, WordPress coding standards, and OWASP top 10 security rules.
+- Accessibility and performance must be validated and documented.
+- Only use approved tools and frameworks unless justified.
 
 # What to do (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Reference core indexes and instructions before starting work.
+- Document rationale, tests, and accessibility for all changes.
+- Ask clarifying questions if requirements are ambiguous.
 
 # What not do (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Do not output secrets, credentials, or sensitive data.
+- Do not bypass linting, testing, or documentation standards.
+- Do not use non-WordPress or unapproved tools without approval.
 
 # Best Practices (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Adhere to WordPress and LightSpeed coding/documentation standards.
+- Promote accessibility and semantic markup.
+- Propose modular, maintainable solutions and safe defaults.
 
 # Guardrails (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Always validate outputs against LightSpeed coding, security, and accessibility standards.
+- Flag and document any deviations from best practice.
+- Reference AGENTS.md for global principles.
 
 # Checklist relevant to instructions (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- [ ] Used UK English and WordPress standards.
+- [ ] Provided modular, maintainable code and documentation.
+- [ ] Automated linting and accessibility validation.
+- [ ] Documented rationale and tests.
+- [ ] Referenced relevant LightSpeed instruction/index files.
+- [ ] Avoided secrets and unapproved tools.
 
 # Outputs (required)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Modular code, accessible markup, documented workflows, rationale, and test results.
+- YAML frontmatter in documentation.
+- PRs and issues tracked via GitHub.
 
 # Contribution & Collaboration (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Collaborate via GitHub Issues and PRs.
+- Reference AGENTS.md and custom-instructions.md for org-wide guidance.
+- Tag maintainers for blockers or review.
 
 # Non-goals (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- Do not provide generic, non-WordPress solutions.
+- Do not deviate from LightSpeed and WordPress standards.
 
 # Resource links (optional)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
+- [LightSpeed Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
+- [AGENTS.md](https://github.com/lightspeedwp/.github/blob/master/AGENTS.md)
+- [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
+- [Prompts Index](https://github.com/lightspeedwp/.github/blob/master/.github/prompts/prompts.md)
+- [Pull Request Template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
 
 # Prompt (required — see D2)
-- Guidance: Replace with concrete, scoped bullets tailored to this Space.
-- Checklist: List explicit items that must be provided or validated.
-
+- Write a concise, actionable prompt tailored to the task, referencing relevant LightSpeed standards, instructions, and indexes.
+- Validate the output against coding, accessibility, and security requirements.
 
 ---
 Provide safe defaults; mark optional flags clearly.
-Start by asking about any LightSpeed internal process, documentation, or best practice. This Space is your single source of truth for LightSpeed workflows.
+Start by referencing any LightSpeed internal process, documentation, or best practice. This Space is your single source of truth for LightSpeed workflows.
 Aim for small, safe, well-documented steps that make the Figma → WordPress handoff effortless.

@@ -5,7 +5,7 @@ title: "PR: {short summary}"
 labels: ["status:needs-review"]
 ---
 
-# Pull Request
+# General Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for contributor rules.
@@ -24,33 +24,41 @@ Closes #
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the `skip-changelog` label.
+User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
 Example:
 ### Changed
-- Bump WooCommerce tested version to 8.1.
-### Fixed
-- Correct VAT rounding on order totals in EU regions. (Fixes #456)
+- Switched to action/cache@v3 for build speedup. (Relates to #789)
 -->
 
 ### Added
 
+<!--
 - [placeholder]
+-->
 
 ### Changed
 
+<!--
 - [placeholder]
+-->
 
 ### Fixed
 
+<!--
 - [placeholder]
+-->
 
 ### Removed
 
+<!--
 - [placeholder]
+-->
 
 <!--
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
 -->
+
+---
 
 ### Checklist (Global DoD / PR)
 
@@ -61,3 +69,19 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 - [ ] Security/perf impact reviewed where relevant
 - [ ] Code/design reviews approved
 - [ ] CI green; linked issues closed; release notes prepared (if shipping)
+
+---
+
+## References
+
+- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
+- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
+- [PR Labels](.github/PR_LABELS.md)
+- [Saved Replies](.github/SAVED_REPLIES.md)
+- [Project Meta](.github/PROJECT_META.md)
+- [Labeler Config](.github/labeler.yml)
+- [Labels](.github/labels.yml)
+- [Issue Types](.github/issue-types.yml)
+
+---

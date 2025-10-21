@@ -55,25 +55,33 @@ Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
 User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
 Example:
-### Fixed
-- Correct VAT rounding on order totals in EU regions. (Fixes #456, @alice)
+### Changed
+- Switched to action/cache@v3 for build speedup. (Relates to #789)
 -->
 
 ### Added
 
+<!--
 - [placeholder]
+-->
 
 ### Changed
 
+<!--
 - [placeholder]
+-->
 
 ### Fixed
 
+<!--
 - [placeholder]
+-->
 
 ### Removed
 
+<!--
 - [placeholder]
+-->
 
 <!--
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
@@ -90,3 +98,19 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 - [ ] Security/perf impact reviewed where relevant
 - [ ] Code/design reviews approved
 - [ ] CI green; linked issues closed; release notes prepared (if shipping)
+
+---
+
+## References
+
+- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
+- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
+- [PR Labels](.github/PR_LABELS.md)
+- [Saved Replies](.github/SAVED_REPLIES.md)
+- [Project Meta](.github/PROJECT_META.md)
+- [Labeler Config](.github/labeler.yml)
+- [Labels](.github/labels.yml)
+- [Issue Types](.github/issue-types.yml)
+
+---

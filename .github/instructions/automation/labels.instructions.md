@@ -7,11 +7,10 @@ owners: ["LightSpeed Engineering"]
 ---
 
 # Mission
-Document how LightSpeed applies labels and issue types across repositories and automate labelling for pull requests.
+Document how LightSpeed applies labels and automate labelling for pull requests.
 
 # Strategy
 - Maintain a central list of **default labels** (e.g. `bug`, `enhancement`, `documentation`, `priority`, `needs-review`). Apply these manually to issues for triage and signalling.
-- Define **issue types** such as `feature request`, `task` and `defect` and use them consistently across projects.
 - Avoid auto‑labelling issues; developers or triagers should apply labels based on context.
 
 # Automation for Pull Requests
