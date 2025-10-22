@@ -68,6 +68,17 @@ To maintain a consistent, high-quality codebase and community, please follow the
 
 ## Additional Guidelines
 
+## VS Code Setup
+
+To ensure a consistent development experience and code quality, all contributors should:
+
+- Install all recommended extensions from `.vscode/extensions.json` (includes ESLint, Prettier, YAML, WordPress, PHP, AI, and GitHub workflow tools).
+- Use the workspace settings in `.vscode/settings.json` for code style, linting, and workflow automation. These settings align with `.editorconfig` and enforce 2-space indentation for YAML, JS, CSS, and JSON, and 4-space tabs for PHP.
+- Enable format-on-save and linting in your editor for best results.
+- Periodically review and update your extensions to match evolving project standards.
+
+Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authoritative list and configuration.
+
 - **Saved Replies:** Use [SAVED_REPLIES.md](.github/SAVED_REPLIES.md) for common responses and efficient communication.
 - **Documentation:** Update relevant docs (README, instructions) for any user-facing change.
 - **Automation & Labels:** Ensure your issue/PR complies with [AUTOMATION_GOVERNANCE.md](.github/AUTOMATION_GOVERNANCE.md), [ISSUE_LABELS.md](.github/ISSUE_LABELS.md), and [ISSUE_TYPES.md](.github/ISSUE_TYPES.md).

@@ -1,0 +1,6 @@
+extends: "spectral:recommended"
+rules:
+  document-defined: true
+  no-empty-keys: true
+  # Allow GitHub Actions style matrix expressions
+  no-unused-variables: false

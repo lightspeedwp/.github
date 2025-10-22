@@ -1,0 +1,8 @@
+extends: "./.spectral.yaml"
+rules:
+  github-action-mandatory-name:
+    description: GitHub Action must have a name
+    given: "$"
+    then:
+      field: "name"
+      function: truthy

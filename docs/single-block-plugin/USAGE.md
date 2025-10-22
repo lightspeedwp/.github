@@ -12,4 +12,4 @@
 - If the block does not appear, check plugin activation and build process.
 - For translation issues, verify your `textdomain` matches the plugin slug.
 
-See [Development Guide](./DEVELOPMENT.md) for setup and [repo-template.md](./repo-template.md) for structure.
+See [Development Guide](./DEVELOPMENT.md) for setup and [repo-prompt.md](./repo-prompt.md) for structure.

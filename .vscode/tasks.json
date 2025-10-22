@@ -1,0 +1,49 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "npm: test-unit",
+			"type": "npm",
+			"script": "test-unit",
+			"problemMatcher": ["$jest-watch", "$jest-eslint"],
+			"detail": "Runs unit tests using 'jest --reporters=jest-watch-typeahead,jest-junit-reporter'."
+		},
+		{
+			"label": "npm: lint-js",
+			"type": "npm",
+			"script": "lint-js",
+			"problemMatcher": ["$eslint-stylish"],
+			"detail": "Lints JavaScript files using lint-js'."
+		},
+		{
+			"label": "npm: lint-css",
+			"type": "npm",
+			"script": "lint-css",
+			"problemMatcher": [],
+			"detail": "Lints CSS files using lint-css'."
+		},
+		{
+			"label": "npm: lint-md",
+			"type": "npm",
+			"script": "lint-md",
+			"problemMatcher": [],
+			"detail": "Lints CSS files using lint-css'."
+		}
+		{
+			"label": "e2e: test",
+			"type": "shell",
+			"command": "npx playwright test",
+			"group": "test",
+			"problemMatcher": [],
+			"detail": "Runs Playwright E2E tests."
+		},
+		{
+			"label": "npm: test-coverage",
+			"type": "npm",
+			"script": "test-unit -- --coverage",
+			"group": "test",
+			"problemMatcher": ["$jest-watch", "$jest-eslint"],
+			"detail": "Runs unit tests with coverage reporting."
+		},
+	]
+}

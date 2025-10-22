@@ -9,6 +9,7 @@
 This repository’s `.github` folder serves as the **single source of truth** for all organisation-wide community health files, automation rules, standards, and AI/Copilot instructions for LightSpeed projects. By centralising these files, we ensure consistency, discoverability, and maintainability across every repo in the organisation.
 
 **Key goals:**
+
 - Standardise contribution, code quality, review, and labelling across all repos.
 - Automate issue/PR labelling, project syncing, and governance.
 - Provide a canonical set of instructions for AI agents & Copilot.
@@ -34,6 +35,7 @@ This repository is the **canonical, organisation-wide source** for:
 - **Issue Types** ([automation/issue-types.yml](./automation/issue-types.yml)): Machine-readable definitions mapping issue templates, types, and automation.
 
 **How it works:**
+
 - Labels, labeler, and issue types from this repo are referenced by reusable workflows and automation across all LightSpeed repositories.
 - If a repository does not have its own label or labeler config, the defaults from this repo apply.
 - **Automated labelling** ensures consistent triage, prioritisation, and project management across the organisation.
@@ -41,6 +43,7 @@ This repository is the **canonical, organisation-wide source** for:
 - For more detail, see [AUTOMATION_GOVERNANCE.md](./automation/AUTOMATION_GOVERNANCE.md) and [ISSUE_LABELS.md](./automation/ISSUE_LABELS.md).
 
 **Quick links:**
+
 - [Label Definitions](./automation/labels.yml)
 - [Labeler Rules](./automation/labeler.yml)
 - [Issue Types](./automation/issue-types.yml)
@@ -52,7 +55,7 @@ This repository is the **canonical, organisation-wide source** for:
 
 The `.github` folder is organised for maximum clarity and modularity, grouping related files for easy reference and automation.
 
-```
+```text
 .github/
 ├── instructions/           # Coding, linting, template, pattern, and workflow instructions
 │   ├── coding-standards.instructions.md
@@ -143,6 +146,17 @@ For all contributors, please reference these key guidelines and indexes:
 - Use **saved replies** for common support scenarios; update them as needed.
 - For agent/Copilot questions, see the agent guides and custom instructions.
 - Update this folder when org-wide standards, workflows, or automation rules change.
+
+## VS Code Setup
+
+To ensure a consistent development experience and code quality, all contributors should:
+
+- Install all recommended extensions from `.vscode/extensions.json` (includes ESLint, Prettier, YAML, WordPress, PHP, AI, and GitHub workflow tools).
+- Use the workspace settings in `.vscode/settings.json` for code style, linting, and workflow automation. These settings align with `.editorconfig` and enforce 2-space indentation for YAML, JS, CSS, and JSON, and 4-space tabs for PHP.
+- Enable format-on-save and linting in your editor for best results.
+- Periodically review and update your extensions to match evolving project standards.
+
+Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authoritative list and configuration.
 
 ---
 

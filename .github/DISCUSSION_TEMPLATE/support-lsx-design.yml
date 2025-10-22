@@ -1,0 +1,12 @@
+name: "Product Support: LSX Design"
+description: "Get help, ask questions, or share issues about the LSX Design theme or design system."
+labels:
+  - discussion:support
+template: |
+  ## ❓ LSX Design Support
+
+  - **Describe your issue or question:**
+  - **What version of LSX Design are you using?**
+  - **Link to your site or code (if public):**
+  - **Steps to reproduce (if relevant):**
+  - **Screenshots or error messages:**

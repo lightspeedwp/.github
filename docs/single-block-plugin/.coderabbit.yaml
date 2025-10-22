@@ -1,0 +1,179 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/coderabbit-overrides.v2.json
+language: "en"
+chat:
+  auto_reply: true
+reviews:
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  path_filters:
+    - "!build/**"
+    - "!node_modules/**"
+    - "!assets/css/*.map"
+    - "!logs/**"
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+      - "develop"
+      - "feature/*"
+      - "fix/*"
+      - "update/*"
+  path_instructions:
+    - path: "**/theme.json"
+      instructions: |
+        "Review theme.json configuration for WordPress block themes:
+          - Ensure JSON syntax is valid and properly formatted
+          - Verify color palettes use named tokens consistently (primary, secondary, accent)
+          - Check typography settings include complete font definitions with fluid clamp() values
+          - Validate spacing scales are consistent and use rem units
+          - Confirm layout settings define appropriate contentSize and wideSize values
+          - Ensure all settings follow WordPress block theme standards
+          - Check accessibility compliance with sufficient color contrast ratios (4.5:1 minimum)
+          - Verify compatibility with Full Site Editing (FSE) features
+          - Validate custom properties don't conflict with core block functionality"
+    - path: "**/patterns/*.php"
+      instructions: |
+        "Review WordPress block patterns for FSE compatibility:
+          - Ensure proper pattern registration using register_block_pattern() function
+          - Verify pattern naming follows lsx/[category]-[name] convention
+          - Check that patterns use theme.json variables exclusively for styling
+          - Validate proper heading hierarchy and accessibility compliance
+          - Ensure placeholder content is realistic and appropriate
+          - Check patterns maintain design integrity with different content lengths
+          - Verify patterns are responsive and work across all viewport sizes
+          - Confirm patterns avoid inline styles and use block variations appropriately
+          - Validate proper block nesting and semantic HTML structure
+          - Test that patterns follow WordPress coding standards for PHP"
+    - path: "**/parts/*.html"
+      instructions: |
+        "Review WordPress template parts for block theme compatibility:
+          - Ensure template parts follow WordPress HTML template structure
+          - Verify proper use of WordPress block markup
+          - Check semantic HTML elements and proper heading hierarchy
+          - Validate accessibility features (ARIA roles, alt attributes)
+          - Ensure template parts use theme.json variables for styling
+          - Check compatibility with Full Site Editing interface
+          - Verify proper block structure and nesting
+          - Validate responsive design across different screen sizes"
+    - path: "**/templates/*.html"
+      instructions: |
+        "Review WordPress block templates for FSE:
+          - Ensure templates follow WordPress block template structure
+          - Verify proper template hierarchy and naming conventions
+          - Check integration with template parts and patterns
+          - Validate proper query loop implementation for dynamic content
+          - Ensure templates maintain design consistency
+          - Check accessibility compliance throughout templates
+          - Verify responsive behavior across all devices"
+    - path: "**/*.{js,ts}"
+      instructions: |
+        "Review JavaScript/TypeScript for WordPress block theme:
+          - Ensure minimal JavaScript usage following block theme best practices
+          - Verify scripts enhance rather than replace native WordPress functionality
+          - Check for proper WordPress script enqueueing in functions.php
+          - Validate accessibility enhancements don't conflict with core features
+          - Ensure performance optimization and avoid unnecessary dependencies
+          - Check compatibility with WordPress script loading patterns
+          - Verify proper event handling and DOM manipulation
+          - Ensure scripts work with both frontend and editor interfaces"
+    - path: "**/*.{css,scss}"
+      instructions: |
+        "Review CSS/SCSS for WordPress block theme:
+          - Prefer theme.json configuration over custom CSS when possible
+          - Ensure CSS enhances rather than replaces theme.json settings
+          - Check for proper use of CSS custom properties from theme.json
+          - Validate responsive design using consistent breakpoints
+          - Ensure accessibility compliance in custom styles
+          - Check for performance optimization (minimal CSS, efficient selectors)
+          - Verify styles don't conflict with core WordPress block styles
+          - Ensure proper CSS organization and maintainability"
+    - path: "**/functions.php"
+      instructions: |
+        "Review functions.php for WordPress block theme:
+          - Ensure theme setup follows WordPress block theme standards
+          - Verify proper theme support declarations for FSE features
+          - Check secure coding practices (sanitization, validation, escaping)
+          - Validate proper hook usage and WordPress coding standards
+          - Ensure compatibility with latest WordPress version
+          - Check for performance optimization in theme functions
+          - Verify proper asset enqueueing and dependency management
+          - Ensure functions don't conflict with block editor functionality"
+    - path: "**/e2e/*.{ts,js}"
+      instructions: |
+        "Review Playwright end-to-end tests for WordPress block theme:
+          - Ensure tests cover accessibility validation across all pages
+          - Verify tests check responsive design at multiple breakpoints
+          - Check tests validate Full Site Editing functionality
+          - Ensure tests cover block pattern and template part functionality
+          - Verify proper test structure and maintainability
+          - Check for comprehensive coverage of user journeys
+          - Validate tests check WordPress-specific functionality
+          - Ensure tests are reliable and don't produce false positives"
+    - path: "**/package.json"
+      instructions: |
+        "Review package.json for WordPress block theme project:
+          - Ensure dependencies are WordPress theme development focused
+          - Check for security vulnerabilities in dependencies
+          - Verify build scripts are optimized for WordPress block themes
+          - Ensure proper version management and semantic versioning
+          - Check for unnecessary dependencies that could impact performance
+          - Validate proper development vs production dependency separation"
+    - path: "**/composer.json"
+      instructions: |
+        "Review composer.json for WordPress development:
+          - Ensure PHP dependencies are WordPress compatible
+          - Check for security best practices in package selection
+          - Verify proper autoloading configuration
+          - Ensure compatibility with WordPress coding standards tools
+          - Check for appropriate development dependencies (PHPStan, PHPCS)
+          - Validate proper version constraints for stability"
+    - path: "**/instructions/*.md"
+      instructions: |
+        "Review markdown instructions for clarity and completeness:
+          - Ensure instructions are specific to WordPress block theme development
+          - Verify step-by-step guidance is easy to follow
+          - Check for inclusion of best practices and common pitfalls
+          - Validate that instructions cover setup, development, and deployment
+          - Ensure proper formatting and use of code snippets where applicable"
+          - Check for accessibility considerations in instructional content"
+    - path: "**/chatmodes/*.md"
+      instructions: |
+        "Review chat mode documentation for clarity and completeness:
+          - Ensure chat modes are specific to WordPress block theme development
+          - Verify step-by-step guidance is easy to follow
+          - Check for inclusion of best practices and common pitfalls
+          - Validate that instructions cover setup, development, and deployment"
+    - path: "**/agents/*.agent.js"
+      instructions: |
+        "Review javascript agents for inline jsdocs and coding standards:
+          - Ensure proper documentation of agent functionality
+          - Verify adherence to WordPress coding standards
+          - Check for performance optimization in agent code
+          - Validate error handling and edge case coverage"
+    - path: "**/agents/agent.md"
+      instructions: |
+        "Review agent.md markdown index file:
+          - Ensure that this file has the latest list of *.agent.* agent files references links to both the .github/custom-instructions.md file and AGENTS.md in the root of repo."
+    - path: "**/agents/*.agent.md"
+      instructions: |
+        "Review agents markdown file specifications:
+          - Ensure the specification aligns with the related agent.js, agent.sh or agent.py agent file."
+codex:
+  enabled: true
+  model: "gpt-4.1"
+early_access: false
+auto_review:
+  enabled: true
+  ignore_title_keywords:
+    - "WIP"
+    - "DO NOT MERGE"
+    - "DRAFT"
+  drafts: false
+  base_branches:
+    - "main"
+    - "develop"
+    - "feature/*"

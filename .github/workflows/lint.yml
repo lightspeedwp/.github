@@ -1,0 +1,35 @@
+name: Lint
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
+      - '**/vendor/**'
+      - '**/dist/**'
+      - '**/build/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci || npm install
+      - name: Run ESLint
+        run: npx eslint . --ext .js,.json,.jsx,.ts,.tsx
+      - name: Run Stylelint
+        run: npx stylelint '**/*.{css,scss,sass}'
+      - name: Run Markdownlint
+        run: npx markdownlint '**/*.md'
+      - name: Run Prettier check
+        run: npx prettier --check .
+      - name: Run ShellCheck
+        run: |
+          find . -type f -name "*.sh" ! -path "*/node_modules/*" -exec shellcheck {} +
+      - name: Run yamllint
+        run: yamllint .

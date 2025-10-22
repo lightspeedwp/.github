@@ -26,7 +26,7 @@ Guidelines:
 
 - [placeholder]
 
-### Removed
+### Documentation
 
 - [placeholder]
 
@@ -34,9 +34,19 @@ Guidelines:
 
 - [placeholder]
 
+### Performance
+
+- [placeholder]
+
+### Removed
+
+- [placeholder]
+
 ### Security
 
 - [placeholder]
+- [placeholder]
+-->
 
 ## [0.1.0] - 2025-09-25
 
@@ -72,6 +82,10 @@ Guidelines:
 - Saved replies for common support scenarios
 - Organization profile README showcasing LightSpeed projects
 
+### Deprecated
+
+- [placeholder]
+
 ### Fixed
 
 - Standardized YAML frontmatter across all instruction files
@@ -92,6 +106,14 @@ Guidelines:
 - Created implementation guide for WordPress block development
 - Established clear contribution guidelines and coding standards
 - Documented VS Code configuration and MCP setup procedures
+
+### Performance
+
+- [placeholder]
+
+### Removed
+
+- [placeholder]
 
 ### Security
 

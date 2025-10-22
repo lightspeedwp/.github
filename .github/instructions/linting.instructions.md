@@ -1,92 +1,93 @@
 ---
-title: "LightSpeed Copilot Prompts Index"
-version: "v1.1"
-last_updated: "2025-10-20"
+title: "LightSpeed Linting Instructions Index"
+version: "v1.2"
+last_updated: "2025-10-21"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
-description: "Master prompt index for all Copilot Chat and automation prompts in the LightSpeed organisation. Lists and cross-references all prompt files and related instructions."
-tags: ["lightspeed", "copilot", "prompts", "automation", "review", "workflow"]
-type: "prompt"
+description: "Master index for all linting instructions in the LightSpeed organisation. Lists and cross-references all linting instructions and related coding standards."
+tags: ["lightspeed", "linting", "instructions", "coding-standards", "automation", "workflow"]
+type: "instructions"
 ---
 
-# LightSpeed Copilot Prompt Library
+# LightSpeed Linting Instructions Library
 
-This folder contains reusable prompts for common development and review tasks in any LightSpeed WordPress project.  
-Prompts are designed for Copilot Chat, GitHub Actions, and automation workflows.
+This folder contains reusable instructions for linting, formatting, and validating files in any LightSpeed WordPress project.  
+These instructions cover all supported file types and enforce our coding standards.
 
-To run a prompt, open the file or use `/filename` in Copilot Chat.
+To run a linting instruction, open the file or use `/filename` in Copilot Chat.
 
 ---
 
 ## Dynamic Reference
 
-All prompt files in this directory:
-- [`*.prompt.md`](./) — All Markdown files ending with `.prompt.md` are considered reusable prompts for Copilot Chat, GitHub Actions, and agent workflows.
+All linting instruction files in this directory:
+- [`linting/*.instructions.md`](./linting/) — All Markdown files ending with `.instructions.md` inside the `linting/` folder are considered reusable linting instructions for Copilot Chat, GitHub Actions, and agent workflows.
 
-> **When adding a new prompt file, ensure it has clear YAML frontmatter, follows project conventions, and is listed below.**
+> **When adding a new linting instruction file, ensure it has clear YAML frontmatter, follows project conventions, and is listed below.**
 
 ---
 
-## Explicit Prompt File Index
+## Explicit Linting Instructions File Index
 
-Below are all prompt files available in this folder. Each file is reusable for Copilot Chat, review automation, or workflow scripting.
+Below are all linting instruction files available in this folder. Each file defines standards and recommended tools for linting a specific file type:
 
-| File                                                    | Description                                               |
-| ------------------------------------------------------- | --------------------------------------------------------- |
-| [accessibility-review.prompt.md](./accessibility-review.prompt.md)         | Accessibility review checklist and automation for any LightSpeed WordPress project. |
-| [add-frontmatter.prompt.md](./add-frontmatter.prompt.md)                 | Insert or normalise YAML frontmatter in docs and instructions. |
-| [audit-jsdoc.prompt.md](./audit-jsdoc.prompt.md)                         | Audit JS files for JSDoc coverage per WordPress guidance; add/fix inline docs. |
-| [audit-phpdoc.prompt.md](./audit-phpdoc.prompt.md)                       | Audit PHP files for WordPress DocBlocks and fix missing/incorrect tags. |
-| [author-json-schema.prompt.md](./author-json-schema.prompt.md)            | Draft a JSON Schema from sample data and business rules. |
-| [build-agent-and-tests.prompt.md](./build-agent-and-tests.prompt.md)      | Create a minimal agent (capabilities, tools, guardrails) and tests. |
-| [dev-code-review.prompt.md](./dev-code-review.prompt.md)                  | Guidelines for providing feedback to junior developers in any LightSpeed WordPress project. |
-| [fix-javascript-lint.prompt.md](./fix-javascript-lint.prompt.md)          | Fix ESLint/Prettier issues; align with WordPress JS style. |
-| [fix-php-lint.prompt.md](./fix-php-lint.prompt.md)                        | Run PHPCS cleanup for WordPress PHP style; safe auto-fixes only. |
-| [generate-gh-workflow.prompt.md](./generate-gh-workflow.prompt.md)        | Generate a secure, cache-efficient GitHub Actions workflow for this repo. |
-| [increase-test-coverage.prompt.md](./increase-test-coverage.prompt.md)    | Expand test coverage focusing on risk and critical paths. |
-| [inline-documentation.prompt.md](./inline-documentation.prompt.md)        | Add comprehensive inline documentation to PHP/JS code (WordPress standards). |
-| [label-issues.prompt.md](./label-issues.prompt.md)                        | Apply org label rules to a PR via GitHub Action (not issues). |
-| [pattern-generation.prompt.md](./pattern-generation.prompt.md)            | Template for creating new WordPress block patterns in any LightSpeed project. |
-| [refactor-theme-types.prompt.md](./refactor-theme-types.prompt.md)        | Refactor the typography section in theme.json for any LightSpeed WordPress project. |
-| [validate-json.prompt.md](./validate-json.prompt.md)                      | Validate JSON files against schemas and report exact errors. |
+| File                                                    | Description                                                         |
+| ------------------------------------------------------- | ------------------------------------------------------------------- |
+| [linting-css.instructions.md](./linting/linting-css.instructions.md)         | Lint and format CSS, SCSS, and Sass files using stylelint and WordPress CSS standards. |
+| [linting-html.instructions.md](./linting/linting-html.instructions.md)       | Validate and lint HTML for accessibility and semantic correctness.   |
+| [linting-javascript.instructions.md](./linting/linting-javascript.instructions.md) | Lint JavaScript and TypeScript files using ESLint and Prettier.      |
+| [linting-json.instructions.md](./linting/linting-json.instructions.md)       | Validate JSON files against schemas and enforce formatting.          |
+| [linting-markdown.instructions.md](./linting/linting-markdown.instructions.md) | Lint Markdown files for style and readability using markdownlint.    |
+| [linting-php.instructions.md](./linting/linting-php.instructions.md)         | Lint PHP files using PHPCS and WordPress coding standards.           |
+| [linting-python.instructions.md](./linting/linting-python.instructions.md)   | Lint and format Python files using Black and Ruff.                   |
+| [linting-shell.instructions.md](./linting/linting-shell.instructions.md)     | Lint shell scripts using shellcheck; enable strict mode and portability. |
+| [linting-tests.instructions.md](./linting/linting-tests.instructions.md)     | Enforce consistent test style for Jest, Playwright, Python, and shell tests. |
+| [linting-yaml.instructions.md](./linting/linting-yaml.instructions.md)       | Lint YAML files and workflows; enforce schema validation and indentation. |
 
-> _This list must be updated if any prompt files are added, removed, or renamed._
+---
+
+## Reference: Coding Standards & Org Instructions
+
+For unified coding standards and documentation practices, see:  
+- [Main Coding Standards Instructions](./coding-standards.instructions.md)
+- [LightSpeed Custom Instructions (Org-wide)](../custom-instructions.md)
 
 ---
 
 ## How to Use
 
-1. Copy the content of the relevant prompt.
-2. Paste it into GitHub Copilot Chat.
-3. Customize the prompt with your specific requirements.
-4. Use the generated response as a starting point.
+1. Copy the content of the relevant linting instruction.
+2. Paste it into GitHub Copilot Chat or your workflow.
+3. Customize with your specific requirements.
+4. Use the generated response or configuration as a starting point.
 
 ---
 
-## Creating New Prompts
+## Creating New Linting Instructions
 
-When creating new prompts for this directory, please follow these guidelines:
+When creating new linting instructions for this directory, please follow these guidelines:
 
-1. Use clear, descriptive filenames with the `.prompt.md` extension for agent mode prompts.
-2. Include a YAML frontmatter with `mode` and `description` fields.
-3. Structure the prompt with clear instructions.
-4. Update this index to include the new prompt.
+1. Use clear, descriptive filenames with the `linting-*.instructions.md` extension.
+2. Include a YAML frontmatter with `applyTo`, `description`, and other relevant fields.
+3. Structure the instruction with clear setup steps, tools, rules, and references.
+4. Update this index to include the new instruction.
 
 ---
 
-## Maintaining Prompts
+## Maintaining Linting Instructions
 
-Prompts should evolve as our project standards and requirements change. When updating:
+Linting instructions should evolve as our project standards and requirements change. When updating:
 
-1. Ensure changes align with our project guidelines and instructions.
-2. Test the updated prompt with GitHub Copilot before committing.
-3. Consider backward compatibility with existing code.
+1. Ensure changes align with our project guidelines and coding standards.
+2. Test the updated linting instruction before committing.
+3. Consider backward compatibility with existing workflows.
 4. Document significant changes in the commit message.
 
 ---
 
 ## Related Guidance
 
+- [Coding Standards Instructions](./coding-standards.instructions.md)
 - [Custom Instructions (Org-wide)](../custom-instructions.md)
 - [Global AI Rules (AGENTS.md)](../../AGENTS.md)
 - [Agent Index](../agents/agent.md)
@@ -95,4 +96,4 @@ Prompts should evolve as our project standards and requirements change. When upd
 
 ## License
 
-These prompt files are part of the LightSpeed organization's community health files, licensed under the GNU General Public License v3.0.
+These linting instruction files are part of the LightSpeed organization's community health files, licensed under the GNU General Public License v3.0.

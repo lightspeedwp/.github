@@ -1,0 +1,12 @@
+# .shellcheckrc - ShellCheck configuration for LightSpeedWP
+# See: https://github.com/koalaman/shellcheck/blob/master/shellcheckrc.example
+
+# Enable all recommended warnings
+severity=style
+shell=bash
+external-sources=true
+exclude=SC1091,SC2154 # Example: exclude sourcing and undefined var warnings
+
+# Custom project rules (uncomment as needed)
+# source-path=./scripts
+# enable=all

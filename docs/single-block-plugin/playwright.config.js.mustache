@@ -1,7 +1,18 @@
-module.exports = {
-  testDir: './tests',
+// Basic Playwright config; extend per repo needs.
+const { defineConfig, devices } = require('@playwright/test');
+
+module.exports = defineConfig({
+  testDir: './tests/e2e',
+  reporter: [['list']],
   timeout: 30000,
   use: {
+    baseURL: process.env.E2E_BASE_URL || 'http://localhost:8888',
+    trace: 'on-first-retry'
     headless: true
-  }
-};
+  },
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+  ],
+});

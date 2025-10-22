@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    // GitHub MCP Server with full support (repos, issues, PRs, Copilot Spaces)
+    "github": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_AUTH_TYPE": "oauth"
+      }
+    },
+    // Playwright MCP Server for E2E testing integration
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-playwright"
+      ]
+    }
+  }
+}

@@ -1,5 +1,7 @@
 # .github/ISSUE_LABELS.md
 
+> **Note:** The canonical label definitions and automation rules are maintained in [labels.yml](./labels.yml) and [labeler.yml](./labeler.yml). This Markdown file provides human-readable guidance, while the YAML files are used for automation and syncing across the organisation. Always reference both for the most up-to-date label information.
+
 ## Purpose
 
 Defines the org-wide standard for providing high‑signal, automated **Issue labeling** for review routing, release hygiene, and search, in LightSpeed projects. Use this reference to classify Issues consistently, apply correct labels, and align with org-wide automation and reporting.
@@ -64,9 +66,9 @@ Assign colours by family using the canonical palette. See `labels.yml` for autho
 ### Meta Labels & Release Hygiene
 
 - **Meta labels** such as `meta:needs-changelog`, `meta:duplicate`, and `meta:triage` provide workflow signals:
-    - `meta:needs-changelog`: Indicates an issue/PR must be included in the changelog.
-    - `meta:duplicate`: Used to aggregate or report duplicate issues, separate from lifecycle status.
-    - `meta:triage`: Flags issues needing further triage actions, but does not replace status labels.
+  - `meta:needs-changelog`: Indicates an issue/PR must be included in the changelog.
+  - `meta:duplicate`: Used to aggregate or report duplicate issues, separate from lifecycle status.
+  - `meta:triage`: Flags issues needing further triage actions, but does not replace status labels.
 
 - **Release labels** (`release:patch`, `release:minor`, `release:major`, `release:rc`, `release:beta`) determine the release type. Each PR must have exactly one release label to automate version bumping and changelog grouping.
 

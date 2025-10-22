@@ -4,6 +4,7 @@
     "github.copilot.chat.enableMcp": true,
     "github.copilot.chat.allowMcpPrompts": true,
     "github.copilot.chat.allowMcpResources": true,
+    "github.copilot.chat.mcpConfigFile": ".vscode/mcp.json",
     "github.gitAuthentication": true,
     "git.autofetch": true,
     "git.confirmSync": true,
