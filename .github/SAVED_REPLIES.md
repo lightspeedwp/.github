@@ -4,7 +4,9 @@ This document provides an index of all available saved replies for common GitHub
 
 ## Purpose
 
-Saved replies help maintain consistency in communication, reduce response time, and ensure comprehensive coverage of common scenarios. All replies follow LightSpeed WP standards and include appropriate tone, technical accuracy, and actionable guidance.
+Saved replies help maintain consistency in communication, reduce response time, and ensure comprehensive coverage of common scenarios. All replies follow LightSpeed WP standards and include appropriate links to documentation, guidelines, and resources.
+
+---
 
 ## Reply Categories
 
@@ -12,48 +14,96 @@ Saved replies help maintain consistency in communication, reduce response time, 
 
 Located in [`.github/SAVED_REPLIES/issues/`](./SAVED_REPLIES/issues/)
 
-- **[Bug Report Responses](./SAVED_REPLIES/issues/bug-reports.md)** - Standard responses for bug report processing, triage, and resolution
-- **[Feature Request Responses](./SAVED_REPLIES/issues/feature-requests.md)** - Replies for feature requests, enhancements, and new functionality discussions
-- **[Documentation Requests](./SAVED_REPLIES/issues/documentation.md)** - Responses for documentation improvements, clarifications, and updates
-- **[Support Questions](./SAVED_REPLIES/issues/support.md)** - General support responses and guidance for common questions
-- **[Duplicate Issues](./SAVED_REPLIES/issues/duplicates.md)** - Professional responses for duplicate issue management and consolidation
+| File | Use Case |
+|------|----------|
+| [bug-reports.md](./SAVED_REPLIES/issues/bug-reports.md) | Initial response to bug reports requiring more information |
+| [feature-requests.md](./SAVED_REPLIES/issues/feature-requests.md) | Acknowledgment and next steps for feature requests |
+| [documentation.md](./SAVED_REPLIES/issues/documentation.md) | Documentation feedback and improvement |
+| [support.md](./SAVED_REPLIES/issues/support.md) | General support and guidance |
+| [duplicates.md](./SAVED_REPLIES/issues/duplicates.md) | Consolidating duplicate issues |
+| [triage.md](./SAVED_REPLIES/issues/triage.md) | Initial triage or clarification |
+| [more-info.md](./SAVED_REPLIES/issues/more-info.md) | Requesting additional details |
+| [wontfix.md](./SAVED_REPLIES/issues/wontfix.md) | Out-of-scope or by design |
+| [blockers.md](./SAVED_REPLIES/issues/blockers.md) | Blocked by dependency or issue |
+| [area-routing.md](./SAVED_REPLIES/issues/area-routing.md) | Routing to team/component |
+| [good-first-issue.md](./SAVED_REPLIES/issues/good-first-issue.md) | New contributor encouragement |
+| [stale-abandoned.md](./SAVED_REPLIES/issues/stale-abandoned.md) | Stale or inactive issues |
+| [meta-label-nudge.md](./SAVED_REPLIES/issues/meta-label-nudge.md) | Meta/automation label reminders |
+| [label-clarification.md](./SAVED_REPLIES/issues/label-clarification.md) | Label assignment explanation |
+| [epic-tracking.md](./SAVED_REPLIES/issues/epic-tracking.md) | Epic linking and progress |
+| [research-completion.md](./SAVED_REPLIES/issues/research-completion.md) | Research/audit wrap-up guidance |
+| [a11y-acknowledge.md](./SAVED_REPLIES/issues/a11y-acknowledge.md) | Accessibility review and routing |
+| [security-acknowledge.md](./SAVED_REPLIES/issues/security-acknowledge.md) | Security disclosure guidance |
+
+---
 
 ### Pull Request Replies
 
 Located in [`.github/SAVED_REPLIES/pull-requests/`](./SAVED_REPLIES/pull-requests/)
 
-- **[Code Review Feedback](./SAVED_REPLIES/pull-requests/code-review.md)** - Constructive feedback templates for code quality, standards compliance, and improvements
-- **[Testing Requirements](./SAVED_REPLIES/pull-requests/testing.md)** - Responses regarding test coverage, test quality, and testing requirements
-- **[Documentation Updates](./SAVED_REPLIES/pull-requests/documentation-pr.md)** - Feedback for documentation PRs and content improvements
-- **[Security Concerns](./SAVED_REPLIES/pull-requests/security.md)** - Security-related feedback and vulnerability remediation guidance
-- **[Performance Issues](./SAVED_REPLIES/pull-requests/performance.md)** - Performance optimization suggestions and benchmarking requests
+| File | Use Case |
+|------|----------|
+| [code-review.md](./SAVED_REPLIES/pull-requests/code-review.md) | Common code review feedback and improvement suggestions |
+| [testing.md](./SAVED_REPLIES/pull-requests/testing.md) | Requesting additional tests or test improvements |
+| [documentation-pr.md](./SAVED_REPLIES/pull-requests/documentation-pr.md) | Documentation PR feedback |
+| [security.md](./SAVED_REPLIES/pull-requests/security.md) | PR security review guidance |
+| [performance.md](./SAVED_REPLIES/pull-requests/performance.md) | Performance review/benchmarking |
+| [branch-naming.md](./SAVED_REPLIES/pull-requests/branch-naming.md) | PR branch naming feedback |
+| [missing-labels.md](./SAVED_REPLIES/pull-requests/missing-labels.md) | PR label requirements |
+| [changelog-required.md](./SAVED_REPLIES/pull-requests/changelog-required.md) | Changelog entry reminders |
+| [release-label-guidance.md](./SAVED_REPLIES/pull-requests/release-label-guidance.md) | Selecting correct release label |
+| [draft-pr.md](./SAVED_REPLIES/pull-requests/draft-pr.md) | Early feedback for draft PRs |
+| [ready-for-review.md](./SAVED_REPLIES/pull-requests/ready-for-review.md) | PR review expectations |
+| [merge-discipline.md](./SAVED_REPLIES/pull-requests/merge-discipline.md) | Merge and branch protection reminders |
+| [ai-assist.md](./SAVED_REPLIES/pull-requests/ai-assist.md) | Guidance for AI-generated code |
+| [dependency-update.md](./SAVED_REPLIES/pull-requests/dependency-update.md) | Automated dependency PR feedback |
+| [area-routing.md](./SAVED_REPLIES/pull-requests/area-routing.md) | PR routing to teams/components |
+| [awaiting-author.md](./SAVED_REPLIES/pull-requests/awaiting-author.md) | Waiting for PR author |
+| [needs-qa.md](./SAVED_REPLIES/pull-requests/needs-qa.md) | QA review required |
+| [conflicts.md](./SAVED_REPLIES/pull-requests/conflicts.md) | Merge conflict resolution |
+| [closing-inactive.md](./SAVED_REPLIES/pull-requests/closing-inactive.md) | Closing PRs for inactivity |
+| [area-labeling.md](./SAVED_REPLIES/pull-requests/area-labeling.md) | PR label clarification |
 
-### Workflow and Process Replies
+---
+
+### Workflow Replies
 
 Located in [`.github/SAVED_REPLIES/workflow/`](./SAVED_REPLIES/workflow/)
 
-- **[CI/CD Failures](./SAVED_REPLIES/workflow/cicd-failures.md)** - Standard responses for build failures, test failures, and pipeline issues
-- **[Deployment Issues](./SAVED_REPLIES/workflow/deployment.md)** - Deployment-related problem responses and resolution guidance
-- **[Release Management](./SAVED_REPLIES/workflow/releases.md)** - Release-related communications and process guidance
-- **[Branch Management](./SAVED_REPLIES/workflow/branches.md)** - Branch naming, merging, and management standard responses
+| File | Use Case |
+|------|----------|
+| [cicd-failures.md](./SAVED_REPLIES/workflow/cicd-failures.md) | Standard responses to build and deployment failures |
+| [deployment.md](./SAVED_REPLIES/workflow/deployment.md) | Deployment troubleshooting |
+| [releases.md](./SAVED_REPLIES/workflow/releases.md) | Release communications |
+| [branches.md](./SAVED_REPLIES/workflow/branches.md) | Branch naming/merge discipline |
+
+---
 
 ### Community and Contribution Replies
 
 Located in [`.github/SAVED_REPLIES/community/`](./SAVED_REPLIES/community/)
 
-- **[Welcome Messages](./SAVED_REPLIES/community/welcome.md)** - Welcoming new contributors with guidance and resources
-- **[Contribution Guidelines](./SAVED_REPLIES/community/guidelines.md)** - Directing contributors to proper procedures and standards
-- **[License and Legal](./SAVED_REPLIES/community/legal.md)** - License-related questions and legal compliance responses
-- **[Code of Conduct](./SAVED_REPLIES/community/conduct.md)** - Professional responses to conduct-related issues
+| File | Use Case |
+|------|----------|
+| [welcome.md](./SAVED_REPLIES/community/welcome.md) | Welcoming first-time contributors |
+| [guidelines.md](./SAVED_REPLIES/community/guidelines.md) | Directing contributors to standards |
+| [legal.md](./SAVED_REPLIES/community/legal.md) | License/legal compliance |
+| [code-of-conduct.md](./SAVED_REPLIES/community/code-of-conduct.md) | Conduct-related responses |
+
+---
 
 ### Technical Support Replies
 
 Located in [`.github/SAVED_REPLIES/technical/`](./SAVED_REPLIES/technical/)
 
-- **[Configuration Issues](./SAVED_REPLIES/technical/configuration.md)** - Common configuration problems and solutions
-- **[Environment Setup](./SAVED_REPLIES/technical/environment.md)** - Development environment setup guidance and troubleshooting
-- **[Dependency Problems](./SAVED_REPLIES/technical/dependencies.md)** - Package, library, and dependency-related issue responses
-- **[API Integration](./SAVED_REPLIES/technical/api-integration.md)** - API usage, authentication, and integration support responses
+| File | Use Case |
+|------|----------|
+| [configuration.md](./SAVED_REPLIES/technical/configuration.md) | Config troubleshooting |
+| [environment.md](./SAVED_REPLIES/technical/environment.md) | Dev environment setup |
+| [dependencies.md](./SAVED_REPLIES/technical/dependencies.md) | Dependency issue responses |
+| [api-integration.md](./SAVED_REPLIES/technical/api-integration.md) | API support/troubleshooting |
+
+---
 
 ## Usage Guidelines
 
@@ -163,21 +213,4 @@ Monitor saved reply effectiveness through:
 ### Continuous Improvement
 
 Regular analysis helps identify:
-- **Gaps in current reply coverage** for new scenarios
-- **Opportunities for automation** of common responses
-- **Areas requiring more detailed guidance** or documentation
-- **Communication patterns** that could be standardized
-
-## Quick Reference Index
-
-| Category | File | Use Case |
-|----------|------|----------|
-| **Bug Reports** | [bug-reports.md](./SAVED_REPLIES/issues/bug-reports.md) | Initial response to bug reports requiring more information |
-| **Feature Requests** | [feature-requests.md](./SAVED_REPLIES/issues/feature-requests.md) | Acknowledgment and next steps for feature requests |
-| **Code Review** | [code-review.md](./SAVED_REPLIES/pull-requests/code-review.md) | Common code review feedback and improvement suggestions |
-| **Test Coverage** | [testing.md](./SAVED_REPLIES/pull-requests/testing.md) | Requesting additional tests or test improvements |
-| **CI/CD Issues** | [cicd-failures.md](./SAVED_REPLIES/workflow/cicd-failures.md) | Standard responses to build and deployment failures |
-| **New Contributors** | [welcome.md](./SAVED_REPLIES/community/welcome.md) | Welcoming first-time contributors with helpful resources |
-| **Configuration Help** | [configuration.md](./SAVED_REPLIES/technical/configuration.md) | Common configuration problem solutions |
-
-This comprehensive saved replies system ensures consistent, helpful, and professional communication across all LightSpeed WP repositories and projects.
+-

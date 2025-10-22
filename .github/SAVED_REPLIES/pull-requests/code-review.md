@@ -1,3 +1,9 @@
+---
+title: "Code Review Saved Replies"
+description: "Constructive feedback templates for code quality, standards compliance, and improvements."
+category: "Pull Request"
+---
+
 # Code Review Saved Replies
 
 ## Shell Script Standards
@@ -278,7 +284,7 @@ Once these formatting issues are resolved, this will be ready for final review. 
 ```markdown
 Hi @username,
 
-Thank you for this substantial contribution! The functionality is impressive, and I can see you've put a lot of thought into this. I have some suggestions for improving the architecture and maintainability:
+Thank you for this substantial contribution! The functionality is impressive, and I can see you've put a lot of thought into this. I have some suggestions for improving the architecture and maintainability.
 
 **Architectural Suggestions:**
 
