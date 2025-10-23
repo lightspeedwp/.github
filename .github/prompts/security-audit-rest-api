@@ -66,6 +66,10 @@ Produce **both**:
 
 ### 🧾 Markdown Structure (Repeat Per Target)
 
+For each target, create a section like this:
+
+## 🎯 Target 1: {{site_name}}
+
 - **Base URL:** `<exact base URL>`  
 - **Scan time:** ISO 8601  
 - **Namespaces found:** `[ … ]`  
