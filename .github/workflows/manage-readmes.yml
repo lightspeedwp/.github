@@ -1,0 +1,22 @@
+name: "Manage READMEs"
+on:
+  push:
+    paths:
+      - "scripts/folder-and-file-readmes.sh"
+      - "scripts/find-readmes.sh"
+      - "scripts/update-readme-and-changelog.sh"
+      - ".github/agents/manage-readmes.agent.js"
+      - "README.md"
+  workflow_dispatch:
+
+jobs:
+  manage-readmes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run manage-readmes agent
+        run: node .github/agents/manage-readmes.agent.js

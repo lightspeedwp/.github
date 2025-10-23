@@ -17,7 +17,16 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 ---
 
-## 2. Label Families & Categories
+## 2. Unified Labeling Agent & Workflow
+
+- **Single Agent, Single Workflow:** All issue and PR labeling, status/priority enforcement, and type assignment is handled by the unified `labeling.agent.js` and `labeling.yml`.
+- **Agent-Driven:** No separate status/type/standardization agents—everything is managed by the labeling agent, using canonical configs.
+- **File/Branch/Front Matter/Heuristics:** Labels are applied automatically based on file changes, branch prefixes, PR body front matter, and content heuristics.
+- **Org-wide Config:** All label logic is controlled by `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml`.
+
+---
+
+## 3. Label Families & Categories
 
 - **Status:** `status:*` — workflow progression (e.g. `needs-triage`, `in-progress`, `needs-review`, `blocked`)
 - **Priority:** `priority:*` — urgency and scheduling (`critical`, `important`, `normal`, `minor`)
@@ -30,7 +39,7 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 ---
 
-## 3. Issue Labelling
+## 4. Issue Labelling
 
 ### A. Automated & Manual Application
 
@@ -104,17 +113,40 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 - **Labeler Config:**  
   `.github/labeler.yml` auto-applies labels based on:
-  - Branch prefixes (e.g., `feat/`, `fix/`)
-  - File paths/globs (e.g., `src/blocks/**` → `area:block-editor`)
-- **Workflow Enforcement:**  
-  - CI fails if required labels are missing or conflicting.
-  - Status and priority labels drive automation in project boards and release gating.
-- **Project Board Sync:**  
-  - Labels map to project fields for triage, status, priority, and reporting.
-- **Changelog & Release:**  
-  - Meta and release labels trigger workflows for changelog entries and semantic version bumps.
-- **Bots/Agents:**  
-  - Use labels to assign reviewers, escalate support, route discussions, or automate notifications.
+    - Branch prefixes (e.g., `feat/`, `fix/`)
+    - File paths/globs (e.g., `src/blocks/**` → `area:block-editor`)
+- **Workflow Enforcement:**
+    - CI fails if required labels are missing or conflicting.
+    - Status and priority labels drive automation in project boards and release gating.
+- **Project Board Sync:**
+    - Labels map to project fields for triage, status, priority, and reporting.
+- **Changelog & Release:**
+    - Meta and release labels trigger workflows for changelog entries and semantic version bumps.
+- **Bots/Agents:**
+    - Use labels to assign reviewers, escalate support, route discussions, or automate notifications.
+
+---
+
+## 5. How Labels Are Applied
+
+- **Automation:**
+    - File/branch changes and PR body front matter trigger label application via the labeling agent.
+    - The agent enforces one-hot (single) status, priority, and type.
+    - Missing or non-canonical labels are auto-corrected to match `.github/labels.yml`.
+    - Changelog and release hygiene labels are nudged as needed (`meta:needs-changelog`, etc).
+
+- **Manual adjustment:**
+    - Maintainers may adjust labels as needed for clarity or triage.
+
+---
+
+## 6. Best Practices
+
+- Use the most specific `area:*` or `comp:*` for filtering.
+- Update labels as work progresses or scope changes.
+- Review and clean up labels quarterly; remove unused or redundant entries.
+- Reference [labeling.agent.md](./agents/labeling.agent.md) for agent logic details.
+- See `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml` for configs.
 
 ---
 
@@ -139,7 +171,13 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 - [Discussions Guide](DISCUSSIONS.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
+- [Canonical labels and colors](../.github/labels.yml)
+- [Labeler rules](../.github/labeler.yml)
+- [Issue Types Guide](../.github/ISSUE_TYPES.md)
+- [Automation Governance](../.github/AUTOMATION_GOVERNANCE.md)
+- [Agent Spec for Labeling](../.github/agents/labeling.agent.md)
+- [labeling.yml Workflow](../.github/workflows/labeling.yml)
 
 ---
 
-*For suggestions or changes, open a PR or discussion in the `.github` repository.*
+_*For questions or changes, open a PR or discussion in the `.github` repository.*_

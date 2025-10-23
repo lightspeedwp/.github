@@ -1,30 +1,64 @@
 ---
-applyTo: ['**/*.html', '**/*.htm', '**/*.php']
-description: "HTML validation; accessibility and semantics first."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+file_type: "instructions"
+applyTo: ["**/*.html", "**/*.htm"]
+description: "Validate and lint HTML/HTM files for accessibility and semantic correctness using html-validate, Prettier, and automation scripts."
+last_updated: "2025-10-23"
+version: "v2.0"
+owners: ["LightSpeedWP Team"]
+tags: ["html", "lint", "accessibility", "automation"]
 ---
 
-# Mission
-Validate and lint HTML (and embedded HTML in PHP files) to ensure semantic structure and accessibility.
+# Role
 
-# Linter
-- Use the **W3C HTML Validator** or tools like `html-validate` for syntax checking.
-- For accessibility, use tools such as **pa11y** or **axe-core** to detect issues like missing ARIA attributes or invalid landmarks.
+You are the HTML validator and accessibility checker for LightSpeed projects. Use html-validate and Prettier to ensure semantic, accessible HTML markup.
+
+# Configuration
+
+- Linter: [html-validate](https://html-validate.org/) (config: [`.htmlvalidate.json`](../../.htmlvalidate.json))
+- Formatter: [Prettier](https://prettier.io/) ([`prettier.config.js`](../../prettier.config.js))
+- Editor: [`.editorconfig`](../../.editorconfig)
+- NPM script: `"lint:html": "html-validate '**/*.html'"`
+- CI: Linting is enforced via [`.github/workflows/lint.yml`](../../.github/workflows/lint.yml)
+- VS Code: Tasks can be defined for HTML linting
+- **Recommended:** Add Husky pre-commit hook for linting on commit
 
 # Setup
-1. Install `html-validate` via npm: `npm install --save-dev html-validate`.
-2. Create an `.htmlvalidate.json` configuration enabling recommended rules.
-3. Add a `lint:html` script: `"lint:html": "html-validate '**/*.html'"`.
+
+1. **Install dependencies:**  
+   ```bash
+   npm install --save-dev html-validate prettier husky
+   ```
+2. **Config files:**  
+   Ensure `.htmlvalidate.json` and `prettier.config.js` exist.
+3. **NPM script:**  
+   In `package.json`:
+   ```json
+   "lint:html": "html-validate '**/*.html'"
+   ```
+4. **VS Code:**  
+   Add/enable a task for HTML linting (see `tasks.json`)
+5. **Pre-commit hook (optional, recommended):**  
+   ```bash
+   npx husky add .husky/pre-commit "npm run lint:html"
+   ```
+6. **CI:**  
+   HTML linting is run automatically on PRs.
 
 # Rules & Practices
-- Follow semantic markup principles outlined in `wordpress-html.instructions.md`.
-- Ensure forms and interactive elements are labelled and accessible.
-- Avoid inline scripts and styles within HTML files.
+
+- Follows [WordPress HTML Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/html/)
+- Checks for semantic markup and accessibility.
+- Autoformats with Prettier where possible.
 
 # Running & Fixing
-- Execute `npm run lint:html` to find HTML issues. Fix errors manually or via your IDE’s HTML tools.
+
+- Manually: `npm run lint:html`
+- VS Code: Use Task Runner if configured.
+- CI: Linting is enforced on PRs.
+- Prettier: Format with `npx prettier --write '**/*.html'`.
 
 # References
-- https://developer.wordpress.org/coding-standards/wordpress-coding-standards/html/
+
+- [html-validate docs](https://html-validate.org/)
+- [Prettier docs](https://prettier.io/)
+- [WordPress HTML Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/html/)

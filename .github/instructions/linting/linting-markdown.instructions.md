@@ -1,30 +1,66 @@
 ---
-applyTo: ['**/*.md']
-description: "markdownlint rules; keep headings, lists and links consistent."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+file_type: "instructions"
+applyTo: ["**/*.md"]
+description: "Lint Markdown files for style and readability using markdownlint, Prettier, and automation scripts."
+last_updated: "2025-10-23"
+version: "v2.0"
+owners: ["LightSpeedWP Team"]
+tags: ["markdown", "lint", "docs", "markdownlint", "prettier"]
 ---
 
-# Mission
-Maintain a consistent style in Markdown files and ensure readability across documentation.
+# Role
 
-# Linter
-- Use **markdownlint** via the Node.js package `markdownlint-cli`. Install with `npm install --save-dev markdownlint-cli`.
-- Optionally extend with LightSpeed’s custom markdownlint configuration.
+You are the Markdown documentation linter for LightSpeed projects. Enforce clarity, formatting, and style consistency using markdownlint and Prettier.
+
+# Configuration
+
+- Linter: [markdownlint-cli](https://github.com/DavidAnson/markdownlint)
+- Config: [`.markdownlint.json`](../../.markdownlint.json), [`.markdownlintignore`](../../.markdownlintignore)
+- Formatter: [Prettier](https://prettier.io/) ([`prettier.config.js`](../../prettier.config.js))
+- Editor: [`.editorconfig`](../../.editorconfig)
+- NPM script: `"lint:md": "markdownlint '**/*.md' --fix"`
+- CI: Linting is enforced via [`.github/workflows/lint.yml`](../../.github/workflows/lint.yml)
+- VS Code: Tasks available for Markdown linting
+- **Recommended:** Husky pre-commit hook for Markdown linting
 
 # Setup
-1. Create a `.markdownlint.json` configuration defining rules such as header levels, line length and list spacing.
-2. Add a `lint:md` script to `package.json`: `"lint:md": "markdownlint '**/*.md'"`.
+
+1. **Install dependencies:**
+   ```bash
+   npm install --save-dev markdownlint-cli prettier husky
+   ```
+2. **Config files:**
+   Ensure `.markdownlint.json`, `.markdownlintignore`, and `prettier.config.js` exist.
+3. **NPM script:**
+   ```json
+   "lint:md": "markdownlint '**/*.md' --fix"
+   ```
+4. **VS Code:**
+   Use Task Runner (`npm: lint-md`).
+5. **Pre-commit hook (optional, recommended):**
+   ```bash
+   npx husky add .husky/pre-commit "npm run lint:md"
+   ```
+6. **CI:**
+   Markdown linting runs on every PR.
 
 # Rules & Practices
-- Use ATX headings (`#`, `##`, etc.) and do not skip heading levels.
-- Separate paragraphs and list items with blank lines.
-- Use fenced code blocks with specified languages.
-- Keep lines under 120 characters where possible.
+
+- Enforces [WordPress Markdown documentation standards](https://developer.wordpress.org/coding-standards/markdown/).
+- ATX headings (`#`, `##`, etc.), no skipped heading levels.
+- Blank lines between sections and lists.
+- Fenced code blocks with language specified.
+- Lines ≤ 120 characters.
+- Excludes files/folders listed in `.markdownlintignore`.
 
 # Running & Fixing
-- Execute `npm run lint:md` to check Markdown files. Use the `--fix` option to auto‑fix simple issues.
+
+- Manually: `npm run lint:md` (autofixes where possible)
+- VS Code: Use Task Runner for Markdown linting.
+- CI: Linting is enforced on PRs.
+- Prettier: For formatting, run `npx prettier --write '**/*.md'`.
 
 # References
-- LightSpeed Markdown Linting Assistant (internal)
+
+- [markdownlint docs](https://github.com/DavidAnson/markdownlint)
+- [Prettier docs](https://prettier.io/)

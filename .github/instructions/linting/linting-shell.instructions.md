@@ -1,28 +1,61 @@
 ---
-applyTo: ['**/*.sh', '**/*.bash']
-description: "Shellcheck with strict mode; portable sh where possible."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+file_type: "instructions"
+applyTo: ["**/*.sh", "**/*.bash"]
+description: "Lint shell scripts with ShellCheck, enforce strict mode, and automate via scripts, CI workflow, and pre-commit hooks."
+last_updated: "2025-10-23"
+version: "v2.0"
+owners: ["LightSpeedWP Team"]
+tags: ["shell", "bash", "sh", "shellcheck", "lint", "automation"]
 ---
 
-# Mission
-Provide guidelines for writing shell scripts and linting them to catch common mistakes.
+# Role
 
-# Linter
-- Use **shellcheck**. Install via your package manager or as a GitHub Action.
+You are the shell script linter for LightSpeed projects. Enforce safety, portability, and best practices using ShellCheck, strict mode, and automation.
+
+# Configuration
+
+- Linter: [ShellCheck](https://www.shellcheck.net/) (config: [`.shellcheckrc`](../../.shellcheckrc))
+- Editor: [`.editorconfig`](../../.editorconfig)
+- Project script: [`lint-shell.sh`](../../lint-shell.sh)
+- NPM script (optional): `"lint:shell": "bash ./lint-shell.sh"`
+- CI: Linting is enforced via [`.github/workflows/lint.yml`](../../.github/workflows/lint.yml)
+- Pre-commit: Add Husky or Git hook to run ShellCheck
 
 # Setup
-1. Ensure shell scripts start with a shebang (e.g. `#!/usr/bin/env sh` for POSIX sh or `#!/usr/bin/env bash`).
-2. Add a `lint:shell` script: `"lint:shell": "shellcheck scripts/*.sh"`.
+
+1. **Install ShellCheck:**  
+   ```bash
+   brew install shellcheck  # macOS
+   sudo apt-get install shellcheck  # Ubuntu/Debian
+   ```
+2. **Config file:**  
+   Ensure `.shellcheckrc` exists in the repo root.
+3. **Linting script:**  
+   Use the provided `lint-shell.sh` for advanced options.
+4. **NPM script (optional):**
+   ```json
+   "lint:shell": "bash ./lint-shell.sh"
+   ```
+5. **Pre-commit hook (recommended):**
+   ```bash
+   npx husky add .husky/pre-commit "npm run lint:shell"
+   ```
+6. **CI:**  
+   Linting is enforced on PRs via workflow.
 
 # Rules & Practices
-- Enable strict mode: include `set -euo pipefail` near the top of your scripts to stop on errors, unset variables and pipeline failures.
-- Prefer POSIX‑compliant `sh` unless you need Bash‑specific features. If you use Bash, declare it explicitly in the shebang.
-- Quote variables to prevent word splitting and globbing.
+
+- Enforces strict mode (`set -euo pipefail`)
+- Uses shebangs for shell type.
+- Quotes variables and avoids common pitfalls.
+- Ignores/excludes files as configured in `.shellcheckrc`.
 
 # Running & Fixing
-- Run `shellcheck` on each script. Follow the suggestions to fix issues such as unquoted variables and unchecked command statuses.
+
+- Manually: `bash ./lint-shell.sh` or `npm run lint:shell`
+- CI: Linting is run on PRs.
 
 # References
-- ShellCheck manual: https://github.com/koalaman/shellcheck/wiki
+
+- [ShellCheck manual](https://github.com/koalaman/shellcheck/wiki)
+- [LightSpeed Coding Standards Instructions](./coding-standards.instructions.md)

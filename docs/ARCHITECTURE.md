@@ -8,6 +8,13 @@ This document outlines the project architecture, major components, data flows, a
 
 ---
 
+## Overview
+
+This document outlines the project architecture, major components, data flows, and the automation/agent ecosystem for the LightSpeed stack.  
+**All automation, including labeling, status/type enforcement, and standardization, is driven by a single, unified agent and workflow.**
+
+---
+
 ## Components
 
 - **Theme JSON:** Centralized configuration for styles, settings, and custom properties. Serves as the “single source of truth” for color, typography, spacing, and global settings affecting both editor and frontend.
@@ -103,6 +110,23 @@ This document outlines the project architecture, major components, data flows, a
 
 - **Audit & Monitoring:**
   - Log critical actions, failed logins, permission escalations. Use monitoring agents/plugins (e.g., Activity Log, WP Security Audit Log).
+
+---
+
+## Automation Architecture
+
+- **Labeling, status, type, and standardization:**  
+  - Fully managed by [labeling.agent.js](../.github/agents/labeling.agent.js) and [labeling.yml](../.github/workflows/labeling.yml).
+  - All logic is config-driven: [labels.yml](../.github/labels.yml), [labeler.yml](../.github/labeler.yml), [issue-types.yml](../.github/issue-types.yml).
+  - No legacy split agents or redundant workflows.
+
+- **Release automation:**  
+  - Enforced by a single agent, with changelog, version bump, tagging, and release notes.
+
+- **Other agents:**  
+  - Reviewer, Planner, Project Meta Sync, and CI are each driven by a single agent and workflow.
+
+---
 
 ### 6. Data Flow Example
 

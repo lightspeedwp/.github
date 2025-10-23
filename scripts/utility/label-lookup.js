@@ -1,59 +1,50 @@
-#!/usr/bin/env node
 /**
- * ============================================================================
- * Script Name: label-lookup.js
- * Location: scripts/utility/label-lookup.js
- * Description: Canonical Label Lookup Utility for LightSpeedWP.
- *   Fetches canonical labels from the community health repo, builds alias→canonical mapping,
- *   and provides reliable lookup for standard label forms.
- * Version: v1.0.0
- * Author: LightSpeed WP Team
- * License: GPL v3 or later
- * Usage: Import for canonical label fetching and lookup.
- * ============================================================================
+ * @fileoverview Utilities for canonical label lookup and alias mapping.
+ * @module label-lookup
  */
-const jsYaml = require('js-yaml');
+
+const fs = require('fs');
+const yaml = require('js-yaml');
 
 /**
- * Fetch canonical labels from org community health repo (.github/labels.yml)
- * Returns: Array of { name, color, description }
+ * Loads and parses canonical labels from a YAML file.
+ * @param {string} [labelsYmlPath='.github/labels.yml'] - Path to labels YAML.
+ * @returns {Set<string>} Set of canonical label names.
  */
-async function fetchCanonicalLabels(octokit, owner = 'lightspeedwp', repo = '.github', path = '.github/labels.yml') {
-  const res = await octokit.rest.repos.getContent({ owner, repo, path });
-  const yamlStr = Buffer.from(res.data.content, 'base64').toString();
-  return jsYaml.load(yamlStr); // [{name, color, description}]
+function fetchCanonicalLabels(labelsYmlPath = '.github/labels.yml') {
+  const yml = fs.readFileSync(labelsYmlPath, 'utf8');
+  const labelsData = yaml.load(yml);
+  return new Set(labelsData.map(l => typeof l === "string" ? l : l.name));
 }
 
 /**
- * Build alias → canonical mapping from .github/labels.yml
- * Returns: { [alias]: canonical }
+ * Builds a mapping of label aliases to their canonical label name.
+ * @param {Array<Object>} labelsData - Parsed label definitions from labels.yml.
+ * @returns {Object} aliasMap - Maps alias string to canonical label.
  */
-function buildLabelAliasMap(labels) {
+function buildLabelAliasMap(labelsData) {
   const aliasMap = {};
-  for (const label of labels) {
-    const canonical = label.name;
-    aliasMap[canonical.toLowerCase()] = canonical;
-    const colonIdx = canonical.indexOf(':');
-    if (colonIdx !== -1) {
-      const family = canonical.slice(0, colonIdx);
-      const value = canonical.slice(colonIdx + 1);
-      if (value && value !== canonical) {
-        aliasMap[value.toLowerCase()] = canonical; // e.g. 'php' → 'lang:php'
-      }
-      aliasMap[`${family} ${value}`.toLowerCase()] = canonical; // e.g. 'lang php' → 'lang:php'
+  labelsData.forEach(label => {
+    if (typeof label === "object" && Array.isArray(label.aliases)) {
+      label.aliases.forEach(alias => {
+        aliasMap[alias] = label.name;
+      });
     }
-  }
+  });
   return aliasMap;
 }
 
 /**
- * Find canonical label for any input string (e.g. 'php' or 'lang:php')
- * Returns: canonical label name or null
+ * Finds the canonical label for a given label or alias.
+ * @param {string} label - The label or alias to look up.
+ * @param {Object} aliasMap - Alias mapping object.
+ * @param {Set<string>} canonicalSet - Set of canonical label names.
+ * @returns {string|null} Canonical label name or null if not found.
  */
-function findStandardLabel(input, aliasMap) {
-  if (!input) return null;
-  const norm = input.toLowerCase().trim();
-  return aliasMap[norm] || null;
+function findStandardLabel(label, aliasMap, canonicalSet) {
+  if (canonicalSet.has(label)) return label;
+  if (aliasMap && aliasMap[label]) return aliasMap[label];
+  return null;
 }
 
 module.exports = {

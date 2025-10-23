@@ -9,6 +9,12 @@
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
 - When unsure, propose safe defaults and ask **one** focused question to clarify requirements.
 
+## Agent Directory
+
+- See [Main Agent Index](.github/agents/agent.md) for all agent implementations and specs.
+- Each agent must have both a code file (`.js`, `.py`, etc.) and a spec (`.md`) following the template.
+- All contributors must follow the org [Coding Standards](.github/instructions/coding-standards.instructions.md).
+
 ## Global Principles & Agent Rules
 
 | Principle / Rule                   | Guidance / Details                                                                                  |

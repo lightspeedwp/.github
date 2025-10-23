@@ -32,57 +32,58 @@ The files are organised under the `.github/` directory:
 
 ## Instructions Index (Table)
 
-| File | Description |
-| ---- | ----------- |
-| [ai-agents.instructions.md](./instructions/ai-agents.instructions.md) | Author, evaluate, and test AI agents; design agentic workflows. |
-| [coding-standards.instructions.md](./instructions/coding-standards.instructions.md) | Comprehensive coding standards and best practices for all LightSpeed WordPress projects. |
-| [frontmatter.instructions.md](./instructions/frontmatter.instructions.md) | Standardise YAML frontmatter fields across docs, prompts and instructions. |
-| [javascript-inline-documentation.instructions.md](./instructions/javascript-inline-documentation.instructions.md) | WordPress JavaScript inline documentation standards using JSDoc format. |
-| [json-schema.instructions.md](./instructions/json-schema.instructions.md) | Create, validate, and document JSON Schemas; wire them into CI. |
-| [labels-issues.instructions.md](./instructions/labels-issues.instructions.md) | Org-wide labels & issue types; automate labels on PRs only. |
-| [linting-css.instructions.md](./instructions/linting-css.instructions.md) | stylelint aligned with WordPress CSS rules. |
-| [linting-html.instructions.md](./instructions/linting-html.instructions.md) | HTML validation; accessibility and semantics first. |
-| [linting-javascript.instructions.md](./instructions/linting-javascript.instructions.md) | ESLint + Prettier aligned to WordPress and LightSpeed standards; fix before commit. |
-| [linting-json.instructions.md](./instructions/linting-json.instructions.md) | JSON schema validation; sorted keys where helpful. |
-| [linting-markdown.instructions.md](./instructions/linting-markdown.instructions.md) | markdownlint rules; keep headings, lists and links consistent. |
-| [linting-php.instructions.md](./instructions/linting-php.instructions.md) | PHPCS with WordPress rulesets; auto-fix via phpcbf when safe. |
-| [linting-python.instructions.md](./instructions/linting-python.instructions.md) | Black + Ruff; type hints required. |
-| [linting-shell.instructions.md](./instructions/linting-shell.instructions.md) | Shellcheck with strict mode; portable sh where possible. |
-| [linting-tests.instructions.md](./instructions/linting-tests.instructions.md) | Consistent test style across Jest, Playwright, Python and Bats. |
-| [linting-yaml.instructions.md](./instructions/linting-yaml.instructions.md) | YAML schema-aware linting; prefer 2-space indent. |
-| [pattern-development.instructions.md](./instructions/pattern-development.instructions.md) | Guide for developing reusable block patterns in LightSpeed WordPress projects. |
-| [playwright-tests.instructions.md](./instructions/playwright-tests.instructions.md) | Guidelines for creating and running Playwright tests in LightSpeed WordPress projects. |
-| [tests.instructions.md](./instructions/tests.instructions.md) | Write and expand tests: workflows, agents, Bats, Playwright, Jest, Python. |
-| [wordpress-css.instructions.md](./instructions/wordpress-css.instructions.md) | Enforce WordPress CSS coding standards, naming, specificity and formatting. |
-| [wordpress-html.instructions.md](./instructions/wordpress-html.instructions.md) | Enforce WordPress HTML standards and semantic markup. |
-| [wordpress-javascript.instructions.md](./instructions/wordpress-javascript.instructions.md) | Apply WordPress JavaScript coding standards (formatting, naming, patterns). |
-| [wordpress-js-docs.instructions.md](./instructions/wordpress-js-docs.instructions.md) | Enforce WordPress JavaScript inline documentation (JSDoc). |
-| [wordpress-php-docs.instructions.md](./instructions/wordpress-php-docs.instructions.md) | Enforce WordPress PHP inline documentation (DocBlocks). |
-| [wordpress-php.instructions.md](./instructions/wordpress-php.instructions.md) | Apply WordPress PHP standards (formatting, naming, security, I18N). |
-| [workflows.instructions.md](./instructions/workflows.instructions.md) | Write secure, cache-efficient, reusable workflows with tests. |
+| File                                                                                                              | Description                                                                              |
+| ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| [ai-agents.instructions.md](./instructions/ai-agents.instructions.md)                                             | Author, evaluate, and test AI agents; design agentic workflows.                          |
+| [coding-standards.instructions.md](./instructions/coding-standards.instructions.md)                               | Comprehensive coding standards and best practices for all LightSpeed WordPress projects. |
+| [frontmatter.instructions.md](./instructions/frontmatter.instructions.md)                                         | Standardise YAML frontmatter fields across docs, prompts and instructions.               |
+| [javascript-inline-documentation.instructions.md](./instructions/javascript-inline-documentation.instructions.md) | WordPress JavaScript inline documentation standards using JSDoc format.                  |
+| [json-schema.instructions.md](./instructions/json-schema.instructions.md)                                         | Create, validate, and document JSON Schemas; wire them into CI.                          |
+| [labels-issues.instructions.md](./instructions/labels-issues.instructions.md)                                     | Org-wide labels & issue types; automate labels on PRs only.                              |
+| [linting-css.instructions.md](./instructions/linting-css.instructions.md)                                         | stylelint aligned with WordPress CSS rules.                                              |
+| [linting-html.instructions.md](./instructions/linting-html.instructions.md)                                       | HTML validation; accessibility and semantics first.                                      |
+| [linting-javascript.instructions.md](./instructions/linting-javascript.instructions.md)                           | ESLint + Prettier aligned to WordPress and LightSpeed standards; fix before commit.      |
+| [linting-json.instructions.md](./instructions/linting-json.instructions.md)                                       | JSON schema validation; sorted keys where helpful.                                       |
+| [linting-markdown.instructions.md](./instructions/linting-markdown.instructions.md)                               | markdownlint rules; keep headings, lists and links consistent.                           |
+| [linting-php.instructions.md](./instructions/linting-php.instructions.md)                                         | PHPCS with WordPress rulesets; auto-fix via phpcbf when safe.                            |
+| [linting-python.instructions.md](./instructions/linting-python.instructions.md)                                   | Black + Ruff; type hints required.                                                       |
+| [linting-shell.instructions.md](./instructions/linting-shell.instructions.md)                                     | Shellcheck with strict mode; portable sh where possible.                                 |
+| [linting-tests.instructions.md](./instructions/linting-tests.instructions.md)                                     | Consistent test style across Jest, Playwright, Python and Bats.                          |
+| [linting-yaml.instructions.md](./instructions/linting-yaml.instructions.md)                                       | YAML schema-aware linting; prefer 2-space indent.                                        |
+| [pattern-development.instructions.md](./instructions/pattern-development.instructions.md)                         | Guide for developing reusable block patterns in LightSpeed WordPress projects.           |
+| [playwright-tests.instructions.md](./instructions/playwright-tests.instructions.md)                               | Guidelines for creating and running Playwright tests in LightSpeed WordPress projects.   |
+| [tests.instructions.md](./instructions/tests.instructions.md)                                                     | Write and expand tests: workflows, agents, Bats, Playwright, Jest, Python.               |
+| [wordpress-css.instructions.md](./instructions/wordpress-css.instructions.md)                                     | Enforce WordPress CSS coding standards, naming, specificity and formatting.              |
+| [wordpress-html.instructions.md](./instructions/wordpress-html.instructions.md)                                   | Enforce WordPress HTML standards and semantic markup.                                    |
+| [wordpress-javascript.instructions.md](./instructions/wordpress-javascript.instructions.md)                       | Apply WordPress JavaScript coding standards (formatting, naming, patterns).              |
+| [wordpress-js-docs.instructions.md](./instructions/wordpress-js-docs.instructions.md)                             | Enforce WordPress JavaScript inline documentation (JSDoc).                               |
+| [wordpress-php-docs.instructions.md](./instructions/wordpress-php-docs.instructions.md)                           | Enforce WordPress PHP inline documentation (DocBlocks).                                  |
+| [wordpress-php.instructions.md](./instructions/wordpress-php.instructions.md)                                     | Apply WordPress PHP standards (formatting, naming, security, I18N).                      |
+| [workflows.instructions.md](./instructions/workflows.instructions.md)                                             | Write secure, cache-efficient, reusable workflows with tests.                            |
 
 ---
 
 ## Prompts Index (Table)
 
-| File | Description |
-| ---- | ----------- |
-| [accessibility-review.prompt.md](./prompts/accessibility-review.prompt.md) | Accessibility review checklist and automation. |
-| [add-frontmatter.prompt.md](./prompts/add-frontmatter.prompt.md) | Add or validate YAML frontmatter in docs and instructions. |
-| [audit-jsdoc.prompt.md](./prompts/audit-jsdoc.prompt.md) | Audit JavaScript inline documentation for WordPress standards. |
-| [audit-phpdoc.prompt.md](./prompts/audit-phpdoc.prompt.md) | Audit PHP inline documentation for WordPress standards. |
-| [author-json-schema.prompt.md](./prompts/author-json-schema.prompt.md) | Author and validate JSON Schemas for config and data files. |
-| [build-agent-and-tests.prompt.md](./prompts/build-agent-and-tests.prompt.md) | Scaffold agents and write tests for agentic workflows. |
-| [dev-code-review.prompt.md](./prompts/dev-code-review.prompt.md) | Developer code review prompt for Copilot Chat. |
-| [fix-javascript-lint.prompt.md](./prompts/fix-javascript-lint.prompt.md) | Fix JavaScript lint errors to meet project standards. |
-| [fix-php-lint.prompt.md](./prompts/fix-php-lint.prompt.md) | Fix PHP lint errors to meet project standards. |
-| [generate-gh-workflow.prompt.md](./prompts/generate-gh-workflow.prompt.md) | Generate GitHub workflow files for CI/CD automation. |
-| [increase-test-coverage.prompt.md](./prompts/increase-test-coverage.prompt.md) | Strategies and automation for increasing test coverage. |
-| [inline-documentation.prompt.md](./prompts/inline-documentation.prompt.md) | Add or improve inline documentation in code files. |
-| [label-issues.prompt.md](./prompts/label-issues.prompt.md) | Apply and automate issue labels for org-wide consistency. |
-| [pattern-generation.prompt.md](./prompts/pattern-generation.prompt.md) | Generate reusable block patterns for WordPress projects. |
-| [refactor-theme-types.prompt.md](./prompts/refactor-theme-types.prompt.md) | Refactor theme types for maintainability and clarity. |
-| [validate-json.prompt.md](./prompts/validate-json.prompt.md) | Validate JSON files against schema and standards. |
+| File                                                                           | Description                                                    |
+| ------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| [awesome-copilot-prompts-index.md](./prompts/awesome-copilot-prompts-index.md) | Dynamic index of awesome-copilot Copilot prompts.              |
+| [accessibility-review.prompt.md](./prompts/accessibility-review.prompt.md)     | Accessibility review checklist and automation.                 |
+| [add-frontmatter.prompt.md](./prompts/add-frontmatter.prompt.md)               | Add or validate YAML frontmatter in docs and instructions.     |
+| [audit-jsdoc.prompt.md](./prompts/audit-jsdoc.prompt.md)                       | Audit JavaScript inline documentation for WordPress standards. |
+| [audit-phpdoc.prompt.md](./prompts/audit-phpdoc.prompt.md)                     | Audit PHP inline documentation for WordPress standards.        |
+| [author-json-schema.prompt.md](./prompts/author-json-schema.prompt.md)         | Author and validate JSON Schemas for config and data files.    |
+| [build-agent-and-tests.prompt.md](./prompts/build-agent-and-tests.prompt.md)   | Scaffold agents and write tests for agentic workflows.         |
+| [dev-code-review.prompt.md](./prompts/dev-code-review.prompt.md)               | Developer code review prompt for Copilot Chat.                 |
+| [fix-javascript-lint.prompt.md](./prompts/fix-javascript-lint.prompt.md)       | Fix JavaScript lint errors to meet project standards.          |
+| [fix-php-lint.prompt.md](./prompts/fix-php-lint.prompt.md)                     | Fix PHP lint errors to meet project standards.                 |
+| [generate-gh-workflow.prompt.md](./prompts/generate-gh-workflow.prompt.md)     | Generate GitHub workflow files for CI/CD automation.           |
+| [increase-test-coverage.prompt.md](./prompts/increase-test-coverage.prompt.md) | Strategies and automation for increasing test coverage.        |
+| [inline-documentation.prompt.md](./prompts/inline-documentation.prompt.md)     | Add or improve inline documentation in code files.             |
+| [label-issues.prompt.md](./prompts/label-issues.prompt.md)                     | Apply and automate issue labels for org-wide consistency.      |
+| [pattern-generation.prompt.md](./prompts/pattern-generation.prompt.md)         | Generate reusable block patterns for WordPress projects.       |
+| [refactor-theme-types.prompt.md](./prompts/refactor-theme-types.prompt.md)     | Refactor theme types for maintainability and clarity.          |
+| [validate-json.prompt.md](./prompts/validate-json.prompt.md)                   | Validate JSON files against schema and standards.              |
 
 ---
 
@@ -90,7 +91,7 @@ The files are organised under the `.github/` directory:
 
 1. Clone or reference this repository in your LightSpeed projects.
 2. Configure your organisation’s Copilot settings to load `AGENTS.md` and the relevant files under `instructions/`.
-3. Use the prompt files under `prompts/` with Copilot Chat or GitHub Actions to automate common tasks.
+3. Use the prompt files under `prompts/` or `prompts/awesome-copilot/` with Copilot Chat or GitHub Actions to automate common tasks.
 4. Keep the files up to date; update the `last_updated` field when making changes and increment the `version` for material updates.
 
 ## Cross-References
@@ -102,6 +103,18 @@ The files are organised under the `.github/` directory:
 ---
 
 ## Coding & Styling Guidelines
+
+Use comprehensive inline documentation following WordPress standards (see [coding-standards.instructions.md](./instructions/coding-standards.instructions.md)):
+
+- Accessibility, security, and modularity are required in all Copilot and agent outputs.
+- YAML frontmatter must be included in all reusable prompt and instruction files for automation and discoverability.
+
+---
+
+## Awesome Copilot
+
+- Reference the dynamic [awesome-copilot-prompts-index.md](./prompts/awesome-copilot-prompts-index.md) for the latest prompt additions.
+- [`chatmodes/awesome-copilot/index.chatmodes.md`](./chatmodes/awesome-copilot/index.chatmodes.md): Dynamic index of all Awesome Copilot chatmodes.
 
 Use comprehensive inline documentation following WordPress standards:
 

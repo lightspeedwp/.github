@@ -1,41 +1,26 @@
-#!/usr/bin/env node
 /**
- * ============================================================================
- * Script Name: build-labeling-report.js
- * Location: scripts/utility/build-labeling-report.js
- * Description: Markdown reporting helper for auto-labeling actions.
- * Version: v1.0.0
- * Author: LightSpeed WP Team
- * License: GPL v3 or later
- * Requirements: Node.js
- * Usage: Import to generate markdown reports for labeling results.
- * ============================================================================
+ * @fileoverview Generates a Markdown audit report comparing current and canonical labels.
+ * @module build-labeling-report
  */
 
+const { labelsToMarkdownTable, diffLabels } = require('./label-utils');
+
 /**
- * Build a markdown report for labeling actions.
- * @param {Object} params
- * @param {string} params.type - Issue or PR
- * @param {string[]} params.newLabels - Labels applied
- * @param {Array} params.suggestions - Canonicalization/migration suggestions
- * @returns {string} Markdown report
+ * Builds a Markdown-formatted audit report for labels on an issue/PR.
+ * @param {string[]} currentLabels - Array of current label names.
+ * @param {string[]} canonicalLabels - Array of canonical label names.
+ * @returns {string} Markdown string summarizing label audit.
  */
-function buildLabelingReport({ type, newLabels, suggestions }) {
-  let report = `## 🏷️ Auto-Labeling Report\n\n**Type:** ${type}\n**Labels Applied:**\n`;
-  report += (newLabels && newLabels.length)
-    ? newLabels.map(l => `- \`${l}\``).join('\n')
-    : '*No new labels applied*';
-  if (suggestions && suggestions.length > 0) {
-    report += `\n\n**Canonicalization/Migration Suggestions:**\n`;
-    for (const s of suggestions) {
-      if (s.to) report += `- \`${s.from}\` → \`${s.to}\`\n`;
-      else report += `- \`${s.from}\` is non-standard and was removed\n`;
-    }
-  }
-  report += `\n\n*Labels assigned based on content, file changes, branch rules, and org-wide standards.*`;
+function buildLabelingReport(currentLabels, canonicalLabels) {
+  const { missing, extra } = diffLabels(currentLabels, canonicalLabels);
+  let report = "## Label Audit Report\n";
+  report += "\n**Current Labels:**\n" + labelsToMarkdownTable(currentLabels);
+  report += "\n**Expected Canonical Labels:**\n" + labelsToMarkdownTable(canonicalLabels);
+  if (missing.length)
+    report += "\n**Missing Canonical Labels:**\n" + labelsToMarkdownTable(missing);
+  if (extra.length)
+    report += "\n**Extra (Non-canonical) Labels:**\n" + labelsToMarkdownTable(extra);
   return report;
 }
 
-module.exports = {
-  buildLabelingReport,
-};
+module.exports = { buildLabelingReport };

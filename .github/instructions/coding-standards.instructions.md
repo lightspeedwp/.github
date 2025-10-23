@@ -1,134 +1,119 @@
 ---
-applyTo: '**/*'
-description: 'Coding standards for automation, shell scripts, WordPress, and test code'
-version: '1.2'
-author: 'LightSpeed WP Team'
-audience: ['contributor', 'maintainer', 'reviewer', 'automation']
-status: 'approved'
-changelog: [
-  '2025-10-15: Initial version',
-  '2025-10-15: Added extended fields for governance',
-  '2025-10-22: Added agent/testing standards and references'
-]
-tags: ['standards', 'shell', 'wordpress', 'coding', 'automation', 'testing', 'naming']
-feedback: 'Submit suggestions or issues via repository discussions or PR comments.'
-deprecated: false
-related: [
-  'custom-instructions.md',
-  'AGENTS.md',
-  'prompts.md',
-  'chatmodes.md',
-  'automation-testing.instructions.md',
-  'tests.instructions.md',
-  'naming-conventions.instructions.md'
-]
-updated: '2025-10-22'
-created: '2025-10-15'
+file_type: "instructions"
+description: "Unified coding standards for all LightSpeedWP projects: applies to all code, documentation, automation, and AI contributions."
+applyTo: "**"
+version: "v2.0"
+last_updated: "2025-10-23"
+owners: ["LightSpeedWP Team"]
+tags: ["coding-standards", "governance", "automation", "docs", "lint", "ai"]
 ---
 
-# Coding Standards Instructions
+# LightSpeedWP Coding Standards — Canonical Reference
 
-You are a shell script, JavaScript, or WordPress developer.  
-Follow our org-wide coding standards, documentation patterns, and testing conventions to create and maintain automation, scripts, and application code.  
-**All code must be clear, secure, maintainable, and tested.**
-
-## Overview
-
-This document establishes comprehensive coding standards for the LightSpeedWP automation ecosystem, covering all programming languages, frameworks, and toolchains used for development and operations at LightSpeedWP.
+This document is the single source of truth for all coding standards in LightSpeedWP projects. It applies to **all code, docs, automation, and AI-generated content**.
 
 ---
 
-## Purpose and Scope
+## Index
 
-- Covers shell script, JavaScript/Node.js, WordPress, and automation agent coding standards.
-- Defines error handling, documentation, linting, naming, and test conventions.
-- Intended for all contributors, maintainers, and reviewers.
-
----
-
-## Core Principles
-
-- Clarity, maintainability, and security
-- Actionable, testable code (see [tests.instructions.md](./tests.instructions.md))
-- Consistent structure, naming, and documentation (see [naming-conventions.instructions.md](./naming-conventions.instructions.md))
-- Integration with org-wide standards and agent-driven automation
+- [General Principles](#general-principles)
+- [Language-Specific Standards](#language-specific-standards)
+- [Formatting & Automation](#formatting--automation)
+- [Documentation Standards](#documentation-standards)
+- [AI & Copilot Instructions](#ai--copilot-instructions)
+- [References & Related Guidance](#references--related-guidance)
 
 ---
 
-## Required Sections
+## General Principles
 
-- Role definition and context
-- Framework and standards to follow
-- Task types and scenarios
-- Anti-patterns and explicit exclusions
-- Examples and references
-
----
-
-## Formatting & Documentation Guidelines
-
-- Use markdown headings and bullet lists in docs
-- Include code blocks for templates and examples
-- Reference related files using relative links
-- **All source files require comprehensive header comments**
-- **Public functions and complex private functions must be documented**
-- **Every directory with scripts/code must have a README.md**
-- **All automation/testing code must have matching tests in `.github/agents/tests/`**
-
----
-
-## Integration References
-
-- See `.github/custom-instructions.md`, [naming-conventions.instructions.md](./naming-conventions.instructions.md), related agent, prompt, and chatmode files
-- See [automation-testing.instructions.md](./automation-testing.instructions.md) and [tests.instructions.md](./tests.instructions.md) for test structure and coverage requirements
-
----
-
-## Review and Enforcement
-
-- Use the checklist in `create-or-update-copilot.instructions.md` to validate clarity, completeness, and compliance
-- **All PRs must have passing lint and test checks per [tests.instructions.md](./tests.instructions.md)**
-- Reviewers should verify adherence to coding, naming, and test standards before approving
-
----
-
-## Testing Standards (Automation Agents & Includes)
-
-- **All agent and utility tests must be in `.github/agents/tests/`**
-- **Test file naming:** `{module}.test.js` (e.g. `readmeUtils.test.js`)
-- **Use Jest for JavaScript/Node.js agent testing**
-- **Mock all file/network/system side effects**
-- **Coverage:** 85% branch coverage minimum for agents/utilities
-- **See [automation-testing.instructions.md](./automation-testing.instructions.md) and [tests.instructions.md](./tests.instructions.md) for details**
-
----
-
-## Naming Conventions
-
-- Reference [naming-conventions.instructions.md](./naming-conventions.instructions.md) for rules on file, folder, function, class, variable, and config naming
+- **Consistency:** All code, scripts, and docs must follow the LightSpeedWP conventions and project-specific configs.
+- **Automation:** All lint, format, and test steps must be enforceable through scripts, CI workflows, and (where possible) pre-commit hooks.
+- **Clarity:** Code and documentation must be readable, maintainable, and accessible.
+- **Security:** Always sanitize, escape, and validate inputs. Never commit secrets or credentials.
+- **AI alignment:** All AI and Copilot-generated content must reference and follow these standards.
 
 ---
 
 ## Language-Specific Standards
 
-### Shell Script, WordPress, JavaScript/Node.js, and Python standards  
-*(see previous detailed sections for each language — link to details as needed)*
+- **CSS/SCSS/Sass:**  
+  - Use [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/)
+  - Lint with stylelint + Prettier.
+  - Reference: [`linting-css.instructions.md`](./linting/linting-css.instructions.md)
+
+- **HTML:**  
+  - Use [WordPress HTML Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/html/)
+  - Lint with html-validate + Prettier.
+  - Reference: [`linting-html.instructions.md`](./linting/linting-html.instructions.md)
+
+- **JavaScript/TypeScript:**  
+  - Use [WordPress JS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/)
+  - Lint with ESLint (flat/classic), Prettier.
+  - Reference: [`linting-javascript.instructions.md`](./linting/linting-javascript.instructions.md)
+
+- **JSON:**  
+  - Enforce strict schemas and formatting with Prettier, (optionally) AJV.
+  - Reference: [`linting-json.instructions.md`](./linting/linting-json.instructions.md)
+
+- **Markdown:**  
+  - Use markdownlint + Prettier.
+  - Reference: [`linting-markdown.instructions.md`](./linting/linting-markdown.instructions.md)
+
+- **PHP:**  
+  - Use [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/)
+  - Lint with PHPCS.
+  - Reference: [`linting-php.instructions.md`](./linting/linting-php.instructions.md)
+
+- **Python:**  
+  - Use [PEP8](https://peps.python.org/pep-0008/), Black, Ruff, type hints, docstrings.
+  - Reference: [`linting-python.instructions.md`](./linting/linting-python.instructions.md)
+
+- **Shell:**  
+  - Use ShellCheck, strict mode, and testable scripts.
+  - Reference: [`linting-shell.instructions.md`](./linting/linting-shell.instructions.md)
+
+- **YAML:**  
+  - Use yamllint, Spectral, actionlint for workflows.
+  - Reference: [`linting-yaml.instructions.md`](./linting/linting-yaml.instructions.md)
 
 ---
 
-## Continuous Improvement
+## Formatting & Automation
 
-- **Quarterly Review:** Review and update standards based on team feedback
-- **Tool Updates:** Keep linting tools and configurations current
-- **Best Practice Sharing:** Regular team discussions on code quality
-- **Training:** Ongoing education on new languages and frameworks
-- **Metrics:** Track code quality metrics and improvement trends
-
----
-
-This comprehensive approach to coding standards ensures that LightSpeedWP automation code remains secure, maintainable, and consistent across all projects and team members.
+- **Formatting:** All files must be formatted with Prettier, Black, or project-specific formatters.
+- **Linting:** All code must pass lint checks before merge (CI-required).
+- **Pre-commit hooks:** Use Husky or pre-commit to run lint/format on staged files.
+- **CI:** All PRs run lint, format, and test jobs in workflows before merge.
+- **VS Code Tasks:** Use `tasks.json` to run all standard lint/format/test commands easily.
 
 ---
 
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_  
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+## Documentation Standards
+
+- All docs must use Markdown, be linted, and follow [markdownlint](https://github.com/DavidAnson/markdownlint) rules.
+- All public functions/classes must have docblocks or docstrings.
+- Inline documentation must be clear and reference related files or standards.
+
+---
+
+## AI & Copilot Instructions
+
+- All AI-generated code and docs must reference and follow these standards.
+- Use path-specific instructions files and main [custom instructions](../custom-instructions.md) for Copilot.
+- See [LightSpeed Copilot Prompts Index](../prompts/prompts.md) for reusable prompts.
+
+---
+
+## References & Related Guidance
+
+- [LightSpeed Custom Instructions](../custom-instructions.md)
+- [LightSpeed Copilot Prompts Index](../prompts/prompts.md)
+- [LightSpeed Chatmodes Index](../chatmodes/chatmodes.md)
+- [LightSpeed Agents Index](../agents/agent.md)
+- [LightSpeed GitHub Workflow Governance](../WORKFLOWS.md)
+
+---
+
+_This file is the canonical reference for all code, documentation, and automation standards in LightSpeedWP projects.  
+All contributors, agents, and AI assistants must comply with these standards._

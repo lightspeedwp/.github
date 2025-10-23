@@ -1,123 +1,153 @@
----
+--- 
 title: "Chat Modes: Master Index"
-version: "v1.1"
-last_updated: "2025-10-19"
+version: "v1.2"
+last_updated: "2025-10-23"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Master file that lists all chat modes and cross-references Copilot instructions, agents, and prompts."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 type: "chatmode"
 ---
-# Role (required)
-You are a [role]. Follow our [framework/patterns] to [type of task]. Avoid [practices or tools] unless specified.
 
-# Index
+# Chat Modes: Master Index
+
+This file indexes all available chat modes for LightSpeed projects, including dynamic sub-indexes like [Awesome Copilot Chatmodes](./awesome-copilot/index.chatmodes.md).
+
+## Index
+
+- [Awesome Copilot Chatmodes Index](./awesome-copilot/index.chatmodes.md)
 - Use `/copilot/templates/template.chatmode.md` for new modes.
 - See [custom-instructions.md](../custom-instructions.md) for the central Copilot and agent standards, instructions, and prompts.
 - See [AGENTS.md](../../AGENTS.md) for global AI rules.
 - See [agents/agent.md](../agents/agent.md) and [prompts/prompts.md](../prompts/prompts.md) for workflow and prompt guidance.
 
-# Style (required)
+## Style (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Purpose (required)
+## Purpose (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Type of Task (required)
+## Type of Task (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# How to ask for help (required)
+## How to ask for help (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Conventions (optional)
+## Conventions (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Process (required)
+## Process (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Examples (optional)
+## Examples (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Important notes (optional)
+## Important notes (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Who is this for (optional)
+## Who is this for (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Responsibilities (optional)
+## Responsibilities (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Patterns or Frameworks to Follow (optional)
+## Patterns or Frameworks to Follow (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Practices (optional)
+## Practices (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Tools (optional)
+## Tools (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Coverage (optional)
+## Coverage (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Constraints (required)
+## Constraints (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# What to do (required)
+## What to do (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# What not do (required)
+## What not do (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Best Practices (required)
+## Best Practices (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Guardrails (required)
+## Guardrails (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Checklist relevant to instructions (required)
+## Checklist relevant to instructions (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Outputs (required)
+## Outputs (required)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Contribution & Collaboration (optional)
+## Contribution & Collaboration (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Non-goals (optional)
+## Non-goals (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Resource links (optional)
+## Resource links (optional)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
-# Prompt (required — see D2)
+## Prompt (required — see D2)
+
 - Guidance: Replace with concrete, scoped bullets tailored to this Space.
 - Checklist: List explicit items that must be provided or validated.
 
 ---
+
 Provide safe defaults; mark optional flags clearly.
 Start by asking about any LightSpeed internal process, documentation, or best practice. This Space is your single source of truth for LightSpeed workflows.
 Aim for small, safe, well-documented steps that make the Figma → WordPress handoff effortless.

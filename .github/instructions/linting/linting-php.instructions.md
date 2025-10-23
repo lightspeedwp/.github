@@ -1,45 +1,71 @@
 ---
-applyTo: ['**/*.php']
-description: "PHPCS with WordPress rulesets; auto-fix via phpcbf when safe."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+file_type: "instructions"
+applyTo: ["**/*.php"]
+description: "Lint PHP files using PHPCS and WordPress coding standards; automate with scripts, CI workflow, and pre-commit hooks."
+last_updated: "2025-10-23"
+version: "v2.0"
+owners: ["LightSpeedWP Team"]
+tags: ["php", "phpcs", "lint", "wordpress", "automation"]
 ---
 
-# Mission
+# Role
 
-Define how to lint PHP files using PHP_CodeSniffer and WordPress coding standards.
+You are the PHP code style and standards enforcer for LightSpeed projects. Use PHPCS and the official WordPress rulesets to lint PHP files, both manually and in automated workflows.
 
-# Linter
+# Configuration
 
-- Use **PHP_CodeSniffer (PHPCS)**. Install via Composer: `composer require --dev squizlabs/php_codesniffer wp-coding-standards/wpcs`.
-- Reference the rulesets `WordPress`, `WordPress-Docs` and `WordPress-Extra`.
+- Linter: [PHP_CodeSniffer (PHPCS)](https://github.com/squizlabs/PHP_CodeSniffer)
+- Rulesets: `WordPress`, `WordPress-Docs`, `WordPress-Extra`
+- Config: [`phpcs.xml.dist`](../../phpcs.xml.dist)
+- Editor: [`.editorconfig`](../../.editorconfig)
+- NPM script (if using npm): _not required; use Composer scripts instead_
+- Composer script: `"lint": "phpcs -q"`
+- CI: Linting is enforced via [`.github/workflows/lint.yml`](../../.github/workflows/lint.yml)
+- Pre-commit: Add Husky or local Git hook for PHP linting
 
 # Setup
 
-1. Create a `phpcs.xml.dist` in the project root:
+1. **Install dependencies:**
+   ```bash
+   composer require --dev squizlabs/php_codesniffer wp-coding-standards/wpcs
+   ```
+2. **Config file:**
    ```xml
-   <?xml version="1.0"?>
+   <!-- phpcs.xml.dist -->
    <ruleset name="LightSpeed WordPress Standards">
      <rule ref="WordPress"/>
      <rule ref="WordPress-Docs"/>
      <rule ref="WordPress-Extra"/>
    </ruleset>
    ```
-
-2. Add a `lint` script to `composer.json`: `"lint": "phpcs -q"`.
+3. **Composer script:**  
+   In `composer.json`:
+   ```json
+   "scripts": {
+     "lint": "phpcs -q"
+   }
+   ```
+4. **Pre-commit hook (optional, recommended):**
+   ```bash
+   npx husky add .husky/pre-commit "composer lint"
+   ```
+5. **CI:**  
+   Linting is run automatically on PRs via the GitHub Actions workflow.
 
 # Rules & Practices
 
-- Enforce 4‑space indentation and WordPress brace placement.
-- Require Yoda conditions in comparisons.
-- Ensure escaping and sanitisation functions are used.
+- Follows [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/)
+- Enforces 4-space indentation, Yoda conditions, escaping/sanitisation, and docblocks.
+- Excludes files/folders as per `phpcs.xml.dist`.
 
 # Running & Fixing
 
-- Run `vendor/bin/phpcs` to list violations.
-- Run `vendor/bin/phpcbf` for auto‑fixes. Review remaining violations and fix them manually.
+- Manually: `composer lint`
+- To autofix: `vendor/bin/phpcbf`
+- CI: Linting runs on PRs, fails if there are any errors.
 
 # References
 
-- WordPress Coding Standards for PHP: https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/
+- [PHPCS docs](https://github.com/squizlabs/PHP_CodeSniffer)
+- [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/)
+- [LightSpeed Coding Standards Instructions](./coding-standards.instructions.md)

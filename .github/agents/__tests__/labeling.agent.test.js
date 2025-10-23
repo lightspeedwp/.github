@@ -1,27 +1,41 @@
-/**
- * Jest Test Stub for labeling.agent.js
- *
- * Purpose: Validate Labeling Agent logic, label application, and org-wide standards compliance.
- * Aligns with workflows: pr-labeller.yml, issue-labeler.yml, pr-labels-project-sync.yml, issue-labels-project-sync.yml
- * Aligns with docs: org-wide-labels-v1-12.md, label-automation-strategy-v1-1.md
- * Aligns with scripts: manage-labels.sh
- * Aligns with Bats tests: test-manage-labels.bats
- */
-
-const labelingAgent = require('../../.github/agents/labeling.agent.js');
+const {
+  mockOctokit,
+  mockContext,
+  mockPrPayload,
+  mockIssuePayload,
+  setTestEnv,
+  resetTestEnv,
+  expectCommentPosted,
+} = require('../../../tests/test-helpers');
+const { runLabelingAgent } = require('../labeling.agent.js');
 
 describe('Labeling Agent', () => {
-    it('should initialize without error', () => {
-        // TODO: Implement agent initialization test
-        expect(labelingAgent).toBeDefined();
-    });
+  beforeAll(() => setTestEnv({ GITHUB_TOKEN: 'test' }));
+  afterAll(() => resetTestEnv(['GITHUB_TOKEN']));
 
-    it('should apply labels according to org-wide standards', () => {
-        // TODO: Implement label application logic test
-        // Example: Simulate issue/PR event and check label output
-    });
+  it('applies default status and priority labels to issues and PRs', async () => {
+    const octokit = mockOctokit();
+    const context = mockContext(mockPrPayload({ labels: [] }));
+    context.github = octokit;
+    context.core = { info: jest.fn() };
 
-    it('should handle dry-run and verbose modes', () => {
-        // TODO: Test DRY_RUN and VERBOSE environment variable handling
-    });
+    await runLabelingAgent({ context, configs: {}, dryRun: false });
+
+    expect(octokit.rest.issues.addLabels).toHaveBeenCalled();
+  });
+
+  it('removes duplicate status labels', async () => {
+    const octokit = mockOctokit();
+    const context = mockContext(
+      mockPrPayload({ labels: [{ name: 'status:needs-review' }, { name: 'status:in-progress' }] })
+    );
+    context.github = octokit;
+    context.core = { info: jest.fn() };
+
+    await runLabelingAgent({ context, configs: {}, dryRun: false });
+
+    expect(octokit.rest.issues.removeLabel).toHaveBeenCalled();
+  });
+
+  // Add more tests for type assignment, changelog nudge, file/branch heuristics, etc.
 });

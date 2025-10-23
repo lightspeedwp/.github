@@ -1,12 +1,16 @@
 ---
-mode: 'agent'
-description: 'Add educational comments to the file specified, or prompt asking for file to comment if one is not provided.'
-tools: ['edit/editFiles', 'fetch', 'todos']
+title: "Add Educational Comments"
+description: "Add helpful educational comments to code for maintainers and reviewers in LightSpeed projects."
+author: "LightSpeedWP Team"
+maintainer: "Ash Shaw"
+tags: ["lightspeed", "copilot", "prompt", "awesome"]
+type: "prompt"
+last_updated: "2025-10-23"
 ---
 
-# Add Educational Comments
+# Prompt: Add Educational Comments
 
-Add educational comments to code files so they become effective learning resources. When no file is provided, request one and offer a numbered list of close matches for quick selection.
+Given a code snippet, add helpful, clear, and concise comments that explain the purpose and logic for other developers and reviewers. Focus on maintainability, clarity, and alignment with LightSpeed’s documentation standards.
 
 ## Role
 

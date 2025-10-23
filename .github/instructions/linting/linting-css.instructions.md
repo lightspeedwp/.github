@@ -1,34 +1,67 @@
 ---
-applyTo: ['**/*.css', '**/*.scss', '**/*.sass']
-description: "stylelint aligned with WordPress CSS rules."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+file_type: "instructions"
+applyTo: ["**/*.css", "**/*.scss", "**/*.sass"]
+description: "Lint and format CSS, SCSS, and Sass files using stylelint (with project config), Prettier, and automation scripts."
+last_updated: "2025-10-23"
+version: "v2.0"
+owners: ["LightSpeedWP Team"]
+tags: ["css", "stylelint", "prettier", "lint", "automation"]
 ---
 
-# Mission
-Lint and format CSS, SCSS and Sass files to maintain consistency and adhere to WordPress conventions.
+# Role
 
-# Linter
-- Use **stylelint** with the WordPress configuration (`@wordpress/stylelint-config`). Install via `npm install --save-dev stylelint @wordpress/stylelint-config`.
-- Integrate **Prettier** to handle basic formatting.
+You are the CSS and Sass linter for LightSpeed projects. Enforce code style, standards, and formatting using stylelint and Prettier. Ensure all CSS/SCSS/Sass files meet WordPress and project conventions.
+
+# Configuration
+
+- Linter: [stylelint](https://stylelint.io/) with project config ([`.stylelintrc.json`](../../.stylelintrc.json))
+- Ignore: [`.stylelintignore`](../../.stylelintignore)
+- Formatter: [Prettier](https://prettier.io/) ([`prettier.config.js`](../../prettier.config.js) or [`.prettierrc.js`](../../.prettierrc.js))
+- Editor: [`.editorconfig`](../../.editorconfig)
+- NPM script: `"lint:css": "stylelint '**/*.{css,scss}' --fix"`
+- CI: Linting is enforced via [`.github/workflows/lint.yml`](../../.github/workflows/lint.yml)
+- VS Code: Tasks are available for linting via `tasks.json`
+- **Recommended:** Add Husky pre-commit hook for linting on commit
 
 # Setup
-1. Create a `.stylelintrc.json`:
-   ```json
-   {
-     "extends": ["@wordpress/stylelint-config"],
-     "rules": {}
-   }
+
+1. **Install dependencies:**  
+   ```bash
+   npm install --save-dev stylelint stylelint-config-standard stylelint-config-prettier prettier husky
    ```
-2. Add a `lint:css` script: `"lint:css": "stylelint '**/*.{css,scss,sass}'"`.
+2. **Config files:**  
+   Ensure `.stylelintrc.json`, `.stylelintignore`, and `prettier.config.js` (or `.prettierrc.js`) exist in the repo root.
+3. **NPM script:**  
+   In `package.json`:
+   ```json
+   "lint:css": "stylelint '**/*.{css,scss}' --fix"
+   ```
+4. **VS Code:**  
+   Use the task:  
+   - Command Palette → Run Task → `npm: lint-css`
+5. **Pre-commit hook (optional, recommended):**  
+   ```bash
+   npx husky add .husky/pre-commit "npm run lint:css"
+   ```
+6. **CI:**  
+   CSS linting runs automatically on every PR via `.github/workflows/lint.yml`.
 
 # Rules & Practices
-- Follow the CSS coding standards described in `wordpress-css.instructions.md`.
-- Enforce property order and limit selector specificity.
+
+- Follows [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/)
+- Enforces consistent formatting and property order.
+- Integrates with Prettier to automatically format code.
+- Excludes files/folders listed in `.stylelintignore`.
 
 # Running & Fixing
-- Run `npm run lint:css` to list issues. Use `--fix` to automatically fix safe issues.
+
+- Manually: `npm run lint:css` (autofixes where possible)
+- VS Code: Run `npm: lint-css` from the Task Runner.
+- CI: Linting is run on all PRs.
+- Prettier: For full formatting, run `npx prettier --write '**/*.{css,scss,sass}'`.
 
 # References
-- https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/
+
+- [stylelint docs](https://stylelint.io/)
+- [Prettier docs](https://prettier.io/)
+- [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/)

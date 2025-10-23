@@ -1,897 +1,160 @@
-# Organisation-wide default labels (lightspeedwp)
-# Source of truth for sync to all repos.
+# Org-wide Canonical Labels (Issues, PRs, Discussions)
+# All labeling, status, type, and standardization is handled by the unified labeling agent and workflow.
+# This file is the single source of truth for all automation and label configuration.
 
-- name: ai-ops:agents
-  color: 0052CC
-  description: "AI agent definitions"
-- name: ai-ops:chat-modes
-  color: 0052CC
-  description: "Chat prompt modes"
-- name: ai-ops:datasets
+- name: status:needs-triage
   color: BFD4F2
-  description: "AI training datasets"
-- name: ai-ops:evaluations
-  color: BFD4F2
-  description: "AI evaluation results"
-- name: ai-ops:instructions
-  color: 0052CC
-  description: "AI usage instructions"
-- name: ai-ops:prompts
-  color: 0052CC
-  description: "Reusable AI prompts"
-- name: ai-ops:tools
-  color: BFD4F2
-  description: "AI tool manifests"
-- name: area:analytics
-  color: C2E0C6
-  description: "Analytics and tracking"
-- name: area:block-visibility
-  color: C5DEF5
-  description: "Block visibility controls"
-- name: area:cards
-  color: C2E0C6
-  description: "Card lists and grids"
-- name: area:ci
-  color: BFD4F2
-  description: "Continuous integration setup"
-- name: area:content
-  color: C5DEF5
-  description: "Content editing assistance"
-- name: area:cookie-policies
-  color: C5DEF5
-  description: "Cookie consent banners"
-- name: area:cta
-  color: C5DEF5
-  description: "Call-to-action elements"
-- name: area:dependencies
-  color: F9D0C4
-  description: "Dependency management tasks"
-- name: area:deployment
-  color: 006B75
-  description: "Deployment operations"
-- name: area:design-system
-  color: C5DEF5
-  description: "Design system components"
-- name: area:emails
-  color: C5DEF5
-  description: "Email templates"
-- name: area:forms
-  color: C5DEF5
-  description: "Form UX and validation"
-- name: area:gallery
-  color: C5DEF5
-  description: "Media gallery components"
-- name: area:hero
-  color: C5DEF5
-  description: "Hero section elements"
-- name: area:i18n
-  color: C5DEF5
-  description: "Internationalization support"
-- name: area:infrastructure
-  color: 006B75
-  description: "Project infrastructure tasks"
-- name: area:integration
-  color: D93F0B
-  description: "External integrations"
-- name: area:mega-menu
-  color: C5DEF5
-  description: "Mega menu structures"
-- name: area:mobile-menu
-  color: C5DEF5
-  description: "Mobile menu components"
-- name: area:modal
-  color: C5DEF5
-  description: "Modal dialogs and overlays"
-- name: area:monitoring
-  color: C2E0C6
-  description: "Monitoring and observability"
-- name: area:navigation
-  color: C5DEF5
-  description: "Site navigation elements"
-- name: area:plugins
-  color: C5DEF5
-  description: "Plugin configuration"
-- name: area:post-format
-  color: C5DEF5
-  description: "Post format presentation"
-- name: area:search
-  color: C5DEF5
-  description: "Site search features"
-- name: area:seo
-  color: C2E0C6
-  description: "SEO technical tasks"
-- name: area:slider
-  color: C5DEF5
-  description: "Slider and carousel elements"
-- name: area:testimonials
-  color: C2E0C6
-  description: "Testimonials and reviews"
-- name: area:theme
-  color: C5DEF5
-  description: "Theme and style tasks"
-- name: area:woocommerce
-  color: D4C5F9
-  description: "WooCommerce features"
-- name: block:audio
-  color: C5DEF5
-  description: "Audio block element"
-- name: block:button
-  color: C5DEF5
-  description: "Button block element"
-- name: block:columns
-  color: C5DEF5
-  description: "Columns layout block"
-- name: block:comments
-  color: C5DEF5
-  description: "Comments block"
-- name: block:cover
-  color: C5DEF5
-  description: "Cover/media overlay block"
-- name: block:excerpt
-  color: C5DEF5
-  description: "Post excerpt block"
-- name: block:featured-image
-  color: C5DEF5
-  description: "Featured image block"
-- name: block:gallery
-  color: C5DEF5
-  description: "Media gallery block"
-- name: block:group
-  color: C5DEF5
-  description: "Group wrapper block"
-- name: block:image
-  color: C5DEF5
-  description: "Image block"
-- name: block:list
-  color: C5DEF5
-  description: "Ordered/unordered list block"
-- name: block:pagination
-  color: C5DEF5
-  description: "Pagination block"
-- name: block:post-navigation
-  color: C5DEF5
-  description: "Post navigation block"
-- name: block:query-loop
-  color: C5DEF5
-  description: "Query loop block"
-- name: block:quote
-  color: C5DEF5
-  description: "Quote/pullquote block"
-- name: block:read-more
-  color: C5DEF5
-  description: "Read more link block"
-- name: block:site-logo
-  color: C5DEF5
-  description: "Site logo block"
-- name: block:social
-  color: C5DEF5
-  description: "Social links block"
-- name: block:video
-  color: C5DEF5
-  description: "Video block"
-- name: block:yoast-faq
-  color: C5DEF5
-  description: "Yoast FAQ block"
-- name: comp:block-bindings
-  color: C5DEF5
-  description: "Block bindings"
-- name: comp:block-editor
-  color: C5DEF5
-  description: "Block/site editor"
-- name: comp:block-inserter
-  color: C5DEF5
-  description: "Block inserter UI"
-- name: comp:block-json
-  color: C5DEF5
-  description: "Block JSON metadata"
-- name: comp:block-locking
-  color: C5DEF5
-  description: "Block locking feature"
-- name: comp:block-patterns
-  color: C5DEF5
-  description: "Block patterns library"
-- name: comp:block-styles
-  color: C5DEF5
-  description: "Block styles"
-- name: comp:block-supports
-  color: C5DEF5
-  description: "Block supports features"
-- name: comp:block-templates
-  color: C5DEF5
-  description: "Block template files/editor"
-- name: comp:block-variations
-  color: C5DEF5
-  description: "Block variations"
-- name: comp:color-palette
-  color: C5DEF5
-  description: "Color palette tokens"
-- name: comp:help-tabs
-  color: C5DEF5
-  description: "WordPress help tabs"
-- name: comp:post-settings
-  color: C5DEF5
-  description: "Post editor settings"
-- name: comp:section-styles
-  color: C5DEF5
-  description: "Section/background styles"
-- name: comp:settings
-  color: C5DEF5
-  description: "Global settings UX"
-- name: comp:site-editor
-  color: C5DEF5
-  description: "Site Editor interface"
-- name: comp:spacing
-  color: C5DEF5
-  description: "Spacing tokens/layout gaps"
-- name: comp:style-variations
-  color: C5DEF5
-  description: "Style variations (JSON)"
-- name: comp:template-parts
-  color: C5DEF5
-  description: "Header/footer/nav template parts"
-- name: comp:theme-json
-  color: C5DEF5
-  description: "Theme JSON tokens"
-- name: comp:typography
-  color: C5DEF5
-  description: "Typography scale/fluids"
-- name: comp:wp-admin
-  color: C5DEF5
-  description: "WP Admin screens"
-- name: compat:gutenberg
-  color: D93F0B
-  description: "Gutenberg package compatibility"
-- name: compat:multisite
-  color: F9D0C4
-  description: "Multisite/network considerations"
-- name: compat:php
-  color: D93F0B
-  description: "PHP compatibility"
-- name: compat:rtl
-  color: D93F0B
-  description: "RTL layout support"
-- name: compat:woocommerce
-  color: D93F0B
-  description: "WooCommerce version compatibility"
-- name: compat:wordpress
-  color: D93F0B
-  description: "WordPress core compatibility"
-- name: contrib:good-first-issue
-  color: D4C5F9
-  description: "Good for new contributors"
-- name: contrib:help-wanted
-  color: C2E0C6
-  description: "Help wanted by maintainer"
-- name: contrib:discussion
-  color: C2E0C6
-  description: "Contributor or community discussion"
-- name: cpt:pages
-  color: C5DEF5
-  description: "WordPress Pages"
-- name: cpt:posts
-  color: C5DEF5
-  description: "WordPress Posts"
-- name: device:desktop
-  color: E1E4E8
-  description: "Desktop device"
-- name: device:laptop
-  color: E1E4E8
-  description: "Laptop device"
-- name: device:mobile
-  color: E1E4E8
-  description: "Mobile device"
-- name: device:tablet-landscape
-  color: E1E4E8
-  description: "Tablet landscape orientation"
-- name: device:tablet-portrait
-  color: E1E4E8
-  description: "Tablet portrait orientation"
-- name: env:live
+  description: "Needs triage"
+- name: status:ready
   color: 0E8A16
-  description: "Live/production environment"
-- name: env:local
-  color: E1E4E8
-  description: "Local development environment"
-- name: env:prototype
-  color: E1E4E8
-  description: "Prototype/sandbox environment"
-- name: env:staging
-  color: BFD4F2
-  description: "Staging/UAT environment"
-- name: issue:404-error
-  color: D93F0B
-  description: "404 error"
-- name: issue:broken-link
-  color: D93F0B
-  description: "Broken link"
-- name: issue:js-error
-  color: D93F0B
-  description: "JavaScript error"
-- name: issue:open-link_blank
-  color: D93F0B
-  description: "Incorrect link target"
-- name: issue:redirect
-  color: D93F0B
-  description: "Redirect issue"
-- name: lang:css
+  description: "Ready to start work"
+- name: status:in-progress
+  color: 1D76DB
+  description: "Work in progress"
+- name: status:needs-review
   color: C5DEF5
-  description: "CSS stylesheets"
-- name: lang:html
-  color: C5DEF5
-  description: "HTML markup"
-- name: lang:js
-  color: C5DEF5
-  description: "JavaScript/TypeScript"
-- name: lang:json
-  color: C5DEF5
-  description: "JSON config/content"
-- name: lang:md
-  color: C5DEF5
-  description: "Markdown docs"
-- name: lang:php
-  color: C5DEF5
-  description: "PHP code"
-- name: lang:yaml
-  color: C5DEF5
-  description: "YAML config"
-- name: layout:content-width
-  color: C5DEF5
-  description: "Content width layout"
-- name: layout:full-width
-  color: C5DEF5
-  description: "Full width layout"
-- name: layout:grid
-  color: C5DEF5
-  description: "Grid layout"
-- name: layout:list
-  color: C5DEF5
-  description: "List layout"
-- name: layout:wide-width
-  color: C5DEF5
-  description: "Wide content layout"
-- name: meta:has-pr
-  color: E1E4E8
-  description: "Linked pull request"
-- name: meta:needs-changelog
-  color: E1E4E8
-  description: "Needs changelog entry"
-- name: meta:no-issue-activity
-  color: E1E4E8
-  description: "No recent issue activity"
-- name: meta:no-pr-activity
-  color: E1E4E8
-  description: "No recent PR activity"
-- name: meta:stale
-  color: 9198A1
-  description: "Marked as stale"
-- name: meta:duplicate
-  color: E1E4E8
-  description: "Duplicate issue indicator"
-- name: meta:triage
-  color: BFD4F2
-  description: "Requires triage attention"
-- name: page:about
-  color: C5DEF5
-  description: "About page"
-- name: page:blog
-  color: C5DEF5
-  description: "Blog index page"
-- name: page:contact
-  color: C5DEF5
-  description: "Contact page"
-- name: page:events
-  color: C5DEF5
-  description: "Events page"
-- name: page:faq
-  color: C5DEF5
-  description: "FAQ page"
-- name: page:gallery
-  color: C5DEF5
-  description: "Gallery page"
-- name: page:home
-  color: C5DEF5
-  description: "Homepage"
-- name: page:legal
-  color: C5DEF5
-  description: "Legal/terms/privacy page"
-- name: page:newsletter-subscribe
-  color: C5DEF5
-  description: "Newsletter subscribe page"
-- name: page:portfolio
-  color: C5DEF5
-  description: "Portfolio page"
-- name: page:products
-  color: C5DEF5
-  description: "Products page"
-- name: page:services
-  color: C5DEF5
-  description: "Services page"
-- name: page:solutions
-  color: C5DEF5
-  description: "Solutions page"
-- name: page:team
-  color: C5DEF5
-  description: "Team listing page"
-- name: page:testimonials
-  color: C2E0C6
-  description: "Testimonials/reviews page"
-- name: page:thank-you
-  color: C5DEF5
-  description: "Thank you page"
-- name: phase:post-launch
-  color: E1E4E8
-  description: "Post-launch operations"
-- name: phase:pre-launch
-  color: E1E4E8
-  description: "Pre-launch preparation"
-- name: phase:staging-uat
-  color: E1E4E8
-  description: "Staging/UAT validation"
+  description: "Awaiting review"
+- name: status:needs-qa
+  color: FBCA04
+  description: "Quality assurance required"
+- name: status:blocked
+  color: B60205
+  description: "Blocked by dependency"
+- name: status:on-hold
+  color: F9D0C4
+  description: "Work on hold"
+- name: status:done
+  color: 0E8A16
+  description: "Completed"
 - name: priority:critical
   color: B60205
   description: "Production blocking"
 - name: priority:important
   color: D93F0B
   description: "Must-do high priority"
-- name: priority:minor
-  color: C2E0C6
-  description: "Low priority"
 - name: priority:normal
   color: 0052CC
   description: "Default priority"
-- name: release:hotfix
-  color: D29922
-  description: "Hotfix release"
-- name: release:major
-  color: F85149
-  description: "Major version release"
-- name: release:minor
-  color: 58A6FF
-  description: "Minor version release"
-- name: release:patch
-  color: 3FB950
-  description: "Patch version release"
-- name: release:rc
-  color: F85149
-  description: "Release candidate"
-- name: release:beta
-  color: 58A6FF
-  description: "Beta release"
-- name: size:L
+- name: priority:minor
   color: C2E0C6
-  description: "Large size"
-- name: size:M
-  color: C2E0C6
-  description: "Medium size"
-- name: size:S
-  color: C2E0C6
-  description: "Small size"
-- name: size:XL
-  color: C2E0C6
-  description: "Extra large size"
-- name: size:XS
-  color: C2E0C6
-  description: "Extra small size"
-- name: size:XS|S|M|L|XL|unknown
-  color: C2E0C6
-  description: ""
-- name: size:unknown
-  color: C2E0C6
-  description: "Unknown size"
-- name: status:blocked
-  color: B60205
-  description: "Blocked by dependency"
-- name: status:duplicate
-  color: E1E4E8
-  description: "Duplicate issue"
-- name: status:in-discussion
-  color: BFD4F2
-  description: "In team discussion"
-- name: status:in-progress
-  color: 1D76DB
-  description: "Work in progress"
-- name: status:needs-client-discussion
-  color: C5DEF5
-  description: "Client discussion needed"
-- name: status:needs-design
-  color: C5DEF5
-  description: "Design needed"
-- name: status:needs-design-review
-  color: D4C5F9
-  description: "Design review needed"
-- name: status:needs-dev
-  color: C5DEF5
-  description: "Development needed"
-- name: status:needs-discussion
-  color: C5DEF5
-  description: "Team discussion needed"
-- name: status:needs-documentation
-  color: C5DEF5
-  description: "Documentation needed"
-- name: status:needs-figma-update
-  color: C5DEF5
-  description: "Figma update needed"
-- name: status:needs-loom-video
-  color: C5DEF5
-  description: "Loom video needed"
-- name: status:needs-more-info
-  color: BFD4F2
-  description: "More information needed"
-- name: status:needs-qa
-  color: FBCA04
-  description: "QA required"
-- name: status:needs-review
-  color: C5DEF5
-  description: "Review required"
-- name: status:needs-technical-feedback
-  color: C5DEF5
-  description: "Technical feedback required"
-- name: status:needs-testing
-  color: FEF2C0
-  description: "Testing required"
-- name: status:needs-triage
-  color: BFD4F2
-  description: "Needs triage"
-- name: status:on-hold
-  color: F9D0C4
-  description: "Work on hold"
-- name: status:ready
-  color: 0E8A16
-  description: "Ready to start"
-- name: status:ready-for-deployment
-  color: 0E8A16
-  description: "Ready for deployment"
-- name: status:scope-creep
-  color: BFD4F2
-  description: "Scope creep"
-- name: status:wontfix
-  color: E1E4E8
-  description: "Won't fix"
-- name: template-part:breadcrumbs
-  color: C5DEF5
-  description: "Breadcrumbs template part"
-- name: template-part:comments
-  color: C5DEF5
-  description: "Comments template part"
-- name: template-part:footer
-  color: C5DEF5
-  description: "Footer template part"
-- name: template-part:header
-  color: C5DEF5
-  description: "Header template part"
-- name: template-part:post-meta
-  color: C5DEF5
-  description: "Post meta template part"
-- name: template-part:sidebar
-  color: C5DEF5
-  description: "Sidebar template part"
-- name: template:404
-  color: C5DEF5
-  description: "404 page template"
-- name: template:all-archives
-  color: C5DEF5
-  description: "All archives template"
-- name: template:category-archives
-  color: C5DEF5
-  description: "Category archives template"
-- name: template:front-page
-  color: C5DEF5
-  description: "Front page template"
-- name: template:index
-  color: C5DEF5
-  description: "Blog index template"
-- name: template:page
-  color: C5DEF5
-  description: "Page template"
-- name: template:page-blank
-  color: C5DEF5
-  description: "Blank page template"
-- name: template:page-default
-  color: C5DEF5
-  description: "Default page template"
-- name: template:page-no-title
-  color: C5DEF5
-  description: "No title page template"
-- name: template:search-results
-  color: C5DEF5
-  description: "Search results template"
-- name: template:single
-  color: C5DEF5
-  description: "Single post/page template"
-- name: template:tag-archives
-  color: C5DEF5
-  description: "Tag archives template"
-- name: theme:block-theme
-  color: C5DEF5
-  description: "Block theme scaffolding"
-- name: theme:configuration
-  color: C5DEF5
-  description: "Theme configuration"
-- name: theme:content-model
-  color: C5DEF5
-  description: "Content model"
-- name: theme:design-system
-  color: C5DEF5
-  description: "Design system"
-- name: theme:plugin
-  color: C5DEF5
-  description: "Plugin theme scaffolding"
-- name: theme:tokens
-  color: C5DEF5
-  description: "Design tokens and presets"
-- name: theme:tour-operator
-  color: C5DEF5
-  description: "Tour operator integration"
-- name: theme:woocommerce
-  color: C5DEF5
-  description: "WooCommerce integration"
-- name: to:accommodation-archive
-  color: C5DEF5
-  description: "Accommodation archive"
-- name: to:accommodation-facilities
-  color: C5DEF5
-  description: "Accommodation facilities"
-- name: to:accommodation-rooms
-  color: C5DEF5
-  description: "Accommodation rooms"
-- name: to:accommodation-type-archive
-  color: C5DEF5
-  description: "Accommodation type archive"
-- name: to:brand-archive
-  color: C5DEF5
-  description: "Brand archive"
-- name: to:continent-archive
-  color: C5DEF5
-  description: "Continent archive"
-- name: to:core
-  color: C5DEF5
-  description: "Core plugin functions"
-- name: to:destinations-archive
-  color: C5DEF5
-  description: "Destinations archive"
-- name: to:fast-facts
-  color: C5DEF5
-  description: "Fast facts module"
-- name: to:maps
-  color: C5DEF5
-  description: "Maps and locations"
-- name: to:post-relationships
-  color: C5DEF5
-  description: "Post relationships"
-- name: to:prices
-  color: C5DEF5
-  description: "Pricing logic"
-- name: to:read-more
-  color: C5DEF5
-  description: "Read more panels/links"
-- name: to:related-accommodation
-  color: C5DEF5
-  description: "Related accommodation"
-- name: to:related-destinations
-  color: C5DEF5
-  description: "Related destinations"
-- name: to:related-tours
-  color: C5DEF5
-  description: "Related tours"
-- name: to:reviews
-  color: C5DEF5
-  description: "Reviews module"
-- name: to:search-results
-  color: C5DEF5
-  description: "Search results"
-- name: to:single-accommodation
-  color: C5DEF5
-  description: "Single accommodation"
-- name: to:single-country
-  color: C5DEF5
-  description: "Single country"
-- name: to:single-destination
-  color: C5DEF5
-  description: "Single destination"
-- name: to:single-region
-  color: C5DEF5
-  description: "Single region"
-- name: to:single-review
-  color: C5DEF5
-  description: "Single review"
-- name: to:single-special
-  color: C5DEF5
-  description: "Single special offer"
-- name: to:single-team
-  color: C5DEF5
-  description: "Single team member"
-- name: to:single-tour
-  color: C5DEF5
-  description: "Single tour"
-- name: to:specials
-  color: C5DEF5
-  description: "Specials/promotions"
-- name: to:team
-  color: C5DEF5
-  description: "Team module"
-- name: to:team-archive
-  color: C5DEF5
-  description: "Team archive"
-- name: to:tour-archive
-  color: C5DEF5
-  description: "Tour archive"
-- name: to:tour-itinerary
-  color: C5DEF5
-  description: "Tour itinerary"
-- name: to:travel-style-archive
-  color: C5DEF5
-  description: "Travel style archive"
-- name: to:wetu-importer
-  color: C5DEF5
-  description: "Wetu import flows"
-- name: type:a11y
-  color: D4C5F9
-  description: "Accessibility compliance"
-- name: type:accessibility-audit
-  color: D4C5F9
-  description: "Accessibility audit or review"
+  description: "Low priority"
 - name: type:bug
-  color: D4C5F9
+  color: 9F3734
   description: "Bug or defect"
-- name: type:chore
-  color: D4C5F9
-  description: "Chore tasks"
-- name: type:compliance
-  color: D4C5F9
-  description: "Compliance tasks"
-- name: type:compat
-  color: D4C5F9
-  description: "Compatibility issue"
-- name: type:content-import
-  color: D4C5F9
-  description: "Content import"
-- name: type:content-management
-  color: D4C5F9
-  description: "Content management tasks"
-- name: type:deprecation
-  color: D4C5F9
-  description: "Deprecate features or APIs"
-- name: type:design
-  color: D4C5F9
-  description: "Design work"
-- name: type:dev
-  color: D4C5F9
-  description: "Development task"
+- name: type:feature
+  color: 3FB950
+  description: "Feature or enhancement"
+- name: type:task
+  color: 4393F8
+  description: "Task or to-do"
 - name: type:documentation
   color: D4C5F9
-  description: "Documentation updates/issues"
-- name: type:feature
-  color: D4C5F9
-  description: "Feature request"
-- name: type:fix
-  color: D4C5F9
-  description: "Fix or correction"
-- name: type:improve
-  color: D4C5F9
-  description: "Improvement"
-- name: type:maintenance
-  color: D4C5F9
-  description: "Maintenance or technical debt"
-- name: type:missing-content
-  color: D4C5F9
-  description: "Missing content"
-- name: type:performance
-  color: D4C5F9
-  description: "Performance work"
-- name: type:qa
-  color: D4C5F9
-  description: "Quality assurance tasks"
+  description: "Documentation"
 - name: type:refactor
-  color: D4C5F9
-  description: "Refactor code"
-- name: type:security
-  color: D4C5F9
-  description: "Security vulnerabilities or patches"
-- name: type:task
-  color: D4C5F9
-  description: "General task"
+  color: 9198A1
+  description: "Refactor or internal change"
+- name: type:performance
+  color: D29922
+  description: "Performance improvement"
 - name: type:test
+  color: D29922
+  description: "Testing/coverage"
+- name: type:security
+  color: 9F3734
+  description: "Security issue"
+- name: type:a11y
+  color: DB61A2
+  description: "Accessibility"
+- name: type:design
+  color: AB7DF8
+  description: "Design work"
+- name: type:improve
+  color: 9198A1
+  description: "Improvement"
+- name: type:qa
+  color: D29922
+  description: "Quality assurance"
+- name: meta:needs-changelog
+  color: E1E4E8
+  description: "Needs changelog entry"
+- name: meta:no-changelog
+  color: E1E4E8
+  description: "No changelog needed"
+- name: meta:duplicate
+  color: E1E4E8
+  description: "Duplicate"
+- name: release:patch
+  color: 3FB950
+  description: "Patch release"
+- name: release:minor
+  color: 58A6FF
+  description: "Minor release"
+- name: release:major
+  color: F85149
+  description: "Major release"
+- name: area:block-editor
+  color: C5DEF5
+  description: "Block editor"
+- name: area:theme
+  color: C5DEF5
+  description: "Theme"
+- name: area:ci
+  color: BFD4F2
+  description: "Continuous integration"
+- name: area:documentation
+  color: C5DEF5
+  description: "Documentation"
+- name: area:tests
   color: D4C5F9
-  description: "Testing or test refactoring"
-- name: type:ui
+  description: "Tests"
+- name: area:scripts
+  color: C5DEF5
+  description: "Scripts"
+- name: area:assets
+  color: C5DEF5
+  description: "Assets"
+- name: area:woocommerce
   color: D4C5F9
-  description: "UI adjustments"
-- name: type:usability
+  description: "WooCommerce"
+- name: lang:php
+  color: C5DEF5
+  description: "PHP"
+- name: lang:javascript
+  color: C5DEF5
+  description: "JavaScript"
+- name: lang:css
+  color: C5DEF5
+  description: "CSS"
+# Contributor labels
+- name: contrib:good-first-issue
   color: D4C5F9
-  description: "Usability improvements"
-- name: type:ux
-  color: D4C5F9
-  description: "User experience flows"
-- name: woo:block-cart
-  color: D4C5F9
-  description: "Cart block"
-- name: woo:block-checkout
-  color: D4C5F9
-  description: "Checkout block"
-- name: woo:block-product-collection
-  color: D4C5F9
-  description: "Product collection block"
-- name: woo:block-product-collections
-  color: D4C5F9
-  description: "Product collections block"
-- name: woo:block-product-search
-  color: D4C5F9
-  description: "Product search block"
-- name: woo:coupons
-  color: D4C5F9
-  description: "Coupons and discounts"
-- name: woo:emails
-  color: D4C5F9
-  description: "Transactional emails"
-- name: woo:extension-subscriptions
-  color: D4C5F9
-  description: "Subscriptions extension"
-- name: woo:page-cart
-  color: D4C5F9
-  description: "Cart page"
-- name: woo:page-checkout
-  color: D4C5F9
-  description: "Checkout page"
-- name: woo:page-coming-soon
-  color: D4C5F9
-  description: "Coming soon page"
-- name: woo:page-my-account
-  color: D4C5F9
-  description: "Account dashboard"
-- name: woo:page-order-confirmation
-  color: D4C5F9
-  description: "Order confirmation page"
-- name: woo:part-checkout-header
-  color: D4C5F9
-  description: "Checkout header"
-- name: woo:part-mini-cart
-  color: D4C5F9
-  description: "Mini cart"
-- name: woo:part-single-product-info
-  color: D4C5F9
-  description: "Single product info"
-- name: woo:patterns
-  color: D4C5F9
-  description: "Woo patterns"
-- name: woo:product-gallery
-  color: D4C5F9
-  description: "Product gallery"
-- name: woo:product-image
-  color: D4C5F9
-  description: "Product image"
-- name: woo:product-reviews
-  color: D4C5F9
-  description: "Product reviews"
-- name: woo:related-products
-  color: D4C5F9
-  description: "Related products"
-- name: woo:shipping
-  color: D4C5F9
-  description: "Shipping rules"
-- name: woo:single-product
-  color: D4C5F9
-  description: "Single product template"
-- name: woo:tax
-  color: D4C5F9
-  description: "Tax configuration"
-- name: woo:template-product-archives
-  color: D4C5F9
-  description: "Product archives template"
-- name: woo:template-product-attribute-archives
-  color: D4C5F9
-  description: "Product attribute archives"
-- name: woo:template-product-brand-archives
-  color: D4C5F9
-  description: "Product brand archives"
-- name: woo:template-product-category-archives
-  color: D4C5F9
-  description: "Product category archives"
-- name: woo:template-product-search-results
-  color: D4C5F9
-  description: "Product search results"
-- name: woo:template-product-tag-archives
-  color: D4C5F9
-  description: "Product tag archives"
-- name: woo:template-shop
-  color: D4C5F9
-  description: "Shop index page"
+  description: "Good for new contributors"
+- name: contrib:help-wanted
+  color: C2E0C6
+  description: "Help wanted"
+- name: contrib:discussion
+  color: C2E0C6
+  description: "Contributor/community discussion"
+# Meta/discussion/release labels for discussions
+- name: discussion:announcement
+  color: FBCA04
+  description: "Official announcements"
+- name: discussion:showcase
+  color: 0E8A16
+  description: "Show & Tell"
+- name: discussion:community
+  color: 6f42c1
+  description: "Community/general"
+- name: discussion:feedback
+  color: 1d76db
+  description: "Feedback/suggestions"
+- name: discussion:support
+  color: d73a4a
+  description: "Support/troubleshooting"
+- name: discussion:sponsorship
+  color: f9d0c4
+  description: "Sponsorship/funding"
+- name: discussion:partnership
+  color: bfd4f2
+  description: "Partnership/collaboration"
+# Add any additional area, context, compatibility, or component labels as needed for your org

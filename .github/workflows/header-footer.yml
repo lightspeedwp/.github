@@ -1,0 +1,24 @@
+name: "Header & Footer Automation"
+on:
+  push:
+    paths:
+      - ".github/agents/header-footer.agent.js"
+      - "scripts/includes/header-footer*"
+      - "schemas/header.schema.json"
+      - "schemas/footer.schema.json"
+      - "scripts/includes/header-content.json"
+      - "scripts/includes/footer-content.json"
+      - "README.md"
+  workflow_dispatch:
+
+jobs:
+  header-footer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run header-footer agent
+        run: node .github/agents/header-footer.agent.js

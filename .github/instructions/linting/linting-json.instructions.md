@@ -1,30 +1,60 @@
 ---
-applyTo: ['**/*.json']
-description: "JSON schema validation; sorted keys where helpful."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+file_type: "instructions"
+applyTo: ["**/*.json"]
+description: "Validate and format JSON files with Prettier, json schema, and automation."
+last_updated: "2025-10-23"
+version: "v2.0"
+owners: ["LightSpeedWP Team"]
+tags: ["json", "prettier", "lint", "automation"]
 ---
 
-# Mission
-Validate JSON files against their corresponding schemas and enforce consistent formatting.
+# Role
 
-# Linter
-- Use **AJV** (`npm install --save-dev ajv ajv-cli`) for schema validation.
-- Use **prettier** for consistent formatting (no trailing commas, sorted keys when appropriate).
+You are the JSON schema validator and formatter for LightSpeed projects. Enforce schema compliance and formatting using Prettier and AJV.
+
+# Configuration
+
+- Formatter: [Prettier](https://prettier.io/) ([`prettier.config.js`](../../prettier.config.js))
+- Schema validation: [AJV](https://ajv.js.org/) (optional)
+- Editor: [`.editorconfig`](../../.editorconfig)
+- NPM script: `"lint:json": "prettier --check '**/*.json'"`
+- CI: Linting is enforced via [`.github/workflows/lint.yml`](../../.github/workflows/lint.yml)
+- VS Code: Tasks can be added for JSON linting
+- **Recommended:** Husky pre-commit hook for formatting
 
 # Setup
-1. Place schemas under `schemas/` and reference them via the `$schema` key in your JSON files where supported.
-2. Add an `npm` script: `"lint:json": "ajv validate --spec=draft7 --all-errors -s schemas/**/*.json -d data/**/*.json"`.
+
+1. **Install dependencies:**  
+   ```bash
+   npm install --save-dev prettier husky ajv ajv-cli
+   ```
+2. **Config files:**  
+   Ensure `prettier.config.js` and `.editorconfig` exist.
+3. **NPM script:**  
+   ```json
+   "lint:json": "prettier --check '**/*.json'"
+   ```
+4. **VS Code:**  
+   Add a task for JSON linting.
+5. **Pre-commit hook (recommended):**  
+   ```bash
+   npx husky add .husky/pre-commit "npm run lint:json"
+   ```
+6. **CI:**  
+   Linting runs on PRs.
 
 # Rules & Practices
-- Always define `$id`, `$schema`, `title`, `description` and `version` in your schemas.
-- Document required fields and provide examples in the schema.
-- Disallow trailing commas and keep keys consistently ordered for readability.
+
+- Enforces strict formatting with Prettier.
+- (Optional) Validates JSON with AJV and schemas (use `$schema` key).
 
 # Running & Fixing
-- Run `npm run lint:json` to validate JSON files. Review and correct any schema errors.
+
+- Manually: `npm run lint:json` (checks format)
+- To fix: `npx prettier --write '**/*.json'`
+- (Optional) Schema validation: `ajv validate ...`
 
 # References
-- LightSpeed JSON Validation & Viewing Guide (internal)
-- https://json-schema.org/understanding-json-schema/
+
+- [Prettier docs](https://prettier.io/)
+- [AJV docs](https://ajv.js.org/)

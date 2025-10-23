@@ -9,6 +9,8 @@ This document tracks key architectural and technical decisions made in LightSpee
 Use this record to understand "why" major choices were made, avoid redundant debates, and onboard new contributors quickly.  
 For new decisions, add a summary here and create a corresponding ADR file with full context.
 
+> **Note:** All labeling, status, type, and standardization is now handled exclusively by the unified agent and workflow. All automation and best-practice docs are updated to reflect this.
+
 ---
 
 ## Table of Contents

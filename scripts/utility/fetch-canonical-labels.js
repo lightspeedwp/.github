@@ -11,22 +11,24 @@
  * Usage: Import for canonical label fetching.
  * ============================================================================
  */
-const jsYaml = require('js-yaml');
 
 /**
- * Fetch canonical labels from org community health repo (.github/labels.yml)
- * @param {Octokit} octokit
- * @param {string} owner
- * @param {string} repo
- * @param {string} path
- * @returns {Promise<Array>} Array of { name, color, description }
+ * @fileoverview Utility for loading canonical label names from labels.yml.
+ * @module fetch-canonical-labels
  */
-async function fetchCanonicalLabels(octokit, owner = 'lightspeedwp', repo = '.github', path = '.github/labels.yml') {
-  const res = await octokit.rest.repos.getContent({ owner, repo, path });
-  const yamlStr = Buffer.from(res.data.content, 'base64').toString();
-  return jsYaml.load(yamlStr);
+
+const fs = require('fs');
+const yaml = require('js-yaml');
+
+/**
+ * Loads and returns the list of canonical label names from labels.yml.
+ * @param {string} [labelsYmlPath='.github/labels.yml'] - Path to labels YAML.
+ * @returns {string[]} Array of canonical label names (strings).
+ */
+function fetchCanonicalLabels(labelsYmlPath = '.github/labels.yml') {
+  const yml = fs.readFileSync(labelsYmlPath, 'utf8');
+  const labelsData = yaml.load(yml);
+  return labelsData.map(l => typeof l === "string" ? l : l.name);
 }
 
-module.exports = {
-  fetchCanonicalLabels,
-};
+module.exports = { fetchCanonicalLabels };
