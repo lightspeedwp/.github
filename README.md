@@ -1,10 +1,69 @@
 # LightSpeed Community Health & Automation Repository
 
+[![Test Coverage](https://img.shields.io/badge/coverage-auto-blue)](./tests/TEST_COVERAGE_SUMMARY.md)
+
 This repository is the **central hub** for the LightSpeed organization’s community health files, automation standards, label and issue type management, governance documentation, and org-wide resources on GitHub usage and contribution. All member repositories reference and inherit canonical files, workflows, and instructions from here—making it the backbone for consistency, quality, and automated project management across LightSpeed.
+
+This repository is the **central hub** for the LightSpeed organization’s community health files, automation standards, label and issue type management, governance documentation, and org-wide resources on GitHub usage and contribution. All member repositories reference and inherit canonical files, workflows, and instructions from here—making it the backbone for consistency, quality, and automated project management across LightSpeed.
+
+For a unified, always-up-to-date index of all documentation, see [DOCS.md](./DOCS.md).
+
+## Overview
+
+## Local Linting & Testing
+
+To ensure code quality and consistency, run the following scripts locally before pushing changes:
 
 ---
 
-## Overview
+## Test Coverage & Reporting
+
+- Test coverage is tracked for all automation, scripts, and agents.
+- See the [Test Coverage Summary](./tests/TEST_COVERAGE_SUMMARY.md) for up-to-date results.
+- Coverage is reported in CI and should be reviewed for all PRs.
+- Contributors are encouraged to expand tests for new scripts and automation logic.
+
+> For more, see [Testing Standards](.github/instructions/tests.instructions.md) and [DOCS.md](./DOCS.md).
+
+### Linting
+
+- `npm run lint` – Run all core linters (JS, CSS, YAML, package.json)
+- `npm run lint:all` – Run all linters, including workflows and markdown
+- `npm run lint:js` – Lint JavaScript/TypeScript
+- `npm run lint:css` – Lint CSS/SCSS
+- `npm run lint:yaml` – Lint YAML files
+- `npm run lint:md` – Lint Markdown files
+- `npm run lint:pkg-json` – Lint package.json
+
+### Testing
+
+- `npm test` – Run all JavaScript/TypeScript tests (Jest)
+- `npm run test:js` – Run JS/TS tests with coverage
+
+> For more, see the [DOCS.md](./DOCS.md) index and [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+---
+
+## Updating Linting Rules & Troubleshooting
+
+To update or add new linting rules:
+
+1. Edit the relevant config file (e.g., `.eslintrc.json`, `.stylelintrc`, `.markdownlint.json`, `.spectral.yaml`).
+2. For new file types or standards, add a new instruction file in `.github/instructions/linting/` following the [linting instructions index](.github/instructions/linting.instructions.md).
+3. Update the `lint` or `lint:all` scripts in `package.json` if you add new tools.
+4. Test your changes locally with `npm run lint:all`.
+5. Document any new rules or changes in the relevant instruction file and in the commit message.
+
+**Troubleshooting common lint failures:**
+
+- Run `npm run lint:all` to see all errors.
+- Check the output for the specific linter (eslint, stylelint, markdownlint, spectral, etc.).
+- Review the relevant config file for rule details.
+- For YAML or workflow errors, check indentation and schema references.
+- For shell scripts, use `shellcheck` and ensure POSIX compatibility.
+- For persistent issues, see the [Linting Instructions](.github/instructions/linting.instructions.md) for detailed guidance and file-type-specific help.
+
+If you are stuck, ask in the repository discussions or open an issue with the error output and config details.
 
 GitHub supports [organization-wide community health files](https://github.blog/changelog/2019-02-21-organization-wide-community-health-files/) in a specially named `.github` repository to serve as organization-wide defaults for all repositories within their organization. Where sensible, custom community health files should be created for our repos, but that's not always necessary or practical.
 
@@ -94,6 +153,10 @@ This repository will include and orchestrate org-wide agents for managing issue 
 
 All organizational documentation—including contribution guidelines, support procedures, governance, GitHub usage tips, and more—is **centralized in this repository**. As our documentation grows, this is the authoritative source for LightSpeed team members and contributors.
 
+All organizational documentation—including contribution guidelines, support procedures, governance, GitHub usage tips, and more—is **centralized in this repository**. As our documentation grows, this is the authoritative source for LightSpeed team members and contributors.
+
+See [DOCS.md](./DOCS.md) for a full documentation index and quick links to all health, automation, and configuration docs.
+
 - **GitHub Usage:** We are building up resources and best practices for effective use of GitHub and project automation.
 - **Specialized Docs:** Even as we add specific documentation repositories, this remains the main storage and reference point for org-level docs.
 
@@ -102,6 +165,7 @@ All organizational documentation—including contribution guidelines, support pr
 ## Referencing This Repository
 
 All LightSpeed repositories should:
+
 - Reference this repository for issue/PR templates, label and issue type configuration, and automation workflows.
 - Link to contribution and support guidelines found here.
 - Use the canonical `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml` for automation.
@@ -126,6 +190,8 @@ All LightSpeed repositories should:
 - [Canonical Issue Types](https://github.com/lightspeedwp/.github/blob/develop/.github/issue-types.yml)
 - [Governance](https://github.com/lightspeedwp/.github/blob/develop/.github/AUTOMATION_GOVERNANCE.md)
 - [General Instructions](https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md)
+
+- [Documentation Index (DOCS.md)](./DOCS.md)
 
 ---
 

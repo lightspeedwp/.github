@@ -1,4 +1,4 @@
-const { runAgent } = require('../../.github/agents/template.agent.js');
+const { runAgent } = require('../template.agent.js');
 
 describe('template.agent.js', () => {
   it('should export a runAgent function', () => {

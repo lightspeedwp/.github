@@ -1,5 +1,36 @@
 # Contributing
 
+## 🚀 Quick Start (TL;DR)
+
+1. **Fork & Clone:** Fork this repo and clone it locally.
+2. **Install dependencies:** `npm install`
+3. **Create a branch:** Use the correct prefix (e.g. `feat/`, `fix/`, `docs/`).
+4. **Write code & tests:** Follow [Coding Standards](.github/instructions/coding-standards.instructions.md) and add/expand tests.
+5. **Lint & test:** Run `npm run lint:all` and `npm test` before committing. If you need to update or add new linting rules, or troubleshoot lint failures, see the [Updating Linting Rules & Troubleshooting](./README.md#updating-linting-rules--troubleshooting) section in the README for step-by-step guidance.
+6. **Commit & push:** Use clear commit messages and push your branch.
+7. **Open a PR:** Use the correct PR template and link to the related issue.
+8. **Respond to feedback:** Make changes as requested by reviewers or Copilot.
+
+For details, see the full guidelines below and the [Documentation Index (DOCS.md)](./DOCS.md).
+
+---
+
+```mermaid
+flowchart TD
+  A[Open Issue or Feature Request] --> B[Discuss & Plan]
+  B --> C[Create Branch]
+  C --> D[Write Code & Tests]
+  D --> E[Run Lint & Tests]
+  E --> F[Open Pull Request]
+  F --> G[Automated Checks & Review]
+  G --> H[Make Revisions if Needed]
+  H --> G
+  G --> I[PR Approved & Merged]
+  I --> J[Celebrate & Document]
+```
+
+---
+
 **Last Updated:** 2025-10-21 • **Version:** v0.2.0
 
 Thank you for your interest in contributing to LightSpeed!  

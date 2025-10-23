@@ -1,43 +1,45 @@
 ---
-applyTo: ['**/*.md', '**/*test*.*', '**/__tests__/**', 'tests/**']
-description: "Write and expand tests: workflows, agents, Bats, Playwright, Jest, Python."
-last_updated: "2025-10-19"
-version: "v1.0"
+title: "Test Standards Index"
+description: "Index of all LightSpeed test standards: workflows, agents, Bats, Playwright, Jest, PHPUnit, Python, etc."
+version: "1.1"
+apply_to: "all projects"
+last_updated: "2025-10-22"
 owners: ["LightSpeed Engineering"]
+references:
+  - "https://docs.github.com/en/copilot/customizing-copilot/adding-organization-custom-instructions-for-github-copilot"
+  - "./tests.instructions.md"
 ---
 
-# Mission
-Provide a unified guide for writing effective tests across workflows, agents, shell scripts, browser interactions, JavaScript and Python code.
+# Test Standards Index
 
-# Workflow Tests
-- Validate GitHub Actions workflows with **actionlint** and ensure YAML syntax correctness.
-- Add a smoke test job to run minimal builds or commands as part of CI.
+This is the canonical index for all LightSpeed test-related instruction files.
 
-# Agent Tests
-- Cover both success and failure scenarios for each agent capability.
-- Mock tool responses to isolate the agent’s logic.
-- Use snapshot tests to ensure deterministic outputs.
+Below you will find direct links and short descriptions for each specific testing standard. See each guide for language/framework specifics.
 
-# Shell (Bats) Tests
-- Use **bats-core** for unit testing shell scripts. Combine with `shellcheck` to detect anti‑patterns.
-- Keep tests independent and idempotent; avoid modifying system state.
+---
 
-# Playwright Tests
-- Structure tests with fixtures and page objects. Use `await page.goto()` and `expect()` assertions.
-- Enable tracing and video recording for debugging failed tests.
+## Test Standards
 
-# Jest Tests
-- Configure Jest for your project with appropriate transformers (e.g. Babel or ts-jest). Write tests that follow AAA (Arrange, Act, Assert).
-- Mock external dependencies and avoid hitting real APIs.
+- [tests-bats.instructions.md](./tests/tests-bats.instructions.md)  
+  *Shell/unit testing with Bats. See tips for idempotency and shellcheck.*
 
-# Python Tests
-- Use **pytest** for testing Python code. Structure tests in `tests/` and name files `test_*.py`.
-- Combine with `pytest-cov` to measure coverage. Use `mypy` for type checking.
+- [tests-jest.instructions.md](./tests/tests-jest.instructions.md)  
+  *Jest JavaScript/TypeScript testing. Setup, config, and best practices.*
 
-# Expanding Coverage
-- Prioritise critical paths and high‑risk areas. Incrementally raise coverage thresholds after achieving stable coverage.
+- [tests-playwright.instructions.md](./tests/tests-playwright.instructions.md)  
+  *Browser/E2E testing with Playwright. Setup, structure, and CI integration.*
 
-# References
-- https://docs.github.com/en/copilot/tutorials/write-tests
-- https://docs.github.com/en/copilot/tutorials/roll-out-at-scale/drive-downstream-impact/increase-test-coverage
-- https://docs.github.com/en/actions/tutorials/create-an-example-workflow
+- [tests-phpunit.instructions.md](./tests/tests-phpunit.instructions.md)  
+  *PHPUnit for PHP/WordPress. Unit/integration test setup and conventions.*
+
+- [tests-python.instructions.md](./tests/tests-python.instructions.md)  
+  *Python testing with pytest. Structure, coverage, and type checks.*
+
+---
+
+> **How this index works:**  
+> All files matching `tests-*.instructions.md` in this folder are included as canonical test standards.
+
+For overall guidance, see the [LightSpeed Coding Standards](./coding-standards.instructions.md).
+
+---

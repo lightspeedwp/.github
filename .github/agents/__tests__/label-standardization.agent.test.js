@@ -8,7 +8,7 @@
  * Aligns with Bats tests: test-manage-labels.bats
  */
 
-const labelStandardizationAgent = require('../../.github/agents/label-standardization.agent.js');
+const labelStandardizationAgent = require('../label-standardization.agent.js');
 
 describe('Label Standardization Agent', () => {
     it('should initialize without error', () => {

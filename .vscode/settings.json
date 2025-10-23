@@ -38,15 +38,18 @@
     },
     "[javascript]": {
         "editor.formatOnSave": true,
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[css]": {
         "editor.formatOnSave": true,
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[json]": {
         "editor.formatOnSave": true,
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "editor.rulers": [100],
     "files.associations": {
@@ -72,5 +75,20 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true
-    }
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "stylelint.validate": ["css", "scss", "sass"],
+    "stylelint.enable": true,
+    "intelephense.environment.phpVersion": "8.1",
+    "intelephense.files.associations": ["*.php", "*.inc", "*.module", "*.theme"],
+    "playwright.testExplorer.enabled": true,
+    "docker.showStartPage": false,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.snippetSuggestions": "top",
+    "editor.quickSuggestions": { "other": true, "comments": true, "strings": true },
+    "search.exclude": { "**/node_modules": true, "**/vendor": true, "**/.git": true, "**/.next": true },
+    "files.watcherExclude": { "**/node_modules/**": true, "**/.git/**": true, "**/.next/**": true },
+    "yaml.schemas": { "./schemas/frontmatter.schema.json": "*.md" }
+
 }

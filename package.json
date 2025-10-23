@@ -65,11 +65,6 @@
     "scripts/",
     ".github/"
   ],
-  "dependencies": {
-    "@wordpress/a11y": "^3.0.0",
-    "@wordpress/i18n": "^4.0.0",
-    "@wordpress/style-engine": "^1.0.0"
-  },
   "devDependencies": {
     "@actions/core": "1.11.1",
     "@actions/github": "6.0.1",
@@ -100,7 +95,11 @@
     "stylelint": "^14.16.0",
     "stylelint-config-prettier": "^9.0.0",
     "ts-jest": "29.4.5",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "mermaid": "^10.9.0",
+    "@mermaid-js/mermaid-cli": "^10.4.0",
+    "puppeteer": "^23.11.1",
+    "js-yaml": "^4.1.0"
   },
   "scripts": {
     "lint:pkg-json": "npmPkgJsonLint .",

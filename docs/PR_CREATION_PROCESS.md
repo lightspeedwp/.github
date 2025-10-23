@@ -1,83 +1,149 @@
-Certainly! Here’s a clear description of the **Pull Request (PR) creation process** for LightSpeed, aligned with your organizational standards and automation:
+---
+_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER-SCHEMA.md](../.github/FRONTMATTER-SCHEMA.md)._
+---
+
+# LightSpeed Pull Request (PR) Creation Guide
+
+This guide explains how to create actionable, well-labeled pull requests (PRs) in LightSpeed projects—ensuring automation, traceability, and contributor clarity. Following these steps helps maintain quality and makes the review and release process efficient for everyone.
 
 ---
 
-## LightSpeed PR Creation Process
+## 1. **Before You Open a PR**
 
-1. **Start from an Issue**
-   - Make sure your work is tracked by an actionable GitHub issue.
-   - If one doesn’t exist, [create an issue](../../issues/new/choose) using the appropriate template and labels.
-   - Reference the issue number in your PR (e.g., “Closes #123”).
-
-2. **Branch from Latest Main**
-   - Pull the latest changes from the `main` (or target) branch.
-   - Create a new branch using the correct prefix (e.g., `feat/`, `fix/`, `docs/`, `chore/`), which will drive template and label automation.
-   - Example: `feat/header-navigation-accessibility`.
-
-3. **Implement Your Changes**
-   - Make your code, documentation, or design changes.
-   - Follow [coding standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md) and conventions.
-   - Update or add tests as needed.
-
-4. **Test Locally**
-   - Run all tests and linters locally to ensure code quality and compliance.
-   - For UI/UX changes, provide screenshots or demo videos if relevant.
-
-5. **Update Documentation**
-   - If your change impacts user behavior, APIs, or workflows, update the relevant documentation files.
-   - Add or update a [CHANGELOG.md](../CHANGELOG.md) entry if the change is user-facing.
-
-6. **Open the Pull Request**
-   - Push your branch to GitHub.
-   - Click “Compare & pull request” or use the “New pull request” button.
-   - GitHub will prompt you to select a PR template that matches your work (feature, bugfix, docs, etc.).
-   - Fill in all required fields in the template, including the PR checklist.
-
-7. **Complete the PR Description**
-   - Clearly describe what changed and why.
-   - Reference related issues with keywords like `Closes #123`.
-   - Add test instructions, screenshots, or videos as required.
-   - Note any documentation updates or follow-up actions.
-
-8. **Apply/Review Labels and Milestones**
-   - Labels are added automatically based on your branch prefix and file changes, but review and add any missing ones:
-     - Type (e.g., `type:feature`, `type:bug`)
-     - Status (`status:needs-review`, `status:needs-qa`)
-     - Area/Component (`area:ci`, `comp:block-editor`)
-     - Release (`release:patch`, `release:minor`, `release:major`)
-     - Meta (e.g., `meta:needs-changelog`)
-   - Assign the PR to the correct milestone and project if required.
-
-9. **Submit the PR and Respond to Reviews**
-   - Submit the PR and monitor continuous integration (CI) status checks.
-   - Respond promptly to reviewer feedback and requested changes.
-   - Update your PR (with new commits, not force-push unless requested).
-   - Mark checklist items as you address them.
-
-10. **Merging the PR**
-    - Only maintainers can merge PRs.
-    - The PR will be merged once:
-      - All status checks (tests, lint, accessibility) pass
-      - At least one reviewer approves
-      - Required labels, changelog entries, and documentation are present
-    - When merged, PRs with `Closes #issue` will automatically close the linked issue(s).
-
-11. **Release & Changelog**
-    - User-facing PRs require an entry in [CHANGELOG.md](../CHANGELOG.md).
-    - The release process uses PR labels to automate changelog generation and version bumps.
-
-12. **After Merge**
-    - Pull the latest changes into your local `main` branch.
-    - Delete your feature branch if it’s no longer needed.
+- **Ensure your changes are linked to an actionable issue.**  
+  Reference the related issue number in your PR description (e.g., “Closes #123”).
+- **Rebase or update your branch to the latest `main` (or target) branch.**
+- **Run all tests and linting locally.**  
+  See [Testing Guide](TESTING.md).
+- **Update documentation as needed.**  
+  If you’ve changed behaviors or APIs, update relevant docs.
 
 ---
 
-**References:**
+## 2. **Branch Naming**
+
+Use a branch prefix that matches your change type:
+
+- `feat/` for features
+- `fix/` for bug fixes
+- `docs/` for documentation
+- `chore/` for chores and maintenance
+- `refactor/`, `test/`, `perf/`, `ci/`, etc. as appropriate
+
+Example:  
+`feat/header-block-responsive-layout`
+
+> **Tip:** Branch prefixes determine automation, label application, and PR template selection.
+
+---
+
+## 3. **Choose the Correct PR Template**
+
+When you open a PR, GitHub will prompt you to pick a template matching your change:
+
+- **Bugfix**
+- **Feature**
+- **Docs**
+- **Chore**
+- **Build/CI**
+- **Hotfix**
+- **Release**
+- **Refactor**
+- **General**
+
+> Each template includes required fields and checklists. Fill these in thoroughly.
+
+---
+
+## 4. **Write a Clear PR Title**
+
+Format:  
+`[Type] Area/Component: Brief summary (Closes #issue)`
+
+Examples:
+- `[Feature] Block Patterns: Add new testimonial pattern (Closes #201)`
+- `[Bugfix] Theme JSON: Fix color palette regression (Closes #198)`
+- `[Docs] README: Add setup instructions`
+
+---
+
+## 5. **Complete the PR Description**
+
+- **Describe what changed and why.**
+- **Reference related issues** with `Closes #`, `Fixes #`, or `Related to #`.
+- **Provide test instructions** (manual steps, screenshots, videos for UI changes).
+- **List any skipped tests or known limitations.**
+- **Note documentation updates** or required follow-up issues.
+
+---
+
+## 6. **Apply Labels and Milestones**
+
+- Labels are set automatically based on branch prefix and file changes, but review and add as needed:
+    - **Type:** `type:feature`, `type:bug`, `type:docs`, etc.
+    - **Area/Component:** `area:ci`, `comp:block-editor`, etc.
+    - **Status:** `status:needs-review`, `status:needs-qa`, etc.
+    - **Release:** `release:minor`, `release:patch`, `release:major`, etc.
+    - **Meta:** `meta:needs-changelog`, `contrib:help-wanted`, etc.
+
+- **Assign to the relevant milestone** (e.g., "Phase 6 - GC & Production") and project board if applicable.
+
+---
+
+## 7. **Check PR Checklist**
+
+Each PR template includes a checklist. Ensure you:
+
+- [ ] Ran all tests and linters
+- [ ] Updated documentation (if needed)
+- [ ] Added/updated tests
+- [ ] Linked issues
+- [ ] Provided screenshots or video (for UI changes)
+- [ ] Selected appropriate labels
+- [ ] Ensured CI passes
+
+---
+
+## 8. **Submit and Respond to Review**
+
+- Open the PR and monitor CI status checks.
+- **Respond promptly to reviewer feedback.**
+- Make changes via additional commits; avoid force-push unless requested.
+- **Update your PR description or checklist** if necessary.
+
+---
+
+## 9. **Merging and Release**
+
+- Only maintainers can merge.
+- PRs are merged after:
+    - All status checks pass (tests, lint, a11y, etc.)
+    - At least one reviewer approves
+    - Changelog/release labels are set and docs/tests are updated
+- PRs linked to issues with `Closes #issue` will auto-close the issue upon merge.
+
+---
+
+## 10. **Release Notes and Changelog**
+
+- PRs affecting user-facing features or fixes must include a [CHANGELOG.md](../CHANGELOG.md) entry.
+- Label with `meta:needs-changelog` if your PR should be included in release notes.
+- Release workflow will group and publish notes based on labels and PR templates.
+
+---
+
+## 11. **References**
 
 - [Pull Request Template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
-- [PR Creation Guide](docs/PR_CREATION_GUIDE.md)
-- [Label Guide](.github/ISSUE_LABELS.md)
-- [Testing Guide](docs/TESTING.md)
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [Issue Types Guide](../.github/ISSUE_TYPES.md)
+- [Label Guide](../.github/ISSUE_LABELS.md)
+- [Automated Label Rules](../.github/labeler.yml)
+- [Branching Strategy](../.github/BRANCHING_STRATEGY.md)
+- [Testing Guide](TESTING.md)
+- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Roadmap](ROADMAP.md)
+- [GitHub PR Templates](../.github/PULL_REQUEST_TEMPLATES/)
 
-_For any questions or help, use [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) or ask a maintainer._
+---
+
+*For questions about the PR process, start with [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) or ask a maintainer.*

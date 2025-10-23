@@ -1,4 +1,4 @@
-const reviewerAgent = require('../../.github/agents/reviewer.agent.js');
+const reviewerAgent = require('../reviewer.agent.js');
 
 describe('reviewer.agent.js', () => {
   it('should export a run function', () => {

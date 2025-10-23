@@ -4,7 +4,12 @@ const { defaults: tsjPreset } = require('ts-jest/presets'); // TypeScript Jest p
 
 module.exports = {
   testEnvironment: "node",
-  testMatch: ["**/tests/**/*.test.js", "**/tests/**/*.test.ts"],
+  testMatch: [
+    "**/tests/**/*.test.js",
+    "**/tests/**/*.test.ts",
+    "**/__tests__/**/*.test.js",
+    "**/__tests__/**/*.test.ts"
+  ],
   verbose: true,
   transform: {
     "^.+\\.[jt]sx?$": "babel-jest"

@@ -13,6 +13,7 @@ reviews:
     - "!node_modules/**"
     - "!assets/css/*.map"
     - "!logs/**"
+    - "!docs/drafts/**"
 
   # === Auto Review Settings ===
   auto_review:
