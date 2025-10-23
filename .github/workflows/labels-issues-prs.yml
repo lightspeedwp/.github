@@ -1,9 +1,12 @@
 name: Labels • Issues & PRs
 
 on:
+  push:
+    branches: [ develop ]
   issues:
     types: [opened, edited, reopened, labeled, unlabeled, transferred]
   pull_request:
+    branches: [ develop ]
     types: [opened, reopened, synchronize, ready_for_review, edited, labeled, unlabeled]
 
 permissions:

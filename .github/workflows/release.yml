@@ -1,0 +1,13 @@
+name: Release Automation
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v0.1.0)'
+        required: false
+        type: string
+
+# ... rest of the job unchanged ...

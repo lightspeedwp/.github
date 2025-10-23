@@ -1,8 +1,10 @@
 name: Label PRs
 
 on:
+  push:
+    branches: [ develop ]
   pull_request:
-    types: [opened, synchronize]
+    branches: [ develop ]
 
 permissions:
   contents: read
