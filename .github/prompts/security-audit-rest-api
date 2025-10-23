@@ -14,15 +14,16 @@ Scan the following REST API base URLs (adjust path for subdirectory installation
 2. {{site_2_name}} — {{site_2_rest_base_url}}
 3. {{site_3_name}} — {{site_3_rest_base_url}}
 
+Normalise targets before scanning: ensure absolute URLs (scheme + host + path), normalise trailing slashes, and avoid duplicate slashes when joining route paths.
 ---
 
 ## ⚙️ Scope & Assumptions
 
 - Test strictly as **anonymous** (no cookies, no Authorization header, no WP nonce).  
-- Start at `/wp-json/` to discover `routes` and `namespaces`, then follow each route’s `schema` link when present.  
+- Start at each provided REST base URL (e.g., `/wp-json/`, `/blog/wp-json/`) to discover `routes` and `namespaces`, then follow each route’s `schema` link when present. 
 - Respect HTTP 429/403/401; do **not** attempt authenticated flows or bypasses.  
 - **Allowlist:** endpoints whose sole purpose is checking if an email exists, commonly named like `email-exists`. Note in findings that it’s allowlisted.  
-- A **WAF/CDN is present** — throttle to ≤1 request/second (measured between consecutive requests), use exponential backoff with jitter on 429, and cap total samples per namespace to avoid rate limits.
+- A **WAF/CDN is present** — enforce a global throttle of ≤1 request/second (no concurrent requests) and reset the timer at the start of each target. Use exponential backoff with jitter on 429, and cap total samples per namespace to avoid rate limits (e.g., ≤3 samples/namespace).
 
 ---
 
@@ -32,7 +33,9 @@ For each discovered route:
 
 - **Methods (anon):** list HTTP methods that respond without auth.  
 - **Args:** from the route schema (types, required), and whether `context=edit` is blocked.  
-- **Sample (GET only):** If GET is allowed and safe (no mutation), fetch a minimal page (e.g., `?per_page=1&_fields=*`) to see example fields.  
+- **Sample (GET only):** If GET is allowed and safe (no mutation), fetch a minimal page (e.g., `?per_page=1&_fields=id,slug,name`) to see example fields. Adjust `_fields` based on schema when available.  
+ - Include `per_page` only when present in `args`.  
+ - Do not sample item routes that require path params (e.g., `/wp/v2/posts/{id}`).
 - **Description:** use route `schema.title`/`description`; if missing, infer concisely from path.  
 - **Security concern?:** Yes/No with reason (see “Risk Model” below).
 
@@ -100,12 +103,13 @@ For each target, create a section like this:
 
 Create `rest-endpoints.csv` with the following headers:
 
-site,namespace,route,methods_anon,description,status(200/401/403/404),sampled,get_params_used,example_fields_truncated,security_concern,reason,notes
+site,namespace,route,methods_anon,description,status_code,sampled,get_params_used,example_fields_truncated,security_concern,reason,notes
 
 
 **Column notes:**
 
-- `site`: product | insights | help-centre  
+- `site`: product | insights | help-centre
+- `status_code`: HTTP response status (200/401/403/404)
 - `sampled`: true/false (whether a GET sample was performed)  
 - `get_params_used`: query string used for sampling (e.g., `per_page=1&_fields=id,slug`)  
 - `security_concern`: Yes/No/Allowlisted  
