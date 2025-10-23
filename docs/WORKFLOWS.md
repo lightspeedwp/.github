@@ -4,7 +4,9 @@ _Note: This file follows LightSpeedWP governance, frontmatter, naming, and versi
 
 # LightSpeedWP Core GitHub Workflows
 
-This document defines, governs, and tracks all core GitHub workflows in the `.github/workflows/` directory.
+This document is the single source of truth for all core GitHub workflows in the `.github/workflows/` directory.  
+**Each workflow must correspond to a single agent in `.github/agents/` where possible.**  
+Workflows and agents automate project health, enforce governance, and maintain data and process quality across all repos.
 
 ---
 
@@ -12,53 +14,52 @@ This document defines, governs, and tracks all core GitHub workflows in the `.gi
 
 LightSpeedWP follows a **develop → main** branching model:
 
-- **develop**: All active development occurs here.  
-  - All validation, CI, test, lint, label, and automation workflows run on `develop`.
-  - Every PR and push targeting `develop` is fully validated before integration.
+- **develop**: All active development happens here.
+    - All validation, CI, test, lint, label, and automation workflows run on `develop`.
+    - Every PR and push targeting `develop` is fully validated before integration.
 
 - **main**: Reserved for production-ready code and releases.
-  - Only release, changelog, versioning, and publishing workflows run on `main`.
-  - Code is merged into `main` via PR only when a release is being tagged/deployed.
-  - No features or fixes are developed directly on main.
+    - Only release, changelog, versioning, and publishing workflows run on `main`.
+    - Code is merged into `main` only for tagging and deploying a release.
 
-**Hotfixes**: If you allow hotfixes directly to `main`, ensure CI/test/lint workflows also run on `main` for those rare PRs.
+**Hotfixes:** If you allow hotfixes directly to `main`, ensure CI/test/lint workflows also run on `main` for those rare PRs.
 
 ---
 
 ## Workflow Triggers Overview
 
-| Workflow Type           | develop | main   | Rationale                                                         |
-|-------------------------|:-------:|:------:|-------------------------------------------------------------------|
-| Lint/Test/CI            |   ✅    |        | Validate code before release; active development is on develop.   |
-| PR Automation/Labeler   |   ✅    |        | All PRs target develop; labels/status for triage and automation.  |
-| Planner/Reviewer Agent  |   ✅    |        | Checklists and code review are enforced on develop.               |
-| Project Meta Sync       |   ✅    |        | Keeps project boards in sync as work progresses on develop.       |
-| Release/Tag/Publish     |         |   ✅   | Only run on main: version bump, changelog, release, deployment.   |
+| Workflow Type          | develop | main | Rationale                                                        |
+| ---------------------- | :-----: | :--: | ---------------------------------------------------------------- |
+| Lint/Test/CI           |   ✅    |      | Validation before release; all active development on develop.    |
+| PR Automation/Labeler  |   ✅    |      | All PRs target develop; labels/status for triage and automation. |
+| Planner/Reviewer Agent |   ✅    |      | Checklist and review enforced on develop.                        |
+| Project Meta Sync      |   ✅    |      | Keeps project boards in sync as work progresses.                 |
+| Release/Tag/Publish    |         |  ✅  | Only run on main: version bump, changelog, release, deployment.  |
 
 - ✅ = Workflow runs on this branch
 - (empty) = Workflow does not trigger on this branch
-
-**Workflows should always specify explicit branch triggers to avoid accidental runs on feature or stale branches.**
 
 ---
 
 ## Example Workflow Triggers
 
-**Validation/CI workflows**  
+**Validation/CI workflows**
+
 ```yaml
 on:
-  push:
-    branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
+    push:
+        branches: [develop]
+    pull_request:
+        branches: [develop]
 ```
 
-**Release workflows**  
+**Release workflows**
+
 ```yaml
 on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+    push:
+        branches: [main]
+    workflow_dispatch:
 ```
 
 ---
@@ -66,7 +67,7 @@ on:
 ## Adding or Updating Workflows
 
 - Always document a new workflow in this file before committing the workflow YAML.
-- Specify the branch targets for each workflow.
+- Specify the branch triggers for each workflow.
 - Remove or archive any workflow not referenced in this file.
 - For questions, see [Governance](../GOVERNANCE.md) or open a discussion.
 
@@ -79,13 +80,17 @@ on:
 ## 1. `release.yml` — **Release Agent**
 
 **Branch:** `main` only  
+**Agent:** [`release.agent.js`](../.github/agents/release.agent.js)  
 **Purpose:**  
-Handles versioning, changelog, tagging, and release notes in a single, auditable workflow.  
-**Triggers:**  
+Automates versioning, changelog, tagging, and release notes in a single, auditable workflow.
+
+**Triggers:**
+
 - `push` to `main`
 - `workflow_dispatch` (manual)
 
 **Key Steps:**
+
 - Checks out code, sets up environment
 - Determines release version (from input, file, or tags)
 - Updates version files and badges
@@ -99,101 +104,118 @@ Handles versioning, changelog, tagging, and release notes in a single, auditable
 ## 2. `planner.yml` — **Planner Agent**
 
 **Branch:** `develop`  
+**Agent:** [`planner.agent.js`](../.github/agents/planner.agent.js)  
 **Purpose:**  
-Implements “Planner Agent” for PR checklists and merge readiness validation.  
-**Triggers:**  
+Posts a Markdown checklist and exit criteria to PRs, standardizing merge readiness and ensuring governance.
+
+**Triggers:**
+
 - `push` to `develop`
 - `pull_request` to `develop`
 
 **Key Steps:**
-- Runs planner agent script to post/update PR checklists
+
+- Runs planner agent script to post/update PR checklists on all PRs
 
 ---
 
 ## 3. `reviewer.yml` — **Reviewer Agent**
 
 **Branch:** `develop`  
+**Agent:** [`reviewer.agent.js`](../.github/agents/reviewer.agent.js)  
 **Purpose:**  
-Automates PR review and feedback using reviewer agent.  
-**Triggers:**  
+Automates PR review and feedback using reviewer agent.
+
+**Triggers:**
+
 - `push` to `develop`
 - `pull_request` to `develop`
 
 **Key Steps:**
+
 - Runs reviewer agent script for automated PR summary and review
 
 ---
 
-## 4. `labeler.yml` — **Auto-label PRs**
+## 4. `labeling.yml` — **Unified Labeling, Status, and Type Automation**
 
 **Branch:** `develop`  
+**Agent:** [`labeling.agent.js`](../.github/agents/labeling.agent.js)  
 **Purpose:**  
-Adds labels to PRs based on file and branch rules using labeler action.  
-**Triggers:**  
+Unified workflow for all labeling, status/priority, and issue type automation.  
+**This replaces all prior labeling workflows:**
+
+- `label-prs.yml`
+- `issue-type.yml`
+- `labeler.yml`
+- `labels-issues-prs.yml`
+
+**Triggers:**
+
 - `push` to `develop`
-- `pull_request` to `develop`
+- `pull_request` to `develop` (all relevant PR events)
+- `issues` (all relevant issue events)
+
+**References:**
+
+- Canonical labels: [`.github/labels.yml`](../.github/labels.yml)
+- Canonical issue types: [`.github/issue-types.yml`](../.github/issue-types.yml)
+- File/branch label rules: [`.github/labeler.yml`](../.github/labeler.yml)
 
 **Key Steps:**
-- Runs labeler GitHub Action using `.github/labeler.yml` config
+
+- File/branch-based labels via native labeler action
+- Runs unified agent for:
+    - One-hot status and priority enforcement
+    - Type label assignment using `issue-types.yml` and heuristics
+    - PR heuristics (front matter, file-based, labeler.yml)
+    - Ensures changelog label is present for PRs
+    - Logging and action reporting
 
 ---
 
-## 5. `labels-issues-prs.yml` — **Labeling & Status Automation**
+## 5. `project-meta-sync.yml` — **Project Board Metadata Sync**
 
 **Branch:** `develop`  
+**Agent:** [project meta sync agent, if present]  
 **Purpose:**  
-Ensures one status label per issue/PR, applies default priority/status, ensures changelog label.  
-**Triggers:**  
-- `push` to `develop`
-- `issues`: [opened, edited, reopened, labeled, unlabeled, transferred]
-- `pull_request` to `develop`: [opened, reopened, synchronize, ready_for_review, edited, labeled, unlabeled]
+Maps issues/PRs to projects and syncs status/priority/type fields from labels.
 
-**Key Steps:**
-- Runs labeler for files/branches
-- Applies default status/priority where missing
-- Enforces only one status label per PR/issue
-- Adds `meta:needs-changelog` label if missing
+**Triggers:**
 
----
-
-## 6. `project-meta-sync.yml` — **Project Board Metadata Sync**
-
-**Branch:** `develop`  
-**Purpose:**  
-Maps issues/PRs to projects and syncs status/priority/type fields from labels.  
-**Triggers:**  
 - `push` to `develop`
 - `issues`: [opened, edited, labeled, unlabeled, reopened, closed]
 - `pull_request` to `develop`: [opened, edited, labeled, unlabeled, reopened, ready_for_review, synchronize, closed]
 
 **Key Steps:**
+
 - Uses GitHub App token
 - Adds issues/PRs to project board
 - Derives and syncs status, priority, and type values from labels/branches
 
 ---
 
-## Next Phase / To Be Implemented
+## Directory Cleanup
 
-- **Changelog Automation** (`changelog.yml`):  
-  Enforce changelog updates in all PRs except releases/docs. 
-- **Auto Issue Type** (`auto-issue-type.yml`):  
-  Robustly map template metadata, labels, and title to org-wide issue types.
-- **Org Label Sync** (`org-label-sync.yml`):  
-  Sync `.github/labels.yml` to all repos on schedule or dispatch.
-- **Linting/CI**:  
-  Add/expand `lint.yml`, `markdownlint.yml`, `eslint.yml`, `shellcheck.yml` for comprehensive validation.
-- **Comprehensive Project Syncs**:  
-  Refactor periodic sync agents (`project-sync-*.yml`) into multi-purpose workflows.
+- **Delete all legacy labeling workflows:**
+    - `label-prs.yml`
+    - `issue-type.yml`
+    - `labeler.yml`
+    - `labels-issues-prs.yml`
+- **Archive or move experimental workflows to `.github/archived-workflows/`.**
+- **All new/updated workflows** must be explicitly documented here.
 
 ---
 
-## Directory Cleanup Recommendations
+## Best Practices
 
-- **Archive or remove any workflows not referenced in this document.**
-- **Legacy or experimental workflows** can be moved to `.github/archived-workflows/` for safekeeping.
-- **All new/updated workflows** should be explicitly documented here.
+- Each workflow must correspond to a single agent where possible.
+- No workflow duplication: all logic is agent-driven, DRY, and maintainable.
+- Canonical configuration for labels and issue types is in `.github/labels.yml` and `.github/issue-types.yml`.
+- Label mapping/file/branch rules are in `.github/labeler.yml`.
+- All workflow changes must comply with [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md).
 
 ---
 
-_This document is the single source of truth for workflow governance in LightSpeedWP projects. Update it with every workflow change to ensure consistency and traceability._
+_This document must be updated whenever workflows are changed, added, or removed.  
+It is the single source of truth for workflow governance in LightSpeedWP projects._

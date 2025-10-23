@@ -1,7 +1,7 @@
 {
-
     "github.copilot.chat.virtualTools.threshold": 128,
     "github.copilot.chat.enableMcp": true,
+    "editor.formatOnSave": true,
     "github.copilot.chat.allowMcpPrompts": true,
     "github.copilot.chat.allowMcpResources": true,
     "github.copilot.chat.mcpConfigFile": ".vscode/mcp.json",
@@ -9,7 +9,6 @@
     "git.autofetch": true,
     "git.confirmSync": true,
     "github.authenticate": "on",
-
 
     "github.copilot.enable": {
         "*": true,
@@ -80,15 +79,54 @@
     "stylelint.validate": ["css", "scss", "sass"],
     "stylelint.enable": true,
     "intelephense.environment.phpVersion": "8.1",
-    "intelephense.files.associations": ["*.php", "*.inc", "*.module", "*.theme"],
+    "intelephense.files.associations": [
+        "*.php",
+        "*.inc",
+        "*.module",
+        "*.theme"
+    ],
     "playwright.testExplorer.enabled": true,
     "docker.showStartPage": false,
     "editor.formatOnPaste": true,
     "editor.formatOnType": true,
     "editor.snippetSuggestions": "top",
-    "editor.quickSuggestions": { "other": true, "comments": true, "strings": true },
-    "search.exclude": { "**/node_modules": true, "**/vendor": true, "**/.git": true, "**/.next": true },
-    "files.watcherExclude": { "**/node_modules/**": true, "**/.git/**": true, "**/.next/**": true },
-    "yaml.schemas": { "./schemas/frontmatter.schema.json": "*.md" }
-
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/vendor": true,
+        "**/.git": true,
+        "**/.next": true
+    },
+    "files.watcherExclude": {
+        "**/node_modules/**": true,
+        "**/.git/**": true,
+        "**/.next/**": true
+    },
+    "yaml.schemas": {
+        "./schemas/frontmatter.schema.json": [
+            "AGENTS.md",
+            "CLAUDE.md",
+            "GEMINI.md",
+            ".github/agents/agent.md",
+            ".github/agents/*.agent.md",
+            ".github/agents/*.agent.js",
+            ".github/agents/*.agent.sh",
+            ".github/agents/*.agent.py",
+            ".github/chatmodes/chatmodes.md",
+            ".github/chatmodes/*.chatmode.md",
+            ".github/custom-instructions.md",
+            ".github/instructions/*.instructions.md",
+            ".github/prompts/prompts.md",
+            ".github/prompts/*.prompt.md",
+            ".github/ISSUE_TEMPLATE/*.md",
+            ".github/PULL_REQUEST_TEMPLATE/*.md",
+            ".github/DISCUSSION_TEMPLATES/*.yml",
+            ".github/SAVED_REPLIES.md",
+            ".github/SAVED_REPLIES/*.md"
+        ]
+    }
 }

@@ -1,124 +1,129 @@
 {
-  "name": "github-community-health",
-  "version": "",
-  "description": "The GitHub Community Health file for LightspeedWP. Community health files, agent scripts, and automation for the LightSpeed WordPress organization.",
-  "author": {
-    "name": "LightSpeedWP Team",
-    "email": "support@lightspeedwp.agency",
-    "url": "https://lightspeedwp.agency"
-  },
-  "license": "GPL-3.0-or-later",
-  "keywords": [
-    "agents",
-    "instructions",
-    "chatmodes",
-    "prompts",
-    "ai",
-    "community-health",
-    "github",
-    "workflows",
-    "wordpress",
-    "automation",
-    "contributing",
-    "security",
-    "support"
-  ],
-  "homepage": "https://github.com/lightspeedwp/.github",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lightspeedwp/.github.git"
-  },
-  "bugs": {
-    "url": "https://github.com/lightspeedwp/.github/issues"
-  },
-  "funding": {
-    "type": "custom",
-    "url": "https://lightspeedwp.agency/support"
-  },
-  "contributors": [
-    {
-      "name": "Ash Shaw",
-      "email": "support@lightspeedwp.agency",
-      "url": "https://github.com/ashleyshaw"
+    "name": "github-community-health",
+    "version": "",
+    "description": "The GitHub Community Health file for LightspeedWP. Community health files, agent scripts, and automation for the LightSpeed WordPress organization.",
+    "author": {
+        "name": "LightSpeedWP Team",
+        "email": "support@lightspeedwp.agency",
+        "url": "https://lightspeedwp.agency"
     },
-    {
-      "name": "LightSpeedWP Team",
-      "url": "https://github.com/lightspeedwp"
+    "license": "GPL-3.0-or-later",
+    "keywords": [
+        "agents",
+        "instructions",
+        "chatmodes",
+        "prompts",
+        "ai",
+        "community-health",
+        "github",
+        "workflows",
+        "wordpress",
+        "automation",
+        "contributing",
+        "security",
+        "support"
+    ],
+    "homepage": "https://github.com/lightspeedwp/.github",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lightspeedwp/.github.git"
+    },
+    "bugs": {
+        "url": "https://github.com/lightspeedwp/.github/issues"
+    },
+    "funding": {
+        "type": "custom",
+        "url": "https://lightspeedwp.agency/support"
+    },
+    "contributors": [
+        {
+            "name": "Ash Shaw",
+            "email": "support@lightspeedwp.agency",
+            "url": "https://github.com/ashleyshaw"
+        },
+        {
+            "name": "LightSpeedWP Team",
+            "url": "https://github.com/lightspeedwp"
+        }
+    ],
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=9.0.0"
+    },
+    "main": "index.js",
+    "files": [
+        "README.md",
+        "LICENSE",
+        "SECURITY.md",
+        "SUPPORT.md",
+        "CONTRIBUTING.md",
+        "CODE_OF_CONDUCT.md",
+        "CHANGELOG.md",
+        "DEVELOPMENT.md",
+        "CODEOWNERS",
+        "docs/",
+        "scripts/",
+        ".github/"
+    ],
+    "devDependencies": {
+        "@actions/core": "1.11.1",
+        "@actions/github": "6.0.1",
+        "@babel/core": "^7.23.0",
+        "@babel/plugin-proposal-class-properties": "^7.18.6",
+        "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
+        "@babel/plugin-transform-runtime": "^7.24.1",
+        "@babel/preset-env": "^7.23.0",
+        "@babel/preset-react": "7.27.1",
+        "@babel/preset-typescript": "^7.23.0",
+        "@babel/runtime": "^7.24.1",
+        "@jest/pattern": "30.0.1",
+        "@mermaid-js/mermaid-cli": "^10.4.0",
+        "@playwright/test": "^1.40.0",
+        "@stoplight/spectral-cli": "^6.11.0",
+        "@stoplight/spectral-core": "^1.18.0",
+        "@types/jest": "^30.0.0",
+        "@types/node": "^20.0.0",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "all-contributors-cli": "3.1.1",
+        "babel-jest": "^29.7.0",
+        "bats": "^1.8.0",
+        "dotenv": "^16.4.5",
+        "eslint": "^8.0.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-prettier": "^5.0.0",
+        "jest": "^30.0.1",
+        "jest-environment-jsdom": "^30.0.1",
+        "js-yaml": "^4.1.0",
+        "markdownlint": "^0.28.1",
+        "mermaid": "^10.9.0",
+        "npm-package-json-lint": "^7.0.0",
+        "playwright": "^1.40.0",
+        "prettier": "^3.0.0",
+        "puppeteer": "^23.11.1",
+        "stylelint": "^14.16.0",
+        "stylelint-config-prettier": "^9.0.0",
+        "ts-jest": "29.4.5",
+        "typescript": "^5.0.0"
+    },
+    "scripts": {
+        "lint:pkg-json": "npmPkgJsonLint .",
+        "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml",
+        "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml",
+        "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
+        "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
+        "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
+        "lint:css": "stylelint '**/*.{css,scss}' --fix",
+        "lint:md": "markdownlint '**/*.md' --fix",
+        "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
+        "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix && stylelint-config-prettier '**/*.{css,scss}' --write && stylelint-config-prettier '**/*.json' --write &&lint-style --fix --format",
+        "format:md": "prettier '**/*.md' --write && wp-scripts lint-md --fix --format",
+        "format": "npm run format:js && npm run format:css",
+        "sync-version": "node scripts/sync-version.js",
+        "test:js": "jest --coverage --forceExit --detectOpenHandles",
+        "test": "npm run test:js",
+        "contributors:add": "all-contributors add",
+        "contributors:generate": "all-contributors generate",
+        "contributors:check": "all-contributors check"
     }
-  ],
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
-  },
-  "main": "index.js",
-  "files": [
-    "README.md",
-    "LICENSE",
-    "SECURITY.md",
-    "SUPPORT.md",
-    "CONTRIBUTING.md",
-    "CODE_OF_CONDUCT.md",
-    "CHANGELOG.md",
-    "DEVELOPMENT.md",
-    "CODEOWNERS",
-    "docs/",
-    "scripts/",
-    ".github/"
-  ],
-  "devDependencies": {
-    "@actions/core": "1.11.1",
-    "@actions/github": "6.0.1",
-    "@babel/core": "^7.23.0",
-    "@babel/preset-env": "^7.23.0",
-    "@babel/preset-react": "7.27.1",
-    "@babel/preset-typescript": "^7.23.0",
-    "@jest/pattern": "30.0.1",
-    "@playwright/test": "^1.40.0",
-    "@stoplight/spectral-cli": "^6.11.0",
-    "@stoplight/spectral-core": "^1.18.0",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "all-contributors-cli": "^6.24.0",
-    "babel-jest": "^29.7.0",
-    "bats": "^1.8.0",
-    "eslint": "^8.0.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "jest": "^30.0.1",
-    "jest-environment-jsdom": "^30.0.1",
-    "markdownlint": "^0.28.1",
-    "npm-package-json-lint": "^7.0.0",
-    "playwright": "^1.40.0",
-    "prettier": "^3.0.0",
-    "stylelint": "^14.16.0",
-    "stylelint-config-prettier": "^9.0.0",
-    "ts-jest": "29.4.5",
-    "typescript": "^5.0.0",
-    "mermaid": "^10.9.0",
-    "@mermaid-js/mermaid-cli": "^10.4.0",
-    "puppeteer": "^23.11.1",
-    "js-yaml": "^4.1.0"
-  },
-  "scripts": {
-    "lint:pkg-json": "npmPkgJsonLint .",
-    "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml",
-    "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml",
-    "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
-    "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
-    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
-    "lint:css": "stylelint '**/*.{css,scss}' --fix",
-    "lint:md": "markdownlint '**/*.md' --fix",
-    "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
-    "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix && stylelint-config-prettier '**/*.{css,scss}' --write && stylelint-config-prettier '**/*.json' --write &&lint-style --fix --format",
-    "format:md": "prettier '**/*.md' --write && wp-scripts lint-md --fix --format",
-    "format": "npm run format:js && npm run format:css",
-    "sync-version": "node scripts/sync-version.js",
-    "test:js": "jest --coverage --forceExit --detectOpenHandles",
-    "test": "npm run test:js",
-    "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate",
-    "contributors:check": "all-contributors check"
-  }
 }
