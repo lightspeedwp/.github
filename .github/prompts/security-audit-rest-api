@@ -6,9 +6,13 @@ Your job: for the following REST API base URL, enumerate all routes and namespac
 
 ---
 
-## 🔗 Target to scan
+## 🔗 Targets to scan
 
-1. {{site_name}}/wp-json/  
+Scan the following REST API base URLs (adjust path for subdirectory installations):
+
+1. {{site_1_name}} — {{site_1_rest_base_url}} (e.g., /wp-json/ or /blog/wp-json/)
+2. {{site_2_name}} — {{site_2_rest_base_url}}
+3. {{site_3_name}} — {{site_3_rest_base_url}}
 
 ---
 
