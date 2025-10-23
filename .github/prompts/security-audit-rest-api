@@ -22,7 +22,7 @@ Scan the following REST API base URLs (adjust path for subdirectory installation
 - Start at `/wp-json/` to discover `routes` and `namespaces`, then follow each route’s `schema` link when present.  
 - Respect HTTP 429/403/401; do **not** attempt authenticated flows or bypasses.  
 - **Allowlist:** endpoints whose sole purpose is checking if an email exists, commonly named like `email-exists`. Note in findings that it’s allowlisted.  
-- A **WAF/CDN is present** — throttle to ≤1 request/second, use exponential backoff with jitter on 429, and cap total samples per namespace to avoid rate limits.
+- A **WAF/CDN is present** — throttle to ≤1 request/second (measured between consecutive requests), use exponential backoff with jitter on 429, and cap total samples per namespace to avoid rate limits.
 
 ---
 
