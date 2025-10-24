@@ -54,29 +54,78 @@ title: "..."
 | maintainer    | string   | yes      | Who's responsible for changes              |
 | tags          | string[] | no       | Keywords for search/filtering              |
 | type          | string   | yes      | Type of file (e.g. "agent", "instructions")|
+| references    | string[] | no       | **AI-relevant cross-links** for automation and discovery |
 
-## Example Frontmatter (Markdown)
+## Dual Reference System
 
-NOTE: Use the correct pass to the references.
+The LightSpeedWP frontmatter schema implements a **dual reference system** to serve both AI automation and human navigation needs:
 
-```
+### 🤖 AI References (Frontmatter)
+
+- **Location**: `references` field in YAML frontmatter
+- **Purpose**: Machine-readable cross-links for AI agents, automation, and discovery
+- **Audience**: GitHub Copilot, automation agents, search indexing
+- **Format**: Relative paths to related files that AI should understand
+
+### 👥 Human References (Footer)
+
+- **Location**: Reference section at the end of the document
+- **Purpose**: Human-readable navigation links with context
+- **Audience**: Developers, contributors, documentation readers
+- **Format**: Markdown links with descriptions and context
+
+## Example Frontmatter Implementation
+
+```yaml
 $schema: "schemas/frontmatter.schema.json"
 ---
 title: "Labeling Agent Spec"
+description: "Automated labeling system for issues and pull requests"
 version: "v1.2"
-last_updated: "2025-10-23"
+last_updated: "2025-10-24"
 author: "LightSpeedWP"
 maintainer: "Ash Shaw"
-description: "Spec for the Labeling Agent."
-tags: ["lightspeed","labeling","agents"]
+tags: ["lightspeed", "labeling", "agents", "automation"]
 type: "agent"
 references:
-  - "CONTRIBUTING.md"
-  - "README.md"
-  - ".github/README.md"
-  - ".docs/README.md"
+  - "../workflows/labeling.yml"
+  - "../prompts/label-issues.prompt.md"
+  - "./agents.instructions.md"
+  - "../ISSUE_LABELS.md"
+  - "../PR_LABELS.md"
 ---
+
+# 🏷️ Labeling Agent Specification
+
+[Document content here...]
+
+## 🔗 Related Documentation
+
+- **[Labeling Workflow](../workflows/labeling.yml)** - GitHub Actions implementation
+- **[Issue Labels](../ISSUE_LABELS.md)** - Complete labeling taxonomy
+- **[PR Labels](../PR_LABELS.md)** - Pull request labeling standards
+- **[Label Issues Prompt](../prompts/label-issues.prompt.md)** - AI prompt for labeling
+
+---
+
+_This agent specification ensures consistent issue and PR labeling across the LightSpeedWP organization._
 ```
+
+### ✅ Best Practices
+
+1. **AI References** should include:
+   - Related workflow files
+   - Dependent instruction files
+   - Associated prompt files
+   - Configuration files
+   - Schema files
+
+2. **Human References** should include:
+   - Contextual descriptions
+   - Navigation aids
+   - Related documentation
+   - External resources
+   - Explanatory links
 
 ## Validation
 

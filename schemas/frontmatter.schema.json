@@ -1,8 +1,42 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "LightSpeedWP Governance Frontmatter Schema",
-  "description": "Standardized frontmatter schema for governance, documentation, and tool support for all key config files in the repository. Each sub-schema indicates which files it applies to (see the 'files' property).",
+  "title": "LightSpeedWP Unified Frontmatter Schema",
+  "description": "Unified frontmatter schema combining LightSpeed governance requirements with awesome-copilot conventions for all .github files. Supports GitHub templates, Copilot instructions, prompts, agents, and documentation.",
   "type": "object",
+  "definitions": {
+    "commonFields": {
+      "type": "object",
+      "properties": {
+        "title": {"type": "string", "description": "Human-readable title"},
+        "description": {"type": "string", "description": "Brief description of purpose (required for most file types)"},
+        "version": {"type": "string", "description": "Version string (e.g., v1.1)"},
+        "last_updated": {"type": "string", "format": "date", "description": "ISO date of last update"},
+        "author": {"type": "string", "description": "Main author or responsible party"},
+        "maintainer": {"type": "string", "description": "Current maintainer or team"},
+        "owners": {"type": "array", "items": {"type": "string"}, "description": "List of owners/maintainers"},
+        "tags": {"type": "array", "items": {"type": "string"}, "maxItems": 8, "description": "Keywords for discovery/filtering (max 8)"},
+        "status": {"type": "string", "enum": ["active", "deprecated", "draft", "experimental"], "description": "Current status"},
+        "stability": {"type": "string", "enum": ["stable", "experimental", "incubating"], "description": "Maturity expectation"},
+        "deprecated": {"type": "boolean", "description": "Whether this file is deprecated"},
+        "replacement": {"type": "string", "description": "Path to replacement file if deprecated"},
+        "domain": {"type": "string", "enum": ["wp-core", "block-theme", "plugin-hardening", "perf", "a11y", "i18n", "security", "headless", "generic"], "description": "Primary classification domain"},
+        "extraDomains": {"type": "array", "items": {"type": "string"}, "description": "Secondary classifications"},
+        "license": {"type": "string", "description": "License identifier"},
+        "references": {
+          "type": "array", 
+          "items": {"type": "string"}, 
+          "description": "AI-focused references to related documentation (relative paths from current file)",
+          "examples": [
+            "CONTRIBUTING.md",
+            "README.md", 
+            ".github/README.md",
+            "docs/README.md",
+            "schemas/frontmatter.schema.json"
+          ]
+        }
+      }
+    }
+  },
   "discriminator": {
     "propertyName": "file_type"
   },
@@ -131,13 +165,18 @@
     },
     {
       "title": "Chatmode Specification (.github/chatmodes/*.chatmode.md)",
-      "description": "Individual chatmode specification.",
+      "description": "Individual chatmode specification with awesome-copilot conventions.",
       "files": [".github/chatmodes/*.chatmode.md"],
+      "allOf": [{"$ref": "#/definitions/commonFields"}],
       "properties": {
         "file_type": { "const": "chatmode" },
         "description": { "type": "string" },
-        "tools": { "type": "array", "items": { "type": "string" } },
-        "model": { "type": "string" }
+        "tools": { "type": "array", "items": { "type": "string" }, "description": "Available tools for this chat mode" },
+        "model": { "type": "string", "description": "Default AI model for this mode" },
+        "domain": {"$ref": "#/definitions/commonFields/properties/domain"},
+        "stability": {"$ref": "#/definitions/commonFields/properties/stability"},
+        "deprecated": {"$ref": "#/definitions/commonFields/properties/deprecated"},
+        "replacement": {"$ref": "#/definitions/commonFields/properties/replacement"}
       },
       "required": ["file_type", "description"],
       "additionalProperties": true
@@ -156,21 +195,37 @@
     },
     {
       "title": "Instructions File (.github/instructions/*.instructions.md)",
-      "description": "Instructions for contributors or bots.",
+      "description": "Instructions for contributors, bots, or Copilot with LightSpeed governance and awesome-copilot conventions.",
       "files": [".github/instructions/*.instructions.md"],
+      "allOf": [{"$ref": "#/definitions/commonFields"}],
       "properties": {
         "file_type": { "const": "instructions" },
         "description": { "type": "string" },
+        "applyTo": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } }
+          ],
+          "description": "Glob patterns for files this applies to (awesome-copilot style)"
+        },
         "apply_to": {
           "oneOf": [
             { "type": "string" },
             { "type": "array", "items": { "type": "string" } }
-          ]
+          ],
+          "description": "Alias for applyTo (LightSpeed legacy)"
         },
-        "owners": { "type": "array", "items": { "type": "string" } },
-        "tags": { "type": "array", "items": { "type": "string" } }
+        "mode": { "type": "string", "enum": ["agent", "ask"], "description": "Execution style for Copilot"},
+        "domain": {"$ref": "#/definitions/commonFields/properties/domain"},
+        "stability": {"$ref": "#/definitions/commonFields/properties/stability"},
+        "deprecated": {"$ref": "#/definitions/commonFields/properties/deprecated"},
+        "replacement": {"$ref": "#/definitions/commonFields/properties/replacement"}
       },
-      "required": ["file_type", "description", "apply_to"],
+      "required": ["file_type", "description"],
+      "anyOf": [
+        {"required": ["applyTo"]},
+        {"required": ["apply_to"]}
+      ],
       "additionalProperties": true
     },
     {
@@ -186,15 +241,19 @@
     },
     {
       "title": "Prompt Specification (.github/prompts/*.prompt.md)",
-      "description": "Prompt files for Copilot and bots.",
+      "description": "Prompt files for Copilot and bots with awesome-copilot conventions.",
       "files": [".github/prompts/*.prompt.md"],
+      "allOf": [{"$ref": "#/definitions/commonFields"}],
       "properties": {
         "file_type": { "const": "prompt" },
         "description": { "type": "string" },
-        "mode": { "type": "string", "enum": ["ask", "edit", "agent"] },
-        "model": { "type": "string" },
-        "tools": { "type": "array", "items": { "type": "string" } },
-        "tags": { "type": "array", "items": { "type": "string" } }
+        "mode": { "type": "string", "enum": ["ask", "edit", "agent"], "description": "Copilot execution mode" },
+        "model": { "type": "string", "description": "Preferred AI model" },
+        "tools": { "type": "array", "items": { "type": "string" }, "description": "Available tools/capabilities" },
+        "domain": {"$ref": "#/definitions/commonFields/properties/domain"},
+        "stability": {"$ref": "#/definitions/commonFields/properties/stability"},
+        "deprecated": {"$ref": "#/definitions/commonFields/properties/deprecated"},
+        "replacement": {"$ref": "#/definitions/commonFields/properties/replacement"}
       },
       "required": ["file_type", "description"],
       "additionalProperties": true
@@ -259,6 +318,7 @@
   ],
   "examples": [
     {
+      "$schema": "schemas/frontmatter.schema.json",
       "file_type": "agent",
       "name": "jsdoc-review",
       "description": "Audits JS/TS code for JSDoc coverage.",
@@ -267,8 +327,30 @@
       "owners": ["lightspeedwp/maintainers"],
       "status": "active",
       "category": "documentation",
+      "domain": "generic",
+      "stability": "stable",
       "tags": ["jsdoc", "lint"],
-      "tools": ["Read"]
+      "tools": ["Read"],
+      "references": [
+        "CONTRIBUTING.md",
+        "README.md",
+        ".github/README.md",
+        "schemas/frontmatter.schema.json"
+      ]
+    },
+    {
+      "$schema": "schemas/frontmatter.schema.json",
+      "file_type": "instructions",
+      "description": "Security guidelines for WordPress REST API development",
+      "applyTo": "includes/api/**/*.php",
+      "domain": "security",
+      "stability": "stable",
+      "tags": ["security", "rest", "validation"],
+      "references": [
+        "docs/SECURITY.md",
+        "CONTRIBUTING.md",
+        "schemas/frontmatter.schema.json"
+      ]
     }
   ]
 }

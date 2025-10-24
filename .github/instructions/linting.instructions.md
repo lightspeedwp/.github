@@ -1,19 +1,54 @@
 ---
 file_type: "instructions"
-title: "LightSpeed Linting Instructions Index"
 description: "Master index for all linting instructions in the LightSpeed organisation. Lists and cross-references all linting instructions, config, and coding standards."
-version: "v1.4"
-last_updated: "2025-10-23"
-owners: ["LightSpeedWP Team"]
-tags: ["linting", "instructions", "governance", "automation", "code-quality"]
+applyTo: "**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}"
 ---
 
-# LightSpeed Linting Instructions Library
+# 🔍 LightSpeed Linting Instructions Library
 
-This folder contains reusable instructions for linting, formatting, and validating files in any LightSpeed WordPress project.
-Linting instructions apply to all supported file types and enforce our coding standards and automation best practices.
+![Linting Badge](https://img.shields.io/badge/linting-standards-brightgreen?style=flat-square)
+![Quality Badge](https://img.shields.io/badge/code%20quality-enforced-blue?style=flat-square)
 
-To run a linting instruction, open the file or use `/filename` in Copilot Chat.
+This directory contains comprehensive linting instructions for maintaining code quality across all LightSpeed WordPress projects. **Version: v1.5** | **Last Updated: 2025-10-24**
+
+## 📖 Overview
+
+Linting instructions apply to all supported file types and enforce our coding standards and automation best practices through:
+
+- **Automated Quality Checks** - Continuous validation through CI/CD
+- **IDE Integration** - Real-time feedback during development  
+- **Standards Enforcement** - Consistent code style across projects
+- **Error Prevention** - Early detection of potential issues
+
+## 🔄 Linting Process Flow
+
+```mermaid
+graph TD
+    A[Code Change] --> B[Pre-commit Hooks]
+    B --> C[Local Linting]
+    C --> D{Lint Passed?}
+    D -->|No| E[Fix Issues]
+    E --> C
+    D -->|Yes| F[Commit & Push]
+    F --> G[CI/CD Pipeline]
+    G --> H[Automated Linting]
+    H --> I{All Checks Pass?}
+    I -->|No| J[Block Merge]
+    I -->|Yes| K[Allow Merge]
+```
+
+## 🔗 Integration Points
+
+### 📚 Related Documentation
+- **[Coding Standards Instructions](./coding-standards.instructions.md)** - Unified coding standards
+- **[Workflows Instructions](./workflows.instructions.md)** - CI/CD integration
+- **[Agents Instructions](./agents.instructions.md)** - Automated linting agents
+- **[Custom Instructions](../custom-instructions.md)** - Organization-wide settings
+
+### ⚙️ Tool Integration
+- **[Lint Workflow](../workflows/lint.yml)** - GitHub Actions linting
+- **[Linting Agent](./agents/linting.instructions.md)** - Automated code review
+- **Pre-commit Hooks** - Local validation setup
 
 ---
 
@@ -26,7 +61,30 @@ All linting instruction files in this directory:
 
 ---
 
-## Explicit Linting Instructions File Index
+## 🛠️ Linting Toolchain
+
+```mermaid
+graph LR
+    A[Source Code] --> B[ESLint]
+    A --> C[PHPCS]
+    A --> D[Prettier]
+    A --> E[Stylelint]
+    A --> F[Markdownlint]
+    
+    B --> G[JavaScript Quality]
+    C --> H[PHP Standards]
+    D --> I[Code Formatting]
+    E --> J[CSS Standards]
+    F --> K[Markdown Quality]
+    
+    G --> L[CI/CD Pipeline]
+    H --> L
+    I --> L
+    J --> L
+    K --> L
+```
+
+## 📋 Explicit Linting Instructions File Index
 
 Below are all linting instruction files available in this folder. Each file defines standards, config, and tools for linting a specific file type:
 
@@ -66,7 +124,7 @@ For unified coding standards and documentation practices, see:
 When creating or updating linting instructions for this directory:
 
 1. Use clear, descriptive filenames with the `linting-*.instructions.md` extension.
-2. Include a YAML frontmatter with `file_type: instructions`, `applyTo`, `description`, and other relevant fields as per [frontmatter.schema.json](../frontmatter.schema.json).
+2. Include a YAML frontmatter with `file_type: instructions`, `applyTo`, `description`, and other relevant fields per the frontmatter schema.
 3. Structure the instruction with clear setup steps, config references, tools, scripts, and links to org-wide documentation.
 4. Update this index to include the new or changed instruction.
 
@@ -87,7 +145,7 @@ Linting instructions should evolve with our standards and requirements. When upd
 
 - [Coding Standards Instructions](./coding-standards.instructions.md)
 - [Custom Instructions (Org-wide)](../custom-instructions.md)
-- [Workflow Governance](../WORKFLOWS.md)
+- [Workflows Instructions](./workflows.instructions.md)
 - [Global AI Rules (AGENTS.md)](../../AGENTS.md)
 - [Instructions Directory](../instructions/)
 
