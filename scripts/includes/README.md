@@ -1,6 +1,73 @@
-# scripts/includes — Shared Utilities and Test Helpers
+---
+title: "Shared Utilities & Test Helpers"
+version: "v2.1"
+last_updated: "2025-01-14"
+author: "LightSpeedWP Team"
+maintainer: "Ash Shaw"
+description: "Reusable shell functions, utilities, and test helpers used across all LightSpeed WP scripts and test suites. Comprehensive CLI utilities, logging, validation, and testing infrastructure."
+type: "shared-library"
+status: "production"
+tags: ["utilities", "helpers", "testing", "bash", "shell", "logging", "validation", "cli"]
+license: "GPL-3.0"
+repository: "https://github.com/lightspeedwp/.github"
+ai_references:
+  - "Foundation library for all script automation and testing"
+  - "Standardized logging, validation, and CLI argument parsing"
+  - "Enhanced test helpers with mocking and assertion capabilities"
+  - "Cross-platform file operations and Git integration utilities"
+related_files:
+  - "scripts/"
+  - "tests/"
+  - ".github/workflows/"
+  - ".github/instructions/coding-standards.instructions.md"
+---
+
+## 🛠️ Shared Utilities & Test Helpers
+
+![Utilities Badge](https://img.shields.io/badge/utilities-shared-brightgreen?style=flat-square)
+![Testing Badge](https://img.shields.io/badge/testing-enhanced-blue?style=flat-square)
+![Shell Badge](https://img.shields.io/badge/shell-validated-orange?style=flat-square)
+![Coverage Badge](https://img.shields.io/badge/coverage-comprehensive-success?style=flat-square)
 
 This directory contains reusable shell functions, utilities, and test helpers used across all LightSpeed WP scripts and test suites.
+
+## 📊 Utilities Architecture
+
+```mermaid
+graph TB
+    A[Shared Includes] --> B[Core Utilities]
+    A --> C[CLI Support]
+    A --> D[File Operations]
+    A --> E[Test Helpers]
+    A --> F[Network Functions]
+    
+    B --> G[Logging System]
+    B --> H[Validation Engine]
+    B --> I[Color Support]
+    B --> J[Common Functions]
+    
+    C --> K[Argument Parsing]
+    C --> L[Help Generation]
+    
+    D --> M[Safe File Operations]
+    D --> N[Backup Management]
+    
+    E --> O[Enhanced Testing]
+    E --> P[Agent Testing]
+    E --> Q[Mocking Framework]
+    
+    F --> R[Git Operations]
+    F --> S[Repository Management]
+    
+    T[All Scripts] --> A
+    U[Test Suites] --> E
+    V[CI/CD Workflows] --> A
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style E fill:#e8f5e8
+    style T fill:#fff3e0
+```
 
 ## Directory Structure
 
