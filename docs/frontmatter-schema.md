@@ -9,7 +9,7 @@ tags: ["lightspeed","schema","frontmatter","governance"]
 type: "spec"
 ---
 
-# Frontmatter Schema Specification
+## Frontmatter Schema Specification
 
 This document describes the structure, fields, and validation rules for the LightSpeedWP frontmatter schema, used across Markdown and JSON files for documentation, agents, prompts, and configuration.
 
@@ -28,7 +28,7 @@ This document describes the structure, fields, and validation rules for the Ligh
 
 **How to reference in documentation:**
 
-```
+```markdown
 **JSON Schema:**  
 See [`schemas/frontmatter.schema.json`](../schemas/frontmatter.schema.json)
 ```
@@ -126,6 +126,68 @@ _This agent specification ensures consistent issue and PR labeling across the Li
    - Related documentation
    - External resources
    - Explanatory links
+
+## 📋 Reference Implementation Guidelines
+
+### 🤖 AI References Examples by File Type
+
+#### Agent Files (`.agent.md`)
+
+```yaml
+references:
+  - "../workflows/agent-name.yml"
+  - "../prompts/agent-prompt.prompt.md"
+  - "./agents.instructions.md"
+  - "../ISSUE_LABELS.md"
+```
+
+#### Instruction Files (`.instructions.md`)
+
+```yaml
+references:
+  - "./coding-standards.instructions.md"
+  - "../workflows/README.md" 
+  - "../agents/README.md"
+  - "../custom-instructions.md"
+```
+
+#### Prompt Files (`.prompt.md`)
+
+```yaml
+references:
+  - "../instructions/prompts.instructions.md"
+  - "../chatmodes/chatmodes.md"
+  - "../agents/agent-name.agent.md"
+```
+
+#### Workflow Files (`.yml`)
+
+```yaml
+references:
+  - "../agents/agent-name.agent.md"
+  - "../instructions/workflows.instructions.md"
+  - "../AUTOMATION_GOVERNANCE.md"
+```
+
+### 👥 Human Reference Patterns
+
+Use descriptive markdown links that help humans understand context:
+
+```markdown
+## 🔗 Related Documentation
+
+### 📚 Core Resources
+- **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Organization automation policies
+- **[Coding Standards](./instructions/coding-standards.instructions.md)** - Development guidelines
+
+### ⚙️ Implementation Details  
+- **[Labeling Workflow](../workflows/labeling.yml)** - GitHub Actions automation
+- **[Test Configuration](../jest.config.js)** - Testing framework setup
+
+### 🎯 Specialized Guides
+- **[WordPress Development](./instructions/wordpress.instructions.md)** - WP-specific practices
+- **[Security Guidelines](./instructions/security.instructions.md)** - Security best practices
+```
 
 ## Validation
 
