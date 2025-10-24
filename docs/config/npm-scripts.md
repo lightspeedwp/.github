@@ -67,6 +67,33 @@
         "test:coverage": "jest --coverage"
     }
 }
+
+### **Core & Utility Scripts (from package.json)**
+
+```json
+{
+    "scripts": {
+        "lint:pkg-json": "npmPkgJsonLint .",
+        "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml",
+        "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml",
+        "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
+        "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
+        "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
+        "lint:css": "stylelint '**/*.{css,scss}' --fix",
+        "lint:md": "markdownlint '**/*.md' --fix",
+        "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
+        "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix && stylelint-config-prettier '**/*.{css,scss}' --write && stylelint-config-prettier '**/*.json' --write &&lint-style --fix --format",
+        "format:md": "prettier '**/*.md' --write && wp-scripts lint-md --fix --format",
+        "format": "npm run format:js && npm run format:css",
+        "sync-version": "node scripts/sync-version.js",
+        "test:js": "jest --coverage --forceExit --detectOpenHandles",
+        "test": "npm run test:js",
+        "contributors:add": "all-contributors add",
+        "contributors:generate": "all-contributors generate",
+        "contributors:check": "all-contributors check"
+    }
+}
+```
 ```
 
 ## WordPress Integration
@@ -86,6 +113,10 @@
 
 ```json
 {
+
+### **Linting & Formatting Scripts**
+
+See above for the full list. These scripts run ESLint, Stylelint, markdownlint, Spectral, and npmPkgJsonLint for code quality and formatting. Use `npm run lint` for core checks, `npm run lint:all` for comprehensive checks, and `npm run format` to auto-format code.
     "name": "lightspeed-block-theme",
     "scripts": {
         "build": "wp-scripts build",
@@ -98,6 +129,19 @@
         "lint:js": "wp-scripts lint-js",
         "lint:css": "wp-scripts lint-style",
         "lint:php": "composer run lint",
+
+### **Testing Scripts**
+
+```json
+{
+    "scripts": {
+        "test:js": "jest --coverage --forceExit --detectOpenHandles",
+        "test": "npm run test:js"
+    }
+}
+```
+
+For Playwright E2E tests, use the VS Code task or run `npx playwright test`.
         "lint:md": "markdownlint '**/*.md' --ignore node_modules",
 
         "format": "run-p format:*",
@@ -108,6 +152,18 @@
         "test": "run-s test:js test:php test:e2e",
         "test:js": "wp-scripts test-unit-js",
         "test:php": "composer run test",
+
+### **Contributors Scripts**
+
+```json
+{
+    "scripts": {
+        "contributors:add": "all-contributors add",
+        "contributors:generate": "all-contributors generate",
+        "contributors:check": "all-contributors check"
+    }
+}
+```
         "test:e2e": "playwright test",
         "test:watch": "wp-scripts test-unit-js --watch",
 
@@ -206,11 +262,6 @@
 # Start development
 npm run start
 
-# Build for production
-npm run build:production
-
-# Run all linters
-npm run lint
 
 # Fix linting issues
 npm run lint:fix
