@@ -1,49 +1,69 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "npm: test-unit",
-			"type": "npm",
-			"script": "test-unit",
-			"problemMatcher": ["$jest-watch", "$jest-eslint"],
-			"detail": "Runs unit tests using 'jest --reporters=jest-watch-typeahead,jest-junit-reporter'."
-		},
-		{
-			"label": "npm: lint-js",
-			"type": "npm",
-			"script": "lint-js",
-			"problemMatcher": ["$eslint-stylish"],
-			"detail": "Lints JavaScript files using lint-js'."
-		},
-		{
-			"label": "npm: lint-css",
-			"type": "npm",
-			"script": "lint-css",
-			"problemMatcher": [],
-			"detail": "Lints CSS files using lint-css'."
-		},
-		{
-			"label": "npm: lint-md",
-			"type": "npm",
-			"script": "lint-md",
-			"problemMatcher": [],
-			"detail": "Lints CSS files using lint-css'."
-		}
-		{
-			"label": "e2e: test",
-			"type": "shell",
-			"command": "npx playwright test",
-			"group": "test",
-			"problemMatcher": [],
-			"detail": "Runs Playwright E2E tests."
-		},
-		{
-			"label": "npm: test-coverage",
-			"type": "npm",
-			"script": "test-unit -- --coverage",
-			"group": "test",
-			"problemMatcher": ["$jest-watch", "$jest-eslint"],
-			"detail": "Runs unit tests with coverage reporting."
-		},
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "npm: lint-js",
+            "type": "npm",
+            "script": "lint-js",
+            "problemMatcher": ["$eslint-stylish"],
+            "detail": "Lints JavaScript/TypeScript files using ESLint."
+        },
+        {
+            "label": "npm: lint-css",
+            "type": "npm",
+            "script": "lint-css",
+            "problemMatcher": ["$stylelint-compact"],
+            "detail": "Lints CSS/SCSS files using Stylelint."
+        },
+        {
+            "label": "npm: lint-md",
+            "type": "npm",
+            "script": "lint-md",
+            "problemMatcher": ["$markdownlint"],
+            "detail": "Lints Markdown files using markdownlint."
+        },
+        {
+            "label": "npm: lint-yaml",
+            "type": "npm",
+            "script": "lint:yaml",
+            "problemMatcher": [],
+            "detail": "Lints YAML files using Spectral."
+        },
+        {
+            "label": "npm: lint-php",
+            "type": "npm",
+            "script": "lint:php",
+            "problemMatcher": [],
+            "detail": "Lints PHP files using PHPCS."
+        },
+        {
+            "label": "npm: format",
+            "type": "npm",
+            "script": "format",
+            "problemMatcher": [],
+            "detail": "Formats all supported files using Prettier."
+        },
+        {
+            "label": "npm: test-unit",
+            "type": "npm",
+            "script": "test-unit",
+            "problemMatcher": ["$jest-watch", "$jest-eslint"],
+            "detail": "Runs unit tests using Jest."
+        },
+        {
+            "label": "npm: test-coverage",
+            "type": "npm",
+            "script": "test-unit -- --coverage",
+            "problemMatcher": ["$jest-watch", "$jest-eslint"],
+            "detail": "Runs unit tests with coverage reporting."
+        },
+        {
+            "label": "e2e: test",
+            "type": "shell",
+            "command": "npx playwright test",
+            "group": "test",
+            "problemMatcher": [],
+            "detail": "Runs Playwright E2E tests."
+        }
+    ]
 }

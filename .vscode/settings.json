@@ -28,8 +28,34 @@
     "files.trimTrailingWhitespace": true,
     "[markdown]": {
         "files.trimTrailingWhitespace": false,
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
     },
+    "[yaml]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[typescript]": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "markdownlint.enable": true,
+    "markdownlint.config": {
+        "default": true,
+        "MD013": false,
+        "MD033": false
+    },
+    "spectral.enable": true,
+    "spectral.run": "onType",
+    "spectral.ruleset": ".spectral.yaml",
+    "yaml.validate": true,
+    "yaml.format.enable": true,
     "[php]": {
         "editor.formatOnSave": true,
         "editor.tabSize": 4,
@@ -105,28 +131,6 @@
         "**/node_modules/**": true,
         "**/.git/**": true,
         "**/.next/**": true
-    },
-    "yaml.schemas": {
-        "./schemas/frontmatter.schema.json": [
-            "AGENTS.md",
-            "CLAUDE.md",
-            "GEMINI.md",
-            ".github/agents/agent.md",
-            ".github/agents/*.agent.md",
-            ".github/agents/*.agent.js",
-            ".github/agents/*.agent.sh",
-            ".github/agents/*.agent.py",
-            ".github/chatmodes/chatmodes.md",
-            ".github/chatmodes/*.chatmode.md",
-            ".github/custom-instructions.md",
-            ".github/instructions/*.instructions.md",
-            ".github/prompts/prompts.md",
-            ".github/prompts/*.prompt.md",
-            ".github/ISSUE_TEMPLATE/*.md",
-            ".github/PULL_REQUEST_TEMPLATE/*.md",
-            ".github/DISCUSSION_TEMPLATES/*.yml",
-            ".github/SAVED_REPLIES.md",
-            ".github/SAVED_REPLIES/*.md"
-        ]
     }
+    // See LINTING.md and docs/config/ for full linting and formatting strategy
 }
