@@ -1,6 +1,96 @@
-# LightSpeedWP Documentation Hub
+---
+title: "LightSpeedWP Documentation Hub"
+version: "v3.2"
+last_updated: "2025-01-14"
+author: "LightSpeedWP Team"
+maintainer: "Ash Shaw"
+description: "Comprehensive documentation repository for LightSpeedWP containing standards, guides, workflows, and configurations. Central hub for all development ecosystem documentation with cross-linked architecture."
+type: "documentation"
+status: "production"
+tags: ["documentation", "standards", "workflows", "guides", "architecture", "wordpress", "ai", "automation"]
+license: "GPL-3.0"
+repository: "https://github.com/lightspeedwp/.github"
+ai_references:
+  - "Central documentation hub for all LightSpeedWP standards and guides"
+  - "Cross-linked documentation architecture with bidirectional references"
+  - "Comprehensive workflow, configuration, and development guidelines"
+  - "AI integration guides and automation documentation"
+related_files:
+  - "ai/"
+  - "config/"
+  - "git-workflow/"
+  - "wp-guides/"
+---
+
+## 📚 LightSpeedWP Documentation Hub
+
+![Documentation Badge](https://img.shields.io/badge/docs-comprehensive-brightgreen?style=flat-square)
+![Standards Badge](https://img.shields.io/badge/standards-unified-blue?style=flat-square)
+![Workflows Badge](https://img.shields.io/badge/workflows-documented-orange?style=flat-square)
+![Cross-linked Badge](https://img.shields.io/badge/cross--linked-complete-success?style=flat-square)
 
 Welcome to the comprehensive documentation repository for LightSpeedWP! This collection contains all the standards, guides, workflows, and configurations that power our development ecosystem.
+
+## 📊 Documentation Architecture
+
+```mermaid
+graph TB
+    A[Documentation Hub] --> B[Architecture & Organization]
+    A --> C[AI & Automation]
+    A --> D[Configuration & Setup]
+    A --> E[Git Workflows]
+    A --> F[Labeling & Issues]
+    A --> G[Bug Tracking]
+    A --> H[WordPress Development]
+    A --> I[Content & Documentation]
+    A --> J[Collaboration]
+    A --> K[Project Resources]
+    
+    B --> B1[Documentation Architecture]
+    B --> B2[Organization Standards]
+    B --> B3[System Architecture]
+    
+    C --> C1[AI Integration Guides]
+    C --> C2[Copilot Usage]
+    C --> C3[Automation Workflows]
+    
+    D --> D1[Linting Setup]
+    D --> D2[NPM Configuration]
+    D --> D3[VS Code Setup]
+    
+    E --> E1[Branching Strategy]
+    E --> E2[PR Guidelines]
+    E --> E3[Workflow Playbook]
+    
+    F --> F1[Label Automation]
+    F --> F2[Issue Management]
+    F --> F3[Release Automation]
+    
+    G --> G1[BugHerd Integration]
+    G --> G2[Testing Standards]
+    G --> G3[Quality Assurance]
+    
+    H --> H1[Block Development]
+    H --> H2[Security Checklist]
+    H --> H3[Coding Standards]
+    
+    I --> I1[Frontmatter Schema]
+    I --> I2[YAML Documentation]
+    I --> I3[Header/Footer Standards]
+    
+    J --> J1[All Contributors]
+    J --> J2[Discussion Guidelines]
+    J --> J3[Decision Records]
+    
+    K --> K1[Assets]
+    K --> K2[LS Projects]
+    K --> K3[Templates]
+    
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style E fill:#e8f5e8
+    style H fill:#fff3e0
+```
 
 ## 📖 Quick Navigation
 
@@ -129,4 +219,76 @@ When contributing to this documentation:
 
 ---
 
-_This documentation hub is maintained with ❤️ by the LightSpeedWP team. Last updated: October 2024._
+## 🧭 Documentation Navigation Flow
+
+```mermaid
+flowchart TD
+    A[New User] --> B{Purpose}
+    B -->|Learning| C[Architecture Overview]
+    B -->|Development| D[Configuration Hub]
+    B -->|Contributing| E[AI Documentation]
+    B -->|WordPress| F[WordPress Guides]
+    
+    C --> G[Organization Standards]
+    G --> H[Versioning Strategy]
+    
+    D --> I[Linting Setup]
+    D --> J[NPM Configuration]
+    D --> K[VS Code Setup]
+    
+    E --> L[Git Workflows]
+    L --> M[PR Guidelines]
+    L --> N[Issue Management]
+    
+    F --> O[Block Development]
+    F --> P[Security Checklist]
+    F --> Q[Coding Standards]
+    
+    H --> R[Start Contributing]
+    K --> R
+    N --> R
+    Q --> R
+    
+    R --> S[Cross-linked Content]
+    S --> T[Living Documentation]
+    
+    style A fill:#e1f5fe
+    style R fill:#c8e6c9
+    style T fill:#f3e5f5
+```
+
+---
+
+## 📚 References
+
+### 🔗 Documentation Links
+
+- [Documentation Architecture Guide](README_DOCS_ARCHITECTURE.md)
+- [Cross-linking Checklist](CHECKLIST_CROSSLINKING.md)
+- [Frontmatter Schema](frontmatter-schema.md)
+- [LightSpeedWP Main Repository](https://github.com/lightspeedwp/.github)
+
+### 🛠️ Development Resources
+
+- [Configuration Hub](config/)
+- [Git Workflow Documentation](git-workflow/)
+- [AI Integration Guides](ai/)
+- [WordPress Development Guides](wp-guides/)
+
+### 🎯 AI & Automation
+
+- [Custom Instructions](../.github/custom-instructions.md)
+- [Agents Documentation](../.github/agents/agent.md)
+- [Prompts Library](../.github/prompts/prompts.md)
+- [Labeling Automation](label-automation/)
+
+### 🤝 Community Resources
+
+- [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
+- [Issue Creation Guide](ISSUE_CREATION_GUIDE.md)
+- [PR Creation Process](PR_CREATION_PROCESS.md)
+- [Contributing Guidelines](../CONTRIBUTING.md)
+
+---
+
+_📚 Comprehensive documentation maintained with ❤️ by the LightSpeedWP team. Empowering development through knowledge._

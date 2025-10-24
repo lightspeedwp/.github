@@ -322,8 +322,56 @@ When adding new helpers or modifying existing ones:
 4. Ensure compatibility with existing scripts
 5. Add usage examples for new functionality
 
-## Related Documentation
+## 🔄 Script Integration Workflow
 
-- [Main Scripts README](../README.md) — Overview of all script directories
-- [Testing Standards](../../.github/instructions/testing-standards.instructions.md) — Testing guidelines
-- [Coding Standards](../../.github/instructions/coding-standards.instructions.md) — Code style guidelines
+```mermaid
+sequenceDiagram
+    participant Script as User Script
+    participant Includes as Includes Library
+    participant Logging as Log System
+    participant Validation as Validator
+    participant CLI as CLI Parser
+    participant Tests as Test Runner
+    
+    Script->>Includes: Source utilities
+    Includes->>CLI: parse_common_args()
+    CLI->>Script: Return parsed args
+    Script->>Validation: validate_required_command()
+    Validation->>Script: Validation results
+    Script->>Logging: log_info()
+    Logging->>Script: Formatted output
+    Script->>Tests: Run test suite
+    Tests->>Includes: Use test helpers
+    Tests->>Script: Test results
+    
+    Note over Script,Tests: All operations standardized
+```
+
+---
+
+## 📚 References
+
+### 🔗 Documentation Links
+
+- [Main Scripts Directory](../README.md)
+- [LightSpeedWP Coding Standards](../../.github/instructions/coding-standards.instructions.md)
+- [Testing Guidelines](../../.github/instructions/tests.instructions.md)
+- [Shell Script Linting](../../.github/instructions/linting/linting-shell.instructions.md)
+
+### 🛠️ Development Resources
+
+- [Maintenance Scripts](../maintenance/)
+- [Utility Scripts](../utility/)
+- [Validation Scripts](../validation/)
+- [Test Coverage Reports](../../tests/TEST_COVERAGE_SUMMARY.md)
+
+### 🎯 AI & Automation
+
+- [Custom Instructions](../../.github/custom-instructions.md)
+- [Agents Documentation](../../.github/agents/agent.md)
+- [Workflow Automation](../../.github/workflows/)
+- [Contributing Guidelines](../../CONTRIBUTING.md)
+
+---
+
+_🔧 Building robust automation through shared utilities and comprehensive testing._

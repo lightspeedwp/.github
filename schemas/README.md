@@ -1,6 +1,71 @@
-# JSON Schemas
+---
+title: "LightSpeedWP JSON Schemas Collection"
+version: "v2.3"
+last_updated: "2025-01-14"
+author: "LightSpeedWP Team"
+maintainer: "Ash Shaw"
+description: "JSON Schema files for validation, documentation, and tooling support across the LightSpeedWP organization. Comprehensive schema validation for frontmatter, configurations, and third-party integrations."
+type: "schemas"
+status: "production"
+tags: ["json-schema", "validation", "frontmatter", "configuration", "automation", "vscode"]
+license: "GPL-3.0"
+repository: "https://github.com/lightspeedwp/.github"
+ai_references:
+  - "Use for JSON/YAML validation and schema compliance"
+  - "Frontmatter schema ensures consistent documentation metadata"
+  - "VS Code integration provides real-time validation and IntelliSense"
+  - "CI/CD integration for automated validation workflows"
+related_files:
+  - ".vscode/settings.json"
+  - "scripts/json-validation/"
+  - ".github/workflows/"
+  - ".github/instructions/"
+---
+
+## 📋 LightSpeedWP JSON Schemas Collection
+
+![Schema Badge](https://img.shields.io/badge/schemas-validated-brightgreen?style=flat-square)
+![JSON Schema](https://img.shields.io/badge/json--schema-draft--7-blue?style=flat-square)
+![VS Code](https://img.shields.io/badge/vscode-integrated-orange?style=flat-square)
+![Validation Badge](https://img.shields.io/badge/validation-automated-success?style=flat-square)
 
 This folder contains JSON Schema files used for validation, documentation, and tooling support across the LightSpeedWP organization.
+
+## 📊 Schema Architecture
+
+```mermaid
+graph TB
+    A[JSON Schemas] --> B[LightSpeedWP Custom]
+    A --> C[Third-Party Schemas]
+    A --> D[Validation Framework]
+    A --> E[IDE Integration]
+    
+    B --> F[frontmatter.schema.json]
+    B --> G[collection.schema.json]
+    B --> H[header-footer.schema.json]
+    B --> I[header.schema.json]
+    B --> J[footer.schema.json]
+    
+    C --> K[coderabbit-overrides.v2.json]
+    C --> L[External Tool Schemas]
+    
+    D --> M[Real-time Validation]
+    D --> N[CI/CD Integration]
+    D --> O[CLI Validation]
+    
+    E --> P[VS Code IntelliSense]
+    E --> Q[Error Highlighting]
+    E --> R[Auto-completion]
+    
+    S[Documentation Files] --> F
+    T[Collection Manifests] --> G
+    U[Configuration Files] --> K
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style D fill:#e8f5e8
+    style E fill:#fff3e0
+```
 
 ---
 
@@ -116,4 +181,83 @@ Current schema-to-file mappings (see `.vscode/settings.json`):
 
 ---
 
-**Maintained by the LightSpeedWP Documentation and Automation Team**
+## 🔄 Schema Validation Workflow
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant VSCode as VS Code
+    participant Schema as JSON Schema
+    participant CI as CI Pipeline
+    participant Validator as Schema Validator
+    
+    Dev->>VSCode: Edit YAML/JSON file
+    VSCode->>Schema: Load schema mapping
+    Schema->>VSCode: Provide validation rules
+    VSCode->>Dev: Real-time validation & IntelliSense
+    Dev->>CI: Commit & push changes
+    CI->>Validator: Run schema validation
+    Validator->>Schema: Validate against schemas
+    Schema->>CI: Return validation results
+    CI->>Dev: Report validation status
+    
+    Note over Dev,CI: Continuous validation pipeline
+```
+
+## 🎯 Schema Relationship Map
+
+```mermaid
+graph LR
+    A[frontmatter.schema.json] --> B[Documentation Files]
+    A --> C[Instruction Files]
+    A --> D[Agent Files]
+    
+    E[collection.schema.json] --> F[Collection Manifests]
+    E --> G[Awesome Copilot Resources]
+    
+    H[header-footer.schema.json] --> I[Template Configurations]
+    H --> J[Header Configs]
+    H --> K[Footer Configs]
+    
+    L[coderabbit-overrides.v2.json] --> M[CodeRabbit Configs]
+    L --> N[Review Automation]
+    
+    O[VS Code Settings] --> A
+    O --> E
+    O --> H
+    O --> L
+    
+    style A fill:#e1f5fe
+    style E fill:#f3e5f5
+    style H fill:#e8f5e8
+    style L fill:#fff3e0
+```
+
+---
+
+## 📚 References
+
+### 🔗 Documentation Links
+
+- [JSON Schema Specification](https://json-schema.org/specification.html)
+- [VS Code JSON Schema Integration](https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings)
+- [LightSpeedWP Frontmatter Conventions](../.github/instructions/frontmatter.instructions.md)
+- [Schema Validation Scripts](../scripts/json-validation/)
+
+### 🛠️ Development Resources
+
+- [AJV JSON Schema Validator](https://ajv.js.org/)
+- [JSON Schema Lint](https://jsonschemalint.com/)
+- [Schema Store](https://schemastore.org/json/)
+- [VS Code Workspace Settings](../.vscode/settings.json)
+
+### 🎯 AI & Automation
+
+- [Custom Instructions](../.github/custom-instructions.md)
+- [Validation Workflows](../.github/workflows/)
+- [JSON Validation Scripts](../scripts/json-validation/)
+- [Schema Testing Guidelines](../.github/instructions/tests.instructions.md)
+
+---
+
+_📋 Ensuring data integrity through comprehensive schema validation and automated compliance._
