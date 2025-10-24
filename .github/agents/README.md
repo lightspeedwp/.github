@@ -11,6 +11,56 @@ type: "documentation"
 
 This directory contains all GitHub automation agents that power LightSpeed's repository workflows, including their implementations, documentation, and comprehensive test suites.
 
+## 📊 Agent Ecosystem Architecture
+
+```mermaid
+graph TB
+    A[GitHub Events] --> B[GitHub Actions Workflows]
+    B --> C[Agent Orchestration]
+    C --> D[Core Agents]
+    C --> E[WordPress Agents]
+    C --> F[Specialized Agents]
+    
+    D --> D1[labeling.agent.js]
+    D --> D2[reviewer.agent.js]
+    D --> D3[issue-type.agent.js]
+    D --> D4[badges.agent.js]
+    D --> D5[manage-readmes.agent.js]
+    D --> D6[header-footer.agent.js]
+    D --> D7[linting.agent.js]
+    D --> D8[label-standardization.agent.js]
+    
+    E --> E1[wp-accessibility-review-agent.js]
+    E --> E2[wp-performance-audit-agent.js]
+    E --> E3[wp-security-review-agent.js]
+    
+    F --> F1[jsdoc-review.agent.md]
+    
+    G[Repository Changes] --> H[Automated Responses]
+    H --> I[Issue Labeling]
+    H --> J[Code Review]
+    H --> K[Badge Updates]
+    H --> L[README Maintenance]
+    H --> M[Documentation Updates]
+    
+    D1 --> I
+    D2 --> J
+    D4 --> K
+    D5 --> L
+    D6 --> M
+    
+    N[Test Suite] --> D
+    N --> E
+    O[Agent Documentation] --> D
+    O --> E
+    O --> F
+    
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style N fill:#e8f5e8
+    style H fill:#fff3e0
+```
+
 ## 🤖 Available Agents
 
 | Agent | Description | Status | Tests |

@@ -1,17 +1,60 @@
 ---
+title: "Collections Directory"
 description: "Curated collections of related instructions, prompts, and workflows for specific development contexts"
 version: "v1.0"
 last_updated: "2025-10-24"
 maintainer: "LightSpeed Engineering"
 tags: ["collections", "instructions", "workflows", "organization"]
+type: "documentation"
 ---
 
-# 📚 Collections Directory
+## 📚 Collections Directory
 
 ![Collections Badge](https://img.shields.io/badge/collections-curated-brightgreen?style=flat-square)
 ![Organization Badge](https://img.shields.io/badge/organization-structured-blue?style=flat-square)
 
 This directory contains curated collections of related instructions, prompts, chatmodes, and workflows organized by development context and technology focus.
+
+## 📊 Collections Organization
+
+```mermaid
+graph TB
+    A[Collections Directory] --> B[☁️ Cloud & Infrastructure]
+    A --> C[💾 Data & Backend]
+    A --> D[🎨 Frontend & UX]
+    A --> E[🛡️ Security & Quality]
+    A --> F[📋 Project Management]
+    
+    B --> B1[azure-cloud-development.md]
+    B --> B2[devops-oncall.md]
+    
+    C --> C1[database-data-management.md]
+    C --> C2[php-mcp-development.md]
+    C --> C3[python-mcp-development.md]
+    
+    D --> D1[frontend-web-dev.md]
+    D --> D2[edge-ai-tasks.md]
+    
+    E --> E1[security-best-practices.md]
+    
+    F --> F1[project-planning.md]
+    
+    G[Development Context] --> A
+    H[Technology Focus] --> A
+    I[Team Specialization] --> A
+    
+    J[Instructions] --> A
+    K[Prompts] --> A
+    L[Chatmodes] --> A
+    M[Workflows] --> A
+    
+    style A fill:#e1f5fe
+    style B fill:#e8f5e8
+    style C fill:#f3e5f5
+    style D fill:#fff3e0
+    style E fill:#ffebee
+    style F fill:#fce4ec
+```
 
 ## 📁 Available Collections
 

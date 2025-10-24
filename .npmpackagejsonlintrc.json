@@ -1,15 +1,29 @@
 {
-  "rules": {
-    "name-format": "error",
-    "valid-values-name-scope": [
-      "error",
-      [
-        "@lightspeedwp"
-      ]
+    "ignorePaths": [
+        "node_modules",
+        "dist",
+        "build",
+        "coverage",
+        "playwright-report",
+        "test-results",
+        "vendor",
+        "logs",
+        "tmp",
+        ".cache",
+        ".husky",
+        ".vercel",
+        ".netlify",
+        ".storybook",
+        ".next",
+        "docs/mustache-repo-templates"
     ],
-    "version-format": "error",
-    "require-author": "warning",
-    "prefer-repository": "error",
-    "require-license": "error"
-  }
+    "rules": {
+        "name-format": "off",
+        "valid-values-name-scope": "off",
+        "version-format": "off",
+        "require-author": "error",
+        "require-repository": "off",
+        "require-description": "error",
+        "require-license": "error"
+    }
 }

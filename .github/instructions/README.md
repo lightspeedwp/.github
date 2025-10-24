@@ -1,17 +1,64 @@
 ---
+title: "Instructions Directory"
 description: "Comprehensive instructions directory for LightSpeedWP development standards and practices"
 version: "v1.0"
 last_updated: "2025-10-24"
 maintainer: "LightSpeed Engineering"
 tags: ["instructions", "standards", "guidelines", "development"]
+type: "documentation"
 ---
 
-# 📋 Instructions Directory
+## 📋 Instructions Directory
 
 ![Instructions Badge](https://img.shields.io/badge/instructions-comprehensive-brightgreen?style=flat-square)
 ![Standards Badge](https://img.shields.io/badge/standards-enforced-blue?style=flat-square)
 
 This directory contains comprehensive development instructions, standards, and guidelines that govern all LightSpeedWP projects and automation systems.
+
+## 📊 Instructions Architecture
+
+```mermaid
+graph TB
+    A[Instructions Directory] --> B[🤖 Automation & AI]
+    A --> C[💻 Development Standards]
+    A --> D[🏗️ Architecture & Workflows]
+    A --> E[📚 Documentation & Communication]
+    A --> F[🔗 Integration & Security]
+    
+    B --> B1[agents.instructions.md]
+    B --> B2[awesome-copilot.instructions.md]
+    B --> B3[automation.instructions.md]
+    B --> B4[automation-testing.instructions.md]
+    B --> B5[copilot.instructions.md]
+    
+    C --> C1[coding-standards.instructions.md]
+    C --> C2[linting.instructions.md]
+    C --> C3[tests.instructions.md]
+    C --> C4[inline-docs.instructions.md]
+    
+    D --> D1[workflows.instructions.md]
+    D --> D2[wordpress.instructions.md]
+    D --> D3[gitops.instructions.md]
+    
+    E --> E1[docs.instructions.md]
+    E --> E2[markdown.instructions.md]
+    E --> E3[frontmatter.instructions.md]
+    
+    F --> F1[security.instructions.md]
+    F --> F2[ci-cd.instructions.md]
+    
+    G[Project Implementation] --> A
+    H[Agent Systems] --> B
+    I[Code Quality] --> C
+    J[Workflow Automation] --> D
+    K[Knowledge Management] --> E
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+```
 
 ## 📁 Core Instruction Categories
 

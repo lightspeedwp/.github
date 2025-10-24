@@ -6,16 +6,45 @@ This document provides an overview of the unit and integration tests for the Lig
 
 ## Directory Structure
 
-- **Scripts Directory**: `/scripts/`
-  - `utility/`: All Node.js and shell scripts for label management, reporting, workflow automation, versioning, and maintenance tasks (including former maintenance scripts).
-  - `includes/`: Shared code/configuration for scripts (if present).
+### Tests Directory Organization
 
-- **Tests Directory**: `/tests/`
-  - `utility/`: Bats and Jest tests for all scripts in `/scripts/utility/` (including all former maintenance scripts).
-  - `jest/`: Jest tests for agent modules and advanced JS logic.
-  - `test-helper.bash`: Shared Bats test helpers.
-  - `tests-run-all-tests.bats`: Bats test for the test runner script.
-  - `TEST_COVERAGE_SUMMARY.md`: This file.
+The `/tests/` directory is comprehensively organized with README documentation for each subfolder:
+
+- **Core Test Structure**: `/tests/`
+  - [`README.md`](./README.md) — Main testing framework documentation
+  - [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md) — This coverage summary document
+  - `test-helper.bash` — Shared Bats test helpers for all test suites
+  - `tests-run-all-tests.bats` — Bats test for the test runner script
+
+- **Test Category Folders**: `/tests/*/`
+  - [`awesome-copilot/`](./awesome-copilot/README.md) — Jest tests for awesome-copilot scripts
+  - [`includes/`](./includes/README.md) — Test helpers and shared utilities with subfolders:
+    - [`cli/`](./includes/cli/README.md) — CLI utility test helpers
+    - [`core/`](./includes/core/README.md) — Core testing functionality helpers  
+    - [`deployment/`](./includes/deployment/README.md) — Deployment testing helpers
+    - [`filesystem/`](./includes/filesystem/README.md) — File system operation helpers
+  - [`maintenance/`](./maintenance/README.md) — Tests for maintenance and automation scripts
+  - [`projects/`](./projects/README.md) — Project management and GitHub integration tests
+    - [`fixtures/`](./projects/fixtures/README.md) — Test fixtures and sample data
+  - [`pytests/`](./pytests/README.md) — Python-based tests for documentation validation
+  - [`utility/`](./utility/README.md) — Bats and Jest tests for all utility scripts
+
+### Related Directory Documentation
+
+- **Scripts Directory**: `/scripts/`
+  - [`README.md`](../scripts/README.md) — Main scripts documentation
+  - `utility/` — All Node.js and shell scripts for automation, covered by tests in `/tests/utility/`
+  - `includes/` — Shared code/configuration for scripts
+
+- **Schemas Directory**: `/schemas/`  
+  - [`README.md`](../schemas/README.md) — Schema validation documentation
+  - [`coderabbit/`](../schemas/coderabbit/README.md) — CodeRabbit AI configuration schemas
+  - [`header-footer-agent/`](../schemas/header-footer-agent/README.md) — WordPress automation schemas
+  - [`wordpress/`](../schemas/wordpress/README.md) — WordPress-specific schema definitions
+
+- **Coverage Directory**: `/coverage/`
+  - [`README.md`](../coverage/README.md) — Test coverage reporting documentation  
+  - [`lcov-report/`](../coverage/lcov-report/README.md) — HTML coverage reports and assets
 
 - **Total Test Files**: 50+ (Bats and Jest combined)
 - **Total Test Cases**: 1000+ (across all scripts and agents)
@@ -72,7 +101,31 @@ bats tests/utility/utility-template.bats
 
 ## Reference
 
-See this file for full details. For folder-level documentation, see `/tests/README.md` and `/scripts/README.md`.
+See this file for full details. For folder-level documentation, see:
+
+### Primary Documentation
+- [`/tests/README.md`](./README.md) — Main testing framework documentation
+- [`/scripts/README.md`](../scripts/README.md) — Scripts directory documentation
+- [`/schemas/README.md`](../schemas/README.md) — Schema validation documentation  
+- [`/coverage/README.md`](../coverage/README.md) — Coverage reporting documentation
+
+### Test Folder Documentation  
+- [`awesome-copilot/README.md`](./awesome-copilot/README.md) — Jest tests for awesome-copilot scripts
+- [`includes/README.md`](./includes/README.md) — Test helpers and utilities
+- [`maintenance/README.md`](./maintenance/README.md) — Maintenance script tests
+- [`projects/README.md`](./projects/README.md) — Project management tests
+- [`pytests/README.md`](./pytests/README.md) — Python documentation validation tests
+- [`utility/README.md`](./utility/README.md) — Utility script tests
+
+### Supporting Documentation
+- [`includes/cli/README.md`](./includes/cli/README.md) — CLI testing helpers
+- [`includes/core/README.md`](./includes/core/README.md) — Core testing functionality
+- [`includes/deployment/README.md`](./includes/deployment/README.md) — Deployment testing
+- [`includes/filesystem/README.md`](./includes/filesystem/README.md) — File system helpers
+- [`projects/fixtures/README.md`](./projects/fixtures/README.md) — Test fixtures and data
+- [`schemas/coderabbit/README.md`](../schemas/coderabbit/README.md) — CodeRabbit schema validation
+- [`schemas/header-footer-agent/README.md`](../schemas/header-footer-agent/README.md) — WordPress automation schemas
+- [`coverage/lcov-report/README.md`](../coverage/lcov-report/README.md) — HTML coverage reports
 
 ### Project Scripts
 

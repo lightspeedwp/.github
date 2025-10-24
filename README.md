@@ -500,7 +500,19 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 - [🔧 Coding Standards](./.github/instructions/coding-standards.instructions.md) - Development guidelines
 - [🎨 Linting Configuration](./docs/LINTING.md) - Code quality and formatting standards
 
-### 🔄 Workflows & Governance
+### � Key Directory Documentation
+
+- [📚 Documentation Hub](./docs/README.md) - Comprehensive guides and standards
+- [🔧 Scripts & Automation](./scripts/README.md) - Utility scripts and automation tools
+- [🧪 Testing Framework](./tests/README.md) - Test suites and coverage documentation
+- [📋 JSON Schemas](./schemas/README.md) - Schema validation and VS Code integration
+- [👤 Organization Profile](./profile/README.md) - Public organization profile and community
+- [🤖 Agent Specifications](./.github/agents/README.md) - Automation agents and workflows
+- [📝 Instructions Library](./.github/instructions/README.md) - Development standards and practices
+- [📚 Collections Directory](./.github/collections/README.md) - Curated instruction collections
+- [🔧 VS Code Configuration](./.vscode/README.md) - Development environment setup
+
+### �🔄 Workflows & Governance
 
 - [⚖️ Governance](./GOVERNANCE.md) - Organizational policies and procedures
 - [🤖 Automation Governance](./.github/AUTOMATION_GOVERNANCE.md) - Automation standards and oversight
@@ -512,3 +524,5 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 **🏠 This repository is managed by the LightSpeed team. All organizational automation, policy, and documentation updates are maintained here.**
 
 **📧 Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new) or [start a discussion](https://github.com/lightspeedwp/.github/discussions/new)
+
+<!-- RANDOM FOOTER: 🚀 Built by LightSpeedWP with ☕, 🚀, and open-source spirit! -->

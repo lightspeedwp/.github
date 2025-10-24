@@ -1,6 +1,6 @@
 {
-    "name": "github-community-health",
-    "version": "",
+    "name": "@lightspeedwp/github-community-health",
+    "version": "0.1.0",
     "description": "The GitHub Community Health file for LightspeedWP. Community health files, agent scripts, and automation for the LightSpeed WordPress organization.",
     "author": {
         "name": "LightSpeedWP Team",
@@ -24,10 +24,7 @@
         "support"
     ],
     "homepage": "https://github.com/lightspeedwp/.github",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/lightspeedwp/.github.git"
-    },
+    "repository": "https://github.com/lightspeedwp/.github.git",
     "bugs": {
         "url": "https://github.com/lightspeedwp/.github/issues"
     },
@@ -104,20 +101,23 @@
         "puppeteer": "^23.11.1",
         "stylelint": "^14.16.0",
         "stylelint-config-prettier": "^9.0.0",
+        "stylelint-config-standard": "^36.0.0",
+        "postcss-scss": "^4.0.9",
+        "@stoplight/spectral-functions": "^1.0.0",
         "ts-jest": "29.4.5",
         "typescript": "^5.0.0"
     },
     "scripts": {
-        "lint:pkg-json": "npmPkgJsonLint .",
-        "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml",
-        "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml",
+        "lint:pkg-json": "npmPkgJsonLint package.json",
+        "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset spectral.config.js",
+        "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset spectral.config.js",
         "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
         "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
         "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
         "lint:css": "stylelint '**/*.{css,scss}' --fix",
         "lint:md": "markdownlint '**/*.md' --fix",
         "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
-        "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix && stylelint-config-prettier '**/*.{css,scss}' --write && stylelint-config-prettier '**/*.json' --write &&lint-style --fix --format",
+        "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix",
         "format:md": "prettier '**/*.md' --write && wp-scripts lint-md --fix --format",
         "format": "npm run format:js && npm run format:css",
         "sync-version": "node scripts/sync-version.js",

@@ -28,6 +28,8 @@ related_files:
 ![JSON Schema](https://img.shields.io/badge/json--schema-draft--7-blue?style=flat-square)
 ![VS Code](https://img.shields.io/badge/vscode-integrated-orange?style=flat-square)
 ![Validation Badge](https://img.shields.io/badge/validation-automated-success?style=flat-square)
+![Compliance Badge](https://img.shields.io/badge/compliance-enforced-informational?style=flat-square)
+![AI Ready Badge](https://img.shields.io/badge/ai--ready-purple?style=flat-square)
 
 This folder contains JSON Schema files used for validation, documentation, and tooling support across the LightSpeedWP organization.
 
@@ -261,3 +263,5 @@ graph LR
 ---
 
 _📋 Ensuring data integrity through comprehensive schema validation and automated compliance._
+
+<!-- RANDOM FOOTER: 🎯 Magic Automation Unicorns at work! -->
