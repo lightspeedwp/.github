@@ -1,11 +1,38 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Listen for Xdebug",
-      "type": "php",
-      "request": "launch",
-      "port": 9003
-    }
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Jest Tests",
+            "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+            "args": ["--runInBand"],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "env": {
+                "NODE_ENV": "test"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Node.js Script",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Debug Playwright E2E Tests",
+            "program": "${workspaceFolder}/node_modules/.bin/playwright",
+            "args": ["test"],
+            "console": "integratedTerminal"
+        }
+    ]
 }
