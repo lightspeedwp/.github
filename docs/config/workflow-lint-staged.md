@@ -200,11 +200,13 @@ git reset HEAD~1
 
 **Related Configuration:**
 
-- **[Husky Configuration](./workflow-husky.md)** - Git hooks setup and automation  
-- **[ESLint Configuration](./lint-eslint.md)** - JavaScript linting in pre-commit  
-- **[Prettier Configuration](./lint-prettier.md)** - Code formatting in hooks  
-- **[Stylelint Configuration](./lint-stylelint.md)** - CSS linting integration  
+- [LINTING.md](../LINTING.md) — Main linting strategy
+- [HUSKY-PRECOMMITS.md](../HUSKY-PRECOMMITS.md) — Pre-commit automation
+- [lint-eslint.md](./lint-eslint.md) — ESLint config
+- [lint-stylelint.md](./lint-stylelint.md) — Stylelint config
+- [lint-prettier.md](./lint-prettier.md) — Prettier config
+- [npm-scripts.md](./npm-scripts.md) — NPM automation
+- [workflow-husky.md](./workflow-husky.md) — Husky setup
+- [frontmatter.schema.json](../../schemas/frontmatter.schema.json) — Frontmatter schema
 
----
-
-> **Next Steps:** Set up comprehensive testing with Jest → [project-jest.md](./project-jest.md)
+> See [docs/CHECKLIST_CROSSLINKING.md](../CHECKLIST_CROSSLINKING.md) for cross-linking best practices.

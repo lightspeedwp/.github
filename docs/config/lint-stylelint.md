@@ -116,11 +116,13 @@ npx stylelint src/style.css
 
 **Related Configuration:**
 
-- **[ESLint Configuration](./lint-eslint.md)** - JavaScript linting setup  
-- **[Prettier Configuration](./lint-prettier.md)** - Code formatting rules  
-- **[PostCSS Configuration](./project-postcss.md)** - CSS processing pipeline  
-- **[Package.json Scripts](./npm-scripts.md)** - Build and lint commands  
+- [LINTING.md](../LINTING.md) — Main linting strategy
+- [HUSKY-PRECOMMITS.md](../HUSKY-PRECOMMITS.md) — Pre-commit automation
+- [lint-eslint.md](./lint-eslint.md) — ESLint config
+- [lint-prettier.md](./lint-prettier.md) — Prettier config
+- [npm-scripts.md](./npm-scripts.md) — NPM automation
+- [workflow-husky.md](./workflow-husky.md) — Husky setup
+- [workflow-lint-staged.md](./workflow-lint-staged.md) — Lint-staged setup
+- [frontmatter.schema.json](../../schemas/frontmatter.schema.json) — Frontmatter schema
 
----
-
-> **Next Steps:** Set up PostCSS for autoprefixing and CSS optimization → [project-postcss.md](./project-postcss.md)
+> See [docs/CHECKLIST_CROSSLINKING.md](../CHECKLIST_CROSSLINKING.md) for cross-linking best practices.

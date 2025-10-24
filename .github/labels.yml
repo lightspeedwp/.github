@@ -2,6 +2,21 @@
 # All labeling, status, type, and standardization is handled by the unified labeling agent and workflow.
 # This file is the single source of truth for all automation and label configuration.
 
+- name: area:core
+  color: C5DEF5
+  description: "Core / shared infrastructure"
+- name: status:needs-planning
+  color: BFD4F2
+  description: "Awaiting planning / scoping"
+- name: type:epic
+  color: 3FB950
+  description: "Large multi-scope initiative"
+- name: type:research
+  color: 9198A1
+  description: "Research / investigation"
+- name: type:review
+  color: D29922
+  description: "Code or design review task"
 - name: status:needs-triage
   color: BFD4F2
   description: "Needs triage"

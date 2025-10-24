@@ -46,6 +46,8 @@
         // Linting Extensions - Code quality and formatting
         "esbenp.prettier-vscode",
         "davidanson.vscode-markdownlint",
+        "redhat.vscode-yaml",
+        "stoplight.spectral",
         "syler.sass-indented",
         "stylelint.vscode-stylelint",
         "sibiraj-s.vscode-scss-formatter",

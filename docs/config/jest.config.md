@@ -56,6 +56,13 @@ Jest is used for unit testing and is integrated with Babel and TypeScript. See [
 
 ## Related Docs
 
-- [LINTING.md](../LINTING.md)
-- [lint-babel.md](./babel.config.md)
-- [lint-prettier.md](./prettier.config.md)
+- [LINTING.md](../LINTING.md) — Main linting strategy
+- [HUSKY-PRECOMMITS.md](../HUSKY-PRECOMMITS.md) — Pre-commit automation
+- [babel.config.md](./babel.config.md) — Babel config
+- [prettier.config.md](./prettier.config.md) — Formatting config
+- [npm-scripts.md](./npm-scripts.md) — NPM automation
+- [workflow-husky.md](./workflow-husky.md) — Husky setup
+- [workflow-lint-staged.md](./workflow-lint-staged.md) — Lint-staged setup
+- [frontmatter.schema.json](../../schemas/frontmatter.schema.json) — Frontmatter schema
+
+> See [docs/CHECKLIST_CROSSLINKING.md](../CHECKLIST_CROSSLINKING.md) for cross-linking best practices.

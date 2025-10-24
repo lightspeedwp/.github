@@ -1,251 +1,97 @@
-# NPM Scripts Configuration
+---
+title: "NPM Scripts Configuration"
+description: "Standardised build, lint, test, format, release and WordPress environment automation via package.json scripts"
+last_updated: "2025-10-24"
+tags: ["npm", "scripts", "automation", "linting", "testing", "wordpress"]
+---
 
-## 🛠️ Build Automation & Development Commands
+## Purpose
 
-## Table of Contents
+Central catalogue of `package.json` scripts that implement the LightSpeed workflow: build, lint, format, test, contributors, environment and release utilities. This doc normalises naming, shows categories, and links each group to its related configuration.
 
-- [Overview](#overview)
-- [Standard Scripts](#standard-scripts)
-- [WordPress Integration](#wordpress-integration)
-- [Script Categories](#script-categories)
-- [Usage](#usage)
-- [Integration](#integration)
+## At‑a‑Glance Categories
 
-## Overview
+| Category | Prefix / Pattern | Examples | Related Docs |
+|----------|------------------|----------|--------------|
+| Build & Dev | build, start, dev, watch | `build`, `build:production`, `start` | Theme / build tooling (e.g. Babel, Playwright config) |
+| Lint (core) | lint:* | `lint:js`, `lint:css`, `lint:md`, `lint:yaml`, `lint:workflows`, `lint:pkg-json` | LINTING.md, lint-* config docs |
+| Format | format, format:* | `format`, `format:js`, `format:css`, `format:md` | Prettier, Stylelint |
+| Tests (unit/e2e) | test:* | `test:js`, `test:e2e`, `test:coverage`, `test:watch` | Jest, Playwright |
+| Env / WP | env:*/ wp:* | `env:start`, `env:stop`, `wp:cli` | WordPress local env |
+| Contributors | contributors:* | `contributors:add`, `contributors:generate` | ALL-CONTRIBUTORS.md |
+| Version / Release | sync-version | `sync-version` | VERSION, CHANGELOG.md |
 
-**NPM Scripts** provide standardized commands for building, testing, linting, and developing WordPress themes and plugins. Our configuration follows WordPress best practices and LightSpeed standards.
+## Core Aggregate Scripts
 
-> **💡 Key Benefits:** Consistent commands across projects, automated workflows, team collaboration, CI/CD integration
+```jsonc
+{
+    "scripts": {
+        "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
+        "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
+        "format": "npm run format:js && npm run format:css"
+    }
+}
+```
 
-## Standard Scripts
+`lint` is intentionally smaller/faster; `lint:all` adds slower / full‑surface checks (Markdown + workflow specs).
 
-### **Core Development Scripts**
+## Detailed Script Groups
 
-```json
+### Build & Development
+
+```jsonc
 {
     "scripts": {
         "build": "wp-scripts build",
+        "build:production": "wp-scripts build --mode=production",
         "start": "wp-scripts start",
         "dev": "npm run start",
         "watch": "npm run start",
-        "build:production": "wp-scripts build --mode=production",
         "sync-version": "node scripts/sync-version.js"
     }
 }
 ```
 
-### **Quality Assurance Scripts**
+### Linting & Formatting
 
-```json
+```jsonc
 {
     "scripts": {
-        "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
-        "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
         "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
         "lint:css": "stylelint '**/*.{css,scss}' --fix",
         "lint:md": "markdownlint '**/*.md' --fix",
         "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml",
         "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml",
         "lint:pkg-json": "npmPkgJsonLint .",
-        "format": "npm run format:js && npm run format:css",
-        "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format",
+        "format:js": "prettier '**/*.{js,jsx,ts,tsx,json}' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix",
         "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix",
         "format:md": "prettier '**/*.md' --write"
     }
 }
 ```
 
-### **Testing Scripts**
+Notes:
 
-````json
+* JSON formatting piggybacks on `format:js` to avoid duplicated globs.
+* Conflicting / erroneous legacy fragments removed (e.g. stray `stylelint-config-prettier` executions).
+
+### Testing (Unit & E2E)
+
+```jsonc
 {
     "scripts": {
         "test": "npm run test:js",
         "test:js": "jest --coverage --forceExit --detectOpenHandles",
-        "test:e2e": "playwright test",
         "test:watch": "jest --watch",
-        "test:coverage": "jest --coverage"
-    }
-}
-
-### **Core & Utility Scripts (from package.json)**
-
-```json
-{
-    "scripts": {
-        "lint:pkg-json": "npmPkgJsonLint .",
-        "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml",
-        "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml",
-        "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
-        "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
-        "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
-        "lint:css": "stylelint '**/*.{css,scss}' --fix",
-        "lint:md": "markdownlint '**/*.md' --fix",
-        "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
-        "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix && stylelint-config-prettier '**/*.{css,scss}' --write && stylelint-config-prettier '**/*.json' --write &&lint-style --fix --format",
-        "format:md": "prettier '**/*.md' --write && wp-scripts lint-md --fix --format",
-        "format": "npm run format:js && npm run format:css",
-        "sync-version": "node scripts/sync-version.js",
-        "test:js": "jest --coverage --forceExit --detectOpenHandles",
-        "test": "npm run test:js",
-        "contributors:add": "all-contributors add",
-        "contributors:generate": "all-contributors generate",
-        "contributors:check": "all-contributors check"
-    }
-}
-````
-
-````
-
-## WordPress Integration
-
-### **WordPress Scripts Commands**
-
-| Script     | WordPress Command         | Purpose            |
-| ---------- | ------------------------- | ------------------ |
-| `build`    | `wp-scripts build`        | Production build   |
-| `start`    | `wp-scripts start`        | Development server |
-| `lint:js`  | `wp-scripts lint-js`      | JavaScript linting |
-| `lint:css` | `wp-scripts lint-style`   | CSS linting        |
-| `format`   | `wp-scripts format`       | Code formatting    |
-| `test:js`  | `wp-scripts test-unit-js` | JavaScript testing |
-
-### **Package.json Example**
-
-```json
-{
-
-### **Linting & Formatting Scripts**
-
-See above for the full list. These scripts run ESLint, Stylelint, markdownlint, Spectral, and npmPkgJsonLint for code quality and formatting. Use `npm run lint` for core checks, `npm run lint:all` for comprehensive checks, and `npm run format` to auto-format code.
-    "name": "lightspeed-block-theme",
-    "scripts": {
-        "build": "wp-scripts build",
-        "build:production": "NODE_ENV=production wp-scripts build",
-        "start": "wp-scripts start",
-        "dev": "npm run start",
-        "watch": "npm run start",
-
-        "lint": "run-p lint:*",
-        "lint:js": "wp-scripts lint-js",
-        "lint:css": "wp-scripts lint-style",
-        "lint:php": "composer run lint",
-
-### **Testing Scripts**
-
-```json
-{
-    "scripts": {
-        "test:js": "jest --coverage --forceExit --detectOpenHandles",
-        "test": "npm run test:js"
-    }
-}
-````
-
-For Playwright E2E tests, use the VS Code task or run `npx playwright test`.
-"lint:md": "markdownlint '\*_/_.md' --ignore node_modules",
-
-        "format": "run-p format:*",
-        "format:js": "wp-scripts format",
-        "format:css": "wp-scripts lint-style --fix",
-        "format:md": "markdownlint '**/*.md' --ignore node_modules --fix",
-
-        "test": "run-s test:js test:php test:e2e",
-        "test:js": "wp-scripts test-unit-js",
-        "test:php": "composer run test",
-
-### **Contributors Scripts**
-
-```json
-{
-    "scripts": {
-        "contributors:add": "all-contributors add",
-        "contributors:generate": "all-contributors generate",
-        "contributors:check": "all-contributors check"
+        "test:coverage": "jest --coverage",
+        "test:e2e": "playwright test"
     }
 }
 ```
 
-        "test:e2e": "playwright test",
-        "test:watch": "wp-scripts test-unit-js --watch",
+### WordPress Environment Utilities
 
-        "env:start": "wp-env start",
-        "env:stop": "wp-env stop",
-        "contributors:add": "all-contributors add",
-        "contributors:generate": "all-contributors generate"
-    }
-
-}
-
-````
-
-### **Contributors Scripts**
-
-```json
-{
-    "scripts": {
-        "contributors:add": "all-contributors add",
-        "contributors:generate": "all-contributors generate",
-        "contributors:check": "all-contributors check"
-    }
-}
-````
-
-## Script Categories
-
-### **Build & Development**
-
-```json
-{
-    "scripts": {
-        "build": "wp-scripts build",
-        "build:production": "NODE_ENV=production wp-scripts build --mode=production",
-        "build:analyze": "wp-scripts build --analyze",
-        "start": "wp-scripts start",
-        "dev": "npm run start",
-        "watch": "npm run start",
-        "clean": "rimraf build dist"
-    }
-}
-```
-
-### **Code Quality**
-
-```json
-{
-    "scripts": {
-        "lint": "run-p lint:*",
-        "lint:js": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
-        "lint:css": "stylelint 'src/**/*.{css,scss}'",
-        "lint:php": "./vendor/bin/phpcs",
-        "lint:md": "markdownlint '**/*.md'",
-        "lint:fix": "run-p lint:*:fix",
-        "lint:js:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
-        "lint:css:fix": "stylelint 'src/**/*.{css,scss}' --fix"
-    }
-}
-```
-
-### **Testing & Quality Assurance**
-
-```json
-{
-    "scripts": {
-        "test": "run-s test:lint test:unit test:e2e",
-        "test:unit": "jest",
-        "test:unit:watch": "jest --watch",
-        "test:unit:coverage": "jest --coverage",
-        "test:e2e": "playwright test",
-        "test:e2e:headed": "playwright test --headed",
-        "test:e2e:debug": "playwright test --debug",
-        "test:lint": "npm run lint"
-    }
-}
-```
-
-### **WordPress Environment**
-
-```json
+```jsonc
 {
     "scripts": {
         "env:start": "wp-env start",
@@ -258,58 +104,73 @@ For Playwright E2E tests, use the VS Code task or run `npx playwright test`.
 }
 ```
 
-## Usage
+### Contributor Tooling
 
-### **Development Workflow**
-
-```bash
-# Start development
-npm run start
-
-
-# Fix linting issues
-npm run lint:fix
-
-# Run all tests
-npm test
-```
-
-### **CI/CD Integration**
-
-```json
+```jsonc
 {
     "scripts": {
-        "ci": "run-s install:clean build lint test",
-        "ci:build": "npm run build:production",
-        "ci:test": "run-s test:lint test:unit test:e2e:ci",
-        "install:clean": "npm ci",
-        "test:e2e:ci": "playwright test --reporter=github"
+        "contributors:add": "all-contributors add",
+        "contributors:generate": "all-contributors generate",
+        "contributors:check": "all-contributors check"
     }
 }
 ```
 
-### **Parallel Script Execution**
+### CI / Pipeline Patterns (Example)
 
-```bash
-# Install npm-run-all for parallel execution
-npm install --save-dev npm-run-all
-
-# Run scripts in parallel
-"lint": "run-p lint:js lint:css lint:php"
-
-# Run scripts in sequence
-"test": "run-s test:lint test:unit test:e2e"
+```jsonc
+{
+    "scripts": {
+        "ci": "npm ci && npm run lint:all && npm run test:js",
+        "ci:build": "npm run build:production",
+        "ci:test": "npm run test:js",
+        "ci:e2e": "playwright test --reporter=github"
+    }
+}
 ```
+
+## Workflow Recommendations
+
+| Step | Local Action | Script | Rationale |
+|------|--------------|--------|-----------|
+| 1 | Start dev | `npm run start` | Fast feedback build |
+| 2 | Stage changes | git add | Prepare for gated quality |
+| 3 | Pre-commit | Husky / lint-staged | Fast staged lint/format |
+| 4 | Manual full check | `npm run lint:all` | Catch slow specs pre-push |
+| 5 | Unit tests | `npm run test:js` | Coverage + correctness |
+| 6 | E2E tests | `npm run test:e2e` | Behaviour validation |
+
+## Troubleshooting Quick Reference
+
+| Symptom | Likely Cause | Resolution |
+|---------|--------------|-----------|
+| ESLint slow | Large glob / missing ignore | Add ignore patterns / run targeted file |
+| Spectral errors on workflows | Using general ruleset | Use `.spectral-workflows.yaml` for workflows |
+| Prettier not applying on save | VS Code formatter conflict | Ensure default Prettier + disable other formatters |
+| Jest hangs | Open handles (timers/server) | Use `--detectOpenHandles` / close resources |
 
 ## Integration
 
 **Related Configuration:**
 
-- **[Package.json Configuration](./npm-package-json.md)** - Main package configuration
-- **[Husky Configuration](./workflow-husky.md)** - Git hooks using npm scripts
-- **[Jest Configuration](./project-jest.md)** - Testing script integration
-- **[ESLint Configuration](./lint-eslint.md)** - Linting script setup
+* [LINTING.md](../LINTING.md) — Strategy & overview
+* [HUSKY-PRECOMMITS.md](../HUSKY-PRECOMMITS.md) — Pre-commit pipeline
+* [lint-eslint.md](./lint-eslint.md) — ESLint config
+* [lint-stylelint.md](./lint-stylelint.md) — Stylelint config
+* [lint-prettier.md](./lint-prettier.md) — Prettier config
+* [workflow-husky.md](./workflow-husky.md) — Husky hooks
+* [workflow-lint-staged.md](./workflow-lint-staged.md) — Staged file processing
+* [vscode-settings.md](./vscode-settings.md) — Editor integration
+* [frontmatter.schema.json](../../schemas/frontmatter.schema.json) — Schema for doc frontmatter
+* [CHECKLIST_CROSSLINKING.md](../CHECKLIST_CROSSLINKING.md) — Cross-link governance
+
+## Change Log (Doc Scope)
+
+| Date | Change | Notes |
+|------|--------|-------|
+| 2025-10-24 | Normalised structure & removed malformed fences | Replaced duplicated / corrupted sections |
+| 2025-10-24 | Added troubleshooting & CI patterns | Improves quick onboarding |
 
 ---
 
-> **Next Steps:** Set up npm dependencies management → [npm-dependencies.md](./npm-dependencies.md)
+Document authored with accessibility and consistency in mind; manual review still recommended.

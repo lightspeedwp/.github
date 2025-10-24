@@ -39,7 +39,7 @@ module.exports = config;
 
 - `PLAYWRIGHT_TEST_DIR`: Directory for tests (default: './tests')
 - `PLAYWRIGHT_REPORTER`: Reporter type (default: 'list')
-    - `PLAYWRIGHT_BASE_URL`: Base URL for tests (default: '<http://localhost:3000>')
+- `PLAYWRIGHT_BASE_URL`: Base URL for tests (default: '<http://localhost:3000>')
 - `PLAYWRIGHT_HEADLESS`: Run in headless mode (default: true)
 
 ## Usage
@@ -48,6 +48,13 @@ Playwright is used for end-to-end (E2E) testing. See [playwright-tests.instructi
 
 ## Related Docs
 
-- [LINTING.md](../LINTING.md)
-- [lint-eslint.md](./lint-eslint.md)
-- [lint-jest.md](./lint-jest.md)
+- [LINTING.md](../LINTING.md) — Main linting strategy
+- [HUSKY-PRECOMMITS.md](../HUSKY-PRECOMMITS.md) — Pre-commit automation
+- [jest.config.md](./jest.config.md) — Unit test config
+- [babel.config.md](./babel.config.md) — Babel config
+- [npm-scripts.md](./npm-scripts.md) — NPM automation
+- [workflow-husky.md](./workflow-husky.md) — Husky setup
+- [workflow-lint-staged.md](./workflow-lint-staged.md) — Lint-staged setup
+- [frontmatter.schema.json](../../schemas/frontmatter.schema.json) — Frontmatter schema
+
+> See [docs/CHECKLIST_CROSSLINKING.md](../CHECKLIST_CROSSLINKING.md) for cross-linking best practices.

@@ -189,8 +189,13 @@ eslint src/blocks/example/index.js
 
 ## Workflow & Related Docs
 
-- [LINTING.md](../LINTING.md) — Main linting strategy and tool overview
-- [HUSKY-PRECOMMITS.md](../HUSKY-PRECOMMITS.md) — Pre-commit hook and automation
-- [VS Code Configuration](./vscode.md) — Editor integration
-- [Package.json Configuration](./package-json.md) — Scripts and dependencies
-- [Prettier Configuration](./prettier.md) — Code formatting
+- [LINTING.md](../LINTING.md) — Main linting strategy
+- [HUSKY-PRECOMMITS.md](../HUSKY-PRECOMMITS.md) — Pre-commit automation
+- [vscode-settings.md](./vscode-settings.md) — Editor integration
+- [npm-scripts.md](./npm-scripts.md) — NPM automation
+- [lint-prettier.md](./lint-prettier.md) — Prettier config
+- [workflow-husky.md](./workflow-husky.md) — Husky setup
+- [workflow-lint-staged.md](./workflow-lint-staged.md) — Lint-staged setup
+- [frontmatter.schema.json](../../schemas/frontmatter.schema.json) — Frontmatter schema
+
+> See [docs/CHECKLIST_CROSSLINKING.md](../CHECKLIST_CROSSLINKING.md) for cross-linking best practices.

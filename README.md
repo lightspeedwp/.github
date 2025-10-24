@@ -10,60 +10,46 @@ For a unified, always-up-to-date index of all documentation, see [DOCS.md](./DOC
 
 ## Overview
 
-## Local Linting & Testing
+## Linting, Formatting, and Testing Workflow
 
-To ensure code quality and consistency, run the following scripts locally before pushing changes:
+All code quality, formatting, and automation standards are documented and enforced across the repository. See:
 
----
+- [LINTING.md](./docs/LINTING.md) — Main linting strategy, tool configuration, and automation
+- [HUSKY-PRECOMMITS.md](./docs/HUSKY-PRECOMMITS.md) — Pre-commit hook and automation details
+- [docs/config/](./docs/config/) — All configuration file documentation (ESLint, Prettier, Stylelint, Playwright, Jest, npm scripts, etc.)
 
-## Test Coverage & Reporting
+### Local Linting & Formatting
 
-- Test coverage is tracked for all automation, scripts, and agents.
-- See the [Test Coverage Summary](./tests/TEST_COVERAGE_SUMMARY.md) for up-to-date results.
-- Coverage is reported in CI and should be reviewed for all PRs.
-- Contributors are encouraged to expand tests for new scripts and automation logic.
-
-> For more, see [Testing Standards](.github/instructions/tests.instructions.md) and [DOCS.md](./DOCS.md).
-
-### Linting
-
-- `npm run lint` – Run all core linters (JS, CSS, YAML, package.json)
-- `npm run lint:all` – Run all linters, including workflows and markdown
-- `npm run lint:js` – Lint JavaScript/TypeScript
-- `npm run lint:css` – Lint CSS/SCSS
-- `npm run lint:yaml` – Lint YAML files
-- `npm run lint:md` – Lint Markdown files
-- `npm run lint:pkg-json` – Lint package.json
+- `npm run lint` — Run all core linters (JS, CSS, YAML, package.json)
+- `npm run lint:all` — Run all linters, including workflows and markdown
+- `npm run lint:js` — Lint JavaScript/TypeScript
+- `npm run lint:css` — Lint CSS/SCSS
+- `npm run lint:yaml` — Lint YAML files
+- `npm run lint:md` — Lint Markdown files
+- `npm run lint:pkg-json` — Lint package.json
+- `npm run format` — Format all supported files (Prettier, Stylelint, etc.)
 
 ### Testing
 
-- `npm test` – Run all JavaScript/TypeScript tests (Jest)
-- `npm run test:js` – Run JS/TS tests with coverage
+- `npm test` — Run all JavaScript/TypeScript tests (Jest)
+- `npm run test:js` — Run JS/TS tests with coverage
+- `npm run test:e2e` — Run Playwright E2E tests
 
-> For more, see the [DOCS.md](./DOCS.md) index and [CONTRIBUTING.md](./CONTRIBUTING.md).
+### VS Code Integration
+
+- See `.vscode/settings.json`, `.vscode/tasks.json`, `.vscode/launch.json`, and `.vscode/extensions.json` for editor integration, tasks, debugging, and recommended extensions.
+- All major linting, formatting, and test commands are available as VS Code tasks.
+
+### Automation & Pre-commit
+
+- Husky and lint-staged enforce linting and formatting before every commit. See [HUSKY-PRECOMMITS.md](./docs/HUSKY-PRECOMMITS.md).
+
+### Troubleshooting & Updates
+
+- For troubleshooting, see [docs/LINTING.md](./docs/LINTING.md) and [docs/config/](./docs/config/).
+- To update rules, edit the relevant config in `docs/config/` and update npm scripts as needed.
 
 ---
-
-## Updating Linting Rules & Troubleshooting
-
-To update or add new linting rules:
-
-1. Edit the relevant config file (e.g., `.eslintrc.json`, `.stylelintrc`, `.markdownlint.json`, `.spectral.yaml`).
-2. For new file types or standards, add a new instruction file in `.github/instructions/linting/` following the [linting instructions index](.github/instructions/linting.instructions.md).
-3. Update the `lint` or `lint:all` scripts in `package.json` if you add new tools.
-4. Test your changes locally with `npm run lint:all`.
-5. Document any new rules or changes in the relevant instruction file and in the commit message.
-
-**Troubleshooting common lint failures:**
-
-- Run `npm run lint:all` to see all errors.
-- Check the output for the specific linter (eslint, stylelint, markdownlint, spectral, etc.).
-- Review the relevant config file for rule details.
-- For YAML or workflow errors, check indentation and schema references.
-- For shell scripts, use `shellcheck` and ensure POSIX compatibility.
-- For persistent issues, see the [Linting Instructions](.github/instructions/linting.instructions.md) for detailed guidance and file-type-specific help.
-
-If you are stuck, ask in the repository discussions or open an issue with the error output and config details.
 
 GitHub supports [organization-wide community health files](https://github.blog/changelog/2019-02-21-organization-wide-community-health-files/) in a specially named `.github` repository to serve as organization-wide defaults for all repositories within their organization. Where sensible, custom community health files should be created for our repos, but that's not always necessary or practical.
 

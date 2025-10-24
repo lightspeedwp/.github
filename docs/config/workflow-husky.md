@@ -197,11 +197,13 @@ npm run build
 
 **Related Configuration:**
 
-- **[Lint-staged Configuration](./workflow-lint-staged.md)** - Pre-commit file processing  
-- **[ESLint Configuration](./lint-eslint.md)** - JavaScript linting in hooks  
-- **[Prettier Configuration](./lint-prettier.md)** - Auto-formatting in hooks  
-- **[Jest Configuration](./project-jest.md)** - Testing in pre-push hooks  
+- [LINTING.md](../LINTING.md) — Main linting strategy
+- [HUSKY-PRECOMMITS.md](../HUSKY-PRECOMMITS.md) — Pre-commit automation
+- [lint-eslint.md](./lint-eslint.md) — ESLint config
+- [lint-stylelint.md](./lint-stylelint.md) — Stylelint config
+- [lint-prettier.md](./lint-prettier.md) — Prettier config
+- [npm-scripts.md](./npm-scripts.md) — NPM automation
+- [workflow-lint-staged.md](./workflow-lint-staged.md) — Lint-staged setup
+- [frontmatter.schema.json](../../schemas/frontmatter.schema.json) — Frontmatter schema
 
----
-
-> **Next Steps:** Configure lint-staged for targeted file processing → [workflow-lint-staged.md](./workflow-lint-staged.md)
+> See [docs/CHECKLIST_CROSSLINKING.md](../CHECKLIST_CROSSLINKING.md) for cross-linking best practices.

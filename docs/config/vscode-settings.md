@@ -101,6 +101,7 @@ Model Context Protocol servers configuration for enhanced AI capabilities.
 ### WordPress Development
 
 ### WordPress Extensions
+
 - **PHP Intelephense** - PHP language support
 - **WordPress Snippets** - WordPress code snippets
 - **WPCS** - WordPress Coding Standards
@@ -151,7 +152,14 @@ Model Context Protocol servers configuration for enhanced AI capabilities.
 
 This configuration integrates with:
 
-- [Package.json Configuration](./package-json.md) for npm scripts
-- [Spectral Configuration](./spectral.md) for YAML validation
-- [ESLint Configuration](./eslint.md) for JavaScript linting
-- [WordPress Standards](./wordpress-standards.md) for PHP linting
+- [LINTING.md](../LINTING.md) — Main linting strategy
+- [HUSKY-PRECOMMITS.md](../HUSKY-PRECOMMITS.md) — Pre-commit automation
+- [npm-scripts.md](./npm-scripts.md) — NPM automation
+- [lint-eslint.md](./lint-eslint.md) — ESLint config
+- [lint-stylelint.md](./lint-stylelint.md) — Stylelint config
+- [lint-prettier.md](./lint-prettier.md) — Prettier config
+- [workflow-husky.md](./workflow-husky.md) — Husky setup
+- [workflow-lint-staged.md](./workflow-lint-staged.md) — Lint-staged setup
+- [frontmatter.schema.json](../../schemas/frontmatter.schema.json) — Frontmatter schema
+
+> See [docs/CHECKLIST_CROSSLINKING.md](../CHECKLIST_CROSSLINKING.md) for cross-linking best practices.

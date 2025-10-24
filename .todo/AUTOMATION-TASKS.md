@@ -1,5 +1,17 @@
 # Todo List
 
+Please can you extend the copilot todo list of tasks because you're not implementing certain things that I would like for all documents, you will need to reprocess existing documents you have completed:
+
+Flag issues for review.
+Update with headers using header-footer agent
+Add badges using the using badges agent
+Update footers using header-footer agent
+Update headers with emojis when relevant
+Add mermain process diagrams wherever relevant to all readmes and .md documentation
+The frontmatter should contain references, these will be used by AI.
+The footers should all have consistent references listed, these will be relevant to humans.
+Lint/format all docs for compliance.
+
 - [ ] Review and update all README files in attached folders
     - For each top-level attached folder (and all subfolders), review every README.md file. Add or update headers and footers with badges, and add relevant emojis to headings. Ensure style is consistent and engaging.
 
