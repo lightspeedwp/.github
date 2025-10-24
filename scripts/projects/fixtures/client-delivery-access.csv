@@ -1,0 +1,6 @@
+# Client Delivery Project Access
+# role,username,access_level,description
+PM,pm_lead,admin,"Project manager with full access"
+Lead,lead_user,write,"Lead engineer or product owner"
+QA,qa_user,read,"Quality assurance, read-only"
+Client,client_user,read,"Client stakeholder, read-only"

@@ -1,0 +1,24 @@
+name: Shell Script Lint
+
+on:
+    push:
+        paths:
+            - 'scripts/**/*.sh'
+    pull_request:
+        paths:
+            - 'scripts/**/*.sh'
+
+jobs:
+    shellcheck:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+            - name: Install dependencies
+              run: npm ci
+            - name: Run ShellCheck on all scripts
+              run: npm run lint:sh

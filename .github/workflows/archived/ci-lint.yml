@@ -1,0 +1,47 @@
+name: CI Lint
+
+on:
+  push:
+    branches: [ develop, main ]
+  pull_request:
+    branches: [ develop, main ]
+
+jobs:
+  js-ts:
+    name: ESLint & Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - run: npm ci || npm i --no-audit --no-fund
+      - run: npx eslint . || true
+      - run: npx prettier -c "**/*" || true
+
+  css:
+    name: Stylelint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - run: npm ci || npm i --no-audit --no-fund
+      - run: npx stylelint "**/*.{css,scss}" || true
+
+  markdown-json-yaml-shell:
+    name: MD / Spectral / ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - run: npm i -g markdownlint-cli @stoplight/spectral-cli shellcheck || true
+      - run: markdownlint "**/*.md" || true
+      - run: spectral lint "**/*.{json,yaml,yml}" -r .spectral.yaml || true
+      - name: ShellCheck
+        run: |
+          shopt -s globstar || true
+          shellcheck **/*.sh || true

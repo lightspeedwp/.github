@@ -1,0 +1,13 @@
+# Product Development Project Settings
+# setting,value,description
+Access management,enabled,"Enable access management for product development projects"# Product Development Project Settings
+# setting,value,description
+Project name,"Product – {ProductName}","Project name format for product development"
+Short description,"Plan and ship versioned releases with a lean Scrumban flow and clear release gates.","Default project description"
+Status columns,"Backlog|Ready|In progress|In review|In QA|Done","Workflow status columns"
+Priority default,Medium,"Default priority for new items"
+Phase default,Pre-launch,"Default phase for new items"
+Release type default,Minor,"Default release type for new items"
+Environment default,Prototype/Staging,"Default environment for new items"
+Size default,0 – Unknown,"Default size for new items"
+README purpose,"Run a predictable release train: plan, build, validate, and ship versioned releases with clear gates.","README purpose statement"

@@ -1,0 +1,6 @@
+# Product Development Project Access
+# role,username,access_level,description
+PM,pm_lead,admin,"Product manager with full access"
+Tech Lead,tech_lead,write,"Technical lead with write access"
+Engineer,engineer_user,write,"Engineer with write access"
+QA,qa_user,read,"Quality assurance, read-only"

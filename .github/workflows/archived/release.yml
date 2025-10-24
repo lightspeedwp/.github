@@ -1,0 +1,187 @@
+name: Release Automation
+
+on:
+    push:
+        branches: [main]
+    workflow_dispatch:
+        inputs:
+            version:
+                description: 'Version to release (e.g., v0.1.0)'
+                required: false
+                type: string
+
+permissions:
+    contents: write
+    pull-requests: write
+    issues: read
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18'
+
+            - name: Install dependencies
+              run: |
+                  npm install -g auto-changelog
+                  sudo apt-get update && sudo apt-get install -y jq
+
+            - name: Determine version
+              id: version
+              run: |
+                  if [ -n "${{ inputs.version }}" ]; then
+                    VERSION="${{ inputs.version }}"
+                  elif [ -f "package.json" ]; then
+                    VERSION="v$(jq -r '.version' package.json)"
+                  elif [ -f "VERSION" ]; then
+                    VERSION="v$(cat VERSION)"
+                  else
+                    # Increment patch version from latest tag
+                    LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+                    IFS='.' read -ra ADDR <<< "${LATEST_TAG#v}"
+                    PATCH=$((${ADDR[2]} + 1))
+                    VERSION="v${ADDR[0]}.${ADDR[1]}.${PATCH}"
+                  fi
+                  echo "version=${VERSION}" >> $GITHUB_OUTPUT
+                  echo "Release version: ${VERSION}"
+
+            - name: Update version files
+              run: |
+                  VERSION="${{ steps.version.outputs.version }}"
+                  VERSION_NO_V="${VERSION#v}"
+
+                  # Update package.json if it exists
+                  if [ -f "package.json" ]; then
+                    jq --arg version "$VERSION_NO_V" '.version = $version' package.json > tmp.json && mv tmp.json package.json
+                  fi
+
+                  # Create/update VERSION file
+                  echo "$VERSION_NO_V" > VERSION
+
+                  # Update README badges to point to main branch for release
+                  if [ -f "README.md" ]; then
+                    sed -i 's/?branch=develop/?branch=main/g' README.md
+                  fi
+
+            - name: Generate changelog
+              run: |
+                  # Generate changelog using auto-changelog
+                  auto-changelog --template keepachangelog --unreleased-only --commit-limit false --hide-credit
+
+                  # Update changelog header
+                  VERSION="${{ steps.version.outputs.version }}"
+                  DATE=$(date +%Y-%m-%d)
+
+                  # Create proper changelog format
+                  if [ -f "CHANGELOG.md" ]; then
+                    # Backup existing changelog
+                    cp CHANGELOG.md CHANGELOG.md.bak
+                    
+                    # Create new changelog with proper format
+                    cat > CHANGELOG.md << 'CHANGELOG_EOF'
+                  # Changelog
+
+                  All notable changes to this project will be documented in this file.
+
+                  The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+                  and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+                  ## [0.1.0] - 2024-10-11
+
+                  ### Added
+                  - Initial release of LightSpeed WP automation scripts repository
+                  - GitHub Projects field management scripts and fixtures
+                  - Comprehensive documentation and governance files
+                  - Automated testing infrastructure with Bats
+                  - GitHub Actions workflows for CI/CD
+                  - Shell script linting and validation
+
+                  ### Changed
+                  - Restructured repository for better organization
+                  - Updated documentation for release process
+
+                  ### Fixed
+                  - Resolved GitHub Copilot API failures
+                  - Fixed test path mismatches
+                  - Corrected workflow configurations
+
+                  CHANGELOG_EOF
+                    
+                    # Replace version placeholder with actual version
+                    sed -i "s/## \[0\.1\.0\]/## [${VERSION#v}]/g" CHANGELOG.md
+                    sed -i "s/2024-10-11/${DATE}/g" CHANGELOG.md
+                  fi
+
+            - name: Commit version updates
+              run: |
+                  git config --local user.email "action@github.com"
+                  git config --local user.name "GitHub Action"
+
+                  VERSION="${{ steps.version.outputs.version }}"
+
+                  git add .
+                  git diff --staged --quiet || git commit -m "chore(release): ${VERSION}"
+
+            - name: Create and push tag
+              run: |
+                  VERSION="${{ steps.version.outputs.version }}"
+
+                  git tag -a "${VERSION}" -m "Release ${VERSION}"
+                  git push origin main --tags
+
+            - name: Extract release notes
+              id: release_notes
+              run: |
+                  VERSION="${{ steps.version.outputs.version }}"
+
+                  # Extract release notes from changelog
+                  if [ -f "CHANGELOG.md" ]; then
+                    # Get content between the first two ## headers (current version)
+                    NOTES=$(sed -n '/^## \[/,/^## \[/p' CHANGELOG.md | sed '$d' | tail -n +2)
+                    
+                    if [ -z "$NOTES" ]; then
+                      NOTES="Release ${VERSION}"
+                    fi
+                  else
+                    NOTES="Release ${VERSION}"
+                  fi
+
+                  # Save to file for GitHub release
+                  echo "$NOTES" > release-notes.md
+                  echo "Release notes prepared"
+
+            - name: Create GitHub Release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: ${{ steps.version.outputs.version }}
+                  release_name: ${{ steps.version.outputs.version }}
+                  body_path: release-notes.md
+                  draft: false
+                  prerelease: false
+
+            - name: Update badges after release
+              run: |
+                  # Switch badges back to develop branch for ongoing development
+                  if [ -f "README.md" ]; then
+                    git checkout develop 2>/dev/null || git checkout -b develop
+                    git pull origin develop 2>/dev/null || true
+                    
+                    # Update badges to point back to develop
+                    sed -i 's/?branch=main/?branch=develop/g' README.md
+                    
+                    git add README.md
+                    git diff --staged --quiet || git commit -m "chore: update badges to track develop branch [skip ci]"
+                    git push origin develop 2>/dev/null || echo "Could not push to develop branch"
+                  fi

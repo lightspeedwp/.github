@@ -39,7 +39,7 @@ This repository is the **canonical, organisation-wide source** for:
 - Labels, labeler, and issue types from this repo are referenced by reusable workflows and automation across all LightSpeed repositories.
 - If a repository does not have its own label or labeler config, the defaults from this repo apply.
 - **Automated labelling** ensures consistent triage, prioritisation, and project management across the organisation.
-- Maintainers should update labels and labeler rules *here* to synchronise org-wide conventions.
+- Maintainers should update labels and labeler rules _here_ to synchronise org-wide conventions.
 - For more detail, see [AUTOMATION_GOVERNANCE.md](./automation/AUTOMATION_GOVERNANCE.md) and [ISSUE_LABELS.md](./automation/ISSUE_LABELS.md).
 
 **Quick links:**
@@ -157,6 +157,21 @@ To ensure a consistent development experience and code quality, all contributors
 - Periodically review and update your extensions to match evolving project standards.
 
 Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authoritative list and configuration.
+
+---
+
+## VS Code Workspace Setup
+
+To ensure a consistent and standards-driven development experience, this repository includes a dedicated [`.vscode/`](../.vscode/) folder with:
+
+- **Recommended Extensions**: See [`extensions.json`](../.vscode/extensions.json) for AI, linting, WordPress, PHP, and GitHub workflow tools.
+- **Workspace Settings**: See [`settings.json`](../.vscode/settings.json) for formatting, linting, and file association rules that align with org standards.
+- **Predefined Tasks**: See [`tasks.json`](../.vscode/tasks.json) for running tests, linting, and E2E automation.
+- **Debug & Automation**: Includes launch configs and Model Context Protocol (MCP) server integration for advanced automation and E2E testing.
+
+> For a full overview, see [`.vscode/README.md`](../.vscode/README.md).
+
+**All contributors should open the project in VS Code to automatically apply these settings and see extension recommendations.**
 
 ---
 

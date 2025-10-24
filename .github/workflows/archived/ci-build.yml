@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ develop, main ]
+  pull_request:
+    branches: [ develop, main ]
+
+jobs:
+build-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint JS
+        run: npm run lint:js
+
+      - name: Lint CSS
+        run: npm run lint:css
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build plugin # Remove or modify this step as needed
+        run: |
+          composer install --no-dev
+          npm install
+          npm run build
+
+      - name: Generate plugin zip
+        uses: 10up/action-wordpress-plugin-build-zip@stable
+        env:
+          SLUG: copyright-date-block
+        with:
+          retention-days: 1

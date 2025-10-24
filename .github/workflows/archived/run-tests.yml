@@ -1,0 +1,95 @@
+name: Run Tests
+
+on:
+    workflow_call:
+        inputs:
+            test-pattern:
+                description: 'Pattern for test files to run (e.g., test-*.bats)'
+                required: false
+                type: string
+                default: 'test-*.bats'
+            working-directory:
+                description: 'Working directory for tests'
+                required: false
+                type: string
+                default: '.'
+            bats-version:
+                description: 'Bats version to install'
+                required: false
+                type: string
+                default: 'latest'
+            compare-branch:
+                description: 'Branch to compare against for git diff'
+                required: false
+                type: string
+                default: 'develop'
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Fetch and diff against input branch
+              run: |
+                  echo "Fetching branch '${{ inputs.branch }}' from origin..."
+                  if ! git fetch origin ${{ inputs.branch }}; then
+                    echo "Error: Failed to fetch branch '${{ inputs.branch }}' from origin. Please check the branch name and network connectivity."
+                    exit 1
+                  fi
+                  if git rev-parse --verify origin/${{ inputs.branch }}; then
+                    git diff origin/${{ inputs.branch }} HEAD
+                  else
+                    echo "Branch '${{ inputs.branch }}' not found. Skipping diff."
+                  fi
+
+            - name: Set branch environment variable
+              run: echo "BRANCH=${{ inputs.branch }}" >> $GITHUB_ENV
+
+            - name: Install Bats
+              run: |
+                  if [ "${{ inputs.bats-version }}" = "latest" ]; then
+                    sudo apt-get update
+                    sudo apt-get install -y bats
+                  else
+                    # Install specific version
+                    wget https://github.com/bats-core/bats-core/archive/v${{ inputs.bats-version }}.tar.gz
+                    tar -xzf v${{ inputs.bats-version }}.tar.gz
+                    cd bats-core-${{ inputs.bats-version }}
+                    sudo ./install.sh /usr/local
+                  fi
+
+            - name: Make scripts executable
+              working-directory: ${{ inputs.working-directory }}
+              run: |
+                  find . -name "*.sh" -exec chmod +x {} \;
+
+            - name: Run Bats tests
+              working-directory: ${{ inputs.working-directory }}
+              run: |
+                  echo "Running tests matching pattern: ${{ inputs.test-pattern }}"
+                  bats tests/${{ inputs.test-pattern }}
+
+            - name: Test dry-run scripts
+              working-directory: ${{ inputs.working-directory }}
+              run: |
+                  echo "Testing dry-run scripts..."
+                  for script in tests/dry-run-*.sh; do
+                    if [ -f "$script" ]; then
+                      echo "Running dry-run: $script"
+                      ./"$script"
+                    fi
+                  done
+
+            - name: Validate script syntax
+              working-directory: ${{ inputs.working-directory }}
+              run: |
+                  echo "Validating script syntax..."
+                  for script in scripts/*.sh; do
+                    if [ -f "$script" ]; then
+                      echo "Checking syntax: $script"
+                      bash -n "$script"
+                    fi
+                  done

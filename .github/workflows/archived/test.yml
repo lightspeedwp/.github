@@ -1,0 +1,118 @@
+name: Run Tests
+
+on:
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main, develop]
+    workflow_call:
+        inputs:
+            test-pattern:
+                description: 'Pattern for test files to run'
+                required: false
+                type: string
+                default: 'test-*.bats'
+
+permissions:
+    contents: read
+
+jobs:
+    test:
+        name: Bats Tests
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Install Bats
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y bats
+
+            - name: Install GitHub CLI (for some tests)
+              run: |
+                  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+                  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+                  sudo apt update
+                  sudo apt install gh
+
+            - name: Make scripts executable
+              run: |
+                  find scripts/ -name "*.sh" -exec chmod +x {} \;
+                  find tests/ -name "*.sh" -exec chmod +x {} \;
+
+            - name: Run Bats tests
+              run: |
+                  echo "Running tests matching pattern: ${{ inputs.test-pattern || 'test-*.bats' }}"
+
+                  # Run tests and capture output
+                  if bats tests/${{ inputs.test-pattern || 'test-*.bats' }}; then
+                    echo "✅ All tests passed"
+                  else
+                    echo "❌ Some tests failed"
+                    exit 1
+                  fi
+
+            - name: Test dry-run scripts
+              run: |
+                  echo "Testing dry-run scripts..."
+                  for script in tests/dry-run-*.sh; do
+                    if [ -f "$script" ]; then
+                      echo "Running dry-run: $script"
+                      ./"$script" || echo "⚠️  Dry-run script $script failed or returned non-zero"
+                    fi
+                  done
+
+            - name: Test script help functionality
+              run: |
+                  echo "Testing script help functionality..."
+                  for script in scripts/*.sh; do
+                    if [ -f "$script" ] && [ -x "$script" ]; then
+                      echo "Testing help for: $script"
+                      if ./"$script" --help >/dev/null 2>&1 || ./"$script" -h >/dev/null 2>&1; then
+                        echo "✅ $script supports help"
+                      else
+                        echo "⚠️  $script does not support help flags"
+                      fi
+                    fi
+                  done
+
+    integration:
+        name: Integration Tests
+        runs-on: ubuntu-latest
+        needs: test
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Install dependencies
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y bats jq
+
+            - name: Validate workflows
+              run: |
+                  echo "Validating GitHub Actions workflows..."
+                  for workflow in .github/workflows/*.yml; do
+                    if [ -f "$workflow" ]; then
+                      echo "Validating: $workflow"
+                      # Basic YAML syntax validation
+                      python3 -c "import yaml; yaml.safe_load(open('$workflow'))" || exit 1
+                    fi
+                  done
+
+            - name: Test script integration
+              run: |
+                  echo "Running integration tests..."
+
+                  # Test that scripts can be sourced without errors
+                  for script in scripts/*.sh; do
+                    if [ -f "$script" ]; then
+                      echo "Testing source compatibility: $script"
+                      # Try to source the script to check for syntax errors
+                      bash -c "source '$script'; echo 'Source test passed'" >/dev/null 2>&1 || echo "⚠️  Script $script may have sourcing issues"
+                    fi
+                  done

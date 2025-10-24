@@ -23,8 +23,8 @@ Keep `main` always deployable, reduce merge risk, and make PR automation predict
 - [9. FAQ & Guardrails](#9-faq-guardrails)
 - [10. References](#10-references)
 - [11. Appendix: Getting Started](#11-appendix-getting-started)
-- [12. Advanced Practices & Troubleshooting](#12-advanced-practices--troubleshooting)   <!-- [NEW] -->
-- [13. Onboarding & Training](#13-onboarding--training)                             <!-- [NEW] -->
+- [12. Advanced Practices & Troubleshooting](#12-advanced-practices--troubleshooting)
+- [13. Onboarding & Training](#13-onboarding--training) 
 
 ---
 

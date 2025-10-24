@@ -1,0 +1,24 @@
+name: WPCS check
+
+on: pull_request
+
+jobs:
+  phpcs:
+      name: WPCS
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v5
+        - uses: actions/setup-php@v4.6.2
+          with:
+            php-version: '8.2'
+        - name: WPCS check
+          uses: 10up/wpcs-action@stable
+          with:
+            standard: 'WordPress' # Standard to use. Accepts WordPress|WordPress-Core|WordPress-Docs|WordPress-Extra|WordPress-VIP-Go|WordPressVIPMinimum|10up-Default.
+            extra_args: '--report-json=./phpcs.json'
+        - name: Update summary
+          run: |
+            npm i -g github:10up/phpcs-json-to-md
+            phpcs-json-to-md --path ./phpcs.json --output ./phpcs.md
+            cat phpcs.md >> $GITHUB_STEP_SUMMARY
+          if: always()

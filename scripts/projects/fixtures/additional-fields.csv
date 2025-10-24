@@ -1,0 +1,5 @@
+# Additional fields for project management
+# name,type,options(optional)
+Severity,single_select,Blocker,Critical,Major,Minor,Trivial
+Story Points,number,
+Due Date,date,

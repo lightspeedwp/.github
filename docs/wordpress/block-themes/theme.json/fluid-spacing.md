@@ -1,0 +1,244 @@
+# Fluid Spacing
+
+Guides on creating fluid, scalable spacing systems in block themes using spacingScale and spacingSizes in theme.json, with practical examples. A systematic approach to spacing is central to clean, scalable block-theme design. This guide distils standardization principles and embeds them into actionable theme.json best practices.
+
+## Best practices
+
+- Define a `spacingScale` in `settings.spacing` to auto-generate consistent spacing steps.
+- Optionally use `spacingSizes` for custom fluid values via `clamp()`.
+- Define a consistent spacing system via `settings.spacing.spacingScale`, for example:
+
+```json
+  {
+  "spacingScale": {
+    "operator": "*",
+    "increment": 2,
+    "steps": 7,
+    "mediumStep": 1.5,
+    "unit": "rem"
+  }
+```
+
+- This generates CSS custom properties like `--wp--preset--spacing--20`, `--wp--preset--spacing--30`, etc., which you can reference in CSS as `var(--wp--preset--spacing--20)`.
+
+- Alternatively use `spacingSizes` for granular control, including fluid values via `min()`, `clamp()`:
+  e.g.:
+
+```json
+{
+  "size": "min(40px, 4vw)",
+  "slug": "30",
+  "name": "3"
+}
+```
+
+- Enable blockGap, margin, and padding controls in the editor to leverage spacing presets visually.
+
+```json
+{
+  "settings": {
+    "spacing": {
+      "blockGap": true,
+      "margin": true,
+      "padding": true
+    }
+  }
+}
+```
+
+## When to use
+
+- Use `spacingScale` for a consistent, predictable scale (linear or multiplicative) with a slider UI across the site.
+- Use `spacingSizes` when you need bespoke tokens (e.g. semantic names like `s`, `m`, `l`) or fluid values via `clamp()` that don’t fit a uniform scale.
+- Prefer one approach globally to keep the editor UI coherent; mixing can be reserved for specific blocks with a clear rationale.
+
+---
+
+## Limitations
+
+- Mixing `spacingScale` and `spacingSizes` can confuse UI patterns—choose one for clarity.
+- More than seven custom sizes create a dropdown UI instead of a slider.
+- Custom spacing control per block is not supported natively.
+
+---
+
+## Why Standardize Spacing?
+
+Spacing—encompassing margin, padding, and column/child gaps—provides the "breathing room" around content. A consistent spacing scale ensures rhythm, hierarchy, and readable layouts. By defining spacing centrally in `theme.json`, themes become **interchangeable** in function, while retaining visual distinctiveness.:contentReference[oaicite:1]{index=1}
+
+### “Visual” table: when each part of clamp() applies
+
+Using clamp(10px, 2vw, 40px):
+
+| **Viewport width**         | **2vw calculation** | **Result (chosen by \*\***clamp\***\*)** | **Why**                          |
+| -------------------------- | ------------------- | ---------------------------------------- | -------------------------------- |
+| 320px (small mobile)       | 6.4px               | **10px**                                 | 6.4px < min → use **min**        |
+| 375px (mobile)             | 7.5px               | **10px**                                 | 7.5px < min → use **min**        |
+| 768px (tablet)             | 15.36px             | **15.36px**                              | within min–max → **fluid** value |
+| 1024px (tablet/SM desktop) | 20.48px             | **20.48px**                              | within min–max → **fluid** value |
+| 1440px (desktop)           | 28.8px              | **28.8px**                               | within min–max → **fluid** value |
+| 1920px (large desktop)     | 38.4px              | **38.4px**                               | within min–max → **fluid** value |
+| 2400px (ultra-wide)        | 48px                | **40px**                                 | 48px > max → use **max**         |
+
+### Key idea
+
+**vw\*\***is not tied to a specific “device.”\**It continuously scales with viewport width. min and max determine*when\* scaling starts and stops.
+
+## Understanding the impact VW has on a Mobile device
+
+## 480px Mobile (min/max fixed, vw adjusted)
+
+### Example: clamp(10px, Xvw, 40px)
+
+| **vw\*\***value\*\* | **Calculation (Xvw @ 480px)** | **Result at 480px** | **Why**                        |
+| ------------------- | ----------------------------- | ------------------- | ------------------------------ |
+| **1vw**             | 4.8px                         | **10px**            | 4.8 < min → clamp uses min     |
+| **2vw**             | 9.6px                         | **10px**            | 9.6 < min → clamp uses min     |
+| **2.5vw**           | 12px                          | **12px**            | Now ≥ min → clamp uses fluid   |
+| **3vw**             | 14.4px                        | **14.4px**          | Within min–max → fluid applies |
+| **5vw**             | 24px                          | **24px**            | Within min–max → fluid applies |
+| **10vw**            | 48px                          | **40px**            | Above max → clamp caps at max  |
+
+---
+
+### Option 1: `spacingScale`
+
+Use when you want a **scalable, incremental set of spacing values** generated by the system:
+
+```json
+"settings": {
+  "spacing": {
+    "spacingScale": {
+      "operator": "*",
+      "increment": 2,
+      "steps": 7,
+      "mediumStep": 1.5,
+      "unit": "rem"
+    }
+  }
+}
+```
+
+This auto-generates CSS custom properties:
+
+```css
+--wp--preset--spacing--20: 0.63rem;
+--wp--preset--spacing--30: 1.25rem;
+--wp--preset--spacing--40: 2.5rem;
+--wp--preset--spacing--50: 5rem;
+--wp--preset--spacing--60: 10rem;
+--wp--preset--spacing--70: 20rem;
+--wp--preset--spacing--80: 40rem;
+```
+
+Use these consistently across theme.json and block patterns to ensure one-value control.
+
+---
+
+## Option 2: `spacingSizes`
+
+Use when you want **manual, custom spacing values**—including fluid CSS expressions:
+
+```json
+"settings": {
+  "spacing": {
+    "spacingSizes": [
+      {
+        "size": "min(12px, 2vw)",
+        "slug": "20",
+        "name": "2"
+      },
+      {
+        "size": "min(40px, 4vw)",
+        "slug": "30",
+        "name": "3"
+      }
+    ]
+  }
+}
+```
+
+Output CSS variables:
+
+```css
+--wp--preset--spacing--20: min(12px, 2vw);
+--wp--preset--spacing--30: min(40px, 4vw);
+```
+
+When using `spacingSizes`, **include all step definitions**, even if only some are used—otherwise default WordPress values become hidden unintentionally.([Rich Tabor][1])
+
+---
+
+### Block Gaps (Future-ready)
+
+WordPress is adding support for `blockGap` in section styles:
+
+```json
+"styles": {
+  "spacing": {
+    "blockGap": "var(--wp--preset--spacing--30)"
+  }
+}
+```
+
+This outputs `--wp--style--block-gap` and controls gap spacing between child blocks in containers like groups and columns.([Rich Tabor][1])
+
+---
+
+## Expert Recommendations
+
+- **Use `spacingScale`** for quick, system-generated spacing hierarchy.
+- **Use `spacingSizes`** when you need fine control or fluid units.
+- **Always define slugs consistently** (20, 30…70), not arbitrary labels—editor UI order depends on this order.
+- Avoid mixing both without controlling `defaultSpacingSizes` in theme.json v3.
+
+---
+
+## Example: Default Theme Setup
+
+```json
+"settings": {
+  "spacing": {
+    "margin": true,
+    "padding": true,
+    "spacingScale": {
+      "operator": "*",
+      "increment": 1.5,
+      "steps": 7,
+      "mediumStep": 1.5,
+      "unit": "rem"
+    }
+  }
+},
+"styles": {
+  "blocks": {
+    "core/post-title": {
+      "spacing": {
+        "margin": {
+          "top": "var(--wp--preset--spacing--30)",
+          "bottom": "var(--wp--preset--spacing--50)"
+        }
+      }
+    }
+  }
+}
+```
+
+Here, editors get consistent margin controls via presets, while the scale can be tweaked globally later.
+
+---
+
+## Reference Links
+
+- [WordPress Developer Resources: Everything you need to know about spacing in block themes](https://developer.wordpress.org/news/2023/03/everything-you-need-to-know-about-spacing-in-block-themes)
+- [WordPress Developer Resources: Theme Handbook - Global Settings & Styles (theme.json) - Spacing](https://developer.wordpress.org/themes/global-settings-and-styles/settings/spacing/)
+- [Rich Tabor on Standardizing theme.json spacing sizes](https://rich.blog/standardizing-theme-json-spacing/)
+- [Rich Tabor on Fluid Typography and Block Themes](https://rich.blog/fluid-typography-block-themes/)
+- [Rich Tabor on Fluid Type Scale in Block Themes](https://rich.blog/fluid-type-scale-theme-json/)
+- [Rich Tabor on Full Site Editing](https://rich.blog/full-site-editing/)
+- [Rich Tabor on WordPress 6.6 Section Styles](https://rich.blog/wordpress-6-6/)
+- [Standardizing theme.json spacing sizes – Rich Tabor](https://rich.blog/standardizing-theme-json-spacing/)
+- [Theme.json layout and spacing options - Full Site Editing](https://fullsiteediting.com/lessons/theme-json-layout-and-spacing-options/)
+- [Theme.json version 3 – Make WordPress Core](https://make.wordpress.org/core/2024/06/19/theme-json-version-3/)
+
+---

@@ -1,0 +1,63 @@
+name: Code Quality Checks
+
+on:
+    pull_request:
+    push:
+        branches:
+            - develop
+            - main
+
+jobs:
+    php-lint:
+        name: Lint & Static Analysis
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php-version: ['8.2', '8.3'] # Test against multiple PHP versions
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  extensions: mbstring, json, xml
+                  tools: composer:v2
+
+            - name: Cache Composer dependencies
+              id: composer-cache
+              uses: actions/cache@v3
+              with:
+                  path: vendor
+                  key:
+                      ${{ runner.os }}-${{ matrix.php-version }}-composer-${{
+                      hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-${{ matrix.php-version }}-composer-
+
+            - name: Install Composer dependencies
+              if: steps.composer-cache.outputs.cache-hit != 'true'
+              run: composer install --prefer-dist --no-progress --no-dev
+
+            - name: Run PHP CodeSniffer
+              uses: 10up/wpcs-action@stable
+              with:
+                  standard: 'WordPress'
+                  extra_args: '--report-json=./phpcs.json'
+
+            - name: Run PHPStan
+              run: composer phpstan
+
+            - name: Update summary
+              run: |
+                  # Install tool and generate markdown report for PHPCS
+                  npm i -g github:10up/phpcs-json-to-md
+                  phpcs-json-to-md --path ./phpcs.json --output ./phpcs.md
+                  cat phpcs.md >> $GITHUB_STEP_SUMMARY
+              if: always()
+            - name: Upload PHPCS report artifact
+              uses: actions/upload-artifact@v3
+              with:
+                  name: phpcs-report
+                  path: phpcs.md

@@ -1,0 +1,316 @@
+name: Test All Components
+
+on:
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main, develop]
+    workflow_call:
+
+permissions:
+    contents: read
+
+jobs:
+    test-includes:
+        name: Test Include Files
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Install dependencies
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y shellcheck bats
+
+            - name: Test common functions include
+              run: |
+                  echo "Testing common-functions.sh"
+                  # Source the include file
+                  source scripts/includes/common-functions.sh
+
+                  # Test logging functions
+                  export LOG_FILE="/tmp/test.log"
+                  log_info "Test info message"
+                  log_error "Test error message"
+
+                  # Verify log file exists and contains messages
+                  [ -f "$LOG_FILE" ]
+                  grep -q "Test info message" "$LOG_FILE"
+                  grep -q "Test error message" "$LOG_FILE"
+
+                  echo "✅ Common functions test passed"
+
+            - name: Test git functions include
+              run: |
+                  echo "Testing git-functions.sh"
+                  # Source the include files
+                  source scripts/includes/common-functions.sh
+                  source scripts/includes/git-functions.sh
+
+                  # Test in git repository context
+                  if is_git_repo; then
+                    echo "In git repository"
+                    current_branch=$(get_current_branch)
+                    echo "Current branch: $current_branch"
+                    
+                    repo_root=$(get_repo_root)
+                    echo "Repository root: $repo_root"
+                    
+                    commit_hash=$(get_commit_hash --short)
+                    echo "Current commit: $commit_hash"
+                  else
+                    echo "Not in git repository"
+                    exit 1
+                  fi
+
+                  echo "✅ Git functions test passed"
+
+            - name: ShellCheck include files
+              run: |
+                  echo "Running ShellCheck on include files"
+                  shellcheck scripts/includes/*.sh
+                  echo "✅ ShellCheck passed for includes"
+
+    test-enhanced-helpers:
+        name: Test Enhanced Test Helpers
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Install dependencies
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y bats
+
+            - name: Test enhanced helpers loading
+              run: |
+                  echo "Testing enhanced test helpers"
+
+                  # Create a minimal test to verify helpers load
+                  cat > /tmp/test-helper-load.bats << 'EOF'
+                  #!/usr/bin/env bats
+
+                  load "$(dirname "$BATS_TEST_FILENAME")/tests/includes/enhanced-test-helpers.bash"
+
+                  @test "enhanced helpers load successfully" {
+                    setup_enhanced_test_environment
+                    [ -n "$TEST_TEMP_DIR" ]
+                    [ -d "$TEST_TEMP_DIR" ]
+                    cleanup_enhanced_test_environment
+                  }
+                  EOF
+
+                  # Run the test
+                  bats /tmp/test-helper-load.bats
+                  echo "✅ Enhanced helpers test passed"
+
+    test-agents:
+        name: Test Agent Structure
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18'
+
+            - name: Install dependencies
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y bats
+                  npm install
+
+            - name: Test agent structure and standards
+              run: |
+                  echo "Testing agent structure and standards"
+
+                  # Run agent structure tests
+                  if [ -f "tests/test-agents-structure.bats" ]; then
+                    bats tests/test-agents-structure.bats
+                  else
+                    echo "Agent structure tests not found, skipping"
+                  fi
+
+                  echo "✅ Agent tests completed"
+
+    test-scripts:
+        name: Test Script Functionality
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Install dependencies
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y bats shellcheck
+
+            - name: Run existing tests
+              run: |
+                  echo "Running existing script tests"
+
+                  # Find and run all existing Bats tests
+                  if find tests/ -name "*.bats" -type f | head -1 | grep -q "."; then
+                    find tests/ -name "*.bats" -type f -exec echo "Running {}" \;
+                    find tests/ -name "*.bats" -type f -exec bats {} \; || true
+                  else
+                    echo "No Bats tests found"
+                  fi
+
+                  echo "✅ Script tests completed"
+
+    integration-test:
+        name: Integration Test
+        runs-on: ubuntu-latest
+        needs: [test-includes, test-enhanced-helpers, test-agents, test-scripts]
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Install dependencies
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y bats shellcheck
+
+            - name: Test script with includes integration
+              run: |
+                  echo "Testing script integration with includes"
+
+                  # Create a test script that uses includes
+                  cat > /tmp/test-integration.sh << 'EOF'
+                  #!/bin/bash
+                  set -euo pipefail
+
+                  # Source includes
+                  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+                  source "${SCRIPT_DIR}/scripts/includes/common-functions.sh"
+                  source "${SCRIPT_DIR}/scripts/includes/git-functions.sh"
+
+                  # Test logging
+                  setup_logging "/tmp/integration-test.log"
+                  log_info "Integration test starting"
+
+                  # Test validation
+                  validate_required_tools "git" "bash"
+
+                  # Test git functions
+                  if is_git_repo; then
+                    current_branch=$(get_current_branch)
+                    log_info "Current branch: $current_branch"
+                  fi
+
+                  log_success "Integration test completed"
+                  EOF
+
+                  # Make executable and run
+                  chmod +x /tmp/test-integration.sh
+                  cd "$GITHUB_WORKSPACE"
+                  /tmp/test-integration.sh
+
+                  # Verify log file was created
+                  [ -f "/tmp/integration-test.log" ]
+                  grep -q "Integration test starting" "/tmp/integration-test.log"
+                  grep -q "Integration test completed" "/tmp/integration-test.log"
+
+                  echo "✅ Integration test passed"
+
+    validate-structure:
+        name: Validate Repository Structure
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Validate directory structure
+              run: |
+                  echo "Validating repository structure"
+
+                  # Check for required directories
+                  [ -d "scripts/includes" ] || { echo "❌ scripts/includes directory missing"; exit 1; }
+                  [ -d "tests/includes" ] || { echo "❌ tests/includes directory missing"; exit 1; }
+                  [ -d ".github/agents" ] || { echo "❌ .github/agents directory missing"; exit 1; }
+
+                  # Check for required include files
+                  [ -f "scripts/includes/common-functions.sh" ] || { echo "❌ common-functions.sh missing"; exit 1; }
+                  [ -f "scripts/includes/git-functions.sh" ] || { echo "❌ git-functions.sh missing"; exit 1; }
+
+                  # Check for enhanced test helpers
+                  [ -f "tests/includes/enhanced-test-helpers.bash" ] || { echo "❌ enhanced-test-helpers.bash missing"; exit 1; }
+                  [ -f "tests/includes/agent-test-helpers.bash" ] || { echo "❌ agent-test-helpers.bash missing"; exit 1; }
+
+                  # Check for README files
+                  [ -f "scripts/includes/README.md" ] || { echo "❌ scripts/includes/README.md missing"; exit 1; }
+                  [ -f "tests/includes/README.md" ] || { echo "❌ tests/includes/README.md missing"; exit 1; }
+
+                  echo "✅ Repository structure validation passed"
+
+            - name: Validate agent files
+              run: |
+                  echo "Validating agent files"
+
+                  # Count agent files
+                  agent_count=$(find .github/agents/ -name "*.agent.js" -type f | wc -l)
+                  echo "Found $agent_count agent files"
+
+                  # Check if agents are documented
+                  if [ -f "AGENTS.md" ]; then
+                    echo "✅ AGENTS.md exists"
+                  else
+                    echo "❌ AGENTS.md missing"
+                    exit 1
+                  fi
+
+                  echo "✅ Agent validation passed"
+
+    summary:
+        name: Test Summary
+        runs-on: ubuntu-latest
+        needs:
+            [
+                test-includes,
+                test-enhanced-helpers,
+                test-agents,
+                test-scripts,
+                integration-test,
+                validate-structure,
+            ]
+        if: always()
+
+        steps:
+            - name: Test Results Summary
+              run: |
+                  echo "## Test Results Summary"
+                  echo "| Component | Status |"
+                  echo "|-----------|--------|"
+                  echo "| Include Files | ${{ needs.test-includes.result == 'success' && '✅ Passed' || '❌ Failed' }} |"
+                  echo "| Enhanced Helpers | ${{ needs.test-enhanced-helpers.result == 'success' && '✅ Passed' || '❌ Failed' }} |"
+                  echo "| Agents | ${{ needs.test-agents.result == 'success' && '✅ Passed' || '❌ Failed' }} |"
+                  echo "| Scripts | ${{ needs.test-scripts.result == 'success' && '✅ Passed' || '❌ Failed' }} |"
+                  echo "| Integration | ${{ needs.integration-test.result == 'success' && '✅ Passed' || '❌ Failed' }} |"
+                  echo "| Structure | ${{ needs.validate-structure.result == 'success' && '✅ Passed' || '❌ Failed' }} |"
+
+                  # Overall result
+                  if [[ "${{ needs.test-includes.result }}" == "success" && \
+                        "${{ needs.test-enhanced-helpers.result }}" == "success" && \
+                        "${{ needs.test-agents.result }}" == "success" && \
+                        "${{ needs.test-scripts.result }}" == "success" && \
+                        "${{ needs.integration-test.result }}" == "success" && \
+                        "${{ needs.validate-structure.result }}" == "success" ]]; then
+                    echo ""
+                    echo "🎉 All tests passed successfully!"
+                    echo "The modular includes and agents implementation is working correctly."
+                  else
+                    echo ""
+                    echo "⚠️ Some tests failed. Please review the logs above."
+                    exit 1
+                  fi

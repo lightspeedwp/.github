@@ -1,0 +1,11 @@
+# Product Development Project Fields
+# name,type,options,description,color
+Theme,single_select,"Design System|Content Management|Commerce (WooCommerce)|Editorial UX (Authoring)|Performance|Accessibility (A11y)|Security & Privacy|Integrations & APIs|Internationalisation (i18n)|Analytics & Measurement|SEO|Release & Deployment","Strategic programme for product work","#AB7DF8|#C5DEF5|#D4C5F9|#4393F8|#D29922|#DB61A2|#9F3734|#8D4821|#C5DEF5|#C2E0C6|#C2E0C6|#006B75"
+Area,single_select,"Frontend|Backend|Build & CI|Deployment/DevOps|Design System|Analytics|A11y","Primary engineering lane owning the change","#BFD4F2|#BFD4F2|#BFD4F2|#006B75|#C5DEF5|#C2E0C6|#DB61A2"
+Priority,single_select,"High|Medium|Low","Scheduling urgency in the train","#D93F0B|#0052CC|#C2E0C6"
+Severity,single_select,"S0 – Blocker|S1 – Critical|S2 – Major|S3 – Minor|S4 – Trivial","Impact for Bugs (hotfix vs train)","#B60205|#D93F0B|#FBCA04|#BFD4F2|#E1E4E8"
+Size,single_select,"0 – Unknown|1 – XS|2 – S|3 – M|4 – L|5 – XL|6 – XXL","Coarse effort bucket to aid sorting and capacity planning","#E1E4E8|#BFD4F2|#C5DEF5|#58A6FF|#4393F8|#D4C5F9|#AB7DF8"
+Release type,single_select,"Major|Minor|Patch|Hotfix","Classify versioned releases (SemVer + hotfix lane)","#3FB950|#58A6FF|#D29922|#F85149"
+Story Points,number,,,""
+Due Date,date,,,""
+Assignee,text,,,""

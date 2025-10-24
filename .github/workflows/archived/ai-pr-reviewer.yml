@@ -1,0 +1,84 @@
+name: AI PR Review
+
+permissions:
+    contents: read
+    pull-requests: write
+
+on:
+    pull_request:
+    pull_request_review_comment:
+        types: [created]
+
+concurrency:
+    group: ${{ github.repository }}-${{ github.event.number || github.head_ref || github.sha }}-${{ github.workflow }}-${{ github.event_name == 'pull_request_review_comment' && 'pr_comment' || 'pr' }}
+    cancel-in-progress: ${{ github.event_name != 'pull_request_review_comment' }}
+
+jobs:
+    ai-review:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Setup Node
+              uses: actions/setup-node@v5
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run build
+              run: npm run build
+
+            - name: Update README and changelog tables
+              run: |
+                  bash scripts/update-readme-and-changelog.sh
+
+            - name: Markdown lint
+              run: |
+                  npx markdownlint README.md scripts/README.md tests/README.md workflows/README.md .github/README.md AGENTS.md .github/agents/*.md .github/instructions/*.md .github/prompts/prompts.md .github/chatmodes/chatmodes.md || true
+
+            - name: Lint and format check
+              run: |
+                  npm run lint:js
+                  npm run lint:sh
+                  npm run format
+
+            - name: Run Bats tests
+              run: |
+                  if command -v bats &> /dev/null; then
+                    bats tests/
+                  else
+                    echo "Bats not installed, skipping shell tests."
+                  fi
+
+            - name: Check README and documentation
+              run: |
+                  npx markdownlint README.md scripts/README.md tests/README.md workflows/README.md .github/README.md || true
+
+            - name: AI PR Review (CodeRabbit)
+              uses: coderabbitai/ai-pr-reviewer@latest
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+              with:
+                  debug: false
+                  review_simple_changes: true
+                  review_comment_lgtm: false
+                  review_paths: |
+                      README.md
+                      scripts/README.md
+                      tests/README.md
+                      workflows/README.md
+                      .github/README.md
+                      scripts/*.sh
+                      scripts/**/*.sh
+                      tests/*.bats
+                      tests/**/*.bats
+                      .github/instructions/*.md
+                      .github/prompts/prompts.md
+                      .github/chatmodes/chatmodes.md
+                      .github/agents/*.md
+                      AGENTS.md

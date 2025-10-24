@@ -1,0 +1,11 @@
+# Client Delivery Project Settings
+# setting,value,description
+Project name,"Client – {ClientName}","Project name format for client delivery"
+Short description,"Track client work from intake to UAT and release using a lean Scrumban flow.","Default project description"
+Status columns,"Backlog|To-do|In progress|In review|In QA|Done","Workflow status columns"
+Priority default,Medium,"Default priority for new items"
+Phase default,Pre-launch,"Default phase for new items"
+Environment default,Staging,"Default environment for new items"
+Size default,0 – Unknown,"Default size for new items"
+README purpose,"Track client work from intake to UAT and release with a lean Scrumban flow.","README purpose statement"Project Name,Short Description,README,Visibility,Base Role,Invite Collaborators
+Client Delivery Project,Project for managing client delivery engagements,See docs/update-projects/client-delivery-project-template-v1-6.md,Public,Write,"Interns;Developers;ashleyshaw"

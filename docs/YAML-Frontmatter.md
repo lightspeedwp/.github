@@ -1,65 +1,180 @@
-# YAML Frontmatter Usage & Best Practices
+# YAML Frontmatter Files Types with Schema
 
-> **Note:** All labeling, status, type, and standardization for issues, PRs, and discussions is handled by the unified [labeling agent](../.github/agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). Canonical label/type configs are referenced in YAML for maximum automation.
+A minimal, **WordPress-friendly** Copilot Space that teaches and enforces correct use of YAML frontmatter across GitHub templates and AI files. Includes docs, schemas, reusable prompts, custom chat modes, and example Claude subagents. Built to standardise WP plugin/theme workflows.
 
----
+Always show details.
 
-## Purpose
+## Create a WordPress-focused Copilot Space with frontmatter docs, prompts, chat modes, and agents, then zip it
 
-This guide describes how to use YAML frontmatter for issues, PR templates, saved replies, Copilot instructions, and agent/config files.  
-All automation, agent, and template files should use consistent YAML frontmatter for discoverability and automation.
+```python
+import os
+import zipfile
+import json
+import textwrap
+import pathlib
 
----
+root = "/mnt/data/copilot-space-wp"
+os.makedirs(root, exist_ok=True)
 
-## YAML Frontmatter Example
-
-```yaml
----
-title: "Add new block: Team Members"
-labels:
-  - type:feature
-  - status:needs-triage
-  - priority:normal
-  - area:block-editor
-assignees:
-  - ashleyshaw
----
+# Folders
+dirs = [
+    ".github",
+    ".github/instructions",
+    ".github/prompts",
+    ".github/chatmodes",
+    ".github/agents",
+    ".github/ISSUE_TEMPLATE",
+    ".github/PULL_REQUEST_TEMPLATE",
+    "docs/copilot-space",
+    "docs/copilot-space/schemas",
+    "docs/wp-guides",
+    ".vscode"
+]
+for d in dirs:
+    os.makedirs(os.path.join(root, d), exist_ok=True)
 ```
 
-- **title:** Human-readable title for the issue/PR/template.
-- **labels:** Canonical (automation-aligned) labels, validated and enforced by the unified agent.
-- **assignees:** GitHub usernames.
+---
+
+### Root docs
+
+# Copilot Space (WordPress Edition)
+
+A minimal, **WordPress-friendly** Copilot Space that teaches and enforces correct use of YAML frontmatter across GitHub templates and AI files. Includes docs, schemas, reusable prompts, custom chat modes, and example Claude subagents. Built to standardise WP plugin/theme workflows.
+
+Start here: `docs/copilot-space/INDEX.md`
 
 ---
 
-## Best Practices
+### AGENTS.md — Universal AI Rules (WordPress)
 
-- Always use canonical label names from [labels.yml](../.github/labels.yml).
-- Use one-hot values for `type:*`, `status:*`, `priority:*`.
-- Reference the correct YAML keys for your file type (see [GitHub docs](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/about-automation-for-issues-and-pull-requests)).
-- All automation expects and validates YAML frontmatter.
-
----
-
-## Supported File Types
-
-- Issue templates
-- PR templates
-- Saved replies
-- Agent/config files
-- Copilot instructions
-- Category forms for Discussions
+- Follow **WordPress Coding Standards** (PHPCS: WordPress, WordPress-Docs, WordPress-Extra).
+- PHP versions: prefer compatibility with current WP supported PHP (adjust per project).
+- Escape, sanitise, and validate all inputs; use nonces for forms; respect capabilities/roles.
+- I18n: wrap user-facing text in translation functions; provide text domain.
+- Keep changes minimal and reversible; propose diffs and tests.
+- Never output secrets; redact credentials and keys.
 
 ---
 
-## References
+### CLAUDE.md — Project Instructions (WordPress)
 
-- [labels.yml](../.github/labels.yml)
-- [labeler.yml](../.github/labeler.yml)
-- [issue-types.yml](../.github/issue-types.yml)
-- [labeling.agent.md](../.github/agents/labeling.agent.md)
-- [GitHub YAML frontmatter docs](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/about-automation-for-issues-and-pull-requests)
+Claude should:
+- Prefer WordPress core APIs (Options, Settings API, REST API, Transients, WP_Filesystem).
+- Use hooks/filters where appropriate; avoid monkey-patching core.
+- Generate **PHPCS-compliant** PHP and add PHPDoc for public APIs.
+- For JS (blocks), use @wordpress/* packages; register blocks via block.json where sensible.
 
 ---
 
-*All YAML frontmatter for automation should be validated against canonical configs and unified agent logic.*
+### GEMINI.md — Project Instructions (WordPress)
+
+Gemini should follow: WordPress coding standards, security best practices (escaping/sanitising), and internationalisation. Prefer minimal dependencies and progressive enhancement.
+
+---
+
+### .editorconfig
+
+```ini
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*.php]
+indent_style = tab
+indent_size = 4
+
+[*.{js,jsx,ts,tsx,json}]
+indent_style = space
+indent_size = 2
+
+[*.{css,scss,sass}]
+indent_style = space
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+```
+
+---
+
+### .gitignore
+
+```
+# OS
+.DS_Store
+Thumbs.db
+
+# Node/Yarn
+node_modules/
+npm-debug.log*
+yarn-error.log*
+dist/
+build/
+coverage/
+
+# Composer
+vendor/
+composer.lock
+
+# IDE
+.vscode/
+.idea/
+
+# PHP unit caches
+.phpunit.result.cache
+```
+
+---
+
+### .gitattributes
+
+```
+* text=auto eol=lf
+docs/* linguist-documentation
+```
+
+---
+
+### Docs (Copilot Space Guides)
+
+#### Copilot Space Index — WordPress Frontmatter Playbook
+
+This space blends **GitHub templates** and **AI instruction files** with a WordPress focus.
+
+#### GitHub Templates
+- [Issue Templates (Issue Forms)](issue-templates.md)
+- [Pull Request Templates](pr-templates.md)
+- [Saved Replies (overview)](saved-replies.md)
+
+#### Copilot Customisation
+- [Repo & Path Instructions](copilot-instructions.md)
+- [Reusable Prompt Files](prompt-files.md)
+- [Custom Chat Modes](chatmodes.md)
+- [AGENTS.md (universal rules)](agents-md.md)
+
+#### Claude & Gemini
+- [Claude: CLAUDE.md & Subagents](claude-agents.md)
+- [Gemini: GEMINI.md (convention)](gemini-md.md)
+
+#### Schemas
+- [Issue Form schema](schemas/issue-form-schema.md)
+- [Prompt frontmatter schema](schemas/prompt-frontmatter-schema.md)
+- [Chat Mode frontmatter schema](schemas/chatmode-frontmatter-schema.md)
+- [Claude Subagent schema](schemas/claude-subagent-schema.md)
+- [Prompt Collection schema (experimental)](schemas/prompt-collection-schema.md)
+
+#### WordPress Guides
+- [WordPress Coding Standards quickstart](../wp-guides/wp-coding-standards.md)
+- [Security checklist for WP](../wp-guides/wp-security-checklist.md)
+- [Block development checklist](../wp-guides/block-dev-checklist.md)
+
+---
+
+*(Additional sections such as schema examples, issue/pr templates, and instructions can be formatted similarly with proper Markdown headings and code fencing as above.)*
+
+---
