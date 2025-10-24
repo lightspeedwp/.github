@@ -1,6 +1,6 @@
-# ESLint Configuration
+# ESLint Configuration (Flat Config)
 
-Documentation for ESLint setup and JavaScript/TypeScript linting standards used across LightSpeed projects.
+This document explains the ESLint setup and JavaScript/TypeScript linting standards for LightSpeed projects. It uses the modern ESLint flat config format for maximum flexibility and future compatibility.
 
 ## Table of Contents
 
@@ -15,11 +15,15 @@ Documentation for ESLint setup and JavaScript/TypeScript linting standards used 
 
 ## Configuration Files
 
-### `eslint.config.js`
+### `eslint.config.js` (Flat Config)
 
-Modern ESLint flat configuration format (ESLint 9+).
+We use the [ESLint flat config format](https://eslint.org/docs/latest/use/configure/configuration-files-new) (ESLint 9+), which allows for more modular and environment-aware configuration. This enables:
 
-### Current Configuration
+- TypeScript and JavaScript linting in one config
+- Prettier integration for formatting
+- Environment variable support for ignore patterns
+
+### Example: Current Configuration
 
 ```javascript
 import 'dotenv/config';
@@ -58,7 +62,7 @@ export default [
 
 ### Environment Variables
 
-The configuration supports environment-based ignore patterns:
+The configuration supports environment-based ignore patterns for flexibility across CI, local, and custom environments:
 
 ```bash
 # .env file
@@ -85,10 +89,10 @@ ESLINT_IGNORE=node_modules/**,build/**,custom-folder/**
 }
 ```
 
-### WordPress-Specific Rules
+### Coding Standards
 
-- Follow [WordPress JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/)
-- Use 2-space indentation
+- Follows [WordPress JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/)
+- 2-space indentation
 - Single quotes for strings
 - Semicolons required
 - camelCase naming convention
@@ -132,11 +136,11 @@ ESLINT_IGNORE=node_modules/**,build/**,custom-folder/**
 - `no-console` - Warn on console statements
 - `prefer-const` - Prefer const over let when possible
 
-### WordPress Specific
+### WordPress/General Rules
 
-- `@wordpress/no-unused-vars-before-return` - WordPress-specific unused vars
-- `@wordpress/valid-sprintf` - Validate sprintf usage
-- `@wordpress/i18n-text-domain` - Ensure correct text domain
+- `no-unused-vars` - Prevent unused variables
+- `no-console` - Warn on console statements
+- `prefer-const` - Prefer const over let when possible
 
 ## Usage
 
@@ -158,7 +162,7 @@ eslint src/blocks/example/index.js
 ```yaml
 # GitHub Actions
 - name: Lint JavaScript
-  run: npm run lint:js
+    run: npm run lint:js
 ```
 
 ## Troubleshooting
@@ -178,15 +182,15 @@ eslint src/blocks/example/index.js
 
 #### WordPress blocks not linting correctly
 
-- Install `@wordpress/eslint-plugin`
-- Add WordPress-specific rules to configuration
-- Use `@wordpress/scripts` for complete setup
+- Ensure your block code is included in the linted file globs
+- Use the flat config and TypeScript support as above
 
 ## Integration
 
-This configuration works with:
+## Workflow & Related Docs
 
-- [VS Code Configuration](./vscode.md) for editor integration
-- [Package.json Configuration](./package-json.md) for scripts and dependencies
-- [WordPress Standards](./wordpress-standards.md) for coding standards
-- [Prettier Configuration](./prettier.md) for code formatting
+- [LINTING.md](../LINTING.md) — Main linting strategy and tool overview
+- [HUSKY-PRECOMMITS.md](../HUSKY-PRECOMMITS.md) — Pre-commit hook and automation
+- [VS Code Configuration](./vscode.md) — Editor integration
+- [Package.json Configuration](./package-json.md) — Scripts and dependencies
+- [Prettier Configuration](./prettier.md) — Code formatting

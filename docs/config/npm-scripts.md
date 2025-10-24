@@ -57,7 +57,7 @@
 
 ### **Testing Scripts**
 
-```json
+````json
 {
     "scripts": {
         "test": "npm run test:js",
@@ -93,8 +93,9 @@
         "contributors:check": "all-contributors check"
     }
 }
-```
-```
+````
+
+````
 
 ## WordPress Integration
 
@@ -139,10 +140,10 @@ See above for the full list. These scripts run ESLint, Stylelint, markdownlint, 
         "test": "npm run test:js"
     }
 }
-```
+````
 
 For Playwright E2E tests, use the VS Code task or run `npx playwright test`.
-        "lint:md": "markdownlint '**/*.md' --ignore node_modules",
+"lint:md": "markdownlint '\*_/_.md' --ignore node_modules",
 
         "format": "run-p format:*",
         "format:js": "wp-scripts format",
@@ -164,6 +165,7 @@ For Playwright E2E tests, use the VS Code task or run `npx playwright test`.
     }
 }
 ```
+
         "test:e2e": "playwright test",
         "test:watch": "wp-scripts test-unit-js --watch",
 
@@ -172,8 +174,10 @@ For Playwright E2E tests, use the VS Code task or run `npx playwright test`.
         "contributors:add": "all-contributors add",
         "contributors:generate": "all-contributors generate"
     }
+
 }
-```
+
+````
 
 ### **Contributors Scripts**
 
@@ -185,7 +189,7 @@ For Playwright E2E tests, use the VS Code task or run `npx playwright test`.
         "contributors:check": "all-contributors check"
     }
 }
-```
+````
 
 ## Script Categories
 

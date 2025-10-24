@@ -44,17 +44,21 @@ git commit --no-verify
 ## Recommended Commands
 
 - **Install Husky hooks:**
-  
+
     ```sh
     npx husky install
-  
+
+    ```
+
 - **Add a new hook:**
-  
+
     ```sh
     npx husky add .husky/pre-commit "npm run lint:js && npm run lint:css && npm run lint:md && npm test"
-  
+
+    ```
+
 - **Bypass hooks:**
-  
+
     ```sh
     git commit --no-verify
     ```
