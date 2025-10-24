@@ -60,6 +60,7 @@
 **🔥 Most Critical Tool for Development**
 
 **Key Capabilities:**
+
 - ✅ **Repository & file management** - Browse, read, create, update files
 - ✅ **Issue & PR workflows** - Create, assign, review, merge
 - ✅ **🎯 GitHub Copilot Spaces** - Team collaboration & context sharing  
@@ -73,6 +74,7 @@
 **🎯 AI-Powered Browser Testing**
 
 **Key Capabilities:**
+
 - ✅ **Test generation** - AI writes complete test suites from descriptions
 - ✅ **Browser automation** - Multi-browser testing & mobile emulation
 - ✅ **Visual testing** - Screenshot comparison & regression detection
@@ -179,12 +181,14 @@ For detailed documentation on each MCP server:
 ### **🔒 Secure OAuth Authentication (Recommended)**
 
 **GitHub MCP Server:**
+
 - ✅ **Automatic:** VS Code handles entire OAuth flow
 - ✅ **Secure:** No tokens stored in configuration files
 - ✅ **Scoped:** Only necessary permissions requested
 - ✅ **Refreshable:** Tokens auto-refresh without intervention
 
 **Playwright MCP Server:**
+
 - ✅ **No authentication required** - Works immediately
 
 ### **⚡ First-Time Setup**
@@ -200,6 +204,7 @@ For detailed documentation on each MCP server:
 ### **🚨 Quick Fixes**
 
 #### **MCP Servers Not Responding**
+
 ```bash
 # 1. Restart VS Code
 # Command Palette → "Developer: Reload Window"
@@ -212,11 +217,13 @@ For detailed documentation on each MCP server:
 ```
 
 #### **Commands Not Recognized**
+
 - ✅ Ensure MCP is enabled in VS Code settings
 - ✅ Verify `mcpConfigFile` path is correct
 - ✅ Check VS Code Output panel for MCP errors
 
 #### **Authentication Issues**
+
 - ✅ Sign out and re-authenticate in VS Code
 - ✅ Clear VS Code authentication cache
 - ✅ Verify internet connectivity
@@ -244,6 +251,7 @@ This MCP setup integrates with:
 ### **🚀 Workflow Enhancement**
 
 **Complete Development Workflow Example:**
+
 ```bash
 # 1. Analyze existing code
 @github get file src/components/Hero.jsx

@@ -68,7 +68,7 @@
 - **Tag families:**  
   - **Required:** `status:*`, **one** of `area:*` or `comp:*`  
   - **Optional / Recommended:** `phase:*`, `env:*`, `type:*`, `device:*`  
-  - **Recommended if relevant:** `page:*` and `issue:*`   
+  - **Recommended if relevant:** `page:*` and `issue:*`
   - **Optional:** `theme:*`, `size:*`  
   - **WP Theme:** `block:*`, `template-part:*`, `template:*`  
   - **Plugins:** `to:*`, `woo:*`  
@@ -349,7 +349,7 @@ Recommended to apply these at triage when helpful:
 - **Related labels:** `env:*`, `status:*`  
 - **Process:** Plan → build → `pre-launch` → `staging-uat` → `post-launch`
 
-**Default tags:** 
+**Default tags:**
 
 - `phase:staging-uat` — Pre-production validation on staging; stakeholders run UAT to confirm requirements, performance and tracking before release. No new scope unless agreed.  
 - `phase:pre-launch` — Build, design and internal QA ahead of UAT; changes are frequent. Work may run on prototype or staging. Objective: reach production-like readiness for acceptance.  
@@ -376,7 +376,7 @@ Recommended to apply these at triage when helpful:
 - **Related labels:** `phase:*`, `status:*`  
 - **Process:** Fix in source env → verify → promote
 
-**Default tags:** 
+**Default tags:**
 
 - `env:local` — Developer’s machine/environment for building, debugging and experiments; isolated and not client-visible.  
 - `env:prototype` — Early mock or preview (design prototype or pre-code build) for exploring flows and gathering feedback before full implementation.  
@@ -544,7 +544,7 @@ Recommended to apply these at triage when helpful:
 Apply if helpful to filter feedback by bigger picture or to signal relative effort:
 
 - **theme:** add tag `theme:*` to filter feedback by bigger picture  
-- **size:** add tag `size:*` to signal relative effort 
+- **size:** add tag `size:*` to signal relative effort
 
 ---
 
@@ -624,7 +624,7 @@ Apply if helpful to filter feedback by bigger picture or to signal relative effo
 
 Apply WordPress Block Theme related tag families if relevant **at triage**:
 
-- **block:** add the specific WordPres core block like `block:featured-image` or potentially a third party plugin block like `block:yoast-faq`   
+- **block:** add the specific WordPres core block like `block:featured-image` or potentially a third party plugin block like `block:yoast-faq`
 - **template-part:** add the relevant tag for the specific template part like `template-part:header`  or  `template-part:footer`  
 - **template:** add the relevant tag for the specific block theme template like `template:index`  or  `template:all-archives`
 
@@ -704,7 +704,7 @@ Apply WordPress Block Theme related tag families if relevant **at triage**:
 - **Related labels:** `block:*`, `comp:*`  
 - **Process:** Identify partial → tag → assign
 
-**Default tags:** 
+**Default tags:**
 
 - `template-part:footer` —  Reusable site footer region shared across templates; commonly includes copyright, menus, and contact/social links. Changes to the footer template part propagate to all templates that use it.  
 - `template-part:header` —  Reusable site header region shared across templates; typically contains Site Title/Logo, primary Navigation and utility elements. Editing the header template part updates every template that includes it.  
@@ -763,7 +763,7 @@ Apply WordPress Block Theme related tag families if relevant **at triage**:
 
 Apply Plugin specific tag families if relevant **at triage**, take note that these would which would replace the need for using other tag sets like area:\*, com:\*, block::\*, template-part:\*, template:\* or even a plugin extension and potentially more than 1 tag from that plugin family could be applied:
 
-- **to:** add the specific Tour Operator tag like `to:single-destination` or `to:wetu-importer`   
+- **to:** add the specific Tour Operator tag like `to:single-destination` or `to:wetu-importer`
 - **woo:** add the specific tag for the specific template part like `woo:part-checkout-header`  or  `woo:block-product-collection`
 
 ---
@@ -828,8 +828,8 @@ Apply Plugin specific tag families if relevant **at triage**, take note that the
 - `to:post-relationships` — Post relationships model.  
 - `to:prices` — Pricing/rates logic.  
 - `to:tour-itinerary` — Itinerary presentation.  
-- `to:accommodation-rooms` —   
-- `to:accommodation-facilities` —   
+- `to:accommodation-rooms` —
+- `to:accommodation-facilities` —
 - `to:specials` — Specials/promotions.  
 - `to:reviews` — Reviews module.  
 - `to:team` — Team module.
@@ -852,7 +852,7 @@ Apply Plugin specific tag families if relevant **at triage**, take note that the
 - **Scope:** Commerce.  
 - **Benefits:** Faster routing and regression checks.  
 - **Tag format:** `woo:<surface>`  
-- **Related labels:** Can be used instead of these tag sets `area:*`, `comp:*`, `page:*`, `block:*`, `template-part:*`, `template:*`, `template:*`   
+- **Related labels:** Can be used instead of these tag sets `area:*`, `comp:*`, `page:*`, `block:*`, `template-part:*`, `template:*`, `template:*`
 - **Process:** Identify surface → tag → route
 
 **Default tags (grouped):**
@@ -870,7 +870,7 @@ Apply Plugin specific tag families if relevant **at triage**, take note that the
 
 - `woo:block-product-collections` — Curated collections.  
 - `woo:block-product-search` — Search form/logic.  
-- `woo:block-cart` — Cart block with inner blocks.   
+- `woo:block-cart` — Cart block with inner blocks.
 - `woo:block-checkout` — Checkout block with inner blocks.
 
 ### **Woo Pages**
@@ -909,4 +909,3 @@ Apply Plugin specific tag families if relevant **at triage**, take note that the
 - `woo:template-product-search-results` — Results listing.
 
 ---
-

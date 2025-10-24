@@ -8,6 +8,7 @@ applyTo: '**/*.md'
 ## Purpose
 
 Mermaid diagrams enhance documentation by visualizing:
+
 - Process flows and workflows
 - Architecture and system relationships  
 - Directory structures and hierarchies
@@ -16,38 +17,48 @@ Mermaid diagrams enhance documentation by visualizing:
 
 ## When to Use Mermaid Diagrams
 
-### ✅ **Recommended Use Cases**
+### ✅ **MANDATORY Use Cases - Add Whenever Present**
+
+**CRITICAL: Mermaid diagrams MUST be inserted whenever they would enhance understanding of:**
 
 **Architecture & Structure:**
-- Folder/directory relationships
-- System component interactions
-- Schema relationships and dependencies
-- Agent ecosystems and workflows
+
+- Folder/directory relationships - ALWAYS add for complex structures
+- System component interactions - REQUIRED for multi-component systems
+- Schema relationships and dependencies - MANDATORY for data relationships
+- Agent ecosystems and workflows - ESSENTIAL for AI/automation documentation
 
 **Process Flows:**
-- CI/CD pipelines and workflows
-- Testing processes and validation flows
-- Data transformation and validation
-- User journeys and decision trees
+
+- CI/CD pipelines and workflows - REQUIRED for all automation documentation
+- Testing processes and validation flows - MANDATORY in test documentation
+- Data transformation and validation - ESSENTIAL for data processing docs
+- User journeys and decision trees - REQUIRED for user-facing processes
 
 **Documentation Enhancement:**
-- Complex README files with multiple components
-- Technical specifications with interdependencies  
-- Onboarding guides with sequential steps
-- Troubleshooting decision trees
 
-### ❌ **Avoid When**
+- Complex README files with multiple components - ALWAYS include overview diagrams
+- Technical specifications with interdependencies - MANDATORY for system docs
+- Onboarding guides with sequential steps - REQUIRED for process documentation
+- Troubleshooting decision trees - ESSENTIAL for support documentation
 
-- Simple lists or basic hierarchies work better
-- Diagram would be larger than the text it represents
-- Information changes frequently (maintenance overhead)
-- Accessibility concerns without proper alt text
+### ⚠️ **Limited Exceptions Only**
+
+**Only avoid when ALL of the following are true:**
+
+- Simple lists or basic hierarchies work better AND
+- Diagram would be significantly larger than the text it represents AND
+- Information changes frequently (maintenance overhead) AND
+- Accessibility concerns cannot be resolved with proper alt text
+
+**DEFAULT POSITION: When in doubt, ADD the diagram. Visual documentation enhances understanding for all users.**
 
 ## Mermaid Syntax Reference
 
 ### Basic Graph Types
 
 #### **Flowchart (Most Common)**
+
 ```mermaid
 flowchart TD
     A[Start] --> B{Decision?}
@@ -58,6 +69,7 @@ flowchart TD
 ```
 
 #### **Graph (Relationships)**
+
 ```mermaid
 graph TB
     A[Schemas] --> B[Frontmatter]
@@ -69,6 +81,7 @@ graph TB
 ```
 
 #### **Architecture Diagram**
+
 ```mermaid
 graph LR
     subgraph "LightSpeed .github"
@@ -89,6 +102,7 @@ graph LR
 ### Advanced Diagram Types
 
 #### **Sequence (Process Flow)**
+
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -104,6 +118,7 @@ sequenceDiagram
 ```
 
 #### **State Diagram (Lifecycles)**
+
 ```mermaid
 stateDiagram-v2
     [*] --> Draft
@@ -115,6 +130,7 @@ stateDiagram-v2
 ```
 
 #### **GitGraph (Development Flow)**
+
 ```mermaid
 gitgraph
     commit id: "Initial"
@@ -132,6 +148,7 @@ gitgraph
 ### 1. **Consistent Styling**
 
 **Node Shapes:**
+
 - `[Rectangle]` - Standard processes/components
 - `{Diamond}` - Decisions/conditionals  
 - `((Circle))` - Start/end points
@@ -139,6 +156,7 @@ gitgraph
 - `[[Subroutine]]` - Sub-processes
 
 **Color Coding:**
+
 ```mermaid
 flowchart TD
     A[Input] --> B[Process]
@@ -162,11 +180,13 @@ flowchart TD
 ### 2. **Accessibility Requirements**
 
 **Always Include:**
+
 - Descriptive alt text in surrounding context
 - Text description of diagram purpose
 - Key relationships explained in prose
 
 **Example:**
+
 ```markdown
 The following diagram shows the LightSpeed testing ecosystem:
 
@@ -175,6 +195,7 @@ The following diagram shows the LightSpeed testing ecosystem:
 ```
 
 The diagram illustrates how test files in different folders (awesome-copilot, includes, maintenance, projects, pytests, utility) all connect to the central test runner, which coordinates with the coverage system and generates reports.
+
 ```
 
 ### 3. **Size and Complexity Guidelines**
@@ -219,7 +240,9 @@ The system consists of three main parts...
 ```
 
 Process steps:
+
 1. ...
+
 ```
 
 ## LightSpeedWP-Specific Patterns
@@ -240,6 +263,7 @@ graph TB
 ```
 
 ### 2. **Schema Relationships**
+
 ```mermaid
 graph LR
     subgraph "Core Schemas"
@@ -271,6 +295,7 @@ graph LR
 ```
 
 ### 3. **Testing Flow**
+
 ```mermaid
 flowchart TD
     A[Code Change] --> B[Pre-commit Hooks]
@@ -291,6 +316,7 @@ flowchart TD
 ## Quality Checklist
 
 **Before Adding a Diagram:**
+
 - [ ] Diagram adds clarity beyond text description
 - [ ] All nodes and connections are labeled clearly
 - [ ] Color coding is consistent and meaningful
@@ -300,6 +326,7 @@ flowchart TD
 - [ ] Fits the documentation flow naturally
 
 **Maintenance:**
+
 - [ ] Diagram reflects current system state
 - [ ] Related documentation is updated when diagram changes
 - [ ] Links and references in diagram are valid
@@ -308,12 +335,14 @@ flowchart TD
 ## Tools & Testing
 
 **Recommended Editors:**
+
 - GitHub (native support)
 - VS Code with Mermaid extensions
-- Mermaid Live Editor (https://mermaid.live)
+- Mermaid Live Editor (<https://mermaid.live>)
 - Draw.io (has Mermaid support)
 
 **Validation:**
+
 - Test diagrams in Mermaid Live Editor before committing
 - Verify GitHub renders them correctly
 - Check accessibility with screen readers when possible
@@ -322,6 +351,7 @@ flowchart TD
 ## Examples Repository
 
 See existing diagrams in:
+
 - `.github/agents/README.md` - Agent Ecosystem Map
 - `tests/README.md` - Testing Architecture  
 - `scripts/README.md` - Scripts Workflow
@@ -331,9 +361,9 @@ See existing diagrams in:
 
 ## References
 
-- **Mermaid Documentation**: https://mermaid.js.org/
-- **GitHub Mermaid Support**: https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/
-- **Accessibility Guidelines**: https://www.w3.org/WAI/tutorials/images/complex/
+- **Mermaid Documentation**: <https://mermaid.js.org/>
+- **GitHub Mermaid Support**: <https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/>
+- **Accessibility Guidelines**: <https://www.w3.org/WAI/tutorials/images/complex/>
 - **LightSpeed Schema**: [frontmatter.schema.json](../../schemas/frontmatter.schema.json)
 
 *Follow LightSpeed governance v2.0 and awesome-copilot integration standards for all diagram implementations.*

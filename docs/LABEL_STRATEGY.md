@@ -113,30 +113,30 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 - **Labeler Config:**  
   `.github/labeler.yml` auto-applies labels based on:
-    - Branch prefixes (e.g., `feat/`, `fix/`)
-    - File paths/globs (e.g., `src/blocks/**` → `area:block-editor`)
+  - Branch prefixes (e.g., `feat/`, `fix/`)
+  - File paths/globs (e.g., `src/blocks/**` → `area:block-editor`)
 - **Workflow Enforcement:**
-    - CI fails if required labels are missing or conflicting.
-    - Status and priority labels drive automation in project boards and release gating.
+  - CI fails if required labels are missing or conflicting.
+  - Status and priority labels drive automation in project boards and release gating.
 - **Project Board Sync:**
-    - Labels map to project fields for triage, status, priority, and reporting.
+  - Labels map to project fields for triage, status, priority, and reporting.
 - **Changelog & Release:**
-    - Meta and release labels trigger workflows for changelog entries and semantic version bumps.
+  - Meta and release labels trigger workflows for changelog entries and semantic version bumps.
 - **Bots/Agents:**
-    - Use labels to assign reviewers, escalate support, route discussions, or automate notifications.
+  - Use labels to assign reviewers, escalate support, route discussions, or automate notifications.
 
 ---
 
 ## 5. How Labels Are Applied
 
 - **Automation:**
-    - File/branch changes and PR body front matter trigger label application via the labeling agent.
-    - The agent enforces one-hot (single) status, priority, and type.
-    - Missing or non-canonical labels are auto-corrected to match `.github/labels.yml`.
-    - Changelog and release hygiene labels are nudged as needed (`meta:needs-changelog`, etc).
+  - File/branch changes and PR body front matter trigger label application via the labeling agent.
+  - The agent enforces one-hot (single) status, priority, and type.
+  - Missing or non-canonical labels are auto-corrected to match `.github/labels.yml`.
+  - Changelog and release hygiene labels are nudged as needed (`meta:needs-changelog`, etc).
 
 - **Manual adjustment:**
-    - Maintainers may adjust labels as needed for clarity or triage.
+  - Maintainers may adjust labels as needed for clarity or triage.
 
 ---
 

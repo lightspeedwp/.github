@@ -1,4 +1,4 @@
-# **Changelog & Release Automation** 
+# **Changelog & Release Automation**
 
 ## *Product Development Workflow*
 
@@ -38,7 +38,7 @@ Example:
 `### Fixed`  
 `- **Security:** Resolved an XSS vulnerability in the comments module (thanks @contributor for reporting).`
 
-*  In this example, headings like “Added” and “Fixed” are used to categorize changes, and important keywords (like “Security”) are highlighted for emphasis to users.
+* In this example, headings like “Added” and “Fixed” are used to categorize changes, and important keywords (like “Security”) are highlighted for emphasis to users.
 
 * **Linked Issues and Enhancements:** In product development, issues (feature requests, bug reports) often contain the initial problem statement or acceptance criteria. If your workflow uses GitHub Issues with fields or if you tag issues with something like `change log: ...` entries, you can configure the automation to pull that in. For instance, if an issue has a section “Planned Change” or a custom field in a GitHub Project, the release automation can append that detail. This ensures the release note captures not just what was done, but the context (often, product users appreciate knowing the why or the impact). If not pulling automatically, at least encourage developers to incorporate relevant details from the issue into the PR’s changelog entry.
 
@@ -279,4 +279,3 @@ The deliverables from this setup include:
 By using the attached example workflow and configs (and adjusting to your repository’s needs), you set up a robust continuous release pipeline. This saves time (no manual changelog writing at release time) and reduces errors (no forgotten changes, no version conflicts), and gives your users confidence via clear, timely release notes. The development team can focus on building features, knowing that once they merge to main, the rest – from changelog entry to actual release – is handled automatically and correctly.
 
 ---
-

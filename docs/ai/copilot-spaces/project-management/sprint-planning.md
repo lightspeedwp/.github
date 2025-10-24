@@ -82,6 +82,7 @@ Ensure your sprint planning results in:
 ## Safety & Limits
 
 **Avoid these common pitfalls:**
+
 - Overcommitting beyond historical team velocity
 - Selecting stories without clear acceptance criteria
 - Ignoring dependencies or external blocking factors
@@ -89,6 +90,7 @@ Ensure your sprint planning results in:
 - Making commitments without full team consensus
 
 **Always ensure:**
+
 - Psychological safety for team members to voice concerns
 - Realistic expectations based on historical performance
 - Buffer time for unexpected issues and learning
@@ -97,7 +99,8 @@ Ensure your sprint planning results in:
 
 ## Examples
 
-### Example Input:
+### Example Input
+
 - **Sprint Duration**: 2 weeks
 - **Team Capacity**: 5 developers, 80% capacity (vacation/meetings)
 - **Product Backlog**: 25 refined stories, top 10 ready for development
@@ -107,14 +110,16 @@ Ensure your sprint planning results in:
 - **Dependencies**: External API integration pending vendor response
 - **Previous Sprint**: Completed 42 story points, 3 stories carried over
 
-### Example Output:
+### Example Output
 
 # Sprint 15 Planning Results
 
 ## Sprint Goal
+
 **"Implement user authentication and basic profile management to enable secure user access and personalized experiences"**
 
 ## Team Capacity Analysis
+
 - **Development Team**: 5 developers (QA and design capacity tracked separately)
 - **Sprint Duration**: 10 working days  
 - **Net Available Capacity**: 334 hours
@@ -123,17 +128,20 @@ Ensure your sprint planning results in:
 ## Selected Stories (42 points total)
 
 ### Epic: User Authentication (26 points)
+
 - **US-101**: User Registration (8 points)
 - **US-102**: User Login/Logout (5 points)  
 - **US-103**: Password Reset Flow (8 points)
 - **US-104**: Session Management (5 points)
 
 ### Epic: Profile Management (16 points)
+
 - **US-201**: View Profile Information (3 points)
 - **US-202**: Edit Basic Profile (8 points)
 - **US-203**: Avatar Upload (5 points)
 
 ## Sprint Commitment
+
 All team members committed to sprint scope and goals. Definition of Done criteria established for each story.
 
 **Success Metrics**: Complete all 42 story points, achieve sprint goal, maintain quality standards.

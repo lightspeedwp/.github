@@ -36,11 +36,13 @@ find .github/agents -maxdepth 1 -name "*.js" \
 
 ## 3. For Each Missing or Outdated Test
 
-### Create:
+### Create
+
 - Add a `*.test.js` file in the correct folder, matching the implementation file name.
 - Use the patterns and helpers from `tests/test-helpers.js`.
 
-### Update:
+### Update
+
 - If the logic is now part of the unified labeling agent, merge those tests into `.github/agents/__tests__/labeling.agent.test.js`.
 - Remove or repurpose tests for deprecated agents/utilities.
 

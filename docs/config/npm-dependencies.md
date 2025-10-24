@@ -132,6 +132,7 @@
 ```
 
 **Version Ranges:**
+
 - **Exact (`26.19.0`)**: Critical packages, WordPress Scripts
 - **Caret (`^18.2.0`)**: Minor updates allowed, React ecosystem
 - **Tilde (`~4.17.21`)**: Patch updates only, utilities

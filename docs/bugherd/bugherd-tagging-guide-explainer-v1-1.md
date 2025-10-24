@@ -186,4 +186,3 @@ This shows tone/length and how grouped defaults read. Replace it with your real 
 * Label discipline and governance (one clear purpose; avoid duplication). [GitHub Docs+1](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels?utm_source=chatgpt.com)
 
 ---
-

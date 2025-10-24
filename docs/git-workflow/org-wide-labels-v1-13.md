@@ -6,6 +6,7 @@
 **Scope:** Canonical list of organisation-wide GitHub labels. Use labels for **routing & search**. Keep **Project fields** authoritative for Status, Priority, Area/Theme, etc.
 
 ## Families
+
 Labels follow the `family:value` convention. Colours follow a consistent palette for scanning across repos.
 
 ### `priority:*`
@@ -182,6 +183,7 @@ Labels follow the `family:value` convention. Colours follow a consistent palette
 | `compat:rtl` | `#D93F0B` | Right-to-left layout support. |
 
 ### Usage notes
+
 - Keep **exactly one** `status:*` and **one** `priority:*` on issues/PRs.
 - Use `status:needs-*` to drive automation (e.g., `status:needs-qa` → moves to **In QA**).
 - Prefer **Project fields** for Status/Priority/Area/Theme; use labels to echo for visibility/search.

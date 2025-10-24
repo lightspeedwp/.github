@@ -8,8 +8,9 @@ This document documents the Block Theme Template Hierarchy (by query/context) an
 - How to use patterns/ for layout variants instead of proliferating template-part slugs.
 
 If you want the formal WordPress reference, see:
-- Template Hierarchy overview — https://developer.wordpress.org/themes/templates/template-hierarchy/
-- Template Hierarchy basics — https://developer.wordpress.org/themes/basics/template-hierarchy/
+
+- Template Hierarchy overview — <https://developer.wordpress.org/themes/templates/template-hierarchy/>
+- Template Hierarchy basics — <https://developer.wordpress.org/themes/basics/template-hierarchy/>
 
 This document aligns the project's file list and naming conventions with the WordPress template hierarchy rules so that WordPress will select the most specific template available and fall back predictably to more generic templates (ultimately templates/index.html).
 
@@ -73,6 +74,7 @@ Keep template part filenames kebab-case and slugs consistent with file names (fo
 Notes: templates/front-page.html always takes precedence if present. If a static Page object is used and front-page.html is absent, WordPress will use the page-specific templates (page-{slug}.html / page-{id}.html) before falling back to page.html and then index.html.
 
 Recommended template parts to include:
+
 - parts/skip-links.html
 - parts/header.html
 - parts/hero.html (or patterns/hero-page.html)
@@ -91,6 +93,7 @@ Recommended template parts to include:
 Notes: templates/home.html is the intended posts-index template for block themes. If the Posts page is an actual static Page object, page templates can apply when front-page/front-page.html is not present (see Front page rules).
 
 Recommended template parts:
+
 - parts/skip-links.html
 - parts/header.html
 - Query Loop scoped to posts (parts/loop-default or patterns/post-card)
@@ -103,6 +106,7 @@ Recommended template parts:
 ## Singular hierarchy
 
 Single posts and CPTs:
+
 - Single (custom post types and post):
   1. templates/single-{post_type}.html
   2. templates/single.html
@@ -110,6 +114,7 @@ Single posts and CPTs:
   4. templates/index.html
 
 Page (static pages):
+
 - Page:
   1. templates/page-{slug}.html
   2. templates/page-{id}.html
@@ -118,6 +123,7 @@ Page (static pages):
   5. templates/index.html
 
 Attachment pages:
+
 - Attachment:
   1. templates/attachment.html
   2. templates/single.html
@@ -127,6 +133,7 @@ Attachment pages:
 Notes: Use templates/single-{post_type}.html for CPT single views when you need a custom layout (e.g., templates/single-product.html). Use page-{slug}.html/page-{id}.html for landing pages or highly-specific page overrides.
 
 Recommended template parts:
+
 - parts/skip-links.html
 - parts/header.html
 - parts/hero.html (patterns/hero-post.html optional)
@@ -142,11 +149,13 @@ Recommended template parts:
 ## Archive hierarchy
 
 Generic archive (post type archives):
+
 - 1. templates/archive-{post_type}.html
 - 2. templates/archive.html
 - 3. templates/index.html
 
 Category archive:
+
 - 1. templates/category-{slug}.html
 - 2. templates/category-{id}.html
 - 3. templates/category.html
@@ -154,12 +163,14 @@ Category archive:
 - 5. templates/index.html
 
 Tag archive:
+
 - 1. templates/tag-{slug}.html
 - 2. templates/tag.html
 - 3. templates/archive.html
 - 4. templates/index.html
 
 Custom taxonomy:
+
 - 1. templates/taxonomy-{taxonomy}-{term}.html
 - 2. templates/taxonomy-{taxonomy}.html
 - 3. templates/taxonomy.html
@@ -169,6 +180,7 @@ Custom taxonomy:
 Notes: Use templates/archive-{post_type}.html for CPT archives when has_archive is registered. Term- and taxonomy-specific templates allow highly tailored layouts for particular taxonomies or terms.
 
 Recommended template parts:
+
 - parts/skip-links.html
 - parts/header.html
 - parts/hero.html or patterns/hero-archives.html (term title + description)
@@ -188,6 +200,7 @@ Recommended template parts:
 Notes: search.html should include a visible Search block and an accessible heading: "Search results for: {query}". Provide search refinement (search form) and a usable empty-state with suggestions or Recent/Popular posts.
 
 Template parts to include:
+
 - parts/skip-links.html
 - parts/header.html (with visible search)
 - Search results heading + Query Loop
@@ -203,6 +216,7 @@ Template parts to include:
 Notes: Provide helpful actions: search form, popular links, home link. Keep 404.html focused and helpful; include a visible H1 like "Page not found".
 
 Recommended template parts:
+
 - parts/skip-links.html
 - parts/header.html
 - H1 "Page not found" and actions
@@ -223,17 +237,20 @@ Notes: templates/embed.html wraps oEmbed/embed requests in a minimal layout. Kee
 ## Date & Author archives
 
 Date-based archives:
+
 - templates/date.html
 - templates/archive.html
 - templates/index.html
 
 Author archives:
+
 - templates/author.html
 - templates/author-{nicename}.html
 - templates/author-{id}.html
 - templates/index.html
 
 Recommended template parts:
+
 - parts/skip-links.html
 - parts/header.html
 - For author: parts/author-card.html (patterns/author-card-full.html)
@@ -321,7 +338,8 @@ Note: theme.json registration improves discoverability inside the Site Editor bu
 ## Where this aligns with official docs
 
 This document follows the official WordPress Template Hierarchy and Practical usage for block themes:
-- https://developer.wordpress.org/themes/templates/template-hierarchy/
-- https://developer.wordpress.org/themes/basics/template-hierarchy/
+
+- <https://developer.wordpress.org/themes/templates/template-hierarchy/>
+- <https://developer.wordpress.org/themes/basics/template-hierarchy/>
 
 Follow those guides for any additional corner-case fallbacks or unusual template naming needs. The filenames and slugs listed here are the canonical ones used by this project and are arranged to match WordPress’s selection order so that the platform will pick the most specific available template automatically.

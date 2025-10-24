@@ -61,6 +61,7 @@ The generated repository structure should include:
 ## Safety & Limits
 
 **Do not include:**
+
 - Hardcoded secrets, API keys, or passwords
 - Production database credentials
 - Specific company or client information
@@ -68,6 +69,7 @@ The generated repository structure should include:
 - Insecure authentication implementations
 
 **Always include:**
+
 - Environment variable templates with example values
 - Security headers and middleware
 - Input validation and sanitization
@@ -77,7 +79,8 @@ The generated repository structure should include:
 
 ## Examples
 
-### Example Input:
+### Example Input
+
 - **Project Name**: task-manager-pro
 - **Frontend Framework**: React (TypeScript)
 - **Backend Framework**: Express.js (TypeScript)
@@ -88,7 +91,7 @@ The generated repository structure should include:
 - **Project Type**: Production application
 - **Additional Services**: SendGrid (email), Cloudinary (file storage)
 
-### Example Output:
+### Example Output
 
 # Task Manager Pro - Full-Stack Application
 
@@ -151,6 +154,7 @@ task-manager-pro/
 ## 📋 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+ and npm
 - PostgreSQL 14+
 - Docker and Docker Compose (optional)
@@ -158,6 +162,7 @@ task-manager-pro/
 ### Installation
 
 1. **Clone and install dependencies**
+
 ```bash
 git clone <repository-url> task-manager-pro
 cd task-manager-pro
@@ -165,6 +170,7 @@ npm install
 ```
 
 2. **Set up environment variables**
+
 ```bash
 # Copy environment templates
 cp .env.example .env
@@ -175,6 +181,7 @@ cp server/.env.example server/.env
 ```
 
 3. **Start PostgreSQL database**
+
 ```bash
 # Option 1: Using Docker
 docker-compose up -d postgres
@@ -185,6 +192,7 @@ createdb task_manager_pro
 ```
 
 4. **Run database migrations**
+
 ```bash
 cd server
 npm run migrate
@@ -192,6 +200,7 @@ npm run seed
 ```
 
 5. **Start development servers**
+
 ```bash
 # Start both frontend and backend
 npm run dev

@@ -37,7 +37,6 @@ type: "prompt"
       # Prompt (required — see D2)
       - Link to this instructions file or paste its text.
 
-
 ---
 Provide safe defaults; mark optional flags clearly.
 Start by asking about any LightSpeed internal process, documentation, or best practice. This Space is your single source of truth for LightSpeed workflows.

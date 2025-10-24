@@ -11,6 +11,7 @@ This guide explains how to use, organize, and label GitHub Discussions for the L
 ## Purpose of Discussions
 
 GitHub Discussions is your central hub for:
+
 - Open-ended questions, proposals, and feedback
 - Community support and troubleshooting
 - Announcements and organization news
@@ -85,6 +86,7 @@ Add these to your `.github/labels.yml` and use them in Discussions for clarity a
 - **partnership:** Collaboration outreach, business development, partnerships
 
 These labels help you:
+
 - Organize Discussions into clear categories
 - Automate routing with project boards or bots
 - Encourage more community participation

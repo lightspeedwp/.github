@@ -71,8 +71,6 @@ This table contains command-line tools that should be installed globally on your
 
 ---
 
-
-
 ### 3. Project-Specific npm Dependencies
 
 #### Project devDependencies (add to package.json)
@@ -235,7 +233,6 @@ In this copyright-date-block project, husky is configured with the following hoo
 
 This ensures all code committed and pushed to the repository maintains consistent quality standards and follows proper conventions.
 
-
 ### Simplified Setup Recommendation: Block Plugin
 
 For developers who want to get started quickly without configuring individual tools, WordPress provides comprehensive packages that bundle the necessary build tools together. This simplified approach reduces setup time and ensures compatibility between tools, at the cost of some customization flexibility.
@@ -303,8 +300,6 @@ For developers who want to get started quickly without configuring individual to
 
 ### Simplified Setup Recommendation: Block Theme
 
-
-
 ### Direct npm install (no package.json update required)
 
 Sometimes you need to quickly install utilities for specific tasks without formally adding them to your project's dependencies. These ad-hoc tools can be installed directly via npm commands, either globally or locally. This approach is useful for one-off tasks, experimentation, or tools that you don't want to include in your project's dependency list.
@@ -358,9 +353,7 @@ The table below outlines essential Composer packages for maintaining PHP code qu
 | phpunit/phpunit                | Testing          | PHP unit testing framework                                   | composer require --dev phpunit/phpunit           |
 | brainmaestro/composer-git-hooks| Utility          | Git hooks for Composer projects                              | composer require --dev brainmaestro/composer-git-hooks |
 
-
 ---
-
 
 ## 5. Recommended VS Code Extensions
 

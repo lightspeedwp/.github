@@ -43,7 +43,7 @@ The PHPCS configuration is defined in `.phpcs.xml.dist`:
 ```xml
 <?xml version="1.0"?>
 <ruleset name="Project Rules">
-	<rule ref="10up-Default" />
+ <rule ref="10up-Default" />
 </ruleset>
 ```
 

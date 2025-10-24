@@ -55,6 +55,7 @@ The generated code review should include:
 ## Safety & Limits
 
 **Do not suggest:**
+
 - Changes that could break existing functionality without clear warnings
 - Overly complex refactoring for minor improvements
 - Removing security measures without proper alternatives
@@ -62,6 +63,7 @@ The generated code review should include:
 - Personal coding style preferences as requirements
 
 **Always consider:**
+
 - Team coding standards and conventions
 - Project constraints and requirements
 - Learning opportunities for the developer
@@ -70,7 +72,8 @@ The generated code review should include:
 
 ## Examples
 
-### Example Input:
+### Example Input
+
 - **Programming Language**: JavaScript
 - **Code Context**: User authentication function for web application
 - **Code Complexity**: Medium
@@ -79,7 +82,8 @@ The generated code review should include:
 - **Project Type**: Web application
 - **Framework/Stack**: Express.js with JWT
 
-### Example Code to Review:
+### Example Code to Review
+
 ```javascript
 function loginUser(req, res) {
   const { email, password } = req.body;
@@ -95,21 +99,24 @@ function loginUser(req, res) {
 }
 ```
 
-### Example Output:
+### Example Output
 
 # Code Review: User Authentication Function
 
 ## Summary
+
 This authentication function has several critical security vulnerabilities that need immediate attention. While the basic structure is sound, security best practices are not being followed.
 
 ## Critical Issues 🚨
 
 ### 1. Plain Text Password Comparison (Line 4)
+
 **Issue**: Passwords are being stored and compared in plain text, which is a severe security vulnerability.
 
 **Risk**: If the database is compromised, all user passwords are immediately exposed.
 
 **Solution**: Use bcrypt to hash passwords:
+
 ```javascript
 const bcrypt = require('bcrypt');
 
@@ -121,11 +128,13 @@ const isValidPassword = await bcrypt.compare(password, user.hashedPassword);
 ```
 
 ### 2. Hardcoded JWT Secret (Line 7)
+
 **Issue**: Using a hardcoded secret in the source code.
 
 **Risk**: Secret is exposed in version control and cannot be rotated easily.
 
 **Solution**: Use environment variables:
+
 ```javascript
 const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
   expiresIn: '1h'
@@ -135,14 +144,17 @@ const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
 ## High Priority Issues ⚠️
 
 ### 3. Missing Rate Limiting
+
 **Issue**: No protection against brute force attacks.
 
 **Solution**: Implement rate limiting middleware before this function.
 
 ### 4. Information Disclosure (Line 8)
+
 **Issue**: Returning full user object may expose sensitive information.
 
 **Solution**: Return only necessary user data:
+
 ```javascript
 res.json({ 
   token: token, 
@@ -157,11 +169,13 @@ res.json({
 ## Medium Priority Issues 📝
 
 ### 5. Missing Input Validation
+
 **Issue**: No validation of email format or password requirements.
 
 **Solution**: Add validation middleware or use a library like Joi.
 
 ### 6. No Token Expiration
+
 **Issue**: JWT tokens don't expire, creating security risk.
 
 **Solution**: Add expiration time as shown in issue #2.

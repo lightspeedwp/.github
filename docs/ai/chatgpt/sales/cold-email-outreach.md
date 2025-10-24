@@ -54,6 +54,7 @@ The generated email should meet these criteria:
 ## Safety & Limits
 
 **Do not use this template for:**
+
 - Mass email campaigns without personalization
 - Misleading or false claims about your product/service
 - Aggressive or pushy sales tactics
@@ -61,6 +62,7 @@ The generated email should meet these criteria:
 - Industries you don't understand or can't help
 
 **Always ensure:**
+
 - Compliance with CAN-SPAM Act and GDPR
 - Truthful representation of your offerings
 - Respect for the recipient's time and inbox
@@ -68,7 +70,8 @@ The generated email should meet these criteria:
 
 ## Examples
 
-### Example Input:
+### Example Input
+
 - **Prospect Name**: Sarah Chen
 - **Company Name**: TechStart Solutions
 - **Company Industry**: SaaS startup
@@ -80,7 +83,8 @@ The generated email should meet these criteria:
 - **Company Name**: DevScale Partners
 - **Credentials**: 8 years helping startups scale development teams
 
-### Example Output:
+### Example Output
+
 **Subject**: Quick question about TechStart's development scaling
 
 Hi Sarah,
@@ -94,4 +98,4 @@ Would you be open to a brief 15-minute call this week to discuss your current hi
 Best regards,
 Alex Rodriguez
 Senior Partner, DevScale Partners
-alex@devscale.com | (555) 123-4567
+<alex@devscale.com> | (555) 123-4567

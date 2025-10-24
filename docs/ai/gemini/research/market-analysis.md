@@ -57,12 +57,14 @@ The market analysis should include:
 ## Safety & Limits
 
 **Do not make claims about:**
+
 - Specific financial performance of private companies without public data
 - Proprietary information or trade secrets
 - Predictions that could be considered investment advice
 - Unverified market rumors or speculation
 
 **Always include:**
+
 - Clear data sources and limitations
 - Assumptions underlying projections
 - Confidence levels for different findings
@@ -71,7 +73,8 @@ The market analysis should include:
 
 ## Examples
 
-### Example Input:
+### Example Input
+
 - **Industry/Market**: Plant-based meat alternatives
 - **Geographic Scope**: North American market
 - **Time Frame**: 2020-2028 analysis and forecast
@@ -82,13 +85,14 @@ The market analysis should include:
 - **Budget Range**: $5-15M investment for market entry
 - **Competitive Focus**: Direct plant-based competitors and traditional meat industry
 
-### Example Output:
+### Example Output
 
 # North American Plant-Based Meat Market Analysis (2020-2028)
 
 ## Executive Summary
 
 The North American plant-based meat market presents significant growth opportunities:
+
 - Market size expected to reach $12.3B by 2028 (CAGR 19.8%)
 - Key drivers: health consciousness, environmental concerns, product innovation
 - Recommended strategy: premium retail positioning with $8-12M initial investment
@@ -96,12 +100,14 @@ The North American plant-based meat market presents significant growth opportuni
 ## Market Overview
 
 ### Market Size & Growth
+
 - **Current Market Size (2023)**: $4.2 billion
 - **Projected Market Size (2028)**: $12.3 billion  
 - **CAGR (2023-2028)**: 19.8%
 - **Share of Total Meat Market**: 2.7% (2023) → 5.8% (2028)
 
 ### Key Market Drivers
+
 1. **Health & Wellness Trends**: 67% of consumers reducing meat consumption
 2. **Environmental Concerns**: Growing awareness of carbon footprint
 3. **Product Innovation**: Improved taste and texture driving adoption
@@ -110,10 +116,11 @@ The North American plant-based meat market presents significant growth opportuni
 ## Competitive Landscape
 
 ### Market Leaders
+
 1. **Beyond Meat (22% market share)**
    - Strengths: Brand recognition, retail presence, innovation
    - Weaknesses: Premium pricing, limited product range
-   
+
 2. **Impossible Foods (18% market share)**
    - Strengths: Restaurant partnerships, technology, taste profile
    - Weaknesses: Limited retail availability, high production costs
@@ -123,6 +130,7 @@ The North American plant-based meat market presents significant growth opportuni
    - Weaknesses: Traditional image, limited innovation
 
 ### Competitive Gaps Identified
+
 - **Mid-premium segment** ($6-9/lb price point) underserved
 - **Regional/local positioning** lacking among major brands
 - **Clean label products** with minimal processing
@@ -131,6 +139,7 @@ The North American plant-based meat market presents significant growth opportuni
 ## Customer Segmentation
 
 ### Primary Segments
+
 1. **Health-Conscious Omnivores (43% of buyers)**
    - Demographics: Ages 25-45, household income $50K+
    - Motivations: Health, nutrition, weight management
@@ -156,6 +165,7 @@ The North American plant-based meat market presents significant growth opportuni
 **Geographic Focus**: Pacific Northwest and Northeast regions initially
 
 ### Investment Requirements
+
 - **Product Development**: $2-3M (12-18 months)
 - **Manufacturing Setup**: $3-4M (facility, equipment, certification)
 - **Marketing & Brand Launch**: $2-3M (first 24 months)
@@ -163,6 +173,7 @@ The North American plant-based meat market presents significant growth opportuni
 - **Total Investment Range**: $8-12M
 
 ### Implementation Timeline
+
 - **Months 1-6**: Product development, market testing
 - **Months 7-12**: Manufacturing setup, regulatory approvals
 - **Months 13-18**: Brand launch, retail partnerships
@@ -171,15 +182,18 @@ The North American plant-based meat market presents significant growth opportuni
 ## Risk Assessment
 
 ### High Risks
+
 - **Intense Competition**: Established players with deep resources
 - **Consumer Adoption**: Taste/texture acceptance challenges
 - **Supply Chain**: Ingredient sourcing and price volatility
 
 ### Medium Risks  
+
 - **Regulatory Changes**: FDA labeling requirements evolution
 - **Economic Sensitivity**: Premium pricing vulnerable to recession
 
 ### Mitigation Strategies
+
 - **Differentiation Focus**: Unique positioning and product benefits
 - **Partnership Approach**: Co-manufacturing and retail relationships
 - **Gradual Scaling**: Regional launch before national expansion
@@ -187,6 +201,7 @@ The North American plant-based meat market presents significant growth opportuni
 ## Financial Projections
 
 ### Revenue Forecast (Years 1-5)
+
 - **Year 1**: $2.5M (regional launch)
 - **Year 2**: $8.2M (expanded distribution)
 - **Year 3**: $18.7M (multi-regional presence)
@@ -194,6 +209,7 @@ The North American plant-based meat market presents significant growth opportuni
 - **Year 5**: $52.1M (established market position)
 
 ### Key Success Metrics
+
 - **Market Share Target**: 2-3% in target regions by Year 3
 - **Retail Placement**: 500+ stores by Year 2, 2,000+ by Year 5  
 - **Brand Awareness**: 25% aided awareness in target markets by Year 3
@@ -201,12 +217,14 @@ The North American plant-based meat market presents significant growth opportuni
 ## Recommendations
 
 ### Immediate Actions (Next 3 months)
+
 1. **Conduct consumer taste tests** in target markets
 2. **Develop prototype products** for three core SKUs  
 3. **Initiate retail partnership discussions** with regional chains
 4. **Secure co-manufacturing relationships** for initial production
 
 ### Strategic Priorities
+
 1. **Focus on differentiation** through clean-label positioning
 2. **Build regional presence** before national expansion
 3. **Invest in taste/texture optimization** as competitive advantage

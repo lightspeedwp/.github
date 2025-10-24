@@ -3,6 +3,7 @@
 This implementation guide consolidates the canonical list of template parts, their purpose, minimal block content, and the recommended usage patterns and registration approach. It aligns to the project's Block Theme guidelines and the canonical parts list.
 
 ## Key principles
+
 - Keep parts small and single-purpose; use patterns/ for layout variants.
 - Prefer core blocks (Site Title, Navigation, Social Links, Site Logo, Post Title, Post Content, Query Loop).
 - Register template parts in theme.json under `templateParts` with friendly titles.
@@ -10,6 +11,7 @@ This implementation guide consolidates the canonical list of template parts, the
 ---
 
 ## Canonical templateParts (slugs → filenames)
+
 - skip-links — parts/skip-links.html
 - header — parts/header.html
 - footer — parts/footer.html
@@ -106,6 +108,7 @@ Example registration snippet for theme.json:
 ---
 
 ## Accessibility & performance
+
 - Use single visible H1 per page.
 - Place skip-links early in DOM.
 - Ensure overlays/panels trap focus and restore it when closed (small JS modules).
@@ -115,6 +118,7 @@ Example registration snippet for theme.json:
 ---
 
 ## Next steps
+
 1. Create parts/*.html files for the canonical list above as pure block markup.
 2. Create patterns/ for hero variants, author-card variants and post-card variations.
 3. Register template parts in theme.json as shown.

@@ -1,0 +1,13 @@
+{
+    "extends": ["stylelint-config-prettier"],
+    "rules": {
+        "color-no-invalid-hex": true,
+        "block-no-empty": true,
+        "unit-no-unknown": true,
+        "property-no-unknown": true,
+        "selector-type-no-unknown": true,
+        "declaration-block-no-duplicate-properties": true,
+        "declaration-block-no-shorthand-property-overrides": true,
+        "no-duplicate-selectors": true
+    }
+}

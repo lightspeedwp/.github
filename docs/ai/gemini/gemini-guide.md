@@ -9,4 +9,5 @@ tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 type: "copilot"
 ---
 # Overview
+
 - Model selection (Pro vs Flash), strengths in fast multimodal IO.

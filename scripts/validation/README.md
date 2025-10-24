@@ -63,11 +63,13 @@ graph TD
 ## Features
 
 ### ✅ Schema Validation
+
 - Validates frontmatter against `frontmatter.schema.json`
 - Supports all JSON Schema validation features
 - Provides detailed error reporting with field-level feedback
 
 ### 🔍 File Type Detection
+
 - Automatically detects file types based on path patterns
 - Applies type-specific validation rules
 - Supports all LightSpeed file types:
@@ -82,21 +84,25 @@ graph TD
   - `saved_reply` - Saved reply files
 
 ### 📋 Required Fields Validation
+
 - Enforces required fields based on file type
 - Validates field presence and non-empty values
 - Provides specific recommendations for missing fields
 
 ### 💡 Recommended Fields Checking
+
 - Suggests optional but recommended fields
 - Helps maintain consistency across files
 - Supports best practices enforcement
 
 ### 🔗 Reference Validation
+
 - Validates `references` field arrays
 - Checks if referenced files exist
 - Ensures proper relative path formatting
 
 ### 📊 Comprehensive Reporting
+
 - Color-coded console output
 - Detailed logging to files
 - Statistics summary with counts
@@ -211,6 +217,7 @@ graph LR
 ## Output Examples
 
 ### Successful Validation
+
 ```
 [SUCCESS] Valid frontmatter [.github/agents/example.md]
 [INFO] Validation completed
@@ -224,6 +231,7 @@ graph LR
 ```
 
 ### Error Detection
+
 ```
 [ERROR] Invalid frontmatter [.github/agents/broken.md]
   {
@@ -239,6 +247,7 @@ graph LR
 ```
 
 ### Warning Examples
+
 ```
 [WARN] Missing required fields [.github/agents/incomplete.md]
   {
@@ -263,6 +272,7 @@ The validation script integrates with the repository test suite:
 ### Logging Integration
 
 All validation results are logged to:
+
 - **Console**: Color-coded real-time output
 - **Log File**: `../../logs/validation/frontmatter-validation.log`
 - **Coverage**: Test coverage reports for validation code
@@ -295,6 +305,7 @@ npm run test:watch
 ### Testing Patterns
 
 The test suite covers:
+
 - ✅ Frontmatter extraction from various formats
 - ✅ Schema validation with real and mock schemas
 - ✅ File type detection for all supported patterns

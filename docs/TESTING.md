@@ -33,16 +33,21 @@ This guide describes how to run, write, and automate tests for LightSpeed projec
 ### JavaScript/TypeScript with Jest
 
 - **Run all Jest unit/integration tests:**
+
   ```bash
   npm test
   # or
   npm run test
   ```
+
 - **Run a specific test file:**
+
   ```bash
   npx jest src/components/Button.test.js
   ```
+
 - **Watch mode (auto-re-run on changes):**
+
   ```bash
   npm run test:watch
   ```
@@ -50,22 +55,31 @@ This guide describes how to run, write, and automate tests for LightSpeed projec
 ### Playwright (E2E, Accessibility, Visual)
 
 - **Run all Playwright tests:**
+
   ```bash
   npx playwright test
   ```
+
 - **Run tests for a specific file or suite:**
+
   ```bash
   npx playwright test tests/e2e/login.spec.ts
   ```
+
 - **Run accessibility checks (if configured):**
+
   ```bash
   npx playwright test --project=a11y
   ```
+
 - **Open Playwright Test Runner UI:**
+
   ```bash
   npx playwright test --ui
   ```
+
 - **Generate/update screenshots for visual regression:**
+
   ```bash
   npx playwright test --update-snapshots
   ```
@@ -73,10 +87,13 @@ This guide describes how to run, write, and automate tests for LightSpeed projec
 ### Bash Scripts with Bats
 
 - **Run all Bats tests:**
+
   ```bash
   bats tests/bash/
   ```
+
 - **Run a specific Bats test file:**
+
   ```bash
   bats tests/bash/deploy.bats
   ```
@@ -84,14 +101,19 @@ This guide describes how to run, write, and automate tests for LightSpeed projec
 ### Linting
 
 - **JavaScript/TypeScript (ESLint + Prettier):**
+
   ```bash
   npm run lint
   ```
+
 - **PHP (PHPCS):**
+
   ```bash
   composer lint
   ```
+
 - **Markdown:**
+
   ```bash
   npm run lint:md
   ```

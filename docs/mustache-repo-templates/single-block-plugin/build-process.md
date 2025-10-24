@@ -197,4 +197,3 @@ Recommended repo files:
 - [Block Bindings Part 2](https://developer.wordpress.org/news/2024/03/06/introducing-block-bindings-part-2-working-with-custom-binding-sources/)  
 - [Getting & setting binding values in the editor](https://developer.wordpress.org/news/2024/10/getting-and-setting-block-binding-values-in-the-editor/)  
 - [GitHub Blog: Agentic primitives & context engineering](https://github.blog/ai-and-ml/github-copilot/how-to-build-reliable-ai-workflows-with-agentic-primitives-and-context-engineering/)
-

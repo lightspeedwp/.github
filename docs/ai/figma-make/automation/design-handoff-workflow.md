@@ -57,6 +57,7 @@ The automated workflow should ensure:
 ## Safety & Limits
 
 **Do not automate:**
+
 - Deletion of original design files or critical assets
 - Publishing to production environments without approval
 - Sending notifications to external clients without review
@@ -64,6 +65,7 @@ The automated workflow should ensure:
 - Access to sensitive or proprietary design information
 
 **Always include:**
+
 - Backup procedures for all generated assets
 - Approval steps for critical changes or publications
 - Error handling and rollback procedures
@@ -73,8 +75,9 @@ The automated workflow should ensure:
 
 ## Examples
 
-### Example Input:
-- **Figma Team/Project**: https://figma.com/team/acme-corp/project/mobile-app-redesign
+### Example Input
+
+- **Figma Team/Project**: <https://figma.com/team/acme-corp/project/mobile-app-redesign>
 - **Development Platform**: GitHub repository (github.com/acme/mobile-app)
 - **Asset Requirements**: PNG @2x and @3x, SVG icons, PDF specs
 - **Documentation Format**: Markdown files for GitHub wiki
@@ -84,7 +87,7 @@ The automated workflow should ensure:
 - **Asset Export Settings**: PNG (@1x, @2x, @3x), SVG (optimized)
 - **Naming Conventions**: component-name_state_platform@resolution
 
-### Example Output:
+### Example Output
 
 # Make.com Scenario: Figma to Development Handoff
 
@@ -93,24 +96,29 @@ This automation monitors Figma design updates and automatically generates develo
 ## Scenario Components
 
 ### 1. Figma Webhook Trigger
-- **Webhook URL**: https://hook.integromat.com/[scenario-id]
+
+- **Webhook URL**: <https://hook.integromat.com/[scenario-id>]
 - **Events**: FILE_VERSION_UPDATE, FILE_COMMENT
 - **Filters**: Frame status = "Ready for Dev"
 
 ### 2. Asset Processing
+
 - Extract frame coordinates and properties
 - Generate asset export URLs for each required format
 - Apply naming conventions automatically
 - Create folder structure based on component hierarchy
 
 ### 3. Documentation Generation
+
 Generate Markdown specifications with:
+
 - Design measurements and properties
 - Color values and typography details
 - Component states and interactions
 - Implementation notes for developers
 
 ### 4. Integration Actions
+
 - Upload assets to GitHub repository
 - Create pull requests with design updates
 - Send Slack notifications to development team

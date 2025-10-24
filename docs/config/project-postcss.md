@@ -57,14 +57,14 @@ const postcssImport = require('postcss-import');
 const postcssNested = require('postcss-nested');
 
 module.exports = {
-	plugins: [
-		postcssImport(),
-		postcssNested(),
-		autoprefixer({
-			browserslist: ['extends @wordpress/browserslist-config']
-		}),
-		...(process.env.NODE_ENV === 'production' ? [cssnano()] : [])
-	]
+ plugins: [
+  postcssImport(),
+  postcssNested(),
+  autoprefixer({
+   browserslist: ['extends @wordpress/browserslist-config']
+  }),
+  ...(process.env.NODE_ENV === 'production' ? [cssnano()] : [])
+ ]
 };
 ```
 
@@ -83,13 +83,13 @@ The `@wordpress/postcss-plugins-preset` includes:
 
 ```json
 {
-	"devDependencies": {
-		"postcss": "^8.4.0",
-		"@wordpress/postcss-plugins-preset": "^4.0.0",
-		"@wordpress/browserslist-config": "^5.0.0",
-		"postcss-loader": "^7.0.0"
-	},
-	"browserslist": "extends @wordpress/browserslist-config"
+ "devDependencies": {
+  "postcss": "^8.4.0",
+  "@wordpress/postcss-plugins-preset": "^4.0.0",
+  "@wordpress/browserslist-config": "^5.0.0",
+  "postcss-loader": "^7.0.0"
+ },
+ "browserslist": "extends @wordpress/browserslist-config"
 }
 ```
 
@@ -97,11 +97,11 @@ The `@wordpress/postcss-plugins-preset` includes:
 
 ```json
 {
-	"scripts": {
-		"build": "wp-scripts build",
-		"start": "wp-scripts start",
-		"build:css": "postcss src/style.css -o build/style.css"
-	}
+ "scripts": {
+  "build": "wp-scripts build",
+  "start": "wp-scripts start",
+  "build:css": "postcss src/style.css -o build/style.css"
+ }
 }
 ```
 
@@ -122,32 +122,32 @@ The `@wordpress/postcss-plugins-preset` includes:
 ```javascript
 // postcss.config.js - WordPress theme optimized
 module.exports = {
-	plugins: {
-		// Import handling
-		'postcss-import': {},
-		
-		// Modern CSS features
-		'postcss-nested': {},
-		'postcss-custom-properties': {
-			preserve: false // Convert to static values
-		},
-		
-		// Browser compatibility
-		'autoprefixer': {
-			browserslist: ['extends @wordpress/browserslist-config']
-		},
-		
-		// Production optimization
-		...(process.env.NODE_ENV === 'production' && {
-			'cssnano': {
-				preset: ['default', {
-					discardComments: {
-						removeAll: true
-					}
-				}]
-			}
-		})
-	}
+ plugins: {
+  // Import handling
+  'postcss-import': {},
+  
+  // Modern CSS features
+  'postcss-nested': {},
+  'postcss-custom-properties': {
+   preserve: false // Convert to static values
+  },
+  
+  // Browser compatibility
+  'autoprefixer': {
+   browserslist: ['extends @wordpress/browserslist-config']
+  },
+  
+  // Production optimization
+  ...(process.env.NODE_ENV === 'production' && {
+   'cssnano': {
+    preset: ['default', {
+     discardComments: {
+      removeAll: true
+     }
+    }]
+   }
+  })
+ }
 };
 ```
 
@@ -156,20 +156,20 @@ module.exports = {
 ```javascript
 // postcss.config.js - Block theme setup
 module.exports = {
-	plugins: [
-		require('postcss-import'),
-		require('postcss-mixins'),
-		require('postcss-nested'),
-		require('postcss-custom-media'),
-		require('autoprefixer'),
-		// WordPress-specific
-		require('@wordpress/postcss-themes')({
-			themes: {
-				light: './src/css/themes/light.css',
-				dark: './src/css/themes/dark.css'
-			}
-		})
-	]
+ plugins: [
+  require('postcss-import'),
+  require('postcss-mixins'),
+  require('postcss-nested'),
+  require('postcss-custom-media'),
+  require('autoprefixer'),
+  // WordPress-specific
+  require('@wordpress/postcss-themes')({
+   themes: {
+    light: './src/css/themes/light.css',
+    dark: './src/css/themes/dark.css'
+   }
+  })
+ ]
 };
 ```
 
@@ -196,25 +196,25 @@ npx postcss src/style.css -o build/style.css --config postcss.config.js
 ```javascript
 // webpack.config.js
 module.exports = {
-	module: {
-		rules: [
-			{
-				test: /\.css$/,
-				use: [
-					'style-loader',
-					'css-loader',
-					{
-						loader: 'postcss-loader',
-						options: {
-							postcssOptions: {
-								config: './postcss.config.js'
-							}
-						}
-					}
-				]
-			}
-		]
-	}
+ module: {
+  rules: [
+   {
+    test: /\.css$/,
+    use: [
+     'style-loader',
+     'css-loader',
+     {
+      loader: 'postcss-loader',
+      options: {
+       postcssOptions: {
+        config: './postcss.config.js'
+       }
+      }
+     }
+    ]
+   }
+  ]
+ }
 };
 ```
 
@@ -225,22 +225,22 @@ module.exports = {
 @import 'normalize.css';
 
 :root {
-	--primary-color: #007cba;
-	--font-size: 16px;
+ --primary-color: #007cba;
+ --font-size: 16px;
 }
 
 .my-component {
-	display: flex;
-	color: var(--primary-color);
-	font-size: var(--font-size);
-	
-	&:hover {
-		opacity: 0.8;
-	}
-	
-	.nested-element {
-		padding: 1rem;
-	}
+ display: flex;
+ color: var(--primary-color);
+ font-size: var(--font-size);
+ 
+ &:hover {
+  opacity: 0.8;
+ }
+ 
+ .nested-element {
+  padding: 1rem;
+ }
 }
 ```
 

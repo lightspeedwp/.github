@@ -46,47 +46,47 @@ teardown() {
 Extends the basic `test-helper.bash` with advanced capabilities:
 
 - **Environment Setup:**
-    - `setup_enhanced_test_environment()` - Enhanced test environment
-    - `cleanup_enhanced_test_environment()` - Enhanced cleanup
-    - `source_includes()` - Load all include files
+  - `setup_enhanced_test_environment()` - Enhanced test environment
+  - `cleanup_enhanced_test_environment()` - Enhanced cleanup
+  - `source_includes()` - Load all include files
 
 - **Mocking Functions:**
-    - `mock_git_command()` - Mock specific git commands
-    - `create_test_git_repo()` - Create test git repository
-    - `create_test_script()` - Create test script with includes
+  - `mock_git_command()` - Mock specific git commands
+  - `create_test_git_repo()` - Create test git repository
+  - `create_test_script()` - Create test script with includes
 
 - **Assertion Functions:**
-    - `assert_log_contains()` - Assert log contains message
-    - `assert_function_exists()` - Assert function is defined
-    - `assert_script_follows_standards()` - Validate script standards
-    - `assert_no_shellcheck_errors()` - Validate with ShellCheck
+  - `assert_log_contains()` - Assert log contains message
+  - `assert_function_exists()` - Assert function is defined
+  - `assert_script_follows_standards()` - Validate script standards
+  - `assert_no_shellcheck_errors()` - Validate with ShellCheck
 
 - **Utility Functions:**
-    - `run_with_timeout()` - Run command with timeout
-    - `create_fixture_file()` - Create test fixture
-    - `load_fixture()` - Load fixture content
+  - `run_with_timeout()` - Run command with timeout
+  - `create_fixture_file()` - Create test fixture
+  - `load_fixture()` - Load fixture content
 
 ### agent-test-helpers.bash
 
 Specialized helpers for testing LightSpeed WP agents:
 
 - **Agent Environment:**
-    - `setup_agent_test_environment()` - Setup for agent testing
-    - `cleanup_agent_test_environment()` - Agent-specific cleanup
+  - `setup_agent_test_environment()` - Setup for agent testing
+  - `cleanup_agent_test_environment()` - Agent-specific cleanup
 
 - **GitHub Mocking:**
-    - `create_mock_github_event()` - Mock GitHub webhook events
-    - `mock_github_api()` - Mock GitHub API responses
-    - `create_mock_github_response()` - Create API response files
+  - `create_mock_github_event()` - Mock GitHub webhook events
+  - `mock_github_api()` - Mock GitHub API responses
+  - `create_mock_github_response()` - Create API response files
 
 - **Agent Validation:**
-    - `validate_agent_structure()` - Validate agent file structure
-    - `validate_js_agent_structure()` - Validate JavaScript agents
-    - `assert_agent_follows_standards()` - Comprehensive agent validation
+  - `validate_agent_structure()` - Validate agent file structure
+  - `validate_js_agent_structure()` - Validate JavaScript agents
+  - `assert_agent_follows_standards()` - Comprehensive agent validation
 
 - **Agent Testing:**
-    - `run_agent_test()` - Run agent with test parameters
-    - `test_agent_dry_run()` - Test agent in dry-run mode
+  - `run_agent_test()` - Run agent with test parameters
+  - `test_agent_dry_run()` - Test agent in dry-run mode
 
 ## Test Structure Standards
 

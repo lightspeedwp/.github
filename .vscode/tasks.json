@@ -4,51 +4,92 @@
         {
             "label": "npm: lint-js",
             "type": "npm",
-            "script": "lint-js",
-            "problemMatcher": ["$eslint-stylish"],
+            "script": "lint:js",
             "detail": "Lints JavaScript/TypeScript files using ESLint."
         },
         {
             "label": "npm: lint-css",
             "type": "npm",
-            "script": "lint-css",
-            "problemMatcher": ["$stylelint-compact"],
+            "script": "lint:css",
             "detail": "Lints CSS/SCSS files using Stylelint."
         },
         {
             "label": "npm: lint-md",
             "type": "npm",
-            "script": "lint-md",
-            "problemMatcher": ["$markdownlint"],
+            "script": "lint:md",
             "detail": "Lints Markdown files using markdownlint."
         },
         {
             "label": "npm: lint-yaml",
             "type": "npm",
             "script": "lint:yaml",
-            "problemMatcher": [],
             "detail": "Lints YAML files using Spectral."
+        },
+        {
+            "label": "npm: format-js",
+            "type": "npm",
+            "script": "format:js",
+            "detail": "Formats JS/TS/JSON files using Prettier and ESLint."
+        },
+        {
+            "label": "npm: format-css",
+            "type": "npm",
+            "script": "format:css",
+            "detail": "Formats CSS/SCSS files using Prettier and Stylelint."
+        },
+        {
+            "label": "npm: format-md",
+            "type": "npm",
+            "script": "format:md",
+            "detail": "Formats Markdown files using Prettier and markdownlint."
         },
         {
             "label": "npm: format",
             "type": "npm",
             "script": "format",
-            "problemMatcher": [],
-            "detail": "Formats all supported files using Prettier."
+            "detail": "Formats all supported files using Prettier, Stylelint, and markdownlint."
         },
         {
-            "label": "npm: test-unit",
+            "label": "npm: lint",
             "type": "npm",
-            "script": "test-unit",
-            "problemMatcher": ["$jest-watch", "$jest-eslint"],
-            "detail": "Runs unit tests using Jest."
+            "script": "lint",
+            "detail": "Runs all lint tasks (js, css, yaml, pkg-json)."
+        },
+        {
+            "label": "npm: lint-all",
+            "type": "npm",
+            "script": "lint:all",
+            "detail": "Runs all lint tasks and markdownlint."
+        },
+        {
+            "label": "npm: lint-workflows",
+            "type": "npm",
+            "script": "lint:workflows",
+            "detail": "Lints GitHub workflow YAML files using Spectral."
+        },
+        {
+            "label": "npm: lint-pkg-json",
+            "type": "npm",
+            "script": "lint:pkg-json",
+            "detail": "Lints package.json files using npmPkgJsonLint."
+        },
+        {
+            "label": "npm: test-js",
+            "type": "npm",
+            "script": "test:js",
+            "detail": "Runs Jest unit tests with coverage."
+        },
+        {
+            "label": "npm: test",
+            "type": "npm",
+            "script": "test",
+            "detail": "Runs all tests."
         },
         {
             "label": "npm: test-coverage",
             "type": "npm",
-            "script": "test-unit -- --coverage",
-            "problemMatcher": ["$jest-watch", "$jest-eslint"],
-            "detail": "Runs unit tests with coverage reporting."
+            "script": "test:js",
+            "detail": "Runs Jest unit tests with coverage."
         },
         {
             "label": "e2e: test",

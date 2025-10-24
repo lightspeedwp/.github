@@ -57,6 +57,7 @@ The generated troubleshooting guide should include:
 ## Safety & Limits
 
 **Do not create guides that:**
+
 - Require users to modify system files without clear warnings
 - Involve potentially destructive commands or actions
 - Bypass security measures or authentication
@@ -64,6 +65,7 @@ The generated troubleshooting guide should include:
 - Could void warranties or violate terms of service
 
 **Always include:**
+
 - Backup recommendations before making changes
 - Warnings about data loss risks
 - Clear statements about when to stop and seek help
@@ -71,7 +73,8 @@ The generated troubleshooting guide should include:
 
 ## Examples
 
-### Example Input:
+### Example Input
+
 - **Product/System**: WordPress Website
 - **Issue Category**: Performance/Loading Speed
 - **User Skill Level**: Beginner
@@ -81,11 +84,12 @@ The generated troubleshooting guide should include:
 - **Escalation Criteria**: Technical changes beyond plugin settings
 - **Resolution Success Rate**: 70%
 
-### Example Output:
+### Example Output
 
 # WordPress Website Loading Speed Troubleshooting Guide
 
 ## Problem Statement
+
 Your WordPress website is loading slowly, causing poor user experience and potentially affecting search rankings. This guide will help you identify and resolve common speed issues that account for 70% of WordPress performance problems.
 
 **Estimated Time**: 30-45 minutes  
@@ -95,6 +99,7 @@ Your WordPress website is loading slowly, causing poor user experience and poten
 ## Step 1: Test Your Current Speed (5 minutes)
 
 **Action**: Use a speed testing tool to establish baseline metrics
+
 1. Go to GTmetrix.com or Google PageSpeed Insights
 2. Enter your website URL
 3. Wait for the analysis to complete
@@ -106,6 +111,7 @@ Your WordPress website is loading slowly, causing poor user experience and poten
 ## Step 2: Deactivate Unnecessary Plugins (10 minutes)
 
 **Action**: Temporarily disable plugins to identify performance culprits
+
 1. Go to WordPress Admin > Plugins > Installed Plugins
 2. Deactivate all plugins except essential ones (security, backup)
 3. Test your site speed again using the same tool from Step 1
@@ -117,6 +123,7 @@ Your WordPress website is loading slowly, causing poor user experience and poten
 ## Step 3: Optimize Images (15 minutes)
 
 **Action**: Check and compress large images
+
 1. Go to your Media Library in WordPress
 2. Look for images larger than 500KB
 3. Install and activate the Smush plugin (free version)
@@ -129,6 +136,7 @@ Your WordPress website is loading slowly, causing poor user experience and poten
 ## Verification Steps
 
 After completing troubleshooting steps:
+
 1. Run the speed test again and compare to your baseline
 2. Test your website on different devices and browsers
 3. Check that all functionality still works properly
@@ -136,6 +144,7 @@ After completing troubleshooting steps:
 ## When to Escalate
 
 Contact technical support if:
+
 - Loading time is still over 4 seconds after all steps
 - You need to modify server settings or hosting configuration  
 - You're uncomfortable making changes to themes or core files

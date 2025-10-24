@@ -1,4 +1,5 @@
 ...
+
 ## Placeholder Replacement
 
 See [PLACEHOLDER-WORKFLOW.md](PLACEHOLDER-WORKFLOW.md) for how to customize this scaffold using your mapping.

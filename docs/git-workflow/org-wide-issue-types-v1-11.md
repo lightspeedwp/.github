@@ -24,5 +24,6 @@
 | Chore | 🧺 | `#E1E4E8` | Repo hygiene, tooling or ops work that keeps the system healthy. |
 
 ### Notes
+
 - Use **one Issue Type** per issue.
 - Optional branch mapping for automation: `feat/` → Feature, `fix/` → Bug, `refactor/` → Refactor, `docs/` → Documentation.

@@ -2,7 +2,7 @@
 
 *Updated 17 Oct 2025: supports new BugHerd families. `status:*` rules unchanged (exactly one). Extend `actions/labeler` patterns to emit `type:*`, `block:*`, `template:*`, `woo:*`, `to:*`, etc.*
 
-# **GitHub Labelling Workflows** 
+# **GitHub Labelling Workflows**
 
 ## *Issue types & labelling, PR labelling and Project sync to add missing project meta*
 
@@ -300,4 +300,3 @@ You can tweak the strings in `field-values` if your options differ.
 ```
 
 ```
-

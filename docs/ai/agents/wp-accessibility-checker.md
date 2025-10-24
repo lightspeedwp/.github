@@ -17,6 +17,7 @@ visibility: "public"
 # WordPress Accessibility Checker Agent
 
 **Responsibilities**:
+
 - Scan PHP, JavaScript, and template files for accessibility anti-patterns.
 - Check for semantic HTML (correct use of headings, lists, labels, and ARIA attributes).
 - Enforce alt text on images, correct form labeling, and sufficient color contrast.

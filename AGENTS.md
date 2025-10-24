@@ -42,6 +42,7 @@
 | **Theme JSON**            | [.github/instructions/theme-json.instructions.md](.github/instructions/theme-json.instructions.md)                     | Theme configuration standards           |
 
 **Other Key Indexes:**
+
 - **Linting Index:** [.github/instructions/linting.instructions.md](.github/instructions/linting.instructions.md)
 - **Coding Standards Index:** [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)
 
@@ -51,7 +52,7 @@
 
 - Use the default PR template: [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)
 - Additional PR templates are available in: [.github/PULL_REQUEST_TEMPLATES/](.github/PULL_REQUEST_TEMPLATES/)
-    - Use the template most relevant to your change (e.g. feature, fix, documentation, etc.)
+  - Use the template most relevant to your change (e.g. feature, fix, documentation, etc.)
 
 ---
 
@@ -78,6 +79,7 @@ Start here for all key standards:
 ## Instruction Indexes (Recommended Reference Pattern)
 
 Reference main index files directly in your workflow or documentation:
+
 - `@lightspeedwp/.github/files/.github/instructions/coding-standards.instructions.md`
 - `@lightspeedwp/.github/files/.github/instructions/linting.instructions.md`
 - For file-type or topic-specific instructions, see all files in `.github/instructions/`.

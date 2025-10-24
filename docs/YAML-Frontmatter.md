@@ -60,6 +60,7 @@ Start here: `docs/copilot-space/INDEX.md`
 ### CLAUDE.md — Project Instructions (WordPress)
 
 Claude should:
+
 - Prefer WordPress core APIs (Options, Settings API, REST API, Transients, WP_Filesystem).
 - Use hooks/filters where appropriate; avoid monkey-patching core.
 - Generate **PHPCS-compliant** PHP and add PHPDoc for public APIs.
@@ -147,21 +148,25 @@ docs/* linguist-documentation
 This space blends **GitHub templates** and **AI instruction files** with a WordPress focus.
 
 #### GitHub Templates
+
 - [Issue Templates (Issue Forms)](issue-templates.md)
 - [Pull Request Templates](pr-templates.md)
 - [Saved Replies (overview)](saved-replies.md)
 
 #### Copilot Customisation
+
 - [Repo & Path Instructions](copilot-instructions.md)
 - [Reusable Prompt Files](prompt-files.md)
 - [Custom Chat Modes](chatmodes.md)
 - [AGENTS.md (universal rules)](agents-md.md)
 
 #### Claude & Gemini
+
 - [Claude: CLAUDE.md & Subagents](claude-agents.md)
 - [Gemini: GEMINI.md (convention)](gemini-md.md)
 
 #### Schemas
+
 - [Issue Form schema](schemas/issue-form-schema.md)
 - [Prompt frontmatter schema](schemas/prompt-frontmatter-schema.md)
 - [Chat Mode frontmatter schema](schemas/chatmode-frontmatter-schema.md)
@@ -169,6 +174,7 @@ This space blends **GitHub templates** and **AI instruction files** with a WordP
 - [Prompt Collection schema (experimental)](schemas/prompt-collection-schema.md)
 
 #### WordPress Guides
+
 - [WordPress Coding Standards quickstart](../wp-guides/wp-coding-standards.md)
 - [Security checklist for WP](../wp-guides/wp-security-checklist.md)
 - [Block development checklist](../wp-guides/block-dev-checklist.md)

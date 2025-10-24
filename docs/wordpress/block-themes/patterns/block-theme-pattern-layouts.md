@@ -5,6 +5,7 @@ This document defines the canonical pattern layout inventory, naming conventions
 Use this document when authoring new patterns, reviewing existing patterns, or composing templates with patterns.
 
 ## Goals
+
 - Consolidate duplicate concepts and canonicalize pattern slugs to lsx-design/*
 - Provide a small, sensible set of pattern categories and folder groups
 - Ensure each pattern file contains a full PHP header with every applicable field
@@ -13,6 +14,7 @@ Use this document when authoring new patterns, reviewing existing patterns, or c
 ---
 
 ## Namespace & top-level rules
+
 - Pattern slug namespace: lsx-design (example: lsx-design/hero-page)
 - Files live in theme_root/patterns/ (use subfolders for repo organisation only; WordPress auto-registers regardless of subfolders)
 - Filenames mirror slugs and may use an optional numeric prefix for repo ordering:
@@ -23,6 +25,7 @@ Use this document when authoring new patterns, reviewing existing patterns, or c
 ---
 
 ## Recommended folder groups (for repo organisation)
+
 - patterns/00-foundations/ — atomic bits (icons, badges, tiny components)
 - patterns/10-sections/ — hero, CTA, feature rows, testimonials, team
 - patterns/20-queries/ — Query Loop containers & item templates (post-card, loop-default)
@@ -38,6 +41,7 @@ Do not rely on folder structure for registration — use it only for humans and 
 ---
 
 ## Pattern categories (register a small, curated set)
+
 We recommend registering these pattern categories (use register_block_pattern_category in functions.php):
 
 - lsx-design/sections — general page sections (heroes, features)
@@ -56,6 +60,7 @@ We recommend registering these pattern categories (use register_block_pattern_ca
 Keep categories limited so the inserter stays usable.
 
 Example category registration (functions.php):
+
 ```php
 add_action( 'init', function() {
   register_block_pattern_category(
@@ -69,6 +74,7 @@ add_action( 'init', function() {
 ---
 
 ## Template-part areas to register (minimal list)
+
 Register only essential template part areas in theme.json to keep the Site Editor clean:
 
 - header
@@ -94,21 +100,25 @@ Register areas that are meaningful in the site editor — do not register many t
 ## Canonical pattern inventory (high-level)
 
 1. Hero patterns (block-type neutral; use as parts/hero.html)
+
 - lsx-design/hero-page — large page hero (front-page, page)
 - lsx-design/hero-post — post hero (single)
 - lsx-design/hero-archives — archive/term hero (archive, category, tag, taxonomy)
 
 2. Headers
+
 - lsx-design/header-primary — full header (template-part)
 - lsx-design/header-minimal — minimal header (template-part)
 - lsx-design/header-with-banner — header with CTA bar
 
 3. Footers
+
 - lsx-design/footer-primary — rich footer (template-part)
 - lsx-design/footer-compact — compact footer (template-part)
 - lsx-design/footer-centered — centered footer
 
 4. Query & Loop Patterns
+
 - lsx-design/post-card — card item for Query Loop (Block Types: core/query)
 - lsx-design/loop-default — fallback item for small lists (Block Types: core/query)
 - lsx-design/query-grid-2col — Query Loop container (Block Types: core/query)
@@ -116,28 +126,34 @@ Register areas that are meaningful in the site editor — do not register many t
 - lsx-design/post-loop-grid-default — default grid pattern for index/archive
 
 5. Post / Author parts
+
 - lsx-design/post-meta — reusable post meta bar
 - lsx-design/author-card-compact — small author summary
 - lsx-design/author-card-full — full author profile
 
 6. Utility / Panels
+
 - lsx-design/site-notice — dismissible top notice (utility)
 - lsx-design/mobile-nav-panel — off-canvas nav (template-part/menu)
 - lsx-design/search-panel — overlay search pattern (utility)
 - lsx-design/breadcrumbs — breadcrumbs trail (meta category)
 
 7. CTA / Promo
+
 - lsx-design/cta-banner — small CTA band
 - lsx-design/text-call-to-action — text CTA variants (from attached patterns)
 
 8. Menus & Cards
+
 - lsx-design/menu-card-1 … menu-card-N — menu panel variants (Block Types: core/template-part/menu)
 - lsx-design/menu-panel-1 … menu-panel-N — mega menu / panel variants
 
 9. Comments & Author
+
 - lsx-design/post-comments — configured comments region (Inserter: false; used in single templates)
 
 10. Starter Pages & Template-type patterns (Inserter: no for template-type starters)
+
 - lsx-design/page-home — homepage starter (Block Types: core/post-content; Post Types: page; Inserter: true/false as intended)
 - lsx-design/template-home-blogging — starter template for blogging (Template Types: front-page, home, index; Inserter: no)
 - lsx-design/page-about — about page starter
@@ -148,6 +164,7 @@ Note: This list should be used as the initial canonical registry; implementers s
 ---
 
 ## Pattern → Template mapping (quick reference)
+
 - templates/front-page.html → parts/skip-links, parts/header, lsx-design/hero-page, lsx-design/query-grid-2col, lsx-design/cta-banner, parts/footer
 - templates/home.html / index.html → parts/header, lsx-design/query-grid-2col / post-card, pagination, parts/footer
 - templates/single.html → parts/header, optional lsx-design/hero-post, Post Title (H1), lsx-design/post-meta, Post Content, lsx-design/author-card-full, lsx-design/post-comments, footer
@@ -161,13 +178,16 @@ Include patterns in templates using:
 ---
 
 ## Starter patterns (recommended)
+
 Starter patterns are curated page-level or template-type patterns used in the "Add New" flows. They should use:
+
 - Block Types: core/post-content
 - Post Types: page (where applicable)
 - Template Types: set for template starters
 - Inserter: yes for normal starter pages; use Inserter: no + Template Types for template-only starters
 
 Examples:
+
 - lsx-design/page-home — Front page starter (Block Types: core/post-content; Post Types: page)
 - lsx-design/template-home-blogging — Template starter for blogging (Template Types: front-page, home, index; Inserter: no)
 - lsx-design/page-about — About page starter (Block Types: core/post-content; Post Types: page)
@@ -175,6 +195,7 @@ Examples:
 ---
 
 ## Notes on querying / performance
+
 - Keep Query Loop default per-page small (e.g., 3–6 items) for inserter preview performance
 - Provide paginated containers and let templates add pagination blocks
 - For WooCommerce patterns, register patterns conditionally when Woo is active
@@ -182,6 +203,7 @@ Examples:
 ---
 
 ## Dedupe rules & migration notes
+
 - For existing files that use the old slug ns (lsx/...), migrate slugs to lsx-design/* consistently.
 - Replace pattern references in templates/parts (<!-- wp:pattern {"slug":"lsx/..."} /--> → lsx-design/...)
 - Consolidate variants: if multiple post-card implementations exist, standardize on one canonical lsx-design/post-card and create ornamented variants (post-card-alt) as needed.
@@ -189,6 +211,7 @@ Examples:
 ---
 
 If you want I can generate:
+
 - an inventory report (list of attached files with current slug → proposed new slug)
 - a migration script to rename slugs and update pattern references in templates
 - starter pattern files for the prioritized list (homepage, blog home, about)

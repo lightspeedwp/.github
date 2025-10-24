@@ -1,16 +1,19 @@
 # Canonical Inventory — Templates, Template Parts, Patterns, Categories & Registrations
 
 Summary
+
 - This file consolidates the definitive list of templates (templates/), template parts (parts/), template-part areas, patterns (patterns/) and pattern categories that the project actually creates and uses.
 - It also provides the theme.json and functions.php snippets you should add so the Site Editor and pattern inserter show the right template parts, pattern categories and custom templates.
 - Use this document as the single source-of-truth to update all open docs (hierarchy, implementation guide, outlines, pattern guides, part guides).
 
 Why this matters
+
 - All previously attached documents must reference the same canonical filenames, slugs, pattern categories and block types. If a document names a template/part/pattern differently, update it to match the entries below.
 
 ---
 
 A. Templates (files created under templates/)
+
 - index.html
 - front-page.html
 - home.html
@@ -35,6 +38,7 @@ A. Templates (files created under templates/)
 - offline.html
 
 Notes:
+
 - The two newly created custom page templates are templates/page-no-title.html and templates/page-with-sidebar.html. They must be registered in theme.json's `customTemplates` array (see theme.json snippet below).
 - Index.html must remain present as the final fallback as per WordPress template hierarchy.
 
@@ -63,6 +67,7 @@ Each slug must map to a kebab-case filename under parts/:
 - footer — parts/footer.html
 
 Notes:
+
 - parts/menu.html is intended to be the canonical insertion point for the mega menu and the set of menu patterns (lsx-design/menu category). Use the Template Part block:
   <!-- wp:template-part {"slug":"menu"} /-->
 - Template part areas: register a 'menu' area via the default_wp_template_part_areas filter (see functions.php snippet).
@@ -73,6 +78,7 @@ C. Patterns (patterns/ directory) — canonical slugs, filenames & categories
 Patterns should use the `lsx-design` namespace in their slugs and use categories described below.
 
 High-priority patterns (examples and slugs):
+
 - lsx-design/hero-page — patterns/20-hero-page.php
   - Categories: banner, featured
   - Block Types: core/cover
@@ -108,6 +114,7 @@ High-priority patterns (examples and slugs):
   - Block Types: none / core/social-links
 
 Menu-specific patterns (must be registered in the lsx-design/menu category)
+
 - lsx-design/menu-panel-1 — patterns/menu/menu-panel-1.php  (Block Types: core/template-part/menu)
 - lsx-design/menu-panel-2 — patterns/menu/menu-panel-2.php  (Block Types: core/template-part/menu)
 - lsx-design/menu-panel-3 — patterns/menu/menu-panel-3.php
@@ -116,18 +123,21 @@ Menu-specific patterns (must be registered in the lsx-design/menu category)
 - etc.
 
 Notes:
+
 - All menu patterns MUST include `Categories: lsx-design/menu` in their pattern header so they appear under that category in the Pattern Inserter.
 - Patterns that represent template-part content should include `Block Types: core/template-part/menu` or `core/template-part/header` as appropriate to improve inserter context.
 
 ---
 
 D. Pattern Categories (register these in functions.php)
+
 - lsx-design/menu — label "Menu" (for all menu/mega-menu patterns)
 - lsx-design/cards — optional (if you have card patterns)
 - lsx-design/hero — optional (if you want dedicated hero category)
 - (Existing Ollie categories to keep compatibility if you want): ollie/menu (if importing from Ollie patterns)
 
 Example list (recommended):
+
 - lsx-design/menu (Menu)
 - lsx-design/hero (Hero)
 - lsx-design/query (Query / Posts)
@@ -138,6 +148,7 @@ Example list (recommended):
 ---
 
 E. Block Types to use in pattern headers (recommended)
+
 - core/template-part/menu — for menu template-part patterns
 - core/template-part/header — for header/template-part patterns
 - core/template-part/footer — for footer patterns
@@ -147,6 +158,7 @@ E. Block Types to use in pattern headers (recommended)
 - core/navigation or core/navigation-link if the pattern specifically uses the Navigation block
 
 Notes:
+
 - Use `Block Types:` in the pattern header to make patterns surface in relevant block editors (e.g., when editing a Template Part of that type).
 
 ---
@@ -154,6 +166,7 @@ Notes:
 F. theme.json snippets (Include these in your theme.json)
 
 1) templateParts registration (include menu and other canonical parts):
+
 ```json
 "templateParts": [
   { "slug": "skip-links", "title": "Skip Links" },
@@ -179,6 +192,7 @@ F. theme.json snippets (Include these in your theme.json)
 ```
 
 2) customTemplates registration (must include the two custom page templates):
+
 ```json
 "customTemplates": [
   {
@@ -201,6 +215,7 @@ F. theme.json snippets (Include these in your theme.json)
 ```
 
 3) patterns (optional curated listing — helpful but WP auto-registers file-based patterns):
+
 ```json
 "patterns": [
   "lsx-design/hero-page",
@@ -241,11 +256,13 @@ add_filter( 'default_wp_template_part_areas', function( array $areas ) {
 ```
 
 Notes:
+
 - If you already register pattern categories (like in Ollie functions.php), ensure you add the `lsx-design/menu` category and do not duplicate identical registrations. If the Ollie repo uses `ollie/menu`, you can register both if you want cross-compatibility, but prefer `lsx-design/menu` as canonical for this theme.
 
 ---
 
 H. Template → parts mapping (Canonical reference)
+
 - index.html: skip-links → header → menu → (Query Loop: parts/loop-default or lsx-design/post-card patterns) → footer
 - front-page.html: skip-links → header → menu → hero (lsx-design/hero-page) → featured Query Loop → cta-banner → footer
 - home.html: skip-links → header → menu → Query Loop → pagination → sidebar (optional) → footer
@@ -261,7 +278,9 @@ H. Template → parts mapping (Canonical reference)
 ---
 
 I. Pattern header recommendations (example templates)
+
 - Menu pattern header (menu-panel-1.php):
+
 ```
 /*
  Title: Menu Panel 1
@@ -276,6 +295,7 @@ I. Pattern header recommendations (example templates)
 ```
 
 - Post-card pattern header:
+
 ```
 /*
  Title: Post Card
@@ -291,6 +311,7 @@ I. Pattern header recommendations (example templates)
 ---
 
 J. Action items — what to update in all open docs
+
 1. Replace any old/non-canonical slugs with the canonical ones listed above (templates, parts, patterns).
 2. Add note in each doc that menu patterns use the pattern category `lsx-design/menu` and menu parts use slug `menu` (parts/menu.html).
 3. Ensure the theme.json examples in docs include:
@@ -304,6 +325,7 @@ J. Action items — what to update in all open docs
 ---
 
 If you’d like I can:
+
 - Produce updated versions of each of the open documents (hierarchy, implementation guide, outlines, part guides, patterns guide) with all references replaced to the canonical slugs and categories above. I will output each updated file as a code block (file header + contents), ready to drop into the repository.
 - Or produce a single PR-ready patch (draft PR text + file diffs) that updates each document to match this canonical inventory.
 

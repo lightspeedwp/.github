@@ -221,16 +221,19 @@ npm run build
 ### Common Issues
 
 #### "Cannot find module" errors
+
 - Run `npm install` to ensure all dependencies are installed
 - Check for peer dependency warnings
 - Verify Node.js version compatibility
 
 #### Script execution errors
+
 - Check script syntax in package.json
 - Ensure all referenced tools are installed
 - Verify file paths in glob patterns
 
 #### WordPress environment issues
+
 - Update `.wp-env.json` configuration
 - Check WordPress version compatibility
 - Verify plugin/theme paths

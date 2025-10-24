@@ -15,12 +15,12 @@ Workflows and agents automate project health, enforce governance, and maintain d
 LightSpeedWP follows a **develop → main** branching model:
 
 - **develop**: All active development happens here.
-    - All validation, CI, test, lint, label, and automation workflows run on `develop`.
-    - Every PR and push targeting `develop` is fully validated before integration.
+  - All validation, CI, test, lint, label, and automation workflows run on `develop`.
+  - Every PR and push targeting `develop` is fully validated before integration.
 
 - **main**: Reserved for production-ready code and releases.
-    - Only release, changelog, versioning, and publishing workflows run on `main`.
-    - Code is merged into `main` only for tagging and deploying a release.
+  - Only release, changelog, versioning, and publishing workflows run on `main`.
+  - Code is merged into `main` only for tagging and deploying a release.
 
 **Hotfixes:** If you allow hotfixes directly to `main`, ensure CI/test/lint workflows also run on `main` for those rare PRs.
 
@@ -166,11 +166,11 @@ Unified workflow for all labeling, status/priority, and issue type automation.
 
 - File/branch-based labels via native labeler action
 - Runs unified agent for:
-    - One-hot status and priority enforcement
-    - Type label assignment using `issue-types.yml` and heuristics
-    - PR heuristics (front matter, file-based, labeler.yml)
-    - Ensures changelog label is present for PRs
-    - Logging and action reporting
+  - One-hot status and priority enforcement
+  - Type label assignment using `issue-types.yml` and heuristics
+  - PR heuristics (front matter, file-based, labeler.yml)
+  - Ensures changelog label is present for PRs
+  - Logging and action reporting
 
 ---
 
@@ -198,10 +198,10 @@ Maps issues/PRs to projects and syncs status/priority/type fields from labels.
 ## Directory Cleanup
 
 - **Delete all legacy labeling workflows:**
-    - `label-prs.yml`
-    - `issue-type.yml`
-    - `labeler.yml`
-    - `labels-issues-prs.yml`
+  - `label-prs.yml`
+  - `issue-type.yml`
+  - `labeler.yml`
+  - `labels-issues-prs.yml`
 - **Archive or move experimental workflows to `.github/archived-workflows/`.**
 - **All new/updated workflows** must be explicitly documented here.
 

@@ -48,7 +48,6 @@
 * **Who sets:** PM/Tech Lead
 * **Options & colours:**
 
-
 | Fields            | description                 | colour  |
 | ----------------- | --------------------------- | ------- |
 | Frontend          | Blocks, UI, theme layer     | #BFD4F2 |

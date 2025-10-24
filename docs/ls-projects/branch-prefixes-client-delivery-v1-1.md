@@ -1,4 +1,5 @@
 # **Branch Prefixes**
+
 ## *Client Delivery*
 
 ***Version:*** 1.1 • ***Last updated:*** 17 Oct 2025  
@@ -52,4 +53,5 @@ Use a single org-wide rule:
 - `release/` → Release PR
 
 ## **Tips** {#tips}
+
 - Keep scopes meaningful, mirror to labels only when helpful, delete branches on merge.

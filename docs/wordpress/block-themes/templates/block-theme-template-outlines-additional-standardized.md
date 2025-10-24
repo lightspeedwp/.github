@@ -1,4 +1,5 @@
 ## date.html
+
 - Purpose:
   - Provide a date-based archive (year / month / day) for time-oriented content.
 - Minimum blocks:
@@ -14,6 +15,7 @@
   - Provide a short explanation or fallback when results are empty.
 
 ## author-{nicename}.html / author-{id}.html
+
 - Purpose:
   - Author-specific archive showing an author profile and that author's posts.
 - Minimum blocks:
@@ -29,6 +31,7 @@
   - Provide a graceful no-posts state and links to popular site sections.
 
 ## taxonomy.html
+
 - Purpose:
   - Generic fallback template for custom taxonomy term archives.
 - Minimum blocks:
@@ -44,6 +47,7 @@
   - Encourage good term descriptions and images to improve discoverability.
 
 ## privacy-policy.html
+
 - Purpose:
   - Static privacy policy page (legal/compliance content) with clear structure and accessible presentation.
 - Minimum blocks:
@@ -58,6 +62,7 @@
   - Ensure plain-language headings and accessible links to data handling pages.
 
 ## offline/maintenance.html
+
 - Purpose:
   - Lightweight maintenance/offline page served during site maintenance.
 - Minimum blocks:
@@ -70,6 +75,7 @@
   - Typically served by a maintenance plugin or server config; keep very lightweight and avoid heavy assets.
 
 ## feed templates (feed-rss2.php, feed-atom.php, etc.)
+
 - Purpose:
   - Provide XML feed output for site content (RSS/Atom).
 - Minimum blocks:
@@ -79,6 +85,7 @@
   - Do not include HTML template parts in feed templates. Ensure correct content-type and escaping.
 
 ## attachments.html
+
 - Purpose:
   - Display media attachment pages (images, files) with caption, metadata and link back to parent content.
 - Minimum blocks:
@@ -92,6 +99,7 @@
   - Ensure all images include meaningful alt text and responsive srcset. Provide license or download info if relevant.
 
 ## General notes for templates
+
 - Purpose:
   - Ensure consistent structure and accessibility across templates.
 - Minimum blocks (generic):

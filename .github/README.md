@@ -1,12 +1,93 @@
-# LightSpeed Organisation `.github` Community Health Repository
+---
+title: "LightSpeed Organisation .github Community Health Repository"
+description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
+version: "3.0"
+last_updated: "2025-10-24"
+maintainer: "LightSpeed Team"
+tags: ["github-templates", "community-health", "automation", "copilot", "workflows", "labeling", "ai"]
+ai_references:
+  - "./custom-instructions.md"
+  - "./agents/agent.md"
+  - "./prompts/prompts.md"
+  - "./chatmodes/chatmodes.md"
+  - "../AGENTS.md"
+related_docs:
+  - "./automation/AUTOMATION_GOVERNANCE.md"
+  - "./automation/labels.yml"
+  - "./automation/labeler.yml"
+  - "./instructions/coding-standards.instructions.md"
+  - "../CONTRIBUTING.md"
+---
 
-> Central hub for all shared GitHub, Copilot, and workflow files across the LightSpeed WordPress organisation.
+[![Templates](https://img.shields.io/badge/templates-comprehensive-blue)](./ISSUE_TEMPLATE/)
+[![Automation](https://img.shields.io/badge/automation-active-success)](./automation/)
+[![AI Integration](https://img.shields.io/badge/AI-enhanced-purple)](./custom-instructions.md)
+[![Workflows](https://img.shields.io/badge/workflows-reusable-informational)](./workflows/)
+[![Instructions](https://img.shields.io/badge/instructions-standardized-orange)](./instructions/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+> **Central hub** for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation.
 
 ---
 
-## Purpose & Overview
+## 🎯 Purpose & GitHub Template Ecosystem Overview
 
-This repository’s `.github` folder serves as the **single source of truth** for all organisation-wide community health files, automation rules, standards, and AI/Copilot instructions for LightSpeed projects. By centralising these files, we ensure consistency, discoverability, and maintainability across every repo in the organisation.
+This repository's `.github` folder serves as the **single source of truth** for all organisation-wide community health files, automation rules, standards, and AI/Copilot instructions for LightSpeed projects. By centralising these files, we ensure consistency, discoverability, and maintainability across every repo in the organisation.
+
+### GitHub Template Ecosystem Architecture
+
+```mermaid
+flowchart TB
+    subgraph "🏛️ .github Repository Hub"
+        A[🏠 Community Health Files]
+        B[📝 Issue Templates]
+        C[🔄 PR Templates]
+        D[🤖 AI Instructions]
+        E[⚙️ Automation Rules]
+        F[🔧 Workflows]
+    end
+    
+    subgraph "📋 Template Categories"
+        G[🐛 Bug Reports]
+        H[✨ Feature Requests]
+        I[📚 Documentation]
+        J[🏗️ Architecture]
+        K[🔒 Security]
+        L[🧪 Testing]
+    end
+    
+    subgraph "🤖 AI & Automation"
+        M[📊 Auto-Labeling]
+        N[🎯 Project Sync]
+        O[🔍 Quality Gates]
+        P[🚀 Deployment]
+        Q[📈 Analytics]
+    end
+    
+    subgraph "🌐 Organization Repos"
+        R[Member Repository 1]
+        S[Member Repository 2]
+        T[Member Repository N]
+    end
+    
+    A --> G
+    B --> H
+    C --> I
+    D --> M
+    E --> N
+    F --> O
+    
+    M --> R
+    N --> S
+    O --> T
+    P --> R
+    Q --> S
+    
+    style A fill:#e1f5fe
+    style D fill:#fce4ec
+    style M fill:#e8f5e8
+    style R fill:#fff3e0
+```
 
 **Key goals:**
 
@@ -34,6 +115,27 @@ This repository is the **canonical, organisation-wide source** for:
 - **Labeler Rules** ([automation/labeler.yml](./automation/labeler.yml)): Automation for applying labels based on file paths, branch names, or PR type.
 - **Issue Types** ([automation/issue-types.yml](./automation/issue-types.yml)): Machine-readable definitions mapping issue templates, types, and automation.
 
+### GitHub Automation Workflow Process
+
+```mermaid
+sequenceDiagram
+    participant Dev as 👨‍💻 Developer
+    participant Repo as 📁 Member Repo
+    participant Hub as 🏛️ .github Hub
+    participant Auto as 🤖 Automation
+    participant PM as 📊 Project Manager
+    
+    Dev->>Repo: Create Issue/PR
+    Repo->>Hub: Check for templates
+    Hub-->>Repo: Provide templates
+    Repo->>Auto: Trigger labeling
+    Auto->>Hub: Get label rules
+    Hub-->>Auto: Return config
+    Auto->>Repo: Apply labels
+    Auto->>PM: Sync to projects
+    PM-->>Dev: Notify assignment
+```
+
 **How it works:**
 
 - Labels, labeler, and issue types from this repo are referenced by reusable workflows and automation across all LightSpeed repositories.
@@ -51,9 +153,79 @@ This repository is the **canonical, organisation-wide source** for:
 
 ---
 
-## Folder Structure
+## 📁 Folder Structure & Organization Flow
 
 The `.github` folder is organised for maximum clarity and modularity, grouping related files for easy reference and automation.
+
+### Repository Structure Visualization
+
+```mermaid
+graph TB
+    subgraph "📁 .github/ Directory Structure"
+        A[📋 instructions/]
+        B[🎯 prompts/]
+        C[💬 chatmodes/]
+        D[🤖 agents/]
+        E[⚙️ workflows/]
+        F[📝 ISSUE_TEMPLATE/]
+        G[🔄 PULL_REQUEST_TEMPLATE/]
+        H[💾 SAVED_REPLIES/]
+        I[🔧 automation/]
+    end
+    
+    subgraph "📋 Instructions Ecosystem"
+        A1[coding-standards.instructions.md]
+        A2[linting.instructions.md]
+        A3[html-template.instructions.md]
+        A4[pattern-development.instructions.md]
+        A5[php-block.instructions.md]
+        A6[theme-json.instructions.md]
+    end
+    
+    subgraph "🤖 AI Integration Hub"
+        B1[accessibility-review.prompt.md]
+        B2[code-review.prompt.md]
+        B3[pattern-generation.prompt.md]
+        C1[chatmodes.md]
+        D1[agent.md]
+    end
+    
+    subgraph "⚙️ Automation Core"
+        I1[labels.yml]
+        I2[labeler.yml]
+        I3[issue-types.yml]
+        I4[AUTOMATION_GOVERNANCE.md]
+        E1[labels-issues-prs.yml]
+        E2[project-meta-sync.yml]
+    end
+    
+    A --> A1
+    A --> A2
+    A --> A3
+    A --> A4
+    A --> A5
+    A --> A6
+    
+    B --> B1
+    B --> B2
+    B --> B3
+    C --> C1
+    D --> D1
+    
+    I --> I1
+    I --> I2
+    I --> I3
+    I --> I4
+    E --> E1
+    E --> E2
+    
+    style A fill:#e1f5fe
+    style B fill:#fce4ec
+    style I fill:#e8f5e8
+    style E fill:#fff3e0
+```
+
+### Directory Structure Details
 
 ```text
 .github/
@@ -80,13 +252,13 @@ The `.github` folder is organised for maximum clarity and modularity, grouping r
 │   ├── project-meta-sync.yml
 │   └── ... (other workflows)
 │
-├── issue-templates/        # Issue templates for bugs, features, docs, tasks, etc.
+├── ISSUE_TEMPLATE/         # Issue templates for bugs, features, docs, tasks, etc.
 │   └── *.md
 │
-├── pr-templates/           # Pull request templates (feature, fix, docs, etc.)
+├── PULL_REQUEST_TEMPLATE/  # Pull request templates (feature, fix, docs, etc.)
 │   └── *.md
 │
-├── saved-replies/          # Canonical saved replies for support and triage
+├── SAVED_REPLIES/          # Canonical saved replies for support and triage
 │   └── SAVED_REPLIES.md
 │
 ├── automation/             # Labeler rules, automation governance, branching, etc.
@@ -107,7 +279,67 @@ The `.github` folder is organised for maximum clarity and modularity, grouping r
 
 ---
 
-## How It Works
+## 🔄 Comprehensive Workflow Integration
+
+This diagram illustrates how all components work together to create a seamless development and governance experience across the LightSpeed organization.
+
+### Complete Integration Flow
+
+```mermaid
+flowchart LR
+    subgraph "👨‍💻 Developer Experience"
+        A[New Contributor]
+        B[Issue Creation]
+        C[PR Submission]
+        D[Code Review]
+    end
+    
+    subgraph "🏛️ .github Hub Resources"
+        E[📋 Instructions]
+        F[📝 Templates]
+        G[🤖 AI Prompts]
+        H[💬 Chat Modes]
+        I[⚙️ Automation]
+    end
+    
+    subgraph "🔄 Automated Processes"
+        J[🏷️ Auto-Labeling]
+        K[📊 Project Sync]
+        L[🔍 Quality Gates]
+        M[📈 Analytics]
+    end
+    
+    subgraph "🎯 Quality Outcomes"
+        N[✅ Consistent Standards]
+        O[🚀 Faster Onboarding]
+        P[📊 Better Tracking]
+        Q[🛡️ Security Compliance]
+    end
+    
+    A --> E
+    A --> F
+    B --> G
+    C --> H
+    D --> I
+    
+    E --> J
+    F --> K
+    G --> L
+    H --> M
+    I --> J
+    
+    J --> N
+    K --> O
+    L --> P
+    M --> Q
+    
+    style A fill:#e1f5fe
+    style E fill:#f3e5f5
+    style J fill:#e8f5e8
+    style N fill:#c8e6c9
+```
+
+### Component Integration Details
 
 - **Instructions**: The `instructions/` folder contains canonical, versioned standards for coding, linting, HTML templates, WordPress pattern development, PHP blocks, and theme configuration. Always reference these before starting work or reviewing code.
 - **Prompts & Chat Modes**: Modular prompt templates and chat modes designed for Copilot, Gemini, Claude, and custom agents—enabling consistent AI-assisted workflows and reviews.
@@ -208,4 +440,51 @@ This repository and all its contents are licensed under the GNU General Public L
 
 ---
 
-> For questions, improvement proposals, or onboarding support, open an issue, start a [Discussion](https://github.com/orgs/lightspeedwp/discussions), or contact [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency).
+---
+
+## 📋 Table of Contents
+
+- [Purpose & GitHub Template Ecosystem Overview](#-purpose--github-template-ecosystem-overview)
+- [Labelling & Automation](#labelling--automation)
+- [Folder Structure & Organization Flow](#-folder-structure--organization-flow)
+- [Comprehensive Workflow Integration](#-comprehensive-workflow-integration)
+- [Community & Q&A](#community--qa)
+- [Contribution Guidelines & Instruction Index](#contribution-guidelines--instruction-index)
+
+---
+
+## 🔗 Related Documentation
+
+### 🏛️ Core Organization Files
+
+- [🏠 Main Repository README](../README.md) - Organization overview and repository purpose
+- [🤝 Contributing Guidelines](../CONTRIBUTING.md) - Complete contribution process and standards
+- [🛡️ Code of Conduct](../CODE_OF_CONDUCT.md) - Community standards and expectations
+- [🆘 Support Policy](../SUPPORT.md) - Getting help and support resources
+
+### 🤖 AI & Automation Resources
+
+- [🧠 AI Agents Overview](../AGENTS.md) - Global AI rules and agent specifications
+- [💬 Custom Instructions](./custom-instructions.md) - Organization-wide Copilot settings
+- [🎯 Prompt Library](./prompts/prompts.md) - Reusable AI prompts and templates
+- [💭 Chat Modes](./chatmodes/chatmodes.md) - Specialized AI conversation modes
+
+### ⚙️ Automation & Governance
+
+- [🏷️ Label Definitions](./automation/labels.yml) - Canonical organization labels
+- [🔧 Labeler Configuration](./automation/labeler.yml) - Automated labeling rules
+- [📋 Issue Types](./automation/issue-types.yml) - Standardized issue categorization
+- [⚖️ Automation Governance](./automation/AUTOMATION_GOVERNANCE.md) - Automation standards and oversight
+
+### 🔧 Development Standards
+
+- [💻 Coding Standards](./instructions/coding-standards.instructions.md) - Unified development guidelines
+- [🎨 Linting Instructions](./instructions/linting.instructions.md) - Code quality and formatting
+- [🏗️ Pattern Development](./instructions/pattern-development.instructions.md) - WordPress block patterns
+- [🌐 HTML Templates](./instructions/html-template.instructions.md) - Semantic markup standards
+
+---
+
+**🏛️ This directory is managed by the LightSpeed team. All organizational GitHub templates, automation, and AI resources are maintained here.**
+
+**❓ Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new), start a [Discussion](https://github.com/orgs/lightspeedwp/discussions), or contact [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency)

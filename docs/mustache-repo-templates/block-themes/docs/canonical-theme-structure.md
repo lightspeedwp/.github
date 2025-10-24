@@ -18,6 +18,7 @@ Reference: *WordPress Block Theme – Structure & Development Guidelines.md*
 - **Location**: `patterns/`
 - **File format**: PHP or HTML, with canonical header.
 - **Header example**:
+
     ```php
     /**
      * Title: Hero Page
@@ -27,20 +28,22 @@ Reference: *WordPress Block Theme – Structure & Development Guidelines.md*
      * Inserter: yes
      */
     ```
+
 - **Folder breakdown** *(logical plan)*:
-    - `patterns/00-foundations/` — icons, badges, micro bits
-    - `patterns/10-template-parts/` — header, footer, menu, hero, sidebar, etc.
-    - `patterns/20-starters/` — starter page patterns (homepage, about, cta-band)
-    - `patterns/30-template-types/` — template-type patterns (Inserter: no)
-    - `patterns/40-queries/` — Query Loop containers & items (post-card, loop-default)
-    - `patterns/50-full-pages/` — full page layouts
-    - `patterns/60-sections/` — sections: features, testimonials, team, pricing
+  - `patterns/00-foundations/` — icons, badges, micro bits
+  - `patterns/10-template-parts/` — header, footer, menu, hero, sidebar, etc.
+  - `patterns/20-starters/` — starter page patterns (homepage, about, cta-band)
+  - `patterns/30-template-types/` — template-type patterns (Inserter: no)
+  - `patterns/40-queries/` — Query Loop containers & items (post-card, loop-default)
+  - `patterns/50-full-pages/` — full page layouts
+  - `patterns/60-sections/` — sections: features, testimonials, team, pricing
 
 ---
 
 ## 3. Pattern Categories
 
 - **Register in functions.php:**
+
     ```php
     register_block_pattern_category('lsx-design/hero', ['label' => __('Hero', 'lsx-design')]);
     register_block_pattern_category('lsx-design/menu', ['label' => __('Menu', 'lsx-design')]);
@@ -55,6 +58,7 @@ Reference: *WordPress Block Theme – Structure & Development Guidelines.md*
 - **Canonical slugs**: skip-links, header, footer, menu, hero, sidebar, comments, breadcrumbs, post-meta, author-card, cta-banner, site-notice, search-panel, mobile-nav-panel, language-switcher, currency-switcher, loop-default, share-actions
 - **Naming**: `parts/<slug>.html`
 - **Header example**:
+
     ```html
     <!--
       Template Part: Header
@@ -69,6 +73,7 @@ Reference: *WordPress Block Theme – Structure & Development Guidelines.md*
 ## 5. Template Part Areas
 
 - **theme.json registration**:
+
     ```json
     "templateParts": [
       { "slug": "header", "title": "Header" },
@@ -92,8 +97,9 @@ Reference: *WordPress Block Theme – Structure & Development Guidelines.md*
 ## 7. theme.json
 
 - **Global settings**:
-    - Color palette, typography, spacing, templateParts, customTemplates
-    - Example mustache placeholders:
+  - Color palette, typography, spacing, templateParts, customTemplates
+  - Example mustache placeholders:
+
         ```json
         {
           "settings": {
@@ -117,6 +123,7 @@ Reference: *WordPress Block Theme – Structure & Development Guidelines.md*
 - **Location**: `styles/`
 - **Files**: `light.json`, `dark.json`, `contrast.json`, etc.
 - **Content**: mustache placeholders for colors, typography, etc.
+
     ```json
     {
       "settings": {
@@ -134,10 +141,10 @@ Reference: *WordPress Block Theme – Structure & Development Guidelines.md*
 - **styles/color-palettes.json**: palette definitions
 - **styles/sections/**: section style variations (e.g., card-gradient, hero-light)
 - **Variables (mustache)**:
-    - Colors: `{{primary_color}}`, `{{secondary_color}}`, `{{contrast_color}}`
-    - Sizes: `{{spacing_large}}`, `{{spacing_small}}`
-    - Typography: `{{font_size_base}}`, `{{font_size_heading}}`
-    - Fluid: use `clamp(min, vw/vh/rem/em, max)`
+  - Colors: `{{primary_color}}`, `{{secondary_color}}`, `{{contrast_color}}`
+  - Sizes: `{{spacing_large}}`, `{{spacing_small}}`
+  - Typography: `{{font_size_base}}`, `{{font_size_heading}}`
+  - Fluid: use `clamp(min, vw/vh/rem/em, max)`
 
 ---
 
@@ -147,6 +154,7 @@ Reference: *WordPress Block Theme – Structure & Development Guidelines.md*
 - **Spacing**: Use `clamp(min, Xvw, max)` for padding/margin.
 - **Units**: Prefer `rem`, `em`, `vw`, `vh` for scalable outcomes.
 - **Example**:
+
     ```json
     {
       "typography": {
@@ -167,6 +175,7 @@ Reference: *WordPress Block Theme – Structure & Development Guidelines.md*
 ## 11. Mustache Placeholder Examples
 
 Include mustache values in **every canonical file** so it’s ready for automated replacement:
+
 - `{{theme_name}}`, `{{slug}}`, `{{author}}`, `{{primary_color}}`, `{{body_font}}`, etc.
 
 ---
@@ -174,6 +183,7 @@ Include mustache values in **every canonical file** so it’s ready for automate
 ## 12. Starter File Placeholders
 
 **patterns/20-hero-page.php**
+
 ```php
 /**
  * Title: Hero Page
@@ -190,6 +200,7 @@ Include mustache values in **every canonical file** so it’s ready for automate
 ```
 
 **parts/header.html**
+
 ```html
 <!--
   Template Part: Header
@@ -204,6 +215,7 @@ Include mustache values in **every canonical file** so it’s ready for automate
 ```
 
 **theme.json**
+
 ```json
 {
   "version": 2,
@@ -229,6 +241,7 @@ Include mustache values in **every canonical file** so it’s ready for automate
 ```
 
 **styles/dark.json**
+
 ```json
 {
   "settings": {
@@ -238,6 +251,7 @@ Include mustache values in **every canonical file** so it’s ready for automate
 ```
 
 **src/scss/style.scss**
+
 ```scss
 // Main stylesheet for {{theme_name}}
 body {
@@ -248,6 +262,7 @@ body {
 ```
 
 **src/js/index.js**
+
 ```js
 // JS entry for {{theme_name}} by {{author}}
 console.log("Theme loaded: {{theme_name}}");

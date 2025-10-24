@@ -5,6 +5,7 @@ This repository uses mustache placeholders (e.g., `{{theme_name}}`, `{{slug}}`, 
 ## Steps
 
 1. **Create a mapping.json file:**
+
     ```json
     {
       "theme_name": "My Block Theme",
@@ -15,6 +16,7 @@ This repository uses mustache placeholders (e.g., `{{theme_name}}`, `{{slug}}`, 
     ```
 
 2. **Run the mustache replacement script for each file:**
+
     ```sh
     node bin/replace-placeholders.js README.md --map mapping.json
     node bin/replace-placeholders.js style.css --map mapping.json

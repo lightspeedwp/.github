@@ -41,6 +41,7 @@ Before starting block theme development, set up an efficient local environment:
 Choose one of these approaches:
 
 1. **@wordpress/env (Recommended)**
+
    ```bash
    npm i -g @wordpress/env
    wp-env start
@@ -53,6 +54,7 @@ Choose one of these approaches:
 ### Required Development Tools
 
 1. **Node.js and npm**
+
    ```bash
    # Check versions
    node -v  # Should be v16+
@@ -116,6 +118,7 @@ There are several ways to start a block theme project:
 2. Create the essential files:
 
    **style.css**:
+
    ```css
    /*
    Theme Name: My Block Theme
@@ -132,6 +135,7 @@ There are several ways to start a block theme project:
    ```
 
    **theme.json**:
+
    ```json
    {
      "$schema": "https://schemas.wp.org/trunk/theme.json",
@@ -156,6 +160,7 @@ There are several ways to start a block theme project:
    ```
 
    **index.html** (in templates/ directory):
+
    ```html
    <!-- wp:template-part {"slug":"header"} /-->
    
@@ -195,6 +200,7 @@ Block theme development has two main approaches that can be used separately or i
 ### Code-First Approach
 
 1. **Setup Build Tools**:
+
    ```bash
    # Initialize project
    npm init -y
@@ -204,6 +210,7 @@ Block theme development has two main approaches that can be used separately or i
    ```
 
 2. **Configure package.json**:
+
    ```json
    {
      "scripts": {
@@ -277,6 +284,7 @@ The theme.json file is the heart of a block theme, defining the design system:
 ### Key Configuration Areas
 
 1. **Color Palette**
+
    ```json
    "color": {
      "palette": [
@@ -292,6 +300,7 @@ The theme.json file is the heart of a block theme, defining the design system:
    ```
 
 2. **Typography**
+
    ```json
    "typography": {
      "fontFamilies": [
@@ -317,6 +326,7 @@ The theme.json file is the heart of a block theme, defining the design system:
    ```
 
 3. **Spacing**
+
    ```json
    "spacing": {
      "units": ["px", "em", "rem", "vh", "vw", "%"],
@@ -336,6 +346,7 @@ The theme.json file is the heart of a block theme, defining the design system:
    ```
 
 4. **Layout**
+
    ```json
    "layout": {
      "contentSize": "800px",
@@ -447,6 +458,7 @@ Block themes primarily use theme.json for styling, but custom CSS can be added:
    - For theme metadata only, not for styles
 
 2. **Additional CSS Files**
+
    ```php
    // functions.php
    function mytheme_enqueue_styles() {
@@ -485,6 +497,7 @@ add_action('wp_enqueue_scripts', 'mytheme_enqueue_scripts');
 ### Build Process for Assets
 
 1. Configure webpack via @wordpress/scripts:
+
    ```js
    // webpack.config.js
    const defaultConfig = require('@wordpress/scripts/config/webpack.config');
@@ -498,6 +511,7 @@ add_action('wp_enqueue_scripts', 'mytheme_enqueue_scripts');
    ```
 
 2. Add build scripts to package.json:
+
    ```json
    {
      "scripts": {
@@ -508,6 +522,7 @@ add_action('wp_enqueue_scripts', 'mytheme_enqueue_scripts');
    ```
 
 3. Run the development or build process:
+
    ```bash
    # For development with auto-reload
    npm start
@@ -588,6 +603,7 @@ add_action( 'init', 'mytheme_register_pattern_directory' );
 ### Cross-Browser Testing
 
 Test your theme across multiple browsers:
+
 - Chrome
 - Firefox
 - Safari
@@ -596,6 +612,7 @@ Test your theme across multiple browsers:
 ### Responsive Testing
 
 Test on various screen sizes:
+
 - Mobile phones (320px - 480px)
 - Tablets (768px - 1024px)
 - Laptops (1024px - 1440px)
@@ -604,6 +621,7 @@ Test on various screen sizes:
 ### WordPress Compatibility
 
 Test with:
+
 - Latest WordPress version
 - Common plugins like Yoast SEO, WooCommerce, etc.
 - Different content types and edge cases
@@ -625,6 +643,7 @@ Run the Theme Check plugin to validate WordPress standards compliance.
 ### Theme Packaging
 
 1. **Create Production Build**
+
    ```bash
    npm run build
    ```
@@ -637,6 +656,7 @@ Run the Theme Check plugin to validate WordPress standards compliance.
    - development configuration files
 
 3. **ZIP Creation**
+
    ```bash
    # From theme directory
    zip -r mytheme.zip . -x "node_modules/*" ".*" "src/*" "package*" "webpack*"
@@ -711,6 +731,7 @@ GitHub Copilot can help with:
 ### Performance Monitoring
 
 Regularly test your theme's performance:
+
 - Google PageSpeed Insights
 - Web Vitals
 - Load time testing
@@ -718,6 +739,7 @@ Regularly test your theme's performance:
 ### Update Strategy
 
 Keep your theme updated:
+
 1. Follow WordPress core changes
 2. Test with beta versions
 3. Update dependencies
@@ -733,6 +755,7 @@ Keep your theme updated:
 ### Documentation
 
 Maintain comprehensive documentation:
+
 - User guides
 - Customization options
 - Template overrides

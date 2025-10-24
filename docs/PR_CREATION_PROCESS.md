@@ -61,6 +61,7 @@ Format:
 `[Type] Area/Component: Brief summary (Closes #issue)`
 
 Examples:
+
 - `[Feature] Block Patterns: Add new testimonial pattern (Closes #201)`
 - `[Bugfix] Theme JSON: Fix color palette regression (Closes #198)`
 - `[Docs] README: Add setup instructions`
@@ -80,11 +81,11 @@ Examples:
 ## 6. **Apply Labels and Milestones**
 
 - Labels are set automatically based on branch prefix and file changes, but review and add as needed:
-    - **Type:** `type:feature`, `type:bug`, `type:docs`, etc.
-    - **Area/Component:** `area:ci`, `comp:block-editor`, etc.
-    - **Status:** `status:needs-review`, `status:needs-qa`, etc.
-    - **Release:** `release:minor`, `release:patch`, `release:major`, etc.
-    - **Meta:** `meta:needs-changelog`, `contrib:help-wanted`, etc.
+  - **Type:** `type:feature`, `type:bug`, `type:docs`, etc.
+  - **Area/Component:** `area:ci`, `comp:block-editor`, etc.
+  - **Status:** `status:needs-review`, `status:needs-qa`, etc.
+  - **Release:** `release:minor`, `release:patch`, `release:major`, etc.
+  - **Meta:** `meta:needs-changelog`, `contrib:help-wanted`, etc.
 
 - **Assign to the relevant milestone** (e.g., "Phase 6 - GC & Production") and project board if applicable.
 
@@ -117,9 +118,9 @@ Each PR template includes a checklist. Ensure you:
 
 - Only maintainers can merge.
 - PRs are merged after:
-    - All status checks pass (tests, lint, a11y, etc.)
-    - At least one reviewer approves
-    - Changelog/release labels are set and docs/tests are updated
+  - All status checks pass (tests, lint, a11y, etc.)
+  - At least one reviewer approves
+  - Changelog/release labels are set and docs/tests are updated
 - PRs linked to issues with `Closes #issue` will auto-close the issue upon merge.
 
 ---

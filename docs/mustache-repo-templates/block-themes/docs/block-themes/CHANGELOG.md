@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - Initial project setup with development tooling configurations
 - EditorConfig for consistent code formatting
 - Git configuration files (.gitignore, .gitattributes)
@@ -36,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - YYYY-MM-DD
 
 ### Added
+
 - Initial release of LightSpeedWP defaults repository
 - Complete development tooling setup
 - Template directories for different project types

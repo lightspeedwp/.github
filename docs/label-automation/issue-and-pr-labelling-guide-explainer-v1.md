@@ -26,6 +26,7 @@ This guide explains how to use LightSpeed’s **default GitHub labels**. It fold
 - **`to:*`** — accommodation-archive, accommodation-facilities, accommodation-rooms, accommodation-type-archive, brand-archive, continent-archive, core, destinations-archive, fast-facts, maps, post-relationships, prices…
 
 ### Principles
+
 - **One current `status:*`.** Update as work moves.
 - **Always set a `priority:*`.** Default to `priority:normal` if unsure.
 - **Use `type:*` for category** (feature, bug, chore, etc.).
@@ -33,6 +34,7 @@ This guide explains how to use LightSpeed’s **default GitHub labels**. It fold
 - Add **context labels** only when they help assignment/search: `env:*`, `phase:*`, `page:*`, `device:*`, `layout:*`, `theme:*`, `block:*`, `template:*`, `template-part:*`, `woo:*`, `to:*`, `size:*`.
 
 ### Triage (quick path)
+
 1. Set **Issue Type** (Epic/Story/Task/Bug/etc.).
 2. Add **`priority:*`** and **`type:*`**.
 3. Add **one** of `area:*` or `comp:*`.
@@ -41,6 +43,7 @@ This guide explains how to use LightSpeed’s **default GitHub labels**. It fold
 6. Link PRs; workflows enforce **one** `status:*` and nudge for changelog labels.
 
 ### Status reference
+
 - Intake: `status:needs-triage` → `status:ready`
 - Doing: `status:in-progress` (queues: `status:needs-dev`, `status:needs-design`, `status:needs-review`, `status:needs-qa`, `status:needs-testing`)
 - Pauses: `status:on-hold`, `status:blocked`, `status:needs-more-info`

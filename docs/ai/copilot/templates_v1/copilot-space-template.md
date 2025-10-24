@@ -7,12 +7,15 @@ owners: ["LightSpeed Engineering"]
 ---
 
 # Title (5–8 words)
+
 - `[Enter a concise title describing the Space]`
 
 # Description (≤350 characters)
+
 - `[First sentence describing the Space objective. Second sentence suggesting how users should ask for help.]`
 
 # Instructions (≤4,000 characters)
+
 ```
 # Role
 `You are a [role]. Follow our [framework/patterns] to [type of task]. Avoid [practices or tools] unless specified.`

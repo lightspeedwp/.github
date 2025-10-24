@@ -18,6 +18,7 @@ LightSpeedWP projects follow [Semantic Versioning](https://semver.org/) (SemVer)
 - When the project version changes (the `VERSION` file is updated), update all relevant `version` fields in tracked files to match.
 
 **Example:**
+
 ```yaml
 ---
 version: "1.2.3"  # Must match contents of root VERSION file
@@ -39,6 +40,7 @@ Version numbers follow the format: `MAJOR.MINOR.PATCH`
 
 **Pre-release Versions:**  
 May include identifiers:  
+
 - `1.0.0-alpha.1`
 - `1.0.0-beta.1`
 - `1.0.0-rc.1`

@@ -6,7 +6,7 @@ For bug reports or issues, please use the relevant issue template in our [GitHub
 
 For paid support, contact our team:
 
--   **Email:** [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency)
+- **Email:** [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency)
 
 We aim to respond to paid support requests within 2 business days.
 

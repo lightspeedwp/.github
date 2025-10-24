@@ -390,4 +390,3 @@ Works in Jira, Trello, Asana, GitHub Projects, etc. Suggested columns:
 ---
 
 *Version 1.1 – Updated with LightSpeed Scrumban mapping, cohort setup, and expanded references.* 1.0 – Designed for fast onboarding. Keep it handy; improve it as you learn.\*
-

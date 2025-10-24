@@ -13,30 +13,35 @@ ChatGPT models differ in latency, cost, and capability. Selecting the appropriat
 # ChatGPT 5 Models
 
 ## ChatGPT 5 Auto
+
 - **Overview**: Auto mode dynamically selects the appropriate underlying model (Instant or Thinking) based on the task. It balances speed and quality without explicit user selection.
 - **Best For**: General queries, small coding tasks, or when you’re unsure which model to choose.
 - **Pros**: Convenience; automatic optimisation.
 - **Cons**: Less control over performance; may not pick the optimal model for specialised tasks.
 
 ## ChatGPT 5 Instant
+
 - **Overview**: Prioritises response speed over depth. Uses smaller, faster models to deliver quick answers.
 - **Best For**: Short Q&A, clarifications, lightweight coding assistance, quick calculations, or brainstorming ideas.
 - **Pros**: Low latency; lower cost.
 - **Cons**: Reduced reasoning ability; may miss nuanced details or context.
 
 ## ChatGPT 5 Thinking
+
 - **Overview**: Designed for complex reasoning and multi‑step problem solving. It uses a larger context window and more compute, resulting in slower responses but deeper analysis.
 - **Best For**: Deep research, planning, debugging difficult code, architectural discussions, or tasks requiring chain‑of‑thought.
 - **Pros**: High reasoning ability; better at long context tasks.
 - **Cons**: Higher latency and cost.
 
 ## ChatGPT 5 Pro
+
 - **Overview**: Enhanced version of Thinking with improved accuracy, safety checks and more advanced planning. Provides access to the latest training data and features.
 - **Best For**: Mission‑critical tasks such as detailed technical research, sensitive document drafting, or generating production‑quality code.
 - **Pros**: Highest quality output; better safety filtering.
 - **Cons**: Most expensive; may still require manual review.
 
 ## ChatGPT 5 4o
+
 - **Overview**: A multimodal model optimised for on‑device or offline scenarios (the “4o” stands for “for offline”). It offers reduced size and latency while supporting basic text and image understanding.
 - **Best For**: Tasks requiring offline inference, embedded systems, or when connectivity is limited.
 - **Pros**: Lightweight; can run locally on supported devices.

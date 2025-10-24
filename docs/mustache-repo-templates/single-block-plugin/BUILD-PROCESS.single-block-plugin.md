@@ -20,6 +20,7 @@ This document details the build process specifically for WordPress single block 
 A single block plugin represents one of the most focused WordPress development projects: it adds exactly one custom block to the WordPress block editor (Gutenberg). Despite its targeted scope, a single block plugin requires modern build tools and processes to create an optimized, maintainable, and user-friendly experience.
 
 Single block plugins are ideal for:
+
 - Focused functionality that works independently
 - Learning block development fundamentals
 - Creating highly specialized content elements
@@ -86,6 +87,7 @@ npm install
 ```
 
 This command generates a complete plugin structure with:
+
 - Main plugin PHP file
 - block.json for block registration
 - JavaScript source files (edit.js, save.js, index.js)
@@ -198,6 +200,7 @@ npm start
 ```
 
 This command:
+
 - Watches for file changes
 - Compiles JavaScript with webpack
 - Transpiles modern JS with Babel
@@ -212,6 +215,7 @@ npm run build
 ```
 
 This command:
+
 - Optimizes and minifies JS and CSS
 - Removes development-only code
 - Creates source maps
@@ -222,11 +226,13 @@ This command:
 ### Static vs. Dynamic Blocks
 
 **Static Blocks:**
+
 - Save output as HTML in the database
 - Render exactly as saved
 - Implementation: Both edit.js and save.js export React components
 
 **Dynamic Blocks:**
+
 - Save attributes in the database
 - Render with PHP on the front end
 - Implementation: save.js returns null, render.php handles front-end display
@@ -358,6 +364,7 @@ describe('Block', () => {
 ### WordPress Compatibility
 
 Test your block with:
+
 - Different WordPress versions
 - Various themes
 - Common plugins that might interact with your block
@@ -371,11 +378,13 @@ Test your block with:
    - Include screenshots and detailed descriptions
 
 2. **Build production assets**
+
    ```bash
    npm run build
    ```
 
 3. **Create distributable zip**
+
    ```bash
    npm run plugin-zip
    ```
@@ -387,6 +396,7 @@ Test your block with:
 ### Direct Distribution
 
 For client work or premium plugins:
+
 1. Create zip file with build assets
 2. Distribute through your chosen channels
 3. Provide installation instructions

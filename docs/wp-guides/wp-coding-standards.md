@@ -20,12 +20,14 @@ Get started with WordPress Coding Standards (WPCS) for PHP, JavaScript, CSS, and
 ## Example PHPCS Setup
 
 1. Install PHPCS and WPCS:
+
    ```
    composer require --dev wp-coding-standards/wpcs
    vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs
    ```
 
 2. Add a `.phpcs.xml.dist`:
+
    ```xml
    <ruleset name="WordPress Coding Standards">
      <rule ref="WordPress"/>
@@ -33,6 +35,7 @@ Get started with WordPress Coding Standards (WPCS) for PHP, JavaScript, CSS, and
    ```
 
 3. Run:
+
    ```
    vendor/bin/phpcs .
    ```

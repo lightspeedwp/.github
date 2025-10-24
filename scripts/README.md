@@ -1,6 +1,89 @@
-# scripts — Automation & Utilities
+---
+title: "LightSpeedWP Scripts & Automation"
+version: "v2.4"
+last_updated: "2025-01-14"
+author: "LightSpeedWP Team"
+maintainer: "Ash Shaw"
+description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
+type: "automation"
+status: "production"
+tags: ["automation", "utilities", "scripts", "testing", "maintenance", "validation", "bash", "nodejs"]
+license: "GPL-3.0"
+repository: "https://github.com/lightspeedwp/.github"
+ai_references:
+  - "Use for automation, validation, and maintenance workflows"
+  - "Reference for script architecture patterns and testing"
+  - "Shared utilities in includes/ provide reusable components"
+  - "Mermaid diagrams show execution flows and dependencies"
+related_files:
+  - ".github/workflows/tests.yml"
+  - ".github/instructions/coding-standards.instructions.md"
+  - "schemas/"
+  - "tests/"
+---
+
+## 🔧 LightSpeedWP Scripts & Automation
+
+![Scripts Badge](https://img.shields.io/badge/scripts-active-brightgreen?style=flat-square)
+![Automation Badge](https://img.shields.io/badge/automation-optimized-blue?style=flat-square)
+![Testing Badge](https://img.shields.io/badge/testing-comprehensive-success?style=flat-square)
+![Maintenance Badge](https://img.shields.io/badge/maintenance-automated-orange?style=flat-square)
 
 This directory contains all automation, utility, and maintenance scripts for the LightSpeedWP project. Scripts are grouped by function for modularity, maintainability, and testability.
+
+## 📊 Scripts Architecture
+
+```mermaid
+graph TB
+    A[Scripts Directory] --> B[awesome-copilot/]
+    A --> C[includes/]
+    A --> D[json-validation/]
+    A --> E[maintenance/]
+    A --> F[projects/]
+    A --> G[utility/]
+    A --> H[validation/]
+    
+    C --> I[Core Utilities]
+    C --> J[Test Helpers]
+    C --> K[CLI Support]
+    C --> L[File Operations]
+    
+    B --> M[Collection Management]
+    D --> N[Schema Validation]
+    E --> O[Documentation Updates]
+    F --> P[GitHub Projects]
+    G --> Q[General Tools]
+    H --> R[Config Validation]
+    
+    S[GitHub Actions] --> A
+    T[Pre-commit Hooks] --> A
+    U[CI/CD Pipeline] --> A
+    
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style S fill:#e8f5e8
+```
+
+## 🚀 Automation Workflow
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant Scripts as Scripts System
+    participant Tests as Test Suite
+    participant CI as CI/CD Pipeline
+    participant Deploy as Deployment
+    
+    Dev->>Scripts: Execute script
+    Scripts->>Scripts: Load includes/utilities
+    Scripts->>Scripts: Validate inputs
+    Scripts->>Scripts: Perform operations
+    Scripts->>Tests: Run validation tests
+    Tests->>Scripts: Return results
+    Scripts->>CI: Trigger workflows
+    CI->>Deploy: Deploy if successful
+    Deploy->>Dev: Notify completion
+```
 
 ## Directory Structure
 
@@ -198,6 +281,32 @@ validate_required_command "git"
 - Validate script execution in CI/CD pipelines
 - Review test coverage and failures
 
+## 🔄 Script Execution Flow
+
+```mermaid
+flowchart TD
+    A[Script Execution] --> B{Check Dependencies}
+    B -->|Missing| C[Install Dependencies]
+    B -->|Available| D[Load Includes]
+    C --> D
+    D --> E[Parse CLI Arguments]
+    E --> F[Validate Inputs]
+    F --> G{Validation Pass?}
+    G -->|No| H[Show Error & Exit]
+    G -->|Yes| I[Execute Main Logic]
+    I --> J[Run Tests if Available]
+    J --> K{Tests Pass?}
+    K -->|No| L[Report Failures]
+    K -->|Yes| M[Log Success]
+    L --> N[Exit with Error]
+    M --> O[Exit Successfully]
+    
+    style A fill:#e1f5fe
+    style I fill:#e8f5e8
+    style O fill:#c8e6c9
+    style N fill:#ffcdd2
+```
+
 ## Contributing
 
 When contributing new scripts or modifications:
@@ -208,3 +317,32 @@ When contributing new scripts or modifications:
 4. Update relevant README files
 5. Ensure all validation passes
 6. Document dependencies and usage
+
+---
+
+## 📚 References
+
+### 🔗 Documentation Links
+
+- [LightSpeedWP Main Repository](https://github.com/lightspeedwp/.github)
+- [Coding Standards Instructions](../.github/instructions/coding-standards.instructions.md)
+- [Testing Guidelines](../.github/instructions/tests.instructions.md)
+- [WordPress Development Standards](https://developer.wordpress.org/coding-standards/)
+
+### 🛠️ Development Resources
+
+- [GitHub Actions Workflows](../.github/workflows/)
+- [Schema Definitions](../schemas/)
+- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
+- [Contributing Guidelines](../CONTRIBUTING.md)
+
+### 🎯 AI & Automation
+
+- [Custom Instructions](../.github/custom-instructions.md)
+- [Agents Documentation](../.github/agents/agent.md)
+- [Prompts Library](../.github/prompts/prompts.md)
+- [Automation Governance](../GOVERNANCE.md)
+
+---
+
+_⚡ Empowering WordPress development through intelligent automation and shared utilities._

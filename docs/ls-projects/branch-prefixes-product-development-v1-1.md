@@ -1,4 +1,5 @@
 # **Branch Prefixes**
+
 ## *Product Development*
 
 ***Version:*** 1.1 • ***Last updated:*** 17 Oct 2025  
@@ -9,9 +10,11 @@ A maximal but sane set of prefixes for product repos. Use **shared core** everyw
 [Shared core](#shared-core-use-in-both-templates) • [Product-specific](#product-specific-optional) • [Examples](#examples) • [One regex](#one-regex-to-enforce) • [Mapping](#mapping-to-issue-types-for-automations) • [Tips](#tips)
 
 ## **Shared core (use in both templates)** {#shared-core-use-in-both-templates}
+
 - `feat/`, `fix/`, `hotfix/`, `release/`, `refactor/`, `chore/`, `docs/`, `test/`, `perf/`, `ci/`, `build/`, `deps/`, `security/`, `revert/`, `research/`, `design/`, `a11y/`, `ux/`, `i18n/`, `ops/`
 
 ## **Product-specific (optional)** {#product-specific-optional}
+
 - `proto/` — experiments  
 - `ds/` — design system  
 - `api/` — API surface  
@@ -32,8 +35,8 @@ hotfix/cart-csrf-check
 
 ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry)/[a-z0-9._-]+$
 
-
 ## **Mapping to Issue Types (for automations)** {#mapping-to-issue-types-for-automations}
+
 - `feat/` → Feature/Story  
 - `fix/` → Bug (hotfix → critical Bug)  
 - `refactor/` → Refactor  
@@ -44,4 +47,5 @@ hotfix/cart-csrf-check
 - `release/` → Release PR
 
 ## **Tips** {#tips}
+
 - Enforce with one regex, keep scopes meaningful, prefer Project fields over label proliferation.

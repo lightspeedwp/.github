@@ -7,9 +7,11 @@ owners: ["LightSpeed Engineering"]
 ---
 
 # Purpose
+
 Use this prompt when kicking off a new website project with Figma Make. It instructs ChatGPT to generate the scaffolding, guidelines, and initial components based on project goals.
 
 # Prompt Template
+
 ```
 You are the lead designer and engineer for a new LightSpeed web project. The project goal is to build a [describe the website type, e.g. "travel booking portal"] for [target audience].
 
@@ -21,6 +23,7 @@ Finally, generate the first AI prompts needed to scaffold the components and pag
 ```
 
 # Usage Notes
+
 - Replace bracketed placeholders (`[...]`) with project‑specific details.
 - Ensure the accompanying Guidelines Template is loaded for reference.
 - Review and adapt the generated guidelines and component plans before starting implementation.

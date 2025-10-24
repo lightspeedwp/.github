@@ -6,14 +6,18 @@
 **Maintainer:** LightSpeed WP
 
 ---
+
 ## 1. Objectives
+
 Establish a consistent, extensible, and fluid design token system for colours, typography, and spacing across:
+
 - `theme.json` presets (palette, fontSizes, spacingSizes)
 - Section style variations (`/styles/block/section-*.json`)
 - Block patterns & template parts (token references only)
 - Editor UX (discoverable, predictable scales)
 
 Key goals:
+
 1. Semantic + systematic palette (neutral + accent families) with stable slugs.
 2. Numeric, fluid typography scale avoiding hierarchy inversion at narrow / wide extremes.
 3. Fluid spacing tokens (clamp-based) replacing ad-hoc pixel padding/gaps.
@@ -21,7 +25,9 @@ Key goals:
 5. Low CSS specificity leveraging WordPress 6.6 cascade (`blocks.*`, `elements.*`).
 
 ---
+
 ## 2. Colour System
+
 | Group | Slugs | Purpose |
 |-------|-------|---------|
 | Core semantic | `base`, `contrast`, `primary` | Background, text, brand CTA |
@@ -30,12 +36,15 @@ Key goals:
 | Accent scale (warm) | `accent-600` → `accent-900` | Secondary / supporting accent band |
 
 **Guidelines**
+
 - Patterns & sections reference only `var(--wp--preset--color--<slug>)` / `var:preset|color|<slug>`.
 - No mixing of semantic & raw hex in patterns (future rebranding safe).
 - High-contrast combos validated (contrast text on accent backgrounds; base on contrast, etc.).
 
 ---
+
 ## 3. Typography Scale (Fluid)
+
 Numeric progressive scale with explicit min/max per size to prevent overlap.
 
 | Slug | Label | Base Size | Fluid Min | Fluid Max | Typical Usage |
@@ -53,7 +62,9 @@ Numeric progressive scale with explicit min/max per size to prevent overlap.
 **Why explicit fluid bounds?** Avoids default WP heuristics producing crossovers (H3 surpassing H2 at certain widths). Ensures monotonic scale from smallest to largest at all viewport sizes.
 
 ---
+
 ## 4. Spacing Scale (Fluid Tokens)
+
 Fluid `clamp()` expressions balance mobile density and wide-screen comfort.
 
 | Slug | Clamp Expression | Approx Mobile → Desktop | Use Case |
@@ -72,7 +83,9 @@ Fluid `clamp()` expressions balance mobile density and wide-screen comfort.
 **Rationale:** Step slopes (vw factors) increase with size to preserve perceived proportion across breakpoints. Smaller tokens remain near-fixed to avoid jitter in tight UI clusters.
 
 ---
+
 ## 5. Section Style Variations
+
 Location: `/styles/block/section-*.json` (auto-registered WP 6.6 block style variations).
 
 | Slug | Intent | Key Tokens |
@@ -89,25 +102,33 @@ Location: `/styles/block/section-*.json` (auto-registered WP 6.6 block style var
 | section-muted | Low emphasis info | BG neutral-200, subdued links accent-300 → accent-400 |
 
 **Variation Principles**
+
 - One purpose per variation (no multi-role mixes).
 - Inner semantics (headings, links, buttons) tuned via `blocks.core/*` & `elements.link`.
 - Only preset tokens: safe for future re-theming.
 
 ---
+
 ## 6. Fluid & Viewport Strategy
+
 - Typography: rem-based min/max ensures accessibility (user zoom unaffected). No vh text sizing to avoid dynamic viewport shifts.
 - Large vertical rhythms (hero sections) combine spacing tokens at upper bounds to approximate comfortable fold coverage without using fixed vh.
 - No token uses pure vw without clamp to prevent extreme expansion on ultrawide screens.
 
 ---
+
 ## 7. Specificity & Cascade Compliance
+
 Aligned with WP 6.6 low-specificity model:
+
 - No `!important` used.
 - Variation JSON: root colour / background only; targeted heading & link adjustments inside `blocks.*` / `elements.*`.
 - Patterns avoid inline style overrides of tokenized attributes except where block UI requires explicit attribute (e.g. cover overlay dimRatio).
 
 ---
+
 ## 8. Migration Summary
+
 | Aspect | Old | New |
 |--------|-----|-----|
 | Spacing token syntax | `var:preset|spacing|50` | `var:preset|spacing|spacing-50` |
@@ -118,13 +139,17 @@ Aligned with WP 6.6 low-specificity model:
 All pattern & part files updated for spacing token rename; hero & CTA patterns aligned to new scale.
 
 ---
+
 ## 9. Accessibility Considerations
+
 - Minimum body size >= 0.9rem fluid bound prevents unreadable scaling.
 - Contrast pairs tested (contrast on base, base on contrast, accent backgrounds with contrast or base text) meet AA for body text.
 - Hierarchy preserved at every viewport: for all widths, `font-size-100 < … < font-size-900`.
 
 ---
+
 ## 10. Future Extension Points
+
 | Category | Option | Notes |
 |----------|--------|-------|
 | Colours | semantic `success`, `warning`, `info` | Add as separate scales or single-step accents |
@@ -133,13 +158,17 @@ All pattern & part files updated for spacing token rename; hero & CTA patterns a
 | Motion (future) | `transition-duration-*` custom tokens | Would live under `settings.custom.motion` |
 
 ---
+
 ## 11. Governance & Change Policy
+
 - **Slug stability:** Changing values is allowed; renaming slugs is a breaking change requiring migration tooling.
 - **Review checklist for new tokens:** Contrast check, fluid bounds test (320px / 1440px / 1920px), hierarchy diff.
 - **Deprecation:** Mark in CHANGELOG and maintain alias for ≥1 minor release if removal required.
 
 ---
+
 ## 12. QA Checklist (Executed)
+
 - [x] Monotonic typography scale across 320px–1920px.
 - [x] Spacing clamps produce no overlaps or regressions (spacing-40 < spacing-50 at all widths).
 - [x] Section variations render unique purpose without style collisions nested two levels deep.
@@ -147,7 +176,9 @@ All pattern & part files updated for spacing token rename; hero & CTA patterns a
 - [x] No inline hex in new or updated patterns (palette tokens only).
 
 ---
+
 ## 13. Editor Guidance (Author UX)
+
 | Scenario | Recommended Action |
 |----------|--------------------|
 | New marketing hero | Apply `section-hero-light` or `section-hero-dark` + use heading at `font-size-800/900`. |
@@ -157,21 +188,28 @@ All pattern & part files updated for spacing token rename; hero & CTA patterns a
 | Dark mode emphasis area | Use `section-contrast` for inversion. |
 
 ---
+
 ## 14. Tooling / Scripts
+
 Migration assistance (spacing token rename):
+
 ```bash
 grep -RIl 'var:preset|spacing|[0-9][0-9]' patterns parts | while read -r f; do
   sed -i.bak -E 's/var:preset\|spacing\|([0-9]{2,3})/var:preset|spacing|spacing-\1/g' "$f"
   echo "Updated $f"
 done
 ```
+
 Remove backups when satisfied:
+
 ```bash
 find patterns parts -name '*.bak' -delete
 ```
 
 ---
+
 ## 15. Risks & Mitigations
+
 | Risk | Mitigation |
 |------|------------|
 | Existing content referencing old spacing slugs outside patterns | Provide optional alias map via custom CSS variables for one release cycle. |
@@ -179,13 +217,17 @@ find patterns parts -name '*.bak' -delete
 | Editors apply multiple section variations nested excessively | Document best practice + Site Editor training notes. |
 
 ---
+
 ## 16. Changelog Entry (Proposed)
+
 ```
 feat: adopt standardized semantic & systematic tokens (colour, typography, spacing); add section style variations; update patterns & parts to fluid scale.
 ```
 
 ---
+
 ## 17. Approval
+
 - Design Lead: _Pending_
 - Engineering Review: _Pending_
 - Accessibility Review: _Pending_

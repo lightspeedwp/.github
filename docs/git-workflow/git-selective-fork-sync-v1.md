@@ -98,10 +98,10 @@ Tip: Keep your local folder name short, e.g. `lsx-demo-theme/`.
 
 Run:
 
- git remote add upstream https://github.com/lightspeedwp/lsx-demo-theme.git  
+ git remote add upstream <https://github.com/lightspeedwp/lsx-demo-theme.git>  
 git remote \-v   \# confirm you see both origin (your fork) and upstream
 
-2. 
+2.
 
 ---
 
@@ -151,7 +151,7 @@ git restore \--source upstream-sync-YYYYMMDD \-- path/to/file
 \# Or bring a whole folder  
 git restore \--source upstream-sync-YYYYMMDD \-- path/to/folder/
 
-2. 
+2.
 
 **Alternative (older syntax that still works):**
 
@@ -268,4 +268,3 @@ git restore \--source upstream/main \-- path/to/file
 Commit in Desktop → push → PR to your fork’s `main`.
 
 ---
-

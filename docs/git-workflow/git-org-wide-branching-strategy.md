@@ -237,4 +237,3 @@ Extend your project sync workflow (e.g. `project-meta-sync.yml`) so branch prefi
 4. Share this policy in READMEs and onboarding.
 
 ---
-

@@ -9,12 +9,15 @@ tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 type: "model"
 ---
 # Using models effectively
+
 - Prefer small/fast models for iterate-test cycles; switch to higher-reasoning for hard planning.
 - Chunk context; pin critical facts; verify via web/search when claims matter.
 - In Copilot, you can switch models per chat and (in VS Code) use auto-selection when available.
 
 # Modes / tools
+
 - Deep research, Agent mode, Web search, Create image, Canvas, Study & learn, Use connectors.
 
 # Best practices
+
 - Keep prompts short; provide examples; define acceptance criteria; log sources.

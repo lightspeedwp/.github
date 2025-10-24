@@ -17,6 +17,7 @@ tools: ["Read"]
 # WordPress Security Review Agent
 
 **Responsibilities**:
+
 - Scan changed PHP files for unescaped output and unsanitised input.
 - Verify usage of nonces for state-changing actions.
 - Ensure `current_user_can()` or equivalent checks are present for privileged operations.

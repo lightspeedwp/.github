@@ -1,6 +1,6 @@
 # **GitHub Workflow Playbook**
 
-***Version:*** 1.2 *— **Last updated:** 9 Oct 2025* 
+***Version:*** 1.2 *— **Last updated:** 9 Oct 2025*
 
 ---
 
@@ -356,13 +356,13 @@ Thanks for taking the time to contribute\! This guide explains how to propose ch
 \- i18n: wrap strings and set correct text domain.
 
 \#\# Security  
-Please report vulnerabilities privately to \*\*security@lightspeedwp.agency\*\* (or use the repo’s Security tab). Do not open public issues for security reports.
+Please report vulnerabilities privately to \*\*<security@lightspeedwp.agency>\*\* (or use the repo’s Security tab). Do not open public issues for security reports.
 
 \#\# License  
 Unless stated otherwise, contributions are licensed under the repository’s LICENSE.
 
 \#\# Contact  
-Maintainers: @ashley and team — email \*\*dev@lightspeedwp.agency\*\*.
+Maintainers: @ashley and team — email \*\*<dev@lightspeedwp.agency>\*\*.
 
 ### **B) CODE\_OF\_CONDUCT.md (ideal description & structure)** {#b)-code_of_conduct.md-(ideal-description-&-structure)}
 
@@ -373,9 +373,9 @@ Maintainers: @ashley and team — email \*\*dev@lightspeedwp.agency\*\*.
 **Starter content (short form with external reference)**
 
 \# Code of Conduct  
-We follow the \[Contributor Covenant v2.1\](https://www.contributor-covenant.org/version/2/1/code\_of\_conduct/) for all LightSpeed projects.
+We follow the \[Contributor Covenant v2.1\](<https://www.contributor-covenant.org/version/2/1/code\_of\_conduct/>) for all LightSpeed projects.
 
-Instances of abusive, harassing, or otherwise unacceptable behaviour may be reported to \*\*conduct@lightspeedwp.agency\*\* (or your project’s listed maintainer). All reports will be reviewed and investigated promptly and fairly.
+Instances of abusive, harassing, or otherwise unacceptable behaviour may be reported to \*\*<conduct@lightspeedwp.agency>\*\* (or your project’s listed maintainer). All reports will be reviewed and investigated promptly and fairly.
 
 By participating, you agree to uphold these standards of respectful, collaborative behaviour.
 
@@ -543,4 +543,3 @@ By participating, you agree to uphold these standards of respectful, collaborati
 * **v1.1 (16 September 2025\)** — Polished language; fixed duplicated PR template; added AI-assisted workflow & guardrails; clarified `main` vs `develop` (Tour Operator uses `develop`); expanded references; tightened adoption checklist; minor typo fixes.
 
 * **v1.0 (16 September 2025\)** — Initial baseline: branching model, PR standards, CI gates, releases, automation, examples.
-

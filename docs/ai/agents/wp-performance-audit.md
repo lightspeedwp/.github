@@ -17,6 +17,7 @@ tools: ["Read"]
 # WordPress Performance Audit Agent
 
 **Responsibilities**:
+
 - Review PHP for N+1 DB queries and missing caching/transients.
 - Flag unbounded loops or expensive computations.
 - Suggest use of `WP_Query`, object cache, or transients for optimization.

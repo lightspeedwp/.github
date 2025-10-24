@@ -16,6 +16,7 @@ This guide explains how to scaffold a new block plugin or block using the LightS
 ## Why Mustache Templates?
 
 We use [mustache-style placeholders](https://github.com/WordPress/block-development-examples/wiki/Conventions-for-examples#mustache-templates) (e.g., `{{slug}}`) to:
+
 - Automate plugin setup
 - Ensure consistency for all project metadata
 - Align with [WordPress block development examples](https://github.com/WordPress/block-development-examples/)
@@ -44,11 +45,14 @@ We use [mustache-style placeholders](https://github.com/WordPress/block-developm
 ## Example: Before and After
 
 **Before (template):**
+
 ```js
 // src/{{slug}}/index.js
 registerBlockType( '{{namespace}}/{{slug}}', { /* ... */ } );
 ```
+
 **After (scaffolded):**
+
 ```js
 // src/copyright-block/index.js
 registerBlockType( 'lightspeedwp/copyright-block', { /* ... */ } );

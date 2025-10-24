@@ -43,7 +43,7 @@ Every PR should include a **structured "Changelog" section** in its description.
 `### Fixed`  
 `- Resolved a navigation menu bug on mobile devices.`
 
-*   
+*
 * **Linking Issues:** If the PR is linked to an issue (using keywords like "Closes \#123"), the workflow can incorporate information from that issue. For example, if your issue template or project field contains a **“Planned Change”** or similar summary, you can configure the automation to prepend or append that to the PR’s changelog text. (This could be done by fetching the issue via GitHub API in the workflow.) This way, any pre-written context from the planning phase is not lost. If an issue has a structured description of the change, ensure the PR’s changelog entry reflects it – possibly even copy it into the PR description for accuracy.
 
 * **Formatting:** Encourage using consistent terminology (e.g., **Added**, **Changed**, **Fixed**, **Removed**, etc.) and including references if relevant (such as issue numbers or contributor names). This yields a well-organized changelog in the final file[stefanzweifel.dev](https://stefanzweifel.dev/posts/2021/11/13/introducing-the-changelog-updater-action/#:~:text=Personally%20though%2C%20I%20really%20like,have%20to%20update%20an%20implementation). The PR template can include these sub-headings to remind contributors.
@@ -59,7 +59,7 @@ Every PR should include a **structured "Changelog" section** in its description.
 
 `*Ref: Project requirements doc section 3.2*`
 
-*  In a client delivery context, the wording might be more specific to the client’s project (for example, referencing client-specific modules or requirements).
+* In a client delivery context, the wording might be more specific to the client’s project (for example, referencing client-specific modules or requirements).
 
 This **Changelog section is mandatory for every PR** that will be merged. It will later be automatically extracted to update the main `CHANGELOG.md`.
 
@@ -95,8 +95,8 @@ Under a **main-only release model**, whenever a PR is merged into the `main` bra
 
 `jobs:`  
   `release:`  
-    `if: >`   
-      `github.event.pull_request.merged == true &&`   
+    `if: >`
+      `github.event.pull_request.merged == true &&`
       `github.event.pull_request.base.ref == 'main'`  
     `runs-on: ubuntu-latest`  
     `permissions:`  
@@ -309,7 +309,7 @@ When working across multiple repositories or teams, it’s good to have a **labe
   `- "docs/**/*"`  
   `- "*.md"`
 
-*  And then set `documentation` label as `skip-changelog` type or simply use it to signal it’s a non-code change. (This requires the `actions/labeler` workflow to be enabled.)
+* And then set `documentation` label as `skip-changelog` type or simply use it to signal it’s a non-code change. (This requires the `actions/labeler` workflow to be enabled.)
 
 In summary, having a label policy and automation to back it up will keep your workflow smooth and predictable. Every PR in a client delivery project will clearly indicate its status, priority, and release impact.
 
@@ -349,7 +349,7 @@ To complement the workflow, here are example configuration files that might be i
     `prefix: "**Changed:**"`  
 `include_issues: true  # indicates that linked issue content should be appended if available`
 
-*  This file isn't used directly by our script, but it serves as a reference for contributors (and could be used by a more advanced changelog tool or action if integrated later).
+* This file isn't used directly by our script, but it serves as a reference for contributors (and could be used by a more advanced changelog tool or action if integrated later).
 
 **Release Drafter Config (optional):** If at some point you decide not to release every PR immediately and instead draft a release note from multiple PRs, a tool like Release Drafter can be configured. For completeness, here’s a sample `.github/release-drafter.yml`:
 
@@ -367,11 +367,11 @@ To complement the workflow, here are example configuration files that might be i
   `major:`  
     `labels: ['release:major', 'breaking']`  
   `minor:`  
-    `labels: ['release:minor', 'feature']`   
+    `labels: ['release:minor', 'feature']`
   `patch:`  
     `labels: ['release:patch']`
 
-*  This config says: how to draft the release notes grouping by categories, and how to decide version bumps (here it listens to our `release:` labels among others)[pakstech.com](https://pakstech.com/blog/github-actions-release-workflow/#:~:text=This%20configuration%20sets%20how%20the,repository%20for%20more%20available%20configurations). While our primary approach does not rely on Release Drafter (we create releases immediately on merge), this could be used if one wanted to accumulate changes and release manually.
+* This config says: how to draft the release notes grouping by categories, and how to decide version bumps (here it listens to our `release:` labels among others)[pakstech.com](https://pakstech.com/blog/github-actions-release-workflow/#:~:text=This%20configuration%20sets%20how%20the,repository%20for%20more%20available%20configurations). While our primary approach does not rely on Release Drafter (we create releases immediately on merge), this could be used if one wanted to accumulate changes and release manually.
 
 **Labeler Config (`.github/labeler.yml`):** If using the GitHub Labeler action for auto-labeling, define patterns for files:
 
@@ -382,7 +382,7 @@ To complement the workflow, here are example configuration files that might be i
 `"documentation":`  
   `- "**/*.md"`
 
-*  And so on. This is project-specific; it automatically tags PRs touching certain areas. While not directly part of changelog or release, it can tie into the workflow (for example, PRs that only change docs could get `documentation` label and perhaps you decide those get `skip-changelog` automatically).
+* And so on. This is project-specific; it automatically tags PRs touching certain areas. While not directly part of changelog or release, it can tie into the workflow (for example, PRs that only change docs could get `documentation` label and perhaps you decide those get `skip-changelog` automatically).
 
 ## **Conclusion** {#conclusion}
 
@@ -391,4 +391,3 @@ By implementing this blueprint, your client delivery projects will have an autom
 With minimal adjustments, this same framework can be applied to product development repositories – the next section/document will outline those differences. But for client work, the above ensures every delivery is well-documented and easy to trace. Happy automating\!
 
 ---
-

@@ -52,12 +52,12 @@ Be specific and complete. Most templates include:
 - Pick **one** [issue type](../.github/ISSUE_TYPES.md) (e.g., `type:bug`, `type:feature`, `type:task`, etc.).
 - **Branch prefixes** (`feat/`, `fix/`, etc.) and issue type drive automation and label application.
 - Add companion labels to improve search and automation:
-    - **Priority:** `priority:critical`, `priority:normal`, `priority:minor`
-    - **Status:** Start with `status:needs-triage`
-    - **Area/Component:** `area:ci`, `comp:block-editor`, etc.
-    - **Context:** `phase:6`, `env:staging`, etc.
-    - **Meta:** `contrib:good-first-issue`, `meta:needs-changelog`
-    - **Effort:** `easy`, `medium`, `hard`
+  - **Priority:** `priority:critical`, `priority:normal`, `priority:minor`
+  - **Status:** Start with `status:needs-triage`
+  - **Area/Component:** `area:ci`, `comp:block-editor`, etc.
+  - **Context:** `phase:6`, `env:staging`, etc.
+  - **Meta:** `contrib:good-first-issue`, `meta:needs-changelog`
+  - **Effort:** `easy`, `medium`, `hard`
 
 Labels are managed automatically, but review and adjust as needed.
 
@@ -69,6 +69,7 @@ Format:
 `[Phase X.Y] Area/Component: Brief description`
 
 Examples:
+
 - `[Phase 6] GC: Implement reference counting for ObjectRef`
 - `[Phase 5.5] CI: Set up branch protection rules`
 - `[Docs] README: Add benchmark examples`

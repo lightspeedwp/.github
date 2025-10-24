@@ -17,9 +17,9 @@ Husky is used to enforce code quality and consistency by running automated check
 ## .husky Folder Structure
 
 - `.husky/` — Contains all Husky hook scripts
-    - `pre-commit` — Main pre-commit hook script (runs linting, tests, etc.)
-    - `commit-msg` — Validates commit message format (if present)
-    - Other hooks as needed (e.g., `pre-push`)
+  - `pre-commit` — Main pre-commit hook script (runs linting, tests, etc.)
+  - `commit-msg` — Validates commit message format (if present)
+  - Other hooks as needed (e.g., `pre-push`)
 
 ## How Pre-Commit Works
 

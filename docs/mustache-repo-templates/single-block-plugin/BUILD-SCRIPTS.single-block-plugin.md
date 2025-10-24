@@ -8,6 +8,7 @@ The script `bin/replace-placeholders.js` lets you quickly replace all mustache-s
 
 1. **Prepare your mapping file:**  
    Create a JSON file (e.g. `mapping.json`):  
+
    ```json
    {
      "slug": "copyright-block",
@@ -18,6 +19,7 @@ The script `bin/replace-placeholders.js` lets you quickly replace all mustache-s
    ```
 
 2. **Run the script:**  
+
    ```sh
    node bin/replace-placeholders.js README.md --map mapping.json
    ```

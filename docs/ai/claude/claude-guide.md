@@ -9,4 +9,5 @@ tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 type: "copilot"
 ---
 # Overview
+
 - Model selection (Sonnet family), strengths in reasoning & long context.

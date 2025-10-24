@@ -47,12 +47,13 @@ For new decisions, add a summary here and create a corresponding ADR file with f
 Each entry should include:
 
 - **Decision N:** Clear one-line summary ([ADR-00N](ADR/ADR-00N-topic.md))
-    - **Status:** Proposed | Accepted | Deprecated | Superseded
-    - **Date:** YYYY-MM-DD
-    - **Context:** Brief summary of why this decision was made, what alternatives were considered, and what it impacts.
-    - **Consequences:** What this changes, who is affected, migration steps if any.
+  - **Status:** Proposed | Accepted | Deprecated | Superseded
+  - **Date:** YYYY-MM-DD
+  - **Context:** Brief summary of why this decision was made, what alternatives were considered, and what it impacts.
+  - **Consequences:** What this changes, who is affected, migration steps if any.
 
 Example:
+
 ```markdown
 - **Decision 6:** Switch CSS linter from stylelint to custom WordPress-tailored stylelint config ([ADR-006](ADR/ADR-006-stylelint.md))
     - **Status:** Accepted
@@ -66,34 +67,34 @@ Example:
 ## Current Decisions
 
 - **Decision 1:** Adopted native WordPress block patterns for all new theme development ([ADR-001](ADR/ADR-001-block-patterns.md))
-    - **Status:** Accepted
-    - **Date:** 2025-10-12
-    - **Context:** Aligns with WordPress core, improves maintainability, reduces custom code.
-    - **Consequences:** All new themes must use block patterns; legacy support documented in ADR.
+  - **Status:** Accepted
+  - **Date:** 2025-10-12
+  - **Context:** Aligns with WordPress core, improves maintainability, reduces custom code.
+  - **Consequences:** All new themes must use block patterns; legacy support documented in ADR.
 
 - **Decision 2:** Standardized on PHP 8.2 for all CI and production environments ([ADR-002](ADR/ADR-002-php-version.md))
-    - **Status:** Accepted
-    - **Date:** 2025-10-13
-    - **Context:** Needed features and performance from PHP 8.2. Dropped support for older versions.
-    - **Consequences:** CI updated, composer.json set to >=8.2, migration steps in ADR.
+  - **Status:** Accepted
+  - **Date:** 2025-10-13
+  - **Context:** Needed features and performance from PHP 8.2. Dropped support for older versions.
+  - **Consequences:** CI updated, composer.json set to >=8.2, migration steps in ADR.
 
 - **Decision 3:** Use Playwright for E2E and accessibility testing ([ADR-003](ADR/ADR-003-playwright-testing.md))
-    - **Status:** Accepted
-    - **Date:** 2025-10-14
-    - **Context:** Playwright supports multi-browser E2E and a11y checks. Considered Cypress, Selenium.
-    - **Consequences:** New E2E tests in Playwright, contributors must install Playwright, CI setup described in ADR.
+  - **Status:** Accepted
+  - **Date:** 2025-10-14
+  - **Context:** Playwright supports multi-browser E2E and a11y checks. Considered Cypress, Selenium.
+  - **Consequences:** New E2E tests in Playwright, contributors must install Playwright, CI setup described in ADR.
 
 - **Decision 4:** All custom post types registered via `theme.json` wherever possible ([ADR-004](ADR/ADR-004-cpt-in-theme-json.md))
-    - **Status:** Accepted
-    - **Date:** 2025-10-15
-    - **Context:** Unifies CPTs across themes and plugins, simplifies migrations.
-    - **Consequences:** CPT registration functions deprecated, docs and onboarding updated.
+  - **Status:** Accepted
+  - **Date:** 2025-10-15
+  - **Context:** Unifies CPTs across themes and plugins, simplifies migrations.
+  - **Consequences:** CPT registration functions deprecated, docs and onboarding updated.
 
 - **Decision 5:** All client-facing code must pass Lighthouse a11y checks in CI ([ADR-005](ADR/ADR-005-accessibility-audit.md))
-    - **Status:** Accepted
-    - **Date:** 2025-10-16
-    - **Context:** Accessibility is a core requirement; automating checks avoids regressions.
-    - **Consequences:** PRs failing a11y in Lighthouse cannot be merged; CI config in ADR.
+  - **Status:** Accepted
+  - **Date:** 2025-10-16
+  - **Context:** Accessibility is a core requirement; automating checks avoids regressions.
+  - **Consequences:** PRs failing a11y in Lighthouse cannot be merged; CI config in ADR.
 
 ---
 

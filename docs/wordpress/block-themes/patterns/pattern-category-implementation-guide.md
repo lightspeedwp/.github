@@ -51,6 +51,7 @@ Primary Namespace: `lsx-design` (custom categories) while re‑using Core catego
 | lsx-design/woocommerce (conditional) | LSX: WooCommerce | Product grids, collection layouts, single product sections (`wc-`, `product-`, `woocommerce-`) | Register only if Woo active |
 
 Recommended Default Core Reuse (no custom prefix needed):
+
 - `banner` (hero patterns if you opt NOT to use `lsx-design/hero`)
 - `posts` (alternative to `lsx-design/posts` if you want purely core; choose one scheme)
 - `query`
@@ -67,10 +68,12 @@ Recommended Default Core Reuse (no custom prefix needed):
 Because prior docs show both a “Core+Custom Hybrid” and “All Custom” approach, decide:
 
 A. **Hybrid (Recommended)** – Lean on Core categories; custom only where necessary:
+
 - Keep Core: `banner`, `posts`, `query`, `header`, `footer`, `social`
 - Custom: `lsx-design/menu`, `lsx-design/sections`, `lsx-design/meta`, `lsx-design/utility`, `lsx-design/pages`, `lsx-design/templates`, `lsx-design/woocommerce`, optionally `lsx-design/cta`, `lsx-design/hero` (if you want separation beyond `banner`).
 
 B. **All Custom** – Use `lsx-design/*` for every domain-specific grouping:
+
 - Remove overlapping Core categories from pattern headers except where Core semantics aid search (you can dual-tag: `Categories: banner, lsx-design/hero`).
 - Increases maintenance overhead; not advised unless you have curation tooling that enforces naming.
 
@@ -101,6 +104,7 @@ Use these rules for an automated validator (pseudo-regex):
 | `*-card*` (generic others)    | lsx-design/card (if enabled)         |                      |
 
 Lint rule summary:
+
 1. Every pattern must have at least one allowed category.
 2. If a slug matches a prefix rule, ensure mapped category present.
 3. Disallow more than 3 custom categories per pattern (avoid noise).
@@ -311,6 +315,7 @@ scan /patterns/**/*.php
 | Too many categories (>3)                    | Reduce to 1–2 focused, plus 0–1 core fallback |
 
 Migration steps:
+
 1. Inventory headers (script).
 2. Map non-canonical → canonical category set.
 3. Batch update pattern headers (search/replace).
@@ -395,6 +400,7 @@ Place before the `foreach` loop to let child themes extend or remove categories.
 ---
 
 If you’d like next:
+
 - I can generate a linter script outline (WP-CLI) for enforcing these rules.
 - Produce a migration patch changing existing pattern headers to the canonical set.
 

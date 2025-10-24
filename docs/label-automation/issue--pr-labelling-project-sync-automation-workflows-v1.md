@@ -1,4 +1,4 @@
-# **GitHub Labelling Workflows** 
+# **GitHub Labelling Workflows**
 
 ## *Issue types & labelling, PR labelling and Project sync to add missing project meta*
 
@@ -296,4 +296,3 @@ You can tweak the strings in `field-values` if your options differ.
 ```
 
 ```
-

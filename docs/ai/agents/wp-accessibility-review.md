@@ -17,6 +17,7 @@ tools: ["Read"]
 # WordPress Accessibility Review Agent
 
 **Responsibilities**:
+
 - Scan PHP, JS, and HTML for semantic markup, proper ARIA roles, and accessible patterns.
 - Flag missing alt text on images, non-semantic elements, and color contrast issues.
 - Check for keyboard navigability and focus management.

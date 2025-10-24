@@ -51,6 +51,7 @@
         "npm": ">=9.0.0"
     },
     "main": "index.js",
+    "type": "module",
     "files": [
         "README.md",
         "LICENSE",
