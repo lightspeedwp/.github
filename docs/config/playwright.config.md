@@ -1,0 +1,53 @@
+# Playwright Configuration
+
+This document describes the Playwright setup for LightSpeed projects, supporting E2E testing with environment-based overrides.
+
+## Configuration File
+
+**File:** `playwright.config.js`
+
+```javascript
+require('dotenv').config();
+
+const config = {
+    testDir: process.env.PLAYWRIGHT_TEST_DIR || './tests',
+    reporter: process.env.PLAYWRIGHT_REPORTER || 'list',
+    use: {
+        baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
+        headless: process.env.PLAYWRIGHT_HEADLESS !== 'false',
+    },
+    projects: [
+        {
+            name: 'chromium',
+            use: { ...require('@playwright/test').devices['Desktop Chrome'] },
+        },
+        {
+            name: 'firefox',
+            use: { ...require('@playwright/test').devices['Desktop Firefox'] },
+        },
+        {
+            name: 'webkit',
+            use: { ...require('@playwright/test').devices['Desktop Safari'] },
+        },
+    ],
+};
+
+module.exports = config;
+```
+
+## Environment Variables
+
+- `PLAYWRIGHT_TEST_DIR`: Directory for tests (default: './tests')
+- `PLAYWRIGHT_REPORTER`: Reporter type (default: 'list')
+    - `PLAYWRIGHT_BASE_URL`: Base URL for tests (default: '<http://localhost:3000>')
+- `PLAYWRIGHT_HEADLESS`: Run in headless mode (default: true)
+
+## Usage
+
+Playwright is used for end-to-end (E2E) testing. See [playwright-tests.instructions.md](../../.github/instructions/playwright-tests.instructions.md) for test authoring standards.
+
+## Related Docs
+
+- [LINTING.md](../LINTING.md)
+- [lint-eslint.md](./lint-eslint.md)
+- [lint-jest.md](./lint-jest.md)
