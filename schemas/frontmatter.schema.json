@@ -23,12 +23,12 @@
         "extraDomains": {"type": "array", "items": {"type": "string"}, "description": "Secondary classifications"},
         "license": {"type": "string", "description": "License identifier"},
         "references": {
-          "type": "array", 
-          "items": {"type": "string"}, 
+          "type": "array",
+          "items": {"type": "string"},
           "description": "AI-focused references to related documentation (relative paths from current file)",
           "examples": [
             "CONTRIBUTING.md",
-            "README.md", 
+            "README.md",
             ".github/README.md",
             "docs/README.md",
             "schemas/frontmatter.schema.json"
