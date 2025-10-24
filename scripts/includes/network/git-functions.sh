@@ -10,11 +10,11 @@
 # License: MIT
 # License URI: https://opensource.org/licenses/MIT
 # Requirements: git, bash 4.0+
-# Usage: source scripts/includes/git-functions.sh
+# Usage: source scripts/includes/network/git-functions.sh
 # Environment Variables: None
 # Options: None - this is a library file
 # Examples:
-#   source scripts/includes/git-functions.sh
+#   source scripts/includes/network/git-functions.sh
 #   if is_git_repo; then echo "In git repo"; fi
 #   current_branch=$(get_current_branch)
 # Notes:
@@ -93,7 +93,7 @@ has_uncommitted_changes() {
 # ============================================================================
 get_commit_hash() {
     local short_flag="${1:-}"
-    
+
     if is_git_repo; then
         if [[ "$short_flag" == "--short" ]]; then
             git rev-parse --short HEAD 2>/dev/null || echo ""
@@ -117,12 +117,12 @@ validate_clean_working_tree() {
         log_error "Not in a git repository"
         return 1
     fi
-    
+
     if has_uncommitted_changes; then
         log_error "Working tree has uncommitted changes"
         log_error "Please commit or stash your changes before proceeding"
         return 1
     fi
-    
+
     return 0
 }

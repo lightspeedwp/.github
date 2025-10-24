@@ -35,50 +35,50 @@ scripts/includes/
 
 Standardized argument parsing and help generation for all scripts:
 
-- __parse_common_args()__ — Parse standard arguments (--verbose, --dry-run, --help)
-- __show_standard_help()__ — Generate consistent help output
-- __validate_arguments()__ — Validate required arguments and options
+- **parse_common_args()** — Parse standard arguments (--verbose, --dry-run, --help)
+- **show_standard_help()** — Generate consistent help output
+- **validate_arguments()** — Validate required arguments and options
 
 ### Logging System (`logging.sh`)
 
 Consistent logging across all scripts with color support:
 
-- __log_info()__, __log_warn()__, __log_error()__ — Structured logging functions
-- __log_debug()__ — Debug output (when VERBOSE is enabled)
-- __log_success()__ — Success message formatting
+- **log_info()**, **log_warn()**, **log_error()** — Structured logging functions
+- **log_debug()** — Debug output (when VERBOSE is enabled)
+- **log_success()** — Success message formatting
 
 ### Input Validation (`validation.sh`)
 
 Common validation functions for scripts:
 
-- __validate_required_command()__ — Check if required commands exist
-- __validate_file_exists()__ — Verify file existence
-- __validate_directory_exists()__ — Verify directory existence
-- __validate_url()__ — URL format validation
+- **validate_required_command()** — Check if required commands exist
+- **validate_file_exists()** — Verify file existence
+- **validate_directory_exists()** — Verify directory existence
+- **validate_url()** — URL format validation
 
 ### Color Support (`colors.sh`)
 
 Terminal color constants and functions:
 
 - Color constants (RED, GREEN, YELLOW, BLUE, etc.)
-- __colorize()__ — Apply colors to text output
-- __has_color_support()__ — Detect terminal color capability
+- **colorize()** — Apply colors to text output
+- **has_color_support()** — Detect terminal color capability
 
 ### File Operations (`file-operations.sh`)
 
 Safe file system operations:
 
-- __backup_file()__ — Create file backups before modification
-- __safe_write()__ — Atomic file writing operations
-- __cleanup_temp_files()__ — Temporary file management
+- **backup_file()** — Create file backups before modification
+- **safe_write()** — Atomic file writing operations
+- **cleanup_temp_files()** — Temporary file management
 
 ### Common Functions (`common-functions.sh`)
 
 General-purpose utility functions:
 
-- __get_repo_root()__ — Find repository root directory
-- __is_git_repo()__ — Check if current directory is a Git repository
-- __get_script_dir()__ — Get the directory of the calling script
+- **get_repo_root()** — Find repository root directory
+- **is_git_repo()** — Check if current directory is a Git repository
+- **get_script_dir()** — Get the directory of the calling script
 
 ## Test Helpers
 
@@ -86,54 +86,54 @@ General-purpose utility functions:
 
 Extended Bats testing utilities with advanced capabilities:
 
-- __setup_enhanced_test_environment()__ — Enhanced test environment setup
-- __cleanup_enhanced_test_environment()__ — Enhanced cleanup procedures
-- __source_includes()__ — Load all include files safely
+- **setup_enhanced_test_environment()** — Enhanced test environment setup
+- **cleanup_enhanced_test_environment()** — Enhanced cleanup procedures
+- **source_includes()** — Load all include files safely
 
-__Mocking Functions:__
+**Mocking Functions:**
 
-- __mock_git_command()__ — Mock specific git commands
-- __create_test_git_repo()__ — Create test git repository
-- __create_test_script()__ — Create test script with includes
+- **mock_git_command()** — Mock specific git commands
+- **create_test_git_repo()** — Create test git repository
+- **create_test_script()** — Create test script with includes
 
-__Assertion Functions:__
+**Assertion Functions:**
 
-- __assert_log_contains()__ — Assert log contains message
-- __assert_function_exists()__ — Assert function is defined
-- __assert_script_follows_standards()__ — Validate script standards
-- __assert_no_shellcheck_errors()__ — Validate with ShellCheck
+- **assert_log_contains()** — Assert log contains message
+- **assert_function_exists()** — Assert function is defined
+- **assert_script_follows_standards()** — Validate script standards
+- **assert_no_shellcheck_errors()** — Validate with ShellCheck
 
-__Utility Functions:__
+**Utility Functions:**
 
-- __run_with_timeout()__ — Run command with timeout
-- __create_fixture_file()__ — Create test fixture
-- __load_fixture()__ — Load fixture content
+- **run_with_timeout()** — Run command with timeout
+- **create_fixture_file()** — Create test fixture
+- **load_fixture()** — Load fixture content
 
 ### Agent Test Helpers (`agent-test-helpers.bash`)
 
 Specialized helpers for testing LightSpeed WP agents:
 
-__Agent Environment:__
+**Agent Environment:**
 
-- __setup_agent_test_environment()__ — Setup for agent testing
-- __cleanup_agent_test_environment()__ — Agent-specific cleanup
+- **setup_agent_test_environment()** — Setup for agent testing
+- **cleanup_agent_test_environment()** — Agent-specific cleanup
 
-__GitHub Mocking:__
+**GitHub Mocking:**
 
-- __create_mock_github_event()__ — Mock GitHub webhook events
-- __mock_github_api()__ — Mock GitHub API responses
-- __create_mock_github_response()__ — Create API response files
+- **create_mock_github_event()** — Mock GitHub webhook events
+- **mock_github_api()** — Mock GitHub API responses
+- **create_mock_github_response()** — Create API response files
 
-__Agent Validation:__
+**Agent Validation:**
 
-- __validate_agent_structure()__ — Validate agent file structure
-- __validate_js_agent_structure()__ — Validate JavaScript agents
-- __assert_agent_follows_standards()__ — Comprehensive agent validation
+- **validate_agent_structure()** — Validate agent file structure
+- **validate_js_agent_structure()** — Validate JavaScript agents
+- **assert_agent_follows_standards()** — Comprehensive agent validation
 
-__Agent Testing:__
+**Agent Testing:**
 
-- __run_agent_test()__ — Run agent with test parameters
-- __test_agent_dry_run()__ — Test agent in dry-run mode
+- **run_agent_test()** — Run agent with test parameters
+- **test_agent_dry_run()** — Test agent in dry-run mode
 
 ## Usage Examples
 
@@ -142,9 +142,9 @@ __Agent Testing:__
 ```bash
 #!/bin/bash
 # Load shared utilities
-source "$(dirname "$0")/../includes/logging.sh"
-source "$(dirname "$0")/../includes/validation.sh"
-source "$(dirname "$0")/../includes/cli-utils.sh"
+source "$(dirname "$0")/../includes/core/logging.sh"
+source "$(dirname "$0")/../includes/core/validation.sh"
+source "$(dirname "$0")/../includes/cli/cli-utils.sh"
 
 # Parse arguments and setup
 parse_common_args "$@"
@@ -217,15 +217,15 @@ fi
 
 Some utilities exist in both root and subdirectory locations:
 
-- __Root files__ (`cli-utils.sh`, `logging.sh`) — Primary implementations
-- __Subdirectory files__ (`core/`, `cli/`) — Alternative or specialized versions
-- __Test files__ (`__tests__/`) — Test suites for the helpers themselves
+- **Root files** (`cli-utils.sh`, `logging.sh`) — Primary implementations
+- **Subdirectory files** (`core/`, `cli/`) — Alternative or specialized versions
+- **Test files** (`__tests__/`) — Test suites for the helpers themselves
 
 ### Network Functions
 
 Git and network-related operations are in `network/`:
 
-- __git-functions.sh__ — Git repository operations
+- **git-functions.sh** — Git repository operations
 - Functions for remote repository interactions
 - Branch and commit management utilities
 
@@ -233,17 +233,17 @@ Git and network-related operations are in `network/`:
 
 ### For Script Authors
 
-1. __Always source required helpers__ before using functions
-2. __Use consistent error handling__ with validation functions
-3. __Follow logging patterns__ for consistent output
-4. __Test with enhanced helpers__ for comprehensive coverage
+1. **Always source required helpers** before using functions
+2. **Use consistent error handling** with validation functions
+3. **Follow logging patterns** for consistent output
+4. **Test with enhanced helpers** for comprehensive coverage
 
 ### For Helper Development
 
-1. __Document all functions__ with proper headers
-2. __Include usage examples__ in function comments
-3. __Test all helper functions__ in `__tests__/` directory
-4. __Maintain backward compatibility__ when modifying existing functions
+1. **Document all functions** with proper headers
+2. **Include usage examples** in function comments
+3. **Test all helper functions** in `__tests__/` directory
+4. **Maintain backward compatibility** when modifying existing functions
 
 ## Contributing
 

@@ -1,11 +1,22 @@
-# AI Templates – Community Health Docs
+---
+title: 'AI Documentation Index (Moved)'
+description: 'This file has been superseded. See the new AI documentation in the docs/ root.'
+last_updated: '2025-10-24'
+version: 'v2.0'
+---
 
-Central guidance referenced by AI-template repos across the org. Link these from your repos' READMEs and Copilot prompts.
+## AI Documentation Index (Moved)
 
-**Docs**
-- `docs/ai/template-spec.md` – folder structure & naming rules
-- `docs/ai/contributing-templates.md` – how to submit / review
-- `docs/ai/release-process.md` – versioning & dist ZIPs
-- `docs/ai/copilot-usage.md` – how to use Copilot & prompts
-- `docs/ai/coding-style.md` – Markdown & repo style
-- `docs/ai/security-and-licensing.md` – licence & model safety
+The AI documentation has moved. Please see the following files in the root of the `docs/` folder:
+
+- [Coding & Content Style](../CODING-STYLE.md)
+- [Contributing Templates](../CONTRIBUTING-TEMPLATES.md)
+- [Release Process](../RELEASE-PROCESS.md)
+- [Security & Licensing](../SECURITY-AND-LICENSING.md)
+- [Copilot Usage](../COPILOT-USAGE.md)
+
+For the main documentation hub, see [../README.md](../README.md).
+
+---
+
+_This file is retained for legacy links. All new documentation and references should use the updated files in the docs/ root._

@@ -4,18 +4,18 @@ This directory contains all automation, utility, and maintenance scripts for the
 
 ## Directory Structure
 
-- __awesome-copilot/__ — Utilities for prompt/collection management and validation.  
+- **awesome-copilot/** — Utilities for prompt/collection management and validation.  
   _See:_ `awesome-copilot/README.md`
-- __includes/__ — Shared Bash helpers and test utilities.  
+- **includes/** — Shared Bash helpers and test utilities.  
   _See:_ `includes/README.md`
-- __json-validation/__ — Node.js/YAML validation scripts and tests.  
+- **json-validation/** — Node.js/YAML validation scripts and tests.  
   _See:_ `json-validation/README.md`
-- __logs/__ — Log output for script runs.
-- __maintenance/__ — Scripts for repo maintenance, documentation, and label automation.  
+- **logs/** — Log output for script runs.
+- **maintenance/** — Scripts for repo maintenance, documentation, and label automation.  
   _See:_ `maintenance/README.md`
-- __projects/__ — GitHub Projects management and automation scripts.  
+- **projects/** — GitHub Projects management and automation scripts.  
   _See:_ `projects/README.md`
-- __utility/__ — General-purpose shell and Node.js utilities for label management, logging, and validation.  
+- **utility/** — General-purpose shell and Node.js utilities for label management, logging, and validation.  
   _See:_ `utility/README.md`
 
 ## Core Components
@@ -24,11 +24,11 @@ This directory contains all automation, utility, and maintenance scripts for the
 
 The `includes/` directory provides reusable components used across all scripts:
 
-- __Core Utilities__: `logging.sh`, `validation.sh`, `colors.sh`, `common-functions.sh`
-- __CLI Support__: `cli-utils.sh` for standardized argument parsing and help
-- __File Operations__: `file-operations.sh` for safe file system interactions
-- __Test Helpers__: `enhanced-test-helpers.bash`, `agent-test-helpers.bash`
-- __Network Functions__: `git-functions.sh` for Git operations
+- **Core Utilities**: `logging.sh`, `validation.sh`, `colors.sh`, `common-functions.sh`
+- **CLI Support**: `cli-utils.sh` for standardized argument parsing and help
+- **File Operations**: `file-operations.sh` for safe file system interactions
+- **Test Helpers**: `enhanced-test-helpers.bash`, `agent-test-helpers.bash`
+- **Network Functions**: `git-functions.sh` for Git operations
 
 ### Script Categories
 
@@ -146,9 +146,9 @@ bats scripts/includes/__tests__/test-logging.bats
 ```bash
 #!/bin/bash
 # Source shared utilities
-source "$(dirname "$0")/../includes/logging.sh"
-source "$(dirname "$0")/../includes/validation.sh"
-source "$(dirname "$0")/../includes/cli-utils.sh"
+source "$(dirname "$0")/../includes/core/logging.sh"
+source "$(dirname "$0")/../includes/core/validation.sh"
+source "$(dirname "$0")/../includes/cli/cli-utils.sh"
 
 # Use standardized functions
 parse_common_args "$@"
@@ -167,19 +167,19 @@ validate_required_command "git"
 
 ### External Dependencies
 
-- __GitHub CLI__ — For GitHub API interactions
-- __Node.js__ — For JavaScript validation scripts
-- __Bats__ — For Bash script testing
-- __ShellCheck__ — For shell script linting
-- __jq__ — For JSON processing
+- **GitHub CLI** — For GitHub API interactions
+- **Node.js** — For JavaScript validation scripts
+- **Bats** — For Bash script testing
+- **ShellCheck** — For shell script linting
+- **jq** — For JSON processing
 
 ## Development Workflow
 
-1. __Script Development__: Follow coding standards and include proper headers
-2. __Testing__: Add comprehensive tests in appropriate `__tests__/` directory
-3. __Documentation__: Update README files and inline documentation
-4. __Validation__: Run linting and validation tools
-5. __Integration__: Ensure compatibility with existing workflows
+1. **Script Development**: Follow coding standards and include proper headers
+2. **Testing**: Add comprehensive tests in appropriate `__tests__/` directory
+3. **Documentation**: Update README files and inline documentation
+4. **Validation**: Run linting and validation tools
+5. **Integration**: Ensure compatibility with existing workflows
 
 ## Maintenance
 

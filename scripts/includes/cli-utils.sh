@@ -11,7 +11,7 @@
 # License URI: https://opensource.org/licenses/MIT
 # Requirements: bash 4.0+, logging.sh, colors.sh
 # Usage: source scripts/includes/cli/cli-utils.sh
-# Environment Variables: 
+# Environment Variables:
 #   VERBOSE (set by parsing) - Enable verbose output
 #   DRY_RUN (set by parsing) - Enable dry-run mode
 #   HELP_REQUESTED (set by parsing) - Help was requested
@@ -25,12 +25,12 @@
 #   - Consistent help formatting and color support
 #   - Sets global variables for common options
 # ============================================================================
-
 # Strict mode for safety
 set -euo pipefail
 
 # Source required includes
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/../core/new-feature.sh"  # New feature added
 # shellcheck source=../core/logging.sh
 source "${SCRIPT_DIR}/../core/logging.sh"
 # shellcheck source=../core/colors.sh
@@ -56,7 +56,7 @@ show_standard_help() {
     local usage_pattern="$3"
     shift 3
     local options=("$@")
-    
+
     # Header
     if check_color_support; then
         echo -e "${BOLD}${GREEN}${script_name}${NC}${BOLD} - ${description}${NC}"
@@ -73,7 +73,7 @@ show_standard_help() {
         echo ""
         echo "OPTIONS:"
     fi
-    
+
     # Standard options (if no custom options provided)
     if [[ ${#options[@]} -eq 0 ]]; then
         options=(
@@ -85,7 +85,7 @@ show_standard_help() {
             "--version               Show version information"
         )
     fi
-    
+
     # Display options
     for option in "${options[@]}"; do
         if check_color_support; then
@@ -98,9 +98,9 @@ show_standard_help() {
             echo "  $option"
         fi
     done
-    
+
     echo ""
-    
+
     # Footer
     if check_color_support; then
         echo -e "${BOLD}EXAMPLES:${NC}"
@@ -175,7 +175,7 @@ parse_common_args() {
                 ;;
         esac
     done
-    
+
     # Return remaining arguments
     return 0
 }
@@ -192,11 +192,11 @@ validate_required_args() {
     local actual_count="$2"
     shift 2
     local arg_descriptions=("$@")
-    
+
     if [[ $actual_count -lt $required_count ]]; then
         log_error "Insufficient arguments provided"
         log_error "Required: $required_count, provided: $actual_count"
-        
+
         if [[ ${#arg_descriptions[@]} -gt 0 ]]; then
             log_error "Expected arguments:"
             for i in $(seq 0 $((required_count - 1))); do
@@ -207,10 +207,10 @@ validate_required_args() {
                 fi
             done
         fi
-        
+
         return 1
     fi
-    
+
     return 0
 }
 
@@ -225,7 +225,7 @@ show_version() {
     local script_name
     script_name=$(basename "${0}")
     local version="unknown"
-    
+
     # Try to get version from VERSION file
     if [[ -f "VERSION" ]]; then
         version=$(cat VERSION 2>/dev/null || echo "unknown")
@@ -235,7 +235,7 @@ show_version() {
         # Try to get version from git tag
         version=$(git describe --tags --always 2>/dev/null || echo "unknown")
     fi
-    
+
     if check_color_support; then
         echo -e "${BOLD}${script_name}${NC} version ${GREEN}${version}${NC}"
         echo -e "${DIM}LightSpeed WP Automation Scripts${NC}"
@@ -258,13 +258,13 @@ confirm_action() {
     local message="$1"
     local default="${2:-n}"
     local response
-    
+
     # Skip confirmation in force mode
     if [[ "$FORCE" == "true" ]]; then
         log_debug "Skipping confirmation (force mode): $message"
         return 0
     fi
-    
+
     # Skip confirmation in non-interactive mode
     if [[ ! -t 0 ]]; then
         log_warning "Non-interactive mode, using default ($default) for: $message"
@@ -273,7 +273,7 @@ confirm_action() {
             *) return 1 ;;
         esac
     fi
-    
+
     # Display confirmation prompt
     if check_color_support; then
         echo -e "${YELLOW}${message}${NC}"
@@ -290,14 +290,14 @@ confirm_action() {
             echo -n "Do you want to continue? [y/N]: "
         fi
     fi
-    
+
     read -r response
-    
+
     # Handle empty response (use default)
     if [[ -z "$response" ]]; then
         response="$default"
     fi
-    
+
     case "$response" in
         [yY][eE][sS]|[yY])
             return 0
@@ -321,7 +321,7 @@ prompt_for_input() {
     local default="${2:-}"
     local pattern="${3:-}"
     local input
-    
+
     while true; do
         if check_color_support; then
             if [[ -n "$default" ]]; then
@@ -336,14 +336,14 @@ prompt_for_input() {
                 echo -n "${prompt}: "
             fi
         fi
-        
+
         read -r input
-        
+
         # Use default if input is empty
         if [[ -z "$input" && -n "$default" ]]; then
             input="$default"
         fi
-        
+
         # Validate input if pattern provided
         if [[ -n "$pattern" ]]; then
             if [[ "$input" =~ $pattern ]]; then
@@ -373,27 +373,27 @@ show_progress() {
     local description="$3"
     local percentage
     percentage=$(( (current * 100) / total ))
-    
+
     if [[ "$QUIET" == "true" ]]; then
         return 0
     fi
-    
+
     if check_color_support; then
         # Create progress bar
         local bar_length=40
         local filled_length=$(( (current * bar_length) / total ))
         local bar=""
-        
+
         for ((i=0; i<filled_length; i++)); do
             bar+="█"
         done
-        
+
         for ((i=filled_length; i<bar_length; i++)); do
             bar+="░"
         done
-        
+
         echo -ne "\r${BLUE}[${bar}]${NC} ${percentage}% - ${description}"
-        
+
         if [[ $current -eq $total ]]; then
             echo -e " ${GREEN}✓${NC}"
         fi

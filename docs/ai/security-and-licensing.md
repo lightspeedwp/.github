@@ -9,6 +9,6 @@
 - Add a **Limits** section with red lines and refusal guidance.
 
 ## Licensing
-- Default licence: MIT (or org standard).
+- Default licence: GPL 3.0 (or org standard).
 - Third-party snippets: include source + licence note.
 - Only add assets you have rights to redistribute in the release ZIP.

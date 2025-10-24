@@ -46,7 +46,9 @@ This directory contains all GitHub Actions workflows that power LightSpeed's rep
 ## 📋 Workflow Categories
 
 ### 🤖 Agent-Driven Automation
+
 These workflows directly execute agents from the [`../agents/`](../agents/) directory:
+
 - `labeling.yml` → `labeling.agent.js`
 - `reviewer.yml` → `reviewer.agent.js`
 - `planner.yml` → `planner.agent.js`
@@ -56,11 +58,13 @@ These workflows directly execute agents from the [`../agents/`](../agents/) dire
 - `release.yml` → `release.agent.js`
 
 ### 🔍 Quality Assurance
+
 - `lint.yml` - Code quality and standards enforcement
 - `jest-test-audit.yml` - Agent and utility testing
 - `changelog.yml` - Release documentation
 
 ### 📊 Operations & Metrics
+
 - `metrics.yml` - Repository analytics
 - `project-meta-sync.yml` - Cross-repository consistency
 - `all-contributors-update.yml` - Community recognition
@@ -118,11 +122,13 @@ Workflow development follows standards defined in:
 ## 🧪 Testing & Validation
 
 ### Workflow Testing
+
 - **Syntax validation**: All workflows are validated with `actionlint`
 - **Integration testing**: Workflows are tested in staging environments
 - **Agent testing**: Agent logic is tested via [`jest-test-audit.yml`](./jest-test-audit.yml)
 
 ### Test Coverage
+
 - Agent unit tests: [`../agents/__tests__/`](../agents/__tests__/)
 - Workflow integration tests: Automated on PR creation
 - End-to-end testing: Manual validation for complex workflows
@@ -130,6 +136,7 @@ Workflow development follows standards defined in:
 ## 📚 Related Resources
 
 ### Configuration Files
+
 | File | Purpose | Usage |
 |------|---------|-------|
 | [../labels.yml](../labels.yml) | Canonical label definitions | Used by `labeling.yml` |
@@ -138,12 +145,15 @@ Workflow development follows standards defined in:
 | [../project-pr-labeler.yml](../project-pr-labeler.yml) | Project-specific PR labels | Additional labeling context |
 
 ### Documentation References
+
 - **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Workflow policies and standards
 - **[Branching Strategy](../BRANCHING_STRATEGY.md)** - Git workflow integration
 - **[Custom Instructions](../custom-instructions.md)** - AI and automation guidelines
 
 ### Archived Workflows
+
 Historical and deprecated workflows are stored in [`archived/`](./archived/) with documentation:
+
 - [archived/README.md](./archived/README.md) - Archive index and migration notes
 
 ## 🚀 Getting Started
@@ -167,6 +177,7 @@ Historical and deprecated workflows are stored in [`archived/`](./archived/) wit
 ### Integration with Agents
 
 For agent-driven workflows:
+
 1. Place agent code in [`../agents/`](../agents/)
 2. Create corresponding `.agent.md` documentation
 3. Add tests in [`../agents/__tests__/`](../agents/__tests__/)

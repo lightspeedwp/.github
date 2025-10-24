@@ -46,14 +46,14 @@ setup_enhanced_test_environment() {
         mkdir -p "$TEST_TEMP_DIR"
         export PATH="${BATS_TEST_DIRNAME}/../scripts:$PATH"
     fi
-    
+
     # Add scripts/includes to PATH for testing
     export PATH="${BATS_TEST_DIRNAME}/../scripts/includes:$PATH"
-    
+
     # Setup enhanced logging
     export LOG_FILE="${TEST_TEMP_DIR}/test.log"
     touch "$LOG_FILE"
-    
+
     # Create mock directories
     mkdir -p "${TEST_TEMP_DIR}/mocks"
     mkdir -p "${TEST_TEMP_DIR}/fixtures"
@@ -75,7 +75,7 @@ cleanup_enhanced_test_environment() {
             rm -rf "$TEST_TEMP_DIR"
         fi
     fi
-    
+
     # Additional cleanup for enhanced features
     unset LOG_FILE
 }
@@ -91,7 +91,7 @@ mock_git_command() {
     local git_subcommand="$1"
     local mock_behavior="$2"
     local mock_script="${TEST_TEMP_DIR}/mocks/git"
-    
+
     # Create git mock script that handles specific subcommands
     cat << EOF > "$mock_script"
 #!/bin/bash
@@ -103,7 +103,7 @@ else
     command git "\$@"
 fi
 EOF
-    
+
     chmod +x "$mock_script"
     export PATH="${TEST_TEMP_DIR}/mocks:$PATH"
 }
@@ -117,18 +117,18 @@ EOF
 # ============================================================================
 create_test_git_repo() {
     local repo_dir="${1:-${TEST_TEMP_DIR}/test-repo}"
-    
+
     mkdir -p "$repo_dir"
     cd "$repo_dir"
-    
+
     git init
     git config user.name "Test User"
     git config user.email "test@example.com"
-    
+
     echo "# Test Repository" > README.md
     git add README.md
     git commit -m "Initial commit"
-    
+
     echo "$repo_dir"
 }
 
@@ -141,12 +141,12 @@ create_test_git_repo() {
 # ============================================================================
 assert_log_contains() {
     local expected_message="$1"
-    
+
     if [[ ! -f "$LOG_FILE" ]]; then
         echo "Log file does not exist: $LOG_FILE"
         return 1
     fi
-    
+
     if ! grep -q "$expected_message" "$LOG_FILE"; then
         echo "Log file does not contain expected message: $expected_message"
         echo "Log file contents:"
@@ -164,7 +164,7 @@ assert_log_contains() {
 # ============================================================================
 assert_function_exists() {
     local function_name="$1"
-    
+
     if ! declare -f "$function_name" >/dev/null; then
         echo "Function '$function_name' is not defined"
         return 1
@@ -180,18 +180,18 @@ assert_function_exists() {
 # ============================================================================
 source_includes() {
     local includes_dir="${BATS_TEST_DIRNAME}/../scripts/includes"
-    
+
     if [[ -d "$includes_dir" ]]; then
         # Source common functions if available
-        if [[ -f "$includes_dir/common-functions.sh" ]]; then
-            # shellcheck source=../scripts/includes/common-functions.sh
-            source "$includes_dir/common-functions.sh"
+            if [[ -f "$includes_dir/core/common-functions.sh" ]]; then
+                # shellcheck source=../scripts/includes/core/common-functions.sh
+                source "$includes_dir/core/common-functions.sh"
         fi
-        
+
         # Source git functions if available
-        if [[ -f "$includes_dir/git-functions.sh" ]]; then
-            # shellcheck source=../scripts/includes/git-functions.sh
-            source "$includes_dir/git-functions.sh"
+            if [[ -f "$includes_dir/network/git-functions.sh" ]]; then
+                # shellcheck source=../scripts/includes/network/git-functions.sh
+                source "$includes_dir/network/git-functions.sh"
         fi
     fi
 }
@@ -207,7 +207,7 @@ create_test_script() {
     local script_name="$1"
     local script_content="$2"
     local script_path="${TEST_TEMP_DIR}/${script_name}"
-    
+
     cat << EOF > "$script_path"
 #!/bin/bash
 set -euo pipefail
@@ -220,7 +220,7 @@ fi
 
 $script_content
 EOF
-    
+
     chmod +x "$script_path"
     echo "$script_path"
 }
@@ -235,7 +235,7 @@ EOF
 run_with_timeout() {
     local timeout_seconds="$1"
     shift
-    
+
     timeout "$timeout_seconds" "$@" || {
         local exit_code=$?
         if [[ $exit_code -eq 124 ]]; then
@@ -254,24 +254,24 @@ run_with_timeout() {
 # ============================================================================
 assert_script_follows_standards() {
     local script_path="$1"
-    
+
     if [[ ! -f "$script_path" ]]; then
         echo "Script file does not exist: $script_path"
         return 1
     fi
-    
+
     # Check for shebang
     if ! head -n 1 "$script_path" | grep -q '^#!/'; then
         echo "Script missing shebang: $script_path"
         return 1
     fi
-    
+
     # Check for header block
     if ! grep -q "Script Name:" "$script_path"; then
         echo "Script missing header block: $script_path"
         return 1
     fi
-    
+
     # Check for strict mode
     if ! grep -q "set -euo pipefail" "$script_path"; then
         echo "Script missing strict mode: $script_path"
@@ -290,7 +290,7 @@ create_fixture_file() {
     local fixture_name="$1"
     local content="$2"
     local fixture_path="${TEST_TEMP_DIR}/fixtures/${fixture_name}"
-    
+
     mkdir -p "$(dirname "$fixture_path")"
     echo "$content" > "$fixture_path"
     echo "$fixture_path"
@@ -306,7 +306,7 @@ create_fixture_file() {
 load_fixture() {
     local fixture_name="$1"
     local fixture_path="${TEST_TEMP_DIR}/fixtures/${fixture_name}"
-    
+
     if [[ -f "$fixture_path" ]]; then
         cat "$fixture_path"
     else
@@ -324,12 +324,12 @@ load_fixture() {
 # ============================================================================
 assert_no_shellcheck_errors() {
     local script_path="$1"
-    
+
     if ! command -v shellcheck >/dev/null 2>&1; then
         echo "ShellCheck not available, skipping validation"
         return 0
     fi
-    
+
     if ! shellcheck "$script_path"; then
         echo "ShellCheck found errors in: $script_path"
         return 1

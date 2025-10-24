@@ -22,24 +22,47 @@ Modern ESLint flat configuration format (ESLint 9+).
 ### Current Configuration
 
 ```javascript
+import 'dotenv/config';
+import js from '@eslint/js';
+import ts from 'typescript-eslint';
+import prettier from 'eslint-plugin-prettier';
+
+const ignoreFolders = process.env.ESLINT_IGNORE
+    ? process.env.ESLINT_IGNORE.split(',')
+    : [
+          'node_modules/**',
+          'build/**',
+          'dist/**',
+          'coverage/**',
+          'playwright-report/**',
+          'test-results/**',
+          'vendor/**',
+          '.next/**',
+          'logs/**',
+          'scripts/utility/__tests__/**',
+      ];
+
 export default [
-  {
-    ignores: ['node_modules/**', 'build/**', 'dist/**']
-  },
-  {
-    files: ['**/*.{js,jsx,ts,tsx}'],
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module'
+    js.configs.recommended,
+    ...ts.configs.recommended,
+    {
+        files: ['**/*.{js,jsx,ts,tsx,cjs,mjs}'],
+        ignores: ignoreFolders,
+        plugins: { prettier },
+        rules: {
+            'prettier/prettier': 'warn',
+        },
     },
-    rules: {
-      // WordPress JavaScript Coding Standards
-      'indent': ['error', 2],
-      'quotes': ['error', 'single'],
-      'semi': ['error', 'always']
-    }
-  }
 ];
+```
+
+### Environment Variables
+
+The configuration supports environment-based ignore patterns:
+
+```bash
+# .env file
+ESLINT_IGNORE=node_modules/**,build/**,custom-folder/**
 ```
 
 ## WordPress Integration
@@ -48,12 +71,17 @@ export default [
 
 ```json
 {
-  "devDependencies": {
-    "eslint": "^8.0.0",
-    "eslint-plugin-prettier": "^5.0.0", 
-    "eslint-config-prettier": "^9.0.0",
-    "@wordpress/eslint-plugin": "^14.0.0"
-  }
+    "devDependencies": {
+        "eslint": "^8.0.0",
+        "eslint-plugin-prettier": "^5.0.0",
+        "eslint-config-prettier": "^9.0.0",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "typescript-eslint": "^6.0.0",
+        "@eslint/js": "^8.0.0",
+        "prettier": "^3.0.0",
+        "dotenv": "^16.4.5"
+    }
 }
 ```
 
@@ -71,10 +99,10 @@ export default [
 
 ```json
 {
-  "scripts": {
-    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
-    "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix"
-  }
+    "scripts": {
+        "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
+        "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format"
+    }
 }
 ```
 
@@ -84,15 +112,15 @@ export default [
 
 ```json
 {
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact", 
-    "typescript",
-    "typescriptreact"
-  ],
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
 }
 ```
 
@@ -118,7 +146,7 @@ export default [
 # Run linting
 npm run lint:js
 
-# Fix auto-fixable issues  
+# Fix auto-fixable issues
 eslint --fix **/*.js
 
 # Check specific file
