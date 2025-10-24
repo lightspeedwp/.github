@@ -9,12 +9,12 @@
  * @returns {string} Markdown table string.
  */
 function labelsToMarkdownTable(labels) {
-  if (!labels || labels.length === 0) return "_No labels applied._";
-  let md = "| Label |\n|-------|\n";
-  labels.forEach(l => {
-    md += `| \`${l}\` |\n`;
-  });
-  return md;
+    if (!labels || labels.length === 0) return '_No labels applied._';
+    let md = '| Label |\n|-------|\n';
+    labels.forEach((l) => {
+        md += `| \`${l}\` |\n`;
+    });
+    return md;
 }
 
 /**
@@ -24,12 +24,12 @@ function labelsToMarkdownTable(labels) {
  * @returns {{missing: string[], extra: string[]}} Object with missing and extra arrays.
  */
 function diffLabels(current, canonical) {
-  const missing = canonical.filter(l => !current.includes(l));
-  const extra = current.filter(l => !canonical.includes(l));
-  return { missing, extra };
+    const missing = canonical.filter((l) => !current.includes(l));
+    const extra = current.filter((l) => !canonical.includes(l));
+    return { missing, extra };
 }
 
 module.exports = {
-  labelsToMarkdownTable,
-  diffLabels,
+    labelsToMarkdownTable,
+    diffLabels,
 };

@@ -11,21 +11,28 @@ const footerSchema = require('../../schemas/footer.schema.json');
 const Ajv = require('ajv');
 
 function validateConfig(config, schema, name) {
-  const ajv = new Ajv();
-  const validate = ajv.compile(schema);
-  if (!validate(config)) {
-    throw new Error(`${name} config validation failed: ${JSON.stringify(validate.errors, null, 2)}`);
-  }
+    const ajv = new Ajv();
+    const validate = ajv.compile(schema);
+    if (!validate(config)) {
+        throw new Error(
+            `${name} config validation failed: ${JSON.stringify(validate.errors, null, 2)}`
+        );
+    }
 }
 
 async function main() {
-  // Validate configs
-  validateConfig(headerConfig, headerSchema, 'Header');
-  validateConfig(footerConfig, footerSchema, 'Footer');
+    // Validate configs
+    validateConfig(headerConfig, headerSchema, 'Header');
+    validateConfig(footerConfig, footerSchema, 'Footer');
 
-  // Example usage: update all README.md files
-  await insertHeaderFooter('README.md', { headers: headerConfig.headers, footers: footerConfig.footers }, { backup: true });
-  console.log('Headers and footers updated.');
+    // Example usage: update all README.md files
+    await insertHeaderFooter(
+        'README.md',
+        { headers: headerConfig.headers, footers: footerConfig.footers },
+        { backup: true }
+    );
+    console.log('Headers and footers updated.');
 }
 
-if (require.main === module) main().catch(err => (console.error(err), process.exit(1)));
+if (require.main === module)
+    main().catch((err) => (console.error(err), process.exit(1)));

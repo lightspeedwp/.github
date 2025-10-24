@@ -12,18 +12,27 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { buildLabelAliasMap, findStandardLabel } = require('../../scripts/utility/label-lookup');
-const { enforceOneHotStatus, applyDefaultStatus, applyDefaultPriority } = require('../../scripts/utility/status-enforcer');
-const { buildLabelingReport } = require('../../scripts/utility/label-reporting');
+const {
+    buildLabelAliasMap,
+    findStandardLabel,
+} = require('../../scripts/utility/label-lookup');
+const {
+    enforceOneHotStatus,
+    applyDefaultStatus,
+    applyDefaultPriority,
+} = require('../../scripts/utility/status-enforcer');
+const {
+    buildLabelingReport,
+} = require('../../scripts/utility/label-reporting');
 
 /**
  * Loads canonical label definitions from .github/labels.yml.
  * @returns {Set<string>} Set of canonical label names.
  */
 function loadCanonicalLabels() {
-  const yml = fs.readFileSync('.github/labels.yml', 'utf8');
-  const labelsData = yaml.load(yml);
-  return new Set(labelsData.map(l => typeof l === "string" ? l : l.name));
+    const yml = fs.readFileSync('.github/labels.yml', 'utf8');
+    const labelsData = yaml.load(yml);
+    return new Set(labelsData.map((l) => (typeof l === 'string' ? l : l.name)));
 }
 
 /**
@@ -31,9 +40,9 @@ function loadCanonicalLabels() {
  * @returns {Object} aliasMap - Maps alias to canonical label.
  */
 function loadAliasMap() {
-  const yml = fs.readFileSync('.github/labels.yml', 'utf8');
-  const labelsData = yaml.load(yml);
-  return buildLabelAliasMap(labelsData);
+    const yml = fs.readFileSync('.github/labels.yml', 'utf8');
+    const labelsData = yaml.load(yml);
+    return buildLabelAliasMap(labelsData);
 }
 
 /**
@@ -49,25 +58,47 @@ function loadAliasMap() {
  * @param {function} log
  */
 async function standardizeLabelsOnItem(
-  github, owner, repo, number, currentLabels, canonicalSet, aliasMap = {}, dryRun = false, log = console.log
+    github,
+    owner,
+    repo,
+    number,
+    currentLabels,
+    canonicalSet,
+    aliasMap = {},
+    dryRun = false,
+    log = console.log
 ) {
-  for (const label of currentLabels) {
-    if (!canonicalSet.has(label)) {
-      // Migrate legacy/alias to canonical
-      const canonical = findStandardLabel(label, aliasMap, canonicalSet);
-      if (canonical) {
-        if (!dryRun) {
-          await github.rest.issues.addLabels({ owner, repo, issue_number: number, labels: [canonical] });
+    for (const label of currentLabels) {
+        if (!canonicalSet.has(label)) {
+            // Migrate legacy/alias to canonical
+            const canonical = findStandardLabel(label, aliasMap, canonicalSet);
+            if (canonical) {
+                if (!dryRun) {
+                    await github.rest.issues.addLabels({
+                        owner,
+                        repo,
+                        issue_number: number,
+                        labels: [canonical],
+                    });
+                }
+                log(
+                    `[labeling.agent] Migrated: ${label} -> ${canonical} on #${number}`
+                );
+            }
+            // Remove non-canonical label
+            if (!dryRun) {
+                await github.rest.issues.removeLabel({
+                    owner,
+                    repo,
+                    issue_number: number,
+                    name: label,
+                });
+            }
+            log(
+                `[labeling.agent] Removed non-canonical label: ${label} from #${number}`
+            );
         }
-        log(`[labeling.agent] Migrated: ${label} -> ${canonical} on #${number}`);
-      }
-      // Remove non-canonical label
-      if (!dryRun) {
-        await github.rest.issues.removeLabel({ owner, repo, issue_number: number, name: label });
-      }
-      log(`[labeling.agent] Removed non-canonical label: ${label} from #${number}`);
     }
-  }
 }
 
 /**
@@ -79,56 +110,105 @@ async function standardizeLabelsOnItem(
  * @returns {Promise<void>}
  */
 async function runLabelingAgent(opts = {}) {
-  const context = opts.context || github.context;
-  const octokit = opts.github || github.getOctokit(core.getInput('github-token') || process.env.GITHUB_TOKEN);
-  const dryRun = !!opts.dryRun;
+    const context = opts.context || github.context;
+    const octokit =
+        opts.github ||
+        github.getOctokit(
+            core.getInput('github-token') || process.env.GITHUB_TOKEN
+        );
+    const dryRun = !!opts.dryRun;
 
-  const owner = context.repo.owner;
-  const repo = context.repo.repo;
-  const isPR = !!context.payload.pull_request;
-  const isIssue = !!context.payload.issue;
-  const number = isIssue ? context.payload.issue.number : (isPR ? context.payload.pull_request.number : null);
-  if (!number) {
-    core.info('No issue or PR in context.');
-    return;
-  }
-
-  // Load canonical set and alias map
-  const canonicalSet = loadCanonicalLabels();
-  const aliasMap = loadAliasMap();
-
-  // Get current labels
-  const currentLabels = isIssue
-    ? (context.payload.issue.labels || []).map(l => l.name)
-    : (context.payload.pull_request.labels || []).map(l => l.name);
-
-  // Enforce one-hot status/priority/type
-  await enforceOneHotStatus({ github: octokit, owner, repo, number, currentLabels, dryRun });
-  await applyDefaultStatus({ github: octokit, owner, repo, number, currentLabels, dryRun });
-  await applyDefaultPriority({ github: octokit, owner, repo, number, currentLabels, dryRun });
-
-  // Changelog nudge for PRs
-  if (isPR) {
-    const changelogLabels = [
-      'no-changelog', 'changelog:added', 'changelog:changed', 'changelog:fixed',
-      'changelog:security', 'changelog:deprecated', 'changelog:removed'
-    ];
-    if (!currentLabels.some(l => changelogLabels.includes(l))) {
-      if (!dryRun) {
-        await octokit.rest.issues.addLabels({ owner, repo, issue_number: number, labels: ['meta:needs-changelog'] });
-      }
-      core.info('[labeling.agent] Added meta:needs-changelog');
+    const owner = context.repo.owner;
+    const repo = context.repo.repo;
+    const isPR = !!context.payload.pull_request;
+    const isIssue = !!context.payload.issue;
+    const number = isIssue
+        ? context.payload.issue.number
+        : isPR
+          ? context.payload.pull_request.number
+          : null;
+    if (!number) {
+        core.info('No issue or PR in context.');
+        return;
     }
-  }
 
-  // Standardize/migrate labels
-  await standardizeLabelsOnItem(octokit, owner, repo, number, currentLabels, canonicalSet, aliasMap, dryRun, core.info);
+    // Load canonical set and alias map
+    const canonicalSet = loadCanonicalLabels();
+    const aliasMap = loadAliasMap();
+
+    // Get current labels
+    const currentLabels = isIssue
+        ? (context.payload.issue.labels || []).map((l) => l.name)
+        : (context.payload.pull_request.labels || []).map((l) => l.name);
+
+    // Enforce one-hot status/priority/type
+    await enforceOneHotStatus({
+        github: octokit,
+        owner,
+        repo,
+        number,
+        currentLabels,
+        dryRun,
+    });
+    await applyDefaultStatus({
+        github: octokit,
+        owner,
+        repo,
+        number,
+        currentLabels,
+        dryRun,
+    });
+    await applyDefaultPriority({
+        github: octokit,
+        owner,
+        repo,
+        number,
+        currentLabels,
+        dryRun,
+    });
+
+    // Changelog nudge for PRs
+    if (isPR) {
+        const changelogLabels = [
+            'no-changelog',
+            'changelog:added',
+            'changelog:changed',
+            'changelog:fixed',
+            'changelog:security',
+            'changelog:deprecated',
+            'changelog:removed',
+        ];
+        if (!currentLabels.some((l) => changelogLabels.includes(l))) {
+            if (!dryRun) {
+                await octokit.rest.issues.addLabels({
+                    owner,
+                    repo,
+                    issue_number: number,
+                    labels: ['meta:needs-changelog'],
+                });
+            }
+            core.info('[labeling.agent] Added meta:needs-changelog');
+        }
+    }
+
+    // Standardize/migrate labels
+    await standardizeLabelsOnItem(
+        octokit,
+        owner,
+        repo,
+        number,
+        currentLabels,
+        canonicalSet,
+        aliasMap,
+        dryRun,
+        core.info
+    );
 }
 
 if (require.main === module) {
-  runLabelingAgent().catch(e => {
-    core.setFailed(e.message);
-  });
+    runLabelingAgent().catch((e) => {
+        core.setFailed(e.message);
+    });
 }
 
 module.exports = { runLabelingAgent };

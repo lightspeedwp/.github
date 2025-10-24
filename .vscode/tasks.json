@@ -30,13 +30,6 @@
             "detail": "Lints YAML files using Spectral."
         },
         {
-            "label": "npm: lint-php",
-            "type": "npm",
-            "script": "lint:php",
-            "problemMatcher": [],
-            "detail": "Lints PHP files using PHPCS."
-        },
-        {
             "label": "npm: format",
             "type": "npm",
             "script": "format",

@@ -26,9 +26,9 @@ const yaml = require('js-yaml');
  * @returns {string[]} Array of canonical label names (strings).
  */
 function fetchCanonicalLabels(labelsYmlPath = '.github/labels.yml') {
-  const yml = fs.readFileSync(labelsYmlPath, 'utf8');
-  const labelsData = yaml.load(yml);
-  return labelsData.map(l => typeof l === "string" ? l : l.name);
+    const yml = fs.readFileSync(labelsYmlPath, 'utf8');
+    const labelsData = yaml.load(yml);
+    return labelsData.map((l) => (typeof l === 'string' ? l : l.name));
 }
 
 module.exports = { fetchCanonicalLabels };

@@ -62,12 +62,21 @@
 - name: type:task
   color: 4393F8
   description: "Task or to-do"
+- name: type:story
+  color: 4393F8
+  description: "User story"
 - name: type:documentation
   color: D4C5F9
   description: "Documentation"
 - name: type:refactor
   color: 9198A1
   description: "Refactor or internal change"
+- name: type:build
+  color: 4393F8
+  description: "Build & CI"
+- name: type:automation
+  color: 4393F8
+  description: "Automation"
 - name: type:performance
   color: D29922
   description: "Performance improvement"
@@ -83,12 +92,36 @@
 - name: type:design
   color: AB7DF8
   description: "Design work"
+- name: type:compatibility
+  color: 8D4821
+  description: "Compatibility"
+- name: type:integration
+  color: 8D4821
+  description: "Integration"
+- name: type:release
+  color: 3FB950
+  description: "Release"
+- name: type:maintenance
+  color: 9198A1
+  description: "Maintenance"
 - name: type:improve
   color: 9198A1
   description: "Improvement"
 - name: type:qa
   color: D29922
   description: "Quality assurance"
+- name: type:chore
+  color: 9198A1
+  description: "Chore"
+- name: type:audit
+  color: 9198A1
+  description: "Audit"
+- name: type:ai-ops
+  color: 4393F8
+  description: "AI Ops"
+- name: type:content-modelling
+  color: AB7DF8
+  description: "Content Modelling"
 - name: meta:needs-changelog
   color: E1E4E8
   description: "Needs changelog entry"

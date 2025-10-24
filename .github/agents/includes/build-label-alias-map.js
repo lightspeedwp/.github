@@ -12,19 +12,19 @@ const yaml = require('js-yaml');
  * @returns {Object} aliasMap - Mapping of alias to canonical label.
  */
 function buildLabelAliasMap(labelsYmlPath = '.github/labels.yml') {
-  const yml = fs.readFileSync(labelsYmlPath, 'utf8');
-  const labelsData = yaml.load(yml);
-  const aliasMap = {};
-  labelsData.forEach(label => {
-    if (typeof label === "object" && Array.isArray(label.aliases)) {
-      label.aliases.forEach(alias => {
-        aliasMap[alias] = label.name;
-      });
-    }
-  });
-  return aliasMap;
+    const yml = fs.readFileSync(labelsYmlPath, 'utf8');
+    const labelsData = yaml.load(yml);
+    const aliasMap = {};
+    labelsData.forEach((label) => {
+        if (typeof label === 'object' && Array.isArray(label.aliases)) {
+            label.aliases.forEach((alias) => {
+                aliasMap[alias] = label.name;
+            });
+        }
+    });
+    return aliasMap;
 }
 
 module.exports = {
-  buildLabelAliasMap,
+    buildLabelAliasMap,
 };

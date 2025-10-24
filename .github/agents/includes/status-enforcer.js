@@ -13,27 +13,40 @@
 /**
  * Enforce exactly one status:* label per issue/PR.
  */
-async function enforceOneHotStatus(octokit, owner, repo, issueOrPrNumber, labels, isPR) {
-  // Implementation of one-hot enforcement.
-  // TODO: Remove extra status labels, apply default if missing.
+async function enforceOneHotStatus(
+    octokit,
+    owner,
+    repo,
+    issueOrPrNumber,
+    labels,
+    isPR
+) {
+    // Implementation of one-hot enforcement.
+    // TODO: Remove extra status labels, apply default if missing.
 }
 
 /**
  * Apply default status label if none present.
  */
 async function applyDefaultStatus(octokit, owner, repo, issueOrPrNumber, isPR) {
-  // TODO: Apply default status:needs-triage for issues, status:needs-review for PRs.
+    // TODO: Apply default status:needs-triage for issues, status:needs-review for PRs.
 }
 
 /**
  * Apply default priority label if none present (issues only).
  */
-async function applyDefaultPriority(octokit, owner, repo, issueOrPrNumber, labels) {
-  // TODO: Apply priority:normal if missing on issues.
+async function applyDefaultPriority(
+    octokit,
+    owner,
+    repo,
+    issueOrPrNumber,
+    labels
+) {
+    // TODO: Apply priority:normal if missing on issues.
 }
 
 module.exports = {
-  enforceOneHotStatus,
-  applyDefaultStatus,
-  applyDefaultPriority,
+    enforceOneHotStatus,
+    applyDefaultStatus,
+    applyDefaultPriority,
 };
