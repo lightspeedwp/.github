@@ -1,4 +1,32 @@
-# YAML Frontmatter Schemas for GitHub, Copilot, Claude, and Gemini Files
+---
+file_type: documentation
+version: "2.0"
+author: "LightSpeedWP Team"
+maintainer: "LightSpeedWP Team"
+mode: "information"
+stability: "stable"
+domain: "governance"
+deprecated: false
+references:
+  - path: "schemas/frontmatter.schema.json"
+    description: "Unified frontmatter schema definition"
+  - path: ".github/instructions/tagging-and-frontmatter-conventions.instructions.md"
+    description: "Frontmatter implementation guidelines"
+  - path: "docs/YAML-Frontmatter-New.md"
+    description: "Comprehensive YAML frontmatter documentation"
+tags:
+  - yaml
+  - frontmatter
+  - github
+  - copilot
+  - schemas
+  - documentation
+  - governance
+title: "YAML Frontmatter Schemas Reference"
+description: "Comprehensive breakdown of YAML frontmatter schemas for GitHub, Copilot, Claude, and Gemini files"
+created_date: "2025-01-07"
+last_updated: "2025-01-07"
+---
 
 A comprehensive breakdown of YAML frontmatter schemas for the following file types:
 

@@ -10,8 +10,10 @@
         "title": {"type": "string", "description": "Human-readable title"},
         "description": {"type": "string", "description": "Brief description of purpose (required for most file types)"},
         "version": {"type": "string", "description": "Version string (e.g., v1.1)"},
+        "created_date": {"type": "string", "format": "date", "description": "ISO date when file was created"},
         "last_updated": {"type": "string", "format": "date", "description": "ISO date of last update"},
         "author": {"type": "string", "description": "Main author or responsible party"},
+        "mode": {"type": "string", "enum": ["instruction", "information", "conversation", "template", "reference", "agent", "ask", "edit"], "description": "Operational or content mode"},
         "maintainer": {"type": "string", "description": "Current maintainer or team"},
         "owners": {"type": "array", "items": {"type": "string"}, "description": "List of owners/maintainers"},
         "tags": {"type": "array", "items": {"type": "string"}, "maxItems": 8, "description": "Keywords for discovery/filtering (max 8)"},
@@ -19,19 +21,26 @@
         "stability": {"type": "string", "enum": ["stable", "experimental", "incubating"], "description": "Maturity expectation"},
         "deprecated": {"type": "boolean", "description": "Whether this file is deprecated"},
         "replacement": {"type": "string", "description": "Path to replacement file if deprecated"},
-        "domain": {"type": "string", "enum": ["wp-core", "block-theme", "plugin-hardening", "perf", "a11y", "i18n", "security", "headless", "generic"], "description": "Primary classification domain"},
+        "domain": {"type": "string", "enum": ["wp-core", "block-theme", "plugin-hardening", "perf", "a11y", "i18n", "security", "headless", "generic", "governance", "awesome-copilot", "lightspeed"], "description": "Primary classification domain"},
         "extraDomains": {"type": "array", "items": {"type": "string"}, "description": "Secondary classifications"},
         "license": {"type": "string", "description": "License identifier"},
         "references": {
           "type": "array",
-          "items": {"type": "string"},
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {"type": "string", "description": "Relative path to referenced file"},
+              "description": {"type": "string", "description": "Brief description of the reference"}
+            },
+            "required": ["path", "description"],
+            "additionalProperties": false
+          },
           "description": "AI-focused references to related documentation (relative paths from current file)",
           "examples": [
-            "CONTRIBUTING.md",
-            "README.md",
-            ".github/README.md",
-            "docs/README.md",
-            "schemas/frontmatter.schema.json"
+            {"path": "CONTRIBUTING.md", "description": "Contribution guidelines"},
+            {"path": "README.md", "description": "Main documentation"},
+            {"path": ".github/README.md", "description": "GitHub-specific documentation"},
+            {"path": "schemas/frontmatter.schema.json", "description": "Frontmatter schema definition"}
           ]
         }
       }
@@ -161,24 +170,6 @@
         "title": { "type": "string" }
       },
       "required": ["file_type", "title"],
-      "additionalProperties": true
-    },
-    {
-      "title": "Chatmode Specification (.github/chatmodes/*.chatmode.md)",
-      "description": "Individual chatmode specification with awesome-copilot conventions.",
-      "files": [".github/chatmodes/*.chatmode.md"],
-      "allOf": [{"$ref": "#/definitions/commonFields"}],
-      "properties": {
-        "file_type": { "const": "chatmode" },
-        "description": { "type": "string" },
-        "tools": { "type": "array", "items": { "type": "string" }, "description": "Available tools for this chat mode" },
-        "model": { "type": "string", "description": "Default AI model for this mode" },
-        "domain": {"$ref": "#/definitions/commonFields/properties/domain"},
-        "stability": {"$ref": "#/definitions/commonFields/properties/stability"},
-        "deprecated": {"$ref": "#/definitions/commonFields/properties/deprecated"},
-        "replacement": {"$ref": "#/definitions/commonFields/properties/replacement"}
-      },
-      "required": ["file_type", "description"],
       "additionalProperties": true
     },
     {
@@ -314,6 +305,47 @@
       },
       "required": ["file_type", "title"],
       "additionalProperties": true
+    },
+    {
+      "title": "Chatmode (.github/chatmodes/*.chatmode.md)",
+      "description": "GitHub Copilot chatmode configuration files.",
+      "files": [".github/chatmodes/*.chatmode.md", ".github/chatmodes/*.chatmodes.md"],
+      "allOf": [{"$ref": "#/definitions/commonFields"}],
+      "properties": {
+        "file_type": { "const": "chatmode" },
+        "description": { "type": "string" },
+        "mode": { "type": "string", "enum": ["instruction", "conversation", "template", "information"], "description": "Chatmode operational mode" },
+        "tools": { "type": "array", "items": { "type": "string" }, "description": "Available tools/capabilities" },
+        "model": { "type": "string", "description": "Preferred AI model" },
+        "context_window": { "type": "integer", "description": "Token limit considerations" },
+        "temperature": { "type": "number", "minimum": 0, "maximum": 2, "description": "AI response randomness setting" },
+        "max_tokens": { "type": "integer", "description": "Response length limitations" },
+        "domain": {"$ref": "#/definitions/commonFields/properties/domain"},
+        "stability": {"$ref": "#/definitions/commonFields/properties/stability"},
+        "deprecated": {"$ref": "#/definitions/commonFields/properties/deprecated"},
+        "replacement": {"$ref": "#/definitions/commonFields/properties/replacement"}
+      },
+      "required": ["file_type", "description"],
+      "additionalProperties": true
+    },
+    {
+      "title": "Documentation (docs/*.md)",
+      "description": "General documentation files.",
+      "files": ["docs/*.md", ".github/docs/*.md"],
+      "allOf": [{"$ref": "#/definitions/commonFields"}],
+      "properties": {
+        "file_type": { "const": "documentation" },
+        "description": { "type": "string" },
+        "mode": { "type": "string", "enum": ["information", "instruction", "reference"], "description": "Documentation type" },
+        "domain": {"$ref": "#/definitions/commonFields/properties/domain"},
+        "stability": {"$ref": "#/definitions/commonFields/properties/stability"},
+        "deprecated": {"$ref": "#/definitions/commonFields/properties/deprecated"},
+        "replacement": {"$ref": "#/definitions/commonFields/properties/replacement"},
+        "created_date": {"type": "string", "format": "date", "description": "Date when document was created"},
+        "last_updated": {"$ref": "#/definitions/commonFields/properties/last_updated"}
+      },
+      "required": ["file_type", "description"],
+      "additionalProperties": true
     }
   ],
   "examples": [
@@ -332,10 +364,10 @@
       "tags": ["jsdoc", "lint"],
       "tools": ["Read"],
       "references": [
-        "CONTRIBUTING.md",
-        "README.md",
-        ".github/README.md",
-        "schemas/frontmatter.schema.json"
+        {"path": "CONTRIBUTING.md", "description": "Contribution guidelines"},
+        {"path": "README.md", "description": "Main documentation"},
+        {"path": ".github/README.md", "description": "GitHub-specific documentation"},
+        {"path": "schemas/frontmatter.schema.json", "description": "Frontmatter schema definition"}
       ]
     },
     {
@@ -347,9 +379,9 @@
       "stability": "stable",
       "tags": ["security", "rest", "validation"],
       "references": [
-        "docs/SECURITY.md",
-        "CONTRIBUTING.md",
-        "schemas/frontmatter.schema.json"
+        {"path": "docs/SECURITY.md", "description": "Security guidelines"},
+        {"path": "CONTRIBUTING.md", "description": "Contribution guidelines"},
+        {"path": "schemas/frontmatter.schema.json", "description": "Frontmatter schema definition"}
       ]
     }
   ]

@@ -17,20 +17,30 @@ _Note: This file follows LightSpeedWP governance and metadata conventions as des
 - Every documentation, agent, configuration, and markdown file must contain a valid YAML frontmatter block.
 - Frontmatter enables automation, search, discoverability, and validation by humans and machines.
 
-## Required Fields
+## Unified Frontmatter Fields
 
 See the canonical [frontmatter schema](../../schemas/frontmatter.schema.json) for the full list and validation.
 
 | Field         | Type     | Required | Description                                |
 |---------------|----------|----------|--------------------------------------------|
 | title         | string   | yes      | Human-readable title                       |
-| version       | string   | yes      | Version string (e.g., v1.1)                |
+| description   | string   | yes      | Short summary of the file's purpose        |
+| version       | string   | yes      | Version string (e.g., v2.0)                |
+| created_date  | string   | yes      | ISO date of creation (e.g., 2025-10-23)    |
 | last_updated  | string   | yes      | ISO date of last update (e.g., 2025-10-23) |
 | author        | string   | yes      | Main author or responsible party           |
 | maintainer    | string   | yes      | Maintainer or team                         |
-| description   | string   | yes      | Short summary of the file's purpose        |
+| owners        | string[] | no       | List of owners/maintainers                 |
 | tags          | string[] | no       | Keywords for search/filtering              |
-| type          | string   | yes      | File type (e.g., "agent", "instructions")  |
+| status        | string   | no       | Current status (active, deprecated, etc.)  |
+| stability     | string   | no       | Maturity expectation (stable, experimental)|
+| deprecated    | boolean  | no       | Whether this file is deprecated            |
+| replacement   | string   | no       | Path to replacement file if deprecated     |
+| domain        | string   | no       | Classification domain                      |
+| extraDomains  | string[] | no       | Secondary classifications                  |
+| license       | string   | no       | License identifier                         |
+| mode          | string   | no       | Operational/content mode                   |
+| references    | object[] | no       | Array of {path, description} objects       |
 
 ## Example
 
@@ -38,13 +48,30 @@ See the canonical [frontmatter schema](../../schemas/frontmatter.schema.json) fo
 $schema: "schemas/frontmatter.schema.json"
 ---
 title: "Pattern Development Instructions"
-version: "v1.1"
-last_updated: "2025-10-23"
-author: "LightSpeedWP"
-maintainer: "Ash Shaw"
 description: "Instructions for developing block patterns."
-tags: ["lightspeed", "patterns", "instructions"]
-type: "instructions"
+version: "v2.0"
+created_date: "2025-10-23"
+last_updated: "2025-10-25"
+author: "LightSpeedWP Team"
+maintainer: "Ash Shaw"
+owners:
+  - "lightspeedwp/maintainers"
+tags:
+  - "lightspeed"
+  - "patterns"
+  - "instructions"
+status: "active"
+stability: "stable"
+domain: "governance"
+mode: "instruction"
+deprecated: false
+references:
+  - path: "schemas/frontmatter.schema.json"
+    description: "Unified frontmatter schema definition"
+  - path: "docs/frontmatter-schema.md"
+    description: "Frontmatter schema documentation"
+  - path: "docs/YAML.md"
+    description: "YAML frontmatter documentation"
 ---
 ```
 
@@ -53,10 +80,20 @@ type: "instructions"
 - All frontmatter must validate against the schema at `schemas/frontmatter.schema.json`
 - VS Code and Copilot validate automatically if configured (see `.vscode/settings.json`).
 
+```mermaid
+graph TD
+    A[File with Frontmatter] --> B[Schema Validation]
+    B -->|Valid| C[Accepted]
+    B -->|Invalid| D[Error: Fix Required]
+    D --> A
+    C --> E[Automation, Search, Discoverability]
+```
+
 ## References
 
+- [Unified Frontmatter Schema](../../schemas/frontmatter.schema.json)
 - [Frontmatter Schema Documentation](../../docs/frontmatter-schema.md)
-- [Schema JSON file](../../schemas/frontmatter.schema.json)
+- [YAML Frontmatter Documentation](../../docs/YAML.md)
+- [Chatmode Frontmatter Documentation](../../docs/CHATMODE-FRONTMATTER.md)
+- [Tagging and Frontmatter Conventions](tagging-and-frontmatter-conventions.instructions.md)
 - [VS Code Settings](../../.vscode/settings.json)
-
----

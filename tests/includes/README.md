@@ -1,14 +1,49 @@
+---
+file_type: documentation
+version: "2.0"
+created_date: "2025-10-25"
+last_updated: "2025-10-25"
+author: "LightSpeedWP Team"
+maintainer: "Ash Shaw"
+tags:
+  - "includes"
+  - "bats"
+  - "test-helpers"
+  - "automation"
+domain: "governance"
+stability: "stable"
+mode: "information"
+deprecated: false
+references:
+  - path: "../../schemas/frontmatter.schema.json"
+    description: "Unified frontmatter schema definition"
+  - path: "enhanced-test-helpers.bash"
+    description: "Enhanced test utilities"
+  - path: "agent-test-helpers.bash"
+    description: "Agent-specific test helpers"
+---
+
 # Test Includes
 
 This directory contains reusable test helper functions and utilities for LightSpeed WP Bats test suites.
 
 ## Structure
 
-```
-tests/includes/
-├── README.md                    # This file
-├── enhanced-test-helpers.bash   # Enhanced test utilities
-└── agent-test-helpers.bash      # Agent-specific test helpers
+```mermaid
+graph TD
+    A[includes/README.md]
+    B[enhanced-test-helpers.bash]
+    C[agent-test-helpers.bash]
+    A --> B
+    A --> C
+    B --> D[Environment Setup]
+    B --> E[Mocking Functions]
+    B --> F[Assertion Functions]
+    B --> G[Utility Functions]
+    C --> H[Agent Environment]
+    C --> I[GitHub Mocking]
+    C --> J[Agent Validation]
+    C --> K[Agent Testing]
 ```
 
 ## Usage
@@ -17,26 +52,9 @@ Load the appropriate test helper files in your Bats tests:
 
 ```bash
 #!/usr/bin/env bats
-
 # Load test helpers
 load "$(dirname "$BATS_TEST_FILENAME")/../includes/enhanced-test-helpers.bash"
 load "$(dirname "$BATS_TEST_FILENAME")/../includes/agent-test-helpers.bash"
-
-setup() {
-    setup_enhanced_test_environment
-}
-
-teardown() {
-    cleanup_enhanced_test_environment
-}
-
-@test "example test with enhanced helpers" {
-    source_includes
-    assert_function_exists "log_info"
-
-    run log_info "Test message"
-    assert_log_contains "Test message"
-}
 ```
 
 ## Available Helpers
@@ -239,3 +257,9 @@ These test helpers integrate with the CI/CD pipeline:
 - Provide fixtures for consistent testing
 - Enable comprehensive validation in automated workflows
 - Support both local and CI test execution
+
+## References
+
+- [Unified Frontmatter Schema](../../schemas/frontmatter.schema.json)
+- [Enhanced Test Helpers](enhanced-test-helpers.bash)
+- [Agent Test Helpers](agent-test-helpers.bash)

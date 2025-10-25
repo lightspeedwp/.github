@@ -1,18 +1,32 @@
 ---
+file_type: chatmode
+version: "2.0"
+author: "LightSpeedWP Team"
+maintainer: "LightSpeedWP Team"
+mode: "information"
+stability: "stable"
+domain: "awesome-copilot"
+deprecated: false
+references:
+  - path: "../../schemas/frontmatter.schema.json"
+    description: "Unified frontmatter schema definition"
+  - path: "../chatmodes.md"
+    description: "Parent chatmodes index"
+  - path: "../../custom-instructions.md"
+    description: "Custom Copilot instructions"
+tags:
+  - chatmodes
+  - awesome-copilot
+  - lightspeed
+  - copilot
+  - agents
+  - templates
+  - index
 title: "Awesome Copilot Chatmodes Index"
-version: "v1.0"
-last_updated: "2025-10-23"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Dynamic index of all Awesome Copilot chatmodes for LightSpeed projects."
-tags: ["lightspeed", "copilot", "chatmode", "agents", "templates"]
-type: "chatmode-index"
-links:
-  - parent: "../chatmodes.md"
-  - custom-instructions: "../../custom-instructions.md"
+description: "Dynamic index of all Awesome Copilot chatmodes for LightSpeed projects"
+created_date: "2025-01-07"
+last_updated: "2025-01-07"
 ---
-
-# Awesome Copilot Chatmodes Index
 
 This file lists all chatmodes in the [awesome-copilot](./) subfolder. For each, see the individual `.chatmode.md` for full instructions, usage, and LightSpeed-specific guidance.
 
@@ -83,16 +97,29 @@ Each chatmode file below is maintained with LightSpeed-relevant frontmatter (see
 
 ```yaml
 ---
+file_type: chatmode
+version: "2.0"
+author: "LightSpeedWP Team"
+maintainer: "LightSpeedWP Team"
+mode: "instruction"
+stability: "stable"
+domain: "awesome-copilot"
+deprecated: false
+references:
+  - path: "../../schemas/frontmatter.schema.json"
+    description: "Unified frontmatter schema definition"
+  - path: "../chatmodes.md"
+    description: "Parent chatmodes index"
+  - path: "../../custom-instructions.md"
+    description: "Custom Copilot instructions"
+tags:
+  - chatmodes
+  - awesome-copilot
+  - lightspeed
+  - copilot
 title: "[Chatmode Title]"
-version: "v1.0"
-last_updated: "2025-10-23"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "[Short summary of chatmode purpose — LightSpeed context.]"
-tags: ["lightspeed", "copilot", "chatmode", "agents"]
-type: "chatmode"
-links:
-  - parent: "../chatmodes.md"
-  - custom-instructions: "../../custom-instructions.md"
+description: "[Short summary of chatmode purpose — LightSpeed context]"
+created_date: "2025-01-07"
+last_updated: "2025-01-07"
 ---
 ```

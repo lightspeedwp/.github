@@ -287,14 +287,14 @@ class FrontmatterValidator {
     const requirements = {
       agent: ['file_type', 'name', 'description'],
       chatmode: ['file_type', 'description'],
-      instruction: ['file_type', 'description', 'apply_to'],
+      instruction: ['file_type', 'description'], // apply_to/applyTo verified separately if present
       prompt: ['file_type', 'description'],
       collection: ['file_type', 'name', 'description'],
-      issue_template: ['file_type', 'name'],
-      pull_request_template: ['file_type', 'name'],
-      discussion_template: ['file_type', 'name'],
+      issue_template: ['file_type', 'name', 'description'],
+      pull_request_template: ['file_type', 'title'],
+      discussion_template: ['file_type', 'name', 'description'],
       saved_reply: ['file_type', 'title'],
-      readme: ['file_type', 'name', 'description'],
+      readme: ['file_type', 'title', 'description'],
       documentation: ['file_type', 'description']
     };
 
@@ -303,12 +303,12 @@ class FrontmatterValidator {
 
   getRecommendedFieldsByType(fileType) {
     const recommendations = {
-      agent: ['version', 'last_updated', 'owners', 'tags'],
-      chatmode: ['tools', 'model', 'owners'],
-      instruction: ['owners', 'tags', 'version'],
-      prompt: ['mode', 'model', 'tools', 'tags'],
-      collection: ['version', 'last_updated', 'tags'],
-      readme: ['version', 'last_updated', 'owners', 'tags'],
+      agent: ['version', 'last_updated', 'owners', 'tags', 'references'],
+      chatmode: ['tools', 'model', 'owners', 'tags', 'references', 'context_window', 'temperature', 'max_tokens'],
+      instruction: ['owners', 'tags', 'version', 'references'],
+      prompt: ['mode', 'model', 'tools', 'tags', 'references'],
+      collection: ['version', 'last_updated', 'tags', 'references'],
+      readme: ['version', 'last_updated', 'owners', 'tags', 'references'],
       documentation: ['owners', 'tags', 'references']
     };
 
@@ -322,15 +322,28 @@ class FrontmatterValidator {
     }
 
     references.forEach((ref, index) => {
-      if (typeof ref !== 'string') {
-        this.logger.warn(`Reference ${index} should be a string`, filePath);
+      let refPath;
+      if (typeof ref === 'string') {
+        // legacy string format
+        refPath = ref;
+      } else if (ref && typeof ref === 'object') {
+        refPath = ref.path;
+        if (!ref.description) {
+          this.logger.info(`Reference ${index} missing description (recommended)`, filePath);
+        }
+      } else {
+        this.logger.warn(`Reference ${index} has invalid format`, filePath, { value: ref });
         return;
       }
 
-      // Check if referenced file exists (relative to repository root)
-      const referencedPath = path.resolve(CONFIG.rootDir, ref);
-      if (!fs.existsSync(referencedPath)) {
-        this.logger.warn(`Referenced file does not exist: ${ref}`, filePath);
+      if (!refPath) {
+        this.logger.warn(`Reference ${index} missing path value`, filePath);
+        return;
+      }
+
+      const referencedPath = path.resolve(CONFIG.rootDir, refPath);
+      if (!fs.existsExists && !fs.existsSync(referencedPath)) {
+        this.logger.warn(`Referenced file does not exist: ${refPath}`, filePath);
       }
     });
   }

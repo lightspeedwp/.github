@@ -1,15 +1,32 @@
---- 
-title: "Chat Modes: Master Index"
-version: "v1.2"
-last_updated: "2025-10-23"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Master file that lists all chat modes and cross-references Copilot instructions, agents, and prompts."
-tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "chatmode"
 ---
-
-# Chat Modes: Master Index
+file_type: chatmode-index
+version: "2.0"
+author: "LightSpeedWP Team"
+maintainer: "LightSpeedWP Team"
+mode: "instruction"
+stability: "stable"
+domain: "governance"
+deprecated: false
+references:
+  - path: "schemas/frontmatter.schema.json"
+    description: "Unified frontmatter schema definition"
+  - path: ".github/instructions/tagging-and-frontmatter-conventions.instructions.md"
+    description: "Frontmatter implementation guidelines"
+  - path: ".github/chatmodes/awesome-copilot/index.chatmodes.md"
+    description: "Awesome Copilot chatmodes index"
+tags:
+  - chatmodes
+  - lightspeed
+  - copilot
+  - agents
+  - prompts
+  - templates
+  - governance
+title: "Chat Modes: Master Index"
+description: "Master file that lists all chat modes and cross-references Copilot instructions, agents, and prompts"
+created_date: "2025-01-07"
+last_updated: "2025-01-07"
+---
 
 This file indexes all available chat modes for LightSpeed projects, including dynamic sub-indexes like [Awesome Copilot Chatmodes](./awesome-copilot/index.chatmodes.md).
 

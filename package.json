@@ -2,12 +2,12 @@
     "name": "@lightspeedwp/github-community-health",
     "version": "0.1.0",
     "description": "The GitHub Community Health file for LightspeedWP. Community health files, agent scripts, and automation for the LightSpeed WordPress organization.",
+    "license": "GPL-3.0-or-later",
     "author": {
         "name": "LightSpeedWP Team",
         "email": "support@lightspeedwp.agency",
         "url": "https://lightspeedwp.agency"
     },
-    "license": "GPL-3.0-or-later",
     "keywords": [
         "agents",
         "instructions",
@@ -108,7 +108,7 @@
         "typescript": "^5.0.0"
     },
     "scripts": {
-        "lint:pkg-json": "npmPkgJsonLint package.json",
+        "lint:pkg-json": "NPMPKGJSONLINT_DISABLE_ORDER=true npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs .",
         "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset spectral.config.js",
         "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset spectral.config.js",
         "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
@@ -118,7 +118,7 @@
         "lint:md": "markdownlint '**/*.md' --fix",
         "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
         "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix",
-        "format:md": "prettier '**/*.md' --write && wp-scripts lint-md --fix --format",
+        "format:md": "prettier '**/*.md' --write && markdownlint '**/*.md' --fix",
         "format": "npm run format:js && npm run format:css",
         "sync-version": "node scripts/sync-version.js",
         "test:js": "jest --coverage --forceExit --detectOpenHandles",

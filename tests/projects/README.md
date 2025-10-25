@@ -1,17 +1,50 @@
+---
+file_type: documentation
+version: "2.0"
+created_date: "2025-10-25"
+last_updated: "2025-10-25"
+author: "LightSpeedWP Team"
+maintainer: "Ash Shaw"
+tags:
+  - "projects"
+  - "bats"
+  - "automation"
+  - "csv"
+  - "idempotency"
+domain: "governance"
+stability: "stable"
+mode: "information"
+deprecated: false
+references:
+  - path: "../../schemas/frontmatter.schema.json"
+    description: "Unified frontmatter schema definition"
+  - path: "fixtures/README.md"
+    description: "Project test fixtures documentation"
+---
+
 # Project Script Test Suite
 
 [![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 
-This folder contains comprehensive [Bats](https://github.com/bats-core/bats-core) test suites for all GitHub Project automation scripts in `scripts/project/`. These tests ensure robust, spec-compliant automation for both client delivery and product development workflows, covering:
+This folder contains comprehensive [Bats](https://github.com/bats-core/bats-core) test suites for all GitHub Project automation scripts in `scripts/project/`. These tests ensure robust, spec-compliant automation for both client delivery and product development workflows.
 
-- Argument parsing and usage/help output
-- Field creation and color assignment
-- CSV-driven settings import and access management
-- Authentication logic (gh CLI, auth, scopes)
-- Dry-run simulation and idempotency
-- Error handling and environment variable overrides
+## Test Architecture
 
----
+```mermaid
+graph TD
+    A[test-client-delivery-project.bats] --> B[client-delivery-project.sh]
+    C[test-client-delivery-project-auth.bats] --> B
+    D[test-client-delivery-project-csv.bats] --> B
+    E[test-product_dev_project.bats] --> F[product-dev-project.sh]
+    G[test-product-dev-project-auth.bats] --> F
+    H[test-product-dev-project-csv.bats] --> F
+    I[test-create-project-field.bats] --> J[Field Command Helpers]
+    K[test-update-projects.bats] --> F
+    L[fixtures/*.csv] --> D
+    L --> H
+    J --> F
+    B & F --> M[Unified Frontmatter Schema]
+```
 
 ## Test Files Overview
 
@@ -105,39 +138,10 @@ bats test-client-delivery-project.bats
 
 ---
 
-## Log Files
+## References
 
-- All test runs via `run-tests.sh` are logged to `logs/bats-project-scripts-YYYYMMDD-HHMMSS.log` in the repository root.
-- Review these logs for detailed output, failures, and troubleshooting.
-
----
-
-## Adding or Modifying Tests
-
-- Add new `.bats` files for additional scripts or features
-- Use descriptive test names and comments
-- Mock external dependencies (e.g., GitHub CLI) for safe testing
-- Validate both positive and negative scenarios
-- Source scripts with `SKIP_MAIN=1` to test helper functions in isolation
-
----
-
-## Troubleshooting
-
-- Ensure Bats is installed and available in your PATH ([bats-core install guide](https://github.com/bats-core/bats-core))
-- Run tests in a clean environment to avoid side effects
-- Use the `--verbose` flag for detailed output
-- If a test fails, check the log file for details and rerun the test with debugging enabled
-
----
-
-## Related Documentation
-
-- [scripts/project/README.client-delivery-project.md](../../scripts/project/README.client-delivery-project.md)
-- [scripts/project/README.product-dev-project.md](../../scripts/project/README.product-dev-project.md)
-- [scripts/project/README.update-projects.md](../../scripts/project/README.update-projects.md)
-- [test-helper.bash](../../tests/test-helper.bash)
-- [Field spec docs](../../scripts/docs/update-projects/)
+- [Unified Frontmatter Schema](../../schemas/frontmatter.schema.json)
+- [Project Test Fixtures](fixtures/README.md)
 
 ---
 
