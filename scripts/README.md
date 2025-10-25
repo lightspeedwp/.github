@@ -1,28 +1,24 @@
 ---
-title: "LightSpeedWP Scripts & Automation"
-version: "v2.4"
-last_updated: "2025-01-14"
-author: "LightSpeedWP Team"
-maintainer: "Ash Shaw"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
-type: "automation"
-status: "production"
-tags: ["automation", "utilities", "scripts", "testing", "maintenance", "validation", "bash", "nodejs"]
-license: "GPL-3.0"
-repository: "https://github.com/lightspeedwp/.github"
-ai_references:
-  - "Use for automation, validation, and maintenance workflows"
-  - "Reference for script architecture patterns and testing"
-  - "Shared utilities in includes/ provide reusable components"
-  - "Mermaid diagrams show execution flows and dependencies"
-related_files:
-  - ".github/workflows/tests.yml"
-  - ".github/instructions/coding-standards.instructions.md"
-  - "schemas/"
-  - "tests/"
+version: "2.5"
+last_updated: "2025-10-25"
+owners:
+- LightSpeedWP Team
+references:
+- ../.github/instructions/coding-standards.instructions.md
+- ../.github/instructions/frontmatter.instructions.md
+- ../schemas/frontmatter.schema.json
+- ../schemas/collection.schema.json
+- ../tests/README.md
+- ../docs/WORKFLOWS.md
+- ../CHANGELOG.md
+- ../docs/TESTING.md
+- ../docs/LINTING.md
+---
 ---
 
-## 🔧 LightSpeedWP Scripts & Automation
+LightSpeedWP Scripts & Automation
+=================================
 
 ![Scripts Badge](https://img.shields.io/badge/scripts-active-brightgreen?style=flat-square)
 ![Automation Badge](https://img.shields.io/badge/automation-optimized-blue?style=flat-square)
@@ -31,7 +27,8 @@ related_files:
 
 This directory contains all automation, utility, and maintenance scripts for the LightSpeedWP project. Scripts are grouped by function for modularity, maintainability, and testability.
 
-## 📊 Scripts Architecture
+Scripts Architecture
+--------------------
 
 ```mermaid
 graph TB
@@ -64,7 +61,8 @@ graph TB
     style S fill:#e8f5e8
 ```
 
-## 🚀 Automation Workflow
+Automation Workflow
+-------------------
 
 ```mermaid
 sequenceDiagram
@@ -85,7 +83,8 @@ sequenceDiagram
     Deploy->>Dev: Notify completion
 ```
 
-## Directory Structure
+Directory Structure
+-------------------
 
 - **awesome-copilot/** — Utilities for prompt/collection management and validation.  
   _See:_ `awesome-copilot/README.md`
@@ -101,9 +100,11 @@ sequenceDiagram
 - **utility/** — General-purpose shell and Node.js utilities for label management, logging, and validation.  
   _See:_ `utility/README.md`
 
-## Core Components
+Core Components
+---------------
 
-### Shared Infrastructure (`includes/`)
+Shared Infrastructure (`includes/`)
+----------------------------------
 
 The `includes/` directory provides reusable components used across all scripts:
 
@@ -113,9 +114,11 @@ The `includes/` directory provides reusable components used across all scripts:
 - **Test Helpers**: `enhanced-test-helpers.bash`, `agent-test-helpers.bash`
 - **Network Functions**: `git-functions.sh` for Git operations
 
-### Script Categories
+Script Categories
+-----------------
 
-#### Awesome Copilot (`awesome-copilot/`)
+Awesome Copilot (`awesome-copilot/`)
+------------------------------------
 
 Manages prompt collections and Copilot-related functionality:
 
@@ -124,7 +127,8 @@ Manages prompt collections and Copilot-related functionality:
 - Cross-platform line ending normalization
 - README generation for collections
 
-#### Maintenance (`maintenance/`)
+Maintenance (`maintenance/`)
+-----------------------------
 
 Repository maintenance and automation:
 
@@ -134,7 +138,8 @@ Repository maintenance and automation:
 - Changelog validation
 - Issue type management
 
-#### Utility (`utility/`)
+Utility (`utility/`)
+-------------------
 
 General-purpose tools and libraries:
 
@@ -144,7 +149,8 @@ General-purpose tools and libraries:
 - Version synchronization
 - Status enforcement
 
-#### JSON/YAML Validation (`json-validation/`)
+JSON/YAML Validation (`json-validation/`)
+----------------------------------------
 
 Configuration file validation:
 
@@ -152,7 +158,8 @@ Configuration file validation:
 - Schema-based YAML validation
 - Automated schema updates
 
-#### Projects (`projects/`)
+Projects (`projects/`)
+----------------------
 
 GitHub Projects management:
 
@@ -161,9 +168,11 @@ GitHub Projects management:
 - Access control configuration
 - Project type templates
 
-## Integration Points
+Integration Points
+------------------
 
-### Test Structure
+Test Structure
+-------------
 
 Each script directory has a corresponding `__tests__/` subdirectory:
 
@@ -173,7 +182,8 @@ Each script directory has a corresponding `__tests__/` subdirectory:
 - `maintenance/__tests__/` — Tests for maintenance scripts
 - `utility/__tests__/` — Tests for utility functions
 
-### Workflow Integration
+Workflow Integration
+--------------------
 
 Scripts integrate with GitHub Actions workflows:
 
@@ -183,7 +193,8 @@ Scripts integrate with GitHub Actions workflows:
 - Release validation
 - Test execution
 
-### Configuration Dependencies
+Configuration Dependencies
+--------------------------
 
 Scripts work with various configuration files:
 
@@ -192,9 +203,11 @@ Scripts work with various configuration files:
 - `.github/workflows/` — GitHub Actions definitions
 - `fixtures/` — Test data and templates
 
-## Usage Patterns
+Usage & Quickstart
+------------------
 
-### Running Individual Scripts
+Running Individual Scripts
+--------------------------
 
 ```bash
 # Validate collections
@@ -210,7 +223,8 @@ scripts/utility/label-sync.js --dry-run
 node scripts/json-validation/validate-coderabbit-yml.cjs
 ```
 
-### Running Test Suites
+Running Test Suites
+-------------------
 
 ```bash
 # Run all tests
@@ -224,7 +238,8 @@ scripts/utility/run-utility-tests.sh
 bats scripts/includes/__tests__/test-logging.bats
 ```
 
-### Using Includes in Scripts
+Using Includes in Scripts
+-------------------------
 
 ```bash
 #!/bin/bash
@@ -239,16 +254,74 @@ log_info "Starting script execution"
 validate_required_command "git"
 ```
 
-## Related Documentation
+Validation & Testing
+--------------------
 
-### Internal References
+Validation tooling applied to scripts:
+
+| Area | Tool | Purpose |
+| ---- | ---- | ------- |
+| Shell | ShellCheck | Static analysis for Bash scripts |
+| Bash tests | Bats | Behaviour validation of shell utilities |
+| JS/TS | ESLint | Linting and code quality checks |
+| Collections | Custom validator | Ensures collection schema compliance |
+| Frontmatter | Schema validator | Validates metadata blocks |
+| Markdown | Markdownlint | Documentation formatting consistency |
+
+Example aggregate run (placeholder):
+
+```bash
+./run-all-tests.sh            # Executes all test suites
+npm run lint                  # Lints JS/TS sources
+shellcheck scripts/**/*.sh    # Shell linting
+markdownlint scripts/**/*.md  # README / docs lint
+```
+
+Change Log / History
+--------------------
+
+Version: 2.5 (increment when public script interfaces or includes contracts change).  
+Refer to `../CHANGELOG.md` for release context and automation evolution.
+
+FAQ / Troubleshooting
+---------------------
+
+**Collection validation failed?** Ensure `collection.schema.json` is up to date and YAML frontmatter paths are correct.  
+**Scripts sourcing wrong path?** Use `$(dirname "$0")` patterns and avoid relative assumptions.  
+**Permission denied running script?** Add executable bit: `chmod +x <script>`.  
+**Bats tests not found?** Verify test file naming pattern `test-*.bats` and correct path in run script.
+
+Limitations & Notes
+-------------------
+
+- Some legacy scripts may not yet use standardized logging wrappers.
+- JSON validation tooling scheduled for consolidation into a single CLI.
+- Multi-platform (macOS/Linux) parity tests are partial; Windows support not prioritized.
+
+Environment & Dependencies
+--------------------------
+
+| Dependency | Minimum | Purpose |
+| ---------- | ------- | ------- |
+| Node.js | 18+ | Run JS/validation scripts |
+| Bash | 5.x | Execute shell automation |
+| Bats | Latest | Shell test framework |
+| ShellCheck | Latest | Shell static analysis |
+| jq | Latest | JSON manipulation |
+
+Related Documentation
+---------------------
+
+Internal References
+-------------------
 
 - [Coding Standards](../.github/instructions/coding-standards.instructions.md)
 - [Testing Standards](../.github/instructions/testing-standards.instructions.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 - [Schema Definitions](../schemas/)
 
-### External Dependencies
+External Dependencies
+---------------------
 
 - **GitHub CLI** — For GitHub API interactions
 - **Node.js** — For JavaScript validation scripts
@@ -256,7 +329,8 @@ validate_required_command "git"
 - **ShellCheck** — For shell script linting
 - **jq** — For JSON processing
 
-## Development Workflow
+Development Workflow
+--------------------
 
 1. **Script Development**: Follow coding standards and include proper headers
 2. **Testing**: Add comprehensive tests in appropriate `__tests__/` directory
@@ -264,9 +338,11 @@ validate_required_command "git"
 4. **Validation**: Run linting and validation tools
 5. **Integration**: Ensure compatibility with existing workflows
 
-## Maintenance
+Maintenance
+-----------
 
-### Regular Tasks
+Regular Tasks
+------------
 
 - Update dependencies and schemas
 - Validate all configuration files
@@ -274,14 +350,16 @@ validate_required_command "git"
 - Update documentation and badges
 - Synchronize labels and issue types
 
-### Monitoring
+Monitoring
+----------
 
 - Check log files in `logs/` directory
 - Monitor GitHub Actions workflow results
 - Validate script execution in CI/CD pipelines
 - Review test coverage and failures
 
-## 🔄 Script Execution Flow
+Script Execution Flow
+---------------------
 
 ```mermaid
 flowchart TD
@@ -307,7 +385,8 @@ flowchart TD
     style N fill:#ffcdd2
 ```
 
-## Contributing
+Contributing
+------------
 
 When contributing new scripts or modifications:
 
@@ -320,23 +399,27 @@ When contributing new scripts or modifications:
 
 ---
 
-## 📚 References
+References
+----------
 
-### 🔗 Documentation Links
+Documentation Links
+-------------------
 
 - [LightSpeedWP Main Repository](https://github.com/lightspeedwp/.github)
 - [Coding Standards Instructions](../.github/instructions/coding-standards.instructions.md)
 - [Testing Guidelines](../.github/instructions/tests.instructions.md)
 - [WordPress Development Standards](https://developer.wordpress.org/coding-standards/)
 
-### 🛠️ Development Resources
+Development Resources
+---------------------
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../schemas/)
 - [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
-### 🎯 AI & Automation
+AI & Automation References
+-------------------------
 
 - [Custom Instructions](../.github/custom-instructions.md)
 - [Agents Documentation](../.github/agents/agent.md)

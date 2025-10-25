@@ -1,28 +1,25 @@
 ---
-title: "LightSpeedWP JSON Schemas Collection"
-version: "v2.3"
-last_updated: "2025-01-14"
-author: "LightSpeedWP Team"
-maintainer: "Ash Shaw"
 description: "JSON Schema files for validation, documentation, and tooling support across the LightSpeedWP organization. Comprehensive schema validation for frontmatter, configurations, and third-party integrations."
-type: "schemas"
-status: "production"
-tags: ["json-schema", "validation", "frontmatter", "configuration", "automation", "vscode"]
-license: "GPL-3.0"
-repository: "https://github.com/lightspeedwp/.github"
-ai_references:
-  - "Use for JSON/YAML validation and schema compliance"
-  - "Frontmatter schema ensures consistent documentation metadata"
-  - "VS Code integration provides real-time validation and IntelliSense"
-  - "CI/CD integration for automated validation workflows"
-related_files:
-  - ".vscode/settings.json"
-  - "scripts/json-validation/"
-  - ".github/workflows/"
-  - ".github/instructions/"
+version: "2.4"
+last_updated: "2025-10-25"
+owners:
+- LightSpeedWP Team
+references:
+- ../.github/instructions/frontmatter.instructions.md
+- ../scripts/json-validation/
+- ../.github/workflows/
+- ../.vscode/settings.json
+- ./frontmatter.schema.json
+- ./collection.schema.json
+- ./header-footer.schema.json
+- ./coderabbit-overrides.v2.json
+- ./link-audit.json
+- ../CHANGELOG.md
+- ../docs/VERSIONING.md
 ---
 
-## 📋 LightSpeedWP JSON Schemas Collection
+LightSpeedWP JSON Schemas Collection
+====================================
 
 ![Schema Badge](https://img.shields.io/badge/schemas-validated-brightgreen?style=flat-square)
 ![JSON Schema](https://img.shields.io/badge/json--schema-draft--7-blue?style=flat-square)
@@ -33,7 +30,8 @@ related_files:
 
 This folder contains JSON Schema files used for validation, documentation, and tooling support across the LightSpeedWP organization.
 
-## 📊 Schema Architecture
+Schema Architecture
+-------------------
 
 ```mermaid
 graph TB
@@ -71,9 +69,11 @@ graph TB
 
 ---
 
-## Schema Categories
+Schema Categories
+-----------------
 
-### LightSpeedWP Custom Schemas
+LightSpeedWP Custom Schemas
+---------------------------
 
 These schemas have been developed specifically for LightSpeedWP projects and governance:
 
@@ -92,7 +92,8 @@ These schemas have been developed specifically for LightSpeedWP projects and gov
 - **header-footer.schema.json**  
   Combined schema for header and footer configuration management.
 
-### Third-Party Schemas
+Third-Party Schemas
+-------------------
 
 These schemas are downloaded and maintained for specific software integrations:
 
@@ -101,9 +102,11 @@ These schemas are downloaded and maintained for specific software integrations:
 
 ---
 
-## Usage
+Usage & Quickstart
+------------------
 
-### VS Code Integration
+VS Code Integration
+-------------------
 
 These schemas are automatically mapped in VS Code workspace settings (`.vscode/settings.json`) to provide:
 
@@ -111,7 +114,8 @@ These schemas are automatically mapped in VS Code workspace settings (`.vscode/s
 - Real-time validation and error highlighting
 - Documentation tooltips for schema properties
 
-### File Validation
+File Validation
+--------------
 
 Schemas are used to validate:
 
@@ -120,7 +124,8 @@ Schemas are used to validate:
 - Manifest files for collections and resources
 - Template configurations for headers and footers
 
-### CI/CD Integration
+CI/CD Integration
+-----------------
 
 Some schemas may be used in GitHub Actions workflows for:
 
@@ -130,9 +135,11 @@ Some schemas may be used in GitHub Actions workflows for:
 
 ---
 
-## Schema Development
+Schema Development
+------------------
 
-### Creating New Schemas
+Creating New Schemas
+--------------------
 
 When adding new schemas:
 
@@ -142,14 +149,16 @@ When adding new schemas:
 4. Add examples where helpful
 5. Update VS Code workspace settings to map file patterns
 
-### Updating Existing Schemas
+Updating Existing Schemas
+-------------------------
 
 - Maintain backward compatibility when possible
 - Update version numbers for breaking changes
 - Document changes in commit messages
 - Test validation against existing files
 
-### Third-Party Schema Updates
+Third-Party Schema Updates
+--------------------------
 
 - Check for updates periodically from upstream sources
 - Document the source and version when updating
@@ -157,7 +166,8 @@ When adding new schemas:
 
 ---
 
-## File Mapping
+File Mapping
+-----------
 
 Current schema-to-file mappings (see `.vscode/settings.json`):
 
@@ -175,7 +185,8 @@ Current schema-to-file mappings (see `.vscode/settings.json`):
 
 ---
 
-## Validation Tools
+Validation Tools
+---------------
 
 - **VS Code**: Automatic validation with YAML/JSON extensions
 - **CLI**: Use tools like `ajv-cli` for command-line validation
@@ -183,7 +194,8 @@ Current schema-to-file mappings (see `.vscode/settings.json`):
 
 ---
 
-## 🔄 Schema Validation Workflow
+Validation Workflow
+-------------------
 
 ```mermaid
 sequenceDiagram
@@ -206,7 +218,8 @@ sequenceDiagram
     Note over Dev,CI: Continuous validation pipeline
 ```
 
-## 🎯 Schema Relationship Map
+Schema Relationship Map
+-----------------------
 
 ```mermaid
 graph LR
@@ -237,23 +250,77 @@ graph LR
 
 ---
 
-## 📚 References
+Validation & Testing
+--------------------
 
-### 🔗 Documentation Links
+Validation approach for schemas:
+
+- AJV validation for JSON Schema structure (draft-07 compliance)
+- Frontmatter validation via mapped schema refs
+- Automated GitHub Actions workflow for schema drift detection (planned)
+
+Example commands (hypothetical tooling):
+
+```bash
+# Validate all JSON schema files syntax
+ajv compile -s schemas/frontmatter.schema.json
+ajv compile -s schemas/collection.schema.json
+
+# Validate a specific frontmatter sample
+ajv validate -s schemas/frontmatter.schema.json -d sample-frontmatter.json
+```
+
+Change Log / History
+--------------------
+
+Schema set version: 2.4 (increment when breaking structural changes occur).  
+For organization-wide evolution see `../CHANGELOG.md` and individual commit messages referencing schema updates.
+
+FAQ / Troubleshooting
+---------------------
+
+**VS Code not validating?** Confirm file associations in `.vscode/settings.json` and reload the window.
+**Property not recognized?** Check the active schema version; you may need to update local schema mappings.
+**CI validation failing?** Ensure new schema fields include `type`, `description`, and any required constraints.
+**Collection manifest rejected?** Validate against `collection.schema.json` and confirm required top-level keys.
+
+Limitations & Notes
+-------------------
+
+- Some planned restructures (splitting combined header/footer schemas) are pending.
+- Third-party schemas may not always reflect the latest upstream spec (manual sync cycle).
+- Link audit schema usage is experimental and may expand.
+
+Environment & Dependencies
+--------------------------
+
+| Tool | Purpose |
+| ---- | ------- |
+| AJV CLI | Compile/validate JSON schemas |
+| VS Code YAML/JSON extensions | Live IntelliSense and diagnostics |
+| GitHub Actions | Planned automated schema validation workflow |
+
+References
+----------
+
+Documentation Links
+-------------------
 
 - [JSON Schema Specification](https://json-schema.org/specification.html)
 - [VS Code JSON Schema Integration](https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings)
 - [LightSpeedWP Frontmatter Conventions](../.github/instructions/frontmatter.instructions.md)
 - [Schema Validation Scripts](../scripts/json-validation/)
 
-### 🛠️ Development Resources
+Development Resources
+---------------------
 
 - [AJV JSON Schema Validator](https://ajv.js.org/)
 - [JSON Schema Lint](https://jsonschemalint.com/)
 - [Schema Store](https://schemastore.org/json/)
 - [VS Code Workspace Settings](../.vscode/settings.json)
 
-### 🎯 AI & Automation
+AI & Automation References
+-------------------------
 
 - [Custom Instructions](../.github/custom-instructions.md)
 - [Validation Workflows](../.github/workflows/)

@@ -1,28 +1,25 @@
 ---
-title: "LightSpeedWP Documentation Hub"
-version: "v3.2"
-last_updated: "2025-01-14"
-author: "LightSpeedWP Team"
-maintainer: "Ash Shaw"
 description: "Comprehensive documentation repository for LightSpeedWP containing standards, guides, workflows, and configurations. Central hub for all development ecosystem documentation with cross-linked architecture."
-type: "documentation"
-status: "production"
-tags: ["documentation", "standards", "workflows", "guides", "architecture", "wordpress", "ai", "automation"]
-license: "GPL-3.0"
-repository: "https://github.com/lightspeedwp/.github"
-ai_references:
-  - "Central documentation hub for all LightSpeedWP standards and guides"
-  - "Cross-linked documentation architecture with bidirectional references"
-  - "Comprehensive workflow, configuration, and development guidelines"
-  - "AI integration guides and automation documentation"
-related_files:
-  - "ai/"
-  - "config/"
-  - "git-workflow/"
-  - "wp-guides/"
+version: "3.2"
+last_updated: "2025-10-25"
+owners:
+  - LightSpeedWP Team
+references:
+  - ./README_DOCS_ARCHITECTURE.md
+  - ./ARCHITECTURE.md
+  - ./VERSIONING.md
+  - ./CHECKLIST_CROSSLINKING.md
+  - ./YAML.md
+  - ./YAML-Frontmatter.md
+  - ./frontmatter-schema.md
+  - ./WORKFLOWS.md
+  - ./LABEL_STRATEGY.md
+  - ./ISSUE_CREATION_GUIDE.md
+  - ../CHANGELOG.md
 ---
 
-## 📚 LightSpeedWP Documentation Hub
+LightSpeedWP Documentation Hub
+================================
 
 ![Documentation Badge](https://img.shields.io/badge/docs-comprehensive-brightgreen?style=flat-square)
 ![Standards Badge](https://img.shields.io/badge/standards-unified-blue?style=flat-square)
@@ -33,7 +30,8 @@ related_files:
 
 Welcome to the comprehensive documentation repository for LightSpeedWP! This collection contains all the standards, guides, workflows, and configurations that power our development ecosystem.
 
-## 📊 Documentation Architecture
+Documentation Architecture
+--------------------------
 
 ```mermaid
 graph TB
@@ -94,9 +92,11 @@ graph TB
     style H fill:#fff3e0
 ```
 
-## 📖 Quick Navigation
+Quick Navigation
+----------------
 
-### 🏗️ Architecture & Organization
+Architecture & Organization
+---------------------------
 
 - [**Documentation Architecture**](README_DOCS_ARCHITECTURE.md) - How our docs are structured and cross-linked
 - [**Organization Standards**](ORGANIZATION.md) - Project organization principles
@@ -104,7 +104,8 @@ graph TB
 - [**Versioning Strategy**](VERSIONING.md) - How we version our projects
 - [**Roadmap**](ROADMAP.md) - Project direction and future plans
 
-### 🤖 AI & Automation
+AI & Automation
+--------------
 
 - [**AI Documentation Hub**](ai/) - Comprehensive AI integration guides
   - [Coding Standards](ai/coding-style.md)
@@ -115,7 +116,8 @@ graph TB
 - [**Labeling Agent Usage**](LABELING_AGENT_USAGE.md) - Automated labeling system
 - [**Frontmatter Documentation**](frontmatter/) - AI agent configurations and schemas
 
-### ⚙️ Configuration & Setup
+Configuration & Setup
+---------------------
 
 - [**Configuration Hub**](config/) - All project configuration documentation
   - [Linting Setup](config/lint-eslint.md) (ESLint, Prettier, Stylelint, Markdown)
@@ -124,7 +126,8 @@ graph TB
   - [VS Code Setup](config/vscode-settings.md) (Settings, MCP)
   - [Workflow Tools](config/workflow-husky.md) (Husky, Lint-staged, Spectral)
 
-### 🔄 Git Workflows & Processes
+Git Workflows & Processes
+-------------------------
 
 - [**Git Workflow Hub**](git-workflow/) - Complete Git workflow documentation
   - [Branching Strategy](git-workflow/git-org-wide-branching-strategy.md)
@@ -135,7 +138,8 @@ graph TB
 - [**PR Creation Process**](PR_CREATION_PROCESS.md) - How to create effective pull requests
 - [**Workflows Documentation**](WORKFLOWS.md) - GitHub Actions and automation workflows
 
-### 🏷️ Labeling & Issue Management
+Labeling & Issue Management
+---------------------------
 
 - [**Label Automation Hub**](label-automation/) - Automated labeling system
   - [Issue & PR Labeling Guide](label-automation/issue-and-pr-labelling-guide-explainer-v1.md)
@@ -145,7 +149,8 @@ graph TB
 - [**Label Strategy**](LABEL_STRATEGY.md) - Overall labeling approach
 - [**Issue Creation Guide**](ISSUE_CREATION_GUIDE.md) - How to create effective issues
 
-### 🐛 Bug Tracking & Quality
+Bug Tracking & Quality
+-----------------------
 
 - [**BugHerd Integration**](bugherd/) - Bug tracking system documentation
   - [Tagging Guide](bugherd/bugherd-tagging-guide-explainer-v1-1.md)
@@ -154,14 +159,16 @@ graph TB
 - [**Testing Documentation**](TESTING.md) - Testing standards and practices
 - [**Jest Test Audit**](JEST-TEST-AUDIT.md) - Testing audit documentation
 
-### 🌐 WordPress Development
+WordPress Development
+---------------------
 
 - [**WordPress Guides**](wp-guides/) - WordPress-specific development guides
   - [Block Development Checklist](wp-guides/block-dev-checklist.md)
   - [Coding Standards](wp-guides/wp-coding-standards.md)
   - [Security Checklist](wp-guides/wp-security-checklist.md)
 
-### 📝 Content & Documentation
+Content & Documentation
+-----------------------
 
 - [**Frontmatter Schema**](frontmatter-schema.md) - Documentation metadata standards
 - [**YAML Documentation**](YAML.md) - YAML configuration guide
@@ -170,21 +177,24 @@ graph TB
 - [**Header/Footer Standards**](HEADER-FOOTER.md) - Consistent document formatting
 - [**README Management**](MANAGE-READMES.md) - README file standards
 
-### 🤝 Collaboration & Community
+Collaboration & Community
+--------------------------
 
 - [**All Contributors Documentation**](all-contributorsrc-docs.md) - Contributor recognition system
 - [**Discussions Guide**](DISCUSSIONS.md) - Community discussion guidelines
 - [**Cross-linking Checklist**](CHECKLIST_CROSSLINKING.md) - Documentation quality checklist
 - [**Decision Records**](DECISIONS.md) - Architectural decision records
 
-### 📂 Project Resources
+Project Resources
+----------------
 
 - [**Assets**](assets/) - Shared documentation assets and diagrams
 - [**LS Projects**](ls-projects/) - LightSpeed-specific project documentation
 - [**Mustache Templates**](mustache-repo-templates/) - Repository template system
 - [**Drafts**](drafts/) - Work-in-progress documentation
 
-## 🚀 Getting Started
+Usage & Quickstart
+------------------
 
 1. **New to the project?** Start with [Architecture Overview](ARCHITECTURE.md)
 2. **Setting up development?** Check the [Configuration Hub](config/)
@@ -192,7 +202,8 @@ graph TB
 4. **Working on WordPress?** See [WordPress Guides](wp-guides/)
 5. **Need templates?** Browse [Mustache Templates](mustache-repo-templates/)
 
-## 🔗 Cross-Linking Philosophy
+Cross-Linking Philosophy
+------------------------
 
 Our documentation follows a comprehensive cross-linking strategy:
 
@@ -203,7 +214,8 @@ Our documentation follows a comprehensive cross-linking strategy:
 
 For details, see our [Documentation Architecture Guide](README_DOCS_ARCHITECTURE.md).
 
-## 🤝 Contributing
+Contributing
+------------
 
 When contributing to this documentation:
 
@@ -213,7 +225,8 @@ When contributing to this documentation:
 4. Ensure bidirectional links are maintained
 5. Test all internal links before submitting
 
-## 📞 Support
+Support
+-------
 
 - **Questions?** Start a [GitHub Discussion](https://github.com/orgs/lightspeedwp/discussions)
 - **Issues?** Use our [Issue Creation Guide](ISSUE_CREATION_GUIDE.md)
@@ -221,7 +234,8 @@ When contributing to this documentation:
 
 ---
 
-## 🧭 Documentation Navigation Flow
+Documentation Navigation Flow
+-----------------------------
 
 ```mermaid
 flowchart TD
@@ -261,30 +275,83 @@ flowchart TD
 
 ---
 
-## 📚 References
+Validation & Testing
+--------------------
 
-### 🔗 Documentation Links
+Current validation focus:
+
+- Frontmatter schema conformance (README and documentation metadata)
+- Cross-link integrity (no dead internal links)
+- Markdown lint (heading style, spacing, lists, fenced blocks)
+
+Example (placeholder) validation commands:
+
+```bash
+# Lint markdown
+markdownlint docs/**/*.md
+
+# Validate frontmatter (hypothetical script)
+node scripts/validation/validate-frontmatter.js docs/
+```
+
+Change Log / History
+--------------------
+
+Refer to `../CHANGELOG.md` and `VERSIONING.md` for version evolution and release rationale. Major structural documentation changes are recorded in `DECISIONS.md`.
+
+FAQ / Troubleshooting
+---------------------
+
+**Broken internal link?** Run cross-link validation or check path typos.
+**Need a new section?** Update `README_DOCS_ARCHITECTURE.md` and add bidirectional links.
+**Frontmatter inconsistency?** Compare against `frontmatter-schema.md`.
+**Badge missing?** Add or update `BADGES.md` and insert at top-level README.
+
+Limitations & Notes
+-------------------
+
+- Some legacy docs may not yet include normalized frontmatter.
+- Draft documents in `drafts/` are excluded from formal validation.
+- Automated link checking may not cover external 3rd-party links.
+
+Environment & Dependencies
+--------------------------
+
+Primary tooling expectations for consuming docs:
+
+- Node + npm (for validation scripts)
+- Markdownlint CLI
+- VS Code with recommended extensions (see configuration docs)
+
+References
+----------
+
+Documentation Links
+-------------------
 
 - [Documentation Architecture Guide](README_DOCS_ARCHITECTURE.md)
 - [Cross-linking Checklist](CHECKLIST_CROSSLINKING.md)
 - [Frontmatter Schema](frontmatter-schema.md)
 - [LightSpeedWP Main Repository](https://github.com/lightspeedwp/.github)
 
-### 🛠️ Development Resources
+Development Resources
+---------------------
 
 - [Configuration Hub](config/)
 - [Git Workflow Documentation](git-workflow/)
 - [AI Integration Guides](ai/)
 - [WordPress Development Guides](wp-guides/)
 
-### 🎯 AI & Automation
+AI & Automation References
+-------------------------
 
 - [Custom Instructions](../.github/custom-instructions.md)
 - [Agents Documentation](../.github/agents/agent.md)
 - [Prompts Library](../.github/prompts/prompts.md)
 - [Labeling Automation](label-automation/)
 
-### 🤝 Community Resources
+Community Resources
+-------------------
 
 - [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
 - [Issue Creation Guide](ISSUE_CREATION_GUIDE.md)

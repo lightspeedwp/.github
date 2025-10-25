@@ -39,7 +39,7 @@ LightSpeed Organisation .github Community Health Repository
 ---
 
 📋 Table of Contents
-====================
+--------------------
 
 - [Purpose and GitHub Template Ecosystem Overview](#purpose-and-github-template-ecosystem-overview)
 - [Usage & Quickstart](#usage--quickstart)
@@ -57,7 +57,7 @@ LightSpeed Organisation .github Community Health Repository
 - [License](#license)
 
 Purpose and GitHub Template Ecosystem Overview
-==============================================
+----------------------------------------------
 
 This repository's `.github` folder serves as the **single source of truth** for all organisation-wide community health files, automation rules, standards, and AI/Copilot instructions for LightSpeed projects. By centralising these files, we ensure consistency, discoverability, and maintainability across every repo in the organisation.
 
@@ -135,7 +135,7 @@ Organizations can add community health files to a specially named `.github` repo
 > While the file itself won’t appear in the file browser or Git history for each repository, it will be surfaced throughout developers’ workflows, such as when opening a new issue or when viewing the Community Profile, just as if it were committed to the repository directly.
 
 Usage & Quickstart
-==================
+------------------
 
 Follow these steps to onboard and use this repository effectively across the organisation:
 
@@ -150,7 +150,7 @@ Follow these steps to onboard and use this repository effectively across the org
 > To override an org-wide template in a member repository, add a local copy there; GitHub will prefer the repo-local version.
 
 Validation & Testing
-====================
+--------------------
 
 This repository participates in organisation validation via:
 
@@ -169,14 +169,14 @@ node scripts/validation/validate-frontmatter.js .github/
 ```
 
 Change Log / History
-====================
+--------------------
 
 Version: 3.0 (see `version` frontmatter field)  
 Last Updated: 2025-10-24  
 Refer to the organisation-wide [CHANGELOG.md](../CHANGELOG.md) for historical changes impacting templates, automation, or agent instructions.
 
 FAQ / Troubleshooting
-=====================
+---------------------
 
 **Templates not appearing in a repo?** Ensure the target repository does not already have local conflicting templates.
 
@@ -189,7 +189,7 @@ FAQ / Troubleshooting
 **Prompts aren’t producing expected reviews?** Verify prompt file frontmatter fields and ensure correct model/tool configuration is active.
 
 Limitations & Notes
-===================
+-------------------
 
 - Org-wide defaults are only applied when a member repo lacks local overrides.
 - Saved replies are not automatically synced to external tooling—manual updates required.
@@ -199,7 +199,7 @@ Limitations & Notes
 ---
 
 Labelling and Automation
-========================
+------------------------
 
 This repository is the **canonical, organisation-wide source** for:
 
@@ -247,7 +247,7 @@ sequenceDiagram
 ---
 
 Folder Structure and Organization Flow
-======================================
+--------------------------------------
 
 The `.github` folder is organised for maximum clarity and modularity, grouping related files for easy reference and automation.
 
@@ -376,7 +376,7 @@ Directory Structure Details
 ---
 
 Comprehensive Workflow Integration
-==================================
+----------------------------------
 
 This diagram illustrates how all components work together to create a seamless development and governance experience across the LightSpeed organization.
 
@@ -451,14 +451,14 @@ Component Integration Details
 ---
 
 Community & Q&A
-===============
+---------------
 
 Have questions, feedback, or want to propose an idea? Visit our [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) for open conversation and community support.
 
 ---
 
 Contribution Guidelines & Instruction Index
-===========================================
+-------------------------------------------
 
 For all contributors, please reference these key guidelines and indexes:
 
@@ -473,7 +473,7 @@ For all contributors, please reference these key guidelines and indexes:
 ---
 
 For Contributors & Maintainers
-==============================
+------------------------------
 
 - **Always start here** when onboarding, contributing, or reviewing.
 - Reference **instructions** for standards, **templates** for issues/PRs, and **automation** docs for workflows and governance.
@@ -482,7 +482,7 @@ For Contributors & Maintainers
 - Update this folder when org-wide standards, workflows, or automation rules change.
 
 VS Code Setup
-=============
+-------------
 
 To ensure a consistent development experience and code quality, all contributors should:
 
@@ -496,7 +496,7 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 ---
 
 VS Code Workspace Setup
-=======================
+-----------------------
 
 To ensure a consistent and standards-driven development experience, this repository includes a dedicated [`.vscode/`](../.vscode/) folder with:
 
@@ -512,7 +512,7 @@ To ensure a consistent and standards-driven development experience, this reposit
 ---
 
 Related Root-Level Organisation Files
-====================================
+------------------------------------
 
 These files typically reside in the root of the repository for visibility but are managed from this `.github` folder:
 
@@ -530,7 +530,7 @@ These files typically reside in the root of the repository for visibility but ar
 ---
 
 Best Practices
-==============
+--------------
 
 - **Modularity**: Reuse files as much as possible across repos; avoid duplication.
 - **Discoverability**: Cross-link instructions, templates, and automation docs.
@@ -541,7 +541,7 @@ Best Practices
 ---
 
 License
-=======
+-------
 
 This repository and all its contents are licensed under the GNU General Public License v3.0 — see the [LICENSE](../LICENSE) file.
 
