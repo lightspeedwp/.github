@@ -1,22 +1,25 @@
 # 🧪 LightSpeedWP Testing Framework
----
-description: "Unified testing framework for LightSpeedWP automation: shell (Bats), JavaScript (Jest), Python validation, and coverage quality gates."
-version: "2.2.0"
-last_updated: "2025-10-25"
-owners:
-  - Ash Shaw
-  - LightSpeedWP QA
-references:
-  - ../run-all-tests.sh
-  - ./TEST_COVERAGE_SUMMARY.md
-  ---
-  - ./test-helper.bash
-  - ../coverage/README.md
-  - ../scripts/README.md
-  - ../schemas/README.md
-  - ../.github/workflows/tests.yml
 
-# 🧪 LightSpeedWP Testing Framework
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Description | Unified testing framework for LightSpeedWP automation: shell (Bats), JavaScript (Jest), Python validation, and coverage quality gates. |
+| Version | 2.2.0 |
+| Last Updated | 2025-10-25 |
+| Owners | Ash Shaw; LightSpeedWP QA |
+| Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md), [`test-helper.bash`](./test-helper.bash), [`coverage/README.md`](../coverage/README.md), [`scripts/README.md`](../scripts/README.md), [`schemas/README.md`](../schemas/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
+
+![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
+![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
+![Bats Badge](https://img.shields.io/badge/bats-shell--testing-orange?style=flat-square)
+![Jest Badge](https://img.shields.io/badge/jest-js--testing-success?style=flat-square)
+![Automation Badge](https://img.shields.io/badge/automation-validated-purple?style=flat-square)
+![CI/CD Badge](https://img.shields.io/badge/ci%2Fcd-integrated-informational?style=flat-square)
+
+Comprehensive automated tests for the LightSpeedWP automation project. Suites span shell (Bats), JavaScript (Jest), Python-based doc/schema validation, plus centralized coverage and quality gates. Test layout mirrors script and schema responsibilities for traceability.
+
+> Single source of truth for automation quality: fast feedback locally (Bats/Jest) + full pipeline validation (coverage, lint, schema checks).
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
 ![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
@@ -136,6 +139,7 @@ CI calls the same runner during pull requests; failures block merges when thresh
 | Schema validation | Node + AJV (planned) | JSON schema integrity | CI (upcoming) |
 
 Quality gates (indicative targets):
+
 - Overall line coverage >= 80%
 - Critical scripts (utility) >= 90% branch coverage
 - Zero high-severity ShellCheck warnings
@@ -263,7 +267,8 @@ See repository commit history for granular diffs.
 | ESLint | project config | JS style and static analysis |
 
 Optional local setup acceleration:
-```
+
+```bash
 brew install bats-core shellcheck
 pip install -r requirements-dev.txt  # if present
 npm ci
@@ -274,12 +279,14 @@ npm ci
 ### 🔗 Documentation Links
 
 #### Core Testing Documentation
+
 - [Test Coverage Summary](./TEST_COVERAGE_SUMMARY.md) — Comprehensive coverage analysis and test details
 - [Jest Configuration](../jest.config.js) — JavaScript testing framework configuration
 - [Test Runner Script](../run-all-tests.sh) — Automated test execution script
 - [LightSpeedWP Testing Guidelines](../.github/instructions/tests.instructions.md) — Testing standards and best practices
 
 #### Test Folder Documentation
+
 - [Awesome Copilot Tests](./awesome-copilot/README.md) — Jest tests for awesome-copilot automation scripts
 - [Test Includes & Helpers](./includes/README.md) — Shared test utilities and helper functions
 - [CLI Testing Helpers](./includes/cli/README.md) — Command-line interface testing utilities  
@@ -295,12 +302,14 @@ npm ci
 ### 🛠️ Development Resources
 
 #### Testing Frameworks & Tools
+
 - [Bats Testing Framework](https://github.com/bats-core/bats-core) — Bash Automated Testing System
 - [Jest Testing Documentation](https://jestjs.io/docs/getting-started) — JavaScript testing framework
 - [Shared Test Helpers](./test-helper.bash) — Common Bats testing utilities
 - [GitHub Actions Tests Workflow](../.github/workflows/tests.yml) — CI/CD testing automation
 
 #### Related Project Documentation
+
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
 - [Schema Validation](../schemas/README.md) — JSON schema validation and configuration
 - [CodeRabbit Schemas](../schemas/coderabbit/README.md) — AI code review configuration schemas
