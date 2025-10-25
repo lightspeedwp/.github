@@ -34,12 +34,12 @@ const baseIgnore = [
 module.exports = {
     ignorePaths: [...baseIgnore, ...ignorePathsEnv],
     rules: {
-        'name-format': 'off',
-        'valid-values-name-scope': 'off',
-        'version-format': 'off',
+        'name-format': nameFormat,
+        'valid-values-name-scope': ['error', ['@lightspeedwp']],
+        'version-format': strictMode ? 'error' : 'warning',
         'require-description': requireFields ? 'error' : 'off',
         'require-license': requireFields ? 'error' : 'off',
-        'require-repository': 'off',
+        'require-repository': requireFields ? 'error' : 'off',
         'prefer-property-order': disableOrder
             ? 'off'
             : [

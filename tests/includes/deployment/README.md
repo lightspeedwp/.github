@@ -1,29 +1,34 @@
 ---
 file_type: documentation
-version: "2.0"
-created_date: "2025-10-25"
-last_updated: "2025-10-25"
-author: "LightSpeedWP Team"
-maintainer: "Ash Shaw"
-tags:
-  - "deployment"
-  - "bats"
-  - "test-helpers"
-  - "automation"
-domain: "governance"
-stability: "stable"
-mode: "information"
-deprecated: false
+name: Deployment Test Suite
+folder: includes/deployment
+last_updated: 2025-10-25
+description: |
+  Bats tests for deployment automation scripts in scripts/deployment/. Validates deployment logic, environment setup, and CI/CD integration for LightSpeed WP.
+domain: tests
+version: 2.0
+owners:
+  - lightspeedwp
 references:
-  - path: "../../../schemas/frontmatter.schema.json"
-    description: "Unified frontmatter schema definition"
-  - path: "../../CONTRIBUTING.md"
-    description: "Contribution guidelines"
+  - ../../README.md
+  - ../../../README.md
+  - ../../../schemas/frontmatter.schema.json
+  - ../../../docs/YAML.md
+  - ../../../docs/FRONTMATTER-SCHEMA.md
 ---
 
 # Deployment Test Suite
 
 This folder contains Bats tests for deployment automation scripts in `scripts/deployment/`. These tests validate deployment logic, environment setup, and integration with CI/CD workflows.
+
+```mermaid
+graph TD
+    A[test-example-deployment.bats] --> B[Deployment Automation Scripts]
+    C[test-run-deployment-tests.bats] --> B
+    B --> D[Environment Setup]
+    B --> E[CI/CD Integration]
+    D & E --> F[Unified Frontmatter Schema]
+```
 
 ## Test Files
 
@@ -44,22 +49,16 @@ This folder contains Bats tests for deployment automation scripts in `scripts/de
 bats .
 ```
 
-## Test Flow & Dependencies
-
-```mermaid
-graph TD
-    A[test-example-deployment.bats] --> B[Deployment Automation Scripts]
-    C[test-run-deployment-tests.bats] --> B
-    B --> D[Environment Setup]
-    B --> E[CI/CD Integration]
-    D & E --> F[Unified Frontmatter Schema]
-```
-
 ## Contributing
 
 See [CONTRIBUTING.md](../../CONTRIBUTING.md) for details.
 
+---
+
 ## References
 
-- [Unified Frontmatter Schema](../../../schemas/frontmatter.schema.json)
-- [Contribution Guidelines](../../CONTRIBUTING.md)
+- [Main Includes README](../README.md)
+- [Root README](../../README.md)
+- [Frontmatter Schema](../../../schemas/frontmatter.schema.json)
+- [YAML Documentation](../../../docs/YAML.md)
+- [Frontmatter Schema Documentation](../../../docs/FRONTMATTER-SCHEMA.md)

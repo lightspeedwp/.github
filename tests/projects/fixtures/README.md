@@ -16,16 +16,14 @@ references:
   - ../../../docs/YAML.md
   - ../../../docs/FRONTMATTER-SCHEMA.md
 ---
+
 # Test Fixtures
 
+This directory contains test fixtures and sample data files used by the project tests in the parent directory.
 
-### References
-
-- [Project Tests README](../README.md)
-- [Main Tests README](../../README.md)
-- [Frontmatter Schema](../../../schemas/frontmatter.schema.json)
-- [YAML Documentation](../../../docs/YAML.md)
-- [Frontmatter Schema Documentation](../../../docs/FRONTMATTER-SCHEMA.md)
+```mermaid
+flowchart TD
+    subgraph Project Tests
       A[Run Bats Test] --> B[Load Fixture Data]
       B --> C[Mock Auth/Data]
       B --> D[CSV Sample]
@@ -63,8 +61,27 @@ bats ../test-update-projects.bats
 
 ## File Structure
 
-```mermaid
+The fixtures directory contains:
 
+- **CSV files**: Sample project settings and field definitions
+- **Mock data**: Authentication tokens and user data (sanitized)
+- **Reference files**: Expected output for comparison tests
+- **Error scenarios**: Invalid data for negative testing
+
+## Maintenance
+
+When adding new project features or tests:
+
+1. Add corresponding fixture files for new test scenarios
+2. Ensure fixture data is realistic but sanitized
+3. Update test files to reference new fixtures
+4. Document any special requirements or constraints
+
+## Security
+
+All fixture files contain only mock/sanitized data. No real credentials, tokens, or sensitive information should be stored here.
+
+---
 
 ## References
 

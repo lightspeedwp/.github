@@ -1,67 +1,24 @@
 ---
-file_type: documentation
-version: "2.0"
-created_date: "2025-10-25"
-last_updated: "2025-10-25"
-author: "LightSpeedWP Team"
-maintainer: "Ash Shaw"
-tags:
-  - "awesome-copilot"
-  - "jest"
-  - "tests"
-  - "automation"
-domain: "awesome-copilot"
-stability: "stable"
-mode: "information"
-deprecated: false
+description: "Jest tests for awesome-copilot scripts (update-readme, validate-collections, yaml-parser). Validates script functionality, YAML parsing, and collection logic for LightSpeed WP automation."
 references:
-  - path: "../../schemas/frontmatter.schema.json"
-    description: "Unified frontmatter schema definition"
-  - path: "../../scripts/awesome-copilot/README.md"
-    description: "Awesome Copilot scripts documentation"
-  - path: "../../docs/CHATMODE-FRONTMATTER.md"
-    description: "Chatmode frontmatter documentation"
+  - ../README.md
+  - ../../README.md
+  - ../../../schemas/frontmatter.schema.json
+  - ../../../docs/YAML.md
+  - ../../../docs/FRONTMATTER-SCHEMA.md
+last_updated: 2025-10-25
+version: 2.0
+owners:
+  - lightspeedwp
 ---
 
-# Awesome Copilot Tests
+# Awesome Copilot Tests 🧪 ![Jest](https://img.shields.io/badge/tested%20with-jest-blue) ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 
-This directory contains Jest tests for the awesome-copilot scripts.
+## Overview
 
-## Test Files
+This directory contains comprehensive Jest tests for the awesome-copilot scripts, ensuring robust automation and schema compliance for LightSpeed WP.
 
-- `update-readme.test.js`: Tests for the update-readme script functionality
-- `validate-collections.test.js`: Tests for collection validation logic
-- `yaml-parser.test.js`: Tests for YAML parsing utilities
-
-## Running Tests
-
-To run these tests:
-
-```bash
-# Run all Jest tests
-npm test
-
-# Run only awesome-copilot tests
-npx jest awesome-copilot/
-```
-
-## Test Structure
-
-Each test file follows the minimal Jest pattern:
-
-- Tests that the corresponding script can be loaded without errors
-- Validates basic functionality and exports
-- Ensures compatibility with the project structure
-
-## Dependencies
-
-These tests require:
-
-- Node.js and npm
-- Jest testing framework
-- The corresponding scripts in `/scripts/awesome-copilot/`
-
-## Test Flow & Dependencies
+## Structure
 
 ```mermaid
 graph TD
@@ -72,8 +29,57 @@ graph TD
     G --> H[Unified Frontmatter Schema]
 ```
 
+- `update-readme.test.js`: Tests for the update-readme script functionality
+- `validate-collections.test.js`: Tests for collection validation logic
+- `yaml-parser.test.js`: Tests for YAML parsing utilities
+
+## Usage / Quickstart
+
+```bash
+# Run all Jest tests
+npm test
+
+# Run only awesome-copilot tests
+npx jest awesome-copilot/
+```
+
+## Contribution & Development
+
+- Follow the coding style in [CODING-STYLE.md](../../../docs/CODING-STYLE.md)
+- Add new tests for any new scripts in `/scripts/awesome-copilot/`
+- Ensure all tests pass and coverage remains high
+
+## Parameters & Inputs
+
+- No external parameters required; tests run on local scripts
+- Ensure Node.js, npm, and Jest are installed
+
+## Examples
+
+- See each test file for usage examples and expected outputs
+
+## Validation / Testing
+
+- Tests validate script loading, basic functionality, exports, and project compatibility
+- Coverage badge reflects current test coverage
+
+## Environment / Dependencies
+
+- Node.js and npm
+- Jest testing framework
+- Scripts in `/scripts/awesome-copilot/`
+
+## Limitations / Notes
+
+- Only covers scripts in awesome-copilot; add tests for new scripts as needed
+
+---
+
 ## References
 
-- [Unified Frontmatter Schema](../../schemas/frontmatter.schema.json)
-- [Awesome Copilot Scripts](../../scripts/awesome-copilot/README.md)
-- [Chatmode Frontmatter Documentation](../../docs/CHATMODE-FRONTMATTER.md)
+- [Main Tests README](../README.md)
+- [Root README](../../README.md)
+- [Frontmatter Schema](../../../schemas/frontmatter.schema.json)
+- [YAML Documentation](../../../docs/YAML.md)
+- [Frontmatter Schema Documentation](../../../docs/FRONTMATTER-SCHEMA.md)
+- [Coding Style](../../../docs/CODING-STYLE.md)

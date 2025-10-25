@@ -1,29 +1,34 @@
 ---
 file_type: documentation
-version: "2.0"
-created_date: "2025-10-25"
-last_updated: "2025-10-25"
-author: "LightSpeedWP Team"
-maintainer: "Ash Shaw"
-tags:
-  - "core"
-  - "bats"
-  - "test-helpers"
-  - "automation"
-domain: "governance"
-stability: "stable"
-mode: "information"
-deprecated: false
+name: Core Tests
+folder: includes/core
+last_updated: 2025-10-25
+description: |
+  Tests for core functionality and shared utilities. Validates logging, color utilities, and input validation for LightSpeed WP.
+domain: tests
+version: 2.0
+owners:
+  - lightspeedwp
 references:
-  - path: "../../../schemas/frontmatter.schema.json"
-    description: "Unified frontmatter schema definition"
-  - path: "../enhanced-test-helpers.bash"
-    description: "Enhanced test utilities"
+  - ../../README.md
+  - ../../../README.md
+  - ../../../schemas/frontmatter.schema.json
+  - ../../../docs/YAML.md
+  - ../../../docs/FRONTMATTER-SCHEMA.md
 ---
 
 # Core Tests
 
 This directory contains tests for core functionality and shared utilities.
+
+```mermaid
+graph TD
+    A[test-colors.bats] --> B[Color Utilities]
+    C[test-logging.bats] --> D[Logging Functions]
+    E[test-validation.bats] --> F[Validation Utilities]
+    A & C & E --> G[Enhanced Test Helpers]
+    G --> H[Unified Frontmatter Schema]
+```
 
 ## Test Files
 
@@ -51,17 +56,6 @@ bats tests/includes/core/
 bats tests/includes/
 ```
 
-## Test Flow & Dependencies
-
-```mermaid
-graph TD
-    A[test-colors.bats] --> B[Color Utilities]
-    C[test-logging.bats] --> D[Logging Functions]
-    E[test-validation.bats] --> F[Validation Utilities]
-    A & C & E --> G[Enhanced Test Helpers]
-    G --> H[Unified Frontmatter Schema]
-```
-
 ## Dependencies
 
 - Bats testing framework
@@ -69,7 +63,12 @@ graph TD
 - Test helpers from parent includes directory
 - Terminal color support for color testing
 
+---
+
 ## References
 
-- [Unified Frontmatter Schema](../../../schemas/frontmatter.schema.json)
-- [Enhanced Test Helpers](../enhanced-test-helpers.bash)
+- [Main Includes README](../README.md)
+- [Root README](../../README.md)
+- [Frontmatter Schema](../../../schemas/frontmatter.schema.json)
+- [YAML Documentation](../../../docs/YAML.md)
+- [Frontmatter Schema Documentation](../../../docs/FRONTMATTER-SCHEMA.md)

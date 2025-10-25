@@ -1,25 +1,21 @@
 ---
 file_type: documentation
-version: "2.0"
-created_date: "2025-10-25"
-last_updated: "2025-10-25"
-author: "LightSpeedWP Team"
-maintainer: "Ash Shaw"
-tags:
-  - "projects"
-  - "bats"
-  - "automation"
-  - "csv"
-  - "idempotency"
-domain: "governance"
-stability: "stable"
-mode: "information"
-deprecated: false
+name: Project Script Test Suite
+folder: projects
+last_updated: 2025-10-25
+description: |
+  Comprehensive Bats test suites for all GitHub Project automation scripts. Validates client delivery, product development, CSV import, authentication, and idempotency for LightSpeed WP.
+domain: tests
+version: 2.0
+owners:
+  - lightspeedwp
 references:
-  - path: "../../schemas/frontmatter.schema.json"
-    description: "Unified frontmatter schema definition"
-  - path: "fixtures/README.md"
-    description: "Project test fixtures documentation"
+  - fixtures/README.md
+  - ../README.md
+  - ../../README.md
+  - ../../../schemas/frontmatter.schema.json
+  - ../../../docs/YAML.md
+  - ../../../docs/FRONTMATTER-SCHEMA.md
 ---
 
 # Project Script Test Suite
@@ -140,8 +136,12 @@ bats test-client-delivery-project.bats
 
 ## References
 
-- [Unified Frontmatter Schema](../../schemas/frontmatter.schema.json)
 - [Project Test Fixtures](fixtures/README.md)
+- [Main Tests README](../README.md)
+- [Root README](../../README.md)
+- [Frontmatter Schema](../../../schemas/frontmatter.schema.json)
+- [YAML Documentation](../../../docs/YAML.md)
+- [Frontmatter Schema Documentation](../../../docs/FRONTMATTER-SCHEMA.md)
 
 ---
 

@@ -1,33 +1,54 @@
----
-file_type: documentation
-version: "2.0"
-created_date: "2025-10-25"
-last_updated: "2025-10-25"
-author: "LightSpeedWP Team"
-maintainer: "Ash Shaw"
-tags:
-  - "includes"
-  - "bats"
-  - "test-helpers"
-  - "automation"
-domain: "governance"
-stability: "stable"
-mode: "information"
-deprecated: false
+description: "Reusable test helper functions and utilities for LightSpeed WP Bats test suites including enhanced helpers, agent helpers, and integration with the main test-helper.bash."
 references:
-  - path: "../../schemas/frontmatter.schema.json"
-    description: "Unified frontmatter schema definition"
-  - path: "enhanced-test-helpers.bash"
-    description: "Enhanced test utilities"
-  - path: "agent-test-helpers.bash"
-    description: "Agent-specific test helpers"
----
+- ../README.md
+- ../../README.md
+- ../../../schemas/frontmatter.schema.json
+- ../../../docs/YAML.md
+- ../../../docs/FRONTMATTER-SCHEMA.md
+last_updated: 2025-10-25
+version: 2.0
+owners:
+- lightspeedwp
 
-# Test Includes
+# Includes Test Helpers 🧩 ![Bats](https://img.shields.io/badge/tests-Bats-green) ![ShellCheck](https://img.shields.io/badge/linted-ShellCheck-blue)
 
-This directory contains reusable test helper functions and utilities for LightSpeed WP Bats test suites.
+## Overview
+
+Reusable test helper functions and utilities for LightSpeed WP Bats test suites. Provides advanced environment setup, mocking, assertions, agent-focused helpers, and integration with the main `test-helper.bash`.
 
 ## Structure
+
+```mermaid
+graph TD
+  A[tests/includes] --> B[cli/]
+  A --> C[core/]
+  A --> D[deployment/]
+  A --> E[filesystem/]
+  C --> F[enhanced-test-helpers.bash]
+  C --> G[agent-test-helpers.bash]
+  F --> H[Environment + Mocking]
+  G --> I[Agent Validation]
+  B --> J[test-cli-utils.bats]
+  C --> K[test-colors.bats]
+  C --> L[test-logging.bats]
+  C --> M[test-validation.bats]
+  D --> N[test-example-deployment.bats]
+  D --> O[test-run-deployment-tests.bats]
+  E --> P[test-file-operations.bats]
+```
+
+### Subfolder Summary
+
+- `cli/` – CLI utility test coverage (`test-cli-utils.bats`).
+- `core/` – Fundamental helpers & validation (colors, logging, validation tests).
+- `deployment/` – Deployment flow and orchestration tests.
+- `filesystem/` – File operation and path integrity tests.
+
+### Key Helper Scripts
+
+- `enhanced-test-helpers.bash` – Advanced environment, mocking, assertions, utilities.
+- `agent-test-helpers.bash` – Agent structure, GitHub API/event mocking, dry-run safety.
+- `../test-helper.bash` – Baseline test utilities auto-loaded by suites.
 
 ```mermaid
 graph TD
@@ -45,6 +66,37 @@ graph TD
     C --> J[Agent Validation]
     C --> K[Agent Testing]
 ```
+
+## Usage / Quickstart
+
+Load needed helpers explicitly for clarity and performance:
+
+```bash
+#!/usr/bin/env bats
+# Load advanced helpers
+load "$(dirname "$BATS_TEST_FILENAME")/../includes/enhanced-test-helpers.bash"
+load "$(dirname "$BATS_TEST_FILENAME")/../includes/agent-test-helpers.bash"
+```
+
+To run only includes-related tests:
+
+```bash
+npx bats tests/includes
+```
+
+## Environment / Dependencies
+
+- Bats (test runner)
+- Bash (target shell for helpers)
+- ShellCheck (linting optional but recommended)
+- Git (for git mocking helpers)
+
+## Validation / Testing
+
+- Helper functions validated indirectly through consuming test suites.
+- Shell standard compliance via `assert_script_follows_standards`.
+- Git and external command isolation through mocking functions.
+- Agent structure integrity via `assert_agent_follows_standards`.
 
 ## Usage
 
@@ -238,7 +290,7 @@ These enhanced helpers are designed to work alongside the main `test-helper.bash
 6. **Mock external dependencies**: Use mocking for git, APIs, etc.
 7. **Validate standards**: Use assertion helpers for compliance checking
 
-## Contributing
+## Contribution & Development
 
 When adding new test helpers:
 
@@ -249,7 +301,15 @@ When adding new test helpers:
 5. Ensure compatibility with existing helpers
 6. Add tests for the helper functions themselves
 
-## Integration with CI/CD
+## CI/CD Integration
+
+CI pipelines leverage these helpers for consistent environment setup, reusable mocking layers, and standards validation across all shell-based automation.
+
+## Limitations / Notes
+
+- Helpers assume POSIX-compatible bash environment.
+- Not all functions are unit-tested in isolation—coverage relies on integration tests.
+- Mocking layer intentionally lightweight; extend cautiously to avoid masking failures.
 
 These test helpers integrate with the CI/CD pipeline:
 
@@ -258,8 +318,12 @@ These test helpers integrate with the CI/CD pipeline:
 - Enable comprehensive validation in automated workflows
 - Support both local and CI test execution
 
+---
+
 ## References
 
-- [Unified Frontmatter Schema](../../schemas/frontmatter.schema.json)
-- [Enhanced Test Helpers](enhanced-test-helpers.bash)
-- [Agent Test Helpers](agent-test-helpers.bash)
+- [Main Tests README](../README.md)
+- [Root README](../../README.md)
+- [Frontmatter Schema](../../../schemas/frontmatter.schema.json)
+- [YAML Documentation](../../../docs/YAML.md)
+- [Frontmatter Schema Documentation](../../../docs/FRONTMATTER-SCHEMA.md)

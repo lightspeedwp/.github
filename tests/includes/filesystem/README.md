@@ -1,27 +1,34 @@
 ---
 file_type: documentation
-version: "2.0"
-created_date: "2025-10-25"
-last_updated: "2025-10-25"
-author: "LightSpeedWP Team"
-maintainer: "Ash Shaw"
-tags:
-  - "filesystem"
-  - "bats"
-  - "test-helpers"
-  - "automation"
-domain: "governance"
-stability: "stable"
-mode: "information"
-deprecated: false
+name: Filesystem Tests
+folder: includes/filesystem
+last_updated: 2025-10-25
+description: |
+  Tests for filesystem operations and file management utilities. Validates file creation, directory management, permissions, and backup/restore for LightSpeed WP.
+domain: tests
+version: 2.0
+owners:
+  - lightspeedwp
 references:
-  - path: "../../../schemas/frontmatter.schema.json"
-    description: "Unified frontmatter schema definition"
+  - ../../README.md
+  - ../../../README.md
+  - ../../../schemas/frontmatter.schema.json
+  - ../../../docs/YAML.md
+  - ../../../docs/FRONTMATTER-SCHEMA.md
 ---
 
 # Filesystem Tests
 
 This directory contains tests for filesystem operations and file management utilities.
+
+```mermaid
+graph TD
+    A[test-file-operations.bats] --> B[File System Operations]
+    B --> C[Directory Management]
+    B --> D[File Permission Handling]
+    B --> E[Backup & Restore]
+    C & D & E --> F[Unified Frontmatter Schema]
+```
 
 ## Test Files
 
@@ -48,17 +55,6 @@ bats tests/includes/filesystem/
 bats tests/includes/
 ```
 
-## Test Flow & Dependencies
-
-```mermaid
-graph TD
-    A[test-file-operations.bats] --> B[File System Operations]
-    B --> C[Directory Management]
-    B --> D[File Permission Handling]
-    B --> E[Backup & Restore]
-    C & D & E --> F[Unified Frontmatter Schema]
-```
-
 ## Dependencies
 
 - Bats testing framework
@@ -66,6 +62,12 @@ graph TD
 - Test helpers from parent includes directory
 - Temporary directory support for isolated testing
 
+---
+
 ## References
 
-- [Unified Frontmatter Schema](../../../schemas/frontmatter.schema.json)
+- [Main Includes README](../README.md)
+- [Root README](../../README.md)
+- [Frontmatter Schema](../../../schemas/frontmatter.schema.json)
+- [YAML Documentation](../../../docs/YAML.md)
+- [Frontmatter Schema Documentation](../../../docs/FRONTMATTER-SCHEMA.md)
