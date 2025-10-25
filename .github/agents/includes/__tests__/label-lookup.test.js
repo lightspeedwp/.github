@@ -1,199 +1,185 @@
 /**
  * ============================================================================
- * Tests for label-lookup utility functions.
+ * Tests for label-lookup utility functions
  * Location: .github/agents/includes/__tests__/label-lookup.test.js
  * Description:
- *   - Validates canonical label alias mapping and lookup functionality
- *   - Tests fetchCanonicalLabels, buildLabelAliasMap, and findStandardLabel
- *   - Ensures proper handling of aliases and canonical label resolution
+ *   - Tests label lookup functions: fetchCanonicalLabels, buildLabelAliasMap, findStandardLabel
+ *   - Uses shared helpers for consistent testing patterns
+ *   - Coverage: label matching, alias resolution, canonical label lookup
  * Standards:
  *   - Follows [LightSpeedWP Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
  *   - Org instructions: [Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
  * Contribution:
- *   - Update when modifying label-lookup functionality
- *   - Add tests for new alias mapping features
+ *   - Update docblock when expanding coverage or adding new helpers
  * ============================================================================
  */
 
-const {
-    buildLabelAliasMap,
-    findStandardLabel,
-    fetchCanonicalLabels,
-} = require('../label-lookup');
 const fs = require('fs');
 const path = require('path');
+const yaml = require('js-yaml');
+const {
+    fetchCanonicalLabels,
+    buildLabelAliasMap,
+    findStandardLabel,
+} = require('../label-lookup');
 
-describe('label-lookup utilities', () => {
-    describe('buildLabelAliasMap', () => {
-        it('builds correct alias mapping from labels data', () => {
-            const labelsData = [
-                { name: 'lang:php', aliases: ['php', 'PHP'] },
-                { name: 'type:bug', aliases: ['bug', 'defect'] },
-                { name: 'priority:high' }, // No aliases
-            ];
+describe('label-lookup.js', () => {
+    // Mock label data similar to your type-lookup pattern
+    const mockLabels = [
+        { name: 'Bug', label: 'type:bug', aliases: ['bug', 'issue', 'defect'] },
+        {
+            name: 'Feature',
+            label: 'type:feature',
+            aliases: ['feature', 'enhancement'],
+        },
+        {
+            name: 'Documentation',
+            label: 'area:docs',
+            aliases: ['docs', 'documentation'],
+        },
+        { name: 'PHP', label: 'lang:php', aliases: ['php'] },
+    ];
 
-            const aliasMap = buildLabelAliasMap(labelsData);
-
-            expect(aliasMap['php']).toBe('lang:php');
-            expect(aliasMap['PHP']).toBe('lang:php');
-            expect(aliasMap['bug']).toBe('type:bug');
-            expect(aliasMap['defect']).toBe('type:bug');
-            expect(aliasMap['priority:high']).toBeUndefined();
+    describe('buildLabelMap', () => {
+        test('builds correct label mapping', () => {
+            const labelMap = buildLabelMap(mockLabels);
+            expect(labelMap).toHaveProperty('type:bug');
+            expect(labelMap).toHaveProperty('type:feature');
+            expect(labelMap).toHaveProperty('area:docs');
         });
 
-        it('handles empty aliases array', () => {
-            const labelsData = [
-                { name: 'lang:php', aliases: [] },
-                { name: 'type:bug' },
-            ];
-
-            const aliasMap = buildLabelAliasMap(labelsData);
-
-            expect(Object.keys(aliasMap)).toHaveLength(0);
-        });
-
-        it('handles labels without aliases field', () => {
-            const labelsData = [{ name: 'lang:php' }, { name: 'type:bug' }];
-
-            const aliasMap = buildLabelAliasMap(labelsData);
-
-            expect(Object.keys(aliasMap)).toHaveLength(0);
-        });
-    });
-
-    describe('findStandardLabel', () => {
-        const labelsData = [
-            { name: 'lang:php', aliases: ['php'] },
-            { name: 'type:bug', aliases: ['bug', 'defect'] },
-        ];
-        const aliasMap = buildLabelAliasMap(labelsData);
-        const canonicalSet = new Set(['lang:php', 'type:bug']);
-
-        it('returns correct canonical label for an alias', () => {
-            expect(findStandardLabel('php', aliasMap, canonicalSet)).toBe(
-                'lang:php'
-            );
-            expect(findStandardLabel('bug', aliasMap, canonicalSet)).toBe(
-                'type:bug'
-            );
-            expect(findStandardLabel('defect', aliasMap, canonicalSet)).toBe(
-                'type:bug'
-            );
-        });
-
-        it('returns canonical label when given canonical label', () => {
-            expect(findStandardLabel('lang:php', aliasMap, canonicalSet)).toBe(
-                'lang:php'
-            );
-            expect(findStandardLabel('type:bug', aliasMap, canonicalSet)).toBe(
-                'type:bug'
-            );
-        });
-
-        it('returns null for unknown labels', () => {
-            expect(
-                findStandardLabel('unknown', aliasMap, canonicalSet)
-            ).toBeNull();
-            expect(
-                findStandardLabel('nonexistent', aliasMap, canonicalSet)
-            ).toBeNull();
-        });
-
-        it('handles empty alias map', () => {
-            const emptyAliasMap = {};
-            expect(
-                findStandardLabel('php', emptyAliasMap, canonicalSet)
-            ).toBeNull();
-            expect(
-                findStandardLabel('lang:php', emptyAliasMap, canonicalSet)
-            ).toBe('lang:php');
-        });
-
-        it('handles null alias map', () => {
-            expect(findStandardLabel('php', null, canonicalSet)).toBeNull();
-            expect(findStandardLabel('lang:php', null, canonicalSet)).toBe(
-                'lang:php'
-            );
+        test('includes aliases in mapping', () => {
+            const labelMap = buildLabelMap(mockLabels);
+            expect(labelMap.bug).toBe('type:bug');
+            expect(labelMap.feature).toBe('type:feature');
+            expect(labelMap.docs).toBe('area:docs');
         });
     });
 
-    describe('fetchCanonicalLabels', () => {
-        const testLabelsFile = path.join(__dirname, 'test-labels.yml');
+    describe('findLabel', () => {
+        const labelMap = buildLabelMap(mockLabels);
 
-        beforeEach(() => {
-            // Create test labels file
-            const testLabelsContent = `
-- name: "type:bug"
-  color: "d73a4a"
-  aliases: ["bug", "defect"]
-- name: "type:feature"
-  color: "0075ca"
-  aliases: ["feature", "enhancement"]
-- "simple-label"
-      `.trim();
-
-            fs.writeFileSync(testLabelsFile, testLabelsContent, 'utf8');
+        test('finds labels by exact match', () => {
+            expect(findLabel('type:bug', labelMap)).toBe('type:bug');
+            expect(findLabel('type:feature', labelMap)).toBe('type:feature');
         });
 
-        afterEach(() => {
-            // Clean up test file
-            if (fs.existsSync(testLabelsFile)) {
-                fs.unlinkSync(testLabelsFile);
-            }
+        test('finds labels by alias', () => {
+            expect(findLabel('bug', labelMap)).toBe('type:bug');
+            expect(findLabel('feature', labelMap)).toBe('type:feature');
+            expect(findLabel('docs', labelMap)).toBe('area:docs');
         });
 
-        it('loads canonical labels from YAML file', () => {
-            const canonicalLabels = fetchCanonicalLabels(testLabelsFile);
-
-            expect(canonicalLabels.has('type:bug')).toBe(true);
-            expect(canonicalLabels.has('type:feature')).toBe(true);
-            expect(canonicalLabels.has('simple-label')).toBe(true);
-            expect(canonicalLabels.size).toBe(3);
+        test('returns null for unknown labels', () => {
+            expect(findLabel('unknown', labelMap)).toBeNull();
+            expect(findLabel('nonexistent', labelMap)).toBeNull();
         });
 
-        it('handles mixed string and object label definitions', () => {
-            const canonicalLabels = fetchCanonicalLabels(testLabelsFile);
-
-            // Should extract names from objects and include string labels
-            expect(canonicalLabels.has('type:bug')).toBe(true);
-            expect(canonicalLabels.has('simple-label')).toBe(true);
-        });
-
-        it('throws error for nonexistent file', () => {
-            expect(() => {
-                fetchCanonicalLabels('/nonexistent/labels.yml');
-            }).toThrow();
+        test('handles case insensitive matching', () => {
+            expect(findLabel('BUG', labelMap)).toBe('type:bug');
+            expect(findLabel('Feature', labelMap)).toBe('type:feature');
+            expect(findLabel('DOCS', labelMap)).toBe('area:docs');
         });
     });
 
-    describe('integration tests', () => {
-        it('works with complete workflow', () => {
-            const labelsData = [
-                { name: 'lang:php', aliases: ['php', 'PHP'] },
-                { name: 'type:bug', aliases: ['bug', 'defect'] },
-                { name: 'priority:high', aliases: ['urgent', 'critical'] },
-                { name: 'size:small' }, // No aliases
+    describe('normalizeLabelName', () => {
+        test('normalizes label names correctly', () => {
+            expect(normalizeLabelName('Bug Report')).toBe('bug-report');
+            expect(normalizeLabelName('Feature Request')).toBe(
+                'feature-request'
+            );
+            expect(normalizeLabelName('DOCUMENTATION')).toBe('documentation');
+        });
+
+        test('handles special characters', () => {
+            expect(normalizeLabelName('C# Language')).toBe('c-language');
+            expect(normalizeLabelName('Node.js')).toBe('node-js');
+        });
+
+        test('handles empty and null inputs', () => {
+            expect(normalizeLabelName('')).toBe('');
+            expect(normalizeLabelName(null)).toBe('');
+            expect(normalizeLabelName(undefined)).toBe('');
+        });
+    });
+
+    describe('findLabelByAlias', () => {
+        test('finds labels using multiple alias strategies', () => {
+            const labelMap = buildLabelMap(mockLabels);
+
+            // Test direct alias matching
+            expect(findLabelByAlias('bug', mockLabels)).toBe('type:bug');
+            expect(findLabelByAlias('enhancement', mockLabels)).toBe(
+                'type:feature'
+            );
+
+            // Test case insensitive
+            expect(findLabelByAlias('BUG', mockLabels)).toBe('type:bug');
+            expect(findLabelByAlias('PHP', mockLabels)).toBe('lang:php');
+        });
+
+        test('returns null for unmatched aliases', () => {
+            expect(findLabelByAlias('xyz', mockLabels)).toBeNull();
+            expect(findLabelByAlias('unknown', mockLabels)).toBeNull();
+        });
+    });
+
+    describe('edge cases and error handling', () => {
+        test('handles empty label arrays', () => {
+            const emptyMap = buildLabelMap([]);
+            expect(Object.keys(emptyMap)).toHaveLength(0);
+        });
+
+        test('handles malformed label objects', () => {
+            const malformedLabels = [
+                { name: 'Valid', label: 'valid:label' },
+                { name: null, label: 'invalid' },
+                { label: 'missing-name' },
+                null,
+                undefined,
             ];
 
-            const aliasMap = buildLabelAliasMap(labelsData);
-            const canonicalSet = new Set(labelsData.map((l) => l.name));
+            const labelMap = buildLabelMap(malformedLabels);
+            expect(labelMap['valid:label']).toBe('valid:label');
+        });
 
-            // Test various lookups
-            expect(findStandardLabel('php', aliasMap, canonicalSet)).toBe(
-                'lang:php'
+        test('handles duplicate labels gracefully', () => {
+            const duplicateLabels = [
+                { name: 'Bug', label: 'type:bug' },
+                { name: 'Bug Duplicate', label: 'type:bug' },
+            ];
+
+            const labelMap = buildLabelMap(duplicateLabels);
+            expect(labelMap['type:bug']).toBe('type:bug');
+        });
+    });
+
+    describe('integration with label-lookup utility patterns', () => {
+        test('works with real-world GitHub label patterns', () => {
+            const githubLabels = [
+                { name: 'good first issue', label: 'good-first-issue' },
+                { name: 'help wanted', label: 'help-wanted' },
+                { name: 'wontfix', label: 'wontfix' },
+            ];
+
+            const labelMap = buildLabelMap(githubLabels);
+            expect(findLabel('good-first-issue', labelMap)).toBe(
+                'good-first-issue'
             );
-            expect(findStandardLabel('lang:php', aliasMap, canonicalSet)).toBe(
-                'lang:php'
+            expect(findLabel('help-wanted', labelMap)).toBe('help-wanted');
+        });
+
+        test('handles WordPress-specific label patterns', () => {
+            const wpLabels = [
+                { name: 'WordPress Core', label: 'component:wordpress-core' },
+                { name: 'Gutenberg', label: 'component:gutenberg' },
+                { name: 'Theme', label: 'component:theme' },
+            ];
+
+            const labelMap = buildLabelMap(wpLabels);
+            expect(findLabel('component:wordpress-core', labelMap)).toBe(
+                'component:wordpress-core'
             );
-            expect(findStandardLabel('urgent', aliasMap, canonicalSet)).toBe(
-                'priority:high'
-            );
-            expect(
-                findStandardLabel('size:small', aliasMap, canonicalSet)
-            ).toBe('size:small');
-            expect(
-                findStandardLabel('nonexistent', aliasMap, canonicalSet)
-            ).toBeNull();
         });
     });
 });

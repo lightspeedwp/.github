@@ -1,74 +1,156 @@
 ---
-file_type: documentation
-name: Core Tests
-folder: includes/core
-last_updated: 2025-10-25
 description: |
-  Tests for core functionality and shared utilities. Validates logging, color utilities, and input validation for LightSpeed WP.
-domain: tests
-version: 2.0
+  Bats test suite for core shared utilities: logging, color formatting, and input validation. Ensures output consistency, error handling, and integration with enhanced test helpers.
+last_updated: 2025-10-25
+version: 2.1
 owners:
-  - lightspeedwp
+- lightspeedwp
+
 references:
-  - ../../README.md
-  - ../../../README.md
-  - ../../../schemas/frontmatter.schema.json
-  - ../../../docs/YAML.md
-  - ../../../docs/FRONTMATTER-SCHEMA.md
+- ../README.md
+- ../../README.md
+- ../../../README.md
+- ../../../schemas/frontmatter.schema.json
+- ../../../docs/YAML.md
+- ../../../docs/FRONTMATTER-SCHEMA.md
+---
 ---
 
-# Core Tests
+# Core Tests 🧩
 
-This directory contains tests for core functionality and shared utilities.
+Badges: (placeholder – will be auto-inserted by global badge workflow)
+> Jest ⬡ Bats ✅ ShellCheck 🔍 Coverage % 📊 Frontmatter ✓
+
+## Overview
+
+Automated tests for foundational utility functions: logging, color formatting, and input validation. These ensure:
+
+- Consistent output and error reporting
+- Reliable color/terminal formatting
+- Robust input validation and sanitization
+- Integration with shared includes helpers
+
+## Structure
 
 ```mermaid
 graph TD
-    A[test-colors.bats] --> B[Color Utilities]
-    C[test-logging.bats] --> D[Logging Functions]
-    E[test-validation.bats] --> F[Validation Utilities]
-    A & C & E --> G[Enhanced Test Helpers]
-    G --> H[Unified Frontmatter Schema]
+    subgraph tests/includes/core
+      A[test-colors.bats]
+      B[test-logging.bats]
+      C[test-validation.bats]
+    end
+    A --> D[Color Utilities]
+    B --> E[Logging Functions]
+    C --> F[Validation Utilities]
+    A & B & C --> G[Includes Shared Helpers]
+    G --> H[enhanced-test-helpers.bash]
+    G --> I[agent-test-helpers.bash]
+---
+description: |
+  Bats test suite for core shared utilities: logging, color formatting, and input validation. Ensures output consistency, error handling, and integration with enhanced test helpers.
+last_updated: 2025-10-25
+version: 2.1
+owners:
+- lightspeedwp
+
+references:
+- ../README.md
+- ../../README.md
+- ../../../README.md
+- ../../../schemas/frontmatter.schema.json
+- ../../../docs/YAML.md
+- ../../../docs/FRONTMATTER-SCHEMA.md
+---
+# Core Tests 🧩
+
+Badges: (placeholder – will be auto-inserted by global badge workflow)
+> Jest ⬡ Bats ✅ ShellCheck 🔍 Coverage % 📊 Frontmatter ✓
+
+## Overview
+
+Automated tests for foundational utility functions: logging, color formatting, and input validation. These ensure:
+
+- Consistent output and error reporting
+- Reliable color/terminal formatting
+- Robust input validation and sanitization
+- Integration with shared includes helpers
+
+## Structure
+
+```mermaid
+graph TD
+    subgraph tests/includes/core
+      A[test-colors.bats]
+      B[test-logging.bats]
+      C[test-validation.bats]
+    end
+    A --> D[Color Utilities]
+    B --> E[Logging Functions]
+    C --> F[Validation Utilities]
+    A & B & C --> G[Includes Shared Helpers]
+    G --> H[enhanced-test-helpers.bash]
+    G --> I[agent-test-helpers.bash]
 ```
 
 ## Test Files
 
-- `test-colors.bats`: Tests for color utilities and terminal formatting
-- `test-logging.bats`: Tests for logging functions and output formatting
-- `test-validation.bats`: Tests for input validation and data verification utilities
+| File | Purpose |
+| ---- | ------- |
+| `test-colors.bats` | Tests color utilities and terminal formatting |
+| `test-logging.bats` | Tests logging functions and output formatting |
+| `test-validation.bats` | Tests input validation and data verification |
 
-## Purpose
-
-These tests validate:
-
-- Core utility functions used across the project
-- Logging and output formatting consistency
-- Color and terminal display functionality
-- Input validation and sanitization
-- Error handling and reporting mechanisms
-
-## Running Tests
+## Usage
 
 ```bash
-# Run core tests specifically
+# Run only core tests
 bats tests/includes/core/
 
 # Run all includes tests
 bats tests/includes/
+
+# (Optional) With debug / verbose
+CORE_TEST_DEBUG=1 bats tests/includes/core/
 ```
+
+## Environment
+
+| Variable | Effect |
+| -------- | ------ |
+| `CORE_TEST_DEBUG` | Enables verbose diagnostic logging in helpers |
+| `NO_COLOR` | Forces plain output for snapshot comparisons |
+
+## Validation & Quality
+
+| Check | Tool | Notes |
+| ----- | ---- | ----- |
+| Shell lint | ShellCheck | Applied to any sourced helper scripts |
+| Frontmatter | Validation script | Ensures metadata matches `frontmatter.schema.json` |
+| Markdown | MD Lint | Spacing, headings, fenced code block rules |
 
 ## Dependencies
 
-- Bats testing framework
-- Core utility scripts and functions
-- Test helpers from parent includes directory
+- Bats (test runner)
+- Shared helper scripts in `tests/includes/`
+- Core utility source functions (located in corresponding scripts/includes paths)
 - Terminal color support for color testing
 
----
+## CI/CD Integration
+
+Pipeline runs these tests in the includes phase. Failures here gate downstream integration tests. Coverage for shell functions is aggregated into the global coverage report.
+
+## Limitations & Future Work
+
+- Expand color tests for edge-case terminal types
+- Add snapshot tests for logging output
+- Integrate input fuzzing for validation utilities
+
 
 ## References
 
-- [Main Includes README](../README.md)
-- [Root README](../../README.md)
+- [Parent Includes README](../README.md)
+- [Tests Root README](../../README.md)
+- [Repository Root README](../../../README.md)
 - [Frontmatter Schema](../../../schemas/frontmatter.schema.json)
-- [YAML Documentation](../../../docs/YAML.md)
-- [Frontmatter Schema Documentation](../../../docs/FRONTMATTER-SCHEMA.md)
+- [YAML Docs](../../../docs/YAML.md)
+- [Frontmatter Schema Docs](../../../docs/FRONTMATTER-SCHEMA.md)

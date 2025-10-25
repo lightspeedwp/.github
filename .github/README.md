@@ -1,23 +1,31 @@
 ---
-title: "LightSpeed Organisation .github Community Health Repository"
 description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
 version: "3.0"
 last_updated: "2025-10-24"
-maintainer: "LightSpeed Team"
-tags: ["github-templates", "community-health", "automation", "copilot", "workflows", "labeling", "ai"]
-ai_references:
-  - "./custom-instructions.md"
-  - "./agents/agent.md"
-  - "./prompts/prompts.md"
-  - "./chatmodes/chatmodes.md"
-  - "../AGENTS.md"
-related_docs:
-  - "./automation/AUTOMATION_GOVERNANCE.md"
-  - "./automation/labels.yml"
-  - "./automation/labeler.yml"
-  - "./instructions/coding-standards.instructions.md"
-  - "../CONTRIBUTING.md"
+owners:
+- LightSpeed Team
+tags:
+- github-templates
+- community-health
+- automation
+- copilot
+- workflows
+- labeling
+- ai
+references:
+- ./custom-instructions.md
+- ./agents/agent.md
+- ./prompts/prompts.md
+- ./chatmodes/chatmodes.md
+- ../AGENTS.md
+- ./automation/AUTOMATION_GOVERNANCE.md
+- ./automation/labels.yml
+- ./automation/labeler.yml
+- ./instructions/coding-standards.instructions.md
+- ../CONTRIBUTING.md
 ---
+LightSpeed Organisation .github Community Health Repository
+==========================================================
 
 [![Templates](https://img.shields.io/badge/templates-comprehensive-blue)](./ISSUE_TEMPLATE/)
 [![Automation](https://img.shields.io/badge/automation-active-success)](./automation/)
@@ -30,11 +38,31 @@ related_docs:
 
 ---
 
-## 🎯 Purpose & GitHub Template Ecosystem Overview
+📋 Table of Contents
+====================
+
+- [Purpose and GitHub Template Ecosystem Overview](#purpose-and-github-template-ecosystem-overview)
+- [Usage & Quickstart](#usage--quickstart)
+- [Validation & Testing](#validation--testing)
+- [Change Log / History](#change-log--history)
+- [FAQ / Troubleshooting](#faq--troubleshooting)
+- [Limitations & Notes](#limitations--notes)
+- [Labelling and Automation](#labelling-and-automation)
+- [Folder Structure and Organization Flow](#folder-structure-and-organization-flow)
+- [Comprehensive Workflow Integration](#comprehensive-workflow-integration)
+- [Community & Q&A](#community--qa)
+- [Contribution Guidelines & Instruction Index](#contribution-guidelines--instruction-index)
+- [Related Root-Level Organisation Files](#related-root-level-organisation-files)
+- [Best Practices](#best-practices)
+- [License](#license)
+
+Purpose and GitHub Template Ecosystem Overview
+==============================================
 
 This repository's `.github` folder serves as the **single source of truth** for all organisation-wide community health files, automation rules, standards, and AI/Copilot instructions for LightSpeed projects. By centralising these files, we ensure consistency, discoverability, and maintainability across every repo in the organisation.
 
-### GitHub Template Ecosystem Architecture
+GitHub Template Ecosystem Architecture
+-------------------------------------
 
 ```mermaid
 flowchart TB
@@ -99,15 +127,79 @@ flowchart TB
 
 See [GitHub: About organisation-wide community health files](https://github.blog/changelog/2019-02-21-organization-wide-community-health-files/) and [Creating a default community health file for your organization](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file) for more context.
 
-### How Organisation-wide Health Files Work
+How Organisation-wide Health Files Work
+---------------------------------------
 
 Organizations can add community health files to a specially named `.github` repository, which then serves as the organisation-wide default for all repositories. You can include `CONTRIBUTING`, `SUPPORT`, `CODE_OF_CONDUCT`, `ISSUE_TEMPLATE(S)`, or `PULL_REQUEST_TEMPLATE(S)` files here. If a repository does not have its own version of a given file, the org-wide default from `.github` will be surfaced throughout developer workflows (e.g., when opening issues or PRs, or via the Community Profile), as if it were committed directly to that repo.
 
 > While the file itself won’t appear in the file browser or Git history for each repository, it will be surfaced throughout developers’ workflows, such as when opening a new issue or when viewing the Community Profile, just as if it were committed to the repository directly.
 
+Usage & Quickstart
+==================
+
+Follow these steps to onboard and use this repository effectively across the organisation:
+
+1. Reference issue and PR templates automatically surfaced when creating new items in any repo without overrides.
+2. Use files in `instructions/` before starting development to align with standards.
+3. For AI-assisted workflows, load prompts from `prompts/` and chat modes from `chatmodes/`.
+4. Reusable workflows in `workflows/` can be invoked via `uses:` in member repositories.
+5. Update labels or labeler rules only in `automation/` to propagate consistency.
+6. Add or adjust saved replies in `SAVED_REPLIES/` for common maintainer responses.
+7. Consult `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` before modifying AI agent behavior.
+
+> To override an org-wide template in a member repository, add a local copy there; GitHub will prefer the repo-local version.
+
+Validation & Testing
+====================
+
+This repository participates in organisation validation via:
+
+- Frontmatter validation (schema enforcement for instructions, prompts, agents).
+- Workflow linting (reusable Actions syntax integrity).
+- Markdown linting (heading style, spacing, list formatting).
+
+Run validation scripts (example command structure shown; adjust to actual tooling):
+
+```bash
+# Run all tests and validation (example)
+./scripts/run-all-tests.sh
+
+# Validate frontmatter across .github folders (placeholder)
+node scripts/validation/validate-frontmatter.js .github/
+```
+
+Change Log / History
+====================
+
+Version: 3.0 (see `version` frontmatter field)  
+Last Updated: 2025-10-24  
+Refer to the organisation-wide [CHANGELOG.md](../CHANGELOG.md) for historical changes impacting templates, automation, or agent instructions.
+
+FAQ / Troubleshooting
+=====================
+
+**Templates not appearing in a repo?** Ensure the target repository does not already have local conflicting templates.
+
+**Labels didn’t auto-apply?** Confirm the path/branch patterns in `automation/labeler.yml` match the change set and that the workflow ran.
+
+**How do I add a new chat mode?** Create or update `chatmodes/chatmodes.md` and reference it in `custom-instructions.md` if globally relevant.
+
+**Agent behavior seems outdated?** Check `AGENTS.md` and the specific agent file in `agents/` for version updates; bump the frontmatter version when modifying logic.
+
+**Prompts aren’t producing expected reviews?** Verify prompt file frontmatter fields and ensure correct model/tool configuration is active.
+
+Limitations & Notes
+===================
+
+- Org-wide defaults are only applied when a member repo lacks local overrides.
+- Saved replies are not automatically synced to external tooling—manual updates required.
+- AI agent guidance documents rely on maintainers to enforce version discipline.
+- Frontmatter validation coverage may expand; some legacy files might need retrofitting.
+
 ---
 
-## Labelling & Automation
+Labelling and Automation
+========================
 
 This repository is the **canonical, organisation-wide source** for:
 
@@ -115,7 +207,8 @@ This repository is the **canonical, organisation-wide source** for:
 - **Labeler Rules** ([automation/labeler.yml](./automation/labeler.yml)): Automation for applying labels based on file paths, branch names, or PR type.
 - **Issue Types** ([automation/issue-types.yml](./automation/issue-types.yml)): Machine-readable definitions mapping issue templates, types, and automation.
 
-### GitHub Automation Workflow Process
+GitHub Automation Workflow Process
+----------------------------------
 
 ```mermaid
 sequenceDiagram
@@ -153,11 +246,13 @@ sequenceDiagram
 
 ---
 
-## 📁 Folder Structure & Organization Flow
+Folder Structure and Organization Flow
+======================================
 
 The `.github` folder is organised for maximum clarity and modularity, grouping related files for easy reference and automation.
 
-### Repository Structure Visualization
+Repository Structure Visualization
+----------------------------------
 
 ```mermaid
 graph TB
@@ -225,7 +320,8 @@ graph TB
     style E fill:#fff3e0
 ```
 
-### Directory Structure Details
+Directory Structure Details
+--------------------------
 
 ```text
 .github/
@@ -279,11 +375,13 @@ graph TB
 
 ---
 
-## 🔄 Comprehensive Workflow Integration
+Comprehensive Workflow Integration
+==================================
 
 This diagram illustrates how all components work together to create a seamless development and governance experience across the LightSpeed organization.
 
-### Complete Integration Flow
+Complete Integration Flow
+-------------------------
 
 ```mermaid
 flowchart LR
@@ -339,7 +437,8 @@ flowchart LR
     style N fill:#c8e6c9
 ```
 
-### Component Integration Details
+Component Integration Details
+----------------------------
 
 - **Instructions**: The `instructions/` folder contains canonical, versioned standards for coding, linting, HTML templates, WordPress pattern development, PHP blocks, and theme configuration. Always reference these before starting work or reviewing code.
 - **Prompts & Chat Modes**: Modular prompt templates and chat modes designed for Copilot, Gemini, Claude, and custom agents—enabling consistent AI-assisted workflows and reviews.
@@ -351,13 +450,15 @@ flowchart LR
 
 ---
 
-## Community & Q&A
+Community & Q&A
+===============
 
 Have questions, feedback, or want to propose an idea? Visit our [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) for open conversation and community support.
 
 ---
 
-## Contribution Guidelines & Instruction Index
+Contribution Guidelines & Instruction Index
+===========================================
 
 For all contributors, please reference these key guidelines and indexes:
 
@@ -371,7 +472,8 @@ For all contributors, please reference these key guidelines and indexes:
 
 ---
 
-## For Contributors & Maintainers
+For Contributors & Maintainers
+==============================
 
 - **Always start here** when onboarding, contributing, or reviewing.
 - Reference **instructions** for standards, **templates** for issues/PRs, and **automation** docs for workflows and governance.
@@ -379,7 +481,8 @@ For all contributors, please reference these key guidelines and indexes:
 - For agent/Copilot questions, see the agent guides and custom instructions.
 - Update this folder when org-wide standards, workflows, or automation rules change.
 
-## VS Code Setup
+VS Code Setup
+=============
 
 To ensure a consistent development experience and code quality, all contributors should:
 
@@ -392,7 +495,8 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 
 ---
 
-## VS Code Workspace Setup
+VS Code Workspace Setup
+=======================
 
 To ensure a consistent and standards-driven development experience, this repository includes a dedicated [`.vscode/`](../.vscode/) folder with:
 
@@ -407,7 +511,8 @@ To ensure a consistent and standards-driven development experience, this reposit
 
 ---
 
-## Related Root-Level Organisation Files
+Related Root-Level Organisation Files
+====================================
 
 These files typically reside in the root of the repository for visibility but are managed from this `.github` folder:
 
@@ -424,7 +529,8 @@ These files typically reside in the root of the repository for visibility but ar
 
 ---
 
-## Best Practices
+Best Practices
+==============
 
 - **Modularity**: Reuse files as much as possible across repos; avoid duplication.
 - **Discoverability**: Cross-link instructions, templates, and automation docs.
@@ -434,49 +540,39 @@ These files typically reside in the root of the repository for visibility but ar
 
 ---
 
-## License
+License
+=======
 
 This repository and all its contents are licensed under the GNU General Public License v3.0 — see the [LICENSE](../LICENSE) file.
 
----
 
----
 
-## 📋 Table of Contents
-
-- [Purpose & GitHub Template Ecosystem Overview](#-purpose--github-template-ecosystem-overview)
-- [Labelling & Automation](#labelling--automation)
-- [Folder Structure & Organization Flow](#-folder-structure--organization-flow)
-- [Comprehensive Workflow Integration](#-comprehensive-workflow-integration)
-- [Community & Q&A](#community--qa)
-- [Contribution Guidelines & Instruction Index](#contribution-guidelines--instruction-index)
-
----
-
-## 🔗 Related Documentation
-
-### 🏛️ Core Organization Files
+🏛️ Core Organization Files
+--------------------------
 
 - [🏠 Main Repository README](../README.md) - Organization overview and repository purpose
 - [🤝 Contributing Guidelines](../CONTRIBUTING.md) - Complete contribution process and standards
 - [🛡️ Code of Conduct](../CODE_OF_CONDUCT.md) - Community standards and expectations
 - [🆘 Support Policy](../SUPPORT.md) - Getting help and support resources
 
-### 🤖 AI & Automation Resources
+🤖 AI & Automation Resources
+---------------------------
 
 - [🧠 AI Agents Overview](../AGENTS.md) - Global AI rules and agent specifications
 - [💬 Custom Instructions](./custom-instructions.md) - Organization-wide Copilot settings
 - [🎯 Prompt Library](./prompts/prompts.md) - Reusable AI prompts and templates
 - [💭 Chat Modes](./chatmodes/chatmodes.md) - Specialized AI conversation modes
 
-### ⚙️ Automation & Governance
+⚙️ Automation & Governance
+--------------------------
 
 - [🏷️ Label Definitions](./automation/labels.yml) - Canonical organization labels
 - [🔧 Labeler Configuration](./automation/labeler.yml) - Automated labeling rules
 - [📋 Issue Types](./automation/issue-types.yml) - Standardized issue categorization
 - [⚖️ Automation Governance](./automation/AUTOMATION_GOVERNANCE.md) - Automation standards and oversight
 
-### 🔧 Development Standards
+🔧 Development Standards
+------------------------
 
 - [💻 Coding Standards](./instructions/coding-standards.instructions.md) - Unified development guidelines
 - [🎨 Linting Instructions](./instructions/linting.instructions.md) - Code quality and formatting
