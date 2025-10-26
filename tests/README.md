@@ -21,17 +21,6 @@ Comprehensive automated tests for the LightSpeedWP automation project. Suites sp
 
 > Single source of truth for automation quality: fast feedback locally (Bats/Jest) + full pipeline validation (coverage, lint, schema checks).
 
-![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
-![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
-![Bats Badge](https://img.shields.io/badge/bats-shell--testing-orange?style=flat-square)
-![Jest Badge](https://img.shields.io/badge/jest-js--testing-success?style=flat-square)
-![Automation Badge](https://img.shields.io/badge/automation-validated-purple?style=flat-square)
-![CI/CD Badge](https://img.shields.io/badge/ci%2Fcd-integrated-informational?style=flat-square)
-
-Comprehensive automated tests for the LightSpeedWP automation project. Suites span shell (Bats), JavaScript (Jest), Python-based doc/schema validation, plus centralized coverage and quality gates. Test layout mirrors script and schema responsibilities for traceability.
-
-> Single source of truth for automation quality: fast feedback locally (Bats/Jest) + full pipeline validation (coverage, lint, schema checks).
-
 ## 📊 Testing Architecture
 
 ```mermaid
