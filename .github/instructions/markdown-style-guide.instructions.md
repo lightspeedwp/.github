@@ -47,6 +47,10 @@ Wrap the title in square brackets `[title]` immediately followed by the URL in `
 [WordPress](https://wordpress.org/)
 ```
 
+#### Universal Link Guidance
+
+When linking to files in the same repository, always use `/blob/HEAD/` in the URL instead of a branch name. This ensures links remain valid after merges or branch changes.
+
 ## Blockquotes
 
 Use `>` for blockquotes, double `>>` to further indent:
@@ -63,6 +67,9 @@ Use `>` for blockquotes, double `>>` to further indent:
 Use `-` for unordered lists, and intent two spaces for list subitems:
 
 ```md
+
+### Universal Link Guidance
+
 - List
   - List
 - List

@@ -91,11 +91,7 @@ This document is the single source of truth for all coding standards in LightSpe
 
 ## Documentation Standards
 
-- All docs must use Markdown, be linted, and follow [markdownlint](https://github.com/DavidAnson/markdownlint) rules.
-- All public functions/classes must have docblocks or docstrings.
-- Inline documentation must be clear and reference related files or standards.
-
----
+ All documentation links to files within the same repository should use `/blob/HEAD/` in URLs to ensure universality across branches and avoid broken links after merges. Always validate links after editing documentation.
 
 ## AI & Copilot Instructions
 

@@ -6,6 +6,7 @@ applyTo: "README.md, *.md"
 # README Documentation Standards & Update Tasks
 
 ## Universal Required Sections (for all README.md)
+
 - **Frontmatter:**
   - `description`: What is this file/folder for?
   - `references`: Related docs, schemas, instructions (AI cross-linking).
@@ -16,6 +17,7 @@ applyTo: "README.md, *.md"
 - **Footer:** Consistent references for human readers.
 
 ## Strongly Recommended Sections
+
 - **Owners/Maintainers:** Who is responsible for updates?
 - **Version:** For scripts, schemas, configs, or agents.
 - **Status/Badges:** Coverage, build, lint, security, etc.
@@ -29,6 +31,7 @@ applyTo: "README.md, *.md"
 - **Validation/Testing:** How to validate or test the file/folder.
 
 ## Optional Sections (add if relevant)
+
 - **FAQ/Troubleshooting:** Common issues and solutions.
 - **Limitations/Notes:** Known issues, future improvements.
 - **Related Projects/Links:** Other relevant projects or resources.
@@ -43,6 +46,7 @@ applyTo: "README.md, *.md"
 - **Deprecation Notice:** If the file/folder is deprecated or superseded.
 
 ## Expanded Guidance by Type
+
 - **Test Folders:** Coverage badge, test matrix, how to run, test dependencies, test data location, test environment.
 - **Scripts/Utilities:** Supported platforms, dependencies, input/output, error handling, logging, performance notes.
 - **Schemas/Configs:** Schema version, validation instructions, example config, compatibility notes, migration instructions.
@@ -76,16 +80,7 @@ How to use or run this folder/file.
 ```
 
 ## Additional Guidance
-- Use Mermaid diagrams for any process, workflow, or architecture that benefits from visualization.
-- Add badges for status, coverage, lint, or other relevant metrics.
-- Use emoji in headers only when it enhances clarity, accessibility, or engagement (see header-footer instructions).
-- Ensure all references in frontmatter are valid relative paths.
-- Keep README files concise but comprehensive; use optional sections only when they add value.
-- For folders with many files, include a structure diagram and navigation index.
-- For scripts/utilities, document all parameters, dependencies, and error handling.
-- For agents/AI files, document model, tools, limitations, and integration points.
-- For documentation folders, provide update policy, translation status, and accessibility notes.
-- For compliance/security folders, include audit status, responsible owner, and incident history.
 
----
 For further guidance, see referenced instructions files above.
+
+When linking to files in the same repository, always use `/blob/HEAD/` in the URL instead of a branch name. This ensures links remain valid after merges or branch changes.

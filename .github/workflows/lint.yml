@@ -12,6 +12,12 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      NPMPKGJSONLINT_STRICT_MODE: true
+      NPMPKGJSONLINT_REQUIRE_DESCRIPTION: true
+      NPMPKGJSONLINT_REQUIRE_REPOSITORY: true
+      NPMPKGJSONLINT_REQUIRE_LICENSE: true
+      NPMPKGJSONLINT_REQUIRE_AUTHOR: true
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js
@@ -33,3 +39,5 @@ jobs:
           find . -type f -name "*.sh" ! -path "*/node_modules/*" -exec shellcheck {} +
       - name: Run yamllint
         run: yamllint .
+      - name: Run npm-package-json-lint
+        run: npm run lint:pkg-json

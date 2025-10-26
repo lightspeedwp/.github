@@ -64,7 +64,7 @@ Our linting strategy follows these core principles:
 | **Prettier**       | Code formatting               | `prettier.config.js`         | ✅       |
 | **markdownlint**   | Markdown linting              | `.markdownlint.json`         | ✅       |
 | **Spectral**       | YAML/JSON linting             | `.spectral.yaml`             | ❌       |
-| **npmPkgJsonLint** | package.json validation       | `.npmpackagejsonlintrc.json` | ❌       |
+| **npmPkgJsonLint** | package.json validation       | `npmpackagejsonlint.config.cjs` | ❌       |
 
 ### Tool Selection Rationale
 
@@ -128,6 +128,47 @@ export default [
 
 ### Environment Configuration
 
+### npm-package-json-lint Configuration & Env Vars
+
+The package JSON lint configuration now lives in `npmpackagejsonlint.config.cjs` (CJS for environment variable access and comments). You can influence rule enforcement via the following environment variables in `.env` (see `.env.example`):
+
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| `NPMPKGJSONLINT_STRICT_MODE` | Treat `version-format` failures as errors (otherwise warning) | `false` |
+| `NPMPKGJSONLINT_NAME_FORMAT` | Severity for `name-format` rule (`error`/`warning`/`off`) | `error` |
+| `NPMPKGJSONLINT_REQUIRE_FIELDS` | Master toggle for all required metadata rules | `true` |
+| `NPMPKGJSONLINT_REQUIRE_DESCRIPTION` | Require `description` field | `true` |
+| `NPMPKGJSONLINT_REQUIRE_REPOSITORY` | Require `repository` field | `true` |
+| `NPMPKGJSONLINT_REQUIRE_LICENSE` | Require `license` field | `true` |
+| `NPMPKGJSONLINT_REQUIRE_AUTHOR` | Require `author` field | `true` |
+| `NPMPKGJSONLINT_DISABLE_ORDER` | Disable `prefer-property-order` enforcement | `false` |
+| `NPMPKGJSONLINT_IGNORE_PATHS` | Additional comma‑separated paths to ignore | (empty) |
+
+Example script (already defined):
+
+```jsonc
+"lint:pkg-json": "npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs ."
+```
+
+To temporarily relax ordering while keeping other rules:
+
+```bash
+NPMPKGJSONLINT_DISABLE_ORDER=true npm run lint:pkg-json
+```
+
+To enforce strict version formatting in CI:
+
+```bash
+NPMPKGJSONLINT_STRICT_MODE=true npm run lint:pkg-json
+```
+
+Incremental adoption strategy:
+
+1. Enable required metadata (default) and address any missing fields.
+2. Turn on strict version formatting (`STRICT_MODE=true`).
+3. Keep scope validation off until an allowed scope list is defined.
+4. Optionally tighten `valid-values-license` to `error` once all packages normalize licensing.
+
 ```bash
 # .env - Customize linting behaviour
 ESLINT_IGNORE=node_modules/**,build/**,custom-folder/**
@@ -160,7 +201,7 @@ PRETTIER_PRINT_WIDTH=80
         "lint:md": "markdownlint '**/*.md' --fix",
         "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml",
         "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml",
-        "lint:pkg-json": "npmPkgJsonLint ."
+        "lint:pkg-json": "npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs ."
     }
 }
 ```

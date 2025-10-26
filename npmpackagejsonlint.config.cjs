@@ -6,12 +6,15 @@
  *   scripts/utility/npm-package-json-lint-helpers.js
  *
  * Environment variables (optional overrides):
- *   NPMPKGJSONLINT_IGNORE_PATHS       Comma-separated extra ignore paths
- *   NPMPKGJSONLINT_STRICT_MODE        Treat version-format as error (default false)
- *   NPMPKGJSONLINT_NAME_FORMAT        Severity for name-format (default error)
- *   NPMPKGJSONLINT_REQUIRE_FIELDS     Toggle description/repository/license (default true)
- *   NPMPKGJSONLINT_REQUIRE_AUTHOR     Toggle require-author rule (default true)
- *   NPMPKGJSONLINT_DISABLE_ORDER      Disable prefer-property-order rule (default false)
+ *   NPMPKGJSONLINT_IGNORE_PATHS          Comma-separated extra ignore paths
+ *   NPMPKGJSONLINT_STRICT_MODE            Treat version-format as error (default false)
+ *   NPMPKGJSONLINT_NAME_FORMAT            Severity for name-format (default error)
+ *   NPMPKGJSONLINT_REQUIRE_FIELDS         Backwards-compatible master toggle (if false, disables all require-* rules)
+ *   NPMPKGJSONLINT_REQUIRE_DESCRIPTION    Toggle require-description (default true)
+ *   NPMPKGJSONLINT_REQUIRE_REPOSITORY     Toggle require-repository (default true)
+ *   NPMPKGJSONLINT_REQUIRE_LICENSE        Toggle require-license (default true)
+ *   NPMPKGJSONLINT_REQUIRE_AUTHOR         Toggle require-author (default true)
+ *   NPMPKGJSONLINT_DISABLE_ORDER          Disable prefer-property-order rule (default false)
  *
  * NOTE: Only documented rules supported by npm-package-json-lint v7 are enabled.
  */
@@ -36,6 +39,13 @@ const strictMode = process.env.NPMPKGJSONLINT_STRICT_MODE === 'true';
 const nameFormat = process.env.NPMPKGJSONLINT_NAME_FORMAT || 'error';
 const requireFields = process.env.NPMPKGJSONLINT_REQUIRE_FIELDS !== 'false';
 const requireAuthor = process.env.NPMPKGJSONLINT_REQUIRE_AUTHOR !== 'false';
+// Granular required field toggles (fall back to master flag)
+const requireDescription =
+    requireFields && process.env.NPMPKGJSONLINT_REQUIRE_DESCRIPTION !== 'false';
+const requireRepository =
+    requireFields && process.env.NPMPKGJSONLINT_REQUIRE_REPOSITORY !== 'false';
+const requireLicense =
+    requireFields && process.env.NPMPKGJSONLINT_REQUIRE_LICENSE !== 'false';
 const disableOrder = process.env.NPMPKGJSONLINT_DISABLE_ORDER === 'true';
 const ignorePathsEnv = parseList(process.env.NPMPKGJSONLINT_IGNORE_PATHS);
 
@@ -100,15 +110,16 @@ module.exports = {
     rules: {
         // --- Naming & scope rules ---
             'name-format': nameFormat,
-            'valid-values-name-scope': 'error',
+            // Scope validation remains disabled until an allowed scope list is defined.
+            'valid-values-name-scope': 'off',
 
         // --- Version rules ---
             'version-format': strictMode ? 'error' : 'warning',
 
         // --- Required metadata (env toggles) ---
-            'require-description': requireFields ? 'error' : 'off',
-            'require-license': requireFields ? 'error' : 'off',
-            'require-repository': requireFields ? 'error' : 'off',
+            'require-description': requireDescription ? 'error' : 'off',
+            'require-license': requireLicense ? 'error' : 'off',
+            'require-repository': requireRepository ? 'error' : 'off',
             'require-author': requireAuthor ? 'error' : 'off',
 
         // --- Type checks (low risk, ensure JSON shape consistency) ---
@@ -122,8 +133,8 @@ module.exports = {
             ? 'off'
             : ['warning', preferredOrder],
 
-        // --- License values (relaxed set; enable later if stricter policy adopted) ---
-            'valid-values-license': 'error',
+        // --- License values ---
+            'valid-values-license': ['warning', ['GPL-3.0-or-later']],
     },
 };
 

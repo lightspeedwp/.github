@@ -108,7 +108,7 @@
         "typescript": "^5.0.0"
     },
     "scripts": {
-        "lint:pkg-json": "NPMPKGJSONLINT_DISABLE_ORDER=true npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs .",
+        "lint:pkg-json": "npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs .",
         "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset spectral.config.js",
         "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset spectral.config.js",
         "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
