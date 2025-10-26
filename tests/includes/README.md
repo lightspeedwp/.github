@@ -1,5 +1,6 @@
 description: "Reusable test helper functions and utilities for LightSpeed WP Bats test suites including enhanced helpers, agent helpers, and integration with the main test-helper.bash."
 references:
+
 - ../README.md
 - ../../README.md
 - ../../../schemas/frontmatter.schema.json

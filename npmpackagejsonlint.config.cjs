@@ -99,31 +99,23 @@ module.exports = {
      */
     rules: {
         // --- Naming & scope rules ---
-        // Allow placeholder tokens & scoped templates; can be re-enabled post-scaffold.
-        // Disable name format while template placeholders present.
-        'name-format': 'off',
-        // Disable scope validation to allow template variable scopes like {{theme_slug}}.
-        'valid-values-name-scope': 'off',
+            'name-format': nameFormat,
+            'valid-values-name-scope': 'error',
 
         // --- Version rules ---
-        // Disable version-format while template placeholders ({{version}}) may be present.
-        'version-format': 'off',
+            'version-format': strictMode ? 'error' : 'warning',
 
         // --- Required metadata (env toggles) ---
-        // Temporarily disable required metadata to accommodate template placeholders.
-        'require-description': 'off',
-        'require-license': 'off',
-        // Repository not required for meta/template packages.
-        'require-repository': 'off',
-        'require-author': requireAuthor ? 'error' : 'off',
+            'require-description': requireFields ? 'error' : 'off',
+            'require-license': requireFields ? 'error' : 'off',
+            'require-repository': requireFields ? 'error' : 'off',
+            'require-author': requireAuthor ? 'error' : 'off',
 
         // --- Type checks (low risk, ensure JSON shape consistency) ---
-        // Disable type checks for template scaffolds.
-        'description-type': 'off',
-        'license-type': 'off',
-        'repository-type': 'off',
-        // 'author-type' removed (not supported in current tool version)
-        'keywords-type': 'off',
+            'description-type': 'error',
+            'license-type': 'error',
+            'repository-type': 'error',
+            'keywords-type': 'error',
 
         // --- Ordering (optional) ---
         'prefer-property-order': disableOrder
@@ -131,8 +123,7 @@ module.exports = {
             : ['warning', preferredOrder],
 
         // --- License values (relaxed set; enable later if stricter policy adopted) ---
-        // Temporarily disable license value enforcement to allow template placeholder {{license}}.
-        'valid-values-license': 'off',
+            'valid-values-license': 'error',
     },
 };
 

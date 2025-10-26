@@ -104,12 +104,14 @@ bats tests/utility/utility-template.bats
 See this file for full details. For folder-level documentation, see:
 
 ### Primary Documentation
+
 - [`/tests/README.md`](./README.md) — Main testing framework documentation
 - [`/scripts/README.md`](../scripts/README.md) — Scripts directory documentation
 - [`/schemas/README.md`](../schemas/README.md) — Schema validation documentation  
 - [`/coverage/README.md`](../coverage/README.md) — Coverage reporting documentation
 
 ### Test Folder Documentation  
+
 - [`awesome-copilot/README.md`](./awesome-copilot/README.md) — Jest tests for awesome-copilot scripts
 - [`includes/README.md`](./includes/README.md) — Test helpers and utilities
 - [`maintenance/README.md`](./maintenance/README.md) — Maintenance script tests
@@ -118,6 +120,7 @@ See this file for full details. For folder-level documentation, see:
 - [`utility/README.md`](./utility/README.md) — Utility script tests
 
 ### Supporting Documentation
+
 - [`includes/cli/README.md`](./includes/cli/README.md) — CLI testing helpers
 - [`includes/core/README.md`](./includes/core/README.md) — Core testing functionality
 - [`includes/deployment/README.md`](./includes/deployment/README.md) — Deployment testing

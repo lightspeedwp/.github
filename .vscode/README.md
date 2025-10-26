@@ -21,36 +21,37 @@ It ensures a consistent, automated, and standards-driven development experience 
 ## 📊 VS Code Configuration Architecture
 
 ```mermaid
-graph TB
+flowchart TD
     A[VS Code Workspace] --> B[Extensions]
-    A --> C[Settings]
-    A --> D[Tasks]
-    A --> E[Schema Mapping]
-    
-    B --> B1[AI Assistants]
-    B --> B2[GitHub Tools]
-    B --> B3[Linting & Formatting]
-    B --> B4[WordPress/PHP]
-    B --> B5[Testing Tools]
-    
-    C --> C1[Editor Settings]
-    C --> C2[Formatting Rules]
-    C --> C3[Language Configs]
-    C --> C4[File Associations]
-    
-    D --> D1[Test Tasks]
-    D --> D2[Lint Tasks]
-    D --> D3[Build Tasks]
-    D --> D4[Custom Scripts]
-    
-    E --> E1[YAML Schemas]
-    E --> E2[JSON Validation]
-    E --> E3[Frontmatter Support]
-    
-    F[Developer Experience] --> A
-    G[Code Quality] --> C
-    H[Automation] --> D
-    I[AI Integration] --> B
+    A --> C[Tasks]
+    A --> D[Settings]
+    B --> E[AI Agents]
+    B --> F[Linting]
+    B --> G[Testing]
+    C --> H[Build]
+    C --> I[Run]
+    D --> J[EditorConfig]
+    D --> K[Keybindings]
+    E --> L[Copilot]
+    E --> M[Chatmodes]
+    F --> N[ESLint]
+    F --> O[Stylelint]
+    F --> P[Markdownlint]
+    G --> Q[Jest]
+    G --> R[Playwright]
+    H --> S[Unit Tests]
+    I --> T[E2E Tests]
+    J --> U[Formatting]
+    K --> V[Shortcuts]
+    L --> W[Prompts]
+    M --> X[Automation]
+    N --> Y[JavaScript]
+    O --> Z[CSS]
+    P --> AA[Markdown]
+    Q --> AB[Coverage]
+    R --> AC[Reports]
+    S --> AD[Summary]
+    T --> AE[Results]
     
     style A fill:#e1f5fe
     style B fill:#f3e5f5
@@ -63,7 +64,6 @@ graph TB
 ## Folder Contents
 
 - **extensions.json**  
-  Recommended VS Code extensions for this project, including:
   - AI coding assistants (Copilot, Claude, Gemini, CodeRabbit, etc.)
   - GitHub workflow tools (PRs, Codespaces, Actions, GitLens)
   - Linting and formatting (Prettier, ESLint, Stylelint, Markdownlint)

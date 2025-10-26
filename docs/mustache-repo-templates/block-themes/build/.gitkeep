@@ -1,3 +1,0 @@
-# This file ensures the build/ folder exists in git.
-# The build/ directory is an output folder.
-# DO NOT commit built assets; they are generated via the build process.

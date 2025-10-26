@@ -1,7 +1,0 @@
-// Playwright sample test for {{theme_name}}
-import { test, expect } from '@playwright/test';
-
-test('homepage loads', async ({ page }) => {
-  await page.goto('/');
-  await expect(page).toHaveTitle(/{{theme_name}}/i);
-});

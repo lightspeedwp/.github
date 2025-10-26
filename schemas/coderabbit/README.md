@@ -92,18 +92,21 @@ sequenceDiagram
 ## 🎯 Configuration Categories
 
 ### Core Configuration
+
 - Review automation settings
 - Quality thresholds and gates
 - Language-specific rules
 - File pattern matching
 
 ### Override Management
+
 - Custom rule definitions
 - Repository-specific settings
 - Path-based exceptions
 - Priority configurations
 
 ### Integration Settings
+
 - GitHub workflow integration
 - CI/CD pipeline configuration
 - Notification preferences
@@ -112,6 +115,7 @@ sequenceDiagram
 ## 📚 Usage Examples
 
 ### Schema Validation
+
 ```bash
 # Validate CodeRabbit configuration
 ajv validate -s config.schema.json -d ../coderabbit-overrides.v2.json
@@ -121,6 +125,7 @@ npx ajv-cli validate --schema overrides.schema.json --data config.json
 ```
 
 ### Integration Testing
+
 ```javascript
 const Ajv = require('ajv');
 const schema = require('./config.schema.json');
@@ -138,6 +143,7 @@ if (!valid) {
 ## 🛠️ Development Guidelines
 
 ### Schema Design Principles
+
 - Follow JSON Schema Draft 7 specification
 - Use clear, descriptive property names
 - Include comprehensive examples
@@ -145,6 +151,7 @@ if (!valid) {
 - Support extensibility for future features
 
 ### Validation Standards
+
 - All schemas must be valid JSON Schema
 - Include unit tests for schema validation
 - Document all properties and constraints
@@ -154,15 +161,18 @@ if (!valid) {
 ## 🔗 Related Resources
 
 ### Configuration Files
+
 - [`../coderabbit-overrides.v2.json`](../coderabbit-overrides.v2.json) — Main override configuration
 - [`../../.github/coderabbit.yaml`](../../.github/coderabbit.yaml) — GitHub integration config
 
 ### Documentation
+
 - [CodeRabbit Documentation](https://docs.coderabbit.ai/)
 - [JSON Schema Specification](https://json-schema.org/)
 - [Schema Validation Best Practices](../../docs/SCHEMA-VALIDATION.md)
 
 ### Tools & Utilities
+
 - [AJV Schema Validator](https://ajv.js.org/)
 - [JSON Schema Lint](https://jsonschemalint.com/)
 - [Schema Store](https://schemastore.org/)

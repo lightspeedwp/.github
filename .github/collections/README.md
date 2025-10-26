@@ -8,12 +8,34 @@ tags: ["collections", "instructions", "workflows", "organization"]
 type: "documentation"
 ---
 
-## 📚 Collections Directory
+# 📚 Collections Directory
 
 ![Collections Badge](https://img.shields.io/badge/collections-curated-brightgreen?style=flat-square)
 ![Organization Badge](https://img.shields.io/badge/organization-structured-blue?style=flat-square)
 
 This directory contains curated collections of related instructions, prompts, chatmodes, and workflows organized by development context and technology focus.
+
+## 🚀 Quick Start
+
+Get started with LightSpeedWP collections in three steps:
+
+1. **Clone the repository**
+
+   ```sh
+   git clone https://github.com/lightspeedwp/.github.git
+   cd .github
+   ```
+
+2. **Install dependencies**
+   - For Node.js/JS: `npm install`
+   - For Python: `pip install -r requirements.txt` (if present)
+
+3. **Use a collection**
+   - Review available collections in the section below
+   - Follow usage guidelines for each collection type
+   - Example: Import or reference a collection in your workflow or automation script
+
+For advanced usage, see the [Collections Index](./collections/README.md) and individual collection specs for configuration and integration options.
 
 ## 📊 Collections Organization
 
@@ -61,7 +83,6 @@ graph TB
 ### ☁️ Cloud & Infrastructure
 
 - **[Azure Cloud Development](azure-cloud-development.md)** - Azure services, deployment, and cloud-native development
-- **[DevOps OnCall](devops-oncall.md)** - On-call procedures, monitoring, and incident response
 
 ### 💾 Data & Backend
 

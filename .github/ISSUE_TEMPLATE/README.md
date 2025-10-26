@@ -8,14 +8,36 @@ tags: ["templates", "issues", "governance", "automation"]
 type: "templates"
 ---
 
-## 📋 Issue Templates Directory
+# 📋 Issue Templates Directory
 
 ![Template Badge](https://img.shields.io/badge/templates-standardized-brightgreen?style=flat-square)
 ![Automation Badge](https://img.shields.io/badge/automation-enabled-blue?style=flat-square)
 
 This directory contains standardized issue templates used across all LightSpeedWP repositories to ensure consistent issue creation and proper automation triggering.
 
-## 📊 Issue Template Workflow
+## 🚀 Quick Start
+
+Get started with LightSpeedWP issue templates in three steps:
+
+1. **Clone the repository**
+
+   ```sh
+   git clone https://github.com/lightspeedwp/.github.git
+   cd .github
+   ```
+
+2. **Install dependencies**
+   - For Node.js/JS: `npm install`
+   - For Python: `pip install -r requirements.txt` (if present)
+
+3. **Use an issue template**
+   - Navigate to `.github/ISSUE_TEMPLATE/`
+   - Select the appropriate template for your issue type (bug, feature, documentation, etc.)
+   - Follow the instructions in the template to submit your issue
+
+For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) and individual template specs for configuration and automation options.
+
+## 🗂️ Issue Template Workflow
 
 ```mermaid
 flowchart TD

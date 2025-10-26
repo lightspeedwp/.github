@@ -16,7 +16,6 @@ references:
 ---
 ---
 
-
 # Deployment Test Suite 🚀
 
 Badges: (placeholder – will be auto-inserted by global badge workflow)
@@ -97,8 +96,6 @@ Pipeline runs these tests in the includes phase. Failures here gate downstream i
 - Expand dry-run and preview mode coverage
 - Add edge-case environment setup tests
 - Integrate deployment rollback scenario tests
-
-
 
 ---
 

@@ -42,6 +42,7 @@ The unified frontmatter schema (`../schemas/frontmatter.schema.json`) combines:
 ### Core Field Categories
 
 #### Required Fields (All Files)
+
 ```yaml
 file_type: "instructions"           # File type classification
 description: "Brief description"    # Clear purpose statement
@@ -55,6 +56,7 @@ stability: "stable"                # Stability level
 ```
 
 #### Recommended Fields
+
 ```yaml
 tags:                              # Categorization tags
   - "copilot"
@@ -276,12 +278,14 @@ All frontmatter is validated against `../schemas/frontmatter.schema.json`:
 ## Best Practices
 
 ### File Organization
+
 - Keep frontmatter at the top of files
 - Use consistent indentation (2 spaces)
 - Group related fields together
 - Order fields: required first, then recommended, then optional
 
 ### Content Guidelines
+
 - Use clear, concise descriptions
 - Keep tags specific and relevant
 - Update `date_modified` when making changes
@@ -289,6 +293,7 @@ All frontmatter is validated against `../schemas/frontmatter.schema.json`:
 - Use semantic versioning for `version` field
 
 ### AI Tool Compatibility
+
 - GitHub Copilot: Validates `apply_to`, `description` fields
 - Claude: Uses `capabilities`, `model`, `temperature` fields
 - Gemini: Compatible with standard frontmatter structure
@@ -296,12 +301,14 @@ All frontmatter is validated against `../schemas/frontmatter.schema.json`:
 ## Migration from Legacy Formats
 
 ### From awesome-copilot
+
 1. Add LightSpeed-required fields
 2. Update `file_type` values to match unified schema
 3. Add `references` field with schema path
 4. Update tag format to array structure
 
 ### From WordPress-focused Templates
+
 1. Replace WordPress-specific fields with unified equivalents
 2. Update domain classifications
 3. Add LightSpeed governance fields
@@ -310,12 +317,14 @@ All frontmatter is validated against `../schemas/frontmatter.schema.json`:
 ## Troubleshooting
 
 ### Common Validation Errors
+
 - **Missing required fields**: Add all required fields from unified schema
 - **Invalid domain**: Use only approved domain classifications
 - **Incorrect date format**: Use "YYYY-MM-DD" format for dates
 - **Invalid references**: Ensure referenced files exist and use relative paths
 
 ### Tool-Specific Issues
+
 - **GitHub Copilot**: Only `description` and `apply_to` are validated
 - **Claude**: Requires `model` field for agent files
 - **Gemini**: Compatible with standard YAML frontmatter

@@ -95,18 +95,21 @@ sequenceDiagram
 ## 🎯 Schema Categories
 
 ### Template Configuration
+
 - Header template definitions
 - Footer template structures
 - Dynamic content rules
 - Responsive design settings
 
 ### Agent Settings
+
 - Automation triggers
 - Update frequency
 - Rollback configurations
 - Error handling rules
 
 ### WordPress Integration
+
 - Theme compatibility checks
 - Plugin dependency validation
 - Database schema requirements
@@ -115,6 +118,7 @@ sequenceDiagram
 ## 📚 Usage Examples
 
 ### Schema Validation
+
 ```bash
 # Validate agent configuration
 ajv validate -s agent-config.schema.json -d config.json
@@ -124,6 +128,7 @@ npx ajv-cli validate --schema template-config.schema.json --data template.json
 ```
 
 ### WordPress Integration
+
 ```php
 <?php
 // Validate configuration in WordPress
@@ -137,6 +142,7 @@ function validate_header_footer_config($config) {
 ```
 
 ### JavaScript Agent
+
 ```javascript
 const Ajv = require('ajv');
 const schema = require('./agent-config.schema.json');
@@ -155,6 +161,7 @@ if (validate(config)) {
 ## 🛠️ Development Guidelines
 
 ### Schema Design Principles
+
 - Follow WordPress coding standards
 - Support Block Theme architecture
 - Include accessibility requirements
@@ -162,6 +169,7 @@ if (validate(config)) {
 - Enable responsive design validation
 
 ### Template Standards
+
 - Use semantic HTML structure
 - Include proper WordPress hooks
 - Support internationalization (i18n)
@@ -171,6 +179,7 @@ if (validate(config)) {
 ## 🎨 Template Features
 
 ### Header Components
+
 - Site navigation menus
 - Logo and branding elements
 - Search functionality
@@ -178,6 +187,7 @@ if (validate(config)) {
 - Responsive breakpoints
 
 ### Footer Components
+
 - Copyright information
 - Social media links
 - Widget areas
@@ -185,6 +195,7 @@ if (validate(config)) {
 - Contact information
 
 ### Dynamic Elements
+
 - Conditional content blocks
 - User role-based display
 - Device-specific layouts
@@ -194,16 +205,19 @@ if (validate(config)) {
 ## 🔗 Related Resources
 
 ### Schema Files
+
 - [`../header-footer.schema.json`](../header-footer.schema.json) — Combined header/footer schema
 - [`../header.schema.json`](../header.schema.json) — Header-specific schema
 - [`../footer.schema.json`](../footer.schema.json) — Footer-specific schema
 
 ### Documentation
+
 - [WordPress Block Themes](../../docs/wordpress/)
 - [Theme Development Guide](../../docs/wordpress/gutenberg/)
 - [Schema Validation Standards](../../docs/SCHEMA-VALIDATION.md)
 
 ### Tools & Utilities
+
 - [WordPress Theme Check](https://wordpress.org/plugins/theme-check/)
 - [Block Theme Validator](https://github.com/WordPress/theme-review-action)
 - [JSON Schema Validator](https://ajv.js.org/)

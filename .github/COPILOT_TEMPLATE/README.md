@@ -8,12 +8,34 @@ tags: ["copilot", "ai", "templates", "automation", "development"]
 type: "templates"
 ---
 
-## 🤖 Copilot Templates Directory
+# 🤖 Copilot Templates Directory
 
 ![AI Badge](https://img.shields.io/badge/AI-powered-brightgreen?style=flat-square)
 ![Copilot Badge](https://img.shields.io/badge/Copilot-enhanced-blue?style=flat-square)
 
 This directory contains specialized templates and configurations for GitHub Copilot and AI-assisted development workflows in the LightSpeedWP organization.
+
+## 🚀 Quick Start
+
+Get started with LightSpeedWP Copilot templates in three steps:
+
+1. **Clone the repository**
+
+   ```sh
+   git clone https://github.com/lightspeedwp/.github.git
+   cd .github
+   ```
+
+2. **Install dependencies**
+   - For Node.js/JS: `npm install`
+   - For Python: `pip install -r requirements.txt` (if present)
+
+3. **Use a Copilot template**
+   - Navigate to `.github/COPILOT_TEMPLATE/`
+   - Select the template that matches your automation or workflow need
+   - Follow the instructions in the template to configure and use it
+
+For advanced usage, see the [Copilot Template Index](./COPILOT_TEMPLATE/README.md) and individual template specs for configuration and integration options.
 
 ## 📊 Copilot Integration Architecture
 
@@ -62,7 +84,6 @@ graph TB
 ### 🎯 Agent Templates
 
 - **Issue Agent Templates** - Templates for AI agents handling issues
-- **PR Agent Templates** - Templates for AI agents managing pull requests
 - **Review Agent Templates** - Templates for automated code review agents
 - **Release Agent Templates** - Templates for release management automation
 

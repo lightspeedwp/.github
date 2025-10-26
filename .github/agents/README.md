@@ -9,6 +9,30 @@ tags: ["lightspeed","agents","automation","workflows","github-actions"]
 type: "documentation"
 ---
 
+## 🚀 Quick Start
+
+Get started with LightSpeedWP agents in three steps:
+
+1. **Clone the repository**
+
+   ```sh
+   git clone https://github.com/lightspeedwp/.github.git
+   cd .github
+   ```
+
+2. **Install dependencies**
+   - For Node.js/JS agents: `npm install`
+   - For Python agents: `pip install -r requirements.txt` (if present)
+   - For shell agents: Ensure required tools (bash, zsh, etc.) are installed
+
+3. **Run or use an agent**
+   - See the agent spec table below for usage instructions per agent type
+   - Example (Node.js): `node agents/template.agent.js`
+   - Example (Python): `python agents/template.agent.py`
+   - Example (Shell): `bash agents/template.agent.sh`
+
+For advanced usage, see the [Main Agent Index](./agent.md) and individual agent specs for configuration, integration, and automation options.
+
 This directory contains all GitHub automation agents that power LightSpeed's repository workflows, including their implementations, documentation, and comprehensive test suites.
 
 ## 📊 Agent Ecosystem Architecture
