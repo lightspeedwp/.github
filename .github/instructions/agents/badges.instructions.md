@@ -12,10 +12,10 @@ references:
   - "./badges.prompt.md"
   - "../../scripts/update-badges.sh"
   - "../../BADGES.md"
+  - "./branding.agent.md"
 ---
-# Badges Instructions
+> **Deprecated:** This agent and instructions have been superseded by [branding.agent.md](./branding.agent.md). Please use the Branding Agent for unified header, footer, and badge automation.
 
-- The Badges Agent discovers all workflows and inserts or updates badge blocks in README.md.
-- Configurable via badge template file or script options.
-- Always creates a backup before writing.
-- Lint your README.md after updates for compliance.
+# Badges Instructions (Deprecated)
+
+See [Branding Agent Instructions](./branding.agent.md) for unified automation of badges, headers, and footers.

@@ -13,9 +13,14 @@ references:
     - '../../scripts/includes/headers.js'
     - '../../scripts/includes/footers.js'
     - '../../HEADER-FOOTER.md'
+    - './branding.agent.md'
 ---
 
-# 🏷️ Header & Footer Instructions
+> **Deprecated:** This agent and instructions have been superseded by [branding.agent.md](./branding.agent.md). Please use the Branding Agent for unified header, footer, and badge automation.
+
+# 🏷️ Header & Footer Instructions (Deprecated)
+
+See [Branding Agent Instructions](./branding.agent.md) for unified automation of badges, headers, and footers.
 
 ![Automation Badge](https://img.shields.io/badge/automation-enabled-brightgreen?style=flat-square)
 ![Docs Badge](https://img.shields.io/badge/docs-up%20to%20date-blue?style=flat-square)
@@ -52,6 +57,7 @@ To make documentation more engaging and scannable, you should add relevant emoji
 - [Footer Script](../../scripts/includes/footers.js)
 - [Header/Footer Standards](../../HEADER-FOOTER.md)
 - [LightSpeedWP Documentation Hub](../../docs/README.md)
+- [Branding Agent Instructions](./branding.agent.md)
 
 ---
 

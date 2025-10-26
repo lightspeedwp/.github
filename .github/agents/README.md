@@ -53,6 +53,7 @@ graph TB
     D --> D6[header-footer.agent.js]
     D --> D7[linting.agent.js]
     D --> D8[label-standardization.agent.js]
+    D --> D9[branding.agent.js]
     
     E --> E1[wp-accessibility-review-agent.js]
     E --> E2[wp-performance-audit-agent.js]
@@ -89,8 +90,9 @@ graph TB
 
 | Agent | Description | Status | Tests |
 |-------|-------------|---------|-------|
-| [badges.agent.js](./badges.agent.js) | Manages repository badges and automation status indicators | ✅ Active | - |
-| [header-footer.agent.js](./header-footer.agent.js) | Maintains consistent headers and footers across documentation | ✅ Active | - |
+| [branding.agent.js](./branding.agent.js) | Unified branding agent for headers, footers, badges | ✅ Active | - |
+| [badges.agent.js](./badges.agent.js) | Manages repository badges and automation status indicators | ❌ Deprecated | - |
+| [header-footer.agent.js](./header-footer.agent.js) | Maintains consistent headers and footers across documentation | ❌ Deprecated | - |
 | [issue-type.agent.js](./issue-type.agent.js) | Automatically assigns issue types based on content analysis | ✅ Active | [✅ Tests](../__tests__/issue-type.agent.test.js) |
 | [label-standardization.agent.js](./label-standardization.agent.js) | Ensures consistent labeling across repositories | ✅ Active | [✅ Tests](../__tests__/label-standardization.agent.test.js) |
 | [labeling.agent.js](./labeling.agent.js) | Unified labeling system for issues and pull requests | ✅ Active | [✅ Tests](../__tests__/labeling.agent.test.js) |
@@ -110,8 +112,9 @@ graph TB
 
 | Agent | Markdown Documentation |
 |-------|----------------------|
-| [badges.agent.md](./badges.agent.md) | Badge management specification |
-| [header-footer.agent.md](./header-footer.agent.md) | Header/footer maintenance specification |
+| [branding.agent.md](./branding.agent.md) | Unified branding agent specification |
+| [badges.agent.md](./badges.agent.md) | Badge management specification (Deprecated) |
+| [header-footer.agent.md](./header-footer.agent.md) | Header/footer maintenance specification (Deprecated) |
 | [issue-type.agent.md](./issue-type.agent.md) | Issue type assignment specification |
 | [jsdoc-review.agent.md](./jsdoc-review.agent.md) | JSDoc documentation review specification |
 | [label-standardization.agent.md](./label-standardization.agent.md) | Label standardization specification |
@@ -131,9 +134,10 @@ These GitHub Actions workflows integrate with and trigger our agents:
 | **[labeling.yml](../../workflows/labeling.yml)** | `push`, `pull_request`, `issues` events | `labeling.agent.js` | Unified labeling for issues and PRs with status enforcement |
 | **[reviewer.yml](../../workflows/reviewer.yml)** | `push`, `pull_request` on `develop` | `reviewer.agent.js` | Automated code review and feedback |
 | **[planner.yml](../../workflows/planner.yml)** | `push`, `pull_request` on `develop` | Internal planner logic | Project planning automation |
-| **[badges.yml](../../workflows/badges.yml)** | Path changes, `workflow_dispatch` | `badges.agent.js` | Badge status updates |
+| **[branding.yml](../../workflows/branding.yml)** | File changes, `workflow_dispatch` | `branding.agent.js` | Unified header, footer, badge automation |
+| **[badges.yml](../../workflows/badges.yml)** | Path changes, `workflow_dispatch` | `badges.agent.js` (Deprecated) | Badge status updates |
 | **[manage-readmes.yml](../../workflows/manage-readmes.yml)** | Path changes, `workflow_dispatch` | `manage-readmes.agent.js` | README maintenance |
-| **[header-footer.yml](../../workflows/header-footer.yml)** | File changes | `header-footer.agent.js` | Documentation consistency |
+| **[header-footer.yml](../../workflows/header-footer.yml)** | File changes | `header-footer.agent.js` (Deprecated) | Documentation consistency |
 
 ### Supporting Workflows
 

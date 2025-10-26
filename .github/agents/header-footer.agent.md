@@ -1,4 +1,3 @@
----
 file_type: "agent"
 title: "Header & Footer Agent"
 description: "Automates insertion, update, and randomisation of headers and footers in documentation files, using schema-driven config."
@@ -9,42 +8,52 @@ tags: ["header", "footer", "automation", "documentation"]
 category: "automation"
 status: "active"
 references:
-  - "../../schemas/header.schema.json"
-  - "../../schemas/footer.schema.json"
-  - "../../scripts/includes/header-content.json"
-  - "../../scripts/includes/footer-content.json"
-  - "../../scripts/includes/headers.js"
-  - "../../scripts/includes/footers.js"
-  - "./header-footer.instructions.md"
-  - "./header-footer.prompt.md"
-  - "../../HEADER-FOOTER.md"
----
-# Header & Footer Agent Specification
+
+- "../../schemas/header.schema.json"
+- "../../schemas/footer.schema.json"
+- "../../scripts/includes/header-content.json"
+- "../../scripts/includes/footer-content.json"
+- "../../scripts/includes/headers.js"
+- "../../scripts/includes/footers.js"
+- "./header-footer.instructions.md"
+- "./header-footer.prompt.md"
+- "../../HEADER-FOOTER.md"
+- "./branding.agent.md"
+
+> **Deprecated:** This agent has been superseded by [branding.agent.md](./branding.agent.md). Please use the Branding Agent for unified header, footer, and badge automation.
+
+# Header & Footer Agent Specification (Deprecated)
 
 ## Purpose
+
 Automate the insertion, update, and randomisation of headers and footers in documentation files, driven by a YAML/JSON/JS config and schema.
 
 ## Triggers
+
 - On README or doc update
 - On CI or workflow_dispatch
 - On header/footer config change
 
 ## Inputs/Outputs
+
 - **Input:** File path, header/footer config, schema
 - **Output:** Updated doc with selected/random header/footer
 
 ## Actions
+
 - Read config (headers/footers) in JS/JSON/YAML
 - Validate configs against [header.schema.json](../../schemas/header.schema.json) and [footer.schema.json](../../schemas/footer.schema.json)
 - Select appropriate category/variant (random or by file type)
 - Insert/update header/footer blocks in the doc
 
 ## Guardrails
+
 - Never overwrite main content
 - Validate config before applying
 - Always backup before changes
 
 ## References
+
 - [header.schema.json](../../schemas/header.schema.json)
 - [footer.schema.json](../../schemas/footer.schema.json)
 - [header-content.json](../../scripts/includes/header-content.json)
@@ -52,4 +61,5 @@ Automate the insertion, update, and randomisation of headers and footers in docu
 - [headers.js](../../scripts/includes/headers.js)
 - [footers.js](../../scripts/includes/footers.js)
 - [HEADER-FOOTER.md](../../HEADER-FOOTER.md)
+
 ---

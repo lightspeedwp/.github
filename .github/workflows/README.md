@@ -22,9 +22,10 @@ This directory contains all GitHub Actions workflows that power LightSpeed's rep
 | **[labeling.yml](./labeling.yml)** | `push`, `pull_request`, `issues`, `opened`, `synchronize`, `labeled`, `unlabeled` | [`labeling.agent.js`](../agents/labeling.agent.js) | Unified labeling system for issues and PRs with automated status enforcement |
 | **[reviewer.yml](./reviewer.yml)** | `pull_request` on `develop`, `opened`, `synchronize` | [`reviewer.agent.js`](../agents/reviewer.agent.js) | Automated code review, feedback, and quality checks |
 | **[planner.yml](./planner.yml)** | `push`, `pull_request` on `develop` | [`planner.agent.js`](../agents/planner.agent.js) | Project planning automation and issue organization |
-| **[badges.yml](./badges.yml)** | Path changes to badges, `workflow_dispatch` | [`badges.agent.js`](../agents/badges.agent.js) | Repository badge status updates and maintenance |
+| **[branding.yml](./branding.yml)** | File changes to documentation, badges, or header/footer | [`branding.agent.js`](../agents/branding.agent.js) | Unified header, footer, badge automation |
+| **[badges.yml](./badges.yml)** | Path changes to badges, `workflow_dispatch` | [`badges.agent.js`](../agents/badges.agent.js) (Deprecated) | Repository badge status updates and maintenance |
 | **[manage-readmes.yml](./manage-readmes.yml)** | Path changes to README files, `workflow_dispatch` | [`manage-readmes.agent.js`](../agents/manage-readmes.agent.js) | Automated README generation and consistency |
-| **[header-footer.yml](./header-footer.yml)** | File changes to documentation | [`header-footer.agent.js`](../agents/header-footer.agent.js) | Documentation header/footer consistency |
+| **[header-footer.yml](./header-footer.yml)** | File changes to documentation | [`header-footer.agent.js`](../agents/header-footer.agent.js) (Deprecated) | Documentation header/footer consistency |
 | **[release.yml](./release.yml)** | Tags, `workflow_dispatch` | [`release.agent.js`](../agents/release.agent.js) | Automated release processes and changelog generation |
 | **[project-meta-sync.yml](./project-meta-sync.yml)** | `schedule`, `workflow_dispatch` | Internal sync logic | Cross-repository metadata synchronization |
 
@@ -52,9 +53,8 @@ These workflows directly execute agents from the [`../agents/`](../agents/) dire
 - `labeling.yml` → `labeling.agent.js`
 - `reviewer.yml` → `reviewer.agent.js`
 - `planner.yml` → `planner.agent.js`
-- `badges.yml` → `badges.agent.js`
+- `branding.yml` → `branding.agent.js`
 - `manage-readmes.yml` → `manage-readmes.agent.js`
-- `header-footer.yml` → `header-footer.agent.js`
 - `release.yml` → `release.agent.js`
 
 ### 🔍 Quality Assurance
@@ -89,11 +89,14 @@ graph TD
     A[GitHub Event] --> B{Event Type}
     B -->|push/PR| C[labeling.yml]
     B -->|push/PR| D[reviewer.yml]
-    B -->|path changes| E[badges.yml]
+    B -->|path changes| E[branding.yml]
+    E --> I[branding.agent.js]
+    E -.-> I[badges.agent.js]
+    E -.-> I[header-footer.agent.js]
     B -->|schedule| F[metrics.yml]
     C --> G[labeling.agent.js]
     D --> H[reviewer.agent.js]
-    E --> I[badges.agent.js]
+    E --> I[branding.agent.js]
     F --> J[Metrics Collection]
 ```
 
