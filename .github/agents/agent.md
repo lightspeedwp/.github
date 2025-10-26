@@ -15,6 +15,7 @@ This document serves as the master index for all agent specifications, templates
 
 > **Label Reference:**  
 > Agents, agent specs, and agent-related issues should use or reference the label:  
+>
 > - `ai-ops:agents` (for agent definitions and specs)  
 > - `ai-ops:chat-modes` (for chatmode-related agents)  
 > - `ai-ops:prompts` (for prompt agents or reusable prompt logic)  
@@ -40,9 +41,11 @@ All agent specs, templates, and stubs should be placed in the `.github/agents/` 
 | [template.agent.js](./template.agent.js)                       | JS template for new agent implementations    |
 | [template.agent.py](./template.agent.py)                       | Python template for new agent implementations|
 | [template.agent.sh](./template.agent.sh)                       | Shell script template for agent integrations |
+| [branding.agent.js](./branding.agent.js)                      | Unified branding agent: header, footer, badges|
+| [branding.agent.md](./branding.agent.md)                      | Spec for unified branding agent               |
 | *(Add additional agent files below as needed)*                 |                                              |
 
-> _To add new agents, create a file in `.github/agents/` and update this table. Use descriptive filenames and provide a brief purpose/notes column for each._
+> *To add new agents, create a file in `.github/agents/` and update this table. Use descriptive filenames and provide a brief purpose/notes column for each._
 
 ---
 

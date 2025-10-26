@@ -18,6 +18,7 @@ jobs:
       NPMPKGJSONLINT_REQUIRE_REPOSITORY: true
       NPMPKGJSONLINT_REQUIRE_LICENSE: true
       NPMPKGJSONLINT_REQUIRE_AUTHOR: true
+      NPMPKGJSONLINT_REQUIRE_FIELDS: true
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js
@@ -39,5 +40,5 @@ jobs:
           find . -type f -name "*.sh" ! -path "*/node_modules/*" -exec shellcheck {} +
       - name: Run yamllint
         run: yamllint .
-      - name: Run npm-package-json-lint
+      - name: Run npm-package-json-lint (package.json rules)
         run: npm run lint:pkg-json

@@ -50,6 +50,7 @@ const disableOrder = process.env.NPMPKGJSONLINT_DISABLE_ORDER === 'true';
 const ignorePathsEnv = parseList(process.env.NPMPKGJSONLINT_IGNORE_PATHS);
 
 // Base ignores plus any dynamic additions.
+// NOTE: Template scaffold directories removed (2025-10-26); cleaned ignores.
 const baseIgnore = [
     'node_modules',
     'dist',
@@ -58,13 +59,6 @@ const baseIgnore = [
     'vendor',
     'logs',
     '.cache',
-    // Template scaffolds we do not want lint noise from.
-    'docs/mustache-repo-templates',
-    'docs/mustache-repo-templates/**',
-    './docs/mustache-repo-templates',
-    './docs/mustache-repo-templates/**',
-    'docs/mustache-repo-templates/block-themes',
-    'docs/mustache-repo-templates/block-themes/**',
 ];
 
 /**

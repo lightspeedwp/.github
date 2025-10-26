@@ -1,7 +1,7 @@
 ---
 title: 'Linting Strategy & Implementation Guide'
 version: 'v1.0'
-last_updated: '2024-10-24'
+last_updated: '2025-10-26'
 author: 'LightSpeed Team'
 description: 'Comprehensive guide to linting setup, configuration, and automation across LightSpeed WordPress projects'
 tags:
@@ -141,6 +141,8 @@ The package JSON lint configuration now lives in `npmpackagejsonlint.config.cjs`
 | `NPMPKGJSONLINT_REQUIRE_REPOSITORY` | Require `repository` field | `true` |
 | `NPMPKGJSONLINT_REQUIRE_LICENSE` | Require `license` field | `true` |
 | `NPMPKGJSONLINT_REQUIRE_AUTHOR` | Require `author` field | `true` |
+| `NPMPKGJSONLINT_REQUIRE_DESCRIPTION` | Require `description` field (granular override) | `true` |
+| `NPMPKGJSONLINT_REQUIRE_REPOSITORY` | Require `repository` field (granular override) | `true` |
 | `NPMPKGJSONLINT_DISABLE_ORDER` | Disable `prefer-property-order` enforcement | `false` |
 | `NPMPKGJSONLINT_IGNORE_PATHS` | Additional comma‑separated paths to ignore | (empty) |
 
@@ -162,12 +164,15 @@ To enforce strict version formatting in CI:
 NPMPKGJSONLINT_STRICT_MODE=true npm run lint:pkg-json
 ```
 
-Incremental adoption strategy:
+Incremental adoption strategy (updated 2025-10-26):
 
 1. Enable required metadata (default) and address any missing fields.
-2. Turn on strict version formatting (`STRICT_MODE=true`).
+2. Turn on strict version formatting (`NPMPKGJSONLINT_STRICT_MODE=true`).
 3. Keep scope validation off until an allowed scope list is defined.
-4. Optionally tighten `valid-values-license` to `error` once all packages normalize licensing.
+4. License enforcement currently set to a permissive warning for `GPL-3.0-or-later`; raise to `error` after normalization.
+5. Use granular overrides (`NPMPKGJSONLINT_REQUIRE_*`) to relax a single field without disabling all requirements.
+
+> The scaffold-related ignores were removed; configuration now assumes real package metadata present.
 
 ```bash
 # .env - Customize linting behaviour
@@ -456,7 +461,7 @@ npx eslint --debug
 
 ## Related Documentation
 
-### Configuration Files
+### Configuration Files (Reference Index)
 
 - **[ESLint Configuration](./config/lint-eslint.md)** - Detailed ESLint setup
 - **[Stylelint Configuration](./config/lint-stylelint.md)** - CSS linting configuration
@@ -469,7 +474,7 @@ npx eslint --debug
 - **[Lint-staged Configuration](./config/workflow-lint-staged.md)** - Pre-commit automation
 - **[NPM Scripts Configuration](./config/npm-scripts.md)** - Scripts and automation
 
-### VS Code Integration
+### VS Code Integration (Reference Index)
 
 - **[VS Code Settings](./config/vscode-settings.md)** - Editor configuration
 - **[VS Code MCP](./config/vscode-mcp.md)** - MCP server integration
