@@ -42,6 +42,7 @@
 
         // Unit Testing Extensions - Automated testing tools
         "ms-playwright.playwright",
+        "orta.vscode-jest",
 
         // Linting Extensions - Code quality
         "davidanson.vscode-markdownlint",
@@ -53,6 +54,11 @@
         "mrmlnc.vscode-scss",
         "michelemelluso.code-beautifier",
         "dbaeumer.vscode-eslint",
+
+        // Build & Tooling Extensions - Front-end build pipeline helpers
+        "mgmcdermott.vscode-language-babel",
+        "csstools.postcss",
+        "jeremyrajan.webpack",
 
         // WordPress Development - WordPress specific tools
         "wordpresstoolbox.wordpress-toolbox",
@@ -67,6 +73,8 @@
         "wongjn.php-sniffer",
 
         // JSON and Configuration - Enhanced JSON support
+        "dotenv.dotenv-vscode",
+        "webben.browserslist",
         "zainchen.json",
         "quicktype.quicktype",
 
