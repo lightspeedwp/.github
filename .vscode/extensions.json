@@ -43,8 +43,7 @@
         // Unit Testing Extensions - Automated testing tools
         "ms-playwright.playwright",
 
-        // Linting Extensions - Code quality and formatting
-        "esbenp.prettier-vscode",
+        // Linting Extensions - Code quality
         "davidanson.vscode-markdownlint",
         "redhat.vscode-yaml",
         "stoplight.spectral",
@@ -71,7 +70,8 @@
         "zainchen.json",
         "quicktype.quicktype",
 
-        // Core development tools
-        "editorconfig.editorconfig"
+        // Code Formatting
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode"
     ]
 }
