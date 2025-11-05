@@ -1,7 +1,7 @@
 ---
 mode: 'agent'
 description: 'Create GitHub Issues for unimplemented requirements from specification files using feature_request.yml template.'
-tools: ['codebase', 'search', 'github', 'create_issue', 'search_issues', 'update_issue']
+tools: ['codebase', 'search', 'github', 'issue_write', 'search_issues', 'update_issue']
 ---
 # Create GitHub Issues for Unmet Specification Requirements
 
@@ -12,7 +12,7 @@ Create GitHub Issues for unimplemented requirements in the specification at `${f
 1. Analyze specification file to extract all requirements
 2. Check codebase implementation status for each requirement
 3. Search existing issues using `search_issues` to avoid duplicates
-4. Create new issue per unimplemented requirement using `create_issue`
+4. Create new issue per unimplemented requirement using `issue_write`
 5. Use `feature_request.yml` template (fallback to default)
 
 ## Requirements
