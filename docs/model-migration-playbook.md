@@ -21,7 +21,8 @@ Concise process for changing/adding LLMs (e.g., Gemini → Claude → ChatGPT) a
 5) Rollout on `develop`; monitor; then promote to `main`.
 
 ## Sign‑off
-- Docs, Agents owners.
+- @lightspeedwp/docs-team (Docs team)
+- @lightspeedwp/agents-team (Agents team)
 
 ## Related Resources
 - [AGENTS.md](../AGENTS.md)
