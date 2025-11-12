@@ -243,8 +243,10 @@ async function main() {
 
   if (fails.length) {
     console.error("Thresholds failed:", fails.join(", "));
-    // Do not fail the job by default; uncomment the next line once calibrated:
-    // process.exit(1);
+    // Fail the job if configured to do so (set thresholds.failOnError: true in metrics.config.json)
+    if (t.failOnError) {
+      process.exit(1);
+    }
   }
 }
 
