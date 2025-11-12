@@ -6,7 +6,7 @@ author: 'LightSpeed'
 maintainer: 'Ash Shaw'
 description: 'Root-level guidance for Claude agents, LightSpeed model selection, and Copilot agent best practices.'
 tags: ['lightspeed', 'templates', 'copilot', 'agents', 'prompts', 'models']
-type: 'agent'
+file_type: 'claude-instructions'
 references:
     - 'https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md'
     - 'https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md'
