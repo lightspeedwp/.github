@@ -54,13 +54,13 @@ This directory contains 13 comprehensive issue drafts for improving community he
 cd drafts/
 
 # Create all issues (requires gh CLI installed and authenticated)
-gh issue create --title "$(grep '^title:' G01-schema-relocation.md | cut -d':' -f2-)" --body-file G01-schema-relocation.md
-gh issue create --title "$(grep '^title:' G02-fix-stale-links.md | cut -d':' -f2-)" --body-file G02-fix-stale-links.md
+gh issue create --title "$(grep '^title:' G01-schema-relocation.md | cut -d':' -f2- | sed -e 's/^[[:space:]]*//' -e 's/^["'\'']//;s/["'\'']$//')" --body-file G01-schema-relocation.md
+gh issue create --title "$(grep '^title:' G02-fix-stale-links.md | cut -d':' -f2- | sed -e 's/^[[:space:]]*//' -e 's/^["'\'']//;s/["'\'']$//')" --body-file G02-fix-stale-links.md
 # ... repeat for each file
 
 # Or use a loop
 for file in G*.md; do
-  title=$(grep '^title:' "$file" | cut -d':' -f2- | xargs)
+  title=$(grep '^title:' "$file" | cut -d':' -f2- | sed -e 's/^[[:space:]]*//' -e 's/^["'\'']//;s/["'\'']$//' | xargs)
   gh issue create --title "$title" --body-file "$file"
 done
 ```
