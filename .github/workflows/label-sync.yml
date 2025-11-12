@@ -155,6 +155,27 @@ jobs:
             const currentLabels = JSON.parse('${{ steps.current-labels.outputs.current_labels }}');
             const dryRun = process.env.DRY_RUN === 'true';
 
+            // Validate label arrays using ajv
+            const Ajv = require('ajv');
+            const ajv = new Ajv();
+            const labelSchema = {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  name: { type: 'string' }
+                },
+                required: ['name'],
+                additionalProperties: true
+              }
+            };
+            const validate = ajv.compile(labelSchema);
+            if (!validate(currentLabels)) {
+              throw new Error('currentLabels JSON does not match expected schema: ' + ajv.errorsText(validate.errors));
+            }
+            if (!validate(canonicalLabels)) {
+              throw new Error('canonicalLabels JSON does not match expected schema: ' + ajv.errorsText(validate.errors));
+            }
             const changes = {
               added: [],
               updated: [],
