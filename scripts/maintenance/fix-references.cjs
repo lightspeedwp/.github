@@ -377,7 +377,7 @@ function writeLogFile(report) {
 /**
  * Main function
  */
-async function main() {
+function main() {
   console.log('Starting reference validation and repair...\n');
 
   // Discover files
