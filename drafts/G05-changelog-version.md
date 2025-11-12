@@ -124,7 +124,7 @@ This repository follows semantic versioning for documentation and governance.
 cat VERSION
 
 # Check latest CHANGELOG version
-grep -E "^## \[" CHANGELOG.md | head -1
+grep -E "^[[:space:]]*##[[:space:]]*\[" CHANGELOG.md | head -1
 ```
 
 **Integration points:**
