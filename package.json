@@ -119,7 +119,7 @@
         "lint:md": "markdownlint '**/*.md' --fix",
         "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
         "format:md": "prettier '**/*.md' --write && markdownlint '**/*.md' --fix",
-        "format": "npm run format:js && npm run format:md",
+        "format": "npm run format:js",
         "sync-version": "node scripts/sync-version.js",
         "metrics:run": "node metrics/frontmatter-metrics.js",
         "metrics:ci": "node metrics/frontmatter-metrics.js",
