@@ -24,6 +24,9 @@ jobs:
             fm=$(awk '/^---/{f=!f;next} f' "$file")
             echo "$fm" | grep -q "^title:" || { echo "::error file=$file::missing title"; fail=1; }
             echo "$fm" | grep -q "^description:" || { echo "::error file=$file::missing description"; fail=1; }
-            echo "$fm" | grep -q "^applyTo:" || { echo "::error file=$file::missing applyTo"; fail=1; }
+            # Only require applyTo for instructions files
+            if [[ "$file" == .github/instructions/* ]]; then
+              echo "$fm" | grep -q "^applyTo:" || { echo "::error file=$file::missing applyTo"; fail=1; }
+            fi
           done < <(find .github/prompts .github/chatmodes .github/instructions -type f -name "*.md" -print0)
           exit $fail
