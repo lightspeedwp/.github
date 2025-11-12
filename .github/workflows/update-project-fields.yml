@@ -1,0 +1,60 @@
+---
+name: Update Project Fields
+on:
+  push:
+    branches: [develop]
+    paths:
+      - 'scripts/projects/fixtures/**'
+      - 'scripts/projects/build-project-fields-yml.sh'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Install yq
+        uses: mikefarah/yq@v4.44.2
+
+      - name: Build canonical YAML
+        run: bash scripts/projects/build-project-fields-yml.sh
+
+      - name: Check for changes
+        id: check
+        run: |
+          if [[ -n "$(git status --porcelain .github/automation/project-fields.yml)" ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit updated YAML
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/automation/project-fields.yml
+          git commit -m "chore: rebuild project-fields.yml from fixtures
+
+          Automated rebuild triggered by changes to CSV fixtures in scripts/projects/fixtures/
+
+          Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          git push
+
+      - name: Summary
+        run: |
+          if [[ "${{ steps.check.outputs.has_changes }}" == "true" ]]; then
+            echo "✅ Updated project-fields.yml"
+          else
+            echo "✅ No changes detected"
+          fi

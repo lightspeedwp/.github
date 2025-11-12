@@ -1,0 +1,49 @@
+---
+name: Validate Project Fields
+on:
+  pull_request:
+    branches: [develop]
+    paths:
+      - '.github/automation/project-fields.yml'
+      - '.github/automation/project-fields.schema.json'
+      - 'scripts/projects/**'
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check for package.json
+        id: check_package
+        run: |
+          if [[ -f package.json ]]; then
+            echo "has_package=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_package=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install dependencies (npm ci)
+        if: steps.check_package.outputs.has_package == 'true'
+        run: npm ci
+        continue-on-error: true
+
+      - name: Install dependencies (manual)
+        if: steps.check_package.outputs.has_package == 'false'
+        run: |
+          npm init -y
+          npm install js-yaml ajv
+
+      - name: Validate YAML against schema
+        run: node scripts/projects/validate-project-fields.js
+
+      - name: Summary
+        run: echo "✅ Project fields validation passed"
