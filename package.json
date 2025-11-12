@@ -85,6 +85,7 @@
         "@typescript-eslint/eslint-plugin": "^6.0.0",
         "@typescript-eslint/parser": "^6.0.0",
         "ajv": "^8.17.1",
+        "ajv-cli": "^5.0.0",
         "ajv-formats": "^3.0.1",
         "all-contributors-cli": "3.1.1",
         "babel-jest": "^29.7.0",
@@ -103,13 +104,10 @@
         "micromatch": "^4.0.7",
         "node-fetch": "^3.3.2",
         "npm-package-json-lint": "^7.0.0",
+        "npm-run-all": "^4.1.5",
         "playwright": "^1.40.0",
         "prettier": "^3.0.0",
         "puppeteer": "^23.11.1",
-<<<<<<< HEAD
-=======
-        "@stoplight/spectral-functions": "^1.0.0",
->>>>>>> b08f4ce340ebedbe5700837f762687fdc37be269
         "ts-jest": "29.4.5",
         "typescript": "^5.0.0"
     },
@@ -123,11 +121,12 @@
         "lint:md": "markdownlint '**/*.md' --fix",
         "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
         "format:md": "prettier '**/*.md' --write && markdownlint '**/*.md' --fix",
-<<<<<<< HEAD
         "format": "npm run format:js && npm run format:md",
-=======
-        "format": "npm run format:js",
->>>>>>> b08f4ce340ebedbe5700837f762687fdc37be269
+        "format:prettier": "prettier --write .",
+        "check": "npm-run-all -l -s lint:* test:schema:*",
+        "test:schema:theme": "ajv validate -s schemas/wp/theme-6.6.schema.json -d theme.json",
+        "test:schema:block": "ajv validate -s schemas/wp/block-6.6.schema.json -d block.json",
+        "lint:pkg": "npmpackagejsonlint .",
         "sync-version": "node scripts/sync-version.js",
         "metrics:run": "node metrics/frontmatter-metrics.js",
         "metrics:ci": "node metrics/frontmatter-metrics.js",
