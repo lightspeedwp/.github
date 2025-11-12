@@ -106,10 +106,6 @@
         "playwright": "^1.40.0",
         "prettier": "^3.0.0",
         "puppeteer": "^23.11.1",
-<<<<<<< HEAD
-=======
-        "@stoplight/spectral-functions": "^1.0.0",
->>>>>>> b08f4ce340ebedbe5700837f762687fdc37be269
         "ts-jest": "29.4.5",
         "typescript": "^5.0.0"
     },
@@ -123,11 +119,7 @@
         "lint:md": "markdownlint '**/*.md' --fix",
         "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
         "format:md": "prettier '**/*.md' --write && markdownlint '**/*.md' --fix",
-<<<<<<< HEAD
         "format": "npm run format:js && npm run format:md",
-=======
-        "format": "npm run format:js",
->>>>>>> b08f4ce340ebedbe5700837f762687fdc37be269
         "sync-version": "node scripts/sync-version.js",
         "metrics:run": "node metrics/frontmatter-metrics.js",
         "metrics:ci": "node metrics/frontmatter-metrics.js",
