@@ -17,6 +17,8 @@ jobs:
         run: |
           set -euo pipefail
           fail=0
+          # Use null-delimited output from 'find ... -print0' to safely handle filenames with spaces.
+          # If you change the find command, ensure -print0 is preserved to match the '-d ''' in the read loop.
           while IFS= read -r -d '' file; do
             # Must start with '---'
             head -1 "$file" | grep -q "^---" || { echo "::error file=$file::missing YAML front matter"; fail=1; continue; }
