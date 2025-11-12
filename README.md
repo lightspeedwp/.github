@@ -433,6 +433,309 @@ All LightSpeed repositories should:
 
 ---
 
+## Consumer Guide: Reusing Workflows and Syncing Labels
+
+This section provides practical examples for consuming repositories to adopt LightSpeed organization standards.
+
+### 1. Syncing Labels from Canonical Source
+
+All LightSpeed repositories should sync labels from the canonical [labels.yml](./.github/automation/labels.yml) to ensure consistency.
+
+#### Option A: Call Reusable Label Sync Workflow
+
+Create `.github/workflows/label-sync.yml` in your repository:
+
+```yaml
+name: Label Sync
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # Weekly on Monday at 9 AM UTC
+  workflow_dispatch:
+
+jobs:
+  sync:
+    uses: lightspeedwp/.github/.github/workflows/label-sync.yml@develop
+    with:
+      labels_source_repo: 'lightspeedwp/.github'
+      labels_source_path: '.github/automation/labels.yml'
+      dry_run: false
+    secrets: inherit
+```
+
+**What this does:**
+- Automatically syncs labels weekly
+- Adds missing labels from canonical source
+- Updates existing labels with new colors/descriptions
+- Detects and reports orphan labels
+
+#### Option B: Manual Label Sync (One-Time)
+
+Use the GitHub CLI to sync labels manually:
+
+```bash
+# Install GitHub CLI: https://cli.github.com/
+
+# Sync labels from canonical source
+gh label clone lightspeedwp/.github --repo yourorg/yourrepo
+```
+
+### 2. Reusing Issue/PR Labeling Workflow
+
+Adopt automated labeling based on file paths, branch names, and issue templates.
+
+Create `.github/workflows/labeling.yml`:
+
+```yaml
+name: Auto-Labeling
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+  issues:
+    types: [opened, edited, reopened]
+
+jobs:
+  labeling:
+    uses: lightspeedwp/.github/.github/workflows/labeling.yml@develop
+    secrets: inherit
+```
+
+**What this does:**
+- Applies labels based on PR branch names (e.g., `feat/` → `type:feature`)
+- Applies labels based on modified file paths (e.g., `*.php` → `lang:php`)
+- Enforces status workflow (e.g., new issues → `status:needs-triage`)
+- Ensures exactly one status label per issue/PR
+
+### 3. Using Canonical Issue Templates
+
+Copy issue templates from this repository to ensure consistent triage and automation:
+
+```bash
+# Copy issue templates to your repository
+cp -r .github/ISSUE_TEMPLATE /path/to/your/repo/.github/
+
+# Or create a symlink (for local development)
+ln -s ../../.github/.github/ISSUE_TEMPLATE /path/to/your/repo/.github/ISSUE_TEMPLATE
+```
+
+**Available Templates:**
+- Bug Report (`bug-report.yml`)
+- Feature Request (`feature-request.yml`)
+- Documentation (`documentation.yml`)
+- Security Issue (`security.yml`)
+- Task (`task.yml`)
+- Chore (`chore.yml`)
+
+### 4. Adopting Pull Request Templates
+
+Use the canonical PR template with risk assessment and testing prompts:
+
+```bash
+# Copy PR template
+cp .github/pull_request_template.md /path/to/your/repo/.github/
+
+# Or reference it directly in your repository's settings
+# GitHub → Settings → Pull Requests → Template repository: lightspeedwp/.github
+```
+
+### 5. Implementing Branch Naming Conventions
+
+Adopt LightSpeed branch naming for automatic label application:
+
+**Format:** `{type}/{scope}-{description}`
+
+**Examples:**
+
+```bash
+# Features
+git checkout -b feat/user-authentication
+git checkout -b feat/dashboard-redesign
+
+# Bug Fixes
+git checkout -b fix/header-alignment-mobile
+git checkout -b fix/wp6-6-compatibility
+
+# Documentation
+git checkout -b docs/api-reference
+git checkout -b docs/installation-guide
+
+# Hotfixes
+git checkout -b hotfix/critical-xss-patch
+git checkout -b hotfix/payment-gateway-fix
+```
+
+**Auto-Applied Labels:**
+- `feat/*` → `type:feature`, `status:in-progress`
+- `fix/*` → `type:bug`, `status:in-progress`
+- `docs/*` → `type:documentation`, `area:documentation`
+- `hotfix/*` → `type:bug`, `priority:critical`
+
+See [Branching Strategy](./.github/automation/BRANCHING_STRATEGY.md) for complete conventions.
+
+### 6. Configuring Labeler Rules
+
+Create `.github/labeler.yml` to auto-apply labels based on file paths:
+
+```yaml
+# Copy canonical labeler configuration
+cp .github/automation/labeler.yml /path/to/your/repo/.github/
+
+# Or customize for your repository:
+
+# PHP files
+lang:php:
+  - '**/*.php'
+  - 'includes/**/*'
+
+# JavaScript files
+lang:javascript:
+  - '**/*.js'
+  - '**/*.jsx'
+  - '**/*.ts'
+  - '**/*.tsx'
+
+# CSS files
+lang:css:
+  - '**/*.css'
+  - '**/*.scss'
+  - 'styles/**/*'
+
+# Documentation
+area:documentation:
+  - '**/*.md'
+  - 'docs/**/*'
+
+# Tests
+area:tests:
+  - 'tests/**/*'
+  - '**/*.test.js'
+  - '**/*.spec.js'
+
+# GitHub workflows
+area:ci:
+  - '.github/workflows/**/*'
+```
+
+### 7. Enforcing Changelog Requirements
+
+Ensure all PRs include changelog entries:
+
+```yaml
+# Add to your repository's workflow
+name: Changelog Check
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check changelog
+        run: |
+          if ! git diff origin/develop...HEAD --name-only | grep -q "CHANGELOG.md"; then
+            if ! gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name' | grep -q "meta:no-changelog"; then
+              echo "::error::PR requires changelog entry or meta:no-changelog label"
+              exit 1
+            fi
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+### 8. Quick Setup Script
+
+For new repositories, use this setup script to adopt all LightSpeed standards:
+
+```bash
+#!/bin/bash
+# setup-lightspeed-standards.sh
+
+REPO_PATH=${1:-.}
+GITHUB_REPO="lightspeedwp/.github"
+
+echo "Setting up LightSpeed standards in: $REPO_PATH"
+
+# Create .github directory
+mkdir -p "$REPO_PATH/.github/workflows"
+
+# Copy issue templates
+cp -r .github/ISSUE_TEMPLATE "$REPO_PATH/.github/"
+
+# Copy PR template
+cp .github/pull_request_template.md "$REPO_PATH/.github/"
+
+# Copy labeler configuration
+cp .github/automation/labeler.yml "$REPO_PATH/.github/"
+
+# Create label sync workflow
+cat > "$REPO_PATH/.github/workflows/label-sync.yml" <<EOF
+name: Label Sync
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+jobs:
+  sync:
+    uses: lightspeedwp/.github/.github/workflows/label-sync.yml@develop
+    secrets: inherit
+EOF
+
+# Create labeling workflow
+cat > "$REPO_PATH/.github/workflows/labeling.yml" <<EOF
+name: Auto-Labeling
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+  issues:
+    types: [opened, edited, reopened]
+jobs:
+  labeling:
+    uses: lightspeedwp/.github/.github/workflows/labeling.yml@develop
+    secrets: inherit
+EOF
+
+echo "✅ LightSpeed standards setup complete!"
+echo "Next steps:"
+echo "1. Review and commit the new files"
+echo "2. Enable GitHub Actions in repository settings"
+echo "3. Run label sync workflow manually to sync labels"
+echo "4. Update README.md to reference LightSpeed standards"
+```
+
+### 9. Validation and Testing
+
+Before deploying to production, test your setup:
+
+```bash
+# Validate YAML files
+yamllint .github/**/*.yml
+
+# Test label sync in dry-run mode
+gh workflow run label-sync.yml -f dry_run=true
+
+# Verify labeler configuration
+gh api repos/:owner/:repo/contents/.github/labeler.yml
+
+# Test branch naming
+git checkout -b feat/test-branch
+git push origin feat/test-branch
+# Check that PR auto-applies: type:feature, status:in-progress
+```
+
+### 10. Monitoring and Maintenance
+
+Set up monitoring to ensure standards remain in sync:
+
+- **Weekly Label Sync** – Automated workflow keeps labels current
+- **Quarterly Reviews** – Review exceptions and custom configurations
+- **Breaking Changes** – Subscribe to [GitHub Discussions](https://github.com/lightspeedwp/.github/discussions) for announcements
+
+---
+
 ## Troubleshooting & Adoption
 
 - **Labels/Types not applied:** Confirm your repo references `.github/labels.yml` and `.github/issue-types.yml` here.
