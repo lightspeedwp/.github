@@ -217,13 +217,25 @@ jobs:
             // Detect orphan labels (exist in repo but not in canonical)
             for (const current of currentLabels) {
               if (!canonicalLabelMap.has(current.name.toLowerCase())) {
+                // Fetch usage count for the orphan label
+                let usageCount = 0;
+                try {
+                  const searchQuery = `label:"${current.name}" repo:${context.repo.owner}/${context.repo.repo}`;
+                  const searchResult = await github.rest.search.issuesAndPullRequests({
+                    q: searchQuery,
+                    per_page: 1 // We only need the total_count
+                  });
+                  usageCount = searchResult.data.total_count || 0;
+                } catch (error) {
+                  core.warning(`Failed to fetch usage count for label "${current.name}": ${error.message}`);
+                }
                 changes.orphaned.push({
                   name: current.name,
                   color: current.color,
                   description: current.description || '',
-                  usage_count: 0 // TODO: Could fetch usage count
+                  usage_count: usageCount
                 });
-                core.warning(`⚠️  Orphan label detected: ${current.name}`);
+                core.warning(`⚠️  Orphan label detected: ${current.name} (used on ${usageCount} issues/PRs)`);
               }
             }
 
