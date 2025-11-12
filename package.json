@@ -83,7 +83,7 @@
         "@types/node": "^20.0.0",
         "@typescript-eslint/eslint-plugin": "^6.0.0",
         "@typescript-eslint/parser": "^6.0.0",
-        "all-contributors-cli": "3.1.1",
+        "all-contributors-cli": "6.26.1",
         "babel-jest": "^29.7.0",
         "bats": "^1.8.0",
         "dotenv": "^16.4.5",
