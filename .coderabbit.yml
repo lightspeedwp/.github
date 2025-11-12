@@ -28,6 +28,17 @@ reviews:
 
   # === Path-Specific Review Instructions ===
   path_instructions:
+    # 0. AI Assets (General)
+    - path: ".github/prompts/**"
+      instructions: |
+        Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
+    - path: ".github/chatmodes/**"
+      instructions: |
+        Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
+    - path: ".github/agents/**"
+      instructions: |
+        Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
+
     # 1. Copilot & AI Files
     - path: ".github/custom-instructions.md"
       instructions: |
