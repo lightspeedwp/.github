@@ -104,7 +104,7 @@ LightSpeed takes security seriously. If you believe you've discovered a security
 3. Provide detailed information about the vulnerability
 
 ### Alternative: Email
-Send details to: **security@lightspeed.com**
+Send details to: **security@[your-domain].com** <!-- Replace with your actual security contact email -->
 
 ## What to Include
 
