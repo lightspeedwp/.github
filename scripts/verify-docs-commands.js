@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-const fs = require('fs'), path = require('path');
+const fs = require('fs');
+const path = require('path');
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname,'..','package.json'),'utf8'));
 const scripts = new Set(Object.keys(pkg.scripts || {}));
 const docs = ['docs/LINTING.md','docs/HUSKY-PRECOMMITS.md'];
