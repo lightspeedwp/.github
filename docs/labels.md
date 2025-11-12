@@ -6,10 +6,10 @@ last_updated: '2025-11-12'
 maintainer: 'LightSpeed Team'
 tags: ['labels', 'github', 'automation', 'workflow', 'triage']
 related_docs:
-  - '../.github/automation/labels.yml'
-  - '../.github/automation/ISSUE_LABELS.md'
-  - '../.github/automation/PR_LABELS.md'
-  - './label-automation/README.md'
+  - '/.github/automation/labels.yml'
+  - '/.github/automation/ISSUE_LABELS.md'
+  - '/.github/automation/PR_LABELS.md'
+  - '/docs/label-automation/README.md'
 ---
 
 # GitHub Labels Guide
