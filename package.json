@@ -75,7 +75,7 @@
         "@babel/preset-typescript": "^7.23.0",
         "@babel/runtime": "^7.24.1",
         "@jest/pattern": "30.0.1",
-        "@mermaid-js/mermaid-cli": "^10.4.0",
+        "@mermaid-js/mermaid-cli": "^10.9.1",
         "@playwright/test": "^1.40.0",
         "@stoplight/spectral-cli": "^6.11.0",
         "@stoplight/spectral-core": "^1.18.0",
