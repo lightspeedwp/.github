@@ -54,7 +54,10 @@ function extractFrontmatterYAML(text) {
   try {
     const data = YAML.load(text);
     if (data && typeof data === "object") return { data };
-  } catch (e) { /* noop */ }
+  } catch (e) {
+    // Log YAML parsing errors for debugging, but continue gracefully.
+    console.error("YAML parsing error in extractFrontmatterYAML:", e);
+  }
   return { data: null };
 }
 
