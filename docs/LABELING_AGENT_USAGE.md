@@ -12,11 +12,11 @@ The labeling agent automates all aspects of labeling, status/priority enforcemen
 
 ## 2. **How It Works**
 
-- **Entry Point:**  
+- **Entry Point:**
   The agent is triggered via the `labeling.yml` workflow on issue and PR events.
-- **Config-Driven:**  
-  It uses `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml` for all canonical label/type logic.
-- **Modular Utilities:**  
+- **Config-Driven:**
+  It uses `.github/automation/labels.yml`, `.github/automation/labeler.yml`, and `.github/automation/issue-types.yml` for all canonical label/type logic.
+- **Modular Utilities:**
   The agent orchestrates core logic by calling a suite of shared utility modules in `scripts/utility/`, each responsible for one aspect (label lookup, type assignment, file/branch rules, reporting, etc.).
 
 ---
@@ -88,9 +88,9 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 
 ## 5. **Configuration & Files**
 
-- `.github/labels.yml`: Canonical label definitions (names, colors, aliases)
-- `.github/labeler.yml`: File/branch-based label rules
-- `.github/issue-types.yml`: Canonical issue type definitions
+- `.github/automation/labels.yml`: Canonical label definitions (names, colors, aliases)
+- `.github/automation/labeler.yml`: File/branch-based label rules
+- `.github/automation/issue-types.yml`: Canonical issue type definitions
 - `scripts/utility/`: Shared JS helpers for all agents/scripts
 
 ---
@@ -112,22 +112,22 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 
 ## 7. **Troubleshooting & Extension**
 
-- **Missing labels or types?**  
-  Check `.github/labels.yml` and `.github/issue-types.yml` for missing/typo entries.
-- **Label not applied as expected?**  
+- **Missing labels or types?**
+  Check `.github/automation/labels.yml` and `.github/automation/issue-types.yml` for missing/typo entries.
+- **Label not applied as expected?**
   Debug with utility tests in `scripts/utility/__tests__/`.
-- **Want to add a new heuristic or report?**  
+- **Want to add a new heuristic or report?**
   Add it as a new utility, write a test, and import it in the agent.
 
 ---
 
 ## 8. **References**
 
-- [labels.yml](../.github/labels.yml)
-- [labeler.yml](../.github/labeler.yml)
-- [issue-types.yml](../.github/issue-types.yml)
-- [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-- [Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
+- [labels.yml](../.github/automation/labels.yml)
+- [labeler.yml](../.github/automation/labeler.yml)
+- [issue-types.yml](../.github/automation/issue-types.yml)
+- [Coding Standards](../.github/instructions/coding-standards.instructions.md)
+- [Custom Instructions](../.github/custom-instructions.md)
 - [Main Agent Spec](../.github/agents/labeling.agent.md)
 
 ---
