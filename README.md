@@ -349,14 +349,14 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 
 ### Labels & Labeler Configuration
 
-- [labels.yml](https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml) – **Canonical label definitions** for all issues and PRs.
-- [labeler.yml](https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml) – Automated file/branch-based label application.
-- [ISSUE_LABELS.md](https://github.com/lightspeedwp/.github/blob/develop/.github/ISSUE_LABELS.md) – Issue label documentation.
-- [PR_LABELS.md](https://github.com/lightspeedwp/.github/blob/develop/.github/PR_LABELS.md) – PR label documentation.
+- [labels.yml](./.github/automation/labels.yml) – **Canonical label definitions** for all issues and PRs.
+- [labeler.yml](./.github/automation/labeler.yml) – Automated file/branch-based label application.
+- [ISSUE_LABELS.md](./.github/automation/ISSUE_LABELS.md) – Issue label documentation.
+- [PR_LABELS.md](./.github/automation/PR_LABELS.md) – PR label documentation.
 
 ### Issue Types & Templates
 
-- [issue-types.yml](https://github.com/lightspeedwp/.github/blob/develop/.github/issue-types.yml) – **Canonical issue types** for automation and triage.
+- [issue-types.yml](./.github/automation/issue-types.yml) – **Canonical issue types** for automation and triage.
 - [ISSUE_TYPES.md](https://github.com/lightspeedwp/.github/blob/develop/.github/ISSUE_TYPES.md) – Issue type documentation.
 - [Saved replies for issues](https://github.com/lightspeedwp/.github/blob/develop/.github/SAVED_REPLIES.md)
 - [Bug report saved reply](https://github.com/lightspeedwp/.github/blob/develop/.github/SAVED_REPLIES/issues/bug-reports.md)
@@ -366,7 +366,7 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 
 - [PR templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATES)
 - [PR_LABELS.md](https://github.com/lightspeedwp/.github/blob/develop/.github/PR_LABELS.md)
-- [Pull Request Template (main)](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
+- [Pull Request Template (main)](./.github/PULL_REQUEST_TEMPLATE.md)
 
 ### Workflows & Automation
 
@@ -391,11 +391,11 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 
 ### Coding & Contribution Guidelines
 
-- [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-- [HTML Templates](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/html-template.instructions.md)
-- [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/pattern-development.instructions.md)
-- [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/php-block.instructions.md)
-- [Theme JSON](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/theme-json.instructions.md)
+- [Coding Standards](./.github/instructions/coding-standards.instructions.md)
+- [HTML Templates](./.github/instructions/html-template.instructions.md)
+- [Pattern Development](./.github/instructions/pattern-development.instructions.md)
+- [PHP Block Instructions](./.github/instructions/php-block.instructions.md)
+- [Theme JSON](./.github/instructions/theme-json.instructions.md)
 
 ---
 
@@ -428,7 +428,7 @@ All LightSpeed repositories should:
 
 - Reference this repository for issue/PR templates, label and issue type configuration, and automation workflows.
 - Link to contribution and support guidelines found here.
-- Use the canonical `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml` for automation.
+- Use the canonical `.github/automation/labels.yml`, `.github/automation/labeler.yml`, and `.github/automation/issue-types.yml` for automation.
 - Adopt governance and coding standards maintained here.
 
 ---
@@ -738,21 +738,21 @@ Set up monitoring to ensure standards remain in sync:
 
 ## Troubleshooting & Adoption
 
-- **Labels/Types not applied:** Confirm your repo references `.github/labels.yml` and `.github/issue-types.yml` here.
+- **Labels/Types not applied:** Confirm your repo references `.github/automation/labels.yml` and `.github/automation/issue-types.yml` from this repository.
 - **Templates missing:** Ensure your repo points to `.github` for templates, or copies them from this repo.
-- **Automation issues:** Reference [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/.github/AUTOMATION_GOVERNANCE.md) for setup and troubleshooting.
+- **Automation issues:** Reference [AUTOMATION_GOVERNANCE.md](./.github/automation/AUTOMATION_GOVERNANCE.md) for setup and troubleshooting.
 - For any org-wide questions, open an issue or discussion in this repository.
 
 ---
 
 ## Quick Links
 
-- [Contributing Guidelines](https://github.com/lightspeedwp/.github/blob/develop/CONTRIBUTING.md)
-- [Support](https://github.com/lightspeedwp/.github/blob/develop/SUPPORT.md)
-- [Canonical Labels](https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml)
-- [Canonical Issue Types](https://github.com/lightspeedwp/.github/blob/develop/.github/issue-types.yml)
-- [Governance](https://github.com/lightspeedwp/.github/blob/develop/.github/AUTOMATION_GOVERNANCE.md)
-- [General Instructions](https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md)
+- [Contributing Guidelines](./CONTRIBUTING.md)
+- [Support](./SUPPORT.md)
+- [Canonical Labels](./.github/automation/labels.yml)
+- [Canonical Issue Types](./.github/automation/issue-types.yml)
+- [Governance](./.github/automation/AUTOMATION_GOVERNANCE.md)
+- [General Instructions](./.github/custom-instructions.md)
 
 - [Documentation Index (DOCS.md)](./DOCS.md)
 
@@ -798,8 +798,8 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 ### ⚙️ Configuration & Standards
 
-- [🏷️ Label Management](./.github/labels.yml) - Canonical label definitions
-- [📋 Issue Types](./.github/issue-types.yml) - Standardized issue categorization
+- [🏷️ Label Management](./.github/automation/labels.yml) - Canonical label definitions
+- [📋 Issue Types](./.github/automation/issue-types.yml) - Standardized issue categorization
 - [🔧 Coding Standards](./.github/instructions/coding-standards.instructions.md) - Development guidelines
 - [🎨 Linting Configuration](./docs/LINTING.md) - Code quality and formatting standards
 
