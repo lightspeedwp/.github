@@ -39,10 +39,10 @@ jobs:
           node-version: '20'
       - name: Install deps
         run: npm ci || true
-      - name: Run labeling agent
-        env:
-          DRY_RUN: ${{ inputs.dry_run || 'true' }}
-        run: node .github/agents/labeling.agent.js
+      # - name: Run labeling agent
+      #   env:
+      #     DRY_RUN: ${{ inputs.dry_run || 'true' }}
+      #   run: node .github/agents/labeling.agent.js
       - name: Generate report
         id: report
         run: |
