@@ -21,7 +21,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# TODO: read canonical labels from .github/automation/labels.yml
+# TODO: read canonical labels from .github/labels.yml
 # Apply: create/update labels
 # If $PRUNE, remove labels not in canonical set (respect deprecations list).
 # Honour $DRY to only print planned changes.
