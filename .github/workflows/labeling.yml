@@ -36,7 +36,7 @@ jobs:
         with:
           node-version: '20'
       - name: Install deps
-        run: npm ci || true
+        run: npm ci
       # - name: Run labeling agent
       #   env:
       #     DRY_RUN: ${{ inputs.dry_run || 'true' }}
