@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import glob from "glob";
+import { glob } from "glob";
 import matter from "gray-matter";
 import micromatch from "micromatch";
 import YAML from "js-yaml";
@@ -26,11 +26,7 @@ function loadConfig() {
 }
 
 async function listFiles(includeGlobs, excludeGlobs) {
-  const matches = await new Promise((resolve, reject) =>
-    glob("**/*", { dot: true, nodir: true }, (e, files) =>
-      e ? reject(e) : resolve(files)
-    )
-  );
+  const matches = await glob("**/*", { dot: true, nodir: true });
   const included = micromatch(matches, includeGlobs);
   return micromatch.not(included, excludeGlobs);
 }
