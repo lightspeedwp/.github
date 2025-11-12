@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/json-schema.json",
+  "includeGlobs": [
+    "**/*.md",
+    ".github/ISSUE_TEMPLATE/*.yml",
+    ".github/ISSUE_TEMPLATE/*.yaml"
+  ],
+  "excludeGlobs": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/CHANGELOG.md"
+  ],
+  "frontmatterEligible": {
+    "md": true,
+    "issue_template": true,
+    "pr_template": false,
+    "discussion_template": true
+  },
+  "thresholds": {
+    "coveragePctMin": 90,
+    "unknownKeysMax": 0,
+    "brokenRefsMax": 0,
+    "versionSkewMax": 0
+  },
+  "report": {
+    "issueTitle": "Weekly Frontmatter Metrics",
+    "storeJsonArtifact": true,
+    "artifactPath": "metrics/out/frontmatter-metrics.json",
+    "reportPath": "metrics/out/frontmatter-metrics.md"
+  },
+  "version": {
+    "repoVersionFile": "VERSION",
+    "enforceFileNotAboveRepo": true
+  }
+}
