@@ -78,20 +78,20 @@ We need to clarify the scope and precedence hierarchy between global AI instruct
 ## Additional Context
 
 **Suggested precedence hierarchy (lowest to highest):**
-1. **Global defaults** - Built-in Claude/AI model defaults
-2. **Organisation-level** - LightSpeed general instructions
-3. **Repository-level** - `.github/custom-instructions.md`
-4. **Agent-level** - Specific agent specs (e.g., `agents/code-review.md`)
-5. **Chat mode** - Active mode for current session (e.g., "accessibility audit mode")
+1. **global-defaults** - Built-in Claude/AI model defaults
+2. **organisation-level** - LightSpeed general instructions
+3. **repository-level** - `.github/custom-instructions.md`
+4. **agent-level** - Specific agent specs (e.g., `agents/code-review.md`)
+5. **chat-mode** - Active mode for current session (e.g., "accessibility audit mode")
 
 **Example header template:**
 ```markdown
 ---
 title: Repository Custom Instructions
 scope: repository
-precedence: 3
-overrides: [global, organisation]
-overridden_by: [agent, chat-mode]
+precedence: repository-level
+overrides: [global-defaults, organisation-level]
+overridden_by: [agent-level, chat-mode]
 ---
 
 # Custom Instructions
