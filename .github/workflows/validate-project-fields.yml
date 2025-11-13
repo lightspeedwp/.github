@@ -34,7 +34,6 @@ jobs:
       - name: Install dependencies (npm ci)
         if: steps.check_package.outputs.has_package == 'true'
         run: npm ci
-        continue-on-error: true
 
       - name: Install dependencies (manual)
         if: steps.check_package.outputs.has_package == 'false'

@@ -24,7 +24,7 @@ jobs:
           sudo apt-get install -y jq
 
       - name: Install yq
-        uses: mikefarah/yq@v4.44.2
+        uses: mikefarah/yq@6d4e6c6e0e2e2c1e2b7bde7cba1cc7a1c1b1c1b1
 
       - name: Build canonical YAML
         run: bash scripts/projects/build-project-fields-yml.sh
@@ -44,11 +44,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .github/automation/project-fields.yml
-          git commit -m "chore: rebuild project-fields.yml from fixtures
+          cat > commit-message.txt <<'EOF'
+          chore: rebuild project-fields.yml from fixtures
 
           Automated rebuild triggered by changes to CSV fixtures in scripts/projects/fixtures/
 
-          Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          EOF
+          git commit -F commit-message.txt
           git push
 
       - name: Summary

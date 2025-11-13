@@ -19,17 +19,25 @@ const args = process.argv.slice(2);
 const eventName = args.find(a => a.startsWith('--event'))?.split('=')[1];
 const payloadPath = args.find(a => a.startsWith('--payload'))?.split('=')[1];
 
-if (!eventName || !payloadPath) {
+if (
+  !eventName || typeof eventName !== 'string' || eventName.trim() === '' ||
+  !payloadPath || typeof payloadPath !== 'string' || payloadPath.trim() === ''
+) {
   console.error('Usage: project-meta-sync.js --event=<event_name> --payload=<path_to_payload>');
   process.exit(1);
 }
 
 // Load event payload
-const event = JSON.parse(fs.readFileSync(payloadPath, 'utf8'));
+let event;
+try {
+  event = JSON.parse(fs.readFileSync(payloadPath, 'utf8'));
+} catch (e) {
+  console.error('Failed to parse event payload:', e.message);
+  process.exit(1);
+}
 
 // Environment
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const PROJECT_URL = process.env.PROJECT_URL || process.env.LS_PROJECT_URL;
 
 if (!GITHUB_TOKEN) {
   console.error('❌ GITHUB_TOKEN not set');
@@ -37,11 +45,6 @@ if (!GITHUB_TOKEN) {
 }
 
 // GraphQL client
-const graphqlWithAuth = graphql.defaults({
-  headers: {
-    authorization: `token ${GITHUB_TOKEN}`,
-  },
-});
 
 /**
  * Load canonical project fields mapping (if present)
@@ -142,7 +145,7 @@ async function sync() {
   // TODO: Enforce single status:* label (warn or auto-tidy)
   const statusLabels = labels.filter(l => (l.name || l).startsWith('status:'));
   if (statusLabels.length > 1) {
-    console.warn(`⚠️  Multiple status labels found: ${statusLabels.map(l => l.name || l).join(', ')}`);
+    console.warn(`[WARN] Multiple status labels found: ${statusLabels.map(l => l.name || l).join(', ')}`);
     console.warn('Consider using label-sync to enforce single status label');
   }
 

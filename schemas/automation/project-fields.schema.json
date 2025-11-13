@@ -19,7 +19,7 @@
               "required": ["key", "slug", "type"],
               "properties": {
                 "key":  { "type": "string" },
-                "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+                "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
                 "type": { "enum": ["single_select", "text", "number", "multi_select"] },
                 "options": { "type": "array", "items": { "type": "string" } }
               },

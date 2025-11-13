@@ -17,6 +17,8 @@ set -euo pipefail
 FIX_DIR="scripts/projects/fixtures"
 OUT_YML=".github/automation/project-fields.yml"
 TMP_JSON="$(mktemp)"
+# Ensure cleanup of temporary files on exit, error, or interruption
+trap 'rm -f "$TMP_JSON" "$TMP_JSON.new"' EXIT ERR INT TERM
 
 # Initialize JSON structure
 jq -n '{schema:1, types:{}}' > "$TMP_JSON"
