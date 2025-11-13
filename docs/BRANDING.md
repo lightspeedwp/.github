@@ -20,6 +20,11 @@ references:
 
 # Branding Agent — Spec (develop)
 
+<!-- BADGES-START -->
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Workflow](https://img.shields.io/badge/workflow-branding-success.svg)
+<!-- BADGES-END -->
+
 The Branding Agent ensures consistent, professional presentation across all LightSpeed documentation by automatically applying headers, badges, references, banners, footers, and emojis according to defined schemas and content categories.
 
 ## Scope
