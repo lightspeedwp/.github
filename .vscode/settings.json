@@ -29,11 +29,13 @@
     "[markdown]": {
         "files.trimTrailingWhitespace": false,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+        "editor.wordWrap": "on"
     },
     "[yaml]": {
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "redhat.vscode-yaml"
+        "editor.defaultFormatter": "redhat.vscode-yaml",
+        "editor.tabSize": 2
     },
     "[typescript]": {
         "editor.formatOnSave": true,
