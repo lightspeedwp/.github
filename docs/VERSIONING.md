@@ -262,18 +262,18 @@ node scripts/versioning/bump-file-version.cjs --bulk "<pattern>" [patch|minor]
 node scripts/versioning/bump-file-version.cjs --help
 ```
 
-#### `scripts/maintenance/fix-references.js`
+#### `scripts/maintenance/fix-references.cjs`
 Validate and fix broken reference links in frontmatter:
 
 ```bash
 # Scan and fix all references
-node scripts/maintenance/fix-references.js
+node scripts/maintenance/fix-references.cjs
 
 # Show current fix map
-node scripts/maintenance/fix-references.js --fix-map
+node scripts/maintenance/fix-references.cjs --fix-map
 
 # Help
-node scripts/maintenance/fix-references.js --help
+node scripts/maintenance/fix-references.cjs --help
 ```
 
 ### Integration with CI/CD
