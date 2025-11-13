@@ -46,11 +46,6 @@ if (!GITHUB_TOKEN) {
 }
 
 // GraphQL client
-const graphqlWithAuth = graphql.defaults({
-  headers: {
-    authorization: `token ${GITHUB_TOKEN}`,
-  },
-});
 
 /**
  * Load canonical project fields mapping (if present)
