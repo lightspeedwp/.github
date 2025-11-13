@@ -4,6 +4,7 @@ version: 'v1.0'
 last_updated: '2025-11-13'
 author: 'LightSpeed'
 maintainer: 'Ash Shaw'
+owners: ['ashleyshaw']
 description: 'Automated branding system for headers, badges, references, banners, footers, and emojis in documentation.'
 tags: ['branding', 'automation', 'documentation', 'badges', 'emojis', 'workflows']
 file_type: 'documentation'
