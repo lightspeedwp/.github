@@ -11,7 +11,8 @@
         "Added": { "type": "array", "items": { "type": "string" } },
         "Changed": { "type": "array", "items": { "type": "string" } },
         "Fixed": { "type": "array", "items": { "type": "string" } }
-      }
+      },
+      "additionalProperties": false
     }
   },
   "required": ["version", "date"]
