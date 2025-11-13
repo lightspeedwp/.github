@@ -14,7 +14,5 @@ const validate = ajv.compile(schema);
 const files = glob.sync('**/*.md', { ignore: ['node_modules/**'] });
 
 let errors = 0;
-for (const f of files) {
-  // Extract and validate front-matter here (placeholder)
-}
+// TODO: For each file in `files`, extract and validate front-matter here.
 if (errors > 0) process.exit(1);
