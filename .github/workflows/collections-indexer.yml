@@ -12,9 +12,20 @@ on:
 jobs:
   index:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency:
+      group: collections-indexer-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm ci
       - name: Build index
-        run: node scripts/build-collections-index.ts
+        run: npx ts-node scripts/build-collections-index.ts
       - name: Validate references
-        run: node scripts/build-collections-index.ts --validate
+        run: npx ts-node scripts/build-collections-index.ts --validate
