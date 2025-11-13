@@ -44,11 +44,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .github/automation/project-fields.yml
-          git commit -m "chore: rebuild project-fields.yml from fixtures
+          cat > commit-message.txt <<'EOF'
+          chore: rebuild project-fields.yml from fixtures
 
           Automated rebuild triggered by changes to CSV fixtures in scripts/projects/fixtures/
 
-          Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          EOF
+          git commit -F commit-message.txt
           git push
 
       - name: Summary
