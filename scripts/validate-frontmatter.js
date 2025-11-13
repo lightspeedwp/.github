@@ -8,8 +8,6 @@ const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
 
 const schema = JSON.parse(fs.readFileSync('.github/automation/schemas/frontmatter.schema.json', 'utf8'));
-const validate = ajv.compile(schema);
-
 // TODO: implement front-matter extraction (YAML header) for .md files
 const files = glob.globSync('**/*.md', { ignore: ['node_modules/**'] });
 
