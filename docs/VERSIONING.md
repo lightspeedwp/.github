@@ -143,3 +143,142 @@ git push origin main --tags
 5. **Follow WordPress and SemVer guidelines**
 6. **Automate version updates and verification** whenever possible
 7. **Communicate changes** to users via changelog and release notes
+
+---
+
+## Alternative: Per-File Versioning Strategy (Experimental)
+
+> **Note**: This is an alternative versioning approach for documentation and configuration files. The unified versioning strategy above remains the recommended default.
+
+### Overview
+
+For documentation-heavy repositories (like `.github`), individual files may evolve independently. This strategy allows per-file semantic versioning whilst maintaining coordination with the repository version.
+
+### Rules
+
+- **Repository version** (`/VERSION`): Uses `X.Y.0` format for coordinated releases
+- **File version** (`version:` in frontmatter): Independent `X.Y.Z` versioning per file
+- **Guardrail**: A file's minor version (`X.Y`) **must not exceed** the repository's minor version
+
+### Version Bump Types
+
+#### Patch Bump (`X.Y.Z` → `X.Y.Z+1`)
+- Content edits, typo fixes, clarifications
+- No schema or structural changes
+- Safe for all consumers
+
+#### Minor Bump (`X.Y.Z` → `X.Y+1.0`)
+- Schema-related key changes in that file
+- New required fields or breaking changes for agents
+- Must not exceed repository minor version
+
+### Examples
+
+**Scenario 1: Edit instruction prose**
+- Current: `version: 0.1.3`
+- Action: Fix typos, clarify instructions
+- Result: `version: 0.1.4` (patch bump)
+
+**Scenario 2: Add required frontmatter field**
+- Current: `version: 0.2.5`, Repo: `0.2.0`
+- Action: Add new required `applyTo` field
+- Result: Cannot bump to `0.3.0` (would exceed repo `0.2.0`)
+- Must wait for repo bump to `0.3.0` first
+
+**Scenario 3: Coordinated release**
+- Repo bumps: `0.2.0` → `0.3.0`
+- Files with breaking changes: bump to `0.3.0`
+- Files with only content edits: remain at `0.2.x` or bump patch
+
+### Guardrails
+
+A file **must not** have a minor version exceeding the repository minor version:
+
+- ✓ File `0.2.8` with Repo `0.2.0` (valid)
+- ✓ File `0.2.0` with Repo `0.3.0` (valid)
+- ✗ File `0.3.0` with Repo `0.2.0` (invalid - exceeds repo minor)
+
+### Automation
+
+Use `scripts/versioning/bump-file-version.js` for single or bulk version bumps:
+
+```bash
+# Bump patch version of a single file
+node scripts/versioning/bump-file-version.js .github/instructions/coding-standards.instructions.md patch
+
+# Bump minor version (with guardrail check)
+node scripts/versioning/bump-file-version.js .github/prompts/review.prompt.md minor
+
+# Bulk bump patch versions
+node scripts/versioning/bump-file-version.js --bulk ".github/instructions/**/*.md" patch
+```
+
+The script will:
+- Automatically update the `version` field
+- Update `last_updated` to current date
+- Enforce the guardrail (file minor ≤ repo minor)
+- Exit with error if guardrail would be violated
+
+### CI Validation
+
+Add a CI check to ensure file versions don't exceed repository version:
+
+```yaml
+- name: Validate file versions
+  run: |
+    REPO_VERSION=$(cat VERSION)
+    node scripts/versioning/validate-versions.js --repo-version $REPO_VERSION
+```
+
+### When to Use
+
+**Use per-file versioning when:**
+- Documentation/instructions evolve independently
+- Fine-grained change tracking is valuable
+- Multiple maintainers update different files
+
+**Use unified versioning when:**
+- Coordinated releases are preferred
+- Simplicity is more important than granularity
+- All files change together
+
+---
+
+## Automation Scripts
+
+### Available Scripts
+
+#### `scripts/versioning/bump-file-version.cjs`
+Bump individual or bulk file versions with guardrails:
+
+```bash
+# Single file
+node scripts/versioning/bump-file-version.cjs <file> [patch|minor]
+
+# Bulk update
+node scripts/versioning/bump-file-version.cjs --bulk "<pattern>" [patch|minor]
+
+# Help
+node scripts/versioning/bump-file-version.cjs --help
+```
+
+#### `scripts/maintenance/fix-references.cjs`
+Validate and fix broken reference links in frontmatter:
+
+```bash
+# Scan and fix all references
+node scripts/maintenance/fix-references.cjs
+
+# Show current fix map
+node scripts/maintenance/fix-references.cjs --fix-map
+
+# Help
+node scripts/maintenance/fix-references.cjs --help
+```
+
+### Integration with CI/CD
+
+Consider adding these scripts to GitHub Actions workflows for:
+- Pre-commit hooks (validate versions before commit)
+- Pull request checks (ensure references are valid)
+- Release automation (bulk bump versions on release)
