@@ -26,12 +26,18 @@ jobs:
         id: changed
         uses: tj-actions/changed-files@v45
 
+      - name: Changed Markdown files
+        id: changed_md
+        uses: tj-actions/changed-files@v45
+        with:
+          files: '**/*.md'
+
       - name: yamllint
         if: contains(steps.changed.outputs.all_modified_files, '.yml') || contains(steps.changed.outputs.all_modified_files, '.yaml')
         run: yamllint .
 
       - name: markdownlint
-        if: contains(steps.changed.outputs.all_modified_files, '.md')
+        if: steps.changed_md.outputs.any_modified == 'true'
         run: npx markdownlint '**/*.md' --config .markdownlint.jsonc
 
       - name: actionlint
