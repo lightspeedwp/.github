@@ -2,70 +2,73 @@
 # Canonical project labeler (Issues + PRs)
 # Maps branch patterns and content patterns to project labels
 # Keeps label names in sync with project fields options
+#
+# Regex syntax: Patterns must use single backslashes (e.g., /\bword\b/i), not double-escaped (e.g., /\\bword\\b/i).
+# Write regex as unescaped literals, as expected by most YAML-based labelers.
 
 rules:
   # Status labels (map to Status field)
   status:
     - label: "status:in-progress"
       when:
-        pr_title: "/\\bWIP\\b/i"
-        pr_branch: "/^(feat|fix|docs?|chore|build)\\//i"
-        issue_title: "/\\bIn progress\\b/i"
+        pr_title: "/\bWIP\b/i"
+        pr_branch: "/^(feat|fix|docs?|chore|build)\//i"
+        issue_title: "/\bIn progress\b/i"
     - label: "status:needs-review"
       when:
         pr_draft: false
-        pr_title: "!/\\bWIP\\b/i"
+        pr_title: "!/\bWIP\b/i"
     - label: "status:blocked"
       when:
-        issue_body: "/\\bblocked\\b/i"
-        pr_body: "/\\bblocked\\b/i"
+        issue_body: "/\bblocked\b/i"
+        pr_body: "/\bblocked\b/i"
 
   # Priority labels (map to Priority field)
   priority:
     - label: "priority:critical"
       when:
-        issue_body: "/\\b(critical|urgent|P0)\\b/i"
-        pr_body: "/\\b(critical|urgent|P0)\\b/i"
+        issue_body: "/\b(critical|urgent|P0)\b/i"
+        pr_body: "/\b(critical|urgent|P0)\b/i"
     - label: "priority:important"
       when:
-        issue_body: "/\\b(important|high priority|P1)\\b/i"
-        pr_body: "/\\b(important|high priority|P1)\\b/i"
-        pr_branch: "/^feat\\//i"
+        issue_body: "/\b(important|high priority|P1)\b/i"
+        pr_body: "/\b(important|high priority|P1)\b/i"
+        pr_branch: "/^feat\//i"
     - label: "priority:normal"
       when:
-        issue_body: "/\\b(normal|medium priority|P2)\\b/i"
-        pr_body: "/\\b(normal|medium priority|P2)\\b/i"
+        issue_body: "/\b(normal|medium priority|P2)\b/i"
+        pr_body: "/\b(normal|medium priority|P2)\b/i"
 
   # Type labels (map to Type field)
   type:
     - label: "type:feature"
       when:
-        pr_branch: "/^feat\\//i"
-        issue_body: "/\\b(feature|enhancement)\\b/i"
+        pr_branch: "/^feat\//i"
+        issue_body: "/\b(feature|enhancement)\b/i"
     - label: "type:bug"
       when:
-        pr_branch: "/^fix\\//i"
-        issue_body: "/\\b(bug|fix|defect)\\b/i"
+        pr_branch: "/^fix\//i"
+        issue_body: "/\b(bug|fix|defect)\b/i"
     - label: "type:documentation"
       when:
-        pr_branch: "/^docs?\\//i"
-        issue_body: "/\\b(documentation|docs)\\b/i"
+        pr_branch: "/^docs?\//i"
+        issue_body: "/\b(documentation|docs)\b/i"
     - label: "type:task"
       when:
-        pr_branch: "/^(chore|build)\\//i"
-        issue_body: "/\\b(task|chore)\\b/i"
+        pr_branch: "/^(chore|build)\//i"
+        issue_body: "/\b(task|chore)\b/i"
 
   # Area labels (map to Area field)
   area:
     - label: "area:frontend"
       when:
-        pr_files: "/\\.(jsx?|tsx?|css|scss|vue)$/i"
+        pr_files: "/\.(jsx?|tsx?|css|scss|vue)$/i"
     - label: "area:backend"
       when:
-        pr_files: "/\\.php$/i"
+        pr_files: "/\.php$/i"
     - label: "area:build-ci"
       when:
-        pr_files: "/(package\\.json|\\.github\\/workflows)/i"
+        pr_files: "/(package\.json|\.github\/workflows)/i"
 
 # TODO: Add theme labels when project field mapping is complete
 # TODO: Harmonise with labels.yml canonical label definitions
