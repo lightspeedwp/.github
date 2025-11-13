@@ -10,7 +10,7 @@ const path = require('path');
 const yaml = require('js-yaml');
 const Ajv = require('ajv');
 
-const SCHEMA_PATH = path.resolve('.github/automation/project-fields.schema.json');
+const SCHEMA_PATH = path.resolve('schemas/automation/project-fields.schema.json');
 const FIELDS_PATH = path.resolve('.github/automation/project-fields.yml');
 
 try {

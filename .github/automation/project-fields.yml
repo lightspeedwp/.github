@@ -1,0 +1,228 @@
+schema: 1
+types:
+  product-development:
+    project_name: product-development
+    fields:
+      - key: Theme
+        slug: theme
+        type: single_select
+        options:
+          - Design System
+          - Content Management
+          - Commerce (WooCommerce)
+          - Editorial UX (Authoring)
+          - Performance
+          - Accessibility (A11y)
+          - Security & Privacy
+          - Integrations & APIs
+          - Internationalisation (i18n)
+          - Analytics & Measurement
+          - SEO
+          - Release & Deployment
+      - key: Area
+        slug: area
+        type: single_select
+        options:
+          - Frontend
+          - Backend
+          - Build & CI
+          - Deployment/DevOps
+          - Design System
+          - Analytics
+          - A11y
+      - key: Priority
+        slug: priority
+        type: single_select
+        options:
+          - High
+          - Medium
+          - Low
+      - key: Severity
+        slug: severity
+        type: single_select
+        options:
+          - S0  Blocker
+          - S1  Critical
+          - S2  Major
+          - S3  Minor
+          - S4  Trivial
+      - key: Size
+        slug: size
+        type: single_select
+        options:
+          - 0  Unknown
+          - 1  XS
+          - 2  S
+          - 3  M
+          - 4  L
+          - 5  XL
+          - 6  XXL
+      - key: Release type
+        slug: release-type
+        type: single_select
+        options:
+          - Major
+          - Minor
+          - Patch
+          - Hotfix
+      - key: Story Points
+        slug: story-points
+        type: number
+      - key: Due Date
+        slug: due-date
+        type: date
+      - key: Assignee
+        slug: assignee
+        type: text
+  client-delivery:
+    project_name: client-delivery
+    fields:
+      - key: Theme
+        slug: theme
+        type: single_select
+        options:
+          - Design System
+          - Content Management
+          - Commerce (WooCommerce)
+          - Editorial UX (Authoring)
+          - Performance
+          - Accessibility (A11y)
+          - Security & Privacy
+          - Integrations & APIs
+          - Internationalisation (i18n)
+          - Analytics & Measurement
+          - SEO
+          - Release & Deployment
+      - key: Area
+        slug: area
+        type: single_select
+        options:
+          - Frontend
+          - Backend
+          - Build & CI
+          - Deployment/DevOps
+          - Design System
+          - Content
+          - Analytics
+          - A11y
+      - key: Priority
+        slug: priority
+        type: single_select
+        options:
+          - High
+          - Medium
+          - Low
+      - key: Severity
+        slug: severity
+        type: single_select
+        options:
+          - S0  Blocker
+          - S1  Critical
+          - S2  Major
+          - S3  Minor
+          - S4  Trivial
+      - key: Size
+        slug: size
+        type: single_select
+        options:
+          - 0  Unknown
+          - 1  XS
+          - 2  S
+          - 3  M
+          - 4  L
+          - 5  XL
+          - 6  XXL
+      - key: Phase
+        slug: phase
+        type: single_select
+        options:
+          - Pre-launch
+          - Post-launch
+      - key: Story Points
+        slug: story-points
+        type: number
+      - key: Due Date
+        slug: due-date
+        type: date
+      - key: Assignee
+        slug: assignee
+        type: text
+  project-dev:
+    project_name: project-dev
+    fields:
+      - key: Theme
+        slug: theme
+        type: single_select
+        options:
+          - Design System
+          - Content Management
+          - Commerce (WooCommerce)
+          - Editorial UX (Authoring)
+          - Performance
+          - Accessibility (A11y)
+          - Security & Privacy
+          - Integrations & APIs
+          - Internationalisation (i18n)
+          - Analytics & Measurement
+          - SEO
+          - Release & Deployment
+      - key: Area
+        slug: area
+        type: single_select
+        options:
+          - Frontend
+          - Backend
+          - Build & CI
+          - Deployment/DevOps
+          - Design System
+          - Analytics
+          - A11y
+      - key: Priority
+        slug: priority
+        type: single_select
+        options:
+          - High
+          - Medium
+          - Low
+      - key: Severity
+        slug: severity
+        type: single_select
+        options:
+          - S0  Blocker
+          - S1  Critical
+          - S2  Major
+          - S3  Minor
+          - S4  Trivial
+      - key: Size
+        slug: size
+        type: single_select
+        options:
+          - 0  Unknown
+          - 1  XS
+          - 2  S
+          - 3  M
+          - 4  L
+          - 5  XL
+          - 6  XXL
+      - key: Release type
+        slug: release-type
+        type: single_select
+        options:
+          - Minor
+          - Patch
+          - Hotfix
+      - key: Milestone
+        slug: milestone
+        type: text
+      - key: Estimate
+        slug: estimate
+        type: number
+      - key: Start Date
+        slug: start-date
+        type: date
+      - key: Deadline
+        slug: deadline
+        type: date
+      - key: Assignee
+        slug: assignee
+        type: text

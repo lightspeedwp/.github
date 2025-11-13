@@ -1,72 +1,249 @@
----
-# Canonical project labeler (Issues + PRs)
-# Maps branch patterns and content patterns to project labels
-# Keeps label names in sync with project fields options
+# Canonical Project Labeler (Issues + PRs)
+# Maps branch patterns, file changes, and content patterns to canonical labels
+# Harmonised with labels.yml and replaces project-pr-labeler.yml
+# All labels reference the canonical definitions in labels.yml
 
-rules:
-  # Status labels (map to Status field)
-  status:
-    - label: "status:in-progress"
-      when:
-        pr_title: "/\\bWIP\\b/i"
-        pr_branch: "/^(feat|fix|docs?|chore|build)\\//i"
-        issue_title: "/\\bIn progress\\b/i"
-    - label: "status:needs-review"
-      when:
-        pr_draft: false
-        pr_title: "!/\\bWIP\\b/i"
-    - label: "status:blocked"
-      when:
-        issue_body: "/\\bblocked\\b/i"
-        pr_body: "/\\bblocked\\b/i"
+# Status labels (map to Status field in ProjectV2)
+"status:needs-review":
+  - head-branch: ['^feat/.*', '^fix/.*', '^docs?/.*', '^(chore|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry)/.*']
 
-  # Priority labels (map to Priority field)
-  priority:
-    - label: "priority:critical"
-      when:
-        issue_body: "/\\b(critical|urgent|P0)\\b/i"
-        pr_body: "/\\b(critical|urgent|P0)\\b/i"
-    - label: "priority:important"
-      when:
-        issue_body: "/\\b(important|high priority|P1)\\b/i"
-        pr_body: "/\\b(important|high priority|P1)\\b/i"
-        pr_branch: "/^feat\\//i"
-    - label: "priority:normal"
-      when:
-        issue_body: "/\\b(normal|medium priority|P2)\\b/i"
-        pr_body: "/\\b(normal|medium priority|P2)\\b/i"
+# Priority labels (map to Priority field in ProjectV2)
+"priority:critical":
+  - head-branch: ['^hotfix/.*']
+"priority:normal":
+  - head-branch: ['^feat/.*', '^fix/.*', '^docs/.*', '^chore/.*']
 
-  # Type labels (map to Type field)
-  type:
-    - label: "type:feature"
-      when:
-        pr_branch: "/^feat\\//i"
-        issue_body: "/\\b(feature|enhancement)\\b/i"
-    - label: "type:bug"
-      when:
-        pr_branch: "/^fix\\//i"
-        issue_body: "/\\b(bug|fix|defect)\\b/i"
-    - label: "type:documentation"
-      when:
-        pr_branch: "/^docs?\\//i"
-        issue_body: "/\\b(documentation|docs)\\b/i"
-    - label: "type:task"
-      when:
-        pr_branch: "/^(chore|build)\\//i"
-        issue_body: "/\\b(task|chore)\\b/i"
+# Type labels (map to Type field in ProjectV2)
+"type:feature":
+  - head-branch: ['^feat/.*']
+"type:bug":
+  - head-branch: ['^fix/.*', '^hotfix/.*']
+"type:documentation":
+  - head-branch: ['^docs/.*']
+"type:chore":
+  - head-branch: ['^chore/.*', '^build/.*', '^ci/.*']
+"type:refactor":
+  - head-branch: ['^refactor/.*']
+"type:test":
+  - head-branch: ['^test/.*']
+"type:performance":
+  - head-branch: ['^perf/.*']
+"type:design":
+  - head-branch: ['^design/.*']
+"type:a11y":
+  - head-branch: ['^a11y/.*']
+"type:qa":
+  - head-branch: ['^qa/.*', '^uat/.*']
+"type:security":
+  - head-branch: ['^security/.*']
+  - changed-files:
+      any-glob-to-any-file: ['security/**/*']
+"type:release":
+  - head-branch: ['^release/.*']
+"type:content-modelling":
+  - head-branch: ['^content/.*', '^schema/.*']
+"type:ai-ops":
+  - head-branch: ['^telemetry/.*', '^analytics/.*']
+"type:integration":
+  - head-branch: ['^api/.*', '^integration/.*']
+"type:research":
+  - head-branch: ['^research/.*', '^proto/.*']
 
-  # Area labels (map to Area field)
-  area:
-    - label: "area:frontend"
-      when:
-        pr_files: "/\\.(jsx?|tsx?|css|scss|vue)$/i"
-    - label: "area:backend"
-      when:
-        pr_files: "/\\.php$/i"
-    - label: "area:build-ci"
-      when:
-        pr_files: "/(package\\.json|\\.github\\/workflows)/i"
+# Area labels (map to Area field in ProjectV2)
+"area:block-editor":
+  - changed-files:
+      any-glob-to-any-file: ['src/blocks/**', 'src/block-editor/**', '**/block.json', 'comp:block-editor/**']
+"area:theme":
+  - changed-files:
+      any-glob-to-any-file: ['**/theme.json', '**/templates/**', '**/patterns/**', '**/parts/**', 'theme/**/*', 'style.css', 'functions.php', 'assets/**/*', 'design-system/**/*']
+"area:ci":
+  - changed-files:
+      any-glob-to-any-file: ['.github/workflows/**', '.github/actions/**', 'ci/**/*']
+"area:documentation":
+  - changed-files:
+      any-glob-to-any-file: ['**/*.md', '**/*.txt', 'docs/**', 'README.md', '**/README.md', 'CHANGELOG.md', '**/CHANGELOG.md']
+"area:tests":
+  - changed-files:
+      any-glob-to-any-file: ['tests/**/*', '**/*.test.*', '**/*.spec.*', '**/__tests__/**', 'playwright.config.js', '.github/linters/phpunit.xml']
+"area:scripts":
+  - changed-files:
+      any-glob-to-any-file: ['scripts/**/*', '**/*.sh', '**/*.bash', 'utility/**/*']
+"area:assets":
+  - changed-files:
+      any-glob-to-any-file: ['assets/**/*', 'images/**/*', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg', '**/*.ico', '**/*.webp']
+"area:woocommerce":
+  - changed-files:
+      any-glob-to-any-file: ['woocommerce/**/*', '**/woocommerce*.css', '**/woocommerce*.php', '**/woocommerce*.js']
+"area:core":
+  - changed-files:
+      any-glob-to-any-file: ['src/core/**', 'core/**/*']
 
-# TODO: Add theme labels when project field mapping is complete
-# TODO: Harmonise with labels.yml canonical label definitions
-# TODO: Add branch pattern rules for release types (major, minor, patch, hotfix)
+# Language labels
+"lang:php":
+  - changed-files:
+      any-glob-to-any-file: ['**/*.php', 'composer.json', 'composer.lock', 'phpunit.xml']
+"lang:javascript":
+  - changed-files:
+      any-glob-to-any-file: ['**/*.{js,jsx,ts,tsx}', 'package.json', 'package-lock.json', 'tsconfig.json']
+"lang:css":
+  - changed-files:
+      any-glob-to-any-file: ['**/*.{css,scss,sass,less}']
+
+# Release type labels (map to Release Type field in ProjectV2)
+"release:major":
+  - head-branch: ['^release/major/.*', '^release/v?[0-9]+\\.0\\.0.*']
+"release:minor":
+  - head-branch: ['^release/minor/.*', '^release/v?[0-9]+\\.[0-9]+\\.0.*']
+"release:patch":
+  - head-branch: ['^release/patch/.*', '^patch/.*', '^release/v?[0-9]+\\.[0-9]+\\.[1-9].*']
+
+# Meta labels
+"meta:needs-changelog":
+  - changed-files:
+      all-globs-to-any-file: ['!CHANGELOG.md', '!**/CHANGELOG.md', '**/*.{php,js,jsx,ts,tsx,css,scss}']
+"meta:changelog":
+  - changed-files:
+      any-glob-to-any-file: ['CHANGELOG.md', '**/CHANGELOG.md']
+
+# Contributor labels
+"contrib:good-first-issue":
+  - changed-files:
+      any-glob-to-any-file: []
+"contrib:help-wanted":
+  - changed-files:
+      any-glob-to-any-file: []
+
+# Additional area/component labels from project-pr-labeler
+"area:analytics":
+  - changed-files:
+      any-glob-to-any-file: ['analytics/**/*']
+"area:forms":
+  - changed-files:
+      any-glob-to-any-file: ['forms/**/*']
+"area:gallery":
+  - changed-files:
+      any-glob-to-any-file: ['gallery/**/*']
+"area:emails":
+  - changed-files:
+      any-glob-to-any-file: ['emails/**/*']
+"area:navigation":
+  - changed-files:
+      any-glob-to-any-file: ['navigation/**/*']
+"area:configuration":
+  - changed-files:
+      any-glob-to-any-file: ['.github/**/*.yml', '.github/**/*.yaml', '.github/linters/**/*', '.stylelintrc.json', '.eslintrc.json', 'phpcs.xml', 'phpunit.xml', 'webpack.config.js', '*.json', '*.yml', '*.yaml', '.editorconfig', '.gitignore']
+"area:monitoring":
+  - changed-files:
+      any-glob-to-any-file: ['monitoring/**/*']
+
+# Pattern, Template, Block labels
+"pattern":
+  - changed-files:
+      any-glob-to-any-file: ['patterns/**/*']
+"template":
+  - changed-files:
+      any-glob-to-any-file: ['templates/**/*', 'parts/**/*']
+"template-part":
+  - changed-files:
+      any-glob-to-any-file: ['template-parts/**/*']
+"block":
+  - changed-files:
+      any-glob-to-any-file: ['src/blocks/**/*', '**/block.json']
+
+# Theme tokens
+"theme:tokens":
+  - changed-files:
+      any-glob-to-any-file: ['theme.json', 'tokens/*.json', 'design-system/tokens/**/*']
+
+# Build
+"build":
+  - changed-files:
+      any-glob-to-any-file: ['build/**/*']
+
+# Device, Environment, Phase, Page labels
+"device:mobile":
+  - changed-files:
+      any-glob-to-any-file: ['**/*mobile*.*']
+"device:desktop":
+  - changed-files:
+      any-glob-to-any-file: ['**/*desktop*.*']
+"device:tablet-landscape":
+  - changed-files:
+      any-glob-to-any-file: ['**/*tablet-landscape*.*']
+"device:tablet-portrait":
+  - changed-files:
+      any-glob-to-any-file: ['**/*tablet-portrait*.*']
+"layout:grid":
+  - changed-files:
+      any-glob-to-any-file: ['**/grid*.*']
+"env:staging":
+  - changed-files:
+      any-glob-to-any-file: ['**/*staging*.*']
+"env:live":
+  - changed-files:
+      any-glob-to-any-file: ['**/*live*.*']
+"phase:post-launch":
+  - changed-files:
+      any-glob-to-any-file: ['**/*post-launch*.*']
+"phase:pre-launch":
+  - changed-files:
+      any-glob-to-any-file: ['**/*pre-launch*.*']
+"page:home":
+  - changed-files:
+      any-glob-to-any-file: ['**/*home*.*']
+"page:faq":
+  - changed-files:
+      any-glob-to-any-file: ['**/*faq*.*']
+
+# Additional type labels
+"type:compliance":
+  - changed-files:
+      any-glob-to-any-file: ['compliance/**/*']
+"type:accessibility-audit":
+  - changed-files:
+      any-glob-to-any-file: ['a11y/**/*', 'accessibility/**/*']
+"type:deprecation":
+  - changed-files:
+      any-glob-to-any-file: ['deprecate/**/*']
+"type:audit":
+  - changed-files:
+      any-glob-to-any-file: ['audit/**/*']
+
+# Additional release labels
+"release:hotfix":
+  - head-branch: ['^hotfix/.*']
+  - changed-files:
+      any-glob-to-any-file: ['hotfix/**/*']
+"release:beta":
+  - changed-files:
+      any-glob-to-any-file: ['beta/**/*']
+"release:rc":
+  - changed-files:
+      any-glob-to-any-file: ['rc/**/*']
+
+# Discussion labels (for reference/documentation)
+"discussion:announcement":
+  - changed-files:
+      any-glob-to-any-file: []
+"discussion:showcase":
+  - changed-files:
+      any-glob-to-any-file: []
+"discussion:community":
+  - changed-files:
+      any-glob-to-any-file: []
+"discussion:feedback":
+  - changed-files:
+      any-glob-to-any-file: []
+"discussion:support":
+  - changed-files:
+      any-glob-to-any-file: []
+"discussion:sponsorship":
+  - changed-files:
+      any-glob-to-any-file: []
+"discussion:partnership":
+  - changed-files:
+      any-glob-to-any-file: []
+
+# Note: Status labels like 'status:in-progress', 'status:blocked', 'status:needs-qa'
+# are better managed through the project-meta-sync workflow based on label changes
+# and issue/PR state, rather than file patterns.

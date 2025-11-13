@@ -5,7 +5,7 @@ on:
     branches: [develop]
     paths:
       - '.github/automation/project-fields.yml'
-      - '.github/automation/project-fields.schema.json'
+      - 'schemas/automation/project-fields.schema.json'
       - 'scripts/projects/**'
 permissions:
   contents: read
