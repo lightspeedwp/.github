@@ -121,11 +121,15 @@
         "lint:md": "markdownlint '**/*.md' --fix",
         "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
         "format:md": "prettier '**/*.md' --write && markdownlint '**/*.md' --fix",
+<<<<<<< Updated upstream
         "format": "npm run format:js && npm run format:md",
+=======
+    "format": "npm run format:js && npm run format:md",
+>>>>>>> Stashed changes
         "sync-version": "node scripts/sync-version.js",
         "metrics:run": "node metrics/frontmatter-metrics.js",
         "metrics:ci": "node metrics/frontmatter-metrics.js",
-        "test:js": "jest --coverage --forceExit --detectOpenHandles",
+        "test:js": "jest --config jest.config.cjs --coverage --forceExit --detectOpenHandles",
         "test": "npm run test:js",
         "contributors:add": "all-contributors add",
         "contributors:generate": "all-contributors generate",

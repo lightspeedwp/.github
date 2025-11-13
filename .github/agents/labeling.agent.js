@@ -1,7 +1,7 @@
 /**
  * Unified Labeling Agent for LightSpeedWP
  * Applies, enforces, and standardizes labels on issues and PRs.
- * Uses canonical config from .github/labels.yml, .github/labeler.yml, .github/issue-types.yml.
+ * Uses canonical config from .github/automation/labels.yml, .github/automation/labeler.yml, .github/automation/issue-types.yml.
  * Replaces all prior split agents.
  *
  * @module labeling.agent.js
@@ -15,33 +15,48 @@ const github = require('@actions/github');
 const {
     buildLabelAliasMap,
     findStandardLabel,
-} = require('../../scripts/utility/label-lookup');
+} = require('./includes/label-lookup');
 const {
     enforceOneHotStatus,
     applyDefaultStatus,
     applyDefaultPriority,
-} = require('../../scripts/utility/status-enforcer');
+} = require('./includes/status-enforcer');
 const {
     buildLabelingReport,
-} = require('../../scripts/utility/label-reporting');
+} = require('./includes/label-reporting');
+
+// Environment configurable paths (fallback to repo defaults)
+const LABELS_CONFIG = process.env.LABELS_CONFIG || '.github/automation/labels.yml';
+const ISSUE_TYPES_CONFIG = process.env.ISSUE_TYPES_CONFIG || '.github/automation/issue-types.yml'; // reserved for later phases
+const LABELER_RULES = process.env.LABELER_RULES || '.github/automation/labeler.yml'; // reserved for later phases
+
+function readYamlArrayFile(path, purpose) {
+    if (!fs.existsSync(path)) {
+        throw new Error(`[labeling.agent] Missing ${purpose} file at: ${path}`);
+    }
+    const raw = fs.readFileSync(path, 'utf8');
+    const data = yaml.load(raw);
+    if (!Array.isArray(data)) {
+        throw new Error(`[labeling.agent] Expected array in ${purpose} file: ${path}`);
+    }
+    return data;
+}
 
 /**
- * Loads canonical label definitions from .github/labels.yml.
+ * Loads canonical label definitions from LABELS_CONFIG.
  * @returns {Set<string>} Set of canonical label names.
  */
 function loadCanonicalLabels() {
-    const yml = fs.readFileSync('.github/labels.yml', 'utf8');
-    const labelsData = yaml.load(yml);
+    const labelsData = readYamlArrayFile(LABELS_CONFIG, 'labels config');
     return new Set(labelsData.map((l) => (typeof l === 'string' ? l : l.name)));
 }
 
 /**
- * Loads alias mapping from .github/labels.yml.
+ * Loads alias mapping from LABELS_CONFIG.
  * @returns {Object} aliasMap - Maps alias to canonical label.
  */
 function loadAliasMap() {
-    const yml = fs.readFileSync('.github/labels.yml', 'utf8');
-    const labelsData = yaml.load(yml);
+    const labelsData = readYamlArrayFile(LABELS_CONFIG, 'labels config');
     return buildLabelAliasMap(labelsData);
 }
 
@@ -132,9 +147,15 @@ async function runLabelingAgent(opts = {}) {
         return;
     }
 
-    // Load canonical set and alias map
-    const canonicalSet = loadCanonicalLabels();
-    const aliasMap = loadAliasMap();
+    // Load canonical set and alias map using env-driven paths
+    let canonicalSet, aliasMap;
+    try {
+        canonicalSet = loadCanonicalLabels();
+        aliasMap = loadAliasMap();
+    } catch (e) {
+        core.setFailed(e.message);
+        return;
+    }
 
     // Get current labels
     const currentLabels = isIssue
@@ -203,6 +224,8 @@ async function runLabelingAgent(opts = {}) {
         dryRun,
         core.info
     );
+
+    core.info(`[labeling.agent] Completed env-driven labeling run (LABELS_CONFIG=${LABELS_CONFIG}, DRY_RUN=${dryRun}).`);
 }
 
 if (require.main === module) {
