@@ -19,7 +19,10 @@ const args = process.argv.slice(2);
 const eventName = args.find(a => a.startsWith('--event'))?.split('=')[1];
 const payloadPath = args.find(a => a.startsWith('--payload'))?.split('=')[1];
 
-if (!eventName || !payloadPath) {
+if (
+  !eventName || typeof eventName !== 'string' || eventName.trim() === '' ||
+  !payloadPath || typeof payloadPath !== 'string' || payloadPath.trim() === ''
+) {
   console.error('Usage: project-meta-sync.js --event=<event_name> --payload=<path_to_payload>');
   process.exit(1);
 }
