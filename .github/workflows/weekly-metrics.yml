@@ -21,5 +21,8 @@ jobs:
           git config user.name "lightspeed-bot"
           git config user.email "bot@lightspeedwp.agency"
           git add .github/reports/weekly-health.md
-          git commit -m "chore(reports): update weekly health (seed)" || echo "No changes"
-          git push || true
+          if git commit -m "chore(reports): update weekly health (seed)"; then
+            git push
+          else
+            echo "No changes"
+          fi
