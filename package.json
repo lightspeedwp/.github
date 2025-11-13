@@ -108,7 +108,7 @@
         "playwright": "^1.40.0",
         "prettier": "^3.0.0",
         "puppeteer": "^23.11.1",
-        "ts-jest": "^29.2.0",
+        "ts-jest": "29.4.5",
         "typescript": "^5.0.0"
     },
     "scripts": {
@@ -122,11 +122,6 @@
         "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
         "format:md": "prettier '**/*.md' --write && markdownlint '**/*.md' --fix",
         "format": "npm run format:js && npm run format:md",
-        "format:prettier": "prettier --write .",
-        "check": "npm-run-all -l -s lint:* test:schema:*",
-        "test:schema:theme": "ajv validate -s schemas/wp/theme-6.6.schema.json -d theme.json",
-        "test:schema:block": "ajv validate -s schemas/wp/block-6.6.schema.json -d block.json",
-        "lint:pkg": "npmpackagejsonlint .",
         "sync-version": "node scripts/sync-version.js",
         "metrics:run": "node metrics/frontmatter-metrics.js",
         "metrics:ci": "node metrics/frontmatter-metrics.js",
