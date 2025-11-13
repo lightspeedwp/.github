@@ -111,9 +111,26 @@ jobs:
       - name: Update Metrics Snapshot
         run: |
           mkdir -p .github/metrics
-          node -e "const fs=require('fs');let m={ts:new Date().toISOString(),coverage:0,changes:0,errors:0,optouts:0};fs.writeFileSync('.github/metrics/branding.json',JSON.stringify(m,null,2))"
-          echo "| $(date -Iseconds) | coverage:0 | changes:0 | errors:0 | optouts:0 |" >> .github/metrics/branding-log.md
-
+          # Read metrics from branding agent output (branding-metrics.json)
+          if [ -f .github/metrics/branding-metrics.json ]; then
+            node -e "
+              const fs = require('fs');
+              const m = JSON.parse(fs.readFileSync('.github/metrics/branding-metrics.json', 'utf8'));
+              m.ts = new Date().toISOString();
+              fs.writeFileSync('.github/metrics/branding.json', JSON.stringify(m, null, 2));
+              const logLine = \`| \${m.ts} | coverage:\${m.coverage} | changes:\${m.changes} | errors:\${m.errors} | optouts:\${m.optouts} |\n\`;
+              fs.appendFileSync('.github/metrics/branding-log.md', logLine);
+            "
+          else
+            echo "Warning: .github/metrics/branding-metrics.json not found. Writing zeroed metrics."
+            node -e "
+              const fs = require('fs');
+              let m = { ts: new Date().toISOString(), coverage: 0, changes: 0, errors: 0, optouts: 0 };
+              fs.writeFileSync('.github/metrics/branding.json', JSON.stringify(m, null, 2));
+              const logLine = \`| \${m.ts} | coverage:0 | changes:0 | errors:0 | optouts:0 |\n\`;
+              fs.appendFileSync('.github/metrics/branding-log.md', logLine);
+            "
+          fi
       - name: Commit metrics
         run: |
           git config user.name "lightspeed-bot"
