@@ -17,7 +17,7 @@ jobs:
 
       - name: Install tools
         run: |
-          npm i -D markdownlint-cli ajv ajv-formats
+          npm install --no-save markdownlint-cli ajv ajv-formats yaml
           pipx install yamllint
           curl -sSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | bash -s -- -b $HOME/bin
           echo "$HOME/bin" >> $GITHUB_PATH
