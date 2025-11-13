@@ -28,7 +28,13 @@ if (
 }
 
 // Load event payload
-const event = JSON.parse(fs.readFileSync(payloadPath, 'utf8'));
+let event;
+try {
+  event = JSON.parse(fs.readFileSync(payloadPath, 'utf8'));
+} catch (e) {
+  console.error('Failed to parse event payload:', e.message);
+  process.exit(1);
+}
 
 // Environment
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
