@@ -1,42 +1,18 @@
 ---
-title: 'AI Template Release Process'
-description: 'Comprehensive release workflow for AI template assets.'
-last_updated: '2025-10-24'
-version: 'v2.0'
-related:
-    - SECURITY-AND-LICENSING.md
-    - CONTRIBUTING-TEMPLATES.md
-    - CODING-STYLE.md
+version: "v0.1.0"
+last_updated: "2025-11-13"
+owners: ["lightspeedwp"]
+file_type: "process-guide"
+category: "release-management"
+description: "Authoritative release process flow from develop to main with branch and gating requirements"
 ---
 
-# Release Process
+# Release Process (develop → main)
 
-We ship consumable ZIPs in `/dist` and attach them to GitHub Releases.
+1. Work on `develop`.
+2. Run **Release Agent** (optionally with `--scope` for partial releases).
+3. Open Release PR → **lint gate must pass** (`lint.yml` required check).
+4. On green, merge to `main`. Tag is created/pushed by the agent.
+5. Post-merge: confirm `VERSION` & docs have no drift (`--verify`).
 
-## Versioning
-
-- Semantic versioning: `MAJOR.MINOR.PATCH`.
-- Breaking folder/name changes bump MAJOR.
-
-1. Update `CHANGELOG.md` with all new, changed, and removed templates.
-2. Create a release branch: `release/x.y.z`.
-3. Build ZIP: include only `*/**/*.md` templates + `README.md`.
-4. Save as `/dist/ai-templates-x.y.z.zip`.
-5. Create GitHub Release and upload ZIP.
-6. Tag: `vX.Y.Z`.
-7. Update all cross-links in documentation to reference the new release.
-
-## Automation (optional)
-
-Use a GitHub Action to build and upload ZIP on tag push. See [GitHub Actions docs](https://docs.github.com/en/actions) for workflow examples.
-
-## References
-
-- [Security & Licensing](./SECURITY-AND-LICENSING.md)
-- [Contributing Templates](./CONTRIBUTING-TEMPLATES.md)
-- [Coding & Content Style](./CODING-STYLE.md)
-  _This document is part of the LightSpeedWP AI documentation suite. For more, see the [AI Docs Index](./README.md)._
-
----
-
-<!-- RANDOM FOOTER: Keep calm and automate all the things! -->
+_This document is authoritative for gates and branch flow._
