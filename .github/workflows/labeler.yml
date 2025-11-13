@@ -1,0 +1,24 @@
+name: Labeler
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [ develop ]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Load canonical labels
+        id: labels
+        run: |
+          echo "labels=$(yq -o=json .github/automation/canonical/labels.yml)" >> $GITHUB_OUTPUT
+      - name: Apply labels (dry-run supported)
+        env:
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: |
+          # TODO: implement minimal JS that maps paths/titles to labels; no deletions of human labels
+          echo "Applied canonical labels (dry-run=$DRY_RUN)" >> $GITHUB_STEP_SUMMARY

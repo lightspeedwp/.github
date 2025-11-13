@@ -26,6 +26,7 @@
 /.github/agents/ @ashleyshaw
 /.github/chatmodes/ @ashleyshaw
 /.github/prompts/ @ashleyshaw
+/.github/instructions/ @ashleyshaw
 /CLAUDE.md @ashleyshaw
 /GEMINI.md @ashleyshaw
 /AGENTS.md @ashleyshaw

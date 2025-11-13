@@ -1,0 +1,28 @@
+name: Weekly Metrics
+on:
+  schedule: [ { cron: "0 7 * * 1" } ]
+  workflow_dispatch:
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Aggregate metrics
+        run: |
+          # Parse prior runs and build weekly-health.md (seed implementation)
+          echo "### Weekly Health — develop" > .github/reports/weekly-health.md
+          echo "- Placeholder metrics; replace with collector outputs" >> .github/reports/weekly-health.md
+          echo "Wrote seed report" >> $GITHUB_STEP_SUMMARY
+      - name: Commit report
+        run: |
+          git config user.name "lightspeed-bot"
+          git config user.email "bot@lightspeedwp.agency"
+          git add .github/reports/weekly-health.md
+          if git commit -m "chore(reports): update weekly health (seed)"; then
+            git push
+          else
+            echo "No changes"
+          fi
