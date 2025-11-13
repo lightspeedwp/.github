@@ -151,11 +151,17 @@ function bumpFileVersion(filePath, bumpType, repoVersion) {
   }
 
   // Guardrail: file minor must not exceed repo minor
-  const newMinor = `${newVer.major}.${newVer.minor}`;
-  if (newMinor > repoMinor) {
+  const newMinor = { major: newVer.major, minor: newVer.minor };
+  const [repoMajorStr, repoMinorStr] = repoMinor.split('.');
+  const repoMajor = parseInt(repoMajorStr, 10);
+  const repoMinorNum = parseInt(repoMinorStr, 10);
+  if (
+    newMinor.major > repoMajor ||
+    (newMinor.major === repoMajor && newMinor.minor > repoMinorNum)
+  ) {
     throw new Error(
       `Refusing to bump ${filePath} to ${formatVersion(newVer)}; ` +
-      `file minor (${newMinor}) would exceed repository minor (${repoMinor}). ` +
+      `file minor (${newMinor.major}.${newMinor.minor}) would exceed repository minor (${repoMinor}). ` +
       `Please update the repository version first.`
     );
   }
