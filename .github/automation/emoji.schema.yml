@@ -7,9 +7,9 @@ skip:
 map:
   # keyword -> emoji (first match wins)
   design: "🎨"
-  workflow: "🛠️"
+  workflow: "🛠"
   release: "🚀"
-  governance: "🏛️"
+  governance: "🏛"
 fallbacks:
   generic: "✨"     # used only if no keyword matched and page not in skip
 notes: "Conservative: 0–1 emoji per heading; never on h3+."
