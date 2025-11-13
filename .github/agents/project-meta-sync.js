@@ -146,7 +146,7 @@ async function sync() {
   // TODO: Enforce single status:* label (warn or auto-tidy)
   const statusLabels = labels.filter(l => (l.name || l).startsWith('status:'));
   if (statusLabels.length > 1) {
-    console.warn(`⚠️  Multiple status labels found: ${statusLabels.map(l => l.name || l).join(', ')}`);
+    console.warn(`[WARN] Multiple status labels found: ${statusLabels.map(l => l.name || l).join(', ')}`);
     console.warn('Consider using label-sync to enforce single status label');
   }
 
