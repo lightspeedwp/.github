@@ -1,18 +1,3 @@
----
-id: ls-release-notes
-title: Generate Release Notes
-description: Create clean release notes from merged PRs and conventional commits.
-mode: chat
-tags:
+# Release Notes — Prompt (Aligned to Parser)
 
----
-
-Create release notes:
-
-- Headline: version and date.
-- Highlights: 3–6 bullets.
-- Changes by type: Features, Fixes, Chore, Docs, CI.
-- Upgrade notes and breaking changes with steps.
-- Contributors (from commit authors).
-
-Output: Markdown, ready for GitHub Releases.
+Use the same section headings as CHANGELOG. Keep one-line bullets with links to PRs. Validate locally before commit.

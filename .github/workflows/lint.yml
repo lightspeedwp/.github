@@ -1,44 +1,16 @@
-name: Lint
-
+name: lint
 on:
   pull_request:
-    paths-ignore:
-      - '**.md'
-      - '**.txt'
-      - '**/vendor/**'
-      - '**/dist/**'
-      - '**/build/**'
-
+    branches: [develop]
+  push:
+    branches: [develop]
 jobs:
   lint:
     runs-on: ubuntu-latest
-    env:
-      NPMPKGJSONLINT_STRICT_MODE: true
-      NPMPKGJSONLINT_REQUIRE_DESCRIPTION: true
-      NPMPKGJSONLINT_REQUIRE_REPOSITORY: true
-      NPMPKGJSONLINT_REQUIRE_LICENSE: true
-      NPMPKGJSONLINT_REQUIRE_AUTHOR: true
-      NPMPKGJSONLINT_REQUIRE_FIELDS: true
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Install dependencies
-        run: npm ci || npm install
-      - name: Run ESLint
-        run: npx eslint . --ext .js,.json,.jsx,.ts,.tsx
-      - name: Run Stylelint
-        run: npx stylelint '**/*.{css,scss,sass}'
-      - name: Run Markdownlint
-        run: npx markdownlint '**/*.md'
-      - name: Run Prettier check
-        run: npx prettier --check .
-      - name: Run ShellCheck
-        run: |
-          find . -type f -name "*.sh" ! -path "*/node_modules/*" -exec shellcheck {} +
-      - name: Run yamllint
-        run: yamllint .
-      - name: Run npm-package-json-lint (package.json rules)
-        run: npm run lint:pkg-json
+          node-version: 'lts/*'
+      - run: npm ci
+      - run: npm run lint

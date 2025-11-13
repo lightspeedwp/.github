@@ -1,16 +1,10 @@
-# Manage README Automation
+# Manage Readmes Coverage
 
-This repository uses a Manage READMEs Agent to automate folder and file documentation.
+- Canonical file list is maintained here.
+- CI prints `readme_targets_updated/expected` and fails if below 100%.
+- Add new paths under **Targets** and update the agent config accordingly.
 
-## Features
-
-- Finds all README.md and README.<filename>.md files
-- Creates, merges, or lints documentation as needed
-- Always backs up prior to changes
-
-## References
-
-- [manage-readmes.agent.md](.github/agents/manage-readmes.agent.md)
-- [manage-readmes.instructions.md](.github/agents/manage-readmes.instructions.md)
-- [folder-and-file-readmes.sh](scripts/folder-and-file-readmes.sh)
-- [find-readmes.sh](scripts/find-readmes.sh)
+## Targets
+- `README.md` in repo root
+- `docs/**/README.md`
+- (extend as needed)
