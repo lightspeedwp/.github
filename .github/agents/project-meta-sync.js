@@ -38,7 +38,6 @@ try {
 
 // Environment
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const PROJECT_URL = process.env.PROJECT_URL || process.env.LS_PROJECT_URL;
 
 if (!GITHUB_TOKEN) {
   console.error('❌ GITHUB_TOKEN not set');
