@@ -11,7 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Update readmes/front-matter
-        run: node .github/agents/manage-readmes.agent.js --verify
+        run: |
+          # Placeholder: This step will run the manage-readmes agent when implemented (see G-3).
+          if [ -f .github/agents/manage-readmes.agent.js ]; then
+            node .github/agents/manage-readmes.agent.js --verify
+          else
+            echo "manage-readmes.agent.js not found. Skipping this step (pending G-3 implementation)."
+          fi
       - name: Validate front-matter schema
         run: |
           # TODO: replace with actual schema check
