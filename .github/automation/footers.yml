@@ -28,4 +28,4 @@ default:
 selection:
   strategy: "seeded"
   seed: "file.path_slug"   # stable per file
-  algorithm: "xorshift32"  # TODO: implement in agent
+  # Deterministic selection algorithm not yet implemented. This section is non-functional.
