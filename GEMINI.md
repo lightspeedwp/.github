@@ -6,7 +6,7 @@ author: 'LightSpeed'
 maintainer: 'Ash Shaw'
 description: 'Root-level guidance for Gemini agents, with LightSpeed and Copilot best practices.'
 tags: ['lightspeed', 'templates', 'copilot', 'agents', 'prompts', 'models']
-type: 'agent'
+file_type: 'gemini-instructions'
 references:
     - 'https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md'
     - 'https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md'
