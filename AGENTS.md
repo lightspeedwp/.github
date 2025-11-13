@@ -15,6 +15,14 @@
 - Each agent must have both a code file (`.js`, `.py`, etc.) and a spec (`.md`) following the template.
 - All contributors must follow the org [Coding Standards](.github/instructions/coding-standards.instructions.md).
 
+## Agent Test Status
+
+| Agent | Tests | Notes |
+|-------|-------|-------|
+| _TBD_ | ⏳    | Awaiting test implementation |
+
+> **Note:** As agents are developed and tested, this table will be updated with their status. ✅ indicates passing tests, ❌ indicates failing tests, and ⏳ indicates tests pending implementation.
+
 ## Global Principles & Agent Rules
 
 | Principle / Rule                   | Guidance / Details                                                                                  |

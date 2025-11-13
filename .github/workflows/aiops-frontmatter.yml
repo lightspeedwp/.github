@@ -1,0 +1,34 @@
+name: AIOps — Front Matter
+
+on:
+  pull_request:
+    paths:
+      - ".github/prompts/**"
+      - ".github/chatmodes/**"
+      - ".github/instructions/**"
+
+jobs:
+  frontmatter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate front matter presence and minimal schema
+        shell: bash
+        run: |
+          set -euo pipefail
+          fail=0
+          # Use null-delimited output from 'find ... -print0' to safely handle filenames with spaces.
+          # If you change the find command, ensure -print0 is preserved to match the '-d ''' in the read loop.
+          while IFS= read -r -d '' file; do
+            # Must start with '---'
+            head -1 "$file" | grep -q "^---" || { echo "::error file=$file::missing YAML front matter"; fail=1; continue; }
+            # Extract front matter block
+            fm=$(awk '/^---/{f=!f;next} f' "$file")
+            echo "$fm" | grep -q "^title:" || { echo "::error file=$file::missing title"; fail=1; }
+            echo "$fm" | grep -q "^description:" || { echo "::error file=$file::missing description"; fail=1; }
+            # Only require applyTo for instructions files
+            if [[ "$file" == .github/instructions/* ]]; then
+              echo "$fm" | grep -q "^applyTo:" || { echo "::error file=$file::missing applyTo"; fail=1; }
+            fi
+          done < <(find .github/prompts .github/chatmodes .github/instructions -type f -name "*.md" -print0)
+          exit $fail
