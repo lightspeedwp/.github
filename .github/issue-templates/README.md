@@ -85,7 +85,7 @@ gh issue create \
 
 - [Release Process](../../docs/RELEASE-PROCESS.md) - Authoritative guide for develop → main flow
 - [Manage READMEs](../../docs/MANAGE-READMES.md) - README coverage requirements
-- [Workflows](../ workflows/) - Scaffolded workflow files
+- [Workflows](../workflows/) - Scaffolded workflow files
 
 ## Validation Checklist
 
