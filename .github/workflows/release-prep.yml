@@ -1,0 +1,22 @@
+name: Release Prep
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1" # weekly, 06:00 UTC Mondays
+
+jobs:
+  prep:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compute next version & changelog (validated)
+        run: |
+          node scripts/validate-version.js
+          node scripts/validate-changelog.js
+          # TODO: script to open PR with next version + CHANGELOG block
+      - name: Summary
+        run: |
+          echo "Will open PR with next version and schema-validated changelog" >> $GITHUB_STEP_SUMMARY

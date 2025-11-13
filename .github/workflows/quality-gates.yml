@@ -1,0 +1,60 @@
+name: Quality Gates
+on:
+  pull_request:
+    branches: [ develop ]
+  workflow_dispatch:
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with: { node-version: '20' }
+
+      - name: Install tools
+        run: |
+          npm i -D markdownlint-cli ajv ajv-formats
+          pipx install yamllint || true
+          curl -sSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | bash -s -- -b $HOME/bin
+          echo "$HOME/bin" >> $GITHUB_PATH
+
+      - name: Changed files
+        id: changed
+        uses: tj-actions/changed-files@v45
+
+      - name: yamllint
+        if: contains(steps.changed.outputs.all_modified_files, '.yml') || contains(steps.changed.outputs.all_modified_files, '.yaml')
+        run: yamllint .
+
+      - name: markdownlint
+        if: contains(steps.changed.outputs.all_modified_files, '.md')
+        run: npx markdownlint '**/*.md' --config .markdownlint.jsonc
+
+      - name: actionlint
+        run: actionlint
+
+      - name: Build canonicals JSON
+        run: node scripts/canonical-to-json.js
+
+      - name: Validate front-matter
+        run: node scripts/validate-frontmatter.js
+
+      - name: Validate version
+        run: node scripts/validate-version.js
+
+      - name: Validate changelog
+        run: node scripts/validate-changelog.js
+
+      - name: Summary
+        if: always()
+        run: |
+          cat <<'MD' >> $GITHUB_STEP_SUMMARY
+          ### Quality Gates — develop
+          - Lints & schema validators ran on changed files
+          - Review failures above; fix and re-run
+          - Owners: Workflows (primary), Docs (front-matter)
+          MD
