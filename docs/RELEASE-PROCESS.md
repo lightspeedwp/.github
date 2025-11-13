@@ -1,3 +1,12 @@
+---
+version: "v0.1.0"
+last_updated: "2025-11-13"
+owners: ["lightspeedwp"]
+file_type: "process-guide"
+category: "release-management"
+description: "Authoritative release process flow from develop to main with branch and gating requirements"
+---
+
 # Release Process (develop → main)
 
 1. Work on `develop`.
