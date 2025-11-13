@@ -11,7 +11,7 @@ const schema = JSON.parse(fs.readFileSync('.github/automation/schemas/frontmatte
 const validate = ajv.compile(schema);
 
 // TODO: implement front-matter extraction (YAML header) for .md files
-const files = glob.sync('**/*.md', { ignore: ['node_modules/**'] });
+const files = glob.globSync('**/*.md', { ignore: ['node_modules/**'] });
 
 let errors = 0;
 // TODO: For each file in `files`, extract and validate front-matter here.
