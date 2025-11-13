@@ -39,7 +39,17 @@ jobs:
       - name: Validate Front Matter
         run: |
           npm i -g ajv-cli
-          FILES=$(git diff --name-only ${{ github.sha }} ${{ github.base_ref || 'HEAD~1' }} | grep -E '\.md$' || true)
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            BASE_REF="${{ github.base_ref }}"
+            HEAD_REF="${{ github.sha }}"
+          elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            BASE_REF="${{ github.event.before }}"
+            HEAD_REF="${{ github.sha }}"
+          else
+            BASE_REF="HEAD~1"
+            HEAD_REF="${{ github.sha }}"
+          fi
+          FILES=$(git diff --name-only "$BASE_REF" "$HEAD_REF" | grep -E '\.md$' || true)
           for f in $FILES; do
             node -e "const fs=require('fs');const s=fs.readFileSync('$f','utf8');const m=s.match(/^---\\n([\\s\\S]*?)\\n---/); if(!m){process.exit(0)}"
             yq -o=json '."'"$f"'"' >/dev/null 2>&1 || true
