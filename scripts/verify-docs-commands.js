@@ -28,7 +28,7 @@ const scriptNames = pkg.scripts ? Object.keys(pkg.scripts) : [];
 let allGood = true;
 
 DOC_FILES.forEach(docPath => {
-  if (!fs.existsSync(docPath)) return;  // skip if file not present
+  if (!fs.existsSync(docPath)) return;  // skip to next file if this one doesn't exist
   const content = fs.readFileSync(docPath, 'utf8');
   const regex = /npm run (\w+[\w:-]*)/g;  // match "npm run script:name"
   let match;
