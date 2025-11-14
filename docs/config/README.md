@@ -111,14 +111,32 @@ All configuration documentation in this directory follows these standards:
 - **Troubleshooting**: Common issues and solutions
 - **Cross-References**: Links to related configurations and documentation
 
+### Documentation Template
+
+All configuration documentation follows the standardized template defined in:
+
+- **[Tool Configuration Documentation Template](./tools.instructions.md)** - Blueprint for all config documentation
+
+This template ensures consistency across all tool configuration files and includes:
+- Purpose and scope
+- When and how the tool runs
+- Exact scripts and commands
+- Severity and failure modes
+- Suppression and ignoring strategies
+- Version pinning and reproducibility
+- Maintenance ownership and review cadence
+- ROI vs cost analysis
+- References and further reading
+
 ## Contributing
 
 When adding new configuration documentation:
 
-1. Follow the template structure from existing files
+1. Follow the **[Tool Configuration Documentation Template](./tools.instructions.md)**
 2. Include practical examples and use cases
 3. Document integration with other tools
 4. Update this index file with the new configuration
 5. Cross-reference in related documentation
+6. Ensure all npm script references are validated by `scripts/verify-docs-commands.js`
 
 See [Contributing Guidelines](../../CONTRIBUTING.md) for more details.

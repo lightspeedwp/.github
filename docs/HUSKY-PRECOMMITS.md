@@ -1,90 +1,106 @@
-# Husky Pre-Commit Hooks Documentation
-
-This document explains the Husky pre-commit setup, usage, and best practices for this repository. It is designed to be used alongside [LINTING.md](./LINTING.md), which details the linting tools and configuration.
-
+---
+title: "Husky Pre-commit Hooks"
+description: "Using Husky to enforce quality gates (linting/tests) before commits"
+last_updated: "2025-11-14"
+version: "1.0"
+maintainers: ["LightSpeed DevOps"]
+tags: ["husky", "pre-commit", "automation", "linting"]
 ---
 
-## Linting & Quality Checks
+# Husky Pre-commit Hooks
 
-Husky is tightly integrated with our linting workflow. For a full list of linting tools, configuration files, and what is checked before each commit, see [LINTING.md](./LINTING.md). This ensures that all code meets our standards before it is committed.
+**`docs/HUSKY-PRECOMMITS.md`** – *Pre-commit Hook as Quality Gate*
 
----
+We use **Husky** to run linting and formatting checks locally before code is committed, serving as a "first line" quality gate. This ensures that by the time code reaches CI, it has already passed basic standards.
 
-## Overview
+## Status and Rationale
 
-Husky is used to enforce code quality and consistency by running automated checks (such as linting and tests) before code is committed. This helps prevent errors and maintain standards across the codebase.
+**Status:** *Implemented in develop (pending merge to main).* Previously, Husky was not set up in this repo, meaning developers could commit code that failed our style/test checks. We've now added a Husky *pre-commit* hook to mirror the checks that run in CI, closing this gap.
 
-## .husky Folder Structure
+**Why Husky:** Running checks locally speeds up feedback. It prevents "easy" issues (like code style or obvious test failures) from ever reaching the repo, which reduces CI failures and iteration time. This aligns with our goal that *"files are linted properly and tests pass"* before pushing.
 
-- `.husky/` — Contains all Husky hook scripts
-  - `pre-commit` — Main pre-commit hook script (runs linting, tests, etc.)
-  - `commit-msg` — Validates commit message format (if present)
-  - Other hooks as needed (e.g., `pre-push`)
+## Installation
 
-## How Pre-Commit Works
+Husky is managed as a dev dependency. To install and enable Husky in a fresh clone:
 
-When you run `git commit`, Husky automatically executes the scripts in `.husky/pre-commit` before the commit is finalized. If any check fails, the commit is aborted.
+1. After running `npm install` (or `npm ci`), activate Husky hooks:
 
-## Bypassing Pre-Commit Hooks
-
-To bypass Husky pre-commit hooks (not recommended except for emergencies):
-
-```sh
-git commit --no-verify
+```bash
+npx husky install
 ```
 
-> **Note:** Use this only if you have a valid reason. All skipped checks must be run manually before pushing.
+This installs Git hooks into the local repo's `.husky/` directory (already present in source).
 
-## Suppression Storage & Management
+2. Verify that a `.husky/pre-commit` file exists with our hook. It should have been created in the repo (or by the install command).
 
-- Husky does not store suppressions by default. If you bypass a hook, it is not recorded.
-- If you want to re-enable hooks, simply commit as normal (without `--no-verify`).
-- To update or remove a hook, edit or delete the relevant script in `.husky/`.
+If Husky isn't working, ensure Git isn't bypassing hooks (no `--no-verify` flag used) and that you have the correct Node version. We specify Node version in `.nvmrc` to avoid incompatibilities (our CI uses the same Node version).
 
-## Recommended Commands
+## Pre-commit Hook Behavior
 
-- **Install Husky hooks:**
+Our pre-commit hook is defined in **`.husky/pre-commit`**. It runs our formatting and linting checks before allowing a commit. In summary, it will:
 
-    ```sh
-    npx husky install
+- **Format code** (auto-fix) by running **`npm run format`**.
+- **Run linters and tests** by running **`npm run check`** (a composite script that runs all linters and unit tests).
 
-    ```
+If *either* of those steps fails, the commit is aborted. You must fix the issues and try again. This prevents committing code that would fail CI.
 
-- **Add a new hook:**
+Below is the content of our `.husky/pre-commit` file for reference:
 
-    ```sh
-    npx husky add .husky/pre-commit "npm run lint:js && npm run lint:css && npm run lint:md && npm test"
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
 
-    ```
+npm run format && npm run check
+```
 
-- **Bypass hooks:**
+This uses Husky's shell script shim and then runs our tasks. The `&&` ensures that if formatting fails or leaves changes, or if any check fails, the process halts with a non-zero exit (blocking the commit).
 
-    ```sh
-    git commit --no-verify
-    ```
+## Adding Husky to an Existing Clone
 
-## Getting Started
+If you already have the repo and just pulled the updated config, run `npm install` (to get Husky) and then `npx husky install` to set up the hooks. This is a one-time step per clone. After that, Git will trigger the hook on commits automatically.
 
-1. Run `npm install` to install dependencies (including Husky).
-2. Run `npx husky install` to set up hooks (usually done automatically on install).
-3. Commit as usual — Husky will run checks before each commit.
+## Ignoring Specific Files or Bypassing
 
-## Best Practices
+Our goal is to run the hook on all source changes. However, large binary files or documentation-only changes shouldn't block a commit on lint rules:
 
-- Do not bypass hooks unless absolutely necessary.
-- Keep hook scripts up to date with project standards.
-- Review and update hooks as new linting or test scripts are added.
-- See [docs/LINTING.md](./LINTING.md) for details on what is checked by each hook.
+- Husky will only lint the files you're committing (through our `npm run ...` scripts configuration). For instance, if you edit only Markdown, JS lint won't run, etc.
+- If absolutely necessary (e.g. an urgent hotfix), you can bypass hooks with `git commit --no-verify`. **Use this sparingly.** Bypassing means CI will catch any issues later.
+
+We intentionally do not run lengthy end-to-end tests on pre-commit (those run in CI), to keep commits fast. The pre-commit focuses on quick checks (formatting, linters, unit tests). This strikes a balance between safety and speed.
+
+## CI Integration
+
+The pre-commit hook runs the same `npm run check` that CI does. In our GitHub Actions CI, we also execute the full test suite on push. The idea is "fail fast, locally":
+
+- By the time CI runs, code should already be formatted and pass linting. CI then mainly validates integration (and runs heavier tests).
+- If a contributor bypasses Husky (or Husky wasn't installed), the CI will still fail on the same `npm run check` script in our workflow, acting as a safety net.
+
+Having duplicate checks may seem redundant, but it's intentional. It virtually eliminates trivial CI failures (saving time) and acts as a double-insurance policy.
+
+## Setup Commands (for reference)
+
+For maintainers, these were the steps used to set up Husky in this repo:
+
+```bash
+npm install --save-dev husky   # Add Husky to devDependencies
+npx husky install             # Install Git hooks (creates .husky/ folder)
+npx husky add .husky/pre-commit "npm run format && npm run check"
+```
+
+This added the pre-commit file with the content shown above. Our `package.json` already had the necessary `format` and `check` scripts defined (mapping to Prettier/ESLint and our test runner).
+
+*(No changes are needed to developers' workflows aside from running `npm install` and having Node per `.nvmrc`. Commits are now gated, improving code quality upstream.)*
 
 ## Related Files & Further Reading
 
 - [docs/LINTING.md](./LINTING.md) — Linting tools and configuration
-- [docs/HUSKY-LINITING-TASKS.md](./HUSKY-LINITING-TASKS.md) — Task list for Husky and linting documentation
+- [docs/METRICS.md](./METRICS.md) — Metrics and telemetry
+- [docs/config/workflow-husky.md](./config/workflow-husky.md) — Detailed Husky configuration
 - [package.json](../package.json) — NPM scripts run by hooks
-- [.husky/](../../.husky/) — Actual hook scripts
+- [.husky/](../.husky/) — Actual hook scripts
 
 ---
 
-### Last updated
+### Last Updated
 
-24 October 2025
+2025-11-14
