@@ -11,7 +11,7 @@ tags: ["documentation", "configuration", "standards"]
 
 **`docs/config/tools.instructions.md`** – *Blueprint for Config Documentation*
 
-Each configuration file in **`docs/config/`** should follow this standard format to ensure consistency and completeness. This template defines the required sections and the content to include in each.
+Each configuration file in `docs/config/` should follow this standard format to ensure consistency and completeness. This template defines the required sections and the content to include in each.
 
 ## Purpose
 
