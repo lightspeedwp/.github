@@ -98,7 +98,7 @@
         "gray-matter": "^4.0.3",
         "jest": "^30.0.1",
         "jest-environment-jsdom": "^30.0.1",
-        "js-yaml": "^4.1.0",
+        "js-yaml": "^4.1.1",
         "markdownlint": "^0.28.1",
         "mermaid": "^10.9.0",
         "micromatch": "^4.0.7",
