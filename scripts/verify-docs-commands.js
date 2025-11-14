@@ -30,7 +30,7 @@ let allGood = true;
 DOC_FILES.forEach(docPath => {
   if (!fs.existsSync(docPath)) return;  // skip to next file if this one doesn't exist
   const content = fs.readFileSync(docPath, 'utf8');
-  const regex = /npm run (\w+[\w:-]*)/g;  // match "npm run script:name"
+  const regex = /npm run (\w+(?:[\w:-]+\w+)*)/g;  // match "npm run script:name" (does not end with - or :)
   let match;
   while ((match = regex.exec(content)) !== null) {
     const script = match[1];
