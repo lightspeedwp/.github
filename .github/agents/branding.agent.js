@@ -6,7 +6,6 @@ import { updateBadgesInReadme } from '../../scripts/includes/badges.js';
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
-import Ajv from 'ajv';
 import { globSync } from 'glob';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
