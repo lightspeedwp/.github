@@ -235,7 +235,6 @@ describe('retry-helper.js', () => {
 
     describe('retrySequence', () => {
         test('executes operations in sequence with retry', async () => {
-            const results = [];
             const ops = [
                 {
                     name: 'op1',
