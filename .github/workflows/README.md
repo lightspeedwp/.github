@@ -15,34 +15,63 @@ This directory contains all GitHub Actions workflows that power LightSpeed's rep
 
 ## 🔄 Active Workflows
 
-### Core Agent-Driven Workflows
+> **Status**: All workflows validated and standardized as of 2025-10-24
+> - ✅ All workflows use standardized action versions (checkout@v4, setup-node@v4)
+> - ✅ All workflows have explicit permissions declarations
+> - ✅ Branch strategy aligned with develop → main model
+> - ✅ Deprecated workflows archived
 
-| Workflow | Triggers | Agent(s) Used | Description |
-|----------|----------|---------------|-------------|
-| **[labeling.yml](./labeling.yml)** | `push`, `pull_request`, `issues`, `opened`, `synchronize`, `labeled`, `unlabeled` | [`labeling.agent.js`](../agents/labeling.agent.js) | Unified labeling system for issues and PRs with automated status enforcement |
-| **[reviewer.yml](./reviewer.yml)** | `pull_request` on `develop`, `opened`, `synchronize` | [`reviewer.agent.js`](../agents/reviewer.agent.js) | Automated code review, feedback, and quality checks |
-| **[planner.yml](./planner.yml)** | `push`, `pull_request` on `develop` | [`planner.agent.js`](../agents/planner.agent.js) | Project planning automation and issue organization |
-| **[branding.yml](./branding.yml)** | File changes to documentation, badges, or header/footer | [`branding.agent.js`](../agents/branding.agent.js) | Unified header, footer, badge automation |
-| **[badges.yml](./badges.yml)** | Path changes to badges, `workflow_dispatch` | [`badges.agent.js`](../agents/badges.agent.js) (Deprecated) | Repository badge status updates and maintenance |
-| **[manage-readmes.yml](./manage-readmes.yml)** | Path changes to README files, `workflow_dispatch` | [`manage-readmes.agent.js`](../agents/manage-readmes.agent.js) | Automated README generation and consistency |
-| **[header-footer.yml](./header-footer.yml)** | File changes to documentation | [`header-footer.agent.js`](../agents/header-footer.agent.js) (Deprecated) | Documentation header/footer consistency |
-| **[release.yml](./release.yml)** | Tags, `workflow_dispatch` | [`release.agent.js`](../agents/release.agent.js) | Automated release processes and changelog generation |
-| **[project-meta-sync.yml](./project-meta-sync.yml)** | `schedule`, `workflow_dispatch` | Internal sync logic | Cross-repository metadata synchronization |
+### Core Agent-Driven Workflows (8)
 
-### Quality & Testing Workflows
+| Workflow | Triggers | Agent(s) Used | Description | Status |
+|----------|----------|---------------|-------------|--------|
+| **[labeling.yml](./labeling.yml)** | `push`, `pull_request`, `issues`, multiple event types | [`labeling.agent.js`](../agents/labeling.agent.js) | Unified labeling system for issues and PRs with automated status enforcement | ✅ Active |
+| **[reviewer.yml](./reviewer.yml)** | `pull_request` on `develop`, `opened`, `synchronize` | [`reviewer.agent.js`](../agents/reviewer.agent.js) | Automated code review, feedback, and quality checks | ✅ Active |
+| **[planner.yml](./planner.yml)** | `push`, `pull_request` on `develop` | [`planner.agent.js`](../agents/planner.agent.js) | Project planning automation and issue organization | ✅ Active |
+| **[branding.yml](./branding.yml)** | File changes to docs, badges, headers/footers, weekly schedule | [`branding.agent.js`](../agents/branding.agent.js) | Unified header, footer, badge automation | ✅ Active |
+| **[badges.yml](./badges.yml)** | Path changes to badges, `workflow_dispatch` | [`badges.agent.js`](../agents/badges.agent.js) | Repository badge status updates | ⚠️ Deprecated (use branding.yml) |
+| **[manage-readmes.yml](./manage-readmes.yml)** | Path changes to README files, `workflow_dispatch` | [`manage-readmes.agent.js`](../agents/manage-readmes.agent.js) | Automated README generation and consistency | ✅ Active |
+| **[header-footer.yml](./header-footer.yml)** | File changes to documentation | [`header-footer.agent.js`](../agents/header-footer.agent.js) | Documentation header/footer consistency | ⚠️ Deprecated (use branding.yml) |
+| **[release.yml](./release.yml)** | Tags, `workflow_dispatch` | [`release.agent.js`](../agents/release.agent.js) | Automated release processes and changelog generation | ✅ Active |
 
-| Workflow | Triggers | Purpose | Agent Integration |
-|----------|----------|---------|-------------------|
-| **[lint.yml](./lint.yml)** | `push`, `pull_request` | Code quality enforcement and linting | Supports [`linting.agent.js`](../agents/linting.agent.js) |
-| **[jest-test-audit.yml](./jest-test-audit.yml)** | `push`, `pull_request` | Execute Jest tests for agents and utilities | Runs all agent test suites in [`../agents/__tests__/`](../agents/__tests__/) |
-| **[changelog.yml](./changelog.yml)** | `push` to `main`, PR merges | Automated changelog generation | Works with release automation |
+### Quality & Validation Workflows (7)
 
-### Repository Management
+| Workflow | Triggers | Purpose | Status |
+|----------|----------|---------|--------|
+| **[quality-gates.yml](./quality-gates.yml)** | `pull_request` to `develop`, `workflow_dispatch` | Comprehensive quality validation before merge | ✅ Active |
+| **[lint.yml](./lint.yml)** | `push`, `pull_request` to `develop` | Code quality enforcement and linting | ✅ Active |
+| **[ci.yml](./ci.yml)** | `push`, `pull_request` to `develop` | Continuous integration checks | ✅ Active |
+| **[jest-test-audit.yml](./jest-test-audit.yml)** | `push`, `pull_request`, `workflow_dispatch` | Jest test coverage audit | ✅ Active |
+| **[changelog.yml](./changelog.yml)** | `push`, `pull_request` to `develop` | Changelog validation and generation | ✅ Active |
+| **[frontmatter-validation.yml](./frontmatter-validation.yml)** | `push` to `develop`/`claude/**`, `pull_request`, `workflow_dispatch` | Frontmatter schema validation | ✅ Active |
+| **[collections-indexer.yml](./collections-indexer.yml)** | `pull_request` to `develop` | Collections index building and validation | ✅ Active |
 
-| Workflow | Triggers | Purpose |
-|----------|----------|---------|
-| **[metrics.yml](./metrics.yml)** | `schedule`, `workflow_dispatch` | Repository health and performance metrics |
-| **[all-contributors-update.yml](./all-contributors-update.yml)** | Contributor changes | Maintain contributor recognition |
+### AIOps & Automation Workflows (5)
+
+| Workflow | Triggers | Purpose | Status |
+|----------|----------|---------|--------|
+| **[aiops-frontmatter.yml](./aiops-frontmatter.yml)** | `pull_request` to prompts/chatmodes/instructions | Validate frontmatter presence in AI files | ✅ Active |
+| **[aiops-index-drift.yml](./aiops-index-drift.yml)** | `pull_request` to collections/prompts/chatmodes | Check index files include all leaves | ✅ Active |
+| **[aiops-link-check.yml](./aiops-link-check.yml)** | `pull_request` to docs | Check for broken links | ✅ Active |
+| **[aiops-secrets-scan.yml](./aiops-secrets-scan.yml)** | `pull_request` to `.github`/docs | Scan for secrets and PII | ✅ Active |
+| **[label-sync.yml](./label-sync.yml)** | `push`, `schedule`, `workflow_dispatch` | Organization-wide label synchronization | ✅ Active |
+
+### Label & Project Management (2)
+
+| Workflow | Triggers | Purpose | Status |
+|----------|----------|---------|--------|
+| **[project-meta-sync.yml](./project-meta-sync.yml)** | `push`, `issues`, `pull_request` events | Project board metadata synchronization | ✅ Active |
+| **[all-contributors-update.yml](./all-contributors-update.yml)** | PR merge events | Update contributors recognition table | ✅ Active |
+
+### Metrics & Reporting (4)
+
+| Workflow | Triggers | Purpose | Status |
+|----------|----------|---------|--------|
+| **[metrics.yml](./metrics.yml)** | Weekly schedule, `workflow_dispatch` | Repository health and performance metrics | ✅ Active |
+| **[frontmatter-metrics.yml](./frontmatter-metrics.yml)** | Weekly schedule, `workflow_dispatch` | Frontmatter usage and compliance metrics | ✅ Active |
+| **[weekly-metrics.yml](./weekly-metrics.yml)** | Weekly schedule, `workflow_dispatch` | Comprehensive weekly health reporting | ✅ Active |
+| **[ci-metrics.yml](./ci-metrics.yml)** | On checkout | CI/CD performance metrics | ✅ Active |
+| **[release-prep.yml](./release-prep.yml)** | Weekly schedule, `workflow_dispatch` | Release preparation and readiness checks | ✅ Active |
 
 ## 📋 Workflow Categories
 
@@ -158,6 +187,55 @@ Workflow development follows standards defined in:
 Historical and deprecated workflows are stored in [`archived/`](./archived/) with documentation:
 
 - [archived/README.md](./archived/README.md) - Archive index and migration notes
+
+**Recently Archived (2025-10-24):**
+- `labeler.yml` - Replaced by unified `labeling.yml` workflow
+- `labeling.yml.old` - Removed backup file
+
+---
+
+## ✅ Workflow Validation & Standards
+
+All workflows have been validated and standardized to ensure:
+
+### Action Version Standards
+
+- **`actions/checkout`**: v4
+- **`actions/setup-node`**: v4
+- **`actions/github-script`**: v7
+- **`actions/labeler`**: v5
+- **`actions/upload-artifact`**: v4
+
+### Security & Permissions
+
+All workflows include explicit `permissions:` blocks following least-privilege principles:
+- `contents: read` - Default for most workflows
+- `pull-requests: write` - For PR commenting/labeling
+- `issues: write` - For issue management
+- `discussions: write` - For discussion management (where needed)
+
+### Branch Strategy Compliance
+
+Workflows follow the **develop → main** branching model:
+- **Validation/CI workflows**: Trigger on `develop` and PRs to `develop`
+- **Release workflows**: Trigger on `main` and tags
+- **Claude branches**: Some workflows include `claude/**` for automated agent work
+
+### Error Handling
+
+- Concurrency controls added where appropriate
+- Proper error handling instead of `|| true` suppression
+- Clear failure messages and reporting
+
+### Recent Fixes (2025-10-24)
+
+1. ✅ Standardized `actions/checkout` from v5 → v4 in `labeling.yml`
+2. ✅ Added missing `permissions:` block to `reviewer.yml`
+3. ✅ Added missing `permissions:` block to `planner.yml`
+4. ✅ Added missing `permissions:` block to `frontmatter-validation.yml`
+5. ✅ Removed `main` branch trigger from `frontmatter-validation.yml`
+6. ✅ Archived deprecated `labeler.yml` (replaced by `labeling.yml`)
+7. ✅ Removed `labeling.yml.old` backup file
 
 ## 🚀 Getting Started
 
