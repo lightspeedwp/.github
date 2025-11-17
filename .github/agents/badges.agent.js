@@ -1,7 +1,7 @@
 // badges.agent.js - Automates workflow badge updates in README.md.
 // See .github/agents/badges.agent.md for spec.
 
-const { updateBadgesInReadme } = require('../../scripts/includes/badges');
+const { updateBadgesInReadme } = require('./includes/badgeUtils');
 const path = require('path');
 
 async function main() {

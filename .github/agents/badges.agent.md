@@ -1,3 +1,4 @@
+---
 file_type: "agent"
 title: "Badges Agent"
 description: "Automates discovery, update, and management of workflow badges in all README.md files."
@@ -8,13 +9,13 @@ tags: ["badges", "automation", "readme", "github-actions", "ci"]
 category: "automation"
 status: "active"
 references:
-
 - "../../scripts/update-badges.sh"
 - "./badges.instructions.md"
 - "./badges.prompt.md"
 - "../../README.md"
 - "../../BADGES.md"
 - "./branding.agent.md"
+---
 
 > **Deprecated:** This agent has been superseded by [branding.agent.md](./branding.agent.md). Please use the Branding Agent for unified header, footer, and badge automation.
 

@@ -1,11 +1,30 @@
 ---
 title: "Husky Pre-commit Hooks"
 description: "Using Husky to enforce quality gates (linting/tests) before commits"
-last_updated: "2025-11-14"
-version: "1.0"
+last_updated: "2025-11-12"
+version: "0.2.0"
 maintainers: ["LightSpeed DevOps"]
 tags: ["husky", "pre-commit", "automation", "linting"]
 ---
+
+# Husky Pre-commit Hooks
+
+We use **Husky** to run linting and formatting checks locally before code is committed, serving as a “first line” quality gate. This ensures that by the time code reaches CI, it has already passed basic standards.
+
+## Status and Rationale
+
+**Status:** *Implemented in develop (pending merge to main).* Previously, Husky was not set up in this repo, meaning developers could commit code that failed our style/test checks. We’ve now added a Husky *pre-commit* hook to mirror the checks that run in CI, closing this gap.
+
+**Why Husky:** Running checks locally speeds up feedback. It prevents “easy” issues (like code style or obvious test failures) from ever reaching the repo, which reduces CI failures and iteration time. This aligns with our goal that *“files are linted properly and tests pass”* before pushing.
+
+## Installation
+
+Husky is managed as a dev dependency. To install and enable Husky in a fresh clone:
+
+1. After running `npm install` (or `npm ci`), activate Husky hooks:
+
+   ```bash
+   npx husky install
 
 # Husky Pre-commit Hooks
 
