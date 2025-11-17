@@ -50,8 +50,8 @@ type: "agent"
 ## Best Practices
 
 - **No hardcoded label/type logic:** All rules/configs come from YAML files.
-- **All code modularized:** Shared logic lives in `scripts/utility/`, not agent file.
-- **Fully tested:** All utilities covered by Jest tests in `scripts/utility/__tests__/`.
+- **All code modularized:** Shared logic lives in `.github/agents/includes/`, not agent file.
+- **Fully tested:** All utilities covered by Jest tests in `.github/agents/includes/__tests__/`.
 - **Traceable:** All labeling actions are logged; maintainers can audit at any time.
 - **Contributor-friendly:** Reference [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md) and [Label Strategy](../../docs/LABEL_STRATEGY.md).
 

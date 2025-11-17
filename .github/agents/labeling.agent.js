@@ -178,6 +178,7 @@ async function runLabelingAgent(opts = {}) {
         number,
         currentLabels,
         dryRun,
+        isPR,
     });
     await applyDefaultPriority({
         github: octokit,
