@@ -122,7 +122,6 @@ function resolveBadge(badgeRef, badgeDefs, frontMatter) {
     if (badgeRef.startsWith('workflow.')) {
         const label = current.label || badgeRef;
         const successText = current.success_text || 'OK';
-        const icon = current.icon || '';
         return `![${label}](https://img.shields.io/badge/${label}-${successText}-success.svg)`;
     }
 
