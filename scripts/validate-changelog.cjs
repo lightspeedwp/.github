@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * ============================================================================
- * Script: validate-changelog.js
- * Location: scripts/validate-changelog.js
+ * Script: validate-changelog.cjs
+ * Location: scripts/validate-changelog.cjs
  * Description:
  *   - Validates CHANGELOG.md files against Keep a Changelog format
  *   - Uses changelogUtils.js for parsing and validation
