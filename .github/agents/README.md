@@ -272,6 +272,8 @@ graph TD
 | **Automation Governance** | Workflow and agent policies | [../AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md) |
 | **Global AI Rules** | Organization-wide AI guidelines | [../../AGENTS.md](../../AGENTS.md) |
 | **Collections** | Curated agent toolkits | [../collections/](../collections/) |
+| **Metrics Directory** | Metrics collection and configuration | [../metrics/](../metrics/) |
+| **Reporting Directory** | Generated reports and artifacts | [../reporting/](../reporting/) |
 
 ---
 

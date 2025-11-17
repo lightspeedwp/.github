@@ -166,10 +166,15 @@ Made with ❤️ by the LightSpeed team.
 
 ## Metrics
 
-Branding metrics are tracked in two files:
+Branding metrics are collected in the [`.github/metrics/`](../.github/metrics/) directory and published to [`.github/reporting/`](../.github/reporting/):
 
-- **[`.github/metrics/branding.json`](../.github/metrics/branding.json)** – Latest snapshot
-- **[`.github/metrics/branding-log.md`](../.github/metrics/branding-log.md)** – Historical log
+- **[`.github/metrics/branding.json`](../.github/metrics/branding.json)** – Latest snapshot (collection)
+- **[`.github/metrics/branding-log.md`](../.github/metrics/branding-log.md)** – Historical log (collection)
+- **[`.github/reporting/branding/`](../.github/reporting/branding/)** – Published reports and archives
+
+For complete metrics and reporting documentation, see:
+- [Metrics Directory README](../.github/metrics/README.md) - Collection scripts and configuration
+- [Reporting Directory README](../.github/reporting/README.md) - Published reports and consumption
 
 ### Metrics Tracked
 
