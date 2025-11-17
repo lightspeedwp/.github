@@ -362,7 +362,7 @@ See [.github/agents/metrics.agent.md](../agents/metrics.agent.md) for planned me
 To contribute new metrics or improvements:
 
 1. Review [CONTRIBUTING.md](../../CONTRIBUTING.md)
-2. Follow [coding standards](.github/instructions/coding-standards.instructions.md)
+2. Follow [coding standards](../instructions/coding-standards.instructions.md)
 3. Add tests for new metrics scripts
 4. Document configuration changes
 5. Submit PR with rationale and examples
