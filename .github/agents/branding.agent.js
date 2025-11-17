@@ -400,7 +400,7 @@ async function main() {
 }
 
 // Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1])) {
     main().catch((err) => {
         console.error('Fatal error:', err);
         process.exit(1);
