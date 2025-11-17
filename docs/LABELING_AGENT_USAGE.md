@@ -23,7 +23,7 @@ The labeling agent automates all aspects of labeling, status/priority enforcemen
 
 ## 3. **Utility Modules (Modularization)**
 
-**Utilities are located in `scripts/utility/` and imported as needed:**
+**Utilities are located in `.github/agents/includes/` and imported as needed:**
 
 | Utility File                | Core Functions (examples)                                 | Used by                        |
 |-----------------------------|----------------------------------------------------------|--------------------------------|
@@ -41,13 +41,13 @@ The labeling agent automates all aspects of labeling, status/priority enforcemen
 
 ```javascript
 // Import utilities in labeling.agent.js
-const { fetchCanonicalLabels, buildLabelAliasMap, findStandardLabel } = require('../../scripts/utility/label-lookup');
-const { fetchLabelerRules, applyLabelerRules } = require('../../scripts/utility/labeler-utils');
-const { syncLabelsWithCanonical, standardizeLabelsOnRepo } = require('../../scripts/utility/label-sync');
-const { enforceOneHotStatus, applyDefaultStatus, applyDefaultPriority } = require('../../scripts/utility/status-enforcer');
-const { buildLabelingReport } = require('../../scripts/utility/label-reporting');
-const { loadIssueTypes, findIssueTypeByNameOrAlias } = require('../../scripts/utility/type-lookup');
-const { suggestLabelsFromContent } = require('../../scripts/utility/label-heuristics');
+const { fetchCanonicalLabels, buildLabelAliasMap, findStandardLabel } = require('./includes/label-lookup');
+const { fetchLabelerRules, applyLabelerRules } = require('./includes/labeler-utils');
+const { syncLabelsWithCanonical, standardizeLabelsOnRepo } = require('./includes/label-sync');
+const { enforceOneHotStatus, applyDefaultStatus, applyDefaultPriority } = require('./includes/status-enforcer');
+const { buildLabelingReport } = require('./includes/label-reporting');
+const { loadIssueTypes, findIssueTypeByNameOrAlias } = require('./includes/type-lookup');
+const { suggestLabelsFromContent } = require('./includes/label-heuristics');
 
 // Example usage in agent's main function:
 async function runLabelingAgent(context, configs, dryRun = false) {
@@ -91,7 +91,7 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - `.github/automation/labels.yml`: Canonical label definitions (names, colors, aliases)
 - `.github/automation/labeler.yml`: File/branch-based label rules
 - `.github/automation/issue-types.yml`: Canonical issue type definitions
-- `scripts/utility/`: Shared JS helpers for all agents/scripts
+- `.github/agents/includes/`: Shared JS helpers for all agents/scripts
 
 ---
 
@@ -101,8 +101,8 @@ async function runLabelingAgent(context, configs, dryRun = false) {
   Keep agent files lean—just call helpers, passing context and config.
 - **Always use canonical config:**  
   Never hardcode label/type lists; always read from YAML.
-- **Write utility tests:**  
-  Each utility in `scripts/utility/` should have a test in `scripts/utility/__tests__/`.
+- **Write utility tests:**
+  Each utility in `.github/agents/includes/` should have a test in `.github/agents/includes/__tests__/`.
 - **Keep logic DRY:**  
   Avoid duplicate logic for label lookup, migration, or reporting.
 - **Document all new utility functions:**  
@@ -115,9 +115,9 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - **Missing labels or types?**
   Check `.github/automation/labels.yml` and `.github/automation/issue-types.yml` for missing/typo entries.
 - **Label not applied as expected?**
-  Debug with utility tests in `scripts/utility/__tests__/`.
+  Debug with utility tests in `.github/agents/includes/__tests__/`.
 - **Want to add a new heuristic or report?**
-  Add it as a new utility, write a test, and import it in the agent.
+  Add it as a new utility in `.github/agents/includes/`, write a test in `__tests__/`, and import it in the agent.
 
 ---
 
