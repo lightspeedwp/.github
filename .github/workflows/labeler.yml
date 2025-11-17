@@ -41,7 +41,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install --no-save js-yaml @actions/core @actions/github
+        run: npm install --no-save js-yaml@4.1.0 @actions/core@1.10.1 @actions/github@6.1.0
 
       - name: Validate labeler configuration
         run: |
