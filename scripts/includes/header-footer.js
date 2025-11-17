@@ -101,8 +101,43 @@ function getRandomFooter(category = 'default', seed = null) {
 /**
  * Regex pattern to match existing footers
  */
-const FOOTER_REGEX =
-    /(_Maintained with ❤️[\s\S]*?(?:\n\[.*?\]\(.*?\))?|_Built by 🧱[\s\S]*?(?:\n\[.*?\]\(.*?\))?|_Have questions\?[\s\S]*?(?:\n\[.*?\]\(.*?\))?|_This page brought to you by[\s\S]*?(?:\n\[.*?\]\(.*?\))?|_Docs signed by 🤖[\s\S]*?|Made with ❤️[\s\S]*?(?:\n\[.*?\]\(.*?\))?|Questions\?[\s\S]*?|Prefer a guided[\s\S]*?|Clarity first[\s\S]*?|Improvements welcome[\s\S]*?|Copy, adapt[\s\S]*?|Tweak the variables[\s\S]*?|Your feedback shapes[\s\S]*?|Reuse beats[\s\S]*?|Keep prompts[\s\S]*?|Use responsibly[\s\S]*?|Keep tone[\s\S]*?|Update when[\s\S]*?|Link policies[\s\S]*?|Thanks for helping[\s\S]*?|Need help\?[\s\S]*?)$/m;
+// List of footer patterns to match (add or update as needed)
+const FOOTER_PATTERNS = [
+    '_Maintained with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?',
+    '_Built by 🧱[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?',
+    '_Have questions\\?[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?',
+    '_This page brought to you by[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?',
+    '_Docs signed by 🤖[\\s\\S]*?',
+    'Made with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?',
+    'Questions\\?[\\s\\S]*?',
+    'Prefer a guided[\\s\\S]*?',
+    'Clarity first[\\s\\S]*?',
+    'Improvements welcome[\\s\\S]*?',
+    'Copy, adapt[\\s\\S]*?',
+    'Tweak the variables[\\s\\S]*?',
+    'Your feedback shapes[\\s\\S]*?',
+    'Reuse beats[\\s\\S]*?',
+    'Keep prompts[\\s\\S]*?',
+    'Use responsibly[\\s\\S]*?',
+    'Keep tone[\\s\\S]*?',
+    'Update when[\\s\\S]*?',
+    'Link policies[\\s\\S]*?',
+    'Thanks for helping[\\s\\S]*?',
+    'Need help\\?[\\s\\S]*?'
+];
+
+/**
+ * Build the footer regex from the patterns array.
+ * @returns {RegExp}
+ */
+function buildFooterRegex() {
+    // Join all patterns with alternation and anchor to end of file/line
+    const pattern = `(${FOOTER_PATTERNS.join('|')})$/m`;
+    return new RegExp(pattern);
+}
+
+// Build the regex once for use
+const FOOTER_REGEX = buildFooterRegex();
 
 /**
  * Ensure the README or doc file ends with a fun footer
