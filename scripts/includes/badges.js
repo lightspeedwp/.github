@@ -198,7 +198,7 @@ async function updateBadgesInReadme(
     const allBadges = [...metadataBadges, ...workflowBadges];
 
     if (allBadges.length === 0) {
-        console.warn('No badges generated for', readmePath);
+        // No badges generated for this file; skipping badge update.
         return false;
     }
 
