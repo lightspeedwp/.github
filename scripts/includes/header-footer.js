@@ -77,7 +77,7 @@ function selectFooter(phrases, seed = null) {
         let hash = 0;
         for (let i = 0; i < seed.length; i++) {
             hash = (hash << 5) - hash + seed.charCodeAt(i);
-            hash = hash & hash; // Convert to 32-bit integer
+            hash = hash | 0; // Convert to 32-bit integer
         }
         const index = Math.abs(hash) % phrases.length;
         return phrases[index];
