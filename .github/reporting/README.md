@@ -6,13 +6,17 @@ author: 'LightSpeed'
 maintainer: 'Ash Shaw'
 description: 'Central location for generated reports, metrics outputs, and analytics artifacts across LightSpeed repositories.'
 tags: ['reporting', 'metrics', 'analytics', 'artifacts', 'automation']
-type: 'documentation'
+file_type: 'documentation'
 category: 'infrastructure'
 references:
-    - '../metrics/README.md'
-    - '../metrics/metrics.config.json'
-    - '../agents/metrics.agent.md'
-    - '../../docs/BRANDING.md'
+    - path: '../metrics/README.md'
+      description: 'Metrics collection configuration and documentation'
+    - path: '../metrics/metrics.config.json'
+      description: 'Master configuration for metrics collection'
+    - path: '../agents/metrics.agent.md'
+      description: 'Metrics agent specification'
+    - path: '../../docs/BRANDING.md'
+      description: 'Branding guidelines and automation'
 ---
 
 # LightSpeed Reporting Directory
