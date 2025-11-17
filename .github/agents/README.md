@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Comprehensive directory of all GitHub automation agents, their workflows, tests, and related resources."
 tags: ["lightspeed","agents","automation","workflows","github-actions"]
-type: "documentation"
+file_type: "documentation"
 ---
 
 ## 🚀 Quick Start

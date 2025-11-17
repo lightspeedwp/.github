@@ -10,12 +10,18 @@ tags: ['branding', 'automation', 'documentation', 'badges', 'emojis', 'workflows
 file_type: 'documentation'
 category: 'docs'
 references:
-    - '../.github/automation/badges.schema.yml'
-    - '../.github/automation/emoji.schema.yml'
-    - '../.github/automation/footers.yml'
-    - '../.github/automation/front-matter.schema.json'
-    - '../.github/workflows/branding.yml'
-    - '../.github/agents/branding.agent.js'
+    - path: '../.github/automation/badges.schema.yml'
+      description: 'Badge schema configuration'
+    - path: '../.github/automation/emoji.schema.yml'
+      description: 'Emoji schema configuration'
+    - path: '../.github/automation/footers.yml'
+      description: 'Footer templates configuration'
+    - path: '../.github/automation/front-matter.schema.json'
+      description: 'Frontmatter schema definition'
+    - path: '../.github/workflows/branding.yml'
+      description: 'Branding automation workflow'
+    - path: '../.github/agents/branding.agent.js'
+      description: 'Branding agent implementation'
 ---
 
 # Branding Agent — Spec (develop)
