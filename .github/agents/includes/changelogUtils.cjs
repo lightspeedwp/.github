@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * ============================================================================
- * Utility: changelogUtils.js
- * Location: .github/agents/includes/changelogUtils.js
+ * Utility: changelogUtils.cjs
+ * Location: .github/agents/includes/changelogUtils.cjs
  * Description:
  *   - Parses and validates CHANGELOG.md files against Keep a Changelog format
  *   - Validates against changelog.schema.json
