@@ -6,14 +6,19 @@ author: 'LightSpeed'
 maintainer: 'Ash Shaw'
 description: 'Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity.'
 tags: ['metrics', 'analytics', 'automation', 'monitoring', 'quality']
-type: 'documentation'
+file_type: 'documentation'
 category: 'infrastructure'
 references:
-    - '../reporting/README.md'
-    - '../agents/metrics.agent.md'
-    - '../../docs/BRANDING.md'
-    - '../workflows/branding.yml'
-    - '../workflows/issue_metrics.yml'
+    - path: '../reporting/README.md'
+      description: 'Reporting documentation'
+    - path: '../agents/metrics.agent.md'
+      description: 'Metrics agent configuration'
+    - path: '../../docs/BRANDING.md'
+      description: 'Branding guidelines'
+    - path: '../workflows/branding.yml'
+      description: 'Branding workflow'
+    - path: '../workflows/issue_metrics.yml'
+      description: 'Issue metrics workflow'
 ---
 
 # LightSpeed Metrics Directory
