@@ -94,7 +94,7 @@
         "eslint": "^8.0.0",
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-prettier": "^5.0.0",
-        "glob": "^10.3.12",
+        "glob": "^11.1.0",
         "gray-matter": "^4.0.3",
         "jest": "^30.0.1",
         "jest-environment-jsdom": "^30.0.1",
