@@ -25,10 +25,11 @@ jobs:
           node-version: 'lts/*'
       - name: Install
         run: npm ci
-      # - name: Run Release Agent (dry-run supported)
-      #   run: |
-      #     node .github/agents/release.agent.js --scope "${{ github.event.inputs.scope }}" --dry-run=false
-      # TODO: G-1: Implement release agent at .github/agents/release.agent.js and enable this step.
+      - name: Run Release Agent
+        run: |
+          node .github/agents/release.agent.cjs --scope "${{ github.event.inputs.scope }}" --dry-run=false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Post metrics
         if: always()
         run: echo "metric=release_cycle conclusion=${{ job.status }}"

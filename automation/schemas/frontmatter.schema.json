@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lightspeedwp.com/schemas/frontmatter.schema.json",
+  "title": "Frontmatter Schema",
+  "description": "JSON schema for validating YAML frontmatter in LightSpeed documentation files",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Document title",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v?\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Document version (e.g., v1.0, 1.0.0)",
+      "examples": ["v1.0", "v1.2.3", "1.0"]
+    },
+    "last_updated": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Last update date in YYYY-MM-DD format",
+      "examples": ["2025-11-17"]
+    },
+    "author": {
+      "type": "string",
+      "description": "Document author or team",
+      "examples": ["LightSpeed", "LightSpeedWP Team"]
+    },
+    "maintainer": {
+      "type": "string",
+      "description": "Current maintainer",
+      "examples": ["Ash Shaw"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the document",
+      "minLength": 10
+    },
+    "tags": {
+      "type": "array",
+      "description": "Document tags for categorization",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "type": {
+      "type": "string",
+      "description": "Document type",
+      "enum": [
+        "agent",
+        "workflow",
+        "instruction",
+        "prompt",
+        "guide",
+        "reference",
+        "template",
+        "process-guide",
+        "claude-instructions",
+        "file_type"
+      ]
+    },
+    "file_type": {
+      "type": "string",
+      "description": "Legacy file type field"
+    },
+    "category": {
+      "type": "string",
+      "description": "Document category",
+      "examples": ["release-management", "automation", "testing"]
+    },
+    "owners": {
+      "type": "array",
+      "description": "Document owners",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "references": {
+      "oneOf": [
+        {
+          "type": "array",
+          "description": "List of reference URLs or paths",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "object",
+          "description": "Named references",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "related_links": {
+      "type": "array",
+      "description": "Related documentation links",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "apply_to": {
+      "type": "string",
+      "description": "What files or components this document applies to"
+    },
+    "mode": {
+      "type": "string",
+      "description": "Agent or prompt mode",
+      "enum": ["agent", "prompt", "chat"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Agent or component name"
+    }
+  },
+  "anyOf": [
+    { "required": ["title"] },
+    { "required": ["name"] }
+  ],
+  "additionalProperties": true
+}
