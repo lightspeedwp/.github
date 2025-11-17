@@ -325,7 +325,7 @@ async function processMarkdownFile(filePath, options = {}) {
  * Process all markdown files in the repository
  */
 async function processAllMarkdownFiles(options = {}) {
-    const { pattern = '**/*.md', verbose = false } = options;
+    const { pattern = '**/*.md' } = options;
 
     const files = globSync(pattern, {
         cwd: process.cwd(),
