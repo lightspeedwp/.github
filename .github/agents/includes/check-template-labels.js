@@ -6,14 +6,14 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 
-const LABELS_FILE = path.resolve(__dirname, '../../.github/labels.yml');
+const LABELS_FILE = path.resolve(__dirname, '../../automation/labels.yml');
 const ISSUE_TYPES_FILE = path.resolve(
     __dirname,
-    '../../.github/issue-types.yml'
+    '../../automation/issue-types.yml'
 );
 const ISSUE_TEMPLATE_DIR = path.resolve(
     __dirname,
-    '../../.github/ISSUE_TEMPLATE'
+    '../../../.github/ISSUE_TEMPLATE'
 );
 
 function loadYaml(file) {
