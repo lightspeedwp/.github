@@ -813,6 +813,8 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 - [🤖 Agent Specifications](./.github/agents/README.md) - Automation agents and workflows
 - [📝 Instructions Library](./.github/instructions/README.md) - Development standards and practices
 - [📚 Collections Directory](./.github/collections/README.md) - Curated instruction collections
+- [📊 Metrics Directory](./.github/metrics/README.md) - Metrics collection and configuration
+- [📈 Reporting Directory](./.github/reporting/README.md) - Generated reports and artifacts
 - [🔧 VS Code Configuration](./.vscode/README.md) - Development environment setup
 
 ### �🔄 Workflows & Governance

@@ -348,6 +348,19 @@ Directory Structure Details
 │   ├── project-meta-sync.yml
 │   └── ... (other workflows)
 │
+├── metrics/                # Metrics collection scripts and configuration
+│   ├── README.md
+│   ├── metrics.config.json
+│   ├── frontmatter-metrics.js
+│   ├── branding.json
+│   └── branding-log.md
+│
+├── reporting/              # Generated reports and metrics artifacts
+│   ├── README.md
+│   ├── frontmatter/
+│   ├── branding/
+│   └── issue-metrics/
+│
 ├── ISSUE_TEMPLATE/         # Issue templates for bugs, features, docs, tasks, etc.
 │   └── *.md
 │
