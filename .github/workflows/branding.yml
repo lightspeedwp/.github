@@ -49,6 +49,7 @@ jobs:
           else
             BASE_REF="HEAD~1"
             HEAD_REF="${{ github.sha }}"
+          fi
           npm install --prefix .github/scripts js-yaml ajv
           FILES=$(git diff --name-only ${{ github.sha }} ${{ github.base_ref || 'HEAD~1' }} | grep -E '\.md$' || true)
           for f in $FILES; do
