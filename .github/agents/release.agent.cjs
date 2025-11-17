@@ -1,7 +1,7 @@
 /**
  * ============================================================================
- * Agent: release.agent.js
- * Location: .github/agents/release.agent.js
+ * Agent: release.agent.cjs
+ * Location: .github/agents/release.agent.cjs
  * Description:
  *   - Automates release validation, changelog enforcement, versioning, tagging, and GitHub Releases
  *   - Main functions: run(), validateRelease(), bumpVersion(), createTag(), publishRelease()
