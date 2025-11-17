@@ -22,7 +22,10 @@ jobs:
         run: |
           node scripts/validate-version.cjs
           node scripts/validate-changelog.cjs
-          # TODO: script to open PR with next version + CHANGELOG block
+      - name: Create Release PR
+        run: node scripts/create-release-pr.cjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Summary
         run: |
           echo "Will open PR with next version and schema-validated changelog" >> $GITHUB_STEP_SUMMARY
