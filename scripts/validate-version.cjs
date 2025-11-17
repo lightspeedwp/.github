@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * ============================================================================
- * Script: validate-version.js
- * Location: scripts/validate-version.js
+ * Script: validate-version.cjs
+ * Location: scripts/validate-version.cjs
  * Description:
  *   - Validates VERSION file against semantic versioning format
  *   - Validates against version.schema.json
