@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'VueJS 3 development standards and best practices with Composition API and TypeScript'
 applyTo: '**/*.vue, **/*.ts, **/*.js, **/*.scss'
 ---

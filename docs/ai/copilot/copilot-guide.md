@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Copilot Space Guide"
 version: "v1.0"
 last_updated: "2025-10-17"
@@ -6,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "How to create, title, describe, instruct, and attach context."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "copilot"
+file_type: "copilot"
 ---
 # Overview
 

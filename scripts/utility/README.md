@@ -5,7 +5,7 @@ last_updated: "2025-01-14"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Utility scripts providing common, reusable functionality and repository-wide maintenance tasks. Standardized logging, validation, and release management utilities."
-type: "utilities"
+file_type: "utilities"
 status: "production"
 tags: ["utilities", "logging", "validation", "release", "maintenance", "shell", "testing"]
 license: "GPL-3.0"

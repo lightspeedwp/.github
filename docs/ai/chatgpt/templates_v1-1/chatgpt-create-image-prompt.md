@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Create Image Prompt Template"
 description: "Template for composing prompts that instruct ChatGPT to generate images."
 last_updated: "2025-10-17"

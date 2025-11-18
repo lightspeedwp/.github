@@ -10,8 +10,8 @@
  * ============================================================================
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Reads telemetry data from the agent cache file if it exists
@@ -26,9 +26,7 @@ function readTelemetryData() {
             const data = fs.readFileSync(telemetryFile, 'utf8');
             return JSON.parse(data);
         } catch (error) {
-            console.error(
-                `Failed to read telemetry data: ${error.message}`
-            );
+            console.error(`Failed to read telemetry data: ${error.message}`);
             return getDefaultTelemetry();
         }
     }

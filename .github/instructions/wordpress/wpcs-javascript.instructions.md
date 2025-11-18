@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: ['**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs']
 description: "Apply WordPress JavaScript coding standards (formatting, naming, patterns)."
 last_updated: "2025-10-19"

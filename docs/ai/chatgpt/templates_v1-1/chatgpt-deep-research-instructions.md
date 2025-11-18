@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Deep Research Instructions"
 description: "Guidelines for using ChatGPT to conduct thorough research and produce comprehensive reports with citations."
 last_updated: "2025-10-17"

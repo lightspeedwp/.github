@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Awesome Copilot Instructions Index"
 description: "Dynamic index of all Copilot instructions in .github/instructions/awesome-copilot/ for LightSpeedWP."
 version: "v1.0"

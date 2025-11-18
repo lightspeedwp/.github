@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: ['**/*.css', '**/*.scss', '**/*.sass']
 description: "Enforce conforming to the Web Content Accessibility Guidelines (WCAG), version 2.2, at level AA."
 last_updated: "2025-10-19"

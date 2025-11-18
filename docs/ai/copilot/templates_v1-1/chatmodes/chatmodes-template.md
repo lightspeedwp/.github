@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Template: Chat Modes (master)"
 version: "v1.0"
 last_updated: "2025-10-17"
@@ -6,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Master file that lists all chat modes."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "chatmode"
+file_type: "chatmode"
 ---
 # Role (required)
 

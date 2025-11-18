@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'Label Automation Documentation'
 description: 'Automated labeling strategies, workflows, and project synchronization for LightSpeed GitHub repositories'
 version: '1.0'

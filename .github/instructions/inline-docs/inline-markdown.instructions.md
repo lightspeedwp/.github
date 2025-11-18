@@ -1,4 +1,5 @@
 # INLINE-MARKDOWN.md
+file_type: "instructions"
 
 LightSpeedWP **Markdown** standards for docs and READMEs.
 

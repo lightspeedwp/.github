@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Study & Learn Instructions"
 description: "Guidelines for using ChatGPT to help users learn new topics through explanations, examples and exercises."
 last_updated: "2025-10-17"

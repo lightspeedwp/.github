@@ -247,10 +247,7 @@ name: Feature Request
 labels: ['type:feature', 'priority:normal']
 ---`;
 
-            const templateFile = path.join(
-                tempIssueTemplateDir,
-                'feature.md'
-            );
+            const templateFile = path.join(tempIssueTemplateDir, 'feature.md');
             fs.writeFileSync(templateFile, template);
 
             const content = fs.readFileSync(templateFile, 'utf8');
@@ -507,10 +504,7 @@ labels: [type:bug, , , priority:high]
             const canonicalSet = new Set(canonicalLabels.map((l) => l.name));
 
             // Create issue type labels with unknown label
-            const issueTypeLabels = new Set([
-                'type:bug',
-                'type:unknown-type',
-            ]);
+            const issueTypeLabels = new Set(['type:bug', 'type:unknown-type']);
 
             // Create template labels with unknown label
             const templateLabels = new Set(['priority:urgent', 'type:bug']);
@@ -709,10 +703,7 @@ labels: ['type:bug', "priority:high"]
 label: type:bug
 ---`;
 
-            const templateFile = path.join(
-                tempIssueTemplateDir,
-                'singular.md'
-            );
+            const templateFile = path.join(tempIssueTemplateDir, 'singular.md');
             fs.writeFileSync(templateFile, template);
 
             const content = fs.readFileSync(templateFile, 'utf8');

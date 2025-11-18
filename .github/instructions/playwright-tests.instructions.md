@@ -1,11 +1,12 @@
 ---
+file_type: "instructions"
 title: "Playwr  - documentation
   - instructions
   - guides
 version: "1.0.0"
 permalink: "/instructions/playwright-tests"
 license: "GPL-3.0"
-type: "instructions"
+file_type: "instructions"
 mode: "agent"
 author: "LightSpeedWP Team"
 contributors:

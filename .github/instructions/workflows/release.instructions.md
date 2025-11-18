@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Workflow: Release"
 description: "Automate releases, versioning, changelog verification, and release publishing."
 version: "v1.0"

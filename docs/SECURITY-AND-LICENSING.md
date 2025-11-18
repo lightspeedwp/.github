@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'AI Template Security & Licensing'
 description: 'Security, data hygiene, and licensing rules for AI template assets.'
 last_updated: '2025-10-24'

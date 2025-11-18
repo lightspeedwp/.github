@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'GitHub Labels Guide'
 description: 'Comprehensive guide to LightSpeed label semantics, usage examples, and automation workflows'
 version: '1.0'

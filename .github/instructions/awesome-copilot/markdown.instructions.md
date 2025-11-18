@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Documentation and content creation standards'
 applyTo: '**/*.md'
 ---
