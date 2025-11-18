@@ -90,7 +90,7 @@ name: this is not quoted properly: and has colons
     // Test invalid YAML
     fs.writeFileSync(testFile, invalidYaml);
     try {
-        fm = extractFrontmatter(testFile);
+        extractFrontmatter(testFile);
         assert(false, 'Should throw error for invalid YAML');
     } catch (error) {
         assert(true, 'Should throw error for invalid YAML');
