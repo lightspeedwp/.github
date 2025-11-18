@@ -110,6 +110,7 @@
         "typescript": "^5.0.0"
     },
     "scripts": {
+        "check": "npm run lint:all && npm run test",
         "lint:pkg-json": "npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs .",
         "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset spectral.config.js",
         "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset spectral.config.js",
