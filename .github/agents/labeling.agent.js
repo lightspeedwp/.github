@@ -25,8 +25,6 @@ const {
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG =
     process.env.LABELS_CONFIG || '.github/automation/labels.yml';
-const ISSUE_TYPES_CONFIG =
-    process.env.ISSUE_TYPES_CONFIG || '.github/automation/issue-types.yml'; // reserved for later phases
 
 function readYamlArrayFile(path, purpose) {
     if (!fs.existsSync(path)) {
