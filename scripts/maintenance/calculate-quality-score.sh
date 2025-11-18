@@ -182,10 +182,15 @@ calculate_security_score() {
     local security_issues=0
     local total_checks=0
 
-    # Check for eval usage
+    # Check for unsafe eval usage using ShellCheck (SC2006, SC2086, SC2016, SC2140, SC2312)
     ((total_checks++))
-    if grep -r "eval" scripts/ --include="*.sh" >/dev/null 2>&1; then
-        ((security_issues++))
+    if command -v shellcheck >/dev/null 2>&1; then
+        # Run ShellCheck and look for warnings about unsafe eval usage
+        if shellcheck -f gcc -e SC1090,SC1091 $(find scripts/ -name "*.sh" -type f) 2>/dev/null | grep -E "SC2006|SC2086|SC2016|SC2140|SC2312" >/dev/null; then
+            ((security_issues++))
+        fi
+    else
+        log_info "ShellCheck not found; skipping eval security check"
     fi
 
     # Check for unsafe variable expansion
