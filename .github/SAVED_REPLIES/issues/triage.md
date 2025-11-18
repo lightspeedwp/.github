@@ -1,12 +1,13 @@
 ---
-title: "Triage Status Saved Replies"
-description: "Standard responses for new issues in triage, requesting clarification or next steps. Follows LightSpeedWP label and triage workflow."
-category: "Issue Management"
-labels:
-  - status:needs-triage
-references:
+"title": "Triage Status Saved Replies"
+"description": "Standard responses for new issues in triage, requesting clarification or next steps. Follows LightSpeedWP label and triage workflow."
+"category": "Issue Management"
+"labels":
+  - "status:needs-triage"
+"references":
   - "../ISSUE_LABELS.md"
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # Triage Status Saved Replies

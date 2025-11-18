@@ -1,11 +1,12 @@
 ---
-id: ls-block-release-agent
-title: Block Release Agent
-description: Prepare a tagged release to wp.org SVN or GitHub.
-mode: agent
-tags:
-  - 03-single-block-plugin
-  - agent
+"id": "ls-block-release-agent"
+"title": "Block Release Agent"
+"description": "Prepare a tagged release to wp.org SVN or GitHub."
+"mode": "agent"
+"tags":
+  - "03-single-block-plugin"
+  - "agent"
+"file_type": "prompt"
 ---
 
 Plan:

@@ -1,12 +1,13 @@
 ---
-title: "Draft PR Saved Replies"
-description: "Standard reply for draft pull requests, encouraging early feedback and best practices."
-category: "Pull Request"
-labels:
-  - status:in-progress
-references:
+"title": "Draft PR Saved Replies"
+"description": "Standard reply for draft pull requests, encouraging early feedback and best practices."
+"category": "Pull Request"
+"labels":
+  - "status:in-progress"
+"references":
   - "../../CONTRIBUTING.md"
   - "../../pull_request_template.md"
+"file_type": "saved-reply"
 ---
 
 # Draft PR Saved Replies

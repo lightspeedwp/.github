@@ -1,7 +1,8 @@
 ---
-description: "Audit PHP files for WordPress DocBlocks and fix missing/incorrect tags."
-mode: "edit"
-model: "GPT-4"
+"description": "Audit PHP files for WordPress DocBlocks and fix missing/incorrect tags."
+"mode": "edit"
+"model": "GPT-4"
+"file_type": "prompt"
 ---
 Using the **WordPress PHP Documentation Standards**, scan the selected PHP file or project for missing or incomplete DocBlocks. For each public function, method, class or hook:
 

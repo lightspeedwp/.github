@@ -1,21 +1,22 @@
 ---
-description: "Comprehensive documentation repository for LightSpeedWP containing standards, guides, workflows, and configurations. Central hub for all development ecosystem documentation with cross-linked architecture."
-version: "3.2"
-last_updated: "2025-10-25"
-owners:
-  - LightSpeedWP Team
-references:
-  - ./README_DOCS_ARCHITECTURE.md
-  - ./ARCHITECTURE.md
-  - ./VERSIONING.md
-  - ./CHECKLIST_CROSSLINKING.md
-  - ./YAML.md
-  - ./YAML-Frontmatter.md
-  - ./frontmatter-schema.md
-  - ./WORKFLOWS.md
-  - ./LABEL_STRATEGY.md
-  - ./ISSUE_CREATION_GUIDE.md
-  - ../CHANGELOG.md
+"description": "Comprehensive documentation repository for LightSpeedWP containing standards, guides, workflows, and configurations. Central hub for all development ecosystem documentation with cross-linked architecture."
+"version": "3.2"
+"last_updated": "2025-10-25"
+"owners":
+  - "LightSpeedWP Team"
+"references":
+  - "./README_DOCS_ARCHITECTURE.md"
+  - "./ARCHITECTURE.md"
+  - "./VERSIONING.md"
+  - "./CHECKLIST_CROSSLINKING.md"
+  - "./YAML.md"
+  - "./YAML-Frontmatter.md"
+  - "./frontmatter-schema.md"
+  - "./WORKFLOWS.md"
+  - "./LABEL_STRATEGY.md"
+  - "./ISSUE_CREATION_GUIDE.md"
+  - "../CHANGELOG.md"
+"file_type": "documentation"
 ---
 
 LightSpeedWP Documentation Hub

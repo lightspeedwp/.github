@@ -1,13 +1,14 @@
 ---
-title: "License and Legal Inquiry Saved Reply"
-description: "Standard response to license-related or legal compliance questions."
-category: "Community"
-labels:
-  - area:legal
-  - status:needs-triage
-references:
+"title": "License and Legal Inquiry Saved Reply"
+"description": "Standard response to license-related or legal compliance questions."
+"category": "Community"
+"labels":
+  - "area:legal"
+  - "status:needs-triage"
+"references":
   - "../../LICENSE"
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # License and Legal Saved Reply

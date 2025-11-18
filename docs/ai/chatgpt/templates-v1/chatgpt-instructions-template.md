@@ -1,9 +1,11 @@
 ---
-title: "<Your instructions title>"
-description: "<Short summary of what this instruction covers>"
-last_updated: "<YYYY-MM-DD>"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "<Your instructions title>"
+"description": "<Short summary of what this instruction covers>"
+"last_updated": "2025-01-01"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Role (required)

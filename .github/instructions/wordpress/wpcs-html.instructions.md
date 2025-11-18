@@ -11,9 +11,8 @@ contributors:
     github: "ashleyshaw"
   - name: "LightSpeedWP"
     github: "lightspeedwp"
-version: "1.0.0"
 permalink: "/instructions/html-template"
-license: "MIT"
+license: "GPL-3.0"
 tags:
   - html
   - template
@@ -25,9 +24,6 @@ categories:
   - documentation
   - instructions
   - guides
-version: "1.0.0"
-permalink: "/instructions/html-template"
-license: "GPL-3.0"
 file_type: "instructions"
 mode: "agent"
 ---

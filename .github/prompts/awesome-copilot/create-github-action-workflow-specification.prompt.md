@@ -1,7 +1,33 @@
 ---
-mode: 'agent'
-description: 'Create a formal specification for an existing GitHub Actions CI/CD workflow, optimized for AI consumption and workflow maintenance.'
-tools: ['changes', 'codebase', 'edit/editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runInTerminal2', 'runNotebooks', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI', 'microsoft.docs.mcp', 'github', 'Microsoft Docs']
+"mode": "agent"
+"description": "Create a formal specification for an existing GitHub Actions CI/CD workflow, optimized for AI consumption and workflow maintenance."
+"tools":
+  - "changes"
+  - "codebase"
+  - "edit/editFiles"
+  - "extensions"
+  - "fetch"
+  - "findTestFiles"
+  - "githubRepo"
+  - "new"
+  - "openSimpleBrowser"
+  - "problems"
+  - "runCommands"
+  - "runInTerminal2"
+  - "runNotebooks"
+  - "runTasks"
+  - "runTests"
+  - "search"
+  - "searchResults"
+  - "terminalLastCommand"
+  - "terminalSelection"
+  - "testFailure"
+  - "usages"
+  - "vscodeAPI"
+  - "microsoft.docs.mcp"
+  - "github"
+  - "Microsoft Docs"
+"file_type": "prompt"
 ---
 # Create GitHub Actions Workflow Specification
 

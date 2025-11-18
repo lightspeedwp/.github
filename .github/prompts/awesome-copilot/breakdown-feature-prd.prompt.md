@@ -1,6 +1,7 @@
 ---
-mode: 'agent'
-description: 'Prompt for creating Product Requirements Documents (PRDs) for new features, based on an Epic.'
+"mode": "agent"
+"description": "Prompt for creating Product Requirements Documents (PRDs) for new features, based on an Epic."
+"file_type": "prompt"
 ---
 
 # Feature PRD Prompt

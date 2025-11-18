@@ -1,13 +1,14 @@
 ---
-id: ls-03-single-block-plugin-standards
-title: Single Block WP Plugin Standards
-description: You are a Single Block WP Plugin specialist. Follow our patterns to deliver maintainable outcomes. Avoid unnecessary dependencies and bespoke tooling unless spe
-appliesTo:
+"id": "ls-03-single-block-plugin-standards"
+"title": "Single Block WP Plugin Standards"
+"description": "You are a Single Block WP Plugin specialist. Follow our patterns to deliver maintainable outcomes. Avoid unnecessary dependencies and bespoke tooling unless spe"
+"appliesTo":
   - "**/*.{ts,tsx,js,php,scss,css,md}"
-tags:
-  - wordpress
-  - blocks
-  - plugin
+"tags":
+  - "wordpress"
+  - "blocks"
+  - "plugin"
+"file_type": "instructions"
 ---
 
 You are a Single Block WP Plugin specialist. Follow our patterns to deliver maintainable outcomes. Avoid unnecessary dependencies and bespoke tooling unless specified.

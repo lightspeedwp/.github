@@ -1,11 +1,12 @@
 ---
-title: 'AI Template Coding & Content Style'
-description: 'Style guide for AI template markdown and content.'
-last_updated: '2025-10-24'
-version: 'v2.0'
-related:
-    - CONTRIBUTING-TEMPLATES.md
-    - SECURITY-AND-LICENSING.md
+"title": "AI Template Coding & Content Style"
+"description": "Style guide for AI template markdown and content."
+"last_updated": "2025-10-24"
+"version": "v2.0"
+"related":
+  - "CONTRIBUTING-TEMPLATES.md"
+  - "SECURITY-AND-LICENSING.md"
+"file_type": "documentation"
 ---
 
 # Coding & Content Style

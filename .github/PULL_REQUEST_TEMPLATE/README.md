@@ -1,9 +1,14 @@
 ---
-description: "Standardized pull request templates for the LightSpeedWP organization"
-version: "v1.0"
-last_updated: "2025-10-24"
-maintainer: "LightSpeed Engineering"
-tags: ["templates", "pull-requests", "governance", "automation"]
+"description": "Standardized pull request templates for the LightSpeedWP organization"
+"version": "v1.0"
+"last_updated": "2025-10-24"
+"maintainer": "LightSpeed Engineering"
+"tags":
+  - "templates"
+  - "pull-requests"
+  - "governance"
+  - "automation"
+"file_type": "pr-template"
 ---
 
 # 🔀 Pull Request Templates Directory

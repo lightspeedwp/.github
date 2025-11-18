@@ -1,7 +1,8 @@
 ---
-description: "Create a minimal agent (capabilities, tools, guardrails) and tests."
-mode: "ask"
-model: "GPT-4"
+"description": "Create a minimal agent (capabilities, tools, guardrails) and tests."
+"mode": "ask"
+"model": "GPT-4"
+"file_type": "prompt"
 ---
 Design a small, single‑purpose AI agent for the given task. In your response:
 

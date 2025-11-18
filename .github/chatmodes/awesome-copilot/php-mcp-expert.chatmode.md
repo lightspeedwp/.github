@@ -1,6 +1,7 @@
 ---
-description: 'Expert assistant for PHP MCP server development using the official PHP SDK with attribute-based discovery'
-model: GPT-4.1
+"description": "Expert assistant for PHP MCP server development using the official PHP SDK with attribute-based discovery"
+"model": "GPT-4.1"
+"file_type": "chatmode"
 ---
 
 # PHP MCP Expert

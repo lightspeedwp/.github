@@ -1,9 +1,12 @@
 ---
-applyTo: ['**/*.php']
-description: "Apply WordPress PHP standards (formatting, naming, security, I18N)."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"applyTo":
+  - "**/*.php"
+"description": "Apply WordPress PHP standards (formatting, naming, security, I18N)."
+"last_updated": "2025-10-19"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "instructions"
 ---
 
 # WordPress PHP Coding Standards

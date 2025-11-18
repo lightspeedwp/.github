@@ -1,13 +1,14 @@
 ---
-title: "Accessibility (A11y) Issue Acknowledgement Saved Replies"
-description: "Standard response for accessibility-related issues, confirming routing to the a11y review process."
-category: "Issue Management"
-labels:
-  - type:a11y
-  - status:needs-design
-references:
+"title": "Accessibility (A11y) Issue Acknowledgement Saved Replies"
+"description": "Standard response for accessibility-related issues, confirming routing to the a11y review process."
+"category": "Issue Management"
+"labels":
+  - "type:a11y"
+  - "status:needs-design"
+"references":
   - "../ISSUE_LABELS.md"
   - "../ISSUE_TYPES.md"
+"file_type": "saved-reply"
 ---
 
 # Accessibility (A11y) Issue Acknowledgement Saved Replies

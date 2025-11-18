@@ -1,6 +1,7 @@
 ---
-mode: 'agent'
-description: 'Prompt for creating an Epic Product Requirements Document (PRD) for a new epic. This PRD will be used as input for generating a technical architecture specification.'
+"mode": "agent"
+"description": "Prompt for creating an Epic Product Requirements Document (PRD) for a new epic. This PRD will be used as input for generating a technical architecture specification."
+"file_type": "prompt"
 ---
 
 # Epic Product Requirements Document (PRD) Prompt

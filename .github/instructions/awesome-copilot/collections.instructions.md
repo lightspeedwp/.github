@@ -1,6 +1,7 @@
 ---
-description: 'Guidelines for creating and managing awesome-copilot collections'
-applyTo: 'collections/*.collection.yml'
+"description": "Guidelines for creating and managing awesome-copilot collections"
+"applyTo": "collections/*.collection.yml"
+"file_type": "instructions"
 ---
 
 # Collections Development

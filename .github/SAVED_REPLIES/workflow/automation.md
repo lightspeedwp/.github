@@ -1,15 +1,16 @@
 ---
-title: "Workflow Automation Issues Saved Reply"
-description: "Guidance for troubleshooting workflow automation failures and GitHub Actions issues."
-category: "Workflow"
-labels:
-  - area:automation
-  - area:workflow
-  - status:needs-triage
-references:
+"title": "Workflow Automation Issues Saved Reply"
+"description": "Guidance for troubleshooting workflow automation failures and GitHub Actions issues."
+"category": "Workflow"
+"labels":
+  - "area:automation"
+  - "area:workflow"
+  - "status:needs-triage"
+"references":
   - "../../AUTOMATION_GOVERNANCE.md"
   - "../../instructions/ci-cd-troubleshooting.md"
   - "https://docs.github.com/en/actions"
+"file_type": "saved-reply"
 ---
 
 # Workflow Automation Issues Saved Reply

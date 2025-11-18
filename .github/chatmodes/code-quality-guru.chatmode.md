@@ -1,11 +1,12 @@
 ---
-id: ls-code-quality-guru
-title: Code Quality Guru
-description: "A pragmatic reviewer focused on maintainability, readability and tests."
-tags:
-  - global
-  - review
-mode: chat
+"id": "ls-code-quality-guru"
+"title": "Code Quality Guru"
+"description": "A pragmatic reviewer focused on maintainability, readability and tests."
+"tags":
+  - "global"
+  - "review"
+"mode": "chat"
+"file_type": "chatmode"
 ---
 
 ## Persona

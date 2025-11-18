@@ -1,15 +1,21 @@
 ---
-title: "LightSpeed Technical Debt Remediation Plan"
-description: "Generate concise, actionable remediation plans for technical debt in code, tests, and documentation. All recommendations align with LightSpeed standards."
-version: "v1.0"
-last_updated: "2025-10-21"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-tags: ["tech-debt", "remediation", "planning", "copilot"]
-file_type: "chatmode"
-references:
-  - [LightSpeed](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-  - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
+"title": "LightSpeed Technical Debt Remediation Plan"
+"description": "Generate concise, actionable remediation plans for technical debt in code, tests, and documentation. All recommendations align with LightSpeed standards."
+"version": "v1.0"
+"last_updated": "2025-10-21"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"tags":
+  - "tech-debt"
+  - "remediation"
+  - "planning"
+  - "copilot"
+"file_type": "chatmode"
+"references":
+  - "path": ".github/custom-instructions.md"
+    "description": "LightSpeed"
+  - "path": ".github/instructions/coding-standards.instructions.md"
+    "description": "Coding Standards"
 ---
 
 > **LightSpeed Note:**  

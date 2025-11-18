@@ -1,7 +1,9 @@
 ---
-mode: 'agent'
-tools: ['codebase']
-description: 'Create optimized multi-stage Dockerfiles for any language or framework'
+"mode": "agent"
+"tools":
+  - "codebase"
+"description": "Create optimized multi-stage Dockerfiles for any language or framework"
+"file_type": "prompt"
 ---
 
 Your goal is to help me create efficient multi-stage Dockerfiles that follow best practices, resulting in smaller, more secure container images.

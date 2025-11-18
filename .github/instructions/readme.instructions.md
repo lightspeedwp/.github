@@ -1,6 +1,7 @@
 ---
-description: "Comprehensive requirements and guidance for all README.md and Markdown documentation files across the repository, including expanded fields/sections by file/folder type."
-applyTo: "README.md, *.md"
+"description": "Comprehensive requirements and guidance for all README.md and Markdown documentation files across the repository, including expanded fields/sections by file/folder type."
+"applyTo": "README.md, *.md"
+"file_type": "instructions"
 ---
 
 # README Documentation Standards & Update Tasks

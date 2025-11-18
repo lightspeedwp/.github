@@ -1,9 +1,11 @@
 ---
-title: "Agent Mode Instructions"
-description: "Guidelines for using ChatGPT as an autonomous agent to plan and execute multi‑step tasks across tools and connectors."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Agent Mode Instructions"
+"description": "Guidelines for using ChatGPT as an autonomous agent to plan and execute multi‑step tasks across tools and connectors."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Role (required)

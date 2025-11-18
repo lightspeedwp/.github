@@ -1,6 +1,7 @@
 ---
-applyTo: "**/*.php"
-description: "WordPress PHP coding standards and theme conventions"
+"applyTo": "**/*.php"
+"description": "WordPress PHP coding standards and theme conventions"
+"file_type": "instructions"
 ---
 
 # PHP / WordPress Instructions

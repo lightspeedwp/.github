@@ -22,8 +22,6 @@ categories:
   - documentation
   - instructions
   - guides
-version: "1.0.0"
-permalink: "/instructions/pattern-development"
 license: "GPL-3.0"
 file_type: "instructions"
 mode: "agent"
@@ -33,12 +31,14 @@ applyTo: "**/patterns/**/*.php"
 # Block Pattern Development Instructions
 
 ## Pattern Structure
-  related_links:
-    - "https://developer.wordpress.org/themes/patterns/"
-    - "https://developer.wordpress.org/themes/patterns/starter-patterns/"
-    - "https://developer.wordpress.org/themes/patterns/usage-in-templates/"
+
 - Use appropriate block variations based on content needs.
 - Test pattern across different viewport sizes.
+
+**Related Links:**
+- [WordPress Patterns Documentation](https://developer.wordpress.org/themes/patterns/)
+- [Starter Patterns](https://developer.wordpress.org/themes/patterns/starter-patterns/)
+- [Pattern Usage in Templates](https://developer.wordpress.org/themes/patterns/usage-in-templates/)
 
 
 ## Registration

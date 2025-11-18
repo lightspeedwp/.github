@@ -1,7 +1,8 @@
 ---
-applyTo: '**'
-description: 'TaskSync V4 - Allows you to give the agent new instructions or feedback after completing a task using terminal while agent is running.'
-license: 'GPL-3.0'
+"applyTo": "**"
+"description": "TaskSync V4 - Allows you to give the agent new instructions or feedback after completing a task using terminal while agent is running."
+"license": "GPL-3.0"
+"file_type": "instructions"
 ---
 
 # TaskSync V4 Protocol

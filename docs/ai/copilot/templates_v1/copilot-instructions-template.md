@@ -1,9 +1,12 @@
 ---
-applyTo: ['*']
-description: "<Short description of what these instructions cover>"
-last_updated: "<YYYY-MM-DD>"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"applyTo":
+  - "*"
+"description": "<Short description of what these instructions cover>"
+"last_updated": "<YYYY-MM-DD>"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Mission

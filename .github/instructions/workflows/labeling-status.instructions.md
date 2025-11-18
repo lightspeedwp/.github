@@ -1,14 +1,16 @@
 ---
-title: "Workflow: Labeling & Status Automation"
-description: "Automate and enforce PR/issue labeling, status, and changelog requirements."
-version: "v1.0"
-apply_to: ".github/workflows/labels-issues-prs.yml, associated agents"
-last_updated: "2025-10-22"
-owners: ["LightSpeed Engineering"]
-references:
+"title": "Workflow: Labeling & Status Automation"
+"description": "Automate and enforce PR/issue labeling, status, and changelog requirements."
+"version": "v1.0"
+"apply_to": ".github/workflows/labels-issues-prs.yml, associated agents"
+"last_updated": "2025-10-22"
+"owners":
+  - "LightSpeed Engineering"
+"references":
   - "./workflows.instructions.md"
   - "../agents/labeling.agent.js"
   - "../agents/status-one-hot.enforcer.js"
+"file_type": "instructions"
 ---
 
 # Mission

@@ -1,7 +1,8 @@
 ---
-title: "Documentation Updates Saved Replies"
-description: "Feedback for documentation PRs and content improvements."
-category: "Pull Request"
+"title": "Documentation Updates Saved Replies"
+"description": "Feedback for documentation PRs and content improvements."
+"category": "Pull Request"
+"file_type": "saved-reply"
 ---
 
 # Documentation Updates Saved Replies

@@ -1,8 +1,21 @@
 ---
-mode: agent
-description: 'Generate a language translation for a mkdocs documentation stack.'
-tools: ['codebase', 'usages', 'problems', 'changes', 'terminalSelection', 'terminalLastCommand', 'searchResults', 'extensions', 'edit/editFiles', 'search', 'runCommands', 'runTasks']
-model: Claude Sonnet 4
+"mode": "agent"
+"description": "Generate a language translation for a mkdocs documentation stack."
+"tools":
+  - "codebase"
+  - "usages"
+  - "problems"
+  - "changes"
+  - "terminalSelection"
+  - "terminalLastCommand"
+  - "searchResults"
+  - "extensions"
+  - "edit/editFiles"
+  - "search"
+  - "runCommands"
+  - "runTasks"
+"model": "Claude Sonnet 4"
+"file_type": "prompt"
 ---
 
 # MkDocs AI Translator

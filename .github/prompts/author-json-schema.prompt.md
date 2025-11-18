@@ -1,7 +1,8 @@
 ---
-description: "Draft a JSON Schema from sample data and business rules."
-mode: "ask"
-model: "GPT-4"
+"description": "Draft a JSON Schema from sample data and business rules."
+"mode": "ask"
+"model": "GPT-4"
+"file_type": "prompt"
 ---
 Using provided example JSON objects and rules, draft a comprehensive JSON Schema. Include:
 

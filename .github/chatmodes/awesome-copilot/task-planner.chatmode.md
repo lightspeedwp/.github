@@ -1,16 +1,23 @@
 ---
-title: "LightSpeed Task Planner"
-description: "Create actionable, research-validated task plans for implementation in LightSpeed projects. All planning follows LightSpeed standards and file conventions."
-version: "v1.0"
-last_updated: "2025-10-21"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-tags: ["task-planner", "planning", "checklist", "copilot"]
-file_type: "chatmode"
-references:
-  - [LightSpeed](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-  - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-  - [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/pattern-development.instructions.md)
+"title": "LightSpeed Task Planner"
+"description": "Create actionable, research-validated task plans for implementation in LightSpeed projects. All planning follows LightSpeed standards and file conventions."
+"version": "v1.0"
+"last_updated": "2025-10-21"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"tags":
+  - "task-planner"
+  - "planning"
+  - "checklist"
+  - "copilot"
+"file_type": "chatmode"
+"references":
+  - "path": ".github/custom-instructions.md"
+    "description": "LightSpeed"
+  - "path": ".github/instructions/coding-standards.instructions.md"
+    "description": "Coding Standards"
+  - "path": ".github/instructions/pattern-development.instructions.md"
+    "description": "Pattern Development"
 ---
 
 > **LightSpeed Note:**  

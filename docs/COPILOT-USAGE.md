@@ -1,14 +1,15 @@
 ---
-title: 'Copilot Usage for AI Templates'
-description: 'How to scaffold and maintain AI template repos with Copilot.'
-last_updated: '2025-10-24'
-version: 'v2.0'
-related:
-    - TEMPLATE-SPEC.md
-    - CODING-STYLE.md
-    - CONTRIBUTING-TEMPLATES.md
-    - RELEASE-PROCESS.md
-    - SECURITY-AND-LICENSING.md
+"title": "Copilot Usage for AI Templates"
+"description": "How to scaffold and maintain AI template repos with Copilot."
+"last_updated": "2025-10-24"
+"version": "v2.0"
+"related":
+  - "TEMPLATE-SPEC.md"
+  - "CODING-STYLE.md"
+  - "CONTRIBUTING-TEMPLATES.md"
+  - "RELEASE-PROCESS.md"
+  - "SECURITY-AND-LICENSING.md"
+"file_type": "documentation"
 ---
 
 # Copilot Usage

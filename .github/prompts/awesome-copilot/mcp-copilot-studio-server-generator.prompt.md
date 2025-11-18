@@ -1,6 +1,7 @@
 ---
-description: Generate a complete MCP server implementation optimized for Copilot Studio integration with proper schema constraints and streamable HTTP support
-mode: agent
+"description": "Generate a complete MCP server implementation optimized for Copilot Studio integration with proper schema constraints and streamable HTTP support"
+"mode": "agent"
+"file_type": "prompt"
 ---
 
 # Power Platform MCP Connector Generator

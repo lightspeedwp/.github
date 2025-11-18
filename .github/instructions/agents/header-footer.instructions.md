@@ -1,19 +1,25 @@
 ---
-title: 'Header & Footer Automation Instructions'
-description: 'How to use and configure the Header & Footer Agent for randomised headers and footers.'
-version: 'v1.0'
-last_updated: '2025-10-23'
-owners: ['LightSpeedWP Engineering']
-tags: ['header', 'footer', 'automation', 'docs']
-status: 'active'
-references:
-    - './header-footer.agent.md'
-    - './header-footer.prompt.md'
-    - '../../schemas/header-footer.schema.json'
-    - '../../scripts/includes/headers.js'
-    - '../../scripts/includes/footers.js'
-    - '../../HEADER-FOOTER.md'
-    - './branding.agent.md'
+"title": "Header & Footer Automation Instructions"
+"description": "How to use and configure the Header & Footer Agent for randomised headers and footers."
+"version": "v1.0"
+"last_updated": "2025-10-23"
+"owners":
+  - "LightSpeedWP Engineering"
+"tags":
+  - "header"
+  - "footer"
+  - "automation"
+  - "docs"
+"status": "active"
+"references":
+  - "./header-footer.agent.md"
+  - "./header-footer.prompt.md"
+  - "../../schemas/header-footer.schema.json"
+  - "../../scripts/includes/headers.js"
+  - "../../scripts/includes/footers.js"
+  - "../../HEADER-FOOTER.md"
+  - "./branding.agent.md"
+"file_type": "instructions"
 ---
 
 > **Deprecated:** This agent and instructions have been superseded by [branding.agent.md](./branding.agent.md). Please use the Branding Agent for unified header, footer, and badge automation.

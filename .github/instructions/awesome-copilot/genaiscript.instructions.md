@@ -1,6 +1,7 @@
 ---
-description: 'AI-powered script generation guidelines'
-applyTo: '**/*.genai.*'
+"description": "AI-powered script generation guidelines"
+"applyTo": "**/*.genai.*"
+"file_type": "instructions"
 ---
 
 ## Role

@@ -1,9 +1,11 @@
 ---
-title: "Figma Make Website Prompt"
-description: "Prompt for initiating a new Figma Make website build using AI assistance."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Figma Make Website Prompt"
+"description": "Prompt for initiating a new Figma Make website build using AI assistance."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Purpose

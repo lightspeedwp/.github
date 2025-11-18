@@ -1,10 +1,11 @@
 ---
-id: ls-block-scaffold
-title: Block Scaffold
-description: "Create a single block with @wordpress/create-block baseline and tweaks."
-mode: chat
-tags:
-  - 03-single-block-plugin
+"id": "ls-block-scaffold"
+"title": "Block Scaffold"
+"description": "Create a single block with @wordpress/create-block baseline and tweaks."
+"mode": "chat"
+"tags":
+  - "03-single-block-plugin"
+"file_type": "prompt"
 ---
 
 Tasks:

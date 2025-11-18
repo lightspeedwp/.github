@@ -1,6 +1,8 @@
 ---
-applyTo: ['*']
-description: "Comprehensive best practices for AI prompt engineering, safety frameworks, bias mitigation, and responsible AI usage for Copilot and LLMs."
+"applyTo":
+  - "*"
+"description": "Comprehensive best practices for AI prompt engineering, safety frameworks, bias mitigation, and responsible AI usage for Copilot and LLMs."
+"file_type": "instructions"
 ---
 
 # AI Prompt Engineering & Safety Best Practices

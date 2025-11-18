@@ -1,10 +1,16 @@
 ---
-title: 'LightSpeed Projects Documentation'
-description: 'GitHub Projects templates, automation, and field specifications for LightSpeed workflows'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['github-projects', 'automation', 'templates', 'workflows', 'project-management']
+"title": "LightSpeed Projects Documentation"
+"description": "GitHub Projects templates, automation, and field specifications for LightSpeed workflows"
+"version": "1.0"
+"last_updated": "2025-11-12"
+"maintainer": "LightSpeed Team"
+"tags":
+  - "github-projects"
+  - "automation"
+  - "templates"
+  - "workflows"
+  - "project-management"
+"file_type": "documentation"
 ---
 
 # LightSpeed Projects Documentation

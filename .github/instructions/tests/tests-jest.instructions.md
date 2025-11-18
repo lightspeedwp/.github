@@ -1,13 +1,15 @@
 ---
-title: "Jest Test Instructions"
-description: "How to set up, configure, and write tests with Jest for JavaScript/TypeScript projects."
-version: "1.0.0"
-apply_to: "JavaScript/TypeScript projects"
-last_updated: "2025-10-22"
-owners: ["LightSpeed Engineering"]
-references:
+"title": "Jest Test Instructions"
+"description": "How to set up, configure, and write tests with Jest for JavaScript/TypeScript projects."
+"version": "1.0.0"
+"apply_to": "JavaScript/TypeScript projects"
+"last_updated": "2025-10-22"
+"owners":
+  - "LightSpeed Engineering"
+"references":
   - "../tests.instructions.md"
   - "https://docs.github.com/en/copilot/customizing-copilot/adding-organization-custom-instructions-for-github-copilot"
+"file_type": "instructions"
 ---
 
 # Jest Test Instructions

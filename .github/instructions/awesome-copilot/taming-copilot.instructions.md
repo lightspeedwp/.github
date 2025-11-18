@@ -1,6 +1,7 @@
 ---
-applyTo: '**'
-description: 'Prevent Copilot from wreaking havoc across your codebase, keeping it under control.'
+"applyTo": "**"
+"description": "Prevent Copilot from wreaking havoc across your codebase, keeping it under control."
+"file_type": "instructions"
 ---
 
 ## Core Directives & Hierarchy

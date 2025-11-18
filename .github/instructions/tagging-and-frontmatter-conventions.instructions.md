@@ -1,6 +1,7 @@
 ---
-description: 'LightSpeedWP unified frontmatter conventions combining awesome-copilot tagging with governance requirements for all .github assets'
-applyTo: '**/*.md'
+"description": "LightSpeedWP unified frontmatter conventions combining awesome-copilot tagging with governance requirements for all .github assets"
+"applyTo": "**/*.md"
+"file_type": "instructions"
 ---
 
 # LightSpeedWP Unified Frontmatter Conventions

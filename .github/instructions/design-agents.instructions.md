@@ -1,9 +1,13 @@
 ---
-applyTo: ['**/*.md', 'agents/**']
-description: "Author, evaluate, and test AI agents; design agentic workflows."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"applyTo":
+  - "**/*.md"
+  - "agents/**"
+"description": "Author, evaluate, and test AI agents; design agentic workflows."
+"last_updated": "2025-10-19"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "instructions"
 ---
 
 # Mission

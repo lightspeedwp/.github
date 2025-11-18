@@ -1,9 +1,11 @@
 ---
-title: "Study & Learn Prompt Template"
-description: "Template for requesting structured learning support from ChatGPT."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Study & Learn Prompt Template"
+"description": "Template for requesting structured learning support from ChatGPT."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Purpose

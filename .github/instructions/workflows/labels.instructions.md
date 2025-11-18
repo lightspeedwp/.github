@@ -1,13 +1,15 @@
 ---
-title: "Workflow: Labels"
-description: "Org-wide labels & issue types; automate labels on PRs only."
-version: "v1.0"
-apply_to: ".github/workflows/label-*.yml, all repositories"
-last_updated: "2025-10-19"
-owners: ["LightSpeed Engineering"]
-references:
+"title": "Workflow: Labels"
+"description": "Org-wide labels & issue types; automate labels on PRs only."
+"version": "v1.0"
+"apply_to": ".github/workflows/label-*.yml, all repositories"
+"last_updated": "2025-10-19"
+"owners":
+  - "LightSpeed Engineering"
+"references":
   - "./workflows.instructions.md"
   - "https://docs.github.com/en/copilot/customizing-copilot/adding-organization-custom-instructions-for-github-copilot"
+"file_type": "instructions"
 ---
 
 # Mission

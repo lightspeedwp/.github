@@ -1,12 +1,19 @@
 ---
-title: "GEMINI.md Template"
-version: "v1.0"
-last_updated: "2025-10-17"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Root-level guidance for Gemini agents."
-tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-file_type: "agent"
+"title": "GEMINI.md Template"
+"version": "v1.0"
+"last_updated": "2025-10-17"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"description": "Root-level guidance for Gemini agents."
+"tags":
+  - "lightspeed"
+  - "templates"
+  - "copilot"
+  - "agents"
+  - "prompts"
+  - "models"
+"file_type": "agent"
+"name": "GEMINI.md Template"
 ---
 # Role (required)
 

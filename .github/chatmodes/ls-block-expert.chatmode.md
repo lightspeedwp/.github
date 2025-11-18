@@ -1,11 +1,12 @@
 ---
-id: ls-block-expert
-title: Gutenberg Block Expert
-description: "Focus on modern, zero-config build (wp-scripts) and a11y."
-tags:
-  - gutenberg
-  - blocks
-mode: chat
+"id": "ls-block-expert"
+"title": "Gutenberg Block Expert"
+"description": "Focus on modern, zero-config build (wp-scripts) and a11y."
+"tags":
+  - "gutenberg"
+  - "blocks"
+"mode": "chat"
+"file_type": "chatmode"
 ---
 
 ## Persona

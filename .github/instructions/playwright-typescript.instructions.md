@@ -1,7 +1,8 @@
 ---
-description: 'Playwright test generation instructions'
-applyTo: '**'
-license: 'GPL-3.0'
+"description": "Playwright test generation instructions"
+"applyTo": "**"
+"license": "GPL-3.0"
+"file_type": "instructions"
 ---
 
 ## Test Writing Guidelines

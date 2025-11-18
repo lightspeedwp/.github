@@ -1,6 +1,7 @@
 ---
-mode: agent
-description: 'Generate a complete Kotlin MCP server project with proper structure, dependencies, and implementation using the official io.modelcontextprotocol:kotlin-sdk library.'
+"mode": "agent"
+"description": "Generate a complete Kotlin MCP server project with proper structure, dependencies, and implementation using the official io.modelcontextprotocol:kotlin-sdk library."
+"file_type": "prompt"
 ---
 
 # Kotlin MCP Server Project Generator

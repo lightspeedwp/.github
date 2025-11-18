@@ -1,12 +1,13 @@
 ---
-title: 'Contributing AI Templates'
-description: 'How to contribute, review, and label AI template assets.'
-last_updated: '2025-10-24'
-version: 'v2.0'
-related:
-    - RELEASE-PROCESS.md
-    - SECURITY-AND-LICENSING.md
-    - CODING-STYLE.md
+"title": "Contributing AI Templates"
+"description": "How to contribute, review, and label AI template assets."
+"last_updated": "2025-10-24"
+"version": "v2.0"
+"related":
+  - "RELEASE-PROCESS.md"
+  - "SECURITY-AND-LICENSING.md"
+  - "CODING-STYLE.md"
+"file_type": "documentation"
 ---
 
 # Contributing Templates

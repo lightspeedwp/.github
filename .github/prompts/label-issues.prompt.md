@@ -1,7 +1,8 @@
 ---
-description: "Apply org label rules to a PR (not issues) via GitHub Action."
-mode: "ask"
-model: "GPT-4"
+"description": "Apply org label rules to a PR (not issues) via GitHub Action."
+"mode": "ask"
+"model": "GPT-4"
+"file_type": "prompt"
 ---
 Generate or adjust a GitHub Actions workflow (e.g. `label-pr.yml`) that automatically labels pull requests based on patterns (such as branch names or file paths). Ensure the workflow:
 

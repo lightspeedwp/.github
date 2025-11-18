@@ -1,8 +1,12 @@
 ---
-name: "Build/CI PR"
-about: "Pipelines, linting, packaging, or release automation"
-title: "build(ci): {short summary}"
-labels: ["type:chore", "status:needs-review", "area:ci"]
+"name": "Build/CI PR"
+"about": "Pipelines, linting, packaging, or release automation"
+"title": "build(ci): {short summary}"
+"labels":
+  - "type:chore"
+  - "status:needs-review"
+  - "area:ci"
+"file_type": "pr-template"
 ---
 
 # Build/CI Pull Request

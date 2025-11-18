@@ -1,22 +1,26 @@
 ---
-name: "🧠 AI Ops"
-about: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
-title: "[AI Ops] <Brief summary>"
-labels: [type:ai-ops, status:needs-triage, area:ai]
-assignees: []
-projects: []
-milestone: ''
-type: ai-ops
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+"name": "🧠 AI Ops"
+"about": "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
+"title": "[AI Ops] <Brief summary>"
+"labels":
+  - "type:ai-ops"
+  - "status:needs-triage"
+  - "area:ai"
+"assignees": []
+"projects": []
+"milestone": ""
+"type": "ai-ops"
+"references":
+  - "../CONTRIBUTING.md"
+  - ".github/BRANCHING_STRATEGY.md"
+  - ".github/AUTOMATION_GOVERNANCE.md"
+  - ".github/PR_LABELS.md"
+  - ".github/SAVED_REPLIES.md"
+  - ".github/PROJECT_META.md"
+  - ".github/labeler.yml"
+  - ".github/labels.yml"
+  - ".github/issue-types.yml"
+"file_type": "issue-template"
 ---
 
 ## AI Ops Summary

@@ -1,6 +1,7 @@
 ---
-description: 'Documentation and content creation standards'
-applyTo: '**/*.md'
+"description": "Documentation and content creation standards"
+"applyTo": "**/*.md"
+"file_type": "instructions"
 ---
 
 ## Markdown Content Rules

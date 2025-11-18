@@ -1,14 +1,21 @@
 ---
-file_type: "agent"
-title: "Branding Agent"
-description: "Unified agent for automating insertion and management of headers, footers, and badges in Markdown documentation files."
-version: "v1.0"
-last_updated: "2025-10-26"
-owners: ["LightSpeedWP Engineering"]
-tags: ["branding", "header", "footer", "badges", "automation", "documentation"]
-category: "automation"
-status: "active"
-references:
+"file_type": "agent"
+"title": "Branding Agent"
+"description": "Unified agent for automating insertion and management of headers, footers, and badges in Markdown documentation files."
+"version": "v1.0"
+"last_updated": "2025-10-26"
+"owners":
+  - "LightSpeedWP Engineering"
+"tags":
+  - "branding"
+  - "header"
+  - "footer"
+  - "badges"
+  - "automation"
+  - "documentation"
+"category": "automation"
+"status": "active"
+"references":
   - "../../schemas/header-footer-agent/agent-config.schema.json"
   - "../../scripts/includes/header-footer.js"
   - "../../scripts/includes/badges.js"
@@ -17,6 +24,7 @@ references:
   - "./branding.prompt.md"
   - "../../README.md"
   - "../../BADGES.md"
+"name": "Branding Agent"
 ---
 
 ## Branding Agent Specification

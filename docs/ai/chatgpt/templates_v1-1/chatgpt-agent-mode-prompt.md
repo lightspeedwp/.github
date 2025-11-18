@@ -1,9 +1,11 @@
 ---
-title: "Agent Mode Prompt Template"
-description: "Template for requesting ChatGPT to act as an agent to plan and execute multi‑step tasks."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Agent Mode Prompt Template"
+"description": "Template for requesting ChatGPT to act as an agent to plan and execute multi‑step tasks."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Purpose

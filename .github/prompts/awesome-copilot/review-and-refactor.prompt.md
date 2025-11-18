@@ -1,6 +1,7 @@
 ---
-mode: 'agent'
-description: 'Review and refactor code in your project according to defined instructions'
+"mode": "agent"
+"description": "Review and refactor code in your project according to defined instructions"
+"file_type": "prompt"
 ---
 
 ## Role

@@ -1,9 +1,11 @@
 ---
-title: "Use Connectors Prompt Template"
-description: "Template for requesting data retrieval from internal sources via connectors."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Use Connectors Prompt Template"
+"description": "Template for requesting data retrieval from internal sources via connectors."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Purpose

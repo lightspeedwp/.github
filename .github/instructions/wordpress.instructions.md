@@ -1,6 +1,7 @@
 ---
-applyTo: "**/*.{php,html,json,css,scss,js,jsx,ts,tsx}"
-description: "WordPress-specific development guidelines and best practices"
+"applyTo": "**/*.{php,html,json,css,scss,js,jsx,ts,tsx}"
+"description": "WordPress-specific development guidelines and best practices"
+"file_type": "instructions"
 ---
 
 # WordPress Instructions

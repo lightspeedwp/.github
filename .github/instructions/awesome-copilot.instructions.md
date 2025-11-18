@@ -1,12 +1,17 @@
 ---
-title: "Awesome Copilot Instructions (LightSpeedWP)"
-description: "Central index and guidance for all 'awesome-copilot' Copilot instructions, prompts, chatmodes, and collections in LightSpeedWP."
-version: "v1.0"
-last_updated: "2025-10-23"
-author: "LightSpeedWP"
-maintainer: "Ash Shaw"
-tags: ["lightspeed", "copilot", "instructions", "awesome-copilot"]
-type: "instructions-index"
+"title": "Awesome Copilot Instructions (LightSpeedWP)"
+"description": "Central index and guidance for all 'awesome-copilot' Copilot instructions, prompts, chatmodes, and collections in LightSpeedWP."
+"version": "v1.0"
+"last_updated": "2025-10-23"
+"author": "LightSpeedWP"
+"maintainer": "Ash Shaw"
+"tags":
+  - "lightspeed"
+  - "copilot"
+  - "instructions"
+  - "awesome-copilot"
+"type": "instructions-index"
+"file_type": "instructions"
 ---
 
 # Awesome Copilot Instructions (LightSpeedWP)

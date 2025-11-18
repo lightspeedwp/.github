@@ -1,6 +1,7 @@
 ---
-applyTo: "**/*.{js,jsx,ts,tsx}"
-description: "JavaScript/TypeScript coding rules"
+"applyTo": "**/*.{js,jsx,ts,tsx}"
+"description": "JavaScript/TypeScript coding rules"
+"file_type": "instructions"
 ---
 
 # JavaScript Instructions

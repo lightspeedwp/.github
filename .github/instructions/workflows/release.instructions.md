@@ -1,14 +1,16 @@
 ---
-title: "Workflow: Release"
-description: "Automate releases, versioning, changelog verification, and release publishing."
-version: "v1.0"
-apply_to: ".github/workflows/release.yml, release agent"
-last_updated: "2025-10-22"
-owners: ["LightSpeed Engineering"]
-references:
+"title": "Workflow: Release"
+"description": "Automate releases, versioning, changelog verification, and release publishing."
+"version": "v1.0"
+"apply_to": ".github/workflows/release.yml, release agent"
+"last_updated": "2025-10-22"
+"owners":
+  - "LightSpeed Engineering"
+"references":
   - "./workflows.instructions.md"
   - "../agents/release.agent.js"
   - "https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages"
+"file_type": "instructions"
 ---
 
 # Mission

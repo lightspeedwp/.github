@@ -1,8 +1,10 @@
 ---
-mode: 'agent'
-description: 'Power BI report visualization design prompt for creating effective, user-friendly, and accessible reports with optimal chart selection and layout design.'
-model: 'gpt-4.1'
-tools: ['microsoft.docs.mcp']
+"mode": "agent"
+"description": "Power BI report visualization design prompt for creating effective, user-friendly, and accessible reports with optimal chart selection and layout design."
+"model": "gpt-4.1"
+"tools":
+  - "microsoft.docs.mcp"
+"file_type": "prompt"
 ---
 
 # Power BI Report Visualization Designer

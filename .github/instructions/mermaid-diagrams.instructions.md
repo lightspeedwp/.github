@@ -1,6 +1,7 @@
 ---
-description: 'Best practices and implementation guidelines for Mermaid diagrams in LightSpeedWP documentation and README files'
-applyTo: '**/*.md'
+"description": "Best practices and implementation guidelines for Mermaid diagrams in LightSpeedWP documentation and README files"
+"applyTo": "**/*.md"
+"file_type": "instructions"
 ---
 
 # Mermaid Diagrams Implementation Guide

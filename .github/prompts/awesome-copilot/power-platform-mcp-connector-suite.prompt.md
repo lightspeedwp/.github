@@ -1,6 +1,7 @@
 ---
-description: Generate complete Power Platform custom connector with MCP integration for Copilot Studio - includes schema generation, troubleshooting, and validation
-mode: agent
+"description": "Generate complete Power Platform custom connector with MCP integration for Copilot Studio - includes schema generation, troubleshooting, and validation"
+"mode": "agent"
+"file_type": "prompt"
 ---
 
 # Power Platform MCP Connector Suite

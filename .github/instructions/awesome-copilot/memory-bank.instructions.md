@@ -1,5 +1,6 @@
 ---
-applyTo: '**'
+"applyTo": "**"
+"file_type": "instructions"
 ---
 Coding standards, domain knowledge, and preferences that AI should follow.
 

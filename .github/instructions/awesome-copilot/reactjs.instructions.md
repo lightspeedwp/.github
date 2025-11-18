@@ -1,6 +1,7 @@
 ---
-description: 'ReactJS development standards and best practices'
-applyTo: '**/*.jsx, **/*.tsx, **/*.js, **/*.ts, **/*.css, **/*.scss'
+"description": "ReactJS development standards and best practices"
+"applyTo": "**/*.jsx, **/*.tsx, **/*.js, **/*.ts, **/*.css, **/*.scss"
+"file_type": "instructions"
 ---
 
 # ReactJS Development Instructions

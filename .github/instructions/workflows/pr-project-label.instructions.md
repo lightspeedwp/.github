@@ -1,13 +1,15 @@
 ---
-title: "Workflow: PR Project Board Labeler"
-description: "Apply project-specific labels to PRs using configuration."
-version: "v1.0"
-apply_to: ".github/workflows/pr-project-label.yml, labeling agent"
-last_updated: "2025-10-22"
-owners: ["LightSpeed Engineering"]
-references:
+"title": "Workflow: PR Project Board Labeler"
+"description": "Apply project-specific labels to PRs using configuration."
+"version": "v1.0"
+"apply_to": ".github/workflows/pr-project-label.yml, labeling agent"
+"last_updated": "2025-10-22"
+"owners":
+  - "LightSpeed Engineering"
+"references":
   - "./workflows.instructions.md"
   - "../agents/labeling.agent.js"
+"file_type": "instructions"
 ---
 
 # Mission

@@ -1,7 +1,8 @@
 ---
-title: "Code Review Saved Replies"
-description: "Constructive feedback templates for code quality, standards compliance, and improvements."
-category: "Pull Request"
+"title": "Code Review Saved Replies"
+"description": "Constructive feedback templates for code quality, standards compliance, and improvements."
+"category": "Pull Request"
+"file_type": "saved-reply"
 ---
 
 # Code Review Saved Replies

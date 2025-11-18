@@ -1,15 +1,21 @@
 ---
-title: 'GitHub Labels Guide'
-description: 'Comprehensive guide to LightSpeed label semantics, usage examples, and automation workflows'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['labels', 'github', 'automation', 'workflow', 'triage']
-related_docs:
-  - '/.github/automation/labels.yml'
-  - '/.github/automation/ISSUE_LABELS.md'
-  - '/.github/automation/PR_LABELS.md'
-  - '/docs/label-automation/README.md'
+"title": "GitHub Labels Guide"
+"description": "Comprehensive guide to LightSpeed label semantics, usage examples, and automation workflows"
+"version": "1.0"
+"last_updated": "2025-11-12"
+"maintainer": "LightSpeed Team"
+"tags":
+  - "labels"
+  - "github"
+  - "automation"
+  - "workflow"
+  - "triage"
+"related_docs":
+  - "/.github/automation/labels.yml"
+  - "/.github/automation/ISSUE_LABELS.md"
+  - "/.github/automation/PR_LABELS.md"
+  - "/docs/label-automation/README.md"
+"file_type": "documentation"
 ---
 
 # GitHub Labels Guide

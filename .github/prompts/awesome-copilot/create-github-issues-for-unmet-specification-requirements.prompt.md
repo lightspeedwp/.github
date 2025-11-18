@@ -1,7 +1,14 @@
 ---
-mode: 'agent'
-description: 'Create GitHub Issues for unimplemented requirements from specification files using feature_request.yml template.'
-tools: ['codebase', 'search', 'github', 'issue_write', 'search_issues', 'update_issue']
+"mode": "agent"
+"description": "Create GitHub Issues for unimplemented requirements from specification files using feature_request.yml template."
+"tools":
+  - "codebase"
+  - "search"
+  - "github"
+  - "issue_write"
+  - "search_issues"
+  - "update_issue"
+"file_type": "prompt"
 ---
 # Create GitHub Issues for Unmet Specification Requirements
 

@@ -1,7 +1,8 @@
 ---
-description: "Expand test coverage focusing on risk and critical paths."
-mode: "ask"
-model: "GPT-4"
+"description": "Expand test coverage focusing on risk and critical paths."
+"mode": "ask"
+"model": "GPT-4"
+"file_type": "prompt"
 ---
 Analyse the current test suite and propose a plan to increase coverage. Your response should:
 

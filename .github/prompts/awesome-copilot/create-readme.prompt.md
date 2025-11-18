@@ -1,6 +1,7 @@
 ---
-mode: 'agent'
-description: 'Create a README.md file for the project'
+"mode": "agent"
+"description": "Create a README.md file for the project"
+"file_type": "prompt"
 ---
 
 ## Role

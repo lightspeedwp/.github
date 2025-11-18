@@ -1,14 +1,15 @@
 ---
-title: "Feature Request Saved Replies"
-description: "Replies for feature requests, enhancements, and new functionality. Follows LightSpeedWP's roadmap and triage process."
-category: "Issue Management"
-labels:
-  - type:feature
-  - status:needs-triage
-references:
+"title": "Feature Request Saved Replies"
+"description": "Replies for feature requests, enhancements, and new functionality. Follows LightSpeedWP's roadmap and triage process."
+"category": "Issue Management"
+"labels":
+  - "type:feature"
+  - "status:needs-triage"
+"references":
   - "../ISSUE_LABELS.md"
   - "../ISSUE_TYPES.md"
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # Feature Request Saved Replies

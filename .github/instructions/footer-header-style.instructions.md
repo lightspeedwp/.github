@@ -1,12 +1,14 @@
 ---
-title: "Footer & Header Style Guide"
-description: "Standardized and fun footer/header logic for all documentation and README files."
-version: "v1.0"
-apply_to: "All automation agents/scripts that update documentation."
-last_updated: "2025-10-22"
-owners: ["LightSpeedWP Automation Team"]
-references:
+"title": "Footer & Header Style Guide"
+"description": "Standardized and fun footer/header logic for all documentation and README files."
+"version": "v1.0"
+"apply_to": "All automation agents/scripts that update documentation."
+"last_updated": "2025-10-22"
+"owners":
+  - "LightSpeedWP Automation Team"
+"references":
   - "https://github.com/lightspeedwp/.github/tree/main/profile"
+"file_type": "instructions"
 ---
 
 # Fun Footer & Header Logic

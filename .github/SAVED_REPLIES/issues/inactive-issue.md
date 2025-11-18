@@ -1,9 +1,10 @@
 ---
-title: "Inactive Issue Saved Reply"
-description: "Message for closing an issue due to inactivity."
-category: "Issue"
-labels:
-  - status:closed
+"title": "Inactive Issue Saved Reply"
+"description": "Message for closing an issue due to inactivity."
+"category": "Issue"
+"labels":
+  - "status:closed"
+"file_type": "saved-reply"
 ---
 
 # Inactive Issue Saved Reply

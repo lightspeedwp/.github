@@ -1,13 +1,14 @@
 ---
-title: "Meta/Automation Label Nudge Saved Replies"
-description: "Prompt for missing or required meta labels, e.g. meta:needs-changelog, meta:triage. Supports LightSpeedWP automation and release workflow."
-category: "Issue Management"
-labels:
-  - meta:needs-changelog
-  - meta:triage
-references:
+"title": "Meta/Automation Label Nudge Saved Replies"
+"description": "Prompt for missing or required meta labels, e.g. meta:needs-changelog, meta:triage. Supports LightSpeedWP automation and release workflow."
+"category": "Issue Management"
+"labels":
+  - "meta:needs-changelog"
+  - "meta:triage"
+"references":
   - "../ISSUE_LABELS.md"
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # Meta/Automation Label Nudge Saved Replies

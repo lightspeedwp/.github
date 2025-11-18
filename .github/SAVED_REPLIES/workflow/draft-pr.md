@@ -1,9 +1,10 @@
 ---
-title: "Draft PR Saved Reply"
-description: "Reply for PRs marked as draft."
-category: "Workflow"
-labels:
-  - status:in-progress
+"title": "Draft PR Saved Reply"
+"description": "Reply for PRs marked as draft."
+"category": "Workflow"
+"labels":
+  - "status:in-progress"
+"file_type": "saved-reply"
 ---
 
 # Draft PR Saved Reply

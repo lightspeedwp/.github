@@ -1,7 +1,8 @@
 ---
-title: 'Refactoring Java Methods with Remove Parameter'
-mode: 'agent'
-description: 'Refactoring using Remove Parameter in Java Language'
+"title": "Refactoring Java Methods with Remove Parameter"
+"mode": "agent"
+"description": "Refactoring using Remove Parameter in Java Language"
+"file_type": "prompt"
 ---
 
 # Refactoring Java Methods with Remove Parameter

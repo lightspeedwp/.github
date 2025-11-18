@@ -1,6 +1,7 @@
 ---
-description: 'Playwright Python AI test generation instructions based on official documentation.'
-applyTo: '**'
+"description": "Playwright Python AI test generation instructions based on official documentation."
+"applyTo": "**"
+"file_type": "instructions"
 ---
 
 # Playwright Python Test Generation Instructions

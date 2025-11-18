@@ -1,7 +1,19 @@
 ---
-mode: 'agent'
-description: 'Update Azure Verified Modules (AVM) to latest versions in Bicep files.'
-tools: ['codebase', 'think', 'changes', 'fetch', 'searchResults', 'todos', 'edit/editFiles', 'search', 'runCommands', 'bicepschema', 'azure_get_schema_for_Bicep']
+"mode": "agent"
+"description": "Update Azure Verified Modules (AVM) to latest versions in Bicep files."
+"tools":
+  - "codebase"
+  - "think"
+  - "changes"
+  - "fetch"
+  - "searchResults"
+  - "todos"
+  - "edit/editFiles"
+  - "search"
+  - "runCommands"
+  - "bicepschema"
+  - "azure_get_schema_for_Bicep"
+"file_type": "prompt"
 ---
 # Update Azure Verified Modules in Bicep Files
 

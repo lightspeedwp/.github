@@ -1,11 +1,12 @@
 ---
-id: ls-dependency-audit-agent
-title: Dependency Audit Agent
-description: Plan an actionable dependency audit across npm and Composer with risk scoring.
-mode: agent
-tags:
-  - agent
-  - deps
+"id": "ls-dependency-audit-agent"
+"title": "Dependency Audit Agent"
+"description": "Plan an actionable dependency audit across npm and Composer with risk scoring."
+"mode": "agent"
+"tags":
+  - "agent"
+  - "deps"
+"file_type": "prompt"
 ---
 
 You are an auditing agent. Produce a plan and concrete commands to:

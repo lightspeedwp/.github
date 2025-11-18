@@ -1,13 +1,15 @@
 ---
-title: "Workflow: Reviewer"
-description: "Automate PR review summaries, CI status, and reviewer guidance."
-version: "v1.0"
-apply_to: ".github/workflows/reviewer.yml, ai-pr-reviewer.yml, reviewer agent"
-last_updated: "2025-10-22"
-owners: ["LightSpeed Engineering"]
-references:
+"title": "Workflow: Reviewer"
+"description": "Automate PR review summaries, CI status, and reviewer guidance."
+"version": "v1.0"
+"apply_to": ".github/workflows/reviewer.yml, ai-pr-reviewer.yml, reviewer agent"
+"last_updated": "2025-10-22"
+"owners":
+  - "LightSpeed Engineering"
+"references":
   - "./workflows.instructions.md"
   - "../agents/reviewer.agent.js"
+"file_type": "instructions"
 ---
 
 # Mission

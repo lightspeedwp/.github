@@ -1,6 +1,7 @@
 ---
-description: "WordPress JavaScript inline documentation standards using JSDoc format following WordPress core guidelines."
-applyTo: "**/*.js"
+"description": "WordPress JavaScript inline documentation standards using JSDoc format following WordPress core guidelines."
+"applyTo": "**/*.js"
+"file_type": "instructions"
 ---
 
 # JavaScript Inline Documentation Instructions

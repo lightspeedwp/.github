@@ -1,5 +1,6 @@
 ---
-applyTo: '**'
+"applyTo": "**"
+"file_type": "instructions"
 ---
 
 # Next.js Best Practices for LLMs (2025)

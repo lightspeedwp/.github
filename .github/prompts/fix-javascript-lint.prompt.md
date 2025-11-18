@@ -1,7 +1,8 @@
 ---
-description: "Fix ESLint/Prettier issues while preserving behaviour; align with WordPress JS style."
-mode: "edit"
-model: "GPT-4"
+"description": "Fix ESLint/Prettier issues while preserving behaviour; align with WordPress JS style."
+"mode": "edit"
+"model": "GPT-4"
+"file_type": "prompt"
 ---
 Run ESLint with the WordPress or LightSpeed configuration on the selected JavaScript files and apply automatic fixes for style errors. Ensure that:
 

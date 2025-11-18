@@ -1,10 +1,15 @@
 ---
-title: 'YAML Frontmatter Documentation'
-description: 'YAML frontmatter schemas and guidelines for LightSpeed documentation files'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['frontmatter', 'yaml', 'metadata', 'documentation']
+"title": "YAML Frontmatter Documentation"
+"description": "YAML frontmatter schemas and guidelines for LightSpeed documentation files"
+"version": "1.0"
+"last_updated": "2025-11-12"
+"maintainer": "LightSpeed Team"
+"tags":
+  - "frontmatter"
+  - "yaml"
+  - "metadata"
+  - "documentation"
+"file_type": "documentation"
 ---
 
 # YAML Frontmatter Documentation

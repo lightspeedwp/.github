@@ -1,12 +1,19 @@
 ---
-title: "Figma Make — Standard Guidelines Template"
-version: "v1.0"
-last_updated: "2025-10-17"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Use for consistent Figma Make requests."
-tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "figma-make"
+"title": "Figma Make — Standard Guidelines Template"
+"version": "v1.0"
+"last_updated": "2025-10-17"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"description": "Use for consistent Figma Make requests."
+"tags":
+  - "lightspeed"
+  - "templates"
+  - "copilot"
+  - "agents"
+  - "prompts"
+  - "models"
+"type": "figma-make"
+"file_type": "documentation"
 ---
 # Role (required)
 

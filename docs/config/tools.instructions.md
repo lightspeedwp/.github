@@ -1,10 +1,15 @@
 ---
-title: "Tool Configuration Documentation Template"
-description: "Standard format for documenting configuration files under docs/config"
-last_updated: "2025-11-14"
-version: "1.0"
-maintainers: ["LightSpeed Team"]
-tags: ["documentation", "configuration", "standards"]
+"title": "Tool Configuration Documentation Template"
+"description": "Standard format for documenting configuration files under docs/config"
+"last_updated": "2025-11-14"
+"version": "1.0"
+"maintainers":
+  - "LightSpeed Team"
+"tags":
+  - "documentation"
+  - "configuration"
+  - "standards"
+"file_type": "documentation"
 ---
 
 # Tool Configuration Documentation Template

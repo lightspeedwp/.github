@@ -1,6 +1,7 @@
 ---
-description: 'Expert assistant for developing Model Context Protocol (MCP) servers in Python'
-model: GPT-4.1
+"description": "Expert assistant for developing Model Context Protocol (MCP) servers in Python"
+"model": "GPT-4.1"
+"file_type": "chatmode"
 ---
 
 # Python MCP Server Expert

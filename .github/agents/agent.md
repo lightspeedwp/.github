@@ -1,12 +1,19 @@
 ---
-title: "Main Agent Index"
-version: "v1.2"
-last_updated: "2025-10-20"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Directory index referencing all agents, instructions, PR templates, and cross-references."
-tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-file_type: "agent"
+"title": "Main Agent Index"
+"version": "v1.2"
+"last_updated": "2025-10-20"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"description": "Directory index referencing all agents, instructions, PR templates, and cross-references."
+"tags":
+  - "lightspeed"
+  - "templates"
+  - "copilot"
+  - "agents"
+  - "prompts"
+  - "models"
+"file_type": "agent"
+"name": "Main Agent Index"
 ---
 
 # LightSpeed Agent Index

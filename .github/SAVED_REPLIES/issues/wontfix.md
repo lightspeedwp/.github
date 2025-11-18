@@ -1,12 +1,13 @@
 ---
-title: "Wontfix / By Design Saved Replies"
-description: "Use when a reported issue or feature request is not planned or is by design. Follows LightSpeedWP workflow and documentation standards."
-category: "Issue Management"
-labels:
-  - status:wontfix
-references:
+"title": "Wontfix / By Design Saved Replies"
+"description": "Use when a reported issue or feature request is not planned or is by design. Follows LightSpeedWP workflow and documentation standards."
+"category": "Issue Management"
+"labels":
+  - "status:wontfix"
+"references":
   - "../ISSUE_LABELS.md"
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # Wontfix / By Design Saved Replies

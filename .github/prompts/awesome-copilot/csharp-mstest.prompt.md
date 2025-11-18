@@ -1,7 +1,13 @@
 ---
-mode: 'agent'
-tools: ['changes', 'codebase', 'edit/editFiles', 'problems', 'search']
-description: 'Get best practices for MSTest unit testing, including data-driven tests'
+"mode": "agent"
+"tools":
+  - "changes"
+  - "codebase"
+  - "edit/editFiles"
+  - "problems"
+  - "search"
+"description": "Get best practices for MSTest unit testing, including data-driven tests"
+"file_type": "prompt"
 ---
 
 # MSTest Best Practices

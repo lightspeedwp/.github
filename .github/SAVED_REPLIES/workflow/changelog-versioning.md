@@ -1,15 +1,16 @@
 ---
-title: "Changelog/Versioning Automation Saved Reply"
-description: "Responses for changelog enforcement, version bump, or release notes automation issues."
-category: "Workflow"
-labels:
-  - area:automation
-  - area:release
-  - status:needs-triage
-references:
+"title": "Changelog/Versioning Automation Saved Reply"
+"description": "Responses for changelog enforcement, version bump, or release notes automation issues."
+"category": "Workflow"
+"labels":
+  - "area:automation"
+  - "area:release"
+  - "status:needs-triage"
+"references":
   - "../../AUTOMATION_GOVERNANCE.md"
   - "../../CONTRIBUTING.md"
   - "../../instructions/changelog.instructions.md"
+"file_type": "saved-reply"
 ---
 
 # Changelog/Versioning Automation Saved Reply

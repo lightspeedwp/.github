@@ -1,6 +1,26 @@
 ---
-description: 'Provide principal-level software engineering guidance with focus on engineering excellence, technical leadership, and pragmatic implementation.'
-tools: ['changes', 'codebase', 'edit/editFiles', 'extensions', 'fetch', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runTasks', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI', 'issue_write']
+"description": "Provide principal-level software engineering guidance with focus on engineering excellence, technical leadership, and pragmatic implementation."
+"tools":
+  - "changes"
+  - "codebase"
+  - "edit/editFiles"
+  - "extensions"
+  - "fetch"
+  - "githubRepo"
+  - "new"
+  - "openSimpleBrowser"
+  - "problems"
+  - "runCommands"
+  - "runTasks"
+  - "search"
+  - "searchResults"
+  - "terminalLastCommand"
+  - "terminalSelection"
+  - "testFailure"
+  - "usages"
+  - "vscodeAPI"
+  - "issue_write"
+"file_type": "chatmode"
 ---
 # Principal software engineer mode instructions
 

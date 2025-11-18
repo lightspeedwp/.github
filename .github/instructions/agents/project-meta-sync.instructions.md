@@ -1,12 +1,14 @@
 ---
-title: "Agent: Project Meta Sync"
-description: "Spec for project-meta-sync agent – syncs GitHub Project board fields with issue/PR metadata and labels."
-version: "v1.0"
-apply_to: ".github/agents/project-meta-sync.agent.js, .github/workflows/project-meta-sync.yml"
-last_updated: "2025-10-22"
-owners: ["LightSpeed Engineering"]
-references:
+"title": "Agent: Project Meta Sync"
+"description": "Spec for project-meta-sync agent – syncs GitHub Project board fields with issue/PR metadata and labels."
+"version": "v1.0"
+"apply_to": ".github/agents/project-meta-sync.agent.js, .github/workflows/project-meta-sync.yml"
+"last_updated": "2025-10-22"
+"owners":
+  - "LightSpeed Engineering"
+"references":
   - "../../workflows/workflow-project-meta-sync.instructions.md"
+"file_type": "instructions"
 ---
 
 # Mission

@@ -1,12 +1,16 @@
 ---
-title: "Release Agent Spec"
-version: "v1.0"
-last_updated: "2025-10-21"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Spec for the Release Agent."
-tags: ["lightspeed","release","agents"]
-file_type: "agent"
+"title": "Release Agent Spec"
+"version": "v1.0"
+"last_updated": "2025-10-21"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"description": "Spec for the Release Agent."
+"tags":
+  - "lightspeed"
+  - "release"
+  - "agents"
+"file_type": "agent"
+"name": "Release Agent Spec"
 ---
 
 # Role

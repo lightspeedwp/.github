@@ -1,13 +1,15 @@
 ---
-title: "Playwright Test Instructions"
-description: "How to write and organize Playwright browser/E2E tests for LightSpeed projects."
-version: "1.0.0"
-apply_to: "browser/E2E testing"
-last_updated: "2025-10-22"
-owners: ["LightSpeed Engineering"]
-references:
+"title": "Playwright Test Instructions"
+"description": "How to write and organize Playwright browser/E2E tests for LightSpeed projects."
+"version": "1.0.0"
+"apply_to": "browser/E2E testing"
+"last_updated": "2025-10-22"
+"owners":
+  - "LightSpeed Engineering"
+"references":
   - "../tests.instructions.md"
   - "https://docs.github.com/en/copilot/customizing-copilot/adding-organization-custom-instructions-for-github-copilot"
+"file_type": "instructions"
 ---
 
 # Playwright Test Instructions

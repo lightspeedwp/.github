@@ -1,13 +1,14 @@
 ---
-title: "Deployment Issue Saved Reply"
-description: "Deployment-related problem responses and resolution guidance."
-category: "Workflow"
-labels:
-  - area:deployment
-  - status:needs-triage
-references:
+"title": "Deployment Issue Saved Reply"
+"description": "Deployment-related problem responses and resolution guidance."
+"category": "Workflow"
+"labels":
+  - "area:deployment"
+  - "status:needs-triage"
+"references":
   - "../../instructions/automation.md"
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # Deployment Issues Saved Reply

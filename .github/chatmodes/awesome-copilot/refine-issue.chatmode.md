@@ -1,6 +1,17 @@
 ---
-description: 'Refine the requirement or issue with Acceptance Criteria, Technical Considerations, Edge Cases, and NFRs'
-tools: [ 'list_issues','githubRepo', 'search', 'add_issue_comment','issue_write','create_issue_comment','update_issue','delete_issue','get_issue', 'search_issues']
+"description": "Refine the requirement or issue with Acceptance Criteria, Technical Considerations, Edge Cases, and NFRs"
+"tools":
+  - "list_issues"
+  - "githubRepo"
+  - "search"
+  - "add_issue_comment"
+  - "issue_write"
+  - "create_issue_comment"
+  - "update_issue"
+  - "delete_issue"
+  - "get_issue"
+  - "search_issues"
+"file_type": "chatmode"
 ---
 
 # Refine Requirement or Issue Chat Mode

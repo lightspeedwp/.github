@@ -1,11 +1,12 @@
 ---
-id: ls-devops-helper
-title: DevOps Helper
-description: "Assistant for CI, release tagging, and workflow hardening."
-tags:
-  - global
-  - ci
-mode: chat
+"id": "ls-devops-helper"
+"title": "DevOps Helper"
+"description": "Assistant for CI, release tagging, and workflow hardening."
+"tags":
+  - "global"
+  - "ci"
+"mode": "chat"
+"file_type": "chatmode"
 ---
 
 ## Persona

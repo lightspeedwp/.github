@@ -1,13 +1,14 @@
 ---
-title: "Configuration Issue Saved Reply"
-description: "Common configuration problems and solutions."
-category: "Technical Support"
-labels:
-  - area:configuration
-  - status:needs-triage
-references:
+"title": "Configuration Issue Saved Reply"
+"description": "Common configuration problems and solutions."
+"category": "Technical Support"
+"labels":
+  - "area:configuration"
+  - "status:needs-triage"
+"references":
   - "../../instructions/configuration.md"
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # Configuration Issues Saved Reply

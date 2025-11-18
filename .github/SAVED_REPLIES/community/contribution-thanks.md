@@ -1,7 +1,8 @@
 ---
-title: "Thank You for Your Contribution Saved Reply"
-description: "Thank contributors for their PR/issue and encourage further participation."
-category: "Community"
+"title": "Thank You for Your Contribution Saved Reply"
+"description": "Thank contributors for their PR/issue and encourage further participation."
+"category": "Community"
+"file_type": "saved-reply"
 ---
 
 # Thank You for Your Contribution Saved Reply

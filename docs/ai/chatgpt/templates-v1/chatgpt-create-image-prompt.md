@@ -1,9 +1,11 @@
 ---
-title: "Create Image Prompt Template"
-description: "Template for composing prompts that instruct ChatGPT to generate images."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Create Image Prompt Template"
+"description": "Template for composing prompts that instruct ChatGPT to generate images."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Purpose

@@ -1,12 +1,13 @@
 ---
-title: "AI-Assisted PR Saved Replies"
-description: "Guidance on using Copilot, CodeRabbit, or other AI tools when drafting or reviewing PRs at LightSpeedWP."
-category: "Pull Request"
-labels:
-  - status:needs-review
-references:
+"title": "AI-Assisted PR Saved Replies"
+"description": "Guidance on using Copilot, CodeRabbit, or other AI tools when drafting or reviewing PRs at LightSpeedWP."
+"category": "Pull Request"
+"labels":
+  - "status:needs-review"
+"references":
   - "../../custom-instructions.md"
   - "../../pull_request_template.md"
+"file_type": "saved-reply"
 ---
 
 # AI-Assisted PR Saved Replies

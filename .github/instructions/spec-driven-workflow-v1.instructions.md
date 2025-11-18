@@ -1,7 +1,8 @@
 ---
-description: 'Specification-Driven Workflow v1 provides a structured approach to software development, ensuring that requirements are clearly defined, designs are meticulously planned, and implementations are thoroughly documented and validated.'
-applyTo: '**'
-license: 'GPL-3.0'
+"description": "Specification-Driven Workflow v1 provides a structured approach to software development, ensuring that requirements are clearly defined, designs are meticulously planned, and implementations are thoroughly documented and validated."
+"applyTo": "**"
+"license": "GPL-3.0"
+"file_type": "instructions"
 ---
 # Spec Driven Workflow v1
 

@@ -1,6 +1,7 @@
 ---
-mode: 'agent'
-description: 'Generate a complete MCP server project in TypeScript with tools, resources, and proper configuration'
+"mode": "agent"
+"description": "Generate a complete MCP server project in TypeScript with tools, resources, and proper configuration"
+"file_type": "prompt"
 ---
 
 # Generate TypeScript MCP Server

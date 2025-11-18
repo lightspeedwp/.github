@@ -1,9 +1,11 @@
 ---
-title: "Copilot Space Template"
-description: "Fill in the following sections to create a new Copilot Space with title, description and instructions."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Copilot Space Template"
+"description": "Fill in the following sections to create a new Copilot Space with title, description and instructions."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Title (5–8 words)

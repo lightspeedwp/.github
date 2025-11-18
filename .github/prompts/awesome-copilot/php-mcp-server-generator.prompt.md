@@ -1,6 +1,7 @@
 ---
-description: 'Generate a complete PHP Model Context Protocol server project with tools, resources, prompts, and tests using the official PHP SDK'
-mode: agent
+"description": "Generate a complete PHP Model Context Protocol server project with tools, resources, prompts, and tests using the official PHP SDK"
+"mode": "agent"
+"file_type": "prompt"
 ---
 
 # PHP MCP Server Generator

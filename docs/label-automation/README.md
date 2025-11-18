@@ -1,10 +1,16 @@
 ---
-title: 'Label Automation Documentation'
-description: 'Automated labeling strategies, workflows, and project synchronization for LightSpeed GitHub repositories'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['labels', 'automation', 'github', 'workflows', 'project-sync']
+"title": "Label Automation Documentation"
+"description": "Automated labeling strategies, workflows, and project synchronization for LightSpeed GitHub repositories"
+"version": "1.0"
+"last_updated": "2025-11-12"
+"maintainer": "LightSpeed Team"
+"tags":
+  - "labels"
+  - "automation"
+  - "github"
+  - "workflows"
+  - "project-sync"
+"file_type": "documentation"
 ---
 
 # Label Automation Documentation

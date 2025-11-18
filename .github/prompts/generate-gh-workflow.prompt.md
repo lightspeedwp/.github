@@ -1,7 +1,8 @@
 ---
-description: "Generate a secure, cache-efficient GitHub Actions workflow for this repo."
-mode: "ask"
-model: "GPT-4"
+"description": "Generate a secure, cache-efficient GitHub Actions workflow for this repo."
+"mode": "ask"
+"model": "GPT-4"
+"file_type": "prompt"
 ---
 Using the provided workflow guidelines, scaffold a GitHub Actions workflow suited to the current repository. Consider:
 

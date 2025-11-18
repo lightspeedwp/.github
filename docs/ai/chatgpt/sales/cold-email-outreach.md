@@ -1,11 +1,12 @@
 ---
-title: Cold Email Outreach Template
-model: chatgpt
-use_case: sales
-status: ready
-version: 1.0.0
-author: LightSpeed WP Team
-last_updated: 2024-10-17
+"title": "Cold Email Outreach Template"
+"model": "chatgpt"
+"use_case": "sales"
+"status": "ready"
+"version": "1.0.0"
+"author": "LightSpeed WP Team"
+"last_updated": "2024-10-17"
+"file_type": "documentation"
 ---
 
 ## Goal

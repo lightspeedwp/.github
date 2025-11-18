@@ -1,12 +1,19 @@
 ---
-title: "Agents Template (master)"
-version: "v1.0"
-last_updated: "2025-10-17"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Master list and guidance for agents in this repo."
-tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-file_type: "agent"
+"title": "Agents Template (master)"
+"version": "v1.0"
+"last_updated": "2025-10-17"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"description": "Master list and guidance for agents in this repo."
+"tags":
+  - "lightspeed"
+  - "templates"
+  - "copilot"
+  - "agents"
+  - "prompts"
+  - "models"
+"file_type": "agent"
+"name": "Agents Template (master)"
 ---
 # Role (required)
 

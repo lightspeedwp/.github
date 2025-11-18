@@ -1,12 +1,19 @@
 ---
-title: "CLAUDE.md Template"
-version: "v1.0"
-last_updated: "2025-10-17"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Root-level guidance for Claude Code/agents."
-tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-file_type: "agent"
+"title": "CLAUDE.md Template"
+"version": "v1.0"
+"last_updated": "2025-10-17"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"description": "Root-level guidance for Claude Code/agents."
+"tags":
+  - "lightspeed"
+  - "templates"
+  - "copilot"
+  - "agents"
+  - "prompts"
+  - "models"
+"file_type": "agent"
+"name": "CLAUDE.md Template"
 ---
 # Role (required)
 

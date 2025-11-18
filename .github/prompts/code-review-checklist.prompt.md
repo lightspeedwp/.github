@@ -1,10 +1,10 @@
 ---
-id: ls-code-review-checklist
-title: Code Review Checklist
-description: Run a structured review against LightSpeed standards.
-mode: chat
-tags:
-
+"id": "ls-code-review-checklist"
+"title": "Code Review Checklist"
+"description": "Run a structured review against LightSpeed standards."
+"mode": "chat"
+"tags": null
+"file_type": "prompt"
 ---
 
 Act as a meticulous reviewer. For the selected diff or file, produce:

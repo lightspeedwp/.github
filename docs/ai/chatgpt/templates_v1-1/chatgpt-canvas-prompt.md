@@ -1,9 +1,11 @@
 ---
-title: "Canvas Mode Prompt Template"
-description: "Template for requesting interactive components or visual documents using the Canvas tool."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Canvas Mode Prompt Template"
+"description": "Template for requesting interactive components or visual documents using the Canvas tool."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Purpose

@@ -1,10 +1,11 @@
 ---
-id: ls-block-a11y-check
-title: Block A11y Check
-description: Check keyboard/ARIA patterns for the block.
-mode: chat
-tags:
-  - 03-single-block-plugin
+"id": "ls-block-a11y-check"
+"title": "Block A11y Check"
+"description": "Check keyboard/ARIA patterns for the block."
+"mode": "chat"
+"tags":
+  - "03-single-block-plugin"
+"file_type": "prompt"
 ---
 
 Produce an a11y checklist:

@@ -1,9 +1,11 @@
 ---
-title: "Use Connectors Instructions"
-description: "Guidelines for ChatGPT to access internal data via connectors such as Google Drive, GitHub and Gmail."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Use Connectors Instructions"
+"description": "Guidelines for ChatGPT to access internal data via connectors such as Google Drive, GitHub and Gmail."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Role (required)

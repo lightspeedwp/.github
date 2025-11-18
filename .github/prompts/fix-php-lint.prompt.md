@@ -1,7 +1,8 @@
 ---
-description: "Run a PHPCS-inspired cleanup for WordPress PHP style; safe auto-fixes only."
-mode: "edit"
-model: "GPT-4"
+"description": "Run a PHPCS-inspired cleanup for WordPress PHP style; safe auto-fixes only."
+"mode": "edit"
+"model": "GPT-4"
+"file_type": "prompt"
 ---
 Run PHP_CodeSniffer using the WordPress rulesets on the selected PHP files and apply automatic fixes where safe. Focus on:
 

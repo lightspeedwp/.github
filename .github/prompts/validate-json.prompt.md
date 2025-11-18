@@ -1,7 +1,8 @@
 ---
-description: "Validate JSON files against schemas and report exact errors."
-mode: "ask"
-model: "GPT-4"
+"description": "Validate JSON files against schemas and report exact errors."
+"mode": "ask"
+"model": "GPT-4"
+"file_type": "prompt"
 ---
 Given a JSON file and a corresponding schema file, validate the JSON and produce a report. The report should include:
 

@@ -1,7 +1,24 @@
 ---
-mode: 'agent'
-description: 'Create comprehensive, standardized documentation for object-oriented components following industry best practices and architectural documentation standards.'
-tools: ['changes', 'codebase', 'edit/editFiles', 'extensions', 'fetch', 'githubRepo', 'openSimpleBrowser', 'problems', 'runTasks', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
+"mode": "agent"
+"description": "Create comprehensive, standardized documentation for object-oriented components following industry best practices and architectural documentation standards."
+"tools":
+  - "changes"
+  - "codebase"
+  - "edit/editFiles"
+  - "extensions"
+  - "fetch"
+  - "githubRepo"
+  - "openSimpleBrowser"
+  - "problems"
+  - "runTasks"
+  - "search"
+  - "searchResults"
+  - "terminalLastCommand"
+  - "terminalSelection"
+  - "testFailure"
+  - "usages"
+  - "vscodeAPI"
+"file_type": "prompt"
 ---
 # Generate Standard OO Component Documentation
 

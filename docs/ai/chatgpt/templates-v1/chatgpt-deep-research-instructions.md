@@ -1,9 +1,11 @@
 ---
-title: "Deep Research Instructions"
-description: "Guidelines for using ChatGPT to conduct thorough research and produce comprehensive reports with citations."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Deep Research Instructions"
+"description": "Guidelines for using ChatGPT to conduct thorough research and produce comprehensive reports with citations."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Role (required)

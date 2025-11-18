@@ -1,6 +1,7 @@
 ---
-description: 'Instructions for using LangChain with Python'
-applyTo: "**/*.py"
+"description": "Instructions for using LangChain with Python"
+"applyTo": "**/*.py"
+"file_type": "instructions"
 ---
 
 # LangChain Python Instructions

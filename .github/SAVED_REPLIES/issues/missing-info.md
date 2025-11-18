@@ -1,9 +1,10 @@
 ---
-title: "Missing Information Saved Reply"
-description: "Prompt for missing reproduction steps, environment details, or screenshots."
-category: "Issue"
-labels:
-  - status:needs-more-info
+"title": "Missing Information Saved Reply"
+"description": "Prompt for missing reproduction steps, environment details, or screenshots."
+"category": "Issue"
+"labels":
+  - "status:needs-more-info"
+"file_type": "saved-reply"
 ---
 
 # Missing Information Saved Reply

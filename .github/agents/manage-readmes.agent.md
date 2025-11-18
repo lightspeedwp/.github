@@ -1,20 +1,25 @@
 ---
-file_type: "agent"
-title: "Manage READMEs Agent"
-description: "Automates creation, update, merging, and linting of README.md and README.<filename>.md files."
-version: "v1.0"
-last_updated: "2025-10-23"
-owners: ["LightSpeedWP Engineering"]
-tags: ["readme", "automation", "documentation"]
-category: "automation"
-status: "active"
-references:
+"file_type": "agent"
+"title": "Manage READMEs Agent"
+"description": "Automates creation, update, merging, and linting of README.md and README.<filename>.md files."
+"version": "v1.0"
+"last_updated": "2025-10-23"
+"owners":
+  - "LightSpeedWP Engineering"
+"tags":
+  - "readme"
+  - "automation"
+  - "documentation"
+"category": "automation"
+"status": "active"
+"references":
   - "../../scripts/folder-and-file-readmes.sh"
   - "../../scripts/find-readmes.sh"
   - "../../scripts/update-readme-and-changelog.sh"
   - "./manage-readmes.instructions.md"
   - "./manage-readmes.prompt.md"
   - "../../MANAGE-READMES.md"
+"name": "Manage READMEs Agent"
 ---
 # Manage READMEs Agent Specification
 

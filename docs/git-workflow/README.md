@@ -1,10 +1,16 @@
 ---
-title: 'Git Workflow Documentation'
-description: 'Git workflow guides, branching strategies, and version control best practices for LightSpeed'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['git', 'workflow', 'branching', 'version-control', 'agile']
+"title": "Git Workflow Documentation"
+"description": "Git workflow guides, branching strategies, and version control best practices for LightSpeed"
+"version": "1.0"
+"last_updated": "2025-11-12"
+"maintainer": "LightSpeed Team"
+"tags":
+  - "git"
+  - "workflow"
+  - "branching"
+  - "version-control"
+  - "agile"
+"file_type": "documentation"
 ---
 
 # Git Workflow Documentation

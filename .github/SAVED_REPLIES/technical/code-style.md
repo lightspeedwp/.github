@@ -1,9 +1,10 @@
 ---
-title: "Code Style Saved Reply"
-description: "Feedback on code style or formatting in PRs or issues."
-category: "Technical"
-labels:
-  - type:improve
+"title": "Code Style Saved Reply"
+"description": "Feedback on code style or formatting in PRs or issues."
+"category": "Technical"
+"labels":
+  - "type:improve"
+"file_type": "saved-reply"
 ---
 
 # Code Style Saved Reply

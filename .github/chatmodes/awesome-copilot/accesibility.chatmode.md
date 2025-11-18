@@ -1,19 +1,30 @@
 ---
-title: "LightSpeed Accessibility Mode"
-description: "Accessibility audit and remediation for WordPress blocks, themes, and patterns. WCAG 2.1 and LightSpeed standards are enforced."
-version: "v1.0"
-last_updated: "2025-10-21"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-model: GPT-4.1
-tags: ["accessibility", "a11y", "wcag", "audit", "wordpress", "blocks"]
-file_type: "chatmode"
-references:
-  - [LightSpeed Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-  - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-  - [HTML Templates](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/html-template.instructions.md)
-  - [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/pattern-development.instructions.md)
-  - [Pull Request Template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
+"title": "LightSpeed Accessibility Mode"
+"description": "Accessibility audit and remediation for WordPress blocks, themes, and patterns. WCAG 2.1 and LightSpeed standards are enforced."
+"version": "v1.0"
+"last_updated": "2025-10-21"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"model": "GPT-4.1"
+"tags":
+  - "accessibility"
+  - "a11y"
+  - "wcag"
+  - "audit"
+  - "wordpress"
+  - "blocks"
+"file_type": "chatmode"
+"references":
+  - "path": ".github/custom-instructions.md"
+    "description": "LightSpeed Instructions"
+  - "path": ".github/instructions/coding-standards.instructions.md"
+    "description": "Coding Standards"
+  - "path": ".github/instructions/html-template.instructions.md"
+    "description": "HTML Templates"
+  - "path": ".github/instructions/pattern-development.instructions.md"
+    "description": "Pattern Development"
+  - "path": ".github/PULL_REQUEST_TEMPLATE.md"
+    "description": "Pull Request Template"
 ---
 
 > **LightSpeed Note:**  

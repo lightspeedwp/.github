@@ -1,9 +1,13 @@
 ---
-applyTo: ['.github/workflows/**/*.yml', '.github/workflows/**/*.yaml']
-description: "Write secure, cache-efficient, reusable workflows with tests."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"applyTo":
+  - ".github/workflows/**/*.yml"
+  - ".github/workflows/**/*.yaml"
+"description": "Write secure, cache-efficient, reusable workflows with tests."
+"last_updated": "2025-10-19"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "instructions"
 ---
 
 # Mission

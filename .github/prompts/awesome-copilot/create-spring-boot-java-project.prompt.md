@@ -1,6 +1,7 @@
 ---
-mode: 'agent'
-description: 'Create Spring Boot Java Project Skeleton'
+"mode": "agent"
+"description": "Create Spring Boot Java Project Skeleton"
+"file_type": "prompt"
 ---
 
 # Create Spring Boot Java project prompt

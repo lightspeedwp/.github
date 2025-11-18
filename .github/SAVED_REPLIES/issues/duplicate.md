@@ -1,9 +1,10 @@
 ---
-title: "Duplicate Issue Saved Reply"
-description: "Response for duplicate issues."
-category: "Issue"
-labels:
-  - status:duplicate
+"title": "Duplicate Issue Saved Reply"
+"description": "Response for duplicate issues."
+"category": "Issue"
+"labels":
+  - "status:duplicate"
+"file_type": "saved-reply"
 ---
 
 # Duplicate Issue Saved Reply

@@ -1,12 +1,17 @@
 ---
-title: "Project Meta Sync Agent Spec"
-version: "v1.0"
-last_updated: "2025-10-21"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Spec for the Project Meta Sync Agent."
-tags: ["lightspeed","project","meta","agents"]
-file_type: "agent"
+"title": "Project Meta Sync Agent Spec"
+"version": "v1.0"
+"last_updated": "2025-10-21"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"description": "Spec for the Project Meta Sync Agent."
+"tags":
+  - "lightspeed"
+  - "project"
+  - "meta"
+  - "agents"
+"file_type": "agent"
+"name": "Project Meta Sync Agent Spec"
 ---
 
 # Role

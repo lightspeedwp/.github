@@ -1,6 +1,7 @@
 ---
-applyTo: '**/*.ts, **/*.js, **/*.json, **/*.spec.ts, **/*.e2e-spec.ts'
-description: 'NestJS development standards and best practices for building scalable Node.js server-side applications'
+"applyTo": "**/*.ts, **/*.js, **/*.json, **/*.spec.ts, **/*.e2e-spec.ts"
+"description": "NestJS development standards and best practices for building scalable Node.js server-side applications"
+"file_type": "instructions"
 ---
 
 # NestJS Development Best Practices

@@ -1,10 +1,15 @@
 ---
-title: 'BugHerd Documentation'
-description: 'BugHerd tagging, categorization, and workflow guides for LightSpeed projects'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['bugherd', 'tagging', 'workflow', 'bug-tracking']
+"title": "BugHerd Documentation"
+"description": "BugHerd tagging, categorization, and workflow guides for LightSpeed projects"
+"version": "1.0"
+"last_updated": "2025-11-12"
+"maintainer": "LightSpeed Team"
+"tags":
+  - "bugherd"
+  - "tagging"
+  - "workflow"
+  - "bug-tracking"
+"file_type": "documentation"
 ---
 
 # BugHerd Documentation

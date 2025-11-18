@@ -1,12 +1,13 @@
 ---
-title: "Merge Discipline Saved Replies"
-description: "Reminds about squash merge, deleting branches, and branch protection rules. Aligns with org strategy."
-category: "Pull Request"
-labels:
-  - status:ready
-references:
+"title": "Merge Discipline Saved Replies"
+"description": "Reminds about squash merge, deleting branches, and branch protection rules. Aligns with org strategy."
+"category": "Pull Request"
+"labels":
+  - "status:ready"
+"references":
   - "../../BRANCHING_STRATEGY.md"
   - "../../AUTOMATION_GOVERNANCE.md"
+"file_type": "saved-reply"
 ---
 
 # Merge Discipline Saved Replies

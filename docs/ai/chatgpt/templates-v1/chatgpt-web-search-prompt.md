@@ -1,9 +1,11 @@
 ---
-title: "Web Search Prompt Template"
-description: "Template for crafting a prompt to instruct ChatGPT to perform a web search."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Web Search Prompt Template"
+"description": "Template for crafting a prompt to instruct ChatGPT to perform a web search."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Purpose

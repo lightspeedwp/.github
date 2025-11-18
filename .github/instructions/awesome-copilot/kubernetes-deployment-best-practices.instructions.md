@@ -1,6 +1,7 @@
 ---
-applyTo: '*'
-description: 'Comprehensive best practices for deploying and managing applications on Kubernetes. Covers Pods, Deployments, Services, Ingress, ConfigMaps, Secrets, health checks, resource limits, scaling, and security contexts.'
+"applyTo": "*"
+"description": "Comprehensive best practices for deploying and managing applications on Kubernetes. Covers Pods, Deployments, Services, Ingress, ConfigMaps, Secrets, health checks, resource limits, scaling, and security contexts."
+"file_type": "instructions"
 ---
 
 # Kubernetes Deployment Best Practices

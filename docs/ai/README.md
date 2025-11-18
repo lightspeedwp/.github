@@ -1,8 +1,9 @@
 ---
-title: 'AI Documentation Index (Moved)'
-description: 'This file has been superseded. See the new AI documentation in the docs/ root.'
-last_updated: '2025-10-24'
-version: 'v2.0'
+"title": "AI Documentation Index (Moved)"
+"description": "This file has been superseded. See the new AI documentation in the docs/ root."
+"last_updated": "2025-10-24"
+"version": "v2.0"
+"file_type": "documentation"
 ---
 
 ## AI Documentation Index (Moved)

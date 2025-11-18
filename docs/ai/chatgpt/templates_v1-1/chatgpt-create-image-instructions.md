@@ -1,9 +1,11 @@
 ---
-title: "Create Image Instructions"
-description: "Guidelines for asking ChatGPT to generate images using the image generation tool."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Create Image Instructions"
+"description": "Guidelines for asking ChatGPT to generate images using the image generation tool."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Role (required)

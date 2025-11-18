@@ -1,7 +1,8 @@
 ---
-title: "Security Concerns Saved Replies"
-description: "Security-related feedback and vulnerability remediation guidance."
-category: "Pull Request"
+"title": "Security Concerns Saved Replies"
+"description": "Security-related feedback and vulnerability remediation guidance."
+"category": "Pull Request"
+"file_type": "saved-reply"
 ---
 
 # Security Concerns Saved Replies

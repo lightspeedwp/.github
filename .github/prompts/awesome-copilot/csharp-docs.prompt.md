@@ -1,7 +1,12 @@
 ---
-mode: 'agent'
-tools: ['changes', 'codebase', 'edit/editFiles', 'problems']
-description: 'Ensure that C# types are documented with XML comments and follow best practices for documentation.'
+"mode": "agent"
+"tools":
+  - "changes"
+  - "codebase"
+  - "edit/editFiles"
+  - "problems"
+"description": "Ensure that C# types are documented with XML comments and follow best practices for documentation."
+"file_type": "prompt"
 ---
 
 # C# Documentation Best Practices

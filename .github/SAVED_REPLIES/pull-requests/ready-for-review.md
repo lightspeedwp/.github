@@ -1,12 +1,13 @@
 ---
-title: "Ready for Review Saved Replies"
-description: "Standard reply when a PR moves from draft to ready, outlining expectations for review."
-category: "Pull Request"
-labels:
-  - status:needs-review
-references:
+"title": "Ready for Review Saved Replies"
+"description": "Standard reply when a PR moves from draft to ready, outlining expectations for review."
+"category": "Pull Request"
+"labels":
+  - "status:needs-review"
+"references":
   - "../../CONTRIBUTING.md"
   - "../../pull_request_template.md"
+"file_type": "saved-reply"
 ---
 
 # Ready for Review Saved Replies

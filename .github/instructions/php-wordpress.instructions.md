@@ -1,7 +1,8 @@
 ---
-applyTo: "**/*.php"
-description: "PHP coding standards for WordPress development - security, performance, and WordPress API best practices"
-license: "GPL-3.0-or-later"
+"applyTo": "**/*.php"
+"description": "PHP coding standards for WordPress development - security, performance, and WordPress API best practices"
+"license": "GPL-3.0-or-later"
+"file_type": "instructions"
 ---
 
 # PHP Development Guidelines for WordPress

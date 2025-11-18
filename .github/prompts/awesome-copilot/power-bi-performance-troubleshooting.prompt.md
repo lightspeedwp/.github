@@ -1,8 +1,10 @@
 ---
-mode: 'agent'
-description: 'Systematic Power BI performance troubleshooting prompt for identifying, diagnosing, and resolving performance issues in Power BI models, reports, and queries.'
-model: 'gpt-4.1'
-tools: ['microsoft.docs.mcp']
+"mode": "agent"
+"description": "Systematic Power BI performance troubleshooting prompt for identifying, diagnosing, and resolving performance issues in Power BI models, reports, and queries."
+"model": "gpt-4.1"
+"tools":
+  - "microsoft.docs.mcp"
+"file_type": "prompt"
 ---
 
 # Power BI Performance Troubleshooting Guide

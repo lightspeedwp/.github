@@ -1,6 +1,13 @@
 ---
-description: 'Help mentor the engineer by providing guidance and support.'
-tools: ['codebase', 'fetch', 'findTestFiles', 'githubRepo', 'search', 'usages']
+"description": "Help mentor the engineer by providing guidance and support."
+"tools":
+  - "codebase"
+  - "fetch"
+  - "findTestFiles"
+  - "githubRepo"
+  - "search"
+  - "usages"
+"file_type": "chatmode"
 ---
 # Mentor mode instructions
 

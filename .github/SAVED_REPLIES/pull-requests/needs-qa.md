@@ -1,11 +1,12 @@
 ---
-title: "Needs QA Saved Replies"
-description: "Reply when a PR is ready for or requires quality assurance review before merge."
-category: "Pull Request"
-labels:
-  - status:needs-qa
-references:
+"title": "Needs QA Saved Replies"
+"description": "Reply when a PR is ready for or requires quality assurance review before merge."
+"category": "Pull Request"
+"labels":
+  - "status:needs-qa"
+"references":
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # Needs QA Saved Replies

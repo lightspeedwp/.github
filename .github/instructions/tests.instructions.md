@@ -1,6 +1,7 @@
 ---
-description: "Index of all LightSpeed test standards: workflows, agents, Bats, Playwright, Jest, PHPUnit, Python, etc."
-applyTo: "all projects"
+"description": "Index of all LightSpeed test standards: workflows, agents, Bats, Playwright, Jest, PHPUnit, Python, etc."
+"applyTo": "all projects"
+"file_type": "instructions"
 ---
 
 # 🧪 Test Standards Index

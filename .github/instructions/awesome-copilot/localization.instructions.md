@@ -1,6 +1,7 @@
 ---
-description: 'Guidelines for localizing markdown documents'
-applyTo: '**/*.md'
+"description": "Guidelines for localizing markdown documents"
+"applyTo": "**/*.md"
+"file_type": "instructions"
 ---
 
 # Guidance for Localization

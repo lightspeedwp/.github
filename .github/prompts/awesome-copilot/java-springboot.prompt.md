@@ -1,7 +1,13 @@
 ---
-mode: 'agent'
-tools: ['changes', 'codebase', 'edit/editFiles', 'problems', 'search']
-description: 'Get best practices for developing applications with Spring Boot.'
+"mode": "agent"
+"tools":
+  - "changes"
+  - "codebase"
+  - "edit/editFiles"
+  - "problems"
+  - "search"
+"description": "Get best practices for developing applications with Spring Boot."
+"file_type": "prompt"
 ---
 
 # Spring Boot Best Practices

@@ -1,16 +1,24 @@
 ---
-title: "LightSpeed Comment Resolution Agent"
-description: "Systematically address and document PR comments using LightSpeed's collaboration standards."
-version: "v1.0"
-last_updated: "2025-10-21"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-tags: ["code-review", "comments", "collaboration", "wordpress", "copilot"]
-file_type: "chatmode"
-references:
-  - [LightSpeed Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-  - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-  - [Pull Request Template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
+"title": "LightSpeed Comment Resolution Agent"
+"description": "Systematically address and document PR comments using LightSpeed's collaboration standards."
+"version": "v1.0"
+"last_updated": "2025-10-21"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"tags":
+  - "code-review"
+  - "comments"
+  - "collaboration"
+  - "wordpress"
+  - "copilot"
+"file_type": "chatmode"
+"references":
+  - "path": ".github/custom-instructions.md"
+    "description": "LightSpeed Instructions"
+  - "path": ".github/instructions/coding-standards.instructions.md"
+    "description": "Coding Standards"
+  - "path": ".github/PULL_REQUEST_TEMPLATE.md"
+    "description": "Pull Request Template"
 ---
 
 > **LightSpeed Note:**  

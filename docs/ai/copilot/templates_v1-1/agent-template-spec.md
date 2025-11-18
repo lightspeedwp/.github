@@ -1,9 +1,11 @@
 ---
-title: "Generic Agent Specification Template"
-description: "A template for defining a custom Copilot agent’s capabilities, inputs, outputs and safety measures."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Generic Agent Specification Template"
+"description": "A template for defining a custom Copilot agent’s capabilities, inputs, outputs and safety measures."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Role

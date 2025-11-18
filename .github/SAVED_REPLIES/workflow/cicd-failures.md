@@ -1,13 +1,14 @@
 ---
-title: "CI/CD Failures Saved Reply"
-description: "Standard responses for build failures, test failures, and pipeline issues."
-category: "Workflow"
-labels:
-  - area:ci
-  - status:needs-triage
-references:
+"title": "CI/CD Failures Saved Reply"
+"description": "Standard responses for build failures, test failures, and pipeline issues."
+"category": "Workflow"
+"labels":
+  - "area:ci"
+  - "status:needs-triage"
+"references":
   - "../../instructions/automation.md"
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # CI/CD Failures Saved Reply

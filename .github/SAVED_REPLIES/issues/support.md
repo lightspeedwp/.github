@@ -1,14 +1,15 @@
 ---
-title: "Support Question Saved Replies"
-description: "General support responses and guidance for common questions. References LightSpeedWP's community, support, and documentation resources."
-category: "Issue Management"
-labels:
-  - type:support
-  - status:needs-triage
-references:
+"title": "Support Question Saved Replies"
+"description": "General support responses and guidance for common questions. References LightSpeedWP's community, support, and documentation resources."
+"category": "Issue Management"
+"labels":
+  - "type:support"
+  - "status:needs-triage"
+"references":
   - "../../SUPPORT.md"
   - "../../CONTRIBUTING.md"
   - "../../README.md"
+"file_type": "saved-reply"
 ---
 
 # Support Question Saved Replies

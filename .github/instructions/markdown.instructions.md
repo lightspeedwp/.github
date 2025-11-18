@@ -1,7 +1,8 @@
 ---
-description: 'Documentation and content creation standards'
-applyTo: '**/*.md'
-license: 'GPL-3.0'
+"description": "Documentation and content creation standards"
+"applyTo": "**/*.md"
+"license": "GPL-3.0"
+"file_type": "instructions"
 ---
 
 # 📝 Markdown Instructions

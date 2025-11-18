@@ -1,12 +1,16 @@
 ---
-title: "Metrics Agent Spec"
-version: "v1.0"
-last_updated: "2025-10-21"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Spec for the Metrics Agent (future)."
-tags: ["lightspeed","metrics","agents"]
-file_type: "agent"
+"title": "Metrics Agent Spec"
+"version": "v1.0"
+"last_updated": "2025-10-21"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"description": "Spec for the Metrics Agent (future)."
+"tags":
+  - "lightspeed"
+  - "metrics"
+  - "agents"
+"file_type": "agent"
+"name": "Metrics Agent Spec"
 ---
 
 # Role

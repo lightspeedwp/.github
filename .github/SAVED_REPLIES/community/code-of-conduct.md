@@ -1,12 +1,13 @@
 ---
-title: "Code of Conduct Saved Reply"
-description: "Professional response to conduct-related issues."
-category: "Community"
-labels:
-  - area:community
-  - status:needs-triage
-references:
+"title": "Code of Conduct Saved Reply"
+"description": "Professional response to conduct-related issues."
+"category": "Community"
+"labels":
+  - "area:community"
+  - "status:needs-triage"
+"references":
   - "../../CODE_OF_CONDUCT.md"
+"file_type": "saved-reply"
 ---
 
 # Code of Conduct Saved Reply

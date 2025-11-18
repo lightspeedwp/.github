@@ -1,9 +1,11 @@
 ---
-title: "WordPress Coding Standards Index"
-description: "Index of all LightSpeed WordPress coding standards, inline documentation, linting, and Copilot frontmatter rules."
-last_updated: "2025-10-21"
-version: "v2.0"
-owners: ["LightSpeed Engineering"]
+"title": "WordPress Coding Standards Index"
+"description": "Index of all LightSpeed WordPress coding standards, inline documentation, linting, and Copilot frontmatter rules."
+"last_updated": "2025-10-21"
+"version": "v2.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "instructions"
 ---
 
 # WordPress Coding Standards – Index

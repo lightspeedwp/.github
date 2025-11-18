@@ -1,6 +1,7 @@
 ---
-mode: 'agent'
-description: 'Generate a complete MCP server project in Python with tools, resources, and proper configuration'
+"mode": "agent"
+"description": "Generate a complete MCP server project in Python with tools, resources, and proper configuration"
+"file_type": "prompt"
 ---
 
 # Generate Python MCP Server

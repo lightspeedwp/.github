@@ -1,9 +1,12 @@
 ---
-applyTo: ['**/*.php']
-description: "Enforce WordPress PHP inline documentation (DocBlocks)."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"applyTo":
+  - "**/*.php"
+"description": "Enforce WordPress PHP inline documentation (DocBlocks)."
+"last_updated": "2025-10-19"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "instructions"
 ---
 
 # Mission

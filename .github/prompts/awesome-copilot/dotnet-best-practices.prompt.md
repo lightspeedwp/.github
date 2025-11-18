@@ -1,6 +1,7 @@
 ---
-mode: 'agent'
-description: 'Ensure .NET/C# code meets best practices for the solution/project.'
+"mode": "agent"
+"description": "Ensure .NET/C# code meets best practices for the solution/project."
+"file_type": "prompt"
 ---
 # .NET/C# Best Practices
 

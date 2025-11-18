@@ -1,6 +1,29 @@
 ---
-description: 'Generate or update specification documents for new or existing functionality.'
-tools: ['changes', 'codebase', 'edit/editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI', 'microsoft.docs.mcp', 'github']
+"description": "Generate or update specification documents for new or existing functionality."
+"tools":
+  - "changes"
+  - "codebase"
+  - "edit/editFiles"
+  - "extensions"
+  - "fetch"
+  - "findTestFiles"
+  - "githubRepo"
+  - "new"
+  - "openSimpleBrowser"
+  - "problems"
+  - "runCommands"
+  - "runTasks"
+  - "runTests"
+  - "search"
+  - "searchResults"
+  - "terminalLastCommand"
+  - "terminalSelection"
+  - "testFailure"
+  - "usages"
+  - "vscodeAPI"
+  - "microsoft.docs.mcp"
+  - "github"
+"file_type": "chatmode"
 ---
 # Specification mode instructions
 

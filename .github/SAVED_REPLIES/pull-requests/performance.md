@@ -1,7 +1,8 @@
 ---
-title: "Performance Issues Saved Replies"
-description: "Performance optimization suggestions and benchmarking requests."
-category: "Pull Request"
+"title": "Performance Issues Saved Replies"
+"description": "Performance optimization suggestions and benchmarking requests."
+"category": "Pull Request"
+"file_type": "saved-reply"
 ---
 
 # Performance Issues Saved Replies

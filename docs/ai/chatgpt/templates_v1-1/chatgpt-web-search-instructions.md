@@ -1,9 +1,11 @@
 ---
-title: "Web Search Instructions"
-description: "Guidelines for using ChatGPT to perform targeted web searches and return up‑to‑date information with citations."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Web Search Instructions"
+"description": "Guidelines for using ChatGPT to perform targeted web searches and return up‑to‑date information with citations."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Role (required)

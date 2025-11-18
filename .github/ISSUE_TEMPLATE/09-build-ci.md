@@ -1,22 +1,26 @@
 ---
-name: "⚙️ Build & CI"
-about: "Propose changes, fixes, or improvements to build tools, CI/CD pipelines, or automation."
-title: "[Build/CI] <Short summary>"
-labels: [type:chore, area:ci, status:needs-triage]
-assignees: []
-projects: []
-milestone: ''
-type: build-ci
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+"name": "⚙️ Build & CI"
+"about": "Propose changes, fixes, or improvements to build tools, CI/CD pipelines, or automation."
+"title": "[Build/CI] <Short summary>"
+"labels":
+  - "type:chore"
+  - "area:ci"
+  - "status:needs-triage"
+"assignees": []
+"projects": []
+"milestone": ""
+"type": "build-ci"
+"references":
+  - "../CONTRIBUTING.md"
+  - ".github/BRANCHING_STRATEGY.md"
+  - ".github/AUTOMATION_GOVERNANCE.md"
+  - ".github/PR_LABELS.md"
+  - ".github/SAVED_REPLIES.md"
+  - ".github/PROJECT_META.md"
+  - ".github/labeler.yml"
+  - ".github/labels.yml"
+  - ".github/issue-types.yml"
+"file_type": "issue-template"
 ---
 
 ## Build/CI Summary

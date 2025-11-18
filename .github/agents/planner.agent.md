@@ -1,12 +1,16 @@
 ---
-title: "Planner Agent Spec"
-version: "v1.0"
-last_updated: "2025-10-21"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Spec for the Planner Agent."
-tags: ["lightspeed","planner","agents"]
-file_type: "agent"
+"title": "Planner Agent Spec"
+"version": "v1.0"
+"last_updated": "2025-10-21"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"description": "Spec for the Planner Agent."
+"tags":
+  - "lightspeed"
+  - "planner"
+  - "agents"
+"file_type": "agent"
+"name": "Planner Agent Spec"
 ---
 
 # Role

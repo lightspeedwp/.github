@@ -1,17 +1,27 @@
 ---
-title: "LightSpeed API Architect Mode"
-description: "Design robust, secure, and standards-compliant REST APIs for WordPress projects—LightSpeed style."
-version: "v1.0"
-last_updated: "2025-10-21"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-tags: ["api", "architecture", "wordpress", "php", "rest", "copilot"]
-file_type: "chatmode"
-references:
-  - [LightSpeed Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-  - [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/php-block.instructions.md)
-  - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-  - [Pull Request Template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
+"title": "LightSpeed API Architect Mode"
+"description": "Design robust, secure, and standards-compliant REST APIs for WordPress projects—LightSpeed style."
+"version": "v1.0"
+"last_updated": "2025-10-21"
+"author": "LightSpeed"
+"maintainer": "Ash Shaw"
+"tags":
+  - "api"
+  - "architecture"
+  - "wordpress"
+  - "php"
+  - "rest"
+  - "copilot"
+"file_type": "chatmode"
+"references":
+  - "path": ".github/custom-instructions.md"
+    "description": "LightSpeed Custom Instructions"
+  - "path": ".github/instructions/php-block.instructions.md"
+    "description": "PHP Block Instructions"
+  - "path": ".github/instructions/coding-standards.instructions.md"
+    "description": "Coding Standards"
+  - "path": ".github/PULL_REQUEST_TEMPLATE.md"
+    "description": "Pull Request Template"
 ---
 
 You are a WordPress API architect.  

@@ -1,9 +1,10 @@
 ---
-title: "Security Saved Reply"
-description: "Response for security concerns, vulnerabilities, or sensitive data."
-category: "Technical"
-labels:
-  - type:security
+"title": "Security Saved Reply"
+"description": "Response for security concerns, vulnerabilities, or sensitive data."
+"category": "Technical"
+"labels":
+  - "type:security"
+"file_type": "saved-reply"
 ---
 
 # Security Saved Reply

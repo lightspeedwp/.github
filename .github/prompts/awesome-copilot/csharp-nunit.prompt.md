@@ -1,7 +1,13 @@
 ---
-mode: 'agent'
-tools: ['changes', 'codebase', 'edit/editFiles', 'problems', 'search']
-description: 'Get best practices for NUnit unit testing, including data-driven tests'
+"mode": "agent"
+"tools":
+  - "changes"
+  - "codebase"
+  - "edit/editFiles"
+  - "problems"
+  - "search"
+"description": "Get best practices for NUnit unit testing, including data-driven tests"
+"file_type": "prompt"
 ---
 
 # NUnit Best Practices

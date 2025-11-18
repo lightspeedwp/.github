@@ -1,9 +1,11 @@
 ---
-title: "Study & Learn Instructions"
-description: "Guidelines for using ChatGPT to help users learn new topics through explanations, examples and exercises."
-last_updated: "2025-10-17"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"title": "Study & Learn Instructions"
+"description": "Guidelines for using ChatGPT to help users learn new topics through explanations, examples and exercises."
+"last_updated": "2025-10-17"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "documentation"
 ---
 
 # Role (required)

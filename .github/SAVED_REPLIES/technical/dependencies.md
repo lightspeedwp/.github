@@ -1,13 +1,14 @@
 ---
-title: "Dependency Problem Saved Reply"
-description: "Package, library, and dependency-related issue responses."
-category: "Technical Support"
-labels:
-  - area:dependencies
-  - status:needs-triage
-references:
+"title": "Dependency Problem Saved Reply"
+"description": "Package, library, and dependency-related issue responses."
+"category": "Technical Support"
+"labels":
+  - "area:dependencies"
+  - "status:needs-triage"
+"references":
   - "../../instructions/dependencies.md"
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # Dependency Problems Saved Reply

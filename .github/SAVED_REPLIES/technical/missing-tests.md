@@ -1,9 +1,10 @@
 ---
-title: "Missing Tests Saved Reply"
-description: "Prompt to add required tests to a PR or issue."
-category: "Technical"
-labels:
-  - type:test
+"title": "Missing Tests Saved Reply"
+"description": "Prompt to add required tests to a PR or issue."
+"category": "Technical"
+"labels":
+  - "type:test"
+"file_type": "saved-reply"
 ---
 
 # Missing Tests Saved Reply

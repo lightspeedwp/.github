@@ -1,12 +1,13 @@
 ---
-title: 'AI Template Security & Licensing'
-description: 'Security, data hygiene, and licensing rules for AI template assets.'
-last_updated: '2025-10-24'
-version: 'v2.0'
-related:
-    - CONTRIBUTING-TEMPLATES.md
-    - CODING-STYLE.md
-    - RELEASE-PROCESS.md
+"title": "AI Template Security & Licensing"
+"description": "Security, data hygiene, and licensing rules for AI template assets."
+"last_updated": "2025-10-24"
+"version": "v2.0"
+"related":
+  - "CONTRIBUTING-TEMPLATES.md"
+  - "CODING-STYLE.md"
+  - "RELEASE-PROCESS.md"
+"file_type": "documentation"
 ---
 
 ## Security & Licensing

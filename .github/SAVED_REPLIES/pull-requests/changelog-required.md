@@ -1,13 +1,14 @@
 ---
-title: "Changelog Required Saved Replies"
-description: "Prompt contributors to add a changelog entry to their PR, as required for release automation."
-category: "Pull Request"
-labels:
-  - meta:needs-changelog
-references:
+"title": "Changelog Required Saved Replies"
+"description": "Prompt contributors to add a changelog entry to their PR, as required for release automation."
+"category": "Pull Request"
+"labels":
+  - "meta:needs-changelog"
+"references":
   - "../../AUTOMATION_GOVERNANCE.md"
   - "../../CONTRIBUTING.md"
   - "../../pull_request_template.md"
+"file_type": "saved-reply"
 ---
 
 # Changelog Required Saved Replies

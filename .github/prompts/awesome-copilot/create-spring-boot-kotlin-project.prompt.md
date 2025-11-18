@@ -1,6 +1,7 @@
 ---
-mode: 'agent'
-description: 'Create Spring Boot Kotlin Project Skeleton'
+"mode": "agent"
+"description": "Create Spring Boot Kotlin Project Skeleton"
+"file_type": "prompt"
 ---
 
 # Create Spring Boot Kotlin project prompt

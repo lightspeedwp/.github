@@ -1,22 +1,26 @@
 ---
-name: "📖 Content Modelling"
-about: "Propose, update, or discuss content structure, CPTs, or taxonomy."
-title: "[Content Modelling] <Brief summary>"
-labels: [type:content-modelling, status:needs-triage, area:content]
-assignees: []
-projects: []
-milestone: ''
-type: content-modelling
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+"name": "📖 Content Modelling"
+"about": "Propose, update, or discuss content structure, CPTs, or taxonomy."
+"title": "[Content Modelling] <Brief summary>"
+"labels":
+  - "type:content-modelling"
+  - "status:needs-triage"
+  - "area:content"
+"assignees": []
+"projects": []
+"milestone": ""
+"type": "content-modelling"
+"references":
+  - "../CONTRIBUTING.md"
+  - ".github/BRANCHING_STRATEGY.md"
+  - ".github/AUTOMATION_GOVERNANCE.md"
+  - ".github/PR_LABELS.md"
+  - ".github/SAVED_REPLIES.md"
+  - ".github/PROJECT_META.md"
+  - ".github/labeler.yml"
+  - ".github/labels.yml"
+  - ".github/issue-types.yml"
+"file_type": "issue-template"
 ---
 
 ## Content Modelling Summary

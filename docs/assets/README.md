@@ -1,10 +1,15 @@
 ---
-title: 'Documentation Assets'
-description: 'Images, diagrams, and visual resources for LightSpeed documentation'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['assets', 'images', 'diagrams', 'documentation']
+"title": "Documentation Assets"
+"description": "Images, diagrams, and visual resources for LightSpeed documentation"
+"version": "1.0"
+"last_updated": "2025-11-12"
+"maintainer": "LightSpeed Team"
+"tags":
+  - "assets"
+  - "images"
+  - "diagrams"
+  - "documentation"
+"file_type": "documentation"
 ---
 
 # Documentation Assets

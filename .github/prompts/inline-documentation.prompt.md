@@ -1,6 +1,7 @@
 ---
-description: "Prompt for adding comprehensive inline documentation to PHP and JavaScript code following WordPress standards."
-license: "GPL-3.0"
+"description": "Prompt for adding comprehensive inline documentation to PHP and JavaScript code following WordPress standards."
+"license": "GPL-3.0"
+"file_type": "prompt"
 ---
 
 # WordPress Inline Documentation Prompt

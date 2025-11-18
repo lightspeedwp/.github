@@ -1,15 +1,16 @@
 ---
-title: "Labeling Automation Saved Reply"
-description: "Guidance and troubleshooting for automated labeler issues and workflow errors."
-category: "Workflow"
-labels:
-  - area:automation
-  - area:labeling
-  - status:needs-triage
-references:
+"title": "Labeling Automation Saved Reply"
+"description": "Guidance and troubleshooting for automated labeler issues and workflow errors."
+"category": "Workflow"
+"labels":
+  - "area:automation"
+  - "area:labeling"
+  - "status:needs-triage"
+"references":
   - "../../.github/labeler.yml"
   - "../../ISSUE_LABELS.md"
   - "../../CONTRIBUTING.md"
+"file_type": "saved-reply"
 ---
 
 # Labeling Automation Saved Reply

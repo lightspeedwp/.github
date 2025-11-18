@@ -1,15 +1,16 @@
 ---
-title: "Contribution Guidelines Saved Reply"
-description: "Directing contributors to proper procedures and standards."
-category: "Community"
-labels:
-  - area:contributing
-  - status:needs-triage
-references:
+"title": "Contribution Guidelines Saved Reply"
+"description": "Directing contributors to proper procedures and standards."
+"category": "Community"
+"labels":
+  - "area:contributing"
+  - "status:needs-triage"
+"references":
   - "../../CONTRIBUTING.md"
   - "../../custom-instructions.md"
   - "../../CODE_OF_CONDUCT.md"
   - "../../instructions/coding-standards.instructions.md"
+"file_type": "saved-reply"
 ---
 
 # Contribution Guidelines Saved Reply

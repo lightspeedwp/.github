@@ -1,9 +1,15 @@
 ---
-applyTo: ['**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs']
-description: "Enforce WordPress JavaScript inline documentation (JSDoc)."
-last_updated: "2025-10-19"
-version: "v1.0"
-owners: ["LightSpeed Engineering"]
+"applyTo":
+  - "**/*.js"
+  - "**/*.jsx"
+  - "**/*.mjs"
+  - "**/*.cjs"
+"description": "Enforce WordPress JavaScript inline documentation (JSDoc)."
+"last_updated": "2025-10-19"
+"version": "v1.0"
+"owners":
+  - "LightSpeed Engineering"
+"file_type": "instructions"
 ---
 
 # WordPress JavaScript Documentation Standards

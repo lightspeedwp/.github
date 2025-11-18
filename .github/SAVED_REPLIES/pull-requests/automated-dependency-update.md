@@ -1,13 +1,14 @@
 ---
-title: "Automated Dependency Update Saved Replies"
-description: "Standard reply for Renovate/Dependabot PRs, outlining expectations for review and merge."
-category: "Pull Request"
-labels:
-  - area:dependencies
-  - status:needs-review
-references:
+"title": "Automated Dependency Update Saved Replies"
+"description": "Standard reply for Renovate/Dependabot PRs, outlining expectations for review and merge."
+"category": "Pull Request"
+"labels":
+  - "area:dependencies"
+  - "status:needs-review"
+"references":
   - "../../CONTRIBUTING.md"
   - "../../PR_LABELS.md"
+"file_type": "saved-reply"
 ---
 
 # Automated Dependency Update Saved Replies
