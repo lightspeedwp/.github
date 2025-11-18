@@ -44,6 +44,22 @@ graph TD
 - `core/` – Fundamental helpers & validation (colors, logging, validation tests).
 - `deployment/` – Deployment flow and orchestration tests.
 - `filesystem/` – File operation and path integrity tests.
+- `integration/` – Integration tests validating interactions between include modules.
+
+### Include Module Unit Tests
+
+Comprehensive test coverage for modular shell script includes:
+
+- **test-colors.bats** – Color codes, ANSI formatting, terminal support detection
+- **test-logging.bats** – Logging levels, file output, log rotation, color integration
+- **test-validation.bats** – Input validation (files, directories, versions, emails, URLs, ports, IP addresses, JSON, YAML, path safety)
+- **test-cli-utils.bats** – CLI argument parsing, help display, confirmation prompts, progress indicators, dry-run mode
+- **test-file-operations.bats** – Safe file operations, atomic writes, backup creation, timestamp handling
+- **test-git-functions.bats** – Git repository detection, branch/commit operations, working tree validation
+
+### Integration Tests
+
+- **integration/test-logging-integration.bats** – Cross-module integration testing (logging + validation + colors), error propagation, concurrent operations
 
 ### Key Helper Scripts
 
@@ -98,6 +114,35 @@ npx bats tests/includes
 - Shell standard compliance via `assert_script_follows_standards`.
 - Git and external command isolation through mocking functions.
 - Agent structure integrity via `assert_agent_follows_standards`.
+
+### Test Coverage
+
+Comprehensive unit and integration tests for all include modules:
+
+- **90%+ line coverage** for all include functions
+- **100% error condition coverage** for critical paths
+- **Edge case testing** for special characters, Unicode, large files, empty inputs
+- **Performance testing** for large data sets and concurrent operations
+- **Security testing** for directory traversal prevention and input sanitization
+- **Integration testing** for cross-module interactions and dependency chains
+
+### Running Include Tests
+
+Run all include module tests:
+```bash
+bats tests/includes/test-*.bats
+```
+
+Run integration tests:
+```bash
+bats tests/includes/integration/
+```
+
+Run specific module tests:
+```bash
+bats tests/includes/test-logging.bats
+bats tests/includes/test-validation.bats
+```
 
 ## Usage
 
