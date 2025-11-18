@@ -386,6 +386,7 @@ end
 ```
 
 Make the file executable:
+
 ```bash
 chmod +x bin/mcp-server
 ```
@@ -644,6 +645,7 @@ my-mcp-server/
 ## License
 
 MIT
+
 ```
 
 ## Generation Instructions

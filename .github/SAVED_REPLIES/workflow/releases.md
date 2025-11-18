@@ -17,6 +17,7 @@ Hi @username,
 Thank you for your work on this release!
 
 **Checklist:**
+
 - Ensure your PR includes a `## Changelog` entry (Keep a Changelog format)
 - Apply exactly one `release:*` label (`release:patch`, `release:minor`, or `release:major`)
 - Confirm all CI checks are passing

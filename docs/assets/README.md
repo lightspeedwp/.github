@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'Documentation Assets'
 description: 'Images, diagrams, and visual resources for LightSpeed documentation'
 version: '1.0'

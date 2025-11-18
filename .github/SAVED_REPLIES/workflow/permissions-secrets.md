@@ -19,6 +19,7 @@ Hi @username,
 There was a problem accessing required secrets, tokens, or permissions in the workflow run.
 
 **How to Fix:**
+
 - Ensure all referenced secrets are set in the repo or org settings
 - Validate workflow permission settings (minimum required: `read` for actions, `write` for most automation)
 - Check if the token or secret name matches what’s referenced in the workflow file

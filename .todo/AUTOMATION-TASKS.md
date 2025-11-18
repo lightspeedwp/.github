@@ -13,13 +13,13 @@ The footers should all have consistent references listed, these will be relevant
 Lint/format all docs for compliance.
 
 - [ ] Review and update all README files in attached folders
-    - For each top-level attached folder (and all subfolders), review every README.md file. Add or update headers and footers with badges, and add relevant emojis to headings. Ensure style is consistent and engaging.
+  - For each top-level attached folder (and all subfolders), review every README.md file. Add or update headers and footers with badges, and add relevant emojis to headings. Ensure style is consistent and engaging.
 
 - [-] Lint/format all AI docs for compliance
-    - Run markdownlint and Prettier on all AI docs in docs/ to ensure formatting and lint compliance. Fix any issues found.
+  - Run markdownlint and Prettier on all AI docs in docs/ to ensure formatting and lint compliance. Fix any issues found.
 
 - [-] Add/update footers and references for consistency
-    - Ensure all AI docs have a consistent footer and references section, following project standards. Add or update as needed.
+  - Ensure all AI docs have a consistent footer and references section, following project standards. Add or update as needed.
 
 ## 🗂️ LightSpeedWP Automation & Governance Workspace Overview
 

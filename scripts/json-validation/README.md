@@ -5,7 +5,7 @@ last_updated: "2025-01-14"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Utilities for validating JSON and YAML configuration files throughout the LightSpeedWP project. Schema validation, YAML parsing, and comprehensive configuration integrity checking."
-type: "validation"
+file_type: "validation"
 status: "production"
 tags: ["json", "yaml", "validation", "schema", "configuration", "nodejs", "coderabbit"]
 license: "GPL-3.0"
@@ -65,6 +65,13 @@ graph TB
 
 ## Main Scripts
 
+- __`validate-json.js`__
+  - Comprehensive JSON linting and validation tool
+  - Features: Prettier formatting, JSONLint syntax checking, Ajv schema validation
+  - Supports glob patterns, multiple files, and various JSON Schema drafts
+  - Produces actionable reports and minimal diffs
+  - Used by: CI/CD pipelines, pre-commit hooks, and manual validation workflows
+
 - __`validate-coderabbit-yml.cjs`__
   - Validates `.coderabbit.yml` configuration files for proper YAML syntax and required fields.
   - Fetches and validates against the official CodeRabbit schema.
@@ -77,6 +84,19 @@ graph TB
 
 ## How This Works
 
+### JSON Validation Pipeline
+
+The `validate-json.js` script follows this workflow:
+
+1. __File Discovery__: Find JSON files matching glob pattern (excluding `node_modules`, `package-lock.json`, etc.)
+2. __Formatting (Optional)__: Pretty-print JSON with Prettier (can be skipped with `--validate-only`)
+3. __Syntax Validation (Optional)__: Strict syntax checking with JSONLint (enabled with `--strict`)
+4. __Schema Validation (Optional)__: Validate against JSON Schema using Ajv (if `--schema` is provided)
+5. __Reporting__: Generate comprehensive reports with minimal diffs and actionable fixes
+6. __Exit Status__: Exit with code 1 if any validation fails (suitable for CI/CD)
+
+### YAML Validation (CodeRabbit)
+
 The validation scripts in this directory:
 
 1. __Schema Validation__: Download and cache the latest schema from CodeRabbit's official source
@@ -86,6 +106,43 @@ The validation scripts in this directory:
 
 ## Usage Examples
 
+### JSON Validation & Linting
+
+```bash
+# Format all JSON files (read-only check)
+node scripts/json-validation/validate-json.js --format-only --read-only
+
+# Format all JSON files (in place)
+node scripts/json-validation/validate-json.js --format-only
+
+# Validate syntax only (strict mode with JSONLint)
+node scripts/json-validation/validate-json.js --validate-only --strict
+
+# Validate against a schema
+node scripts/json-validation/validate-json.js \
+  --glob "data/**/*.json" \
+  --schema "schema/my-doc.schema.json" \
+  --spec draft2020
+
+# Comprehensive validation (format + validate + schema)
+node scripts/json-validation/validate-json.js \
+  --glob "**/*.json" \
+  --schema "schema/my-doc.schema.json" \
+  --strict
+
+# Read-only validation (no modifications)
+node scripts/json-validation/validate-json.js \
+  --glob "**/*.json" \
+  --read-only \
+  --strict
+
+# Using npm scripts
+npm run format:json              # Format all JSON files
+npm run lint:json                # Validate syntax (strict mode)
+npm run validate:json:schemas    # Validate schema files
+npm run validate:json:all        # Comprehensive validation
+```
+
 ### Validate CodeRabbit Configuration
 
 ```bash
@@ -94,6 +151,30 @@ node scripts/json-validation/validate-coderabbit-yml.cjs
 
 # Run tests
 npm test -- scripts/json-validation/validate-coderabbit-yml.test.js
+```
+
+### Common Workflows
+
+```bash
+# Format and validate a specific directory
+npx prettier --write "config/**/*.json"
+node scripts/json-validation/validate-json.js \
+  --glob "config/**/*.json" \
+  --validate-only --strict
+
+# Validate against multiple schemas (using Ajv directly)
+npx ajv validate \
+  -s schema/my-doc.schema.json \
+  -d "data/**/*.json" \
+  --spec=draft2020 \
+  --errors=text
+
+# Machine-readable error report
+npx ajv validate \
+  -s schema/my-doc.schema.json \
+  -d "data/**/*.json" \
+  --spec=draft2020 \
+  --errors=json > reports/ajv-errors.json
 ```
 
 ## Integration with Other Scripts
@@ -110,9 +191,14 @@ npm test -- scripts/json-validation/validate-coderabbit-yml.test.js
 
 ## Dependencies
 
-- __Node.js__ — Required for running the JavaScript validation scripts
-- __js-yaml__ — YAML parsing and validation
-- __JSON Schema__ — Schema validation capabilities
+- __Node.js__ (>=18.0.0) — Required for running the JavaScript validation scripts
+- __Prettier__ (^3.0.0) — JSON formatting and pretty-printing
+- __Ajv__ (^8.17.1) — JSON Schema validation (supports Draft 7, 2019-09, 2020-12, JTD)
+- __Ajv-CLI__ (^5.0.0) — Command-line interface for Ajv
+- __Ajv-Formats__ (^3.0.1) — Additional format validators for Ajv
+- __glob__ (^10.3.12) — File pattern matching
+- __js-yaml__ (^4.1.1) — YAML parsing and validation
+- __JSONLint__ (optional) — Strict JSON syntax validation
 
 ## Contributing
 

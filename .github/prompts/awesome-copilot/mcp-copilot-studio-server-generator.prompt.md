@@ -30,6 +30,7 @@ Create a complete MCP server implementation that:
    - **Prompts**: Predefined templates for specific tasks (❌ Not yet supported in Copilot Studio)
 
 4. **Implementation Structure:**
+
    ```
    /apiDefinition.swagger.json  (Power Platform connector schema)
    /apiProperties.json         (Connector metadata and configuration)
@@ -90,6 +91,7 @@ Generate:
 ## Validation Checklist
 
 Ensure generated code:
+
 - [ ] No reference types in schemas
 - [ ] All type fields are single types
 - [ ] Enum handling via string with validation

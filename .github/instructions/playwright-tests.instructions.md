@@ -1,11 +1,12 @@
 ---
+file_type: "instructions"
 title: "Playwr  - documentation
   - instructions
   - guides
 version: "1.0.0"
 permalink: "/instructions/playwright-tests"
 license: "GPL-3.0"
-type: "instructions"
+file_type: "instructions"
 mode: "agent"
 author: "LightSpeedWP Team"
 contributors:
@@ -46,6 +47,7 @@ These guidelines outline best practices for writing, organizing, and maintaining
   npm install --save-dev @playwright/test
   npx playwright install
   ```
+
 - Install WordPress-specific E2E helpers:
 
   ```bash
@@ -61,6 +63,7 @@ These guidelines outline best practices for writing, organizing, and maintaining
 - Create test files with `.spec.ts` or `.spec.js` extensions.
 - Use descriptive test and file names reflecting the feature, pattern, or block under test.
 - Example:
+
   ```js
   import { test, expect } from '@playwright/test';
 
@@ -71,6 +74,7 @@ These guidelines outline best practices for writing, organizing, and maintaining
     });
   });
   ```
+
 - For WordPress block/editor tests, use E2E Test Utils for common editor actions.
 
 ---
@@ -123,14 +127,19 @@ More resources:
 ## Running Tests
 
 - Run all tests:
+
   ```bash
   npx playwright test
   ```
+
 - Run a specific test:
+
   ```bash
   npx playwright test path/to/test.spec.ts
   ```
+
 - Generate HTML reports:
+
   ```bash
   npx playwright test --reporter=html
   ```

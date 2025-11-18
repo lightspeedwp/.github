@@ -6,7 +6,7 @@ labels: [type:feature, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: story
+file_type: story
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -84,6 +84,7 @@ Use correct branch prefix (story/) for PRs.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] User need/outcome defined
 - [ ] Acceptance criteria written
 - [ ] Designs/specs attached (if relevant)
@@ -91,6 +92,7 @@ Use correct branch prefix (story/) for PRs.
 - [ ] Estimate added
 
 ### Definition of Done (DoD)
+
 - [ ] All acceptance criteria met
 - [ ] Documentation/changelog updated
 - [ ] Tests added/updated

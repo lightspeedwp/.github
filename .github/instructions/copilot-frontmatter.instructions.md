@@ -3,7 +3,7 @@ version: "v0.1.0"
 last_updated: "2025-10-21"
 owners:
   - "lightspeedwp/maintainers"
-file_type: "instruction"
+file_type: "instructions"
 category: "copilot"
 tags: ["frontmatter", "yaml", "normalization", "template"]
 language: "en"

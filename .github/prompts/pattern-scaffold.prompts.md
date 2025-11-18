@@ -14,6 +14,7 @@ Generate a new block pattern in PHP with proper WordPress pattern headers and se
 Create a block pattern file with the following structure:
 
 ### Pattern Header
+
 - `title`: Descriptive name for the pattern
 - `slug`: `ai-block-theme-template/pattern-slug` format
 - `categories`: Include `ai-block-theme-template` and relevant categories
@@ -21,11 +22,13 @@ Create a block pattern file with the following structure:
 - `description`: Brief description of the pattern's purpose
 
 ### File Organization
+
 - Place file in `/patterns/<category>/` directory
 - Use descriptive filename matching the pattern purpose
 - Follow naming convention: `category-purpose.php`
 
 ### Block Markup
+
 - Use semantic HTML with WordPress block comments
 - Include proper block attributes and styling
 - Ensure accessibility with proper heading hierarchy
@@ -33,6 +36,7 @@ Create a block pattern file with the following structure:
 - Test with different content lengths
 
 ### Code Quality
+
 - Include usage notes at the top of the file
 - Use proper indentation and formatting
 - Follow WordPress coding standards
@@ -58,6 +62,7 @@ Create a block pattern file with the following structure:
 ```
 
 ## Pattern Categories
+
 - `hero` - Hero sections and banners
 - `featured` - Featured content sections
 - `gallery` - Image galleries and media

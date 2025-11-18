@@ -6,7 +6,7 @@ labels: [type:documentation, status:needs-triage, priority:normal, area:document
 assignees: []
 projects: []
 milestone: ''
-type: documentation
+file_type: documentation
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -18,12 +18,14 @@ references:
 The branding agent is currently referenced but not fully documented, creating potential dead-ends for readers who may click through expecting complete information. We need to provide either a short synopsis or a proper stub that clearly indicates the agent is under development, without listing it as an active/production agent.
 
 **Current state:**
+
 - Branding agent referenced without complete documentation
 - Unclear status (active, experimental, planned)
 - Readers may encounter dead-ends or incomplete information
 - Risk to documentation credibility
 
 **Desired state:**
+
 - Clear synopsis or stub in `AGENTS.md`
 - Status explicitly marked (e.g., "Planned," "Under Development")
 - No active menu entries or broken links
@@ -33,16 +35,19 @@ The branding agent is currently referenced but not fully documented, creating po
 ## Why is this documentation important?
 
 **For contributors:**
+
 - Clear status prevents wasted time investigating unavailable features
 - Synopsis provides context for future development
 - Proper expectations improve trust in documentation
 
 **For maintainers:**
+
 - Avoids support burden from confused contributors
 - Maintains documentation credibility
 - Placeholder enables future expansion without breaking links
 
 **Impact:**
+
 - **Low-Medium** - Reader confusion and credibility risk
 - **Low** - Minimal functional impact but affects perception
 - **Low** - Easy fix with high value for documentation quality
@@ -65,6 +70,7 @@ The branding agent is currently referenced but not fully documented, creating po
 ## Additional Context
 
 **Suggested synopsis format:**
+
 ```markdown
 ### 🚧 Branding Agent (Under Development)
 
@@ -86,6 +92,7 @@ The branding agent is currently referenced but not fully documented, creating po
 ```
 
 **Alternative minimal stub:**
+
 ```markdown
 ### 🚧 Branding Agent
 
@@ -97,10 +104,12 @@ For updates, see [tracking issue #XXX] or contact @branding-team.
 ```
 
 **Where to add:**
+
 - `AGENTS.md` under a "Planned Agents" or "Under Development" section
 - NOT in "Active Agents" or "Production Agents" sections
 
 **What to avoid:**
+
 - Detailed agent spec file without implementation
 - Links to empty or placeholder pages
 - Navigation menu entries
@@ -110,6 +119,7 @@ For updates, see [tracking issue #XXX] or contact @branding-team.
 Review how other planned/experimental features are documented and use consistent format.
 
 **Telemetry (post-merge):**
+
 - N/A (documentation clarity improvement)
 
 ## References
@@ -155,10 +165,12 @@ Review how other planned/experimental features are documented and use consistent
 **Branch prefix:** `docs/`
 
 **Files to modify:**
+
 - `AGENTS.md` (add synopsis under appropriate section)
 - `CHANGELOG.md` (document update)
 
 **Optional:**
+
 - Contact @branding-team to gather accurate timeline and scope information
 - Create tracking issue for actual branding agent development
 

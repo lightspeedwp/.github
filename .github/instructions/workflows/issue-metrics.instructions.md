@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Workflow: Issue Metrics Reporting"
 description: "Collect and report issue metrics monthly for repositories and projects."
 version: "v1.0"

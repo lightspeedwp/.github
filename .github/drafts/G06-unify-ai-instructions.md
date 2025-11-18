@@ -6,7 +6,7 @@ labels: [type:documentation, status:needs-triage, priority:normal, area:document
 assignees: []
 projects: []
 milestone: ''
-type: documentation
+file_type: documentation
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -19,6 +19,7 @@ references:
 We need to clarify the scope and precedence hierarchy between global AI instructions, repository-level `custom-instructions.md`, agent-specific specs, and chat modes. Currently, the relationship and override patterns are unclear, leading to conflicting guidance and unpredictable AI agent behaviour.
 
 **Current state:**
+
 - Multiple instruction surfaces without clear hierarchy
 - Unclear scope for each instruction level
 - No documented override/precedence pattern
@@ -26,6 +27,7 @@ We need to clarify the scope and precedence hierarchy between global AI instruct
 - Conflicting or redundant guidance across files
 
 **Desired state:**
+
 - Clear headers in each instruction file defining scope and precedence
 - Documented override pattern (global → repo → agent → chat mode)
 - `docs/CHATMODES.md` created with examples and use cases
@@ -36,17 +38,20 @@ We need to clarify the scope and precedence hierarchy between global AI instruct
 ## Why is this documentation important?
 
 **For contributors:**
+
 - Clear precedence enables confident customisation
 - Understanding scope prevents conflicting instructions
 - Examples and chat modes accelerate effective AI use
 - Predictable behaviour improves trust and productivity
 
 **For maintainers:**
+
 - Reduced debugging of unexpected AI behaviour
 - Easier maintenance of instruction hierarchy
 - Better onboarding for teams using AI tools
 
 **Impact:**
+
 - **High** - Conflicting guidance causes unpredictable AI behaviour
 - **Medium** - Contributors waste time debugging instruction conflicts
 - **Medium** - Reduces effectiveness of AI-assisted development
@@ -78,6 +83,7 @@ We need to clarify the scope and precedence hierarchy between global AI instruct
 ## Additional Context
 
 **Suggested precedence hierarchy (lowest to highest):**
+
 1. **global-defaults** - Built-in Claude/AI model defaults
 2. **organisation-level** - LightSpeed general instructions
 3. **repository-level** - `.github/custom-instructions.md`
@@ -85,6 +91,7 @@ We need to clarify the scope and precedence hierarchy between global AI instruct
 5. **chat-mode** - Active mode for current session (e.g., "accessibility audit mode")
 
 **Example header template:**
+
 ```markdown
 ---
 title: Repository Custom Instructions
@@ -102,6 +109,7 @@ Agent-specific and chat mode instructions take precedence over these.
 ```
 
 **Example `docs/CHATMODES.md` structure:**
+
 ```markdown
 # Chat Modes
 
@@ -121,6 +129,7 @@ Agent-specific and chat mode instructions take precedence over these.
 ```
 
 **Files to update:**
+
 - `.github/custom-instructions.md` (add header)
 - `AGENTS.md` (complete agent index)
 - `docs/CHATMODES.md` (create)
@@ -131,6 +140,7 @@ Agent-specific and chat mode instructions take precedence over these.
 Add "Related Documentation" sections in each file pointing to the others.
 
 **Telemetry (post-merge):**
+
 - Contributors can discover all instruction surfaces from AGENTS.md
 - Doc lints pass with no broken cross-links
 - Reduced questions about AI behaviour conflicts
@@ -183,6 +193,7 @@ Add "Related Documentation" sections in each file pointing to the others.
 **Branch prefix:** `docs/`
 
 **Files to modify:**
+
 - `.github/custom-instructions.md`
 - `AGENTS.md`
 - `docs/CHATMODES.md` (create)

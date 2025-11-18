@@ -6,7 +6,7 @@ labels: [type:documentation, status:needs-triage, priority:normal, area:document
 assignees: []
 projects: []
 milestone: 'v0.2.0'
-type: documentation
+file_type: documentation
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -20,12 +20,14 @@ references:
 Several documentation files across the repository still reference pre-move automation file paths, resulting in 404 errors and broken links. We need to comprehensively scan the repository and update all references to point to the new `/.github/automation` directory structure on the `develop` branch.
 
 **Current state:**
+
 - Automation files moved to `/.github/automation`
 - Multiple docs still reference old paths
 - Links result in 404 errors for readers
 - Onboarding and operational docs are affected
 
 **Desired state:**
+
 - All documentation references updated to `/.github/automation` paths
 - All links point to exact `develop` branch URLs
 - Zero 404 errors from documentation links
@@ -34,16 +36,19 @@ Several documentation files across the repository still reference pre-move autom
 ## Why is this documentation important?
 
 **For contributors:**
+
 - Broken links disrupt onboarding and understanding of workflows
 - Readers cannot access referenced automation configs and examples
 - Frustration and reduced trust in documentation quality
 
 **For maintainers:**
+
 - Risk of updating wrong files when following outdated references
 - Increased support burden from confused contributors
 - Blocks effective operations and workflow management
 
 **Impact:**
+
 - **High** - Blocks onboarding and operations
 - **High** - Damages documentation credibility and trust
 - **Medium** - Wastes contributor and maintainer time
@@ -62,6 +67,7 @@ Several documentation files across the repository still reference pre-move autom
 ## Additional Context
 
 **Scan strategy:**
+
 ```bash
 # Find potential old automation references
 git grep -n "\.github/workflows" | grep -v "\.github/automation"
@@ -70,11 +76,13 @@ git grep -n "automation" | grep -E '\.(md|txt)$' | grep -v "/.github/automation"
 ```
 
 **Common old → new path mappings:**
+
 - `.github/workflows/labeler.yml` → `.github/automation/labeler.yml`
 - `.github/workflows/labels.yml` → `.github/automation/labels.yml`
 - `workflows/` → `.github/automation/`
 
 **Files likely affected:**
+
 - README.md
 - DOCS.md
 - DEVELOPMENT.md
@@ -83,11 +91,13 @@ git grep -n "automation" | grep -E '\.(md|txt)$' | grep -v "/.github/automation"
 - Workflow and automation documentation
 
 **Testing approach:**
+
 1. Use automated link checker (e.g., `markdown-link-check`, `lychee`)
 2. Manual spot-check of high-traffic docs
 3. Verify all GitHub URLs resolve correctly
 
 **Telemetry (post-merge):**
+
 - Run link checker tool
 - Count 404 errors → target: 0
 - Monitor for support requests about broken links → target: ↓
@@ -138,6 +148,7 @@ git grep -n "automation" | grep -E '\.(md|txt)$' | grep -v "/.github/automation"
 **Branch prefix:** `docs/`
 
 **Tools to use:**
+
 - `git grep` for finding references
 - `markdown-link-check` or `lychee` for link validation
 - Editor find/replace for batch updates

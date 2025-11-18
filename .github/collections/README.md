@@ -5,7 +5,7 @@ version: "v1.0"
 last_updated: "2025-10-24"
 maintainer: "LightSpeed Engineering"
 tags: ["collections", "instructions", "workflows", "organization"]
-type: "documentation"
+file_type: "documentation"
 ---
 
 # 📚 Collections Directory

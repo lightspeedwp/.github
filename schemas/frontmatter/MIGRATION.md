@@ -22,6 +22,7 @@ This document outlines the complete migration plan for moving `schemas/frontmatt
 **New Location**: `/schemas/frontmatter/frontmatter.schema.json`
 
 **Why?**
+
 - Better organization for related files (docs, examples, tests)
 - More scalable structure for future schema versions
 - Dedicated space for validation tools and utilities
@@ -32,17 +33,20 @@ This document outlines the complete migration plan for moving `schemas/frontmatt
 ### Files Affected: 45+
 
 #### Critical (Code Files) - Must Update First
+
 - `metrics/frontmatter-metrics.js` (line 63)
 - `scripts/validation/validate-frontmatter.js` (line 24)
 - `scripts/validation/__tests__/validate-frontmatter.test.js` (lines 311, 358)
 
 #### High Priority ($schema References in Frontmatter)
+
 - `.github/agents/wp-security-review.agent.md`
 - `.github/agents/wp-performance-audit.agent.md`
 - `.github/agents/wp-accessibility-review.agent.md`
 - `schemas/frontmatter/frontmatter.schema.json` (self-references)
 
 #### Medium Priority (Documentation Links)
+
 - All test README files (5 files)
 - `schemas/README.md`
 - `scripts/README.md` and `scripts/validation/README.md`
@@ -51,6 +55,7 @@ This document outlines the complete migration plan for moving `schemas/frontmatt
 - Documentation files in `docs/` (multiple)
 
 #### Broken Links to Fix
+
 - `.github/instructions/issue-creation.instructions.md`
 - `.github/instructions/issues.instructions.md`
 - `.github/instructions/pr-creation.instructions.md`
@@ -73,6 +78,7 @@ These use incorrect path `schema/` instead of `schemas/` - must be fixed!
 ### Phase 2: Schema Setup (Current)
 
 1. **Move the schema file**
+
    ```bash
    # Create backup
    cp schemas/frontmatter.schema.json schemas/frontmatter.schema.json.backup
@@ -82,12 +88,14 @@ These use incorrect path `schema/` instead of `schemas/` - must be fixed!
    ```
 
 2. **Install validation dependencies**
+
    ```bash
    cd schemas/frontmatter
    npm install
    ```
 
 3. **Test the validation**
+
    ```bash
    # Validate schema itself
    npm run validate:schema
@@ -101,18 +109,21 @@ These use incorrect path `schema/` instead of `schemas/` - must be fixed!
 **These MUST be updated before deployment to avoid runtime errors.**
 
 1. **Update `metrics/frontmatter-metrics.js`**
+
    ```diff
    - const schemaPath = path.join(process.cwd(), "schemas/frontmatter.schema.json");
    + const schemaPath = path.join(process.cwd(), "schemas/frontmatter/frontmatter.schema.json");
    ```
 
 2. **Update `scripts/validation/validate-frontmatter.js`**
+
    ```diff
    - schemaPath: path.join(__dirname, '../../schemas/frontmatter.schema.json')
    + schemaPath: path.join(__dirname, '../../schemas/frontmatter/frontmatter.schema.json')
    ```
 
 3. **Update `scripts/validation/__tests__/validate-frontmatter.test.js`**
+
    ```diff
    - const schemaPath = path.resolve(__dirname, '../../../schemas/frontmatter.schema.json');
    + const schemaPath = path.resolve(__dirname, '../../../schemas/frontmatter/frontmatter.schema.json');
@@ -123,17 +134,20 @@ These use incorrect path `schema/` instead of `schemas/` - must be fixed!
 Update all files that reference the schema in their frontmatter:
 
 **Pattern to find:**
+
 ```bash
 grep -r '$schema.*frontmatter.schema.json' .github/
 ```
 
 **Agent files:**
+
 ```diff
 - $schema: "../frontmatter.schema.json"
 + $schema: "../schemas/frontmatter/frontmatter.schema.json"
 ```
 
 **Schema self-references:**
+
 ```diff
 - "path": "schemas/frontmatter.schema.json"
 + "path": "schemas/frontmatter/frontmatter.schema.json"
@@ -144,17 +158,20 @@ grep -r '$schema.*frontmatter.schema.json' .github/
 Update all markdown links:
 
 **Pattern to find:**
+
 ```bash
 grep -r 'frontmatter\.schema\.json' --include="*.md"
 ```
 
 **Replace pattern:**
+
 ```diff
 - [schema](../../schemas/frontmatter.schema.json)
 + [schema](../../schemas/frontmatter/frontmatter.schema.json)
 ```
 
 **Files to update:**
+
 - `schemas/README.md`
 - `scripts/README.md`
 - `scripts/validation/README.md`
@@ -172,6 +189,7 @@ These files incorrectly use `schema/` instead of `schemas/`:
 4. `docs/README_DOCS_ARCHITECTURE.md`
 
 **Fix:**
+
 ```diff
 - [frontmatter schema](../../schema/frontmatter.schema.json)
 + [frontmatter schema](../../schemas/frontmatter/frontmatter.schema.json)
@@ -189,12 +207,14 @@ Update `.github/workflows/frontmatter-metrics.yml` and any other workflows that 
 ### Phase 8: Testing & Validation
 
 1. **Run validation script**
+
    ```bash
    cd schemas/frontmatter
    npm run validate
    ```
 
 2. **Check for broken references**
+
    ```bash
    # Search for old references
    grep -r "schemas/frontmatter\.schema\.json" . --exclude-dir=node_modules
@@ -203,6 +223,7 @@ Update `.github/workflows/frontmatter-metrics.yml` and any other workflows that 
    ```
 
 3. **Test code functionality**
+
    ```bash
    # Run any dependent scripts
    node scripts/validation/validate-frontmatter.js
@@ -217,6 +238,7 @@ Update `.github/workflows/frontmatter-metrics.yml` and any other workflows that 
 ### Phase 9: Cleanup & Documentation
 
 1. **Remove backup**
+
    ```bash
    rm schemas/frontmatter.schema.json.backup
    ```
@@ -224,6 +246,7 @@ Update `.github/workflows/frontmatter-metrics.yml` and any other workflows that 
 2. **Update VSCode settings**
 
    In `.vscode/settings.json`:
+
    ```diff
    {
      "yaml.schemas": {
@@ -240,6 +263,7 @@ Update `.github/workflows/frontmatter-metrics.yml` and any other workflows that 
    ```
 
 3. **Update CHANGELOG**
+
    ```markdown
    ## [Unreleased]
 
@@ -288,6 +312,7 @@ echo "Migration complete! Review changes with: git diff"
 ```
 
 **Usage:**
+
 ```bash
 chmod +x migrate-schema-references.sh
 ./migrate-schema-references.sh
@@ -299,6 +324,7 @@ git diff  # Review changes
 If issues arise:
 
 1. **Quick rollback**
+
    ```bash
    # Restore from backup
    cp schemas/frontmatter.schema.json.backup schemas/frontmatter.schema.json
@@ -310,6 +336,7 @@ If issues arise:
 2. **Partial rollback**
    - Keep the new structure
    - Create symlink for backward compatibility:
+
    ```bash
    ln -s frontmatter/frontmatter.schema.json schemas/frontmatter.schema.json
    ```

@@ -79,9 +79,9 @@ Several documents that were identified as potential gaps have been found to exis
 * **chatmodes.md** ✓ - Master index exists at `.github/chatmodes/chatmodes.md`.
 
 However, these documents should be reviewed to ensure they are:
-- Up-to-date with current practices
-- Properly cross-referenced in other documentation
-- Free from the link and path issues identified above
+* Up-to-date with current practices
+* Properly cross-referenced in other documentation
+* Free from the link and path issues identified above
 
 ### 4. AI Instructions & Prompt Files Audit
 
@@ -123,62 +123,62 @@ Based on the gaps identified, here is a list of recommended actions and the crea
 ### Immediate Actions
 
 1. **Fix Broken Links and Paths**
-   - Update all internal links to use correct relative paths and branch references
-   - Change any `.../blob/master/...` URLs to `.../blob/develop/...` or use relative links
-   - Verify links to files in `automation/` directory are correct
-   - **Priority:** High
+   * Update all internal links to use correct relative paths and branch references
+   * Change any `.../blob/master/...` URLs to `.../blob/develop/...` or use relative links
+   * Verify links to files in `automation/` directory are correct
+   * **Priority:** High
 
 2. **Relocate Frontmatter Schema** (Optional)
-   - Consider moving `frontmatter.schema.json` into `schemas/frontmatter/` folder
-   - Update any references in documentation to the new path
-   - Ensure validation scripts point to the new location
-   - **Priority:** Medium
+   * Consider moving `frontmatter.schema.json` into `schemas/frontmatter/` folder
+   * Update any references in documentation to the new path
+   * Ensure validation scripts point to the new location
+   * **Priority:** Medium
 
 3. **Review and Update Existing Documentation**
-   - Audit `docs/VERSIONING.md` for accuracy and completeness
-   - Review `docs/CHATMODE-FRONTMATTER.md` for LightSpeed-specific needs
-   - Verify `.github/automation/AUTOMATION_GOVERNANCE.md` reflects current processes
-   - Ensure all cross-references between docs are valid
-   - **Priority:** High
+   * Audit `docs/VERSIONING.md` for accuracy and completeness
+   * Review `docs/CHATMODE-FRONTMATTER.md` for LightSpeed-specific needs
+   * Verify `.github/automation/AUTOMATION_GOVERNANCE.md` reflects current processes
+   * Ensure all cross-references between docs are valid
+   * **Priority:** High
 
 4. **Update Agents & Prompts Indexes**
-   - Bring `AGENTS.md` up to date by listing all current agents
-   - Cross-reference with individual agent specs in `agents/` folder
-   - Create or update `prompts.md` index for prompt templates
-   - Add placeholder entries for planned agents (e.g., branding agents, metrics agent)
-   - **Priority:** Medium
+   * Bring `AGENTS.md` up to date by listing all current agents
+   * Cross-reference with individual agent specs in `agents/` folder
+   * Create or update `prompts.md` index for prompt templates
+   * Add placeholder entries for planned agents (e.g., branding agents, metrics agent)
+   * **Priority:** Medium
 
 5. **Improve Mermaid Diagram Styling**
-   - Define custom accessible style for all Mermaid diagrams
-   - Document style guidelines in `mermaid-diagrams.instructions.md`
-   - Add descriptive captions below each diagram
-   - Re-generate diagrams with poor contrast
-   - **Priority:** Medium
+   * Define custom accessible style for all Mermaid diagrams
+   * Document style guidelines in `mermaid-diagrams.instructions.md`
+   * Add descriptive captions below each diagram
+   * Re-generate diagrams with poor contrast
+   * **Priority:** Medium
 
 6. **Refresh README Files in Subfolders**
-   - Audit all subfolder READMEs (docs/, scripts/, tests/, etc.)
-   - Ensure standardized frontmatter in all README files
-   - Add footer with references as per project conventions
-   - **Priority:** Low
+   * Audit all subfolder READMEs (docs/, scripts/, tests/, etc.)
+   * Ensure standardized frontmatter in all README files
+   * Add footer with references as per project conventions
+   * **Priority:** Low
 
 7. **Implement Metrics Tracking**
-   - Set up Metrics workflow and agent to gather repository health data
-   - Create `docs/METRICS.md` documentation
-   - Define key metrics (documentation coverage, automation effectiveness, etc.)
-   - Add badges to README for key metrics
-   - **Priority:** Low
+   * Set up Metrics workflow and agent to gather repository health data
+   * Create `docs/METRICS.md` documentation
+   * Define key metrics (documentation coverage, automation effectiveness, etc.)
+   * Add badges to README for key metrics
+   * **Priority:** Low
 
 ### Documentation Review Checklist
 
 For each existing document, verify:
 
-- [ ] Frontmatter is complete and follows LightSpeed standards
-- [ ] All internal links use relative paths or correct branch references
-- [ ] References to moved files (automation/, etc.) are updated
-- [ ] Cross-references between related docs are bidirectional
-- [ ] Mermaid diagrams have accessible styling and captions
-- [ ] Version and last_updated fields are current
-- [ ] Tags are consistent with other similar documents
+* [ ] Frontmatter is complete and follows LightSpeed standards
+* [ ] All internal links use relative paths or correct branch references
+* [ ] References to moved files (automation/, etc.) are updated
+* [ ] Cross-references between related docs are bidirectional
+* [ ] Mermaid diagrams have accessible styling and captions
+* [ ] Version and last_updated fields are current
+* [ ] Tags are consistent with other similar documents
 
 ### Ongoing Best Practices
 

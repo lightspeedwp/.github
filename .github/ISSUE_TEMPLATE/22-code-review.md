@@ -6,7 +6,7 @@ labels: [type:review, status:needs-review, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: review
+file_type: review
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -61,11 +61,13 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Review goal and scope defined
 - [ ] Areas/files listed
 - [ ] Acceptance criteria mapped
 
 ### Definition of Done (DoD)
+
 - [ ] All checklist items completed
 - [ ] Feedback/action applied
 - [ ] Documentation updated

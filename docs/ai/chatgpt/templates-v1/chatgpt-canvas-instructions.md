@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Canvas Mode Instructions"
 description: "Guidelines for using ChatGPT to create and preview interactive documents or components using the Canvas tool."
 last_updated: "2025-10-17"

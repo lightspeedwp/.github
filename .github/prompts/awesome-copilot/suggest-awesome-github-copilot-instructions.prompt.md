@@ -24,12 +24,14 @@ Analyze current repository context and suggest relevant copilot-instruction file
 ## Context Analysis Criteria
 
 🔍 **Repository Patterns**:
+
 - Programming languages used (.cs, .js, .py, .ts, etc.)
 - Framework indicators (ASP.NET, React, Azure, Next.js, etc.)
 - Project types (web apps, APIs, libraries, tools)
 - Development workflow requirements (testing, CI/CD, deployment)
 
 🗨️ **Chat History Context**:
+
 - Recent discussions and pain points
 - Technology-specific questions
 - Coding standards discussions
@@ -55,6 +57,7 @@ Display analysis results in structured table comparing awesome-copilot instructi
 ## File Structure Requirements
 
 Based on GitHub documentation, copilot-instructions files should be:
+
 - **Repository-wide instructions**: `.github/copilot-instructions.md` (applies to entire repository)
 - **Path-specific instructions**: `.github/instructions/NAME.instructions.md` (applies to specific file patterns via `applyTo` frontmatter)
 - **Community instructions**: `instructions/NAME.instructions.md` (for sharing and distribution)
@@ -62,6 +65,7 @@ Based on GitHub documentation, copilot-instructions files should be:
 ## Front Matter Structure
 
 Instructions files in awesome-copilot use this front matter format:
+
 ```markdown
 ---
 description: 'Brief description of what this instruction provides'

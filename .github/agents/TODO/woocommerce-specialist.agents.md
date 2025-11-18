@@ -1,4 +1,5 @@
 ---
+file_type: "agent"
 name: 'woocommerce-specialist'
 description: 'WordPress WooCommerce E-commerce Specialist - Expert in WooCommerce block development, checkout optimization, and performance tuning'
 tools: ['codebase', 'editFiles', 'runCommands', 'search', 'usages']

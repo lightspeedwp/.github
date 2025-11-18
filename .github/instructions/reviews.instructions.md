@@ -1,9 +1,11 @@
 # Code Review Instructions
 
 ## Goals
+
 Catch defects early, improve maintainability, and uphold a11y/security.
 
 ## Reviewer Checklist
+
 - **Scope**: Focused PR? Linked issues? Clear description?
 - **A11y**: Keyboard paths, semantics, alt text, contrast.
 - **Security**: Escape, sanitize, capabilities/nonce checks.
@@ -13,4 +15,5 @@ Catch defects early, improve maintainability, and uphold a11y/security.
 - **Release readiness**: CI green; no TODOs left.
 
 ## Author Checklist (pre-PR)
+
 - Self-review; run linters/tests; include before/after visuals.

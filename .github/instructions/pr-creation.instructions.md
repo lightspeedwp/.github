@@ -1,11 +1,12 @@
 ---
+file_type: "instructions"
 title: "Pull Request Creation Instructions"
 description: "Canonical instructions for creating, labeling, and submitting Pull Requests in LightSpeedWP projects. Reference for templates, automation, and labeling strategy."
 version: "1.1"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["pull requests", "templates", "frontmatter", "automation", "labels", "branching", "checklists"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # LightSpeedWP Pull Request (PR) Creation Instructions
@@ -39,12 +40,14 @@ labels: ["type:feature", "status:needs-review", "area:feature"]
 ```
 
 **Required fields:**
+
 - `name`: Short label for the template selector.
 - `about`: Short description of template purpose.
 - `title`: Default PR title (use `{short summary}` or similar).
 - `labels`: Array of default labels for new PRs.
 
 **Optional fields:**
+
 - `assignees`: Default assignees.
 - `projects`: Default project boards.
 
@@ -200,6 +203,7 @@ For maintainers and reviewers, reference these [Saved Replies](../SAVED_REPLIES/
 ---
 
 **For questions or clarifications:**  
+
 - Start with [CONTRIBUTING.md](../CONTRIBUTING.md)
 - Ask in [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
 - Contact a maintainer.

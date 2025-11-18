@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'GitHub Labels Guide'
 description: 'Comprehensive guide to LightSpeed label semantics, usage examples, and automation workflows'
 version: '1.0'
@@ -416,6 +417,7 @@ Action: Apply meta:needs-changelog
 - **`status:blocked`** – External dependency or technical blocker (not user input)
 
 **Example:**
+
 - Needs info: "Can you provide steps to reproduce this bug?"
 - Blocked: "Waiting for upstream library to fix API endpoint"
 
@@ -425,6 +427,7 @@ Action: Apply meta:needs-changelog
 - **`type:improve`** – Intentional behavior that could be better
 
 **Example:**
+
 - Bug: "Button doesn't submit form" (broken functionality)
 - Improve: "Button could have better hover animation" (enhancement)
 
@@ -434,6 +437,7 @@ Action: Apply meta:needs-changelog
 - **`priority:important`** – Significant impact, key feature affected (fix this sprint)
 
 **Example:**
+
 - Critical: "Payment processing completely broken" (revenue impact)
 - Important: "Checkout flow has confusing UX" (user experience impact)
 
@@ -443,6 +447,7 @@ Action: Apply meta:needs-changelog
 - **`meta:needs-changelog`** – User-facing changes missing changelog entry
 
 **Example:**
+
 - No changelog: "Refactor internal utility functions" (no user impact)
 - Needs changelog: "Add user profile page" (new user-facing feature)
 

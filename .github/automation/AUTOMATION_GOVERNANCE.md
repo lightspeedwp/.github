@@ -16,6 +16,7 @@ All automation in this repository is implemented and governed according to the f
 - **Evolving Standards:** All automation governance, standards, and best practices are maintained in the `.github/instructions/` folder and updated as the organization evolves.
 
 **Canonical Indexes:**
+
 - [Workflows Instructions Index](./instructions/workflows.instructions.md)
 - [Agent Instructions Index](./instructions/agents.instructions.md)
 
@@ -53,7 +54,7 @@ All automation in this repository is implemented and governed according to the f
 
 ### c. Labelling, Project Sync, and Issue/PR Management
 
-- **Labelling:** 
+- **Labelling:**
   - Issue forms/templates auto-apply type labels (e.g., `type: bug`, `type: enhancement`), enforced by the labeling agent.
   - PRs are auto-labelled via file globs, branch prefixes, or PR front matter.
   - Each PR links its labels to corresponding Project fields (status, area, priority, etc.).
@@ -61,7 +62,7 @@ All automation in this repository is implemented and governed according to the f
   - On PR open/label change, add item to relevant Projects board and set status.
   - On merge, auto-move item to Done and close linked issues.
   - Project meta sync logic is agent-driven and customizable.
-- **Labeling Rules:** 
+- **Labeling Rules:**
   - One `status:*`, one `priority:*`, and one `area:*` or `comp:*` per item; enforced by the labeling agent and validated through the agent spec.
 
 - **Reciprocal Spec:** See [workflow-labeling-status.instructions.md](./instructions/workflows/workflow-labeling-status.instructions.md), [agent-labels-issues-prs.instructions.md](./instructions/agents/agent-labels-issues-prs.instructions.md), and [agent-project-meta-sync.instructions.md](./instructions/agents/agent-project-meta-sync.instructions.md).
@@ -87,6 +88,7 @@ All automation in this repository is implemented and governed according to the f
 ## 4. Changelog Format & Release Policy
 
 **Changelog format:**  
+
 ```markdown
 ## [Unreleased]
 ### Added
@@ -108,6 +110,7 @@ All automation in this repository is implemented and governed according to the f
 - The release agent extracts changelog notes from PR bodies and labels automatically.
 
 **Release Triggers:**
+
 - PR labels (`release:patch`, `release:minor`, `release:major`) or config determine version bump.
 - `BREAKING CHANGE:` in PR body or commit forces a major bump.
 - Release agent tags and publishes a new GitHub Release with compiled notes.
@@ -117,12 +120,14 @@ All automation in this repository is implemented and governed according to the f
 ## 5. Recommended Actions & Example Configs
 
 **Actions & Agents:**
+
 - Changelog enforcement/compilation: `changelog-enforcer`, `release.agent.js`
 - Release creation: `release.agent.js`
 - Label automation: `labeling.agent.js`, `actions/labeler@v5`
 - Project sync: `project-meta-sync.agent.js`, `actions/add-to-project@v1`
 
 **Example configs:**  
+
 - [labels-issues-prs.yml](./workflows/labels-issues-prs.yml)
 - [project-meta-sync.yml](./workflows/project-meta-sync.yml)
 - [labeler.yml](./labeler.yml)

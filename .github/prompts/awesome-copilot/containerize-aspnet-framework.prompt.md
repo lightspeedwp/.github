@@ -17,7 +17,8 @@ This section of the prompt contains the specific settings and configurations req
 Any settings that are not specified will be set to default values. The default values are provided in `[square brackets]`.
 
 ### Basic Project Information
-1. Project to containerize: 
+
+1. Project to containerize:
    - `[ProjectName (provide path to .csproj file)]`
 
 2. Windows Server SKU to use:
@@ -30,9 +31,10 @@ Any settings that are not specified will be set to default values. The default v
    - `[Specify base image to use for build stage (Default None)]`
 
 5. Custom base image for the run stage of the Docker image ("None" to use standard Microsoft base image):
-   - `[Specify base image to use for run stage (Default None)]`   
+   - `[Specify base image to use for run stage (Default None)]`
 
 ### Container Configuration
+
 1. Ports that must be exposed in the container image:
    - Primary HTTP port: `[e.g., 80]`
    - Additional ports: `[List any additional ports, or "None"]`
@@ -44,6 +46,7 @@ Any settings that are not specified will be set to default values. The default v
    - `[List any specific IIS settings, or "None"]`
 
 ### Build configuration
+
 1. Custom build steps that must be performed before building the container image:
    - `[List any specific build steps, or "None"]`
 
@@ -51,6 +54,7 @@ Any settings that are not specified will be set to default values. The default v
    - `[List any specific build steps, or "None"]`
 
 ### Dependencies
+
 1. .NET assemblies that should be registered in the GAC in the container image:
    - `[Assembly name and version, or "None"]`
 
@@ -61,6 +65,7 @@ Any settings that are not specified will be set to default values. The default v
    - `[COM component names, or "None"]`
 
 ### System Configuration
+
 1. Registry keys and values that must be added to the container image:
    - `[Registry paths and values, or "None"]`
 
@@ -71,6 +76,7 @@ Any settings that are not specified will be set to default values. The default v
    - `[Role/feature names, or "None"]`
 
 ### File System
+
 1. Files/directories that need to be copied to the container image:
    - `[Paths relative to project root, or "None"]`
    - Target location in container: `[Container paths, or "Not applicable"]`
@@ -79,10 +85,12 @@ Any settings that are not specified will be set to default values. The default v
    - `[Paths to exclude, or "None"]`
 
 ### .dockerignore Configuration
+
 1. Patterns to include in the `.dockerignore` file (.dockerignore will already have common defaults; these are additional patterns):
    - Additional patterns: `[List any additional patterns, or "None"]`
 
 ### Health Check Configuration
+
 1. Health check endpoint:
    - `[Health check URL path, or "None"]`
 
@@ -90,6 +98,7 @@ Any settings that are not specified will be set to default values. The default v
    - `[Interval and timeout values, or "Use defaults"]`
 
 ### Additional Instructions
+
 1. Other instructions that must be followed to containerize the project:
    - `[Specific requirements, or "None"]`
 
@@ -115,7 +124,7 @@ Any settings that are not specified will be set to default values. The default v
    - The .NET Framework version detected from the project
    - The Windows Server SKU specified in containerization settings (Core or Full)
    - The Windows Server version specified in containerization settings (2016, 2019, or 2022)
-   - Windows Server Core tags can be found at: https://github.com/microsoft/dotnet-framework-docker/blob/main/README.aspnet.md#full-tag-listing
+   - Windows Server Core tags can be found at: <https://github.com/microsoft/dotnet-framework-docker/blob/main/README.aspnet.md#full-tag-listing>
 5. Ensure that required NuGet packages are installed. **DO NOT** install these if they are missing. If they are not installed, the user must install them manually. If they are not installed, pause executing this prompt and ask the user to install them using the Visual Studio NuGet Package Manager or Visual Studio package manager console. The following packages are required:
    - `Microsoft.Configuration.ConfigurationBuilders.Environment`
 6. Modify the `web.config` file to add configuration builders section and settings to read app settings and connection strings from environment variables:
@@ -123,6 +132,7 @@ Any settings that are not specified will be set to default values. The default v
    - Add configBuilders section in the root
    - Configure EnvironmentConfigBuilder for both appSettings and connectionStrings
    - Example pattern:
+
      ```xml
      <configSections>
        <section name="configBuilders" type="System.Configuration.ConfigurationBuildersSection, System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" restartOnExternalChanges="false" requirePermission="false" />
@@ -139,6 +149,7 @@ Any settings that are not specified will be set to default values. The default v
        <!-- existing connection strings -->
      </connectionStrings>
      ```
+
 7. Create a `LogMonitorConfig.json` file in the folder where the Dockerfile will be created by copying the reference `LogMonitorConfig.json` file at the end of this prompt. The file's contents **MUST NOT** not be modified and should match the reference content exactly unless instructions in containerization settings specify otherwise.
    - In particular, make sure the level of issues to be logged is not changed as using `Information` level for EventLog sources will cause unnecessary noise.
 8. Create a Dockerfile in the root of the project directory to containerize the application
@@ -147,13 +158,13 @@ Any settings that are not specified will be set to default values. The default v
        - The build stage MUST use a `mcr.microsoft.com/dotnet/framework/sdk` base image unless a custom base image is specified in the settings file
        - Copy sln, csproj, and packages.config files first
        - Copy NuGet.config if one exists and configure any private feeds
-       - Restore NuGet packages       
+       - Restore NuGet packages
        - Then, copy the rest of the source code and build and publish the application to C:\publish using MSBuild
      - Final stage: Use the selected Windows Server image to run the application
        - The final stage MUST use a `mcr.microsoft.com/dotnet/framework/aspnet` base image unless a custom base image is specified in the settings file
        - Copy the `LogMonitorConfig.json` file to a directory in the container (e.g., C:\LogMonitor)
        - Download LogMonitor.exe from the Microsoft repository to the same directory
-           - The correct LogMonitor.exe URL is: https://github.com/microsoft/windows-container-tools/releases/download/v2.1.1/LogMonitor.exe
+           - The correct LogMonitor.exe URL is: <https://github.com/microsoft/windows-container-tools/releases/download/v2.1.1/LogMonitor.exe>
        - Set the working directory to C:\inetpub\wwwroot
        - Copy the published output from the build stage (in C:\publish) to the final image
        - Set the container's entry point to run LogMonitor.exe with ServiceMonitor.exe to monitor the IIS service
@@ -189,7 +200,9 @@ Any settings that are not specified will be set to default values. The default v
    - **/Thumbs.db
    - Any additional patterns specified in the containerization settings
 10. Configure health checks if specified in the settings:
-   - Add HEALTHCHECK instruction to Dockerfile if health check endpoint is provided
+
+- Add HEALTHCHECK instruction to Dockerfile if health check endpoint is provided
+
 11. Add the dockerfile to the project by adding the following item to the project file: `<None Include="Dockerfile" />`
 12. Mark tasks as completed: [ ] → [✓]
 13. Continue until all tasks are complete and Docker build succeeds
@@ -207,6 +220,7 @@ If the build fails, review the error messages and make necessary adjustments to 
 ## Progress Tracking
 
 Maintain a `progress.md` file with the following structure:
+
 ```markdown
 # Containerization Progress
 
@@ -389,7 +403,7 @@ ENTRYPOINT [ "C:\\LogMonitor\\LogMonitor.exe", "C:\\ServiceMonitor.exe", "w3svc"
 
 ## Adapting this Example
 
-**Note:** Customize this template based on the specific requirements in the containerization settings. 
+**Note:** Customize this template based on the specific requirements in the containerization settings.
 
 When adapting this example Dockerfile:
 
@@ -407,6 +421,7 @@ When adapting this example Dockerfile:
 ### LogMonitorConfig.json
 
 The LogMonitorConfig.json file should be created in the root of the project directory. It is used to configure the LogMonitor tool, which monitors logs in the container. The contents of this file should look exactly like this to ensure proper logging functionality:
+
 ```json
 {
   "LogConfig": {

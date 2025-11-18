@@ -6,7 +6,7 @@ labels: [type:security, status:needs-triage, priority:critical, area:security]
 assignees: []
 projects: []
 milestone: ''
-type: security
+file_type: security
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -85,12 +85,14 @@ Add any other context, related issues, compliance docs, or references.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Security issue/context described
 - [ ] Steps to reproduce, evidence, or impact provided
 - [ ] Acceptance criteria listed
 - [ ] Estimate added (if applicable)
 
 ### Definition of Done (DoD)
+
 - [ ] Fix or improvement implemented and verified
 - [ ] Documentation/changelog updated
 - [ ] PR uses correct branch prefix (security/)

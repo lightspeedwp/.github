@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: ['**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs']
 description: "Enforce WordPress JavaScript inline documentation (JSDoc)."
 last_updated: "2025-10-19"
@@ -11,12 +12,15 @@ owners: ["LightSpeed Engineering"]
 WordPress follows the [JSDoc 3 standard](http://jsdoc.app/) for inline JavaScript documentation.
 
 ## Mission
+
 Document public JavaScript modules, functions and classes using JSDoc so that code is self‑describing and maintainable.
 
 ## Language & Frameworks
+
 - JavaScript (ES6+), including React components and modules.
 
 ## Coding Standards
+
 - Begin each JSDoc block with a summary describing the purpose of the function or class.
 - Use `@param` tags for each argument with its type and description. Describe optional parameters and default values.
 - Use `@returns` to describe the return type and meaning. For async functions, specify the resolved value.
@@ -24,10 +28,12 @@ Document public JavaScript modules, functions and classes using JSDoc so that co
 - Document events, filters and deprecations using `@fires`, `@deprecated` and related tags.
 
 ## Testing & Quality
+
 - Run ESLint with the JSDoc plugin to ensure documentation blocks are well formed.
 - Validate examples manually or with automated tools like `doctest`.
 
 ## Examples
+
 ```js
 /**
  * Formats a date as DD/MM/YYYY.
@@ -211,39 +217,39 @@ Backbone's `initialize` functions should be formatted as follows:
 - **`@link`**: URL that provides more information.
 - **`@fires`**: Event fired by the constructor. Should list the class name.
 - **`@param`**: Document the arguments passed to the constructor even if not explicitly listed in `initialize`. Use a period at the end.
-    - Backbone Models are passed `attributes` and `options` parameters.
-    - Backbone Views are passed an `options` parameter.
+  - Backbone Models are passed `attributes` and `options` parameters.
+  - Backbone Views are passed an `options` parameter.
 
 ```javascript
 Class = Parent.extend( /** @lends namespace.Class.prototype */{
-	/**
-	 * Summary. (use period)
-	 *
-	 * Description. (use period)
-	 *
-	 * @since      x.x.x
-	 * @deprecated x.x.x Use new_function_name() instead.
-	 * @access     private
-	 *
-	 * @constructs namespace.Class
-	 * @augments   Parent
-	 * @mixes      mixin
-	 *
-	 * @alias    realName
-	 * @memberof namespace
-	 *
-	 * @see   Function/class relied on
-	 * @link  URL
-	 * @fires Class#eventName
-	 *
-	 * @param {Object} attributes     The model's attributes.
-	 * @param {type}   attributes.key One of the model's attributes.
-	 * @param {Object} [options]      The model's options.
-	 * @param {type}   options.key One of the model's options.
-	 */
-	initialize: function() {
-		//Do stuff.
-	}
+ /**
+  * Summary. (use period)
+  *
+  * Description. (use period)
+  *
+  * @since      x.x.x
+  * @deprecated x.x.x Use new_function_name() instead.
+  * @access     private
+  *
+  * @constructs namespace.Class
+  * @augments   Parent
+  * @mixes      mixin
+  *
+  * @alias    realName
+  * @memberof namespace
+  *
+  * @see   Function/class relied on
+  * @link  URL
+  * @fires Class#eventName
+  *
+  * @param {Object} attributes     The model's attributes.
+  * @param {type}   attributes.key One of the model's attributes.
+  * @param {Object} [options]      The model's options.
+  * @param {type}   options.key One of the model's options.
+  */
+ initialize: function() {
+  //Do stuff.
+ }
 } );
 ```
 
@@ -295,23 +301,23 @@ var doStuff = function () {
 };
 
 Class = Parent.extend( /** @lends namespace.Class.prototype */{
-	/**
-	 * Class description
-	 *
-	 * @constructs namespace.Class
-	 *
-	 * @borrows namespace~doStuff as prototype.doStuff
-	 */
-	initialize: function() {
-	//Do stuff.
-	},
+ /**
+  * Class description
+  *
+  * @constructs namespace.Class
+  *
+  * @borrows namespace~doStuff as prototype.doStuff
+  */
+ initialize: function() {
+ //Do stuff.
+ },
 
-	/*
-	 * This function will automatically have it's documentation copied from above.
-	 * You should make a comment ( not a DocBlock using /**, instead use /* or // )
-	 * noting that you're describing this function using @borrows.
-	 */
-	doStuff: doStuff,
+ /*
+  * This function will automatically have it's documentation copied from above.
+  * You should make a comment ( not a DocBlock using /**, instead use /* or // )
+  * noting that you're describing this function using @borrows.
+  */
+ doStuff: doStuff,
 } );
 ```
 
@@ -503,9 +509,11 @@ WordPress uses JSHint for general code quality testing. Any inline configuration
 | `@exception`    | An unsupported synonym. Use `@throws` instead.                                                |
 
 # Checklists
+
 - [ ] JSDoc blocks are present for all exported functions and classes.
 - [ ] `@param` and `@returns` tags accurately describe the types and behaviour.
 - [ ] Examples compile and demonstrate typical usage.
 
 # References
-- https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/
+
+- <https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/>

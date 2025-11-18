@@ -148,11 +148,7 @@ async function withRetry(fn, options = {}) {
  * @param {Object} retryOptions - Additional retry options
  * @returns {Promise<*>} API call result
  */
-async function retryGitHubCall(
-    apiCall,
-    operationName,
-    retryOptions = {}
-) {
+async function retryGitHubCall(apiCall, operationName, retryOptions = {}) {
     return withRetry(apiCall, {
         ...retryOptions,
         operationName: operationName || 'GitHub API call',

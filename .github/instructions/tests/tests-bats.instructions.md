@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Bats Test Instructions"
 description: "Guidelines for shell script/unit testing using Bats at LightSpeed."
 version: "1.0.0"

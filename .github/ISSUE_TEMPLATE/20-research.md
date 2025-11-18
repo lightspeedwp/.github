@@ -6,7 +6,7 @@ labels: [type:research, status:needs-review, priority:minor, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: research
+file_type: research
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -58,12 +58,14 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Research goal/objective defined
 - [ ] Background/context described
 - [ ] Approach/methods listed
 - [ ] Estimate added if relevant
 
 ### Definition of Done (DoD)
+
 - [ ] Research performed and findings documented
 - [ ] Recommendations/next steps proposed
 - [ ] Documentation updated (if applicable)

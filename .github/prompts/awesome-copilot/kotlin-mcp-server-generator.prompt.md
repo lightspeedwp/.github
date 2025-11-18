@@ -416,12 +416,14 @@ When generating a Kotlin MCP server:
 ## Transport Options
 
 ### Stdio Transport
+
 ```kotlin
 val transport = StdioServerTransport()
 server.connect(transport)
 ```
 
 ### SSE Transport (Ktor)
+
 ```kotlin
 embeddedServer(Netty, port = 8080) {
     mcp {

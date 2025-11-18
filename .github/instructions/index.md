@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "LightSpeedWP Instructions Index"
 description: "Master index of all Copilot and agent instructions for LightSpeedWP, including awesome-copilot subfolder."
 version: "v1.0"

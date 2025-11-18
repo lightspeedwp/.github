@@ -6,7 +6,7 @@ labels: [type:integration, status:needs-triage, priority:normal, area:integratio
 assignees: []
 projects: []
 milestone: ''
-type: integration
+file_type: integration
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

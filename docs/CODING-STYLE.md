@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'AI Template Coding & Content Style'
 description: 'Style guide for AI template markdown and content.'
 last_updated: '2025-10-24'

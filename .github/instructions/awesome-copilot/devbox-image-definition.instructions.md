@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Authoring recommendations for creating YAML based image definition files for use with Microsoft Dev Box Team Customizations'
 applyTo: '**/*.yaml'
 ---

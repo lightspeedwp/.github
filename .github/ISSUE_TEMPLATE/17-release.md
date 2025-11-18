@@ -6,7 +6,7 @@ labels: [type:release, status:needs-triage, area:release]
 assignees: []
 projects: []
 milestone: ''
-type: release
+file_type: release
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -61,11 +61,13 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Release goal and scope defined
 - [ ] Milestones and checklist mapped
 - [ ] Estimate added
 
 ### Definition of Done (DoD)
+
 - [ ] All checklist and acceptance criteria completed
 - [ ] Documentation/changelog updated
 - [ ] Approved by maintainer

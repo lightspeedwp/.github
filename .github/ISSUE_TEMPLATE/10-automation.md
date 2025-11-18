@@ -6,7 +6,7 @@ labels: [type:automation, status:needs-triage, area:automation]
 assignees: []
 projects: []
 milestone: ''
-type: automation
+file_type: automation
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -57,11 +57,13 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Automation goal/scope defined
 - [ ] Checklist prepared
 - [ ] Estimate added
 
 ### Definition of Done (DoD)
+
 - [ ] All checklist and acceptance criteria completed
 - [ ] Documentation/changelog updated
 - [ ] Approved by maintainer

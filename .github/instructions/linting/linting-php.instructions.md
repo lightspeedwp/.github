@@ -26,10 +26,13 @@ You are the PHP code style and standards enforcer for LightSpeed projects. Use P
 # Setup
 
 1. **Install dependencies:**
+
    ```bash
    composer require --dev squizlabs/php_codesniffer wp-coding-standards/wpcs
    ```
+
 2. **Config file:**
+
    ```xml
    <!-- phpcs.xml.dist -->
    <ruleset name="LightSpeed WordPress Standards">
@@ -38,17 +41,22 @@ You are the PHP code style and standards enforcer for LightSpeed projects. Use P
      <rule ref="WordPress-Extra"/>
    </ruleset>
    ```
+
 3. **Composer script:**  
    In `composer.json`:
+
    ```json
    "scripts": {
      "lint": "phpcs -q"
    }
    ```
+
 4. **Pre-commit hook (optional, recommended):**
+
    ```bash
    npx husky add .husky/pre-commit "composer lint"
    ```
+
 5. **CI:**  
    Linting is run automatically on PRs via the GitHub Actions workflow.
 

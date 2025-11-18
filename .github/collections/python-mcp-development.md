@@ -21,6 +21,7 @@ recommended
 This chat mode provides expert guidance for building MCP servers in Python with FastMCP.
 
 This chat mode is ideal for:
+
 - Creating new MCP server projects with Python
 - Implementing typed tools with Pydantic models and structured output
 - Setting up stdio or streamable HTTP transports
@@ -29,6 +30,7 @@ This chat mode is ideal for:
 - Optimizing server performance and resource management
 
 To get the best results, consider:
+
 - Using the instruction file to set context for Python/FastMCP development
 - Using the prompt to generate initial project structure with uv
 - Switching to the expert chat mode for detailed implementation help

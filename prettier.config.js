@@ -2,7 +2,7 @@
  * Load environment variables from .env file
  * Enables Prettier configuration customization via environment variables
  */
-require('dotenv').config();
+import 'dotenv/config';
 
 /**
  * Prettier Code Formatting Configuration
@@ -14,7 +14,7 @@ require('dotenv').config();
  *
  * @type {import('prettier').Config}
  */
-module.exports = {
+export default {
     /**
      * Tab width for indentation
      * Number of spaces per indentation level

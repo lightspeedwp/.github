@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Python coding conventions and guidelines'
 applyTo: '**/*.py'
 ---

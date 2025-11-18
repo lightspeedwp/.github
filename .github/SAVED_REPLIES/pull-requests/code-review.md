@@ -73,11 +73,13 @@ Based on our [testing standards](.github/instructions/bats-tests-and-runner-scri
 
 **Running Tests:**
 You can run your tests locally with:
+
 ```bash
 bats tests/test-{script-name}.bats
 ```
 
 Let me know if you need any help with the test implementation!
+
 ```
 
 ## Documentation Updates Needed
@@ -150,18 +152,21 @@ time ./script-name.sh --large-input-test
 ```
 
 **Optimization Suggestions:**
+
 - Consider caching results for repeated operations
 - Use more efficient algorithms for data processing
 - Minimize external command calls in loops
 - Implement batch processing where appropriate
 
 **Resources:**
+
 - [Performance best practices documentation]
 - [Benchmarking tools and techniques]
 
 If the performance impact is minimal for typical use cases, we can proceed. Otherwise, let's explore optimization options together.
 
 Thanks for your understanding and cooperation!
+
 ```
 
 ## Security Review Required
@@ -209,6 +214,7 @@ fi
 ```
 
 **Security Checklist:**
+
 - [ ] All user inputs are validated
 - [ ] No command injection vulnerabilities
 - [ ] File operations are secure
@@ -216,11 +222,13 @@ fi
 - [ ] Error messages don't leak sensitive information
 
 **Next Steps:**
+
 1. Please address the identified security concerns
 2. Add security-focused tests to your test suite
 3. Update documentation to include security considerations
 
 Our security team will do a final review once these items are addressed. Thanks for helping us maintain secure code!
+
 ```
 
 ## Code Style and Formatting
@@ -259,6 +267,7 @@ black script-name.py
 
 **Linting:**
 Please also run our linters to catch any remaining issues:
+
 ```bash
 # Shell scripts
 shellcheck script-name.sh
@@ -271,10 +280,12 @@ flake8 script-name.py
 ```
 
 **Standards Reference:**
+
 - [Coding Standards](.github/instructions/coding-standards.md)
 - [Style Guide Documentation]
 
 Once these formatting issues are resolved, this will be ready for final review. Thanks for your attention to code quality!
+
 ```
 
 ## Architecture and Design Feedback
@@ -310,11 +321,13 @@ Thank you for this substantial contribution! The functionality is impressive, an
    - Validate configuration early in the process
 
 **Design Patterns to Consider:**
+
 - **Template Method Pattern:** For deployment workflows with customizable steps
 - **Strategy Pattern:** For different deployment types (staging vs production)
 - **Command Pattern:** For undoable operations and rollback capability
 
 **Refactoring Suggestions:**
+
 ```bash
 # Instead of one large function:
 deploy_application() {
@@ -331,6 +344,7 @@ deploy_application() {
 ```
 
 **Benefits of These Changes:**
+
 - Improved testability (smaller functions)
 - Better error handling and debugging
 - Enhanced maintainability and readability
@@ -339,6 +353,7 @@ deploy_application() {
 Would you be interested in refactoring this into smaller, more focused functions? I'm happy to help with the design if needed.
 
 Great work overall – these suggestions are about making good code even better!
+
 ```
 
 ## Approval and Praise

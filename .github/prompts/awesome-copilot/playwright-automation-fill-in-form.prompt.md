@@ -11,9 +11,9 @@ Your goal is to automate the process of filling in a form using Playwright MCP.
 
 ## Specific Instructions
 
-Navigate to https://forms.microsoft.com/url-of-my-form
+Navigate to <https://forms.microsoft.com/url-of-my-form>
 
-### Fill in the form with the following details:
+### Fill in the form with the following details
 
 1. Show: playwright live
 
@@ -25,6 +25,6 @@ Navigate to https://forms.microsoft.com/url-of-my-form
 
 5. Upload image: /Users/myuserName/Downloads/my-image.png
 
-DO NOT SUBMIT THE FORM. 
+DO NOT SUBMIT THE FORM.
 
 Ask for a review of the form before submitting it.

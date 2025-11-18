@@ -17,11 +17,13 @@ Hi @username,
 Thank you for your API integration question.
 
 **Checklist:**
+
 - Review our [API Integration Guide](../../instructions/api-integration.md)
 - Confirm your API keys, tokens, and endpoint URLs are correct
 - Check authentication/authorization flows and required headers
 
 If you’re still stuck, please share:
+
 - The API call/endpoint you’re using (redact secrets)
 - The error message or response
 - Any relevant code or configuration

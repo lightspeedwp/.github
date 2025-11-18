@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: "**/*.php"
 description: "PHP coding standards for WordPress development - security, performance, and WordPress API best practices"
 license: "GPL-3.0-or-later"
@@ -9,6 +10,7 @@ license: "GPL-3.0-or-later"
 ## WordPress Coding Standards (WPCS)
 
 ### File Structure & Organization
+
 - Use proper WordPress file headers with plugin/theme information
 - Organize code into logical directories (`/inc`, `/lib`, `/admin`, `/public`)
 - Follow WordPress naming conventions for files and directories
@@ -16,6 +18,7 @@ license: "GPL-3.0-or-later"
 - Prefix all functions, classes, and constants to avoid conflicts
 
 ### Security First
+
 ```php
 // Always escape output
 echo esc_html( $user_input );
@@ -41,6 +44,7 @@ if ( ! current_user_can( 'edit_posts' ) ) {
 ```
 
 ### Database Operations
+
 ```php
 // Always use $wpdb->prepare() for custom queries
 global $wpdb;
@@ -64,6 +68,7 @@ $posts = get_posts( array(
 ```
 
 ### Internationalization (i18n)
+
 ```php
 // Use proper text domain consistently
 __( 'Text to translate', 'textdomain' );
@@ -83,6 +88,7 @@ wp_localize_script( 'my-script', 'myL10n', array(
 ```
 
 ### Error Handling & Logging
+
 ```php
 // Use WordPress error handling
 if ( is_wp_error( $result ) ) {
@@ -104,6 +110,7 @@ wp_die(
 ```
 
 ### Performance Best Practices
+
 ```php
 // Cache expensive operations
 $cache_key = 'my_plugin_data_' . md5( serialize( $args ) );
@@ -135,6 +142,7 @@ $posts = get_posts( array(
 ```
 
 ### WordPress Hooks & Filters
+
 ```php
 // Use appropriate hook priorities
 add_action( 'init', 'my_plugin_init', 10 );
@@ -157,6 +165,7 @@ register_deactivation_hook( __FILE__, 'my_plugin_deactivate' );
 ```
 
 ### Class Structure & OOP
+
 ```php
 /**
  * Main plugin class
@@ -217,6 +226,7 @@ My_Plugin::get_instance();
 ```
 
 ### Block Development (PHP)
+
 ```php
 /**
  * Register custom block type
@@ -266,6 +276,7 @@ function my_plugin_render_custom_block( $attributes, $content, $block ) {
 ```
 
 ### REST API Integration
+
 ```php
 /**
  * Register custom REST API endpoint
@@ -315,24 +326,28 @@ function my_plugin_rest_permission_check() {
 ## Code Quality Standards
 
 ### Documentation
+
 - Use proper PHPDoc blocks for all functions, classes, and methods
 - Document parameter types, return values, and exceptions
 - Include @since tags for version tracking
 - Provide clear descriptions and examples where helpful
 
 ### Testing
+
 - Write unit tests for all public methods using PHPUnit
 - Test edge cases and error conditions
 - Mock WordPress functions in tests
 - Aim for high code coverage
 
 ### Performance
+
 - Use appropriate WordPress caching mechanisms
 - Minimize database queries and optimize existing ones
 - Load scripts and styles conditionally
 - Use WordPress coding standards for better performance
 
 ### Compatibility
+
 - Support the minimum required WordPress version
 - Test with PHP versions from minimum to latest
 - Ensure compatibility with common plugins and themes

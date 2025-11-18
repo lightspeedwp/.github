@@ -6,19 +6,19 @@
 * @ashleyshaw @lightspeedwp
 
 # Governance and Documentation
-/GOVERNANCE.md @ashleyshaw @krugazul
-/CONTRIBUTING.md @ashleyshaw @krugazul
+/GOVERNANCE.md @ashleyshaw
+/CONTRIBUTING.md @ashleyshaw
 /CODE_OF_CONDUCT.md @ashleyshaw
-/SECURITY.md @ashleyshaw @krugazul
+/SECURITY.md @ashleyshaw
 /README.md @ashleyshaw
 
 # Workflows and Automation (critical for org-wide automation)
-/.github/workflows/ @ashleyshaw @krugazul
-/.github/automation/ @ashleyshaw @krugazul
+/.github/workflows/ @ashleyshaw
+/.github/automation/ @ashleyshaw
 
 # Labels and Issue Types (critical for automation)
-/.github/automation/labels.yml @ashleyshaw @krugazul
-/.github/automation/issue-types.yml @ashleyshaw @krugazul
+/.github/automation/labels.yml @ashleyshaw
+/.github/automation/issue-types.yml @ashleyshaw
 /.github/automation/labeler.yml @ashleyshaw
 
 # AI and Copilot Instructions
@@ -32,13 +32,13 @@
 /AGENTS.md @ashleyshaw
 
 # Core Documentation
-/docs/ @ashleyshaw @krugazul
+/docs/ @ashleyshaw
 
 # Scripts (validation, automation, testing)
-/scripts/ @ashleyshaw @eleshar
+/scripts/ @ashleyshaw
 
 # Tests (quality assurance)
-/tests/ @ashleyshaw @eleshar
+/tests/ @ashleyshaw
 
 # Schemas (JSON validation)
 /schemas/ @ashleyshaw

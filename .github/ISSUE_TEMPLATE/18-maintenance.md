@@ -6,7 +6,7 @@ labels: [type:chore, area:maintenance, status:needs-triage]
 assignees: []
 projects: []
 milestone: ''
-type: maintenance
+file_type: maintenance
 references:
   - CONTRIBUTING.md
   - ISSUE_TYPES.md
@@ -55,12 +55,14 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Task/goal described and scoped
 - [ ] Steps/checklist listed
 - [ ] Acceptance criteria listed
 - [ ] Estimate added (if applicable)
 
 ### Definition of Done (DoD)
+
 - [ ] Task completed and documented
 - [ ] Documentation/changelog updated if needed
 - [ ] PR uses correct branch prefix (maintenance/ or chore/)

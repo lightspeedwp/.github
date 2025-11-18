@@ -19,6 +19,7 @@ Hi @username,
 There was a problem with changelog enforcement, version bumping, or release notes automation.
 
 **Checklist:**
+
 - Ensure your PR includes a valid `## Changelog` section (see [Keep a Changelog](https://keepachangelog.com/en/1.0.0/))
 - Only one release label (`release:patch`, `release:minor`, `release:major`) should be set
 - Version bump matches the changes made

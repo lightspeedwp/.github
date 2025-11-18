@@ -473,6 +473,7 @@ jobs:
 ```
 
 **What this does:**
+
 - Automatically syncs labels weekly
 - Adds missing labels from canonical source
 - Updates existing labels with new colors/descriptions
@@ -511,6 +512,7 @@ jobs:
 ```
 
 **What this does:**
+
 - Applies labels based on PR branch names (e.g., `feat/` → `type:feature`)
 - Applies labels based on modified file paths (e.g., `*.php` → `lang:php`)
 - Enforces status workflow (e.g., new issues → `status:needs-triage`)
@@ -529,6 +531,7 @@ ln -s ../../.github/.github/ISSUE_TEMPLATE /path/to/your/repo/.github/ISSUE_TEMP
 ```
 
 **Available Templates:**
+
 - Bug Report (`bug-report.yml`)
 - Feature Request (`feature-request.yml`)
 - Documentation (`documentation.yml`)
@@ -575,6 +578,7 @@ git checkout -b hotfix/payment-gateway-fix
 ```
 
 **Auto-Applied Labels:**
+
 - `feat/*` → `type:feature`, `status:in-progress`
 - `fix/*` → `type:bug`, `status:in-progress`
 - `docs/*` → `type:documentation`, `area:documentation`
@@ -840,3 +844,6 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 **📧 Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new) or [start a discussion](https://github.com/lightspeedwp/.github/discussions/new)
 
 <!-- RANDOM FOOTER: 🚀 Built by LightSpeedWP with ☕, 🚀, and open-source spirit! -->
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

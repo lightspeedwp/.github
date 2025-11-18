@@ -32,6 +32,14 @@ This file indexes all available chat modes for LightSpeed projects, including dy
 
 ## Index
 
+### LightSpeed Chatmodes
+
+- [code-quality-guru.chatmode.md](./code-quality-guru.chatmode.md) — Code Quality Guru: A pragmatic reviewer focused on maintainability, readability and tests
+- [devops-helper.chatmode.md](./devops-helper.chatmode.md) — DevOps Helper: Assistant for CI, release tagging, and workflow hardening
+- [ls-block-expert.chatmode.md](./ls-block-expert.chatmode.md) — Gutenberg Block Expert: Focus on modern, zero-config build (wp-scripts) and a11y
+
+### Collections
+
 - [Awesome Copilot Chatmodes Index](./awesome-copilot/index.chatmodes.md)
 - Use `/copilot/templates/template.chatmode.md` for new modes.
 - See [custom-instructions.md](../custom-instructions.md) for the central Copilot and agent standards, instructions, and prompts.

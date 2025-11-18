@@ -10,6 +10,7 @@ applyTo: '**/*.md'
 These conventions merge **LightSpeedWP governance requirements** with **awesome-copilot tagging standards** to create a unified frontmatter system for all `.github` assets. This includes instructions (`*.instructions.md`), prompts (`*.prompt.md`), chat modes (`*.chatmode.md`), agents (`*.agent.md`), templates, and collection manifests.
 
 **Key Integration Points:**
+
 - LightSpeedWP governance fields (`file_type`, `version`, `author`, `maintainer`, `owners`)  
 - Awesome-copilot conventions (`mode`, `applyTo`, `stability`, `domain`, `deprecated`)
 - GitHub/Copilot compatibility (validated against `../../schemas/frontmatter.schema.json`)
@@ -200,6 +201,7 @@ Collections already use `tags:`. Add optional `stability:` and `domain:` keys al
 **Awesome-Copilot Integration**: Domain taxonomy and stability lifecycle preserved
 
 **Validation Tools**:
+
 1. `validate-frontmatter.js` - Validates all .github files against schema
 2. `validate-collections.js` - Extended to check domain and tag compliance  
 3. CI/CD integration - Rejects PRs with invalid frontmatter
@@ -208,43 +210,50 @@ Collections already use `tags:`. Add optional `stability:` and `domain:` keys al
 ## Migration Strategy
 
 **From Legacy LightSpeed**:
+
 - Add `file_type` field to existing files
 - Update `apply_to` → `applyTo` for instructions
 - Add `domain` and `stability` fields
 
 **From Awesome-Copilot**:
+
 - Add LightSpeed governance fields (`version`, `author`, etc.) to documentation  
 - Ensure `domain` selection follows LightSpeed taxonomy
 - Validate tag limits (8 max)
 
 **GitHub Template Compatibility**:
+
 - Issue/PR templates keep existing frontmatter structure
 - Add optional `domain` and `tags` for categorization
 
 ## Authoring Checklist
 
 **Required for All Files**:
--   [ ] Includes `file_type` (except Copilot instructions)
--   [ ] Has clear, concise `description` (<= 120 chars)
--   [ ] Chooses exactly one `domain` from approved list
--   [ ] Uses <= 8 meaningful tags (kebab-case)
--   [ ] Sets appropriate `stability` level
+
+- [ ] Includes `file_type` (except Copilot instructions)
+- [ ] Has clear, concise `description` (<= 120 chars)
+- [ ] Chooses exactly one `domain` from approved list
+- [ ] Uses <= 8 meaningful tags (kebab-case)
+- [ ] Sets appropriate `stability` level
 
 **Required for Governance Files**:
--   [ ] Includes `title`, `version`, `last_updated`
--   [ ] Has `author` and/or `maintainer`/`owners`
--   [ ] References related documentation
+
+- [ ] Includes `title`, `version`, `last_updated`
+- [ ] Has `author` and/or `maintainer`/`owners`
+- [ ] References related documentation
 
 **Required for Copilot Files**:
--   [ ] Specifies `mode` for prompts/chatmodes
--   [ ] Lists `tools` if specialized
--   [ ] Uses `applyTo` glob patterns for instructions
+
+- [ ] Specifies `mode` for prompts/chatmodes
+- [ ] Lists `tools` if specialized
+- [ ] Uses `applyTo` glob patterns for instructions
 
 **Deprecation Process**:
--   [ ] Sets `deprecated: true`
--   [ ] Provides `replacement` path
--   [ ] Updates references in other files
--   [ ] Plans removal after one release cycle
+
+- [ ] Sets `deprecated: true`
+- [ ] Provides `replacement` path
+- [ ] Updates references in other files
+- [ ] Plans removal after one release cycle
 
 ---
 

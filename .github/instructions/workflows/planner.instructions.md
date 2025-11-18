@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Workflow: Planner"
 description: "Standardize PR readiness with checklists and exit criteria automation."
 version: "v1.0"

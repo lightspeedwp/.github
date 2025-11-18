@@ -22,4 +22,5 @@ Email us at [security@lightspeedwp.com](mailto:security@lightspeedwp.com) or use
 
 We take all reports seriously and will coordinate with you privately. Thank you for your responsible disclosure!
 ```
+
 ---
