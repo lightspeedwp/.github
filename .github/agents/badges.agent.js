@@ -1,6 +1,14 @@
-// badges.agent.js - Automates workflow badge updates in README.md.
-// See .github/agents/badges.agent.md for spec.
-
+#!/usr/bin/env node
+/**
+ * badges.agent.js - Automates workflow badge updates in README.md.
+ * 
+ * Usage: node .github/agents/badges.agent.js
+ * 
+ * @author [Author Name]
+ * @date [YYYY-MM-DD]
+ * 
+ * See .github/agents/badges.agent.md for spec.
+ */
 import { updateBadgesInReadme } from '../../scripts/includes/badges.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
