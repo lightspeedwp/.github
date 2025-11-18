@@ -74,6 +74,7 @@
         "@babel/preset-react": "7.27.1",
         "@babel/preset-typescript": "^7.23.0",
         "@babel/runtime": "^7.24.1",
+        "@github/markdownlint-github": "^0.8.0",
         "@jest/pattern": "30.0.1",
         "@mermaid-js/mermaid-cli": "11.4.0",
         "@playwright/test": "^1.40.0",
@@ -96,10 +97,14 @@
         "eslint-plugin-prettier": "^5.0.0",
         "glob": "^10.3.12",
         "gray-matter": "^4.0.3",
+        "husky": "^9.0.0",
         "jest": "^30.0.1",
         "jest-environment-jsdom": "^30.0.1",
         "js-yaml": "^4.1.1",
+        "lint-staged": "^15.0.0",
         "markdownlint": "^0.28.1",
+        "markdownlint-cli2": "^0.15.0",
+        "markdownlint-cli2-formatter-pretty": "^0.0.6",
         "mermaid": "^10.9.0",
         "micromatch": "^4.0.7",
         "node-fetch": "^3.3.2",
@@ -112,15 +117,17 @@
         "typescript": "^5.0.0"
     },
     "scripts": {
+        "prepare": "husky install",
         "lint:pkg-json": "npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs .",
         "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset spectral.config.js",
         "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset spectral.config.js",
         "lint": "npm run lint:js && npm run lint:yaml && npm run lint:pkg-json",
         "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
         "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
-        "lint:md": "markdownlint '**/*.md' --fix",
+        "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
+        "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
         "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format && eslint '**/*.json' --fix --format",
-        "format:md": "prettier '**/*.md' --write && markdownlint '**/*.md' --fix",
+        "format:md": "prettier '**/*.md' --write && markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
         "format": "npm run format:js && npm run format:md",
         "sync-version": "node scripts/sync-version.js",
         "metrics:run": "node metrics/frontmatter-metrics.js",
@@ -130,5 +137,8 @@
         "contributors:add": "all-contributors add",
         "contributors:generate": "all-contributors generate",
         "contributors:check": "all-contributors check"
+    },
+    "lint-staged": {
+        "*.{md,mdx}": "markdownlint-cli2"
     }
 }
