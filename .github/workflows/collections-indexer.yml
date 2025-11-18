@@ -25,6 +25,8 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm ci
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: true
       - name: Build index
         run: npx ts-node scripts/build-collections-index.ts
       - name: Validate references
