@@ -15,9 +15,11 @@
  */
 
 const {
-    enforceOneHotStatus,
+    enforceOneHotLabels,
+    enforceOneHotStatus, // backward compatibility alias
     applyDefaultStatus,
     applyDefaultPriority,
+    applyDefaultType,
 } = require('../status-enforcer');
 
 // Mock @actions/core
@@ -50,7 +52,7 @@ describe('status-enforcer.js', () => {
         mockGithub = mockOctokit;
     });
 
-    describe('enforceOneHotStatus', () => {
+    describe('enforceOneHotLabels (and backward-compatible enforceOneHotStatus)', () => {
         const baseParams = {
             github: mockGithub,
             owner: 'lightspeedwp',
@@ -67,7 +69,7 @@ describe('status-enforcer.js', () => {
                 'type:bug',
             ];
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             // Should remove all but the first status label
             expect(mockOctokit.rest.issues.removeLabel).toHaveBeenCalledTimes(
@@ -87,6 +89,19 @@ describe('status-enforcer.js', () => {
             });
         });
 
+        test('backward compatibility: enforceOneHotStatus still works', async () => {
+            const currentLabels = [
+                'status:needs-triage',
+                'status:in-progress',
+            ];
+
+            await enforceOneHotStatus({ ...baseParams, currentLabels });
+
+            expect(mockOctokit.rest.issues.removeLabel).toHaveBeenCalledTimes(
+                1
+            );
+        });
+
         test('keeps only one priority label when multiple exist', async () => {
             const currentLabels = [
                 'priority:critical',
@@ -94,7 +109,7 @@ describe('status-enforcer.js', () => {
                 'priority:minor',
             ];
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             expect(mockOctokit.rest.issues.removeLabel).toHaveBeenCalledTimes(
                 2
@@ -116,7 +131,7 @@ describe('status-enforcer.js', () => {
         test('keeps only one type label when multiple exist', async () => {
             const currentLabels = ['type:bug', 'type:feature', 'type:task'];
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             expect(mockOctokit.rest.issues.removeLabel).toHaveBeenCalledTimes(
                 2
@@ -146,7 +161,7 @@ describe('status-enforcer.js', () => {
                 'area:core',
             ];
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             // Should remove 4 labels total (2 status + 1 priority + 1 type)
             expect(mockOctokit.rest.issues.removeLabel).toHaveBeenCalledTimes(
@@ -162,7 +177,7 @@ describe('status-enforcer.js', () => {
                 'area:core',
             ];
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             expect(mockOctokit.rest.issues.removeLabel).not.toHaveBeenCalled();
         });
@@ -174,7 +189,7 @@ describe('status-enforcer.js', () => {
                 'documentation',
             ];
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             expect(mockOctokit.rest.issues.removeLabel).not.toHaveBeenCalled();
         });
@@ -186,7 +201,7 @@ describe('status-enforcer.js', () => {
                 'status:blocked',
             ];
 
-            await enforceOneHotStatus({
+            await enforceOneHotLabels({
                 ...baseParams,
                 currentLabels,
                 dryRun: true,
@@ -204,7 +219,7 @@ describe('status-enforcer.js', () => {
         test('handles empty labels array', async () => {
             const currentLabels = [];
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             expect(mockOctokit.rest.issues.removeLabel).not.toHaveBeenCalled();
         });
@@ -216,7 +231,7 @@ describe('status-enforcer.js', () => {
                 new Error('API Error')
             );
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             expect(core.warning).toHaveBeenCalledWith(
                 expect.stringContaining('Failed to remove label')
@@ -230,7 +245,7 @@ describe('status-enforcer.js', () => {
             error404.status = 404;
             mockOctokit.rest.issues.removeLabel.mockRejectedValueOnce(error404);
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             // Should not log warning for 404 errors
             expect(core.warning).not.toHaveBeenCalled();
@@ -454,6 +469,135 @@ describe('status-enforcer.js', () => {
         });
     });
 
+    describe('applyDefaultType', () => {
+        const baseParams = {
+            github: mockGithub,
+            owner: 'lightspeedwp',
+            repo: 'test-repo',
+            number: 123,
+            dryRun: false,
+        };
+
+        test('applies type:task for issues without type', async () => {
+            const currentLabels = ['status:needs-triage', 'priority:normal'];
+
+            await applyDefaultType({
+                ...baseParams,
+                currentLabels,
+                isPR: false,
+            });
+
+            expect(mockOctokit.rest.issues.addLabels).toHaveBeenCalledWith({
+                owner: 'lightspeedwp',
+                repo: 'test-repo',
+                issue_number: 123,
+                labels: ['type:task'],
+            });
+        });
+
+        test('applies type:chore for PRs without type', async () => {
+            const currentLabels = ['status:needs-review', 'priority:normal'];
+
+            await applyDefaultType({
+                ...baseParams,
+                currentLabels,
+                isPR: true,
+            });
+
+            expect(mockOctokit.rest.issues.addLabels).toHaveBeenCalledWith({
+                owner: 'lightspeedwp',
+                repo: 'test-repo',
+                issue_number: 123,
+                labels: ['type:chore'],
+            });
+        });
+
+        test('does not add type if one already exists', async () => {
+            const currentLabels = ['status:in-progress', 'type:bug'];
+
+            await applyDefaultType({
+                ...baseParams,
+                currentLabels,
+                isPR: false,
+            });
+
+            expect(mockOctokit.rest.issues.addLabels).not.toHaveBeenCalled();
+        });
+
+        test('handles empty labels array', async () => {
+            const currentLabels = [];
+
+            await applyDefaultType({
+                ...baseParams,
+                currentLabels,
+                isPR: false,
+            });
+
+            expect(mockOctokit.rest.issues.addLabels).toHaveBeenCalledWith({
+                owner: 'lightspeedwp',
+                repo: 'test-repo',
+                issue_number: 123,
+                labels: ['type:task'],
+            });
+        });
+
+        test('respects dry-run mode', async () => {
+            const currentLabels = ['status:needs-triage'];
+
+            await applyDefaultType({
+                ...baseParams,
+                currentLabels,
+                isPR: false,
+                dryRun: true,
+            });
+
+            expect(mockOctokit.rest.issues.addLabels).not.toHaveBeenCalled();
+            expect(core.info).toHaveBeenCalledWith(
+                expect.stringContaining('[DRY RUN]')
+            );
+        });
+
+        test('handles API errors gracefully', async () => {
+            const currentLabels = ['status:needs-triage'];
+
+            mockOctokit.rest.issues.addLabels.mockRejectedValueOnce(
+                new Error('API Error')
+            );
+
+            await applyDefaultType({
+                ...baseParams,
+                currentLabels,
+                isPR: false,
+            });
+
+            expect(core.warning).toHaveBeenCalledWith(
+                expect.stringContaining('Failed to add default type label')
+            );
+        });
+
+        test('works with all type labels', async () => {
+            const typeLabelsList = [
+                'type:bug',
+                'type:feature',
+                'type:task',
+                'type:chore',
+                'type:documentation',
+                'type:refactor',
+            ];
+
+            for (const typeLabel of typeLabelsList) {
+                jest.clearAllMocks();
+                const currentLabels = ['status:in-progress', typeLabel];
+
+                await applyDefaultType({ ...baseParams, currentLabels });
+
+                expect(
+                    mockOctokit.rest.issues.addLabels
+                ).not.toHaveBeenCalled();
+            }
+        });
+    });
+
     describe('integration scenarios', () => {
         const baseParams = {
             github: mockGithub,
@@ -472,7 +616,7 @@ describe('status-enforcer.js', () => {
             ];
 
             // Step 1: Enforce one-hot
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             expect(mockOctokit.rest.issues.removeLabel).toHaveBeenCalledTimes(
                 1
@@ -504,41 +648,52 @@ describe('status-enforcer.js', () => {
         test('handles new issue with no labels', async () => {
             const currentLabels = [];
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
             await applyDefaultStatus({
                 ...baseParams,
                 currentLabels,
                 isPR: false,
             });
             await applyDefaultPriority({ ...baseParams, currentLabels });
+            await applyDefaultType({
+                ...baseParams,
+                currentLabels,
+                isPR: false,
+            });
 
-            // Should add status and priority
-            expect(mockOctokit.rest.issues.addLabels).toHaveBeenCalledTimes(2);
+            // Should add status, priority, and type
+            expect(mockOctokit.rest.issues.addLabels).toHaveBeenCalledTimes(3);
             expect(mockOctokit.rest.issues.removeLabel).not.toHaveBeenCalled();
         });
 
         test('handles new PR with no labels', async () => {
             const currentLabels = [];
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
             await applyDefaultStatus({
                 ...baseParams,
                 currentLabels,
                 isPR: true,
             });
             await applyDefaultPriority({ ...baseParams, currentLabels });
+            await applyDefaultType({
+                ...baseParams,
+                currentLabels,
+                isPR: true,
+            });
 
-            // Should add status:needs-review and priority:normal
+            // Should add status:needs-review, priority:normal, and type:chore
             const calls = mockOctokit.rest.issues.addLabels.mock.calls;
-            expect(calls).toHaveLength(2);
+            expect(calls).toHaveLength(3);
             expect(calls[0][0].labels).toEqual(['status:needs-review']);
             expect(calls[1][0].labels).toEqual(['priority:normal']);
+            expect(calls[2][0].labels).toEqual(['type:chore']);
         });
 
         test('dry-run mode for complete workflow', async () => {
             const currentLabels = ['status:needs-triage', 'status:in-progress'];
 
-            await enforceOneHotStatus({
+            await enforceOneHotLabels({
                 ...baseParams,
                 currentLabels,
                 dryRun: true,
@@ -582,7 +737,7 @@ describe('status-enforcer.js', () => {
                 new Error('Network error')
             );
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             expect(core.warning).toHaveBeenCalled();
         });
@@ -613,7 +768,7 @@ describe('status-enforcer.js', () => {
                 '',
             ];
 
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
 
             // Should handle without crashing
             expect(mockOctokit.rest.issues.removeLabel).not.toHaveBeenCalled();
@@ -628,7 +783,7 @@ describe('status-enforcer.js', () => {
             }
 
             const start = Date.now();
-            await enforceOneHotStatus({ ...baseParams, currentLabels });
+            await enforceOneHotLabels({ ...baseParams, currentLabels });
             const duration = Date.now() - start;
 
             // Should remove 99 labels (keep first, remove rest)
