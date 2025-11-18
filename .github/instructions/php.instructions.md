@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: "**/*.php"
 description: "WordPress PHP coding standards and theme conventions"
 ---

@@ -1,4 +1,5 @@
 ---
+file_type: "agent"
 name: 'block-theme-optimizer'
 description: 'WordPress block theme specialist optimizing theme.json, design tokens, patterns, and templates for performance, maintainability, and design system coherence'
 tools:

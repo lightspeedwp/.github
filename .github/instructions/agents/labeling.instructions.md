@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Labeling Agent Instructions"
 description: "Instructions for Labeling Agent: Automated label enforcement, triage, and standardization."
 version: "v1.0"

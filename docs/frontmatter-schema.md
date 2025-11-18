@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Frontmatter Schema Documentation"
 version: "v1.2"
 last_updated: "2025-10-23"

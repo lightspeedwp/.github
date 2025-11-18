@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Workflow: PR Project Board Labeler"
 description: "Apply project-specific labels to PRs using configuration."
 version: "v1.0"

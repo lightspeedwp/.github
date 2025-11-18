@@ -7,6 +7,7 @@ maintainer: "Ash Shaw"
 description: "Spec for the Release Agent."
 tags: ["lightspeed","release","agents"]
 file_type: "agent"
+name: "release"
 ---
 
 # Role

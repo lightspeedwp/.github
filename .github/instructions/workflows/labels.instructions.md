@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Workflow: Labels"
 description: "Org-wide labels & issue types; automate labels on PRs only."
 version: "v1.0"

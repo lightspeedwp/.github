@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Agents Template (master)"
 version: "v1.0"
 last_updated: "2025-10-17"

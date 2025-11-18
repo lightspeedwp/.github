@@ -1,14 +1,11 @@
 ---
+file_type: "instructions"
 title: "Automation Testing & Includes Strategy"
 description: "Testing and shared utility module strategy for LightSpeedWP automation agents."
 version: "v1.0"
 apply_to: "all repositories"
 last_updated: "2025-10-22"
 owners: ["LightSpeedWP Automation Team"]
-references:
-  - "https://jestjs.io/docs/getting-started"
-  - "./includes"
-  - "./release.agent.js"
 ---
 
 # Automation Testing & Includes Strategy

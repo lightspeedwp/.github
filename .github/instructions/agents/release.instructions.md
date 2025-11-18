@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Release Agent Instructions"
 description: "Instructions for Release Agent: Automates release validation, changelog enforcement, versioning, tagging, and GitHub Releases."
 version: "v1.0"

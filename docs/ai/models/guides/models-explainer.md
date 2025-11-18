@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "ChatGPT & GitHub Models Overview"
 description: "Explanation of the different ChatGPT 5 models and guidance on when to use each, along with an overview of GitHub models for Copilot."
 last_updated: "2025-10-17"

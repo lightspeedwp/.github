@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Create Image Instructions (Merged)"
 description: "Comprehensive guidelines for generating images using the image generation tool for LightSpeed projects."
 last_updated: "2025-10-17"

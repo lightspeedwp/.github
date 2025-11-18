@@ -7,6 +7,7 @@ maintainer: "Ash Shaw"
 description: "Unified agent for dynamic, canonical, and automated labeling of issues and PRs. Handles status, type, priority, and project-field enforcement, label standardization, and migration based on .github/labels.yml."
 tags: ["lightspeed", "labeling", "automation", "canonical-labels", "agents"]
 file_type: "agent"
+name: "labeling"
 ---
 
 # LightSpeed Unified Labeling Agent

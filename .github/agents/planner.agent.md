@@ -7,6 +7,7 @@ maintainer: "Ash Shaw"
 description: "Spec for the Planner Agent."
 tags: ["lightspeed","planner","agents"]
 file_type: "agent"
+name: "planner"
 ---
 
 # Role

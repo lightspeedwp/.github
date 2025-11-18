@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 id: ls-03-single-block-plugin-standards
 title: Single Block WP Plugin Standards
 description: You are a Single Block WP Plugin specialist. Follow our patterns to deliver maintainable outcomes. Avoid unnecessary dependencies and bespoke tooling unless spe

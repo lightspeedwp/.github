@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 name: "Block Pattern Development Instructions"
 about: "Instructions for developing block patterns in any LightSpeed WordPress project."
 title: "[Instructions] Block Pattern Development"

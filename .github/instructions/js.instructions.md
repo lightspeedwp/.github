@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: "**/*.{js,jsx,ts,tsx}"
 description: "JavaScript/TypeScript coding rules"
 ---

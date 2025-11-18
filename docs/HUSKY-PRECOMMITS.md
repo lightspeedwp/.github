@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Husky Pre-commit Hooks"
 description: "Using Husky to enforce quality gates (linting/tests) before commits"
 last_updated: "2025-11-12"

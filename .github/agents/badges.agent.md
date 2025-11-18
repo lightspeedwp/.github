@@ -1,5 +1,6 @@
 ---
 file_type: "agent"
+name: "badges"
 title: "Badges Agent"
 description: "Automates discovery, update, and management of workflow badges in all README.md files."
 version: "v1.0"

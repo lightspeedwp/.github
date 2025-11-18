@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "JSDoc Review Agent Instructions"
 description: "Instructions for JSDoc Review Agent: Audits JS/TS code for JSDoc coverage, quality, and standards."
 version: "v1.0"

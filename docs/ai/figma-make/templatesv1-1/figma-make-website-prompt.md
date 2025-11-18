@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Figma Make Website Prompt"
 description: "Prompt for initiating a new Figma Make website build using AI assistance."
 last_updated: "2025-10-17"

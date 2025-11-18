@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Best practices for building Model Context Protocol servers in PHP using the official PHP SDK with attribute-based discovery and multiple transport options'
 applyTo: '**/*.php'
 ---

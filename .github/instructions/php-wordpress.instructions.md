@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: "**/*.php"
 description: "PHP coding standards for WordPress development - security, performance, and WordPress API best practices"
 license: "GPL-3.0-or-later"

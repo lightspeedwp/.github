@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Planner Agent Instructions"
 description: "Instructions for Planner Agent: Automates PR checklists and exit criteria."
 version: "v1.0"

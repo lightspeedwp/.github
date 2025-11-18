@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Directory index referencing all agents, instructions, PR templates, and cross-references."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-file_type: "agent"
+file_type: "agent-index"
 ---
 
 # LightSpeed Agent Index

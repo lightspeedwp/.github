@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Issue Creation Instructions"
 description: "Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy."
 version: "1.1"

@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Metrics Agent Instructions"
 description: "Instructions for Metrics Agent: Automates collection and reporting of issue/PR/project metrics."
 version: "v1.0"

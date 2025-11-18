@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: "**/theme.json"
 description: "Theme.json configuration standards for WordPress block themes - design systems, tokens, and global styles"
 license: "GPL-3.0-or-later"

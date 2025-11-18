@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: '**'
 description: 'TaskSync V4 - Allows you to give the agent new instructions or feedback after completing a task using terminal while agent is running.'
 license: 'GPL-3.0'

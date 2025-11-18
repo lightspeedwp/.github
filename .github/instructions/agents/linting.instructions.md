@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Linting Agent Instructions"
 description: "Instructions for Linting Agent: Enforces code quality and linting standards."
 version: "v1.0"
