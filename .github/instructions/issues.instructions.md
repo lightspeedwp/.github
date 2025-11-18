@@ -5,7 +5,7 @@ version: "1.1"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["issues", "templates", "frontmatter", "automation", "labels", "issue types", "triage", "branching"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # LightSpeedWP Issue Creation & Management Instructions

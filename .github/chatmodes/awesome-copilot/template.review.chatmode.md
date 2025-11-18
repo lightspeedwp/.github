@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Assist and automate code review for LightSpeed pull requests."
 tags: ["review", "pull-request", "coding-standards", "automation", "copilot"]
-type: "chatmode"
+file_type: "chatmode"
 ---
 # Role (required)
 You are a code review assistant, enforcing LightSpeed coding standards and PR guidelines.

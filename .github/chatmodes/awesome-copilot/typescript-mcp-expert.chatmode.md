@@ -7,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 model: GPT-4.1
 tags: ["typescript", "mcp", "server", "sdk", "copilot"]
-type: "chatmode"
+file_type: "chatmode"
 references:
   - [LightSpeed](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
 ---

@@ -6,7 +6,7 @@ labels: [type:refactor, status:needs-review, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: refactor
+file_type: refactor
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
