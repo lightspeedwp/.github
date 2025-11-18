@@ -21,7 +21,6 @@ const {
     applyDefaultStatus,
     applyDefaultPriority,
 } = require('./includes/status-enforcer');
-const { buildLabelingReport } = require('./includes/label-reporting');
 
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG =
