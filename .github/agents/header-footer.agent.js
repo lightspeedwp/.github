@@ -11,19 +11,32 @@ import Ajv from 'ajv';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Load JSON files
-const headerConfig = JSON.parse(
-    readFileSync(path.join(__dirname, '../../scripts/includes/header-content.json'), 'utf-8')
+// Load JSON files with error handling
+function safeJsonParse(filePath, label) {
+    try {
+        const content = readFileSync(filePath, 'utf-8');
+        return JSON.parse(content);
+    } catch (err) {
+        throw new Error(`Failed to parse JSON for ${label} at ${filePath}: ${err.message}`);
+    }
+}
+
+const headerConfig = safeJsonParse(
+    path.join(__dirname, '../../scripts/includes/header-content.json'),
+    'header-content.json'
 );
-const footerConfig = JSON.parse(
-    readFileSync(path.join(__dirname, '../../scripts/includes/footer-content.json'), 'utf-8')
+const footerConfig = safeJsonParse(
+    path.join(__dirname, '../../scripts/includes/footer-content.json'),
+    'footer-content.json'
 );
 // Schemas now in schemas/header-footer-agent/ folder
-const headerSchema = JSON.parse(
-    readFileSync(path.join(__dirname, '../../schemas/header-footer-agent/header.schema.json'), 'utf-8')
+const headerSchema = safeJsonParse(
+    path.join(__dirname, '../../schemas/header-footer-agent/header.schema.json'),
+    'header.schema.json'
 );
-const footerSchema = JSON.parse(
-    readFileSync(path.join(__dirname, '../../schemas/header-footer-agent/footer.schema.json'), 'utf-8')
+const footerSchema = safeJsonParse(
+    path.join(__dirname, '../../schemas/header-footer-agent/footer.schema.json'),
+    'footer.schema.json'
 );
 
 function validateConfig(config, schema, name) {
