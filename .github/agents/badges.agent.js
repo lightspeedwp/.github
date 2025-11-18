@@ -15,7 +15,8 @@ async function main() {
 }
 
 // Run if called directly
-if (path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1])) {
+const __filename = fileURLToPath(import.meta.url);
+if (__filename === process.argv[1]) {
     main().catch((err) => {
         console.error(err);
         process.exit(1);
