@@ -17,9 +17,11 @@ const {
     findStandardLabel,
 } = require('./includes/label-lookup');
 const {
-    enforceOneHotStatus,
+    enforceOneHotLabels,
+    enforceOneHotStatus, // backward compatibility
     applyDefaultStatus,
     applyDefaultPriority,
+    applyDefaultType,
 } = require('./includes/status-enforcer');
 const {
     buildLabelingReport,
@@ -163,7 +165,7 @@ async function runLabelingAgent(opts = {}) {
         : (context.payload.pull_request.labels || []).map((l) => l.name);
 
     // Enforce one-hot status/priority/type
-    await enforceOneHotStatus({
+    await enforceOneHotLabels({
         github: octokit,
         owner,
         repo,
@@ -188,17 +190,22 @@ async function runLabelingAgent(opts = {}) {
         currentLabels,
         dryRun,
     });
+    await applyDefaultType({
+        github: octokit,
+        owner,
+        repo,
+        number,
+        currentLabels,
+        dryRun,
+        isPR,
+    });
 
     // Changelog nudge for PRs
     if (isPR) {
         const changelogLabels = [
-            'no-changelog',
-            'changelog:added',
-            'changelog:changed',
-            'changelog:fixed',
-            'changelog:security',
-            'changelog:deprecated',
-            'changelog:removed',
+            'meta:no-changelog',
+            'meta:needs-changelog',
+            'meta:changelog',
         ];
         if (!currentLabels.some((l) => changelogLabels.includes(l))) {
             if (!dryRun) {
