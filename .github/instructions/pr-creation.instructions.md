@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Pull Request Creation Instructions"
 description: "Canonical instructions for creating, labeling, and submitting Pull Requests in LightSpeedWP projects. Reference for templates, automation, and labeling strategy."
 version: "1.1"

@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Use Connectors (MCP add-ons) — Prompt Template"
 version: "v1.0"
 last_updated: "2025-10-17"

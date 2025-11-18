@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'Git Workflow Documentation'
 description: 'Git workflow guides, branching strategies, and version control best practices for LightSpeed'
 version: '1.0'

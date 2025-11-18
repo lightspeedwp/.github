@@ -1,4 +1,5 @@
 # Documentation Instructions
+file_type: "instructions"
 
 ## Scope & Cross-References
 

@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: ['**/*.html', '**/*.htm', '**/*.php']
 description: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
 author: "LightSpeedWP Team. Enforce WordPress HTML standards and semantic markup."

@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: 'Header & Footer Automation Instructions'
 description: 'How to use and configure the Header & Footer Agent for randomised headers and footers.'
 version: 'v1.0'

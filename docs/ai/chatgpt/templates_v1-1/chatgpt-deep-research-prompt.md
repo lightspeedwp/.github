@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Deep Research Prompt Template"
 description: "Template for writing an effective prompt to initiate a deep research session with ChatGPT."
 last_updated: "2025-10-17"

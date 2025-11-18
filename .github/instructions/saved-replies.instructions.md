@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Saved Replies Usage Instructions"
 description: "How to use, maintain, and extend GitHub Saved Replies for issues and pull requests in LightSpeedWP projects."
 version: "1.0"

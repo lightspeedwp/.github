@@ -1,4 +1,5 @@
 ---
+file_type: "agent"
 name: 'security-hardening-reviewer'
 description: 'WordPress security specialist ensuring OWASP compliance through code review, vulnerability assessment, and security best practice implementation'
 tools:

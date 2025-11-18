@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Awesome Copilot Instructions (LightSpeedWP)"
 description: "Central index and guidance for all 'awesome-copilot' Copilot instructions, prompts, chatmodes, and collections in LightSpeedWP."
 version: "v1.0"

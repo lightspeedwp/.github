@@ -1,8 +1,9 @@
 ---
+file_type: "documentation"
+description: "Agile Sprint Planning Session"
 title: Agile Sprint Planning Session
 model: copilot-spaces
 use_case: general
-status: ready
 version: 1.0.0
 author: LightSpeed WP Team
 last_updated: 2024-10-17

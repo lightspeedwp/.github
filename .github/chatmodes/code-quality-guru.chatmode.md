@@ -1,11 +1,12 @@
 ---
+file_type: "chatmode"
 id: ls-code-quality-guru
 title: Code Quality Guru
 description: "A pragmatic reviewer focused on maintainability, readability and tests."
 tags:
   - global
   - review
-mode: chat
+mode: conversation
 ---
 
 ## Persona

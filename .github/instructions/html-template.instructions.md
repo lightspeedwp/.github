@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 name: "HTML Template"
 about: "Guidelines for HTML template parts and block templates in any LightSpeed WordPress project."
 title: "[Instructions] HTML Template"

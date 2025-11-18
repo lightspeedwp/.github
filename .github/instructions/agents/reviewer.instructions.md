@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Reviewer Agent Instructions"
 description: "Instructions for Reviewer Agent: Automated PR review summaries, CI status, and guidance."
 version: "v1.0"

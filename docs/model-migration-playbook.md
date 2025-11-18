@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'Model Migration Playbook'
 description: 'Concise process for changing/adding LLMs across prompts, chatmodes, and agents'
 version: '1.0'

@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Web Search Instructions"
 description: "Guidelines for using ChatGPT to perform targeted web searches and return up‑to‑date information with citations."
 last_updated: "2025-10-17"

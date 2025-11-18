@@ -1,5 +1,6 @@
 ---
 file_type: "agent"
+name: "branding"
 title: "Branding Agent"
 description: "Unified agent for automating insertion and management of headers, footers, and badges in Markdown documentation files."
 version: "v1.0"

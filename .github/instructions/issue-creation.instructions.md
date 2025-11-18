@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Issue Creation Instructions"
 description: "How to create, structure, and use Markdown-based GitHub Issue templates in LightSpeedWP projects. Enforces automation, labeling, and governance."
 version: "1.0"

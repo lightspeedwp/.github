@@ -1,4 +1,5 @@
 ---
+file_type: "agent"
 mode: 'agent'
 name: 'Block Patterns Planner'
 description: 'Plans epics/stories for Block Editor patterns with Scrumban cadence.'

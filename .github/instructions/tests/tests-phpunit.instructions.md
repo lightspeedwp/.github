@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "PHPUnit Test Instructions"
 description: "How to set up and write PHPUnit tests for PHP and WordPress projects."
 version: "1.0.0"

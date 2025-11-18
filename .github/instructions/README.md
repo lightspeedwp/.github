@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Instructions Directory"
 description: "Comprehensive instructions directory for LightSpeedWP development standards and practices"
 version: "v1.0"

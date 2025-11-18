@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Gemini Flash 2.0"
 version: "v1.0"
 last_updated: "2025-10-17"
