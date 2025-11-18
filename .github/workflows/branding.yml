@@ -99,7 +99,7 @@ jobs:
 
   metrics-update:
     needs: [apply-branding]
-    if: ${{ success() || failure() }}
+    if: ${{ (success() || failure()) && github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
