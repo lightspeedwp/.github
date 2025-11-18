@@ -30,7 +30,8 @@ function getCanonicalLabels() {
 }
 
 function getIssueTypeLabels() {
-    const types = loadYaml(ISSUE_TYPES_FILE);
+    const data = loadYaml(ISSUE_TYPES_FILE);
+    const types = data.issue_types || [];
     const labels = new Set();
     for (const type of types) {
         if (type.label) labels.add(type.label);
