@@ -136,9 +136,9 @@ deploy_scripts_to_staging() {
     # Create staging directory structure
     mkdir -p "$staging_path/scripts"
 
-    # Copy scripts
+    # Copy scripts, preserving directory structure
     if [[ -d "scripts" ]]; then
-        find scripts -name "*.sh" -type f -exec cp {} "$staging_path/scripts/" \; || true
+        rsync -av --include='*/' --include='*.sh' --exclude='*' scripts/ "$staging_path/scripts/" || true
         log_success "Scripts deployed to staging"
     else
         log_warning "No scripts directory found"
