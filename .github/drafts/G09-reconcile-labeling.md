@@ -22,6 +22,7 @@ Plain-English documentation describing the labeling system does not accurately m
 **Purpose:** Synchronise labeling documentation with actual YAML configuration files, add practical examples, and define test routes to verify automation behaviour.
 
 **Scope:**
+
 - Review and reconcile `labels.yml` (label definitions)
 - Review and reconcile `labeler.yml` (auto-labeling rules)
 - Update documentation to match actual behaviour
@@ -67,6 +68,7 @@ Plain-English documentation describing the labeling system does not accurately m
 ## Additional Context
 
 **Files to review and reconcile:**
+
 - `.github/automation/labels.yml` - Label definitions
 - `.github/automation/labeler.yml` - Auto-labeling rules
 - `docs/LABELING.md` or similar - Plain-English documentation
@@ -74,6 +76,7 @@ Plain-English documentation describing the labeling system does not accurately m
 - `CONTRIBUTING.md` - Contributor guidelines mentioning labels
 
 **Common discrepancies to check:**
+
 - Labels documented but not defined in `labels.yml`
 - Auto-labeling rules not explained in documentation
 - Outdated label names or colours
@@ -81,6 +84,7 @@ Plain-English documentation describing the labeling system does not accurately m
 - Incorrect file path patterns in documentation
 
 **Example documentation section to add:**
+
 ```markdown
 ## Label Categories
 
@@ -105,6 +109,7 @@ Create PR with changes to any `.md` file to verify `area:docs` is applied.
 ```
 
 **Testing approach:**
+
 1. Create test issue with specific content patterns
 2. Create test PR with specific file changes
 3. Verify expected labels are automatically applied
@@ -112,6 +117,7 @@ Create PR with changes to any `.md` file to verify `area:docs` is applied.
 5. Include test results in PR
 
 **Example test scenarios:**
+
 | Test Case | File Changed | Expected Labels |
 |-----------|--------------|-----------------|
 | Doc update | `docs/README.md` | `area:docs`, `type:documentation` |
@@ -119,11 +125,13 @@ Create PR with changes to any `.md` file to verify `area:docs` is applied.
 | Security patch | `security/README.md` | `area:security`, `type:security` |
 
 **Telemetry (post-merge):**
+
 - Track % of correctly auto-labelled issues over 2 weeks (baseline → target)
 - Monitor manual relabeling frequency (should decrease)
 - Survey contributors on labeling clarity
 
 **Tools:**
+
 - YAML linter to validate config files
 - GitHub API to test labeling automation
 - Documentation diff to show before/after accuracy
@@ -141,12 +149,14 @@ Create PR with changes to any `.md` file to verify `area:docs` is applied.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Automation goal/scope defined
 - [ ] Checklist prepared
 - [ ] Estimate added: **Medium** (2-4 hours: audit, reconcile, examples, tests)
 - [ ] Access to test issue/PR creation
 
 ### Definition of Done (DoD)
+
 - [ ] All checklist and acceptance criteria completed
 - [ ] Documentation matches YAML configs exactly
 - [ ] Examples and test routes documented
@@ -174,6 +184,7 @@ Create PR with changes to any `.md` file to verify `area:docs` is applied.
 **Branch prefix:** `automation/`
 
 **Validation steps:**
+
 ```bash
 # Lint YAML files
 yamllint .github/automation/*.yml

@@ -40,12 +40,14 @@ labels: ["type:feature", "status:needs-review", "area:feature"]
 ```
 
 **Required fields:**
+
 - `name`: Short label for the template selector.
 - `about`: Short description of template purpose.
 - `title`: Default PR title (use `{short summary}` or similar).
 - `labels`: Array of default labels for new PRs.
 
 **Optional fields:**
+
 - `assignees`: Default assignees.
 - `projects`: Default project boards.
 
@@ -201,6 +203,7 @@ For maintainers and reviewers, reference these [Saved Replies](../SAVED_REPLIES/
 ---
 
 **For questions or clarifications:**  
+
 - Start with [CONTRIBUTING.md](../CONTRIBUTING.md)
 - Ask in [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
 - Contact a maintainer.

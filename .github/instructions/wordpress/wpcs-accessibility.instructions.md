@@ -30,19 +30,19 @@ The WordPress commitment is to conform to all WCAG 2.2 Level A and Level AA guid
 
 WCAG 2.2 consists of 4 layers:
 
-- Principles
-- Guidance
-- Success criteria
-- Sufficient and advisory techniques
+* Principles
+* Guidance
+* Success criteria
+* Sufficient and advisory techniques
 
 ### Principles
 
 When applying WCAG 2.2, the guidance and success criteria are organized around 4 principles. These principles place emphasis on how people interact with content and must be:
 
-- **Perceivable** - interacting with the content using the medium that they are familiar with. For example, providing text alternatives for those who are blind.
-- **Operable** - finding and using content is accessible. For example, being able to use a keyboard or a screen reader.
-- **Understandable** - content uses clear language and is understandable. For example, use meaningful labels, explain all abbreviations.
-- **Robust** - content can be interpreted in a range of ways. For example, assistive technologies are able to interpret and parse content.
+* **Perceivable** - interacting with the content using the medium that they are familiar with. For example, providing text alternatives for those who are blind.
+* **Operable** - finding and using content is accessible. For example, being able to use a keyboard or a screen reader.
+* **Understandable** - content uses clear language and is understandable. For example, use meaningful labels, explain all abbreviations.
+* **Robust** - content can be interpreted in a range of ways. For example, assistive technologies are able to interpret and parse content.
 
 ### Guidance
 
@@ -81,58 +81,58 @@ Each guidance has a [specific list requirements that must be met for your conten
 
 Techniques (code examples, resources, and tests) for guidance and success criteria that can help in making content more accessible, are divided into three categories:
 
-- Sufficient - required and help meet the success criteria
-- Advisory - suggestions and go beyond what is required
-- Failures - cause problems and fail to meet the success criteria
+* Sufficient - required and help meet the success criteria
+* Advisory - suggestions and go beyond what is required
+* Failures - cause problems and fail to meet the success criteria
 
 ## Resources
 
 For more information on techniques, visit [Understanding Techniques for WCAG Success Criteria](https://www.w3.org/WAI/WCAG21/Understanding/understanding-techniques).
 
-### Normative Documents:
+### Normative Documents
 
-- [W3C WCAG 2.2](https://www.w3.org/TR/WCAG22)
-- [W3C ATAG 2.0](https://www.w3.org/TR/ATAG20/)
-- [W3C WAI ARIA 1.1](https://www.w3.org/TR/wai-aria/)
+* [W3C WCAG 2.2](https://www.w3.org/TR/WCAG22)
+* [W3C ATAG 2.0](https://www.w3.org/TR/ATAG20/)
+* [W3C WAI ARIA 1.1](https://www.w3.org/TR/wai-aria/)
 
-### Informative Documents:
+### Informative Documents
 
-- [W3C Understanding WCAG 2.2](https://www.w3.org/WAI/WCAG22/Understanding/)
-- [W3C Using ARIA](https://www.w3.org/TR/using-aria/)
-- [W3C WAI-ARIA Authoring Practices Guide (accessible design patterns)](https://www.w3.org/WAI/ARIA/apg/)
-- [W3C Introduction to ATAG](https://www.w3.org/WAI/standards-guidelines/atag)
+* [W3C Understanding WCAG 2.2](https://www.w3.org/WAI/WCAG22/Understanding/)
+* [W3C Using ARIA](https://www.w3.org/TR/using-aria/)
+* [W3C WAI-ARIA Authoring Practices Guide (accessible design patterns)](https://www.w3.org/WAI/ARIA/apg/)
+* [W3C Introduction to ATAG](https://www.w3.org/WAI/standards-guidelines/atag)
 
 ### Authoritative Resources
 
-- [WebAIM: Web Accessibility In Mind](https://webaim.org/) (see Articles and Resources)
-- [UK Government Digital Service](https://gds.blog.gov.uk)
-- [Accessibility in Government Blog (UK)](https://accessibility.blog.gov.uk/)
-- [Create Accessible Software & Websites - Section 508 (US)](https://www.section508.gov/develop/software-websites/)
-- [Blog | TPGi](https://www.tpgi.com/blog/)
-- [Web Accessibility Blog (Deque)](https://www.deque.com/blog/)
-- [Tink - Léonie Watson](https://tink.uk) (Léonie Watson)
-- [Adrian Roselli](https://adrianroselli.com)
-- [Scott O'Hara](https://www.scottohara.me)
-- [Joe Dolson](https://www.joedolson.com/blog)
-- [Sarah Higley](https://sarahmhigley.com/)
-- [Marco's Accessibility Blog](https://www.marcozehe.de/)
-- [Karl Groves](https://karlgroves.com/)
-- [Inclusive Components](https://inclusive-components.design) (Heydon Pickering)
-- [Accessibility London (London, United Kingdom)](https://www.meetup.com/London-Accessibility-Meetup/) (London accessibility meetup: they live stream meetups on youtube)
-- [24 Accessibility](https://www.24a11y.com/)
-- [Mozilla Accessibility - Users first, no matter their abilities](https://blog.mozilla.org/accessibility/)
-- [WordPress Accessibility Meetup](https://www.meetup.com/wordpress-accessibility-meetup-group/)
-- [Equalize Digital Blog](https://equalizedigital.com/resources/)
-- [WordPress Accessibility Day Conference](https://wpaccessibility.day)
+* [WebAIM: Web Accessibility In Mind](https://webaim.org/) (see Articles and Resources)
+* [UK Government Digital Service](https://gds.blog.gov.uk)
+* [Accessibility in Government Blog (UK)](https://accessibility.blog.gov.uk/)
+* [Create Accessible Software & Websites - Section 508 (US)](https://www.section508.gov/develop/software-websites/)
+* [Blog | TPGi](https://www.tpgi.com/blog/)
+* [Web Accessibility Blog (Deque)](https://www.deque.com/blog/)
+* [Tink - Léonie Watson](https://tink.uk) (Léonie Watson)
+* [Adrian Roselli](https://adrianroselli.com)
+* [Scott O'Hara](https://www.scottohara.me)
+* [Joe Dolson](https://www.joedolson.com/blog)
+* [Sarah Higley](https://sarahmhigley.com/)
+* [Marco's Accessibility Blog](https://www.marcozehe.de/)
+* [Karl Groves](https://karlgroves.com/)
+* [Inclusive Components](https://inclusive-components.design) (Heydon Pickering)
+* [Accessibility London (London, United Kingdom)](https://www.meetup.com/London-Accessibility-Meetup/) (London accessibility meetup: they live stream meetups on youtube)
+* [24 Accessibility](https://www.24a11y.com/)
+* [Mozilla Accessibility - Users first, no matter their abilities](https://blog.mozilla.org/accessibility/)
+* [WordPress Accessibility Meetup](https://www.meetup.com/wordpress-accessibility-meetup-group/)
+* [Equalize Digital Blog](https://equalizedigital.com/resources/)
+* [WordPress Accessibility Day Conference](https://wpaccessibility.day)
 
 ### Technical and / or specific topics
 
-- [Accessibility Support](https://a11ysupport.io/) (Will your code work with assistive technologies?)
-- [Accessibility APIs: A Key To Web Accessibility](https://www.smashingmagazine.com/2015/03/web-accessibility-with-accessibility-api/) (by Léonie Watson)
-- [How accessibility trees inform assistive tech](https://hacks.mozilla.org/2019/06/how-accessibility-trees-inform-assistive-tech/) (by Hidde de Vries)
-- [What is this thing and what does it do?](https://www.youtube.com/watch?v=YLihNhn_MO4 ) (presentation by Karl Groves)
-- [The Browser Accessibility Tree](https://www.tpgi.com/the-browser-accessibility-tree/) (by Steve Faulkner)
-- [Brief history of browser accessibility support](https://www.tpgi.com/brief-history-of-browser-accessibility-support/) (by Steve Faulkner)
-- [ARIA Landmarks Example: General Principles](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/)
-- [ARIA Landmarks Example: HTML Sectioning Elements](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/HTML5.html)
-- [Mozilla Developer Docs - Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility)
+* [Accessibility Support](https://a11ysupport.io/) (Will your code work with assistive technologies?)
+* [Accessibility APIs: A Key To Web Accessibility](https://www.smashingmagazine.com/2015/03/web-accessibility-with-accessibility-api/) (by Léonie Watson)
+* [How accessibility trees inform assistive tech](https://hacks.mozilla.org/2019/06/how-accessibility-trees-inform-assistive-tech/) (by Hidde de Vries)
+* [What is this thing and what does it do?](https://www.youtube.com/watch?v=YLihNhn_MO4 ) (presentation by Karl Groves)
+* [The Browser Accessibility Tree](https://www.tpgi.com/the-browser-accessibility-tree/) (by Steve Faulkner)
+* [Brief history of browser accessibility support](https://www.tpgi.com/brief-history-of-browser-accessibility-support/) (by Steve Faulkner)
+* [ARIA Landmarks Example: General Principles](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/)
+* [ARIA Landmarks Example: HTML Sectioning Elements](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/HTML5.html)
+* [Mozilla Developer Docs - Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility)

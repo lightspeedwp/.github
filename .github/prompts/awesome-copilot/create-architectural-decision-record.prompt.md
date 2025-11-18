@@ -15,6 +15,7 @@ Create an ADR document for `${input:DecisionTitle}` using structured formatting 
 - **Stakeholders**: `${input:Stakeholders}`
 
 ## Input Validation
+
 If any of the required inputs are not provided or cannot be determined from the conversation history, ask the user to provide the missing information before proceeding with ADR generation.
 
 ## Requirements

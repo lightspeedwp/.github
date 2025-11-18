@@ -37,17 +37,20 @@ display:
 ## Creating a New Collection
 
 ### Using VS Code Tasks
+
 1. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
 2. Type "Tasks: Run Task"
 3. Select "create-collection"
 4. Enter your collection ID when prompted
 
 ### Using Command Line
+
 ```bash
 node create-collection.js my-collection-id
 ```
 
 ### Manual Creation
+
 1. Create `collections/my-collection-id.collection.yml`
 2. Use the template above as starting point
 3. Add your items and customize settings
@@ -57,12 +60,14 @@ node create-collection.js my-collection-id
 ## Validation
 
 Collections are automatically validated to ensure:
+
 - Required fields are present and valid
 - File paths exist and match the item kind
 - IDs are unique across collections
 - Tags and display settings follow the schema
 
 Run validation manually:
+
 ```bash
 node validate-collections.js
 ```

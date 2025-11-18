@@ -57,12 +57,14 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Content model described
 - [ ] Acceptance criteria listed
 - [ ] Docs/specs attached
 - [ ] Estimate added
 
 ### Definition of Done (DoD)
+
 - [ ] All acceptance criteria met
 - [ ] Structure/model tested and verified
 - [ ] Documentation updated

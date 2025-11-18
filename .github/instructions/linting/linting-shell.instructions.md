@@ -24,22 +24,28 @@ You are the shell script linter for LightSpeed projects. Enforce safety, portabi
 # Setup
 
 1. **Install ShellCheck:**  
+
    ```bash
    brew install shellcheck  # macOS
    sudo apt-get install shellcheck  # Ubuntu/Debian
    ```
+
 2. **Config file:**  
    Ensure `.shellcheckrc` exists in the repo root.
 3. **Linting script:**  
    Use the provided `lint-shell.sh` for advanced options.
 4. **NPM script (optional):**
+
    ```json
    "lint:shell": "bash ./lint-shell.sh"
    ```
+
 5. **Pre-commit hook (recommended):**
+
    ```bash
    npx husky add .husky/pre-commit "npm run lint:shell"
    ```
+
 6. **CI:**  
    Linting is enforced on PRs via workflow.
 

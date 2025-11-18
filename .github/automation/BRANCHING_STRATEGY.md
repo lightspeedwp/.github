@@ -24,7 +24,7 @@ Keep `main` always deployable, reduce merge risk, and make PR automation predict
 - [10. References](#10-references)
 - [11. Appendix: Getting Started](#11-appendix-getting-started)
 - [12. Advanced Practices & Troubleshooting](#12-advanced-practices--troubleshooting)
-- [13. Onboarding & Training](#13-onboarding--training) 
+- [13. Onboarding & Training](#13-onboarding--training)
 
 ---
 
@@ -155,7 +155,9 @@ jobs:
             exit 1
           fi
 ```
+
 **[NEW]**
+
 - For monorepos, ensure branch naming applies to each package/subproject, or use a consistent prefix (e.g. `feat/frontend-...`, `fix/api-...`).
 - For forked repos, always clean up branches after merging upstream PRs, and avoid duplicating branch names across forks to prevent confusion.
 
@@ -171,7 +173,9 @@ Ensure `.github/labeler.yml` seeds new PRs with `status:needs-review` when appro
 "status:needs-review":
   - head-branch: ['^feat/.*', '^fix/.*', '^hotfix/.*', '^release/.*', '^refactor/.*', '^chore/.*', '^docs/.*', '^test/.*', '^perf/.*', '^ci/.*', '^build/.*', '^deps/.*', '^security/.*', '^revert/.*', '^research/.*', '^design/.*', '^a11y/.*', '^ux/.*', '^i18n/.*', '^ops/.*', '^proto/.*', '^ds/.*', '^api/.*', '^schema/.*', '^telemetry/.*', '^content/.*', '^seo/.*', '^config/.*', '^migrate/.*', '^qa/.*', '^uat/.*']
 ```
+
 **[NEW]**
+
 - For automation, use GitHub Actions to auto-assign reviewers based on branch type (e.g., security → security lead).
 - Sync project automation rules across all repos using `.github` repo templates.
 
@@ -235,6 +239,7 @@ Issue Types and Project fields carry the semantic meaning.
 - **Can we add prefixes?** Yes—extend CI regex and project mapping together.
 
 **[NEW]**
+
 - **What if a branch is incorrectly named?** CI will block the PR from merging; rename the branch and re-open the PR.
 - **How do I handle urgent fixes outside business hours?** Use `hotfix/`, notify the team via Slack/Teams, and ensure all protections are respected.
 
@@ -255,6 +260,7 @@ Issue Types and Project fields carry the semantic meaning.
 - [instructions/frontmatter.instructions.md](./instructions/frontmatter.instructions.md): Frontmatter schema and conventions.
 
 **[NEW]**
+
 - [GitHub Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md): Org-wide guidance and AI agent usage.
 - [Pull Request Template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md): PR summary and best practices.
 

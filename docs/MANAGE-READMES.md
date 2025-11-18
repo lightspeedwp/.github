@@ -5,6 +5,7 @@
 - Add new paths under **Targets** and update the agent config accordingly.
 
 ## Targets
+
 - `README.md` in repo root
 - `docs/**/README.md`
 - (extend as needed)

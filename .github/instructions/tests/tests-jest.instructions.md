@@ -24,11 +24,13 @@ See [Tests Index](../tests.instructions.md) for all test standards.
 - Place Jest tests alongside source files or in a `/tests/jest/` directory.
 - Install Jest via npm: `npm install --save-dev jest`
 - Add a `"test"` script to your `package.json`:
+
   ```json
   "scripts": {
     "test": "jest"
   }
   ```
+
 - Create a `jest.config.js` for custom config.
 
 ## Best Practices

@@ -1,0 +1,57 @@
+{
+    // Markdownlint JSONC Configuration
+    // Configuration for markdownlint-cli2
+    // Use this file for easy rule adjustments
+
+    // Use default rules as base
+    "default": true,
+
+    // MD003: Heading style - Enforce ATX-style headings (# Heading)
+    "MD003": {
+        "style": "atx"
+    },
+
+    // MD013: Line length - Set to 120 characters
+    "MD013": {
+        "line_length": 120,
+        "code_blocks": false,
+        "tables": false,
+        "headings": false
+    },
+
+    // MD024: Multiple headings with same content - Allow in different sections
+    "MD024": {
+        "siblings_only": true
+    },
+
+    // MD025: Multiple top-level headings - Disable for YAML frontmatter
+    "MD025": false,
+
+    // MD033: Inline HTML - Allow common HTML elements
+    "MD033": {
+        "allowed_elements": [
+            "br",
+            "sub",
+            "sup",
+            "kbd",
+            "mark",
+            "details",
+            "summary",
+            "img",
+            "a",
+            "div",
+            "span",
+            "table",
+            "thead",
+            "tbody",
+            "tr",
+            "th",
+            "td",
+            "filename"
+        ]
+    },
+
+    // MD041: First line in file should be a top-level heading
+    // Disabled to allow YAML frontmatter
+    "MD041": false
+}

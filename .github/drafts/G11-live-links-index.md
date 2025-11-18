@@ -18,6 +18,7 @@ references:
 We need a comprehensive Live Links index in DOCS.md that lists canonical files and key folders with exact `develop` branch GitHub URLs. This eliminates wayfinding issues, prevents stale relative path references, and provides a single source of truth for navigation.
 
 **Current state:**
+
 - No centralised link index
 - Mix of relative paths and absolute URLs
 - Risk of stale paths when files move
@@ -25,6 +26,7 @@ We need a comprehensive Live Links index in DOCS.md that lists canonical files a
 - Broken links when referencing from outside repo
 
 **Desired state:**
+
 - Live Links section in DOCS.md
 - Exact `develop` branch URLs for all key files and folders
 - Single source of truth for navigation
@@ -34,18 +36,21 @@ We need a comprehensive Live Links index in DOCS.md that lists canonical files a
 ## Why is this documentation important?
 
 **For contributors:**
+
 - Quick access to canonical files without searching
 - Confidence that links are current and working
 - Easy external references for wikis, issues, PRs
 - Reduced wayfinding friction
 
 **For maintainers:**
+
 - Fewer broken link reports
 - Easier to maintain when file structure changes
 - Single place to update when URLs change
 - Professional, polished documentation experience
 
 **Impact:**
+
 - **Medium** - Wayfinding wastes contributor time
 - **Medium** - Broken external references damage credibility
 - **Low** - Quality-of-life improvement with high perceived value
@@ -133,12 +138,14 @@ done < links.txt
 ```
 
 **Maintenance plan:**
+
 - Add link checking to CI/CD
 - Review Live Links quarterly during governance audits
 - Update when files are moved or renamed
 - Include in PR template checklist for structural changes
 
 **Telemetry (post-merge):**
+
 - Automated link checker passes with 0 broken links
 - Monitor wayfinding questions in support channels (target: decrease)
 - Track usage analytics if possible (clicks on Live Links section)
@@ -189,11 +196,13 @@ done < links.txt
 **Branch prefix:** `docs/`
 
 **Link checker tools:**
+
 - `markdown-link-check` (npm package)
 - `lychee` (fast Rust-based checker)
 - GitHub Actions workflows for automated checking
 
 **Format template:**
+
 ```markdown
 - [Descriptive Name](https://github.com/lightspeedwp/.github/blob/develop/path/to/file.md) - Brief description
 ```

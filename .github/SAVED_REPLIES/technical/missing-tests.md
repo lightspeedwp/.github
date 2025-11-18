@@ -23,4 +23,5 @@ Thank you for your contribution! To ensure code quality and prevent regressions,
 
 See our [testing guidelines](../../instructions/bats-tests-and-runner-scripts.md) for details. Let us know if you need help!
 ```
+
 ---

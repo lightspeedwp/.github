@@ -38,11 +38,11 @@ Every PR should use a standard branch prefix for correct label and template auto
 - Select the correct template for your PR type.
 - **Labels** are set automatically by the [unified agent and workflow](./workflows/labeling.yml).
 - Each PR must have:
-    - Exactly one `status:*` (e.g., `status:needs-review`)
-    - Exactly one `priority:*`
-    - Exactly one `type:*`
-    - At least one `area:*` or `comp:*`
-    - A canonical release label (`release:patch`, etc.) for shipping PRs
+  - Exactly one `status:*` (e.g., `status:needs-review`)
+  - Exactly one `priority:*`
+  - Exactly one `type:*`
+  - At least one `area:*` or `comp:*`
+  - A canonical release label (`release:patch`, etc.) for shipping PRs
 
 ---
 

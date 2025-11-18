@@ -89,12 +89,14 @@ Add links, screenshots, references, or other design docs.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Design goal/scope defined
 - [ ] Artefact/objective listed
 - [ ] Accessibility criteria mapped
 - [ ] Dependencies mapped
 
 ### Definition of Done (DoD)
+
 - [ ] All design acceptance criteria met
 - [ ] Documentation/changelog updated
 - [ ] Design reviewed and approved

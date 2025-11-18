@@ -32,6 +32,7 @@ All prompt files in this directory:
 ### 🏗️ Core Development Prompts
 
 #### 🔍 Code Quality & Review
+
 - **[accessibility-review.prompt.md](./accessibility-review.prompt.md)** - Accessibility review checklist and automation
 - **[audit-jsdoc.prompt.md](./audit-jsdoc.prompt.md)** - Audit JS files for JSDoc coverage per WordPress guidance
 - **[audit-phpdoc.prompt.md](./audit-phpdoc.prompt.md)** - Audit PHP files for WordPress DocBlocks
@@ -42,11 +43,13 @@ All prompt files in this directory:
 - **[inline-documentation.prompt.md](./inline-documentation.prompt.md)** - Add comprehensive inline documentation
 
 #### 🧪 Testing & Coverage
+
 - **[increase-test-coverage.prompt.md](./increase-test-coverage.prompt.md)** - Expand test coverage focusing on risk and critical paths
 - **[write-phpunit-tests.prompts.md](./write-phpunit-tests.prompts.md)** - Generate comprehensive PHPUnit tests
 - **[write-playwright-tests.prompts.md](./write-playwright-tests.prompts.md)** - Create end-to-end Playwright tests
 
 #### 📚 Documentation & Content
+
 - **[add-frontmatter.prompt.md](./add-frontmatter.prompt.md)** - Insert or normalise YAML frontmatter in docs
 - **[create-agentsmd.prompts.md](./create-agentsmd.prompts.md)** - Generate agent documentation
 - **[generate-changelog.prompts.md](./generate-changelog.prompts.md)** - Generate project changelogs
@@ -56,6 +59,7 @@ All prompt files in this directory:
 ### 🎨 WordPress Development
 
 #### 🧱 Block & Pattern Development
+
 - **[create-block-pattern.prompts.md](./create-block-pattern.prompts.md)** - Create new WordPress block patterns
 - **[create-block-patterns.prompts.md](./create-block-patterns.prompts.md)** - Generate multiple block patterns
 - **[create-gutenberg-block.prompts.md](./create-gutenberg-block.prompts.md)** - Create custom Gutenberg blocks
@@ -66,12 +70,14 @@ All prompt files in this directory:
 - **[update-pattern-for-a11y.prompts.md](./update-pattern-for-a11y.prompts.md)** - Update patterns for accessibility
 
 #### 🎯 Theme Development
+
 - **[configure-theme-json.prompts.md](./configure-theme-json.prompts.md)** - Configure theme.json files
 - **[refactor-theme-json.prompts.md](./refactor-theme-json.prompts.md)** - Refactor theme.json configurations
 - **[refactor-theme-types.prompt.md](./refactor-theme-types.prompt.md)** - Refactor typography in theme.json
 - **[template-scaffold.prompts.md](./template-scaffold.prompts.md)** - Scaffold template structures
 
 #### 🚀 LightSpeed Block Specific
+
 - **[ls-block-a11y-check.prompt.md](./ls-block-a11y-check.prompt.md)** - Accessibility checks for LightSpeed blocks
 - **[ls-block-release-agent.prompt.md](./ls-block-release-agent.prompt.md)** - Release automation for LightSpeed blocks
 - **[ls-block-scaffold.prompt.md](./ls-block-scaffold.prompt.md)** - Scaffold LightSpeed block structures
@@ -79,21 +85,26 @@ All prompt files in this directory:
 ### 🤖 Automation & Workflow
 
 #### 🔧 Agent Development
+
 - **[build-agent-and-tests.prompt.md](./build-agent-and-tests.prompt.md)** - Create agents with capabilities and tests
 - **[dependency-audit-agent.prompt.md](./dependency-audit-agent.prompt.md)** - Create dependency audit automation
 
 #### ⚙️ GitHub Actions & Workflows
+
 - **[generate-gh-workflow.prompt.md](./generate-gh-workflow.prompt.md)** - Generate secure, cache-efficient GitHub Actions workflows
 - **[label-issues.prompt.md](./label-issues.prompt.md)** - Apply org label rules to PRs via GitHub Action
 
 #### 📊 Data & Schema
+
 - **[author-json-schema.prompt.md](./author-json-schema.prompt.md)** - Draft JSON Schema from sample data
 - **[validate-json.prompt.md](./validate-json.prompt.md)** - Validate JSON files against schemas
 
 #### 🔄 Git & Versioning
+
 - **[conventional-commit.prompt.md](./conventional-commit.prompt.md)** - Create conventional commit messages
 
 ### 💬 Chatmodes & Communication
+
 - **[a11y-assistant.chatmodes.md](./a11y-assistant.chatmodes.md)** - Accessibility assistant chatmode
 - **[pattern-wizard.chatmodes.md](./pattern-wizard.chatmodes.md)** - Pattern development chatmode
 - **[pr-copilot.chatmodes.md](./pr-copilot.chatmodes.md)** - Pull request assistance chatmode
@@ -104,6 +115,7 @@ All prompt files in this directory:
 ### 🎯 Agent-Specific Prompts
 
 #### 🏷️ [agents/](./agents/)
+
 - **[badges.prompt.md](./agents/badges.prompt.md)** - Badge generation and management
 - **[header-footer.prompt.md](./agents/header-footer.prompt.md)** - Header and footer automation
 - **[manage-readmes.prompt.md](./agents/manage-readmes.prompt.md)** - README maintenance automation
@@ -113,6 +125,7 @@ All prompt files in this directory:
 #### 📋 [awesome-copilot/](./awesome-copilot/) (90+ Advanced Prompts)
 
 ##### 🏗️ Architecture & Planning
+
 - **[architecture-blueprint-generator.prompt.md](./awesome-copilot/architecture-blueprint-generator.prompt.md)** - Generate system architecture blueprints
 - **[breakdown-epic-arch.prompt.md](./awesome-copilot/breakdown-epic-arch.prompt.md)** - Break down epics from architecture perspective
 - **[breakdown-epic-pm.prompt.md](./awesome-copilot/breakdown-epic-pm.prompt.md)** - Break down epics from project management perspective
@@ -125,12 +138,14 @@ All prompt files in this directory:
 - **[technology-stack-blueprint-generator.prompt.md](./awesome-copilot/technology-stack-blueprint-generator.prompt.md)** - Generate technology stack blueprints
 
 ##### 📊 Documentation & Communication
+
 - **[create-architectural-decision-record.prompt.md](./awesome-copilot/create-architectural-decision-record.prompt.md)** - Create ADRs
 - **[create-readme.prompt.md](./awesome-copilot/create-readme.prompt.md)** - Generate comprehensive README files
 - **[documentation-writer.prompt.md](./awesome-copilot/documentation-writer.prompt.md)** - Advanced documentation writing
 - **[readme-blueprint-generator.prompt.md](./awesome-copilot/readme-blueprint-generator.prompt.md)** - Generate README blueprints
 
 ##### 🤖 MCP Server Generators
+
 - **[csharp-mcp-server-generator.prompt.md](./awesome-copilot/csharp-mcp-server-generator.prompt.md)** - Generate C# MCP servers
 - **[go-mcp-server-generator.prompt.md](./awesome-copilot/go-mcp-server-generator.prompt.md)** - Generate Go MCP servers
 - **[java-mcp-server-generator.prompt.md](./awesome-copilot/java-mcp-server-generator.prompt.md)** - Generate Java MCP servers
@@ -143,6 +158,7 @@ All prompt files in this directory:
 - **[typescript-mcp-server-generator.prompt.md](./awesome-copilot/typescript-mcp-server-generator.prompt.md)** - Generate TypeScript MCP servers
 
 ##### ☁️ Cloud & Infrastructure
+
 - **[aspnet-minimal-api-openapi.prompt.md](./awesome-copilot/aspnet-minimal-api-openapi.prompt.md)** - ASP.NET minimal API with OpenAPI
 - **[az-cost-optimize.prompt.md](./awesome-copilot/az-cost-optimize.prompt.md)** - Azure cost optimization
 - **[azure-resource-health-diagnose.prompt.md](./awesome-copilot/azure-resource-health-diagnose.prompt.md)** - Azure resource health diagnostics
@@ -151,6 +167,7 @@ All prompt files in this directory:
 - **[multi-stage-dockerfile.prompt.md](./awesome-copilot/multi-stage-dockerfile.prompt.md)** - Create multi-stage Dockerfiles
 
 ##### 🧪 Testing & Quality
+
 - **[csharp-mstest.prompt.md](./awesome-copilot/csharp-mstest.prompt.md)** - C# MSTest testing
 - **[csharp-nunit.prompt.md](./awesome-copilot/csharp-nunit.prompt.md)** - C# NUnit testing  
 - **[csharp-tunit.prompt.md](./awesome-copilot/csharp-tunit.prompt.md)** - C# TUnit testing

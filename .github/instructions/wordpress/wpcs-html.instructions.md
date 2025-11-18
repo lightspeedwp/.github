@@ -36,16 +36,20 @@ mode: "agent"
 # WordPress HTML Coding Standards
 
 ## Mission
+
 Guide developers to write semantic, accessible HTML templates and PHP files that embed HTML.
 
 ## Language & Frameworks
+
 - HTML5. When working within WordPress, leverage template parts, block patterns and `theme.json` to structure content.
 
 ## Project Structure
+
 - Place template files under `templates/` or `partials/`.
 - Use descriptive file names (e.g. `header.php`, `footer.php`, `archive.html`).
 
 ## Coding Standards
+
 - Use valid, semantic markup; avoid presentational attributes (`align`, `bgcolor`).
 - Ensure headings (`<h1>`–`<h6>`) follow a hierarchical order and reflect document structure.
 - Wrap form controls with `<label>` elements and associate them using the `for` attribute.
@@ -53,22 +57,27 @@ Guide developers to write semantic, accessible HTML templates and PHP files that
 - Avoid inline styles and JavaScript; separate structure, presentation and behaviour.
 
 ## Testing & Quality
+
 - Validate markup with tools such as the W3C HTML validator.
 - Use accessibility testing tools (e.g. axe‑core) to catch missing labels and ARIA misuse.
 
 ## Performance & Security
+
 - Escape dynamic content using appropriate PHP functions (`esc_html`, `esc_attr`, etc.).
 - Avoid client‑side injection vulnerabilities; never trust user input directly.
 
 ## Documentation
+
 - Comment complex template logic and describe the purpose of custom wrappers or ARIA landmarks.
 
 ## Block Template Structure
+
   related_links:
-    - "https://developer.wordpress.org/themes/block-themes/templates/"
-    - "https://developer.wordpress.org/themes/block-themes/template-parts/"
-    - "https://developer.wordpress.org/block-editor/reference-guides/template-structure/"
-    - "https://github.com/lightspeedwp/.github"
+    - "<https://developer.wordpress.org/themes/block-themes/templates/>"
+    - "<https://developer.wordpress.org/themes/block-themes/template-parts/>"
+    - "<https://developer.wordpress.org/block-editor/reference-guides/template-structure/>"
+    - "<https://github.com/lightspeedwp/.github>"
+
 - Test templates with both light and dark color schemes.
 
 ## Template Parts
@@ -112,6 +121,7 @@ Guide developers to write semantic, accessible HTML templates and PHP files that
 - Test template rendering performance.
 
 # Examples
+
 ```html
 <!-- Good: semantic section and labelled form field -->
 <section role="region" aria-labelledby="contact-heading">
@@ -204,11 +214,11 @@ Correct:
 ```php
 <?php if ( ! have_posts() ) : ?>
 <div id="post-1" class="post">
-	<h1 class="entry-title">Not Found</h1>
-	<div class="entry-content">
-		<p>Apologies, but no results were found.</p>
-		<?php get_search_form(); ?>
-	</div>
+ <h1 class="entry-title">Not Found</h1>
+ <div class="entry-content">
+  <p>Apologies, but no results were found.</p>
+  <?php get_search_form(); ?>
+ </div>
 </div>
 <?php endif; ?>
 ```
@@ -232,9 +242,11 @@ Incorrect:
 - HTML code standards adapted from [Fellowship Tech Code Standards](https://developer.fellowshipone.com/patterns/code.php) ([CC license](https://creativecommons.org/licenses/by-nc-sa/3.0/)).n
 
 # Checklists
+
 - [ ] Headings are used in order and never skipped.
 - [ ] All form controls have associated labels.
 - [ ] Dynamic content is properly escaped in PHP files.
 
 # References
-- https://developer.wordpress.org/coding-standards/wordpress-coding-standards/html/
+
+- <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/html/>

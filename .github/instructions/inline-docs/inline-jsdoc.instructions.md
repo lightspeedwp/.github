@@ -277,17 +277,20 @@ async function fetchPosts( args = {} ) {
 ## Required Tags
 
 ### @since
+
 - **Required** for all functions, classes, methods, and properties
 - Indicates the version when the element was introduced
 - Use semantic versioning (e.g., 1.0.0)
 
 ### @param
+
 - **Required** for all function/method parameters
 - Format: `@param {type} [name=default] Description.`
 - Use square brackets for optional parameters
 - Include default values when applicable
 
 ### @return
+
 - **Required** for functions that return values
 - Omit for void functions
 - Include type and description
@@ -296,6 +299,7 @@ async function fetchPosts( args = {} ) {
 ## Type Definitions
 
 ### Primitive Types
+
 - `{string}` - String values
 - `{number}` - Numeric values
 - `{boolean}` - Boolean values
@@ -304,6 +308,7 @@ async function fetchPosts( args = {} ) {
 - `{*}` - Any type (avoid when possible)
 
 ### Complex Types
+
 - `{Array}` - Array of any type
 - `{Array<string>}` - Array of strings
 - `{Object}` - Plain object
@@ -312,11 +317,13 @@ async function fetchPosts( args = {} ) {
 - `{Promise<string>}` - Promise resolving to string
 
 ### WordPress Types
+
 - `{Element}` - React element (WordPress blocks)
 - `{WP_Block_Type}` - WordPress block type object
 - `{WP_Post}` - WordPress post object (from API)
 
 ### Union Types
+
 ```javascript
 /**
  * @param {string|number} value String or number value.
@@ -327,6 +334,7 @@ async function fetchPosts( args = {} ) {
 ## Optional Tags
 
 ### @throws
+
 ```javascript
 /**
  * Function that might throw an error.
@@ -339,6 +347,7 @@ async function fetchPosts( args = {} ) {
 ```
 
 ### @deprecated
+
 ```javascript
 /**
  * Deprecated function.
@@ -351,6 +360,7 @@ async function fetchPosts( args = {} ) {
 ```
 
 ### @todo
+
 ```javascript
 /**
  * Function with future improvements planned.
@@ -363,6 +373,7 @@ async function fetchPosts( args = {} ) {
 ```
 
 ### @example
+
 ```javascript
 /**
  * Format a price value.
@@ -386,6 +397,7 @@ async function fetchPosts( args = {} ) {
 ## Object Documentation
 
 ### Simple Objects
+
 ```javascript
 /**
  * @param {Object} config Configuration object.
@@ -393,6 +405,7 @@ async function fetchPosts( args = {} ) {
 ```
 
 ### Detailed Objects
+
 ```javascript
 /**
  * @param {Object}  options               Configuration options.
@@ -407,6 +420,7 @@ async function fetchPosts( args = {} ) {
 ## Event Documentation
 
 ### Event Handlers
+
 ```javascript
 /**
  * Handle click events.
@@ -420,6 +434,7 @@ function handleClick( event ) {
 ```
 
 ### Custom Events
+
 ```javascript
 /**
  * Dispatch custom event.
@@ -442,6 +457,7 @@ function dispatchCustomEvent( message ) {
 ## Best Practices
 
 ### Formatting
+
 - Use tabs for indentation in line with the WordPress JavaScript coding standards
 - Align parameter descriptions when helpful
 - Keep line lengths reasonable (under 80-120 characters)
@@ -449,6 +465,7 @@ function dispatchCustomEvent( message ) {
 - End descriptions with periods
 
 ### Content
+
 - Write clear, concise descriptions
 - Explain the "why" not just the "what"
 - Include examples for complex functions
@@ -456,6 +473,7 @@ function dispatchCustomEvent( message ) {
 - Cross-reference related functions with `@see`
 
 ### WordPress Block Editor
+
 - Document block attributes clearly
 - Explain block render behavior
 - Document component props thoroughly
@@ -465,6 +483,7 @@ function dispatchCustomEvent( message ) {
 ## Common Patterns
 
 ### WordPress Block Registration
+
 ```javascript
 /**
  * Register a custom WordPress block.
@@ -488,6 +507,7 @@ registerBlockType( 'my-plugin/my-block', {
 ```
 
 ### WordPress API Integration
+
 ```javascript
 /**
  * WordPress API client wrapper.
@@ -510,6 +530,7 @@ class WPAPIClient {
 ```
 
 ### Event Handling
+
 ```javascript
 /**
  * Initialize event handlers.

@@ -26,19 +26,23 @@ You are the YAML linter for LightSpeed projects. Enforce indentation, key naming
 # Setup
 
 1. **Install dependencies:**  
+
    ```bash
    pip install yamllint
    npm install --save-dev @stoplight/spectral-cli actionlint husky
    ```
+
 2. **Config files:**  
    Ensure `.yamllint`, `.spectral.yaml`, and `.spectral-workflows.yaml` are present.
 3. **NPM scripts:**  
    - `"lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml"`
    - `"lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml"`
 4. **Pre-commit hook (recommended):**
+
    ```bash
    npx husky add .husky/pre-commit "npm run lint:yaml"
    ```
+
 5. **CI:**  
    YAML linting is run on PRs.
 

@@ -59,12 +59,14 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] AI ops goal described
 - [ ] Area/action mapped
 - [ ] Acceptance criteria listed
 - [ ] Estimate added
 
 ### Definition of Done (DoD)
+
 - [ ] All acceptance criteria met
 - [ ] Solution/automation verified
 - [ ] Documentation updated

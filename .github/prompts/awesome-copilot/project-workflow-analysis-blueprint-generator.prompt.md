@@ -79,14 +79,16 @@ ${PERSISTENCE_TYPE == "Auto-detect" ?
 For each of the `${WORKFLOW_COUNT}` most representative workflow(s) in the system:
 
 #### 1. Workflow Overview
-   - Provide a name and brief description of the workflow
-   - Explain the business purpose it serves
-   - Identify the triggering action or event
-   - List all files/classes involved in the complete workflow
+
+- Provide a name and brief description of the workflow
+- Explain the business purpose it serves
+- Identify the triggering action or event
+- List all files/classes involved in the complete workflow
 
 #### 2. Entry Point Implementation
 
 **API Entry Points:**
+
 ```
 ${ENTRY_POINT == "API" || ENTRY_POINT == "Auto-detect" ? 
   "- Document the API controller class and method that receives the request
@@ -97,6 +99,7 @@ ${ENTRY_POINT == "API" || ENTRY_POINT == "Auto-detect" ?
 ```
 
 **GraphQL Entry Points:**
+
 ```
 ${ENTRY_POINT == "GraphQL" || ENTRY_POINT == "Auto-detect" ? 
   "- Document the GraphQL resolver class and method
@@ -106,6 +109,7 @@ ${ENTRY_POINT == "GraphQL" || ENTRY_POINT == "Auto-detect" ?
 ```
 
 **Frontend Entry Points:**
+
 ```
 ${ENTRY_POINT == "Frontend" || ENTRY_POINT == "Auto-detect" ? 
   "- Document the component that initiates the API call
@@ -115,6 +119,7 @@ ${ENTRY_POINT == "Frontend" || ENTRY_POINT == "Auto-detect" ?
 ```
 
 **Message Consumer Entry Points:**
+
 ```
 ${ENTRY_POINT == "Message Consumer" || ENTRY_POINT == "Auto-detect" ? 
   "- Document the message handler class and method
@@ -124,38 +129,44 @@ ${ENTRY_POINT == "Message Consumer" || ENTRY_POINT == "Auto-detect" ?
 ```
 
 #### 3. Service Layer Implementation
-   - Document each service class involved with their dependencies
-   - Show the complete method signatures with parameters and return types
-   - Include actual method implementations with key business logic
-   - Document interface definitions where applicable
-   - Show dependency injection registration patterns
+
+- Document each service class involved with their dependencies
+- Show the complete method signatures with parameters and return types
+- Include actual method implementations with key business logic
+- Document interface definitions where applicable
+- Show dependency injection registration patterns
 
 **CQRS Patterns:**
+
 ```
 ${ARCHITECTURE_PATTERN == "CQRS" || ARCHITECTURE_PATTERN == "Auto-detect" ? 
   "- Include complete command/query handler implementations" : ""}
 ```
 
 **Clean Architecture Patterns:**
+
 ```
 ${ARCHITECTURE_PATTERN == "Clean" || ARCHITECTURE_PATTERN == "Auto-detect" ? 
   "- Show use case/interactor implementations" : ""}
 ```
 
 #### 4. Data Mapping Patterns
-   - Document DTO to domain model mapping code
-   - Show object mapper configurations or manual mapping methods
-   - Include validation logic during mapping
-   - Document any domain events created during mapping
+
+- Document DTO to domain model mapping code
+- Show object mapper configurations or manual mapping methods
+- Include validation logic during mapping
+- Document any domain events created during mapping
 
 #### 5. Data Access Implementation
-   - Document repository interfaces and their implementations
-   - Show complete method signatures with parameters and return types
-   - Include actual query implementations
-   - Document entity/model class definitions with all properties
-   - Show transaction handling patterns
+
+- Document repository interfaces and their implementations
+- Show complete method signatures with parameters and return types
+- Include actual query implementations
+- Document entity/model class definitions with all properties
+- Show transaction handling patterns
 
 **SQL Database Patterns:**
+
 ```
 ${PERSISTENCE_TYPE == "SQL Database" || PERSISTENCE_TYPE == "Auto-detect" ? 
   "- Include ORM configurations, annotations, or Fluent API usage
@@ -163,6 +174,7 @@ ${PERSISTENCE_TYPE == "SQL Database" || PERSISTENCE_TYPE == "Auto-detect" ?
 ```
 
 **NoSQL Database Patterns:**
+
 ```
 ${PERSISTENCE_TYPE == "NoSQL Database" || PERSISTENCE_TYPE == "Auto-detect" ? 
   "- Show document structure definitions
@@ -170,27 +182,31 @@ ${PERSISTENCE_TYPE == "NoSQL Database" || PERSISTENCE_TYPE == "Auto-detect" ?
 ```
 
 #### 6. Response Construction
-   - Document response DTO/model class definitions
-   - Show mapping from domain/entity models to response models
-   - Include status code selection logic
-   - Document error response structure and generation
+
+- Document response DTO/model class definitions
+- Show mapping from domain/entity models to response models
+- Include status code selection logic
+- Document error response structure and generation
 
 #### 7. Error Handling Patterns
-   - Document exception types used in the workflow
-   - Show try/catch patterns at each layer
-   - Include global exception handler configurations
-   - Document error logging implementations
-   - Show retry policies or circuit breaker patterns
-   - Include compensating actions for failure scenarios
+
+- Document exception types used in the workflow
+- Show try/catch patterns at each layer
+- Include global exception handler configurations
+- Document error logging implementations
+- Show retry policies or circuit breaker patterns
+- Include compensating actions for failure scenarios
 
 #### 8. Asynchronous Processing Patterns
-   - Document background job scheduling code
-   - Show event publication implementations
-   - Include message queue sending patterns
-   - Document callback or webhook implementations
-   - Show how async operations are tracked and monitored
+
+- Document background job scheduling code
+- Show event publication implementations
+- Include message queue sending patterns
+- Document callback or webhook implementations
+- Show how async operations are tracked and monitored
 
 **Testing Approach (Optional):**
+
 ```
 ${INCLUDE_TEST_PATTERNS ? 
   "9. **Testing Approach**
@@ -202,6 +218,7 @@ ${INCLUDE_TEST_PATTERNS ?
 ```
 
 **Sequence Diagram (Optional):**
+
 ```
 ${INCLUDE_SEQUENCE_DIAGRAM ? 
   "10. **Sequence Diagram**
@@ -212,7 +229,9 @@ ${INCLUDE_SEQUENCE_DIAGRAM ?
 ```
 
 #### 11. Naming Conventions
+
 Document consistent patterns for:
+
 - Controller naming (e.g., `EntityNameController`)
 - Service naming (e.g., `EntityNameService`)
 - Repository naming (e.g., `IEntityNameRepository`)
@@ -222,7 +241,9 @@ Document consistent patterns for:
 - File organization patterns
 
 #### 12. Implementation Templates
+
 Provide reusable code templates for:
+
 - Creating a new API endpoint following the pattern
 - Implementing a new service method
 - Adding a new repository method
@@ -232,6 +253,7 @@ Provide reusable code templates for:
 ### Technology-Specific Implementation Patterns
 
 **.NET Implementation Patterns (if detected):**
+
 ```
 ${PROJECT_TYPE == ".NET" || PROJECT_TYPE == "Auto-detect" ? 
   "- Complete controller class with attributes, filters, and dependency injection
@@ -247,6 +269,7 @@ ${PROJECT_TYPE == ".NET" || PROJECT_TYPE == "Auto-detect" ?
 ```
 
 **Spring Implementation Patterns (if detected):**
+
 ```
 ${PROJECT_TYPE == "Java" || PROJECT_TYPE == "Spring" || PROJECT_TYPE == "Auto-detect" ? 
   "- Complete controller class with annotations and dependency injection
@@ -260,6 +283,7 @@ ${PROJECT_TYPE == "Java" || PROJECT_TYPE == "Spring" || PROJECT_TYPE == "Auto-de
 ```
 
 **React Implementation Patterns (if detected):**
+
 ```
 ${PROJECT_TYPE == "React" || PROJECT_TYPE == "Auto-detect" ? 
   "- Component structure with props and state
@@ -275,20 +299,23 @@ ${PROJECT_TYPE == "React" || PROJECT_TYPE == "Auto-detect" ?
 Based on the documented workflows, provide specific guidance for implementing new features:
 
 #### 1. Step-by-Step Implementation Process
+
 - Where to start when adding a similar feature
 - Order of implementation (e.g., model → repository → service → controller)
 - How to integrate with existing cross-cutting concerns
 
 #### 2. Common Pitfalls to Avoid
+
 - Identify error-prone areas in the current implementation
 - Note performance considerations
 - List common bugs or issues encountered
 
 #### 3. Extension Mechanisms
+
 - Document how to plug into existing extension points
 - Show how to add new behavior without modifying existing code
 - Explain configuration-driven feature patterns
 
 **Conclusion:**
-Conclude with a summary of the most important patterns that should be followed when 
+Conclude with a summary of the most important patterns that should be followed when
 implementing new features to maintain consistency with the codebase."

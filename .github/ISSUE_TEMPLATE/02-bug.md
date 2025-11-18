@@ -102,6 +102,7 @@ Use correct branch prefix (fix/) for any related PR.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Bug is reproducible and clearly described
 - [ ] Steps to reproduce written
 - [ ] Environment details provided
@@ -111,6 +112,7 @@ Use correct branch prefix (fix/) for any related PR.
 - [ ] Ready for triage
 
 ### Definition of Done (DoD)
+
 - [ ] Bug confirmed and reproducible
 - [ ] Fix implemented and tested (all supported browsers/devices)
 - [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/)

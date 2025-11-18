@@ -694,6 +694,7 @@ mvn clean package
 ```
 
 ### Gradle
+
 ```bash
 ./gradlew build
 ```
@@ -701,11 +702,13 @@ mvn clean package
 ## Run
 
 ### Maven
+
 ```bash
 java -jar target/my-mcp-server-1.0.0.jar
 ```
 
 ### Gradle
+
 ```bash
 ./gradlew run
 ```
@@ -713,11 +716,13 @@ java -jar target/my-mcp-server-1.0.0.jar
 ## Testing
 
 ### Maven
+
 ```bash
 mvn test
 ```
 
 ### Gradle
+
 ```bash
 ./gradlew test
 ```
@@ -740,6 +745,7 @@ Add to `claude_desktop_config.json`:
 ## License
 
 MIT
+
 ```
 
 ## Generation Instructions

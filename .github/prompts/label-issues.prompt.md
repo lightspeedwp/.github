@@ -10,4 +10,4 @@ Generate or adjust a GitHub Actions workflow (e.g. `label-pr.yml`) that automati
 3. Does not modify issue labels.
 4. Includes documentation and a brief summary of how labels are applied.
 
-Reference: https://docs.github.com/en/actions/tutorials/manage-your-work/add-labels-to-issues
+Reference: <https://docs.github.com/en/actions/tutorials/manage-your-work/add-labels-to-issues>

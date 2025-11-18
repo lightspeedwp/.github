@@ -10,4 +10,4 @@ Using the **WordPress PHP Documentation Standards**, scan the selected PHP file 
 3. Include `@since`, `@param`, `@return` and other relevant tags (`@throws`, `@deprecated`, etc.).
 4. Suggest minimal changes and avoid altering function signatures or logic.
 
-Reference: https://developer.wordpress.org/coding-standards/inline-documentation-standards/php/
+Reference: <https://developer.wordpress.org/coding-standards/inline-documentation-standards/php/>

@@ -30,6 +30,7 @@ This guide explains how to use the `--scope` parameter with the LightSpeed relea
 The release agent supports a `--scope` parameter that determines how the version number is incremented during a release. This follows [Semantic Versioning (SemVer)](https://semver.org/) principles.
 
 **Syntax:**
+
 ```bash
 node .github/agents/release.agent.cjs --scope=<major|minor|patch>
 ```
@@ -45,6 +46,7 @@ Semantic versioning uses a three-part version number: `MAJOR.MINOR.PATCH`
 - **PATCH**: Bug fixes and improvements that ARE backward-compatible
 
 **Example progression:**
+
 ```
 1.0.0  →  1.0.1  (patch: bug fix)
 1.0.1  →  1.1.0  (minor: new feature)
@@ -77,7 +79,7 @@ node .github/agents/release.agent.cjs --scope=patch
 
 ## When to Use Each Scope
 
-### Use `--scope=patch` when:
+### Use `--scope=patch` when
 
 ✅ Fixing bugs  
 ✅ Updating documentation  
@@ -88,12 +90,13 @@ node .github/agents/release.agent.cjs --scope=patch
 ✅ Security patches (non-breaking)
 
 **Example changes:**
+
 - "Fix typo in error message"
 - "Update README installation instructions"
 - "Improve performance of search algorithm"
 - "Fix accessibility issue in navigation"
 
-### Use `--scope=minor` when:
+### Use `--scope=minor` when
 
 ✅ Adding new features  
 ✅ Adding new functions/methods (backward-compatible)  
@@ -104,12 +107,13 @@ node .github/agents/release.agent.cjs --scope=patch
 ✅ New theme customisation options
 
 **Example changes:**
+
 - "Add dark mode toggle to settings"
 - "Add new pattern: Call-to-Action with image"
 - "Add support for custom post types"
 - "Add new REST API endpoint for search"
 
-### Use `--scope=major` when:
+### Use `--scope=major` when
 
 ⚠️ Removing features or APIs  
 ⚠️ Changing function signatures  
@@ -120,6 +124,7 @@ node .github/agents/release.agent.cjs --scope=patch
 ⚠️ Renaming classes/functions/files
 
 **Example changes:**
+
 - "Remove deprecated `old_api()` function"
 - "Change `getUserData()` to require authentication"
 - "Upgrade minimum PHP version to 8.1"
@@ -134,9 +139,11 @@ node .github/agents/release.agent.cjs --scope=patch
 **Current version:** `1.2.3`  
 **Changes:** Fixed a bug in form validation  
 **Command:**
+
 ```bash
 node .github/agents/release.agent.cjs --scope=patch
 ```
+
 **Result:** Version becomes `1.2.4`
 
 ---
@@ -146,9 +153,11 @@ node .github/agents/release.agent.cjs --scope=patch
 **Current version:** `1.2.4`  
 **Changes:** Added user profile page and settings panel  
 **Command:**
+
 ```bash
 node .github/agents/release.agent.cjs --scope=minor
 ```
+
 **Result:** Version becomes `1.3.0`
 
 ---
@@ -158,9 +167,11 @@ node .github/agents/release.agent.cjs --scope=minor
 **Current version:** `1.3.0`  
 **Changes:** Removed old authentication system, requires new OAuth flow  
 **Command:**
+
 ```bash
 node .github/agents/release.agent.cjs --scope=major
 ```
+
 **Result:** Version becomes `2.0.0`
 
 ---
@@ -230,6 +241,7 @@ When in doubt, start with `patch` and consult with maintainers.
 ### Q: Can I skip version numbers?
 
 **A:** Yes, SemVer allows gaps. For example:
+
 - `1.0.0 → 2.0.0` (skip 1.x.x entirely)
 - `1.5.3 → 1.10.0` (skip 1.6.0-1.9.x)
 
@@ -287,12 +299,14 @@ node .github/agents/release.agent.cjs --scope=minor --dry-run
 ## Best Practices
 
 1. **✅ Always validate before release**
+
    ```bash
    node scripts/validate-version.cjs
    node scripts/validate-changelog.cjs
    ```
 
 2. **✅ Use dry-run for major releases**
+
    ```bash
    node .github/agents/release.agent.cjs --scope=major --dry-run
    ```

@@ -9,6 +9,7 @@ tags:
 ---
 
 Plan:
+
 - Build assets, update tested up-to version.
 - Changelog and readme.txt updates.
 - Tag and build zip artifact.

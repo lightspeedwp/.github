@@ -97,7 +97,7 @@ graph TD
 ### 🚧 In Progress Tasks
 
 - [ ] **Task 26**: Restructure coderabbit schema
-  - Create schemas/coderabbit/ folder, move coderabbit-overrides.v2.json there, update all references in scripts and tests. Remove duplicate test from scripts/json-validation/ and keep only in __tests__ folder.
+  - Create schemas/coderabbit/ folder, move coderabbit-overrides.v2.json there, update all references in scripts and tests. Remove duplicate test from scripts/json-validation/ and keep only in **tests** folder.
 
 ### 📋 Documentation Alignment Tasks
 
@@ -119,7 +119,7 @@ graph TD
   - Create comprehensive validation script that checks frontmatter compliance across all .github files using the aligned frontmatter.schema.json and add it to the test suite.
 
 - [ ] **Task 29**: Create test stubs for all scripts
-  - Audit all shell scripts and JavaScript files in scripts/ folder and create basic test stubs in appropriate __tests__ folders for any missing tests.
+  - Audit all shell scripts and JavaScript files in scripts/ folder and create basic test stubs in appropriate **tests** folders for any missing tests.
 
 - [ ] **Task 30**: Standardize logging in shell scripts
   - Review all .sh files and ensure they use consistent logging functions that output to `/Users/ash/Studio/.github/logs/` folder. Add TODO comments for full logging implementation.
@@ -173,7 +173,7 @@ graph TD
   - Create README.md files for schemas/ folder and all subfolders including wordpress/, header-footer-agent/, and new coderabbit/, awesome-copilot/, header-footer/ subfolders. Add Mermaid diagram showing schema organization and relationships.
 
 - [ ] **Task 23**: Create scripts folder READMEs
-  - Create/update README.md files for all scripts/ subfolders: awesome-copilot/, includes/, json-validation/, maintenance/, projects/, utility/ and their __tests__ subfolders. Add Mermaid diagrams showing script workflows and dependencies.
+  - Create/update README.md files for all scripts/ subfolders: awesome-copilot/, includes/, json-validation/, maintenance/, projects/, utility/ and their **tests** subfolders. Add Mermaid diagrams showing script workflows and dependencies.
 
 - [ ] **Task 24**: Create coverage folder README
   - Update `/Users/ash/Studio/.github/coverage/README.md` to describe test coverage reports and create reports/ subfolder with its own README. Add Mermaid diagram showing coverage workflow and report generation.

@@ -17,6 +17,7 @@ tools: ["Read"]
 # Linting Agent
 
 **Responsibilities**:
+
 - Validate and enforce linting standards for JS/TS (ESLint/Prettier), Shell scripts (ShellCheck), Markdown (markdownlint), YAML (yamllint), and others per repo standards.
 - Ensure all changed files pass linting checks before merge.
 - Report on lint errors, warnings, and auto-fixable issues.

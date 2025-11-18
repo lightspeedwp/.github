@@ -23,6 +23,7 @@ Analyze current repository context and suggest relevant collections from the [Gi
 ## Context Analysis Criteria
 
 🔍 **Repository Patterns**:
+
 - Programming languages used (.cs, .js, .py, .ts, .bicep, .tf, etc.)
 - Framework indicators (ASP.NET, React, Azure, Next.js, Angular, etc.)
 - Project types (web apps, APIs, libraries, tools, infrastructure)
@@ -30,6 +31,7 @@ Analyze current repository context and suggest relevant collections from the [Gi
 - Development workflow indicators (CI/CD, testing, deployment)
 
 🗨️ **Chat History Context**:
+
 - Recent discussions and pain points
 - Feature requests or implementation needs
 - Code review patterns and quality concerns
@@ -53,11 +55,13 @@ Display analysis results in structured table showing relevant collections and th
 For each suggested collection, break down individual assets:
 
 **Azure & Cloud Development Collection Analysis:**
+
 - ✅ **New Assets (12)**: Azure cost optimization prompts, Bicep planning mode, AVM modules, Logic Apps expert mode
 - ⚠️ **Similar Assets (3)**: Azure DevOps pipelines (similar to existing CI/CD), Terraform (basic overlap), Containerization (Docker basics covered)
 - 🎯 **High Value**: Cost optimization tools, Infrastructure as Code expertise, Azure-specific architectural guidance
 
 **Installation Preview:**
+
 - Will install to `prompts/`: 4 Azure-specific prompts
 - Will install to `instructions/`: 6 infrastructure and DevOps best practices
 - Will install to `chatmodes/`: 5 specialized Azure expert modes
@@ -132,12 +136,12 @@ When user confirms a collection installation:
 ## Post-Installation Guidance
 
 After installing a collection, provide:
+
 - **Asset Overview**: List of installed prompts, instructions, and chat modes
 - **Usage Examples**: How to activate and use each type of asset
 - **Workflow Integration**: Best practices for incorporating assets into development process
 - **Customization Tips**: How to modify assets for specific project needs
 - **Related Collections**: Suggestions for complementary collections that work well together
-
 
 ## Icons Reference
 

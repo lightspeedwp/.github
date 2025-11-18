@@ -55,6 +55,7 @@ applyTo: '**/*.py, **/pyproject.toml, **/requirements.txt'
 ## Common Patterns
 
 ### Basic Server Setup (stdio)
+
 ```python
 from mcp.server.fastmcp import FastMCP
 
@@ -72,6 +73,7 @@ if __name__ == "__main__":
 ```
 
 ### HTTP Server
+
 ```python
 from mcp.server.fastmcp import FastMCP
 
@@ -87,6 +89,7 @@ if __name__ == "__main__":
 ```
 
 ### Tool with Structured Output
+
 ```python
 from pydantic import BaseModel, Field
 
@@ -106,6 +109,7 @@ def get_weather(city: str) -> WeatherData:
 ```
 
 ### Dynamic Resource
+
 ```python
 @mcp.resource("users://{user_id}")
 def get_user(user_id: str) -> str:
@@ -114,6 +118,7 @@ def get_user(user_id: str) -> str:
 ```
 
 ### Tool with Context
+
 ```python
 from mcp.server.fastmcp import Context
 from mcp.server.session import ServerSession
@@ -130,6 +135,7 @@ async def process_data(
 ```
 
 ### Tool with Sampling
+
 ```python
 from mcp.server.fastmcp import Context
 from mcp.server.session import ServerSession
@@ -152,6 +158,7 @@ async def summarize(
 ```
 
 ### Lifespan Management
+
 ```python
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
@@ -179,6 +186,7 @@ def query(sql: str, ctx: Context) -> str:
 ```
 
 ### Prompt with Messages
+
 ```python
 from mcp.server.fastmcp.prompts import base
 
@@ -193,6 +201,7 @@ def review_code(code: str) -> list[base.Message]:
 ```
 
 ### Error Handling
+
 ```python
 @mcp.tool()
 async def risky_operation(input: str) -> str:

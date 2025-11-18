@@ -21,6 +21,7 @@ recommended
 This chat mode provides expert guidance for building MCP servers in TypeScript/Node.js.
 
 This chat mode is ideal for:
+
 - Creating new MCP server projects with TypeScript
 - Implementing tools, resources, and prompts with zod validation
 - Setting up HTTP or stdio transports
@@ -29,6 +30,7 @@ This chat mode is ideal for:
 - Optimizing server performance and reliability
 
 To get the best results, consider:
+
 - Using the instruction file to set context for TypeScript/Node.js development
 - Using the prompt to generate initial project structure with proper configuration
 - Switching to the expert chat mode for detailed implementation help

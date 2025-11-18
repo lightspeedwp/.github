@@ -392,6 +392,7 @@ mcp:
 ### Performance Optimization
 
 1. **Enable OPcache**:
+
 ```ini
 ; php.ini
 opcache.enable=1
@@ -402,6 +403,7 @@ opcache.validate_timestamps=0  ; Production only
 ```
 
 2. **Use Discovery Caching**:
+
 ```php
 use Symfony\Component\Cache\Adapter\RedisAdapter;
 use Symfony\Component\Cache\Psr16Cache;
@@ -417,6 +419,7 @@ $server = Server::builder()
 ```
 
 3. **Optimize Composer Autoloader**:
+
 ```bash
 composer dump-autoload --optimize --classmap-authoritative
 ```

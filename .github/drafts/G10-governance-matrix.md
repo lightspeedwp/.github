@@ -19,6 +19,7 @@ references:
 We need to make code review ownership explicit by creating a clear matrix mapping governance roles to team handles and repository paths, then tightening CODEOWNERS patterns to reduce overly broad glob patterns that create ambiguous approval requirements.
 
 **Current state:**
+
 - CODEOWNERS uses broad globs (e.g., `docs/**/*`)
 - Unclear which team owns which paths
 - Approval ambiguity slows review process
@@ -26,6 +27,7 @@ We need to make code review ownership explicit by creating a clear matrix mappin
 - Hard to determine correct reviewer
 
 **Desired state:**
+
 - Governance → Team → Paths matrix published in GOVERNANCE.md
 - CODEOWNERS uses narrow, specific patterns
 - Clear ownership for every repository area
@@ -35,16 +37,19 @@ We need to make code review ownership explicit by creating a clear matrix mappin
 ## Why is this documentation important?
 
 **For contributors:**
+
 - Clear ownership enables faster PR reviews
 - Reduces guesswork about who to request reviews from
 - Improves confidence that right stakeholders are involved
 
 **For maintainers:**
+
 - Explicit ownership reduces review bottlenecks
 - Narrow patterns prevent unintended required reviews
 - Regular audits keep ownership current as team evolves
 
 **Impact:**
+
 - **High** - Slower reviews due to unclear ownership
 - **Medium** - Approval ambiguity blocks merges
 - **Medium** - Team changes cause outdated ownership
@@ -154,12 +159,14 @@ gh api repos/lightspeedwp/.github/contents/CODEOWNERS --jq '.content' | base64 -
 ```
 
 **Common pitfalls to avoid:**
+
 - Overlapping patterns that conflict
 - Gaps where no owner is assigned
 - Overly specific patterns that miss related files
 - Missing team handles (must exist in GitHub org)
 
 **Telemetry (post-merge):**
+
 - Measure time to first reviewer assignment via CODEOWNERS (before/after)
 - Track review SLA compliance
 - Monitor conflicts or unclear ownership reports
@@ -213,11 +220,13 @@ gh api repos/lightspeedwp/.github/contents/CODEOWNERS --jq '.content' | base64 -
 **Branch prefix:** `docs/`
 
 **Files to update:**
+
 - `GOVERNANCE.md` (add matrix and audit schedule)
 - `CODEOWNERS` (tighten patterns, add comments)
 - `CHANGELOG.md` (document changes)
 
 **Validation:**
+
 ```bash
 # Check for team existence (GitHub CLI)
 gh api orgs/lightspeedwp/teams

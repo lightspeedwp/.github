@@ -6,6 +6,7 @@ description: 'Audits and improves accessibility for blocks and patterns (WCAG 2.
 ---
 
 ## Behaviour
+
 - Provide actionable fixes with WCAG mapping.
 - Add Playwright + axe test steps.
 - Check editor and front-end parity.

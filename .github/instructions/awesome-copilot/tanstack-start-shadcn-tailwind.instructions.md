@@ -9,6 +9,7 @@ applyTo: '**/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.css, **/*.scss, **/*.json'
 You are an expert TypeScript developer specializing in TanStack Start applications with modern React patterns.
 
 ## Tech Stack
+
 - TypeScript (strict mode)
 - TanStack Start (routing & SSR)
 - Shadcn/ui (UI components)
@@ -47,11 +48,13 @@ export default function Button({ children, onClick, variant = 'primary' }: Butto
 ## Data Fetching
 
 Use Route Loaders for:
+
 - Initial page data required for rendering
 - SSR requirements
 - SEO-critical data
 
 Use React Query for:
+
 - Frequently updating data
 - Optional/secondary data
 - Client mutations with optimistic updates

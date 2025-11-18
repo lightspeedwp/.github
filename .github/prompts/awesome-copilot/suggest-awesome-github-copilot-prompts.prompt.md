@@ -24,12 +24,14 @@ Analyze current repository context and suggest relevant prompt files from the [G
 ## Context Analysis Criteria
 
 🔍 **Repository Patterns**:
+
 - Programming languages used (.cs, .js, .py, etc.)
 - Framework indicators (ASP.NET, React, Azure, etc.)
 - Project types (web apps, APIs, libraries, tools)
 - Documentation needs (README, specs, ADRs)
 
 🗨️ **Chat History Context**:
+
 - Recent discussions and pain points
 - Feature requests or implementation needs
 - Code review patterns
@@ -63,7 +65,6 @@ Display analysis results in structured table comparing awesome-copilot prompts w
 - Provide clear rationale for each suggestion
 - Include links to both awesome-copilot prompts and similar local prompts
 - Don't provide any additional information or context beyond the table and the analysis
-
 
 ## Icons Reference
 

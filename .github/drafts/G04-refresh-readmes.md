@@ -19,6 +19,7 @@ references:
 Many folder README files across the repository contain auto-generated or stale content, including outdated file listings, incorrect paths, and missing cross-references between major documentation indexes. This creates wayfinding issues and onboarding friction.
 
 **Current state:**
+
 - Auto-generated READMEs with outdated file lists
 - Stale paths and references
 - Missing cross-links between DOCS.md and DEVELOPMENT.md
@@ -26,6 +27,7 @@ Many folder README files across the repository contain auto-generated or stale c
 - Poor discoverability of related documentation
 
 **Desired state:**
+
 - All `docs/**/README.md` files reflect current directory contents
 - Accurate file listings and paths
 - `DOCS.md` ↔ `DEVELOPMENT.md` bidirectional cross-links
@@ -35,17 +37,20 @@ Many folder README files across the repository contain auto-generated or stale c
 ## Why is this documentation important?
 
 **For contributors:**
+
 - Accurate READMEs reduce onboarding time and confusion
 - Clear cross-references help discover related documentation
 - Diagram captions improve understanding and accessibility
 - Better navigation supports self-service learning
 
 **For maintainers:**
+
 - Reduced support burden from lost or confused contributors
 - Higher quality documentation reflects well on project professionalism
 - Easier maintenance when structure is clearly documented
 
 **Impact:**
+
 - **Medium** - Onboarding friction increases ramp-up time
 - **Medium** - Wayfinding issues waste contributor time
 - **Low** - Damages perception of documentation quality
@@ -66,6 +71,7 @@ Many folder README files across the repository contain auto-generated or stale c
 ## Additional Context
 
 **Folders to audit (minimum):**
+
 - `/docs/` (root)
 - `/docs/governance/`
 - `/docs/workflows/`
@@ -77,6 +83,7 @@ Many folder README files across the repository contain auto-generated or stale c
 Add sections in both files:
 
 **In DOCS.md:**
+
 ```markdown
 ## Related Documentation
 
@@ -84,6 +91,7 @@ Add sections in both files:
 ```
 
 **In DEVELOPMENT.md:**
+
 ```markdown
 ## Related Documentation
 
@@ -91,6 +99,7 @@ Add sections in both files:
 ```
 
 **Mermaid caption examples:**
+
 ```markdown
 **Figure 1: Issue Labeling Workflow**
 ```mermaid
@@ -99,11 +108,13 @@ graph TD
 ```
 
 **Automation approach (optional):**
+
 - Consider script to auto-generate README file listings
 - Document generation process for future updates
 - Add CI check to warn if READMEs are stale
 
 **Telemetry (post-merge):**
+
 - Manual review of updated READMEs for accuracy
 - Spot-check cross-links resolve correctly
 - User feedback on improved navigation
@@ -155,6 +166,7 @@ graph TD
 **Branch prefix:** `docs/`
 
 **Suggested workflow:**
+
 ```bash
 # Find all READMEs
 find docs -name "README.md"
