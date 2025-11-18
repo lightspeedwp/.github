@@ -12,7 +12,6 @@
  */
 
 import { findStandardLabel } from './label-lookup.js';
-import { buildLabelingReport } from './label-reporting.js';
 
 /**
  * Sync repository labels with canonical set.
