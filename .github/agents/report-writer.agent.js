@@ -6,17 +6,17 @@
 const fs = require('fs');
 
 const data = {
-  timestamp: new Date().toISOString(),
-  totals: {
-    issues_processed: 0,
-    prs_processed: 0,
-    discussions_processed: 0,
-    labels_added: 0,
-    labels_removed: 0,
-    unknown_labels: 0,
-    alias_hits: 0
-  }
-  // TODO: read from agent runtime cache/JSON once implemented
+    timestamp: new Date().toISOString(),
+    totals: {
+        issues_processed: 0,
+        prs_processed: 0,
+        discussions_processed: 0,
+        labels_added: 0,
+        labels_removed: 0,
+        unknown_labels: 0,
+        alias_hits: 0,
+    },
+    // TODO: read from agent runtime cache/JSON once implemented
 };
 
 const md = `# Labeling Report

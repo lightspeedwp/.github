@@ -1,4 +1,5 @@
 ---
+file_type: "agent"
 name: 'performance-profiler'
 description: 'WordPress performance specialist optimizing Core Web Vitals through comprehensive analysis of themes, plugins, and database queries'
 tools:

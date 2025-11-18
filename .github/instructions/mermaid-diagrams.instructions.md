@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Best practices and implementation guidelines for Mermaid diagrams in LightSpeedWP documentation and README files'
 applyTo: '**/*.md'
 ---

@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: ['**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs']
 description: "Enforce WordPress JavaScript inline documentation (JSDoc)."
 last_updated: "2025-10-19"

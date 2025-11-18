@@ -1,8 +1,9 @@
 ---
+file_type: "documentation"
+description: "Full-Stack Web Application Repository Setup"
 title: Full-Stack Web Application Repository Setup
 model: copilot
 use_case: development
-status: ready
 version: 1.0.0
 author: LightSpeed WP Team
 last_updated: 2024-10-17

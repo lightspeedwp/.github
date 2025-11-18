@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'LightSpeed Projects Documentation'
 description: 'GitHub Projects templates, automation, and field specifications for LightSpeed workflows'
 version: '1.0'

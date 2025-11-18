@@ -1,11 +1,12 @@
 ---
+file_type: "instructions"
 title: "Metrics Agent Instructions"
 description: "Instructions for Metrics Agent: Automates collection and reporting of issue/PR/project metrics."
 version: "v1.0"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["agents", "metrics", "instructions", "reporting", "automation"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # Metrics Agent Instructions

@@ -1,14 +1,43 @@
 // header-footer.agent.js - Automates header/footer insertion and randomisation.
 // See .github/agents/header-footer.agent.md for spec.
 
-const { insertHeaderFooter } = require('../../scripts/includes/header-footer');
-const path = require('path');
-const headerConfig = require('../../scripts/includes/header-content.json');
-const footerConfig = require('../../scripts/includes/footer-content.json');
-// Schemas now in schemas/ folder
-const headerSchema = require('../../schemas/header.schema.json');
-const footerSchema = require('../../schemas/footer.schema.json');
-const Ajv = require('ajv');
+import { insertHeaderFooter } from '../../scripts/includes/header-footer.js';
+import path from 'path';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import Ajv from 'ajv';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load JSON files with error handling
+function safeJsonParse(filePath, label) {
+    try {
+        const content = readFileSync(filePath, 'utf-8');
+        return JSON.parse(content);
+    } catch (err) {
+        throw new Error(`Failed to parse JSON for ${label} at ${filePath}: ${err.message}`);
+    }
+}
+
+const headerConfig = safeJsonParse(
+    path.join(__dirname, '../../scripts/includes/header-content.json'),
+    'header-content.json'
+);
+const footerConfig = safeJsonParse(
+    path.join(__dirname, '../../scripts/includes/footer-content.json'),
+    'footer-content.json'
+);
+// Schemas now in schemas/header-footer-agent/ folder
+const headerSchema = safeJsonParse(
+    path.join(__dirname, '../../schemas/header-footer-agent/header.schema.json'),
+    'header.schema.json'
+);
+const footerSchema = safeJsonParse(
+    path.join(__dirname, '../../schemas/header-footer-agent/footer.schema.json'),
+    'footer.schema.json'
+);
 
 function validateConfig(config, schema, name) {
     const ajv = new Ajv();
@@ -34,5 +63,14 @@ async function main() {
     console.log('Headers and footers updated.');
 }
 
-if (require.main === module)
-    main().catch((err) => (console.error(err), process.exit(1)));
+// Run main if this module is executed directly
+if (
+    import.meta.url.startsWith('file:') &&
+    process.argv[1] &&
+    fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+) {
+    main().catch((err) => {
+        console.error(err);
+        process.exit(1);
+    });
+}

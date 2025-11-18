@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'WordPress Development Documentation'
 description: 'Comprehensive WordPress development resources for block themes, Gutenberg, coding standards, and testing'
 version: '1.0'

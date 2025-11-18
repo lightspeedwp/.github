@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'WordPress Development Guides'
 description: 'Quick reference guides and checklists for WordPress development at LightSpeed'
 version: '1.0'

@@ -1,5 +1,6 @@
 ---
-mode: 'agent'
+file_type: "chatmode"
+mode: 'instruction'
 name: 'Pattern Wizard'
 description: 'Helps authors create/iterate Block Editor patterns with a11y-by-default.'
 ---

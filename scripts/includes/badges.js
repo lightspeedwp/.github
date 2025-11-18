@@ -79,16 +79,27 @@ function generateMetadataBadges(frontMatter) {
         }
 
         // Check front matter license field
-        if (rule.when.front_matter && rule.when.front_matter.license && frontMatter) {
+        if (
+            rule.when.front_matter &&
+            rule.when.front_matter.license &&
+            frontMatter
+        ) {
             const allowedLicenses = rule.when.front_matter.license;
-            if (!frontMatter.license || !allowedLicenses.includes(frontMatter.license)) {
+            if (
+                !frontMatter.license ||
+                !allowedLicenses.includes(frontMatter.license)
+            ) {
                 conditionMet = false;
             }
         }
 
         if (conditionMet) {
             for (const badgeRef of rule.add) {
-                const badge = resolveBadge(badgeRef, schema.badges, frontMatter);
+                const badge = resolveBadge(
+                    badgeRef,
+                    schema.badges,
+                    frontMatter
+                );
                 if (badge) {
                     badges.push(badge);
                 }
@@ -126,7 +137,11 @@ function resolveBadge(badgeRef, badgeDefs, frontMatter) {
     }
 
     // Handle metadata badges
-    if (badgeRef.startsWith('meta.license') && frontMatter && frontMatter.license) {
+    if (
+        badgeRef.startsWith('meta.license') &&
+        frontMatter &&
+        frontMatter.license
+    ) {
         const license = frontMatter.license.toUpperCase();
         return `![License](https://img.shields.io/badge/license-${license}-blue.svg)`;
     }
@@ -169,11 +184,7 @@ function updateReadmeBadges(readmeFile, badges) {
  * @param {string} workflowsPath - Path to workflows directory (relative or absolute)
  * @param {object} options - Options: { backup: boolean, repo: string, branch: string, format: string, frontMatter: object }
  */
-async function updateBadgesInReadme(
-    readmePath,
-    workflowsPath,
-    options = {}
-) {
+async function updateBadgesInReadme(readmePath, workflowsPath, options = {}) {
     const {
         backup = false,
         repo = 'lightspeedwp/.github',

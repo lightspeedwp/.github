@@ -6,7 +6,8 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Spec for the Project Meta Sync Agent."
 tags: ["lightspeed","project","meta","agents"]
-type: "agent"
+file_type: "agent"
+name: "project-meta-sync"
 ---
 
 # Role

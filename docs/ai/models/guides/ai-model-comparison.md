@@ -1,8 +1,9 @@
 ---
+file_type: "documentation"
+description: "AI Model Comparison Guide"
 title: AI Model Comparison Guide
 model: general
 use_case: research
-status: ready
 version: 1.0.0
 author: LightSpeed WP Team
 last_updated: 2024-10-17

@@ -1,11 +1,12 @@
 ---
+file_type: "instructions"
 title: "Issue Creation Instructions"
 description: "How to create, structure, and use Markdown-based GitHub Issue templates in LightSpeedWP projects. Enforces automation, labeling, and governance."
 version: "1.0"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["issues", "templates", "frontmatter", "automation", "labels"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # LightSpeedWP Issue Creation Instructions

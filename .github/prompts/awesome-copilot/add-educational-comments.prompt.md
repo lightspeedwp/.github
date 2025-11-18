@@ -4,7 +4,7 @@ description: "Add helpful educational comments to code for maintainers and revie
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 tags: ["lightspeed", "copilot", "prompt", "awesome"]
-type: "prompt"
+file_type: "prompt"
 last_updated: "2025-10-23"
 ---
 

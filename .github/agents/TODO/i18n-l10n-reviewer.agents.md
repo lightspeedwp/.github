@@ -1,4 +1,5 @@
 ---
+file_type: "agent"
 name: 'Internationalisation & Localisation Reviewer'
 description: 'Ensure all user‑facing strings and interfaces are translation‑ready, context‑clear, and localisation friendly'
 tools: ['read_file', 'semantic_search', 'grep_search']

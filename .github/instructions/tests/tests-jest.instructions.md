@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Jest Test Instructions"
 description: "How to set up, configure, and write tests with Jest for JavaScript/TypeScript projects."
 version: "1.0.0"

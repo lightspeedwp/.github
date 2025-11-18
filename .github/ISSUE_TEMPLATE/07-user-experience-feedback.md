@@ -6,7 +6,7 @@ labels: [type:improve, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: improve
+file_type: improve
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

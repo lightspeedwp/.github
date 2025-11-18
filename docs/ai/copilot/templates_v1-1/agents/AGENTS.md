@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "AGENTS"
 version: "v1.0"
 last_updated: "2025-10-17"
@@ -6,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Root-level system prompt for any AI coding agent in this repo."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "agent"
+file_type: "agent"
 ---
 # Project overview
 

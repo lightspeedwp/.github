@@ -1,4 +1,5 @@
 ---
+file_type: "chatmode"
 description: 'Systematically research and validate technical spike documents through exhaustive investigation and controlled experimentation.'
 tools: ['runCommands', 'runTasks', 'edit', 'runNotebooks', 'search', 'extensions', 'usages', 'vscodeAPI', 'think', 'problems', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'todos', 'Microsoft Docs', 'search']
 ---

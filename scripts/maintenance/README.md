@@ -5,7 +5,7 @@ last_updated: "2025-01-14"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Scripts for repository maintenance, automation, and quality assurance. Enforces standards, keeps documentation up-to-date, and streamlines development tasks."
-type: "maintenance"
+file_type: "maintenance"
 status: "production"
 tags: ["maintenance", "automation", "documentation", "labels", "badges", "changelog", "testing"]
 license: "GPL-3.0"

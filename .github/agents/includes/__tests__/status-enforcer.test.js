@@ -691,10 +691,7 @@ describe('status-enforcer.js', () => {
         });
 
         test('dry-run mode for complete workflow', async () => {
-            const currentLabels = [
-                'status:needs-triage',
-                'status:in-progress',
-            ];
+            const currentLabels = ['status:needs-triage', 'status:in-progress'];
 
             await enforceOneHotLabels({
                 ...baseParams,

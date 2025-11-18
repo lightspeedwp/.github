@@ -7,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 model: GPT-4.1
 tags: ["autonomous", "elite", "multi-mode", "creative", "cognitive", "copilot", "voidbeast"]
-type: "chatmode"
+file_type: "chatmode"
 appliesTo: "**"
 references:
   - [LightSpeed](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)

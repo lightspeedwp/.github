@@ -1,4 +1,5 @@
 ---
+file_type: "agent"
 mode: 'agent'
 name: 'WordPress A11y Specialist'
 description: 'Audits and improves accessibility for blocks and patterns (WCAG 2.2 AA).'

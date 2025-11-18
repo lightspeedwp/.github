@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Guidelines for localizing markdown documents'
 applyTo: '**/*.md'
 ---

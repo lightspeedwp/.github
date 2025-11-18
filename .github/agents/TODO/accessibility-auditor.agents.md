@@ -1,4 +1,5 @@
 ---
+file_type: "agent"
 name: 'accessibility-auditor'
 description: 'WordPress accessibility specialist ensuring WCAG 2.2 AA compliance through comprehensive auditing, testing, and remediation of themes, plugins, and content'
 tools:

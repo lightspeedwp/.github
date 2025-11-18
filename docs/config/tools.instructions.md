@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Tool Configuration Documentation Template"
 description: "Standard format for documenting configuration files under docs/config"
 last_updated: "2025-11-14"
