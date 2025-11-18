@@ -5,7 +5,7 @@ version: "v1.0"
 last_updated: "2025-10-24"
 maintainer: "LightSpeed Engineering"
 tags: ["copilot", "ai", "templates", "automation", "development"]
-type: "templates"
+file_type: "templates"
 ---
 
 # 🤖 Copilot Templates Directory

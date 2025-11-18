@@ -6,7 +6,7 @@ labels: [type:performance, status:needs-triage, priority:normal, area:performanc
 assignees: []
 projects: []
 milestone: ''
-type: performance
+file_type: performance
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

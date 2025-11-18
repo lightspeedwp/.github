@@ -6,7 +6,7 @@ author: "LightSpeedWP"
 maintainer: "Ash Shaw"
 description: "Instructions for creating and validating YAML frontmatter for all LightSpeedWP documentation and code files."
 tags: ["lightspeed","frontmatter","instructions"]
-type: "instructions"
+file_type: "instructions"
 ---
 _Note: This file follows LightSpeedWP governance and metadata conventions as described in [schemas/frontmatter.schema.json](../../schemas/frontmatter.schema.json)._
 

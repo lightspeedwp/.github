@@ -6,7 +6,7 @@ last_updated: "2025-10-23"
 owners:
   - "lightspeedwp/maintainers"
 tags: ["saved replies", "instructions", "automation", "github"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # Saved Replies Usage Instructions

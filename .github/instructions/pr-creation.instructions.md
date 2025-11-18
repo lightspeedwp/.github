@@ -5,7 +5,7 @@ version: "1.1"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["pull requests", "templates", "frontmatter", "automation", "labels", "branching", "checklists"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # LightSpeedWP Pull Request (PR) Creation Instructions

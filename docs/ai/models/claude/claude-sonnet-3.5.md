@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Explainer for Claude Sonnet 3.5."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "model"
+file_type: "model"
 ---
 # Model Overview (required)
 

@@ -5,7 +5,7 @@ last_updated: "2025-10-25"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "JSON schema files for CodeRabbit AI code review configuration and overrides."
-type: "schema"
+file_type: "schema"
 status: "development"
 tags: ["schema", "coderabbit", "ai-review", "configuration", "json"]
 license: "GPL-3.0"

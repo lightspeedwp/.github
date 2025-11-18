@@ -7,7 +7,7 @@ labels: ["prompt", "pattern", "generation"]
 assignees: []
 projects: []
 milestone: ""
-type: "prompt"
+file_type: "prompt"
 mode: "agent"
 license: "GPL-3.0"
 ---

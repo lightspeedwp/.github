@@ -5,7 +5,7 @@ last_updated: "2025-01-14"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Utilities for validating JSON and YAML configuration files throughout the LightSpeedWP project. Schema validation, YAML parsing, and comprehensive configuration integrity checking."
-type: "validation"
+file_type: "validation"
 status: "production"
 tags: ["json", "yaml", "validation", "schema", "configuration", "nodejs", "coderabbit"]
 license: "GPL-3.0"
