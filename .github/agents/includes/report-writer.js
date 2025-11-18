@@ -26,9 +26,7 @@ function readTelemetryData() {
             const data = fs.readFileSync(telemetryFile, 'utf8');
             return JSON.parse(data);
         } catch (error) {
-            console.error(
-                `Failed to read telemetry data: ${error.message}`
-            );
+            console.error(`Failed to read telemetry data: ${error.message}`);
             return getDefaultTelemetry();
         }
     }

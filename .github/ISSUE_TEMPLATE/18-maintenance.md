@@ -6,7 +6,7 @@ labels: [type:chore, area:maintenance, status:needs-triage]
 assignees: []
 projects: []
 milestone: ''
-type: maintenance
+file_type: maintenance
 references:
   - CONTRIBUTING.md
   - ISSUE_TYPES.md

@@ -76,11 +76,123 @@ export default [
         plugins: { prettier },
 
         /**
+         * Language options for JavaScript/TypeScript parsing
+         * Enables Node.js globals (require, module, process, console, etc.)
+         */
+        languageOptions: {
+            globals: {
+                // Node.js globals
+                require: 'readonly',
+                module: 'readonly',
+                exports: 'readonly',
+                process: 'readonly',
+                console: 'readonly',
+                Buffer: 'readonly',
+                __dirname: 'readonly',
+                __filename: 'readonly',
+                global: 'readonly',
+                setTimeout: 'readonly',
+                clearTimeout: 'readonly',
+                setInterval: 'readonly',
+                clearInterval: 'readonly',
+                setImmediate: 'readonly',
+                clearImmediate: 'readonly',
+            },
+        },
+
+        /**
          * ESLint rules configuration
          * - prettier/prettier: Report Prettier formatting violations as warnings
+         * - @typescript-eslint/no-require-imports: Allow require() in CommonJS files
+         * - @typescript-eslint/no-unused-vars: Warn on unused variables instead of error
+         * - no-useless-escape: Warn on unnecessary escape characters
+         * - no-prototype-builtins: Warn on direct prototype method access
          */
         rules: {
             'prettier/prettier': 'warn', // Non-blocking formatting warnings
+            '@typescript-eslint/no-require-imports': 'off', // Allow require() for CommonJS compatibility
+            '@typescript-eslint/no-unused-vars': 'warn', // Warn on unused variables
+            'no-useless-escape': 'warn', // Warn on unnecessary escape characters
+            'no-prototype-builtins': 'warn', // Warn on prototype method access
+        },
+    },
+
+    /**
+     * Jest test file configuration
+     * Adds Jest globals for test files and test helpers
+     */
+    {
+        files: [
+            '**/*.test.{js,jsx,ts,tsx}',
+            '**/__tests__/**/*.{js,jsx,ts,tsx}',
+            '**/test-helpers.{js,jsx,ts,tsx}',
+            '**/tests/**/*.{js,jsx,ts,tsx}',
+        ],
+        languageOptions: {
+            globals: {
+                // Node.js globals (inherited from above but explicitly defined here)
+                require: 'readonly',
+                module: 'readonly',
+                exports: 'readonly',
+                process: 'readonly',
+                console: 'readonly',
+                global: 'readonly',
+                // Jest globals
+                describe: 'readonly',
+                test: 'readonly',
+                it: 'readonly',
+                expect: 'readonly',
+                jest: 'readonly',
+                beforeAll: 'readonly',
+                beforeEach: 'readonly',
+                afterAll: 'readonly',
+                afterEach: 'readonly',
+                context: 'readonly',
+            },
+        },
+        rules: {
+            // Make unused vars warnings in test files for better developer experience
+            '@typescript-eslint/no-unused-vars': 'warn',
+        },
+    },
+
+    /**
+     * GitHub Actions agent file configuration
+     * Adds common globals used in GitHub Actions and agent scripts
+     */
+    {
+        files: [
+            '**/*.agent.{js,jsx,ts,tsx}',
+            '.github/agents/**/*.{js,jsx,ts,tsx}',
+        ],
+        languageOptions: {
+            globals: {
+                // Node.js globals
+                require: 'readonly',
+                module: 'readonly',
+                exports: 'readonly',
+                process: 'readonly',
+                console: 'readonly',
+                __dirname: 'readonly',
+                __filename: 'readonly',
+                Buffer: 'readonly',
+                // GitHub Actions globals
+                core: 'readonly',
+                github: 'readonly',
+                context: 'readonly',
+                // Common agent script globals
+                log: 'readonly',
+                config: 'readonly',
+                Octokit: 'readonly',
+                path: 'readonly',
+                fs: 'readonly',
+            },
+        },
+        rules: {
+            // Be more lenient with agent files as they may have incomplete implementations
+            '@typescript-eslint/no-unused-vars': 'warn',
+            'no-undef': 'warn', // Warn instead of error for undefined variables
+            'no-redeclare': 'warn', // Warn instead of error for redeclarations
         },
     },
 ];

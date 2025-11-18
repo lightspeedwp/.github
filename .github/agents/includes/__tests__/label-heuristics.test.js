@@ -163,7 +163,10 @@ describe('label-heuristics.js', () => {
 
         describe('refactor detection', () => {
             test('detects refactor from keyword "refactor"', () => {
-                const item = { title: 'Refactor authentication module', body: '' };
+                const item = {
+                    title: 'Refactor authentication module',
+                    body: '',
+                };
                 const labels = suggestLabelsFromContent(item, aliasMap);
 
                 expect(labels).toContain('type:refactor');
@@ -189,7 +192,10 @@ describe('label-heuristics.js', () => {
 
         describe('priority detection', () => {
             test('detects high priority from keyword "urgent"', () => {
-                const item = { title: 'Urgent: Security patch needed', body: '' };
+                const item = {
+                    title: 'Urgent: Security patch needed',
+                    body: '',
+                };
                 const labels = suggestLabelsFromContent(item, aliasMap);
 
                 expect(labels).toContain('priority:high');
@@ -226,7 +232,10 @@ describe('label-heuristics.js', () => {
             });
 
             test('detects low priority from keyword "minor"', () => {
-                const item = { title: 'Minor UI tweak', body: 'Just a small cosmetic change' };
+                const item = {
+                    title: 'Minor UI tweak',
+                    body: 'Just a small cosmetic change',
+                };
                 const labels = suggestLabelsFromContent(item, aliasMap);
 
                 expect(labels).toContain('priority:low');
@@ -235,7 +244,10 @@ describe('label-heuristics.js', () => {
 
         describe('area detection', () => {
             test('detects security from keyword "security"', () => {
-                const item = { title: 'Security vulnerability found', body: '' };
+                const item = {
+                    title: 'Security vulnerability found',
+                    body: '',
+                };
                 const labels = suggestLabelsFromContent(item, aliasMap);
 
                 expect(labels).toContain('area:security');
@@ -262,7 +274,10 @@ describe('label-heuristics.js', () => {
             });
 
             test('detects performance from keyword "performance"', () => {
-                const item = { title: 'Performance improvement needed', body: '' };
+                const item = {
+                    title: 'Performance improvement needed',
+                    body: '',
+                };
                 const labels = suggestLabelsFromContent(item, aliasMap);
 
                 expect(labels).toContain('area:performance');

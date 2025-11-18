@@ -5,7 +5,7 @@ version: "v1.0"
 last_updated: "2025-10-24"
 maintainer: "LightSpeed Engineering"
 tags: ["vscode", "configuration", "extensions", "tasks", "ai", "development"]
-type: "configuration"
+file_type: "configuration"
 ---
 
 ## VS Code Workspace Configuration (`.vscode`)

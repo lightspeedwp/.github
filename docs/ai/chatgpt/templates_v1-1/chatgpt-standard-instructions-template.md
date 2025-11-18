@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Minimum requirements for ChatGPT instructions."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "prompt"
+file_type: "prompt"
 ---
 # Role (required)
 

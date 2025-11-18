@@ -5,7 +5,7 @@ last_updated: "2025-10-17"
 version: "v1.1"
 owners: ["LightSpeed Engineering", "Ash Shaw"]
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "prompt"
+file_type: "prompt"
 ---
 
 # Role (required)

@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Spec for the Reviewer Agent."
 tags: ["lightspeed","reviewer","agents"]
-type: "agent"
+file_type: "agent"
 ---
 
 # Role

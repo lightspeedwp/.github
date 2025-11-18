@@ -30,7 +30,7 @@ jobs:
 
       - name: Add item to project (new issues/PRs)
         id: addp
-        uses: actions/add-to-project@v1
+        uses: actions/add-to-project@v1.0.2
         with:
           project-url: ${{ env.PROJECT_URL }}
           github-token: ${{ steps.app-token.outputs.token }}

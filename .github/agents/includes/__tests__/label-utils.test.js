@@ -10,10 +10,7 @@
  * ============================================================================
  */
 
-const {
-    labelsToMarkdownTable,
-    diffLabels,
-} = require('../label-utils');
+const { labelsToMarkdownTable, diffLabels } = require('../label-utils');
 
 describe('label-utils.js', () => {
     describe('labelsToMarkdownTable', () => {
@@ -73,7 +70,9 @@ describe('label-utils.js', () => {
         });
 
         test('handles very long label names', () => {
-            const labels = ['this-is-a-very-long-label-name-that-exceeds-normal-length'];
+            const labels = [
+                'this-is-a-very-long-label-name-that-exceeds-normal-length',
+            ];
             const result = labelsToMarkdownTable(labels);
 
             expect(result).toContain(
@@ -193,7 +192,12 @@ describe('label-utils.js', () => {
 
         test('identifies multiple missing labels', () => {
             const current = ['bug'];
-            const canonical = ['bug', 'enhancement', 'documentation', 'refactor'];
+            const canonical = [
+                'bug',
+                'enhancement',
+                'documentation',
+                'refactor',
+            ];
             const result = diffLabels(current, canonical);
 
             expect(result.missing).toEqual([
@@ -210,7 +214,11 @@ describe('label-utils.js', () => {
             const result = diffLabels(current, canonical);
 
             expect(result.missing).toEqual([]);
-            expect(result.extra).toEqual(['invalid-1', 'invalid-2', 'invalid-3']);
+            expect(result.extra).toEqual([
+                'invalid-1',
+                'invalid-2',
+                'invalid-3',
+            ]);
         });
 
         test('handles duplicate labels in current', () => {
@@ -353,8 +361,14 @@ describe('label-utils.js', () => {
 
     describe('edge cases and error handling', () => {
         test('handles very large arrays efficiently', () => {
-            const current = Array.from({ length: 1000 }, (_, i) => `label-${i}`);
-            const canonical = Array.from({ length: 1000 }, (_, i) => `label-${i + 500}`);
+            const current = Array.from(
+                { length: 1000 },
+                (_, i) => `label-${i}`
+            );
+            const canonical = Array.from(
+                { length: 1000 },
+                (_, i) => `label-${i + 500}`
+            );
 
             const start = Date.now();
             const diff = diffLabels(current, canonical);

@@ -6,7 +6,7 @@ labels: [type:audit, status:needs-audit, priority:normal, area:security]
 assignees: []
 projects: []
 milestone: ''
-type: audit
+file_type: audit
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

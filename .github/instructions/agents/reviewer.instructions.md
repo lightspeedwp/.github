@@ -5,7 +5,7 @@ version: "v1.0"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["agents", "reviewer", "instructions", "pr", "automation"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # Reviewer Agent Instructions

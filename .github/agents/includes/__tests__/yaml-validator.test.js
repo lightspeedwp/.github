@@ -246,7 +246,9 @@ describe('yaml-validator.js', () => {
 
             expect(result.valid).toBe(false);
             expect(result.errors).toContainEqual(
-                expect.stringContaining("Missing required property 'issue_types'")
+                expect.stringContaining(
+                    "Missing required property 'issue_types'"
+                )
             );
         });
 

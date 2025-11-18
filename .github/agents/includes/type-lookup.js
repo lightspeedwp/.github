@@ -12,9 +12,8 @@ const yaml = require('js-yaml');
  * @returns {Array<Object>} Array of issue type definitions.
  */
 function loadIssueTypes(issueTypesYmlPath = '.github/issue-types.yml') {
-  const yml = fs.readFileSync(issueTypesYmlPath, 'utf8');
-  return yaml.load(yml).issue_types || [];
+    const yml = fs.readFileSync(issueTypesYmlPath, 'utf8');
+    return yaml.load(yml).issue_types || [];
 }
 
-/**
- * Finds the canonical issue type by name or alias.
+module.exports = { loadIssueTypes };

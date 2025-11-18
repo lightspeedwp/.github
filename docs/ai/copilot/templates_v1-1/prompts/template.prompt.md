@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Generic prompt template referencing instructions."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "prompt"
+file_type: "prompt"
 ---
 # Purpose
 
