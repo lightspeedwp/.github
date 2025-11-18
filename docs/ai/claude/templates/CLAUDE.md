@@ -7,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Root-level guidance for Claude Code/agents."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "agent"
+file_type: "agent"
 ---
 # Role (required)
 

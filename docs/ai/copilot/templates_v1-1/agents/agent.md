@@ -7,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Directory index referencing all agents and instructions."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "agent"
+file_type: "agent"
 ---
 # Purpose
 

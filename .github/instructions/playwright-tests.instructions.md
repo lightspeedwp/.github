@@ -6,7 +6,7 @@ title: "Playwr  - documentation
 version: "1.0.0"
 permalink: "/instructions/playwright-tests"
 license: "GPL-3.0"
-type: "instructions"
+file_type: "instructions"
 mode: "agent"
 author: "LightSpeedWP Team"
 contributors:

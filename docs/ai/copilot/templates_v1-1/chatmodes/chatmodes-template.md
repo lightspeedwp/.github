@@ -7,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Master file that lists all chat modes."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "chatmode"
+file_type: "chatmode"
 ---
 # Role (required)
 

@@ -51,10 +51,7 @@ function getFooterPhrases(category = 'default') {
     }
 
     // Fall back to default category
-    if (
-        config.categories.default &&
-        config.categories.default.phrases
-    ) {
+    if (config.categories.default && config.categories.default.phrases) {
         return config.categories.default.phrases;
     }
 
@@ -123,7 +120,7 @@ const FOOTER_PATTERNS = [
     'Update when[\\s\\S]*?',
     'Link policies[\\s\\S]*?',
     'Thanks for helping[\\s\\S]*?',
-    'Need help\\?[\\s\\S]*?'
+    'Need help\\?[\\s\\S]*?',
 ];
 
 /**

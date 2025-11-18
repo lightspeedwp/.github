@@ -6,7 +6,7 @@ version: "v1.0"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["agents", "planner", "instructions", "checklist", "automation"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # Planner Agent Instructions

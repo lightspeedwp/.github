@@ -10,7 +10,7 @@
  * ============================================================================
  */
 
-const core = require('@actions/core');
+import core from '@actions/core';
 
 /**
  * Enforce exactly one label per category (status:*, priority:*, type:*).
@@ -230,7 +230,7 @@ async function applyDefaultPriority({
     }
 }
 
-module.exports = {
+export {
     enforceOneHotStatus,
     applyDefaultStatus,
     applyDefaultPriority,

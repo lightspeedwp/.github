@@ -6,7 +6,7 @@ version: '1.0'
 last_updated: '2025-11-12'
 author: 'LightSpeed'
 tags: ['aiops', 'migration', 'llm', 'agents', 'process']
-type: 'playbook'
+file_type: 'playbook'
 ---
 
 # Model Migration Playbook

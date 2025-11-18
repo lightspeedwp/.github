@@ -7,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Use this for new single chat modes."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "chatmode"
+file_type: "chatmode"
 ---
 # Role (required)
 

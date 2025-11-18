@@ -10,10 +10,7 @@
  * ============================================================================
  */
 
-const {
-    fetchLabelerRules,
-    applyLabelerRules,
-} = require('../labeler-utils');
+const { fetchLabelerRules, applyLabelerRules } = require('../labeler-utils');
 
 describe('labeler-utils.js', () => {
     describe('fetchLabelerRules', () => {
@@ -29,7 +26,8 @@ type:bug:
                     repos: {
                         getContent: jest.fn().mockResolvedValue({
                             data: {
-                                content: Buffer.from(mockYaml).toString('base64'),
+                                content:
+                                    Buffer.from(mockYaml).toString('base64'),
                             },
                         }),
                     },
@@ -96,9 +94,10 @@ type:bug:
                     repos: {
                         getContent: jest.fn().mockResolvedValue({
                             data: {
-                                content: Buffer.from('invalid: yaml: [').toString(
-                                    'base64'
-                                ),
+                                content:
+                                    Buffer.from('invalid: yaml: [').toString(
+                                        'base64'
+                                    ),
                             },
                         }),
                     },
@@ -254,7 +253,7 @@ type:bug:
 
             test('handles wildcard patterns in branch names', () => {
                 const rules = {
-                    'release': {
+                    release: {
                         'head-branch': ['release/.*'],
                     },
                 };
@@ -429,14 +428,14 @@ type:bug:
                 const labels = applyLabelerRules(rules, changedFiles, branch);
 
                 // Should only appear once despite multiple matches
-                expect(labels.filter((l) => l === 'duplicate-label')).toHaveLength(
-                    1
-                );
+                expect(
+                    labels.filter((l) => l === 'duplicate-label')
+                ).toHaveLength(1);
             });
 
             test('handles special characters in file paths', () => {
                 const rules = {
-                    'special': {
+                    special: {
                         'changed-files': {
                             'any-glob-to-any-file': ['path-with-dashes/**/*'],
                         },
@@ -452,7 +451,7 @@ type:bug:
 
             test('handles very long file paths', () => {
                 const rules = {
-                    'deep': {
+                    deep: {
                         'changed-files': {
                             'any-glob-to-any-file': ['**/*.js'],
                         },

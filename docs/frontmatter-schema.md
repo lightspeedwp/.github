@@ -7,7 +7,7 @@ author: "LightSpeedWP"
 maintainer: "Ash Shaw"
 description: "Documentation and governance for the LightSpeedWP Markdown/JSON frontmatter schema."
 tags: ["lightspeed","schema","frontmatter","governance"]
-type: "spec"
+file_type: "spec"
 ---
 
 ## Frontmatter Schema Specification
