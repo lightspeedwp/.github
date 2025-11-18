@@ -10,7 +10,6 @@
 
 const { getOctokit } = require('@actions/github'); // if running in Actions context
 const core = require('@actions/core'); // to get inputs/secrets
-const fetch = require('node-fetch'); // if needed for GraphQL queries (Octokit also supports GraphQL)
 
 async function run() {
     try {
