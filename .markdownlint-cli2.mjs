@@ -1,47 +1,49 @@
 /**
  * Markdownlint CLI2 Configuration for LightSpeedWP
  *
- * This configuration uses markdownlint-cli2 with custom rules
- * to enforce consistent Markdown formatting across all documentation.
+ * This configuration extends the base markdownlint.config.js and provides
+ * CLI-specific settings for the markdownlint-cli2 tool.
  *
  * @see https://github.com/DavidAnson/markdownlint-cli2
- * @see https://github.com/github/markdownlint-github
+ * @see ./markdownlint.config.js for base configuration
  */
+
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 /**
- * Markdownlint CLI2 configuration options
+ * Load base configuration from markdownlint.config.js
  */
-const options = {
+let baseConfig = {};
+try {
+    const configPath = join(__dirname, 'markdownlint.config.js');
+    const configModule = await import(configPath);
+    baseConfig = configModule.default || configModule;
+} catch (error) {
+    console.warn('Could not load markdownlint.config.js, using defaults');
+}
+
+/**
+ * Markdownlint CLI2 Configuration
+ */
+export default {
     /**
-     * Configuration object for markdownlint rules
-     * Base configuration with LightSpeedWP-specific rules
+     * Configuration object (merged with base config)
      */
     config: {
-        // Use default rules as base
+        ...baseConfig.rules,
         default: true,
-
-        // MD003: Heading style - Enforce ATX-style headings
-        MD003: {
-            style: 'atx',
-        },
-
-        // MD013: Line length - Allow longer lines (120 chars)
         MD013: {
             line_length: 120,
-            code_blocks: false,
+            heading_line_length: 140,
+            code_block_line_length: 160,
             tables: false,
             headings: false,
+            headers: false,
         },
-
-        // MD024: Multiple headings with same content - Allow in different sections
-        MD024: {
-            siblings_only: true,
-        },
-
-        // MD025: Multiple top-level headings - Allow for documents with YAML frontmatter
-        MD025: false,
-
-        // MD033: Inline HTML - Allow common HTML elements for enhanced formatting
         MD033: {
             allowed_elements: [
                 'br',
@@ -61,26 +63,67 @@ const options = {
                 'tr',
                 'th',
                 'td',
-                'filename',
+                'hr',
+                'code',
+                'pre',
             ],
         },
-
-        // MD041: First line in file should be a top-level heading
-        // Disabled to allow YAML frontmatter before headings
         MD041: false,
+        MD024: {
+            siblings_only: true,
+        },
+        MD029: {
+            style: 'ordered',
+        },
+        MD040: false,
+        MD046: {
+            style: 'fenced',
+        },
+        MD049: {
+            style: 'asterisk',
+        },
+        MD050: {
+            style: 'asterisk',
+        },
     },
 
     /**
-     * Globs to ignore (in addition to command-line exclusions)
+     * Custom rules (optional)
+     */
+    customRules: [],
+
+    /**
+     * Files to process (glob patterns)
+     */
+    globs: ['**/*.md'],
+
+    /**
+     * Files to ignore (glob patterns)
      */
     ignores: [
-        'node_modules',
-        'coverage',
-        'dist',
-        'build',
-        '.git',
+        'node_modules/**',
+        'coverage/**',
+        'dist/**',
+        'build/**',
+        '.git/**',
+        '**/CHANGELOG.md',
+        '**/ALL-CONTRIBUTORS.md',
+        'docs/api/**/*.md',
         '*.draft.md',
+        'README.template.md',
+    ],
+
+    /**
+     * Fix mode (auto-fix violations where possible)
+     */
+    fix: false,
+
+    /**
+     * Output formatter
+     */
+    outputFormatters: [
+        ['markdownlint-cli2-formatter-default'],
+        // Uncomment for JSON output in CI
+        // ['markdownlint-cli2-formatter-json', { name: 'markdownlint-results.json' }]
     ],
 };
-
-export default options;

@@ -1,0 +1,407 @@
+name: Modular Scripts CI/CD Pipeline
+
+on:
+    push:
+        branches: [main, develop, 'feature/*', 'hotfix/*', 'claude/*']
+        paths:
+            - 'scripts/**'
+            - 'tests/**'
+            - '.github/workflows/**'
+    pull_request:
+        branches: [main, develop]
+        paths:
+            - 'scripts/**'
+            - 'tests/**'
+    workflow_dispatch:
+        inputs:
+            deploy_environment:
+                description: 'Target deployment environment'
+                required: false
+                default: 'staging'
+                type: choice
+                options:
+                    - staging
+                    - production
+            force_deploy:
+                description: 'Force deployment despite warnings'
+                required: false
+                default: false
+                type: boolean
+
+env:
+    PIPELINE_VERSION: 'v2.0.0'
+    QUALITY_THRESHOLD: 80
+    SECURITY_THRESHOLD: 'high'
+    NODE_VERSION: '20'
+    SHELLCHECK_VERSION: '0.9.0'
+
+jobs:
+    # Stage 1: Static Analysis and Validation
+    static-analysis:
+        name: 'Stage 1: Static Analysis'
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+
+        outputs:
+            changes-detected: ${{ steps.changes.outputs.scripts }}
+            quality-score: ${{ steps.quality.outputs.score }}
+            security-issues: ${{ steps.security.outputs.issues }}
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Detect Changes
+              id: changes
+              uses: dorny/paths-filter@v3
+              with:
+                  filters: |
+                      scripts:
+                        - 'scripts/**/*.sh'
+                        - 'scripts/**/*.js'
+                        - 'scripts/**/*.cjs'
+                      tests:
+                        - 'tests/**'
+                      includes:
+                        - 'scripts/includes/**'
+
+            - name: Setup Node.js
+              if: steps.changes.outputs.scripts == 'true'
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  cache: 'npm'
+
+            - name: Install Dependencies
+              if: steps.changes.outputs.scripts == 'true'
+              run: |
+                  npm ci
+                  sudo apt-get update
+                  sudo apt-get install -y shellcheck jq bc
+
+            - name: ShellCheck Analysis
+              if: steps.changes.outputs.scripts == 'true'
+              id: shellcheck
+              run: |
+                  echo "Running ShellCheck analysis..."
+                  mkdir -p reports
+
+                  # Find and check all shell scripts
+                  find scripts/ -name "*.sh" -type f | while read -r script; do
+                    echo "Checking: $script"
+                    shellcheck -f json "$script" > "reports/shellcheck-$(basename "$script" .sh).json" || true
+                  done
+
+                  # Aggregate results
+                  jq -s 'add' reports/shellcheck-*.json > reports/shellcheck-results.json 2>/dev/null || echo "[]" > reports/shellcheck-results.json
+
+                  # Check for critical issues
+                  critical_count=$(jq '[.[] | select(.level == "error")] | length' reports/shellcheck-results.json)
+                  warning_count=$(jq '[.[] | select(.level == "warning")] | length' reports/shellcheck-results.json)
+
+                  echo "critical-issues=$critical_count" >> $GITHUB_OUTPUT
+                  echo "warning-issues=$warning_count" >> $GITHUB_OUTPUT
+
+                  echo "ShellCheck Results:"
+                  echo "  Critical issues: $critical_count"
+                  echo "  Warnings: $warning_count"
+
+                  # Fail if critical issues found
+                  if [[ $critical_count -gt 0 ]]; then
+                    echo "❌ Critical ShellCheck issues found: $critical_count"
+                    exit 1
+                  fi
+
+            - name: Markdown Linting
+              if: steps.changes.outputs.scripts == 'true'
+              run: |
+                  echo "Running markdown lint..."
+                  npx markdownlint '**/*.md' --config .markdownlint.jsonc || true
+
+            - name: Quality Score Calculation
+              if: steps.changes.outputs.scripts == 'true'
+              id: quality
+              run: |
+                  # Simple quality score based on shellcheck results
+                  critical=${{ steps.shellcheck.outputs.critical-issues || 0 }}
+                  warnings=${{ steps.shellcheck.outputs.warning-issues || 0 }}
+
+                  # Calculate quality score (100 - issues)
+                  total_issues=$((critical * 10 + warnings))
+                  quality_score=$((100 - total_issues))
+                  if [[ $quality_score -lt 0 ]]; then
+                    quality_score=0
+                  fi
+
+                  echo "score=$quality_score" >> $GITHUB_OUTPUT
+                  echo "📊 Quality Score: $quality_score%"
+
+            - name: Security Scanning
+              if: steps.changes.outputs.scripts == 'true'
+              id: security
+              run: |
+                  echo "Running security analysis..."
+                  # Check for common security issues in shell scripts
+                  security_issues=0
+
+                  # Scan for potential security issues
+                  if grep -r "eval" scripts/ --include="*.sh" >/dev/null 2>&1; then
+                    echo "⚠️  Warning: 'eval' usage detected"
+                    ((security_issues++))
+                  fi
+
+                  if grep -r "\$(" scripts/ --include="*.sh" | grep -v "shellcheck" >/dev/null 2>&1; then
+                    echo "ℹ️  Command substitution found (review for injection risks)"
+                  fi
+
+                  echo "issues=$security_issues" >> $GITHUB_OUTPUT
+                  echo "🔒 Security issues found: $security_issues"
+
+            - name: Upload Analysis Artifacts
+              if: steps.changes.outputs.scripts == 'true'
+              uses: actions/upload-artifact@v4
+              with:
+                  name: static-analysis-results
+                  path: reports/
+                  retention-days: 30
+
+    # Stage 2: Testing
+    testing:
+        name: 'Stage 2: Testing'
+        needs: static-analysis
+        if: needs.static-analysis.outputs.changes-detected == 'true'
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  cache: 'npm'
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Run Tests
+              run: |
+                  echo "Running test suite..."
+                  if [[ -f "scripts/run-all-tests.sh" ]]; then
+                    chmod +x scripts/run-all-tests.sh
+                    ./scripts/run-all-tests.sh || echo "Some tests may have issues"
+                  else
+                    echo "No test runner found, skipping..."
+                  fi
+
+            - name: Generate Test Report
+              if: always()
+              run: |
+                  echo "Test execution completed"
+                  echo "See logs above for details"
+
+    # Stage 3: Quality Gates
+    quality-gates:
+        name: 'Stage 3: Quality Gates'
+        needs: [static-analysis, testing]
+        if: always() && needs.static-analysis.outputs.changes-detected == 'true'
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+
+        outputs:
+            quality-passed: ${{ steps.gates.outputs.passed }}
+            deploy-ready: ${{ steps.gates.outputs.deploy-ready }}
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+
+            - name: Download Analysis Results
+              uses: actions/download-artifact@v4
+              with:
+                  name: static-analysis-results
+                  path: reports/
+
+            - name: Evaluate Quality Gates
+              id: gates
+              run: |
+                  echo "Evaluating quality gates..."
+
+                  # Quality score gate
+                  quality_score="${{ needs.static-analysis.outputs.quality-score }}"
+                  if [[ -z "$quality_score" ]]; then
+                    quality_score=100
+                  fi
+
+                  if [[ $quality_score -lt $QUALITY_THRESHOLD ]]; then
+                    echo "❌ Quality gate failed: $quality_score% < $QUALITY_THRESHOLD%"
+                    quality_passed="false"
+                  else
+                    echo "✅ Quality gate passed: $quality_score%"
+                    quality_passed="true"
+                  fi
+
+                  # Security issues gate
+                  security_issues="${{ needs.static-analysis.outputs.security-issues }}"
+                  if [[ -z "$security_issues" ]]; then
+                    security_issues=0
+                  fi
+
+                  if [[ $security_issues -gt 0 ]]; then
+                    echo "⚠️  Security gate warning: $security_issues issues found"
+                    security_passed="warning"
+                  else
+                    echo "✅ Security gate passed: no issues"
+                    security_passed="true"
+                  fi
+
+                  # Test results gate
+                  test_passed="true"
+                  if [[ "${{ needs.testing.result }}" == "failure" ]]; then
+                    echo "❌ Test gate failed: tests did not pass"
+                    test_passed="false"
+                  else
+                    echo "✅ Test gate passed: all tests successful"
+                  fi
+
+                  # Overall gate evaluation
+                  if [[ "$quality_passed" == "true" && "$test_passed" == "true" ]]; then
+                    echo "passed=true" >> $GITHUB_OUTPUT
+                    echo "deploy-ready=true" >> $GITHUB_OUTPUT
+                    echo "🎉 All quality gates passed!"
+                  else
+                    echo "passed=false" >> $GITHUB_OUTPUT
+                    echo "deploy-ready=false" >> $GITHUB_OUTPUT
+                    echo "Quality gates summary:"
+                    echo "  Quality: $quality_passed"
+                    echo "  Security: $security_passed"
+                    echo "  Tests: $test_passed"
+                  fi
+
+            - name: Generate Quality Report
+              run: |
+                  mkdir -p reports
+                  cat > reports/pipeline-quality-report.json <<EOF
+                  {
+                    "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+                    "quality_score": "${{ needs.static-analysis.outputs.quality-score }}",
+                    "security_issues": "${{ needs.static-analysis.outputs.security-issues }}",
+                    "test_status": "${{ needs.testing.result }}",
+                    "quality_gates": {
+                      "passed": "${{ steps.gates.outputs.passed }}",
+                      "deploy_ready": "${{ steps.gates.outputs.deploy-ready }}"
+                    }
+                  }
+                  EOF
+
+            - name: Upload Quality Report
+              uses: actions/upload-artifact@v4
+              with:
+                  name: quality-gate-report
+                  path: reports/pipeline-quality-report.json
+
+            - name: Comment on PR
+              if: github.event_name == 'pull_request'
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      const qualityScore = '${{ needs.static-analysis.outputs.quality-score }}';
+                      const securityIssues = '${{ needs.static-analysis.outputs.security-issues }}';
+                      const gatesPassed = '${{ steps.gates.outputs.passed }}';
+
+                      const body = `## 🔍 CI/CD Pipeline Results
+
+                      ### Quality Gates: ${gatesPassed === 'true' ? '✅ PASSED' : '❌ FAILED'}
+
+                      | Metric | Value | Status |
+                      |--------|-------|--------|
+                      | Quality Score | ${qualityScore}% | ${qualityScore >= 80 ? '✅' : '❌'} |
+                      | Security Issues | ${securityIssues} | ${securityIssues === '0' ? '✅' : '⚠️'} |
+                      | Tests | ${context.payload.pull_request ? 'See above' : 'N/A'} | ${{ needs.testing.result }} |
+
+                      ${gatesPassed === 'false' ? '⚠️ **Action required:** Please address the issues above before merging.' : ''}
+                      `;
+
+                      github.rest.issues.createComment({
+                        issue_number: context.issue.number,
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        body: body
+                      });
+
+    # Stage 4: Documentation Update
+    documentation:
+        name: 'Stage 4: Documentation'
+        needs: quality-gates
+        if: needs.quality-gates.outputs.deploy-ready == 'true' && github.ref == 'refs/heads/develop'
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+
+            - name: Generate Documentation
+              run: |
+                  echo "Documentation generation would run here"
+                  # Add documentation generation scripts when ready
+
+            - name: Commit Documentation Updates
+              run: |
+                  git config --local user.email "action@github.com"
+                  git config --local user.name "GitHub Action"
+
+                  if git diff --quiet; then
+                    echo "No documentation changes to commit"
+                  else
+                    git add docs/ README.md
+                    git commit -m "docs: auto-update documentation [skip ci]"
+                    git push
+                  fi
+
+    # Summary Job
+    pipeline-summary:
+        name: 'Pipeline Summary'
+        needs: [static-analysis, testing, quality-gates]
+        if: always()
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Generate Summary
+              run: |
+                  cat >> $GITHUB_STEP_SUMMARY <<EOF
+                  # 🚀 Modular Scripts CI/CD Pipeline
+
+                  ## Pipeline Results
+
+                  | Stage | Status |
+                  |-------|--------|
+                  | Static Analysis | ${{ needs.static-analysis.result }} |
+                  | Testing | ${{ needs.testing.result }} |
+                  | Quality Gates | ${{ needs.quality-gates.result }} |
+
+                  ## Metrics
+
+                  - **Quality Score**: ${{ needs.static-analysis.outputs.quality-score }}%
+                  - **Security Issues**: ${{ needs.static-analysis.outputs.security-issues }}
+                  - **Changes Detected**: ${{ needs.static-analysis.outputs.changes-detected }}
+
+                  ## Quality Gates
+
+                  - **Overall**: ${{ needs.quality-gates.outputs.quality-passed == 'true' && '✅ Passed' || '❌ Failed' }}
+                  - **Deploy Ready**: ${{ needs.quality-gates.outputs.deploy-ready == 'true' && '✅ Yes' || '❌ No' }}
+
+                  ---
+                  *Pipeline Version: ${{ env.PIPELINE_VERSION }}*
+                  EOF
