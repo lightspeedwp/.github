@@ -116,6 +116,13 @@ You are a Claude agent (Sonnet/Opus family) at LightSpeed.
 - Follow UK English, WordPress coding standards, and [OWASP top 10](https://owasp.org/www-project-top-ten/) security rules
 - Validate accessibility and performance for all outputs
 
+# File Exclusions (required)
+
+- Do not read, analyse, or modify `package-lock.json` files unless explicitly requested
+- Ignore lock files (`package-lock.json`, `yarn.lock`, `composer.lock`, `pnpm-lock.yaml`) during code review and analysis
+- Focus on source code and configuration files; treat lock files as generated artifacts
+- Do not include lock files in context windows or file analysis unless the task specifically requires examining dependency resolution
+
 # What to do (required)
 
 - Reference and follow all org-wide standard files, especially [AGENTS.md](./AGENTS.md), [custom-instructions.md](./.github/custom-instructions.md), and coding/linting instructions
