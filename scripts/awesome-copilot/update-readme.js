@@ -97,7 +97,7 @@ function extractTitle(filePath) {
                     if (!inFrontmatter) {
                         inFrontmatter = true;
                         hasFrontmatter = true;
-                    } else if (!frontmatterEnded) {
+                    } else {
                         frontmatterEnded = true;
                         break;
                     }
