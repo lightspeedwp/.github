@@ -85,7 +85,7 @@ jobs:
             - name: Run labeling agent
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                DRY_RUN: ${{ inputs.dry_run || 'true' }}
+                DRY_RUN: ${{ inputs.dry_run || 'false' }}
               run: node .github/agents/labeling.agent.js
 
             - name: Generate report

@@ -344,7 +344,10 @@ jobs:
               with:
                   pattern: '*-results*'
                   merge-multiple: true
-              continue-on-error: true
+                  continue-on-error: true
+              
+            - name: static-analysis-results
+              path: reports/
 
             - name: Evaluate Quality Gates
               id: gates

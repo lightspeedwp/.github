@@ -21,6 +21,7 @@ This directory contains all GitHub Actions workflows that power LightSpeed's rep
 > - ✅ All workflows have explicit permissions declarations
 > - ✅ Branch strategy aligned with develop → main model
 > - ✅ Deprecated workflows archived
+> - ✅ New modular scripts CI/CD pipeline added (2025-11-18)
 
 ### Core Agent-Driven Workflows (8)
 
@@ -35,11 +36,12 @@ This directory contains all GitHub Actions workflows that power LightSpeed's rep
 | **[header-footer.yml](./header-footer.yml)** | File changes to documentation | [`header-footer.agent.js`](../agents/header-footer.agent.js) | Documentation header/footer consistency | ⚠️ Deprecated (use branding.yml) |
 | **[release.yml](./release.yml)** | Tags, `workflow_dispatch` | [`release.agent.js`](../agents/release.agent.js) | Automated release processes and changelog generation | ✅ Active |
 
-### Quality & Validation Workflows (7)
+### Quality & Validation Workflows (8)
 
 | Workflow | Triggers | Purpose | Status |
 |----------|----------|---------|--------|
 | **[quality-gates.yml](./quality-gates.yml)** | `pull_request` to `develop`, `workflow_dispatch` | Comprehensive quality validation before merge | ✅ Active |
+| **[modular-scripts-pipeline.yml](./modular-scripts-pipeline.yml)** | `push`, `pull_request`, script changes, `workflow_dispatch` | Multi-stage CI/CD pipeline for modular shell scripts with quality gates, security scanning, and deployment automation | ✅ Active |
 | **[lint.yml](./lint.yml)** | `push`, `pull_request` to `develop` | Code quality enforcement and linting | ✅ Active |
 | **[ci.yml](./ci.yml)** | `push`, `pull_request` to `develop` | Continuous integration checks | ✅ Active |
 | **[jest-test-audit.yml](./jest-test-audit.yml)** | `push`, `pull_request`, `workflow_dispatch` | Jest test coverage audit | ✅ Active |
@@ -98,6 +100,50 @@ These workflows directly execute agents from the [`../agents/`](../agents/) dire
 - `metrics.yml` - Repository analytics
 - `project-meta-sync.yml` - Cross-repository consistency
 - `all-contributors-update.yml` - Community recognition
+
+### 🚀 Modular Scripts CI/CD Pipeline
+
+The **[modular-scripts-pipeline.yml](./modular-scripts-pipeline.yml)** workflow provides comprehensive continuous integration and deployment for shell scripts and modular components.
+
+#### Pipeline Stages
+
+1. **Static Analysis** - ShellCheck validation, markdown linting, quality score calculation
+2. **Testing** - Automated test execution and coverage reporting
+3. **Quality Gates** - Threshold-based quality and security validation
+4. **Documentation** - Automatic documentation updates
+5. **Pipeline Summary** - Comprehensive reporting and metrics
+
+#### Key Features
+
+- **Multi-stage validation**: Progressive quality checks with fail-fast behaviour
+- **Quality scoring**: Automated calculation of code quality metrics
+- **Security scanning**: Detection of common security issues in shell scripts
+- **PR commenting**: Automatic quality reports on pull requests
+- **Deployment readiness**: Validation before deployment to staging/production
+- **Configurable thresholds**: Quality gates with environment-specific thresholds
+
+#### Supporting Scripts
+
+- **[calculate-quality-score.sh](../../scripts/maintenance/calculate-quality-score.sh)** - Quality metrics calculation
+- **[deploy-to-staging.sh](../../scripts/deployment/deploy-to-staging.sh)** - Staging deployment automation
+- **[automated-rollback.sh](../../scripts/deployment/automated-rollback.sh)** - Rollback for failed deployments
+
+#### Environment Variables
+
+- `QUALITY_THRESHOLD`: Minimum quality score required (default: 80)
+- `SECURITY_THRESHOLD`: Security severity threshold (default: high)
+- `NODE_VERSION`: Node.js version for CI (default: 20)
+- `SHELLCHECK_VERSION`: ShellCheck version (default: 0.9.0)
+
+#### Quality Metrics
+
+The pipeline calculates composite quality scores based on:
+
+- **Code quality** (25%): ShellCheck compliance
+- **Test coverage** (30%): Unit and integration test coverage
+- **Documentation** (20%): Documentation completeness
+- **Security** (15%): Security scan results
+- **Performance** (10%): Performance benchmarks
 
 ## 🎯 Trigger Events
 

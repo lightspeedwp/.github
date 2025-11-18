@@ -1,33 +1,23 @@
 {
-    // Markdownlint JSONC Configuration
-    // Configuration for markdownlint-cli2
-    // Use this file for easy rule adjustments
+    // Markdownlint JSONC Configuration for LightSpeedWP
+    // This configuration is used by the quality-gates workflow and IDE integrations
+    // See markdownlint.config.js for the comprehensive configuration
 
     // Use default rules as base
     "default": true,
 
-    // MD003: Heading style - Enforce ATX-style headings (# Heading)
-    "MD003": {
-        "style": "atx"
-    },
-
-    // MD013: Line length - Set to 120 characters
+    // Rule customizations
+    // MD013 - Line length limit
     "MD013": {
         "line_length": 120,
-        "code_blocks": false,
+        "heading_line_length": 140,
+        "code_block_line_length": 160,
         "tables": false,
-        "headings": false
+        "headings": false,
+        "headers": false
     },
 
-    // MD024: Multiple headings with same content - Allow in different sections
-    "MD024": {
-        "siblings_only": true
-    },
-
-    // MD025: Multiple top-level headings - Disable for YAML frontmatter
-    "MD025": false,
-
-    // MD033: Inline HTML - Allow common HTML elements
+    // MD033 - Inline HTML (allowed for enhanced formatting)
     "MD033": {
         "allowed_elements": [
             "br",
@@ -47,11 +37,41 @@
             "tr",
             "th",
             "td",
-            "filename"
+            "hr",
+            "code",
+            "pre"
         ]
     },
 
-    // MD041: First line in file should be a top-level heading
-    // Disabled to allow YAML frontmatter
-    "MD041": false
+    // MD041 - First line in file should be a top-level heading
+    // Disabled to allow frontmatter
+    "MD041": false,
+
+    // MD024 - Multiple headings with the same content
+    "MD024": {
+        "siblings_only": true
+    },
+
+    // MD029 - Ordered list item prefix
+    "MD029": {
+        "style": "ordered"
+    },
+
+    // MD040 - Fenced code blocks should have a language specified
+    "MD040": false,
+
+    // MD046 - Code block style (prefer fenced)
+    "MD046": {
+        "style": "fenced"
+    },
+
+    // MD049 - Emphasis style (use asterisks)
+    "MD049": {
+        "style": "asterisk"
+    },
+
+    // MD050 - Strong style (use asterisks)
+    "MD050": {
+        "style": "asterisk"
+    }
 }

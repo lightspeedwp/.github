@@ -1,16 +1,33 @@
-# Deployment Scripts
+---
+title: 'Deployment Automation Scripts'
+version: 'v1.0.0'
+last_updated: '2025-11-18'
+author: 'LightSpeed'
+maintainer: 'Ash Shaw'
+description: 'Automated deployment and rollback scripts for modular shell script components.'
+tags: ['deployment', 'automation', 'ci-cd', 'staging', 'production', 'rollback']
+type: 'documentation'
+---
 
-Automated deployment scripts for modular shell script infrastructure.
+# Deployment Automation Scripts
 
-## Overview
+This directory contains automated deployment and rollback scripts for managing modular shell script components across different environments.
 
-This directory contains scripts for deploying and rolling back modular shell scripts across different environments.
+## 📋 Overview
 
-## Scripts
+The deployment automation system provides:
 
-### `deploy-to-staging.sh`
+- **Automated deployments** to staging and production environments
+- **Quality validation** before deployment
+- **Backup and rollback** capabilities
+- **Deployment registry** tracking
+- **Health check validation** post-deployment
 
-Deploys modular shell scripts to staging environment with validation and backup.
+## 🚀 Available Scripts
+
+### deploy-to-staging.sh
+
+Automated deployment script for staging environment.
 
 **Usage:**
 
