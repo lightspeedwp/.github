@@ -6,7 +6,7 @@ labels: [type:design, status:needs-design-review, priority:normal, area:design-s
 assignees: []
 projects: []
 milestone: ''
-type: design
+file_type: design
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

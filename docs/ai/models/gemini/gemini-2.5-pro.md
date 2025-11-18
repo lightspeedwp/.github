@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Gemini 2.5 Pro"
 version: "v1.0"
 last_updated: "2025-10-17"
@@ -6,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Explainer for Gemini 2.5 Pro."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "model"
+file_type: "model"
 ---
 # Model Overview (required)
 

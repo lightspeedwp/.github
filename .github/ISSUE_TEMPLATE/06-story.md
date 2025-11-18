@@ -6,7 +6,7 @@ labels: [type:feature, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: story
+file_type: story
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

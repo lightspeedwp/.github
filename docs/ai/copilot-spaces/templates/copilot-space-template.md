@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Copilot Space Template"
 description: "Fill in the following sections to create a new Copilot Space with title, description and instructions."
 last_updated: "2025-10-17"

@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Instructions for PHP files related to block patterns or theme setup in any LightSpeed WordPress project'
 applyTo: '**/*.php'
 license: 'GPL-3.0'

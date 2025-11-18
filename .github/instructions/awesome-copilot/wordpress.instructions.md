@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: 'wp-content/plugins/**,wp-content/themes/**,**/*.php,**/*.inc,**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.css,**/*.scss,**/*.json'
 description: 'Coding, security, and testing rules for WordPress plugins and themes'
 ---

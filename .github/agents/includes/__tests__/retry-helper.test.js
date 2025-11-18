@@ -71,9 +71,7 @@ describe('retry-helper.js', () => {
                 true
             );
             expect(isRetryableError({ message: 'Network error' })).toBe(true);
-            expect(
-                isRetryableError({ message: 'socket hang up' })
-            ).toBe(true);
+            expect(isRetryableError({ message: 'socket hang up' })).toBe(true);
         });
 
         test('identifies non-retryable errors', () => {
@@ -206,11 +204,9 @@ describe('retry-helper.js', () => {
         test('wraps GitHub API call with retry logic', async () => {
             const apiCall = jest.fn().mockResolvedValue({ data: 'result' });
 
-            const result = await retryGitHubCall(
-                apiCall,
-                'Add labels',
-                { maxRetries: 2 }
-            );
+            const result = await retryGitHubCall(apiCall, 'Add labels', {
+                maxRetries: 2,
+            });
 
             expect(result).toEqual({ data: 'result' });
             expect(apiCall).toHaveBeenCalledTimes(1);
@@ -362,9 +358,9 @@ describe('retry-helper.js', () => {
             const error = { status: 503 };
             const fn = jest.fn().mockRejectedValue(error);
 
-            await expect(
-                withRetry(fn, { maxRetries: 0 })
-            ).rejects.toEqual(error);
+            await expect(withRetry(fn, { maxRetries: 0 })).rejects.toEqual(
+                error
+            );
 
             expect(fn).toHaveBeenCalledTimes(1);
         });

@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Systematically address, resolve, and document code comments in PRs and reviews using LightSpeed standards."
 tags: ["code-review", "comments", "documentation", "wordpress"]
-type: "chatmode"
+file_type: "chatmode"
 ---
 # Role
 

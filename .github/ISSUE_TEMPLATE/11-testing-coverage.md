@@ -6,7 +6,7 @@ labels: [type:test, status:needs-triage, priority:normal, area:testing]
 assignees: []
 projects: []
 milestone: ''
-type: test
+file_type: test
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

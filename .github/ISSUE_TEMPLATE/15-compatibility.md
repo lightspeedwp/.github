@@ -6,7 +6,7 @@ labels: [type:compat, area:compatibility, status:needs-testing]
 assignees: []
 projects: []
 milestone: ''
-type: compat
+file_type: compat
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

@@ -6,7 +6,7 @@ author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Dynamic index of curated Copilot prompt files for rapid automation, review, and development in LightSpeed projects."
 tags: ["lightspeed", "copilot", "awesome", "prompt", "automation", "index"]
-type: "prompt"
+file_type: "prompt"
 ---
 
 # Awesome Copilot Prompts – Index

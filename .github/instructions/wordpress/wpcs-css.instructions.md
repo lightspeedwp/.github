@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: ['**/*.css', '**/*.scss', '**/*.sass']
 description: "Enforce WordPress CSS coding standards, naming, specificity and formatting."
 last_updated: "2025-10-19"

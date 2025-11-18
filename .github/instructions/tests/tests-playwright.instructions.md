@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Playwright Test Instructions"
 description: "How to write and organize Playwright browser/E2E tests for LightSpeed projects."
 version: "1.0.0"

@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Generic Agent Specification Template"
 description: "A template for defining a custom Copilot agent’s capabilities, inputs, outputs and safety measures."
 last_updated: "2025-10-17"

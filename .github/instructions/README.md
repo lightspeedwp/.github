@@ -1,11 +1,12 @@
 ---
+file_type: "instructions"
 title: "Instructions Directory"
 description: "Comprehensive instructions directory for LightSpeedWP development standards and practices"
 version: "v1.0"
 last_updated: "2025-10-24"
 maintainer: "LightSpeed Engineering"
 tags: ["instructions", "standards", "guidelines", "development"]
-type: "documentation"
+file_type: "documentation"
 ---
 
 ## 📋 Instructions Directory

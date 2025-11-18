@@ -49,7 +49,7 @@ function buildStandardizationReport({ nonStandardLabels, migratedLabels }) {
     return report;
 }
 
-module.exports = {
+export {
     buildLabelingReport,
     buildStandardizationReport,
 };

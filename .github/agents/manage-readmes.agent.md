@@ -1,5 +1,6 @@
 ---
 file_type: "agent"
+name: "manage-readmes"
 title: "Manage READMEs Agent"
 description: "Automates creation, update, merging, and linting of README.md and README.<filename>.md files."
 version: "v1.0"

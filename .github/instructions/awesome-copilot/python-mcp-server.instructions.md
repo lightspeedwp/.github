@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Instructions for building Model Context Protocol (MCP) servers using the Python SDK'
 applyTo: '**/*.py, **/pyproject.toml, **/requirements.txt'
 ---

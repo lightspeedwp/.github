@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: "Index of all LightSpeed test standards: workflows, agents, Bats, Playwright, Jest, PHPUnit, Python, etc."
 applyTo: "all projects"
 ---

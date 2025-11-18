@@ -1,4 +1,5 @@
 ---
+file_type: "agent"
 name: 'wordpress-block-theme-architect'
 description: 'Comprehensive WordPress Block & Theme Development Architect - Specializes in FSE themes, block development, design systems, and theme.json architecture'
 tools:

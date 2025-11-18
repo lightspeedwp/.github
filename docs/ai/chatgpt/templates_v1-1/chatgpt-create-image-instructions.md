@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Create Image Instructions"
 description: "Guidelines for asking ChatGPT to generate images using the image generation tool."
 last_updated: "2025-10-17"

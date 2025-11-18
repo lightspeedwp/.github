@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "GitHub New Repository Prompt Template"
 description: "Template and guidance for creating a new GitHub repository using Copilot."
 last_updated: "2025-10-17"

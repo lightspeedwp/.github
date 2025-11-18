@@ -7,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 model: GPT-4.1
 tags: ["accessibility", "a11y", "wcag", "audit", "wordpress", "blocks"]
-type: "chatmode"
+file_type: "chatmode"
 references:
   - [LightSpeed Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
   - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)

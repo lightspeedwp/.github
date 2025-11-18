@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'Contributing AI Templates'
 description: 'How to contribute, review, and label AI template assets.'
 last_updated: '2025-10-24'

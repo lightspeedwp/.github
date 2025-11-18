@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 name: "Block Pattern Development Instructions"
 about: "Instructions for developing block patterns in any LightSpeed WordPress project."
 title: "[Instructions] Block Pattern Development"
@@ -23,7 +24,7 @@ categories:
 version: "1.0.0"
 permalink: "/instructions/pattern-development"
 license: "GPL-3.0"
-type: "instructions"
+file_type: "instructions"
 mode: "agent"
 applyTo: "**/patterns/**/*.php"
 ---

@@ -1,5 +1,6 @@
 ---
-mode: 'agent'
+file_type: "chatmode"
+mode: 'instruction'
 name: 'A11y Assistant'
 description: 'Performs targeted accessibility reviews and fixes.'
 ---

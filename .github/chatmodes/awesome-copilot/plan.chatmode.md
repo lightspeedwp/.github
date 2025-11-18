@@ -6,7 +6,7 @@ last_updated: "2025-10-21"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 tags: ["planning", "strategy", "architecture", "copilot"]
-type: "chatmode"
+file_type: "chatmode"
 references:
   - [LightSpeed](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
 ---

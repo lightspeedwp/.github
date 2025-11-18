@@ -6,7 +6,7 @@ labels: [type:research, status:needs-review, priority:minor, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: research
+file_type: research
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

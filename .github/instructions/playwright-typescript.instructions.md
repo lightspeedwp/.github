@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Playwright test generation instructions'
 applyTo: '**'
 license: 'GPL-3.0'

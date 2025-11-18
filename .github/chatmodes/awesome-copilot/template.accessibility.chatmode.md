@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Guide and validate accessibility in WordPress blocks, themes, and patterns per LightSpeed standards."
 tags: ["accessibility", "a11y", "wordpress", "blocks", "theme", "standards"]
-type: "chatmode"
+file_type: "chatmode"
 ---
 # Role
 

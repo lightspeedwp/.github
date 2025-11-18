@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'Copilot Usage for AI Templates'
 description: 'How to scaffold and maintain AI template repos with Copilot.'
 last_updated: '2025-10-24'

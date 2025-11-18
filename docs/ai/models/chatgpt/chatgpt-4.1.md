@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "ChatGPT 4.1"
 version: "v1.0"
 last_updated: "2025-10-17"
@@ -6,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Explainer for ChatGPT 4.1."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "model"
+file_type: "model"
 ---
 # Model Overview (required)
 

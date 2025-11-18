@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: "**/*.{php,html,json,css,scss,js,jsx,ts,tsx}"
 description: "WordPress-specific development guidelines and best practices"
 ---

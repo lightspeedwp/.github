@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Agent: Project Meta Sync"
 description: "Spec for project-meta-sync agent – syncs GitHub Project board fields with issue/PR metadata and labels."
 version: "v1.0"

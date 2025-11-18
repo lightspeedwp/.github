@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Figma Make Guidelines Template"
 description: "A structured template for creating a comprehensive guidelines.md for LightSpeed web projects using Figma Make."
 last_updated: "2025-10-17"

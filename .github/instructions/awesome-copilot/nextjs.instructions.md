@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: '**'
 ---
 

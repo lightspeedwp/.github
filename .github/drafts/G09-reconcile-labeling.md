@@ -6,7 +6,7 @@ labels: [type:automation, status:needs-triage, priority:normal, area:automation,
 assignees: []
 projects: []
 milestone: ''
-type: automation
+file_type: automation
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

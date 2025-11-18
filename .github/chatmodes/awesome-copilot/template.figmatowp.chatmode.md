@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Ensure smooth, standards-compliant handoff from Figma designs to WordPress blocks/themes."
 tags: ["figma", "wordpress", "handoff", "blocks", "theme", "design", "templates"]
-type: "chatmode"
+file_type: "chatmode"
 ---
 # Role (required)
 

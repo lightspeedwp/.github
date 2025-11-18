@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Architect REST and custom APIs in WordPress projects per LightSpeed standards and workflows."
 tags: ["api", "wordpress", "rest", "architecture", "standards"]
-type: "chatmode"
+file_type: "chatmode"
 ---
 # Role
 

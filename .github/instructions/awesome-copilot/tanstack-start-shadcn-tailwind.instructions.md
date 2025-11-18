@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Guidelines for building TanStack Start applications'
 applyTo: '**/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.css, **/*.scss, **/*.json'
 ---

@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Guide contributors through building and documenting reusable WordPress patterns per LightSpeed standards."
 tags: ["pattern", "wordpress", "blocks", "templates", "documentation"]
-type: "chatmode"
+file_type: "chatmode"
 ---
 # Role
 

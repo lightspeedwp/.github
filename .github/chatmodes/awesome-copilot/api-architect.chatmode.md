@@ -6,7 +6,7 @@ last_updated: "2025-10-21"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 tags: ["api", "architecture", "wordpress", "php", "rest", "copilot"]
-type: "chatmode"
+file_type: "chatmode"
 references:
   - [LightSpeed Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
   - [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/php-block.instructions.md)

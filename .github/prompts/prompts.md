@@ -5,7 +5,7 @@ author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Master prompt index for all Copilot Chat and automation prompts in the LightSpeed organisation. Lists and cross-references all prompt files and related instructions."
 tags: ["lightspeed", "copilot", "prompts", "automation", "review", "workflow"]
-type: "prompt"
+file_type: "prompt"
 ---
 
 # 🎯 LightSpeed Copilot Prompt Library

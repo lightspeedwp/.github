@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Model Guide"
 version: "v1.0"
 last_updated: "2025-10-17"
@@ -6,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Best-practice advice on selecting models and mapping to modes/tools."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "model"
+file_type: "model"
 ---
 # Using models effectively
 

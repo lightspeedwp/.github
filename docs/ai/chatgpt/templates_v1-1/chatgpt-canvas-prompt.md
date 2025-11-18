@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Canvas Mode Prompt Template"
 description: "Template for requesting interactive components or visual documents using the Canvas tool."
 last_updated: "2025-10-17"

@@ -6,7 +6,7 @@ labels: [type:review, status:needs-review, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: review
+file_type: review
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

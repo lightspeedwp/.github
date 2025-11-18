@@ -15,7 +15,10 @@ const __dirname = dirname(__filename);
 
 // Load schemas and configs
 const emojiSchema = yaml.load(
-    fs.readFileSync(path.join(__dirname, '../automation/emoji.schema.yml'), 'utf-8')
+    fs.readFileSync(
+        path.join(__dirname, '../automation/emoji.schema.yml'),
+        'utf-8'
+    )
 );
 
 /**
@@ -174,21 +177,32 @@ function applyFooter(filePath, content, frontMatter) {
  */
 function applyReferences(content, frontMatter) {
     // If there are references in front matter, add them before the footer
-    if (!frontMatter || !frontMatter.references || frontMatter.references.length === 0) {
+    if (
+        !frontMatter ||
+        !frontMatter.references ||
+        frontMatter.references.length === 0
+    ) {
         return content;
     }
 
-    const referencesSection = '\n## References\n\n' +
-        frontMatter.references.map(ref => `- [${ref}](${ref})`).join('\n') +
+    const referencesSection =
+        '\n## References\n\n' +
+        frontMatter.references.map((ref) => `- [${ref}](${ref})`).join('\n') +
         '\n';
 
     // Insert before the footer (look for footer patterns)
-    const footerPattern = /\n(_Maintained with|_Built by|_Have questions|_This page brought|_Docs signed|Made with ❤️)/;
+    const footerPattern =
+        /\n(_Maintained with|_Built by|_Have questions|_This page brought|_Docs signed|Made with ❤️)/;
     const footerMatch = content.match(footerPattern);
 
     if (footerMatch) {
         const insertIndex = content.indexOf(footerMatch[0]);
-        return content.slice(0, insertIndex) + '\n---\n' + referencesSection + content.slice(insertIndex);
+        return (
+            content.slice(0, insertIndex) +
+            '\n---\n' +
+            referencesSection +
+            content.slice(insertIndex)
+        );
     }
 
     // If no footer found, append to end
@@ -203,17 +217,27 @@ function applyBanner(content) {
     const bannerMarkdown = `\n![Work with LightSpeed](../${bannerPath})\n`;
 
     // Check if banner already exists
-    if (content.includes(bannerPath) || content.includes('Work with LightSpeed')) {
+    if (
+        content.includes(bannerPath) ||
+        content.includes('Work with LightSpeed')
+    ) {
         return content;
     }
 
     // Insert before the footer
-    const footerPattern = /\n(_Maintained with|_Built by|_Have questions|_This page brought|_Docs signed|Made with ❤️)/;
+    const footerPattern =
+        /\n(_Maintained with|_Built by|_Have questions|_This page brought|_Docs signed|Made with ❤️)/;
     const footerMatch = content.match(footerPattern);
 
     if (footerMatch) {
         const insertIndex = content.indexOf(footerMatch[0]);
-        return content.slice(0, insertIndex) + '\n---\n' + bannerMarkdown + '---\n' + content.slice(insertIndex);
+        return (
+            content.slice(0, insertIndex) +
+            '\n---\n' +
+            bannerMarkdown +
+            '---\n' +
+            content.slice(insertIndex)
+        );
     }
 
     // If no footer found, append to end
@@ -226,12 +250,14 @@ function applyBanner(content) {
 function applyHeader(content) {
     // Ensure there's a blank line after the title and before badges
     const lines = content.split('\n');
-    const titleIndex = lines.findIndex(line => /^# [^#]/.test(line));
+    const titleIndex = lines.findIndex((line) => /^# [^#]/.test(line));
 
     if (titleIndex === -1) return content;
 
     // Check if there's a badge block after title
-    const badgeStartIndex = lines.findIndex(line => line.includes('<!-- BADGES-START -->'));
+    const badgeStartIndex = lines.findIndex((line) =>
+        line.includes('<!-- BADGES-START -->')
+    );
 
     if (badgeStartIndex > titleIndex && badgeStartIndex - titleIndex === 1) {
         // Insert blank line between title and badges
@@ -311,7 +337,12 @@ async function processMarkdownFile(filePath, options = {}) {
         if (!dryRun && fs.existsSync(`${filePath}.backup`)) {
             fs.copyFileSync(`${filePath}.backup`, filePath);
         }
-        return { file: filePath, skipped: false, changed: false, error: error.message };
+        return {
+            file: filePath,
+            skipped: false,
+            changed: false,
+            error: error.message,
+        };
     } finally {
         // Clean up backup
         if (!dryRun && fs.existsSync(`${filePath}.backup`)) {
@@ -364,7 +395,8 @@ async function processAllMarkdownFiles(options = {}) {
  * Main entry point
  */
 async function main() {
-    const verbose = process.argv.includes('--verbose') || process.argv.includes('-v');
+    const verbose =
+        process.argv.includes('--verbose') || process.argv.includes('-v');
     const dryRun = process.argv.includes('--dry-run');
 
     console.log('Branding Agent - Starting...');
@@ -381,10 +413,16 @@ async function main() {
     console.log(`  Errors: ${results.errors}`);
 
     // Write metrics
-    const metricsPath = path.join(process.cwd(), '.github/metrics/branding-metrics.json');
+    const metricsPath = path.join(
+        process.cwd(),
+        '.github/metrics/branding-metrics.json'
+    );
     const metrics = {
         ts: new Date().toISOString(),
-        coverage: results.total > 0 ? Math.round((results.processed / results.total) * 100) : 0,
+        coverage:
+            results.total > 0
+                ? Math.round((results.processed / results.total) * 100)
+                : 0,
         changes: results.changed,
         errors: results.errors,
         optouts: results.skipped,
@@ -399,7 +437,10 @@ async function main() {
 }
 
 // Run if called directly
-if (path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1])) {
+if (
+    path.resolve(fileURLToPath(import.meta.url)) ===
+    path.resolve(process.argv[1])
+) {
     main().catch((err) => {
         console.error('Fatal error:', err);
         process.exit(1);

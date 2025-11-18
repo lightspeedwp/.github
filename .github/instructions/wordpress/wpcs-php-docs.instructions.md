@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: ['**/*.php']
 description: "Enforce WordPress PHP inline documentation (DocBlocks)."
 last_updated: "2025-10-19"

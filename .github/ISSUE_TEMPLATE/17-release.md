@@ -6,7 +6,7 @@ labels: [type:release, status:needs-triage, area:release]
 assignees: []
 projects: []
 milestone: ''
-type: release
+file_type: release
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

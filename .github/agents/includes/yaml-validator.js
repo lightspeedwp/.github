@@ -116,9 +116,7 @@ function validateSchema(data, schema, path = 'root') {
 
     // Type validation
     if (schema.type) {
-        const actualType = Array.isArray(data)
-            ? 'array'
-            : typeof data;
+        const actualType = Array.isArray(data) ? 'array' : typeof data;
         if (actualType !== schema.type) {
             errors.push(
                 `${path}: Expected type '${schema.type}', got '${actualType}'`
@@ -185,9 +183,7 @@ function validateSchema(data, schema, path = 'root') {
 
         // Property validation
         if (schema.properties) {
-            for (const [key, propSchema] of Object.entries(
-                schema.properties
-            )) {
+            for (const [key, propSchema] of Object.entries(schema.properties)) {
                 if (key in data) {
                     const propErrors = validateSchema(
                         data[key],

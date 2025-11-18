@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Infrastructure as Code with Bicep'
 applyTo: '**/*.bicep'
 ---

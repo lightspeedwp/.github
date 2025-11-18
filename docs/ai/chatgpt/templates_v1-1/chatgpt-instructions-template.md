@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "<Your instructions title>"
 description: "<Short summary of what this instruction covers>"
 last_updated: "<YYYY-MM-DD>"
