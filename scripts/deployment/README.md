@@ -32,300 +32,169 @@ Automated deployment script for staging environment.
 **Usage:**
 
 ```bash
-./scripts/deployment/deploy-to-staging.sh
+./deploy-to-staging.sh [--dry-run] [--skip-backup]
 ```
-
-**Environment Variables:**
-
-- `STAGING_PATH`: Path to staging deployment directory (default: `./staging-deploy`)
 
 **Features:**
 
 - Pre-deployment validation
-- Automatic backup creation
-- Includes and scripts deployment
+- Automated backup creation
+- Script syntax verification
 - Post-deployment validation tests
-- Deployment registry updates
+- Deployment registry tracking
 
-**Exit Codes:**
+**Environment Variables:**
 
-- `0`: Deployment successful
-- `1`: Deployment failed (validation, deployment, or tests)
+- `STAGING_PATH`: Target deployment path (default: `/opt/lightspeed-wp/staging`)
+- `BACKUP_RETENTION_DAYS`: Backup retention period (default: 30 days)
 
-### automated-rollback.sh
+### `automated-rollback.sh`
 
-Automated rollback script for failed deployments.
+Automated rollback system for failed deployments.
 
 **Usage:**
 
 ```bash
-./scripts/deployment/automated-rollback.sh <environment> [reason]
+./automated-rollback.sh <environment> [reason]
 ```
 
 **Arguments:**
 
-- `environment`: Target environment (staging|production)
-- `reason`: Optional reason for rollback (default: "Automated rollback triggered")
-
-**Examples:**
-
-```bash
-# Rollback staging environment
-./scripts/deployment/automated-rollback.sh staging
-
-# Rollback with custom reason
-./scripts/deployment/automated-rollback.sh staging "Failed health check"
-```
-
-**Environment Variables:**
-
-- `STAGING_PATH`: Path to staging deployment (default: `./staging-deploy`)
-- `PRODUCTION_PATH`: Path to production deployment (default: `./production-deploy`)
+- `environment`: Target environment (`staging` or `production`)
+- `reason`: Optional reason for rollback
 
 **Features:**
 
-- Retrieves last successful deployment
-- Restores from backup
-- Validates rollback success
-- Updates deployment registry
-- Environment-specific rollback procedures
+- Automatic backup restoration
+- Deployment registry lookup
+- Rollback verification
+- Audit trail logging
 
-**Exit Codes:**
+## Deployment Workflow
 
-- `0`: Rollback successful
-- `1`: Rollback failed (no backup, restore failed, or validation failed)
+```text
+1. Validate deployment readiness
+   - Check quality gates
+   - Verify target environment
+   - Validate script syntax
 
-## 📊 Deployment Registry
+2. Create backup
+   - Archive current deployment
+   - Store in backups/ directory
+   - Clean old backups
 
-The deployment registry (`deployment-registry.json`) tracks all deployments and rollbacks.
+3. Deploy scripts
+   - Copy includes
+   - Copy utility scripts
+   - Set permissions
 
-**Structure:**
+4. Validate deployment
+   - Run smoke tests
+   - Verify key files
+   - Check syntax
+
+5. Register deployment
+   - Update deployment registry
+   - Log deployment details
+```
+
+## Deployment Registry
+
+Deployments are tracked in `deployment-registry.json`:
 
 ```json
 {
-    "deployments": [
-        {
-            "environment": "staging",
-            "deployment_id": "20251118-143022",
-            "status": "success",
-            "timestamp": "2025-11-18T14:30:22Z",
-            "reason": ""
-        }
-    ],
-    "rollbacks": [
-        {
-            "environment": "staging",
-            "deployment_id": "20251118-120000",
-            "status": "rollback",
-            "timestamp": "2025-11-18T14:35:00Z",
-            "reason": "Failed health check"
-        }
-    ]
+  "deployments": [
+    {
+      "environment": "staging",
+      "deployment_id": "20251118-120000",
+      "status": "success",
+      "reason": "",
+      "timestamp": "2025-11-18T12:00:00Z"
+    }
+  ]
 }
 ```
 
-## 🔍 Deployment Process
+## Rollback Process
 
-### Staging Deployment Flow
+When issues are detected:
 
-1. **Validation**
-   - Check quality gates pass
-   - Verify scripts directory exists
-   - Validate deployment readiness
+1. Automated rollback triggered
+2. Last successful deployment identified from registry
+3. Backup restored from archives
+4. Rollback verified through tests
+5. Deployment registry updated
 
-2. **Backup**
-   - Create timestamped backup of current deployment
-   - Store in `backups/staging-<deployment_id>/`
+## Best Practices
 
-3. **Deployment**
-   - Deploy includes to `$STAGING_PATH/includes/`
-   - Deploy scripts to `$STAGING_PATH/scripts/`
-   - Set appropriate permissions
+1. **Always test in staging first**
+   - Deploy to staging before production
+   - Run comprehensive tests
+   - Monitor for issues
 
-4. **Validation**
-   - Run post-deployment tests
-   - Verify file counts and structure
-   - Check script syntax
+2. **Never skip backups in production**
+   - Backups enable quick rollback
+   - Essential for disaster recovery
 
-5. **Registry**
-   - Update deployment registry
-   - Record deployment ID and status
+3. **Use dry-run for testing**
+   - Test deployment scripts with `--dry-run`
+   - Verify changes before applying
 
-### Rollback Flow
+4. **Monitor post-deployment**
+   - Run health checks immediately
+   - Monitor logs for errors
+   - Track performance metrics
 
-1. **Lookup**
-   - Query deployment registry
-   - Find last successful deployment
+## Environment Setup
 
-2. **Restore**
-   - Remove current deployment
-   - Restore from backup directory
-
-3. **Validation**
-   - Run health checks
-   - Verify deployment structure
-
-4. **Registry**
-   - Record rollback in registry
-   - Include reason and timestamp
-
-## 🛡️ Safety Features
-
-### Pre-Deployment Validation
-
-- **Quality gates check**: Ensures code meets quality standards
-- **Directory validation**: Confirms required directories exist
-- **Readiness check**: Validates all prerequisites
-
-### Backup Management
-
-- **Automatic backups**: Created before every deployment
-- **Timestamped**: Unique backup per deployment
-- **Persistent**: Retained for rollback capability
-
-### Post-Deployment Validation
-
-- **File count verification**: Ensures files deployed
-- **Structure validation**: Confirms directory layout
-- **Syntax checking**: Validates shell script syntax
-
-### Rollback Protection
-
-- **Backup verification**: Confirms backup exists before rollback
-- **Health checks**: Validates environment after rollback
-- **Registry tracking**: Maintains rollback history
-
-## 📝 Integration with CI/CD
-
-These scripts integrate with the **[modular-scripts-pipeline.yml](../../.github/workflows/modular-scripts-pipeline.yml)** workflow:
-
-### Stage 5: Documentation and Deployment
-
-The pipeline calls `deploy-to-staging.sh` when:
-
-- Quality gates pass
-- Security scans complete
-- All tests succeed
-- Target branch is `develop` or manual dispatch
-
-### Rollback Triggers
-
-The `automated-rollback.sh` script can be triggered:
-
-- Manually via workflow dispatch
-- Automatically on failed health checks
-- On-demand for incident response
-
-## 🔧 Customization
-
-### Environment-Specific Configuration
-
-Create environment-specific deployment scripts:
+### Staging Environment
 
 ```bash
-# deploy-to-production.sh
-#!/bin/bash
-PRODUCTION_PATH="/opt/lightspeed-wp/production"
-source deploy-to-staging.sh
-# Override functions as needed
+export STAGING_PATH="/opt/lightspeed-wp/staging"
+export BACKUP_RETENTION_DAYS=30
 ```
 
-### Custom Validation
-
-Add custom validation functions:
+### Production Environment
 
 ```bash
-# In deploy-to-staging.sh
-custom_validation() {
-    # Your custom validation logic
-    return 0
-}
+export PRODUCTION_PATH="/opt/lightspeed-wp/production"
+export BACKUP_RETENTION_DAYS=90
 ```
 
-### Extended Rollback Logic
+## Troubleshooting
 
-Extend rollback capabilities:
+### Deployment Fails
+
+**Check:**
+
+1. Target environment accessibility
+2. File permissions
+3. Disk space availability
+4. Script syntax validity
+
+**Debug:**
 
 ```bash
-# In automated-rollback.sh
-notify_rollback() {
-    # Send notifications
-    # Update external systems
-}
+./deploy-to-staging.sh --dry-run
 ```
 
-## 📊 Monitoring and Metrics
+### Rollback Fails
 
-### Deployment Metrics
+**Check:**
 
-Track deployment success rates:
+1. Backup file existence
+2. Backup file integrity
+3. Target directory permissions
+4. Deployment registry validity
 
-```bash
-jq '.deployments | map(select(.status == "success")) | length' deployment-registry.json
-```
+## See Also
 
-### Rollback Frequency
-
-Monitor rollback occurrences:
-
-```bash
-jq '.rollbacks | length' deployment-registry.json
-```
-
-### Deployment History
-
-View recent deployments:
-
-```bash
-jq '.deployments | sort_by(.timestamp) | reverse | .[0:5]' deployment-registry.json
-```
-
-## 🔗 Related Resources
-
-- **[Modular Scripts Pipeline](../../.github/workflows/modular-scripts-pipeline.yml)** - CI/CD workflow
-- **[Quality Score Calculator](../maintenance/calculate-quality-score.sh)** - Quality metrics
-- **[CI/CD Instructions](../../.github/instructions/ci-cd.instructions.md)** - Best practices
-
-## ⚠️ Important Notes
-
-1. **Backup Management**: Backups accumulate over time - implement cleanup policy
-2. **Registry Size**: Deployment registry grows indefinitely - consider archiving old entries
-3. **Environment Variables**: Set appropriate paths for production deployments
-4. **Permissions**: Ensure scripts have execute permissions (`chmod +x`)
-5. **Dependencies**: Requires `jq` for JSON processing
-
-## 📚 Examples
-
-### Manual Staging Deployment
-
-```bash
-# Navigate to repository root
-cd /path/to/repository
-
-# Run deployment
-./scripts/deployment/deploy-to-staging.sh
-```
-
-### Rollback After Failed Deployment
-
-```bash
-# Rollback staging
-./scripts/deployment/automated-rollback.sh staging "Deployment validation failed"
-
-# Check rollback status
-echo $?
-```
-
-### Check Deployment Registry
-
-```bash
-# View all deployments
-cat deployment-registry.json | jq '.deployments'
-
-# Get last successful deployment
-jq -r '.deployments[] | select(.status == "success") | .deployment_id' deployment-registry.json | tail -1
-```
+- [CI/CD Pipeline Guide](../../docs/ci-cd-pipeline-guide.md)
+- [Monitoring Scripts](../monitoring/README.md)
+- [Security Scripts](../security/README.md)
 
 ---
 
-For issues or questions about deployment automation, consult the [CI/CD instructions](../../.github/instructions/ci-cd.instructions.md) or open an issue with the `area:ci` label.
+**Version**: 1.0.0
+**Last Updated**: 2025-11-18
