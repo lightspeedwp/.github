@@ -8,7 +8,6 @@
  * @see ./markdownlint.config.js for base configuration
  */
 
-import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
