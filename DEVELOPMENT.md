@@ -47,9 +47,70 @@ This repository provides linting tools for JavaScript, CSS, and other code stand
     npm run lint
     ```
 
+## Git Hooks & Automation with Husky
+
+This repository uses [Husky](https://typicode.github.io/husky/) to automate code quality checks via Git hooks. Husky runs automatically when you commit or push code, ensuring all changes meet quality standards before they're shared.
+
+### How Husky Works
+
+Husky is configured to run automatically when you install dependencies (`npm install`). Two Git hooks are configured:
+
+1. **pre-commit**: Runs linting and formatting checks on staged files before each commit
+2. **pre-push**: Runs the full test suite before pushing to remote
+
+### Pre-commit Hook
+
+The pre-commit hook uses [lint-staged](https://github.com/okonet/lint-staged) to run checks only on files you've staged for commit. This keeps the process fast and focused:
+
+- **JavaScript/TypeScript files** (`*.{js,jsx,ts,tsx}`):
+  - ESLint with auto-fix
+  - Prettier formatting
+
+- **Markdown files** (`*.{md,mdx}`):
+  - Markdownlint with auto-fix
+  - Prettier formatting
+
+- **JSON files** (`*.json`):
+  - Prettier formatting
+
+- **YAML files** (`*.{yml,yaml}`):
+  - Prettier formatting
+
+If any checks fail, the commit will be blocked until you fix the issues.
+
+### Pre-push Hook
+
+The pre-push hook runs the full test suite before allowing a push to the remote repository:
+
+```bash
+npm test
+```
+
+This ensures that all tests pass before code is shared with the team.
+
+### Bypassing Hooks (Not Recommended)
+
+In rare cases where you need to bypass hooks (e.g., work-in-progress commits), you can use:
+
+```bash
+git commit --no-verify -m "WIP: description"
+git push --no-verify
+```
+
+**Note**: Bypassing hooks should be avoided in most cases, as it may introduce code quality issues or failing tests into the repository.
+
+### Troubleshooting
+
+If hooks aren't running:
+
+1. Ensure dependencies are installed: `npm install`
+2. Check that `.husky/` directory exists
+3. Verify hooks are executable: `ls -la .husky/`
+4. Re-initialize Husky: `npm run prepare`
+
 ## Agents & Shared Scripts
 
-A `scripts/` folder is used to contain shared functions for agents.  
+A `scripts/` folder is used to contain shared functions for agents.
 Agents are written in JavaScript, and reusable logic or utilities should be placed here for maintainability and collaboration across the organization.
 
 ## Git Workflow

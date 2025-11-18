@@ -145,6 +145,19 @@
         "contributors:check": "all-contributors check"
     },
     "lint-staged": {
-        "*.{md,mdx}": "markdownlint-cli2"
+        "*.{js,jsx,ts,tsx}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.{md,mdx}": [
+            "markdownlint-cli2 --fix",
+            "prettier --write"
+        ],
+        "*.json": [
+            "prettier --write"
+        ],
+        "*.{yml,yaml}": [
+            "prettier --write"
+        ]
     }
 }
