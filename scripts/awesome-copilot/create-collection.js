@@ -138,6 +138,15 @@ async function createCollectionTemplate() {
                 .split(',')
                 .map((tag) => tag.trim())
                 .filter((tag) => tag);
+
+            // Validate tags are YAML-safe
+            const invalidTags = tags.filter(tag => !/^[a-z0-9-]+$/i.test(tag));
+            if (invalidTags.length > 0) {
+                console.error(
+                    `❌ Invalid tags (use only letters, numbers, and hyphens): ${invalidTags.join(', ')}`
+                );
+                process.exit(1);
+            }
         } else {
             // Generate some default tags from the collection ID
             tags = collectionId.split('-').slice(0, 3);
