@@ -103,11 +103,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Fetch latest changes
+        run: |
+          git fetch origin ${{ github.ref_name }}
+          git checkout ${{ github.ref_name }}
+          git pull origin ${{ github.ref_name }}
 
       - name: Update Metrics Snapshot
         run: |
@@ -139,5 +148,5 @@ jobs:
           git add .github/metrics/branding.json .github/metrics/branding-log.md
           if ! git diff --cached --quiet; then
             git commit -m "chore(branding): update metrics snapshot [skip ci]"
-            git push
+            git push origin ${{ github.ref_name }}
           fi
