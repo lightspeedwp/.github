@@ -23,6 +23,7 @@ See [Tests Index](../tests.instructions.md) for all test standards.
 - Place Playwright tests in `/tests/playwright/` or similar.
 - Install Playwright via npm: `npm install --save-dev @playwright/test`
 - Add a `"test:e2e"` script to `package.json`:
+
   ```json
   "scripts": {
     "test:e2e": "playwright test"

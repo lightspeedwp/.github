@@ -57,6 +57,7 @@ This directory contains metrics collection scripts, configuration files, and aut
 **Purpose**: Validate and track frontmatter coverage across all markdown and YAML template files.
 
 **Collected Metrics**:
+
 - Coverage percentage (valid frontmatter / eligible files)
 - Unknown keys (schema violations)
 - Broken references (invalid cross-links)
@@ -65,6 +66,7 @@ This directory contains metrics collection scripts, configuration files, and aut
 **Configuration**: `metrics.config.json` → `includeGlobs`, `excludeGlobs`, `thresholds`
 
 **Outputs**:
+
 - JSON artifact: `out/frontmatter-metrics.json`
 - Markdown report: `out/frontmatter-metrics.md`
 
@@ -77,12 +79,14 @@ This directory contains metrics collection scripts, configuration files, and aut
 **Purpose**: Track branding automation coverage and effectiveness.
 
 **Collected Metrics**:
+
 - Coverage: Percentage of docs with branding applied
 - Changes: Number of files modified in last run
 - Errors: Number of errors encountered
 - Opt-outs: Number of files opted out
 
 **Outputs**:
+
 - Latest snapshot: `branding.json`
 - Historical log: `branding-log.md`
 
@@ -95,6 +99,7 @@ This directory contains metrics collection scripts, configuration files, and aut
 **Purpose**: Repository health and activity metrics.
 
 **Planned Metrics**:
+
 - Open/closed issue counts
 - PR response times
 - Review turnaround
@@ -151,6 +156,7 @@ This directory contains metrics collection scripts, configuration files, and aut
 ### Running Metrics Locally
 
 **Frontmatter Metrics**:
+
 ```bash
 # Run from repository root
 node .github/metrics/frontmatter-metrics.js
@@ -161,6 +167,7 @@ node .github/metrics/frontmatter-metrics.js
 ```
 
 **Branding Metrics**:
+
 ```bash
 # Triggered via workflow
 gh workflow run branding.yml --ref develop
@@ -181,6 +188,7 @@ See `.github/workflows/branding.yml` for automation details.
 ### Consuming Metrics
 
 **From JSON Artifacts**:
+
 ```javascript
 const fs = require('fs');
 const metrics = JSON.parse(
@@ -192,6 +200,7 @@ console.log(`Broken refs: ${metrics.summary.brokenRefs}`);
 ```
 
 **From Markdown Reports**:
+
 - Include in weekly status updates
 - Link in project dashboards
 - Reference in governance reviews
@@ -311,12 +320,14 @@ node .github/metrics/frontmatter-metrics.js --include="docs/**/*.md"
 ## Troubleshooting
 
 **Script fails with "Cannot find module"**:
+
 ```bash
 # Install dependencies
 npm install
 ```
 
 **Threshold failures causing build issues**:
+
 ```bash
 # Review thresholds in metrics.config.json
 # Adjust or fix underlying issues
@@ -324,6 +335,7 @@ npm install
 ```
 
 **Output files not generated**:
+
 ```bash
 # Check output directory exists
 mkdir -p metrics/out
@@ -336,6 +348,7 @@ DEBUG=* node .github/metrics/frontmatter-metrics.js
 ```
 
 **Frontmatter validation errors**:
+
 ```bash
 # Review schema: schemas/frontmatter.schema.json
 # Validate individual file:

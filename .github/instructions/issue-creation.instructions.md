@@ -25,6 +25,7 @@ They ensure all issues are discoverable, triage-ready, and compatible with our a
 ## 2. Required YAML Frontmatter for Issues
 
 Each issue template **must** start with a YAML frontmatter block, e.g.:
+
 ```yaml
 ---
 name: "Bug Report"
@@ -35,12 +36,14 @@ labels: ["type:bug", "status:needs-triage", "priority:normal"]
 ```
 
 **Required fields:**
+
 - `name`: Short label for the template selector.
 - `about`: Description for the template chooser.
 - `title`: Default issue title (can use placeholders).
 - `labels`: Array of default labels for new issues.
 
 **Optional fields:**
+
 - `assignees`: Array of default assignees.
 - `projects`: Array of projects to auto-add the issue to.
 
@@ -61,10 +64,10 @@ See [docs/frontmatter/issue-templates.md](../../docs/frontmatter/issue-templates
 
 - Labels are applied automatically by the template’s frontmatter, by `.github/labeler.yml` (file/branch/type), and by agent workflows.
 - **Required labels per issue** (see [docs/LABEL_STRATEGY.md](../../docs/LABEL_STRATEGY.md)):
-    - One `status:*` (e.g., `status:needs-triage`)
-    - One `priority:*` (e.g., `priority:normal`)
-    - One `type:*` (e.g., `type:bug`, `type:feature`, etc.)
-    - At least one `area:*` or `comp:*` if possible
+  - One `status:*` (e.g., `status:needs-triage`)
+  - One `priority:*` (e.g., `priority:normal`)
+  - One `type:*` (e.g., `type:bug`, `type:feature`, etc.)
+  - At least one `area:*` or `comp:*` if possible
 - Project and milestone assignment is optional but encouraged.
 
 ---

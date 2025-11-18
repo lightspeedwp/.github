@@ -17,11 +17,13 @@ Hi @username,
 Thank you for your question about environment setup.
 
 **Steps to ensure proper setup:**
+
 - Follow our [Environment Setup Guide](../../instructions/environment.md)
 - Use recommended versions of PHP, Node, and other dependencies
 - Install all required tools and libraries
 
 If you experience issues, please provide:
+
 - OS and version
 - Steps you followed
 - Any error messages or logs

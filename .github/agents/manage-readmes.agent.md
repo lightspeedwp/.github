@@ -19,30 +19,37 @@ references:
 # Manage READMEs Agent Specification
 
 ## Purpose
+
 Automate discovery, creation, merging, updating, and linting of all README.md files.
 
 ## Triggers
+
 - On new files/folders/scripts added
 - On PR/CI
 - On workflow_dispatch
 
 ## Inputs/Outputs
+
 - **Input:** Target folder or file, operation mode (merge, overwrite, dry-run)
 - **Output:** Updated README.md and README.<filename>.md files
 
 ## Actions
+
 - Find all README files and backup before changes
 - Generate new README.md for folders and README.<filename>.md for files
 - Merge or overwrite intelligently; always lint after update
 - Support backup, dry-run, profile, and summary
 
 ## Guardrails
+
 - Never overwrite without backup
 - Validate headers and required fields in each README
 
 ## References
+
 - [folder-and-file-readmes.sh](../../scripts/folder-and-file-readmes.sh)
 - [find-readmes.sh](../../scripts/find-readmes.sh)
 - [update-readme-and-changelog.sh](../../scripts/update-readme-and-changelog.sh)
 - [MANAGE-READMES.md](../../MANAGE-READMES.md)
+
 ---

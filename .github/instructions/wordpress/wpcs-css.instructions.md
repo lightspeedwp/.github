@@ -13,16 +13,20 @@ Like any coding standard, the purpose of the WordPress CSS Coding Standards is t
 Within core stylesheets, inconsistencies will often be found. We are working on addressing these and make every effort to have patches and commits from this point forward follow the CSS coding standards. More information on the above and contributing to UI/front-end development will be forthcoming in a separate set of guidelines.
 
 ## Mission
+
 Provide clear guidelines for writing CSS (and Sass) consistent with the WordPress coding standards. Aim to keep styles readable, maintainable and accessible.
 
 ## Language & Frameworks
+
 - CSS and SCSS. When possible, leverage WordPress’s block API and `theme.json` presets instead of custom styles.
 
 ## Project Structure
+
 - Organise styles by component or feature in an `assets/css` or `src/css` folder.
 - Use a `globals` or `base` file for variables and resets.
 
 ## Coding Standards
+
 - Use **hyphenated lowercase** class names. Do not use IDs for styling.
 - Place **one selector per line** and **one declaration per line** to improve readability.
 - Follow the order: **position → box model → typography → visual → misc** for declarations.
@@ -31,18 +35,22 @@ Provide clear guidelines for writing CSS (and Sass) consistent with the WordPres
 - Use logical properties (`margin-block-start` instead of `margin-top`) where practical and avoid deprecated vendor prefixes.
 
 ## Testing & Quality
+
 - Use **stylelint** with the WordPress stylelint configuration to catch naming and formatting issues.
 - Run Prettier only after stylelint to enforce consistent formatting.
 
 ## Performance & Security
+
 - Avoid deeply nested selectors and expensive combinators.
 - Use CSS variables and the cascade to promote reusability.
 - Ensure colour contrast and font sizes meet accessibility guidelines.
 
 ## Documentation
+
 - Document custom mixins or complex rules with inline comments.
 
 ## Examples
+
 ```css
 /* Good: hyphenated class names and logical property order */
 .alert-success {
@@ -68,8 +76,8 @@ Correct:
 #selector-1,
 #selector-2,
 #selector-3 {
-	background: #fff;
-	color: #000;
+ background: #fff;
+ color: #000;
 }
 ```
 
@@ -77,9 +85,9 @@ Incorrect:
 
 ```css
 #selector-1, #selector-2, #selector-3 {
-	background: #fff;
-	color: #000;
-	}
+ background: #fff;
+ color: #000;
+ }
 
 #selector-1 { background: #fff; color: #000; }
 ```
@@ -97,11 +105,11 @@ Correct:
 
 ```css
 #comment-form {
-	margin: 1em 0;
+ margin: 1em 0;
 }
 
 input[type="text"] {
-	line-height: 1.1;
+ line-height: 1.1;
 }
 ```
 
@@ -109,23 +117,23 @@ Incorrect:
 
 ```css
 #commentForm { /&042; Avoid camelcase. &042;/
-	margin: 0;
+ margin: 0;
 }
 
 #comment_form { /&042; Avoid underscores. &042;/
-	margin: 0;
+ margin: 0;
 }
 
 div#comment_form { /&042; Avoid over-qualification. &042;/
-	margin: 0;
+ margin: 0;
 }
 
 #c1-xr { /&042; What is a c1-xr?! Use a better name. &042;/
-	margin: 0;
+ margin: 0;
 }
 
 input[type=text] { /&042; Should be [type="text"] &042;/
-	line-height: 110% /&042; Also doubly incorrect &042;/
+ line-height: 110% /&042; Also doubly incorrect &042;/
 }
 ```
 
@@ -142,10 +150,10 @@ Correct:
 
 ```css
 #selector-1 {
-	background: #fff;
-	display: block;
-	margin: 0;
-	margin-left: 20px;
+ background: #fff;
+ display: block;
+ margin: 0;
+ margin-left: 20px;
 }
 ```
 
@@ -153,16 +161,16 @@ Incorrect:
 
 ```css
 #selector-1 {
-	background:#FFFFFF;
-	display: BLOCK;
-	margin-left: 20PX;
-	margin: 0;
+ background:#FFFFFF;
+ display: BLOCK;
+ margin-left: 20PX;
+ margin: 0;
 }
 ```
 
 ### Property Ordering
 
-> "Group like properties together, especially if you have a lot of them." 
+> "Group like properties together, especially if you have a lot of them."
 > -- Nacin
 
 Above all else, choose something that is meaningful to you and semantic in some way. Random ordering is chaos, not poetry. In WordPress Core, our choice is logical or grouped ordering, wherein properties are grouped by meaning and ordered specifically within those groups. The properties within groups are also strategically ordered to create transitions between sections, such as `background` directly before `color`. The baseline for ordering is:
@@ -181,11 +189,11 @@ Example:
 
 ```css
 #overlay {
-	position: absolute;
-	z-index: 1;
-	padding: 10px;
-	background: #fff;
-	color: #777;
+ position: absolute;
+ z-index: 1;
+ padding: 10px;
+ background: #fff;
+ color: #777;
 }
 ```
 
@@ -195,11 +203,11 @@ Example:
 
 ```css
 #overlay {
-	background: #fff;
-	color: #777;
-	padding: 10px;
-	position: absolute;
-	z-index: 1;
+ background: #fff;
+ color: #777;
+ padding: 10px;
+ position: absolute;
+ z-index: 1;
 }
 ```
 
@@ -211,9 +219,9 @@ We use [Autoprefixer](https://github.com/postcss/autoprefixer) as a pre-commit t
 
 ```css
 .sample-output {
-	-webkit-box-shadow: inset 0 0 1px 1px #eee;
-	-moz-box-shadow: inset 0 0 1px 1px #eee;
-	box-shadow: inset 0 0 1px 1px #eee;
+ -webkit-box-shadow: inset 0 0 1px 1px #eee;
+ -moz-box-shadow: inset 0 0 1px 1px #eee;
+ box-shadow: inset 0 0 1px 1px #eee;
 }
 ```
 
@@ -236,25 +244,25 @@ Correct:
 
 ```css
 .class { /&042; Correct usage of quotes &042;/
-	background-image: url(images/bg.png);
-	font-family: "Helvetica Neue", sans-serif;
-	font-weight: 700;
+ background-image: url(images/bg.png);
+ font-family: "Helvetica Neue", sans-serif;
+ font-weight: 700;
 }
 
 .class { /&042; Correct usage of zero values &042;/
-	font-family: Georgia, serif;
-	line-height: 1.4;
-	text-shadow:
-		0 -1px 0 rgba(0, 0, 0, 0.5),
-		0 1px 0 #fff;
+ font-family: Georgia, serif;
+ line-height: 1.4;
+ text-shadow:
+  0 -1px 0 rgba(0, 0, 0, 0.5),
+  0 1px 0 #fff;
 }
 
 .class { /&042; Correct usage of short and lengthier multi-part values &042;/
-	font-family: Consolas, Monaco, monospace;
-	transition-property: opacity, background, color;
-	box-shadow:
-		0 0 0 1px #5b9dd9,
-		0 0 2px 1px rgba(30, 140, 190, 0.8);
+ font-family: Consolas, Monaco, monospace;
+ transition-property: opacity, background, color;
+ box-shadow:
+  0 0 0 1px #5b9dd9,
+  0 0 2px 1px rgba(30, 140, 190, 0.8);
 }
 ```
 
@@ -262,25 +270,25 @@ Incorrect:
 
 ```css
 .class { /&042; Avoid missing space and semicolon &042;/
-	background:#fff
+ background:#fff
 }
 
 .class { /&042; Avoid adding a unit on a zero value &042;/
-	margin: 0px 0px 20px 0px;
+ margin: 0px 0px 20px 0px;
 }
 
 .class {
-	font-family: Times New Roman, serif; /&042; Quote font names when required &042;/
-	font-weight: bold; /&042; Avoid named font weights &042;/
-	line-height: 1.4em; /&042; Avoid adding a unit for line height &042;/
+ font-family: Times New Roman, serif; /&042; Quote font names when required &042;/
+ font-weight: bold; /&042; Avoid named font weights &042;/
+ line-height: 1.4em; /&042; Avoid adding a unit for line height &042;/
 }
 
 .class { /&042; Incorrect usage of multi-part values &042;/
-	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5),
+ text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5),
                  0 1px 0 #fff;
-	box-shadow: 0 1px 0 rgba(0, 0,
-		0, 0.5),
-		0 1px 0 rgba(0,0,0,0.5);
+ box-shadow: 0 1px 0 rgba(0, 0,
+  0, 0.5),
+  0 1px 0 rgba(0,0,0,0.5);
 }
 ```
 
@@ -289,7 +297,7 @@ Incorrect:
 Media queries allow us to gracefully degrade the DOM for different screen sizes. If you are adding any, be sure to test above and below the break-point you are targeting.
 
 - It is generally advisable to keep media queries grouped by media at the bottom of the stylesheet.
-    - An exception is made for the `wp-admin.css` file in core, as it is very large and each section essentially represents a stylesheet of its own. Media queries are therefore added at the bottom of sections as applicable.
+  - An exception is made for the `wp-admin.css` file in core, as it is very large and each section essentially represents a stylesheet of its own. Media queries are therefore added at the bottom of sections as applicable.
 - Rule sets for media queries should be indented one level in.
 
 Example:
@@ -316,7 +324,7 @@ For sections and subsections:
  */
 
 .selector {
-	float: left;
+ float: left;
 }
 ```
 
@@ -325,8 +333,8 @@ For inline:
 ```css
 /* This is a comment about this selector */
 .another-selector {
-	position: absolute;
-	top: 0 !important; /* I should explain why this is so !important */
+ position: absolute;
+ top: 0 !important; /* I should explain why this is so !important */
 }
 ```
 
@@ -349,9 +357,11 @@ Check out the [WP Admin CSS Audit](https://wordpress.github.io/css-audit/public/
 - Principles of writing consistent, idiomatic CSS: [https://github.com/necolas/idiomatic-css](https://github.com/necolas/idiomatic-css).
 
 # Checklists
+
 - [ ] All class names are lowercase and hyphenated.
 - [ ] Stylelint passes without errors.
 - [ ] Colours and spacing reference `theme.json` presets where available.
 
 # References
-- https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/
+
+- <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/>

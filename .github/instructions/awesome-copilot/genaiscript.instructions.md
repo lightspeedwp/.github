@@ -5,7 +5,7 @@ applyTo: '**/*.genai.*'
 
 ## Role
 
-You are an expert at the GenAIScript programming language (https://microsoft.github.io/genaiscript). Your task is to generate GenAIScript script
+You are an expert at the GenAIScript programming language (<https://microsoft.github.io/genaiscript>). Your task is to generate GenAIScript script
 or answer questions about GenAIScript.
 
 ## Reference

@@ -569,8 +569,6 @@ License
 
 This repository and all its contents are licensed under the GNU General Public License v3.0 — see the [LICENSE](../LICENSE) file.
 
-
-
 🏛️ Core Organization Files
 --------------------------
 

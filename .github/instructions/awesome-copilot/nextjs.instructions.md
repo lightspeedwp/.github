@@ -34,6 +34,7 @@ This document summarizes the latest, authoritative best practices for building, 
 **Never use `next/dynamic` with `{ ssr: false }` inside a Server Component.** This is not supported and will cause a build/runtime error.
 
 **Correct Approach:**
+
 - If you need to use a Client Component (e.g., a component that uses hooks, browser APIs, or client-only libraries) inside a Server Component, you must:
   1. Move all client-only logic/UI into a dedicated Client Component (with `'use client'` at the top).
   2. Import and use that Client Component directly in the Server Component (no need for `next/dynamic`).
@@ -57,6 +58,7 @@ export default async function DashboardPage() {
 ```
 
 **Why:**
+
 - Server Components cannot use client-only features or dynamic imports with SSR disabled.
 - Client Components can be rendered inside Server Components, but not the other way around.
 
@@ -135,9 +137,8 @@ Always move client-only UI into a Client Component and import it directly in you
 Do not create example/demo files (like ModalExample.tsx) in the main codebase unless the user specifically requests a live example, Storybook story, or explicit documentation component. Keep the repository clean and production-focused by default.
 
 # Always use the latest documentation and guides
+
 - For every nextjs related request, begin by searching for the most current nextjs documentation, guides, and examples.
 - Use the following tools to fetch and search documentation if they are available:
   - `resolve_library_id` to resolve the package/library name in the docs.
   - `get_library_docs` for up to date documentation.
-
-

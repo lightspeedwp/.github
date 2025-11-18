@@ -11,6 +11,7 @@ Design and implement reusable block patterns that follow accessibility best prac
 ## Pattern Requirements
 
 **Registration & Metadata:**
+
 - Register patterns with descriptive titles and categories
 - Include relevant keywords for discoverability
 - Set appropriate viewport width for pattern previews
@@ -18,6 +19,7 @@ Design and implement reusable block patterns that follow accessibility best prac
 - Add block types and inserter visibility settings
 
 **Semantic HTML Structure:**
+
 - Use proper heading hierarchy (h1-h6) with logical nesting
 - Implement landmark roles and ARIA labels where appropriate
 - Ensure semantic meaning matches visual presentation
@@ -25,6 +27,7 @@ Design and implement reusable block patterns that follow accessibility best prac
 - Use list elements for grouped content
 
 **Accessibility Standards:**
+
 - Maintain WCAG 2.1 AA compliance throughout
 - Ensure sufficient color contrast (4.5:1 minimum)
 - Provide keyboard navigation support
@@ -34,6 +37,7 @@ Design and implement reusable block patterns that follow accessibility best prac
 ## Implementation Guidelines
 
 ### Pattern Registration
+
 ```php
 register_block_pattern(
     'mytheme/hero-section',
@@ -51,6 +55,7 @@ register_block_pattern(
 ```
 
 ### Semantic Structure Examples
+
 ```html
 <!-- Hero Pattern with Proper Semantics -->
 <!-- wp:group {"tagName":"section","metadata":{"name":"Hero Section"},"ariaLabel":"Hero section with call to action"} -->
@@ -77,6 +82,7 @@ register_block_pattern(
 ```
 
 ### Card Grid Pattern
+
 ```html
 <!-- wp:group {"tagName":"section","metadata":{"name":"Services Grid"}} -->
 <section class="wp-block-group" aria-labelledby="services-heading">
@@ -120,12 +126,14 @@ register_block_pattern(
 ## Design System Integration
 
 **Theme.json Token Usage:**
+
 - Use CSS custom properties for colors, spacing, typography
 - Reference preset values consistently throughout patterns
 - Implement fluid typography where appropriate
 - Leverage spacing scale for consistent layouts
 
 **Color and Typography:**
+
 ```html
 <!-- Use theme.json color tokens -->
 <!-- wp:group {"backgroundColor":"primary","textColor":"base"} -->
@@ -138,6 +146,7 @@ register_block_pattern(
 ```
 
 **Responsive Design:**
+
 - Use WordPress alignment classes (alignwide, alignfull)
 - Implement flexible layouts with columns and groups
 - Consider mobile-first responsive patterns
@@ -146,6 +155,7 @@ register_block_pattern(
 ## Common Pattern Types
 
 ### Layout Patterns
+
 - **Hero Sections**: Full-width banners with compelling headlines
 - **Feature Grids**: Service or product showcases in grid layouts
 - **Testimonials**: Customer feedback with proper attribution
@@ -153,12 +163,14 @@ register_block_pattern(
 - **Content Sections**: Text-heavy areas with proper typography
 
 ### Navigation Patterns
+
 - **Header Layouts**: Site branding and navigation combinations
 - **Footer Layouts**: Contact info, links, and legal content
 - **Sidebar Content**: Complementary content and navigation
 - **Breadcrumbs**: Path indicators for complex site structures
 
 ### Content Patterns
+
 - **Article Layouts**: Blog post and page content structures
 - **Gallery Displays**: Image showcases with accessibility
 - **Contact Forms**: User input with proper labeling
@@ -168,6 +180,7 @@ register_block_pattern(
 ## Accessibility Checklist
 
 ### Semantic Structure
+
 - [ ] Proper heading hierarchy without skipping levels
 - [ ] Landmark roles (main, nav, aside, section, article)
 - [ ] ARIA labels for complex interactive elements
@@ -175,6 +188,7 @@ register_block_pattern(
 - [ ] Descriptive link text (avoid "click here", "read more")
 
 ### Keyboard Navigation
+
 - [ ] All interactive elements are keyboard accessible
 - [ ] Logical tab order through the pattern
 - [ ] Visible focus indicators on all focusable elements
@@ -182,6 +196,7 @@ register_block_pattern(
 - [ ] No keyboard traps in interactive components
 
 ### Screen Reader Support
+
 - [ ] Proper heading structure for navigation
 - [ ] ARIA descriptions for complex interactions
 - [ ] Live regions for dynamic content updates
@@ -189,6 +204,7 @@ register_block_pattern(
 - [ ] Form labels and field descriptions
 
 ### Visual Accessibility
+
 - [ ] Sufficient color contrast ratios
 - [ ] Content readable without color alone
 - [ ] Scalable text up to 200% zoom
@@ -198,6 +214,7 @@ register_block_pattern(
 ## Testing & Validation
 
 **Manual Testing:**
+
 - Screen reader testing (NVDA, JAWS, VoiceOver)
 - Keyboard-only navigation testing
 - High contrast mode compatibility
@@ -205,6 +222,7 @@ register_block_pattern(
 - Print stylesheet verification
 
 **Automated Testing:**
+
 - axe-core accessibility scanning
 - WAVE tool validation
 - Lighthouse accessibility audits
@@ -212,6 +230,7 @@ register_block_pattern(
 - HTML validation and semantic structure
 
 **User Testing:**
+
 - Test with actual users with disabilities
 - Gather feedback on usability and accessibility
 - Iterate based on real-world usage patterns

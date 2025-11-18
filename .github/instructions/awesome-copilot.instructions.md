@@ -38,6 +38,7 @@ It cross-links all relevant instructions, prompts, chatmodes, and collections, a
 ## Dynamic Indexes
 
 ### Instructions  
+
 _Directory: `.github/instructions/awesome-copilot/`_  
 [README.instructions.md](./awesome-copilot/README.instructions.md)
 
@@ -57,6 +58,7 @@ _Directory: `.github/instructions/awesome-copilot/`_
 ---
 
 ### Prompts  
+
 _Directory: `.github/prompts/awesome-copilot/`_  
 [README.prompts.md](../prompts/awesome-copilot/README.prompts.md)
 
@@ -70,6 +72,7 @@ _Directory: `.github/prompts/awesome-copilot/`_
 ---
 
 ### Chatmodes  
+
 _Directory: `.github/chatmodes/awesome-copilot/`_  
 [README.chatmodes.md](../chatmodes/awesome-copilot/README.chatmodes.md)
 
@@ -83,6 +86,7 @@ _Directory: `.github/chatmodes/awesome-copilot/`_
 ---
 
 ### Collections  
+
 _Directory: `.github/collections/`_  
 [README.collections.md](../collections/README.collections.md)
 

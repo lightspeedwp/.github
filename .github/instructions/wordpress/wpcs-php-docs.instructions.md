@@ -7,12 +7,15 @@ owners: ["LightSpeed Engineering"]
 ---
 
 # Mission
+
 Ensure every PHP function, class and hook is accompanied by a proper DocBlock per WordPress documentation standards.
 
 # Language & Frameworks
+
 - PHP with WordPress APIs. Tools like phpDocumentor can generate documentation from DocBlocks.
 
 # Coding Standards
+
 - Start DocBlocks with a short, imperative summary on the first line.
 - Provide a longer description if the function’s purpose is not obvious.
 - Include `@since` with the plugin or theme version when the function was introduced.
@@ -21,12 +24,14 @@ Ensure every PHP function, class and hook is accompanied by a proper DocBlock pe
 - Mark deprecated functions with `@deprecated` and link to the replacement.
 
 # Testing & Quality
+
 - Use PHPCS with the `WordPress-Docs` ruleset to catch missing or malformed DocBlocks.
 - Review docblocks during code reviews to ensure they remain accurate when code is modified.
 
 ## Best Practices
 
 ### Formatting
+
 - Use tabs for indentation (with spaces reserved for alignment) to follow the WordPress PHP coding standards
 - Align parameter descriptions
 - Keep line lengths reasonable (typically under 80-120 characters)
@@ -34,6 +39,7 @@ Ensure every PHP function, class and hook is accompanied by a proper DocBlock pe
 - End descriptions with periods
 
 ### Content
+
 - Write clear, concise descriptions
 - Explain the "why" not just the "what"
 - Include examples for complex functions
@@ -41,6 +47,7 @@ Ensure every PHP function, class and hook is accompanied by a proper DocBlock pe
 - Cross-reference related functions with `@see`
 
 ### WordPress Specific
+
 - Follow WordPress coding standards
 - Use WordPress-specific types where appropriate
 - Document hooks with proper formatting
@@ -48,6 +55,7 @@ Ensure every PHP function, class and hook is accompanied by a proper DocBlock pe
 - Reference WordPress core functions appropriately
 
 # Examples
+
 ```php
 /**
  * Calculates the total price including tax.
@@ -70,6 +78,7 @@ These guidelines follow the [WordPress PHP Inline Documentation Standards](https
 ## File Headers
 
 ### Plugin/Theme Files
+
 ```php
 <?php
 /**
@@ -88,6 +97,7 @@ These guidelines follow the [WordPress PHP Inline Documentation Standards](https
 ```
 
 ### Class Files
+
 ```php
 <?php
 /**
@@ -102,6 +112,7 @@ class My_Class {
 ## Function Documentation
 
 ### Basic Function
+
 ```php
 /**
  * Brief description of the function.
@@ -125,6 +136,7 @@ function my_function( $param1, $param2 = 0, $param3 = array() ) {
 ```
 
 ### Hook Documentation
+
 ```php
 /**
  * Filters the example filter.
@@ -150,6 +162,7 @@ do_action( 'example_action', $action, $user_id );
 ## Class Documentation
 
 ### Class Definition
+
 ```php
 /**
  * Class for handling example functionality.
@@ -177,6 +190,7 @@ class Example_Handler {
 ```
 
 ### Method Documentation
+
 ```php
 /**
  * Method description.
@@ -192,17 +206,20 @@ public function example_method( $param ) {
 ## Required Tags
 
 ### @since
+
 - **Required** for all functions, classes, methods, and properties
 - Indicates the version when the element was introduced
 - Use semantic versioning (e.g., 1.0.0)
 
 ### @param
+
 - **Required** for all function/method parameters
 - Format: `@param type $name Description.`
 - Include default values for optional parameters
 - Use array notation for complex array parameters
 
 ### @return
+
 - **Required** for functions that return values
 - Omit for void functions
 - Include type and description
@@ -211,6 +228,7 @@ public function example_method( $param ) {
 ## Optional Tags
 
 ### @throws
+
 ```php
 /**
  * Function that might throw an exception.
@@ -222,6 +240,7 @@ public function example_method( $param ) {
 ```
 
 ### @todo
+
 ```php
 /**
  * Function with future improvements planned.
@@ -234,6 +253,7 @@ public function example_method( $param ) {
 ```
 
 ### @deprecated
+
 ```php
 /**
  * Deprecated function.
@@ -248,6 +268,7 @@ public function example_method( $param ) {
 ## Type Definitions
 
 ### Scalar Types
+
 - `string` - String values
 - `int` - Integer values  
 - `float` - Float values
@@ -259,12 +280,14 @@ public function example_method( $param ) {
 - `mixed` - Multiple possible types
 
 ### WordPress Types
+
 - `WP_Post` - Post objects
 - `WP_User` - User objects
 - `WP_Query` - Query objects
 - `WP_Error` - Error objects
 
 ### Union Types
+
 ```php
 /**
  * @param string|int $value String or integer value.
@@ -275,6 +298,7 @@ public function example_method( $param ) {
 ## Array Documentation
 
 ### Simple Arrays
+
 ```php
 /**
  * @param array $items Array of items.
@@ -282,6 +306,7 @@ public function example_method( $param ) {
 ```
 
 ### Detailed Arrays
+
 ```php
 /**
  * @param array $args {
@@ -325,6 +350,7 @@ function my_content_filter( $content ) {
 ```
 
 ### WordPress Functions
+
 ```php
 /**
  * Get post meta with fallback.
@@ -377,14 +403,14 @@ Need help remembering how to conjugate for third-person singular verbs? Imagine 
 Summary examples:
 
 - **Functions**: _What_ does the function do?
-    - Good: _Displays the last modified date for a post._
-    - Bad: _Display the date on which the post was last modified._
+  - Good: _Displays the last modified date for a post._
+  - Bad: _Display the date on which the post was last modified._
 - **Filters**: _What_ is being filtered?
-    - Good: _Filters the post content._
-    - Bad: _Lets you edit the post content that is output in the post template._
+  - Good: _Filters the post content._
+  - Bad: _Lets you edit the post content that is output in the post template._
 - **Actions:** _When_ does an action fire?
-    - Good: _Fires after most of core is loaded, and the user is authenticated._
-    - Bad: _Allows you to register custom post types, custom taxonomies, and other general housekeeping tasks after a lot of WordPress core has loaded._
+  - Good: _Fires after most of core is loaded, and the user is authenticated._
+  - Bad: _Allows you to register custom post types, custom taxonomies, and other general housekeeping tasks after a lot of WordPress core has loaded._
 
 #### Grammar
 
@@ -509,8 +535,8 @@ PHPDoc supports multiple `@since` versions in DocBlocks for this explicit reason
 `@param`, `@type`, `@return`: No HTML should be used in the descriptions for these tags, though limited Markdown can be used as necessary, such as for adding backticks around variables, e.g. `$variable`.
 
 - Inline `@see` tags can also be used to auto-link hooks in core:
-    - Hooks, e.g. `{@see 'save_post'}`
-    - Dynamic hooks, e.g. `{@see '$old_status_to_$new_status'}` (Note that any extra curly braces have been removed inside the quotes)
+  - Hooks, e.g. `{@see 'save_post'}`
+  - Dynamic hooks, e.g. `{@see '$old_status_to_$new_status'}` (Note that any extra curly braces have been removed inside the quotes)
 - Default or available values should use single quotes, e.g. 'draft'. Translatable strings should be identified as such in the description.
 - HTML elements and tags should be written as "audio element" or "link tag".
 
@@ -823,7 +849,6 @@ Common PHPDoc tags used in WordPress include `@since`, `@see`, `@global` `@param
 
 For the most part, tags are used correctly, but not all the time. For instance, sometimes you'll see an `@link` tag inline, linking to a separate function or method. "Linking" to known classes, methods, or functions is not necessary, as the Code Reference automatically links these elements. For "linking" hooks inline, the proper tag to use is `@see` - see the _Other Descriptions_ section.
 
-
 | Tag               | Usage                                                       | Description                                                                                                                                                                                                                                    |
 |-------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **`@access`**     | private                                                     | Only used in limited circumstances, like when visibility modifiers cannot be used in the code, and only when private, such as for core-only functions or core classes implementing "private" APIs. Used directly below the `@since` line in block.                                                        |
@@ -897,9 +922,11 @@ The `@copyright` and `@license` tags are used in external libraries and scripts,
 - [Draft PSR-19 recommendations](https://github.com/phpDocumentor/fig-standards/blob/master/proposed/phpdoc-tags.md)
 
 # Checklists
+
 - [ ] Every function, method and class has a DocBlock.
 - [ ] `@since`, `@param`, and `@return` are used correctly.
 - [ ] Deprecated functions include a `@deprecated` tag with replacement guidance.
 
 # References
-- https://developer.wordpress.org/coding-standards/inline-documentation-standards/php/
+
+- <https://developer.wordpress.org/coding-standards/inline-documentation-standards/php/>

@@ -3,6 +3,7 @@
 LightSpeedWP **.txt** standards (notably WordPress plugin `readme.txt`).
 
 ## WordPress readme.txt header
+
 ```
 === Plugin Name ===
 Contributors: lightspeedwp
@@ -14,6 +15,7 @@ License: GPLv2 or later
 ```
 
 ## Sections
+
 - **Description** (short and long)
 - **Installation**
 - **FAQs**

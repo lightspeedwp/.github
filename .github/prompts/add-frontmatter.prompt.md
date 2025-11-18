@@ -8,6 +8,7 @@ model: "GPT-4"
 Inspect the frontmatter of the current Markdown or instruction file. If frontmatter is missing or incomplete, add or update it to include all required fields based on the latest Copilot frontmatter standards defined in the [Copilot Frontmatter Instructions](../instructions/copilot-frontmatter.instructions.md).
 
 **Actions:**  
+
 1. If frontmatter is missing, insert a new YAML frontmatter block at the very top.
 2. Ensure all **required keys** are present:  
    - `version` (default: `"v0.1.0"`)
@@ -23,4 +24,3 @@ Inspect the frontmatter of the current Markdown or instruction file. If frontmat
 
 **Reference:**  
 See [Copilot Frontmatter Instructions](../instructions/copilot-frontmatter.instructions.md) for full field definitions and examples.
-

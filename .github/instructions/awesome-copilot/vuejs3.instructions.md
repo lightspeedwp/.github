@@ -8,6 +8,7 @@ applyTo: '**/*.vue, **/*.ts, **/*.js, **/*.scss'
 Instructions for building high-quality VueJS 3 applications with the Composition API, TypeScript, and modern best practices.
 
 ## Project Context
+
 - Vue 3.x with Composition API as default
 - TypeScript for type safety
 - Single File Components (`.vue`) with `<script setup>` syntax
@@ -18,6 +19,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 ## Development Standards
 
 ### Architecture
+
 - Favor the Composition API (`setup` functions and composables) over the Options API
 - Organize components and composables by feature or domain for scalability
 - Separate UI-focused components (presentational) from logic-focused components (containers)
@@ -25,6 +27,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Structure store modules (Pinia) by domain, with clearly defined actions, state, and getters
 
 ### TypeScript Integration
+
 - Enable `strict` mode in `tsconfig.json` for maximum type safety
 - Use `defineComponent` or `<script setup lang="ts">` with `defineProps` and `defineEmits`
 - Leverage `PropType<T>` for typed props and default values
@@ -33,6 +36,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Implement generic components and composables where applicable
 
 ### Component Design
+
 - Adhere to the single responsibility principle for components
 - Use PascalCase for component names and kebab-case for file names
 - Keep components small and focused on one concern
@@ -41,6 +45,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Favor slots and scoped slots for flexible composition
 
 ### State Management
+
 - Use Pinia for global state: define stores with `defineStore`
 - For simple local state, use `ref` and `reactive` within `setup`
 - Use `computed` for derived state
@@ -49,6 +54,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Leverage store plugins for persistence or debugging
 
 ### Composition API Patterns
+
 - Create reusable composables for shared logic, e.g., `useFetch`, `useAuth`
 - Use `watch` and `watchEffect` with precise dependency lists
 - Cleanup side effects in `onUnmounted` or `watch` cleanup callbacks
@@ -56,6 +62,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Use `useAsyncData` or third-party data utilities (Vue Query)
 
 ### Styling
+
 - Use `<style scoped>` for component-level styles or CSS Modules
 - Consider utility-first frameworks (Tailwind CSS) for rapid styling
 - Follow BEM or functional CSS conventions for class naming
@@ -64,6 +71,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Ensure styles are accessible (contrast, focus states)
 
 ### Performance Optimization
+
 - Lazy-load components with dynamic imports and `defineAsyncComponent`
 - Use `<Suspense>` for async component loading fallbacks
 - Apply `v-once` and `v-memo` for static or infrequently changing elements
@@ -72,6 +80,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Tree-shake unused code and leverage Vite’s optimization features
 
 ### Data Fetching
+
 - Use composables like `useFetch` (Nuxt) or libraries like Vue Query
 - Handle loading, error, and success states explicitly
 - Cancel stale requests on component unmount or param change
@@ -79,6 +88,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Cache responses and use background revalidation
 
 ### Error Handling
+
 - Use global error handler (`app.config.errorHandler`) for uncaught errors
 - Wrap risky logic in `try/catch`; provide user-friendly messages
 - Use `errorCaptured` hook in components for local boundaries
@@ -86,6 +96,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Log errors to external services (Sentry, LogRocket)
 
 ### Forms and Validation
+
 - Use libraries like VeeValidate or @vueuse/form for declarative validation
 - Build forms with controlled `v-model` bindings
 - Validate on blur or input with debouncing for performance
@@ -93,6 +104,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Ensure accessible labeling, error announcements, and focus management
 
 ### Routing
+
 - Use Vue Router 4 with `createRouter` and `createWebHistory`
 - Implement nested routes and route-level code splitting
 - Protect routes with navigation guards (`beforeEnter`, `beforeEach`)
@@ -101,6 +113,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Implement breadcrumb data via route meta fields
 
 ### Testing
+
 - Write unit tests with Vue Test Utils and Jest
 - Focus on behavior, not implementation details
 - Use `mount` and `shallowMount` for component isolation
@@ -109,6 +122,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Test accessibility using axe-core integration
 
 ### Security
+
 - Avoid using `v-html`; sanitize any HTML inputs rigorously
 - Use CSP headers to mitigate XSS and injection attacks
 - Validate and escape data in templates and directives
@@ -116,6 +130,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Store sensitive tokens in HTTP-only cookies, not `localStorage`
 
 ### Accessibility
+
 - Use semantic HTML elements and ARIA attributes
 - Manage focus for modals and dynamic content
 - Provide keyboard navigation for interactive components
@@ -123,6 +138,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Ensure color contrast meets WCAG AA standards
 
 ## Implementation Process
+
 1. Plan component and composable architecture
 2. Initialize Vite project with Vue 3 and TypeScript
 3. Define Pinia stores and composables
@@ -137,6 +153,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 12. Document components, composables, and stores
 
 ## Additional Guidelines
+
 - Follow Vue’s official style guide (vuejs.org/style-guide)
 - Use ESLint (with `plugin:vue/vue3-recommended`) and Prettier for code consistency
 - Write meaningful commit messages and maintain clean git history
@@ -145,6 +162,7 @@ Instructions for building high-quality VueJS 3 applications with the Composition
 - Use Vue DevTools for debugging and profiling
 
 ## Common Patterns
+
 - Renderless components and scoped slots for flexible UI
 - Compound components using provide/inject
 - Custom directives for cross-cutting concerns

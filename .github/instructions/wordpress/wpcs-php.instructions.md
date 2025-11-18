@@ -11,16 +11,20 @@ owners: ["LightSpeed Engineering"]
 WordPress uses a customized documentation schema that draws inspiration from PHPDoc, an evolving standard for providing documentation to PHP code, which is maintained by [phpDocumentor](http://phpdoc.org/).
 
 ## Mission
+
 Ensure PHP code follows WordPress conventions for style, security and internationalisation while delivering high performance.
 
 ## Language & Frameworks
+
 - PHP 7.4+ (WordPress currently supports up to 8.2). Use WordPress core functions and APIs wherever possible.
 
 ## Project Structure
+
 - Organise code under `includes/`, `src/` or `plugins/` with autoloadable namespaces.
 - Name classes and files consistently (e.g. `class-plugin-name.php`).
 
 ## Coding Standards
+
 - Use **4‑space indentation**; brace styles follow the WordPress guidelines (K&R).
 - Prefer **Yoda conditions** when performing comparisons that may involve assignments.
 - Escape data on output (`esc_html`, `esc_attr`, `wp_kses_post`) and sanitise data on input (`sanitize_text_field`, `intval`, etc.).
@@ -29,19 +33,23 @@ Ensure PHP code follows WordPress conventions for style, security and internatio
 - Avoid direct database queries; use `$wpdb->prepare()` and helper functions.
 
 ## Testing & Quality
+
 - Run **PHPCS** with the `WordPress`, `WordPress-Docs` and `WordPress-Extra` rulesets. Use `phpcbf` for safe automatic fixes and review residual warnings.
 - Write unit tests with PHPUnit and integration tests with the WordPress testing suite.
 
 ## Performance & Security
+
 - Cache expensive operations; use transients or object caching APIs.
 - Validate and sanitise all user inputs; never trust `$_GET`, `$_POST` or `$_REQUEST` without sanitisation.
 - Use prepared statements to prevent SQL injection.
 
 ## Documentation
+
 - Provide comprehensive DocBlocks for all classes, methods and hooks, including `@since`, `@param`, `@return`, and examples where applicable.
 
 ## PHP Block & Theme Setup Instructions
-- Follow WordPress coding standards: https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/
+
+- Follow WordPress coding standards: <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/>
 - Use 4 spaces for indentation, no tabs
 
 ## Pattern Registration
@@ -142,14 +150,14 @@ Need help remembering how to conjugate for third-person singular verbs? Imagine 
 Summary examples:
 
 - **Functions**: _What_ does the function do?
-    - Good: _Displays the last modified date for a post._
-    - Bad: _Display the date on which the post was last modified._
+  - Good: _Displays the last modified date for a post._
+  - Bad: _Display the date on which the post was last modified._
 - **Filters**: _What_ is being filtered?
-    - Good: _Filters the post content._
-    - Bad: _Lets you edit the post content that is output in the post template._
+  - Good: _Filters the post content._
+  - Bad: _Lets you edit the post content that is output in the post template._
 - **Actions:** _When_ does an action fire?
-    - Good: _Fires after most of core is loaded, and the user is authenticated._
-    - Bad: _Allows you to register custom post types, custom taxonomies, and other general housekeeping tasks after a lot of WordPress core has loaded._
+  - Good: _Fires after most of core is loaded, and the user is authenticated._
+  - Bad: _Allows you to register custom post types, custom taxonomies, and other general housekeeping tasks after a lot of WordPress core has loaded._
 
 #### Grammar
 
@@ -274,8 +282,8 @@ PHPDoc supports multiple `@since` versions in DocBlocks for this explicit reason
 `@param`, `@type`, `@return`: No HTML should be used in the descriptions for these tags, though limited Markdown can be used as necessary, such as for adding backticks around variables, e.g. `$variable`.
 
 - Inline `@see` tags can also be used to auto-link hooks in core:
-    - Hooks, e.g. `{@see 'save_post'}`
-    - Dynamic hooks, e.g. `{@see '$old_status_to_$new_status'}` (Note that any extra curly braces have been removed inside the quotes)
+  - Hooks, e.g. `{@see 'save_post'}`
+  - Dynamic hooks, e.g. `{@see '$old_status_to_$new_status'}` (Note that any extra curly braces have been removed inside the quotes)
 - Default or available values should use single quotes, e.g. 'draft'. Translatable strings should be identified as such in the description.
 - HTML elements and tags should be written as "audio element" or "link tag".
 
@@ -588,7 +596,6 @@ Common PHPDoc tags used in WordPress include `@since`, `@see`, `@global` `@param
 
 For the most part, tags are used correctly, but not all the time. For instance, sometimes you'll see an `@link` tag inline, linking to a separate function or method. "Linking" to known classes, methods, or functions is not necessary, as the Code Reference automatically links these elements. For "linking" hooks inline, the proper tag to use is `@see` - see the _Other Descriptions_ section.
 
-
 | Tag               | Usage                                                       | Description                                                                                                                                                                                                                                    |
 |-------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **`@access`**     | private                                                     | Only used in limited circumstances, like when visibility modifiers cannot be used in the code, and only when private, such as for core-only functions or core classes implementing "private" APIs. Used directly below the `@since` line in block.                                                        |
@@ -653,6 +660,7 @@ The `@copyright` and `@license` tags are used in external libraries and scripts,
 - `@license` is used to specify external script licenses.
 
 # Checklists
+
 - [ ] All database queries use prepared statements.
 - [ ] Data is sanitised on input and escaped on output.
 - [ ] Functions and classes include full DocBlocks.
@@ -665,4 +673,4 @@ The `@copyright` and `@license` tags are used in external libraries and scripts,
 - [phpDocumentor Tutorial Tags](http://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_tags.pkg.html)
 - [Draft PSR-5 recommendations](https://github.com/phpDocumentor/fig-standards/blob/master/proposed/phpdoc.md)
 - [Draft PSR-19 recommendations](https://github.com/phpDocumentor/fig-standards/blob/master/proposed/phpdoc-tags.md)
-- https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/
+- <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/>

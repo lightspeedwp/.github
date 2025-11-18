@@ -13,11 +13,12 @@ references:
   - .github/AUTOMATION_GOVERNANCE.md
 ---
 
-## Is your enhancement related to a problem? Please describe.
+## Is your enhancement related to a problem? Please describe
 
 Child repositories across the LightSpeed organisation often have outdated or divergent CONTRIBUTING.md and other canonical files, leading to template drift, inconsistent contributor experiences, and repeated manual work to keep documentation synchronised.
 
 **Current problems:**
+
 - Child repos manually copy canonical files from `.github` repo
 - Files drift out of sync over time
 - Maintainers spend time manually updating each repo
@@ -34,12 +35,14 @@ Implement a stub CONTRIBUTING.md pattern and optional GitHub Actions workflow to
 ### Part 1: Stub CONTRIBUTING.md Pattern
 
 Create a minimal stub CONTRIBUTING.md template that child repos can use, which:
+
 - References the canonical `.github` repo for full guidelines
 - Provides repo-specific quick-start information
 - Links to LightSpeed org-wide standards
 - Clearly indicates it's a stub pointing to canonical source
 
 **Example stub:**
+
 ```markdown
 # Contributing to [Project Name]
 
@@ -67,6 +70,7 @@ For questions, see [SUPPORT.md](https://github.com/lightspeedwp/.github/blob/dev
 ### Part 2: Optional Sync Action (Documented, Not Auto-Enabled)
 
 Document a GitHub Actions workflow pattern that child repos can **optionally** enable to:
+
 - Detect changes to canonical files in `.github` repo
 - Automatically open PRs in child repos with updated content
 - Allow repo maintainers to review and merge (or close if not applicable)
@@ -92,6 +96,7 @@ Opens PRs in configured child repos → Maintainers review → Merge or close
 ## Acceptance Criteria
 
 **Part 1: Stub pattern**
+
 - [ ] Stub CONTRIBUTING.md snippet created and published
 - [ ] Stub template includes:
   - Link to canonical CONTRIBUTING.md
@@ -102,6 +107,7 @@ Opens PRs in configured child repos → Maintainers review → Merge or close
 - [ ] Example published in `.github` repo (e.g., `templates/CONTRIBUTING.stub.md`)
 
 **Part 2: Sync action outline**
+
 - [ ] Sync action workflow outline documented (not auto-enabled)
 - [ ] Documentation includes:
   - How the sync action works
@@ -114,6 +120,7 @@ Opens PRs in configured child repos → Maintainers review → Merge or close
 - [ ] Maintenance and troubleshooting guide included
 
 **General:**
+
 - [ ] All acceptance criteria met
 - [ ] Documentation/changelog updated
 - [ ] Tests added/updated (if applicable)
@@ -123,11 +130,13 @@ Opens PRs in configured child repos → Maintainers review → Merge or close
 ## Testing Requirements
 
 **Stub pattern testing:**
+
 1. Deploy stub in a test child repo
 2. Verify links resolve correctly
 3. Confirm clarity and usability with contributors
 
 **Sync action testing (if implemented):**
+
 1. Create test child repo with sync action enabled
 2. Update canonical file in `.github` repo
 3. Verify PR is automatically opened in child repo
@@ -137,18 +146,22 @@ Opens PRs in configured child repos → Maintainers review → Merge or close
 ## Describe alternatives you've considered
 
 **Alternative 1: Manual synchronisation**
+
 - **Pros:** Simple, no automation complexity
 - **Cons:** Error-prone, time-consuming, leads to drift
 
 **Alternative 2: Enforce identical files (no stubs)**
+
 - **Pros:** Perfect consistency
 - **Cons:** Inflexible, doesn't support repo-specific needs
 
 **Alternative 3: Full automation (not optional)**
+
 - **Pros:** Maximum consistency
 - **Cons:** May override necessary repo-specific variations, reduces autonomy
 
 **Chosen approach (stub + optional sync):**
+
 - Balances consistency with flexibility
 - Opt-in respects repo autonomy
 - Reduces maintainer burden where desired
@@ -156,6 +169,7 @@ Opens PRs in configured child repos → Maintainers review → Merge or close
 ## Additional Context
 
 **Files likely to benefit from stub/sync pattern:**
+
 - CONTRIBUTING.md
 - CODE_OF_CONDUCT.md
 - SECURITY.md
@@ -198,11 +212,13 @@ jobs:
 ```
 
 **Security considerations:**
+
 - Sync action should use limited-scope tokens
 - PRs should require review (never auto-merge)
 - Exclude sensitive or repo-specific configs from sync
 
 **Adoption strategy:**
+
 1. Publish stub pattern and documentation
 2. Pilot sync action in 2-3 repos
 3. Gather feedback and iterate
@@ -210,6 +226,7 @@ jobs:
 5. Document success metrics (time saved, reduced drift)
 
 **Telemetry:**
+
 - Sample downstream repo adopts stub (measure success)
 - Optional action documented and available
 - Track adoption rate and feedback from pilot repos
@@ -224,6 +241,7 @@ jobs:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Problem/opportunity defined
 - [ ] Acceptance criteria written
 - [ ] Stub pattern designed
@@ -232,6 +250,7 @@ jobs:
 - [ ] Estimate added: **Medium-Large** (3-5 hours: stub, documentation, example action)
 
 ### Definition of Done (DoD)
+
 - [ ] All AC met and demonstrated
 - [ ] Stub pattern published in templates/
 - [ ] Sync action documented (not auto-enabled)
@@ -262,11 +281,13 @@ jobs:
 **Branch prefix:** `devex/` or `feat/`
 
 **Files to create:**
+
 - `templates/CONTRIBUTING.stub.md`
 - `docs/SYNC_ACTION.md`
 - `examples/workflows/sync-canonical-files.yml`
 
 **Files to update:**
+
 - `CONTRIBUTING.md` or `DEVELOPMENT.md` (reference stub pattern)
 - `CHANGELOG.md`
 

@@ -63,17 +63,20 @@ graph TD
 ## Requirements Matrix
 
 ### Functional Requirements
+
 | ID | Requirement | Priority | Acceptance Criteria |
 |----|-------------|----------|-------------------|
 | REQ-001 | [Requirement] | High | [Testable criteria] |
 | REQ-002 | [Requirement] | Medium | [Testable criteria] |
 
 ### Security Requirements
+
 | ID | Requirement | Implementation Constraint |
 |----|-------------|---------------------------|
 | SEC-001 | [Security requirement] | [Constraint description] |
 
 ### Performance Requirements
+
 | ID | Metric | Target | Measurement Method |
 |----|-------|--------|-------------------|
 | PERF-001 | [Metric] | [Target value] | [How measured] |
@@ -253,7 +256,9 @@ style ProcessNode fill:#f3e5f5
 ```
 
 ### Complex Workflows
+
 For workflows with 5+ jobs, use subgraphs:
+
 ```mermaid
 graph TD
     subgraph "Build Phase"

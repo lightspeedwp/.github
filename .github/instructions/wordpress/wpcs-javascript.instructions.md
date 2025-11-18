@@ -23,17 +23,21 @@ The WordPress JavaScript Coding Standards are adapted from the [jQuery JavaScrip
 Many of the examples below have been adapted directly from the jQuery style guide; these differences have all been integrated into the examples on this page. Any of the below standards and examples should be considered best practice for WordPress code, unless explicitly noted as anti-patterns.
 
 ## Mission
+
 Define how to write and structure JavaScript code that aligns with the WordPress coding standards and LightSpeed’s engineering practices.
 
 ## Language & Frameworks
+
 - Modern ECMAScript (ES6+) syntax. Use modules rather than global scripts.
 - WordPress packages (e.g. `@wordpress/scripts`, `@wordpress/data`) and React for block development.
 
 ## Project Structure
+
 - Organise scripts under `src/js/` or `assets/js/` with a clear folder hierarchy per feature or component.
 - Name files using `lowercase-hyphenated.js` for modules and `UpperCamelCase.jsx` for React components.
 
 ## Coding Standards
+
 - Use **2‑space indentation**, single quotes and semicolons.
 - Prefer `const` and `let` over `var` and always use strict equality (`===`/`!==`).
 - Avoid polluting the global scope; wrap scripts in modules or IIFEs.
@@ -42,18 +46,22 @@ Define how to write and structure JavaScript code that aligns with the WordPress
 - Avoid complex nested callbacks; favour promises or async/await for asynchronous code.
 
 ## Testing & Quality
+
 - Use **ESLint** with the WordPress ruleset or LightSpeed’s custom config. Fix lint errors before committing.
 - Format code with Prettier (following ESLint rules). Use Jest for unit tests and Playwright for integration tests.
 
 # Performance & Security
+
 - Prefer modern browser APIs; avoid heavy polyfills unless necessary.
 - Escape user‑generated content when injecting into the DOM.
 - Internationalise strings using WordPress i18n APIs (e.g. `wp.i18n.__`).
 
 ## Documentation
+
 - Include JSDoc blocks for exported functions and classes. Provide `@since` for new APIs and `@deprecated` where applicable.
 
 ## Examples
+
 ```js
 // Good: module scope and JSDoc
 /**
@@ -111,14 +119,14 @@ Arrays can be declared on a single line if they are short (remember the line len
 ```javascript
 // Preferred
 var obj = {
-	ready: 9,
-	when: 4,
-	'you are': 15,
+ ready: 9,
+ when: 4,
+ 'you are': 15,
 };
 var arr = [
-	9,
-	4,
-	15,
+ 9,
+ 4,
+ 15,
 ];
 
 // Acceptable for small objects and arrays
@@ -127,9 +135,9 @@ var arr = [ 9, 4, 15 ];
 
 // Bad
 var obj = { ready: 9,
-	when: 4, 'you are': 15 };
+ when: 4, 'you are': 15 };
 var arr = [ 9,
-	4, 15 ];
+ 4, 15 ];
 ```
 
 ### Arrays and Function Calls
@@ -158,31 +166,31 @@ firstArrayElement = arr[ 0 ];
 var i;
 
 if ( condition ) {
-	doSomething( 'with a string' );
+ doSomething( 'with a string' );
 } else if ( otherCondition ) {
-	otherThing( {
-		key: value,
-		otherKey: otherValue
-	} );
+ otherThing( {
+  key: value,
+  otherKey: otherValue
+ } );
 } else {
-	somethingElse( true );
+ somethingElse( true );
 }
 
 // Unlike jQuery, WordPress prefers a space after the ! negation operator.
 // This is also done to conform to our PHP standards.
 while ( ! condition ) {
-	iterating++;
+ iterating++;
 }
 
 for ( i = 0; i &lt; 100; i++ ) {
-	object[ array[ i ] ] = someFn( i );
-	$( '.container' ).val( array[ i ] );
+ object[ array[ i ] ] = someFn( i );
+ $( '.container' ).val( array[ i ] );
 }
 
 try {
-	// Expressions
+ // Expressions
 } catch ( e ) {
-	// Expressions
+ // Expressions
 }
 ```
 
@@ -198,11 +206,11 @@ Tabs should be used for indentation. Even if the entire file is contained in a c
 
 ```javascript
 ( function ( $ ) {
-	// Expressions indented
+ // Expressions indented
 
-	function doSomething() {
-		// Expressions indented
-	}
+ function doSomething() {
+  // Expressions indented
+ }
 } )( jQuery );
 ```
 
@@ -214,11 +222,11 @@ Tabs should be used for indentation. Even if the entire file is contained in a c
 var a, b, c;
 
 if ( myFunction() ) {
-	// Expressions
+ // Expressions
 } else if ( ( a &amp;&amp; b ) || c ) {
-	// Expressions
+ // Expressions
 } else {
-	// Expressions
+ // Expressions
 }
 ```
 
@@ -229,11 +237,11 @@ When a statement is too long to fit on one line, line breaks must occur after an
 ```javascript
 // Bad
 var html = '&lt;p>The sum of ' + a + ' and ' + b + ' plus ' + c
-	+ ' is ' + ( a + b + c ) + '&lt;/p>';
+ + ' is ' + ( a + b + c ) + '&lt;/p>';
 
 // Good
 var html = '&lt;p>The sum of ' + a + ' and ' + b + ' plus ' + c +
-	' is ' + ( a + b + c ) + '&lt;/p>';
+ ' is ' + ( a + b + c ) + '&lt;/p>';
 ```
 
 Lines should be broken into logical groups if it improves readability, such as splitting each expression of a ternary operator onto its own line, even if both will fit on a single line.
@@ -244,17 +252,17 @@ var baz = ( true === conditionalStatement() ) ? 'thing 1' : 'thing 2';
 
 // Better
 var baz = firstCondition( foo ) &amp;&amp; secondCondition( bar ) ?
-	qux( foo, bar ) :
-	foo;
+ qux( foo, bar ) :
+ foo;
 ```
 
 When a conditional is too long to fit on one line, each operand of a logical operator in the boolean expression must appear on its own line, indented one extra level from the opening and closing parentheses.
 
 ```javascript
 if (
-	firstCondition() &amp;&amp;
-	secondCondition() &amp;&amp;
-	thirdCondition()
+ firstCondition() &amp;&amp;
+ secondCondition() &amp;&amp;
+ thirdCondition()
 ) {
     doStuff();
 }
@@ -266,11 +274,11 @@ When a chain of method calls is too long to fit on one line, there must be one c
 
 ```javascript
 elements
-	.addClass( 'foo' )
-	.children()
-		.html( 'hello' )
-	.end()
-	.appendTo( 'body' );
+ .addClass( 'foo' )
+ .children()
+  .html( 'hello' )
+ .end()
+ .appendTo( 'body' );
 ```
 
 ## Assignments and Globals
@@ -290,8 +298,8 @@ Assignments within the `var` statement should be listed on individual lines, whi
 ```javascript
 // Good
 var k, m, length,
-	// Indent subsequent lines by one tab
-	value = 'WordPress';
+ // Indent subsequent lines by one tab
+ value = 'WordPress';
 
 // Bad
 var foo = true;
@@ -323,7 +331,7 @@ Backbone and Underscore may be accessed directly at any time. jQuery should be a
 
 ```javascript
 ( function ( $ ) {
-	// Expressions
+ // Expressions
 } )( jQuery );
 ```
 
@@ -372,13 +380,13 @@ A [`class` definition](https://developer.mozilla.org/en-US/docs/Web/JavaScript/R
 
 ```javascript
 class Earth {
-	static addHuman( human ) {
-		Earth.humans.push( human );
-	}
+ static addHuman( human ) {
+  Earth.humans.push( human );
+ }
 
-	static getHumans() {
-		return Earth.humans;
-	}
+ static getHumans() {
+  return Earth.humans;
+ }
 }
 
 Earth.humans = [];
@@ -412,7 +420,7 @@ Inline comments are allowed as an exception when used to annotate special argume
 
 ```javascript
 function foo( types, selector, data, fn, /* INTERNAL */ one ) {
-	// Do stuff
+ // Do stuff
 }
 ```
 
@@ -435,10 +443,10 @@ These are the preferred ways of checking the type of an object:
 - null: `object === null`
 - null or undefined: `object == null`
 - undefined:
-    - Global Variables: `typeof variable === 'undefined'`
-    - Local Variables: `variable === undefined`
-    - Properties: `object.prop === undefined`
-    - Any of the above: `_.isUndefined( object )`
+  - Global Variables: `typeof variable === 'undefined'`
+  - Local Variables: `variable === undefined`
+  - Properties: `object.prop === undefined`
+  - Any of the above: `_.isUndefined( object )`
 
 Anywhere Backbone or Underscore are already used, you are encouraged to use [Underscore.js](http://underscorejs.org/#isElement)'s type checking methods over jQuery's.
 
@@ -468,16 +476,16 @@ When using `switch` statements:
 
 ```javascript
 switch ( event.keyCode ) {
-	// ENTER and SPACE both trigger x()
-	case $.ui.keyCode.ENTER:
-	case $.ui.keyCode.SPACE:
-		x();
-		break;
-	case $.ui.keyCode.ESCAPE:
-		y();
-		break;
-	default:
-		z();
+ // ENTER and SPACE both trigger x()
+ case $.ui.keyCode.ENTER:
+ case $.ui.keyCode.SPACE:
+  x();
+  break;
+ case $.ui.keyCode.ESCAPE:
+  y();
+  break;
+ default:
+  z();
 }
 ```
 
@@ -485,21 +493,21 @@ It is not recommended to return a value from within a switch statement: use the 
 
 ```javascript
 function getKeyCode( keyCode ) {
-	var result;
+ var result;
 
-	switch ( event.keyCode ) {
-		case $.ui.keyCode.ENTER:
-		case $.ui.keyCode.SPACE:
-			result = 'commit';
-			break;
-		case $.ui.keyCode.ESCAPE:
-			result = 'exit';
-			break;
-		default:
-			result = 'default';
-	}
+ switch ( event.keyCode ) {
+  case $.ui.keyCode.ENTER:
+  case $.ui.keyCode.SPACE:
+   result = 'commit';
+   break;
+  case $.ui.keyCode.ESCAPE:
+   result = 'exit';
+   break;
+  default:
+   result = 'default';
+ }
 
-	return result;
+ return result;
 }
 ```
 
@@ -553,13 +561,13 @@ var i, max;
 
 // getItemCount() gets called once
 for ( i = 0, max = getItemCount(); i &lt; max; i++ ) {
-	// Do stuff
+ // Do stuff
 }
 
 // Bad &amp; Potentially Inefficient:
 // getItemCount() gets called every time
 for ( i = 0; i &lt; getItemCount(); i++ ) {
-	// Do stuff
+ // Do stuff
 }
 ```
 
@@ -571,18 +579,18 @@ Underscore also permits jQuery-style chaining with regular JavaScript objects:
 
 ```javascript
 var obj = {
-	first: 'thing 1',
-	second: 'thing 2',
-	third: 'lox'
+ first: 'thing 1',
+ second: 'thing 2',
+ third: 'lox'
 };
 
 var arr = _.chain( obj )
-	.keys()
-	.map( function ( key ) {
-		return key + ' comes ' + obj[ key ];
-	} )
-	// Exit the chain
-	.value();
+ .keys()
+ .map( function ( key ) {
+  return key + ' comes ' + obj[ key ];
+ } )
+ // Exit the chain
+ .value();
 
 // arr === [ 'first comes thing 1', 'second comes thing 2', 'third comes lox' ]
 ```
@@ -593,9 +601,9 @@ The only time jQuery should be used for iteration is when iterating over a colle
 
 ```javascript
 $tabs.each( function ( index, element ) {
-	var $element = $( element );
+ var $element = $( element );
 
-	// Do stuff to $element
+ // Do stuff to $element
 } );
 ```
 
@@ -642,8 +650,8 @@ To exclude a specific file region from being processed by JSHint, enclose it in 
 ```javascript
 /* jshint ignore:start */
 if ( typeof jQuery.fn.hoverIntent === 'undefined' ) {
-	// hoverIntent r6 - Copy of wp-includes/js/hoverIntent.min.js
-	(function(a){a.fn.hoverIntent=...............
+ // hoverIntent r6 - Copy of wp-includes/js/hoverIntent.min.js
+ (function(a){a.fn.hoverIntent=...............
 }
 /* jshint ignore:end */
 ```
@@ -653,9 +661,11 @@ if ( typeof jQuery.fn.hoverIntent === 'undefined' ) {
 - The jQuery examples are adapted from the [jQuery JavaScript Style Guide](https://contribute.jquery.org/style-guide/js), which is made available under the MIT license.
 
 # Checklists
+
 - [ ] ESLint passes without errors.
 - [ ] All exported functions/classes are documented with JSDoc.
 - [ ] Asynchronous code uses Promises or async/await instead of callbacks.
 
 # References
-- https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/
+
+- <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/>

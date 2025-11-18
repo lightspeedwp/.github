@@ -40,7 +40,7 @@ This directory contains 13 comprehensive issue drafts for improving community he
 
 ### Option 1: Manual Creation via GitHub Web Interface
 
-1. Go to: https://github.com/lightspeedwp/.github/issues/new/choose
+1. Go to: <https://github.com/lightspeedwp/.github/issues/new/choose>
 2. Select the appropriate template (see table above)
 3. Copy the content from the corresponding `.md` file in this directory
 4. Paste into the issue form
@@ -101,6 +101,7 @@ done
 ```
 
 Run with:
+
 ```bash
 chmod +x create-issues.sh
 ./create-issues.sh
@@ -129,6 +130,7 @@ Each issue uses the most appropriate LightSpeed template:
 ## Priority & Dependencies
 
 ### High Priority (v0.2.0 milestone)
+
 - G01: Schema relocation (blocks other schema work)
 - G02: Fix stale links (affects documentation credibility)
 - G03: Issue types clarity (affects workflow automation)
@@ -136,6 +138,7 @@ Each issue uses the most appropriate LightSpeed template:
 - G13: SECURITY vs SUPPORT (security best practice)
 
 ### Medium Priority
+
 - G04: Refresh READMEs (quality-of-life improvement)
 - G06: Unify AI instructions (affects AI agent predictability)
 - G08: Mermaid accessibility (a11y compliance)
@@ -144,6 +147,7 @@ Each issue uses the most appropriate LightSpeed template:
 - G11: Live Links index (navigation improvement)
 
 ### Lower Priority
+
 - G07: Branding agent synopsis (prevents dead-ends)
 - G12: Stub strategy (DevEx improvement, non-blocking)
 

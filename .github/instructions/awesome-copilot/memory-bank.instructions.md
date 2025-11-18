@@ -26,6 +26,7 @@ flowchart TD
 ```
 
 ### Core Files (Required)
+
 1. `projectbrief.md`
    - Foundation document that shapes all other files
    - Created at project start if it doesn't exist
@@ -69,7 +70,9 @@ flowchart TD
    - Preserves complete thought process and history for each task
 
 ### Additional Context
+
 Create additional files/folders within memory-bank/ when they help organize:
+
 - Complex feature documentation
 - Integration specifications
 - API documentation
@@ -79,6 +82,7 @@ Create additional files/folders within memory-bank/ when they help organize:
 ## Core Workflows
 
 ### Plan Mode
+
 ```mermaid
 flowchart TD
     Start[Start] --> ReadFiles[Read Memory Bank]
@@ -93,6 +97,7 @@ flowchart TD
 ```
 
 ### Act Mode
+
 ```mermaid
 flowchart TD
     Start[Start] --> Context[Check Memory Bank]
@@ -103,6 +108,7 @@ flowchart TD
 ```
 
 ### Task Management
+
 ```mermaid
 flowchart TD
     Start[New Task] --> NewFile[Create Task File in tasks/ folder]
@@ -121,6 +127,7 @@ flowchart TD
 ## Documentation Updates
 
 Memory Bank updates occur when:
+
 1. Discovering new project patterns
 2. After implementing significant changes
 3. When user requests with **update memory bank** (MUST review ALL files)
@@ -169,6 +176,7 @@ flowchart TD
 ```
 
 ### What to Capture
+
 - Critical implementation paths
 - User preferences and workflow
 - Project-specific patterns
@@ -265,6 +273,7 @@ These detailed progress updates ensure that after memory resets, I can quickly u
 ### Task Commands
 
 When you request **add task** or use the command **create task**, I will:
+
 1. Create a new task file with a unique Task ID in the tasks/ folder
 2. Document our thought process about the approach
 3. Develop an implementation plan
@@ -272,13 +281,15 @@ When you request **add task** or use the command **create task**, I will:
 5. Update the _index.md file to include the new task
 
 For existing tasks, the command **update task [ID]** will prompt me to:
-1. Open the specific task file 
+
+1. Open the specific task file
 2. Add a new progress log entry with today's date
 3. Update the task status if needed
 4. Update the _index.md file to reflect any status changes
 5. Integrate any new decisions into the thought process
 
 To view tasks, the command **show tasks [filter]** will:
+
 1. Display a filtered list of tasks based on the specified criteria
 2. Valid filters include:
    - **all** - Show all tasks regardless of status

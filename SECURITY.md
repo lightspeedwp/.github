@@ -106,6 +106,7 @@ View historical security advisories: [Security Advisories](https://github.com/li
 ## Questions or Concerns?
 
 For questions about this security policy, contact:
+
 - **Email:** [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency)
 - **Lead Security Contact:** @ashleyshaw
 

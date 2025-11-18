@@ -16,6 +16,7 @@ This directory contains all GitHub Actions workflows that power LightSpeed's rep
 ## 🔄 Active Workflows
 
 > **Status**: All workflows validated and standardized as of 2025-10-24
+>
 > - ✅ All workflows use standardized action versions (checkout@v4, setup-node@v4)
 > - ✅ All workflows have explicit permissions declarations
 > - ✅ Branch strategy aligned with develop → main model
@@ -189,6 +190,7 @@ Historical and deprecated workflows are stored in [`archived/`](./archived/) wit
 - [archived/README.md](./archived/README.md) - Archive index and migration notes
 
 **Recently Archived (2025-10-24):**
+
 - `labeler.yml` - Replaced by unified `labeling.yml` workflow
 - `labeling.yml.old` - Removed backup file
 
@@ -209,6 +211,7 @@ All workflows have been validated and standardized to ensure:
 ### Security & Permissions
 
 All workflows include explicit `permissions:` blocks following least-privilege principles:
+
 - `contents: read` - Default for most workflows
 - `pull-requests: write` - For PR commenting/labeling
 - `issues: write` - For issue management
@@ -217,6 +220,7 @@ All workflows include explicit `permissions:` blocks following least-privilege p
 ### Branch Strategy Compliance
 
 Workflows follow the **develop → main** branching model:
+
 - **Validation/CI workflows**: Trigger on `develop` and PRs to `develop`
 - **Release workflows**: Trigger on `main` and tags
 - **Claude branches**: Some workflows include `claude/**` for automated agent work

@@ -22,10 +22,13 @@ Ask the user for the following information if not provided:
 Based on the provided stack, create the following files in the appropriate directories:
 
 ### 1. `.github/copilot-instructions.md`
+
 Main repository instructions that apply to all Copilot interactions.
 
 ### 2. `.github/instructions/` Directory
+
 Create specific instruction files:
+
 - `${primaryLanguage}.instructions.md` - Language-specific guidelines
 - `testing.instructions.md` - Testing standards and practices
 - `documentation.instructions.md` - Documentation requirements
@@ -34,7 +37,9 @@ Create specific instruction files:
 - `code-review.instructions.md` - Code review standards and GitHub review guidelines
 
 ### 3. `.github/prompts/` Directory
+
 Create reusable prompt files:
+
 - `setup-component.prompt.md` - Component/module creation
 - `write-tests.prompt.md` - Test generation
 - `code-review.prompt.md` - Code review assistance
@@ -43,22 +48,28 @@ Create reusable prompt files:
 - `debug-issue.prompt.md` - Debugging assistance
 
 ### 4. `.github/chatmodes/` Directory
+
 Create specialized chat modes:
+
 - `architect.chatmode.md` - Architecture planning mode
 - `reviewer.chatmode.md` - Code review mode
 - `debugger.chatmode.md` - Debugging mode
 
 **Chat Mode Attribution**: When using content from awesome-copilot chatmodes, add attribution comments:
+
 ```markdown
 <!-- Based on/Inspired by: https://github.com/github/awesome-copilot/blob/main/chatmodes/[filename].chatmode.md -->
 ```
 
 ### 5. `.github/workflows/` Directory
+
 Create Coding Agent workflow file:
+
 - `copilot-setup-steps.yml` - GitHub Actions workflow for Coding Agent environment setup
 
 **CRITICAL**: The workflow MUST follow this exact structure:
-- Job name MUST be `copilot-setup-steps` 
+
+- Job name MUST be `copilot-setup-steps`
 - Include proper triggers (workflow_dispatch, push, pull_request on the workflow file)
 - Set appropriate permissions (minimum required)
 - Customize steps based on the technology stack provided
@@ -68,22 +79,26 @@ Create Coding Agent workflow file:
 For each file, follow these principles:
 
 **MANDATORY FIRST STEP**: Always use the fetch tool to research existing patterns before creating any content:
-1. **Fetch from awesome-copilot collections**: https://github.com/github/awesome-copilot/blob/main/README.collections.md
-2. **Fetch specific instruction files**: https://raw.githubusercontent.com/github/awesome-copilot/main/instructions/[relevant-file].instructions.md
+
+1. **Fetch from awesome-copilot collections**: <https://github.com/github/awesome-copilot/blob/main/README.collections.md>
+2. **Fetch specific instruction files**: <https://raw.githubusercontent.com/github/awesome-copilot/main/instructions/[relevant-file].instructions.md>
 3. **Check for existing patterns** that match the technology stack
 
 **Primary Approach**: Reference and adapt existing instructions from awesome-copilot repository:
+
 - **Use existing content** when available - don't reinvent the wheel
 - **Adapt proven patterns** to the specific project context
 - **Combine multiple examples** if the stack requires it
 - **ALWAYS add attribution comments** when using awesome-copilot content
 
 **Attribution Format**: When using content from awesome-copilot, add this comment at the top of the file:
+
 ```markdown
 <!-- Based on/Inspired by: https://github.com/github/awesome-copilot/blob/main/instructions/[filename].instructions.md -->
 ```
 
 **Examples:**
+
 ```markdown
 <!-- Based on: https://github.com/github/awesome-copilot/blob/main/instructions/react.instructions.md -->
 ---
@@ -106,6 +121,7 @@ description: "Java Spring Boot development standards"
 ```
 
 **Secondary Approach**: If no awesome-copilot instructions exist, create **SIMPLE GUIDELINES ONLY**:
+
 - **High-level principles** and best practices (2-3 sentences each)
 - **Architectural patterns** (mention patterns, not implementation)
 - **Code style preferences** (naming conventions, structure preferences)
@@ -113,6 +129,7 @@ description: "Java Spring Boot development standards"
 - **Documentation standards** (format, requirements)
 
 **STRICTLY AVOID in .instructions.md files:**
+
 - ❌ **Writing actual code examples or snippets**
 - ❌ **Detailed implementation steps**
 - ❌ **Test cases or specific test code**
@@ -121,6 +138,7 @@ description: "Java Spring Boot development standards"
 - ❌ **Import statements or dependency lists**
 
 **CORRECT .instructions.md content:**
+
 - ✅ **"Use descriptive variable names and follow camelCase"**
 - ✅ **"Prefer composition over inheritance"**
 - ✅ **"Write unit tests for all public methods"**
@@ -128,6 +146,7 @@ description: "Java Spring Boot development standards"
 - ✅ **"Follow the repository's established error handling patterns"**
 
 **Research Strategy with fetch tool:**
+
 1. **Check awesome-copilot first** - Always start here for ALL file types
 2. **Look for exact tech stack matches** (e.g., React, Node.js, Spring Boot)
 3. **Look for general matches** (e.g., frontend chatmodes, testing prompts, review modes)
@@ -136,12 +155,14 @@ description: "Java Spring Boot development standards"
 6. **Only create custom content** if nothing relevant exists
 
 **Fetch these awesome-copilot directories:**
-- **Instructions**: https://github.com/github/awesome-copilot/tree/main/instructions
-- **Prompts**: https://github.com/github/awesome-copilot/tree/main/prompts  
-- **Chat Modes**: https://github.com/github/awesome-copilot/tree/main/chatmodes
-- **Collections**: https://github.com/github/awesome-copilot/blob/main/README.collections.md
+
+- **Instructions**: <https://github.com/github/awesome-copilot/tree/main/instructions>
+- **Prompts**: <https://github.com/github/awesome-copilot/tree/main/prompts>  
+- **Chat Modes**: <https://github.com/github/awesome-copilot/tree/main/chatmodes>
+- **Collections**: <https://github.com/github/awesome-copilot/blob/main/README.collections.md>
 
 **Awesome-Copilot Collections to Check:**
+
 - **Frontend Web Development**: React, Angular, Vue, TypeScript, CSS frameworks
 - **C# .NET Development**: Testing, documentation, and best practices  
 - **Java Development**: Spring Boot, Quarkus, testing, documentation
@@ -184,6 +205,7 @@ project-root/
 Use this frontmatter structure for all files:
 
 **Instructions (.instructions.md):**
+
 ```yaml
 ---
 applyTo: "**/*.ts,**/*.tsx"
@@ -209,6 +231,7 @@ Apply the [general coding guidelines](./general-coding.instructions.md) to all c
 ```
 
 **Prompts (.prompt.md):**
+
 ```yaml
 ---
 mode: 'agent'
@@ -234,6 +257,7 @@ Requirements for the form:
 ```
 
 **Chat Modes (.chatmode.md):**
+
 ```yaml
 ---
 description: Generate an implementation plan for new features or refactoring existing code.
@@ -276,6 +300,7 @@ After creating all files, provide the user with:
 ## Quality Checklist
 
 Before completing, verify:
+
 - [ ] All files have proper YAML frontmatter
 - [ ] Language-specific best practices are included
 - [ ] Files reference each other appropriately using Markdown links
@@ -315,6 +340,7 @@ jobs:
 **KEEP WORKFLOWS SIMPLE** - Only include essential steps:
 
 **Node.js/JavaScript:**
+
 ```yaml
 - name: Set up Node.js
   uses: actions/setup-node@v4
@@ -330,6 +356,7 @@ jobs:
 ```
 
 **Python:**
+
 ```yaml
 - name: Set up Python
   uses: actions/setup-python@v4
@@ -344,6 +371,7 @@ jobs:
 ```
 
 **Java:**
+
 ```yaml
 - name: Set up JDK
   uses: actions/setup-java@v4
@@ -357,6 +385,7 @@ jobs:
 ```
 
 **AVOID in workflows:**
+
 - ❌ Complex configuration setups
 - ❌ Multiple environment configurations
 - ❌ Advanced tooling setup
@@ -365,6 +394,7 @@ jobs:
 - ❌ Database setup or external services
 
 **INCLUDE only:**
+
 - ✅ Language/runtime setup
 - ✅ Basic dependency installation
 - ✅ Simple linting (if standard)

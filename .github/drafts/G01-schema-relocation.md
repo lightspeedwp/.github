@@ -22,11 +22,13 @@ We need to reorganise the front-matter JSON schema into a dedicated subdirectory
 Additionally, we need to implement CI validation that enforces required front-matter fields (version, category, references) to maintain documentation quality and consistency.
 
 **Current state:**
+
 - Schema exists at root of `schemas/` directory
 - No CI validation for required front-matter fields
 - Future schemas will cause confusion with flat structure
 
 **Desired state:**
+
 - Schema at `schemas/frontmatter/frontmatter.schema.json`
 - All imports and documentation references updated
 - CI job validates required fields and fails builds when missing
@@ -34,16 +36,19 @@ Additionally, we need to implement CI validation that enforces required front-ma
 ## Why is this documentation important?
 
 **For contributors:**
+
 - Clear, discoverable schema location reduces onboarding friction
 - Automated validation prevents incomplete documentation from being merged
 - Organised structure prepares for additional schemas (workflow configs, agent specs, etc.)
 
 **For maintainers:**
+
 - Consistent front-matter across all docs enables automation and indexing
 - CI enforcement reduces manual review burden
 - Proper organisation supports scalability as documentation grows
 
 **Impact:**
+
 - **High** - Broken imports if references aren't updated systematically
 - **Medium** - Confusion when multiple schemas appear later without clear organisation
 - Blocks v0.2.0 release if not addressed
@@ -64,6 +69,7 @@ Additionally, we need to implement CI validation that enforces required front-ma
 ## Additional Context
 
 **Files likely requiring updates:**
+
 - `schemas/` → move schema file to new location
 - `DOCS.md` → update schema reference path
 - `.github/workflows/` → add or update CI validation job
@@ -71,6 +77,7 @@ Additionally, we need to implement CI validation that enforces required front-ma
 - Documentation guides that reference schema location
 
 **Migration approach:**
+
 1. Create `schemas/frontmatter/` directory
 2. Move schema file to new location
 3. Update all import paths (use `git grep` to find references)
@@ -79,6 +86,7 @@ Additionally, we need to implement CI validation that enforces required front-ma
 6. Update docs and changelog
 
 **Telemetry (post-merge):**
+
 - CI run logs show schema validation executing successfully
 - PR diff shows all updated paths
 - No broken links or import errors in subsequent builds
@@ -129,6 +137,7 @@ Additionally, we need to implement CI validation that enforces required front-ma
 **Branch prefix:** `docs/`
 
 **Related areas:**
+
 - area:docs
 - area:devex
 - area:automation (for CI validation)

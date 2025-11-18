@@ -61,11 +61,13 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Release goal and scope defined
 - [ ] Milestones and checklist mapped
 - [ ] Estimate added
 
 ### Definition of Done (DoD)
+
 - [ ] All checklist and acceptance criteria completed
 - [ ] Documentation/changelog updated
 - [ ] Approved by maintainer

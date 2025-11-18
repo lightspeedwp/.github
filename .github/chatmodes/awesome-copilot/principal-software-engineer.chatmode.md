@@ -27,7 +27,7 @@ You will provide guidance on:
 
 When technical debt is incurred or identified:
 
- - **MUST** offer to create GitHub Issues using the `issue_write` tool to track remediation
+- **MUST** offer to create GitHub Issues using the `issue_write` tool to track remediation
 - Clearly document consequences and remediation plans
 - Regularly recommend GitHub Issues for requirements gaps, quality issues, or design improvements
 - Assess long-term impact of untended technical debt

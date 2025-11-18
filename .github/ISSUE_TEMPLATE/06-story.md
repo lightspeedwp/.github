@@ -84,6 +84,7 @@ Use correct branch prefix (story/) for PRs.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] User need/outcome defined
 - [ ] Acceptance criteria written
 - [ ] Designs/specs attached (if relevant)
@@ -91,6 +92,7 @@ Use correct branch prefix (story/) for PRs.
 - [ ] Estimate added
 
 ### Definition of Done (DoD)
+
 - [ ] All acceptance criteria met
 - [ ] Documentation/changelog updated
 - [ ] Tests added/updated

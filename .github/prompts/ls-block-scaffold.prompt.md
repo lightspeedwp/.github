@@ -8,6 +8,7 @@ tags:
 ---
 
 Tasks:
+
 - Use @wordpress/create-block or wp-scripts config; add ESLint, Prettier, Stylelint.
 - Add Playwright e2e to verify block inserts/saves.
 - Provide PHP render callback with escaping.

@@ -20,6 +20,7 @@ references:
 We need to clarify how semantic versioning (semver) applies to documentation and governance files, ensure the CHANGELOG is current with a properly dated release section, and align the VERSION file to match.
 
 **Current state:**
+
 - Unclear versioning policy for docs and governance files
 - CHANGELOG may be missing current release section
 - VERSION file may not match CHANGELOG
@@ -27,6 +28,7 @@ We need to clarify how semantic versioning (semver) applies to documentation and
 - Untrusted documentation state
 
 **Desired state:**
+
 - Clear doc-versioning policy documented in `docs/VERSIONING.md`
 - CHANGELOG contains dated current release section
 - VERSION file matches CHANGELOG version
@@ -36,16 +38,19 @@ We need to clarify how semantic versioning (semver) applies to documentation and
 ## Why is this documentation important?
 
 **For contributors:**
+
 - Clear versioning policy enables confident documentation updates
 - Understanding version impact prevents incorrect bumps
 - Consistent history builds trust in documentation state
 
 **For maintainers:**
+
 - Automated checks can enforce versioning rules
 - Clear changelog simplifies release management
 - Proper version alignment supports audit and compliance
 
 **Impact:**
+
 - **Medium** - Unclear history damages trust
 - **Medium** - Blocks v0.2.0 release without clear versioning
 - **Low** - Inconsistent versions cause confusion
@@ -69,21 +74,25 @@ We need to clarify how semantic versioning (semver) applies to documentation and
 **Suggested semver policy for docs/governance:**
 
 **MAJOR (e.g., 0.x.0 → 1.0.0):**
+
 - Breaking changes to governance processes
 - Major documentation restructuring
 - Incompatible changes to contribution workflows
 
 **MINOR (e.g., 0.1.x → 0.2.0):**
+
 - New documentation sections or significant additions
 - New governance policies or team structures
 - New automation or workflow features
 
 **PATCH (e.g., 0.1.1 → 0.1.2):**
+
 - Typo fixes and clarifications
 - Link updates and formatting improvements
 - Minor corrections without new content
 
 **Example `docs/VERSIONING.md` structure:**
+
 ```markdown
 ---
 title: Documentation Versioning Policy
@@ -119,6 +128,7 @@ This repository follows semantic versioning for documentation and governance.
 ```
 
 **Current VERSION detection:**
+
 ```bash
 # Check current VERSION file
 cat VERSION
@@ -128,11 +138,13 @@ grep -E "^[[:space:]]*##[[:space:]]*\[" CHANGELOG.md | head -1
 ```
 
 **Integration points:**
+
 - PR template: remind contributors to update CHANGELOG
 - Release workflow: validate VERSION matches CHANGELOG
 - CI lint: ensure VERSION and CHANGELOG align
 
 **Telemetry (post-merge):**
+
 - Next release PR includes correct version bumps
 - CI/lint ensures presence of changelog entry
 - No version mismatches in future releases
@@ -186,6 +198,7 @@ grep -E "^[[:space:]]*##[[:space:]]*\[" CHANGELOG.md | head -1
 **Branch prefix:** `docs/`
 
 **Files to update:**
+
 - `docs/VERSIONING.md` (create)
 - `CHANGELOG.md` (update)
 - `VERSION` (align)

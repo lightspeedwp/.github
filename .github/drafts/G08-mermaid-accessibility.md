@@ -23,6 +23,7 @@ Mermaid diagrams across the repository currently lack consistent, accessible col
 **Proposed Solution:** Adopt a standardised high-contrast colour palette for all Mermaid diagrams and add one-line captions that describe the diagram's purpose.
 
 **Accessibility Impact:**
+
 - Improves readability for users with low vision
 - Supports users with colour vision deficiencies (deuteranopia, protanopia, tritanopia)
 - Provides context for screen reader users
@@ -31,6 +32,7 @@ Mermaid diagrams across the repository currently lack consistent, accessible col
 ## Steps to Reproduce / Area to Check
 
 **Areas with Mermaid diagrams:**
+
 1. Review all documentation files containing Mermaid diagrams
 2. Check contrast ratios of current colour schemes
 3. Verify presence and quality of captions
@@ -38,6 +40,7 @@ Mermaid diagrams across the repository currently lack consistent, accessible col
 5. Validate with screen readers (NVDA, JAWS, VoiceOver)
 
 **Files to audit:**
+
 ```bash
 # Find all Mermaid diagrams
 git grep -l "```mermaid"
@@ -46,18 +49,21 @@ git grep -l "```mermaid"
 ## Expected Behavior
 
 **High-contrast palette:**
+
 - **Surfaces:** Light: `#F3F4F6`, Dark: `#111827`
 - **Accent 1:** Blue: `#0E6BA8` (primary actions, main flows)
 - **Accent 2:** Orange: `#FA9F42` (secondary actions, highlights)
 - Minimum contrast ratio: 4.5:1 for normal text, 3:1 for large text (WCAG 2.1 AA)
 
 **Caption requirements:**
+
 - One-line descriptive caption above or below each diagram
 - Format: `**Figure N: [Description]**`
 - Description explains diagram purpose, not implementation details
 - Example: `**Figure 1: Issue Labeling Workflow**`
 
 **Example accessible diagram:**
+
 ```markdown
 **Figure 1: Pull Request Review Process**
 
@@ -78,6 +84,7 @@ graph LR
   E -->|Yes| F[Merge]
   E -->|No| D
 ```
+
 ```
 
 ## Environment / Devices
@@ -146,11 +153,13 @@ graph LR
 ```
 
 **Tooling:**
-- Colour contrast checker: https://webaim.org/resources/contrastchecker/
+
+- Colour contrast checker: <https://webaim.org/resources/contrastchecker/>
 - Colour blindness simulator: Color Oracle, Chromatic Vision Simulator
-- Mermaid documentation: https://mermaid.js.org/config/theming.html
+- Mermaid documentation: <https://mermaid.js.org/config/theming.html>
 
 **Telemetry (post-merge):**
+
 - Review sample of patched diagrams for contrast compliance
 - Include a11y checklist in PR template
 - Track adoption rate of new palette in subsequent PRs
@@ -168,6 +177,7 @@ graph LR
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Issue/goal described
 - [ ] Palette and standards defined
 - [ ] Acceptance criteria mapped
@@ -175,6 +185,7 @@ graph LR
 - [ ] Top diagrams to patch identified
 
 ### Definition of Done (DoD)
+
 - [ ] All acceptance criteria met
 - [ ] Palette guidelines documented
 - [ ] Top 5 diagrams patched and verified
@@ -202,6 +213,7 @@ graph LR
 **Branch prefix:** `a11y/`
 
 **High-priority diagrams to patch first:**
+
 - README.md main workflow diagram
 - DOCS.md navigation/structure diagram
 - DEVELOPMENT.md setup/workflow diagrams

@@ -17,10 +17,12 @@ Hi @username,
 Please ensure your branch follows our naming and merge discipline:
 
 **Branch naming:**  
+
 - Use the format `{type}/{scope}-{short-title}` (e.g., `feat/login-form`, `fix/api-error`)
 - See our [Branching Strategy](../../BRANCHING_STRATEGY.md) for accepted prefixes
 
 **Merging:**  
+
 - Use squash merge
 - Delete the branch after merging
 - Resolve all review conversations and update from main if needed

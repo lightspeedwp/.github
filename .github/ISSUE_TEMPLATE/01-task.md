@@ -58,10 +58,12 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Task described and scoped
 - [ ] Estimate added if relevant
 
 ### Definition of Done (DoD)
+
 - [ ] Task completed and documented
 - [ ] Changelog entry prepared for PR
 - [ ] PR uses correct branch prefix

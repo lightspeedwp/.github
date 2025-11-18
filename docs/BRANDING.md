@@ -179,6 +179,7 @@ Branding metrics are collected in the [`.github/metrics/`](../.github/metrics/) 
 - **[`.github/reporting/branding/`](../.github/reporting/branding/)** – Published reports and archives
 
 For complete metrics and reporting documentation, see:
+
 - [Metrics Directory README](../.github/metrics/README.md) - Collection scripts and configuration
 - [Reporting Directory README](../.github/reporting/README.md) - Published reports and consumption
 

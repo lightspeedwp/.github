@@ -8,12 +8,14 @@ description: Enforces Object Calisthenics principles for business domain code to
 > Examples may be added later if needed.
 
 ## Objective
+
 This rule enforces the principles of Object Calisthenics to ensure clean, maintainable, and robust code in the backend, **primarily for business domain code**.
 
 ## Scope and Application
+
 - **Primary focus**: Business domain classes (aggregates, entities, value objects, domain services)
 - **Secondary focus**: Application layer services and use case handlers
-- **Exemptions**: 
+- **Exemptions**:
   - DTOs (Data Transfer Objects)
   - API models/contracts
   - Configuration classes
@@ -21,7 +23,6 @@ This rule enforces the principles of Object Calisthenics to ensure clean, mainta
   - Infrastructure code where flexibility is needed
 
 ## Key Principles
-
 
 1. **One Level of Indentation per Method**:
    - Ensure methods are simple and do not exceed one level of indentation.
@@ -57,6 +58,7 @@ This rule enforces the principles of Object Calisthenics to ensure clean, mainta
        }
    }
    ```
+
 2. **Don't Use the ELSE Keyword**:
 
    - Avoid using the `else` keyword to reduce complexity and improve readability.
@@ -81,6 +83,7 @@ This rule enforces the principles of Object Calisthenics to ensure clean, mainta
    ```
 
    Sample Fail fast principle:
+
    ```csharp
    public void ProcessOrder(Order order) {
        if (order == null) throw new ArgumentNullException(nameof(order));
@@ -115,7 +118,7 @@ This rule enforces the principles of Object Calisthenics to ensure clean, mainta
            this.value = value;
        }
    }
-   ```   
+   ```
 
 4. **First Class Collections**:
    - Use collections to encapsulate data and behavior, rather than exposing raw data structures.
@@ -186,7 +189,7 @@ First Class Collections: a class that contains an array as an attribute should n
 7. **Keep entities small (Class, method, namespace or package)**:
    - Limit the size of classes and methods to improve code readability and maintainability.
    - Each class should have a single responsibility and be as small as possible.
-   
+
    Constraints:
    - Maximum 10 methods per class
    - Maximum 50 lines per class
@@ -212,7 +215,6 @@ First Class Collections: a class that contains an array as an attribute should n
        public void UpdateUser(int id, string name) { /*...*/ }
    }
    ```
-
 
 8. **No Classes with More Than Two Instance Variables**:
    - Encourage classes to have a single responsibility by limiting the number of instance variables.
@@ -275,6 +277,7 @@ First Class Collections: a class that contains an array as an attribute should n
    ```
 
 ## Implementation Guidelines
+
 - **Domain Classes**:
   - Use private constructors and static factory methods for creating instances.
   - Avoid exposing setters for properties.
@@ -297,6 +300,7 @@ First Class Collections: a class that contains an array as an attribute should n
   - Be pragmatic about infrastructure and DTO code.
 
 ## References
+
 - [Object Calisthenics - Original 9 Rules by Jeff Bay](https://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf)
 - [ThoughtWorks - Object Calisthenics](https://www.thoughtworks.com/insights/blog/object-calisthenics)
 - [Clean Code: A Handbook of Agile Software Craftsmanship - Robert C. Martin](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)

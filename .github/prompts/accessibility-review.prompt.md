@@ -59,6 +59,7 @@ When reviewing code for accessibility in any LightSpeed WordPress project, pleas
 - Ensure no auto-playing media without user control
 
 ## WordPress-Specific Checks
+
 - Verify block patterns use proper semantic structure
 - Check that theme.json color palette meets contrast requirements
 - Ensure custom blocks follow accessibility best practices

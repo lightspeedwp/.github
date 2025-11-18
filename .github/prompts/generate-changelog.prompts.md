@@ -1,6 +1,7 @@
 # Generate Changelog — Prompt (Aligned to Parser)
 
 Sections (exact order):
+
 1. Added
 2. Changed
 3. Deprecated

@@ -20,6 +20,7 @@ references:
 Documentation references an Issue Types mapping file (`/.github/automation/issue-types.yml`) that does not currently exist in the repository. This creates confusion about issue labeling and triage behaviour, leading to inconsistent expectations and unclear workflows.
 
 **Purpose:** Clarify the issue typing approach by either:
+
 1. **Creating the file** with a proper schema, examples, and integration with labeling workflows, OR
 2. **Removing all references** and documenting the actual issue typing behaviour
 
@@ -30,6 +31,7 @@ Documentation references an Issue Types mapping file (`/.github/automation/issue
 ## Steps / Checklist
 
 **Option A: Create the file**
+
 - [ ] Define schema for `issue-types.yml` (type mappings, labels, routing rules)
 - [ ] Create `/.github/automation/issue-types.yml` with documented structure
 - [ ] Add examples for each issue type (bug, feature, documentation, etc.)
@@ -39,6 +41,7 @@ Documentation references an Issue Types mapping file (`/.github/automation/issue
 - [ ] Document usage in AUTOMATION_GOVERNANCE.md
 
 **Option B: Remove references**
+
 - [ ] Scan repository for all references to `issue-types.yml`
 - [ ] Remove or update references in all documentation
 - [ ] Clarify actual issue typing approach in labeling docs
@@ -46,6 +49,7 @@ Documentation references an Issue Types mapping file (`/.github/automation/issue
 - [ ] Document how issue typing currently works (templates, labels, manual triage)
 
 **Both options:**
+
 - [ ] Update CHANGELOG.md
 - [ ] Documentation/changelog updated
 - [ ] PR uses correct branch prefix (`automation/` or `docs/`)
@@ -67,6 +71,7 @@ Documentation references an Issue Types mapping file (`/.github/automation/issue
 ## Additional Context
 
 **Current confusion:**
+
 - Docs mention issue-types.yml but file doesn't exist
 - Contributors expect automated issue typing that may not be configured
 - Unclear how issue types map to labels and workflows
@@ -74,16 +79,19 @@ Documentation references an Issue Types mapping file (`/.github/automation/issue
 
 **Recommended approach:**
 Recommend **Option A (create the file)** if:
+
 - Team wants automated issue typing and routing
 - Labeling rules are complex enough to warrant separate config
 - Issue templates alone don't provide sufficient classification
 
 Recommend **Option B (remove references)** if:
+
 - Current template-based approach is sufficient
 - No immediate need for additional automation
 - Prefer simpler, more maintainable approach
 
 **Example schema (if creating file):**
+
 ```yaml
 # issue-types.yml
 version: '1.0'
@@ -102,12 +110,14 @@ issue_types:
 ```
 
 **Files likely affected:**
+
 - AUTOMATION_GOVERNANCE.md
 - DOCS.md
 - labeling documentation
 - Issue template references
 
 **Telemetry (post-merge):**
+
 - Track % of new issues correctly auto-typed vs manual typing during first 2 weeks
 - Monitor labeling accuracy before/after implementation
 - Measure triage time reduction (if implementing automation)
@@ -126,6 +136,7 @@ issue_types:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Automation goal/scope defined (create file OR remove references)
 - [ ] Checklist prepared for chosen option
 - [ ] Estimate added: **Medium** (2-4 hours depending on option)
@@ -133,6 +144,7 @@ issue_types:
 - [ ] Stakeholder input gathered if needed
 
 ### Definition of Done (DoD)
+
 - [ ] All checklist and acceptance criteria completed
 - [ ] Documentation/changelog updated
 - [ ] Approved by maintainer
@@ -153,6 +165,7 @@ issue_types:
 7. Tag @workflows-team or maintainer for review
 
 **Branch prefix:**
+
 - `automation/` if creating file
 - `docs/` if removing references
 

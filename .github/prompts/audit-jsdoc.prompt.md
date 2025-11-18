@@ -10,4 +10,4 @@ Apply the **WordPress JSDoc** standards to the selected JavaScript files. Identi
 3. Add a single `@returns` entry describing the return value and type.
 4. Provide examples when the usage is non‑trivial.
 
-Reference: https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/
+Reference: <https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/>

@@ -34,7 +34,6 @@ LangChain's `Runnable` interface is the foundation for composing and executing c
 - For custom logic, wrap functions with `RunnableLambda` or `RunnableGenerator` instead of subclassing.
 - For advanced configuration, expose fields and alternatives via `configurable_fields` and `configurable_alternatives`.
 
-
 - Use LangChain's chat model integrations for conversational AI:
 
 - Import from `langchain.chat_models` or `langchain_openai` (e.g., `ChatOpenAI`).
@@ -43,6 +42,7 @@ LangChain's `Runnable` interface is the foundation for composing and executing c
 - For structured outputs, use `with_structured_output(schema)`.
 
 Example:
+
 ```python
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
@@ -67,8 +67,6 @@ Best practices:
 - Always validate model outputs before using them in downstream tasks.
 - Prefer explicit message types for clarity and reliability.
 - For Copilot, provide clear, actionable prompts and document expected outputs.
-
-
 
 - LLM client factory: centralize provider configs (API keys), timeouts, retries, and telemetry. Provide a single place to switch providers or client settings.
 - Prompt templates: store templates under `prompts/` and load via a safe helper. Keep templates small and testable.
@@ -119,7 +117,7 @@ for doc in results:
 ```
 
 - For production, prefer persistent vectorstores (Chroma, Pinecone, Qdrant, Weaviate) and configure authentication, scaling, and backup as per provider docs.
-- Reference: https://python.langchain.com/docs/integrations/vectorstores/
+- Reference: <https://python.langchain.com/docs/integrations/vectorstores/>
 
 ## Prompt engineering & governance
 

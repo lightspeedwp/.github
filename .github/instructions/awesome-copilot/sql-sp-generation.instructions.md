@@ -6,6 +6,7 @@ applyTo: '**/*.sql'
 # SQL Development
 
 ## Database schema generation
+
 - all table names should be in singular form
 - all column names should be in singular form
 - all tables should have a primary key column named `id`
@@ -13,6 +14,7 @@ applyTo: '**/*.sql'
 - all tables should have a column named `updated_at` to store the last update timestamp
 
 ## Database schema design
+
 - all tables should have a primary key constraint
 - all foreign key constraints should have a name
 - all foreign key constraints should be defined inline
@@ -21,6 +23,7 @@ applyTo: '**/*.sql'
 - all foreign key constraints should reference the primary key of the parent table
 
 ## SQL Coding Style
+
 - use uppercase for SQL keywords (SELECT, FROM, WHERE)
 - use consistent indentation for nested queries and conditions
 - include comments to explain complex logic
@@ -28,6 +31,7 @@ applyTo: '**/*.sql'
 - organize clauses consistently (SELECT, FROM, JOIN, WHERE, GROUP BY, HAVING, ORDER BY)
 
 ## SQL Query Structure
+
 - use explicit column names in SELECT statements instead of SELECT *
 - qualify column names with table name or alias when using multiple tables
 - limit the use of subqueries when joins can be used instead
@@ -36,6 +40,7 @@ applyTo: '**/*.sql'
 - avoid using functions on indexed columns in WHERE clauses
 
 ## Stored Procedure Naming Conventions
+
 - prefix stored procedure names with 'usp_'
 - use PascalCase for stored procedure names
 - use descriptive names that indicate purpose (e.g., usp_GetCustomerOrders)
@@ -43,6 +48,7 @@ applyTo: '**/*.sql'
 - include singular noun when returning single record (e.g., usp_GetProduct)
 
 ## Parameter Handling
+
 - prefix parameters with '@'
 - use camelCase for parameter names
 - provide default values for optional parameters
@@ -50,16 +56,16 @@ applyTo: '**/*.sql'
 - document parameters with comments
 - arrange parameters consistently (required first, optional later)
 
-
 ## Stored Procedure Structure
+
 - include header comment block with description, parameters, and return values
 - return standardized error codes/messages
 - return result sets with consistent column order
 - use OUTPUT parameters for returning status information
 - prefix temporary tables with 'tmp_'
 
-
 ## SQL Security Best Practices
+
 - parameterize all queries to prevent SQL injection
 - use prepared statements when executing dynamic SQL
 - avoid embedding credentials in SQL scripts
@@ -67,6 +73,7 @@ applyTo: '**/*.sql'
 - avoid using dynamic SQL within stored procedures
 
 ## Transaction Management
+
 - explicitly begin and commit transactions
 - use appropriate isolation levels based on requirements
 - avoid long-running transactions that lock tables

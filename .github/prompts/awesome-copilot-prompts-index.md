@@ -16,6 +16,7 @@ This index lists all reusable Copilot and agent prompts in the [`awesome-copilot
 Each prompt is designed to accelerate workflow, code review, documentation, and automation for LightSpeed WordPress and web projects.
 
 > **Usage:**  
+>
 > - Browse the table below to discover available prompts.  
 > - Open any file to copy its contents for Copilot Chat or GitHub Actions.  
 > - All prompts follow LightSpeed’s [coding standards](../instructions/coding-standards.instructions.md) and [AI agent conventions](../../AGENTS.md).

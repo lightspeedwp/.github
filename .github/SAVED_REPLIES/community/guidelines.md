@@ -19,6 +19,7 @@ Hi @username,
 Thank you for your interest in contributing!
 
 **Before you start:**
+
 - Please read our [Contribution Guidelines](../../CONTRIBUTING.md)
 - Follow our [Coding Standards](../../instructions/coding-standards.instructions.md)
 - Respect our [Code of Conduct](../../CODE_OF_CONDUCT.md)

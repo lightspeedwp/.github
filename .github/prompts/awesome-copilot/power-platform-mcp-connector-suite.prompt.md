@@ -10,10 +10,12 @@ Generate comprehensive Power Platform custom connector implementations with Mode
 ## MCP Capabilities in Copilot Studio
 
 **Currently Supported:**
+
 - ✅ **Tools**: Functions that the LLM can call (with user approval)
 - ✅ **Resources**: File-like data that agents can read (must be tool outputs)
 
 **Not Yet Supported:**
+
 - ❌ **Prompts**: Pre-written templates (prepare for future support)
 
 ## Connector Generation
@@ -21,12 +23,14 @@ Generate comprehensive Power Platform custom connector implementations with Mode
 Create complete Power Platform connector with:
 
 **Core Files:**
+
 - `apiDefinition.swagger.json` with `x-ms-agentic-protocol: mcp-streamable-1.0`
 - `apiProperties.json` with connector metadata and authentication
 - `script.csx` with custom C# transformations for MCP JSON-RPC handling
 - `readme.md` with connector documentation
 
 **MCP Integration:**
+
 - POST `/mcp` endpoint for JSON-RPC 2.0 communication
 - McpResponse and McpErrorResponse schema definitions
 - Copilot Studio constraint compliance (no reference types, single types)
@@ -35,6 +39,7 @@ Create complete Power Platform connector with:
 ## Schema Validation & Troubleshooting
 
 **Validate schemas for Copilot Studio compliance:**
+
 - ✅ No reference types (`$ref`) in tool inputs/outputs
 - ✅ Single type values only (not `["string", "number"]`)
 - ✅ Primitive types: string, number, integer, boolean, array, object
@@ -42,6 +47,7 @@ Create complete Power Platform connector with:
 - ✅ Full URIs for all endpoints
 
 **Common issues and fixes:**
+
 - Tools filtered → Remove reference types, use primitives
 - Type errors → Single types with validation logic
 - Resources unavailable → Include in tool outputs
@@ -60,43 +66,53 @@ Create complete Power Platform connector with:
 ## Generation Modes
 
 ### Mode 1: Complete New Connector
+
 Generate all files for a new Power Platform MCP connector from scratch, including CLI validation setup.
 
 ### Mode 2: Schema Validation
+
 Analyze and fix existing schemas for Copilot Studio compliance using paconn and validation tools.
 
 ### Mode 3: Integration Troubleshooting
+
 Diagnose and resolve MCP integration issues with Copilot Studio using CLI debugging tools.
 
 ### Mode 4: Hybrid Connector
+
 Add MCP capabilities to existing Power Platform connector with proper validation workflows.
 
 ### Mode 5: Certification Preparation
+
 Prepare connector for Microsoft certification submission with complete metadata and validation compliance.
 
 ### Mode 6: OAuth Security Hardening
+
 Implement OAuth 2.0 authentication enhanced with MCP security best practices and advanced token validation.
 
 ## Expected Output
 
 **1. apiDefinition.swagger.json**
+
 - Swagger 2.0 format with Microsoft extensions
 - MCP endpoint: `POST /mcp` with proper protocol header
 - Compliant schema definitions (primitive types only)
 - McpResponse/McpErrorResponse definitions
 
 **2. apiProperties.json**
+
 - Connector metadata and branding (`iconBrandColor` required)
 - Authentication configuration
 - Policy templates for MCP transformations
 
 **3. script.csx**
+
 - JSON-RPC 2.0 message handling
 - Request/response transformations
 - MCP protocol compliance logic
 - Error handling and validation
 
 **4. Implementation guidance**
+
 - Tool registration and execution patterns
 - Resource management strategies
 - Copilot Studio integration steps
@@ -105,6 +121,7 @@ Implement OAuth 2.0 authentication enhanced with MCP security best practices and
 ## Validation Checklist
 
 ### Technical Compliance
+
 - [ ] `x-ms-agentic-protocol: mcp-streamable-1.0` in MCP endpoint
 - [ ] No reference types in any schema definitions
 - [ ] All type fields are single types (not arrays)
@@ -117,12 +134,14 @@ Implement OAuth 2.0 authentication enhanced with MCP security best practices and
 - [ ] Generative Orchestration compatibility
 
 ### CLI Validation
+
 - [ ] **paconn validate**: `paconn validate --api-def apiDefinition.swagger.json` passes without errors
 - [ ] **pac CLI ready**: Connector can be created/updated with `pac connector create/update`
 - [ ] **Script validation**: script.csx passes automatic validation during pac CLI upload
 - [ ] **Package validation**: `ConnectorPackageValidator.ps1` runs successfully
 
 ### OAuth and Security Requirements
+
 - [ ] **OAuth 2.0 Enhanced**: Standard OAuth 2.0 with MCP security best practices implementation
 - [ ] **Token Validation**: Implement token audience validation to prevent passthrough attacks
 - [ ] **Custom Security Logic**: Enhanced validation in script.csx for MCP compliance
@@ -131,6 +150,7 @@ Implement OAuth 2.0 authentication enhanced with MCP security best practices and
 - [ ] **MCP Security Practices**: Implement confused deputy attack prevention within OAuth 2.0
 
 ### Certification Requirements
+
 - [ ] **Complete metadata**: settings.json with product and service information
 - [ ] **Icon compliance**: PNG format, 230x230 or 500x500 dimensions
 - [ ] **Documentation**: Certification-ready readme with comprehensive examples

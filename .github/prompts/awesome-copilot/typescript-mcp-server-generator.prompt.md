@@ -19,6 +19,7 @@ Create a complete Model Context Protocol (MCP) server in TypeScript with the fol
 ## Implementation Details
 
 ### Project Setup
+
 - Initialize with `npm init` and create package.json
 - Install dependencies: `@modelcontextprotocol/sdk`, `zod@3`, and transport-specific packages
 - Configure TypeScript with ES modules: `"type": "module"` in package.json
@@ -26,6 +27,7 @@ Create a complete Model Context Protocol (MCP) server in TypeScript with the fol
 - Create proper .gitignore file
 
 ### Server Configuration
+
 - Use `McpServer` class for high-level implementation
 - Set server name and version
 - Choose appropriate transport (StreamableHTTPServerTransport or StdioServerTransport)
@@ -33,6 +35,7 @@ Create a complete Model Context Protocol (MCP) server in TypeScript with the fol
 - For stdio: use StdioServerTransport directly
 
 ### Tool Implementation
+
 - Use `registerTool()` method with descriptive names
 - Define schemas using zod for input and output validation
 - Provide clear `title` and `description` fields
@@ -41,11 +44,13 @@ Create a complete Model Context Protocol (MCP) server in TypeScript with the fol
 - Support async operations where appropriate
 
 ### Resource/Prompt Setup (Optional)
+
 - Add resources using `registerResource()` with ResourceTemplate for dynamic URIs
 - Add prompts using `registerPrompt()` with argument schemas
 - Consider adding completion support for better UX
 
 ### Code Quality
+
 - Use TypeScript for type safety
 - Follow async/await patterns consistently
 - Implement proper cleanup on transport close events
@@ -54,6 +59,7 @@ Create a complete Model Context Protocol (MCP) server in TypeScript with the fol
 - Structure code with clear separation of concerns
 
 ## Example Tool Types to Consider
+
 - Data processing and transformation
 - External API integrations
 - File system operations (read, search, analyze)
@@ -62,7 +68,8 @@ Create a complete Model Context Protocol (MCP) server in TypeScript with the fol
 - System information retrieval
 
 ## Configuration Options
-- **For HTTP Servers**: 
+
+- **For HTTP Servers**:
   - Port configuration via environment variables
   - CORS setup for browser clients
   - Session management (stateless vs stateful)
@@ -74,6 +81,7 @@ Create a complete Model Context Protocol (MCP) server in TypeScript with the fol
   - Process lifecycle management
 
 ## Testing Guidance
+
 - Explain how to run the server (`npm start` or `npx tsx server.ts`)
 - Provide MCP Inspector command: `npx @modelcontextprotocol/inspector`
 - For HTTP servers, include connection URL: `http://localhost:PORT/mcp`
@@ -81,6 +89,7 @@ Create a complete Model Context Protocol (MCP) server in TypeScript with the fol
 - Add troubleshooting tips for common issues
 
 ## Additional Features to Consider
+
 - Sampling support for LLM-powered tools
 - User input elicitation for interactive workflows
 - Dynamic tool registration with enable/disable capabilities

@@ -6,7 +6,7 @@ category: "Community"
 
 # Thank You for Your Contribution Saved Reply
 
-## Thank You!
+## Thank You
 
 **Use case**: Positive feedback for contributions or suggestions.
 
@@ -20,4 +20,5 @@ If you’d like to get more involved, check out our [good first issues](../../go
 
 We appreciate your help!
 ```
+
 ---

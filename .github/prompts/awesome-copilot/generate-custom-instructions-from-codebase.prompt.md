@@ -214,27 +214,35 @@ These instructions transform Copilot into an intelligent migration assistant, ca
 ## Typical Use Cases
 
 ### Framework Version Migration
+
 Perfect for documenting the transition from Angular 14 to Angular 17, React Class Components to Hooks, or .NET Framework to .NET Core. Automatically identifies breaking changes and generates corresponding transformation rules.
 
 ### Technology Stack Evolution  
+
 Essential when replacing a technology entirely: jQuery to React, REST to GraphQL, SQL to NoSQL. Creates a comprehensive migration guide with pattern mappings.
 
 ### Architecture Refactoring
+
 Ideal for large refactorings like Monolith to Microservices, MVC to Clean Architecture, or Component to Composable architecture. Preserves architectural knowledge for future similar transformations.
 
 ### Design Pattern Modernization
+
 Useful for adopting new patterns: Repository Pattern, Dependency Injection, Observer to Reactive Programming. Documents the rationale and implementation differences.
 
 ## Unique Benefits
 
 ### 🧠 **Artificial Intelligence Enhancement**
+
 Unlike traditional migration documentation, these instructions "train" GitHub Copilot to reproduce your technology evolution decisions automatically during future code modifications.
 
 ### 🔄 **Knowledge Capitalization**  
+
 Transforms specific project experience into reusable rules, avoiding the loss of migration expertise and accelerating future similar transformations.
 
 ### 🎯 **Context-Aware Precision**
+
 Instead of generic advice, generates instructions tailored to your specific codebase, with real before/after examples from your project evolution.
 
 ### ⚡ **Automated Consistency**
+
 Ensures that new code additions automatically follow the new conventions, preventing architectural regression and maintaining code evolution coherence.

@@ -127,11 +127,13 @@ While saved replies provide a foundation, always:
 ### Example Usage
 
 Instead of using a saved reply verbatim:
+
 ```markdown
 Thank you for reporting this issue. We need more information to reproduce the problem.
 ```
 
 Customize it for the specific case:
+
 ```markdown
 Hi @username, thank you for reporting this deployment issue with the WordPress automation script. 
 
@@ -187,6 +189,7 @@ To add new saved replies:
 ### GitHub Saved Replies Feature
 
 These replies can be:
+
 - **Imported into GitHub's saved replies feature** for quick access
 - **Referenced in issue and PR templates** for consistency
 - **Used in automation workflows** for standardized responses
@@ -195,6 +198,7 @@ These replies can be:
 ### Automation Integration
 
 Saved replies integrate with:
+
 - **Issue labeling automation** for triggered responses
 - **PR review workflows** for standard feedback patterns
 - **Community management bots** for automatic responses
@@ -205,6 +209,7 @@ Saved replies integrate with:
 ### Usage Tracking
 
 Monitor saved reply effectiveness through:
+
 - **Response time improvement** when using templates
 - **Issue resolution rates** with standard responses  
 - **Contributor satisfaction** feedback and surveys
@@ -212,5 +217,5 @@ Monitor saved reply effectiveness through:
 
 ### Continuous Improvement
 
-Regular analysis helps identify:
+Regular analysis helps identify
 -

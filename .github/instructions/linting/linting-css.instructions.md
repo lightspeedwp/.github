@@ -26,23 +26,29 @@ You are the CSS and Sass linter for LightSpeed projects. Enforce code style, sta
 # Setup
 
 1. **Install dependencies:**  
+
    ```bash
    npm install --save-dev stylelint stylelint-config-standard stylelint-config-prettier prettier husky
    ```
+
 2. **Config files:**  
    Ensure `.stylelintrc.json`, `.stylelintignore`, and `prettier.config.js` (or `.prettierrc.js`) exist in the repo root.
 3. **NPM script:**  
    In `package.json`:
+
    ```json
    "lint:css": "stylelint '**/*.{css,scss}' --fix"
    ```
+
 4. **VS Code:**  
    Use the task:  
    - Command Palette → Run Task → `npm: lint-css`
 5. **Pre-commit hook (optional, recommended):**  
+
    ```bash
    npx husky add .husky/pre-commit "npm run lint:css"
    ```
+
 6. **CI:**  
    CSS linting runs automatically on every PR via `.github/workflows/lint.yml`.
 

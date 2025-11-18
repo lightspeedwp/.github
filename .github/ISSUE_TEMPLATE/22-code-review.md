@@ -61,11 +61,13 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Review goal and scope defined
 - [ ] Areas/files listed
 - [ ] Acceptance criteria mapped
 
 ### Definition of Done (DoD)
+
 - [ ] All checklist items completed
 - [ ] Feedback/action applied
 - [ ] Documentation updated

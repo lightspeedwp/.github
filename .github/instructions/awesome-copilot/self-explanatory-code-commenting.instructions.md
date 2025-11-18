@@ -6,6 +6,7 @@ applyTo: '**'
 # Self-explanatory Code Commenting Instructions
 
 ## Core Principle
+
 **Write code that speaks for itself. Comment only when necessary to explain WHY, not WHAT.**
 We do not need comments most of the time.
 
@@ -14,6 +15,7 @@ We do not need comments most of the time.
 ### ❌ AVOID These Comment Types
 
 **Obvious Comments**
+
 ```javascript
 // Bad: States the obvious
 let counter = 0;  // Initialize counter to zero
@@ -21,6 +23,7 @@ counter++;  // Increment counter by one
 ```
 
 **Redundant Comments**
+
 ```javascript
 // Bad: Comment repeats the code
 function getUserName() {
@@ -29,6 +32,7 @@ function getUserName() {
 ```
 
 **Outdated Comments**
+
 ```javascript
 // Bad: Comment doesn't match the code
 // Calculate tax at 5% rate
@@ -38,6 +42,7 @@ const tax = price * 0.08;  // Actually 8%
 ### ✅ WRITE These Comment Types
 
 **Complex Business Logic**
+
 ```javascript
 // Good: Explains WHY this specific calculation
 // Apply progressive tax brackets: 10% up to 10k, 20% above
@@ -45,6 +50,7 @@ const tax = calculateProgressiveTax(income, [0.10, 0.20], [10000]);
 ```
 
 **Non-obvious Algorithms**
+
 ```javascript
 // Good: Explains the algorithm choice
 // Using Floyd-Warshall for all-pairs shortest paths
@@ -59,6 +65,7 @@ for (let k = 0; k < vertices; k++) {
 ```
 
 **Regex Patterns**
+
 ```javascript
 // Good: Explains what the regex matches
 // Match email format: username@domain.extension
@@ -66,6 +73,7 @@ const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 ```
 
 **API Constraints or Gotchas**
+
 ```javascript
 // Good: Explains external constraint
 // GitHub API rate limit: 5000 requests/hour for authenticated users
@@ -76,6 +84,7 @@ const response = await fetch(githubApiUrl);
 ## Decision Framework
 
 Before writing a comment, ask:
+
 1. **Is the code self-explanatory?** → No comment needed
 2. **Would a better variable/function name eliminate the need?** → Refactor instead
 3. **Does this explain WHY, not WHAT?** → Good comment
@@ -84,6 +93,7 @@ Before writing a comment, ask:
 ## Special Cases for Comments
 
 ### Public APIs
+
 ```javascript
 /**
  * Calculate compound interest using the standard formula.
@@ -100,6 +110,7 @@ function calculateCompoundInterest(principal, rate, time, compoundFrequency = 1)
 ```
 
 ### Configuration and Constants
+
 ```javascript
 // Good: Explains the source or reasoning
 const MAX_RETRIES = 3;  // Based on network reliability studies
@@ -107,6 +118,7 @@ const API_TIMEOUT = 5000;  // AWS Lambda timeout is 15s, leaving buffer
 ```
 
 ### Annotations
+
 ```javascript
 // TODO: Replace with proper user authentication after security review
 // FIXME: Memory leak in production - investigate connection pooling
@@ -123,6 +135,7 @@ const API_TIMEOUT = 5000;  // AWS Lambda timeout is 15s, leaving buffer
 ## Anti-Patterns to Avoid
 
 ### Dead Code Comments
+
 ```javascript
 // Bad: Don't comment out code
 // const oldFunction = () => { ... };
@@ -130,6 +143,7 @@ const newFunction = () => { ... };
 ```
 
 ### Changelog Comments
+
 ```javascript
 // Bad: Don't maintain history in comments
 // Modified by John on 2023-01-15
@@ -140,6 +154,7 @@ function processData() {
 ```
 
 ### Divider Comments
+
 ```javascript
 // Bad: Don't use decorative comments
 //=====================================
@@ -150,6 +165,7 @@ function processData() {
 ## Quality Checklist
 
 Before committing, ensure your comments:
+
 - [ ] Explain WHY, not WHAT
 - [ ] Are grammatically correct and clear
 - [ ] Will remain accurate as code evolves

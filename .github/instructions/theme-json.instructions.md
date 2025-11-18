@@ -9,6 +9,7 @@ license: "GPL-3.0-or-later"
 ## Structure & Organization
 
 ### Version and Core Settings
+
 ```json
 {
     "$schema": "https://schemas.wp.org/trunk/theme.json",
@@ -27,6 +28,7 @@ license: "GPL-3.0-or-later"
 ```
 
 ### Typography System
+
 ```json
 {
     "settings": {
@@ -107,6 +109,7 @@ license: "GPL-3.0-or-later"
 ```
 
 ### Color System
+
 ```json
 {
     "settings": {
@@ -164,6 +167,7 @@ license: "GPL-3.0-or-later"
 ```
 
 ### Spacing System
+
 ```json
 {
     "settings": {
@@ -220,6 +224,7 @@ license: "GPL-3.0-or-later"
 ```
 
 ### Custom Properties & CSS Variables
+
 ```json
 {
     "settings": {
@@ -255,6 +260,7 @@ license: "GPL-3.0-or-later"
 ## Block-Specific Styling
 
 ### Core Block Customization
+
 ```json
 {
     "styles": {
@@ -324,6 +330,7 @@ license: "GPL-3.0-or-later"
 ```
 
 ### Element Styling
+
 ```json
 {
     "styles": {
@@ -414,6 +421,7 @@ license: "GPL-3.0-or-later"
 ## Advanced Features
 
 ### Style Variations
+
 ```json
 {
     "styles": [
@@ -445,6 +453,7 @@ license: "GPL-3.0-or-later"
 ```
 
 ### Template Part Areas
+
 ```json
 {
     "templateParts": [
@@ -468,6 +477,7 @@ license: "GPL-3.0-or-later"
 ```
 
 ### Custom Templates
+
 ```json
 {
     "customTemplates": [
@@ -488,12 +498,14 @@ license: "GPL-3.0-or-later"
 ## Best Practices
 
 ### Design Token Hierarchy
+
 1. **Base tokens**: Core values (colors, spacing units)
 2. **Semantic tokens**: Purpose-based (primary, secondary, error)
 3. **Component tokens**: Block-specific values
 4. **Context tokens**: Page or section-specific overrides
 
 ### Performance Considerations
+
 - Use CSS custom properties for runtime theme switching
 - Minimize the number of font families and weights
 - Leverage fluid typography for responsive design
@@ -501,6 +513,7 @@ license: "GPL-3.0-or-later"
 - Keep gradients and duotones to essential variations only
 
 ### Accessibility Standards
+
 - Ensure minimum 4.5:1 contrast ratio for normal text
 - Ensure minimum 3:1 contrast ratio for large text
 - Provide sufficient spacing for touch targets (44px minimum)
@@ -508,6 +521,7 @@ license: "GPL-3.0-or-later"
 - Test with high contrast and reduced motion preferences
 
 ### Maintainability
+
 - Use consistent naming conventions for slugs
 - Document color usage and design decisions
 - Group related settings logically
@@ -515,6 +529,7 @@ license: "GPL-3.0-or-later"
 - Validate theme.json syntax regularly
 
 ### Migration & Compatibility  
+
 - Use appropriate version number (2 or 3)
 - Test with multiple WordPress versions
 - Provide fallbacks for unsupported features

@@ -57,11 +57,13 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Automation goal/scope defined
 - [ ] Checklist prepared
 - [ ] Estimate added
 
 ### Definition of Done (DoD)
+
 - [ ] All checklist and acceptance criteria completed
 - [ ] Documentation/changelog updated
 - [ ] Approved by maintainer

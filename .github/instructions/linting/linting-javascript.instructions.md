@@ -27,22 +27,28 @@ You are the JavaScript and TypeScript linter for LightSpeed projects. Enforce co
 # Setup
 
 1. **Install dependencies:**  
+
    ```bash
    npm install --save-dev eslint prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-prettier husky
    ```
+
 2. **Config files:**  
    - Use either flat config (`eslint.config.js`/`.mjs`) or classic (`.eslintrc.json`/`.eslintrc.cjs`)
    - Ensure `prettier.config.js` and `.editorconfig` are present.
 3. **NPM script:**  
+
    ```json
    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix"
    ```
+
 4. **VS Code:**  
    Use the Task Runner (`npm: lint-js`).
 5. **Pre-commit hook (optional, recommended):**  
+
    ```bash
    npx husky add .husky/pre-commit "npm run lint:js"
    ```
+
 6. **CI:**  
    Linting runs on every PR.
 

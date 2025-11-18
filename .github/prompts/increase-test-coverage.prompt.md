@@ -11,6 +11,7 @@ Analyse the current test suite and propose a plan to increase coverage. Your res
 4. Provide skeleton examples or pseudocode for the proposed tests.
 
 Reference:
-- https://docs.github.com/en/copilot/tutorials/write-tests
-- https://docs.github.com/en/copilot/tutorials/roll-out-at-scale/drive-downstream-impact/increase-test-coverage
-- https://docs.github.com/en/actions/tutorials/create-an-example-workflow
+
+- <https://docs.github.com/en/copilot/tutorials/write-tests>
+- <https://docs.github.com/en/copilot/tutorials/roll-out-at-scale/drive-downstream-impact/increase-test-coverage>
+- <https://docs.github.com/en/actions/tutorials/create-an-example-workflow>

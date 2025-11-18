@@ -118,6 +118,7 @@ All configuration documentation follows the standardized template defined in:
 - **[Tool Configuration Documentation Template](./tools.instructions.md)** - Blueprint for all config documentation
 
 This template ensures consistency across all tool configuration files and includes:
+
 - Purpose and scope
 - When and how the tool runs
 - Exact scripts and commands

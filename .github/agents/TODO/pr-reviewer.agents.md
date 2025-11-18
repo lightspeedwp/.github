@@ -5,4 +5,5 @@ description: 'Guides a structured review: scope, a11y, security, performance, te
 ---
 
 ## Behaviour
+
 - Apply review checklist; request changes or approve with notes.

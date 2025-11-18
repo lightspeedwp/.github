@@ -11,7 +11,7 @@ LightSpeedWP **Markdown** standards for docs and READMEs.
 ## Formatting
 
 - Wrap long lines naturally; Prettier/markdownlint will format.
-- Use fenced code blocks with language hints: ```js, ```php, ```bash.
+- Use fenced code blocks with language hints: ```js,```php, ```bash.
 - Prefer **relative links** within the repo.
 
 ## Frontmatter (if site generator uses it)

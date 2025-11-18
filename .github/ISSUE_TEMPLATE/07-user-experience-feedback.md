@@ -59,9 +59,11 @@ Add any other relevant information or examples.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Feedback/experience described
 - [ ] Suggestions listed
 
 ### Definition of Done (DoD)
+
 - [ ] Feedback incorporated and changes documented
 - [ ] Changelog entry prepared for PR if applicable
