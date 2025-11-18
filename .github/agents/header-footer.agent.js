@@ -1,14 +1,30 @@
 // header-footer.agent.js - Automates header/footer insertion and randomisation.
 // See .github/agents/header-footer.agent.md for spec.
 
-const { insertHeaderFooter } = require('../../scripts/includes/header-footer');
-const path = require('path');
-const headerConfig = require('../../scripts/includes/header-content.json');
-const footerConfig = require('../../scripts/includes/footer-content.json');
-// Schemas now in schemas/ folder
-const headerSchema = require('../../schemas/header.schema.json');
-const footerSchema = require('../../schemas/footer.schema.json');
-const Ajv = require('ajv');
+import { insertHeaderFooter } from '../../scripts/includes/header-footer.js';
+import path from 'path';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import Ajv from 'ajv';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load JSON files
+const headerConfig = JSON.parse(
+    readFileSync(path.join(__dirname, '../../scripts/includes/header-content.json'), 'utf-8')
+);
+const footerConfig = JSON.parse(
+    readFileSync(path.join(__dirname, '../../scripts/includes/footer-content.json'), 'utf-8')
+);
+// Schemas now in schemas/header-footer-agent/ folder
+const headerSchema = JSON.parse(
+    readFileSync(path.join(__dirname, '../../schemas/header-footer-agent/header.schema.json'), 'utf-8')
+);
+const footerSchema = JSON.parse(
+    readFileSync(path.join(__dirname, '../../schemas/header-footer-agent/footer.schema.json'), 'utf-8')
+);
 
 function validateConfig(config, schema, name) {
     const ajv = new Ajv();
@@ -34,5 +50,10 @@ async function main() {
     console.log('Headers and footers updated.');
 }
 
-if (require.main === module)
-    main().catch((err) => (console.error(err), process.exit(1)));
+// Run main if this module is executed directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main().catch((err) => {
+        console.error(err);
+        process.exit(1);
+    });
+}

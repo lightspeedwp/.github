@@ -4,8 +4,8 @@ on:
     paths:
       - ".github/agents/header-footer.agent.js"
       - "scripts/includes/header-footer*"
-      - "schemas/header.schema.json"
-      - "schemas/footer.schema.json"
+      - "schemas/header-footer-agent/header.schema.json"
+      - "schemas/header-footer-agent/footer.schema.json"
       - "scripts/includes/header-content.json"
       - "scripts/includes/footer-content.json"
       - "README.md"
