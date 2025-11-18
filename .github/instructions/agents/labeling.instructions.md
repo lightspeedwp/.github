@@ -5,7 +5,7 @@ version: "v1.0"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["agents", "labeling", "instructions", "automation", "triage"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # Labeling Agent Instructions

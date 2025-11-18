@@ -5,7 +5,7 @@ last_updated: "2025-10-25"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "JSON schema files for WordPress header/footer automation agent configuration and templates."
-type: "schema"
+file_type: "schema"
 status: "development"
 tags: ["schema", "wordpress", "header-footer", "agent", "automation", "json"]
 license: "GPL-3.0"

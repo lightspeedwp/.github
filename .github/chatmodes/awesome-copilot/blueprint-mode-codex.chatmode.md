@@ -7,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 model: GPT-5-Codex (Preview)
 tags: ["workflow", "architecture", "patterns", "wordpress", "copilot", "codex"]
-type: "chatmode"
+file_type: "chatmode"
 references:
   - [LightSpeed](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
   - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)

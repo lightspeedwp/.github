@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "How to create, title, describe, instruct, and attach context."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "copilot"
+file_type: "copilot"
 ---
 # Overview
 

@@ -6,7 +6,7 @@ labels: [question, support, status:needs-triage]
 assignees: []
 projects: []
 milestone: ''
-type: help
+file_type: help
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

@@ -6,7 +6,7 @@ labels: [type:epic, status:needs-planning, priority:important, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: epic
+file_type: epic
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

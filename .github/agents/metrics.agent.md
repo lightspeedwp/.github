@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Spec for the Metrics Agent (future)."
 tags: ["lightspeed","metrics","agents"]
-type: "agent"
+file_type: "agent"
 ---
 
 # Role

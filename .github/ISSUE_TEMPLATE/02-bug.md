@@ -6,7 +6,7 @@ labels: [status:needs-triage, priority:normal, type:bug, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: bug
+file_type: bug
 references:
   - CONTRIBUTING.md
   - ISSUE_TYPES.md

@@ -6,7 +6,7 @@ labels: [type:security, status:needs-triage, priority:critical, area:security]
 assignees: []
 projects: []
 milestone: ''
-type: security
+file_type: security
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

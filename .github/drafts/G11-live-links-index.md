@@ -6,7 +6,7 @@ labels: [type:documentation, status:needs-triage, priority:normal, area:document
 assignees: []
 projects: []
 milestone: ''
-type: documentation
+file_type: documentation
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md

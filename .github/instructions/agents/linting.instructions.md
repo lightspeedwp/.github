@@ -5,7 +5,7 @@ version: "v1.0"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["agents", "linting", "instructions", "quality", "eslint", "shellcheck", "prettier"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # Linting Agent Instructions

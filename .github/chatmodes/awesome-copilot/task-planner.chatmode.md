@@ -6,7 +6,7 @@ last_updated: "2025-10-21"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 tags: ["task-planner", "planning", "checklist", "copilot"]
-type: "chatmode"
+file_type: "chatmode"
 references:
   - [LightSpeed](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
   - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)

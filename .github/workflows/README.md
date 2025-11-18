@@ -6,7 +6,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Central directory of all GitHub Actions workflows powering LightSpeed's automation and governance."
 tags: ["lightspeed","workflows","github-actions","automation","ci-cd"]
-type: "documentation"
+file_type: "documentation"
 ---
 
 This directory contains all GitHub Actions workflows that power LightSpeed's repository automation, governance, and continuous integration/deployment processes.

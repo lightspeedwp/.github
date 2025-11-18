@@ -5,7 +5,7 @@ version: "v1.0"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["agents", "jsdoc", "instructions", "documentation", "audit"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # JSDoc Review Agent Instructions
