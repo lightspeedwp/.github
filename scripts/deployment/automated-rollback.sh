@@ -114,7 +114,7 @@ rollback_production_deployment() {
     if [[ -d "$backup_dir" ]]; then
         # Restore from backup
         rm -rf "$production_path"
-        cp -r "$backup_dir"/* "$production_path/" || true
+        cp -r "$backup_dir"/* "$production_path/"
         log_success "Production deployment rolled back"
         return 0
     else
