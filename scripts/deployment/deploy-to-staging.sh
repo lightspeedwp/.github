@@ -118,7 +118,7 @@ deploy_includes_to_staging() {
 
     # Copy includes
     if [[ -d "scripts/includes" ]]; then
-        cp -r scripts/includes/* "$staging_path/includes/" || true
+        cp -r scripts/includes/* "$staging_path/includes/"
         log_success "Includes deployed to staging"
     else
         log_warning "No includes directory found"
