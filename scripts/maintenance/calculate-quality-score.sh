@@ -193,12 +193,7 @@ calculate_security_score() {
         log_info "ShellCheck not found; skipping eval security check"
     fi
 
-    # Check for unsafe variable expansion
-    ((total_checks++))
-    if grep -r '\$(' scripts/ --include="*.sh" | grep -v "shellcheck" | grep -v "readonly" >/dev/null 2>&1; then
-        # This is informational, not a security issue
-        :
-    fi
+# (Removed ineffective check for command substitution)
 
     # Calculate score (100 - percentage of issues)
     if [[ $total_checks -eq 0 ]]; then
