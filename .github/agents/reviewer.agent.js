@@ -21,7 +21,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const {
     buildLabelingReport,
-} = require('../../scripts/utility/label-reporting');
+} = require('./includes/label-reporting');
 
 /**
  * Main orchestrator for Reviewer Agent.
