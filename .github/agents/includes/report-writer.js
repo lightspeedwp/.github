@@ -10,8 +10,8 @@
  * ============================================================================
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Reads telemetry data from the agent cache file if it exists
