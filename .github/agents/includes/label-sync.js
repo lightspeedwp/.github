@@ -11,8 +11,8 @@
  * ============================================================================
  */
 
-const { findStandardLabel } = require('./label-lookup');
-const { buildLabelingReport } = require('./label-reporting');
+import { findStandardLabel } from './label-lookup.js';
+import { buildLabelingReport } from './label-reporting.js';
 
 /**
  * Sync repository labels with canonical set.
@@ -435,7 +435,7 @@ function generateSyncReport(
     return report;
 }
 
-module.exports = {
+export {
     syncLabelsWithCanonical,
     validateRepoLabels,
     standardizeLabelsOnRepo,

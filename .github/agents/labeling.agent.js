@@ -8,22 +8,22 @@
  * @author LightSpeedWP
  */
 
-const fs = require('fs');
-const yaml = require('js-yaml');
-const core = require('@actions/core');
-const github = require('@actions/github');
-const {
+import fs from 'fs';
+import yaml from 'js-yaml';
+import core from '@actions/core';
+import github from '@actions/github';
+import {
     buildLabelAliasMap,
     findStandardLabel,
-} = require('./includes/label-lookup');
-const {
+} from './includes/label-lookup.js';
+import {
     enforceOneHotStatus,
     applyDefaultStatus,
     applyDefaultPriority,
-} = require('./includes/status-enforcer');
-const {
+} from './includes/status-enforcer.js';
+import {
     buildLabelingReport,
-} = require('./includes/label-reporting');
+} from './includes/label-reporting.js';
 
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG = process.env.LABELS_CONFIG || '.github/automation/labels.yml';
@@ -229,10 +229,11 @@ async function runLabelingAgent(opts = {}) {
     core.info(`[labeling.agent] Completed env-driven labeling run (LABELS_CONFIG=${LABELS_CONFIG}, DRY_RUN=${dryRun}).`);
 }
 
-if (require.main === module) {
+// Check if this module is being run directly
+if (import.meta.url === `file://${process.argv[1]}`) {
     runLabelingAgent().catch((e) => {
         core.setFailed(e.message);
     });
 }
 
-module.exports = { runLabelingAgent };
+export { runLabelingAgent };
