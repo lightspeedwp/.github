@@ -49,8 +49,45 @@ This repository provides linting tools for JavaScript, CSS, and other code stand
 
 ## Agents & Shared Scripts
 
-A `scripts/` folder is used to contain shared functions for agents.  
+A `scripts/` folder is used to contain shared functions for agents.
 Agents are written in JavaScript, and reusable logic or utilities should be placed here for maintainability and collaboration across the organization.
+
+## Git Hooks (Husky)
+
+This repository uses [Husky](https://typicode.github.io/husky/) to enforce code quality checks before commits and pushes. Git hooks are automatically installed when you run `npm install`.
+
+### Pre-commit Hook
+
+The pre-commit hook runs `lint-staged` to automatically lint and format only the files you're committing:
+
+- **JavaScript/TypeScript files**: ESLint fixes and Prettier formatting
+- **JSON files**: Prettier formatting
+- **Markdown files**: markdownlint fixes and Prettier formatting
+- **YAML files**: Prettier formatting
+- **package.json**: npm-package-json-lint validation
+
+If any linting errors cannot be automatically fixed, the commit will be blocked until you resolve them.
+
+### Pre-push Hook
+
+The pre-push hook runs the test suite to ensure all tests pass before pushing to the remote repository:
+
+```bash
+npm test
+```
+
+If any tests fail, the push will be blocked until you fix the failing tests.
+
+### Bypassing Hooks (Not Recommended)
+
+In rare cases where you need to bypass the hooks (e.g., work-in-progress commits), you can use:
+
+```bash
+git commit --no-verify -m "WIP: Your message"
+git push --no-verify
+```
+
+**Note:** This is not recommended for production code and should only be used when absolutely necessary.
 
 ## Git Workflow
 

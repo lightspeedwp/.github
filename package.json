@@ -96,10 +96,13 @@
         "eslint-plugin-prettier": "^5.0.0",
         "glob": "^10.3.12",
         "gray-matter": "^4.0.3",
+        "husky": "9.1.7",
         "jest": "^30.0.1",
         "jest-environment-jsdom": "^30.0.1",
         "js-yaml": "^4.1.1",
+        "lint-staged": "16.2.6",
         "markdownlint": "^0.28.1",
+        "markdownlint-cli": "0.45.0",
         "mermaid": "^10.9.0",
         "micromatch": "^4.0.7",
         "node-fetch": "^3.3.2",
@@ -112,6 +115,7 @@
         "typescript": "^5.0.0"
     },
     "scripts": {
+        "prepare": "husky install",
         "lint:pkg-json": "npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs .",
         "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset spectral.config.js",
         "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset spectral.config.js",
@@ -130,5 +134,24 @@
         "contributors:add": "all-contributors add",
         "contributors:generate": "all-contributors generate",
         "contributors:check": "all-contributors check"
+    },
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.json": [
+            "prettier --write"
+        ],
+        "*.md": [
+            "markdownlint --fix",
+            "prettier --write"
+        ],
+        "*.{yml,yaml}": [
+            "prettier --write"
+        ],
+        "package.json": [
+            "npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs"
+        ]
     }
 }
