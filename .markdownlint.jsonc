@@ -1,0 +1,77 @@
+{
+    // Markdownlint JSONC Configuration for LightSpeedWP
+    // This configuration is used by the quality-gates workflow and IDE integrations
+    // See markdownlint.config.js for the comprehensive configuration
+
+    // Use default rules as base
+    "default": true,
+
+    // Rule customizations
+    // MD013 - Line length limit
+    "MD013": {
+        "line_length": 120,
+        "heading_line_length": 140,
+        "code_block_line_length": 160,
+        "tables": false,
+        "headings": false,
+        "headers": false
+    },
+
+    // MD033 - Inline HTML (allowed for enhanced formatting)
+    "MD033": {
+        "allowed_elements": [
+            "br",
+            "sub",
+            "sup",
+            "kbd",
+            "mark",
+            "details",
+            "summary",
+            "img",
+            "a",
+            "div",
+            "span",
+            "table",
+            "thead",
+            "tbody",
+            "tr",
+            "th",
+            "td",
+            "hr",
+            "code",
+            "pre"
+        ]
+    },
+
+    // MD041 - First line in file should be a top-level heading
+    // Disabled to allow frontmatter
+    "MD041": false,
+
+    // MD024 - Multiple headings with the same content
+    "MD024": {
+        "siblings_only": true
+    },
+
+    // MD029 - Ordered list item prefix
+    "MD029": {
+        "style": "ordered"
+    },
+
+    // MD040 - Fenced code blocks should have a language specified
+    "MD040": false,
+
+    // MD046 - Code block style (prefer fenced)
+    "MD046": {
+        "style": "fenced"
+    },
+
+    // MD049 - Emphasis style (use asterisks)
+    "MD049": {
+        "style": "asterisk"
+    },
+
+    // MD050 - Strong style (use asterisks)
+    "MD050": {
+        "style": "asterisk"
+    }
+}
