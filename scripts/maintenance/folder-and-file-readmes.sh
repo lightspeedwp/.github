@@ -44,13 +44,13 @@
 #   --help-all       Show help for all options
 # Examples:
 #   ./folder-and-file-readmes.sh scripts/maintenance
-#   ./folder-and-file-readmes.sh --file scripts/project/update-projects.sh --merge
+#   ./folder-and-file-readmes.sh --file scripts/projects/update-projects.sh --merge
 #   DRY_RUN=true ./folder-and-file-readmes.sh scripts/utility
 #   ./folder-and-file-readmes.sh --lint --toc scripts/maintenance
 #   ./folder-and-file-readmes.sh --profile scripts/maintenance
 #   ./folder-and-file-readmes.sh --file scripts/maintenance/some-script.sh --overwrite
 #   ./folder-and-file-readmes.sh --file scripts/maintenance/some-script.sh --merge
-#   ./folder-and-file-readmes.sh --create scripts/maintenance scripts/project scripts/utility
+#   ./folder-and-file-readmes.sh --create scripts/maintenance scripts/projects scripts/utility
 #   ./folder-and-file-readmes.sh --list scripts/maintenance
 #   ./folder-and-file-readmes.sh --backup scripts/maintenance
 #   ./folder-and-file-readmes.sh --exclude '*.bak' scripts/maintenance
