@@ -104,8 +104,8 @@ done
 # Main deployment function
 #######################################
 deploy_to_production() {
-    local deployment_id=$(date +%Y%m%d-%H%M%S)
-    local start_time=$(date +%s)
+    local -r deployment_id=$(date +%Y%m%d-%H%M%S)
+    local -r start_time=$(date +%s)
 
     log_info "🚀 Starting production deployment: $deployment_id"
     log_info "Target: $PRODUCTION_PATH"
