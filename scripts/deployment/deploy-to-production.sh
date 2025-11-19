@@ -338,8 +338,8 @@ deploy_includes_to_production() {
     log_info "Verifying deployed script syntax..."
     local syntax_errors=0
     while IFS= read -r -d '' script; do
-        if ! bash -n "$script" 2>/dev/null; then
-            log_error "Syntax error in deployed script: $script"
+        if ! error_output=$(bash -n "$script" 2>&1); then
+            log_error "Syntax error in deployed script: $script: $error_output"
             ((syntax_errors++))
         fi
     done < <(find "$target_path/includes" -name "*.sh" -type f -print0)
