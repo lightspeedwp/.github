@@ -150,8 +150,7 @@
             "prettier --write"
         ],
         "*.{md,mdx}": [
-            "markdownlint-cli2 --fix",
-            "prettier --write"
+            "markdownlint-cli2 --fix"
         ],
         "*.json": [
             "prettier --write"
