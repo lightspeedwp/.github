@@ -256,7 +256,7 @@ validate_deployment_readiness() {
 
     # Check disk space (require at least 1GB free for production)
     local required_space_kb=1048576  # 1GB in KB
-    local available_space=$(df -k "$PRODUCTION_PATH" | awk 'NR==2 {print $4}')
+    local available_space=$(df -k "$PRODUCTION_PATH" | tail -n 1 | awk '{print $4}')
     if [[ $available_space -lt $required_space_kb ]]; then
         log_error "Insufficient disk space: ${available_space}KB available, ${required_space_kb}KB required"
         return 1
