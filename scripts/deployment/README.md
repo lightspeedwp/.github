@@ -48,6 +48,71 @@ Automated deployment script for staging environment.
 - `STAGING_PATH`: Target deployment path (default: `/opt/lightspeed-wp/staging`)
 - `BACKUP_RETENTION_DAYS`: Backup retention period (default: 30 days)
 
+### deploy-to-production.sh
+
+Automated deployment script for production environment with enhanced safety checks.
+
+**Usage:**
+
+```bash
+./deploy-to-production.sh [--dry-run] [--skip-backup] [--force]
+```
+
+**Arguments:**
+
+- `--dry-run`: Simulate deployment without making changes
+- `--skip-backup`: Skip backup creation (NOT RECOMMENDED for production)
+- `--force`: Force deployment bypassing safety checks (use with extreme caution)
+
+**Features:**
+
+- Enhanced production safety checks
+- Business hours validation
+- Deployment approval verification
+- Automated backup with extended retention
+- Comprehensive syntax verification
+- Post-deployment health checks
+- Automatic rollback on failure
+- Deployment registry tracking
+
+**Environment Variables:**
+
+- `PRODUCTION_PATH`: Target deployment path (default: `/opt/lightspeed-wp/production`)
+- `BACKUP_RETENTION_DAYS`: Backup retention period (default: 90 days)
+- `DEPLOYMENT_TIMEOUT`: Maximum deployment time in seconds (default: 600)
+
+**Production Safety Checks:**
+
+1. **Business Hours Validation**
+   - Warns if deploying outside 6:01 AM - 10 PM
+   - Can be overridden with `--force`
+
+2. **Deployment Approval**
+   - Checks for `.deployment-approved` file
+   - Ensures authorized deployments only
+
+3. **Recent Failure Check**
+   - Detects failed deployments in last 24 hours
+   - Requires resolution before proceeding
+
+4. **Quality Gate Validation**
+   - Verifies quality report exists
+   - Confirms all quality gates passed
+   - Validates security scan results
+
+**Example Usage:**
+
+```bash
+# Standard production deployment
+./deploy-to-production.sh
+
+# Dry run to test deployment process
+./deploy-to-production.sh --dry-run
+
+# Emergency deployment (use with extreme caution)
+./deploy-to-production.sh --force
+```
+
 ### `automated-rollback.sh`
 
 Automated rollback system for failed deployments.
