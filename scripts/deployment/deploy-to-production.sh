@@ -503,8 +503,8 @@ cleanup_old_backups() {
 
     log_info "🧹 Cleaning up old backups (retention: ${retention_days} days)..."
 
-    find "$backup_dir" -name "*.tar.gz" -type f -mtime "+${retention_days}" -delete 2>/dev/null || true
-    find "$backup_dir" -name "*.sha256" -type f -mtime "+${retention_days}" -delete 2>/dev/null || true
+    find "$backup_dir" -name "*.tar.gz" -type f -mtime +${retention_days} -delete 2>/dev/null || true
+    find "$backup_dir" -name "*.sha256" -type f -mtime +${retention_days} -delete 2>/dev/null || true
 
     log_success "Old backups cleaned up"
 }
