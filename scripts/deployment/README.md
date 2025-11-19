@@ -84,7 +84,7 @@ Automated deployment script for production environment with enhanced safety chec
 **Production Safety Checks:**
 
 1. **Business Hours Validation**
-   - Warns if deploying outside 6 AM - 10 PM
+   - Warns if deploying outside 6:01 AM - 10 PM
    - Can be overridden with `--force`
 
 2. **Deployment Approval**
