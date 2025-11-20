@@ -26,21 +26,27 @@ You are the Markdown documentation linter for LightSpeed projects. Enforce clari
 # Setup
 
 1. **Install dependencies:**
+
    ```bash
    npm install --save-dev markdownlint-cli prettier husky
    ```
+
 2. **Config files:**
    Ensure `.markdownlint.json`, `.markdownlintignore`, and `prettier.config.js` exist.
 3. **NPM script:**
+
    ```json
    "lint:md": "markdownlint '**/*.md' --fix"
    ```
+
 4. **VS Code:**
    Use Task Runner (`npm: lint-md`).
 5. **Pre-commit hook (optional, recommended):**
+
    ```bash
    npx husky add .husky/pre-commit "npm run lint:md"
    ```
+
 6. **CI:**
    Markdown linting runs on every PR.
 

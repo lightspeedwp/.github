@@ -2,18 +2,22 @@
 // check-template-labels.js
 // Fails if any label in issue templates or issue-types.yml is not in labels.yml
 
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
+import { fileURLToPath } from 'url';
 
-const LABELS_FILE = path.resolve(__dirname, '../../.github/labels.yml');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const LABELS_FILE = path.resolve(__dirname, '../../automation/labels.yml');
 const ISSUE_TYPES_FILE = path.resolve(
     __dirname,
-    '../../.github/issue-types.yml'
+    '../../automation/issue-types.yml'
 );
 const ISSUE_TEMPLATE_DIR = path.resolve(
     __dirname,
-    '../../.github/ISSUE_TEMPLATE'
+    '../../../.github/ISSUE_TEMPLATE'
 );
 
 function loadYaml(file) {
@@ -26,7 +30,8 @@ function getCanonicalLabels() {
 }
 
 function getIssueTypeLabels() {
-    const types = loadYaml(ISSUE_TYPES_FILE);
+    const data = loadYaml(ISSUE_TYPES_FILE);
+    const types = data.issue_types || [];
     const labels = new Set();
     for (const type of types) {
         if (type.label) labels.add(type.label);

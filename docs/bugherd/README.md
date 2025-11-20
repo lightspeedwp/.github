@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'BugHerd Documentation'
 description: 'BugHerd tagging, categorization, and workflow guides for LightSpeed projects'
 version: '1.0'

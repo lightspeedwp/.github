@@ -6,7 +6,7 @@ labels: [type:audit, status:needs-audit, priority:normal, area:security]
 assignees: []
 projects: []
 milestone: ''
-type: audit
+file_type: audit
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -84,11 +84,13 @@ Add links, standards, references, or related issues.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Audit scope, checklist, and goals defined
 - [ ] Areas/components listed
 - [ ] Dependencies and standards mapped
 
 ### Definition of Done (DoD)
+
 - [ ] Audit performed and findings documented
 - [ ] Remediation actions assigned
 - [ ] Documentation/changelog updated (if applicable)

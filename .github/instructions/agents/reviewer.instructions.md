@@ -1,11 +1,12 @@
 ---
+file_type: "instructions"
 title: "Reviewer Agent Instructions"
 description: "Instructions for Reviewer Agent: Automated PR review summaries, CI status, and guidance."
 version: "v1.0"
 last_updated: "2025-10-23"
 owners: ["lightspeedwp/maintainers"]
 tags: ["agents", "reviewer", "instructions", "pr", "automation"]
-type: "instructions"
+file_type: "instructions"
 ---
 
 # Reviewer Agent Instructions

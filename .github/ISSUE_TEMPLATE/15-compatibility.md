@@ -6,7 +6,7 @@ labels: [type:compat, area:compatibility, status:needs-testing]
 assignees: []
 projects: []
 milestone: ''
-type: compat
+file_type: compat
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -84,12 +84,14 @@ Add any other context, related issues, references, or docs.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Compatibility issue/context described
 - [ ] Steps to reproduce and environment details provided
 - [ ] Acceptance criteria listed
 - [ ] Estimate added (if applicable)
 
 ### Definition of Done (DoD)
+
 - [ ] Issue resolved and verified on affected platforms
 - [ ] Documentation/changelog updated
 - [ ] PR uses correct branch prefix (compat/)

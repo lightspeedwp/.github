@@ -40,12 +40,14 @@ graph TD
 ## 🔗 Integration Points
 
 ### 📚 Related Documentation
+
 - **[Coding Standards Instructions](./coding-standards.instructions.md)** - Unified coding standards
 - **[Workflows Instructions](./workflows.instructions.md)** - CI/CD integration
 - **[Agents Instructions](./agents.instructions.md)** - Automated linting agents
 - **[Custom Instructions](../custom-instructions.md)** - Organization-wide settings
 
 ### ⚙️ Tool Integration
+
 - **[Lint Workflow](../workflows/lint.yml)** - GitHub Actions linting
 - **[Linting Agent](./agents/linting.instructions.md)** - Automated code review
 - **Pre-commit Hooks** - Local validation setup
@@ -55,6 +57,7 @@ graph TD
 ## Dynamic Reference
 
 All linting instruction files in this directory:
+
 - [`linting/*.instructions.md`](./linting/) — All Markdown files ending with `.instructions.md` inside the `linting/` folder are considered reusable linting instructions for Copilot Chat, GitHub Actions, VS Code, and workflow automation.
 
 > **When adding a new linting instruction file, ensure it has clear YAML frontmatter (`file_type: instructions`, `applyTo`, `description`), complies with our governance schema, and is listed below.**
@@ -106,6 +109,7 @@ Below are all linting instruction files available in this folder. Each file defi
 ## Reference: Coding Standards
 
 For unified coding standards and documentation practices, see:  
+
 - [Main Coding Standards Instructions](./coding-standards.instructions.md)
 
 ---

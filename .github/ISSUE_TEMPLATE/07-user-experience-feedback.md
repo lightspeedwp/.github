@@ -6,7 +6,7 @@ labels: [type:improve, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: improve
+file_type: improve
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -59,9 +59,11 @@ Add any other relevant information or examples.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Feedback/experience described
 - [ ] Suggestions listed
 
 ### Definition of Done (DoD)
+
 - [ ] Feedback incorporated and changes documented
 - [ ] Changelog entry prepared for PR if applicable

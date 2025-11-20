@@ -25,22 +25,28 @@ You are the HTML validator and accessibility checker for LightSpeed projects. Us
 # Setup
 
 1. **Install dependencies:**  
+
    ```bash
    npm install --save-dev html-validate prettier husky
    ```
+
 2. **Config files:**  
    Ensure `.htmlvalidate.json` and `prettier.config.js` exist.
 3. **NPM script:**  
    In `package.json`:
+
    ```json
    "lint:html": "html-validate '**/*.html'"
    ```
+
 4. **VS Code:**  
    Add/enable a task for HTML linting (see `tasks.json`)
 5. **Pre-commit hook (optional, recommended):**  
+
    ```bash
    npx husky add .husky/pre-commit "npm run lint:html"
    ```
+
 6. **CI:**  
    HTML linting is run automatically on PRs.
 

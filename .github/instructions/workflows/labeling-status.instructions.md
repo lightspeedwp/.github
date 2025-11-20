@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Workflow: Labeling & Status Automation"
 description: "Automate and enforce PR/issue labeling, status, and changelog requirements."
 version: "v1.0"

@@ -28,4 +28,5 @@ console.log('Checking lint rule changes...');
 console.log('✅ Metrics collection complete (stub).');
 
 // TODO: Implement proper error handling and exit codes when real metrics collection is added.
+// Exit with success (always, since this is a stub).
 process.exit(0);

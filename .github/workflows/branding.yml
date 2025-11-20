@@ -49,6 +49,7 @@ jobs:
           else
             BASE_REF="HEAD~1"
             HEAD_REF="${{ github.sha }}"
+          fi
           npm install --prefix .github/scripts js-yaml ajv
           FILES=$(git diff --name-only ${{ github.sha }} ${{ github.base_ref || 'HEAD~1' }} | grep -E '\.md$' || true)
           for f in $FILES; do
@@ -98,15 +99,23 @@ jobs:
 
   metrics-update:
     needs: [apply-branding]
-    if: ${{ success() || failure() }}
+    if: ${{ (success() || failure()) && github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Fetch latest changes
+        run: |
+          git checkout ${{ github.ref_name }}
+          git pull origin ${{ github.ref_name }}
 
       - name: Update Metrics Snapshot
         run: |
@@ -138,5 +147,5 @@ jobs:
           git add .github/metrics/branding.json .github/metrics/branding-log.md
           if ! git diff --cached --quiet; then
             git commit -m "chore(branding): update metrics snapshot [skip ci]"
-            git push
+            git push origin ${{ github.ref_name }}
           fi

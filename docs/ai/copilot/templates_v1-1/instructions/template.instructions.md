@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Template: Instructions"
 version: "v1.0"
 last_updated: "2025-10-17"
@@ -6,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Generic instruction skeleton (D1 headings)."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
-type: "prompt"
+file_type: "prompt"
 ---
 # Role (required)
 

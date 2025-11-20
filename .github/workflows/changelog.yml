@@ -11,12 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # TODO: This step depends on .github/agents/includes/changelogUtils.js, which is defined in G-2.
-      # If the file does not exist, skip validation. Remove this check when G-2 is merged.
-      - name: Validate changelog schema (skips if changelogUtils.js missing)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate changelog schema
         run: |
-          if [ -f .github/agents/includes/changelogUtils.js ]; then
-            node .github/agents/includes/changelogUtils.js --validate CHANGELOG.md
-          else
-            echo "changelogUtils.js not found. Skipping changelog validation. (Depends on G-2)"
-          fi
+          node .github/agents/includes/changelogUtils.cjs --validate CHANGELOG.md

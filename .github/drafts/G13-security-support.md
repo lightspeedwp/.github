@@ -6,7 +6,7 @@ labels: [type:documentation, status:needs-triage, priority:normal, area:document
 assignees: []
 projects: []
 milestone: 'v0.2.0'
-type: documentation
+file_type: documentation
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -18,10 +18,12 @@ references:
 ## What documentation is needed?
 
 We need to ensure SECURITY.md and SUPPORT.md have clear, non-overlapping guidance that explicitly defines:
+
 - **SECURITY.md:** Private disclosure path for vulnerabilities with defined SLA
 - **SUPPORT.md:** Public user-facing support channels, with clear redirection to SECURITY.md for vulnerabilities
 
 **Current state:**
+
 - Potential overlap between security and support routing
 - Unclear when to use private vs public channels
 - Risk of public disclosure of vulnerabilities
@@ -29,6 +31,7 @@ We need to ensure SECURITY.md and SUPPORT.md have clear, non-overlapping guidanc
 - Possible contradictory guidance
 
 **Desired state:**
+
 - SECURITY.md clearly states private reporting channel and SLA
 - SUPPORT.md clearly defers vulnerabilities to SECURITY.md
 - No contradictory or overlapping guidance
@@ -38,22 +41,26 @@ We need to ensure SECURITY.md and SUPPORT.md have clear, non-overlapping guidanc
 ## Why is this documentation important?
 
 **For security:**
+
 - **Critical** - Public disclosure of vulnerabilities creates immediate risk
 - Clear private reporting channel enables responsible disclosure
 - Defined SLA sets expectations and enables timely response
 - Protects users and organisation from exploitation
 
 **For contributors/users:**
+
 - Clear routing eliminates confusion about where to report
 - Confidence that security issues are handled appropriately
 - Faster resolution through correct channel routing
 
 **For maintainers:**
+
 - Reduced triage burden from misrouted reports
 - Clear SLAs enable accountability
 - Compliance with security best practices
 
 **Impact:**
+
 - **High** - Risk of public disclosure or missed security incidents
 - **High** - Compliance and legal risk if incidents mishandled
 - **Medium** - Reputation damage from unclear security posture
@@ -61,7 +68,8 @@ We need to ensure SECURITY.md and SUPPORT.md have clear, non-overlapping guidanc
 ## Acceptance Criteria
 
 **SECURITY.md:**
-- [ ] Private reporting channel clearly stated (e.g., security@lightspeed.com, GitHub Security Advisories)
+
+- [ ] Private reporting channel clearly stated (e.g., <security@lightspeed.com>, GitHub Security Advisories)
 - [ ] Reporting process documented step-by-step
 - [ ] Expected response SLA defined (e.g., "Initial response within 24 hours")
 - [ ] Scope of security policy clearly defined (what qualifies as vulnerability)
@@ -70,6 +78,7 @@ We need to ensure SECURITY.md and SUPPORT.md have clear, non-overlapping guidanc
 - [ ] Contact information current and monitored
 
 **SUPPORT.md:**
+
 - [ ] Public support channels clearly listed (GitHub Discussions, Slack, forums, etc.)
 - [ ] Explicit statement: "**Do not report security vulnerabilities here**"
 - [ ] Clear redirect to SECURITY.md for vulnerabilities
@@ -78,6 +87,7 @@ We need to ensure SECURITY.md and SUPPORT.md have clear, non-overlapping guidanc
 - [ ] No contradictory guidance about security reporting
 
 **General:**
+
 - [ ] No overlapping or contradictory guidance between files
 - [ ] Cross-references between SECURITY.md ↔ SUPPORT.md
 - [ ] Links verified and working
@@ -197,6 +207,7 @@ For dedicated support, contact: **enterprise@lightspeed.com**
 ```
 
 **Cross-reference checklist:**
+
 - [ ] SECURITY.md links to SUPPORT.md for non-security issues
 - [ ] SUPPORT.md links to SECURITY.md for vulnerabilities
 - [ ] CONTRIBUTING.md references both appropriately
@@ -204,6 +215,7 @@ For dedicated support, contact: **enterprise@lightspeed.com**
 - [ ] Issue templates reference appropriate channel
 
 **Validation checklist:**
+
 - [ ] No public security reporting mentioned in SECURITY.md
 - [ ] SUPPORT.md explicitly excludes security vulnerabilities
 - [ ] Contact emails are monitored and current
@@ -211,6 +223,7 @@ For dedicated support, contact: **enterprise@lightspeed.com**
 - [ ] Disclosure policy complies with industry standards
 
 **Telemetry (post-merge):**
+
 - Count misrouted security reports (before/after) - target: decrease
 - Measure security report response time compliance with SLA
 - Monitor public disclosure incidents - target: zero
@@ -269,6 +282,7 @@ For dedicated support, contact: **enterprise@lightspeed.com**
 **Branch prefix:** `docs/`
 
 **Files to update:**
+
 - `SECURITY.md` (private channel, SLA, process)
 - `SUPPORT.md` (public channels, security exclusion)
 - `CONTRIBUTING.md` (reference both)
@@ -277,6 +291,7 @@ For dedicated support, contact: **enterprise@lightspeed.com**
 
 **Testing:**
 Create sample scenarios and verify routing is clear:
+
 - "I found a bug" → SUPPORT.md channels
 - "I think there's an XSS vulnerability" → SECURITY.md private reporting
 - "The docs have a typo" → GitHub Issues

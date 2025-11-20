@@ -2,6 +2,7 @@
 description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
 version: "3.0"
 last_updated: "2025-10-24"
+file_type: "documentation"
 owners:
 - LightSpeed Team
 tags:
@@ -13,16 +14,26 @@ tags:
 - labeling
 - ai
 references:
-- ./custom-instructions.md
-- ./agents/agent.md
-- ./prompts/prompts.md
-- ./chatmodes/chatmodes.md
-- ../AGENTS.md
-- ./automation/AUTOMATION_GOVERNANCE.md
-- ./automation/labels.yml
-- ./automation/labeler.yml
-- ./instructions/coding-standards.instructions.md
-- ../CONTRIBUTING.md
+  - path: ./custom-instructions.md
+    description: Custom instructions for AI agents
+  - path: ./agents/agent.md
+    description: Main agents index
+  - path: ./prompts/prompts.md
+    description: Prompts index
+  - path: ./chatmodes/chatmodes.md
+    description: Chatmodes index
+  - path: ../AGENTS.md
+    description: Organization-wide agents documentation
+  - path: ./automation/AUTOMATION_GOVERNANCE.md
+    description: Automation governance policies
+  - path: ./automation/labels.yml
+    description: Label definitions
+  - path: ./automation/labeler.yml
+    description: Labeler configuration
+  - path: ./instructions/coding-standards.instructions.md
+    description: Coding standards instructions
+  - path: ../CONTRIBUTING.md
+    description: Contribution guidelines
 ---
 LightSpeed Organisation .github Community Health Repository
 ==========================================================
@@ -348,6 +359,19 @@ Directory Structure Details
 │   ├── project-meta-sync.yml
 │   └── ... (other workflows)
 │
+├── metrics/                # Metrics collection scripts and configuration
+│   ├── README.md
+│   ├── metrics.config.json
+│   ├── frontmatter-metrics.js
+│   ├── branding.json
+│   └── branding-log.md
+│
+├── reporting/              # Generated reports and metrics artifacts
+│   ├── README.md
+│   ├── frontmatter/
+│   ├── branding/
+│   └── issue-metrics/
+│
 ├── ISSUE_TEMPLATE/         # Issue templates for bugs, features, docs, tasks, etc.
 │   └── *.md
 │
@@ -544,8 +568,6 @@ License
 -------
 
 This repository and all its contents are licensed under the GNU General Public License v3.0 — see the [LICENSE](../LICENSE) file.
-
-
 
 🏛️ Core Organization Files
 --------------------------

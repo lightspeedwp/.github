@@ -6,7 +6,7 @@ labels: [type:feature, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: feature
+file_type: feature
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -90,6 +90,7 @@ Use correct branch prefix (feat/) for any PR.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Problem statement and outcome defined
 - [ ] Acceptance criteria written (Given/When/Then)
 - [ ] Designs/specs/references attached (if relevant)
@@ -99,6 +100,7 @@ Use correct branch prefix (feat/) for any PR.
 - [ ] Milestone/iteration assigned (if applicable)
 
 ### Definition of Done (DoD)
+
 - [ ] All acceptance criteria met
 - [ ] Tests added/updated; CI green
 - [ ] Accessibility, performance, security checks (where relevant)

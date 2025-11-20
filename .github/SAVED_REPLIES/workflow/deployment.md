@@ -17,6 +17,7 @@ Hi @username,
 Deployment to the target environment failed.
 
 **How to fix:**
+
 - Review the deployment logs for error output
 - Confirm all required environment variables and secrets are set
 - Follow our [Automation Guide](../../instructions/automation.md) for deployment troubleshooting

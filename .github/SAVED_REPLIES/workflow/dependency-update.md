@@ -18,6 +18,7 @@ Hi @username,
 There was a problem with automated dependency updates or conflicts during dependency workflows.
 
 **How to Fix:**
+
 - Review the dependency update workflow logs for errors.
 - Ensure your lockfiles are up to date (`package-lock.json`, `composer.lock`, etc.).
 - Check for version conflicts or incompatible dependency constraints.

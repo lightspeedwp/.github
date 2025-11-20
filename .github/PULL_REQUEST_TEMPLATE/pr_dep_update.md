@@ -10,7 +10,6 @@ labels: ["type:chore", "status:needs-review", "area:dependencies"]
 This PR updates dependencies or performs routine maintenance (lint, formatting, hygiene).  
 Please review the summary, impact, and changelog below.
 
-
 > This repository enforces changelog, release, and label automation for all PRs and issues.  
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
 

@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Jest Test Instructions"
 description: "How to set up, configure, and write tests with Jest for JavaScript/TypeScript projects."
 version: "1.0.0"
@@ -23,11 +24,13 @@ See [Tests Index](../tests.instructions.md) for all test standards.
 - Place Jest tests alongside source files or in a `/tests/jest/` directory.
 - Install Jest via npm: `npm install --save-dev jest`
 - Add a `"test"` script to your `package.json`:
+
   ```json
   "scripts": {
     "test": "jest"
   }
   ```
+
 - Create a `jest.config.js` for custom config.
 
 ## Best Practices

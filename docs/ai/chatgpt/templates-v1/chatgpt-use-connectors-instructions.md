@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Use Connectors Instructions"
 description: "Guidelines for ChatGPT to access internal data via connectors such as Google Drive, GitHub and Gmail."
 last_updated: "2025-10-17"

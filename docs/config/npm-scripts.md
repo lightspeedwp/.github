@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "NPM Scripts Configuration"
 description: "Standardised build, lint, test, format, release and WordPress environment automation via package.json scripts"
 last_updated: "2025-10-24"

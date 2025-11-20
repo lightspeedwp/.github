@@ -4,7 +4,6 @@ name: Frontmatter Validation
 on:
   push:
     branches:
-      - main
       - develop
       - 'claude/**'
     paths:
@@ -17,6 +16,10 @@ on:
       - 'schemas/frontmatter/**'
       - '.github/workflows/frontmatter-validation.yml'
   workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   validate-schema:

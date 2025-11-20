@@ -12,6 +12,7 @@ Expert PostgreSQL code review for ${selection} (or entire project if no selectio
 ## 🎯 PostgreSQL-Specific Review Areas
 
 ### JSONB Best Practices
+
 ```sql
 -- ❌ BAD: Inefficient JSONB usage
 SELECT * FROM orders WHERE data->>'status' = 'shipped';  -- No index support
@@ -29,6 +30,7 @@ CHECK (data->>'status' IN ('pending', 'shipped', 'delivered'));
 ```
 
 ### Array Operations Review
+
 ```sql
 -- ❌ BAD: Inefficient array operations
 SELECT * FROM products WHERE 'electronics' = ANY(categories);  -- No index
@@ -46,6 +48,7 @@ WHERE id IN (SELECT id FROM products WHERE condition);
 ```
 
 ### PostgreSQL Schema Design Review
+
 ```sql
 -- ❌ BAD: Not using PostgreSQL features
 CREATE TABLE users (
@@ -68,6 +71,7 @@ CREATE INDEX idx_users_metadata ON users USING gin(metadata);
 ```
 
 ### Custom Types and Domains
+
 ```sql
 -- ❌ BAD: Using generic types for specific data
 CREATE TABLE transactions (
@@ -91,18 +95,21 @@ CREATE TABLE transactions (
 ## 🔍 PostgreSQL-Specific Anti-Patterns
 
 ### Performance Anti-Patterns
+
 - **Avoiding PostgreSQL-specific indexes**: Not using GIN/GiST for appropriate data types
 - **Misusing JSONB**: Treating JSONB like a simple string field
 - **Ignoring array operators**: Using inefficient array operations
 - **Poor partition key selection**: Not leveraging PostgreSQL partitioning effectively
 
 ### Schema Design Issues
+
 - **Not using ENUM types**: Using VARCHAR for limited value sets
 - **Ignoring constraints**: Missing CHECK constraints for data validation
 - **Wrong data types**: Using VARCHAR instead of TEXT or CITEXT
 - **Missing JSONB structure**: Unstructured JSONB without validation
 
 ### Function and Trigger Issues
+
 ```sql
 -- ❌ BAD: Inefficient trigger function
 CREATE OR REPLACE FUNCTION update_modified_time()
@@ -133,6 +140,7 @@ CREATE TRIGGER update_modified_time_trigger
 ## 📊 PostgreSQL Extension Usage Review
 
 ### Extension Best Practices
+
 ```sql
 -- ✅ Check if extension exists before creating
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -153,6 +161,7 @@ SELECT word_similarity('postgres', 'postgre');
 ## 🛡️ PostgreSQL Security Review
 
 ### Row Level Security (RLS)
+
 ```sql
 -- ✅ GOOD: Implementing RLS
 ALTER TABLE sensitive_data ENABLE ROW LEVEL SECURITY;
@@ -163,6 +172,7 @@ CREATE POLICY user_data_policy ON sensitive_data
 ```
 
 ### Privilege Management
+
 ```sql
 -- ❌ BAD: Overly broad permissions
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO app_user;
@@ -175,6 +185,7 @@ GRANT USAGE ON SEQUENCE specific_table_id_seq TO app_user;
 ## 🎯 PostgreSQL Code Quality Checklist
 
 ### Schema Design
+
 - [ ] Using appropriate PostgreSQL data types (CITEXT, JSONB, arrays)
 - [ ] Leveraging ENUM types for constrained values
 - [ ] Implementing proper CHECK constraints
@@ -182,6 +193,7 @@ GRANT USAGE ON SEQUENCE specific_table_id_seq TO app_user;
 - [ ] Defining custom domains for reusable constraints
 
 ### Performance Considerations
+
 - [ ] Appropriate index types (GIN for JSONB/arrays, GiST for ranges)
 - [ ] JSONB queries using containment operators (@>, ?)
 - [ ] Array operations using PostgreSQL-specific operators
@@ -189,6 +201,7 @@ GRANT USAGE ON SEQUENCE specific_table_id_seq TO app_user;
 - [ ] Efficient use of PostgreSQL-specific functions
 
 ### PostgreSQL Features Utilization
+
 - [ ] Using extensions where appropriate
 - [ ] Implementing stored procedures in PL/pgSQL when beneficial
 - [ ] Leveraging PostgreSQL's advanced SQL features
@@ -196,6 +209,7 @@ GRANT USAGE ON SEQUENCE specific_table_id_seq TO app_user;
 - [ ] Implementing proper error handling in functions
 
 ### Security and Compliance
+
 - [ ] Row Level Security (RLS) implementation where needed
 - [ ] Proper role and privilege management
 - [ ] Using PostgreSQL's built-in encryption functions

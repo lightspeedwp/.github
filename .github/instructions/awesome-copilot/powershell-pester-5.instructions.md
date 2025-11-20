@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 applyTo: '**/*.Tests.ps1'
 description: 'PowerShell Pester testing best practices based on Pester v5 conventions'
 ---

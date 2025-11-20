@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "WordPress Coding Standards Index"
 description: "Index of all LightSpeed WordPress coding standards, inline documentation, linting, and Copilot frontmatter rules."
 last_updated: "2025-10-21"
@@ -11,6 +12,7 @@ owners: ["LightSpeed Engineering"]
 This is the index for all LightSpeed WordPress coding standards and best practices.
 
 > **See also:**  
+>
 > - [LightSpeed Coding Standards Index](./coding-standards.instructions.md) for org-wide rules  
 > - [LightSpeed Custom Copilot Instructions](../custom-instructions.md) for Copilot/AI conventions
 

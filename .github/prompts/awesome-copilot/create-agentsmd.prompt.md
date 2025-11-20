@@ -5,7 +5,7 @@ mode: "agent"
 
 # Create high‑quality AGENTS.md file
 
-You are a code agent. Your task is to create a complete, accurate AGENTS.md at the root of this repository that follows the public guidance at https://agents.md/.
+You are a code agent. Your task is to create a complete, accurate AGENTS.md at the root of this repository that follows the public guidance at <https://agents.md/>.
 
 AGENTS.md is an open format designed to provide coding agents with the context and instructions they need to work effectively on a project.
 

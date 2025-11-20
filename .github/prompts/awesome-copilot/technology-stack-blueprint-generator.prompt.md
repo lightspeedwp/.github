@@ -6,6 +6,7 @@ mode: 'agent'
 # Comprehensive Technology Stack Blueprint Generator
 
 ## Configuration Variables
+
 ${PROJECT_TYPE="Auto-detect|.NET|Java|JavaScript|React.js|React Native|Angular|Python|Other"} <!-- Primary technology -->
 ${DEPTH_LEVEL="Basic|Standard|Comprehensive|Implementation-Ready"} <!-- Analysis depth -->
 ${INCLUDE_VERSIONS=true|false} <!-- Include version information -->
@@ -21,6 +22,7 @@ ${CATEGORIZATION="Technology Type|Layer|Purpose"} <!-- Organization method -->
 "Analyze the codebase and generate a ${DEPTH_LEVEL} technology stack blueprint that thoroughly documents technologies and implementation patterns to facilitate consistent code generation. Use the following approach:
 
 ### 1. Technology Identification Phase
+
 - ${PROJECT_TYPE == "Auto-detect" ? "Scan the codebase for project files, configuration files, and dependencies to determine all technology stacks in use" : "Focus on ${PROJECT_TYPE} technologies"}
 - Identify all programming languages by examining file extensions and content
 - Analyze configuration files (package.json, .csproj, pom.xml, etc.) to extract dependencies
@@ -31,6 +33,7 @@ ${CATEGORIZATION="Technology Type|Layer|Purpose"} <!-- Organization method -->
 ### 2. Core Technologies Analysis
 
 ${PROJECT_TYPE == ".NET" || PROJECT_TYPE == "Auto-detect" ? "#### .NET Stack Analysis (if detected)
+
 - Target frameworks and language versions (detect from project files)
 - All NuGet package references with versions and purpose comments
 - Project structure and organization patterns
@@ -42,6 +45,7 @@ ${PROJECT_TYPE == ".NET" || PROJECT_TYPE == "Auto-detect" ? "#### .NET Stack Ana
 - Middleware pipeline components" : ""}
 
 ${PROJECT_TYPE == "Java" || PROJECT_TYPE == "Auto-detect" ? "#### Java Stack Analysis (if detected)
+
 - JDK version and core frameworks
 - All Maven/Gradle dependencies with versions and purpose
 - Package structure organization
@@ -52,6 +56,7 @@ ${PROJECT_TYPE == "Java" || PROJECT_TYPE == "Auto-detect" ? "#### Java Stack Ana
 - API design (Spring MVC, JAX-RS, etc.)" : ""}
 
 ${PROJECT_TYPE == "JavaScript" || PROJECT_TYPE == "Auto-detect" ? "#### JavaScript Stack Analysis (if detected)
+
 - ECMAScript version and transpiler settings
 - All npm dependencies categorized by purpose
 - Module system (ESM, CommonJS)
@@ -60,6 +65,7 @@ ${PROJECT_TYPE == "JavaScript" || PROJECT_TYPE == "Auto-detect" ? "#### JavaScri
 - Testing frameworks and patterns" : ""}
 
 ${PROJECT_TYPE == "React.js" || PROJECT_TYPE == "Auto-detect" ? "#### React Analysis (if detected)
+
 - React version and key patterns (hooks vs class components)
 - State management approach (Context, Redux, Zustand, etc.)
 - Component library usage (Material-UI, Chakra, etc.)
@@ -69,6 +75,7 @@ ${PROJECT_TYPE == "React.js" || PROJECT_TYPE == "Auto-detect" ? "#### React Anal
 - Testing approach for components" : ""}
 
 ${PROJECT_TYPE == "Python" || PROJECT_TYPE == "Auto-detect" ? "#### Python Analysis (if detected)
+
 - Python version and key language features used
 - Package dependencies and virtual environment setup
 - Web framework details (Django, Flask, FastAPI)
@@ -77,10 +84,12 @@ ${PROJECT_TYPE == "Python" || PROJECT_TYPE == "Auto-detect" ? "#### Python Analy
 - API design patterns" : ""}
 
 ### 3. Implementation Patterns & Conventions
-${INCLUDE_CONVENTIONS ? 
+
+${INCLUDE_CONVENTIONS ?
 "Document coding conventions and patterns for each technology area:
 
 #### Naming Conventions
+
 - Class/type naming patterns
 - Method/function naming patterns
 - Variable naming conventions
@@ -88,12 +97,14 @@ ${INCLUDE_CONVENTIONS ?
 - Interface/abstract class patterns
 
 #### Code Organization
+
 - File structure and organization
 - Folder hierarchy patterns
 - Component/module boundaries
 - Code separation and responsibility patterns
 
 #### Common Patterns
+
 - Error handling approaches
 - Logging patterns
 - Configuration access
@@ -102,10 +113,12 @@ ${INCLUDE_CONVENTIONS ?
 - Testing patterns" : ""}
 
 ### 4. Usage Examples
-${INCLUDE_USAGE_PATTERNS ? 
+
+${INCLUDE_USAGE_PATTERNS ?
 "Extract representative code examples showing standard implementation patterns:
 
 #### API Implementation Examples
+
 - Standard controller/endpoint implementation
 - Request DTO pattern
 - Response formatting
@@ -113,39 +126,46 @@ ${INCLUDE_USAGE_PATTERNS ?
 - Error handling
 
 #### Data Access Examples
+
 - Repository pattern implementation
 - Entity/model definitions
 - Query patterns
 - Transaction handling
 
 #### Service Layer Examples
+
 - Service class implementation
 - Business logic organization
 - Cross-cutting concerns integration
 - Dependency injection usage
 
 #### UI Component Examples (if applicable)
+
 - Component structure
 - State management pattern
 - Event handling
 - API integration pattern" : ""}
 
 ### 5. Technology Stack Map
-${DEPTH_LEVEL == "Comprehensive" || DEPTH_LEVEL == "Implementation-Ready" ? 
+
+${DEPTH_LEVEL == "Comprehensive" || DEPTH_LEVEL == "Implementation-Ready" ?
 "Create a comprehensive technology map including:
 
 #### Core Framework Usage
+
 - Primary frameworks and their specific usage in the project
 - Framework-specific configurations and customizations
 - Extension points and customizations
 
 #### Integration Points
+
 - How different technology components integrate
 - Authentication flow between components
 - Data flow between frontend and backend
 - Third-party service integration patterns
 
 #### Development Tooling
+
 - IDE settings and conventions
 - Code analysis tools
 - Linters and formatters with configuration
@@ -153,6 +173,7 @@ ${DEPTH_LEVEL == "Comprehensive" || DEPTH_LEVEL == "Implementation-Ready" ?
 - Testing frameworks and approaches
 
 #### Infrastructure
+
 - Deployment environment details
 - Container technologies
 - Cloud services utilized
@@ -160,8 +181,9 @@ ${DEPTH_LEVEL == "Comprehensive" || DEPTH_LEVEL == "Implementation-Ready" ?
 
 ### 6. Technology-Specific Implementation Details
 
-${PROJECT_TYPE == ".NET" || PROJECT_TYPE == "Auto-detect" ? 
+${PROJECT_TYPE == ".NET" || PROJECT_TYPE == "Auto-detect" ?
 "#### .NET Implementation Details (if detected)
+
 - **Dependency Injection Pattern**:
   - Service registration approach (Scoped/Singleton/Transient patterns)
   - Configuration binding patterns
@@ -188,8 +210,9 @@ ${PROJECT_TYPE == ".NET" || PROJECT_TYPE == "Auto-detect" ?
   - Identify common patterns and idioms
   - Note any specific version-dependent features" : ""}
 
-${PROJECT_TYPE == "React.js" || PROJECT_TYPE == "Auto-detect" ? 
+${PROJECT_TYPE == "React.js" || PROJECT_TYPE == "Auto-detect" ?
 "#### React Implementation Details (if detected)
+
 - **Component Structure**:
   - Function vs class components
   - Props interface definitions
@@ -213,7 +236,8 @@ ${PROJECT_TYPE == "React.js" || PROJECT_TYPE == "Auto-detect" ?
   - Responsive design patterns" : ""}
 
 ### 7. Blueprint for New Code Implementation
-${DEPTH_LEVEL == "Implementation-Ready" ? 
+
+${DEPTH_LEVEL == "Implementation-Ready" ?
 "Based on the analysis, provide a detailed blueprint for implementing new features:
 
 - **File/Class Templates**: Standard structure for common component types
@@ -223,14 +247,16 @@ ${DEPTH_LEVEL == "Implementation-Ready" ?
 - **Testing Requirements**: Standard test patterns for different component types
 - **Documentation Requirements**: Standard doc patterns for new features" : ""}
 
-${INCLUDE_DIAGRAMS ? 
+${INCLUDE_DIAGRAMS ?
 "### 8. Technology Relationship Diagrams
+
 - **Stack Diagram**: Visual representation of the complete technology stack
 - **Dependency Flow**: How different technologies interact
 - **Component Relationships**: How major components depend on each other
 - **Data Flow**: How data flows through the technology stack" : ""}
 
 ### ${INCLUDE_DIAGRAMS ? "9" : "8"}. Technology Decision Context
+
 - Document apparent reasons for technology choices
 - Note any legacy or deprecated technologies marked for replacement
 - Identify technology constraints and boundaries

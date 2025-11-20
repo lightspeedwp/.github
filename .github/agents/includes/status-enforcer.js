@@ -2,121 +2,318 @@
 /**
  * ============================================================================
  * Script Name: status-enforcer.js
- * Location: .github/.github/agents/includes/status-enforcer.js
+ * Location: .github/agents/includes/status-enforcer.js
  * Description: Utility functions for enforcing status and priority label conventions.
- * Version: v1.1.0
+ * Version: v1.0.0
  * Author: LightSpeed WP Team
  * License: GPL v3 or later
  * ============================================================================
  */
 
+import core from "@actions/core";
+
 // Preferred ordering for retaining a single status label when multiples exist.
 const STATUS_PRIORITY_ORDER = [
-    'status:blocked',
-    'status:needs-review',
-    'status:in-progress',
-    'status:needs-qa',
-    'status:ready',
-    'status:needs-triage',
-    'status:done',
+  "status:blocked",
+  "status:needs-review",
+  "status:in-progress",
+  "status:needs-qa",
+  "status:ready",
+  "status:needs-triage",
+  "status:done",
 ];
 
 function pickPrimaryStatus(statusLabels) {
-    for (const candidate of STATUS_PRIORITY_ORDER) {
-        if (statusLabels.includes(candidate)) return candidate;
-    }
-    return statusLabels[0]; // fallback deterministic
+  for (const candidate of STATUS_PRIORITY_ORDER) {
+    if (statusLabels.includes(candidate)) return candidate;
+  }
+  return statusLabels[0]; // fallback deterministic
 }
 
 /**
- * Enforce exactly one status:* label per issue/PR.
- * Signature kept broad for bridge adapter compatibility.
+ * Enforce exactly one label per category (status:*, priority:*, type:*).
+ * Removes extra labels if multiple are found in a category.
+ *
+ * @param {Object} params - Parameters object
+ * @param {Object} params.github - Octokit instance
+ * @param {string} params.owner - Repository owner
+ * @param {string} params.repo - Repository name
+ * @param {number} params.number - Issue/PR number
+ * @param {string[]} params.currentLabels - Current labels on the item
+ * @param {boolean} params.dryRun - If true, only log actions without applying
+ * @returns {Promise<void>}
  */
-async function enforceOneHotStatus(
-    octokit,
-    owner,
-    repo,
-    issueOrPrNumber,
-    labels = [],
-    isPR = false,
-    dryRun = false
-) {
-    if (!octokit) return;
-    const statusLabels = labels.filter((l) => l.startsWith('status:'));
-    if (statusLabels.length <= 1) return; // nothing to do
+async function enforceOneHotLabels({
+  github,
+  owner,
+  repo,
+  number,
+  currentLabels,
+  dryRun = false,
+}) {
+  try {
+    const categories = {
+      "status:": [],
+      "priority:": [],
+      "type:": [],
+    };
 
-    const keep = pickPrimaryStatus(statusLabels);
-    const toRemove = statusLabels.filter((l) => l !== keep);
-    for (const label of toRemove) {
-        if (dryRun) continue;
-        try {
-            await octokit.rest.issues.removeLabel({
+    // Group labels by category
+    for (const label of currentLabels) {
+      for (const prefix of Object.keys(categories)) {
+        if (label.startsWith(prefix)) {
+          categories[prefix].push(label);
+          break;
+        }
+      }
+    }
+
+    // Enforce one-hot: keep first, remove rest
+    for (const [prefix, labels] of Object.entries(categories)) {
+      if (labels.length > 1) {
+        const [keep, ...remove] = labels;
+        core.info(
+          `[label-enforcer] Multiple ${prefix}* labels found on #${number}: ${labels.join(", ")}`,
+        );
+        core.info(
+          `[label-enforcer] Keeping: ${keep}, removing: ${remove.join(", ")}`,
+        );
+
+        for (const label of remove) {
+          if (!dryRun) {
+            try {
+              await github.rest.issues.removeLabel({
                 owner,
                 repo,
-                issue_number: issueOrPrNumber,
+                issue_number: number,
                 name: label,
-            });
-        } catch (e) {
-            // Ignore not-found errors (race conditions) – surface others.
-            if (e.status !== 404) throw e;
+              });
+              core.info(
+                `[label-enforcer] Removed extra label: ${label} from #${number}`,
+              );
+            } catch (error) {
+              // Label might already be removed or not exist
+              if (error.status !== 404) {
+                core.warning(
+                  `[label-enforcer] Failed to remove label ${label}: ${error.message}`,
+                );
+              }
+            }
+          } else {
+            core.info(`[label-enforcer] [DRY RUN] Would remove: ${label}`);
+          }
         }
+      }
     }
+  } catch (error) {
+    core.error(
+      `[label-enforcer] Error enforcing one-hot labels: ${error.message}`,
+    );
+    throw error;
+  }
 }
+
+// Keep backward compatibility alias
+const enforceOneHotStatus = enforceOneHotLabels;
 
 /**
  * Apply default status label if none present.
- * Issues: status:needs-triage
- * PRs: status:needs-review
+ * - Issues get status:needs-triage
+ * - PRs get status:needs-review
+ *
+ * @param {Object} params - Parameters object
+ * @param {Object} params.github - Octokit instance
+ * @param {string} params.owner - Repository owner
+ * @param {string} params.repo - Repository name
+ * @param {number} params.number - Issue/PR number
+ * @param {string[]} params.currentLabels - Current labels on the item
+ * @param {boolean} params.dryRun - If true, only log actions without applying
+ * @param {boolean} [params.isPR] - Whether this is a PR (vs issue)
+ * @returns {Promise<void>}
  */
-async function applyDefaultStatus(
-    octokit,
-    owner,
-    repo,
-    issueOrPrNumber,
-    labels = [],
-    isPR = false,
-    dryRun = false
-) {
-    if (!octokit) return;
-    const hasStatus = labels.some((l) => l.startsWith('status:'));
-    if (hasStatus) return;
-    const defaultLabel = isPR ? 'status:needs-review' : 'status:needs-triage';
-    if (dryRun) return;
-    await octokit.rest.issues.addLabels({
-        owner,
-        repo,
-        issue_number: issueOrPrNumber,
-        labels: [defaultLabel],
-    });
+async function applyDefaultStatus({
+  github,
+  owner,
+  repo,
+  number,
+  currentLabels,
+  dryRun = false,
+  isPR = false,
+}) {
+  try {
+    // Check if any status:* label exists
+    const hasStatus = currentLabels.some((label) =>
+      label.startsWith("status:"),
+    );
+
+    if (!hasStatus) {
+      const defaultStatus = isPR
+        ? "status:needs-review"
+        : "status:needs-triage";
+
+      core.info(
+        `[label-enforcer] No status label found on #${number}, applying default: ${defaultStatus}`,
+      );
+
+      if (!dryRun) {
+        try {
+          await github.rest.issues.addLabels({
+            owner,
+            repo,
+            issue_number: number,
+            labels: [defaultStatus],
+          });
+          core.info(
+            `[label-enforcer] Applied default status: ${defaultStatus} to #${number}`,
+          );
+        } catch (error) {
+          core.warning(
+            `[label-enforcer] Failed to add default status label: ${error.message}`,
+          );
+        }
+      } else {
+        core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultStatus}`);
+      }
+    }
+  } catch (error) {
+    core.error(
+      `[label-enforcer] Error applying default status: ${error.message}`,
+    );
+    throw error;
+  }
 }
 
 /**
- * Apply default priority label if none present (issues only).
- * Issues get priority:normal when no priority:* present.
+ * Apply default priority label if none present.
+ * Default is priority:normal for all items.
+ *
+ * @param {Object} params - Parameters object
+ * @param {Object} params.github - Octokit instance
+ * @param {string} params.owner - Repository owner
+ * @param {string} params.repo - Repository name
+ * @param {number} params.number - Issue/PR number
+ * @param {string[]} params.currentLabels - Current labels on the item
+ * @param {boolean} params.dryRun - If true, only log actions without applying
+ * @returns {Promise<void>}
  */
-async function applyDefaultPriority(
-    octokit,
-    owner,
-    repo,
-    issueOrPrNumber,
-    labels = [],
-    isPR = false,
-    dryRun = false
-) {
-    if (!octokit || isPR) return; // Do not apply to PRs.
-    const hasPriority = labels.some((l) => l.startsWith('priority:'));
-    if (hasPriority) return;
-    if (dryRun) return;
-    await octokit.rest.issues.addLabels({
-        owner,
-        repo,
-        issue_number: issueOrPrNumber,
-        labels: ['priority:normal'],
-    });
+async function applyDefaultPriority({
+  github,
+  owner,
+  repo,
+  number,
+  currentLabels,
+  dryRun = false,
+}) {
+  try {
+    // Check if any priority:* label exists
+    const hasPriority = currentLabels.some((label) =>
+      label.startsWith("priority:"),
+    );
+
+    if (!hasPriority) {
+      const defaultPriority = "priority:normal";
+
+      core.info(
+        `[label-enforcer] No priority label found on #${number}, applying default: ${defaultPriority}`,
+      );
+
+      if (!dryRun) {
+        try {
+          await github.rest.issues.addLabels({
+            owner,
+            repo,
+            issue_number: number,
+            labels: [defaultPriority],
+          });
+          core.info(
+            `[label-enforcer] Applied default priority: ${defaultPriority} to #${number}`,
+          );
+        } catch (error) {
+          core.warning(
+            `[label-enforcer] Failed to add default priority label: ${error.message}`,
+          );
+        }
+      } else {
+        core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultPriority}`);
+      }
+    }
+  } catch (error) {
+    core.error(
+      `[label-enforcer] Error applying default priority: ${error.message}`,
+    );
+    throw error;
+  }
+}
+
+/**
+ * Apply default type label if none present.
+ * Default is type:task for issues, type:chore for PRs.
+ *
+ * @param {Object} params - Parameters object
+ * @param {Object} params.github - Octokit instance
+ * @param {string} params.owner - Repository owner
+ * @param {string} params.repo - Repository name
+ * @param {number} params.number - Issue/PR number
+ * @param {string[]} params.currentLabels - Current labels on the item
+ * @param {boolean} params.dryRun - If true, only log actions without applying
+ * @param {boolean} [params.isPR] - Whether this is a PR (vs issue)
+ * @returns {Promise<void>}
+ */
+async function applyDefaultType({
+  github,
+  owner,
+  repo,
+  number,
+  currentLabels,
+  dryRun = false,
+  isPR = false,
+}) {
+  try {
+    // Check if any type:* label exists
+    const hasType = currentLabels.some((label) => label.startsWith("type:"));
+
+    if (!hasType) {
+      // Default type based on item type
+      // For PRs, type should be determined by branch prefix (handled by labeler)
+      // So we only apply fallback if still missing after labeler runs
+      const defaultType = isPR ? "type:chore" : "type:task";
+
+      core.info(
+        `[label-enforcer] No type label found on #${number}, applying default: ${defaultType}`,
+      );
+
+      if (!dryRun) {
+        try {
+          await github.rest.issues.addLabels({
+            owner,
+            repo,
+            issue_number: number,
+            labels: [defaultType],
+          });
+          core.info(
+            `[label-enforcer] Applied default type: ${defaultType} to #${number}`,
+          );
+        } catch (error) {
+          core.warning(
+            `[label-enforcer] Failed to add default type label: ${error.message}`,
+          );
+        }
+      } else {
+        core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultType}`);
+      }
+    }
+  } catch (error) {
+    core.error(
+      `[label-enforcer] Error applying default type: ${error.message}`,
+    );
+    throw error;
+  }
 }
 
 module.exports = {
-    enforceOneHotStatus,
-    applyDefaultStatus,
-    applyDefaultPriority,
+  enforceOneHotLabels,
+  enforceOneHotStatus,
+  applyDefaultStatus,
+  applyDefaultPriority,
+  applyDefaultType,
 };

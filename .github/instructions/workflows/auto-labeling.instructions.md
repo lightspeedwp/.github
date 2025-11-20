@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Workflow: Auto-labeling (File/Branch/Project)"
 description: "Apply labels to PRs based on changed files, branch names, or project config."
 version: "v1.0"

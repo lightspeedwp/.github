@@ -603,6 +603,7 @@ swift test
 ## Development
 
 The server uses:
+
 - [MCP Swift SDK](https://github.com/modelcontextprotocol/swift-sdk) - MCP protocol implementation
 - [swift-log](https://github.com/apple/swift-log) - Structured logging
 - [swift-service-lifecycle](https://github.com/swift-server/swift-service-lifecycle) - Graceful shutdown
@@ -619,6 +620,7 @@ The server uses:
 ## License
 
 MIT
+
 ```
 
 ## Generation Instructions

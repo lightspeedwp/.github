@@ -6,7 +6,7 @@ labels: [type:test, status:needs-triage, priority:normal, area:testing]
 assignees: []
 projects: []
 milestone: ''
-type: test
+file_type: test
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -84,12 +84,14 @@ Define where and how this test will be used.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Purpose, scope, and audience defined
 - [ ] Target file and action type specified
 - [ ] Acceptance criteria listed
 - [ ] Estimate added (if applicable)
 
 ### Definition of Done (DoD)
+
 - [ ] All acceptance criteria met and verified
 - [ ] Changelog entry prepared for PR
 - [ ] Test passes all required scenarios and environments

@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Workflow: Project Sync"
 description: "Sync projects, issues, and PRs with organization label/type standards."
 version: "v1.0"

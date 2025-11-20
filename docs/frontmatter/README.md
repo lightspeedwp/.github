@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: 'YAML Frontmatter Documentation'
 description: 'YAML frontmatter schemas and guidelines for LightSpeed documentation files'
 version: '1.0'

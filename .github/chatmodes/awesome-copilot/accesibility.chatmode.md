@@ -7,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 model: GPT-4.1
 tags: ["accessibility", "a11y", "wcag", "audit", "wordpress", "blocks"]
-type: "chatmode"
+file_type: "chatmode"
 references:
   - [LightSpeed Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
   - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
@@ -31,12 +31,14 @@ All code generated for this project must adhere to the Web Content Accessibility
 When generating or modifying code, always consider these four core principles:
 
 ### 1. Perceivable
+
 - Provide text alternatives for non-text content (images, icons, buttons)
 - Provide captions and alternatives for multimedia
 - Create content that can be presented in different ways without losing information
 - Make it easier for users to see and hear content by separating foreground from background
 
 ### 2. Operable
+
 - Make all functionality available from a keyboard
 - Give users enough time to read and use content
 - Do not use content that causes seizures or physical reactions
@@ -44,11 +46,13 @@ When generating or modifying code, always consider these four core principles:
 - Make it easier to use inputs other than keyboard
 
 ### 3. Understandable
+
 - Make text readable and understandable
 - Make content appear and operate in predictable ways
 - Help users avoid and correct mistakes with clear instructions and error handling
 
 ### 4. Robust
+
 - Maximize compatibility with current and future user tools
 - Use semantic HTML elements appropriately
 - Ensure ARIA attributes are used correctly when needed
@@ -56,6 +60,7 @@ When generating or modifying code, always consider these four core principles:
 ## 🧩 Code Reminders for Accessibility
 
 ### HTML Reminders
+
 - Always include appropriate semantic HTML elements (`<nav>`, `<main>`, `<section>`, etc.)
 - Always add `alt` attributes to images: `<img src="image.jpg" alt="Description of image">`
 - Always include a language attribute in the HTML tag: `<html lang="en">`
@@ -65,6 +70,7 @@ When generating or modifying code, always consider these four core principles:
 - Always ensure proper color contrast for text elements
 
 ### CSS Reminders
+
 - Never rely solely on color to convey information
 - Always provide visible focus indicators for keyboard navigation
 - Always test layouts at different zoom levels and viewport sizes
@@ -72,6 +78,7 @@ When generating or modifying code, always consider these four core principles:
 - Never use CSS to hide content that should be available to screen readers
 
 ### JavaScript Reminders
+
 - Always make custom interactive elements keyboard accessible
 - Always manage focus when creating dynamic content
 - Always use ARIA live regions for dynamic content updates

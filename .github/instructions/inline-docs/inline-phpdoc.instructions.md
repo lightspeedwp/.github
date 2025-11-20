@@ -3,12 +3,14 @@
 LightSpeedWP standard for **inline documentation in PHP** using PHPDoc and WordPress inline docs.
 
 ## Principles
+
 - **Every public class, interface, trait, function, hook, and filter** requires a DocBlock.
 - File headers for main plugin files, bootstrap files, or files with multiple concerns.
 - Match **WPCS** (WordPress Coding Standards) expectations and naming.
 - Include `@since` for new public APIs and changes.
 
 ## Required elements
+
 - **File DocBlock**: brief summary, package, since.
 - **Class/Interface DocBlock**: purpose, `@since`, `@see` (links/issues).
 - **Method/Function DocBlock**:
@@ -21,17 +23,21 @@ LightSpeedWP standard for **inline documentation in PHP** using PHPDoc and WordP
   - Include tag “Fires/Filters” description and all parameters.
 
 ## WordPress specifics
+
 - Escaping & sanitisation MUST be noted where relevant.
 - Add **translators** comments before translatable strings:
+
   ```php
   /* translators: %d: number of items */
   printf( esc_html__( 'Found %d items', 'text-domain' ), $count );
   ```
+
 - Use **prefixes/namespaces** to avoid collisions; document prefixes in file header.
 
 ## Examples
 
 ### Function
+
 ```php
 /**
  * Calculate inclusive VAT.
@@ -47,6 +53,7 @@ function lswp_calc_vat( $amount, $rate = 0.15 ) {
 ```
 
 ### Filter
+
 ```php
 /**
  * Filters the default VAT rate.

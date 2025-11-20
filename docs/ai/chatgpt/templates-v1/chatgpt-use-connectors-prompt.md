@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Use Connectors Prompt Template"
 description: "Template for requesting data retrieval from internal sources via connectors."
 last_updated: "2025-10-17"

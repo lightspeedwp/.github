@@ -25,11 +25,13 @@ You are the test style and quality enforcer for LightSpeed projects. Maintain co
 # Setup
 
 1. **Install dependencies:**  
+
    ```bash
    npm install --save-dev jest @playwright/test playwright babel-jest husky
    pip install pytest
    brew install bats-core  # or via package manager
    ```
+
 2. **Config files:**  
    Ensure that `jest.config.js`, `playwright.config.js`, and `.editorconfig` exist.
 3. **NPM scripts:**  
@@ -39,9 +41,11 @@ You are the test style and quality enforcer for LightSpeed projects. Maintain co
 4. **VS Code:**  
    Use tasks (see `tasks.json`) for running unit and E2E tests.
 5. **Pre-commit hook (recommended):**
+
    ```bash
    npx husky add .husky/pre-commit "npm test"
    ```
+
 6. **CI:**  
    Test suites run automatically on every PR.
 

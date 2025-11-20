@@ -6,7 +6,7 @@ labels: [question, support, status:needs-triage]
 assignees: []
 projects: []
 milestone: ''
-type: help
+file_type: help
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -59,11 +59,13 @@ Link to related docs, issues, or saved replies if applicable.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Question or issue clearly described
 - [ ] Steps taken provided
 - [ ] Context/screenshots attached (if applicable)
 
 ### Definition of Done (DoD)
+
 - [ ] Issue resolved or routed to correct template
 - [ ] Maintainer saved reply used if applicable
 - [ ] Documentation or help resources referenced (if needed)

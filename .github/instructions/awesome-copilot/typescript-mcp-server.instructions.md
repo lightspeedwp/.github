@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: 'Instructions for building Model Context Protocol (MCP) servers using the TypeScript SDK'
 applyTo: '**/*.ts, **/*.js, **/package.json'
 ---
@@ -51,6 +52,7 @@ applyTo: '**/*.ts, **/*.js, **/package.json'
 ## Common Patterns
 
 ### Basic Server Setup (HTTP)
+
 ```typescript
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
@@ -80,6 +82,7 @@ app.listen(3000);
 ```
 
 ### Basic Server Setup (stdio)
+
 ```typescript
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -96,6 +99,7 @@ await server.connect(transport);
 ```
 
 ### Simple Tool
+
 ```typescript
 import { z } from 'zod';
 
@@ -120,6 +124,7 @@ server.registerTool(
 ```
 
 ### Dynamic Resource
+
 ```typescript
 import { ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js';
 
@@ -140,6 +145,7 @@ server.registerResource(
 ```
 
 ### Tool with Sampling
+
 ```typescript
 server.registerTool(
     'summarize',
@@ -170,6 +176,7 @@ server.registerTool(
 ```
 
 ### Prompt with Completion
+
 ```typescript
 import { completable } from '@modelcontextprotocol/sdk/server/completable.js';
 
@@ -199,6 +206,7 @@ server.registerPrompt(
 ```
 
 ### Error Handling
+
 ```typescript
 server.registerTool(
     'risky-operation',

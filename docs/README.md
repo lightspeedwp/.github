@@ -1,7 +1,7 @@
 ---
 description: "Comprehensive documentation repository for LightSpeedWP containing standards, guides, workflows, and configurations. Central hub for all development ecosystem documentation with cross-linked architecture."
-version: "3.2"
-last_updated: "2025-10-25"
+version: "3.3"
+last_updated: "2025-11-18"
 owners:
   - LightSpeedWP Team
 references:
@@ -15,6 +15,9 @@ references:
   - ./WORKFLOWS.md
   - ./LABEL_STRATEGY.md
   - ./ISSUE_CREATION_GUIDE.md
+  - ./scripts/README.md
+  - ./tests/README.md
+  - ./DOCS_RESTRUCTURE_PLAN.md
   - ../CHANGELOG.md
 ---
 
@@ -40,56 +43,68 @@ graph TB
     A --> D[Configuration & Setup]
     A --> E[Git Workflows]
     A --> F[Labeling & Issues]
-    A --> G[Bug Tracking]
+    A --> G[Bug Tracking & Testing]
+    A --> L[Scripts & Automation]
+    A --> M[Testing Infrastructure]
     A --> H[WordPress Development]
     A --> I[Content & Documentation]
     A --> J[Collaboration]
     A --> K[Project Resources]
-    
+
     B --> B1[Documentation Architecture]
     B --> B2[Organization Standards]
     B --> B3[System Architecture]
-    
+
     C --> C1[AI Integration Guides]
     C --> C2[Copilot Usage]
     C --> C3[Automation Workflows]
-    
+
     D --> D1[Linting Setup]
     D --> D2[NPM Configuration]
     D --> D3[VS Code Setup]
-    
+
     E --> E1[Branching Strategy]
     E --> E2[PR Guidelines]
     E --> E3[Workflow Playbook]
-    
+
     F --> F1[Label Automation]
     F --> F2[Issue Management]
     F --> F3[Release Automation]
-    
+
     G --> G1[BugHerd Integration]
     G --> G2[Testing Standards]
     G --> G3[Quality Assurance]
-    
+
+    L --> L1[Maintenance Scripts]
+    L --> L2[Project Scripts]
+    L --> L3[Utility Scripts]
+
+    M --> M1[Security Tests]
+    M --> M2[Integration Tests]
+    M --> M3[Contract Tests]
+
     H --> H1[Block Development]
     H --> H2[Security Checklist]
     H --> H3[Coding Standards]
-    
+
     I --> I1[Frontmatter Schema]
     I --> I2[YAML Documentation]
     I --> I3[Header/Footer Standards]
-    
+
     J --> J1[All Contributors]
     J --> J2[Discussion Guidelines]
     J --> J3[Decision Records]
-    
+
     K --> K1[Assets]
     K --> K2[LS Projects]
     K --> K3[Templates]
-    
+
     style A fill:#e1f5fe
     style C fill:#f3e5f5
     style E fill:#e8f5e8
     style H fill:#fff3e0
+    style L fill:#ffe0b2
+    style M fill:#c5e1a5
 ```
 
 Quick Navigation
@@ -158,6 +173,30 @@ Bug Tracking & Quality
   - [Default Tags](bugherd/bugherd-default-tags-v1-6.md)
 - [**Testing Documentation**](TESTING.md) - Testing standards and practices
 - [**Jest Test Audit**](JEST-TEST-AUDIT.md) - Testing audit documentation
+
+Scripts & Automation
+--------------------
+
+- [**Scripts Documentation Hub**](scripts/) - Comprehensive automation scripts documentation
+  - [Awesome Copilot Scripts](scripts/awesome-copilot.md) - Prompt collection management
+  - [Maintenance Scripts](scripts/maintenance.md) - Repository maintenance automation
+  - [Project Scripts](scripts/projects.md) - GitHub Projects management
+  - [Utility Scripts](scripts/utility.md) - General-purpose utilities
+  - [Validation Scripts](scripts/validation.md) - Frontmatter and schema validation
+- [**Scripts Overview**](../scripts/README.md) - Master scripts directory
+- [**Scripts Inventory**](DOCS_RESTRUCTURE_PLAN.md) - Complete scripts audit and documentation plan
+
+Testing Infrastructure
+----------------------
+
+- [**Tests Documentation Hub**](tests/) - Comprehensive testing infrastructure
+  - [Security Tests](../tests/security/README.md) - Agent security compliance validation
+  - [Config Tests](../tests/config/README.md) - Configuration handling validation
+  - [Contract Tests](../tests/contracts/README.md) - Schema and contract validation
+  - [Integration Tests](../tests/integration/README.md) - Cross-agent compatibility tests
+  - [Maintenance Tests](../tests/maintenance/README.md) - Repository maintenance tests
+  - [Utility Tests](../tests/utility/README.md) - General utility tests
+- [**Test Coverage Summary**](../tests/TEST_COVERAGE_SUMMARY.md) - Detailed coverage metrics
 
 WordPress Development
 ---------------------

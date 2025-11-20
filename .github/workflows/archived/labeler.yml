@@ -1,0 +1,81 @@
+name: Labeler • File & Branch-based Auto-labeling
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [develop, main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode (no labels applied)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  pull-requests: write
+  contents: read
+
+env:
+  LABELS_CONFIG: .github/automation/labels.yml
+  LABELER_RULES: .github/automation/labeler.yml
+
+jobs:
+  labeler:
+    name: Apply File & Branch-based Labels
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip labeler]')"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install --no-save js-yaml@4.1.0 @actions/core@1.10.1 @actions/github@6.1.0
+
+      - name: Validate labeler configuration
+        run: |
+          node -e "
+          const fs = require('fs');
+          const yaml = require('js-yaml');
+          try {
+            const config = yaml.load(fs.readFileSync('${{ env.LABELER_RULES }}', 'utf8'));
+            console.log('✅ Labeler config is valid');
+            console.log('   Rules defined for', Object.keys(config).length, 'labels');
+          } catch (e) {
+            console.error('❌ Invalid labeler config:', e.message);
+            process.exit(1);
+          }
+          "
+
+      - name: Apply file-based labels
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: ${{ env.LABELER_RULES }}
+          sync-labels: true
+
+      - name: Generate labeler summary
+        if: always()
+        run: |
+          echo "## 🏷️ Auto-labeler Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**PR:** #${{ github.event.pull_request.number }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** \`${{ github.head_ref }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Base:** \`${{ github.base_ref }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Labels have been applied based on:" >> $GITHUB_STEP_SUMMARY
+          echo "- Changed file paths" >> $GITHUB_STEP_SUMMARY
+          echo "- Branch naming patterns" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "_Configuration: [\`${{ env.LABELER_RULES }}\`](${{ github.server_url }}/${{ github.repository }}/blob/${{ github.sha }}/${{ env.LABELER_RULES }})_" >> $GITHUB_STEP_SUMMARY

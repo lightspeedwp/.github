@@ -24,4 +24,5 @@ If possible, include:
 
 Thank you for helping us track this down!
 ```
+
 ---

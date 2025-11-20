@@ -3,6 +3,9 @@
 const fs = require('fs');
 const path = require('path');
 const { parseCollectionYaml } = require('./yaml-parser');
+const fs = require('fs');
+const path = require('path');
+const { parseCollectionYaml } = require('./yaml-parser');
 
 // Template sections for the README
 const TEMPLATES = {
@@ -104,6 +107,22 @@ function extractTitle(filePath) {
                     continue;
                 }
 
+                if (inFrontmatter && !frontmatterEnded) {
+                    // Look for title field in frontmatter
+                    if (line.includes('title:')) {
+                        // Extract everything after 'title:'
+                        const afterTitle = line
+                            .substring(line.indexOf('title:') + 6)
+                            .trim();
+                        // Remove quotes if present
+                        const cleanTitle = afterTitle.replace(
+                            /^['"]|['"]$/g,
+                            ''
+                        );
+                        return cleanTitle;
+                    }
+                }
+            }
                 if (inFrontmatter && !frontmatterEnded) {
                     // Look for title field in frontmatter
                     if (line.includes('title:')) {

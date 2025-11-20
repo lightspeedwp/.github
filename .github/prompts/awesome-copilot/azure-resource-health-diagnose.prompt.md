@@ -8,6 +8,7 @@ description: 'Analyze Azure resource health, diagnose issues from logs and telem
 This workflow analyzes a specific Azure resource to assess its health status, diagnose potential issues using logs and telemetry data, and develop a comprehensive remediation plan for any problems discovered.
 
 ## Prerequisites
+
 - Azure MCP server configured and authenticated
 - Target Azure resource identified (name and optionally resource group/subscription)
 - Resource must be deployed and running to generate logs/telemetry
@@ -16,18 +17,22 @@ This workflow analyzes a specific Azure resource to assess its health status, di
 ## Workflow Steps
 
 ### Step 1: Get Azure Best Practices
+
 **Action**: Retrieve diagnostic and troubleshooting best practices
 **Tools**: Azure MCP best practices tool
 **Process**:
+
 1. **Load Best Practices**:
    - Execute Azure best practices tool to get diagnostic guidelines
    - Focus on health monitoring, log analysis, and issue resolution patterns
    - Use these practices to inform diagnostic approach and remediation recommendations
 
 ### Step 2: Resource Discovery & Identification
+
 **Action**: Locate and identify the target Azure resource
 **Tools**: Azure MCP tools + Azure CLI fallback
 **Process**:
+
 1. **Resource Lookup**:
    - If only resource name provided: Search across subscriptions using `azmcp-subscription-list`
    - Use `az resource list --name <resource-name>` to find matching resources
@@ -49,9 +54,11 @@ This workflow analyzes a specific Azure resource to assess its health status, di
      - **Service Bus**: Message metrics, dead letter queues, throughput
 
 ### Step 3: Health Status Assessment
+
 **Action**: Evaluate current resource health and availability
 **Tools**: Azure MCP monitoring tools + Azure CLI
 **Process**:
+
 1. **Basic Health Check**:
    - Check resource provisioning state and operational status
    - Verify service availability and responsiveness
@@ -66,9 +73,11 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    - **Functions**: Execution success rate, duration, error frequency
 
 ### Step 4: Log & Telemetry Analysis
+
 **Action**: Analyze logs and telemetry to identify issues and patterns
 **Tools**: Azure MCP monitoring tools for Log Analytics queries
 **Process**:
+
 1. **Find Monitoring Sources**:
    - Use `azmcp-monitor-workspace-list` to identify Log Analytics workspaces
    - Locate Application Insights instances associated with the resource
@@ -78,6 +87,7 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    Use `azmcp-monitor-log-query` with targeted KQL queries based on resource type:
 
    **General Error Analysis**:
+
    ```kql
    // Recent errors and exceptions
    union isfuzzy=true 
@@ -92,6 +102,7 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    ```
 
    **Performance Analysis**:
+
    ```kql
    // Performance degradation patterns
    Perf
@@ -102,6 +113,7 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    ```
 
    **Application-Specific Queries**:
+
    ```kql
    // Application Insights - Failed requests
    requests
@@ -125,8 +137,10 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    - Look for dependency failures or external service issues
 
 ### Step 5: Issue Classification & Root Cause Analysis
+
 **Action**: Categorize identified issues and determine root causes
 **Process**:
+
 1. **Issue Classification**:
    - **Critical**: Service unavailable, data loss, security breaches
    - **High**: Performance degradation, intermittent failures, high error rates
@@ -147,8 +161,10 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    - Assess recovery time objectives and priorities
 
 ### Step 6: Generate Remediation Plan
+
 **Action**: Create a comprehensive plan to address identified issues
 **Process**:
+
 1. **Immediate Actions** (Critical issues):
    - Emergency fixes to restore service availability
    - Temporary workarounds to mitigate impact
@@ -171,9 +187,12 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    - Monitoring to verify issue resolution
 
 ### Step 7: User Confirmation & Report Generation
+
 **Action**: Present findings and get approval for remediation actions
 **Process**:
+
 1. **Display Health Assessment Summary**:
+
    ```
    🏥 Azure Resource Health Assessment
    
@@ -204,6 +223,7 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    ```
 
 2. **Generate Detailed Report**:
+
    ```markdown
    # Azure Resource Health Report: [Resource Name]
    
@@ -241,38 +261,45 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    # Critical fixes to restore service
    [Azure CLI commands with explanations]
    ```
-   
+
    ### Phase 2: Short-term Fixes (2-24 hours)
+
    ```bash
    # Performance and reliability improvements
    [Azure CLI commands with explanations]
    ```
-   
+
    ### Phase 3: Long-term Improvements (1-4 weeks)
+
    ```bash
    # Architectural and preventive measures
    [Azure CLI commands and configuration changes]
    ```
-   
+
    ## 📈 Monitoring Recommendations
+
    - **Alerts to Configure**: [List of recommended alerts]
    - **Dashboards to Create**: [Monitoring dashboard suggestions]
    - **Regular Health Checks**: [Recommended frequency and scope]
-   
+
    ## ✅ Validation Steps
+
    - [ ] Verify issue resolution through logs
    - [ ] Confirm performance improvements
    - [ ] Test application functionality
    - [ ] Update monitoring and alerting
    - [ ] Document lessons learned
-   
+
    ## 📝 Prevention Measures
+
    - [Recommendations to prevent similar issues]
    - [Process improvements]
    - [Monitoring enhancements]
+
    ```
 
 ## Error Handling
+
 - **Resource Not Found**: Provide guidance on resource name/location specification
 - **Authentication Issues**: Guide user through Azure authentication setup
 - **Insufficient Permissions**: List required RBAC roles for resource access
@@ -281,6 +308,7 @@ This workflow analyzes a specific Azure resource to assess its health status, di
 - **Service-Specific Issues**: Provide generic health assessment with limitations noted
 
 ## Success Criteria
+
 - ✅ Resource health status accurately assessed
 - ✅ All significant issues identified and categorized
 - ✅ Root cause analysis completed for major problems

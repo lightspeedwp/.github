@@ -1,8 +1,9 @@
 ---
+file_type: "documentation"
+description: "Automated Design Handoff Workflow"
 title: Automated Design Handoff Workflow
 model: figma-make
 use_case: general
-status: ready
 version: 1.0.0
 author: LightSpeed WP Team
 last_updated: 2024-10-17

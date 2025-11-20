@@ -1,8 +1,9 @@
 ---
+file_type: "documentation"
+description: "Market Research Analysis Template"
 title: Market Research Analysis Template
 model: gemini
 use_case: research
-status: ready
 version: 1.0.0
 author: LightSpeed WP Team
 last_updated: 2024-10-17

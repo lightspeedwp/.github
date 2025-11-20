@@ -163,11 +163,13 @@ For documentation-heavy repositories (like `.github`), individual files may evol
 ### Version Bump Types
 
 #### Patch Bump (`X.Y.Z` → `X.Y.Z+1`)
+
 - Content edits, typo fixes, clarifications
 - No schema or structural changes
 - Safe for all consumers
 
 #### Minor Bump (`X.Y.Z` → `X.Y+1.0`)
+
 - Schema-related key changes in that file
 - New required fields or breaking changes for agents
 - Must not exceed repository minor version
@@ -175,17 +177,20 @@ For documentation-heavy repositories (like `.github`), individual files may evol
 ### Examples
 
 **Scenario 1: Edit instruction prose**
+
 - Current: `version: 0.1.3`
 - Action: Fix typos, clarify instructions
 - Result: `version: 0.1.4` (patch bump)
 
 **Scenario 2: Add required frontmatter field**
+
 - Current: `version: 0.2.5`, Repo: `0.2.0`
 - Action: Add new required `applyTo` field
 - Result: Cannot bump to `0.3.0` (would exceed repo `0.2.0`)
 - Must wait for repo bump to `0.3.0` first
 
 **Scenario 3: Coordinated release**
+
 - Repo bumps: `0.2.0` → `0.3.0`
 - Files with breaking changes: bump to `0.3.0`
 - Files with only content edits: remain at `0.2.x` or bump patch
@@ -214,6 +219,7 @@ node scripts/versioning/bump-file-version.js --bulk ".github/instructions/**/*.m
 ```
 
 The script will:
+
 - Automatically update the `version` field
 - Update `last_updated` to current date
 - Enforce the guardrail (file minor ≤ repo minor)
@@ -233,11 +239,13 @@ Add a CI check to ensure file versions don't exceed repository version:
 ### When to Use
 
 **Use per-file versioning when:**
+
 - Documentation/instructions evolve independently
 - Fine-grained change tracking is valuable
 - Multiple maintainers update different files
 
 **Use unified versioning when:**
+
 - Coordinated releases are preferred
 - Simplicity is more important than granularity
 - All files change together
@@ -249,6 +257,7 @@ Add a CI check to ensure file versions don't exceed repository version:
 ### Available Scripts
 
 #### `scripts/versioning/bump-file-version.cjs`
+
 Bump individual or bulk file versions with guardrails:
 
 ```bash
@@ -263,6 +272,7 @@ node scripts/versioning/bump-file-version.cjs --help
 ```
 
 #### `scripts/maintenance/fix-references.cjs`
+
 Validate and fix broken reference links in frontmatter:
 
 ```bash
@@ -279,6 +289,7 @@ node scripts/maintenance/fix-references.cjs --help
 ### Integration with CI/CD
 
 Consider adding these scripts to GitHub Actions workflows for:
+
 - Pre-commit hooks (validate versions before commit)
 - Pull request checks (ensure references are valid)
 - Release automation (bulk bump versions on release)

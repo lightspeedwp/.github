@@ -17,10 +17,9 @@
  * ============================================================================
  */
 
-const core = require('@actions/core');
-const github = require('@actions/github');
-// Updated import path after consolidating utilities into `includes`
-const { buildLabelingReport } = require('./includes/label-reporting');
+const core = require("@actions/core");
+const github = require("@actions/github");
+const { buildLabelingReport } = require("./includes/label-reporting");
 
 /**
  * Main orchestrator for Reviewer Agent.
@@ -29,71 +28,67 @@ const { buildLabelingReport } = require('./includes/label-reporting');
  * @returns {Promise<void>}
  */
 async function run(context = github.context) {
+  try {
+    const token = core.getInput("github-token") || process.env.GITHUB_TOKEN;
+    if (!token) throw new Error("Missing token");
+    const requireChangelog =
+      (core.getInput("require-changelog") || "false") === "true";
+    const octokit = github.getOctokit(token);
+    const pr = context.payload.pull_request;
+    if (!pr) {
+      core.info("No PR in context; exiting.");
+      return;
+    }
+
+    let state = "unknown";
     try {
-        const token = core.getInput('github-token') || process.env.GITHUB_TOKEN;
-        if (!token) throw new Error('Missing token');
-        const requireChangelog =
-            (core.getInput('require-changelog') || 'false') === 'true';
-        const octokit = github.getOctokit(token);
-        const pr = context.payload.pull_request;
-        if (!pr) {
-            core.info('No PR in context; exiting.');
-            return;
-        }
+      const { data } = await octokit.rest.repos.getCombinedStatusForRef({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        ref: pr.head.sha,
+      });
+      state = data.state;
+    } catch (e) {
+      core.info("Could not fetch CI status.");
+    }
+    const { data: files } = await octokit.rest.pulls.listFiles({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      pull_number: pr.number,
+      per_page: 100,
+    });
+    const changed = files.map((f) => f.filename);
 
-        let state = 'unknown';
-        try {
-            const { data } = await octokit.rest.repos.getCombinedStatusForRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: pr.head.sha,
-            });
-            state = data.state;
-        } catch (e) {
-            core.info('Could not fetch CI status.');
-        }
-        const { data: files } = await octokit.rest.pulls.listFiles({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: pr.number,
-            per_page: 100,
-        });
-        const changed = files.map((f) => f.filename);
+    const srcTouched = changed.some(
+      (f) => f.startsWith("src/") || /\.(js|ts|php|py)$/i.test(f),
+    );
+    const hasChangelog = changed.some(
+      (f) => f.toLowerCase() === "changelog.md",
+    );
+    const blockers = [];
+    if (state !== "success") blockers.push("CI checks not green");
+    if (requireChangelog && srcTouched && !hasChangelog)
+      blockers.push("CHANGELOG.md missing for code change");
 
-        const srcTouched = changed.some(
-            (f) => f.startsWith('src/') || /\.(js|ts|php|py)$/i.test(f)
-        );
-        const hasChangelog = changed.some(
-            (f) => f.toLowerCase() === 'changelog.md'
-        );
-        const blockers = [];
-        if (state !== 'success') blockers.push('CI checks not green');
-        if (requireChangelog && srcTouched && !hasChangelog)
-            blockers.push('CHANGELOG.md missing for code change');
-
-        const emoji = blockers.length
-            ? '❌'
-            : state === 'success'
-              ? '✅'
-              : '⚠️';
-        const summary = `## 🔍 Reviewer Summary for PR #${pr.number}
+    const emoji = blockers.length ? "❌" : state === "success" ? "✅" : "⚠️";
+    const summary = `## 🔍 Reviewer Summary for PR #${pr.number}
 **CI Status:** ${emoji} \`${state}\`
 **Files changed:** ${files.length}
 
 ### Recommendations
-${blockers.length ? blockers.map((b) => `- ${b}`).join('\n') : '- Ready to proceed pending human review'}
+${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proceed pending human review"}
 `;
 
-        await octokit.rest.issues.createComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: pr.number,
-            body: summary,
-        });
-        core.info('Reviewer comment posted.');
-    } catch (e) {
-        core.setFailed(e.message);
-    }
+    await octokit.rest.issues.createComment({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: pr.number,
+      body: summary,
+    });
+    core.info("Reviewer comment posted.");
+  } catch (e) {
+    core.setFailed(e.message);
+  }
 }
 
 if (require.main === module) run();

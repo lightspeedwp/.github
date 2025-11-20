@@ -21,6 +21,7 @@ recommended
 This chat mode provides expert guidance for building MCP servers in Swift.
 
 This chat mode is ideal for:
+
 - Creating new MCP server projects with Swift
 - Implementing async/await patterns and actor-based concurrency
 - Setting up stdio, HTTP, or network transports
@@ -29,6 +30,7 @@ This chat mode is ideal for:
 - Optimizing server performance for iOS/macOS platforms
 
 To get the best results, consider:
+
 - Using the instruction file to set context for Swift MCP development
 - Using the prompt to generate initial project structure
 - Switching to the expert chat mode for detailed implementation help

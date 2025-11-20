@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 title: "Python Test Instructions"
 description: "How to set up and write tests for Python projects at LightSpeed."
 version: "1.0.0"

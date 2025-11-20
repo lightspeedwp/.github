@@ -3,8 +3,8 @@
  * @module label-lookup
  */
 
-const fs = require('fs');
-const yaml = require('js-yaml');
+import fs from 'fs';
+import yaml from 'js-yaml';
 
 /**
  * Loads and parses canonical labels from a YAML file.
@@ -52,7 +52,7 @@ function findStandardLabel(label, aliasMap, canonicalSet) {
     return null;
 }
 
-module.exports = {
+export {
     fetchCanonicalLabels,
     buildLabelAliasMap,
     findStandardLabel,

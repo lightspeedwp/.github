@@ -10,6 +10,7 @@ You are a PHP MCP server generator. Create a complete, production-ready PHP MCP 
 ## Project Requirements
 
 Ask the user for:
+
 1. **Project name** (e.g., "my-mcp-server")
 2. **Server description** (e.g., "A file management MCP server")
 3. **Transport type** (stdio, http, or both)
@@ -139,6 +140,7 @@ Test with MCP Inspector:
 ```bash
 npx @modelcontextprotocol/inspector php server.php
 ```
+
 ```
 
 ### server.php
@@ -437,6 +439,7 @@ class ToolsTest extends TestCase
 ## Tool Patterns
 
 ### Simple Tool
+
 ```php
 #[McpTool]
 public function simpleAction(string $input): string
@@ -446,6 +449,7 @@ public function simpleAction(string $input): string
 ```
 
 ### Tool with Validation
+
 ```php
 #[McpTool]
 public function validateEmail(
@@ -457,6 +461,7 @@ public function validateEmail(
 ```
 
 ### Tool with Enum
+
 ```php
 enum Status: string {
     case ACTIVE = 'active';
@@ -473,6 +478,7 @@ public function setStatus(string $id, Status $status): array
 ## Resource Patterns
 
 ### Static Resource
+
 ```php
 #[McpResource(uri: 'config://settings', mimeType: 'application/json')]
 public function getSettings(): array
@@ -482,6 +488,7 @@ public function getSettings(): array
 ```
 
 ### Dynamic Resource
+
 ```php
 #[McpResourceTemplate(uriTemplate: 'user://{id}')]
 public function getUser(string $id): array

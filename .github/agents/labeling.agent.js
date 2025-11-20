@@ -8,20 +8,31 @@
  * @author LightSpeedWP
  */
 
-const fs = require('fs');
-const yaml = require('js-yaml');
-const core = require('@actions/core');
-const github = require('@actions/github');
-const {
+import fs from 'fs';
+import yaml from 'js-yaml';
+import core from '@actions/core';
+import github from '@actions/github';
+import {
     buildLabelAliasMap,
     findStandardLabel,
 } = require('./includes/label-lookup');
 const {
+    enforceOneHotLabels,
+    enforceOneHotStatus, // backward compatibility
+    applyDefaultStatus,
+    applyDefaultPriority,
+    applyDefaultType,
+} = require('./includes/status-enforcer');
+const {
+} from './includes/label-lookup.js';
+import {
     enforceOneHotStatus,
     applyDefaultStatus,
     applyDefaultPriority,
-} = require('./includes/status-enforcer');
-const { buildLabelingReport } = require('./includes/label-reporting');
+} from './includes/status-enforcer.js';
+import {
+    buildLabelingReport,
+} from './includes/label-reporting.js';
 
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG =
@@ -38,6 +49,9 @@ function readYamlArrayFile(path, purpose) {
     const raw = fs.readFileSync(path, 'utf8');
     const data = yaml.load(raw);
     if (!Array.isArray(data)) {
+        throw new Error(
+            `[labeling.agent] Expected array in ${purpose} file: ${path}`
+        );
         throw new Error(
             `[labeling.agent] Expected array in ${purpose} file: ${path}`
         );
@@ -166,7 +180,7 @@ async function runLabelingAgent(opts = {}) {
         : (context.payload.pull_request.labels || []).map((l) => l.name);
 
     // Enforce one-hot status/priority/type
-    await enforceOneHotStatus({
+    await enforceOneHotLabels({
         github: octokit,
         owner,
         repo,
@@ -181,6 +195,7 @@ async function runLabelingAgent(opts = {}) {
         number,
         currentLabels,
         dryRun,
+        isPR,
     });
     await applyDefaultPriority({
         github: octokit,
@@ -190,17 +205,22 @@ async function runLabelingAgent(opts = {}) {
         currentLabels,
         dryRun,
     });
+    await applyDefaultType({
+        github: octokit,
+        owner,
+        repo,
+        number,
+        currentLabels,
+        dryRun,
+        isPR,
+    });
 
     // Changelog nudge for PRs
     if (isPR) {
         const changelogLabels = [
-            'no-changelog',
-            'changelog:added',
-            'changelog:changed',
-            'changelog:fixed',
-            'changelog:security',
-            'changelog:deprecated',
-            'changelog:removed',
+            'meta:no-changelog',
+            'meta:needs-changelog',
+            'meta:changelog',
         ];
         if (!currentLabels.some((l) => changelogLabels.includes(l))) {
             if (!dryRun) {
@@ -233,10 +253,11 @@ async function runLabelingAgent(opts = {}) {
     );
 }
 
-if (require.main === module) {
+// Check if this module is being run directly
+if (import.meta.url === `file://${process.argv[1]}`) {
     runLabelingAgent().catch((e) => {
         core.setFailed(e.message);
     });
 }
 
-module.exports = { runLabelingAgent };
+export { runLabelingAgent };

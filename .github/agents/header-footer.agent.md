@@ -1,4 +1,5 @@
 file_type: "agent"
+name: "header-footer"
 title: "Header & Footer Agent"
 description: "Automates insertion, update, and randomisation of headers and footers in documentation files, using schema-driven config."
 version: "v1.0"

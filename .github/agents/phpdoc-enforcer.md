@@ -17,6 +17,7 @@ visibility: "public"
 # PHPDoc Enforcer Agent
 
 **Responsibilities**:
+
 - Analyze all PHP files for missing or incomplete PHPDoc blocks on public functions, methods, and classes.
 - Validate that each PHPDoc includes a summary, parameter types (`@param`), and return type (`@return`).
 - Check for @since, @deprecated, and other standard tags where appropriate.

@@ -25,10 +25,13 @@ You are the Python linter and formatter for LightSpeed projects. Enforce code st
 # Setup
 
 1. **Install dependencies:**  
+
    ```bash
    pip install black ruff
    ```
+
 2. **Config file (pyproject.toml):**
+
    ```toml
    [tool.black]
    line-length = 88
@@ -39,14 +42,18 @@ You are the Python linter and formatter for LightSpeed projects. Enforce code st
    select = ["E", "F", "W"]
    ignore = []
    ```
+
 3. **Lint and format scripts:**  
    Typical entries in a `Makefile` or as npm scripts:
+
    ```sh
    ruff check .
    black --check .
    ```
+
 4. **Pre-commit hook (recommended):**
    - Using [pre-commit](https://pre-commit.com/):
+
      ```yaml
      - repo: https://github.com/psf/black
        rev: stable
@@ -57,10 +64,13 @@ You are the Python linter and formatter for LightSpeed projects. Enforce code st
        hooks:
          - id: ruff
      ```
+
    - Or with Husky:
+
      ```bash
      npx husky add .husky/pre-commit "ruff check . && black --check ."
      ```
+
 5. **CI:**  
    Linting is enforced on PRs.
 

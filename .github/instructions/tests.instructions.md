@@ -1,4 +1,5 @@
 ---
+file_type: "instructions"
 description: "Index of all LightSpeed test standards: workflows, agents, Bats, Playwright, Jest, PHPUnit, Python, etc."
 applyTo: "all projects"
 ---
@@ -50,12 +51,14 @@ sequenceDiagram
 ## 🔗 Integration Points
 
 ### 📚 Related Documentation
+
 - **[Agents Instructions](./agents.instructions.md)** - Testing automation agents
 - **[Coding Standards Instructions](./coding-standards.instructions.md)** - Code quality standards
 - **[Linting Instructions](./linting.instructions.md)** - Static code analysis
 - **[Workflows Instructions](./workflows.instructions.md)** - CI/CD testing integration
 
 ### ⚙️ Tool Integration  
+
 - **Test Workflows** - Automated test execution in CI/CD
 - **Coverage Reports** - Test coverage tracking and reporting
 - **Performance Tests** - Load and performance testing automation
@@ -67,12 +70,14 @@ sequenceDiagram
 ### 🌐 Frontend Testing
 
 #### 🧪 [Jest Testing](./tests/tests-jest.instructions.md)
+
 - **Purpose**: JavaScript/TypeScript unit and integration testing
 - **Coverage**: Component testing, utility functions, API integrations
 - **Integration**: CI/CD pipelines, coverage reporting
 - **Tools**: Jest, Testing Library, MSW for mocking
 
 #### 🎭 [Playwright Testing](./tests/tests-playwright.instructions.md)  
+
 - **Purpose**: End-to-end browser testing and automation
 - **Coverage**: User workflows, cross-browser compatibility, visual testing
 - **Integration**: CI/CD pipelines, parallel execution
@@ -81,12 +86,14 @@ sequenceDiagram
 ### ⚙️ Backend Testing
 
 #### 🐘 [PHPUnit Testing](./tests/tests-phpunit.instructions.md)
+
 - **Purpose**: PHP and WordPress unit/integration testing
 - **Coverage**: Plugin functionality, theme components, API endpoints
 - **Integration**: WordPress test suite, database testing
 - **Tools**: PHPUnit, WP Test Suite, Brain Monkey
 
 #### 🐍 [Python Testing](./tests/tests-python.instructions.md)
+
 - **Purpose**: Python application and script testing
 - **Coverage**: Automation scripts, data processing, API services
 - **Integration**: pytest, coverage reporting, type checking
@@ -95,6 +102,7 @@ sequenceDiagram
 ### 🔧 System Testing
 
 #### 🦇 [Bats Testing](./tests/tests-bats.instructions.md)
+
 - **Purpose**: Shell script and system integration testing
 - **Coverage**: Deployment scripts, system configuration, CLI tools
 - **Integration**: CI/CD pipelines, Docker containers
@@ -121,18 +129,21 @@ graph LR
 ## 💡 Best Practices
 
 ### ✅ Testing Standards
+
 - **Test-Driven Development** - Write tests before implementation
 - **Coverage Requirements** - Minimum 85% code coverage for critical paths
 - **Performance Testing** - Include performance benchmarks
 - **Accessibility Testing** - Validate WCAG compliance
 
 ### 🔄 CI/CD Integration
+
 - **Automated Execution** - All tests run on every PR
 - **Parallel Execution** - Optimize test execution time
 - **Failure Reporting** - Clear error messages and debugging info
 - **Environment Consistency** - Identical test environments
 
 ### 📈 Continuous Improvement
+
 - **Test Maintenance** - Regular review and updates
 - **Flaky Test Detection** - Monitor and fix unreliable tests
 - **Performance Monitoring** - Track test execution times
@@ -141,12 +152,14 @@ graph LR
 ## 🔗 Cross-References
 
 ### 📚 Related Instructions
+
 - **[Coding Standards Instructions](./coding-standards.instructions.md)** - Code quality requirements
 - **[Linting Instructions](./linting.instructions.md)** - Static analysis integration
 - **[Workflows Instructions](./workflows.instructions.md)** - CI/CD test automation
 - **[Agents Instructions](./agents.instructions.md)** - Test automation agents
 
 ### 🎯 Specialized Resources
+
 - **[WordPress Instructions](./wordpress.instructions.md)** - WordPress-specific testing
 - **[Performance Instructions](./performance.instructions.md)** - Performance testing standards
 - **[Security Instructions](./security.instructions.md)** - Security testing requirements

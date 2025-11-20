@@ -19,18 +19,21 @@ Create a complete Model Context Protocol (MCP) server in C# with the following s
 ## Implementation Details
 
 ### Basic Project Setup
+
 - Use .NET 8.0 or later
 - Create a console application
 - Add necessary NuGet packages with --prerelease flag
 - Configure logging to stderr
 
 ### Server Configuration
+
 - Use `Host.CreateApplicationBuilder` for DI and lifecycle management
 - Configure `AddMcpServer()` with stdio transport
 - Use `WithToolsFromAssembly()` for automatic tool discovery
 - Ensure the server runs with `RunAsync()`
 
 ### Tool Implementation
+
 - Use `[McpServerToolType]` attribute on tool classes
 - Use `[McpServerTool]` attribute on tool methods
 - Add `[Description]` attributes to tools and parameters
@@ -38,6 +41,7 @@ Create a complete Model Context Protocol (MCP) server in C# with the following s
 - Include proper parameter validation
 
 ### Code Quality
+
 - Follow C# naming conventions
 - Include XML documentation comments
 - Use nullable reference types
@@ -45,6 +49,7 @@ Create a complete Model Context Protocol (MCP) server in C# with the following s
 - Use structured logging for debugging
 
 ## Example Tool Types to Consider
+
 - File operations (read, write, search)
 - Data processing (transform, validate, analyze)
 - External API integrations (HTTP requests)
@@ -52,6 +57,7 @@ Create a complete Model Context Protocol (MCP) server in C# with the following s
 - Database operations (query, update)
 
 ## Testing Guidance
+
 - Explain how to run the server
 - Provide example commands to test with MCP clients
 - Include troubleshooting tips

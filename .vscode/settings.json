@@ -50,8 +50,39 @@
     "markdownlint.enable": true,
     "markdownlint.config": {
         "default": true,
-        "MD013": false,
-        "MD033": false
+        "MD003": {
+            "style": "atx"
+        },
+        "MD013": {
+            "line_length": 120,
+            "code_blocks": false,
+            "tables": false
+        },
+        "MD024": {
+            "siblings_only": true
+        },
+        "MD033": {
+            "allowed_elements": [
+                "br",
+                "sub",
+                "sup",
+                "kbd",
+                "mark",
+                "details",
+                "summary",
+                "img",
+                "a",
+                "div",
+                "span",
+                "table",
+                "thead",
+                "tbody",
+                "tr",
+                "th",
+                "td"
+            ]
+        },
+        "MD041": false
     },
     "spectral.enable": true,
     "spectral.run": "onType",
@@ -78,7 +109,7 @@
         "editor.tabSize": 2,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "editor.rulers": [100],
+    "editor.rulers": [120],
     "files.associations": {
         "*.chatmode.md": "markdown",
         "*.instructions.md": "markdown",

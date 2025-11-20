@@ -195,14 +195,419 @@ Maps issues/PRs to projects and syncs status/priority/type fields from labels.
 
 ---
 
+---
+
+## 6. `quality-gates.yml` — **Comprehensive Quality Validation**
+
+**Branch:** `develop`
+**Purpose:**
+Comprehensive quality validation across all checks before merge.
+
+**Triggers:**
+
+- `pull_request` to `develop`
+- `workflow_dispatch` (manual)
+
+**Key Steps:**
+
+- Runs linting, tests, frontmatter validation
+- Checks code quality and standards
+- Validates documentation
+
+---
+
+## 7. `lint.yml` — **Code Linting**
+
+**Branch:** `develop`
+**Purpose:**
+Enforces code quality and standards through automated linting.
+
+**Triggers:**
+
+- `push` to `develop`
+- `pull_request` to `develop`
+
+**Key Steps:**
+
+- Runs ESLint, Prettier, and other linters
+- Reports code quality issues
+
+---
+
+## 8. `ci.yml` — **Continuous Integration**
+
+**Branch:** `develop`
+**Purpose:**
+Core CI checks for all code changes.
+
+**Triggers:**
+
+- `push` to `develop`
+- `pull_request` to `develop`
+
+**Key Steps:**
+
+- Runs tests and builds
+- Validates integration
+
+---
+
+## 9. `jest-test-audit.yml` — **Jest Test Coverage**
+
+**Branch:** `develop`
+**Purpose:**
+Audits Jest test coverage for agents and utilities.
+
+**Triggers:**
+
+- `push` to `develop`
+- `pull_request` to `develop`
+- `workflow_dispatch`
+
+**Key Steps:**
+
+- Runs all agent test suites
+- Reports coverage metrics
+
+---
+
+## 10. `changelog.yml` — **Changelog Validation**
+
+**Branch:** `develop`
+**Purpose:**
+Validates and generates changelog entries.
+
+**Triggers:**
+
+- `push` to `develop`
+- `pull_request` to `develop`
+
+**Key Steps:**
+
+- Validates changelog format
+- Ensures changelog entries for PRs
+
+---
+
+## 11. `frontmatter-validation.yml` — **Frontmatter Schema Validation**
+
+**Branch:** `develop`
+**Purpose:**
+Validates frontmatter in markdown files against schema.
+
+**Triggers:**
+
+- `push` to `develop`, `claude/**` branches
+- `pull_request` with markdown changes
+- `workflow_dispatch`
+
+**Key Steps:**
+
+- Validates frontmatter schema structure
+- Runs schema tests
+- Validates changed markdown files
+- Comments on PR if validation fails
+
+---
+
+## 12. `collections-indexer.yml` — **Collections Index Builder**
+
+**Branch:** `develop`
+**Purpose:**
+Builds and validates collections index files.
+
+**Triggers:**
+
+- `pull_request` to `develop`
+
+**Key Steps:**
+
+- Builds collection indexes
+- Validates index integrity
+
+---
+
+## 13. `branding.yml` — **Branding Automation**
+
+**Branch:** `develop`
+**Agent:** [`branding.agent.js`](../.github/agents/branding.agent.js)
+**Purpose:**
+Unified header, footer, and badge automation for documentation.
+
+**Triggers:**
+
+- File changes to documentation, badges, or headers/footers
+- Weekly schedule
+- `workflow_dispatch`
+
+**Key Steps:**
+
+- Updates headers and footers across documentation
+- Manages badge consistency
+- Runs branding agent
+
+---
+
+## 14. `badges.yml` — **Badge Updates**
+
+**Branch:** `develop`
+**Agent:** [`badges.agent.js`](../.github/agents/badges.agent.js)
+**Purpose:**
+Repository badge status updates and maintenance.
+
+**Triggers:**
+
+- Path changes to badges
+- `workflow_dispatch`
+
+**Key Steps:**
+
+- Updates repository badges
+- Maintains badge consistency
+
+**Note:** Deprecated in favor of `branding.yml` for most use cases.
+
+---
+
+## 15. `header-footer.yml` — **Header/Footer Consistency**
+
+**Branch:** `develop`
+**Agent:** [`header-footer.agent.js`](../.github/agents/header-footer.agent.js)
+**Purpose:**
+Ensures documentation header/footer consistency.
+
+**Triggers:**
+
+- File changes to documentation
+
+**Key Steps:**
+
+- Validates and updates headers/footers
+- Ensures consistency across docs
+
+**Note:** Deprecated in favor of `branding.yml`.
+
+---
+
+## 16. `manage-readmes.yml` — **README Management**
+
+**Branch:** `develop`
+**Agent:** [`manage-readmes.agent.js`](../.github/agents/manage-readmes.agent.js)
+**Purpose:**
+Automated README generation and consistency across repositories.
+
+**Triggers:**
+
+- Path changes to README files
+- `workflow_dispatch`
+
+**Key Steps:**
+
+- Generates README files from templates
+- Ensures README consistency
+
+---
+
+## 17. `aiops-frontmatter.yml` — **AIOps Frontmatter Validation**
+
+**Branch:** `develop`
+**Purpose:**
+Validates frontmatter presence in AI operations files.
+
+**Triggers:**
+
+- `pull_request` to prompts, chatmodes, instructions paths
+
+**Key Steps:**
+
+- Checks for frontmatter in AI files
+- Validates required fields
+
+---
+
+## 18. `aiops-index-drift.yml` — **AIOps Index Drift Detection**
+
+**Branch:** `develop`
+**Purpose:**
+Checks that index files include all leaf files.
+
+**Triggers:**
+
+- `pull_request` to collections, prompts, chatmodes paths
+
+**Key Steps:**
+
+- Validates index completeness
+- Detects missing entries
+
+---
+
+## 19. `aiops-link-check.yml` — **AIOps Link Validation**
+
+**Branch:** `develop`
+**Purpose:**
+Checks for broken links in documentation.
+
+**Triggers:**
+
+- `pull_request` to docs
+
+**Key Steps:**
+
+- Scans for broken links
+- Reports link issues
+
+---
+
+## 20. `aiops-secrets-scan.yml` — **AIOps Secrets Scanning**
+
+**Branch:** `develop`
+**Purpose:**
+Scans for secrets and PII in code.
+
+**Triggers:**
+
+- `pull_request` to `.github`, `docs` paths
+
+**Key Steps:**
+
+- Detects potential secrets
+- Prevents credential leaks
+
+---
+
+## 21. `label-sync.yml` — **Organization Label Sync**
+
+**Branch:** `develop`
+**Purpose:**
+Syncs labels across organization repositories.
+
+**Triggers:**
+
+- `push` to `develop`
+- Weekly schedule
+- `workflow_dispatch`
+
+**Key Steps:**
+
+- Syncs canonical labels from `.github/labels.yml`
+- Ensures org-wide label consistency
+
+---
+
+## 22. `all-contributors-update.yml` — **Contributors Recognition**
+
+**Branch:** `develop`
+**Purpose:**
+Maintains contributor recognition table.
+
+**Triggers:**
+
+- PR merge events
+
+**Key Steps:**
+
+- Updates all-contributors table
+- Recognizes new contributors
+
+---
+
+## 23. `metrics.yml` — **Repository Metrics**
+
+**Branch:** `develop`
+**Purpose:**
+Gathers repository health and performance metrics.
+
+**Triggers:**
+
+- Weekly schedule
+- `workflow_dispatch`
+
+**Key Steps:**
+
+- Collects repository metrics
+- Generates health reports
+
+---
+
+## 24. `frontmatter-metrics.yml` — **Frontmatter Metrics**
+
+**Branch:** `develop`
+**Purpose:**
+Tracks frontmatter usage and compliance metrics.
+
+**Triggers:**
+
+- Weekly schedule
+- `workflow_dispatch`
+
+**Key Steps:**
+
+- Analyzes frontmatter usage
+- Reports compliance metrics
+
+---
+
+## 25. `weekly-metrics.yml` — **Weekly Health Reporting**
+
+**Branch:** `develop`
+**Purpose:**
+Comprehensive weekly repository health reporting.
+
+**Triggers:**
+
+- Weekly schedule
+- `workflow_dispatch`
+
+**Key Steps:**
+
+- Generates weekly health report
+- Tracks trends and metrics
+
+---
+
+## 26. `ci-metrics.yml` — **CI Metrics Gathering**
+
+**Branch:** `develop`
+**Purpose:**
+Collects CI/CD performance metrics.
+
+**Triggers:**
+
+- On workflow checkout
+
+**Key Steps:**
+
+- Gathers CI metrics
+- Tracks performance trends
+
+---
+
+## 27. `release-prep.yml` — **Release Preparation**
+
+**Branch:** `develop`
+**Purpose:**
+Prepares repository for upcoming releases.
+
+**Triggers:**
+
+- Weekly schedule
+- `workflow_dispatch`
+
+**Key Steps:**
+
+- Checks release readiness
+- Prepares release notes
+
+---
+
 ## Directory Cleanup
 
-- **Delete all legacy labeling workflows:**
-  - `label-prs.yml`
-  - `issue-type.yml`
-  - `labeler.yml`
-  - `labels-issues-prs.yml`
-- **Archive or move experimental workflows to `.github/archived-workflows/`.**
+- **Deprecated workflows moved to archive:**
+  - `labeler.yml` (replaced by `labeling.yml`)
+  - `labeling.yml.old` (removed)
+  - Other legacy labeling workflows
+- **Archived workflows located in:** `.github/workflows/archived/`
 - **All new/updated workflows** must be explicitly documented here.
 
 ---

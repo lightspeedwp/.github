@@ -3,19 +3,28 @@ title: "LightSpeed Community Health & Automation Repository"
 description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
 version: "2.0"
 last_updated: "2025-10-24"
+file_type: "documentation"
 maintainer: "LightSpeed Team"
 tags: ["community-health", "automation", "governance", "labels", "workflows", "ai", "copilot"]
-ai_references:
-  - ".github/custom-instructions.md"
-  - ".github/agents/agent.md"
-  - ".github/prompts/prompts.md"
-  - ".github/chatmodes/chatmodes.md"
-  - "AGENTS.md"
-related_docs:
-  - "DOCS.md"
-  - "CONTRIBUTING.md"
-  - "GOVERNANCE.md"
-  - "AUTOMATION_GOVERNANCE.md"
+references:
+  - path: ".github/custom-instructions.md"
+    description: "Custom instructions for AI agents"
+  - path: ".github/agents/agent.md"
+    description: "Main agents index"
+  - path: ".github/prompts/prompts.md"
+    description: "Prompts index"
+  - path: ".github/chatmodes/chatmodes.md"
+    description: "Chatmodes index"
+  - path: "AGENTS.md"
+    description: "Organization-wide agents documentation"
+  - path: "DOCS.md"
+    description: "Documentation index"
+  - path: "CONTRIBUTING.md"
+    description: "Contribution guidelines"
+  - path: "GOVERNANCE.md"
+    description: "Governance policies"
+  - path: "AUTOMATION_GOVERNANCE.md"
+    description: "Automation governance policies"
 ---
 
 # 🏠 LightSpeed Community Health & Automation Repository
@@ -464,6 +473,7 @@ jobs:
 ```
 
 **What this does:**
+
 - Automatically syncs labels weekly
 - Adds missing labels from canonical source
 - Updates existing labels with new colors/descriptions
@@ -502,6 +512,7 @@ jobs:
 ```
 
 **What this does:**
+
 - Applies labels based on PR branch names (e.g., `feat/` → `type:feature`)
 - Applies labels based on modified file paths (e.g., `*.php` → `lang:php`)
 - Enforces status workflow (e.g., new issues → `status:needs-triage`)
@@ -520,6 +531,7 @@ ln -s ../../.github/.github/ISSUE_TEMPLATE /path/to/your/repo/.github/ISSUE_TEMP
 ```
 
 **Available Templates:**
+
 - Bug Report (`bug-report.yml`)
 - Feature Request (`feature-request.yml`)
 - Documentation (`documentation.yml`)
@@ -566,6 +578,7 @@ git checkout -b hotfix/payment-gateway-fix
 ```
 
 **Auto-Applied Labels:**
+
 - `feat/*` → `type:feature`, `status:in-progress`
 - `fix/*` → `type:bug`, `status:in-progress`
 - `docs/*` → `type:documentation`, `area:documentation`
@@ -813,6 +826,8 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 - [🤖 Agent Specifications](./.github/agents/README.md) - Automation agents and workflows
 - [📝 Instructions Library](./.github/instructions/README.md) - Development standards and practices
 - [📚 Collections Directory](./.github/collections/README.md) - Curated instruction collections
+- [📊 Metrics Directory](./.github/metrics/README.md) - Metrics collection and configuration
+- [📈 Reporting Directory](./.github/reporting/README.md) - Generated reports and artifacts
 - [🔧 VS Code Configuration](./.vscode/README.md) - Development environment setup
 
 ### �🔄 Workflows & Governance
@@ -829,3 +844,6 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 **📧 Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new) or [start a discussion](https://github.com/lightspeedwp/.github/discussions/new)
 
 <!-- RANDOM FOOTER: 🚀 Built by LightSpeedWP with ☕, 🚀, and open-source spirit! -->
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

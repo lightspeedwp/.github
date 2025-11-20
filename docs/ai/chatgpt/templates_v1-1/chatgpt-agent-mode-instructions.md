@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Agent Mode Instructions"
 description: "Guidelines for using ChatGPT as an autonomous agent to plan and execute multi‑step tasks across tools and connectors."
 last_updated: "2025-10-17"

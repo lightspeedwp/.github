@@ -3,11 +3,13 @@
 LightSpeedWP **YAML** documentation standards (GitHub Actions, configs).
 
 ## Principles
+
 - YAML supports comments with `#` – document intent for non-obvious steps.
 - Prefer explicit values over implicit truthy/falsey.
 - Use anchors/aliases for repeated blocks when helpful.
 
 ## GitHub Actions example
+
 ```yaml
 name: CI
 on:

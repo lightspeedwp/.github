@@ -6,7 +6,7 @@ labels: [type:epic, status:needs-planning, priority:important, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: epic
+file_type: epic
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -83,6 +83,7 @@ Add any other context, references, diagrams, or docs.
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Epic goal and scope defined
 - [ ] Linked stories/tasks listed
 - [ ] Milestones and timeline mapped
@@ -91,6 +92,7 @@ Add any other context, references, diagrams, or docs.
 - [ ] Stakeholders/approvers listed
 
 ### Definition of Done (DoD)
+
 - [ ] All linked stories/tasks completed and closed
 - [ ] Documentation/changelog updated
 - [ ] QA and testing complete

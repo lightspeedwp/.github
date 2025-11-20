@@ -17,6 +17,7 @@ Hi @username,
 Our CI/CD pipeline reported a failure in your PR or commit.
 
 **Next steps:**
+
 - Review logs in the Actions tab to find the failing step and error
 - Check for test failures, linting issues, or misconfigured workflows
 - Refer to our [Automation Guide](../../instructions/automation.md) for troubleshooting

@@ -7,7 +7,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 model: GPT-5 (copilot)
 tags: ["beast", "autonomous", "persistent", "copilot"]
-type: "chatmode"
+file_type: "chatmode"
 references:
   - [LightSpeed](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
   - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)

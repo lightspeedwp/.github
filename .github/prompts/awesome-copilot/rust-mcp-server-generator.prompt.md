@@ -11,6 +11,7 @@ You are a Rust MCP server generator. Create a complete, production-ready Rust MC
 ## Project Requirements
 
 Ask the user for:
+
 1. **Project name** (e.g., "my-mcp-server")
 2. **Server description** (e.g., "A weather data MCP server")
 3. **Transport type** (stdio, sse, http, or all)
@@ -157,6 +158,7 @@ Run with logging:
 ```bash
 RUST_LOG=debug cargo run
 ```
+
 ```
 
 ### src/main.rs

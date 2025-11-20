@@ -6,7 +6,7 @@ labels: [type:task, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
 milestone: ''
-type: task
+file_type: task
 references:
   - ../CONTRIBUTING.md
   - .github/BRANCHING_STRATEGY.md
@@ -58,10 +58,12 @@ references:
 ---
 
 ### Definition of Ready (DoR)
+
 - [ ] Task described and scoped
 - [ ] Estimate added if relevant
 
 ### Definition of Done (DoD)
+
 - [ ] Task completed and documented
 - [ ] Changelog entry prepared for PR
 - [ ] PR uses correct branch prefix

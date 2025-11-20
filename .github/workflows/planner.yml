@@ -6,12 +6,17 @@ on:
   pull_request:
     branches: [ develop ]
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   planner:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Planner
-        run: node agents/planner.agent.js
+        run: node .github/agents/planner.agent.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
