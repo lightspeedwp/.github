@@ -8,7 +8,7 @@ description: "Instructions for creating and validating YAML frontmatter for all 
 tags: ["lightspeed","frontmatter","instructions"]
 type: "instructions"
 ---
-_Note: This file follows LightSpeedWP governance and metadata conventions as described in [schemas/frontmatter.schema.json](../../schemas/frontmatter.schema.json)._
+_Note: This file follows LightSpeedWP governance and metadata conventions as described in schema file ([./schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json))._
 
 # Frontmatter Instructions
 

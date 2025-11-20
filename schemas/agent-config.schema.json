@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Branding Agent Config Schema",
+  "description": "Configuration for dynamic header, footer, and badge insertion in markdown files by branding.agent.js",
+  "type": "object",
+  "properties": {
+    "categories": {
+      "type": "array",
+      "description": "Supported content categories for markdown files.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "footerTemplate": { "type": "string" },
+          "headerTemplate": { "type": "string" },
+          "badgeRules": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/badge" }
+          }
+        },
+        "required": ["name", "footerTemplate"]
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Supported tags for markdown files.",
+      "items": { "type": "string" }
+    },
+    "badges": {
+      "type": "array",
+      "description": "Global badge definitions.",
+      "items": { "$ref": "#/definitions/badge" }
+    }
+  },
+  "definitions": {
+    "badge": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["name", "imageUrl"]
+    }
+  },
+  "required": ["categories", "badges"]
+}

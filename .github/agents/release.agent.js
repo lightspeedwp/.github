@@ -21,7 +21,7 @@ const {
     enforceOneHotStatus,
     applyDefaultStatus,
     applyDefaultPriority,
-} = require('../../scripts/utility/status-enforcer');
+} = require('./includes/status-enforcer');
 const actionsCore = require('@actions/core');
 const actionsGithub = require('@actions/github');
 

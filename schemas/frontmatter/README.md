@@ -122,7 +122,7 @@ Add a `$schema` property in your YAML frontmatter:
 
 ```yaml
 ---
-$schema: "schemas/frontmatter/frontmatter.schema.json"
+$schema: "schemas/frontmatter.schema.json"
 file_type: "agent"
 name: "example-agent"
 description: "An example agent specification"
@@ -138,7 +138,7 @@ Add to `.vscode/settings.json`:
 ```json
 {
   "yaml.schemas": {
-    "./schemas/frontmatter/frontmatter.schema.json": [
+    "./schemas/frontmatter.schema.json": [
       ".github/agents/*.md",
       ".github/instructions/*.md",
       ".github/prompts/*.md",
@@ -210,13 +210,13 @@ When updating `frontmatter.schema.json`:
 
 ## Migration
 
-This schema was moved from `schemas/frontmatter.schema.json` to `schemas/frontmatter/frontmatter.schema.json` in November 2025 for better organization.
+The schema consolidated at `schemas/frontmatter.schema.json` serves as the canonical reference for all frontmatter validation.
 
 If you encounter broken references, update them to the new path:
 
 ```diff
 - $schema: "schemas/frontmatter.schema.json"
-+ $schema: "schemas/frontmatter/frontmatter.schema.json"
++ $schema: "schemas/frontmatter.schema.json"
 ```
 
 ## Resources

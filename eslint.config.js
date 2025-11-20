@@ -4,7 +4,8 @@
  */
 import 'dotenv/config';
 import js from '@eslint/js';
-import ts from 'typescript-eslint';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 import prettier from 'eslint-plugin-prettier';
 
 /**
@@ -50,37 +51,43 @@ const ignoreFolders = process.env.ESLINT_IGNORE
  * @type {import('eslint').Linter.FlatConfig[]}
  */
 export default [
-    // Apply JavaScript recommended rules as base configuration
-    js.configs.recommended,
-
-    // Spread TypeScript recommended rules (includes parser and plugin setup)
-    ...ts.configs.recommended,
-
+    // Global ignores apply to all configurations
     {
-        /**
-         * Target JavaScript and TypeScript files across all module formats
-         * Includes: .js, .jsx, .ts, .tsx, .cjs (CommonJS), .mjs (ES modules)
-         */
-        files: ['**/*.{js,jsx,ts,tsx,cjs,mjs}'],
-
-        /**
-         * Apply ignore patterns for performance optimization
-         * Excludes build artifacts, dependencies, and template files
-         */
         ignores: ignoreFolders,
-
-        /**
-         * Register Prettier plugin for code formatting integration
-         * Allows ESLint to report Prettier formatting issues
-         */
-        plugins: { prettier },
-
-        /**
-         * ESLint rules configuration
-         * - prettier/prettier: Report Prettier formatting violations as warnings
-         */
+    },
+    // Base JavaScript recommended rules
+    js.configs.recommended,
+    // TypeScript specific configuration
+    {
+        files: ['**/*.ts', '**/*.tsx'],
+        files: ['**/*.ts', '**/*.tsx'],
+        languageOptions: {
+            parser: tsParser,
+            parserOptions: {
+                ecmaVersion: 2024,
+                sourceType: 'module',
+            },
+            globals: {
+                ...globals.node,
+                ...globals.es2021,
+            },
+        },
+        plugins: {
+            '@typescript-eslint': tsPlugin,
+            prettier,
+        },
+        // Merge recommended TypeScript rules
         rules: {
-            'prettier/prettier': 'warn', // Non-blocking formatting warnings
+            ...tsPlugin.configs.recommended.rules,
+            'prettier/prettier': 'warn',
+        },
+    },
+    // JavaScript/CommonJS/ESM configuration
+    {
+        files: ['**/*.{js,jsx,cjs,mjs}'],
+        plugins: { prettier },
+        rules: {
+            'prettier/prettier': 'warn',
         },
     },
 ];

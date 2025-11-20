@@ -903,13 +903,10 @@ describe('label-sync', () => {
         test('should throw meaningful error for standardization failures', async () => {
             const aliasMap = { 'old-bug': 'bug' };
             const canonicalSet = new Set(['bug']);
-
-            // Create an error in the outer try-catch, not in the inner search handling
-            const originalKeys = Object.keys;
-            Object.keys = jest.fn().mockImplementation(() => {
-                throw new Error('Critical system error');
-            });
-
+            // Simulate failure via search API to avoid global mutation side‑effects
+            mockOctokit.rest.search.issuesAndPullRequests.mockRejectedValue(
+                new Error('Critical system error')
+            );
             await expect(
                 standardizeLabelsOnRepo(
                     mockOctokit,
@@ -921,9 +918,6 @@ describe('label-sync', () => {
             ).rejects.toThrow(
                 'Failed to standardize labels: Critical system error'
             );
-
-            // Restore original function
-            Object.keys = originalKeys;
         });
 
         test('should handle network timeouts gracefully', async () => {

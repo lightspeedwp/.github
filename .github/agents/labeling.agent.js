@@ -21,14 +21,15 @@ const {
     applyDefaultStatus,
     applyDefaultPriority,
 } = require('./includes/status-enforcer');
-const {
-    buildLabelingReport,
-} = require('./includes/label-reporting');
+const { buildLabelingReport } = require('./includes/label-reporting');
 
 // Environment configurable paths (fallback to repo defaults)
-const LABELS_CONFIG = process.env.LABELS_CONFIG || '.github/automation/labels.yml';
-const ISSUE_TYPES_CONFIG = process.env.ISSUE_TYPES_CONFIG || '.github/automation/issue-types.yml'; // reserved for later phases
-const LABELER_RULES = process.env.LABELER_RULES || '.github/automation/labeler.yml'; // reserved for later phases
+const LABELS_CONFIG =
+    process.env.LABELS_CONFIG || '.github/automation/labels.yml';
+const ISSUE_TYPES_CONFIG =
+    process.env.ISSUE_TYPES_CONFIG || '.github/automation/issue-types.yml'; // reserved for later phases
+const LABELER_RULES =
+    process.env.LABELER_RULES || '.github/automation/labeler.yml'; // reserved for later phases
 
 function readYamlArrayFile(path, purpose) {
     if (!fs.existsSync(path)) {
@@ -37,7 +38,9 @@ function readYamlArrayFile(path, purpose) {
     const raw = fs.readFileSync(path, 'utf8');
     const data = yaml.load(raw);
     if (!Array.isArray(data)) {
-        throw new Error(`[labeling.agent] Expected array in ${purpose} file: ${path}`);
+        throw new Error(
+            `[labeling.agent] Expected array in ${purpose} file: ${path}`
+        );
     }
     return data;
 }
@@ -225,7 +228,9 @@ async function runLabelingAgent(opts = {}) {
         core.info
     );
 
-    core.info(`[labeling.agent] Completed env-driven labeling run (LABELS_CONFIG=${LABELS_CONFIG}, DRY_RUN=${dryRun}).`);
+    core.info(
+        `[labeling.agent] Completed env-driven labeling run (LABELS_CONFIG=${LABELS_CONFIG}, DRY_RUN=${dryRun}).`
+    );
 }
 
 if (require.main === module) {

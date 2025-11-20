@@ -19,29 +19,21 @@ const glob = require('glob');
 
 // Configuration
 const CONFIG = {
-  rootDir: process.cwd(),
-  patterns: [
-    '.github/**/*.md',
-    'docs/**/*.md',
-    '*.md'
-  ],
-  excludePatterns: [
-    'node_modules/**',
-    '.git/**',
-    'coverage/**',
-    'logs/**'
-  ],
-  // Fix map for known moved/renamed files
-  fixMap: {
-    // Old path -> New path
-    'schemas/frontmatter/frontmatter.schema.json': 'schemas/frontmatter.schema.json',
-    '.github/docs/VERSIONING.md': 'docs/VERSIONING.md',
-    '.github/automation/labels.yml': '.github/labeler.yml',
-    // Add more mappings as files are moved
-  },
-  // GitHub blob URL pattern for external references
-  githubBlobPattern: /^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/blob\/[^\/]+\//,
-  logFile: path.join(process.cwd(), 'logs', 'fix-references.log')
+    rootDir: process.cwd(),
+    patterns: ['.github/**/*.md', 'docs/**/*.md', '*.md'],
+    excludePatterns: ['node_modules/**', '.git/**', 'coverage/**', 'logs/**'],
+    // Fix map for known moved/renamed files
+    fixMap: {
+        // Old path -> New path
+        // Schema consolidated to root - no longer needed
+        '.github/docs/VERSIONING.md': 'docs/VERSIONING.md',
+        '.github/automation/labels.yml': '.github/labeler.yml',
+        // Add more mappings as files are moved
+    },
+    // GitHub blob URL pattern for external references
+    githubBlobPattern:
+        /^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/blob\/[^\/]+\//,
+    logFile: path.join(process.cwd(), 'logs', 'fix-references.log'),
 };
 
 /**

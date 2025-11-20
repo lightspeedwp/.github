@@ -13,14 +13,14 @@ type: "agent"
 
 This document serves as the master index for all agent specifications, templates, and usage guides for LightSpeed projects.
 
-> **Label Reference:**  
-> Agents, agent specs, and agent-related issues should use or reference the label:  
+> **Label Reference:**
+> Agents, agent specs, and agent-related issues should use or reference the label:
 >
-> - `ai-ops:agents` (for agent definitions and specs)  
-> - `ai-ops:chat-modes` (for chatmode-related agents)  
-> - `ai-ops:prompts` (for prompt agents or reusable prompt logic)  
-> - `ai-ops:instructions` (for instructions or cross-references)  
-> See [labels.yml](../../labels.yml) for the full org label set.
+> - `ai-ops:agents` (for agent definitions and specs)
+> - `ai-ops:chat-modes` (for chatmode-related agents)
+> - `ai-ops:prompts` (for prompt agents or reusable prompt logic)
+> - `ai-ops:instructions` (for instructions or cross-references)
+> See [frontmatter schema](../schemas/frontmatter.schema.json) for canonical frontmatter requirements.
 
 ## Purpose
 

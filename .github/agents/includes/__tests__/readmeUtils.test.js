@@ -15,6 +15,8 @@ describe('readmeUtils', () => {
     });
 
     test('findReadmeFiles finds README.md recursively', () => {
+        // TODO: Fix path format expectation - function returns 'README.md' but test expects './README.md'
+        // Either update readmeUtils.findReadmeFiles() to prepend './' or adjust test expectation
         fs.readdirSync.mockReturnValue([
             { name: 'README.md', isDirectory: () => false },
             { name: 'src', isDirectory: () => true },

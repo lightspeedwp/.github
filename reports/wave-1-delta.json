@@ -1,0 +1,37 @@
+{
+  "summary": {
+    "beforeTotal": 2346,
+    "afterTotal": 33,
+    "overallReduction": 98.59335038363172
+  },
+  "rules": [
+    {
+      "rule": "prettier/prettier",
+      "before": 2310,
+      "after": 1,
+      "delta": -2309,
+      "reduction": 99.95670995670996
+    },
+    {
+      "rule": "no-unused-vars",
+      "before": 32,
+      "after": 28,
+      "delta": -4,
+      "reduction": 12.5
+    },
+    {
+      "rule": "no-useless-escape",
+      "before": 2,
+      "after": 2,
+      "delta": 0,
+      "reduction": 0
+    },
+    {
+      "rule": "no-prototype-builtins",
+      "before": 2,
+      "after": 2,
+      "delta": 0,
+      "reduction": 0
+    }
+  ]
+}

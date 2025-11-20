@@ -1,10 +1,10 @@
 const {
     mockOctokit,
     mockContext,
-    mockPrPayload,
     setTestEnv,
     resetTestEnv,
-} = require('../../../tests/test-helpers');
+    mockPrPayload,
+} = require('../../tests/test-helpers');
 const { run } = require('../planner.agent.js');
 
 describe('Planner Agent', () => {

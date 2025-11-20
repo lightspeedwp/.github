@@ -28,7 +28,7 @@ Welcome to the LightSpeedWP documentation ecosystem! This guide will help you na
 - **Reference templates** in `.github/COPILOT_TEMPLATE/` when creating new instruction files.
 - **Add new files to the relevant index** and update cross-links on both sides.
 - **Keep references real:** Use repo-relative links pointing to actual files, not placeholders.
-- **Validate frontmatter** for every instructions file using `.github/schema/frontmatter.schema.json`.
+- **Validate frontmatter** for every instructions file using `Schema: [frontmatter.schema.json](../schemas/frontmatter.schema.json)`.
 
 ---
 

@@ -1,29 +1,16 @@
 /**
- * Load environment variables from .env file
- * Enables Jest configuration customization via environment variables
+ * Jest configuration (CommonJS) for JavaScript and TypeScript tests.
+ * Uses Babel for transforming JS/TS; no ts-jest required.
+ * Loaded via --config jest.config.cjs in package.json scripts.
  */
 require('dotenv').config();
 
-/**
- * Import TypeScript Jest presets for TypeScript support
- * eslint-disable-next-line @typescript-eslint/no-require-imports - Required for CommonJS compatibility
- */
-const { defaults: tsjPreset } = require('ts-jest/presets');
-
-/**
- * Jest Configuration for JavaScript and TypeScript Testing
- *
- * This configuration provides:
- * - Cross-platform Node.js test environment
- * - TypeScript and JavaScript test discovery
- * - Babel transformation pipeline
- * - Code coverage collection and reporting
- * - Performance optimization through selective ignoring
- *
- * @type {import('jest').Config}
- */
+/** @type {import('jest').Config} */
 module.exports = {
-    testEnvironment: process.env.JEST_ENVIRONMENT || 'node',
+    // Switch to jsdom to provide window/localStorage, mitigating the SecurityError seen under node.
+    testEnvironment: process.env.JEST_ENVIRONMENT || 'jsdom',
+    // Provide a setup file that polyfills localStorage (defensive if environment overridden).
+    setupFilesAfterEnv: ['<rootDir>/tests/jest.setup.localstorage.js'],
     testMatch: [
         process.env.JEST_TEST_MATCH_1 || '**/tests/**/*.test.js',
         process.env.JEST_TEST_MATCH_2 || '**/tests/**/*.test.ts',

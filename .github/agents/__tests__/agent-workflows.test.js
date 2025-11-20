@@ -1,5 +1,4 @@
 /**
- * ============================================================================
  * Agent End-to-End Workflow Tests
  * Location: .github/agents/__tests__/agent-workflows.test.js
  * Description:
@@ -7,12 +6,11 @@
  *   - Validates agent interactions with GitHub API
  *   - Ensures agents work together without conflicts
  * Standards:
- *   - Follows [LightSpeedWP Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
- *   - Org instructions: [Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
+ *   - Follows LightSpeedWP Coding Standards
+ *   - Org instructions: Custom Instructions
  * Contribution:
- *   - Update when adding new agent workflows
- *   - Maintain test scenarios as GitHub API evolves
- * ============================================================================
+ *   - Add new workflow tests for new agent interactions
+ *   - Update test data to match real GitHub events
  */
 
 const fs = require('fs');
@@ -22,8 +20,7 @@ const {
     mockContext,
     mockPrPayload,
     mockIssuePayload,
-    createMockEvent,
-} = require('../../../tests/utility/test-helpers');
+} = require('../../../tests/test-helpers');
 
 describe('Agent E2E Workflows', () => {
     const agentsDir = path.join(__dirname, '..');
@@ -89,18 +86,19 @@ describe('Agent E2E Workflows', () => {
         test('handles PR with mixed file types', async () => {
             const mockPayload = mockPrPayload({
                 action: 'opened',
-                pull_request: {
-                    title: 'feat: Add new PHP class and update tests',
-                    body: 'Implementing new feature with comprehensive tests',
-                    files: [
-                        { filename: 'src/NewFeature.php', status: 'added' },
-                        {
-                            filename: 'tests/NewFeatureTest.php',
-                            status: 'added',
-                        },
-                        { filename: 'package.json', status: 'modified' },
-                    ],
-                },
+            });
+            // Merge additional pull_request properties safely
+            mockPayload.pull_request = Object.assign(mockPayload.pull_request, {
+                title: 'feat: Add new PHP class and update tests',
+                body: 'Implementing new feature with comprehensive tests',
+                files: [
+                    { filename: 'src/NewFeature.php', status: 'added' },
+                    {
+                        filename: 'tests/NewFeatureTest.php',
+                        status: 'added',
+                    },
+                    { filename: 'package.json', status: 'modified' },
+                ],
             });
 
             const labelingAgent = {

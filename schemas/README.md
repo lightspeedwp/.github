@@ -1,7 +1,7 @@
 ---
 description: "JSON Schema files for validation, documentation, and tooling support across the LightSpeedWP organization. Comprehensive schema validation for frontmatter, configurations, and third-party integrations."
-version: "2.4"
-last_updated: "2025-10-25"
+version: "2.5"
+last_updated: "2025-11-20"
 owners:
 - LightSpeedWP Team
 references:
@@ -29,6 +29,13 @@ LightSpeedWP JSON Schemas Collection
 ![AI Ready Badge](https://img.shields.io/badge/ai--ready-purple?style=flat-square)
 
 This folder contains JSON Schema files used for validation, documentation, and tooling support across the LightSpeedWP organization.
+
+**Recent Updates** (Nov 20, 2025):
+
+- ✅ Frontmatter schema consolidated to canonical location
+- 📊 Schema centralization analysis complete
+- 🗺️ Full consolidation roadmap created for 10 remaining schemas
+- 📚 See [SCHEMA_CENTRALIZATION_ANALYSIS.md](./SCHEMA_CENTRALIZATION_ANALYSIS.md) and [SCHEMA_CONSOLIDATION_ROADMAP.md](./SCHEMA_CONSOLIDATION_ROADMAP.md)
 
 Schema Architecture
 -------------------
@@ -77,8 +84,7 @@ LightSpeedWP Custom Schemas
 
 These schemas have been developed specifically for LightSpeedWP projects and governance:
 
-- **frontmatter.schema.json**  
-  Standardized frontmatter schema for governance, documentation, and configuration files. Defines required fields for agents, instructions, prompts, chatmodes, and other organizational documentation.
+- [frontmatter.schema.json](./frontmatter.schema.json) - Unified frontmatter schema for all .github files
 
 - **collection.schema.json**  
   Schema for awesome-copilot collection manifest files, defining the structure for organizing and cataloging Copilot resources.

@@ -13,7 +13,7 @@ This repository provides a comprehensive set of instructions and prompts for Git
 
 The files are organised under the `.github/` directory:
 
-- [`AGENTS.md`](../AGENTS.md): Global AI rules applicable to all projects. Defines language, security, accessibility, modularity, and review requirements. Reference this for organisation-wide agent guardrails and coding standards.
+- [`AGENTS.md`](../AGENTS.md): Global AI rules applicable to all projects. Defines language, security, accessibility, modularity, and review requirements. reference this file for central guidance on frontmatter schemas ([schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json))
 - [`agents/agent.md`](./agents/agent.md): Main agent index. Links all agent specs, stubs, and explains local/dry-run usage. Reference this for agent implementation and testing.
 - [`chatmodes/chatmodes.md`](./chatmodes/chatmodes.md): Master file listing all chat modes, conventions, and process checklists. Use this to design or extend chat-based workflows.
 - [`instructions/`](./instructions/): Modular `.instructions.md` files scoped by language, file type, or topic. Each file includes YAML frontmatter describing its scope, mission, guidelines, checklists, and references. See below for a full index.

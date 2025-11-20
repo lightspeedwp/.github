@@ -41,13 +41,13 @@ The labeling agent automates all aspects of labeling, status/priority enforcemen
 
 ```javascript
 // Import utilities in labeling.agent.js
-const { fetchCanonicalLabels, buildLabelAliasMap, findStandardLabel } = require('../../scripts/utility/label-lookup');
-const { fetchLabelerRules, applyLabelerRules } = require('../../scripts/utility/labeler-utils');
-const { syncLabelsWithCanonical, standardizeLabelsOnRepo } = require('../../scripts/utility/label-sync');
-const { enforceOneHotStatus, applyDefaultStatus, applyDefaultPriority } = require('../../scripts/utility/status-enforcer');
-const { buildLabelingReport } = require('../../scripts/utility/label-reporting');
-const { loadIssueTypes, findIssueTypeByNameOrAlias } = require('../../scripts/utility/type-lookup');
-const { suggestLabelsFromContent } = require('../../scripts/utility/label-heuristics');
+const { fetchCanonicalLabels, buildLabelAliasMap, findStandardLabel } = require('../../.github/agents/includes/label-lookup');
+const { fetchLabelerRules, applyLabelerRules } = require('../../.github/agents/includes/labeler-utils');
+const { syncLabelsWithCanonical, standardizeLabelsOnRepo } = require('../../.github/agents/includes/label-sync');
+const { enforceOneHotStatus, applyDefaultStatus, applyDefaultPriority } = require('../../.github/agents/includes/status-enforcer');
+const { buildLabelingReport } = require('../../.github/agents/includes/label-reporting');
+const { loadIssueTypes, findIssueTypeByNameOrAlias } = require('../../.github/agents/includes/type-lookup');
+const { suggestLabelsFromContent } = require('../../.github/agents/includes/label-heuristics');
 
 // Example usage in agent's main function:
 async function runLabelingAgent(context, configs, dryRun = false) {

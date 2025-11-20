@@ -16,9 +16,18 @@ describe('Label Standardization Agent', () => {
         expect(labelStandardizationAgent).toBeDefined();
     });
 
-    it('should detect and migrate non-standard labels', () => {
-        // TODO: Implement label migration logic test
-        // Example: Simulate repo with non-standard labels and check migration
+    it('should detect and migrate non-standard labels', async () => {
+        const legacyLabels = [' Bug ', 'Priority: High', 'needs – Review'];
+        const expected = ['bug', 'priority: high', 'needs – review'];
+
+        const result = await labelStandardizationAgent.run({
+            labels: legacyLabels,
+        });
+
+        expect(result).toEqual({ ok: true, count: legacyLabels.length });
+        expect(legacyLabels.map(labelStandardizationAgent.normalize)).toEqual(
+            expected
+        );
     });
 
     it('should handle dry-run and verbose modes', () => {

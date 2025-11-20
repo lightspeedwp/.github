@@ -6,7 +6,7 @@ const {
     setTestEnv,
     resetTestEnv,
     expectCommentPosted,
-} = require('../../../tests/test-helpers');
+} = require('../../tests/test-helpers');
 const { runLabelingAgent } = require('../labeling.agent.js');
 
 describe('Labeling Agent', () => {

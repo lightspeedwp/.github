@@ -8,7 +8,7 @@
  * Aligns with Bats tests: test-manage-issue-types.bats
  */
 
-const issueTypeAgent = require('../../.github/agents/issue-type.agent.js');
+const issueTypeAgent = require('../issue-type.agent.js');
 
 describe('Issue Type Assignment Agent', () => {
     it('should initialize without error', () => {

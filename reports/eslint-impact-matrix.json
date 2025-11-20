@@ -1,0 +1,85 @@
+{
+  "timestamp": "2025-11-20T03:17:21.529Z",
+  "matrix": {
+    "quick-wins": [
+      {
+        "rule": "no-prototype-builtins",
+        "count": 2,
+        "percentage": "0.1",
+        "category": "bestPractices",
+        "impact": "medium",
+        "effort": "low",
+        "autoFixable": true,
+        "priority": "medium",
+        "reasoning": "Edge case bugs in prototype chain usage, auto-fixable"
+      }
+    ],
+    "strategic": [],
+    "incremental": [
+      {
+        "rule": "prettier/prettier",
+        "count": 2310,
+        "percentage": "64.0",
+        "category": "style",
+        "impact": "low",
+        "effort": "low",
+        "autoFixable": true,
+        "priority": "quick-win",
+        "reasoning": "Formatting only, zero runtime impact, fully auto-fixable with --fix"
+      },
+      {
+        "rule": "no-unused-vars",
+        "count": 32,
+        "percentage": "0.9",
+        "category": "correctness",
+        "impact": "low",
+        "effort": "low",
+        "autoFixable": true,
+        "priority": "quick-win",
+        "reasoning": "Code cleanliness, easy to remove unused declarations"
+      },
+      {
+        "rule": "no-useless-escape",
+        "count": 2,
+        "percentage": "0.1",
+        "category": "bestPractices",
+        "impact": "low",
+        "effort": "low",
+        "autoFixable": true,
+        "priority": "quick-win",
+        "reasoning": "Readability improvement, auto-fixable"
+      }
+    ],
+    "evaluate": [
+      {
+        "rule": "no-undef",
+        "count": 1263,
+        "percentage": "35.0",
+        "category": "correctness",
+        "impact": "high",
+        "effort": "medium",
+        "autoFixable": false,
+        "priority": "high",
+        "reasoning": "Undefined variables cause runtime errors, requires code review and testing"
+      },
+      {
+        "rule": "unknown",
+        "count": 1,
+        "percentage": "0.0",
+        "category": "bestPractices",
+        "impact": "medium",
+        "effort": "medium",
+        "autoFixable": false,
+        "priority": "evaluate",
+        "reasoning": "Needs manual assessment"
+      }
+    ]
+  },
+  "summary": {
+    "totalIssues": 3610,
+    "autoFixable": 2346,
+    "manualReview": 1264,
+    "quickWinsCount": 2,
+    "strategicCount": 0
+  }
+}

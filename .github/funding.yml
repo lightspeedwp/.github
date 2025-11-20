@@ -1,6 +1,10 @@
 # Sponsorship options for lightspeedwp
 
-github: [lightspeedwp]
+github: lightspeedwp
+patreon: LightSpeedWP
+open_collective: tourpress
+buy_me_a_coffee: lightspeedwp
+thanks_dev: u/gh/lightspeedwp
 
 custom:
   # Company
@@ -21,5 +25,5 @@ custom:
   - ["https://github.com/lightspeedwp/tour-operator", "Tour Operator GitHub Repo"]
   - ["https://www.wetu.com", "Sponsored by Wetu"]
 
-# Note: 
+# Note:
 # - The custom field supports either a string URL, or a two-item array [URL, label/domain] per the GitHub documentation.

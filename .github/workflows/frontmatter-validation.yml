@@ -126,5 +126,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '⚠️ **Frontmatter validation failed**\n\nPlease check the workflow logs for details and ensure all frontmatter follows the schema at `schemas/frontmatter/frontmatter.schema.json`.\n\nSee [Frontmatter Documentation](https://github.com/lightspeedwp/.github/blob/develop/schemas/frontmatter/README.md) for guidance.'
+              body: '⚠️ **Frontmatter validation failed**\n\nPlease check the workflow logs for details and ensure all frontmatter follows the schema at `schemas/frontmatter.schema.json`.\n\nSee [Frontmatter Documentation](https://github.com/lightspeedwp/.github/blob/develop/schemas/frontmatter/README.md) for guidance.'
             })

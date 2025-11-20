@@ -24,8 +24,13 @@ function fetchCanonicalLabels(labelsYmlPath = '.github/labels.yml') {
  */
 function buildLabelAliasMap(labelsData) {
     const aliasMap = {};
+    if (!labelsData) return aliasMap;
     labelsData.forEach((label) => {
-        if (typeof label === 'object' && Array.isArray(label.aliases)) {
+        if (
+            label &&
+            typeof label === 'object' &&
+            Array.isArray(label.aliases)
+        ) {
             label.aliases.forEach((alias) => {
                 aliasMap[alias] = label.name;
             });

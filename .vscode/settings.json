@@ -1,7 +1,7 @@
 {
     "github.copilot.chat.virtualTools.threshold": 128,
     "github.copilot.chat.enableMcp": true,
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "github.copilot.chat.allowMcpPrompts": true,
     "github.copilot.chat.allowMcpResources": true,
     "github.copilot.chat.mcpConfigFile": ".vscode/mcp.json",

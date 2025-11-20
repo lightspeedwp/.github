@@ -19,7 +19,9 @@ function findReadmeFiles(dir = '.') {
         if (entry.isDirectory() && !entry.name.startsWith('.git')) {
             results = results.concat(findReadmeFiles(fullPath));
         } else if (/^README.*\.md$/i.test(entry.name)) {
-            results.push(fullPath);
+            const rel = path.relative('.', fullPath); // normalize relative path from repo root
+            const prefixed = rel.startsWith('./') ? rel : `./${rel}`;
+            results.push(prefixed);
         }
     });
     return results;

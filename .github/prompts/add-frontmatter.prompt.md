@@ -22,5 +22,5 @@ Inspect the frontmatter of the current Markdown or instruction file. If frontmat
 5. **Do not alter** the main body or content of the file.
 
 **Reference:**  
-See [Copilot Frontmatter Instructions](../instructions/copilot-frontmatter.instructions.md) for full field definitions and examples.
+See [frontmatter schema](../../schemas/frontmatter.schema.json) for requirements.
 

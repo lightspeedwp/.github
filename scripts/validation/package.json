@@ -2,6 +2,16 @@
   "name": "@lightspeedwp/frontmatter-validation",
   "version": "1.0.0",
   "description": "Frontmatter validation scripts for LightSpeedWP .github repository",
+  "license": "GPL-3.0-or-later",
+  "author": "LightSpeedWP Team",
+  "repository": "https://github.com/lightspeedwp/.github.git",
+  "keywords": [
+    "frontmatter",
+    "validation",
+    "yaml",
+    "schema",
+    "lightspeed"
+  ],
   "main": "validate-frontmatter.js",
   "scripts": {
     "validate": "node validate-frontmatter.js",
@@ -13,8 +23,8 @@
   "dependencies": {
     "ajv": "^8.12.0",
     "ajv-formats": "^2.1.1",
-    "js-yaml": "^4.1.0",
-    "glob": "^10.3.0"
+    "glob": "^10.3.0",
+    "js-yaml": "^4.1.0"
   },
   "devDependencies": {
     "jest": "^29.7.0"
@@ -27,14 +37,5 @@
       "!**/__tests__/**",
       "!**/node_modules/**"
     ]
-  },
-  "keywords": [
-    "frontmatter",
-    "validation",
-    "yaml",
-    "schema",
-    "lightspeed"
-  ],
-  "author": "LightSpeedWP Team",
-  "license": "MIT"
+  }
 }

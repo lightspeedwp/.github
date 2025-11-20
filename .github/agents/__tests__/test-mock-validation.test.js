@@ -21,7 +21,7 @@ const {
     mockPrPayload,
     mockIssuePayload,
     mockContext,
-} = require('../../../tests/utility/test-helpers');
+} = require('../../../tests/test-helpers');
 
 describe('Mock and Test Helper Validation', () => {
     beforeAll(() => setTestEnv({ GITHUB_TOKEN: 'test-token' }));

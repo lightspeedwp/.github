@@ -36,7 +36,10 @@ To make documentation more engaging and scannable, you should add relevant emoji
 
 - [Header & Footer Agent Spec](./header-footer.agent.md)
 - [Header & Footer Instructions](./header-footer.instructions.md)
+- [Header Schema](../../schemas/header.schema.json)
+- [Footer Schema](../../schemas/footer.schema.json)
 - [Header/Footer Schema](../../schemas/header-footer.schema.json)
+- [Header-Footer Agent Config Schema](../../schemas/header-footer-agent/agent-config.schema.json)
 - [LightSpeedWP Documentation Hub](../../docs/README.md)
 
 ---

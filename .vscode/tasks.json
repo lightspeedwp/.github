@@ -90,14 +90,6 @@
             "type": "npm",
             "script": "test:js",
             "detail": "Runs Jest unit tests with coverage."
-        },
-        {
-            "label": "e2e: test",
-            "type": "shell",
-            "command": "npx playwright test",
-            "group": "test",
-            "problemMatcher": [],
-            "detail": "Runs Playwright E2E tests."
         }
     ]
 }

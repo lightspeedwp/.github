@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Header Config Schema",
+  "description": "Schema for defining sets of header variants by file type or category.",
+  "type": "object",
+  "properties": {
+    "headers": {
+      "type": "object",
+      "description": "Header variants by file type or category.",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "minProperties": 1
+    }
+  },
+  "required": ["headers"]
+}

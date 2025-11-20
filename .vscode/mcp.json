@@ -1,21 +1,23 @@
 {
   "mcpServers": {
-    // GitHub MCP Server with full support (repos, issues, PRs, Copilot Spaces)
-    "github": {
-      "command": "npx",
-      "args": [
-        "@modelcontextprotocol/server-github"
-      ],
-      "env": {
-        "GITHUB_AUTH_TYPE": "oauth"
+      // GitHub MCP Server with full support (repos, issues, PRs, Copilot Spaces)
+      "github": {
+          "command": "npx",
+          "args": ["@modelcontextprotocol/server-github"],
+          "env": {
+              "GITHUB_AUTH_TYPE": "oauth"
+          }
+      },
+      // Awesome Copilot MCP Server
+      "awesome-copilot": {
+          "type": "stdio",
+          "command": "docker",
+          "args": [
+              "run",
+              "-i",
+              "--rm",
+              "ghcr.io/microsoft/mcp-dotnet-samples/awesome-copilot:latest"
+          ]
       }
-    },
-    // Playwright MCP Server for E2E testing integration
-    "playwright": {
-      "command": "npx",
-      "args": [
-        "@modelcontextprotocol/server-playwright"
-      ]
-    }
   }
 }

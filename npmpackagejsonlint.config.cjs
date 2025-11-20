@@ -103,24 +103,24 @@ module.exports = {
      */
     rules: {
         // --- Naming & scope rules ---
-            'name-format': nameFormat,
-            // Scope validation remains disabled until an allowed scope list is defined.
-            'valid-values-name-scope': 'off',
+        'name-format': nameFormat,
+        // Scope validation for @lightspeedwp organization packages
+        'valid-values-name-scope': ['error', ['@lightspeedwp']],
 
         // --- Version rules ---
-            'version-format': strictMode ? 'error' : 'warning',
+        'version-format': strictMode ? 'error' : 'warning',
 
         // --- Required metadata (env toggles) ---
-            'require-description': requireDescription ? 'error' : 'off',
-            'require-license': requireLicense ? 'error' : 'off',
-            'require-repository': requireRepository ? 'error' : 'off',
-            'require-author': requireAuthor ? 'error' : 'off',
+        'require-description': requireDescription ? 'error' : 'off',
+        'require-license': requireLicense ? 'error' : 'off',
+        'require-repository': requireRepository ? 'error' : 'off',
+        'require-author': requireAuthor ? 'error' : 'off',
 
         // --- Type checks (low risk, ensure JSON shape consistency) ---
-            'description-type': 'error',
-            'license-type': 'error',
-            'repository-type': 'error',
-            'keywords-type': 'error',
+        'description-type': 'error',
+        'license-type': 'error',
+        'repository-type': 'error',
+        'keywords-type': 'error',
 
         // --- Ordering (optional) ---
         'prefer-property-order': disableOrder
@@ -128,7 +128,7 @@ module.exports = {
             : ['warning', preferredOrder],
 
         // --- License values ---
-            'valid-values-license': ['warning', ['GPL-3.0-or-later']],
+        'valid-values-license': ['error', ['GPL-3.0-or-later']],
     },
 };
 

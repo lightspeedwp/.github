@@ -8,7 +8,7 @@ stability: "stable"
 domain: "governance"
 deprecated: false
 references:
-  - path: "schemas/frontmatter.schema.json"
+  - path: "reference [schemas/frontmatter.schema.json](../../schemas/frontmatter.schema.json)"
     description: "Unified frontmatter schema definition"
   - path: ".github/instructions/tagging-and-frontmatter-conventions.instructions.md"
     description: "Frontmatter implementation guidelines"

@@ -62,7 +62,7 @@ jobs:
 
       - uses: avto-dev/markdown-lint@v1
         with:
-          config: 'markdownlint.config.js'
+          config: 'markdownlint.config.cjs'
           args: '**/*.md'
 
       - name: Check Links
