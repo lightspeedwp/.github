@@ -7,7 +7,16 @@ maintainer: "Ash Shaw"
 description: "Scripts for repository maintenance, automation, and quality assurance. Enforces standards, keeps documentation up-to-date, and streamlines development tasks."
 file_type: "maintenance"
 status: "production"
-tags: ["maintenance", "automation", "documentation", "labels", "badges", "changelog", "testing"]
+tags:
+  [
+    "maintenance",
+    "automation",
+    "documentation",
+    "labels",
+    "badges",
+    "changelog",
+    "testing",
+  ]
 license: "GPL-3.0"
 repository: "https://github.com/lightspeedwp/.github"
 ai_references:
@@ -39,24 +48,24 @@ graph TB
     A --> C[Label Management]
     A --> D[Badge Updates]
     A --> E[Quality Assurance]
-    
+
     B --> F[find-readmes.sh]
     B --> G[folder-and-file-readmes.sh]
     B --> H[update-readme-and-changelog.sh]
-    
+
     C --> I[prune-labels.sh]
     C --> J[sync-org-labels.sh]
-    
+
     D --> K[update-badges.sh]
-    
+
     E --> L[validate-changelog-links.sh]
     E --> M[test-pr-labeler.sh]
     E --> N[run-maintenance-tests.sh]
-    
+
     O[CI/CD Pipeline] --> A
     P[Pre-commit Hooks] --> A
     Q[Scheduled Tasks] --> A
-    
+
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#e8f5e8
@@ -88,7 +97,7 @@ sequenceDiagram
     participant Badges as Badge Update
     participant Validate as Validation
     participant Report as Reporting
-    
+
     Trigger->>Doc: find-readmes.sh
     Doc->>Doc: folder-and-file-readmes.sh
     Doc->>Labels: sync-org-labels.sh
@@ -97,7 +106,7 @@ sequenceDiagram
     Badges->>Validate: validate-changelog-links.sh
     Validate->>Report: run-maintenance-tests.sh
     Report->>Trigger: Complete maintenance cycle
-    
+
     Note over Trigger,Report: Automated maintenance pipeline
 ```
 
@@ -128,4 +137,4 @@ sequenceDiagram
 
 ---
 
-_⚙️ Maintaining excellence through automated repository management and quality assurance._
+*⚙️ Maintaining excellence through automated repository management and quality assurance.*

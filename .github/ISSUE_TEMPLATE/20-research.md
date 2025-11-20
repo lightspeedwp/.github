@@ -5,7 +5,7 @@ title: "[Research] <Brief summary>"
 labels: [type:research, status:needs-review, priority:minor, area:core]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: research
 references:
   - ../CONTRIBUTING.md

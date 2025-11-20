@@ -1,6 +1,6 @@
 ---
 file_type: "instructions"
-applyTo: ['**/*.css', '**/*.scss', '**/*.sass']
+applyTo: ["**/*.css", "**/*.scss", "**/*.sass"]
 description: "Enforce WordPress CSS coding standards, naming, specificity and formatting."
 last_updated: "2025-10-19"
 version: "v1.0"
@@ -77,20 +77,25 @@ Correct:
 #selector-1,
 #selector-2,
 #selector-3 {
- background: #fff;
- color: #000;
+  background: #fff;
+  color: #000;
 }
 ```
 
 Incorrect:
 
 ```css
-#selector-1, #selector-2, #selector-3 {
- background: #fff;
- color: #000;
- }
+#selector-1,
+#selector-2,
+#selector-3 {
+  background: #fff;
+  color: #000;
+}
 
-#selector-1 { background: #fff; color: #000; }
+#selector-1 {
+  background: #fff;
+  color: #000;
+}
 ```
 
 ## Selectors
@@ -106,11 +111,11 @@ Correct:
 
 ```css
 #comment-form {
- margin: 1em 0;
+  margin: 1em 0;
 }
 
 input[type="text"] {
- line-height: 1.1;
+  line-height: 1.1;
 }
 ```
 
@@ -151,10 +156,10 @@ Correct:
 
 ```css
 #selector-1 {
- background: #fff;
- display: block;
- margin: 0;
- margin-left: 20px;
+  background: #fff;
+  display: block;
+  margin: 0;
+  margin-left: 20px;
 }
 ```
 
@@ -162,10 +167,10 @@ Incorrect:
 
 ```css
 #selector-1 {
- background:#FFFFFF;
- display: BLOCK;
- margin-left: 20PX;
- margin: 0;
+  background: #ffffff;
+  display: BLOCK;
+  margin-left: 20px;
+  margin: 0;
 }
 ```
 
@@ -190,11 +195,11 @@ Example:
 
 ```css
 #overlay {
- position: absolute;
- z-index: 1;
- padding: 10px;
- background: #fff;
- color: #777;
+  position: absolute;
+  z-index: 1;
+  padding: 10px;
+  background: #fff;
+  color: #777;
 }
 ```
 
@@ -204,11 +209,11 @@ Example:
 
 ```css
 #overlay {
- background: #fff;
- color: #777;
- padding: 10px;
- position: absolute;
- z-index: 1;
+  background: #fff;
+  color: #777;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
 }
 ```
 
@@ -220,9 +225,9 @@ We use [Autoprefixer](https://github.com/postcss/autoprefixer) as a pre-commit t
 
 ```css
 .sample-output {
- -webkit-box-shadow: inset 0 0 1px 1px #eee;
- -moz-box-shadow: inset 0 0 1px 1px #eee;
- box-shadow: inset 0 0 1px 1px #eee;
+  -webkit-box-shadow: inset 0 0 1px 1px #eee;
+  -moz-box-shadow: inset 0 0 1px 1px #eee;
+  box-shadow: inset 0 0 1px 1px #eee;
 }
 ```
 
@@ -325,7 +330,7 @@ For sections and subsections:
  */
 
 .selector {
- float: left;
+  float: left;
 }
 ```
 
@@ -334,8 +339,8 @@ For inline:
 ```css
 /* This is a comment about this selector */
 .another-selector {
- position: absolute;
- top: 0 !important; /* I should explain why this is so !important */
+  position: absolute;
+  top: 0 !important; /* I should explain why this is so !important */
 }
 ```
 

@@ -17,37 +17,37 @@
 
 ## Agent Test Status
 
-| Agent | Tests | Notes |
-|-------|-------|-------|
-| _TBD_ | ⏳    | Awaiting test implementation |
+| Agent | Tests | Notes                        |
+| ----- | ----- | ---------------------------- |
+| *TBD* | ⏳    | Awaiting test implementation |
 
 > **Note:** As agents are developed and tested, this table will be updated with their status. ✅ indicates passing tests, ❌ indicates failing tests, and ⏳ indicates tests pending implementation.
 
 ## Global Principles & Agent Rules
 
-| Principle / Rule                   | Guidance / Details                                                                                  |
-|------------------------------------|-----------------------------------------------------------------------------------------------------|
-| **Language**                       | Use UK English; optimise for clarity, scalability, maintainability, and profitable outcomes.         |
-| **Modularity**                     | Prefer minimal, modular solutions; justify heavier tools with ROI and maintenance cost.              |
-| **Coding Standards**               | Follow [Coding Standards Instructions](.github/instructions/coding-standards.instructions.md) and [Linting Instructions](.github/instructions/linting.instructions.md) for all code (CSS, HTML, JS, PHP, etc.). |
-| **Code Changes**                   | All code changes must include lint fixes, relevant tests, and a short rationale summarising the change.|
-| **Security**                       | Never output secrets. Treat production and customer data as sensitive. Follow OWASP top 10.          |
-| **Accessibility & Performance**    | Non-negotiable; highlight potential issues during reviews.                                           |
-| **WordPress Block Usage**          | Prefer `theme.json` and block components over bespoke code to avoid vendor lock-in.                  |
-| **Safe Defaults & Questions**      | When unsure, propose safe defaults and ask one focused question to clarify requirements.             |
+| Principle / Rule                | Guidance / Details                                                                                                                                                                                              |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Language**                    | Use UK English; optimise for clarity, scalability, maintainability, and profitable outcomes.                                                                                                                    |
+| **Modularity**                  | Prefer minimal, modular solutions; justify heavier tools with ROI and maintenance cost.                                                                                                                         |
+| **Coding Standards**            | Follow [Coding Standards Instructions](.github/instructions/coding-standards.instructions.md) and [Linting Instructions](.github/instructions/linting.instructions.md) for all code (CSS, HTML, JS, PHP, etc.). |
+| **Code Changes**                | All code changes must include lint fixes, relevant tests, and a short rationale summarising the change.                                                                                                         |
+| **Security**                    | Never output secrets. Treat production and customer data as sensitive. Follow OWASP top 10.                                                                                                                     |
+| **Accessibility & Performance** | Non-negotiable; highlight potential issues during reviews.                                                                                                                                                      |
+| **WordPress Block Usage**       | Prefer `theme.json` and block components over bespoke code to avoid vendor lock-in.                                                                                                                             |
+| **Safe Defaults & Questions**   | When unsure, propose safe defaults and ask one focused question to clarify requirements.                                                                                                                        |
 
 ---
 
 ## Contribution Guidelines & Indexes
 
-| Area                      | File Reference                                                                               | Notes / Usage                           |
-|---------------------------|----------------------------------------------------------------------------------------------|-----------------------------------------|
-| **Coding Standards**      | [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)         | Unified standards for all code          |
-| **Linting Standards**     | [.github/instructions/linting.instructions.md](.github/instructions/linting.instructions.md)                           | Main index for all linting rules        |
-| **HTML Templates**        | [.github/instructions/html-template.instructions.md](.github/instructions/html-template.instructions.md)                | Markup standards                        |
-| **Pattern Development**   | [.github/instructions/pattern-development.instructions.md](.github/instructions/pattern-development.instructions.md)     | Block patterns for WordPress            |
-| **PHP Block Instructions**| [.github/instructions/php-block.instructions.md](.github/instructions/php-block.instructions.md)                       | PHP block usage                         |
-| **Theme JSON**            | [.github/instructions/theme-json.instructions.md](.github/instructions/theme-json.instructions.md)                     | Theme configuration standards           |
+| Area                       | File Reference                                                                                                       | Notes / Usage                    |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| **Coding Standards**       | [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)       | Unified standards for all code   |
+| **Linting Standards**      | [.github/instructions/linting.instructions.md](.github/instructions/linting.instructions.md)                         | Main index for all linting rules |
+| **HTML Templates**         | [.github/instructions/html-template.instructions.md](.github/instructions/html-template.instructions.md)             | Markup standards                 |
+| **Pattern Development**    | [.github/instructions/pattern-development.instructions.md](.github/instructions/pattern-development.instructions.md) | Block patterns for WordPress     |
+| **PHP Block Instructions** | [.github/instructions/php-block.instructions.md](.github/instructions/php-block.instructions.md)                     | PHP block usage                  |
+| **Theme JSON**             | [.github/instructions/theme-json.instructions.md](.github/instructions/theme-json.instructions.md)                   | Theme configuration standards    |
 
 **Other Key Indexes:**
 
@@ -75,12 +75,12 @@ Start here for all key standards:
 
 ## Cross-References & Discoverability
 
-| Resource Name           | Reference                                                               | Purpose / Notes                                          |
-|------------------------|-------------------------------------------------------------------------|---------------------------------------------------------|
-| **Custom Instructions** | [.github/custom-instructions.md](.github/custom-instructions.md)        | Central Copilot/org instructions, prompts, and standards |
-| **Main Agent Index**    | [.github/agents/agent.md](.github/agents/agent.md)                      | Directory of agent specs, stubs, usage, implementation   |
-| **Chat Modes Index**    | [.github/chatmodes/chatmodes.md](.github/chatmodes/chatmodes.md)        | List and guidance for all chat modes                     |
-| **Prompts Index**       | [.github/prompts/prompts.md](.github/prompts/prompts.md)                | Master prompt index and authoring conventions            |
+| Resource Name           | Reference                                                        | Purpose / Notes                                          |
+| ----------------------- | ---------------------------------------------------------------- | -------------------------------------------------------- |
+| **Custom Instructions** | [.github/custom-instructions.md](.github/custom-instructions.md) | Central Copilot/org instructions, prompts, and standards |
+| **Main Agent Index**    | [.github/agents/agent.md](.github/agents/agent.md)               | Directory of agent specs, stubs, usage, implementation   |
+| **Chat Modes Index**    | [.github/chatmodes/chatmodes.md](.github/chatmodes/chatmodes.md) | List and guidance for all chat modes                     |
+| **Prompts Index**       | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Master prompt index and authoring conventions            |
 
 ---
 

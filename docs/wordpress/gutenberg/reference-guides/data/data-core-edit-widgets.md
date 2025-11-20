@@ -10,12 +10,12 @@ Namespace: `core/edit-widgets`.
 
 Returns true if a block can be inserted into a widget area.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Array`: The open state of the widget areas.
-- _blockName_ `string`: The name of the block being inserted.
+- *state* `Array`: The open state of the widget areas.
+- *blockName* `string`: The name of the block being inserted.
 
-_Returns_
+*Returns*
 
 - `boolean`: True if the block can be inserted in a widget area.
 
@@ -23,7 +23,7 @@ _Returns_
 
 Returns all edited widget area entity records.
 
-_Returns_
+*Returns*
 
 - `Object[]`: List of edited widget area entity records.
 
@@ -31,12 +31,12 @@ _Returns_
 
 Gets whether the widget area is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Array`: The open state of the widget areas.
-- _clientId_ `string`: The clientId of the widget area.
+- *state* `Array`: The open state of the widget areas.
+- *clientId* `string`: The clientId of the widget area.
 
-_Returns_
+*Returns*
 
 - `boolean`: True if the widget area is open.
 
@@ -44,11 +44,11 @@ _Returns_
 
 Given a child client id, returns the parent widget area block.
 
-_Parameters_
+*Parameters*
 
-- _clientId_ `string`: The client id of a block in a widget area.
+- *clientId* `string`: The client id of a block in a widget area.
 
-_Returns_
+*Returns*
 
 - `WPBlock`: The widget area block.
 
@@ -56,11 +56,11 @@ _Returns_
 
 Returns all blocks representing reference widgets.
 
-_Parameters_
+*Parameters*
 
-- _referenceWidgetName_ `string`: Optional. If given, only reference widgets with this name will be returned.
+- *referenceWidgetName* `string`: Optional. If given, only reference widgets with this name will be returned.
 
-_Returns_
+*Returns*
 
 - `Array`: List of all blocks representing reference widgets
 
@@ -68,11 +68,11 @@ _Returns_
 
 Returns API widget data for a particular widget ID.
 
-_Parameters_
+*Parameters*
 
-- _id_ `number`: Widget ID.
+- *id* `number`: Widget ID.
 
-_Returns_
+*Returns*
 
 - `Object`: API widget data for a particular widget ID.
 
@@ -80,11 +80,11 @@ _Returns_
 
 Returns widgetArea containing a block identify by given widgetId
 
-_Parameters_
+*Parameters*
 
-- _widgetId_ `string`: The ID of the widget.
+- *widgetId* `string`: The ID of the widget.
 
-_Returns_
+*Returns*
 
 - `Object`: Containing widget area.
 
@@ -92,7 +92,7 @@ _Returns_
 
 Returns all API widget areas.
 
-_Returns_
+*Returns*
 
 - `Object[]`: API List of widget areas.
 
@@ -100,7 +100,7 @@ _Returns_
 
 Returns all API widgets.
 
-_Returns_
+*Returns*
 
 - `Object[]`: API List of widgets.
 
@@ -108,11 +108,11 @@ _Returns_
 
 Returns true if the inserter is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the inserter is opened.
 
@@ -120,11 +120,11 @@ _Returns_
 
 Returns true if the list view is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the list view is opened.
 
@@ -132,7 +132,7 @@ _Returns_
 
 Returns true if any widget area is currently being saved.
 
-_Returns_
+*Returns*
 
 - `boolean`: True if any widget area is currently being saved. False otherwise.
 
@@ -140,29 +140,32 @@ _Returns_
 
 Returns whether widget saving is locked.
 
-_Usage_
+*Usage*
 
 ```jsx
-import { __ } from '@wordpress/i18n';
-import { store as widgetStore } from '@wordpress/edit-widgets';
-import { useSelect } from '@wordpress/data';
+import { __ } from "@wordpress/i18n";
+import { store as widgetStore } from "@wordpress/edit-widgets";
+import { useSelect } from "@wordpress/data";
 
 const ExampleComponent = () => {
-  const isSavingLocked = useSelect((select) => select(widgetStore).isWidgetSavingLocked(), []);
+  const isSavingLocked = useSelect(
+    (select) => select(widgetStore).isWidgetSavingLocked(),
+    [],
+  );
 
   return isSavingLocked ? (
-    <p>{__('Widget saving is locked')}</p>
+    <p>{__("Widget saving is locked")}</p>
   ) : (
-    <p>{__('Widget saving is not locked')}</p>
+    <p>{__("Widget saving is not locked")}</p>
   );
 };
 ```
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Is locked.
 
@@ -176,7 +179,7 @@ _Returns_
 
 Returns an action object signalling that the user closed the sidebar.
 
-_Returns_
+*Returns*
 
 - `Object`: Action creator.
 
@@ -184,23 +187,27 @@ _Returns_
 
 Returns an action object used to signal that widget saving is locked.
 
-_Usage_
+*Usage*
 
 ```js
-import { store as widgetStore } from '@wordpress/edit-widgets';
-import { useDispatch } from '@wordpress/data';
+import { store as widgetStore } from "@wordpress/edit-widgets";
+import { useDispatch } from "@wordpress/data";
 
 const ExampleComponent = () => {
   const { lockWidgetSaving } = useDispatch(widgetStore);
-  return <Button onClick={() => lockWidgetSaving('lockName')}>{__('Lock Widget Saving')}</Button>;
+  return (
+    <Button onClick={() => lockWidgetSaving("lockName")}>
+      {__("Lock Widget Saving")}
+    </Button>
+  );
 };
 ```
 
-_Parameters_
+*Parameters*
 
-- _lockName_ `string`: The lock name.
+- *lockName* `string`: The lock name.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 
@@ -208,21 +215,21 @@ _Returns_
 
 Action that handles moving a block between widget areas
 
-_Parameters_
+*Parameters*
 
-- _clientId_ `string`: The clientId of the block to move.
-- _widgetAreaId_ `string`: The id of the widget area to move the block to.
+- *clientId* `string`: The clientId of the block to move.
+- *widgetAreaId* `string`: The id of the widget area to move the block to.
 
 ### persistStubPost
 
 Persists a stub post with given ID to core data store. The post is meant to be in-memory only and shouldn't be saved via the API.
 
-_Parameters_
+*Parameters*
 
-- _id_ `string`: Post ID.
-- _blocks_ `Array`: Blocks the post should consist of.
+- *id* `string`: Post ID.
+- *blocks* `Array`: Blocks the post should consist of.
 
-_Returns_
+*Returns*
 
 - `Object`: The post object.
 
@@ -232,7 +239,7 @@ Converts all the blocks from edited widget areas into widgets, and submits a bat
 
 Creates a snackbar notice on either success or error.
 
-_Returns_
+*Returns*
 
 - `Function`: An action creator.
 
@@ -240,11 +247,11 @@ _Returns_
 
 Converts all the blocks from a widget area specified by ID into widgets, and submits a batch request to save everything at once.
 
-_Parameters_
+*Parameters*
 
-- _widgetAreaId_ `string`: ID of the widget area to process.
+- *widgetAreaId* `string`: ID of the widget area to process.
 
-_Returns_
+*Returns*
 
 - `Function`: An action creator.
 
@@ -252,11 +259,11 @@ _Returns_
 
 Converts all the blocks from specified widget areas into widgets, and submits a batch request to save everything at once.
 
-_Parameters_
+*Parameters*
 
-- _widgetAreas_ `Object[]`: Widget areas to save.
+- *widgetAreas* `Object[]`: Widget areas to save.
 
-_Returns_
+*Returns*
 
 - `Function`: An action creator.
 
@@ -264,13 +271,13 @@ _Returns_
 
 Returns an action object used to open/close the inserter.
 
-_Parameters_
+*Parameters*
 
-- _value_ `boolean|Object`: Whether the inserter should be opened (true) or closed (false). To specify an insertion point, use an object.
-- _value.rootClientId_ `string`: The root client ID to insert at.
-- _value.insertionIndex_ `number`: The index to insert at.
+- *value* `boolean|Object`: Whether the inserter should be opened (true) or closed (false). To specify an insertion point, use an object.
+- *value.rootClientId* `string`: The root client ID to insert at.
+- *value.insertionIndex* `number`: The index to insert at.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -278,11 +285,11 @@ _Returns_
 
 Returns an action object used to open/close the list view.
 
-_Parameters_
+*Parameters*
 
-- _isOpen_ `boolean`: A boolean representing whether the list view should be opened or closed.
+- *isOpen* `boolean`: A boolean representing whether the list view should be opened or closed.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -290,12 +297,12 @@ _Returns_
 
 Sets the open state of the widget area.
 
-_Parameters_
+*Parameters*
 
-- _clientId_ `string`: The clientId of the widget area.
-- _isOpen_ `boolean`: Whether the widget area should be opened.
+- *clientId* `string`: The clientId of the widget area.
+- *isOpen* `boolean`: Whether the widget area should be opened.
 
-_Returns_
+*Returns*
 
 - `Object`: Action.
 
@@ -303,11 +310,11 @@ _Returns_
 
 Sets the open state of all the widget areas.
 
-_Parameters_
+*Parameters*
 
-- _widgetAreasOpenState_ `Object`: The open states of all the widget areas.
+- *widgetAreasOpenState* `Object`: The open states of all the widget areas.
 
-_Returns_
+*Returns*
 
 - `Object`: Action.
 
@@ -315,12 +322,12 @@ _Returns_
 
 Sets the clientId stored for a particular widgetId.
 
-_Parameters_
+*Parameters*
 
-- _clientId_ `number`: Client id.
-- _widgetId_ `number`: Widget id.
+- *clientId* `number`: Client id.
+- *widgetId* `number`: Widget id.
 
-_Returns_
+*Returns*
 
 - `Object`: Action.
 
@@ -328,25 +335,27 @@ _Returns_
 
 Returns an action object used to signal that widget saving is unlocked.
 
-_Usage_
+*Usage*
 
 ```js
-import { store as widgetStore } from '@wordpress/edit-widgets';
-import { useDispatch } from '@wordpress/data';
+import { store as widgetStore } from "@wordpress/edit-widgets";
+import { useDispatch } from "@wordpress/data";
 
 const ExampleComponent = () => {
   const { unlockWidgetSaving } = useDispatch(widgetStore);
   return (
-    <Button onClick={() => unlockWidgetSaving('lockName')}>{__('Unlock Widget Saving')}</Button>
+    <Button onClick={() => unlockWidgetSaving("lockName")}>
+      {__("Unlock Widget Saving")}
+    </Button>
   );
 };
 ```
 
-_Parameters_
+*Parameters*
 
-- _lockName_ `string`: The lock name.
+- *lockName* `string`: The lock name.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 

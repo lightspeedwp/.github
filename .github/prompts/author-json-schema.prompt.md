@@ -3,6 +3,7 @@ description: "Draft a JSON Schema from sample data and business rules."
 mode: "ask"
 model: "GPT-4"
 ---
+
 Using provided example JSON objects and rules, draft a comprehensive JSON Schema. Include:
 
 1. `$id` and `$schema` declarations.

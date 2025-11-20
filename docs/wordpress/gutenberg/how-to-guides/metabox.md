@@ -67,20 +67,23 @@ The hook `useEntityProp` can be used by the blocks to get or change meta values.
 Add this code to the JavaScript `src/index.js`:
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import { TextControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { useEntityProp } from '@wordpress/core-data';
-import { useBlockProps } from '@wordpress/block-editor';
+import { registerBlockType } from "@wordpress/blocks";
+import { TextControl } from "@wordpress/components";
+import { useSelect } from "@wordpress/data";
+import { useEntityProp } from "@wordpress/core-data";
+import { useBlockProps } from "@wordpress/block-editor";
 
-registerBlockType('myguten/meta-block', {
+registerBlockType("myguten/meta-block", {
   edit: ({ setAttributes, attributes }) => {
     const blockProps = useBlockProps();
-    const postType = useSelect((select) => select('core/editor').getCurrentPostType(), []);
+    const postType = useSelect(
+      (select) => select("core/editor").getCurrentPostType(),
+      [],
+    );
 
-    const [meta, setMeta] = useEntityProp('postType', postType, 'meta');
+    const [meta, setMeta] = useEntityProp("postType", postType, "meta");
 
-    const metaFieldValue = meta['myguten_meta_block_field'];
+    const metaFieldValue = meta["myguten_meta_block_field"];
     const updateMetaValue = (newValue) => {
       setMeta({ ...meta, myguten_meta_block_field: newValue });
     };
@@ -185,7 +188,7 @@ This guide showed how using blocks you can read and write to post meta. See the 
 
 Before converting meta boxes to blocks, it may be easier to test if a meta box works with the block editor, and explicitly mark it as such.
 
-If a meta box _doesn't_ work with the block editor, and updating it to work correctly is not an option, the next step is to add the `__block_editor_compatible_meta_box` argument to the meta box declaration:
+If a meta box *doesn't* work with the block editor, and updating it to work correctly is not an option, the next step is to add the `__block_editor_compatible_meta_box` argument to the meta box declaration:
 
 ```php
 add_meta_box( 'my-meta-box', 'My Meta Box', 'my_meta_box_callback',
@@ -229,8 +232,8 @@ Ideally, this could be done at instantiation of the editor and help simplify thi
 
 When rendering the block editor, the meta boxes are rendered to a hidden div `#metaboxes`.
 
-_The Redux store will hold all meta boxes as inactive by default_. When
-`INITIALIZE_META_BOX_STATE` comes in, the store will update any active meta box areas by setting the `isActive` flag to `true`. Once this happens React will check for the new props sent in by Redux on the `MetaBox` component. If that `MetaBox` is now active, instead of rendering null, a `MetaBoxArea` component will be rendered. The `MetaBox` component is the container component that mediates between the `MetaBoxArea` and the Redux Store. _If no meta boxes are active, nothing happens. This will be the default behavior, as all core meta boxes have been stripped._
+*The Redux store will hold all meta boxes as inactive by default*. When
+`INITIALIZE_META_BOX_STATE` comes in, the store will update any active meta box areas by setting the `isActive` flag to `true`. Once this happens React will check for the new props sent in by Redux on the `MetaBox` component. If that `MetaBox` is now active, instead of rendering null, a `MetaBoxArea` component will be rendered. The `MetaBox` component is the container component that mediates between the `MetaBoxArea` and the Redux Store. *If no meta boxes are active, nothing happens. This will be the default behavior, as all core meta boxes have been stripped.*
 
 #### MetaBoxArea component
 
@@ -256,7 +259,7 @@ Most PHP meta boxes should continue to work in the block editor, but some meta b
 - Plugins relying on TinyMCE's API because there's no longer a single TinyMCE instance to talk to in the block editor.
 - Plugins making updates to their DOM on "submit" or on "save".
 
-Please also note that if your plugin triggers a PHP warning or notice to be output on the page, this will cause the HTML document type (`<!DOCTYPE html>`) to be output incorrectly. This will cause the browser to render using "Quirks Mode", which is a compatibility layer that gets enabled when the browser doesn't know what type of document it is parsing. The block editor is not meant to work in this mode, but it can _appear_ to be working just fine. If you encounter issues such as _meta boxes overlaying the editor_ or other layout issues, please check the raw page source of your document to see that the document type definition is the first thing output on the page. There will also be a warning in the JavaScript console, noting the issue.
+Please also note that if your plugin triggers a PHP warning or notice to be output on the page, this will cause the HTML document type (`<!DOCTYPE html>`) to be output incorrectly. This will cause the browser to render using "Quirks Mode", which is a compatibility layer that gets enabled when the browser doesn't know what type of document it is parsing. The block editor is not meant to work in this mode, but it can *appear* to be working just fine. If you encounter issues such as *meta boxes overlaying the editor* or other layout issues, please check the raw page source of your document to see that the document type definition is the first thing output on the page. There will also be a warning in the JavaScript console, noting the issue.
 
 ## Additional resources
 

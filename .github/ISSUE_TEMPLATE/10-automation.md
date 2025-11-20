@@ -5,7 +5,7 @@ title: "[Automation] <Short summary>"
 labels: [type:automation, status:needs-triage, area:automation]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: automation
 references:
   - ../CONTRIBUTING.md
@@ -36,6 +36,7 @@ references:
 ## Acceptance Criteria
 
 <!-- List requirements for completion and verification. Use checkboxes. -->
+
 - [ ] Automation implemented and tested
 - [ ] Documentation updated
 - [ ] No regressions or negative impact

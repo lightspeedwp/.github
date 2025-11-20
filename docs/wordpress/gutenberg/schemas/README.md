@@ -48,7 +48,7 @@ You may wish to update one of the schemas to conform to a new change in the stru
 
 To allow this you will need to:
 
-- update your theme's `theme.json` to reference the _local_ version of the schema file:
+- update your theme's `theme.json` to reference the *local* version of the schema file:
 
 ```json
 {

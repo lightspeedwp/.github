@@ -21,9 +21,11 @@ references:
 - "../../HEADER-FOOTER.md"
 - "./branding.agent.md"
 
-> **Deprecated:** This agent has been superseded by [branding.agent.md](./branding.agent.md). Please use the Branding Agent for unified header, footer, and badge automation.
-
 # Header & Footer Agent Specification (Deprecated)
+
+> **DEPRECATED**: This agent has been superseded by [branding.agent.md](./branding.agent.md). Please use the Branding Agent for unified header, footer, and badge automation. This specification is maintained for reference only.
+
+**Migration Path**: Use [branding.agent.md](./branding.agent.md) instead.
 
 ## Purpose
 

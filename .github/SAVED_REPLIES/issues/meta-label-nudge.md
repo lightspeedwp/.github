@@ -24,7 +24,8 @@ This issue (or PR) is missing a required **meta label** for automation:
 - `meta:needs-changelog`: Please ensure you’ve added a changelog entry if your change is user-facing or impactful.
 - `meta:triage`: Maintainers will triage and route this issue soon.
 
-**References:**  
+**References:**
+
 - [Label Reference](../ISSUE_LABELS.md)
 - [Contribution Guidelines](../../CONTRIBUTING.md)
 

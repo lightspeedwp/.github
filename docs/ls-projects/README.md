@@ -1,11 +1,18 @@
 ---
 file_type: "documentation"
-title: 'LightSpeed Projects Documentation'
-description: 'GitHub Projects templates, automation, and field specifications for LightSpeed workflows'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['github-projects', 'automation', 'templates', 'workflows', 'project-management']
+title: "LightSpeed Projects Documentation"
+description: "GitHub Projects templates, automation, and field specifications for LightSpeed workflows"
+version: "1.0"
+last_updated: "2025-11-12"
+maintainer: "LightSpeed Team"
+tags:
+  [
+    "github-projects",
+    "automation",
+    "templates",
+    "workflows",
+    "project-management",
+  ]
 ---
 
 # LightSpeed Projects Documentation
@@ -103,10 +110,10 @@ Automatically populates:
 
 ## Project Types
 
-| Type | Use Case | Cadence | Automation |
-|------|----------|---------|------------|
-| **Client Delivery** | Client projects, agency work | Sprint-based (1-2 weeks) | Label→Status, Sprint planning |
-| **Product Development** | Internal products, SaaS | Milestone-based (monthly/quarterly) | Epic tracking, Roadmap planning |
+| Type                    | Use Case                     | Cadence                             | Automation                      |
+| ----------------------- | ---------------------------- | ----------------------------------- | ------------------------------- |
+| **Client Delivery**     | Client projects, agency work | Sprint-based (1-2 weeks)            | Label→Status, Sprint planning   |
+| **Product Development** | Internal products, SaaS      | Milestone-based (monthly/quarterly) | Epic tracking, Roadmap planning |
 
 ## Custom Fields
 

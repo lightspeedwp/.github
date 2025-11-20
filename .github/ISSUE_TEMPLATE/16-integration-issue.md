@@ -2,10 +2,11 @@
 name: "🔗 Integration"
 about: "Report or propose integration with external plugins, services, or APIs."
 title: "[Integration] <Short summary>"
-labels: [type:integration, status:needs-triage, priority:normal, area:integration]
+labels:
+  [type:integration, status:needs-triage, priority:normal, area:integration]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: integration
 references:
   - ../CONTRIBUTING.md

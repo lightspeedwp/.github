@@ -1,7 +1,7 @@
 ---
 description: "Prompt for generating an AGENTS.md file for a repository"
 mode: "agent"
-license: 'GPL-3.0'
+license: "GPL-3.0"
 ---
 
 # Create high‑quality AGENTS.md file
@@ -196,21 +196,18 @@ Here's a real example from the agents.md website:
 ## Implementation Steps
 
 1. **Analyse the project structure** to understand:
-
    - Programming languages and frameworks used
    - Package managers and build tools
    - Testing frameworks
    - Project architecture (monorepo, single package, etc.)
 
 2. **Identify key workflows** by examining:
-
    - package.json scripts
    - Makefile or other build files
    - CI/CD configuration files
    - Documentation files
 
 3. **Create comprehensive sections** covering:
-
    - All essential setup and development commands
    - Testing strategies and commands
    - Code style and conventions

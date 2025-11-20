@@ -1,16 +1,16 @@
 ---
-applyTo: '**/*.sh'
-description: 'Best practices for modular shell script development'
-version: '1.0.0'
-author: 'LightSpeed WP Team'
-status: 'production'
+applyTo: "**/*.sh"
+description: "Best practices for modular shell script development"
+version: "1.0.0"
+author: "LightSpeed WP Team"
+status: "production"
 changelog:
-  - '2025-11-18: Initial production version'
-  - '2025-10-17: Initial draft'
-tags: ['modularization', 'shell', 'best-practices', 'performance', 'security']
-feedback: 'Submit suggestions or issues via repository discussions or PR comments.'
-updated: '2025-11-18'
-created: '2025-10-17'
+  - "2025-11-18: Initial production version"
+  - "2025-10-17: Initial draft"
+tags: ["modularization", "shell", "best-practices", "performance", "security"]
+feedback: "Submit suggestions or issues via repository discussions or PR comments."
+updated: "2025-11-18"
+created: "2025-10-17"
 ---
 
 # Best Practices for Shell Script Modularization
@@ -775,4 +775,4 @@ Comprehensive best practices for shell script modularisation ensure maintainable
 
 ---
 
-_Last updated: 2025-11-18 | Version: 1.0.0 | Status: Production_
+*Last updated: 2025-11-18 | Version: 1.0.0 | Status: Production*

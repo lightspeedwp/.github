@@ -2,8 +2,7 @@
 
 ## *Client Delivery Workflow*
 
-***Version:*** 1.1 • ***Last updated:*** 17 Oct 2025  
----
+## ***Version:*** 1.1 • ***Last updated:*** 17 Oct 2025
 
 [Pull Request Changelog Content](#pull-request-changelog-content)  
 [Semantic Versioning with Labels](#semantic-versioning-with-labels)  
@@ -40,8 +39,8 @@ Add a **`## Changelog`** section to every PR (via template). Use **Added/Changed
 
 Apply exactly one of:
 
-- `release:patch` — fixes & small changes  
-- `release:minor` — backwards-compatible features  
+- `release:patch` — fixes & small changes
+- `release:minor` — backwards-compatible features
 - `release:major` — breaking changes
 
 **Overrides**
@@ -53,9 +52,9 @@ Apply exactly one of:
 
 Main-only model: when a PR merges into `main`, the workflow:
 
-1) calculates next version from labels (or `BREAKING CHANGE:`),  
-2) extracts PR “Changelog” notes,  
-3) updates `CHANGELOG.md`, creates a tag and a GitHub Release.
+1. calculates next version from labels (or `BREAKING CHANGE:`),
+2. extracts PR “Changelog” notes,
+3. updates `CHANGELOG.md`, creates a tag and a GitHub Release.
 
 > See sample workflow in your original doc for `pull_request: [closed]` trigger, version calc, notes extraction, and release creation steps.
 

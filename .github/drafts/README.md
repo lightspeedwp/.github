@@ -4,21 +4,21 @@ This directory contains 13 comprehensive issue drafts for improving community he
 
 ## Quick Reference
 
-| Issue | Title | Template Used | Labels | Priority |
-|-------|-------|---------------|--------|----------|
-| **G01** | Relocate front-matter schema to `schemas/frontmatter/` | Documentation | area:docs, devex, v0.2.0 | Normal |
-| **G02** | Fix stale links after automation move | Documentation | area:docs, area:workflows, v0.2.0, link-hygiene | Normal |
-| **G03** | Create `issue-types.yml` or remove references | Automation | area:workflows, labeling, v0.2.0 | Normal |
-| **G04** | Refresh folder READMEs and cross-links | Documentation | area:docs | Normal |
-| **G05** | Fix CHANGELOG/VERSION and add doc-versioning policy | Documentation | area:docs, governance, v0.2.0 | Normal |
-| **G06** | Unify AI instructions/prompts/chat modes | Documentation | area:docs, area:agents | Normal |
-| **G07** | Branding agent: synopsis only or stub | Documentation | area:docs, area:agents | Normal |
-| **G08** | Standardise Mermaid accessibility palette + captions | Accessibility | area:a11y, area:docs | Important |
-| **G09** | Reconcile labeling docs vs YAML configs | Automation | area:workflows, labeling | Normal |
-| **G10** | Publish Governance → Team → Paths matrix | Documentation | governance, area:docs | Normal |
-| **G11** | Create Live Links index | Documentation | area:docs, link-hygiene | Normal |
-| **G12** | Stub strategy + optional sync PRs to child repos | Improvement | area:devex, area:docs | Normal |
-| **G13** | Clarify SECURITY vs SUPPORT routing | Documentation | area:docs, governance, v0.2.0 | Normal |
+| Issue   | Title                                                  | Template Used | Labels                                          | Priority  |
+| ------- | ------------------------------------------------------ | ------------- | ----------------------------------------------- | --------- |
+| **G01** | Relocate front-matter schema to `schemas/frontmatter/` | Documentation | area:docs, devex, v0.2.0                        | Normal    |
+| **G02** | Fix stale links after automation move                  | Documentation | area:docs, area:workflows, v0.2.0, link-hygiene | Normal    |
+| **G03** | Create `issue-types.yml` or remove references          | Automation    | area:workflows, labeling, v0.2.0                | Normal    |
+| **G04** | Refresh folder READMEs and cross-links                 | Documentation | area:docs                                       | Normal    |
+| **G05** | Fix CHANGELOG/VERSION and add doc-versioning policy    | Documentation | area:docs, governance, v0.2.0                   | Normal    |
+| **G06** | Unify AI instructions/prompts/chat modes               | Documentation | area:docs, area:agents                          | Normal    |
+| **G07** | Branding agent: synopsis only or stub                  | Documentation | area:docs, area:agents                          | Normal    |
+| **G08** | Standardise Mermaid accessibility palette + captions   | Accessibility | area:a11y, area:docs                            | Important |
+| **G09** | Reconcile labeling docs vs YAML configs                | Automation    | area:workflows, labeling                        | Normal    |
+| **G10** | Publish Governance → Team → Paths matrix               | Documentation | governance, area:docs                           | Normal    |
+| **G11** | Create Live Links index                                | Documentation | area:docs, link-hygiene                         | Normal    |
+| **G12** | Stub strategy + optional sync PRs to child repos       | Improvement   | area:devex, area:docs                           | Normal    |
+| **G13** | Clarify SECURITY vs SUPPORT routing                    | Documentation | area:docs, governance, v0.2.0                   | Normal    |
 
 ## Files in This Directory
 
@@ -153,13 +153,13 @@ Each issue uses the most appropriate LightSpeed template:
 
 ## Estimated Total Effort
 
-| Effort Level | Count | Total Hours (approx) |
-|--------------|-------|----------------------|
-| Small | 2 | 1-2 hours |
-| Small-Medium | 3 | 4-6 hours |
-| Medium | 6 | 12-18 hours |
-| Medium-Large | 2 | 6-10 hours |
-| **Total** | **13** | **~23-36 hours** |
+| Effort Level | Count  | Total Hours (approx) |
+| ------------ | ------ | -------------------- |
+| Small        | 2      | 1-2 hours            |
+| Small-Medium | 3      | 4-6 hours            |
+| Medium       | 6      | 12-18 hours          |
+| Medium-Large | 2      | 6-10 hours           |
+| **Total**    | **13** | **~23-36 hours**     |
 
 ## Suggested Implementation Order
 

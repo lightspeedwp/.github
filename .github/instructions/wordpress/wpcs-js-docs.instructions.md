@@ -1,6 +1,6 @@
 ---
 file_type: "instructions"
-applyTo: ['**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs']
+applyTo: ["**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs"]
 description: "Enforce WordPress JavaScript inline documentation (JSDoc)."
 last_updated: "2025-10-19"
 version: "v1.0"
@@ -45,8 +45,8 @@ Document public JavaScript modules, functions and classes using JSDoc so that co
  */
 export function formatDate(date) {
   const d = new Date(date);
-  const day = String(d.getDate()).padStart(2, '0');
-  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
   const year = d.getFullYear();
   return `${day}/${month}/${year}`;
 }
@@ -72,20 +72,20 @@ The following is a list of what should be documented in WordPress JavaScript fil
 
 Short descriptions should be clear, simple, and brief. Document "what" and "when" - "why" should rarely need to be included. The "why" can go in the long description if needed. For example:
 
-Functions and closures are _third-person singular_ elements, meaning _third-person singular verbs_ should be used to describe what each does.
+Functions and closures are *third-person singular* elements, meaning *third-person singular verbs* should be used to describe what each does.
 
 [tip]
 Need help remembering how to conjugate for third-person singular verbs? Imagine prefixing the function, hook, class, or method summary with "It":
 
-- _Good_: "(It) Does something."
-- _Bad:_ "(It) Do something."
+- *Good*: "(It) Does something."
+- *Bad:* "(It) Do something."
 
 [/tip]
 
 **Functions**: What does the function do?
 
-- _Good_: Handles a click on X element.
-- _Bad_: Included for back-compat for X element.
+- *Good*: Handles a click on X element.
+- *Bad*: Included for back-compat for X element.
 
 **`@since`**: The recommended tool to use when searching for the version something was added to WordPress is [`svn blame`](https://make.wordpress.org/core/handbook/svn/code-history/#using-subversion-annotate).
 
@@ -221,36 +221,38 @@ Backbone's `initialize` functions should be formatted as follows:
   - Backbone Views are passed an `options` parameter.
 
 ```javascript
-Class = Parent.extend( /** @lends namespace.Class.prototype */{
- /**
-  * Summary. (use period)
-  *
-  * Description. (use period)
-  *
-  * @since      x.x.x
-  * @deprecated x.x.x Use new_function_name() instead.
-  * @access     private
-  *
-  * @constructs namespace.Class
-  * @augments   Parent
-  * @mixes      mixin
-  *
-  * @alias    realName
-  * @memberof namespace
-  *
-  * @see   Function/class relied on
-  * @link  URL
-  * @fires Class#eventName
-  *
-  * @param {Object} attributes     The model's attributes.
-  * @param {type}   attributes.key One of the model's attributes.
-  * @param {Object} [options]      The model's options.
-  * @param {type}   options.key One of the model's options.
-  */
- initialize: function() {
-  //Do stuff.
- }
-} );
+Class = Parent.extend(
+  /** @lends namespace.Class.prototype */ {
+    /**
+     * Summary. (use period)
+     *
+     * Description. (use period)
+     *
+     * @since      x.x.x
+     * @deprecated x.x.x Use new_function_name() instead.
+     * @access     private
+     *
+     * @constructs namespace.Class
+     * @augments   Parent
+     * @mixes      mixin
+     *
+     * @alias    realName
+     * @memberof namespace
+     *
+     * @see   Function/class relied on
+     * @link  URL
+     * @fires Class#eventName
+     *
+     * @param {Object} attributes     The model's attributes.
+     * @param {type}   attributes.key One of the model's attributes.
+     * @param {Object} [options]      The model's options.
+     * @param {type}   options.key One of the model's options.
+     */
+    initialize: function () {
+      //Do stuff.
+    },
+  },
+);
 ```
 
 If a Backbone class does not have an initialize function it should be documented by using `@inheritDoc` as follows:
@@ -277,9 +279,11 @@ If a Backbone class does not have an initialize function it should be documented
  * @see   Function/class relied on
  * @link  URL
  */
-Class = Parent.extend( /** @lends namespace.Class.prototype */{
-// Functions and properties.
-} );
+Class = Parent.extend(
+  /** @lends namespace.Class.prototype */ {
+    // Functions and properties.
+  },
+);
 ```
 
 > Note: This currently doesn't provide the expected functionality due to a bug with JSDoc's inheritDoc tag. See [JSDocs3 issue 1012](https://github.com/jsdoc3/jsdoc/issues/1012).
@@ -297,28 +301,30 @@ The functions should be formatted as follows:
  * @alias namespace~doStuff
  */
 var doStuff = function () {
-// Do stuff.
+  // Do stuff.
 };
 
-Class = Parent.extend( /** @lends namespace.Class.prototype */{
- /**
-  * Class description
-  *
-  * @constructs namespace.Class
-  *
-  * @borrows namespace~doStuff as prototype.doStuff
-  */
- initialize: function() {
- //Do stuff.
- },
+Class = Parent.extend(
+  /** @lends namespace.Class.prototype */ {
+    /**
+     * Class description
+     *
+     * @constructs namespace.Class
+     *
+     * @borrows namespace~doStuff as prototype.doStuff
+     */
+    initialize: function () {
+      //Do stuff.
+    },
 
- /*
-  * This function will automatically have it's documentation copied from above.
-  * You should make a comment ( not a DocBlock using /**, instead use /* or // )
-  * noting that you're describing this function using @borrows.
-  */
- doStuff: doStuff,
-} );
+    /*
+     * This function will automatically have it's documentation copied from above.
+     * You should make a comment ( not a DocBlock using /**, instead use /* or // )
+     * noting that you're describing this function using @borrows.
+     */
+    doStuff: doStuff,
+  },
+);
 ```
 
 ## Local ancestors
@@ -423,7 +429,7 @@ WordPress uses JSHint for general code quality testing. Any inline configuration
 ## Supported JSDoc Tags
 
 | Tag            | Description                                                                                  |
-|----------------|----------------------------------------------------------------------------------------------|
+| -------------- | -------------------------------------------------------------------------------------------- |
 | `@abstract`    | This method can be implemented (or overridden) by the inheritor.                             |
 | `@access`      | Specify the access level of this member (private, public, or protected).                     |
 | `@alias`       | Treat a member as if it had a different name.                                                |
@@ -485,28 +491,28 @@ WordPress uses JSHint for general code quality testing. Any inline configuration
 
 ## Unsupported JSDoc Tags
 
-| Tag             | Why it's not supported                                                                        |
-|-----------------|-----------------------------------------------------------------------------------------------|
-| `@summary`      | Should not be used. See the example of how to separate a summary from the full description.   |
-| `@virtual`      | An unsupported synonym. Use `@abstract` instead.                                              |
-| `@extends`      | An unsupported synonym. Use `@augments` instead.                                              |
-| `@constructor`  | An unsupported synonym. Use `@class` instead.                                                 |
-| `@const`        | An unsupported synonym. Use `@constant` instead.                                              |
-| `@defaultvalue` | An unsupported synonym. Use `@default` instead.                                               |
-| `@desc`         | An unsupported synonym. Use `@description` instead.                                           |
-| `@host`         | An unsupported synonym. Use `@external` instead.                                              |
-| `@fileoverview` | An unsupported synonym. Use `@file` instead.                                                  |
-| `@overview`     | An unsupported synonym. Use `@file` instead.                                                  |
-| `@emits`        | An unsupported synonym. Use `@fires` instead.                                                 |
-| `@func`         | An unsupported synonym. Use `@function` instead.                                              |
-| `@method`       | An unsupported synonym. Use `@function` instead.                                              |
-| `@var`          | An unsupported synonym. Use `@member` instead.                                                |
-| `@emits`        | An unsupported synonym. Use `@fires` instead.                                                 |
-| `@arg`          | An unsupported synonym. Use `@param` instead.                                                 |
-| `@argument`     | An unsupported synonym. Use `@param` instead.                                                 |
-| `@prop`         | An unsupported synonym. Use `@property` instead.                                              |
-| `@returns`      | An unsupported synonym. Use `@return` instead.                                                |
-| `@exception`    | An unsupported synonym. Use `@throws` instead.                                                |
+| Tag             | Why it's not supported                                                                      |
+| --------------- | ------------------------------------------------------------------------------------------- |
+| `@summary`      | Should not be used. See the example of how to separate a summary from the full description. |
+| `@virtual`      | An unsupported synonym. Use `@abstract` instead.                                            |
+| `@extends`      | An unsupported synonym. Use `@augments` instead.                                            |
+| `@constructor`  | An unsupported synonym. Use `@class` instead.                                               |
+| `@const`        | An unsupported synonym. Use `@constant` instead.                                            |
+| `@defaultvalue` | An unsupported synonym. Use `@default` instead.                                             |
+| `@desc`         | An unsupported synonym. Use `@description` instead.                                         |
+| `@host`         | An unsupported synonym. Use `@external` instead.                                            |
+| `@fileoverview` | An unsupported synonym. Use `@file` instead.                                                |
+| `@overview`     | An unsupported synonym. Use `@file` instead.                                                |
+| `@emits`        | An unsupported synonym. Use `@fires` instead.                                               |
+| `@func`         | An unsupported synonym. Use `@function` instead.                                            |
+| `@method`       | An unsupported synonym. Use `@function` instead.                                            |
+| `@var`          | An unsupported synonym. Use `@member` instead.                                              |
+| `@emits`        | An unsupported synonym. Use `@fires` instead.                                               |
+| `@arg`          | An unsupported synonym. Use `@param` instead.                                               |
+| `@argument`     | An unsupported synonym. Use `@param` instead.                                               |
+| `@prop`         | An unsupported synonym. Use `@property` instead.                                            |
+| `@returns`      | An unsupported synonym. Use `@return` instead.                                              |
+| `@exception`    | An unsupported synonym. Use `@throws` instead.                                              |
 
 # Checklists
 

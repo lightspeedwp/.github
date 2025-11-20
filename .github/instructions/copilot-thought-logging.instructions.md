@@ -1,8 +1,8 @@
 ---
 file_type: "instructions"
-applyTo: '**'
-description: 'See process Copilot is following where you can edit this to reshape the interaction or save when follow up may be needed'
-license: 'GPL-3.0'
+applyTo: "**"
+description: "See process Copilot is following where you can edit this to reshape the interaction or save when follow up may be needed"
+license: "GPL-3.0"
 ---
 
 # Copilot Process tracking Instructions

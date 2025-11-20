@@ -1,5 +1,5 @@
 ---
-file_type: documentation  
+file_type: documentation
 version: "2.0"
 date_created: "2024-12-16"
 date_modified: "2024-12-16"
@@ -44,29 +44,29 @@ The unified frontmatter schema (`../schemas/frontmatter.schema.json`) combines:
 #### Required Fields (All Files)
 
 ```yaml
-file_type: "instructions"           # File type classification
-description: "Brief description"    # Clear purpose statement
-version: "1.0"                     # Semantic versioning
-date_created: "2024-12-16"         # ISO date format
-modified_by: "username"            # Last modifier
-author: "username"                 # Original author
-maintainer: "Team Name"            # Current maintainer
-domain: "development"              # LightSpeed domain
-stability: "stable"                # Stability level
+file_type: "instructions" # File type classification
+description: "Brief description" # Clear purpose statement
+version: "1.0" # Semantic versioning
+date_created: "2024-12-16" # ISO date format
+modified_by: "username" # Last modifier
+author: "username" # Original author
+maintainer: "Team Name" # Current maintainer
+domain: "development" # LightSpeed domain
+stability: "stable" # Stability level
 ```
 
 #### Recommended Fields
 
 ```yaml
-tags:                              # Categorization tags
+tags: # Categorization tags
   - "copilot"
   - "instructions"
-references:                        # Related file references
+references: # Related file references
   - path: "relative/path/file.md"
     description: "Purpose of reference"
-date_modified: "2024-12-16"        # Auto-updated on changes
-priority: "medium"                 # Processing priority
-owners:                            # Responsible teams
+date_modified: "2024-12-16" # Auto-updated on changes
+priority: "medium" # Processing priority
+owners: # Responsible teams
   - "lightspeed-team"
 ```
 

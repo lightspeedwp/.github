@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
-name: 'Pattern Wizard'
-description: 'Helps authors create/iterate Block Editor patterns with a11y-by-default.'
+mode: "agent"
+name: "Pattern Wizard"
+description: "Helps authors create/iterate Block Editor patterns with a11y-by-default."
 ---
 
 ## Prompts

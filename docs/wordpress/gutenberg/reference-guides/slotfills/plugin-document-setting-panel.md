@@ -12,18 +12,22 @@ This SlotFill allows registering a UI to edit Document settings.
 ## Example
 
 ```js
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginDocumentSettingPanel } from '@wordpress/editor';
+import { registerPlugin } from "@wordpress/plugins";
+import { PluginDocumentSettingPanel } from "@wordpress/editor";
 
 const PluginDocumentSettingPanelDemo = () => (
-  <PluginDocumentSettingPanel name="custom-panel" title="Custom Panel" className="custom-panel">
+  <PluginDocumentSettingPanel
+    name="custom-panel"
+    title="Custom Panel"
+    className="custom-panel"
+  >
     Custom Panel Contents
   </PluginDocumentSettingPanel>
 );
 
-registerPlugin('plugin-document-setting-panel-demo', {
+registerPlugin("plugin-document-setting-panel-demo", {
   render: PluginDocumentSettingPanelDemo,
-  icon: 'palmtree',
+  icon: "palmtree",
 });
 ```
 
@@ -44,8 +48,8 @@ In order to access the panels using function such as `toggleEditorPanelOpened` o
 To programmatically toggle panels, use the following:
 
 ```js
-import { useDispatch } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
+import { useDispatch } from "@wordpress/data";
+import { store as editorStore } from "@wordpress/editor";
 
 const Example = () => {
   const { toggleEditorPanelOpened } = useDispatch(editorStore);
@@ -54,10 +58,12 @@ const Example = () => {
       variant="primary"
       onClick={() => {
         // Toggle the Summary panel
-        toggleEditorPanelOpened('post-status');
+        toggleEditorPanelOpened("post-status");
 
         // Toggle the Custom Panel introduced in the example above.
-        toggleEditorPanelOpened('plugin-document-setting-panel-demo/custom-panel');
+        toggleEditorPanelOpened(
+          "plugin-document-setting-panel-demo/custom-panel",
+        );
       }}
     >
       Toggle Panels
@@ -69,8 +75,8 @@ const Example = () => {
 It is also possible to remove panels from the admin using the `removeEditorPanel` function by passing the name of the registered panel.
 
 ```js
-import { useDispatch } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
+import { useDispatch } from "@wordpress/data";
+import { store as editorStore } from "@wordpress/editor";
 
 const Example = () => {
   const { removeEditorPanel } = useDispatch(editorStore);
@@ -79,10 +85,10 @@ const Example = () => {
       variant="primary"
       onClick={() => {
         // Remove the Featured Image panel.
-        removeEditorPanel('featured-image');
+        removeEditorPanel("featured-image");
 
         // Remove the Custom Panel introduced in the example above.
-        removeEditorPanel('plugin-document-setting-panel-demo/custom-panel');
+        removeEditorPanel("plugin-document-setting-panel-demo/custom-panel");
       }}
     >
       Toggle Panels

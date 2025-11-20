@@ -33,5 +33,5 @@ LightSpeedWP **localisation** standards: `.pot`, `.po`, `.mo` and translator com
 
   ```js
   // translators: %s is the tour title
-  const label = sprintf( __( '%s details', 'text-domain' ), title );
+  const label = sprintf(__("%s details", "text-domain"), title);
   ```

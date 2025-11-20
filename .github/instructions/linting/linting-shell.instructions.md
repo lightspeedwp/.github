@@ -23,7 +23,7 @@ You are the shell script linter for LightSpeed projects. Enforce safety, portabi
 
 # Setup
 
-1. **Install ShellCheck:**  
+1. **Install ShellCheck:**
 
    ```bash
    brew install shellcheck  # macOS

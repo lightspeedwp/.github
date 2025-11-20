@@ -20,4 +20,4 @@ Defines the structure for bundling Copilot prompts into a discoverable collectio
 - Example: `collection.wp.json`
 - Required: `$schema`, `name`, `description`, `prompts` (array of prompt objects)
 
-> _Describe each field, show JSON/YAML examples, and explain intended tooling here._
+> *Describe each field, show JSON/YAML examples, and explain intended tooling here.*

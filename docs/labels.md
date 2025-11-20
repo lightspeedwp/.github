@@ -1,16 +1,16 @@
 ---
 file_type: "documentation"
-title: 'GitHub Labels Guide'
-description: 'Comprehensive guide to LightSpeed label semantics, usage examples, and automation workflows'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['labels', 'github', 'automation', 'workflow', 'triage']
+title: "GitHub Labels Guide"
+description: "Comprehensive guide to LightSpeed label semantics, usage examples, and automation workflows"
+version: "1.0"
+last_updated: "2025-11-12"
+maintainer: "LightSpeed Team"
+tags: ["labels", "github", "automation", "workflow", "triage"]
 related_docs:
-  - '/.github/automation/labels.yml'
-  - '/.github/automation/ISSUE_LABELS.md'
-  - '/.github/automation/PR_LABELS.md'
-  - '/docs/label-automation/README.md'
+  - "/.github/automation/labels.yml"
+  - "/.github/automation/ISSUE_LABELS.md"
+  - "/.github/automation/PR_LABELS.md"
+  - "/docs/label-automation/README.md"
 ---
 
 # GitHub Labels Guide
@@ -31,17 +31,17 @@ This guide explains the semantics, usage, and automation workflows for all Light
 
 LightSpeed uses a structured label taxonomy organized into families by prefix:
 
-| Family | Prefix | Purpose | Count |
-|--------|--------|---------|-------|
-| **Type** | `type:*` | Categorizes the nature of work (bug, feature, docs, etc.) | 23 |
-| **Status** | `status:*` | Tracks workflow state and progress | 9 |
-| **Priority** | `priority:*` | Indicates urgency and importance | 4 |
-| **Area** | `area:*` | Identifies system component or domain | 9 |
-| **Language** | `lang:*` | Specifies programming language | 3 |
-| **Release** | `release:*` | Indicates semantic version impact | 3 |
-| **Meta** | `meta:*` | Metadata flags for automation | 3 |
-| **Contributor** | `contrib:*` | Community engagement labels | 3 |
-| **Discussion** | `discussion:*` | Discussion categorization | 7 |
+| Family          | Prefix         | Purpose                                                   | Count |
+| --------------- | -------------- | --------------------------------------------------------- | ----- |
+| **Type**        | `type:*`       | Categorizes the nature of work (bug, feature, docs, etc.) | 23    |
+| **Status**      | `status:*`     | Tracks workflow state and progress                        | 9     |
+| **Priority**    | `priority:*`   | Indicates urgency and importance                          | 4     |
+| **Area**        | `area:*`       | Identifies system component or domain                     | 9     |
+| **Language**    | `lang:*`       | Specifies programming language                            | 3     |
+| **Release**     | `release:*`    | Indicates semantic version impact                         | 3     |
+| **Meta**        | `meta:*`       | Metadata flags for automation                             | 3     |
+| **Contributor** | `contrib:*`    | Community engagement labels                               | 3     |
+| **Discussion**  | `discussion:*` | Discussion categorization                                 | 7     |
 
 ---
 
@@ -51,48 +51,48 @@ LightSpeed uses a structured label taxonomy organized into families by prefix:
 
 Categorize the nature of work being done. **Required** for all issues and PRs.
 
-| Label | When to Use | Example |
-|-------|-------------|---------|
-| `type:bug` | Defects, errors, or unintended behavior | "Header alignment broken on mobile" |
-| `type:feature` | New functionality or capabilities | "Add user profile avatar upload" |
-| `type:task` | General tasks or to-dos | "Update dependencies to latest versions" |
-| `type:story` | User stories (agile methodology) | "As a user, I want to save my preferences" |
-| `type:documentation` | Documentation updates | "Add API endpoint documentation" |
-| `type:refactor` | Code restructuring without changing behavior | "Extract utility functions into separate module" |
-| `type:build` | Build system, CI/CD, or tooling changes | "Update GitHub Actions to v4" |
-| `type:automation` | Workflow automation improvements | "Add automated label sync workflow" |
-| `type:performance` | Performance optimizations | "Reduce page load time by lazy-loading images" |
-| `type:test` | Testing and test coverage improvements | "Add unit tests for user service" |
-| `type:security` | Security vulnerabilities or hardening | "Patch XSS vulnerability in search form" |
-| `type:a11y` | Accessibility improvements | "Add ARIA labels to navigation menu" |
-| `type:design` | Design work, mockups, or visual changes | "Design new dashboard layout" |
-| `type:compatibility` | Compatibility fixes (browser, WP version, etc.) | "Fix compatibility with WordPress 6.6" |
-| `type:integration` | Third-party integrations | "Integrate Stripe payment gateway" |
-| `type:release` | Release preparation tasks | "Prepare v2.0 release notes" |
-| `type:maintenance` | Routine maintenance tasks | "Clean up deprecated code" |
-| `type:improve` | General improvements | "Improve error messaging clarity" |
-| `type:qa` | Quality assurance tasks | "QA test checkout flow" |
-| `type:chore` | Miscellaneous chores | "Update copyright year" |
-| `type:audit` | Code, security, or performance audits | "Audit API endpoint performance" |
-| `type:epic` | Large multi-scope initiatives | "Complete user authentication system" |
-| `type:research` | Research and investigation | "Research best CSS-in-JS library" |
-| `type:review` | Code or design review tasks | "Review PR #123 for security issues" |
+| Label                | When to Use                                     | Example                                          |
+| -------------------- | ----------------------------------------------- | ------------------------------------------------ |
+| `type:bug`           | Defects, errors, or unintended behavior         | "Header alignment broken on mobile"              |
+| `type:feature`       | New functionality or capabilities               | "Add user profile avatar upload"                 |
+| `type:task`          | General tasks or to-dos                         | "Update dependencies to latest versions"         |
+| `type:story`         | User stories (agile methodology)                | "As a user, I want to save my preferences"       |
+| `type:documentation` | Documentation updates                           | "Add API endpoint documentation"                 |
+| `type:refactor`      | Code restructuring without changing behavior    | "Extract utility functions into separate module" |
+| `type:build`         | Build system, CI/CD, or tooling changes         | "Update GitHub Actions to v4"                    |
+| `type:automation`    | Workflow automation improvements                | "Add automated label sync workflow"              |
+| `type:performance`   | Performance optimizations                       | "Reduce page load time by lazy-loading images"   |
+| `type:test`          | Testing and test coverage improvements          | "Add unit tests for user service"                |
+| `type:security`      | Security vulnerabilities or hardening           | "Patch XSS vulnerability in search form"         |
+| `type:a11y`          | Accessibility improvements                      | "Add ARIA labels to navigation menu"             |
+| `type:design`        | Design work, mockups, or visual changes         | "Design new dashboard layout"                    |
+| `type:compatibility` | Compatibility fixes (browser, WP version, etc.) | "Fix compatibility with WordPress 6.6"           |
+| `type:integration`   | Third-party integrations                        | "Integrate Stripe payment gateway"               |
+| `type:release`       | Release preparation tasks                       | "Prepare v2.0 release notes"                     |
+| `type:maintenance`   | Routine maintenance tasks                       | "Clean up deprecated code"                       |
+| `type:improve`       | General improvements                            | "Improve error messaging clarity"                |
+| `type:qa`            | Quality assurance tasks                         | "QA test checkout flow"                          |
+| `type:chore`         | Miscellaneous chores                            | "Update copyright year"                          |
+| `type:audit`         | Code, security, or performance audits           | "Audit API endpoint performance"                 |
+| `type:epic`          | Large multi-scope initiatives                   | "Complete user authentication system"            |
+| `type:research`      | Research and investigation                      | "Research best CSS-in-JS library"                |
+| `type:review`        | Code or design review tasks                     | "Review PR #123 for security issues"             |
 
 ### Status Labels (`status:*`)
 
 Track workflow state and progress. **Automatically updated** by automation workflows.
 
-| Label | Meaning | When Applied | Next Action |
-|-------|---------|--------------|-------------|
-| `status:needs-triage` | Needs triage and prioritization | Automatically on new issues | Maintainer reviews and assigns labels |
-| `status:needs-planning` | Awaiting planning or scoping | Maintainer applies after triage | Team plans approach and assigns |
-| `status:ready` | Ready to start work | After planning is complete | Developer picks up and starts work |
-| `status:in-progress` | Work currently underway | When PR is opened or issue assigned | Continue work until ready for review |
-| `status:needs-review` | Awaiting code or design review | When PR is ready for review | Reviewer examines and provides feedback |
-| `status:needs-qa` | Quality assurance required | After code review approval | QA team tests functionality |
-| `status:blocked` | Blocked by dependency or issue | When external blocker prevents progress | Resolve blocker before continuing |
-| `status:on-hold` | Work temporarily paused | When work is deferred | Resume when circumstances change |
-| `status:done` | Completed and merged/closed | When PR is merged or issue resolved | Archive and celebrate! 🎉 |
+| Label                   | Meaning                         | When Applied                            | Next Action                             |
+| ----------------------- | ------------------------------- | --------------------------------------- | --------------------------------------- |
+| `status:needs-triage`   | Needs triage and prioritization | Automatically on new issues             | Maintainer reviews and assigns labels   |
+| `status:needs-planning` | Awaiting planning or scoping    | Maintainer applies after triage         | Team plans approach and assigns         |
+| `status:ready`          | Ready to start work             | After planning is complete              | Developer picks up and starts work      |
+| `status:in-progress`    | Work currently underway         | When PR is opened or issue assigned     | Continue work until ready for review    |
+| `status:needs-review`   | Awaiting code or design review  | When PR is ready for review             | Reviewer examines and provides feedback |
+| `status:needs-qa`       | Quality assurance required      | After code review approval              | QA team tests functionality             |
+| `status:blocked`        | Blocked by dependency or issue  | When external blocker prevents progress | Resolve blocker before continuing       |
+| `status:on-hold`        | Work temporarily paused         | When work is deferred                   | Resume when circumstances change        |
+| `status:done`           | Completed and merged/closed     | When PR is merged or issue resolved     | Archive and celebrate! 🎉               |
 
 **Status Workflow:**
 
@@ -106,12 +106,12 @@ needs-triage → needs-planning → ready → in-progress → needs-review → n
 
 Indicate urgency and importance. **Applied manually** during triage.
 
-| Label | Meaning | SLA | Example |
-|-------|---------|-----|---------|
-| `priority:critical` | Production blocking, urgent fix required | Fix within 24 hours | Site completely down, security breach |
-| `priority:important` | Must-do high priority | Address in current sprint | Major feature blocker, significant bug |
-| `priority:normal` | Default priority | Address in backlog order | Standard feature request, minor bug |
-| `priority:minor` | Low priority, nice-to-have | Address when capacity allows | Cosmetic issue, documentation typo |
+| Label                | Meaning                                  | SLA                          | Example                                |
+| -------------------- | ---------------------------------------- | ---------------------------- | -------------------------------------- |
+| `priority:critical`  | Production blocking, urgent fix required | Fix within 24 hours          | Site completely down, security breach  |
+| `priority:important` | Must-do high priority                    | Address in current sprint    | Major feature blocker, significant bug |
+| `priority:normal`    | Default priority                         | Address in backlog order     | Standard feature request, minor bug    |
+| `priority:minor`     | Low priority, nice-to-have               | Address when capacity allows | Cosmetic issue, documentation typo     |
 
 **Priority Assignment Rules:**
 
@@ -124,71 +124,71 @@ Indicate urgency and importance. **Applied manually** during triage.
 
 Identify system component or domain affected.
 
-| Label | Component | Example |
-|-------|-----------|---------|
-| `area:core` | Core infrastructure, shared utilities | "Refactor authentication service" |
-| `area:block-editor` | Gutenberg block editor | "Add custom block toolbar controls" |
-| `area:theme` | WordPress theme | "Update theme.json color palette" |
-| `area:ci` | Continuous integration | "Add automated accessibility testing" |
-| `area:documentation` | Documentation files | "Update README installation steps" |
-| `area:tests` | Test suites | "Add E2E tests for checkout flow" |
-| `area:scripts` | Build scripts, automation | "Optimize webpack build configuration" |
-| `area:assets` | Images, fonts, media | "Compress header images" |
-| `area:woocommerce` | WooCommerce integration | "Add custom product fields" |
+| Label                | Component                             | Example                                |
+| -------------------- | ------------------------------------- | -------------------------------------- |
+| `area:core`          | Core infrastructure, shared utilities | "Refactor authentication service"      |
+| `area:block-editor`  | Gutenberg block editor                | "Add custom block toolbar controls"    |
+| `area:theme`         | WordPress theme                       | "Update theme.json color palette"      |
+| `area:ci`            | Continuous integration                | "Add automated accessibility testing"  |
+| `area:documentation` | Documentation files                   | "Update README installation steps"     |
+| `area:tests`         | Test suites                           | "Add E2E tests for checkout flow"      |
+| `area:scripts`       | Build scripts, automation             | "Optimize webpack build configuration" |
+| `area:assets`        | Images, fonts, media                  | "Compress header images"               |
+| `area:woocommerce`   | WooCommerce integration               | "Add custom product fields"            |
 
 ### Language Labels (`lang:*`)
 
 Specify primary programming language affected.
 
-| Label | Language | When to Use |
-|-------|----------|-------------|
-| `lang:php` | PHP | Backend code, WordPress functions |
-| `lang:javascript` | JavaScript/TypeScript | Frontend code, React components |
-| `lang:css` | CSS/SCSS | Styles, design system |
+| Label             | Language              | When to Use                       |
+| ----------------- | --------------------- | --------------------------------- |
+| `lang:php`        | PHP                   | Backend code, WordPress functions |
+| `lang:javascript` | JavaScript/TypeScript | Frontend code, React components   |
+| `lang:css`        | CSS/SCSS              | Styles, design system             |
 
 ### Release Labels (`release:*`)
 
 Indicate semantic versioning impact. **Required** for all user-facing changes.
 
-| Label | Version Impact | Example |
-|-------|----------------|---------|
-| `release:patch` | Bug fixes, patches (v1.0.0 → v1.0.1) | "Fix typo in error message" |
-| `release:minor` | New features, backwards-compatible (v1.0.0 → v1.1.0) | "Add user profile page" |
-| `release:major` | Breaking changes (v1.0.0 → v2.0.0) | "Remove deprecated API endpoints" |
+| Label           | Version Impact                                       | Example                           |
+| --------------- | ---------------------------------------------------- | --------------------------------- |
+| `release:patch` | Bug fixes, patches (v1.0.0 → v1.0.1)                 | "Fix typo in error message"       |
+| `release:minor` | New features, backwards-compatible (v1.0.0 → v1.1.0) | "Add user profile page"           |
+| `release:major` | Breaking changes (v1.0.0 → v2.0.0)                   | "Remove deprecated API endpoints" |
 
 ### Meta Labels (`meta:*`)
 
 Metadata flags for automation and workflow control.
 
-| Label | Purpose | When Applied |
-|-------|---------|--------------|
-| `meta:needs-changelog` | PR needs changelog entry | Automatically if no changelog detected |
-| `meta:no-changelog` | PR does not require changelog | Apply to internal-only changes |
-| `meta:duplicate` | Duplicate issue or PR | Apply when closing as duplicate |
+| Label                  | Purpose                       | When Applied                           |
+| ---------------------- | ----------------------------- | -------------------------------------- |
+| `meta:needs-changelog` | PR needs changelog entry      | Automatically if no changelog detected |
+| `meta:no-changelog`    | PR does not require changelog | Apply to internal-only changes         |
+| `meta:duplicate`       | Duplicate issue or PR         | Apply when closing as duplicate        |
 
 ### Contributor Labels (`contrib:*`)
 
 Community engagement and contribution facilitation.
 
-| Label | Purpose | When to Use |
-|-------|---------|-------------|
-| `contrib:good-first-issue` | Beginner-friendly issue | Simple, well-scoped issues for new contributors |
-| `contrib:help-wanted` | Community help requested | Issues where maintainers welcome community PRs |
-| `contrib:discussion` | Community discussion topic | Open-ended discussions, RFCs, brainstorming |
+| Label                      | Purpose                    | When to Use                                     |
+| -------------------------- | -------------------------- | ----------------------------------------------- |
+| `contrib:good-first-issue` | Beginner-friendly issue    | Simple, well-scoped issues for new contributors |
+| `contrib:help-wanted`      | Community help requested   | Issues where maintainers welcome community PRs  |
+| `contrib:discussion`       | Community discussion topic | Open-ended discussions, RFCs, brainstorming     |
 
 ### Discussion Labels (`discussion:*`)
 
 Categorize GitHub Discussions topics.
 
-| Label | Category | When to Use |
-|-------|----------|-------------|
-| `discussion:announcement` | Official announcements | Product updates, release announcements |
-| `discussion:showcase` | Show & Tell | Community showcases, success stories |
-| `discussion:community` | Community/general | General community chat, introductions |
-| `discussion:feedback` | Feedback/suggestions | Product feedback, feature suggestions |
-| `discussion:support` | Support/troubleshooting | Help requests, troubleshooting |
-| `discussion:sponsorship` | Sponsorship/funding | Sponsorship inquiries, funding discussions |
-| `discussion:partnership` | Partnership/collaboration | Partnership opportunities, collaborations |
+| Label                     | Category                  | When to Use                                |
+| ------------------------- | ------------------------- | ------------------------------------------ |
+| `discussion:announcement` | Official announcements    | Product updates, release announcements     |
+| `discussion:showcase`     | Show & Tell               | Community showcases, success stories       |
+| `discussion:community`    | Community/general         | General community chat, introductions      |
+| `discussion:feedback`     | Feedback/suggestions      | Product feedback, feature suggestions      |
+| `discussion:support`      | Support/troubleshooting   | Help requests, troubleshooting             |
+| `discussion:sponsorship`  | Sponsorship/funding       | Sponsorship inquiries, funding discussions |
+| `discussion:partnership`  | Partnership/collaboration | Partnership opportunities, collaborations  |
 
 ---
 
@@ -367,10 +367,10 @@ PRs without changelog entries are flagged:
 
 ```yaml
 Condition: PR modifies user-facing code
-           AND PR does not update CHANGELOG.md
-           AND PR does not have meta:no-changelog
+  AND PR does not update CHANGELOG.md
+  AND PR does not have meta:no-changelog
 Action: Apply meta:needs-changelog
-        Add comment requesting changelog entry
+  Add comment requesting changelog entry
 ```
 
 ---

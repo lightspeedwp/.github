@@ -9,7 +9,8 @@ description: "Instructions for creating and validating YAML frontmatter for all 
 tags: ["lightspeed","frontmatter","instructions"]
 file_type: "instructions"
 ---
-_Note: This file follows LightSpeedWP governance and metadata conventions as described in schema file ([./schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json))._
+
+*Note: This file follows LightSpeedWP governance and metadata conventions as described in schema file ([./schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json)).*
 
 # Frontmatter Instructions
 
@@ -22,26 +23,26 @@ _Note: This file follows LightSpeedWP governance and metadata conventions as des
 
 See the canonical [frontmatter schema](../../schemas/frontmatter.schema.json) for the full list and validation.
 
-| Field         | Type     | Required | Description                                |
-|---------------|----------|----------|--------------------------------------------|
-| title         | string   | yes      | Human-readable title                       |
-| description   | string   | yes      | Short summary of the file's purpose        |
-| version       | string   | yes      | Version string (e.g., v2.0)                |
-| created_date  | string   | yes      | ISO date of creation (e.g., 2025-10-23)    |
-| last_updated  | string   | yes      | ISO date of last update (e.g., 2025-10-23) |
-| author        | string   | yes      | Main author or responsible party           |
-| maintainer    | string   | yes      | Maintainer or team                         |
-| owners        | string[] | no       | List of owners/maintainers                 |
-| tags          | string[] | no       | Keywords for search/filtering              |
-| status        | string   | no       | Current status (active, deprecated, etc.)  |
-| stability     | string   | no       | Maturity expectation (stable, experimental)|
-| deprecated    | boolean  | no       | Whether this file is deprecated            |
-| replacement   | string   | no       | Path to replacement file if deprecated     |
-| domain        | string   | no       | Classification domain                      |
-| extraDomains  | string[] | no       | Secondary classifications                  |
-| license       | string   | no       | License identifier                         |
-| mode          | string   | no       | Operational/content mode                   |
-| references    | object[] | no       | Array of {path, description} objects       |
+| Field        | Type     | Required | Description                                 |
+| ------------ | -------- | -------- | ------------------------------------------- |
+| title        | string   | yes      | Human-readable title                        |
+| description  | string   | yes      | Short summary of the file's purpose         |
+| version      | string   | yes      | Version string (e.g., v2.0)                 |
+| created_date | string   | yes      | ISO date of creation (e.g., 2025-10-23)     |
+| last_updated | string   | yes      | ISO date of last update (e.g., 2025-10-23)  |
+| author       | string   | yes      | Main author or responsible party            |
+| maintainer   | string   | yes      | Maintainer or team                          |
+| owners       | string[] | no       | List of owners/maintainers                  |
+| tags         | string[] | no       | Keywords for search/filtering               |
+| status       | string   | no       | Current status (active, deprecated, etc.)   |
+| stability    | string   | no       | Maturity expectation (stable, experimental) |
+| deprecated   | boolean  | no       | Whether this file is deprecated             |
+| replacement  | string   | no       | Path to replacement file if deprecated      |
+| domain       | string   | no       | Classification domain                       |
+| extraDomains | string[] | no       | Secondary classifications                   |
+| license      | string   | no       | License identifier                          |
+| mode         | string   | no       | Operational/content mode                    |
+| references   | object[] | no       | Array of {path, description} objects        |
 
 ## Example
 

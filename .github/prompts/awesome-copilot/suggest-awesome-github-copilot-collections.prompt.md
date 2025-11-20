@@ -1,8 +1,23 @@
 ---
-mode: 'agent'
-description: 'Suggest relevant GitHub Copilot collections from the awesome-copilot repository based on current repository context and chat history, providing automatic download and installation of collection assets.'
-tools: ['edit', 'search', 'runCommands', 'runTasks', 'think', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'todos', 'search']
+mode: "agent"
+description: "Suggest relevant GitHub Copilot collections from the awesome-copilot repository based on current repository context and chat history, providing automatic download and installation of collection assets."
+tools:
+  [
+    "edit",
+    "search",
+    "runCommands",
+    "runTasks",
+    "think",
+    "changes",
+    "testFailure",
+    "openSimpleBrowser",
+    "fetch",
+    "githubRepo",
+    "todos",
+    "search",
+  ]
 ---
+
 # Suggest Awesome GitHub Copilot Collections
 
 Analyze current repository context and suggest relevant collections from the [GitHub awesome-copilot repository](https://github.com/github/awesome-copilot/blob/main/README.collections.md) that would enhance the development workflow for this repository.
@@ -44,11 +59,11 @@ Display analysis results in structured table showing relevant collections and th
 
 ### Collection Recommendations
 
-| Collection Name | Description | Items | Asset Overlap | Suggestion Rationale |
-|-----------------|-------------|-------|---------------|---------------------|
-| [Azure & Cloud Development](https://github.com/github/awesome-copilot/blob/main/collections/azure-cloud-development.md) | Comprehensive Azure cloud development tools including Infrastructure as Code, serverless functions, architecture patterns, and cost optimization | 15 items | 3 similar | Would enhance Azure development workflow with Bicep, Terraform, and cost optimization tools |
-| [C# .NET Development](https://github.com/github/awesome-copilot/blob/main/collections/csharp-dotnet-development.md) | Essential prompts, instructions, and chat modes for C# and .NET development including testing, documentation, and best practices | 7 items | 2 similar | Already covered by existing .NET-related assets but includes advanced testing patterns |
-| [Testing & Test Automation](https://github.com/github/awesome-copilot/blob/main/collections/testing-automation.md) | Comprehensive collection for writing tests, test automation, and test-driven development | 11 items | 1 similar | Could significantly improve testing practices with TDD guidance and automation tools |
+| Collection Name                                                                                                         | Description                                                                                                                                      | Items    | Asset Overlap | Suggestion Rationale                                                                        |
+| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------------- | ------------------------------------------------------------------------------------------- |
+| [Azure & Cloud Development](https://github.com/github/awesome-copilot/blob/main/collections/azure-cloud-development.md) | Comprehensive Azure cloud development tools including Infrastructure as Code, serverless functions, architecture patterns, and cost optimization | 15 items | 3 similar     | Would enhance Azure development workflow with Bicep, Terraform, and cost optimization tools |
+| [C# .NET Development](https://github.com/github/awesome-copilot/blob/main/collections/csharp-dotnet-development.md)     | Essential prompts, instructions, and chat modes for C# and .NET development including testing, documentation, and best practices                 | 7 items  | 2 similar     | Already covered by existing .NET-related assets but includes advanced testing patterns      |
+| [Testing & Test Automation](https://github.com/github/awesome-copilot/blob/main/collections/testing-automation.md)      | Comprehensive collection for writing tests, test automation, and test-driven development                                                         | 11 items | 1 similar     | Could significantly improve testing practices with TDD guidance and automation tools        |
 
 ### Asset Analysis for Recommended Collections
 

@@ -1,11 +1,11 @@
 ---
-name: '🐛 Bug report'
+name: "🐛 Bug report"
 about: Report a bug to help us improve this WordPress project
-title: '[Bug] <Short description>'
+title: "[Bug] <Short description>"
 labels: [status:needs-triage, priority:normal, type:bug, area:core]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: bug
 references:
   - CONTRIBUTING.md

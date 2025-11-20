@@ -1,6 +1,6 @@
 ---
-description: 'Technology-agnostic prompt generator that creates customizable AI prompts for scanning codebases and identifying high-quality code exemplars. Supports multiple programming languages (.NET, Java, JavaScript, TypeScript, React, Angular, Python) with configurable analysis depth, categorization methods, and documentation formats to establish coding standards and maintain consistency across development teams.'
-mode: 'agent'
+description: "Technology-agnostic prompt generator that creates customizable AI prompts for scanning codebases and identifying high-quality code exemplars. Supports multiple programming languages (.NET, Java, JavaScript, TypeScript, React, Angular, Python) with configurable analysis depth, categorization methods, and documentation formats to establish coding standards and maintain consistency across development teams."
+mode: "agent"
 ---
 
 # Code Exemplars Blueprint Generator
@@ -82,17 +82,14 @@ ${PROJECT_TYPE == "Python" || PROJECT_TYPE == "Auto-detect" ? `#### Python Exemp
   - User interface components
   - Controllers/API endpoints
   - View models/DTOs
-  
 - **Business Logic Layer**:
   - Service implementations
   - Business logic components
   - Workflow orchestration
-  
 - **Data Access Layer**:
   - Repository implementations
   - Data models
   - Query patterns
-  
 - **Cross-Cutting Concerns**:
   - Logging implementations
   - Error handling
@@ -106,7 +103,7 @@ For each identified exemplar, document:
 - File path (relative to repository root)
 - Brief description of what makes it exemplary
 - Pattern or component type it represents
-${INCLUDE_COMMENTS ? "- Key implementation details and coding principles demonstrated" : ""}
+  ${INCLUDE_COMMENTS ? "- Key implementation details and coding principles demonstrated" : ""}
 ${INCLUDE_CODE_SNIPPETS ? "- Small, representative code snippet (if applicable)" : ""}
 
 ${SCAN_DEPTH == "Comprehensive" ? `### 6. Additional Documentation

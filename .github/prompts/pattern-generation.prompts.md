@@ -11,6 +11,7 @@ file_type: "prompt"
 mode: "agent"
 license: "GPL-3.0"
 ---
+
 # Pattern Generation Prompt
 
 When creating a new pattern for any LightSpeed WordPress project, follow these guidelines:

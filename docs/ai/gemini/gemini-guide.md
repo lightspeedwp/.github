@@ -9,6 +9,7 @@ description: "How to use Gemini models effectively in Copilot."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 file_type: "copilot"
 ---
+
 # Overview
 
 - Model selection (Pro vs Flash), strengths in fast multimodal IO.

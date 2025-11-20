@@ -7,15 +7,15 @@ A maximal but sane set of **branch prefixes** for product repos. Use the **share
 
 ---
 
-[Shared core (use in both templates)](#shared-core-\(use-in-both-templates\))
+[Shared core (use in both templates)](<#shared-core-(use-in-both-templates)>)
 
-[Product‑specific (optional)](#product‑specific-\(optional\))
+[Product‑specific (optional)](<#product‑specific-(optional)>)
 
 [Examples](#examples)
 
 [One regex to enforce](#one-regex-to-enforce)
 
-[Mapping to Issue Types (for automations)](#mapping-to-issue-types-\(for-automations\))
+[Mapping to Issue Types (for automations)](<#mapping-to-issue-types-(for-automations)>)
 
 [Tips](#tips)
 
@@ -23,33 +23,33 @@ A maximal but sane set of **branch prefixes** for product repos. Use the **share
 
 ## **Shared core (use in both templates)** {#shared-core-(use-in-both-templates)}
 
-- `feat/` — new capability or UI change  
-- `fix/` — bug fix (non‑critical)  
-- `hotfix/` — urgent production fix  
-- `release/` — release stabilisation branches (e.g., `release/v1.6.0`)  
-- `refactor/` — internal restructure, no behaviour change  
-- `chore/` — repo hygiene (lint, formatting, housekeeping)  
-- `docs/` — documentation only  
-- `test/` — tests only (unit/e2e/fixtures)  
-- `perf/` — performance optimisation  
-- `ci/` — CI workflow changes  
-- `build/` — bundling/tooling changes (Webpack, Vite, etc.)  
-- `deps/` — dependency updates (lockfiles, minor bumps)  
-- `security/` — security work (audits, fixes)  
-- `revert/` — revert a previous change  
-- `research/` — time‑boxed investigation/PoC  
-- `design/` — design‑system/tokens/handoff updates  
-- `a11y/` — accessibility fixes  
-- `ux/` — interaction/usability tweaks (non‑feature)  
-- `i18n/` — internationalisation/localisation  
+- `feat/` — new capability or UI change
+- `fix/` — bug fix (non‑critical)
+- `hotfix/` — urgent production fix
+- `release/` — release stabilisation branches (e.g., `release/v1.6.0`)
+- `refactor/` — internal restructure, no behaviour change
+- `chore/` — repo hygiene (lint, formatting, housekeeping)
+- `docs/` — documentation only
+- `test/` — tests only (unit/e2e/fixtures)
+- `perf/` — performance optimisation
+- `ci/` — CI workflow changes
+- `build/` — bundling/tooling changes (Webpack, Vite, etc.)
+- `deps/` — dependency updates (lockfiles, minor bumps)
+- `security/` — security work (audits, fixes)
+- `revert/` — revert a previous change
+- `research/` — time‑boxed investigation/PoC
+- `design/` — design‑system/tokens/handoff updates
+- `a11y/` — accessibility fixes
+- `ux/` — interaction/usability tweaks (non‑feature)
+- `i18n/` — internationalisation/localisation
 - `ops/` — ops/infrastructure (deploy, DNS, backups)
 
 ## **Product‑specific (optional)** {#product‑specific-(optional)}
 
-- `proto/` — throwaway prototypes/experiments  
-- `ds/` — design‑system work (tokens/components) short tag  
-- `api/` — API surface changes (versioning, endpoints)  
-- `schema/` — DB/schema changes  
+- `proto/` — throwaway prototypes/experiments
+- `ds/` — design‑system work (tokens/components) short tag
+- `api/` — API surface changes (versioning, endpoints)
+- `schema/` — DB/schema changes
 - `telemetry/` — analytics/metrics events
 
 ---
@@ -106,22 +106,22 @@ jobs:
 
 ## **Mapping to Issue Types (for automations)** {#mapping-to-issue-types-(for-automations)}
 
-- `feat/` → **Feature/Story**  
-- `fix/` → **Bug**  
-- `hotfix/` → **Bug** (critical)  
-- `refactor/` → **Refactor**  
-- `chore/`, `ci/`, `build/`, `deps/`, `security/` → **Chore**  
-- `research/` → **Research**  
-- `design/`, `a11y/`, `ux/` → **Design**/**Task** (as appropriate)  
-- `proto/`, `api/`, `schema/`, `telemetry/`, `ds/` → **Feature/Task**  
+- `feat/` → **Feature/Story**
+- `fix/` → **Bug**
+- `hotfix/` → **Bug** (critical)
+- `refactor/` → **Refactor**
+- `chore/`, `ci/`, `build/`, `deps/`, `security/` → **Chore**
+- `research/` → **Research**
+- `design/`, `a11y/`, `ux/` → **Design**/**Task** (as appropriate)
+- `proto/`, `api/`, `schema/`, `telemetry/`, `ds/` → **Feature/Task**
 - `release/` → **Release PR**
 
 ---
 
 ## **Tips** {#tips}
 
-- Keep the **scope** meaningful: area \+ short slug, e.g. `feat/frontend-pay-button`, `fix/backend-coupon-rounding`.  
-- Mirror branch prefixes to **labels** only if needed for cross‑repo filters; prefer **Project fields** first.  
+- Keep the **scope** meaningful: area \+ short slug, e.g. `feat/frontend-pay-button`, `fix/backend-coupon-rounding`.
+- Mirror branch prefixes to **labels** only if needed for cross‑repo filters; prefer **Project fields** first.
 - Delete branches on merge to keep the repo clean.
 
 ---

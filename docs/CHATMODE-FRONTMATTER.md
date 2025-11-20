@@ -40,13 +40,13 @@ graph TD
     D --> F[AI Assistant Behavior]
     E --> G[Fix Required]
     G --> A
-    
+
     subgraph "Frontmatter Schema"
         H[Required Fields]
         I[Optional Fields]
         J[Domain-Specific Fields]
     end
-    
+
     B --> H
     B --> I
     B --> J

@@ -9,6 +9,7 @@ description: "Best-practice advice on selecting models and mapping to modes/tool
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 file_type: "model"
 ---
+
 # Using models effectively
 
 - Prefer small/fast models for iterate-test cycles; switch to higher-reasoning for hard planning.

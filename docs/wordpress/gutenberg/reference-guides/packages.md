@@ -35,7 +35,7 @@ npm install @wordpress/block-editor --save
 Once installed, you can access the component in your code using:
 
 ```js
-import { PlainText } from '@wordpress/block-editor';
+import { PlainText } from "@wordpress/block-editor";
 ```
 
 ## Testing JavaScript code from a specific major WordPress version

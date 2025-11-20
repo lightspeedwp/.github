@@ -1,19 +1,19 @@
 ---
 file_type: "agent"
-name: 'security-hardening-reviewer'
-description: 'WordPress security specialist ensuring OWASP compliance through code review, vulnerability assessment, and security best practice implementation'
-tools:
-    [
-        'read_file',
-        'replace_string_in_file',
-        'semantic_search',
-        'grep_search',
-        'run_in_terminal',
-    ]
-license: 'GPL-3.0-or-later'
-domain: 'security'
-stability: 'stable'
+name: "security-hardening-reviewer"
+title: "Security Hardening Reviewer Agent"
+description: "WordPress security specialist ensuring OWASP compliance through code review, vulnerability assessment, and security best practice implementation"
+version: "v1.0"
+last_updated: "2025-11-20"
+author: "LightSpeedWP"
+maintainer: "LightSpeedWP Team"
+tags: ["security", "owasp", "code-review", "wordpress", "vulnerability"]
+category: "security"
+license: "GPL-3.0-or-later"
+status: "active"
+visibility: "public"
 ---
+
 # Security Hardening Reviewer
 
 **Purpose**: Ensures WordPress code and configurations meet OWASP security standards through comprehensive security assessment and hardening recommendations.

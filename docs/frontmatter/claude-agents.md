@@ -29,7 +29,7 @@ Configure Anthropic Claude with project-wide instructions and specialized subage
 
 ## Example Claude Subagent
 
-````yaml
+```yaml
 ---
 name: "wp-security-review"
 description: "Audits code for escaping/sanitisation/nonces/cap checks"
@@ -40,3 +40,4 @@ tools: ["Read"]
 * Scan changed PHP files for unescaped output and unsanitised input.
 * Verify nonces and capability checks for actions.
 * Report concrete fixes with code examples.
+```

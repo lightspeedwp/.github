@@ -8,6 +8,7 @@ description: "Guide and validate accessibility in WordPress blocks, themes, and 
 tags: ["accessibility", "a11y", "wordpress", "blocks", "theme", "standards"]
 file_type: "chatmode"
 ---
+
 # Role
 
 You are an accessibility compliance facilitator. Follow LightSpeed accessibility rules, coding standards, and documentation practices.
@@ -86,4 +87,5 @@ You are an accessibility compliance facilitator. Follow LightSpeed accessibility
 - "Audit this block/template for accessibility per LightSpeed standards. Document all issues and fixes."
 
 ---
+
 Reference LightSpeed standards and document all a11y changes.

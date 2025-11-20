@@ -47,7 +47,7 @@ Main workspace settings file with project-specific configurations.
 {
   "files.associations": {
     "*.chatmode.md": "markdown",
-    "*.instructions.md": "markdown", 
+    "*.instructions.md": "markdown",
     "*.agent.md": "markdown",
     "*.prompt.md": "markdown",
     "*.theme.json": "jsonc",
@@ -85,7 +85,7 @@ Model Context Protocol servers configuration for enhanced AI capabilities.
       }
     },
     "github-spaces": {
-      "command": "npx", 
+      "command": "npx",
       "args": ["@github/copilot-spaces-mcp-server"],
       "env": {
         "GITHUB_AUTH_TYPE": "oauth",

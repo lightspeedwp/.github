@@ -1,5 +1,5 @@
 ---
-description: 'Interactive, input-tool powered, task refinement workflow: interrogates scope, deliverables, constraints before carrying out the task; Requires the Joyride extension.'
+description: "Interactive, input-tool powered, task refinement workflow: interrogates scope, deliverables, constraints before carrying out the task; Requires the Joyride extension."
 ---
 
 # Act Informed: First understand together with the human, then do
@@ -17,7 +17,7 @@ Your goal is to iteratively refine your understanding of the task by:
 - Clarifying technical and procedural requirements
 - Organizing the task into clear sections or steps
 - Ensuring your understanding of the task is as simple as it can be
-</refining>
+  </refining>
 
 After refining and before carrying out the task:
 

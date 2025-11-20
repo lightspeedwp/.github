@@ -1,5 +1,5 @@
 ---
-description: 'Generate a complete PHP Model Context Protocol server project with tools, resources, prompts, and tests using the official PHP SDK'
+description: "Generate a complete PHP Model Context Protocol server project with tools, resources, prompts, and tests using the official PHP SDK"
 mode: agent
 ---
 
@@ -45,32 +45,32 @@ Ask the user for:
 
 ```json
 {
-    "name": "your-org/{project-name}",
-    "description": "{Server description}",
-    "type": "project",
-    "require": {
-        "php": "^8.2",
-        "mcp/sdk": "^0.1"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^10.0",
-        "symfony/cache": "^6.4"
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\\\": "tests/"
-        }
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
+  "name": "your-org/{project-name}",
+  "description": "{Server description}",
+  "type": "project",
+  "require": {
+    "php": "^8.2",
+    "mcp/sdk": "^0.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0",
+    "symfony/cache": "^6.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\\\": "tests/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  }
 }
 ```
 
@@ -86,7 +86,7 @@ phpstan.neon
 
 ### README.md
 
-```markdown
+````markdown
 # {Project Name}
 
 {Server description}
@@ -101,6 +101,7 @@ phpstan.neon
 ```bash
 composer install
 ```
+````
 
 ## Usage
 
@@ -141,7 +142,7 @@ Test with MCP Inspector:
 npx @modelcontextprotocol/inspector php server.php
 ```
 
-```
+````
 
 ### server.php
 
@@ -176,7 +177,7 @@ $server = Server::builder()
 $transport = new StdioTransport();
 
 $server->run($transport);
-```
+````
 
 ### src/Tools/ExampleTool.php
 
@@ -194,7 +195,7 @@ class ExampleTool
 {
     /**
      * Performs a greeting with the provided name.
-     * 
+     *
      * @param string $name The name to greet
      * @return string A greeting message
      */
@@ -203,7 +204,7 @@ class ExampleTool
     {
         return "Hello, {$name}!";
     }
-    
+
     /**
      * Performs arithmetic calculations.
      */
@@ -218,7 +219,7 @@ class ExampleTool
             'add' => $a + $b,
             'subtract' => $a - $b,
             'multiply' => $a * $b,
-            'divide' => $b != 0 ? $a / $b : 
+            'divide' => $b != 0 ? $a / $b :
                 throw new \InvalidArgumentException('Division by zero'),
             default => throw new \InvalidArgumentException('Invalid operation')
         };
@@ -296,7 +297,7 @@ class DataProvider
 
 ### src/Prompts/PromptGenerator.php
 
-```php
+````php
 <?php
 
 declare(strict_types=1);
@@ -330,7 +331,7 @@ class PromptGenerator
             ]
         ];
     }
-    
+
     /**
      * Generates documentation prompt.
      */
@@ -345,7 +346,7 @@ class PromptGenerator
         ];
     }
 }
-```
+````
 
 ### tests/ToolsTest.php
 
@@ -362,43 +363,43 @@ use App\Tools\ExampleTool;
 class ToolsTest extends TestCase
 {
     private ExampleTool $tool;
-    
+
     protected function setUp(): void
     {
         $this->tool = new ExampleTool();
     }
-    
+
     public function testGreet(): void
     {
         $result = $this->tool->greet('World');
         $this->assertSame('Hello, World!', $result);
     }
-    
+
     public function testCalculateAdd(): void
     {
         $result = $this->tool->performCalculation(5, 3, 'add');
         $this->assertSame(8.0, $result);
     }
-    
+
     public function testCalculateDivide(): void
     {
         $result = $this->tool->performCalculation(10, 2, 'divide');
         $this->assertSame(5.0, $result);
     }
-    
+
     public function testCalculateDivideByZero(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Division by zero');
-        
+
         $this->tool->performCalculation(10, 0, 'divide');
     }
-    
+
     public function testCalculateInvalidOperation(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid operation');
-        
+
         $this->tool->performCalculation(5, 3, 'modulo');
     }
 }

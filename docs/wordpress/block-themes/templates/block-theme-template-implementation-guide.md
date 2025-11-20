@@ -2,24 +2,24 @@
 
 This guide explains how WordPress **block templates**, **template parts**, and **patterns** work together in a LightSpeed block theme, and how to structure, register, and reference them for a scalable, maintainable front‑end system.
 
-> Cross References  
+> Cross References
 >
-> - See: `pattern-development.instructions.md` for authoring patterns  
-> - See: `php-block.instructions.md` for dynamic blocks  
-> - See: `theme-json.instructions.md` for global style + settings integration  
-> - See: `coding-standards.instructions.md` for coding conventions  
+> - See: `pattern-development.instructions.md` for authoring patterns
+> - See: `php-block.instructions.md` for dynamic blocks
+> - See: `theme-json.instructions.md` for global style + settings integration
+> - See: `coding-standards.instructions.md` for coding conventions
 
 ---
 
 ## 1. Core Concepts Overview
 
-| Concept | Purpose | Stored As | Editable in Site Editor? | Referenced By |
-| ------- | ------- | --------- | ------------------------- | ------------- |
-| Template | High-level layout defining page context (e.g. single, archive) | HTML file in `templates/` (or DB override) | Yes | Theme hierarchy, user assignment |
-| Template Part | Reusable fragment (header, footer, sidebar) | HTML file in `parts/` (or DB override) | Yes | `wp:template-part` block inside templates/patterns |
-| Pattern | Precomposed block arrangement for insertion (hero, feature grid) | PHP or HTML registration; code in `patterns/` | Inserted (not auto-loaded) | User, `wp:pattern` block, block inserter |
-| Block Variation / Style | Design variants of a block | `theme.json` or JS filters | Partially | Patterns, templates |
-| Reusable Block | User-defined global instance | DB only | Yes | Inserted manually |
+| Concept                 | Purpose                                                          | Stored As                                     | Editable in Site Editor?   | Referenced By                                      |
+| ----------------------- | ---------------------------------------------------------------- | --------------------------------------------- | -------------------------- | -------------------------------------------------- |
+| Template                | High-level layout defining page context (e.g. single, archive)   | HTML file in `templates/` (or DB override)    | Yes                        | Theme hierarchy, user assignment                   |
+| Template Part           | Reusable fragment (header, footer, sidebar)                      | HTML file in `parts/` (or DB override)        | Yes                        | `wp:template-part` block inside templates/patterns |
+| Pattern                 | Precomposed block arrangement for insertion (hero, feature grid) | PHP or HTML registration; code in `patterns/` | Inserted (not auto-loaded) | User, `wp:pattern` block, block inserter           |
+| Block Variation / Style | Design variants of a block                                       | `theme.json` or JS filters                    | Partially                  | Patterns, templates                                |
+| Reusable Block          | User-defined global instance                                     | DB only                                       | Yes                        | Inserted manually                                  |
 
 ---
 
@@ -83,10 +83,10 @@ Example: `templates/single.html`
 <!-- wp:template-part {"slug":"header","theme":"lightspeed"} /-->
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-    <!-- wp:post-title {"level":1} /-->
-    <!-- wp:post-featured-image /-->
-    <!-- wp:post-content /-->
-    <!-- wp:pattern {"slug":"lightspeed/cta-strip"} /-->
+<!-- wp:post-title {"level":1} /-->
+<!-- wp:post-featured-image /-->
+<!-- wp:post-content /-->
+<!-- wp:pattern {"slug":"lightspeed/cta-strip"} /-->
 <!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","theme":"lightspeed"} /-->
@@ -105,8 +105,8 @@ Example: `parts/header.html`
 
 ```html
 <!-- wp:group {"align":"full","layout":{"type":"flex","justifyContent":"space-between"}} -->
-    <!-- wp:site-title /-->
-    <!-- wp:navigation {"overlayMenu":"never"} /-->
+<!-- wp:site-title /-->
+<!-- wp:navigation {"overlayMenu":"never"} /-->
 <!-- /wp:group -->
 ```
 
@@ -153,11 +153,11 @@ The header docblock establishes metadata. Content below must be valid block HTML
 
 ### 6.2 Pattern Usage Modes
 
-| Mode | How Inserted | Mutability | Use Case |
-| ---- | ------------- | ---------- | -------- |
-| Manual Insertion | Editor (Block Inserter) | User edits freely | Optional content suggestions |
-| Programmatic via `wp:pattern` block | Inside template or template part | Becomes static after first save | Structural composition |
-| Starter content (demo) | Inserted by `wp_insert_post` logic or activation flows | Editable | Seeding experience |
+| Mode                                | How Inserted                                           | Mutability                      | Use Case                     |
+| ----------------------------------- | ------------------------------------------------------ | ------------------------------- | ---------------------------- |
+| Manual Insertion                    | Editor (Block Inserter)                                | User edits freely               | Optional content suggestions |
+| Programmatic via `wp:pattern` block | Inside template or template part                       | Becomes static after first save | Structural composition       |
+| Starter content (demo)              | Inserted by `wp_insert_post` logic or activation flows | Editable                        | Seeding experience           |
 
 ### 6.3 Including Patterns in Templates
 
@@ -173,11 +173,11 @@ This resolves to the pattern's block HTML at runtime. If the user edits the temp
 
 ## 7. Pattern vs Template Part — Decision Framework
 
-| Choose | When |
-| ------ | ---- |
-| Template Part | Structural region repeated across multiple templates and expected to be globally replaceable (e.g. header, footer). |
-| Pattern | Pre-designed content chunk that can appear multiple times or optionally in various contexts (hero, feature list, testimonial section). |
-| Both | A template part can include patterns to seed substructure (e.g. footer part including a links pattern + signup pattern). |
+| Choose        | When                                                                                                                                   |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Template Part | Structural region repeated across multiple templates and expected to be globally replaceable (e.g. header, footer).                    |
+| Pattern       | Pre-designed content chunk that can appear multiple times or optionally in various contexts (hero, feature list, testimonial section). |
+| Both          | A template part can include patterns to seed substructure (e.g. footer part including a links pattern + signup pattern).               |
 
 ---
 
@@ -193,9 +193,9 @@ Example inside pattern:
 
 ```html
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|l","bottom":"var:preset|spacing|l"}},"color":{"background":"var:preset|color|base"}},"layout":{"type":"constrained"}} -->
-    <!-- wp:heading {"style":{"typography":{"fontSize":"var:preset|font-size|xxl"}}} -->
-    <h2><?php echo esc_html__( 'Stay in the Loop', 'lightspeed' ); ?></h2>
-    <!-- /wp:heading -->
+<!-- wp:heading {"style":{"typography":{"fontSize":"var:preset|font-size|xxl"}}} -->
+<h2><?php echo esc_html__( 'Stay in the Loop', 'lightspeed' ); ?></h2>
+<!-- /wp:heading -->
 <!-- /wp:group -->
 ```
 
@@ -215,12 +215,12 @@ Refer to `php-block.instructions.md`.
 
 ## 10. Performance & Maintainability Practices
 
-1. Keep templates shallow — delegate complex regions to template parts or patterns.  
-2. Cohesion: Each template part should have a single layout responsibility.  
-3. Limit repeated inline style attributes by leaning on global styles and presets.  
-4. Use descriptive pattern titles and categories for discoverability.  
-5. Avoid version drift: when a core pattern evolves, consider new slug if changes are breaking.  
-6. Provide accessible semantic markup (headings hierarchy, alt text, nav landmarks).  
+1. Keep templates shallow — delegate complex regions to template parts or patterns.
+2. Cohesion: Each template part should have a single layout responsibility.
+3. Limit repeated inline style attributes by leaning on global styles and presets.
+4. Use descriptive pattern titles and categories for discoverability.
+5. Avoid version drift: when a core pattern evolves, consider new slug if changes are breaking.
+6. Provide accessible semantic markup (headings hierarchy, alt text, nav landmarks).
 
 ---
 
@@ -236,55 +236,55 @@ When changing shipped templates or parts:
 
 ## 12. Debugging & Validation
 
-| Issue | Cause | Remedy |
-| ----- | ----- | ------ |
-| Pattern not rendering via `wp:pattern` | Wrong slug or pattern failed to register | Confirm file header; check `Appearance > Editor > Patterns` |
-| Template part placeholder shown | Missing file or slug mismatch | Ensure filename equals slug; clear caches |
-| Styles inconsistent | Hardcoded CSS bypassing `theme.json` | Refactor to tokens/presets |
-| Duplicate hero content | Pattern included in template and manually inserted by editor | Clarify editorial workflow; remove one source |
+| Issue                                  | Cause                                                        | Remedy                                                      |
+| -------------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| Pattern not rendering via `wp:pattern` | Wrong slug or pattern failed to register                     | Confirm file header; check `Appearance > Editor > Patterns` |
+| Template part placeholder shown        | Missing file or slug mismatch                                | Ensure filename equals slug; clear caches                   |
+| Styles inconsistent                    | Hardcoded CSS bypassing `theme.json`                         | Refactor to tokens/presets                                  |
+| Duplicate hero content                 | Pattern included in template and manually inserted by editor | Clarify editorial workflow; remove one source               |
 
 ---
 
 ## 13. Editorial Workflow Recommendations
 
-1. Provide a “Layout Map” (diagram or README) explaining which templates exist and their parts.  
-2. Limit critical business logic to dynamic blocks rather than embedding in patterns.  
-3. Document which patterns are “structural” (used via `wp:pattern` in templates) vs “editorial” (for manual insertion).  
-4. Provide naming prefix `Structural:` in pattern title if needed (e.g. “Structural: CTA Strip”) to discourage random reuse.  
+1. Provide a “Layout Map” (diagram or README) explaining which templates exist and their parts.
+2. Limit critical business logic to dynamic blocks rather than embedding in patterns.
+3. Document which patterns are “structural” (used via `wp:pattern` in templates) vs “editorial” (for manual insertion).
+4. Provide naming prefix `Structural:` in pattern title if needed (e.g. “Structural: CTA Strip”) to discourage random reuse.
 
 ---
 
 ## 14. Example End-to-End Flow
 
-1. Create `patterns/hero-banner.php` with markup & metadata.  
-2. Reference it in `templates/front-page.html` using `<!-- wp:pattern {"slug":"lightspeed/hero-banner"} /-->`.  
-3. Add `parts/header.html` & `parts/footer.html` and include them in the front-page template.  
-4. Define palette, spacing, typography in `theme.json`.  
-5. Test in Site Editor, verify tokens resolve and no inline ad-hoc styling persists.  
+1. Create `patterns/hero-banner.php` with markup & metadata.
+2. Reference it in `templates/front-page.html` using `<!-- wp:pattern {"slug":"lightspeed/hero-banner"} /-->`.
+3. Add `parts/header.html` & `parts/footer.html` and include them in the front-page template.
+4. Define palette, spacing, typography in `theme.json`.
+5. Test in Site Editor, verify tokens resolve and no inline ad-hoc styling persists.
 6. Commit and publish.
 
 ---
 
 ## 15. Checklist Before Shipping
 
-- [ ] All template part slugs match filenames.  
-- [ ] Patterns have localized strings via `esc_html__()` where appropriate.  
-- [ ] No deprecated block attributes present (validate with latest WP).  
-- [ ] Uses `theme.json` presets for spacing, colors, typography.  
-- [ ] Dynamic blocks (if any) render without PHP notices.  
-- [ ] Accessibility: heading order, ARIA landmarks, link text clarity.  
-- [ ] Patterns categorized logically and searchable via keywords.  
+- [ ] All template part slugs match filenames.
+- [ ] Patterns have localized strings via `esc_html__()` where appropriate.
+- [ ] No deprecated block attributes present (validate with latest WP).
+- [ ] Uses `theme.json` presets for spacing, colors, typography.
+- [ ] Dynamic blocks (if any) render without PHP notices.
+- [ ] Accessibility: heading order, ARIA landmarks, link text clarity.
+- [ ] Patterns categorized logically and searchable via keywords.
 
 ---
 
 ## 16. Glossary
 
-| Term | Definition |
-| ---- | ---------- |
-| Slug | Unique identifier for a template part or pattern (namespaced for patterns). |
-| Preset | Design token defined in `theme.json` (e.g. color, font size). |
-| Structural Pattern | Pattern inserted automatically via `wp:pattern` inside templates. |
-| Editorial Pattern | Pattern intended for optional manual insertion by content editors. |
+| Term               | Definition                                                                  |
+| ------------------ | --------------------------------------------------------------------------- |
+| Slug               | Unique identifier for a template part or pattern (namespaced for patterns). |
+| Preset             | Design token defined in `theme.json` (e.g. color, font size).               |
+| Structural Pattern | Pattern inserted automatically via `wp:pattern` inside templates.           |
+| Editorial Pattern  | Pattern intended for optional manual insertion by content editors.          |
 
 ---
 
@@ -329,16 +329,16 @@ This implementation guide is extended to include the new menu template part and 
 
 ### Example pattern header
 
-/*Title:
+/_Title:
 Menu Panel — Columns
 Slug: lsx-design/menu-panel-columns
 Categories: lsx-design/menu
 Block Types: core/template-part/menu
 Inserter: yes
 Viewport Width: 1260
-*/
+_/
 
-- Ensure the file-based patterns use i18n functions (esc_html_e / __) if they include PHP wrapper strings.
+- Ensure the file-based patterns use i18n functions (esc_html_e / \_\_) if they include PHP wrapper strings.
 
 ## 3) Register menu pattern category (functions.php)
 

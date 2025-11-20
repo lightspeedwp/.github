@@ -1,11 +1,11 @@
 ---
 file_type: "documentation"
-title: 'WordPress Development Documentation'
-description: 'Comprehensive WordPress development resources for block themes, Gutenberg, coding standards, and testing'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['wordpress', 'block-themes', 'gutenberg', 'coding-standards', 'testing']
+title: "WordPress Development Documentation"
+description: "Comprehensive WordPress development resources for block themes, Gutenberg, coding standards, and testing"
+version: "1.0"
+last_updated: "2025-11-12"
+maintainer: "LightSpeed Team"
+tags: ["wordpress", "block-themes", "gutenberg", "coding-standards", "testing"]
 ---
 
 # WordPress Development Documentation

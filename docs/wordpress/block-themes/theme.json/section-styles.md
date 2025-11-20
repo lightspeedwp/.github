@@ -119,7 +119,10 @@ They are defined in `theme.json` and can cascade styles to **nested elements** (
   "title": "Section 1",
   "blockTypes": ["core/group", "core/columns"],
   "styles": {
-    "color": { "background": "var:preset|color|contrast", "text": "var:preset|color|base" }
+    "color": {
+      "background": "var:preset|color|contrast",
+      "text": "var:preset|color|base"
+    }
   }
 }
 ```
@@ -157,17 +160,28 @@ You can scope **inner elements** (e.g. `elements.link`) and **inner blocks** (e.
   "title": "Section · Cards",
   "blockTypes": ["core/group", "core/columns"],
   "styles": {
-    "color": { "background": "var:preset|color|surface", "text": "var:preset|color|contrast" },
+    "color": {
+      "background": "var:preset|color|surface",
+      "text": "var:preset|color|contrast"
+    },
     "elements": {
       "link": {
-        "color": { "text": "var:preset|color|accent-1", "background": "transparent" },
+        "color": {
+          "text": "var:preset|color|accent-1",
+          "background": "transparent"
+        },
         "typography": { "textDecoration": "none" }
       }
     },
     "blocks": {
       "core/heading": {
-        "typography": { "fontSize": "var:preset|font-size|large", "fontWeight": "700" },
-        "spacing": { "margin": { "top": "0", "bottom": "var:preset|spacing|20" } }
+        "typography": {
+          "fontSize": "var:preset|font-size|large",
+          "fontWeight": "700"
+        },
+        "spacing": {
+          "margin": { "top": "0", "bottom": "var:preset|spacing|20" }
+        }
       }
     },
     "css": "& .wp-block-post-terms__separator{display:none;}"
@@ -249,9 +263,9 @@ add_action( 'init', function () {
 Create minimal, repeatable checks in `e2e/section-styles.spec.ts`:
 
 ```ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test('section-cards applies nested heading + link styles', async ({ page }) => {
+test("section-cards applies nested heading + link styles", async ({ page }) => {
   // 1) Create page with Group (section-cards) → Heading + Paragraph + Link
   // 2) Assert computed styles (font-size, margin-bottom, link color) match presets
   // 3) Duplicate Group inside a Group (nested) and ensure inner rules still win
@@ -270,7 +284,7 @@ Use selectors by **block wrapper class** plus the auto `is-style-{slug}` class, 
 
 ---
 
-## Make/Core (24 Jun 2024) — _“Section Styles”_
+## Make/Core (24 Jun 2024) — *“Section Styles”*
 
 **What it is:** Official feature announcement + quick how-to.
 
@@ -285,7 +299,7 @@ Use selectors by **block wrapper class** plus the auto `is-style-{slug}` class, 
 
 ---
 
-## WP Dev Blog (21 Jun 2024) — _“Styling sections, nested elements, and more with Block Style Variations in WordPress 6.6”_
+## WP Dev Blog (21 Jun 2024) — *“Styling sections, nested elements, and more with Block Style Variations in WordPress 6.6”*
 
 **What it is:** Hands-on tutorial from Core team on using section styles.
 **Key points**
@@ -300,7 +314,7 @@ Use selectors by **block wrapper class** plus the auto `is-style-{slug}` class, 
 
 ---
 
-## WP Dev Blog (Feb 2023) — _“Intrinsic design, theming, and rethinking how to design with WordPress”_
+## WP Dev Blog (Feb 2023) — *“Intrinsic design, theming, and rethinking how to design with WordPress”*
 
 **What it is:** Design philosophy that informed the section-style direction.
 **Key points**
@@ -314,7 +328,7 @@ Use selectors by **block wrapper class** plus the auto `is-style-{slug}` class, 
 
 ---
 
-## 7) Gutenberg Issue #57537 — _“Section Styling, Colorways, and Typesets for WP 6.6”_ (tracking/design)
+## 7) Gutenberg Issue #57537 — *“Section Styling, Colorways, and Typesets for WP 6.6”* (tracking/design)
 
 **What it is:** The **planning/tracking issue** for the feature.
 **Key points**

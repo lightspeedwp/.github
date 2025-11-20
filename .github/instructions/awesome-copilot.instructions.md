@@ -38,62 +38,68 @@ It cross-links all relevant instructions, prompts, chatmodes, and collections, a
 
 ## Dynamic Indexes
 
-### Instructions  
+### Instructions
 
-_Directory: `.github/instructions/awesome-copilot/`_  
+*Directory: `.github/instructions/awesome-copilot/`*  
 [README.instructions.md](./awesome-copilot/README.instructions.md)
 
-| File | Description |
-|------|-------------|
-| [a11y.instructions.md](./awesome-copilot/a11y.instructions.md) | Guidance for creating more accessible code |
-| [genaiscript.instructions.md](./awesome-copilot/genaiscript.instructions.md) | AI-powered script generation guidelines |
-| [markdown.instructions.md](./awesome-copilot/markdown.instructions.md) | Documentation and content creation standards |
-| [nestjs.instructions.md](./awesome-copilot/nestjs.instructions.md) | NestJS development standards and best practices |
-| [nextjs.instructions.md](./awesome-copilot/nextjs.instructions.md) | Next.js best practices for LLMs |
-| [powershell.instructions.md](./awesome-copilot/powershell.instructions.md) | PowerShell cmdlet and scripting best practices |
-| [prompt.instructions.md](./awesome-copilot/prompt.instructions.md) | Guidelines for creating high-quality Copilot prompt files |
-| [python.instructions.md](./awesome-copilot/python.instructions.md) | Python coding conventions and guidelines |
-| [vuejs3.instructions.md](./awesome-copilot/vuejs3.instructions.md) | VueJS 3 development standards and best practices |
-| [README.instructions.md](./awesome-copilot/README.instructions.md) | (Usage and installation details) |
+| File                                                                         | Description                                               |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------- |
+| [a11y.instructions.md](./awesome-copilot/a11y.instructions.md)               | Guidance for creating more accessible code                |
+| [genaiscript.instructions.md](./awesome-copilot/genaiscript.instructions.md) | AI-powered script generation guidelines                   |
+| [markdown.instructions.md](./awesome-copilot/markdown.instructions.md)       | Documentation and content creation standards              |
+| [nestjs.instructions.md](./awesome-copilot/nestjs.instructions.md)           | NestJS development standards and best practices           |
+| [nextjs.instructions.md](./awesome-copilot/nextjs.instructions.md)           | Next.js best practices for LLMs                           |
+| [powershell.instructions.md](./awesome-copilot/powershell.instructions.md)   | PowerShell cmdlet and scripting best practices            |
+| [prompt.instructions.md](./awesome-copilot/prompt.instructions.md)           | Guidelines for creating high-quality Copilot prompt files |
+| [python.instructions.md](./awesome-copilot/python.instructions.md)           | Python coding conventions and guidelines                  |
+| [vuejs3.instructions.md](./awesome-copilot/vuejs3.instructions.md)           | VueJS 3 development standards and best practices          |
+| [README.instructions.md](./awesome-copilot/README.instructions.md)           | (Usage and installation details)                          |
 
 ---
 
-### Prompts  
+### Prompts
 
-_Directory: `.github/prompts/awesome-copilot/`_  
+*Directory: `.github/prompts/awesome-copilot/`*  
 [README.prompts.md](../prompts/awesome-copilot/README.prompts.md)
 
 | File | Purpose/Description |
-|------|---------------------|
+| ---- | ------------------- |
+
 <!-- Example entries - replace with the actual files and descriptions if known -->
+
 | [dotnet-best-practices.prompt.md](../prompts/awesome-copilot/dotnet-best-practices.prompt.md) | .NET/C# Best Practices |
 | [copilot-instructions-blueprint-generator.prompt.md](../prompts/awesome-copilot/copilot-instructions-blueprint-generator.prompt.md) | Copilot Instructions Blueprint Generator |
 | ... | ... |
 
 ---
 
-### Chatmodes  
+### Chatmodes
 
-_Directory: `.github/chatmodes/awesome-copilot/`_  
+*Directory: `.github/chatmodes/awesome-copilot/`*  
 [README.chatmodes.md](../chatmodes/awesome-copilot/README.chatmodes.md)
 
 | File | Purpose/Description |
-|------|---------------------|
+| ---- | ------------------- |
+
 <!-- Example entries - replace with the actual files and descriptions if known -->
+
 | [accessibility.chatmode.md](../chatmodes/awesome-copilot/accessibility.chatmode.md) | Accessibility mode |
 | [api-architect.chatmode.md](../chatmodes/awesome-copilot/api-architect.chatmode.md) | API Architect mode |
 | ... | ... |
 
 ---
 
-### Collections  
+### Collections
 
-_Directory: `.github/collections/`_  
+*Directory: `.github/collections/`*  
 [README.collections.md](../collections/README.collections.md)
 
 | File | Purpose/Description |
-|------|---------------------|
+| ---- | ------------------- |
+
 <!-- Example entries - replace with the actual files and descriptions if known -->
+
 | [azure-cloud-development.md](../collections/azure-cloud-development.md) | Azure & Cloud Development |
 | [csharp-dotnet-development.md](../collections/csharp-dotnet-development.md) | C# .NET Development |
 | ... | ... |

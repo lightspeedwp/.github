@@ -9,20 +9,21 @@ description: "Explainer for ChatGPT o4-mini."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 file_type: "model"
 ---
+
 # Model Overview (required)
 
 - Purpose, typical strengths, lineage.
 
 # Performance Metrics (required)
 
-| Metric | Value |
-|---|---|
-| Context Window | (fill from provider docs) |
-| Latency | Low / Medium / High |
-| Reasoning | Standard / Advanced / Extended |
-| Multimodal | Text / Images / Code / Audio (as applicable) |
-| Cost Efficiency | $ per 1K tokens (approx) |
-| Reliability | High / Medium / Variable |
+| Metric          | Value                                        |
+| --------------- | -------------------------------------------- |
+| Context Window  | (fill from provider docs)                    |
+| Latency         | Low / Medium / High                          |
+| Reasoning       | Standard / Advanced / Extended               |
+| Multimodal      | Text / Images / Code / Audio (as applicable) |
+| Cost Efficiency | $ per 1K tokens (approx)                     |
+| Reliability     | High / Medium / Variable                     |
 
 # Ideal Use Cases (required)
 

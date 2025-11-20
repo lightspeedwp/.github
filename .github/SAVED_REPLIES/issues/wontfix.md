@@ -20,11 +20,13 @@ Hi @username,
 
 After careful review, we've determined this issue will not be addressed, as it is either by design or out of scope for the current roadmap.
 
-**Reasoning:**  
+**Reasoning:**
+
 - [State rationale: security, compatibility, architectural priorities, etc.]
 - [Reference documentation or product spec if available]
 
-**Alternatives:**  
+**Alternatives:**
+
 - [List possible workarounds, configuration options, or documentation links]
 
 If you believe this decision should be reconsidered, please provide more context or open a focused feature request outlining your use case.

@@ -40,22 +40,21 @@ See [`schemas/frontmatter.schema.json`](../schemas/frontmatter.schema.json)
 $schema: "schemas/frontmatter.schema.json"
 ---
 title: "..."
-...
 ```
 
 ## Typical Fields
 
-| Field         | Type     | Required | Description                                |
-|---------------|----------|----------|--------------------------------------------|
-| title         | string   | yes      | Human-readable title                       |
-| description   | string   | yes      | Brief summary of the file's purpose        |
-| version       | string   | yes      | Schema or document version (e.g. v1.0)     |
-| last_updated  | string   | yes      | ISO date of last update                    |
-| author        | string   | yes      | Main author or team                        |
-| maintainer    | string   | yes      | Who's responsible for changes              |
-| tags          | string[] | no       | Keywords for search/filtering              |
-| type          | string   | yes      | Type of file (e.g. "agent", "instructions")|
-| references    | string[] | no       | **AI-relevant cross-links** for automation and discovery |
+| Field        | Type     | Required | Description                                              |
+| ------------ | -------- | -------- | -------------------------------------------------------- |
+| title        | string   | yes      | Human-readable title                                     |
+| description  | string   | yes      | Brief summary of the file's purpose                      |
+| version      | string   | yes      | Schema or document version (e.g. v1.0)                   |
+| last_updated | string   | yes      | ISO date of last update                                  |
+| author       | string   | yes      | Main author or team                                      |
+| maintainer   | string   | yes      | Who's responsible for changes                            |
+| tags         | string[] | no       | Keywords for search/filtering                            |
+| type         | string   | yes      | Type of file (e.g. "agent", "instructions")              |
+| references   | string[] | no       | **AI-relevant cross-links** for automation and discovery |
 
 ## Dual Reference System
 
@@ -147,7 +146,7 @@ references:
 ```yaml
 references:
   - "./coding-standards.instructions.md"
-  - "../workflows/README.md" 
+  - "../workflows/README.md"
   - "../agents/README.md"
   - "../custom-instructions.md"
 ```
@@ -178,14 +177,17 @@ Use descriptive markdown links that help humans understand context:
 ## 🔗 Related Documentation
 
 ### 📚 Core Resources
+
 - **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Organization automation policies
 - **[Coding Standards](./instructions/coding-standards.instructions.md)** - Development guidelines
 
-### ⚙️ Implementation Details  
+### ⚙️ Implementation Details
+
 - **[Labeling Workflow](../workflows/labeling.yml)** - GitHub Actions automation
 - **[Test Configuration](../jest.config.js)** - Testing framework setup
 
 ### 🎯 Specialized Guides
+
 - **[WordPress Development](./instructions/wordpress.instructions.md)** - WP-specific practices
 - **[Security Guidelines](./instructions/security.instructions.md)** - Security best practices
 ```
@@ -204,4 +206,4 @@ Use descriptive markdown links that help humans understand context:
 
 ---
 
-_Keep this document and the schema in sync. PRs are welcome for improvements!_
+*Keep this document and the schema in sync. PRs are welcome for improvements!*

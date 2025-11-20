@@ -18,6 +18,7 @@ Hi @username,
 This PR has merge conflicts with the target branch and needs to be rebased.
 
 **What to do:**
+
 1. Update your branch with the latest `develop` (or target branch)
 2. Resolve any conflicts locally
 3. Push the updated branch to GitHub

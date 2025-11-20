@@ -11,16 +11,16 @@ This document provides guidance for contributing to and maintaining this communi
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/lightspeedwp/.github.git
-    cd .github
-    ```
+   ```bash
+   git clone https://github.com/lightspeedwp/.github.git
+   cd .github
+   ```
 
 2. Install dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 3. **Review `package.json`:**  
    Before getting started, check the `package.json` file to understand available scripts, dependencies, and tooling relevant to this repository.
@@ -31,21 +31,21 @@ This repository provides linting tools for JavaScript, CSS, and other code stand
 
 - Lint JavaScript:
 
-    ```bash
-    npm run lint:js
-    ```
+  ```bash
+  npm run lint:js
+  ```
 
 - Lint CSS:
 
-    ```bash
-    npm run lint:css
-    ```
+  ```bash
+  npm run lint:css
+  ```
 
 - Run all linters:
 
-    ```bash
-    npm run lint
-    ```
+  ```bash
+  npm run lint
+  ```
 
 ## Git Hooks & Automation with Husky
 
@@ -117,22 +117,22 @@ Agents are written in JavaScript, and reusable logic or utilities should be plac
 
 1. Create a feature branch for your work:
 
-    ```bash
-    git checkout -b feature/your-feature-name
-    ```
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 
 2. Make your changes and commit them:
 
-    ```bash
-    git add .
-    git commit -m "Your descriptive commit message"
-    ```
+   ```bash
+   git add .
+   git commit -m "Your descriptive commit message"
+   ```
 
 3. Push your changes and create a pull request:
 
-    ```bash
-    git push origin feature/your-feature-name
-    ```
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 
 4. Reference any related issues in your pull request description. Please use the [pull request template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md) for summaries.
 

@@ -130,23 +130,28 @@ gh issue create \
 
 ```markdown
 ## Overview
+
 Brief description of what needs to be done and why.
 
 ## Context
+
 - Which phase this belongs to
 - Dependencies on other work
 - Related issues: #xxx, #yyy
 
 ## Acceptance Criteria
+
 - [ ] Specific measurable outcome 1
 - [ ] Specific measurable outcome 2
 - [ ] Tests added/updated
 - [ ] Documentation updated
 
 ## Technical Details
+
 Any implementation notes, design decisions, or technical context.
 
 ## Effort Estimate
+
 - [ ] Small (< 1 day)
 - [ ] Medium (1-3 days)
 - [ ] Large (3+ days)

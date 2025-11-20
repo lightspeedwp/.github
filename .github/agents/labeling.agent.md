@@ -1,13 +1,42 @@
 ---
-title: "Labeling Agent Spec"
+name: "labeling"
+description: "Unified agent for dynamic, canonical, and automated labeling of issues and PRs. Handles status, type, priority, and project-field enforcement, label standardization, and migration based on .github/automation/labels.yml."
+target: "github-copilot"
+tools: ["github/*", "edit", "search"]
+handoffs:
+  - label: "Start Implementation"
+    agent: "implementation"
+    prompt: "Now implement the labeling changes outlined above."
+    send: false
 version: "v2.0"
-last_updated: "2025-10-23"
+last_updated: "2025-11-20"
 author: "LightSpeedWP"
 maintainer: "Ash Shaw"
-description: "Unified agent for dynamic, canonical, and automated labeling of issues and PRs. Handles status, type, priority, and project-field enforcement, label standardization, and migration based on .github/labels.yml."
-tags: ["lightspeed", "labeling", "automation", "canonical-labels", "agents"]
 file_type: "agent"
-name: "labeling"
+category: "automation"
+status: "active"
+visibility: "public"
+tags:
+  [
+    "lightspeed",
+    "labeling",
+    "automation",
+    "canonical-labels",
+    "agents",
+    "github",
+  ]
+references:
+  - path: ".github/automation/labels.yml"
+    description: "Canonical label definitions"
+  - path: ".github/automation/labeler.yml"
+    description: "Labeling rules and patterns"
+  - path: ".github/agents/labeling.agent.js"
+    description: "Implementation script"
+  - path: ".github/workflows/labeling.yml"
+    description: "GitHub Actions workflow"
+  - path: "schemas/frontmatter.schema.json"
+    description: "Frontmatter schema validation"
+owners: ["lightspeedwp/maintainers"]
 ---
 
 # LightSpeed Unified Labeling Agent
@@ -24,25 +53,25 @@ name: "labeling"
 
 ## Key Features
 
-- **Driven by config:**  
+- **Driven by config:**
   - `.github/labels.yml`: Canonical label set (names, colors, optional aliases).
   - `.github/labeler.yml`: File/branch-based label rules.
   - `.github/issue-types.yml`: Issue type mapping.
 
-- **Dynamic Application & Enforcement:**  
+- **Dynamic Application & Enforcement:**
   - One-hot enforcement: exactly one `status:*`, `priority:*`, and `type:*` label per item.
   - Changelog nudge: Requires changelog label on PRs affecting code.
   - Alias migration: Migrates known legacy/alias labels to canonical set.
 
-- **Extensible Heuristics:**  
+- **Extensible Heuristics:**
   - Applies labels by branch, file, and PR/issue body heuristics.
   - Easily extended with new utility modules.
 
-- **Unified Workflow:**  
+- **Unified Workflow:**
   - [labeling.yml](../workflows/labeling.yml) is the only labeling workflow.
   - No separate status/type/standardization workflows/agents exist.
 
-- **Dry-Run & Reporting:**  
+- **Dry-Run & Reporting:**
   - Supports dry-run for safe preview/testing.
   - Generates audit logs and summary Markdown when enabled.
 

@@ -23,10 +23,12 @@ Hi @username,
 Thank you for reaching out! We're here to help.
 
 **Next steps:**
+
 - Our team or the community will respond as soon as possible.
 - If you have more context or error details, please add them here.
 
-**Resources:**  
+**Resources:**
+
 - [Documentation](../../README.md)
 - [FAQ](../faq.md)
 - [Discussions](../../discussions)
@@ -61,7 +63,8 @@ Hi @username,
 
 Thank you for your patience. Here’s a solution to your question:
 
-**Solution:**  
+**Solution:**
+
 - [Provide the solution, workaround, or steps here]
 
 If you have further questions, let us know!

@@ -5,7 +5,7 @@ title: "[Improvement] <Short summary>"
 labels: [type:improve, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: improve
 references:
   - ../CONTRIBUTING.md
@@ -18,6 +18,7 @@ references:
   - .github/labels.yml
   - .github/issue-types.yml
 ---
+
 <!--
 Thank you for suggesting an enhancement!
 Please fill in as much of the template below as you can.

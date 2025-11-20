@@ -180,4 +180,4 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 ---
 
-_*For questions or changes, open a PR or discussion in the `.github` repository.*_
+**For questions or changes, open a PR or discussion in the `.github` repository.**

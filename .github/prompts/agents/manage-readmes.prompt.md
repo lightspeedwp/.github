@@ -11,6 +11,7 @@ references:
   - "./manage-readmes.agent.md"
   - "./manage-readmes.instructions.md"
 ---
+
 # Prompt
 
 Please discover all folders and files, generate or update README.md and README.<filename>.md as needed, and validate headers and documentation standards. Always create a backup and lint after changes.

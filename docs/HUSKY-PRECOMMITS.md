@@ -33,6 +33,7 @@ Husky is managed as a dev dependency and configured to install automatically:
 2. Verify that `.husky/pre-commit` and `.husky/pre-push` files exist.
 
 If Husky isn't working, ensure:
+
 - Git isn't bypassing hooks (no `--no-verify` flag used)
 - You have the correct Node version (see `.nvmrc`)
 - The `.husky/` directory and hook files have execute permissions
@@ -50,20 +51,10 @@ Configuration is defined in `package.json` under the `lint-staged` key:
 ```json
 {
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{md,mdx}": [
-      "markdownlint-cli2 --fix",
-      "prettier --write"
-    ],
-    "*.json": [
-      "prettier --write"
-    ],
-    "*.{yml,yaml}": [
-      "prettier --write"
-    ]
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{md,mdx}": ["markdownlint-cli2 --fix", "prettier --write"],
+    "*.json": ["prettier --write"],
+    "*.{yml,yaml}": ["prettier --write"]
   }
 }
 ```
@@ -110,6 +101,7 @@ npm test
 ```
 
 This ensures that all tests pass before code is shared with the team. The hook runs:
+
 - JavaScript/TypeScript unit tests (Jest)
 - Any other configured test suites
 
@@ -162,6 +154,7 @@ The pre-commit and pre-push hooks run subsets of what CI does:
 - **CI**: Runs everything (linting, tests, builds, integration tests)
 
 This multi-layered approach provides:
+
 1. **Fast local feedback** via Husky hooks
 2. **Comprehensive validation** via CI
 3. **Safety net** for contributors who bypass hooks
@@ -175,21 +168,25 @@ By catching issues early (locally), we reduce CI failures and save time. CI then
 If hooks aren't being triggered:
 
 1. Verify Husky is installed:
+
    ```bash
    npm list husky
    ```
 
 2. Check that `.husky/` directory exists:
+
    ```bash
    ls -la .husky/
    ```
 
 3. Verify hooks are executable:
+
    ```bash
    ls -la .husky/pre-commit .husky/pre-push
    ```
 
 4. Re-initialize Husky:
+
    ```bash
    npm run prepare
    ```
@@ -199,11 +196,13 @@ If hooks aren't being triggered:
 If lint-staged fails:
 
 1. Check which files are causing issues:
+
    ```bash
    npx lint-staged --debug
    ```
 
 2. Run the specific linter manually:
+
    ```bash
    # For JS files
    npx eslint path/to/file.js --fix
@@ -213,6 +212,7 @@ If lint-staged fails:
    ```
 
 3. Stage the fixes and commit again:
+
    ```bash
    git add .
    git commit -m "Your message"
@@ -223,6 +223,7 @@ If lint-staged fails:
 If the pre-push hook fails:
 
 1. Run tests locally to see detailed output:
+
    ```bash
    npm test
    ```
@@ -264,6 +265,7 @@ chmod +x .husky/pre-commit .husky/pre-push
 ```
 
 The `package.json` includes:
+
 - `prepare` script that runs `husky install`
 - `lint-staged` configuration for file-specific checks
 

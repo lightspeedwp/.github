@@ -23,31 +23,31 @@
 
 ## Order & conflict notes
 
-- Avoid loops: do **not** auto-move from **In QA → In review** on comment events.  
+- Avoid loops: do **not** auto-move from **In QA → In review** on comment events.
 - Manual overrides always win; automations should only react to clear, high-signal events (PR open/merge, label change).
 
 ---
 
 ## Reference — Definition of Ready (DoR)
 
-- [ ] Problem statement and outcome defined  
-- [ ] Acceptance criteria written (Given/When/Then)  
-- [ ] Designs or references attached (if relevant)  
-- [ ] Dependencies identified and unblocked  
-- [ ] Estimates agreed (Size and/or hours)  
-- [ ] Test approach noted (how we’ll verify)  
-- [ ] Stakeholders and approver listed  
-- [ ] Environment clarified (Prototype/Staging/Live)  
+- [ ] Problem statement and outcome defined
+- [ ] Acceptance criteria written (Given/When/Then)
+- [ ] Designs or references attached (if relevant)
+- [ ] Dependencies identified and unblocked
+- [ ] Estimates agreed (Size and/or hours)
+- [ ] Test approach noted (how we’ll verify)
+- [ ] Stakeholders and approver listed
+- [ ] Environment clarified (Prototype/Staging/Live)
 
 ## Reference — Definition of Done (DoD)
 
-- [ ] Acceptance criteria met  
-- [ ] Unit/functional tests added or updated  
-- [ ] A11y pass (key flows and components)  
-- [ ] Docs updated (README/Changelog/Client notes)  
-- [ ] Feature toggles/rollout considered  
-- [ ] QA verified on Staging  
-- [ ] UAT approved by client (if applicable)  
-- [ ] Release notes prepared; monitoring in place  
+- [ ] Acceptance criteria met
+- [ ] Unit/functional tests added or updated
+- [ ] A11y pass (key flows and components)
+- [ ] Docs updated (README/Changelog/Client notes)
+- [ ] Feature toggles/rollout considered
+- [ ] QA verified on Staging
+- [ ] UAT approved by client (if applicable)
+- [ ] Release notes prepared; monitoring in place
 
 ---

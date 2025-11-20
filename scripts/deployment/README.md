@@ -1,12 +1,12 @@
 ---
-title: 'Deployment Automation Scripts'
-version: 'v1.0.0'
-last_updated: '2025-11-18'
-author: 'LightSpeed'
-maintainer: 'Ash Shaw'
-description: 'Automated deployment and rollback scripts for modular shell script components.'
-tags: ['deployment', 'automation', 'ci-cd', 'staging', 'production', 'rollback']
-type: 'documentation'
+title: "Deployment Automation Scripts"
+version: "v1.0.0"
+last_updated: "2025-11-18"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
+description: "Automated deployment and rollback scripts for modular shell script components."
+tags: ["deployment", "automation", "ci-cd", "staging", "production", "rollback"]
+type: "documentation"
 ---
 
 # Deployment Automation Scripts

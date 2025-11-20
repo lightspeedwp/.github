@@ -15,21 +15,21 @@ Use this reference for consistent, correct PR labels and full alignment with aut
 
 Every PR should use a standard branch prefix for correct label and template automation:
 
-| Prefix      | Purpose                       | Maps to Type / Label      |
-|-------------|------------------------------|---------------------------|
-| feat/       | New feature or enhancement   | feature                   |
-| fix/        | Bugfix or regression         | bug                       |
-| docs/       | Documentation changes        | documentation             |
-| chore/      | Maintenance/hygiene tasks    | chore                     |
-| build/      | Build/CI/automation changes  | build / ci                |
-| refactor/   | Internal code refactoring    | refactor                  |
-| test/       | Add or update tests          | test                      |
-| perf/       | Performance improvements     | performance               |
-| ci/         | CI/CD or workflow changes    | ci                        |
-| release/    | Release prep/deployment      | release                   |
-| hotfix/     | Emergency production fix     | hotfix / bug              |
-| design/     | Design changes/assets        | design                    |
-| research/   | Technical spike/research     | research                  |
+| Prefix    | Purpose                     | Maps to Type / Label |
+| --------- | --------------------------- | -------------------- |
+| feat/     | New feature or enhancement  | feature              |
+| fix/      | Bugfix or regression        | bug                  |
+| docs/     | Documentation changes       | documentation        |
+| chore/    | Maintenance/hygiene tasks   | chore                |
+| build/    | Build/CI/automation changes | build / ci           |
+| refactor/ | Internal code refactoring   | refactor             |
+| test/     | Add or update tests         | test                 |
+| perf/     | Performance improvements    | performance          |
+| ci/       | CI/CD or workflow changes   | ci                   |
+| release/  | Release prep/deployment     | release              |
+| hotfix/   | Emergency production fix    | hotfix / bug         |
+| design/   | Design changes/assets       | design               |
+| research/ | Technical spike/research    | research             |
 
 ---
 

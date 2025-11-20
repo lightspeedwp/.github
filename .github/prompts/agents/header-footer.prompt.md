@@ -1,7 +1,7 @@
 ---
-file_type: 'prompt'
-description: 'Prompt for Copilot/AI to generate or update headers and footers in documentation files.'
-applyTo: '**/*'
+file_type: "prompt"
+description: "Prompt for Copilot/AI to generate or update headers and footers in documentation files."
+applyTo: "**/*"
 ---
 
 # 🏷️ Header & Footer Prompt
@@ -44,7 +44,7 @@ To make documentation more engaging and scannable, you should add relevant emoji
 
 ---
 
-_This prompt is part of the LightSpeedWP automation suite. For more, see the [Documentation Hub](../../docs/README.md)._
+*This prompt is part of the LightSpeedWP automation suite. For more, see the [Documentation Hub](../../docs/README.md).*
 
 ---
 

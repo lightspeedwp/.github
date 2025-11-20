@@ -1,17 +1,17 @@
 ---
-title: 'Frontmatter Schema Documentation'
-description: 'Unified frontmatter schema for LightSpeed .github files, validation tools, and usage guidelines'
-version: 'v1.0'
-last_updated: '2025-11-12'
-file_type: 'documentation'
-tags: ['schema', 'frontmatter', 'validation', 'yaml']
+title: "Frontmatter Schema Documentation"
+description: "Unified frontmatter schema for LightSpeed .github files, validation tools, and usage guidelines"
+version: "v1.0"
+last_updated: "2025-11-12"
+file_type: "documentation"
+tags: ["schema", "frontmatter", "validation", "yaml"]
 references:
-  - path: '../../docs/CHATMODE-FRONTMATTER.md'
-    description: 'Frontmatter conventions guide'
-  - path: '../../.github/instructions/frontmatter.instructions.md'
-    description: 'Frontmatter instructions for AI agents'
-  - path: '../../.github/instructions/tagging-and-frontmatter-conventions.instructions.md'
-    description: 'Tagging conventions'
+  - path: "../../docs/CHATMODE-FRONTMATTER.md"
+    description: "Frontmatter conventions guide"
+  - path: "../../.github/instructions/frontmatter.instructions.md"
+    description: "Frontmatter instructions for AI agents"
+  - path: "../../.github/instructions/tagging-and-frontmatter-conventions.instructions.md"
+    description: "Tagging conventions"
 ---
 
 # Frontmatter Schema
@@ -81,23 +81,23 @@ The schema uses JSON Schema's `oneOf` discriminator pattern with `file_type` as 
 
 Available across all file types (via `$ref: "#/definitions/commonFields"`):
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `title` | string | Human-readable title |
-| `description` | string | Brief description of purpose (required for most types) |
-| `version` | string | Version string (e.g., v1.1) |
-| `created_date` | date | ISO date when file was created |
-| `last_updated` | date | ISO date of last update |
-| `author` | string | Main author or responsible party |
-| `maintainer` | string | Current maintainer or team |
-| `owners` | array | List of owners/maintainers |
-| `tags` | array | Keywords for discovery (max 8) |
-| `status` | enum | `active`, `deprecated`, `draft`, `experimental` |
-| `stability` | enum | `stable`, `experimental`, `incubating` |
-| `deprecated` | boolean | Whether this file is deprecated |
-| `replacement` | string | Path to replacement file if deprecated |
-| `domain` | enum | Primary classification domain |
-| `references` | array | AI-focused references to related files |
+| Field          | Type    | Description                                            |
+| -------------- | ------- | ------------------------------------------------------ |
+| `title`        | string  | Human-readable title                                   |
+| `description`  | string  | Brief description of purpose (required for most types) |
+| `version`      | string  | Version string (e.g., v1.1)                            |
+| `created_date` | date    | ISO date when file was created                         |
+| `last_updated` | date    | ISO date of last update                                |
+| `author`       | string  | Main author or responsible party                       |
+| `maintainer`   | string  | Current maintainer or team                             |
+| `owners`       | array   | List of owners/maintainers                             |
+| `tags`         | array   | Keywords for discovery (max 8)                         |
+| `status`       | enum    | `active`, `deprecated`, `draft`, `experimental`        |
+| `stability`    | enum    | `stable`, `experimental`, `incubating`                 |
+| `deprecated`   | boolean | Whether this file is deprecated                        |
+| `replacement`  | string  | Path to replacement file if deprecated                 |
+| `domain`       | enum    | Primary classification domain                          |
+| `references`   | array   | AI-focused references to related files                 |
 
 ### File Types
 

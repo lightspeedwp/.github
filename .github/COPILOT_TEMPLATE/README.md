@@ -45,35 +45,35 @@ graph TB
     A --> C[💬 Chat Templates]
     A --> D[🔧 Configuration Templates]
     A --> E[📋 Workflow Templates]
-    
+
     B --> B1[Issue Agent Templates]
     B --> B2[PR Agent Templates]
     B --> B3[Review Agent Templates]
     B --> B4[Release Agent Templates]
-    
+
     C --> C1[Code Review Prompts]
     C --> C2[Documentation Generation]
     C --> C3[Test Generation]
     C --> C4[Refactoring Guidance]
-    
+
     D --> D1[Copilot Settings]
     D --> D2[AI Model Preferences]
     D --> D3[Context Templates]
-    
+
     E --> E1[Development Workflows]
     E --> E2[Review Workflows]
     E --> E3[Release Workflows]
-    
+
     F[Developer Input] --> A
     G[GitHub Integration] --> A
     H[AI Processing] --> I[Automated Output]
-    
+
     A --> H
     I --> J[Code Suggestions]
     I --> K[Documentation]
     I --> L[Test Cases]
     I --> M[Workflow Automation]
-    
+
     style A fill:#e1f5fe
     style H fill:#f3e5f5
     style I fill:#e8f5e8
@@ -182,7 +182,7 @@ Copilot templates integrate with:
 
 ---
 
-_This directory enhances development productivity through AI-assisted workflows. See [Custom Instructions](../custom-instructions.md) for organization-wide Copilot configuration._
+*This directory enhances development productivity through AI-assisted workflows. See [Custom Instructions](../custom-instructions.md) for organization-wide Copilot configuration.*
 
 ---
 

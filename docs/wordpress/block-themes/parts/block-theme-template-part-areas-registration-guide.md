@@ -325,11 +325,11 @@ If merging many existing pattern files into the canonical set:
 ### Checklist
 
 - theme.json includes only the minimal set of templateParts.
-- Template part files have full headers and canonical slugs (lsx-design/*).
-- Block Types include the appropriate core/template-part/* target where relevant.
+- Template part files have full headers and canonical slugs (lsx-design/\*).
+- Block Types include the appropriate core/template-part/\* target where relevant.
 - Locked blocks are documented and limited to structural regions.
 - Template parts used in templates via `<!-- wp:template-part {"slug":"header"} /-->` or pattern references are updated to new slugs.
-- All user-facing strings in template parts are translatable (wrapped in __ / esc_html_e where used in PHP).
+- All user-facing strings in template parts are translatable (wrapped in \_\_ / esc_html_e where used in PHP).
 - Images/assets referenced via `esc_url( get_theme_file_uri( ... ) )`.
 - Visual verification in Site Editor: header/footer/hero appear where expected and are editable as intended.
 
@@ -383,7 +383,7 @@ add_action( 'init', function() {
 - Keep template part areas minimal and meaningful.
 - Prefer file-based, fully metadata'd template part patterns (PHP) stored in `/patterns/` that match theme.json templateParts.
 - Use programmatic registration only when you must (conditional, localized title/descriptions at registration time).
-- Enforce naming conventions (lsx-design/*) and keep a migration record when changing slugs.
+- Enforce naming conventions (lsx-design/\*) and keep a migration record when changing slugs.
 
 ### Offers
 

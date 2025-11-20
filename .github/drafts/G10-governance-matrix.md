@@ -2,10 +2,17 @@
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Governance/Teams] Publish Governance → Team → Paths matrix & tighten CODEOWNERS"
-labels: [type:documentation, status:needs-triage, priority:normal, area:documentation, governance]
+labels:
+  [
+    type:documentation,
+    status:needs-triage,
+    priority:normal,
+    area:documentation,
+    governance,
+  ]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: documentation
 references:
   - ../CONTRIBUTING.md
@@ -79,12 +86,12 @@ We need to make code review ownership explicit by creating a clear matrix mappin
 
 **Example Governance → Team → Paths matrix:**
 
-| Governance Role | Team Handle | Owned Paths | Review SLA |
-|----------------|-------------|-------------|------------|
-| Documentation Lead | `@lightspeedwp/docs-team` | `docs/**/*.md`, `*.md` (root), `README.md` | 24 hours |
-| Workflows Lead | `@lightspeedwp/workflows-team` | `.github/workflows/**/*`, `.github/automation/**/*` | 48 hours |
-| Security Lead | `@lightspeedwp/security-team` | `SECURITY.md`, `security/**/*`, `*.security.*` | 12 hours (critical) |
-| Governance Lead | `@lightspeedwp/governance-team` | `GOVERNANCE.md`, `CODEOWNERS`, `CONTRIBUTING.md` | 48 hours |
+| Governance Role    | Team Handle                     | Owned Paths                                         | Review SLA          |
+| ------------------ | ------------------------------- | --------------------------------------------------- | ------------------- |
+| Documentation Lead | `@lightspeedwp/docs-team`       | `docs/**/*.md`, `*.md` (root), `README.md`          | 24 hours            |
+| Workflows Lead     | `@lightspeedwp/workflows-team`  | `.github/workflows/**/*`, `.github/automation/**/*` | 48 hours            |
+| Security Lead      | `@lightspeedwp/security-team`   | `SECURITY.md`, `security/**/*`, `*.security.*`      | 12 hours (critical) |
+| Governance Lead    | `@lightspeedwp/governance-team` | `GOVERNANCE.md`, `CODEOWNERS`, `CONTRIBUTING.md`    | 48 hours            |
 
 **Example tightened CODEOWNERS:**
 
@@ -135,6 +142,7 @@ schemas/**/* @lightspeedwp/devex-team
 **Responsible:** Governance Lead
 
 **Audit Checklist:**
+
 - [ ] Verify all teams in CODEOWNERS still exist
 - [ ] Confirm team members are current and active
 - [ ] Check paths still match repository structure
@@ -144,6 +152,7 @@ schemas/**/* @lightspeedwp/devex-team
 - [ ] Update matrix in GOVERNANCE.md
 
 **Audit Log:**
+
 - 2025-11-12: Initial matrix published
 - [Future audit dates and changes]
 ```

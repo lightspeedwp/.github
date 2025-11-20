@@ -60,23 +60,23 @@ This directory contains documentation for all configuration files and setup proc
 
 ## Quick Reference
 
-| Configuration File | Purpose | Documentation |
-| --- | --- | --- |
-| `.vscode/mcp.json` | MCP server configuration | [VS Code MCP](./vscode-mcp.md) |
-| `@modelcontextprotocol/server-github` | GitHub integration | [MCP Server GitHub](./mcp-server-github.md) |
-| `@modelcontextprotocol/server-playwright` | Browser automation | [MCP Server Playwright](./mcp-server-playwright.md) |
-| `.vscode/settings.json` | VS Code editor settings | [VS Code Settings](./vscode-settings.md) |
-| `package.json` | Node.js project configuration | [NPM Package.json](./npm-package-json.md) |
-| `eslint.config.js` | JavaScript linting | [Lint ESLint](./lint-eslint.md) |
-| `stylelint.config.js` | CSS/SCSS linting | [Lint Stylelint](./lint-stylelint.md) |
-| `.markdownlint.json` | Markdown formatting | [Lint Markdownlint](./lint-markdownlint.md) |
-| `.prettierrc.js` | Code formatting | [Lint Prettier](./lint-prettier.md) |
-| `.spectral.yaml` | YAML workflow validation | [Workflow Spectral](./workflow-spectral.md) |
-| `.husky/` | Git hooks automation | [Workflow Husky](./workflow-husky.md) |
-| `jest.config.js` | JavaScript testing | [Project Jest](./project-jest.md) |
-| `.babelrc.js` | JavaScript compilation | [Project Babel](./project-babel.md) |
-| `postcss.config.js` | CSS processing | [Project PostCSS](./project-postcss.md) |
-| `.all-contributorsrc` | Contributor recognition | [Project Contributors](./project-contributors.md) |
+| Configuration File                        | Purpose                       | Documentation                                       |
+| ----------------------------------------- | ----------------------------- | --------------------------------------------------- |
+| `.vscode/mcp.json`                        | MCP server configuration      | [VS Code MCP](./vscode-mcp.md)                      |
+| `@modelcontextprotocol/server-github`     | GitHub integration            | [MCP Server GitHub](./mcp-server-github.md)         |
+| `@modelcontextprotocol/server-playwright` | Browser automation            | [MCP Server Playwright](./mcp-server-playwright.md) |
+| `.vscode/settings.json`                   | VS Code editor settings       | [VS Code Settings](./vscode-settings.md)            |
+| `package.json`                            | Node.js project configuration | [NPM Package.json](./npm-package-json.md)           |
+| `eslint.config.js`                        | JavaScript linting            | [Lint ESLint](./lint-eslint.md)                     |
+| `stylelint.config.js`                     | CSS/SCSS linting              | [Lint Stylelint](./lint-stylelint.md)               |
+| `.markdownlint.json`                      | Markdown formatting           | [Lint Markdownlint](./lint-markdownlint.md)         |
+| `.prettierrc.js`                          | Code formatting               | [Lint Prettier](./lint-prettier.md)                 |
+| `.spectral.yaml`                          | YAML workflow validation      | [Workflow Spectral](./workflow-spectral.md)         |
+| `.husky/`                                 | Git hooks automation          | [Workflow Husky](./workflow-husky.md)               |
+| `jest.config.js`                          | JavaScript testing            | [Project Jest](./project-jest.md)                   |
+| `.babelrc.js`                             | JavaScript compilation        | [Project Babel](./project-babel.md)                 |
+| `postcss.config.js`                       | CSS processing                | [Project PostCSS](./project-postcss.md)             |
+| `.all-contributorsrc`                     | Contributor recognition       | [Project Contributors](./project-contributors.md)   |
 
 ## File Naming Convention
 
@@ -84,20 +84,20 @@ Our configuration files follow a **hierarchical naming system** for better organ
 
 ### **Naming Pattern:** `{category}-{tool}.md`
 
-| Category | Pattern | Examples | Purpose |
-|----------|---------|----------|---------|
-| **MCP Servers** | `mcp-server-{name}.md` | `mcp-server-github.md`, `mcp-server-playwright.md` | Model Context Protocol servers |
-| **VS Code** | `vscode-{feature}.md` | `vscode-settings.md`, `vscode-mcp.md` | Editor configuration & setup |
-| **NPM/Node.js** | `npm-{tool}.md` | `npm-package-json.md`, `npm-scripts.md` | Node.js ecosystem & tooling |
-| **Linting Tools** | `lint-{tool}.md` | `lint-eslint.md`, `lint-stylelint.md` | Code quality & formatting |
-| **Workflow Tools** | `workflow-{tool}.md` | `workflow-husky.md`, `workflow-spectral.md` | CI/CD & automation tools |
-| **Project Tools** | `project-{tool}.md` | `project-jest.md`, `project-babel.md` | Development & build tools |
-| **WordPress** | `wp-{feature}.md` | `wp-theme-json.md` *(planned)* | WordPress-specific configs |
+| Category           | Pattern                | Examples                                           | Purpose                        |
+| ------------------ | ---------------------- | -------------------------------------------------- | ------------------------------ |
+| **MCP Servers**    | `mcp-server-{name}.md` | `mcp-server-github.md`, `mcp-server-playwright.md` | Model Context Protocol servers |
+| **VS Code**        | `vscode-{feature}.md`  | `vscode-settings.md`, `vscode-mcp.md`              | Editor configuration & setup   |
+| **NPM/Node.js**    | `npm-{tool}.md`        | `npm-package-json.md`, `npm-scripts.md`            | Node.js ecosystem & tooling    |
+| **Linting Tools**  | `lint-{tool}.md`       | `lint-eslint.md`, `lint-stylelint.md`              | Code quality & formatting      |
+| **Workflow Tools** | `workflow-{tool}.md`   | `workflow-husky.md`, `workflow-spectral.md`        | CI/CD & automation tools       |
+| **Project Tools**  | `project-{tool}.md`    | `project-jest.md`, `project-babel.md`              | Development & build tools      |
+| **WordPress**      | `wp-{feature}.md`      | `wp-theme-json.md` *(planned)*                     | WordPress-specific configs     |
 
 ### **Benefits of This System:**
 
 - ✅ **Grouped Browsing:** Related configurations appear together
-- ✅ **Quick Identification:** Category is immediately obvious  
+- ✅ **Quick Identification:** Category is immediately obvious
 - ✅ **Scalable:** Easy to add new configurations in existing categories
 - ✅ **Searchable:** Find all configs for a specific tool type instantly
 

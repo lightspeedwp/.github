@@ -5,8 +5,8 @@ This slot allows for injecting items into the bottom of the pre-publish panel th
 ## Example
 
 ```js
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginPrePublishPanel } from '@wordpress/editor';
+import { registerPlugin } from "@wordpress/plugins";
+import { PluginPrePublishPanel } from "@wordpress/editor";
 
 const PluginPrePublishPanelTest = () => (
   <PluginPrePublishPanel>
@@ -14,7 +14,7 @@ const PluginPrePublishPanelTest = () => (
   </PluginPrePublishPanel>
 );
 
-registerPlugin('pre-publish-panel-test', {
+registerPlugin("pre-publish-panel-test", {
   render: PluginPrePublishPanelTest,
 });
 ```

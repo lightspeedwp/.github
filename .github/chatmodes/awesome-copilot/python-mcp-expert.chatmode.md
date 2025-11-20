@@ -1,6 +1,6 @@
 ---
 file_type: "chatmode"
-description: 'Expert assistant for developing Model Context Protocol (MCP) servers in Python'
+description: "Expert assistant for developing Model Context Protocol (MCP) servers in Python"
 model: GPT-4.1
 ---
 

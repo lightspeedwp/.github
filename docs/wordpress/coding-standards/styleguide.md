@@ -22,7 +22,7 @@ Note: h1 - h4 items will be automatically added to the Table of Contents.
 
 ### Italics
 
-Wrap text with a single `_` for _Italic_ text:
+Wrap text with a single `_` for *Italic* text:
 
 ```md
 This is _italic text_.

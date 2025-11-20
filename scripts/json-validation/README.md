@@ -7,7 +7,16 @@ maintainer: "Ash Shaw"
 description: "Utilities for validating JSON and YAML configuration files throughout the LightSpeedWP project. Schema validation, YAML parsing, and comprehensive configuration integrity checking."
 file_type: "validation"
 status: "production"
-tags: ["json", "yaml", "validation", "schema", "configuration", "nodejs", "coderabbit"]
+tags:
+  [
+    "json",
+    "yaml",
+    "validation",
+    "schema",
+    "configuration",
+    "nodejs",
+    "coderabbit",
+  ]
 license: "GPL-3.0"
 repository: "https://github.com/lightspeedwp/.github"
 ai_references:
@@ -39,24 +48,24 @@ graph TB
     A --> C[YAML Parsing]
     A --> D[Field Validation]
     A --> E[Test Framework]
-    
+
     B --> F[Schema Download]
     B --> G[Schema Caching]
     B --> H[Fallback Schemas]
-    
+
     C --> I[Syntax Validation]
     C --> J[Structure Parsing]
-    
+
     D --> K[Required Fields]
     D --> L[Format Validation]
-    
+
     E --> M[Jest Test Suite]
     E --> N[Edge Case Testing]
-    
+
     O[CI/CD Pipeline] --> A
     P[Pre-commit Hooks] --> A
     Q[Manual Validation] --> A
-    
+
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#e8f5e8
@@ -65,22 +74,22 @@ graph TB
 
 ## Main Scripts
 
-- __`validate-json.js`__
+- **`validate-json.js`**
   - Comprehensive JSON linting and validation tool
   - Features: Prettier formatting, JSONLint syntax checking, Ajv schema validation
   - Supports glob patterns, multiple files, and various JSON Schema drafts
   - Produces actionable reports and minimal diffs
   - Used by: CI/CD pipelines, pre-commit hooks, and manual validation workflows
 
-- __`validate-coderabbit-yml.cjs`__
+- **`validate-coderabbit-yml.cjs`**
   - Validates `.coderabbit.yml` configuration files for proper YAML syntax and required fields.
   - Fetches and validates against the official CodeRabbit schema.
   - Used by: CI/CD pipelines, pre-commit hooks, and manual validation workflows.
 
 ## Test Files
 
-- __`validate-coderabbit-yml.test.js`__ — Jest test suite for the CodeRabbit YAML validator.
-- __`__tests__/validate-coderabbit-yml.test.js`__ — Additional test cases and edge case validation.
+- **`validate-coderabbit-yml.test.js`** — Jest test suite for the CodeRabbit YAML validator.
+- **`**tests**/validate-coderabbit-yml.test.js`** — Additional test cases and edge case validation.
 
 ## How This Works
 
@@ -88,21 +97,21 @@ graph TB
 
 The `validate-json.js` script follows this workflow:
 
-1. __File Discovery__: Find JSON files matching glob pattern (excluding `node_modules`, `package-lock.json`, etc.)
-2. __Formatting (Optional)__: Pretty-print JSON with Prettier (can be skipped with `--validate-only`)
-3. __Syntax Validation (Optional)__: Strict syntax checking with JSONLint (enabled with `--strict`)
-4. __Schema Validation (Optional)__: Validate against JSON Schema using Ajv (if `--schema` is provided)
-5. __Reporting__: Generate comprehensive reports with minimal diffs and actionable fixes
-6. __Exit Status__: Exit with code 1 if any validation fails (suitable for CI/CD)
+1. **File Discovery**: Find JSON files matching glob pattern (excluding `node_modules`, `package-lock.json`, etc.)
+2. **Formatting (Optional)**: Pretty-print JSON with Prettier (can be skipped with `--validate-only`)
+3. **Syntax Validation (Optional)**: Strict syntax checking with JSONLint (enabled with `--strict`)
+4. **Schema Validation (Optional)**: Validate against JSON Schema using Ajv (if `--schema` is provided)
+5. **Reporting**: Generate comprehensive reports with minimal diffs and actionable fixes
+6. **Exit Status**: Exit with code 1 if any validation fails (suitable for CI/CD)
 
 ### YAML Validation (CodeRabbit)
 
 The validation scripts in this directory:
 
-1. __Schema Validation__: Download and cache the latest schema from CodeRabbit's official source
-2. __YAML Parsing__: Parse YAML files and validate syntax
-3. __Field Validation__: Ensure all required fields are present and properly formatted
-4. __Logging__: Comprehensive logging to `logs/` directory for debugging and audit trails
+1. **Schema Validation**: Download and cache the latest schema from CodeRabbit's official source
+2. **YAML Parsing**: Parse YAML files and validate syntax
+3. **Field Validation**: Ensure all required fields are present and properly formatted
+4. **Logging**: Comprehensive logging to `logs/` directory for debugging and audit trails
 
 ## Usage Examples
 
@@ -179,9 +188,9 @@ npx ajv validate \
 
 ## Integration with Other Scripts
 
-- __`maintenance/`__ — Maintenance scripts use these validators to ensure configuration integrity
-- __`includes/validation.sh`__ — Shared validation helpers that may call these Node.js validators
-- __CI/CD Workflows__ — Automated validation as part of the build and deployment process
+- **`maintenance/`** — Maintenance scripts use these validators to ensure configuration integrity
+- **`includes/validation.sh`** — Shared validation helpers that may call these Node.js validators
+- **CI/CD Workflows** — Automated validation as part of the build and deployment process
 
 ## Schema Management
 
@@ -191,14 +200,14 @@ npx ajv validate \
 
 ## Dependencies
 
-- __Node.js__ (>=18.0.0) — Required for running the JavaScript validation scripts
-- __Prettier__ (^3.0.0) — JSON formatting and pretty-printing
-- __Ajv__ (^8.17.1) — JSON Schema validation (supports Draft 7, 2019-09, 2020-12, JTD)
-- __Ajv-CLI__ (^5.0.0) — Command-line interface for Ajv
-- __Ajv-Formats__ (^3.0.1) — Additional format validators for Ajv
-- __glob__ (^10.3.12) — File pattern matching
-- __js-yaml__ (^4.1.1) — YAML parsing and validation
-- __JSONLint__ (optional) — Strict JSON syntax validation
+- **Node.js** (>=18.0.0) — Required for running the JavaScript validation scripts
+- **Prettier** (^3.0.0) — JSON formatting and pretty-printing
+- **Ajv** (^8.17.1) — JSON Schema validation (supports Draft 7, 2019-09, 2020-12, JTD)
+- **Ajv-CLI** (^5.0.0) — Command-line interface for Ajv
+- **Ajv-Formats** (^3.0.1) — Additional format validators for Ajv
+- **glob** (^10.3.12) — File pattern matching
+- **js-yaml** (^4.1.1) — YAML parsing and validation
+- **JSONLint** (optional) — Strict JSON syntax validation
 
 ## Contributing
 
@@ -217,7 +226,7 @@ sequenceDiagram
     participant Parser as YAML Parser
     participant Fields as Field Validator
     participant Logger as Log System
-    
+
     User->>Validator: validate-coderabbit-yml.cjs
     Validator->>Schema: Download/cache schema
     Schema->>Validator: Return schema
@@ -227,7 +236,7 @@ sequenceDiagram
     Fields->>Validator: Validation results
     Validator->>Logger: Log results
     Logger->>User: Validation report
-    
+
     Note over User,Logger: Comprehensive validation pipeline
 ```
 
@@ -262,4 +271,4 @@ GPL v3. See [LICENSE](../../LICENSE).
 
 ---
 
-_✅ Ensuring configuration integrity through automated validation and schema compliance._
+*✅ Ensuring configuration integrity through automated validation and schema compliance.*

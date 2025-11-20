@@ -1,9 +1,31 @@
 ---
-mode: 'agent'
-description: 'Update a markdown file section with an index/table of files from a specified folder.'
-tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'openSimpleBrowser', 'problems', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
-license: 'GPL-3.0'
+mode: "agent"
+description: "Update a markdown file section with an index/table of files from a specified folder."
+tools:
+  [
+    "changes",
+    "codebase",
+    "editFiles",
+    "extensions",
+    "fetch",
+    "findTestFiles",
+    "githubRepo",
+    "openSimpleBrowser",
+    "problems",
+    "runCommands",
+    "runTasks",
+    "runTests",
+    "search",
+    "searchResults",
+    "terminalLastCommand",
+    "terminalSelection",
+    "testFailure",
+    "usages",
+    "vscodeAPI",
+  ]
+license: "GPL-3.0"
 ---
+
 # Update Markdown File Index
 
 Update markdown file `${file}` with an index/table of files from folder `${input:folder}`.
@@ -42,9 +64,9 @@ Choose format based on file types and existing content:
 
 ### Option 2: Detailed Table
 
-| File | Type | Description |
-|------|------|-------------|
-| [filename.ext](path/to/filename.ext) | Extension | Description |
+| File                                   | Type      | Description |
+| -------------------------------------- | --------- | ----------- |
+| [filename.ext](path/to/filename.ext)   | Extension | Description |
 | [filename2.ext](path/to/filename2.ext) | Extension | Description |
 
 ### Option 3: Categorized Sections

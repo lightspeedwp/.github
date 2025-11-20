@@ -154,13 +154,17 @@ The following filters are available to extend features in the Editor.
 You can use this filter to modify the image size displayed in the Post Featured Image component. It defaults to `'post-thumbnail'` and will fail back to the `full` image size when the specified image size doesn't exist in the media object. It's modeled after the `admin_post_thumbnail_size` filter in the Classic Editor.
 
 ```js
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from "@wordpress/hooks";
 
 const withImageSize = function (size, mediaId, postId) {
-  return 'large';
+  return "large";
 };
 
-addFilter('editor.PostFeaturedImage.imageSize', 'my-plugin/with-image-size', withImageSize);
+addFilter(
+  "editor.PostFeaturedImage.imageSize",
+  "my-plugin/with-image-size",
+  withImageSize,
+);
 ```
 
 ### `editor.PostPreview.interstitialMarkup`
@@ -168,16 +172,16 @@ addFilter('editor.PostFeaturedImage.imageSize', 'my-plugin/with-image-size', wit
 You can also filter the interstitial message shown when generating previews. Here's an example:
 
 ```js
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from "@wordpress/hooks";
 
 const customPreviewMessage = function () {
-  return '<b>Post preview is being generated!</b>';
+  return "<b>Post preview is being generated!</b>";
 };
 
 addFilter(
-  'editor.PostPreview.interstitialMarkup',
-  'my-plugin/custom-preview-message',
-  customPreviewMessage
+  "editor.PostPreview.interstitialMarkup",
+  "my-plugin/custom-preview-message",
+  customPreviewMessage,
 );
 ```
 
@@ -188,20 +192,20 @@ This filter is used to set or modify the `crossOrigin` attribute for foreign-ori
 One example of it in action is in the Image block's transform feature to allow cross-origin images to be used in a `<canvas>`. Here's an example:
 
 ```js
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from "@wordpress/hooks";
 
 addFilter(
-  'media.crossOrigin',
-  'my-plugin/with-cors-media',
+  "media.crossOrigin",
+  "my-plugin/with-cors-media",
   // The callback accepts a second `mediaSrc` argument which references
   // the url to actual foreign media, useful if you want to decide
   // the value of crossOrigin based upon it.
   (crossOrigin, mediaSrc) => {
-    if (mediaSrc.startsWith('https://example.com')) {
-      return 'use-credentials';
+    if (mediaSrc.startsWith("https://example.com")) {
+      return "use-credentials";
     }
     return crossOrigin;
-  }
+  },
 );
 ```
 
@@ -229,11 +233,15 @@ The `editor.ErrorBoundary.errorLogged` action allows you to hook into the [Error
 You can use this action to get hold of the error object handled by the boundaries. For example, you may want to send them to an external error-tracking tool. Here's an example:
 
 ```js
-import { addAction } from '@wordpress/hooks';
+import { addAction } from "@wordpress/hooks";
 
-addAction('editor.ErrorBoundary.errorLogged', 'mu-plugin/error-capture-setup', (error) => {
-  // Error is the exception's error object.
-  // You can console.log it or send it to an external error-tracking tool.
-  console.log(error);
-});
+addAction(
+  "editor.ErrorBoundary.errorLogged",
+  "mu-plugin/error-capture-setup",
+  (error) => {
+    // Error is the exception's error object.
+    // You can console.log it or send it to an external error-tracking tool.
+    console.log(error);
+  },
+);
 ```

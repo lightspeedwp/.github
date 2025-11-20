@@ -72,12 +72,14 @@ export function getPage(items, page, perPage) {
  * @returns {JSX.Element}
  */
 export function SearchBox({ value, onChange, placeholder = "Search…" }) {
-  return <input
-    aria-label="Search"
-    value={value}
-    onChange={e => onChange(e.target.value)}
-    placeholder={placeholder}
-  />;
+  return (
+    <input
+      aria-label="Search"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+    />
+  );
 }
 ```
 
@@ -538,7 +540,7 @@ class WPAPIClient {
  * @since 1.0.0
  */
 function initEventHandlers() {
-    document.addEventListener( 'DOMContentLoaded', 
+    document.addEventListener( 'DOMContentLoaded',
         /**
          * Handle DOM content loaded.
          *

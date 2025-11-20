@@ -21,10 +21,12 @@ Hi @username,
 Thank you for opening this issue! It's currently in triage (`status:needs-triage`) while we review and route it to the appropriate team.
 
 **Next Steps:**
+
 - Our maintainers will review and label this issue soon.
 - If you can provide more details, reproduction steps, or screenshots, please add them now to help speed up triage.
 
-**References:**  
+**References:**
+
 - [Issue Triage Process](../../.github/ISSUE_LABELS.md)
 - [Contribution Guidelines](../../CONTRIBUTING.md)
 

@@ -22,7 +22,7 @@ For an introduction, refer to the [Get started with wp-scripts](/docs/getting-st
 
 The diagram below provides an overview of the build process when using the `wp-scripts` package. It's designed to work out of the box with [standard configurations](/docs/getting-started/devenv/get-started-with-wp-scripts.md#basic-usage) for development and production environments.
 
-[![Open Build Process diagram image](https://developer.wordpress.org/files/2023/11/build-process.png)](https://developer.wordpress.org/files/2023/11/build-process.png 'Open Build Process diagram image')
+[![Open Build Process diagram image](https://developer.wordpress.org/files/2023/11/build-process.png)](https://developer.wordpress.org/files/2023/11/build-process.png "Open Build Process diagram image")
 
 - **Production Mode (`npm run build`):** In this mode, `wp-scripts` compiles your JavaScript, minifying the output to reduce file size and improve loading times in the browser. This is ideal for deploying your code to a live site.
 
@@ -60,12 +60,12 @@ add_action( 'enqueue_block_editor_assets', 'example_enqueue_block_variations' );
 Then in the `variations.js` file, you can register a new variation for the Media & Text block like so:
 
 ```js
-wp.blocks.registerBlockVariation('core/media-text', {
-  name: 'media-text-custom',
-  title: 'Media & Text Custom',
+wp.blocks.registerBlockVariation("core/media-text", {
+  name: "media-text-custom",
+  title: "Media & Text Custom",
   attributes: {
-    align: 'wide',
-    backgroundColor: 'tertiary',
+    align: "wide",
+    backgroundColor: "tertiary",
   },
 });
 ```

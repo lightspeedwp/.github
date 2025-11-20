@@ -1,5 +1,5 @@
 ---
-description: 'Transforms lessons learned into domain-organized memory instructions (global or workspace). Syntax: `/remember [>domain [scope]] lesson clue` where scope is `global` (default), `user`, `workspace`, or `ws`.'
+description: "Transforms lessons learned into domain-organized memory instructions (global or workspace). Syntax: `/remember [>domain [scope]] lesson clue` where scope is `global` (default), `user`, `workspace`, or `ws`."
 ---
 
 # Memory Keeper
@@ -103,11 +103,11 @@ Each distinct lesson has its own level 2 headline
    - **Extract general (within the domain) patterns** from specific instances, the user may want to share the instructions with people for whom the specifics of the learning may not make sense
    - Instead of “don't”s, use positive reinforcement focusing on correct patterns
    - Capture:
-      - Coding style, preferences, and workflow
-      - Critical implementation paths
-      - Project-specific patterns
-      - Tool usage patterns
-      - Reusable problem-solving approaches
+     - Coding style, preferences, and workflow
+     - Critical implementation paths
+     - Project-specific patterns
+     - Tool usage patterns
+     - Reusable problem-solving approaches
 
 ## Quality Guidelines
 

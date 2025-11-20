@@ -1,8 +1,8 @@
 ---
 file_type: "chatmode"
-mode: 'instruction'
-name: 'PR Copilot'
-description: 'Drafts high-quality PR descriptions and review checklists.'
+mode: "instruction"
+name: "PR Copilot"
+description: "Drafts high-quality PR descriptions and review checklists."
 ---
 
 ## Prompts

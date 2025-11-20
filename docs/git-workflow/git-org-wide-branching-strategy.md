@@ -4,27 +4,27 @@
 
 ---
 
-[1\) High‑level rules](#1\)-high‑level-rules)
+[1\) High‑level rules](<#1)-high‑level-rules>)
 
-[2\) Protect main (and develop if used)](#2\)-protect-main-\(and-develop-if-used\))
+[2\) Protect main (and develop if used)](<#2)-protect-main-(and-develop-if-used)>)
 
-[3\) Branch naming (drives PR Type & labels)](#3\)-branch-naming-\(drives-pr-type-&-labels\))
+[3\) Branch naming (drives PR Type & labels)](<#3)-branch-naming-(drives-pr-type-&-labels)>)
 
-[4\) Enforce branch names via CI (recommended)](#4\)-enforce-branch-names-via-ci-\(recommended\))
+[4\) Enforce branch names via CI (recommended)](<#4)-enforce-branch-names-via-ci-(recommended)>)
 
-[5\) Make prefixes power automation](#5\)-make-prefixes-power-automation)
+[5\) Make prefixes power automation](<#5)-make-prefixes-power-automation>)
 
-[5.1 Labeler (status kick‑off)](#5.1-labeler-\(status-kick‑off\))
+[5.1 Labeler (status kick‑off)](<#5.1-labeler-(status-kick‑off)>)
 
 [5.2 Projects “Type” mapping](#5.2-projects-“type”-mapping)
 
-[6\) Merge discipline](#6\)-merge-discipline)
+[6\) Merge discipline](<#6)-merge-discipline>)
 
-[7\) Release & hotfix flow](#7\)-release-&-hotfix-flow)
+[7\) Release & hotfix flow](<#7)-release-&-hotfix-flow>)
 
-[8\) Quick per‑repo checklist](#8\)-quick-per‑repo-checklist)
+[8\) Quick per‑repo checklist](<#8)-quick-per‑repo-checklist>)
 
-[9\) FAQ & guardrails](#9\)-faq-&-guardrails)
+[9\) FAQ & guardrails](<#9)-faq-&-guardrails>)
 
 [Appendix: Getting started](#appendix:-getting-started)
 
@@ -32,15 +32,15 @@
 
 ## **1\) High‑level rules** {#1)-high‑level-rules}
 
-* `main` is production‑ready at all times.
+- `main` is production‑ready at all times.
 
-* Optional `develop` for teams that need an integration branch.
+- Optional `develop` for teams that need an integration branch.
 
-* Short‑lived branches only; open a PR early and keep it small.
+- Short‑lived branches only; open a PR early and keep it small.
 
-* Squash merge to preserve a **linear history**; delete branch after merge.
+- Squash merge to preserve a **linear history**; delete branch after merge.
 
-* Use prefixes that map cleanly to Issue Types and Project fields.
+- Use prefixes that map cleanly to Issue Types and Project fields.
 
 ---
 
@@ -51,23 +51,23 @@ In each repo → **Settings → Branches → Branch protection rules → Add rul
 **Branch pattern:** `main`  
 **Tick:**
 
-* Require a pull request before merging → **Require approvals: 1** (or **2** for critical repos)
+- Require a pull request before merging → **Require approvals: 1** (or **2** for critical repos)
 
-* ✅ **Require review from Code Owners** (if using `CODEOWNERS`)
+- ✅ **Require review from Code Owners** (if using `CODEOWNERS`)
 
-* ✅ **Dismiss stale approvals** when new commits are pushed
+- ✅ **Dismiss stale approvals** when new commits are pushed
 
-* ✅ **Require conversation resolution** before merging
+- ✅ **Require conversation resolution** before merging
 
-* Require status checks to pass before merging → select CI jobs (lint, tests, build)
+- Require status checks to pass before merging → select CI jobs (lint, tests, build)
 
-* ✅ **Require branches to be up to date** before merging
+- ✅ **Require branches to be up to date** before merging
 
-* ✅ **Require linear history** (squash‑merge only)
+- ✅ **Require linear history** (squash‑merge only)
 
-* **Do not allow bypassing** (include administrators)
+- **Do not allow bypassing** (include administrators)
 
-* *(Optional)* **Require signed commits** if the team is set up for it
+- *(Optional)* **Require signed commits** if the team is set up for it
 
 Repeat for **`develop`** if your repo uses it.
 
@@ -83,28 +83,28 @@ Repeat for **`develop`** if your repo uses it.
 
 **Allowed `{type}` prefixes & mapping**
 
-| Prefix | Intended work | Maps to Project Type | Typical Issue Type |
-| ----- | ----- | ----- | ----- |
-| `feat/` | New capability | **Feature** | Feature |
-| `fix/` | Defect/regression | **Bug** | Bug |
-| `docs/`  | Docs & comms | **Documentation** | Documentation |
-| `chore/`  | Housekeeping, deps | **Task** | Maintenance / Build & CI / Chore |
-| `refactor/` | Internal restructure | **Refactor** | Code Refactor |
-| `test/` | Tests only | **Test Coverage** | Test Coverage |
-| `perf/` | Performance work | **Performance** | Performance |
-| `ci/` | Workflow changes | **Build & CI** | Build & CI |
-| `release/` | Release prep | **Release** | Release |
-| `hotfix/` | Emergency prod fix | **Release** | Bug / Release |
+| Prefix      | Intended work        | Maps to Project Type | Typical Issue Type               |
+| ----------- | -------------------- | -------------------- | -------------------------------- |
+| `feat/`     | New capability       | **Feature**          | Feature                          |
+| `fix/`      | Defect/regression    | **Bug**              | Bug                              |
+| `docs/`     | Docs & comms         | **Documentation**    | Documentation                    |
+| `chore/`    | Housekeeping, deps   | **Task**             | Maintenance / Build & CI / Chore |
+| `refactor/` | Internal restructure | **Refactor**         | Code Refactor                    |
+| `test/`     | Tests only           | **Test Coverage**    | Test Coverage                    |
+| `perf/`     | Performance work     | **Performance**      | Performance                      |
+| `ci/`       | Workflow changes     | **Build & CI**       | Build & CI                       |
+| `release/`  | Release prep         | **Release**          | Release                          |
+| `hotfix/`   | Emergency prod fix   | **Release**          | Bug / Release                    |
 
 **Examples**
 
-* `feat/cart-coupon-flow`
+- `feat/cart-coupon-flow`
 
-* `fix/wp6-6-compat`
+- `fix/wp6-6-compat`
 
-* `docs/readme-install-steps`
+- `docs/readme-install-steps`
 
-* `chore/deps-2025-09`
+- `chore/deps-2025-09`
 
 **Link branches to issues**: reference `#123` in commits/PR description; add the Project.
 
@@ -180,49 +180,49 @@ Extend your project sync workflow (e.g. `project-meta-sync.yml`) so branch prefi
 
 ## **6\) Merge discipline** {#6)-merge-discipline}
 
-* Keep branches current via **Require branches to be up to date**.
+- Keep branches current via **Require branches to be up to date**.
 
-* Fix forward on your branch; avoid force‑pushes to `main`/`develop`.
+- Fix forward on your branch; avoid force‑pushes to `main`/`develop`.
 
-* **Squash** when merging. PR title becomes the squash commit; keep it clear.
+- **Squash** when merging. PR title becomes the squash commit; keep it clear.
 
-* Delete the branch after merge.
+- Delete the branch after merge.
 
 ---
 
 ## **7\) Release & hotfix flow** {#7)-release-&-hotfix-flow}
 
-* **Release**: open `release/vX.Y.Z`, bump versions/changelog, run full CI, QA on staging, then merge → tag → deploy.
+- **Release**: open `release/vX.Y.Z`, bump versions/changelog, run full CI, QA on staging, then merge → tag → deploy.
 
-* **Hotfix**: branch from `main` as `hotfix/<slug>`, fix → PR → approvals/CI → merge to `main` → tag → cherry‑pick to `develop` (if used).
+- **Hotfix**: branch from `main` as `hotfix/<slug>`, fix → PR → approvals/CI → merge to `main` → tag → cherry‑pick to `develop` (if used).
 
 ---
 
 ## **8\) Quick per‑repo checklist** {#8)-quick-per‑repo-checklist}
 
-* Protect `main` (+ `develop` if used) with approvals, passing checks, up‑to‑date and **linear history**.
+- Protect `main` (+ `develop` if used) with approvals, passing checks, up‑to‑date and **linear history**.
 
-* Adopt `{type}/{scope}-{short-title}` branch names; encourage short‑lived branches.
+- Adopt `{type}/{scope}-{short-title}` branch names; encourage short‑lived branches.
 
-* Add **Validate branch name** workflow (Section 4).
+- Add **Validate branch name** workflow (Section 4).
 
-* Keep `.github/labeler.yml` and `project-meta-sync.yml` mapping in sync with chosen prefixes.
+- Keep `.github/labeler.yml` and `project-meta-sync.yml` mapping in sync with chosen prefixes.
 
-* Use labels only as **routing signals**; let Issue Types/Project fields carry meaning.
+- Use labels only as **routing signals**; let Issue Types/Project fields carry meaning.
 
-* Enable **Squash merge only**; delete branches on merge.
+- Enable **Squash merge only**; delete branches on merge.
 
 ---
 
 ## **9\) FAQ & guardrails** {#9)-faq-&-guardrails}
 
-* **Do we need `develop`?** Optional. If your deployment model can stage off feature branches and release branches, skip `develop`.
+- **Do we need `develop`?** Optional. If your deployment model can stage off feature branches and release branches, skip `develop`.
 
-* **Where do we record “what type of work this is”?** In Project **Type** (mapped from the branch) and the **Issue Type** on the linked issue.
+- **Where do we record “what type of work this is”?** In Project **Type** (mapped from the branch) and the **Issue Type** on the linked issue.
 
-* **Why no `type:*` labels?** To keep labels orthogonal for routing (status/priority/area/component), avoiding duplication.
+- **Why no `type:*` labels?** To keep labels orthogonal for routing (status/priority/area/component), avoiding duplication.
 
-* **Can we add more prefixes?** Yes—extend the CI regex and Project mapping together.
+- **Can we add more prefixes?** Yes—extend the CI regex and Project mapping together.
 
 ---
 

@@ -5,7 +5,7 @@ title: "[Security] <Brief summary>"
 labels: [type:security, status:needs-triage, priority:critical, area:security]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: security
 references:
   - ../CONTRIBUTING.md

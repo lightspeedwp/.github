@@ -2,11 +2,11 @@
 
 ## Overview
 
-The Format API makes it possible for developers to add custom buttons to the formatting toolbar and have them apply a _format_ to a text selection. Bold is an example of a standard button in the formatting toolbar.
+The Format API makes it possible for developers to add custom buttons to the formatting toolbar and have them apply a *format* to a text selection. Bold is an example of a standard button in the formatting toolbar.
 
 ![Format API Toolbar animated example](https://developer.wordpress.org/files/2021/12/format-api-example.gif)
 
-In WordPress lingo, a _format_ is a [HTML tag with text-level semantics](https://www.w3.org/TR/html5/textlevel-semantics.html#text-level-semantics-usage-summary) used to give some special meaning to a text selection. For example, in this tutorial, the button to be hooked into the format toolbar will wrap a particular text selection with the `<samp>` HTML tag.
+In WordPress lingo, a *format* is a [HTML tag with text-level semantics](https://www.w3.org/TR/html5/textlevel-semantics.html#text-level-semantics-usage-summary) used to give some special meaning to a text selection. For example, in this tutorial, the button to be hooked into the format toolbar will wrap a particular text selection with the `<samp>` HTML tag.
 
 ## Before you start
 
@@ -29,11 +29,11 @@ The guide will refer to `src/index.js` as the JavaScript file where the changes 
 The first step is to register the new format, add `src/index.js` with the following:
 
 ```js
-import { registerFormatType } from '@wordpress/rich-text';
+import { registerFormatType } from "@wordpress/rich-text";
 
-registerFormatType('my-custom-format/sample-output', {
-  title: 'Sample output',
-  tagName: 'samp',
+registerFormatType("my-custom-format/sample-output", {
+  title: "Sample output",
+  tagName: "samp",
   className: null,
 });
 ```
@@ -43,7 +43,7 @@ The list of available format types is maintained in the `core/rich-text` store. 
 Run this code in your browser's console to confirm:
 
 ```js
-wp.data.select('core/rich-text').getFormatTypes();
+wp.data.select("core/rich-text").getFormatTypes();
 ```
 
 It'll return an array containing the format types, including your own.
@@ -55,8 +55,8 @@ With the format available, the next step is to add a button to the UI by registe
 Using the `RichTextToolbarButton` component, update `src/index.js`:
 
 ```js
-import { registerFormatType } from '@wordpress/rich-text';
-import { RichTextToolbarButton } from '@wordpress/block-editor';
+import { registerFormatType } from "@wordpress/rich-text";
+import { RichTextToolbarButton } from "@wordpress/block-editor";
 
 const MyCustomButton = (props) => {
   return (
@@ -64,15 +64,15 @@ const MyCustomButton = (props) => {
       icon="editor-code"
       title="Sample output"
       onClick={() => {
-        console.log('toggle format');
+        console.log("toggle format");
       }}
     />
   );
 };
 
-registerFormatType('my-custom-format/sample-output', {
-  title: 'Sample output',
-  tagName: 'samp',
+registerFormatType("my-custom-format/sample-output", {
+  title: "Sample output",
+  tagName: "samp",
   className: null,
   edit: MyCustomButton,
 });
@@ -95,8 +95,8 @@ For our example, the `<samp>` tag format is binary - either a text selection has
 Update `src/index.js` changing the `onClick` action:
 
 ```js
-import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
-import { RichTextToolbarButton } from '@wordpress/block-editor';
+import { registerFormatType, toggleFormat } from "@wordpress/rich-text";
+import { RichTextToolbarButton } from "@wordpress/block-editor";
 
 const MyCustomButton = ({ isActive, onChange, value }) => {
   return (
@@ -106,8 +106,8 @@ const MyCustomButton = ({ isActive, onChange, value }) => {
       onClick={() => {
         onChange(
           toggleFormat(value, {
-            type: 'my-custom-format/sample-output',
-          })
+            type: "my-custom-format/sample-output",
+          }),
         );
       }}
       isActive={isActive}
@@ -115,9 +115,9 @@ const MyCustomButton = ({ isActive, onChange, value }) => {
   );
 };
 
-registerFormatType('my-custom-format/sample-output', {
-  title: 'Sample output',
-  tagName: 'samp',
+registerFormatType("my-custom-format/sample-output", {
+  title: "Sample output",
+  tagName: "samp",
   className: null,
   edit: MyCustomButton,
 });
@@ -136,16 +136,16 @@ By default, the button is rendered on every rich text toolbar (image captions, b
 Here is an example that only shows the button for Paragraph blocks:
 
 ```js
-import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
-import { RichTextToolbarButton } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
+import { registerFormatType, toggleFormat } from "@wordpress/rich-text";
+import { RichTextToolbarButton } from "@wordpress/block-editor";
+import { useSelect } from "@wordpress/data";
 
 function ConditionalButton({ isActive, onChange, value }) {
   const selectedBlock = useSelect((select) => {
-    return select('core/block-editor').getSelectedBlock();
+    return select("core/block-editor").getSelectedBlock();
   }, []);
 
-  if (selectedBlock && selectedBlock.name !== 'core/paragraph') {
+  if (selectedBlock && selectedBlock.name !== "core/paragraph") {
     return null;
   }
 
@@ -156,8 +156,8 @@ function ConditionalButton({ isActive, onChange, value }) {
       onClick={() => {
         onChange(
           toggleFormat(value, {
-            type: 'my-custom-format/sample-output',
-          })
+            type: "my-custom-format/sample-output",
+          }),
         );
       }}
       isActive={isActive}
@@ -165,9 +165,9 @@ function ConditionalButton({ isActive, onChange, value }) {
   );
 }
 
-registerFormatType('my-custom-format/sample-output', {
-  title: 'Sample output',
-  tagName: 'samp',
+registerFormatType("my-custom-format/sample-output", {
+  title: "Sample output",
+  tagName: "samp",
   className: null,
   edit: ConditionalButton,
 });
@@ -178,9 +178,9 @@ registerFormatType('my-custom-format/sample-output', {
 Using the `RichTextToolbarButton` component, the button is added to the default dropdown menu. You can add the button directly to the toolbar by using the `BlockControls` component.
 
 ```js
-import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
-import { BlockControls } from '@wordpress/block-editor';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+import { registerFormatType, toggleFormat } from "@wordpress/rich-text";
+import { BlockControls } from "@wordpress/block-editor";
+import { ToolbarGroup, ToolbarButton } from "@wordpress/components";
 
 const MyCustomButton = ({ isActive, onChange, value }) => {
   return (
@@ -192,8 +192,8 @@ const MyCustomButton = ({ isActive, onChange, value }) => {
           onClick={() => {
             onChange(
               toggleFormat(value, {
-                type: 'my-custom-format/sample-output',
-              })
+                type: "my-custom-format/sample-output",
+              }),
             );
           }}
           isActive={isActive}
@@ -203,9 +203,9 @@ const MyCustomButton = ({ isActive, onChange, value }) => {
   );
 };
 
-registerFormatType('my-custom-format/sample-output', {
-  title: 'Sample output',
-  tagName: 'samp',
+registerFormatType("my-custom-format/sample-output", {
+  title: "Sample output",
+  tagName: "samp",
   className: null,
   edit: MyCustomButton,
 });

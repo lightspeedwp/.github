@@ -5,7 +5,8 @@ description: "Instructions for organizing temporary files, reports, and processi
 version: "v1.0"
 last_updated: "2025-01-22"
 owners: ["LightSpeedWP Team"]
-tags: ["file-management", "copilot", "automation", "documentation", "organization"]
+tags:
+  ["file-management", "copilot", "automation", "documentation", "organization"]
 applyTo: "**"
 ---
 
@@ -19,11 +20,11 @@ This document provides clear guidelines for where and how to organize temporary 
 
 ## Quick Reference: Folder Purposes
 
-| Folder | Purpose | Lifetime | Examples |
-|--------|---------|----------|----------|
-| **`reports/`** | Permanent documentation & analysis results | Long-term (permanent) | Completion summaries, analysis reports, baselines, impact matrices |
-| **`tmp/`** | Temporary processing files & working documents | Short-term (hours-days) | Intermediate outputs, processing logs, draft reports, working analysis |
-| **Root** | Special files for workflow tracking | Session-based | `Copilot-Processing.md`, critical status files |
+| Folder         | Purpose                                        | Lifetime                | Examples                                                               |
+| -------------- | ---------------------------------------------- | ----------------------- | ---------------------------------------------------------------------- |
+| **`reports/`** | Permanent documentation & analysis results     | Long-term (permanent)   | Completion summaries, analysis reports, baselines, impact matrices     |
+| **`tmp/`**     | Temporary processing files & working documents | Short-term (hours-days) | Intermediate outputs, processing logs, draft reports, working analysis |
+| **Root**       | Special files for workflow tracking            | Session-based           | `Copilot-Processing.md`, critical status files                         |
 
 ---
 
@@ -36,6 +37,7 @@ This document provides clear guidelines for where and how to organize temporary 
 **Purpose**: Store finalized, permanent documentation that should be version-controlled and referenced long-term.
 
 **When to Use**:
+
 - Final reports and analysis summaries
 - Completion status documents
 - Baseline data and benchmarks
@@ -44,6 +46,7 @@ This document provides clear guidelines for where and how to organize temporary 
 - Impact analysis and metrics reports
 
 **Naming Convention**:
+
 ```
 reports/
 ├── completion-summary.md              # Project/phase completion
@@ -55,12 +58,14 @@ reports/
 ```
 
 **Lifecycle**:
+
 1. Create in `tmp/` during processing
 2. Finalize and move/copy to `reports/`
 3. Commit to version control
 4. Archive or maintain based on retention policy
 
 **Examples in Repo**:
+
 - ✅ `eslint-baseline-post-wave-1.json` - Wave 1 baseline results
 - ✅ `eslint-impact-matrix.json` - ESLint impact analysis
 - ✅ `wave-1-plan.md` - Planning documentation
@@ -75,6 +80,7 @@ reports/
 **Purpose**: Store intermediate, working documents generated during Copilot operations that are typically temporary.
 
 **When to Use**:
+
 - Intermediate analysis outputs during processing
 - Working documents while developing solutions
 - Draft versions before finalization
@@ -83,6 +89,7 @@ reports/
 - Multi-step workflow artifacts (between steps)
 
 **Naming Convention**:
+
 ```
 tmp/
 ├── processing-{phase}-{timestamp}.json      # Phase-based processing
@@ -93,6 +100,7 @@ tmp/
 ```
 
 **Lifecycle**:
+
 1. Created during Copilot processing
 2. Used for intermediate calculations/analysis
 3. **Either**:
@@ -101,16 +109,18 @@ tmp/
 4. Never committed to version control (typically in `.gitignore`)
 
 **Cleanup Policy**:
+
 - **After Workflow**: Delete temporary working files
 - **After Analysis**: Move valuable results to `reports/`
 - **Weekly Maintenance**: Clean up abandoned/stale files
 - **Size Management**: Delete large intermediate files after extraction of results
 
 **Example Usage Patterns**:
+
 ```
 # During multi-step analysis:
 tmp/analysis-step-1-raw-data.json
-tmp/analysis-step-2-processed.json  
+tmp/analysis-step-2-processed.json
 tmp/analysis-step-3-aggregated.json
 ↓ (final results moved to reports/)
 reports/analysis-final-summary.json
@@ -135,17 +145,20 @@ reports/feature-spec-final.md
 **Location**: `/Users/ash/Studio/` (repository root)
 
 **Files**:
+
 - `Copilot-Processing.md` - Tracks active Copilot workflow and task status
 
 **Purpose**: Session-level workflow tracking for the current operation
 
 **Lifecycle**:
+
 1. Created at start of major Copilot operation
 2. Updated throughout operation with status/progress
 3. Finalized with completion summary
 4. Often moved to `reports/` for archival after completion
 
 **Content**:
+
 - User request details
 - Action plan and task list
 - Phase completion tracking
@@ -251,6 +264,7 @@ Cleanup:
 **Format**: `{topic}-{type}-{date/version}.{ext}`
 
 **Examples**:
+
 - `completion-summary.md` - Simple completion summaries
 - `eslint-analysis-wave-1.json` - Wave-based deliverables
 - `test-failure-analysis-2025-01-22.md` - Timestamped analysis
@@ -262,6 +276,7 @@ Cleanup:
 **Format**: `{workflow}-{step}-{date}-{description}.{ext}`
 
 **Examples**:
+
 - `processing-step-1-2025-01-22.json` - Step-based processing
 - `draft-feature-spec-v2.md` - Draft versions
 - `analysis-working-eslint.json` - Working analysis
@@ -275,15 +290,18 @@ Cleanup:
 ### Automatic Cleanup Schedule
 
 **Daily**:
+
 - Monitor `tmp/` folder size
 - Delete obviously stale files (> 7 days old)
 
 **Weekly**:
+
 - Archive completed workflow artifacts to `reports/`
 - Clean up all temporary files from completed tasks
 - Review `tmp/` for any accidentally committed files
 
 **Monthly**:
+
 - Archive `reports/` older files if retention policy exceeded
 - Review folder structure for organization
 - Update this documentation if patterns change
@@ -325,6 +343,7 @@ Ensure `tmp/` folder is ignored in version control:
 ### For Important Temporary Files
 
 If a temporary file needs version control:
+
 1. Move it to `reports/` with a clear naming convention
 2. Update `.gitignore` to allow it
 3. Document why it needs version control
@@ -334,6 +353,7 @@ If a temporary file needs version control:
 ## Best Practices
 
 ✅ **DO**:
+
 - Move finalized results from `tmp/` to `reports/`
 - Use consistent naming conventions
 - Document what each file contains
@@ -342,6 +362,7 @@ If a temporary file needs version control:
 - Use timestamps for time-sensitive documents
 
 ❌ **DON'T**:
+
 - Leave temporary files in `tmp/` indefinitely
 - Commit large intermediate files to version control
 - Mix permanent and temporary files without clear separation

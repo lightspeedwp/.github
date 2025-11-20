@@ -15,17 +15,17 @@ This directory contains standardized pull request templates used across all Ligh
 
 ## 📁 Available Templates
 
-| Template | Purpose | Automation Triggers |
-|----------|---------|-------------------|
-| `pr_bug.md` | Bug fixes and patches | Bug labeling, QA assignment |
-| `pr_chore.md` | Maintenance and housekeeping | Chore labeling, automated review |
-| `pr_ci.md` | CI/CD and workflow changes | CI labeling, workflow validation |
-| `pr_dep_update.md` | Dependency updates | Dependency labeling, security checks |
-| `pr_docs.md` | Documentation changes | Documentation labeling, style checks |
-| `pr_feature.md` | New features and enhancements | Feature labeling, comprehensive review |
-| `pr_hotfix.md` | Critical production fixes | Hotfix labeling, expedited review |
-| `pr_refactor.md` | Code refactoring | Refactor labeling, code quality checks |
-| `pr_release.md` | Release preparation | Release labeling, changelog generation |
+| Template           | Purpose                       | Automation Triggers                    |
+| ------------------ | ----------------------------- | -------------------------------------- |
+| `pr_bug.md`        | Bug fixes and patches         | Bug labeling, QA assignment            |
+| `pr_chore.md`      | Maintenance and housekeeping  | Chore labeling, automated review       |
+| `pr_ci.md`         | CI/CD and workflow changes    | CI labeling, workflow validation       |
+| `pr_dep_update.md` | Dependency updates            | Dependency labeling, security checks   |
+| `pr_docs.md`       | Documentation changes         | Documentation labeling, style checks   |
+| `pr_feature.md`    | New features and enhancements | Feature labeling, comprehensive review |
+| `pr_hotfix.md`     | Critical production fixes     | Hotfix labeling, expedited review      |
+| `pr_refactor.md`   | Code refactoring              | Refactor labeling, code quality checks |
+| `pr_release.md`    | Release preparation           | Release labeling, changelog generation |
 
 ## 🔗 Template Integration
 
@@ -66,7 +66,7 @@ These templates integrate with:
 
 ---
 
-_This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for complete automation standards._
+*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for complete automation standards.*
 
 ---
 

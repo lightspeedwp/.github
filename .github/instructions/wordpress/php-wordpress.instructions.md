@@ -102,7 +102,7 @@ if ( WP_DEBUG ) {
 }
 
 // User-friendly error messages
-wp_die( 
+wp_die(
     __( 'Something went wrong. Please try again later.', 'textdomain' ),
     __( 'Error', 'textdomain' ),
     array( 'response' => 500 )
@@ -171,12 +171,12 @@ register_deactivation_hook( __FILE__, 'my_plugin_deactivate' );
  * Main plugin class
  */
 class My_Plugin {
-    
+
     /**
      * Plugin instance
      */
     private static $instance = null;
-    
+
     /**
      * Get plugin instance (singleton pattern)
      */
@@ -186,14 +186,14 @@ class My_Plugin {
         }
         return self::$instance;
     }
-    
+
     /**
      * Constructor - private for singleton
      */
     private function __construct() {
         add_action( 'init', array( $this, 'init' ) );
     }
-    
+
     /**
      * Initialize plugin
      */
@@ -205,16 +205,16 @@ class My_Plugin {
             $this->init_frontend();
         }
     }
-    
+
     /**
      * Initialize admin functionality
      */
     private function init_admin() {
         // Admin-specific code
     }
-    
+
     /**
-     * Initialize frontend functionality  
+     * Initialize frontend functionality
      */
     private function init_frontend() {
         // Frontend-specific code
@@ -234,7 +234,7 @@ My_Plugin::get_instance();
 function my_plugin_register_blocks() {
     // Register block from block.json
     register_block_type( __DIR__ . '/build/blocks/custom-block' );
-    
+
     // Register block with PHP configuration
     register_block_type( 'my-plugin/custom-block', array(
         'render_callback' => 'my_plugin_render_custom_block',
@@ -266,7 +266,7 @@ function my_plugin_render_custom_block( $attributes, $content, $block ) {
     $wrapper_attributes = get_block_wrapper_attributes( array(
         'class' => 'my-custom-block align' . esc_attr( $attributes['alignment'] )
     ) );
-    
+
     return sprintf(
         '<div %1$s><p>%2$s</p></div>',
         $wrapper_attributes,
@@ -304,14 +304,14 @@ add_action( 'rest_api_init', 'my_plugin_register_rest_routes' );
  */
 function my_plugin_rest_callback( $request ) {
     $id = $request->get_param( 'id' );
-    
+
     // Process request
     $data = my_plugin_get_data( $id );
-    
+
     if ( empty( $data ) ) {
         return new WP_Error( 'no_data', 'No data found', array( 'status' => 404 ) );
     }
-    
+
     return rest_ensure_response( $data );
 }
 

@@ -6,9 +6,9 @@ references:
 - ../../../schemas/frontmatter.schema.json
 - ../../../docs/YAML.md
 - ../../../docs/FRONTMATTER-SCHEMA.md
-last_updated: 2025-10-25
-version: 2.0
-owners:
+  last_updated: 2025-10-25
+  version: 2.0
+  owners:
 - lightspeedwp
 
 # Includes Test Helpers 🧩 ![Bats](https://img.shields.io/badge/tests-Bats-green) ![ShellCheck](https://img.shields.io/badge/linted-ShellCheck-blue)
@@ -129,16 +129,19 @@ Comprehensive unit and integration tests for all include modules:
 ### Running Include Tests
 
 Run all include module tests:
+
 ```bash
 bats tests/includes/test-*.bats
 ```
 
 Run integration tests:
+
 ```bash
 bats tests/includes/integration/
 ```
 
 Run specific module tests:
+
 ```bash
 bats tests/includes/test-logging.bats
 bats tests/includes/test-validation.bats

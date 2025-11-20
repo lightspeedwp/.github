@@ -19,7 +19,7 @@ Defines the YAML structure for GitHub Issue Forms.
 
 ## Example
 
-````yaml
+```yaml
 ---
 name: "Bug Report"
 description: "Report a bug"
@@ -31,3 +31,4 @@ body:
     validations:
       required: true
 ---
+```

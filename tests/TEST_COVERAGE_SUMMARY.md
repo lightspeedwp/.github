@@ -20,7 +20,7 @@ The `/tests/` directory is comprehensively organized with README documentation f
   - [`awesome-copilot/`](./awesome-copilot/README.md) — Jest tests for awesome-copilot scripts
   - [`includes/`](./includes/README.md) — Test helpers and shared utilities with subfolders:
     - [`cli/`](./includes/cli/README.md) — CLI utility test helpers
-    - [`core/`](./includes/core/README.md) — Core testing functionality helpers  
+    - [`core/`](./includes/core/README.md) — Core testing functionality helpers
     - [`deployment/`](./includes/deployment/README.md) — Deployment testing helpers
     - [`filesystem/`](./includes/filesystem/README.md) — File system operation helpers
   - [`maintenance/`](./maintenance/README.md) — Tests for maintenance and automation scripts
@@ -36,14 +36,14 @@ The `/tests/` directory is comprehensively organized with README documentation f
   - `utility/` — All Node.js and shell scripts for automation, covered by tests in `/tests/utility/`
   - `includes/` — Shared code/configuration for scripts
 
-- **Schemas Directory**: `/schemas/`  
+- **Schemas Directory**: `/schemas/`
   - [`README.md`](../schemas/README.md) — Schema validation documentation
   - [`coderabbit/`](../schemas/coderabbit/README.md) — CodeRabbit AI configuration schemas
   - [`header-footer-agent/`](../schemas/header-footer-agent/README.md) — WordPress automation schemas
   - [`wordpress/`](../schemas/wordpress/README.md) — WordPress-specific schema definitions
 
 - **Coverage Directory**: `/coverage/`
-  - [`README.md`](../coverage/README.md) — Test coverage reporting documentation  
+  - [`README.md`](../coverage/README.md) — Test coverage reporting documentation
   - [`lcov-report/`](../coverage/lcov-report/README.md) — HTML coverage reports and assets
 
 - **Total Test Files**: 50+ (Bats and Jest combined)
@@ -59,7 +59,6 @@ The `/tests/` directory is comprehensively organized with README documentation f
   - Jest tests cover function exports, input validation, and integration with other modules.
 
 - **Test Helpers**: `test-helper.bash` provides setup/teardown and shared logic for Bats tests.
-  
 - **Test Runner**: `tests-run-all-tests.bats` and `run-all-tests.sh` ensure all tests are discoverable and runnable in CI/CD.
 
 ## How to Run Tests
@@ -107,10 +106,10 @@ See this file for full details. For folder-level documentation, see:
 
 - [`/tests/README.md`](./README.md) — Main testing framework documentation
 - [`/scripts/README.md`](../scripts/README.md) — Scripts directory documentation
-- [`/schemas/README.md`](../schemas/README.md) — Schema validation documentation  
+- [`/schemas/README.md`](../schemas/README.md) — Schema validation documentation
 - [`/coverage/README.md`](../coverage/README.md) — Coverage reporting documentation
 
-### Test Folder Documentation  
+### Test Folder Documentation
 
 - [`awesome-copilot/README.md`](./awesome-copilot/README.md) — Jest tests for awesome-copilot scripts
 - [`includes/README.md`](./includes/README.md) — Test helpers and utilities

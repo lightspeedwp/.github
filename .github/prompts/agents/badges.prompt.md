@@ -11,6 +11,7 @@ references:
   - "./badges.agent.md"
   - "./badges.instructions.md"
 ---
+
 # Prompt
 
 Please scan all `.github/workflows/*.yml` files, generate up-to-date badges, and insert them between `<!-- BADGES-START -->` and `<!-- BADGES-END -->` in README.md. Always preserve content outside this block.

@@ -1,8 +1,8 @@
 ---
-mode: 'agent'
-description: 'Power BI report visualization design prompt for creating effective, user-friendly, and accessible reports with optimal chart selection and layout design.'
-model: 'gpt-4.1'
-tools: ['microsoft.docs.mcp']
+mode: "agent"
+description: "Power BI report visualization design prompt for creating effective, user-friendly, and accessible reports with optimal chart selection and layout design."
+model: "gpt-4.1"
+tools: ["microsoft.docs.mcp"]
 ---
 
 # Power BI Report Visualization Designer
@@ -111,7 +111,7 @@ Layout Strategy:
 │ Primary Insight Area                    │
 │ ┌─────────────┐  ┌─────────────────────┐│
 │ │   Main      │  │   Supporting        ││
-│ │   Visual    │  │   Context           ││  
+│ │   Visual    │  │   Context           ││
 │ │             │  │   (2-3 smaller      ││
 │ │             │  │    visuals)         ││
 │ └─────────────┘  └─────────────────────┘│
@@ -190,7 +190,7 @@ Implementation:
 
 Button Navigation:
 Best for: Guided workflows, external links
-Implementation:  
+Implementation:
 - Action-oriented button labels
 - Consistent styling and sizing
 - Appropriate visual hierarchy
@@ -229,7 +229,7 @@ Mobile-First Considerations:
 Responsive Visual Selection:
 Mobile-Friendly:
 ✅ Card visuals for KPIs
-✅ Simple bar and column charts  
+✅ Simple bar and column charts
 ✅ Line charts with minimal data points
 ✅ Large gauge and KPI visuals
 
@@ -248,7 +248,7 @@ Mobile-Challenging:
 Visual Clarity:
 □ Clear visual hierarchy with appropriate emphasis
 □ Sufficient contrast and readability
-□ Logical flow and eye movement patterns  
+□ Logical flow and eye movement patterns
 □ Minimal cognitive load for interpretation
 □ Appropriate use of white space
 
@@ -282,7 +282,7 @@ Test Scenarios:
 1. Initial impression and orientation (30 seconds)
 2. Finding specific information (2 minutes)
 3. Comparing data points (3 minutes)
-4. Drilling down for details (2 minutes)  
+4. Drilling down for details (2 minutes)
 5. Mobile usage simulation (5 minutes)
 
 Success Criteria:
@@ -313,9 +313,9 @@ Page 1: Dashboard Overview
 ├─ Supporting Visuals: [2-3 context charts]
 └─ Filter Panel: [Key filter controls]
 
-Page 2: Detailed Analysis  
+Page 2: Detailed Analysis
 ├─ Comparative Analysis: [Chart selection]
-├─ Trend Analysis: [Time-based visuals]  
+├─ Trend Analysis: [Time-based visuals]
 ├─ Distribution Analysis: [Statistical charts]
 └─ Navigation: Drill-through to operational data
 
@@ -338,7 +338,7 @@ Phase 4 (Week 4): Mobile optimization and final polish
 Quality Assurance:
 □ Visual accuracy validation
 □ Interaction testing across browsers
-□ Mobile device testing  
+□ Mobile device testing
 □ Accessibility compliance check
 □ Performance validation
 □ User acceptance testing
@@ -357,7 +357,7 @@ Success Metrics:
 To get visualization design recommendations, provide:
 
 - Business context and report objectives
-- Target audience and usage scenarios  
+- Target audience and usage scenarios
 - Data description and key metrics
 - Technical constraints and requirements
 - Brand guidelines and accessibility needs

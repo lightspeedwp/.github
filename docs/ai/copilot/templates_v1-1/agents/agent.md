@@ -9,6 +9,7 @@ description: "Directory index referencing all agents and instructions."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 file_type: "agent"
 ---
+
 # Purpose
 
 - Link all agent specs and stubs; explain how to run locally with dry-run.

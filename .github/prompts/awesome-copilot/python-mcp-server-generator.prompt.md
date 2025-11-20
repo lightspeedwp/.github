@@ -1,6 +1,6 @@
 ---
-mode: 'agent'
-description: 'Generate a complete MCP server project in Python with tools, resources, and proper configuration'
+mode: "agent"
+description: "Generate a complete MCP server project in Python with tools, resources, and proper configuration"
 ---
 
 # Generate Python MCP Server
@@ -73,7 +73,6 @@ Create a complete Model Context Protocol (MCP) server in Python with the followi
   - Simple direct execution
   - Test with `uv run mcp dev server.py`
   - Install to Claude: `uv run mcp install server.py`
-  
 - **For HTTP Servers**:
   - Port configuration via environment variables
   - Stateless mode for scalability: `stateless_http=True`

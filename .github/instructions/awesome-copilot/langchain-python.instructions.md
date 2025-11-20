@@ -1,6 +1,6 @@
 ---
 file_type: "instructions"
-description: 'Instructions for using LangChain with Python'
+description: "Instructions for using LangChain with Python"
 applyTo: "**/*.py"
 ---
 

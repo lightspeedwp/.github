@@ -10,7 +10,7 @@ Use this for actual implementation and PRs.
 
 ### Goals
 
-- Canonical namespace: lsx-design/*
+- Canonical namespace: lsx-design/\*
 - Folder structure for repo organisation (patterns/10-sections, 20-queries, etc.)
 - Curated pattern categories (lsx-design/sections, lsx-design/posts, etc.)
 - All pattern files contain maximal PHP header metadata (see header spec)
@@ -270,7 +270,7 @@ add_action( 'init', function() {
 
 ### 1) Inventory
 
-- Create a complete list of existing pattern files and current slugs → proposed canonical slug (lsx-design/*). I can produce this inventory from the attached snippets.
+- Create a complete list of existing pattern files and current slugs → proposed canonical slug (lsx-design/\*). I can produce this inventory from the attached snippets.
 
 ### 2) Dedupe & mapping
 
@@ -374,7 +374,7 @@ add_action( 'init', function() {
 
 ### Internationalisation
 
-- All user text wrapped in translation functions when pattern content is PHP (__, esc_html_e, etc.)
+- All user text wrapped in translation functions when pattern content is PHP (\_\_, esc_html_e, etc.)
 - Use `esc_url( get_theme_file_uri() )` for asset URLs
 - Test patterns in RTL
 

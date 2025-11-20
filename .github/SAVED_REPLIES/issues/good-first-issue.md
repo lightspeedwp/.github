@@ -21,6 +21,7 @@ Hi @username,
 This issue is marked as a **good first issue**—perfect for new contributors!
 
 **How to get started:**
+
 - Read our [Contribution Guidelines](../../CONTRIBUTING.md) and [Coding Standards](../../.github/instructions/coding-standards.instructions.md)
 - Comment here if you’d like to claim this issue—maintainers will assign it to you and help you get started
 - If you have questions or need a mentor, just ask in the comments!

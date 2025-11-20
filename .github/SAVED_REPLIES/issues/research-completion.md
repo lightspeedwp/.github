@@ -22,11 +22,13 @@ Hi @username,
 Thank you for completing this research/audit/spike!
 
 **To wrap up:**
+
 - Summarize your findings and recommendations in a comment or by editing the issue description
 - Link to any documents, PoCs, or metrics gathered
 - Propose clear next steps or related issues for implementation
 
-**References:**  
+**References:**
+
 - [Issue Types: Research & Audit](../ISSUE_TYPES.md)
 - [Contribution Guidelines](../../CONTRIBUTING.md)
 

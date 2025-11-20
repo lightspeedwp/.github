@@ -43,7 +43,7 @@ Create a complete MCP server implementation that:
 ## Context Variables
 
 - **Server Purpose**: [Describe what the MCP server should accomplish]
-- **Tools Needed**: [List of specific tools to implement]  
+- **Tools Needed**: [List of specific tools to implement]
 - **Resources**: [Types of resources to provide]
 - **Authentication**: [Auth method: none, api-key, oauth2]
 - **Host Environment**: [Azure Function, Express.js, FastAPI, etc.]
@@ -107,7 +107,7 @@ Ensure generated code:
 
 ```yaml
 Server Purpose: Customer data management and analysis
-Tools Needed: 
+Tools Needed:
   - searchCustomers
   - getCustomerDetails
   - analyzeCustomerTrends

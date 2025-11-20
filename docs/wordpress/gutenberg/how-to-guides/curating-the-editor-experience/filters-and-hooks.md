@@ -86,20 +86,20 @@ WordPress 6.2 introduced a new client-side filter allowing you to modify block-l
 The filter is called `blockEditor.useSetting.before` and can be used in the JavaScript code as follows:
 
 ```js
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from "@wordpress/hooks";
 
 /**
  * Limit the Column block's spacing options to pixels.
  */
 addFilter(
-  'blockEditor.useSetting.before',
-  'example/useSetting.before',
+  "blockEditor.useSetting.before",
+  "example/useSetting.before",
   (settingValue, settingName, clientId, blockName) => {
-    if (blockName === 'core/column' && settingName === 'spacing.units') {
-      return ['px'];
+    if (blockName === "core/column" && settingName === "spacing.units") {
+      return ["px"];
     }
     return settingValue;
-  }
+  },
 );
 ```
 
@@ -110,30 +110,30 @@ However, the `blockEditor.useSetting.before` filter is unique because it allows 
 In the following example, text color controls are disabled for the Heading block whenever the block is placed inside of a Media & Text block.
 
 ```js
-import { select } from '@wordpress/data';
-import { addFilter } from '@wordpress/hooks';
+import { select } from "@wordpress/data";
+import { addFilter } from "@wordpress/hooks";
 
 /**
  * Disable text color controls on Heading blocks when placed inside of Media & Text blocks.
  */
 addFilter(
-  'blockEditor.useSetting.before',
-  'example/useSetting.before',
+  "blockEditor.useSetting.before",
+  "example/useSetting.before",
   (settingValue, settingName, clientId, blockName) => {
-    if (blockName === 'core/heading') {
-      const { getBlockParents, getBlockName } = select('core/block-editor');
+    if (blockName === "core/heading") {
+      const { getBlockParents, getBlockName } = select("core/block-editor");
       const blockParents = getBlockParents(clientId, true);
       const inMediaText = blockParents.some(
-        (ancestorId) => getBlockName(ancestorId) === 'core/media-text'
+        (ancestorId) => getBlockName(ancestorId) === "core/media-text",
       );
 
-      if (inMediaText && settingName === 'color.text') {
+      if (inMediaText && settingName === "color.text") {
         return false;
       }
     }
 
     return settingValue;
-  }
+  },
 );
 ```
 

@@ -31,4 +31,4 @@ This document tracks the outstanding and completed tasks for updating and integr
 
 ---
 
-_Last updated: 24 October 2025_
+*Last updated: 24 October 2025*

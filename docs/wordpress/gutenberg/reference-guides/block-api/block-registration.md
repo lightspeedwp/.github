@@ -22,12 +22,12 @@ The name for a block is a unique string that identifies a block. Names have to b
 
 ```js
 // Registering my block with a unique name
-registerBlockType('my-plugin/book', {});
+registerBlockType("my-plugin/book", {});
 ```
 
-_Note:_ A block name can only contain lowercase alphanumeric characters and dashes, and must begin with a letter.
+*Note:* A block name can only contain lowercase alphanumeric characters and dashes, and must begin with a letter.
 
-_Note:_ This name is used on the comment delimiters as `<!-- wp:my-plugin/book -->`. Those blocks provided by core don't include a namespace when serialized.
+*Note:* This name is used on the comment delimiters as `<!-- wp:my-plugin/book -->`. Those blocks provided by core don't include a namespace when serialized.
 
 #### Important: Choose Your Namespace Carefully
 
@@ -42,15 +42,15 @@ Block names cannot be changed later without consequences. The block name is stor
 
 ```js
 // Good examples
-registerBlockType('my-company-blocks/hero', {});
-registerBlockType('awesome-gallery-plugin/slideshow', {});
+registerBlockType("my-company-blocks/hero", {});
+registerBlockType("awesome-gallery-plugin/slideshow", {});
 
 // Avoid these
-registerBlockType('create-block/example', {}); // Too generic
-registerBlockType('block/content', {}); // Too generic
+registerBlockType("create-block/example", {}); // Too generic
+registerBlockType("block/content", {}); // Too generic
 ```
 
-_Note:_ `registerBlockCollection()` only works with blocks from a single namespace.
+*Note:* `registerBlockCollection()` only works with blocks from a single namespace.
 
 ### Block configuration
 
@@ -66,10 +66,10 @@ This is the display title for your block, which can be translated with our trans
 
 ```js
 // Our data object
-title: __('Book');
+title: __("Book");
 ```
 
-_Note:_ To keep your block titles readable and accessible in the UI, try to avoid very long titles.
+*Note:* To keep your block titles readable and accessible in the UI, try to avoid very long titles.
 
 #### description (optional)
 
@@ -78,7 +78,7 @@ _Note:_ To keep your block titles readable and accessible in the UI, try to avoi
 This is a short description for your block, which can be translated with our translation functions. This will be shown in the Block Tab in the Settings Sidebar.
 
 ```js
-description: __('Block showing a Book card.');
+description: __("Block showing a Book card.");
 ```
 
 #### category
@@ -263,7 +263,7 @@ Similarly to how the block's styles can be declared, a block type can define blo
 
 #### supports (optional)
 
-- **_Type:_** `Object`
+- ***Type:*** `Object`
 
 Supports contains a set of options to control features used in the editor. See [the `supports` documentation](/docs/reference-guides/block-api/block-supports.md) for more details.
 
@@ -367,5 +367,5 @@ This will display in the block inserter section, which will list all blocks in t
 
 ```js
 // Registering a block collection
-registerBlockCollection('my-plugin', { title: 'My Plugin' });
+registerBlockCollection("my-plugin", { title: "My Plugin" });
 ```

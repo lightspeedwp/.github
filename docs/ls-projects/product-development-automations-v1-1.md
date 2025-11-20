@@ -23,30 +23,30 @@
 
 ## Order & conflict notes
 
-- Avoid loops: do **not** auto-move from **In QA → In review** on comment events.  
+- Avoid loops: do **not** auto-move from **In QA → In review** on comment events.
 - Manual overrides always win; automations should only react to clear, high-signal events (PR open/merge, label change).
 
 ---
 
 ## Reference — Definition of Ready (DoR)
 
-- [ ] Problem, rationale, and success metric stated  
-- [ ] Acceptance criteria (Given/When/Then)  
-- [ ] Design/spec attached (where needed)  
-- [ ] Dependencies mapped; rollout/flags planned  
-- [ ] Test approach and risk noted  
-- [ ] Estimate added (Size and/or hours)  
-- [ ] Milestone/Iteration assigned (vX.Y.Z in scope)  
-- [ ] Fields set: Issue Type, Priority, Size, Theme, Area, Environment  
+- [ ] Problem, rationale, and success metric stated
+- [ ] Acceptance criteria (Given/When/Then)
+- [ ] Design/spec attached (where needed)
+- [ ] Dependencies mapped; rollout/flags planned
+- [ ] Test approach and risk noted
+- [ ] Estimate added (Size and/or hours)
+- [ ] Milestone/Iteration assigned (vX.Y.Z in scope)
+- [ ] Fields set: Issue Type, Priority, Size, Theme, Area, Environment
 
 ## Reference — Definition of Done (DoD)
 
-- [ ] All acceptance criteria met  
-- [ ] Tests added/updated; CI green  
-- [ ] A11y, performance, and security checks  
-- [ ] Docs and changelog updated  
-- [ ] Version bump (where required)  
-- [ ] QA pass on staging  
-- [ ] Release notes drafted; monitors/alerts set  
+- [ ] All acceptance criteria met
+- [ ] Tests added/updated; CI green
+- [ ] A11y, performance, and security checks
+- [ ] Docs and changelog updated
+- [ ] Version bump (where required)
+- [ ] QA pass on staging
+- [ ] Release notes drafted; monitors/alerts set
 
 ---

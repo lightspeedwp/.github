@@ -53,29 +53,29 @@ Backlog → Ready → In progress → In review → In QA → Done
 
 ### Automations
 
-- On item added → **Status = Backlog**  
-- On assignee set → **Status = In progress**  
-- On PR opened → **Status = In review**  
-- On label `status:needs-qa` → **Status = In QA**  
-- On PR merged / issue closed → **Status = Done**  
+- On item added → **Status = Backlog**
+- On assignee set → **Status = In progress**
+- On PR opened → **Status = In review**
+- On label `status:needs-qa` → **Status = In QA**
+- On PR merged / issue closed → **Status = Done**
 - *(Optional rule)* If **Issue Type = Bug** AND **Environment = Live** AND **Severity ∈ {S0, S1}** → **Priority = High**
 
 ### Cadence
 
-- Weekly planning (select **Release Gate — vX.Y.Z** scope)  
-- Daily stand-up (focus **Hotfix Lane** + blockers)  
-- **Monthly Minor** releases; **Patches as needed**; short freeze window before release  
+- Weekly planning (select **Release Gate — vX.Y.Z** scope)
+- Daily stand-up (focus **Hotfix Lane** + blockers)
+- **Monthly Minor** releases; **Patches as needed**; short freeze window before release
 - Release notes on merge to `main`; tag **vX.Y.Z**
 
 ### Field defaults
 
-- **Priority:** **Medium** (default)  
-- **Phase:** **Pre-launch** (default)  
-- **Release type:** **Minor** (default; set to **Patch**/**Hotfix** as needed)  
-- **Environment:** **Prototype/Staging** (default; per flow)  
-- **Size:** **0 – Unknown** (default)  
-- **Theme, Area:** set at triage (choose exactly **one** Theme per item)  
-- **Milestone (Iteration):** required for all in-scope release items (**vX.Y.Z**)  
+- **Priority:** **Medium** (default)
+- **Phase:** **Pre-launch** (default)
+- **Release type:** **Minor** (default; set to **Patch**/**Hotfix** as needed)
+- **Environment:** **Prototype/Staging** (default; per flow)
+- **Size:** **0 – Unknown** (default)
+- **Theme, Area:** set at triage (choose exactly **one** Theme per item)
+- **Milestone (Iteration):** required for all in-scope release items (**vX.Y.Z**)
 - **Estimate/Start Date/Deadline:** set when scheduled
 
 ### Definition of Ready (DoR) — Checklist

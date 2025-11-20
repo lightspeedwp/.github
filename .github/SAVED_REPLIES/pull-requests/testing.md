@@ -16,11 +16,13 @@ Hi @username,
 Thank you for your contribution! Before we can merge this PR, we need to ensure it has sufficient test coverage.
 
 **What’s Needed:**
+
 - Add or update automated tests to cover your changes
 - Tests should verify both typical use and edge cases
 - Please follow our [testing guidelines](.github/instructions/bats-tests-and-runner-scripts.md)
 
 **Checklist:**
+
 - [ ] Unit tests for new/changed functions
 - [ ] Error/edge case handling
 - [ ] All tests pass in CI
@@ -38,12 +40,14 @@ Hi @username,
 Thanks for including tests in this PR! There are a few ways we can improve test quality:
 
 **Suggestions:**
+
 - Add more edge case coverage
 - Improve test readability or organization
 - Update test descriptions for clarity
 - Use test helpers/utilities where possible
 
 **Resources:**
+
 - [Testing Guidelines](.github/instructions/bats-tests-and-runner-scripts.md)
 
 If you have questions about these suggestions, let us know!

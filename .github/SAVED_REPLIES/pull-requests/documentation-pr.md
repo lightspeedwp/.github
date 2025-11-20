@@ -16,11 +16,13 @@ Hi @username,
 Thank you for your PR! To ensure users and contributors can make the most of these changes, we require documentation to be updated.
 
 **What’s Needed:**
+
 - Add or update README, in-line comments, or usage guides
 - Document any new features, options, or changes in behavior
 - Ensure new functions/scripts include usage examples
 
 **Resources:**
+
 - [Documentation Standards](.github/instructions/documentation-standards.md)
 
 Let us know if you need pointers on what to document!

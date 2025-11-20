@@ -13,7 +13,7 @@ Use this reference to classify Issues consistently, apply correct labels, and al
 
 ## Label Families (Issues)
 
-- **`status:*`** — blocked, duplicate, in-progress, needs-*, on-hold, ready, ready-for-deployment, scope-creep, wontfix.
+- **`status:*`** — blocked, duplicate, in-progress, needs-\*, on-hold, ready, ready-for-deployment, scope-creep, wontfix.
 - **`priority:*`** — critical, important, normal, minor.
 - **`type:*`** — bug, feature, documentation, task, refactor, performance, test, security, a11y, design, improvement, etc.
 - **`area:*`** — analytics, block-visibility, cards, ci, content, etc.

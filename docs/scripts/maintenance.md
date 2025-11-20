@@ -1,17 +1,17 @@
 ---
-title: 'Maintenance Scripts Documentation'
-description: 'Documentation for repository maintenance and automation scripts'
-version: '1.0'
-last_updated: '2025-11-18'
-author: 'LightSpeed WP Team'
-category: 'scripts'
-tags: ['maintenance', 'automation', 'labels', 'badges', 'readmes']
+title: "Maintenance Scripts Documentation"
+description: "Documentation for repository maintenance and automation scripts"
+version: "1.0"
+last_updated: "2025-11-18"
+author: "LightSpeed WP Team"
+category: "scripts"
+tags: ["maintenance", "automation", "labels", "badges", "readmes"]
 references:
-  - './README.md'
-  - '../../scripts/maintenance/README.md'
-  - '../label-automation/README.md'
-  - '../MANAGE-READMES.md'
-  - '../RELEASE-PROCESS.md'
+  - "./README.md"
+  - "../../scripts/maintenance/README.md"
+  - "../label-automation/README.md"
+  - "../MANAGE-READMES.md"
+  - "../RELEASE-PROCESS.md"
 ---
 
 # Maintenance Scripts
@@ -23,6 +23,7 @@ Comprehensive automation scripts for repository maintenance, quality assurance, 
 Location: `/scripts/maintenance/`
 
 **Purpose:** Automate repository maintenance tasks including:
+
 - README and documentation generation
 - GitHub label synchronization
 - Workflow badge updates
@@ -30,6 +31,7 @@ Location: `/scripts/maintenance/`
 - Issue type management
 
 **Documentation:**
+
 - Folder README: [`/scripts/maintenance/README.md`](../../scripts/maintenance/README.md)
 - Label Automation: [`/docs/label-automation/`](../label-automation/README.md)
 - README Management: [`/docs/MANAGE-READMES.md`](../MANAGE-READMES.md)
@@ -43,6 +45,7 @@ Location: `/scripts/maintenance/`
 **Purpose:** Generates comprehensive README files for folders and individual scripts by extracting metadata from file headers.
 
 **Usage:**
+
 ```bash
 # Generate all READMEs
 ./scripts/maintenance/folder-and-file-readmes.sh
@@ -55,6 +58,7 @@ DRY_RUN=true ./scripts/maintenance/folder-and-file-readmes.sh
 ```
 
 **Features:**
+
 - Extracts metadata from script file headers
 - Generates folder-level README.md files
 - Creates index files for quick navigation
@@ -70,6 +74,7 @@ DRY_RUN=true ./scripts/maintenance/folder-and-file-readmes.sh
 **Purpose:** Discovers and catalogs all README files in the repository for analysis and verification.
 
 **Usage:**
+
 ```bash
 # Find all READMEs
 ./scripts/maintenance/find-readmes.sh
@@ -79,6 +84,7 @@ DRY_RUN=true ./scripts/maintenance/folder-and-file-readmes.sh
 ```
 
 **Output:**
+
 - List of all README.md file paths
 - Count of total READMEs
 - Directory hierarchy visualization
@@ -90,6 +96,7 @@ DRY_RUN=true ./scripts/maintenance/folder-and-file-readmes.sh
 **Purpose:** Ensures all README.md files contain required badges and links to CONTRIBUTING.md.
 
 **Usage:**
+
 ```bash
 # Update all READMEs
 ./scripts/maintenance/update-readme-and-changelog.sh
@@ -99,6 +106,7 @@ DRY_RUN=true ./scripts/maintenance/folder-and-file-readmes.sh
 ```
 
 **Updates:**
+
 - License badge
 - Contributing link
 - Standard footer
@@ -117,6 +125,7 @@ DRY_RUN=true ./scripts/maintenance/folder-and-file-readmes.sh
 **Purpose:** Manages GitHub repository labels including creation, updates, and synchronization across repositories.
 
 **Usage:**
+
 ```bash
 # Sync labels from canonical source
 ./scripts/maintenance/manage-labels.sh --sync
@@ -132,6 +141,7 @@ DRY_RUN=true ./scripts/maintenance/manage-labels.sh --sync
 ```
 
 **Features:**
+
 - Syncs labels from `.github/automation/labels.yml`
 - Creates missing labels
 - Updates existing labels (name, color, description)
@@ -149,6 +159,7 @@ DRY_RUN=true ./scripts/maintenance/manage-labels.sh --sync
 **Purpose:** Conservative, REST-only label sync with optional pruning of non-standard labels.
 
 **Usage:**
+
 ```bash
 # Sync without pruning
 ./scripts/maintenance/prune-labels.sh
@@ -161,6 +172,7 @@ DRY_RUN=true ./scripts/maintenance/manage-labels.sh --sync
 ```
 
 **Features:**
+
 - Maps non-canonical labels to standard labels
 - Safe pruning with confirmation
 - Dry-run mode for testing
@@ -178,6 +190,7 @@ DRY_RUN=true ./scripts/maintenance/manage-labels.sh --sync
 **Purpose:** Manages GitHub issue types including creation, configuration, and standards enforcement.
 
 **Usage:**
+
 ```bash
 # Create issue type
 ./scripts/maintenance/manage-issue-types.sh --create
@@ -190,6 +203,7 @@ DRY_RUN=true ./scripts/maintenance/manage-labels.sh --sync
 ```
 
 **Features:**
+
 - Creates standardized issue types
 - Configures issue templates
 - Enforces LightSpeed standards
@@ -208,6 +222,7 @@ DRY_RUN=true ./scripts/maintenance/manage-labels.sh --sync
 **Purpose:** Updates workflow status badges in main README.md for all workflows in the repository.
 
 **Usage:**
+
 ```bash
 # Update all badges
 ./scripts/maintenance/update-badges.sh
@@ -217,6 +232,7 @@ DRY_RUN=true ./scripts/maintenance/update-badges.sh
 ```
 
 **Features:**
+
 - Scans `.github/workflows/` directory
 - Generates badge markdown for each workflow
 - Updates README.md badge section
@@ -234,6 +250,7 @@ DRY_RUN=true ./scripts/maintenance/update-badges.sh
 **Purpose:** Validates that all entries in `[Unreleased]` section of CHANGELOG.md have proper comparison links.
 
 **Usage:**
+
 ```bash
 # Validate changelog
 ./scripts/maintenance/validate-changelog-links.sh
@@ -243,6 +260,7 @@ DRY_RUN=true ./scripts/maintenance/update-badges.sh
 ```
 
 **Features:**
+
 - Validates link format
 - Checks link accessibility
 - Identifies missing links
@@ -261,6 +279,7 @@ DRY_RUN=true ./scripts/maintenance/update-badges.sh
 **Purpose:** Simple test script to verify Pull Request labeler workflow functionality.
 
 **Usage:**
+
 ```bash
 # Test PR labeler
 ./scripts/maintenance/test-pr-labeler.sh
@@ -270,6 +289,7 @@ DRY_RUN=true ./scripts/maintenance/update-badges.sh
 ```
 
 **Features:**
+
 - Simulates PR events
 - Validates labeler configuration
 - Reports labeling results
@@ -282,6 +302,7 @@ DRY_RUN=true ./scripts/maintenance/update-badges.sh
 **Purpose:** Dedicated test runner for executing all maintenance-related Bats tests.
 
 **Usage:**
+
 ```bash
 # Run all maintenance tests
 ./scripts/maintenance/run-maintenance-tests.sh
@@ -294,6 +315,7 @@ DRY_RUN=true ./scripts/maintenance/update-badges.sh
 ```
 
 **Features:**
+
 - Runs all maintenance tests
 - Aggregates test results
 - Provides coverage reports
@@ -359,12 +381,12 @@ git commit -m "chore: pre-release maintenance updates"
 
 ## Environment Variables
 
-| Variable | Purpose | Required | Default |
-|----------|---------|----------|---------|
-| `GITHUB_TOKEN` | GitHub API authentication | Yes | - |
-| `GITHUB_REPOSITORY` | Repository context | Yes | Auto-detect |
-| `DRY_RUN` | Preview mode without changes | No | `false` |
-| `DEBUG` | Enable verbose logging | No | `false` |
+| Variable            | Purpose                      | Required | Default     |
+| ------------------- | ---------------------------- | -------- | ----------- |
+| `GITHUB_TOKEN`      | GitHub API authentication    | Yes      | -           |
+| `GITHUB_REPOSITORY` | Repository context           | Yes      | Auto-detect |
+| `DRY_RUN`           | Preview mode without changes | No       | `false`     |
+| `DEBUG`             | Enable verbose logging       | No       | `false`     |
 
 ## Testing
 
@@ -403,6 +425,7 @@ See [Workflows Documentation](../WORKFLOWS.md) for details.
 **Problem:** Labels not syncing correctly
 
 **Solution:**
+
 ```bash
 # 1. Verify canonical source
 cat .github/automation/labels.yml
@@ -422,6 +445,7 @@ gh api rate_limit
 **Problem:** README not generated correctly
 
 **Solution:**
+
 ```bash
 # 1. Verify script file headers
 head -30 scripts/category/script-name.sh
@@ -438,6 +462,7 @@ ls -la scripts/category/
 **Problem:** Badges not updating in README
 
 **Solution:**
+
 ```bash
 # 1. Verify workflow files exist
 ls .github/workflows/

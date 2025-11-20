@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
-tools: ['codebase', 'edit/editFiles', 'terminalCommand']
-description: 'Containerize an ASP.NET Core project by creating Dockerfile and .dockerfile files customized for the project.'
+mode: "agent"
+tools: ["codebase", "edit/editFiles", "terminalCommand"]
+description: "Containerize an ASP.NET Core project by creating Dockerfile and .dockerfile files customized for the project."
 ---
 
 # ASP.NET Core Docker Containerization Prompt
@@ -127,9 +127,9 @@ Any settings that are not specified will be set to default values. The default v
    - The Linux distribution specified in containerization settings (Alpine, Ubuntu, Chiseled, or Azure Linux (Mariner))
    - If the user does not request specific base images in the containerization settings, then the base images MUST be valid mcr.microsoft.com/dotnet images with a tag as shown in the example Dockerfile, below, or in documentation
    - Official Microsoft .NET images for build and runtime stages:
-      - SDK image tags (for build stage): <https://github.com/dotnet/dotnet-docker/blob/main/README.sdk.md>
-      - ASP.NET Core runtime image tags: <https://github.com/dotnet/dotnet-docker/blob/main/README.aspnet.md>
-      - .NET runtime image tags: <https://github.com/dotnet/dotnet-docker/blob/main/README.runtime.md>
+     - SDK image tags (for build stage): <https://github.com/dotnet/dotnet-docker/blob/main/README.sdk.md>
+     - ASP.NET Core runtime image tags: <https://github.com/dotnet/dotnet-docker/blob/main/README.aspnet.md>
+     - .NET runtime image tags: <https://github.com/dotnet/dotnet-docker/blob/main/README.runtime.md>
 5. Create a Dockerfile in the root of the project directory to containerize the application
    - The Dockerfile should use multiple stages:
      - Build stage: Use a .NET SDK image to build the application
@@ -163,11 +163,11 @@ Any settings that are not specified will be set to default values. The default v
    - .github/
    - .vs/
    - .vscode/
-   - **/node_modules/
-   - *.user
-   - *.suo
-   - **/.DS_Store
-   - **/Thumbs.db
+   - \*\*/node_modules/
+   - \*.user
+   - \*.suo
+   - \*\*/.DS_Store
+   - \*\*/Thumbs.db
    - Any additional patterns specified in the containerization settings
 7. Configure health checks if specified in the containerization settings:
    - Add HEALTHCHECK instruction to Dockerfile if health check endpoint is provided
@@ -193,14 +193,17 @@ Maintain a `progress.md` file with the following structure:
 # Containerization Progress
 
 ## Environment Detection
-- [ ] .NET version detection (version: ___)
-- [ ] Linux distribution selection (distribution: ___)
+
+- [ ] .NET version detection (version: \_\_\_)
+- [ ] Linux distribution selection (distribution: \_\_\_)
 
 ## Configuration Changes
+
 - [ ] Application configuration verification for environment variable support
 - [ ] NuGet package source configuration (if applicable)
 
 ## Containerization
+
 - [ ] Dockerfile creation
 - [ ] .dockerignore file creation
 - [ ] Build stage created with SDK image
@@ -213,6 +216,7 @@ Maintain a `progress.md` file with the following structure:
 - [ ] Special requirements implementation
 
 ## Verification
+
 - [ ] Review containerization settings and make sure that all requirements are met
 - [ ] Docker build success
 ```

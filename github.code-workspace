@@ -42,7 +42,46 @@
 		"git.enableSmartCommit": true,
 		"git.confirmSync": false,
 		"git.autofetch": true,
-		"terminal.integrated.defaultProfile.osx": "zsh"
+		"terminal.integrated.defaultProfile.osx": "zsh",
+		"chat.mcp.access": "all",
+		"github.copilot.chat.virtualTools.threshold": 128,
+		"github.copilot.enable": {
+			"*": true,
+			"php": true,
+			"javascript": true,
+			"css": true,
+			"scss": true,
+			"json": true,
+			"yaml": true,
+			"python": false,
+			"plaintext": false,
+			"markdown": true
+		},
+		"chat.modeFilesLocations": {
+			"**/.github/chatmodes": true,
+			"chatmodes": true
+		},
+		"chat.promptFilesLocations": {
+			"**/.github/prompts": true,
+			"prompts": true
+		},
+		"chat.instructionsFilesLocations": {
+			"**/.github/instructions": true,
+			"instructions": true
+		},
+		"files.associations": {
+			"*.chatmode.md": "markdown",
+			"*.instructions.md": "markdown",
+			"*.agent.md": "markdown",
+			"*.prompt.md": "markdown",
+			"*inline-documentation.instructions.md": "markdown",
+			"*.theme.json": "jsonc",
+			"theme.json": "jsonc"
+		},
+		"emmet.includeLanguages": {
+			"php": "html"
+		},
+		"php.suggest.basic": false
 	},
 	"extensions": {
 		"recommendations": [

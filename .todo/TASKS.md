@@ -228,65 +228,65 @@ Here’s a summary of the unified labeling agent and workflow in your LightSpeed
 🏷️ LightSpeed Unified Labeling Agent & Workflow — Overview
 
 1. Purpose
-Single, canonical agent automates all label application, enforcement, and standardization for issues and PRs.
-Ensures every item has exactly one status:*, one priority:*, and one type:* label, plus area/component/context as needed.
-Applies labels based on file/branch heuristics, content, and front matter.
-Removes or migrates legacy/non-canonical labels.
-All logic is config-driven—no hardcoded label rules.
+   Single, canonical agent automates all label application, enforcement, and standardization for issues and PRs.
+   Ensures every item has exactly one status:*, one priority:*, and one type:\* label, plus area/component/context as needed.
+   Applies labels based on file/branch heuristics, content, and front matter.
+   Removes or migrates legacy/non-canonical labels.
+   All logic is config-driven—no hardcoded label rules.
 2. Key Files & Configuration
-Agent Spec:
-labeling.agent.md — Canonical agent spec, describes responsibilities and outputs.
-Workflow:
-labeling.yml — The only labeling workflow; triggers on PR/issue events.
-Config Files:
-labels.yml — Canonical label set (names, colors, optional aliases).
-labeler.yml — File/branch-based label rules.
-issue-types.yml — Issue type mapping for type labels.
-Documentation:
-ISSUE_LABELS.md — Human-readable label guidance.
-PR_LABELS.md — PR label guidance.
-LABEL_STRATEGY.md — Full labeling strategy and automation details.
+   Agent Spec:
+   labeling.agent.md — Canonical agent spec, describes responsibilities and outputs.
+   Workflow:
+   labeling.yml — The only labeling workflow; triggers on PR/issue events.
+   Config Files:
+   labels.yml — Canonical label set (names, colors, optional aliases).
+   labeler.yml — File/branch-based label rules.
+   issue-types.yml — Issue type mapping for type labels.
+   Documentation:
+   ISSUE_LABELS.md — Human-readable label guidance.
+   PR_LABELS.md — PR label guidance.
+   LABEL_STRATEGY.md — Full labeling strategy and automation details.
 3. How It Works
-Triggered on:
-Issue/PR open, edit, label/unlabel, synchronize, etc.
-Process:
-Loads config from labels.yml, labeler.yml, and issue-types.yml.
-Applies file/branch-based labels using actions/labeler.
-Runs a unified agent (via github-script) to:
-Enforce one-hot status:*and priority:* (adds default if missing, removes extras).
-Assign type:* based on branch, file, or heuristics.
-Parse front matter in PRs for explicit label requests.
-Add meta:needs-changelog to PRs missing a changelog label.
-Remove or migrate legacy/alias labels.
-Logs all actions for auditability.
+   Triggered on:
+   Issue/PR open, edit, label/unlabel, synchronize, etc.
+   Process:
+   Loads config from labels.yml, labeler.yml, and issue-types.yml.
+   Applies file/branch-based labels using actions/labeler.
+   Runs a unified agent (via github-script) to:
+   Enforce one-hot status:*and priority:* (adds default if missing, removes extras).
+   Assign type:\* based on branch, file, or heuristics.
+   Parse front matter in PRs for explicit label requests.
+   Add meta:needs-changelog to PRs missing a changelog label.
+   Remove or migrate legacy/alias labels.
+   Logs all actions for auditability.
 4. Enforcement & Best Practices
-One-hot enforcement:
-Exactly one status:*and one priority:* per issue/PR.
-Type assignment:
-Based on branch prefix, file changes, or heuristics.
-Area/component/context:
-Applied via file path rules in labeler.yml.
-Changelog/release hygiene:
-PRs missing changelog/release labels are nudged with meta:needs-changelog.
-No hardcoded logic:
-All rules are in YAML config files.
-Extensible:
-Add new label rules by updating YAML, not code.
+   One-hot enforcement:
+   Exactly one status:*and one priority:* per issue/PR.
+   Type assignment:
+   Based on branch prefix, file changes, or heuristics.
+   Area/component/context:
+   Applied via file path rules in labeler.yml.
+   Changelog/release hygiene:
+   PRs missing changelog/release labels are nudged with meta:needs-changelog.
+   No hardcoded logic:
+   All rules are in YAML config files.
+   Extensible:
+   Add new label rules by updating YAML, not code.
 5. Outputs
-All issues/PRs have required labels, matching canonical set.
-No non-canonical/legacy labels remain.
-Optionally, audit comments/logs for maintainers.
+   All issues/PRs have required labels, matching canonical set.
+   No non-canonical/legacy labels remain.
+   Optionally, audit comments/logs for maintainers.
 6. References
-Labeling Agent Spec
-Labeling Workflow
-Canonical Labels
-Labeler Rules
-Issue Types
-Labeling Strategy
-ISSUE_LABELS.md
-PR_LABELS.md
-Summary:
-The unified labeling agent and workflow ensure every issue and PR is labeled consistently, automatically, and in line with org-wide standards. All logic is config-driven, fully auditable, and easy to extend—making label hygiene and automation seamless across all LightSpeedWP repositories.
+   Labeling Agent Spec
+   Labeling Workflow
+   Canonical Labels
+   Labeler Rules
+   Issue Types
+   Labeling Strategy
+   ISSUE_LABELS.md
+   PR_LABELS.md
+   Summary:
+   The unified labeling agent and workflow ensure every issue and PR is labeled consistently, automatically, and in line with org-wide standards. All logic is config-driven, fully auditable, and easy to extend—making label hygiene and automation seamless across all LightSpeedWP repositories.
 
 If you want a visual or code-level walk-through of the workflow or agent logic, just ask!
 
@@ -532,65 +532,65 @@ Here’s a summary of the unified labeling agent and workflow in your LightSpeed
 🏷️ LightSpeed Unified Labeling Agent & Workflow — Overview
 
 1. Purpose
-Single, canonical agent automates all label application, enforcement, and standardization for issues and PRs.
-Ensures every item has exactly one status:*, one priority:*, and one type:* label, plus area/component/context as needed.
-Applies labels based on file/branch heuristics, content, and front matter.
-Removes or migrates legacy/non-canonical labels.
-All logic is config-driven—no hardcoded label rules.
+   Single, canonical agent automates all label application, enforcement, and standardization for issues and PRs.
+   Ensures every item has exactly one status:*, one priority:*, and one type:\* label, plus area/component/context as needed.
+   Applies labels based on file/branch heuristics, content, and front matter.
+   Removes or migrates legacy/non-canonical labels.
+   All logic is config-driven—no hardcoded label rules.
 2. Key Files & Configuration
-Agent Spec:
-labeling.agent.md — Canonical agent spec, describes responsibilities and outputs.
-Workflow:
-labeling.yml — The only labeling workflow; triggers on PR/issue events.
-Config Files:
-labels.yml — Canonical label set (names, colors, optional aliases).
-labeler.yml — File/branch-based label rules.
-issue-types.yml — Issue type mapping for type labels.
-Documentation:
-ISSUE_LABELS.md — Human-readable label guidance.
-PR_LABELS.md — PR label guidance.
-LABEL_STRATEGY.md — Full labeling strategy and automation details.
+   Agent Spec:
+   labeling.agent.md — Canonical agent spec, describes responsibilities and outputs.
+   Workflow:
+   labeling.yml — The only labeling workflow; triggers on PR/issue events.
+   Config Files:
+   labels.yml — Canonical label set (names, colors, optional aliases).
+   labeler.yml — File/branch-based label rules.
+   issue-types.yml — Issue type mapping for type labels.
+   Documentation:
+   ISSUE_LABELS.md — Human-readable label guidance.
+   PR_LABELS.md — PR label guidance.
+   LABEL_STRATEGY.md — Full labeling strategy and automation details.
 3. How It Works
-Triggered on:
-Issue/PR open, edit, label/unlabel, synchronize, etc.
-Process:
-Loads config from labels.yml, labeler.yml, and issue-types.yml.
-Applies file/branch-based labels using actions/labeler.
-Runs a unified agent (via github-script) to:
-Enforce one-hot status:*and priority:* (adds default if missing, removes extras).
-Assign type:* based on branch, file, or heuristics.
-Parse front matter in PRs for explicit label requests.
-Add meta:needs-changelog to PRs missing a changelog label.
-Remove or migrate legacy/alias labels.
-Logs all actions for auditability.
+   Triggered on:
+   Issue/PR open, edit, label/unlabel, synchronize, etc.
+   Process:
+   Loads config from labels.yml, labeler.yml, and issue-types.yml.
+   Applies file/branch-based labels using actions/labeler.
+   Runs a unified agent (via github-script) to:
+   Enforce one-hot status:*and priority:* (adds default if missing, removes extras).
+   Assign type:\* based on branch, file, or heuristics.
+   Parse front matter in PRs for explicit label requests.
+   Add meta:needs-changelog to PRs missing a changelog label.
+   Remove or migrate legacy/alias labels.
+   Logs all actions for auditability.
 4. Enforcement & Best Practices
-One-hot enforcement:
-Exactly one status:*and one priority:* per issue/PR.
-Type assignment:
-Based on branch prefix, file changes, or heuristics.
-Area/component/context:
-Applied via file path rules in labeler.yml.
-Changelog/release hygiene:
-PRs missing changelog/release labels are nudged with meta:needs-changelog.
-No hardcoded logic:
-All rules are in YAML config files.
-Extensible:
-Add new label rules by updating YAML, not code.
+   One-hot enforcement:
+   Exactly one status:*and one priority:* per issue/PR.
+   Type assignment:
+   Based on branch prefix, file changes, or heuristics.
+   Area/component/context:
+   Applied via file path rules in labeler.yml.
+   Changelog/release hygiene:
+   PRs missing changelog/release labels are nudged with meta:needs-changelog.
+   No hardcoded logic:
+   All rules are in YAML config files.
+   Extensible:
+   Add new label rules by updating YAML, not code.
 5. Outputs
-All issues/PRs have required labels, matching canonical set.
-No non-canonical/legacy labels remain.
-Optionally, audit comments/logs for maintainers.
+   All issues/PRs have required labels, matching canonical set.
+   No non-canonical/legacy labels remain.
+   Optionally, audit comments/logs for maintainers.
 6. References
-Labeling Agent Spec
-Labeling Workflow
-Canonical Labels
-Labeler Rules
-Issue Types
-Labeling Strategy
-ISSUE_LABELS.md
-PR_LABELS.md
-Summary:
-The unified labeling agent and workflow ensure every issue and PR is labeled consistently, automatically, and in line with org-wide standards. All logic is config-driven, fully auditable, and easy to extend—making label hygiene and automation seamless across all LightSpeedWP repositories.
+   Labeling Agent Spec
+   Labeling Workflow
+   Canonical Labels
+   Labeler Rules
+   Issue Types
+   Labeling Strategy
+   ISSUE_LABELS.md
+   PR_LABELS.md
+   Summary:
+   The unified labeling agent and workflow ensure every issue and PR is labeled consistently, automatically, and in line with org-wide standards. All logic is config-driven, fully auditable, and easy to extend—making label hygiene and automation seamless across all LightSpeedWP repositories.
 
 If you want a visual or code-level walk-through of the workflow or agent logic, just ask!
 

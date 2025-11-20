@@ -1,20 +1,20 @@
 ---
 file_type: "documentation"
-title: 'Linting Strategy & Implementation Guide'
-version: 'v1.0'
-last_updated: '2025-10-26'
-author: 'LightSpeed Team'
-description: 'Comprehensive guide to linting setup, configuration, and automation across LightSpeed WordPress projects'
+title: "Linting Strategy & Implementation Guide"
+version: "v1.0"
+last_updated: "2025-10-26"
+author: "LightSpeed Team"
+description: "Comprehensive guide to linting setup, configuration, and automation across LightSpeed WordPress projects"
 tags:
-    [
-        'linting',
-        'quality',
-        'automation',
-        'eslint',
-        'stylelint',
-        'prettier',
-        'markdownlint',
-    ]
+  [
+    "linting",
+    "quality",
+    "automation",
+    "eslint",
+    "stylelint",
+    "prettier",
+    "markdownlint",
+  ]
 ---
 
 # Linting Strategy & Implementation Guide
@@ -58,13 +58,13 @@ Our linting strategy follows these core principles:
 
 ### Core Linting Tools
 
-| Tool               | Purpose                       | Configuration                | Auto-fix |
-| ------------------ | ----------------------------- | ---------------------------- | -------- |
-| **ESLint**         | JavaScript/TypeScript linting | `eslint.config.js`           | ✅       |
-| **Stylelint**      | CSS/SCSS linting              | `stylelint.config.js`        | ✅       |
-| **Prettier**       | Code formatting               | `prettier.config.js`         | ✅       |
-| **markdownlint**   | Markdown linting              | `.markdownlint.json`         | ✅       |
-| **Spectral**       | YAML/JSON linting             | `.spectral.yaml`             | ❌       |
+| Tool               | Purpose                       | Configuration                   | Auto-fix |
+| ------------------ | ----------------------------- | ------------------------------- | -------- |
+| **ESLint**         | JavaScript/TypeScript linting | `eslint.config.js`              | ✅       |
+| **Stylelint**      | CSS/SCSS linting              | `stylelint.config.js`           | ✅       |
+| **Prettier**       | Code formatting               | `prettier.config.js`            | ✅       |
+| **markdownlint**   | Markdown linting              | `.markdownlint.json`            | ✅       |
+| **Spectral**       | YAML/JSON linting             | `.spectral.yaml`                | ❌       |
 | **npmPkgJsonLint** | package.json validation       | `npmpackagejsonlint.config.cjs` | ❌       |
 
 ### Tool Selection Rationale
@@ -94,36 +94,36 @@ Our linting strategy follows these core principles:
 
 ```javascript
 // eslint.config.js
-import 'dotenv/config';
-import js from '@eslint/js';
-import ts from 'typescript-eslint';
-import prettier from 'eslint-plugin-prettier';
+import "dotenv/config";
+import js from "@eslint/js";
+import ts from "typescript-eslint";
+import prettier from "eslint-plugin-prettier";
 
 const ignoreFolders = process.env.ESLINT_IGNORE
-    ? process.env.ESLINT_IGNORE.split(',')
-    : [
-          'node_modules/**',
-          'build/**',
-          'dist/**',
-          'coverage/**',
-          'playwright-report/**',
-          'test-results/**',
-          'vendor/**',
-          '.next/**',
-          'logs/**',
-      ];
+  ? process.env.ESLINT_IGNORE.split(",")
+  : [
+      "node_modules/**",
+      "build/**",
+      "dist/**",
+      "coverage/**",
+      "playwright-report/**",
+      "test-results/**",
+      "vendor/**",
+      ".next/**",
+      "logs/**",
+    ];
 
 export default [
-    js.configs.recommended,
-    ...ts.configs.recommended,
-    {
-        files: ['**/*.{js,jsx,ts,tsx,cjs,mjs}'],
-        ignores: ignoreFolders,
-        plugins: { prettier },
-        rules: {
-            'prettier/prettier': 'warn',
-        },
+  js.configs.recommended,
+  ...ts.configs.recommended,
+  {
+    files: ["**/*.{js,jsx,ts,tsx,cjs,mjs}"],
+    ignores: ignoreFolders,
+    plugins: { prettier },
+    rules: {
+      "prettier/prettier": "warn",
     },
+  },
 ];
 ```
 
@@ -133,19 +133,19 @@ export default [
 
 The package JSON lint configuration now lives in `npmpackagejsonlint.config.cjs` (CJS for environment variable access and comments). You can influence rule enforcement via the following environment variables in `.env` (see `.env.example`):
 
-| Variable | Purpose | Default |
-|----------|---------|---------|
-| `NPMPKGJSONLINT_STRICT_MODE` | Treat `version-format` failures as errors (otherwise warning) | `false` |
-| `NPMPKGJSONLINT_NAME_FORMAT` | Severity for `name-format` rule (`error`/`warning`/`off`) | `error` |
-| `NPMPKGJSONLINT_REQUIRE_FIELDS` | Master toggle for all required metadata rules | `true` |
-| `NPMPKGJSONLINT_REQUIRE_DESCRIPTION` | Require `description` field | `true` |
-| `NPMPKGJSONLINT_REQUIRE_REPOSITORY` | Require `repository` field | `true` |
-| `NPMPKGJSONLINT_REQUIRE_LICENSE` | Require `license` field | `true` |
-| `NPMPKGJSONLINT_REQUIRE_AUTHOR` | Require `author` field | `true` |
-| `NPMPKGJSONLINT_REQUIRE_DESCRIPTION` | Require `description` field (granular override) | `true` |
-| `NPMPKGJSONLINT_REQUIRE_REPOSITORY` | Require `repository` field (granular override) | `true` |
-| `NPMPKGJSONLINT_DISABLE_ORDER` | Disable `prefer-property-order` enforcement | `false` |
-| `NPMPKGJSONLINT_IGNORE_PATHS` | Additional comma‑separated paths to ignore | (empty) |
+| Variable                             | Purpose                                                       | Default |
+| ------------------------------------ | ------------------------------------------------------------- | ------- |
+| `NPMPKGJSONLINT_STRICT_MODE`         | Treat `version-format` failures as errors (otherwise warning) | `false` |
+| `NPMPKGJSONLINT_NAME_FORMAT`         | Severity for `name-format` rule (`error`/`warning`/`off`)     | `error` |
+| `NPMPKGJSONLINT_REQUIRE_FIELDS`      | Master toggle for all required metadata rules                 | `true`  |
+| `NPMPKGJSONLINT_REQUIRE_DESCRIPTION` | Require `description` field                                   | `true`  |
+| `NPMPKGJSONLINT_REQUIRE_REPOSITORY`  | Require `repository` field                                    | `true`  |
+| `NPMPKGJSONLINT_REQUIRE_LICENSE`     | Require `license` field                                       | `true`  |
+| `NPMPKGJSONLINT_REQUIRE_AUTHOR`      | Require `author` field                                        | `true`  |
+| `NPMPKGJSONLINT_REQUIRE_DESCRIPTION` | Require `description` field (granular override)               | `true`  |
+| `NPMPKGJSONLINT_REQUIRE_REPOSITORY`  | Require `repository` field (granular override)                | `true`  |
+| `NPMPKGJSONLINT_DISABLE_ORDER`       | Disable `prefer-property-order` enforcement                   | `false` |
+| `NPMPKGJSONLINT_IGNORE_PATHS`        | Additional comma‑separated paths to ignore                    | (empty) |
 
 Example script (already defined):
 
@@ -199,16 +199,16 @@ PRETTIER_PRINT_WIDTH=80
 
 ```json
 {
-    "scripts": {
-        "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
-        "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
-        "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
-        "lint:css": "stylelint '**/*.{css,scss}' --fix",
-        "lint:md": "markdownlint '**/*.md' --fix",
-        "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml",
-        "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml",
-        "lint:pkg-json": "npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs ."
-    }
+  "scripts": {
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
+    "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
+    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
+    "lint:css": "stylelint '**/*.{css,scss}' --fix",
+    "lint:md": "markdownlint '**/*.md' --fix",
+    "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml",
+    "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml",
+    "lint:pkg-json": "npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs ."
+  }
 }
 ```
 
@@ -216,12 +216,12 @@ PRETTIER_PRINT_WIDTH=80
 
 ```json
 {
-    "scripts": {
-        "format": "npm run format:js && npm run format:css",
-        "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format",
-        "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix",
-        "format:md": "prettier '**/*.md' --write"
-    }
+  "scripts": {
+    "format": "npm run format:js && npm run format:css",
+    "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format",
+    "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix",
+    "format:md": "prettier '**/*.md' --write"
+  }
 }
 ```
 
@@ -248,13 +248,13 @@ npm run format
 
 ```json
 {
-    "recommendations": [
-        "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint",
-        "stylelint.vscode-stylelint",
-        "DavidAnson.vscode-markdownlint",
-        "stoplight.spectral"
-    ]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "DavidAnson.vscode-markdownlint",
+    "stoplight.spectral"
+  ]
 }
 ```
 
@@ -272,18 +272,18 @@ The `.vscode/settings.json` file provides:
 
 ```jsonc
 {
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true,
-        "source.fixAll.stylelint": true,
-    },
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-    ],
-    "stylelint.validate": ["css", "scss", "sass"],
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true,
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ],
+  "stylelint.validate": ["css", "scss", "sass"],
 }
 ```
 
@@ -295,16 +295,16 @@ Linting is automated through Git hooks managed by [Husky](./config/workflow-husk
 
 ```json
 {
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
-        "*.{css,scss}": ["stylelint --fix", "prettier --write"],
-        "*.md": ["markdownlint --fix", "prettier --write"]
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{css,scss}": ["stylelint --fix", "prettier --write"],
+    "*.md": ["markdownlint --fix", "prettier --write"]
+  }
 }
 ```
 
@@ -315,16 +315,16 @@ Linting is automated through Git hooks managed by [Husky](./config/workflow-husk
 name: Lint
 on: [push, pull_request]
 jobs:
-    lint:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: '20'
-                  cache: 'npm'
-            - run: npm ci
-            - run: npm run lint:all
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run lint:all
 ```
 
 ## File Type Specific Linting

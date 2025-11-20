@@ -10,11 +10,11 @@ Namespace: `core/nux`.
 
 Returns whether or not tips are globally enabled.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether tips are globally enabled.
 
@@ -22,12 +22,12 @@ _Returns_
 
 Returns an object describing the guide, if any, that the given tip is a part of.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _tipId_ `string`: The tip to query.
+- *state* `Object`: Global application state.
+- *tipId* `string`: The tip to query.
 
-_Returns_
+*Returns*
 
 - `?NUXGuideInfo`: Information about the associated guide.
 
@@ -35,12 +35,12 @@ _Returns_
 
 Determines whether or not the given tip is showing. Tips are hidden if they are disabled, have been dismissed, or are not the current tip in any guide that they have been added to.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _tipId_ `string`: The tip to query.
+- *state* `Object`: Global application state.
+- *tipId* `string`: The tip to query.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether or not the given tip is showing.
 
@@ -54,7 +54,7 @@ _Returns_
 
 Returns an action object that, when dispatched, prevents all tips from showing again.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -62,11 +62,11 @@ _Returns_
 
 Returns an action object that, when dispatched, dismisses the given tip. A dismissed tip will not show again.
 
-_Parameters_
+*Parameters*
 
-- _id_ `string`: The tip to dismiss.
+- *id* `string`: The tip to dismiss.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -74,7 +74,7 @@ _Returns_
 
 Returns an action object that, when dispatched, makes all tips show again.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -82,11 +82,11 @@ _Returns_
 
 Returns an action object that, when dispatched, presents a guide that takes the user through a series of tips step by step.
 
-_Parameters_
+*Parameters*
 
-- _tipIds_ `string[]`: Which tips to show in the guide.
+- *tipIds* `string[]`: Which tips to show in the guide.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 

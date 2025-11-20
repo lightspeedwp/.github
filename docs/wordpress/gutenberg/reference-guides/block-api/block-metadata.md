@@ -452,7 +452,7 @@ See the [Example documentation](/docs/reference-guides/block-api/block-registrat
 
 Block Variations is the API that allows a block to have similar versions of it, but all these versions share some common functionality. Each block variation is differentiated from the others by setting some initial attributes or inner blocks. Then at the time when a block is inserted these attributes and/or inner blocks are applied.
 
-_Note: In JavaScript you can provide a function for the `isActive` property, and a React element for the `icon`. In the `block.json` file both only support strings_
+*Note: In JavaScript you can provide a function for the `isActive` property, and a React element for the `icon`. In the `block.json` file both only support strings*
 
 Starting with version 6.7, it is possible to specify a PHP file in `block.json` that generates the list of block variations on the server side:
 
@@ -532,7 +532,7 @@ Block type editor scripts definition. They will only be enqueued in the context 
 
 It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
 
-_Note: An option to pass also an array of editor scripts exists since WordPress `6.1.0`._
+*Note: An option to pass also an array of editor scripts exists since WordPress `6.1.0`.*
 
 ### Script
 
@@ -549,7 +549,7 @@ Block type frontend and editor scripts definition. They will be enqueued both in
 
 It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
 
-_Note: An option to pass also an array of scripts exists since WordPress `6.1.0`._
+*Note: An option to pass also an array of scripts exists since WordPress `6.1.0`.*
 
 ### View script
 
@@ -567,7 +567,7 @@ Block type frontend scripts definition. They will be enqueued only when viewing 
 
 It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.wordpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
 
-_Note: An option to pass also an array of view scripts exists since WordPress `6.1.0`._
+*Note: An option to pass also an array of view scripts exists since WordPress `6.1.0`.*
 
 ### View script module
 
@@ -587,7 +587,7 @@ It's possible to pass a script module ID registered with the [`wp_register_scrip
 
 WordPress scripts and WordPress script modules are not compatible at the moment. If frontend view assets depend on WordPress scripts, `viewScript` should be used. If they depend on WordPress script modules —the Interactivity API at this time— `viewScriptModule` should be used. [More functionality](https://core.trac.wordpress.org/ticket/60647) will gradually become available to Script Modules.
 
-_Note: Available since WordPress `6.5.0`._
+*Note: Available since WordPress `6.5.0`.*
 
 ### Editor style
 
@@ -604,7 +604,7 @@ Block type editor styles definition. They will only be enqueued in the context o
 
 It's possible to pass a style handle registered with the [`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/) function, a path to a CSS file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
 
-_Note: An option to pass also an array of editor styles exists since WordPress `5.9.0`._
+*Note: An option to pass also an array of editor styles exists since WordPress `5.9.0`.*
 
 ### Style
 
@@ -621,7 +621,7 @@ Block type frontend and editor styles definition. They will be enqueued both in 
 
 It's possible to pass a style handle registered with the [`wp_register_style`](https://developer.wordpress.org/reference/functions/wp_register_style/) function, a path to a CSS file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
 
-_Note: An option to pass also an array of styles exists since WordPress `5.9.0`._
+*Note: An option to pass also an array of styles exists since WordPress `5.9.0`.*
 
 ### View Style
 
@@ -667,7 +667,7 @@ An example implementation of the `render.php` file defined with `render` could l
 </div>
 ```
 
-_Note: This file loads for every instance of the block type when rendering the page HTML on the server. Accounting for that is essential when declaring functions or classes in the file. The simplest way to avoid the risk of errors is to consume that shared logic from another file._
+*Note: This file loads for every instance of the block type when rendering the page HTML on the server. Accounting for that is essential when declaring functions or classes in the file. The simplest way to avoid the risk of errors is to consume that shared logic from another file.*
 
 ## Assets
 
@@ -793,9 +793,9 @@ In JavaScript, you can use `registerBlockType` method from `@wordpress/blocks` p
 **Example:**
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import Edit from './edit';
-import metadata from './block.json';
+import { registerBlockType } from "@wordpress/blocks";
+import Edit from "./edit";
+import metadata from "./block.json";
 
 registerBlockType(metadata, {
   edit: Edit,
@@ -821,9 +821,9 @@ The following properties are going to be supported for backward compatibility re
 **Example**:
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType } from "@wordpress/blocks";
 
-registerBlockType('my-plugin/block-name', {
+registerBlockType("my-plugin/block-name", {
   edit: function () {
     // Edit definition goes here.
   },

@@ -56,10 +56,10 @@ Example:
 
 ```markdown
 - **Decision 6:** Switch CSS linter from stylelint to custom WordPress-tailored stylelint config ([ADR-006](ADR/ADR-006-stylelint.md))
-    - **Status:** Accepted
-    - **Date:** 2025-10-20
-    - **Context:** Needed stricter enforcement of WordPress CSS naming and specificity rules; considered using Prettier only.
-    - **Consequences:** All contributors must update their local configs. CI scripts updated, docs revised.
+  - **Status:** Accepted
+  - **Date:** 2025-10-20
+  - **Context:** Needed stricter enforcement of WordPress CSS naming and specificity rules; considered using Prettier only.
+  - **Consequences:** All contributors must update their local configs. CI scripts updated, docs revised.
 ```
 
 ---
@@ -102,7 +102,7 @@ Example:
 
 1. **Summarize** the decision in this file, following the format above.
 2. **Create a detailed ADR** in `docs/ADR/ADR-00N-topic.md`:
-    - Include: context, options considered, rationale, impacts, migration steps.
+   - Include: context, options considered, rationale, impacts, migration steps.
 3. **Link** the ADR from this file.
 4. **Update status** if the decision is later superseded, deprecated, or revised.
 

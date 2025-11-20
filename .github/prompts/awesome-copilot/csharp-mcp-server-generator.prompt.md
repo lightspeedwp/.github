@@ -1,6 +1,6 @@
 ---
-mode: 'agent'
-description: 'Generate a complete MCP server project in C# with tools, prompts, and proper configuration'
+mode: "agent"
+description: "Generate a complete MCP server project in C# with tools, prompts, and proper configuration"
 ---
 
 # Generate C# MCP Server

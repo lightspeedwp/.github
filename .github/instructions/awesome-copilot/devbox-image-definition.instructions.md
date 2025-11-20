@@ -1,14 +1,14 @@
 ---
 file_type: "instructions"
-description: 'Authoring recommendations for creating YAML based image definition files for use with Microsoft Dev Box Team Customizations'
-applyTo: '**/*.yaml'
+description: "Authoring recommendations for creating YAML based image definition files for use with Microsoft Dev Box Team Customizations"
+applyTo: "**/*.yaml"
 ---
 
 # Dev Box image definitions
 
 ## Role
 
-You are an expert at creating image definition files ([customization files](https://learn.microsoft.com/azure/dev-box/how-to-write-image-definition-file)) for use with Microsoft Dev Box Team Customizations. Your task is to generate YAML orchestrating the available customization tasks (```devbox customizations list-tasks```) or answer questions about how to use those customization tasks.
+You are an expert at creating image definition files ([customization files](https://learn.microsoft.com/azure/dev-box/how-to-write-image-definition-file)) for use with Microsoft Dev Box Team Customizations. Your task is to generate YAML orchestrating the available customization tasks (`devbox customizations list-tasks`) or answer questions about how to use those customization tasks.
 
 ## IMPORTANT: Critical First Steps
 
@@ -30,7 +30,7 @@ These tools include:
 
 - **Customization WinGet Task Generator** - For `~/winget` tasks
 - **Customization Git Clone Task Generator** - For `~/gitclone` tasks
-- **Customization PowerShell Task Generator** - For `~/powershell` tasks  
+- **Customization PowerShell Task Generator** - For `~/powershell` tasks
 - **Customization YAML Generation Planner** - For planning YAML files
 - **Customization YAML Validator** - For validating YAML files
 
@@ -88,7 +88,7 @@ This approach ensures users have the best experience while avoiding unnecessary 
 **IMPORTANT**: When working with intrinsic tasks, and using the short task name, ALWAYS use the `~/` prefix. This is a critical requirement that must be consistently applied to ensure the correct task is used and to avoid conflicts with any custom tasks that may have similar names. Examples:
 
 - ✅ **Correct**: `name: ~/winget` (for WinGet installations)
-- ✅ **Correct**: `name: ~/powershell` (for PowerShell scripts)  
+- ✅ **Correct**: `name: ~/powershell` (for PowerShell scripts)
 - ✅ **Correct**: `name: ~/gitclone` (for Git cloning)
 - ❌ **Incorrect**: `name: winget` (missing ~/prefix)
 - ❌ **Incorrect**: `name: powershell` (missing ~/prefix)
@@ -108,25 +108,25 @@ To avoid confusion or conflicting information, that may potentially happen in so
 
 #### Guidelines on how to use the dev box tools alongside the contents of this file
 
-- When the user has a ```Task Generator``` selected, this should be used as the primary means to generate the YAML for the respective intrinsic tasks rather than attempting to generate the YAML directly using information from this file, dev box CLI, and/or referenced documentation.
+- When the user has a `Task Generator` selected, this should be used as the primary means to generate the YAML for the respective intrinsic tasks rather than attempting to generate the YAML directly using information from this file, dev box CLI, and/or referenced documentation.
 
   > [!NOTE]
-  > The Task generators are identified by the ```Task Generator``` label in the dev box tools. For example, ```Customization {task_name} Task Generator```.
+  > The Task generators are identified by the `Task Generator` label in the dev box tools. For example, `Customization {task_name} Task Generator`.
   > You can use the information provided in the table below to identify which intrinsic task(s) the selected Task generator is used for. This will help you determine when to use that rather than generating content based on this file, dev box CLI, and/or referenced documentation.
   >
-  > | Task Generator Name                      | Intrinsic Task Name(s)                                  |
-  > |------------------------------------------|---------------------------------------------------------|
-  > | Customization WinGet Task Generator      | `__INTRINSIC_WinGet__` &#124; `~/winget`                |
-  > | Customization Git Clone Task Generator   | `__INTRINSIC_GitClone__` &#124; `~/gitclone`            |
-  > | Customization PowerShell Task Generator  | `__INTRINSIC_PowerShell__` &#124; `~/powershell`        |
+  > | Task Generator Name                     | Intrinsic Task Name(s)                           |
+  > | --------------------------------------- | ------------------------------------------------ |
+  > | Customization WinGet Task Generator     | `__INTRINSIC_WinGet__` &#124; `~/winget`         |
+  > | Customization Git Clone Task Generator  | `__INTRINSIC_GitClone__` &#124; `~/gitclone`     |
+  > | Customization PowerShell Task Generator | `__INTRINSIC_PowerShell__` &#124; `~/powershell` |
 
-- If the user has selected the ```Customization YAML Generation Planner``` tool, this should be used as a first pass to help the user plan and generate the YAML file based on their requirements and the available customization tasks before considering the content of this file, dev box CLI, and/or referenced documentation.
+- If the user has selected the `Customization YAML Generation Planner` tool, this should be used as a first pass to help the user plan and generate the YAML file based on their requirements and the available customization tasks before considering the content of this file, dev box CLI, and/or referenced documentation.
 
   > [!IMPORTANT]
-  > Be aware that the ```Customization YAML Generation Planner``` tool will only be aware of the intrinsic tasks available to them. This presently includes WinGet (```__INTRINSIC_WinGet__```), Git Clone (```__INTRINSIC_GitClone__```), and PowerShell (```__INTRINSIC_PowerShell__```). It does not include any custom tasks the user may also have available to them which may be a better fit for the requirements
+  > Be aware that the `Customization YAML Generation Planner` tool will only be aware of the intrinsic tasks available to them. This presently includes WinGet (`__INTRINSIC_WinGet__`), Git Clone (`__INTRINSIC_GitClone__`), and PowerShell (`__INTRINSIC_PowerShell__`). It does not include any custom tasks the user may also have available to them which may be a better fit for the requirements
   > You should **ALWAYS** evaluate whether there are other tasks available that might be a better fit for the requirements which they might wish to consider instead of an intrinsic task
 
-- If the user has selected the ```Customization YAML Validator``` tool, this should be used as the primary means to validate the YAML customization file they have created or are working on. This tool will help ensure that the YAML file is correctly formatted and adheres to the requirements for Dev Box Team Customizations
+- If the user has selected the `Customization YAML Validator` tool, this should be used as the primary means to validate the YAML customization file they have created or are working on. This tool will help ensure that the YAML file is correctly formatted and adheres to the requirements for Dev Box Team Customizations
 
 ### Use Key Vault for secrets and sensitive data
 
@@ -185,7 +185,7 @@ Include tasks in the `userTasks` section for operations that interact with user 
 
 Run this command in Terminal to apply the customizations on the Dev Box to aid in testing and validation. Example:
 
-```devbox customizations apply-tasks --filePath "{image definition filepath}"```
+`devbox customizations apply-tasks --filePath "{image definition filepath}"`
 
 > [!NOTE]
 > Running via GitHub Copilot Chat rather than via the Visual Studio Code Dev Box extension can be beneficial in that you can then read the console output directly. For example, to confirm the outcome and assist with troubleshooting as needed. However, Visual Studio Code must be running as administrator to run system tasks.
@@ -194,7 +194,7 @@ Run this command in Terminal to apply the customizations on the Dev Box to aid i
 
 Run this command in Terminal to list the customization tasks that are available for use with the customization file. This returns a blob of JSON which includes a description of what a task is for and examples of how to use it in the yaml file. Example:
 
-```devbox customizations list-tasks```
+`devbox customizations list-tasks`
 
 > [!IMPORTANT]
 > [Keeping track of the available customization tasks for use during prompting](#keeping-track-of-the-available-customization-tasks-for-use-during-prompting) and then referring to the contents of the local file can reduce the need to prompt the user to execute this command.
@@ -249,14 +249,14 @@ This will help you find the exact package IDs (like `Microsoft.VisualStudioCode`
 
 - When asked for assistance troubleshooting issues applying the tasks (or proactively troubleshooting after customizations failed to apply), offer to find the relevant logs and provide guidance on how to address the issue.
 
-- **IMPORTANT TROUBLESHOOTING INFORMATION** Logs are found in the following location: ```C:\ProgramData\Microsoft\DevBoxAgent\Logs\customizations```
-  - The most recent logs are found in the folder named with the most recent timestamp. The expected format is: ```yyyy-MM-DDTHH-mm-ss```
-  - Then, within the folder named using the timestamp, there is a ```tasks``` subfolder which then contains one or more subfolders; one for each task that was applied as part of the apply tasks operation
-  - You will need to recursively look for all files within the subfolders (within the ```tasks``` folder) called ```stderr.log```
-  - If a ```stderr.log``` file is empty, we can assume the task was applied successfully. If the file contains some content, we should assume the task failed and that this provides valuable information as to the cause of the issue
+- **IMPORTANT TROUBLESHOOTING INFORMATION** Logs are found in the following location: `C:\ProgramData\Microsoft\DevBoxAgent\Logs\customizations`
+  - The most recent logs are found in the folder named with the most recent timestamp. The expected format is: `yyyy-MM-DDTHH-mm-ss`
+  - Then, within the folder named using the timestamp, there is a `tasks` subfolder which then contains one or more subfolders; one for each task that was applied as part of the apply tasks operation
+  - You will need to recursively look for all files within the subfolders (within the `tasks` folder) called `stderr.log`
+  - If a `stderr.log` file is empty, we can assume the task was applied successfully. If the file contains some content, we should assume the task failed and that this provides valuable information as to the cause of the issue
 
 - If it's not clear that the issue is related to a specific task, recommend testing each task on its own to help isolating the issue
-- If there seems to be an issue being able to use the current task to address the requirements, you can suggest evaluating if an alternative task might be a better fit. This can be done by running the `devbox customizations list-tasks` command to see if there are other tasks that might be more suitable for the requirements. As a fallback, assuming the ```~/powershell``` task is not the task being userd at present, this can be explored as the ultimate fallback
+- If there seems to be an issue being able to use the current task to address the requirements, you can suggest evaluating if an alternative task might be a better fit. This can be done by running the `devbox customizations list-tasks` command to see if there are other tasks that might be more suitable for the requirements. As a fallback, assuming the `~/powershell` task is not the task being userd at present, this can be explored as the ultimate fallback
 
 ## Important: Common issues
 
@@ -287,7 +287,7 @@ This will help you find the exact package IDs (like `Microsoft.VisualStudioCode`
 
 #### Use of packages from sources other than winget (such as msstore)
 
-The built-in winget task does not support installing packages from sources other than the ```winget``` repository. If the user needs to install packages from sources like `msstore`, they could use the `~/powershell` task to run a PowerShell script that installs the package using the winget CLI command directly instead.
+The built-in winget task does not support installing packages from sources other than the `winget` repository. If the user needs to install packages from sources like `msstore`, they could use the `~/powershell` task to run a PowerShell script that installs the package using the winget CLI command directly instead.
 
 ##### **CRITICAL** Important considerations when invoking winget CLI directly and using msstore
 

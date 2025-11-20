@@ -10,17 +10,19 @@ tags: ["badges", "automation", "readme", "github-actions", "ci"]
 category: "automation"
 status: "active"
 references:
-- "../../scripts/update-badges.sh"
-- "./badges.instructions.md"
-- "./badges.prompt.md"
-- "../../README.md"
-- "../../BADGES.md"
-- "./branding.agent.md"
+  - "../../scripts/update-badges.sh"
+  - "./badges.instructions.md"
+  - "./badges.prompt.md"
+  - "../../README.md"
+  - "../../BADGES.md"
+  - "./branding.agent.md"
 ---
 
-> **Deprecated:** This agent has been superseded by [branding.agent.md](./branding.agent.md). Please use the Branding Agent for unified header, footer, and badge automation.
-
 # Badges Agent Specification (Deprecated)
+
+> **DEPRECATED**: This agent has been superseded by [branding.agent.md](./branding.agent.md). Please use the Branding Agent for unified header, footer, and badge automation. This specification is maintained for reference only.
+
+**Migration Path**: Use [branding.agent.md](./branding.agent.md) instead.
 
 ## Purpose
 

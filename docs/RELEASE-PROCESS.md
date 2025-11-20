@@ -15,4 +15,4 @@ description: "Authoritative release process flow from develop to main with branc
 4. On green, merge to `main`. Tag is created/pushed by the agent.
 5. Post-merge: confirm `VERSION` & docs have no drift (`--verify`).
 
-_This document is authoritative for gates and branch flow._
+*This document is authoritative for gates and branch flow.*

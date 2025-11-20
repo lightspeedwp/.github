@@ -9,12 +9,12 @@ This document explains how the LightSpeed community health repository is governe
 
 ## Maintainers
 
-| Name             | GitHub Username                    | Profile URL                                |
-|------------------|-----------------------------------|--------------------------------------------|
-| Ash Shaw         | @ashleyshaw                       | [ashleyshaw](https://github.com/ashleyshaw)  |
-| Warwick Booth    | @krugazul                         | [krugazul](https://github.com/krugazul)      |
-| Chris Vancoillie | @eleshar                          | [eleshar](https://github.com/eleshar)        |
-| Zared Rogers     | @ZaredRogers                      | [ZaredRogers](https://github.com/ZaredRogers)|
+| Name             | GitHub Username | Profile URL                                   |
+| ---------------- | --------------- | --------------------------------------------- |
+| Ash Shaw         | @ashleyshaw     | [ashleyshaw](https://github.com/ashleyshaw)   |
+| Warwick Booth    | @krugazul       | [krugazul](https://github.com/krugazul)       |
+| Chris Vancoillie | @eleshar        | [eleshar](https://github.com/eleshar)         |
+| Zared Rogers     | @ZaredRogers    | [ZaredRogers](https://github.com/ZaredRogers) |
 
 ## Decision Making
 
@@ -85,6 +85,7 @@ All exceptions must be documented in the repository's README.md with:
 ### Custom Labels
 
 **Exception:** This repository uses additional labels not in the canonical set:
+
 - `priority:p0` - Production outage (beyond `priority:critical`)
 - `team:platform` - Platform team ownership
 
@@ -184,4 +185,4 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 
 ---
 
-_This document is maintained by the LightSpeed community. Propose changes via pull request._
+*This document is maintained by the LightSpeed community. Propose changes via pull request.*

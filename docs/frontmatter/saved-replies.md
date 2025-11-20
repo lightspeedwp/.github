@@ -21,4 +21,4 @@ Saved replies are reusable responses you can insert into issue and PR comments t
 - No file-based storage or YAML frontmatter.
 - Great for standard responses, checklists, and reminders.
 
-> _Document your recommended saved replies for your team here._
+> *Document your recommended saved replies for your team here.*

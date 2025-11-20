@@ -72,11 +72,7 @@ Guide developers to write semantic, accessible HTML templates and PHP files that
 
 ## Block Template Structure
 
-  related_links:
-    - "<https://developer.wordpress.org/themes/block-themes/templates/>"
-    - "<https://developer.wordpress.org/themes/block-themes/template-parts/>"
-    - "<https://developer.wordpress.org/block-editor/reference-guides/template-structure/>"
-    - "<https://github.com/lightspeedwp/.github>"
+related_links: - "<https://developer.wordpress.org/themes/block-themes/templates/>" - "<https://developer.wordpress.org/themes/block-themes/template-parts/>" - "<https://developer.wordpress.org/block-editor/reference-guides/template-structure/>" - "<https://github.com/lightspeedwp/.github>"
 
 - Test templates with both light and dark color schemes.
 
@@ -151,7 +147,7 @@ All tags must be properly closed. For tags that can wrap nodes such as text or o
 rather than the compact but incorrect:
 
 ```html
-<br/>
+<br />
 ```
 
 The W3C specifies that a single space should precede the self-closing slash ([source](https://w3.org/TR/xhtml1/#C_2)).
@@ -180,16 +176,16 @@ Correct:
 
 ```html
 <input type="text" name="email" disabled="disabled" />
-<input type='text' name='email' disabled='disabled' />
+<input type="text" name="email" disabled="disabled" />
 ```
 
 Incorrect:
 
 ```html
-<input type=text name=email disabled>
+<input type="text" name="email" disabled />
 ```
 
-In HTML, attributes do not all have to have values, and attribute values do not always have to be quoted. While all of the examples above are valid HTML, _failing to quote attributes can lead to security vulnerabilities_. Always quote attributes. Omitting the value on boolean attributes is allowed. The values `true` and `false` are not valid on boolean attributes ([HTML5 source](https://www.w3.org/TR/2011/WD-html5-20110405/common-microsyntaxes.html#boolean-attributes)).
+In HTML, attributes do not all have to have values, and attribute values do not always have to be quoted. While all of the examples above are valid HTML, *failing to quote attributes can lead to security vulnerabilities*. Always quote attributes. Omitting the value on boolean attributes is allowed. The values `true` and `false` are not valid on boolean attributes ([HTML5 source](https://www.w3.org/TR/2011/WD-html5-20110405/common-microsyntaxes.html#boolean-attributes)).
 
 Correct:
 

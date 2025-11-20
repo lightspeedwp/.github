@@ -57,4 +57,4 @@ README.md
 
 ---
 
-_If you add new documentation types or major files, update this file and cross-references in the docs suite._
+*If you add new documentation types or major files, update this file and cross-references in the docs suite.*

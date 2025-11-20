@@ -2,15 +2,14 @@
 
 ## *Product Development Workflow*
 
-***Version:*** 1.1 • ***Last updated:*** 17 Oct 2025  
----
+## ***Version:*** 1.1 • ***Last updated:*** 17 Oct 2025
 
 [Pull Request Changelog Content](#pull-request-changelog-content)  
 [Semantic Versioning & Release Labeling](#semantic-versioning--release-labeling)  
 [Automated Release Workflow](#automated-release-workflow)  
 [PR Label Enforcement & Checks](#pr-label-enforcement--checks)  
 [Maintaining Labels & Config](#maintaining-labels-and-config-for-product-repos)  
-[Differences for Product Development](#differences-for-product-development)  
+[Differences for Product Development](#differences-for-product-development)
 
 ---
 
@@ -40,7 +39,7 @@ On merge to `main`, the Action:
 
 ## **Maintaining Labels & Config for Product Repos**
 
-- Keep `.github/labels.yml` in sync across repos.  
+- Keep `.github/labels.yml` in sync across repos.
 - Optionally default to `release:patch` via labeler; developers can raise to minor/major.
 
 ## **Differences for Product Development**

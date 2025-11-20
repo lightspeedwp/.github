@@ -1,19 +1,19 @@
 ---
-title: 'Security Tests'
-description: 'Test suite for validating agent security compliance, secret handling, and safe operation practices'
-version: '1.0'
-last_updated: '2025-11-18'
-author: 'LightSpeed WP Team'
-category: 'tests'
-tags: ['security', 'testing', 'agents', 'compliance', 'bats']
+title: "Security Tests"
+description: "Test suite for validating agent security compliance, secret handling, and safe operation practices"
+version: "1.0"
+last_updated: "2025-11-18"
+author: "LightSpeed WP Team"
+category: "tests"
+tags: ["security", "testing", "agents", "compliance", "bats"]
 standards:
-  - 'https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md'
-  - 'https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md'
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md"
 references:
-  - '../README.md'
-  - '../../docs/TESTING.md'
-  - '../../docs/SECURITY.md'
-  - '../includes/agent-test-helpers.bash'
+  - "../README.md"
+  - "../../docs/TESTING.md"
+  - "../../docs/SECURITY.md"
+  - "../includes/agent-test-helpers.bash"
 ---
 
 # Security Tests
@@ -32,9 +32,9 @@ The security test suite ensures all agents:
 
 ## Test Files
 
-| File | Purpose | Test Count | Status |
-|------|---------|-----------|--------|
-| `test-agent-security.bats` | Agent security validation | 15+ | ✅ Active |
+| File                       | Purpose                   | Test Count | Status    |
+| -------------------------- | ------------------------- | ---------- | --------- |
+| `test-agent-security.bats` | Agent security validation | 15+        | ✅ Active |
 
 ## Test Categories
 
@@ -43,13 +43,15 @@ The security test suite ensures all agents:
 **Purpose:** Ensure agents never leak sensitive tokens, credentials, or API keys.
 
 **Tests:**
+
 - GitHub token exposure in logs
-- Token pattern detection (ghp_, gho_, ghu_ prefixes)
+- Token pattern detection (ghp*, gho*, ghu\_ prefixes)
 - Environment variable leakage
 - Debug output sanitization
 - Error message security
 
 **Coverage:**
+
 - All agent types (`.agent.js` files)
 - Dry-run and production modes
 - Standard output and error streams
@@ -60,6 +62,7 @@ The security test suite ensures all agents:
 **Purpose:** Validate agents handle malformed, malicious, or unexpected input safely.
 
 **Tests:**
+
 - Malformed JSON input handling
 - Oversized payload rejection
 - Invalid event type handling
@@ -67,6 +70,7 @@ The security test suite ensures all agents:
 - Injection attack prevention
 
 **Coverage:**
+
 - GitHub event payloads
 - Configuration files
 - API responses
@@ -77,6 +81,7 @@ The security test suite ensures all agents:
 **Purpose:** Ensure proper authentication checks and authorization enforcement.
 
 **Tests:**
+
 - Missing token handling
 - Invalid token rejection
 - Permission verification
@@ -84,6 +89,7 @@ The security test suite ensures all agents:
 - Rate limiting respect
 
 **Coverage:**
+
 - GitHub API authentication
 - Third-party service auth
 - Token lifecycle management
@@ -135,11 +141,11 @@ Security tests utilize these helper functions:
 
 Tests use these environment variables:
 
-| Variable | Purpose | Default |
-|----------|---------|---------|
-| `AGENTS_DIR` | Location of agents to test | `../../.github/agents` |
-| `GITHUB_TOKEN` | Test token for validation | `ghp_test_secret_token_12345` |
-| `DRY_RUN` | Enable dry-run mode | `true` |
+| Variable       | Purpose                    | Default                       |
+| -------------- | -------------------------- | ----------------------------- |
+| `AGENTS_DIR`   | Location of agents to test | `../../.github/agents`        |
+| `GITHUB_TOKEN` | Test token for validation  | `ghp_test_secret_token_12345` |
+| `DRY_RUN`      | Enable dry-run mode        | `true`                        |
 
 ## Writing Security Tests
 
@@ -196,12 +202,12 @@ All agents must comply with:
 
 ## Test Coverage Goals
 
-| Area | Current | Target | Status |
-|------|---------|--------|--------|
-| Token exposure tests | 85% | 95% | 🟡 In Progress |
-| Input validation | 75% | 90% | 🟡 In Progress |
-| Auth/authz tests | 80% | 95% | 🟡 In Progress |
-| Error handling | 70% | 85% | 🟡 In Progress |
+| Area                 | Current | Target | Status         |
+| -------------------- | ------- | ------ | -------------- |
+| Token exposure tests | 85%     | 95%    | 🟡 In Progress |
+| Input validation     | 75%     | 90%    | 🟡 In Progress |
+| Auth/authz tests     | 80%     | 95%    | 🟡 In Progress |
+| Error handling       | 70%     | 85%    | 🟡 In Progress |
 
 ## Related Documentation
 
@@ -225,6 +231,7 @@ Security tests run automatically:
 ### Test Failures
 
 **Token exposure detected:**
+
 ```bash
 # Review agent logging code
 grep -r "console.log.*TOKEN" .github/agents/
@@ -234,6 +241,7 @@ grep -r "console.log.*TOKEN" .github/agents/
 ```
 
 **Timeout errors:**
+
 ```bash
 # Increase timeout in test
 run timeout 60s node "$agent"
@@ -243,6 +251,7 @@ run timeout 60s node "$agent"
 ```
 
 **Mock setup failures:**
+
 ```bash
 # Verify helper scripts loaded
 load "../includes/agent-test-helpers.bash"

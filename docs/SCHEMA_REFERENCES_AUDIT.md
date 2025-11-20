@@ -31,9 +31,11 @@ This document provides a comprehensive audit of all schema file references acros
 ### Subdirectory Schemas
 
 #### `/schemas/frontmatter/`
+
 - Contains frontmatter-related schemas for specialized use cases
 
 #### `/schemas/header-footer-agent/`
+
 - `agent-config.schema.json` - Branding agent configuration
 - `footer.schema.json` - Footer schema for agent
 - `header-footer.schema.json` - Combined schema for agent
@@ -41,41 +43,52 @@ This document provides a comprehensive audit of all schema file references acros
 - `README.md` - Documentation for agent schemas
 
 #### `/schemas/wordpress/`
+
 - WordPress-specific schemas and configurations
 
 #### `/schemas/wp/`
+
 - WordPress platform schemas
 
 #### `/schemas/coderabbit/`
+
 - CodeRabbit AI review tool configurations
 
 ## 🔍 Agent References Audit
 
 ### branding.agent.js
+
 **Path**: `.github/agents/branding.agent.js`
 **References**:
+
 - ✅ `../../schemas/header-footer-agent/agent-config.schema.json` (CORRECT)
 
 **Purpose**: Unified branding agent for headers, footers, and badges
 
 ### header-footer.agent.js
+
 **Path**: `.github/agents/header-footer.agent.js`
 **References**:
+
 - ✅ `../../schemas/header.schema.json` (CORRECT - root level)
 - ✅ `../../schemas/footer.schema.json` (CORRECT - root level)
 
 **Purpose**: Deprecated agent for header/footer insertion (superseded by branding.agent.js)
 
 ### branding.agent.md
+
 **Path**: `.github/agents/branding.agent.md`
 **References**:
+
 - ✅ `../../schemas/header-footer-agent/agent-config.schema.json` (CORRECT)
 
 **Purpose**: Specification for unified branding agent
 
 ### header-footer.agent.md
+
 **Path**: `.github/agents/header-footer.agent.md`
 **References**:
+
 - ✅ `../../schemas/header.schema.json` (CORRECT)
 - ✅ `../../schemas/footer.schema.json` (CORRECT)
 
@@ -84,9 +97,11 @@ This document provides a comprehensive audit of all schema file references acros
 ## 📚 Documentation References Audit
 
 ### header-footer.prompt.md
+
 **Path**: `.github/prompts/agents/header-footer.prompt.md`
 **Updated**: ✅ 2025-10-24
 **References**:
+
 - ✅ `../../schemas/header.schema.json` (CORRECT - root level)
 - ✅ `../../schemas/footer.schema.json` (CORRECT - root level)
 - ✅ `../../schemas/header-footer.schema.json` (CORRECT - root level)
@@ -95,37 +110,44 @@ This document provides a comprehensive audit of all schema file references acros
 ## 📖 Prompt References
 
 ### build-agent-and-tests.prompt.md
+
 **Status**: ✅ No schema references found (general prompt)
 
 ### awesome-copilot/create-agentsmd.prompt.md
+
 **Status**: ✅ No schema references (documentation generation)
 
 ### awesome-copilot/declarative-agents.prompt.md
+
 **Status**: ✅ No schema references (Microsoft 365 Copilot guidance)
 
 ### awesome-copilot/finalize-agent-prompt.prompt.md
+
 **Status**: ✅ No schema references (prompt polishing)
 
 ## 🤖 Chat Mode References Audit
 
 ### software-engineer-agent-v1.chatmode.md
+
 **Status**: ✅ No direct schema references (operational guidance)
 
 ### declarative-agents-architect.chatmode.md
+
 **Status**: ✅ No direct schema references (architecture guidance)
 
 ### meta-agentic-project-scaffold.chatmode.md
+
 **Status**: ✅ No direct schema references (project setup guidance)
 
 ## ✅ Reference Validation Results
 
-| File | Type | Status | Notes |
-|------|------|--------|-------|
-| branding.agent.js | Agent | ✅ PASS | Uses correct header-footer-agent path |
-| header-footer.agent.js | Agent | ✅ PASS | Uses correct root-level schemas |
-| branding.agent.md | Spec | ✅ PASS | References match implementation |
-| header-footer.agent.md | Spec | ✅ PASS | References match implementation |
-| header-footer.prompt.md | Prompt | ✅ PASS | All schema references corrected |
+| File                    | Type   | Status  | Notes                                 |
+| ----------------------- | ------ | ------- | ------------------------------------- |
+| branding.agent.js       | Agent  | ✅ PASS | Uses correct header-footer-agent path |
+| header-footer.agent.js  | Agent  | ✅ PASS | Uses correct root-level schemas       |
+| branding.agent.md       | Spec   | ✅ PASS | References match implementation       |
+| header-footer.agent.md  | Spec   | ✅ PASS | References match implementation       |
+| header-footer.prompt.md | Prompt | ✅ PASS | All schema references corrected       |
 
 ## 🎯 Best Practices for Schema References
 

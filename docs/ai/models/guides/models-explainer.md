@@ -50,13 +50,13 @@ ChatGPT models differ in latency, cost, and capability. Selecting the appropriat
 
 # Model Selection Guidance
 
-| Scenario | Recommended Model |
-|---|---|
-| Quick answers or brainstorming | **Instant** |
-| Complex reasoning or deep research | **Thinking** or **Pro** |
-| Balanced general use | **Auto** |
-| Production‑quality outputs with maximum safety | **Pro** |
-| Offline or resource‑constrained environments | **4o** |
+| Scenario                                       | Recommended Model       |
+| ---------------------------------------------- | ----------------------- |
+| Quick answers or brainstorming                 | **Instant**             |
+| Complex reasoning or deep research             | **Thinking** or **Pro** |
+| Balanced general use                           | **Auto**                |
+| Production‑quality outputs with maximum safety | **Pro**                 |
+| Offline or resource‑constrained environments   | **4o**                  |
 
 When in doubt, start with **Auto** and monitor latency and quality. If responses lack depth, switch to **Thinking**. For high‑stakes tasks, prefer **Pro**.
 

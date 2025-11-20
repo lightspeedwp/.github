@@ -10,11 +10,11 @@ Namespace: `core/edit-post`.
 
 Returns true if meta boxes are initialized.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether meta boxes are initialized.
 
@@ -27,11 +27,11 @@ Examples:
 - `edit-post/document`
 - `my-plugin/insert-image-sidebar`
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `?string`: Active general sidebar name.
 
@@ -39,11 +39,11 @@ _Returns_
 
 Returns an array of active meta box locations.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Post editor state.
+- *state* `Object`: Post editor state.
 
-_Returns_
+*Returns*
 
 - `string[]`: Active meta box locations.
 
@@ -51,11 +51,11 @@ _Returns_
 
 Returns the list of all the available meta boxes.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Array`: List of meta boxes.
 
@@ -63,7 +63,7 @@ _Returns_
 
 Retrieves the template of the currently edited post.
 
-_Returns_
+*Returns*
 
 - `?Object`: Post Template.
 
@@ -71,11 +71,11 @@ _Returns_
 
 Returns the current editing mode.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `string`: Editing mode.
 
@@ -83,7 +83,7 @@ _Returns_
 
 Returns an array of blocks that are hidden.
 
-_Returns_
+*Returns*
 
 - `Array`: A list of the hidden block types
 
@@ -91,24 +91,24 @@ _Returns_
 
 Returns the list of all the available meta boxes for a given location.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _location_ `string`: Meta box location to test.
+- *state* `Object`: Global application state.
+- *location* `string`: Meta box location to test.
 
-_Returns_
+*Returns*
 
 - `?Array`: List of meta boxes.
 
 ### getPreference
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _preferenceKey_ `string`: Preference Key.
-- _defaultValue_ `*`: Default Value.
+- *state* `Object`: Global application state.
+- *preferenceKey* `string`: Preference Key.
+- *defaultValue* `*`: Default Value.
 
-_Returns_
+*Returns*
 
 - `*`: Preference Value.
 
@@ -116,11 +116,11 @@ _Returns_
 
 Returns the preferences (these preferences are persisted locally).
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Object`: Preferences Object.
 
@@ -128,11 +128,11 @@ _Returns_
 
 Returns true if the post is using Meta Boxes
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state
+- *state* `Object`: Global application state
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether there are metaboxes or not.
 
@@ -148,12 +148,12 @@ Returns true if the template editing mode is enabled.
 
 Returns true if the given panel is enabled, or false otherwise. Panels are enabled by default.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _panelName_ `string`: A string that identifies the panel.
+- *state* `Object`: Global application state.
+- *panelName* `string`: A string that identifies the panel.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether or not the panel is enabled.
 
@@ -163,12 +163,12 @@ _Returns_
 
 Returns true if the given panel is open, or false otherwise. Panels are closed by default.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _panelName_ `string`: A string that identifies the panel.
+- *state* `Object`: Global application state.
+- *panelName* `string`: A string that identifies the panel.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether or not the panel is open.
 
@@ -178,12 +178,12 @@ _Returns_
 
 Returns true if the given panel was programmatically removed, or false otherwise. All panels are not removed by default.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _panelName_ `string`: A string that identifies the panel.
+- *state* `Object`: Global application state.
+- *panelName* `string`: A string that identifies the panel.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether or not the panel is removed.
 
@@ -191,11 +191,11 @@ _Returns_
 
 Returns true if the editor sidebar is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state
+- *state* `Object`: Global application state
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the editor sidebar is opened.
 
@@ -203,12 +203,12 @@ _Returns_
 
 Returns whether the given feature is enabled or not.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _feature_ `string`: Feature slug.
+- *state* `Object`: Global application state.
+- *feature* `string`: Feature slug.
 
-_Returns_
+*Returns*
 
 - `boolean`: Is active.
 
@@ -218,11 +218,11 @@ _Returns_
 
 Returns true if the inserter is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the inserter is opened.
 
@@ -230,11 +230,11 @@ _Returns_
 
 Returns true if the list view is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the list view is opened.
 
@@ -242,12 +242,12 @@ _Returns_
 
 Returns true if there is an active meta box in the given location, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Post editor state.
-- _location_ `string`: Meta box location to test.
+- *state* `Object`: Post editor state.
+- *location* `string`: Meta box location to test.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the meta box location is active.
 
@@ -255,12 +255,12 @@ _Returns_
 
 Returns true if a metabox location is active and visible
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Post editor state.
-- _location_ `string`: Meta box location to test.
+- *state* `Object`: Post editor state.
+- *location* `string`: Meta box location to test.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the meta box location is active and visible.
 
@@ -270,12 +270,12 @@ _Returns_
 
 Returns true if a modal is active, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _modalName_ `string`: A string that uniquely identifies the modal.
+- *state* `Object`: Global application state.
+- *modalName* `string`: A string that uniquely identifies the modal.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the modal is active.
 
@@ -283,12 +283,12 @@ _Returns_
 
 Returns true if the plugin item is pinned to the header. When the value is not set it defaults to true.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _pluginName_ `string`: Plugin item name.
+- *state* `Object`: Global application state.
+- *pluginName* `string`: Plugin item name.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the plugin item is pinned.
 
@@ -296,11 +296,11 @@ _Returns_
 
 Returns true if the plugin sidebar is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the plugin sidebar is opened.
 
@@ -310,11 +310,11 @@ _Returns_
 
 Returns true if the publish sidebar is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state
+- *state* `Object`: Global application state
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the publish sidebar is open.
 
@@ -322,11 +322,11 @@ _Returns_
 
 Returns true if the Meta Boxes are being saved.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the metaboxes are being saved.
 
@@ -346,7 +346,7 @@ Returns an action object signalling that the user closed the sidebar.
 
 Returns an action object signalling that the user closed a modal.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -356,7 +356,7 @@ _Returns_
 
 Returns an action object used in signalling that the user closed the publish sidebar.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -364,9 +364,9 @@ _Returns_
 
 Update the provided block types to be hidden.
 
-_Parameters_
+*Parameters*
 
-- _blockNames_ `string[]`: Names of block types to hide.
+- *blockNames* `string[]`: Names of block types to hide.
 
 ### initializeMetaBoxes
 
@@ -376,7 +376,7 @@ Initializes WordPress `postboxes` script and the logic for saving meta boxes.
 
 Returns an action object used to signal a failed meta box update.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -384,7 +384,7 @@ _Returns_
 
 Returns an action object used to signal a successful meta box update.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -392,9 +392,9 @@ _Returns_
 
 Returns an action object used in signalling that the user opened an editor sidebar.
 
-_Parameters_
+*Parameters*
 
-- _name_ `?string`: Sidebar name to be opened.
+- *name* `?string`: Sidebar name to be opened.
 
 ### openModal
 
@@ -402,11 +402,11 @@ _Parameters_
 
 Returns an action object used in signalling that the user opened a modal.
 
-_Parameters_
+*Parameters*
 
-- _name_ `string`: A string that uniquely identifies the modal.
+- *name* `string`: A string that uniquely identifies the modal.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -416,7 +416,7 @@ _Returns_
 
 Returns an action object used in signalling that the user opened the publish sidebar.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 
@@ -426,11 +426,11 @@ _Returns_
 
 Returns an action object used to remove a panel from the editor.
 
-_Parameters_
+*Parameters*
 
-- _panelName_ `string`: A string that identifies the panel to remove.
+- *panelName* `string`: A string that identifies the panel to remove.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -442,9 +442,9 @@ Update a metabox.
 
 Stores info about which Meta boxes are available in which location.
 
-_Parameters_
+*Parameters*
 
-- _metaBoxesPerLocation_ `Object`: Meta boxes per location.
+- *metaBoxesPerLocation* `Object`: Meta boxes per location.
 
 ### setIsEditingTemplate
 
@@ -458,9 +458,9 @@ Returns an action object used to switch to template editing.
 
 Returns an action object used to open/close the inserter.
 
-_Parameters_
+*Parameters*
 
-- _value_ `boolean|Object`: Whether the inserter should be opened (true) or closed (false).
+- *value* `boolean|Object`: Whether the inserter should be opened (true) or closed (false).
 
 ### setIsListViewOpened
 
@@ -468,17 +468,17 @@ _Parameters_
 
 Returns an action object used to open/close the list view.
 
-_Parameters_
+*Parameters*
 
-- _isOpen_ `boolean`: A boolean representing whether the list view should be opened or closed.
+- *isOpen* `boolean`: A boolean representing whether the list view should be opened or closed.
 
 ### showBlockTypes
 
 Update the provided block types to be visible.
 
-_Parameters_
+*Parameters*
 
-- _blockNames_ `string[]`: Names of block types to show.
+- *blockNames* `string[]`: Names of block types to show.
 
 ### switchEditorMode
 
@@ -486,9 +486,9 @@ _Parameters_
 
 Triggers an action used to switch editor mode.
 
-_Parameters_
+*Parameters*
 
-- _mode_ `string`: The editor mode.
+- *mode* `string`: The editor mode.
 
 ### toggleDistractionFree
 
@@ -502,11 +502,11 @@ Action that toggles Distraction free mode. Distraction free mode expects there a
 
 Returns an action object used to enable or disable a panel in the editor.
 
-_Parameters_
+*Parameters*
 
-- _panelName_ `string`: A string that identifies the panel to enable or disable.
+- *panelName* `string`: A string that identifies the panel to enable or disable.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -516,17 +516,17 @@ _Returns_
 
 Opens a closed panel and closes an open panel.
 
-_Parameters_
+*Parameters*
 
-- _panelName_ `string`: A string that identifies the panel to open or close.
+- *panelName* `string`: A string that identifies the panel to open or close.
 
 ### toggleFeature
 
 Triggers an action used to toggle a feature flag.
 
-_Parameters_
+*Parameters*
 
-- _feature_ `string`: Feature name.
+- *feature* `string`: Feature name.
 
 ### toggleFullscreenMode
 
@@ -536,9 +536,9 @@ Action that toggles the Fullscreen Mode view option.
 
 Triggers an action object used to toggle a plugin name flag.
 
-_Parameters_
+*Parameters*
 
-- _pluginName_ `string`: Plugin name.
+- *pluginName* `string`: Plugin name.
 
 ### togglePublishSidebar
 
@@ -546,7 +546,7 @@ _Parameters_
 
 Returns an action object used in signalling that the user toggles the publish sidebar.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 

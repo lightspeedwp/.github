@@ -56,27 +56,27 @@ Backlog → To-do → In progress → In review → In QA → Done
 
 ### Automations
 
-- On item added → **Status = Backlog**  
-- On assignee set → **Status = In progress**  
-- On PR opened → **Status = In review**  
-- On label `status:needs-qa` → **Status = In QA**  
+- On item added → **Status = Backlog**
+- On assignee set → **Status = In progress**
+- On PR opened → **Status = In review**
+- On label `status:needs-qa` → **Status = In QA**
 - On PR merged / issue closed → **Status = Done**
 
 ### Cadence
 
-- Weekly grooming (prioritise **High**, then **Medium**)  
-- Daily stand-up (focus on **Blocked** view)  
-- UAT every Thursday; ship as needed  
+- Weekly grooming (prioritise **High**, then **Medium**)
+- Daily stand-up (focus on **Blocked** view)
+- UAT every Thursday; ship as needed
 - *(Optional)* Mid-week triage; fortnightly show-and-tell; monthly retro
 
 ### Field defaults
 
-- **Priority:** **Medium** (default)  
-- **Phase:** **Pre-launch** (default)  
-- **Environment:** **Staging** (default)  
-- **Size:** **0 – Unknown** (default)  
-- **Theme, Area:** set at triage (choose exactly **one** Theme per item)  
-- **Estimate/Start Date/Deadline:** set when scheduled  
+- **Priority:** **Medium** (default)
+- **Phase:** **Pre-launch** (default)
+- **Environment:** **Staging** (default)
+- **Size:** **0 – Unknown** (default)
+- **Theme, Area:** set at triage (choose exactly **one** Theme per item)
+- **Estimate/Start Date/Deadline:** set when scheduled
 - **Milestone (Iteration):** optional for client windows (e.g., UAT-1, Go-Live)
 
 ### Definition of Ready (DoR) — Checklist

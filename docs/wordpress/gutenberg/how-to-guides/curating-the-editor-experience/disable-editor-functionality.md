@@ -56,7 +56,7 @@ Block variations are registered using JavaScript and need to be disabled with Ja
 
 ```js
 wp.domReady(() => {
-  wp.blocks.unregisterBlockVariation('core/group', 'group-row');
+  wp.blocks.unregisterBlockVariation("core/group", "group-row");
 });
 ```
 
@@ -85,7 +85,7 @@ So, you would use the following code to disable the "Rounded" block style for th
 
 ```js
 wp.domReady(() => {
-  wp.blocks.unregisterBlockStyle('core/image', 'rounded');
+  wp.blocks.unregisterBlockStyle("core/image", "rounded");
 });
 ```
 
@@ -114,11 +114,11 @@ Formatting options need to be disabled with JavaScript using `unregisterFormatTy
 
 ```js
 wp.domReady(() => {
-  wp.richText.unregisterFormatType('core/image');
-  wp.richText.unregisterFormatType('core/language');
-  wp.richText.unregisterFormatType('core/keyboard');
-  wp.richText.unregisterFormatType('core/subscript');
-  wp.richText.unregisterFormatType('core/superscript');
+  wp.richText.unregisterFormatType("core/image");
+  wp.richText.unregisterFormatType("core/language");
+  wp.richText.unregisterFormatType("core/keyboard");
+  wp.richText.unregisterFormatType("core/subscript");
+  wp.richText.unregisterFormatType("core/superscript");
 });
 ```
 

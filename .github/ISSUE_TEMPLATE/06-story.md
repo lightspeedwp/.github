@@ -5,7 +5,7 @@ title: "[Story] <Brief summary>"
 labels: [type:feature, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: story
 references:
   - ../CONTRIBUTING.md

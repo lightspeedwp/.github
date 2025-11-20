@@ -25,35 +25,35 @@ graph TB
     A --> D[🏗️ Architecture & Workflows]
     A --> E[📚 Documentation & Communication]
     A --> F[🔗 Integration & Security]
-    
+
     B --> B1[agents.instructions.md]
     B --> B2[awesome-copilot.instructions.md]
     B --> B3[automation.instructions.md]
     B --> B4[automation-testing.instructions.md]
     B --> B5[copilot.instructions.md]
-    
+
     C --> C1[coding-standards.instructions.md]
     C --> C2[linting.instructions.md]
     C --> C3[tests.instructions.md]
     C --> C4[inline-docs.instructions.md]
-    
+
     D --> D1[workflows.instructions.md]
     D --> D2[wordpress.instructions.md]
     D --> D3[gitops.instructions.md]
-    
+
     E --> E1[docs.instructions.md]
     E --> E2[markdown.instructions.md]
     E --> E3[frontmatter.instructions.md]
-    
+
     F --> F1[security.instructions.md]
     F --> F2[ci-cd.instructions.md]
-    
+
     G[Project Implementation] --> A
     H[Agent Systems] --> B
     I[Code Quality] --> C
     J[Workflow Automation] --> D
     K[Knowledge Management] --> E
-    
+
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#e8f5e8
@@ -217,7 +217,7 @@ Instructions are tracked for:
 
 ---
 
-_This directory provides the foundation for consistent, high-quality development across the LightSpeedWP organization. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for enforcement policies._
+*This directory provides the foundation for consistent, high-quality development across the LightSpeedWP organization. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for enforcement policies.*
 
 ---
 

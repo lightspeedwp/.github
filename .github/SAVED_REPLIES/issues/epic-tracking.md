@@ -22,16 +22,19 @@ Hi @username,
 This issue is classified as an **Epic**—it groups related stories, tasks, or features towards a larger goal.
 
 **How to use this Epic:**
+
 - Link child issues (stories, tasks, bugs) using phrases like "Part of #XX" or "Child of #XX"
 - Use the checklist or task list below to track progress for each sub-issue
 - Ensure each child issue is properly labeled with the correct `type:`, `area:`, and `priority:`
 
-**Epic Progress Checklist:**  
+**Epic Progress Checklist:**
+
 - [ ] Child issue 1 (#xxx)
 - [ ] Child issue 2 (#xxx)
 - [ ] Child issue 3 (#xxx)
 
-**References:**  
+**References:**
+
 - [Issue Types & Epic Usage](../ISSUE_TYPES.md)
 - [Contribution Guidelines](../../CONTRIBUTING.md)
 

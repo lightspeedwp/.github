@@ -21,10 +21,10 @@ references:
 
 1. **Duplicate the template:**  
    Start with [COPILOT_TEMPLATE/template.instructions.md](../../COPILOT_TEMPLATE/template.instructions.md).
-2. **Update the front matter:**  
+2. **Update the front matter:**
    - file_type: "instructions"
    - Complete all required metadata fields.
-3. **Follow section structure:**  
+3. **Follow section structure:**
    - Fill in the Role, Style, Purpose, Type of Task, Process, Outputs, and Guardrails sections.
 4. **Reference any related standards or supporting files.**
 5. **Add your new instructions file to the [copilot index](../copilot.instructions.md).**

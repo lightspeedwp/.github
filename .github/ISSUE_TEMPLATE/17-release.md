@@ -5,7 +5,7 @@ title: "[Release] <Brief summary>"
 labels: [type:release, status:needs-triage, area:release]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: release
 references:
   - ../CONTRIBUTING.md
@@ -18,7 +18,6 @@ references:
   - .github/labels.yml
   - .github/issue-types.yml
 ---
-
 
 ## Release Summary
 

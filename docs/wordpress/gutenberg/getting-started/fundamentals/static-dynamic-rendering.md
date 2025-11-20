@@ -27,7 +27,7 @@ Blocks in WordPress are encapsulated within special comment tags that serve as u
 The following <a href="https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/preformatted/save.js"><code>save</code> function</a> for the <a href="https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library/src/preformatted">Preformatted</a> core block looks like this:
 
 ```js
-import { RichText, useBlockProps } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from "@wordpress/block-editor";
 
 export default function save({ attributes }) {
   const { content } = attributes;

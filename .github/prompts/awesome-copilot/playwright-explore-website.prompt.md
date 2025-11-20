@@ -1,8 +1,25 @@
 ---
 mode: agent
-description: 'Website exploration for testing using Playwright MCP'
-tools: ['changes', 'codebase', 'edit/editFiles', 'fetch', 'findTestFiles', 'problems', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'playwright']
-model: 'Claude Sonnet 4'
+description: "Website exploration for testing using Playwright MCP"
+tools:
+  [
+    "changes",
+    "codebase",
+    "edit/editFiles",
+    "fetch",
+    "findTestFiles",
+    "problems",
+    "runCommands",
+    "runTasks",
+    "runTests",
+    "search",
+    "searchResults",
+    "terminalLastCommand",
+    "terminalSelection",
+    "testFailure",
+    "playwright",
+  ]
+model: "Claude Sonnet 4"
 ---
 
 # Website Exploration for Testing

@@ -2,10 +2,18 @@
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Docs/Governance] Clarify SECURITY vs SUPPORT routing"
-labels: [type:documentation, status:needs-triage, priority:normal, area:documentation, governance, version:v0.2.0]
+labels:
+  [
+    type:documentation,
+    status:needs-triage,
+    priority:normal,
+    area:documentation,
+    governance,
+    version:v0.2.0,
+  ]
 assignees: []
 projects: []
-milestone: 'v0.2.0'
+milestone: "v0.2.0"
 file_type: documentation
 references:
   - ../CONTRIBUTING.md
@@ -109,16 +117,19 @@ We need to ensure SECURITY.md and SUPPORT.md have clear, non-overlapping guidanc
 LightSpeed takes security seriously. If you believe you've discovered a security vulnerability, please report it privately using one of these methods:
 
 ### Preferred: GitHub Security Advisories
+
 1. Go to the [Security Advisories page](https://github.com/lightspeedwp/.github/security/advisories)
 2. Click "Report a vulnerability"
 3. Provide detailed information about the vulnerability
 
 ### Alternative: Email
+
 Send details to: **security@[your-domain].com** <!-- Replace with your actual security contact email -->
 
 ## What to Include
 
 When reporting a vulnerability, please include:
+
 - Description of the vulnerability
 - Steps to reproduce
 - Potential impact
@@ -133,6 +144,7 @@ When reporting a vulnerability, please include:
 ## Disclosure Policy
 
 We follow **coordinated disclosure**:
+
 1. You report the vulnerability privately
 2. We investigate and develop a fix
 3. We coordinate public disclosure timing with you
@@ -141,11 +153,13 @@ We follow **coordinated disclosure**:
 ## Scope
 
 This policy applies to:
+
 - All repositories under the `lightspeedwp` organisation
 - LightSpeed-maintained WordPress plugins and themes
 - Infrastructure and services operated by LightSpeed
 
 **Out of scope:**
+
 - Third-party dependencies (report to their maintainers)
 - Social engineering or phishing
 - Physical attacks
@@ -173,21 +187,29 @@ If you believe you've found a security vulnerability, please follow our [Securit
 ## Getting Help
 
 ### GitHub Discussions
+
 For questions, ideas, and community support:
+
 - [LightSpeed Discussions](https://github.com/orgs/lightspeedwp/discussions)
 
 ### Documentation
+
 Check our documentation first:
+
 - [Contributing Guide](./CONTRIBUTING.md)
 - [Development Guide](./DEVELOPMENT.md)
 - [Documentation Index](./DOCS.md)
 
 ### Slack Community
+
 Join our Slack workspace:
+
 - [LightSpeed Slack](https://lightspeed-community.slack.com)
 
 ### Issue Tracker
+
 For bug reports and feature requests:
+
 - [GitHub Issues](https://github.com/lightspeedwp/.github/issues)
 - Use appropriate issue templates
 

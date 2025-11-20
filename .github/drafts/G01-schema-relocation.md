@@ -2,10 +2,18 @@
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Docs/DevEx] Relocate front-matter schema to `schemas/frontmatter/` and update references"
-labels: [type:documentation, status:needs-triage, priority:normal, area:documentation, area:devex, version:v0.2.0]
+labels:
+  [
+    type:documentation,
+    status:needs-triage,
+    priority:normal,
+    area:documentation,
+    area:devex,
+    version:v0.2.0,
+  ]
 assignees: []
 projects: []
-milestone: 'v0.2.0'
+milestone: "v0.2.0"
 file_type: documentation
 references:
   - ../CONTRIBUTING.md

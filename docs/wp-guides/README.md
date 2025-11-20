@@ -1,11 +1,11 @@
 ---
 file_type: "documentation"
-title: 'WordPress Development Guides'
-description: 'Quick reference guides and checklists for WordPress development at LightSpeed'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['wordpress', 'guides', 'checklists', 'coding-standards', 'security']
+title: "WordPress Development Guides"
+description: "Quick reference guides and checklists for WordPress development at LightSpeed"
+version: "1.0"
+last_updated: "2025-11-12"
+maintainer: "LightSpeed Team"
+tags: ["wordpress", "guides", "checklists", "coding-standards", "security"]
 ---
 
 # WordPress Development Guides

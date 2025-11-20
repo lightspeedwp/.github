@@ -1,12 +1,12 @@
 ---
-title: 'Branding Metrics Log'
-description: 'Historical log of branding automation metrics'
+title: "Branding Metrics Log"
+description: "Historical log of branding automation metrics"
 ---
 
 # Branding Metrics Log
 
-| timestamp | coverage | changes | errors | optouts |
-|---|---:|---:|---:|---:|
+| timestamp                |   coverage |   changes |   errors |   optouts |
+| ------------------------ | ---------: | --------: | -------: | --------: |
 | 2025-11-13T15:37:42.885Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
 | 2025-11-14T04:33:31.234Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
 | 2025-11-17T03:31:05.061Z | coverage:0 | changes:0 | errors:0 | optouts:0 |

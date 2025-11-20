@@ -47,19 +47,19 @@ LightSpeedWP follows a **develop → main** branching model:
 
 ```yaml
 on:
-    push:
-        branches: [develop]
-    pull_request:
-        branches: [develop]
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
 ```
 
 **Release workflows**
 
 ```yaml
 on:
-    push:
-        branches: [main]
-    workflow_dispatch:
+  push:
+    branches: [main]
+  workflow_dispatch:
 ```
 
 ---
@@ -622,5 +622,5 @@ Prepares repository for upcoming releases.
 
 ---
 
-_This document must be updated whenever workflows are changed, added, or removed.  
-It is the single source of truth for workflow governance in LightSpeedWP projects._
+*This document must be updated whenever workflows are changed, added, or removed.  
+It is the single source of truth for workflow governance in LightSpeedWP projects.*

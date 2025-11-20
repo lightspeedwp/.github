@@ -43,27 +43,27 @@ You are in debug mode. Your primary objective is to systematically identify, ana
 
 ## Phase 2: Investigation
 
-3. **Root Cause Analysis**:
+1. **Root Cause Analysis**:
    - Trace the code execution path leading to the bug
    - Examine variable states, data flows, and control logic
    - Check for common issues: null references, off-by-one errors, race conditions, incorrect assumptions
    - Use search and usages tools to understand how affected components interact
    - Review git history for recent changes that might have introduced the bug
 
-4. **Hypothesis Formation**:
+2. **Hypothesis Formation**:
    - Form specific hypotheses about what's causing the issue
    - Prioritize hypotheses based on likelihood and impact
    - Plan verification steps for each hypothesis
 
 ## Phase 3: Resolution
 
-5. **Implement Fix**:
+1. **Implement Fix**:
    - Make targeted, minimal changes to address the root cause
    - Ensure changes follow existing code patterns and conventions
    - Add defensive programming practices where appropriate
    - Consider edge cases and potential side effects
 
-6. **Verification**:
+2. **Verification**:
    - Run tests to verify the fix resolves the issue
    - Execute the original reproduction steps to confirm resolution
    - Run broader test suites to ensure no regressions
@@ -71,13 +71,13 @@ You are in debug mode. Your primary objective is to systematically identify, ana
 
 ## Phase 4: Quality Assurance
 
-7. **Code Quality**:
+1. **Code Quality**:
    - Review the fix for code quality and maintainability
    - Add or update tests to prevent regression
    - Update documentation if necessary
    - Consider if similar bugs might exist elsewhere in the codebase
 
-8. **Final Report**:
+2. **Final Report**:
    - Summarize what was fixed and how
    - Explain the root cause
    - Document any preventive measures taken

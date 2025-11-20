@@ -11,9 +11,9 @@ owners: ["LightSpeed Engineering"]
 
 This is the index for all LightSpeed WordPress coding standards and best practices.
 
-> **See also:**  
+> **See also:**
 >
-> - [LightSpeed Coding Standards Index](./coding-standards.instructions.md) for org-wide rules  
+> - [LightSpeed Coding Standards Index](./coding-standards.instructions.md) for org-wide rules
 > - [LightSpeed Custom Copilot Instructions](../custom-instructions.md) for Copilot/AI conventions
 
 ---
@@ -52,7 +52,7 @@ This is the index for all LightSpeed WordPress coding standards and best practic
 ## Copilot & Frontmatter
 
 - [Frontmatter](./wordpress/wpcs-frontmatter.instructions.md)  
-  *YAML frontmatter rules for all `.instructions.md` files to optimize Copilot guidance*  
+  *YAML frontmatter rules for all `.instructions.md` files to optimize Copilot guidance*
 
 ---
 

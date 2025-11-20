@@ -1,16 +1,16 @@
 ---
-title: 'Frontmatter Schema Consolidation - COMPLETED'
-description: 'Schema consolidation completed - single canonical location at /schemas/frontmatter.schema.json'
-version: 'v2.0'
-last_updated: '2025-11-20'
-file_type: 'documentation'
-status: 'completed'
-tags: ['migration', 'schema', 'refactoring']
+title: "Frontmatter Schema Consolidation - COMPLETED"
+description: "Schema consolidation completed - single canonical location at /schemas/frontmatter.schema.json"
+version: "v2.0"
+last_updated: "2025-11-20"
+file_type: "documentation"
+status: "completed"
+tags: ["migration", "schema", "refactoring"]
 references:
-  - path: './README.md'
-    description: 'Frontmatter schema documentation'
-  - path: '../../docs/DOCUMENTATION_AUDIT.md'
-    description: 'Documentation audit that recommended this change'
+  - path: "./README.md"
+    description: "Frontmatter schema documentation"
+  - path: "../../docs/DOCUMENTATION_AUDIT.md"
+    description: "Documentation audit that recommended this change"
 ---
 
 # ✅ Frontmatter Schema Consolidation - COMPLETED
@@ -271,11 +271,13 @@ Update `.github/workflows/frontmatter-metrics.yml` and any other workflows that 
    ## [Unreleased]
 
    ### Changed
+
    - Moved frontmatter schema to dedicated subfolder for better organization
    - Schema now at `schemas/frontmatter/frontmatter.schema.json`
    - Added validation tools, tests, and examples in schema folder
 
    ### Added
+
    - Frontmatter validation script with CLI tool
    - Automated schema validation via GitHub Actions
    - Example frontmatter files for each file type

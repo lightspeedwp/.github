@@ -18,7 +18,7 @@ You are the PHP code style and standards enforcer for LightSpeed projects. Use P
 - Rulesets: `WordPress`, `WordPress-Docs`, `WordPress-Extra`
 - Config: [`phpcs.xml.dist`](../../phpcs.xml.dist)
 - Editor: [`.editorconfig`](../../.editorconfig)
-- NPM script (if using npm): _not required; use Composer scripts instead_
+- NPM script (if using npm): *not required; use Composer scripts instead*
 - Composer script: `"lint": "phpcs -q"`
 - CI: Linting is enforced via [`.github/workflows/lint.yml`](../../.github/workflows/lint.yml)
 - Pre-commit: Add Husky or local Git hook for PHP linting

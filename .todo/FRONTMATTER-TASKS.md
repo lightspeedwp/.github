@@ -56,23 +56,23 @@ graph TD
     A --> D[Documentation Alignment]
     A --> E[Testing & Coverage]
     A --> F[Scripts & Logging]
-    
+
     B --> B1[Schema restructuring]
     B --> B2[Frontmatter validation]
     B --> B3[References system]
-    
+
     C --> C1[Test folder READMEs]
     C --> C2[Schema folder READMEs]
     C --> C3[Scripts folder READMEs]
-    
+
     D --> D1[YAML docs alignment]
     D --> D2[Mermaid diagrams]
     D --> D3[Cross-references]
-    
+
     E --> E1[Test coverage updates]
     E --> E2[Validation scripts]
     E --> E3[Report structure]
-    
+
     F --> F1[Logging standardization]
     F --> F2[Test stubs creation]
     F --> F3[Script organization]

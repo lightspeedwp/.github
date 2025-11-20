@@ -7,7 +7,7 @@ This directory contains templates specifically designed and optimized for OpenAI
 ```
 chatgpt/
 ├── sales/              # Sales and marketing templates
-├── support/            # Customer support templates  
+├── support/            # Customer support templates
 ├── development/        # Software development templates
 └── README.md          # This file
 ```
@@ -89,7 +89,7 @@ Software development and technical templates:
 ### OpenAI API
 
 ```javascript
-const openai = require('openai');
+const openai = require("openai");
 
 const client = new openai({
   apiKey: process.env.OPENAI_API_KEY,
@@ -97,16 +97,16 @@ const client = new openai({
 
 async function useTemplate(template, variables) {
   const prompt = replaceVariables(template, variables);
-  
+
   const response = await client.chat.completions.create({
-    model: 'gpt-4',
+    model: "gpt-4",
     messages: [
-      { role: 'system', content: 'You are a helpful assistant.' },
-      { role: 'user', content: prompt }
+      { role: "system", content: "You are a helpful assistant." },
+      { role: "user", content: prompt },
     ],
     temperature: 0.7,
   });
-  
+
   return response.choices[0].message.content;
 }
 ```
@@ -135,7 +135,7 @@ Templates use this variable format:
 Modify templates for different tones:
 
 - **Professional**: Formal language, corporate terminology
-- **Casual**: Conversational, friendly approach  
+- **Casual**: Conversational, friendly approach
 - **Technical**: Precise, detailed, industry-specific
 - **Creative**: Engaging, storytelling elements
 

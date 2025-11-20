@@ -52,7 +52,7 @@ Every markdown or template file **must** include the following fields in its YAM
 
 ## Example Frontmatter
 
-````yaml
+```yaml
 ---
 version: "v0.1.0"
 last_updated: "2025-10-21"
@@ -69,3 +69,4 @@ related_docs:
   - ".github/instructions/coding-standards.md"
 description: "Saved replies for code review feedback, improvements, and PR approval in LightSpeed WP projects."
 ---
+```

@@ -12,7 +12,7 @@ Let’s start by building a minimal React component to display the list of pages
 
 ```js
 function MyFirstApp() {
-  const pages = [{ id: 'mock', title: 'Sample page' }];
+  const pages = [{ id: "mock", title: "Sample page" }];
   return <PagesList pages={pages} />;
 }
 
@@ -39,30 +39,30 @@ Before we start, let’s confirm we actually have some pages to fetch. Within WP
 
 ![WordPress admin Pages list](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/pages-list.jpg)
 
-If it doesn’t, go ahead and create a few pages – you can use the same titles as on the screenshot above. Be sure to _publish_ and not just _save_ them.
+If it doesn’t, go ahead and create a few pages – you can use the same titles as on the screenshot above. Be sure to *publish* and not just *save* them.
 
 Now that we have the data to work with, let’s dive into the code. We will take advantage of the [`@wordpress/core-data`](https://github.com/WordPress/gutenberg/tree/trunk/packages/core-data) package which provides resolvers, selectors, and actions to work with the WordPress core API. `@wordpress/core-data` builds on top of the [`@wordpress/data`](https://github.com/WordPress/gutenberg/tree/trunk/packages/data) package.
 
 To fetch the list of pages, we will use the [`getEntityRecords`](/docs/reference-guides/data/data-core/#getentityrecords) selector. In broad strokes, it will issue the correct API request, cache the results, and return the list of the records we need. Here’s how to use it:
 
 ```js
-wp.data.select('core').getEntityRecords('postType', 'page');
+wp.data.select("core").getEntityRecords("postType", "page");
 ```
 
-If you run that following snippet in your browser’s dev tools, you will see it returns `null`. Why? The pages are only requested by the `getEntityRecords` resolver after first running the _selector_. If you wait a moment and re-run it, it will return the list of all pages.
+If you run that following snippet in your browser’s dev tools, you will see it returns `null`. Why? The pages are only requested by the `getEntityRecords` resolver after first running the *selector*. If you wait a moment and re-run it, it will return the list of all pages.
 
-_Note: To run this type of command directly make sure your browser is displaying an instance of the block editor (any page will do). Otherwise the `select( 'core' )` function won't be available, and you'll get an error._
+*Note: To run this type of command directly make sure your browser is displaying an instance of the block editor (any page will do). Otherwise the `select( 'core' )` function won't be available, and you'll get an error.*
 
 Similarly, the `MyFirstApp` component needs to re-run the selector once the data is available. That’s exactly what the `useSelect` hook does:
 
 ```js
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { useSelect } from "@wordpress/data";
+import { store as coreDataStore } from "@wordpress/core-data";
 
 function MyFirstApp() {
   const pages = useSelect(
-    (select) => select(coreDataStore).getEntityRecords('postType', 'page'),
-    []
+    (select) => select(coreDataStore).getEntityRecords("postType", "page"),
+    [],
   );
   // ...
 }
@@ -81,14 +81,14 @@ Note that we use an `import` statement inside index.js. This enables the plugin 
 Putting it together, we get the following code:
 
 ```js
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
-import { decodeEntities } from '@wordpress/html-entities';
+import { useSelect } from "@wordpress/data";
+import { store as coreDataStore } from "@wordpress/core-data";
+import { decodeEntities } from "@wordpress/html-entities";
 
 function MyFirstApp() {
   const pages = useSelect(
-    (select) => select(coreDataStore).getEntityRecords('postType', 'page'),
-    []
+    (select) => select(coreDataStore).getEntityRecords("postType", "page"),
+    [],
   );
   return <PagesList pages={pages} />;
 }
@@ -142,11 +142,11 @@ The list of pages is short for now; however, the longer it grows, the harder it 
 Let’s start by adding a search field:
 
 ```js
-import { useState } from 'react';
-import { SearchControl } from '@wordpress/components';
+import { useState } from "react";
+import { SearchControl } from "@wordpress/components";
 
 function MyFirstApp() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   // ...
   return (
     <div>
@@ -165,10 +165,10 @@ The field starts empty, and the contents are stored in the `searchTerm` state va
 
 We can now request only the pages matching the `searchTerm`.
 
-After checking with the [WordPress API documentation](https://developer.wordpress.org/rest-api/reference/pages/), we see that the [/wp/v2/pages](https://developer.wordpress.org/rest-api/reference/pages/) endpoint accepts a `search` query parameter and uses it to _limit results to those matching a string_. But how can we use it? We can pass custom query parameters as the third argument to `getEntityRecords` as below:
+After checking with the [WordPress API documentation](https://developer.wordpress.org/rest-api/reference/pages/), we see that the [/wp/v2/pages](https://developer.wordpress.org/rest-api/reference/pages/) endpoint accepts a `search` query parameter and uses it to *limit results to those matching a string*. But how can we use it? We can pass custom query parameters as the third argument to `getEntityRecords` as below:
 
 ```js
-wp.data.select('core').getEntityRecords('postType', 'page', { search: 'home' });
+wp.data.select("core").getEntityRecords("postType", "page", { search: "home" });
 ```
 
 Running that snippet in your browser’s dev tools will trigger a request to `/wp/v2/pages?search=home` instead of just `/wp/v2/pages`.
@@ -176,8 +176,8 @@ Running that snippet in your browser’s dev tools will trigger a request to `/w
 Let’s mirror this in our `useSelect` call as follows:
 
 ```js
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { useSelect } from "@wordpress/data";
+import { store as coreDataStore } from "@wordpress/core-data";
 
 function MyFirstApp() {
   // ...
@@ -188,10 +188,14 @@ function MyFirstApp() {
         query.search = searchTerm;
       }
       return {
-        pages: select(coreDataStore).getEntityRecords('postType', 'page', query),
+        pages: select(coreDataStore).getEntityRecords(
+          "postType",
+          "page",
+          query,
+        ),
       };
     },
-    [searchTerm]
+    [searchTerm],
   );
 
   // ...
@@ -203,23 +207,23 @@ The `searchTerm` is now used as a `search` query parameter when provided. Note t
 Finally, here’s how `MyFirstApp` looks once we wire it all together:
 
 ```js
-import { useState } from 'react';
-import { createRoot } from 'react-dom';
-import { SearchControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { useState } from "react";
+import { createRoot } from "react-dom";
+import { SearchControl } from "@wordpress/components";
+import { useSelect } from "@wordpress/data";
+import { store as coreDataStore } from "@wordpress/core-data";
 
 function MyFirstApp() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const pages = useSelect(
     (select) => {
       const query = {};
       if (searchTerm) {
         query.search = searchTerm;
       }
-      return select(coreDataStore).getEntityRecords('postType', 'page', query);
+      return select(coreDataStore).getEntityRecords("postType", "page", query);
     },
-    [searchTerm]
+    [searchTerm],
   );
 
   return (
@@ -240,12 +244,12 @@ Voila! We can now filter the results:
 Let’s take a pause for a moment to consider the downsides of an alternative approach we could have taken - working with the API directly. Imagine we sent the API requests directly:
 
 ```js
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from "@wordpress/api-fetch";
 function MyFirstApp() {
   // ...
   const [pages, setPages] = useState([]);
   useEffect(() => {
-    const url = '/wp-json/wp/v2/pages?search=' + searchTerm;
+    const url = "/wp-json/wp/v2/pages?search=" + searchTerm;
     apiFetch({ url }).then(setPages);
   }, [searchTerm]);
   // ...
@@ -254,7 +258,7 @@ function MyFirstApp() {
 
 Working outside of core-data, we would need to solve two problems here.
 
-Firstly, out-of-order updates. Searching for „About” would trigger five API requests filtering for `A`, `Ab`, `Abo`, `Abou`, and `About`. These requests could finish in a different order than they started. It is possible that _search=A_ would resolve after _search=About_ and thus we’d display the wrong data.
+Firstly, out-of-order updates. Searching for „About” would trigger five API requests filtering for `A`, `Ab`, `Abo`, `Abou`, and `About`. These requests could finish in a different order than they started. It is possible that *search=A* would resolve after *search=About* and thus we’d display the wrong data.
 
 Gutenberg data helps by handling the asynchronous part behind the scenes. `useSelect` remembers the most recent call and returns only the data we expect.
 
@@ -270,10 +274,10 @@ There is one problem with our search feature. We can’t be quite sure whether i
 
 ![No matching WordPress pages found for search query](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/unclear-status.jpg)
 
-A few messages like _Loading…_ or _No results_ would clear it up. Let’s implement them! First, `PagesList` has to be aware of the current status:
+A few messages like *Loading…* or *No results* would clear it up. Let’s implement them! First, `PagesList` has to be aware of the current status:
 
 ```js
-import { SearchControl, Spinner } from '@wordpress/components';
+import { SearchControl, Spinner } from "@wordpress/components";
 function PagesList({ hasResolved, pages }) {
   if (!hasResolved) {
     return <Spinner />;
@@ -302,11 +306,11 @@ We still need to know whether the pages selector `hasResolved` or not. We can fi
 
 `wp.data.select('core').hasFinishedResolution( 'getEntityRecords', [ 'postType', 'page', { search: 'home' } ] )`
 
-It takes the name of the selector and the _exact same arguments you passed to that selector_ and returns either `true` if the data was already loaded or `false` if we’re still waiting. Let’s add it to `useSelect`:
+It takes the name of the selector and the *exact same arguments you passed to that selector* and returns either `true` if the data was already loaded or `false` if we’re still waiting. Let’s add it to `useSelect`:
 
 ```js
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { useSelect } from "@wordpress/data";
+import { store as coreDataStore } from "@wordpress/core-data";
 
 function MyFirstApp() {
   // ...
@@ -314,15 +318,18 @@ function MyFirstApp() {
     (select) => {
       // ...
       return {
-        pages: select(coreDataStore).getEntityRecords('postType', 'page', query),
-        hasResolved: select(coreDataStore).hasFinishedResolution('getEntityRecords', [
-          'postType',
-          'page',
+        pages: select(coreDataStore).getEntityRecords(
+          "postType",
+          "page",
           query,
-        ]),
+        ),
+        hasResolved: select(coreDataStore).hasFinishedResolution(
+          "getEntityRecords",
+          ["postType", "page", query],
+        ),
       };
     },
-    [searchTerm]
+    [searchTerm],
   );
 
   // ...
@@ -332,20 +339,23 @@ function MyFirstApp() {
 There is just one last problem. It is easy to make a typo and end up passing different arguments to `getEntityRecords` and `hasFinishedResolution`. It is critical that they are identical. We can remove this risk by storing the arguments in a variable:
 
 ```js
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { useSelect } from "@wordpress/data";
+import { store as coreDataStore } from "@wordpress/core-data";
 function MyFirstApp() {
   // ...
   const { pages, hasResolved } = useSelect(
     (select) => {
       // ...
-      const selectorArgs = ['postType', 'page', query];
+      const selectorArgs = ["postType", "page", query];
       return {
         pages: select(coreDataStore).getEntityRecords(...selectorArgs),
-        hasResolved: select(coreDataStore).hasFinishedResolution('getEntityRecords', selectorArgs),
+        hasResolved: select(coreDataStore).hasFinishedResolution(
+          "getEntityRecords",
+          selectorArgs,
+        ),
       };
     },
-    [searchTerm]
+    [searchTerm],
   );
 
   // ...
@@ -359,29 +369,32 @@ And voilà! That's it.
 All the pieces are in place, great! Here’s the complete JavaScript code of our app:
 
 ```js
-import { useState } from 'react';
-import { createRoot } from 'react-dom';
-import { SearchControl, Spinner } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
-import { decodeEntities } from '@wordpress/html-entities';
-import './style.css';
+import { useState } from "react";
+import { createRoot } from "react-dom";
+import { SearchControl, Spinner } from "@wordpress/components";
+import { useSelect } from "@wordpress/data";
+import { store as coreDataStore } from "@wordpress/core-data";
+import { decodeEntities } from "@wordpress/html-entities";
+import "./style.css";
 
 function MyFirstApp() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const { pages, hasResolved } = useSelect(
     (select) => {
       const query = {};
       if (searchTerm) {
         query.search = searchTerm;
       }
-      const selectorArgs = ['postType', 'page', query];
+      const selectorArgs = ["postType", "page", query];
       return {
         pages: select(coreDataStore).getEntityRecords(...selectorArgs),
-        hasResolved: select(coreDataStore).hasFinishedResolution('getEntityRecords', selectorArgs),
+        hasResolved: select(coreDataStore).hasFinishedResolution(
+          "getEntityRecords",
+          selectorArgs,
+        ),
       };
     },
-    [searchTerm]
+    [searchTerm],
   );
 
   return (
@@ -418,13 +431,13 @@ function PagesList({ hasResolved, pages }) {
   );
 }
 
-const root = createRoot(document.querySelector('#my-first-gutenberg-app'));
+const root = createRoot(document.querySelector("#my-first-gutenberg-app"));
 window.addEventListener(
-  'load',
+  "load",
   function () {
     root.render(<MyFirstApp />);
   },
-  false
+  false,
 );
 ```
 

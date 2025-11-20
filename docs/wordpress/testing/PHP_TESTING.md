@@ -99,10 +99,10 @@ The `WordPressHelpers` class provides utilities for:
 Example usage:
 
 ```typescript
-import { test, expect } from './helpers/wordpress';
+import { test, expect } from "./helpers/wordpress";
 
-test('should not show PHP errors', async ({ page, wp }) => {
-  await page.goto('/');
+test("should not show PHP errors", async ({ page, wp }) => {
+  await page.goto("/");
   await wp.checkForPHPErrors();
 });
 ```

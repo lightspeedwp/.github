@@ -1,7 +1,6 @@
 # **PR Workflow Guide**
 
-***Version:*** 1.1 • ***Last updated:*** 17 Oct 2025  
----
+## ***Version:*** 1.1 • ***Last updated:*** 17 Oct 2025
 
 [1) Why we use a Git workflow](#1-why-we-use-a-git-workflow)  
 [2) Pick the right branching strategy](#2-pick-the-right-branching-strategy)  

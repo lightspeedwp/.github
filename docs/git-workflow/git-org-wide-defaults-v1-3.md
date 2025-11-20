@@ -4,7 +4,8 @@
 
 ***Version:*** 1.3 • ***Last updated:*** 17 Oct 2025  
 ***Scope:*** Org-wide defaults for WordPress themes, plugins, and blocks (incl. WooCommerce).  
-***Goal:*** Fast triage, predictable reporting, contributor-friendly workflows using **Projects + Issue Types + Labels + Milestones**.  
+***Goal:*** Fast triage, predictable reporting, contributor-friendly workflows using **Projects + Issue Types + Labels + Milestones**.
+
 ---
 
 [0) System overview](#0-system-overview)  
@@ -20,11 +21,11 @@
 
 # **0) System overview** {#0-system-overview}
 
-- **Projects** — cross-repo planning/tracking  
-- **Issue Types** — classification (Bug / Feature / Task / …)  
-- **Labels** — routing signals (priority, status, area, compatibility, environment)  
-- **Milestones** — release trains/timeboxes  
-- Themes/Initiatives → Epics → Stories (Stories mainly first-pass scoping before splitting into implementable work).  
+- **Projects** — cross-repo planning/tracking
+- **Issue Types** — classification (Bug / Feature / Task / …)
+- **Labels** — routing signals (priority, status, area, compatibility, environment)
+- **Milestones** — release trains/timeboxes
+- Themes/Initiatives → Epics → Stories (Stories mainly first-pass scoping before splitting into implementable work).
 - Flow: Backlog → Ready/Todo → In progress → In review → In QA → Done
 
 # **1) Core principles** {#1-core-principles}
@@ -53,6 +54,6 @@ Maintain Issue Types, labels and palette centrally; migrate legacy `type:*` labe
 
 # **7) Colour systems (Issue Types and Labels)** {#7-colour-systems-issue-types-and-labels}
 
-- Org Issue Types & Labels live in the dedicated guides/tabs.  
-- Labels exclude `type:*` (Issue Types cover classification).  
+- Org Issue Types & Labels live in the dedicated guides/tabs.
+- Labels exclude `type:*` (Issue Types cover classification).
 - Palette cheat-sheet and rationale retained.

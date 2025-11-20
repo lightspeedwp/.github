@@ -52,7 +52,7 @@ flowchart TD
     R --> AC[Reports]
     S --> AD[Summary]
     T --> AE[Results]
-    
+
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#e8f5e8
@@ -63,7 +63,7 @@ flowchart TD
 
 ## Folder Contents
 
-- **extensions.json**  
+- **extensions.json**
   - AI coding assistants (Copilot, Claude, Gemini, CodeRabbit, etc.)
   - GitHub workflow tools (PRs, Codespaces, Actions, GitLens)
   - Linting and formatting (Prettier, ESLint, Stylelint, Markdownlint)
@@ -126,4 +126,4 @@ flowchart TD
 
 ---
 
-_Maintained by the LightSpeedWP team for a seamless contributor experience._
+*Maintained by the LightSpeedWP team for a seamless contributor experience.*

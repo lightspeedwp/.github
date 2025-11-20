@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
-tools: ['changes', 'codebase', 'edit/editFiles', 'problems', 'search']
-description: 'Get best practices for TUnit unit testing, including data-driven tests'
+mode: "agent"
+tools: ["changes", "codebase", "edit/editFiles", "problems", "search"]
+description: "Get best practices for TUnit unit testing, including data-driven tests"
 ---
 
 # TUnit Best Practices

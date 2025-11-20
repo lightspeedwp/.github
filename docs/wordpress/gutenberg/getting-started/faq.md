@@ -108,7 +108,7 @@ Indeed. There are multiple ways in which custom post types can leverage Gutenber
 
 ## Styles
 
-### Can themes _style_ blocks?
+### Can themes *style* blocks?
 
 Yes. Blocks can provide their own styles, which themes can add to or override, or they can provide no styles at all and rely fully on what the theme provides.
 
@@ -116,7 +116,7 @@ Yes. Blocks can provide their own styles, which themes can add to or override, o
 
 Blocks are able to provide base structural CSS styles, and themes can add styles on top of this. Some blocks, like a Separator (`<hr/>`), likely don't need any front-end styles, while others, like a Gallery, need a few.
 
-Other features, like the new _wide_ and _full-wide_ alignment options, are simply CSS classes applied to blocks that offer this alignment. We are looking at how a theme can opt into this feature, for example using `add_theme_support`.
+Other features, like the new *wide* and *full-wide* alignment options, are simply CSS classes applied to blocks that offer this alignment. We are looking at how a theme can opt into this feature, for example using `add_theme_support`.
 
 This is currently a work in progress and we recommend reviewing the [block based theme documentation](https://developer.wordpress.org/themes/block-themes/) to learn more.
 
@@ -137,7 +137,7 @@ function gutenbergtheme_editor_styles() {
 add_action( 'enqueue_block_editor_assets', 'gutenbergtheme_editor_styles' );
 ```
 
-_See:_ [Editor Styles](/docs/how-to-guides/themes/theme-support.md#editor-styles)
+*See:* [Editor Styles](/docs/how-to-guides/themes/theme-support.md#editor-styles)
 
 ## Compatibility
 
@@ -145,7 +145,7 @@ _See:_ [Editor Styles](/docs/how-to-guides/themes/theme-support.md#editor-styles
 
 Gutenberg works in modern browsers.
 
-The [list of supported browsers can be found in the Make WordPress handbook](https://make.wordpress.org/core/handbook/best-practices/browser-support/). The term “modern browsers” generally refers to the _current and previous two versions_ of each major browser.
+The [list of supported browsers can be found in the Make WordPress handbook](https://make.wordpress.org/core/handbook/best-practices/browser-support/). The term “modern browsers” generally refers to the *current and previous two versions* of each major browser.
 
 Since WordPress 5.8, Gutenberg no longer supports any version of Internet Explorer.
 
@@ -153,7 +153,7 @@ Since WordPress 5.8, Gutenberg no longer supports any version of Internet Explor
 
 The goal of Gutenberg is not to put anyone out of business. It's to evolve WordPress so there's more business to be had in the future, for everyone.
 
-Aside from enabling a rich post and page building experience, a meta goal is to _move WordPress forward_ as a platform. Not only by modernizing the UI, but by modernizing the foundation.
+Aside from enabling a rich post and page building experience, a meta goal is to *move WordPress forward* as a platform. Not only by modernizing the UI, but by modernizing the foundation.
 
 We realize it's a big change. We also think there will be many new opportunities for plugins. WordPress is likely to ship with a range of basic blocks, but there will be plenty of room for highly tailored premium plugins to augment existing blocks or add new blocks to the mix.
 

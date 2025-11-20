@@ -5,7 +5,7 @@ title: "[Epic] <Brief summary>"
 labels: [type:epic, status:needs-planning, priority:important, area:core]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: epic
 references:
   - ../CONTRIBUTING.md

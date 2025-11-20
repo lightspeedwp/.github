@@ -60,23 +60,30 @@ register_block_pattern(
 <!-- Hero Pattern with Proper Semantics -->
 <!-- wp:group {"tagName":"section","metadata":{"name":"Hero Section"},"ariaLabel":"Hero section with call to action"} -->
 <section class="wp-block-group" aria-labelledby="hero-heading">
-    <!-- wp:heading {"level":1,"textAlign":"center"} -->
-    <h1 class="wp-block-heading has-text-align-center" id="hero-heading">Welcome Message</h1>
-    <!-- /wp:heading -->
-    
-    <!-- wp:paragraph {"align":"center"} -->
-    <p class="has-text-align-center">Supporting content that provides context</p>
-    <!-- /wp:paragraph -->
-    
-    <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-    <div class="wp-block-buttons">
-        <!-- wp:button -->
-        <div class="wp-block-button">
-            <a class="wp-block-button__link wp-element-button" href="#main-content" aria-describedby="hero-heading">Get Started</a>
-        </div>
-        <!-- /wp:button -->
+  <!-- wp:heading {"level":1,"textAlign":"center"} -->
+  <h1 class="wp-block-heading has-text-align-center" id="hero-heading">
+    Welcome Message
+  </h1>
+  <!-- /wp:heading -->
+
+  <!-- wp:paragraph {"align":"center"} -->
+  <p class="has-text-align-center">Supporting content that provides context</p>
+  <!-- /wp:paragraph -->
+
+  <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+  <div class="wp-block-buttons">
+    <!-- wp:button -->
+    <div class="wp-block-button">
+      <a
+        class="wp-block-button__link wp-element-button"
+        href="#main-content"
+        aria-describedby="hero-heading"
+        >Get Started</a
+      >
     </div>
-    <!-- /wp:buttons -->
+    <!-- /wp:button -->
+  </div>
+  <!-- /wp:buttons -->
 </section>
 <!-- /wp:group -->
 ```
@@ -86,39 +93,41 @@ register_block_pattern(
 ```html
 <!-- wp:group {"tagName":"section","metadata":{"name":"Services Grid"}} -->
 <section class="wp-block-group" aria-labelledby="services-heading">
-    <!-- wp:heading {"level":2,"textAlign":"center"} -->
-    <h2 class="wp-block-heading has-text-align-center" id="services-heading">Our Services</h2>
-    <!-- /wp:heading -->
-    
-    <!-- wp:columns {"align":"wide"} -->
-    <div class="wp-block-columns alignwide">
-        <!-- wp:column -->
-        <div class="wp-block-column">
-            <!-- wp:group {"style":{"spacing":{"padding":"var:preset|spacing|50"}},"backgroundColor":"tertiary"} -->
-            <div class="wp-block-group has-tertiary-background-color">
-                <!-- wp:heading {"level":3} -->
-                <h3 class="wp-block-heading">Service Title</h3>
-                <!-- /wp:heading -->
-                
-                <!-- wp:paragraph -->
-                <p>Service description with clear, actionable content.</p>
-                <!-- /wp:paragraph -->
-                
-                <!-- wp:buttons -->
-                <div class="wp-block-buttons">
-                    <!-- wp:button {"className":"is-style-outline"} -->
-                    <div class="wp-block-button is-style-outline">
-                        <a class="wp-block-button__link wp-element-button">Learn More</a>
-                    </div>
-                    <!-- /wp:button -->
-                </div>
-                <!-- /wp:buttons -->
-            </div>
-            <!-- /wp:group -->
+  <!-- wp:heading {"level":2,"textAlign":"center"} -->
+  <h2 class="wp-block-heading has-text-align-center" id="services-heading">
+    Our Services
+  </h2>
+  <!-- /wp:heading -->
+
+  <!-- wp:columns {"align":"wide"} -->
+  <div class="wp-block-columns alignwide">
+    <!-- wp:column -->
+    <div class="wp-block-column">
+      <!-- wp:group {"style":{"spacing":{"padding":"var:preset|spacing|50"}},"backgroundColor":"tertiary"} -->
+      <div class="wp-block-group has-tertiary-background-color">
+        <!-- wp:heading {"level":3} -->
+        <h3 class="wp-block-heading">Service Title</h3>
+        <!-- /wp:heading -->
+
+        <!-- wp:paragraph -->
+        <p>Service description with clear, actionable content.</p>
+        <!-- /wp:paragraph -->
+
+        <!-- wp:buttons -->
+        <div class="wp-block-buttons">
+          <!-- wp:button {"className":"is-style-outline"} -->
+          <div class="wp-block-button is-style-outline">
+            <a class="wp-block-button__link wp-element-button">Learn More</a>
+          </div>
+          <!-- /wp:button -->
         </div>
-        <!-- /wp:column -->
+        <!-- /wp:buttons -->
+      </div>
+      <!-- /wp:group -->
     </div>
-    <!-- /wp:columns -->
+    <!-- /wp:column -->
+  </div>
+  <!-- /wp:columns -->
 </section>
 <!-- /wp:group -->
 ```

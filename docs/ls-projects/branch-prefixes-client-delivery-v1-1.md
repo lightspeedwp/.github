@@ -11,19 +11,19 @@ A consistent set of **branch prefixes** tuned for client repos. Short-lived bran
 
 ## **Shared core** {#shared-core}
 
-- `feat/` — new capability  
-- `fix/` — bug fix  
-- `hotfix/` — urgent production fix  
-- `release/` — release branches (e.g., `release/v1.6.0`)  
+- `feat/` — new capability
+- `fix/` — bug fix
+- `hotfix/` — urgent production fix
+- `release/` — release branches (e.g., `release/v1.6.0`)
 - `refactor/`, `chore/`, `docs/`, `test/`, `perf/`, `ci/`, `build/`, `deps/`, `security/`, `revert/`, `research/`, `design/`, `a11y/`, `ux/`, `i18n/`, `ops/`
 
 ## **Client-specific (optional)** {#client-specific}
 
-- `content/` — content edits, redirects, IA  
-- `seo/` — metadata, schema, sitemap, robots  
-- `config/` — site/plugin configuration & flags  
-- `migrate/` — data/content migrations  
-- `qa/` — test harnesses, UAT scaffolding  
+- `content/` — content edits, redirects, IA
+- `seo/` — metadata, schema, sitemap, robots
+- `config/` — site/plugin configuration & flags
+- `migrate/` — data/content migrations
+- `qa/` — test harnesses, UAT scaffolding
 - `uat/` — UAT-only changes or staging toggles
 
 ## **Examples** {#examples}
@@ -44,12 +44,12 @@ Use a single org-wide rule:
 
 ## **Mapping to Issue Types (for automations)** {#mapping}
 
-- `feat/` → Feature/Story  
-- `fix/` → Bug (hotfix → critical Bug)  
-- `refactor/` → Refactor  
-- `chore/|ci/|build/|deps/|security/` → Chore  
-- `design/|a11y/|ux/` → Design/Task  
-- `content/|seo/|config/|migrate/|qa/|uat/` → Task/Operations  
+- `feat/` → Feature/Story
+- `fix/` → Bug (hotfix → critical Bug)
+- `refactor/` → Refactor
+- `chore/|ci/|build/|deps/|security/` → Chore
+- `design/|a11y/|ux/` → Design/Task
+- `content/|seo/|config/|migrate/|qa/|uat/` → Task/Operations
 - `release/` → Release PR
 
 ## **Tips** {#tips}

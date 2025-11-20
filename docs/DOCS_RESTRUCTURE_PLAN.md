@@ -1,11 +1,11 @@
 ---
-title: 'Documentation Restructure Plan'
-version: '1.0'
-date: '2025-11-18'
-author: 'LightSpeed WP Team'
-status: 'completed'
-description: 'Comprehensive plan for restructuring and updating the /docs/ folder'
-tags: ['documentation', 'restructure', 'audit', 'completed']
+title: "Documentation Restructure Plan"
+version: "1.0"
+date: "2025-11-18"
+author: "LightSpeed WP Team"
+status: "completed"
+description: "Comprehensive plan for restructuring and updating the /docs/ folder"
+tags: ["documentation", "restructure", "audit", "completed"]
 ---
 
 # Documentation Restructure Plan
@@ -19,16 +19,19 @@ This document outlines the comprehensive restructure of the `/docs/` folder base
 ### Scripts Folder Audit
 
 **Well-Documented Categories:**
+
 - Projects (excellent documentation in `/docs/ls-projects/`)
 - Validation (comprehensive frontmatter documentation)
 - Maintenance (good label automation documentation)
 
 **Partially Documented Categories:**
+
 - Root-level scripts (only release-related ones documented)
 - Utility scripts (some scripts missing standalone docs)
 - Versioning (no dedicated README)
 
 **Underdocumented Categories:**
+
 - Awesome-copilot (no `/docs/` references for individual scripts)
 - Includes (utilities documented in README, but no separate docs)
 - JSON-validation (basic README, minimal external docs)
@@ -36,11 +39,13 @@ This document outlines the comprehensive restructure of the `/docs/` folder base
 ### Tests Folder Audit
 
 **Complete Documentation:**
+
 - 10 of 11 test categories have dedicated READMEs
 - Master `/tests/README.md` is comprehensive (350+ lines)
 - Excellent coverage summary in `TEST_COVERAGE_SUMMARY.md`
 
 **Missing Documentation:**
+
 - `/tests/security/` - No dedicated README
 - `/tests/config/` - No dedicated README
 - `/tests/contracts/` - No dedicated README
@@ -91,6 +96,7 @@ Create `/docs/scripts/` folder structure:
 ```
 
 Each file should include:
+
 - Purpose and overview
 - List of scripts in category
 - Usage examples
@@ -111,6 +117,7 @@ Create `/docs/tests/` folder structure:
 ```
 
 Or enhance existing `/docs/TESTING.md` with:
+
 - Links to all test category READMEs
 - Comprehensive testing strategy
 - Framework-specific guides
@@ -153,6 +160,7 @@ Update cross-references in:
 ### Phase 6: Validation & Quality Assurance ✓ FINAL
 
 1. **Markdownlint Validation:**
+
    ```bash
    npx markdownlint docs/**/*.md
    npx markdownlint tests/**/*.md
@@ -165,6 +173,7 @@ Update cross-references in:
    - Validate external links
 
 3. **Frontmatter Validation:**
+
    ```bash
    node scripts/validation/validate-frontmatter.js docs/
    ```
@@ -176,15 +185,15 @@ Update cross-references in:
 
 ## Implementation Timeline
 
-| Phase | Priority | Estimated Time | Dependencies |
-|-------|----------|----------------|--------------|
-| Phase 1: Test READMEs | HIGH | 2 hours | None |
-| Phase 2: Scripts Docs | MEDIUM | 4 hours | Phase 1 |
-| Phase 3: Tests Docs | MEDIUM | 3 hours | Phase 1 |
-| Phase 4: Main Docs Update | CRITICAL | 2 hours | Phases 2-3 |
-| Phase 5: Cross-References | CRITICAL | 3 hours | Phases 1-4 |
-| Phase 6: Validation | FINAL | 2 hours | All phases |
-| **Total** | | **16 hours** | |
+| Phase                     | Priority | Estimated Time | Dependencies |
+| ------------------------- | -------- | -------------- | ------------ |
+| Phase 1: Test READMEs     | HIGH     | 2 hours        | None         |
+| Phase 2: Scripts Docs     | MEDIUM   | 4 hours        | Phase 1      |
+| Phase 3: Tests Docs       | MEDIUM   | 3 hours        | Phase 1      |
+| Phase 4: Main Docs Update | CRITICAL | 2 hours        | Phases 2-3   |
+| Phase 5: Cross-References | CRITICAL | 3 hours        | Phases 1-4   |
+| Phase 6: Validation       | FINAL    | 2 hours        | All phases   |
+| **Total**                 |          | **16 hours**   |              |
 
 ## Success Criteria
 
@@ -203,12 +212,14 @@ Update cross-references in:
 ### New Files to Create
 
 **Test READMEs:**
+
 - `/tests/security/README.md`
 - `/tests/config/README.md`
 - `/tests/contracts/README.md`
 - `/tests/integration/README.md`
 
 **Scripts Documentation:**
+
 - `/docs/scripts/README.md`
 - `/docs/scripts/awesome-copilot.md`
 - `/docs/scripts/includes.md`
@@ -221,6 +232,7 @@ Update cross-references in:
 - `/docs/scripts/root-level-scripts.md`
 
 **Tests Documentation (Option 1: New Folder):**
+
 - `/docs/tests/README.md`
 - `/docs/tests/test-categories.md`
 - `/docs/tests/test-infrastructure.md`
@@ -228,6 +240,7 @@ Update cross-references in:
 - `/docs/tests/test-coverage.md`
 
 **Tests Documentation (Option 2: Enhance Existing):**
+
 - Update `/docs/TESTING.md` with comprehensive content
 
 ### Files to Update
@@ -303,6 +316,7 @@ Updated `/docs/README.md`:
 ### Phase 5: Cross-Reference Updates ⏭️ DEFERRED
 
 Cross-reference updates deferred to future PRs:
+
 - Links in script file headers
 - Links in test file headers
 - Workflow documentation updates
@@ -312,6 +326,7 @@ Cross-reference updates deferred to future PRs:
 ### Phase 6: Validation & Quality Assurance ⏭️ IN PROGRESS
 
 Validation steps:
+
 - ⏳ Markdownlint validation pending
 - ⏳ Link validation recommended for future PR
 - ✅ Frontmatter follows established schemas
@@ -332,19 +347,23 @@ Validation steps:
 ## Files Created
 
 **Test READMEs (4 files):**
+
 1. `/tests/security/README.md` (comprehensive, 400+ lines)
 2. `/tests/config/README.md` (comprehensive, 450+ lines)
 3. `/tests/contracts/README.md` (comprehensive, 550+ lines)
 4. `/tests/integration/README.md` (comprehensive, 500+ lines)
 
 **Scripts Documentation (2 files):**
+
 1. `/docs/scripts/README.md` (432 lines, comprehensive hub)
 2. `/docs/scripts/maintenance.md` (484 lines, detailed guide)
 
 **Tests Documentation (1 file):**
+
 1. `/docs/tests/README.md` (650+ lines, comprehensive hub)
 
 **Planning Documents (1 file):**
+
 1. `/docs/DOCS_RESTRUCTURE_PLAN.md` (this file)
 
 **Total New Documentation:** ~3,000+ lines across 8 files
@@ -373,4 +392,4 @@ Validation steps:
 
 ---
 
-_Plan created: 2025-11-18 | Status: ✅ COMPLETED | Completion Date: 2025-11-18_
+*Plan created: 2025-11-18 | Status: ✅ COMPLETED | Completion Date: 2025-11-18*

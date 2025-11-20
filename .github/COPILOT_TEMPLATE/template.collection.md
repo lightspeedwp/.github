@@ -12,7 +12,7 @@ tags: [tag1, tag2, tag3] # Optional discovery tags
 items:
   - path: prompts/my-prompt.prompt.md
     kind: prompt
-  - path: instructions/my-instructions.instructions.md  
+  - path: instructions/my-instructions.instructions.md
     kind: instruction
   - path: chatmodes/my-chatmode.chatmode.md
     kind: chat-mode

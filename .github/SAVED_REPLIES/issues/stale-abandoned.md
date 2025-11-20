@@ -21,6 +21,7 @@ Hi @username,
 This issue has been marked as **stale** due to lack of recent activity.
 
 **Next steps:**
+
 - If this is still relevant, please comment or provide any updates.
 - If we do not hear back within 14 days, we may close this issue to keep the backlog healthy.
 

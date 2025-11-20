@@ -4,7 +4,6 @@ title: Code Review Checklist
 description: Run a structured review against LightSpeed standards.
 mode: chat
 tags:
-
 ---
 
 Act as a meticulous reviewer. For the selected diff or file, produce:

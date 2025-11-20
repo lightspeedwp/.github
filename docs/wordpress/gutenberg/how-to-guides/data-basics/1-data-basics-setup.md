@@ -18,20 +18,20 @@ Go ahead and create these files using the following snippets:
 **src/index.js:**
 
 ```js
-import { createRoot } from 'react-dom';
-import './style.css';
+import { createRoot } from "react-dom";
+import "./style.css";
 
 function MyFirstApp() {
   return <span>Hello from JavaScript!</span>;
 }
 
-const root = createRoot(document.getElementById('my-first-gutenberg-app'));
+const root = createRoot(document.getElementById("my-first-gutenberg-app"));
 window.addEventListener(
-  'load',
+  "load",
   function () {
     root.render(<MyFirstApp />);
   },
-  false
+  false,
 );
 ```
 
@@ -198,7 +198,7 @@ Once all the dependencies are in place, all that's left is to run `npm start` an
 
 ## Testing if it worked
 
-If you now go to the Plugins page, you should see a plugin called **My first Gutenberg App**. Go ahead and activate it. A new menu item labeled _My first Gutenberg app_ should show up. Once you click it, you will see a page that says _Hello from JavaScript!_:
+If you now go to the Plugins page, you should see a plugin called **My first Gutenberg App**. Go ahead and activate it. A new menu item labeled *My first Gutenberg app* should show up. Once you click it, you will see a page that says *Hello from JavaScript!*:
 
 ![Screenshot of Hello from JavaScript message in WordPress plugin admin page](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/setup/hello-from-js.jpg)
 

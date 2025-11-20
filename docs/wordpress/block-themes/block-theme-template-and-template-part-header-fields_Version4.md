@@ -1,6 +1,6 @@
 # Template & Template-Part Header Metadata — Maximal Field Reference and Best Practices
 
-This document describes the maximum set of header fields you can (and should) include at the top of block theme template files (templates/*.html) and template-part files (parts/*.html) as well as the fields used in pattern files (patterns/*.php). It explains why to include them, which fields WordPress actually consumes, and recommended best practices and examples for different scenarios (header, menu, hero, breadcrumbs, loop, sidebar, footer, etc.).
+This document describes the maximum set of header fields you can (and should) include at the top of block theme template files (templates/*.html) and template-part files (parts/*.html) as well as the fields used in pattern files (patterns/\*.php). It explains why to include them, which fields WordPress actually consumes, and recommended best practices and examples for different scenarios (header, menu, hero, breadcrumbs, loop, sidebar, footer, etc.).
 
 ## Why add header metadata?
 
@@ -11,7 +11,7 @@ This document describes the maximum set of header fields you can (and should) in
 
 ## Important note about WordPress behavior
 
-- Pattern files (patterns/*.php) are parsed by WordPress and many header fields (Title, Slug, Categories, Block Types, Inserter, Viewport Width, Keywords, Description) are used to register patterns.
+- Pattern files (patterns/\*.php) are parsed by WordPress and many header fields (Title, Slug, Categories, Block Types, Inserter, Viewport Width, Keywords, Description) are used to register patterns.
 - Block theme templates (templates/*.html) and template parts (parts/*.html) are not registered by WordPress via header metadata; WordPress reads templates from the filesystem and uses theme.json for exposing custom template names (customTemplates) and templateParts for the Site Editor. Template headers are primarily documentation and useful to tooling and editors — but they should still be complete and consistent.
 - For template availability in the Site Editor (to let editors select them), add entries to theme.json → customTemplates (for named templates) and theme.json → templateParts (for template parts).
 
@@ -62,27 +62,27 @@ Include as many of these as relevant. Use the same canonical names so tooling ca
 
 - Slug Namespace: recommended namespace (e.g. lsx-design/) for patterns.
 - Inserter Preview Image: path to an image for pattern previews (patterns/images/...).
-- Template Mapping: optional mapping to indicate where the template is used (e.g., header.html → templates/*).
+- Template Mapping: optional mapping to indicate where the template is used (e.g., header.html → templates/\*).
 - CI Tags: optional tags for CI/automation to process (e.g., "auto-register: true").
 
 ## B. Field table (short reference)
 
-- Title — string — Human name  
-- Slug — string — machine name  
-- Description — string — short purpose  
-- Template Types — list — front-page, home, single, page, archive, category, tag, taxonomy, date, author, search, 404, attachment, embed  
-- Post Types — list — page, post, product, etc.  
-- Template Parts — list — skip-links, header, menu, breadcrumbs, footer, etc.  
-- Block Types — list — core/query, core/cover, core/template-part/menu, woo/..., yoast-seo/...  
-- Categories — list — lsx-design/menu, lsx-design/hero, navigation, posts, query  
-- Keywords — list — assists search in editor  
-- Viewport Width — integer — preview width (patterns)  
-- Inserter — yes/no — whether visible in inserter (patterns)  
-- Inserter Priority — integer — optional ordering  
-- Required Plugins — list — WooCommerce, Yoast SEO, Ollie Menu Designer  
-- Author, Version, License, Notes, Suggested Patterns — lists/strings for docs & guidance  
-- Suggested Patterns — list — pattern slugs recommended to insert in this template/part  
-- Template Areas — list — header, hero, under-hero, footer, menu  
+- Title — string — Human name
+- Slug — string — machine name
+- Description — string — short purpose
+- Template Types — list — front-page, home, single, page, archive, category, tag, taxonomy, date, author, search, 404, attachment, embed
+- Post Types — list — page, post, product, etc.
+- Template Parts — list — skip-links, header, menu, breadcrumbs, footer, etc.
+- Block Types — list — core/query, core/cover, core/template-part/menu, woo/..., yoast-seo/...
+- Categories — list — lsx-design/menu, lsx-design/hero, navigation, posts, query
+- Keywords — list — assists search in editor
+- Viewport Width — integer — preview width (patterns)
+- Inserter — yes/no — whether visible in inserter (patterns)
+- Inserter Priority — integer — optional ordering
+- Required Plugins — list — WooCommerce, Yoast SEO, Ollie Menu Designer
+- Author, Version, License, Notes, Suggested Patterns — lists/strings for docs & guidance
+- Suggested Patterns — list — pattern slugs recommended to insert in this template/part
+- Template Areas — list — header, hero, under-hero, footer, menu
 - Template Mapping / Usage — free form — where used
 
 ## C. Templates vs. Patterns vs. Template Parts — what WordPress uses vs. what’s for docs
@@ -127,17 +127,17 @@ Include as many of these as relevant. Use the same canonical names so tooling ca
 - Template parts should be focused and small (single responsibility). Example areas:
   - Header (parts/header.html): site branding, primary navigation template-part, search toggle, language/currency switchers.
   - Menu (parts/menu.html): single insertion point where mega-menu patterns or mobile-menu patterns are inserted.
-  - Hero (parts/hero.html): small wrapper intended to host hero patterns (patterns/lsx-design/hero-*).
+  - Hero (parts/hero.html): small wrapper intended to host hero patterns (patterns/lsx-design/hero-\*).
   - Breadcrumbs (parts/breadcrumbs.html): nav[aria-label="Breadcrumb"] that uses core:breadcrumb block or falls back.
   - Loop Default (parts/loop-default.html): default query loop item or include a pattern.
   - Sidebar (parts/sidebar.html): widgets or small patterns (newsletter, author card, related lists).
 
 ### Header — example & guidance
 
-- Purpose: site identity and main navigation.  
-- Block Types: core/template-part/header  
-- Suggested Patterns: lsx-design/header-primary, lsx-design/menu-card-1  
-- Accessibility: include skip-links, proper nav landmarks, aria-expanded toggles for mobile.  
+- Purpose: site identity and main navigation.
+- Block Types: core/template-part/header
+- Suggested Patterns: lsx-design/header-primary, lsx-design/menu-card-1
+- Accessibility: include skip-links, proper nav landmarks, aria-expanded toggles for mobile.
 - Example header metadata (for parts/header.html — documentation header):
 
   ```
@@ -157,9 +157,9 @@ Include as many of these as relevant. Use the same canonical names so tooling ca
 
 ### Menu / Mega-menu — example & guidance
 
-- Purpose: insertion point for mega menus and mobile variants.  
-- Block Types: core/template-part/menu  
-- Pattern Category: lsx-design/menu (register this category)  
+- Purpose: insertion point for mega menus and mobile variants.
+- Block Types: core/template-part/menu
+- Pattern Category: lsx-design/menu (register this category)
 - Guidance:
   - Keep parts/menu.html minimal (a nav wrapper); supply actual UI in patterns (menu-panel-1, menu-card-2, mobile-menu-1).
   - Patterns that target this template part should include Block Types: core/template-part/menu so they surface when editing the menu area.
@@ -183,16 +183,16 @@ Include as many of these as relevant. Use the same canonical names so tooling ca
 
 ### Hero — example & guidance
 
-- Purpose: presentational hero cover or lead.  
-- Block Types: core/cover, core/template-part  
+- Purpose: presentational hero cover or lead.
+- Block Types: core/cover, core/template-part
 - Guidance:
   - Use parts/hero.html as a lightweight wrapper and provide layout variants via patterns (lsx-design/hero-page, lsx-design/hero-post).
   - Pattern header should include Block Types: core/cover and Categories: lsx-design/hero.
 
 ### Breadcrumbs — example & guidance
 
-- Purpose: small nav for breadcrumb trail.  
-- Block Types: core/template-part (for patterns) and core/breadcrumb for content.  
+- Purpose: small nav for breadcrumb trail.
+- Block Types: core/template-part (for patterns) and core/breadcrumb for content.
 - Guidance:
   - Provide a parts/breadcrumbs.html that uses core:breadcrumb where available and has a fallback paragraph.
   - Supply pattern variants for plugin-specific blocks (lsx-design/breadcrumbs-yoast, lsx-design/breadcrumbs-woocommerce).
@@ -215,16 +215,16 @@ Include as many of these as relevant. Use the same canonical names so tooling ca
 
 ### Loop / Query Loop items — example & guidance
 
-- Purpose: provide consistent Query Loop item markup (post-card) and container (query-grid-2col).  
-- Block Types: core/query  
+- Purpose: provide consistent Query Loop item markup (post-card) and container (query-grid-2col).
+- Block Types: core/query
 - Guidance:
   - Provide an item pattern (lsx-design/post-card) and a container pattern (lsx-design/query-grid-2col or a parts/loop-default.html).
   - Register Block Types: core/query so patterns surface when editing Query Loop contexts.
 
 ### Sidebar & Footer — example & guidance
 
-- Sidebar: small parts/sidebar.html; expose patterns for widgets and CTAs.  
-- Footer: parts/footer.html; keep content editable via patterns (social links, secondary nav, legal).  
+- Sidebar: small parts/sidebar.html; expose patterns for widgets and CTAs.
+- Footer: parts/footer.html; keep content editable via patterns (social links, secondary nav, legal).
 - Include Template Parts field in template headers listing these so implementers know dependencies.
 
 ## F. Examples — maximal header blocks
@@ -311,7 +311,7 @@ Include as many of these as relevant. Use the same canonical names so tooling ca
 
 ### Recommended workflow
 
-1. Create parts/*.html as minimal semantic wrappers (nav, header, footer, hero placeholders).
+1. Create parts/\*.html as minimal semantic wrappers (nav, header, footer, hero placeholders).
 2. Create pattern files for all visual variants and for plugin-specific blocks (menu-panel-1, mobile-menu-4, breadcrumbs-woocommerce).
 3. Keep templates as structural shells that call template parts and include example H2/H3 placeholders for editor UX.
 4. Add full header metadata to:
@@ -323,14 +323,14 @@ Include as many of these as relevant. Use the same canonical names so tooling ca
 
 - Keep header fields parsable: use consistent key names and colon separators like "Title: " and "Slug: ".
 - Provide a small repository script that validates header fields across patterns/templates and optionally auto-syncs theme.json entries (useful for large themes).
-- When patterns include PHP strings, wrap translatable text with i18n functions (esc_html_e / __).
-- Use consistent namespace (lsx-design/*) for pattern slugs and categories.
+- When patterns include PHP strings, wrap translatable text with i18n functions (esc_html_e / \_\_).
+- Use consistent namespace (lsx-design/\*) for pattern slugs and categories.
 
 ## I. Quick checklist to implement header metadata across repo
 
-- [ ] Add maximal header comment to every pattern file (patterns/*.php).
-- [ ] Add matching header comment to templates (templates/*.html) documenting Template Types, Template Parts & Suggested Patterns.
-- [ ] Add matching header comment to template parts (parts/*.html) listing Template Areas & Suggested Patterns.
+- [ ] Add maximal header comment to every pattern file (patterns/\*.php).
+- [ ] Add matching header comment to templates (templates/\*.html) documenting Template Types, Template Parts & Suggested Patterns.
+- [ ] Add matching header comment to template parts (parts/\*.html) listing Template Areas & Suggested Patterns.
 - [ ] Register templateParts in theme.json and customTemplates for templates that must be selectable.
 - [ ] Register pattern categories (e.g., lsx-design/menu) and ensure patterns use those categories.
 - [ ] Add tooling to validate headers and optionally generate a template/pattern index (README or docs).

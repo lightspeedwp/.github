@@ -47,24 +47,24 @@ Producing an equivalent "Post published" notice would require code like this:
 
 ```js
 (function (wp) {
-  wp.data.dispatch('core/notices').createNotice(
-    'success', // Can be one of: success, info, warning, error.
-    'Post published.', // Text string to display.
+  wp.data.dispatch("core/notices").createNotice(
+    "success", // Can be one of: success, info, warning, error.
+    "Post published.", // Text string to display.
     {
       isDismissible: true, // Whether the user can dismiss the notice.
       // Any actions the user can perform.
       actions: [
         {
-          url: '#',
-          label: 'View post',
+          url: "#",
+          label: "View post",
         },
       ],
-    }
+    },
   );
 })(window.wp);
 ```
 
-You'll want to use this _Notices Data API_ when producing a notice from within the JavaScript application lifecycle.
+You'll want to use this *Notices Data API* when producing a notice from within the JavaScript application lifecycle.
 
 To better understand the specific code example above:
 
@@ -73,7 +73,7 @@ To better understand the specific code example above:
 - `wp.data.dispatch('core/notices')` accesses functionality registered to the block editor data store by the Notices package.
 - `createNotice()` is a function offered by the Notices package to register a new notice. The block editor reads from the notice data store in order to know which notices to display.
 
-Check out the [_Enqueueing assets in the Editor_](/docs/how-to-guides/enqueueing-assets-in-the-editor.md) tutorial for a primer on how to load your custom JavaScript into the block editor.
+Check out the [*Enqueueing assets in the Editor*](/docs/how-to-guides/enqueueing-assets-in-the-editor.md) tutorial for a primer on how to load your custom JavaScript into the block editor.
 
 ## Learn more
 

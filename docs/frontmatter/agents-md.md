@@ -20,4 +20,4 @@ AGENTS.md provides project-wide, vendor-neutral rules and guidelines for all AI 
 - Place at repository root as `AGENTS.md`
 - Use plain Markdown (no YAML required)
 
-> _Add your project's global coding, security, and architectural expectations for all AI tools here._
+> *Add your project's global coding, security, and architectural expectations for all AI tools here.*

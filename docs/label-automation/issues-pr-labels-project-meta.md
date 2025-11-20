@@ -49,10 +49,10 @@ Provide high‑signal, automated **PR labels** for review routing, release hygie
 
 ## How labels are applied
 
-1) **Paths → labels** via `.github/labeler.yml`:
+1. **Paths → labels** via `.github/labeler.yml`:
    - `area:ci`, `area:dependencies`, `area:block-editor`, `area:theme`, `area:integration` …
    - `lang:php`, `lang:javascript`, `lang:css`, `lang:md` …
-2) **Branch prefixes → status** (on PR open):
+2. **Branch prefixes → status** (on PR open):
    - `feat/`, `fix/`, `docs/`, `chore/`, `build/` → add **`status:needs-review`** by default.
 
 ### Optional branch→type mapping (for Projects)
@@ -119,11 +119,11 @@ Automatically **add issues/PRs to the org Project** and keep Project **fields in
 
 ## Quick Start
 
-1) **Create Project** → Name `Client – {ClientName}`; Description with scope + contract link.
-2) **Add fields**: Status (Backlog, **Todo**, In progress, In review, In QA, Done), Issue Type (Epic, Story, Task, Bug, Chore, Design, Research), Priority, Area, Theme, Size (number), Start Date, Deadline, Milestone, Environment, Parent Issue, Sub‑issues Progress, Time (hours). Optional: Iteration.
-3) **Automations**: Auto‑add → Backlog; On Assignee → In progress; On linked PR → In review; On `status:needs-qa` → In QA; On close/merge → Done.
-4) **Pin views**: Board — Team Flow (group by Assignee), Backlog — Table, **QA Gate**, **UAT (Client)**, Roadmap, Blocked, Epics (Tracking) — Table/Roadmap.
-5) **Intake hygiene**: Create **Intake** view (`Status = Backlog` AND missing Assignee/Priority/Issue Type) and clear it weekly.
+1. **Create Project** → Name `Client – {ClientName}`; Description with scope + contract link.
+2. **Add fields**: Status (Backlog, **Todo**, In progress, In review, In QA, Done), Issue Type (Epic, Story, Task, Bug, Chore, Design, Research), Priority, Area, Theme, Size (number), Start Date, Deadline, Milestone, Environment, Parent Issue, Sub‑issues Progress, Time (hours). Optional: Iteration.
+3. **Automations**: Auto‑add → Backlog; On Assignee → In progress; On linked PR → In review; On `status:needs-qa` → In QA; On close/merge → Done.
+4. **Pin views**: Board — Team Flow (group by Assignee), Backlog — Table, **QA Gate**, **UAT (Client)**, Roadmap, Blocked, Epics (Tracking) — Table/Roadmap.
+5. **Intake hygiene**: Create **Intake** view (`Status = Backlog` AND missing Assignee/Priority/Issue Type) and clear it weekly.
 
 ## Status
 
@@ -153,11 +153,11 @@ Groom weekly · Stand‑up daily (focus on Blocked) · UAT weekly (e.g., Thu) ·
 
 ## Quick Start
 
-1) **Create Project** → Name `Product – {ProductName}`; Description with objective + README/roadmap link.
-2) **Add fields**: Status (Backlog, **Ready**, In progress, In review, In QA, Done), Issue Type (Epic, Feature, Story, Task, Bug, Refactor, Design, Research, Chore), Priority, **Milestone/Release (vX.Y.Z)**, Area, Theme, Size (number), Start Date, Deadline, Environment, Parent Epic, Sub‑issues Progress, Time (hours). Optional: Iteration (Sprint).
-3) **Automations**: Auto‑add → Backlog; On Assignee → In progress; On linked PR → In review; On `status:needs-qa` → In QA; On close/merge → Done.
-4) **Release scaffolding**: Create Milestone `vX.Y.Z`; add scoped Features/Stories; pin **Release Gate — vX.Y.Z** view.
-5) **Pin views**: Release Gate, Tech Debt, Roadmap, Backlog — Table, Epics — Table/Roadmap/Board, Epic drill‑down (group by Parent Epic).
+1. **Create Project** → Name `Product – {ProductName}`; Description with objective + README/roadmap link.
+2. **Add fields**: Status (Backlog, **Ready**, In progress, In review, In QA, Done), Issue Type (Epic, Feature, Story, Task, Bug, Refactor, Design, Research, Chore), Priority, **Milestone/Release (vX.Y.Z)**, Area, Theme, Size (number), Start Date, Deadline, Environment, Parent Epic, Sub‑issues Progress, Time (hours). Optional: Iteration (Sprint).
+3. **Automations**: Auto‑add → Backlog; On Assignee → In progress; On linked PR → In review; On `status:needs-qa` → In QA; On close/merge → Done.
+4. **Release scaffolding**: Create Milestone `vX.Y.Z`; add scoped Features/Stories; pin **Release Gate — vX.Y.Z** view.
+5. **Pin views**: Release Gate, Tech Debt, Roadmap, Backlog — Table, Epics — Table/Roadmap/Board, Epic drill‑down (group by Parent Epic).
 
 ## Status
 

@@ -1,21 +1,21 @@
 ---
-title: 'GEMINI.md – Gemini Agent Guidance'
-version: 'v1.1'
-last_updated: '2025-10-23'
-author: 'LightSpeed'
-maintainer: 'Ash Shaw'
-description: 'Root-level guidance for Gemini agents, with LightSpeed and Copilot best practices.'
-tags: ['lightspeed', 'templates', 'copilot', 'agents', 'prompts', 'models']
-file_type: 'gemini-instructions'
+title: "GEMINI.md – Gemini Agent Guidance"
+version: "v1.1"
+last_updated: "2025-10-23"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
+description: "Root-level guidance for Gemini agents, with LightSpeed and Copilot best practices."
+tags: ["lightspeed", "templates", "copilot", "agents", "prompts", "models"]
+file_type: "gemini-instructions"
 references:
-    - 'https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/gemini-guide.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/gemini-2.5-pro.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/gemini-flash-2.0.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/ai-model-comparison.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/model-guide.md'
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/gemini-guide.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/gemini-2.5-pro.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/gemini-flash-2.0.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/ai-model-comparison.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/model-guide.md"
 ---
 
 # Overview
@@ -55,7 +55,7 @@ Gemini agents (Gemini Pro, Flash) are preferred at LightSpeed for:
 
 - You want best-in-class code completion, IDE integration, or GitHub-native code review
 
-_See the [AI Model Comparison Guide](./ai-model-comparison.md) for details and a feature matrix._
+*See the [AI Model Comparison Guide](./ai-model-comparison.md) for details and a feature matrix.*
 
 ---
 
@@ -192,4 +192,4 @@ You are a Gemini agent (Pro or Flash) operating in LightSpeed.
 
 ---
 
-_When in doubt, review the [AI Model Comparison Guide](./ai-model-comparison.md) and escalate to another model as needed. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow._
+*When in doubt, review the [AI Model Comparison Guide](./ai-model-comparison.md) and escalate to another model as needed. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow.*

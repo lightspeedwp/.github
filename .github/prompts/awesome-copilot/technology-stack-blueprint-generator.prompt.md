@@ -1,6 +1,6 @@
 ---
-description: 'Comprehensive technology stack blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks, programming languages, and implementation patterns across multiple platforms (.NET, Java, JavaScript, React, Python). Generates configurable blueprints with version information, licensing details, usage patterns, coding conventions, and visual diagrams. Provides implementation-ready templates and maintains architectural consistency for guided development.'
-mode: 'agent'
+description: "Comprehensive technology stack blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks, programming languages, and implementation patterns across multiple platforms (.NET, Java, JavaScript, React, Python). Generates configurable blueprints with version information, licensing details, usage patterns, coding conventions, and visual diagrams. Provides implementation-ready templates and maintains architectural consistency for guided development."
+mode: "agent"
 ---
 
 # Comprehensive Technology Stack Blueprint Generator
@@ -187,24 +187,20 @@ ${PROJECT_TYPE == ".NET" || PROJECT_TYPE == "Auto-detect" ?
 - **Dependency Injection Pattern**:
   - Service registration approach (Scoped/Singleton/Transient patterns)
   - Configuration binding patterns
-  
 - **Controller Patterns**:
   - Base controller usage
   - Action result types and patterns
   - Route attribute conventions
   - Filter usage (authorization, validation, etc.)
-  
 - **Data Access Patterns**:
   - ORM configuration and usage
   - Entity configuration approach
   - Relationship definitions
   - Query patterns and optimization approaches
-  
 - **API Design Patterns** (if used):
   - Endpoint organization
   - Parameter binding approaches
   - Response type handling
-  
 - **Language Features Used**:
   - Detect specific language features from code
   - Identify common patterns and idioms
@@ -217,19 +213,16 @@ ${PROJECT_TYPE == "React.js" || PROJECT_TYPE == "Auto-detect" ?
   - Function vs class components
   - Props interface definitions
   - Component composition patterns
-  
 - **Hook Usage Patterns**:
   - Custom hook implementation style
   - useState patterns
   - useEffect cleanup approaches
   - Context usage patterns
-  
 - **State Management**:
   - Local vs global state decisions
   - State management library patterns
   - Store configuration
   - Selector patterns
-  
 - **Styling Approach**:
   - CSS methodology (CSS modules, styled-components, etc.)
   - Theme implementation

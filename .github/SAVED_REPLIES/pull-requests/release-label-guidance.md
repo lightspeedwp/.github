@@ -25,6 +25,7 @@ For release automation and semantic versioning, every PR must have **exactly one
 - `release:major`: For breaking changes or backward-incompatible updates.
 
 **Action required:**
+
 - Review your PR and select the single release label that best matches your change.
   - If more than one is selected, please remove the extras.
   - If you are unsure, ask in a comment or refer to our [Automation Governance guide](../../AUTOMATION_GOVERNANCE.md).

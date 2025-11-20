@@ -1,9 +1,20 @@
 ---
-mode: 'agent'
-description: 'Generate a comprehensive repository summary and narrative story from commit history'
-tools: ['changes', 'codebase', 'edit/editFiles', 'githubRepo', 'runCommands', 'runTasks', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection']
+mode: "agent"
+description: "Generate a comprehensive repository summary and narrative story from commit history"
+tools:
+  [
+    "changes",
+    "codebase",
+    "edit/editFiles",
+    "githubRepo",
+    "runCommands",
+    "runTasks",
+    "search",
+    "searchResults",
+    "terminalLastCommand",
+    "terminalSelection",
+  ]
 ---
-
 
 ## Role
 
@@ -99,23 +110,29 @@ Look for these narrative elements:
 # Repository Analysis: [Repo Name]
 
 ## Overview
+
 Brief description of what this repository does and why it exists.
 
 ## Architecture
+
 High-level technical architecture and organization.
 
 ## Key Components
+
 - **Component 1**: Description and purpose
 - **Component 2**: Description and purpose
-[Continue for all major components]
+  [Continue for all major components]
 
 ## Technologies Used
+
 List of programming languages, frameworks, tools, and platforms.
 
 ## Data Flow
+
 How information moves through the system.
 
 ## Team and Ownership
+
 Who maintains different parts of the codebase.
 ```
 
@@ -125,21 +142,27 @@ Who maintains different parts of the codebase.
 # The Story of [Repo Name]
 
 ## The Chronicles: A Year in Numbers
+
 Statistical overview of the past year's activity.
 
 ## Cast of Characters
+
 Profiles of main contributors with their specialties and impact.
 
 ## Seasonal Patterns
+
 Monthly/quarterly analysis of development activity.
 
 ## The Great Themes
+
 Major categories of work and their significance.
 
 ## Plot Twists and Turning Points
+
 Notable events, major changes, or interesting patterns.
 
 ## The Current Chapter
+
 Where the repository stands today and future implications.
 ```
 

@@ -1,8 +1,27 @@
 ---
-mode: 'agent'
-description: 'Create comprehensive, standardized documentation for object-oriented components following industry best practices and architectural documentation standards.'
-tools: ['changes', 'codebase', 'edit/editFiles', 'extensions', 'fetch', 'githubRepo', 'openSimpleBrowser', 'problems', 'runTasks', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
+mode: "agent"
+description: "Create comprehensive, standardized documentation for object-oriented components following industry best practices and architectural documentation standards."
+tools:
+  [
+    "changes",
+    "codebase",
+    "edit/editFiles",
+    "extensions",
+    "fetch",
+    "githubRepo",
+    "openSimpleBrowser",
+    "problems",
+    "runTasks",
+    "search",
+    "searchResults",
+    "terminalLastCommand",
+    "terminalSelection",
+    "testFailure",
+    "usages",
+    "vscodeAPI",
+  ]
 ---
+
 # Generate Standard OO Component Documentation
 
 Create comprehensive documentation for the object-oriented component(s) at: `${input:ComponentPath}`.
@@ -55,7 +74,7 @@ The documentation should be saved in the `/docs/components/` directory and named
 
 The documentation file must follow the template below, ensuring that all sections are filled out appropriately. The front matter for the markdown should be structured correctly as per the example following:
 
-```md
+````md
 ---
 title: [Component Name] - Technical Documentation
 component_path: `${input:ComponentPath}`
@@ -73,6 +92,7 @@ tags: [Optional: List of relevant tags or categories, e.g., `component`,`service
 ## 1. Component Overview
 
 ### Purpose/Responsibility
+
 - OVR-001: State component's primary responsibility
 - OVR-002: Define scope (included/excluded functionality)
 - OVR-003: Describe system context and relationships
@@ -88,6 +108,7 @@ tags: [Optional: List of relevant tags or categories, e.g., `component`,`service
 ### Component Structure and Dependencies Diagram
 
 Include a comprehensive mermaid diagram that shows:
+
 - **Component structure** - Main classes, interfaces, and their relationships
 - **Internal dependencies** - How components interact within the system
 - **External dependencies** - External libraries, services, databases, APIs
@@ -132,6 +153,7 @@ graph TD
         MainComponent --> InternalService
         MainComponent --> ExternalAPI
 ```
+````
 
 ## 3. Interface Documentation
 
@@ -139,9 +161,9 @@ graph TD
 - INT-002: Create method/property reference table
 - INT-003: Document events/callbacks/notification mechanisms
 
-| Method/Property | Purpose | Parameters | Return Type | Usage Notes |
-|-----------------|---------|------------|-------------|-------------|
-| [Name] | [Purpose] | [Parameters] | [Type] | [Notes] |
+| Method/Property | Purpose   | Parameters   | Return Type | Usage Notes |
+| --------------- | --------- | ------------ | ----------- | ----------- |
+| [Name]          | [Purpose] | [Parameters] | [Type]      | [Notes]     |
 
 ## 4. Implementation Details
 
@@ -189,5 +211,7 @@ await component.ProcessAsync(data);
 - REF-004: Troubleshooting (common issues, error messages)
 - REF-005: Related documentation links
 - REF-006: Change history and migration notes
+
+```
 
 ```

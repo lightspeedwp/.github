@@ -45,13 +45,13 @@ echo '{ "extends": "markdownlint/style/prettier" }' > .markdownlint.json
 
 ### **Key Rules Enabled**
 
-| Rule | Description | Why Important |
-|------|-------------|---------------|
-| `MD001` | Heading levels increment by one | Logical document structure |
-| `MD022` | Headings surrounded by blank lines | Visual separation |
-| `MD025` | Single top-level heading | Clear document hierarchy |
-| `MD032` | Lists surrounded by blank lines | Improved readability |
-| `MD036` | No emphasis as heading | Semantic correctness |
+| Rule    | Description                        | Why Important              |
+| ------- | ---------------------------------- | -------------------------- |
+| `MD001` | Heading levels increment by one    | Logical document structure |
+| `MD022` | Headings surrounded by blank lines | Visual separation          |
+| `MD025` | Single top-level heading           | Clear document hierarchy   |
+| `MD032` | Lists surrounded by blank lines    | Improved readability       |
+| `MD036` | No emphasis as heading             | Semantic correctness       |
 
 ### **Customized Rules**
 
@@ -122,10 +122,10 @@ npx markdownlint --config .markdownlint.json *.md
 
 **Related Configuration:**
 
-- **[ESLint Configuration](./lint-eslint.md)** - JavaScript linting setup  
-- **[Prettier Configuration](./lint-prettier.md)** - Code formatting consistency  
-- **[VS Code Settings](./vscode-settings.md)** - Editor integration  
-- **[Husky Configuration](./workflow-husky.md)** - Pre-commit hooks  
+- **[ESLint Configuration](./lint-eslint.md)** - JavaScript linting setup
+- **[Prettier Configuration](./lint-prettier.md)** - Code formatting consistency
+- **[VS Code Settings](./vscode-settings.md)** - Editor integration
+- **[Husky Configuration](./workflow-husky.md)** - Pre-commit hooks
 
 ---
 

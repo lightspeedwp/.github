@@ -5,7 +5,7 @@ last_updated: "2025-10-24"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Central directory of all GitHub Actions workflows powering LightSpeed's automation and governance."
-tags: ["lightspeed","workflows","github-actions","automation","ci-cd"]
+tags: ["lightspeed", "workflows", "github-actions", "automation", "ci-cd"]
 file_type: "documentation"
 ---
 
@@ -25,56 +25,56 @@ This directory contains all GitHub Actions workflows that power LightSpeed's rep
 
 ### Core Agent-Driven Workflows (8)
 
-| Workflow | Triggers | Agent(s) Used | Description | Status |
-|----------|----------|---------------|-------------|--------|
-| **[labeling.yml](./labeling.yml)** | `push`, `pull_request`, `issues`, multiple event types | [`labeling.agent.js`](../agents/labeling.agent.js) | Unified labeling system for issues and PRs with automated status enforcement | ✅ Active |
-| **[reviewer.yml](./reviewer.yml)** | `pull_request` on `develop`, `opened`, `synchronize` | [`reviewer.agent.js`](../agents/reviewer.agent.js) | Automated code review, feedback, and quality checks | ✅ Active |
-| **[planner.yml](./planner.yml)** | `push`, `pull_request` on `develop` | [`planner.agent.js`](../agents/planner.agent.js) | Project planning automation and issue organization | ✅ Active |
-| **[branding.yml](./branding.yml)** | File changes to docs, badges, headers/footers, weekly schedule | [`branding.agent.js`](../agents/branding.agent.js) | Unified header, footer, badge automation | ✅ Active |
-| **[badges.yml](./badges.yml)** | Path changes to badges, `workflow_dispatch` | [`badges.agent.js`](../agents/badges.agent.js) | Repository badge status updates | ⚠️ Deprecated (use branding.yml) |
-| **[manage-readmes.yml](./manage-readmes.yml)** | Path changes to README files, `workflow_dispatch` | [`manage-readmes.agent.js`](../agents/manage-readmes.agent.js) | Automated README generation and consistency | ✅ Active |
-| **[header-footer.yml](./header-footer.yml)** | File changes to documentation | [`header-footer.agent.js`](../agents/header-footer.agent.js) | Documentation header/footer consistency | ⚠️ Deprecated (use branding.yml) |
-| **[release.yml](./release.yml)** | Tags, `workflow_dispatch` | [`release.agent.js`](../agents/release.agent.js) | Automated release processes and changelog generation | ✅ Active |
+| Workflow                                       | Triggers                                                       | Agent(s) Used                                                  | Description                                                                  | Status                           |
+| ---------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------------------------------- |
+| **[labeling.yml](./labeling.yml)**             | `push`, `pull_request`, `issues`, multiple event types         | [`labeling.agent.js`](../agents/labeling.agent.js)             | Unified labeling system for issues and PRs with automated status enforcement | ✅ Active                        |
+| **[reviewer.yml](./reviewer.yml)**             | `pull_request` on `develop`, `opened`, `synchronize`           | [`reviewer.agent.js`](../agents/reviewer.agent.js)             | Automated code review, feedback, and quality checks                          | ✅ Active                        |
+| **[planner.yml](./planner.yml)**               | `push`, `pull_request` on `develop`                            | [`planner.agent.js`](../agents/planner.agent.js)               | Project planning automation and issue organization                           | ✅ Active                        |
+| **[branding.yml](./branding.yml)**             | File changes to docs, badges, headers/footers, weekly schedule | [`branding.agent.js`](../agents/branding.agent.js)             | Unified header, footer, badge automation                                     | ✅ Active                        |
+| **[badges.yml](./badges.yml)**                 | Path changes to badges, `workflow_dispatch`                    | [`badges.agent.js`](../agents/badges.agent.js)                 | Repository badge status updates                                              | ⚠️ Deprecated (use branding.yml) |
+| **[manage-readmes.yml](./manage-readmes.yml)** | Path changes to README files, `workflow_dispatch`              | [`manage-readmes.agent.js`](../agents/manage-readmes.agent.js) | Automated README generation and consistency                                  | ✅ Active                        |
+| **[header-footer.yml](./header-footer.yml)**   | File changes to documentation                                  | [`header-footer.agent.js`](../agents/header-footer.agent.js)   | Documentation header/footer consistency                                      | ⚠️ Deprecated (use branding.yml) |
+| **[release.yml](./release.yml)**               | Tags, `workflow_dispatch`                                      | [`release.agent.js`](../agents/release.agent.js)               | Automated release processes and changelog generation                         | ✅ Active                        |
 
 ### Quality & Validation Workflows (8)
 
-| Workflow | Triggers | Purpose | Status |
-|----------|----------|---------|--------|
-| **[quality-gates.yml](./quality-gates.yml)** | `pull_request` to `develop`, `workflow_dispatch` | Comprehensive quality validation before merge | ✅ Active |
-| **[modular-scripts-pipeline.yml](./modular-scripts-pipeline.yml)** | `push`, `pull_request`, script changes, `workflow_dispatch` | Multi-stage CI/CD pipeline for modular shell scripts with quality gates, security scanning, and deployment automation | ✅ Active |
-| **[lint.yml](./lint.yml)** | `push`, `pull_request` to `develop` | Code quality enforcement and linting | ✅ Active |
-| **[ci.yml](./ci.yml)** | `push`, `pull_request` to `develop` | Continuous integration checks | ✅ Active |
-| **[jest-test-audit.yml](./jest-test-audit.yml)** | `push`, `pull_request`, `workflow_dispatch` | Jest test coverage audit | ✅ Active |
-| **[changelog.yml](./changelog.yml)** | `push`, `pull_request` to `develop` | Changelog validation and generation | ✅ Active |
-| **[frontmatter-validation.yml](./frontmatter-validation.yml)** | `push` to `develop`/`claude/**`, `pull_request`, `workflow_dispatch` | Frontmatter schema validation | ✅ Active |
-| **[collections-indexer.yml](./collections-indexer.yml)** | `pull_request` to `develop` | Collections index building and validation | ✅ Active |
+| Workflow                                                           | Triggers                                                             | Purpose                                                                                                               | Status    |
+| ------------------------------------------------------------------ | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------- |
+| **[quality-gates.yml](./quality-gates.yml)**                       | `pull_request` to `develop`, `workflow_dispatch`                     | Comprehensive quality validation before merge                                                                         | ✅ Active |
+| **[modular-scripts-pipeline.yml](./modular-scripts-pipeline.yml)** | `push`, `pull_request`, script changes, `workflow_dispatch`          | Multi-stage CI/CD pipeline for modular shell scripts with quality gates, security scanning, and deployment automation | ✅ Active |
+| **[lint.yml](./lint.yml)**                                         | `push`, `pull_request` to `develop`                                  | Code quality enforcement and linting                                                                                  | ✅ Active |
+| **[ci.yml](./ci.yml)**                                             | `push`, `pull_request` to `develop`                                  | Continuous integration checks                                                                                         | ✅ Active |
+| **[jest-test-audit.yml](./jest-test-audit.yml)**                   | `push`, `pull_request`, `workflow_dispatch`                          | Jest test coverage audit                                                                                              | ✅ Active |
+| **[changelog.yml](./changelog.yml)**                               | `push`, `pull_request` to `develop`                                  | Changelog validation and generation                                                                                   | ✅ Active |
+| **[frontmatter-validation.yml](./frontmatter-validation.yml)**     | `push` to `develop`/`claude/**`, `pull_request`, `workflow_dispatch` | Frontmatter schema validation                                                                                         | ✅ Active |
+| **[collections-indexer.yml](./collections-indexer.yml)**           | `pull_request` to `develop`                                          | Collections index building and validation                                                                             | ✅ Active |
 
 ### AIOps & Automation Workflows (5)
 
-| Workflow | Triggers | Purpose | Status |
-|----------|----------|---------|--------|
-| **[aiops-frontmatter.yml](./aiops-frontmatter.yml)** | `pull_request` to prompts/chatmodes/instructions | Validate frontmatter presence in AI files | ✅ Active |
-| **[aiops-index-drift.yml](./aiops-index-drift.yml)** | `pull_request` to collections/prompts/chatmodes | Check index files include all leaves | ✅ Active |
-| **[aiops-link-check.yml](./aiops-link-check.yml)** | `pull_request` to docs | Check for broken links | ✅ Active |
-| **[aiops-secrets-scan.yml](./aiops-secrets-scan.yml)** | `pull_request` to `.github`/docs | Scan for secrets and PII | ✅ Active |
-| **[label-sync.yml](./label-sync.yml)** | `push`, `schedule`, `workflow_dispatch` | Organization-wide label synchronization | ✅ Active |
+| Workflow                                               | Triggers                                         | Purpose                                   | Status    |
+| ------------------------------------------------------ | ------------------------------------------------ | ----------------------------------------- | --------- |
+| **[aiops-frontmatter.yml](./aiops-frontmatter.yml)**   | `pull_request` to prompts/chatmodes/instructions | Validate frontmatter presence in AI files | ✅ Active |
+| **[aiops-index-drift.yml](./aiops-index-drift.yml)**   | `pull_request` to collections/prompts/chatmodes  | Check index files include all leaves      | ✅ Active |
+| **[aiops-link-check.yml](./aiops-link-check.yml)**     | `pull_request` to docs                           | Check for broken links                    | ✅ Active |
+| **[aiops-secrets-scan.yml](./aiops-secrets-scan.yml)** | `pull_request` to `.github`/docs                 | Scan for secrets and PII                  | ✅ Active |
+| **[label-sync.yml](./label-sync.yml)**                 | `push`, `schedule`, `workflow_dispatch`          | Organization-wide label synchronization   | ✅ Active |
 
 ### Label & Project Management (2)
 
-| Workflow | Triggers | Purpose | Status |
-|----------|----------|---------|--------|
-| **[project-meta-sync.yml](./project-meta-sync.yml)** | `push`, `issues`, `pull_request` events | Project board metadata synchronization | ✅ Active |
-| **[all-contributors-update.yml](./all-contributors-update.yml)** | PR merge events | Update contributors recognition table | ✅ Active |
+| Workflow                                                         | Triggers                                | Purpose                                | Status    |
+| ---------------------------------------------------------------- | --------------------------------------- | -------------------------------------- | --------- |
+| **[project-meta-sync.yml](./project-meta-sync.yml)**             | `push`, `issues`, `pull_request` events | Project board metadata synchronization | ✅ Active |
+| **[all-contributors-update.yml](./all-contributors-update.yml)** | PR merge events                         | Update contributors recognition table  | ✅ Active |
 
 ### Metrics & Reporting (4)
 
-| Workflow | Triggers | Purpose | Status |
-|----------|----------|---------|--------|
-| **[metrics.yml](./metrics.yml)** | Weekly schedule, `workflow_dispatch` | Repository health and performance metrics | ✅ Active |
-| **[frontmatter-metrics.yml](./frontmatter-metrics.yml)** | Weekly schedule, `workflow_dispatch` | Frontmatter usage and compliance metrics | ✅ Active |
-| **[weekly-metrics.yml](./weekly-metrics.yml)** | Weekly schedule, `workflow_dispatch` | Comprehensive weekly health reporting | ✅ Active |
-| **[ci-metrics.yml](./ci-metrics.yml)** | On checkout | CI/CD performance metrics | ✅ Active |
-| **[release-prep.yml](./release-prep.yml)** | Weekly schedule, `workflow_dispatch` | Release preparation and readiness checks | ✅ Active |
+| Workflow                                                 | Triggers                             | Purpose                                   | Status    |
+| -------------------------------------------------------- | ------------------------------------ | ----------------------------------------- | --------- |
+| **[metrics.yml](./metrics.yml)**                         | Weekly schedule, `workflow_dispatch` | Repository health and performance metrics | ✅ Active |
+| **[frontmatter-metrics.yml](./frontmatter-metrics.yml)** | Weekly schedule, `workflow_dispatch` | Frontmatter usage and compliance metrics  | ✅ Active |
+| **[weekly-metrics.yml](./weekly-metrics.yml)**           | Weekly schedule, `workflow_dispatch` | Comprehensive weekly health reporting     | ✅ Active |
+| **[ci-metrics.yml](./ci-metrics.yml)**                   | On checkout                          | CI/CD performance metrics                 | ✅ Active |
+| **[release-prep.yml](./release-prep.yml)**               | Weekly schedule, `workflow_dispatch` | Release preparation and readiness checks  | ✅ Active |
 
 ## 📋 Workflow Categories
 
@@ -149,14 +149,14 @@ The pipeline calculates composite quality scores based on:
 
 ### Common Trigger Patterns
 
-| Event | Workflows Triggered | Purpose |
-|-------|-------------------|---------|
-| **`push` to `develop`** | `reviewer.yml`, `planner.yml`, `lint.yml` | Quality checks and automation |
-| **`pull_request`** | `labeling.yml`, `reviewer.yml`, `lint.yml`, `jest-test-audit.yml` | PR validation and automation |
-| **`issues` events** | `labeling.yml` | Issue management and labeling |
-| **File path changes** | `badges.yml`, `manage-readmes.yml`, `header-footer.yml` | Content consistency |
-| **`workflow_dispatch`** | Most workflows | Manual execution |
-| **`schedule`** | `metrics.yml`, `project-meta-sync.yml` | Periodic maintenance |
+| Event                   | Workflows Triggered                                               | Purpose                       |
+| ----------------------- | ----------------------------------------------------------------- | ----------------------------- |
+| **`push` to `develop`** | `reviewer.yml`, `planner.yml`, `lint.yml`                         | Quality checks and automation |
+| **`pull_request`**      | `labeling.yml`, `reviewer.yml`, `lint.yml`, `jest-test-audit.yml` | PR validation and automation  |
+| **`issues` events**     | `labeling.yml`                                                    | Issue management and labeling |
+| **File path changes**   | `badges.yml`, `manage-readmes.yml`, `header-footer.yml`           | Content consistency           |
+| **`workflow_dispatch`** | Most workflows                                                    | Manual execution              |
+| **`schedule`**          | `metrics.yml`, `project-meta-sync.yml`                            | Periodic maintenance          |
 
 ### Event-Agent Mapping
 
@@ -182,21 +182,21 @@ graph TD
 
 Workflow development follows standards defined in:
 
-| Instruction File | Purpose |
-|------------------|---------|
-| [workflows.instructions.md](../instructions/workflows.instructions.md) | General workflow authoring standards |
-| [agents.instructions.md](../instructions/agents.instructions.md) | Agent integration guidelines |
-| [automation-testing.instructions.md](../instructions/automation-testing.instructions.md) | Testing workflow components |
-| [ci-cd.instructions.md](../instructions/ci-cd.instructions.md) | CI/CD best practices |
+| Instruction File                                                                         | Purpose                              |
+| ---------------------------------------------------------------------------------------- | ------------------------------------ |
+| [workflows.instructions.md](../instructions/workflows.instructions.md)                   | General workflow authoring standards |
+| [agents.instructions.md](../instructions/agents.instructions.md)                         | Agent integration guidelines         |
+| [automation-testing.instructions.md](../instructions/automation-testing.instructions.md) | Testing workflow components          |
+| [ci-cd.instructions.md](../instructions/ci-cd.instructions.md)                           | CI/CD best practices                 |
 
 ### Agent-Specific Documentation
 
-| Agent | Workflow | Instructions |
-|-------|----------|-------------|
+| Agent               | Workflow       | Instructions                                                                |
+| ------------------- | -------------- | --------------------------------------------------------------------------- |
 | `labeling.agent.js` | `labeling.yml` | [labeling.instructions.md](../instructions/agents/labeling.instructions.md) |
 | `reviewer.agent.js` | `reviewer.yml` | [reviewer.instructions.md](../instructions/agents/reviewer.instructions.md) |
-| `planner.agent.js` | `planner.yml` | [planner.instructions.md](../instructions/agents/planner.instructions.md) |
-| `release.agent.js` | `release.yml` | [release.instructions.md](../instructions/agents/release.instructions.md) |
+| `planner.agent.js`  | `planner.yml`  | [planner.instructions.md](../instructions/agents/planner.instructions.md)   |
+| `release.agent.js`  | `release.yml`  | [release.instructions.md](../instructions/agents/release.instructions.md)   |
 
 ## 🧪 Testing & Validation
 
@@ -216,12 +216,12 @@ Workflow development follows standards defined in:
 
 ### Configuration Files
 
-| File | Purpose | Usage |
-|------|---------|-------|
-| [../labels.yml](../labels.yml) | Canonical label definitions | Used by `labeling.yml` |
-| [../issue-types.yml](../issue-types.yml) | Issue type mappings | Used by labeling automation |
-| [../labeler.yml](../labeler.yml) | PR labeling rules | Used by `labeling.yml` |
-| [../project-pr-labeler.yml](../project-pr-labeler.yml) | Project-specific PR labels | Additional labeling context |
+| File                                                   | Purpose                     | Usage                       |
+| ------------------------------------------------------ | --------------------------- | --------------------------- |
+| [../labels.yml](../labels.yml)                         | Canonical label definitions | Used by `labeling.yml`      |
+| [../issue-types.yml](../issue-types.yml)               | Issue type mappings         | Used by labeling automation |
+| [../labeler.yml](../labeler.yml)                       | PR labeling rules           | Used by `labeling.yml`      |
+| [../project-pr-labeler.yml](../project-pr-labeler.yml) | Project-specific PR labels  | Additional labeling context |
 
 ### Documentation References
 

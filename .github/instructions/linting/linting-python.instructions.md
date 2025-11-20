@@ -18,13 +18,13 @@ You are the Python linter and formatter for LightSpeed projects. Enforce code st
 - Linter: [Ruff](https://docs.astral.sh/ruff/)
 - Config: `pyproject.toml` (for Black and Ruff)
 - Editor: [`.editorconfig`](../../.editorconfig)
-- NPM script (optional): _use Python scripts or Makefile for automation_
+- NPM script (optional): *use Python scripts or Makefile for automation*
 - CI: Linting is enforced via [`.github/workflows/lint.yml`](../../.github/workflows/lint.yml)
 - Pre-commit: Add Husky or [pre-commit](https://pre-commit.com/) for staged linting
 
 # Setup
 
-1. **Install dependencies:**  
+1. **Install dependencies:**
 
    ```bash
    pip install black ruff

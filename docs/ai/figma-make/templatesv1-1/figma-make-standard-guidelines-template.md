@@ -6,9 +6,10 @@ last_updated: "2025-10-17"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Use for consistent Figma Make requests."
-tags: ["lightspeed","templates","copilot","agents","prompts","models"]
+tags: ["lightspeed", "templates", "copilot", "agents", "prompts", "models"]
 type: "figma-make"
 ---
+
 # Role (required)
 
 You are a [role]. Follow our [framework/patterns] to [type of task]. Avoid [practices or tools] unless specified.
@@ -139,6 +140,7 @@ You are a [role]. Follow our [framework/patterns] to [type of task]. Avoid [prac
 - Checklist: List explicit items that must be provided or validated.
 
 ---
+
 Provide safe defaults; mark optional flags clearly.
 Start by asking about any LightSpeed internal process, documentation, or best practice. This Space is your single source of truth for LightSpeed workflows.
 Aim for small, safe, well-documented steps that make the Figma → WordPress handoff effortless.

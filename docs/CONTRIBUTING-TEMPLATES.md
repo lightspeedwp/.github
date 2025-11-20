@@ -1,13 +1,13 @@
 ---
 file_type: "documentation"
-title: 'Contributing AI Templates'
-description: 'How to contribute, review, and label AI template assets.'
-last_updated: '2025-10-24'
-version: 'v2.0'
+title: "Contributing AI Templates"
+description: "How to contribute, review, and label AI template assets."
+last_updated: "2025-10-24"
+version: "v2.0"
 related:
-    - RELEASE-PROCESS.md
-    - SECURITY-AND-LICENSING.md
-    - CODING-STYLE.md
+  - RELEASE-PROCESS.md
+  - SECURITY-AND-LICENSING.md
+  - CODING-STYLE.md
 ---
 
 # Contributing Templates
@@ -44,7 +44,7 @@ Use: `ai-template`, `needs-review`, `ready`.
 
 ---
 
-_This document is part of the LightSpeedWP AI documentation suite. For more, see the [AI Docs Index](./README.md)._
+*This document is part of the LightSpeedWP AI documentation suite. For more, see the [AI Docs Index](./README.md).*
 
 ---
 

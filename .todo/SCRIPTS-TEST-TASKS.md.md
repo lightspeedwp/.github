@@ -162,14 +162,14 @@ Expand these stubs with real assertions and edge cases as you develop each scrip
 
 ```javascript
 // Minimal Jest test for create-collection.js
-const createCollection = require('../../scripts/awesome-copilot/create-collection');
+const createCollection = require("../../scripts/awesome-copilot/create-collection");
 
-describe('create-collection', () => {
-    it('should be defined', () => {
-        expect(createCollection).toBeDefined();
-    });
+describe("create-collection", () => {
+  it("should be defined", () => {
+    expect(createCollection).toBeDefined();
+  });
 
-    // Add more tests here
+  // Add more tests here
 });
 ```
 
@@ -294,7 +294,7 @@ setup() {
 }
 ```
 
-2. Jest Test File Structure Advice
+1. Jest Test File Structure Advice
    Current:
 
 Jest tests are in /tests/<subfolder>/<file>.test.js.

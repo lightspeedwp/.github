@@ -1,6 +1,6 @@
 ---
 file_type: "instructions"
-applyTo: ['**/*.js', '**/*.jsx', '**/*.mjs', '**/*.cjs']
+applyTo: ["**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs"]
 description: "Apply WordPress JavaScript coding standards (formatting, naming, patterns)."
 last_updated: "2025-10-19"
 version: "v1.0"
@@ -94,7 +94,7 @@ These rules encourage liberal spacing for improved developer readability. The mi
 
 - Indentation with tabs.
 - No whitespace at the end of line or on blank lines.
-- Lines should usually be no longer than 80 characters, and should not exceed 100 (counting tabs as 4 spaces). _This is a "soft" rule, but long lines generally indicate unreadable or disorganized code._
+- Lines should usually be no longer than 80 characters, and should not exceed 100 (counting tabs as 4 spaces). *This is a "soft" rule, but long lines generally indicate unreadable or disorganized code.*
 - `if`/`else`/`for`/`while`/`try` blocks should always use braces, and always go on multiple lines.
 - Unary special-character operators (e.g., `++`, `--`) must not have space next to their operand.
 - Any `,` and `;` must not have preceding space.
@@ -103,11 +103,11 @@ These rules encourage liberal spacing for improved developer readability. The mi
 - The `?` and `:` in a ternary conditional must have space on both sides.
 - No filler spaces in empty constructs (e.g., `{}`, `[]`, `fn()`).
 - There should be a new line at the end of each file.
-- Any `!` negation operator should have a following space.<sup>*</sup>
-- All function bodies are indented by one tab, even if the entire file is wrapped in a closure.<sup>*</sup>
-- Spaces may align code within documentation blocks or within a line, but only tabs should be used at the start of a line.<sup>*</sup>
+- Any `!` negation operator should have a following space.<sup>\*</sup>
+- All function bodies are indented by one tab, even if the entire file is wrapped in a closure.<sup>\*</sup>
+- Spaces may align code within documentation blocks or within a line, but only tabs should be used at the start of a line.<sup>\*</sup>
 
-<a name="spacing-whitespace">*</a>: The WordPress JavaScript standards prefer slightly broader whitespace rules than the jQuery style guide. These deviations are for consistency between the PHP and JavaScript files in the WordPress codebase.
+<a name="spacing-whitespace">\*</a>: The WordPress JavaScript standards prefer slightly broader whitespace rules than the jQuery style guide. These deviations are for consistency between the PHP and JavaScript files in the WordPress codebase.
 
 Whitespace can easily accumulate at the end of a line – avoid this, as trailing whitespace is caught as an error in JSHint. One way to catch whitespace buildup is enabling visible whitespace characters within your text editor.
 
@@ -120,25 +120,19 @@ Arrays can be declared on a single line if they are short (remember the line len
 ```javascript
 // Preferred
 var obj = {
- ready: 9,
- when: 4,
- 'you are': 15,
+  ready: 9,
+  when: 4,
+  "you are": 15,
 };
-var arr = [
- 9,
- 4,
- 15,
-];
+var arr = [9, 4, 15];
 
 // Acceptable for small objects and arrays
-var obj = { ready: 9, when: 4, 'you are': 15 };
-var arr = [ 9, 4, 15 ];
+var obj = { ready: 9, when: 4, "you are": 15 };
+var arr = [9, 4, 15];
 
 // Bad
-var obj = { ready: 9,
- when: 4, 'you are': 15 };
-var arr = [ 9,
- 4, 15 ];
+var obj = { ready: 9, when: 4, "you are": 15 };
+var arr = [9, 4, 15];
 ```
 
 ### Arrays and Function Calls
@@ -146,19 +140,19 @@ var arr = [ 9,
 Always include extra spaces around elements and arguments:
 
 ```javascript
-array = [ a, b ];
+array = [a, b];
 
-foo( arg );
+foo(arg);
 
-foo( 'string', object );
+foo("string", object);
 
-foo( options, object[ property ] );
+foo(options, object[property]);
 
-foo( node, 'property', 2 );
+foo(node, "property", 2);
 
-prop = object[ 'default' ];
+prop = object["default"];
 
-firstArrayElement = arr[ 0 ];
+firstArrayElement = arr[0];
 ```
 
 ### Examples of Good Spacing
@@ -206,13 +200,13 @@ Indentation and line breaks add readability to complex statements.
 Tabs should be used for indentation. Even if the entire file is contained in a closure (i.e., an immediately invoked function), the contents of that function should be indented by one tab:
 
 ```javascript
-( function ( $ ) {
- // Expressions indented
-
- function doSomething() {
+(function ($) {
   // Expressions indented
- }
-} )( jQuery );
+
+  function doSomething() {
+    // Expressions indented
+  }
+})(jQuery);
 ```
 
 ### Blocks and Curly Braces
@@ -237,12 +231,28 @@ When a statement is too long to fit on one line, line breaks must occur after an
 
 ```javascript
 // Bad
-var html = '&lt;p>The sum of ' + a + ' and ' + b + ' plus ' + c
- + ' is ' + ( a + b + c ) + '&lt;/p>';
+var html =
+  "&lt;p>The sum of " +
+  a +
+  " and " +
+  b +
+  " plus " +
+  c +
+  " is " +
+  (a + b + c) +
+  "&lt;/p>";
 
 // Good
-var html = '&lt;p>The sum of ' + a + ' and ' + b + ' plus ' + c +
- ' is ' + ( a + b + c ) + '&lt;/p>';
+var html =
+  "&lt;p>The sum of " +
+  a +
+  " and " +
+  b +
+  " plus " +
+  c +
+  " is " +
+  (a + b + c) +
+  "&lt;/p>";
 ```
 
 Lines should be broken into logical groups if it improves readability, such as splitting each expression of a ternary operator onto its own line, even if both will fit on a single line.
@@ -274,12 +284,7 @@ if (
 When a chain of method calls is too long to fit on one line, there must be one call per line, with the first call on a separate line from the object the methods are called on. If the method changes the context, an extra level of indentation must be used.
 
 ```javascript
-elements
- .addClass( 'foo' )
- .children()
-  .html( 'hello' )
- .end()
- .appendTo( 'body' );
+elements.addClass("foo").children().html("hello").end().appendTo("body");
 ```
 
 ## Assignments and Globals
@@ -298,9 +303,11 @@ Assignments within the `var` statement should be listed on individual lines, whi
 
 ```javascript
 // Good
-var k, m, length,
- // Indent subsequent lines by one tab
- value = 'WordPress';
+var k,
+  m,
+  length,
+  // Indent subsequent lines by one tab
+  value = "WordPress";
 
 // Bad
 var foo = true;
@@ -331,9 +338,9 @@ Backbone, jQuery, Underscore, and the global `wp` object are all registered as a
 Backbone and Underscore may be accessed directly at any time. jQuery should be accessed through `$` by passing the `jQuery` object into an anonymous function:
 
 ```javascript
-( function ( $ ) {
- // Expressions
-} )( jQuery );
+(function ($) {
+  // Expressions
+})(jQuery);
 ```
 
 This will negate the need to call `.noConflict()`, or to set `$` using another variable.
@@ -381,13 +388,13 @@ A [`class` definition](https://developer.mozilla.org/en-US/docs/Web/JavaScript/R
 
 ```javascript
 class Earth {
- static addHuman( human ) {
-  Earth.humans.push( human );
- }
+  static addHuman(human) {
+    Earth.humans.push(human);
+  }
 
- static getHumans() {
-  return Earth.humans;
- }
+  static getHumans() {
+    return Earth.humans;
+  }
 }
 
 Earth.humans = [];
@@ -409,7 +416,7 @@ Comments come before the code to which they refer, and should always be preceded
 someStatement();
 
 // Explanation of something complex on the next line
-$( 'p' ).doSomething();
+$("p").doSomething();
 
 // This is a comment that is long enough to warrant being stretched
 // over the span of multiple lines.
@@ -420,8 +427,8 @@ JSDoc comments should use the `/**` multi-line comment opening. Refer to the [Ja
 Inline comments are allowed as an exception when used to annotate special arguments in formal parameter lists:
 
 ```javascript
-function foo( types, selector, data, fn, /* INTERNAL */ one ) {
- // Do stuff
+function foo(types, selector, data, fn, /* INTERNAL */ one) {
+  // Do stuff
 }
 ```
 
@@ -456,7 +463,7 @@ Anywhere Backbone or Underscore are already used, you are encouraged to use [Und
 Use single-quotes for string literals:
 
 ```javascript
-var myStr = 'strings should be contained in single quotes';
+var myStr = "strings should be contained in single quotes";
 ```
 
 When a string contains single quotes, they need to be escaped with a backslash (`\`):
@@ -476,39 +483,39 @@ When using `switch` statements:
 - Indent `case` statements one tab within the `switch`.
 
 ```javascript
-switch ( event.keyCode ) {
- // ENTER and SPACE both trigger x()
- case $.ui.keyCode.ENTER:
- case $.ui.keyCode.SPACE:
-  x();
-  break;
- case $.ui.keyCode.ESCAPE:
-  y();
-  break;
- default:
-  z();
+switch (event.keyCode) {
+  // ENTER and SPACE both trigger x()
+  case $.ui.keyCode.ENTER:
+  case $.ui.keyCode.SPACE:
+    x();
+    break;
+  case $.ui.keyCode.ESCAPE:
+    y();
+    break;
+  default:
+    z();
 }
 ```
 
 It is not recommended to return a value from within a switch statement: use the `case` blocks to set values, then `return` those values at the end.
 
 ```javascript
-function getKeyCode( keyCode ) {
- var result;
+function getKeyCode(keyCode) {
+  var result;
 
- switch ( event.keyCode ) {
-  case $.ui.keyCode.ENTER:
-  case $.ui.keyCode.SPACE:
-   result = 'commit';
-   break;
-  case $.ui.keyCode.ESCAPE:
-   result = 'exit';
-   break;
-  default:
-   result = 'default';
- }
+  switch (event.keyCode) {
+    case $.ui.keyCode.ENTER:
+    case $.ui.keyCode.SPACE:
+      result = "commit";
+      break;
+    case $.ui.keyCode.ESCAPE:
+      result = "exit";
+      break;
+    default:
+      result = "default";
+  }
 
- return result;
+  return result;
 }
 ```
 
@@ -525,7 +532,7 @@ var myArray = [];
 You can initialize an array during construction:
 
 ```javascript
-var myArray = [ 1, 'WordPress', 2, 'Blog' ];
+var myArray = [1, "WordPress", 2, "Blog"];
 ```
 
 In JavaScript, associative arrays are defined as objects.
@@ -548,8 +555,8 @@ Object properties should be accessed via dot notation, unless the key is a varia
 
 ```javascript
 prop = object.propertyName;
-prop = object[ variableKey ];
-prop = object['key-with-hyphens'];
+prop = object[variableKey];
+prop = object["key-with-hyphens"];
 ```
 
 ### Iteration
@@ -580,18 +587,18 @@ Underscore also permits jQuery-style chaining with regular JavaScript objects:
 
 ```javascript
 var obj = {
- first: 'thing 1',
- second: 'thing 2',
- third: 'lox'
+  first: "thing 1",
+  second: "thing 2",
+  third: "lox",
 };
 
-var arr = _.chain( obj )
- .keys()
- .map( function ( key ) {
-  return key + ' comes ' + obj[ key ];
- } )
- // Exit the chain
- .value();
+var arr = _.chain(obj)
+  .keys()
+  .map(function (key) {
+    return key + " comes " + obj[key];
+  })
+  // Exit the chain
+  .value();
 
 // arr === [ 'first comes thing 1', 'second comes thing 2', 'third comes lox' ]
 ```
@@ -601,11 +608,11 @@ var arr = _.chain( obj )
 The only time jQuery should be used for iteration is when iterating over a collection of jQuery objects:
 
 ```javascript
-$tabs.each( function ( index, element ) {
- var $element = $( element );
+$tabs.each(function (index, element) {
+  var $element = $(element);
 
- // Do stuff to $element
-} );
+  // Do stuff to $element
+});
 ```
 
 Never use jQuery to iterate over raw data or vanilla JavaScript objects.

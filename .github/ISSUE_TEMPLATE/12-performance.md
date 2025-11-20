@@ -2,10 +2,11 @@
 name: "⚡ Performance"
 about: "Report performance-related issues (speed, efficiency, resource usage) or propose optimizations."
 title: "[Performance] <Short summary>"
-labels: [type:performance, status:needs-triage, priority:normal, area:performance]
+labels:
+  [type:performance, status:needs-triage, priority:normal, area:performance]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: performance
 references:
   - ../CONTRIBUTING.md

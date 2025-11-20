@@ -1,6 +1,6 @@
 ---
-description: 'Prompt and workflow for generating conventional commit messages using a structured XML format. Guides users to create standardized, descriptive commit messages in line with the Conventional Commits specification, including instructions, examples, and validation.'
-tools: ['run_in_terminal', 'get_terminal_output']
+description: "Prompt and workflow for generating conventional commit messages using a structured XML format. Guides users to create standardized, descriptive commit messages in line with the Conventional Commits specification, including instructions, examples, and validation."
+tools: ["run_in_terminal", "get_terminal_output"]
 ---
 
 ### Instructions
@@ -24,7 +24,7 @@ tools: ['run_in_terminal', 'get_terminal_output']
 git commit -m "type(scope): description"
 ```
 
-6. Just execute this prompt and Copilot will handle the commit for you in the terminal.
+1. Just execute this prompt and Copilot will handle the commit for you in the terminal.
 
 ### Commit Message Structure
 

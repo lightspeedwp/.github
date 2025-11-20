@@ -1,6 +1,6 @@
 ---
 file_type: "instructions"
-applyTo: ['**/*.md', 'agents/**']
+applyTo: ["**/*.md", "agents/**"]
 description: "Author, evaluate, and test AI agents; design agentic workflows."
 last_updated: "2025-10-19"
 version: "v1.0"

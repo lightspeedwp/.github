@@ -169,7 +169,7 @@ All prompt files in this directory:
 ##### 🧪 Testing & Quality
 
 - **[csharp-mstest.prompt.md](./awesome-copilot/csharp-mstest.prompt.md)** - C# MSTest testing
-- **[csharp-nunit.prompt.md](./awesome-copilot/csharp-nunit.prompt.md)** - C# NUnit testing  
+- **[csharp-nunit.prompt.md](./awesome-copilot/csharp-nunit.prompt.md)** - C# NUnit testing
 - **[csharp-tunit.prompt.md](./awesome-copilot/csharp-tunit.prompt.md)** - C# TUnit testing
 - **[csharp-xunit.prompt.md](./awesome-copilot/csharp-xunit.prompt.md)** - C# XUnit testing
 - **[java-junit.prompt.md](./awesome-copilot/java-junit.prompt.md)** - Java JUnit testing
@@ -238,7 +238,7 @@ Prompts evolve with our project standards:
 
 ---
 
-_This prompt library accelerates development through AI-assisted workflows. See [Custom Instructions](../custom-instructions.md) for organization-wide Copilot configuration._
+*This prompt library accelerates development through AI-assisted workflows. See [Custom Instructions](../custom-instructions.md) for organization-wide Copilot configuration.*
 
 ---
 

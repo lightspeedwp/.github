@@ -7,7 +7,17 @@ maintainer: "Ash Shaw"
 description: "Reusable shell functions, utilities, and test helpers used across all LightSpeed WP scripts and test suites. Comprehensive CLI utilities, logging, validation, and testing infrastructure."
 type: "shared-library"
 status: "production"
-tags: ["utilities", "helpers", "testing", "bash", "shell", "logging", "validation", "cli"]
+tags:
+  [
+    "utilities",
+    "helpers",
+    "testing",
+    "bash",
+    "shell",
+    "logging",
+    "validation",
+    "cli",
+  ]
 license: "GPL-3.0"
 repository: "https://github.com/lightspeedwp/.github"
 ai_references:
@@ -40,29 +50,29 @@ graph TB
     A --> D[File Operations]
     A --> E[Test Helpers]
     A --> F[Network Functions]
-    
+
     B --> G[Logging System]
     B --> H[Validation Engine]
     B --> I[Color Support]
     B --> J[Common Functions]
-    
+
     C --> K[Argument Parsing]
     C --> L[Help Generation]
-    
+
     D --> M[Safe File Operations]
     D --> N[Backup Management]
-    
+
     E --> O[Enhanced Testing]
     E --> P[Agent Testing]
     E --> Q[Mocking Framework]
-    
+
     F --> R[Git Operations]
     F --> S[Repository Management]
-    
+
     T[All Scripts] --> A
     U[Test Suites] --> E
     V[CI/CD Workflows] --> A
-    
+
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style E fill:#e8f5e8
@@ -332,7 +342,7 @@ sequenceDiagram
     participant Validation as Validator
     participant CLI as CLI Parser
     participant Tests as Test Runner
-    
+
     Script->>Includes: Source utilities
     Includes->>CLI: parse_common_args()
     CLI->>Script: Return parsed args
@@ -343,7 +353,7 @@ sequenceDiagram
     Script->>Tests: Run test suite
     Tests->>Includes: Use test helpers
     Tests->>Script: Test results
-    
+
     Note over Script,Tests: All operations standardized
 ```
 
@@ -374,4 +384,4 @@ sequenceDiagram
 
 ---
 
-_🔧 Building robust automation through shared utilities and comprehensive testing._
+*🔧 Building robust automation through shared utilities and comprehensive testing.*

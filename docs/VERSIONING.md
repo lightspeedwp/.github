@@ -21,7 +21,7 @@ LightSpeedWP projects follow [Semantic Versioning](https://semver.org/) (SemVer)
 
 ```yaml
 ---
-version: "1.2.3"  # Must match contents of root VERSION file
+version: "1.2.3" # Must match contents of root VERSION file
 ---
 ```
 
@@ -39,7 +39,7 @@ Version numbers follow the format: `MAJOR.MINOR.PATCH`
 - **PATCH**: Incremented for backwards-compatible bug fixes
 
 **Pre-release Versions:**  
-May include identifiers:  
+May include identifiers:
 
 - `1.0.0-alpha.1`
 - `1.0.0-beta.1`

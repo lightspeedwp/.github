@@ -10,11 +10,11 @@ Namespace: `core/edit-site`.
 
 Returns whether the current user can create media or not.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Object`: Whether the current user can create media or not.
 
@@ -28,11 +28,11 @@ _Returns_
 
 Returns the template parts and their blocks for the current edited template.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Array`: Template parts and their blocks in an array.
 
@@ -42,11 +42,11 @@ _Returns_
 
 Returns the edited post's context object.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Object`: Page.
 
@@ -56,11 +56,11 @@ _Returns_
 
 Returns the ID of the currently edited template or template part.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `?string`: Post ID.
 
@@ -70,11 +70,11 @@ _Returns_
 
 Returns the current edited post type (wp_template or wp_template_part).
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `?TemplateType`: Template type.
 
@@ -82,11 +82,11 @@ _Returns_
 
 Returns the current editing mode.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `string`: Editing mode.
 
@@ -104,11 +104,11 @@ _Returns_
 
 Returns the current page object.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Object`: Page.
 
@@ -116,11 +116,11 @@ _Returns_
 
 Returns any available Reusable blocks.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Array`: The available reusable blocks.
 
@@ -128,11 +128,11 @@ _Returns_
 
 Returns the site editor settings.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Object`: Settings.
 
@@ -142,7 +142,7 @@ _Returns_
 
 Whether or not the editor allows only page content to be edited.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether or not focus is on editing page content.
 
@@ -152,12 +152,12 @@ _Returns_
 
 Returns whether the given feature is enabled or not.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _featureName_ `string`: Feature slug.
+- *state* `Object`: Global application state.
+- *featureName* `string`: Feature slug.
 
-_Returns_
+*Returns*
 
 - `boolean`: Is active.
 
@@ -167,11 +167,11 @@ _Returns_
 
 Returns true if the inserter is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the inserter is opened.
 
@@ -179,11 +179,11 @@ _Returns_
 
 Returns true if the list view is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the list view is opened.
 
@@ -197,15 +197,15 @@ _Returns_
 
 Whether or not the editor has a page loaded into it.
 
-_Related_
+*Related*
 
 - setPage
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether or not the editor has a page loaded into it.
 
@@ -213,11 +213,11 @@ _Returns_
 
 Returns the current opened/closed state of the save panel.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: True if the save panel should be open; false if closed.
 
@@ -233,11 +233,11 @@ _Returns_
 
 Action that adds a new template and sets it as the current template.
 
-_Parameters_
+*Parameters*
 
-- _template_ `Object`: The template.
+- *template* `Object`: The template.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object used to set the current template.
 
@@ -249,9 +249,9 @@ Action that closes the sidebar.
 
 Action that opens an editor sidebar.
 
-_Parameters_
+*Parameters*
 
-- _name_ `?string`: Sidebar name to be opened.
+- *name* `?string`: Sidebar name to be opened.
 
 ### openNavigationPanelToMenu
 
@@ -263,19 +263,19 @@ Opens the navigation panel and sets its active menu at the same time.
 
 Action that removes a template.
 
-_Parameters_
+*Parameters*
 
-- _template_ `Object`: The template object.
+- *template* `Object`: The template object.
 
 ### revertTemplate
 
 Reverts a template to its original theme-provided file.
 
-_Parameters_
+*Parameters*
 
-- _template_ `Object`: The template to revert.
-- _options_ `[Object]`:
-- _options.allowUndo_ `[boolean]`: Whether to allow the user to undo reverting the template. Default true.
+- *template* `Object`: The template to revert.
+- *options* `[Object]`:
+- *options.allowUndo* `[boolean]`: Whether to allow the user to undo reverting the template. Default true.
 
 ### setEditedEntity
 
@@ -283,13 +283,13 @@ _Parameters_
 
 Action that sets an edited entity.
 
-_Parameters_
+*Parameters*
 
-- _postType_ `string`: The entity's post type.
-- _postId_ `string`: The entity's ID.
-- _context_ `Object`: The entity's context.
+- *postType* `string`: The entity's post type.
+- *postId* `string`: The entity's ID.
+- *context* `Object`: The entity's context.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -299,11 +299,11 @@ _Returns_
 
 Set's the current block editor context.
 
-_Parameters_
+*Parameters*
 
-- _context_ `Object`: The context object.
+- *context* `Object`: The context object.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -311,9 +311,9 @@ _Returns_
 
 Sets whether or not the editor allows only page content to be edited.
 
-_Parameters_
+*Parameters*
 
-- _hasPageContentFocus_ `boolean`: True to allow only page content to be edited, false to allow template to be edited.
+- *hasPageContentFocus* `boolean`: True to allow only page content to be edited, false to allow template to be edited.
 
 ### setHomeTemplateId
 
@@ -325,9 +325,9 @@ _Parameters_
 
 Returns an action object used to open/close the inserter.
 
-_Parameters_
+*Parameters*
 
-- _value_ `boolean|Object`: Whether the inserter should be opened (true) or closed (false).
+- *value* `boolean|Object`: Whether the inserter should be opened (true) or closed (false).
 
 ### setIsListViewOpened
 
@@ -335,9 +335,9 @@ _Parameters_
 
 Returns an action object used to open/close the list view.
 
-_Parameters_
+*Parameters*
 
-- _isOpen_ `boolean`: A boolean representing whether the list view should be opened or closed.
+- *isOpen* `boolean`: A boolean representing whether the list view should be opened or closed.
 
 ### setIsNavigationPanelOpened
 
@@ -349,9 +349,9 @@ Sets whether the navigation panel should be open.
 
 Sets whether the save view panel should be open.
 
-_Parameters_
+*Parameters*
 
-- _isOpen_ `boolean`: If true, opens the save view. If false, closes it. It does not toggle the state, but sets it directly.
+- *isOpen* `boolean`: If true, opens the save view. If false, closes it. It does not toggle the state, but sets it directly.
 
 ### setNavigationMenu
 
@@ -359,11 +359,11 @@ _Parameters_
 
 Action that sets a navigation menu.
 
-_Parameters_
+*Parameters*
 
-- _navigationMenuId_ `string`: The Navigation Menu Post ID.
+- *navigationMenuId* `string`: The Navigation Menu Post ID.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -373,7 +373,7 @@ _Returns_
 
 Action that sets the active navigation panel menu.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -383,7 +383,7 @@ _Returns_
 
 Resolves the template for a page and displays both. If no path is given, attempts to use the postId to generate a path like `?p=${ postId }`.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -391,7 +391,7 @@ _Returns_
 
 Action that sets a template, optionally fetching it from REST API.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -401,11 +401,11 @@ _Returns_
 
 Action that sets a template part.
 
-_Parameters_
+*Parameters*
 
-- _templatePartId_ `string`: The template part ID.
+- *templatePartId* `string`: The template part ID.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -415,9 +415,9 @@ _Returns_
 
 Triggers an action used to switch editor mode.
 
-_Parameters_
+*Parameters*
 
-- _mode_ `string`: The editor mode.
+- *mode* `string`: The editor mode.
 
 ### toggleDistractionFree
 
@@ -429,19 +429,19 @@ Action that toggles Distraction free mode. Distraction free mode expects there a
 
 Dispatches an action that toggles a feature flag.
 
-_Parameters_
+*Parameters*
 
-- _featureName_ `string`: Feature name.
+- *featureName* `string`: Feature name.
 
 ### updateSettings
 
 Returns an action object used to update the settings.
 
-_Parameters_
+*Parameters*
 
-- _settings_ `Object`: New settings.
+- *settings* `Object`: New settings.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 

@@ -35,22 +35,11 @@ npm pkg set scripts.precommit="lint-staged"
 // package.json
 {
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "wp-scripts lint-js --fix",
-      "wp-scripts format"
-    ],
-    "*.{css,scss}": [
-      "wp-scripts lint-style --fix"
-    ],
-    "*.php": [
-      "composer run lint:fix"
-    ],
-    "*.md": [
-      "markdownlint --fix"
-    ],
-    "*.json": [
-      "prettier --write"
-    ]
+    "*.{js,jsx,ts,tsx}": ["wp-scripts lint-js --fix", "wp-scripts format"],
+    "*.{css,scss}": ["wp-scripts lint-style --fix"],
+    "*.php": ["composer run lint:fix"],
+    "*.md": ["markdownlint --fix"],
+    "*.json": ["prettier --write"]
   }
 }
 ```
@@ -73,10 +62,7 @@ npm pkg set scripts.precommit="lint-staged"
 
 ```json
 {
-  "*.{css,scss}": [
-    "stylelint --fix",
-    "prettier --write"
-  ]
+  "*.{css,scss}": ["stylelint --fix", "prettier --write"]
 }
 ```
 
@@ -84,10 +70,7 @@ npm pkg set scripts.precommit="lint-staged"
 
 ```json
 {
-  "*.php": [
-    "composer run lint:fix",
-    "composer run test:syntax"
-  ]
+  "*.php": ["composer run lint:fix", "composer run test:syntax"]
 }
 ```
 
@@ -95,13 +78,8 @@ npm pkg set scripts.precommit="lint-staged"
 
 ```json
 {
-  "*.md": [
-    "markdownlint --fix",
-    "prettier --write"
-  ],
-  "*.{yaml,yml}": [
-    "prettier --write"
-  ]
+  "*.md": ["markdownlint --fix", "prettier --write"],
+  "*.{yaml,yml}": ["prettier --write"]
 }
 ```
 
@@ -112,13 +90,8 @@ npm pkg set scripts.precommit="lint-staged"
 ```json
 {
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "wp-scripts lint-js --fix",
-      "wp-scripts format"
-    ],
-    "*.{css,scss}": [
-      "wp-scripts lint-style --fix"
-    ],
+    "*.{js,jsx,ts,tsx}": ["wp-scripts lint-js --fix", "wp-scripts format"],
+    "*.{css,scss}": ["wp-scripts lint-style --fix"],
     "*.php": [
       "./vendor/bin/phpcbf --standard=WordPress",
       "./vendor/bin/phpcs --standard=WordPress"
@@ -136,17 +109,17 @@ npm pkg set scripts.precommit="lint-staged"
 ```javascript
 // lint-staged.config.js - For complex setups
 module.exports = {
-  '*.{js,jsx,ts,tsx}': (filenames) => [
-    `eslint --fix ${filenames.join(' ')}`,
-    `prettier --write ${filenames.join(' ')}`,
-    `jest --findRelatedTests ${filenames.join(' ')} --passWithNoTests`,
+  "*.{js,jsx,ts,tsx}": (filenames) => [
+    `eslint --fix ${filenames.join(" ")}`,
+    `prettier --write ${filenames.join(" ")}`,
+    `jest --findRelatedTests ${filenames.join(" ")} --passWithNoTests`,
   ],
-  '*.php': (filenames) => [
-    `./vendor/bin/phpcbf --standard=WordPress ${filenames.join(' ')}`,
-    `./vendor/bin/phpcs --standard=WordPress ${filenames.join(' ')}`,
+  "*.php": (filenames) => [
+    `./vendor/bin/phpcbf --standard=WordPress ${filenames.join(" ")}`,
+    `./vendor/bin/phpcs --standard=WordPress ${filenames.join(" ")}`,
   ],
-  '*.{css,scss}': ['stylelint --fix', 'prettier --write'],
-  '*.md': ['markdownlint --fix', 'prettier --write'],
+  "*.{css,scss}": ["stylelint --fix", "prettier --write"],
+  "*.md": ["markdownlint --fix", "prettier --write"],
 };
 ```
 

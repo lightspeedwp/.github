@@ -14,7 +14,7 @@ LightSpeedWP **YAML** documentation standards (GitHub Actions, configs).
 name: CI
 on:
   pull_request:
-    paths: [ "**/*.php", "**/*.js" ]
+    paths: ["**/*.php", "**/*.js"]
 jobs:
   lint:
     runs-on: ubuntu-latest

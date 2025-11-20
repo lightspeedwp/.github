@@ -1,9 +1,9 @@
 ---
-title: 'Agent Task: Implement Markdown Linting Workflow'
-description: 'Repeatable agent task for setting up markdownlint-cli2 with GitHub rules'
-version: '1.0.0'
-tags: ['agent', 'task', 'markdown', 'linting', 'automation']
-author: 'LightSpeedWP'
+title: "Agent Task: Implement Markdown Linting Workflow"
+description: "Repeatable agent task for setting up markdownlint-cli2 with GitHub rules"
+version: "1.0.0"
+tags: ["agent", "task", "markdown", "linting", "automation"]
+author: "LightSpeedWP"
 ---
 
 # Agent Task: Implement Markdown Linting Workflow
@@ -58,43 +58,43 @@ Add/merge the following:
 
 ```jsonc
 {
-    "devDependencies": {
-        "markdownlint-cli2": "^0.15.0",
-        "@github/markdownlint-github": "^0.8.0",
-        "markdownlint-cli2-formatter-pretty": "^0.0.6",
-        "lint-staged": "^15.0.0",
-        "husky": "^9.0.0"
-    },
-    "scripts": {
-        "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
-        "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
-        "prepare": "husky install"
-    },
-    "lint-staged": {
-        "*.{md,mdx}": "markdownlint-cli2"
-    }
+  "devDependencies": {
+    "markdownlint-cli2": "^0.15.0",
+    "@github/markdownlint-github": "^0.8.0",
+    "markdownlint-cli2-formatter-pretty": "^0.0.6",
+    "lint-staged": "^15.0.0",
+    "husky": "^9.0.0",
+  },
+  "scripts": {
+    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
+    "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
+    "prepare": "husky install",
+  },
+  "lint-staged": {
+    "*.{md,mdx}": "markdownlint-cli2",
+  },
 }
 ```
 
 ### 2. `.markdownlint-cli2.mjs` (new)
 
 ```javascript
-import markdownIt from 'markdown-it';
-import { init } from '@github/markdownlint-github';
+import markdownIt from "markdown-it";
+import { init } from "@github/markdownlint-github";
 
 const markdownItFactory = () => markdownIt({ html: true });
 
 const options = {
-    config: init({
-        // Safe defaults; adjust per repository
-        MD013: { line_length: 120, code_blocks: false, tables: false },
-        MD024: { siblings_only: true },
-    }),
-    customRules: ['@github/markdownlint-github'],
-    markdownItFactory,
-    outputFormatters: [
-        ['markdownlint-cli2-formatter-pretty', { appendLink: true }],
-    ],
+  config: init({
+    // Safe defaults; adjust per repository
+    MD013: { line_length: 120, code_blocks: false, tables: false },
+    MD024: { siblings_only: true },
+  }),
+  customRules: ["@github/markdownlint-github"],
+  markdownItFactory,
+  outputFormatters: [
+    ["markdownlint-cli2-formatter-pretty", { appendLink: true }],
+  ],
 };
 
 export default options;
@@ -104,8 +104,8 @@ export default options;
 
 ```json
 {
-    // Example: enforce ATX headings; rely on MD013 configured in cli2.mjs
-    "MD003": { "style": "atx" }
+  // Example: enforce ATX headings; rely on MD013 configured in cli2.mjs
+  "MD003": { "style": "atx" }
 }
 ```
 
@@ -114,35 +114,35 @@ export default options;
 ```yaml
 name: markdownlint
 on:
-    pull_request:
-        branches: [main, master, develop]
-    push:
-        branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+  push:
+    branches: [main, master, develop]
 
 jobs:
-    lint:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - name: markdownlint-cli2
-              uses: DavidAnson/markdownlint-cli2-action@v16
-              with:
-                  globs: '**/*.{md,mdx}'
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: markdownlint-cli2
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: "**/*.{md,mdx}"
 ```
 
 ### 5. `.vscode/settings.json` (merge or new)
 
 ```jsonc
 {
-    // Use VS Code + markdownlint for local parity
-    "editor.rulers": [120],
-    "markdownlint.config": {
-        "MD003": { "style": "atx" },
-        "MD013": { "line_length": 120, "code_blocks": false, "tables": false }
-    },
-    "files.eol": "\n",
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
+  // Use VS Code + markdownlint for local parity
+  "editor.rulers": [120],
+  "markdownlint.config": {
+    "MD003": { "style": "atx" },
+    "MD013": { "line_length": 120, "code_blocks": false, "tables": false },
+  },
+  "files.eol": "\n",
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
 }
 ```
 

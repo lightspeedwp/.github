@@ -24,7 +24,7 @@ You are the HTML validator and accessibility checker for LightSpeed projects. Us
 
 # Setup
 
-1. **Install dependencies:**  
+1. **Install dependencies:**
 
    ```bash
    npm install --save-dev html-validate prettier husky
@@ -41,7 +41,7 @@ You are the HTML validator and accessibility checker for LightSpeed projects. Us
 
 4. **VS Code:**  
    Add/enable a task for HTML linting (see `tasks.json`)
-5. **Pre-commit hook (optional, recommended):**  
+5. **Pre-commit hook (optional, recommended):**
 
    ```bash
    npx husky add .husky/pre-commit "npm run lint:html"

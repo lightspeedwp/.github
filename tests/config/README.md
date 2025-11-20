@@ -1,19 +1,19 @@
 ---
-title: 'Configuration Tests'
-description: 'Test suite for validating agent configuration handling, environment variables, and operational modes'
-version: '1.0'
-last_updated: '2025-11-18'
-author: 'LightSpeed WP Team'
-category: 'tests'
-tags: ['config', 'testing', 'agents', 'environment', 'bats']
+title: "Configuration Tests"
+description: "Test suite for validating agent configuration handling, environment variables, and operational modes"
+version: "1.0"
+last_updated: "2025-11-18"
+author: "LightSpeed WP Team"
+category: "tests"
+tags: ["config", "testing", "agents", "environment", "bats"]
 standards:
-  - 'https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md'
-  - 'https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md'
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md"
 references:
-  - '../README.md'
-  - '../../docs/TESTING.md'
-  - '../../docs/config/README.md'
-  - '../includes/agent-test-helpers.bash'
+  - "../README.md"
+  - "../../docs/TESTING.md"
+  - "../../docs/config/README.md"
+  - "../includes/agent-test-helpers.bash"
 ---
 
 # Configuration Tests
@@ -32,9 +32,9 @@ The configuration test suite ensures all agents:
 
 ## Test Files
 
-| File | Purpose | Test Count | Status |
-|------|---------|-----------|--------|
-| `test-agent-config.bats` | Agent configuration validation | 12+ | ✅ Active |
+| File                     | Purpose                        | Test Count | Status    |
+| ------------------------ | ------------------------------ | ---------- | --------- |
+| `test-agent-config.bats` | Agent configuration validation | 12+        | ✅ Active |
 
 ## Test Categories
 
@@ -43,6 +43,7 @@ The configuration test suite ensures all agents:
 **Purpose:** Ensure agents properly validate and use environment variables.
 
 **Tests:**
+
 - Missing required variables (GITHUB_TOKEN, GITHUB_REPOSITORY)
 - Invalid variable formats
 - Default value application
@@ -50,6 +51,7 @@ The configuration test suite ensures all agents:
 - Sensitive variable protection
 
 **Coverage:**
+
 - Required environment variables
 - Optional configuration
 - Fallback mechanisms
@@ -60,6 +62,7 @@ The configuration test suite ensures all agents:
 **Purpose:** Verify agents respect different operational modes.
 
 **Tests:**
+
 - Dry-run mode (no actual changes)
 - Debug mode (verbose logging)
 - Production mode (minimal output)
@@ -67,6 +70,7 @@ The configuration test suite ensures all agents:
 - CI/CD mode (non-interactive)
 
 **Coverage:**
+
 - Mode detection
 - Mode-specific behavior
 - Mode transitions
@@ -77,6 +81,7 @@ The configuration test suite ensures all agents:
 **Purpose:** Test agent behavior with various configuration file scenarios.
 
 **Tests:**
+
 - Missing configuration files
 - Invalid JSON/YAML syntax
 - Schema validation
@@ -84,6 +89,7 @@ The configuration test suite ensures all agents:
 - Optional fields handling
 
 **Coverage:**
+
 - Agent config files
 - Workflow configuration
 - Custom settings
@@ -94,6 +100,7 @@ The configuration test suite ensures all agents:
 **Purpose:** Ensure agents fail safely when configuration is problematic.
 
 **Tests:**
+
 - Meaningful error messages
 - Non-zero exit codes
 - Logging before exit
@@ -101,6 +108,7 @@ The configuration test suite ensures all agents:
 - State cleanup
 
 **Coverage:**
+
 - Startup validation
 - Runtime checks
 - Error reporting
@@ -153,13 +161,13 @@ Configuration tests utilize these helper functions:
 
 Tests manipulate these environment variables:
 
-| Variable | Purpose | Test Values |
-|----------|---------|-------------|
-| `GITHUB_TOKEN` | GitHub authentication | Valid/invalid/missing |
-| `GITHUB_REPOSITORY` | Repository context | Valid/invalid/missing |
-| `DRY_RUN` | Enable dry-run mode | `true`/`false`/missing |
-| `DEBUG` | Enable debug mode | `true`/`false`/missing |
-| `CI` | CI environment indicator | `true`/`false` |
+| Variable            | Purpose                  | Test Values            |
+| ------------------- | ------------------------ | ---------------------- |
+| `GITHUB_TOKEN`      | GitHub authentication    | Valid/invalid/missing  |
+| `GITHUB_REPOSITORY` | Repository context       | Valid/invalid/missing  |
+| `DRY_RUN`           | Enable dry-run mode      | `true`/`false`/missing |
+| `DEBUG`             | Enable debug mode        | `true`/`false`/missing |
+| `CI`                | CI environment indicator | `true`/`false`         |
 
 ## Writing Configuration Tests
 
@@ -230,30 +238,30 @@ All agents must comply with:
 
 All agents must handle these variables:
 
-| Variable | Purpose | Required | Default |
-|----------|---------|----------|---------|
-| `GITHUB_TOKEN` | GitHub authentication | ✅ Yes | None |
-| `GITHUB_REPOSITORY` | Repository context | ✅ Yes | None |
+| Variable            | Purpose               | Required | Default |
+| ------------------- | --------------------- | -------- | ------- |
+| `GITHUB_TOKEN`      | GitHub authentication | ✅ Yes   | None    |
+| `GITHUB_REPOSITORY` | Repository context    | ✅ Yes   | None    |
 
 ### Common Optional
 
 These variables should be supported where applicable:
 
-| Variable | Purpose | Required | Default |
-|----------|---------|----------|---------|
-| `DRY_RUN` | Prevent actual changes | ❌ No | `false` |
-| `DEBUG` | Enable verbose logging | ❌ No | `false` |
-| `CI` | CI environment indicator | ❌ No | Autodetect |
-| `GITHUB_EVENT_PATH` | Event payload path | ❌ No | None |
+| Variable            | Purpose                  | Required | Default    |
+| ------------------- | ------------------------ | -------- | ---------- |
+| `DRY_RUN`           | Prevent actual changes   | ❌ No    | `false`    |
+| `DEBUG`             | Enable verbose logging   | ❌ No    | `false`    |
+| `CI`                | CI environment indicator | ❌ No    | Autodetect |
+| `GITHUB_EVENT_PATH` | Event payload path       | ❌ No    | None       |
 
 ## Test Coverage Goals
 
-| Area | Current | Target | Status |
-|------|---------|--------|--------|
-| Env var validation | 75% | 95% | 🟡 In Progress |
-| Mode detection | 80% | 90% | 🟡 In Progress |
-| Error messages | 85% | 95% | 🟢 Good |
-| Defaults handling | 70% | 85% | 🟡 In Progress |
+| Area               | Current | Target | Status         |
+| ------------------ | ------- | ------ | -------------- |
+| Env var validation | 75%     | 95%    | 🟡 In Progress |
+| Mode detection     | 80%     | 90%    | 🟡 In Progress |
+| Error messages     | 85%     | 95%    | 🟢 Good        |
+| Defaults handling  | 70%     | 85%    | 🟡 In Progress |
 
 ## Related Documentation
 
@@ -277,6 +285,7 @@ Configuration tests run automatically:
 ### Test Failures
 
 **Environment not restored:**
+
 ```bash
 # Ensure teardown saves/restores
 setup() {
@@ -289,6 +298,7 @@ teardown() {
 ```
 
 **Tests affecting each other:**
+
 ```bash
 # Check for global state
 # Ensure proper cleanup
@@ -296,6 +306,7 @@ teardown() {
 ```
 
 **Timeout on missing config:**
+
 ```bash
 # Agent might wait for input
 # Add timeout to tests
@@ -305,11 +316,13 @@ run timeout 10s node "$agent"
 ### Common Issues
 
 **Missing error message:**
+
 - Verify agent validates config at startup
 - Check error output goes to stderr/stdout
 - Ensure non-zero exit code on failure
 
 **Test environment contamination:**
+
 - Use `setup()` and `teardown()` consistently
 - Save original environment
 - Clean up temp files

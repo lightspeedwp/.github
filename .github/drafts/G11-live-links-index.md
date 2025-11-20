@@ -2,10 +2,17 @@
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Docs] Create Live Links index (exact `develop` URLs)"
-labels: [type:documentation, status:needs-triage, priority:normal, area:documentation, link-hygiene]
+labels:
+  [
+    type:documentation,
+    status:needs-triage,
+    priority:normal,
+    area:documentation,
+    link-hygiene,
+  ]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: documentation
 references:
   - ../CONTRIBUTING.md
@@ -84,6 +91,7 @@ We need a comprehensive Live Links index in DOCS.md that lists canonical files a
 Quick access to canonical files and directories (all links point to `develop` branch).
 
 ### Governance & Meta
+
 - [GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/GOVERNANCE.md) - Governance policies and team structure
 - [CODEOWNERS](https://github.com/lightspeedwp/.github/blob/develop/CODEOWNERS) - Code ownership and review assignments
 - [CONTRIBUTING.md](https://github.com/lightspeedwp/.github/blob/develop/CONTRIBUTING.md) - Contribution guidelines
@@ -91,28 +99,33 @@ Quick access to canonical files and directories (all links point to `develop` br
 - [VERSION](https://github.com/lightspeedwp/.github/blob/develop/VERSION) - Current version number
 
 ### Documentation
+
 - [DOCS.md](https://github.com/lightspeedwp/.github/blob/develop/DOCS.md) - Documentation index (this file)
 - [README.md](https://github.com/lightspeedwp/.github/blob/develop/README.md) - Repository overview
 - [DEVELOPMENT.md](https://github.com/lightspeedwp/.github/blob/develop/DEVELOPMENT.md) - Development setup and workflows
 - [docs/](https://github.com/lightspeedwp/.github/tree/develop/docs) - Documentation directory
 
 ### Workflows & Automation
+
 - [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/AUTOMATION_GOVERNANCE.md) - Automation governance
 - [.github/automation/](https://github.com/lightspeedwp/.github/tree/develop/.github/automation) - Automation configs
 - [.github/automation/labels.yml](https://github.com/lightspeedwp/.github/blob/develop/.github/automation/labels.yml) - Label definitions
 - [.github/automation/labeler.yml](https://github.com/lightspeedwp/.github/blob/develop/.github/automation/labeler.yml) - Auto-labeling rules
 
 ### Agents & AI
+
 - [AGENTS.md](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) - Agent index
 - [CLAUDE.md](https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md) - Claude agent guidance
 - [.github/custom-instructions.md](https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md) - AI custom instructions
 - [agents/](https://github.com/lightspeedwp/.github/tree/develop/agents) - Agent specifications
 
 ### Security & Support
+
 - [SECURITY.md](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md) - Security policy and reporting
 - [SUPPORT.md](https://github.com/lightspeedwp/.github/blob/develop/SUPPORT.md) - Support channels and resources
 
 ### Schemas & Standards
+
 - [schemas/](https://github.com/lightspeedwp/.github/tree/develop/schemas) - JSON schemas directory
 - [.github/instructions/](https://github.com/lightspeedwp/.github/tree/develop/.github/instructions) - Coding standards and instructions
 ```

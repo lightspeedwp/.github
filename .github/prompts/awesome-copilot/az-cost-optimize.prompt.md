@@ -1,6 +1,6 @@
 ---
-mode: 'agent'
-description: 'Analyze Azure resources used in the app (IaC files and/or resources in a target rg) and optimize costs - creating GitHub issues for identified optimizations.'
+mode: "agent"
+description: "Analyze Azure resources used in the app (IaC files and/or resources in a target rg) and optimize costs - creating GitHub issues for identified optimizations."
 ---
 
 # Azure Cost Optimize
@@ -10,7 +10,7 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
 ## Prerequisites
 
 - Azure MCP server configured and authenticated
-- GitHub MCP server configured and authenticated  
+- GitHub MCP server configured and authenticated
 - Target GitHub repository identified
 - Azure resources deployed (IaC files optional but helpful)
 - Prefer Azure MCP tools (`azmcp-*`) over direct Azure CLI when available
@@ -41,7 +41,7 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
      - Use `az resource list --subscription <id> --resource-group <name>`
    - For each resource type, use MCP tools first if possible, then CLI fallback:
      - `azmcp-cosmos-account-list --subscription <id>` - Cosmos DB accounts
-     - `azmcp-storage-account-list --subscription <id>` - Storage accounts  
+     - `azmcp-storage-account-list --subscription <id>` - Storage accounts
      - `azmcp-monitor-workspace-list --subscription <id>` - Log Analytics workspaces
      - `azmcp-keyvault-key-list` - Key Vaults
      - `az webapp list` - Web Apps (fallback - no MCP tool available)
@@ -52,7 +52,7 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
      - ... and so on for other resource types
 
 2. **IaC Detection**:
-   - Use `file_search` to scan for IaC files: "**/*.bicep", "**/*.tf", "**/main.json", "**/*template*.json"
+   - Use `file_search` to scan for IaC files: "**/\*.bicep", "**/*.tf", "**/main.json", "**/*template\*.json"
    - Parse resource definitions to understand intended configurations
    - Compare against discovered resources to identify discrepancies
    - Note presence of IaC files for implementation recommendations later on
@@ -85,13 +85,13 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
    AppServiceAppLogs
    | where TimeGenerated > ago(7d)
    | summarize avg(CpuTime) by Resource, bin(TimeGenerated, 1h)
-   
-   // Cosmos DB RU consumption  
+
+   // Cosmos DB RU consumption
    AzureDiagnostics
    | where ResourceProvider == "MICROSOFT.DOCUMENTDB"
    | where TimeGenerated > ago(7d)
    | summarize avg(RequestCharge) by Resource
-   
+
    // Storage account access patterns
    StorageBlobLogs
    | where TimeGenerated > ago(7d)
@@ -147,7 +147,7 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
 
    ```
    Priority Score = (Value Score × Monthly Savings) / (Risk Score × Implementation Days)
-   
+
    High Priority: Score > 20
    Medium Priority: Score 5-20
    Low Priority: Score < 5
@@ -168,24 +168,24 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
 
    ```
    🎯 Azure Cost Optimization Summary
-   
+
    📊 Analysis Results:
    • Total Resources Analyzed: X
-   • Current Monthly Cost: $X 
-   • Potential Monthly Savings: $Y 
+   • Current Monthly Cost: $X
+   • Potential Monthly Savings: $Y
    • Optimization Opportunities: Z
    • High Priority Items: N
-   
+
    🏆 Recommendations:
    1. [Resource]: [Current SKU] → [Target SKU] = $X/month savings - [Risk Level] | [Implementation Effort]
    2. [Resource]: [Current Config] → [Target Config] = $Y/month savings - [Risk Level] | [Implementation Effort]
    3. [Resource]: [Current Config] → [Target Config] = $Z/month savings - [Risk Level] | [Implementation Effort]
    ... and so on
-   
+
    💡 This will create:
    • Y individual GitHub issues (one per optimization)
    • 1 EPIC issue to coordinate implementation
-   
+
    ❓ Proceed with creating GitHub issues? (y/n)
    ```
 
@@ -203,28 +203,30 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
 
    **Body Template**:
 
-   ```markdown
+   ````markdown
    ## 💰 Cost Optimization: [Brief Title]
-   
+
    **Monthly Savings**: $X | **Risk Level**: [Low/Medium/High] | **Implementation Effort**: X days
-   
+
    ### 📋 Description
+
    [Clear explanation of the optimization and why it's needed]
-   
+
    ### 🔧 Implementation
-   
+
    **IaC Files Detected**: [Yes/No - based on file_search results]
-   
+
    ```bash
    # If IaC files found: Show IaC modifications + deployment
    # File: infrastructure/bicep/modules/app-service.bicep
    # Change: sku.name: 'S3' → 'B2'
    az deployment group create --resource-group [rg] --template-file infrastructure/bicep/main.bicep
-   
+
    # If no IaC files: Direct Azure CLI commands + warning
    # ⚠️ No IaC files found. If they exist elsewhere, modify those instead.
    az appservice plan update --name [plan] --sku B2
    ```
+   ````
 
    ### 📊 Evidence
 
@@ -249,6 +251,8 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
 
    ```
 
+   ```
+
 ### Step 7: Create EPIC Coordinating Issue
 
 **Action**: Create master issue to track all optimization work. Label it with "cost-optimization" (green color), "azure" (blue color), and "epic" (purple color).
@@ -262,25 +266,27 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
 
    **Body Template**:
 
-   ```markdown
+   ````markdown
    # 🎯 Azure Cost Optimization EPIC
-   
+
    **Total Potential Savings**: $X/month | **Implementation Timeline**: X weeks
-   
+
    ## 📊 Executive Summary
+
    - **Resources Analyzed**: X
-   - **Optimization Opportunities**: Y  
+   - **Optimization Opportunities**: Y
    - **Total Monthly Savings Potential**: $X
    - **High Priority Items**: N
-   
+
    ## 🏗️ Current Architecture Overview
-   
+
    ```mermaid
    graph TB
        subgraph "Resource Group: [name]"
            [Generated architecture diagram showing current resources and costs]
        end
    ```
+   ````
 
    ## 📋 Implementation Tracking
 
@@ -307,7 +313,7 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
    ## 🎯 Success Criteria
 
    - [ ] All high-priority optimizations implemented
-   - [ ] >80% of estimated savings realized
+   - [ ] > 80% of estimated savings realized
    - [ ] No performance degradation observed
    - [ ] Cost monitoring dashboard updated
 
@@ -316,6 +322,8 @@ This workflow analyzes Infrastructure-as-Code (IaC) files and Azure resources to
    - Review and update this EPIC as issues are completed
    - Monitor actual vs. estimated savings
    - Consider scheduling regular cost optimization reviews
+
+   ```
 
    ```
 

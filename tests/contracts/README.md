@@ -1,19 +1,19 @@
 ---
-title: 'Contract Tests'
-description: 'Test suite for validating schema compliance, template contracts, and data integrity across configurations'
-version: '1.0'
-last_updated: '2025-11-18'
-author: 'LightSpeed WP Team'
-category: 'tests'
-tags: ['contracts', 'testing', 'schemas', 'validation', 'jest']
+title: "Contract Tests"
+description: "Test suite for validating schema compliance, template contracts, and data integrity across configurations"
+version: "1.0"
+last_updated: "2025-11-18"
+author: "LightSpeed WP Team"
+category: "tests"
+tags: ["contracts", "testing", "schemas", "validation", "jest"]
 standards:
-  - 'https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md'
-  - 'https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md'
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md"
 references:
-  - '../README.md'
-  - '../../docs/TESTING.md'
-  - '../../.github/automation/labels.yml'
-  - '../includes/README.md'
+  - "../README.md"
+  - "../../docs/TESTING.md"
+  - "../../.github/automation/labels.yml"
+  - "../includes/README.md"
 ---
 
 # Contract Tests
@@ -32,9 +32,9 @@ The contract test suite ensures:
 
 ## Test Files
 
-| File | Purpose | Test Count | Status |
-|------|---------|-----------|--------|
-| `test-template-labels.js` | Template label validation | 1+ | ✅ Active |
+| File                      | Purpose                   | Test Count | Status    |
+| ------------------------- | ------------------------- | ---------- | --------- |
+| `test-template-labels.js` | Template label validation | 1+         | ✅ Active |
 
 ## Test Categories
 
@@ -43,6 +43,7 @@ The contract test suite ensures:
 **Purpose:** Ensure templates reference only defined, canonical labels.
 
 **Tests:**
+
 - Issue template label validation
 - PR template label validation
 - Label existence in canonical source
@@ -50,6 +51,7 @@ The contract test suite ensures:
 - Template schema validation
 
 **Coverage:**
+
 - `.github/ISSUE_TEMPLATE/*.yml` files
 - `.github/PULL_REQUEST_TEMPLATE/*.md` files
 - `.github/automation/labels.yml` canonical labels
@@ -59,6 +61,7 @@ The contract test suite ensures:
 **Purpose:** Validate data structures against their JSON/YAML schemas.
 
 **Tests (Planned):**
+
 - Frontmatter schema validation
 - Workflow schema compliance
 - Configuration file validation
@@ -66,6 +69,7 @@ The contract test suite ensures:
 - Data structure integrity
 
 **Coverage:**
+
 - Documentation frontmatter
 - GitHub Actions workflows
 - Configuration files
@@ -76,6 +80,7 @@ The contract test suite ensures:
 **Purpose:** Ensure references between files are valid and maintained.
 
 **Tests (Planned):**
+
 - Label references valid
 - Documentation links exist
 - Workflow dependencies present
@@ -83,6 +88,7 @@ The contract test suite ensures:
 - Configuration cascades
 
 **Coverage:**
+
 - Label system
 - Documentation network
 - Workflow dependencies
@@ -93,6 +99,7 @@ The contract test suite ensures:
 **Purpose:** Validate internal and external API contracts.
 
 **Tests (Planned):**
+
 - GitHub API compatibility
 - Agent interface contracts
 - Helper function signatures
@@ -100,6 +107,7 @@ The contract test suite ensures:
 - Type definitions
 
 **Coverage:**
+
 - Agent APIs
 - Helper utilities
 - Shared libraries
@@ -162,26 +170,24 @@ tests/contracts/
 
 Contract tests validate against these sources:
 
-| Source | Purpose | Location |
-|--------|---------|----------|
-| `labels.yml` | Canonical label definitions | `.github/automation/labels.yml` |
-| Issue templates | Issue form schemas | `.github/ISSUE_TEMPLATE/` |
-| PR templates | Pull request templates | `.github/PULL_REQUEST_TEMPLATE/` |
-| Schemas | JSON/YAML schemas | `schemas/` directory |
+| Source          | Purpose                     | Location                         |
+| --------------- | --------------------------- | -------------------------------- |
+| `labels.yml`    | Canonical label definitions | `.github/automation/labels.yml`  |
+| Issue templates | Issue form schemas          | `.github/ISSUE_TEMPLATE/`        |
+| PR templates    | Pull request templates      | `.github/PULL_REQUEST_TEMPLATE/` |
+| Schemas         | JSON/YAML schemas           | `schemas/` directory             |
 
 ## Writing Contract Tests
 
 ### Test Template (Node.js)
 
 ```javascript
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
+const fs = require("fs");
+const path = require("path");
+const yaml = require("js-yaml");
 
 // Load canonical source of truth
-const canonical = yaml.load(
-  fs.readFileSync('path/to/canonical.yml', 'utf8')
-);
+const canonical = yaml.load(fs.readFileSync("path/to/canonical.yml", "utf8"));
 
 // Load data to validate
 const templates = findTemplateFiles();
@@ -189,7 +195,7 @@ const templates = findTemplateFiles();
 // Validate each template
 let failed = false;
 for (const file of templates) {
-  const data = yaml.load(fs.readFileSync(file, 'utf8'));
+  const data = yaml.load(fs.readFileSync(file, "utf8"));
 
   // Validate contract
   for (const item of data.items || []) {
@@ -201,19 +207,19 @@ for (const file of templates) {
 }
 
 if (failed) process.exit(1);
-console.log('[OK] All contracts validated');
+console.log("[OK] All contracts validated");
 ```
 
 ### Test Template (Jest)
 
 ```javascript
-describe('Contract Validation', () => {
-  it('should validate all items against canonical source', () => {
+describe("Contract Validation", () => {
+  it("should validate all items against canonical source", () => {
     const canonical = loadCanonical();
     const templates = loadTemplates();
 
-    templates.forEach(template => {
-      template.items.forEach(item => {
+    templates.forEach((template) => {
+      template.items.forEach((item) => {
         expect(canonical).toContain(item);
       });
     });
@@ -262,15 +268,18 @@ All contracts must comply with:
 **Source:** `.github/automation/labels.yml`
 
 **Validates:**
+
 - All issue template labels exist in `labels.yml`
 - All PR template labels exist in `labels.yml`
 - No undefined labels used in templates
 
 **Files Checked:**
+
 - `.github/ISSUE_TEMPLATE/*.yml`
 - `.github/ISSUE_TEMPLATE/*.yaml`
 
 **Example Error:**
+
 ```
 [ERROR] .github/ISSUE_TEMPLATE/bug-report.yml references non-canonical label: typo-label
 ```
@@ -282,6 +291,7 @@ All contracts must comply with:
 **Source:** `schemas/frontmatter.schema.json`
 
 **Will Validate:**
+
 - Documentation frontmatter structure
 - Required fields presence
 - Field type correctness
@@ -292,6 +302,7 @@ All contracts must comply with:
 **Source:** GitHub Actions schema
 
 **Will Validate:**
+
 - Workflow YAML syntax
 - Job dependencies
 - Secret references
@@ -302,6 +313,7 @@ All contracts must comply with:
 **Source:** Agent base class/interface
 
 **Will Validate:**
+
 - Required methods implemented
 - Method signatures correct
 - Return types consistent
@@ -309,12 +321,12 @@ All contracts must comply with:
 
 ## Test Coverage Goals
 
-| Area | Current | Target | Status |
-|------|---------|--------|--------|
-| Template labels | 100% | 100% | 🟢 Complete |
-| Frontmatter schemas | 0% | 90% | 🔴 Planned |
-| Workflow schemas | 0% | 85% | 🔴 Planned |
-| API contracts | 0% | 80% | 🔴 Planned |
+| Area                | Current | Target | Status      |
+| ------------------- | ------- | ------ | ----------- |
+| Template labels     | 100%    | 100%   | 🟢 Complete |
+| Frontmatter schemas | 0%      | 90%    | 🔴 Planned  |
+| Workflow schemas    | 0%      | 85%    | 🔴 Planned  |
+| API contracts       | 0%      | 80%    | 🔴 Planned  |
 
 ## Related Documentation
 
@@ -338,6 +350,7 @@ Contract tests run automatically:
 ### Test Failures
 
 **Label not found:**
+
 ```bash
 # Check label exists in canonical source
 grep "label-name" .github/automation/labels.yml
@@ -346,6 +359,7 @@ grep "label-name" .github/automation/labels.yml
 ```
 
 **YAML parsing error:**
+
 ```bash
 # Validate YAML syntax
 npx js-yaml .github/ISSUE_TEMPLATE/bug-report.yml
@@ -357,6 +371,7 @@ npx js-yaml .github/ISSUE_TEMPLATE/bug-report.yml
 ```
 
 **File not found:**
+
 ```bash
 # Verify file paths
 ls .github/ISSUE_TEMPLATE/
@@ -369,16 +384,19 @@ echo "$PWD"
 ### Common Issues
 
 **Templates not found:**
+
 - Verify template directory exists
 - Check file extensions (.yml, .yaml)
 - Ensure relative paths correct
 
 **Canonical source missing:**
+
 - Verify `labels.yml` exists
 - Check file has expected structure
 - Validate YAML syntax
 
 **False positives:**
+
 - Review validation logic
 - Check for case sensitivity
 - Verify string matching
@@ -386,27 +404,25 @@ echo "$PWD"
 ## Example: Template Label Validation
 
 ```javascript
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
+const fs = require("fs");
+const path = require("path");
+const yaml = require("js-yaml");
 
 // Load canonical labels
 const labelsYaml = yaml.load(
-  fs.readFileSync(
-    path.resolve('.github/automation/labels.yml'),
-    'utf8'
-  )
+  fs.readFileSync(path.resolve(".github/automation/labels.yml"), "utf8"),
 );
 const labels = new Set(Object.keys(labelsYaml.labels || {}));
 
 // Find all templates
 function findTemplates(dir) {
-  return fs.readdirSync(dir)
-    .filter(f => f.endsWith('.yml') || f.endsWith('.yaml'))
-    .map(f => path.join(dir, f));
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".yml") || f.endsWith(".yaml"))
+    .map((f) => path.join(dir, f));
 }
 
-const templatesDir = path.resolve('.github/ISSUE_TEMPLATE');
+const templatesDir = path.resolve(".github/ISSUE_TEMPLATE");
 const templates = fs.existsSync(templatesDir)
   ? findTemplates(templatesDir)
   : [];
@@ -415,21 +431,19 @@ const templates = fs.existsSync(templatesDir)
 let failed = false;
 
 for (const file of templates) {
-  const tpl = yaml.load(fs.readFileSync(file, 'utf8'));
+  const tpl = yaml.load(fs.readFileSync(file, "utf8"));
   const declared = new Set(tpl.labels || []);
 
   for (const l of declared) {
     if (!labels.has(l)) {
-      console.error(
-        `[ERROR] ${file} references non-canonical label: ${l}`
-      );
+      console.error(`[ERROR] ${file} references non-canonical label: ${l}`);
       failed = true;
     }
   }
 }
 
 if (failed) process.exit(1);
-console.log('[OK] All template labels exist in automation/labels.yml');
+console.log("[OK] All template labels exist in automation/labels.yml");
 ```
 
 ## Contributing

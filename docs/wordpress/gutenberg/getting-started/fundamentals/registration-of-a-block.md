@@ -8,7 +8,7 @@ For instance, if you want a block [to be styled via `theme.json`](https://develo
 
 The following diagram details the registration process for a block.
 
-[![Open Block Registration diagram image](https://developer.wordpress.org/files/2023/11/block-registration-e1700493399839.png)](https://developer.wordpress.org/files/2023/11/block-registration-e1700493399839.png 'Open Block Registration diagram image')
+[![Open Block Registration diagram image](https://developer.wordpress.org/files/2023/11/block-registration-e1700493399839.png)](https://developer.wordpress.org/files/2023/11/block-registration-e1700493399839.png "Open Block Registration diagram image")
 
 ## Registering a block with PHP (server-side)
 
@@ -42,16 +42,16 @@ function minimal_block_ca6eda___register_block() {
 add_action( 'init', 'minimal_block_ca6eda___register_block' );
 ```
 
-_See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/plugin.php)_
+*See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/plugin.php)*
 
 ## Registering a block with JavaScript (client-side)
 
 When the block has already been registered on the server, you only need to register the client-side settings in JavaScript using the [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-blocks/#registerblocktype) method from the `@wordpress/blocks` package. You just need to make sure you use the same block name as defined in the block's `block.json` file. Here's an example:
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType } from "@wordpress/blocks";
 
-registerBlockType('my-plugin/notice', {
+registerBlockType("my-plugin/notice", {
   edit: Edit,
   // ...other client-side settings
 });
@@ -76,9 +76,9 @@ The `settings` object passed as the second parameter includes many properties, b
 The `registerBlockType()` function returns the registered block type (`WPBlock`) on success or `undefined` on failure. Here's an example:
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps } from '@wordpress/block-editor';
-import metadata from './block.json';
+import { registerBlockType } from "@wordpress/blocks";
+import { useBlockProps } from "@wordpress/block-editor";
+import metadata from "./block.json";
 
 const Edit = () => <p {...useBlockProps()}>Hello World - Block Editor</p>;
 const save = () => <p {...useBlockProps.save()}>Hello World - Frontend</p>;
@@ -89,7 +89,7 @@ registerBlockType(metadata.name, {
 });
 ```
 
-_See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/src/index.js)_
+*See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/src/index.js)*
 
 ## Additional resources
 

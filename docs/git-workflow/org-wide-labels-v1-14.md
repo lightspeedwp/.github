@@ -1,7 +1,6 @@
 # Org-wide Labels Catalogue
 
-***Version:*** 1.14 • ***Last updated:*** 20 Oct 2025
----
+## ***Version:*** 1.14 • ***Last updated:*** 20 Oct 2025
 
 **Scope:** Canonical list of organisation-wide GitHub labels. Use labels for **routing & search**. Keep **Project fields** authoritative for Status, Priority, Area/Theme, etc.
 
@@ -11,17 +10,17 @@ Labels follow the `family:value` convention. Colours follow a consistent palette
 
 ### `priority:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
-| `priority:critical` | `#B60205` | Production-blocking or business-critical. |
-| `priority:important` | `#B60205` | High-value or time-sensitive. |
-| `priority:normal` | `#B60205` | Default priority. |
-| `status:needs-more-info` | `#C5DEF5` | Blocked pending reporter details. |
-| `status:needs-discussion` | `#C5DEF5` | Requires team discussion/decision. |
-| `status:ready-for-deployment` | `#0E8A16` | Approved and queued to deploy. |
-| `status:duplicate` | `#E1E4E8` | Duplicate of another issue. |
-| `status:wontfix` | `#E1E4E8` | Won’t be actioned. |
-| `status:needs-technical-feedback` | `#C5DEF5` | Awaiting technical review/feedback. |
+| Label                             | Colour    | Purpose                                   |
+| :-------------------------------- | :-------- | :---------------------------------------- |
+| `priority:critical`               | `#B60205` | Production-blocking or business-critical. |
+| `priority:important`              | `#B60205` | High-value or time-sensitive.             |
+| `priority:normal`                 | `#B60205` | Default priority.                         |
+| `status:needs-more-info`          | `#C5DEF5` | Blocked pending reporter details.         |
+| `status:needs-discussion`         | `#C5DEF5` | Requires team discussion/decision.        |
+| `status:ready-for-deployment`     | `#0E8A16` | Approved and queued to deploy.            |
+| `status:duplicate`                | `#E1E4E8` | Duplicate of another issue.               |
+| `status:wontfix`                  | `#E1E4E8` | Won’t be actioned.                        |
+| `status:needs-technical-feedback` | `#C5DEF5` | Awaiting technical review/feedback.       |
 
 | `type:dev` | `#D4C5F9` | Engineering tasks. |
 | `type:design` | `#D4C5F9` | Design tasks. |
@@ -35,103 +34,103 @@ Labels follow the `family:value` convention. Colours follow a consistent palette
 
 ### `env:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
-| `env:live` | `#E1E4E8` | Production issues/changes. |
-| `env:staging` | `#E1E4E8` | Pre-prod/staging. |
-| `env:dev` | `#E1E4E8` | Local/dev. |
+| Label         | Colour    | Purpose                    |
+| :------------ | :-------- | :------------------------- |
+| `env:live`    | `#E1E4E8` | Production issues/changes. |
+| `env:staging` | `#E1E4E8` | Pre-prod/staging.          |
+| `env:dev`     | `#E1E4E8` | Local/dev.                 |
 
 ### `phase:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
-| `phase:pre-launch` | `#E1E4E8` | Work prior to go-live. |
+| Label               | Colour    | Purpose                         |
+| :------------------ | :-------- | :------------------------------ |
+| `phase:pre-launch`  | `#E1E4E8` | Work prior to go-live.          |
 | `phase:post-launch` | `#E1E4E8` | Post-launch fixes/improvements. |
 
 ### `page:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
-| `page:home` | `#C5DEF5` | Homepage. |
-| `page:faq` | `#C5DEF5` | FAQ page. |
+| Label           | Colour    | Purpose           |
+| :-------------- | :-------- | :---------------- |
+| `page:home`     | `#C5DEF5` | Homepage.         |
+| `page:faq`      | `#C5DEF5` | FAQ page.         |
 | `page:checkout` | `#C5DEF5` | Checkout page(s). |
 
 ### `issue:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
-| `issue:js-error` | `#D93F0B` | JavaScript error thrown. |
+| Label               | Colour    | Purpose                  |
+| :------------------ | :-------- | :----------------------- |
+| `issue:js-error`    | `#D93F0B` | JavaScript error thrown. |
 | `issue:broken-link` | `#D93F0B` | Broken/misdirected link. |
 
 ### `device:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
-| `device:mobile` | `#E1E4E8` | Mobile viewports. |
-| `device:tablet` | `#E1E4E8` | Tablet viewports. |
+| Label            | Colour    | Purpose            |
+| :--------------- | :-------- | :----------------- |
+| `device:mobile`  | `#E1E4E8` | Mobile viewports.  |
+| `device:tablet`  | `#E1E4E8` | Tablet viewports.  |
 | `device:desktop` | `#E1E4E8` | Desktop viewports. |
 
 ### `layout:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
+| Label         | Colour    | Purpose             |
+| :------------ | :-------- | :------------------ |
 | `layout:grid` | `#C5DEF5` | Grid/layout issues. |
-| `layout:form` | `#C5DEF5` | Form layout. |
+| `layout:form` | `#C5DEF5` | Form layout.        |
 
 ### `theme:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
+| Label                 | Colour    | Purpose               |
+| :-------------------- | :-------- | :-------------------- |
 | `theme:design-system` | `#C5DEF5` | DS tokens/components. |
 
 ### `size:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
+| Label     | Colour    | Purpose      |
+| :-------- | :-------- | :----------- |
 | `size:XS` | `#C2E0C6` | Extra-small. |
-| `size:S` | `#C2E0C6` | Small. |
-| `size:M` | `#C2E0C6` | Medium. |
-| `size:L` | `#C2E0C6` | Large. |
+| `size:S`  | `#C2E0C6` | Small.       |
+| `size:M`  | `#C2E0C6` | Medium.      |
+| `size:L`  | `#C2E0C6` | Large.       |
 | `size:XL` | `#C2E0C6` | Extra-large. |
 
 ### `block:*` (Gutenberg)
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
+| Label          | Colour    | Purpose       |
+| :------------- | :-------- | :------------ |
 | `block:button` | `#C5DEF5` | Button block. |
-| `block:image` | `#C5DEF5` | Image block. |
+| `block:image`  | `#C5DEF5` | Image block.  |
 
 ### `template:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
+| Label                        | Colour    | Purpose                    |
+| :--------------------------- | :-------- | :------------------------- |
 | `template:category-archives` | `#C5DEF5` | Category archive template. |
 
 ### `template-part:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
+| Label                  | Colour    | Purpose               |
+| :--------------------- | :-------- | :-------------------- |
 | `template-part:header` | `#C5DEF5` | Header template part. |
 | `template-part:footer` | `#C5DEF5` | Footer template part. |
 
 ### `woo:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
-| `woo:block-cart` | `#D4C5F9` | Woo cart block. |
+| Label                | Colour    | Purpose             |
+| :------------------- | :-------- | :------------------ |
+| `woo:block-cart`     | `#D4C5F9` | Woo cart block.     |
 | `woo:block-checkout` | `#D4C5F9` | Woo checkout block. |
 
 ### `to:*` (Tour Operator)
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
-| `to:import` | `#C5DEF5` | Import routines. |
-| `to:meta` | `#C5DEF5` | Metadata/mapping. |
+| Label       | Colour    | Purpose           |
+| :---------- | :-------- | :---------------- |
+| `to:import` | `#C5DEF5` | Import routines.  |
+| `to:meta`   | `#C5DEF5` | Metadata/mapping. |
 
 ### `compat:*`
 
-| Label | Colour | Purpose |
-| :---- | :----- | :------ |
+| Label        | Colour    | Purpose                       |
+| :----------- | :-------- | :---------------------------- |
 | `compat:rtl` | `#D93F0B` | Right-to-left layout support. |
 
 ### Usage notes

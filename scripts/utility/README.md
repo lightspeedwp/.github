@@ -7,7 +7,16 @@ maintainer: "Ash Shaw"
 description: "Utility scripts providing common, reusable functionality and repository-wide maintenance tasks. Standardized logging, validation, and release management utilities."
 file_type: "utilities"
 status: "production"
-tags: ["utilities", "logging", "validation", "release", "maintenance", "shell", "testing"]
+tags:
+  [
+    "utilities",
+    "logging",
+    "validation",
+    "release",
+    "maintenance",
+    "shell",
+    "testing",
+  ]
 license: "GPL-3.0"
 repository: "https://github.com/lightspeedwp/.github"
 ai_references:
@@ -39,25 +48,25 @@ graph TB
     A --> C[Function Library]
     A --> D[Release Validation]
     A --> E[Testing Framework]
-    
+
     B --> F[standardize-logging.sh]
     B --> G[Inject Logging Blocks]
-    
+
     C --> H[utility-functions.sh]
     C --> I[Common Functions]
     C --> J[Validation Helpers]
-    
+
     D --> K[validate-release.sh]
     D --> L[Version Consistency]
     D --> M[Workflow Integrity]
-    
+
     E --> N[run-utility-tests.sh]
     E --> O[Test Execution]
-    
+
     P[All Scripts] --> C
     Q[Maintenance] --> B
     R[CI/CD Pipeline] --> D
-    
+
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#e8f5e8
@@ -90,7 +99,7 @@ sequenceDiagram
     participant Funcs as Utility Functions
     participant Valid as Release Validator
     participant Tests as Test Runner
-    
+
     Script->>Std: standardize-logging.sh
     Std->>Script: Inject logging blocks
     Script->>Funcs: Source utility-functions.sh
@@ -99,7 +108,7 @@ sequenceDiagram
     Valid->>Script: Release validation results
     Script->>Tests: run-utility-tests.sh
     Tests->>Script: Test execution results
-    
+
     Note over Script,Tests: Comprehensive utility integration
 ```
 
@@ -132,4 +141,4 @@ For detailed usage and technical information, please refer to the individual `RE
 
 ---
 
-_🔧 Empowering development through standardized utilities and shared functionality._
+*🔧 Empowering development through standardized utilities and shared functionality.*

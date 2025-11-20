@@ -42,7 +42,7 @@ node .github/agents/release.agent.cjs --scope=<major|minor|patch>
 Semantic versioning uses a three-part version number: `MAJOR.MINOR.PATCH`
 
 - **MAJOR**: Breaking changes that are NOT backward-compatible
-- **MINOR**: New features that ARE backward-compatible  
+- **MINOR**: New features that ARE backward-compatible
 - **PATCH**: Bug fixes and improvements that ARE backward-compatible
 
 **Example progression:**
@@ -59,11 +59,11 @@ Semantic versioning uses a three-part version number: `MAJOR.MINOR.PATCH`
 
 ### Valid Values
 
-| Scope | Version Bump | Use For |
-|-------|-------------|---------|
-| `patch` | `X.Y.Z → X.Y.(Z+1)` | Bug fixes, documentation, minor tweaks |
+| Scope   | Version Bump        | Use For                                          |
+| ------- | ------------------- | ------------------------------------------------ |
+| `patch` | `X.Y.Z → X.Y.(Z+1)` | Bug fixes, documentation, minor tweaks           |
 | `minor` | `X.Y.Z → X.(Y+1).0` | New features, enhancements (backward-compatible) |
-| `major` | `X.Y.Z → (X+1).0.0` | Breaking changes, incompatible API changes |
+| `major` | `X.Y.Z → (X+1).0.0` | Breaking changes, incompatible API changes       |
 
 ### Default Behavior
 
@@ -198,11 +198,11 @@ The release automation system uses GitHub PR labels to determine version bumps a
 
 ### Labels
 
-| Label | Scope | Description |
-|-------|-------|-------------|
-| `release:patch` | patch | Bug fixes and minor improvements |
+| Label           | Scope | Description                        |
+| --------------- | ----- | ---------------------------------- |
+| `release:patch` | patch | Bug fixes and minor improvements   |
 | `release:minor` | minor | New features (backward-compatible) |
-| `release:major` | major | Breaking changes |
+| `release:major` | major | Breaking changes                   |
 
 ### How It Works
 
@@ -233,7 +233,7 @@ gh pr create --label "release:minor" --title "Add user profiles"
 **A:** Ask yourself these questions:
 
 1. **Does it break existing code?** → `major`
-2. **Does it add new functionality?** → `minor`  
+2. **Does it add new functionality?** → `minor`
 3. **Does it just fix or improve?** → `patch`
 
 When in doubt, start with `patch` and consult with maintainers.

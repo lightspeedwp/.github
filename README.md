@@ -5,7 +5,16 @@ version: "2.0"
 last_updated: "2025-10-24"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
-tags: ["community-health", "automation", "governance", "labels", "workflows", "ai", "copilot"]
+tags:
+  [
+    "community-health",
+    "automation",
+    "governance",
+    "labels",
+    "workflows",
+    "ai",
+    "copilot",
+  ]
 references:
   - path: ".github/custom-instructions.md"
     description: "Custom instructions for AI agents"
@@ -50,27 +59,27 @@ graph TD
     A --> C[🤖 Automation & Workflows]
     A --> D[🏷️ Labels & Issue Types]
     A --> E[🧠 AI & Copilot Resources]
-    
+
     B --> B1[CONTRIBUTING.md]
     B --> B2[CODE_OF_CONDUCT.md]
     B --> B3[SUPPORT.md]
     B --> B4[Issue Templates]
     B --> B5[PR Templates]
-    
+
     C --> C1[GitHub Actions]
     C --> C2[Labeler Configuration]
     C --> C3[Project Automation]
     C --> C4[Quality Gates]
-    
+
     D --> D1[labels.yml]
     D --> D2[issue-types.yml]
     D --> D3[Label Documentation]
-    
+
     E --> E1[Custom Instructions]
     E --> E2[Agent Specifications]
     E --> E3[Prompt Library]
     E --> E4[Chat Modes]
-    
+
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#e8f5e8
@@ -90,20 +99,20 @@ flowchart LR
         C --> D[Uses Workflows]
         D --> E[Follows Standards]
     end
-    
+
     subgraph "Automation Flow"
         F[Issue/PR Created] --> G[Auto-Label Applied]
         G --> H[Project Sync]
         H --> I[Quality Checks]
         I --> J[Governance Review]
     end
-    
+
     subgraph "AI Integration"
         K[Copilot Instructions] --> L[Agent Processing]
         L --> M[Automated Tasks]
         M --> N[Quality Assurance]
     end
-    
+
     style A fill:#e1f5fe
     style F fill:#f3e5f5
     style K fill:#fce4ec
@@ -126,7 +135,7 @@ flowchart TD
     I --> J[💾 Commit & Push]
     J --> K[🚀 CI/CD Pipeline]
     K --> L[🌐 Deploy/Merge]
-    
+
     style A fill:#e1f5fe
     style E fill:#f3e5f5
     style K fill:#e8f5e8
@@ -142,7 +151,7 @@ sequenceDiagram
     participant AI as 🤖 AI Agent
     participant Workflow as ⚙️ Workflow
     participant QA as ✅ Quality Gate
-    
+
     Dev->>Repo: Push changes
     Repo->>AI: Trigger automation
     AI->>AI: Process instructions
@@ -171,7 +180,7 @@ flowchart TB
         F[📚 Documentation]
         G[🧪 Testing & Quality]
     end
-    
+
     subgraph "🔄 Automation Pipeline"
         H[Issue/PR Created]
         I[Auto-Label Applied]
@@ -180,7 +189,7 @@ flowchart TB
         L[Governance Review]
         M[Project Sync]
     end
-    
+
     subgraph "🎯 Quality Gates"
         N[Linting]
         O[Testing]
@@ -188,38 +197,38 @@ flowchart TB
         Q[Security]
         R[Accessibility]
     end
-    
+
     subgraph "🌐 Organization Impact"
         S[Member Repositories]
         T[Consistent Standards]
         U[Automated Workflows]
         V[Quality Assurance]
     end
-    
+
     A --> B
     A --> C
     A --> D
     A --> E
     A --> F
     A --> G
-    
+
     H --> I
     I --> J
     J --> K
     K --> L
     L --> M
-    
+
     C --> N
     C --> O
     C --> P
     C --> Q
     C --> R
-    
+
     B --> S
     C --> T
     D --> U
     G --> V
-    
+
     style A fill:#e1f5fe
     style C fill:#e8f5e8
     style E fill:#fce4ec
@@ -241,7 +250,7 @@ stateDiagram-v2
     Approved --> DeploymentReady
     DeploymentReady --> OrgWideSync
     OrgWideSync --> [*]
-    
+
     ContentUpdate : 📝 Content Updated
     ValidationPending : ⏳ Validation Pending
     TestsRunning : 🧪 Tests Running
@@ -282,31 +291,31 @@ flowchart LR
         C[E2E Tests]
         D[Coverage Reports]
     end
-    
+
     subgraph "🔧 Test Tools"
         E[Jest]
         F[Playwright]
         G[Bats]
         H[Coverage Tools]
     end
-    
+
     subgraph "📊 Quality Gates"
         I[Code Coverage]
         J[Performance]
         K[Accessibility]
         L[Security]
     end
-    
+
     A --> E
     B --> E
     C --> F
     D --> H
-    
+
     E --> I
     F --> J
     F --> K
     G --> L
-    
+
     style A fill:#e8f5e8
     style C fill:#f3e5f5
     style I fill:#e1f5fe
@@ -459,15 +468,15 @@ name: Label Sync
 
 on:
   schedule:
-    - cron: '0 9 * * 1' # Weekly on Monday at 9 AM UTC
+    - cron: "0 9 * * 1" # Weekly on Monday at 9 AM UTC
   workflow_dispatch:
 
 jobs:
   sync:
     uses: lightspeedwp/.github/.github/workflows/label-sync.yml@develop
     with:
-      labels_source_repo: 'lightspeedwp/.github'
-      labels_source_path: '.github/automation/labels.yml'
+      labels_source_repo: "lightspeedwp/.github"
+      labels_source_path: ".github/automation/labels.yml"
       dry_run: false
     secrets: inherit
 ```
@@ -845,5 +854,5 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 <!-- RANDOM FOOTER: 🚀 Built by LightSpeedWP with ☕, 🚀, and open-source spirit! -->
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

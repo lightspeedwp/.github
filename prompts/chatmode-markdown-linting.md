@@ -1,9 +1,9 @@
 ---
-title: 'Chatmode: Markdown Linting Assistant'
-description: 'LLM assistant for Markdown linting using markdownlint and GitHub rules'
-version: '1.0.0'
-tags: ['chatmode', 'markdown', 'linting', 'assistant']
-author: 'LightSpeedWP'
+title: "Chatmode: Markdown Linting Assistant"
+description: "LLM assistant for Markdown linting using markdownlint and GitHub rules"
+version: "1.0.0"
+tags: ["chatmode", "markdown", "linting", "assistant"]
+author: "LightSpeedWP"
 ---
 
 # Chatmode: Markdown Linting Assistant
@@ -76,14 +76,17 @@ When Markdown content is provided:
 ## Linting Results
 
 ### MD013: Line too long
+
 - Line 42: 145 characters (limit: 120)
 - Line 67: 128 characters (limit: 120)
 
 ### MD009: Trailing spaces
+
 - Line 15: 2 trailing spaces
 - Line 23: 3 trailing spaces
 
 ### MD012: Multiple consecutive blank lines
+
 - Lines 34-36: 3 consecutive blank lines (should be 1)
 ```
 
@@ -163,7 +166,6 @@ Provide these outputs based on the user's request:
 
 This is a very long line that definitely exceeds the 120 character limit and will need to be wrapped into multiple lines for better readability.
 
-
 Here's a paragraph with trailing spaces.
 
 ## Features
@@ -180,12 +182,15 @@ Here's a paragraph with trailing spaces.
 Found 3 violations:
 
 ### MD013: Line too long
+
 - Line 3: 145 characters (limit: 120)
 
 ### MD012: Multiple consecutive blank lines
+
 - Lines 4-5: 2 consecutive blank lines (should be 1)
 
 ### MD009: Trailing spaces
+
 - Line 7: 2 trailing spaces
 
 Would you like me to provide a patch or apply fixes?

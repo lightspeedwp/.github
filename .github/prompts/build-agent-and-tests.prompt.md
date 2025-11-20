@@ -3,6 +3,7 @@ description: "Create a minimal agent (capabilities, tools, guardrails) and tests
 mode: "ask"
 model: "GPT-4"
 ---
+
 Design a small, single‑purpose AI agent for the given task. In your response:
 
 1. Define the agent’s capabilities and responsibilities.

@@ -65,14 +65,14 @@
 
 ### **Core WordPress Packages**
 
-| Package | Purpose | Usage |
-|---------|---------|-------|
-| `@wordpress/scripts` | Build toolchain | Development |
-| `@wordpress/blocks` | Block registration | Block development |
-| `@wordpress/element` | React wrapper | Component development |
-| `@wordpress/components` | UI components | Interface building |
-| `@wordpress/data` | State management | Data handling |
-| `@wordpress/i18n` | Internationalization | Text translation |
+| Package                 | Purpose              | Usage                 |
+| ----------------------- | -------------------- | --------------------- |
+| `@wordpress/scripts`    | Build toolchain      | Development           |
+| `@wordpress/blocks`     | Block registration   | Block development     |
+| `@wordpress/element`    | React wrapper        | Component development |
+| `@wordpress/components` | UI components        | Interface building    |
+| `@wordpress/data`       | State management     | Data handling         |
+| `@wordpress/i18n`       | Internationalization | Text translation      |
 
 ### **Essential WordPress Setup**
 
@@ -224,10 +224,10 @@ npx npm-check -u
 
 **Related Configuration:**
 
-- **[Package.json Configuration](./npm-package-json.md)** - Main package configuration file  
-- **[NPM Scripts](./npm-scripts.md)** - Build and development commands  
-- **[VS Code Settings](./vscode-settings.md)** - Editor package management  
-- **[Husky Configuration](./workflow-husky.md)** - Dependency validation hooks  
+- **[Package.json Configuration](./npm-package-json.md)** - Main package configuration file
+- **[NPM Scripts](./npm-scripts.md)** - Build and development commands
+- **[VS Code Settings](./vscode-settings.md)** - Editor package management
+- **[Husky Configuration](./workflow-husky.md)** - Dependency validation hooks
 
 ---
 

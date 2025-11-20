@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
-tools: ['codebase', 'edit/editFiles', 'terminalCommand']
-description: 'Containerize an ASP.NET .NET Framework project by creating Dockerfile and .dockerfile files customized for the project.'
+mode: "agent"
+tools: ["codebase", "edit/editFiles", "terminalCommand"]
+description: "Containerize an ASP.NET .NET Framework project by creating Dockerfile and .dockerfile files customized for the project."
 ---
 
 # ASP.NET .NET Framework Containerization Prompt
@@ -164,11 +164,11 @@ Any settings that are not specified will be set to default values. The default v
        - The final stage MUST use a `mcr.microsoft.com/dotnet/framework/aspnet` base image unless a custom base image is specified in the settings file
        - Copy the `LogMonitorConfig.json` file to a directory in the container (e.g., C:\LogMonitor)
        - Download LogMonitor.exe from the Microsoft repository to the same directory
-           - The correct LogMonitor.exe URL is: <https://github.com/microsoft/windows-container-tools/releases/download/v2.1.1/LogMonitor.exe>
+         - The correct LogMonitor.exe URL is: <https://github.com/microsoft/windows-container-tools/releases/download/v2.1.1/LogMonitor.exe>
        - Set the working directory to C:\inetpub\wwwroot
        - Copy the published output from the build stage (in C:\publish) to the final image
        - Set the container's entry point to run LogMonitor.exe with ServiceMonitor.exe to monitor the IIS service
-           - `ENTRYPOINT [ "C:\\LogMonitor\\LogMonitor.exe", "C:\\ServiceMonitor.exe", "w3svc" ]`
+         - `ENTRYPOINT [ "C:\\LogMonitor\\LogMonitor.exe", "C:\\ServiceMonitor.exe", "w3svc" ]`
    - Be sure to consider all requirements in the containerization settings:
      - Windows Server SKU and version
      - Exposed ports
@@ -193,19 +193,19 @@ Any settings that are not specified will be set to default values. The default v
    - .github/
    - .vs/
    - .vscode/
-   - **/node_modules/
-   - *.user
-   - *.suo
-   - **/.DS_Store
-   - **/Thumbs.db
+   - \*\*/node_modules/
+   - \*.user
+   - \*.suo
+   - \*\*/.DS_Store
+   - \*\*/Thumbs.db
    - Any additional patterns specified in the containerization settings
 10. Configure health checks if specified in the settings:
 
 - Add HEALTHCHECK instruction to Dockerfile if health check endpoint is provided
 
-11. Add the dockerfile to the project by adding the following item to the project file: `<None Include="Dockerfile" />`
-12. Mark tasks as completed: [ ] → [✓]
-13. Continue until all tasks are complete and Docker build succeeds
+1. Add the dockerfile to the project by adding the following item to the project file: `<None Include="Dockerfile" />`
+2. Mark tasks as completed: [ ] → [✓]
+3. Continue until all tasks are complete and Docker build succeeds
 
 ## Build and Runtime Verification
 
@@ -225,16 +225,19 @@ Maintain a `progress.md` file with the following structure:
 # Containerization Progress
 
 ## Environment Detection
-- [ ] .NET Framework version detection (version: ___)
-- [ ] Windows Server SKU selection (SKU: ___)
-- [ ] Windows Server version selection (Version: ___)
+
+- [ ] .NET Framework version detection (version: \_\_\_)
+- [ ] Windows Server SKU selection (SKU: \_\_\_)
+- [ ] Windows Server version selection (Version: \_\_\_)
 
 ## Configuration Changes
+
 - [ ] Web.config modifications for configuration builders
 - [ ] NuGet package source configuration (if applicable)
 - [ ] Copy LogMonitorConfig.json and adjust if required by settings
 
 ## Containerization
+
 - [ ] Dockerfile creation
 - [ ] .dockerignore file creation
 - [ ] Build stage created with SDK image
@@ -246,6 +249,7 @@ Maintain a `progress.md` file with the following structure:
 - [ ] Special requirements implementation
 
 ## Verification
+
 - [ ] Review containerization settings and make sure that all requirements are met
 - [ ] Docker build success
 ```

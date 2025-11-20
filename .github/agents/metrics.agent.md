@@ -1,13 +1,32 @@
 ---
-title: "Metrics Agent Spec"
+name: "metrics"
+description: "Automates collection, aggregation, and reporting of repository health metrics including issue/PR activity, response times, and project health indicators. Generates actionable insights and trend analysis."
+target: "github-copilot"
+tools: ["github/*", "read", "search"]
+handoffs:
+  - label: "Generate Report"
+    agent: "report-writer"
+    prompt: "Generate a comprehensive metrics report based on the collected data."
+    send: false
 version: "v1.0"
-last_updated: "2025-10-21"
+last_updated: "2025-11-20"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
-description: "Spec for the Metrics Agent (future)."
-tags: ["lightspeed","metrics","agents"]
 file_type: "agent"
-name: "metrics"
+category: "analytics"
+status: "active"
+visibility: "public"
+tags: ["lightspeed", "metrics", "agents", "analytics", "reporting"]
+references:
+  - path: ".github/agents/metrics.agent.js"
+    description: "Implementation script"
+  - path: ".github/workflows/metrics.yml"
+    description: "GitHub Actions workflow"
+  - path: ".github/metrics/"
+    description: "Metrics collection and storage"
+owners: ["lightspeedwp/maintainers"]
+metadata:
+  guardrails: "Do not expose sensitive data or credentials in metrics. Log all collection runs. Support multi-repository aggregation. Validate data before reporting."
 ---
 
 # Role

@@ -1,7 +1,21 @@
 ---
-mode: 'agent'
-description: 'Suggest relevant GitHub Copilot Custom Chat Modes files from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing custom chat modes in this repository.'
-tools: ['edit', 'search', 'runCommands', 'runTasks', 'think', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'todos', 'search']
+mode: "agent"
+description: "Suggest relevant GitHub Copilot Custom Chat Modes files from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing custom chat modes in this repository."
+tools:
+  [
+    "edit",
+    "search",
+    "runCommands",
+    "runTasks",
+    "think",
+    "changes",
+    "testFailure",
+    "openSimpleBrowser",
+    "fetch",
+    "githubRepo",
+    "todos",
+    "search",
+  ]
 ---
 
 # Suggest Awesome GitHub Copilot Custom Chat Modes
@@ -42,11 +56,11 @@ Analyze current repository context and suggest relevant Custom Chat Modes files 
 
 Display analysis results in structured table comparing awesome-copilot custom chat modes with existing repository custom chat modes:
 
-| Awesome-Copilot Custom Chat Mode | Description | Already Installed | Similar Local Custom Chat Mode | Suggestion Rationale |
-|---------------------------|-------------|-------------------|-------------------------|---------------------|
-| [code-reviewer.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/code-reviewer.chatmode.md) | Specialized code review custom chat mode | ❌ No | None | Would enhance development workflow with dedicated code review assistance |
-| [architect.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/architect.chatmode.md) | Software architecture guidance | ✅ Yes | azure_principal_architect.chatmode.md | Already covered by existing architecture custom chat modes |
-| [debugging-expert.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/debugging-expert.chatmode.md) | Debug assistance custom chat mode | ❌ No | None | Could improve troubleshooting efficiency for development team |
+| Awesome-Copilot Custom Chat Mode                                                                                           | Description                              | Already Installed | Similar Local Custom Chat Mode        | Suggestion Rationale                                                     |
+| -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------------- | ------------------------------------- | ------------------------------------------------------------------------ |
+| [code-reviewer.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/code-reviewer.chatmode.md)       | Specialized code review custom chat mode | ❌ No             | None                                  | Would enhance development workflow with dedicated code review assistance |
+| [architect.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/architect.chatmode.md)               | Software architecture guidance           | ✅ Yes            | azure_principal_architect.chatmode.md | Already covered by existing architecture custom chat modes               |
+| [debugging-expert.chatmode.md](https://github.com/github/awesome-copilot/blob/main/chatmodes/debugging-expert.chatmode.md) | Debug assistance custom chat mode        | ❌ No             | None                                  | Could improve troubleshooting efficiency for development team            |
 
 ## Local Chatmodes Discovery Process
 

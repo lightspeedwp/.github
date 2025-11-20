@@ -19,7 +19,7 @@ Documentation for Node.js project configuration, dependencies, and npm scripts u
 ```json
 {
   "name": "lightspeed-project",
-  "version": "1.0.0", 
+  "version": "1.0.0",
   "description": "LightSpeed WordPress project",
   "author": "LightspeedWP",
   "license": "GPL-2.0-or-later",
@@ -118,7 +118,7 @@ Documentation for Node.js project configuration, dependencies, and npm scripts u
 {
   "scripts": {
     "build": "wp-scripts build",
-    "start": "wp-scripts start", 
+    "start": "wp-scripts start",
     "env:start": "wp-env start",
     "env:stop": "wp-env stop"
   }
@@ -212,7 +212,7 @@ npm run lint
 # Run tests
 npm test
 
-# Build for production  
+# Build for production
 npm run build
 ```
 

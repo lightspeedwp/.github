@@ -1,7 +1,7 @@
 ---
-title: 'Refactoring Java Methods with Remove Parameter'
-mode: 'agent'
-description: 'Refactoring using Remove Parameter in Java Language'
+title: "Refactoring Java Methods with Remove Parameter"
+mode: "agent"
+description: "Refactoring using Remove Parameter in Java Language"
 ---
 
 # Refactoring Java Methods with Remove Parameter
@@ -81,7 +81,7 @@ Perform intermediate steps internally:
 - First, analyze each method and identify parameters that are unused or redundant (i.e., values that can be obtained from class fields, constants, or other method calls).
 - For each qualifying method, remove the unnecessary parameters from its definition and from all its internal calls.
 - Ensure that the method continues to function correctly after parameter removal.
-- Output only the refactored code inside a single ```java``` block.
+- Output only the refactored code inside a single `java` block.
 - Do not remove any functionality from the original method.
 - Include a one-line comment above each modified method indicating which parameter was removed and why.
 

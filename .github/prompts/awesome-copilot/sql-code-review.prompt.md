@@ -1,8 +1,8 @@
 ---
-mode: 'agent'
-tools: ['changes', 'codebase', 'edit/editFiles', 'problems']
-description: 'Universal SQL code review assistant that performs comprehensive security, maintainability, and code quality analysis across all SQL databases (MySQL, PostgreSQL, SQL Server, Oracle). Focuses on SQL injection prevention, access control, code standards, and anti-pattern detection. Complements SQL optimization prompt for complete development coverage.'
-tested_with: 'GitHub Copilot Chat (GPT-4o) - Validated July 20, 2025'
+mode: "agent"
+tools: ["changes", "codebase", "edit/editFiles", "problems"]
+description: "Universal SQL code review assistant that performs comprehensive security, maintainability, and code quality analysis across all SQL databases (MySQL, PostgreSQL, SQL Server, Oracle). Focuses on SQL injection prevention, access control, code standards, and anti-pattern detection. Complements SQL optimization prompt for complete development coverage."
+tested_with: "GitHub Copilot Chat (GPT-4o) - Validated July 20, 2025"
 ---
 
 # SQL Code Review
@@ -36,7 +36,7 @@ EXEC sp_executesql N'SELECT * FROM users WHERE id = @id', N'@id INT', @id = @use
 
 ### Data Protection
 
-- **Sensitive Data Exposure**: Avoid SELECT * on tables with sensitive columns
+- **Sensitive Data Exposure**: Avoid SELECT \* on tables with sensitive columns
 - **Audit Logging**: Ensure sensitive operations are logged
 - **Data Masking**: Use views or functions to mask sensitive data
 - **Encryption**: Verify encrypted storage for sensitive data
@@ -47,9 +47,9 @@ EXEC sp_executesql N'SELECT * FROM users WHERE id = @id', N'@id INT', @id = @use
 
 ```sql
 -- ❌ BAD: Inefficient query patterns
-SELECT DISTINCT u.* 
+SELECT DISTINCT u.*
 FROM users u, orders o, products p
-WHERE u.id = o.user_id 
+WHERE u.id = o.user_id
 AND o.product_id = p.id
 AND YEAR(o.order_date) = 2024;
 
@@ -57,7 +57,7 @@ AND YEAR(o.order_date) = 2024;
 SELECT u.id, u.name, u.email
 FROM users u
 INNER JOIN orders o ON u.id = o.user_id
-WHERE o.order_date >= '2024-01-01' 
+WHERE o.order_date >= '2024-01-01'
 AND o.order_date < '2025-01-01';
 ```
 
@@ -79,7 +79,7 @@ AND o.order_date < '2025-01-01';
 
 ```sql
 -- ❌ BAD: Inefficient aggregation
-SELECT user_id, 
+SELECT user_id,
        (SELECT COUNT(*) FROM orders o2 WHERE o2.user_id = o1.user_id) as order_count
 FROM orders o1
 GROUP BY user_id;
@@ -155,7 +155,7 @@ CREATE TABLE sessions (
 ) ENGINE=InnoDB;
 
 -- Optimize for InnoDB
-ALTER TABLE large_table 
+ALTER TABLE large_table
 ADD INDEX idx_covering (status, created_at, id);
 ```
 
@@ -192,14 +192,14 @@ CREATE TABLE users (
 
 ```sql
 -- Verify referential integrity
-SELECT o.user_id 
-FROM orders o 
-LEFT JOIN users u ON o.user_id = u.id 
+SELECT o.user_id
+FROM orders o
+LEFT JOIN users u ON o.user_id = u.id
 WHERE u.id IS NULL;
 
 -- Check for data consistency
 SELECT COUNT(*) as inconsistent_records
-FROM products 
+FROM products
 WHERE price < 0 OR stock_quantity < 0;
 ```
 
@@ -229,8 +229,8 @@ LEFT JOIN orders o ON u.id = o.user_id;
 
 ```sql
 -- ❌ BAD: DISTINCT masking join issues
-SELECT DISTINCT u.name 
-FROM users u, orders o 
+SELECT DISTINCT u.name
+FROM users u, orders o
 WHERE u.id = o.user_id;
 
 -- ✅ GOOD: Proper join without DISTINCT
@@ -244,12 +244,12 @@ GROUP BY u.name;
 
 ```sql
 -- ❌ BAD: Functions prevent index usage
-SELECT * FROM orders 
+SELECT * FROM orders
 WHERE YEAR(order_date) = 2024;
 
 -- ✅ GOOD: Range conditions use indexes
-SELECT * FROM orders 
-WHERE order_date >= '2024-01-01' 
+SELECT * FROM orders
+WHERE order_date >= '2024-01-01'
   AND order_date < '2025-01-01';
 ```
 
@@ -266,7 +266,7 @@ WHERE order_date >= '2024-01-01'
 ### Performance
 
 - [ ] Indexes exist for frequently queried columns
-- [ ] No unnecessary SELECT * statements
+- [ ] No unnecessary SELECT \* statements
 - [ ] JOINs are optimized and use appropriate types
 - [ ] WHERE clauses are selective and use indexes
 - [ ] Subqueries are optimized or converted to JOINs
@@ -291,7 +291,7 @@ WHERE order_date >= '2024-01-01'
 
 ### Issue Template
 
-```
+````
 ## [PRIORITY] [CATEGORY]: [Brief Description]
 
 **Location**: [Table/View/Procedure name and line number if applicable]
@@ -303,7 +303,7 @@ WHERE order_date >= '2024-01-01'
 **Before**:
 ```sql
 -- Problematic SQL
-```
+````
 
 **After**:
 
@@ -327,3 +327,4 @@ WHERE order_date >= '2024-01-01'
 3. **[Code Quality]**: Improve naming conventions and documentation
 
 Focus on providing actionable, database-agnostic recommendations while highlighting platform-specific optimizations and best practices.
+```

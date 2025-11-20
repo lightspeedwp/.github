@@ -67,12 +67,12 @@ You should use global state when:
         </div>
         ```
 
-    _Please, visit [the Server-side Rendering guide](/docs/reference-guides/interactivity-api/core-concepts/server-side-rendering.md) to learn more about how directives are processed on the server._
+    *Please, visit [the Server-side Rendering guide](/docs/reference-guides/interactivity-api/core-concepts/server-side-rendering.md) to learn more about how directives are processed on the server.*
 
     In cases where the global state is not used during the rendering of the page in PHP, it can also be defined directly on the client.
 
     ```js
-    const { state } = store('myPlugin', {
+    const { state } = store("myPlugin", {
       state: {
         isLoading: false,
       },
@@ -85,7 +85,7 @@ You should use global state when:
     });
     ```
 
-    _Please note that, although this works, in general it is a good practice to define all the global state on the server._
+    *Please note that, although this works, in general it is a good practice to define all the global state on the server.*
 
 - **Accessing the global state**
 
@@ -102,7 +102,7 @@ You should use global state when:
   To access the global state in your actions and callbacks, you can use the `state` property of the object returned by the `store` function:
 
   ```js
-  const myPluginStore = store('myPlugin');
+  const myPluginStore = store("myPlugin");
 
   myPluginStore.state; // This is the state of the 'myPlugin' namespace.
   ```
@@ -110,13 +110,13 @@ You should use global state when:
   You can also destructure the object returned by `store`:
 
   ```js
-  const { state } = store('myPlugin');
+  const { state } = store("myPlugin");
   ```
 
   And you can do the same even if you are defining the store at that moment, which is the most common scenario:
 
   ```js
-  const { state } = store('myPlugin', {
+  const { state } = store("myPlugin", {
     state: {
       // ...
     },
@@ -137,7 +137,7 @@ You should use global state when:
   ```
 
   ```js
-  const { state } = store('myPlugin', {
+  const { state } = store("myPlugin", {
     state: {
       otherValue: 2,
     },
@@ -153,15 +153,15 @@ You should use global state when:
   Lastly, all calls to the `store` function with the same namespace are merged together:
 
   ```js
-  store('myPlugin', { state: { someValue: 1 } });
+  store("myPlugin", { state: { someValue: 1 } });
 
-  store('myPlugin', { state: { otherValue: 2 } });
+  store("myPlugin", { state: { otherValue: 2 } });
 
   /* All calls to `store` return a stable reference to the same object, so you
    * can get a reference to `state` from any of them. */
-  const { state } = store('myPlugin');
+  const { state } = store("myPlugin");
 
-  store('myPlugin', {
+  store("myPlugin", {
     actions: {
       readValues() {
         state.someValue; // It exists and its initial value is 1.
@@ -176,7 +176,7 @@ You should use global state when:
   To update the global state, all you need to do is mutate the `state` object once you have obtained it from the `store` function:
 
   ```js
-  const { state } = store('myPlugin', {
+  const { state } = store("myPlugin", {
     actions: {
       updateValues() {
         state.someValue = 3;
@@ -188,7 +188,7 @@ You should use global state when:
 
   Changes to the global state will automatically trigger updates in any directives that depend on the modified values.
 
-  _Please, visit [The Reactive and Declarative mindset](/docs/reference-guides/interactivity-api/core-concepts/the-reactive-and-declarative-mindset.md) guide to learn more about how reactivity works in the Interactivity API._
+  *Please, visit [The Reactive and Declarative mindset](/docs/reference-guides/interactivity-api/core-concepts/the-reactive-and-declarative-mindset.md) guide to learn more about how reactivity works in the Interactivity API.*
 
 ### Example: Two interactive blocks using global state to communicate
 
@@ -225,7 +225,7 @@ In this example, there are two independent interactive blocks. One displays a co
   ```
 
   ```js
-  const { state } = store('myCounterPlugin', {
+  const { state } = store("myCounterPlugin", {
     actions: {
       increment() {
         state.counter += 1;
@@ -292,11 +292,11 @@ You should use local context when:
   In JavaScript, you can access the local context values using the `getContext` function:
 
   ```js
-  store('myPlugin', {
+  store("myPlugin", {
     actions: {
       sendAnalyticsEvent() {
         const { counter } = getContext();
-        myAnalyticsLibrary.sendEvent('updated counter', counter);
+        myAnalyticsLibrary.sendEvent("updated counter", counter);
       },
     },
     callbacks: {
@@ -315,7 +315,7 @@ You should use local context when:
   To update the local context values in JavaScript, you can modify the object returned by `getContext`:
 
   ```js
-  store('myPlugin', {
+  store("myPlugin", {
     actions: {
       increment() {
         const context = getContext();
@@ -331,7 +331,7 @@ You should use local context when:
 
   Changes to the local context will automatically trigger updates in any directives that depend on the modified values.
 
-  _Please, visit [The Reactive and Declarative mindset](/docs/reference-guides/interactivity-api/core-concepts/the-reactive-and-declarative-mindset.md) guide to learn more about how reactivity works in the Interactivity API._
+  *Please, visit [The Reactive and Declarative mindset](/docs/reference-guides/interactivity-api/core-concepts/the-reactive-and-declarative-mindset.md) guide to learn more about how reactivity works in the Interactivity API.*
 
 - **Nesting local contexts**
 
@@ -367,7 +367,7 @@ In this example, there is a single interactive block that shows a counter and ca
 ```
 
 ```js
-store('myCounterPlugin', {
+store("myCounterPlugin", {
   actions: {
     increment() {
       const context = getContext();
@@ -406,7 +406,7 @@ Derived state offers several key benefits that make it an essential part of a we
 
 In essence, derived state allows you to express relationships between different pieces of data in your interactive blocks declaratively, instead of imperatively updating related values whenever something changes.
 
-_Please, visit [The Reactive and Declarative mindset](/docs/reference-guides/interactivity-api/core-concepts/the-reactive-and-declarative-mindset.md) guide to learn more about how to leverage declarative coding in the Interactivity API._
+*Please, visit [The Reactive and Declarative mindset](/docs/reference-guides/interactivity-api/core-concepts/the-reactive-and-declarative-mindset.md) guide to learn more about how to leverage declarative coding in the Interactivity API.*
 
 You should use derived state:
 
@@ -443,7 +443,7 @@ You should use derived state:
 
     Regardless of the approach, the initial derived state values will be used during the rendering of the page in PHP, and the HTML can be populated with the correct values.
 
-    _Please, visit [the Server-side Rendering guide](/docs/reference-guides/interactivity-api/core-concepts/server-side-rendering.md) to learn more about how directives are processed on the server._
+    *Please, visit [the Server-side Rendering guide](/docs/reference-guides/interactivity-api/core-concepts/server-side-rendering.md) to learn more about how directives are processed on the server.*
 
     The same mechanism applies even when the derived state property depends on the local context.
 
@@ -475,7 +475,7 @@ You should use derived state:
     In JavaScript, the derived state is defined using getters:
 
     ```js
-    const { state } = store('myCounterPlugin', {
+    const { state } = store("myCounterPlugin", {
       state: {
         get double() {
           return state.counter * 2;
@@ -487,7 +487,7 @@ You should use derived state:
     Derived state can depend on local context, or local context and global state at the same time.
 
     ```js
-    const { state } = store('myCounterPlugin', {
+    const { state } = store("myCounterPlugin", {
       state: {
         get double() {
           const { counter } = getContext();
@@ -545,7 +545,7 @@ You should use derived state:
   The same happens in JavaScript. Both global state and derived state can be consumed through the `state` property of the store:
 
   ```js
-  const { state } = store('myCounterPlugin', {
+  const { state } = store("myCounterPlugin", {
     // ...
     actions: {
       readValues() {
@@ -561,7 +561,7 @@ You should use derived state:
   You can also access the derived state from another derived state and, thus, create multiple levels of computed values.
 
   ```js
-  const { state } = store('myPlugin', {
+  const { state } = store("myPlugin", {
     state: {
       get double() {
         return state.counter * 2;
@@ -578,7 +578,7 @@ You should use derived state:
   The derived state cannot be updated directly. To update its values, you need to update the global state or local context on which that derived state depends.
 
   ```js
-  const { state } = store('myCounterPlugin', {
+  const { state } = store("myCounterPlugin", {
     // ...
     actions: {
       updateValues() {
@@ -601,7 +601,7 @@ Let's consider a scenario where there is a counter and the double value needs to
 - **Not using derived state**
 
   ```js
-  const { state } = store('myCounterPlugin', {
+  const { state } = store("myCounterPlugin", {
     state: {
       counter: 1,
       double: 2,
@@ -623,7 +623,7 @@ Let's consider a scenario where there is a counter and the double value needs to
 - **Using derived state**
 
   ```js
-  const { state } = store('myCounterPlugin', {
+  const { state } = store("myCounterPlugin", {
     state: {
       counter: 1,
       get double() {
@@ -648,7 +648,7 @@ Let's consider a scenario where there is a counter and the double value needs to
 Let's now consider a scenario where there is a local context that initializes a counter.
 
 ```js
-store('myCounterPlugin', {
+store("myCounterPlugin", {
   state: {
     get double() {
       const { counter } = getContext();
@@ -691,7 +691,10 @@ In this example, the derived state `state.double` reads from the local context p
 Let's now consider a scenario where there is a global tax rate and local product prices and calculate the final price, including tax.
 
 ```html
-<div data-wp-interactive="myProductPlugin" data-wp-context='{ "priceWithoutTax": 100 }'>
+<div
+  data-wp-interactive="myProductPlugin"
+  data-wp-context='{ "priceWithoutTax": 100 }'
+>
   <p>Product Price: $<span data-wp-text="context.priceWithoutTax"></span></p>
   <p>Tax Rate: <span data-wp-text="state.taxRatePercentage"></span></p>
   <p>Price (inc. tax): $<span data-wp-text="state.priceWithTax"></span></p>
@@ -699,7 +702,7 @@ Let's now consider a scenario where there is a global tax rate and local product
 ```
 
 ```js
-const { state } = store('myProductPlugin', {
+const { state } = store("myProductPlugin", {
   state: {
     taxRate: 0.21,
     get taxRatePercentage() {
@@ -750,16 +753,16 @@ Let's consider a quiz that has multiple questions. Each question is a separate p
 ```
 
 ```javascript
-import { store, getServerState } from '@wordpress/interactivity';
+import { store, getServerState } from "@wordpress/interactivity";
 
-store('myPlugin', {
+store("myPlugin", {
   actions: {
     // This action would be triggered by a directive, like:
     // <button data-wp-on-click="actions.nextQuestion">Next Question</button>
     *nextQuestion() {
       event.preventDefault(event);
-      const { actions } = yield import('@wordpress/interactivity-router');
-      actions.navigate('/question-2');
+      const { actions } = yield import("@wordpress/interactivity-router");
+      actions.navigate("/question-2");
     },
   },
   callbacks: {
@@ -791,16 +794,16 @@ Consider a quiz that has multiple questions. Each question is a separate page. W
 ```
 
 ```javascript
-import { store, getServerContext } from '@wordpress/interactivity';
+import { store, getServerContext } from "@wordpress/interactivity";
 
-store('myPlugin', {
+store("myPlugin", {
   actions: {
     // This action would be triggered by a directive, like:
     // <button data-wp-on-click="actions.nextQuestion">Next Question</button>
     *nextQuestion() {
       event.preventDefault(event);
-      const { actions } = yield import('@wordpress/interactivity-router');
-      actions.navigate('/question-2');
+      const { actions } = yield import("@wordpress/interactivity-router");
+      actions.navigate("/question-2");
     },
   },
   callbacks: {

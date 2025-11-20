@@ -34,28 +34,28 @@ echo 'module.exports = { presets: ["@wordpress/babel-preset-default"] };' > .bab
 ```javascript
 // .babelrc.js
 module.exports = {
- presets: [
-  [
-   '@wordpress/babel-preset-default',
-   {
-    // WordPress-specific options
-    modules: false, // Preserve ES modules for tree-shaking
-    targets: {
-     browsers: ['extends @wordpress/browserslist-config']
-    }
-   }
-  ]
- ],
- plugins: [
-  // Additional plugins for advanced features
-  '@babel/plugin-proposal-class-properties',
-  '@babel/plugin-proposal-object-rest-spread'
- ],
- env: {
-  test: {
-   presets: [['@wordpress/babel-preset-default', { modules: 'commonjs' }]]
-  }
- }
+  presets: [
+    [
+      "@wordpress/babel-preset-default",
+      {
+        // WordPress-specific options
+        modules: false, // Preserve ES modules for tree-shaking
+        targets: {
+          browsers: ["extends @wordpress/browserslist-config"],
+        },
+      },
+    ],
+  ],
+  plugins: [
+    // Additional plugins for advanced features
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+  ],
+  env: {
+    test: {
+      presets: [["@wordpress/babel-preset-default", { modules: "commonjs" }]],
+    },
+  },
 };
 ```
 
@@ -75,13 +75,13 @@ The `@wordpress/babel-preset-default` includes:
 
 ```json
 {
- "devDependencies": {
-  "@babel/core": "^7.22.0",
-  "@wordpress/babel-preset-default": "^7.0.0",
-  "@wordpress/browserslist-config": "^5.0.0",
-  "babel-loader": "^9.0.0"
- },
- "browserslist": "extends @wordpress/browserslist-config"
+  "devDependencies": {
+    "@babel/core": "^7.22.0",
+    "@wordpress/babel-preset-default": "^7.0.0",
+    "@wordpress/browserslist-config": "^5.0.0",
+    "babel-loader": "^9.0.0"
+  },
+  "browserslist": "extends @wordpress/browserslist-config"
 }
 ```
 
@@ -89,11 +89,11 @@ The `@wordpress/babel-preset-default` includes:
 
 ```json
 {
- "scripts": {
-  "build": "wp-scripts build",
-  "start": "wp-scripts start",
-  "format": "wp-scripts format"
- }
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "format": "wp-scripts format"
+  }
 }
 ```
 
@@ -101,33 +101,36 @@ The `@wordpress/babel-preset-default` includes:
 
 ### **Core Presets**
 
-| Preset | Purpose | WordPress Usage |
-|--------|---------|----------------|
-| `@wordpress/babel-preset-default` | WordPress-optimized compilation | Block development |
-| `@babel/preset-env` | Modern JS transformation | Included in WP preset |
-| `@babel/preset-react` | JSX transformation | Included in WP preset |
-| `@babel/preset-typescript` | TypeScript support | Optional add-on |
+| Preset                            | Purpose                         | WordPress Usage       |
+| --------------------------------- | ------------------------------- | --------------------- |
+| `@wordpress/babel-preset-default` | WordPress-optimized compilation | Block development     |
+| `@babel/preset-env`               | Modern JS transformation        | Included in WP preset |
+| `@babel/preset-react`             | JSX transformation              | Included in WP preset |
+| `@babel/preset-typescript`        | TypeScript support              | Optional add-on       |
 
 ### **Essential Plugins**
 
 ```javascript
 // Advanced .babelrc.js configuration
 module.exports = {
- presets: ['@wordpress/babel-preset-default'],
- plugins: [
-  // WordPress-specific
-  '@wordpress/babel-plugin-makepot', // i18n extraction
-  
-  // Modern JavaScript
-  '@babel/plugin-proposal-class-properties',
-  '@babel/plugin-proposal-optional-chaining',
-  '@babel/plugin-proposal-nullish-coalescing-operator',
-  
-  // Development
-  ['@babel/plugin-transform-react-jsx', {
-   pragma: 'wp.element.createElement'
-  }]
- ]
+  presets: ["@wordpress/babel-preset-default"],
+  plugins: [
+    // WordPress-specific
+    "@wordpress/babel-plugin-makepot", // i18n extraction
+
+    // Modern JavaScript
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-nullish-coalescing-operator",
+
+    // Development
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        pragma: "wp.element.createElement",
+      },
+    ],
+  ],
 };
 ```
 
@@ -135,24 +138,27 @@ module.exports = {
 
 ```javascript
 module.exports = {
- presets: ['@wordpress/babel-preset-default'],
- env: {
-  // Test environment (Jest)
-  test: {
-   presets: [
-    ['@wordpress/babel-preset-default', {
-     modules: 'commonjs' // Required for Jest
-    }]
-   ]
+  presets: ["@wordpress/babel-preset-default"],
+  env: {
+    // Test environment (Jest)
+    test: {
+      presets: [
+        [
+          "@wordpress/babel-preset-default",
+          {
+            modules: "commonjs", // Required for Jest
+          },
+        ],
+      ],
+    },
+    // Production optimizations
+    production: {
+      plugins: [
+        "babel-plugin-transform-remove-console",
+        ["babel-plugin-transform-remove-debugger"],
+      ],
+    },
   },
-  // Production optimizations
-  production: {
-   plugins: [
-    'babel-plugin-transform-remove-console',
-    ['babel-plugin-transform-remove-debugger']
-   ]
-  }
- }
 };
 ```
 
@@ -163,17 +169,17 @@ module.exports = {
 ```javascript
 // webpack.config.js (if customizing)
 module.exports = {
- module: {
-  rules: [
-   {
-    test: /\.(js|jsx|ts|tsx)$/,
-    exclude: /node_modules/,
-    use: {
-     loader: 'babel-loader'
-    }
-   }
-  ]
- }
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx|ts|tsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+        },
+      },
+    ],
+  },
 };
 ```
 
@@ -198,12 +204,15 @@ npx babel src --config-file ./custom.babel.config.js
 ```javascript
 // jest.config.js
 module.exports = {
- preset: '@wordpress/jest-preset-default',
- transform: {
-  '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', {
-   configFile: './.babelrc.js'
-  }]
- }
+  preset: "@wordpress/jest-preset-default",
+  transform: {
+    "^.+\\.(js|jsx|ts|tsx)$": [
+      "babel-jest",
+      {
+        configFile: "./.babelrc.js",
+      },
+    ],
+  },
 };
 ```
 
@@ -211,10 +220,10 @@ module.exports = {
 
 **Related Configuration:**
 
-- **[Jest Configuration](./project-jest.md)** - Testing with Babel compilation  
-- **[ESLint Configuration](./lint-eslint.md)** - Linting compiled code  
-- **[PostCSS Configuration](./project-postcss.md)** - CSS processing pipeline  
-- **[Package.json Scripts](./npm-scripts.md)** - Build and development commands  
+- **[Jest Configuration](./project-jest.md)** - Testing with Babel compilation
+- **[ESLint Configuration](./lint-eslint.md)** - Linting compiled code
+- **[PostCSS Configuration](./project-postcss.md)** - CSS processing pipeline
+- **[Package.json Scripts](./npm-scripts.md)** - Build and development commands
 
 ---
 

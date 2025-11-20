@@ -53,7 +53,7 @@ Each agent is:
 - **Integration**: Works with [labeling.yml](../workflows/labeling.yml) workflow
 - **Prompts**: Uses [label-issues.prompt.md](../prompts/label-issues.prompt.md)
 
-#### 🔍 [Reviewer Agent](./agents/reviewer.instructions.md)  
+#### 🔍 [Reviewer Agent](./agents/reviewer.instructions.md)
 
 - **Purpose**: Summarizes PR/CI status, review requirements, and reviewer guidance
 - **Triggers**: PR creation, review submission, CI completion
@@ -183,12 +183,12 @@ graph TB
     C --> D[Prompts Directory]
     D --> E[Chatmodes Directory]
     E --> F[Custom Instructions]
-    
+
     A --> G[Individual Agents]
     G --> H[Agent Tests]
     G --> I[Agent Scripts]
     G --> J[Agent Documentation]
-    
+
     subgraph "Agent Lifecycle"
         K[Agent Creation] --> L[Instructions]
         L --> M[Implementation]
@@ -207,7 +207,7 @@ sequenceDiagram
     participant AG as Agent
     participant PR as Prompts
     participant CM as Chatmodes
-    
+
     GH->>WF: Issue/PR/Push Event
     WF->>AG: Execute Agent
     AG->>PR: Load Prompts
@@ -218,7 +218,7 @@ sequenceDiagram
 
 ---
 
-_This index is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for complete automation standards._
+*This index is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for complete automation standards.*
 
 ---
 

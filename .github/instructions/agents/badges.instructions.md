@@ -14,6 +14,7 @@ references:
   - "../../BADGES.md"
   - "./branding.agent.md"
 ---
+
 > **Deprecated:** This agent and instructions have been superseded by [branding.agent.md](./branding.agent.md). Please use the Branding Agent for unified header, footer, and badge automation.
 
 # Badges Instructions (Deprecated)

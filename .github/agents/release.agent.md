@@ -1,13 +1,32 @@
 ---
-title: "Release Agent Spec"
+name: "release"
+description: "Automates release validation, semantic versioning, changelog enforcement, Git tagging, and GitHub Releases publication. Ensures all releases are standards-compliant and properly documented."
+target: "github-copilot"
+tools: ["github/*", "edit", "read", "shell", "search"]
+handoffs:
+  - label: "Publish Release"
+    agent: "deployment"
+    prompt: "Publish the validated release to production."
+    send: false
 version: "v1.0"
-last_updated: "2025-10-21"
+last_updated: "2025-11-20"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
-description: "Spec for the Release Agent."
-tags: ["lightspeed","release","agents"]
 file_type: "agent"
-name: "release"
+category: "release-management"
+status: "active"
+visibility: "public"
+tags: ["lightspeed", "release", "agents", "github", "semantic-versioning"]
+references:
+  - path: ".github/agents/release.agent.js"
+    description: "Implementation script"
+  - path: ".github/workflows/release.yml"
+    description: "GitHub Actions workflow"
+  - path: "CHANGELOG.md"
+    description: "Changelog standards"
+owners: ["lightspeedwp/maintainers"]
+metadata:
+  guardrails: "Never publish incomplete or broken releases. Abort and notify if any validation fails. Always lint and test before release. Support dry-run mode. Log all actions for audit trails."
 ---
 
 # Role

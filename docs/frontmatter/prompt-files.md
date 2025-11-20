@@ -20,4 +20,4 @@ Copilot prompt files (`*.prompt.md`) allow you to define reusable instructions f
 - Where: `.github/prompts/*.prompt.md`
 - Required frontmatter: `description`, `mode`, optionally `model` and `tools`
 
-> _Add prompt file examples, frontmatter templates, and usage tips here._
+> *Add prompt file examples, frontmatter templates, and usage tips here.*

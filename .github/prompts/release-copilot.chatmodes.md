@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
-name: 'Release Copilot'
-description: 'Generates changelogs and release notes from merged PRs.'
+mode: "agent"
+name: "Release Copilot"
+description: "Generates changelogs and release notes from merged PRs."
 ---
 
 ## Prompts

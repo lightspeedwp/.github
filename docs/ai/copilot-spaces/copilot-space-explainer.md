@@ -22,6 +22,7 @@
 
   ```md
   # Role
+
   `You are a [role]. Follow our [framework/patterns] to [type of task]. Avoid [practices or tools] unless specified.`
   ```
 

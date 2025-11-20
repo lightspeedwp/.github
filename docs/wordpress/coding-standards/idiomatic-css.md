@@ -43,7 +43,7 @@ Only one style should exist across the entire source of your code-base. Always
 be consistent in your use of whitespace. Use whitespace to improve
 readability.
 
-- _Never_ mix spaces and tabs for indentation.
+- *Never* mix spaces and tabs for indentation.
 - Choose between soft indents (spaces) or real tabs. Stick to your choice
   without fail. (Preference: spaces)
 - If using spaces, choose the number of characters used per indentation level.
@@ -122,7 +122,7 @@ in useful diffs and blames.
 - Use single or double quotes consistently. Preference is for double quotes,
   e.g., `content: ""`.
 - Quote attribute values in selectors, e.g., `input[type="checkbox"]`.
-- _Where allowed_, avoid specifying units for zero-values, e.g., `margin: 0`.
+- *Where allowed*, avoid specifying units for zero-values, e.g., `margin: 0`.
 - Include a space after each comma in comma-separated property or function
   values.
 - Include a semi-colon at the end of the last declaration in a declaration
@@ -134,7 +134,7 @@ in useful diffs and blames.
 ```css
 .selector-1,
 .selector-2,
-.selector-3[type='text'] {
+.selector-3[type="text"] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -383,7 +383,7 @@ source of inspiration, quotations, and guidelines.
 
 ## License
 
-_Principles of writing consistent, idiomatic CSS_ by Nicolas Gallagher is
+*Principles of writing consistent, idiomatic CSS* by Nicolas Gallagher is
 licensed under the [Creative Commons Attribution 3.0 Unported
 License](http://creativecommons.org/licenses/by/3.0/). This applies to all
 documents and translations in this repository.

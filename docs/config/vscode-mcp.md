@@ -63,7 +63,7 @@
 
 - ✅ **Repository & file management** - Browse, read, create, update files
 - ✅ **Issue & PR workflows** - Create, assign, review, merge
-- ✅ **🎯 GitHub Copilot Spaces** - Team collaboration & context sharing  
+- ✅ **🎯 GitHub Copilot Spaces** - Team collaboration & context sharing
 - ✅ **Organization management** - Teams, permissions, workflows
 - ✅ **Advanced search** - Code, repositories, issues across organizations
 
@@ -93,7 +93,7 @@
 @github create file docs/setup.md "Content here"
 @github list files --path src/blocks/
 
-# 🐛 Issue & PR Workflows  
+# 🐛 Issue & PR Workflows
 @github create issue "Bug: Header styling" "Description..."
 @github create pull-request --title "Feature: New block"
 @github review pull-request 123 --approve
@@ -134,14 +134,14 @@ For detailed documentation on each MCP server:
 
 ### 🎯 **When to Use Each Server**
 
-| Use Case | MCP Server | Key Commands |
-|----------|------------|--------------|
-| **Repository Management** | GitHub | `@github get file`, `@github search code` |
-| **Issue Tracking** | GitHub | `@github create issue`, `@github assign` |
-| **Team Collaboration** | GitHub | `@github spaces create`, `@github teams` |
-| **Browser Testing** | Playwright | `@playwright generate tests`, `@playwright run` |
-| **UI Automation** | Playwright | `@playwright click`, `@playwright screenshot` |
-| **Performance Testing** | Playwright | `@playwright audit lighthouse` |
+| Use Case                  | MCP Server | Key Commands                                    |
+| ------------------------- | ---------- | ----------------------------------------------- |
+| **Repository Management** | GitHub     | `@github get file`, `@github search code`       |
+| **Issue Tracking**        | GitHub     | `@github create issue`, `@github assign`        |
+| **Team Collaboration**    | GitHub     | `@github spaces create`, `@github teams`        |
+| **Browser Testing**       | Playwright | `@playwright generate tests`, `@playwright run` |
+| **UI Automation**         | Playwright | `@playwright click`, `@playwright screenshot`   |
+| **Performance Testing**   | Playwright | `@playwright audit lighthouse`                  |
 
 ## Configuration Files
 
@@ -212,7 +212,7 @@ For detailed documentation on each MCP server:
 # 2. Check configuration
 # Verify mcp.json syntax and file path
 
-# 3. Check authentication  
+# 3. Check authentication
 # Try: @github ping
 ```
 
@@ -233,7 +233,7 @@ For detailed documentation on each MCP server:
 ```bash
 # Check MCP server status in VS Code:
 # 1. Open Output panel (View → Output)
-# 2. Select "GitHub Copilot Chat" from dropdown  
+# 2. Select "GitHub Copilot Chat" from dropdown
 # 3. Look for MCP server connection status
 ```
 
@@ -244,7 +244,7 @@ For detailed documentation on each MCP server:
 This MCP setup integrates with:
 
 - **[VS Code Settings](./vscode-settings.md)** - Editor settings and extensions
-- **[MCP Server GitHub](./mcp-server-github.md)** - Detailed GitHub integration guide  
+- **[MCP Server GitHub](./mcp-server-github.md)** - Detailed GitHub integration guide
 - **[MCP Server Playwright](./mcp-server-playwright.md)** - Complete testing automation guide
 - **[NPM Package.json](./npm-package-json.md)** - Dependencies and scripts
 
@@ -256,7 +256,7 @@ This MCP setup integrates with:
 # 1. Analyze existing code
 @github get file src/components/Hero.jsx
 
-# 2. Generate comprehensive tests  
+# 2. Generate comprehensive tests
 @playwright generate tests for Hero component functionality
 
 # 3. Create improvement issue
@@ -282,6 +282,6 @@ This MCP setup integrates with:
 ### **🔒 Security & Performance**
 
 1. **OAuth Only:** Never use personal access tokens in configuration
-2. **Regular Updates:** Keep MCP servers updated to latest versions  
+2. **Regular Updates:** Keep MCP servers updated to latest versions
 3. **Resource Management:** Use specific queries to avoid rate limits
 4. **Team Coordination:** Share MCP configurations via version control

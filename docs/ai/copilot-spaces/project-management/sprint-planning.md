@@ -122,7 +122,7 @@ Ensure your sprint planning results in:
 ## Team Capacity Analysis
 
 - **Development Team**: 5 developers (QA and design capacity tracked separately)
-- **Sprint Duration**: 10 working days  
+- **Sprint Duration**: 10 working days
 - **Net Available Capacity**: 334 hours
 - **Target Story Points**: 42 points
 
@@ -131,7 +131,7 @@ Ensure your sprint planning results in:
 ### Epic: User Authentication (26 points)
 
 - **US-101**: User Registration (8 points)
-- **US-102**: User Login/Logout (5 points)  
+- **US-102**: User Login/Logout (5 points)
 - **US-103**: Password Reset Flow (8 points)
 - **US-104**: Session Management (5 points)
 

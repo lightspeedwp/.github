@@ -30,19 +30,19 @@ The frontmatter schema has been successfully consolidated to a **single canonica
 
 Updated **20+ references** across the codebase to point to the canonical location:
 
-| File | Type | Status |
-|------|------|--------|
-| `.github/instructions/frontmatter.instructions.md` | Instructions | ✅ Updated |
-| `.github/custom-instructions.md` | Central Config | ✅ Updated |
-| `schemas/README.md` | Index | ✅ Updated |
-| `.github/agents/agent.md` | Agent Index | ✅ Updated |
-| `.github/chatmodes/chatmodes.md` | Chatmode Index | ✅ Updated |
-| `scripts/validate-frontmatter.js` | Validation | ✅ Updated |
-| `.github/workflows/frontmatter-validation.yml` | CI/CD | ✅ Updated |
-| `schemas/frontmatter/README.md` | Documentation | ✅ Updated |
-| `schemas/frontmatter/validate.js` | Tool | ✅ Updated |
-| `.github/metrics/frontmatter-metrics.js` | Analytics | ✅ Updated |
-| Plus 10+ additional documentation files | Documentation | ✅ Updated |
+| File                                               | Type           | Status     |
+| -------------------------------------------------- | -------------- | ---------- |
+| `.github/instructions/frontmatter.instructions.md` | Instructions   | ✅ Updated |
+| `.github/custom-instructions.md`                   | Central Config | ✅ Updated |
+| `schemas/README.md`                                | Index          | ✅ Updated |
+| `.github/agents/agent.md`                          | Agent Index    | ✅ Updated |
+| `.github/chatmodes/chatmodes.md`                   | Chatmode Index | ✅ Updated |
+| `scripts/validate-frontmatter.js`                  | Validation     | ✅ Updated |
+| `.github/workflows/frontmatter-validation.yml`     | CI/CD          | ✅ Updated |
+| `schemas/frontmatter/README.md`                    | Documentation  | ✅ Updated |
+| `schemas/frontmatter/validate.js`                  | Tool           | ✅ Updated |
+| `.github/metrics/frontmatter-metrics.js`           | Analytics      | ✅ Updated |
+| Plus 10+ additional documentation files            | Documentation  | ✅ Updated |
 
 #### 3. **Updated Tool Paths**
 
@@ -109,14 +109,14 @@ All documentation files updated to reflect canonical location
 
 ## Benefits
 
-| Benefit | Impact |
-|---------|--------|
-| **Single Source of Truth** | No conflicting versions, easier maintenance |
-| **Simpler Import Paths** | Shorter relative paths: `../../../schemas/frontmatter.schema.json` |
-| **Better Organization** | Subfolder contains **tools**, not schema storage |
-| **Improved Discoverability** | Schema visible at root of `schemas/` directory |
-| **Reduced Maintenance** | One file to update instead of three |
-| **Cleaner Git History** | Removal of duplicates improves repository clarity |
+| Benefit                      | Impact                                                             |
+| ---------------------------- | ------------------------------------------------------------------ |
+| **Single Source of Truth**   | No conflicting versions, easier maintenance                        |
+| **Simpler Import Paths**     | Shorter relative paths: `../../../schemas/frontmatter.schema.json` |
+| **Better Organization**      | Subfolder contains **tools**, not schema storage                   |
+| **Improved Discoverability** | Schema visible at root of `schemas/` directory                     |
+| **Reduced Maintenance**      | One file to update instead of three                                |
+| **Cleaner Git History**      | Removal of duplicates improves repository clarity                  |
 
 ---
 
@@ -144,13 +144,13 @@ All documentation files updated to reflect canonical location
 
 ## Files Changed Summary
 
-| Category | Count | Details |
-|----------|-------|---------|
-| Deleted Files | 2 | Duplicates removed |
-| Updated Code Files | 5 | Validation, metrics, utilities |
-| Updated Documentation | 15+ | Instructions, guides, references |
-| Updated Config Files | 3 | Workflow, settings, tooling |
-| **Total Changes** | **25+** | Complete consolidation |
+| Category              | Count   | Details                          |
+| --------------------- | ------- | -------------------------------- |
+| Deleted Files         | 2       | Duplicates removed               |
+| Updated Code Files    | 5       | Validation, metrics, utilities   |
+| Updated Documentation | 15+     | Instructions, guides, references |
+| Updated Config Files  | 3       | Workflow, settings, tooling      |
+| **Total Changes**     | **25+** | Complete consolidation           |
 
 ---
 

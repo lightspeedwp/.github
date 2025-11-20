@@ -21,6 +21,7 @@ Hi @username,
 We noticed this PR was partially drafted or reviewed using AI tools (Copilot, CodeRabbit, etc.).
 
 **Guidance:**
+
 - Review all AI-generated code for accuracy, security, and alignment with [Coding Standards](../../instructions/coding-standards.instructions.md)
 - Add/adjust tests for any generated logic
 - Document any prompts or custom instructions in the PR body or comments as needed

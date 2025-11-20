@@ -9,6 +9,7 @@ description: "How to create, title, describe, instruct, and attach context."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 file_type: "copilot"
 ---
+
 # Overview
 
 - Spaces collect Title (5–8 words), Description (≤350 chars with example ask), and Instructions (≤4,000 chars).

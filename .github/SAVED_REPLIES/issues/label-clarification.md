@@ -20,6 +20,7 @@ Hi @username,
 We’ve updated the labels on this issue to improve triage and automate routing.
 
 **Key label families:**
+
 - `type:*` — describes the nature of the issue (feature, bug, documentation, etc.)
 - `status:*` — current workflow status
 - `priority:*` — urgency/impact

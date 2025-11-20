@@ -23,11 +23,13 @@ Thank you for your suggestion to improve our documentation! Good docs are vital 
 
 If there are specific sections or examples that need clarification, please mention them here.
 
-**Next steps:**  
+**Next steps:**
+
 - We’ve added this to our documentation backlog for review and prioritization.
 - Updates will be tracked in this issue.
 
-**References:**  
+**References:**
+
 - [Documentation Standards](../../CONTRIBUTING.md)
 - [Label Policy](../ISSUE_LABELS.md)
 ```
@@ -56,7 +58,8 @@ Hi @username,
 
 Good news! The documentation updates you suggested are now live.
 
-**Sections updated:**  
+**Sections updated:**
+
 - {list or links}
 
 Thank you for your feedback—keep it coming!

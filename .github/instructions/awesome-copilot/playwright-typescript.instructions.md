@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-description: 'Playwright test generation instructions'
-applyTo: '**'
+description: "Playwright test generation instructions"
+applyTo: "**"
 ---
 
 ## Test Writing Guidelines
@@ -36,25 +36,25 @@ applyTo: '**'
 ## Example Test Structure
 
 ```typescript
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Movie Search Feature', () => {
+test.describe("Movie Search Feature", () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the application before each test
-    await page.goto('https://debs-obrien.github.io/playwright-movies-app');
+    await page.goto("https://debs-obrien.github.io/playwright-movies-app");
   });
 
-  test('Search for a movie by title', async ({ page }) => {
-    await test.step('Activate and perform search', async () => {
-      await page.getByRole('search').click();
-      const searchInput = page.getByRole('textbox', { name: 'Search Input' });
-      await searchInput.fill('Garfield');
-      await searchInput.press('Enter');
+  test("Search for a movie by title", async ({ page }) => {
+    await test.step("Activate and perform search", async () => {
+      await page.getByRole("search").click();
+      const searchInput = page.getByRole("textbox", { name: "Search Input" });
+      await searchInput.fill("Garfield");
+      await searchInput.press("Enter");
     });
 
-    await test.step('Verify search results', async () => {
+    await test.step("Verify search results", async () => {
       // Verify the accessibility tree of the search results
-      await expect(page.getByRole('main')).toMatchAriaSnapshot(`
+      await expect(page.getByRole("main")).toMatchAriaSnapshot(`
         - main:
           - heading "Garfield" [level=1]
           - heading "search results" [level=2]

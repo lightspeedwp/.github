@@ -1,9 +1,9 @@
 ---
-title: 'Markdown Linting Guide'
-description: 'Guide for using markdownlint-cli2 with GitHub rules at LightSpeedWP'
-version: '1.0.0'
-last_updated: '2025-11-18'
-tags: ['linting', 'markdown', 'markdownlint', 'github', 'documentation']
+title: "Markdown Linting Guide"
+description: "Guide for using markdownlint-cli2 with GitHub rules at LightSpeedWP"
+version: "1.0.0"
+last_updated: "2025-11-18"
+tags: ["linting", "markdown", "markdownlint", "github", "documentation"]
 ---
 
 # Markdown Linting

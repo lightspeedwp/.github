@@ -1,6 +1,6 @@
 ---
-description: 'Comprehensive technology-agnostic prompt for analyzing and documenting project folder structures. Auto-detects project types (.NET, Java, React, Angular, Python, Node.js, Flutter), generates detailed blueprints with visualization options, naming conventions, file placement patterns, and extension templates for maintaining consistent code organization across diverse technology stacks.'
-mode: 'agent'
+description: "Comprehensive technology-agnostic prompt for analyzing and documenting project folder structures. Auto-detects project types (.NET, Java, React, Angular, Python, Node.js, Flutter), generates detailed blueprints with visualization options, naming conventions, file placement patterns, and extension templates for maintaining consistent code organization across diverse technology stacks."
+mode: "agent"
 ---
 
 # Project Folder Structure Blueprint Generator
@@ -8,33 +8,43 @@ mode: 'agent'
 ## Configuration Variables
 
 ${PROJECT_TYPE="Auto-detect|.NET|Java|React|Angular|Python|Node.js|Flutter|Other"}
+
 <!-- Select primary technology -->
 
 ${INCLUDES_MICROSERVICES="Auto-detect|true|false"}
+
 <!-- Is this a microservices architecture? -->
 
 ${INCLUDES_FRONTEND="Auto-detect|true|false"}
+
 <!-- Does project include frontend components? -->
 
 ${IS_MONOREPO="Auto-detect|true|false"}
+
 <!-- Is this a monorepo with multiple projects? -->
 
 ${VISUALIZATION_STYLE="ASCII|Markdown List|Table"}
+
 <!-- How to visualize the structure -->
 
 ${DEPTH_LEVEL=1-5}
+
 <!-- How many levels of folders to document in detail -->
 
 ${INCLUDE_FILE_COUNTS=true|false}
+
 <!-- Include file count statistics -->
 
 ${INCLUDE_GENERATED_FOLDERS=true|false}
+
 <!-- Include auto-generated folders -->
 
 ${INCLUDE_FILE_PATTERNS=true|false}
+
 <!-- Document file naming/location patterns -->
 
 ${INCLUDE_TEMPLATES=true|false}
+
 <!-- Include file/folder templates for new features -->
 
 ## Generated Prompt
@@ -53,7 +63,7 @@ ${PROJECT_TYPE == "Auto-detect" ?
 - Check for Python project identifiers (requirements.txt, setup.py, pyproject.toml)
 - Examine mobile app identifiers (pubspec.yaml, android/ios folders)
 - Note all technology signatures found and their versions" :
-"Focus analysis on ${PROJECT_TYPE} project structure"}
+  "Focus analysis on ${PROJECT_TYPE} project structure"}
 
 ${IS_MONOREPO == "Auto-detect" ?
 "Determine if this is a monorepo by looking for:
@@ -180,7 +190,6 @@ ${(PROJECT_TYPE == "React" || PROJECT_TYPE == "Angular" || PROJECT_TYPE == "Auto
   - Static resource organization
   - Image/media file structure
   - Font and icon organization
-  
 - **Style Organization**:
   - CSS/SCSS file structure
   - Theme organization
@@ -194,31 +203,26 @@ ${INCLUDE_FILE_PATTERNS ?
 - **Configuration Files**:
   - Locations for different types of configuration
   - Environment-specific configuration patterns
-  
 - **Model/Entity Definitions**:
   - Where domain models are defined
   - Data transfer object (DTO) locations
   - Schema definition locations
-  
 - **Business Logic**:
   - Service implementation locations
   - Business rule organization
   - Utility and helper function placement
-  
 - **Interface Definitions**:
   - Where interfaces and abstractions are defined
   - How interfaces are grouped and organized
-  
 - **Test Files**:
   - Unit test location patterns
   - Integration test placement
   - Test utility and mock locations
-  
 - **Documentation Files**:
   - API documentation placement
   - Internal documentation organization
   - README file distribution" :
-"Document where key file types are located in the project."}
+    "Document where key file types are located in the project."}
 
 ### 5. Naming and Organization Conventions
 
@@ -228,12 +232,10 @@ Document the naming and organizational conventions observed across the project:
   - Case conventions (PascalCase, camelCase, kebab-case)
   - Prefix and suffix patterns
   - Type indicators in filenames
-  
 - **Folder Naming Patterns**:
   - Naming conventions for different folder types
   - Hierarchical naming patterns
   - Grouping and categorization conventions
-  
 - **Namespace/Module Patterns**:
   - How namespaces/modules map to folder structure
   - Import/using statement organization
@@ -258,7 +260,6 @@ Provide guidance for navigating and working with the codebase structure:
   - How to extend existing functionality
   - Where to place new tests
   - Configuration modification locations
-  
 - **Dependency Patterns**:
   - How dependencies flow between folders
   - Import/reference patterns
@@ -279,12 +280,10 @@ Document the build process and output organization:
   - Build script locations and purposes
   - Build pipeline organization
   - Build task definitions
-  
 - **Output Structure**:
   - Compiled/built output locations
   - Output organization patterns
   - Distribution package structure
-  
 - **Environment-Specific Builds**:
   - Development vs. production differences
   - Environment configuration strategies
@@ -300,17 +299,14 @@ ${(PROJECT_TYPE == ".NET" || PROJECT_TYPE == "Auto-detect") ?
   - Target framework configuration
   - Property group organization
   - Item group patterns
-  
 - **Assembly Organization**:
   - Assembly naming patterns
   - Multi-assembly architecture
   - Assembly reference patterns
-  
 - **Resource Organization**:
   - Embedded resource patterns
   - Localization file structure
   - Static web asset organization
-  
 - **Package Management**:
   - NuGet configuration locations
   - Package reference organization
@@ -323,12 +319,10 @@ ${(PROJECT_TYPE == "Java" || PROJECT_TYPE == "Auto-detect") ?
   - Package naming and nesting conventions
   - Domain vs. technical packages
   - Visibility and access patterns
-  
 - **Build Tool Organization**:
   - Maven/Gradle structure patterns
   - Module organization
   - Plugin configuration patterns
-  
 - **Resource Organization**:
   - Resource folder structures
   - Environment-specific resources
@@ -341,12 +335,10 @@ ${(PROJECT_TYPE == "Node.js" || PROJECT_TYPE == "Auto-detect") ?
   - CommonJS vs. ESM organization
   - Internal module patterns
   - Third-party dependency management
-  
 - **Script Organization**:
   - npm/yarn script definition patterns
   - Utility script locations
   - Development tool scripts
-  
 - **Configuration Management**:
   - Configuration file locations
   - Environment variable management
@@ -360,12 +352,10 @@ Document how the project structure is designed to be extended:
   - How to add new modules/features while maintaining conventions
   - Plugin/extension folder patterns
   - Customization directory structures
-  
 - **Scalability Patterns**:
   - How the structure scales for larger features
   - Approach for breaking down large modules
   - Code splitting strategies
-  
 - **Refactoring Patterns**:
   - Common refactoring approaches observed
   - How structural changes are managed
@@ -380,17 +370,14 @@ Provide templates for creating new components that follow project conventions:
   - Folder structure for adding a complete feature
   - Required file types and their locations
   - Naming patterns to follow
-  
 - **New Component Template**:
   - Directory structure for a typical component
   - Essential files to include
   - Integration points with existing structure
-  
 - **New Service Template**:
   - Structure for adding a new service
   - Interface and implementation placement
   - Configuration and registration patterns
-  
 - **New Test Structure**:
   - Folder structure for test projects/files
   - Test file organization templates
@@ -404,7 +391,6 @@ Document how the project structure is maintained and enforced:
   - Tools/scripts that enforce structure
   - Build checks for structural compliance
   - Linting rules related to structure
-  
 - **Documentation Practices**:
   - How structural changes are documented
   - Where architectural decisions are recorded

@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-applyTo: '**/*.ts, **/*.js, **/*.json, **/*.spec.ts, **/*.e2e-spec.ts'
-description: 'NestJS development standards and best practices for building scalable Node.js server-side applications'
+applyTo: "**/*.ts, **/*.js, **/*.json, **/*.spec.ts, **/*.e2e-spec.ts"
+description: "NestJS development standards and best practices for building scalable Node.js server-side applications"
 ---
 
 # NestJS Development Best Practices
@@ -86,7 +86,7 @@ src/
 - Apply guards and interceptors at the appropriate level
 
 ```typescript
-@Controller('users')
+@Controller("users")
 @UseGuards(AuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -149,7 +149,7 @@ export class CreateUserDto {
   @IsString()
   @MinLength(8)
   @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
-    message: 'Password must contain uppercase, lowercase and number',
+    message: "Password must contain uppercase, lowercase and number",
   })
   password: string;
 }
@@ -165,9 +165,9 @@ export class CreateUserDto {
 - Use migrations for database schema changes
 
 ```typescript
-@Entity('users')
+@Entity("users")
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column({ unique: true })
@@ -179,7 +179,7 @@ export class User {
   @Column({ select: false })
   password: string;
 
-  @OneToMany(() => Post, post => post.author)
+  @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
 
   @CreateDateColumn()
@@ -206,7 +206,7 @@ export class User {
 
 ```typescript
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
+export class JwtAuthGuard extends AuthGuard("jwt") {
   canActivate(context: ExecutionContext): boolean | Promise<boolean> {
     return super.canActivate(context);
   }
@@ -253,9 +253,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    const status = exception instanceof HttpException 
-      ? exception.getStatus() 
-      : HttpStatus.INTERNAL_SERVER_ERROR;
+    const status =
+      exception instanceof HttpException
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR;
 
     this.logger.error(`${request.method} ${request.url}`, exception);
 
@@ -263,9 +264,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
-      message: exception instanceof HttpException 
-        ? exception.message 
-        : 'Internal server error',
+      message:
+        exception instanceof HttpException
+          ? exception.message
+          : "Internal server error",
     });
   }
 }
@@ -286,7 +288,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 - Create comprehensive test suites for business logic
 
 ```typescript
-describe('UsersService', () => {
+describe("UsersService", () => {
   let service: UsersService;
   let repository: Repository<User>;
 
@@ -309,12 +311,12 @@ describe('UsersService', () => {
     repository = module.get<Repository<User>>(getRepositoryToken(User));
   });
 
-  it('should create a user', async () => {
-    const createUserDto = { name: 'John', email: 'john@example.com' };
-    const user = { id: '1', ...createUserDto };
+  it("should create a user", async () => {
+    const createUserDto = { name: "John", email: "john@example.com" };
+    const user = { id: "1", ...createUserDto };
 
-    jest.spyOn(repository, 'create').mockReturnValue(user as User);
-    jest.spyOn(repository, 'save').mockResolvedValue(user as User);
+    jest.spyOn(repository, "create").mockReturnValue(user as User);
+    jest.spyOn(repository, "save").mockResolvedValue(user as User);
 
     expect(await service.create(createUserDto)).toEqual(user);
   });
@@ -352,10 +354,10 @@ describe('UsersService', () => {
 
 ```typescript
 // Rate limiting example
-@Controller('auth')
+@Controller("auth")
 @UseGuards(ThrottlerGuard)
 export class AuthController {
-  @Post('login')
+  @Post("login")
   @Throttle(5, 60) // 5 requests per minute
   async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);

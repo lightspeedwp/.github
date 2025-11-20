@@ -10,24 +10,24 @@ Build into `develop`, stabilise on `release/vX.Y.Z`, then **Release PR → `main
 
 ## **Branch Types & Naming**
 
-Format: `{type}/{scope}-{short-title}`  
+Format: `{type}/{scope}-{short-title}`
 
-- `feat/`, `fix/`, `refactor/`, `chore/`, `docs/`, `perf/`, `ci/`, `test/`  
-- `release/vX.Y.Z` — stabilisation  
+- `feat/`, `fix/`, `refactor/`, `chore/`, `docs/`, `perf/`, `ci/`, `test/`
+- `release/vX.Y.Z` — stabilisation
 - `hotfix/<slug>` — production patch
 
 ## **Normal Flow**
 
-1. Branch from `develop`  
-2. PR → `develop`; CI green; 1–2 reviews  
-3. Cut `release/vX.Y.Z` for QA  
-4. Release PR → `main`; tag & deploy  
+1. Branch from `develop`
+2. PR → `develop`; CI green; 1–2 reviews
+3. Cut `release/vX.Y.Z` for QA
+4. Release PR → `main`; tag & deploy
 5. Back-merge `main → develop`
 
 ## **Hotfix Flow**
 
-1. Branch `hotfix/<slug>` from `main`  
-2. PR → `main`; tag patch  
+1. Branch `hotfix/<slug>` from `main`
+2. PR → `main`; tag patch
 3. Back-merge and cherry-pick as needed
 
 ## **Environments**

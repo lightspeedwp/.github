@@ -22,20 +22,20 @@ The following is a list of what should be documented in WordPress JavaScript fil
 
 Short descriptions should be clear, simple, and brief. Document "what" and "when" - "why" should rarely need to be included. The "why" can go in the long description if needed. For example:
 
-Functions and closures are _third-person singular_ elements, meaning _third-person singular verbs_ should be used to describe what each does.
+Functions and closures are *third-person singular* elements, meaning *third-person singular verbs* should be used to describe what each does.
 
 [tip]
 Need help remembering how to conjugate for third-person singular verbs? Imagine prefixing the function, hook, class, or method summary with "It":
 
-- _Good_: "(It) Does something."
-- _Bad:_ "(It) Do something."
+- *Good*: "(It) Does something."
+- *Bad:* "(It) Do something."
 
 [/tip]
 
 **Functions**: What does the function do?
 
-- _Good_: Handles a click on X element.
-- _Bad_: Included for back-compat for X element.
+- *Good*: Handles a click on X element.
+- *Bad*: Included for back-compat for X element.
 
 **`@since`**: The recommended tool to use when searching for the version something was added to WordPress is [`svn blame`](https://make.wordpress.org/core/handbook/svn/code-history/#using-subversion-annotate).
 
@@ -201,7 +201,7 @@ Class = Parent.extend(
     initialize: function () {
       //Do stuff.
     },
-  }
+  },
 );
 ```
 
@@ -232,7 +232,7 @@ If a Backbone class does not have an initialize function it should be documented
 Class = Parent.extend(
   /** @lends namespace.Class.prototype */ {
     // Functions and properties.
-  }
+  },
 );
 ```
 
@@ -273,7 +273,7 @@ Class = Parent.extend(
      * noting that you're describing this function using @borrows.
      */
     doStuff: doStuff,
-  }
+  },
 );
 ```
 

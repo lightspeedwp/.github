@@ -20,4 +20,4 @@ Documents the YAML frontmatter for `.chatmode.md` files.
 - Required: `description`
 - Optional: `tools`, `model`
 
-> _Document syntax, tips for persona files, and example chat mode frontmatter here._
+> *Document syntax, tips for persona files, and example chat mode frontmatter here.*

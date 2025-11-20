@@ -6,25 +6,25 @@ This will either appear in the controls for each block or at the Top Toolbar dep
 ## Example
 
 ```js
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginBlockSettingsMenuItem } from '@wordpress/editor';
+import { registerPlugin } from "@wordpress/plugins";
+import { PluginBlockSettingsMenuItem } from "@wordpress/editor";
 
 const PluginBlockSettingsMenuGroupTest = () => (
   <PluginBlockSettingsMenuItem
-    allowedBlocks={['core/paragraph']}
+    allowedBlocks={["core/paragraph"]}
     icon="smiley"
     label="Menu item text"
     onClick={() => {
-      alert('clicked');
+      alert("clicked");
     }}
   />
 );
 
-registerPlugin('block-settings-menu-group-test', {
+registerPlugin("block-settings-menu-group-test", {
   render: PluginBlockSettingsMenuGroupTest,
 });
 ```
 
 ## Location
 
-![Location](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/plugin-block-settings-menu-item-screenshot.png?raw=true 'PluginBlockSettingsMenuItem Location')
+![Location](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/plugin-block-settings-menu-item-screenshot.png?raw=true "PluginBlockSettingsMenuItem Location")

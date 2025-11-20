@@ -1,13 +1,23 @@
 ---
 title: "Todo and Task Management Directory"
-version: "v1.0"  
+version: "v1.0"
 last_updated: "2025-10-24"
 author: "LightSpeedWP"
 maintainer: "Ash Shaw <ash@lightspeedwp.com>"
 description: "Central repository for task management, project planning, and todo tracking for LightSpeedWP GitHub repository operations and maintenance."
-tags: ["todo", "tasks", "planning", "automation", "documentation", "maintenance", "workflow"]
+tags:
+  [
+    "todo",
+    "tasks",
+    "planning",
+    "automation",
+    "documentation",
+    "maintenance",
+    "workflow",
+  ]
 ai_summary: "Organized task management system for repository maintenance, documentation updates, and automation workflows with structured planning and progress tracking."
-related_files: ["README.md", "DEVELOPMENT.md", "CONTRIBUTING.md", "docs/", "scripts/"]
+related_files:
+  ["README.md", "DEVELOPMENT.md", "CONTRIBUTING.md", "docs/", "scripts/"]
 ---
 
 # Task Management Directory
@@ -25,13 +35,13 @@ graph TD
     A[Project Needs] --> B[Task Analysis]
     B --> C{Task Category}
     C -->|Documentation| D[DOCS-TASKS.md]
-    C -->|Automation| E[AUTOMATION-TASKS.md]  
+    C -->|Automation| E[AUTOMATION-TASKS.md]
     C -->|Frontend| F[FRONTMATTER-TASKS.md]
     C -->|Scripts| G[SCRIPTS-TEST-TASKS.md]
     C -->|Repository| H[README-DOCS-TASKS.md]
     C -->|Linting| I[HUSKY-LINITING-TASKS.md]
     C -->|General| J[TASKS.md]
-    
+
     D --> K[Task Execution]
     E --> K
     F --> K
@@ -39,11 +49,11 @@ graph TD
     H --> K
     I --> K
     J --> K
-    
+
     K --> L[Progress Tracking]
     L --> M[Completion Review]
     M --> N[Archive/Update]
-    
+
     style A fill:#e1f5fe
     style K fill:#f3e5f5
     style N fill:#fff3e0
@@ -51,16 +61,16 @@ graph TD
 
 ## 📋 Current Task Files
 
-| File | Purpose | Status | Last Updated |
-|------|---------|--------|--------------|
-| `AUTOMATION-TASKS.md` | Automation workflow improvements | Active | Recently updated |
-| `DOCS-TASKS.md` | Documentation system enhancements | Active | Recently updated |
-| `FRONTMATTER-TASKS.md` | YAML frontmatter standardization | Active | Recently updated |
-| `HUSKY-LINITING-TASKS.md` | Linting and pre-commit improvements | Active | Recently updated |
-| `README-DOCS-TASKS.md` | README documentation updates | Active | Recently updated |
-| `README_AUDIT_REPORT.md` | Comprehensive README audit results | Completed | 2025-10-24 |
-| `SCRIPTS-TEST-TASKS.md.md` | Scripts and testing enhancements | Active | Recently updated |
-| `TASKS.md` | General repository tasks | Active | Recently updated |
+| File                       | Purpose                             | Status    | Last Updated     |
+| -------------------------- | ----------------------------------- | --------- | ---------------- |
+| `AUTOMATION-TASKS.md`      | Automation workflow improvements    | Active    | Recently updated |
+| `DOCS-TASKS.md`            | Documentation system enhancements   | Active    | Recently updated |
+| `FRONTMATTER-TASKS.md`     | YAML frontmatter standardization    | Active    | Recently updated |
+| `HUSKY-LINITING-TASKS.md`  | Linting and pre-commit improvements | Active    | Recently updated |
+| `README-DOCS-TASKS.md`     | README documentation updates        | Active    | Recently updated |
+| `README_AUDIT_REPORT.md`   | Comprehensive README audit results  | Completed | 2025-10-24       |
+| `SCRIPTS-TEST-TASKS.md.md` | Scripts and testing enhancements    | Active    | Recently updated |
+| `TASKS.md`                 | General repository tasks            | Active    | Recently updated |
 
 ## 🔄 Task Workflow Process
 
@@ -70,12 +80,12 @@ sequenceDiagram
     participant T as Task System
     participant D as Developer
     participant R as Repository
-    
+
     P->>T: Identify Task Need
     T->>T: Create Task File
     T->>D: Assign Task Category
     D->>T: Update Progress
-    
+
     alt Task Completion
         D->>R: Implement Changes
         R->>T: Update Task Status
@@ -153,6 +163,7 @@ sequenceDiagram
 ## Task Template
 
 ### [Task Title]
+
 - **Status**: [Not Started/In Progress/Blocked/Completed]
 - **Priority**: [High/Medium/Low]
 - **Assignee**: [Name or Auto]
@@ -166,7 +177,7 @@ sequenceDiagram
 ### Completion Workflow
 
 1. **Task Review**: Validate completion against acceptance criteria
-2. **Testing**: Verify changes don't break existing functionality  
+2. **Testing**: Verify changes don't break existing functionality
 3. **Documentation**: Update related documentation as needed
 4. **Archive**: Move completed tasks to archive section
 5. **Retrospective**: Document lessons learned and improvements
@@ -207,20 +218,20 @@ Track progress across all task categories:
 
 ## 🔗 Integration Points
 
-| Component | Integration | Purpose |
-|-----------|-------------|---------|
-| **GitHub Issues** | Task linking | Broader project visibility |
-| **GitHub Projects** | Visual management | Kanban-style task tracking |
-| **Documentation** | Cross-references | Context and requirements |
-| **Scripts** | Automation tasks | Implementation automation |
-| **Tests** | Quality assurance | Task validation and testing |
+| Component           | Integration       | Purpose                     |
+| ------------------- | ----------------- | --------------------------- |
+| **GitHub Issues**   | Task linking      | Broader project visibility  |
+| **GitHub Projects** | Visual management | Kanban-style task tracking  |
+| **Documentation**   | Cross-references  | Context and requirements    |
+| **Scripts**         | Automation tasks  | Implementation automation   |
+| **Tests**           | Quality assurance | Task validation and testing |
 
 ## 📋 Maintenance & Cleanup
 
 ### Regular Maintenance Tasks
 
 1. **Weekly Task Review**: Update status and priorities
-2. **Monthly Archive**: Move completed tasks to archive sections  
+2. **Monthly Archive**: Move completed tasks to archive sections
 3. **Quarterly Cleanup**: Remove obsolete or cancelled tasks
 4. **Annual Review**: Assess task management effectiveness
 

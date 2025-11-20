@@ -2,12 +2,12 @@
 
 ## Metadata
 
-| Field | Value |
-|-------|-------|
-| Description | Unified testing framework for LightSpeedWP automation: shell (Bats), JavaScript (Jest), Python validation, and coverage quality gates. |
-| Version | 2.2.0 |
-| Last Updated | 2025-10-25 |
-| Owners | Ash Shaw; LightSpeedWP QA |
+| Field          | Value                                                                                                                                                                                                                                                                                                                                      |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Description    | Unified testing framework for LightSpeedWP automation: shell (Bats), JavaScript (Jest), Python validation, and coverage quality gates.                                                                                                                                                                                                     |
+| Version        | 2.2.0                                                                                                                                                                                                                                                                                                                                      |
+| Last Updated   | 2025-10-25                                                                                                                                                                                                                                                                                                                                 |
+| Owners         | Ash Shaw; LightSpeedWP QA                                                                                                                                                                                                                                                                                                                  |
 | Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md), [`test-helper.bash`](./test-helper.bash), [`coverage/README.md`](../coverage/README.md), [`scripts/README.md`](../scripts/README.md), [`schemas/README.md`](../schemas/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
@@ -29,27 +29,27 @@ graph TB
     A --> C[Jest Testing]
     A --> D[Coverage Reporting]
     A --> E[Test Helpers]
-    
+
     B --> F[Shell Script Tests]
     B --> G[CLI Interface Tests]
     B --> H[Integration Tests]
-    
+
     C --> I[JavaScript Unit Tests]
     C --> J[Agent Module Tests]
     C --> K[Advanced Logic Tests]
-    
+
     D --> L[Coverage Reports]
     D --> M[Quality Metrics]
     D --> N[Test Summary]
-    
+
     E --> O[Shared Helpers]
     E --> P[Setup/Teardown]
     E --> Q[Environment Isolation]
-    
+
     R[CI/CD Pipeline] --> A
     S[Pre-commit Hooks] --> A
     T[Manual Testing] --> A
-    
+
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#e8f5e8
@@ -91,7 +91,7 @@ Each subfolder includes comprehensive documentation and specialized test coverag
 ### 📄 Core Test Files
 
 - **`test-helper.bash`** — Shared Bats test helpers for setup/teardown and environment isolation
-- **`tests-run-all-tests.bats`** — Bats test for the test runner script  
+- **`tests-run-all-tests.bats`** — Bats test for the test runner script
 - **[`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md)** — Detailed documentation of test coverage, structure, and best practices
 
 ## Usage & Quickstart
@@ -116,16 +116,16 @@ CI calls the same runner during pull requests; failures block merges when thresh
 
 ## Validation & Testing
 
-| Layer | Tooling | Purpose | Trigger |
-|-------|---------|---------|---------|
-| Shell scripts | Bats + custom `test-helper.bash` | Functional + CLI behavior | Manual / Runner |
-| JavaScript modules | Jest + built-in mocks | Logic, edge cases, agents | Manual / Runner |
-| Python validations | Pytest | Docs + changelog + schema links | Manual / Runner |
-| Coverage | Jest (istanbul/nyc) + lcov | Quality gate & trend tracking | Runner / CI |
-| Lint (markdown) | markdownlint | Structural doc compliance | Pre-commit / CI |
-| Lint (shell) | ShellCheck | Script robustness | Pre-commit / CI |
-| Lint (js) | ESLint | Code quality/style | Pre-commit / CI |
-| Schema validation | Node + AJV (planned) | JSON schema integrity | CI (upcoming) |
+| Layer              | Tooling                          | Purpose                         | Trigger         |
+| ------------------ | -------------------------------- | ------------------------------- | --------------- |
+| Shell scripts      | Bats + custom `test-helper.bash` | Functional + CLI behavior       | Manual / Runner |
+| JavaScript modules | Jest + built-in mocks            | Logic, edge cases, agents       | Manual / Runner |
+| Python validations | Pytest                           | Docs + changelog + schema links | Manual / Runner |
+| Coverage           | Jest (istanbul/nyc) + lcov       | Quality gate & trend tracking   | Runner / CI     |
+| Lint (markdown)    | markdownlint                     | Structural doc compliance       | Pre-commit / CI |
+| Lint (shell)       | ShellCheck                       | Script robustness               | Pre-commit / CI |
+| Lint (js)          | ESLint                           | Code quality/style              | Pre-commit / CI |
+| Schema validation  | Node + AJV (planned)             | JSON schema integrity           | CI (upcoming)   |
 
 Quality gates (indicative targets):
 
@@ -155,7 +155,7 @@ sequenceDiagram
     participant Jest as Jest Framework
     participant Coverage as Coverage Reporter
     participant CI as CI/CD Pipeline
-    
+
     Dev->>Runner: Execute run-all-tests.sh
     Runner->>Bats: Run shell script tests
     Bats->>Bats: Execute .bats files
@@ -166,7 +166,7 @@ sequenceDiagram
     Runner->>Coverage: Generate coverage reports
     Coverage->>CI: Upload coverage data
     CI->>Dev: Test results & coverage
-    
+
     Note over Dev,CI: Comprehensive test automation
 ```
 
@@ -177,30 +177,30 @@ flowchart TD
     A[Test Execution] --> B{Test Type}
     B -->|Shell Scripts| C[Bats Testing]
     B -->|JavaScript| D[Jest Testing]
-    
+
     C --> E[CLI Tests]
     C --> F[Integration Tests]
     C --> G[Shell Function Tests]
-    
+
     D --> H[Unit Tests]
     D --> I[Module Tests]
     D --> J[Agent Tests]
-    
+
     E --> K[Coverage Collection]
     F --> K
     G --> K
     H --> K
     I --> K
     J --> K
-    
+
     K --> L[Coverage Analysis]
     L --> M{Coverage Threshold}
     M -->|Pass| N[Success Report]
     M -->|Fail| O[Coverage Warning]
-    
+
     N --> P[CI/CD Success]
     O --> Q[Quality Gate Failure]
-    
+
     style A fill:#e1f5fe
     style K fill:#f3e5f5
     style N fill:#c8e6c9
@@ -213,26 +213,26 @@ See `TEST_COVERAGE_SUMMARY.md` for full coverage details and examples.
 
 ## Change Log / History
 
-| Date | Change | Notes |
-|------|--------|-------|
-| 2025-01 | Added Python doc/schema validation tests | Extended multi-language assurance |
-| 2025-06 | Coverage thresholds enforced in CI | Blocking merges below 80% |
-| 2025-09 | Restructured folders for clarity (includes/, utility/) | Improved discoverability |
-| 2025-10 | Unified README format & owners/references fields | Cross-project consistency |
+| Date    | Change                                                 | Notes                             |
+| ------- | ------------------------------------------------------ | --------------------------------- |
+| 2025-01 | Added Python doc/schema validation tests               | Extended multi-language assurance |
+| 2025-06 | Coverage thresholds enforced in CI                     | Blocking merges below 80%         |
+| 2025-09 | Restructured folders for clarity (includes/, utility/) | Improved discoverability          |
+| 2025-10 | Unified README format & owners/references fields       | Cross-project consistency         |
 
 See repository commit history for granular diffs.
 
 ## FAQ / Troubleshooting
 
-| Issue | Cause | Fix |
-|-------|-------|-----|
-| `bats: command not found` | Bats not installed | `brew install bats-core` |
-| Jest tests hang | Open handles (unclosed timers/fs) | Use `--detectOpenHandles` locally |
-| Coverage below threshold | Missing branch/edge tests | Add tests for conditional paths |
-| ShellCheck failures in CI | New script patterns flagged | Run `shellcheck <file>` & refactor |
-| Pytest path errors | Virtualenv / path misconfig | Activate env or adjust `PYTHONPATH` |
-| Permissions denied running runner | Script not executable | `chmod +x run-all-tests.sh` |
-| Flaky integration test | External dependency drift | Mock network/services or freeze fixtures |
+| Issue                             | Cause                             | Fix                                      |
+| --------------------------------- | --------------------------------- | ---------------------------------------- |
+| `bats: command not found`         | Bats not installed                | `brew install bats-core`                 |
+| Jest tests hang                   | Open handles (unclosed timers/fs) | Use `--detectOpenHandles` locally        |
+| Coverage below threshold          | Missing branch/edge tests         | Add tests for conditional paths          |
+| ShellCheck failures in CI         | New script patterns flagged       | Run `shellcheck <file>` & refactor       |
+| Pytest path errors                | Virtualenv / path misconfig       | Activate env or adjust `PYTHONPATH`      |
+| Permissions denied running runner | Script not executable             | `chmod +x run-all-tests.sh`              |
+| Flaky integration test            | External dependency drift         | Mock network/services or freeze fixtures |
 
 ## Limitations & Notes
 
@@ -244,16 +244,16 @@ See repository commit history for granular diffs.
 
 ## Environment & Dependencies
 
-| Component | Required Version | Notes |
-|-----------|------------------|-------|
-| Node.js | >= 18.x | Align with runtime in scripts directory |
-| Bash | >= 5.x | macOS ships with compatible version |
-| Bats Core | latest stable | Install via Homebrew |
-| Jest | ^29.x | Provides coverage instrumentation |
-| Pytest | ^8.x | For schema/doc validation tests |
-| ShellCheck | latest | Static analysis for shell scripts |
-| markdownlint-cli | latest | Documentation linting |
-| ESLint | project config | JS style and static analysis |
+| Component        | Required Version | Notes                                   |
+| ---------------- | ---------------- | --------------------------------------- |
+| Node.js          | >= 18.x          | Align with runtime in scripts directory |
+| Bash             | >= 5.x           | macOS ships with compatible version     |
+| Bats Core        | latest stable    | Install via Homebrew                    |
+| Jest             | ^29.x            | Provides coverage instrumentation       |
+| Pytest           | ^8.x             | For schema/doc validation tests         |
+| ShellCheck       | latest           | Static analysis for shell scripts       |
+| markdownlint-cli | latest           | Documentation linting                   |
+| ESLint           | project config   | JS style and static analysis            |
 
 Optional local setup acceleration:
 
@@ -278,7 +278,7 @@ npm ci
 
 - [Awesome Copilot Tests](./awesome-copilot/README.md) — Jest tests for awesome-copilot automation scripts
 - [Test Includes & Helpers](./includes/README.md) — Shared test utilities and helper functions
-- [CLI Testing Helpers](./includes/cli/README.md) — Command-line interface testing utilities  
+- [CLI Testing Helpers](./includes/cli/README.md) — Command-line interface testing utilities
 - [Core Testing Functions](./includes/core/README.md) — Core testing functionality and validation
 - [Deployment Test Helpers](./includes/deployment/README.md) — Deployment testing and environment setup
 - [Filesystem Test Utilities](./includes/filesystem/README.md) — File system operation testing helpers
@@ -315,6 +315,6 @@ npm ci
 
 ---
 
-_🧪 Ensuring quality through comprehensive testing and continuous coverage validation._
+*🧪 Ensuring quality through comprehensive testing and continuous coverage validation.*
 
 <!-- RANDOM FOOTER: 🧪 Docs signed by Copilot for LightSpeedWP -->

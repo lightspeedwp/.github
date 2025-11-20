@@ -1,17 +1,17 @@
 ---
-title: 'Tests Documentation Hub'
-description: 'Comprehensive documentation for all LightSpeed WP test suites, frameworks, and testing infrastructure'
-version: '1.0'
-last_updated: '2025-11-18'
-author: 'LightSpeed WP Team'
-category: 'documentation'
-tags: ['testing', 'bats', 'jest', 'python', 'quality-assurance']
+title: "Tests Documentation Hub"
+description: "Comprehensive documentation for all LightSpeed WP test suites, frameworks, and testing infrastructure"
+version: "1.0"
+last_updated: "2025-11-18"
+author: "LightSpeed WP Team"
+category: "documentation"
+tags: ["testing", "bats", "jest", "python", "quality-assurance"]
 references:
-  - '../README.md'
-  - '../../tests/README.md'
-  - '../TESTING.md'
-  - '../JEST-TEST-AUDIT.md'
-  - '../../tests/TEST_COVERAGE_SUMMARY.md'
+  - "../README.md"
+  - "../../tests/README.md"
+  - "../TESTING.md"
+  - "../JEST-TEST-AUDIT.md"
+  - "../../tests/TEST_COVERAGE_SUMMARY.md"
 ---
 
 # Tests Documentation Hub
@@ -23,6 +23,7 @@ Comprehensive documentation for all test suites, testing infrastructure, and qua
 The `/tests/` directory contains **70+ test files** across **11 categories**, with comprehensive coverage of scripts, agents, workflows, and infrastructure. This documentation provides detailed information about each test category, frameworks, and best practices.
 
 **Total Test Statistics:**
+
 - 📁 **11 Test Categories**
 - 📝 **1000+ Lines of Test Code**
 - ✅ **370+ Individual Tests**
@@ -31,18 +32,18 @@ The `/tests/` directory contains **70+ test files** across **11 categories**, wi
 
 ## Quick Navigation
 
-| Category | Purpose | Framework | Status | Documentation |
-|----------|---------|-----------|--------|---------------|
-| [Awesome Copilot](#awesome-copilot) | Collection validation | Jest | ✅ Complete | [README](../../tests/awesome-copilot/README.md) |
-| [Includes](#includes--helpers) | Shared test utilities | Bats | ✅ Complete | [README](../../tests/includes/README.md) |
-| [Maintenance](#maintenance) | Repository maintenance tests | Bats | ✅ Complete | [README](../../tests/maintenance/README.md) |
-| [Projects](#projects) | GitHub Projects tests | Bats | ✅ Complete | [README](../../tests/projects/README.md) |
-| [Utility](#utility) | General utility tests | Bats/Jest | ✅ Complete | [README](../../tests/utility/README.md) |
-| [Security](#security) | Security compliance tests | Bats | ✅ Complete | [README](../../tests/security/README.md) |
-| [Config](#config) | Configuration tests | Bats | ✅ Complete | [README](../../tests/config/README.md) |
-| [Contracts](#contracts) | Schema/contract tests | Jest | ✅ Complete | [README](../../tests/contracts/README.md) |
-| [Integration](#integration) | Integration tests | Bats | ✅ Complete | [README](../../tests/integration/README.md) |
-| [Pytests](#pytests) | Python validation tests | Python | ✅ Complete | [README](../../tests/pytests/README.md) |
+| Category                            | Purpose                      | Framework | Status      | Documentation                                   |
+| ----------------------------------- | ---------------------------- | --------- | ----------- | ----------------------------------------------- |
+| [Awesome Copilot](#awesome-copilot) | Collection validation        | Jest      | ✅ Complete | [README](../../tests/awesome-copilot/README.md) |
+| [Includes](#includes--helpers)      | Shared test utilities        | Bats      | ✅ Complete | [README](../../tests/includes/README.md)        |
+| [Maintenance](#maintenance)         | Repository maintenance tests | Bats      | ✅ Complete | [README](../../tests/maintenance/README.md)     |
+| [Projects](#projects)               | GitHub Projects tests        | Bats      | ✅ Complete | [README](../../tests/projects/README.md)        |
+| [Utility](#utility)                 | General utility tests        | Bats/Jest | ✅ Complete | [README](../../tests/utility/README.md)         |
+| [Security](#security)               | Security compliance tests    | Bats      | ✅ Complete | [README](../../tests/security/README.md)        |
+| [Config](#config)                   | Configuration tests          | Bats      | ✅ Complete | [README](../../tests/config/README.md)          |
+| [Contracts](#contracts)             | Schema/contract tests        | Jest      | ✅ Complete | [README](../../tests/contracts/README.md)       |
+| [Integration](#integration)         | Integration tests            | Bats      | ✅ Complete | [README](../../tests/integration/README.md)     |
+| [Pytests](#pytests)                 | Python validation tests      | Python    | ✅ Complete | [README](../../tests/pytests/README.md)         |
 
 ## Test Categories
 
@@ -53,6 +54,7 @@ The `/tests/` directory contains **70+ test files** across **11 categories**, wi
 **Location:** `/tests/awesome-copilot/`
 
 **Test Files:**
+
 - `update-readme.test.js` - README generation tests
 - `validate-collections.test.js` - Collection validation tests
 - `yaml-parser.test.js` - YAML parsing tests
@@ -64,6 +66,7 @@ The `/tests/` directory contains **70+ test files** across **11 categories**, wi
 **Documentation:** [Awesome Copilot Tests](../../tests/awesome-copilot/README.md)
 
 **Run Tests:**
+
 ```bash
 npm run test:awesome-copilot
 # or
@@ -79,12 +82,14 @@ npx jest tests/awesome-copilot/
 **Location:** `/tests/includes/`
 
 **Subdirectories:**
+
 - `cli/` - CLI utility tests
 - `core/` - Core utility tests (colors, logging, validation)
 - `deployment/` - Deployment automation tests
 - `filesystem/` - File operations tests
 
 **Test Files:**
+
 - `test-agent-test-helpers.bats` - Agent helper tests
 - Plus 9+ category-specific test files
 
@@ -93,6 +98,7 @@ npx jest tests/awesome-copilot/
 **Coverage:** Comprehensive coverage of all shared utilities
 
 **Documentation:**
+
 - [Main Includes Tests](../../tests/includes/README.md)
 - [CLI Tests](../../tests/includes/cli/README.md)
 - [Core Tests](../../tests/includes/core/README.md)
@@ -100,6 +106,7 @@ npx jest tests/awesome-copilot/
 - [Filesystem Tests](../../tests/includes/filesystem/README.md)
 
 **Run Tests:**
+
 ```bash
 bats tests/includes/
 # or specific category
@@ -115,6 +122,7 @@ bats tests/includes/core/
 **Location:** `/tests/maintenance/`
 
 **Test Files:** 8 comprehensive test files covering:
+
 - README generation
 - Label management
 - Badge updates
@@ -130,6 +138,7 @@ bats tests/includes/core/
 **Documentation:** [Maintenance Tests](../../tests/maintenance/README.md)
 
 **Run Tests:**
+
 ```bash
 npm run test:maintenance
 # or
@@ -145,6 +154,7 @@ bats tests/maintenance/
 **Location:** `/tests/projects/`
 
 **Test Files:** 10+ files covering:
+
 - Client Delivery project automation
 - Product Development project automation
 - CSV-driven configuration
@@ -160,6 +170,7 @@ bats tests/maintenance/
 **Documentation:** [Projects Tests](../../tests/projects/README.md)
 
 **Run Tests:**
+
 ```bash
 npm run test:projects
 # or
@@ -175,6 +186,7 @@ bats tests/projects/
 **Location:** `/tests/utility/`
 
 **Test Files:** 24 files (Bats + Jest) covering:
+
 - Shell script linting
 - Logging standardization
 - Release validation
@@ -190,6 +202,7 @@ bats tests/projects/
 **Documentation:** [Utility Tests](../../tests/utility/README.md)
 
 **Run Tests:**
+
 ```bash
 npm run test:utility
 # or mixed
@@ -206,9 +219,11 @@ npx jest tests/utility/*.test.js
 **Location:** `/tests/security/`
 
 **Test Files:**
+
 - `test-agent-security.bats` - Security validation tests
 
 **Key Tests:**
+
 - Token exposure prevention
 - Malformed input handling
 - Authentication validation
@@ -219,6 +234,7 @@ npx jest tests/utility/*.test.js
 **Documentation:** [Security Tests](../../tests/security/README.md)
 
 **Run Tests:**
+
 ```bash
 npm run test:security
 # or
@@ -234,9 +250,11 @@ bats tests/security/test-agent-security.bats
 **Location:** `/tests/config/`
 
 **Test Files:**
+
 - `test-agent-config.bats` - Configuration tests
 
 **Key Tests:**
+
 - Missing environment variables
 - Invalid configuration
 - Operational mode validation
@@ -247,6 +265,7 @@ bats tests/security/test-agent-security.bats
 **Documentation:** [Config Tests](../../tests/config/README.md)
 
 **Run Tests:**
+
 ```bash
 npm run test:config
 # or
@@ -262,9 +281,11 @@ bats tests/config/test-agent-config.bats
 **Location:** `/tests/contracts/`
 
 **Test Files:**
+
 - `test-template-labels.js` - Template contract validation
 
 **Key Tests:**
+
 - Template label validation
 - Schema compliance
 - Cross-reference integrity
@@ -274,6 +295,7 @@ bats tests/config/test-agent-config.bats
 **Documentation:** [Contract Tests](../../tests/contracts/README.md)
 
 **Run Tests:**
+
 ```bash
 npm run test:contracts
 # or
@@ -289,9 +311,11 @@ node tests/contracts/test-template-labels.js
 **Location:** `/tests/integration/`
 
 **Test Files:**
+
 - `test-agent-compatibility.bats` - Multi-agent integration tests
 
 **Key Tests:**
+
 - Multiple agents on same event
 - Agent interaction patterns
 - Conflict resolution
@@ -302,6 +326,7 @@ node tests/contracts/test-template-labels.js
 **Documentation:** [Integration Tests](../../tests/integration/README.md)
 
 **Run Tests:**
+
 ```bash
 npm run test:integration
 # or
@@ -317,6 +342,7 @@ bats tests/integration/test-agent-compatibility.bats
 **Location:** `/tests/pytests/`
 
 **Test Files:**
+
 - `test_changelog.py` - Changelog validation
 - `test_docs_links.py` - Documentation link validation
 - `test_markdown_structure.py` - Markdown structure validation
@@ -327,6 +353,7 @@ bats tests/integration/test-agent-compatibility.bats
 **Documentation:** [Pytests](../../tests/pytests/README.md)
 
 **Run Tests:**
+
 ```bash
 pytest tests/pytests/
 ```
@@ -340,6 +367,7 @@ pytest tests/pytests/
 **Purpose:** Testing shell scripts and automation
 
 **Usage:**
+
 ```bash
 # Run all Bats tests
 bats tests/
@@ -355,6 +383,7 @@ bats -t tests/maintenance/
 ```
 
 **Test Structure:**
+
 ```bash
 #!/usr/bin/env bats
 
@@ -384,6 +413,7 @@ teardown() {
 **Purpose:** Testing JavaScript/Node.js scripts
 
 **Usage:**
+
 ```bash
 # Run all Jest tests
 npx jest
@@ -399,9 +429,10 @@ npx jest --watch
 ```
 
 **Test Structure:**
+
 ```javascript
-describe('Feature', () => {
-  it('should do something', () => {
+describe("Feature", () => {
+  it("should do something", () => {
     const result = functionToTest();
     expect(result).toBe(expected);
   });
@@ -417,6 +448,7 @@ describe('Feature', () => {
 **Purpose:** Testing Python scripts and validators
 
 **Usage:**
+
 ```bash
 # Run all pytest tests
 pytest tests/pytests/
@@ -429,6 +461,7 @@ pytest tests/pytests/test_changelog.py
 ```
 
 **Test Structure:**
+
 ```python
 def test_feature():
     result = function_to_test()
@@ -506,11 +539,13 @@ npm run test:coverage
 **Location:** `/tests/includes/`
 
 **Available Helpers:**
+
 - `enhanced-test-helpers.bash` - Extended Bats utilities
 - `agent-test-helpers.bash` - Agent-specific helpers
 - `test-helpers.js` - Jest helper functions
 
 **Common Functions:**
+
 - `setup_agent_test_environment()` - Prepares test environment
 - `cleanup_agent_test_environment()` - Cleans up after tests
 - `create_mock_github_event()` - Generates test events
@@ -521,6 +556,7 @@ npm run test:coverage
 **Location:** `/tests/projects/fixtures/`
 
 **Types:**
+
 - CSV configuration templates
 - Mock event payloads
 - Sample data files
@@ -529,6 +565,7 @@ npm run test:coverage
 ### Mock Data
 
 Tests use realistic mock data:
+
 - GitHub event payloads
 - API responses
 - Configuration files
@@ -576,7 +613,7 @@ teardown() {
 ### Test Template (Jest)
 
 ```javascript
-describe('Feature', () => {
+describe("Feature", () => {
   let testData;
 
   beforeEach(() => {
@@ -587,12 +624,12 @@ describe('Feature', () => {
     cleanup();
   });
 
-  it('should handle valid input', () => {
+  it("should handle valid input", () => {
     const result = featureUnderTest(testData);
     expect(result).toBe(expected);
   });
 
-  it('should handle invalid input', () => {
+  it("should handle invalid input", () => {
     expect(() => featureUnderTest(null)).toThrow();
   });
 });
@@ -602,18 +639,18 @@ describe('Feature', () => {
 
 Current coverage across all test categories:
 
-| Category | Coverage | Goal | Status |
-|----------|----------|------|--------|
-| Awesome Copilot | 100% | 100% | 🟢 Met |
-| Includes | 90% | 95% | 🟡 Near Goal |
-| Maintenance | 95% | 95% | 🟢 Met |
-| Projects | 85% | 90% | 🟡 Near Goal |
-| Utility | 90% | 95% | 🟡 Near Goal |
-| Security | 85% | 95% | 🟡 In Progress |
-| Config | 80% | 90% | 🟡 In Progress |
-| Contracts | 100% | 100% | 🟢 Met |
-| Integration | 70% | 90% | 🟡 In Progress |
-| Pytests | 85% | 90% | 🟡 Near Goal |
+| Category        | Coverage | Goal | Status         |
+| --------------- | -------- | ---- | -------------- |
+| Awesome Copilot | 100%     | 100% | 🟢 Met         |
+| Includes        | 90%      | 95%  | 🟡 Near Goal   |
+| Maintenance     | 95%      | 95%  | 🟢 Met         |
+| Projects        | 85%      | 90%  | 🟡 Near Goal   |
+| Utility         | 90%      | 95%  | 🟡 Near Goal   |
+| Security        | 85%      | 95%  | 🟡 In Progress |
+| Config          | 80%      | 90%  | 🟡 In Progress |
+| Contracts       | 100%     | 100% | 🟢 Met         |
+| Integration     | 70%      | 90%  | 🟡 In Progress |
+| Pytests         | 85%      | 90%  | 🟡 Near Goal   |
 
 **Overall:** 85%+ coverage across all categories
 
@@ -624,21 +661,25 @@ Current coverage across all test categories:
 Tests run automatically in CI/CD:
 
 **On PR Creation:**
+
 - All test suites run
 - Coverage reports generated
 - Linting validation
 
 **On PR Updates:**
+
 - Affected tests run
 - Regression detection
 - Quality gates enforced
 
 **Nightly:**
+
 - Full test suite
 - Extended integration tests
 - Performance benchmarks
 
 **Pre-Release:**
+
 - Comprehensive validation
 - Security tests
 - Contract validation
@@ -650,6 +691,7 @@ Tests run automatically in CI/CD:
 ### Common Issues
 
 **Bats tests fail:**
+
 ```bash
 # Verify Bats installed
 bats --version
@@ -662,6 +704,7 @@ bats -t tests/category/test-file.bats
 ```
 
 **Jest tests fail:**
+
 ```bash
 # Clear Jest cache
 npx jest --clearCache
@@ -674,6 +717,7 @@ npm install
 ```
 
 **Environment issues:**
+
 ```bash
 # Check required environment variables
 echo $GITHUB_TOKEN

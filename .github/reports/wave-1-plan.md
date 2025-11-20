@@ -23,7 +23,7 @@ Wave 1 focuses on **low-risk, high-automation** fixes that can be executed with 
 
 - `no-prototype-builtins` (2) - **Medium impact**, auto-fixable
 
-### Incremental (2,344 issues)  
+### Incremental (2,344 issues)
 
 - `prettier/prettier` (2,310) - **Formatting**, fully auto-fixable
 - `no-unused-vars` (32) - **Code cleanliness**, auto-fixable
@@ -154,7 +154,7 @@ Closes #<issue-number>"
 ✅ 2,346 fewer ESLint warnings  
 ✅ Cleaner, more consistent code formatting  
 ✅ Reduced noise in future lint runs  
-✅ Easier to spot real issues (like `no-undef`)  
+✅ Easier to spot real issues (like `no-undef`)
 
 **Next:** Wave 2 will tackle `no-undef` (1,263 issues) with manual review and testing strategy.
 
@@ -178,12 +178,12 @@ Closes #<issue-number>"
 
 ## Wave 1 Results (Executed)
 
-| Metric | Value |
-| ------ | ----- |
-| Auto-fix Target Issues | 2,346 |
-| Remaining After Fix | 33 |
-| Reduction | 98.59% |
-| Delta Report | `reports/wave-1-delta.json` |
+| Metric                 | Value                       |
+| ---------------------- | --------------------------- |
+| Auto-fix Target Issues | 2,346                       |
+| Remaining After Fix    | 33                          |
+| Reduction              | 98.59%                      |
+| Delta Report           | `reports/wave-1-delta.json` |
 
 ### Remaining Wave 1 Rules (Residue)
 
@@ -218,14 +218,14 @@ These residual 33 issues appear to be outside the auto-fix scope (likely edge ca
 
 ## Residual Breakdown (Post Wave 1)
 
-| Rule | Count | Category | Notes | Action Path |
-| ---- | ----- | -------- | ----- | ----------- |
-| no-unused-vars | 18 | Cleanliness | Non-auto-fix patterns (destructuring, shadow, loop vars) | Prune / convert to `_` or remove |
-| prettier/prettier | 1 | Formatting | Edge case (maybe ignored block or mixed line endings) | Manual format / confirm ignore |
-| no-useless-escape | 2 | Readability | Escapes inside regex/string require verification | Remove if safe |
-| no-prototype-builtins | 2 | Safety | Patterns not auto-fixed due to dynamic access | Replace with `Object.hasOwn()` |
-| unknown (investigation) | 1 | Unknown | Placeholder from baseline taxonomy | Inspect rule source |
-| Other (semantic seeds) | 9 | Semantic | Possibly early `no-undef` or related env gaps | Fold into Wave 2 triage |
+| Rule                    | Count | Category    | Notes                                                    | Action Path                      |
+| ----------------------- | ----- | ----------- | -------------------------------------------------------- | -------------------------------- |
+| no-unused-vars          | 18    | Cleanliness | Non-auto-fix patterns (destructuring, shadow, loop vars) | Prune / convert to `_` or remove |
+| prettier/prettier       | 1     | Formatting  | Edge case (maybe ignored block or mixed line endings)    | Manual format / confirm ignore   |
+| no-useless-escape       | 2     | Readability | Escapes inside regex/string require verification         | Remove if safe                   |
+| no-prototype-builtins   | 2     | Safety      | Patterns not auto-fixed due to dynamic access            | Replace with `Object.hasOwn()`   |
+| unknown (investigation) | 1     | Unknown     | Placeholder from baseline taxonomy                       | Inspect rule source              |
+| Other (semantic seeds)  | 9     | Semantic    | Possibly early `no-undef` or related env gaps            | Fold into Wave 2 triage          |
 
 Total Residue: **33**
 
@@ -243,14 +243,14 @@ Artifacts To Create:
 
 ## Wave 2 Success Criteria (Draft)
 
-| Dimension | Target | Rationale |
-| --------- | ------ | --------- |
-| `no-undef` Reduction | ≥ 90% (first pass), ≥ 95% final | Allow staged elimination while isolating complex legacy refs |
-| Regression Introductions | 0 test failures | Preserve functional stability |
-| Introduced Globals | Explicitly documented in config diff | Audit traceability |
-| Dead Code Removal | All orphan symbol refs purged | Reduce future lint noise |
-| Residual Exceptions | ≤ 3 documented cases | Contain scope for follow-up Wave 2.1 |
-| Artifacts | baseline, post-wave-2, delta, semantic-candidates-final | Governance & audit |
+| Dimension                | Target                                                  | Rationale                                                    |
+| ------------------------ | ------------------------------------------------------- | ------------------------------------------------------------ |
+| `no-undef` Reduction     | ≥ 90% (first pass), ≥ 95% final                         | Allow staged elimination while isolating complex legacy refs |
+| Regression Introductions | 0 test failures                                         | Preserve functional stability                                |
+| Introduced Globals       | Explicitly documented in config diff                    | Audit traceability                                           |
+| Dead Code Removal        | All orphan symbol refs purged                           | Reduce future lint noise                                     |
+| Residual Exceptions      | ≤ 3 documented cases                                    | Contain scope for follow-up Wave 2.1                         |
+| Artifacts                | baseline, post-wave-2, delta, semantic-candidates-final | Governance & audit                                           |
 
 Validation Workflow:
 
@@ -279,14 +279,14 @@ Validation Workflow:
 
 Goal: Remove mixed module friction (CommonJS `.cjs` vs ESM) prior to semantic refactors.
 
-| Area | Current | Target | Phase | Notes |
-| ---- | ------- | ------ | ----- | ----- |
-| Build / Babel | `babel.config.cjs` | `babel.config.mjs` or `babel.config.js` ESM | Phase 1 | Simple export replacement |
-| Jest Config | `jest.config.cjs` | `jest.config.mjs` | Phase 1 | Align test runner plugins |
-| Prettier | `prettier.config.cjs` | `prettier.config.mjs` | Phase 1 | Uniform import semantics |
-| npm pkg lint | `npmpackagejsonlint.config.cjs` | `npmpackagejsonlint.config.mjs` | Phase 2 | Lower priority |
-| Utility Scripts | scattered `.cjs` | `.mjs` (ESM) | Phase 2 | Migrate after core configs |
-| Delta Scripts | Mixed | Pure ESM (`.mjs`) | Phase 1 | Already started (wave 1 delta) |
+| Area            | Current                         | Target                                      | Phase   | Notes                          |
+| --------------- | ------------------------------- | ------------------------------------------- | ------- | ------------------------------ |
+| Build / Babel   | `babel.config.cjs`              | `babel.config.mjs` or `babel.config.js` ESM | Phase 1 | Simple export replacement      |
+| Jest Config     | `jest.config.cjs`               | `jest.config.mjs`                           | Phase 1 | Align test runner plugins      |
+| Prettier        | `prettier.config.cjs`           | `prettier.config.mjs`                       | Phase 1 | Uniform import semantics       |
+| npm pkg lint    | `npmpackagejsonlint.config.cjs` | `npmpackagejsonlint.config.mjs`             | Phase 2 | Lower priority                 |
+| Utility Scripts | scattered `.cjs`                | `.mjs` (ESM)                                | Phase 2 | Migrate after core configs     |
+| Delta Scripts   | Mixed                           | Pure ESM (`.mjs`)                           | Phase 1 | Already started (wave 1 delta) |
 
 Phasing Rationale:
 

@@ -16,7 +16,7 @@ This is the canonical index for all LightSpeed test-related instruction files. *
 Our comprehensive testing strategy ensures code quality, reliability, and maintainability across all LightSpeed WordPress projects through:
 
 - **Multi-layer Testing** - Unit, integration, and E2E test coverage
-- **Automated Validation** - CI/CD integrated testing pipelines  
+- **Automated Validation** - CI/CD integrated testing pipelines
 - **Quality Gates** - Mandatory testing requirements for merges
 - **Performance Monitoring** - Load and performance testing standards
 
@@ -37,7 +37,7 @@ sequenceDiagram
     participant Local as Local Tests
     participant CI as CI Pipeline
     participant QA as QA Gates
-    
+
     Dev->>Local: Run Tests Locally
     Local->>Dev: Results & Coverage
     Dev->>CI: Push Changes
@@ -57,7 +57,7 @@ sequenceDiagram
 - **[Linting Instructions](./linting.instructions.md)** - Static code analysis
 - **[Workflows Instructions](./workflows.instructions.md)** - CI/CD testing integration
 
-### ⚙️ Tool Integration  
+### ⚙️ Tool Integration
 
 - **Test Workflows** - Automated test execution in CI/CD
 - **Coverage Reports** - Test coverage tracking and reporting
@@ -76,7 +76,7 @@ sequenceDiagram
 - **Integration**: CI/CD pipelines, coverage reporting
 - **Tools**: Jest, Testing Library, MSW for mocking
 
-#### 🎭 [Playwright Testing](./tests/tests-playwright.instructions.md)  
+#### 🎭 [Playwright Testing](./tests/tests-playwright.instructions.md)
 
 - **Purpose**: End-to-end browser testing and automation
 - **Coverage**: User workflows, cross-browser compatibility, visual testing
@@ -116,11 +116,11 @@ graph LR
     B --> C[Unit Tests<br/>Fast & Isolated]
     B --> D[Integration Tests<br/>Component Interaction]
     B --> E[E2E Tests<br/>User Workflows]
-    
+
     C --> F[85% Coverage Target]
     D --> G[Key Pathways]
     E --> H[Critical User Journeys]
-    
+
     F --> I[Quality Gate]
     G --> I
     H --> I
@@ -167,7 +167,7 @@ graph LR
 
 ---
 
-_This testing framework ensures reliable, maintainable code across the LightSpeedWP organization. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for quality assurance policies._
+*This testing framework ensures reliable, maintainable code across the LightSpeedWP organization. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for quality assurance policies.*
 
 ---
 

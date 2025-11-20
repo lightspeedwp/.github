@@ -52,28 +52,36 @@ List how to **suppress** checks when needed and any ignore files in use:
 - If developers should rarely need to ignore, state that (suppression is the exception, not the rule).
 
 ## Version Pinning & Reproducibility
+
 Document how we ensure **consistent behavior** across machines:
+
 - We pin tool versions in `package.json` (devDependencies) so that everyone runs the same version (e.g. ESLint v8, Prettier v3, etc.).
 - Node.js is pinned via [`.nvmrc`](../.nvmrc) to ensure Husky/CI use the correct Node version.
 - If the config relies on external schemas or definitions, note how those are versioned (e.g. JSON schemas copied into our repo at a fixed version).
 - Emphasize using exact version installs (`npm ci` with lockfile) for reproducibility.
 
 ## Maintenance
+
 Identify the **owner** of this config (e.g. “Owner: Workflows Team”) and a review cadence:
-- e.g. *“Owner: DevEx Team – review this config quarterly (Jan/Apr/Jul/Oct) for updates to rules or versions.”* 
-- Note any known gaps or upcoming changes. For example, *“Husky integration pending – currently this runs in CI only (see Audit list).”* If something isn’t fully implemented, flag it so it’s not forgotten.
+
+- e.g. _“Owner: DevEx Team – review this config quarterly (Jan/Apr/Jul/Oct) for updates to rules or versions.”_
+- Note any known gaps or upcoming changes. For example, _“Husky integration pending – currently this runs in CI only (see Audit list).”_ If something isn’t fully implemented, flag it so it’s not forgotten.
 
 ## ROI vs Cost
+
 Provide a brief rationale for **keeping or removing** this tool:
+
 - **Benefit (ROI):** What value it adds (e.g. catches bugs early, enforces consistency to reduce PR churn).
 - **Cost:** The overhead it introduces (maintenance effort, longer commit times, etc.).
-- **Decision:** State whether we plan to *Keep* or *Retire* the tool and why. For example, *“**Keep** – high lint coverage prevents bugs, worth the minor config upkeep”* or *“**Retire** – low usage and high maintenance (see Audit)”.*
+- **Decision:** State whether we plan to _Keep_ or _Retire_ the tool and why. For example, _“**Keep** – high lint coverage prevents bugs, worth the minor config upkeep”_ or _“**Retire** – low usage and high maintenance (see Audit)”._
 
 ## References
+
 Link to relevant files and external docs:
+
 - The config file itself (for readers to view raw settings).
 - Upstream documentation (e.g. ESLint or Prettier rule docs, Spectral rule references).
 - Our usage in context (e.g. mention [docs/LINTING.md](./LINTING.md) for overall strategy, or CI workflow names).
 - Any LightSpeed internal guides if available.
 
-*By following this template, every `docs/config/*` page will be structured uniformly, making it easy for contributors (and AI assistants) to find information. Always update the config docs when changing a tool’s setup (script names, ignore patterns, etc.) to keep docs and code in sync.*
+_By following this template, every `docs/config/_` page will be structured uniformly, making it easy for contributors (and AI assistants) to find information. Always update the config docs when changing a tool’s setup (script names, ignore patterns, etc.) to keep docs and code in sync.\*

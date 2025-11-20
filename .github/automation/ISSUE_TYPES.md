@@ -72,9 +72,9 @@ See [issue-types.yml](./issue-types.yml) for the up-to-date, machine-readable ma
 
 ---
 
-[0\) How to use this guide](#0\)-how-to-use-this-guide)
+[0\) How to use this guide](<#0)-how-to-use-this-guide>)
 
-[1\) The Issue Types (expanded with label families)](#1\)-the-issue-types-\(expanded-with-label-families\))
+[1\) The Issue Types (expanded with label families)](<#1)-the-issue-types-(expanded-with-label-families)>)
 
 [🧩 Task — Blue \#4393f8](#🧩-task-—-blue-#4393f8)
 
@@ -126,18 +126,18 @@ See [issue-types.yml](./issue-types.yml) for the up-to-date, machine-readable ma
 
 [🗂️ Content Modelling — Purple \#ab7df8](#🗂️-content-modelling-—-purple-#ab7df8)
 
-[2\) Pull Request templates (suggested)](#2\)-pull-request-templates-\(suggested\))
+[2\) Pull Request templates (suggested)](<#2)-pull-request-templates-(suggested)>)
 
-[3\) Saved searches (pin in Projects)](#3\)-saved-searches-\(pin-in-projects\))
+[3\) Saved searches (pin in Projects)](<#3)-saved-searches-(pin-in-projects)>)
 
-[4\) Notes & guardrails](#4\)-notes-&-guardrails)
+[4\) Notes & guardrails](<#4)-notes-&-guardrails>)
 
 ---
 
 # **0\) How to use this guide** {#0)-how-to-use-this-guide}
 
-- **Pick one Issue Type** per issue for classification.  
-- Then add routing labels: **Priority \+ Status \+ Area/Component**; add **Lang/Env/Compat/CPT** as needed.  
+- **Pick one Issue Type** per issue for classification.
+- Then add routing labels: **Priority \+ Status \+ Area/Component**; add **Lang/Env/Compat/CPT** as needed.
 - Each section gives **Description, Why (colour), Use when, Relevant labels, Process, DoR/DoD add‑ons**.
 
 **Issue Type colour palette**  
@@ -157,14 +157,14 @@ Operational engineering execution.
 
 **Use when**
 
-- Concrete scope; clear AC and owner  
+- Concrete scope; clear AC and owner
 - No significant research/design needed
 
 **Relevant labels**
 
-- `priority:normal` • `status:ready` → `status:in-progress` → `status:needs-review` → `status:needs-qa`  
-- `area:design-system|ci|deployment|dependencies` (as applicable)  
-- `comp:block-templates|template-parts|block-patterns|block-editor|theme-json|spacing|typography|color-palette`  
+- `priority:normal` • `status:ready` → `status:in-progress` → `status:needs-review` → `status:needs-qa`
+- `area:design-system|ci|deployment|dependencies` (as applicable)
+- `comp:block-templates|template-parts|block-patterns|block-editor|theme-json|spacing|typography|color-palette`
 - `lang:php|js|css|html|md|json|yaml` • `env:staging|live` • `cpt:posts|pages` • `meta:has-pr`
 
 **Process (typical flow)**  
@@ -188,14 +188,14 @@ Risk and impact.
 
 **Use when**
 
-- Production/UAT regressions or spec deviations  
+- Production/UAT regressions or spec deviations
 - Affects user outcomes or data integrity
 
 **Relevant labels**
 
-- `priority:critical|important` • `status:needs-testing|in-progress|needs-review|needs-qa` • `status:blocked` (if applicable)  
-- `env:prototype|staging|live` • `compat:wordpress|php|gutenberg|woocommerce|rtl`  
-- `comp:block-editor|block-templates|template-parts|block-json|theme-json|wp-admin|settings|post-settings|block-inserter`  
+- `priority:critical|important` • `status:needs-testing|in-progress|needs-review|needs-qa` • `status:blocked` (if applicable)
+- `env:prototype|staging|live` • `compat:wordpress|php|gutenberg|woocommerce|rtl`
+- `comp:block-editor|block-templates|template-parts|block-json|theme-json|wp-admin|settings|post-settings|block-inserter`
 - `lang:php|js|css` • `cpt:posts|pages` • `meta:has-pr`
 
 **Process (typical flow)**  
@@ -219,13 +219,13 @@ Delivery and customer value.
 
 **Use when**
 
-- A new user‑facing outcome is introduced  
+- A new user‑facing outcome is introduced
 - Requires design & engineering coordination
 
 **Relevant labels**
 
-- `priority:important|normal` • `status:needs-design|ready|in-progress|needs-review|needs-qa` • `status:needs-figma-update` (if tokens changed)  
-- `comp:theme-json|block-templates|template-parts|block-patterns|block-variations|block-styles|style-variations|typography|color-palette|section-styles|spacing`  
+- `priority:important|normal` • `status:needs-design|ready|in-progress|needs-review|needs-qa` • `status:needs-figma-update` (if tokens changed)
+- `comp:theme-json|block-templates|template-parts|block-patterns|block-variations|block-styles|style-variations|typography|color-palette|section-styles|spacing`
 - `area:design-system` • `compat:*` • `env:staging` then `env:live` • `lang:*` • `cpt:*` • `meta:has-pr`
 
 **Process (typical flow)**  
@@ -249,13 +249,13 @@ Planning/specification that guides delivery.
 
 **Use when**
 
-- Output is design/spec rather than code  
+- Output is design/spec rather than code
 - Decisions must be captured before implementation
 
 **Relevant labels**
 
-- `status:needs-design` • `status:needs-design-review` • `status:needs-figma-update`  
-- `area:design-system` • `comp:theme-json|block-styles|style-variations|typography|color-palette|section-styles|spacing|block-templates|template-parts|block-patterns`  
+- `status:needs-design` • `status:needs-design-review` • `status:needs-figma-update`
+- `area:design-system` • `comp:theme-json|block-styles|style-variations|typography|color-palette|section-styles|spacing|block-templates|template-parts|block-patterns`
 - `cpt:*` (if modelling content)
 
 **Process (typical flow)**  
@@ -279,7 +279,7 @@ Strategic structure and planning.
 
 **Use when**
 
-- Multiple issues must land for one outcome  
+- Multiple issues must land for one outcome
 - You need roll‑up progress and shared KPIs
 
 **Relevant labels**
@@ -307,15 +307,15 @@ Engineering execution tied to outcomes.
 
 **Use when**
 
-- Clear AC; fits iteration; linked to Epic  
+- Clear AC; fits iteration; linked to Epic
 - End‑to‑end demo is feasible
 
 **Relevant labels**
 
-- `priority:normal`  
-- `status:ready|in-progress|needs-review|needs-qa`  
+- `priority:normal`
+- `status:ready|in-progress|needs-review|needs-qa`
 - `area:*`/`comp:*`
-- `lang:*`  
+- `lang:*`
 - `env:staging→live`
 - `cpt:*`
 - `meta:has-pr`
@@ -341,13 +341,13 @@ Quality uplift, low risk.
 
 **Use when**
 
-- Scope is contained and user‑visible  
+- Scope is contained and user‑visible
 - No schema/API changes required
 
 **Relevant labels**
 
 - `status:ready|in-progress|needs-review|needs-qa`
-- `area:*`  
+- `area:*`
 - `comp:*`
 - `lang:*`
 - `cpt:*`
@@ -373,13 +373,13 @@ Hygiene/maintainability.
 
 **Use when**
 
-- Behaviour must remain identical  
+- Behaviour must remain identical
 - Improves complexity/coverage/perf potential
 
 **Relevant labels**
 
 - `status:in-progress|needs-review`
-- `area:*`  
+- `area:*`
 - `comp:*`
 - `lang:*`
 - `meta:stale` (guard long branches)
@@ -405,7 +405,7 @@ Engineering operations and enablement.
 
 **Use when**
 
-- Changing CI workflows or deployment steps  
+- Changing CI workflows or deployment steps
 - Release engineering and artefacts
 
 **Relevant labels**
@@ -436,7 +436,7 @@ Ops & engineering automation.
 
 **Use when**
 
-- Automating repeatable tasks  
+- Automating repeatable tasks
 - Improving signal/triage
 
 **Relevant labels**
@@ -467,13 +467,13 @@ Quality signalling.
 
 **Use when**
 
-- Increasing test confidence/coverage  
+- Increasing test confidence/coverage
 - Validating fixes or features
 
 **Relevant labels**
 
 - `status:needs-testing|needs-qa|in-progress`
-- `area:*`  
+- `area:*`
 - `comp:*`
 - `env:staging`
 - `compat:*`
@@ -500,13 +500,13 @@ Quality budgets & measurable gains.
 
 **Use when**
 
-- Perf is the primary goal  
+- Perf is the primary goal
 - Metrics & thresholds are defined
 
 **Relevant labels**
 
 - `status:in-progress|needs-review|needs-qa`
-- `area:*`  
+- `area:*`
 - `comp:*`
 - `compat:wordpress|php`
 - `env:staging`
@@ -533,7 +533,7 @@ Inclusion and accessibility.
 
 **Use when**
 
-- Auditing/fixing a11y issues  
+- Auditing/fixing a11y issues
 - Validating design/implementation
 
 **Relevant labels**
@@ -565,7 +565,7 @@ Risk mitigation.
 
 **Use when**
 
-- Vulnerability identified or posture work  
+- Vulnerability identified or posture work
 - Security reviews/certifications
 
 **Relevant labels**
@@ -598,14 +598,14 @@ External dependencies and support matrix.
 
 **Use when**
 
-- Platform changes or policy updates  
+- Platform changes or policy updates
 - Support/upgrade matrix tasks
 
 **Relevant labels**
 
-- `compat:wordpress|php|woocommerce|rtl|gutenberg`  
-- `status:ready|in-progress`  
-- `env:staging`  
+- `compat:wordpress|php|woocommerce|rtl|gutenberg`
+- `status:ready|in-progress`
+- `env:staging`
 - `meta:has-pr`
 
 **Process**  
@@ -629,7 +629,7 @@ External surface area and contracts.
 
 **Use when**
 
-- New/updated 3rd‑party integration  
+- New/updated 3rd‑party integration
 - Requires keys/scopes and error handling
 
 **Relevant labels**
@@ -661,7 +661,7 @@ Delivery signal.
 
 **Use when**
 
-- Preparing a release or hotfix  
+- Preparing a release or hotfix
 - Coordinating deploy, notes and comms
 
 **Relevant labels**
@@ -693,7 +693,7 @@ Hygiene work.
 
 **Use when**
 
-- Keeping things current  
+- Keeping things current
 - No behaviour change
 
 **Relevant labels**
@@ -725,7 +725,7 @@ Knowledge, not code.
 
 **Use when**
 
-- Documentation is the deliverable  
+- Documentation is the deliverable
 - Explaining changes or processes
 
 **Relevant labels**
@@ -757,7 +757,7 @@ Learning and risk reduction.
 
 **Use when**
 
-- Decision support is required  
+- Decision support is required
 - Time‑box and questions are clear
 
 **Relevant labels**
@@ -789,7 +789,7 @@ Low‑risk hygiene.
 
 **Use when**
 
-- Quick clean‑ups  
+- Quick clean‑ups
 - Non‑functional tidies
 
 **Relevant labels**
@@ -820,7 +820,7 @@ Assessment to drive follow‑ups.
 
 **Use when**
 
-- Establishing baseline or gaps  
+- Establishing baseline or gaps
 - Creating a targeted action list
 
 **Relevant labels**
@@ -853,7 +853,7 @@ Engineering assurance.
 
 **Use when**
 
-- Formal review is required  
+- Formal review is required
 - Cross‑cutting reviews or approvals
 
 **Relevant labels**
@@ -884,7 +884,7 @@ Engineering operations for AI systems.
 
 **Use when**
 
-- Curating AI artefacts/ops  
+- Curating AI artefacts/ops
 - Establishing evaluation loops
 
 **Relevant labels**
@@ -915,7 +915,7 @@ Information architecture & design decisions.
 
 **Use when**
 
-- New build or major restructure  
+- New build or major restructure
 - Mapping content → templates/patterns
 
 **Relevant labels**
@@ -942,31 +942,31 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 
 **Global PR DoD**
 
-- [ ] AC met; demo evidence  
-- [ ] Tests updated (unit/E2E as needed)  
-- [ ] A11y/perf/security impacts considered  
-- [ ] Docs/changelog updated (if user‑facing)  
+- [ ] AC met; demo evidence
+- [ ] Tests updated (unit/E2E as needed)
+- [ ] A11y/perf/security impacts considered
+- [ ] Docs/changelog updated (if user‑facing)
 - [ ] Reviews approved; CI green; linked issues closed
 
 ---
 
 # **3\) Saved searches (pin in Projects)** {#3)-saved-searches-(pin-in-projects)}
 
-- Engineers’ queue: `is:open is:issue label:"status:ready" -label:"status:blocked" sort:updated-desc`  
-- QA sweep: `is:open label:"status:needs-qa"`  
+- Engineers’ queue: `is:open is:issue label:"status:ready" -label:"status:blocked" sort:updated-desc`
+- QA sweep: `is:open label:"status:needs-qa"`
 - Release gate (vX.Y): `is:open milestone:vX.Y`
 
 ---
 
 # **4\) Notes & guardrails** {#4)-notes-&-guardrails}
 
-- Don’t over‑use types—prefer **labels** for orthogonal concerns (priority, status, area).  
-- “Design” → implementation: either convert to **Feature/Task** or link child **Stories**.  
+- Don’t over‑use types—prefer **labels** for orthogonal concerns (priority, status, area).
+- “Design” → implementation: either convert to **Feature/Task** or link child **Stories**.
 - “Story” stays child of an **Epic**; track progress via parent roll‑up in Projects.
 
 ## Usage
 
-- Pick **one** issue type per issue or PR.  
+- Pick **one** issue type per issue or PR.
 - The unified labeling agent will enforce and correct the type label as needed.
 - Type assignment is based on config, heuristics, branch, and content analysis.
 

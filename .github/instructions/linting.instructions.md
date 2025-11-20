@@ -16,7 +16,7 @@ This directory contains comprehensive linting instructions for maintaining code 
 Linting instructions apply to all supported file types and enforce our coding standards and automation best practices through:
 
 - **Automated Quality Checks** - Continuous validation through CI/CD
-- **IDE Integration** - Real-time feedback during development  
+- **IDE Integration** - Real-time feedback during development
 - **Standards Enforcement** - Consistent code style across projects
 - **Error Prevention** - Early detection of potential issues
 
@@ -73,13 +73,13 @@ graph LR
     A --> D[Prettier]
     A --> E[Stylelint]
     A --> F[Markdownlint]
-    
+
     B --> G[JavaScript Quality]
     C --> H[PHP Standards]
     D --> I[Code Formatting]
     E --> J[CSS Standards]
     F --> K[Markdown Quality]
-    
+
     G --> L[CI/CD Pipeline]
     H --> L
     I --> L
@@ -91,24 +91,24 @@ graph LR
 
 Below are all linting instruction files available in this folder. Each file defines standards, config, and tools for linting a specific file type:
 
-| File                                                    | Description                                                              |
-| ------------------------------------------------------- | ------------------------------------------------------------------------ |
-| [linting-css.instructions.md](./linting/linting-css.instructions.md)         | Lint and format CSS, SCSS, and Sass with stylelint and Prettier.         |
-| [linting-html.instructions.md](./linting/linting-html.instructions.md)       | Validate and lint HTML (and embedded HTML in PHP) for semantics and accessibility. |
+| File                                                                               | Description                                                                             |
+| ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| [linting-css.instructions.md](./linting/linting-css.instructions.md)               | Lint and format CSS, SCSS, and Sass with stylelint and Prettier.                        |
+| [linting-html.instructions.md](./linting/linting-html.instructions.md)             | Validate and lint HTML (and embedded HTML in PHP) for semantics and accessibility.      |
 | [linting-javascript.instructions.md](./linting/linting-javascript.instructions.md) | Lint JavaScript/TypeScript with ESLint (flat/classic), Prettier, and project standards. |
-| [linting-json.instructions.md](./linting/linting-json.instructions.md)       | Validate JSON files against schemas and enforce formatting with Prettier. |
-| [linting-markdown.instructions.md](./linting/linting-markdown.instructions.md) | Lint Markdown for style and readability using markdownlint and Prettier.  |
-| [linting-php.instructions.md](./linting/linting-php.instructions.md)         | Lint PHP with PHPCS and WordPress coding standards.                      |
-| [linting-python.instructions.md](./linting/linting-python.instructions.md)   | Lint and format Python using Black, Ruff, and enforce type hints.         |
-| [linting-shell.instructions.md](./linting/linting-shell.instructions.md)     | Lint shell scripts with ShellCheck and enforce strict mode.               |
-| [linting-tests.instructions.md](./linting/linting-tests.instructions.md)     | Enforce consistent test style for Jest, Playwright, Python, and shell tests. |
-| [linting-yaml.instructions.md](./linting/linting-yaml.instructions.md)       | Lint YAML files and workflows using yamllint, Spectral, and actionlint.   |
+| [linting-json.instructions.md](./linting/linting-json.instructions.md)             | Validate JSON files against schemas and enforce formatting with Prettier.               |
+| [linting-markdown.instructions.md](./linting/linting-markdown.instructions.md)     | Lint Markdown for style and readability using markdownlint and Prettier.                |
+| [linting-php.instructions.md](./linting/linting-php.instructions.md)               | Lint PHP with PHPCS and WordPress coding standards.                                     |
+| [linting-python.instructions.md](./linting/linting-python.instructions.md)         | Lint and format Python using Black, Ruff, and enforce type hints.                       |
+| [linting-shell.instructions.md](./linting/linting-shell.instructions.md)           | Lint shell scripts with ShellCheck and enforce strict mode.                             |
+| [linting-tests.instructions.md](./linting/linting-tests.instructions.md)           | Enforce consistent test style for Jest, Playwright, Python, and shell tests.            |
+| [linting-yaml.instructions.md](./linting/linting-yaml.instructions.md)             | Lint YAML files and workflows using yamllint, Spectral, and actionlint.                 |
 
 ---
 
 ## Reference: Coding Standards
 
-For unified coding standards and documentation practices, see:  
+For unified coding standards and documentation practices, see:
 
 - [Main Coding Standards Instructions](./coding-standards.instructions.md)
 

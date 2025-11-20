@@ -7,7 +7,7 @@ When registering a block with JavaScript on the client, the `edit` and `save` fu
 The `edit` function describes the structure of your block in the context of the editor. This represents what the editor will render when the block is used.
 
 ```jsx
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from "@wordpress/block-editor";
 
 // ...
 const blockSettings = {
@@ -30,7 +30,7 @@ The first thing to notice here is the use of the `useBlockProps` React hook on t
 If the element wrapper needs any extra custom HTML attributes, these need to be passed as an argument to the `useBlockProps` hook. For example to add a `my-random-classname` className to the wrapper, you can use the following code:
 
 ```jsx
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from "@wordpress/block-editor";
 
 // ...
 const blockSettings = {
@@ -40,7 +40,7 @@ const blockSettings = {
 
   edit: () => {
     const blockProps = useBlockProps({
-      className: 'my-random-classname',
+      className: "my-random-classname",
     });
 
     return <div {...blockProps}>Your block.</div>;
@@ -110,7 +110,8 @@ When using attributes that are objects or arrays it's a good idea to copy or clo
 ```js
 // Good - a new array is created from the old list attribute and a new list item:
 const { list } = attributes;
-const addListItem = (newListItem) => setAttributes({ list: [...list, newListItem] });
+const addListItem = (newListItem) =>
+  setAttributes({ list: [...list, newListItem] });
 
 // Bad - the list from the existing attribute is modified directly to add the new list item:
 const { list } = attributes;
@@ -124,7 +125,7 @@ Why do this? In JavaScript, arrays and objects are passed by reference, so this 
 
 The `setAttribute` also supports an updater function as an argument. It must be a pure function, which takes current attributes as its only argument and returns updated attributes. This method is helpful when you want to update an value based on a previous state or when working with objects and arrays.
 
-_**Note:** Since WordPress 6.9._
+***Note:** Since WordPress 6.9.*
 
 ```js
 // Toggle a setting when the user clicks the button.
@@ -154,9 +155,9 @@ save: () => {
 
 For most blocks, the return value of `save` should be an [instance of WordPress Element](/packages/element/README.md) representing how the block is to appear on the front of the site.
 
-_Note:_ While it is possible to return a string value from `save`, it _will be escaped_. If the string includes HTML markup, the markup will be shown on the front of the site verbatim, not as the equivalent HTML node content. If you must return raw HTML from `save`, use `wp.element.RawHTML`. As the name implies, this is prone to [cross-site scripting](https://en.wikipedia.org/wiki/Cross-site_scripting) and therefore is discouraged in favor of a WordPress Element hierarchy whenever possible.
+*Note:* While it is possible to return a string value from `save`, it *will be escaped*. If the string includes HTML markup, the markup will be shown on the front of the site verbatim, not as the equivalent HTML node content. If you must return raw HTML from `save`, use `wp.element.RawHTML`. As the name implies, this is prone to [cross-site scripting](https://en.wikipedia.org/wiki/Cross-site_scripting) and therefore is discouraged in favor of a WordPress Element hierarchy whenever possible.
 
-_Note:_ The save function should be a pure and stateless function that depends only on the attributes used to invoke it. It shouldn't use any APIs such as `useState` or `useEffect`, nor retrieve information from another source; for example, it is not possible to use the data module inside - `select( store ).selector( ... )`.
+*Note:* The save function should be a pure and stateless function that depends only on the attributes used to invoke it. It shouldn't use any APIs such as `useState` or `useEffect`, nor retrieve information from another source; for example, it is not possible to use the data module inside - `select( store ).selector( ... )`.
 This is because if the external information changes, the block may be flagged as invalid when the post is later edited ([read more about Validation](#validation)).
 
 If there is a need to have other information as part of the save, developers can consider one of these two alternatives:
@@ -200,7 +201,7 @@ save: ({ attributes, innerBlocks }) => {
   // innerBlocks could also be an object - react element during initialization
   const numberOfInnerBlocks = innerBlocks?.length;
   if (numberOfInnerBlocks > 1) {
-    className = className + (className ? ' ' : '') + 'more-than-one';
+    className = className + (className ? " " : "") + "more-than-one";
   }
   const blockProps = { ...rest, className };
 

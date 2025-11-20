@@ -54,9 +54,9 @@ Block variations can be declared during a block's registration by providing the 
 To create a variation for an existing block, such as a Core block, use `wp.blocks.registerBlockVariation()`. This function accepts the name of the block and the object defining the variation.
 
 ```js
-wp.blocks.registerBlockVariation('core/embed', {
-  name: 'custom-embed',
-  attributes: { providerNameSlug: 'custom' },
+wp.blocks.registerBlockVariation("core/embed", {
+  name: "custom-embed",
+  attributes: { providerNameSlug: "custom" },
 });
 ```
 
@@ -104,7 +104,7 @@ Note that variations registered through PHP will be merged with any variations r
 Block variations can also be easily removed. To do so, use `wp.blocks.unregisterBlockVariation()`. This function accepts the name of the block and the `name` of the variation that should be unregistered.
 
 ```js
-wp.blocks.unregisterBlockVariation('core/embed', 'youtube');
+wp.blocks.unregisterBlockVariation("core/embed", "youtube");
 ```
 
 ## Block variations versus block styles
@@ -137,12 +137,12 @@ By default, all variations will show up in the Inserter in addition to the origi
 For example, if you want Media & Text block to display the image on the right by default, you could create a variation like this:
 
 ```js
-wp.blocks.registerBlockVariation('core/media-text', {
-  name: 'media-text-media-right',
-  title: __('Media & Text'),
+wp.blocks.registerBlockVariation("core/media-text", {
+  name: "media-text-media-right",
+  title: __("Media & Text"),
   isDefault: true,
   attributes: {
-    mediaPosition: 'right',
+    mediaPosition: "right",
   },
 });
 ```
@@ -170,22 +170,25 @@ As an example, in the core Embed block, the `providerNameSlug` attribute is used
 ```js
 const variations = [
   {
-    name: 'twitter',
-    title: 'Twitter',
+    name: "twitter",
+    title: "Twitter",
     icon: embedTwitterIcon,
-    keywords: ['tweet', __('social')],
-    description: __('Embed a tweet.'),
+    keywords: ["tweet", __("social")],
+    description: __("Embed a tweet."),
     patterns: [/^https?:\/\/(www\.)?twitter\.com\/.+/i],
-    attributes: { providerNameSlug: 'twitter', responsive: true },
+    attributes: { providerNameSlug: "twitter", responsive: true },
   },
   {
-    name: 'youtube',
-    title: 'YouTube',
+    name: "youtube",
+    title: "YouTube",
     icon: embedYouTubeIcon,
-    keywords: [__('music'), __('video')],
-    description: __('Embed a YouTube video.'),
-    patterns: [/^https?:\/\/((m|www)\.)?youtube\.com\/.+/i, /^https?:\/\/youtu\.be\/.+/i],
-    attributes: { providerNameSlug: 'youtube', responsive: true },
+    keywords: [__("music"), __("video")],
+    description: __("Embed a YouTube video."),
+    patterns: [
+      /^https?:\/\/((m|www)\.)?youtube\.com\/.+/i,
+      /^https?:\/\/youtu\.be\/.+/i,
+    ],
+    attributes: { providerNameSlug: "youtube", responsive: true },
   },
   // ...
 ];
@@ -194,7 +197,7 @@ const variations = [
 The `isActive` property would then look like this:
 
 ```js
-isActive: ['providerNameSlug'];
+isActive: ["providerNameSlug"];
 ```
 
 This will cause the block instance value for `providerNameSlug` to be compared to the value declared in the variation's declaration (the values in the code snippet above) to determine which embed variation is active.
@@ -202,7 +205,7 @@ This will cause the block instance value for `providerNameSlug` to be compared t
 Nested object paths are also supported since WordPress `6.6.0`. For example, consider a block variation that has a `query` object as an attribute. It is possible to determine if the variation is active solely based on that object's `postType` property (while ignoring all its other properties):
 
 ```js
-isActive: ['query.postType'];
+isActive: ["query.postType"];
 ```
 
 The function version of this property accepts a block instance's `blockAttributes` as the first argument, and the `variationAttributes` declared for a variation as the second argument. These arguments can be used to determine if a variation is active by comparing them and returning a `true` or `false` (indicating whether this variation is inactive for this block instance).
@@ -216,31 +219,31 @@ isActive: ( blockAttributes, variationAttributes ) =>
 
 ### Specificity of `isActive` matches
 
-_Note: Improved handling since WordPress `6.6.0`._
+*Note: Improved handling since WordPress `6.6.0`.*
 
-If there are multiple variations whose `isActive` check matches a given block instance, and all of them are string arrays, then the variation with the highest _specificity_ will be chosen. Consider the following example:
+If there are multiple variations whose `isActive` check matches a given block instance, and all of them are string arrays, then the variation with the highest *specificity* will be chosen. Consider the following example:
 
 ```js
-wp.blocks.registerBlockVariation('core/paragraph', {
-  name: 'paragraph-red',
-  title: 'Red Paragraph',
+wp.blocks.registerBlockVariation("core/paragraph", {
+  name: "paragraph-red",
+  title: "Red Paragraph",
   attributes: {
-    textColor: 'vivid-red',
+    textColor: "vivid-red",
   },
-  isActive: ['textColor'],
+  isActive: ["textColor"],
 });
 
-wp.blocks.registerBlockVariation('core/paragraph', {
-  name: 'paragraph-red-grey',
-  title: 'Red/Grey Paragraph',
+wp.blocks.registerBlockVariation("core/paragraph", {
+  name: "paragraph-red-grey",
+  title: "Red/Grey Paragraph",
   attributes: {
-    textColor: 'vivid-red',
-    backgroundColor: 'cyan-bluish-gray',
+    textColor: "vivid-red",
+    backgroundColor: "cyan-bluish-gray",
   },
-  isActive: ['textColor', 'backgroundColor'],
+  isActive: ["textColor", "backgroundColor"],
 });
 ```
 
-If a block instance has attributes `textColor: vivid-red` and `backgroundColor: cyan-bluish-gray`, both variations' `isActive` criterion will match that block instance. In this case, the more _specific_ match will be determined to be the active variation, where specificity is calculated as the length of each `isActive` array. This means that the `Red/Grey Paragraph` will be shown as the active variation.
+If a block instance has attributes `textColor: vivid-red` and `backgroundColor: cyan-bluish-gray`, both variations' `isActive` criterion will match that block instance. In this case, the more *specific* match will be determined to be the active variation, where specificity is calculated as the length of each `isActive` array. This means that the `Red/Grey Paragraph` will be shown as the active variation.
 
 Note that specificity cannot be determined for a matching variation if its `isActive` property is a function rather than a `string[]`. In this case, the first matching variation will be determined to be the active variation. For this reason, it is generally recommended to use a `string[]` rather than a `function` for the `isActive` property.

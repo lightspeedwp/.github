@@ -38,7 +38,14 @@ function i18nNgettextCallback(translation, single, plural, number, domain) {
 ### i18n.ngettext_with_context
 
 ```jsx
-function i18nNgettextWithContextCallback(translation, single, plural, number, context, domain) {
+function i18nNgettextWithContextCallback(
+  translation,
+  single,
+  plural,
+  number,
+  context,
+  domain,
+) {
   return translation;
 }
 ```
@@ -50,17 +57,17 @@ Here is a simple example, using the `i18n.gettext` filter to override a specific
 ```jsx
 // Define our filter callback.
 function myPluginGettextFilter(translation, text, domain) {
-  if (text === 'Create Reusable block') {
-    return 'Save to MyOrg block library';
+  if (text === "Create Reusable block") {
+    return "Save to MyOrg block library";
   }
   return translation;
 }
 
 // Adding the filter
 wp.hooks.addFilter(
-  'i18n.gettext',
-  'my-plugin/override-add-to-reusable-blocks-label',
-  myPluginGettextFilter
+  "i18n.gettext",
+  "my-plugin/override-add-to-reusable-blocks-label",
+  myPluginGettextFilter,
 );
 ```
 
@@ -80,21 +87,21 @@ For example:
 ```jsx
 // Define our filter callback.
 function myPluginGettextFilter(translation, text, domain) {
-  if (text === 'You’ve fulfilled all your orders') {
-    return 'All packed up and ready to go. Good job!';
+  if (text === "You’ve fulfilled all your orders") {
+    return "All packed up and ready to go. Good job!";
   }
   return translation;
 }
 
 // Adding the filter
 wp.hooks.addFilter(
-  'i18n.gettext_woocommerce',
-  'my-plugin/override-fulfilled-all-orders-text',
-  myPluginGettextFilter
+  "i18n.gettext_woocommerce",
+  "my-plugin/override-fulfilled-all-orders-text",
+  myPluginGettextFilter,
 );
 ```
 
-_Note_: To apply a filter where the text-domain is `undefined` (for example WordPress core strings), then use the name "default" to construct the filter name.
+*Note*: To apply a filter where the text-domain is `undefined` (for example WordPress core strings), then use the name "default" to construct the filter name.
 
 - `i18n.gettext_default`
 - `i18n.gettext_with_context_default`

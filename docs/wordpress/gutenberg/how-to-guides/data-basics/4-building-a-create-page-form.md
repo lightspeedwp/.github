@@ -1,16 +1,16 @@
 # Building a Create page form
 
-In the [previous part](/docs/how-to-guides/data-basics/3-building-an-edit-form.md) we created an _Edit page_ feature, and in this part we will add a _Create page_ feature. Here's a glimpse of what we're going to build:
+In the [previous part](/docs/how-to-guides/data-basics/3-building-an-edit-form.md) we created an *Edit page* feature, and in this part we will add a *Create page* feature. Here's a glimpse of what we're going to build:
 
 ![Screenshot of create page form with text field](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/create-form/create-form-with-text.png)
 
-### Step 1: Add a _Create a new page_ button
+### Step 1: Add a *Create a new page* button
 
-Let’s start by building a button to display the _create page_ form. It’s similar to an _Edit_ button we have built in the [part 3](/docs/how-to-guides/data-basics/3-building-an-edit-form.md):
+Let’s start by building a button to display the *create page* form. It’s similar to an *Edit* button we have built in the [part 3](/docs/how-to-guides/data-basics/3-building-an-edit-form.md):
 
 ```js
-import { useDispatch } from '@wordpress/data';
-import { Button, Modal, TextControl } from '@wordpress/components';
+import { useDispatch } from "@wordpress/data";
+import { Button, Modal, TextControl } from "@wordpress/components";
 
 function CreatePageButton() {
   const [isOpen, setOpen] = useState(false);
@@ -79,7 +79,15 @@ function EditPageForm({ pageId, onCancel, onSaveFinished }) {
   );
 }
 
-function PageForm({ title, onChangeTitle, hasEdits, lastError, isSaving, onCancel, onSave }) {
+function PageForm({
+  title,
+  onChangeTitle,
+  hasEdits,
+  lastError,
+  isSaving,
+  onCancel,
+  onSave,
+}) {
   return (
     <div className="my-gutenberg-form">
       <TextControl
@@ -89,16 +97,24 @@ function PageForm({ title, onChangeTitle, hasEdits, lastError, isSaving, onCance
         value={title}
         onChange={onChangeTitle}
       />
-      {lastError ? <div className="form-error">Error: {lastError.message}</div> : false}
+      {lastError ? (
+        <div className="form-error">Error: {lastError.message}</div>
+      ) : (
+        false
+      )}
       <div className="form-buttons">
-        <Button onClick={onSave} variant="primary" disabled={!hasEdits || isSaving}>
+        <Button
+          onClick={onSave}
+          variant="primary"
+          disabled={!hasEdits || isSaving}
+        >
           {isSaving ? (
             <>
               <Spinner />
               Saving
             </>
           ) : (
-            'Save'
+            "Save"
           )}
         </Button>
         <Button onClick={onCancel} variant="tertiary" disabled={isSaving}>
@@ -155,12 +171,12 @@ function CreatePageForm( { onCancel, onSaveFinished } ) {
 
 In the `EditPageForm`, we dispatched the `saveEditedEntityRecord('postType', 'page', pageId )` action to save the edits that lived in the Redux state.
 
-In the `CreatePageForm` however, we do not have any edits in the Redux state, nor we do have a `pageId`. The action we need to dispatch in this case is called [`saveEntityRecord`](https://developer.wordpress.org/block-editor/reference-guides/data/data-core/#saveentityrecord) (without the word _Edited_ in the name) and it accepts an object representing the new entity record instead of a `pageId`.
+In the `CreatePageForm` however, we do not have any edits in the Redux state, nor we do have a `pageId`. The action we need to dispatch in this case is called [`saveEntityRecord`](https://developer.wordpress.org/block-editor/reference-guides/data/data-core/#saveentityrecord) (without the word *Edited* in the name) and it accepts an object representing the new entity record instead of a `pageId`.
 
 The data passed to `saveEntityRecord` is sent via a POST request to the appropriate REST API endpoint. For example, dispatching the following action:
 
 ```js
-saveEntityRecord('postType', 'page', { title: 'Test' });
+saveEntityRecord("postType", "page", { title: "Test" });
 ```
 
 Triggers a POST request to the [`/wp/v2/pages` WordPress REST API](https://developer.wordpress.org/rest-api/reference/pages/) endpoint with a single field in the request body: `title=Test`.
@@ -191,7 +207,7 @@ function CreatePageForm( { onSaveFinished, onCancel } ) {
 }
 ```
 
-There is one more detail to address: our newly created pages are not yet picked up by the `PagesList`. Accordingly to the REST API documentation, the `/wp/v2/pages` endpoint creates (`POST` requests) pages with `status=draft` by default, but _returns_ (`GET` requests) pages with `status=publish`. The solution is to pass the `status` parameter explicitly:
+There is one more detail to address: our newly created pages are not yet picked up by the `PagesList`. Accordingly to the REST API documentation, the `/wp/v2/pages` endpoint creates (`POST` requests) pages with `status=draft` by default, but *returns* (`GET` requests) pages with `status=publish`. The solution is to pass the `status` parameter explicitly:
 
 ```js
 function CreatePageForm( { onSaveFinished, onCancel } ) {
@@ -264,15 +280,21 @@ function CreatePageForm({ onCancel, onSaveFinished }) {
   const [title, setTitle] = useState();
   const { lastError, isSaving } = useSelect(
     (select) => ({
-      lastError: select(coreDataStore).getLastEntitySaveError('postType', 'page'),
-      isSaving: select(coreDataStore).isSavingEntityRecord('postType', 'page'),
+      lastError: select(coreDataStore).getLastEntitySaveError(
+        "postType",
+        "page",
+      ),
+      isSaving: select(coreDataStore).isSavingEntityRecord("postType", "page"),
     }),
-    []
+    [],
   );
 
   const { saveEntityRecord } = useDispatch(coreDataStore);
   const handleSave = async () => {
-    const savedRecord = await saveEntityRecord('postType', 'page', { title, status: 'publish' });
+    const savedRecord = await saveEntityRecord("postType", "page", {
+      title,
+      status: "publish",
+    });
     if (savedRecord) {
       onSaveFinished();
     }
@@ -294,22 +316,44 @@ function CreatePageForm({ onCancel, onSaveFinished }) {
 function EditPageForm({ pageId, onCancel, onSaveFinished }) {
   const { page, lastError, isSaving, hasEdits } = useSelect(
     (select) => ({
-      page: select(coreDataStore).getEditedEntityRecord('postType', 'page', pageId),
-      lastError: select(coreDataStore).getLastEntitySaveError('postType', 'page', pageId),
-      isSaving: select(coreDataStore).isSavingEntityRecord('postType', 'page', pageId),
-      hasEdits: select(coreDataStore).hasEditsForEntityRecord('postType', 'page', pageId),
+      page: select(coreDataStore).getEditedEntityRecord(
+        "postType",
+        "page",
+        pageId,
+      ),
+      lastError: select(coreDataStore).getLastEntitySaveError(
+        "postType",
+        "page",
+        pageId,
+      ),
+      isSaving: select(coreDataStore).isSavingEntityRecord(
+        "postType",
+        "page",
+        pageId,
+      ),
+      hasEdits: select(coreDataStore).hasEditsForEntityRecord(
+        "postType",
+        "page",
+        pageId,
+      ),
     }),
-    [pageId]
+    [pageId],
   );
 
-  const { saveEditedEntityRecord, editEntityRecord } = useDispatch(coreDataStore);
+  const { saveEditedEntityRecord, editEntityRecord } =
+    useDispatch(coreDataStore);
   const handleSave = async () => {
-    const savedRecord = await saveEditedEntityRecord('postType', 'page', pageId);
+    const savedRecord = await saveEditedEntityRecord(
+      "postType",
+      "page",
+      pageId,
+    );
     if (savedRecord) {
       onSaveFinished();
     }
   };
-  const handleChange = (title) => editEntityRecord('postType', 'page', page.id, { title });
+  const handleChange = (title) =>
+    editEntityRecord("postType", "page", page.id, { title });
 
   return (
     <PageForm
@@ -324,7 +368,15 @@ function EditPageForm({ pageId, onCancel, onSaveFinished }) {
   );
 }
 
-function PageForm({ title, onChangeTitle, hasEdits, lastError, isSaving, onCancel, onSave }) {
+function PageForm({
+  title,
+  onChangeTitle,
+  hasEdits,
+  lastError,
+  isSaving,
+  onCancel,
+  onSave,
+}) {
   return (
     <div className="my-gutenberg-form">
       <TextControl
@@ -334,16 +386,24 @@ function PageForm({ title, onChangeTitle, hasEdits, lastError, isSaving, onCance
         value={title}
         onChange={onChangeTitle}
       />
-      {lastError ? <div className="form-error">Error: {lastError.message}</div> : false}
+      {lastError ? (
+        <div className="form-error">Error: {lastError.message}</div>
+      ) : (
+        false
+      )}
       <div className="form-buttons">
-        <Button onClick={onSave} variant="primary" disabled={!hasEdits || isSaving}>
+        <Button
+          onClick={onSave}
+          variant="primary"
+          disabled={!hasEdits || isSaving}
+        >
           {isSaving ? (
             <>
               <Spinner />
               Saving
             </>
           ) : (
-            'Save'
+            "Save"
           )}
         </Button>
         <Button onClick={onCancel} variant="tertiary" disabled={isSaving}>

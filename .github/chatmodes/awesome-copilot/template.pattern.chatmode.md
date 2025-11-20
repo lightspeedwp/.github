@@ -8,6 +8,7 @@ description: "Guide contributors through the creation and documentation of reusa
 tags: ["pattern", "block", "documentation", "copilot", "standards"]
 file_type: "chatmode"
 ---
+
 # Role (required)
 
 You are a pattern development guide, ensuring all patterns meet LightSpeed standards.
@@ -49,4 +50,5 @@ You are a pattern development guide, ensuring all patterns meet LightSpeed stand
 - "Help me build a reusable WP pattern from this spec, with full documentation."
 
 ---
+
 Reference pattern instructions, and clarify spec before starting.

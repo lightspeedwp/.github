@@ -1,18 +1,18 @@
 ---
-title: 'Scripts Documentation Hub'
-description: 'Comprehensive documentation for all LightSpeed WP automation scripts, utilities, and tools'
-version: '1.0'
-last_updated: '2025-11-18'
-author: 'LightSpeed WP Team'
-category: 'documentation'
-tags: ['scripts', 'automation', 'utilities', 'documentation']
+title: "Scripts Documentation Hub"
+description: "Comprehensive documentation for all LightSpeed WP automation scripts, utilities, and tools"
+version: "1.0"
+last_updated: "2025-11-18"
+author: "LightSpeed WP Team"
+category: "documentation"
+tags: ["scripts", "automation", "utilities", "documentation"]
 references:
-  - '../README.md'
-  - '../../scripts/README.md'
-  - '../DEVELOPMENT.md'
-  - './awesome-copilot.md'
-  - './maintenance.md'
-  - './projects.md'
+  - "../README.md"
+  - "../../scripts/README.md"
+  - "../DEVELOPMENT.md"
+  - "./awesome-copilot.md"
+  - "./maintenance.md"
+  - "./projects.md"
 ---
 
 # Scripts Documentation Hub
@@ -25,17 +25,17 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 
 ## Quick Navigation
 
-| Category | Purpose | Documentation | Scripts |
-|----------|---------|---------------|---------|
-| [Awesome Copilot](#awesome-copilot) | Prompt collection management | [📄 Doc](./awesome-copilot.md) | 5 scripts |
-| [Includes](#includes) | Shared utilities & helpers | [📄 Doc](./includes.md) | 10+ utilities |
-| [JSON Validation](#json-validation) | Configuration validation | [📄 Doc](./json-validation.md) | 3 scripts |
-| [Validation](#validation) | Frontmatter validation | [📄 Doc](./validation.md) | 2 scripts |
-| [Maintenance](#maintenance) | Repository maintenance | [📄 Doc](./maintenance.md) | 11 scripts |
-| [Projects](#projects) | GitHub Projects management | [📄 Doc](./projects.md) | 5 scripts |
-| [Utility](#utility) | General utilities | [📄 Doc](./utility.md) | 7 scripts |
-| [Versioning](#versioning) | Version management | [📄 Doc](./versioning.md) | 1 script |
-| [Root Level](#root-level) | Top-level automation | [📄 Doc](./root-level-scripts.md) | 8 scripts |
+| Category                            | Purpose                      | Documentation                     | Scripts       |
+| ----------------------------------- | ---------------------------- | --------------------------------- | ------------- |
+| [Awesome Copilot](#awesome-copilot) | Prompt collection management | [📄 Doc](./awesome-copilot.md)    | 5 scripts     |
+| [Includes](#includes)               | Shared utilities & helpers   | [📄 Doc](./includes.md)           | 10+ utilities |
+| [JSON Validation](#json-validation) | Configuration validation     | [📄 Doc](./json-validation.md)    | 3 scripts     |
+| [Validation](#validation)           | Frontmatter validation       | [📄 Doc](./validation.md)         | 2 scripts     |
+| [Maintenance](#maintenance)         | Repository maintenance       | [📄 Doc](./maintenance.md)        | 11 scripts    |
+| [Projects](#projects)               | GitHub Projects management   | [📄 Doc](./projects.md)           | 5 scripts     |
+| [Utility](#utility)                 | General utilities            | [📄 Doc](./utility.md)            | 7 scripts     |
+| [Versioning](#versioning)           | Version management           | [📄 Doc](./versioning.md)         | 1 script      |
+| [Root Level](#root-level)           | Top-level automation         | [📄 Doc](./root-level-scripts.md) | 8 scripts     |
 
 ## Script Categories
 
@@ -46,6 +46,7 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 **Documentation:** [awesome-copilot.md](./awesome-copilot.md)
 
 **Scripts:**
+
 - `create-collection.js` - Creates new prompt collections
 - `validate-collections.js` - Validates collection schemas
 - `yaml-parser.js` - YAML frontmatter parsing utilities
@@ -53,6 +54,7 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 - `fix-line-endings.sh` - Normalizes line endings
 
 **Use Cases:**
+
 - Creating new prompt collections
 - Validating existing collections against schemas
 - Maintaining documentation for prompts
@@ -67,6 +69,7 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 **Documentation:** [includes.md](./includes.md)
 
 **Core Utilities:**
+
 - `cli-utils.sh` - CLI argument parsing and help generation
 - `colors.sh` - Terminal color constants and functions
 - `common-functions.sh` - General-purpose utilities
@@ -75,10 +78,12 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 - `file-operations.sh` - Safe file system operations
 
 **Test Helpers:**
+
 - `enhanced-test-helpers.bash` - Extended Bats testing utilities
 - `agent-test-helpers.bash` - Agent-specific test helpers
 
 **Use Cases:**
+
 - Building new automation scripts
 - Writing standardized tests
 - Consistent logging across scripts
@@ -93,11 +98,13 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 **Documentation:** [json-validation.md](./json-validation.md)
 
 **Scripts:**
+
 - `validate-coderabbit-yml.cjs` - Validates CodeRabbit configuration
 - `update-coderabbit-schema.cjs` - Updates CodeRabbit schema
 - `validate-coderabbit-yml.test.js` - Test suite for validator
 
 **Use Cases:**
+
 - Pre-commit configuration validation
 - CI/CD pipeline checks
 - Schema compliance enforcement
@@ -112,10 +119,12 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 **Documentation:** [validation.md](./validation.md)
 
 **Scripts:**
+
 - `validate-frontmatter.js` - Main frontmatter validation script
 - `validate-frontmatter.sh` - Shell wrapper for validation
 
 **Use Cases:**
+
 - Documentation quality assurance
 - Pre-commit frontmatter checks
 - Metadata consistency enforcement
@@ -130,6 +139,7 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 **Documentation:** [maintenance.md](./maintenance.md)
 
 **Scripts:**
+
 - `find-readmes.sh` - Finds all README files
 - `folder-and-file-readmes.sh` - Generates comprehensive READMEs
 - `update-readme-and-changelog.sh` - Ensures README/changelog consistency
@@ -142,6 +152,7 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 - `run-maintenance-tests.sh` - Runs maintenance test suite
 
 **Use Cases:**
+
 - Automated documentation generation
 - Label synchronization across repos
 - Badge updates for CI/CD
@@ -157,6 +168,7 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 **Documentation:** [projects.md](./projects.md)
 
 **Scripts:**
+
 - `client-delivery-project.sh` - Creates/updates client delivery projects
 - `product-dev-project.sh` - Creates/updates product development projects
 - `update-projects.sh` - Core project management engine
@@ -164,10 +176,12 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 - `validate-project-fields.js` - Validates project field definitions
 
 **Fixtures:**
+
 - CSV templates for project configuration
 - Field definitions and settings
 
 **Use Cases:**
+
 - Standardized project creation
 - Field configuration management
 - Project template deployment
@@ -182,6 +196,7 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 **Documentation:** [utility.md](./utility.md)
 
 **Scripts:**
+
 - `lint-shell.sh` - Shell script linting
 - `standardize-logging.sh` - Injects standardized logging
 - `utility-functions.sh` - Common shell function library
@@ -191,6 +206,7 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 - `run-utility-tests.sh` - Runs utility test suite
 
 **Use Cases:**
+
 - Code quality enforcement
 - Release preparation
 - Standard logging injection
@@ -205,9 +221,11 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 **Documentation:** [versioning.md](./versioning.md)
 
 **Scripts:**
+
 - `bump-file-version.cjs` - Bumps file version in frontmatter
 
 **Use Cases:**
+
 - Automated version bumping
 - Frontmatter version management
 - Semantic versioning enforcement
@@ -222,6 +240,7 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 **Documentation:** [root-level-scripts.md](./root-level-scripts.md)
 
 **Scripts:**
+
 - `canonical-to-json.js` - Converts YAML to JSON
 - `create-release-pr.cjs` - Creates release PRs
 - `validate-changelog.cjs` - Validates changelog format
@@ -231,6 +250,7 @@ The `/scripts/` directory contains 50+ automation scripts organized into 9 main 
 - `run-all-tests.sh` - Master test runner
 
 **Use Cases:**
+
 - Release automation
 - Repository-wide validation
 - Metrics collection
@@ -265,13 +285,13 @@ All scripts follow these standards:
 
 Common environment variables used across scripts:
 
-| Variable | Purpose | Required |
-|----------|---------|----------|
-| `GITHUB_TOKEN` | GitHub API authentication | Yes (most scripts) |
-| `GITHUB_REPOSITORY` | Repository context | Yes (many scripts) |
-| `DRY_RUN` | Preview mode without changes | No |
-| `DEBUG` | Enable verbose logging | No |
-| `CI` | CI environment indicator | No |
+| Variable            | Purpose                      | Required           |
+| ------------------- | ---------------------------- | ------------------ |
+| `GITHUB_TOKEN`      | GitHub API authentication    | Yes (most scripts) |
+| `GITHUB_REPOSITORY` | Repository context           | Yes (many scripts) |
+| `DRY_RUN`           | Preview mode without changes | No                 |
+| `DEBUG`             | Enable verbose logging       | No                 |
+| `CI`                | CI environment indicator     | No                 |
 
 ## Testing Scripts
 
@@ -339,12 +359,14 @@ main "$@"
 ## Related Documentation
 
 ### Core Documentation
+
 - [Main Documentation Hub](../README.md)
 - [Development Guide](../DEVELOPMENT.md)
 - [Testing Documentation](../TESTING.md)
 - [Contributing Guidelines](../../CONTRIBUTING.md)
 
 ### Script-Specific Docs
+
 - [Awesome Copilot Scripts](./awesome-copilot.md)
 - [Maintenance Scripts](./maintenance.md)
 - [Project Management Scripts](./projects.md)
@@ -352,6 +374,7 @@ main "$@"
 - [Validation Scripts](./validation.md)
 
 ### Related Topics
+
 - [Label Automation](../label-automation/README.md)
 - [Git Workflows](../git-workflow/README.md)
 - [Configuration](../config/README.md)
@@ -373,12 +396,14 @@ See [Workflows Documentation](../WORKFLOWS.md) for CI/CD details.
 ### Common Issues
 
 **Permission denied:**
+
 ```bash
 # Make script executable
 chmod +x scripts/category/script-name.sh
 ```
 
 **Utility not found:**
+
 ```bash
 # Check source path is correct
 source "$SCRIPT_DIR/../includes/utility-name.sh"
@@ -388,6 +413,7 @@ ls scripts/includes/
 ```
 
 **GitHub API authentication:**
+
 ```bash
 # Set GitHub token
 export GITHUB_TOKEN="your_token_here"

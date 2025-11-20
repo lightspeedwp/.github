@@ -2,10 +2,18 @@
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Docs/Governance] Fix CHANGELOG/VERSION and add doc-versioning policy (semver)"
-labels: [type:documentation, status:needs-triage, priority:normal, area:documentation, governance, version:v0.2.0]
+labels:
+  [
+    type:documentation,
+    status:needs-triage,
+    priority:normal,
+    area:documentation,
+    governance,
+    version:v0.2.0,
+  ]
 assignees: []
 projects: []
-milestone: 'v0.2.0'
+milestone: "v0.2.0"
 file_type: documentation
 references:
   - ../CONTRIBUTING.md
@@ -96,7 +104,7 @@ We need to clarify how semantic versioning (semver) applies to documentation and
 ```markdown
 ---
 title: Documentation Versioning Policy
-version: '1.0.0'
+version: "1.0.0"
 ---
 
 # Documentation Versioning
@@ -110,12 +118,15 @@ This repository follows semantic versioning for documentation and governance.
 ## When to Bump Versions
 
 ### MAJOR
+
 - [list criteria]
 
 ### MINOR
+
 - [list criteria]
 
 ### PATCH
+
 - [list criteria]
 
 ## Workflow

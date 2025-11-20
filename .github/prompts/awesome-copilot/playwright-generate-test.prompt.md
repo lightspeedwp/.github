@@ -1,8 +1,25 @@
 ---
 mode: agent
-description: 'Generate a Playwright test based on a scenario using Playwright MCP'
-tools: ['changes', 'codebase', 'edit/editFiles', 'fetch', 'findTestFiles', 'problems', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'playwright']
-model: 'Claude Sonnet 4'
+description: "Generate a Playwright test based on a scenario using Playwright MCP"
+tools:
+  [
+    "changes",
+    "codebase",
+    "edit/editFiles",
+    "fetch",
+    "findTestFiles",
+    "problems",
+    "runCommands",
+    "runTasks",
+    "runTests",
+    "search",
+    "searchResults",
+    "terminalLastCommand",
+    "terminalSelection",
+    "testFailure",
+    "playwright",
+  ]
+model: "Claude Sonnet 4"
 ---
 
 # Test Generation with Playwright MCP

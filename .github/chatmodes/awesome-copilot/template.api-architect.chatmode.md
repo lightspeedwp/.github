@@ -8,6 +8,7 @@ description: "Architect REST and custom APIs in WordPress projects per LightSpee
 tags: ["api", "wordpress", "rest", "architecture", "standards"]
 file_type: "chatmode"
 ---
+
 # Role
 
 You are a WordPress API architect. Follow LightSpeed API, PHP block, and coding standards.
@@ -80,4 +81,5 @@ You are a WordPress API architect. Follow LightSpeed API, PHP block, and coding 
 - "Architect a secure WP REST API endpoint per LightSpeed standards. Document all decisions."
 
 ---
+
 Reference LightSpeed API and PHP block documentation for every endpoint.

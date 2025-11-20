@@ -21,11 +21,14 @@ Hi @username,
 
 Thank you for reporting a potential security issue.
 
-**Important:**  
+**Important:**
+
 - Please do **not** share details in this public issue
 - Report vulnerabilities privately via [security@lightspeedwp.com](mailto:security@lightspeedwp.com) for responsible disclosure
 
 Our security team will triage and respond promptly. Public updates will be made once a fix is ready or the issue is resolved.
 
-**References:**  
+**References:**
+
 - [How we handle security issues](../../CONTR
+```

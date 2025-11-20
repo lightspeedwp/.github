@@ -2,12 +2,12 @@
 
 Block Styles allow alternative styles to be applied to existing blocks. They work by adding a className to the block's wrapper. This className can be used to provide an alternative styling for the block if the block style is selected. See the [Use styles and stylesheets](/docs/how-to-guides/block-tutorial/applying-styles-with-stylesheets.md) for a full example on how to apply styles to a block.
 
-_Example:_
+*Example:*
 
 ```js
-wp.blocks.registerBlockStyle('core/quote', {
-  name: 'fancy-quote',
-  label: 'Fancy Quote',
+wp.blocks.registerBlockStyle("core/quote", {
+  name: "fancy-quote",
+  label: "Fancy Quote",
 });
 ```
 
@@ -17,10 +17,10 @@ By adding `isDefault: true` you can mark the registered block style as the one t
 
 To remove a block style use `wp.blocks.unregisterBlockStyle()`.
 
-_Example:_
+*Example:*
 
 ```js
-wp.blocks.unregisterBlockStyle('core/quote', 'large');
+wp.blocks.unregisterBlockStyle("core/quote", "large");
 ```
 
 The above removes the block style named `large` from the `core/quote` block.
@@ -45,7 +45,7 @@ The JavaScript code in `myguten.js`:
 
 ```js
 wp.domReady(function () {
-  wp.blocks.unregisterBlockStyle('core/quote', 'large');
+  wp.blocks.unregisterBlockStyle("core/quote", "large");
 });
 ```
 

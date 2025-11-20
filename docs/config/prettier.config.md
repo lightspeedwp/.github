@@ -7,32 +7,32 @@ This document describes the Prettier setup for LightSpeed projects, supporting c
 **File:** `prettier.config.js`
 
 ```javascript
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
-    tabWidth: process.env.PRETTIER_TAB_WIDTH
-        ? parseInt(process.env.PRETTIER_TAB_WIDTH, 10)
-        : 2,
-    useTabs: process.env.PRETTIER_USE_TABS === 'true',
-    endOfLine: process.env.PRETTIER_END_OF_LINE || 'lf',
-    printWidth: process.env.PRETTIER_PRINT_WIDTH
-        ? parseInt(process.env.PRETTIER_PRINT_WIDTH, 10)
-        : 120,
-    singleQuote: process.env.PRETTIER_SINGLE_QUOTE !== 'false',
-    trailingComma: process.env.PRETTIER_TRAILING_COMMA || 'all',
-    bracketSpacing: process.env.PRETTIER_BRACKET_SPACING !== 'false',
-    arrowParens: process.env.PRETTIER_ARROW_PARENS || 'always',
-    ignore: [
-        'node_modules',
-        'build',
-        'dist',
-        'coverage',
-        'playwright-report',
-        'test-results',
-        'vendor',
-        '.next',
-        'logs',
-    ],
+  tabWidth: process.env.PRETTIER_TAB_WIDTH
+    ? parseInt(process.env.PRETTIER_TAB_WIDTH, 10)
+    : 2,
+  useTabs: process.env.PRETTIER_USE_TABS === "true",
+  endOfLine: process.env.PRETTIER_END_OF_LINE || "lf",
+  printWidth: process.env.PRETTIER_PRINT_WIDTH
+    ? parseInt(process.env.PRETTIER_PRINT_WIDTH, 10)
+    : 120,
+  singleQuote: process.env.PRETTIER_SINGLE_QUOTE !== "false",
+  trailingComma: process.env.PRETTIER_TRAILING_COMMA || "all",
+  bracketSpacing: process.env.PRETTIER_BRACKET_SPACING !== "false",
+  arrowParens: process.env.PRETTIER_ARROW_PARENS || "always",
+  ignore: [
+    "node_modules",
+    "build",
+    "dist",
+    "coverage",
+    "playwright-report",
+    "test-results",
+    "vendor",
+    ".next",
+    "logs",
+  ],
 };
 ```
 

@@ -59,6 +59,7 @@ Generate:
 ## Example
 
 **User Input:**
+
 > Create a hero section with a heading, paragraph, and button in two columns
 
 **Assistant Output:**

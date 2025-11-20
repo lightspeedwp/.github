@@ -9,6 +9,7 @@ description: "Root-level system prompt for any AI coding agent in this repo."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 file_type: "agent"
 ---
+
 # Project overview
 
 - Summarise product, tech stack, architecture, and constraints.

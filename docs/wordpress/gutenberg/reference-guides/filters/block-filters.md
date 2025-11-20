@@ -113,7 +113,7 @@ The following example ensures that List blocks are saved with the canonical gene
 
 ```js
 function addListBlockClassName(settings, name) {
-  if (name !== 'core/list') {
+  if (name !== "core/list") {
     return settings;
   }
 
@@ -127,9 +127,9 @@ function addListBlockClassName(settings, name) {
 }
 
 wp.hooks.addFilter(
-  'blocks.registerBlockType',
-  'my-plugin/class-names/list-block',
-  addListBlockClassName
+  "blocks.registerBlockType",
+  "my-plugin/class-names/list-block",
+  addListBlockClassName,
 );
 ```
 
@@ -221,7 +221,7 @@ function wrapCoverBlockInContainer(element, blockType, attributes) {
   }
 
   // Only apply to Cover blocks.
-  if (blockType.name !== 'core/cover') {
+  if (blockType.name !== "core/cover") {
     return element;
   }
 
@@ -230,9 +230,9 @@ function wrapCoverBlockInContainer(element, blockType, attributes) {
 }
 
 wp.hooks.addFilter(
-  'blocks.getSaveElement',
-  'my-plugin/wrap-cover-block-in-container',
-  wrapCoverBlockInContainer
+  "blocks.getSaveElement",
+  "my-plugin/wrap-cover-block-in-container",
+  wrapCoverBlockInContainer,
 );
 ```
 
@@ -252,18 +252,18 @@ The following example adds a red background by default to all blocks.
 function addBackgroundColorStyle(props) {
   return {
     ...props,
-    style: { backgroundColor: 'red' },
+    style: { backgroundColor: "red" },
   };
 }
 
 wp.hooks.addFilter(
-  'blocks.getSaveContent.extraProps',
-  'my-plugin/add-background-color-style',
-  addBackgroundColorStyle
+  "blocks.getSaveContent.extraProps",
+  "my-plugin/add-background-color-style",
+  addBackgroundColorStyle,
 );
 ```
 
-_Note:_ A [block validation](/docs/reference-guides/block-api/block-edit-save.md#validation) error will occur if this filter modifies existing content the next time the post is edited. The Editor verifies that the content stored in the post matches the content output by the `save()` function.
+*Note:* A [block validation](/docs/reference-guides/block-api/block-edit-save.md#validation) error will occur if this filter modifies existing content the next time the post is edited. The Editor verifies that the content stored in the post matches the content output by the `save()` function.
 
 To avoid this validation error, use `render_block` server-side to modify existing post content instead of this filter. See [render_block documentation](https://developer.wordpress.org/reference/hooks/render_block/).
 
@@ -274,14 +274,14 @@ Generated HTML classes for blocks follow the `wp-block-{name}` nomenclature. Thi
 ```js
 // Our filter function.
 function setBlockCustomClassName(className, blockName) {
-  return blockName === 'core/code' ? 'my-plugin-code' : className;
+  return blockName === "core/code" ? "my-plugin-code" : className;
 }
 
 // Adding the filter.
 wp.hooks.addFilter(
-  'blocks.getBlockDefaultClassName',
-  'my-plugin/set-block-custom-class-name',
-  setBlockCustomClassName
+  "blocks.getBlockDefaultClassName",
+  "my-plugin/set-block-custom-class-name",
+  setBlockCustomClassName,
 );
 ```
 
@@ -305,14 +305,18 @@ In the example below, we use the `blocks.getBlockAttributes` filter to lock the 
 ```js
 // Our filter function
 function lockParagraphs(blockAttributes, blockType, innerHTML, attributes) {
-  if ('core/paragraph' === blockType.name) {
-    blockAttributes['lock'] = { move: true };
+  if ("core/paragraph" === blockType.name) {
+    blockAttributes["lock"] = { move: true };
   }
   return blockAttributes;
 }
 
 // Add the filter
-wp.hooks.addFilter('blocks.getBlockAttributes', 'my-plugin/lock-paragraphs', lockParagraphs);
+wp.hooks.addFilter(
+  "blocks.getBlockAttributes",
+  "my-plugin/lock-paragraphs",
+  lockParagraphs,
+);
 ```
 
 ### `editor.BlockEdit`
@@ -337,16 +341,20 @@ const withMyPluginControls = createHigherOrderComponent((BlockEdit) => {
       </>
     );
   };
-}, 'withMyPluginControls');
+}, "withMyPluginControls");
 
-wp.hooks.addFilter('editor.BlockEdit', 'my-plugin/with-inspector-controls', withMyPluginControls);
+wp.hooks.addFilter(
+  "editor.BlockEdit",
+  "my-plugin/with-inspector-controls",
+  withMyPluginControls,
+);
 ```
 
-Note that as this hook is run for _all blocks_, consuming it has the potential for performance regressions, particularly around block selection metrics.
+Note that as this hook is run for *all blocks*, consuming it has the potential for performance regressions, particularly around block selection metrics.
 
 To mitigate this, consider whether any work you perform can be altered to run only under certain conditions.
 
-For example, suppose you are adding components that only need to render when the block is _selected_. In that case, you can use the block's "selected" state (`props.isSelected`) to conditionalize your rendering.
+For example, suppose you are adding components that only need to render when the block is *selected*. In that case, you can use the block's "selected" state (`props.isSelected`) to conditionalize your rendering.
 
 The following example adds a new Inspector panel for all blocks, but only when a block is selected.
 
@@ -364,7 +372,7 @@ const withMyPluginControls = createHigherOrderComponent((BlockEdit) => {
       </>
     );
   };
-}, 'withMyPluginControls');
+}, "withMyPluginControls");
 ```
 
 ### `editor.BlockListBlock`
@@ -378,14 +386,14 @@ const { createHigherOrderComponent } = wp.compose;
 
 const withClientIdClassName = createHigherOrderComponent((BlockListBlock) => {
   return (props) => {
-    return <BlockListBlock {...props} className={'block-' + props.clientId} />;
+    return <BlockListBlock {...props} className={"block-" + props.clientId} />;
   };
-}, 'withClientIdClassName');
+}, "withClientIdClassName");
 
 wp.hooks.addFilter(
-  'editor.BlockListBlock',
-  'my-plugin/with-client-id-class-name',
-  withClientIdClassName
+  "editor.BlockListBlock",
+  "my-plugin/with-client-id-class-name",
+  withClientIdClassName,
 );
 ```
 
@@ -397,13 +405,17 @@ const withMyWrapperProp = createHigherOrderComponent((BlockListBlock) => {
   return (props) => {
     const wrapperProps = {
       ...props.wrapperProps,
-      'data-my-property': 'the-value',
+      "data-my-property": "the-value",
     };
     return <BlockListBlock {...props} wrapperProps={wrapperProps} />;
   };
-}, 'withMyWrapperProp');
+}, "withMyWrapperProp");
 
-wp.hooks.addFilter('editor.BlockListBlock', 'my-plugin/with-my-wrapper-prop', withMyWrapperProp);
+wp.hooks.addFilter(
+  "editor.BlockListBlock",
+  "my-plugin/with-my-wrapper-prop",
+  withMyWrapperProp,
+);
 ```
 
 ### `editor.postContentBlockTypes`
@@ -414,13 +426,13 @@ The following example enables the fictitious block `namespace/example`.
 
 ```js
 const addExampleBlockToPostContentBlockTypes = (blockTypes) => {
-  return [...blockTypes, 'namespace/example'];
+  return [...blockTypes, "namespace/example"];
 };
 
 wp.hooks.addFilter(
-  'editor.postContentBlockTypes',
-  'my-plugin/post-content-block-types',
-  addExampleBlockToPostContentBlockTypes
+  "editor.postContentBlockTypes",
+  "my-plugin/post-content-block-types",
+  addExampleBlockToPostContentBlockTypes,
 );
 ```
 
@@ -434,11 +446,11 @@ Place the following code in a `my-plugin.js` file.
 
 ```js
 // my-plugin.js
-import { unregisterBlockType } from '@wordpress/blocks';
-import domReady from '@wordpress/dom-ready';
+import { unregisterBlockType } from "@wordpress/blocks";
+import domReady from "@wordpress/dom-ready";
 
 domReady(function () {
-  unregisterBlockType('core/verse');
+  unregisterBlockType("core/verse");
 });
 ```
 
@@ -469,7 +481,12 @@ If you want to disable all blocks except an allow list, you can adapt the script
 ```js
 // my-plugin.js
 
-var allowedBlocks = ['core/paragraph', 'core/image', 'core/html', 'core/freeform'];
+var allowedBlocks = [
+  "core/paragraph",
+  "core/image",
+  "core/html",
+  "core/freeform",
+];
 
 wp.blocks.getBlockTypes().forEach(function (blockType) {
   if (allowedBlocks.indexOf(blockType.name) === -1) {
@@ -540,15 +557,19 @@ To set an SVG icon for the category shown in the previous example, add the follo
 (function () {
   var el = React.createElement;
   var SVG = wp.primitives.SVG;
-  var circle = el('circle', {
+  var circle = el("circle", {
     cx: 10,
     cy: 10,
     r: 10,
-    fill: 'red',
-    stroke: 'blue',
-    strokeWidth: '10',
+    fill: "red",
+    stroke: "blue",
+    strokeWidth: "10",
   });
-  var svgIcon = el(SVG, { width: 20, height: 20, viewBox: '0 0 20 20' }, circle);
-  wp.blocks.updateCategory('my-category', { icon: svgIcon });
+  var svgIcon = el(
+    SVG,
+    { width: 20, height: 20, viewBox: "0 0 20 20" },
+    circle,
+  );
+  wp.blocks.updateCategory("my-category", { icon: svgIcon });
 })();
 ```

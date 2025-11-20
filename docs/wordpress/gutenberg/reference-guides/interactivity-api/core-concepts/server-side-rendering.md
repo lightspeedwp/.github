@@ -122,10 +122,10 @@ Let's extend this example to include a button that the user can click to add a n
 This new button has a `data-wp-on-async--click` directive that references `actions.addMango`, which is defined in our JavaScript store:
 
 ```javascript
-const { state } = store('myFruitPlugin', {
+const { state } = store("myFruitPlugin", {
   actions: {
     addMango() {
-      state.fruits.push('Mango');
+      state.fruits.push("Mango");
     },
   },
 });
@@ -134,11 +134,11 @@ const { state } = store('myFruitPlugin', {
 The same example would also work if you were using local context:
 
 ```javascript
-store('myFruitPlugin', {
+store("myFruitPlugin", {
   actions: {
     addMango() {
       const context = getContext();
-      context.fruits.push('Mango');
+      context.fruits.push("Mango");
     },
   },
 });
@@ -162,9 +162,9 @@ Now, when the user clicks the "Add Mango" button:
 Remember: initializing the state on the client is not necessary when it has already been done on the server.
 
 ```javascript
-store('myFruitPlugin', {
+store("myFruitPlugin", {
   state: {
-    fruits: ['Apple', 'Banana', 'Cherry'], // This is not necessary!
+    fruits: ["Apple", "Banana", "Cherry"], // This is not necessary!
   },
 });
 ```
@@ -173,18 +173,20 @@ store('myFruitPlugin', {
 
 The derived state, regardless of whether it derives from the global state, local context, or both, can also be processed on the server by the Server Directive Processing.
 
-_Please, visit the [Understanding global state, local context and derived state](/docs/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state.md) guide to learn more about how derived state works in the Interactivity API._
+*Please, visit the [Understanding global state, local context and derived state](/docs/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state.md) guide to learn more about how derived state works in the Interactivity API.*
 
 ### Derived state that can be defined statically
 
 Let's imagine adding a button that can delete all fruits:
 
 ```html
-<button data-wp-on-async--click="actions.deleteFruits">Delete all fruits</button>
+<button data-wp-on-async--click="actions.deleteFruits">
+  Delete all fruits
+</button>
 ```
 
 ```javascript
-const { state } = store('myFruitPlugin', {
+const { state } = store("myFruitPlugin", {
   actions: {
     // ...
     deleteFruits() {
@@ -210,7 +212,7 @@ Now, let's display a special message when there is no fruit. To do this, let's u
 The derived state `state.hasFruits` is defined on the client using a getter:
 
 ```javascript
-const { state } = store('myFruitPlugin', {
+const { state } = store("myFruitPlugin", {
   state: {
     get hasFruits() {
       return state.fruits.length > 0;
@@ -253,7 +255,7 @@ In most cases, the initial derived state can be defined statically, as in the pr
 
 To see an example of this, let's continue by adding a shopping cart emoji (🛒) for each fruit, depending on whether it is on a shopping list or not.
 
-First, let's add an array that represents the shopping list. _Remember that even though these arrays are static for simplicity sake, usually you will work with dynamic information, for example, information coming from the database._
+First, let's add an array that represents the shopping list. *Remember that even though these arrays are static for simplicity sake, usually you will work with dynamic information, for example, information coming from the database.*
 
 ```php
 wp_interactivity_state( 'myFruitPlugin', array(
@@ -265,11 +267,11 @@ wp_interactivity_state( 'myFruitPlugin', array(
 Now, let's add a derived state on the client that checks if each fruit is on the shopping list or not and returns the emoji.
 
 ```javascript
-store('myFruitPlugin', {
+store("myFruitPlugin", {
   state: {
     get onShoppingList() {
       const context = getContext();
-      return state.shoppingList.includes(context.item) ? '🛒' : '';
+      return state.shoppingList.includes(context.item) ? "🛒" : "";
     },
   },
   // ...
@@ -346,10 +348,10 @@ That's it! Since the Interactivity API works in PHP, you can add translations di
 But wait, what happens with our `addMango` action? Remember, this action is defined only on JavaScript:
 
 ```javascript
-const { state } = store('myFruitPlugin', {
+const { state } = store("myFruitPlugin", {
   actions: {
     addMango() {
-      state.fruits.push('Mango'); // Not translated!
+      state.fruits.push("Mango"); // Not translated!
     },
   },
 });
@@ -365,7 +367,7 @@ wp_interactivity_state( 'myFruitPlugin', array(
 ```
 
 ```javascript
-const { state } = store('myFruitPlugin', {
+const { state } = store("myFruitPlugin", {
   actions: {
     addMango() {
       // `state.mango` contains the 'Mango' string already translated.
@@ -375,7 +377,7 @@ const { state } = store('myFruitPlugin', {
 });
 ```
 
-Take into account that if your application is more dynamic, you could serialize an array with all the fruit translations and just work with _fruit keywords_ in your actions. For example:
+Take into account that if your application is more dynamic, you could serialize an array with all the fruit translations and just work with *fruit keywords* in your actions. For example:
 
 ```php
 wp_interactivity_state( 'myFruitPlugin', array(
@@ -426,19 +428,19 @@ wp_interactivity_state( 'myPlugin', array(
 ```
 
 ```js
-const { state } = store('myPlugin', {
+const { state } = store("myPlugin", {
   actions: {
     *doSomething() {
       const formData = new FormData();
-      formData.append('action', 'do_something');
-      formData.append('_ajax_nonce', state.nonce);
+      formData.append("action", "do_something");
+      formData.append("_ajax_nonce", state.nonce);
 
       const data = yield fetch(state.ajaxUrl, {
-        method: 'POST',
+        method: "POST",
         body: formData,
       }).then((response) => response.json());
 
-      console.log('Server data', data);
+      console.log("Server data", data);
     },
   },
 });

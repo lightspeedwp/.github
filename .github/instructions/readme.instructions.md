@@ -69,13 +69,17 @@ last_updated: 2025-10-25
 # Folder/File Name
 
 ## Overview
+
 Short description of what this folder/file is for.
 
 ## Usage
+
 How to use or run this folder/file.
 
 ---
+
 ## References
+
 - [CONTRIBUTING.md](../docs/CONTRIBUTING.md)
 - [ARCHITECTURE.md](../docs/ARCHITECTURE.md)
 ```

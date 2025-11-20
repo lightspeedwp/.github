@@ -1,8 +1,8 @@
 ---
-mode: 'agent'
-tools: ['changes', 'codebase', 'edit/editFiles', 'problems']
-description: 'Universal SQL performance optimization assistant for comprehensive query tuning, indexing strategies, and database performance analysis across all SQL databases (MySQL, PostgreSQL, SQL Server, Oracle). Provides execution plan analysis, pagination optimization, batch operations, and performance monitoring guidance.'
-tested_with: 'GitHub Copilot Chat (GPT-4o) - Validated July 20, 2025'
+mode: "agent"
+tools: ["changes", "codebase", "edit/editFiles", "problems"]
+description: "Universal SQL performance optimization assistant for comprehensive query tuning, indexing strategies, and database performance analysis across all SQL databases (MySQL, PostgreSQL, SQL Server, Oracle). Provides execution plan analysis, pagination optimization, batch operations, and performance monitoring guidance."
+tested_with: "GitHub Copilot Chat (GPT-4o) - Validated July 20, 2025"
 ---
 
 # SQL Performance Optimization Assistant
@@ -25,7 +25,7 @@ WHERE YEAR(o.created_at) = 2024
 SELECT o.id, o.customer_id, o.total_amount, o.created_at
 FROM orders o
 INNER JOIN customers c ON o.customer_id = c.id
-WHERE o.created_at >= '2024-01-01' 
+WHERE o.created_at >= '2024-01-01'
   AND o.created_at < '2025-01-01'
   AND c.status = 'active';
 
@@ -60,8 +60,8 @@ WHERE status IS NOT NULL;
 SELECT p.product_name, p.price
 FROM products p
 WHERE p.price > (
-    SELECT AVG(price) 
-    FROM products p2 
+    SELECT AVG(price)
+    FROM products p2
     WHERE p2.category_id = p.category_id
 );
 
@@ -102,20 +102,20 @@ WHERE o.created_at > '2024-01-01';
 
 ```sql
 -- ❌ BAD: OFFSET-based pagination (slow for large offsets)
-SELECT * FROM products 
-ORDER BY created_at DESC 
+SELECT * FROM products
+ORDER BY created_at DESC
 LIMIT 20 OFFSET 10000;
 
 -- ✅ GOOD: Cursor-based pagination
-SELECT * FROM products 
+SELECT * FROM products
 WHERE created_at < '2024-06-15 10:30:00'
-ORDER BY created_at DESC 
+ORDER BY created_at DESC
 LIMIT 20;
 
 -- Or using ID-based cursor
-SELECT * FROM products 
+SELECT * FROM products
 WHERE id > 1000
-ORDER BY id 
+ORDER BY id
 LIMIT 20;
 ```
 
@@ -128,7 +128,7 @@ SELECT COUNT(*) FROM orders WHERE status = 'shipped';
 SELECT COUNT(*) FROM orders WHERE status = 'delivered';
 
 -- ✅ GOOD: Single query with conditional aggregation
-SELECT 
+SELECT
     COUNT(CASE WHEN status = 'pending' THEN 1 END) as pending_count,
     COUNT(CASE WHEN status = 'shipped' THEN 1 END) as shipped_count,
     COUNT(CASE WHEN status = 'delivered' THEN 1 END) as delivered_count
@@ -154,11 +154,11 @@ JOIN another_table at ON lt.id = at.ref_id;
 
 ```sql
 -- ❌ BAD: Function calls in WHERE clause
-SELECT * FROM orders 
+SELECT * FROM orders
 WHERE UPPER(customer_email) = 'JOHN@EXAMPLE.COM';
 
 -- ✅ GOOD: Index-friendly WHERE clause
-SELECT * FROM orders 
+SELECT * FROM orders
 WHERE customer_email = 'john@example.com';
 -- Consider: CREATE INDEX idx_orders_email ON orders(LOWER(customer_email));
 ```
@@ -167,7 +167,7 @@ WHERE customer_email = 'john@example.com';
 
 ```sql
 -- ❌ BAD: Complex OR conditions
-SELECT * FROM products 
+SELECT * FROM products
 WHERE (category = 'electronics' AND price < 1000)
    OR (category = 'books' AND price < 50);
 
@@ -188,7 +188,7 @@ INSERT INTO products (name, price) VALUES ('Product 2', 15.00);
 INSERT INTO products (name, price) VALUES ('Product 3', 20.00);
 
 -- ✅ GOOD: Batch insert
-INSERT INTO products (name, price) VALUES 
+INSERT INTO products (name, price) VALUES
 ('Product 1', 10.00),
 ('Product 2', 15.00),
 ('Product 3', 20.00);
@@ -199,10 +199,10 @@ INSERT INTO products (name, price) VALUES
 ```sql
 -- ✅ GOOD: Using temporary tables for complex operations
 CREATE TEMPORARY TABLE temp_calculations AS
-SELECT customer_id, 
+SELECT customer_id,
        SUM(total_amount) as total_spent,
        COUNT(*) as order_count
-FROM orders 
+FROM orders
 WHERE created_at >= '2024-01-01'
 GROUP BY customer_id;
 
@@ -219,8 +219,8 @@ WHERE tc.total_spent > 1000;
 
 ```sql
 -- ✅ GOOD: Covering index design
-CREATE INDEX idx_orders_covering 
-ON orders(customer_id, created_at) 
+CREATE INDEX idx_orders_covering
+ON orders(customer_id, created_at)
 INCLUDE (total_amount, status);  -- SQL Server syntax
 -- Or: CREATE INDEX idx_orders_covering ON orders(customer_id, created_at, total_amount, status); -- Other databases
 ```
@@ -229,8 +229,8 @@ INCLUDE (total_amount, status);  -- SQL Server syntax
 
 ```sql
 -- ✅ GOOD: Partial indexes for specific conditions
-CREATE INDEX idx_orders_active 
-ON orders(created_at) 
+CREATE INDEX idx_orders_active
+ON orders(created_at)
 WHERE status IN ('pending', 'processing');
 ```
 
@@ -253,7 +253,7 @@ FROM pg_stat_statements
 ORDER BY total_time DESC;
 
 -- For SQL Server:
-SELECT 
+SELECT
     qs.total_elapsed_time/qs.execution_count as avg_elapsed_time,
     qs.execution_count,
     SUBSTRING(qt.text, (qs.statement_start_offset/2)+1,
@@ -268,7 +268,7 @@ ORDER BY avg_elapsed_time DESC;
 
 ### Query Structure
 
-- [ ] Avoiding SELECT * in production queries
+- [ ] Avoiding SELECT \* in production queries
 - [ ] Using appropriate JOIN types (INNER vs LEFT/RIGHT)
 - [ ] Filtering early in WHERE clauses
 - [ ] Using EXISTS instead of IN for subqueries when appropriate

@@ -2,10 +2,19 @@
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Docs/Workflows] Fix stale links after automation move to `/.github/automation`"
-labels: [type:documentation, status:needs-triage, priority:normal, area:documentation, area:workflows, version:v0.2.0, link-hygiene]
+labels:
+  [
+    type:documentation,
+    status:needs-triage,
+    priority:normal,
+    area:documentation,
+    area:workflows,
+    version:v0.2.0,
+    link-hygiene,
+  ]
 assignees: []
 projects: []
-milestone: 'v0.2.0'
+milestone: "v0.2.0"
 file_type: documentation
 references:
   - ../CONTRIBUTING.md

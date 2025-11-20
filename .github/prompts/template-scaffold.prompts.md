@@ -71,7 +71,7 @@ Create a template file with the following characteristics:
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-    <!-- Template content here -->
+  <!-- Template content here -->
 </main>
 <!-- /wp:group -->
 

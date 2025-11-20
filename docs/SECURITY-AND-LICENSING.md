@@ -1,13 +1,13 @@
 ---
 file_type: "documentation"
-title: 'AI Template Security & Licensing'
-description: 'Security, data hygiene, and licensing rules for AI template assets.'
-last_updated: '2025-10-24'
-version: 'v2.0'
+title: "AI Template Security & Licensing"
+description: "Security, data hygiene, and licensing rules for AI template assets."
+last_updated: "2025-10-24"
+version: "v2.0"
 related:
-    - CONTRIBUTING-TEMPLATES.md
-    - CODING-STYLE.md
-    - RELEASE-PROCESS.md
+  - CONTRIBUTING-TEMPLATES.md
+  - CODING-STYLE.md
+  - RELEASE-PROCESS.md
 ---
 
 ## Security & Licensing
@@ -45,7 +45,7 @@ This document outlines the security, data hygiene, and licensing requirements fo
 
 ---
 
-_This document is part of the LightSpeedWP AI documentation suite. For more, see the [AI Docs Index](./README.md)._
+*This document is part of the LightSpeedWP AI documentation suite. For more, see the [AI Docs Index](./README.md).*
 
 ---
 

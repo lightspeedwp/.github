@@ -1,8 +1,8 @@
 ---
-mode: 'agent'
-description: 'Systematic Power BI performance troubleshooting prompt for identifying, diagnosing, and resolving performance issues in Power BI models, reports, and queries.'
-model: 'gpt-4.1'
-tools: ['microsoft.docs.mcp']
+mode: "agent"
+description: "Systematic Power BI performance troubleshooting prompt for identifying, diagnosing, and resolving performance issues in Power BI models, reports, and queries."
+model: "gpt-4.1"
+tools: ["microsoft.docs.mcp"]
 ---
 
 # Power BI Performance Troubleshooting Guide
@@ -18,7 +18,7 @@ Begin by clearly defining the performance issue:
 ```
 Issue Classification:
 □ Model loading/refresh performance
-□ Report page loading performance  
+□ Report page loading performance
 □ Visual interaction responsiveness
 □ Query execution speed
 □ Capacity resource constraints
@@ -168,7 +168,7 @@ Key Metrics to Monitor:
 ```
 Fabric Capacity Metrics App:
 - CPU and memory utilization trends
-- Query volume and patterns  
+- Query volume and patterns
 - Refresh performance tracking
 - User activity analysis
 - Resource bottleneck identification
@@ -190,12 +190,12 @@ Premium Capacity Monitoring:
 -- Replace inefficient patterns:
 
 ❌ Poor Performance:
-Sales Growth = 
-([Total Sales] - CALCULATE([Total Sales], PREVIOUSMONTH('Date'[Date]))) / 
+Sales Growth =
+([Total Sales] - CALCULATE([Total Sales], PREVIOUSMONTH('Date'[Date]))) /
 CALCULATE([Total Sales], PREVIOUSMONTH('Date'[Date]))
 
 ✅ Optimized Version:
-Sales Growth = 
+Sales Growth =
 VAR CurrentMonth = [Total Sales]
 VAR PreviousMonth = CALCULATE([Total Sales], PREVIOUSMONTH('Date'[Date]))
 RETURN

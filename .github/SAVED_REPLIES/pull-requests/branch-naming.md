@@ -22,7 +22,8 @@ Thank you for your PR! For automation, release, and label mapping to work, branc
 
 **Format:**  
 `{type}/{scope}-{short-title}`  
-Examples:  
+Examples:
+
 - `feat/cart-coupon-flow`
 - `fix/wp6-6-compat`
 - `docs/readme-install-steps`

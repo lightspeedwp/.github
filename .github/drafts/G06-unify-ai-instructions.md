@@ -2,10 +2,17 @@
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Docs/Agents] Unify AI instructions/prompts/chat modes + override pattern"
-labels: [type:documentation, status:needs-triage, priority:normal, area:documentation, area:agents]
+labels:
+  [
+    type:documentation,
+    status:needs-triage,
+    priority:normal,
+    area:documentation,
+    area:agents,
+  ]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: documentation
 references:
   - ../CONTRIBUTING.md
@@ -116,12 +123,14 @@ Agent-specific and chat mode instructions take precedence over these.
 ## Available Modes
 
 ### Code Review Mode
+
 **Purpose:** Thorough code review with security and accessibility focus
 **Invoke:** `/mode code-review` or similar
 **Example:**
 [examples]
 
 ### Documentation Mode
+
 **Purpose:** Writing and reviewing documentation
 **Invoke:** `/mode docs`
 **Example:**

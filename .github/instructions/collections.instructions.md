@@ -1,8 +1,8 @@
 ---
 file_type: "instructions"
-description: 'Guidelines for creating and managing awesome-copilot collections'
-applyTo: 'collections/*.collection.yml'
-license: 'GPL-3.0'
+description: "Guidelines for creating and managing awesome-copilot collections"
+applyTo: "collections/*.collection.yml"
+license: "GPL-3.0"
 ---
 
 # Collections Development

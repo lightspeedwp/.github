@@ -84,7 +84,7 @@ This roadmap defines our stepwise rollout of organization-wide GitHub community 
 
 ### 2. Advanced Workflow Automation
 
-- **Product/Project Sync:**  
+- **Product/Project Sync:**
   - Roll out automatic synchronisation of GitHub issues and PRs to product/project boards.
   - Ensure project fields (Status, Priority, Type) are mapped from labels/branch semantics.
   - Automate movement of issues/PRs across columns as status/labels change.
@@ -165,19 +165,19 @@ This roadmap defines our stepwise rollout of organization-wide GitHub community 
 
 ## **Phase 4: Placeholder – Product Analytics, Observability, and Feedback Loops**
 
-_(To be defined. Possible focus: integrating analytics, metrics, and feedback into project health and release cycles. May include automated dashboards, user feedback capture, and usage reporting.)_
+*(To be defined. Possible focus: integrating analytics, metrics, and feedback into project health and release cycles. May include automated dashboards, user feedback capture, and usage reporting.)*
 
 ---
 
 ## **Phase 5: Placeholder – Community Growth, Mentorship, and Ecosystem Integrations**
 
-_(To be defined. Possible focus: growing contributor base, mentorship programs, cross-org collaborations, integrations with external tools, and fostering a sustainable open source ecosystem.)_
+*(To be defined. Possible focus: growing contributor base, mentorship programs, cross-org collaborations, integrations with external tools, and fostering a sustainable open source ecosystem.)*
 
 ---
 
 ## **Phase 6: Placeholder – Continuous Evolution and Open Source Leadership**
 
-_(To be defined. Possible focus: continuous improvement, thought leadership, new standards, and open source advocacy across the WordPress and broader software community.)_
+*(To be defined. Possible focus: continuous improvement, thought leadership, new standards, and open source advocacy across the WordPress and broader software community.)*
 
 ---
 
@@ -206,4 +206,4 @@ _(To be defined. Possible focus: continuous improvement, thought leadership, new
 
 ---
 
-_Questions or suggestions? Open a discussion or PR in the `.github` repo!_
+*Questions or suggestions? Open a discussion or PR in the `.github` repo!*

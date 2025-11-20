@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
-tools: ['changes', 'codebase', 'edit/editFiles', 'problems', 'search']
-description: 'Get best practices for developing applications with Spring Boot and Kotlin.'
+mode: "agent"
+tools: ["changes", "codebase", "edit/editFiles", "problems", "search"]
+description: "Get best practices for developing applications with Spring Boot and Kotlin."
 ---
 
 # Spring Boot with Kotlin Best Practices

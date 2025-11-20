@@ -104,7 +104,7 @@ add_action(
 
 #### Block bindings source value filter
 
-_**Note:** Since WordPress 6.7._
+***Note:** Since WordPress 6.7.*
 
 The value returned by `get_value_callback` can be modified with the `block_bindings_source_value` filter.
 The filter has the following parameters:
@@ -142,7 +142,7 @@ There are a few examples in Core that can be used as reference.
 
 ### Editor registration
 
-_**Note:** Since WordPress 6.7._
+***Note:** Since WordPress 6.7.*
 
 Editor registration on the client allows defining what the bound block will do when the value is retrieved or when the value is edited.
 
@@ -159,22 +159,22 @@ The function to register a custom source is `registerBlockBindingsSource( args )
 This example will show a custom post meta date in the editor and, if it doesn't exist, it will show today's date. The user can edit the value of the date. (Caution: This example does not format the user input as a date—it's only for educational purposes.)
 
 ```js
-import { registerBlockBindingsSource } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { registerBlockBindingsSource } from "@wordpress/blocks";
+import { __ } from "@wordpress/i18n";
+import { store as coreDataStore } from "@wordpress/core-data";
 
 registerBlockBindingsSource({
-  name: 'wpmovies/visualization-date',
-  label: __('Visualization Date', 'custom-bindings'), // We can skip the label, as it was already defined in the server in the previous example.
-  usesContext: ['postType'], // We can skip postId, as it was already defined in the server in the previous example.
+  name: "wpmovies/visualization-date",
+  label: __("Visualization Date", "custom-bindings"), // We can skip the label, as it was already defined in the server in the previous example.
+  usesContext: ["postType"], // We can skip postId, as it was already defined in the server in the previous example.
   getValues({ select, context }) {
     let wpMoviesVisualizationDate;
     const { getEditedEntityRecord } = select(coreDataStore);
     if (context?.postType && context?.postId) {
       wpMoviesVisualizationDate = getEditedEntityRecord(
-        'postType',
+        "postType",
         context?.postType,
-        context?.postId
+        context?.postId,
       ).meta?.wp_movies_visualization_date;
     }
     if (wpMoviesVisualizationDate) {
@@ -184,15 +184,20 @@ registerBlockBindingsSource({
     }
 
     return {
-      content: new Date().toLocaleDateString('en-US'),
+      content: new Date().toLocaleDateString("en-US"),
     };
   },
   setValues({ select, dispatch, context, bindings }) {
-    dispatch(coreDataStore).editEntityRecord('postType', context?.postType, context?.postId, {
-      meta: {
-        wp_movies_visualization_date: bindings?.content?.newValue,
+    dispatch(coreDataStore).editEntityRecord(
+      "postType",
+      context?.postType,
+      context?.postId,
+      {
+        meta: {
+          wp_movies_visualization_date: bindings?.content?.newValue,
+        },
       },
-    });
+    );
   },
   canUserEditValue({ select, context }) {
     return true;
@@ -231,43 +236,43 @@ There are a few examples in Core that can be used as reference.
 
 ## Unregistering a source
 
-_**Note:** Since WordPress 6.7._
+***Note:** Since WordPress 6.7.*
 
 `unregisterBlockBindingsSource` unregisters a block bindings source by providing its name.
 
 ```js
-import { unregisterBlockBindingsSource } from '@wordpress/blocks';
+import { unregisterBlockBindingsSource } from "@wordpress/blocks";
 
-unregisterBlockBindingsSource('plugin/my-custom-source');
+unregisterBlockBindingsSource("plugin/my-custom-source");
 ```
 
 ## Getting all sources
 
-_**Note:** Since WordPress 6.7._
+***Note:** Since WordPress 6.7.*
 
 `getBlockBindingsSources` returns all registered block bindings sources.
 
 ```js
-import { getBlockBindingsSources } from '@wordpress/blocks';
+import { getBlockBindingsSources } from "@wordpress/blocks";
 
 const registeredSources = getBlockBindingsSources();
 ```
 
 ## Getting one specific source
 
-_**Note:** Since WordPress 6.7._
+***Note:** Since WordPress 6.7.*
 
 `getBlockBindingsSource` return a specific block bindings source by its name.
 
 ```js
-import { getBlockBindingsSource } from '@wordpress/blocks';
+import { getBlockBindingsSource } from "@wordpress/blocks";
 
-const blockBindingsSource = getBlockBindingsSource('plugin/my-custom-source');
+const blockBindingsSource = getBlockBindingsSource("plugin/my-custom-source");
 ```
 
 ## Block Bindings Utils
 
-_**Note:** Since WordPress 6.7._
+***Note:** Since WordPress 6.7.*
 
 UseBlockBindingUtils is a hook with two helpers that allows developers to edit the `metadata.bindings` attribute easily.
 
@@ -287,14 +292,14 @@ const { updateBlockBindings } = useBlockBindingsUtils('my-block-client-id-12345'
 `updateBlockBindings` works similarly to `updateBlockAttributes`, and can be used to create, update, or remove specific connections.
 
 ```js
-import { useBlockBindingsUtils } from '@wordpress/block-editor';
+import { useBlockBindingsUtils } from "@wordpress/block-editor";
 
 const { updateBlockBindings } = useBlockBindingsUtils();
 
 function updateBlockBindingsURLSource(url) {
   updateBlockBindings({
     url: {
-      source: 'myplugin/new-source',
+      source: "myplugin/new-source",
     },
   });
 }
@@ -310,7 +315,7 @@ function removeBlockBindingsURLSource() {
 `removeAllBlockBindings` will remove all existing connections in a block by removing the `metadata.bindings` attribute.
 
 ```js
-import { useBlockBindingsUtils } from '@wordpress/block-editor';
+import { useBlockBindingsUtils } from "@wordpress/block-editor";
 
 const { removeAllBlockBindings } = useBlockBindingsUtils();
 

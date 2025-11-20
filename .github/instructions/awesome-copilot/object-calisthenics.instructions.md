@@ -1,8 +1,9 @@
 ---
 file_type: "instructions"
-applyTo: '**/*.{cs,ts,java}'
+applyTo: "**/*.{cs,ts,java}"
 description: Enforces Object Calisthenics principles for business domain code to ensure clean, maintainable, and robust code
 ---
+
 # Object Calisthenics Rules
 
 > ⚠️ **Warning:** This file contains the 9 original Object Calisthenics rules. No additional rules must be added, and none of these rules should be replaced or removed.
@@ -61,7 +62,6 @@ This rule enforces the principles of Object Calisthenics to ensure clean, mainta
    ```
 
 2. **Don't Use the ELSE Keyword**:
-
    - Avoid using the `else` keyword to reduce complexity and improve readability.
    - Use early returns to handle conditions instead.
    - Use Fail Fast principle
@@ -123,7 +123,7 @@ This rule enforces the principles of Object Calisthenics to ensure clean, mainta
 
 4. **First Class Collections**:
    - Use collections to encapsulate data and behavior, rather than exposing raw data structures.
-First Class Collections: a class that contains an array as an attribute should not contain any other attributes
+     First Class Collections: a class that contains an array as an attribute should not contain any other attributes
 
 ```csharp
    // Bad Example - Exposing raw collection
@@ -152,9 +152,9 @@ First Class Collections: a class that contains an array as an attribute should n
             .Count();
       }
    }
-   ```
+```
 
-5. **One Dot per Line**:
+1. **One Dot per Line**:
    - Limit the number of method calls in a single line to improve readability and maintainability.
 
    ```csharp
@@ -172,7 +172,7 @@ First Class Collections: a class that contains an array as an attribute should n
    }
    ```
 
-6. **Don't abbreviate**:
+2. **Don't abbreviate**:
    - Use meaningful names for classes, methods, and variables.
    - Avoid abbreviations that can lead to confusion.
 
@@ -187,7 +187,7 @@ First Class Collections: a class that contains an array as an attribute should n
    }
    ```
 
-7. **Keep entities small (Class, method, namespace or package)**:
+3. **Keep entities small (Class, method, namespace or package)**:
    - Limit the size of classes and methods to improve code readability and maintainability.
    - Each class should have a single responsibility and be as small as possible.
 
@@ -217,7 +217,7 @@ First Class Collections: a class that contains an array as an attribute should n
    }
    ```
 
-8. **No Classes with More Than Two Instance Variables**:
+4. **No Classes with More Than Two Instance Variables**:
    - Encourage classes to have a single responsibility by limiting the number of instance variables.
    - Limit the number of instance variables to two to maintain simplicity.
    - Do not count ILogger or any other logger as instance variable.
@@ -253,7 +253,7 @@ First Class Collections: a class that contains an array as an attribute should n
    }
    ```
 
-9. **No Getters/Setters in Domain Classes**:
+5. **No Getters/Setters in Domain Classes**:
    - Avoid exposing setters for properties in domain classes.
    - Use private constructors and static factory methods for object creation.
    - **Note**: This rule applies primarily to domain classes, not DTOs or data transfer objects.
@@ -263,14 +263,14 @@ First Class Collections: a class that contains an array as an attribute should n
    public class User {  // Domain class
        public string Name { get; set; } // Avoid this in domain classes
    }
-   
+
    // Good Example - Domain class with encapsulation
    public class User {  // Domain class
        private string name;
        private User(string name) { this.name = name; }
        public static User Create(string name) => new User(name);
    }
-   
+
    // Acceptable Example - DTO with public setters
    public class UserDto {  // DTO - exemption applies
        public string Name { get; set; } // Acceptable for DTOs

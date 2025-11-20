@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-description: 'Next.js + Tailwind development standards and instructions'
-applyTo: '**/*.tsx, **/*.ts, **/*.jsx, **/*.js, **/*.css'
+description: "Next.js + Tailwind development standards and instructions"
+applyTo: "**/*.tsx, **/*.ts, **/*.jsx, **/*.js, **/*.css"
 ---
 
 # Next.js + Tailwind Development Instructions

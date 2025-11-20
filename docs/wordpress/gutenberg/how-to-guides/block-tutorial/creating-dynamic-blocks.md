@@ -18,27 +18,29 @@ Block attributes can be used for any content or setting you want to save for tha
 The following code example shows how to create a dynamic block that shows only the last post as a link.
 
 ```jsx
-import { registerBlockType } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
-import { useBlockProps } from '@wordpress/block-editor';
+import { registerBlockType } from "@wordpress/blocks";
+import { useSelect } from "@wordpress/data";
+import { useBlockProps } from "@wordpress/block-editor";
 
-registerBlockType('gutenberg-examples/example-dynamic', {
+registerBlockType("gutenberg-examples/example-dynamic", {
   apiVersion: 3,
-  title: 'Example: last post',
-  icon: 'megaphone',
-  category: 'widgets',
+  title: "Example: last post",
+  icon: "megaphone",
+  category: "widgets",
 
   edit: () => {
     const blockProps = useBlockProps();
     const posts = useSelect((select) => {
-      return select('core').getEntityRecords('postType', 'post');
+      return select("core").getEntityRecords("postType", "post");
     }, []);
 
     return (
       <div {...blockProps}>
-        {!posts && 'Loading'}
-        {posts && posts.length === 0 && 'No Posts'}
-        {posts && posts.length > 0 && <a href={posts[0].link}>{posts[0].title.rendered}</a>}
+        {!posts && "Loading"}
+        {posts && posts.length === 0 && "No Posts"}
+        {posts && posts.length > 0 && (
+          <a href={posts[0].link}>{posts[0].title.rendered}</a>
+        )}
       </div>
     );
   },
@@ -105,18 +107,18 @@ There are a few things to notice:
 
 Gutenberg 2.8 added the [`<ServerSideRender>`](/packages/server-side-render/README.md) block which enables rendering to take place on the server using PHP rather than in JavaScript.
 
-_Server-side render is meant as a fallback; client-side rendering in JavaScript is always preferred (client rendering is faster and allows better editor manipulation)._
+*Server-side render is meant as a fallback; client-side rendering in JavaScript is always preferred (client rendering is faster and allows better editor manipulation).*
 
 ```jsx
-import { registerBlockType } from '@wordpress/blocks';
-import ServerSideRender from '@wordpress/server-side-render';
-import { useBlockProps } from '@wordpress/block-editor';
+import { registerBlockType } from "@wordpress/blocks";
+import ServerSideRender from "@wordpress/server-side-render";
+import { useBlockProps } from "@wordpress/block-editor";
 
-registerBlockType('gutenberg-examples/example-dynamic', {
+registerBlockType("gutenberg-examples/example-dynamic", {
   apiVersion: 3,
-  title: 'Example: last post',
-  icon: 'megaphone',
-  category: 'widgets',
+  title: "Example: last post",
+  icon: "megaphone",
+  category: "widgets",
 
   edit: function (props) {
     const blockProps = useBlockProps();

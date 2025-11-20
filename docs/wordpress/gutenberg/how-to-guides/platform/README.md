@@ -17,7 +17,7 @@ npm install --save @wordpress/components
 Usage in React:
 
 ```jsx
-import { Button } from '@wordpress/components';
+import { Button } from "@wordpress/components";
 
 function MyApp() {
   return <Button>Hello Button</Button>;

@@ -19,7 +19,7 @@ Configure Copilot behavior at the repository or folder/file level.
 
 ## Example: Path-Specific Instructions
 
-````yaml
+```yaml
 ---
 applyTo: "**/*.php"
 description: "PHP coding conventions for this repo"
@@ -29,3 +29,4 @@ description: "PHP coding conventions for this repo"
 - Follow WordPress Coding Standards (WPCS)
 - Use proper escaping and sanitisation
 - Add PHPDoc for all public functions
+```

@@ -170,7 +170,7 @@ cd task-manager-pro
 npm install
 ```
 
-2. **Set up environment variables**
+1. **Set up environment variables**
 
 ```bash
 # Copy environment templates
@@ -181,7 +181,7 @@ cp server/.env.example server/.env
 # Edit environment files with your values
 ```
 
-3. **Start PostgreSQL database**
+1. **Start PostgreSQL database**
 
 ```bash
 # Option 1: Using Docker
@@ -192,7 +192,7 @@ docker-compose up -d postgres
 createdb task_manager_pro
 ```
 
-4. **Run database migrations**
+1. **Run database migrations**
 
 ```bash
 cd server
@@ -200,7 +200,7 @@ npm run migrate
 npm run seed
 ```
 
-5. **Start development servers**
+1. **Start development servers**
 
 ```bash
 # Start both frontend and backend

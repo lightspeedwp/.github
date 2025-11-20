@@ -20,6 +20,7 @@ Hi @username,
 This PR has passed code review and is now ready for QA.
 
 **QA Review Checklist:**
+
 - Test all acceptance criteria and edge cases
 - Confirm no regressions in related features
 - Verify a11y, performance, and security as appropriate

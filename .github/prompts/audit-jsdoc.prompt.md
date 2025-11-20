@@ -3,6 +3,7 @@ description: "Audit JS files for JSDoc coverage per WordPress guidance; add/fix 
 mode: "edit"
 model: "GPT-4"
 ---
+
 Apply the **WordPress JSDoc** standards to the selected JavaScript files. Identify functions, classes and modules lacking documentation or containing incorrect tags. For each exported symbol:
 
 1. Insert a JSDoc block with a concise summary.

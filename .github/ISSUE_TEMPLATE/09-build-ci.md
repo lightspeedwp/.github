@@ -5,7 +5,7 @@ title: "[Build/CI] <Short summary>"
 labels: [type:chore, area:ci, status:needs-triage]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 type: build-ci
 references:
   - ../CONTRIBUTING.md
@@ -36,6 +36,7 @@ references:
 ## Acceptance Criteria
 
 <!-- List requirements for completion and verification. Use checkboxes. -->
+
 - [ ] Solution implemented and documented
 - [ ] CI/CD passes and is stable
 - [ ] No regressions in build/deploy processes

@@ -35,7 +35,7 @@ The API is designed for the world of blocks and takes WordPress history of being
 
 As directives are HTML attributes, they are perfect for dynamic blocks and PHP.
 
-_Dynamic block example_
+*Dynamic block example*
 
 ```html
 <div
@@ -82,37 +82,37 @@ The Interactivity API follows an approach similar to other popular JS frameworks
 
 Declarative code describes **what** a program should do, while imperative code describes **how** the program should do it. Using a declarative approach, the UI automatically updates in response to changes in the underlying data. With an imperative approach, you must manually update the UI whenever the data changes. Compare the two code examples:
 
-_Imperative code_
+*Imperative code*
 
 ```html
 <button id="toggle-button">Toggle Element</button>
 <p>This element is now visible!</p>
 <script>
-  const button = document.getElementById('toggle-button');
+  const button = document.getElementById("toggle-button");
 
-  button.addEventListener('click', () => {
-    const element = document.getElementById('element');
+  button.addEventListener("click", () => {
+    const element = document.getElementById("element");
     if (element) {
       element.remove();
     } else {
-      const newElement = document.createElement('p');
-      newElement.textContent = 'This element is visible';
+      const newElement = document.createElement("p");
+      newElement.textContent = "This element is visible";
       document.body.appendChild(newElement);
     }
   });
 </script>
 ```
 
-_Declarative code_
+*Declarative code*
 
 This is the same use case shared above but serves as an example of declarative code using this new system. The JavaScript logic is defined in the `view.js` file of the block, and add the directives to the markup in the `render.php`.
 
 ```js
 // view.js file
 
-import { store, getContext } from '@wordpress/interactivity';
+import { store, getContext } from "@wordpress/interactivity";
 
-store('wpmovies', {
+store("wpmovies", {
   actions: {
     toggle: () => {
       const context = getContext();
@@ -185,7 +185,7 @@ Blocks using the Interactivity API and interactive blocks using other approaches
 
 Additionally, with a standard, **WordPress can absorb the maximum amount of complexity from the developer** because it will handle most of what’s needed to create an interactive block.
 
-_Complexities absorbed by the standard_
+*Complexities absorbed by the standard*
 
 <img alt="Two columns table comparing some aspects with and without a standard. Without a standard, block developers have to take care of everything, while having a standard. Totally handled by the standard: Tooling, hydration, integrating it with WordPress, SSR of the interactive parts, inter-block communication, and frontend performance. Partially handled: Security, accessibility, and best practices. Developer responsibility: Block logic. In the without a standard column, everything is under the developer responsibility." width=60% src="https://make.wordpress.org/core/files/2023/03/standard-graph.png">
 

@@ -1,12 +1,12 @@
 ---
 file_type: "documentation"
-title: 'AI Template Coding & Content Style'
-description: 'Style guide for AI template markdown and content.'
-last_updated: '2025-10-24'
-version: 'v2.0'
+title: "AI Template Coding & Content Style"
+description: "Style guide for AI template markdown and content."
+last_updated: "2025-10-24"
+version: "v2.0"
 related:
-    - CONTRIBUTING-TEMPLATES.md
-    - SECURITY-AND-LICENSING.md
+  - CONTRIBUTING-TEMPLATES.md
+  - SECURITY-AND-LICENSING.md
 ---
 
 # Coding & Content Style
@@ -28,7 +28,7 @@ related:
 
 ---
 
-_This document is part of the LightSpeedWP AI documentation suite. For more, see the [AI Docs Index](./README.md)._
+*This document is part of the LightSpeedWP AI documentation suite. For more, see the [AI Docs Index](./README.md).*
 
 ---
 

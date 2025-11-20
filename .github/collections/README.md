@@ -46,30 +46,30 @@ graph TB
     A --> D[🎨 Frontend & UX]
     A --> E[🛡️ Security & Quality]
     A --> F[📋 Project Management]
-    
+
     B --> B1[azure-cloud-development.md]
     B --> B2[devops-oncall.md]
-    
+
     C --> C1[database-data-management.md]
     C --> C2[php-mcp-development.md]
     C --> C3[python-mcp-development.md]
-    
+
     D --> D1[frontend-web-dev.md]
     D --> D2[edge-ai-tasks.md]
-    
+
     E --> E1[security-best-practices.md]
-    
+
     F --> F1[project-planning.md]
-    
+
     G[Development Context] --> A
     H[Technology Focus] --> A
     I[Team Specialization] --> A
-    
+
     J[Instructions] --> A
     K[Prompts] --> A
     L[Chatmodes] --> A
     M[Workflows] --> A
-    
+
     style A fill:#e1f5fe
     style B fill:#e8f5e8
     style C fill:#f3e5f5
@@ -193,7 +193,7 @@ Collections are evaluated based on:
 
 ---
 
-_Collections provide organized, contextual guidance for efficient development workflows. See [Instructions Index](../instructions/README.md) for complete documentation._
+*Collections provide organized, contextual guidance for efficient development workflows. See [Instructions Index](../instructions/README.md) for complete documentation.*
 
 ---
 

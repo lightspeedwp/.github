@@ -22,13 +22,15 @@ Hi @username,
 
 Thank you for submitting this feature request! We value community input for our roadmap.
 
-**Next steps:**  
+**Next steps:**
+
 - We've added your request to our feature board for review and prioritization.
 - We evaluate requests based on user impact, feasibility, and alignment with our goals.
 
 If you have specific use cases or examples, please add them here. The more detail, the better!
 
-**References:**  
+**References:**
+
 - [Feature Request Policy](../../ISSUE_LABELS.md)
 - [Contribution Guidelines](../../CONTRIBUTING.md)
 ```
@@ -43,6 +45,7 @@ Hi @username,
 Your feature request is being reviewed by the team.
 
 **What we’re considering:**
+
 - Technical feasibility
 - Community/user benefit
 - Overlap with planned or existing features
@@ -59,7 +62,8 @@ Hi @username,
 
 Great news! We’ve accepted your feature request and work is underway.
 
-**Status:**  
+**Status:**
+
 - Feature is in development. Progress will be tracked here and in related PRs.
 
 Early builds may be available for testing; let us know if you’d like to participate.
@@ -76,7 +80,8 @@ Hi @username,
 
 The feature you requested has been implemented and released!
 
-**Details:**  
+**Details:**
+
 - Feature: {feature summary}
 - Available in version: {version}
 - [Release notes or documentation](link)

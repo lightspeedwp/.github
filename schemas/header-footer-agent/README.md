@@ -37,23 +37,23 @@ graph TB
     A[Header Footer Agent] --> B[Template Schemas]
     A --> C[Configuration Schemas]
     A --> D[Deployment Schemas]
-    
+
     B --> E[Header Templates]
     B --> F[Footer Templates]
     B --> G[Combined Templates]
-    
+
     C --> H[Agent Settings]
     C --> I[WordPress Config]
     C --> J[Theme Integration]
-    
+
     D --> K[Deployment Rules]
     D --> L[Environment Config]
     D --> M[Rollback Settings]
-    
+
     N[WordPress Themes] --> A
     O[Block Themes] --> A
     P[Template System] --> A
-    
+
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#e8f5e8
@@ -79,7 +79,7 @@ sequenceDiagram
     participant Schema as Schema Validator
     participant WP as WordPress
     participant Theme as Theme System
-    
+
     Agent->>Config: Load configuration
     Config->>Schema: Validate against schema
     Schema->>Schema: Check structure & rules
@@ -88,7 +88,7 @@ sequenceDiagram
     Agent->>WP: Generate templates
     WP->>Theme: Apply to theme system
     Theme->>Agent: Deployment feedback
-    
+
     Note over Agent,Theme: Automated WordPress template management
 ```
 
@@ -136,7 +136,7 @@ function validate_header_footer_config($config) {
     $schema = file_get_contents('agent-config.schema.json');
     $validator = new JsonSchema\Validator();
     $validator->validate($config, json_decode($schema));
-    
+
     return $validator->isValid();
 }
 ```
@@ -144,17 +144,17 @@ function validate_header_footer_config($config) {
 ### JavaScript Agent
 
 ```javascript
-const Ajv = require('ajv');
-const schema = require('./agent-config.schema.json');
-const config = require('./config.json');
+const Ajv = require("ajv");
+const schema = require("./agent-config.schema.json");
+const config = require("./config.json");
 
 const ajv = new Ajv();
 const validate = ajv.compile(schema);
 
 if (validate(config)) {
-    console.log('Configuration is valid');
+  console.log("Configuration is valid");
 } else {
-    console.error('Validation errors:', validate.errors);
+  console.error("Validation errors:", validate.errors);
 }
 ```
 
@@ -224,6 +224,6 @@ if (validate(config)) {
 
 ---
 
-_🎨 Streamlining WordPress theme development through intelligent automation._
+*🎨 Streamlining WordPress theme development through intelligent automation.*
 
 <!-- RANDOM FOOTER: 🎨 Docs signed by Copilot for LightSpeedWP -->

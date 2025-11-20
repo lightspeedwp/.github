@@ -10,12 +10,12 @@ Namespace: `core/block-directory`.
 
 Returns the available uninstalled blocks.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _filterValue_ `string`: Search string.
+- *state* `Object`: Global application state.
+- *filterValue* `string`: Search string.
 
-_Returns_
+*Returns*
 
 - `Array`: Downloadable blocks.
 
@@ -23,12 +23,12 @@ _Returns_
 
 Returns the error notice for a given block.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _blockId_ `string`: The ID of the block plugin. eg: my-block
+- *state* `Object`: Global application state.
+- *blockId* `string`: The ID of the block plugin. eg: my-block
 
-_Returns_
+*Returns*
 
 - `string|boolean`: The error text, or false if no error.
 
@@ -36,11 +36,11 @@ _Returns_
 
 Returns all block error notices.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Object`: Object with error notices.
 
@@ -48,11 +48,11 @@ _Returns_
 
 Returns the block types that have been installed on the server in this session.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Array`: Block type items
 
@@ -60,11 +60,11 @@ _Returns_
 
 Returns block types that have been installed on the server and used in the current post.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Array`: Block type items.
 
@@ -72,11 +72,11 @@ _Returns_
 
 Returns the block types that have been installed on the server but are not used in the current post.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Array`: Block type items.
 
@@ -84,12 +84,12 @@ _Returns_
 
 Returns true if a block plugin install is in progress.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _blockId_ `string`: Id of the block.
+- *state* `Object`: Global application state.
+- *blockId* `string`: Id of the block.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether this block is currently being installed.
 
@@ -97,12 +97,12 @@ _Returns_
 
 Returns true if application is requesting for downloadable blocks.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _filterValue_ `string`: Search string.
+- *state* `Object`: Global application state.
+- *filterValue* `string`: Search string.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether a request is in progress for the blocks list.
 
@@ -116,11 +116,11 @@ _Returns_
 
 Returns an action object used to add a block type to the "newly installed" tracking list.
 
-_Parameters_
+*Parameters*
 
-- _item_ `Object`: The block item with the block id and name.
+- *item* `Object`: The block item with the block id and name.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -128,11 +128,11 @@ _Returns_
 
 Sets the error notice to empty for specific block.
 
-_Parameters_
+*Parameters*
 
-- _blockId_ `string`: The ID of the block plugin. eg: my-block
+- *blockId* `string`: The ID of the block plugin. eg: my-block
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -140,11 +140,11 @@ _Returns_
 
 Returns an action object used in signalling that the downloadable blocks have been requested and are loading.
 
-_Parameters_
+*Parameters*
 
-- _filterValue_ `string`: Search string.
+- *filterValue* `string`: Search string.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -152,11 +152,11 @@ _Returns_
 
 Action triggered to install a block plugin.
 
-_Parameters_
+*Parameters*
 
-- _block_ `Object`: The block item returned by search.
+- *block* `Object`: The block item returned by search.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the block was successfully installed & loaded.
 
@@ -164,12 +164,12 @@ _Returns_
 
 Returns an action object used in signalling that the downloadable blocks have been updated.
 
-_Parameters_
+*Parameters*
 
-- _downloadableBlocks_ `Array`: Downloadable blocks.
-- _filterValue_ `string`: Search string.
+- *downloadableBlocks* `Array`: Downloadable blocks.
+- *filterValue* `string`: Search string.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -177,11 +177,11 @@ _Returns_
 
 Returns an action object used to remove a block type from the "newly installed" tracking list.
 
-_Parameters_
+*Parameters*
 
-- _item_ `string`: The block item with the block id and name.
+- *item* `string`: The block item with the block id and name.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -189,13 +189,13 @@ _Returns_
 
 Sets an error notice to be displayed to the user for a given block.
 
-_Parameters_
+*Parameters*
 
-- _blockId_ `string`: The ID of the block plugin. eg: my-block
-- _message_ `string`: The message shown in the notice.
-- _isFatal_ `boolean`: Whether the user can recover from the error.
+- *blockId* `string`: The ID of the block plugin. eg: my-block
+- *message* `string`: The message shown in the notice.
+- *isFatal* `boolean`: Whether the user can recover from the error.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -203,12 +203,12 @@ _Returns_
 
 Returns an action object used to indicate install in progress.
 
-_Parameters_
+*Parameters*
 
-- _blockId_ `string`:
-- _isInstalling_ `boolean`:
+- *blockId* `string`:
+- *isInstalling* `boolean`:
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -216,8 +216,8 @@ _Returns_
 
 Action triggered to uninstall a block plugin.
 
-_Parameters_
+*Parameters*
 
-- _block_ `Object`: The blockType object.
+- *block* `Object`: The blockType object.
 
 <!-- END TOKEN(Autogenerated actions|../../../packages/block-directory/src/store/actions.js) -->

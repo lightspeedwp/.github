@@ -2,10 +2,19 @@
 name: "🤖 Automation"
 about: "Propose, fix, or improve automation (actions, scripts, bots)."
 title: "[Workflows/Docs] Create `/.github/automation/issue-types.yml` or remove all references"
-labels: [type:automation, status:needs-triage, priority:normal, area:automation, area:workflows, labeling, version:v0.2.0]
+labels:
+  [
+    type:automation,
+    status:needs-triage,
+    priority:normal,
+    area:automation,
+    area:workflows,
+    labeling,
+    version:v0.2.0,
+  ]
 assignees: []
 projects: []
-milestone: 'v0.2.0'
+milestone: "v0.2.0"
 file_type: automation
 references:
   - ../CONTRIBUTING.md
@@ -94,7 +103,7 @@ Recommend **Option B (remove references)** if:
 
 ```yaml
 # issue-types.yml
-version: '1.0'
+version: "1.0"
 issue_types:
   bug:
     labels: [type:bug, status:needs-triage]

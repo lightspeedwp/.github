@@ -2,10 +2,17 @@
 name: "♿ Accessibility (A11y)"
 about: "Report or propose accessibility improvements, audits, or issues (WCAG, usability, devices)."
 title: "[Docs/A11y] Standardise Mermaid accessibility palette + captions"
-labels: [type:a11y, status:needs-triage, priority:important, area:a11y, area:documentation]
+labels:
+  [
+    type:a11y,
+    status:needs-triage,
+    priority:important,
+    area:a11y,
+    area:documentation,
+  ]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: a11y
 references:
   - ../CONTRIBUTING.md
@@ -41,10 +48,10 @@ Mermaid diagrams across the repository currently lack consistent, accessible col
 
 **Files to audit:**
 
-```bash
+````bash
 # Find all Mermaid diagrams
 git grep -l "```mermaid"
-```
+````
 
 ## Expected Behavior
 
@@ -64,7 +71,7 @@ git grep -l "```mermaid"
 
 **Example accessible diagram:**
 
-```markdown
+````markdown
 **Figure 1: Pull Request Review Process**
 
 ```mermaid
@@ -84,8 +91,9 @@ graph LR
   E -->|Yes| F[Merge]
   E -->|No| D
 ```
+````
 
-```
+````
 
 ## Environment / Devices
 
@@ -150,7 +158,7 @@ graph LR
 ## Testing
 
 [how to verify accessibility]
-```
+````
 
 **Tooling:**
 

@@ -18,6 +18,7 @@ Hi @username,
 CI or automation workflows have failed for this submission.
 
 **Next steps:**
+
 - Check the logs for error details (click “Details” next to the failed check)
 - Address the errors and push updates to your branch
 - Comment here if you need help interpreting the logs

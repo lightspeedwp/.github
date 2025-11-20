@@ -4,7 +4,7 @@ The Interactivity API is a reactive and declarative framework, similar to other 
 
 ## Declarative vs. imperative
 
-**Declarative Programming** describes _what_ a program should accomplish. It focuses on the desired outcome without explicitly listing commands or steps to achieve that result. In contrast, **imperative programming** specifies _how_ to accomplish tasks by explicitly stating each step to manipulate the program’s state.
+**Declarative Programming** describes *what* a program should accomplish. It focuses on the desired outcome without explicitly listing commands or steps to achieve that result. In contrast, **imperative programming** specifies *how* to accomplish tasks by explicitly stating each step to manipulate the program’s state.
 
 ### The imperative approach
 
@@ -17,7 +17,13 @@ Take, for example, this interactive block with two buttons and a paragraph:
 
 ```html
 <div id="my-interactive-plugin">
-  <button id="show-hide-btn" aria-expanded="false" aria-controls="status-paragraph">show</button>
+  <button
+    id="show-hide-btn"
+    aria-expanded="false"
+    aria-controls="status-paragraph"
+  >
+    show
+  </button>
   <button id="activate-btn" disabled>activate</button>
   <p id="status-paragraph" class="inactive" hidden>this is inactive</p>
 </div>
@@ -32,40 +38,40 @@ Take, for example, this interactive block with two buttons and a paragraph:
 </style>
 
 <script>
-  const showHideBtn = document.getElementById('show-hide-btn');
-  const activateBtn = document.getElementById('activate-btn');
-  const statusParagraph = document.getElementById('status-paragraph');
+  const showHideBtn = document.getElementById("show-hide-btn");
+  const activateBtn = document.getElementById("activate-btn");
+  const statusParagraph = document.getElementById("status-paragraph");
 
-  showHideBtn.addEventListener('click', () => {
-    if (statusParagraph.hasAttribute('hidden')) {
-      statusParagraph.removeAttribute('hidden');
-      showHideBtn.textContent = 'hide';
-      showHideBtn.setAttribute('aria-expanded', 'true');
-      activateBtn.removeAttribute('disabled');
+  showHideBtn.addEventListener("click", () => {
+    if (statusParagraph.hasAttribute("hidden")) {
+      statusParagraph.removeAttribute("hidden");
+      showHideBtn.textContent = "hide";
+      showHideBtn.setAttribute("aria-expanded", "true");
+      activateBtn.removeAttribute("disabled");
     } else {
-      if (statusParagraph.classList.contains('active')) {
-        statusParagraph.textContent = 'this is inactive';
-        statusParagraph.classList.remove('active');
-        activateBtn.textContent = 'activate';
+      if (statusParagraph.classList.contains("active")) {
+        statusParagraph.textContent = "this is inactive";
+        statusParagraph.classList.remove("active");
+        activateBtn.textContent = "activate";
       }
-      statusParagraph.setAttribute('hidden', true);
-      showHideBtn.textContent = 'show';
-      showHideBtn.setAttribute('aria-expanded', 'false');
-      activateBtn.setAttribute('disabled', true);
+      statusParagraph.setAttribute("hidden", true);
+      showHideBtn.textContent = "show";
+      showHideBtn.setAttribute("aria-expanded", "false");
+      activateBtn.setAttribute("disabled", true);
     }
   });
 
-  activateBtn.addEventListener('click', () => {
-    if (activateBtn.textContent === 'activate') {
-      statusParagraph.textContent = 'this is active';
-      statusParagraph.classList.remove('inactive');
-      statusParagraph.classList.add('active');
-      activateBtn.textContent = 'deactivate';
+  activateBtn.addEventListener("click", () => {
+    if (activateBtn.textContent === "activate") {
+      statusParagraph.textContent = "this is active";
+      statusParagraph.classList.remove("inactive");
+      statusParagraph.classList.add("active");
+      activateBtn.textContent = "deactivate";
     } else {
-      statusParagraph.textContent = 'this is inactive';
-      statusParagraph.classList.remove('active');
-      statusParagraph.classList.add('inactive');
-      activateBtn.textContent = 'activate';
+      statusParagraph.textContent = "this is inactive";
+      statusParagraph.classList.remove("active");
+      statusParagraph.classList.add("inactive");
+      activateBtn.textContent = "activate";
     }
   });
 </script>
@@ -75,7 +81,7 @@ As you can see, for each condition, you have to use JavaScript to modify everyth
 
 ### The declarative approach
 
-The declarative approach simplifies the process by focusing on _what_ should happen. The UI updates automatically in response to changes in state. Here is a similar example using the Interactivity API's declarative approach:
+The declarative approach simplifies the process by focusing on *what* should happen. The UI updates automatically in response to changes in state. Here is a similar example using the Interactivity API's declarative approach:
 
 ```html
 <div id="my-interactive-plugin" data-wp-interactive="myInteractivePlugin">
@@ -116,20 +122,20 @@ The declarative approach simplifies the process by focusing on _what_ should hap
 ```
 
 ```js
-import { store } from '@wordpress/interactivity';
+import { store } from "@wordpress/interactivity";
 
-const { state } = store('myInteractivePlugin', {
+const { state } = store("myInteractivePlugin", {
   state: {
     isVisible: false,
     isActive: false,
     get visibilityText() {
-      return state.isVisible ? 'hide' : 'show';
+      return state.isVisible ? "hide" : "show";
     },
     get activationText() {
-      return state.isActive ? 'deactivate' : 'activate';
+      return state.isActive ? "deactivate" : "activate";
     },
     get paragraphText() {
-      return state.isActive ? 'this is active' : 'this is inactive';
+      return state.isActive ? "this is active" : "this is inactive";
     },
   },
   actions: {
@@ -176,7 +182,7 @@ The Interactivity API uses a fine-grained reactivity system. Here's how it works
    - **Local context**: This is local data that is specific to a particular element and its children.
    - **Derived State**: In addition to basic state properties, you can define computed properties that automatically update when their dependencies change.
 
-   _Please, visit the [Understanding global state, local context and derived state](/docs/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state.md) guide to learn more about how to work with the different types of reactive state in the Interactivity API._
+   *Please, visit the [Understanding global state, local context and derived state](/docs/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state.md) guide to learn more about how to work with the different types of reactive state in the Interactivity API.*
 
 2. **Actions**: These are functions, usually triggered by event handlers, that mutate the global state or local context.
 
@@ -187,12 +193,12 @@ The Interactivity API uses a fine-grained reactivity system. Here's how it works
 Let's break down these concepts by reviewing the previous example:
 
 ```javascript
-const { state } = store('myInteractivePlugin', {
+const { state } = store("myInteractivePlugin", {
   state: {
     isVisible: false,
     isActive: false,
     get visibilityText() {
-      return state.isVisible ? 'hide' : 'show';
+      return state.isVisible ? "hide" : "show";
     },
     // ... other derived state
   },
@@ -239,17 +245,17 @@ Unlike many other reactive frameworks, **the Interactivity API does not require 
 For example, you can push a new item to an array like this:
 
 ```javascript
-const { state } = store('myArrayPlugin', {
+const { state } = store("myArrayPlugin", {
   state: {
-    list: ['item 1', 'item 2'],
+    list: ["item 1", "item 2"],
   },
   actions: {
     addItem() {
       // Right:
-      state.list.push('new item');
+      state.list.push("new item");
 
       // Wrong:
-      state.list = [...state.list, 'new item']; // Don't do this!
+      state.list = [...state.list, "new item"]; // Don't do this!
     },
   },
 });
@@ -275,7 +281,7 @@ Here's an example of how you might use `data-wp-watch`:
 ```
 
 ```javascript
-store('myCounterPlugin', {
+store("myCounterPlugin", {
   actions: {
     increment() {
       const context = getContext();

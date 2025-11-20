@@ -34,27 +34,27 @@ echo 'module.exports = { preset: "@wordpress/jest-preset-default" };' > jest.con
 ```javascript
 // jest.config.js
 module.exports = {
-  preset: '@wordpress/jest-preset-default',
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
+  preset: "@wordpress/jest-preset-default",
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
   testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.js',
-    '<rootDir>/src/**/test/*.js',
-    '<rootDir>/src/**/*.test.js'
+    "<rootDir>/src/**/__tests__/**/*.js",
+    "<rootDir>/src/**/test/*.js",
+    "<rootDir>/src/**/*.test.js",
   ],
   collectCoverageFrom: [
-    'src/**/*.{js,jsx}',
-    '!src/**/*.stories.js',
-    '!src/**/index.js'
+    "src/**/*.{js,jsx}",
+    "!src/**/*.stories.js",
+    "!src/**/index.js",
   ],
   coverageThreshold: {
     global: {
       branches: 80,
       functions: 80,
       lines: 80,
-      statements: 80
-    }
-  }
+      statements: 80,
+    },
+  },
 };
 ```
 
@@ -91,7 +91,7 @@ module.exports = {
 
 ```javascript
 // tests/setup.js
-import '@wordpress/jest-console';
+import "@wordpress/jest-console";
 
 // Mock WordPress globals
 global.wp = {
@@ -143,27 +143,27 @@ tests/
 
 ```javascript
 // src/components/Button/Button.test.js
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import Button from './index';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import Button from "./index";
 
-describe('Button Component', () => {
-  test('renders button with text', () => {
+describe("Button Component", () => {
+  test("renders button with text", () => {
     render(<Button>Click me</Button>);
-    expect(screen.getByRole('button')).toHaveTextContent('Click me');
+    expect(screen.getByRole("button")).toHaveTextContent("Click me");
   });
 
-  test('calls onClick when clicked', async () => {
+  test("calls onClick when clicked", async () => {
     const handleClick = jest.fn();
     const user = userEvent.setup();
-    
+
     render(<Button onClick={handleClick}>Click me</Button>);
-    await user.click(screen.getByRole('button'));
-    
+    await user.click(screen.getByRole("button"));
+
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  test('matches snapshot', () => {
+  test("matches snapshot", () => {
     const { container } = render(<Button variant="primary">Test</Button>);
     expect(container.firstChild).toMatchSnapshot();
   });
@@ -174,29 +174,26 @@ describe('Button Component', () => {
 
 ```javascript
 // src/blocks/example-block/test/edit.test.js
-import { render } from '@testing-library/react';
-import { Edit } from '../edit';
+import { render } from "@testing-library/react";
+import { Edit } from "../edit";
 
-describe('ExampleBlock Edit', () => {
+describe("ExampleBlock Edit", () => {
   const mockAttributes = {
-    content: 'Test content',
-    alignment: 'left'
+    content: "Test content",
+    alignment: "left",
   };
 
   const mockSetAttributes = jest.fn();
 
-  test('renders with correct attributes', () => {
+  test("renders with correct attributes", () => {
     const { container } = render(
-      <Edit 
-        attributes={mockAttributes} 
-        setAttributes={mockSetAttributes}
-      />
+      <Edit attributes={mockAttributes} setAttributes={mockSetAttributes} />,
     );
-    
-    expect(container).toHaveTextContent('Test content');
+
+    expect(container).toHaveTextContent("Test content");
   });
 
-  test('updates attributes when content changes', () => {
+  test("updates attributes when content changes", () => {
     // Test attribute updates
   });
 });
@@ -249,10 +246,10 @@ open coverage/lcov-report/index.html
 
 **Related Configuration:**
 
-- **[Babel Configuration](./project-babel.md)** - JavaScript compilation for tests  
-- **[ESLint Configuration](./lint-eslint.md)** - Linting test files  
-- **[Husky Configuration](./workflow-husky.md)** - Pre-push testing hooks  
-- **[VS Code Settings](./vscode-settings.md)** - Editor testing integration  
+- **[Babel Configuration](./project-babel.md)** - JavaScript compilation for tests
+- **[ESLint Configuration](./lint-eslint.md)** - Linting test files
+- **[Husky Configuration](./workflow-husky.md)** - Pre-push testing hooks
+- **[VS Code Settings](./vscode-settings.md)** - Editor testing integration
 
 ---
 

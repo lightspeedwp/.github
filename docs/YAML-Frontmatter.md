@@ -64,7 +64,7 @@ Claude should:
 - Prefer WordPress core APIs (Options, Settings API, REST API, Transients, WP_Filesystem).
 - Use hooks/filters where appropriate; avoid monkey-patching core.
 - Generate **PHPCS-compliant** PHP and add PHPDoc for public APIs.
-- For JS (blocks), use @wordpress/* packages; register blocks via block.json where sensible.
+- For JS (blocks), use @wordpress/\* packages; register blocks via block.json where sensible.
 
 ---
 

@@ -147,7 +147,7 @@ After completing troubleshooting steps:
 Contact technical support if:
 
 - Loading time is still over 4 seconds after all steps
-- You need to modify server settings or hosting configuration  
+- You need to modify server settings or hosting configuration
 - You're uncomfortable making changes to themes or core files
 - The issue started after a recent update or change you can't identify
 

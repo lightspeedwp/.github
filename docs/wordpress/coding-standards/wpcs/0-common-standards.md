@@ -12,7 +12,7 @@
   - PHP: functions/vars `snake_case`; classes `UpperCamelCase`; constants `UPPER_SNAKE_CASE`.
   - JS: variables/functions `camelCase`; classes `UpperCamelCase`.
   - CSS: classes/IDs lowercase, hyphenated (`.product-card__title` is fine; prefer BEM-ish clarity).
-- **Comments & Docs**: Prefer clear code; document _why_, not just _what_. Use DocBlocks for public APIs.
+- **Comments & Docs**: Prefer clear code; document *why*, not just *what*. Use DocBlocks for public APIs.
 - **Security**: Escape on output, sanitise on input, verify nonces/capabilities.
 - **Performance**: Keep bundles small; lazy-load when useful; avoid unnecessary queries.
 - **Accessibility**: WCAG 2.2 AA baseline; semantic markup; keyboard & screen-reader support.

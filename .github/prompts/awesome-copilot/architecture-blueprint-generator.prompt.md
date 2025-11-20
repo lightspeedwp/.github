@@ -1,6 +1,6 @@
 ---
-description: 'Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.'
-mode: 'agent'
+description: "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development."
+mode: "agent"
 ---
 
 # Comprehensive Project Architecture Blueprint Generator
@@ -27,7 +27,6 @@ ${FOCUS_ON_EXTENSIBILITY=true|false} <!-- Emphasize extension points and pattern
   - Package dependencies and import statements
   - Framework-specific patterns and conventions
   - Build and deployment configurations" : "Focus on ${PROJECT_TYPE} specific patterns and practices"}
-  
 - ${ARCHITECTURE_PATTERN == "Auto-detect" ? "Determine the architectural pattern(s) by analyzing:
   - Folder organization and namespacing
   - Dependency flow and component boundaries

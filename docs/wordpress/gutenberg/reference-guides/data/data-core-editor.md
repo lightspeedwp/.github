@@ -8,7 +8,7 @@ Namespace: `core/editor`.
 
 ### canInsertBlockType
 
-_Related_
+*Related*
 
 - canInsertBlockType in core/block-editor store.
 
@@ -16,11 +16,11 @@ _Related_
 
 Returns whether or not the user has the unfiltered_html capability.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Editor state.
+- *state* `Object`: Editor state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the user can or can't post unfiltered HTML.
 
@@ -28,11 +28,11 @@ _Returns_
 
 Returns true if a previous post save was attempted but failed, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the post save failed.
 
@@ -40,11 +40,11 @@ _Returns_
 
 Returns true if a previous post save was attempted successfully, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the post was saved successfully.
 
@@ -52,17 +52,17 @@ _Returns_
 
 Returns the active post lock.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Object`: The lock object.
 
 ### getAdjacentBlockClientId
 
-_Related_
+*Related*
 
 - getAdjacentBlockClientId in core/block-editor store.
 
@@ -72,114 +72,114 @@ _Related_
 
 Returns an attribute value of the current autosave revision for a post, or null if there is no autosave for the post.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _attributeName_ `string`: Autosave attribute name.
+- *state* `Object`: Global application state.
+- *attributeName* `string`: Autosave attribute name.
 
-_Returns_
+*Returns*
 
 - `*`: Autosave attribute value.
 
 ### getBlock
 
-_Related_
+*Related*
 
 - getBlock in core/block-editor store.
 
 ### getBlockAttributes
 
-_Related_
+*Related*
 
 - getBlockAttributes in core/block-editor store.
 
 ### getBlockCount
 
-_Related_
+*Related*
 
 - getBlockCount in core/block-editor store.
 
 ### getBlockHierarchyRootClientId
 
-_Related_
+*Related*
 
 - getBlockHierarchyRootClientId in core/block-editor store.
 
 ### getBlockIndex
 
-_Related_
+*Related*
 
 - getBlockIndex in core/block-editor store.
 
 ### getBlockInsertionPoint
 
-_Related_
+*Related*
 
 - getBlockInsertionPoint in core/block-editor store.
 
 ### getBlockListSettings
 
-_Related_
+*Related*
 
 - getBlockListSettings in core/block-editor store.
 
 ### getBlockMode
 
-_Related_
+*Related*
 
 - getBlockMode in core/block-editor store.
 
 ### getBlockName
 
-_Related_
+*Related*
 
 - getBlockName in core/block-editor store.
 
 ### getBlockOrder
 
-_Related_
+*Related*
 
 - getBlockOrder in core/block-editor store.
 
 ### getBlockRootClientId
 
-_Related_
+*Related*
 
 - getBlockRootClientId in core/block-editor store.
 
 ### getBlocks
 
-_Related_
+*Related*
 
 - getBlocks in core/block-editor store.
 
 ### getBlocksByClientId
 
-_Related_
+*Related*
 
 - getBlocksByClientId in core/block-editor store.
 
 ### getBlockSelectionEnd
 
-_Related_
+*Related*
 
 - getBlockSelectionEnd in core/block-editor store.
 
 ### getBlockSelectionStart
 
-_Related_
+*Related*
 
 - getBlockSelectionStart in core/block-editor store.
 
 ### getClientIdsOfDescendants
 
-_Related_
+*Related*
 
 - getClientIdsOfDescendants in core/block-editor store.
 
 ### getClientIdsWithDescendants
 
-_Related_
+*Related*
 
 - getClientIdsWithDescendants in core/block-editor store.
 
@@ -187,11 +187,11 @@ _Related_
 
 Returns the post currently being edited in its last known saved state, not including unsaved edits. Returns an object containing relevant default post values if the post has not yet been saved.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Object`: Post object.
 
@@ -199,12 +199,12 @@ _Returns_
 
 Returns an attribute value of the saved post.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _attributeName_ `string`: Post attribute name.
+- *state* `Object`: Global application state.
+- *attributeName* `string`: Post attribute name.
 
-_Returns_
+*Returns*
 
 - `*`: Post attribute value.
 
@@ -212,11 +212,11 @@ _Returns_
 
 Returns the ID of the post currently being edited, or null if the post has not yet been saved.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `?number`: ID of current post.
 
@@ -224,11 +224,11 @@ _Returns_
 
 Returns the last revision ID of the post currently being edited, or null if the post has no revisions.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `?number`: ID of the last revision.
 
@@ -236,11 +236,11 @@ _Returns_
 
 Returns the number of revisions of the post currently being edited.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `number`: Number of revisions.
 
@@ -248,17 +248,17 @@ _Returns_
 
 Returns the post type of the post currently being edited.
 
-_Usage_
+*Usage*
 
 ```js
-const currentPostType = wp.data.select('core/editor').getCurrentPostType();
+const currentPostType = wp.data.select("core/editor").getCurrentPostType();
 ```
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `string`: Post type.
 
@@ -266,11 +266,11 @@ _Returns_
 
 Returns the template ID currently being rendered/edited
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `?string`: Template ID.
 
@@ -278,11 +278,11 @@ _Returns_
 
 Returns the current editing canvas device type.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `string`: Device type.
 
@@ -290,25 +290,32 @@ _Returns_
 
 Returns a single attribute of the post being edited, preferring the unsaved edit if one exists, but falling back to the attribute for the last known saved state of the post.
 
-_Usage_
+*Usage*
 
 ```js
 // Get specific media size based on the featured media ID
 // Note: change sizes?.large for any registered size
 const getFeaturedMediaUrl = useSelect((select) => {
-  const getFeaturedMediaId = select('core/editor').getEditedPostAttribute('featured_media');
-  const media = select('core').getEntityRecord('postType', 'attachment', getFeaturedMediaId);
+  const getFeaturedMediaId =
+    select("core/editor").getEditedPostAttribute("featured_media");
+  const media = select("core").getEntityRecord(
+    "postType",
+    "attachment",
+    getFeaturedMediaId,
+  );
 
-  return media?.media_details?.sizes?.large?.source_url || media?.source_url || '';
+  return (
+    media?.media_details?.sizes?.large?.source_url || media?.source_url || ""
+  );
 }, []);
 ```
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _attributeName_ `string`: Post attribute name.
+- *state* `Object`: Global application state.
+- *attributeName* `string`: Post attribute name.
 
-_Returns_
+*Returns*
 
 - `*`: Post attribute value.
 
@@ -316,11 +323,11 @@ _Returns_
 
 Returns the content of the post being edited.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `string`: Post content.
 
@@ -328,11 +335,11 @@ _Returns_
 
 Returns the post preview link
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `string | undefined`: Preview Link.
 
@@ -340,11 +347,11 @@ _Returns_
 
 Returns the slug for the post being edited, preferring a manually edited value if one exists, then a sanitized version of the current post title, and finally the post ID.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Editor state.
+- *state* `Object`: Editor state.
 
-_Returns_
+*Returns*
 
 - `string`: The current slug to be displayed in the editor
 
@@ -352,11 +359,11 @@ _Returns_
 
 Returns the current visibility of the post being edited, preferring the unsaved value if different than the saved post. The return value is one of "private", "password", or "public".
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `string`: Post visibility.
 
@@ -364,11 +371,11 @@ _Returns_
 
 Return the current block list.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`:
+- *state* `Object`:
 
-_Returns_
+*Returns*
 
 - `Array`: Block list.
 
@@ -376,11 +383,11 @@ _Returns_
 
 Returns the current editing mode.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `string`: Editing mode.
 
@@ -388,11 +395,11 @@ _Returns_
 
 Returns the current selection.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`:
+- *state* `Object`:
 
-_Returns_
+*Returns*
 
 - `WPBlockSelection`: The selection end.
 
@@ -402,11 +409,11 @@ _Returns_
 
 Returns the current selection end.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`:
+- *state* `Object`:
 
-_Returns_
+*Returns*
 
 - `WPBlockSelection`: The selection end.
 
@@ -416,11 +423,11 @@ _Returns_
 
 Returns the current selection start.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`:
+- *state* `Object`:
 
-_Returns_
+*Returns*
 
 - `WPBlockSelection`: The selection start.
 
@@ -428,65 +435,65 @@ _Returns_
 
 Returns the post editor settings.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Editor state.
+- *state* `Object`: Editor state.
 
-_Returns_
+*Returns*
 
 - `Object`: The editor settings object.
 
 ### getFirstMultiSelectedBlockClientId
 
-_Related_
+*Related*
 
 - getFirstMultiSelectedBlockClientId in core/block-editor store.
 
 ### getGlobalBlockCount
 
-_Related_
+*Related*
 
 - getGlobalBlockCount in core/block-editor store.
 
 ### getInserterItems
 
-_Related_
+*Related*
 
 - getInserterItems in core/block-editor store.
 
 ### getLastMultiSelectedBlockClientId
 
-_Related_
+*Related*
 
 - getLastMultiSelectedBlockClientId in core/block-editor store.
 
 ### getMultiSelectedBlockClientIds
 
-_Related_
+*Related*
 
 - getMultiSelectedBlockClientIds in core/block-editor store.
 
 ### getMultiSelectedBlocks
 
-_Related_
+*Related*
 
 - getMultiSelectedBlocks in core/block-editor store.
 
 ### getMultiSelectedBlocksEndClientId
 
-_Related_
+*Related*
 
 - getMultiSelectedBlocksEndClientId in core/block-editor store.
 
 ### getMultiSelectedBlocksStartClientId
 
-_Related_
+*Related*
 
 - getMultiSelectedBlocksStartClientId in core/block-editor store.
 
 ### getNextBlockClientId
 
-_Related_
+*Related*
 
 - getNextBlockClientId in core/block-editor store.
 
@@ -494,11 +501,11 @@ _Related_
 
 Returns the permalink for the post.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Editor state.
+- *state* `Object`: Editor state.
 
-_Returns_
+*Returns*
 
 - `?string`: The permalink, or null if the post is not viewable.
 
@@ -506,11 +513,11 @@ _Returns_
 
 Returns the permalink for a post, split into its three parts: the prefix, the postName, and the suffix.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Editor state.
+- *state* `Object`: Editor state.
 
-_Returns_
+*Returns*
 
 - `Object`: An object containing the prefix, postName, and suffix for the permalink, or null if the post is not viewable.
 
@@ -518,11 +525,11 @@ _Returns_
 
 Returns any post values which have been changed in the editor but not yet been saved.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Object`: Object of key value pairs comprising unsaved edits.
 
@@ -530,11 +537,11 @@ _Returns_
 
 Returns details about the post lock user.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `Object`: A user object.
 
@@ -542,17 +549,17 @@ _Returns_
 
 Returns a post type label depending on the current post.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `string|undefined`: The post type label if available, otherwise undefined.
 
 ### getPreviousBlockClientId
 
-_Related_
+*Related*
 
 - getPreviousBlockClientId in core/block-editor store.
 
@@ -560,35 +567,35 @@ _Related_
 
 Returns the post editor's rendering mode.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Editor state.
+- *state* `Object`: Editor state.
 
-_Returns_
+*Returns*
 
 - `string`: Rendering mode.
 
 ### getSelectedBlock
 
-_Related_
+*Related*
 
 - getSelectedBlock in core/block-editor store.
 
 ### getSelectedBlockClientId
 
-_Related_
+*Related*
 
 - getSelectedBlockClientId in core/block-editor store.
 
 ### getSelectedBlockCount
 
-_Related_
+*Related*
 
 - getSelectedBlockCount in core/block-editor store.
 
 ### getSelectedBlocksInitialCaretPosition
 
-_Related_
+*Related*
 
 - getSelectedBlocksInitialCaretPosition in core/block-editor store.
 
@@ -602,19 +609,19 @@ Returns state object prior to a specified optimist transaction ID, or `null` if 
 
 Returns a suggested post format for the current post, inferred only if there is a single block within the post and it is of a type known to match a default post format. Returns null if the format cannot be determined.
 
-_Returns_
+*Returns*
 
 - `?string`: Suggested post format.
 
 ### getTemplate
 
-_Related_
+*Related*
 
 - getTemplate in core/block-editor store.
 
 ### getTemplateLock
 
-_Related_
+*Related*
 
 - getTemplateLock in core/block-editor store.
 
@@ -622,11 +629,11 @@ _Related_
 
 Returns true if content includes unsaved changes, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Editor state.
+- *state* `Object`: Editor state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether content includes unsaved changes.
 
@@ -634,11 +641,11 @@ _Returns_
 
 Returns true if any future editor history snapshots exist, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether redo history exists.
 
@@ -646,23 +653,23 @@ _Returns_
 
 Returns true if any past editor history snapshots exist, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether undo history exists.
 
 ### hasInserterItems
 
-_Related_
+*Related*
 
 - hasInserterItems in core/block-editor store.
 
 ### hasMultiSelection
 
-_Related_
+*Related*
 
 - hasMultiSelection in core/block-editor store.
 
@@ -670,23 +677,23 @@ _Related_
 
 Returns true if there are unsaved edits for entities other than the editor's post, and false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether there are edits or not.
 
 ### hasSelectedBlock
 
-_Related_
+*Related*
 
 - hasSelectedBlock in core/block-editor store.
 
 ### hasSelectedInnerBlock
 
-_Related_
+*Related*
 
 - hasSelectedInnerBlock in core/block-editor store.
 
@@ -698,7 +705,7 @@ Returns true if an optimistic transaction is pending commit, for which the befor
 
 ### isAncestorMultiSelected
 
-_Related_
+*Related*
 
 - isAncestorMultiSelected in core/block-editor store.
 
@@ -706,47 +713,47 @@ _Related_
 
 Returns true if the post is autosaving, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the post is autosaving.
 
 ### isBlockInsertionPointVisible
 
-_Related_
+*Related*
 
 - isBlockInsertionPointVisible in core/block-editor store.
 
 ### isBlockMultiSelected
 
-_Related_
+*Related*
 
 - isBlockMultiSelected in core/block-editor store.
 
 ### isBlockSelected
 
-_Related_
+*Related*
 
 - isBlockSelected in core/block-editor store.
 
 ### isBlockValid
 
-_Related_
+*Related*
 
 - isBlockValid in core/block-editor store.
 
 ### isBlockWithinSelection
 
-_Related_
+*Related*
 
 - isBlockWithinSelection in core/block-editor store.
 
 ### isCaretWithinFormattedText
 
-_Related_
+*Related*
 
 - isCaretWithinFormattedText in core/block-editor store.
 
@@ -754,11 +761,11 @@ _Related_
 
 Returns true if there are no unsaved values for the current edit session and if the currently edited post is new (has never been saved before).
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether new post and unsaved values exist.
 
@@ -766,11 +773,11 @@ _Returns_
 
 Returns true if post is pending review.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether current post is pending review.
 
@@ -778,12 +785,12 @@ _Returns_
 
 Return true if the current post has already been published.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _currentPost_ `[Object]`: Explicit current post for bypassing registry selector.
+- *state* `Object`: Global application state.
+- *currentPost* `[Object]`: Explicit current post for bypassing registry selector.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the post has been published.
 
@@ -791,11 +798,11 @@ _Returns_
 
 Returns true if post is already scheduled.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether current post is scheduled to be posted.
 
@@ -803,11 +810,11 @@ _Returns_
 
 Returns true if the post is currently being deleted, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Editor state.
+- *state* `Object`: Editor state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether post is being deleted.
 
@@ -815,12 +822,12 @@ _Returns_
 
 Returns true if the post can be autosaved, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _autosave_ `Object`: A raw autosave object from the REST API.
+- *state* `Object`: Global application state.
+- *autosave* `Object`: A raw autosave object from the REST API.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the post can be autosaved.
 
@@ -828,11 +835,11 @@ _Returns_
 
 Return true if the post being edited is being scheduled. Preferring the unsaved status values.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the post has been published.
 
@@ -842,11 +849,11 @@ Returns whether the current post should be considered to have a "floating" date 
 
 Unlike in the PHP backend, the REST API returns a full date string for posts where the 0000-00-00T00:00:00 placeholder is present in the database. To infer that a post is set to publish "Immediately" we check whether the date and modified date are the same.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Editor state.
+- *state* `Object`: Editor state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the edited post has a floating date value.
 
@@ -854,11 +861,11 @@ _Returns_
 
 Returns true if there are unsaved values for the current edit session, or false if the editing state matches the saved or new post.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether unsaved values exist.
 
@@ -866,11 +873,11 @@ _Returns_
 
 Returns true if the edited post has content. A post has content if it has at least one saveable block or otherwise has a non-empty content property assigned.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether post has content.
 
@@ -878,11 +885,11 @@ _Returns_
 
 Returns true if the currently edited post is yet to be saved, or false if the post has been saved.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the post is new.
 
@@ -890,11 +897,11 @@ _Returns_
 
 Return true if the post being edited can be published.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the post can been published.
 
@@ -902,11 +909,11 @@ _Returns_
 
 Returns true if the post can be saved, or false otherwise. A post must contain a title, an excerpt, or non-empty content to be valid for save.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the post can be saved.
 
@@ -914,12 +921,12 @@ _Returns_
 
 Returns true if the given panel is enabled, or false otherwise. Panels are enabled by default.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _panelName_ `string`: A string that identifies the panel.
+- *state* `Object`: Global application state.
+- *panelName* `string`: A string that identifies the panel.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether or not the panel is enabled.
 
@@ -927,12 +934,12 @@ _Returns_
 
 Returns true if the given panel is open, or false otherwise. Panels are closed by default.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _panelName_ `string`: A string that identifies the panel.
+- *state* `Object`: Global application state.
+- *panelName* `string`: A string that identifies the panel.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether or not the panel is open.
 
@@ -940,18 +947,18 @@ _Returns_
 
 Returns true if the given panel was programmatically removed, or false otherwise. All panels are not removed by default.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
-- _panelName_ `string`: A string that identifies the panel.
+- *state* `Object`: Global application state.
+- *panelName* `string`: A string that identifies the panel.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether or not the panel is removed.
 
 ### isFirstMultiSelectedBlock
 
-_Related_
+*Related*
 
 - isFirstMultiSelectedBlock in core/block-editor store.
 
@@ -959,11 +966,11 @@ _Related_
 
 Returns true if the inserter is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the inserter is opened.
 
@@ -971,17 +978,17 @@ _Returns_
 
 Returns true if the list view is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the list view is opened.
 
 ### isMultiSelecting
 
-_Related_
+*Related*
 
 - isMultiSelecting in core/block-editor store.
 
@@ -989,11 +996,11 @@ _Related_
 
 Returns whether the permalink is editable or not.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Editor state.
+- *state* `Object`: Editor state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether or not the permalink is editable.
 
@@ -1001,32 +1008,32 @@ _Returns_
 
 Returns whether post autosaving is locked.
 
-_Usage_
+*Usage*
 
 ```jsx
-import { __ } from '@wordpress/i18n';
-import { store as editorStore } from '@wordpress/editor';
-import { useSelect } from '@wordpress/data';
+import { __ } from "@wordpress/i18n";
+import { store as editorStore } from "@wordpress/editor";
+import { useSelect } from "@wordpress/data";
 
 const ExampleComponent = () => {
   const isAutoSavingLocked = useSelect(
     (select) => select(editorStore).isPostAutosavingLocked(),
-    []
+    [],
   );
 
   return isAutoSavingLocked ? (
-    <p>{__('Post auto saving is locked')}</p>
+    <p>{__("Post auto saving is locked")}</p>
   ) : (
-    <p>{__('Post auto saving is not locked')}</p>
+    <p>{__("Post auto saving is not locked")}</p>
   );
 };
 ```
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Is locked.
 
@@ -1034,11 +1041,11 @@ _Returns_
 
 Returns whether the post is locked.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Is locked.
 
@@ -1046,11 +1053,11 @@ _Returns_
 
 Returns whether the edition of the post has been taken over.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Is post lock takeover.
 
@@ -1058,29 +1065,32 @@ _Returns_
 
 Returns whether post saving is locked.
 
-_Usage_
+*Usage*
 
 ```jsx
-import { __ } from '@wordpress/i18n';
-import { store as editorStore } from '@wordpress/editor';
-import { useSelect } from '@wordpress/data';
+import { __ } from "@wordpress/i18n";
+import { store as editorStore } from "@wordpress/editor";
+import { useSelect } from "@wordpress/data";
 
 const ExampleComponent = () => {
-  const isSavingLocked = useSelect((select) => select(editorStore).isPostSavingLocked(), []);
+  const isSavingLocked = useSelect(
+    (select) => select(editorStore).isPostSavingLocked(),
+    [],
+  );
 
   return isSavingLocked ? (
-    <p>{__('Post saving is locked')}</p>
+    <p>{__("Post saving is locked")}</p>
   ) : (
-    <p>{__('Post saving is not locked')}</p>
+    <p>{__("Post saving is not locked")}</p>
   );
 };
 ```
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Is locked.
 
@@ -1088,11 +1098,11 @@ _Returns_
 
 Returns true if the post is being previewed, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the post is being previewed.
 
@@ -1100,11 +1110,11 @@ _Returns_
 
 Returns true if the post is being published, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether post is being published.
 
@@ -1112,7 +1122,7 @@ _Returns_
 
 Returns whether the pre-publish panel should be shown or skipped when the user clicks the "publish" button.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the pre-publish panel should be shown or not.
 
@@ -1120,11 +1130,11 @@ _Returns_
 
 Returns true if the publish sidebar is opened.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state
+- *state* `Object`: Global application state
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether the publish sidebar is open.
 
@@ -1132,11 +1142,11 @@ _Returns_
 
 Returns true if non-post entities are currently being saved, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether non-post entities are being saved.
 
@@ -1144,29 +1154,29 @@ _Returns_
 
 Returns true if the post is currently being saved, or false otherwise.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Global application state.
+- *state* `Object`: Global application state.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether post is being saved.
 
 ### isSelectionEnabled
 
-_Related_
+*Related*
 
 - isSelectionEnabled in core/block-editor store.
 
 ### isTyping
 
-_Related_
+*Related*
 
 - isTyping in core/block-editor store.
 
 ### isValidTemplate
 
-_Related_
+*Related*
 
 - isValidTemplate in core/block-editor store.
 
@@ -1180,14 +1190,14 @@ _Related_
 
 Action that autosaves the current post. This includes server-side autosaving (default) and client-side (a.k.a. local) autosaving (e.g. on the Web, the post might be committed to Session Storage).
 
-_Parameters_
+*Parameters*
 
-- _options_ `[Object]`: Extra flags to identify the autosave.
-- _options.local_ `[boolean]`: Whether to perform a local autosave.
+- *options* `[Object]`: Extra flags to identify the autosave.
+- *options.local* `[boolean]`: Whether to perform a local autosave.
 
 ### clearSelectedBlock
 
-_Related_
+*Related*
 
 - clearSelectedBlock in core/block-editor store.
 
@@ -1195,7 +1205,7 @@ _Related_
 
 Returns an action object used in signalling that the user closed the publish sidebar.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -1213,19 +1223,19 @@ Disables the publish sidebar.
 
 Returns an action object used in signalling that attributes of the post have been edited.
 
-_Usage_
+*Usage*
 
 ```js
 // Update the post title
-wp.data.dispatch('core/editor').editPost({ title: `${newTitle}` });
+wp.data.dispatch("core/editor").editPost({ title: `${newTitle}` });
 ```
 
-_Parameters_
+*Parameters*
 
-- _edits_ `Object`: Post attributes to edit.
-- _options_ `[Object]`: Options for the edit.
+- *edits* `Object`: Post attributes to edit.
+- *options* `[Object]`: Options for the edit.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 
@@ -1235,37 +1245,37 @@ Enable the publish sidebar.
 
 ### enterFormattedText
 
-_Related_
+*Related*
 
 - enterFormattedText in core/block-editor store.
 
 ### exitFormattedText
 
-_Related_
+*Related*
 
 - exitFormattedText in core/block-editor store.
 
 ### hideInsertionPoint
 
-_Related_
+*Related*
 
 - hideInsertionPoint in core/block-editor store.
 
 ### insertBlock
 
-_Related_
+*Related*
 
 - insertBlock in core/block-editor store.
 
 ### insertBlocks
 
-_Related_
+*Related*
 
 - insertBlocks in core/block-editor store.
 
 ### insertDefaultBlock
 
-_Related_
+*Related*
 
 - insertDefaultBlock in core/block-editor store.
 
@@ -1273,18 +1283,18 @@ _Related_
 
 Action that locks post autosaving.
 
-_Usage_
+*Usage*
 
 ```js
 // Lock post autosaving with the lock key `mylock`:
-wp.data.dispatch('core/editor').lockPostAutosaving('mylock');
+wp.data.dispatch("core/editor").lockPostAutosaving("mylock");
 ```
 
-_Parameters_
+*Parameters*
 
-- _lockName_ `string`: The lock name.
+- *lockName* `string`: The lock name.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 
@@ -1292,7 +1302,7 @@ _Returns_
 
 Action that locks post saving.
 
-_Usage_
+*Usage*
 
     const { subscribe } = wp.data;
 
@@ -1327,41 +1337,41 @@ _Usage_
      } );
     }
 
-_Parameters_
+*Parameters*
 
-- _lockName_ `string`: The lock name.
+- *lockName* `string`: The lock name.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 
 ### mergeBlocks
 
-_Related_
+*Related*
 
 - mergeBlocks in core/block-editor store.
 
 ### moveBlocksDown
 
-_Related_
+*Related*
 
 - moveBlocksDown in core/block-editor store.
 
 ### moveBlocksUp
 
-_Related_
+*Related*
 
 - moveBlocksUp in core/block-editor store.
 
 ### moveBlockToPosition
 
-_Related_
+*Related*
 
 - moveBlockToPosition in core/block-editor store.
 
 ### multiSelect
 
-_Related_
+*Related*
 
 - multiSelect in core/block-editor store.
 
@@ -1369,13 +1379,13 @@ _Related_
 
 Returns an action object used in signalling that the user opened the publish sidebar.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 
 ### receiveBlocks
 
-_Related_
+*Related*
 
 - receiveBlocks in core/block-editor store.
 
@@ -1391,13 +1401,13 @@ Action for refreshing the current post.
 
 ### removeBlock
 
-_Related_
+*Related*
 
 - removeBlock in core/block-editor store.
 
 ### removeBlocks
 
-_Related_
+*Related*
 
 - removeBlocks in core/block-editor store.
 
@@ -1405,29 +1415,29 @@ _Related_
 
 Returns an action object used to remove a panel from the editor.
 
-_Parameters_
+*Parameters*
 
-- _panelName_ `string`: A string that identifies the panel to remove.
+- *panelName* `string`: A string that identifies the panel to remove.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
 ### replaceBlock
 
-_Related_
+*Related*
 
 - replaceBlock in core/block-editor store.
 
 ### replaceBlocks
 
-_Related_
+*Related*
 
 - replaceBlocks in core/block-editor store.
 
 ### resetBlocks
 
-_Related_
+*Related*
 
 - resetBlocks in core/block-editor store.
 
@@ -1435,10 +1445,10 @@ _Related_
 
 Returns an action object used to signal that the blocks have been updated.
 
-_Parameters_
+*Parameters*
 
-- _blocks_ `Array`: Block Array.
-- _options_ `[Object]`: Optional options.
+- *blocks* `Array`: Block Array.
+- *options* `[Object]`: Optional options.
 
 ### resetPost
 
@@ -1450,13 +1460,13 @@ Returns an action object used in signalling that the latest version of the post 
 
 Action for saving the current post in the editor.
 
-_Parameters_
+*Parameters*
 
-- _options_ `[Object]`:
+- *options* `[Object]`:
 
 ### selectBlock
 
-_Related_
+*Related*
 
 - selectBlock in core/block-editor store.
 
@@ -1464,11 +1474,11 @@ _Related_
 
 Action that changes the width of the editing canvas.
 
-_Parameters_
+*Parameters*
 
-- _deviceType_ `string`:
+- *deviceType* `string`:
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -1476,12 +1486,12 @@ _Returns_
 
 Returns an action that sets the current post Type and post ID.
 
-_Parameters_
+*Parameters*
 
-- _postType_ `string`: Post Type.
-- _postId_ `string`: Post ID.
+- *postType* `string`: Post Type.
+- *postId* `string`: Post ID.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -1489,17 +1499,17 @@ _Returns_
 
 Returns an action object used to open/close the inserter.
 
-_Parameters_
+*Parameters*
 
-- _value_ `boolean|Object`: Whether the inserter should be opened (true) or closed (false). To specify an insertion point, use an object.
-- _value.rootClientId_ `string`: The root client ID to insert at.
-- _value.insertionIndex_ `number`: The index to insert at.
-- _value.filterValue_ `string`: A query to filter the inserter results.
-- _value.onSelect_ `Function`: A callback when an item is selected.
-- _value.tab_ `string`: The tab to open in the inserter.
-- _value.category_ `string`: The category to initialize in the inserter.
+- *value* `boolean|Object`: Whether the inserter should be opened (true) or closed (false). To specify an insertion point, use an object.
+- *value.rootClientId* `string`: The root client ID to insert at.
+- *value.insertionIndex* `number`: The index to insert at.
+- *value.filterValue* `string`: A query to filter the inserter results.
+- *value.onSelect* `Function`: A callback when an item is selected.
+- *value.tab* `string`: The tab to open in the inserter.
+- *value.category* `string`: The category to initialize in the inserter.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -1507,11 +1517,11 @@ _Returns_
 
 Returns an action object used to open/close the list view.
 
-_Parameters_
+*Parameters*
 
-- _isOpen_ `boolean`: A boolean representing whether the list view should be opened or closed.
+- *isOpen* `boolean`: A boolean representing whether the list view should be opened or closed.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -1522,13 +1532,13 @@ Returns an action used to set the rendering mode of the post editor. We support 
 - `post-only`: This mode extracts the post blocks from the template and renders only those. The idea is to allow the user to edit the post/page in isolation without the wrapping template.
 - `template-locked`: This mode renders both the template and the post blocks but the template blocks are locked and can't be edited. The post blocks are editable.
 
-_Parameters_
+*Parameters*
 
-- _mode_ `string`: Mode (one of 'post-only' or 'template-locked').
+- *mode* `string`: Mode (one of 'post-only' or 'template-locked').
 
 ### setTemplateValidity
 
-_Related_
+*Related*
 
 - setTemplateValidity in core/block-editor store.
 
@@ -1536,11 +1546,11 @@ _Related_
 
 Returns an action generator used in signalling that editor has initialized with the specified post object and editor settings.
 
-_Parameters_
+*Parameters*
 
-- _post_ `Object`: Post object.
-- _edits_ `Object`: Initial edited attributes object.
-- _template_ `[Array]`: Block Template.
+- *post* `Object`: Post object.
+- *edits* `Object`: Initial edited attributes object.
+- *template* `[Array]`: Block Template.
 
 ### setupEditorState
 
@@ -1548,37 +1558,37 @@ _Parameters_
 
 Setup the editor state.
 
-_Parameters_
+*Parameters*
 
-- _post_ `Object`: Post object.
+- *post* `Object`: Post object.
 
 ### showInsertionPoint
 
-_Related_
+*Related*
 
 - showInsertionPoint in core/block-editor store.
 
 ### startMultiSelect
 
-_Related_
+*Related*
 
 - startMultiSelect in core/block-editor store.
 
 ### startTyping
 
-_Related_
+*Related*
 
 - startTyping in core/block-editor store.
 
 ### stopMultiSelect
 
-_Related_
+*Related*
 
 - stopMultiSelect in core/block-editor store.
 
 ### stopTyping
 
-_Related_
+*Related*
 
 - stopTyping in core/block-editor store.
 
@@ -1586,19 +1596,19 @@ _Related_
 
 Triggers an action used to switch editor mode.
 
-_Parameters_
+*Parameters*
 
-- _mode_ `string`: The editor mode.
+- *mode* `string`: The editor mode.
 
 ### synchronizeTemplate
 
-_Related_
+*Related*
 
 - synchronizeTemplate in core/block-editor store.
 
 ### toggleBlockMode
 
-_Related_
+*Related*
 
 - toggleBlockMode in core/block-editor store.
 
@@ -1606,20 +1616,20 @@ _Related_
 
 Action that toggles Distraction free mode. Distraction free mode expects there are no sidebars, as due to the z-index values set, you can't close sidebars.
 
-_Parameters_
+*Parameters*
 
-- _options_ `[Object]`: Optional configuration object
-- _options.createNotice_ `[boolean]`: Whether to create a notice
+- *options* `[Object]`: Optional configuration object
+- *options.createNotice* `[boolean]`: Whether to create a notice
 
 ### toggleEditorPanelEnabled
 
 Returns an action object used to enable or disable a panel in the editor.
 
-_Parameters_
+*Parameters*
 
-- _panelName_ `string`: A string that identifies the panel to enable or disable.
+- *panelName* `string`: A string that identifies the panel to enable or disable.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -1627,21 +1637,21 @@ _Returns_
 
 Opens a closed panel and closes an open panel.
 
-_Parameters_
+*Parameters*
 
-- _panelName_ `string`: A string that identifies the panel to open or close.
+- *panelName* `string`: A string that identifies the panel to open or close.
 
 ### togglePublishSidebar
 
 Returns an action object used in signalling that the user toggles the publish sidebar.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 
 ### toggleSelection
 
-_Related_
+*Related*
 
 - toggleSelection in core/block-editor store.
 
@@ -1665,16 +1675,16 @@ Action that pops a record from undo history and undoes the edit.
 
 Action that unlocks post autosaving.
 
-_Usage_
+*Usage*
 
     // Unlock post saving with the lock key `mylock`:
     wp.data.dispatch( 'core/editor' ).unlockPostAutosaving( 'mylock' );
 
-_Parameters_
+*Parameters*
 
-- _lockName_ `string`: The lock name.
+- *lockName* `string`: The lock name.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 
@@ -1682,34 +1692,34 @@ _Returns_
 
 Action that unlocks post saving.
 
-_Usage_
+*Usage*
 
     // Unlock post saving with the lock key `mylock`:
     wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'mylock' );
 
-_Parameters_
+*Parameters*
 
-- _lockName_ `string`: The lock name.
+- *lockName* `string`: The lock name.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object
 
 ### updateBlock
 
-_Related_
+*Related*
 
 - updateBlock in core/block-editor store.
 
 ### updateBlockAttributes
 
-_Related_
+*Related*
 
 - updateBlockAttributes in core/block-editor store.
 
 ### updateBlockListSettings
 
-_Related_
+*Related*
 
 - updateBlockListSettings in core/block-editor store.
 
@@ -1723,7 +1733,7 @@ Undocumented declaration.
 
 Returns an action object used in signalling that a patch of updates for the latest version of the post have been received.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.
 
@@ -1731,10 +1741,10 @@ _Returns_
 
 Action that locks the editor.
 
-_Parameters_
+*Parameters*
 
-- _lock_ `Object`: Details about the post lock status, user, and nonce.
+- *lock* `Object`: Details about the post lock status, user, and nonce.
 
-_Returns_
+*Returns*
 
 - `Object`: Action object.

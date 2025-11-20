@@ -14,6 +14,7 @@ references:
   - "../../scripts/find-readmes.sh"
   - "../../MANAGE-READMES.md"
 ---
+
 # Manage READMEs Instructions
 
 - The agent finds, generates, merges, and lints README files.

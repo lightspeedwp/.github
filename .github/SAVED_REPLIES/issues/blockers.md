@@ -19,10 +19,11 @@ Hi @username,
 
 This issue is currently **blocked** and cannot proceed until the following is resolved:
 
-- [ ] Blocked by: #{blocking-issue} ([see here](link-to-issue))  
+- [ ] Blocked by: #{blocking-issue} ([see here](link-to-issue))
 - [ ] [Or: Waiting on an external dependency / decision]
 
-**Status:**  
+**Status:**
+
 - Labeled as `status:blocked` in our workflow ([see label guide](../../.github/ISSUE_LABELS.md))
 - We'll update here as soon as the blocker is resolved
 

@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-description: 'Playwright Python AI test generation instructions based on official documentation.'
-applyTo: '**'
+description: "Playwright Python AI test generation instructions based on official documentation."
+applyTo: "**"
 ---
 
 # Playwright Python Test Generation Instructions
@@ -24,7 +24,7 @@ applyTo: '**'
 ### File Organization
 
 - **Location**: Store test files in a dedicated tests/ directory or follow the existing project structure.
-- **Naming**: Test files must follow the test_<feature-or-page>.py naming convention to be discovered by Pytest.
+- **Naming**: Test files must follow the test\_<feature-or-page>.py naming convention to be discovered by Pytest.
 - **Scope**: Aim for one test file per major application feature or page.
 
 ## Assertion Best Practices
@@ -55,7 +55,7 @@ def test_has_title(page: Page):
 
 def test_get_started_link(page: Page):
     page.get_by_role("link", name="Get started").click()
-    
+
     # Expects page to have a heading with the name of Installation.
     expect(page.get_by_role("heading", name="Installation")).to_be_visible()
 ```

@@ -4,21 +4,23 @@ description: |
 last_updated: 2025-10-25
 version: 2.1
 owners:
-- lightspeedwp
+  - lightspeedwp
 
 references:
-- ../README.md
-- ../../README.md
-- ../../../README.md
-- ../../../schemas/frontmatter.schema.json
-- ../../../docs/YAML.md
-- ../../../docs/FRONTMATTER-SCHEMA.md
+  - ../README.md
+  - ../../README.md
+  - ../../../README.md
+  - ../../../schemas/frontmatter.schema.json
+  - ../../../docs/YAML.md
+  - ../../../docs/FRONTMATTER-SCHEMA.md
 ---
+
 ---
 
 # Core Tests 🧩
 
 Badges: (placeholder – will be auto-inserted by global badge workflow)
+
 > Jest ⬡ Bats ✅ ShellCheck 🔍 Coverage % 📊 Frontmatter ✓
 
 ## Overview
@@ -32,7 +34,7 @@ Automated tests for foundational utility functions: logging, color formatting, a
 
 ## Structure
 
-```mermaid
+````mermaid
 graph TD
     subgraph tests/includes/core
       A[test-colors.bats]
@@ -90,15 +92,15 @@ graph TD
     A & B & C --> G[Includes Shared Helpers]
     G --> H[enhanced-test-helpers.bash]
     G --> I[agent-test-helpers.bash]
-```
+````
 
 ## Test Files
 
-| File | Purpose |
-| ---- | ------- |
-| `test-colors.bats` | Tests color utilities and terminal formatting |
-| `test-logging.bats` | Tests logging functions and output formatting |
-| `test-validation.bats` | Tests input validation and data verification |
+| File                   | Purpose                                       |
+| ---------------------- | --------------------------------------------- |
+| `test-colors.bats`     | Tests color utilities and terminal formatting |
+| `test-logging.bats`    | Tests logging functions and output formatting |
+| `test-validation.bats` | Tests input validation and data verification  |
 
 ## Usage
 
@@ -115,18 +117,18 @@ CORE_TEST_DEBUG=1 bats tests/includes/core/
 
 ## Environment
 
-| Variable | Effect |
-| -------- | ------ |
+| Variable          | Effect                                        |
+| ----------------- | --------------------------------------------- |
 | `CORE_TEST_DEBUG` | Enables verbose diagnostic logging in helpers |
-| `NO_COLOR` | Forces plain output for snapshot comparisons |
+| `NO_COLOR`        | Forces plain output for snapshot comparisons  |
 
 ## Validation & Quality
 
-| Check | Tool | Notes |
-| ----- | ---- | ----- |
-| Shell lint | ShellCheck | Applied to any sourced helper scripts |
+| Check       | Tool              | Notes                                              |
+| ----------- | ----------------- | -------------------------------------------------- |
+| Shell lint  | ShellCheck        | Applied to any sourced helper scripts              |
 | Frontmatter | Validation script | Ensures metadata matches `frontmatter.schema.json` |
-| Markdown | MD Lint | Spacing, headings, fenced code block rules |
+| Markdown    | MD Lint           | Spacing, headings, fenced code block rules         |
 
 ## Dependencies
 

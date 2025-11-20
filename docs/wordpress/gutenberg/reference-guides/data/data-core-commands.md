@@ -10,12 +10,12 @@ Namespace: `core/commands`.
 
 Returns the registered command loaders.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: State tree.
-- _contextual_ `boolean`: Whether to return only contextual command loaders.
+- *state* `Object`: State tree.
+- *contextual* `boolean`: Whether to return only contextual command loaders.
 
-_Returns_
+*Returns*
 
 - `import('./actions').WPCommandLoaderConfig[]`: The list of registered command loaders.
 
@@ -23,12 +23,12 @@ _Returns_
 
 Returns the registered static commands.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: State tree.
-- _contextual_ `boolean`: Whether to return only contextual commands.
+- *state* `Object`: State tree.
+- *contextual* `boolean`: Whether to return only contextual commands.
 
-_Returns_
+*Returns*
 
 - `import('./actions').WPCommandConfig[]`: The list of registered commands.
 
@@ -36,11 +36,11 @@ _Returns_
 
 Returns whether the active context.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: State tree.
+- *state* `Object`: State tree.
 
-_Returns_
+*Returns*
 
 - `string`: Context.
 
@@ -48,11 +48,11 @@ _Returns_
 
 Returns whether the command palette is open.
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: State tree.
+- *state* `Object`: State tree.
 
-_Returns_
+*Returns*
 
 - `boolean`: Returns whether the command palette is open.
 
@@ -66,7 +66,7 @@ _Returns_
 
 Closes the command palette.
 
-_Returns_
+*Returns*
 
 - `Object`: action.
 
@@ -74,7 +74,7 @@ _Returns_
 
 Opens the command palette.
 
-_Returns_
+*Returns*
 
 - `Object`: action.
 
@@ -82,11 +82,11 @@ _Returns_
 
 Returns an action object used to register a new command.
 
-_Parameters_
+*Parameters*
 
-- _config_ `WPCommandConfig`: Command config.
+- *config* `WPCommandConfig`: Command config.
 
-_Returns_
+*Returns*
 
 - `Object`: action.
 
@@ -94,11 +94,11 @@ _Returns_
 
 Register command loader.
 
-_Parameters_
+*Parameters*
 
-- _config_ `WPCommandLoaderConfig`: Command loader config.
+- *config* `WPCommandLoaderConfig`: Command loader config.
 
-_Returns_
+*Returns*
 
 - `Object`: action.
 
@@ -106,11 +106,11 @@ _Returns_
 
 Returns an action object used to unregister a command.
 
-_Parameters_
+*Parameters*
 
-- _name_ `string`: Command name.
+- *name* `string`: Command name.
 
-_Returns_
+*Returns*
 
 - `Object`: action.
 
@@ -118,11 +118,11 @@ _Returns_
 
 Unregister command loader hook.
 
-_Parameters_
+*Parameters*
 
-- _name_ `string`: Command loader name.
+- *name* `string`: Command loader name.
 
-_Returns_
+*Returns*
 
 - `Object`: action.
 

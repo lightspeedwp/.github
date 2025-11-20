@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-description: 'Best practices and implementation guidelines for Mermaid diagrams in LightSpeedWP documentation and README files'
-applyTo: '**/*.md'
+description: "Best practices and implementation guidelines for Mermaid diagrams in LightSpeedWP documentation and README files"
+applyTo: "**/*.md"
 ---
 
 # Mermaid Diagrams Implementation Guide
@@ -11,7 +11,7 @@ applyTo: '**/*.md'
 Mermaid diagrams enhance documentation by visualizing:
 
 - Process flows and workflows
-- Architecture and system relationships  
+- Architecture and system relationships
 - Directory structures and hierarchies
 - Data flows and dependencies
 - State transitions and lifecycles
@@ -90,12 +90,12 @@ graph LR
         C[Schemas] --> D[Validation]
         E[Agents] --> F[Workflows]
     end
-    
+
     subgraph "External"
         G[GitHub Actions]
         H[Copilot]
     end
-    
+
     D --> G
     F --> H
 ```
@@ -110,7 +110,7 @@ sequenceDiagram
     participant S as Script
     participant V as Validation
     participant L as Logs
-    
+
     U->>S: Run command
     S->>V: Validate input
     V-->>S: Validation result
@@ -151,7 +151,7 @@ gitgraph
 **Node Shapes:**
 
 - `[Rectangle]` - Standard processes/components
-- `{Diamond}` - Decisions/conditionals  
+- `{Diamond}` - Decisions/conditionals
 - `((Circle))` - Start/end points
 - `[/Parallelogram/]` - Input/output
 - `[[Subroutine]]` - Sub-processes
@@ -164,13 +164,13 @@ flowchart TD
     B --> C{Decision}
     C -->|Success| D[Output]
     C -->|Error| E[Error Handler]
-    
+
     classDef input fill:#e1f5fe
-    classDef process fill:#f3e5f5  
+    classDef process fill:#f3e5f5
     classDef decision fill:#fff3e0
     classDef success fill:#e8f5e8
     classDef error fill:#ffebee
-    
+
     class A input
     class B process
     class C decision
@@ -188,16 +188,17 @@ flowchart TD
 
 **Example:**
 
-```markdown
+````markdown
 The following diagram shows the LightSpeed testing ecosystem:
 
 ```mermaid
 [diagram here]
 ```
+````
 
 The diagram illustrates how test files in different folders (awesome-copilot, includes, maintenance, projects, pytests, utility) all connect to the central test runner, which coordinates with the coverage system and generates reports.
 
-```
+````
 
 ### 3. **Size and Complexity Guidelines**
 
@@ -228,15 +229,15 @@ Brief description of what this component does.
 
 ```mermaid
 [high-level architecture diagram]
-```
+````
 
 The system consists of three main parts...
 
-## Detailed Workflows  
+## Detailed Workflows
 
 ### Workflow A
 
-```mermaid  
+```mermaid
 [specific workflow diagram]
 ```
 
@@ -244,7 +245,7 @@ Process steps:
 
 1. ...
 
-```
+````
 
 ## LightSpeedWP-Specific Patterns
 
@@ -256,12 +257,12 @@ graph TB
     C --> D[Prompts Directory]
     D --> E[Chatmodes Directory]
     E --> F[Custom Instructions]
-    
+
     A --> G[Individual Agents]
     G --> H[Agent Tests]
-    G --> I[Agent Scripts] 
+    G --> I[Agent Scripts]
     G --> J[Agent Documentation]
-```
+````
 
 ### 2. **Schema Relationships**
 
@@ -272,19 +273,19 @@ graph LR
         B[collection.schema.json]
         C[coderabbit-overrides.v2.json]
     end
-    
+
     subgraph "Validation"
         D[Scripts]
         E[Tests]
         F[CI/CD]
     end
-    
+
     subgraph "Documentation"
         G[README files]
         H[Instructions]
         I[Prompts]
     end
-    
+
     A --> D
     B --> D
     C --> D
@@ -354,7 +355,7 @@ flowchart TD
 See existing diagrams in:
 
 - `.github/agents/README.md` - Agent Ecosystem Map
-- `tests/README.md` - Testing Architecture  
+- `tests/README.md` - Testing Architecture
 - `scripts/README.md` - Scripts Workflow
 - `schemas/README.md` - Schema Relationships
 

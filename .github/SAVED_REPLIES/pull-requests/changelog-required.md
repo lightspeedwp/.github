@@ -22,11 +22,13 @@ Hi @username,
 All PRs must include a **changelog entry** in the PR description for release and automation.
 
 **How to fix:**
+
 - Add a `## Changelog` section using [Keep a Changelog](https://keepachangelog.com/) categories (Added, Changed, Fixed, Removed).
 - Only user-facing changes require a changelog entry. For internal-only PRs, add the `meta:no-changelog` label.
 - If this PR closes issues, reference them in the changelog (e.g., "Fixed: ... (Closes #123)").
 
-**References:**  
+**References:**
+
 - [PR Template](../../pull_request_template.md)
 - [Automation Governance](../../AUTOMATION_GOVERNANCE.md)
 - [Contribution Guidelines](../../CONTRIBUTING.md)

@@ -19,7 +19,9 @@ function myPluginOnlyFeature() {
   // implementation
 }
 
-export const pluginOnlyFeature = globalThis.IS_GUTENBERG_PLUGIN ? myPluginOnlyFeature : undefined;
+export const pluginOnlyFeature = globalThis.IS_GUTENBERG_PLUGIN
+  ? myPluginOnlyFeature
+  : undefined;
 ```
 
 In the above example, the `pluginOnlyFeature` export will be `undefined` in non-plugin environments such as WordPress core.
@@ -29,7 +31,7 @@ In the above example, the `pluginOnlyFeature` export will be `undefined` in non-
 If you're attempting to import and call a plugin-only feature, be sure to wrap the function call in an `if` statement to avoid an error:
 
 ```js
-import { pluginOnlyFeature } from '@wordpress/foo';
+import { pluginOnlyFeature } from "@wordpress/foo";
 
 if (globalThis.IS_GUTENBERG_PLUGIN) {
   pluginOnlyFeature();

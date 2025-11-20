@@ -20,16 +20,19 @@ Hi @username,
 Automated dependency update failed or encountered a merge conflict.
 
 **Common Issues:**
+
 - Version conflicts between updated dependency and existing code
 - Update workflow failed due to missing permissions or configuration
 - Merge conflict with other branches or PRs
 
 **How to Fix:**
+
 1. Review the error output from the dependency update bot (Renovate, Dependabot)
 2. Resolve any merge conflicts in your branch and push updates
 3. Confirm the PR passes all tests and workflows after updating
 
 **Resources:**
+
 - [Dependency Management Guide](../instructions/dependencies.md)
 - [Automated Updates Documentation](../instructions/automation.md)
 

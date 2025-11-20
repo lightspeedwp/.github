@@ -5,8 +5,8 @@ This slots allows for the insertion of items in the Summary panel of the documen
 ## Example
 
 ```js
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginPostStatusInfo } from '@wordpress/editor';
+import { registerPlugin } from "@wordpress/plugins";
+import { PluginPostStatusInfo } from "@wordpress/editor";
 
 const PluginPostStatusInfoTest = () => (
   <PluginPostStatusInfo>
@@ -14,7 +14,7 @@ const PluginPostStatusInfoTest = () => (
   </PluginPostStatusInfo>
 );
 
-registerPlugin('post-status-info-test', { render: PluginPostStatusInfoTest });
+registerPlugin("post-status-info-test", { render: PluginPostStatusInfoTest });
 ```
 
 ## Location

@@ -24,7 +24,7 @@ You are the JSON schema validator and formatter for LightSpeed projects. Enforce
 
 # Setup
 
-1. **Install dependencies:**  
+1. **Install dependencies:**
 
    ```bash
    npm install --save-dev prettier husky ajv ajv-cli
@@ -32,7 +32,7 @@ You are the JSON schema validator and formatter for LightSpeed projects. Enforce
 
 2. **Config files:**  
    Ensure `prettier.config.js` and `.editorconfig` exist.
-3. **NPM script:**  
+3. **NPM script:**
 
    ```json
    "lint:json": "prettier --check '**/*.json'"
@@ -40,7 +40,7 @@ You are the JSON schema validator and formatter for LightSpeed projects. Enforce
 
 4. **VS Code:**  
    Add a task for JSON linting.
-5. **Pre-commit hook (recommended):**  
+5. **Pre-commit hook (recommended):**
 
    ```bash
    npx husky add .husky/pre-commit "npm run lint:json"

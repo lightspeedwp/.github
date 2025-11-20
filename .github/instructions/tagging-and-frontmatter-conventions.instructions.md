@@ -1,6 +1,6 @@
 ---
-description: 'LightSpeedWP unified frontmatter conventions combining awesome-copilot tagging with governance requirements for all .github assets'
-applyTo: '**/*.md'
+description: "LightSpeedWP unified frontmatter conventions combining awesome-copilot tagging with governance requirements for all .github assets"
+applyTo: "**/*.md"
 ---
 
 # LightSpeedWP Unified Frontmatter Conventions
@@ -11,48 +11,48 @@ These conventions merge **LightSpeedWP governance requirements** with **awesome-
 
 **Key Integration Points:**
 
-- LightSpeedWP governance fields (`file_type`, `version`, `author`, `maintainer`, `owners`)  
+- LightSpeedWP governance fields (`file_type`, `version`, `author`, `maintainer`, `owners`)
 - Awesome-copilot conventions (`mode`, `applyTo`, `stability`, `domain`, `deprecated`)
 - GitHub/Copilot compatibility (validated against `../../schemas/frontmatter.schema.json`)
 
 ## Universal Required Fields (All File Types)
 
-| Field          | Type                                                                                                  | Applies To          | Required | Purpose                                                             |
-| -------------- | ----------------------------------------------------------------------------------------------------- | ------------------- | -------- | ------------------------------------------------------------------- |
-| `file_type`    | string (const per file type)                                                                         | all LightSpeed files| ✅       | Discriminator for schema validation                                 |
-| `description`  | string                                                                                                | all asset markdown  | ✅       | Human-readable summary (single sentence preferred)                  |
-| `title`        | string                                                                                                | governance files    | ✅*      | Human-readable title (required for governance docs)                |
-| `version`      | string (e.g., v1.1)                                                                                  | governance files    | ✅*      | Version string for governance tracking                             |
-| `last_updated` | string (ISO date)                                                                                     | governance files    | ✅*      | Date of last update (YYYY-MM-DD format)                           |
-| `author`       | string                                                                                                | governance files    | 📋       | Main author or responsible party                                   |
-| `maintainer`   | string                                                                                                | governance files    | 📋       | Current maintainer                                                 |
-| `owners`       | array[string]                                                                                         | team files          | 📋       | List of owners/maintainers (alternative to maintainer)            |
+| Field          | Type                         | Applies To           | Required | Purpose                                                |
+| -------------- | ---------------------------- | -------------------- | -------- | ------------------------------------------------------ |
+| `file_type`    | string (const per file type) | all LightSpeed files | ✅       | Discriminator for schema validation                    |
+| `description`  | string                       | all asset markdown   | ✅       | Human-readable summary (single sentence preferred)     |
+| `title`        | string                       | governance files     | ✅\*     | Human-readable title (required for governance docs)    |
+| `version`      | string (e.g., v1.1)          | governance files     | ✅\*     | Version string for governance tracking                 |
+| `last_updated` | string (ISO date)            | governance files     | ✅\*     | Date of last update (YYYY-MM-DD format)                |
+| `author`       | string                       | governance files     | 📋       | Main author or responsible party                       |
+| `maintainer`   | string                       | governance files     | 📋       | Current maintainer                                     |
+| `owners`       | array[string]                | team files           | 📋       | List of owners/maintainers (alternative to maintainer) |
 
 ## Awesome-Copilot Integration Fields
 
 | Field          | Type                                                                                                  | Applies To          | Required | Purpose                                                             |
 | -------------- | ----------------------------------------------------------------------------------------------------- | ------------------- | -------- | ------------------------------------------------------------------- |
-| `mode`         | enum(`agent`,`ask`,`edit`)                                                                           | prompts, chat modes | 📋       | Execution style (contextual agent vs single-turn ask)               |
-| `applyTo`      | glob string or array[string]                                                                          | instructions        | ✅*      | Scope selectors for auto-application (instructions only)           |
-| `model`        | string                                                                                                | prompts, chat modes | 📋       | Preferred AI model (e.g., "gpt-4", "claude-3")                    |
+| `mode`         | enum(`agent`,`ask`,`edit`)                                                                            | prompts, chat modes | 📋       | Execution style (contextual agent vs single-turn ask)               |
+| `applyTo`      | glob string or array[string]                                                                          | instructions        | ✅\*     | Scope selectors for auto-application (instructions only)            |
+| `model`        | string                                                                                                | prompts, chat modes | 📋       | Preferred AI model (e.g., "gpt-4", "claude-3")                      |
 | `tools`        | array[string]                                                                                         | prompts, chat modes | 📋       | Available tools/capabilities                                        |
 | `deprecated`   | boolean                                                                                               | all                 | 📋       | Signals exclusion from generated tables (generator skips when true) |
-| `replacement`  | string (path)                                                                                         | deprecated assets   | ✅*      | Points to canonical successor file (required if deprecated=true)    |
+| `replacement`  | string (path)                                                                                         | deprecated assets   | ✅\*     | Points to canonical successor file (required if deprecated=true)    |
 | `stability`    | enum(`stable`,`experimental`,`incubating`)                                                            | all                 | 📋       | Communicates maturity expectation                                   |
-| `tags`         | array[string] (max 8)                                                                                | all                 | 📋       | Taxonomy for discovery/filtering (limit 8 items)                   |
+| `tags`         | array[string] (max 8)                                                                                 | all                 | 📋       | Taxonomy for discovery/filtering (limit 8 items)                    |
 | `domain`       | enum(`wp-core`,`block-theme`,`plugin-hardening`,`perf`,`a11y`,`i18n`,`security`,`headless`,`generic`) | all                 | 📋       | Primary classification (choose one)                                 |
 | `extraDomains` | array[string]                                                                                         | optional            | 📋       | Secondary classifications if needed                                 |
-| `license`      | string                                                                                                | all                 | 📋       | License identifier (e.g., "GPL-3.0", "MIT")                       |
-| `references`   | array[string]                                                                                         | all                 | 📋       | AI-focused references to related docs (relative paths)            |
+| `license`      | string                                                                                                | all                 | 📋       | License identifier (e.g., "GPL-3.0", "MIT")                         |
+| `references`   | array[string]                                                                                         | all                 | 📋       | AI-focused references to related docs (relative paths)              |
 
-**Legend**: ✅ = Required, 📋 = Recommended, ✅* = Required conditionally
+**Legend**: ✅ = Required, 📋 = Recommended, ✅\* = Required conditionally
 
 ## LightSpeedWP Domain Taxonomy
 
 **Primary Domains** (choose exactly one for `domain`):
 
 - `wp-core` - WordPress core functionality, hooks, APIs
-- `block-theme` - Block themes, FSE, theme.json, patterns  
+- `block-theme` - Block themes, FSE, theme.json, patterns
 - `plugin-hardening` - Plugin security, validation, best practices
 - `perf` - Performance optimization, caching, speed
 - `a11y` - Accessibility, WCAG compliance, inclusive design
@@ -125,7 +125,7 @@ Content here...
 ## References
 
 - [Contributing Guidelines](CONTRIBUTING.md) - For human contributors
-- [Main Documentation](README.md) - Project overview  
+- [Main Documentation](README.md) - Project overview
 - [GitHub Documentation](.github/README.md) - Repository structure
 - [Frontmatter Schema](schemas/frontmatter.schema.json) - Schema validation
 ```
@@ -134,12 +134,14 @@ Content here...
 
 ```markdown
 ---
-description: 'Secure coding guardrails for custom WP REST endpoints'
-applyTo: 'includes/api/**/*.php'
+description: "Secure coding guardrails for custom WP REST endpoints"
+applyTo: "includes/api/**/*.php"
 ---
+
 # Security Instructions for REST API Development
 
 <!-- LightSpeed Metadata (in content) -->
+
 **Domain**: security | **Stability**: stable | **Tags**: rest, plugin-hardening, validation
 
 Follow these security practices when developing WordPress REST endpoints...
@@ -149,7 +151,7 @@ Follow these security practices when developing WordPress REST endpoints...
 
 ```markdown
 ---
-description: 'Generate performance remediation checklist for a WordPress site'
+description: "Generate performance remediation checklist for a WordPress site"
 mode: ask
 model: gpt-4o
 domain: perf
@@ -163,7 +165,7 @@ tools: ["terminal", "browser"]
 
 ```markdown
 ---
-description: 'WordPress accessibility review specialist mode'
+description: "WordPress accessibility review specialist mode"
 tools: ["browser", "accessibility-scanner"]
 model: "claude-3"
 domain: "a11y"
@@ -203,7 +205,7 @@ Collections already use `tags:`. Add optional `stability:` and `domain:` keys al
 **Validation Tools**:
 
 1. `validate-frontmatter.js` - Validates all .github files against schema
-2. `validate-collections.js` - Extended to check domain and tag compliance  
+2. `validate-collections.js` - Extended to check domain and tag compliance
 3. CI/CD integration - Rejects PRs with invalid frontmatter
 4. VS Code validation - Real-time schema checking (if configured)
 
@@ -217,7 +219,7 @@ Collections already use `tags:`. Add optional `stability:` and `domain:` keys al
 
 **From Awesome-Copilot**:
 
-- Add LightSpeed governance fields (`version`, `author`, etc.) to documentation  
+- Add LightSpeed governance fields (`version`, `author`, etc.) to documentation
 - Ensure `domain` selection follows LightSpeed taxonomy
 - Validate tag limits (8 max)
 

@@ -20,6 +20,7 @@ Hi @username,
 We're awaiting your response on the requested changes or feedback for this PR.
 
 **Next steps:**
+
 - Please review and address the requested changes or questions above.
 - If you need guidance, reply here and a maintainer will assist you.
 

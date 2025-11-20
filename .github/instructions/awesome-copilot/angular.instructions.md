@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-description: 'Angular-specific coding standards and best practices'
-applyTo: '**/*.ts, **/*.html, **/*.scss, **/*.css'
+description: "Angular-specific coding standards and best practices"
+applyTo: "**/*.ts, **/*.html, **/*.scss, **/*.css"
 ---
 
 # Angular Development Instructions

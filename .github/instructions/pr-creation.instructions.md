@@ -74,27 +74,27 @@ See [BRANCHING_STRATEGY.md](../BRANCHING_STRATEGY.md) for full details and enfor
 
 1. **Update your branch** (rebase/merge latest main or develop).
 2. **Choose the correct PR template** when opening your PR. Templates are:
-    - Bugfix, Feature, Chore, Docs, Build/CI, Refactor, Hotfix, Release, General, etc.
-    - For template details, see `.github/PULL_REQUEST_TEMPLATE/*.md` and [docs/frontmatter/pr-templates.md](../../docs/frontmatter/pr-templates.md).
+   - Bugfix, Feature, Chore, Docs, Build/CI, Refactor, Hotfix, Release, General, etc.
+   - For template details, see `.github/PULL_REQUEST_TEMPLATE/*.md` and [docs/frontmatter/pr-templates.md](../../docs/frontmatter/pr-templates.md).
 3. **Fill out all required fields** in the template:
-    - **Linked issues:** Use `Closes #123` or similar.
-    - **Description:** Clearly state *what* changed and *why*.
-    - **Changelog section:** [Required for release automation.]
-    - **Checklist:** Complete all items (tests, docs, a11y, linked issues, CI, etc.).
+   - **Linked issues:** Use `Closes #123` or similar.
+   - **Description:** Clearly state *what* changed and *why*.
+   - **Changelog section:** [Required for release automation.]
+   - **Checklist:** Complete all items (tests, docs, a11y, linked issues, CI, etc.).
 
 4. **Write a clear title**  
    Format: `[Type] Area/Component: Brief summary (Closes #issue)`
    Example: `[Feature] Block Patterns: Add new testimonial pattern (Closes #201)`
 
 5. **Review and confirm labels**
-    - Labels are auto-applied via frontmatter and `.github/labeler.yml` based on branch prefix and file paths.
-    - **Minimum required labels:**
-      - One `status:*` (e.g. `status:needs-review`)
-      - One `type:*` (e.g. `type:feature`, `type:bug`, etc.)
-      - One `priority:*` (e.g. `priority:normal`)
-      - At least one `area:*` or `comp:*` if possible
-      - One `release:*` (e.g. `release:patch`, `release:minor`, `release:major`)
-    - See [LABEL_STRATEGY.md](../../docs/LABEL_STRATEGY.md) and [PR_LABELS.md](../PR_LABELS.md).
+   - Labels are auto-applied via frontmatter and `.github/labeler.yml` based on branch prefix and file paths.
+   - **Minimum required labels:**
+     - One `status:*` (e.g. `status:needs-review`)
+     - One `type:*` (e.g. `type:feature`, `type:bug`, etc.)
+     - One `priority:*` (e.g. `priority:normal`)
+     - At least one `area:*` or `comp:*` if possible
+     - One `release:*` (e.g. `release:patch`, `release:minor`, `release:major`)
+   - See [LABEL_STRATEGY.md](../../docs/LABEL_STRATEGY.md) and [PR_LABELS.md](../PR_LABELS.md).
 
 6. **Assign milestones/projects** if applicable.
 
@@ -104,8 +104,8 @@ See [BRANCHING_STRATEGY.md](../BRANCHING_STRATEGY.md) for full details and enfor
 
 ## 5. Labeling & Automation
 
-- **Labeler automation:**  
-  - `.github/labeler.yml` maps branch prefixes and file globs to labels.  
+- **Labeler automation:**
+  - `.github/labeler.yml` maps branch prefixes and file globs to labels.
   - Branch prefix sets `type:*` and `status:needs-review`.
   - File paths set `area:*`, `comp:*`, `lang:*`, etc.
 - **Workflows enforce:**
@@ -113,7 +113,7 @@ See [BRANCHING_STRATEGY.md](../BRANCHING_STRATEGY.md) for full details and enfor
   - Changelog label (`meta:needs-changelog`) is added if missing
   - PRs missing required labels cannot be merged; see [missing-labels.md](../SAVED_REPLIES/pull-requests/missing-labels.md)
 
-- **Release automation:**  
+- **Release automation:**
   - PRs grouped and versioned based on `release:*` label ([release-label-guidance.md](../SAVED_REPLIES/pull-requests/release-label-guidance.md))
   - Changelog section in PR description required ([changelog-required.md](../SAVED_REPLIES/pull-requests/changelog-required.md))
   - Release workflow ([labeling.yml](../workflows/labeling.yml)) automates changelog, labeling, and review steps.
@@ -133,18 +133,18 @@ See [BRANCHING_STRATEGY.md](../BRANCHING_STRATEGY.md) for full details and enfor
 
 ## 7. Reference Files and Checklists
 
-- **Templates:**  
-  - [pull_request_template.md](../pull_request_template.md)  
+- **Templates:**
+  - [pull_request_template.md](../pull_request_template.md)
   - [All PR templates](../PULL_REQUEST_TEMPLATE/)
-- **Labeling:**  
-  - [labeler.yml](../labeler.yml)  
-  - [labels.yml](../labels.yml)  
+- **Labeling:**
+  - [labeler.yml](../labeler.yml)
+  - [labels.yml](../labels.yml)
   - [PR_LABELS.md](../PR_LABELS.md)
-- **Branching:**  
+- **Branching:**
   - [BRANCHING_STRATEGY.md](../BRANCHING_STRATEGY.md)
-- **Saved Replies:**  
+- **Saved Replies:**
   - [Pull Request Saved Replies](../SAVED_REPLIES/pull-requests/)
-- **Frontmatter:**  
+- **Frontmatter:**
   - [frontmatter.instructions.md](./frontmatter.instructions.md)
   - [docs/frontmatter/pr-templates.md](../../docs/frontmatter/pr-templates.md)
 
@@ -202,7 +202,7 @@ For maintainers and reviewers, reference these [Saved Replies](../SAVED_REPLIES/
 
 ---
 
-**For questions or clarifications:**  
+**For questions or clarifications:**
 
 - Start with [CONTRIBUTING.md](../CONTRIBUTING.md)
 - Ask in [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)

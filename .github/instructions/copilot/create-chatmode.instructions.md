@@ -23,7 +23,7 @@ This guide describes how to create a new Copilot ChatMode for the LightSpeedWP o
 
 1. **Copy the template:**  
    Use [COPILOT_TEMPLATE/template.chatmode.md](../../COPILOT_TEMPLATE/template.chatmode.md) as your starting point.
-2. **Fill out all required front matter:**  
+2. **Fill out all required front matter:**
    - file_type: "chatmode"
    - title, description, version, last_updated, owners, tags, status, references
 3. **Document the role, style, process, and outputs clearly.**

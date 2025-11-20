@@ -3,6 +3,7 @@ description: "Generate a secure, cache-efficient GitHub Actions workflow for thi
 mode: "ask"
 model: "GPT-4"
 ---
+
 Using the provided workflow guidelines, scaffold a GitHub Actions workflow suited to the current repository. Consider:
 
 1. Least‑privilege permissions and explicit secrets usage.

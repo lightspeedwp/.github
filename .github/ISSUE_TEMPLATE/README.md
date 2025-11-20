@@ -46,25 +46,25 @@ flowchart TD
     B -->|Feature Request| D[Feature Template]
     B -->|Documentation| E[Docs Template]
     B -->|Custom| F[Blank Template]
-    
+
     C --> G[Auto-populate Fields]
     D --> G
     E --> G
     F --> G
-    
+
     G --> H[Issue Creation]
     H --> I[Agent Processing]
-    
+
     I --> J[Auto-labeling]
     I --> K[Issue Type Assignment]
     I --> L[Project Board Assignment]
     I --> M[Notification Routing]
-    
+
     N[Template Sync] --> O[All Org Repos]
     P[Automation Agents] --> I
     Q[Label System] --> J
     R[Project Management] --> L
-    
+
     style A fill:#e1f5fe
     style I fill:#f3e5f5
     style N fill:#e8f5e8
@@ -106,7 +106,7 @@ These templates integrate with:
 
 ---
 
-_This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for complete automation standards._
+*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for complete automation standards.*
 
 ---
 

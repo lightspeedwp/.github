@@ -2,10 +2,17 @@
 name: "🔧 Improvement"
 about: "Propose enhancements, polish, or usability improvements."
 title: "[DevEx] Stub strategy + optional sync PRs to child repos"
-labels: [type:improve, status:needs-triage, priority:normal, area:devex, area:documentation]
+labels:
+  [
+    type:improve,
+    status:needs-triage,
+    priority:normal,
+    area:devex,
+    area:documentation,
+  ]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: improve
 references:
   - ../CONTRIBUTING.md
@@ -185,7 +192,7 @@ name: Sync Canonical Files
 on:
   schedule:
     # Check daily for updates
-    - cron: '0 2 * * *'
+    - cron: "0 2 * * *"
   workflow_dispatch:
 
 jobs:
@@ -202,7 +209,7 @@ jobs:
       - name: Create PR if changes detected
         uses: peter-evans/create-pull-request@v5
         with:
-          title: 'chore: sync canonical CONTRIBUTING.md from .github repo'
+          title: "chore: sync canonical CONTRIBUTING.md from .github repo"
           body: |
             This PR synchronises CONTRIBUTING.md with the canonical version.
 

@@ -22,6 +22,7 @@ Hi @username,
 This PR was opened automatically to update dependencies.
 
 **Please:**
+
 - Review the changelog and breaking changes for updated packages
 - Ensure all tests and CI checks pass
 - Use the correct `release:*` label for versioning if this will be part of a release

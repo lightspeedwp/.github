@@ -1,19 +1,19 @@
 ---
-title: 'Integration Tests'
-description: 'Test suite for validating cross-agent compatibility, multi-agent scenarios, and end-to-end workflows'
-version: '1.0'
-last_updated: '2025-11-18'
-author: 'LightSpeed WP Team'
-category: 'tests'
-tags: ['integration', 'testing', 'agents', 'compatibility', 'bats', 'e2e']
+title: "Integration Tests"
+description: "Test suite for validating cross-agent compatibility, multi-agent scenarios, and end-to-end workflows"
+version: "1.0"
+last_updated: "2025-11-18"
+author: "LightSpeed WP Team"
+category: "tests"
+tags: ["integration", "testing", "agents", "compatibility", "bats", "e2e"]
 standards:
-  - 'https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md'
-  - 'https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md'
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md"
 references:
-  - '../README.md'
-  - '../../docs/TESTING.md'
-  - '../../docs/WORKFLOWS.md'
-  - '../includes/agent-test-helpers.bash'
+  - "../README.md"
+  - "../../docs/TESTING.md"
+  - "../../docs/WORKFLOWS.md"
+  - "../includes/agent-test-helpers.bash"
 ---
 
 # Integration Tests
@@ -32,9 +32,9 @@ The integration test suite ensures:
 
 ## Test Files
 
-| File | Purpose | Test Count | Status |
-|------|---------|-----------|--------|
-| `test-agent-compatibility.bats` | Cross-agent compatibility | 8+ | ✅ Active |
+| File                            | Purpose                   | Test Count | Status    |
+| ------------------------------- | ------------------------- | ---------- | --------- |
+| `test-agent-compatibility.bats` | Cross-agent compatibility | 8+         | ✅ Active |
 
 ## Test Categories
 
@@ -43,6 +43,7 @@ The integration test suite ensures:
 **Purpose:** Ensure multiple agents can run on the same event without conflicts.
 
 **Tests:**
+
 - Multiple agents on same PR event
 - Label conflicts prevention
 - Concurrent agent execution
@@ -50,6 +51,7 @@ The integration test suite ensures:
 - State isolation
 
 **Coverage:**
+
 - PR lifecycle events
 - Issue lifecycle events
 - Label management
@@ -61,6 +63,7 @@ The integration test suite ensures:
 **Purpose:** Validate agents interact correctly when processing related events.
 
 **Tests:**
+
 - Sequential agent execution
 - Dependent agent workflows
 - Shared data access patterns
@@ -68,6 +71,7 @@ The integration test suite ensures:
 - State transitions
 
 **Coverage:**
+
 - PR labeling → status checks
 - Issue triage → assignment
 - Comment → labeling workflows
@@ -78,6 +82,7 @@ The integration test suite ensures:
 **Purpose:** Test complete automation workflows from end to end.
 
 **Tests (Planned):**
+
 - PR open → label → review → merge flow
 - Issue open → triage → assignment flow
 - Release preparation workflow
@@ -85,6 +90,7 @@ The integration test suite ensures:
 - Security scan workflow
 
 **Coverage:**
+
 - GitHub Actions workflows
 - Agent orchestration
 - External tool integration
@@ -95,6 +101,7 @@ The integration test suite ensures:
 **Purpose:** Ensure agents handle conflicts gracefully.
 
 **Tests:**
+
 - Duplicate label addition
 - Concurrent modifications
 - Race condition handling
@@ -102,6 +109,7 @@ The integration test suite ensures:
 - Retry logic
 
 **Coverage:**
+
 - API rate limiting
 - Concurrent access
 - State conflicts
@@ -157,12 +165,12 @@ Integration tests utilize these helper functions:
 
 Tests use these environment variables:
 
-| Variable | Purpose | Default |
-|----------|---------|---------|
-| `AGENTS_DIR` | Location of agents to test | `../../.github/agents` |
-| `GITHUB_EVENT_PATH` | Complex event payload | Generated |
-| `DRY_RUN` | Enable dry-run mode | `true` |
-| `PARALLEL_AGENTS` | Enable concurrent testing | `false` |
+| Variable            | Purpose                    | Default                |
+| ------------------- | -------------------------- | ---------------------- |
+| `AGENTS_DIR`        | Location of agents to test | `../../.github/agents` |
+| `GITHUB_EVENT_PATH` | Complex event payload      | Generated              |
+| `DRY_RUN`           | Enable dry-run mode        | `true`                 |
+| `PARALLEL_AGENTS`   | Enable concurrent testing  | `false`                |
 
 ## Writing Integration Tests
 
@@ -280,6 +288,7 @@ label_count=$(echo "$output" | grep -c "label:")
 ### Scenario 1: PR Lifecycle
 
 **Flow:**
+
 1. PR opened → Labeler adds labels
 2. Labels added → Reviewer assigns team members
 3. Review requested → Status enforcer tracks reviews
@@ -287,6 +296,7 @@ label_count=$(echo "$output" | grep -c "label:")
 5. Merged → Release notes generator updates changelog
 
 **Tests:**
+
 - Each step succeeds
 - No duplicate operations
 - Correct state transitions
@@ -295,6 +305,7 @@ label_count=$(echo "$output" | grep -c "label:")
 ### Scenario 2: Issue Triage
 
 **Flow:**
+
 1. Issue opened → Type detector identifies issue type
 2. Type set → Labeler adds appropriate labels
 3. Labels set → Assignment agent assigns to team
@@ -302,6 +313,7 @@ label_count=$(echo "$output" | grep -c "label:")
 5. Prioritized → Notification sent to team
 
 **Tests:**
+
 - Classification accuracy
 - Label consistency
 - Assignment rules followed
@@ -310,6 +322,7 @@ label_count=$(echo "$output" | grep -c "label:")
 ### Scenario 3: Release Preparation
 
 **Flow:**
+
 1. Release PR created → Version bumper updates versions
 2. Version updated → Changelog generator collects changes
 3. Changelog ready → Documentation updater syncs docs
@@ -317,6 +330,7 @@ label_count=$(echo "$output" | grep -c "label:")
 5. Notes ready → Approval workflow triggered
 
 **Tests:**
+
 - Version consistency
 - Changelog completeness
 - Documentation accuracy
@@ -324,12 +338,12 @@ label_count=$(echo "$output" | grep -c "label:")
 
 ## Test Coverage Goals
 
-| Area | Current | Target | Status |
-|------|---------|--------|--------|
-| Agent compatibility | 70% | 90% | 🟡 In Progress |
-| Workflow integration | 50% | 85% | 🟡 In Progress |
-| Conflict handling | 60% | 80% | 🟡 In Progress |
-| Error recovery | 55% | 75% | 🟡 In Progress |
+| Area                 | Current | Target | Status         |
+| -------------------- | ------- | ------ | -------------- |
+| Agent compatibility  | 70%     | 90%    | 🟡 In Progress |
+| Workflow integration | 50%     | 85%    | 🟡 In Progress |
+| Conflict handling    | 60%     | 80%    | 🟡 In Progress |
+| Error recovery       | 55%     | 75%    | 🟡 In Progress |
 
 ## Related Documentation
 
@@ -353,6 +367,7 @@ Integration tests run automatically:
 ### Test Failures
 
 **Agent conflicts:**
+
 ```bash
 # Review agent execution order
 # Check for shared state modifications
@@ -363,6 +378,7 @@ DEBUG=true bats -t tests/integration/
 ```
 
 **Race conditions:**
+
 ```bash
 # Add synchronization points
 wait_for_agent_completion
@@ -375,6 +391,7 @@ run timeout 60s test_scenario
 ```
 
 **State corruption:**
+
 ```bash
 # Verify cleanup between tests
 teardown() {
@@ -389,18 +406,21 @@ verify_test_isolation
 ### Common Issues
 
 **Agents interfere with each other:**
+
 - Ensure proper state isolation
 - Check for shared resource locks
 - Verify API mocking doesn't overlap
 - Review execution order dependencies
 
 **Timing issues:**
+
 - Add appropriate sleep/wait calls
 - Use condition-based waiting
 - Increase timeout values
 - Check for async operations
 
 **Complex scenarios fail:**
+
 - Break down into smaller tests
 - Add intermediate verifications
 - Log state at each step

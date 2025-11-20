@@ -57,7 +57,7 @@ The **GitHub MCP Server** (`@modelcontextprotocol/server-github`) is the **most 
 - ✅ **Read file contents** from any repository you have access to
 - ✅ **Search code** across repositories and organizations
 - ✅ **Create, update, and delete files** programmatically
-- ✅ **Search across repositories** with advanced filters  
+- ✅ **Search across repositories** with advanced filters
 - ✅ **Clone and fork repositories** programmatically
 
 ### **Issue & PR Management**
@@ -66,7 +66,7 @@ The **GitHub MCP Server** (`@modelcontextprotocol/server-github`) is the **most 
 - ✅ **Review and comment on pull requests**
 - ✅ **Assign issues and reviewers**
 - ✅ **Merge pull requests** with validation
-- ✅ **Automated code review** with intelligent suggestions  
+- ✅ **Automated code review** with intelligent suggestions
 - ✅ **Branch and tag management** for version control
 
 ### **🎯 GitHub Copilot Spaces** (Premium Feature)
@@ -75,7 +75,7 @@ The **GitHub MCP Server** (`@modelcontextprotocol/server-github`) is the **most 
 - ✅ **Share context across team members**
 - ✅ **Persistent conversation history**
 - ✅ **Organization-wide knowledge sharing**
-- ✅ **Real-time collaborative editing** with context sharing  
+- ✅ **Real-time collaborative editing** with context sharing
 - ✅ **AI-assisted project planning** and task management
 
 ### **Team Collaboration**
@@ -122,7 +122,7 @@ The **GitHub MCP Server** (`@modelcontextprotocol/server-github`) is the **most 
 @github spaces add context docs/development-guide.md
 @github spaces share conversation "Latest UI updates"
 
-# 👥 TEAM COLLABORATION  
+# 👥 TEAM COLLABORATION
 @github spaces invite @ashleyshaw
 @github spaces members list
 @github spaces history --limit 50
@@ -221,7 +221,7 @@ GitHub Copilot Spaces through MCP provides **unprecedented team collaboration**:
 @github list workflows --repo lightspeedwp/.github
 @github run workflow "CI/CD Pipeline" --branch main
 
-# Release management  
+# Release management
 @github list releases --repo lightspeedwp/ai-block-theme
 @github create release v1.2.0 --title "Block Theme Update" --body "Release notes..."
 ```

@@ -20,4 +20,4 @@ Describe your guidelines, coding standards, and project context for Google Gemin
 - Place at repository root as `GEMINI.md`
 - Use Markdown (no frontmatter required unless your tools support it)
 
-> _Add your Gemini-specific policies, coding patterns, and security expectations here._
+> *Add your Gemini-specific policies, coding patterns, and security expectations here.*

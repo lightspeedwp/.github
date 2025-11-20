@@ -1,22 +1,22 @@
 ---
-title: 'LightSpeed Reporting Directory'
-version: 'v1.0'
-last_updated: '2025-11-17'
-author: 'LightSpeed'
-maintainer: 'Ash Shaw'
-description: 'Central location for generated reports, metrics outputs, and analytics artifacts across LightSpeed repositories.'
-tags: ['reporting', 'metrics', 'analytics', 'artifacts', 'automation']
-file_type: 'documentation'
-category: 'infrastructure'
+title: "LightSpeed Reporting Directory"
+version: "v1.0"
+last_updated: "2025-11-17"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
+description: "Central location for generated reports, metrics outputs, and analytics artifacts across LightSpeed repositories."
+tags: ["reporting", "metrics", "analytics", "artifacts", "automation"]
+file_type: "documentation"
+category: "infrastructure"
 references:
-    - path: '../metrics/README.md'
-      description: 'Metrics collection configuration and documentation'
-    - path: '../metrics/metrics.config.json'
-      description: 'Master configuration for metrics collection'
-    - path: '../agents/metrics.agent.md'
-      description: 'Metrics agent specification'
-    - path: '../../docs/BRANDING.md'
-      description: 'Branding guidelines and automation'
+  - path: "../metrics/README.md"
+    description: "Metrics collection configuration and documentation"
+  - path: "../metrics/metrics.config.json"
+    description: "Master configuration for metrics collection"
+  - path: "../agents/metrics.agent.md"
+    description: "Metrics agent specification"
+  - path: "../../docs/BRANDING.md"
+    description: "Branding guidelines and automation"
 ---
 
 # LightSpeed Reporting Directory
@@ -107,7 +107,7 @@ All reports in this directory are committed to the repository and available via:
 ```javascript
 // Example: Fetch frontmatter metrics
 const response = await fetch(
-  'https://raw.githubusercontent.com/lightspeedwp/.github/develop/.github/reporting/frontmatter/frontmatter-metrics.json'
+  "https://raw.githubusercontent.com/lightspeedwp/.github/develop/.github/reporting/frontmatter/frontmatter-metrics.json",
 );
 const metrics = await response.json();
 console.log(`Coverage: ${metrics.summary.coveragePct}%`);
@@ -208,12 +208,12 @@ Use reports as quality gates:
 
 ## Related Resources
 
-| Resource | Purpose | Location |
-|----------|---------|----------|
-| **Metrics Scripts** | Collection logic and configuration | [.github/metrics/](../metrics/) |
-| **Metrics Agent Spec** | Future automated reporting agent | [.github/agents/metrics.agent.md](../agents/metrics.agent.md) |
-| **Branding Docs** | Branding metrics documentation | [docs/BRANDING.md](../../docs/BRANDING.md) |
-| **Automation Governance** | Reporting policies and standards | [.github/automation/AUTOMATION_GOVERNANCE.md](../automation/AUTOMATION_GOVERNANCE.md) |
+| Resource                  | Purpose                            | Location                                                                              |
+| ------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------- |
+| **Metrics Scripts**       | Collection logic and configuration | [.github/metrics/](../metrics/)                                                       |
+| **Metrics Agent Spec**    | Future automated reporting agent   | [.github/agents/metrics.agent.md](../agents/metrics.agent.md)                         |
+| **Branding Docs**         | Branding metrics documentation     | [docs/BRANDING.md](../../docs/BRANDING.md)                                            |
+| **Automation Governance** | Reporting policies and standards   | [.github/automation/AUTOMATION_GOVERNANCE.md](../automation/AUTOMATION_GOVERNANCE.md) |
 
 ## Contributing
 

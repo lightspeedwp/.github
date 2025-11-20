@@ -1,6 +1,6 @@
 ---
-mode: 'agent'
-description: 'Prompt for creating an Epic Product Requirements Document (PRD) for a new epic. This PRD will be used as input for generating a technical architecture specification.'
+mode: "agent"
+description: "Prompt for creating an Epic Product Requirements Document (PRD) for a new epic. This PRD will be used as input for generating a technical architecture specification."
 ---
 
 # Epic Product Requirements Document (PRD) Prompt
@@ -46,7 +46,7 @@ The output should be a complete Epic PRD in Markdown format, saved to `/docs/way
 
 #### 7. Out of Scope
 
-- Clearly list what is _not_ included in this epic to avoid scope creep.
+- Clearly list what is *not* included in this epic to avoid scope creep.
 
 #### 8. Business Value
 

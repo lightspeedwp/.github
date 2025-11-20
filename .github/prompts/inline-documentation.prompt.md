@@ -22,7 +22,7 @@ Add proper inline documentation to the provided code following these guidelines:
 
 ### For JavaScript Code
 
-- Add file headers with package information and description  
+- Add file headers with package information and description
 - Document all functions with JSDoc format including @since, @param, @return tags
 - Document React components with props and return types
 - Include WordPress block editor specific documentation
@@ -33,7 +33,7 @@ Add proper inline documentation to the provided code following these guidelines:
 
 1. **@since tag** - Always include the project/plugin/theme version (or "Unreleased" during development)
 2. **@param tags** - Document all parameters with type and description
-3. **@return tags** - Document return values with type and description  
+3. **@return tags** - Document return values with type and description
 4. **Descriptions** - Write clear, concise explanations of functionality
 5. **WordPress hooks** - Properly document actions and filters
 6. **Security** - Note sanitization and escaping requirements where relevant

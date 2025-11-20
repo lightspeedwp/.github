@@ -21,10 +21,12 @@ Hi @username,
 Thank you for reporting this issue! This appears to be a duplicate of #{existing-issue-number} ([see here](link-to-issue)).
 
 **What happens next:**
+
 - We’ll track updates and resolution in the linked issue.
 - Please follow or comment on that issue for progress.
 
 **Why we consolidate:**
+
 - Avoids splitting discussion and fixes.
 - Helps us prioritize and resolve efficiently.
 

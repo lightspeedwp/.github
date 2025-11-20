@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-description: 'Guidelines for generating SQL statements and stored procedures'
-applyTo: '**/*.sql'
+description: "Guidelines for generating SQL statements and stored procedures"
+applyTo: "**/*.sql"
 ---
 
 # SQL Development
@@ -33,7 +33,7 @@ applyTo: '**/*.sql'
 
 ## SQL Query Structure
 
-- use explicit column names in SELECT statements instead of SELECT *
+- use explicit column names in SELECT statements instead of SELECT \*
 - qualify column names with table name or alias when using multiple tables
 - limit the use of subqueries when joins can be used instead
 - include LIMIT/TOP clauses to restrict result sets
@@ -42,7 +42,7 @@ applyTo: '**/*.sql'
 
 ## Stored Procedure Naming Conventions
 
-- prefix stored procedure names with 'usp_'
+- prefix stored procedure names with 'usp\_'
 - use PascalCase for stored procedure names
 - use descriptive names that indicate purpose (e.g., usp_GetCustomerOrders)
 - include plural noun when returning multiple records (e.g., usp_GetProducts)
@@ -63,7 +63,7 @@ applyTo: '**/*.sql'
 - return standardized error codes/messages
 - return result sets with consistent column order
 - use OUTPUT parameters for returning status information
-- prefix temporary tables with 'tmp_'
+- prefix temporary tables with 'tmp\_'
 
 ## SQL Security Best Practices
 

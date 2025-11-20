@@ -40,13 +40,13 @@ const { registerBlockType } = wp.blocks;
 const { InnerBlocks } = wp.blockEditor;
 
 const BLOCKS_TEMPLATE = [
-  ['core/image', {}],
-  ['core/paragraph', { placeholder: 'Image Details' }],
+  ["core/image", {}],
+  ["core/paragraph", { placeholder: "Image Details" }],
 ];
 
-registerBlockType('myplugin/template', {
-  title: 'My Template Block',
-  category: 'widgets',
+registerBlockType("myplugin/template", {
+  title: "My Template Block",
+  category: "widgets",
   edit: (props) => {
     return el(InnerBlocks, {
       template: BLOCKS_TEMPLATE,
@@ -113,7 +113,7 @@ function myplugin_register_template() {
 add_action( 'init', 'myplugin_register_template' );
 ```
 
-_Options:_
+*Options:*
 
 - `contentOnly` — prevents all operations. Additionally, the block types that don't have content are hidden from the list view and can't gain focus within the block list. Unlike the other lock types, this is not overridable by children.
 - `all` — prevents all operations. It is not possible to insert new blocks, move existing blocks, or delete blocks.
@@ -135,7 +135,7 @@ attributes: {
 }
 ```
 
-_Options:_
+*Options:*
 
 - `remove` — Locks the ability of a block from being removed.
 - `move` — Locks the ability of a block from being moved.

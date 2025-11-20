@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-applyTo: '**/Dockerfile,**/Dockerfile.*,**/*.dockerfile,**/docker-compose*.yml,**/docker-compose*.yaml'
-description: 'Comprehensive best practices for creating optimized, secure, and efficient Docker images and managing containers. Covers multi-stage builds, image layer optimization, security scanning, and runtime best practices.'
+applyTo: "**/Dockerfile,**/Dockerfile.*,**/*.dockerfile,**/docker-compose*.yml,**/docker-compose*.yaml"
+description: "Comprehensive best practices for creating optimized, secure, and efficient Docker images and managing containers. Covers multi-stage builds, image layer optimization, security scanning, and runtime best practices."
 ---
 
 # Containerization & Docker Best Practices
@@ -536,10 +536,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 512M
         reservations:
-          cpus: '0.25'
+          cpus: "0.25"
           memory: 256M
 ```
 
@@ -560,10 +560,10 @@ services:
 
 ```javascript
 // Application logging
-const winston = require('winston');
+const winston = require("winston");
 const logger = winston.createLogger({
   format: winston.format.json(),
-  transports: [new winston.transports.Console()]
+  transports: [new winston.transports.Console()],
 });
 ```
 
@@ -660,15 +660,15 @@ spec:
         app: myapp
     spec:
       containers:
-      - name: myapp
-        image: myapp:latest
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        - name: myapp
+          image: myapp:latest
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
 ```
 
 ## Dockerfile Review Checklist

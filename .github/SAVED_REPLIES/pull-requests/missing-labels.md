@@ -24,7 +24,8 @@ This PR is missing one or more required labels for automation and release:
 - Exactly one `priority:*` (e.g. `priority:normal`)
 - Exactly one `release:*` (e.g. `release:patch`, `release:minor`, or `release:major`)
 
-**Action:**  
+**Action:**
+
 - Please add the missing labels via the sidebar to unblock CI and release automation.
 - See our [PR Label Reference](../../PR_LABELS.md) for label meanings.
 

@@ -6,7 +6,7 @@ A theme's theme.json file is one of the best ways to curate the Editor experienc
 
 Since theme.json acts as a configuration tool, there are numerous ways to define at a granular level what options are available. This section will use duotone as an example since it showcases a feature that cuts across a few blocks and allows for varying levels of access.
 
-_Duotone with Core options and customization available for each image related block:_
+*Duotone with Core options and customization available for each image related block:*
 
 ```json
 {
@@ -20,7 +20,7 @@ _Duotone with Core options and customization available for each image related bl
 }
 ```
 
-_Duotone with theme defined color options, Core options, and customization available for each image related block:_
+*Duotone with theme defined color options, Core options, and customization available for each image related block:*
 
 ```json
 {
@@ -49,7 +49,7 @@ _Duotone with theme defined color options, Core options, and customization avail
 }
 ```
 
-_Duotone with defined default options and all customization available for the Post Featured Image block:_
+*Duotone with defined default options and all customization available for the Post Featured Image block:*
 
 ```json
 {
@@ -83,7 +83,7 @@ _Duotone with defined default options and all customization available for the Po
 }
 ```
 
-_Duotone with only defined default options and core options available for the Post Featured Image block (no customization):_
+*Duotone with only defined default options and core options available for the Post Featured Image block (no customization):*
 
 ```json
 {

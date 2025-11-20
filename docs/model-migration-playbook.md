@@ -17,11 +17,11 @@ Concise process for changing/adding LLMs (e.g., Gemini → Claude → ChatGPT) a
 
 ## Steps
 
-1) Propose change and scope impact.
-2) Update affected prompts/chatmodes with test cases.
-3) Run agent tests; compare outputs against baselines.
-4) Update docs (`AGENTS.md`, model guides); seek sign‑off.
-5) Rollout on `develop`; monitor; then promote to `main`.
+1. Propose change and scope impact.
+2. Update affected prompts/chatmodes with test cases.
+3. Run agent tests; compare outputs against baselines.
+4. Update docs (`AGENTS.md`, model guides); seek sign‑off.
+5. Rollout on `develop`; monitor; then promote to `main`.
 
 ## Sign‑off
 

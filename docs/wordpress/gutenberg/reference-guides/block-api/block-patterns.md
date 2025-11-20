@@ -64,7 +64,7 @@ The following code sample unregisters the block pattern named `my-plugin/my-awes
 unregister_block_pattern( 'my-plugin/my-awesome-pattern' );
 ```
 
-_Note:_
+*Note:*
 
 `unregister_block_pattern()` should be called from a handler attached to the init hook.
 
@@ -100,7 +100,7 @@ register_block_pattern_category(
 );
 ```
 
-_Note:_
+*Note:*
 
 `register_block_pattern_category()` should be called from a handler attached to the init hook.
 
@@ -126,7 +126,7 @@ The following code sample unregisters the category named `hero`:
 unregister_block_pattern_category( 'hero' );
 ```
 
-_Note:_
+*Note:*
 
 `unregister_block_pattern_category()` should be called from a handler attached to the init hook.
 

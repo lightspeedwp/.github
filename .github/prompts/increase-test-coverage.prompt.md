@@ -3,6 +3,7 @@ description: "Expand test coverage focusing on risk and critical paths."
 mode: "ask"
 model: "GPT-4"
 ---
+
 Analyse the current test suite and propose a plan to increase coverage. Your response should:
 
 1. Identify the most critical or risky areas of the codebase that lack sufficient tests.

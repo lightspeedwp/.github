@@ -1,8 +1,8 @@
 ---
-mode: 'agent'
-tools: ['changes', 'codebase', 'edit/editFiles', 'problems']
-description: 'PostgreSQL-specific code review assistant focusing on PostgreSQL best practices, anti-patterns, and unique quality standards. Covers JSONB operations, array usage, custom types, schema design, function optimization, and PostgreSQL-exclusive security features like Row Level Security (RLS).'
-tested_with: 'GitHub Copilot Chat (GPT-4o) - Validated July 20, 2025'
+mode: "agent"
+tools: ["changes", "codebase", "edit/editFiles", "problems"]
+description: "PostgreSQL-specific code review assistant focusing on PostgreSQL best practices, anti-patterns, and unique quality standards. Covers JSONB operations, array usage, custom types, schema design, function optimization, and PostgreSQL-exclusive security features like Row Level Security (RLS)."
+tested_with: "GitHub Copilot Chat (GPT-4o) - Validated July 20, 2025"
 ---
 
 # PostgreSQL Code Review Assistant
@@ -25,7 +25,7 @@ SELECT * FROM orders WHERE data @> '{"status": "shipped"}';
 UPDATE orders SET data = data || '{"shipping":{"tracking":{"number":"123"}}}';
 
 -- ✅ GOOD: Structured JSONB with validation
-ALTER TABLE orders ADD CONSTRAINT valid_status 
+ALTER TABLE orders ADD CONSTRAINT valid_status
 CHECK (data->>'status' IN ('pending', 'shipped', 'delivered'));
 ```
 

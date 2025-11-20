@@ -45,4 +45,4 @@ Start with `.github/instructions/README.md` or [open a Discussion](https://githu
 
 ---
 
-_Maintained with ❤️ by the LightSpeedWP Documentation and Automation Team_
+*Maintained with ❤️ by the LightSpeedWP Documentation and Automation Team*

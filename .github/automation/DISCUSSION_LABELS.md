@@ -46,15 +46,15 @@ See [labels.yml](./labels.yml) for full canonical definitions and colour mapping
 
 ## Example Category Mapping
 
-| Category                | Label                    | Description                                           |
-|-------------------------|--------------------------|-------------------------------------------------------|
-| Announcements           | discussion:announcement  | Official news, releases, and updates                  |
-| Show & Tell             | discussion:showcase      | Share your projects and user stories                  |
-| Community / General     | discussion:community     | Meet the community, open chat, intros                 |
-| Ideas & Feedback        | discussion:feedback      | Product ideas, feature requests, suggestions          |
-| Product Support         | discussion:support       | Help with LSX Design, Tour Operator, etc.             |
-| Sponsorship & Funding   | discussion:sponsorship   | Funding, GitHub Sponsors, and financial support       |
-| Partnerships            | discussion:partnership   | Business partnerships and collaboration               |
+| Category              | Label                   | Description                                     |
+| --------------------- | ----------------------- | ----------------------------------------------- |
+| Announcements         | discussion:announcement | Official news, releases, and updates            |
+| Show & Tell           | discussion:showcase     | Share your projects and user stories            |
+| Community / General   | discussion:community    | Meet the community, open chat, intros           |
+| Ideas & Feedback      | discussion:feedback     | Product ideas, feature requests, suggestions    |
+| Product Support       | discussion:support      | Help with LSX Design, Tour Operator, etc.       |
+| Sponsorship & Funding | discussion:sponsorship  | Funding, GitHub Sponsors, and financial support |
+| Partnerships          | discussion:partnership  | Business partnerships and collaboration         |
 
 ## Automation Summary
 

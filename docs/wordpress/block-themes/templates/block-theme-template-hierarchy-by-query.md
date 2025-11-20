@@ -151,31 +151,31 @@ Recommended template parts:
 Generic archive (post type archives):
 
 - 1. templates/archive-{post_type}.html
-- 2. templates/archive.html
-- 3. templates/index.html
+- 1. templates/archive.html
+- 1. templates/index.html
 
 Category archive:
 
 - 1. templates/category-{slug}.html
-- 2. templates/category-{id}.html
-- 3. templates/category.html
-- 4. templates/archive.html
-- 5. templates/index.html
+- 1. templates/category-{id}.html
+- 1. templates/category.html
+- 1. templates/archive.html
+- 1. templates/index.html
 
 Tag archive:
 
 - 1. templates/tag-{slug}.html
-- 2. templates/tag.html
-- 3. templates/archive.html
-- 4. templates/index.html
+- 1. templates/tag.html
+- 1. templates/archive.html
+- 1. templates/index.html
 
 Custom taxonomy:
 
 - 1. templates/taxonomy-{taxonomy}-{term}.html
-- 2. templates/taxonomy-{taxonomy}.html
-- 3. templates/taxonomy.html
-- 4. templates/archive.html
-- 5. templates/index.html
+- 1. templates/taxonomy-{taxonomy}.html
+- 1. templates/taxonomy.html
+- 1. templates/archive.html
+- 1. templates/index.html
 
 Notes: Use templates/archive-{post_type}.html for CPT archives when has_archive is registered. Term- and taxonomy-specific templates allow highly tailored layouts for particular taxonomies or terms.
 
@@ -302,23 +302,23 @@ Use this mapping as your canonical reference for implementing template files:
 
 Example (in theme.json):
 {
-  "templateParts": [
-    { "slug": "skip-links", "title": "Skip Links" },
-    { "slug": "header", "title": "Header" },
-    { "slug": "hero", "title": "Hero" },
-    { "slug": "footer", "title": "Footer" },
-    { "slug": "post-meta", "title": "Post Meta" },
-    { "slug": "author-card", "title": "Author Card" },
-    { "slug": "comments", "title": "Comments" },
-    { "slug": "loop-default", "title": "Loop Default" },
-    { "slug": "post-card", "title": "Post Card" },
-    { "slug": "share-actions", "title": "Share Actions" },
-    { "slug": "breadcrumbs", "title": "Breadcrumbs" },
-    { "slug": "site-notice", "title": "Site Notice" },
-    { "slug": "mobile-nav-panel", "title": "Mobile Nav Panel" },
-    { "slug": "search-panel", "title": "Search Panel" },
-    { "slug": "sidebar", "title": "Sidebar" }
-  ]
+"templateParts": [
+{ "slug": "skip-links", "title": "Skip Links" },
+{ "slug": "header", "title": "Header" },
+{ "slug": "hero", "title": "Hero" },
+{ "slug": "footer", "title": "Footer" },
+{ "slug": "post-meta", "title": "Post Meta" },
+{ "slug": "author-card", "title": "Author Card" },
+{ "slug": "comments", "title": "Comments" },
+{ "slug": "loop-default", "title": "Loop Default" },
+{ "slug": "post-card", "title": "Post Card" },
+{ "slug": "share-actions", "title": "Share Actions" },
+{ "slug": "breadcrumbs", "title": "Breadcrumbs" },
+{ "slug": "site-notice", "title": "Site Notice" },
+{ "slug": "mobile-nav-panel", "title": "Mobile Nav Panel" },
+{ "slug": "search-panel", "title": "Search Panel" },
+{ "slug": "sidebar", "title": "Sidebar" }
+]
 }
 
 Note: theme.json registration improves discoverability inside the Site Editor but templates will still load parts from parts/ even if not registered.

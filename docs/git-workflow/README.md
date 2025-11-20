@@ -1,11 +1,11 @@
 ---
 file_type: "documentation"
-title: 'Git Workflow Documentation'
-description: 'Git workflow guides, branching strategies, and version control best practices for LightSpeed'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['git', 'workflow', 'branching', 'version-control', 'agile']
+title: "Git Workflow Documentation"
+description: "Git workflow guides, branching strategies, and version control best practices for LightSpeed"
+version: "1.0"
+last_updated: "2025-11-12"
+maintainer: "LightSpeed Team"
+tags: ["git", "workflow", "branching", "version-control", "agile"]
 ---
 
 # Git Workflow Documentation
@@ -88,14 +88,14 @@ git checkout -b sync/upstream-feature upstream/feature-branch
 
 ## Branch Naming Conventions
 
-| Prefix | Purpose | Example |
-|--------|---------|---------|
-| `feat/` | New features | `feat/cart-checkout-flow` |
-| `fix/` | Bug fixes | `fix/wp6-6-compatibility` |
-| `hotfix/` | Urgent production fixes | `hotfix/critical-security-patch` |
-| `docs/` | Documentation updates | `docs/readme-installation` |
-| `chore/` | Maintenance tasks | `chore/deps-update-2025` |
-| `refactor/` | Code refactoring | `refactor/user-service-cleanup` |
+| Prefix      | Purpose                 | Example                          |
+| ----------- | ----------------------- | -------------------------------- |
+| `feat/`     | New features            | `feat/cart-checkout-flow`        |
+| `fix/`      | Bug fixes               | `fix/wp6-6-compatibility`        |
+| `hotfix/`   | Urgent production fixes | `hotfix/critical-security-patch` |
+| `docs/`     | Documentation updates   | `docs/readme-installation`       |
+| `chore/`    | Maintenance tasks       | `chore/deps-update-2025`         |
+| `refactor/` | Code refactoring        | `refactor/user-service-cleanup`  |
 
 See [git-org-wide-branching-strategy.md](./git-org-wide-branching-strategy.md) for complete conventions.
 

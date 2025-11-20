@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-description: 'Documentation and content creation standards'
-applyTo: '**/*.md'
+description: "Documentation and content creation standards"
+applyTo: "**/*.md"
 ---
 
 ## Markdown Content Rules
@@ -36,7 +36,6 @@ Follow these guidelines for formatting and structuring your markdown content:
 Ensure compliance with the following validation requirements:
 
 - **Front Matter**: Include the following fields in the YAML front matter:
-
   - `post_title`: The title of the post.
   - `author1`: The primary author of the post.
   - `post_slug`: The URL slug for the post.

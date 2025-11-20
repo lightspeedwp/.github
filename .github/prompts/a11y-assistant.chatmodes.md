@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
-name: 'A11y Assistant'
-description: 'Performs targeted accessibility reviews and fixes.'
+mode: "agent"
+name: "A11y Assistant"
+description: "Performs targeted accessibility reviews and fixes."
 ---
 
 ## Prompts

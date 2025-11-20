@@ -46,7 +46,7 @@ This document outlines the project architecture, major components, data flows, a
 
 ### 2. Block & Pattern Data
 
-- **Theme JSON:**  
+- **Theme JSON:**
   - Stores global styles (colors, typography), settings (spacing, layout), and design tokens.
   - Enables consistency between editor and frontend; supports block-level style overrides.
 
@@ -54,7 +54,7 @@ This document outlines the project architecture, major components, data flows, a
   - Defined as PHP arrays, YAML, or Markdown, and registered in `patterns/`.
   - Used for page sections, CTAs, hero blocks, testimonial grids, etc.
 
-- **Block Attributes:**  
+- **Block Attributes:**
   - Types, defaults, allowed values, serialization for each block property. Validated and sanitized in JS and PHP.
   - Enables dynamic content (e.g., query blocks, dynamic images).
 
@@ -64,14 +64,14 @@ This document outlines the project architecture, major components, data flows, a
 
 ### 3. Content & Media Flow
 
-- **Media Library:**  
+- **Media Library:**
   - Media files stored in the WP uploads directory, referenced via attachment IDs/URLs.
   - Block attributes and custom fields link media to blocks/CPTs. Media metadata (alt text, captions, sizes) for accessibility/responsive images.
 
-- **Relationships:**  
-  - Post relationships (ACF, post_parent, post__in, or custom tables) for relating entries (e.g., case studies to products).
+- **Relationships:**
+  - Post relationships (ACF, post_parent, post\_\_in, or custom tables) for relating entries (e.g., case studies to products).
 
-- **Internationalization:**  
+- **Internationalization:**
   - Use WPML, Polylang, or custom tables for multi-language support.
   - All user-facing text, block content, and metadata must be translatable (`__()`, `esc_html__()`).
   - Store translations for block data/meta where applicable.
@@ -115,15 +115,15 @@ This document outlines the project architecture, major components, data flows, a
 
 ## Automation Architecture
 
-- **Labeling, status, type, and standardization:**  
+- **Labeling, status, type, and standardization:**
   - Fully managed by [labeling.agent.js](../.github/agents/labeling.agent.js) and [labeling.yml](../.github/workflows/labeling.yml).
   - All logic is config-driven: [labels.yml](../.github/labels.yml), [labeler.yml](../.github/labeler.yml), [issue-types.yml](../.github/issue-types.yml).
   - No legacy split agents or redundant workflows.
 
-- **Release automation:**  
+- **Release automation:**
   - Enforced by a single agent, with changelog, version bump, tagging, and release notes.
 
-- **Other agents:**  
+- **Other agents:**
   - Reviewer, Planner, Project Meta Sync, and CI are each driven by a single agent and workflow.
 
 ---
@@ -195,4 +195,4 @@ flowchart TD
 
 ---
 
-_This architecture section should be updated as the project adds new data models, automation, agents, services, or integration patterns._
+*This architecture section should be updated as the project adds new data models, automation, agents, services, or integration patterns.*

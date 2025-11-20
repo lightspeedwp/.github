@@ -13,13 +13,13 @@ This index documents the frontmatter schema consolidation project and related co
 
 ## 🎯 Quick Links
 
-| Document | Purpose | Status |
-|----------|---------|--------|
-| [CONSOLIDATION_STATUS_REPORT.md](./CONSOLIDATION_STATUS_REPORT.md) | Overall completion report | ✅ Complete |
-| [SCHEMA_CONSOLIDATION_SUMMARY.md](./SCHEMA_CONSOLIDATION_SUMMARY.md) | Detailed consolidation summary | ✅ Complete |
-| [schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json) | Canonical schema (new location) | ✅ Active |
-| [schemas/frontmatter/README.md](./schemas/frontmatter/README.md) | Validation documentation | ✅ Updated |
-| [schemas/frontmatter/MIGRATION.md](./schemas/frontmatter/MIGRATION.md) | Migration notes (historical) | ✅ Archived |
+| Document                                                               | Purpose                         | Status      |
+| ---------------------------------------------------------------------- | ------------------------------- | ----------- |
+| [CONSOLIDATION_STATUS_REPORT.md](./CONSOLIDATION_STATUS_REPORT.md)     | Overall completion report       | ✅ Complete |
+| [SCHEMA_CONSOLIDATION_SUMMARY.md](./SCHEMA_CONSOLIDATION_SUMMARY.md)   | Detailed consolidation summary  | ✅ Complete |
+| [schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json)   | Canonical schema (new location) | ✅ Active   |
+| [schemas/frontmatter/README.md](./schemas/frontmatter/README.md)       | Validation documentation        | ✅ Updated  |
+| [schemas/frontmatter/MIGRATION.md](./schemas/frontmatter/MIGRATION.md) | Migration notes (historical)    | ✅ Archived |
 
 ---
 
@@ -98,13 +98,13 @@ This index documents the frontmatter schema consolidation project and related co
 
 ## 📊 Impact Summary
 
-| Area | Impact | Status |
-|------|--------|--------|
-| Repository Organization | ✅ Improved | Complete |
-| Code Quality | ✅ Maintained | Complete |
-| Documentation | ✅ Enhanced | Complete |
-| Functionality | ✅ Unchanged | Complete |
-| Breaking Changes | ❌ None | Complete |
+| Area                    | Impact        | Status   |
+| ----------------------- | ------------- | -------- |
+| Repository Organization | ✅ Improved   | Complete |
+| Code Quality            | ✅ Maintained | Complete |
+| Documentation           | ✅ Enhanced   | Complete |
+| Functionality           | ✅ Unchanged  | Complete |
+| Breaking Changes        | ❌ None       | Complete |
 
 ---
 
@@ -120,11 +120,11 @@ This index documents the frontmatter schema consolidation project and related co
 
 ## 📝 Status Timeline
 
-| Date | Phase | Status |
-|------|-------|--------|
-| Nov 20, 2025 | Analysis | ✅ Complete |
+| Date         | Phase         | Status      |
+| ------------ | ------------- | ----------- |
+| Nov 20, 2025 | Analysis      | ✅ Complete |
 | Nov 20, 2025 | Consolidation | ✅ Complete |
-| Nov 20, 2025 | Verification | ✅ Complete |
+| Nov 20, 2025 | Verification  | ✅ Complete |
 | Nov 20, 2025 | Documentation | ✅ Complete |
 
 ---

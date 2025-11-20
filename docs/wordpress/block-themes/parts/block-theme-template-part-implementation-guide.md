@@ -33,26 +33,26 @@ This implementation guide consolidates the canonical list of template parts, the
 
 Example registration snippet for theme.json:
 {
-  "templateParts": [
-    { "slug": "skip-links", "title": "Skip Links" },
-    { "slug": "header", "title": "Header" },
-    { "slug": "hero", "title": "Hero" },
-    { "slug": "footer", "title": "Footer" },
-    { "slug": "site-notice", "title": "Site Notice" },
-    { "slug": "mobile-nav-panel", "title": "Mobile Nav Panel" },
-    { "slug": "post-meta", "title": "Post Meta" },
-    { "slug": "author-card", "title": "Author Card" },
-    { "slug": "comments", "title": "Comments" },
-    { "slug": "breadcrumbs", "title": "Breadcrumbs" },
-    { "slug": "cta-banner", "title": "CTA Banner" },
-    { "slug": "search-panel", "title": "Search Panel" },
-    { "slug": "language-switcher", "title": "Language Switcher" },
-    { "slug": "currency-switcher", "title": "Currency Switcher" },
-    { "slug": "post-card", "title": "Post Card" },
-    { "slug": "share-actions", "title": "Share Actions" },
-    { "slug": "loop-default", "title": "Loop Default" },
-    { "slug": "sidebar", "title": "Sidebar" }
-  ]
+"templateParts": [
+{ "slug": "skip-links", "title": "Skip Links" },
+{ "slug": "header", "title": "Header" },
+{ "slug": "hero", "title": "Hero" },
+{ "slug": "footer", "title": "Footer" },
+{ "slug": "site-notice", "title": "Site Notice" },
+{ "slug": "mobile-nav-panel", "title": "Mobile Nav Panel" },
+{ "slug": "post-meta", "title": "Post Meta" },
+{ "slug": "author-card", "title": "Author Card" },
+{ "slug": "comments", "title": "Comments" },
+{ "slug": "breadcrumbs", "title": "Breadcrumbs" },
+{ "slug": "cta-banner", "title": "CTA Banner" },
+{ "slug": "search-panel", "title": "Search Panel" },
+{ "slug": "language-switcher", "title": "Language Switcher" },
+{ "slug": "currency-switcher", "title": "Currency Switcher" },
+{ "slug": "post-card", "title": "Post Card" },
+{ "slug": "share-actions", "title": "Share Actions" },
+{ "slug": "loop-default", "title": "Loop Default" },
+{ "slug": "sidebar", "title": "Sidebar" }
+]
 }
 
 ---
@@ -119,9 +119,9 @@ Example registration snippet for theme.json:
 
 ## Next steps
 
-1. Create parts/*.html files for the canonical list above as pure block markup.
+1. Create parts/\*.html files for the canonical list above as pure block markup.
 2. Create patterns/ for hero variants, author-card variants and post-card variations.
 3. Register template parts in theme.json as shown.
 4. Add small JS modules in assets/ and enqueue via functions.php using .asset.php manifests.
 
-If helpful, I can now generate the minimal parts/*.html files and a patterns/ set based on this canonical list.
+If helpful, I can now generate the minimal parts/\*.html files and a patterns/ set based on this canonical list.

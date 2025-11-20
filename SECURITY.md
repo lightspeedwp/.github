@@ -31,6 +31,7 @@ Description: Cross-site scripting (XSS) vulnerability in search form due to unsa
 Impact: High - Allows attackers to inject malicious scripts
 
 Steps to Reproduce:
+
 1. Navigate to /search
 2. Enter: <script>alert('XSS')</script>
 3. Observe script execution in search results
@@ -46,12 +47,12 @@ Contact: security-researcher@example.com
 
 We take security seriously and commit to the following response times:
 
-| Severity | Initial Response | Triage Complete | Fix Target | Public Disclosure |
-|----------|------------------|-----------------|------------|-------------------|
-| **Critical** | 4 hours | 24 hours | 48 hours | 7 days post-fix |
-| **High** | 1 business day | 3 business days | 7 days | 14 days post-fix |
-| **Medium** | 3 business days | 5 business days | 14 days | 30 days post-fix |
-| **Low** | 5 business days | 10 business days | 30 days | 60 days post-fix |
+| Severity     | Initial Response | Triage Complete  | Fix Target | Public Disclosure |
+| ------------ | ---------------- | ---------------- | ---------- | ----------------- |
+| **Critical** | 4 hours          | 24 hours         | 48 hours   | 7 days post-fix   |
+| **High**     | 1 business day   | 3 business days  | 7 days     | 14 days post-fix  |
+| **Medium**   | 3 business days  | 5 business days  | 14 days    | 30 days post-fix  |
+| **Low**      | 5 business days  | 10 business days | 30 days    | 60 days post-fix  |
 
 **Severity Definitions:**
 

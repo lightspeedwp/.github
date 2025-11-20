@@ -5,7 +5,7 @@ title: "[AI Ops] <Brief summary>"
 labels: [type:ai-ops, status:needs-triage, area:ai]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 type: ai-ops
 references:
   - ../CONTRIBUTING.md

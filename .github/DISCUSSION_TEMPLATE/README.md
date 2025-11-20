@@ -75,7 +75,7 @@ Discussion templates work with:
 
 ---
 
-_This directory supports the LightSpeedWP community engagement strategy. See [Community Guidelines](../SAVED_REPLIES/community/guidelines.md) for interaction standards._
+*This directory supports the LightSpeedWP community engagement strategy. See [Community Guidelines](../SAVED_REPLIES/community/guidelines.md) for interaction standards.*
 
 ---
 

@@ -2,7 +2,7 @@
 
 When the editor is interacting with blocks, these are stored in memory as data structures comprising a few basic properties and attributes. Upon saving a working post we serialize these data structures into a specific HTML structure and save the resultant string into the `post_content` property of the post in the WordPress database. When we load that post back into the editor we have to make the reverse transformation to build those data structures from the serialized format in HTML.
 
-The process of loading the serialized HTML into the editor is performed by the _block parser_. The formal specification for this transformation is encoded in the parsing expression grammar (PEG) inside the `@wordpress/block-serialization-spec-parser` package. The editor provides a default parser implementation of this grammar but there may be various reasons for replacing that implementation with a custom implementation. We can inject our own custom parser implementation through the appropriate filter.
+The process of loading the serialized HTML into the editor is performed by the *block parser*. The formal specification for this transformation is encoded in the parsing expression grammar (PEG) inside the `@wordpress/block-serialization-spec-parser` package. The editor provides a default parser implementation of this grammar but there may be various reasons for replacing that implementation with a custom implementation. We can inject our own custom parser implementation through the appropriate filter.
 
 ## Server-side parser
 
@@ -16,7 +16,7 @@ The editor uses the client-side parser while interactively working in a post. Th
 
 To replace the server-side parser, use the `block_parser_class` filter. The filter transforms the string class name of a parser class. This class is expected to expose a `parse` method.
 
-_Example:_
+*Example:*
 
 ```php
 class EmptyParser {

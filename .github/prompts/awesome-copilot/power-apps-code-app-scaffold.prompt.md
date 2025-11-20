@@ -1,7 +1,7 @@
 ---
-description: 'Scaffold a complete Power Apps Code App project with PAC CLI setup, SDK integration, and connector configuration'
-mode: 'agent'
-tools: ['changes', 'codebase', 'edit/editFiles', 'problems', 'search']
+description: "Scaffold a complete Power Apps Code App project with PAC CLI setup, SDK integration, and connector configuration"
+mode: "agent"
+tools: ["changes", "codebase", "edit/editFiles", "problems", "search"]
 model: GPT-4.1
 ---
 
@@ -130,7 +130,9 @@ Include working examples for Office 365 Users:
 
 ```typescript
 // Example: Get current user profile
-const profile = await Office365UsersService.MyProfile_V2("id,displayName,jobTitle,userPrincipalName");
+const profile = await Office365UsersService.MyProfile_V2(
+  "id,displayName,jobTitle,userPrincipalName",
+);
 
 // Example: Get user photo
 const photoData = await Office365UsersService.UserPhoto_V2(profile.data.id);

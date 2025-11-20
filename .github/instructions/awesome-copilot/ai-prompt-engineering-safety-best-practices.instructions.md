@@ -1,6 +1,6 @@
 ---
 file_type: "instructions"
-applyTo: ['*']
+applyTo: ["*"]
 description: "Comprehensive best practices for AI prompt engineering, safety frameworks, bias mitigation, and responsible AI usage for Copilot and LLMs."
 ---
 
@@ -176,12 +176,12 @@ You are a senior security architect with 15 years of experience in cybersecurity
 
 **When to Use Each Pattern:**
 
-| Pattern | Best For | When to Use |
-|---------|----------|-------------|
-| Zero-Shot | Simple, clear tasks | Quick answers, well-defined problems |
-| Few-Shot | Complex tasks, specific formats | When examples help clarify expectations |
-| Chain-of-Thought | Problem-solving, reasoning | Complex problems requiring step-by-step thinking |
-| Role Prompting | Specialized knowledge | When expertise or perspective matters |
+| Pattern          | Best For                        | When to Use                                      |
+| ---------------- | ------------------------------- | ------------------------------------------------ |
+| Zero-Shot        | Simple, clear tasks             | Quick answers, well-defined problems             |
+| Few-Shot         | Complex tasks, specific formats | When examples help clarify expectations          |
+| Chain-of-Thought | Problem-solving, reasoning      | Complex problems requiring step-by-step thinking |
+| Role Prompting   | Specialized knowledge           | When expertise or perspective matters            |
 
 ### Anti-patterns
 
@@ -394,8 +394,8 @@ Write a story about a healthcare professional. Consider diverse backgrounds and 
 // Example moderation check
 const moderationResult = await contentModerator.check(output);
 if (moderationResult.flagged) {
-    // Handle flagged content
-    return generateSafeAlternative();
+  // Handle flagged content
+  return generateSafeAlternative();
 }
 ```
 
@@ -549,11 +549,11 @@ const prompt = `Translate this text: ${sanitizedInput}`;
 
 ```javascript
 function sanitizeInput(input) {
-    // Remove script tags and dangerous content
-    return input
-        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-        .replace(/javascript:/gi, '')
-        .trim();
+  // Remove script tags and dangerous content
+  return input
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    .replace(/javascript:/gi, "")
+    .trim();
 }
 ```
 
@@ -612,16 +612,16 @@ AI: "I understand you've shared sensitive information. Here are general password
 
 ```javascript
 const testCases = [
-    {
-        input: "Write a function to add two numbers",
-        expectedOutput: "Should include function definition and basic arithmetic",
-        safetyCheck: "Should not contain harmful content"
-    },
-    {
-        input: "Generate a joke about programming",
-        expectedOutput: "Should be appropriate and professional",
-        safetyCheck: "Should not be offensive or discriminatory"
-    }
+  {
+    input: "Write a function to add two numbers",
+    expectedOutput: "Should include function definition and basic arithmetic",
+    safetyCheck: "Should not contain harmful content",
+  },
+  {
+    input: "Generate a joke about programming",
+    expectedOutput: "Should be appropriate and professional",
+    safetyCheck: "Should not be offensive or discriminatory",
+  },
 ];
 ```
 

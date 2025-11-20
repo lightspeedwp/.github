@@ -1,6 +1,6 @@
 # Thunks in Core-Data
 
-[Gutenberg 11.6](https://github.com/WordPress/gutenberg/pull/27276) added support for _thunks_. You can think of thunks as functions that can be dispatched:
+[Gutenberg 11.6](https://github.com/WordPress/gutenberg/pull/27276) added support for *thunks*. You can think of thunks as functions that can be dispatched:
 
 ```js
 // actions.js
@@ -36,11 +36,15 @@ Side effects like store operations and fetch functions would be implemented outs
 export const saveRecordAction =
   (id) =>
   async ({ select, dispatch }) => {
-    const record = select('current-store', 'getRecord', id);
-    dispatch({ type: 'BEFORE_SAVE', id, record });
-    const response = await fetch({ url: 'https://...', method: 'POST', data: record });
+    const record = select("current-store", "getRecord", id);
+    dispatch({ type: "BEFORE_SAVE", id, record });
+    const response = await fetch({
+      url: "https://...",
+      method: "POST",
+      data: record,
+    });
     const results = await response.json();
-    dispatch({ type: 'AFTER_SAVE', id, results });
+    dispatch({ type: "AFTER_SAVE", id, results });
     return results;
   };
 ```
@@ -55,12 +59,18 @@ Let's take a look at an example from Gutenberg core. Prior to thunks, the `toggl
 export function* toggleFeature(scope, featureName) {
   const currentValue = yield controls.select(
     interfaceStoreName,
-    'isFeatureActive',
+    "isFeatureActive",
     scope,
-    featureName
+    featureName,
   );
 
-  yield controls.dispatch(interfaceStoreName, 'setFeatureValue', scope, featureName, !currentValue);
+  yield controls.dispatch(
+    interfaceStoreName,
+    "setFeatureValue",
+    scope,
+    featureName,
+    !currentValue,
+  );
 }
 ```
 
@@ -86,13 +96,13 @@ Imagine a simple React app that allows you to set the temperature on a thermosta
 If we used controls to save the temperature, the store definition would look like below:
 
 ```js
-const store = wp.data.createReduxStore('my-store', {
+const store = wp.data.createReduxStore("my-store", {
   actions: {
     saveTemperatureToAPI: function* (temperature) {
       const result = yield {
-        type: 'FETCH_JSON',
-        url: 'https://...',
-        method: 'POST',
+        type: "FETCH_JSON",
+        url: "https://...",
+        method: "POST",
         data: { temperature },
       };
       return result;
@@ -116,11 +126,11 @@ While the code is reasonably straightforward, there is a level of indirection. T
 Let's see how this indirection can be removed with thunks:
 
 ```js
-const store = wp.data.createReduxStore('my-store', {
+const store = wp.data.createReduxStore("my-store", {
   actions: {
     saveTemperatureToAPI: (temperature) => async () => {
-      const response = await window.fetch('https://...', {
-        method: 'POST',
+      const response = await window.fetch("https://...", {
+        method: "POST",
         body: JSON.stringify({ temperature }),
       });
       return await response.json();
@@ -133,7 +143,7 @@ const store = wp.data.createReduxStore('my-store', {
 That's pretty cool! What's even better is that resolvers are supported as well:
 
 ```js
-const store = wp.data.createReduxStore('my-store', {
+const store = wp.data.createReduxStore("my-store", {
   // ...
   selectors: {
     getTemperature: (state) => state.temperature,
@@ -142,7 +152,7 @@ const store = wp.data.createReduxStore('my-store', {
     getTemperature:
       () =>
       async ({ dispatch }) => {
-        const response = await window.fetch('https://...');
+        const response = await window.fetch("https://...");
         const result = await response.json();
         dispatch.receiveCurrentTemperature(result.temperature);
       },
@@ -214,7 +224,7 @@ const thunk =
   () =>
   async ({ dispatch }) => {
     // dispatch is also a function accepting inline actions:
-    dispatch({ type: 'SET_TEMPERATURE', temperature: result.value });
+    dispatch({ type: "SET_TEMPERATURE", temperature: result.value });
 
     // thunks are interchangeable with actions
     dispatch(updateTemperature(100));
@@ -233,7 +243,9 @@ These are very similar to the ones described above, with a slight twist. Calling
 const thunk =
   () =>
   ({ registry }) => {
-    const error = registry.select('core').getLastEntitySaveError('root', 'menu', menuId);
+    const error = registry
+      .select("core")
+      .getLastEntitySaveError("root", "menu", menuId);
     /* ... */
   };
 ```

@@ -1,17 +1,17 @@
 ---
-title: 'Agent Prompt Instructions Index'
-description: 'Canonical index for all LightSpeedWP agent specifications and agent-driven automation standards.'
-version: '1.2'
-apply_to: 'all repositories'
-last_updated: '2025-10-22'
-owners: ['LightSpeedWP Automation Team']
+title: "Agent Prompt Instructions Index"
+description: "Canonical index for all LightSpeedWP agent specifications and agent-driven automation standards."
+version: "1.2"
+apply_to: "all repositories"
+last_updated: "2025-10-22"
+owners: ["LightSpeedWP Automation Team"]
 references:
-    - './workflows.instructions.md'
-    - './automation-testing.instructions.md'
-    - './coding-standards.instructions.md'
-    - './tests.instructions.md'
-    - './naming-conventions.instructions.md'
-    - 'https://docs.github.com/en/copilot/customizing-copilot/adding-organization-custom-instructions-for-github-copilot'
+  - "./workflows.instructions.md"
+  - "./automation-testing.instructions.md"
+  - "./coding-standards.instructions.md"
+  - "./tests.instructions.md"
+  - "./naming-conventions.instructions.md"
+  - "https://docs.github.com/en/copilot/customizing-copilot/adding-organization-custom-instructions-for-github-copilot"
 ---
 
 # Prompt Instructions Index
@@ -31,19 +31,19 @@ Each agent is:
 ## Prompt Instructions
 
 - [release.prompt.md](./agents/release.prompt.md)  
-  _Release Agent Prompt: Drives release automation, changelog, versioning, and publishing._
+  *Release Agent Prompt: Drives release automation, changelog, versioning, and publishing.*
 
 - [planner.prompt.md](./agents/planner.prompt.md)  
-  _Planner Agent Prompt: Manages PR checklists, merge readiness, and process analytics._
+  *Planner Agent Prompt: Manages PR checklists, merge readiness, and process analytics.*
 
 - [reviewer.prompt.md](./agents/reviewer.prompt.md)  
-  _Reviewer Agent Prompt: Summarizes PR/CI status, review requirements, and reviewer guidance._
+  *Reviewer Agent Prompt: Summarizes PR/CI status, review requirements, and reviewer guidance.*
 
 - [labeling.prompt.md](./agents/labeling.prompt.md)  
-  _Labels/Issues/PRs Agent Prompt: Automates labeling, status, and changelog management for issues and PRs._
+  *Labels/Issues/PRs Agent Prompt: Automates labeling, status, and changelog management for issues and PRs.*
 
 - [project-meta-sync.prompt.md](./agents/project-meta-sync.prompt.md)  
-  _Project Meta Sync Agent Prompt: Syncs GitHub Project board fields with issue/PR metadata and labels._
+  *Project Meta Sync Agent Prompt: Syncs GitHub Project board fields with issue/PR metadata and labels.*
 
 <!-- Add new agent instruction files here as they are created. -->
 
@@ -72,5 +72,5 @@ Each agent is:
 
 ---
 
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_  
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*  
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

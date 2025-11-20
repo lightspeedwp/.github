@@ -5,7 +5,7 @@ last_updated: "2025-10-21"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Spec for the Project Meta Sync Agent."
-tags: ["lightspeed","project","meta","agents"]
+tags: ["lightspeed", "project", "meta", "agents"]
 file_type: "agent"
 name: "project-meta-sync"
 ---

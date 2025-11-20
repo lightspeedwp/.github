@@ -44,8 +44,8 @@ See [Tests Index](../tests.instructions.md) for all test standards.
 ## Example
 
 ```js
-describe('sum', () => {
-  it('adds two numbers', () => {
+describe("sum", () => {
+  it("adds two numbers", () => {
     expect(sum(1, 2)).toBe(3);
   });
 });

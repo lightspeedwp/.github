@@ -2,8 +2,7 @@
 
 ## *A practical, plain‑English starter for how we plan, build and ship software at LightSpeed.*
 
-***Version:*** 1.0 • ***Last updated:*** 9 Oct 2025  
----
+## ***Version:*** 1.0 • ***Last updated:*** 9 Oct 2025
 
 ## **1\) Why Agile (and DevOps) exists**
 
@@ -11,37 +10,37 @@ Agile is an iterative way to deliver value fast, reduce risk, and adapt to chang
 
 **What this means for you**
 
-* Work in small chunks, get feedback often.
+- Work in small chunks, get feedback often.
 
-* Visualise work so the team can spot bottlenecks.
+- Visualise work so the team can spot bottlenecks.
 
-* Automate where sensible (tests, builds, deploys).
+- Automate where sensible (tests, builds, deploys).
 
-* Measure outcomes, not just output.
+- Measure outcomes, not just output.
 
 ---
 
 ## **2\) The Agile mindset in 10 lines**
 
-* Individuals & interactions over processes & tools
+- Individuals & interactions over processes & tools
 
-* Working software over comprehensive documentation
+- Working software over comprehensive documentation
 
-* Customer collaboration over contract negotiation
+- Customer collaboration over contract negotiation
 
-* Responding to change over following a plan
+- Responding to change over following a plan
 
-* Deliver early, improve continuously
+- Deliver early, improve continuously
 
-* Keep feedback loops short
+- Keep feedback loops short
 
-* Make work visible
+- Make work visible
 
-* Limit work‑in‑progress (WIP)
+- Limit work‑in‑progress (WIP)
 
-* Focus on user value
+- Focus on user value
 
-* Reflect regularly and adjust
+- Reflect regularly and adjust
 
 Tip: When unsure, ask “What delivers the most value to the user next?”
 
@@ -53,49 +52,49 @@ Tip: When unsure, ask “What delivers the most value to the user next?”
 
 ### **Roles**
 
-* **Product Owner** – owns the product goal and backlog priority.
+- **Product Owner** – owns the product goal and backlog priority.
 
-* **Scrum Master** – coaches the team, removes impediments.
+- **Scrum Master** – coaches the team, removes impediments.
 
-* **Developers** – design, build, test, and deliver increments.
+- **Developers** – design, build, test, and deliver increments.
 
 ### **Core events**
 
-* **Sprint (1–2 weeks)** – fixed timebox to deliver a usable increment.
+- **Sprint (1–2 weeks)** – fixed timebox to deliver a usable increment.
 
-* **Sprint Planning** – set the **Sprint Goal** and select work.
+- **Sprint Planning** – set the **Sprint Goal** and select work.
 
-* **Daily Stand‑up (≤15 mins)** – yesterday/today/blockers; swarming on blockers \> status recitals.
+- **Daily Stand‑up (≤15 mins)** – yesterday/today/blockers; swarming on blockers \> status recitals.
 
-* **Sprint Review** – show working software, get stakeholder feedback.
+- **Sprint Review** – show working software, get stakeholder feedback.
 
-* **Retrospective** – improve process; pick 1–2 concrete experiments for the next sprint.
+- **Retrospective** – improve process; pick 1–2 concrete experiments for the next sprint.
 
 ### **Artefacts**
 
-* **Product Backlog** – ordered list of value.
+- **Product Backlog** – ordered list of value.
 
-* **Sprint Backlog** – the plan for the sprint.
+- **Sprint Backlog** – the plan for the sprint.
 
-* **Increment** – the working product at sprint end.
+- **Increment** – the working product at sprint end.
 
 ### **Guard‑rails**
 
-* **Definition of Ready (DoR)** – story is clear, testable, small enough.
+- **Definition of Ready (DoR)** – story is clear, testable, small enough.
 
-* **Definition of Done (DoD)** – code, tests, docs, security checks, deployed if applicable.
+- **Definition of Done (DoD)** – code, tests, docs, security checks, deployed if applicable.
 
 **Scrum quick checklist**
 
-* Keep sprints the same length (predictability).
+- Keep sprints the same length (predictability).
 
-* Tie work to a clear Sprint Goal; say “no” to or re‑scope extras.
+- Tie work to a clear Sprint Goal; say “no” to or re‑scope extras.
 
-* Break stories so each can be completed inside one sprint.
+- Break stories so each can be completed inside one sprint.
 
-* Demo real software in Reviews; avoid slideware.
+- Demo real software in Reviews; avoid slideware.
 
-* End every Retrospective with owners and due dates.
+- End every Retrospective with owners and due dates.
 
 ---
 
@@ -115,25 +114,25 @@ Tip: When unsure, ask “What delivers the most value to the user next?”
 
 ### **Core practices**
 
-* **Visualise the workflow** on a board with clear columns.
+- **Visualise the workflow** on a board with clear columns.
 
-* **Limit WIP** – set explicit caps per column to prevent multitasking and queues.
+- **Limit WIP** – set explicit caps per column to prevent multitasking and queues.
 
-* **Manage flow** – watch **cycle time**, **throughput**, **work age**.
+- **Manage flow** – watch **cycle time**, **throughput**, **work age**.
 
-* **Make policies explicit** – entry/exit criteria per column.
+- **Make policies explicit** – entry/exit criteria per column.
 
-* **Improve continuously** – small experiments often.
+- **Improve continuously** – small experiments often.
 
 **Kanban quick checklist**
 
-* Keep columns unambiguous (e.g., *Ready → In Progress → In Review → In QA → Done*).
+- Keep columns unambiguous (e.g., *Ready → In Progress → In Review → In QA → Done*).
 
-* Set WIP limits that feel slightly uncomfortable; adjust with data.
+- Set WIP limits that feel slightly uncomfortable; adjust with data.
 
-* Focus on finishing over starting. Measure cycle time weekly.
+- Focus on finishing over starting. Measure cycle time weekly.
 
-* Use **blocked** tags and swarm to unblock.
+- Use **blocked** tags and swarm to unblock.
 
 ---
 
@@ -143,51 +142,50 @@ Blend Scrum’s cadence (planning, stand‑ups, retros) with Kanban’s flow and
 
 ### **How we’ll run it in lsx-demo-theme (GitHub‑first)**
 
-* **Planning cadence**: keep a light sprint rhythm (2‑week milestones), but **pull** work continuously with Kanban WIP limits.
+- **Planning cadence**: keep a light sprint rhythm (2‑week milestones), but **pull** work continuously with Kanban WIP limits.
 
-* **GitHub mapping**:
+- **GitHub mapping**:
+  - **Projects** → your Kanban/Scrumban board (columns: *Backlog → Ready → In Progress → In Review → In QA → Done*).
 
-  * **Projects** → your Kanban/Scrumban board (columns: *Backlog → Ready → In Progress → In Review → In QA → Done*).
+  - **Parent issues** → **Epics** (product theme areas; e.g., *Logging*, *Docs*, *Theme Templates*).
 
-  * **Parent issues** → **Epics** (product theme areas; e.g., *Logging*, *Docs*, *Theme Templates*).
+  - **Child issues** → **User stories/tasks** that fit in ≤ 2–3 days, each with acceptance criteria.
 
-  * **Child issues** → **User stories/tasks** that fit in ≤ 2–3 days, each with acceptance criteria.
+  - **Pull requests** → reference the issue ("Fixes \#123"). Small PRs; draft early; CI must pass.
 
-  * **Pull requests** → reference the issue ("Fixes \#123"). Small PRs; draft early; CI must pass.
+  - **Milestones** → timeboxes: *1.0 Beta 1*, *1.0 RC1*, *1.0 Final*. Treat each milestone as a sprint.
 
-  * **Milestones** → timeboxes: *1.0 Beta 1*, *1.0 RC1*, *1.0 Final*. Treat each milestone as a sprint.
+  - **Releases** → tagged output of a milestone (changelog \+ notes).
 
-  * **Releases** → tagged output of a milestone (changelog \+ notes).
+- **Asana**: track **non‑code** work (studies, research, meetings) on a Kanban board; link Asana tasks from issue descriptions when relevant.
 
-* **Asana**: track **non‑code** work (studies, research, meetings) on a Kanban board; link Asana tasks from issue descriptions when relevant.
+- **Policies**: explicit WIP limits; Definition of Ready/Done stated on the Project README; blocked items get a **Blocked** label and are swarmed.
 
-* **Policies**: explicit WIP limits; Definition of Ready/Done stated on the Project README; blocked items get a **Blocked** label and are swarmed.
-
-* **Flow metrics**: watch cycle time & throughput weekly; use them to tune WIP limits and scope.
+- **Flow metrics**: watch cycle time & throughput weekly; use them to tune WIP limits and scope.
 
 ---
 
 ## **6\) Lean Thinking & Continuous Improvement**
 
-* **Define value** (from the customer’s view).
+- **Define value** (from the customer’s view).
 
-* **Map the value stream** (steps from idea to value).
+- **Map the value stream** (steps from idea to value).
 
-* **Create flow** (remove bottlenecks and handoff pain).
+- **Create flow** (remove bottlenecks and handoff pain).
 
-* **Pull, don’t push** (start new work only when there’s capacity).
+- **Pull, don’t push** (start new work only when there’s capacity).
 
-* **Pursue perfection** (small, constant improvements).
+- **Pursue perfection** (small, constant improvements).
 
 Seven wastes to watch for: waiting, handoffs/transport, over‑processing, excess inventory/WIP, motion/context switching, defects/rework, overproduction.
 
 **Retro recipe**
 
-* Data: What happened (metrics, facts)?
+- Data: What happened (metrics, facts)?
 
-* Insights: Why did it happen?
+- Insights: Why did it happen?
 
-* Actions: What one or two changes will we try next sprint/week?
+- Actions: What one or two changes will we try next sprint/week?
 
 ---
 
@@ -198,39 +196,38 @@ Seven wastes to watch for: waiting, handoffs/transport, over‑processing, exces
 
 ### **Planning the work**
 
-* **Epics → Stories → Tasks**
+- **Epics → Stories → Tasks**
+  - **Initiatives** group epics toward a bigger goal.
 
-  * **Initiatives** group epics toward a bigger goal.
+  - **Epics** are large value chunks broken into **user stories**.
 
-  * **Epics** are large value chunks broken into **user stories**.
-
-  * **Stories** are user‑centred slices of value.
+  - **Stories** are user‑centred slices of value.
 
 **Write great stories**
 
-* Template: *As a \[user\], I want \[capability\] so that \[benefit\].*
+- Template: *As a \[user\], I want \[capability\] so that \[benefit\].*
 
-* Add **acceptance criteria** (Given‑When‑Then is ideal).
+- Add **acceptance criteria** (Given‑When‑Then is ideal).
 
-* Keep stories independent, valuable, small, testable.
+- Keep stories independent, valuable, small, testable.
 
 **Estimating**
 
-* Prefer **relative** estimates (story points or T‑shirt sizes).
+- Prefer **relative** estimates (story points or T‑shirt sizes).
 
-* Use **Planning Poker** to share understanding and expose risk.
+- Use **Planning Poker** to share understanding and expose risk.
 
-* Track **throughput** and **cycle time**; treat velocity as a planning signal, not a target.
+- Track **throughput** and **cycle time**; treat velocity as a planning signal, not a target.
 
 ---
 
 ## **8\) Objectives, goals, milestones — know the difference**
 
-* **Goals** – direction (e.g., improve feedback loops).
+- **Goals** – direction (e.g., improve feedback loops).
 
-* **Objectives** – measurable outcomes (e.g., “Add 5 in‑app feedback channels in 60 days”).
+- **Objectives** – measurable outcomes (e.g., “Add 5 in‑app feedback channels in 60 days”).
 
-* **Milestones** – checkpoints on the path (e.g., “Feedback page launched by 8 June”).
+- **Milestones** – checkpoints on the path (e.g., “Feedback page launched by 8 June”).
 
 Use **SMART** objectives and attach KPIs (quality, time, budget, customer impact).
 
@@ -238,55 +235,55 @@ Use **SMART** objectives and attach KPIs (quality, time, budget, customer impact
 
 ## **9\) DevOps essentials (for Agile teams)**
 
-* **Culture & collaboration** – shared ownership; blameless post‑mortems; security built‑in.
+- **Culture & collaboration** – shared ownership; blameless post‑mortems; security built‑in.
 
-* **CI/CD** – automate build, test, and deployment pipelines.
+- **CI/CD** – automate build, test, and deployment pipelines.
 
-* **Infrastructure as Code** – versioned environments; peer‑reviewed changes.
+- **Infrastructure as Code** – versioned environments; peer‑reviewed changes.
 
-* **Trunk‑based or short‑lived branches** – small PRs, fast merges.
+- **Trunk‑based or short‑lived branches** – small PRs, fast merges.
 
-* **Observability** – logs, metrics, traces; alert on symptoms users feel.
+- **Observability** – logs, metrics, traces; alert on symptoms users feel.
 
-* **GitOps** – desired state lives in Git; changes happen via PR; controllers reconcile actual to desired.
+- **GitOps** – desired state lives in Git; changes happen via PR; controllers reconcile actual to desired.
 
 **DevOps quick checklist**
 
-* Protect main; require reviews and checks to pass.
+- Protect main; require reviews and checks to pass.
 
-* Keep PRs under \~300 lines where possible; aim for \<24h cycle.
+- Keep PRs under \~300 lines where possible; aim for \<24h cycle.
 
-* Every merge should be deployable; feature‑flag risky changes.
+- Every merge should be deployable; feature‑flag risky changes.
 
-* Tag releases; write crisp changelogs.
+- Tag releases; write crisp changelogs.
 
 ---
 
 ## **10\) Board hygiene & weekly rhythm (baseline)**
 
-* **Backlog**: groom weekly; stories meet DoR.
+- **Backlog**: groom weekly; stories meet DoR.
 
-* **WIP**: respect limits; finish before starting new.
+- **WIP**: respect limits; finish before starting new.
 
-* **Stand‑ups**: 15 mins max; focus on flow and blockers. *Cohort note:* interns meet **daily at 09:00 (Asia/Bangkok)** on the shared Meet link.
+- **Stand‑ups**: 15 mins max; focus on flow and blockers. *Cohort note:* interns meet **daily at 09:00 (Asia/Bangkok)** on the shared Meet link.
 
-* **Reviews/Demos**: show working software to stakeholders.
+- **Reviews/Demos**: show working software to stakeholders.
 
-* **Retros**: pick 1–2 improvements; assign owners.
+- **Retros**: pick 1–2 improvements; assign owners.
 
-* **Metrics**: watch cycle time, throughput, failure rate, and lead time for changes.
+- **Metrics**: watch cycle time, throughput, failure rate, and lead time for changes.
 
 **Intern cohort setup (from kickoff notes)**
 
-* Connect personal GitHub repos to the **Slack GitHub app** for review notifications.
+- Connect personal GitHub repos to the **Slack GitHub app** for review notifications.
 
-* Create **public WordPress.org profiles** and favourite key plugins.
+- Create **public WordPress.org profiles** and favourite key plugins.
 
-* Use the **Asana Interns** project with tags (Studies, LSX Demo Theme, Research).
+- Use the **Asana Interns** project with tags (Studies, LSX Demo Theme, Research).
 
-* Create GitHub **Epics** and **child issues** before each milestone; keep PRs small; grant admin access per guidance.
+- Create GitHub **Epics** and **child issues** before each milestone; keep PRs small; grant admin access per guidance.
 
-* Plan **unit tests & builds** for Sprints 4–5; begin **GitOps** training.
+- Plan **unit tests & builds** for Sprints 4–5; begin **GitOps** training.
 
 ---
 
@@ -300,25 +297,25 @@ Works in Jira, Trello, Asana, GitHub Projects, etc. Suggested columns:
 
 ## **12\) Glossary (fast terms)**
 
-* **Agile** – iterative, value‑first way of working.
+- **Agile** – iterative, value‑first way of working.
 
-* **Scrum** – Agile framework with sprints and fixed ceremonies.
+- **Scrum** – Agile framework with sprints and fixed ceremonies.
 
-* **Kanban** – visual flow with WIP limits and continuous delivery.
+- **Kanban** – visual flow with WIP limits and continuous delivery.
 
-* **Epic / Story / Initiative** – hierarchy from big to small, grouped by goal.
+- **Epic / Story / Initiative** – hierarchy from big to small, grouped by goal.
 
-* **Sprint** – fixed timebox (usually 1–2 weeks) to deliver an increment.
+- **Sprint** – fixed timebox (usually 1–2 weeks) to deliver an increment.
 
-* **DoR / DoD** – entry/exit standards for quality and readiness.
+- **DoR / DoD** – entry/exit standards for quality and readiness.
 
-* **Cycle time** – start → finish time for a work item.
+- **Cycle time** – start → finish time for a work item.
 
-* **Throughput** – items finished per time period.
+- **Throughput** – items finished per time period.
 
-* **CI/CD** – automated integration and delivery.
+- **CI/CD** – automated integration and delivery.
 
-* **GitOps** – ops driven by Git versioned desired state.
+- **GitOps** – ops driven by Git versioned desired state.
 
 ---
 
@@ -338,7 +335,7 @@ Works in Jira, Trello, Asana, GitHub Projects, etc. Suggested columns:
 
 ## **14\) References & further reading**
 
-* **Agile overview & manifesto, Scrum framework and events**:  
+- **Agile overview & manifesto, Scrum framework and events**:  
    [https://www.atlassian.com/agile](https://www.atlassian.com/agile)  
    [https://www.atlassian.com/agile/manifesto](https://www.atlassian.com/agile/manifesto)  
    [https://www.atlassian.com/agile/scrum](https://www.atlassian.com/agile/scrum)  
@@ -348,7 +345,7 @@ Works in Jira, Trello, Asana, GitHub Projects, etc. Suggested columns:
    [https://www.atlassian.com/agile/scrum/backlogs](https://www.atlassian.com/agile/scrum/backlogs)  
    [https://www.atlassian.com/agile/scrum/retrospectives](https://www.atlassian.com/agile/scrum/retrospectives)
 
-* **Kanban basics & comparisons**:  
+- **Kanban basics & comparisons**:  
    [https://www.atlassian.com/agile/kanban](https://www.atlassian.com/agile/kanban)  
    [https://www.atlassian.com/agile/kanban/boards](https://www.atlassian.com/agile/kanban/boards)  
    [https://www.atlassian.com/agile/kanban/wip-limits](https://www.atlassian.com/agile/kanban/wip-limits)  
@@ -357,7 +354,7 @@ Works in Jira, Trello, Asana, GitHub Projects, etc. Suggested columns:
    [https://www.atlassian.com/agile/kanban/cards](https://www.atlassian.com/agile/kanban/cards)  
    [https://www.atlassian.com/agile/project-management/kanban-principles](https://www.atlassian.com/agile/project-management/kanban-principles)
 
-* **Agile project management, workflows, epics/stories/initiatives, estimation, Scrumban, Lean, Continuous Improvement**:  
+- **Agile project management, workflows, epics/stories/initiatives, estimation, Scrumban, Lean, Continuous Improvement**:  
    [https://www.atlassian.com/agile/project-management](https://www.atlassian.com/agile/project-management)  
    [https://www.atlassian.com/agile/project-management/project-management-intro](https://www.atlassian.com/agile/project-management/project-management-intro)  
    [https://www.atlassian.com/agile/project-management/workflow](https://www.atlassian.com/agile/project-management/workflow)  
@@ -370,10 +367,10 @@ Works in Jira, Trello, Asana, GitHub Projects, etc. Suggested columns:
    [https://www.atlassian.com/agile/project-management/continuous-improvement](https://www.atlassian.com/agile/project-management/continuous-improvement)  
    [https://www.atlassian.com/agile/project-management/lean-principles](https://www.atlassian.com/agile/project-management/lean-principles)
 
-* **Objectives vs goals vs milestones**:  
+- **Objectives vs goals vs milestones**:  
    [https://www.atlassian.com/work-management/project-management/project-objectives](https://www.atlassian.com/work-management/project-management/project-objectives)
 
-* **DevOps & GitOps (for Sprints 4–5 groundwork)**:  
+- **DevOps & GitOps (for Sprints 4–5 groundwork)**:  
    [https://www.atlassian.com/devops](https://www.atlassian.com/devops)  
    [https://www.atlassian.com/devops/what-is-devops](https://www.atlassian.com/devops/what-is-devops)  
    [https://www.atlassian.com/devops/what-is-devops/devops-best-practices](https://www.atlassian.com/devops/what-is-devops/devops-best-practices)  

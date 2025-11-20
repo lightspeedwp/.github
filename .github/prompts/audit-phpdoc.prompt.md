@@ -3,6 +3,7 @@ description: "Audit PHP files for WordPress DocBlocks and fix missing/incorrect 
 mode: "edit"
 model: "GPT-4"
 ---
+
 Using the **WordPress PHP Documentation Standards**, scan the selected PHP file or project for missing or incomplete DocBlocks. For each public function, method, class or hook:
 
 1. Ensure there is a short imperative summary on the first line.

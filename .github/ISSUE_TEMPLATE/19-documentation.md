@@ -2,10 +2,11 @@
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Documentation] <Brief summary>"
-labels: [type:documentation, status:needs-triage, priority:normal, area:documentation]
+labels:
+  [type:documentation, status:needs-triage, priority:normal, area:documentation]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: documentation
 references:
   - ../CONTRIBUTING.md

@@ -9,12 +9,12 @@ These workflows can be called from other repositories using the `workflow_call` 
 
 ```yaml
 jobs:
-    call-reusable-workflow:
-        uses: lightspeedwp/lightspeedwp-automation/.github/workflows/workflow-name.yml@main
-        with:
-            input-parameter: value
-        secrets:
-            secret-name: ${{ secrets.SECRET_NAME }}
+  call-reusable-workflow:
+    uses: lightspeedwp/lightspeedwp-automation/.github/workflows/workflow-name.yml@main
+    with:
+      input-parameter: value
+    secrets:
+      secret-name: ${{ secrets.SECRET_NAME }}
 ```
 
 ## Workflow Categories
@@ -49,25 +49,25 @@ jobs:
 name: Reusable Workflow Name
 
 on:
-    workflow_call:
-        inputs:
-            input-name:
-                description: 'Description of input parameter'
-                required: true
-                type: string
-        secrets:
-            SECRET_NAME:
-                description: 'Description of required secret'
-                required: true
+  workflow_call:
+    inputs:
+      input-name:
+        description: "Description of input parameter"
+        required: true
+        type: string
+    secrets:
+      SECRET_NAME:
+        description: "Description of required secret"
+        required: true
 
 jobs:
-    job-name:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+  job-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            # Add your workflow steps here
+      # Add your workflow steps here
 ```
 
 ## Best Practices

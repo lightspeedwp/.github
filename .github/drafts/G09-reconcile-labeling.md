@@ -2,10 +2,18 @@
 name: "🤖 Automation"
 about: "Propose, fix, or improve automation (actions, scripts, bots)."
 title: "[Workflows/Docs] Reconcile labeling docs vs `labels.yml`/`labeler.yml`"
-labels: [type:automation, status:needs-triage, priority:normal, area:automation, area:workflows, labeling]
+labels:
+  [
+    type:automation,
+    status:needs-triage,
+    priority:normal,
+    area:automation,
+    area:workflows,
+    labeling,
+  ]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: automation
 references:
   - ../CONTRIBUTING.md
@@ -93,6 +101,7 @@ Plain-English documentation describing the labeling system does not accurately m
 Area labels indicate which part of the codebase or project is affected.
 
 **Defined labels:**
+
 - `area:docs` - Documentation changes (triggered by `docs/**/*`, `*.md`)
 - `area:workflows` - Workflow and automation (triggered by `.github/**/*`)
 - `area:security` - Security-related (manual or triggered by `security/` paths)
@@ -118,11 +127,11 @@ Create PR with changes to any `.md` file to verify `area:docs` is applied.
 
 **Example test scenarios:**
 
-| Test Case | File Changed | Expected Labels |
-|-----------|--------------|-----------------|
-| Doc update | `docs/README.md` | `area:docs`, `type:documentation` |
-| Workflow fix | `.github/workflows/ci.yml` | `area:workflows`, `type:automation` |
-| Security patch | `security/README.md` | `area:security`, `type:security` |
+| Test Case      | File Changed               | Expected Labels                     |
+| -------------- | -------------------------- | ----------------------------------- |
+| Doc update     | `docs/README.md`           | `area:docs`, `type:documentation`   |
+| Workflow fix   | `.github/workflows/ci.yml` | `area:workflows`, `type:automation` |
+| Security patch | `security/README.md`       | `area:security`, `type:security`    |
 
 **Telemetry (post-merge):**
 

@@ -1,21 +1,21 @@
 ---
-title: 'CLAUDE.md – Claude Agent Guidance'
-version: 'v1.2'
-last_updated: '2025-10-23'
-author: 'LightSpeed'
-maintainer: 'Ash Shaw'
-description: 'Root-level guidance for Claude agents, LightSpeed model selection, and Copilot agent best practices.'
-tags: ['lightspeed', 'templates', 'copilot', 'agents', 'prompts', 'models']
-file_type: 'claude-instructions'
+title: "CLAUDE.md – Claude Agent Guidance"
+version: "v1.2"
+last_updated: "2025-10-23"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
+description: "Root-level guidance for Claude agents, LightSpeed model selection, and Copilot agent best practices."
+tags: ["lightspeed", "templates", "copilot", "agents", "prompts", "models"]
+file_type: "claude-instructions"
 references:
-    - 'https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/ai-model-comparison.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-3.5.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-3.7.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-3.7-thinking.md'
-    - 'https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-4.0.md'
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/ai-model-comparison.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-3.5.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-3.7.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-3.7-thinking.md"
+  - "https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-4.0.md"
 ---
 
 # Claude Model Selection at LightSpeed
@@ -196,4 +196,4 @@ You are a Claude agent (Sonnet/Opus family) at LightSpeed.
 
 ---
 
-_When in doubt, consult the [AI Model Comparison Guide](./ai-model-comparison.md), select the model that best fits the task, and escalate to a maintainer if unsure. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow._
+*When in doubt, consult the [AI Model Comparison Guide](./ai-model-comparison.md), select the model that best fits the task, and escalate to a maintainer if unsure. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow.*

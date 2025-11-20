@@ -2,10 +2,11 @@
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Docs] Refresh folder READMEs and cross-links (DOCS ↔ DEVELOPMENT)"
-labels: [type:documentation, status:needs-triage, priority:normal, area:documentation]
+labels:
+  [type:documentation, status:needs-triage, priority:normal, area:documentation]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: documentation
 references:
   - ../CONTRIBUTING.md
@@ -100,12 +101,14 @@ Add sections in both files:
 
 **Mermaid caption examples:**
 
-```markdown
+````markdown
 **Figure 1: Issue Labeling Workflow**
+
 ```mermaid
 graph TD
   A[New Issue] --> B{Auto-label}
 ```
+````
 
 **Automation approach (optional):**
 
@@ -167,12 +170,12 @@ graph TD
 
 **Suggested workflow:**
 
-```bash
+````bash
 # Find all READMEs
 find docs -name "README.md"
 
 # Find all Mermaid diagrams without captions
 git grep -B1 "```mermaid" | grep -v "^--" | grep -v "Figure"
-```
+````
 
 See [Contribution Guidelines](../CONTRIBUTING.md) and [Coding Standards](../instructions/coding-standards.instructions.md).

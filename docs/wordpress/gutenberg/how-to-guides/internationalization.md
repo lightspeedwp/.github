@@ -2,7 +2,7 @@
 
 ## What is internationalization?
 
-Internationalization is the process to provide multiple language support to software, in this case WordPress. Internationalization is often abbreviated as **i18n**, where 18 stands for the number of letters between the first _i_ and the last _n_.
+Internationalization is the process to provide multiple language support to software, in this case WordPress. Internationalization is often abbreviated as **i18n**, where 18 stands for the number of letters between the first *i* and the last *n*.
 
 Providing i18n support to your plugin and theme allows it to reach the largest possible audience, even without requiring you to provide the additional language translations. When you upload your software to WordPress.org, all JS and PHP files will automatically be parsed. Any detected translation strings are added to [translate.wordpress.org](https://translate.wordpress.org/) to allow the community to translate, ensuring WordPress plugins and themes are available in as many languages as possible.
 
@@ -38,25 +38,25 @@ add_action( 'init', 'myguten_block_init' );
 In your code, you can include the i18n functions. The most common function is **\_\_** (a double underscore) which provides translation of a simple string. Here is a basic block example:
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps } from '@wordpress/block-editor';
+import { __ } from "@wordpress/i18n";
+import { registerBlockType } from "@wordpress/blocks";
+import { useBlockProps } from "@wordpress/block-editor";
 
-registerBlockType('myguten/simple', {
+registerBlockType("myguten/simple", {
   apiVersion: 3,
-  title: __('Simple Block', 'myguten'),
-  category: 'widgets',
+  title: __("Simple Block", "myguten"),
+  category: "widgets",
 
   edit: () => {
-    const blockProps = useBlockProps({ style: { color: 'red' } });
+    const blockProps = useBlockProps({ style: { color: "red" } });
 
-    return <p {...blockProps}>{__('Hello World', 'myguten')}</p>;
+    return <p {...blockProps}>{__("Hello World", "myguten")}</p>;
   },
 
   save: () => {
-    const blockProps = useBlockProps.save({ style: { color: 'red' } });
+    const blockProps = useBlockProps.save({ style: { color: "red" } });
 
-    return <p {...blockProps}>{__('Hello World', 'myguten')}</p>;
+    return <p {...blockProps}>{__("Hello World", "myguten")}</p>;
   },
 });
 ```

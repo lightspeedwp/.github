@@ -47,7 +47,7 @@ function render_block() {
 - Type: `boolean`
 - Default value: `false`
 
-Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link. _Important: It doesn't work with dynamic blocks yet._
+Anchors let you link directly to a specific block on a page. This property adds a field to define an id for the block and a button to copy the direct link. *Important: It doesn't work with dynamic blocks yet.*
 
 ```js
 // Declare support for anchor links.
@@ -75,7 +75,7 @@ supports: {
 ```js
 supports: {
   // Declare support for specific alignment options.
-  align: ['left', 'right', 'full'];
+  align: ["left", "right", "full"];
 }
 ```
 
@@ -120,7 +120,7 @@ supports: {
 
 ## background
 
-_**Note:** Since WordPress 6.5._
+***Note:** Since WordPress 6.5.*
 
 - Type: `Object`
 - Default value: `null`
@@ -288,7 +288,7 @@ When the block declares support for `color.background`, the attributes definitio
 
 ### color.button
 
-_**Note:** Since WordPress 6.5._
+***Note:** Since WordPress 6.5.*
 
 This property adds block controls which allow the user to set button colors (text, background) in a block. Button colors are disabled by default.
 
@@ -332,7 +332,7 @@ When the block declares support for `color.button`, the attributes definition is
 
 ### color.enableContrastChecker
 
-_**Note:** Since WordPress 6.5._
+***Note:** Since WordPress 6.5.*
 
 Determines whether the contrast checker widget displays in the block editor UI.
 
@@ -348,7 +348,7 @@ supports: {
 
 ### color.\_\_experimentalDuotone
 
-_**Note:** Deprecated since WordPress 6.3._
+***Note:** Deprecated since WordPress 6.3.*
 
 This property has been replaced by [`filter.duotone`](#filterduotone).
 
@@ -407,7 +407,7 @@ When the block declares support for `color.gradient`, the attributes definition 
 
 ### color.heading
 
-_**Note:** Since WordPress 6.5._
+***Note:** Since WordPress 6.5.*
 
 This property adds block controls which allow the user to set heading colors in a block. Heading colors are disabled by default.
 
@@ -573,7 +573,7 @@ supports: {
 
 ## dimensions
 
-_**Note:** Since WordPress 6.2._
+***Note:** Since WordPress 6.2.*
 
 - Type: `Object`
 - Default value: null
@@ -814,7 +814,7 @@ supports: {
 
 ## position
 
-_**Note:** Since WordPress 6.2._
+***Note:** Since WordPress 6.2.*
 
 - Type: `Object`
 - Default value: null
@@ -850,7 +850,7 @@ attributes: {
 
 ## renaming
 
-_**Note:** Since WordPress 6.5._
+***Note:** Since WordPress 6.5.*
 
 - Type: `boolean`
 - Default value: `true`
@@ -880,7 +880,7 @@ supports: {
 
 ## shadow
 
-_**Note:** Since WordPress 6.5._
+***Note:** Since WordPress 6.5.*
 
 - Type: `boolean`
 - Default value: `false`
@@ -1069,7 +1069,7 @@ attributes: {
 
 ### typography.textAlign
 
-_**Note:** Since WordPress 6.6._
+***Note:** Since WordPress 6.6.*
 
 - Type: `boolean` or `array`
 - Default value: `false`
@@ -1091,7 +1091,7 @@ supports: {
 supports: {
   typography: {
     // Declare support for specific text alignment options.
-    textAlign: ['left', 'right'];
+    textAlign: ["left", "right"];
   }
 }
 ```
@@ -1115,6 +1115,6 @@ attributes: {
 
 When set to `true`, `Enter` will split the block into two blocks. Note that this
 is only meant for simple text blocks such as paragraphs and headings with a
-single `RichText` field. RichText in the `edit` function _must_ have an
+single `RichText` field. RichText in the `edit` function *must* have an
 `identifier` prop that matches the attribute key of the text, so that it updates
 the selection correctly and we know where to split.

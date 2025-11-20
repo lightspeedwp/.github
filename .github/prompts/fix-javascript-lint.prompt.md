@@ -3,6 +3,7 @@ description: "Fix ESLint/Prettier issues while preserving behaviour; align with 
 mode: "edit"
 model: "GPT-4"
 ---
+
 Run ESLint with the WordPress or LightSpeed configuration on the selected JavaScript files and apply automatic fixes for style errors. Ensure that:
 
 1. Indentation is 2 spaces and single quotes are used.

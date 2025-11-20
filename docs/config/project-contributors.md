@@ -56,7 +56,7 @@ Each contributor object contains:
 ### Available Contribution Types
 
 - `code`: Wrote code for the project
-- `design`: Created design elements and UI/UX  
+- `design`: Created design elements and UI/UX
 - `doc`: Wrote or improved documentation
 - `ideas`: Contributed ideas and feedback
 - `infra`: Set up and maintained infrastructure
@@ -102,7 +102,7 @@ Based on the `.all-contributorsrc` configuration:
 # Interactive mode
 npx all-contributors add ashleyshaw doc,code
 
-# Or via npm script  
+# Or via npm script
 npm run contributors:add ashleyshaw doc,code
 ```
 

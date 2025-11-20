@@ -1,8 +1,8 @@
 ---
 file_type: "instructions"
-description: 'Documentation and content creation standards'
-applyTo: '**/*.md'
-license: 'GPL-3.0'
+description: "Documentation and content creation standards"
+applyTo: "**/*.md"
+license: "GPL-3.0"
 ---
 
 # 📝 Markdown Instructions
@@ -23,11 +23,11 @@ This file is the canonical markdown standard for all LightSpeedWP documentation 
 
 ## Related Markdown Instructions
 
-| File | Purpose |
-|------|---------|
-| [markdown.instructions.md](./markdown.instructions.md) | Canonical markdown standard (this file) |
-| [inline-docs/inline-markdown.instructions.md](./inline-docs/inline-markdown.instructions.md) | Inline documentation standards |
-| [docs.instructions.md](./docs.instructions.md) | Universal documentation structure |
+| File                                                                                         | Purpose                                 |
+| -------------------------------------------------------------------------------------------- | --------------------------------------- |
+| [markdown.instructions.md](./markdown.instructions.md)                                       | Canonical markdown standard (this file) |
+| [inline-docs/inline-markdown.instructions.md](./inline-docs/inline-markdown.instructions.md) | Inline documentation standards          |
+| [docs.instructions.md](./docs.instructions.md)                                               | Universal documentation structure       |
 
 ## Accessibility
 
@@ -55,6 +55,7 @@ The following markdown content rules are enforced in the validators:
 
 ```md
 ## Section Title
+
 ### Subsection Title
 ```
 
@@ -68,17 +69,18 @@ The following markdown content rules are enforced in the validators:
 
 ### Code Blocks
 
-```md
+````md
 ```js
-console.log('Hello, world!');
+console.log("Hello, world!");
 ```
+````
 
-```
+````
 
 ### Links
 ```md
 [LightSpeedWP](https://lightspeedwp.com)
-```
+````
 
 ### Images
 
@@ -90,7 +92,7 @@ console.log('Hello, world!');
 
 ```md
 | Name | Value |
-|------|-------|
+| ---- | ----- |
 | Foo  | Bar   |
 ```
 
@@ -120,7 +122,6 @@ To propose changes or report issues with these markdown standards:
 Ensure compliance with the following validation requirements:
 
 - **Front Matter**: Include the following fields in the YAML front matter:
-
   - `post_title`: The title of the post.
   - `author1`: The primary author of the post.
   - `post_slug`: The URL slug for the post.
@@ -142,10 +143,15 @@ Ensure compliance with the following validation requirements:
 
 ```md
 # Heading h1
+
 ## Heading h2
+
 ### Heading h3
+
 #### Heading h4
+
 ##### Heading h5
+
 ###### Heading h6
 ```
 
@@ -155,7 +161,7 @@ Note: h1 - h4 items will be automatically added to the Table of Contents.
 
 #### Italics
 
-Wrap text with a single `_` for _Italic_ text:
+Wrap text with a single `_` for *Italic* text:
 
 ```md
 This is _italic text_.
@@ -195,7 +201,8 @@ Use `>` for blockquotes, double `>>` to further indent:
 
 ```md
 > Blockquote
->> Indented Blockquote
+>
+> > Indented Blockquote
 ```
 
 ### Lists
@@ -205,7 +212,6 @@ Use `>` for blockquotes, double `>>` to further indent:
 Use `-` for unordered lists, and intent two spaces for list subitems:
 
 ```md
-
 #### Universal Link Guidance
 
 - List

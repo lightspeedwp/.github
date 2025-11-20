@@ -20,4 +20,4 @@ Lists and explains YAML fields for `.prompt.md` files.
 - Required: `description`, `mode`
 - Optional: `model`, `tools`
 
-> _Include a table of fields, usage notes, and sample frontmatter blocks here._
+> *Include a table of fields, usage notes, and sample frontmatter blocks here.*

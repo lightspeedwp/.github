@@ -15,10 +15,10 @@ A maximal but sane set of prefixes for product repos. Use **shared core** everyw
 
 ## **Product-specific (optional)** {#product-specific-optional}
 
-- `proto/` — experiments  
-- `ds/` — design system  
-- `api/` — API surface  
-- `schema/` — DB/schema  
+- `proto/` — experiments
+- `ds/` — design system
+- `api/` — API surface
+- `schema/` — DB/schema
 - `telemetry/` — analytics/metrics
 
 ## **Examples** {#examples}
@@ -37,13 +37,13 @@ hotfix/cart-csrf-check
 
 ## **Mapping to Issue Types (for automations)** {#mapping-to-issue-types-for-automations}
 
-- `feat/` → Feature/Story  
-- `fix/` → Bug (hotfix → critical Bug)  
-- `refactor/` → Refactor  
-- `chore/|ci/|build/|deps/|security/` → Chore  
-- `research/` → Research  
-- `design/|a11y/|ux/` → Design/Task  
-- `proto/|api/|schema/|telemetry/|ds/` → Feature/Task  
+- `feat/` → Feature/Story
+- `fix/` → Bug (hotfix → critical Bug)
+- `refactor/` → Refactor
+- `chore/|ci/|build/|deps/|security/` → Chore
+- `research/` → Research
+- `design/|a11y/|ux/` → Design/Task
+- `proto/|api/|schema/|telemetry/|ds/` → Feature/Task
 - `release/` → Release PR
 
 ## **Tips** {#tips}

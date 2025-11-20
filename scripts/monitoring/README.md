@@ -101,7 +101,7 @@ bash -n script.sh
 
 - ✅ Pass: All scripts have valid syntax
 - ❌ Fail: One or more syntax errors found
-- ⚠️  Warn: No scripts found to check
+- ⚠️ Warn: No scripts found to check
 
 ### File Permissions Check
 
@@ -114,8 +114,8 @@ test -x script.sh
 **Status:**
 
 - ✅ Pass: All scripts are executable
-- ⚠️  Warn: Some scripts not executable
-- ⚠️  Warn: No scripts found
+- ⚠️ Warn: Some scripts not executable
+- ⚠️ Warn: No scripts found
 
 ### Required Includes Check
 
@@ -139,7 +139,7 @@ Monitors disk usage for deployment directory:
 **Thresholds:**
 
 - ✅ `< 80%`: Healthy
-- ⚠️  `80-90%`: Warning (approaching limit)
+- ⚠️ `80-90%`: Warning (approaching limit)
 - ❌ `> 90%`: Critical
 
 ### Deployment Metadata Check

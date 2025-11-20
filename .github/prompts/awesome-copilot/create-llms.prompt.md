@@ -1,8 +1,27 @@
 ---
-mode: 'agent'
-description: 'Create an llms.txt file from scratch based on repository structure following the llms.txt specification at https://llmstxt.org/'
-tools: ['changes', 'codebase', 'edit/editFiles', 'extensions', 'fetch', 'githubRepo', 'openSimpleBrowser', 'problems', 'runTasks', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
+mode: "agent"
+description: "Create an llms.txt file from scratch based on repository structure following the llms.txt specification at https://llmstxt.org/"
+tools:
+  [
+    "changes",
+    "codebase",
+    "edit/editFiles",
+    "extensions",
+    "fetch",
+    "githubRepo",
+    "openSimpleBrowser",
+    "problems",
+    "runTasks",
+    "search",
+    "searchResults",
+    "terminalLastCommand",
+    "terminalSelection",
+    "testFailure",
+    "usages",
+    "vscodeAPI",
+  ]
 ---
+
 # Create LLMs.txt File from Repository Structure
 
 Create a new `llms.txt` file from scratch in the root of the repository following the official llms.txt specification at <https://llmstxt.org/>. This file provides high-level guidance to large language models (LLMs) on where to find relevant content for understanding the repository's purpose and specifications.

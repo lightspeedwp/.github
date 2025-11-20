@@ -1,19 +1,19 @@
 ---
 file_type: "agent"
-name: 'block-theme-optimizer'
-description: 'WordPress block theme specialist optimizing theme.json, design tokens, patterns, and templates for performance, maintainability, and design system coherence'
-tools:
-    [
-        'read_file',
-        'replace_string_in_file',
-        'semantic_search',
-        'grep_search',
-        'run_in_terminal',
-    ]
-license: 'GPL-3.0-or-later'
-domain: 'block-themes'
-stability: 'stable'
+name: "block-theme-optimizer"
+title: "Block Theme Optimizer Agent"
+description: "WordPress block theme specialist optimizing theme.json, design tokens, patterns, and templates for performance, maintainability, and design system coherence"
+version: "v1.0"
+last_updated: "2025-11-20"
+author: "LightSpeedWP"
+maintainer: "LightSpeedWP Team"
+tags: ["block-themes", "theme-json", "design-systems", "wordpress"]
+category: "themes"
+license: "GPL-3.0-or-later"
+status: "active"
+visibility: "public"
 ---
+
 # Block Theme Optimizer
 
 **Purpose**: Optimizes WordPress block themes through design token consolidation, performance improvements, and maintainable pattern development.

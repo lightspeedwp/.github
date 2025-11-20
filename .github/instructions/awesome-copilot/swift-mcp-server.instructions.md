@@ -1,6 +1,6 @@
 ---
 file_type: "instructions"
-description: 'Best practices and patterns for building Model Context Protocol (MCP) servers in Swift using the official MCP Swift SDK package.'
+description: "Best practices and patterns for building Model Context Protocol (MCP) servers in Swift using the official MCP Swift SDK package."
 applyTo: "**/*.swift, **/Package.swift, **/Package.resolved"
 ---
 
@@ -55,15 +55,15 @@ await server.withMethodHandler(CallTool.self) { params in
     case "search":
         let query = params.arguments?["query"]?.stringValue ?? ""
         let limit = params.arguments?["limit"]?.intValue ?? 10
-        
+
         // Perform search
         let results = performSearch(query: query, limit: limit)
-        
+
         return .init(
             content: [.text("Found \(results.count) results")],
             isError: false
         )
-        
+
     default:
         return .init(
             content: [.text("Unknown tool")],
@@ -103,7 +103,7 @@ await server.withMethodHandler(ReadResource.self) { params in
                 mimeType: "text/plain"
             )
         ])
-        
+
     default:
         throw MCPError.invalidParams("Unknown resource URI: \(params.uri)")
     }
@@ -144,15 +144,15 @@ await server.withMethodHandler(GetPrompt.self) { params in
     case "analyze":
         let topic = params.arguments?["topic"]?.stringValue ?? "general"
         let depth = params.arguments?["depth"]?.stringValue ?? "basic"
-        
+
         let description = "Analysis of \(topic) at \(depth) level"
         let messages: [Prompt.Message] = [
             .user("Please analyze this topic: \(topic)"),
             .assistant("I'll provide a \(depth) analysis of \(topic)")
         ]
-        
+
         return .init(description: description, messages: messages)
-        
+
     default:
         throw MCPError.invalidParams("Unknown prompt: \(params.name)")
     }
@@ -196,11 +196,11 @@ The server is an actor, ensuring thread-safe access:
 actor ServerState {
     private var subscriptions: Set<String> = []
     private var cache: [String: Any] = [:]
-    
+
     func addSubscription(_ uri: String) {
         subscriptions.insert(uri)
     }
-    
+
     func getSubscriptions() -> Set<String> {
         return subscriptions
     }
@@ -224,9 +224,9 @@ await server.withMethodHandler(CallTool.self) { params in
         guard let query = params.arguments?["query"]?.stringValue else {
             throw MCPError.invalidParams("Missing query parameter")
         }
-        
+
         let result = try performOperation(query: query)
-        
+
         return .init(
             content: [.text(result)],
             isError: false
@@ -319,12 +319,12 @@ import Logging
 struct MCPService: Service {
     let server: Server
     let transport: Transport
-    
+
     func run() async throws {
         try await server.start(transport: transport)
         try await Task.sleep(for: .days(365 * 100))
     }
-    
+
     func shutdown() async throws {
         await server.stop()
     }
@@ -353,9 +353,9 @@ All server operations use Swift concurrency:
 await server.withMethodHandler(CallTool.self) { params in
     async let result1 = fetchData1()
     async let result2 = fetchData2()
-    
+
     let combined = await "\(result1) and \(result2)"
-    
+
     return .init(
         content: [.text(combined)],
         isError: false
@@ -377,11 +377,11 @@ await server.withMethodHandler(CallTool.self) { params in
         "name": .string(params.name),
         "args": .string("\(params.arguments ?? [:])")
     ])
-    
+
     // Process tool call
-    
+
     logger.debug("Tool completed successfully")
-    
+
     return .init(content: [.text("Result")], isError: false)
 }
 ```
@@ -397,13 +397,13 @@ import XCTest
 final class ServerTests: XCTestCase {
     func testToolCall() async throws {
         let server = createTestServer()
-        
+
         // Test tool call logic
         let params = CallTool.Params(
             name: "search",
             arguments: ["query": .string("test")]
         )
-        
+
         // Verify behavior
         XCTAssertNoThrow(try await processToolCall(params))
     }
@@ -420,12 +420,12 @@ try await server.start(transport: transport) { clientInfo, clientCapabilities in
     guard clientInfo.name != "BlockedClient" else {
         throw MCPError.invalidRequest("Client not allowed")
     }
-    
+
     // Check capabilities
     if clientCapabilities.sampling == nil {
         logger.warning("Client doesn't support sampling")
     }
-    
+
     logger.info("Client connected", metadata: [
         "name": .string(clientInfo.name),
         "version": .string(clientInfo.version)

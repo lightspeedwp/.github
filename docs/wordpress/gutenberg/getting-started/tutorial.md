@@ -207,8 +207,8 @@ Open the [`index.js`](https://developer.wordpress.org/block-editor/getting-start
 Start by looking at the [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/) function. This function accepts the name of the block, which we are getting from the imported `block.json` file, and the block configuration object.
 
 ```js
-import Edit from './edit';
-import metadata from './block.json';
+import Edit from "./edit";
+import metadata from "./block.json";
 
 registerBlockType(metadata.name, {
   edit: Edit,
@@ -223,7 +223,12 @@ Using the calendar icon from the [Gutenberg Storybook](https://wordpress.github.
 
 ```js
 const calendarIcon = (
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <svg
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    focusable="false"
+  >
     <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm.5 16c0 .3-.2.5-.5.5H5c-.3 0-.5-.2-.5-.5V7h15v12zM9 10H7v2h2v-2zm0 4H7v2h2v-2zm4-4h-2v2h2v-2zm4 0h-2v2h2v-2zm-4 4h-2v2h2v-2zm4 0h-2v2h2v-2z"></path>
   </svg>
 );
@@ -254,7 +259,10 @@ Open the file and see that the `Edit()` function returns a paragraph tag with th
 export default function Edit() {
   return (
     <p {...useBlockProps()}>
-      {__('Copyright Date Block – hello from the editor!', 'copyright-date-block-demo')}
+      {__(
+        "Copyright Date Block – hello from the editor!",
+        "copyright-date-block-demo",
+      )}
     </p>
   );
 }
@@ -376,7 +384,7 @@ Earlier in this tutorial, you added block supports that automatically created Co
 The `InspectorControls` belongs to the [`@wordpress/block-editor`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/) package, so you can import it into the `edit.js` file by adding the component name on line 14. The result should look like this.
 
 ```js
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
 ```
 
 Next, update the Edit function to return the current block content and an `InspectorControls` component that includes the text "Testing." You can wrap everything in a [Fragment](https://react.dev/reference/react/Fragment) (`<></>`) to ensure proper JSX syntax. The result should look like this.
@@ -405,7 +413,7 @@ Now, let's use a few more Core components to add a custom panel and the user int
 Add the following line below the other imports in the `edit.js` file.
 
 ```js
-import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
+import { PanelBody, TextControl, ToggleControl } from "@wordpress/components";
 ```
 
 Then wrap the "Testing" message in the `PanelBody` component and set the `title` parameter to "Settings". Refer to the [component documentation](https://developer.wordpress.org/block-editor/reference-guides/components/panel/#panelbody) for additional parameter options.
@@ -417,7 +425,9 @@ export default function Edit() {
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__('Settings', 'copyright-date-block')}>Testing</PanelBody>
+        <PanelBody title={__("Settings", "copyright-date-block")}>
+          Testing
+        </PanelBody>
       </InspectorControls>
       <p {...useBlockProps()}>© {currentYear}</p>
     </>
@@ -466,12 +476,12 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__('Settings', 'copyright-date-block')}>
+        <PanelBody title={__("Settings", "copyright-date-block")}>
           <TextControl
             __nextHasNoMarginBottom
             __next40pxDefaultSize
-            label={__('Starting year', 'copyright-date-block')}
-            value={startingYear || ''}
+            label={__("Starting year", "copyright-date-block")}
+            value={startingYear || ""}
             onChange={(value) => setAttributes({ startingYear: value })}
           />
         </PanelBody>
@@ -510,10 +520,10 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__('Settings', 'copyright-date-block')}>
+        <PanelBody title={__("Settings", "copyright-date-block")}>
           <ToggleControl
             checked={!!showStartingYear}
-            label={__('Show starting year', 'copyright-date-block')}
+            label={__("Show starting year", "copyright-date-block")}
             onChange={() =>
               setAttributes({
                 showStartingYear: !showStartingYear,
@@ -524,8 +534,8 @@ export default function Edit({ attributes, setAttributes }) {
             <TextControl
               __nextHasNoMarginBottom
               __next40pxDefaultSize
-              label={__('Starting year', 'copyright-date-block')}
-              value={startingYear || ''}
+              label={__("Starting year", "copyright-date-block")}
+              value={startingYear || ""}
               onChange={(value) => setAttributes({ startingYear: value })}
             />
           )}
@@ -553,7 +563,7 @@ The code should look something like this.
 let displayDate;
 
 if (showStartingYear && startingYear) {
-  displayDate = startingYear + '–' + currentYear;
+  displayDate = startingYear + "–" + currentYear;
 } else {
   displayDate = currentYear;
 }
@@ -575,7 +585,7 @@ export default function Edit({ attributes, setAttributes }) {
   let displayDate;
 
   if (showStartingYear && startingYear) {
-    displayDate = startingYear + '–' + currentYear;
+    displayDate = startingYear + "–" + currentYear;
   } else {
     displayDate = currentYear;
   }
@@ -583,10 +593,10 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__('Settings', 'copyright-date-block')}>
+        <PanelBody title={__("Settings", "copyright-date-block")}>
           <ToggleControl
             checked={!!showStartingYear}
-            label={__('Show starting year', 'copyright-date-block')}
+            label={__("Show starting year", "copyright-date-block")}
             onChange={() =>
               setAttributes({
                 showStartingYear: !showStartingYear,
@@ -595,8 +605,8 @@ export default function Edit({ attributes, setAttributes }) {
           />
           {showStartingYear && (
             <TextControl
-              label={__('Starting year', 'copyright-date-block')}
-              value={startingYear || ''}
+              label={__("Starting year", "copyright-date-block")}
+              value={startingYear || ""}
               onChange={(value) => setAttributes({ startingYear: value })}
             />
           )}
@@ -705,10 +715,14 @@ Adding static rendering is also a good exploration of how block content is store
 Start by adding a new file named `save.js` to the `src/` folder. In this file, add the following.
 
 ```js
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from "@wordpress/block-editor";
 
 export default function save() {
-  return <p {...useBlockProps.save()}>{'Copyright Date Block – hello from the saved content!'}</p>;
+  return (
+    <p {...useBlockProps.save()}>
+      {"Copyright Date Block – hello from the saved content!"}
+    </p>
+  );
 }
 ```
 
@@ -779,7 +793,7 @@ export default function save({ attributes }) {
   let displayDate;
 
   if (showStartingYear && startingYear) {
-    displayDate = startingYear + '–' + currentYear;
+    displayDate = startingYear + "–" + currentYear;
   } else {
     displayDate = currentYear;
   }
@@ -837,7 +851,7 @@ export default function save({ attributes }) {
   let displayDate;
 
   if (showStartingYear && startingYear) {
-    displayDate = startingYear + '–' + fallbackCurrentYear;
+    displayDate = startingYear + "–" + fallbackCurrentYear;
   } else {
     displayDate = fallbackCurrentYear;
   }
@@ -865,7 +879,7 @@ export default function save({ attributes }) {
   let displayDate;
 
   if (showStartingYear && startingYear) {
-    displayDate = startingYear + '–' + fallbackCurrentYear;
+    displayDate = startingYear + "–" + fallbackCurrentYear;
   } else {
     displayDate = fallbackCurrentYear;
   }
@@ -897,7 +911,7 @@ This will work but can be improved by ensuring this code only runs once when the
 First, import `useEffect` with the following code.
 
 ```js
-import { useEffect } from 'react';
+import { useEffect } from "react";
 ```
 
 Then wrap the `setAttribute()` code above in a `useEffect` and place this code after the `currentYear` definition in the `Edit()` function. The result should look like this.

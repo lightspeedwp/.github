@@ -164,7 +164,7 @@ AI models evolve rapidly. This section helps you stay informed:
 ### Update Schedule
 
 - **Monthly**: Review for major model updates and new releases
-- **Quarterly**: Update pricing information and feature matrices  
+- **Quarterly**: Update pricing information and feature matrices
 - **Biannually**: Comprehensive review of recommendations and guides
 
 ### Information Sources

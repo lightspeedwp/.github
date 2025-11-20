@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-applyTo: 'wp-content/plugins/**,wp-content/themes/**,**/*.php,**/*.inc,**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.css,**/*.scss,**/*.json'
-description: 'Coding, security, and testing rules for WordPress plugins and themes'
+applyTo: "wp-content/plugins/**,wp-content/themes/**,**/*.php,**/*.inc,**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.css,**/*.scss,**/*.json"
+description: "Coding, security, and testing rules for WordPress plugins and themes"
 ---
 
 # WordPress Development — Copilot Instructions
@@ -195,11 +195,11 @@ require $_tests_dir . '/includes/bootstrap.php';
 
 ## 12) What Copilot Must Ensure (Checklist)
 
-- ✅ Unique prefixes/namespaces; no accidental globals.  
-- ✅ Nonce + capability checks for any write action (AJAX/REST/forms).  
-- ✅ Inputs sanitized; outputs escaped.  
-- ✅ User‑visible strings wrapped in i18n with correct text domain.  
-- ✅ Assets enqueued via APIs (no inline script/style).  
-- ✅ Tests added/updated for new behaviors.  
-- ✅ Code passes PHPCS (WPCS) and ESLint where applicable.  
+- ✅ Unique prefixes/namespaces; no accidental globals.
+- ✅ Nonce + capability checks for any write action (AJAX/REST/forms).
+- ✅ Inputs sanitized; outputs escaped.
+- ✅ User‑visible strings wrapped in i18n with correct text domain.
+- ✅ Assets enqueued via APIs (no inline script/style).
+- ✅ Tests added/updated for new behaviors.
+- ✅ Code passes PHPCS (WPCS) and ESLint where applicable.
 - ✅ Avoid direct DB concatenation; always prepare queries.

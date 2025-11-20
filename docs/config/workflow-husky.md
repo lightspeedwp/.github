@@ -114,19 +114,10 @@ npx husky add .husky/commit-msg 'npx --no -- commitlint --edit ${1}'
 ```json
 {
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "wp-scripts lint-js --fix",
-      "wp-scripts format"
-    ],
-    "*.{css,scss}": [
-      "wp-scripts lint-style --fix"
-    ],
-    "*.php": [
-      "composer run lint:fix"
-    ],
-    "*.md": [
-      "markdownlint --fix"
-    ]
+    "*.{js,jsx,ts,tsx}": ["wp-scripts lint-js --fix", "wp-scripts format"],
+    "*.{css,scss}": ["wp-scripts lint-style --fix"],
+    "*.php": ["composer run lint:fix"],
+    "*.md": ["markdownlint --fix"]
   }
 }
 ```

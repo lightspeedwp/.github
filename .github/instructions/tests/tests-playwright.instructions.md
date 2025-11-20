@@ -42,10 +42,10 @@ See [Tests Index](../tests.instructions.md) for all test standards.
 ## Example
 
 ```js
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test('homepage loads', async ({ page }) => {
-  await page.goto('https://your-site.local');
+test("homepage loads", async ({ page }) => {
+  await page.goto("https://your-site.local");
   await expect(page).toHaveTitle(/Home/);
 });
 ```

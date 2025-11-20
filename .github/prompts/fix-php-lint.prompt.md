@@ -3,6 +3,7 @@ description: "Run a PHPCS-inspired cleanup for WordPress PHP style; safe auto-fi
 mode: "edit"
 model: "GPT-4"
 ---
+
 Run PHP_CodeSniffer using the WordPress rulesets on the selected PHP files and apply automatic fixes where safe. Focus on:
 
 1. Correcting indentation, spacing and brace placement.

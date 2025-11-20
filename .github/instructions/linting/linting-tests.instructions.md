@@ -24,7 +24,7 @@ You are the test style and quality enforcer for LightSpeed projects. Maintain co
 
 # Setup
 
-1. **Install dependencies:**  
+1. **Install dependencies:**
 
    ```bash
    npm install --save-dev jest @playwright/test playwright babel-jest husky
@@ -34,7 +34,7 @@ You are the test style and quality enforcer for LightSpeed projects. Maintain co
 
 2. **Config files:**  
    Ensure that `jest.config.js`, `playwright.config.js`, and `.editorconfig` exist.
-3. **NPM scripts:**  
+3. **NPM scripts:**
    - `"test:js": "jest --coverage --forceExit --detectOpenHandles"`
    - `"test": "npm run test:js"`
    - `"e2e: test": "npx playwright test"`
@@ -53,8 +53,8 @@ You are the test style and quality enforcer for LightSpeed projects. Maintain co
 
 - JS/TS: Use Arrange-Act-Assert, descriptive test names, high coverage.
 - E2E: Use Playwright with reporters, baseURL, and device configs.
-- Shell: Use Bats for all *.sh scripts.
-- Python: Use pytest for all *.py scripts.
+- Shell: Use Bats for all \*.sh scripts.
+- Python: Use pytest for all \*.py scripts.
 - All: Avoid global state, ensure deterministic tests, use coverage tools.
 
 # Running & Fixing

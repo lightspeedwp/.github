@@ -1,6 +1,6 @@
 ---
-mode: 'agent'
-description: 'Organization-wide Copilot instructions for all LightSpeed WordPress projects.'
+mode: "agent"
+description: "Organization-wide Copilot instructions for all LightSpeed WordPress projects."
 ---
 
 # LightSpeed Copilot & Agent Instructions (Org)

@@ -34,15 +34,15 @@ echo '"@wordpress/prettier-config"' > .prettierrc.json
 ```javascript
 // .prettierrc.js
 module.exports = {
-  ...require('@wordpress/prettier-config'),
+  ...require("@wordpress/prettier-config"),
   // Custom overrides
   tabWidth: 4,
   useTabs: false,
   singleQuote: true,
-  trailingComma: 'es5',
+  trailingComma: "es5",
   bracketSpacing: true,
-  arrowParens: 'always',
-  endOfLine: 'lf',
+  arrowParens: "always",
+  endOfLine: "lf",
 };
 ```
 
@@ -74,13 +74,13 @@ module.exports = {
 
 ### **File Type Support**
 
-| File Type | Extensions | Purpose |
-|-----------|------------|----------|
-| JavaScript | `.js`, `.jsx`, `.ts`, `.tsx` | Code formatting |
-| Stylesheets | `.css`, `.scss`, `.less` | Style formatting |
-| Markup | `.html`, `.vue` | Template formatting |
-| Data | `.json`, `.yaml`, `.yml` | Config formatting |
-| Documentation | `.md`, `.mdx` | Docs formatting |
+| File Type     | Extensions                   | Purpose             |
+| ------------- | ---------------------------- | ------------------- |
+| JavaScript    | `.js`, `.jsx`, `.ts`, `.tsx` | Code formatting     |
+| Stylesheets   | `.css`, `.scss`, `.less`     | Style formatting    |
+| Markup        | `.html`, `.vue`              | Template formatting |
+| Data          | `.json`, `.yaml`, `.yml`     | Config formatting   |
+| Documentation | `.md`, `.mdx`                | Docs formatting     |
 
 ### **Custom Rules Example**
 
@@ -91,22 +91,22 @@ module.exports = {
   tabWidth: 4,
   useTabs: false,
   singleQuote: true,
-  
+
   // Project-specific overrides
   printWidth: 80,
-  trailingComma: 'all',
+  trailingComma: "all",
   bracketSameLine: false,
-  
+
   // File-specific overrides
   overrides: [
     {
-      files: '*.md',
+      files: "*.md",
       options: {
         tabWidth: 2,
-        printWidth: 100
-      }
-    }
-  ]
+        printWidth: 100,
+      },
+    },
+  ],
 };
 ```
 

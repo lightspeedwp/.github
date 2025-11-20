@@ -1,7 +1,7 @@
 ---
-title: 'Refactoring Java Methods with Extract Method'
-mode: 'agent'
-description: 'Refactoring using Extract Methods in Java Language'
+title: "Refactoring Java Methods with Extract Method"
+mode: "agent"
+description: "Refactoring using Extract Methods in Java Language"
 ---
 
 # Refactoring Java Methods with Extract Method
@@ -101,7 +101,7 @@ Perform intermediate steps internally:
   - CC (Cyclomatic Complexity) > 10
 - For each qualifying method, identify code blocks that can be extracted into separate methods.
 - Extract at least one new method with a descriptive name.
-- Output only the refactored code inside a single ```java``` block.
+- Output only the refactored code inside a single `java` block.
 - Do not remove any functionality from the original method.
 - Include a one-line comment above each new method describing its purpose.
 

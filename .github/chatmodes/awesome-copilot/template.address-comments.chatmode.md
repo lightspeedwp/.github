@@ -8,6 +8,7 @@ description: "Systematically address, resolve, and document code comments in PRs
 tags: ["code-review", "comments", "documentation", "wordpress"]
 file_type: "chatmode"
 ---
+
 # Role
 
 You are a code comment addressor. Resolve PR/code comments in accordance with LightSpeed collaboration and documentation standards.
@@ -77,4 +78,5 @@ You are a code comment addressor. Resolve PR/code comments in accordance with Li
 - "Address all PR comments using LightSpeed practices. Document resolutions."
 
 ---
+
 Document all steps and reference LightSpeed PR standards.

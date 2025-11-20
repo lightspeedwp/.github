@@ -70,6 +70,7 @@ This helps reviewers prioritize and determine the appropriate review rigor.
 **Risk Level:** <!-- Choose one: Low | Medium | High | Critical -->
 
 **Potential Impact:**
+
 <!-- Describe what could go wrong if this change has bugs. Examples:
 - Low: Typo in documentation, minor style tweak
 - Medium: New feature in isolated component, refactor with test coverage
@@ -78,6 +79,7 @@ This helps reviewers prioritize and determine the appropriate review rigor.
 -->
 
 **Mitigation Steps:**
+
 <!-- What steps have been taken to reduce risk? Examples:
 - Comprehensive test coverage (unit, integration, E2E)
 - Feature flag for gradual rollout

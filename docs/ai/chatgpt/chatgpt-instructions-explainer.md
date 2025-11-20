@@ -17,7 +17,7 @@ Each instructions file should:
   - `Provide safe defaults; mark optional flags clearly.`
   - `Start by asking about any LightSpeed internal process, documentation, or best practice. This Space is your single source of truth for LightSpeed workflows.`
   - `Aim for small, safe, well‑documented steps that make the Figma → WordPress handoff effortless.`
-  These lines remind ChatGPT and users of our safety and quality expectations.
+    These lines remind ChatGPT and users of our safety and quality expectations.
 
 ## Customising Instructions
 

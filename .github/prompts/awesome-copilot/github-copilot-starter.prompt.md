@@ -1,8 +1,17 @@
 ---
-mode: 'agent'
+mode: "agent"
 model: Claude Sonnet 4
-tools: ['edit', 'githubRepo', 'changes', 'problems', 'search', 'runCommands', 'fetch']
-description: 'Set up complete GitHub Copilot configuration for a new project based on technology stack'
+tools:
+  [
+    "edit",
+    "githubRepo",
+    "changes",
+    "problems",
+    "search",
+    "runCommands",
+    "fetch",
+  ]
+description: "Set up complete GitHub Copilot configuration for a new project based on technology stack"
 ---
 
 You are a GitHub Copilot setup specialist. Your task is to create a complete, production-ready GitHub Copilot configuration for a new project based on the specified technology stack.
@@ -100,23 +109,30 @@ For each file, follow these principles:
 **Examples:**
 
 ```markdown
-<!-- Based on: https://github.com/github/awesome-copilot/blob/main/instructions/react.instructions.md -->
----
-applyTo: "**/*.jsx,**/*.tsx"
+## <!-- Based on: https://github.com/github/awesome-copilot/blob/main/instructions/react.instructions.md -->
+
+applyTo: "**/\*.jsx,**/\*.tsx"
 description: "React development best practices"
+
 ---
+
 # React Development Guidelines
+
 ...
 ```
 
 ```markdown
 <!-- Inspired by: https://github.com/github/awesome-copilot/blob/main/instructions/java.instructions.md -->
-<!-- and: https://github.com/github/awesome-copilot/blob/main/instructions/spring-boot.instructions.md -->
----
-applyTo: "**/*.java"
+
+## <!-- and: https://github.com/github/awesome-copilot/blob/main/instructions/spring-boot.instructions.md -->
+
+applyTo: "\*_/_.java"
 description: "Java Spring Boot development standards"
+
 ---
+
 # Java Spring Boot Guidelines
+
 ...
 ```
 
@@ -157,14 +173,14 @@ description: "Java Spring Boot development standards"
 **Fetch these awesome-copilot directories:**
 
 - **Instructions**: <https://github.com/github/awesome-copilot/tree/main/instructions>
-- **Prompts**: <https://github.com/github/awesome-copilot/tree/main/prompts>  
+- **Prompts**: <https://github.com/github/awesome-copilot/tree/main/prompts>
 - **Chat Modes**: <https://github.com/github/awesome-copilot/tree/main/chatmodes>
 - **Collections**: <https://github.com/github/awesome-copilot/blob/main/README.collections.md>
 
 **Awesome-Copilot Collections to Check:**
 
 - **Frontend Web Development**: React, Angular, Vue, TypeScript, CSS frameworks
-- **C# .NET Development**: Testing, documentation, and best practices  
+- **C# .NET Development**: Testing, documentation, and best practices
 - **Java Development**: Spring Boot, Quarkus, testing, documentation
 - **Database Development**: PostgreSQL, SQL Server, and general database best practices
 - **Azure Development**: Infrastructure as Code, serverless functions

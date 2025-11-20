@@ -20,4 +20,4 @@ Define new Copilot Chat modes for specialized behaviors or workflows.
 - Where: `.github/chatmodes/*.chatmode.md`
 - Frontmatter: `description`, `tools`, `model` (optional)
 
-> _Explain your chat mode conventions, show examples, and link to shared personas here._
+> *Explain your chat mode conventions, show examples, and link to shared personas here.*

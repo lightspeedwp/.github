@@ -25,15 +25,15 @@ The labeling agent automates all aspects of labeling, status/priority enforcemen
 
 **Utilities are located in `.github/agents/includes/` and imported as needed:**
 
-| Utility File                | Core Functions (examples)                                 | Used by                        |
-|-----------------------------|----------------------------------------------------------|--------------------------------|
-| `label-lookup.js`           | `fetchCanonicalLabels`, `buildLabelAliasMap`, `findStandardLabel` | labeling.agent.js, others      |
-| `labeler-utils.js`          | `fetchLabelerRules`, `applyLabelerRules`                 | labeling.agent.js              |
-| `label-sync.js`             | `syncLabelsWithCanonical`, `validateRepoLabels`, `standardizeLabelsOnRepo` | labeling.agent.js, scripts     |
-| `status-enforcer.js`        | `enforceOneHotStatus`, `applyDefaultStatus`, `applyDefaultPriority` | labeling.agent.js              |
-| `label-reporting.js`        | `buildLabelingReport`, `buildStandardizationReport`      | labeling.agent.js, reporting   |
-| `type-lookup.js`            | `loadIssueTypes`, `findIssueTypeByNameOrAlias`           | labeling.agent.js, issue-type  |
-| `label-heuristics.js`       | `suggestLabelsFromContent`                               | labeling.agent.js, automation  |
+| Utility File          | Core Functions (examples)                                                  | Used by                       |
+| --------------------- | -------------------------------------------------------------------------- | ----------------------------- |
+| `label-lookup.js`     | `fetchCanonicalLabels`, `buildLabelAliasMap`, `findStandardLabel`          | labeling.agent.js, others     |
+| `labeler-utils.js`    | `fetchLabelerRules`, `applyLabelerRules`                                   | labeling.agent.js             |
+| `label-sync.js`       | `syncLabelsWithCanonical`, `validateRepoLabels`, `standardizeLabelsOnRepo` | labeling.agent.js, scripts    |
+| `status-enforcer.js`  | `enforceOneHotStatus`, `applyDefaultStatus`, `applyDefaultPriority`        | labeling.agent.js             |
+| `label-reporting.js`  | `buildLabelingReport`, `buildStandardizationReport`                        | labeling.agent.js, reporting  |
+| `type-lookup.js`      | `loadIssueTypes`, `findIssueTypeByNameOrAlias`                             | labeling.agent.js, issue-type |
+| `label-heuristics.js` | `suggestLabelsFromContent`                                                 | labeling.agent.js, automation |
 
 ---
 
@@ -41,13 +41,34 @@ The labeling agent automates all aspects of labeling, status/priority enforcemen
 
 ```javascript
 // Import utilities in labeling.agent.js
-const { fetchCanonicalLabels, buildLabelAliasMap, findStandardLabel } = require('../../.github/agents/includes/label-lookup');
-const { fetchLabelerRules, applyLabelerRules } = require('../../.github/agents/includes/labeler-utils');
-const { syncLabelsWithCanonical, standardizeLabelsOnRepo } = require('../../.github/agents/includes/label-sync');
-const { enforceOneHotStatus, applyDefaultStatus, applyDefaultPriority } = require('../../.github/agents/includes/status-enforcer');
-const { buildLabelingReport } = require('../../.github/agents/includes/label-reporting');
-const { loadIssueTypes, findIssueTypeByNameOrAlias } = require('../../.github/agents/includes/type-lookup');
-const { suggestLabelsFromContent } = require('../../.github/agents/includes/label-heuristics');
+const {
+  fetchCanonicalLabels,
+  buildLabelAliasMap,
+  findStandardLabel,
+} = require("../../.github/agents/includes/label-lookup");
+const {
+  fetchLabelerRules,
+  applyLabelerRules,
+} = require("../../.github/agents/includes/labeler-utils");
+const {
+  syncLabelsWithCanonical,
+  standardizeLabelsOnRepo,
+} = require("../../.github/agents/includes/label-sync");
+const {
+  enforceOneHotStatus,
+  applyDefaultStatus,
+  applyDefaultPriority,
+} = require("../../.github/agents/includes/status-enforcer");
+const {
+  buildLabelingReport,
+} = require("../../.github/agents/includes/label-reporting");
+const {
+  loadIssueTypes,
+  findIssueTypeByNameOrAlias,
+} = require("../../.github/agents/includes/type-lookup");
+const {
+  suggestLabelsFromContent,
+} = require("../../.github/agents/includes/label-heuristics");
 
 // Example usage in agent's main function:
 async function runLabelingAgent(context, configs, dryRun = false) {
@@ -66,7 +87,10 @@ async function runLabelingAgent(context, configs, dryRun = false) {
   await applyDefaultPriority(context, canonicalLabels, dryRun);
 
   // 4. Issue type assignment from title/body
-  const typeLabel = findIssueTypeByNameOrAlias(context.payload.issue?.title, issueTypes);
+  const typeLabel = findIssueTypeByNameOrAlias(
+    context.payload.issue?.title,
+    issueTypes,
+  );
   if (typeLabel) {
     // ...add type label if missing
   }

@@ -52,17 +52,20 @@ Detects potentially dangerous shell patterns and practices:
 #### Critical Issues 🔴
 
 - **`eval` usage**: Code injection risk
+
   ```bash
   eval "$user_input"  # ❌ DANGEROUS
   ```
 
 - **Piping curl/wget to shell**: Remote code execution risk
+
   ```bash
   curl https://example.com/script.sh | sh  # ❌ DANGEROUS
   wget -O- https://example.com/script.sh | bash  # ❌ DANGEROUS
   ```
 
 - **Root filesystem deletion**: Catastrophic data loss risk
+
   ```bash
   rm -rf /  # ❌ EXTREMELY DANGEROUS
   ```
@@ -70,16 +73,19 @@ Detects potentially dangerous shell patterns and practices:
 #### High Severity Issues 🟠
 
 - **Dynamic sourcing with variables**: Code injection risk
+
   ```bash
   source "$user_provided_file"  # ⚠️ HIGH RISK
   ```
 
 - **Overly permissive permissions**: Security risk
+
   ```bash
   chmod 777 sensitive-file.sh  # ⚠️ HIGH RISK
   ```
 
 - **Hardcoded credentials**: Data exposure risk
+
   ```bash
   PASSWORD="secret123"  # ⚠️ HIGH RISK
   API_TOKEN="abc123xyz"  # ⚠️ HIGH RISK
@@ -88,6 +94,7 @@ Detects potentially dangerous shell patterns and practices:
 #### Medium Severity Issues 🟡
 
 - **Passwordless sudo**: Privilege escalation risk
+
   ```bash
   echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers  # ⚠️ MEDIUM RISK
   ```
@@ -440,11 +447,13 @@ If audit reports false positives:
 
 1. Review finding context
 2. Add suppression comment if justified:
+
    ```bash
    # shellcheck disable=SC2086
    # Security: Variable is controlled and safe here
    command $safe_variable
    ```
+
 3. Document why pattern is safe
 4. Consider refactoring for clarity
 

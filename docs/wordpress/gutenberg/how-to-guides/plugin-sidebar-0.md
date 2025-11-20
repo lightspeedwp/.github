@@ -6,7 +6,7 @@ How to add a sidebar to your plugin. A sidebar is the region to the far right of
 
 ![Example sidebar](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-up-and-running.png)
 
-_Note: this tutorial covers a custom sidebar, if you are looking to add controls to the sidebar see the [Block Toolbar and Settings Sidebar](/docs/getting-started/fundamentals/block-in-the-editor.md)_
+*Note: this tutorial covers a custom sidebar, if you are looking to add controls to the sidebar see the [Block Toolbar and Settings Sidebar](/docs/getting-started/fundamentals/block-in-the-editor.md)*
 
 ## Before you start
 
@@ -26,16 +26,16 @@ Add the following code to a JavaScript file called `plugin-sidebar.js` and save 
   var registerPlugin = wp.plugins.registerPlugin;
   var PluginSidebar = wp.editor.PluginSidebar;
 
-  registerPlugin('my-plugin-sidebar', {
+  registerPlugin("my-plugin-sidebar", {
     render: function () {
       return el(
         PluginSidebar,
         {
-          name: 'my-plugin-sidebar',
-          icon: 'admin-post',
-          title: 'My plugin sidebar',
+          name: "my-plugin-sidebar",
+          icon: "admin-post",
+          title: "My plugin sidebar",
         },
-        'Meta field'
+        "Meta field",
       );
     },
   });
@@ -85,26 +85,26 @@ To visualize and edit the meta field value you'll use an input component. The `@
   var PluginSidebar = wp.editor.PluginSidebar;
   var TextControl = wp.components.TextControl;
 
-  registerPlugin('my-plugin-sidebar', {
+  registerPlugin("my-plugin-sidebar", {
     render: function () {
       return el(
         PluginSidebar,
         {
-          name: 'my-plugin-sidebar',
-          icon: 'admin-post',
-          title: 'My plugin sidebar',
+          name: "my-plugin-sidebar",
+          icon: "admin-post",
+          title: "My plugin sidebar",
         },
         el(
-          'div',
-          { className: 'plugin-sidebar-content' },
+          "div",
+          { className: "plugin-sidebar-content" },
           el(TextControl, {
-            label: 'Meta Block Field',
-            value: 'Initial value',
+            label: "Meta Block Field",
+            value: "Initial value",
             onChange: function (content) {
-              console.log('content changed to ', content);
+              console.log("content changed to ", content);
             },
-          })
-        )
+          }),
+        ),
       );
     },
   });
@@ -187,7 +187,7 @@ register_post_meta( 'post', 'sidebar_plugin_meta_block_field', array(
 To confirm, query the block editor store to see the field is loaded. After implementing, reload the editor page and open your browser's developer console. Use this JavaScript snippet in the console to confirm:
 
 ```js
-wp.data.select('core/editor').getCurrentPost().meta;
+wp.data.select("core/editor").getCurrentPost().meta;
 ```
 
 The function will return an object containing the registered meta field you registered.
@@ -207,24 +207,24 @@ With the field available in the editor store, it can now be surfaced to the UI. 
 
   var MetaBlockField = function () {
     return el(TextControl, {
-      label: 'Meta Block Field',
-      value: 'Initial value',
+      label: "Meta Block Field",
+      value: "Initial value",
       onChange: function (content) {
-        console.log('content changed to ', content);
+        console.log("content changed to ", content);
       },
     });
   };
 
-  registerPlugin('my-plugin-sidebar', {
+  registerPlugin("my-plugin-sidebar", {
     render: function () {
       return el(
         PluginSidebar,
         {
-          name: 'my-plugin-sidebar',
-          icon: 'admin-post',
-          title: 'My plugin sidebar',
+          name: "my-plugin-sidebar",
+          icon: "admin-post",
+          title: "My plugin sidebar",
         },
-        el('div', { className: 'plugin-sidebar-content' }, el(MetaBlockField))
+        el("div", { className: "plugin-sidebar-content" }, el(MetaBlockField)),
       );
     },
   });
@@ -245,30 +245,30 @@ The `useSelect` function is used to fetch data when the component loads and will
 
   var MetaBlockField = function () {
     var metaFieldValue = useSelect(function (select) {
-      return select('core/editor').getEditedPostAttribute('meta')[
-        'sidebar_plugin_meta_block_field'
+      return select("core/editor").getEditedPostAttribute("meta")[
+        "sidebar_plugin_meta_block_field"
       ];
     }, []);
 
     return el(Text, {
-      label: 'Meta Block Field',
+      label: "Meta Block Field",
       value: metaFieldValue,
       onChange: function (content) {
-        console.log('content has changed to ', content);
+        console.log("content has changed to ", content);
       },
     });
   };
 
-  registerPlugin('my-plugin-sidebar', {
+  registerPlugin("my-plugin-sidebar", {
     render: function () {
       return el(
         PluginSidebar,
         {
-          name: 'my-plugin-sidebar',
-          icon: 'admin-post',
-          title: 'My plugin sidebar',
+          name: "my-plugin-sidebar",
+          icon: "admin-post",
+          title: "My plugin sidebar",
         },
-        el('div', { className: 'plugin-sidebar-content' }, el(MetaBlockField))
+        el("div", { className: "plugin-sidebar-content" }, el(MetaBlockField)),
       );
     },
   });
@@ -283,8 +283,8 @@ Confirm it's working by updating the code, reloading, and opening the sidebar. T
 
 ```js
 wp.data
-  .dispatch('core/editor')
-  .editPost({ meta: { sidebar_plugin_meta_block_field: 'hello world!' } });
+  .dispatch("core/editor")
+  .editPost({ meta: { sidebar_plugin_meta_block_field: "hello world!" } });
 ```
 
 You can observe the content changing in the input component.
@@ -305,15 +305,15 @@ The `useDispatch` function takes a store name as its only argument and returns m
 
   var MetaBlockField = function (props) {
     var metaFieldValue = useSelect(function (select) {
-      return select('core/editor').getEditedPostAttribute('meta')[
-        'sidebar_plugin_meta_block_field'
+      return select("core/editor").getEditedPostAttribute("meta")[
+        "sidebar_plugin_meta_block_field"
       ];
     }, []);
 
-    var editPost = useDispatch('core/editor').editPost;
+    var editPost = useDispatch("core/editor").editPost;
 
     return el(TextControl, {
-      label: 'Meta Block Field',
+      label: "Meta Block Field",
       value: metaFieldValue,
       onChange: function (content) {
         editPost({
@@ -323,16 +323,16 @@ The `useDispatch` function takes a store name as its only argument and returns m
     });
   };
 
-  registerPlugin('my-plugin-sidebar', {
+  registerPlugin("my-plugin-sidebar", {
     render: function () {
       return el(
         PluginSidebar,
         {
-          name: 'my-plugin-sidebar',
-          icon: 'admin-post',
-          title: 'My plugin sidebar',
+          name: "my-plugin-sidebar",
+          icon: "admin-post",
+          title: "My plugin sidebar",
         },
-        el('div', { className: 'plugin-sidebar-content' }, el(MetaBlockField))
+        el("div", { className: "plugin-sidebar-content" }, el(MetaBlockField)),
       );
     },
   });
@@ -344,7 +344,9 @@ After the update, when the user types, the input control calls `editPost` and up
 Update the JavaScript, load the sidebar, and type in the input field. You can confirm it is saved by typing something in the input control and executing the JavaScript snippet in your browser's development console:
 
 ```js
-wp.data.select('core/editor').getEditedPostAttribute('meta')['sidebar_plugin_meta_block_field'];
+wp.data.select("core/editor").getEditedPostAttribute("meta")[
+  "sidebar_plugin_meta_block_field"
+];
 ```
 
 The message displayed should be what you typed in the input.

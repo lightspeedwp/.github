@@ -4,20 +4,21 @@ description: |
 last_updated: 2025-10-25
 version: 2.1
 owners:
-- lightspeedwp
+  - lightspeedwp
 
 references:
-- ../README.md
-- ../../README.md
-- ../../../README.md
-- ../../../schemas/frontmatter.schema.json
-- ../../../docs/YAML.md
-- ../../../docs/FRONTMATTER-SCHEMA.md
+  - ../README.md
+  - ../../README.md
+  - ../../../README.md
+  - ../../../schemas/frontmatter.schema.json
+  - ../../../docs/YAML.md
+  - ../../../docs/FRONTMATTER-SCHEMA.md
 ---
 
 # CLI Tests 🧪
 
 Badges: (placeholder – will be auto-inserted by global badge workflow)
+
 > Jest ⬡ Bats ✅ ShellCheck 🔍 Coverage % 📊 Frontmatter ✓
 
 ## Overview
@@ -48,8 +49,8 @@ graph TD
 
 ## Test Files
 
-| File | Purpose |
-| ---- | ------- |
+| File                  | Purpose                                                                  |
+| --------------------- | ------------------------------------------------------------------------ |
 | `test-cli-utils.bats` | Core Bats tests for CLI parsing, usage rendering, and helper integration |
 
 ## Usage
@@ -67,18 +68,18 @@ CLI_TEST_DEBUG=1 bats tests/includes/cli/
 
 ## Environment
 
-| Variable | Effect |
-| -------- | ------ |
+| Variable         | Effect                                        |
+| ---------------- | --------------------------------------------- |
 | `CLI_TEST_DEBUG` | Enables verbose diagnostic logging in helpers |
-| `NO_COLOR` | Forces plain output for snapshot comparisons |
+| `NO_COLOR`       | Forces plain output for snapshot comparisons  |
 
 ## Validation & Quality
 
-| Check | Tool | Notes |
-| ----- | ---- | ----- |
-| Shell lint | ShellCheck | Applied to any sourced helper scripts |
+| Check       | Tool              | Notes                                              |
+| ----------- | ----------------- | -------------------------------------------------- |
+| Shell lint  | ShellCheck        | Applied to any sourced helper scripts              |
 | Frontmatter | Validation script | Ensures metadata matches `frontmatter.schema.json` |
-| Markdown | MD Lint | Spacing, headings, fenced code block rules |
+| Markdown    | MD Lint           | Spacing, headings, fenced code block rules         |
 
 ## Dependencies
 

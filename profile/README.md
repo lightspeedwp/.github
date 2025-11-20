@@ -4,7 +4,17 @@ description: "Welcome to LightSpeed's GitHub Organization - WordPress design and
 version: "2.0"
 last_updated: "2025-10-24"
 maintainer: "LightSpeed Team"
-tags: ["wordpress", "agency", "open-source", "themes", "plugins", "lsx-design", "tour-operator", "community"]
+tags:
+  [
+    "wordpress",
+    "agency",
+    "open-source",
+    "themes",
+    "plugins",
+    "lsx-design",
+    "tour-operator",
+    "community",
+  ]
 ai_references:
   - "../.github/custom-instructions.md"
   - "../.github/agents/agent.md"
@@ -46,31 +56,31 @@ flowchart LR
         B[🎯 WordPress Experts]
         C[🌍 Global Impact]
     end
-    
+
     subgraph "🚀 Core Products"
         D[🎨 LSX Design Theme]
         E[✈️ Tour Operator Plugin]
         F[🛒 WooCommerce Solutions]
         G[🔧 Custom Development]
     end
-    
+
     subgraph "💝 Open Source Commitment"
         H[📖 Free Resources]
         I[🤝 Community Support]
         J[📚 Documentation]
         K[🔄 Continuous Updates]
     end
-    
+
     A --> D
     B --> E
     C --> F
     A --> G
-    
+
     D --> H
     E --> I
     F --> J
     G --> K
-    
+
     style A fill:#e1f5fe
     style D fill:#f3e5f5
     style H fill:#e8f5e8
@@ -101,32 +111,32 @@ We believe in the power of community and open-source collaboration! If you're pa
 ```mermaid
 flowchart TD
     A[🚀 Start Here] --> B{What do you want to do?}
-    
+
     B -->|🐛 Report Issue| C[📝 Submit Issue]
     B -->|💡 Feature Request| D[💭 Discussion]
     B -->|🔧 Code Contribution| E[🍴 Fork Repository]
     B -->|📚 Documentation| F[📖 Improve Docs]
-    
+
     C --> G[🏷️ Auto-Labeling]
     D --> H[💬 Community Review]
     E --> I[⚡ Develop & Test]
     F --> J[✍️ Write & Review]
-    
+
     G --> K[👀 Team Triage]
     H --> K
     I --> L[📤 Submit PR]
     J --> L
-    
+
     K --> M[🔍 Code Review]
     L --> M
-    
+
     M --> N{Review Passed?}
     N -->|✅ Yes| O[🎉 Merge & Deploy]
     N -->|❌ No| P[🔄 Request Changes]
-    
+
     P --> I
     O --> Q[📢 Community Update]
-    
+
     style A fill:#e1f5fe
     style E fill:#f3e5f5
     style O fill:#c8e6c9
@@ -155,47 +165,47 @@ graph TB
         B[Block Patterns]
         C[Custom Blocks]
     end
-    
+
     subgraph "⚙️ Backend Functionality"
         D[Tour Operator Plugin]
         E[WooCommerce Extensions]
         F[Custom Post Types]
     end
-    
+
     subgraph "🔧 Developer Tools"
         G[Build Tools]
         H[Testing Framework]
         I[CI/CD Workflows]
     end
-    
+
     subgraph "📚 Documentation"
         J[User Guides]
         K[Developer Docs]
         L[API References]
     end
-    
+
     subgraph "🤝 Community"
         M[GitHub Issues]
         N[Discussions]
         O[Support Forums]
     end
-    
+
     A --> D
     B --> E
     C --> F
-    
+
     D --> G
     E --> H
     F --> I
-    
+
     G --> J
     H --> K
     I --> L
-    
+
     J --> M
     K --> N
     L --> O
-    
+
     style A fill:#e1f5fe
     style D fill:#f3e5f5
     style G fill:#fff3e0
@@ -233,7 +243,7 @@ stateDiagram-v2
     Collaborate --> Lead
     Lead --> Mentor
     Mentor --> Engage
-    
+
     Discover : 🔍 Find our projects
     Explore : 📖 Read documentation
     Engage : 💬 Join discussions

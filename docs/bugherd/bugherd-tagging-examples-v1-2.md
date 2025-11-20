@@ -4,37 +4,37 @@
 
 ---
 
-[1\) Checkout error blocks payment](#1\)-checkout-error-blocks-payment)
+[1\) Checkout error blocks payment](<#1)-checkout-error-blocks-payment>)
 
-[2\) Post‑launch typo on CTA section](#2\)-post‑launch-typo-on-cta-section)
+[2\) Post‑launch typo on CTA section](<#2)-post‑launch-typo-on-cta-section>)
 
-[3\) LCP slow on homepage hero](#3\)-lcp-slow-on-homepage-hero)
+[3\) LCP slow on homepage hero](<#3)-lcp-slow-on-homepage-hero>)
 
-[4\) Contrast fails on mobile form labels (A11y/Device)](#4\)-contrast-fails-on-mobile-form-labels-\(a11y/device\))
+[4\) Contrast fails on mobile form labels (A11y/Device)](<#4)-contrast-fails-on-mobile-form-labels-(a11y/device)>)
 
-[5\) Theme token mismatch for headings (Comp/Theme)](#5\)-theme-token-mismatch-for-headings-\(comp/theme\))
+[5\) Theme token mismatch for headings (Comp/Theme)](<#5)-theme-token-mismatch-for-headings-(comp/theme)>)
 
-[6\) FAQ page anchor links broken (Page/Issue)](#6\)-faq-page-anchor-links-broken-\(page/issue\))
+[6\) FAQ page anchor links broken (Page/Issue)](<#6)-faq-page-anchor-links-broken-(page/issue)>)
 
-[7\) Mega‑menu overflows on tablet landscape (Device/Layout)](#7\)-mega‑menu-overflows-on-tablet-landscape-\(device/layout\))
+[7\) Mega‑menu overflows on tablet landscape (Device/Layout)](<#7)-mega‑menu-overflows-on-tablet-landscape-(device/layout)>)
 
-[8\) Testimonials switched to grid (Layout/Area)](#8\)-testimonials-switched-to-grid-\(layout/area\))
+[8\) Testimonials switched to grid (Layout/Area)](<#8)-testimonials-switched-to-grid-(layout/area)>)
 
-[9\) Button block spacing regression (Block)](#9\)-button-block-spacing-regression-\(block\))
+[9\) Button block spacing regression (Block)](<#9)-button-block-spacing-regression-(block)>)
 
-[10\) Header alignment off after logo swap (Template‑part)](#10\)-header-alignment-off-after-logo-swap-\(template‑part\))
+[10\) Header alignment off after logo swap (Template‑part)](<#10)-header-alignment-off-after-logo-swap-(template‑part)>)
 
-[11\) Category archive pagination incorrect (Template)](#11\)-category-archive-pagination-incorrect-\(template\))
+[11\) Category archive pagination incorrect (Template)](<#11)-category-archive-pagination-incorrect-(template)>)
 
-[12\) Wetu importer mapping missing fields (TO plugin)](#12\)-wetu-importer-mapping-missing-fields-\(to-plugin\))
+[12\) Wetu importer mapping missing fields (TO plugin)](<#12)-wetu-importer-mapping-missing-fields-(to-plugin)>)
 
-[13\) Mini‑cart totals mismatch (Woo)](#13\)-mini‑cart-totals-mismatch-\(woo\))
+[13\) Mini‑cart totals mismatch (Woo)](<#13)-mini‑cart-totals-mismatch-(woo)>)
 
-[14\) Define DS tokens for new brand (Theme)](#14\)-define-ds-tokens-for-new-brand-\(theme\))
+[14\) Define DS tokens for new brand (Theme)](<#14)-define-ds-tokens-for-new-brand-(theme)>)
 
-[15\) Gate UAT for sign‑off (Phase/Env)](#15\)-gate-uat-for-sign‑off-\(phase/env\))
+[15\) Gate UAT for sign‑off (Phase/Env)](<#15)-gate-uat-for-sign‑off-(phase/env)>)
 
-[16\) Unknown complexity — requires research (Size)](#16\)-unknown-complexity-—-requires-research-\(size\))
+[16\) Unknown complexity — requires research (Size)](<#16)-unknown-complexity-—-requires-research-(size)>)
 
 ---
 
@@ -62,7 +62,7 @@ Note: The woo family serves to replace the area & comp families.
 Reported by:
 - Project Manager during testing
 
-Bugherd Fields:- Board column = TODO 
+Bugherd Fields:- Board column = TODO
 - Severity = Normal
 - Visible to = Members & Clients
 - Assigned to = ClientNameTags applied:
@@ -82,7 +82,7 @@ Note: The client provided content with typo, they are able to edit
 Feedback:
 - Developer during testing
 
-Bugherd Fields:- Board column = TODO 
+Bugherd Fields:- Board column = TODO
 - Severity = Critical
 - Visible to = Members
 - Assigned to = DeveloperNameTags applied:
@@ -103,21 +103,21 @@ Note: The site needs to launch soon, performance is critical to conversion, we c
 
 ```
 Reported by:
-- QA during UAT  
+- QA during UAT
 
 BugHerd Fields:
 - Severity = Critical
-- Assigned = DevName 
+- Assigned = DevName
 
-Tags applied:  
-- status:needs-dev  
-- type:a11y  
-- area:forms  
-- device:mobile  
-- issue:js-error  
-- phase:staging-uat  
-- env:staging  
-- size:S  
+Tags applied:
+- status:needs-dev
+- type:a11y
+- area:forms
+- device:mobile
+- issue:js-error
+- phase:staging-uat
+- env:staging
+- size:S
 
 Note: Add tokenised colour variable to meet WCAG; JS error surfaced on blur.
 ```
@@ -128,18 +128,18 @@ Note: Add tokenised colour variable to meet WCAG; JS error surfaced on blur.
 
 ```
 Reported by:
-- Designer during design review  
+- Designer during design review
 
 BugHerd Fields:
 - Severity = Normal
-- Assigned = DevName 
+- Assigned = DevName
 
-Tags applied:  
-- status:needs-dev  
-- comp:theme-json  
-- theme:design-system  
-- page:about  
-- size:S  
+Tags applied:
+- status:needs-dev
+- comp:theme-json
+- theme:design-system
+- page:about
+- size:S
 
 Note: Update theme.json typography scale; no template changes.
 ```
@@ -150,15 +150,15 @@ Note: Update theme.json typography scale; no template changes.
 
 ```
 Reported by:
-- Client during UAT 
+- Client during UAT
 
-Tags applied: 
-- status:needs-dev  
-- type:bug  
-- page:faq  
-- issue:broken-link  
-- env:staging  
-- size:S  
+Tags applied:
+- status:needs-dev
+- type:bug
+- page:faq
+- issue:broken-link
+- env:staging
+- size:S
 
 Note: Fix in-page anchors and regenerate ToC.
 ```
@@ -169,15 +169,15 @@ Note: Fix in-page anchors and regenerate ToC.
 
 ```
 Reported by:
-- QA  
+- QA
 
-Tags applied:  
-- status:needs-dev 
-- area:mega-menu 
-- layout:wide-width  
-- device:tablet-landscape  
-- env:staging  
-- size:M  
+Tags applied:
+- status:needs-dev
+- area:mega-menu
+- layout:wide-width
+- device:tablet-landscape
+- env:staging
+- size:M
 
 Note: Adjust CSS clamps and container queries for breakpoint.
 ```
@@ -188,16 +188,16 @@ Note: Adjust CSS clamps and container queries for breakpoint.
 
 ```
 Reported by:
-- PM (content update request)  
+- PM (content update request)
 
-Tags applied:  
-- status:needs-design  
-- type:improve  
-- area:testimonials  
-- layout:grid  
-- page:testimonials  
-- env:live  
-- size:S  
+Tags applied:
+- status:needs-design
+- type:improve
+- area:testimonials
+- layout:grid
+- page:testimonials
+- env:live
+- size:S
 
 Note: Minor layout uplift; no new logic.
 ```
@@ -208,15 +208,15 @@ Note: Minor layout uplift; no new logic.
 
 ```
 Reported by:
-- QA  
+- QA
 
-Tags applied:  
-- status:needs-dev  
-- block:button  
-- comp:block-styles  
-- page:services  
-- env:staging  
-- size:S  
+Tags applied:
+- status:needs-dev
+- block:button
+- comp:block-styles
+- page:services
+- env:staging
+- size:S
 
 Note: Restore spacing token; add regression test.
 ```
@@ -227,14 +227,14 @@ Note: Restore spacing token; add regression test.
 
 ```
 Reported by:
-- Client on live  
+- Client on live
 
-Tags applied:  
-- status:needs-dev  
-- template-part:header  
-- area:navigation  
-- env:live  
-- size:S  
+Tags applied:
+- status:needs-dev
+- template-part:header
+- area:navigation
+- env:live
+- size:S
 
 Note: Constrain logo aspect ratio; avoid CLS.
 ```
@@ -245,14 +245,14 @@ Note: Constrain logo aspect ratio; avoid CLS.
 
 ```
 Reported by:
-- SEO specialist  
+- SEO specialist
 
-Tags applied:  
-- status:needs-dev  
-- template:category-archives  
-- block:pagination  
-- area:seo  
-- size:M  
+Tags applied:
+- status:needs-dev
+- template:category-archives
+- block:pagination
+- area:seo
+- size:M
 
 Note: Ensure rel=next/prev and canonical rules.
 ```
@@ -263,14 +263,14 @@ Note: Ensure rel=next/prev and canonical rules.
 
 ```
 Reported by:
-- Developer during migration  
+- Developer during migration
 
-Tags applied:  
-- status:needs-dev  
-- to:wetu-importer  
-- to:post-relationships  
-- env:staging  
-- size:M  
+Tags applied:
+- status:needs-dev
+- to:wetu-importer
+- to:post-relationships
+- env:staging
+- size:M
 
 Note: Add new field mappings; backfill script required.
 ```
@@ -281,14 +281,14 @@ Note: Add new field mappings; backfill script required.
 
 ```
 Reported by:
-- Client during UAT  
+- Client during UAT
 
-Tags applied:  
-- status:needs-dev  
-- woo:part-mini-cart  
-- woo:page-cart  
-- env:staging  
-- size:M  
+Tags applied:
+- status:needs-dev
+- woo:part-mini-cart
+- woo:page-cart
+- env:staging
+- size:M
 
 Note: Sync tax/shipping calculation with backend; add E2E test.
 ```
@@ -299,14 +299,14 @@ Note: Sync tax/shipping calculation with backend; add E2E test.
 
 ```
 Reported by:
-- Designer  
+- Designer
 
-Tags applied:  
-- status:needs-design-review  
-- theme:design-system  
-- comp:color-palette  
-- comp:typography  
-- size:L  
+Tags applied:
+- status:needs-design-review
+- theme:design-system
+- comp:color-palette
+- comp:typography
+- size:L
 
 Note: Introduces new token set; cross‑component impact.
 ```
@@ -317,13 +317,13 @@ Note: Introduces new token set; cross‑component impact.
 
 ```
 Reported by:
-- PM  
+- PM
 
-Tags applied:  
-- status:ready  
-- phase:staging-uat  
-- env:staging  
-- size:XS  
+Tags applied:
+- status:ready
+- phase:staging-uat
+- env:staging
+- size:XS
 
 Note: No work, just readiness marker for controlled UAT.
 ```
@@ -334,14 +334,14 @@ Note: No work, just readiness marker for controlled UAT.
 
 ```
 Reported by:
-- Developer  
+- Developer
 
-Tags applied:  
+Tags applied:
 - status:on-hold
 - type:dev
 - area:integration
 - env:staging
-- size:unknown 
+- size:unknown
 
 Note: Add a time‑boxed research to de‑risk before sizing M/L.
 ```

@@ -21,7 +21,7 @@ references:
 
 1. **Start from the prompt template:**  
    Use [COPILOT_TEMPLATE/template.prompt.md](../../COPILOT_TEMPLATE/template.prompt.md).
-2. **Edit front matter:**  
+2. **Edit front matter:**
    - file_type: "prompt"
    - title, description, owners, version, status, etc.
 3. **Define clear outcomes, user input requirements, and expected outputs.**

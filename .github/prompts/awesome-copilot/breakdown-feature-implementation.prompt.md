@@ -1,6 +1,6 @@
 ---
-mode: 'agent'
-description: 'Prompt for creating detailed feature implementation plans, following Epoch monorepo structure.'
+mode: "agent"
+description: "Prompt for creating detailed feature implementation plans, following Epoch monorepo structure."
 ---
 
 # Feature Implementation Plan Prompt
@@ -93,24 +93,24 @@ The component structure will leverage the `shadcn/ui` library for a consistent a
 
 Recipe Library Page
 ├── Header Section (shadcn: Card)
-│   ├── Title (shadcn: Typography `h1`)
-│   ├── Add Recipe Button (shadcn: Button with DropdownMenu)
-│   │   ├── Manual Entry (DropdownMenuItem)
-│   │   ├── Import from URL (DropdownMenuItem)
-│   │   └── Import from PDF (DropdownMenuItem)
-│   └── Search Input (shadcn: Input with icon)
+│ ├── Title (shadcn: Typography `h1`)
+│ ├── Add Recipe Button (shadcn: Button with DropdownMenu)
+│ │ ├── Manual Entry (DropdownMenuItem)
+│ │ ├── Import from URL (DropdownMenuItem)
+│ │ └── Import from PDF (DropdownMenuItem)
+│ └── Search Input (shadcn: Input with icon)
 ├── Main Content Area (flex container)
-│   ├── Filter Sidebar (aside)
-│   │   ├── Filter Title (shadcn: Typography `h4`)
-│   │   ├── Category Filters (shadcn: Checkbox group)
-│   │   ├── Cuisine Filters (shadcn: Checkbox group)
-│   │   └── Difficulty Filters (shadcn: RadioGroup)
-│   └── Recipe Grid (main)
-│       └── Recipe Card (shadcn: Card)
-│           ├── Recipe Image (img)
-│           ├── Recipe Title (shadcn: Typography `h3`)
-│           ├── Recipe Tags (shadcn: Badge)
-│           └── Quick Actions (shadcn: Button - View, Edit)
+│ ├── Filter Sidebar (aside)
+│ │ ├── Filter Title (shadcn: Typography `h4`)
+│ │ ├── Category Filters (shadcn: Checkbox group)
+│ │ ├── Cuisine Filters (shadcn: Checkbox group)
+│ │ └── Difficulty Filters (shadcn: RadioGroup)
+│ └── Recipe Grid (main)
+│ └── Recipe Card (shadcn: Card)
+│ ├── Recipe Image (img)
+│ ├── Recipe Title (shadcn: Typography `h3`)
+│ ├── Recipe Tags (shadcn: Badge)
+│ └── Quick Actions (shadcn: Button - View, Edit)
 
 ```
 
@@ -129,3 +129,4 @@ Recipe Library Page
 ## Context Template
 
 - **Feature PRD:** [The content of the Feature PRD markdown file]
+```

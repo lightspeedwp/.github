@@ -49,7 +49,7 @@ Each slug must map to a kebab-case filename under parts/:
 
 - skip-links — parts/skip-links.html
 - header — parts/header.html
-- menu — parts/menu.html              ← new dedicated menu template part (lsx-design/menu compatibility)
+- menu — parts/menu.html ← new dedicated menu template part (lsx-design/menu compatibility)
 - hero — parts/hero.html
 - post-meta — parts/post-meta.html
 - author-card — parts/author-card.html
@@ -115,8 +115,8 @@ High-priority patterns (examples and slugs):
 
 Menu-specific patterns (must be registered in the lsx-design/menu category)
 
-- lsx-design/menu-panel-1 — patterns/menu/menu-panel-1.php  (Block Types: core/template-part/menu)
-- lsx-design/menu-panel-2 — patterns/menu/menu-panel-2.php  (Block Types: core/template-part/menu)
+- lsx-design/menu-panel-1 — patterns/menu/menu-panel-1.php (Block Types: core/template-part/menu)
+- lsx-design/menu-panel-2 — patterns/menu/menu-panel-2.php (Block Types: core/template-part/menu)
 - lsx-design/menu-panel-3 — patterns/menu/menu-panel-3.php
 - lsx-design/menu-card-1 — patterns/menu/menu-card-1.php
 - lsx-design/mobile-menu-1 — patterns/menu/mobile-menu-1.php (Block Types: core/template-part/menu)
@@ -165,7 +165,7 @@ Notes:
 
 F. theme.json snippets (Include these in your theme.json)
 
-1) templateParts registration (include menu and other canonical parts):
+1. templateParts registration (include menu and other canonical parts):
 
 ```json
 "templateParts": [
@@ -191,7 +191,7 @@ F. theme.json snippets (Include these in your theme.json)
 ]
 ```
 
-2) customTemplates registration (must include the two custom page templates):
+1. customTemplates registration (must include the two custom page templates):
 
 ```json
 "customTemplates": [
@@ -214,7 +214,7 @@ F. theme.json snippets (Include these in your theme.json)
 ]
 ```
 
-3) patterns (optional curated listing — helpful but WP auto-registers file-based patterns):
+1. patterns (optional curated listing — helpful but WP auto-registers file-based patterns):
 
 ```json
 "patterns": [

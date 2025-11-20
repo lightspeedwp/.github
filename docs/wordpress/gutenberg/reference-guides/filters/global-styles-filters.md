@@ -9,7 +9,7 @@ WordPress 6.1 has introduced some server-side filters to hook into the `theme.js
 
 Each filter receives an instance of the `WP_Theme_JSON_Data` class with the data for the respective layer. To provide new data, the filter callback needs to use the `update_with( $new_data )` method, where `$new_data` is a valid `theme.json`-like structure. As with any `theme.json`, the new data needs to declare which `version` of the `theme.json` is using, so it can correctly be migrated to the runtime one, should it be different.
 
-_Example:_
+*Example:*
 
 This is how to pass a new color palette for the theme and disable the text color UI:
 

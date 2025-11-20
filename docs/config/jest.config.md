@@ -7,36 +7,36 @@ This document describes the Jest setup for LightSpeed projects, supporting unit 
 **File:** `jest.config.js`
 
 ```javascript
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
-    testEnvironment: process.env.JEST_TEST_ENVIRONMENT || 'node',
-    testMatch: process.env.JEST_TEST_MATCH
-        ? process.env.JEST_TEST_MATCH.split(',')
-        : ['**/tests/**/*.test.[jt]s?(x)'],
-    verbose: process.env.JEST_VERBOSE === 'true',
-    transform: {
-        '^.+\\.[jt]sx?$': 'ts-jest',
-    },
-    moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
-    coverageDirectory: process.env.JEST_COVERAGE_DIRECTORY || './coverage',
-    collectCoverage: process.env.JEST_COLLECT_COVERAGE === 'true',
-    collectCoverageFrom: process.env.JEST_COLLECT_COVERAGE_FROM
-        ? process.env.JEST_COLLECT_COVERAGE_FROM.split(',')
-        : ['src/**/*.{js,jsx,ts,tsx}'],
-    testPathIgnorePatterns: process.env.JEST_TEST_PATH_IGNORE_PATTERNS
-        ? process.env.JEST_TEST_PATH_IGNORE_PATTERNS.split(',')
-        : [
-              '/node_modules/',
-              '/build/',
-              '/dist/',
-              '/coverage/',
-              '/playwright-report/',
-              '/test-results/',
-              '/vendor/',
-              '/.next/',
-              '/logs/',
-          ],
+  testEnvironment: process.env.JEST_TEST_ENVIRONMENT || "node",
+  testMatch: process.env.JEST_TEST_MATCH
+    ? process.env.JEST_TEST_MATCH.split(",")
+    : ["**/tests/**/*.test.[jt]s?(x)"],
+  verbose: process.env.JEST_VERBOSE === "true",
+  transform: {
+    "^.+\\.[jt]sx?$": "ts-jest",
+  },
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json"],
+  coverageDirectory: process.env.JEST_COVERAGE_DIRECTORY || "./coverage",
+  collectCoverage: process.env.JEST_COLLECT_COVERAGE === "true",
+  collectCoverageFrom: process.env.JEST_COLLECT_COVERAGE_FROM
+    ? process.env.JEST_COLLECT_COVERAGE_FROM.split(",")
+    : ["src/**/*.{js,jsx,ts,tsx}"],
+  testPathIgnorePatterns: process.env.JEST_TEST_PATH_IGNORE_PATTERNS
+    ? process.env.JEST_TEST_PATH_IGNORE_PATTERNS.split(",")
+    : [
+        "/node_modules/",
+        "/build/",
+        "/dist/",
+        "/coverage/",
+        "/playwright-report/",
+        "/test-results/",
+        "/vendor/",
+        "/.next/",
+        "/logs/",
+      ],
 };
 ```
 

@@ -5,7 +5,7 @@ title: "[Refactor] <Short summary>"
 labels: [type:refactor, status:needs-review, priority:normal, area:core]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: refactor
 references:
   - ../CONTRIBUTING.md
@@ -125,7 +125,7 @@ Tick all that apply and/or describe in detail.
 - [Labeler Config](.github/labeler.yml)
 - [Labels](.github/labels.yml)
 - [Issue Types](.github/issue-types.yml)
--->
+  -->
 
 ---
 

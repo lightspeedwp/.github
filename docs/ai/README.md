@@ -1,9 +1,9 @@
 ---
 file_type: "documentation"
-title: 'AI Documentation Index (Moved)'
-description: 'This file has been superseded. See the new AI documentation in the docs/ root.'
-last_updated: '2025-10-24'
-version: 'v2.0'
+title: "AI Documentation Index (Moved)"
+description: "This file has been superseded. See the new AI documentation in the docs/ root."
+last_updated: "2025-10-24"
+version: "v2.0"
 ---
 
 ## AI Documentation Index (Moved)
@@ -20,4 +20,4 @@ For the main documentation hub, see [../README.md](../README.md).
 
 ---
 
-_This file is retained for legacy links. All new documentation and references should use the updated files in the docs/ root._
+*This file is retained for legacy links. All new documentation and references should use the updated files in the docs/ root.*

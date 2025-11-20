@@ -1,10 +1,10 @@
 ---
-title: 'Automated Labeling Refactor Analysis'
-version: '1.0.0'
-date: '2025-11-18'
-author: 'Claude (Sonnet 4.5)'
-status: 'draft'
-tags: ['automation', 'labeling', 'analysis', 'refactor']
+title: "Automated Labeling Refactor Analysis"
+version: "1.0.0"
+date: "2025-11-18"
+author: "Claude (Sonnet 4.5)"
+status: "draft"
+tags: ["automation", "labeling", "analysis", "refactor"]
 ---
 
 # Automated Labeling System - Gap Analysis & Refactor Plan
@@ -22,6 +22,7 @@ This document identifies gaps, inconsistencies, and errors between the automated
 **Location:** `.github/agents/labeling.agent.js` (lines 194-213)
 
 **Issue:** The agent checks for outdated changelog labels that don't exist in the canonical set:
+
 - Checking for: `no-changelog`, `changelog:added`, `changelog:changed`, `changelog:fixed`, `changelog:security`, `changelog:deprecated`, `changelog:removed`
 - Canonical labels: `meta:needs-changelog`, `meta:no-changelog`
 
@@ -64,6 +65,7 @@ This document identifies gaps, inconsistencies, and errors between the automated
 **Impact:** Items can exist without type labels, breaking automation and filtering.
 
 **Fix Required:** Add `applyDefaultType` function that infers type from:
+
 1. Branch prefix (already handled by labeler.yml)
 2. Issue template
 3. Fallback to `type:task` for issues, `type:chore` for PRs if uncertain
@@ -72,7 +74,7 @@ This document identifies gaps, inconsistencies, and errors between the automated
 
 **Issue:** No validation that items have at least one `area:*` or `comp:*` label.
 
-**Specification:** [LABEL_STRATEGY.md](../../docs/LABEL_STRATEGY.md) requires "At least one area:* or comp:*".
+**Specification:** [LABEL_STRATEGY.md](../../docs/LABEL_STRATEGY.md) requires "At least one area:_or comp:_".
 
 **Impact:** Items can exist without area labels, reducing discoverability and filtering capability.
 
@@ -99,6 +101,7 @@ This document identifies gaps, inconsistencies, and errors between the automated
 **Issue:** Some utility files reference `.github/labels.yml` while the actual canonical file is at `.github/automation/labels.yml`.
 
 **Examples:**
+
 - `label-lookup.js:14` defaults to `.github/labels.yml`
 - Environment variables use `.github/automation/labels.yml`
 
@@ -123,6 +126,7 @@ This document identifies gaps, inconsistencies, and errors between the automated
 **Location:** `docs/LABEL_STRATEGY.md`
 
 **Issue:** The document has:
+
 - Two "4. Issue Labelling" sections (lines 42-63, 66-89)
 - Two "5. How Labels Are Applied" sections (lines 130-140)
 - Two "6. Best Practices" sections (lines 143-160)
@@ -197,6 +201,7 @@ This document identifies gaps, inconsistencies, and errors between the automated
 ### 7.2 Missing Branch Prefixes
 
 **Issue:** Some common branch prefixes mentioned in docs aren't in labeler.yml:
+
 - `migrate/`, `uat/`, `proto/`, `ds/`, `api/`, `schema/`, `telemetry/`
 
 **Fix Required:** Add these to labeler.yml or remove from documentation.
@@ -218,6 +223,7 @@ This document identifies gaps, inconsistencies, and errors between the automated
 **Issue:** Some utility functions don't have consistent error handling or logging.
 
 **Examples:**
+
 - `standardizeLabelsOnItem` has minimal error handling
 - Missing try-catch in some async operations
 
@@ -228,30 +234,33 @@ This document identifies gaps, inconsistencies, and errors between the automated
 ## 9. Recommended Refactoring Priorities
 
 ### High Priority (Breaking/Critical)
+
 1. Fix changelog label list (1.1)
 2. Fix DRY_RUN default (1.3)
 3. Add type enforcement (1.2)
 4. Create or fix report-writer.js (3.2)
 
 ### Medium Priority (Functionality)
-5. Add default type assignment (2.1)
-6. Add discussion handling (5.1)
-7. Fix path inconsistencies (3.1)
-8. Add release label logic (2.3)
+
+1. Add default type assignment (2.1)
+2. Add discussion handling (5.1)
+3. Fix path inconsistencies (3.1)
+4. Add release label logic (2.3)
 
 ### Low Priority (Improvements)
-9. Add area/component validation (2.2)
-10. Consolidate documentation (4.1)
-11. Add front matter parsing (4.2)
-12. Improve test coverage (6.1, 6.2)
-13. Code quality improvements (8.1, 8.2)
+
+1. Add area/component validation (2.2)
+2. Consolidate documentation (4.1)
+3. Add front matter parsing (4.2)
+4. Improve test coverage (6.1, 6.2)
+5. Code quality improvements (8.1, 8.2)
 
 ---
 
 ## 10. Implementation Checklist
 
 - [ ] Fix changelog label detection in agent
-- [ ] Add type:* to one-hot enforcement
+- [ ] Add type:\* to one-hot enforcement
 - [ ] Change DRY_RUN default to false
 - [ ] Add default type assignment logic
 - [ ] Create or verify report-writer.js exists
@@ -279,6 +288,7 @@ The following changes may require updates to existing issues/PRs:
 3. **Default labels:** Items without status/priority/type will get defaults applied
 
 **Migration Strategy:**
+
 1. Run audit script to identify affected items
 2. Create migration script to update old changelog labels
 3. Run one-hot enforcement on all open items
@@ -309,4 +319,4 @@ The following changes may require updates to existing issues/PRs:
 
 ---
 
-_This analysis was generated as part of the automated labeling refactor initiative. For questions or clarifications, refer to the GitHub issue or PR associated with this work._
+*This analysis was generated as part of the automated labeling refactor initiative. For questions or clarifications, refer to the GitHub issue or PR associated with this work.*

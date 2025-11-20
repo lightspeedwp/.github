@@ -1,7 +1,24 @@
 ---
 file_type: "chatmode"
-description: 'Testing mode for Playwright tests'
-tools: ['changes', 'codebase', 'edit/editFiles', 'fetch', 'findTestFiles', 'problems', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'playwright']
+description: "Testing mode for Playwright tests"
+tools:
+  [
+    "changes",
+    "codebase",
+    "edit/editFiles",
+    "fetch",
+    "findTestFiles",
+    "problems",
+    "runCommands",
+    "runTasks",
+    "runTests",
+    "search",
+    "searchResults",
+    "terminalLastCommand",
+    "terminalSelection",
+    "testFailure",
+    "playwright",
+  ]
 model: Claude Sonnet 4
 ---
 

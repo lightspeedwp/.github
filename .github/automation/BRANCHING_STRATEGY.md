@@ -171,7 +171,40 @@ Ensure `.github/labeler.yml` seeds new PRs with `status:needs-review` when appro
 
 ```yaml
 "status:needs-review":
-  - head-branch: ['^feat/.*', '^fix/.*', '^hotfix/.*', '^release/.*', '^refactor/.*', '^chore/.*', '^docs/.*', '^test/.*', '^perf/.*', '^ci/.*', '^build/.*', '^deps/.*', '^security/.*', '^revert/.*', '^research/.*', '^design/.*', '^a11y/.*', '^ux/.*', '^i18n/.*', '^ops/.*', '^proto/.*', '^ds/.*', '^api/.*', '^schema/.*', '^telemetry/.*', '^content/.*', '^seo/.*', '^config/.*', '^migrate/.*', '^qa/.*', '^uat/.*']
+  - head-branch:
+      [
+        "^feat/.*",
+        "^fix/.*",
+        "^hotfix/.*",
+        "^release/.*",
+        "^refactor/.*",
+        "^chore/.*",
+        "^docs/.*",
+        "^test/.*",
+        "^perf/.*",
+        "^ci/.*",
+        "^build/.*",
+        "^deps/.*",
+        "^security/.*",
+        "^revert/.*",
+        "^research/.*",
+        "^design/.*",
+        "^a11y/.*",
+        "^ux/.*",
+        "^i18n/.*",
+        "^ops/.*",
+        "^proto/.*",
+        "^ds/.*",
+        "^api/.*",
+        "^schema/.*",
+        "^telemetry/.*",
+        "^content/.*",
+        "^seo/.*",
+        "^config/.*",
+        "^migrate/.*",
+        "^qa/.*",
+        "^uat/.*",
+      ]
 ```
 
 **[NEW]**
@@ -203,7 +236,7 @@ Issue Types and Project fields carry the semantic meaning.
 - Keep branches current; resolve all conversations before merging.
 - Squash merge only; PR title becomes the squash commit.
 - Delete the branch after merge.
-**[NEW]**
+  **[NEW]**
 - Never force push to shared branches (`main`, `develop`); use protected branch settings.
 - For remote teams, always communicate in PR comments and reference related issues for traceability.
 
@@ -213,7 +246,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 - **Release:** Open `release/vX.Y.Z`, bump versions and changelog, run full CI, QA on staging, merge to `main`, tag, deploy.
 - **Hotfix:** Branch from `main` as `hotfix/<slug>`, minimal fix, PR to `main`, tag, cherry-pick/back-merge to `develop` (if used).
-**[NEW]**
+  **[NEW]**
 - Always update release notes and changelog for each release/hotfix, even when changes seem minor.
 
 ---
@@ -226,7 +259,7 @@ Issue Types and Project fields carry the semantic meaning.
 - Prefer Issue Types and Project fields over proliferation of `type:*` labels.
 - Squash merge only; delete branches post-merge.
 - Share this strategy in repo READMEs and onboarding docs.
-**[NEW]**
+  **[NEW]**
 - Document exceptions (e.g., legacy branches, vendor integrations) in `CONTRIBUTING.md`.
 
 ---

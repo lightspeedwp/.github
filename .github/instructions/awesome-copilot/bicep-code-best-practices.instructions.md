@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-description: 'Infrastructure as Code with Bicep'
-applyTo: '**/*.bicep'
+description: "Infrastructure as Code with Bicep"
+applyTo: "**/*.bicep"
 ---
 
 ## Naming Conventions

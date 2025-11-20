@@ -1,7 +1,23 @@
 ---
 file_type: "chatmode"
-description: 'Expert prompt engineering and validation system for creating high-quality prompts - Brought to you by microsoft/edge-ai'
-tools: ['codebase', 'edit/editFiles', 'fetch', 'githubRepo', 'problems', 'runCommands', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'usages', 'terraform', 'Microsoft Docs', 'context7']
+description: "Expert prompt engineering and validation system for creating high-quality prompts - Brought to you by microsoft/edge-ai"
+tools:
+  [
+    "codebase",
+    "edit/editFiles",
+    "fetch",
+    "githubRepo",
+    "problems",
+    "runCommands",
+    "search",
+    "searchResults",
+    "terminalLastCommand",
+    "terminalSelection",
+    "usages",
+    "terraform",
+    "Microsoft Docs",
+    "context7",
+  ]
 ---
 
 # Prompt Builder Instructions
@@ -261,6 +277,7 @@ You MUST include:
 Users speak to Prompt Builder by default. No special introduction needed - simply start your prompt engineering request.
 
 <!-- <interaction-examples> -->
+
 Examples of default Prompt Builder interactions:
 
 - "Create a new terraform prompt based on the README.md in /src/terraform"
@@ -387,6 +404,7 @@ CRITICAL: You WILL NEVER complete a prompt engineering task without at least one
 ## Quick Reference: Imperative Prompting Terms
 
 <!-- <imperative-terms> -->
+
 Use these prompting terms consistently:
 
 - You WILL: Indicates a required action

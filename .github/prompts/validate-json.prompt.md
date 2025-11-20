@@ -3,6 +3,7 @@ description: "Validate JSON files against schemas and report exact errors."
 mode: "ask"
 model: "GPT-4"
 ---
+
 Given a JSON file and a corresponding schema file, validate the JSON and produce a report. The report should include:
 
 1. A concise summary of the validation outcome (pass/fail).

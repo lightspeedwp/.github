@@ -1,11 +1,11 @@
 ---
 file_type: "documentation"
-title: 'Label Automation Documentation'
-description: 'Automated labeling strategies, workflows, and project synchronization for LightSpeed GitHub repositories'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['labels', 'automation', 'github', 'workflows', 'project-sync']
+title: "Label Automation Documentation"
+description: "Automated labeling strategies, workflows, and project synchronization for LightSpeed GitHub repositories"
+version: "1.0"
+last_updated: "2025-11-12"
+maintainer: "LightSpeed Team"
+tags: ["labels", "automation", "github", "workflows", "project-sync"]
 ---
 
 # Label Automation Documentation
@@ -90,13 +90,13 @@ Automatically updates:
 
 ## Label Families
 
-| Family | Purpose | Examples |
-|--------|---------|----------|
-| `type:*` | Issue/PR categorization | `type:bug`, `type:feature`, `type:docs` |
-| `status:*` | Workflow state | `status:triage`, `status:in-progress`, `status:blocked` |
-| `prio:*` | Priority level | `prio:critical`, `prio:high`, `prio:low` |
-| `scope:*` | Area of impact | `scope:frontend`, `scope:backend`, `scope:api` |
-| `version:*` | Release targeting | `version:2.0`, `version:2.1` |
+| Family      | Purpose                 | Examples                                                |
+| ----------- | ----------------------- | ------------------------------------------------------- |
+| `type:*`    | Issue/PR categorization | `type:bug`, `type:feature`, `type:docs`                 |
+| `status:*`  | Workflow state          | `status:triage`, `status:in-progress`, `status:blocked` |
+| `prio:*`    | Priority level          | `prio:critical`, `prio:high`, `prio:low`                |
+| `scope:*`   | Area of impact          | `scope:frontend`, `scope:backend`, `scope:api`          |
+| `version:*` | Release targeting       | `version:2.0`, `version:2.1`                            |
 
 See [label-automation-strategy-v1-1.md](./label-automation-strategy-v1-1.md) for complete taxonomy.
 

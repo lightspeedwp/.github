@@ -1,8 +1,8 @@
 ---
 file_type: "instructions"
-description: 'Instructions for PHP files related to block patterns or theme setup in any LightSpeed WordPress project'
-applyTo: '**/*.php'
-license: 'GPL-3.0'
+description: "Instructions for PHP files related to block patterns or theme setup in any LightSpeed WordPress project"
+applyTo: "**/*.php"
+license: "GPL-3.0"
 ---
 
     - "inc/blocks/register-patterns.php"
@@ -15,11 +15,11 @@ tags:
 - theme
 - pattern
 - instructions
-    categories:
+  categories:
 - documentation
 - instructions
 - guides
-    applyTo: "\*_/_.php"
+  applyTo: "\**/*.php"
 
 ---
 

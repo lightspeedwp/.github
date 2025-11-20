@@ -7,15 +7,15 @@ A maximal but sane set of allowed **branch prefixes** for client projects. Use t
 
 ---
 
-[Shared core (use in both templates)](#shared-core-\(use-in-both-templates\))
+[Shared core (use in both templates)](<#shared-core-(use-in-both-templates)>)
 
-[Client‑specific (optional)](#client‑specific-\(optional\))
+[Client‑specific (optional)](<#client‑specific-(optional)>)
 
 [Examples](#examples)
 
 [One regex to enforce](#one-regex-to-enforce)
 
-[Mapping to Issue Types (for automations)](#mapping-to-issue-types-\(for-automations\))
+[Mapping to Issue Types (for automations)](<#mapping-to-issue-types-(for-automations)>)
 
 [Tips](#tips)
 
@@ -23,34 +23,34 @@ A maximal but sane set of allowed **branch prefixes** for client projects. Use t
 
 ## **Shared core (use in both templates)** {#shared-core-(use-in-both-templates)}
 
-- `feat/` — new capability or UI change  
-- `fix/` — bug fix (non‑critical)  
-- `hotfix/` — urgent production fix  
-- `release/` — batch to promote (e.g., `release/go-live-2025-10-10`)  
-- `refactor/` — internal restructure, no behaviour change  
-- `chore/` — repo hygiene (lint, formatting, housekeeping)  
-- `docs/` — documentation only  
-- `test/` — tests only (unit/e2e/fixtures)  
-- `perf/` — performance optimisation  
-- `ci/` — CI workflow changes  
-- `build/` — bundling/tooling changes (Webpack, Vite, etc.)  
-- `deps/` — dependency updates (lockfiles, minor bumps)  
-- `security/` — security work (audits, fixes)  
-- `revert/` — revert a previous change  
-- `research/` — time‑boxed investigation/PoC  
-- `design/` — design‑system/tokens/handoff updates  
-- `a11y/` — accessibility fixes  
-- `ux/` — interaction/usability tweaks (non‑feature)  
-- `i18n/` — internationalisation/localisation  
+- `feat/` — new capability or UI change
+- `fix/` — bug fix (non‑critical)
+- `hotfix/` — urgent production fix
+- `release/` — batch to promote (e.g., `release/go-live-2025-10-10`)
+- `refactor/` — internal restructure, no behaviour change
+- `chore/` — repo hygiene (lint, formatting, housekeeping)
+- `docs/` — documentation only
+- `test/` — tests only (unit/e2e/fixtures)
+- `perf/` — performance optimisation
+- `ci/` — CI workflow changes
+- `build/` — bundling/tooling changes (Webpack, Vite, etc.)
+- `deps/` — dependency updates (lockfiles, minor bumps)
+- `security/` — security work (audits, fixes)
+- `revert/` — revert a previous change
+- `research/` — time‑boxed investigation/PoC
+- `design/` — design‑system/tokens/handoff updates
+- `a11y/` — accessibility fixes
+- `ux/` — interaction/usability tweaks (non‑feature)
+- `i18n/` — internationalisation/localisation
 - `ops/` — ops/infrastructure (deploy, DNS, backups)
 
 ## **Client‑specific (optional)** {#client‑specific-(optional)}
 
-- `content/` — content edits, redirects, IA  
-- `seo/` — metadata, schema, sitemap, robots  
-- `config/` — site/plugin configuration & flags  
-- `migrate/` — data/content migrations  
-- `qa/` — test harnesses, UAT scaffolding  
+- `content/` — content edits, redirects, IA
+- `seo/` — metadata, schema, sitemap, robots
+- `config/` — site/plugin configuration & flags
+- `migrate/` — data/content migrations
+- `qa/` — test harnesses, UAT scaffolding
 - `uat/` — UAT‑only changes or staging toggles
 
 ---
@@ -107,22 +107,22 @@ jobs:
 
 ## **Mapping to Issue Types (for automations)** {#mapping-to-issue-types-(for-automations)}
 
-- `feat/` → **Feature/Story**  
-- `fix/` → **Bug**  
-- `hotfix/` → **Bug** (critical)  
-- `refactor/` → **Refactor**  
-- `chore/`, `ci/`, `build/`, `deps/`, `security/` → **Chore**  
-- `research/` → **Research**  
-- `design/`, `a11y/`, `ux/` → **Design**/**Task** (as appropriate)  
-- `content/`, `seo/`, `config/`, `migrate/`, `uat/`, `qa/` → **Task/Story** (per scope)  
+- `feat/` → **Feature/Story**
+- `fix/` → **Bug**
+- `hotfix/` → **Bug** (critical)
+- `refactor/` → **Refactor**
+- `chore/`, `ci/`, `build/`, `deps/`, `security/` → **Chore**
+- `research/` → **Research**
+- `design/`, `a11y/`, `ux/` → **Design**/**Task** (as appropriate)
+- `content/`, `seo/`, `config/`, `migrate/`, `uat/`, `qa/` → **Task/Story** (per scope)
 - `release/` → **Release PR** (client go‑live batch)
 
 ---
 
 ## **Tips** {#tips}
 
-- Keep the **scope** meaningful: area \+ short slug, e.g. `feat/frontend-pay-button`.  
-- Mirror branch prefixes to **labels** only if needed for cross‑repo filters; prefer **Project fields** first.  
+- Keep the **scope** meaningful: area \+ short slug, e.g. `feat/frontend-pay-button`.
+- Mirror branch prefixes to **labels** only if needed for cross‑repo filters; prefer **Project fields** first.
 - Delete branches on merge to keep the repo clean.
 
 ---

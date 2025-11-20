@@ -9,6 +9,7 @@ description: "Prompt template for Agent Mode."
 tags: ["lightspeed","templates","copilot","agents","prompts","models"]
 file_type: "prompt"
 ---
+
 # Purpose
 
 - Write a clear, outcome-focused prompt that uses the linked instructions.

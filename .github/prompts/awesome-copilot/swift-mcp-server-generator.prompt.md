@@ -1,5 +1,5 @@
 ---
-description: 'Generate a complete Model Context Protocol server project in Swift using the official MCP Swift SDK package.'
+description: "Generate a complete Model Context Protocol server project in Swift using the official MCP Swift SDK package."
 mode: agent
 ---
 
@@ -89,7 +89,7 @@ import ServiceLifecycle
 struct MCPService: Service {
     let server: Server
     let transport: Transport
-    
+
     func run() async throws {
         try await server.start(transport: transport) { clientInfo, capabilities in
             logger.info("Client connected", metadata: [
@@ -97,11 +97,11 @@ struct MCPService: Service {
                 "version": .string(clientInfo.version)
             ])
         }
-        
+
         // Keep service running
         try await Task.sleep(for: .days(365 * 100))
     }
-    
+
     func shutdown() async throws {
         logger.info("Shutting down MCP server")
         await server.stop()
@@ -115,7 +115,7 @@ do {
     let server = await createServer()
     let transport = StdioTransport(logger: logger)
     let service = MCPService(server: server, transport: transport)
-    
+
     let serviceGroup = ServiceGroup(
         services: [service],
         configuration: .init(
@@ -123,7 +123,7 @@ do {
         ),
         logger: logger
     )
-    
+
     try await serviceGroup.run()
 } catch {
     logger.error("Fatal error", metadata: ["error": .string("\(error)")])
@@ -147,16 +147,16 @@ func createServer() async -> Server {
             tools: .init(listChanged: true)
         )
     )
-    
+
     // Register tool handlers
     await registerToolHandlers(server: server)
-    
+
     // Register resource handlers
     await registerResourceHandlers(server: server)
-    
+
     // Register prompt handlers
     await registerPromptHandlers(server: server)
-    
+
     return server
 }
 ```
@@ -231,17 +231,17 @@ func registerToolHandlers(server: Server) async {
         logger.debug("Listing available tools")
         return .init(tools: getToolDefinitions())
     }
-    
+
     await server.withMethodHandler(CallTool.self) { params in
         logger.info("Tool called", metadata: ["name": .string(params.name)])
-        
+
         switch params.name {
         case "greet":
             return handleGreet(params: params)
-            
+
         case "calculate":
             return handleCalculate(params: params)
-            
+
         default:
             logger.warning("Unknown tool requested", metadata: ["name": .string(params.name)])
             return .init(
@@ -259,10 +259,10 @@ private func handleGreet(params: CallTool.Params) -> CallTool.Result {
             isError: true
         )
     }
-    
+
     let greeting = "Hello, \(name)! Welcome to MCP."
     logger.debug("Generated greeting", metadata: ["name": .string(name)])
-    
+
     return .init(
         content: [.text(greeting)],
         isError: false
@@ -278,7 +278,7 @@ private func handleCalculate(params: CallTool.Params) -> CallTool.Result {
             isError: true
         )
     }
-    
+
     let result: Double
     switch operation {
     case "add":
@@ -301,12 +301,12 @@ private func handleCalculate(params: CallTool.Params) -> CallTool.Result {
             isError: true
         )
     }
-    
+
     logger.debug("Calculation performed", metadata: [
         "operation": .string(operation),
         "result": .string("\(result)")
     ])
-    
+
     return .init(
         content: [.text("Result: \(result)")],
         isError: false
@@ -348,15 +348,15 @@ private let logger = Logger(label: "com.example.mcp-server.resources")
 
 actor ResourceState {
     private var subscriptions: Set<String> = []
-    
+
     func addSubscription(_ uri: String) {
         subscriptions.insert(uri)
     }
-    
+
     func removeSubscription(_ uri: String) {
         subscriptions.remove(uri)
     }
-    
+
     func isSubscribed(_ uri: String) -> Bool {
         subscriptions.contains(uri)
     }
@@ -369,10 +369,10 @@ func registerResourceHandlers(server: Server) async {
         logger.debug("Listing available resources")
         return .init(resources: getResourceDefinitions(), nextCursor: nil)
     }
-    
+
     await server.withMethodHandler(ReadResource.self) { params in
         logger.info("Reading resource", metadata: ["uri": .string(params.uri)])
-        
+
         switch params.uri {
         case "resource://data/example":
             let jsonData = """
@@ -384,7 +384,7 @@ func registerResourceHandlers(server: Server) async {
             return .init(contents: [
                 .text(jsonData, uri: params.uri, mimeType: "application/json")
             ])
-            
+
         case "resource://config":
             let config = """
             {
@@ -395,19 +395,19 @@ func registerResourceHandlers(server: Server) async {
             return .init(contents: [
                 .text(config, uri: params.uri, mimeType: "application/json")
             ])
-            
+
         default:
             logger.warning("Unknown resource requested", metadata: ["uri": .string(params.uri)])
             throw MCPError.invalidParams("Unknown resource URI: \(params.uri)")
         }
     }
-    
+
     await server.withMethodHandler(ResourceSubscribe.self) { params in
         logger.info("Client subscribed to resource", metadata: ["uri": .string(params.uri)])
         await state.addSubscription(params.uri)
         return .init()
     }
-    
+
     await server.withMethodHandler(ResourceUnsubscribe.self) { params in
         logger.info("Client unsubscribed from resource", metadata: ["uri": .string(params.uri)])
         await state.removeSubscription(params.uri)
@@ -448,14 +448,14 @@ func registerPromptHandlers(server: Server) async {
         logger.debug("Listing available prompts")
         return .init(prompts: getPromptDefinitions(), nextCursor: nil)
     }
-    
+
     await server.withMethodHandler(GetPrompt.self) { params in
         logger.info("Getting prompt", metadata: ["name": .string(params.name)])
-        
+
         switch params.name {
         case "code-review":
             return handleCodeReviewPrompt(params: params)
-            
+
         default:
             logger.warning("Unknown prompt requested", metadata: ["name": .string(params.name)])
             throw MCPError.invalidParams("Unknown prompt: \(params.name)")
@@ -470,21 +470,21 @@ private func handleCodeReviewPrompt(params: GetPrompt.Params) -> GetPrompt.Resul
             messages: []
         )
     }
-    
+
     let focus = params.arguments?["focus"]?.stringValue ?? "general quality"
-    
+
     let description = "Code review for \(language) with focus on \(focus)"
     let messages: [Prompt.Message] = [
         .user("Please review this \(language) code with focus on \(focus)."),
         .assistant("I'll review the code focusing on \(focus). Please share the code."),
         .user("Here's the code to review: [paste code here]")
     ]
-    
+
     logger.debug("Generated code review prompt", metadata: [
         "language": .string(language),
         "focus": .string(focus)
     ])
-    
+
     return .init(description: description, messages: messages)
 }
 ```
@@ -501,19 +501,19 @@ final class ServerTests: XCTestCase {
             name: "greet",
             arguments: ["name": .string("Swift")]
         )
-        
+
         let result = handleGreet(params: params)
-        
+
         XCTAssertFalse(result.isError ?? true)
         XCTAssertEqual(result.content.count, 1)
-        
+
         if case .text(let message) = result.content[0] {
             XCTAssertTrue(message.contains("Swift"))
         } else {
             XCTFail("Expected text content")
         }
     }
-    
+
     func testCalculateTool() async throws {
         let params = CallTool.Params(
             name: "calculate",
@@ -523,19 +523,19 @@ final class ServerTests: XCTestCase {
                 "b": .number(3)
             ]
         )
-        
+
         let result = handleCalculate(params: params)
-        
+
         XCTAssertFalse(result.isError ?? true)
         XCTAssertEqual(result.content.count, 1)
-        
+
         if case .text(let message) = result.content[0] {
             XCTAssertTrue(message.contains("8"))
         } else {
             XCTFail("Expected text content")
         }
     }
-    
+
     func testDivideByZero() async throws {
         let params = CallTool.Params(
             name: "calculate",
@@ -545,9 +545,9 @@ final class ServerTests: XCTestCase {
                 "b": .number(0)
             ]
         )
-        
+
         let result = handleCalculate(params: params)
-        
+
         XCTAssertTrue(result.isError ?? false)
     }
 }
@@ -555,7 +555,7 @@ final class ServerTests: XCTestCase {
 
 ## README.md Template
 
-```markdown
+````markdown
 # MyMCPServer
 
 A Model Context Protocol server built with Swift.
@@ -579,6 +579,7 @@ A Model Context Protocol server built with Swift.
 ```bash
 swift build -c release
 ```
+````
 
 ## Usage
 
@@ -621,7 +622,7 @@ The server uses:
 
 MIT
 
-```
+````
 
 ## Generation Instructions
 
@@ -654,7 +655,7 @@ swift build -c release
 # Install
 swift build -c release
 cp .build/release/MyMCPServer /usr/local/bin/
-```
+````
 
 ## Integration with Claude Desktop
 

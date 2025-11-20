@@ -16,11 +16,13 @@ Hi @username,
 Thank you for your contribution! We need to evaluate the performance impact of these changes before merging.
 
 **Checklist:**
+
 - [ ] Benchmark critical paths before/after the change
 - [ ] Check for regressions in runtime, memory, or resource usage
 - [ ] Consider optimizations (caching, batching, etc.)
 
 **Suggestions:**
+
 - Use sample data and real-world scenarios for benchmarks
 - Document any identified bottlenecks or improvements
 

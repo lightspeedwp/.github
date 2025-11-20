@@ -5,7 +5,7 @@ title: "[Feature] <Short summary>"
 labels: [type:feature, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: feature
 references:
   - ../CONTRIBUTING.md

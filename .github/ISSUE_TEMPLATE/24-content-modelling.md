@@ -5,7 +5,7 @@ title: "[Content Modelling] <Brief summary>"
 labels: [type:content-modelling, status:needs-triage, area:content]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 type: content-modelling
 references:
   - ../CONTRIBUTING.md

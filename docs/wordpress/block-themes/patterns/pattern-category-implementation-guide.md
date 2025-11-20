@@ -33,22 +33,22 @@ Primary Namespace: `lsx-design` (custom categories) while re‑using Core catego
 
 ### 3.1 Custom LSX Categories (register these)
 
-| Category Slug             | Label (UI)          | Purpose / Contents (Pattern Slug Prefixes)                             | Notes |
-|---------------------------|---------------------|-------------------------------------------------------------------------|-------|
-| lsx-design/sections       | LSX: Sections       | Generic page sections (hero/page, feature rows, testimonials, pricing) | Broad “page building” bucket |
-| lsx-design/query          | LSX: Query Layouts  | Query Loop containers & item layouts (`query-`, `loop-`)               | Containers & item wrappers |
-| lsx-design/posts          | LSX: Post Items     | Post cards & loop items (`post-card`, `post-meta`, `share-actions`)    | Narrower than sections; item-level |
-| lsx-design/header         | LSX: Header         | Header template-part variants (`header-`)                              | Block-type patterns: `core/template-part/header` |
-| lsx-design/footer         | LSX: Footer         | Footer template-part variants (`footer-`)                              | Block-type patterns: `core/template-part/footer` |
-| lsx-design/menu           | LSX: Menu / Panels  | Mega menu panels, mobile nav, menu cards (`menu-`, `mobile-menu-`)     | Block-type: `core/template-part/menu` |
-| lsx-design/hero           | LSX: Hero           | Hero variants (`hero-`) (page, post, archives)                         | Optional; else use `banner` core |
-| lsx-design/cta            | LSX: CTAs           | CTA banners, promo strips (`cta-`, `cta-banner`)                       | |
-| lsx-design/meta           | LSX: Meta           | Post meta bars, breadcrumbs, author cards (`post-meta`, `breadcrumbs`, `author-card-`) | “Glue” info components |
-| lsx-design/utility        | LSX: Utility        | Site notice, search panel, language/currency switchers (`site-notice`, `search-panel`, `language-`, `currency-`) | Non-content overlays & bars |
-| lsx-design/pages          | LSX: Page Starters  | Starter page patterns (`page-`) (Block Types: `core/post-content`)     | Use for editor “Add Page” flows |
-| lsx-design/templates      | LSX: Template Starters | Template-type patterns (`template-`) (Template Types + `Inserter: no`) | Hidden from general inserter |
-| lsx-design/card (optional consolidation) | LSX: Cards | Author card, testimonial, generic card components (`*-card(-*)`) | Use only if many card micro-patterns |
-| lsx-design/woocommerce (conditional) | LSX: WooCommerce | Product grids, collection layouts, single product sections (`wc-`, `product-`, `woocommerce-`) | Register only if Woo active |
+| Category Slug                            | Label (UI)             | Purpose / Contents (Pattern Slug Prefixes)                                                                       | Notes                                            |
+| ---------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| lsx-design/sections                      | LSX: Sections          | Generic page sections (hero/page, feature rows, testimonials, pricing)                                           | Broad “page building” bucket                     |
+| lsx-design/query                         | LSX: Query Layouts     | Query Loop containers & item layouts (`query-`, `loop-`)                                                         | Containers & item wrappers                       |
+| lsx-design/posts                         | LSX: Post Items        | Post cards & loop items (`post-card`, `post-meta`, `share-actions`)                                              | Narrower than sections; item-level               |
+| lsx-design/header                        | LSX: Header            | Header template-part variants (`header-`)                                                                        | Block-type patterns: `core/template-part/header` |
+| lsx-design/footer                        | LSX: Footer            | Footer template-part variants (`footer-`)                                                                        | Block-type patterns: `core/template-part/footer` |
+| lsx-design/menu                          | LSX: Menu / Panels     | Mega menu panels, mobile nav, menu cards (`menu-`, `mobile-menu-`)                                               | Block-type: `core/template-part/menu`            |
+| lsx-design/hero                          | LSX: Hero              | Hero variants (`hero-`) (page, post, archives)                                                                   | Optional; else use `banner` core                 |
+| lsx-design/cta                           | LSX: CTAs              | CTA banners, promo strips (`cta-`, `cta-banner`)                                                                 |                                                  |
+| lsx-design/meta                          | LSX: Meta              | Post meta bars, breadcrumbs, author cards (`post-meta`, `breadcrumbs`, `author-card-`)                           | “Glue” info components                           |
+| lsx-design/utility                       | LSX: Utility           | Site notice, search panel, language/currency switchers (`site-notice`, `search-panel`, `language-`, `currency-`) | Non-content overlays & bars                      |
+| lsx-design/pages                         | LSX: Page Starters     | Starter page patterns (`page-`) (Block Types: `core/post-content`)                                               | Use for editor “Add Page” flows                  |
+| lsx-design/templates                     | LSX: Template Starters | Template-type patterns (`template-`) (Template Types + `Inserter: no`)                                           | Hidden from general inserter                     |
+| lsx-design/card (optional consolidation) | LSX: Cards             | Author card, testimonial, generic card components (`*-card(-*)`)                                                 | Use only if many card micro-patterns             |
+| lsx-design/woocommerce (conditional)     | LSX: WooCommerce       | Product grids, collection layouts, single product sections (`wc-`, `product-`, `woocommerce-`)                   | Register only if Woo active                      |
 
 Recommended Default Core Reuse (no custom prefix needed):
 
@@ -85,23 +85,23 @@ B. **All Custom** – Use `lsx-design/*` for every domain-specific grouping:
 
 Use these rules for an automated validator (pseudo-regex):
 
-| Slug Pattern / Prefix         | Enforced Category (Primary)          | Secondary (Optional) |
-|-------------------------------|--------------------------------------|----------------------|
-| `hero-*`                      | banner OR lsx-design/hero            | lsx-design/sections  |
-| `header-*`                    | lsx-design/header                    | header (core)        |
-| `footer-*`                    | lsx-design/footer                    | footer (core)        |
-| `menu-*`, `mobile-menu-*`     | lsx-design/menu                      | navigation (core)    |
-| `query-*`, `loop-*`           | lsx-design/query                     | query (core)         |
-| `post-card*`, `post-meta*`    | lsx-design/posts                     | posts (core)         |
-| `author-card*`                | lsx-design/meta OR lsx-design/card   | authors (core)       |
-| `breadcrumbs*`                | lsx-design/meta                      | navigation (core)    |
-| `cta-*`, `cta-banner*`        | lsx-design/cta                       | call-to-action (core)|
-| `site-notice`, `search-panel` | lsx-design/utility                   |                      |
-| `language-*`, `currency-*`    | lsx-design/utility                   |                      |
-| `page-*`                      | lsx-design/pages                     |                      |
-| `template-*`                  | lsx-design/templates                 |                      |
-| `wc-*`, `woocommerce-*`, `product-*` | lsx-design/woocommerce       |                      |
-| `*-card*` (generic others)    | lsx-design/card (if enabled)         |                      |
+| Slug Pattern / Prefix                | Enforced Category (Primary)        | Secondary (Optional)  |
+| ------------------------------------ | ---------------------------------- | --------------------- |
+| `hero-*`                             | banner OR lsx-design/hero          | lsx-design/sections   |
+| `header-*`                           | lsx-design/header                  | header (core)         |
+| `footer-*`                           | lsx-design/footer                  | footer (core)         |
+| `menu-*`, `mobile-menu-*`            | lsx-design/menu                    | navigation (core)     |
+| `query-*`, `loop-*`                  | lsx-design/query                   | query (core)          |
+| `post-card*`, `post-meta*`           | lsx-design/posts                   | posts (core)          |
+| `author-card*`                       | lsx-design/meta OR lsx-design/card | authors (core)        |
+| `breadcrumbs*`                       | lsx-design/meta                    | navigation (core)     |
+| `cta-*`, `cta-banner*`               | lsx-design/cta                     | call-to-action (core) |
+| `site-notice`, `search-panel`        | lsx-design/utility                 |                       |
+| `language-*`, `currency-*`           | lsx-design/utility                 |                       |
+| `page-*`                             | lsx-design/pages                   |                       |
+| `template-*`                         | lsx-design/templates               |                       |
+| `wc-*`, `woocommerce-*`, `product-*` | lsx-design/woocommerce             |                       |
+| `*-card*` (generic others)           | lsx-design/card (if enabled)       |                       |
 
 Lint rule summary:
 
@@ -306,13 +306,13 @@ scan /patterns/**/*.php
 
 ## 7. Decision & Migration Guidelines
 
-| Scenario                                    | Action |
-|---------------------------------------------|--------|
-| Pattern currently uses `banner` only, you adopt `lsx-design/hero` | Add `lsx-design/hero` (keep `banner` for search) |
-| Redundant custom category (e.g., `lsx-design/cards` vs `lsx-design/card`) | Choose ONE → update headers → remove obsolete |
-| Legacy namespace (`lsx/hero-basic`)         | Migrate slug & categories to `lsx-design/*` simultaneously |
-| Woo pattern present but WooCommerce inactive | Still allowed (file-based) but Woo category not registered—Prefer programmatic registration instead |
-| Too many categories (>3)                    | Reduce to 1–2 focused, plus 0–1 core fallback |
+| Scenario                                                                  | Action                                                                                              |
+| ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Pattern currently uses `banner` only, you adopt `lsx-design/hero`         | Add `lsx-design/hero` (keep `banner` for search)                                                    |
+| Redundant custom category (e.g., `lsx-design/cards` vs `lsx-design/card`) | Choose ONE → update headers → remove obsolete                                                       |
+| Legacy namespace (`lsx/hero-basic`)                                       | Migrate slug & categories to `lsx-design/*` simultaneously                                          |
+| Woo pattern present but WooCommerce inactive                              | Still allowed (file-based) but Woo category not registered—Prefer programmatic registration instead |
+| Too many categories (>3)                                                  | Reduce to 1–2 focused, plus 0–1 core fallback                                                       |
 
 Migration steps:
 
@@ -339,24 +339,24 @@ Migration steps:
 
 ## 9. Optional Enhancements
 
-| Enhancement | Description | Value |
-|-------------|-------------|-------|
-| CLI `patterns:categories-audit` | Outputs JSON table of pattern → categories → compliance | Automatable governance |
-| theme.json `patterns` curation | Include only high-value patterns in curated list; rely on categories for discovery | Faster Inserter |
-| Deprecation meta | Add `Deprecated: true` or `Deprecated-Slug:` in header comments for tooling | Clean migration |
-| Category metrics script | Count patterns per category; flag categories with <2 or >25 patterns | Balance library |
+| Enhancement                     | Description                                                                        | Value                  |
+| ------------------------------- | ---------------------------------------------------------------------------------- | ---------------------- |
+| CLI `patterns:categories-audit` | Outputs JSON table of pattern → categories → compliance                            | Automatable governance |
+| theme.json `patterns` curation  | Include only high-value patterns in curated list; rely on categories for discovery | Faster Inserter        |
+| Deprecation meta                | Add `Deprecated: true` or `Deprecated-Slug:` in header comments for tooling        | Clean migration        |
+| Category metrics script         | Count patterns per category; flag categories with <2 or >25 patterns               | Balance library        |
 
 ---
 
 ## 10. Common Pitfalls & Remedies
 
-| Pitfall | Impact | Remedy |
-|---------|--------|--------|
-| Overlapping categories (hero in both `banner` and multiple custom categories) | User confusion & clutter | Limit to 1 primary + 1 core |
-| Registering Woo category without condition | Empty category when plugin absent | Gate with `class_exists( 'WooCommerce' )` |
-| Creating a new category for a one-off pattern | Inserter noise | Use existing broader category (`sections`, `utility`) |
-| Slug & category mismatch (e.g. `menu-panel-1` without `lsx-design/menu`) | Hard to discover in Menu editing context | Enforce prefix mapping via linter |
-| Excessive categories in header (>5) | Inserter clutter | Reduce to ≤3 |
+| Pitfall                                                                       | Impact                                   | Remedy                                                |
+| ----------------------------------------------------------------------------- | ---------------------------------------- | ----------------------------------------------------- |
+| Overlapping categories (hero in both `banner` and multiple custom categories) | User confusion & clutter                 | Limit to 1 primary + 1 core                           |
+| Registering Woo category without condition                                    | Empty category when plugin absent        | Gate with `class_exists( 'WooCommerce' )`             |
+| Creating a new category for a one-off pattern                                 | Inserter noise                           | Use existing broader category (`sections`, `utility`) |
+| Slug & category mismatch (e.g. `menu-panel-1` without `lsx-design/menu`)      | Hard to discover in Menu editing context | Enforce prefix mapping via linter                     |
+| Excessive categories in header (>5)                                           | Inserter clutter                         | Reduce to ≤3                                          |
 
 ---
 

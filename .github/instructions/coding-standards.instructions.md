@@ -37,43 +37,43 @@ This document is the single source of truth for all coding standards in LightSpe
 
 ## Language-Specific Standards
 
-- **CSS/SCSS/Sass:**  
+- **CSS/SCSS/Sass:**
   - Use [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/)
   - Lint with stylelint + Prettier.
   - Reference: [`linting-css.instructions.md`](./linting/linting-css.instructions.md)
 
-- **HTML:**  
+- **HTML:**
   - Use [WordPress HTML Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/html/)
   - Lint with html-validate + Prettier.
   - Reference: [`linting-html.instructions.md`](./linting/linting-html.instructions.md)
 
-- **JavaScript/TypeScript:**  
+- **JavaScript/TypeScript:**
   - Use [WordPress JS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/)
   - Lint with ESLint (flat/classic), Prettier.
   - Reference: [`linting-javascript.instructions.md`](./linting/linting-javascript.instructions.md)
 
-- **JSON:**  
+- **JSON:**
   - Enforce strict schemas and formatting with Prettier, (optionally) AJV.
   - Reference: [`linting-json.instructions.md`](./linting/linting-json.instructions.md)
 
-- **Markdown:**  
+- **Markdown:**
   - Use markdownlint + Prettier.
   - Reference: [`linting-markdown.instructions.md`](./linting/linting-markdown.instructions.md)
 
-- **PHP:**  
+- **PHP:**
   - Use [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/)
   - Lint with PHPCS.
   - Reference: [`linting-php.instructions.md`](./linting/linting-php.instructions.md)
 
-- **Python:**  
+- **Python:**
   - Use [PEP8](https://peps.python.org/pep-0008/), Black, Ruff, type hints, docstrings.
   - Reference: [`linting-python.instructions.md`](./linting/linting-python.instructions.md)
 
-- **Shell:**  
+- **Shell:**
   - Use ShellCheck, strict mode, and testable scripts.
   - Reference: [`linting-shell.instructions.md`](./linting/linting-shell.instructions.md)
 
-- **YAML:**  
+- **YAML:**
   - Use yamllint, Spectral, actionlint for workflows.
   - Reference: [`linting-yaml.instructions.md`](./linting/linting-yaml.instructions.md)
 
@@ -91,7 +91,7 @@ This document is the single source of truth for all coding standards in LightSpe
 
 ## Documentation Standards
 
- All documentation links to files within the same repository should use `/blob/HEAD/` in URLs to ensure universality across branches and avoid broken links after merges. Always validate links after editing documentation.
+All documentation links to files within the same repository should use `/blob/HEAD/` in URLs to ensure universality across branches and avoid broken links after merges. Always validate links after editing documentation.
 
 ## AI & Copilot Instructions
 
@@ -111,5 +111,5 @@ This document is the single source of truth for all coding standards in LightSpe
 
 ---
 
-_This file is the canonical reference for all code, documentation, and automation standards in LightSpeedWP projects.  
-All contributors, agents, and AI assistants must comply with these standards._
+*This file is the canonical reference for all code, documentation, and automation standards in LightSpeedWP projects.  
+All contributors, agents, and AI assistants must comply with these standards.*

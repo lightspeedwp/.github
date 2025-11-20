@@ -10,7 +10,7 @@ Namespace: `core/rich-text`.
 
 Returns a format type by name.
 
-_Usage_
+*Usage*
 
 ```js
 import { __, sprintf } from '@wordpress/i18n';
@@ -39,12 +39,12 @@ const ExampleComponent = () => {
 };
 ```
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Data state.
-- _name_ `string`: Format type name.
+- *state* `Object`: Data state.
+- *name* `string`: Format type name.
 
-_Returns_
+*Returns*
 
 - `?Object`: Format type.
 
@@ -52,28 +52,31 @@ _Returns_
 
 Gets the format type, if any, that can handle a bare element (without a data-format-type attribute), given the tag name of this element.
 
-_Usage_
+*Usage*
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as richTextStore } from '@wordpress/rich-text';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from "@wordpress/i18n";
+import { store as richTextStore } from "@wordpress/rich-text";
+import { useSelect } from "@wordpress/data";
 
 const ExampleComponent = () => {
-  const { getFormatTypeForBareElement } = useSelect((select) => select(richTextStore), []);
+  const { getFormatTypeForBareElement } = useSelect(
+    (select) => select(richTextStore),
+    [],
+  );
 
-  const format = getFormatTypeForBareElement('strong');
+  const format = getFormatTypeForBareElement("strong");
 
-  return format && <p>{sprintf(__('Format name: %s'), format.name)}</p>;
+  return format && <p>{sprintf(__("Format name: %s"), format.name)}</p>;
 };
 ```
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Data state.
-- _bareElementTagName_ `string`: The tag name of the element to find a format type for.
+- *state* `Object`: Data state.
+- *bareElementTagName* `string`: The tag name of the element to find a format type for.
 
-_Returns_
+*Returns*
 
 - `?Object`: Format type.
 
@@ -81,28 +84,31 @@ _Returns_
 
 Gets the format type, if any, that can handle an element, given its classes.
 
-_Usage_
+*Usage*
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as richTextStore } from '@wordpress/rich-text';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from "@wordpress/i18n";
+import { store as richTextStore } from "@wordpress/rich-text";
+import { useSelect } from "@wordpress/data";
 
 const ExampleComponent = () => {
-  const { getFormatTypeForClassName } = useSelect((select) => select(richTextStore), []);
+  const { getFormatTypeForClassName } = useSelect(
+    (select) => select(richTextStore),
+    [],
+  );
 
-  const format = getFormatTypeForClassName('has-inline-color');
+  const format = getFormatTypeForClassName("has-inline-color");
 
-  return format && <p>{sprintf(__('Format name: %s'), format.name)}</p>;
+  return format && <p>{sprintf(__("Format name: %s"), format.name)}</p>;
 };
 ```
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Data state.
-- _elementClassName_ `string`: The classes of the element to find a format type for.
+- *state* `Object`: Data state.
+- *elementClassName* `string`: The classes of the element to find a format type for.
 
-_Returns_
+*Returns*
 
 - `?Object`: Format type.
 
@@ -110,12 +116,12 @@ _Returns_
 
 Returns all the available format types.
 
-_Usage_
+*Usage*
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as richTextStore } from '@wordpress/rich-text';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from "@wordpress/i18n";
+import { store as richTextStore } from "@wordpress/rich-text";
+import { useSelect } from "@wordpress/data";
 
 const ExampleComponent = () => {
   const { getFormatTypes } = useSelect((select) => select(richTextStore), []);
@@ -129,16 +135,16 @@ const ExampleComponent = () => {
       ))}
     </ul>
   ) : (
-    __('No Formats available')
+    __("No Formats available")
   );
 };
 ```
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Data state.
+- *state* `Object`: Data state.
 
-_Returns_
+*Returns*
 
 - `Array`: Format types.
 

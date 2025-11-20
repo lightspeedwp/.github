@@ -8,10 +8,10 @@ Provide high‑signal, automated **PR labels** for review routing, release hygie
 
 ## How labels are applied
 
-1) **Paths → labels** via `.github/labeler.yml`:
+1. **Paths → labels** via `.github/labeler.yml`:
    - `area:ci`, `area:dependencies`, `area:block-editor`, `area:theme`, `area:integration` …
    - `lang:php`, `lang:javascript`, `lang:css`, `lang:md` …
-2) **Branch prefixes → status** (on PR open):
+2. **Branch prefixes → status** (on PR open):
    - `feat/`, `fix/`, `docs/`, `chore/`, `build/` → add **`status:needs-review`** by default.
 
 ### Optional branch→type mapping (for Projects)

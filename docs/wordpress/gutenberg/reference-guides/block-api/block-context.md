@@ -83,20 +83,20 @@ npm init @wordpress/block --namespace my-plugin record
 cd record
 ```
 
-2. Edit `src/index.js`. Insert the `recordId` attribute and `providesContext` property in the `registerBlockType` function and add the registration of the `record-title` block at the bottom:
+1. Edit `src/index.js`. Insert the `recordId` attribute and `providesContext` property in the `registerBlockType` function and add the registration of the `record-title` block at the bottom:
 
 ```js
-registerBlockType('my-plugin/record', {
+registerBlockType("my-plugin/record", {
   // ... cut ...
 
   attributes: {
     recordId: {
-      type: 'number',
+      type: "number",
     },
   },
 
   providesContext: {
-    'my-plugin/recordId': 'recordId',
+    "my-plugin/recordId": "recordId",
   },
 
   /**
@@ -110,14 +110,14 @@ registerBlockType('my-plugin/record', {
   save,
 });
 
-registerBlockType('my-plugin/record-title', {
-  title: 'Record Title',
-  category: 'widgets',
+registerBlockType("my-plugin/record-title", {
+  title: "Record Title",
+  category: "widgets",
 
-  usesContext: ['my-plugin/recordId'],
+  usesContext: ["my-plugin/recordId"],
 
   edit({ context }) {
-    return 'The record ID: ' + context['my-plugin/recordId'];
+    return "The record ID: " + context["my-plugin/recordId"];
   },
 
   save() {
@@ -126,14 +126,14 @@ registerBlockType('my-plugin/record-title', {
 });
 ```
 
-3. Edit `src/edit.js` for the `record` block. Replace the `Edit` function with the following code:
+1. Edit `src/edit.js` for the `record` block. Replace the `Edit` function with the following code:
 
 ```js
-import { TextControl } from '@wordpress/components';
-import { InnerBlocks } from '@wordpress/block-editor';
+import { TextControl } from "@wordpress/components";
+import { InnerBlocks } from "@wordpress/block-editor";
 
 export default function Edit(props) {
-  const MY_TEMPLATE = [['my-plugin/record-title', {}]];
+  const MY_TEMPLATE = [["my-plugin/record-title", {}]];
   const {
     attributes: { recordId },
     setAttributes,
@@ -143,7 +143,7 @@ export default function Edit(props) {
       <TextControl
         __nextHasNoMarginBottom
         __next40pxDefaultSize
-        label={__('Record ID')}
+        label={__("Record ID")}
         value={recordId}
         onChange={(val) => setAttributes({ recordId: Number(val) })}
       />
@@ -153,7 +153,7 @@ export default function Edit(props) {
 }
 ```
 
-4. Edit `src/save.js` for the `record` block. Replace the `save` function with the following code:
+1. Edit `src/save.js` for the `record` block. Replace the `save` function with the following code:
 
 ```js
 export default function save(props) {
@@ -161,6 +161,6 @@ export default function save(props) {
 }
 ```
 
-5. Create a new post and add the `record` block. If you type a number in the text box, you'll see the same number is shown in the `record-title` block below it.
+1. Create a new post and add the `record` block. If you type a number in the text box, you'll see the same number is shown in the `record-title` block below it.
 
 ![Block Context Example](https://user-images.githubusercontent.com/8876600/93000215-c8570380-f561-11ea-9bd0-0b2bd0ca1752.png)

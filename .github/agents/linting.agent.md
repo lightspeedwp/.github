@@ -1,17 +1,45 @@
 ---
-name: "linting-agent"
-description: "Enforces code quality and linting standards across all supported languages and file types."
+name: "linting"
+description: "Enforces code quality and linting standards across all supported languages and file types. Validates JavaScript/TypeScript, CSS/SCSS, HTML, JSON, Markdown, YAML, PHP, Python, and Shell scripts against canonical standards."
+target: "vscode"
+tools: ["read", "edit", "search", "shell"]
+handoffs:
+  - label: "Fix Lint Issues"
+    agent: "lint-fixer"
+    prompt: "Now fix all the lint issues identified in the analysis above."
+    send: false
 version: "v0.1.0"
-last_updated: "2025-10-21"
-owners:
-  - "lightspeedwp/maintainers"
+last_updated: "2025-11-20"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
 file_type: "agent"
-category: "quality"
-tags: ["linting", "quality", "eslint", "shellcheck", "markdownlint", "yamllint", "prettier"]
-language: "en"
+category: "code-quality"
 status: "active"
 visibility: "public"
-tools: ["Read"]
+tags:
+  [
+    "linting",
+    "quality",
+    "eslint",
+    "shellcheck",
+    "markdownlint",
+    "yamllint",
+    "prettier",
+    "automation",
+  ]
+language: "en"
+references:
+  - path: ".github/agents/linting.agent.js"
+    description: "Implementation script"
+  - path: ".github/workflows/lint.yml"
+    description: "GitHub Actions linting workflow"
+  - path: ".github/instructions/linting.instructions.md"
+    description: "Master linting standards index"
+  - path: ".github/instructions/coding-standards.instructions.md"
+    description: "Unified coding standards"
+owners: ["lightspeedwp/maintainers"]
+metadata:
+  guardrails: "Reference canonical config files only (.eslintrc.json, stylelint.json, etc). Never bypass failing linting checks. Log all linting actions and results. Provide clear, actionable error messages."
 ---
 
 # Linting Agent

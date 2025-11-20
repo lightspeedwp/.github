@@ -1,8 +1,18 @@
 ---
 file_type: "chatmode"
-description: 'Act as implementation planner for your Azure Bicep Infrastructure as Code task.'
+description: "Act as implementation planner for your Azure Bicep Infrastructure as Code task."
 tools:
-  [ 'edit/editFiles', 'fetch', 'microsoft-docs', 'azure_design_architecture', 'get_bicep_best_practices', 'bestpractices', 'bicepschema', 'azure_get_azure_verified_module', 'todos' ]
+  [
+    "edit/editFiles",
+    "fetch",
+    "microsoft-docs",
+    "azure_design_architecture",
+    "get_bicep_best_practices",
+    "bestpractices",
+    "bicepschema",
+    "azure_get_azure_verified_module",
+    "todos",
+  ]
 ---
 
 # Azure Bicep Infrastructure Planning
@@ -79,13 +89,13 @@ parameters:
       default: <value>
 
 outputs:
-- name: <outputName>
-  type: <type>
-  description: <short>
+  - name: <outputName>
+    type: <type>
+    description: <short>
 
 references:
-docs: {URL to Microsoft Docs}
-avm: {module repo URL or commit} # if applicable
+docs: { URL to Microsoft Docs }
+avm: { module repo URL or commit } # if applicable
 ```
 
 # Implementation Plan

@@ -7,7 +7,15 @@ maintainer: "Ash Shaw"
 description: "Scripts for managing GitHub Projects, including creation, updates, and field management. Centralized project management with type-specific wrappers for Client Delivery and Product Development workflows."
 type: "project-management"
 status: "production"
-tags: ["github-projects", "project-management", "automation", "client-delivery", "product-development", "fields"]
+tags:
+  [
+    "github-projects",
+    "project-management",
+    "automation",
+    "client-delivery",
+    "product-development",
+    "fields",
+  ]
 license: "GPL-3.0"
 repository: "https://github.com/lightspeedwp/.github"
 ai_references:
@@ -38,23 +46,23 @@ graph TB
     A --> C[Product Development]
     A --> D[Core Engine]
     A --> E[Field Management]
-    
+
     B --> F[client-delivery-project.sh]
     C --> G[product-dev-project.sh]
     D --> H[update-projects.sh]
     E --> I[Project Fields API]
-    
+
     F --> H
     G --> H
     H --> J[GitHub Projects API]
     H --> K[Project Creation]
     H --> L[Project Updates]
-    
+
     M[CLI Interface] --> F
     M --> G
     N[CI/CD Workflows] --> H
     O[Manual Management] --> H
-    
+
     style A fill:#e1f5fe
     style D fill:#f3e5f5
     style J fill:#e8f5e8
@@ -88,7 +96,7 @@ sequenceDiagram
     participant API as GitHub API
     participant Fields as Field Manager
     participant Project as GitHub Project
-    
+
     User->>Wrapper: Execute project script
     Wrapper->>Core: Pass project type + args
     Core->>API: Authenticate & validate
@@ -98,7 +106,7 @@ sequenceDiagram
     API->>Project: Create/update project
     Project->>Core: Return project details
     Core->>User: Report completion
-    
+
     Note over User,Project: Centralized project management
 ```
 
@@ -131,4 +139,4 @@ For detailed usage and technical information, please refer to the individual `RE
 
 ---
 
-_📋 Streamlining project management through automated GitHub Projects integration._
+*📋 Streamlining project management through automated GitHub Projects integration.*

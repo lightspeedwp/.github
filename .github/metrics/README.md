@@ -1,24 +1,24 @@
 ---
-title: 'LightSpeed Metrics Directory'
-version: 'v1.0'
-last_updated: '2025-11-17'
-author: 'LightSpeed'
-maintainer: 'Ash Shaw'
-description: 'Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity.'
-tags: ['metrics', 'analytics', 'automation', 'monitoring', 'quality']
-file_type: 'documentation'
-category: 'infrastructure'
+title: "LightSpeed Metrics Directory"
+version: "v1.0"
+last_updated: "2025-11-17"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
+description: "Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity."
+tags: ["metrics", "analytics", "automation", "monitoring", "quality"]
+file_type: "documentation"
+category: "infrastructure"
 references:
-    - path: '../reporting/README.md'
-      description: 'Reporting documentation'
-    - path: '../agents/metrics.agent.md'
-      description: 'Metrics agent configuration'
-    - path: '../../docs/BRANDING.md'
-      description: 'Branding guidelines'
-    - path: '../workflows/branding.yml'
-      description: 'Branding workflow'
-    - path: '../workflows/issue_metrics.yml'
-      description: 'Issue metrics workflow'
+  - path: "../reporting/README.md"
+    description: "Reporting documentation"
+  - path: "../agents/metrics.agent.md"
+    description: "Metrics agent configuration"
+  - path: "../../docs/BRANDING.md"
+    description: "Branding guidelines"
+  - path: "../workflows/branding.yml"
+    description: "Branding workflow"
+  - path: "../workflows/issue_metrics.yml"
+    description: "Issue metrics workflow"
 ---
 
 # LightSpeed Metrics Directory
@@ -142,14 +142,14 @@ This directory contains metrics collection scripts, configuration files, and aut
 
 ### Configuration Fields
 
-| Field | Type | Purpose |
-|-------|------|---------|
-| `includeGlobs` | array | File patterns to include in metrics |
-| `excludeGlobs` | array | File patterns to exclude from metrics |
+| Field                 | Type   | Purpose                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `includeGlobs`        | array  | File patterns to include in metrics     |
+| `excludeGlobs`        | array  | File patterns to exclude from metrics   |
 | `frontmatterEligible` | object | File types expected to have frontmatter |
-| `thresholds` | object | Quality gates and failure conditions |
-| `report` | object | Output paths and artifact configuration |
-| `version` | object | Version enforcement rules |
+| `thresholds`          | object | Quality gates and failure conditions    |
+| `report`              | object | Output paths and artifact configuration |
+| `version`             | object | Version enforcement rules               |
 
 ## Usage
 
@@ -190,9 +190,9 @@ See `.github/workflows/branding.yml` for automation details.
 **From JSON Artifacts**:
 
 ```javascript
-const fs = require('fs');
+const fs = require("fs");
 const metrics = JSON.parse(
-  fs.readFileSync('.github/metrics/out/frontmatter-metrics.json', 'utf8')
+  fs.readFileSync(".github/metrics/out/frontmatter-metrics.json", "utf8"),
 );
 
 console.log(`Coverage: ${metrics.summary.coveragePct}%`);
@@ -209,12 +209,12 @@ console.log(`Broken refs: ${metrics.summary.brokenRefs}`);
 
 Metrics can fail CI/CD builds if thresholds are exceeded:
 
-| Metric | Threshold | Action |
-|--------|-----------|--------|
-| Coverage | < 90% | Warning (configurable to fail) |
-| Unknown keys | > 0 | Fail build |
-| Broken refs | > 0 | Fail build |
-| Version skews | > 0 | Fail build |
+| Metric        | Threshold | Action                         |
+| ------------- | --------- | ------------------------------ |
+| Coverage      | < 90%     | Warning (configurable to fail) |
+| Unknown keys  | > 0       | Fail build                     |
+| Broken refs   | > 0       | Fail build                     |
+| Version skews | > 0       | Fail build                     |
 
 Configure thresholds in `metrics.config.json` → `thresholds`.
 
@@ -357,13 +357,13 @@ npx ajv validate -s schemas/frontmatter.schema.json -d path/to/file.md
 
 ## Related Resources
 
-| Resource | Purpose | Location |
-|----------|---------|----------|
-| **Reporting Directory** | Generated report outputs | [.github/reporting/](../reporting/) |
-| **Metrics Agent Spec** | Future automated metrics agent | [.github/agents/metrics.agent.md](../agents/metrics.agent.md) |
-| **Branding Workflow** | Branding metrics automation | [.github/workflows/branding.yml](../workflows/branding.yml) |
-| **Frontmatter Schema** | Validation schema for frontmatter | [schemas/frontmatter.schema.json](../../schemas/frontmatter.schema.json) |
-| **Automation Governance** | Metrics and reporting policies | [.github/automation/AUTOMATION_GOVERNANCE.md](../automation/AUTOMATION_GOVERNANCE.md) |
+| Resource                  | Purpose                           | Location                                                                              |
+| ------------------------- | --------------------------------- | ------------------------------------------------------------------------------------- |
+| **Reporting Directory**   | Generated report outputs          | [.github/reporting/](../reporting/)                                                   |
+| **Metrics Agent Spec**    | Future automated metrics agent    | [.github/agents/metrics.agent.md](../agents/metrics.agent.md)                         |
+| **Branding Workflow**     | Branding metrics automation       | [.github/workflows/branding.yml](../workflows/branding.yml)                           |
+| **Frontmatter Schema**    | Validation schema for frontmatter | [schemas/frontmatter.schema.json](../../schemas/frontmatter.schema.json)              |
+| **Automation Governance** | Metrics and reporting policies    | [.github/automation/AUTOMATION_GOVERNANCE.md](../automation/AUTOMATION_GOVERNANCE.md) |
 
 ## Future Enhancements
 

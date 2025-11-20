@@ -1,13 +1,32 @@
 ---
-title: "Reviewer Agent Spec"
+name: "reviewer"
+description: "Automates PR review summaries with CI status checks, changelog validation, and actionable recommendations for reviewers. Posts unified review comments to consolidate feedback and reduce review workload."
+target: "github-copilot"
+tools: ["github/*", "read", "search"]
+handoffs:
+  - label: "Create Review Comment"
+    agent: "comment-writer"
+    prompt: "Draft a detailed review comment based on the analysis above."
+    send: false
 version: "v1.0"
-last_updated: "2025-10-21"
+last_updated: "2025-11-20"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
-description: "Spec for the Reviewer Agent."
-tags: ["lightspeed","reviewer","agents"]
 file_type: "agent"
-name: "reviewer"
+category: "code-review"
+status: "active"
+visibility: "public"
+tags: ["lightspeed", "reviewer", "agents", "github", "pull-requests"]
+references:
+  - path: ".github/agents/reviewer.agent.js"
+    description: "Implementation script"
+  - path: ".github/workflows/reviewer.yml"
+    description: "GitHub Actions workflow"
+  - path: ".github/agents/includes/label-reporting.js"
+    description: "Shared reporting utilities"
+owners: ["lightspeedwp/maintainers"]
+metadata:
+  guardrails: "Never block PRs without configuration. Only post one summary comment per PR—update, never duplicate. Do not output sensitive data or test credentials."
 ---
 
 # Role

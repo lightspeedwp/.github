@@ -51,7 +51,7 @@ Let's start with a basic example of a counter block. We will define the store in
 
 ```ts
 // view.ts
-const myStore = store('myCounterPlugin', {
+const myStore = store("myCounterPlugin", {
   state: {
     counter: 0,
   },
@@ -87,7 +87,7 @@ const myStore: {
 You can also destructure the `state`, `actions` and `callbacks` properties, and the types will still work correctly.
 
 ```ts
-const { state } = store('myCounterPlugin', {
+const { state } = store("myCounterPlugin", {
   state: {
     counter: 0,
   },
@@ -110,7 +110,7 @@ In conclusion, inferring the types is useful when you have a simple store define
 
 The global state that is initialized on the server with the `wp_interactivity_state` function doesn't exist on your client store definition and, therefore, needs to be manually typed. But if you don't want to define all the types of your store, you can infer the types of your client store definition and merge them with the types of your server initialized state.
 
-_Please, visit [the Server-side Rendering guide](/docs/reference-guides/interactivity-api/core-concepts/server-side-rendering.md) to learn more about `wp_interactivity_state` and how directives are processed on the server._
+*Please, visit [the Server-side Rendering guide](/docs/reference-guides/interactivity-api/core-concepts/server-side-rendering.md) to learn more about `wp_interactivity_state` and how directives are processed on the server.*
 
 Following our previous example, let's move our `counter` state initialization to the server.
 
@@ -148,7 +148,7 @@ const storeDef = {
 type Store = ServerState & typeof storeDef;
 
 // Injects the final types when calling the `store` function.
-const { state } = store<Store>('myCounterPlugin', storeDef);
+const { state } = store<Store>("myCounterPlugin", storeDef);
 ```
 
 Alternatively, if you don't mind typing the entire state including both the values defined on the server and the values defined on the client, you can cast the `state` property and let TypeScript infer the rest of the store.
@@ -161,7 +161,7 @@ type State = {
   product: number; // The client state.
 };
 
-const { state } = store('myCounterPlugin', {
+const { state } = store("myCounterPlugin", {
   state: {
     product: 2,
   } as State, // Casts the entire state manually.
@@ -196,7 +196,7 @@ interface Store {
 }
 
 // Pass the types when calling the `store` function.
-const { state } = store<Store>('myCounterPlugin', {
+const { state } = store<Store>("myCounterPlugin", {
   actions: {
     increment() {
       state.counter += 1;
@@ -228,7 +228,7 @@ type MyContext = {
   counter: number;
 };
 
-store('myCounterPlugin', {
+store("myCounterPlugin", {
   actions: {
     increment() {
       // Passes it to the getContext function.
@@ -251,7 +251,7 @@ type MyContext = {
 // Defines a typed function. You only have to do this once.
 const getMyContext = getContext<MyContext>;
 
-store('myCounterPlugin', {
+store("myCounterPlugin", {
   actions: {
     increment() {
       // Use your typed function.
@@ -269,7 +269,7 @@ That's it! Now you can access the context properties with the correct types.
 
 The derived state is data that is calculated based on the global state or local context. In the client store definition, it is defined using a getter in the `state` object.
 
-_Please, visit the [Understanding global state, local context and derived state](/docs/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state.md) guide to learn more about how derived state works in the Interactivity API._
+*Please, visit the [Understanding global state, local context and derived state](/docs/reference-guides/interactivity-api/core-concepts/undestanding-global-state-local-context-and-derived-state.md) guide to learn more about how derived state works in the Interactivity API.*
 
 Following our previous example, let's create a derived state that is the double of our counter.
 
@@ -278,7 +278,7 @@ type MyContext = {
   counter: number;
 };
 
-const myStore = store('myCounterPlugin', {
+const myStore = store("myCounterPlugin", {
   state: {
     get double() {
       const { counter } = getContext<MyContext>();
@@ -311,7 +311,7 @@ But when the return value of the derived state depends directly on some part of 
 For example, in this case, TypeScript cannot infer the type of `state.double` because it depends on `state.counter`, and the type of `state` is not completed until the type of `state.double` is defined, creating a circular reference.
 
 ```ts
-const { state } = store('myCounterPlugin', {
+const { state } = store("myCounterPlugin", {
   state: {
     counter: 0,
     get double() {
@@ -332,7 +332,7 @@ In this case, depending on your TypeScript configuration, TypeScript will either
 However, solving this problem is easy; we simply need to manually provide TypeScript with the return type of that getter. Once we do that, the circular reference disappears, and TypeScript can once again infer all the `state` types.
 
 ```ts
-const { state } = store('myCounterPlugin', {
+const { state } = store("myCounterPlugin", {
   state: {
     counter: 1,
     get double(): number {
@@ -398,7 +398,7 @@ const storeDef = {
 type Store = ServerState & typeof storeDef;
 
 // Injects the final types when calling the `store` function.
-const { state } = store<Store>('myCounterPlugin', storeDef);
+const { state } = store<Store>("myCounterPlugin", storeDef);
 ```
 
 That's it! Now you can access the derived state properties with the correct types.
@@ -412,7 +412,7 @@ The reason for using generators in the Interactivity API's asynchronous actions 
 Following our previous example, let's add an asynchronous action to the store.
 
 ```ts
-const { state } = store('myCounterPlugin', {
+const { state } = store("myCounterPlugin", {
   state: {
     counter: 0,
     get double(): number {
@@ -582,15 +582,15 @@ Now, let's type the server state and add the client store definition. Remember, 
 type ServerState = {
   state: {
     todos: string[];
-    filter: 'all' | 'completed';
+    filter: "all" | "completed";
   };
 };
 
 const todoList = {
   state: {
     get filteredTodos(): string[] {
-      return state.filter === 'completed'
-        ? state.todos.filter((todo) => todo.includes('✅'))
+      return state.filter === "completed"
+        ? state.todos.filter((todo) => todo.includes("✅"))
         : state.todos;
     },
   },
@@ -605,7 +605,7 @@ const todoList = {
 export type TodoList = ServerState & typeof todoList;
 
 // Injects the final types when calling the `store` function.
-const { state } = store<TodoList>('myTodoPlugin', todoList);
+const { state } = store<TodoList>("myTodoPlugin", todoList);
 ```
 
 So far, so good. Now let's create our `add-post-to-todo` block.
@@ -648,7 +648,7 @@ const addPostToTodo = {
 type Store = ServerState & typeof addPostToTodo;
 
 // Injects the final types when calling the `store` function.
-const { state, actions } = store<Store>('myTodoPlugin', addPostToTodo);
+const { state, actions } = store<Store>("myTodoPlugin", addPostToTodo);
 ```
 
 This works fine in the browser, but TypeScript will complain that, in this block, `state` and `actions` do not include `state.todos` and `actions.addtodo`.
@@ -656,7 +656,7 @@ This works fine in the browser, but TypeScript will complain that, in this block
 To fix this, we need to import the `TodoList` type from the `todo-list` block and merge it with the other types.
 
 ```ts
-import type { TodoList } from '../todo-list-block/view';
+import type { TodoList } from "../todo-list-block/view";
 
 // ...
 
@@ -677,7 +677,7 @@ Finally, if you prefer to define all types manually instead of inferring them, y
 interface Store {
   state: {
     todos: string[];
-    filter: 'all' | 'completed';
+    filter: "all" | "completed";
     filtered: string[];
     postTitle: string;
   };
@@ -692,18 +692,18 @@ export default Store;
 
 ```ts
 // todo-list-block/view.ts
-import type Store from '../types';
+import type Store from "../types";
 
-const { state } = store<Store>('myTodoPlugin', {
+const { state } = store<Store>("myTodoPlugin", {
   // Everything is correctly typed here
 });
 ```
 
 ```ts
 // add-post-to-todo-block/view.ts
-import type Store from '../types';
+import type Store from "../types";
 
-const { state, actions } = store<Store>('myTodoPlugin', {
+const { state, actions } = store<Store>("myTodoPlugin", {
   // Everything is correctly typed here
 });
 ```
@@ -718,9 +718,9 @@ Let's go back to our `todo-list` block example, but this time, let's imagine tha
 
 ```ts
 // Import the store of the `todo-list` block.
-const myTodoPlugin = store('myTodoPlugin');
+const myTodoPlugin = store("myTodoPlugin");
 
-store('myAddPostToTodoPlugin', {
+store("myAddPostToTodoPlugin", {
   actions: {
     addPostToTodo() {
       const todo = `Read: ${state.postTitle}`.trim();
@@ -738,7 +738,7 @@ To fix that, the `myTodoPlugin` plugin can export the result of calling the `sto
 
 ```ts
 // Export the already typed state and actions.
-export const { state, actions } = store<TodoList>('myTodoPlugin', {
+export const { state, actions } = store<TodoList>("myTodoPlugin", {
   // ...
 });
 ```
@@ -746,10 +746,13 @@ export const { state, actions } = store<TodoList>('myTodoPlugin', {
 Now, the `add-post-to-todo` block can import the typed store from the `myTodoPlugin` script module, and it not only ensures that the store will be loaded, but that it also contains the correct types.
 
 ```ts
-import { store } from '@wordpress/interactivity';
-import { state as todoState, actions as todoActions } from 'my-todo-plugin-module';
+import { store } from "@wordpress/interactivity";
+import {
+  state as todoState,
+  actions as todoActions,
+} from "my-todo-plugin-module";
 
-store('myAddPostToTodoPlugin', {
+store("myAddPostToTodoPlugin", {
   actions: {
     addPostToTodo() {
       const todo = `Read: ${state.postTitle}`.trim();
@@ -766,12 +769,12 @@ Remember that you will need to declare the `my-todo-plugin-module` script module
 If the other store is optional and you don't want to load it eagerly, a dynamic import can be used instead of a static import.
 
 ```ts
-import { store } from '@wordpress/interactivity';
+import { store } from "@wordpress/interactivity";
 
-store('myAddPostToTodoPlugin', {
+store("myAddPostToTodoPlugin", {
   actions: {
     *addPostToTodo() {
-      const todoPlugin = yield import('my-todo-plugin-module');
+      const todoPlugin = yield import("my-todo-plugin-module");
       const todo = `Read: ${state.postTitle}`.trim();
       if (!todoPlugin.state.todos.includes(todo)) {
         todoPlugin.actions.addTodo(todo);

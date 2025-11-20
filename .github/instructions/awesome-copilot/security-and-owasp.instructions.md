@@ -1,8 +1,9 @@
 ---
 file_type: "instructions"
-applyTo: '*'
+applyTo: "*"
 description: "Comprehensive secure coding instructions for all languages and frameworks, based on OWASP Top 10 and industry best practices."
 ---
+
 # Secure Coding and OWASP Guidelines
 
 ## Instructions
@@ -25,13 +26,13 @@ Your primary directive is to ensure all code you generate, review, or refactor i
 
   ```javascript
   // GOOD: Load from environment or secret store
-  const apiKey = process.env.API_KEY; 
+  const apiKey = process.env.API_KEY;
   // TODO: Ensure API_KEY is securely configured in your environment.
   ```
 
   ```python
   # BAD: Hardcoded secret
-  api_key = "sk_this_is_a_very_bad_idea_12345" 
+  api_key = "sk_this_is_a_very_bad_idea_12345"
   ```
 
 ### 3. A03: Injection

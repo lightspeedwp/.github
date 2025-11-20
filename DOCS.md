@@ -48,8 +48,8 @@ This file provides a unified, always-up-to-date index of all key documentation f
 
 ## 🚀 Onboarding & Adoption
 
-- [How to adopt these files in your repo](#) _(to be created)_
-- [Quick Start Guide](./CONTRIBUTING.md#quick-start) _(to be added)_
+- [How to adopt these files in your repo](#) *(to be created)*
+- [Quick Start Guide](./CONTRIBUTING.md#quick-start) *(to be added)*
 
 ---
 

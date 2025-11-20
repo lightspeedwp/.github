@@ -5,7 +5,7 @@ title: "[Test Coverage] <Short summary>"
 labels: [type:test, status:needs-triage, priority:normal, area:testing]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: test
 references:
   - ../CONTRIBUTING.md
@@ -36,6 +36,7 @@ Specify if it's Playwright, unit, integration, E2E, or other.
 <!--
 Indicate if this is a new test or a refactor.
 -->
+
 - **Action Type:** ☐ Create ☐ Refactor (select one)
 - **Target File:** `<exact path to file to create or refactor>`
 

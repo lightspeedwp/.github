@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-description: 'Guidelines for creating and managing awesome-copilot collections'
-applyTo: 'collections/*.collection.yml'
+description: "Guidelines for creating and managing awesome-copilot collections"
+applyTo: "collections/*.collection.yml"
 ---
 
 # Collections Development
@@ -34,7 +34,7 @@ When working with collections in the awesome-copilot repository:
 
 ## Best Practices
 
-- Group 3-10 related items for optimal usability  
+- Group 3-10 related items for optimal usability
 - Use clear, descriptive names and descriptions
 - Add relevant tags for discoverability
 - Test the complete workflow the collection enables

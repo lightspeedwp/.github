@@ -1,10 +1,10 @@
 ---
-title: 'CI/CD Pipeline Guide for Modular Shell Scripts'
-version: '1.0.0'
-last_updated: '2025-11-18'
-author: 'LightSpeed WP Team'
-description: 'Comprehensive guide for the modular shell scripts CI/CD pipeline'
-tags: ['ci-cd', 'pipeline', 'automation', 'deployment', 'monitoring']
+title: "CI/CD Pipeline Guide for Modular Shell Scripts"
+version: "1.0.0"
+last_updated: "2025-11-18"
+author: "LightSpeed WP Team"
+description: "Comprehensive guide for the modular shell scripts CI/CD pipeline"
+tags: ["ci-cd", "pipeline", "automation", "deployment", "monitoring"]
 ---
 
 # CI/CD Pipeline Guide for Modular Shell Scripts
@@ -64,6 +64,30 @@ The CI/CD pipeline is implemented as a multi-stage GitHub Actions workflow with 
 │  - Report deployment status                             │
 │  - Generate pipeline summary                            │
 └─────────────────────────────────────────────────────────┘
+```
+
+### Pipeline Workflow
+
+```mermaid
+graph TD
+    A[Push/PR] --> B[Stage 1: Static Analysis]
+    B --> C{Changes Detected?}
+    C -->|No| Z[Skip Pipeline]
+    C -->|Yes| D[Stage 2: Testing]
+    D --> E[Stage 3: Quality Gates]
+    E --> F{Gates Passed?}
+    F -->|No| G[Pipeline Failed]
+    F -->|Yes| H[Stage 4: Documentation]
+    H --> I[Stage 5: Deployment Status]
+    I --> J{Branch?}
+    J -->|develop| K[Development]
+    J -->|main| L[Production Ready]
+    G --> M[Notify Team]
+    K --> N[Health Checks]
+    L --> N
+    N --> O{Healthy?}
+    O -->|No| P[Automatic Rollback]
+    O -->|Yes| Q[Pipeline Complete]
 ```
 
 ## Pipeline Stages
@@ -129,13 +153,13 @@ Quality gates ensure code meets minimum standards before deployment:
 
 #### Gate Criteria
 
-| Gate | Threshold | Weight | Description |
-|------|-----------|--------|-------------|
-| Code Quality | ≥ 80% | 25% | ShellCheck pass rate |
-| Test Coverage | ≥ 70% | 30% | Includes with tests |
-| Documentation | ≥ 75% | 20% | Scripts with full docs |
-| Security | ≥ 90% | 15% | No critical issues |
-| Performance | ≥ 70% | 10% | Optimized scripts |
+| Gate          | Threshold | Weight | Description            |
+| ------------- | --------- | ------ | ---------------------- |
+| Code Quality  | ≥ 80%     | 25%    | ShellCheck pass rate   |
+| Test Coverage | ≥ 70%     | 30%    | Includes with tests    |
+| Documentation | ≥ 75%     | 20%    | Scripts with full docs |
+| Security      | ≥ 90%     | 15%    | No critical issues     |
+| Performance   | ≥ 70%     | 10%    | Optimized scripts      |
 
 **Overall Score Calculation:**
 
@@ -510,9 +534,11 @@ The pipeline includes multiple security checks:
 
 1. Check test output for specific failures
 2. Run tests locally:
+
    ```bash
    bats tests/includes/**/*.bats
    ```
+
 3. Debug failing tests
 4. Verify test environment setup
 
@@ -525,9 +551,11 @@ The pipeline includes multiple security checks:
 1. Check quality score breakdown
 2. Identify specific failing metrics
 3. Run quality calculation locally:
+
    ```bash
    ./scripts/maintenance/calculate-quality-score.sh --verbose
    ```
+
 4. Address low-scoring areas (docs, tests, etc.)
 
 #### Deployment Fails

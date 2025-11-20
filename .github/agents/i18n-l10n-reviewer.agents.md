@@ -1,9 +1,17 @@
 ---
 file_type: "agent"
-name: 'Internationalisation & Localisation Reviewer'
-description: 'Ensure all user‑facing strings and interfaces are translation‑ready, context‑clear, and localisation friendly'
-tools: ['read_file', 'semantic_search', 'grep_search']
-license: 'GPL-3.0'
+name: "i18n-l10n-reviewer"
+title: "Internationalisation & Localisation Reviewer Agent"
+description: "Ensure all user-facing strings and interfaces are translation-ready, context-clear, and localisation friendly"
+version: "v1.0"
+last_updated: "2025-11-20"
+author: "LightSpeedWP"
+maintainer: "LightSpeedWP Team"
+tags: ["i18n", "l10n", "internationalization", "localization", "translation"]
+category: "localization"
+license: "GPL-3.0"
+status: "active"
+visibility: "public"
 ---
 
 # Internationalisation & Localisation Reviewer

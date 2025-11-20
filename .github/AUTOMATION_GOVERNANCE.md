@@ -78,7 +78,7 @@ This governance applies to:
 
 ```yaml
 - name: status:in-progress
-  aliases: ['in progress', 'wip', 'status:wip'] # Deprecated aliases
+  aliases: ["in progress", "wip", "status:wip"] # Deprecated aliases
 ```
 
 ### 2.2 Repository-Specific Labels
@@ -191,11 +191,11 @@ All workflows must:
 
 **Canonical Configurations:**
 
-| File | Purpose | Owner | Approval Required |
-|------|---------|-------|-------------------|
-| `labels.yml` | Label definitions | Platform Team | 2 approvals |
-| `labeler.yml` | File/branch-based label rules | Platform Team | 2 approvals |
-| `issue-types.yml` | Issue type definitions | Platform Team | 2 approvals |
+| File              | Purpose                       | Owner         | Approval Required |
+| ----------------- | ----------------------------- | ------------- | ----------------- |
+| `labels.yml`      | Label definitions             | Platform Team | 2 approvals       |
+| `labeler.yml`     | File/branch-based label rules | Platform Team | 2 approvals       |
+| `issue-types.yml` | Issue type definitions        | Platform Team | 2 approvals       |
 
 ### 5.2 Validation
 
@@ -398,19 +398,19 @@ All workflows must:
 
 ## Appendix A: Label Categories Reference
 
-| Category | Prefix | Example | Purpose |
-|----------|--------|---------|---------|
-| Status | `status:` | `status:in-progress` | Workflow state |
-| Priority | `priority:` | `priority:high` | Urgency level |
-| Type | `type:` | `type:bug` | Nature of work |
-| Area | `area:` | `area:core` | Codebase area |
-| Component | `comp:` | `comp:block-editor` | Specific component |
-| Language | `lang:` | `lang:php` | Programming language |
-| Meta | `meta:` | `meta:needs-changelog` | Process/admin |
-| Contributor | `contrib:` | `contrib:good-first-issue` | Community labels |
-| Discussion | `discussion:` | `discussion:feedback` | Discussion categories |
-| Release | `release:` | `release:patch` | Release type |
+| Category    | Prefix        | Example                    | Purpose               |
+| ----------- | ------------- | -------------------------- | --------------------- |
+| Status      | `status:`     | `status:in-progress`       | Workflow state        |
+| Priority    | `priority:`   | `priority:high`            | Urgency level         |
+| Type        | `type:`       | `type:bug`                 | Nature of work        |
+| Area        | `area:`       | `area:core`                | Codebase area         |
+| Component   | `comp:`       | `comp:block-editor`        | Specific component    |
+| Language    | `lang:`       | `lang:php`                 | Programming language  |
+| Meta        | `meta:`       | `meta:needs-changelog`     | Process/admin         |
+| Contributor | `contrib:`    | `contrib:good-first-issue` | Community labels      |
+| Discussion  | `discussion:` | `discussion:feedback`      | Discussion categories |
+| Release     | `release:`    | `release:patch`            | Release type          |
 
 ---
 
-_For questions about this governance document, create an issue in the [`.github` repository](https://github.com/lightspeedwp/.github/issues) or contact the Platform Team._
+*For questions about this governance document, create an issue in the [`.github` repository](https://github.com/lightspeedwp/.github/issues) or contact the Platform Team.*

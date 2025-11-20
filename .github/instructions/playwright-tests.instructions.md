@@ -32,6 +32,7 @@ permalink: "/instructions/playwright-tests"
 type: "instructions"
 mode: "agent"
 ---
+
 # Playwright Test Instructions
 
 These guidelines outline best practices for writing, organizing, and maintaining Playwright tests for LightSpeed projects, with a focus on WordPress themes, blocks, and custom patterns.
@@ -65,12 +66,12 @@ These guidelines outline best practices for writing, organizing, and maintaining
 - Example:
 
   ```js
-  import { test, expect } from '@playwright/test';
+  import { test, expect } from "@playwright/test";
 
-  test.describe('Homepage', () => {
-    test('should load and display main banner', async ({ page }) => {
-      await page.goto('https://your-site.test');
-      await expect(page.locator('.main-banner')).toBeVisible();
+  test.describe("Homepage", () => {
+    test("should load and display main banner", async ({ page }) => {
+      await page.goto("https://your-site.test");
+      await expect(page.locator(".main-banner")).toBeVisible();
     });
   });
   ```

@@ -1,7 +1,26 @@
 ---
-mode: 'agent'
-description: 'Create time-boxed technical spike documents for researching and resolving critical development decisions before implementation.'
-tools: ['runCommands', 'runTasks', 'edit', 'search', 'extensions', 'usages', 'vscodeAPI', 'think', 'problems', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'todos', 'Microsoft Docs', 'search']
+mode: "agent"
+description: "Create time-boxed technical spike documents for researching and resolving critical development decisions before implementation."
+tools:
+  [
+    "runCommands",
+    "runTasks",
+    "edit",
+    "search",
+    "extensions",
+    "usages",
+    "vscodeAPI",
+    "think",
+    "problems",
+    "changes",
+    "testFailure",
+    "openSimpleBrowser",
+    "fetch",
+    "githubRepo",
+    "todos",
+    "Microsoft Docs",
+    "search",
+  ]
 ---
 
 # Create Technical Spike Document
@@ -114,11 +133,11 @@ tags: ["technical-spike", "${input:Category|technical}", "research"]
 
 ## Status History
 
-| Date   | Status         | Notes                      |
-| ------ | -------------- | -------------------------- |
-| [Date] | 🔴 Not Started | Spike created and scoped   |
-| [Date] | 🟡 In Progress | Research commenced         |
-| [Date] | 🟢 Complete    | [Resolution summary]       |
+| Date   | Status         | Notes                    |
+| ------ | -------------- | ------------------------ |
+| [Date] | 🔴 Not Started | Spike created and scoped |
+| [Date] | 🟡 In Progress | Research commenced       |
+| [Date] | 🟢 Complete    | [Resolution summary]     |
 
 ---
 

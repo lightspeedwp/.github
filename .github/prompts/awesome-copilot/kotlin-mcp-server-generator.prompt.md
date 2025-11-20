@@ -1,6 +1,6 @@
 ---
 mode: agent
-description: 'Generate a complete Kotlin MCP server project with proper structure, dependencies, and implementation using the official io.modelcontextprotocol:kotlin-sdk library.'
+description: "Generate a complete Kotlin MCP server project with proper structure, dependencies, and implementation using the official io.modelcontextprotocol:kotlin-sdk library."
 ---
 
 # Kotlin MCP Server Project Generator
@@ -62,21 +62,21 @@ repositories {
 
 dependencies {
     implementation("io.modelcontextprotocol:kotlin-sdk:0.7.2")
-    
+
     // Ktor for transports
     implementation("io.ktor:ktor-server-netty:3.0.0")
     implementation("io.ktor:ktor-client-cio:3.0.0")
-    
+
     // Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-    
+
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
-    
+
     // Logging
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
     implementation("ch.qos.logback:logback-classic:1.5.12")
-    
+
     // Testing
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
@@ -114,13 +114,13 @@ private val logger = KotlinLogging.logger {}
 
 fun main() = runBlocking {
     logger.info { "Starting MCP server..." }
-    
+
     val config = loadConfig()
     val server = createServer(config)
-    
+
     // Use stdio transport
     val transport = StdioServerTransport()
-    
+
     logger.info { "Server '${config.name}' v${config.version} ready" }
     server.connect(transport)
 }
@@ -156,10 +156,10 @@ fun createServer(config: Config): Server {
     ) {
         config.description
     }
-    
+
     // Register all tools
     server.registerTools()
-    
+
     return server
 }
 ```
@@ -226,10 +226,10 @@ fun Server.registerTool1() {
         val param1 = request.params.arguments["param1"] as? String
             ?: throw IllegalArgumentException("param1 is required")
         val param2 = (request.params.arguments["param2"] as? Number)?.toInt() ?: 0
-        
+
         // Perform tool logic
         val result = performTool1Logic(param1, param2)
-        
+
         CallToolResult(
             content = listOf(
                 TextContent(text = result)
@@ -269,7 +269,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 
 class ServerTest {
-    
+
     @Test
     fun `test server creation`() = runTest {
         val config = Config(
@@ -277,18 +277,18 @@ class ServerTest {
             version = "1.0.0",
             description = "Test server"
         )
-        
+
         val server = createServer(config)
-        
+
         assertEquals("test-server", server.serverInfo.name)
         assertEquals("1.0.0", server.serverInfo.version)
     }
-    
+
     @Test
     fun `test tool1 execution`() = runTest {
         val config = Config()
         val server = createServer(config)
-        
+
         // Test tool execution
         // Note: You'll need to implement proper testing utilities
         // for calling tools in the server
@@ -346,13 +346,16 @@ Configure via environment variables:
 ## Available Tools
 
 ### tool1
+
 {{TOOL1_DESCRIPTION}}
 
 **Input:**
+
 - `param1` (string, required): First parameter
 - `param2` (integer, optional): Second parameter
 
 **Output:**
+
 - Text result of the operation
 
 ## Development
@@ -441,7 +444,7 @@ kotlin {
     jvm()
     js(IR) { nodejs() }
     wasmJs()
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation("io.modelcontextprotocol:kotlin-sdk:0.7.2")

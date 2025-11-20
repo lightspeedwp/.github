@@ -1,34 +1,37 @@
 ---
-title: 'Branding Agent — Specification'
-version: 'v1.0'
-last_updated: '2025-11-13'
-author: 'LightSpeed'
-maintainer: 'Ash Shaw'
-owners: ['ashleyshaw']
-description: 'Automated branding system for headers, badges, references, banners, footers, and emojis in documentation.'
-tags: ['branding', 'automation', 'documentation', 'badges', 'emojis', 'workflows']
-file_type: 'documentation'
-category: 'docs'
+title: "Branding Agent — Specification"
+version: "v1.0"
+last_updated: "2025-11-13"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
+owners: ["ashleyshaw"]
+description: "Automated branding system for headers, badges, references, banners, footers, and emojis in documentation."
+tags:
+  ["branding", "automation", "documentation", "badges", "emojis", "workflows"]
+file_type: "documentation"
+category: "docs"
 references:
-    - path: '../.github/automation/badges.schema.yml'
-      description: 'Badge schema configuration'
-    - path: '../.github/automation/emoji.schema.yml'
-      description: 'Emoji schema configuration'
-    - path: '../.github/automation/footers.yml'
-      description: 'Footer templates configuration'
-    - path: '../.github/automation/front-matter.schema.json'
-      description: 'Frontmatter schema definition'
-    - path: '../.github/workflows/branding.yml'
-      description: 'Branding automation workflow'
-    - path: '../.github/agents/branding.agent.js'
-      description: 'Branding agent implementation'
+  - path: "../.github/automation/badges.schema.yml"
+    description: "Badge schema configuration"
+  - path: "../.github/automation/emoji.schema.yml"
+    description: "Emoji schema configuration"
+  - path: "../.github/automation/footers.yml"
+    description: "Footer templates configuration"
+  - path: "../.github/automation/front-matter.schema.json"
+    description: "Frontmatter schema definition"
+  - path: "../.github/workflows/branding.yml"
+    description: "Branding automation workflow"
+  - path: "../.github/agents/branding.agent.js"
+    description: "Branding agent implementation"
 ---
 
 # Branding Agent — Spec (develop)
 
 <!-- BADGES-START -->
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Workflow](https://img.shields.io/badge/workflow-branding-success.svg)
+
 <!-- BADGES-END -->
 
 The Branding Agent ensures consistent, professional presentation across all LightSpeed documentation by automatically applying headers, badges, references, banners, footers, and emojis according to defined schemas and content categories.
@@ -102,13 +105,13 @@ Conservative emoji application following [`emoji.schema.yml`](../.github/automat
 
 ### Emoji Mapping
 
-| Keyword | Emoji |
-|---------|-------|
-| design | 🎨 |
-| workflow | 🛠️ |
-| release | 🚀 |
-| governance | 🏛️ |
-| (fallback) | ✨ |
+| Keyword    | Emoji |
+| ---------- | ----- |
+| design     | 🎨    |
+| workflow   | 🛠️    |
+| release    | 🚀    |
+| governance | 🏛️    |
+| (fallback) | ✨    |
 
 ## Opt-Out
 
@@ -185,12 +188,12 @@ For complete metrics and reporting documentation, see:
 
 ### Metrics Tracked
 
-| Metric | Description |
-|--------|-------------|
+| Metric     | Description                              |
+| ---------- | ---------------------------------------- |
 | `coverage` | Percentage of docs with branding applied |
-| `changes` | Number of files modified in last run |
-| `errors` | Number of errors encountered |
-| `optouts` | Number of files opted out |
+| `changes`  | Number of files modified in last run     |
+| `errors`   | Number of errors encountered             |
+| `optouts`  | Number of files opted out                |
 
 ## Agent Implementation
 
@@ -218,7 +221,7 @@ Test location: `.github/agents/__tests__/` (TODO: confirm)
 3. **Formal Exclusions:** Any additional pages to hard-exclude beyond CHANGELOG/CODE_OF_CONDUCT?
 4. **Banner Variants:** Naming convention and initial set for product-specific banners?
 
-_(Mark answers in relevant GitHub Issues)_
+*(Mark answers in relevant GitHub Issues)*
 
 ## Validation Checklist
 

@@ -46,27 +46,27 @@ Create a comprehensive `theme.json` configuration that establishes a cohesive de
 
 ```json
 {
-    "settings": {
-        "color": {
-            "palette": [
-                {
-                    "name": "Base",
-                    "slug": "base",
-                    "color": "#ffffff"
-                },
-                {
-                    "name": "Contrast", 
-                    "slug": "contrast",
-                    "color": "#000000"
-                },
-                {
-                    "name": "Primary",
-                    "slug": "primary",
-                    "color": "#007cba"
-                }
-            ]
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "name": "Base",
+          "slug": "base",
+          "color": "#ffffff"
+        },
+        {
+          "name": "Contrast",
+          "slug": "contrast",
+          "color": "#000000"
+        },
+        {
+          "name": "Primary",
+          "slug": "primary",
+          "color": "#007cba"
         }
+      ]
     }
+  }
 }
 ```
 
@@ -74,21 +74,21 @@ Create a comprehensive `theme.json` configuration that establishes a cohesive de
 
 ```json
 {
-    "settings": {
-        "typography": {
-            "fontSizes": [
-                {
-                    "name": "Small",
-                    "size": "0.875rem",
-                    "slug": "small",
-                    "fluid": {
-                        "min": "0.875rem",
-                        "max": "1rem"
-                    }
-                }
-            ]
+  "settings": {
+    "typography": {
+      "fontSizes": [
+        {
+          "name": "Small",
+          "size": "0.875rem",
+          "slug": "small",
+          "fluid": {
+            "min": "0.875rem",
+            "max": "1rem"
+          }
         }
+      ]
     }
+  }
 }
 ```
 
@@ -96,17 +96,17 @@ Create a comprehensive `theme.json` configuration that establishes a cohesive de
 
 ```json
 {
-    "settings": {
-        "spacing": {
-            "spacingSizes": [
-                {
-                    "name": "Small",
-                    "size": "1rem",
-                    "slug": "50"
-                }
-            ]
+  "settings": {
+    "spacing": {
+      "spacingSizes": [
+        {
+          "name": "Small",
+          "size": "1rem",
+          "slug": "50"
         }
+      ]
     }
+  }
 }
 ```
 
@@ -230,7 +230,7 @@ Create a comprehensive `theme.json` configuration that establishes a cohesive de
 When creating the theme.json configuration, include:
 
 1. **Design rationale** for color and typography choices
-2. **Token naming conventions** and usage guidelines  
+2. **Token naming conventions** and usage guidelines
 3. **Accessibility compliance** documentation
 4. **Browser support** matrix and testing notes
 5. **Migration guide** from previous versions

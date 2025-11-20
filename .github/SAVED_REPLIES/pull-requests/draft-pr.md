@@ -21,6 +21,7 @@ Hi @username,
 Thanks for opening a draft PR! Early drafts help us review design and requirements up front.
 
 **Next steps:**
+
 - Keep your PR description and checklist up to date as you work.
 - When ready for full review, mark as "Ready for review" and ensure all required labels and changelog entries are present.
 - If you need early feedback on architecture or approach, tag reviewers or ask in a comment.

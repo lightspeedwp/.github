@@ -1,11 +1,11 @@
 ---
 file_type: "documentation"
-title: 'YAML Frontmatter Documentation'
-description: 'YAML frontmatter schemas and guidelines for LightSpeed documentation files'
-version: '1.0'
-last_updated: '2025-11-12'
-maintainer: 'LightSpeed Team'
-tags: ['frontmatter', 'yaml', 'metadata', 'documentation']
+title: "YAML Frontmatter Documentation"
+description: "YAML frontmatter schemas and guidelines for LightSpeed documentation files"
+version: "1.0"
+last_updated: "2025-11-12"
+maintainer: "LightSpeed Team"
+tags: ["frontmatter", "yaml", "metadata", "documentation"]
 ---
 
 # YAML Frontmatter Documentation
@@ -57,11 +57,11 @@ Ensures consistent metadata and discoverability across all LightSpeed documentat
 
 ```yaml
 ---
-title: 'Release Agent'
-description: 'Automates release notes and changelog generation'
-version: '1.0'
-agent_type: 'automation'
-capabilities: ['changelog', 'release-notes', 'versioning']
+title: "Release Agent"
+description: "Automates release notes and changelog generation"
+version: "1.0"
+agent_type: "automation"
+capabilities: ["changelog", "release-notes", "versioning"]
 ---
 ```
 
@@ -69,10 +69,10 @@ capabilities: ['changelog', 'release-notes', 'versioning']
 
 ```yaml
 ---
-name: 'Bug Report'
-about: 'Report a bug or defect'
-title: 'Bug: [short description]'
-labels: ['type:bug', 'status:triage']
+name: "Bug Report"
+about: "Report a bug or defect"
+title: "Bug: [short description]"
+labels: ["type:bug", "status:triage"]
 ---
 ```
 

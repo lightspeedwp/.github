@@ -482,7 +482,8 @@ body {
   );
   --wp--preset--font-size--x-large: 46;
   --wp--preset--font-size--big: 32;
-  --wp--preset--font-family--helvetica-arial: Helvetica Neue, Helvetica, Arial, sans-serif;
+  --wp--preset--font-family--helvetica-arial:
+    Helvetica Neue, Helvetica, Arial, sans-serif;
   --wp--preset--font-family--system: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell, \"Helvetica Neue\",sans-serif;
   --wp--preset--spacing--20: 0.44rem;
   --wp--preset--spacing--30: 0.67rem;
@@ -527,7 +528,11 @@ body {
   ) !important;
 }
 .has-blush-light-purple-background {
-  background: linear-gradient(135deg, rgb(255, 206, 236) 0%, rgb(152, 150, 240) 100%) !important;
+  background: linear-gradient(
+    135deg,
+    rgb(255, 206, 236) 0%,
+    rgb(152, 150, 240) 100%
+  ) !important;
 }
 .has-big-font-size {
   font-size: 32;
@@ -1450,7 +1455,7 @@ As a result of this change, it’s now the block author and theme author’s res
 
 ### What is blockGap and how can I use it?
 
-For blocks that contain inner blocks, such as Group, Columns, Buttons, and Social Icons, `blockGap` controls the spacing between inner blocks. For `blockGap` to work, the block must also opt in to the [`layout` block support](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#layout), which provides layout styles that can be adjusted via the block spacing controls. Depending on the layout of the block, the `blockGap` value will be output as either a vertical margin or a `gap` value. In the editor, the control for the `blockGap` value is called _Block spacing_, located in the Dimensions panel.
+For blocks that contain inner blocks, such as Group, Columns, Buttons, and Social Icons, `blockGap` controls the spacing between inner blocks. For `blockGap` to work, the block must also opt in to the [`layout` block support](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#layout), which provides layout styles that can be adjusted via the block spacing controls. Depending on the layout of the block, the `blockGap` value will be output as either a vertical margin or a `gap` value. In the editor, the control for the `blockGap` value is called *Block spacing*, located in the Dimensions panel.
 
 ```json
 {
@@ -1470,9 +1475,9 @@ For blocks that contain inner blocks, such as Group, Columns, Buttons, and Socia
 
 The setting for `blockGap` is either a boolean or `null` value and is `null` by default. This allows an extra level of control over style output. The `settings.spacing.blockGap` setting in a `theme.json` file accepts the following values:
 
-- `true`: Opt into displaying _Block spacing_ controls in the editor UI and output `blockGap` styles.
-- `false`: Opt out of displaying _Block spacing_ controls in the editor UI, with `blockGap` styles stored in `theme.json` still being rendered. This allows themes to use `blockGap` values without allowing users to make changes within the editor.
-- `null` (default): Opt out of displaying _Block spacing_ controls, _and_ prevent the output of `blockGap` styles.
+- `true`: Opt into displaying *Block spacing* controls in the editor UI and output `blockGap` styles.
+- `false`: Opt out of displaying *Block spacing* controls in the editor UI, with `blockGap` styles stored in `theme.json` still being rendered. This allows themes to use `blockGap` values without allowing users to make changes within the editor.
+- `null` (default): Opt out of displaying *Block spacing* controls, *and* prevent the output of `blockGap` styles.
 
 The value defined for the root `styles.spacing.blockGap` style is also output as a CSS property, named `--wp--style--block-gap`.
 

@@ -1,11 +1,11 @@
 ---
-name: '💡 User Experience Feedback'
+name: "💡 User Experience Feedback"
 about: Share feedback on the usability and interface design of this WordPress project
-title: '[UX] <Short summary>'
+title: "[UX] <Short summary>"
 labels: [type:improve, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: improve
 references:
   - ../CONTRIBUTING.md
@@ -40,7 +40,7 @@ Add screenshots if applicable.
 
 ## Additional Context
 
-<!-- 
+<!--
 Add any other relevant information or examples.
 -->
 

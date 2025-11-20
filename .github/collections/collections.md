@@ -72,4 +72,4 @@ See [README.collections.md](./README.collections.md) for detailed usage instruct
 
 ---
 
-_Last updated: 2025-11-18_
+*Last updated: 2025-11-18*

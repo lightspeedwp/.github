@@ -51,7 +51,7 @@ Include these fields in the top PHP comment where applicable. Fields marked REQU
  * Template Types:  front-page
  * Inserter:        yes
  * Inserter Priority: 10
- * Required Plugins: 
+ * Required Plugins:
  * Author:          LightSpeed Team
  * Version:         1.0.0
  * Notes:           Use only in landing pages; provide plain-color fallback image.
@@ -108,7 +108,7 @@ Container patterns wrap Query block and configure columns, pagination.
 
 ### Template-part pattern (header/footer/menu)
 
-Target core/template-part/* so the pattern appears when inserting template parts.
+Target core/template-part/\* so the pattern appears when inserting template parts.
 
 ```php
 <?php
@@ -229,7 +229,7 @@ Note: For translation of Title/Description or safe conditional registration, pre
 
 ### Internationalization & assets
 
-- Wrap PHP strings using __(), esc_html_e(), etc., when pattern content includes PHP.
+- Wrap PHP strings using \_\_(), esc_html_e(), etc., when pattern content includes PHP.
 - Use assets via esc_url( get_theme_file_uri( 'assets/images/…' ) ).
 - Do not hard-code media library URLs in pattern files.
 
@@ -238,7 +238,7 @@ Note: For translation of Title/Description or safe conditional registration, pre
 - Need translated Title/Description at registration time.
 - Conditional patterns (plugins, feature flags).
 - Dynamic content generation at registration time.
-If you use register_block_pattern(), run it on init and avoid main-query functions.
+  If you use register_block_pattern(), run it on init and avoid main-query functions.
 
 ### Locking & editor UX
 

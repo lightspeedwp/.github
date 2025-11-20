@@ -88,14 +88,14 @@ The generated code review should include:
 ```javascript
 function loginUser(req, res) {
   const { email, password } = req.body;
-  
-  const user = users.find(u => u.email === email && u.password === password);
-  
+
+  const user = users.find((u) => u.email === email && u.password === password);
+
   if (user) {
-    const token = jwt.sign({ id: user.id }, 'secret123');
+    const token = jwt.sign({ id: user.id }, "secret123");
     res.json({ token: token, user: user });
   } else {
-    res.status(401).json({ error: 'Invalid credentials' });
+    res.status(401).json({ error: "Invalid credentials" });
   }
 }
 ```
@@ -119,7 +119,7 @@ This authentication function has several critical security vulnerabilities that 
 **Solution**: Use bcrypt to hash passwords:
 
 ```javascript
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 // When storing passwords
 const hashedPassword = await bcrypt.hash(password, 12);
@@ -138,7 +138,7 @@ const isValidPassword = await bcrypt.compare(password, user.hashedPassword);
 
 ```javascript
 const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-  expiresIn: '1h'
+  expiresIn: "1h",
 });
 ```
 
@@ -157,13 +157,13 @@ const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
 **Solution**: Return only necessary user data:
 
 ```javascript
-res.json({ 
-  token: token, 
-  user: { 
-    id: user.id, 
-    email: user.email, 
-    name: user.name 
-  } 
+res.json({
+  token: token,
+  user: {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+  },
 });
 ```
 

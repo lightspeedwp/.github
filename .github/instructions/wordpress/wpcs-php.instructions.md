@@ -1,6 +1,6 @@
 ---
 file_type: "instructions"
-applyTo: ['**/*.php']
+applyTo: ["**/*.php"]
 description: "Apply WordPress PHP standards (formatting, naming, security, I18N)."
 last_updated: "2025-10-19"
 version: "v1.0"
@@ -69,19 +69,13 @@ Ensure PHP code follows WordPress conventions for style, security and internatio
 
 ## Security & Data Handling
 
-- Sanitize all dynamic output using appropriate escaping functions:
--`esc_html()` for regular text
--`esc_url()` for URLs
--`esc_attr()` for HTML attributes
--`wp_kses_post()` for allowed HTML content
+- Sanitize all dynamic output using appropriate escaping functions: -`esc_html()` for regular text -`esc_url()` for URLs -`esc_attr()` for HTML attributes -`wp_kses_post()` for allowed HTML content
 - Validate and sanitize all input data before use.
 - Use nonces for form submissions and AJAX requests.
 
 ## Asset Management
 
-- Do not enqueue scripts/styles inline—use WordPress enqueue functions:
--`wp_enqueue_script()` for JavaScript files
--`wp_enqueue_style()` for CSS files
+- Do not enqueue scripts/styles inline—use WordPress enqueue functions: -`wp_enqueue_script()` for JavaScript files -`wp_enqueue_style()` for CSS files
 - Properly handle dependencies in enqueue functions.
 - Use versioning for cache busting when files are updated.
 - Localize JavaScript data using `wp_localize_script()`.
@@ -138,27 +132,27 @@ The following is a list of what should be documented in WordPress files:
 
 Summaries should be clear, simple, and brief. Avoid describing "why" an element exists, rather, focus on documenting "what" and "when" it does something.
 
-A function, hook, class, or method is a _third-person singular_ element, meaning that _third-person singular verbs_ should be used to describe what each does.
+A function, hook, class, or method is a *third-person singular* element, meaning that *third-person singular verbs* should be used to describe what each does.
 
 [tip]
 Need help remembering how to conjugate for third-person singular verbs? Imagine prefixing the function, hook, class, or method summary with "It":
 
-- _Good_: "(It) Does something."
-- _Bad_: "(It) Do something."
+- *Good*: "(It) Does something."
+- *Bad*: "(It) Do something."
 
 [/tip]
 
 Summary examples:
 
-- **Functions**: _What_ does the function do?
-  - Good: _Displays the last modified date for a post._
-  - Bad: _Display the date on which the post was last modified._
-- **Filters**: _What_ is being filtered?
-  - Good: _Filters the post content._
-  - Bad: _Lets you edit the post content that is output in the post template._
-- **Actions:** _When_ does an action fire?
-  - Good: _Fires after most of core is loaded, and the user is authenticated._
-  - Bad: _Allows you to register custom post types, custom taxonomies, and other general housekeeping tasks after a lot of WordPress core has loaded._
+- **Functions**: *What* does the function do?
+  - Good: *Displays the last modified date for a post.*
+  - Bad: *Display the date on which the post was last modified.*
+- **Filters**: *What* is being filtered?
+  - Good: *Filters the post content.*
+  - Bad: *Lets you edit the post content that is output in the post template.*
+- **Actions:** *When* does an action fire?
+  - Good: *Fires after most of core is loaded, and the user is authenticated.*
+  - Bad: *Allows you to register custom post types, custom taxonomies, and other general housekeeping tasks after a lot of WordPress core has loaded.*
 
 #### Grammar
 
@@ -179,7 +173,7 @@ Anything ported over from WPMU should use `@since MU (3.0.0)`. Existing `@since 
 ### Formatting Guidelines
 
 [info]
-WordPress' inline documentation standards for PHP are specifically tailored for optimum output on the [official Code Reference](https://developer.wordpress.org/reference/). As such, following the standards in core and formatting as described below are _extremely_ important to ensure expected output.
+WordPress' inline documentation standards for PHP are specifically tailored for optimum output on the [official Code Reference](https://developer.wordpress.org/reference/). As such, following the standards in core and formatting as described below are *extremely* important to ensure expected output.
 [/info]
 
 #### General
@@ -190,8 +184,8 @@ DocBlocks should directly precede the hook, action, function, method, or class l
 
 No HTML markup or Markdown of any kind should be used in the summary. If the text refers to an HTML element or tag, then it should be written as "image tag" or "img" element, not "`<img>`". For example:
 
-- Good: _Fires when printing the link tag in the header._
-- Bad: _Fires when printing the `<link>` tag in the header._
+- Good: *Fires when printing the link tag in the header.*
+- Bad: *Fires when printing the `<link>` tag in the header.*
 
 Inline PHPDoc tags may be used.
 
@@ -201,52 +195,52 @@ HTML markup should never be used outside of code examples, though Markdown can b
 
 1. Lists:
 
-    Use a hyphen (-) to create an unordered list, with a blank line before and after.
+   Use a hyphen (-) to create an unordered list, with a blank line before and after.
 
-    ```php
-     * Description which includes an unordered list:
-     *
-     * - This is item 1.
-     * - This is item 2.
-     * - This is item 3.
-     *
-     * The description continues on ...
-    ```
+   ```php
+    * Description which includes an unordered list:
+    *
+    * - This is item 1.
+    * - This is item 2.
+    * - This is item 3.
+    *
+    * The description continues on ...
+   ```
 
-    Use numbers to create an ordered list, with a blank line before and after.
+   Use numbers to create an ordered list, with a blank line before and after.
 
-    ```php
-     * Description which includes an ordered list:
-     *
-     * 1. This is item 1.
-     * 2. This is item 2.
-     * 3. This is item 3.
-     *
-     * The description continues on ...
-    ```
+   ```php
+    * Description which includes an ordered list:
+    *
+    * 1. This is item 1.
+    * 2. This is item 2.
+    * 3. This is item 3.
+    *
+    * The description continues on ...
+   ```
 
-2. Code samples would be created by indenting every line of the code by 4 spaces, with a blank line before and after. Blank lines in code samples also need to be indented by four spaces. Note that examples added in this way will be output in `<pre>` tags and _not_ syntax-highlighted.
+2. Code samples would be created by indenting every line of the code by 4 spaces, with a blank line before and after. Blank lines in code samples also need to be indented by four spaces. Note that examples added in this way will be output in `<pre>` tags and *not* syntax-highlighted.
 
-    ```php
-     * Description including a code sample:
-     *
-     *    $status = array(
-     *        'draft'   => __( 'Draft' ),
-     *        'pending' => __( 'Pending Review' ),
-     *        'private' => __( 'Private' ),
-     *        'publish' => __( 'Published' )
-     *    );
-     *
-     * The description continues on ...
-    ```
+   ```php
+    * Description including a code sample:
+    *
+    *    $status = array(
+    *        'draft'   => __( 'Draft' ),
+    *        'pending' => __( 'Pending Review' ),
+    *        'private' => __( 'Private' ),
+    *        'publish' => __( 'Published' )
+    *    );
+    *
+    * The description continues on ...
+   ```
 
 3. Links in the form of URLs, such as related Trac tickets or other documentation, should be added in the appropriate place in the DocBlock using the `@link` tag:
 
-    ```php
-     * Description text.
-     *
-     * @link https://core.trac.wordpress.org/ticket/20000
-    ```
+   ```php
+    * Description text.
+    *
+    * @link https://core.trac.wordpress.org/ticket/20000
+   ```
 
 #### `@since` Section (Changelogs)
 
@@ -308,7 +302,7 @@ Functions and class methods should be formatted as follows:
 - **`@see`**: Reference to a function, method, or class that is heavily-relied on within. See the note above about inline `@see` tags for expected formatting.
 - **`@link`**: URL that provides more information. This should never be used to reference another function, hook, class, or method, see `@see`.
 - **`@global`**: List PHP globals that are used within the function or method, with an optional description of the global. If multiple globals are listed, they should be aligned by type, variable, and description, with each other as a group.
-- **`@param`**: Note if the parameter is _Optional_ before the description, and include a period at the end. The description should mention accepted values as well as the default. For example: _Optional. This value does something. Accepts 'post', 'term', or empty. Default empty._
+- **`@param`**: Note if the parameter is *Optional* before the description, and include a period at the end. The description should mention accepted values as well as the default. For example: *Optional. This value does something. Accepts 'post', 'term', or empty. Default empty.*
 - **`@return`**: Should contain all possible return types and a description for each. Use a period at the end. Note: `@return void` should not be used outside the default bundled themes and the PHP compatibility shims included in WordPress Core.
 
 ```php
@@ -364,7 +358,7 @@ An example of an "originating" function and re-use of an argument array is [`wp_
  */
 ```
 
-In most cases, there is no need to mark individual arguments in a hash notation as _optional_, as the entire array is usually optional. Specifying "Optional." in the hash notation description should suffice. In the case where the array is NOT optional, individual key/value pairs may be optional and should be marked as such as necessary.
+In most cases, there is no need to mark individual arguments in a hash notation as *optional*, as the entire array is usually optional. Specifying "Optional." in the hash notation description should suffice. In the case where the array is NOT optional, individual key/value pairs may be optional and should be marked as such as necessary.
 
 #### 1.2 Deprecated Functions
 
@@ -472,9 +466,9 @@ Both action and filter hooks should be documented on the line immediately preced
 - **Description**: A supplemental description to the summary, if warranted.
 - **`@ignore`**: Used when a hook is meant only for internal use and should be skipped from parsing.
 - **`@since x.x.x`**: Should always be 3-digit (e.g. `@since 3.9.0`). Exception is `@since MU (3.0.0)`.
-- **`@param`**: If the parameter is an array of arguments, document each argument using a hash notation (described above in the _Parameters That Are Arrays_ section), and include a period at the end of each line.
+- **`@param`**: If the parameter is an array of arguments, document each argument using a hash notation (described above in the *Parameters That Are Arrays* section), and include a period at the end of each line.
 
-Note that `@return` is _not_ used for hook documentation, because action hooks return nothing, and filter hooks always return their first parameter.
+Note that `@return` is *not* used for hook documentation, because action hooks return nothing, and filter hooks always return their first parameter.
 
 ```php
 /**
@@ -559,18 +553,18 @@ Whenever possible, **all** WordPress files should contain a header DocBlock, reg
  */
 ```
 
-The _Summary_ section is meant to serve as a succinct description of **what** specific purpose the file serves.
+The *Summary* section is meant to serve as a succinct description of **what** specific purpose the file serves.
 
 Examples:
 
-- Good: _"Widgets API: WP_Widget class"_
-- Bad: _"Core widgets class"_
+- Good: *"Widgets API: WP_Widget class"*
+- Bad: *"Core widgets class"*
 
-The _Description_ section can be used to better explain overview information for the file such as how the particular file fits into the overall makeup of an API or component.
+The *Description* section can be used to better explain overview information for the file such as how the particular file fits into the overall makeup of an API or component.
 
 Examples:
 
-- Good: _"The Widgets API is comprised of the WP_Widget and WP_Widget_Factory classes in addition to a variety of top-level functionality that implements the Widgets and related sidebar APIs. WordPress registers a number of common widgets by default."_
+- Good: *"The Widgets API is comprised of the WP_Widget and WP_Widget_Factory classes in addition to a variety of top-level functionality that implements the Widgets and related sidebar APIs. WordPress registers a number of common widgets by default."*
 
 ### 7. Constants
 
@@ -595,29 +589,29 @@ Constants should be formatted as follows:
 
 Common PHPDoc tags used in WordPress include `@since`, `@see`, `@global` `@param`, and `@return` (see table below for full list).
 
-For the most part, tags are used correctly, but not all the time. For instance, sometimes you'll see an `@link` tag inline, linking to a separate function or method. "Linking" to known classes, methods, or functions is not necessary, as the Code Reference automatically links these elements. For "linking" hooks inline, the proper tag to use is `@see` - see the _Other Descriptions_ section.
+For the most part, tags are used correctly, but not all the time. For instance, sometimes you'll see an `@link` tag inline, linking to a separate function or method. "Linking" to known classes, methods, or functions is not necessary, as the Code Reference automatically links these elements. For "linking" hooks inline, the proper tag to use is `@see` - see the *Other Descriptions* section.
 
-| Tag               | Usage                                                       | Description                                                                                                                                                                                                                                    |
-|-------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`@access`**     | private                                                     | Only used in limited circumstances, like when visibility modifiers cannot be used in the code, and only when private, such as for core-only functions or core classes implementing "private" APIs. Used directly below the `@since` line in block.                                                        |
-| **`@deprecated`** | version x.x.x Use _replacement function name_ instead       | What version of WordPress the function/method was deprecated. Use 3-digit version number. Should be accompanied by a matching `@see` tag.                                                                                                      |
-| **`@global`**     | datatype $variable description                              | Document global(s) used in the function/method. For boolean and integer types, use `bool` and `int`, respectively.                                                                                                                             |
-| **`@internal`**   | information string                                          | Typically used wrapped in `{}` for adding notes for internal use only.                                                                                                                                                                                         |
-| **`@ignore`**     | (standalone)                                                | Used to skip parsing of the entire element.                                                                                                                                                                                                    |
-| **`@link`**       | URL                                                         | Link to additional information for the function/method. For an external script/library, links to source. Not to be used for related functions/methods; use `@see` instead.                                                                     |
-| **`@method`**     | returntype description                                      | Shows a "magic" method found inside the class.                                                                                                                                                                                                 |
-| **`@package`**    | packagename                                                 | Specifies package that all functions, includes, and defines in the file belong to. Found in DocBlock at top of the file. For core (and bundled themes), this is always **WordPress**.                                                          |
-| **`@param`**      | datatype $variable description                              | Function/method parameter of the format: parameter type, variable name, description, default behavior. For boolean and integer types, use `bool` and `int`, respectively.                                                                      |
-| **`@return`**     | datatype description                                        | Document the return value of functions or methods. `@return void` should not be used outside of the default bundled themes. For boolean and integer types, use `bool` and `int`, respectively.                                                 |
-| **`@see`**        | elementname                                                 | References another function/method/class the function/method relies on. Should only be used inline for "linking" hooks.                                                                                                                        |
-| **`@since`**      | version x.x.x                                               | Documents release version function/method was added. Use 3-digit version number - this is to aid with version searches, and for use when comparing versions in code. Exception is `@since MU (3.0.0)`.                                         |
-| **`@static`**     | (standalone)                                                | Note: This tag has been used in the past, but should no longer be used. Just using the static keyword in your code is enough for phpDocumentor on PHP5+ to recognize static variables and methods, and PhpDocumentor will mark them as static. |
-| **`@staticvar`**  | datatype $variable description                              | Note: This tag has been used in the past, but should no longer be used. Document a static variable's use in a function/method. For boolean and integer types, use `bool` and `int`, respectively.                                              |
-| **`@subpackage`** | subpackagename                                              | For page-level DocBlock, specifies the Component that all functions and defines in file belong to. For class-level DocBlock, specifies the subpackage/component the class belongs to.                                                          |
-| **`@todo`**       | information string                                          | Documents planned changes to an element that have not been implemented.                                                                                                                                                                        |
-| **`@type`**       | datatype description for an argument array value            | Used to denote argument array value types. See the **Hooks** or **Parameters That Are Arrays** sections for example syntax.                                                                                                                    |
-| **`@uses`**       | class::methodname() / class::$variablename / functionname() | Note: This tag has been used in the past, but should no longer be used. References a key function/method used. May include a short description.                                                                                                |
-| **`@var`**        | datatype description                                        | Data type for a class variable and short description. Callbacks are marked callback.                                                                                                                                                           |
+| Tag               | Usage                                                       | Description                                                                                                                                                                                                                                        |
+| ----------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`@access`**     | private                                                     | Only used in limited circumstances, like when visibility modifiers cannot be used in the code, and only when private, such as for core-only functions or core classes implementing "private" APIs. Used directly below the `@since` line in block. |
+| **`@deprecated`** | version x.x.x Use *replacement function name* instead       | What version of WordPress the function/method was deprecated. Use 3-digit version number. Should be accompanied by a matching `@see` tag.                                                                                                          |
+| **`@global`**     | datatype $variable description                              | Document global(s) used in the function/method. For boolean and integer types, use `bool` and `int`, respectively.                                                                                                                                 |
+| **`@internal`**   | information string                                          | Typically used wrapped in `{}` for adding notes for internal use only.                                                                                                                                                                             |
+| **`@ignore`**     | (standalone)                                                | Used to skip parsing of the entire element.                                                                                                                                                                                                        |
+| **`@link`**       | URL                                                         | Link to additional information for the function/method. For an external script/library, links to source. Not to be used for related functions/methods; use `@see` instead.                                                                         |
+| **`@method`**     | returntype description                                      | Shows a "magic" method found inside the class.                                                                                                                                                                                                     |
+| **`@package`**    | packagename                                                 | Specifies package that all functions, includes, and defines in the file belong to. Found in DocBlock at top of the file. For core (and bundled themes), this is always **WordPress**.                                                              |
+| **`@param`**      | datatype $variable description                              | Function/method parameter of the format: parameter type, variable name, description, default behavior. For boolean and integer types, use `bool` and `int`, respectively.                                                                          |
+| **`@return`**     | datatype description                                        | Document the return value of functions or methods. `@return void` should not be used outside of the default bundled themes. For boolean and integer types, use `bool` and `int`, respectively.                                                     |
+| **`@see`**        | elementname                                                 | References another function/method/class the function/method relies on. Should only be used inline for "linking" hooks.                                                                                                                            |
+| **`@since`**      | version x.x.x                                               | Documents release version function/method was added. Use 3-digit version number - this is to aid with version searches, and for use when comparing versions in code. Exception is `@since MU (3.0.0)`.                                             |
+| **`@static`**     | (standalone)                                                | Note: This tag has been used in the past, but should no longer be used. Just using the static keyword in your code is enough for phpDocumentor on PHP5+ to recognize static variables and methods, and PhpDocumentor will mark them as static.     |
+| **`@staticvar`**  | datatype $variable description                              | Note: This tag has been used in the past, but should no longer be used. Document a static variable's use in a function/method. For boolean and integer types, use `bool` and `int`, respectively.                                                  |
+| **`@subpackage`** | subpackagename                                              | For page-level DocBlock, specifies the Component that all functions and defines in file belong to. For class-level DocBlock, specifies the subpackage/component the class belongs to.                                                              |
+| **`@todo`**       | information string                                          | Documents planned changes to an element that have not been implemented.                                                                                                                                                                            |
+| **`@type`**       | datatype description for an argument array value            | Used to denote argument array value types. See the **Hooks** or **Parameters That Are Arrays** sections for example syntax.                                                                                                                        |
+| **`@uses`**       | class::methodname() / class::$variablename / functionname() | Note: This tag has been used in the past, but should no longer be used. References a key function/method used. May include a short description.                                                                                                    |
+| **`@var`**        | datatype description                                        | Data type for a class variable and short description. Callbacks are marked callback.                                                                                                                                                               |
 
 [info]
 PHPDoc tags work with some text editors/IDEs to display more information about a piece of code. It is useful to developers using those editors to understand what the purpose is, and where they would use it in their code. PhpStorm and Netbeans already support PHPDoc.

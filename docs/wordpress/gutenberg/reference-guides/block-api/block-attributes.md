@@ -6,7 +6,7 @@ A block can contain any number of attributes, and these are specified by the `at
 
 The attribute definition will contain, at a minimum, either a `type` or an `enum`. There may be additional fields.
 
-_Example_: Attributes object defining three attributes - `url`, `title`, and `size`.
+*Example*: Attributes object defining three attributes - `url`, `title`, and `size`.
 
 ```js
 {
@@ -30,15 +30,16 @@ When a block is parsed this definition will be used to extract data from the blo
 This parsing process can be summarized as:
 
 1. Extract value from the `source`.
-1. Check value matches the `type`, or is one of the `enum` values.
+2. Check value matches the `type`, or is one of the `enum` values.
 
-_Example_: Attributes available in the `edit` and function, using the above attributes definition.
+*Example*: Attributes available in the `edit` and function, using the above attributes definition.
 
 ```js
 function YourBlockEdit({ attributes }) {
   return (
     <p>
-      URL is {attributes.url}, title is {attributes.title}, and size is {attributes.size}.
+      URL is {attributes.url}, title is {attributes.title}, and size is{" "}
+      {attributes.size}.
     </p>
   );
 }
@@ -50,7 +51,7 @@ Attributes without a `source` will be automatically saved in the block [comment 
 
 For example, using the above attributes definition you would need to ensure that your `save` function has a corresponding img tag for the `url` attribute. The `title` and `size` attributes will be saved in the comment delimiter.
 
-_Example_: Example `save` function that contains the `url` attribute
+*Example*: Example `save` function that contains the `url` attribute
 
 ```js
 function YourBlockSave({ attributes }) {
@@ -90,12 +91,12 @@ Note that the validity of an `object` is determined by your `source`. For an exa
 
 An attribute can be defined as one of a fixed set of values. This is specified by an `enum`, which contains an array of allowed values:
 
-_Example_: Example `enum`.
+*Example*: Example `enum`.
 
 ```js
 {
   size: {
-    enum: ['large', 'small', 'tiny'];
+    enum: ["large", "small", "tiny"];
   }
 }
 ```
@@ -127,7 +128,7 @@ To summarize, the `source` determines where data is stored in your content, and 
 
 Use an `attribute` source to extract the value from an attribute in the markup. The attribute is specified by the `attribute` field, which must be supplied.
 
-_Example_: Extract the `src` attribute from an image found in the block's markup.
+*Example*: Extract the `src` attribute from an image found in the block's markup.
 
 Saved content:
 
@@ -160,7 +161,7 @@ Attribute available in the block:
 
 Most attributes from markup will be of type `string`. Numeric attributes in HTML are still stored as strings, and are not converted automatically.
 
-_Example_: Extract the `width` attribute from an image found in the block's markup.
+*Example*: Extract the `width` attribute from an image found in the block's markup.
 
 Saved content:
 
@@ -193,7 +194,7 @@ Attribute available in the block:
 
 The only exception is when checking for the existence of an attribute (for example, the `disabled` attribute on a `button`). In that case type `boolean` can be used and the stored value will be a boolean.
 
-_Example_: Extract the `disabled` attribute from a button found in the block's markup.
+*Example*: Extract the `disabled` attribute from a button found in the block's markup.
 
 Saved content:
 
@@ -228,7 +229,7 @@ Attribute available in the block:
 
 Use `text` to extract the inner text from markup. Note that HTML is returned according to the rules of [`textContent`](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent).
 
-_Example_: Extract the `content` attribute from a figcaption element found in the block's markup.
+*Example*: Extract the `content` attribute from a figcaption element found in the block's markup.
 
 Saved content:
 
@@ -260,7 +261,7 @@ Attribute available in the block:
 
 Another example, using `text` as the source, and using `.my-content` class as the selector to extract text:
 
-_Example_: Extract the `content` attribute from an element with `.my-content` class found in the block's markup.
+*Example*: Extract the `content` attribute from an element with `.my-content` class found in the block's markup.
 
 Saved content:
 
@@ -294,7 +295,7 @@ Attribute available in the block:
 
 Use `html` to extract the inner HTML from markup. Note that text is returned according to the rules of [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML).
 
-_Example_: Extract the `content` attribute from a figcaption element found in the block's markup.
+*Example*: Extract the `content` attribute from a figcaption element found in the block's markup.
 
 Saved content:
 
@@ -302,7 +303,9 @@ Saved content:
 <figure>
   <img src="/image.jpg" />
 
-  <figcaption>The inner text of the <strong>figcaption</strong> element</figcaption>
+  <figcaption>
+    The inner text of the <strong>figcaption</strong> element
+  </figcaption>
 </figure>
 ```
 
@@ -330,7 +333,7 @@ Use `query` to extract an array of values from markup. Entries of the array are 
 
 The `query` field is effectively a nested block attributes definition. It is possible (although not necessarily recommended) to nest further.
 
-_Example_: Extract `src` and `alt` from each image element in the block's markup.
+*Example*: Extract `src` and `alt` from each image element in the block's markup.
 
 Saved content:
 
@@ -441,7 +444,7 @@ add_action( 'init', 'gutenberg_my_block_init' );
 
 If you'd like to use an object or an array in an attribute, you can register a `string` attribute type and use JSON as the intermediary. Serialize the structured data to JSON prior to saving, and then deserialize the JSON string on the server. Keep in mind that you're responsible for the integrity of the data; make sure to properly sanitize, accommodate missing data, etc.
 
-Lastly, make sure that you respect the data's type when setting attributes, as the framework does not automatically perform type casting of meta. Incorrect typing in block attributes will result in a post remaining dirty even after saving (_cf._ `isEditedPostDirty`, `hasEditedAttributes`). For instance, if `authorCount` is an integer, remember that event handlers may pass a different kind of data, thus the value should be cast explicitly:
+Lastly, make sure that you respect the data's type when setting attributes, as the framework does not automatically perform type casting of meta. Incorrect typing in block attributes will result in a post remaining dirty even after saving (*cf.* `isEditedPostDirty`, `hasEditedAttributes`). For instance, if `authorCount` is an integer, remember that event handlers may pass a different kind of data, thus the value should be cast explicitly:
 
 ```js
 function onChange(event) {
@@ -455,7 +458,7 @@ A block attribute can contain a default value, which will be used if the `type` 
 
 The value is provided by the `default` field, and the value should match the expected format of the attribute.
 
-_Example_: Example `default` values.
+*Example*: Example `default` values.
 
 ```js
 {
@@ -491,7 +494,7 @@ The `role` property designates an attribute as being of a particular conceptual 
 Use `content` to designate the attribute as user-editable content. Blocks with attributes marked as `content` may be enabled for privileged editing in special circumstances such as content only locking.
 Use `local` to mark the attribute as temporary and non-persistable. Attributes marked as `local` are ignored by the Block Serializer and never saved to post content.
 
-_Example_: `content` role used by the paragraph block
+*Example*: `content` role used by the paragraph block
 
 ```js
 {
@@ -504,7 +507,7 @@ _Example_: `content` role used by the paragraph block
 }
 ```
 
-_Example_: `local` role used for temporary data.
+*Example*: `local` role used for temporary data.
 
 ```js
 {

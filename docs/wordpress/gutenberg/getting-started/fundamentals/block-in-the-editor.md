@@ -66,7 +66,7 @@ export default function Edit({ className, attributes: attr, setAttributes }) {
 
   const onChangeAlignment = (newAlignment) => {
     setAttributes({
-      alignment: newAlignment === undefined ? 'none' : newAlignment,
+      alignment: newAlignment === undefined ? "none" : newAlignment,
     });
   };
 
@@ -74,7 +74,10 @@ export default function Edit({ className, attributes: attr, setAttributes }) {
     <div {...useBlockProps()}>
       <BlockControls>
         <ToolbarGroup>
-          <AlignmentToolbar value={attr.alignment} onChange={onChangeAlignment} />
+          <AlignmentToolbar
+            value={attr.alignment}
+            onChange={onChangeAlignment}
+          />
         </ToolbarGroup>
       </BlockControls>
 
@@ -90,7 +93,7 @@ export default function Edit({ className, attributes: attr, setAttributes }) {
 }
 ```
 
-_See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/block-toolbar-ab967f) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/block-toolbar-ab967f/src/edit.js)._
+*See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/block-toolbar-ab967f) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/block-toolbar-ab967f/src/edit.js).*
 
 Note that `BlockControls` is only visible when the block is currently selected and in visual editing mode. `BlockControls` are not shown when editing a block in HTML editing mode.
 
@@ -118,7 +121,7 @@ export default function Edit({ attributes, setAttributes }) {
         <div>
           <fieldset>
             <legend className="blocks-base-control__label">
-              {__('Background color', 'block-development-examples')}
+              {__("Background color", "block-development-examples")}
             </legend>
             <ColorPalette // Element Tag for Gutenberg standard color selector
               onChange={onChangeBGColor} // onChange event callback
@@ -126,7 +129,7 @@ export default function Edit({ attributes, setAttributes }) {
           </fieldset>
           <fieldset>
             <legend className="blocks-base-control__label">
-              {__('Text color', 'block-development-examples')}
+              {__("Text color", "block-development-examples")}
             </legend>
             <ColorPalette onChange={onChangeTextColor} />
           </fieldset>
@@ -147,7 +150,7 @@ export default function Edit({ attributes, setAttributes }) {
 }
 ```
 
-_See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/settings-sidebar-82c525) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/settings-sidebar-82c525/src/edit.js)._
+*See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/settings-sidebar-82c525) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/settings-sidebar-82c525/src/edit.js).*
 
 Block controls rendered in both the toolbar and sidebar will also be available when multiple blocks of the same type are selected.
 

@@ -1,12 +1,11 @@
 ---
-mode: 'agent'
-description: 'Create Spring Boot Java Project Skeleton'
+mode: "agent"
+description: "Create Spring Boot Java Project Skeleton"
 ---
 
 # Create Spring Boot Java project prompt
 
 - Please make sure you have the following software installed on your system:
-
   - Java 21
   - Docker
   - Docker Compose
@@ -129,7 +128,6 @@ spring.data.mongodb.database=test
 ## Add `docker-compose.yaml` with Redis, PostgreSQL and MongoDB services
 
 - Create `docker-compose.yaml` at project root and add following services: `redis:6`, `postgresql:17` and `mongo:8`.
-
   - redis service should have
     - password `rootroot`
     - mapping port 6379 to 6379

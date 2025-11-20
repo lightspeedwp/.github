@@ -34,7 +34,7 @@ registerBlockType( ..., {
 } );
 ```
 
-_See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/src/index.js)._
+*See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/src/index.js).*
 
 The markup of the block in the Block Editor could look like this, where the classes and attributes are applied automatically:
 
@@ -78,12 +78,14 @@ registerBlockType( ..., {
 } );
 ```
 
-_See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/src/index.js)._
+*See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/src/index.js).*
 
 The markup of the block on the front end could look like this, where the class is applied automatically:
 
 ```html
-<p class="wp-block-block-development-examples-minimal-block-ca6eda">Hello World – Frontend</p>
+<p class="wp-block-block-development-examples-minimal-block-ca6eda">
+  Hello World – Frontend
+</p>
 ```
 
 If you want to add any additional classes or attributes to the `save` function of the block, they should be passed as an argument of `useBlockProps.save()`. (See [example](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/save.js))

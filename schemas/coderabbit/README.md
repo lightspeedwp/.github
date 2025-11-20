@@ -35,23 +35,23 @@ graph TB
     A[CodeRabbit Schemas] --> B[Configuration Schema]
     A --> C[Override Schema]
     A --> D[Rule Schema]
-    
+
     B --> E[Review Settings]
     B --> F[Language Config]
     B --> G[Path Patterns]
-    
+
     C --> H[Custom Rules]
     C --> I[Ignore Patterns]
     C --> J[Priority Overrides]
-    
+
     D --> K[Validation Rules]
     D --> L[Quality Gates]
     D --> M[Approval Rules]
-    
+
     N[AI Code Review] --> A
     O[GitHub Integration] --> A
     P[Quality Assurance] --> A
-    
+
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#e8f5e8
@@ -63,7 +63,7 @@ graph TB
 Once populated, this directory will contain:
 
 - **`config.schema.json`** — Main configuration schema
-- **`overrides.schema.json`** — Override rules schema  
+- **`overrides.schema.json`** — Override rules schema
 - **`review-rules.schema.json`** — Code review rules schema
 - **`language-settings.schema.json`** — Language-specific settings
 - **`path-patterns.schema.json`** — File path pattern definitions
@@ -77,7 +77,7 @@ sequenceDiagram
     participant Schema as Schema Validator
     participant CR as CodeRabbit AI
     participant GH as GitHub
-    
+
     Dev->>Config: Create/update config
     Config->>Schema: Validate against schema
     Schema->>Schema: Check structure & rules
@@ -85,7 +85,7 @@ sequenceDiagram
     Config->>CR: Apply validated config
     CR->>GH: Perform AI code review
     GH->>Dev: Review feedback
-    
+
     Note over Dev,GH: Automated AI-powered code review
 ```
 
@@ -127,16 +127,16 @@ npx ajv-cli validate --schema overrides.schema.json --data config.json
 ### Integration Testing
 
 ```javascript
-const Ajv = require('ajv');
-const schema = require('./config.schema.json');
-const config = require('../coderabbit-overrides.v2.json');
+const Ajv = require("ajv");
+const schema = require("./config.schema.json");
+const config = require("../coderabbit-overrides.v2.json");
 
 const ajv = new Ajv();
 const validate = ajv.compile(schema);
 const valid = validate(config);
 
 if (!valid) {
-  console.error('Validation errors:', validate.errors);
+  console.error("Validation errors:", validate.errors);
 }
 ```
 
@@ -179,6 +179,6 @@ if (!valid) {
 
 ---
 
-_🤖 Empowering AI-driven code review through structured configuration validation._
+*🤖 Empowering AI-driven code review through structured configuration validation.*
 
 <!-- RANDOM FOOTER: 🤖 Docs signed by Copilot for LightSpeedWP -->

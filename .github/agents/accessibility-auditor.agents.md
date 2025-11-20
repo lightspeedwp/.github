@@ -1,19 +1,19 @@
 ---
 file_type: "agent"
-name: 'accessibility-auditor'
-description: 'WordPress accessibility specialist ensuring WCAG 2.2 AA compliance through comprehensive auditing, testing, and remediation of themes, plugins, and content'
-tools:
-    [
-        'read_file',
-        'replace_string_in_file',
-        'semantic_search',
-        'grep_search',
-        'run_in_terminal',
-    ]
-license: 'GPL-3.0-or-later'
-domain: 'accessibility'
-stability: 'stable'
+name: "accessibility-auditor"
+title: "Accessibility Auditor Agent"
+description: "WordPress accessibility specialist ensuring WCAG 2.2 AA compliance through comprehensive auditing, testing, and remediation of themes, plugins, and content"
+version: "v1.0"
+last_updated: "2025-11-20"
+author: "LightSpeedWP"
+maintainer: "LightSpeedWP Team"
+tags: ["accessibility", "wcag", "auditing", "wordpress", "a11y"]
+category: "accessibility"
+license: "GPL-3.0-or-later"
+status: "active"
+visibility: "public"
 ---
+
 # Accessibility Auditor
 
 **Purpose**: Ensures WordPress sites, themes, and plugins meet WCAG 2.2 AA standards through comprehensive accessibility assessment and remediation.
@@ -106,49 +106,49 @@ stability: 'stable'
 ```javascript
 // Comprehensive accessibility testing configuration
 const accessibilityTestSuite = {
-    tools: [
-        {
-            name: 'axe-core',
-            config: {
-                rules: {
-                    'color-contrast': { enabled: true },
-                    keyboard: { enabled: true },
-                    'aria-*': { enabled: true },
-                    'heading-order': { enabled: true },
-                },
-                tags: ['wcag2a', 'wcag2aa', 'wcag21aa'],
-            },
+  tools: [
+    {
+      name: "axe-core",
+      config: {
+        rules: {
+          "color-contrast": { enabled: true },
+          keyboard: { enabled: true },
+          "aria-*": { enabled: true },
+          "heading-order": { enabled: true },
         },
-        {
-            name: 'lighthouse',
-            config: {
-                categories: ['accessibility'],
-                settings: {
-                    onlyAudits: [
-                        'accesskeys',
-                        'aria-*',
-                        'button-name',
-                        'color-contrast',
-                        'focus-traps',
-                        'heading-order',
-                        'image-alt',
-                        'keyboard',
-                        'label',
-                        'link-name',
-                        'skip-link',
-                    ],
-                },
-            },
+        tags: ["wcag2a", "wcag2aa", "wcag21aa"],
+      },
+    },
+    {
+      name: "lighthouse",
+      config: {
+        categories: ["accessibility"],
+        settings: {
+          onlyAudits: [
+            "accesskeys",
+            "aria-*",
+            "button-name",
+            "color-contrast",
+            "focus-traps",
+            "heading-order",
+            "image-alt",
+            "keyboard",
+            "label",
+            "link-name",
+            "skip-link",
+          ],
         },
-    ],
+      },
+    },
+  ],
 
-    customTests: [
-        'focusManagement',
-        'keyboardTraps',
-        'screenReaderAnnouncements',
-        'semanticStructure',
-        'formAccessibility',
-    ],
+  customTests: [
+    "focusManagement",
+    "keyboardTraps",
+    "screenReaderAnnouncements",
+    "semanticStructure",
+    "formAccessibility",
+  ],
 };
 ```
 
@@ -156,68 +156,66 @@ const accessibilityTestSuite = {
 
 ```javascript
 class ManualAccessibilityTester {
-    constructor() {
-        this.testResults = new Map();
-        this.currentTest = null;
-    }
+  constructor() {
+    this.testResults = new Map();
+    this.currentTest = null;
+  }
 
-    /**
-     * Keyboard navigation testing protocol
-     */
-    async testKeyboardNavigation(element) {
-        const results = {
-            focusableElements: [],
-            tabOrder: [],
-            keyboardTraps: [],
-            skipLinks: [],
-            accessKeys: [],
-        };
+  /**
+   * Keyboard navigation testing protocol
+   */
+  async testKeyboardNavigation(element) {
+    const results = {
+      focusableElements: [],
+      tabOrder: [],
+      keyboardTraps: [],
+      skipLinks: [],
+      accessKeys: [],
+    };
 
-        // Find all focusable elements
-        results.focusableElements = this.findFocusableElements(element);
+    // Find all focusable elements
+    results.focusableElements = this.findFocusableElements(element);
 
-        // Test tab order
-        results.tabOrder = await this.testTabOrder(results.focusableElements);
+    // Test tab order
+    results.tabOrder = await this.testTabOrder(results.focusableElements);
 
-        // Check for keyboard traps
-        results.keyboardTraps = this.detectKeyboardTraps(
-            results.focusableElements
-        );
+    // Check for keyboard traps
+    results.keyboardTraps = this.detectKeyboardTraps(results.focusableElements);
 
-        // Validate skip links
-        results.skipLinks = this.validateSkipLinks(element);
+    // Validate skip links
+    results.skipLinks = this.validateSkipLinks(element);
 
-        return this.analyzeKeyboardResults(results);
-    }
+    return this.analyzeKeyboardResults(results);
+  }
 
-    /**
-     * Screen reader compatibility testing
-     */
-    async testScreenReaderCompatibility(element) {
-        const results = {
-            headingStructure: this.analyzeHeadingStructure(element),
-            ariaImplementation: this.validateAriaUsage(element),
-            labelAssociations: this.checkLabelAssociations(element),
-            liveRegions: this.validateLiveRegions(element),
-            semanticMarkup: this.analyzeSemanticStructure(element),
-        };
+  /**
+   * Screen reader compatibility testing
+   */
+  async testScreenReaderCompatibility(element) {
+    const results = {
+      headingStructure: this.analyzeHeadingStructure(element),
+      ariaImplementation: this.validateAriaUsage(element),
+      labelAssociations: this.checkLabelAssociations(element),
+      liveRegions: this.validateLiveRegions(element),
+      semanticMarkup: this.analyzeSemanticStructure(element),
+    };
 
-        return this.generateScreenReaderReport(results);
-    }
+    return this.generateScreenReaderReport(results);
+  }
 
-    /**
-     * Color and visual accessibility testing
-     */
-    testColorAccessibility(element) {
-        const results = {
-            contrastRatios: this.measureContrastRatios(element),
-            colorDependence: this.checkColorDependence(element),
-            focusIndicators: this.validateFocusIndicators(element),
-            textScaling: this.testTextScaling(element),
-        };
+  /**
+   * Color and visual accessibility testing
+   */
+  testColorAccessibility(element) {
+    const results = {
+      contrastRatios: this.measureContrastRatios(element),
+      colorDependence: this.checkColorDependence(element),
+      focusIndicators: this.validateFocusIndicators(element),
+      textScaling: this.testTextScaling(element),
+    };
 
-        return this.generateColorAccessibilityReport(results);
-    }
+    return this.generateColorAccessibilityReport(results);
+  }
 }
 ```
 
@@ -312,43 +310,43 @@ class WordPressAccessibilityAuditor {
 
 ```javascript
 const AccessibilityIssueClassification = {
-    CRITICAL: {
-        level: 'A',
-        examples: [
-            'Images without alt text',
-            'Form controls without labels',
-            'Insufficient color contrast',
-            'Keyboard traps',
-            'Missing page titles',
-        ],
-        impact: 'Complete barriers to access',
-        priority: 'P1 - Must fix immediately',
-    },
+  CRITICAL: {
+    level: "A",
+    examples: [
+      "Images without alt text",
+      "Form controls without labels",
+      "Insufficient color contrast",
+      "Keyboard traps",
+      "Missing page titles",
+    ],
+    impact: "Complete barriers to access",
+    priority: "P1 - Must fix immediately",
+  },
 
-    SERIOUS: {
-        level: 'AA',
-        examples: [
-            'Heading structure violations',
-            'Missing focus indicators',
-            'Inadequate error identification',
-            'Poor link context',
-            'Missing landmark roles',
-        ],
-        impact: 'Significant usability barriers',
-        priority: 'P2 - Should fix within sprint',
-    },
+  SERIOUS: {
+    level: "AA",
+    examples: [
+      "Heading structure violations",
+      "Missing focus indicators",
+      "Inadequate error identification",
+      "Poor link context",
+      "Missing landmark roles",
+    ],
+    impact: "Significant usability barriers",
+    priority: "P2 - Should fix within sprint",
+  },
 
-    MODERATE: {
-        level: 'AAA',
-        examples: [
-            'Language not specified',
-            'Redundant links',
-            'Inconsistent navigation',
-            'Missing abbreviation definitions',
-        ],
-        impact: 'Minor usability issues',
-        priority: 'P3 - Fix when possible',
-    },
+  MODERATE: {
+    level: "AAA",
+    examples: [
+      "Language not specified",
+      "Redundant links",
+      "Inconsistent navigation",
+      "Missing abbreviation definitions",
+    ],
+    impact: "Minor usability issues",
+    priority: "P3 - Fix when possible",
+  },
 };
 ```
 
@@ -440,39 +438,39 @@ name: Accessibility Testing
 on: [push, pull_request]
 
 jobs:
-    accessibility-audit:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
+  accessibility-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: '18'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
 
-            - name: Install dependencies
-              run: |
-                  npm install -g @axe-core/cli pa11y lighthouse-ci
+      - name: Install dependencies
+        run: |
+          npm install -g @axe-core/cli pa11y lighthouse-ci
 
-            - name: Run axe-core accessibility tests
-              run: |
-                  axe --dir ./build --tags wcag2a,wcag2aa,wcag21aa
+      - name: Run axe-core accessibility tests
+        run: |
+          axe --dir ./build --tags wcag2a,wcag2aa,wcag21aa
 
-            - name: Run Pa11y accessibility tests
-              run: |
-                  pa11y-ci --sitemap http://localhost:3000/sitemap.xml
+      - name: Run Pa11y accessibility tests
+        run: |
+          pa11y-ci --sitemap http://localhost:3000/sitemap.xml
 
-            - name: Run Lighthouse accessibility audit
-              run: |
-                  lhci autorun --collect.settings.chromeFlags="--no-sandbox"
+      - name: Run Lighthouse accessibility audit
+        run: |
+          lhci autorun --collect.settings.chromeFlags="--no-sandbox"
 
-            - name: Upload accessibility reports
-              uses: actions/upload-artifact@v3
-              with:
-                  name: accessibility-reports
-                  path: |
-                      ./accessibility-report.json
-                      ./lighthouse-report.html
+      - name: Upload accessibility reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: accessibility-reports
+          path: |
+            ./accessibility-report.json
+            ./lighthouse-report.html
 ```
 
 ### Continuous Monitoring
@@ -480,59 +478,59 @@ jobs:
 ```javascript
 // WordPress plugin for ongoing accessibility monitoring
 class AccessibilityMonitor {
-    constructor() {
-        this.init();
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    // Monitor new content for accessibility issues
+    document.addEventListener("DOMContentLoaded", () => {
+      this.scanNewContent();
+    });
+
+    // Monitor AJAX content updates
+    this.observeContentChanges();
+
+    // Set up periodic accessibility checks
+    this.schedulePeriodicChecks();
+  }
+
+  /**
+   * Scan new content for accessibility issues
+   */
+  async scanNewContent() {
+    const issues = await this.runAccessibilityChecks(document.body);
+
+    if (issues.length > 0) {
+      this.reportIssues(issues);
+      this.showAccessibilityWarnings(issues);
     }
+  }
 
-    init() {
-        // Monitor new content for accessibility issues
-        document.addEventListener('DOMContentLoaded', () => {
-            this.scanNewContent();
-        });
+  /**
+   * Report accessibility issues to monitoring system
+   */
+  reportIssues(issues) {
+    const report = {
+      url: window.location.href,
+      timestamp: new Date().toISOString(),
+      issues: issues,
+      userAgent: navigator.userAgent,
+      viewport: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      },
+    };
 
-        // Monitor AJAX content updates
-        this.observeContentChanges();
-
-        // Set up periodic accessibility checks
-        this.schedulePeriodicChecks();
-    }
-
-    /**
-     * Scan new content for accessibility issues
-     */
-    async scanNewContent() {
-        const issues = await this.runAccessibilityChecks(document.body);
-
-        if (issues.length > 0) {
-            this.reportIssues(issues);
-            this.showAccessibilityWarnings(issues);
-        }
-    }
-
-    /**
-     * Report accessibility issues to monitoring system
-     */
-    reportIssues(issues) {
-        const report = {
-            url: window.location.href,
-            timestamp: new Date().toISOString(),
-            issues: issues,
-            userAgent: navigator.userAgent,
-            viewport: {
-                width: window.innerWidth,
-                height: window.innerHeight,
-            },
-        };
-
-        // Send to monitoring endpoint
-        fetch('/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: JSON.stringify(report),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-    }
+    // Send to monitoring endpoint
+    fetch("/wp-admin/admin-ajax.php", {
+      method: "POST",
+      body: JSON.stringify(report),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 }
 ```
 

@@ -1,12 +1,18 @@
 ---
 file_type: "agent"
-name: 'woocommerce-specialist'
-description: 'WordPress WooCommerce E-commerce Specialist - Expert in WooCommerce block development, checkout optimization, and performance tuning'
-tools: ['codebase', 'editFiles', 'runCommands', 'search', 'usages']
-license: 'GPL-3.0-or-later'
-domain: 'wp-core'
-tags: ['woocommerce', 'ecommerce', 'checkout', 'blocks', 'performance']
-stability: 'stable'
+name: "woocommerce-specialist"
+title: "WooCommerce E-commerce Specialist Agent"
+description: "WordPress WooCommerce E-commerce Specialist - Expert in WooCommerce block development, checkout optimization, and performance tuning"
+version: "v1.0"
+last_updated: "2025-11-20"
+author: "LightSpeedWP"
+maintainer: "LightSpeedWP Team"
+tags:
+  ["woocommerce", "ecommerce", "checkout", "blocks", "performance", "wordpress"]
+category: "ecommerce"
+license: "GPL-3.0-or-later"
+status: "active"
+visibility: "public"
 ---
 
 # WooCommerce E-commerce Specialist

@@ -19,6 +19,7 @@ date: "2025-11-20"
 ## 📁 Current Schema File Locations
 
 ### ✅ Consolidated (Frontmatter)
+
 ```
 schemas/
 ├── frontmatter.schema.json          (CANONICAL - newly consolidated)
@@ -29,6 +30,7 @@ schemas/
 ### ⚠️ Still Scattered (Needs Consolidation)
 
 #### 1. **Old Automation Folder** (Most Problematic)
+
 ```
 .github/automation/
 ├── front-matter.schema.json         (LEGACY - simple/old version)
@@ -38,6 +40,7 @@ schemas/
 ```
 
 #### 2. **Header-Footer Agent Subfolder**
+
 ```
 schemas/header-footer-agent/
 ├── agent-config.schema.json
@@ -47,6 +50,7 @@ schemas/header-footer-agent/
 ```
 
 #### 3. **WordPress Schemas Subfolder**
+
 ```
 schemas/wp/
 ├── block-6.6.schema.json
@@ -54,6 +58,7 @@ schemas/wp/
 ```
 
 #### 4. **Other Schemas at Root**
+
 ```
 schemas/
 ├── collection.schema.json
@@ -67,19 +72,19 @@ schemas/
 
 ### Schema Files Summary (11 total)
 
-| File | Location | Type | Used By | Consolidate? |
-|------|----------|------|---------|--------------|
-| **frontmatter.schema.json** | `schemas/` | Frontmatter validation | Agents, Copilot | ✅ DONE |
-| **front-matter.schema.json** | `.github/automation/` | Legacy frontmatter (simple) | BRANDING.md | 🚨 REMOVE |
-| **version.schema.json** | `.github/automation/schemas/` | Version validation | Version control | ✅ MOVE UP |
-| **changelog.schema.json** | `.github/automation/schemas/` | Changelog validation | Release process | ✅ MOVE UP |
-| **agent-config.schema.json** | `schemas/header-footer-agent/` | Branding agent config | Branding agent | ✅ MOVE UP |
-| **header.schema.json** | `schemas/header-footer-agent/` | Header template schema | Branding agent | ✅ MOVE UP |
-| **footer.schema.json** | `schemas/header-footer-agent/` | Footer template schema | Branding agent | ✅ MOVE UP |
-| **header-footer.schema.json** | `schemas/header-footer-agent/` | Combined schema | Branding agent | ✅ MOVE UP |
-| **block-6.6.schema.json** | `schemas/wp/` | WordPress block schema | WordPress blocks | ✅ MOVE UP |
-| **theme-6.6.schema.json** | `schemas/wp/` | WordPress theme schema | WordPress themes | ✅ MOVE UP |
-| **collection.schema.json** | `schemas/` | Collection definition | Awesome Copilot | ✅ ALREADY OK |
+| File                          | Location                       | Type                        | Used By          | Consolidate?  |
+| ----------------------------- | ------------------------------ | --------------------------- | ---------------- | ------------- |
+| **frontmatter.schema.json**   | `schemas/`                     | Frontmatter validation      | Agents, Copilot  | ✅ DONE       |
+| **front-matter.schema.json**  | `.github/automation/`          | Legacy frontmatter (simple) | BRANDING.md      | 🚨 REMOVE     |
+| **version.schema.json**       | `.github/automation/schemas/`  | Version validation          | Version control  | ✅ MOVE UP    |
+| **changelog.schema.json**     | `.github/automation/schemas/`  | Changelog validation        | Release process  | ✅ MOVE UP    |
+| **agent-config.schema.json**  | `schemas/header-footer-agent/` | Branding agent config       | Branding agent   | ✅ MOVE UP    |
+| **header.schema.json**        | `schemas/header-footer-agent/` | Header template schema      | Branding agent   | ✅ MOVE UP    |
+| **footer.schema.json**        | `schemas/header-footer-agent/` | Footer template schema      | Branding agent   | ✅ MOVE UP    |
+| **header-footer.schema.json** | `schemas/header-footer-agent/` | Combined schema             | Branding agent   | ✅ MOVE UP    |
+| **block-6.6.schema.json**     | `schemas/wp/`                  | WordPress block schema      | WordPress blocks | ✅ MOVE UP    |
+| **theme-6.6.schema.json**     | `schemas/wp/`                  | WordPress theme schema      | WordPress themes | ✅ MOVE UP    |
+| **collection.schema.json**    | `schemas/`                     | Collection definition       | Awesome Copilot  | ✅ ALREADY OK |
 
 ---
 
@@ -137,12 +142,14 @@ schemas/
 ## 📋 Consolidation Plan (3 Phases)
 
 ### Phase 1: Clean Up Automation Folder ✅ COMPLETED
+
 - ✅ Move `version.schema.json` from `.github/automation/schemas/` → `schemas/`
 - ✅ Move `changelog.schema.json` from `.github/automation/schemas/` → `schemas/`
 - ✅ Delete legacy `front-matter.schema.json` from `.github/automation/`
 - ✅ Delete now-empty `.github/automation/schemas/` directory
 
 ### Phase 2: Consolidate Header-Footer Schemas
+
 - Move `agent-config.schema.json` → `schemas/agent-config.schema.json`
 - Move `header.schema.json` → `schemas/header.schema.json`
 - Move `footer.schema.json` → `schemas/footer.schema.json`
@@ -151,6 +158,7 @@ schemas/
 - Update all references (6-10 files)
 
 ### Phase 3: Consolidate WordPress Schemas
+
 - Move `wp/block-6.6.schema.json` → `schemas/block-6.6.schema.json`
 - Move `wp/theme-6.6.schema.json` → `schemas/theme-6.6.schema.json`
 - Keep `schemas/wordpress/` for tools/validation
@@ -161,6 +169,7 @@ schemas/
 ## 🔍 Reference Analysis
 
 ### Automation Folder Schemas
+
 ```
 .github/automation/front-matter.schema.json
   Referenced in: docs/BRANDING.md (3 locations) - OUTDATED
@@ -176,6 +185,7 @@ schemas/
 ```
 
 ### Header-Footer Agent Schemas
+
 ```
 schemas/header-footer-agent/*.schema.json (4 files)
   Used by: .github/agents/branding.agent.js
@@ -184,6 +194,7 @@ schemas/header-footer-agent/*.schema.json (4 files)
 ```
 
 ### WordPress Schemas
+
 ```
 schemas/wp/*.schema.json (2 files)
   Used by: WordPress validation tools
@@ -195,21 +206,22 @@ schemas/wp/*.schema.json (2 files)
 
 ## ✅ Benefits of Full Consolidation
 
-| Benefit | Impact |
-|---------|--------|
-| **Discoverability** | All schemas visible at root level |
-| **Consistency** | Mirrors frontmatter consolidation |
-| **Maintenance** | Single index file for all schemas |
-| **Import Paths** | Shorter relative paths everywhere |
-| **Organization** | Subfolders for tools, not schema storage |
-| **Clarity** | Clear separation of schemas from tools |
-| **Scalability** | Easy to add new schema categories |
+| Benefit             | Impact                                   |
+| ------------------- | ---------------------------------------- |
+| **Discoverability** | All schemas visible at root level        |
+| **Consistency**     | Mirrors frontmatter consolidation        |
+| **Maintenance**     | Single index file for all schemas        |
+| **Import Paths**    | Shorter relative paths everywhere        |
+| **Organization**    | Subfolders for tools, not schema storage |
+| **Clarity**         | Clear separation of schemas from tools   |
+| **Scalability**     | Easy to add new schema categories        |
 
 ---
 
 ## 🚀 Recommended Next Steps
 
 ### Immediate (Ready to Execute)
+
 1. **Phase 1**: Move and consolidate automation folder schemas
    - Estimated effort: 15 minutes
    - Files affected: 5-8
@@ -232,18 +244,21 @@ schemas/wp/*.schema.json (2 files)
 ## 📊 Consolidation Summary
 
 ### Current State
+
 - 11 schema files
 - 3 different locations (bad)
 - 2 legacy/duplicate files (problematic)
 - Scattered organization (confusing)
 
 ### Target State
+
 - 11 schema files (all moved)
 - 1 primary location: `schemas/` root (good)
 - 0 legacy/duplicate files
 - Organized subfolders for tools only
 
 ### Impact
+
 - Eliminates duplicate consolidation work
 - Matches frontmatter consolidation pattern
 - Improves repository organization
@@ -269,11 +284,11 @@ schemas/wp/*.schema.json (2 files)
 
 ## 📝 Implementation Readiness
 
-| Phase | Readiness | Complexity | Risk |
-|-------|-----------|-----------|------|
-| Phase 1 (Automation) | 🟢 READY | Low | Very Low |
-| Phase 2 (Header-Footer) | 🟡 READY | Medium | Low |
-| Phase 3 (WordPress) | 🟡 READY | Medium | Low |
+| Phase                   | Readiness | Complexity | Risk     |
+| ----------------------- | --------- | ---------- | -------- |
+| Phase 1 (Automation)    | 🟢 READY  | Low        | Very Low |
+| Phase 2 (Header-Footer) | 🟡 READY  | Medium     | Low      |
+| Phase 3 (WordPress)     | 🟡 READY  | Medium     | Low      |
 
 ---
 

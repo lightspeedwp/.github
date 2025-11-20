@@ -170,16 +170,16 @@ See `.github/workflows/` for workflow definitions.
 
 ## 7. Troubleshooting
 
-- **Tests fail locally, not in CI:**  
+- **Tests fail locally, not in CI:**
   - Check for unstaged files or local environment differences.
-- **CI fails, passes locally:**  
+- **CI fails, passes locally:**
   - Check Node, PHP, or dependency versions.
   - Look for missing env variables or secrets.
-- **Flaky Playwright tests:**  
+- **Flaky Playwright tests:**
   - Add waits, ensure selectors are stable, and reset state between tests.
-- **Accessibility failures:**  
+- **Accessibility failures:**
   - Review failure output, use browser dev tools for further debugging.
-- **Bats shell script issues:**  
+- **Bats shell script issues:**
   - Add `set -x` for debugging, check for cross-shell compatibility.
 
 ---
@@ -226,4 +226,4 @@ See `.github/workflows/` for workflow definitions.
 
 ---
 
-_Keep this document up to date as our testing process evolves. PRs are welcome!_
+*Keep this document up to date as our testing process evolves. PRs are welcome!*

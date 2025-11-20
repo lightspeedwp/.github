@@ -38,11 +38,11 @@ graph TD
     D --> E[Reference Validation]
     E --> F[Report Generation]
     F --> G[Log Output]
-    
+
     H[Configuration] --> A
     I[Schema File] --> C
     J[File Patterns] --> A
-    
+
     style A fill:#e1f5fe
     style F fill:#f3e5f5
     style G fill:#e8f5e8
@@ -79,7 +79,7 @@ graph TD
   - `prompt` - .github/prompts/
   - `collection` - .github/collections/
   - `readme` - README.md files
-  - `documentation` - General .github/*.md files
+  - `documentation` - General .github/\*.md files
   - `template` - Issue/PR/Discussion templates
   - `saved_reply` - Saved reply files
 
@@ -158,25 +158,25 @@ The validation system uses the following default configuration:
 
 ```javascript
 const CONFIG = {
-  schemaPath: '../../schemas/frontmatter.schema.json',
-  rootDir: '../..',
-  logDir: '../../logs/validation',
-  outputFile: '../../logs/validation/frontmatter-validation.log',
+  schemaPath: "../../schemas/frontmatter.schema.json",
+  rootDir: "../..",
+  logDir: "../../logs/validation",
+  outputFile: "../../logs/validation/frontmatter-validation.log",
   patterns: [
-    '**/*.md',
-    '**/*.yml', 
-    '**/*.yaml',
-    '.github/**/*.md',
-    '.github/**/*.yml',
-    '.github/**/*.yaml'
+    "**/*.md",
+    "**/*.yml",
+    "**/*.yaml",
+    ".github/**/*.md",
+    ".github/**/*.yml",
+    ".github/**/*.yaml",
   ],
   excludePatterns: [
-    'node_modules/**',
-    '.git/**',
-    'coverage/**',
-    'logs/**',
-    '**/package-lock.json'
-  ]
+    "node_modules/**",
+    ".git/**",
+    "coverage/**",
+    "logs/**",
+    "**/package-lock.json",
+  ],
 };
 ```
 
@@ -190,12 +190,12 @@ graph LR
     A --> C[Chatmode]
     A --> D[Instruction]
     A --> E[README]
-    
+
     B --> B1["file_type<br/>name<br/>description"]
     C --> C1["file_type<br/>description"]
     D --> D1["file_type<br/>description<br/>apply_to"]
     E --> E1["file_type<br/>name<br/>description"]
-    
+
     style B1 fill:#ffebee
     style C1 fill:#e3f2fd
     style D1 fill:#f3e5f5
@@ -204,15 +204,15 @@ graph LR
 
 ### Recommended Fields by Type
 
-| File Type | Required Fields | Recommended Fields |
-|-----------|----------------|-------------------|
-| `agent` | file_type, name, description | version, last_updated, owners, tags |
-| `chatmode` | file_type, description | tools, model, owners |
-| `instruction` | file_type, description, apply_to | owners, tags, version |
-| `prompt` | file_type, description | mode, model, tools, tags |
-| `collection` | file_type, name, description | version, last_updated, tags |
-| `readme` | file_type, name, description | version, last_updated, owners, tags |
-| `documentation` | file_type, description | owners, tags, references |
+| File Type       | Required Fields                  | Recommended Fields                  |
+| --------------- | -------------------------------- | ----------------------------------- |
+| `agent`         | file_type, name, description     | version, last_updated, owners, tags |
+| `chatmode`      | file_type, description           | tools, model, owners                |
+| `instruction`   | file_type, description, apply_to | owners, tags, version               |
+| `prompt`        | file_type, description           | mode, model, tools, tags            |
+| `collection`    | file_type, name, description     | version, last_updated, tags         |
+| `readme`        | file_type, name, description     | version, last_updated, owners, tags |
+| `documentation` | file_type, description           | owners, tags, references            |
 
 ## Output Examples
 
@@ -323,19 +323,19 @@ graph TD
     A[Input File] --> B{Has Frontmatter?}
     B -->|No| C{Should Have?}
     B -->|Yes| D{Valid YAML?}
-    
+
     C -->|Yes| E[Warning: Missing]
     C -->|No| F[Skip File]
-    
+
     D -->|No| G[Error: Invalid YAML]
     D -->|Yes| H[Schema Validation]
-    
+
     H --> I{Valid Schema?}
     I -->|No| J[Error: Schema Violation]
     I -->|Yes| K[LightSpeed Rules]
-    
+
     K --> L[Success/Warnings]
-    
+
     style E fill:#fff3e0
     style G fill:#ffebee
     style J fill:#ffebee

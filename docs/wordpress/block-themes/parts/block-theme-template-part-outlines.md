@@ -87,7 +87,7 @@ Register canonical slugs under `templateParts` in theme.json. Prefer a single sl
 
 ## Implementation checklist & quick reminders
 
-- Create parts/*.html files as pure block markup.
+- Create parts/\*.html files as pure block markup.
 - Create patterns/ for hero and author-card variants and post-card.
 - Register template parts in theme.json with friendly titles.
 - Provide small JS modules for interactive parts and enqueue using .asset.php manifests.

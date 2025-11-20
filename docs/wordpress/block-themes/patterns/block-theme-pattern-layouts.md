@@ -6,7 +6,7 @@ Use this document when authoring new patterns, reviewing existing patterns, or c
 
 ## Goals
 
-- Consolidate duplicate concepts and canonicalize pattern slugs to lsx-design/*
+- Consolidate duplicate concepts and canonicalize pattern slugs to lsx-design/\*
 - Provide a small, sensible set of pattern categories and folder groups
 - Ensure each pattern file contains a full PHP header with every applicable field
 - Encourage reuse: small, single-purpose patterns that compose into starter pages and templates
@@ -31,7 +31,7 @@ Use this document when authoring new patterns, reviewing existing patterns, or c
 - patterns/20-queries/ — Query Loop containers & item templates (post-card, loop-default)
 - patterns/30-headers/ — header variants (header-primary, header-minimal)
 - patterns/40-footers/ — footer variants
-- patterns/50-template-parts/ — mobile-nav-panel, search-panel, site-notice (block-type: template-part/*)
+- patterns/50-template-parts/ — mobile-nav-panel, search-panel, site-notice (block-type: template-part/\*)
 - patterns/60-pages/ — starter page patterns (homepage, about, blog index)
 - patterns/70-templates/ — template-type starter patterns (Inserter: no; Template Types set)
 - patterns/80-woocommerce/ — WooCommerce-specific patterns (register only when Woo active)
@@ -105,19 +105,19 @@ Register areas that are meaningful in the site editor — do not register many t
 - lsx-design/hero-post — post hero (single)
 - lsx-design/hero-archives — archive/term hero (archive, category, tag, taxonomy)
 
-2. Headers
+1. Headers
 
 - lsx-design/header-primary — full header (template-part)
 - lsx-design/header-minimal — minimal header (template-part)
 - lsx-design/header-with-banner — header with CTA bar
 
-3. Footers
+1. Footers
 
 - lsx-design/footer-primary — rich footer (template-part)
 - lsx-design/footer-compact — compact footer (template-part)
 - lsx-design/footer-centered — centered footer
 
-4. Query & Loop Patterns
+1. Query & Loop Patterns
 
 - lsx-design/post-card — card item for Query Loop (Block Types: core/query)
 - lsx-design/loop-default — fallback item for small lists (Block Types: core/query)
@@ -125,34 +125,34 @@ Register areas that are meaningful in the site editor — do not register many t
 - lsx-design/query-list-1col — Query Loop container (Block Types: core/query)
 - lsx-design/post-loop-grid-default — default grid pattern for index/archive
 
-5. Post / Author parts
+1. Post / Author parts
 
 - lsx-design/post-meta — reusable post meta bar
 - lsx-design/author-card-compact — small author summary
 - lsx-design/author-card-full — full author profile
 
-6. Utility / Panels
+1. Utility / Panels
 
 - lsx-design/site-notice — dismissible top notice (utility)
 - lsx-design/mobile-nav-panel — off-canvas nav (template-part/menu)
 - lsx-design/search-panel — overlay search pattern (utility)
 - lsx-design/breadcrumbs — breadcrumbs trail (meta category)
 
-7. CTA / Promo
+1. CTA / Promo
 
 - lsx-design/cta-banner — small CTA band
 - lsx-design/text-call-to-action — text CTA variants (from attached patterns)
 
-8. Menus & Cards
+1. Menus & Cards
 
 - lsx-design/menu-card-1 … menu-card-N — menu panel variants (Block Types: core/template-part/menu)
 - lsx-design/menu-panel-1 … menu-panel-N — mega menu / panel variants
 
-9. Comments & Author
+1. Comments & Author
 
 - lsx-design/post-comments — configured comments region (Inserter: false; used in single templates)
 
-10. Starter Pages & Template-type patterns (Inserter: no for template-type starters)
+1. Starter Pages & Template-type patterns (Inserter: no for template-type starters)
 
 - lsx-design/page-home — homepage starter (Block Types: core/post-content; Post Types: page; Inserter: true/false as intended)
 - lsx-design/template-home-blogging — starter template for blogging (Template Types: front-page, home, index; Inserter: no)
@@ -173,6 +173,7 @@ Note: This list should be used as the initial canonical registry; implementers s
 - templates/404.html → header, H1 "Page Not Found", search form, suggested posts (loop-default), footer
 
 Include patterns in templates using:
+
 <!-- wp:pattern {"slug":"lsx-design/post-card"} /-->
 
 ---
@@ -204,7 +205,7 @@ Examples:
 
 ## Dedupe rules & migration notes
 
-- For existing files that use the old slug ns (lsx/...), migrate slugs to lsx-design/* consistently.
+- For existing files that use the old slug ns (lsx/...), migrate slugs to lsx-design/\* consistently.
 - Replace pattern references in templates/parts (<!-- wp:pattern {"slug":"lsx/..."} /--> → lsx-design/...)
 - Consolidate variants: if multiple post-card implementations exist, standardize on one canonical lsx-design/post-card and create ornamented variants (post-card-alt) as needed.
 

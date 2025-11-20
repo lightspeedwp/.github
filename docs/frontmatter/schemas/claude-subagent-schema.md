@@ -20,4 +20,4 @@ Claude subagents use YAML frontmatter to specify agent metadata and permissions.
 - Required: `name`, `description`
 - Optional: `tools`
 
-> _Present subagent schema, required/optional keys, and configuration examples here._
+> *Present subagent schema, required/optional keys, and configuration examples here.*

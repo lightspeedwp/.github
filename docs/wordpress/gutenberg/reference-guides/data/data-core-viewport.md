@@ -10,25 +10,28 @@ Namespace: `core/viewport`.
 
 Returns true if the viewport matches the given query, or false otherwise.
 
-_Usage_
+*Usage*
 
 ```js
-import { store as viewportStore } from '@wordpress/viewport';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { store as viewportStore } from "@wordpress/viewport";
+import { useSelect } from "@wordpress/data";
+import { __ } from "@wordpress/i18n";
 const ExampleComponent = () => {
-  const isMobile = useSelect((select) => select(viewportStore).isViewportMatch('< small'), []);
+  const isMobile = useSelect(
+    (select) => select(viewportStore).isViewportMatch("< small"),
+    [],
+  );
 
-  return isMobile ? <div>{__('Mobile')}</div> : <div>{__('Not Mobile')}</div>;
+  return isMobile ? <div>{__("Mobile")}</div> : <div>{__("Not Mobile")}</div>;
 };
 ```
 
-_Parameters_
+*Parameters*
 
-- _state_ `Object`: Viewport state object.
-- _query_ `string`: Query string. Includes operator and breakpoint name, space separated. Operator defaults to >=.
+- *state* `Object`: Viewport state object.
+- *query* `string`: Query string. Includes operator and breakpoint name, space separated. Operator defaults to >=.
 
-_Returns_
+*Returns*
 
 - `boolean`: Whether viewport matches query.
 

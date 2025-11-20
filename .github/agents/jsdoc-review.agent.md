@@ -1,21 +1,42 @@
 ---
 name: "jsdoc-review"
-description: "Audits JavaScript/TypeScript code for JSDoc coverage, quality, and alignment with WordPress and LightSpeed standards."
+description: "Audits JavaScript/TypeScript code for JSDoc coverage, quality, and alignment with WordPress and LightSpeed standards. Identifies missing documentation, validates parameter and return type annotations, and ensures compliance with documentation best practices."
+target: "vscode"
+tools: ["read", "edit", "search"]
+handoffs:
+  - label: "Fix Documentation"
+    agent: "jsdoc-fixer"
+    prompt: "Now add or improve the JSDoc documentation based on the audit findings above."
+    send: false
 version: "v0.2.0"
-last_updated: "2025-10-21"
-owners:
-  - "lightspeedwp/maintainers"
+last_updated: "2025-11-20"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
 file_type: "agent"
 category: "documentation"
-tags: ["jsdoc", "javascript", "typescript", "documentation", "audit", "wordpress", "eslint"]
-language: "en"
 status: "active"
 visibility: "public"
-tools: ["Read"]
+tags:
+  [
+    "jsdoc",
+    "javascript",
+    "typescript",
+    "documentation",
+    "audit",
+    "wordpress",
+    "code-quality",
+  ]
+language: "en"
 references:
-  - "https://github.com/lightspeedwp/.github/blob/master/.github/instructions/inline-docs/inline-jsdoc.instructions.md"
-  - "https://github.com/lightspeedwp/.github/blob/master/.github/instructions/wordpress/wpcs-js-docs.instructions.md"
-  - "https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md"
+  - path: ".github/agents/includes/jsdoc-audit.js"
+    description: "JSDoc audit utilities"
+  - path: ".github/instructions/inline-docs.instructions.md"
+    description: "Inline documentation standards"
+  - path: ".github/instructions/coding-standards.instructions.md"
+    description: "Unified coding standards"
+owners: ["lightspeedwp/maintainers"]
+metadata:
+  guardrails: "Focus on exported functions, classes, and modules. Ensure type annotations are accurate. Validate against WordPress and LightSpeed documentation standards. Provide clear remediation suggestions."
 ---
 
 # JSDoc Review Agent

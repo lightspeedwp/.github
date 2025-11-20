@@ -1,6 +1,6 @@
 ---
 mode: agent
-description: 'Generate a complete Go MCP server project with proper structure, dependencies, and implementation using the official github.com/modelcontextprotocol/go-sdk.'
+description: "Generate a complete Go MCP server project with proper structure, dependencies, and implementation using the official github.com/modelcontextprotocol/go-sdk."
 ---
 
 # Go MCP Server Project Generator
@@ -68,7 +68,7 @@ import (
 
 func main() {
     cfg := config.Load()
-    
+
     ctx, cancel := context.WithCancel(context.Background())
     defer cancel()
 
@@ -278,13 +278,16 @@ Configure via environment variables:
 ## Available Tools
 
 ### tool1
+
 {{TOOL1_DESCRIPTION}}
 
 **Input:**
+
 - `param1` (string, required): First parameter
 - `param2` (int, optional): Second parameter
 
 **Output:**
+
 - `result` (string): Operation result
 - `status` (string): Status of the operation
 

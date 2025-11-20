@@ -16,11 +16,11 @@ Below are ready‑to‑drop workflow files for **Issue & PR Labelling** and **Pr
 
 [Notes](#notes-1)
 
-[Optional: .github/labeler.yml (example extract)](#optional:-.github/labeler.yml-\(example-extract\))
+[Optional: .github/labeler.yml (example extract)](<#optional:-.github/labeler.yml-(example-extract)>)
 
 [Secrets & variables to set](#secrets-&-variables-to-set)
 
-[Field name alignment (Projects)](#field-name-alignment-\(projects\))
+[Field name alignment (Projects)](<#field-name-alignment-(projects)>)
 
 ---
 
@@ -124,11 +124,11 @@ jobs:
 
 ### **Notes** {#notes}
 
-* Uses **actions/labeler v5** to apply labels based on changed files **and** branch regex (configured in `.github/labeler.yml`).
+- Uses **actions/labeler v5** to apply labels based on changed files **and** branch regex (configured in `.github/labeler.yml`).
 
-* Keeps **exactly one** `status:*` per item and adds sensible defaults.
+- Keeps **exactly one** `status:*` per item and adds sensible defaults.
 
-* Adds `meta:needs-changelog` if a PR lacks a changelog category/skip label.
+- Adds `meta:needs-changelog` if a PR lacks a changelog category/skip label.
 
 Provide/maintain `.github/labeler.yml` alongside this workflow.
 
@@ -227,11 +227,11 @@ jobs:
 
 ### **Notes** {#notes-1}
 
-* **`actions/add-to-project@v1`** adds the item to a **Projects (Beta)** board and returns an `itemId` we can update.
+- **`actions/add-to-project@v1`** adds the item to a **Projects (Beta)** board and returns an `itemId` we can update.
 
-* **`titoportas/update-project-fields@v0.1.0`** sets single‑select/text/iteration fields by name using the returned `itemId`.
+- **`titoportas/update-project-fields@v0.1.0`** sets single‑select/text/iteration fields by name using the returned `itemId`.
 
-* Set an org/user‑level **variable** `LS_PROJECT_URL` and a **secret** `LS_PROJECT_PAT` (Fine‑grained PAT with `projects: read/write`, `issues: read`, `pull requests: read`; or classic PAT with `project` \+ `repo`).
+- Set an org/user‑level **variable** `LS_PROJECT_URL` and a **secret** `LS_PROJECT_PAT` (Fine‑grained PAT with `projects: read/write`, `issues: read`, `pull requests: read`; or classic PAT with `project` \+ `repo`).
 
 ---
 
@@ -277,19 +277,19 @@ Keep this in the repo (or the org `.github` repo) to drive file‑ and branch‑
 
 ## **Secrets & variables to set** {#secrets-&-variables-to-set}
 
-* **`LS_PROJECT_URL`** (Repository/Org *variable*): e.g. `https://github.com/orgs/LightSpeed/projects/1`.
+- **`LS_PROJECT_URL`** (Repository/Org *variable*): e.g. `https://github.com/orgs/LightSpeed/projects/1`.
 
-* **`LS_PROJECT_PAT`** (Repository/Org *secret*): PAT with `projects` (read/write) and `repo` scopes (or fine‑grained equivalent) for Projects (Beta). For private repos include `repo` scope.
+- **`LS_PROJECT_PAT`** (Repository/Org *secret*): PAT with `projects` (read/write) and `repo` scopes (or fine‑grained equivalent) for Projects (Beta). For private repos include `repo` scope.
 
 ## **Field name alignment (Projects)** {#field-name-alignment-(projects)}
 
 Make sure your Project single‑select values match the strings in the mapping above:
 
-* **Status**: `Triage`, `Ready`, `In progress`, `In review`, `In QA`, `Blocked`, `Done`
+- **Status**: `Triage`, `Ready`, `In progress`, `In review`, `In QA`, `Blocked`, `Done`
 
-* **Priority**: `Critical`, `Important`, `Normal`, `Minor`
+- **Priority**: `Critical`, `Important`, `Normal`, `Minor`
 
-* **Type** (optional): `Feature`, `Bug`, `Documentation`, `Task`
+- **Type** (optional): `Feature`, `Bug`, `Documentation`, `Task`
 
 You can tweak the strings in `field-values` if your options differ.
 

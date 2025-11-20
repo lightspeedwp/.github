@@ -52,12 +52,12 @@ applyTo: "**/patterns/**/*.php"
 You can assign patterns to specific templates, post types, and block types using pattern file headers:
 
 - **Assign to Post Types:**
- 	- Add a `Post Types:` header (comma-separated) to make a pattern available for specific post types (e.g., `Post Types: page, post`).
+  - Add a `Post Types:` header (comma-separated) to make a pattern available for specific post types (e.g., `Post Types: page, post`).
 - **Assign to Block Types:**
- 	- Add a `Block Types:` header (e.g., `Block Types: core/post-content`) to make a pattern available for a specific block context (such as starter page patterns).
+  - Add a `Block Types:` header (e.g., `Block Types: core/post-content`) to make a pattern available for a specific block context (such as starter page patterns).
 - **Assign to Template Types:**
- 	- Add a `Template Types:` header (comma-separated) to associate a pattern with specific templates (e.g., `Template Types: front-page, home`).
- 	- Optionally, add `Inserter: no` to hide the pattern from the inserter and only show it in the template creation modal.
+  - Add a `Template Types:` header (comma-separated) to associate a pattern with specific templates (e.g., `Template Types: front-page, home`).
+  - Optionally, add `Inserter: no` to hide the pattern from the inserter and only show it in the template creation modal.
 
 #### Example: Starter Page Pattern
 
@@ -91,9 +91,10 @@ Common values for `Template Types:` include: `index`, `home`, `front-page`, `sin
 ### Usage in Templates and Template Parts
 
 - You can include a pattern directly in a template or template part using the `wp:pattern` block:
- ```html
- <!-- wp:pattern {"slug":"yourtheme/home-template"} /-->
- ```
+
+```html
+<!-- wp:pattern {"slug":"yourtheme/home-template"} /-->
+```
 
 - This allows you to reuse patterns across templates and template parts, reducing duplication and improving maintainability.
 

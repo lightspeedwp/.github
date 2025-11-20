@@ -29,9 +29,9 @@ All Jest tests for automation agents and includes are stored in:
 .github/agents/tests/
 ```
 
-**Naming convention:**  
+**Naming convention:**
 
-- Each test file is named after the module tested:  
+- Each test file is named after the module tested:
   - `readmeUtils.test.js`
   - `badgeUtils.test.js`
   - `footerUtils.test.js`
@@ -77,5 +77,5 @@ This structure and convention is referenced in:
 
 ---
 
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_  
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*  
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

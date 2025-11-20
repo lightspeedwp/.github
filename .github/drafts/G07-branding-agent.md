@@ -2,10 +2,17 @@
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Docs/Agents] Branding agent: synopsis only or stub (do not list as active)"
-labels: [type:documentation, status:needs-triage, priority:normal, area:documentation, area:agents]
+labels:
+  [
+    type:documentation,
+    status:needs-triage,
+    priority:normal,
+    area:documentation,
+    area:agents,
+  ]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: documentation
 references:
   - ../CONTRIBUTING.md
@@ -79,6 +86,7 @@ The branding agent is currently referenced but not fully documented, creating po
 **Purpose:** Automated brand consistency checking and enforcement across documentation, code comments, and user-facing text.
 
 **Planned Capabilities:**
+
 - Validate brand terminology and voice
 - Suggest corrections for off-brand language
 - Check for trademark and naming consistency

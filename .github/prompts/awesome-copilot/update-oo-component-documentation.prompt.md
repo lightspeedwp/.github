@@ -1,8 +1,27 @@
 ---
-mode: 'agent'
-description: 'Update existing object-oriented component documentation following industry best practices and architectural documentation standards.'
-tools: ['changes', 'codebase', 'edit/editFiles', 'extensions', 'fetch', 'githubRepo', 'openSimpleBrowser', 'problems', 'runTasks', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
+mode: "agent"
+description: "Update existing object-oriented component documentation following industry best practices and architectural documentation standards."
+tools:
+  [
+    "changes",
+    "codebase",
+    "edit/editFiles",
+    "extensions",
+    "fetch",
+    "githubRepo",
+    "openSimpleBrowser",
+    "problems",
+    "runTasks",
+    "search",
+    "searchResults",
+    "terminalLastCommand",
+    "terminalSelection",
+    "testFailure",
+    "usages",
+    "vscodeAPI",
+  ]
 ---
+
 # Update Standard OO Component Documentation
 
 Update the existing documentation file at: `${file}` by analyzing the corresponding component code.
@@ -64,7 +83,7 @@ Update the existing Markdown file maintaining its structure while refreshing con
 
 Update the existing documentation following the same template structure, ensuring all sections reflect current implementation:
 
-```md
+````md
 ---
 title: [Component Name] - Technical Documentation
 component_path: [Current component path]
@@ -82,6 +101,7 @@ tags: [Update tags as needed based on current functionality]
 ## 1. Component Overview
 
 ### Purpose/Responsibility
+
 - OVR-001: Update component's primary responsibility
 - OVR-002: Refresh scope (included/excluded functionality)
 - OVR-003: Update system context and relationships
@@ -97,6 +117,7 @@ tags: [Update tags as needed based on current functionality]
 ### Component Structure and Dependencies Diagram
 
 Update the mermaid diagram to show current:
+
 - **Component structure** - Current classes, interfaces, and their relationships
 - **Internal dependencies** - How components currently interact within the system
 - **External dependencies** - Current external libraries, services, databases, APIs
@@ -106,6 +127,7 @@ Update the mermaid diagram to show current:
 ```mermaid
 [Update diagram to reflect current architecture]
 ```
+````
 
 ## 3. Interface Documentation
 
@@ -113,9 +135,9 @@ Update the mermaid diagram to show current:
 - INT-002: Refresh method/property reference table with current API
 - INT-003: Update events/callbacks/notification mechanisms
 
-| Method/Property | Purpose | Parameters | Return Type | Usage Notes |
-|-----------------|---------|------------|-------------|-------------|
-| [Update table with current API] | | | | |
+| Method/Property                 | Purpose | Parameters | Return Type | Usage Notes |
+| ------------------------------- | ------- | ---------- | ----------- | ----------- |
+| [Update table with current API] |         |            |             |             |
 
 ## 4. Implementation Details
 
@@ -158,5 +180,7 @@ Update the mermaid diagram to show current:
 - REF-004: Refresh troubleshooting (common issues, error messages)
 - REF-005: Update related documentation links
 - REF-006: Add change history and migration notes for this update
+
+```
 
 ```

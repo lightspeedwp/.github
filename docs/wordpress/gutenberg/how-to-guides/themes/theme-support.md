@@ -137,7 +137,7 @@ Some colors change dynamically — such as "Primary" and "Secondary" color — s
 
 The colors will be shown in order on the palette, and there's no limit to how many can be specified.
 
-Themes are responsible for creating the classes that apply the colors in different contexts. Core blocks use "color", "background-color", and "border-color" contexts. So to correctly apply "strong magenta" to all contexts of core blocks a theme should implement the classes itself. The class name is built appending 'has-', followed by the class name _using_ kebab case and ending with the context name.
+Themes are responsible for creating the classes that apply the colors in different contexts. Core blocks use "color", "background-color", and "border-color" contexts. So to correctly apply "strong magenta" to all contexts of core blocks a theme should implement the classes itself. The class name is built appending 'has-', followed by the class name *using* kebab case and ending with the context name.
 
 ```css
 .has-strong-magenta-color {
@@ -205,7 +205,11 @@ Themes are responsible for creating the classes that apply the gradients. So to 
 
 ```css
 .has-vivid-cyan-blue-to-vivid-purple-gradient-background {
-  background: linear-gradient(135deg, rgba(6, 147, 227, 1) 0%, rgb(155, 81, 224) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(6, 147, 227, 1) 0%,
+    rgb(155, 81, 224) 100%
+  );
 }
 ```
 
@@ -250,7 +254,7 @@ add_theme_support( 'editor-font-sizes', array(
 The font sizes are rendered on the font size picker in the order themes provide them.
 
 Themes are responsible for creating the classes that apply the correct font size styles.
-The class name is built appending 'has-', followed by the font size name _using_ kebab case and ending with `-font-size`.
+The class name is built appending 'has-', followed by the font size name *using* kebab case and ending with `-font-size`.
 
 As an example for the regular font size, a theme may provide the following class.
 
@@ -307,7 +311,7 @@ When set, users will be restricted to the default gradients provided in the bloc
 
 ### Disabling base layout styles
 
-_**Note:** Since WordPress 6.1._
+***Note:** Since WordPress 6.1.*
 
 Themes can opt out of generated block layout styles that provide default structural styles for core blocks including Group, Columns, Buttons, and Social Icons. By using the following code, these themes commit to providing their own structural styling, as using this feature will result in core blocks displaying incorrectly in both the editor and site frontend:
 
@@ -353,7 +357,7 @@ The block editor supports the theme's [editor styles](https://codex.wordpress.or
 
 In the classic editor, the editor stylesheet is loaded directly into the iframe of the WYSIWYG editor, with no changes. The block editor, however, doesn't use iframes. To make sure your styles are applied only to the content of the editor, we automatically transform your editor styles by selectively rewriting or adjusting certain CSS selectors. This also allows the block editor to leverage your editor style in block variation previews.
 
-For example, if you write `body { ... }` in your editor style, this is rewritten to `.editor-styles-wrapper { ... }`. This also means that you should _not_ target any of the editor class names directly.
+For example, if you write `body { ... }` in your editor style, this is rewritten to `.editor-styles-wrapper { ... }`. This also means that you should *not* target any of the editor class names directly.
 
 Because it works a little differently, you need to opt-in to this by adding an extra snippet to your theme, in addition to the add_editor_style function:
 
@@ -396,12 +400,12 @@ To change the main column width of the editor, add the following CSS to `style-e
 }
 
 /* Width of "wide" blocks */
-.wp-block[data-align='wide'] {
+.wp-block[data-align="wide"] {
   max-width: 1080px;
 }
 
 /* Width of "full-wide" blocks */
-.wp-block[data-align='full'] {
+.wp-block[data-align="full"] {
   max-width: none;
 }
 ```

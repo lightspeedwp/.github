@@ -19,12 +19,12 @@ This guide explains how to create and use GitHub Issue Form templates with YAML 
 
 ## Example Issue Form
 
-````yaml
+```yaml
 ---
 name: "🐛 Bug report"
 description: "Report a reproducible bug in the plugin/theme."
 title: "[Bug]: "
-labels: ["bug","needs-triage"]
+labels: ["bug", "needs-triage"]
 assignees: []
 projects: []
 type: bug
@@ -60,3 +60,4 @@ body:
           required: true
         - label: "I tested with all other plugins disabled"
 ---
+```

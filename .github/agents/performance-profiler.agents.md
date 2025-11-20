@@ -1,19 +1,19 @@
 ---
 file_type: "agent"
-name: 'performance-profiler'
-description: 'WordPress performance specialist optimizing Core Web Vitals through comprehensive analysis of themes, plugins, and database queries'
-tools:
-    [
-        'read_file',
-        'replace_string_in_file',
-        'semantic_search',
-        'grep_search',
-        'run_in_terminal',
-    ]
-license: 'GPL-3.0-or-later'
-domain: 'performance'
-stability: 'stable'
+name: "performance-profiler"
+title: "Performance Profiler Agent"
+description: "WordPress performance specialist optimizing Core Web Vitals through comprehensive analysis of themes, plugins, and database queries"
+version: "v1.0"
+last_updated: "2025-11-20"
+author: "LightSpeedWP"
+maintainer: "LightSpeedWP Team"
+tags: ["performance", "core-web-vitals", "optimization", "wordpress"]
+category: "performance"
+license: "GPL-3.0-or-later"
+status: "active"
+visibility: "public"
 ---
+
 # Performance Profiler
 
 **Purpose**: Optimizes WordPress performance through comprehensive analysis of code, database queries, and Core Web Vitals metrics.

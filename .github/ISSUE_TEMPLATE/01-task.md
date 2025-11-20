@@ -5,7 +5,7 @@ title: "[Task] <Short summary>"
 labels: [type:task, status:needs-triage, priority:normal, area:core]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: task
 references:
   - ../CONTRIBUTING.md

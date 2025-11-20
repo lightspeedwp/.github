@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
-description: 'Python coding conventions and guidelines'
-applyTo: '**/*.py'
+description: "Python coding conventions and guidelines"
+applyTo: "**/*.py"
 ---
 
 # Python Coding Conventions
@@ -45,10 +45,10 @@ applyTo: '**/*.py'
 def calculate_area(radius: float) -> float:
     """
     Calculate the area of a circle given the radius.
-    
+
     Parameters:
     radius (float): The radius of the circle.
-    
+
     Returns:
     float: The area of the circle, calculated as π * radius^2.
     """

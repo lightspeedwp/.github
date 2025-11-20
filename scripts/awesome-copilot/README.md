@@ -7,7 +7,16 @@ maintainer: "Ash Shaw"
 description: "Core utilities for managing, validating, and maintaining the Awesome Copilot prompt and collection system. Automated YAML processing, validation, and documentation generation."
 type: "automation-utility"
 status: "production"
-tags: ["awesome-copilot", "collections", "prompts", "validation", "yaml", "nodejs", "automation"]
+tags:
+  [
+    "awesome-copilot",
+    "collections",
+    "prompts",
+    "validation",
+    "yaml",
+    "nodejs",
+    "automation",
+  ]
 license: "GPL-3.0"
 repository: "https://github.com/lightspeedwp/.github"
 ai_references:
@@ -40,25 +49,25 @@ graph TB
     A --> D[update-readme.js]
     A --> E[yaml-parser.js]
     A --> F[fix-line-endings.sh]
-    
+
     G[Schema Validation] --> H[collection.schema.json]
     G --> C
-    
+
     I[YAML Processing] --> E
     I --> C
     I --> B
-    
+
     J[Documentation] --> D
     J --> K[README Generation]
-    
+
     L[Cross-Platform] --> F
     L --> M[Line Ending Normalization]
-    
+
     N[CI/CD Pipeline] --> C
     N --> F
     O[Pre-commit Hooks] --> C
     O --> F
-    
+
     style A fill:#e1f5fe
     style G fill:#f3e5f5
     style I fill:#e8f5e8
@@ -127,7 +136,7 @@ sequenceDiagram
     participant Val as Validator
     participant Schema as Schema Check
     participant Readme as README Update
-    
+
     Dev->>LE: fix-line-endings.sh
     LE->>YP: Process YAML files
     YP->>Val: validate-collections.js
@@ -135,7 +144,7 @@ sequenceDiagram
     Schema->>Val: Return validation results
     Val->>Readme: update-readme.js
     Readme->>Dev: Documentation updated
-    
+
     Note over Dev,Readme: All steps automated in CI/CD
 ```
 
@@ -170,4 +179,4 @@ GPL v3. See [LICENSE](../../LICENSE).
 
 ---
 
-_🤖 Streamlining prompt collection management through intelligent automation._
+*🤖 Streamlining prompt collection management through intelligent automation.*

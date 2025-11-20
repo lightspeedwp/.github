@@ -21,4 +21,4 @@ Includes best practices, example checklists, and conventions for effective PR re
 - Where: `.github/PULL_REQUEST_TEMPLATE.md` (or `.github/PULL_REQUEST_TEMPLATE/*.md` for multiple templates)
 - Note: PR templates use Markdown, not YAML forms.
 
-> _Add your custom checklists, review steps, and formatting advice here._
+> *Add your custom checklists, review steps, and formatting advice here.*

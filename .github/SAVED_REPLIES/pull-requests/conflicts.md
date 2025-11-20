@@ -21,6 +21,7 @@ Hi @username,
 This PR has **merge conflicts** with the target branch and cannot be merged until resolved.
 
 **Next steps:**
+
 - Update your branch with the latest `main` (or target branch)
 - Resolve any conflicts locally, test, and push the updated branch
 - Confirm that your PR is still passing all required checks

@@ -4,7 +4,7 @@ The WordPress block editor is a powerful tool that allows you to create and form
 
 This package can also be used to create custom block editors for virtually any other web application. This means that you can use the same blocks and block editing experience outside of WordPress.
 
-![WordPress block editor showing content blocks and editing options](https://developer.wordpress.org/files/2023/07/custom-block-editor.png 'The Standalone Editor instance populated with example Blocks within a custom WordPress admin page.')
+![WordPress block editor showing content blocks and editing options](https://developer.wordpress.org/files/2023/07/custom-block-editor.png "The Standalone Editor instance populated with example Blocks within a custom WordPress admin page.")
 
 This flexibility and interoperability makes blocks a powerful tool for building and managing content across multiple applications. It also makes it simpler for developers to create content editors that work best for their users.
 
@@ -32,13 +32,13 @@ Throughout this guide, you will create an (almost) fully functioning block edito
 
 ![The Standalone Editor instance populated with example Blocks within a custom WordPress admin page](https://developer.wordpress.org/files/2023/07/custom-block-editor.png)
 
-While it looks similar, this editor will not be the same _Block Editor_ you are familiar with when creating posts and pages in WordPress. Instead, it will be an entirely custom instance that will live within a custom WordPress admin page called "Block Editor."
+While it looks similar, this editor will not be the same *Block Editor* you are familiar with when creating posts and pages in WordPress. Instead, it will be an entirely custom instance that will live within a custom WordPress admin page called "Block Editor."
 
 The editor will have the following features:
 
 - Ability to add and edit all Core blocks.
 - Familiar visual styles and main/sidebar layout.
-- _Basic_ block persistence between page reloads.
+- *Basic* block persistence between page reloads.
 
 ## Plugin setup and organization
 
@@ -46,16 +46,16 @@ The custom editor is going to be built as a WordPress plugin. To keep things sim
 
 The plugin file structure will look like this:
 
-![Project directory listing with configuration and source files](https://wordpress.org/gutenberg/files/2020/03/repo-files.png 'Screenshot showing file structure of the Plugin at https://github.com/getdave/standalone-block-editor.')
+![Project directory listing with configuration and source files](https://wordpress.org/gutenberg/files/2020/03/repo-files.png "Screenshot showing file structure of the Plugin at https://github.com/getdave/standalone-block-editor.")
 
 Here is a brief summary of what's going on:
 
 - `plugin.php` – Standard plugin "entry" file with comment meta data, which requires `init.php`.
 - `init.php` - Handles the initialization of the main plugin logic.
-- `src/` (directory) - This is where the JavaScript and CSS source files will live. These files are _not_ directly enqueued by the plugin.
+- `src/` (directory) - This is where the JavaScript and CSS source files will live. These files are *not* directly enqueued by the plugin.
 - `webpack.config.js` - A custom Webpack config extending the defaults provided by the [`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) npm package to allow for custom CSS styles (via Sass).
 
-The only item not shown above is the `build/` directory, which is where the _compiled_ JS and CSS files are outputted by `@wordpress/scripts`. These files are enqueued by the plugin separately.
+The only item not shown above is the `build/` directory, which is where the *compiled* JS and CSS files are outputted by `@wordpress/scripts`. These files are enqueued by the plugin separately.
 
 <div class="callout callout-info">
  Throughout this guide, filename references will be placed in a comment at the top of each code snippet so you can follow along.
@@ -201,15 +201,15 @@ Begin by opening the main `src/index.js` file. Then pull in the required JavaScr
 // File: src/index.js
 
 // External dependencies.
-import { createRoot } from 'react-dom';
+import { createRoot } from "react-dom";
 
 // WordPress dependencies.
-import domReady from '@wordpress/dom-ready';
-import { registerCoreBlocks } from '@wordpress/block-library';
+import domReady from "@wordpress/dom-ready";
+import { registerCoreBlocks } from "@wordpress/block-library";
 
 // Internal dependencies.
-import Editor from './editor';
-import './styles.scss';
+import Editor from "./editor";
+import "./styles.scss";
 ```
 
 Next, once the DOM is ready you will need to run a function which:
@@ -220,7 +220,7 @@ Next, once the DOM is ready you will need to run a function which:
 
 ```jsx
 domReady(function () {
-  const root = createRoot(document.getElementById('getdave-sbe-block-editor'));
+  const root = createRoot(document.getElementById("getdave-sbe-block-editor"));
   const settings = window.getdaveSbeSettings || {};
   registerCoreBlocks();
   root.render(<Editor settings={settings} />);
@@ -235,7 +235,7 @@ domReady(function () {
 
 Let's take a closer look at the `<Editor>` component that was used in the code above and lives in `src/editor.js` of the [companion plugin](https://github.com/getdave/standalone-block-editor).
 
-Despite its name, this is not the actual core of the block editor. Rather, it is a _wrapper_ component that will contain the components that form the custom editor's main body.
+Despite its name, this is not the actual core of the block editor. Rather, it is a *wrapper* component that will contain the components that form the custom editor's main body.
 
 ### Dependencies
 
@@ -244,10 +244,10 @@ The first thing to do inside `<Editor>` is to pull in some dependencies.
 ```jsx
 // File: src/editor.js
 
-import Notices from 'components/notices';
-import Header from 'components/header';
-import Sidebar from 'components/sidebar';
-import BlockEditor from 'components/block-editor';
+import Notices from "components/notices";
+import Header from "components/header";
+import Sidebar from "components/sidebar";
+import BlockEditor from "components/block-editor";
 ```
 
 The most important of these are the internal components `BlockEditor` and `Sidebar`, which will be covered shortly.
@@ -329,9 +329,9 @@ The key components are `<BlockEditorProvider>` and `<BlockList>`. Let's examine 
 
 [`<BlockEditorProvider>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider) is one of the most important components in the hierarchy. It establishes a new block editing context for a new block editor.
 
-As a result, it is _fundamental_ to the entire goal of this project.
+As a result, it is *fundamental* to the entire goal of this project.
 
-The children of `<BlockEditorProvider>` comprise the UI for the block editor. These components then have access to data (via `Context`), enabling them to _render_ and _manage_ the blocks and their behaviors within the editor.
+The children of `<BlockEditorProvider>` comprise the UI for the block editor. These components then have access to data (via `Context`), enabling them to *render* and *manage* the blocks and their behaviors within the editor.
 
 ```jsx
 // File: src/components/block-editor/index.js
@@ -371,7 +371,7 @@ It does this in part thanks to being placed as a child of `<BlockEditorProvider>
 
 Under the hood, `<BlockList>` relies on several other lower-level components in order to render the list of blocks.
 
-The hierarchy of these components can be _approximated_ as follows:
+The hierarchy of these components can be *approximated* as follows:
 
 ```jsx
 // Pseudo code for example purposes only.
@@ -382,7 +382,8 @@ The hierarchy of these components can be _approximated_ as follows:
     /* renders a single block from the BlockList. */
     <BlockEdit>
       /* renders the standard editable area of a block. */
-      <Component /> /* renders the block UI as defined by its `edit()` implementation. */
+      <Component /> /* renders the block UI as defined by its `edit()`
+      implementation. */
     </BlockEdit>
   </BlockListBlock>
 </BlockList>
@@ -456,11 +457,11 @@ it display within the editor's sidebar. Exploring this component in more detail 
 ## Block Persistence
 
 You have come a long way on your journey to create a custom block editor. But there is one major area left to touch upon - block persistence. In other words, having your
-blocks saved and available _between_ page refreshes.
+blocks saved and available *between* page refreshes.
 
-![WordPress custom block editor interface with various content blocks and editing options](https://developer.wordpress.org/files/2023/07/custom-block-editor-persistance.gif 'Screencapture showing blocks being restored between page refreshes.')
+![WordPress custom block editor interface with various content blocks and editing options](https://developer.wordpress.org/files/2023/07/custom-block-editor-persistance.gif "Screencapture showing blocks being restored between page refreshes.")
 
-As this is only an _experiment_, this guide has opted to utilize the browser's `localStorage` API to handle saving block data. In a real-world scenario, you would likely choose a more reliable and robust system (e.g. a database).
+As this is only an *experiment*, this guide has opted to utilize the browser's `localStorage` API to handle saving block data. In a real-world scenario, you would likely choose a more reliable and robust system (e.g. a database).
 
 That said, let's take a closer look at how to handle save blocks.
 
@@ -485,7 +486,7 @@ If you now turn your attention to the `onChange` handler, you will notice it is 
 
 function persistBlocks(newBlocks) {
   updateBlocks(newBlocks);
-  window.localStorage.setItem('getdavesbeBlocks', serialize(newBlocks));
+  window.localStorage.setItem("getdavesbeBlocks", serialize(newBlocks));
 }
 ```
 
@@ -505,7 +506,7 @@ If you open DeveloperTools and inspect the LocalStorage you will see serialized 
 
 ### Retrieving previous block data
 
-Having persistence in place is all well and good, but it's only useful if that data is retrieved and _restored_ within the editor upon each full page reload.
+Having persistence in place is all well and good, but it's only useful if that data is retrieved and *restored* within the editor upon each full page reload.
 
 Accessing data is a side effect, so you must use the `useEffect` hook to handle this.
 
@@ -513,12 +514,12 @@ Accessing data is a side effect, so you must use the `useEffect` hook to handle 
 // File: src/components/block-editor/index.js
 
 useEffect(() => {
-  const storedBlocks = window.localStorage.getItem('getdavesbeBlocks');
+  const storedBlocks = window.localStorage.getItem("getdavesbeBlocks");
 
   if (storedBlocks && storedBlocks.length) {
     updateBlocks(() => parse(storedBlocks));
-    createInfoNotice('Blocks loaded', {
-      type: 'snackbar',
+    createInfoNotice("Blocks loaded", {
+      type: "snackbar",
       isDismissible: true,
     });
   }

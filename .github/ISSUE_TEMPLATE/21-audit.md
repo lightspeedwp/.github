@@ -5,7 +5,7 @@ title: "[Audit] <Brief summary>"
 labels: [type:audit, status:needs-audit, priority:normal, area:security]
 assignees: []
 projects: []
-milestone: ''
+milestone: ""
 file_type: audit
 references:
   - ../CONTRIBUTING.md

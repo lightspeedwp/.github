@@ -77,61 +77,61 @@ Below is an **example** of a comprehensive issue form YAML frontmatter, includin
 `type: bug                               # Issue type (if using typed issues in org)`
 
 `body:`  
-  `- type: markdown`  
-    `attributes:`  
-      `value: "## Thank you for reporting a bug!\nPlease fill out the sections below."`
-      `# ^ A static guidance section (Markdown instructions for the user).`
-      `# Note: Use quotes for text containing '#' or special YAML chars:contentReference[oaicite:11]{index=11},`  
-      `# and use '|' for multi-line content as shown above.`
+ `- type: markdown`  
+ `attributes:`  
+ `value: "## Thank you for reporting a bug!\nPlease fill out the sections below."`
+`# ^ A static guidance section (Markdown instructions for the user).`
+`# Note: Use quotes for text containing '#' or special YAML chars:contentReference[oaicite:11]{index=11},`  
+ `# and use '|' for multi-line content as shown above.`
 
-  `- type: input`  
-    `id: "contact"`  
-    `attributes:`  
-      `label: "Contact Details"`  
-      `description: "How can the team reach you for more info?"`  
-      `placeholder: "e.g. email@example.com"`  
-      `value: ""  # default can be left blank`  
-    `validations:`  
-      `required: false  # mark field optional (true would prevent submission if empty)`
+`- type: input`  
+ `id: "contact"`  
+ `attributes:`  
+ `label: "Contact Details"`  
+ `description: "How can the team reach you for more info?"`  
+ `placeholder: "e.g. email@example.com"`  
+ `value: ""  # default can be left blank`  
+ `validations:`  
+ `required: false  # mark field optional (true would prevent submission if empty)`
 
-  `- type: textarea`  
-    `id: "steps"`  
-    `attributes:`  
-      `label: "Steps to Reproduce"`  
-      `description: "Provide step-by-step instructions to reproduce the issue."`  
-      `placeholder: |`  
-        `1. Step one...`  
-        `2. Step two...`  
-        `3. *Feel free to add more steps as needed...*`  
-      `value: ""  # you can pre-fill common steps or leave empty`  
-      `render: markdown  # if provided, the submitted text will be formatted as a code block of this type (e.g. markdown, bash)`  
-    `validations:`  
-      `required: true  # this textarea must be filled in`
+`- type: textarea`  
+ `id: "steps"`  
+ `attributes:`  
+ `label: "Steps to Reproduce"`  
+ `description: "Provide step-by-step instructions to reproduce the issue."`  
+ `placeholder: |`  
+ `1. Step one...`  
+ `2. Step two...`  
+ `3. *Feel free to add more steps as needed...*`  
+ `value: ""  # you can pre-fill common steps or leave empty`  
+ `render: markdown  # if provided, the submitted text will be formatted as a code block of this type (e.g. markdown, bash)`  
+ `validations:`  
+ `required: true  # this textarea must be filled in`
 
-  `- type: dropdown`  
-    `id: "browser"`  
-    `attributes:`  
-      `label: "Affected Browser(s)"`  
-      `description: "Which web browsers show the issue?"`  
-      `options:`  
-        `- "Firefox"`  
-        `- "Chrome"`  
-        `- "Safari"`  
-        `- "Edge"`  
-      `multiple: true  # allow multiple selections`  
-    `validations:`  
-      `required: true   # at least one option must be selected`
+`- type: dropdown`  
+ `id: "browser"`  
+ `attributes:`  
+ `label: "Affected Browser(s)"`  
+ `description: "Which web browsers show the issue?"`  
+ `options:`  
+ `- "Firefox"`  
+ `- "Chrome"`  
+ `- "Safari"`  
+ `- "Edge"`  
+ `multiple: true  # allow multiple selections`  
+ `validations:`  
+ `required: true   # at least one option must be selected`
 
-  `- type: checkboxes`  
-    `id: "agree"`  
-    `attributes:`  
-      `label: "Code of Conduct Agreement"`  
-      `description: "Please confirm:"`
-      `options:`  
-        `- label: "I have searched for duplicate issues"`  
-          `required: true   # this box must be checked to submit (ensures reporter did a search)`  
-        `- label: "I agree to follow the project’s Code of Conduct"`  
-          `required: true`  
+`- type: checkboxes`  
+ `id: "agree"`  
+ `attributes:`  
+ `label: "Code of Conduct Agreement"`  
+ `description: "Please confirm:"`
+`options:`  
+ `- label: "I have searched for duplicate issues"`  
+ `required: true   # this box must be checked to submit (ensures reporter did a search)`  
+ `- label: "I agree to follow the project’s Code of Conduct"`  
+ `required: true`  
 `---`
 
 In the **`body`** array above, we demonstrated each supported input type:
@@ -288,7 +288,6 @@ Copilot also supports **reusable prompt files** (especially in VS Code’s Copil
 - **`description`** – A short description of what the prompt does. This is used as tooltip or help text in the UI.
 
 - **`mode`** – Which Copilot chat mode to execute the prompt in. Options: `"ask"`, `"edit"`, or `"agent"`.
-
   - **ask** \= default Q\&A chat mode,
 
   - **edit** \= the mode for modifying code,

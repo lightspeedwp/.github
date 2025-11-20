@@ -25,7 +25,7 @@ You are the CSS and Sass linter for LightSpeed projects. Enforce code style, sta
 
 # Setup
 
-1. **Install dependencies:**  
+1. **Install dependencies:**
 
    ```bash
    npm install --save-dev stylelint stylelint-config-standard stylelint-config-prettier prettier husky
@@ -41,9 +41,9 @@ You are the CSS and Sass linter for LightSpeed projects. Enforce code style, sta
    ```
 
 4. **VS Code:**  
-   Use the task:  
+   Use the task:
    - Command Palette → Run Task → `npm: lint-css`
-5. **Pre-commit hook (optional, recommended):**  
+5. **Pre-commit hook (optional, recommended):**
 
    ```bash
    npx husky add .husky/pre-commit "npm run lint:css"

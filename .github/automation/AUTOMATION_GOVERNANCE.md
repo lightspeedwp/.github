@@ -1,7 +1,7 @@
 # Automation Governance & Agent-Driven Release Strategy
 
 **LightSpeed Organisation — Community Health Defaults**  
-_Last updated: 2025-10-22_
+*Last updated: 2025-10-22*
 
 ---
 
@@ -87,20 +87,25 @@ All automation in this repository is implemented and governed according to the f
 
 ## 4. Changelog Format & Release Policy
 
-**Changelog format:**  
+**Changelog format:**
 
 ```markdown
 ## [Unreleased]
+
 ### Added
+
 - User-facing note. (#123, @author)
 
 ### Fixed
+
 - Short, clear fix description.
 
 ### Changed
+
 - Update details.
 
 ### Removed
+
 - Deprecated or removed features.
 
 <!-- If no changelog entry is needed (internal-only), apply the skip-changelog label. -->
@@ -126,7 +131,7 @@ All automation in this repository is implemented and governed according to the f
 - Label automation: `labeling.agent.js`, `actions/labeler@v5`
 - Project sync: `project-meta-sync.agent.js`, `actions/add-to-project@v1`
 
-**Example configs:**  
+**Example configs:**
 
 - [labels-issues-prs.yml](./workflows/labels-issues-prs.yml)
 - [project-meta-sync.yml](./workflows/project-meta-sync.yml)
@@ -192,4 +197,4 @@ All automation in this repository is implemented and governed according to the f
 
 ---
 
-_This file is maintained by the LightSpeed Tools & Automation team. For updates or questions, open an issue in the `.github` repo or contact #automation-support._
+*This file is maintained by the LightSpeed Tools & Automation team. For updates or questions, open an issue in the `.github` repo or contact #automation-support.*

@@ -1,8 +1,23 @@
 ---
-mode: 'agent'
-description: 'Suggest relevant GitHub Copilot instruction files from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing instructions in this repository.'
-tools: ['edit', 'search', 'runCommands', 'runTasks', 'think', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'todos', 'search']
+mode: "agent"
+description: "Suggest relevant GitHub Copilot instruction files from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing instructions in this repository."
+tools:
+  [
+    "edit",
+    "search",
+    "runCommands",
+    "runTasks",
+    "think",
+    "changes",
+    "testFailure",
+    "openSimpleBrowser",
+    "fetch",
+    "githubRepo",
+    "todos",
+    "search",
+  ]
 ---
+
 # Suggest Awesome GitHub Copilot Instructions
 
 Analyze current repository context and suggest relevant copilot-instruction files from the [GitHub awesome-copilot repository](https://github.com/github/awesome-copilot/blob/main/README.instructions.md) that are not already available in this repository.
@@ -19,7 +34,7 @@ Analyze current repository context and suggest relevant copilot-instruction file
 8. **Validate**: Ensure suggested instructions would add value not already covered by existing instructions
 9. **Output**: Provide structured table with suggestions, descriptions, and links to both awesome-copilot instructions and similar local instructions
    **AWAIT** user request to proceed with installation of specific instructions. DO NOT INSTALL UNLESS DIRECTED TO DO SO.
-10. **Download Assets**: For requested instructions, automatically download and install individual instructions to `.github/instructions/` folder. Do NOT adjust content of the files.  Use `#todos` tool to track progress. Prioritize use of `#fetch` tool to download assets, but may use `curl` using `#runInTerminal` tool to ensure all content is retrieved.
+10. **Download Assets**: For requested instructions, automatically download and install individual instructions to `.github/instructions/` folder. Do NOT adjust content of the files. Use `#todos` tool to track progress. Prioritize use of `#fetch` tool to download assets, but may use `curl` using `#runInTerminal` tool to ensure all content is retrieved.
 
 ## Context Analysis Criteria
 
@@ -41,11 +56,11 @@ Analyze current repository context and suggest relevant copilot-instruction file
 
 Display analysis results in structured table comparing awesome-copilot instructions with existing repository instructions:
 
-| Awesome-Copilot Instruction | Description | Already Installed | Similar Local Instruction | Suggestion Rationale |
-|------------------------------|-------------|-------------------|---------------------------|---------------------|
-| [blazor.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/blazor.instructions.md) | Blazor development guidelines | ❌ No | blazor.instructions.md | Already covered by existing Blazor instructions |
-| [reactjs.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/reactjs.instructions.md) | ReactJS development standards | ❌ No | None | Would enhance React development with established patterns |
-| [java.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/java.instructions.md) | Java development best practices | ❌ No | None | Could improve Java code quality and consistency |
+| Awesome-Copilot Instruction                                                                                         | Description                     | Already Installed | Similar Local Instruction | Suggestion Rationale                                      |
+| ------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ----------------- | ------------------------- | --------------------------------------------------------- |
+| [blazor.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/blazor.instructions.md)   | Blazor development guidelines   | ❌ No             | blazor.instructions.md    | Already covered by existing Blazor instructions           |
+| [reactjs.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/reactjs.instructions.md) | ReactJS development standards   | ❌ No             | None                      | Would enhance React development with established patterns |
+| [java.instructions.md](https://github.com/github/awesome-copilot/blob/main/instructions/java.instructions.md)       | Java development best practices | ❌ No             | None                      | Could improve Java code quality and consistency           |
 
 ## Local Instructions Discovery Process
 
@@ -68,8 +83,8 @@ Instructions files in awesome-copilot use this front matter format:
 
 ```markdown
 ---
-description: 'Brief description of what this instruction provides'
-applyTo: '**/*.js,**/*.ts' # Optional: glob patterns for file matching
+description: "Brief description of what this instruction provides"
+applyTo: "**/*.js,**/*.ts" # Optional: glob patterns for file matching
 ---
 ```
 

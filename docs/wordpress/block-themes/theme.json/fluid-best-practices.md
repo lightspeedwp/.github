@@ -28,7 +28,7 @@ Using `clamp(10px, 2vw, 40px)`:
 | 1920px (large desktop)     | 38.4px          | **38.4px**                 | within min–max → **fluid** value |
 | 2400px (ultra-wide)        | 48px            | **40px**                   | 48px \> max → use **max**        |
 
-**Key idea:** **`vw` is not tied to a specific “device.”** It continuously scales with viewport width. `min` and `max` determine _when_ scaling starts and stops.
+**Key idea:** **`vw` is not tied to a specific “device.”** It continuously scales with viewport width. `min` and `max` determine *when* scaling starts and stops.
 
 ## **Understanding the impact VW has on a Mobile device.**
 

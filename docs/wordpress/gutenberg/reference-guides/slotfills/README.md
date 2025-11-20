@@ -17,8 +17,8 @@ In order to access the SlotFills, we need to do four things:
 Here is an example using the `PluginPostStatusInfo` slotFill:
 
 ```js
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginPostStatusInfo } from '@wordpress/editor';
+import { registerPlugin } from "@wordpress/plugins";
+import { PluginPostStatusInfo } from "@wordpress/editor";
 
 const PluginPostStatusInfoTest = () => (
   <PluginPostStatusInfo>
@@ -26,7 +26,7 @@ const PluginPostStatusInfoTest = () => (
   </PluginPostStatusInfo>
 );
 
-registerPlugin('post-status-info-test', { render: PluginPostStatusInfoTest });
+registerPlugin("post-status-info-test", { render: PluginPostStatusInfoTest });
 ```
 
 ## Conditionally rendering SlotFill content
@@ -41,11 +41,14 @@ A fill can be restricted to the Post Editor by checking to see if the current po
 /**
  * WordPress dependencies
  */
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginDocumentSettingPanel, store as editorStore } from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { registerPlugin } from "@wordpress/plugins";
+import {
+  PluginDocumentSettingPanel,
+  store as editorStore,
+} from "@wordpress/editor";
+import { store as coreStore } from "@wordpress/core-data";
+import { useSelect } from "@wordpress/data";
+import { __ } from "@wordpress/i18n";
 
 /**
  * The component to be rendered  as part of the plugin.
@@ -66,15 +69,15 @@ const EditPostDocumentSettingPanel = () => {
   return (
     <PluginDocumentSettingPanel
       name="custom-panel"
-      title={__('Post Editor Example')}
+      title={__("Post Editor Example")}
       className="custom-panel"
     >
-      <p>{__('Only appears in the Edit Post screen')}</p>
+      <p>{__("Only appears in the Edit Post screen")}</p>
     </PluginDocumentSettingPanel>
   );
 };
 
-registerPlugin('example-post-edit-only', {
+registerPlugin("example-post-edit-only", {
   render: EditPostDocumentSettingPanel,
 });
 ```
@@ -87,11 +90,14 @@ The following example expands on the example above by creating an allow list of 
 /**
  * WordPress dependencies
  */
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginDocumentSettingPanel, store as editorStore } from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
+import { registerPlugin } from "@wordpress/plugins";
+import {
+  PluginDocumentSettingPanel,
+  store as editorStore,
+} from "@wordpress/editor";
+import { store as coreStore } from "@wordpress/core-data";
+import { useSelect } from "@wordpress/data";
+import { __, sprintf } from "@wordpress/i18n";
 
 /**
  * The component to be rendered  as part of the plugin.
@@ -108,7 +114,7 @@ const RestrictPostTypes = () => {
   }, []);
 
   // The list of post types that are allowed to render the plugin.
-  const allowedPostTypes = ['page'];
+  const allowedPostTypes = ["page"];
 
   // If the post type is not viewable or not in the allowed list, do not render the plugin.
   if (!isViewable || !allowedPostTypes.includes(postTypeName)) {
@@ -118,20 +124,20 @@ const RestrictPostTypes = () => {
   return (
     <PluginDocumentSettingPanel
       name="custom-panel"
-      title={__('Restrict Post Types Example')}
+      title={__("Restrict Post Types Example")}
       className="custom-panel"
     >
       <p>
         {sprintf(
-          __('Only appears on Post Types that are in the allowed list. %s'),
-          allowedPostTypes.join(', ')
+          __("Only appears on Post Types that are in the allowed list. %s"),
+          allowedPostTypes.join(", "),
         )}
       </p>
     </PluginDocumentSettingPanel>
   );
 };
 
-registerPlugin('example-restrict-post-types', {
+registerPlugin("example-restrict-post-types", {
   render: RestrictPostTypes,
 });
 ```
@@ -144,11 +150,14 @@ To restrict fills to the Site Editor, the reverse logic is true. If the post typ
 /**
  * WordPress dependencies
  */
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginDocumentSettingPanel, store as editorStore } from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { registerPlugin } from "@wordpress/plugins";
+import {
+  PluginDocumentSettingPanel,
+  store as editorStore,
+} from "@wordpress/editor";
+import { store as coreStore } from "@wordpress/core-data";
+import { useSelect } from "@wordpress/data";
+import { __ } from "@wordpress/i18n";
 
 /**
  * The component to be rendered  as part of the plugin.
@@ -171,15 +180,15 @@ const SiteEditorDocumentSettingPanel = () => {
   return (
     <PluginDocumentSettingPanel
       name="custom-panel"
-      title={__('Site Editor Example')}
+      title={__("Site Editor Example")}
       className="custom-panel"
     >
-      <p>{__('Only appears in the Site Editor')}</p>
+      <p>{__("Only appears in the Site Editor")}</p>
     </PluginDocumentSettingPanel>
   );
 };
 
-registerPlugin('example-site-editor', {
+registerPlugin("example-site-editor", {
   render: SiteEditorDocumentSettingPanel,
 });
 ```
@@ -192,11 +201,14 @@ This example builds on the example above by providing an allow list to control w
 /**
  * WordPress dependencies
  */
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginDocumentSettingPanel, store as editorStore } from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
+import { registerPlugin } from "@wordpress/plugins";
+import {
+  PluginDocumentSettingPanel,
+  store as editorStore,
+} from "@wordpress/editor";
+import { store as coreStore } from "@wordpress/core-data";
+import { useSelect } from "@wordpress/data";
+import { __, sprintf } from "@wordpress/i18n";
 
 /**
  * The component to be rendered  as part of the plugin.
@@ -204,9 +216,9 @@ import { __, sprintf } from '@wordpress/i18n';
 const SiteEditorDocumentSettingPanel = () => {
   // Allowed areas in the Site Editor.
   const allowedSiteEditorScreens = [
-    'wp_template', // Templates
-    'wp_block', // Patterns
-    'wp_template_part', // Template Parts
+    "wp_template", // Templates
+    "wp_block", // Patterns
+    "wp_template_part", // Template Parts
   ];
 
   const { isViewable, postType } = useSelect((select) => {
@@ -228,20 +240,20 @@ const SiteEditorDocumentSettingPanel = () => {
   return (
     <PluginDocumentSettingPanel
       name="custom-panel"
-      title={__('Restricted to Site Editor screens')}
+      title={__("Restricted to Site Editor screens")}
       className="custom-panel"
     >
       <p>
         {sprintf(
-          __('Only appears on Editor Screens that are in the allowed list. %s'),
-          allowedSiteEditorScreens.join(', ')
+          __("Only appears on Editor Screens that are in the allowed list. %s"),
+          allowedSiteEditorScreens.join(", "),
         )}
       </p>
     </PluginDocumentSettingPanel>
   );
 };
 
-registerPlugin('example-site-editor-only', {
+registerPlugin("example-site-editor-only", {
   render: SiteEditorDocumentSettingPanel,
 });
 ```
@@ -260,9 +272,9 @@ SlotFills are created using `createSlotFill`. This creates two components, `Slot
 /**
  * WordPress dependencies
  */
-import { createSlotFill, PanelRow } from '@wordpress/components';
+import { createSlotFill, PanelRow } from "@wordpress/components";
 
-export const { Fill, Slot } = createSlotFill('PluginPostStatusInfo');
+export const { Fill, Slot } = createSlotFill("PluginPostStatusInfo");
 
 const PluginPostStatusInfo = ({ children, className }) => (
   <Fill>

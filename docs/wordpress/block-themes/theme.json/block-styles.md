@@ -22,7 +22,7 @@ Explains section styles and block style variations for WordPress container block
 
 ---
 
-## Gutenberg PR #57908 — _“Block Styles: Extend block style variations as mechanism for achieving section styling”_ (Merged 29 May 2024)
+## Gutenberg PR #57908 — *“Block Styles: Extend block style variations as mechanism for achieving section styling”* (Merged 29 May 2024)
 
 **What it is:** The foundational PR that lands “section styles” by extending block style variations so they can style **containers and their inner elements/blocks**, and crucially **nest** reliably.
 **Key points**
@@ -39,7 +39,7 @@ Explains section styles and block style variations for WordPress container block
 
 ---
 
-## Block Editor Handbook — _Block Styles (reference guide)_
+## Block Editor Handbook — *Block Styles (reference guide)*
 
 **What it is:** The API reference for block style variations (the underlying mechanism).
 **Key points**
