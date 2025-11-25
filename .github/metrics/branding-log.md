@@ -38,3 +38,4 @@ description: "Historical log of branding automation metrics"
 | 2025-11-20T08:22:11.980Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
 | 2025-11-20T12:13:42.007Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
 | 2025-11-24T03:36:08.431Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
+| 2025-11-25T09:08:58.568Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
