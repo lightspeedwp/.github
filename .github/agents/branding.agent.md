@@ -1,23 +1,37 @@
 ---
-file_type: "agent"
 name: "branding"
-title: "Branding Agent"
-description: "Unified agent for automating insertion and management of headers, footers, and badges in Markdown documentation files."
+description: "Unified agent for automating insertion and management of headers, footers, and badges in Markdown documentation files, using schema-driven configuration."
+target: "github-copilot"
+tools: ["read", "edit", "search", "shell"]
+handoffs:
+  - label: "Validate Branding"
+    agent: "doc-validator"
+    prompt: "Validate that all branding elements have been correctly applied to the documentation."
+    send: false
 version: "v1.0"
-last_updated: "2025-10-26"
-owners: ["LightSpeedWP Engineering"]
-tags: ["branding", "header", "footer", "badges", "automation", "documentation"]
+last_updated: "2025-11-24"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
+file_type: "agent"
 category: "automation"
 status: "active"
+visibility: "public"
+tags: ["branding", "header", "footer", "badges", "automation", "documentation"]
+language: "en"
 references:
-  - "../../schemas/header-footer-agent/agent-config.schema.json"
-  - "../../scripts/includes/header-footer.js"
-  - "../../scripts/includes/badges.js"
-  - "./branding.agent.js"
-  - "./branding.instructions.md"
-  - "./branding.prompt.md"
-  - "../../README.md"
-  - "../../BADGES.md"
+  - path: "schemas/header-footer-agent/agent-config.schema.json"
+    description: "Branding agent schema"
+  - path: ".github/agents/includes/header-footer.js"
+    description: "Header/footer utilities"
+  - path: ".github/agents/includes/badges.js"
+    description: "Badge utilities"
+  - path: ".github/agents/branding.agent.js"
+    description: "Implementation script"
+  - path: ".github/workflows/branding.yml"
+    description: "GitHub Actions workflow"
+owners: ["lightspeedwp/maintainers"]
+metadata:
+  guardrails: "Never overwrite content outside designated blocks. Always create backups before modifications. Validate configuration schema before applying. Respect file-specific opt-out markers."
 ---
 
 ## Branding Agent Specification

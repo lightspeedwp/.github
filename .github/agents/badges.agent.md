@@ -1,21 +1,27 @@
 ---
-file_type: "agent"
 name: "badges"
-title: "Badges Agent"
-description: "Automates discovery, update, and management of workflow badges in all README.md files."
+description: "Automates discovery, update, and management of workflow badges in README.md files. DEPRECATED: Use branding agent instead."
+target: "github-copilot"
+tools: ["read", "edit", "shell", "search"]
+handoffs: []
 version: "v1.0"
-last_updated: "2025-10-23"
-owners: ["LightSpeedWP Engineering"]
-tags: ["badges", "automation", "readme", "github-actions", "ci"]
+last_updated: "2025-11-24"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
+file_type: "agent"
 category: "automation"
-status: "active"
+status: "deprecated"
+visibility: "public"
+tags: ["badges", "automation", "readme", "github-actions", "ci", "deprecated"]
+language: "en"
 references:
-  - "../../scripts/update-badges.sh"
-  - "./badges.instructions.md"
-  - "./badges.prompt.md"
-  - "../../README.md"
-  - "../../BADGES.md"
-  - "./branding.agent.md"
+  - path: ".github/agents/branding.agent.md"
+    description: "Successor agent - use this instead"
+  - path: "scripts/update-badges.sh"
+    description: "Badge update script"
+owners: ["lightspeedwp/maintainers"]
+metadata:
+  guardrails: "This agent is deprecated. Please use branding.agent instead for all badge, header, and footer management. This specification is maintained for reference only."
 ---
 
 # Badges Agent Specification (Deprecated)

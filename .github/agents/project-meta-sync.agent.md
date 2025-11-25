@@ -1,13 +1,33 @@
 ---
-title: "Project Meta Sync Agent Spec"
+name: "project-meta-sync"
+description: "Syncs GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names, automating project management and triage workflows."
+target: "github-copilot"
+tools: ["github/*", "read", "search"]
+handoffs:
+  - label: "Update Project Fields"
+    agent: "project-updater"
+    prompt: "Now apply the field updates to the GitHub Project board based on the analysis above."
+    send: false
 version: "v1.0"
-last_updated: "2025-10-21"
+last_updated: "2025-11-24"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
-description: "Spec for the Project Meta Sync Agent."
-tags: ["lightspeed", "project", "meta", "agents"]
 file_type: "agent"
-name: "project-meta-sync"
+category: "automation"
+status: "active"
+visibility: "public"
+tags: ["lightspeed", "project-management", "automation", "github", "labels"]
+language: "en"
+references:
+  - path: ".github/agents/project-meta-sync.agent.js"
+    description: "Implementation script"
+  - path: ".github/workflows/project-meta-sync.yml"
+    description: "GitHub Actions workflow"
+  - path: ".github/automation/labels.yml"
+    description: "Canonical label definitions"
+owners: ["lightspeedwp/maintainers"]
+metadata:
+  guardrails: "Only update fields based on canonical label mappings. Notify maintainers on mapping conflicts. Support rollback and audit logging. Never remove items from project without warning."
 ---
 
 # Role

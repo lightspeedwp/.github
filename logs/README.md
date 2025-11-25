@@ -1,16 +1,20 @@
 ---
+file_type: "documentation"
 title: "Logs Directory"
-version: "v1.0"
-last_updated: "2025-10-24"
-author: "LightSpeedWP"
-maintainer: "Ash Shaw <ash@lightspeedwp.com>"
 description: "Repository for automation logs, validation outputs, and debugging information from LightSpeedWP GitHub repository operations."
+version: "v1.1"
+created_date: "2025-10-24"
+last_updated: "2025-11-25"
+author: "LightSpeed Team"
+maintainer: "Ash Shaw"
+owners: ["lightspeedwp/maintainers"]
+license: "GPL-3.0"
+domain: "governance"
+stability: "stable"
 tags: ["logs", "debugging", "validation", "automation", "monitoring", "troubleshooting"]
-ai_summary: "Centralized logging directory for repository automation, validation processes, and debugging workflows with structured log management and retention policies."
-related_files: [".coderabbit.yml", "scripts/", "tests/", ".github/workflows/"]
 ---
 
-# Logs Directory
+# 📋 Logs Directory
 
 ![Logs Badge](https://img.shields.io/badge/logs-automation-blue?style=flat-square)
 ![Status Badge](https://img.shields.io/badge/status-active-green?style=flat-square)

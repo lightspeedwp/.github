@@ -1,24 +1,35 @@
 ---
+file_type: "documentation"
+title: "LightSpeed JSON Schemas Collection"
 description: "JSON Schema files for validation, documentation, and tooling support across the LightSpeedWP organization. Comprehensive schema validation for frontmatter, configurations, and third-party integrations."
-version: "2.5"
-last_updated: "2025-11-20"
-owners:
-  - LightSpeedWP Team
+version: "2.6"
+created_date: "2025-10-20"
+last_updated: "2025-11-25"
+author: "LightSpeed Team"
+maintainer: "Ash Shaw"
+owners: ["lightspeedwp/maintainers"]
+license: "GPL-3.0"
+domain: "governance"
+stability: "stable"
+tags: ["schemas", "json-schema", "validation", "vscode", "frontmatter"]
 references:
-  - ../.github/instructions/frontmatter.instructions.md
-  - ../scripts/json-validation/
-  - ../.github/workflows/
-  - ../.vscode/settings.json
-  - ./frontmatter.schema.json
-  - ./collection.schema.json
-  - ./header-footer.schema.json
-  - ./coderabbit-overrides.v2.json
-  - ./link-audit.json
-  - ../CHANGELOG.md
-  - ../docs/VERSIONING.md
+  - path: ../.github/instructions/frontmatter.instructions.md
+    description: "Frontmatter implementation guidelines"
+  - path: ../scripts/json-validation/
+    description: "Validation scripts"
+  - path: ../.vscode/settings.json
+    description: "VS Code schema integration"
+  - path: ./frontmatter.schema.json
+    description: "Frontmatter schema definition"
+  - path: ./collection.schema.json
+    description: "Collection schema"
+  - path: ./header-footer.schema.json
+    description: "Header/footer schema"
+  - path: ../CHANGELOG.md
+    description: "Changelog documentation"
 ---
 
-# LightSpeedWP JSON Schemas Collection
+# 📊 LightSpeed JSON Schemas Collection
 
 ![Schema Badge](https://img.shields.io/badge/schemas-validated-brightgreen?style=flat-square)
 ![JSON Schema](https://img.shields.io/badge/json--schema-draft--7-blue?style=flat-square)

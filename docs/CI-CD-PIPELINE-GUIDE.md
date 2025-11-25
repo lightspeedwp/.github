@@ -1,44 +1,70 @@
 ---
-title: 'CI/CD Pipeline Guide for Modular Shell Scripts'
-version: 'v1.0.0'
-last_updated: '2025-11-18'
-author: 'LightSpeed WP Team'
-maintainer: 'Ash Shaw'
-description: 'Comprehensive guide to the CI/CD pipeline for modular shell script components at LightSpeed.'
-tags: ['ci-cd', 'pipeline', 'automation', 'deployment', 'quality-gates', 'security', 'monitoring']
-type: 'documentation'
-status: 'active'
+title: "CI/CD Pipeline Guide for Modular Shell Scripts"
+version: "1.0.0"
+last_updated: "2025-11-18"
+author: "LightSpeed WP Team"
+description: "Comprehensive guide for the modular shell scripts CI/CD pipeline"
+tags: ["ci-cd", "pipeline", "automation", "deployment", "monitoring"]
 ---
 
 # CI/CD Pipeline Guide for Modular Shell Scripts
 
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Pipeline Architecture](#pipeline-architecture)
-- [Pipeline Stages](#pipeline-stages)
-- [Quality Gates](#quality-gates)
-- [Security Scanning](#security-scanning)
-- [Deployment Process](#deployment-process)
-- [Monitoring & Health Checks](#monitoring--health-checks)
-- [Rollback Procedures](#rollback-procedures)
-- [Troubleshooting](#troubleshooting)
-- [Best Practices](#best-practices)
-
 ## Overview
 
-The LightSpeed CI/CD pipeline provides comprehensive automation for modular shell script development, testing, deployment, and monitoring. The pipeline ensures code quality, security, and reliability through multi-stage validation and automated deployment processes.
+This guide documents the comprehensive CI/CD pipeline implemented for LightSpeedWP's modular shell script
+architecture. The pipeline ensures code quality, security, and reliability through automated testing, validation, and
+deployment processes.
 
-### Key Features
+## Table of Contents
 
-- **Multi-stage validation** with progressive quality checks
-- **Automated testing** with unit, integration, and smoke tests
-- **Security scanning** for vulnerabilities and dangerous patterns
-- **Quality gates** with configurable thresholds
-- **Automated deployment** to staging and production
-- **Health monitoring** and performance checks
-- **Automatic rollback** on deployment failures
-- **Comprehensive reporting** and metrics
+- [Pipeline Architecture](#pipeline-architecture)
+- [Pipeline Stages](#pipeline-stages)
+- [Scripts Reference](#scripts-reference)
+- [Quality Gates](#quality-gates)
+- [Deployment Process](#deployment-process)
+- [Monitoring and Health Checks](#monitoring-and-health-checks)
+- [Security Scanning](#security-scanning)
+- [Troubleshooting](#troubleshooting)
+
+## Pipeline Architecture
+
+The CI/CD pipeline is implemented as a multi-stage GitHub Actions workflow with the following structure:
+
+```text
+┌─────────────────────────────────────────────────────────┐
+│  Stage 1: Static Analysis & Validation                 │
+│  - ShellCheck analysis                                  │
+│  - Markdown & YAML linting                              │
+│  - Basic quality metrics                                │
+│  - Security pattern detection                           │
+└─────────────────────────────────────────────────────────┘
+                        ↓
+┌─────────────────────────────────────────────────────────┐
+│  Stage 2: Testing                                       │
+│  - Unit tests (Bats framework)                          │
+│  - Integration tests                                    │
+└─────────────────────────────────────────────────────────┘
+                        ↓
+┌─────────────────────────────────────────────────────────┐
+│  Stage 3: Quality Gates                                 │
+│  - Evaluate metrics against thresholds                  │
+│  - Generate quality reports                             │
+│  - Deployment readiness check                           │
+└─────────────────────────────────────────────────────────┘
+                        ↓
+┌─────────────────────────────────────────────────────────┐
+│  Stage 4: Documentation                                 │
+│  - Auto-update README files                             │
+│  - Update badges                                        │
+│  - Commit documentation changes                         │
+└─────────────────────────────────────────────────────────┘
+                        ↓
+┌─────────────────────────────────────────────────────────┐
+│  Stage 5: Deployment Status                             │
+│  - Report deployment status                             │
+│  - Generate pipeline summary                            │
+└─────────────────────────────────────────────────────────┘
+```
 
 ### Pipeline Workflow
 
@@ -64,1085 +90,557 @@ graph TD
     O -->|Yes| Q[Pipeline Complete]
 ```
 
-## Pipeline Architecture
-
-### Workflow File
-
-**Location**: `.github/workflows/modular-scripts-pipeline.yml`
-
-### Trigger Events
-
-The pipeline triggers on:
-
-- **Push events** to `main`, `develop`, `feature/*`, `hotfix/*`, `claude/*` branches
-- **Pull requests** to `main` and `develop` branches
-- **File changes** to `scripts/**`, `tests/**`, `.github/workflows/**`
-- **Release events** when a release is published
-- **Schedule** - Daily at 2 AM UTC for security and quality checks
-- **Manual dispatch** via workflow UI
-
-### Environment Variables
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PIPELINE_VERSION` | `v2.0.0` | Pipeline version identifier |
-| `QUALITY_THRESHOLD` | `80` | Minimum quality score required (0-100) |
-| `SECURITY_THRESHOLD` | `high` | Security severity threshold |
-| `NODE_VERSION` | `20` | Node.js version for CI tasks |
-| `SHELLCHECK_VERSION` | `stable` | ShellCheck version for linting |
-| `BATS_VERSION` | `v1.10.0` | Bats testing framework version |
-
-### Pipeline Inputs
-
-When triggered manually (`workflow_dispatch`), the pipeline accepts:
-
-- **`deploy_environment`**: Target environment (`staging` or `production`)
-- **`force_deploy`**: Force deployment despite warnings (boolean)
-- **`skip_tests`**: Skip test execution (boolean, not recommended)
-
 ## Pipeline Stages
 
-### Stage 1: Static Analysis
+### Stage 1: Static Analysis and Validation
 
-**Purpose**: Validate code quality, style, and basic security
+The first stage performs comprehensive static analysis on all shell scripts:
 
-**Duration**: ~5-10 minutes
+#### ShellCheck Analysis
 
-**Jobs**:
+- Validates shell script syntax
+- Detects common scripting errors
+- Identifies potential bugs and code smells
+- Reports critical issues and warnings
 
-1. **Change Detection** - Identify modified files
-2. **ShellCheck Analysis** - Validate shell script syntax and best practices
-3. **Markdown Linting** - Check documentation formatting
-4. **YAML Linting** - Validate workflow and config files
-5. **Quality Metrics** - Calculate documentation completeness
-6. **Basic Security Check** - Detect dangerous patterns
+#### Linting
 
-**Outputs**:
+- **Markdown**: Validates documentation formatting
+- **YAML**: Checks workflow and configuration files
+- Ensures consistent formatting across the repository
 
-- `changes-detected`: Boolean indicating if relevant files changed
-- `quality-score`: Documentation quality score (0-100)
-- `security-issues`: Count of potential security issues
-- `shellcheck-critical`: Count of critical ShellCheck issues
-- `shellcheck-warnings`: Count of ShellCheck warnings
+#### Quality Metrics
 
-**Success Criteria**:
+- Calculates documentation completeness score
+- Evaluates coding standards adherence
+- Generates quality report
 
-- ✅ No critical ShellCheck errors
-- ⚠️ Warnings logged but don't block pipeline
-- ✅ Quality score calculated successfully
+**Outputs:**
+
+- `shellcheck-results.json`: Aggregated ShellCheck findings
+- Quality score percentage
+- Security issue count
 
 ### Stage 2: Testing
 
-**Purpose**: Execute automated tests to verify functionality
-
-**Duration**: ~10-20 minutes
-
-**Test Suites**:
+Executes comprehensive test suites using the Bats testing framework:
 
 #### Unit Tests
 
-- **Location**: `tests/includes/**/*.bats`
-- **Purpose**: Test individual functions and includes
-- **Framework**: Bats (Bash Automated Testing System)
-- **Coverage**: Core includes, utilities, validation functions
+- Tests individual script functions and includes
+- Located in `tests/includes/`
+- Run in parallel for efficiency
 
 #### Integration Tests
 
-- **Location**: `tests/integration/**/*.bats`
-- **Purpose**: Test component interactions
-- **Framework**: Bats
-- **Coverage**: Script workflows, include sourcing, end-to-end scenarios
+- Tests interactions between components
+- Located in `tests/integration/`
+- Validates end-to-end workflows
 
-**Test Matrix**:
+**Test Execution:**
 
-The testing stage runs in parallel across multiple test suites:
+```bash
+# Unit tests
+bats tests/includes/**/*.bats --report-formatter junit
 
-```yaml
-strategy:
-    fail-fast: false
-    matrix:
-        test-suite: [unit, integration]
+# Integration tests
+bats tests/integration/**/*.bats --report-formatter junit
 ```
-
-**Outputs**:
-
-- JUnit XML test reports
-- TAP (Test Anything Protocol) output
-- Test coverage summaries
-
-**Success Criteria**:
-
-- ✅ All tests pass
-- ⚠️ Test failures reported but may allow deployment with approval
 
 ### Stage 3: Quality Gates
 
-**Purpose**: Enforce quality thresholds before deployment
+Quality gates ensure code meets minimum standards before deployment:
 
-**Duration**: ~2-5 minutes
+#### Gate Criteria
 
-**Quality Checks**:
+| Gate          | Threshold | Weight | Description            |
+| ------------- | --------- | ------ | ---------------------- |
+| Code Quality  | ≥ 80%     | 25%    | ShellCheck pass rate   |
+| Test Coverage | ≥ 70%     | 30%    | Includes with tests    |
+| Documentation | ≥ 75%     | 20%    | Scripts with full docs |
+| Security      | ≥ 90%     | 15%    | No critical issues     |
+| Performance   | ≥ 70%     | 10%    | Optimized scripts      |
 
-1. **Documentation Quality Gate**
-   - Threshold: ≥80% scripts documented
-   - Checks for: Script Name, Description, Usage, Examples
+**Overall Score Calculation:**
 
-2. **ShellCheck Gate**
-   - Threshold: 0 critical issues
-   - Warnings logged but don't block
-
-3. **Security Gate**
-   - Threshold: 0 critical/high security issues
-   - Medium/low issues logged as warnings
-
-4. **Test Results Gate**
-   - Threshold: All tests pass or skipped
-   - Failures block deployment
-
-**Gate Evaluation**:
-
-```bash
-Overall Pass = (
-    Documentation Score >= QUALITY_THRESHOLD &&
-    ShellCheck Critical == 0 &&
-    Security Critical == 0 &&
-    Tests == "success" || Tests == "skipped"
-)
+```text
+Overall = (Code × 0.25) + (Test × 0.30) + (Docs × 0.20) + (Security × 0.15) + (Performance × 0.10)
 ```
 
-**Force Deploy Override**:
+Deployment proceeds only if:
 
-When `force_deploy` input is `true`:
-- Quality gates are evaluated but don't block
-- Deployment proceeds with warnings
-- Extra logging and audit trail created
-
-**Outputs**:
-
-- `quality-passed`: Boolean indicating if all gates passed
-- `deploy-ready`: Boolean indicating deployment readiness
-- Quality gate summary in GitHub Actions summary
-
-**Success Criteria**:
-
-- ✅ All quality gates pass
-- ⚠️ Can override with `force_deploy` flag
+- Overall score ≥ 80%
+- No critical ShellCheck issues
+- All tests pass
 
 ### Stage 4: Documentation
 
-**Purpose**: Automatically update documentation after successful validation
+Automated documentation updates:
 
-**Duration**: ~3-5 minutes
+- Regenerates README files for changed components
+- Updates badges (test coverage, quality score)
+- Commits changes back to repository (on `develop` branch)
 
-**Conditions**:
+### Stage 5: Deployment Status
 
-- Quality gates passed
-- Branch is `develop`
-- Changes detected in relevant files
+Final reporting stage:
 
-**Actions**:
+- Generates comprehensive pipeline summary
+- Reports deployment readiness
+- Provides next steps
 
-1. Generate updated include documentation
-2. Update README files
-3. Update badges and metrics
-4. Commit changes with `[skip ci]` tag
+## Scripts Reference
 
-**Scripts Used**:
+### Deployment Scripts
 
-- `scripts/maintenance/update-readme-and-changelog.sh`
-- `scripts/maintenance/update-badges.sh`
+Located in `scripts/deployment/`:
 
-**Outputs**:
+#### `deploy-to-staging.sh`
 
-- Updated documentation files
-- Automated commit to branch
+Deploys modular shell scripts to staging environment.
 
-### Stage 5: Deployment Notification
-
-**Purpose**: Report deployment status and next steps
-
-**Duration**: ~1 minute
-
-**Information Provided**:
-
-- Pipeline version
-- Branch and commit information
-- Quality gate results
-- Deploy readiness status
-- Next steps based on branch
-
-**Notification Levels**:
-
-- 🎯 **`main` branch**: Ready for production deployment
-- 🧪 **`develop` branch**: Changes deployed to development
-- 📦 **Other branches**: Changes ready for review
-
-## Quality Gates
-
-### Quality Score Calculation
-
-The quality score is a composite metric based on multiple factors:
+**Usage:**
 
 ```bash
-Overall Score =
-    (Code Quality × 0.25) +
-    (Test Coverage × 0.30) +
-    (Documentation × 0.20) +
-    (Security × 0.15) +
-    (Performance × 0.10)
+./scripts/deployment/deploy-to-staging.sh [--dry-run] [--skip-backup]
 ```
 
-### Component Scores
+**Options:**
 
-#### 1. Code Quality (25%)
+- `--dry-run`: Simulate deployment without making changes
+- `--skip-backup`: Skip backup creation (not recommended)
 
-**Metrics**:
-- ShellCheck compliance
-- Script syntax validity
-- Adherence to best practices
+**Environment Variables:**
 
-**Calculation**:
+- `STAGING_PATH`: Deployment path (default: `/opt/lightspeed-wp/staging`)
+- `BACKUP_RETENTION_DAYS`: Backup retention period (default: 30)
+
+#### `automated-rollback.sh`
+
+Automated rollback system for failed deployments.
+
+**Usage:**
+
 ```bash
-Code Quality = (Scripts Without Issues / Total Scripts) × 100
+./scripts/deployment/automated-rollback.sh <environment> [reason]
 ```
 
-#### 2. Test Coverage (30%)
+**Arguments:**
 
-**Metrics**:
-- Function test coverage
-- Include test coverage
-- Integration test completeness
+- `environment`: Target environment (`staging` or `production`)
+- `reason`: Optional reason for rollback
 
-**Calculation**:
+**Example:**
+
 ```bash
-Test Coverage = (Tested Functions / Total Functions) × 100
+./scripts/deployment/automated-rollback.sh staging "Health check failed"
 ```
 
-#### 3. Documentation (20%)
+### Monitoring Scripts
 
-**Metrics**:
-- Script headers present
-- Usage examples provided
-- API documentation complete
+Located in `scripts/monitoring/`:
 
-**Calculation**:
+#### `health-check.sh`
+
+Post-deployment health checks.
+
+**Usage:**
+
 ```bash
-Documentation = (Documented Scripts / Total Scripts) × 100
+./scripts/monitoring/health-check.sh [--environment <env>] [--verbose] [--json]
 ```
 
-#### 4. Security (15%)
+**Checks Performed:**
 
-**Metrics**:
-- No critical security issues
-- No hardcoded credentials
-- Safe file operations
+- Script syntax validation
+- File permissions
+- Required includes presence
+- Disk space availability
+- Deployment metadata
 
-**Calculation**:
+**Exit Codes:**
+
+- `0`: All checks passed
+- `1`: One or more checks failed
+
+#### `performance-check.sh`
+
+Performance monitoring for deployed scripts.
+
+**Usage:**
+
 ```bash
-Security = 100 - (Security Issues / Total Scripts) × 10
+./scripts/monitoring/performance-check.sh [--environment <env>] [--benchmark]
 ```
 
-#### 5. Performance (10%)
+**Metrics Collected:**
 
-**Metrics**:
-- Script execution time
-- Code complexity
-- Resource usage
+- System resource usage (CPU, memory)
+- Script loading times
+- File sizes
+- Code complexity metrics
 
-**Calculation**:
+### Quality Scripts
+
+Located in `scripts/maintenance/`:
+
+#### `calculate-quality-score.sh`
+
+Calculates comprehensive quality score.
+
+**Usage:**
+
 ```bash
-Performance = 100 - (Slow Scripts / Total Scripts) × 20
+./scripts/maintenance/calculate-quality-score.sh [--output <file>] [--verbose]
 ```
 
-### Quality Gate Thresholds
+**Output:**
 
-| Gate | Threshold | Action on Failure |
-|------|-----------|------------------|
-| Overall Quality | ≥80% | Block deployment |
-| Documentation | ≥75% | Block deployment |
-| Test Coverage | ≥85% | Warning only |
-| Security Critical | 0 issues | Block deployment |
-| Security High | ≤2 issues | Warning only |
-| ShellCheck Critical | 0 errors | Block deployment |
+Generates `quality-report.json` with:
 
-## Security Scanning
+- Component scores (code, tests, docs, security, performance)
+- Overall score
+- Quality gate pass/fail status
 
-### Security Audit Script
-
-**Location**: `scripts/security/security-audit.sh`
-
-**Usage**:
-```bash
-./scripts/security/security-audit.sh [--strict] [--output <file>] [--json]
-```
-
-### Security Checks
-
-#### 1. Dangerous Shell Patterns
-
-**Critical Issues** 🔴:
-- `eval` usage with user input
-- Piping remote content to shell
-- Root filesystem operations
-- Destructive commands without safeguards
-
-**High Severity** 🟠:
-- Dynamic sourcing with variables
-- Overly permissive file permissions (777, 666)
-- Hardcoded credentials and secrets
-
-**Medium Severity** 🟡:
-- Passwordless sudo usage
-- Missing input validation
-- Insecure temporary file handling
-
-**Low Severity** 🟢:
-- Missing `set -e` error handling
-- Missing shebang
-- Lack of security documentation
-
-#### 2. Credential Detection
-
-Patterns scanned:
-- `password=`, `passwd=`, `pwd=`
-- `secret=`, `token=`
-- `api_key=`, `apikey=`
-- `private_key=`
-
-#### 3. File Permission Checks
-
-- World-writable files (777, 666)
-- Sensitive files readable by all
-- Executable files with incorrect permissions
-
-#### 4. Command Safety
-
-Dangerous commands requiring warnings:
-- `dd`, `mkfs`, `fdisk`, `parted`
-- `rm -rf` without path validation
-- `chmod 777` or similar
-
-### Security Report Format
+**Example Output:**
 
 ```json
 {
   "timestamp": "2025-11-18T12:00:00Z",
   "project": "LightSpeedWP Modular Scripts",
-  "findings": [
-    {
-      "severity": "HIGH",
-      "file": "scripts/example.sh",
-      "line": 42,
-      "message": "Potential hardcoded credential detected",
-      "pattern": "password="
-    }
-  ],
-  "summary": {
-    "total": 5,
-    "critical": 0,
-    "high": 2,
-    "medium": 1,
-    "low": 2
+  "scores": {
+    "code_quality": 85,
+    "test_coverage": 78,
+    "documentation": 82,
+    "security": 95,
+    "performance": 88
+  },
+  "overall_score": 84,
+  "quality_gates": {
+    "overall_pass": true
   }
 }
 ```
 
+### Security Scripts
+
+Located in `scripts/security/`:
+
+#### `security-audit.sh`
+
+Comprehensive security audit.
+
+**Usage:**
+
+```bash
+./scripts/security/security-audit.sh [--strict] [--output <file>]
+```
+
+**Checks Performed:**
+
+- Dangerous shell patterns (eval, piping curl to shell, etc.)
+- Hardcoded credentials
+- Insecure file permissions
+- Unsafe command usage
+- Security best practices
+
+**Severity Levels:**
+
+- 🔴 **CRITICAL**: Immediate action required
+- 🟠 **HIGH**: Should be fixed soon
+- 🟡 **MEDIUM**: Should be addressed
+- 🟢 **LOW**: Consider improving
+
+**Example:**
+
+```bash
+# Basic audit
+./scripts/security/security-audit.sh
+
+# Strict mode (fail on any issue)
+./scripts/security/security-audit.sh --strict --output security-report.json
+```
+
+## Quality Gates
+
+Quality gates are enforced at the pipeline level to ensure code quality:
+
+### Code Quality Gate
+
+- **Threshold**: 80%
+- **Metric**: Percentage of scripts passing ShellCheck without errors
+- **Action**: Block deployment if threshold not met
+
+### Test Coverage Gate
+
+- **Threshold**: 70%
+- **Metric**: Percentage of includes with corresponding tests
+- **Action**: Warn if threshold not met, block if coverage < 50%
+
+### Documentation Gate
+
+- **Threshold**: 75%
+- **Metric**: Scripts with complete documentation headers
+- **Action**: Warn if threshold not met
+
+### Security Gate
+
+- **Threshold**: 90%
+- **Metric**: Scripts without security issues
+- **Action**: Block deployment if critical/high issues found
+
 ## Deployment Process
 
-### Deployment Environments
+### Staging Deployment
 
-#### Staging Environment
+Triggered on:
 
-**Purpose**: Pre-production testing and validation
+- Push to `develop` branch
+- Pull requests to `develop`
+- Manual workflow dispatch
 
-**Script**: `scripts/deployment/deploy-to-staging.sh`
+**Process:**
 
-**Configuration**:
-```bash
-export STAGING_PATH="/opt/lightspeed-wp/staging"
-export BACKUP_RETENTION_DAYS=30
-```
+1. Run static analysis and tests
+2. Evaluate quality gates
+3. Create backup of current deployment
+4. Deploy includes and scripts
+5. Run validation tests
+6. Register deployment in registry
 
-**Deployment Flow**:
-1. Validate deployment readiness
-2. Create backup
-3. Deploy includes and scripts
-4. Run validation tests
-5. Execute health checks
-6. Register deployment
+### Production Deployment
 
-**Triggers**:
-- Manual execution
-- Automated on `develop` branch (planned)
+Triggered on:
 
-#### Production Environment
+- Release published
+- Manual workflow dispatch (with approval)
 
-**Purpose**: Live production deployment
+**Process:**
 
-**Script**: `scripts/deployment/deploy-to-production.sh`
-
-**Configuration**:
-```bash
-export PRODUCTION_PATH="/opt/lightspeed-wp/production"
-export BACKUP_RETENTION_DAYS=90
-```
-
-**Additional Safety Checks**:
-- Business hours validation
-- Deployment approval verification
-- Recent failure check
-- Extended health checks
-
-**Triggers**:
-- Manual execution only
-- Requires deployment approval
-
-### Deployment Steps
-
-#### 1. Pre-Deployment Validation
-
-**Checks**:
-- Quality report exists and passed
-- Target environment accessible
-- Sufficient disk space (≥1GB for production)
-- Write permissions verified
-- No recent failed deployments
-
-#### 2. Backup Creation
-
-**Process**:
-- Create compressed tar.gz archive
-- Calculate SHA256 checksum
-- Store in environment-specific backup directory
-- Clean old backups based on retention policy
-
-**Backup Locations**:
-- Staging: `backups/staging/`
-- Production: `backups/production/`
-
-#### 3. Script Deployment
-
-**Includes Deployment**:
-- Copy all include files from `scripts/includes/`
-- Verify script syntax
-- Set correct permissions (750 for scripts)
-
-**Scripts Deployment**:
-- Copy utility scripts
-- Exclude deployment scripts and test files
-- Set permissions
-- Verify structure
-
-#### 4. Validation Testing
-
-**Tests Run**:
-- Smoke tests for basic functionality
-- Environment-specific integration tests
-- Syntax validation of all deployed scripts
-
-#### 5. Health Checks
-
-**Checks Performed**:
-- Script syntax validation
-- File permissions verification
-- Required includes present
-- Disk space availability
-- Deployment metadata validation
-
-#### 6. Registry Update
-
-**Deployment Registry** (`deployment-registry.json`):
-```json
-{
-  "deployments": [
-    {
-      "environment": "production",
-      "deployment_id": "20251118-120000",
-      "status": "success",
-      "reason": "",
-      "timestamp": "2025-11-18T12:00:00Z"
-    }
-  ]
-}
-```
-
-## Monitoring & Health Checks
-
-### Health Check Script
-
-**Location**: `scripts/monitoring/health-check.sh`
-
-**Usage**:
-```bash
-./health-check.sh [--environment <env>] [--verbose] [--json]
-```
-
-### Health Check Components
-
-#### 1. Script Syntax Check
-
-**Method**: `bash -n script.sh`
-
-**Status Levels**:
-- ✅ Pass: All scripts valid
-- ❌ Fail: Syntax errors found
-- ⚠️ Warn: No scripts found
-
-#### 2. File Permissions Check
-
-**Checks**:
-- Scripts are executable
-- Sensitive files have restricted permissions
-- No world-writable files
-
-#### 3. Required Includes Check
-
-**Required Files**:
-- `core/logging.sh`
-- `core/validation.sh`
-- `core/common-functions.sh`
-
-#### 4. Disk Space Check
-
-**Thresholds**:
-- ✅ < 80%: Healthy
-- ⚠️ 80-90%: Warning
-- ❌ > 90%: Critical
-
-#### 5. Deployment Metadata Check
-
-**Validates**:
-- Deployment registry exists
-- Registry is valid JSON
-- Recent deployment recorded
-
-### Performance Monitoring
-
-**Location**: `scripts/monitoring/performance-check.sh`
-
-**Usage**:
-```bash
-./performance-check.sh [--environment <env>] [--benchmark] [--json]
-```
-
-**Metrics Collected**:
-
-- **System Resources**:
-  - CPU load average
-  - Memory usage percentage
-  - Disk I/O statistics
-
-- **Script Metrics**:
-  - Script loading times
-  - File sizes and LOC
-  - Function counts
-  - Code complexity
-
-**Benchmark Mode**:
-- Individual script timing
-- Function call performance
-- Detailed complexity analysis
-
-### Monitoring Schedule
-
-**Automated Checks**:
-
-- **Post-Deployment**: Immediately after each deployment
-- **Daily**: 2 AM UTC via scheduled workflow
-- **On-Demand**: Manual workflow dispatch
-
-**Continuous Monitoring**:
-
-- **Hourly**: Performance checks during business hours
-- **Daily**: Complete benchmark suite
-- **Weekly**: Trend analysis and reporting
-
-## Rollback Procedures
-
-### Automatic Rollback
-
-**Trigger Conditions**:
-- Deployment validation tests fail
-- Post-deployment health check fails
-- Critical errors during deployment
-
-**Script**: `scripts/deployment/automated-rollback.sh`
-
-**Usage**:
-```bash
-./automated-rollback.sh <environment> [reason]
-```
+1. All staging deployment steps
+2. Additional validation checks
+3. Smoke tests on production environment
+4. Health and performance monitoring
+5. Automated rollback on failure
 
 ### Rollback Process
 
-#### 1. Identify Last Successful Deployment
+Automated rollback is triggered when:
 
-**Method**:
-- Query deployment registry
-- Filter by environment and "success" status
-- Select most recent entry
+- Post-deployment health checks fail
+- Critical errors detected in monitoring
+- Manual rollback requested
 
-#### 2. Restore from Backup
+**Rollback Steps:**
 
-**Process**:
-- Verify backup file exists
-- Check backup integrity (SHA256)
-- Extract backup to target location
-- Verify restoration
+1. Identify last successful deployment
+2. Restore from backup
+3. Verify rollback success
+4. Update deployment registry
+5. Notify team
 
-#### 3. Validation
+## Monitoring and Health Checks
 
-**Checks**:
-- Run health checks
-- Verify script syntax
-- Test basic functionality
-- Check critical paths
+### Post-Deployment Monitoring
 
-#### 4. Registry Update
+After deployment, the pipeline runs:
 
-**Actions**:
-- Mark current deployment as "rollback"
-- Log rollback reason
-- Update deployment status
+1. **Health Checks** (immediate)
+   - Script syntax validation
+   - File permissions check
+   - Required files verification
 
-### Manual Rollback
+2. **Performance Checks** (5 minutes after)
+   - System resource usage
+   - Script loading times
+   - Response time benchmarks
 
-**When to Use**:
-- Issues discovered after deployment
-- Performance degradation
-- Unexpected behaviour in production
+3. **Continuous Monitoring** (ongoing)
+   - Error log monitoring
+   - Performance metrics tracking
+   - Usage statistics
 
-**Steps**:
+### Health Check Schedule
 
-1. **Assess Impact**:
-   ```bash
-   # Check deployment history
-   cat deployment-registry.json | jq '.deployments[] | select(.environment == "production") | .deployment_id'
-   ```
+- **Immediate**: After each deployment
+- **Daily**: 2 AM UTC (scheduled workflow)
+- **On-Demand**: Via workflow dispatch
 
-2. **Identify Target Deployment**:
-   ```bash
-   # View recent successful deployments
-   cat deployment-registry.json | jq '.deployments[] | select(.environment == "production" and .status == "success")'
-   ```
+## Security Scanning
 
-3. **Execute Rollback**:
-   ```bash
-   ./scripts/deployment/automated-rollback.sh production "Manual rollback due to issue #123"
-   ```
+### Automated Security Scans
 
-4. **Verify Rollback**:
-   ```bash
-   ./scripts/monitoring/health-check.sh --environment production --verbose
-   ```
+The pipeline includes multiple security checks:
 
-5. **Notify Team**:
-   - Update incident ticket
-   - Notify stakeholders
-   - Document rollback reason
+#### Static Security Analysis
+
+- Dangerous pattern detection
+- Credential scanning
+- Permission checks
+
+#### Dependency Scanning
+
+- npm audit for Node dependencies
+- Checks for known vulnerabilities
+
+#### Secret Scanning
+
+- Scans for exposed secrets
+- Validates .gitignore patterns
+- Checks for sensitive file patterns
+
+### Security Best Practices
+
+1. **Never commit secrets**
+   - Use environment variables
+   - Leverage GitHub Secrets
+   - Use .env files (gitignored)
+
+2. **Follow principle of least privilege**
+   - Minimal file permissions
+   - Restrict sudo usage
+   - Use read-only mounts when possible
+
+3. **Validate all inputs**
+   - Check user-provided arguments
+   - Sanitize file paths
+   - Validate environment variables
+
+4. **Use security headers**
+   - `set -euo pipefail` in all scripts
+   - Proper error handling
+   - Logging of security events
 
 ## Troubleshooting
 
-### Pipeline Failures
+### Common Issues
 
-#### Stage 1: Static Analysis Fails
+#### Pipeline Fails at Static Analysis
 
-**Symptoms**:
-- Critical ShellCheck errors
-- Quality score below threshold
-- Security issues detected
+**Symptoms:** ShellCheck errors, critical issues found
 
-**Debug Steps**:
+**Solutions:**
 
-1. **Review ShellCheck Output**:
+1. Review ShellCheck output in workflow logs
+2. Fix syntax errors and warnings
+3. Run locally: `shellcheck scripts/**/*.sh`
+4. Re-run workflow after fixes
+
+#### Tests Fail
+
+**Symptoms:** Test stage reports failures
+
+**Solutions:**
+
+1. Check test output for specific failures
+2. Run tests locally:
+
    ```bash
-   # Download artifacts from failed run
-   # Check shellcheck-results.json
-   cat shellcheck-results.json | jq '.[] | select(.level == "error")'
-   ```
-
-2. **Check Quality Score**:
-   ```bash
-   ./scripts/maintenance/calculate-quality-score.sh
-   ```
-
-3. **Run Security Audit Locally**:
-   ```bash
-   ./scripts/security/security-audit.sh --strict
-   ```
-
-**Common Fixes**:
-- Fix ShellCheck errors in reported files
-- Add missing documentation headers
-- Remove hardcoded credentials
-- Fix file permissions
-
-#### Stage 2: Testing Fails
-
-**Symptoms**:
-- Test failures in unit or integration tests
-- Test framework errors
-- Timeout issues
-
-**Debug Steps**:
-
-1. **Run Tests Locally**:
-   ```bash
-   # Install Bats if needed
-   npm install -g bats
-
-   # Run specific test suite
-   bats tests/includes/**/*.bats --verbose
-   ```
-
-2. **Check Test Logs**:
-   ```bash
-   # Review TAP output
-   cat test-results/unit/results.tap
-   ```
-
-3. **Isolate Failing Test**:
-   ```bash
-   # Run individual test file
-   bats tests/includes/core/test-logging.bats --trace
-   ```
-
-**Common Fixes**:
-- Update test expectations
-- Fix broken function implementations
-- Resolve test environment issues
-- Add missing test dependencies
-
-#### Stage 3: Quality Gates Fail
-
-**Symptoms**:
-- Quality score below threshold
-- Security gates not passed
-- Force deploy required
-
-**Debug Steps**:
-
-1. **Review Quality Report**:
-   ```bash
-   cat pipeline-quality-report.json | jq '.'
-   ```
-
-2. **Check Individual Gates**:
-   ```bash
-   # Documentation score
-   cat pipeline-quality-report.json | jq '.scores.documentation'
-
-   # Security issues
-   cat pipeline-quality-report.json | jq '.scores.security'
-   ```
-
-**Common Fixes**:
-- Improve documentation coverage
-- Address security findings
-- Increase test coverage
-- Fix code quality issues
-
-### Deployment Failures
-
-#### Deployment Validation Fails
-
-**Symptoms**:
-- Quality report not found
-- Target environment inaccessible
-- Insufficient disk space
-
-**Debug Steps**:
-
-1. **Check Quality Report**:
-   ```bash
-   ls -la pipeline-quality-report.json
-   cat pipeline-quality-report.json | jq '.quality_gates'
-   ```
-
-2. **Verify Environment Access**:
-   ```bash
-   # Test connection
-   ssh staging-server "test -d /opt/lightspeed-wp/staging && echo 'OK' || echo 'FAIL'"
-
-   # Check permissions
-   ssh staging-server "test -w /opt/lightspeed-wp/staging && echo 'OK' || echo 'FAIL'"
-   ```
-
-3. **Check Disk Space**:
-   ```bash
-   ssh staging-server "df -h /opt/lightspeed-wp/staging"
-   ```
-
-**Common Fixes**:
-- Generate quality report via CI
-- Verify SSH access and credentials
-- Free up disk space
-- Check directory permissions
-
-#### Deployment Script Fails
-
-**Symptoms**:
-- Script syntax errors
-- Backup creation fails
-- Rsync errors
-
-**Debug Steps**:
-
-1. **Test Deployment Script Locally**:
-   ```bash
-   # Dry run
-   ./scripts/deployment/deploy-to-staging.sh --dry-run
-   ```
-
-2. **Check Script Syntax**:
-   ```bash
-   bash -n scripts/deployment/deploy-to-staging.sh
-   shellcheck scripts/deployment/deploy-to-staging.sh
-   ```
-
-3. **Review Deployment Logs**:
-   ```bash
-   # Check workflow logs in GitHub Actions
-   # Look for specific error messages
-   ```
-
-**Common Fixes**:
-- Fix script syntax errors
-- Verify source file paths exist
-- Check rsync permissions
-- Ensure target directories exist
-
-#### Health Check Fails Post-Deployment
-
-**Symptoms**:
-- Deployed scripts have syntax errors
-- Required includes missing
-- Permission issues
-
-**Debug Steps**:
-
-1. **Run Health Check Manually**:
-   ```bash
-   ./scripts/monitoring/health-check.sh --environment staging --verbose
-   ```
-
-2. **Check Deployed Files**:
-   ```bash
-   ssh staging-server "find /opt/lightspeed-wp/staging/includes -name '*.sh' | xargs bash -n"
-   ```
-
-3. **Verify Permissions**:
-   ```bash
-   ssh staging-server "find /opt/lightspeed-wp/staging -name '*.sh' -not -perm -u+x"
-   ```
-
-**Common Fixes**:
-- Verify source scripts before deployment
-- Fix deployment script to set permissions
-- Ensure all includes are copied
-- Validate deployment process
-
-### Rollback Issues
-
-#### Rollback Script Fails
-
-**Symptoms**:
-- Backup file not found
-- Backup integrity check fails
-- Restoration errors
-
-**Debug Steps**:
-
-1. **Check Backup Existence**:
-   ```bash
-   ls -la backups/staging/
-   ```
-
-2. **Verify Backup Integrity**:
-   ```bash
-   # Check checksum
-   sha256sum -c backups/staging/staging-YYYYMMDD-HHMMSS.tar.gz.sha256
-   ```
-
-3. **Test Backup Extraction**:
-   ```bash
-   # Extract to temp location
-   mkdir -p /tmp/backup-test
-   tar -xzf backups/staging/staging-YYYYMMDD-HHMMSS.tar.gz -C /tmp/backup-test
-   ```
-
-**Common Fixes**:
-- Verify backup was created successfully
-- Check backup file permissions
-- Ensure sufficient disk space for extraction
-- Validate backup file integrity
-
-## Best Practices
-
-### Development Workflow
-
-1. **Work in Feature Branches**
-   - Create branch from `develop`
-   - Use descriptive branch names: `feature/add-validation-script`
-   - Keep changes focused and atomic
-
-2. **Write Tests First**
-   - Create Bats tests before implementing features
-   - Aim for >85% code coverage
-   - Include integration tests for workflows
-
-3. **Document as You Code**
-   - Add script headers with Name, Description, Usage
-   - Include usage examples
-   - Document non-obvious behaviour
-
-4. **Run Quality Checks Locally**
-   ```bash
-   # Before committing
-   shellcheck your-script.sh
-   ./scripts/maintenance/calculate-quality-score.sh
-   ./scripts/security/security-audit.sh
    bats tests/includes/**/*.bats
    ```
 
-5. **Create Pull Requests**
-   - Target `develop` branch
-   - Include clear description
-   - Reference related issues
-   - Wait for CI checks to pass
+3. Debug failing tests
+4. Verify test environment setup
 
-### Deployment Workflow
+#### Quality Gates Fail
 
-1. **Always Deploy to Staging First**
+**Symptoms:** Quality gate stage reports threshold not met
+
+**Solutions:**
+
+1. Check quality score breakdown
+2. Identify specific failing metrics
+3. Run quality calculation locally:
+
    ```bash
-   # Test in staging
-   ./scripts/deployment/deploy-to-staging.sh --dry-run
-   ./scripts/deployment/deploy-to-staging.sh
+   ./scripts/maintenance/calculate-quality-score.sh --verbose
    ```
 
-2. **Monitor Post-Deployment**
-   ```bash
-   # Run health checks
-   ./scripts/monitoring/health-check.sh --environment staging
-   ./scripts/monitoring/performance-check.sh --environment staging
-   ```
+4. Address low-scoring areas (docs, tests, etc.)
 
-3. **Never Skip Backups in Production**
-   - Backups enable quick rollback
-   - Always verify backup integrity
-   - Test restoration process periodically
+#### Deployment Fails
 
-4. **Use Deployment Windows**
-   - Deploy during business hours when possible
-   - Avoid Friday deployments
-   - Schedule maintenance windows for major changes
+**Symptoms:** Deployment stage errors, rollback triggered
 
-5. **Document Deployments**
-   - Update changelog
-   - Note any breaking changes
-   - Document rollback procedure if needed
+**Solutions:**
 
-### Security Practices
+1. Check deployment logs for errors
+2. Verify target environment is accessible
+3. Ensure proper permissions and paths
+4. Test deployment script locally with `--dry-run`
+5. Review rollback logs if automatic rollback occurred
 
-1. **Never Commit Secrets**
-   - Use environment variables
-   - Store secrets in secure locations
-   - Run security scan before commits
+### Debug Mode
 
-2. **Validate All Inputs**
-   ```bash
-   # Example input validation
-   if [[ ! "$input" =~ ^[a-zA-Z0-9_-]+$ ]]; then
-       echo "Invalid input" >&2
-       exit 1
-   fi
-   ```
+Enable verbose output in scripts:
 
-3. **Use Safe File Operations**
-   ```bash
-   # Use mktemp for temporary files
-   temp_file=$(mktemp) || exit 1
-   trap 'rm -f "$temp_file"' EXIT
-   ```
+```bash
+# Deployment
+./scripts/deployment/deploy-to-staging.sh --dry-run
 
-4. **Apply Least Privilege**
-   ```bash
-   # Restrictive permissions
-   chmod 750 script.sh  # Owner: rwx, Group: r-x, Others: none
-   chmod 600 config.conf  # Owner: rw, Group: none, Others: none
-   ```
+# Health check
+./scripts/monitoring/health-check.sh --verbose
 
-5. **Handle Errors Properly**
-   ```bash
-   #!/usr/bin/env bash
-   set -euo pipefail  # Exit on error, undefined vars, pipe failures
-   trap 'echo "Error on line $LINENO" >&2' ERR
-   ```
+# Quality score
+./scripts/maintenance/calculate-quality-score.sh --verbose
 
-### Quality Assurance
+# Security audit
+./scripts/security/security-audit.sh --strict
+```
 
-1. **Maintain High Quality Scores**
-   - Aim for >90% quality score
-   - Document all functions and scripts
-   - Keep code complexity low
+### Getting Help
 
-2. **Write Comprehensive Tests**
-   - Unit tests for all functions
-   - Integration tests for workflows
-   - Performance tests for critical paths
+If issues persist:
 
-3. **Review Code Regularly**
-   - Request peer reviews for PRs
-   - Use automated reviewer workflow
-   - Address feedback promptly
+1. Check [GitHub Discussions](https://github.com/lightspeedwp/.github/discussions)
+2. Review workflow run logs in GitHub Actions
+3. Consult [AGENTS.md](../AGENTS.md) for agent-specific guidance
+4. Open an issue with:
+   - Workflow run URL
+   - Error messages
+   - Steps to reproduce
 
-4. **Keep Dependencies Updated**
-   - Regular updates of test frameworks
-   - Security updates for tools
-   - Document dependency changes
+## Maintenance
 
-5. **Monitor Metrics**
-   - Track quality trends
-   - Monitor deployment success rates
-   - Review performance metrics
+### Regular Maintenance Tasks
 
-## Appendix
+1. **Weekly**
+   - Review quality score trends
+   - Check for new ShellCheck warnings
+   - Update dependencies
 
-### Related Documentation
+2. **Monthly**
+   - Audit security scan results
+   - Review and update documentation
+   - Clean old deployment backups
 
-- [Workflows README](../.github/workflows/README.md)
-- [Deployment Scripts](../scripts/deployment/README.md)
-- [Monitoring Scripts](../scripts/monitoring/README.md)
-- [Security Scripts](../scripts/security/README.md)
-- [Testing Guide](./TESTING.md)
+3. **Quarterly**
+   - Review and update quality thresholds
+   - Evaluate pipeline performance
+   - Update security best practices
 
-### Configuration Files
+## Future Enhancements
 
-- `.github/workflows/modular-scripts-pipeline.yml` - Pipeline workflow
-- `deployment-registry.json` - Deployment tracking
-- `pipeline-quality-report.json` - Quality metrics
+Planned improvements:
 
-### Support Scripts
+- [ ] Automated performance regression detection
+- [ ] Integration with code review tools
+- [ ] Advanced test coverage reporting
+- [ ] Automated changelog generation
+- [ ] Deployment preview environments
+- [ ] Enhanced security scanning (SAST tools)
+- [ ] Performance benchmarking across versions
 
-- `scripts/maintenance/calculate-quality-score.sh` - Quality calculation
-- `scripts/deployment/deploy-to-staging.sh` - Staging deployment
-- `scripts/deployment/deploy-to-production.sh` - Production deployment
-- `scripts/deployment/automated-rollback.sh` - Rollback automation
-- `scripts/monitoring/health-check.sh` - Health monitoring
-- `scripts/monitoring/performance-check.sh` - Performance monitoring
-- `scripts/security/security-audit.sh` - Security scanning
+## References
 
-### External Resources
-
+- [CLAUDE.md](../CLAUDE.md) - Claude agent guidance
+- [AGENTS.md](../AGENTS.md) - Agent best practices
+- [Custom Instructions](.github/custom-instructions.md) - Org-wide standards
+- [ShellCheck Wiki](https://www.shellcheck.net/wiki/)
 - [Bats Testing Framework](https://github.com/bats-core/bats-core)
-- [ShellCheck](https://www.shellcheck.net/)
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 
 ---
 
-**Version**: 1.0.0
 **Last Updated**: 2025-11-18
-**Maintained By**: LightSpeed WP Team
-
-*For questions or issues with the CI/CD pipeline, reference this guide or open an issue with the `area:ci` label.*
+**Version**: 1.0.0
+**Maintainer**: LightSpeed WP Team

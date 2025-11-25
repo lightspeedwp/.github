@@ -1,3 +1,4 @@
+---
 file_type: "agent"
 name: "header-footer"
 title: "Header & Footer Agent"
@@ -7,19 +8,19 @@ last_updated: "2025-10-23"
 owners: ["LightSpeedWP Engineering"]
 tags: ["header", "footer", "automation", "documentation"]
 category: "automation"
-status: "active"
+status: "deprecated"
 references:
-
-- "../../schemas/header.schema.json"
-- "../../schemas/footer.schema.json"
-- "../../scripts/includes/header-content.json"
-- "../../scripts/includes/footer-content.json"
-- "../../scripts/includes/headers.js"
-- "../../scripts/includes/footers.js"
-- "./header-footer.instructions.md"
-- "./header-footer.prompt.md"
-- "../../HEADER-FOOTER.md"
-- "./branding.agent.md"
+  - path: "../../schemas/header.schema.json"
+    description: "Header schema definition"
+  - path: "../../schemas/footer.schema.json"
+    description: "Footer schema definition"
+  - path: "../../scripts/includes/header-content.json"
+    description: "Header content configuration"
+  - path: "../../scripts/includes/footer-content.json"
+    description: "Footer content configuration"
+  - path: "./branding.agent.md"
+    description: "Successor agent - use this instead"
+---
 
 # Header & Footer Agent Specification (Deprecated)
 

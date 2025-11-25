@@ -1,12 +1,24 @@
 ---
+file_type: "documentation"
 title: "LightSpeed Agents Directory"
-version: "v1.0"
-last_updated: "2025-10-24"
+description: "Comprehensive directory of all GitHub automation agents, their workflows, tests, and related resources."
+version: "v1.1"
+created_date: "2025-10-24"
+last_updated: "2025-11-25"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
-description: "Comprehensive directory of all GitHub automation agents, their workflows, tests, and related resources."
+owners: ["lightspeedwp/maintainers"]
+license: "GPL-3.0"
+domain: "governance"
+stability: "stable"
 tags: ["lightspeed", "agents", "automation", "workflows", "github-actions"]
-file_type: "documentation"
+references:
+  - path: ./agent.md
+    description: "Main agent index"
+  - path: ../workflows/README.md
+    description: "Workflows directory"
+  - path: ../instructions/agents.instructions.md
+    description: "Agent development instructions"
 ---
 
 ## 🚀 Quick Start

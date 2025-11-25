@@ -1,15 +1,23 @@
 ---
+file_type: "documentation"
 title: "LightSpeed GitHub Actions Workflows"
-version: "v1.0"
-last_updated: "2025-10-24"
+description: "Central directory of all GitHub Actions workflows powering LightSpeed's automation and governance."
+version: "v1.1"
+created_date: "2025-10-24"
+last_updated: "2025-11-25"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
-description: "Central directory of all GitHub Actions workflows powering LightSpeed's automation and governance."
+owners: ["lightspeedwp/maintainers"]
+license: "GPL-3.0"
+domain: "governance"
+stability: "stable"
 tags: ["lightspeed", "workflows", "github-actions", "automation", "ci-cd"]
-file_type: "documentation"
+references:
+  - path: ../agents/README.md
+    description: "Agents directory"
+  - path: ../instructions/workflows.instructions.md
+    description: "Workflows instructions"
 ---
-
-This directory contains all GitHub Actions workflows that power LightSpeed's repository automation, governance, and continuous integration/deployment processes.
 
 This directory contains all GitHub Actions workflows that power LightSpeed's repository automation, governance, and continuous integration/deployment processes.
 

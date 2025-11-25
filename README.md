@@ -1,10 +1,13 @@
 ---
 title: "LightSpeed Community Health & Automation Repository"
 description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
-version: "2.0"
-last_updated: "2025-10-24"
+version: "2.1"
+created_date: "2025-01-10"
+last_updated: "2025-11-25"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
+authors: ["LightSpeed Team"]
+license: "GPL-3.0"
 tags:
   [
     "community-health",
@@ -15,6 +18,8 @@ tags:
     "ai",
     "copilot",
   ]
+domain: "governance"
+stability: "stable"
 references:
   - path: ".github/custom-instructions.md"
     description: "Custom instructions for AI agents"
@@ -32,7 +37,7 @@ references:
     description: "Contribution guidelines"
   - path: "GOVERNANCE.md"
     description: "Governance policies"
-  - path: "AUTOMATION_GOVERNANCE.md"
+  - path: ".github/AUTOMATION_GOVERNANCE.md"
     description: "Automation governance policies"
 ---
 

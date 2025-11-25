@@ -5,48 +5,60 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - DD-MM-YYYY
-
-<!--
-Guidelines:
-- One entry per change; use simple past tense.
-- Group by sections above.
-- Link issues/PRs where useful.
--->
+## [Unreleased] - 25-11-2025
 
 ### Added
 
-- [placeholder]
+- Comprehensive branding agent (`branding.agent.js`) for unified header, footer, and badge automation
+- Unified labeling agent (`labeling.agent.js`) replacing split status/type/standardization agents
+- Extended README management with support for dynamic header/footer insertion and frontmatter validation
+- Footer schema configuration (`footer.schema.json`) and header schema for consistent branding
+- Enhanced frontmatter validation across all `.md` files in repository
+- Support for multiple footer variants with deterministic selection via seeding
+- Emoji support in README headings for improved visual hierarchy
+- Mermaid diagram preservation in all README updates
+- Batch processing capabilities for efficient multi-file updates
 
 ### Changed
 
-- [placeholder]
+- Updated all README files with emoji-enhanced headings for better visual hierarchy
+- Migrated frontmatter across core documentation to unified `frontmatter.schema.json` standard
+- Reorganized `.github/agents/` structure with shared utilities in `includes/` subdirectory
+- Consolidated badge management under branding agent (deprecated `badges.agent.js`)
+- Unified header/footer handling under branding agent (deprecated `header-footer.agent.js`)
+- Standardized YAML frontmatter metadata across all documentation files
+- Enhanced README file templates with proper frontmatter structure
+- Updated version numbers for all core README files to reflect latest changes
 
 ### Deprecated
 
-- [placeholder]
+- `badges.agent.js` - Use `branding.agent.js` instead for unified badge/header/footer management
+- `header-footer.agent.js` - Use `branding.agent.js` instead for unified automation
 
 ### Documentation
 
-- [placeholder]
+- Added comprehensive branding agent specification in `.github/agents/branding.agent.md`
+- Updated unified labeling agent documentation with latest configuration options
+- Created detailed README templates for nested project directories
+- Enhanced footer-content.json with multiple funky footer variants
+- Documented footer schema validation and implementation
+- Added examples for frontmatter validation across file types
+- Created inline documentation for all agent helper functions
 
 ### Fixed
 
-- [placeholder]
+- Corrected frontmatter schema validation errors in documentation files
+- Fixed missing `created_date` fields in core README files
+- Resolved inconsistent emoji usage across headings
+- Fixed footer text alignment and markdown formatting
+- Corrected references paths in frontmatter to use relative paths consistently
+- Fixed mermaid diagram formatting in README files
 
 ### Performance
 
-- [placeholder]
-
-### Removed
-
-- [placeholder]
-
-### Security
-
-- [placeholder]
-- [placeholder]
-  -->
+- Optimized README file updates with batch multi-replace operations
+- Improved footer selection performance with deterministic seeding
+- Enhanced memory efficiency in branding agent for large file batches
 
 ## [0.1.0] - 2025-09-25
 

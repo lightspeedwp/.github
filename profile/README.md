@@ -1,9 +1,16 @@
 ---
+file_type: "documentation"
 title: "LightSpeed WordPress Development Agency - GitHub Profile"
 description: "Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003"
-version: "2.0"
-last_updated: "2025-10-24"
+version: "2.1"
+created_date: "2025-10-20"
+last_updated: "2025-11-25"
+author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
+owners: ["lightspeedwp/maintainers"]
+license: "GPL-3.0"
+domain: "community"
+stability: "stable"
 tags:
   [
     "wordpress",
@@ -15,23 +22,13 @@ tags:
     "tour-operator",
     "community",
   ]
-ai_references:
-  - "../.github/custom-instructions.md"
-  - "../.github/agents/agent.md"
-  - "../AGENTS.md"
-related_docs:
-  - "../CONTRIBUTING.md"
-  - "../CODE_OF_CONDUCT.md"
-  - "../SUPPORT.md"
-social_links:
-  - name: "Website"
-    url: "https://lightspeedwp.agency"
-  - name: "LSX Design"
-    url: "https://lsx.design"
-  - name: "Twitter"
-    url: "https://twitter.com/lightspeedwp"
-  - name: "LinkedIn"
-    url: "https://www.linkedin.com/company/lightspeed-wp/"
+references:
+  - path: "../.github/custom-instructions.md"
+    description: "AI custom instructions"
+  - path: "../CONTRIBUTING.md"
+    description: "Contribution guidelines"
+  - path: "../SUPPORT.md"
+    description: "Support resources"
 ---
 
 # 🚀 LightSpeed WordPress Development Agency
