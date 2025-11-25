@@ -1,11 +1,17 @@
 ---
+file_type: "documentation"
 title: "Issue Templates Directory"
 description: "Standardized issue templates for the LightSpeedWP organization"
-version: "v1.0"
-last_updated: "2025-10-24"
-maintainer: "LightSpeed Engineering"
+version: "v1.1"
+created_date: "2025-10-20"
+last_updated: "2025-11-25"
+author: "LightSpeed Team"
+maintainer: "Ash Shaw"
+owners: ["lightspeedwp/maintainers"]
+license: "GPL-3.0"
+domain: "governance"
+stability: "stable"
 tags: ["templates", "issues", "governance", "automation"]
-file_type: "templates"
 ---
 
 # 📋 Issue Templates Directory

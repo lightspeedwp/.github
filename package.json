@@ -85,6 +85,8 @@
     "validate:json": "node scripts/json-validation/validate-json.js",
     "validate:json:schemas": "node scripts/json-validation/validate-json.js --glob 'schemas/**/*.schema.json' --strict",
     "validate:json:all": "node scripts/json-validation/validate-json.js --glob '**/*.json' --strict",
+    "validate:agents": "node scripts/validation/validate-agent-frontmatter.js",
+    "validate:all": "npm run validate:agents && npm run validate:json:all",
     "eslint:delta:wave-1": "node scripts/compute-eslint-delta-wave-1.js",
     "sync-version": "node scripts/sync-version.js",
     "metrics:run": "node metrics/frontmatter-metrics.js",

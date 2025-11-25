@@ -1,11 +1,17 @@
 ---
+file_type: "documentation"
 title: "Collections Directory"
 description: "Curated collections of related instructions, prompts, and workflows for specific development contexts"
-version: "v1.0"
-last_updated: "2025-10-24"
-maintainer: "LightSpeed Engineering"
-tags: ["collections", "instructions", "workflows", "organization"]
-file_type: "documentation"
+version: "v1.1"
+created_date: "2025-10-20"
+last_updated: "2025-11-25"
+author: "LightSpeed Team"
+maintainer: "Ash Shaw"
+owners: ["lightspeedwp/maintainers"]
+license: "GPL-3.0"
+domain: "governance"
+stability: "stable"
+tags: ["collections", "instructions", "workflows", "organization", "prompts"]
 ---
 
 # 📚 Collections Directory

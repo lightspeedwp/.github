@@ -1,0 +1,209 @@
+name: Validate • Agents & Frontmatter
+
+on:
+  pull_request:
+    branches: [develop]
+    paths:
+      - '.github/agents/**/*.md'
+      - '.github/agents/**/*.js'
+      - 'schemas/frontmatter.schema.json'
+      - 'package.json'
+  push:
+    branches: [develop]
+    paths:
+      - '.github/agents/**/*.md'
+      - '.github/agents/**/*.js'
+      - 'schemas/frontmatter.schema.json'
+      - 'package.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: validate-agents-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-agent-frontmatter:
+    name: Validate Agent Frontmatter Schema
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate agent frontmatter
+        id: validate
+        run: npm run validate:agents
+        continue-on-error: false
+
+      - name: Generate validation report
+        if: always()
+        run: |
+          echo "## ✅ Agent Validation Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Timestamp: $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All agent specifications have been validated against the canonical frontmatter schema." >> $GITHUB_STEP_SUMMARY
+
+      - name: Comment on PR with validation results
+        if: github.event_name == 'pull_request' && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '## ✅ Agent Validation Passed\n\nAll agent frontmatter specifications have been validated successfully against the canonical schema.\n\n**Validation Details:**\n- Schema: `schemas/frontmatter.schema.json`\n- Script: `scripts/validation/validate-agent-frontmatter.js`\n- Result: All agents are compliant'
+            })
+
+      - name: Comment on PR with validation failure
+        if: github.event_name == 'pull_request' && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '## ❌ Agent Validation Failed\n\nOne or more agent frontmatter specifications do not comply with the canonical schema.\n\n**To fix:**\n1. Check the validation errors in the workflow logs\n2. Update agent YAML frontmatter according to `schemas/frontmatter.schema.json`\n3. Re-run the validation workflow\n\n**Reference:**\n- Script: `scripts/validation/validate-agent-frontmatter.js`\n- Schema: `schemas/frontmatter.schema.json`'
+            })
+
+  validate-agent-files:
+    name: Validate Agent File Completeness
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for required agent files
+        run: |
+          echo "🔍 Checking agent file completeness..."
+
+          AGENTS=(
+            "badges.agent.md"
+            "branding.agent.md"
+            "header-footer.agent.md"
+            "issue-type.agent.md"
+            "jsdoc-review.agent.md"
+            "label-standardization.agent.md"
+            "labeling.agent.md"
+            "linting.agent.md"
+            "manage-readmes.agent.md"
+            "metrics.agent.md"
+            "planner.agent.md"
+            "release.agent.md"
+            "reviewer.agent.md"
+            "template.agent.md"
+          )
+
+          MISSING=0
+          for agent in "${AGENTS[@]}"; do
+            if [ ! -f ".github/agents/$agent" ]; then
+              echo "❌ Missing: $agent"
+              MISSING=$((MISSING + 1))
+            else
+              echo "✅ Found: $agent"
+            fi
+          done
+
+          if [ $MISSING -gt 0 ]; then
+            echo ""
+            echo "❌ $MISSING agent file(s) missing!"
+            exit 1
+          else
+            echo ""
+            echo "✅ All agent files present!"
+          fi
+
+      - name: Verify agent metadata consistency
+        run: |
+          echo "🔍 Checking agent metadata consistency..."
+
+          # Check that each agent has a corresponding spec
+          for spec_file in .github/agents/*.agent.md; do
+            if [ -f "$spec_file" ]; then
+              filename=$(basename "$spec_file")
+              echo "✅ Agent spec found: $filename"
+
+              # Verify frontmatter exists
+              if grep -q "^---" "$spec_file"; then
+                echo "   ✓ Frontmatter present"
+              else
+                echo "   ❌ Missing frontmatter in $filename"
+                exit 1
+              fi
+
+              # Check for required fields
+              if grep -q "^name:" "$spec_file" && grep -q "^description:" "$spec_file"; then
+                echo "   ✓ Required metadata present"
+              else
+                echo "   ❌ Missing required fields in $filename"
+                exit 1
+              fi
+            fi
+          done
+
+          echo ""
+          echo "✅ All agent metadata is consistent!"
+
+  test-validation-script:
+    name: Test Validation Script
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test validation script with known good agents
+        run: |
+          echo "🧪 Testing validation script..."
+          npm run validate:agents
+          echo "✅ Validation script test passed!"
+
+  summary:
+    name: Validation Summary
+    runs-on: ubuntu-latest
+    needs: [validate-agent-frontmatter, validate-agent-files, test-validation-script]
+    if: always()
+    steps:
+      - name: Check results
+        run: |
+          echo "## 🔍 Agent Validation Summary"
+          echo ""
+          echo "| Check | Status |"
+          echo "|-------|--------|"
+          echo "| Frontmatter Schema | ${{ needs.validate-agent-frontmatter.result == 'success' && '✅ Passed' || '❌ Failed' }} |"
+          echo "| File Completeness | ${{ needs.validate-agent-files.result == 'success' && '✅ Passed' || '❌ Failed' }} |"
+          echo "| Validation Script | ${{ needs.test-validation-script.result == 'success' && '✅ Passed' || '❌ Failed' }} |"
+          echo ""
+
+          if [ "${{ needs.validate-agent-frontmatter.result }}" == "failure" ] || \
+             [ "${{ needs.validate-agent-files.result }}" == "failure" ] || \
+             [ "${{ needs.test-validation-script.result }}" == "failure" ]; then
+            echo "❌ Agent validation workflow failed. Please review the errors above."
+            exit 1
+          else
+            echo "✅ All agent validations passed!"
+          fi

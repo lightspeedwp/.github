@@ -1,27 +1,20 @@
 ---
+file_type: "documentation"
+title: "LightSpeedWP Documentation Hub"
 description: "Comprehensive documentation repository for LightSpeedWP containing standards, guides, workflows, and configurations. Central hub for all development ecosystem documentation with cross-linked architecture."
-version: "3.3"
-last_updated: "2025-11-18"
-owners:
-  - LightSpeedWP Team
-references:
-  - ./README_DOCS_ARCHITECTURE.md
-  - ./ARCHITECTURE.md
-  - ./VERSIONING.md
-  - ./CHECKLIST_CROSSLINKING.md
-  - ./YAML.md
-  - ./YAML-Frontmatter.md
-  - ./frontmatter-schema.md
-  - ./WORKFLOWS.md
-  - ./LABEL_STRATEGY.md
-  - ./ISSUE_CREATION_GUIDE.md
-  - ./scripts/README.md
-  - ./tests/README.md
-  - ./DOCS_RESTRUCTURE_PLAN.md
-  - ../CHANGELOG.md
+version: "3.4"
+created_date: "2025-10-15"
+last_updated: "2025-11-25"
+author: "LightSpeed Team"
+maintainer: "Ash Shaw"
+owners: ["lightspeedwp/maintainers"]
+license: "GPL-3.0"
+domain: "governance"
+stability: "stable"
+tags: ["documentation", "standards", "guides", "workflows", "architecture"]
 ---
 
-# LightSpeedWP Documentation Hub
+# 📚 LightSpeedWP Documentation Hub
 
 ![Documentation Badge](https://img.shields.io/badge/docs-comprehensive-brightgreen?style=flat-square)
 ![Standards Badge](https://img.shields.io/badge/standards-unified-blue?style=flat-square)

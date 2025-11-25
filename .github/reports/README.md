@@ -1,25 +1,20 @@
 ---
-title: "LightSpeed Reporting Directory"
-version: "v1.0"
-last_updated: "2025-11-17"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-description: "Central location for generated reports, metrics outputs, and analytics artifacts across LightSpeed repositories."
-tags: ["reporting", "metrics", "analytics", "artifacts", "automation"]
 file_type: "documentation"
-category: "infrastructure"
-references:
-  - path: "../metrics/README.md"
-    description: "Metrics collection configuration and documentation"
-  - path: "../metrics/metrics.config.json"
-    description: "Master configuration for metrics collection"
-  - path: "../agents/metrics.agent.md"
-    description: "Metrics agent specification"
-  - path: "../../docs/BRANDING.md"
-    description: "Branding guidelines and automation"
+title: "LightSpeed Reporting Directory"
+description: "Central location for generated reports, metrics outputs, and analytics artifacts across LightSpeed repositories."
+version: "v1.1"
+created_date: "2025-10-20"
+last_updated: "2025-11-25"
+author: "LightSpeed Team"
+maintainer: "Ash Shaw"
+owners: ["lightspeedwp/maintainers"]
+license: "GPL-3.0"
+domain: "governance"
+stability: "stable"
+tags: ["reporting", "metrics", "analytics", "artifacts", "automation"]
 ---
 
-# LightSpeed Reporting Directory
+# 📊 LightSpeed Reporting Directory
 
 This directory contains generated reports, metrics outputs, and analytics artifacts produced by automated workflows and metrics collection systems across the LightSpeed organization.
 

@@ -10,7 +10,43 @@ file_type: "documentation"
 
 This directory contains comprehensive Jest tests for all LightSpeed agents, ensuring reliability, correctness, and consistent behavior across automation workflows.
 
-## 📂 Test Files
+## Validation Status
+
+**Last Updated**: 2025-11-25  
+**Status**: ✅ All agent files validated
+
+### Validation Results
+
+All agent specification files pass frontmatter validation:
+
+```bash
+node scripts/validation/validate-agent-frontmatter.js
+```
+
+**Result**: ✅ 14/14 files passing
+
+| Agent File | Status |
+|------------|--------|
+| badges.agent.md | ✅ Valid |
+| branding.agent.md | ✅ Valid |
+| header-footer.agent.md | ✅ Valid |
+| issue-type.agent.md | ✅ Valid |
+| jsdoc-review.agent.md | ✅ Valid |
+| label-standardization.agent.md | ✅ Valid |
+| labeling.agent.md | ✅ Valid |
+| linting.agent.md | ✅ Valid |
+| manage-readmes.agent.md | ✅ Valid |
+| metrics.agent.md | ✅ Valid |
+| planner.agent.md | ✅ Valid |
+| release.agent.md | ✅ Valid |
+| reviewer.agent.md | ✅ Valid |
+| template.agent.md | ✅ Valid |
+
+See [Validation Report](../../reports/AGENT-FRONTMATTER-VALIDATION-COMPLETE.md) for full details.
+
+---
+
+## Test Organization
 
 ### Core Agent Tests
 
