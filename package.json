@@ -138,7 +138,7 @@
     "lint-staged": "^15.0.0",
     "markdownlint": "^0.28.1",
     "markdownlint-cli2": "0.19.0",
-    "markdownlint-cli2-formatter-pretty": "^0.0.6",
+    "markdownlint-cli2-formatter-pretty": "^0.0.9",
     "mermaid": "^10.9.0",
     "micromatch": "^4.0.7",
     "node-fetch": "^3.3.2",
