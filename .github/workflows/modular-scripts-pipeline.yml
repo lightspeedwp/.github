@@ -340,7 +340,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Download Analysis Results
-              uses: actions/download-artifact@v4
+              uses: actions/download-artifact@v6
               with:
                   pattern: '*-results*'
                   merge-multiple: true
