@@ -1,3 +1,28 @@
+---
+title: "LightSpeed Global AI Rules"
+description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
+version: "v1.1"
+last_updated: "2025-11-26"
+file_type: "agents-index"
+maintainer: "LightSpeed Team"
+authors: ["LightSpeed Team"]
+license: "GPL-3.0"
+tags: ["agents", "ai", "coding-standards", "governance", "wordpress"]
+domain: "governance"
+stability: "stable"
+references:
+  - path: ".github/agents/agent.md"
+    description: "Main agent implementations index"
+  - path: ".github/custom-instructions.md"
+    description: "Organisation-wide Copilot instructions"
+  - path: ".github/instructions/coding-standards.instructions.md"
+    description: "Coding standards index"
+  - path: ".github/chatmodes/chatmodes.md"
+    description: "Chatmodes index"
+  - path: ".github/prompts/prompts.md"
+    description: "Prompts index"
+---
+
 # LightSpeed – Global AI Rules (AGENTS.md)
 
 - Use UK English; optimise for clarity, scalability, maintainability and profitable outcomes.
@@ -40,14 +65,14 @@
 
 ## Contribution Guidelines & Indexes
 
-| Area                       | File Reference                                                                                                       | Notes / Usage                    |
-| -------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
-| **Coding Standards**       | [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)       | Unified standards for all code   |
-| **Linting Standards**      | [.github/instructions/linting.instructions.md](.github/instructions/linting.instructions.md)                         | Main index for all linting rules |
-| **HTML Templates**         | [.github/instructions/html-template.instructions.md](.github/instructions/html-template.instructions.md)             | Markup standards                 |
-| **Pattern Development**    | [.github/instructions/pattern-development.instructions.md](.github/instructions/pattern-development.instructions.md) | Block patterns for WordPress     |
-| **PHP Block Instructions** | [.github/instructions/php-block.instructions.md](.github/instructions/php-block.instructions.md)                     | PHP block usage                  |
-| **Theme JSON**             | [.github/instructions/theme-json.instructions.md](.github/instructions/theme-json.instructions.md)                   | Theme configuration standards    |
+| Area                       | File Reference                                                                                                                               | Notes / Usage                    |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| **Coding Standards**       | [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)                               | Unified standards for all code   |
+| **Linting Standards**      | [.github/instructions/linting.instructions.md](.github/instructions/linting.instructions.md)                                                 | Main index for all linting rules |
+| **HTML Templates**         | [.github/instructions/block-theme/html-template.instructions.md](.github/instructions/block-theme/html-template.instructions.md)             | Markup standards                 |
+| **Pattern Development**    | [.github/instructions/block-theme/pattern-development.instructions.md](.github/instructions/block-theme/pattern-development.instructions.md) | Block patterns for WordPress     |
+| **PHP Block Instructions** | [.github/instructions/block-theme/php-block.instructions.md](.github/instructions/block-theme/php-block.instructions.md)                     | PHP block usage                  |
+| **Theme JSON**             | [.github/instructions/theme-json.instructions.md](.github/instructions/theme-json.instructions.md)                                           | Theme configuration standards    |
 
 **Other Key Indexes:**
 

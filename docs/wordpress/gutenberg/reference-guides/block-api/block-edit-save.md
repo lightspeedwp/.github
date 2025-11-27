@@ -125,7 +125,7 @@ Why do this? In JavaScript, arrays and objects are passed by reference, so this 
 
 The `setAttribute` also supports an updater function as an argument. It must be a pure function, which takes current attributes as its only argument and returns updated attributes. This method is helpful when you want to update an value based on a previous state or when working with objects and arrays.
 
-***Note:** Since WordPress 6.9.*
+**\*Note:** Since WordPress 6.9.\*
 
 ```js
 // Toggle a setting when the user clicks the button.

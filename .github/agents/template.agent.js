@@ -5,11 +5,11 @@
 
 /**
  * Example implementation function.
- * @param {object} ctx
+ * @param {object} _ctx
  * @returns {{ok: boolean, timestamp: string}}
  */
-function runAgent(ctx = {}) {
-    return { ok: true, timestamp: new Date().toISOString(), ctx }; // minimal payload
+function runAgent(_ctx = {}) {
+  return { ok: true, timestamp: new Date().toISOString(), ctx: _ctx }; // minimal payload
 }
 
 module.exports = { runAgent };

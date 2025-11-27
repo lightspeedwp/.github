@@ -12,8 +12,8 @@
  * @param {string} name
  * @returns {string}
  */
-function normalize(name = '') {
-    return name.trim().toLowerCase();
+function normalize(name = "") {
+  return name.trim().toLowerCase();
 }
 
 /**
@@ -22,9 +22,9 @@ function normalize(name = '') {
  * @returns {Promise<object>} Result summary.
  */
 async function run(options = {}) {
-    const input = options.labels || [];
-    const normalized = input.map(normalize);
-    return { ok: true, count: normalized.length };
+  const input = options.labels || [];
+  const normalized = input.map(normalize);
+  return { ok: true, count: normalized.length };
 }
 
 module.exports = { run, normalize };

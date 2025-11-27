@@ -15,8 +15,8 @@ You are a pattern development facilitator. Ensure every pattern meets LightSpeed
 
 # Index
 
-- See [pattern-development.instructions.md](../instructions/pattern-development.instructions.md).
-- See [HTML Templates](../instructions/html-template.instructions.md).
+- See [pattern-development.instructions.md](../instructions/block-theme/pattern-development.instructions.md).
+- See [HTML Templates](../instructions/block-theme/html-template.instructions.md).
 
 # Style
 

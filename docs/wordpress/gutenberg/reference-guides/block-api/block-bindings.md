@@ -104,7 +104,7 @@ add_action(
 
 #### Block bindings source value filter
 
-***Note:** Since WordPress 6.7.*
+**\*Note:** Since WordPress 6.7.\*
 
 The value returned by `get_value_callback` can be modified with the `block_bindings_source_value` filter.
 The filter has the following parameters:
@@ -142,7 +142,7 @@ There are a few examples in Core that can be used as reference.
 
 ### Editor registration
 
-***Note:** Since WordPress 6.7.*
+**\*Note:** Since WordPress 6.7.\*
 
 Editor registration on the client allows defining what the bound block will do when the value is retrieved or when the value is edited.
 
@@ -236,7 +236,7 @@ There are a few examples in Core that can be used as reference.
 
 ## Unregistering a source
 
-***Note:** Since WordPress 6.7.*
+**\*Note:** Since WordPress 6.7.\*
 
 `unregisterBlockBindingsSource` unregisters a block bindings source by providing its name.
 
@@ -248,7 +248,7 @@ unregisterBlockBindingsSource("plugin/my-custom-source");
 
 ## Getting all sources
 
-***Note:** Since WordPress 6.7.*
+**\*Note:** Since WordPress 6.7.\*
 
 `getBlockBindingsSources` returns all registered block bindings sources.
 
@@ -260,7 +260,7 @@ const registeredSources = getBlockBindingsSources();
 
 ## Getting one specific source
 
-***Note:** Since WordPress 6.7.*
+**\*Note:** Since WordPress 6.7.\*
 
 `getBlockBindingsSource` return a specific block bindings source by its name.
 
@@ -272,7 +272,7 @@ const blockBindingsSource = getBlockBindingsSource("plugin/my-custom-source");
 
 ## Block Bindings Utils
 
-***Note:** Since WordPress 6.7.*
+**\*Note:** Since WordPress 6.7.\*
 
 UseBlockBindingUtils is a hook with two helpers that allows developers to edit the `metadata.bindings` attribute easily.
 

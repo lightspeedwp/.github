@@ -25,22 +25,22 @@ node scripts/validation/validate-agent-frontmatter.js
 
 **Result**: ✅ 14/14 files passing
 
-| Agent File | Status |
-|------------|--------|
-| badges.agent.md | ✅ Valid |
-| branding.agent.md | ✅ Valid |
-| header-footer.agent.md | ✅ Valid |
-| issue-type.agent.md | ✅ Valid |
-| jsdoc-review.agent.md | ✅ Valid |
+| Agent File                     | Status   |
+| ------------------------------ | -------- |
+| badges.agent.md                | ✅ Valid |
+| branding.agent.md              | ✅ Valid |
+| header-footer.agent.md         | ✅ Valid |
+| issue-type.agent.md            | ✅ Valid |
+| jsdoc-review.agent.md          | ✅ Valid |
 | label-standardization.agent.md | ✅ Valid |
-| labeling.agent.md | ✅ Valid |
-| linting.agent.md | ✅ Valid |
-| manage-readmes.agent.md | ✅ Valid |
-| metrics.agent.md | ✅ Valid |
-| planner.agent.md | ✅ Valid |
-| release.agent.md | ✅ Valid |
-| reviewer.agent.md | ✅ Valid |
-| template.agent.md | ✅ Valid |
+| labeling.agent.md              | ✅ Valid |
+| linting.agent.md               | ✅ Valid |
+| manage-readmes.agent.md        | ✅ Valid |
+| metrics.agent.md               | ✅ Valid |
+| planner.agent.md               | ✅ Valid |
+| release.agent.md               | ✅ Valid |
+| reviewer.agent.md              | ✅ Valid |
+| template.agent.md              | ✅ Valid |
 
 See [Validation Report](../../reports/AGENT-FRONTMATTER-VALIDATION-COMPLETE.md) for full details.
 
@@ -50,23 +50,23 @@ See [Validation Report](../../reports/AGENT-FRONTMATTER-VALIDATION-COMPLETE.md) 
 
 ### Core Agent Tests
 
-| File | Agent Tested | Purpose |
-|------|--------------|---------|
-| `template.agent.test.js` | template.agent.js | Tests basic agent structure and initialization |
-| `issue-type.agent.test.js` | issue-type.agent.js | Tests issue type detection and assignment |
-| `label-standardization.agent.test.js` | label-standardization.agent.js | Tests label normalization and migration |
-| `labeling.agent.test.js` | labeling.agent.js | Tests unified labeling workflow |
-| `labeling.agent.integration.test.js` | labeling.agent.js | Integration tests with GitHub API mocks |
-| `reviewer.agent.test.js` | reviewer.agent.js | Tests PR review automation |
-| `planner.agent.test.js` | planner.agent.js | Tests PR checklist generation |
+| File                                  | Agent Tested                   | Purpose                                        |
+| ------------------------------------- | ------------------------------ | ---------------------------------------------- |
+| `template.agent.test.js`              | template.agent.js              | Tests basic agent structure and initialization |
+| `issue-type.agent.test.js`            | issue-type.agent.js            | Tests issue type detection and assignment      |
+| `label-standardization.agent.test.js` | label-standardization.agent.js | Tests label normalization and migration        |
+| `labeling.agent.test.js`              | labeling.agent.js              | Tests unified labeling workflow                |
+| `labeling.agent.integration.test.js`  | labeling.agent.js              | Integration tests with GitHub API mocks        |
+| `reviewer.agent.test.js`              | reviewer.agent.js              | Tests PR review automation                     |
+| `planner.agent.test.js`               | planner.agent.js               | Tests PR checklist generation                  |
 
 ### Specialized Tests
 
-| File | Purpose |
-|------|---------|
-| `agent-performance.test.js` | Performance benchmarks for agents |
-| `agent-workflows.test.js` | Tests agent integration with GitHub workflows |
-| `test-mock-validation.test.js` | Validates test mocks and helpers |
+| File                           | Purpose                                       |
+| ------------------------------ | --------------------------------------------- |
+| `agent-performance.test.js`    | Performance benchmarks for agents             |
+| `agent-workflows.test.js`      | Tests agent integration with GitHub workflows |
+| `test-mock-validation.test.js` | Validates test mocks and helpers              |
 
 ## 🚀 Running Tests
 
@@ -146,15 +146,15 @@ Located in `test-helpers.js` (parent directory):
 
 ```javascript
 import {
-    mockOctokit,
-    mockContext,
-    mockPrPayload,
-    mockIssuePayload,
-    setTestEnv,
-    resetTestEnv,
-    expectCommentPosted,
-    expectDryRun
-} from '../../test-helpers.js';
+  mockOctokit,
+  mockContext,
+  mockPrPayload,
+  mockIssuePayload,
+  setTestEnv,
+  resetTestEnv,
+  expectCommentPosted,
+  expectDryRun,
+} from "../../test-helpers.js";
 ```
 
 ### Mock Functions
@@ -173,9 +173,11 @@ octokit.rest.issues.addLabels.mockResolvedValue({ data: {} });
 Creates a GitHub Actions context object.
 
 ```javascript
-const context = mockContext(mockPrPayload({
-    labels: [{ name: 'type:feature' }]
-}));
+const context = mockContext(
+  mockPrPayload({
+    labels: [{ name: "type:feature" }],
+  }),
+);
 ```
 
 #### `mockPrPayload(overrides)`
@@ -184,8 +186,8 @@ Generates a pull request event payload.
 
 ```javascript
 const payload = mockPrPayload({
-    number: 123,
-    title: 'Test PR'
+  number: 123,
+  title: "Test PR",
 });
 ```
 
@@ -195,8 +197,8 @@ Generates an issue event payload.
 
 ```javascript
 const payload = mockIssuePayload({
-    number: 456,
-    title: 'Test Issue'
+  number: 456,
+  title: "Test Issue",
 });
 ```
 
@@ -205,7 +207,7 @@ const payload = mockIssuePayload({
 Sets environment variables for tests.
 
 ```javascript
-setTestEnv({ GITHUB_TOKEN: 'test-token' });
+setTestEnv({ GITHUB_TOKEN: "test-token" });
 ```
 
 #### `resetTestEnv(keys)`
@@ -213,7 +215,7 @@ setTestEnv({ GITHUB_TOKEN: 'test-token' });
 Clears specific environment variables after tests.
 
 ```javascript
-afterEach(() => resetTestEnv(['GITHUB_TOKEN']));
+afterEach(() => resetTestEnv(["GITHUB_TOKEN"]));
 ```
 
 ## 📝 Writing New Agent Tests
@@ -221,37 +223,37 @@ afterEach(() => resetTestEnv(['GITHUB_TOKEN']));
 ### Test Structure Template
 
 ```javascript
-const { mockOctokit, mockContext } = require('../../test-helpers');
-const { run } = require('../your-agent.js');
+const { mockOctokit, mockContext } = require("../../test-helpers");
+const { run } = require("../your-agent.js");
 
-describe('Your Agent', () => {
-    beforeAll(() => {
-        // Setup before all tests
-    });
-    
-    afterAll(() => {
-        // Cleanup after all tests
-    });
-    
-    beforeEach(() => {
-        // Setup before each test
-    });
-    
-    afterEach(() => {
-        // Cleanup after each test
-    });
-    
-    test('should perform expected action', async () => {
-        // Arrange
-        const octokit = mockOctokit();
-        const context = mockContext(mockPrPayload());
-        
-        // Act
-        await run(context);
-        
-        // Assert
-        expect(octokit.rest.issues.addLabels).toHaveBeenCalled();
-    });
+describe("Your Agent", () => {
+  beforeAll(() => {
+    // Setup before all tests
+  });
+
+  afterAll(() => {
+    // Cleanup after all tests
+  });
+
+  beforeEach(() => {
+    // Setup before each test
+  });
+
+  afterEach(() => {
+    // Cleanup after each test
+  });
+
+  test("should perform expected action", async () => {
+    // Arrange
+    const octokit = mockOctokit();
+    const context = mockContext(mockPrPayload());
+
+    // Act
+    await run(context);
+
+    // Assert
+    expect(octokit.rest.issues.addLabels).toHaveBeenCalled();
+  });
 });
 ```
 
@@ -261,10 +263,10 @@ describe('Your Agent', () => {
 
    ```javascript
    // ✅ Good
-   test('should add default status label when missing', async () => {});
-   
+   test("should add default status label when missing", async () => {});
+
    // ❌ Avoid
-   test('tests status labels', async () => {});
+   test("tests status labels", async () => {});
    ```
 
 2. **Arrange-Act-Assert Pattern**: Organize test logic clearly
@@ -272,12 +274,12 @@ describe('Your Agent', () => {
    ```javascript
    // Arrange - set up test data
    const input = { labels: [] };
-   
+
    // Act - perform the action
    const result = await runAgent(input);
-   
+
    // Assert - verify the result
-   expect(result.labels).toContain('status:needs-review');
+   expect(result.labels).toContain("status:needs-review");
    ```
 
 3. **Mock External Dependencies**: Don't make real API calls
@@ -285,7 +287,7 @@ describe('Your Agent', () => {
    ```javascript
    // ✅ Good
    const octokit = mockOctokit();
-   
+
    // ❌ Avoid
    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
    ```
@@ -293,8 +295,12 @@ describe('Your Agent', () => {
 4. **Test Both Success and Failure Paths**
 
    ```javascript
-   test('should handle successful case', async () => { /* ... */ });
-   test('should throw error when input invalid', async () => { /* ... */ });
+   test("should handle successful case", async () => {
+     /* ... */
+   });
+   test("should throw error when input invalid", async () => {
+     /* ... */
+   });
    ```
 
 5. **Use Meaningful Assertions**
@@ -302,8 +308,8 @@ describe('Your Agent', () => {
    ```javascript
    // ✅ Good
    expect(result.labels).toHaveLength(1);
-   expect(result.labels[0]).toBe('status:needs-review');
-   
+   expect(result.labels[0]).toBe("status:needs-review");
+
    // ❌ Avoid
    expect(result.labels.length).toBe(1);
    ```
@@ -319,10 +325,10 @@ node --inspect-brk ./node_modules/.bin/jest .github/agents/__tests__/ --runInBan
 ### Log Output During Tests
 
 ```javascript
-test('debug test', async () => {
-    const result = await runAgent(input);
-    console.log('DEBUG:', JSON.stringify(result, null, 2));
-    expect(result).toBeDefined();
+test("debug test", async () => {
+  const result = await runAgent(input);
+  console.log("DEBUG:", JSON.stringify(result, null, 2));
+  expect(result).toBeDefined();
 });
 ```
 

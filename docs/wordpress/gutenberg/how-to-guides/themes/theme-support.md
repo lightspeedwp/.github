@@ -311,7 +311,7 @@ When set, users will be restricted to the default gradients provided in the bloc
 
 ### Disabling base layout styles
 
-***Note:** Since WordPress 6.1.*
+**\*Note:** Since WordPress 6.1.\*
 
 Themes can opt out of generated block layout styles that provide default structural styles for core blocks including Group, Columns, Buttons, and Social Icons. By using the following code, these themes commit to providing their own structural styling, as using this feature will result in core blocks displaying incorrectly in both the editor and site frontend:
 

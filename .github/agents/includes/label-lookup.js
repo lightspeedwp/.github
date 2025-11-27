@@ -3,18 +3,18 @@
  * @module label-lookup
  */
 
-import fs from 'fs';
-import yaml from 'js-yaml';
+import fs from "fs";
+import yaml from "js-yaml";
 
 /**
  * Loads and parses canonical labels from a YAML file.
  * @param {string} [labelsYmlPath='.github/labels.yml'] - Path to labels YAML.
  * @returns {Set<string>} Set of canonical label names.
  */
-function fetchCanonicalLabels(labelsYmlPath = '.github/labels.yml') {
-    const yml = fs.readFileSync(labelsYmlPath, 'utf8');
-    const labelsData = yaml.load(yml);
-    return new Set(labelsData.map((l) => (typeof l === 'string' ? l : l.name)));
+function fetchCanonicalLabels(labelsYmlPath = ".github/labels.yml") {
+  const yml = fs.readFileSync(labelsYmlPath, "utf8");
+  const labelsData = yaml.load(yml);
+  return new Set(labelsData.map((l) => (typeof l === "string" ? l : l.name)));
 }
 
 /**
@@ -23,20 +23,16 @@ function fetchCanonicalLabels(labelsYmlPath = '.github/labels.yml') {
  * @returns {Object} aliasMap - Maps alias string to canonical label.
  */
 function buildLabelAliasMap(labelsData) {
-    const aliasMap = {};
-    if (!labelsData) return aliasMap;
-    labelsData.forEach((label) => {
-        if (
-            label &&
-            typeof label === 'object' &&
-            Array.isArray(label.aliases)
-        ) {
-            label.aliases.forEach((alias) => {
-                aliasMap[alias] = label.name;
-            });
-        }
-    });
-    return aliasMap;
+  const aliasMap = {};
+  if (!labelsData) return aliasMap;
+  labelsData.forEach((label) => {
+    if (label && typeof label === "object" && Array.isArray(label.aliases)) {
+      label.aliases.forEach((alias) => {
+        aliasMap[alias] = label.name;
+      });
+    }
+  });
+  return aliasMap;
 }
 
 /**
@@ -47,13 +43,9 @@ function buildLabelAliasMap(labelsData) {
  * @returns {string|null} Canonical label name or null if not found.
  */
 function findStandardLabel(label, aliasMap, canonicalSet) {
-    if (canonicalSet.has(label)) return label;
-    if (aliasMap && aliasMap[label]) return aliasMap[label];
-    return null;
+  if (canonicalSet.has(label)) return label;
+  if (aliasMap && aliasMap[label]) return aliasMap[label];
+  return null;
 }
 
-export {
-    fetchCanonicalLabels,
-    buildLabelAliasMap,
-    findStandardLabel,
-};
+export { fetchCanonicalLabels, buildLabelAliasMap, findStandardLabel };

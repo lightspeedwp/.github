@@ -58,7 +58,7 @@ name: "Workflow Name"
 on:
   push:
     branches: [develop]
-    paths: ['path/**']
+    paths: ["path/**"]
   pull_request:
     branches: [develop]
   workflow_dispatch:
@@ -74,18 +74,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      
+          node-version: "20"
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run job
         run: npm run script:name
-      
+
       - name: Report results
         if: always()
         run: |
@@ -101,10 +101,10 @@ Always use minimal permissions required:
 
 ```yaml
 permissions:
-  contents: read          # Default for most workflows
-  pull-requests: write    # If commenting on PRs
-  issues: write          # If updating issues
-  discussions: write     # If using discussions
+  contents: read # Default for most workflows
+  pull-requests: write # If commenting on PRs
+  issues: write # If updating issues
+  discussions: write # If using discussions
 ```
 
 ### Caching
@@ -207,7 +207,7 @@ on:
       node-version:
         required: false
         type: string
-        default: '20'
+        default: "20"
 
 jobs:
   lint:
@@ -224,7 +224,7 @@ jobs:
   lint:
     uses: ./.github/workflows/shared-lint.yml
     with:
-      node-version: '20'
+      node-version: "20"
 ```
 
 ## Debugging Workflows
@@ -273,7 +273,7 @@ Workflows are organized by purpose:
 ```
 .github/workflows/
 ├── ci/                      # Continuous integration
-├── cd/                      # Continuous deployment  
+├── cd/                      # Continuous deployment
 ├── automation/             # Automation workflows
 ├── testing/                # Test runners
 └── maintenance/            # Maintenance tasks
@@ -281,13 +281,13 @@ Workflows are organized by purpose:
 
 ## Common Workflows
 
-| Workflow | Purpose | Trigger |
-|---|---|---|
-| `lint.yml` | Code quality checks | Push, PR |
-| `test.yml` | Run tests | Push, PR |
-| `labeling.yml` | Auto-label PRs/issues | Issue, PR events |
-| `release.yml` | Release automation | Tag creation |
-| `project-sync.yml` | Project synchronization | Issue/PR events |
+| Workflow           | Purpose                 | Trigger          |
+| ------------------ | ----------------------- | ---------------- |
+| `lint.yml`         | Code quality checks     | Push, PR         |
+| `test.yml`         | Run tests               | Push, PR         |
+| `labeling.yml`     | Auto-label PRs/issues   | Issue, PR events |
+| `release.yml`      | Release automation      | Tag creation     |
+| `project-sync.yml` | Project synchronization | Issue/PR events  |
 
 ## Validation
 

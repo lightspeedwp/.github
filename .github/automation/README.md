@@ -58,15 +58,15 @@ graph TD
     B --> C[Labeling Agent]
     B --> D[Issue Type Agent]
     B --> E[Project Sync Agent]
-    
+
     C --> F["Update labels.yml"]
     D --> G["Reference issue-types.yml"]
     E --> H["Sync with Projects"]
-    
+
     F --> I["Apply to Issues/PRs"]
     G --> I
     H --> J["Update Project Fields"]
-    
+
     style A fill:#e1f5fe
     style C fill:#f3e5f5
     style F fill:#e8f5e8

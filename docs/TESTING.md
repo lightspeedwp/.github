@@ -207,7 +207,7 @@ See `.github/workflows/` for workflow definitions.
 ## 10. Reference
 
 - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-- [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/pattern-development.instructions.md)
+- [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/block-theme/pattern-development.instructions.md)
 - [Playwright Docs](https://playwright.dev/)
 - [Jest Docs](https://jestjs.io/docs/getting-started)
 - [Bats Docs](https://bats-core.readthedocs.io/en/stable/)

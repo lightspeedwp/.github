@@ -13,12 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v5
-    - name: Shellcheck
-      uses: ludeeus/action-shellcheck@master
-
-	- name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v5
-      with:
-      	token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Shellcheck
+        uses: ludeeus/action-shellcheck@master
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

@@ -415,9 +415,9 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 ### Coding & Contribution Guidelines
 
 - [Coding Standards](./.github/instructions/coding-standards.instructions.md)
-- [HTML Templates](./.github/instructions/html-template.instructions.md)
-- [Pattern Development](./.github/instructions/pattern-development.instructions.md)
-- [PHP Block Instructions](./.github/instructions/php-block.instructions.md)
+- [HTML Templates](./.github/instructions/block-theme/html-template.instructions.md)
+- [Pattern Development](./.github/instructions/block-theme/pattern-development.instructions.md)
+- [PHP Block Instructions](./.github/instructions/block-theme/php-block.instructions.md)
 - [Theme JSON](./.github/instructions/theme-json.instructions.md)
 
 ---

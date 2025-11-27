@@ -14,18 +14,18 @@ This folder contains comprehensive linting and formatting instructions for each 
 
 ## Language-Specific Instructions
 
-| Language/Format | File | Tools | Coverage |
-|---|---|---|---|
-| **JavaScript/TypeScript** | `linting-javascript.instructions.md` | ESLint, Prettier | `.js, .jsx, .ts, .tsx` |
-| **CSS/SCSS/Sass** | `linting-css.instructions.md` | Stylelint, Prettier | `.css, .scss, .sass` |
-| **HTML** | `linting-html.instructions.md` | html-validate, Prettier | `.html, .htm` |
-| **JSON** | `linting-json.instructions.md` | Prettier, AJV | `.json` |
-| **Markdown** | `linting-markdown.instructions.md` | markdownlint, Prettier | `.md` |
-| **YAML** | `linting-yaml.instructions.md` | yamllint, Spectral | `.yml, .yaml` |
-| **PHP** | `linting-php.instructions.md` | PHPCS, WordPress standards | `.php` |
-| **Python** | `linting-python.instructions.md` | Black, Ruff, mypy | `.py` |
-| **Shell** | `linting-shell.instructions.md` | ShellCheck, strict mode | `.sh, .bash` |
-| **Tests** | `linting-tests.instructions.md` | Jest, Playwright, Bats, pytest | Multi-language test linting |
+| Language/Format           | File                                 | Tools                          | Coverage                    |
+| ------------------------- | ------------------------------------ | ------------------------------ | --------------------------- |
+| **JavaScript/TypeScript** | `linting-javascript.instructions.md` | ESLint, Prettier               | `.js, .jsx, .ts, .tsx`      |
+| **CSS/SCSS/Sass**         | `linting-css.instructions.md`        | Stylelint, Prettier            | `.css, .scss, .sass`        |
+| **HTML**                  | `linting-html.instructions.md`       | html-validate, Prettier        | `.html, .htm`               |
+| **JSON**                  | `linting-json.instructions.md`       | Prettier, AJV                  | `.json`                     |
+| **Markdown**              | `linting-markdown.instructions.md`   | markdownlint, Prettier         | `.md`                       |
+| **YAML**                  | `linting-yaml.instructions.md`       | yamllint, Spectral             | `.yml, .yaml`               |
+| **PHP**                   | `linting-php.instructions.md`        | PHPCS, WordPress standards     | `.php`                      |
+| **Python**                | `linting-python.instructions.md`     | Black, Ruff, mypy              | `.py`                       |
+| **Shell**                 | `linting-shell.instructions.md`      | ShellCheck, strict mode        | `.sh, .bash`                |
+| **Tests**                 | `linting-tests.instructions.md`      | Jest, Playwright, Bats, pytest | Multi-language test linting |
 
 ## File Structure
 
@@ -67,16 +67,16 @@ npm run lint:all
 
 Core configuration files for all linters:
 
-| Config File | Purpose | Languages |
-|---|---|---|
+| Config File                           | Purpose                       | Languages        |
+| ------------------------------------- | ----------------------------- | ---------------- |
 | `.eslintrc.json` / `eslint.config.js` | JavaScript/TypeScript linting | JS, TS, JSX, TSX |
-| `.stylelintrc.json` | CSS/SCSS/Sass linting | CSS, SCSS, Sass |
-| `.markdownlint.json` | Markdown linting | Markdown |
-| `.htmlvalidate.json` | HTML validation | HTML |
-| `.yamllint` | YAML linting | YAML |
-| `phpcs.xml.dist` | PHP code sniffer | PHP |
-| `pyproject.toml` | Python Black/Ruff config | Python |
-| `.shellcheckrc` | Shell script linting | Shell/Bash |
+| `.stylelintrc.json`                   | CSS/SCSS/Sass linting         | CSS, SCSS, Sass  |
+| `.markdownlint.json`                  | Markdown linting              | Markdown         |
+| `.htmlvalidate.json`                  | HTML validation               | HTML             |
+| `.yamllint`                           | YAML linting                  | YAML             |
+| `phpcs.xml.dist`                      | PHP code sniffer              | PHP              |
+| `pyproject.toml`                      | Python Black/Ruff config      | Python           |
+| `.shellcheckrc`                       | Shell script linting          | Shell/Bash       |
 
 ## Standards Compliance
 

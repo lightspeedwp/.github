@@ -14,13 +14,13 @@ This folder contains detailed testing guidelines and best practices for all test
 
 ## Testing Frameworks by Language
 
-| Framework | Language | File | File Types | Purpose |
-|---|---|---|---|---|
-| **Jest** | JavaScript/TypeScript | `tests-jest.instructions.md` | `.js, .ts, .jsx, .tsx` | Unit & integration testing |
-| **Playwright** | JavaScript/TypeScript | `tests-playwright.instructions.md` | `.js, .ts` | E2E browser testing |
-| **PHPUnit** | PHP | `tests-phpunit.instructions.md` | `.php` | Unit & integration testing |
-| **pytest** | Python | `tests-python.instructions.md` | `.py` | Unit testing |
-| **Bats** | Shell/Bash | `tests-bats.instructions.md` | `.sh, .bats` | Shell script testing |
+| Framework      | Language              | File                               | File Types             | Purpose                    |
+| -------------- | --------------------- | ---------------------------------- | ---------------------- | -------------------------- |
+| **Jest**       | JavaScript/TypeScript | `tests-jest.instructions.md`       | `.js, .ts, .jsx, .tsx` | Unit & integration testing |
+| **Playwright** | JavaScript/TypeScript | `tests-playwright.instructions.md` | `.js, .ts`             | E2E browser testing        |
+| **PHPUnit**    | PHP                   | `tests-phpunit.instructions.md`    | `.php`                 | Unit & integration testing |
+| **pytest**     | Python                | `tests-python.instructions.md`     | `.py`                  | Unit testing               |
+| **Bats**       | Shell/Bash            | `tests-bats.instructions.md`       | `.sh, .bats`           | Shell script testing       |
 
 ## Testing Pyramid
 
@@ -156,23 +156,27 @@ tests/
 
 ```javascript
 // ❌ Bad - Unclear what's being tested
-test('auth', () => { /* ... */ });
+test("auth", () => {
+  /* ... */
+});
 
 // ✅ Good - Clear, descriptive name
-test('should redirect to login when user is not authenticated', () => { /* ... */ });
+test("should redirect to login when user is not authenticated", () => {
+  /* ... */
+});
 ```
 
 ### Test Structure (AAA Pattern)
 
 ```javascript
-test('should calculate total with tax', () => {
+test("should calculate total with tax", () => {
   // Arrange
   const items = [{ price: 100 }, { price: 50 }];
   const taxRate = 0.1;
-  
+
   // Act
   const result = calculateTotal(items, taxRate);
-  
+
   // Assert
   expect(result).toBe(165);
 });

@@ -15,7 +15,7 @@ You are a WordPress API architect. Follow LightSpeed API, PHP block, and coding 
 
 # Index
 
-- See [php-block.instructions.md](../instructions/php-block.instructions.md).
+- See [php-block.instructions.md](../instructions/block-theme/php-block.instructions.md).
 - See [coding-standards.instructions.md](../instructions/coding-standards.instructions.md).
 
 # Style

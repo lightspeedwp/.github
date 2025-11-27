@@ -60,17 +60,17 @@ tsconfig.js                 # JavaScript format
 
 ## Key Compiler Options
 
-| Option | Purpose | Value |
-|--------|---------|-------|
-| `target` | JavaScript version | `ES2020`, `ES2022`, etc. |
-| `module` | Module system | `ESNext`, `CommonJS`, `ES6` |
-| `lib` | Type definitions | `ES2020`, `DOM`, `DOM.Iterable` |
-| `strict` | Enable strict mode | `true` |
-| `moduleResolution` | How to resolve modules | `node`, `bundler` |
-| `declaration` | Generate `.d.ts` files | `true` |
-| `sourceMap` | Generate source maps | `true` |
-| `outDir` | Output directory | `./dist` |
-| `rootDir` | Root source directory | `./src` |
+| Option             | Purpose                | Value                           |
+| ------------------ | ---------------------- | ------------------------------- |
+| `target`           | JavaScript version     | `ES2020`, `ES2022`, etc.        |
+| `module`           | Module system          | `ESNext`, `CommonJS`, `ES6`     |
+| `lib`              | Type definitions       | `ES2020`, `DOM`, `DOM.Iterable` |
+| `strict`           | Enable strict mode     | `true`                          |
+| `moduleResolution` | How to resolve modules | `node`, `bundler`               |
+| `declaration`      | Generate `.d.ts` files | `true`                          |
+| `sourceMap`        | Generate source maps   | `true`                          |
+| `outDir`           | Output directory       | `./dist`                        |
+| `rootDir`          | Root source directory  | `./src`                         |
 
 ## Strict Mode Options
 
@@ -107,10 +107,7 @@ For monorepos:
     "declarationMap": true,
     "tsBuildInfoFile": "./.tsbuildinfo"
   },
-  "references": [
-    { "path": "./packages/utils" },
-    { "path": "./packages/core" }
-  ]
+  "references": [{ "path": "./packages/utils" }, { "path": "./packages/core" }]
 }
 ```
 

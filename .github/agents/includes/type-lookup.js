@@ -14,33 +14,22 @@ const yaml = require("js-yaml");
 function loadIssueTypes(issueTypesYmlPath = ".github/issue-types.yml") {
   const yml = fs.readFileSync(issueTypesYmlPath, "utf8");
   return yaml.load(yml).issue_types || [];
-  const yml = fs.readFileSync(issueTypesYmlPath, "utf8");
-  return yaml.load(yml).issue_types || [];
 }
 
 /**
- * Builds a mapping of issue type aliases to their canonical type.
- * @param {Array<Object>} types - Array of issue type definitions.
- * @returns {Object} aliasMap - Maps alias string to canonical type label.
+ * Build type alias map from types config.
+ * @param {Array<object>} types
+ * @returns {Object}
  */
-function buildTypeAliasMap(types) {
+function _buildTypeAliasMap(types) {
   const aliasMap = {};
-  types.forEach((type) => {
-    // The canonical label is the primary identifier
-    const canonicalLabel = type.label;
-
-    // Map the type name (lowercase) as an alias
-    if (type.name) {
-      aliasMap[type.name.toLowerCase()] = canonicalLabel;
+  for (const type of types) {
+    if (type.aliases) {
+      for (const alias of type.aliases) {
+        aliasMap[alias.toLowerCase()] = type.label || type.name;
+      }
     }
-
-    // Map any additional aliases if they exist
-    if (Array.isArray(type.aliases)) {
-      type.aliases.forEach((alias) => {
-        aliasMap[alias.toLowerCase()] = canonicalLabel;
-      });
-    }
-  });
+  }
   return aliasMap;
 }
 

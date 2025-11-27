@@ -8,20 +8,20 @@
  * Aligns with Bats tests: test-manage-issue-types.bats
  */
 
-const issueTypeAgent = require('../issue-type.agent.js');
+const issueTypeAgent = require("../issue-type.agent.js");
 
-describe('Issue Type Assignment Agent', () => {
-    it('should initialize without error', () => {
-        // TODO: Implement agent initialization test
-        expect(issueTypeAgent).toBeDefined();
-    });
+describe("Issue Type Assignment Agent", () => {
+  it("should initialize without error", () => {
+    // TODO: Implement agent initialization test
+    expect(issueTypeAgent).toBeDefined();
+  });
 
-    it('should determine issue type from content', () => {
-        // TODO: Implement content analysis logic test
-        // Example: Simulate issue creation and check type assignment
-    });
+  it("should determine issue type from content", () => {
+    // TODO: Implement content analysis logic test
+    // Example: Simulate issue creation and check type assignment
+  });
 
-    it('should update issue type in project', () => {
-        // TODO: Test project field update logic
-    });
+  it("should update issue type in project", () => {
+    // TODO: Test project field update logic
+  });
 });

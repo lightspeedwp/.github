@@ -26,27 +26,6 @@ function mockOctokit(overrides = {}) {
       ...overrides.rest,
     },
   };
-  return {
-    rest: {
-      issues: {
-        addLabels: jest.fn(),
-        createComment: jest.fn(),
-        listLabelsOnIssue: jest.fn(),
-        removeLabel: jest.fn(),
-        ...((overrides.rest || {}).issues || {}),
-      },
-      pulls: {
-        listFiles: jest.fn(),
-        ...((overrides.rest || {}).pulls || {}),
-      },
-      repos: {
-        getContent: jest.fn(),
-        getCombinedStatusForRef: jest.fn(),
-        ...((overrides.rest || {}).repos || {}),
-      },
-      ...overrides.rest,
-    },
-  };
 }
 
 function mockContext(overrides = {}) {
@@ -70,15 +49,9 @@ function setTestEnv(envVars) {
   Object.entries(envVars).forEach(([key, value]) => {
     process.env[key] = value;
   });
-  Object.entries(envVars).forEach(([key, value]) => {
-    process.env[key] = value;
-  });
 }
 
 function resetTestEnv(keys) {
-  keys.forEach((key) => {
-    delete process.env[key];
-  });
   keys.forEach((key) => {
     delete process.env[key];
   });
@@ -130,13 +103,6 @@ function mockIssuePayload(overrides = {}) {
 }
 
 function mockChangedFiles(filenames = []) {
-  return filenames.map((filename) => ({
-    filename,
-    status: "modified",
-    additions: 10,
-    deletions: 2,
-    changes: 12,
-  }));
   return filenames.map((filename) => ({
     filename,
     status: "modified",

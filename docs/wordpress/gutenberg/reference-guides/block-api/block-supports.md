@@ -120,7 +120,7 @@ supports: {
 
 ## background
 
-***Note:** Since WordPress 6.5.*
+**\*Note:** Since WordPress 6.5.\*
 
 - Type: `Object`
 - Default value: `null`
@@ -288,7 +288,7 @@ When the block declares support for `color.background`, the attributes definitio
 
 ### color.button
 
-***Note:** Since WordPress 6.5.*
+**\*Note:** Since WordPress 6.5.\*
 
 This property adds block controls which allow the user to set button colors (text, background) in a block. Button colors are disabled by default.
 
@@ -332,7 +332,7 @@ When the block declares support for `color.button`, the attributes definition is
 
 ### color.enableContrastChecker
 
-***Note:** Since WordPress 6.5.*
+**\*Note:** Since WordPress 6.5.\*
 
 Determines whether the contrast checker widget displays in the block editor UI.
 
@@ -348,7 +348,7 @@ supports: {
 
 ### color.\_\_experimentalDuotone
 
-***Note:** Deprecated since WordPress 6.3.*
+**\*Note:** Deprecated since WordPress 6.3.\*
 
 This property has been replaced by [`filter.duotone`](#filterduotone).
 
@@ -407,7 +407,7 @@ When the block declares support for `color.gradient`, the attributes definition 
 
 ### color.heading
 
-***Note:** Since WordPress 6.5.*
+**\*Note:** Since WordPress 6.5.\*
 
 This property adds block controls which allow the user to set heading colors in a block. Heading colors are disabled by default.
 
@@ -573,7 +573,7 @@ supports: {
 
 ## dimensions
 
-***Note:** Since WordPress 6.2.*
+**\*Note:** Since WordPress 6.2.\*
 
 - Type: `Object`
 - Default value: null
@@ -814,7 +814,7 @@ supports: {
 
 ## position
 
-***Note:** Since WordPress 6.2.*
+**\*Note:** Since WordPress 6.2.\*
 
 - Type: `Object`
 - Default value: null
@@ -850,7 +850,7 @@ attributes: {
 
 ## renaming
 
-***Note:** Since WordPress 6.5.*
+**\*Note:** Since WordPress 6.5.\*
 
 - Type: `boolean`
 - Default value: `true`
@@ -880,7 +880,7 @@ supports: {
 
 ## shadow
 
-***Note:** Since WordPress 6.5.*
+**\*Note:** Since WordPress 6.5.\*
 
 - Type: `boolean`
 - Default value: `false`
@@ -1069,7 +1069,7 @@ attributes: {
 
 ### typography.textAlign
 
-***Note:** Since WordPress 6.6.*
+**\*Note:** Since WordPress 6.6.\*
 
 - Type: `boolean` or `array`
 - Default value: `false`

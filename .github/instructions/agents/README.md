@@ -14,19 +14,19 @@ This folder contains detailed instructions for each automation agent used across
 
 ## Agent Instructions Files
 
-| Agent | File | Purpose |
-|-------|------|---------|
-| **Labeling** | `labeling.instructions.md` | Automated label application, enforcement, and standardization |
-| **Reviewer** | `reviewer.instructions.md` | Automated PR review summaries and CI status checks |
-| **Planner** | `planner.instructions.md` | PR merge readiness checklists and exit criteria |
-| **Release** | `release.instructions.md` | Release validation, versioning, tagging, and publication |
-| **Project Meta Sync** | `project-meta-sync.instructions.md` | GitHub Project board field synchronization |
-| **Linting** | `linting.instructions.md` | Code quality enforcement and linting standards |
-| **JSDoc Review** | `jsdoc-review.instructions.md` | JavaScript/TypeScript documentation auditing |
-| **Manage READMEs** | `manage-readmes.instructions.md` | README creation and maintenance automation |
-| **Metrics** | `metrics.instructions.md` | Repository health metrics collection and reporting |
-| **Branding** | `badges.instructions.md` | Badge, header, and footer management |
-| **Header/Footer** | `header-footer.instructions.md` | Documentation header and footer automation |
+| Agent                 | File                                | Purpose                                                       |
+| --------------------- | ----------------------------------- | ------------------------------------------------------------- |
+| **Labeling**          | `labeling.instructions.md`          | Automated label application, enforcement, and standardization |
+| **Reviewer**          | `reviewer.instructions.md`          | Automated PR review summaries and CI status checks            |
+| **Planner**           | `planner.instructions.md`           | PR merge readiness checklists and exit criteria               |
+| **Release**           | `release.instructions.md`           | Release validation, versioning, tagging, and publication      |
+| **Project Meta Sync** | `project-meta-sync.instructions.md` | GitHub Project board field synchronization                    |
+| **Linting**           | `linting.instructions.md`           | Code quality enforcement and linting standards                |
+| **JSDoc Review**      | `jsdoc-review.instructions.md`      | JavaScript/TypeScript documentation auditing                  |
+| **Manage READMEs**    | `manage-readmes.instructions.md`    | README creation and maintenance automation                    |
+| **Metrics**           | `metrics.instructions.md`           | Repository health metrics collection and reporting            |
+| **Branding**          | `badges.instructions.md`            | Badge, header, and footer management                          |
+| **Header/Footer**     | `header-footer.instructions.md`     | Documentation header and footer automation                    |
 
 ## Structure
 

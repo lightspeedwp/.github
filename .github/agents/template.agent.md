@@ -93,13 +93,13 @@ Create tests in `.github/agents/__tests__/`:
 
 ```javascript
 // your-agent.agent.test.js
-const { runAgent } = require('../your-agent.agent.js');
+const { runAgent } = require("../your-agent.agent.js");
 
-describe('Your Agent', () => {
-  it('should initialize without error', () => {
+describe("Your Agent", () => {
+  it("should initialize without error", () => {
     expect(runAgent).toBeDefined();
   });
-  
+
   // Add more tests...
 });
 ```

@@ -184,7 +184,7 @@ You are a Claude agent (Sonnet/Opus family) at LightSpeed.
 - [LightSpeed Custom Instructions](./.github/custom-instructions.md)
 - [AGENTS.md](./AGENTS.md)
 - [Coding Standards](./.github/instructions/coding-standards.instructions.md)
-- [Pattern Development](./.github/instructions/pattern-development.instructions.md)
+- [Pattern Development](./.github/instructions/block-theme/pattern-development.instructions.md)
 - [Prompts Index](./.github/prompts/prompts.md)
 - [Pull Request Template](./.github/PULL_REQUEST_TEMPLATE.md)
 

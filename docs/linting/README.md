@@ -60,17 +60,17 @@ npm run format:md     # Format Markdown files
 
 ## Linting by Language
 
-| Language | Linter | Config | Status | Notes |
-|---|---|---|---|---|
-| JavaScript | ESLint | `.eslintrc.json` or `eslint.config.js` | ✅ Active | Supports JS, TS, JSX, TSX |
-| CSS/SCSS | Stylelint | `.stylelintrc.json` | ✅ Active | WordPress CSS standards |
-| Markdown | markdownlint | `.markdownlint.json` | ✅ Active | Documentation consistency |
-| YAML | yamllint | `.yamllint` | ✅ Active | GitHub workflows, config files |
-| JSON | Prettier | `prettier.config.js` | ✅ Active | Schema validation via AJV |
-| HTML | html-validate | `.htmlvalidate.json` | ✅ Active | Accessibility-first validation |
-| PHP | PHPCS | `phpcs.xml.dist` | ✅ Active | WordPress Coding Standards |
-| Python | Black/Ruff | `pyproject.toml` | ✅ Active | PEP8 compliance |
-| Shell | ShellCheck | `.shellcheckrc` | ✅ Active | Bash/sh script linting |
+| Language   | Linter        | Config                                 | Status    | Notes                          |
+| ---------- | ------------- | -------------------------------------- | --------- | ------------------------------ |
+| JavaScript | ESLint        | `.eslintrc.json` or `eslint.config.js` | ✅ Active | Supports JS, TS, JSX, TSX      |
+| CSS/SCSS   | Stylelint     | `.stylelintrc.json`                    | ✅ Active | WordPress CSS standards        |
+| Markdown   | markdownlint  | `.markdownlint.json`                   | ✅ Active | Documentation consistency      |
+| YAML       | yamllint      | `.yamllint`                            | ✅ Active | GitHub workflows, config files |
+| JSON       | Prettier      | `prettier.config.js`                   | ✅ Active | Schema validation via AJV      |
+| HTML       | html-validate | `.htmlvalidate.json`                   | ✅ Active | Accessibility-first validation |
+| PHP        | PHPCS         | `phpcs.xml.dist`                       | ✅ Active | WordPress Coding Standards     |
+| Python     | Black/Ruff    | `pyproject.toml`                       | ✅ Active | PEP8 compliance                |
+| Shell      | ShellCheck    | `.shellcheckrc`                        | ✅ Active | Bash/sh script linting         |
 
 ## Features
 

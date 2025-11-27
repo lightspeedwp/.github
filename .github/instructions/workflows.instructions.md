@@ -54,6 +54,28 @@ jobs:
       - run: npm test
 ```
 
+# CI/CD Pipeline Standards
+
+## Pipeline Structure
+
+Standard pipeline order: **lint → unit → e2e → build → release** (tag/changelog).
+
+- Require green CI for merge; protect `main` branch
+- PR + main: checkout → setup-node LTS → cache → `npm ci` → `npm run lint` → `npm run build` → optional tests
+- Main branch: zip artifact; gated deploy via environments
+
+## Release Automation
+
+- Auto-generate release notes from PRs
+- Attach build artefacts as needed
+- Use semantic versioning with conventional commits
+
+## Acceptance Criteria
+
+- YAML must be valid (use `actionlint`)
+- Secrets via `${{ secrets.* }}` only
+- No hardcoded credentials
+
 # References
 
 - <https://docs.github.com/en/actions>

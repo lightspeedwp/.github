@@ -17,18 +17,18 @@
  * @module fetch-canonical-labels
  */
 
-const fs = require('fs');
-const yaml = require('js-yaml');
+const fs = require("fs");
+const yaml = require("js-yaml");
 
 /**
  * Loads and returns the list of canonical label names from labels.yml.
  * @param {string} [labelsYmlPath='.github/labels.yml'] - Path to labels YAML.
  * @returns {string[]} Array of canonical label names (strings).
  */
-function fetchCanonicalLabels(labelsYmlPath = '.github/labels.yml') {
-    const yml = fs.readFileSync(labelsYmlPath, 'utf8');
-    const labelsData = yaml.load(yml);
-    return labelsData.map((l) => (typeof l === 'string' ? l : l.name));
+function fetchCanonicalLabels(labelsYmlPath = ".github/labels.yml") {
+  const yml = fs.readFileSync(labelsYmlPath, "utf8");
+  const labelsData = yaml.load(yml);
+  return labelsData.map((l) => (typeof l === "string" ? l : l.name));
 }
 
 module.exports = { fetchCanonicalLabels };

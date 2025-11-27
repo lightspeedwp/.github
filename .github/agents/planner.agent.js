@@ -17,8 +17,8 @@
  * ============================================================================
  */
 
-const actionsCore = require('@actions/core');
-const actionsGithub = require('@actions/github');
+const actionsCore = require("@actions/core");
+const actionsGithub = require("@actions/github");
 
 /**
  * Main orchestrator for Planner Agent.
@@ -27,29 +27,29 @@ const actionsGithub = require('@actions/github');
  * @returns {Promise<void>}
  */
 async function run(context = actionsGithub.context) {
-    try {
-        const dry =
-            (actionsCore.getInput('dry-run') || process.env.DRY_RUN) === 'true';
-        const pr = context.payload.pull_request;
-        if (!pr) {
-            actionsCore.info('No PR in context; exiting.');
-            return;
-        }
-        const checklist = [
-            '- [ ] Confirm scope & acceptance criteria',
-            '- [ ] Link related issues & project items',
-            '- [ ] Update/verify tests & coverage',
-            '- [ ] Run linters/formatters',
-            '- [ ] Update CHANGELOG.md (if user-facing)',
-            '- [ ] Update docs (README/examples)',
-            '- [ ] Security & secrets check',
-            '- [ ] Self-review; request review',
-        ];
-        const body = `## 🧭 Planner: Task Ledger for PR #${pr.number}
+  try {
+    const dry =
+      (actionsCore.getInput("dry-run") || process.env.DRY_RUN) === "true";
+    const pr = context.payload.pull_request;
+    if (!pr) {
+      actionsCore.info("No PR in context; exiting.");
+      return;
+    }
+    const checklist = [
+      "- [ ] Confirm scope & acceptance criteria",
+      "- [ ] Link related issues & project items",
+      "- [ ] Update/verify tests & coverage",
+      "- [ ] Run linters/formatters",
+      "- [ ] Update CHANGELOG.md (if user-facing)",
+      "- [ ] Update docs (README/examples)",
+      "- [ ] Security & secrets check",
+      "- [ ] Self-review; request review",
+    ];
+    const body = `## 🧭 Planner: Task Ledger for PR #${pr.number}
 **Title:** ${pr.title}
 
 ### Checklist
-${checklist.join('\n')}
+${checklist.join("\n")}
 
 ### Exit Criteria
 - Tests green, linters clean
@@ -57,27 +57,27 @@ ${checklist.join('\n')}
 - No blocking labels
 `;
 
-        if (dry) {
-            actionsCore.info('[DRY RUN] Would post planner comment:\n' + body);
-            return;
-        }
-        const octokit = actionsGithub.getOctokit(
-            process.env.GITHUB_TOKEN || actionsCore.getInput('github-token')
-        );
-        await octokit.rest.issues.createComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: pr.number,
-            body,
-        });
-        actionsCore.info('Planner comment posted.');
-    } catch (e) {
-        actionsCore.setFailed(e.message);
+    if (dry) {
+      actionsCore.info("[DRY RUN] Would post planner comment:\n" + body);
+      return;
     }
+    const octokit = actionsGithub.getOctokit(
+      process.env.GITHUB_TOKEN || actionsCore.getInput("github-token"),
+    );
+    await octokit.rest.issues.createComment({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: pr.number,
+      body,
+    });
+    actionsCore.info("Planner comment posted.");
+  } catch (e) {
+    actionsCore.setFailed(e.message);
+  }
 }
 
 if (require.main === module) {
-    run();
+  run();
 }
 
 module.exports = { run };

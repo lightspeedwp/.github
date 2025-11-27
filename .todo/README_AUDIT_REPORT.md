@@ -125,19 +125,19 @@ tags: ["audit", "readme", "documentation", "quality-assurance"]
 ### 📊 Moderate Issues
 
 1. **Cross-Reference Validation (35/75 files)**
-    - Broken internal links
-    - References to moved/renamed files
-    - Outdated path references
+   - Broken internal links
+   - References to moved/renamed files
+   - Outdated path references
 
 2. **Inconsistent Documentation Standards (55/75 files)**
-    - Variable detail levels
-    - Missing installation instructions
-    - Inconsistent usage examples
+   - Variable detail levels
+   - Missing installation instructions
+   - Inconsistent usage examples
 
 3. **Linting Compliance (20/75 files)**
-    - markdownlint rule violations
-    - Prettier formatting issues
-    - YAML frontmatter syntax errors
+   - markdownlint rule violations
+   - Prettier formatting issues
+   - YAML frontmatter syntax errors
 
 ## 🎯 Priority Action Plan
 

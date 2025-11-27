@@ -14,17 +14,17 @@ This folder contains guidelines and standards for inline code documentation, com
 
 ## Documentation by Language/Format
 
-| Language/Format | File | Format | Coverage |
-|---|---|---|---|
-| **JavaScript** | `inline-jsdoc.instructions.md` | JSDoc blocks | `.js, .jsx` |
-| **TypeScript** | `inline-jsdoc.instructions.md` | JSDoc blocks | `.ts, .tsx` |
-| **PHP** | `inline-phpdoc.instructions.md` | DocBlocks | `.php` |
-| **Markdown** | `inline-markdown.instructions.md` | Markdown comments | `.md` |
-| **YAML** | `inline-yaml.instructions.md` | YAML comments | `.yml, .yaml` |
-| **CSS** | `inline-css.instructions.md` | CSS comments | `.css, .scss, .sass` |
-| **i18n** | `inline-i18n.instructions.md` | Internationalization strings | All languages |
-| **XML** | `inline-xml.instructions.md` | XML comments | `.xml` |
-| **Text** | `inline-txt.instructions.md` | Plain text notes | `.txt` |
+| Language/Format | File                              | Format                       | Coverage             |
+| --------------- | --------------------------------- | ---------------------------- | -------------------- |
+| **JavaScript**  | `inline-jsdoc.instructions.md`    | JSDoc blocks                 | `.js, .jsx`          |
+| **TypeScript**  | `inline-jsdoc.instructions.md`    | JSDoc blocks                 | `.ts, .tsx`          |
+| **PHP**         | `inline-phpdoc.instructions.md`   | DocBlocks                    | `.php`               |
+| **Markdown**    | `inline-markdown.instructions.md` | Markdown comments            | `.md`                |
+| **YAML**        | `inline-yaml.instructions.md`     | YAML comments                | `.yml, .yaml`        |
+| **CSS**         | `inline-css.instructions.md`      | CSS comments                 | `.css, .scss, .sass` |
+| **i18n**        | `inline-i18n.instructions.md`     | Internationalization strings | All languages        |
+| **XML**         | `inline-xml.instructions.md`      | XML comments                 | `.xml`               |
+| **Text**        | `inline-txt.instructions.md`      | Plain text notes             | `.txt`               |
 
 ## Key Principles
 
@@ -53,13 +53,13 @@ All inline documentation must comply with:
 ```javascript
 /**
  * Processes user data and returns filtered results
- * 
+ *
  * @param {string} userId - The unique user identifier
  * @param {Object} options - Configuration options
  * @param {boolean} options.includeArchived - Include archived records
  * @returns {Promise<Array>} Array of filtered user records
  * @throws {Error} When user ID is invalid
- * 
+ *
  * @example
  * const results = await processUserData('user-123', { includeArchived: true });
  */
@@ -73,10 +73,10 @@ async function processUserData(userId, options = {}) {
 ```php
 /**
  * Manages user authentication and session handling
- * 
+ *
  * Handles login/logout, token management, and session persistence.
  * Integrates with WordPress user system and custom token store.
- * 
+ *
  * @see \WP_User WordPress user class
  * @package LightSpeed\Auth
  * @since 1.0.0

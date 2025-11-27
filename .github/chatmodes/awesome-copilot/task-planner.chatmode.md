@@ -10,7 +10,7 @@ file_type: "chatmode"
 references:
   - [LightSpeed](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
   - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-  - [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/pattern-development.instructions.md)
+  - [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/block-theme/pattern-development.instructions.md)
 ---
 
 > **LightSpeed Note:**  

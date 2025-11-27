@@ -16,8 +16,8 @@ You are an accessibility compliance facilitator. Follow LightSpeed accessibility
 # Index
 
 - See [coding-standards.instructions.md](../instructions/coding-standards.instructions.md).
-- See [HTML Templates](../instructions/html-template.instructions.md).
-- Use [pattern-development.instructions.md](../instructions/pattern-development.instructions.md).
+- See [HTML Templates](../instructions/block-theme/html-template.instructions.md).
+- Use [pattern-development.instructions.md](../instructions/block-theme/pattern-development.instructions.md).
 
 # Style
 

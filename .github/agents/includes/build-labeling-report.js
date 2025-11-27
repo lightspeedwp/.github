@@ -3,7 +3,7 @@
  * @module build-labeling-report
  */
 
-const { labelsToMarkdownTable, diffLabels } = require('./label-utils');
+const { labelsToMarkdownTable, diffLabels } = require("./label-utils");
 
 /**
  * Builds a Markdown-formatted audit report for labels on an issue/PR.
@@ -12,21 +12,19 @@ const { labelsToMarkdownTable, diffLabels } = require('./label-utils');
  * @returns {string} Markdown string summarizing label audit.
  */
 function buildLabelingReport(currentLabels, canonicalLabels) {
-    const { missing, extra } = diffLabels(currentLabels, canonicalLabels);
-    let report = '## Label Audit Report\n';
-    report += '\n**Current Labels:**\n' + labelsToMarkdownTable(currentLabels);
+  const { missing, extra } = diffLabels(currentLabels, canonicalLabels);
+  let report = "## Label Audit Report\n";
+  report += "\n**Current Labels:**\n" + labelsToMarkdownTable(currentLabels);
+  report +=
+    "\n**Expected Canonical Labels:**\n" +
+    labelsToMarkdownTable(canonicalLabels);
+  if (missing.length)
     report +=
-        '\n**Expected Canonical Labels:**\n' +
-        labelsToMarkdownTable(canonicalLabels);
-    if (missing.length)
-        report +=
-            '\n**Missing Canonical Labels:**\n' +
-            labelsToMarkdownTable(missing);
-    if (extra.length)
-        report +=
-            '\n**Extra (Non-canonical) Labels:**\n' +
-            labelsToMarkdownTable(extra);
-    return report;
+      "\n**Missing Canonical Labels:**\n" + labelsToMarkdownTable(missing);
+  if (extra.length)
+    report +=
+      "\n**Extra (Non-canonical) Labels:**\n" + labelsToMarkdownTable(extra);
+  return report;
 }
 
 module.exports = { buildLabelingReport };

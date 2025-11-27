@@ -15,7 +15,7 @@ tools: ["edit", "write", "read"]
 references:
   - path: "../../docs/BLOCK-PATTERNS.md"
     description: "Block patterns documentation"
-  - path: "../../.github/instructions/pattern-development.instructions.md"
+  - path: "../../.github/instructions/block-theme/pattern-development.instructions.md"
     description: "Pattern development guidelines"
   - path: "../frontmatter.schema.json"
     description: "Frontmatter schema definition"

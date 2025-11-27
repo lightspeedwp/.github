@@ -50,7 +50,7 @@ The files are organised under the `.github/` directory:
 | [linting-shell.instructions.md](./instructions/linting-shell.instructions.md)                                     | Shellcheck with strict mode; portable sh where possible.                                 |
 | [linting-tests.instructions.md](./instructions/linting-tests.instructions.md)                                     | Consistent test style across Jest, Playwright, Python and Bats.                          |
 | [linting-yaml.instructions.md](./instructions/linting-yaml.instructions.md)                                       | YAML schema-aware linting; prefer 2-space indent.                                        |
-| [pattern-development.instructions.md](./instructions/pattern-development.instructions.md)                         | Guide for developing reusable block patterns in LightSpeed WordPress projects.           |
+| [pattern-development.instructions.md](./instructions/block-theme/pattern-development.instructions.md)             | Guide for developing reusable block patterns in LightSpeed WordPress projects.           |
 | [playwright-tests.instructions.md](./instructions/playwright-tests.instructions.md)                               | Guidelines for creating and running Playwright tests in LightSpeed WordPress projects.   |
 | [tests.instructions.md](./instructions/tests.instructions.md)                                                     | Write and expand tests: workflows, agents, Bats, Playwright, Jest, Python.               |
 | [wordpress-css.instructions.md](./instructions/wordpress-css.instructions.md)                                     | Enforce WordPress CSS coding standards, naming, specificity and formatting.              |

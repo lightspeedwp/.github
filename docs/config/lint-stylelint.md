@@ -68,13 +68,13 @@ npx stylelint "**/*.{css,scss}" --fix
 
 ## Key Rules
 
-| Rule | Purpose | Default |
-|------|---------|---------|
-| `length-zero-no-unit` | Disallow units for zero lengths | `true` |
-| `color-named` | Disallow named colors | `"never"` |
-| `selector-class-pattern` | Enforce class naming convention | BEM pattern |
-| `declaration-no-important` | Disallow `!important` | `true` |
-| `selector-no-qualifying-type` | Avoid overqualified selectors | `true` |
+| Rule                          | Purpose                         | Default     |
+| ----------------------------- | ------------------------------- | ----------- |
+| `length-zero-no-unit`         | Disallow units for zero lengths | `true`      |
+| `color-named`                 | Disallow named colors           | `"never"`   |
+| `selector-class-pattern`      | Enforce class naming convention | BEM pattern |
+| `declaration-no-important`    | Disallow `!important`           | `true`      |
+| `selector-no-qualifying-type` | Avoid overqualified selectors   | `true`      |
 
 ## Ignoring Files
 

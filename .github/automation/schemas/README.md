@@ -14,10 +14,10 @@ This directory contains JSON Schema and YAML validation schemas for all automati
 
 ### Core Schemas
 
-| File | Purpose | Usage |
-|------|---------|-------|
-| `changelog.schema.json` | Validates CHANGELOG.md structure | Release automation, versioning |
-| `version.schema.json` | Validates semantic versioning | Version bumping, release tagging |
+| File                         | Purpose                                | Usage                             |
+| ---------------------------- | -------------------------------------- | --------------------------------- |
+| `changelog.schema.json`      | Validates CHANGELOG.md structure       | Release automation, versioning    |
+| `version.schema.json`        | Validates semantic versioning          | Version bumping, release tagging  |
 | `project-fields.schema.json` | GitHub Project board field definitions | Project automation, metadata sync |
 
 ## 🔍 Schema Details
@@ -145,16 +145,16 @@ ajv validate -s schemas/automation/schemas/version.schema.json -d version.json -
 ### Using Node.js
 
 ```javascript
-const Ajv = require('ajv');
-const schema = require('./changelog.schema.json');
+const Ajv = require("ajv");
+const schema = require("./changelog.schema.json");
 const ajv = new Ajv();
 const validate = ajv.compile(schema);
 
-const data = require('../CHANGELOG.json');
+const data = require("../CHANGELOG.json");
 const valid = validate(data);
 
 if (!valid) {
-    console.error('Validation errors:', validate.errors);
+  console.error("Validation errors:", validate.errors);
 }
 ```
 
@@ -165,8 +165,8 @@ if (!valid) {
 
    ```json
    {
-       "$schema": "schemas/automation/schemas/changelog.schema.json",
-       "releases": []
+     "$schema": "schemas/automation/schemas/changelog.schema.json",
+     "releases": []
    }
    ```
 
@@ -219,10 +219,10 @@ if (!valid) {
 
 ## 🔗 Cross-Reference
 
-| Schema | Used By | Validation Tool |
-|--------|---------|-----------------|
-| changelog.schema.json | Release automation | AJV, VS Code |
-| version.schema.json | Version management | AJV, Node.js |
+| Schema                     | Used By            | Validation Tool   |
+| -------------------------- | ------------------ | ----------------- |
+| changelog.schema.json      | Release automation | AJV, VS Code      |
+| version.schema.json        | Version management | AJV, Node.js      |
 | project-fields.schema.json | Project automation | Custom validation |
 
 ---

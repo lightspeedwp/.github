@@ -58,7 +58,7 @@ categories:
     repos:
       - ".github"
       - "php-mcp-development"
-  
+
   features:
     description: "Feature-specific projects"
     repos:
@@ -180,22 +180,22 @@ node scripts/validate-against-canonical.js
 
 ### Regular Maintenance Tasks
 
-| Task | Frequency | Owner |
-|------|-----------|-------|
-| Review unused labels | Quarterly | Platform Team |
-| Update repository categories | Annually | Platform Team |
-| Audit label coverage | Monthly | Automation Agent |
-| Migrate deprecated labels | As-needed | Automation Agent |
+| Task                         | Frequency | Owner            |
+| ---------------------------- | --------- | ---------------- |
+| Review unused labels         | Quarterly | Platform Team    |
+| Update repository categories | Annually  | Platform Team    |
+| Audit label coverage         | Monthly   | Automation Agent |
+| Migrate deprecated labels    | As-needed | Automation Agent |
 
 ## 🔐 Access Control
 
-| Operation | Permission | Notes |
-|-----------|-----------|-------|
-| View | Public | Anyone can read |
-| Propose | Issues | Open to all contributors |
-| Modify | PR Review | 2 Platform Team approvals required |
-| Merge | Admin | Platform Team only |
-| Deploy | Workflow | Automated on merge to develop |
+| Operation | Permission | Notes                              |
+| --------- | ---------- | ---------------------------------- |
+| View      | Public     | Anyone can read                    |
+| Propose   | Issues     | Open to all contributors           |
+| Modify    | PR Review  | 2 Platform Team approvals required |
+| Merge     | Admin      | Platform Team only                 |
+| Deploy    | Workflow   | Automated on merge to develop      |
 
 ## 🚀 Deployment
 

@@ -23,7 +23,7 @@ const STATUS_PRIORITY_ORDER = [
   "status:done",
 ];
 
-function pickPrimaryStatus(statusLabels) {
+function _pickPrimaryStatus(statusLabels) {
   for (const candidate of STATUS_PRIORITY_ORDER) {
     if (statusLabels.includes(candidate)) return candidate;
   }

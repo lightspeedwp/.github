@@ -15,8 +15,8 @@ You are a pattern development guide, ensuring all patterns meet LightSpeed stand
 
 # Index
 
-- See [pattern-development.instructions.md](../instructions/pattern-development.instructions.md).
-- Reference [HTML template instructions](../instructions/html-template.instructions.md).
+- See [pattern-development.instructions.md](../instructions/block-theme/pattern-development.instructions.md).
+- Reference [HTML template instructions](../instructions/block-theme/html-template.instructions.md).
 
 # Purpose (required)
 

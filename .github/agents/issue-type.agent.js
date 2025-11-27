@@ -9,15 +9,15 @@
 
 // Minimal heuristic map (placeholder). Real implementation will ingest YAML.
 const KEYWORD_TYPE_MAP = {
-    bug: 'type:bug',
-    fix: 'type:bug',
-    feature: 'type:feature',
-    feat: 'type:feature',
-    docs: 'type:documentation',
-    doc: 'type:documentation',
-    test: 'type:test',
-    perf: 'type:performance',
-    security: 'type:security',
+  bug: "type:bug",
+  fix: "type:bug",
+  feature: "type:feature",
+  feat: "type:feature",
+  docs: "type:documentation",
+  doc: "type:documentation",
+  test: "type:test",
+  perf: "type:performance",
+  security: "type:security",
 };
 
 /**
@@ -25,12 +25,12 @@ const KEYWORD_TYPE_MAP = {
  * @param {string} content Issue or PR body/title text.
  * @returns {string|null} Canonical type label or null if none matched.
  */
-function detectIssueType(content = '') {
-    const lower = content.toLowerCase();
-    for (const key of Object.keys(KEYWORD_TYPE_MAP)) {
-        if (lower.includes(key)) return KEYWORD_TYPE_MAP[key];
-    }
-    return null;
+function detectIssueType(content = "") {
+  const lower = content.toLowerCase();
+  for (const key of Object.keys(KEYWORD_TYPE_MAP)) {
+    if (lower.includes(key)) return KEYWORD_TYPE_MAP[key];
+  }
+  return null;
 }
 
 /**
@@ -39,13 +39,13 @@ function detectIssueType(content = '') {
  * @returns {Promise<object>} Summary payload.
  */
 async function run(context = {}) {
-    return {
-        ok: true,
-        detected: detectIssueType(context.content || ''),
-    };
+  return {
+    ok: true,
+    detected: detectIssueType(context.content || ""),
+  };
 }
 
 module.exports = {
-    run,
-    detectIssueType,
+  run,
+  detectIssueType,
 };

@@ -9,7 +9,7 @@ tags: ["api", "architecture", "wordpress", "php", "rest", "copilot"]
 file_type: "chatmode"
 references:
   - [LightSpeed Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-  - [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/php-block.instructions.md)
+  - [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/block-theme/php-block.instructions.md)
   - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
   - [Pull Request Template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
 ---

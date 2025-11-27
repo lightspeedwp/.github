@@ -111,5 +111,5 @@ Add links, screenshots, references, or other design docs.
 - Use the branch prefix `design/` for related PRs.
 - Reference this issue in your PR using keywords like `fixes #{issue_number}`.
 - Tag a design/maintainer reviewer as needed.
-- See [Contribution Guidelines](../CONTRIBUTING.md), [Pattern Development](../instructions/pattern-development.instructions.md), and [Coding Standards](../instructions/coding-standards.instructions.md).
+- See [Contribution Guidelines](../CONTRIBUTING.md), [Pattern Development](../instructions/block-theme/pattern-development.instructions.md), and [Coding Standards](../instructions/coding-standards.instructions.md).
 - For automation, labels, and issue types, see [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).

@@ -106,9 +106,9 @@ wordpress/
 
 - [WordPress Guides](../wp-guides/README.md) – Quick reference checklists
 - [Coding Standards](../../.github/instructions/coding-standards.instructions.md) – LightSpeed coding standards
-- [Block Development Instructions](../../.github/instructions/php-block.instructions.md) – Block development guide
+- [Block Development Instructions](../../.github/instructions/block-theme/php-block.instructions.md) – Block development guide
 - [Theme JSON Instructions](../../.github/instructions/theme-json.instructions.md) – theme.json configuration guide
-- [Pattern Development Instructions](../../.github/instructions/pattern-development.instructions.md) – Block pattern development
+- [Pattern Development Instructions](../../.github/instructions/block-theme/pattern-development.instructions.md) – Block pattern development
 
 ---
 

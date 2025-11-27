@@ -37,40 +37,38 @@ postcss.config.cjs          # CommonJS format
 ```javascript
 module.exports = {
   plugins: [
-    require('autoprefixer'),
-    require('cssnano')({
-      preset: ['default', {
-        discardComments: {
-          removeAll: true,
+    require("autoprefixer"),
+    require("cssnano")({
+      preset: [
+        "default",
+        {
+          discardComments: {
+            removeAll: true,
+          },
         },
-      }]
-    })
-  ]
+      ],
+    }),
+  ],
 };
 ```
 
 ## Key Plugins
 
-| Plugin | Purpose | Config |
-|--------|---------|--------|
-| `autoprefixer` | Add vendor prefixes | `{ overrideBrowserslist: [...] }` |
-| `cssnano` | Minify & optimize | `{ preset: 'default' }` |
-| `postcss-preset-env` | Modern CSS support | `{ stage: 3 }` |
-| `postcss-import` | Process `@import` | Default |
+| Plugin               | Purpose             | Config                            |
+| -------------------- | ------------------- | --------------------------------- |
+| `autoprefixer`       | Add vendor prefixes | `{ overrideBrowserslist: [...] }` |
+| `cssnano`            | Minify & optimize   | `{ preset: 'default' }`           |
+| `postcss-preset-env` | Modern CSS support  | `{ stage: 3 }`                    |
+| `postcss-import`     | Process `@import`   | Default                           |
 
 ## Autoprefixer Configuration
 
 Autoprefixer adds vendor prefixes based on browser support:
 
 ```javascript
-require('autoprefixer')({
-  overrideBrowserslist: [
-    '> 1%',
-    'last 2 versions',
-    'not dead',
-    'not IE 11'
-  ]
-})
+require("autoprefixer")({
+  overrideBrowserslist: ["> 1%", "last 2 versions", "not dead", "not IE 11"],
+});
 ```
 
 ### Browserslist Integration
@@ -85,11 +83,7 @@ Example `package.json`:
 
 ```json
 {
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not dead"]
 }
 ```
 
@@ -124,25 +118,26 @@ For WordPress themes and blocks:
 ```javascript
 module.exports = {
   plugins: [
-    require('autoprefixer')({
+    require("autoprefixer")({
       // Support older browsers if needed
-      overrideBrowserslist: [
-        '> 0.5%',
-        'last 3 versions',
-        'Firefox ESR'
-      ]
+      overrideBrowserslist: ["> 0.5%", "last 3 versions", "Firefox ESR"],
     }),
     // Optional: CSS variables fallbacks
-    require('postcss-custom-properties'),
+    require("postcss-custom-properties"),
     // Production only
-    ...(process.env.NODE_ENV === 'production' ? [
-      require('cssnano')({
-        preset: ['default', {
-          discardComments: { removeAll: true }
-        }]
-      })
-    ] : [])
-  ]
+    ...(process.env.NODE_ENV === "production"
+      ? [
+          require("cssnano")({
+            preset: [
+              "default",
+              {
+                discardComments: { removeAll: true },
+              },
+            ],
+          }),
+        ]
+      : []),
+  ],
 };
 ```
 
@@ -152,12 +147,10 @@ module.exports = {
 
 ```javascript
 // Disable plugins in development
-const plugins = [
-  require('autoprefixer')
-];
+const plugins = [require("autoprefixer")];
 
-if (process.env.NODE_ENV === 'production') {
-  plugins.push(require('cssnano')());
+if (process.env.NODE_ENV === "production") {
+  plugins.push(require("cssnano")());
 }
 
 module.exports = { plugins };
@@ -177,13 +170,13 @@ module.exports = { plugins };
 **Solution:** Update browserslist or disable specific properties:
 
 ```javascript
-require('autoprefixer')({
+require("autoprefixer")({
   add: false, // Don't add prefixes
   remove: false, // Don't remove prefixes
   supports: true, // Add @supports
-  flexbox: 'no-2009', // Don't add old flexbox syntax
-  grid: false // Don't add grid prefixes
-})
+  flexbox: "no-2009", // Don't add old flexbox syntax
+  grid: false, // Don't add grid prefixes
+});
 ```
 
 ### Issue: Build time excessive
@@ -191,13 +184,13 @@ require('autoprefixer')({
 **Solution:** Disable cssnano in development:
 
 ```javascript
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === "production";
 
 module.exports = {
   plugins: [
-    require('autoprefixer'),
-    ...(isProduction ? [require('cssnano')] : [])
-  ]
+    require("autoprefixer"),
+    ...(isProduction ? [require("cssnano")] : []),
+  ],
 };
 ```
 
@@ -206,12 +199,15 @@ module.exports = {
 **Solution:** Configure cssnano to preserve CSS variables:
 
 ```javascript
-require('cssnano')({
-  preset: ['default', {
-    colormin: false, // Preserve custom properties
-    calc: false // Don't optimize calc()
-  }]
-})
+require("cssnano")({
+  preset: [
+    "default",
+    {
+      colormin: false, // Preserve custom properties
+      calc: false, // Don't optimize calc()
+    },
+  ],
+});
 ```
 
 ## Integration Points

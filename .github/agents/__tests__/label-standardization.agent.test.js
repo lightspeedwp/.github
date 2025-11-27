@@ -8,29 +8,29 @@
  * Aligns with Bats tests: test-manage-labels.bats
  */
 
-const labelStandardizationAgent = require('../label-standardization.agent.js');
+const labelStandardizationAgent = require("../label-standardization.agent.js");
 
-describe('Label Standardization Agent', () => {
-    it('should initialize without error', () => {
-        // TODO: Implement agent initialization test
-        expect(labelStandardizationAgent).toBeDefined();
+describe("Label Standardization Agent", () => {
+  it("should initialize without error", () => {
+    // TODO: Implement agent initialization test
+    expect(labelStandardizationAgent).toBeDefined();
+  });
+
+  it("should detect and migrate non-standard labels", async () => {
+    const legacyLabels = [" Bug ", "Priority: High", "needs – Review"];
+    const expected = ["bug", "priority: high", "needs – review"];
+
+    const result = await labelStandardizationAgent.run({
+      labels: legacyLabels,
     });
 
-    it('should detect and migrate non-standard labels', async () => {
-        const legacyLabels = [' Bug ', 'Priority: High', 'needs – Review'];
-        const expected = ['bug', 'priority: high', 'needs – review'];
+    expect(result).toEqual({ ok: true, count: legacyLabels.length });
+    expect(legacyLabels.map(labelStandardizationAgent.normalize)).toEqual(
+      expected,
+    );
+  });
 
-        const result = await labelStandardizationAgent.run({
-            labels: legacyLabels,
-        });
-
-        expect(result).toEqual({ ok: true, count: legacyLabels.length });
-        expect(legacyLabels.map(labelStandardizationAgent.normalize)).toEqual(
-            expected
-        );
-    });
-
-    it('should handle dry-run and verbose modes', () => {
-        // TODO: Test DRY_RUN and VERBOSE environment variable handling
-    });
+  it("should handle dry-run and verbose modes", () => {
+    // TODO: Test DRY_RUN and VERBOSE environment variable handling
+  });
 });

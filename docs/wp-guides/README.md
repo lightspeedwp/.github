@@ -86,7 +86,7 @@ function lightspeed_get_post_title( $post_id ) {
 - [WordPress Development](../wordpress/README.md) – Comprehensive WordPress documentation
 - [Coding Standards](../../.github/instructions/coding-standards.instructions.md) – LightSpeed coding standards
 - [Security Policy](../../SECURITY.md) – Organization-wide security practices
-- [WordPress Block Instructions](../../.github/instructions/php-block.instructions.md) – Detailed block development guide
+- [WordPress Block Instructions](../../.github/instructions/block-theme/php-block.instructions.md) – Detailed block development guide
 
 ---
 

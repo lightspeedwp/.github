@@ -31,3 +31,9 @@ docs/mustache-repo-templates/
 # Ignore JSON schemas directory (Spectral config here is for GitHub workflows/YAML only)
 
 schemas/
+
+# Ignore archived workflows (may contain legacy formatting issues)
+
+**/.github/workflows/archived/**
+.github/workflows/archived/**
+**/archived/**

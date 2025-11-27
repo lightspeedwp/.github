@@ -7,6 +7,6 @@
 
 // Example stub: integrate with accessibility checkers as needed.
 module.exports = function accessibilityReview(rootDir = process.cwd()) {
-    console.log('Checking accessibility in: ' + rootDir);
-    // Insert accessibility scan logic here
+  console.log("Checking accessibility in: " + rootDir);
+  // Insert accessibility scan logic here
 };

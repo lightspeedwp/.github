@@ -147,8 +147,7 @@ area:monitoring:
   - 'monitoring/**/*'
 type:audit:
   - 'audit/**/*'
-type:qa:
-  - 'qa/**/*'
+# type:qa file patterns merged with branch patterns below
 
 # Device, Layout, Environment, Phase, Page
 device:mobile:
@@ -226,6 +225,7 @@ type:design:
 type:a11y:
   - head-branch: ['^a11y/.*']
 type:qa:
+  - 'qa/**/*'
   - head-branch: ['^qa/.*', '^uat/.*']
 type:content:
   - head-branch: ['^content/.*']

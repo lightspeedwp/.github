@@ -7,6 +7,6 @@
 
 // Example stub: integrate with security linters or scanners as needed.
 module.exports = function securityReview(rootDir = process.cwd()) {
-    console.log('Scanning for security issues in: ' + rootDir);
-    // Insert security scan logic here
+  console.log("Scanning for security issues in: " + rootDir);
+  // Insert security scan logic here
 };

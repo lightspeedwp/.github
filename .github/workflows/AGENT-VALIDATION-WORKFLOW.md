@@ -1,17 +1,13 @@
 ---
 file_type: "documentation"
 title: "Agent Validation Workflow"
-description: "Comprehensive workflow for validating all agents moving forward"
+description: "Comprehensive workflow for validating all agents"
 version: "v1.0"
 created_date: "2025-11-25"
 last_updated: "2025-11-25"
 ---
 
-# Agent Validation Workflow
-
-## Overview
-
-The agent validation workflow ensures all agents in the repository meet organizational standards and best practices. This comprehensive workflow runs on every push and pull request to catch issues early.
+## Agent Validation Overview
 
 ## Workflows Created
 
@@ -20,13 +16,15 @@ The agent validation workflow ensures all agents in the repository meet organiza
 Located: `.github/workflows/validate-agents.yml`
 
 **Triggers:**
-- Every push to `develop` and `main` branches
-- Every pull request
+
+- Push to `develop` and `main` branches
+- Pull request
 - Manual trigger via `workflow_dispatch`
 
 **Jobs:**
 
 #### validate-agent-frontmatter
+
 - Validates all agent spec files (`.agent.md`) against the frontmatter schema
 - Checks required fields (name, description, version, etc.)
 - Validates field types and formats
@@ -34,6 +32,7 @@ Located: `.github/workflows/validate-agents.yml`
 - Outputs: JSON validation results
 
 #### validate-agent-files
+
 - Ensures agent specs have corresponding implementation files
 - Checks for `.js`, `.py`, `.sh` implementations
 - Verifies file completeness
@@ -41,12 +40,14 @@ Located: `.github/workflows/validate-agents.yml`
 - Checks for duplicate or orphaned agent files
 
 #### test-validation-script
+
 - Tests the validation script itself
 - Ensures script works correctly on all known good agents
 - Validates script output format
 - Tests error handling
 
 #### summary
+
 - Creates summary table of all validation results
 - Aggregates results from all jobs
 - Posts comprehensive validation report
@@ -57,6 +58,7 @@ Located: `.github/workflows/validate-agents.yml`
 Located: `.github/workflows/lint.yml`
 
 **Updates:**
+
 - Added `validate-agents` job to main linting workflow
 - Runs alongside other linting checks
 - Shares cache with other lint jobs for efficiency
@@ -65,15 +67,19 @@ Located: `.github/workflows/lint.yml`
 ## npm Scripts
 
 ### validate:agents
+
 ```bash
 npm run validate:agents
 ```
+
 Validates all agent frontmatter against the schema and checks file completeness.
 
 ### validate:all
+
 ```bash
 npm run validate:all
 ```
+
 Runs all validation checks including agents and JSON schemas.
 
 ## Validation Script
@@ -81,6 +87,7 @@ Runs all validation checks including agents and JSON schemas.
 Located: `scripts/validation/validate-agent-frontmatter.js`
 
 **Capabilities:**
+
 - ✅ Validates agent `.md` spec files against frontmatter schema
 - ✅ Checks required fields presence and types
 - ✅ Validates file naming conventions
@@ -90,22 +97,26 @@ Located: `scripts/validation/validate-agent-frontmatter.js`
 - ✅ Provides summary statistics
 
 **Exit Codes:**
+
 - `0`: All validations passed
 - `1`: Validation failures detected
 
 ## Local Development
 
-### Run validation locally:
+### Run validation locally
+
 ```bash
 npm run validate:agents
 ```
 
-### Run full validation suite:
+### Run full validation suite
+
 ```bash
 npm run validate:all
 ```
 
-### Run full linting including agents:
+### Run full linting including agents
+
 ```bash
 npm run lint
 ```
@@ -115,6 +126,7 @@ npm run lint
 All agents must meet these standards to pass validation:
 
 ### Frontmatter Fields (Required)
+
 - `file_type`: Must be "agent"
 - `name`: Unique agent identifier
 - `description`: Clear purpose statement
@@ -123,6 +135,7 @@ All agents must meet these standards to pass validation:
 - `owners`: Array of owner teams
 
 ### Frontmatter Fields (Recommended)
+
 - `author`: Original author
 - `maintainer`: Current maintainer
 - `tags`: Keywords for discovery
@@ -133,6 +146,7 @@ All agents must meet these standards to pass validation:
 - `references`: Related files with descriptions
 
 ### File Structure
+
 - Agent spec: `.github/agents/<name>.agent.md`
 - Implementation: `.github/agents/<name>.agent.{js|py|sh}`
 - Tests: `.github/agents/__tests__/<name>.agent.test.js`
@@ -140,6 +154,7 @@ All agents must meet these standards to pass validation:
 ## Workflow Output
 
 ### Success Scenario
+
 ```
 ✅ Agent Validation Complete
 │
@@ -151,6 +166,7 @@ All agents must meet these standards to pass validation:
 ```
 
 ### Failure Scenario
+
 ```
 ❌ Agent Validation Failed
 │

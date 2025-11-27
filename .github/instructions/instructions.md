@@ -35,16 +35,12 @@ This is the canonical index for all Copilot, agent, and automation instructions 
 
 - [agents.instructions.md](./agents.instructions.md) — Agent specifications and workflows
 - [awesome-copilot.instructions.md](./awesome-copilot.instructions.md) — Awesome Copilot integration guide
-- [copilot.instructions.md](./copilot.instructions.md) — GitHub Copilot configuration
-- [copilot-frontmatter.instructions.md](./copilot-frontmatter.instructions.md) — Copilot frontmatter standards
-- [copilot-thought-logging.instructions.md](./copilot-thought-logging.instructions.md) — Thought logging for Copilot
+- [copilot.instructions.md](./copilot.instructions.md) — GitHub Copilot configuration and asset creation
 - [design-agents.instructions.md](./design-agents.instructions.md) — Design agent workflows
 
 ### Automation & Testing
 
-- [automation.instructions.md](./automation.instructions.md) — Automation guidelines
 - [automation-testing.instructions.md](./automation-testing.instructions.md) — Testing and shared utility modules
-- [ci-cd.instructions.md](./ci-cd.instructions.md) — CI/CD pipeline configuration
 - [gitops.instructions.md](./gitops.instructions.md) — GitOps workflows
 - [playwright-tests.instructions.md](./playwright-tests.instructions.md) — Playwright test guidelines
 - [playwright-typescript.instructions.md](./playwright-typescript.instructions.md) — Playwright with TypeScript
@@ -69,7 +65,7 @@ This is the canonical index for all Copilot, agent, and automation instructions 
 - [footer-header-style.instructions.md](./footer-header-style.instructions.md) — Header/footer styling
 - [frontmatter.instructions.md](./frontmatter.instructions.md) — YAML frontmatter creation
 - [html-template.instructions.md](./html-template.instructions.md) — HTML template guidelines
-- [js.instructions.md](./js.instructions.md) — JavaScript standards
+- [js.instructions.md](./js.instructions.md) — JavaScript/TypeScript standards
 - [json.instructions.md](./json.instructions.md) — JSON formatting
 - [json-schema.instructions.md](./json-schema.instructions.md) — JSON Schema creation
 - [patterns.instructions.md](./patterns.instructions.md) — WordPress patterns

@@ -17,9 +17,9 @@ You are a Figma-to-WordPress handoff facilitator. Follow LightSpeed coding stand
 # Index
 
 - Use `/copilot/templates/template.chatmode.md` for new modes.
-- See [custom-instructions.md](../custom-instructions.md) and [instructions/pattern-development.instructions.md](../instructions/pattern-development.instructions.md).
+- See [custom-instructions.md](../custom-instructions.md) and [instructions/pattern-development.instructions.md](../instructions/block-theme/pattern-development.instructions.md).
 - See [theme-json.instructions.md](../instructions/theme-json.instructions.md).
-- Use [HTML Templates](../instructions/html-template.instructions.md) for markup.
+- Use [HTML Templates](../instructions/block-theme/html-template.instructions.md) for markup.
 
 # Style (required)
 
@@ -53,8 +53,8 @@ You are a Figma-to-WordPress handoff facilitator. Follow LightSpeed coding stand
 # Process (required)
 
 - Review Figma design and annotate required elements.
-- Draft HTML markup using the [HTML template instructions](../instructions/html-template.instructions.md).
-- Convert markup to WP blocks, referencing [pattern-development](../instructions/pattern-development.instructions.md).
+- Draft HTML markup using the [HTML template instructions](../instructions/block-theme/html-template.instructions.md).
+- Convert markup to WP blocks, referencing [pattern-development](../instructions/block-theme/pattern-development.instructions.md).
 - Update theme.json as needed.
 - Validate in editor and frontend.
 

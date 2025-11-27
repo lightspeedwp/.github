@@ -11,7 +11,7 @@ references:
   - "../../CODE_OF_CONDUCT.md"
   - "../../custom-instructions.md"
   - "../../instructions/coding-standards.instructions.md"
-  - "../../instructions/pattern-development.instructions.md"
+  - "../../instructions/block-theme/pattern-development.instructions.md"
 ---
 
 # Welcome to LightSpeedWP
@@ -24,7 +24,7 @@ Welcome to the LightSpeedWP community! 🎉
 
 - Review our [Contribution Guidelines](../../CONTRIBUTING.md)
 - Follow our [Code of Conduct](../../CODE_OF_CONDUCT.md) to foster a positive, inclusive environment
-- Explore [Coding Standards](../../instructions/coding-standards.instructions.md) and [Pattern Development](../../instructions/pattern-development.instructions.md)
+- Explore [Coding Standards](../../instructions/coding-standards.instructions.md) and [Pattern Development](../../instructions/block-theme/pattern-development.instructions.md)
 
 If you have questions or want to claim a good first issue, just comment or tag a maintainer.
 

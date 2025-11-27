@@ -10,18 +10,18 @@
  * ============================================================================
  */
 
-const core = require('@actions/core');
+const core = require("@actions/core");
 
 /**
  * Default retry configuration
  */
 const DEFAULT_CONFIG = {
-    maxRetries: 3,
-    initialDelayMs: 1000,
-    maxDelayMs: 10000,
-    backoffMultiplier: 2,
-    retryableStatusCodes: [429, 500, 502, 503, 504],
-    retryableErrors: ['ECONNRESET', 'ETIMEDOUT', 'ENOTFOUND', 'EAI_AGAIN'],
+  maxRetries: 3,
+  initialDelayMs: 1000,
+  maxDelayMs: 10000,
+  backoffMultiplier: 2,
+  retryableStatusCodes: [429, 500, 502, 503, 504],
+  retryableErrors: ["ECONNRESET", "ETIMEDOUT", "ENOTFOUND", "EAI_AGAIN"],
 };
 
 /**
@@ -31,31 +31,31 @@ const DEFAULT_CONFIG = {
  * @returns {boolean} True if the error is retryable
  */
 function isRetryableError(error, config = DEFAULT_CONFIG) {
-    // Check for status codes (GitHub API errors)
-    if (error.status && config.retryableStatusCodes.includes(error.status)) {
-        return true;
-    }
+  // Check for status codes (GitHub API errors)
+  if (error.status && config.retryableStatusCodes.includes(error.status)) {
+    return true;
+  }
 
-    // Check for network errors
-    if (error.code && config.retryableErrors.includes(error.code)) {
-        return true;
-    }
+  // Check for network errors
+  if (error.code && config.retryableErrors.includes(error.code)) {
+    return true;
+  }
 
-    // Check for specific error messages
-    if (error.message) {
-        const message = error.message.toLowerCase();
-        if (
-            message.includes('rate limit') ||
-            message.includes('timeout') ||
-            message.includes('network') ||
-            message.includes('econnreset') ||
-            message.includes('socket hang up')
-        ) {
-            return true;
-        }
+  // Check for specific error messages
+  if (error.message) {
+    const message = error.message.toLowerCase();
+    if (
+      message.includes("rate limit") ||
+      message.includes("timeout") ||
+      message.includes("network") ||
+      message.includes("econnreset") ||
+      message.includes("socket hang up")
+    ) {
+      return true;
     }
+  }
 
-    return false;
+  return false;
 }
 
 /**
@@ -65,9 +65,9 @@ function isRetryableError(error, config = DEFAULT_CONFIG) {
  * @returns {number} Delay in milliseconds
  */
 function calculateDelay(attempt, config = DEFAULT_CONFIG) {
-    const delay =
-        config.initialDelayMs * Math.pow(config.backoffMultiplier, attempt);
-    return Math.min(delay, config.maxDelayMs);
+  const delay =
+    config.initialDelayMs * Math.pow(config.backoffMultiplier, attempt);
+  return Math.min(delay, config.maxDelayMs);
 }
 
 /**
@@ -76,7 +76,7 @@ function calculateDelay(attempt, config = DEFAULT_CONFIG) {
  * @returns {Promise<void>}
  */
 function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -94,51 +94,51 @@ function sleep(ms) {
  * @throws {Error} If all retries are exhausted
  */
 async function withRetry(fn, options = {}) {
-    const config = { ...DEFAULT_CONFIG, ...options };
-    const operationName = config.operationName || 'operation';
+  const config = { ...DEFAULT_CONFIG, ...options };
+  const operationName = config.operationName || "operation";
 
-    let lastError;
+  let lastError;
 
-    for (let attempt = 0; attempt <= config.maxRetries; attempt++) {
-        try {
-            const result = await fn();
-            if (attempt > 0) {
-                core.info(
-                    `[retry-helper] ${operationName} succeeded on attempt ${attempt + 1}`
-                );
-            }
-            return result;
-        } catch (error) {
-            lastError = error;
+  for (let attempt = 0; attempt <= config.maxRetries; attempt++) {
+    try {
+      const result = await fn();
+      if (attempt > 0) {
+        core.info(
+          `[retry-helper] ${operationName} succeeded on attempt ${attempt + 1}`,
+        );
+      }
+      return result;
+    } catch (error) {
+      lastError = error;
 
-            // Check if this is the last attempt
-            if (attempt === config.maxRetries) {
-                core.error(
-                    `[retry-helper] ${operationName} failed after ${config.maxRetries + 1} attempts: ${error.message}`
-                );
-                throw error;
-            }
+      // Check if this is the last attempt
+      if (attempt === config.maxRetries) {
+        core.error(
+          `[retry-helper] ${operationName} failed after ${config.maxRetries + 1} attempts: ${error.message}`,
+        );
+        throw error;
+      }
 
-            // Check if error is retryable
-            if (!isRetryableError(error, config)) {
-                core.error(
-                    `[retry-helper] ${operationName} failed with non-retryable error: ${error.message}`
-                );
-                throw error;
-            }
+      // Check if error is retryable
+      if (!isRetryableError(error, config)) {
+        core.error(
+          `[retry-helper] ${operationName} failed with non-retryable error: ${error.message}`,
+        );
+        throw error;
+      }
 
-            // Calculate delay and retry
-            const delay = calculateDelay(attempt, config);
-            core.warning(
-                `[retry-helper] ${operationName} failed (attempt ${attempt + 1}/${config.maxRetries + 1}): ${error.message}. Retrying in ${delay}ms...`
-            );
+      // Calculate delay and retry
+      const delay = calculateDelay(attempt, config);
+      core.warning(
+        `[retry-helper] ${operationName} failed (attempt ${attempt + 1}/${config.maxRetries + 1}): ${error.message}. Retrying in ${delay}ms...`,
+      );
 
-            await sleep(delay);
-        }
+      await sleep(delay);
     }
+  }
 
-    // This should never be reached, but included for completeness
-    throw lastError;
+  // This should never be reached, but included for completeness
+  throw lastError;
 }
 
 /**
@@ -149,10 +149,10 @@ async function withRetry(fn, options = {}) {
  * @returns {Promise<*>} API call result
  */
 async function retryGitHubCall(apiCall, operationName, retryOptions = {}) {
-    return withRetry(apiCall, {
-        ...retryOptions,
-        operationName: operationName || 'GitHub API call',
-    });
+  return withRetry(apiCall, {
+    ...retryOptions,
+    operationName: operationName || "GitHub API call",
+  });
 }
 
 /**
@@ -162,17 +162,17 @@ async function retryGitHubCall(apiCall, operationName, retryOptions = {}) {
  * @returns {Promise<Array>} Array of results
  */
 async function retrySequence(operations, retryOptions = {}) {
-    const results = [];
+  const results = [];
 
-    for (const operation of operations) {
-        const result = await withRetry(operation.fn, {
-            ...retryOptions,
-            operationName: operation.name || 'operation',
-        });
-        results.push(result);
-    }
+  for (const operation of operations) {
+    const result = await withRetry(operation.fn, {
+      ...retryOptions,
+      operationName: operation.name || "operation",
+    });
+    results.push(result);
+  }
 
-    return results;
+  return results;
 }
 
 /**
@@ -182,14 +182,14 @@ async function retrySequence(operations, retryOptions = {}) {
  * @returns {Promise<Array>} Array of results
  */
 async function retryParallel(operations, retryOptions = {}) {
-    const promises = operations.map((operation) =>
-        withRetry(operation.fn, {
-            ...retryOptions,
-            operationName: operation.name || 'operation',
-        })
-    );
+  const promises = operations.map((operation) =>
+    withRetry(operation.fn, {
+      ...retryOptions,
+      operationName: operation.name || "operation",
+    }),
+  );
 
-    return Promise.all(promises);
+  return Promise.all(promises);
 }
 
 /**
@@ -199,18 +199,18 @@ async function retryParallel(operations, retryOptions = {}) {
  * @returns {Function} Wrapped function with retry logic
  */
 function createRetryable(fn, defaultOptions = {}) {
-    return async (...args) => {
-        return withRetry(() => fn(...args), defaultOptions);
-    };
+  return async (...args) => {
+    return withRetry(() => fn(...args), defaultOptions);
+  };
 }
 
 module.exports = {
-    withRetry,
-    retryGitHubCall,
-    retrySequence,
-    retryParallel,
-    createRetryable,
-    isRetryableError,
-    calculateDelay,
-    DEFAULT_CONFIG,
+  withRetry,
+  retryGitHubCall,
+  retrySequence,
+  retryParallel,
+  createRetryable,
+  isRetryableError,
+  calculateDelay,
+  DEFAULT_CONFIG,
 };

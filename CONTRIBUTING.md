@@ -50,7 +50,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
   - For features/enhancements: describe the problem/opportunity, proposed solution, mockups/designs, and acceptance criteria.
   - For other types: explain context, goals, action items, and impact.
 - **Reference relevant docs or standards:**  
-  See [Coding Standards](.github/instructions/coding-standards.instructions.md), [Pattern Development](.github/instructions/pattern-development.instructions.md), [Theme JSON](.github/instructions/theme-json.instructions.md), etc.
+  See [Coding Standards](.github/instructions/coding-standards.instructions.md), [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md), [Theme JSON](.github/instructions/theme-json.instructions.md), etc.
 - **Outline your planned approach for complex issues** and request feedback before implementation.
 - **Automation:** Well-formed issues using the right template are automatically labeled, routed, and prioritized.
 
@@ -127,7 +127,7 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 - [PR_LABELS.md](.github/PR_LABELS.md): PR labeling, templates, and automation.
 - [Org-wide Branching Strategy](.github/git-org-wide-branching-strategy.md): Full branching convention and rules.
 - [Coding Standards](.github/instructions/coding-standards.instructions.md)
-- [Pattern Development](.github/instructions/pattern-development.instructions.md)
+- [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md)
 - [Theme JSON](.github/instructions/theme-json.instructions.md)
 
 ---

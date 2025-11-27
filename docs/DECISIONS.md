@@ -111,7 +111,7 @@ Example:
 ## References
 
 - [Coding Standards](../.github/instructions/coding-standards.instructions.md)
-- [Pattern Development](../.github/instructions/pattern-development.instructions.md)
+- [Pattern Development](../.github/instructions/block-theme/pattern-development.instructions.md)
 - [Theme JSON](../.github/instructions/theme-json.instructions.md)
 - [Playwright Testing](../.github/instructions/playwright-tests.instructions.md)
 - [Org Governance](../GOVERNANCE.md)
