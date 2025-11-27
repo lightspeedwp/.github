@@ -13,7 +13,7 @@ jobs:
       - name: Generate project-fields.yml
         run: scripts/projects/build-project-fields-yml.sh
       - name: Commit and Push
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: update project-fields.yml from fixtures"
           file_pattern: ".github/automation/project-fields.yml"
