@@ -149,7 +149,7 @@
     "ts-jest": "29.4.5",
     "typescript": "^5.0.0",
     "typescript-eslint": "8.47.0",
-    "yaml": "2.8.1"
+    "yaml": "2.8.2"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
