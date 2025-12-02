@@ -1,3 +1,13 @@
+---
+file_type: "instructions"
+description: "WordPress security best practices - sanitization, escaping, nonces, and capability checks"
+applyTo: "**/*.php"
+version: "v1.0"
+last_updated: "2025-11-27"
+owners: ["LightSpeedWP Team"]
+tags: ["security", "wordpress", "sanitization", "escaping"]
+---
+
 # Instruction: WordPress Security
 
 - **Sanitize** inputs: `sanitize_text_field`, `esc_url_raw`, `absint`, etc.

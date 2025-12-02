@@ -6,6 +6,36 @@ applyTo: "README.md, *.md"
 
 # README Documentation Standards & Update Tasks
 
+## README File Naming Convention
+
+**Rule:** Each folder should have ONE `README.md` file only.
+
+**Prohibited:**
+
+- `README.{filename}.md` (file-specific documentation)
+- `README.{NAME}.md.md` (documentation about other documentation)
+- Any pattern matching `README.*.md` except `README.md` itself
+
+**Allowed:**
+
+- `README.md` (folder-level documentation)
+- Expressly requested file-specific documentation (rare exceptions, must be explicitly approved)
+
+**Rationale:**
+
+- File-specific READMEs create clutter and confusion
+- Folder-level README should index and describe all files in the folder
+- Individual files should have inline documentation (JSDoc, PHPDoc, etc.)
+- Special documentation needs should go in the `docs/` folder
+- Maintains clear documentation hierarchy and discoverability
+
+**If you need to document a specific file:**
+
+1. Add comprehensive inline documentation to the file itself
+2. Reference it in the folder's main `README.md`
+3. Create detailed documentation in `docs/` if needed
+4. Only create file-specific README with explicit approval
+
 ## Universal Required Sections (for all README.md)
 
 - **Frontmatter:**

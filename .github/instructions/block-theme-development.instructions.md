@@ -3,8 +3,8 @@ file_type: "instructions"
 title: "Block Theme Development Instructions"
 description: "Comprehensive best practices and guidance for developing WordPress block themes. This instruction set is designed to be inherited by WordPress block theme repositories across the LightSpeedWP organisation."
 applyTo: "**/*.{php,html,json,css,scss,js,jsx,ts,tsx}"
-version: "v2.0"
-last_updated: "2025-11-26"
+version: "v2.1"
+last_updated: "2025-11-27"
 owners: ["LightSpeedWP Team"]
 tags:
   ["wordpress", "block-theme", "gutenberg", "theme", "development", "standards"]
@@ -46,32 +46,26 @@ development standards. It references specialised instruction files in the
 
 All block theme instruction files in this directory:
 
-- [`block-theme/*.instructions.md`](./block-theme/) — All instruction files in the
-  `block-theme/` folder provide specialised guidance for WordPress block theme
+- [\`block-theme/*.instructions.md\`](./block-theme/) — All instruction files in the
+  \`block-theme/\` folder provide specialised guidance for WordPress block theme
   development.
 
 ### Block Theme Instructions Index
 
-The following instruction files provide detailed guidance for specific aspects of
-block theme development:
+The following instruction files provide detailed guidance for specific aspects of block theme development:
 
 | File                                                                                         | Purpose                                    | When to Invoke                                           |
 | -------------------------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------- |
+| [accessibility.instructions.md](./block-theme/accessibility.instructions.md)                 | Theme-specific accessibility standards     | When developing patterns, templates, or template parts   |
 | [block-theme.instructions.md](./block-theme/block-theme.instructions.md)                     | Core block theme concepts and architecture | When starting a new block theme or reviewing structure   |
-| [html-template.instructions.md](./block-theme/html-template.instructions.md)                 | HTML template syntax and structure         | When creating or editing template files in `templates/`  |
+| [block-theme-structure.instructions.md](./block-theme/block-theme-structure.instructions.md) | Block theme directory structure            | When setting up theme folder structure                   |
+| [html-template.instructions.md](./block-theme/html-template.instructions.md)                 | HTML template syntax and structure         | When creating or editing template files in \`templates/\`  |
 | [json.instructions.md](./block-theme/json.instructions.md)                                   | JSON configuration standards               | When working with JSON config files                      |
 | [pattern-development.instructions.md](./block-theme/pattern-development.instructions.md)     | Block pattern development workflow         | When creating reusable block patterns                    |
-| [patterns.instructions.md](./block-theme/patterns.instructions.md)                           | Pattern registration and organisation      | When registering or organising patterns in `patterns/`   |
+| [patterns.instructions.md](./block-theme/patterns.instructions.md)                           | Pattern registration and organisation      | When registering or organising patterns in \`patterns/\`   |
 | [php-block.instructions.md](./block-theme/php-block.instructions.md)                         | PHP-based block rendering                  | When creating server-side rendered blocks                |
 | [theme-json-validation.instructions.md](./block-theme/theme-json-validation.instructions.md) | theme.json validation and testing          | When validating theme.json configuration                 |
 | [theme-json.instructions.md](./block-theme/theme-json.instructions.md)                       | theme.json configuration standards         | When configuring global styles, settings, and typography |
-
----
-
-## 🎨 WordPress Coding Standards
-
-All block theme development must adhere to the WordPress Coding Standards. The
-following instruction files provide comprehensive guidance:
 
 ### Dynamic Reference
 

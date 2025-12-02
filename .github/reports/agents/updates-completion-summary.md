@@ -98,44 +98,44 @@ agent_files: 16
    - Added guardrails for metadata consistency
 
 2. **branding.agent.md** ✅
-    - Added `tools` for file read/edit and shell
-    - Set `target: github-copilot`
-    - Added schema validation guardrails
-    - Added backup enforcement
+   - Added `tools` for file read/edit and shell
+   - Set `target: github-copilot`
+   - Added schema validation guardrails
+   - Added backup enforcement
 
 3. **badges.agent.md** ✅ (Deprecated)
-    - Marked as `status: deprecated`
-    - Added migration path to branding.agent
-    - Preserved for reference
+   - Marked as `status: deprecated`
+   - Added migration path to branding.agent
+   - Preserved for reference
 
 4. **header-footer.agent.md** ✅ (Deprecated)
-    - Marked as `status: deprecated`
-    - Added migration path to branding.agent
-    - Preserved for reference
+   - Marked as `status: deprecated`
+   - Added migration path to branding.agent
+   - Preserved for reference
 
 5. **accessibility-auditor.agents.md** ✅
-    - Added comprehensive `tools` array
-    - Set `target: vscode`
-    - Added WCAG compliance references
-    - Added detailed metadata
+   - Added comprehensive `tools` array
+   - Set `target: vscode`
+   - Added WCAG compliance references
+   - Added detailed metadata
 
 6. **block-theme-optimizer.agents.md** ✅
-    - Added `tools` for WordPress analysis
-    - Set `target: vscode`
-    - Added block pattern references
-    - Added guardrails for theme.json validation
+   - Added `tools` for WordPress analysis
+   - Set `target: vscode`
+   - Added block pattern references
+   - Added guardrails for theme.json validation
 
 7. **performance-profiler.agents.md** ✅
-    - Added `tools` for performance testing
-    - Set `target: vscode`
-    - Added metrics collection references
-    - Added benchmark tracking guardrails
+   - Added `tools` for performance testing
+   - Set `target: vscode`
+   - Added metrics collection references
+   - Added benchmark tracking guardrails
 
 8. **security-hardening-reviewer.agents.md** ✅
-    - Added `tools` for security scanning
-    - Set `target: vscode`
-    - Added OWASP references
-    - Added comprehensive security guardrails
+   - Added `tools` for security scanning
+   - Set `target: vscode`
+   - Added OWASP references
+   - Added comprehensive security guardrails
 
 ### Phase 3: Specialized WordPress Agents (✅ Completed)
 

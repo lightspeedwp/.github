@@ -1,1 +1,0 @@
-- Complete block.json; separate editor/front; prefer supports; i18n via `@wordpress/i18n`; efficient render callbacks.

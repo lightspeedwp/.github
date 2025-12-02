@@ -1,1 +1,0 @@
-- 2-space indent; no trailing commas; follow theme.json/block.json schemas; use tokens/presets.

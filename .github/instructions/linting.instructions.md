@@ -2,6 +2,15 @@
 file_type: "instructions"
 description: "Master index for all linting instructions in the LightSpeed organisation. Lists and cross-references all linting instructions, config, and coding standards."
 applyTo: "**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}"
+version: "v2.0"
+last_updated: "2025-11-27"
+owners: ["LightSpeedWP Team"]
+tags: ["linting", "standards", "eslint", "prettier", "automation"]
+references:
+  - path: ".github/instructions/coding-standards.instructions.md"
+    description: "Unified coding standards"
+  - path: ".github/instructions/INSTRUCTION_PRECEDENCE.md"
+    description: "Instruction file precedence documentation"
 ---
 
 # 🔍 LightSpeed Linting Instructions Library
@@ -9,7 +18,7 @@ applyTo: "**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}"
 ![Linting Badge](https://img.shields.io/badge/linting-standards-brightgreen?style=flat-square)
 ![Quality Badge](https://img.shields.io/badge/code%20quality-enforced-blue?style=flat-square)
 
-This directory contains comprehensive linting instructions for maintaining code quality across all LightSpeed WordPress projects. **Version: v1.5** | **Last Updated: 2025-10-24**
+This directory contains comprehensive linting instructions for maintaining code quality across all LightSpeed WordPress projects. **Version: v2.0** | **Last Updated: 2025-11-27**
 
 ## 📖 Overview
 

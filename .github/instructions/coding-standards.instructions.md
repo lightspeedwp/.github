@@ -2,10 +2,17 @@
 file_type: "instructions"
 description: "Unified coding standards for all LightSpeedWP projects: applies to all code, documentation, automation, and AI contributions."
 applyTo: "**"
-version: "v2.0"
-last_updated: "2025-10-23"
+version: "v2.1"
+last_updated: "2025-11-27"
 owners: ["LightSpeedWP Team"]
 tags: ["coding-standards", "governance", "automation", "docs", "lint", "ai"]
+references:
+  - path: ".github/instructions/INSTRUCTION_PRECEDENCE.md"
+    description: "Instruction file precedence documentation"
+  - path: ".github/instructions/linting.instructions.md"
+    description: "Linting standards index"
+  - path: ".github/instructions/wpcs.instructions.md"
+    description: "WordPress coding standards index"
 ---
 
 # LightSpeedWP Coding Standards — Canonical Reference

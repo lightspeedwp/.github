@@ -3,8 +3,8 @@ file_type: "instructions"
 title: "Block Plugin Development Instructions"
 description: "Comprehensive best practices and guidance for developing WordPress block plugins. This instruction set is designed to be inherited by WordPress block plugin repositories across the LightSpeedWP organisation."
 applyTo: "**/*.{php,js,jsx,ts,tsx,json,css,scss}"
-version: "v2.0"
-last_updated: "2025-11-26"
+version: "v2.1"
+last_updated: "2025-11-27"
 owners: ["LightSpeedWP Team"]
 tags: ["wordpress", "blocks", "gutenberg", "plugin", "development", "standards"]
 domain: "wp-core"
@@ -23,8 +23,8 @@ references:
 ## Overview
 
 > ⚠️ **Scope Notice**: These instructions are intended for **WordPress block plugin
-> repositories** within the `lightspeedwp` GitHub organisation. They should **not**
-> be applied to the `lightspeedwp/.github` community health repository, as that
+> repositories** within the \`lightspeedwp\` GitHub organisation. They should **not**
+> be applied to the \`lightspeedwp/.github\` community health repository, as that
 > repository does not contain WordPress plugin code.
 
 This document provides comprehensive best practices and step-by-step guidance for
@@ -34,8 +34,8 @@ WordPress block editor (Gutenberg).
 
 This instruction file serves as the **main entry point** for all block plugin
 development standards. It references specialised instruction files in the
-`block-plugin/` subdirectory and links to the WordPress Coding Standards in the
-`wpcs/` subdirectory.
+\`block-plugin/\` subdirectory and links to the WordPress Coding Standards in the
+\`wpcs/\` subdirectory.
 
 ---
 
@@ -45,26 +45,24 @@ development standards. It references specialised instruction files in the
 
 All block plugin instruction files in this directory:
 
-- [`block-plugin/*.instructions.md`](./block-plugin/) — All instruction files in the
-  `block-plugin/` folder provide specialised guidance for WordPress block plugin
+- [\`block-plugin/*.instructions.md\`](./block-plugin/) — All instruction files in the
+  \`block-plugin/\` folder provide specialised guidance for WordPress block plugin
   development.
 
 ### Block Plugin Instructions Index
 
 The following instruction files provide detailed guidance for specific aspects of block plugin development:
 
-| File                                                                    | Purpose                                                | When to Invoke                                                  |
-| ----------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------- |
-| [block-json.instructions.md](./block-plugin/block-json.instructions.md) | Block metadata, attributes, variations, and transforms | When creating/editing `block.json` files or defining attributes |
-| [blocks.instructions.md](./block-plugin/blocks.instructions.md)         | Core block development patterns and best practices     | When developing edit/save components or implementing supports   |
-| [playwright.instructions.md](./block-plugin/playwright.instructions.md) | End-to-end testing for blocks using Playwright         | When writing E2E tests for blocks, editor, or frontend          |
-
----
-
-## 🎨 WordPress Coding Standards
-
-All block plugin development must adhere to the WordPress Coding Standards. The
-following instruction files provide comprehensive guidance:
+| File                                                                                         | Purpose                                                | When to Invoke                                                  |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------- |
+| [accessibility.instructions.md](./block-plugin/accessibility.instructions.md)               | Block-specific accessibility standards                 | When developing block controls, editor UX, or block output      |
+| [block-json.instructions.md](./block-plugin/block-json.instructions.md)                     | Block metadata, attributes, variations, and transforms | When creating/editing \`block.json\` files or defining attributes |
+| [blocks.instructions.md](./block-plugin/blocks.instructions.md)                             | Core block development patterns and best practices     | When developing edit/save components or implementing supports   |
+| [javascript-react.instructions.md](./block-plugin/javascript-react.instructions.md)         | JavaScript/React development for blocks                | When writing React components, hooks, or JS utilities           |
+| [playwright.instructions.md](./block-plugin/playwright.instructions.md)                     | End-to-end testing for blocks using Playwright         | When writing E2E tests for blocks, editor, or frontend          |
+| [playwright-typescript.instructions.md](./block-plugin/playwright-typescript.instructions.md) | TypeScript Playwright testing patterns               | When writing TypeScript E2E tests                               |
+| [security.instructions.md](./block-plugin/security.instructions.md)                         | Block plugin security best practices                   | When handling user input, REST APIs, or capabilities            |
+| [single-block-plugin.instructions.md](./block-plugin/single-block-plugin.instructions.md)   | Single-block plugin scaffold and patterns              | When creating a minimal single-block plugin                     |
 
 ### Dynamic Reference
 

@@ -2,6 +2,10 @@
 file_type: "instructions"
 applyTo: "**/*.php"
 description: "PHP coding standards for WordPress development - security, performance, and WordPress API best practices"
+version: "v1.0"
+last_updated: "2025-11-27"
+owners: ["LightSpeedWP Team"]
+tags: ["php", "wordpress", "coding-standards"]
 license: "GPL-3.0-or-later"
 ---
 
