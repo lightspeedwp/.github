@@ -126,4 +126,4 @@ See [index.md](./index.md) for an alternative view of these instructions.
 
 ---
 
-*Last updated: 2025-11-18*
+_Last updated: 2025-11-18_

@@ -182,7 +182,7 @@ Copilot templates integrate with:
 
 ---
 
-*This directory enhances development productivity through AI-assisted workflows. See [Custom Instructions](../custom-instructions.md) for organization-wide Copilot configuration.*
+_This directory enhances development productivity through AI-assisted workflows. See [Custom Instructions](../custom-instructions.md) for organization-wide Copilot configuration._
 
 ---
 

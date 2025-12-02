@@ -524,4 +524,4 @@ guardrails: [string] # Safety guidelines
 
 ---
 
-*This report was generated as part of the LightSpeedWP Frontmatter Schema Update Project. For updates and modifications, please reference the project tracking tools and issue queue.*
+_This report was generated as part of the LightSpeedWP Frontmatter Schema Update Project. For updates and modifications, please reference the project tracking tools and issue queue._

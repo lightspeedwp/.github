@@ -5,7 +5,7 @@ applyTo: "**"
 
 # Next.js Best Practices for LLMs (2025)
 
-*Last updated: July 2025*
+_Last updated: July 2025_
 
 This document summarizes the latest, authoritative best practices for building, structuring, and maintaining Next.js applications. It is intended for use by LLMs and developers to ensure code quality, maintainability, and scalability.
 

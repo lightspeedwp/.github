@@ -159,14 +159,14 @@ export MyBlock; // use default export instead
 /**
  * WordPress dependencies
  */
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType } from "@wordpress/blocks";
 
 /**
  * Internal dependencies
  */
-import metadata from './block.json';
-import Edit from './edit';
-import save from './save';
+import metadata from "./block.json";
+import Edit from "./edit";
+import save from "./save";
 
 /**
  * Register block type
@@ -186,14 +186,14 @@ registerBlockType(metadata.name, {
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useBlockProps, RichText } from '@wordpress/block-editor';
-import { TextControl } from '@wordpress/components';
+import { __ } from "@wordpress/i18n";
+import { useBlockProps, RichText } from "@wordpress/block-editor";
+import { TextControl } from "@wordpress/components";
 
 /**
  * Internal dependencies
  */
-import './editor.scss';
+import "./editor.scss";
 
 /**
  * Edit component for the block
@@ -212,17 +212,17 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <div {...blockProps}>
       <TextControl
-        label={__('Title', 'my-plugin')}
+        label={__("Title", "my-plugin")}
         value={title}
         onChange={(value) => setAttributes({ title: value })}
-        placeholder={__('Enter title...', 'my-plugin')}
+        placeholder={__("Enter title...", "my-plugin")}
       />
       <RichText
         tagName="div"
         className="my-block__content"
         value={content}
         onChange={(value) => setAttributes({ content: value })}
-        placeholder={__('Add content...', 'my-plugin')}
+        placeholder={__("Add content...", "my-plugin")}
       />
     </div>
   );
@@ -235,7 +235,7 @@ export default function Edit({ attributes, setAttributes }) {
 /**
  * WordPress dependencies
  */
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { useBlockProps, RichText } from "@wordpress/block-editor";
 
 /**
  * Save component for the block
@@ -275,7 +275,7 @@ Always use functional components with hooks. Class components are discouraged.
 // ✅ Good – Functional component with hooks
 export default function MyComponent({ title, onSubmit }) {
   const [count, setCount] = useState(0);
-  const { data, loading } = useFetch('/api/data');
+  const { data, loading } = useFetch("/api/data");
 
   useEffect(() => {
     // Side effect
@@ -367,14 +367,22 @@ Use short-circuit evaluation or ternary operators. Avoid `&& null` patterns.
 
 ```javascript
 // ✅ Good
-{loading && <Spinner />}
-{error ? <Error message={error} /> : <Content />}
+{
+  loading && <Spinner />;
+}
+{
+  error ? <Error message={error} /> : <Content />;
+}
 
 // ⚠️ Acceptable but verbose
-{loading === true ? <Spinner /> : null}
+{
+  loading === true ? <Spinner /> : null;
+}
 
 // ❌ Avoid – renders "false" in DOM
-{isVisible && 'Content'}
+{
+  isVisible && "Content";
+}
 ```
 
 ---
@@ -393,19 +401,19 @@ All JavaScript should use ES modules for imports/exports.
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
+import { __ } from "@wordpress/i18n";
+import { registerBlockType } from "@wordpress/blocks";
 
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import classnames from "classnames";
 
 /**
  * Internal dependencies
  */
-import MyComponent from './components/MyComponent';
-import { formatDate } from './utils/formatters';
+import MyComponent from "./components/MyComponent";
+import { formatDate } from "./utils/formatters";
 
 // Code follows...
 ```
@@ -435,18 +443,18 @@ export const deepClone = (obj) => { ... };
 
 ## WordPress Dependencies
 
-### Recommended @wordpress/* Packages
+### Recommended @wordpress/\* Packages
 
-| Package | Purpose |
-|---------|---------|
-| `@wordpress/i18n` | Translations and i18n |
-| `@wordpress/block-editor` | Block editor components and utilities |
-| `@wordpress/components` | UI components (Button, Modal, etc.) |
-| `@wordpress/data` | Data store and state management |
-| `@wordpress/api-fetch` | API requests (uses nonces) |
-| `@wordpress/hooks` | Action and filter hooks |
-| `@wordpress/element` | React alternatives (deprecated but available) |
-| `@wordpress/scripts` | Build tools and configuration |
+| Package                   | Purpose                                       |
+| ------------------------- | --------------------------------------------- |
+| `@wordpress/i18n`         | Translations and i18n                         |
+| `@wordpress/block-editor` | Block editor components and utilities         |
+| `@wordpress/components`   | UI components (Button, Modal, etc.)           |
+| `@wordpress/data`         | Data store and state management               |
+| `@wordpress/api-fetch`    | API requests (uses nonces)                    |
+| `@wordpress/hooks`        | Action and filter hooks                       |
+| `@wordpress/element`      | React alternatives (deprecated but available) |
+| `@wordpress/scripts`      | Build tools and configuration                 |
 
 ### Using @wordpress/i18n
 
@@ -481,18 +489,18 @@ Make API requests to WordPress REST endpoints.
 /**
  * WordPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from "@wordpress/api-fetch";
 
 // In hook or component
 const response = await apiFetch({
-  path: '/wp/v2/posts',
-  method: 'GET',
+  path: "/wp/v2/posts",
+  method: "GET",
 });
 
 const created = await apiFetch({
-  path: '/wp/v2/posts',
-  method: 'POST',
-  data: { title: 'New Post', content: 'Content...' },
+  path: "/wp/v2/posts",
+  method: "POST",
+  data: { title: "New Post", content: "Content..." },
 });
 ```
 
@@ -504,15 +512,15 @@ Access and manage WordPress data store.
 /**
  * WordPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { useSelect, useDispatch } from "@wordpress/data";
+import { store as coreStore } from "@wordpress/core-data";
 
 export function PostsList() {
-  const posts = useSelect((select) => 
-    select(coreStore).getEntityRecords('postType', 'post')
+  const posts = useSelect((select) =>
+    select(coreStore).getEntityRecords("postType", "post"),
   );
-  
-  return posts?.map(post => <div key={post.id}>{post.title.rendered}</div>);
+
+  return posts?.map((post) => <div key={post.id}>{post.title.rendered}</div>);
 }
 ```
 
@@ -582,37 +590,29 @@ Use Jest for unit tests. Configure via `jest.config.js` or `package.json`.
 
 ```javascript
 // blocks/MyBlock/__tests__/edit.test.js
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import Edit from '../edit';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import Edit from "../edit";
 
-describe('MyBlock Edit', () => {
-  it('renders the edit component', () => {
+describe("MyBlock Edit", () => {
+  it("renders the edit component", () => {
     const setAttributes = jest.fn();
     render(
-      <Edit
-        attributes={{ title: 'Test' }}
-        setAttributes={setAttributes}
-      />
+      <Edit attributes={{ title: "Test" }} setAttributes={setAttributes} />,
     );
-    expect(screen.getByText('Test')).toBeInTheDocument();
+    expect(screen.getByText("Test")).toBeInTheDocument();
   });
 
-  it('updates attributes on input change', async () => {
+  it("updates attributes on input change", async () => {
     const setAttributes = jest.fn();
     const user = userEvent.setup();
-    
-    render(
-      <Edit
-        attributes={{ title: '' }}
-        setAttributes={setAttributes}
-      />
-    );
-    
-    const input = screen.getByPlaceholderText('Enter title...');
-    await user.type(input, 'New Title');
-    
-    expect(setAttributes).toHaveBeenCalledWith({ title: 'New Title' });
+
+    render(<Edit attributes={{ title: "" }} setAttributes={setAttributes} />);
+
+    const input = screen.getByPlaceholderText("Enter title...");
+    await user.type(input, "New Title");
+
+    expect(setAttributes).toHaveBeenCalledWith({ title: "New Title" });
   });
 });
 ```
@@ -629,7 +629,7 @@ Use `memo` for components that receive the same props.
 /**
  * WordPress dependencies
  */
-import { memo } from '@wordpress/element';
+import { memo } from "@wordpress/element";
 
 /**
  * Card component (memoized to prevent re-renders)
@@ -654,26 +654,29 @@ Cache expensive computations and callbacks.
 /**
  * WordPress dependencies
  */
-import { useState, useMemo, useCallback } from '@wordpress/element';
+import { useState, useMemo, useCallback } from "@wordpress/element";
 
 export function ExpensiveList({ items, onItemClick }) {
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState("");
 
   // Memoize filtered list computation
-  const filteredItems = useMemo(() => 
-    items.filter(item => item.title.includes(filter)),
-    [items, filter]
+  const filteredItems = useMemo(
+    () => items.filter((item) => item.title.includes(filter)),
+    [items, filter],
   );
 
   // Memoize callback
-  const handleClick = useCallback((id) => {
-    onItemClick(id);
-  }, [onItemClick]);
+  const handleClick = useCallback(
+    (id) => {
+      onItemClick(id);
+    },
+    [onItemClick],
+  );
 
   return (
     <>
-      <input value={filter} onChange={e => setFilter(e.target.value)} />
-      {filteredItems.map(item => (
+      <input value={filter} onChange={(e) => setFilter(e.target.value)} />
+      {filteredItems.map((item) => (
         <div key={item.id} onClick={() => handleClick(item.id)}>
           {item.title}
         </div>
@@ -695,8 +698,8 @@ Handle errors gracefully in async operations.
 /**
  * WordPress dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
+import { useState, useEffect } from "@wordpress/element";
+import apiFetch from "@wordpress/api-fetch";
 
 export function PostsLoader() {
   const [posts, setPosts] = useState([]);
@@ -706,7 +709,7 @@ export function PostsLoader() {
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        const data = await apiFetch({ path: '/wp/v2/posts' });
+        const data = await apiFetch({ path: "/wp/v2/posts" });
         setPosts(data);
       } catch (err) {
         setError(err.message);
@@ -721,7 +724,7 @@ export function PostsLoader() {
   if (loading) return <Spinner />;
   if (error) return <Error message={error} />;
 
-  return posts.map(post => <Post key={post.id} {...post} />);
+  return posts.map((post) => <Post key={post.id} {...post} />);
 }
 ```
 
@@ -759,11 +762,11 @@ export function Menu({ items, onSelect }) {
   const [focusedIndex, setFocusedIndex] = useState(0);
 
   const handleKeyDown = (e) => {
-    if (e.key === 'ArrowDown') {
+    if (e.key === "ArrowDown") {
       setFocusedIndex((i) => Math.min(i + 1, items.length - 1));
-    } else if (e.key === 'ArrowUp') {
+    } else if (e.key === "ArrowUp") {
       setFocusedIndex((i) => Math.max(i - 1, 0));
-    } else if (e.key === 'Enter') {
+    } else if (e.key === "Enter") {
       onSelect(items[focusedIndex]);
     }
   };
@@ -775,7 +778,7 @@ export function Menu({ items, onSelect }) {
           key={item.id}
           role="menuitem"
           tabIndex={i === focusedIndex ? 0 : -1}
-          aria-current={i === focusedIndex ? 'true' : 'false'}
+          aria-current={i === focusedIndex ? "true" : "false"}
           onClick={() => onSelect(item)}
         >
           {item.label}
@@ -822,10 +825,10 @@ export function DataFetcher({ endpoint }) {
 /**
  * External dependencies
  */
-import { debounce } from 'lodash';
+import { debounce } from "lodash";
 
 export function SearchPosts() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
 
   const debouncedSearch = debounce(async (query) => {
@@ -848,7 +851,7 @@ export function SearchPosts() {
         }}
       />
       <ul>
-        {results.map(post => (
+        {results.map((post) => (
           <li key={post.id}>{post.title.rendered}</li>
         ))}
       </ul>

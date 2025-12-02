@@ -10,7 +10,7 @@ tags: ["lightspeed","frontmatter","instructions"]
 file_type: "instructions"
 ---
 
-*Note: This file follows LightSpeedWP governance and metadata conventions as described in schema file ([./schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json)).*
+_Note: This file follows LightSpeedWP governance and metadata conventions as described in schema file ([./schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json))._
 
 # Frontmatter Instructions
 

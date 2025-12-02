@@ -19,4 +19,4 @@ Database administration, SQL optimization, and data management tools for Postgre
 
 ---
 
-*This collection includes 8 curated items for **Database & Data Management**.*
+_This collection includes 8 curated items for **Database & Data Management**._

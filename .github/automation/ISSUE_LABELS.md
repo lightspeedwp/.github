@@ -93,4 +93,4 @@ labels:
 
 ---
 
-*The labeling agent is the single source of truth for all issue labeling, status, type, and standardization. All guidance here is directly reflected in labels.yml and enforced via automation.*
+_The labeling agent is the single source of truth for all issue labeling, status, type, and standardization. All guidance here is directly reflected in labels.yml and enforced via automation._

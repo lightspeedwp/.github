@@ -51,7 +51,7 @@ Comprehensive guide for JavaScript and React development in WordPress projects, 
 
 ```javascript
 // ✅ Good
-const myVariable = 'value';
+const myVariable = "value";
 function calculateTotal(price, tax) {
   return price * (1 + tax);
 }
@@ -62,8 +62,10 @@ const MyComponent = ({ title, onClick }) => {
 
 // ❌ Bad
 const myVariable = "value"; // Use single quotes
-function calculateTotal(price,tax){return price*(1+tax);} // Format properly
-const my_variable = 'value'; // Use camelCase
+function calculateTotal(price, tax) {
+  return price * (1 + tax);
+} // Format properly
+const my_variable = "value"; // Use camelCase
 ```
 
 ### TypeScript in WordPress
@@ -97,23 +99,27 @@ export default MyComponent;
 
 ```javascript
 // State Management
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from "@wordpress/data";
 
 // Components
-import { Button, Panel, PanelBody, TextControl } from '@wordpress/components';
+import { Button, Panel, PanelBody, TextControl } from "@wordpress/components";
 
 // Block Editor
-import { RichText, useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import {
+  RichText,
+  useBlockProps,
+  InspectorControls,
+} from "@wordpress/block-editor";
 
 // Utilities
-import { __ } from '@wordpress/i18n';
-import { applyFilters } from '@wordpress/hooks';
+import { __ } from "@wordpress/i18n";
+import { applyFilters } from "@wordpress/hooks";
 
 // API
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from "@wordpress/api-fetch";
 
 // Notices
-import { useNotices } from '@wordpress/notices';
+import { useNotices } from "@wordpress/notices";
 ```
 
 ### Priority Order for Imports
@@ -189,14 +195,18 @@ Standard block structure using `block.json`:
 /**
  * WordPress dependencies
  */
-import { RichText, useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, TextControl, SelectControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import {
+  RichText,
+  useBlockProps,
+  InspectorControls,
+} from "@wordpress/block-editor";
+import { PanelBody, TextControl, SelectControl } from "@wordpress/components";
+import { __ } from "@wordpress/i18n";
 
 /**
  * Internal dependencies
  */
-import './editor.css';
+import "./editor.css";
 
 /**
  * Edit component for the block.
@@ -221,22 +231,22 @@ export default function Edit({ attributes, setAttributes }) {
           tagName="p"
           value={content}
           onChange={(newContent) => setAttributes({ content: newContent })}
-          placeholder={__('Add content...', 'plugin-name')}
+          placeholder={__("Add content...", "plugin-name")}
         />
       </div>
 
       <InspectorControls>
         <PanelBody
-          title={__('Block Settings', 'plugin-name')}
+          title={__("Block Settings", "plugin-name")}
           initialOpen={true}
         >
           <SelectControl
-            label={__('Alignment', 'plugin-name')}
+            label={__("Alignment", "plugin-name")}
             value={alignment}
             options={[
-              { label: __('Left', 'plugin-name'), value: 'left' },
-              { label: __('Center', 'plugin-name'), value: 'center' },
-              { label: __('Right', 'plugin-name'), value: 'right' },
+              { label: __("Left", "plugin-name"), value: "left" },
+              { label: __("Center", "plugin-name"), value: "center" },
+              { label: __("Right", "plugin-name"), value: "right" },
             ]}
             onChange={(newAlignment) =>
               setAttributes({ alignment: newAlignment })
@@ -295,14 +305,17 @@ class MyComponent extends React.Component {
 ```javascript
 // ✅ Good hook usage
 const MyComponent = ({ postId }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Fetch data when postId changes
-  const posts = useSelect((select) => {
-    return select('core').getEntityRecords('postType', 'post', {
-      search: searchTerm,
-    });
-  }, [searchTerm]);
+  const posts = useSelect(
+    (select) => {
+      return select("core").getEntityRecords("postType", "post", {
+        search: searchTerm,
+      });
+    },
+    [searchTerm],
+  );
 
   // Memoized callback
   const handleSearch = useCallback((term) => {
@@ -341,13 +354,19 @@ const MyComponent = ({ items }) => {
     return items.sort((a, b) => a.name.localeCompare(b.name));
   }, [items]);
 
-  return <ul>{sortedItems.map((item) => <li key={item.id}>{item.name}</li>)}</ul>;
+  return (
+    <ul>
+      {sortedItems.map((item) => (
+        <li key={item.id}>{item.name}</li>
+      ))}
+    </ul>
+  );
 };
 
 // Memoize callbacks
 const ParentComponent = () => {
   const handleClick = useCallback(() => {
-    console.log('Clicked');
+    console.log("Clicked");
   }, []);
 
   return <Child onClick={handleClick} />;
@@ -361,31 +380,26 @@ const ParentComponent = () => {
 Always wrap user-facing strings in translation functions:
 
 ```javascript
-import { __, _x, _n } from '@wordpress/i18n';
+import { __, _x, _n } from "@wordpress/i18n";
 
 // Simple translation
-const label = __('Save Changes', 'plugin-name');
+const label = __("Save Changes", "plugin-name");
 
 // With context
-const color = _x('Red', 'color', 'plugin-name');
+const color = _x("Red", "color", "plugin-name");
 
 // Pluralization
-const message = _n(
-  'One item',
-  '%d items',
-  itemCount,
-  'plugin-name'
-);
+const message = _n("One item", "%d items", itemCount, "plugin-name");
 ```
 
 ### Translator Comments
 
 ```javascript
 // translators: %s is the user's name
-const greeting = sprintf(__('Hello %s!', 'plugin-name'), userName);
+const greeting = sprintf(__("Hello %s!", "plugin-name"), userName);
 
 // translators: This is shown in the admin
-const adminText = __('Admin Only Content', 'plugin-name');
+const adminText = __("Admin Only Content", "plugin-name");
 ```
 
 ## Security & Escaping
@@ -451,50 +465,50 @@ apiFetch({
 ### Using the REST API
 
 ```javascript
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from "@wordpress/api-fetch";
 
 // GET request
-apiFetch({ path: '/wp/v2/posts' })
+apiFetch({ path: "/wp/v2/posts" })
   .then((posts) => {
     console.log(posts);
   })
   .catch((error) => {
-    console.error('Error fetching posts:', error);
+    console.error("Error fetching posts:", error);
   });
 
 // POST request
 apiFetch({
-  path: '/wp/v2/posts',
-  method: 'POST',
+  path: "/wp/v2/posts",
+  method: "POST",
   data: {
-    title: 'New Post',
-    content: 'Post content',
-    status: 'draft',
+    title: "New Post",
+    content: "Post content",
+    status: "draft",
   },
 })
   .then((post) => {
-    console.log('Post created:', post);
+    console.log("Post created:", post);
   })
   .catch((error) => {
-    console.error('Error creating post:', error);
+    console.error("Error creating post:", error);
   });
 ```
 
 ### Using WordPress Data Store
 
 ```javascript
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from "@wordpress/data";
 
 // Selecting data
 const posts = useSelect((select) => {
-  return select('core').getEntityRecords('postType', 'post');
+  return select("core").getEntityRecords("postType", "post");
 }, []);
 
 // Dispatching actions
-const { saveEntityRecord } = useDispatch('core');
+const { saveEntityRecord } = useDispatch("core");
 
 const handleSave = async (post) => {
-  await saveEntityRecord('postType', 'post', post);
+  await saveEntityRecord("postType", "post", post);
 };
 ```
 
@@ -505,36 +519,36 @@ const handleSave = async (post) => {
 ```javascript
 // jest.config.js
 module.exports = {
-  testEnvironment: 'jsdom',
+  testEnvironment: "jsdom",
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
+    "^@/(.*)$": "<rootDir>/src/$1",
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
 };
 ```
 
 ### Component Testing
 
 ```javascript
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import MyComponent from './MyComponent';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import MyComponent from "./MyComponent";
 
-describe('MyComponent', () => {
-  it('renders correctly', () => {
+describe("MyComponent", () => {
+  it("renders correctly", () => {
     render(<MyComponent title="Test" />);
-    expect(screen.getByText('Test')).toBeInTheDocument();
+    expect(screen.getByText("Test")).toBeInTheDocument();
   });
 
-  it('calls onClick when clicked', async () => {
+  it("calls onClick when clicked", async () => {
     const onClick = jest.fn();
     const user = userEvent.setup();
 
     render(<MyComponent onClick={onClick} />);
-    await user.click(screen.getByRole('button'));
+    await user.click(screen.getByRole("button"));
 
     expect(onClick).toHaveBeenCalled();
   });
@@ -554,7 +568,7 @@ describe('MyComponent', () => {
  * @param {number} options.limit - Results limit
  * @returns {Object} Posts data and loading state
  */
-export function usePosts({ searchTerm = '', limit = 10 } = {}) {
+export function usePosts({ searchTerm = "", limit = 10 } = {}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -598,7 +612,7 @@ export function MyProvider({ children }) {
 export function useMyContext() {
   const context = React.useContext(MyContext);
   if (!context) {
-    throw new Error('useMyContext must be used within MyProvider');
+    throw new Error("useMyContext must be used within MyProvider");
   }
   return context;
 }
@@ -623,7 +637,7 @@ export function useMyContext() {
  * const posts = await fetchPosts({ search: 'hello', limit: 20 });
  * console.log(posts);
  */
-export async function fetchPosts({ search = '', limit = 10 } = {}) {
+export async function fetchPosts({ search = "", limit = 10 } = {}) {
   // Implementation
 }
 ```
@@ -664,15 +678,15 @@ const MyComponent = ({ isActive }) => {
   const styles = useMemo(
     () => ({
       button: {
-        padding: '10px 15px',
-        backgroundColor: isActive ? '#007cba' : '#ddd',
-        color: isActive ? '#fff' : '#000',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer',
+        padding: "10px 15px",
+        backgroundColor: isActive ? "#007cba" : "#ddd",
+        color: isActive ? "#fff" : "#000",
+        border: "none",
+        borderRadius: "4px",
+        cursor: "pointer",
       },
     }),
-    [isActive]
+    [isActive],
   );
 
   return <button style={styles.button}>Click me</button>;
@@ -683,15 +697,15 @@ const MyComponent = ({ isActive }) => {
 
 ```javascript
 // Use classnames utility
-import classnames from 'classnames';
+import classnames from "classnames";
 
 const MyComponent = ({ isActive, isDisabled }) => {
   return (
     <div
       className={classnames(
-        'my-component',
-        { 'is-active': isActive },
-        { 'is-disabled': isDisabled }
+        "my-component",
+        { "is-active": isActive },
+        { "is-disabled": isDisabled },
       )}
     >
       Content

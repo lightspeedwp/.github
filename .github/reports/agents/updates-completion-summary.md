@@ -348,4 +348,4 @@ npm run validate-agents
 
 ---
 
-*This report documents the comprehensive modernization of LightSpeedWP's agent ecosystem. All agents now have standardized frontmatter, explicit tool declarations, and clear governance structures.*
+_This report documents the comprehensive modernization of LightSpeedWP's agent ecosystem. All agents now have standardized frontmatter, explicit tool declarations, and clear governance structures._

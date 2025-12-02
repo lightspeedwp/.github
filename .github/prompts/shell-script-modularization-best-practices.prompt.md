@@ -775,4 +775,4 @@ Comprehensive best practices for shell script modularisation ensure maintainable
 
 ---
 
-*Last updated: 2025-11-18 | Version: 1.0.0 | Status: Production*
+_Last updated: 2025-11-18 | Version: 1.0.0 | Status: Production_

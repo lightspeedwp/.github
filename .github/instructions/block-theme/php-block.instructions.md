@@ -19,7 +19,7 @@ tags:
 - documentation
 - instructions
 - guides
-  applyTo: "\**/*.php"
+  applyTo: "\*_/_.php"
 
 ---
 

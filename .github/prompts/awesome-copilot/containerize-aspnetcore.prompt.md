@@ -140,7 +140,7 @@ Any settings that are not specified will be set to default values. The default v
      - Final stage: Use the selected .NET runtime image to run the application
        - Set the working directory to /app
        - Set the user as directed (by default, to a non-root user (e.g., `$APP_UID`))
-         - Unless directed otherwise in containerization settings, a new user does *not* need to be created. Use the `$APP_UID` variable to specify the user account.
+         - Unless directed otherwise in containerization settings, a new user does _not_ need to be created. Use the `$APP_UID` variable to specify the user account.
        - Copy the published output from the build stage to the final image
    - Be sure to consider all requirements in the containerization settings:
      - .NET version and Linux distribution

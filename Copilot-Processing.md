@@ -1,25 +1,73 @@
-# WordPress Instructions Reorganisation - COMPLETE
+# Chatmode Migration to Agents - IN PROGRESS
 
 ## User Request Summary
 
-Reorganize WordPress instruction files from `.github/instructions/wordpress/` into dedicated directories:
-
-- `.github/instructions/block-plugin/` - Block plugin development
-- `.github/instructions/block-theme/` - Block theme development  
-- `.github/instructions/wpcs/` - WordPress Coding Standards
+Migrate all chatmode files to agent format following GitHub's deprecation of chatmodes in favour of agents.
 
 **Objectives:**
 
-1. ✅ Merge duplicate files (e.g., block-json-alt, patterns-alt)
-2. ✅ Split content between block-theme and block-plugin folders
-3. ✅ Update index files with clear tables
-4. ✅ Add scope notices (WordPress repos only, NOT .github repo)
-5. ✅ Completely remove wordpress/ directory
-6. ✅ Consolidate all WordPress coding standards in wpcs/
+1. ✅ Remove chatmodes folder entirely
+2. ✅ Update awesome-copilot prompts (replace chatmode prompt with agent prompt)
+3. ✅ Update agent.md index with consolidated agent list
+4. ✅ Remove chatmode references from custom-instructions.md
+5. ✅ Update high priority files with chatmode references
+6. ✅ Update frontmatter schema to mark chatmode as deprecated
+7. ✅ Delete COPILOT_TEMPLATE/template.chatmode.md
 
 ---
 
-## ✅ ALL PHASES COMPLETE
+## Phase 1: Core Migration ✅ COMPLETE
+
+### Completed Actions
+
+- ✅ Removed `suggest-awesome-github-copilot-chatmodes.prompt.md`
+- ✅ Verified `suggest-awesome-github-copilot-agents.prompt.md` exists and is correct
+- ✅ Updated `agent.md` index (v2.0) with consolidated agent categories
+- ✅ Removed chatmode references from `custom-instructions.md`
+- ✅ Removed chatmodes folder reference from agent.md Discoverability section
+
+### Agent Consolidation Summary
+
+Reduced from 55 agents to 25 consolidated agents organized into categories:
+
+| Category | Agent Count | Examples |
+| --- | --- | --- |
+| Templates & Infrastructure | 5 | template.agent.md, agent.md |
+| Automation & CI/CD | 8 | branding, labeling, release, metrics |
+| Code Quality & Standards | 8 | linting, jsdoc-review, accessibility-auditor |
+| Review & Testing | 4 | pr-copilot, test-coach, qa-test-architect |
+| Documentation | 1 | manage-readmes |
+| WordPress Development | 3 | block-theme, block-plugin, woocommerce |
+
+---
+
+## Phase 2: Update Remaining Files ✅ COMPLETE
+
+### High Priority Files Updated
+
+- ✅ `README.md` (main repository) - No chatmode references found
+- ✅ `prompts/prompts.md` - No chatmode references found
+- ✅ `COPILOT_TEMPLATE/template.chatmode.md` - DELETED
+- ✅ `instructions/awesome-copilot.instructions.md` - Updated to agents
+- ✅ `schemas/frontmatter.schema.json` - Chatmode marked as deprecated
+
+### Documentation Files (Still reference chatmodes for historical/schema documentation)
+
+- docs/CHATMODE-FRONTMATTER.md - Historical documentation
+- docs/YAML.md - Historical schema documentation
+- docs/YAML-Frontmatter.md - Historical reference
+
+---
+
+## Phase 3: Schema Updates ✅ COMPLETE
+
+- ✅ Updated `chatmode` file_type to deprecated status
+- ✅ Updated `chatmode-index` to deprecated status
+- ✅ Added deprecation notices and replacement guidance
+
+---
+
+## Previous Task: WordPress Instructions Reorganisation ✅ COMPLETE
 
 ### Phase 1-5: Previous Consolidation ✅ COMPLETE
 
@@ -87,42 +135,42 @@ Reorganize WordPress instruction files from `.github/instructions/wordpress/` in
 
 ### Files Created
 
-| File | Location | Purpose |
-|------|----------|---------|
+| File                          | Location      | Purpose                |
+| ----------------------------- | ------------- | ---------------------- |
 | accessibility.instructions.md | block-plugin/ | Plugin a11y guidelines |
-| accessibility.instructions.md | block-theme/ | Theme a11y guidelines |
+| accessibility.instructions.md | block-theme/  | Theme a11y guidelines  |
 
 ### Files Deleted
 
-| File | Reason |
-|------|--------|
-| wordpress/pattern-architecture.instructions.md | Stub - consolidated |
-| wordpress/pattern-authoring.instructions.md | Stub - consolidated |
-| wordpress/pattern-block-type.instructions.md | Stub - consolidated |
-| wordpress/pattern-starter.instructions.md | Stub - consolidated |
-| wordpress/pattern-template.instructions.md | Stub - consolidated |
-| wordpress/pattern-woocommerce.instructions.md | Stub - consolidated |
-| wordpress/block-patterns.instructions.md | Consolidated into patterns.instructions.md |
+| File                                           | Reason                                     |
+| ---------------------------------------------- | ------------------------------------------ |
+| wordpress/pattern-architecture.instructions.md | Stub - consolidated                        |
+| wordpress/pattern-authoring.instructions.md    | Stub - consolidated                        |
+| wordpress/pattern-block-type.instructions.md   | Stub - consolidated                        |
+| wordpress/pattern-starter.instructions.md      | Stub - consolidated                        |
+| wordpress/pattern-template.instructions.md     | Stub - consolidated                        |
+| wordpress/pattern-woocommerce.instructions.md  | Stub - consolidated                        |
+| wordpress/block-patterns.instructions.md       | Consolidated into patterns.instructions.md |
 
 ### Files Moved
 
-| File | From | To | Reason |
-|------|------|-----|--------|
-| php-wordpress.instructions.md | wordpress/ | wpcs/ | Coding standards |
-| javascript-react.instructions.md | wordpress/ | wpcs/ | Coding standards |
-| i18n.instructions.md | wordpress/ | wpcs/ | Coding standards |
-| wp-security.instructions.md | wordpress/ | wpcs/ | Coding standards |
-| a11y.instructions.md | wordpress/ | wpcs/ | Shared accessibility reference |
-| playwright-typescript.instructions.md | wordpress/ | block-plugin/ | Plugin testing |
-| single-block-plugin.instructions.md | wordpress/ | block-plugin/ | Plugin development |
-| block-theme-structure.instructions.md | wordpress/ | block-theme/ | Theme structure |
+| File                                  | From       | To            | Reason                         |
+| ------------------------------------- | ---------- | ------------- | ------------------------------ |
+| php-wordpress.instructions.md         | wordpress/ | wpcs/         | Coding standards               |
+| javascript-react.instructions.md      | wordpress/ | wpcs/         | Coding standards               |
+| i18n.instructions.md                  | wordpress/ | wpcs/         | Coding standards               |
+| wp-security.instructions.md           | wordpress/ | wpcs/         | Coding standards               |
+| a11y.instructions.md                  | wordpress/ | wpcs/         | Shared accessibility reference |
+| playwright-typescript.instructions.md | wordpress/ | block-plugin/ | Plugin testing                 |
+| single-block-plugin.instructions.md   | wordpress/ | block-plugin/ | Plugin development             |
+| block-theme-structure.instructions.md | wordpress/ | block-theme/  | Theme structure                |
 
 ### Files Updated
 
-| File | Version | Changes |
-|------|---------|---------|
-| block-plugin-development.instructions.md | v2.1 | Added accessibility entry |
-| block-theme-development.instructions.md | v2.1 | Added accessibility entry |
+| File                                     | Version | Changes                   |
+| ---------------------------------------- | ------- | ------------------------- |
+| block-plugin-development.instructions.md | v2.1    | Added accessibility entry |
+| block-theme-development.instructions.md  | v2.1    | Added accessibility entry |
 
 ---
 

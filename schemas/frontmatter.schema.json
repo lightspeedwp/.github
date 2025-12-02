@@ -199,20 +199,106 @@
     },
     {
       "title": "Agent Specification (.github/agents/*.agent.md)",
-      "description": "Individual agent specification files.",
+      "description": "Individual agent specification files. Supports both VS Code native format and LightSpeed extended format.",
+      "allOf": [{ "$ref": "#/definitions/commonFields" }],
       "properties": {
-        "file_type": { "const": "agent" },
-        "name": { "type": "string" },
-        "description": { "type": "string" },
+        "file_type": {
+          "type": "string",
+          "enum": ["agent", "chatmode"],
+          "description": "File type identifier. 'chatmode' is deprecated and will be migrated to 'agent'."
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable agent name (VS Code required field)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of agent purpose (VS Code required field)"
+        },
+        "tools": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Available tools/capabilities (VS Code field). Values: codebase, search, usages, editFiles, fetchWebpage, findTestFiles, githubRepo, problems, runCommands, runNotebooks, runTasks, runTests, terminalLastCommand, terminalSelection, thinking, vscodeAPI, custom MCP tools"
+        },
+        "model": {
+          "type": "string",
+          "description": "Preferred AI model (optional VS Code field)"
+        },
+        "handoffs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Button label for handoff"
+              },
+              "agent": { "type": "string", "description": "Target agent name" },
+              "prompt": {
+                "type": "string",
+                "description": "Prompt to pass to target agent"
+              },
+              "send": {
+                "type": "boolean",
+                "description": "Auto-send the prompt",
+                "default": false
+              }
+            },
+            "required": ["label", "agent", "prompt"]
+          },
+          "description": "Handoff definitions for agent chaining (VS Code optional field)"
+        },
         "version": { "type": "string" },
         "last_updated": { "type": "string" },
         "owners": { "type": "array", "items": { "type": "string" } },
         "category": { "type": "string" },
         "labels": { "type": "array", "items": { "type": "string" } },
         "tags": { "type": "array", "items": { "type": "string" } },
-        "status": { "type": "string" }
+        "status": { "type": "string" },
+        "target": {
+          "type": "string",
+          "enum": ["vscode", "github-copilot", "cli"],
+          "description": "Target environment for the agent"
+        },
+        "visibility": {
+          "type": "string",
+          "enum": ["public", "private", "internal"],
+          "description": "Agent visibility scope"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "guardrails": {
+              "type": "string",
+              "description": "Safety constraints"
+            }
+          },
+          "description": "Additional agent metadata"
+        },
+        "id": {
+          "type": "string",
+          "description": "Legacy chatmode identifier (deprecated, use 'name' instead)"
+        },
+        "title": {
+          "type": "string",
+          "description": "Legacy chatmode title (deprecated, use 'name' instead)"
+        },
+        "context_window": {
+          "type": "integer",
+          "description": "Token limit considerations (legacy chatmode field)"
+        },
+        "temperature": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "AI response randomness setting (legacy chatmode field)"
+        },
+        "max_tokens": {
+          "type": "integer",
+          "description": "Response length limitations (legacy chatmode field)"
+        }
       },
-      "required": ["file_type", "name", "description"],
+      "required": ["description"],
       "additionalProperties": true
     },
     {
@@ -246,11 +332,12 @@
       "additionalProperties": true
     },
     {
-      "title": "Chatmodes Index (.github/chatmodes/chatmodes.md)",
-      "description": "Prompts index file.",
+      "title": "Deprecated: Chatmodes Index (.github/chatmodes/chatmodes.md)",
+      "description": "DEPRECATED: GitHub has deprecated chatmodes in favour of agents. This file type is preserved for backward compatibility only.",
       "properties": {
         "file_type": { "const": "chatmode-index" },
-        "title": { "type": "string" }
+        "title": { "type": "string" },
+        "deprecated": { "const": true }
       },
       "required": ["file_type", "title"],
       "additionalProperties": true
@@ -401,16 +488,24 @@
       "additionalProperties": true
     },
     {
-      "title": "Chatmode (.github/chatmodes/*.chatmode.md)",
-      "description": "GitHub Copilot chatmode configuration files.",
+      "title": "Deprecated: Chatmode (.github/chatmodes/*.chatmode.md)",
+      "description": "DEPRECATED: GitHub has deprecated chatmodes in favour of agents. Use .agent.md files instead. This schema is preserved for backward compatibility only.",
       "allOf": [{ "$ref": "#/definitions/commonFields" }],
       "properties": {
         "file_type": { "const": "chatmode" },
         "description": { "type": "string" },
+        "deprecated": {
+          "const": true,
+          "description": "Chatmodes are deprecated; migrate to agents"
+        },
+        "replacement": {
+          "type": "string",
+          "description": "Path to replacement agent file"
+        },
         "mode": {
           "type": "string",
           "enum": ["instruction", "conversation", "template", "information"],
-          "description": "Chatmode operational mode"
+          "description": "Chatmode operational mode (deprecated)"
         },
         "tools": {
           "type": "array",

@@ -21,13 +21,13 @@ maintainer: "Ash Shaw"
 
 ### Key Findings
 
-| Category | Count | Status |
-|----------|-------|--------|
-| **Duplicate Files** | 0 | ✅ **RESOLVED** |
-| **Conflicting Content** | 0 | ✅ **RESOLVED** |
-| **Outdated References** | 0 | ✅ **UPDATED** |
-| **Broken Cross-Links** | 0 | ✅ **FIXED** |
-| **Properly Organized** | 171 | ✅ **GOOD** |
+| Category                | Count | Status          |
+| ----------------------- | ----- | --------------- |
+| **Duplicate Files**     | 0     | ✅ **RESOLVED** |
+| **Conflicting Content** | 0     | ✅ **RESOLVED** |
+| **Outdated References** | 0     | ✅ **UPDATED**  |
+| **Broken Cross-Links**  | 0     | ✅ **FIXED**    |
+| **Properly Organized**  | 171   | ✅ **GOOD**     |
 
 **Overall Assessment:** 100% Organized | All Issues Resolved
 
@@ -92,11 +92,11 @@ All legacy files in `.github/instructions/wordpress/` have been deleted after co
 
 ### 2.2 Inconsistent ApplyTo Formats
 
-| File | Format | Issue |
-|------|--------|-------|
+| File                                            | Format                    | Issue      |
+| ----------------------------------------------- | ------------------------- | ---------- |
 | `block-plugin/javascript-react.instructions.md` | Array: `["**/*.js", ...]` | ✅ Correct |
-| `wpcs/js-react.instructions.md` | String: `"**/*.{...}"` | ✅ Correct |
-| `wpcs/javascript-react.instructions.md` | String: `"**/*.{...}"` | ✅ Correct |
+| `wpcs/js-react.instructions.md`                 | String: `"**/*.{...}"`    | ✅ Correct |
+| `wpcs/javascript-react.instructions.md`         | String: `"**/*.{...}"`    | ✅ Correct |
 
 **Status:** ✅ Formats are valid, no standardization required (both are valid YAML)
 
@@ -108,11 +108,11 @@ All legacy files in `.github/instructions/wordpress/` have been deleted after co
 
 **Main Index Files:**
 
-| File | References | Status | Notes |
-|------|-----------|--------|-------|
-| `wpcs.instructions.md` | 5 WPCS files listed | ✅ **ACCURATE** | All referenced files exist |
-| `block-plugin-development.instructions.md` | `./block-plugin/` dir | ✅ **ACCURATE** | Dynamic reference correct |
-| `block-theme-development.instructions.md` | `./block-theme/` dir | ✅ **ACCURATE** | Dynamic reference correct |
+| File                                       | References            | Status          | Notes                      |
+| ------------------------------------------ | --------------------- | --------------- | -------------------------- |
+| `wpcs.instructions.md`                     | 5 WPCS files listed   | ✅ **ACCURATE** | All referenced files exist |
+| `block-plugin-development.instructions.md` | `./block-plugin/` dir | ✅ **ACCURATE** | Dynamic reference correct  |
+| `block-theme-development.instructions.md`  | `./block-theme/` dir  | ✅ **ACCURATE** | Dynamic reference correct  |
 
 ### 3.2 Cross-Reference Paths
 
@@ -138,8 +138,8 @@ block-plugin-development.instructions.md
 All context-specific instructions properly include scope notices:
 
 ```markdown
-> ⚠️ **Scope Notice**: These instructions are intended for 
-> **WordPress block plugin repositories** within the `lightspeedwp` 
+> ⚠️ **Scope Notice**: These instructions are intended for
+> **WordPress block plugin repositories** within the `lightspeedwp`
 > GitHub organisation.
 ```
 
@@ -172,12 +172,12 @@ All context-specific instructions properly include scope notices:
 
 **Files Covering Security:**
 
-| File | Scope | Content |
-|------|-------|---------|
-| `security.instructions.md` | Organization-wide | General best practices |
-| `wordpress-security.instructions.md` | WordPress-specific | WordPress-specific patterns |
-| `block-plugin/security.instructions.md` | Block plugins | Block plugin security |
-| `wpcs/wp-security.instructions.md` | WPCS index | References to security standards |
+| File                                    | Scope              | Content                          |
+| --------------------------------------- | ------------------ | -------------------------------- |
+| `security.instructions.md`              | Organization-wide  | General best practices           |
+| `wordpress-security.instructions.md`    | WordPress-specific | WordPress-specific patterns      |
+| `block-plugin/security.instructions.md` | Block plugins      | Block plugin security            |
+| `wpcs/wp-security.instructions.md`      | WPCS index         | References to security standards |
 
 **Conflict Level:** ✅ **LOW** - Each targets different audience
 
@@ -187,10 +187,10 @@ All context-specific instructions properly include scope notices:
 
 **Files Covering Internationalization:**
 
-| File | Scope | Status |
-|------|-------|--------|
-| `i18n.instructions.md` | Organization-wide | ✅ Primary resource |
-| `wpcs/wpcs-php-docs.instructions.md` | PHP documentation | References i18n patterns |
+| File                                   | Scope                | Status                   |
+| -------------------------------------- | -------------------- | ------------------------ |
+| `i18n.instructions.md`                 | Organization-wide    | ✅ Primary resource      |
+| `wpcs/wpcs-php-docs.instructions.md`   | PHP documentation    | References i18n patterns |
 | `wpcs/wpcs-javascript.instructions.md` | JavaScript standards | Includes i18n guidelines |
 
 **Conflict Level:** ✅ **NONE** - Complementary, not conflicting
@@ -205,15 +205,15 @@ All context-specific instructions properly include scope notices:
 
 **Latest Versions (Verified 2025-11-27):**
 
-| File | Version | Last Updated |
-|------|---------|--------------|
-| `wordpress-js-react.instructions.md` | v2.1 | 2025-11-27 ✅ |
-| `wpcs/js-react.instructions.md` | v2.1 | 2025-11-27 ✅ |
-| `block-plugin-development.instructions.md` | v2.1 | 2025-11-27 ✅ |
-| `block-theme-development.instructions.md` | v2.1 | 2025-11-27 ✅ |
-| `i18n.instructions.md` | v2.0 | 2025-11-27 ✅ |
-| `coding-standards.instructions.md` | v2.0 | 2025-10-23 ⚠️ |
-| `linting.instructions.md` | v1.5 | 2025-10-24 ⚠️ |
+| File                                       | Version | Last Updated  |
+| ------------------------------------------ | ------- | ------------- |
+| `wordpress-js-react.instructions.md`       | v2.1    | 2025-11-27 ✅ |
+| `wpcs/js-react.instructions.md`            | v2.1    | 2025-11-27 ✅ |
+| `block-plugin-development.instructions.md` | v2.1    | 2025-11-27 ✅ |
+| `block-theme-development.instructions.md`  | v2.1    | 2025-11-27 ✅ |
+| `i18n.instructions.md`                     | v2.0    | 2025-11-27 ✅ |
+| `coding-standards.instructions.md`         | v2.0    | 2025-10-23 ⚠️ |
+| `linting.instructions.md`                  | v1.5    | 2025-10-24 ⚠️ |
 
 **Recommendation:** Update `coding-standards.instructions.md` and `linting.instructions.md` to reflect current consolidations
 
@@ -350,14 +350,9 @@ None currently marked with `deprecated: true` in frontmatter.
 2. `wordpress/php.instructions.md` - Old structure, duplicates WPCS content
 3. `wordpress/a11y.instructions.md` - Old structure, duplicates themed versions
 
-**Outdated:**
-4. `wordpress/wordpress.instructions.md` - Old structure
-5. `wordpress/development-guidelines.instructions.md` - Old structure
-6. `wordpress/performance.instructions.md` - Old structure
-7. `wordpress/js.instructions.md` - Old structure
+**Outdated:** 4. `wordpress/wordpress.instructions.md` - Old structure 5. `wordpress/development-guidelines.instructions.md` - Old structure 6. `wordpress/performance.instructions.md` - Old structure 7. `wordpress/js.instructions.md` - Old structure
 
-**Out of Date:**
-8. `coding-standards.instructions.md` - Version/date not updated for recent consolidations
+**Out of Date:** 8. `coding-standards.instructions.md` - Version/date not updated for recent consolidations
 
 ---
 

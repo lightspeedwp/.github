@@ -14,4 +14,4 @@
 
 ---
 
-*This collection includes 3 curated items for **PHP MCP Server Development**.*
+_This collection includes 3 curated items for **PHP MCP Server Development**._

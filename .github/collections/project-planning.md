@@ -28,4 +28,4 @@ Tools and guidance for software project planning, feature breakdown, epic manage
 
 ---
 
-*This collection includes 17 curated items for **Project Planning & Management**.*
+_This collection includes 17 curated items for **Project Planning & Management**._

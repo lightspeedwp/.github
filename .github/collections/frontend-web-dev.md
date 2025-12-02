@@ -22,4 +22,4 @@ Essential prompts, instructions, and chat modes for modern frontend web developm
 
 ---
 
-*This collection includes 11 curated items for **Frontend Web Development**.*
+_This collection includes 11 curated items for **Frontend Web Development**._

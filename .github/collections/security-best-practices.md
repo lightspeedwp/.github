@@ -17,4 +17,4 @@ Security frameworks, accessibility guidelines, performance optimization, and cod
 
 ---
 
-*This collection includes 6 curated items for **Security & Code Quality**.*
+_This collection includes 6 curated items for **Security & Code Quality**._

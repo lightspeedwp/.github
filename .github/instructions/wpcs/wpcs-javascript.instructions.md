@@ -94,7 +94,7 @@ These rules encourage liberal spacing for improved developer readability. The mi
 
 - Indentation with tabs.
 - No whitespace at the end of line or on blank lines.
-- Lines should usually be no longer than 80 characters, and should not exceed 100 (counting tabs as 4 spaces). *This is a "soft" rule, but long lines generally indicate unreadable or disorganized code.*
+- Lines should usually be no longer than 80 characters, and should not exceed 100 (counting tabs as 4 spaces). _This is a "soft" rule, but long lines generally indicate unreadable or disorganized code._
 - `if`/`else`/`for`/`while`/`try` blocks should always use braces, and always go on multiple lines.
 - Unary special-character operators (e.g., `++`, `--`) must not have space next to their operand.
 - Any `,` and `;` must not have preceding space.

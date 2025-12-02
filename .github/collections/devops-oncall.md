@@ -16,4 +16,4 @@ A focused set of prompts, instructions, and a chat mode to help triage incidents
 
 ---
 
-*This collection includes 5 curated items for **DevOps On-Call**.*
+_This collection includes 5 curated items for **DevOps On-Call**._

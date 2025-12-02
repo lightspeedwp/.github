@@ -13,4 +13,4 @@ Tools for creation, management and research of technical spikes to reduce unknow
 
 ---
 
-*This collection includes 2 curated items for **Technical Spike**.*
+_This collection includes 2 curated items for **Technical Spike**._

@@ -179,7 +179,7 @@ For new contributors or maintainers:
 
 ---
 
-*This directory is the central hub for all LightSpeed automation configuration. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for complete policies and procedures.*
+_This directory is the central hub for all LightSpeed automation configuration. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for complete policies and procedures._
 
 ---
 

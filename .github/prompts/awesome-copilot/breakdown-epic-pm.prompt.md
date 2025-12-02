@@ -46,7 +46,7 @@ The output should be a complete Epic PRD in Markdown format, saved to `/docs/way
 
 #### 7. Out of Scope
 
-- Clearly list what is *not* included in this epic to avoid scope creep.
+- Clearly list what is _not_ included in this epic to avoid scope creep.
 
 #### 8. Business Value
 

@@ -32,9 +32,6 @@ reviews:
     - path: ".github/prompts/**"
       instructions: |
         Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
-    - path: ".github/chatmodes/**"
-      instructions: |
-        Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
     - path: ".github/agents/**"
       instructions: |
         Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
@@ -46,16 +43,8 @@ reviews:
           - Ensure the file is easy to navigate and up to date with org standards.
           - Ensure the file is a dynamic index of all major Copilot files and instructions.
           - Validate YAML frontmatter for completeness and accuracy.
-          - Confirm references to chatmodes.md, prompts.md, agent.md, AGENTS.md, and all **/.github/instructions/*.instructions.md files.
+          - Confirm references to prompts.md, agent.md, AGENTS.md, and all **/.github/instructions/*.instructions.md files.
           - Check for up-to-date cross-references and clear documentation of Copilot usage.
-
-    - path: "**/.github/chatmodes/chatmodes.md"
-      instructions: |
-        Review the chatmodes index file:
-          - Ensure the file documents chatmode conventions and usage patterns.
-          - Ensure a dynamic index reference to all chatmode files exists.
-          - Validate YAML frontmatter and update date/version fields.
-          - Confirm all chatmode files are discoverable from this index.
 
     - path: "**/.github/prompts/prompts.md"
       instructions: |
@@ -64,15 +53,6 @@ reviews:
           - Ensure a dynamic index reference to all *.prompt.md files exists.
           - Validate YAML frontmatter and update date/version fields.
           - Confirm all prompt files are discoverable from this index.
-
-    - path: "**/.github/chatmodes/*.chatmode.md"
-      instructions: |
-        Review all chatmode files:
-          - Ensure each file is a valid chatmode definition with correct YAML frontmatter.
-          - Confirm the file is referenced in the chatmodes index.
-          - Validate structure, naming, and documentation.
-          - Check for clear role, style, and process sections in each chatmode.
-          - Ensure each chatmode includes a checklist and prompt section.
 
     - path: "**/.github/prompts/*.md"
       instructions: |

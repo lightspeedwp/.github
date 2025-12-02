@@ -96,4 +96,4 @@ To use these generated instructions and prompts, you'll need to update your `set
 
 ---
 
-*This collection includes 3 curated items for **Tasks by microsoft/edge-ai**.*
+_This collection includes 3 curated items for **Tasks by microsoft/edge-ai**._

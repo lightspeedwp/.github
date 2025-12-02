@@ -29,4 +29,4 @@ Comprehensive Azure cloud development tools including Infrastructure as Code, se
 
 ---
 
-*This collection includes 18 curated items for **Azure & Cloud Development**.*
+_This collection includes 18 curated items for **Azure & Cloud Development**._

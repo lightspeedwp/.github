@@ -145,7 +145,7 @@ CMD ["node", "dist/main.js"]
   - **Cache Invalidation:** Changes to any layer invalidate all subsequent layers. Place frequently changing content (like source code) near the end.
   - **Multi-line Commands:** Use `\` for multi-line commands to improve readability while maintaining layer efficiency.
 - **Guidance for Copilot:**
-  - Place frequently changing instructions (e.g., `COPY . .`) *after* less frequently changing ones (e.g., `RUN npm ci`).
+  - Place frequently changing instructions (e.g., `COPY . .`) _after_ less frequently changing ones (e.g., `RUN npm ci`).
   - Combine `RUN` commands where possible to minimize layers (e.g., `RUN apt-get update && apt-get install -y ...`).
   - Clean up temporary files in the same `RUN` command (`rm -rf /var/lib/apt/lists/*`).
   - Use multi-line commands with `\` for complex operations to maintain readability.

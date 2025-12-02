@@ -235,4 +235,4 @@ npm run prompt:inline-documentation
 
 ---
 
-*This file is the canonical index for all inline documentation standards in LightSpeedWP projects. For detailed guidance on a specific language or format, refer to the corresponding file in the [`inline-docs/`](./inline-docs/) folder.*
+_This file is the canonical index for all inline documentation standards in LightSpeedWP projects. For detailed guidance on a specific language or format, refer to the corresponding file in the [`inline-docs/`](./inline-docs/) folder._

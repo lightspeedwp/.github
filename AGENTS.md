@@ -17,8 +17,6 @@ references:
     description: "Organisation-wide Copilot instructions"
   - path: ".github/instructions/coding-standards.instructions.md"
     description: "Coding standards index"
-  - path: ".github/chatmodes/chatmodes.md"
-    description: "Chatmodes index"
   - path: ".github/prompts/prompts.md"
     description: "Prompts index"
 ---
@@ -104,7 +102,6 @@ Start here for all key standards:
 | ----------------------- | ---------------------------------------------------------------- | -------------------------------------------------------- |
 | **Custom Instructions** | [.github/custom-instructions.md](.github/custom-instructions.md) | Central Copilot/org instructions, prompts, and standards |
 | **Main Agent Index**    | [.github/agents/agent.md](.github/agents/agent.md)               | Directory of agent specs, stubs, usage, implementation   |
-| **Chat Modes Index**    | [.github/chatmodes/chatmodes.md](.github/chatmodes/chatmodes.md) | List and guidance for all chat modes                     |
 | **Prompts Index**       | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Master prompt index and authoring conventions            |
 
 ---

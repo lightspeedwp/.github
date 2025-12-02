@@ -154,4 +154,3 @@ Create a weekly summary report covering:
 - [Reporting Instructions](../.github/instructions/reporting.instructions.md)
 - [Reports Directory](../.github/reports/README.md)
 - [Reporting Agent](../.github/agents/reporting.agent.md)
-- [Reporting Chatmode](../.github/chatmodes/reporting.chatmode.md)

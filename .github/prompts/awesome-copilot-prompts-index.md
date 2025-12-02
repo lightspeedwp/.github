@@ -76,8 +76,8 @@ Each prompt is designed to accelerate workflow, code review, documentation, and 
 | [dotnet-design-pattern-review.prompt.md](./awesome-copilot/dotnet-design-pattern-review.prompt.md)                                                           | Review .NET code for design pattern adherence.                            |
 | [dotnet-upgrade.prompts.md](./awesome-copilot/dotnet-upgrade.prompts.md)                                                                                     | Upgrade .NET projects to latest supported versions.                       |
 
-> *This list is partial.  
-> For the full file listing, see the [awesome-copilot/ folder in GitHub](https://github.com/lightspeedwp/.github/tree/develop/.github/prompts/awesome-copilot).*
+> _This list is partial.  
+> For the full file listing, see the [awesome-copilot/ folder in GitHub](https://github.com/lightspeedwp/.github/tree/develop/.github/prompts/awesome-copilot)._
 
 ---
 

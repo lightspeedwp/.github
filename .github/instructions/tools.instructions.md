@@ -32,7 +32,7 @@ Explain **when and how this check is executed**:
 
 List the **npm scripts or commands** that invoke this tool, and link to their definitions in `package.json`:
 
-- For example, *“`npm run lint:js` – runs ESLint on all JS/TS files”*:contentReference[oaicite:3]{index=3}, or *“`npm run format` – formats code with Prettier (and Stylelint for CSS)”*.
+- For example, _“`npm run lint:js` – runs ESLint on all JS/TS files”_:contentReference[oaicite:3]{index=3}, or _“`npm run format` – formats code with Prettier (and Stylelint for CSS)”_.
 - If the tool is part of a composite script (e.g. `npm run check` runs multiple checks), note that hierarchy. Ensure script names in docs match those in `package.json` to avoid drift.
 
 ## Severity & Failure Modes
@@ -41,7 +41,7 @@ Clarify how **failures are handled**:
 
 - Does a rule violation fail the commit or CI build (treated as an error), or just log a warning? For example, our config typically makes linters error out on issues, causing Husky or CI to block the build.
 - Mention if some rules are intentionally warnings (non-blocking) and why.
-- Note if the tool can auto-fix issues (and if we use that). E.g. *“Prettier auto-formats on save and commit, so format issues should be fixed automatically.”*
+- Note if the tool can auto-fix issues (and if we use that). E.g. _“Prettier auto-formats on save and commit, so format issues should be fixed automatically.”_
 
 ## Suppression & Ignoring
 

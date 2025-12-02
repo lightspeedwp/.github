@@ -55,7 +55,7 @@ Gemini agents (Gemini Pro, Flash) are preferred at LightSpeed for:
 
 - You want best-in-class code completion, IDE integration, or GitHub-native code review
 
-*See the [AI Model Comparison Guide](./ai-model-comparison.md) for details and a feature matrix.*
+_See the [AI Model Comparison Guide](./ai-model-comparison.md) for details and a feature matrix._
 
 ---
 
@@ -192,4 +192,4 @@ You are a Gemini agent (Pro or Flash) operating in LightSpeed.
 
 ---
 
-*When in doubt, review the [AI Model Comparison Guide](./ai-model-comparison.md) and escalate to another model as needed. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow.*
+_When in doubt, review the [AI Model Comparison Guide](./ai-model-comparison.md) and escalate to another model as needed. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow._

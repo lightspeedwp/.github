@@ -81,4 +81,4 @@ Every PR should use a standard branch prefix for correct label and template auto
 
 ---
 
-*Labeling, status, type, and standardization for PRs are handled exclusively by the unified agent and workflow.*
+_Labeling, status, type, and standardization for PRs are handled exclusively by the unified agent and workflow._

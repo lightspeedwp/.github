@@ -27,7 +27,7 @@ This page lists all instruction files for GitHub Copilot in the `awesome-copilot
 | [README.instructions.md](./README.instructions.md)           | (See file for usage and installation details)                                                          |
 | [vuejs3.instructions.md](./vuejs3.instructions.md)           | VueJS 3 development standards and best practices with Composition API and TypeScript                   |
 
-*Last updated: 2025-10-23*
+_Last updated: 2025-10-23_
 
 ---
 

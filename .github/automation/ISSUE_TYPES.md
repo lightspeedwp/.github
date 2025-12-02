@@ -14,61 +14,61 @@ This guide is for choosing a type, understanding type automation, and aligning w
 ## Issue Types
 
 - **Task** — Small, well-scoped unit of work (e.g., config update, copy edit).  
-  *Label:* `type:task`
+  _Label:_ `type:task`
 - **Bug** — Broken/incorrect behaviour (e.g., error, regression, failed test).  
-  *Label:* `type:bug`
+  _Label:_ `type:bug`
 - **Feature** — Net-new capability or enhancement (e.g., new block, API).  
-  *Label:* `type:feature`
+  _Label:_ `type:feature`
 - **Design** — Design artefacts/decisions (e.g., Figma, specs, a11y checks).  
-  *Label:* `type:design`
+  _Label:_ `type:design`
 - **Epic** — Parent issue grouping stories/tasks for a larger outcome.  
-  *Label:* `type:epic`
+  _Label:_ `type:epic`
 - **Story** — User-centred vertical slice within an Epic.  
-  *Label:* `type:story`
+  _Label:_ `type:story`
 - **Improvement** — Enhance existing behaviour or UX.  
-  *Label:* `type:improve`
+  _Label:_ `type:improve`
 - **Refactor** — Internal restructure for maintainability, no behaviour change.  
-  *Label:* `type:refactor`
+  _Label:_ `type:refactor`
 - **Build & CI** — Tooling, pipelines, packaging, releases, deploys.  
-  *Label:* `type:chore` or `area:ci`
+  _Label:_ `type:chore` or `area:ci`
 - **Automation** — Bots/actions/scripts that reduce toil.  
-  *Label:* `type:automation` or `area:ci`
+  _Label:_ `type:automation` or `area:ci`
 - **Test Coverage** — Add or expand tests (unit, integration, E2E).  
-  *Label:* `type:test`
+  _Label:_ `type:test`
 - **Performance** — Improve speed/efficiency.  
-  *Label:* `type:performance`
+  _Label:_ `type:performance`
 - **A11y** — Accessibility to WCAG 2.1 AA.  
-  *Label:* `type:a11y`
+  _Label:_ `type:a11y`
 - **Security** — Security issues or improvements.  
-  *Label:* `type:security`
+  _Label:_ `type:security`
 - **Compatibility** — Browser/device/plugin compatibility.  
-  *Label:* `type:compat`
+  _Label:_ `type:compat`
 - **Integration** — Integration with external systems/services.  
-  *Label:* `type:integration`
+  _Label:_ `type:integration`
 - **Release** — Release management and deployment.  
-  *Label:* `type:release`
+  _Label:_ `type:release`
 - **Maintenance** — Routine maintenance, updates, or audits.  
-  *Label:* `type:chore`
+  _Label:_ `type:chore`
 - **Documentation** — Docs, guides, onboarding, or knowledge base.  
-  *Label:* `type:documentation`
+  _Label:_ `type:documentation`
 - **Research** — Discovery, investigation, or technical spikes.  
-  *Label:* `type:research`
+  _Label:_ `type:research`
 - **Audit** — Security, code, or process audits.  
-  *Label:* `type:audit`
+  _Label:_ `type:audit`
 - **Code Review** — Peer review, QA, or validation.  
-  *Label:* `type:review`
+  _Label:_ `type:review`
 - **AI Ops** — AI/automation operations, agents, or datasets.  
-  *Label:* `type:ai-ops`
+  _Label:_ `type:ai-ops`
 - **Content Modelling** — Content structure, CPTs, or taxonomy.  
-  *Label:* `type:content-modelling`
+  _Label:_ `type:content-modelling`
 
 See [issue-types.yml](./issue-types.yml) for the up-to-date, machine-readable mapping.
 
 ---
 
-***Version:*** 1.5 • ***Last updated:*** 6 Oct 2025  
-***Scope:*** WordPress themes, plugins, blocks, WooCommerce, FSE projects  
-***Purpose:*** A practical, organisation-wide reference for **Issue Types** with colour rationale, labels to use, process guidance, and DoR/DoD templates.
+**_Version:_** 1.5 • **_Last updated:_** 6 Oct 2025  
+**_Scope:_** WordPress themes, plugins, blocks, WooCommerce, FSE projects  
+**_Purpose:_** A practical, organisation-wide reference for **Issue Types** with colour rationale, labels to use, process guidance, and DoR/DoD templates.
 
 ---
 
@@ -147,7 +147,7 @@ Grey `#9198a1` • Blue `#4393f8` • Green `#3fb950` • Yellow `#d29922` • O
 
 # **1\) The Issue Types (expanded with label families)** {#1)-the-issue-types-(expanded-with-label-families)}
 
-## **🧩 Task — *Blue `#4393f8`*** {#🧩-task-—-blue-#4393f8}
+## **🧩 Task — _Blue `#4393f8`_** {#🧩-task-—-blue-#4393f8}
 
 **Description (200–250 chars):**  
 Small, well‑scoped unit of work: adjust a template part, update `theme.json` tokens, tweak CI, add a block setting, write a micro‑migration, or tidy copy. Typically ≤2 days with minimal discovery.
@@ -178,7 +178,7 @@ Tests/docs updated; screenshots; changelog if user‑visible.
 
 ---
 
-## **🐞 Bug — *Red `#9f3734`*** {#🐞-bug-—-red-#9f3734}
+## **🐞 Bug — _Red `#9f3734`_** {#🐞-bug-—-red-#9f3734}
 
 **Description (200–250 chars):**  
 Broken/incorrect behaviour: PHP errors, block render issues, CSS regressions, JS console errors, REST faults, Woo checkout breakage. Provide repro steps, expected/actual, and affected environment(s).
@@ -209,7 +209,7 @@ Regression tests; release notes; monitors/alerts checked.
 
 ---
 
-## **✨ Feature — *Green `#3fb950`*** {#✨-feature-—-green-#3fb950}
+## **✨ Feature — _Green `#3fb950`_** {#✨-feature-—-green-#3fb950}
 
 **Description (200–250 chars):**  
 Net‑new capability: new block/pattern, screen, API, or editorial workflow. Includes design/spec, implementation, review, QA and rollout plan across environments.
@@ -239,7 +239,7 @@ Docs & changelog; feature flags/toggles noted; rollout/rollback steps.
 
 ---
 
-## **🎨 Design — *Purple `#ab7df8`*** {#🎨-design-—-purple-#ab7df8}
+## **🎨 Design — _Purple `#ab7df8`_** {#🎨-design-—-purple-#ab7df8}
 
 **Description (200–250 chars):**  
 Design artefacts/decisions: UX flows, wireframes, hi‑fi Figma, block/pattern specs, `theme.json` tokens, component states, microcopy, a11y checks, and developer handoff notes.
@@ -269,7 +269,7 @@ Figma links; annotated specs; token diffs; handoff checklist complete.
 
 ---
 
-## **🧭 Epic — *Purple `#ab7df8`*** {#🧭-epic-—-purple-#ab7df8}
+## **🧭 Epic — _Purple `#ab7df8`_** {#🧭-epic-—-purple-#ab7df8}
 
 **Description (200–250 chars):**  
 Parent issue grouping stories/tasks across repos to realise a larger outcome. Defines scope, timebox, and KPIs. Tracks progress via linked child issues and milestones.
@@ -297,7 +297,7 @@ All children closed; KPI target met/reviewed; notes captured.
 
 ---
 
-## **📖 Story — *Blue `#4393f8`*** {#📖-story-—-blue-#4393f8}
+## **📖 Story — _Blue `#4393f8`_** {#📖-story-—-blue-#4393f8}
 
 **Description (200–250 chars):**  
 User‑centred vertical slice within an Epic. Delivers a demonstrable capability with acceptance criteria, ready for UAT and release when verified.
@@ -331,7 +331,7 @@ Demo evidence; docs updated; Epic progress noted.
 
 ---
 
-## **🔧 Improvement — *Grey `#9198a1`*** {#🔧-improvement-—-grey-#9198a1}
+## **🔧 Improvement — _Grey `#9198a1`_** {#🔧-improvement-—-grey-#9198a1}
 
 **Description (200–250 chars):**  
 Enhance existing behaviour or UX without adding a new feature. Examples: copy, validation, empty states, small editor polish, incremental UI consistency.
@@ -363,7 +363,7 @@ Screenshots; no regressions.
 
 ---
 
-## **♻️ Code Refactor — *Grey `#9198a1`*** {#♻️-code-refactor-—-grey-#9198a1}
+## **♻️ Code Refactor — _Grey `#9198a1`_** {#♻️-code-refactor-—-grey-#9198a1}
 
 **Description (200–250 chars):**  
 Internal restructure to improve readability/testability/maintainability without changing behaviour. Ideal for paying down technical debt and preparing for features.
@@ -395,7 +395,7 @@ Coverage stable/↑; changelog N/A or internal.
 
 ---
 
-## **⚙️ Build & CI — *Blue `#4393f8`*** {#⚙️-build-&-ci-—-blue-#4393f8}
+## **⚙️ Build & CI — _Blue `#4393f8`_** {#⚙️-build-&-ci-—-blue-#4393f8}
 
 **Description (200–250 chars):**  
 Tooling, pipelines, packaging, releases, deploys. Includes actions, test runners, caching, matrix builds, and release automation.
@@ -426,7 +426,7 @@ Pipelines green; docs updated.
 
 ---
 
-## **🤖 Automation — *Blue `#4393f8`*** {#🤖-automation-—-blue-#4393f8}
+## **🤖 Automation — _Blue `#4393f8`_** {#🤖-automation-—-blue-#4393f8}
 
 **Description (200–250 chars):**  
 Bots/actions/scripts that reduce toil: labelers, sync scripts, scaffolding, changelog generators, stale‑sweeps.
@@ -457,7 +457,7 @@ Logs verified; audit notes.
 
 ---
 
-## **🧪 Test Coverage — *Yellow `#d29922`*** {#🧪-test-coverage-—-yellow-#d29922}
+## **🧪 Test Coverage — _Yellow `#d29922`_** {#🧪-test-coverage-—-yellow-#d29922}
 
 **Description (200–250 chars):**  
 Add or expand tests: unit, integration, E2E. Raise confidence and guard regressions across blocks, templates, and PHP APIs.
@@ -490,7 +490,7 @@ Coverage delta; CI green.
 
 ---
 
-## **⚡ Performance — *Yellow `#d29922`*** {#⚡-performance-—-yellow-#d29922}
+## **⚡ Performance — _Yellow `#d29922`_** {#⚡-performance-—-yellow-#d29922}
 
 **Description (200–250 chars):**  
 Improve speed/efficiency: render and bundle sizes, query counts, LCP/CLS, lazy‑loading, asset strategy. Must include a baseline and target.
@@ -523,7 +523,7 @@ Metrics improved; notes logged.
 
 ---
 
-## **♿ A11y — *Pink `#db61a2`*** {#♿-a11y-—-pink-#db61a2}
+## **♿ A11y — _Pink `#db61a2`_** {#♿-a11y-—-pink-#db61a2}
 
 **Description (200–250 chars):**  
 Accessibility to WCAG 2.1 AA: semantics, focus, contrast, keyboard paths, screen reader support. Includes audits, fixes, and verification.
@@ -555,7 +555,7 @@ Checklist \+ screenshots.
 
 ---
 
-## **🔒 Security — *Red `#9f3734`*** {#🔒-security-—-red-#9f3734}
+## **🔒 Security — _Red `#9f3734`_** {#🔒-security-—-red-#9f3734}
 
 **Description (200–250 chars):**  
 Hardening and fixes: sanitise/escape, nonces, capabilities, dependency CVEs, secrets handling, permission checks. Confidential handling as needed.
@@ -588,7 +588,7 @@ Tests; disclosure plan (if needed).
 
 ---
 
-## **🔌 Compatibility — *Orange `#8d4821`*** {#🔌-compatibility-—-orange-#8d4821}
+## **🔌 Compatibility — _Orange `#8d4821`_** {#🔌-compatibility-—-orange-#8d4821}
 
 **Description (200–250 chars):**  
 Work to align with version/platform constraints: WordPress/Gutenberg updates, PHP min/tested‑up‑to, Woo compatibility, RTL support.
@@ -619,7 +619,7 @@ Readme “tested up to”; CI matrix green.
 
 ---
 
-## **🔄 Integration — *Orange `#8d4821`*** {#🔄-integration-—-orange-#8d4821}
+## **🔄 Integration — _Orange `#8d4821`_** {#🔄-integration-—-orange-#8d4821}
 
 **Description (200–250 chars):**  
 Integrating external plugins/services/APIs (payments, search, analytics). Includes sandboxing, fail‑path handling, logging and observability.
@@ -651,7 +651,7 @@ Logs/tracing \+ docs.
 
 ---
 
-## **🚀 Release — *Green `#3fb950`*** {#🚀-release-—-green-#3fb950}
+## **🚀 Release — _Green `#3fb950`_** {#🚀-release-—-green-#3fb950}
 
 **Description (200–250 chars):**  
 Plan, cut and ship a release/hotfix. Coordinates changelog, tagging, deployment, and comms. Serves as the shipping record for environments.
@@ -683,7 +683,7 @@ Tag \+ notes; monitoring.
 
 ---
 
-## **🧰 Maintenance — *Grey `#9198a1`*** {#🧰-maintenance-—-grey-#9198a1}
+## **🧰 Maintenance — _Grey `#9198a1`_** {#🧰-maintenance-—-grey-#9198a1}
 
 **Description (200–250 chars):**  
 Routine upkeep: dependency bumps, lint/format, small housekeeping. Low risk but keeps repos healthy and secure.
@@ -715,7 +715,7 @@ CI green; smoke test.
 
 ---
 
-## **📚 Documentation — *Grey `#9198a1`*** {#📚-documentation-—-grey-#9198a1}
+## **📚 Documentation — _Grey `#9198a1`_** {#📚-documentation-—-grey-#9198a1}
 
 **Description (200–250 chars):**  
 Docs & guides for developers, editors, or contributors. Includes READMEs, user docs, saved replies, and in‑repo handbooks.
@@ -747,7 +747,7 @@ Links from README/wiki; docs build if any.
 
 ---
 
-## **🔬 Research — *Grey `#9198a1`*** {#🔬-research-—-grey-#9198a1}
+## **🔬 Research — _Grey `#9198a1`_** {#🔬-research-—-grey-#9198a1}
 
 **Description (200–250 chars):**  
 Time‑boxed exploration to reduce uncertainty: compare approaches, PoC a pattern, validate feasibility, or gather metrics to decide a direction.
@@ -779,7 +779,7 @@ Findings; follow‑ups filed.
 
 ---
 
-## **🧹 Chore — *Grey `#9198a1`*** {#🧹-chore-—-grey-#9198a1}
+## **🧹 Chore — _Grey `#9198a1`_** {#🧹-chore-—-grey-#9198a1}
 
 **Description (200–250 chars):**  
 Small housekeeping: file moves, ignore rules, repo settings, GH Actions tweaks. Quicker than Tasks; often unblocks other work.
@@ -810,7 +810,7 @@ Verified; no side effects.
 
 ---
 
-## **🧾 Audit — *Grey `#9198a1`*** {#🧾-audit-—-grey-#9198a1}
+## **🧾 Audit — _Grey `#9198a1`_** {#🧾-audit-—-grey-#9198a1}
 
 **Description (200–250 chars):**  
 Structured review of current state, producing findings and actions: a11y, performance, security, content, or SEO audits.
@@ -843,7 +843,7 @@ Report \+ actions list.
 
 ---
 
-## **👀 Code Review — *Blue `#4393f8`*** {#👀-code-review-—-blue-#4393f8}
+## **👀 Code Review — _Blue `#4393f8`_** {#👀-code-review-—-blue-#4393f8}
 
 **Description (200–250 chars):**  
 Focused review tasks not tied to a single PR (cross‑cutting, security sweeps, migration reviews) or formal approvals on complex changes.
@@ -874,7 +874,7 @@ Approvals; follow‑ups filed.
 
 ---
 
-## **🧠 AI Ops — *Blue `#4393f8`*** {#🧠-ai-ops-—-blue-#4393f8}
+## **🧠 AI Ops — _Blue `#4393f8`_** {#🧠-ai-ops-—-blue-#4393f8}
 
 **Description (200–250 chars):**  
 Manage AI assets and workflows: instructions, prompts, chat modes, agents, datasets, evaluations and tools that live in the repo.
@@ -905,7 +905,7 @@ Versioned; rollout notes.
 
 ---
 
-## **🗂️ Content Modelling — *Purple `#ab7df8`*** {#🗂️-content-modelling-—-purple-#ab7df8}
+## **🗂️ Content Modelling — _Purple `#ab7df8`_** {#🗂️-content-modelling-—-purple-#ab7df8}
 
 **Description (200–250 chars):**  
 Define post types/taxonomies/fields and map to templates/patterns. Aligns with editor experience, tokens, and migrations for authoring at scale.
@@ -983,4 +983,4 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 
 ---
 
-*Type assignment is fully automated and standardized by the unified agent and workflow. All changes are canonical and traceable.*
+_Type assignment is fully automated and standardized by the unified agent and workflow. All changes are canonical and traceable._

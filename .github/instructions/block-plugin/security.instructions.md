@@ -173,7 +173,7 @@ if ( ! isset( $_POST['my_nonce'] ) || ! wp_verify_nonce( $_POST['my_nonce'], 'my
 // In AJAX handler
 add_action( 'wp_ajax_my_action', function() {
     check_ajax_referer( 'my_ajax_nonce', 'nonce' );
-    
+
     // Process AJAX request
     wp_send_json_success( array( 'message' => 'Success' ) );
 } );
@@ -321,7 +321,7 @@ public function test_sanitize_user_input() {
 public function test_user_capability() {
     $user = self::factory()->user->create( array( 'role' => 'subscriber' ) );
     wp_set_current_user( $user );
-    
+
     $this->assertFalse( current_user_can( 'manage_options' ) );
 }
 

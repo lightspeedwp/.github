@@ -63,10 +63,10 @@ These conventions merge **LightSpeedWP governance requirements** with **awesome-
 
 **Supplemental Tags** (use in `tags` array, max 8 total):
 
-*Development*: `testing`, `lint`, `ci`, `automation`, `docs`, `validation`  
-*WordPress*: `rest`, `graphql`, `gutenberg`, `blocks`, `patterns`, `theme-json`  
-*Technical*: `api`, `data`, `editor`, `cli`, `deployment`, `logging`  
-*UX/Design*: `ux`, `design-tokens`, `accessibility`, `responsive`, `mobile`
+_Development_: `testing`, `lint`, `ci`, `automation`, `docs`, `validation`  
+_WordPress_: `rest`, `graphql`, `gutenberg`, `blocks`, `patterns`, `theme-json`  
+_Technical_: `api`, `data`, `editor`, `cli`, `deployment`, `logging`  
+_UX/Design_: `ux`, `design-tokens`, `accessibility`, `responsive`, `mobile`
 
 **Tagging Rules**:
 
@@ -268,4 +268,4 @@ Collections already use `tags:`. Add optional `stability:` and `domain:` keys al
 - **Validation**: [validate-frontmatter.js](../../scripts/json-validation/validate-frontmatter.js)
 - **Awesome-Copilot**: Original conventions preserved and extended
 
-*Produced with accessibility and inclusivity in mind. This document follows LightSpeed governance v2.0 and awesome-copilot integration standards.*
+_Produced with accessibility and inclusivity in mind. This document follows LightSpeed governance v2.0 and awesome-copilot integration standards._

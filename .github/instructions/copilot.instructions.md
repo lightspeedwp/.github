@@ -1,11 +1,11 @@
 ---
 file_type: "instructions"
 title: "Copilot Instructions"
-description: "Comprehensive guide for creating and managing Copilot chatmodes, prompts, instructions, and automation."
-version: "v2.0"
-last_updated: "2025-11-26"
+description: "Comprehensive guide for creating and managing Copilot agents, prompts, instructions, and automation."
+version: "v3.0"
+last_updated: "2025-12-02"
 owners: ["LightSpeedWP Engineering"]
-tags: ["copilot", "instructions", "chatmode", "prompt", "automation", "ai"]
+tags: ["copilot", "instructions", "agents", "prompt", "automation", "ai"]
 status: "active"
 applyTo: "**/*"
 references:
@@ -13,13 +13,13 @@ references:
   - "../coding-standards.instructions.md"
   - "./frontmatter.instructions.md"
   - "../COPILOT_TEMPLATE/"
-  - "../chatmodes/chatmodes.md"
+  - "../agents/agent.md"
   - "../prompts/prompts.md"
 ---
 
 # Copilot Instructions
 
-This is the canonical guide for all Copilot-related authoring in the LightSpeedWP repository—including chatmodes, prompts, instructions, and custom automation.
+This is the canonical guide for all Copilot-related authoring in the LightSpeedWP repository—including agents, prompts, instructions, and custom automation.
 
 For org-wide Copilot guidance, see [custom-instructions.md](../custom-instructions.md).
 
@@ -29,25 +29,25 @@ For org-wide Copilot guidance, see [custom-instructions.md](../custom-instructio
 
 | Asset Type   | Template Location                           | Index Location                   |
 | ------------ | ------------------------------------------- | -------------------------------- |
-| ChatMode     | `COPILOT_TEMPLATE/template.chatmode.md`     | `chatmodes/chatmodes.md`         |
+| Agent        | `COPILOT_TEMPLATE/template.agent.md`        | `agents/agent.md`                |
 | Prompt       | `COPILOT_TEMPLATE/template.prompt.md`       | `prompts/prompts.md`             |
 | Instructions | `COPILOT_TEMPLATE/template.instructions.md` | This file / topic-specific index |
 
 ---
 
-## Creating a ChatMode
+## Creating an Agent
 
-ChatModes define specialised AI personas for specific tasks.
+Agents define specialised AI personas for specific tasks. GitHub has deprecated chatmodes in favour of agents.
 
 ### Steps
 
-1. **Copy the template:** Use [`COPILOT_TEMPLATE/template.chatmode.md`](../COPILOT_TEMPLATE/template.chatmode.md)
+1. **Copy the template:** Use [`agents/template.agent.md`](../agents/template.agent.md)
 2. **Update frontmatter:**
-   - `file_type: "chatmode"`
-   - `title`, `description`, `version`, `last_updated`, `owners`, `tags`, `status`
-3. **Define the role, style, process, and expected outputs**
+   - `file_type: "agent"`
+   - `name`, `description`, `version`, `last_updated`, `owners`, `tags`, `status`
+3. **Define the role, tools, process, and expected outputs**
 4. **Add references** to supporting instructions and prompts
-5. **Register in index:** Add to [`chatmodes/chatmodes.md`](../chatmodes/chatmodes.md)
+5. **Register in index:** Add to [`agents/agent.md`](../agents/agent.md)
 
 ---
 
@@ -139,7 +139,7 @@ All Copilot assets must include valid YAML frontmatter. See [`frontmatter.instru
 
 ### Required Fields
 
-- `file_type` — `"chatmode"` | `"prompt"` | `"instructions"`
+- `file_type` — `"agent"` | `"prompt"` | `"instructions"`
 - `description` — One-sentence summary
 - `version` — Semantic version (e.g., `v1.0`)
 - `last_updated` — ISO date

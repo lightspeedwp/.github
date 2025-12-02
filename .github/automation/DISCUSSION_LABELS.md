@@ -68,4 +68,4 @@ See [labels.yml](./labels.yml) for full canonical definitions and colour mapping
 - [DISCUSSION_TEMPLATE/](./DISCUSSION_TEMPLATE/): Category forms for label assignment.
 - [GitHub Docs: Creating category forms](https://docs.github.com/en/discussions/managing-discussions-for-your-community/creating-discussion-category-forms)
 
-*This Discussion Labels standard extends the LightSpeed Projects/Issues/Labels strategy and supports org-wide community engagement, moderation, and metrics. All guidance here is directly reflected in labels.yml and category form YAML.*
+_This Discussion Labels standard extends the LightSpeed Projects/Issues/Labels strategy and supports org-wide community engagement, moderation, and metrics. All guidance here is directly reflected in labels.yml and category form YAML._

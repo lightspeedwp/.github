@@ -39,4 +39,4 @@ To get the best results, consider:
 
 ---
 
-*This collection includes 3 curated items for **TypeScript MCP Server Development**.*
+_This collection includes 3 curated items for **TypeScript MCP Server Development**._

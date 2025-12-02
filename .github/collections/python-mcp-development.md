@@ -40,4 +40,4 @@ To get the best results, consider:
 
 ---
 
-*This collection includes 3 curated items for **Python MCP Server Development**.*
+_This collection includes 3 curated items for **Python MCP Server Development**._

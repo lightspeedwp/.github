@@ -33,7 +33,7 @@ flowchart TD
     D --> J[EditorConfig]
     D --> K[Keybindings]
     E --> L[Copilot]
-    E --> M[Chatmodes]
+    E --> M[Agents]
     F --> N[ESLint]
     F --> O[Stylelint]
     F --> P[Markdownlint]

@@ -103,14 +103,14 @@ All prompt files in this directory:
 
 - **[conventional-commit.prompt.md](./conventional-commit.prompt.md)** - Create conventional commit messages
 
-### 💬 Chatmodes & Communication
+### 💬 Agents & Communication
 
-- **[a11y-assistant.chatmodes.md](./a11y-assistant.chatmodes.md)** - Accessibility assistant chatmode
-- **[pattern-wizard.chatmodes.md](./pattern-wizard.chatmodes.md)** - Pattern development chatmode
-- **[pr-copilot.chatmodes.md](./pr-copilot.chatmodes.md)** - Pull request assistance chatmode
-- **[release-copilot.chatmodes.md](./release-copilot.chatmodes.md)** - Release management chatmode
+- **[a11y-assistant.agent.md](../agents/a11y-assistant.agent.md)** - Accessibility assistant agent
+- **[pattern-wizard.agent.md](../agents/pattern-wizard.agent.md)** - Pattern development agent
+- **[pr-copilot.agent.md](../agents/pr-copilot.agent.md)** - Pull request assistance agent
+- **[release-copilot.agent.md](../agents/release-copilot.agent.md)** - Release management agent
 - **[saved-replies.prompt.md](./saved-replies.prompt.md)** - GitHub saved replies management
-- **[test-coach.chatmodes.md](./test-coach.chatmodes.md)** - Testing guidance chatmode
+- **[test-coach.agent.md](../agents/test-coach.agent.md)** - Testing guidance agent
 
 ### 🎯 Agent-Specific Prompts
 
@@ -212,8 +212,7 @@ Prompts evolve with our project standards:
 ### 📚 Related Documentation
 
 - **[Custom Instructions](../custom-instructions.md)** - Organization-wide Copilot settings
-- **[Agents Directory](../agents/README.md)** - Automation agents using these prompts
-- **[Chatmodes Directory](../chatmodes/README.md)** - Specialized AI conversation modes
+- **[Agents Directory](../agents/README.md)** - Automation agents and specialized AI modes
 - **[Instructions Directory](../instructions/README.md)** - Development guidelines and standards
 - **[Collections Directory](../collections/README.md)** - Curated instruction sets
 

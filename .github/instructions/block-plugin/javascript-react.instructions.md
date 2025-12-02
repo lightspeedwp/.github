@@ -84,47 +84,47 @@ src/
  * A reusable block for displaying content
  */
 
-import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
-import BlockEdit from './edit';
-import BlockSave from './save';
-import blockMetadata from './block.json';
+import { registerBlockType } from "@wordpress/blocks";
+import { __ } from "@wordpress/i18n";
+import BlockEdit from "./edit";
+import BlockSave from "./save";
+import blockMetadata from "./block.json";
 
 /**
  * Register the block
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/
  */
-registerBlockType( blockMetadata.name, {
- ...blockMetadata,
+registerBlockType(blockMetadata.name, {
+  ...blockMetadata,
 
- /**
-  * Block edit component
-  *
-  * @param {Object} props Block properties
-  * @returns {Element} Edit element
-  */
- edit: BlockEdit,
+  /**
+   * Block edit component
+   *
+   * @param {Object} props Block properties
+   * @returns {Element} Edit element
+   */
+  edit: BlockEdit,
 
- /**
-  * Block save component
-  *
-  * @param {Object} props Block properties
-  * @returns {Element} Save element
-  */
- save: BlockSave,
+  /**
+   * Block save component
+   *
+   * @param {Object} props Block properties
+   * @returns {Element} Save element
+   */
+  save: BlockSave,
 
- /**
-  * Block variations
-  */
- variations: [
-  {
-   name: 'default',
-   title: __( 'Default', 'plugin-name' ),
-   isDefault: true,
-  },
- ],
-} );
+  /**
+   * Block variations
+   */
+  variations: [
+    {
+      name: "default",
+      title: __("Default", "plugin-name"),
+      isDefault: true,
+    },
+  ],
+});
 ```
 
 ### Block Edit Component
@@ -139,33 +139,31 @@ registerBlockType( blockMetadata.name, {
  * @param {Object} props.clientId Block client ID
  * @returns {Element} Edit element
  */
-function BlockEdit( { attributes, setAttributes, clientId } ) {
- const { title, content } = attributes;
+function BlockEdit({ attributes, setAttributes, clientId }) {
+  const { title, content } = attributes;
 
- return (
-  <div className="wp-block-plugin-my-block">
-   <BlockControls>
-    <ToolbarGroup>
-     {/* Toolbar controls */}
-    </ToolbarGroup>
-   </BlockControls>
+  return (
+    <div className="wp-block-plugin-my-block">
+      <BlockControls>
+        <ToolbarGroup>{/* Toolbar controls */}</ToolbarGroup>
+      </BlockControls>
 
-   <InspectorControls>
-    <PanelBody title={ __( 'Settings', 'plugin-name' ) }>
-     {/* Inspector controls */}
-    </PanelBody>
-   </InspectorControls>
+      <InspectorControls>
+        <PanelBody title={__("Settings", "plugin-name")}>
+          {/* Inspector controls */}
+        </PanelBody>
+      </InspectorControls>
 
-   <div className="wp-block-plugin-my-block__content">
-    <RichText
-     value={ title }
-     onChange={ ( value ) => setAttributes( { title: value } ) }
-     placeholder={ __( 'Enter title', 'plugin-name' ) }
-     tagName="h2"
-    />
-   </div>
-  </div>
- );
+      <div className="wp-block-plugin-my-block__content">
+        <RichText
+          value={title}
+          onChange={(value) => setAttributes({ title: value })}
+          placeholder={__("Enter title", "plugin-name")}
+          tagName="h2"
+        />
+      </div>
+    </div>
+  );
 }
 
 export default BlockEdit;
@@ -181,17 +179,15 @@ export default BlockEdit;
  * @param {Object} props.attributes Block attributes
  * @returns {Element} Saved block element
  */
-function BlockSave( { attributes } ) {
- const { title, content } = attributes;
+function BlockSave({ attributes }) {
+  const { title, content } = attributes;
 
- return (
-  <div className="wp-block-plugin-my-block">
-   <h2>{ title }</h2>
-   <div className="wp-block-plugin-my-block__content">
-    { content }
-   </div>
-  </div>
- );
+  return (
+    <div className="wp-block-plugin-my-block">
+      <h2>{title}</h2>
+      <div className="wp-block-plugin-my-block__content">{content}</div>
+    </div>
+  );
 }
 
 export default BlockSave;
@@ -211,21 +207,21 @@ export default BlockSave;
  * @param {Function} props.onChange Change handler
  * @returns {Element} Component element
  */
-function MyComponent( { title, content, onChange } ) {
- const [ isExpanded, setIsExpanded ] = useState( false );
+function MyComponent({ title, content, onChange }) {
+  const [isExpanded, setIsExpanded] = useState(false);
 
- const handleToggle = useCallback( () => {
-  setIsExpanded( ( prev ) => ! prev );
- }, [] );
+  const handleToggle = useCallback(() => {
+    setIsExpanded((prev) => !prev);
+  }, []);
 
- return (
-  <div className="my-component">
-   <button onClick={ handleToggle } aria-expanded={ isExpanded }>
-    { title }
-   </button>
-   { isExpanded && <div>{ content }</div> }
-  </div>
- );
+  return (
+    <div className="my-component">
+      <button onClick={handleToggle} aria-expanded={isExpanded}>
+        {title}
+      </button>
+      {isExpanded && <div>{content}</div>}
+    </div>
+  );
 }
 
 export default MyComponent;
@@ -240,29 +236,29 @@ export default MyComponent;
  * @param {string} clientId Block client ID
  * @returns {Object} Block data and setter
  */
-function useBlockData( clientId ) {
- const [ data, setData ] = useState( null );
- const [ loading, setLoading ] = useState( true );
- const [ error, setError ] = useState( null );
+function useBlockData(clientId) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
- useEffect( () => {
-  const fetchData = async () => {
-   try {
-    setLoading( true );
-    const response = await fetch( `/wp-json/api/block/${ clientId }` );
-    const result = await response.json();
-    setData( result );
-   } catch ( err ) {
-    setError( err );
-   } finally {
-    setLoading( false );
-   }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`/wp-json/api/block/${clientId}`);
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchData();
- }, [ clientId ] );
+    fetchData();
+  }, [clientId]);
 
- return { data, loading, error };
+  return { data, loading, error };
 }
 
 export default useBlockData;
@@ -274,23 +270,27 @@ export default useBlockData;
 
 ```javascript
 // UI Components
-import { Button, Panel, PanelBody, TextControl } from '@wordpress/components';
+import { Button, Panel, PanelBody, TextControl } from "@wordpress/components";
 
 // Block Editor
-import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
+import {
+  useBlockProps,
+  InspectorControls,
+  BlockControls,
+} from "@wordpress/block-editor";
 
 // Data & State
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useAsyncList } from '@wordpress/compose';
+import { useSelect, useDispatch } from "@wordpress/data";
+import { useAsyncList } from "@wordpress/compose";
 
 // Internationalization
-import { __ } from '@wordpress/i18n';
+import { __ } from "@wordpress/i18n";
 
 // REST API
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from "@wordpress/api-fetch";
 
 // Element
-import { render } from '@wordpress/element';
+import { render } from "@wordpress/element";
 ```
 
 ### Example: Using useSelect and useDispatch
@@ -302,26 +302,22 @@ import { render } from '@wordpress/element';
  * @returns {Element} Component
  */
 function BlockWithData() {
- const posts = useSelect( ( select ) => {
-  return select( 'core' ).getEntityRecords( 'postType', 'post', {
-   per_page: 10,
-  } );
- }, [] );
+  const posts = useSelect((select) => {
+    return select("core").getEntityRecords("postType", "post", {
+      per_page: 10,
+    });
+  }, []);
 
- const { updateEntityRecord } = useDispatch( 'core' );
+  const { updateEntityRecord } = useDispatch("core");
 
- const handleUpdate = useCallback(
-  ( postId, data ) => {
-   updateEntityRecord( 'postType', 'post', postId, data );
-  },
-  [ updateEntityRecord ]
- );
+  const handleUpdate = useCallback(
+    (postId, data) => {
+      updateEntityRecord("postType", "post", postId, data);
+    },
+    [updateEntityRecord],
+  );
 
- return (
-  <div>
-   {/* Render posts */}
-  </div>
- );
+  return <div>{/* Render posts */}</div>;
 }
 
 export default BlockWithData;
@@ -358,7 +354,7 @@ Always use block.json for attribute definitions:
     }
   },
   "supports": {
-    "align": [ "wide", "full" ],
+    "align": ["wide", "full"],
     "anchor": true,
     "className": true
   }
@@ -373,34 +369,34 @@ For complex state, use the WordPress data store:
 /**
  * Register a custom data store
  */
-register( {
- reducer( state = initialState, action ) {
-  switch ( action.type ) {
-   case 'SET_DATA':
-    return { ...state, data: action.payload };
-   case 'SET_LOADING':
-    return { ...state, loading: action.payload };
-   default:
-    return state;
-  }
- },
- actions: {
-  setData( data ) {
-   return { type: 'SET_DATA', payload: data };
+register({
+  reducer(state = initialState, action) {
+    switch (action.type) {
+      case "SET_DATA":
+        return { ...state, data: action.payload };
+      case "SET_LOADING":
+        return { ...state, loading: action.payload };
+      default:
+        return state;
+    }
   },
-  setLoading( loading ) {
-   return { type: 'SET_LOADING', payload: loading };
+  actions: {
+    setData(data) {
+      return { type: "SET_DATA", payload: data };
+    },
+    setLoading(loading) {
+      return { type: "SET_LOADING", payload: loading };
+    },
   },
- },
- selectors: {
-  getData( state ) {
-   return state.data;
+  selectors: {
+    getData(state) {
+      return state.data;
+    },
+    isLoading(state) {
+      return state.loading;
+    },
   },
-  isLoading( state ) {
-   return state.loading;
-  },
- },
-} );
+});
 ```
 
 ## Internationalization (i18n)
@@ -409,34 +405,26 @@ register( {
 
 ```javascript
 // Simple string
-__( 'Hello World', 'plugin-text-domain' )
+__("Hello World", "plugin-text-domain");
 
 // String with placeholder
-sprintf(
- __( 'Hello %s', 'plugin-text-domain' ),
- name
-)
+sprintf(__("Hello %s", "plugin-text-domain"), name);
 
 // Pluralization
-_n(
- '%d item',
- '%d items',
- count,
- 'plugin-text-domain'
-)
+_n("%d item", "%d items", count, "plugin-text-domain");
 
 // Context
-_x( 'Post', 'noun', 'plugin-text-domain' )
+_x("Post", "noun", "plugin-text-domain");
 ```
 
 ### Add Translator Comments
 
 ```javascript
 // translators: This is the block title shown in the block inserter
-__( 'My Custom Block', 'plugin-text-domain' )
+__("My Custom Block", "plugin-text-domain");
 
 // translators: %s is the post title
-sprintf( __( 'Related to %s', 'plugin-text-domain' ), title )
+sprintf(__("Related to %s", "plugin-text-domain"), title);
 ```
 
 ## Accessibility (a11y)
@@ -447,16 +435,16 @@ sprintf( __( 'Related to %s', 'plugin-text-domain' ), title )
 /**
  * Component with accessibility features
  */
-function AccessibleButton( { isExpanded, onClick } ) {
- return (
-  <button
-   aria-expanded={ isExpanded }
-   aria-label={ __( 'Toggle menu', 'plugin-text-domain' ) }
-   onClick={ onClick }
-  >
-   Menu
-  </button>
- );
+function AccessibleButton({ isExpanded, onClick }) {
+  return (
+    <button
+      aria-expanded={isExpanded}
+      aria-label={__("Toggle menu", "plugin-text-domain")}
+      onClick={onClick}
+    >
+      Menu
+    </button>
+  );
 }
 ```
 
@@ -466,16 +454,16 @@ function AccessibleButton( { isExpanded, onClick } ) {
 /**
  * Handle keyboard events
  */
-function handleKeyDown( event ) {
- // Enter or Space
- if ( event.key === 'Enter' || event.key === ' ' ) {
-  event.preventDefault();
-  handleActivate();
- }
- // Escape
- if ( event.key === 'Escape' ) {
-  handleClose();
- }
+function handleKeyDown(event) {
+  // Enter or Space
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    handleActivate();
+  }
+  // Escape
+  if (event.key === "Escape") {
+    handleClose();
+  }
 }
 ```
 
@@ -485,22 +473,22 @@ function handleKeyDown( event ) {
 /**
  * Component with focus management
  */
-function Modal( { isOpen, onClose } ) {
- const closeButtonRef = useRef( null );
+function Modal({ isOpen, onClose }) {
+  const closeButtonRef = useRef(null);
 
- useEffect( () => {
-  if ( isOpen && closeButtonRef.current ) {
-   closeButtonRef.current.focus();
-  }
- }, [ isOpen ] );
+  useEffect(() => {
+    if (isOpen && closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    }
+  }, [isOpen]);
 
- return (
-  <div role="dialog" aria-modal="true">
-   <button ref={ closeButtonRef } onClick={ onClose }>
-    Close
-   </button>
-  </div>
- );
+  return (
+    <div role="dialog" aria-modal="true">
+      <button ref={closeButtonRef} onClick={onClose}>
+        Close
+      </button>
+    </div>
+  );
 }
 ```
 
@@ -512,25 +500,25 @@ function Modal( { isOpen, onClose } ) {
 /**
  * Test file: MyComponent.test.js
  */
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import MyComponent from './MyComponent';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import MyComponent from "./MyComponent";
 
-describe( 'MyComponent', () => {
- it( 'should render with title', () => {
-  render( <MyComponent title="Test" content="Content" /> );
-  expect( screen.getByText( 'Test' ) ).toBeInTheDocument();
- } );
+describe("MyComponent", () => {
+  it("should render with title", () => {
+    render(<MyComponent title="Test" content="Content" />);
+    expect(screen.getByText("Test")).toBeInTheDocument();
+  });
 
- it( 'should toggle expanded state', async () => {
-  const user = userEvent.setup();
-  render( <MyComponent title="Test" content="Content" /> );
-  const button = screen.getByRole( 'button' );
+  it("should toggle expanded state", async () => {
+    const user = userEvent.setup();
+    render(<MyComponent title="Test" content="Content" />);
+    const button = screen.getByRole("button");
 
-  await user.click( button );
-  expect( screen.getByText( 'Content' ) ).toBeVisible();
- } );
-} );
+    await user.click(button);
+    expect(screen.getByText("Content")).toBeVisible();
+  });
+});
 ```
 
 ## Performance Optimization
@@ -541,14 +529,14 @@ describe( 'MyComponent', () => {
 /**
  * Memoized component
  */
-const MyComponent = memo( ( { title, content } ) => {
- return (
-  <div>
-   <h2>{ title }</h2>
-   <p>{ content }</p>
-  </div>
- );
-} );
+const MyComponent = memo(({ title, content }) => {
+  return (
+    <div>
+      <h2>{title}</h2>
+      <p>{content}</p>
+    </div>
+  );
+});
 
 export default MyComponent;
 ```
@@ -556,28 +544,25 @@ export default MyComponent;
 ### useCallback and useMemo
 
 ```javascript
-function MyComponent( { items, onItemSelect } ) {
- // Memoize the handler
- const handleSelect = useCallback(
-  ( id ) => onItemSelect( id ),
-  [ onItemSelect ]
- );
+function MyComponent({ items, onItemSelect }) {
+  // Memoize the handler
+  const handleSelect = useCallback((id) => onItemSelect(id), [onItemSelect]);
 
- // Memoize expensive computation
- const sortedItems = useMemo(
-  () => [ ...items ].sort( ( a, b ) => a.name.localeCompare( b.name ) ),
-  [ items ]
- );
+  // Memoize expensive computation
+  const sortedItems = useMemo(
+    () => [...items].sort((a, b) => a.name.localeCompare(b.name)),
+    [items],
+  );
 
- return (
-  <div>
-   {sortedItems.map( ( item ) => (
-    <button key={ item.id } onClick={ () => handleSelect( item.id ) }>
-     { item.name }
-    </button>
-   ) )}
-  </div>
- );
+  return (
+    <div>
+      {sortedItems.map((item) => (
+        <button key={item.id} onClick={() => handleSelect(item.id)}>
+          {item.name}
+        </button>
+      ))}
+    </div>
+  );
 }
 ```
 
@@ -587,9 +572,9 @@ function MyComponent( { items, onItemSelect } ) {
 
 ```javascript
 // Use descriptive log messages
-console.log( 'Block attributes:', attributes );
-console.warn( 'Attribute validation failed:', error );
-console.error( 'Failed to fetch data:', error );
+console.log("Block attributes:", attributes);
+console.warn("Attribute validation failed:", error);
+console.error("Failed to fetch data:", error);
 ```
 
 ### React DevTools
@@ -603,31 +588,29 @@ console.error( 'Failed to fetch data:', error );
 ### Conditional Rendering
 
 ```javascript
-function MyBlock( { showAdvanced, attributes } ) {
- return (
-  <div>
-   <BasicSettings />
-   { showAdvanced && <AdvancedSettings /> }
-  </div>
- );
+function MyBlock({ showAdvanced, attributes }) {
+  return (
+    <div>
+      <BasicSettings />
+      {showAdvanced && <AdvancedSettings />}
+    </div>
+  );
 }
 ```
 
 ### List Rendering
 
 ```javascript
-function ItemList( { items } ) {
- return (
-  <div>
-   { items?.length > 0 ? (
-    items.map( ( item ) => (
-     <Item key={ item.id } item={ item } />
-    ) )
-   ) : (
-    <p>No items found</p>
-   ) }
-  </div>
- );
+function ItemList({ items }) {
+  return (
+    <div>
+      {items?.length > 0 ? (
+        items.map((item) => <Item key={item.id} item={item} />)
+      ) : (
+        <p>No items found</p>
+      )}
+    </div>
+  );
 }
 ```
 
@@ -635,25 +618,25 @@ function ItemList( { items } ) {
 
 ```javascript
 class ErrorBoundary extends Component {
- constructor( props ) {
-  super( props );
-  this.state = { hasError: false };
- }
-
- static getDerivedStateFromError() {
-  return { hasError: true };
- }
-
- componentDidCatch( error, errorInfo ) {
-  console.error( 'Block error:', error, errorInfo );
- }
-
- render() {
-  if ( this.state.hasError ) {
-   return <div>Something went wrong</div>;
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
   }
-  return this.props.children;
- }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Block error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <div>Something went wrong</div>;
+    }
+    return this.props.children;
+  }
 }
 ```
 
@@ -666,4 +649,4 @@ class ErrorBoundary extends Component {
 
 ---
 
-*For general coding standards, see [Coding Standards Instructions](../coding-standards.instructions.md). For JSDoc requirements, see [JSDoc Standards](../inline-docs/inline-jsdoc.instructions.md).*
+_For general coding standards, see [Coding Standards Instructions](../coding-standards.instructions.md). For JSDoc requirements, see [JSDoc Standards](../inline-docs/inline-jsdoc.instructions.md)._

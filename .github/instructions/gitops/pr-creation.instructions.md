@@ -78,7 +78,7 @@ See [BRANCHING_STRATEGY.md](../BRANCHING_STRATEGY.md) for full details and enfor
    - For template details, see `.github/PULL_REQUEST_TEMPLATE/*.md` and [docs/frontmatter/pr-templates.md](../../docs/frontmatter/pr-templates.md).
 3. **Fill out all required fields** in the template:
    - **Linked issues:** Use `Closes #123` or similar.
-   - **Description:** Clearly state *what* changed and *why*.
+   - **Description:** Clearly state _what_ changed and _why_.
    - **Changelog section:** [Required for release automation.]
    - **Checklist:** Complete all items (tests, docs, a11y, linked issues, CI, etc.).
 

@@ -368,4 +368,4 @@ See existing diagrams in:
 - **Accessibility Guidelines**: <https://www.w3.org/WAI/tutorials/images/complex/>
 - **LightSpeed Schema**: [frontmatter.schema.json](../../schemas/frontmatter.schema.json)
 
-*Follow LightSpeed governance v2.0 and awesome-copilot integration standards for all diagram implementations.*
+_Follow LightSpeed governance v2.0 and awesome-copilot integration standards for all diagram implementations._

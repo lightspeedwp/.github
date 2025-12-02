@@ -13,9 +13,8 @@ This repository provides a comprehensive set of instructions and prompts for Git
 
 The files are organised under the `.github/` directory:
 
-- [`AGENTS.md`](../AGENTS.md): Global AI rules applicable to all projects. Defines language, security, accessibility, modularity, and review requirements. reference this file for central guidance on frontmatter schemas ([schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json))
+- [`AGENTS.md`](../AGENTS.md): Global AI rules applicable to all projects. Defines language, security, accessibility, modularity, and review requirements. Reference this file for central guidance on frontmatter schemas ([schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json))
 - [`agents/agent.md`](./agents/agent.md): Main agent index. Links all agent specs, stubs, and explains local/dry-run usage. Reference this for agent implementation and testing.
-- [`chatmodes/chatmodes.md`](./chatmodes/chatmodes.md): Master file listing all chat modes, conventions, and process checklists. Use this to design or extend chat-based workflows.
 - [`instructions/`](./instructions/): Modular `.instructions.md` files scoped by language, file type, or topic. Each file includes YAML frontmatter describing its scope, mission, guidelines, checklists, and references. See below for a full index.
 - [`prompts/prompts.md`](./prompts/prompts.md): Master prompt index and guidance. Reference this for prompt authoring conventions and to locate all available prompts.
 - [`prompts/`](./prompts/): Reusable `.prompt.md` files for Copilot Chat and GitHub Actions. Each prompt describes a specific task (e.g. audit docs, fix lint, author JSON schema, generate workflow, increase test coverage). See below for a full index.
@@ -96,8 +95,8 @@ The files are organised under the `.github/` directory:
 
 ## Cross-References
 
-- All agent, chatmode, and prompt files reference this file for central guidance.
-- Update `AGENTS.md`, `agent.md`, `chatmodes.md`, and `prompts.md` to cross-link here and to each other for discoverability.
+- All agent and prompt files reference this file for central guidance.
+- Update `AGENTS.md`, `agent.md`, and `prompts.md` to cross-link here and to each other for discoverability.
 - Each `.instructions.md` and `.prompt.md` should include a frontmatter block describing its scope and reference this file for standards.
 
 ---
@@ -114,7 +113,6 @@ Use comprehensive inline documentation following WordPress standards (see [codin
 ## Awesome Copilot
 
 - Reference the dynamic [awesome-copilot-prompts-index.md](./prompts/awesome-copilot-prompts-index.md) for the latest prompt additions.
-- [`chatmodes/awesome-copilot/index.chatmodes.md`](./chatmodes/awesome-copilot/index.chatmodes.md): Dynamic index of all Awesome Copilot chatmodes.
 
 Use comprehensive inline documentation following WordPress standards:
 

@@ -1,7 +1,7 @@
 # Automation Governance & Agent-Driven Release Strategy
 
 **LightSpeed Organisation — Community Health Defaults**  
-*Last updated: 2025-10-22*
+_Last updated: 2025-10-22_
 
 ---
 
@@ -197,4 +197,4 @@ All automation in this repository is implemented and governed according to the f
 
 ---
 
-*This file is maintained by the LightSpeed Tools & Automation team. For updates or questions, open an issue in the `.github` repo or contact #automation-support.*
+_This file is maintained by the LightSpeed Tools & Automation team. For updates or questions, open an issue in the `.github` repo or contact #automation-support._

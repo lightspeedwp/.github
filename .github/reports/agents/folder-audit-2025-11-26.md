@@ -128,4 +128,4 @@ Removed:
 
 ---
 
-*Completed: 2025-11-26*
+_Completed: 2025-11-26_

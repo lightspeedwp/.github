@@ -27,8 +27,6 @@ references:
     description: "Main agents index"
   - path: ".github/prompts/prompts.md"
     description: "Prompts index"
-  - path: ".github/chatmodes/chatmodes.md"
-    description: "Chatmodes index"
   - path: "AGENTS.md"
     description: "Organization-wide agents documentation"
   - path: "DOCS.md"
@@ -83,7 +81,6 @@ graph TD
     E --> E1[Custom Instructions]
     E --> E2[Agent Specifications]
     E --> E3[Prompt Library]
-    E --> E4[Chat Modes]
 
     style A fill:#e1f5fe
     style B fill:#f3e5f5
@@ -405,7 +402,6 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 ### Org-wide Instructions & AI Files
 
 - [General Instructions](https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md)
-- [Chat modes](https://github.com/lightspeedwp/.github/blob/develop/.github/chatmodes/chatmodes.md)
 - [Prompt templates](https://github.com/lightspeedwp/.github/blob/develop/.github/prompts/prompts.md)
 - [Agent instructions](https://github.com/lightspeedwp/.github/blob/develop/.github/agents/agent.md)
 - [AGENTS.md](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md)
@@ -821,7 +817,6 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 - [🧠 AI Agents Overview](./AGENTS.md) - Global AI rules and agent specifications
 - [💬 Custom Instructions](./.github/custom-instructions.md) - Organization-wide Copilot settings
 - [🎯 Prompt Library](./.github/prompts/prompts.md) - Reusable AI prompts and templates
-- [💭 Chat Modes](./.github/chatmodes/chatmodes.md) - Specialized AI conversation modes
 
 ### ⚙️ Configuration & Standards
 

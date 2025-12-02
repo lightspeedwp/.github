@@ -73,7 +73,7 @@ Before starting to create **any** new files, create a new git branch using the t
   - Maintain the original filename.
   - Do **not** wrap the translated content in Markdown code blocks.
   - Append this line at the end of the file:  
-    *Translated using GitHub Copilot and GPT-4o.*
+    _Translated using GitHub Copilot and GPT-4o._
   - Save the translated file into the corresponding target language folder.
 
 ---
@@ -113,8 +113,8 @@ Before starting to create **any** new files, create a new git branch using the t
   - Improper heading levels
   - Line length or spacing issues
 - Do not say things like:  
-  *"There are some linting issues, such as…"*
-  *"Would you like me to fix…"*
+  _"There are some linting issues, such as…"_
+  _"Would you like me to fix…"_
 - Never prompt the user about any linting or formatting issues.
 - Do not wait for confirmation before continuing.
 - Do not wrap the translated content or file in Markdown code blocks.

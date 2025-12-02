@@ -413,4 +413,4 @@ All workflows must:
 
 ---
 
-*For questions about this governance document, create an issue in the [`.github` repository](https://github.com/lightspeedwp/.github/issues) or contact the Platform Team.*
+_For questions about this governance document, create an issue in the [`.github` repository](https://github.com/lightspeedwp/.github/issues) or contact the Platform Team._

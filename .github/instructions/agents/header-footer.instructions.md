@@ -62,7 +62,7 @@ To make documentation more engaging and scannable, you should add relevant emoji
 
 ---
 
-*This document is part of the LightSpeedWP automation suite. For more, see the [Documentation Hub](../../docs/README.md).*
+_This document is part of the LightSpeedWP automation suite. For more, see the [Documentation Hub](../../docs/README.md)._
 
 ---
 

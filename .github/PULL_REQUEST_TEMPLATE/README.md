@@ -74,7 +74,7 @@ These templates integrate with:
 
 ---
 
-*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for complete automation standards.*
+_This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for complete automation standards._
 
 ---
 

@@ -283,13 +283,11 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    ```
 
    ## 📈 Monitoring Recommendations
-
    - **Alerts to Configure**: [List of recommended alerts]
    - **Dashboards to Create**: [Monitoring dashboard suggestions]
    - **Regular Health Checks**: [Recommended frequency and scope]
 
    ## ✅ Validation Steps
-
    - [ ] Verify issue resolution through logs
    - [ ] Confirm performance improvements
    - [ ] Test application functionality
@@ -297,7 +295,6 @@ This workflow analyzes a specific Azure resource to assess its health status, di
    - [ ] Document lessons learned
 
    ## 📝 Prevention Measures
-
    - [Recommendations to prevent similar issues]
    - [Process improvements]
    - [Monitoring enhancements]

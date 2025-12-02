@@ -52,47 +52,47 @@ For JavaScript and React files (`*.js`, `*.jsx`, `*.ts`, `*.tsx`), the following
 
 ### For Block Plugin Repositories
 
-| Priority | File | Purpose |
-|----------|------|---------|
+| Priority    | File                                            | Purpose                                             |
+| ----------- | ----------------------------------------------- | --------------------------------------------------- |
 | 1 (Highest) | `block-plugin/javascript-react.instructions.md` | Block-specific React patterns, WordPress block APIs |
-| 2 | `wpcs/js-react.instructions.md` | WordPress-specific JS/React coding standards |
-| 3 | `wordpress-js-react.instructions.md` | General WordPress JS development |
-| 4 (Lowest) | `coding-standards.instructions.md` | Organisation-wide standards |
+| 2           | `wpcs/js-react.instructions.md`                 | WordPress-specific JS/React coding standards        |
+| 3           | `wordpress-js-react.instructions.md`            | General WordPress JS development                    |
+| 4 (Lowest)  | `coding-standards.instructions.md`              | Organisation-wide standards                         |
 
 ### For Block Theme Repositories
 
-| Priority | File | Purpose |
-|----------|------|---------|
-| 1 (Highest) | `block-theme/*.instructions.md` | Theme-specific patterns and templates |
-| 2 | `wpcs/js-react.instructions.md` | WordPress-specific JS/React coding standards |
-| 3 | `wordpress-js-react.instructions.md` | General WordPress JS development |
-| 4 (Lowest) | `coding-standards.instructions.md` | Organisation-wide standards |
+| Priority    | File                                 | Purpose                                      |
+| ----------- | ------------------------------------ | -------------------------------------------- |
+| 1 (Highest) | `block-theme/*.instructions.md`      | Theme-specific patterns and templates        |
+| 2           | `wpcs/js-react.instructions.md`      | WordPress-specific JS/React coding standards |
+| 3           | `wordpress-js-react.instructions.md` | General WordPress JS development             |
+| 4 (Lowest)  | `coding-standards.instructions.md`   | Organisation-wide standards                  |
 
 ### For Non-WordPress Repositories
 
-| Priority | File | Purpose |
-|----------|------|---------|
-| 1 (Highest) | Context-specific instructions | Project-specific guidance |
-| 2 (Lowest) | `coding-standards.instructions.md` | Organisation-wide standards |
+| Priority    | File                               | Purpose                     |
+| ----------- | ---------------------------------- | --------------------------- |
+| 1 (Highest) | Context-specific instructions      | Project-specific guidance   |
+| 2 (Lowest)  | `coding-standards.instructions.md` | Organisation-wide standards |
 
 ## PHP File Precedence
 
 For PHP files (`*.php`), the following precedence applies:
 
-| Priority | File | Purpose |
-|----------|------|---------|
-| 1 (Highest) | `block-plugin/security.instructions.md` or `block-theme/php-block.instructions.md` | Context-specific PHP patterns |
-| 2 | `wpcs/wpcs-php.instructions.md` | WordPress PHP coding standards |
-| 3 | `wpcs/wpcs-php-docs.instructions.md` | PHP documentation standards |
-| 4 (Lowest) | `coding-standards.instructions.md` | Organisation-wide standards |
+| Priority    | File                                                                               | Purpose                        |
+| ----------- | ---------------------------------------------------------------------------------- | ------------------------------ |
+| 1 (Highest) | `block-plugin/security.instructions.md` or `block-theme/php-block.instructions.md` | Context-specific PHP patterns  |
+| 2           | `wpcs/wpcs-php.instructions.md`                                                    | WordPress PHP coding standards |
+| 3           | `wpcs/wpcs-php-docs.instructions.md`                                               | PHP documentation standards    |
+| 4 (Lowest)  | `coding-standards.instructions.md`                                                 | Organisation-wide standards    |
 
 ## CSS/SCSS File Precedence
 
-| Priority | File | Purpose |
-|----------|------|---------|
-| 1 (Highest) | `block-theme/theme-json.instructions.md` | theme.json design tokens |
-| 2 | `wpcs/wpcs-css.instructions.md` | WordPress CSS standards |
-| 3 (Lowest) | `coding-standards.instructions.md` | Organisation-wide standards |
+| Priority    | File                                     | Purpose                     |
+| ----------- | ---------------------------------------- | --------------------------- |
+| 1 (Highest) | `block-theme/theme-json.instructions.md` | theme.json design tokens    |
+| 2           | `wpcs/wpcs-css.instructions.md`          | WordPress CSS standards     |
+| 3 (Lowest)  | `coding-standards.instructions.md`       | Organisation-wide standards |
 
 ## Resolving Conflicts
 
@@ -126,13 +126,13 @@ Examples:
 
 The `applyTo` field determines which files an instruction applies to:
 
-| Pattern | Scope | Notes |
-|---------|-------|-------|
-| `**` | All files | Use sparingly for org-wide rules |
-| `**/*.{php,js}` | All PHP and JS files | Language-specific |
-| `**/*.{js,jsx,ts,tsx}` | All JavaScript files | React/TypeScript included |
-| `src/**/*.js` | Source JavaScript only | Excludes build/tests |
-| `patterns/**/*.php` | Pattern PHP files only | Very specific scope |
+| Pattern                | Scope                  | Notes                            |
+| ---------------------- | ---------------------- | -------------------------------- |
+| `**`                   | All files              | Use sparingly for org-wide rules |
+| `**/*.{php,js}`        | All PHP and JS files   | Language-specific                |
+| `**/*.{js,jsx,ts,tsx}` | All JavaScript files   | React/TypeScript included        |
+| `src/**/*.js`          | Source JavaScript only | Excludes build/tests             |
+| `patterns/**/*.php`    | Pattern PHP files only | Very specific scope              |
 
 ## When to Use Each Layer
 

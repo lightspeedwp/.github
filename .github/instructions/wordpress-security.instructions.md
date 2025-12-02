@@ -177,7 +177,7 @@ echo wp_kses_post( $user_html ); // Allows safe HTML tags
 // JavaScript
 <script>
 var productId = <?php echo esc_js( $id ); ?>;
-var productTitle = "<?php echo esc_js( $title ); ?>"; 
+var productTitle = "<?php echo esc_js( $title ); ?>";
 </script>
 
 // CSS (data attribute with CSS values)
@@ -206,7 +206,7 @@ var productTitle = "<?php echo esc_js( $title ); ?>";
 // VERIFY nonce (process form)
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
     // Check nonce first
-    if ( ! isset( $_POST['product_nonce'] ) || 
+    if ( ! isset( $_POST['product_nonce'] ) ||
          ! wp_verify_nonce( $_POST['product_nonce'], 'save_product' ) ) {
         wp_die( 'Nonce verification failed' );
     }
@@ -383,7 +383,7 @@ public function check_admin_permission() {
 // Route callback with validation
 public function update_product( $request ) {
     $params = $request->get_json_params();
-    
+
     // Validate (sanitization already done by register_rest_route)
     if ( empty( $params['title'] ) ) {
         return new WP_Error(
@@ -406,7 +406,7 @@ public function update_product( $request ) {
 - [ ] All admin actions check `current_user_can()`
 - [ ] All database queries use `$wpdb->prepare()`
 - [ ] No hardcoded secrets or API keys
-- [ ] File operations use WP_Filesystem or `wp_safe_remote_*`
+- [ ] File operations use WP*Filesystem or `wp_safe_remote*\*`
 - [ ] REST endpoints have `permission_callback`
 - [ ] No direct file path usage from user input
 - [ ] HTML sanitized with `wp_kses_post` or `wp_kses`

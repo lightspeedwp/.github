@@ -117,7 +117,7 @@ Saved replies integrate with:
 
 ---
 
-*This directory ensures consistent, professional communication across the LightSpeedWP organization. See [Communication Standards](../AUTOMATION_GOVERNANCE.md#communication) for complete guidelines.*
+_This directory ensures consistent, professional communication across the LightSpeedWP organization. See [Communication Standards](../AUTOMATION_GOVERNANCE.md#communication) for complete guidelines._
 
 ---
 

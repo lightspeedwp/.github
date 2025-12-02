@@ -118,5 +118,5 @@ All documentation links to files within the same repository should use `/blob/HE
 
 ---
 
-*This file is the canonical reference for all code, documentation, and automation standards in LightSpeedWP projects.  
-All contributors, agents, and AI assistants must comply with these standards.*
+_This file is the canonical reference for all code, documentation, and automation standards in LightSpeedWP projects.  
+All contributors, agents, and AI assistants must comply with these standards._

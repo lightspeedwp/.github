@@ -196,4 +196,4 @@ You are a Claude agent (Sonnet/Opus family) at LightSpeed.
 
 ---
 
-*When in doubt, consult the [AI Model Comparison Guide](./ai-model-comparison.md), select the model that best fits the task, and escalate to a maintainer if unsure. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow.*
+_When in doubt, consult the [AI Model Comparison Guide](./ai-model-comparison.md), select the model that best fits the task, and escalate to a maintainer if unsure. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow._

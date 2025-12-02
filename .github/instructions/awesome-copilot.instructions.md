@@ -1,19 +1,21 @@
 ---
 file_type: "instructions"
 title: "Awesome Copilot Instructions (LightSpeedWP)"
-description: "Central index and guidance for all 'awesome-copilot' Copilot instructions, prompts, chatmodes, and collections in LightSpeedWP."
-version: "v1.0"
-last_updated: "2025-10-23"
+description: "Central index and guidance for all 'awesome-copilot' Copilot instructions, prompts, agents, and collections in LightSpeedWP."
+version: "v2.0"
+last_updated: "2025-12-02"
 author: "LightSpeedWP"
 maintainer: "Ash Shaw"
-tags: ["lightspeed", "copilot", "instructions", "awesome-copilot"]
+tags: ["lightspeed", "copilot", "instructions", "awesome-copilot", "agents"]
 type: "instructions-index"
 ---
 
 # Awesome Copilot Instructions (LightSpeedWP)
 
 **This document is the central index for all "awesome-copilot" Copilot resources at LightSpeedWP.**  
-It cross-links all relevant instructions, prompts, chatmodes, and collections, and provides dynamic indexes for discoverability.
+It cross-links all relevant instructions, prompts, agents, and collections, and provides dynamic indexes for discoverability.
+
+> **Note:** GitHub has deprecated chatmodes in favour of agents. All chatmode functionality has been migrated to agents.
 
 ---
 
@@ -22,7 +24,7 @@ It cross-links all relevant instructions, prompts, chatmodes, and collections, a
 - [Org-wide Copilot & Agent Guidance](./custom-instructions.md)
 - [Awesome Copilot Instructions README](./awesome-copilot/README.instructions.md)
 - [Awesome Copilot Prompts README](../prompts/awesome-copilot/README.prompts.md)
-- [Awesome Copilot Chatmodes README](../chatmodes/awesome-copilot/README.chatmodes.md)
+- [Awesome Copilot Agents README](../agents/agent.md)
 - [Awesome Copilot Collections README](../collections/README.collections.md)
 
 ---
@@ -31,7 +33,7 @@ It cross-links all relevant instructions, prompts, chatmodes, and collections, a
 
 - [awesome-copilot instructions](./awesome-copilot/)
 - [awesome-copilot prompts](../prompts/awesome-copilot/)
-- [awesome-copilot chatmodes](../chatmodes/awesome-copilot/)
+- [awesome-copilot agents](../agents/)
 - [awesome-copilot collections](../collections/)
 
 ---
@@ -74,19 +76,21 @@ It cross-links all relevant instructions, prompts, chatmodes, and collections, a
 
 ---
 
-### Chatmodes
+### Agents (Formerly Chatmodes)
 
-*Directory: `.github/chatmodes/awesome-copilot/`*  
-[README.chatmodes.md](../chatmodes/awesome-copilot/README.chatmodes.md)
+*Directory: `.github/agents/`*  
+[agents/agent.md](../agents/agent.md)
 
-| File | Purpose/Description |
-| ---- | ------------------- |
+> **Note:** GitHub has deprecated chatmodes in favour of agents. See the [main agents index](../agents/agent.md) for all available agents.
 
-<!-- Example entries - replace with the actual files and descriptions if known -->
-
-| [accessibility.chatmode.md](../chatmodes/awesome-copilot/accessibility.chatmode.md) | Accessibility mode |
-| [api-architect.chatmode.md](../chatmodes/awesome-copilot/api-architect.chatmode.md) | API Architect mode |
-| ... | ... |
+| Category | Description |
+| -------- | ----------- |
+| Templates & Infrastructure | Agent templates and development scaffolds |
+| Automation & CI/CD | Release, labeling, and workflow automation |
+| Code Quality & Standards | Linting, documentation, and accessibility |
+| Review & Testing | PR review and test automation |
+| Documentation | README and docs management |
+| WordPress Development | Block theme and plugin development |
 
 ---
 
@@ -109,9 +113,9 @@ It cross-links all relevant instructions, prompts, chatmodes, and collections, a
 ## How to Use
 
 1. **Find the right resource:**  
-   Use the dynamic tables above or the linked READMEs to browse available instructions, prompts, chatmodes, and collections.
+   Use the dynamic tables above or the linked READMEs to browse available instructions, prompts, agents, and collections.
 2. **Install or copy as needed:**  
-   Download or copy `.instructions.md`, `.prompt.md`, or `.chatmode.md` files into your own project or Copilot configuration.
+   Download or copy `.instructions.md`, `.prompt.md`, or `.agent.md` files into your own project or Copilot configuration.
 3. **Customize for your project:**  
    Adjust YAML frontmatter if needed, but retain LightSpeedWP fields for discoverability and governance.
 4. **Keep files up to date:**  

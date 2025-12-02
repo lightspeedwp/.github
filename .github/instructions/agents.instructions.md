@@ -31,19 +31,19 @@ Each agent is:
 ## Prompt Instructions
 
 - [release.prompt.md](./agents/release.prompt.md)  
-  *Release Agent Prompt: Drives release automation, changelog, versioning, and publishing.*
+  _Release Agent Prompt: Drives release automation, changelog, versioning, and publishing._
 
 - [planner.prompt.md](./agents/planner.prompt.md)  
-  *Planner Agent Prompt: Manages PR checklists, merge readiness, and process analytics.*
+  _Planner Agent Prompt: Manages PR checklists, merge readiness, and process analytics._
 
 - [reviewer.prompt.md](./agents/reviewer.prompt.md)  
-  *Reviewer Agent Prompt: Summarizes PR/CI status, review requirements, and reviewer guidance.*
+  _Reviewer Agent Prompt: Summarizes PR/CI status, review requirements, and reviewer guidance._
 
 - [labeling.prompt.md](./agents/labeling.prompt.md)  
-  *Labels/Issues/PRs Agent Prompt: Automates labeling, status, and changelog management for issues and PRs.*
+  _Labels/Issues/PRs Agent Prompt: Automates labeling, status, and changelog management for issues and PRs._
 
 - [project-meta-sync.prompt.md](./agents/project-meta-sync.prompt.md)  
-  *Project Meta Sync Agent Prompt: Syncs GitHub Project board fields with issue/PR metadata and labels.*
+  _Project Meta Sync Agent Prompt: Syncs GitHub Project board fields with issue/PR metadata and labels._
 
 <!-- Add new agent instruction files here as they are created. -->
 
@@ -72,5 +72,5 @@ Each agent is:
 
 ---
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*  
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_  
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

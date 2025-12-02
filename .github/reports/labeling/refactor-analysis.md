@@ -74,7 +74,7 @@ This document identifies gaps, inconsistencies, and errors between the automated
 
 **Issue:** No validation that items have at least one `area:*` or `comp:*` label.
 
-**Specification:** [LABEL_STRATEGY.md](../../docs/LABEL_STRATEGY.md) requires "At least one area:*or comp:*".
+**Specification:** [LABEL_STRATEGY.md](../../docs/LABEL_STRATEGY.md) requires "At least one area:_or comp:_".
 
 **Impact:** Items can exist without area labels, reducing discoverability and filtering capability.
 
@@ -319,4 +319,4 @@ The following changes may require updates to existing issues/PRs:
 
 ---
 
-*This analysis was generated as part of the automated labeling refactor initiative. For questions or clarifications, refer to the GitHub issue or PR associated with this work.*
+_This analysis was generated as part of the automated labeling refactor initiative. For questions or clarifications, refer to the GitHub issue or PR associated with this work._

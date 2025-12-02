@@ -22,4 +22,4 @@ Comprehensive collection for writing tests, test automation, and test-driven dev
 
 ---
 
-*This collection includes 11 curated items for **Testing & Test Automation**.*
+_This collection includes 11 curated items for **Testing & Test Automation**._

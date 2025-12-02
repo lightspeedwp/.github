@@ -57,17 +57,17 @@ All WordPress Coding Standards instruction files in this directory:
 
 ## WordPress Coding Standards
 
-| File                                                                            | Purpose                                   | When to Invoke                                  |
-| ------------------------------------------------------------------------------- | ----------------------------------------- | ----------------------------------------------- |
-| [wpcs-accessibility.instructions.md](./wpcs/wpcs-accessibility.instructions.md) | Accessibility rules (WCAG 2.2 AA)         | When designing UI, markup, or components        |
-| [wpcs-css.instructions.md](./wpcs/wpcs-css.instructions.md)                     | CSS/SCSS naming, formatting, specificity  | When writing stylesheets for themes or plugins  |
-| [wpcs-html.instructions.md](./wpcs/wpcs-html.instructions.md)                   | Semantic markup and structure             | When creating HTML templates or block output    |
-| [wpcs-javascript.instructions.md](./wpcs/wpcs-javascript.instructions.md)       | JavaScript style, naming, patterns        | When writing JavaScript for WordPress           |
-| [wpcs-php.instructions.md](./wpcs/wpcs-php.instructions.md)                     | PHP conventions, security, i18n           | When writing PHP for themes, plugins, or blocks |
-| [i18n.instructions.md](./wpcs/i18n.instructions.md)                             | Internationalisation and localisation     | When handling translatable strings              |
-| [js-react.instructions.md](./wpcs/js-react.instructions.md)                     | JavaScript/React development standards    | When writing React components for blocks        |
-| [php-wordpress.instructions.md](./wpcs/php-wordpress.instructions.md)           | WordPress-specific PHP patterns           | When writing WordPress PHP code                 |
-| [wp-security.instructions.md](./wpcs/wp-security.instructions.md)               | Security best practices                   | When handling user input, REST APIs, or auth    |
+| File                                                                            | Purpose                                  | When to Invoke                                  |
+| ------------------------------------------------------------------------------- | ---------------------------------------- | ----------------------------------------------- |
+| [wpcs-accessibility.instructions.md](./wpcs/wpcs-accessibility.instructions.md) | Accessibility rules (WCAG 2.2 AA)        | When designing UI, markup, or components        |
+| [wpcs-css.instructions.md](./wpcs/wpcs-css.instructions.md)                     | CSS/SCSS naming, formatting, specificity | When writing stylesheets for themes or plugins  |
+| [wpcs-html.instructions.md](./wpcs/wpcs-html.instructions.md)                   | Semantic markup and structure            | When creating HTML templates or block output    |
+| [wpcs-javascript.instructions.md](./wpcs/wpcs-javascript.instructions.md)       | JavaScript style, naming, patterns       | When writing JavaScript for WordPress           |
+| [wpcs-php.instructions.md](./wpcs/wpcs-php.instructions.md)                     | PHP conventions, security, i18n          | When writing PHP for themes, plugins, or blocks |
+| [i18n.instructions.md](./wpcs/i18n.instructions.md)                             | Internationalisation and localisation    | When handling translatable strings              |
+| [js-react.instructions.md](./wpcs/js-react.instructions.md)                     | JavaScript/React development standards   | When writing React components for blocks        |
+| [php-wordpress.instructions.md](./wpcs/php-wordpress.instructions.md)           | WordPress-specific PHP patterns          | When writing WordPress PHP code                 |
+| [wp-security.instructions.md](./wpcs/wp-security.instructions.md)               | Security best practices                  | When handling user input, REST APIs, or auth    |
 
 ---
 

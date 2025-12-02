@@ -199,7 +199,7 @@ Collections are evaluated based on:
 
 ---
 
-*Collections provide organized, contextual guidance for efficient development workflows. See [Instructions Index](../instructions/README.md) for complete documentation.*
+_Collections provide organized, contextual guidance for efficient development workflows. See [Instructions Index](../instructions/README.md) for complete documentation._
 
 ---
 

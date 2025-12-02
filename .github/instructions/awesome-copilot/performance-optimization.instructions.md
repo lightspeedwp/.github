@@ -15,7 +15,7 @@ Performance isn't just a buzzword—it's the difference between a product people
 ## General Principles
 
 - **Measure First, Optimize Second:** Always profile and measure before optimizing. Use benchmarks, profilers, and monitoring tools to identify real bottlenecks. Guessing is the enemy of performance.
-  - *Pro Tip:* Use tools like Chrome DevTools, Lighthouse, New Relic, Datadog, Py-Spy, or your language's built-in profilers.
+  - _Pro Tip:_ Use tools like Chrome DevTools, Lighthouse, New Relic, Datadog, Py-Spy, or your language's built-in profilers.
 - **Optimize for the Common Case:** Focus on optimizing code paths that are most frequently executed. Don't waste time on rare edge cases unless they're critical.
 - **Avoid Premature Optimization:** Write clear, maintainable code first; optimize only when necessary. Premature optimization can make code harder to read and maintain.
 - **Minimize Resource Usage:** Use memory, CPU, network, and disk resources efficiently. Always ask: "Can this be done with less?"
@@ -32,9 +32,9 @@ Performance isn't just a buzzword—it's the difference between a product people
 ### Rendering and DOM
 
 - **Minimize DOM Manipulations:** Batch updates where possible. Frequent DOM changes are expensive.
-  - *Anti-pattern:* Updating the DOM in a loop. Instead, build a document fragment and append it once.
+  - _Anti-pattern:_ Updating the DOM in a loop. Instead, build a document fragment and append it once.
 - **Virtual DOM Frameworks:** Use React, Vue, or similar efficiently—avoid unnecessary re-renders.
-  - *React Example:* Use `React.memo`, `useMemo`, and `useCallback` to prevent unnecessary renders.
+  - _React Example:_ Use `React.memo`, `useMemo`, and `useCallback` to prevent unnecessary renders.
 - **Keys in Lists:** Always use stable keys in lists to help virtual DOM diffing. Avoid using array indices as keys unless the list is static.
 - **Avoid Inline Styles:** Inline styles can trigger layout thrashing. Prefer CSS classes.
 - **CSS Animations:** Use CSS transitions/animations over JavaScript for smoother, GPU-accelerated effects.
