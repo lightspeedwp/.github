@@ -102,7 +102,7 @@ All agent specs, templates, and stubs are in the `.github/agents/` directory.
 | Area | Reference | Notes / Usage |
 | --- | --- | --- |
 | **Custom Instructions** | [../custom-instructions.md](../custom-instructions.md) | Central Copilot/org standards |
-| **Global AI Rules** | [../../AGENTS.md](../../AGENTS.md) | Org-wide AI and coding rules |
+| **Global AI Rules** | [../../AGENTS.md](../../AGENTS.md) | Org-wide AI and coding rules (references custom-instructions.md) |
 | **Coding Standards** | [../instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md) | Unified standards for all code |
 | **Linting Standards** | [../instructions/linting.instructions.md](../instructions/linting.instructions.md) | Main index for all linting rules |
 | **PR Templates** | [../PULL_REQUEST_TEMPLATE.md](../PULL_REQUEST_TEMPLATE.md) | Default PR template |
