@@ -21,3 +21,15 @@ Copilot prompt files (`*.prompt.md`) allow you to define reusable instructions f
 - Required frontmatter: `description`, `mode`, optionally `model` and `tools`
 
 > *Add prompt file examples, frontmatter templates, and usage tips here.*
+
+# GitHub Saved Replies
+
+Saved replies are reusable responses you can insert into issue and PR comments to save time and ensure consistency.
+
+- Managed via: GitHub Settings → Saved replies (web UI)
+- No file-based storage or YAML frontmatter.
+- Great for standard responses, checklists, and reminders.
+
+> *Document your recommended saved replies for your team here.*
+
+

@@ -12,13 +12,3 @@ language: "en"
 status: "active"
 visibility: "public"
 ---
-
-# GitHub Pull Request Templates
-
-Learn how to set up and structure Pull Request templates for your repository.  
-Includes best practices, example checklists, and conventions for effective PR reviews.
-
-- Where: `.github/PULL_REQUEST_TEMPLATE.md` (or `.github/PULL_REQUEST_TEMPLATE/*.md` for multiple templates)
-- Note: PR templates use Markdown, not YAML forms.
-
-> *Add your custom checklists, review steps, and formatting advice here.*
