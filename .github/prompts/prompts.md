@@ -1,6 +1,6 @@
 ---
 version: "v2.0"
-last_updated: "2025-10-24"
+last_updated: "2025-12-04"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Master prompt index for all Copilot Chat and automation prompts in the LightSpeed organisation. Lists and cross-references all prompt files and related instructions."

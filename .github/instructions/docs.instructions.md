@@ -8,7 +8,7 @@ This file provides universal documentation standards for all Markdown files in t
 
 - For README-specific standards, see [readme.instructions.md](./readme.instructions.md).
 - For Markdown formatting and style, see [markdown-style-guide.instructions.md](./markdown-style-guide.instructions.md) and [markdown.instructions.md](./markdown.instructions.md).
-- For accessibility, see [a11y.instructions.md](./a11y.instructions.md) and [accessibility.instructions.md](./accessibility.instructions.md).
+- For accessibility, see [a11y.instructions.md](./a11y.instructions.md).
 - For inline documentation, see [inline-docs/inline-markdown.instructions.md](./inline-docs/inline-markdown.instructions.md).
 
 All documentation must comply with the standards below and respect the references and cross-linking conventions for every document created or updated. Every `.md` file in `docs/` and its subfolders must include YAML frontmatter, clear structure, accessibility, and cross-references as described.

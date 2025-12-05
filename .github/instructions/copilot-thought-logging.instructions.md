@@ -1,8 +1,6 @@
 ---
-file_type: "instructions"
 applyTo: "**"
 description: "See process Copilot is following where you can edit this to reshape the interaction or save when follow up may be needed"
-license: "GPL-3.0"
 ---
 
 # Copilot Process tracking Instructions
@@ -19,7 +17,7 @@ license: "GPL-3.0"
 - NO verbose explanations or commentary
 - Only output the exact text specified in phase instructions
 
-# Phase 1: Initialisation
+# Phase 1: Initialization
 
 - Create file `\Copilot-Processing.md` in workspace root
 - Populate `\Copilot-Processing.md` with user request details

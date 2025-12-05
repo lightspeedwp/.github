@@ -2,7 +2,7 @@
 title: "LightSpeed Global AI Rules"
 description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
 version: "v1.1"
-last_updated: "2025-11-26"
+last_updated: "2025-12-04"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -15,8 +15,6 @@ references:
     description: "Main agent implementations index"
   - path: ".github/custom-instructions.md"
     description: "Organisation-wide Copilot instructions"
-  - path: ".github/instructions/coding-standards.instructions.md"
-    description: "Coding standards index"
   - path: ".github/prompts/prompts.md"
     description: "Prompts index"
 ---
@@ -116,5 +114,22 @@ Reference main index files directly in your workflow or documentation:
 
 ---
 
-> For up-to-date standards, always reference the index instruction files above.
-> See also: [.github/custom-instructions.md](.github/custom-instructions.md) for central org-wide Copilot and agent guidance.
+## PR Templates
+
+- Use the default PR template: [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)
+- Additional PR templates are available in: [.github/PULL_REQUEST_TEMPLATES/](.github/PULL_REQUEST_TEMPLATES/)
+  - Use the template most relevant to your change (e.g. feature, fix, documentation, etc.)
+
+---
+
+## References
+
+- [Contributing Guidelines](../CONTRIBUTING.md) - For human contributors
+- [Main Documentation](../README.md) - Project overview
+- [GitHub Documentation](.github/README.md) - Repository structure
+- [Frontmatter Schema](schemas/frontmatter.schema.json) - Schema validation
+
+---
+
+*This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.  
+All contributors, agents, and AI assistants must comply with these standards.*

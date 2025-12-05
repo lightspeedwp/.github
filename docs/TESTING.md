@@ -18,12 +18,9 @@ This guide describes how to run, write, and automate tests for LightSpeed projec
 
 ## 2. Types of Tests in LightSpeed Projects
 
-- **Unit Tests:** Test individual functions or components in isolation (Jest, Bats).
+- **Unit Tests:** Test individual functions or components in isolation (Jest).
 - **Integration Tests:** Verify interactions between modules or services (Jest, Playwright).
-- **End-to-End (E2E) Tests:** Simulate real user flows and scenarios in a browser (Playwright).
-- **Accessibility (a11y) Tests:** Verify WCAG 2.1 AA compliance (Playwright, axe-core).
 - **Linting & Static Analysis:** Automated checks for code style, formatting, and security (ESLint, PHPCS, markdownlint).
-- **Performance Tests:** Lighthouse, Web Vitals, or custom metrics.
 - **Security Tests:** Dependency scanning, secret detection, and code review.
 
 ---
@@ -207,14 +204,10 @@ See `.github/workflows/` for workflow definitions.
 ## 10. Reference
 
 - [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-- [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/block-theme/pattern-development.instructions.md)
-- [Playwright Docs](https://playwright.dev/)
 - [Jest Docs](https://jestjs.io/docs/getting-started)
-- [Bats Docs](https://bats-core.readthedocs.io/en/stable/)
 - [CI/CD Workflows](../.github/workflows/)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [Branching Strategy](../.github/BRANCHING_STRATEGY.md)
-- [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/)
 
 ---
 

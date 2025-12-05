@@ -1,162 +1,52 @@
 ---
 file_type: "agent"
-name: "template"
-description: "Generic agent template for creating new automation agents following LightSpeed standards."
+title: "Template: Agent Specification"
+description: "Template/spec for defining a custom Copilot agent’s capabilities, inputs, outputs, and safety guardrails."
 version: "v1.0"
-last_updated: "2025-11-25"
-author: "LightSpeed"
-maintainer: "Ash Shaw"
-owners: ["lightspeedwp/maintainers"]
-tags: ["template", "scaffold", "agent-development"]
-category: "development"
-status: "active"
-visibility: "public"
-target: "vscode"
-tools: ["read", "edit", "search"]
+last_updated: "2025-10-23"
+owners: ["LightSpeedWP Engineering"]
+tags: ["template", "agent", "spec", "copilot"]
+status: "draft"
+apply_to: [".github/agents/*.agent.md"]
 references:
-  - path: ".github/agents/template.agent.js"
-    description: "JavaScript implementation template"
-  - path: ".github/agents/template.agent.py"
-    description: "Python implementation template"
-  - path: ".github/agents/template.agent.sh"
-    description: "Shell script implementation template"
-  - path: ".github/instructions/agents.instructions.md"
-    description: "Agent development guidelines"
-metadata:
-  guardrails: "Follow LightSpeed coding standards. Include comprehensive tests. Document all functionality. Validate against schema."
+  - "AGENTS.md"
+  - "agents.instructions.md"
+examples:
+  - ".github/agents/agent-release.agent.md"
 ---
 
-# Template Agent Specification
+# Role
 
-## Purpose
+Describe the agent’s purpose and persona (e.g. “continuous integration assistant for WP builds”).
 
-Provide a standardized template for creating new automation agents following LightSpeed organizational standards and best practices.
+# Capabilities
 
-## Usage
+- List the high-level actions the agent can perform, plus any limitations.
 
-This template provides:
+# Allowed Tools
 
-1. **Frontmatter Structure**: Canonical YAML frontmatter for agent specifications
-2. **Documentation Sections**: Standard sections for agent documentation
-3. **Implementation Stubs**: Code templates in JavaScript, Python, and Shell
-4. **Testing Framework**: Jest test templates for agent validation
+- Enumerate the connectors and tools the agent may use (GitHub, Google Drive, custom APIs).
 
-## Creating a New Agent
+# Input Schema
 
-### Step 1: Copy Template Files
+- Define the expected inputs to the agent (as a list or JSON Schema).
 
-```bash
-# Copy the specification template
-cp .github/agents/template.agent.md .github/agents/your-agent.agent.md
+# Output Schema
 
-# Copy the implementation template (choose your language)
-cp .github/agents/template.agent.js .github/agents/your-agent.agent.js
-# or
-cp .github/agents/template.agent.py .github/agents/your-agent.agent.py
-# or
-cp .github/agents/template.agent.sh .github/agents/your-agent.agent.sh
-```
+- Specify the structure of agent responses, including error fields.
 
-### Step 2: Update Frontmatter
+# Safety Guardrails
 
-Edit the YAML frontmatter in `your-agent.agent.md`:
+- Rules for avoiding harmful actions (e.g. never expose secrets, confirm before publishing).
 
-- Update `name` to your agent's name
-- Provide clear `description`
-- Set appropriate `tags` and `category`
-- Update `references` to point to your files
-- Customize `metadata.guardrails`
+# Failure/Rollback Policy
 
-### Step 3: Document Functionality
+- How the agent should handle errors and rollbacks.
 
-Fill in the specification sections:
+# Test Tasks
 
-- **Purpose**: What the agent does
-- **Responsibilities**: Key functions and capabilities
-- **Process**: Step-by-step workflow
-- **Guardrails**: Safety constraints and validation
-- **Integration**: How it fits with other systems
+- Provide example tasks for validation.
 
-### Step 4: Implement Code
+# Observability Notes
 
-Develop the agent implementation following LightSpeed standards:
-
-- Use modular, reusable code
-- Include comprehensive error handling
-- Add logging for audit trails
-- Validate inputs and outputs
-- Document all functions
-
-### Step 5: Add Tests
-
-Create tests in `.github/agents/__tests__/`:
-
-```javascript
-// your-agent.agent.test.js
-const { runAgent } = require("../your-agent.agent.js");
-
-describe("Your Agent", () => {
-  it("should initialize without error", () => {
-    expect(runAgent).toBeDefined();
-  });
-
-  // Add more tests...
-});
-```
-
-### Step 6: Validate
-
-Run validation to ensure compliance:
-
-```bash
-node scripts/validation/validate-agent-frontmatter.js
-npm test
-```
-
-## Template Structure
-
-### Frontmatter Fields (Required)
-
-- `file_type`: Must be "agent"
-- `name`: Unique agent identifier
-- `description`: Clear purpose statement
-- `version`: Semantic version (v1.0, v2.1, etc.)
-- `last_updated`: ISO date (YYYY-MM-DD)
-- `owners`: Array of owner teams
-
-### Frontmatter Fields (Recommended)
-
-- `author`: Original author
-- `maintainer`: Current maintainer
-- `tags`: Keywords for discovery
-- `category`: Classification (automation, documentation, etc.)
-- `status`: active, deprecated, experimental
-- `target`: github-copilot, vscode, cli
-- `tools`: Available capabilities
-- `references`: Related files with descriptions
-
-### Documentation Sections
-
-1. **Purpose**: High-level goals
-2. **Responsibilities**: What it manages
-3. **Process**: How it works
-4. **Guardrails**: Safety measures
-5. **Integration**: System connections
-6. **References**: Related documentation
-
-## Best Practices
-
-- **Modularity**: Keep agents focused on single responsibilities
-- **Documentation**: Comprehensive inline and specification docs
-- **Testing**: Full test coverage with edge cases
-- **Validation**: Schema compliance and linting
-- **Security**: No hardcoded secrets or credentials
-- **Logging**: Audit trail for all actions
-- **Error Handling**: Graceful degradation and recovery
-
-## References
-
-- [Agent Development Guidelines](../../.github/instructions/agents.instructions.md)
-- [Coding Standards](../../.github/instructions/coding-standards.instructions.md)
-- [Testing Standards](../../.github/instructions/tests.instructions.md)
-- [Frontmatter Schema](../../schemas/frontmatter.schema.json)
+- How the agent logs actions and monitors metrics.

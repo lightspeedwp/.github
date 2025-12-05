@@ -1,21 +1,19 @@
 ---
 title: "GEMINI.md – Gemini Agent Guidance"
-version: "v1.1"
-last_updated: "2025-10-23"
+version: "v1.2"
+last_updated: "2025-12-04"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Root-level guidance for Gemini agents, with LightSpeed and Copilot best practices."
 tags: ["lightspeed", "templates", "copilot", "agents", "prompts", "models"]
 file_type: "gemini-instructions"
 references:
-  - "https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/gemini-guide.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/gemini-2.5-pro.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/gemini-flash-2.0.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/ai-model-comparison.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/model-guide.md"
+  - path: ".github/agents/agent.md"
+    description: "Main agent implementations index"
+  - path: ".github/custom-instructions.md"
+    description: "Organisation-wide Copilot instructions"
+  - path: ".github/prompts/prompts.md"
+    description: "Prompts index"
 ---
 
 # Overview
@@ -26,7 +24,7 @@ Gemini agents (Gemini Pro, Flash) are preferred at LightSpeed for:
 - Data extraction, research, and design/UI tasks
 - Integration with Google data, Workspace, or image-rich workflows
 
-**See also:** [Gemini 2.5 Pro explainer](./gemini-2.5-pro.md), [Gemini Flash 2.0 explainer](./gemini-flash-2.0.md), [AI Model Comparison Guide](./ai-model-comparison.md)
+**See also:** [AGENTS.md](./AGENTS.md) and [Custom Instructions](./.github/custom-instructions.md)
 
 ---
 
@@ -55,7 +53,7 @@ Gemini agents (Gemini Pro, Flash) are preferred at LightSpeed for:
 
 - You want best-in-class code completion, IDE integration, or GitHub-native code review
 
-_See the [AI Model Comparison Guide](./ai-model-comparison.md) for details and a feature matrix._
+*See [AGENTS.md](./AGENTS.md) for model selection guidance.*
 
 ---
 
@@ -110,7 +108,7 @@ You are a Gemini agent (Pro or Flash) operating in LightSpeed.
 
 # How to ask for help (required)
 
-- Reference [AGENTS.md](./AGENTS.md), [custom-instructions.md](./.github/custom-instructions.md), [gemini-guide.md](./gemini-guide.md).
+- Reference [AGENTS.md](./AGENTS.md), [custom-instructions.md](./.github/custom-instructions.md).
 - If unclear, ask one focused question.
 - Escalate blockers to a maintainer or via [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions).
 
@@ -174,11 +172,6 @@ You are a Gemini agent (Pro or Flash) operating in LightSpeed.
 
 # Resource Links
 
-- [Gemini Guide](./gemini-guide.md)
-- [Gemini 2.5 Pro explainer](./gemini-2.5-pro.md)
-- [Gemini Flash 2.0 explainer](./gemini-flash-2.0.md)
-- [AI Model Comparison Guide](./ai-model-comparison.md)
-- [Model Guide](./model-guide.md)
 - [AGENTS.md](./AGENTS.md)
 - [Coding Standards](./.github/instructions/coding-standards.instructions.md)
 - [Pull Request Template](./.github/PULL_REQUEST_TEMPLATE.md)
@@ -192,4 +185,4 @@ You are a Gemini agent (Pro or Flash) operating in LightSpeed.
 
 ---
 
-_When in doubt, review the [AI Model Comparison Guide](./ai-model-comparison.md) and escalate to another model as needed. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow._
+*When in doubt, review [AGENTS.md](./AGENTS.md) and escalate to another model as needed. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow.*

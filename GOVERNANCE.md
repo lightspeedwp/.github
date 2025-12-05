@@ -185,4 +185,4 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 
 ---
 
-_This document is maintained by the LightSpeed community. Propose changes via pull request._
+*This document is maintained by the LightSpeed community. Propose changes via pull request.*

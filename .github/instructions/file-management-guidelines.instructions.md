@@ -24,7 +24,6 @@ This document provides clear guidelines for where and how to organize temporary 
 | -------------- | ---------------------------------------------- | ----------------------- | ---------------------------------------------------------------------- |
 | **`reports/`** | Permanent documentation & analysis results     | Long-term (permanent)   | Completion summaries, analysis reports, baselines, impact matrices     |
 | **`tmp/`**     | Temporary processing files & working documents | Short-term (hours-days) | Intermediate outputs, processing logs, draft reports, working analysis |
-| **Root**       | Special files for workflow tracking            | Session-based           | `Copilot-Processing.md`, critical status files                         |
 
 ---
 

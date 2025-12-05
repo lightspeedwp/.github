@@ -100,18 +100,13 @@ graph LR
 
 Below are all linting instruction files available in this folder. Each file defines standards, config, and tools for linting a specific file type:
 
-| File                                                                               | Description                                                                             |
-| ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| [linting-css.instructions.md](./linting/linting-css.instructions.md)               | Lint and format CSS, SCSS, and Sass with stylelint and Prettier.                        |
-| [linting-html.instructions.md](./linting/linting-html.instructions.md)             | Validate and lint HTML (and embedded HTML in PHP) for semantics and accessibility.      |
-| [linting-javascript.instructions.md](./linting/linting-javascript.instructions.md) | Lint JavaScript/TypeScript with ESLint (flat/classic), Prettier, and project standards. |
-| [linting-json.instructions.md](./linting/linting-json.instructions.md)             | Validate JSON files against schemas and enforce formatting with Prettier.               |
-| [linting-markdown.instructions.md](./linting/linting-markdown.instructions.md)     | Lint Markdown for style and readability using markdownlint and Prettier.                |
-| [linting-php.instructions.md](./linting/linting-php.instructions.md)               | Lint PHP with PHPCS and WordPress coding standards.                                     |
-| [linting-python.instructions.md](./linting/linting-python.instructions.md)         | Lint and format Python using Black, Ruff, and enforce type hints.                       |
-| [linting-shell.instructions.md](./linting/linting-shell.instructions.md)           | Lint shell scripts with ShellCheck and enforce strict mode.                             |
-| [linting-tests.instructions.md](./linting/linting-tests.instructions.md)           | Enforce consistent test style for Jest, Playwright, Python, and shell tests.            |
-| [linting-yaml.instructions.md](./linting/linting-yaml.instructions.md)             | Lint YAML files and workflows using yamllint, Spectral, and actionlint.                 |
+| File                                                                       | Description                                                                             |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| [linting-javascript.instructions.md](./linting-javascript.instructions.md) | Lint JavaScript/TypeScript with ESLint (flat/classic), Prettier, and project standards. |
+| [linting-json.instructions.md](./linting-json.instructions.md)             | Validate JSON files against schemas and enforce formatting with Prettier.               |
+| [linting-markdown.instructions.md](./linting-markdown.instructions.md)     | Lint Markdown for style and readability using markdownlint and Prettier.                |
+| [linting-tests.instructions.md](./linting-tests.instructions.md)           | Enforce consistent test style for Jest, Playwright, Python, and shell tests.            |
+| [linting-yaml.instructions.md](./linting-yaml.instructions.md)             | Lint YAML files and workflows using yamllint, Spectral, and actionlint.                 |
 
 ---
 

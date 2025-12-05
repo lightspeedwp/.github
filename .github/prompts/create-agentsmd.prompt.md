@@ -1,7 +1,6 @@
 ---
 description: "Prompt for generating an AGENTS.md file for a repository"
 mode: "agent"
-license: "GPL-3.0"
 ---
 
 # Create high‑quality AGENTS.md file
@@ -107,7 +106,7 @@ AGENTS.md is a Markdown file that serves as a "README for agents" - a dedicated,
 
 ## Example Template
 
-Use this as a starting template and customise based on the specific project:
+Use this as a starting template and customize based on the specific project:
 
 ```markdown
 # AGENTS.md
@@ -195,7 +194,7 @@ Here's a real example from the agents.md website:
 
 ## Implementation Steps
 
-1. **Analyse the project structure** to understand:
+1. **Analyze the project structure** to understand:
    - Programming languages and frameworks used
    - Package managers and build tools
    - Testing frameworks

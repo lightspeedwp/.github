@@ -293,3 +293,10 @@ Consider adding these scripts to GitHub Actions workflows for:
 - Pre-commit hooks (validate versions before commit)
 - Pull request checks (ensure references are valid)
 - Release automation (bulk bump versions on release)
+
+## References
+
+- [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
+- [RELEASE_PROCESS.md](./RELEASE_PROCESS.md)
+
+---

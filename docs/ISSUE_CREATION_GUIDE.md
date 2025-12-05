@@ -1,5 +1,5 @@
 ---
-_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER-SCHEMA.md](../.github/FRONTMATTER-SCHEMA.md)._
+_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER_SCHEMA.md](../.github/FRONTMATTER_SCHEMA.md)._
 ---
 
 # LightSpeed Issue Creation Guide
@@ -159,17 +159,19 @@ Any implementation notes, design decisions, or technical context.
 
 ---
 
-## 12. **References**
+## 12. References
 
-- [Issue Types Guide](../.github/ISSUE_TYPES.md)
-- [Label Guide](../.github/ISSUE_LABELS.md)
-- [Canonical Labels](../.github/labels.yml)
-- [Automated Label Rules](../.github/labeler.yml)
-- [Branching Strategy](../.github/BRANCHING_STRATEGY.md)
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Roadmap](ROADMAP.md)
-- [GitHub Issue Templates](../.github/ISSUE_TEMPLATES/)
+- [Automation Governance](../.github/AUTOMATION_GOVERNANCE.md)
+- [Issue Labels Guide](./ISSUE_LABELS.md)
+- [Canonical Labels & Colours](../.github/labels.yml)
+- [Labeler rules](../.github/labeler.yml)
+- [Issue Types Guide](./ISSUE_TYPES.md)
+- [Canonical Issue Types](../.github/issue-types.yml)
+- [PR Labels Guide](./PR_LABELS.md)
+- [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
+- [Agent Spec for Labeling](../.github/agents/labeling.agent.md)
+- [labeling.yml Workflow](../.github/workflows/labeling.yml)
 
 ---
 

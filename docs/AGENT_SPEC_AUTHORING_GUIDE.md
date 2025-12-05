@@ -761,7 +761,6 @@ references:
 ### Schema and Validation
 
 - [Frontmatter Schema](../schemas/frontmatter.schema.json)
-- [Agent Frontmatter Schema](../schemas/agent-frontmatter.schema.json)
 - [Validation Scripts](../scripts/validation/)
 
 ### Related Standards

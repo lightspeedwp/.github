@@ -1,21 +1,19 @@
 ---
 title: "CLAUDE.md – Claude Agent Guidance"
 version: "v1.2"
-last_updated: "2025-10-23"
+last_updated: "2025-12-04"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Root-level guidance for Claude agents, LightSpeed model selection, and Copilot agent best practices."
 tags: ["lightspeed", "templates", "copilot", "agents", "prompts", "models"]
 file_type: "claude-instructions"
 references:
-  - "https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/coding-standards.instructions.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/ai-model-comparison.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-3.5.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-3.7.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-3.7-thinking.md"
-  - "https://github.com/lightspeedwp/.github/blob/develop/claude-sonnet-4.0.md"
+  - path: ".github/agents/agent.md"
+    description: "Main agent implementations index"
+  - path: ".github/custom-instructions.md"
+    description: "Organisation-wide Copilot instructions"
+  - path: ".github/prompts/prompts.md"
+    description: "Prompts index"
 ---
 
 # Claude Model Selection at LightSpeed
@@ -28,12 +26,12 @@ Claude models are preferred for:
 
 **Available Claude Models:**
 
-- [Claude Sonnet 3.5](./claude-sonnet-3.5.md): Best for general reasoning, technical writing, and long context tasks. Fast, reliable, and safe.
-- [Claude Sonnet 3.7](./claude-sonnet-3.7.md): Improved reasoning, larger context, and better multimodal support than 3.5. Great for complex research and technical work.
-- [Claude Sonnet 3.7 Thinking](./claude-sonnet-3.7-thinking.md): Tuned for advanced, multi-step problem solving and deep research. Use for architectural planning, research, and when the task requires chain-of-thought.
-- [Claude Sonnet 4.0](./claude-sonnet-4.0.md): (if available) For highest context, most advanced reasoning, and mission-critical tasks.
+- **Claude Sonnet 3.5**: Best for general reasoning, technical writing, and long context tasks. Fast, reliable, and safe.
+- **Claude Sonnet 3.7**: Improved reasoning, larger context, and better multimodal support than 3.5. Great for complex research and technical work.
+- **Claude Sonnet 3.7 Thinking**: Tuned for advanced, multi-step problem solving and deep research. Use for architectural planning, research, and when the task requires chain-of-thought.
+- **Claude Sonnet 4.0**: (if available) For highest context, most advanced reasoning, and mission-critical tasks.
 
-**Model Comparison and Use Cases (see [AI Model Comparison Guide](./ai-model-comparison.md)):**
+**Model Comparison and Use Cases:**
 
 | Model        | Strengths                             | Best For                                        | Limitations             |
 | ------------ | ------------------------------------- | ----------------------------------------------- | ----------------------- |
@@ -57,7 +55,6 @@ Claude models are preferred for:
 - Chunk large context, pin important facts
 - For code review, request security, a11y, and standards checks
 - Always verify model outputs, especially for critical or novel tasks
-- See [model-guide.md](./model-guide.md) for more best practices
 
 ---
 
@@ -196,4 +193,4 @@ You are a Claude agent (Sonnet/Opus family) at LightSpeed.
 
 ---
 
-_When in doubt, consult the [AI Model Comparison Guide](./ai-model-comparison.md), select the model that best fits the task, and escalate to a maintainer if unsure. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow._
+*When in doubt, consult the [AI Model Comparison Guide](./ai-model-comparison.md), select the model that best fits the task, and escalate to a maintainer if unsure. Provide safe defaults, flag optional features, and always reference LightSpeed best practices for every workflow.*
