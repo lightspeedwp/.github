@@ -53,43 +53,36 @@ Optional:
 Identify the primary task category based on content analysis:
 
 1. **Simple Repetitive Tasks**:
-
    - Pattern: Formatting, simple refactoring, adding comments/docstrings, basic CRUD
    - Characteristics: Straightforward logic, minimal context, fast execution preferred
    - Keywords: format, comment, simple, basic, add docstring, rename, move
 
 2. **Code Generation & Implementation**:
-
    - Pattern: Writing functions/classes, implementing features, API endpoints, tests
    - Characteristics: Moderate complexity, domain knowledge, idiomatic code
    - Keywords: implement, create, generate, write, build, scaffold
 
 3. **Complex Refactoring & Architecture**:
-
    - Pattern: System design, architectural review, large-scale refactoring, performance optimization
    - Characteristics: Deep reasoning, multiple components, trade-off analysis
    - Keywords: architect, refactor, optimize, design, scale, review architecture
 
 4. **Debugging & Problem-Solving**:
-
    - Pattern: Bug fixing, error analysis, systematic troubleshooting, root cause analysis
    - Characteristics: Step-by-step reasoning, debugging context, verification needs
    - Keywords: debug, fix, troubleshoot, diagnose, error, investigate
 
 5. **Planning & Research**:
-
    - Pattern: Feature planning, research, documentation analysis, ADR creation
    - Characteristics: Read-only, context gathering, decision-making support
    - Keywords: plan, research, analyze, investigate, document, assess
 
 6. **Code Review & Quality Analysis**:
-
    - Pattern: Security analysis, performance review, best practices validation, compliance checking
    - Characteristics: Critical thinking, pattern recognition, domain expertise
    - Keywords: review, analyze, security, performance, compliance, validate
 
 7. **Specialized Domain Tasks**:
-
    - Pattern: Django/framework-specific, accessibility (WCAG), testing (TDD), API design
    - Characteristics: Deep domain knowledge, framework conventions, standards compliance
    - Keywords: django, accessibility, wcag, rest, api, testing, tdd

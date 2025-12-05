@@ -1,6 +1,6 @@
 ---
-mode: 'agent'
-description: 'Issue Planning and Automation prompt that generates comprehensive project plans with Epic > Feature > Story/Enabler > Test hierarchy, dependencies, priorities, and automated tracking.'
+mode: "agent"
+description: "Issue Planning and Automation prompt that generates comprehensive project plans with Epic > Feature > Story/Enabler > Test hierarchy, dependencies, priorities, and automated tracking."
 ---
 
 # GitHub Issue Planning & Project Automation Prompt
@@ -395,10 +395,10 @@ on:
   workflow_dispatch:
     inputs:
       feature_name:
-        description: 'Feature name'
+        description: "Feature name"
         required: true
       epic_issue:
-        description: 'Epic issue number'
+        description: "Epic issue number"
         required: true
 
 jobs:

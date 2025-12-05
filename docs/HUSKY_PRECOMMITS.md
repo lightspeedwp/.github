@@ -298,6 +298,7 @@ last_updated: "2025-11-25"
 version: "1.0"
 maintainer: "LightSpeed DevOps"
 tags: ["husky", "testing"]
+
 ---
 
 ## Husky Pre-Commit Testing

@@ -9,8 +9,8 @@
 
 All automation in this repository is implemented and governed according to the following standards:
 
-- **Instruction-First:** Each automation workflow is paired with a canonical instruction file in [.github/instructions/workflows/](./instructions/workflows.instructions.md).
-- **Agent-Driven:** Each workflow is powered by a corresponding agent, documented in [.github/instructions/agents/](./instructions/agents.instructions.md).
+- **Instruction-First:** Each automation workflow is paired with a canonical instruction file in [.github/instructions/workflows.instructions.md](./instructions/workflows.instructions.md).
+- **Agent-Driven:** Each workflow is powered by a corresponding agent, documented in [.github/instructions/agents.instructions.md](./instructions/agents.instructions.md).
 - **Dynamic Indexing:** Agents and workflows are discoverable and versioned via dynamic index files. These files are the single source of truth for automation and should be referenced for all changes or onboarding.
 - **Reciprocal Specification:** Every workflow must reference its agent; every agent must have a reciprocal specification file and reference its workflow(s).
 - **Evolving Standards:** All automation governance, standards, and best practices are maintained in the `.github/instructions/` folder and updated as the organization evolves.
@@ -33,7 +33,7 @@ This document defines governance policies and standards for:
 - GitHub Actions workflows
 - Labeling agents and automation
 - Configuration files (labels.yml, labeler.yml, issue-types.yml)
-- Custom scripts and utilities in `.github/`
+- Custom scripts and utilities in `scripts/`
 - Reusable workflows and actions
 - Agent development and deployment
 
@@ -105,8 +105,8 @@ Repositories may have specific labels not in the canonical set.
 
 - **Labels as Routing Signals:** For status, priority, area/component, environment, compatibility.
 - **Single-select Enforcement:** Exactly one `status:*`, one `priority:*`, and one `area:*` or `comp:*` per item; enforced by the labeling agent.
-- **Issue Types:** Classification managed in the Issue Type field and Project Board, not via `type:*` labels.
-- **Org Standards:** All labels must match org-wide colours and naming (see [Labels Guide](./labels-guide.md) and [Issue Types Guide](./issue-types.md)).
+- **Issue Types:** Classification is set via the Issue Type field and mirrored by `type:*` labels (for example, `type:bug`, `type:feature`). These labels are applied and normalised by the labeling agent using the canonical mapping in `.github/issue-types.yml` and the [Issue Types Guide](./ISSUE_TYPES.md).
+- **Org Standards:** All labels must match org-wide colours and naming defined in `.github/labels.yml` and documented in the [Issue Labels Guide](./ISSUE_LABELS.md) and [Issue Types Guide](./ISSUE_TYPES.md).
 - **Automated Assignment:** Label assignment and enforcement is handled by agents and described in their specifications.
 
 ---
@@ -141,9 +141,11 @@ Repositories may have specific labels not in the canonical set.
 
 ### 4.2 Agent Development Standards
 
-**Location:** `.github/agents/`
-**Includes:** `.github/agents/includes/`
-**Tests:** `.github/agents/includes/__tests__/`
+**Agent Specs:** `.github/agents/`
+**Agent Scripts:** `scripts/agents/`
+**Agent Tests:** `scripts/agents/__tests__/`
+**Agent Includes:** `scripts/agents/includes/`
+**Agent Includes Tests:** `scripts/agents/includes/__tests__/`
 
 **Requirements:**
 
@@ -257,7 +259,7 @@ When `develop` merges to `main` (or on a release PR to main):
 6. **Docs Update:** Update stable tag, README badges, and other documentation as needed.
 7. **Notifications:** Notify maintainers/channels of release outcome.
 
-**Reciprocal Spec:** All release steps are defined in [workflow-release.instructions.md](./instructions/workflows/workflow-release.instructions.md) and [agent-release.instructions.md](./instructions/agents/agent-release.instructions.md).
+**Reciprocal Spec:** All release steps are defined in [workflows.instructions.md](./instructions/workflows.instructions.md) and [agent-release.instructions.md](./instructions/agent-release.instructions.md).
 
 ### 6.3 Labelling, Project Sync, and Issue/PR Management
 
@@ -273,7 +275,7 @@ When `develop` merges to `main` (or on a release PR to main):
 - On merge, auto-move item to Done and close linked issues.
 - Project meta sync logic is agent-driven and customizable.
 
-**Reciprocal Spec:** See [workflow-labeling-status.instructions.md](./instructions/workflows/workflow-labeling-status.instructions.md), [agent-labels-issues-prs.instructions.md](./instructions/agents/agent-labels-issues-prs.instructions.md), and [agent-project-meta-sync.instructions.md](./instructions/agents/agent-project-meta-sync.instructions.md).
+**Reciprocal Spec:** See [workflows.instructions.md](./instructions/workflows.instructions.md), [agent-labeling.instructions.md](./instructions/agents/agent-labeling.instructions.md), and [agent-project-meta-sync.instructions.md](./instructions/agent-project-meta-sync.instructions.md).
 
 ### 6.4 Branching Discipline
 
@@ -336,7 +338,7 @@ When `develop` merges to `main` (or on a release PR to main):
 
 ## 11. Maintaining and Auditing Automation
 
-- **Yearly Audit:** Annually, inventory all workflows and ensure every referenced agent has a reciprocal specification file in `.github/instructions/agents/`.
+- **Yearly Audit:** Annually, inventory all workflows and ensure every referenced agent has a reciprocal specification file in `.github/instructions/`.
 - **Change Process:** Any automation or agent update must update both its workflow and agent instruction/specification files.
 - **CI Enforcement:** (Recommended) Use a CI job or script to validate instruction/agent reciprocity and spec compliance.
 
@@ -360,9 +362,9 @@ When `develop` merges to `main` (or on a release PR to main):
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [Org-wide Issue Labels](./ISSUE_LABELS.md)
 - [Pull Request Labels](./PR_LABELS.md)
-- [Issue Types YAML](./issue-types.yml)
-- [Canonical Label Definitions](./labels.yml)
-- [Automated Label Assignment Rules](./labeler.yml)
+- [Issue Types YAML](../.github/issue-types.yml)
+- [Canonical Label Definitions](../.github/labels.yml)
+- [Automated Label Assignment Rules](../.github/labeler.yml)
 
 ---
 

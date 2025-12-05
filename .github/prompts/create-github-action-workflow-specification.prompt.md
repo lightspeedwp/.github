@@ -1,8 +1,36 @@
 ---
-mode: 'agent'
-description: 'Create a formal specification for an existing GitHub Actions CI/CD workflow, optimized for AI consumption and workflow maintenance.'
-tools: ['changes', 'search/codebase', 'edit/editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runInTerminal2', 'runNotebooks', 'runTasks', 'runTests', 'search', 'search/searchResults', 'runCommands/terminalLastCommand', 'runCommands/terminalSelection', 'testFailure', 'usages', 'vscodeAPI', 'microsoft.docs.mcp', 'github', 'Microsoft Docs']
+mode: "agent"
+description: "Create a formal specification for an existing GitHub Actions CI/CD workflow, optimized for AI consumption and workflow maintenance."
+tools:
+  [
+    "changes",
+    "search/codebase",
+    "edit/editFiles",
+    "extensions",
+    "fetch",
+    "findTestFiles",
+    "githubRepo",
+    "new",
+    "openSimpleBrowser",
+    "problems",
+    "runCommands",
+    "runInTerminal2",
+    "runNotebooks",
+    "runTasks",
+    "runTests",
+    "search",
+    "search/searchResults",
+    "runCommands/terminalLastCommand",
+    "runCommands/terminalSelection",
+    "testFailure",
+    "usages",
+    "vscodeAPI",
+    "microsoft.docs.mcp",
+    "github",
+    "Microsoft Docs",
+  ]
 ---
+
 # Create GitHub Actions Workflow Specification
 
 Create a comprehensive specification for the GitHub Actions workflow: `${input:WorkflowFile}`.
@@ -21,7 +49,7 @@ This specification serves as a specification for the workflow's behavior, requir
 
 Save as: `/spec/spec-process-cicd-[workflow-name].md`
 
-```md
+````md
 ---
 title: CI/CD Workflow Specification - [Workflow Name]
 version: 1.0
@@ -45,38 +73,42 @@ graph TD
     B --> C[Job 2]
     C --> D[Job 3]
     D --> E[End]
-    
+
     B --> F[Parallel Job]
     F --> D
-    
+
     style A fill:#e1f5fe
     style E fill:#e8f5e8
 ```
+````
 
 ## Jobs & Dependencies
 
-| Job Name | Purpose | Dependencies | Execution Context |
-|----------|---------|--------------|-------------------|
-| job-1 | [Purpose] | [Prerequisites] | [Runner/Environment] |
-| job-2 | [Purpose] | job-1 | [Runner/Environment] |
+| Job Name | Purpose   | Dependencies    | Execution Context    |
+| -------- | --------- | --------------- | -------------------- |
+| job-1    | [Purpose] | [Prerequisites] | [Runner/Environment] |
+| job-2    | [Purpose] | job-1           | [Runner/Environment] |
 
 ## Requirements Matrix
 
 ### Functional Requirements
-| ID | Requirement | Priority | Acceptance Criteria |
-|----|-------------|----------|-------------------|
-| REQ-001 | [Requirement] | High | [Testable criteria] |
-| REQ-002 | [Requirement] | Medium | [Testable criteria] |
+
+| ID      | Requirement   | Priority | Acceptance Criteria |
+| ------- | ------------- | -------- | ------------------- |
+| REQ-001 | [Requirement] | High     | [Testable criteria] |
+| REQ-002 | [Requirement] | Medium   | [Testable criteria] |
 
 ### Security Requirements
-| ID | Requirement | Implementation Constraint |
-|----|-------------|---------------------------|
-| SEC-001 | [Security requirement] | [Constraint description] |
+
+| ID      | Requirement            | Implementation Constraint |
+| ------- | ---------------------- | ------------------------- |
+| SEC-001 | [Security requirement] | [Constraint description]  |
 
 ### Performance Requirements
-| ID | Metric | Target | Measurement Method |
-|----|-------|--------|-------------------|
-| PERF-001 | [Metric] | [Target value] | [How measured] |
+
+| ID       | Metric   | Target         | Measurement Method |
+| -------- | -------- | -------------- | ------------------ |
+| PERF-001 | [Metric] | [Target value] | [How measured]     |
 
 ## Input/Output Contracts
 
@@ -84,8 +116,8 @@ graph TD
 
 ```yaml
 # Environment Variables
-ENV_VAR_1: string  # Purpose: [description]
-ENV_VAR_2: secret  # Purpose: [description]
+ENV_VAR_1: string # Purpose: [description]
+ENV_VAR_2: secret # Purpose: [description]
 
 # Repository Triggers
 paths: [list of path filters]
@@ -96,16 +128,16 @@ branches: [list of branch patterns]
 
 ```yaml
 # Job Outputs
-job_1_output: string  # Description: [purpose]
-build_artifact: file  # Description: [content type]
+job_1_output: string # Description: [purpose]
+build_artifact: file # Description: [content type]
 ```
 
 ### Secrets & Variables
 
-| Type | Name | Purpose | Scope |
-|------|------|---------|-------|
-| Secret | SECRET_1 | [Purpose] | Workflow |
-| Variable | VAR_1 | [Purpose] | Repository |
+| Type     | Name     | Purpose   | Scope      |
+| -------- | -------- | --------- | ---------- |
+| Secret   | SECRET_1 | [Purpose] | Workflow   |
+| Variable | VAR_1    | [Purpose] | Repository |
 
 ## Execution Constraints
 
@@ -123,21 +155,21 @@ build_artifact: file  # Description: [content type]
 
 ## Error Handling Strategy
 
-| Error Type | Response | Recovery Action |
-|------------|----------|-----------------|
-| Build Failure | [Response] | [Recovery steps] |
-| Test Failure | [Response] | [Recovery steps] |
+| Error Type         | Response   | Recovery Action  |
+| ------------------ | ---------- | ---------------- |
+| Build Failure      | [Response] | [Recovery steps] |
+| Test Failure       | [Response] | [Recovery steps] |
 | Deployment Failure | [Response] | [Recovery steps] |
 
 ## Quality Gates
 
 ### Gate Definitions
 
-| Gate | Criteria | Bypass Conditions |
-|------|----------|-------------------|
-| Code Quality | [Standards] | [When allowed] |
-| Security Scan | [Thresholds] | [When allowed] |
-| Test Coverage | [Percentage] | [When allowed] |
+| Gate          | Criteria     | Bypass Conditions |
+| ------------- | ------------ | ----------------- |
+| Code Quality  | [Standards]  | [When allowed]    |
+| Security Scan | [Thresholds] | [When allowed]    |
+| Test Coverage | [Percentage] | [When allowed]    |
 
 ## Monitoring & Observability
 
@@ -149,23 +181,23 @@ build_artifact: file  # Description: [content type]
 
 ### Alerting
 
-| Condition | Severity | Notification Target |
-|-----------|----------|-------------------|
-| [Condition] | [Level] | [Who/Where] |
+| Condition   | Severity | Notification Target |
+| ----------- | -------- | ------------------- |
+| [Condition] | [Level]  | [Who/Where]         |
 
 ## Integration Points
 
 ### External Systems
 
-| System | Integration Type | Data Exchange | SLA Requirements |
-|--------|------------------|---------------|------------------|
-| [System] | [Type] | [Data format] | [Requirements] |
+| System   | Integration Type | Data Exchange | SLA Requirements |
+| -------- | ---------------- | ------------- | ---------------- |
+| [System] | [Type]           | [Data format] | [Requirements]   |
 
 ### Dependent Workflows
 
-| Workflow | Relationship | Trigger Mechanism |
-|----------|--------------|-------------------|
-| [Workflow] | [Type] | [How triggered] |
+| Workflow   | Relationship | Trigger Mechanism |
+| ---------- | ------------ | ----------------- |
+| [Workflow] | [Type]       | [How triggered]   |
 
 ## Compliance & Governance
 
@@ -185,9 +217,9 @@ build_artifact: file  # Description: [content type]
 
 ### Scenario Matrix
 
-| Scenario | Expected Behavior | Validation Method |
-|----------|-------------------|-------------------|
-| [Edge case] | [Behavior] | [How to verify] |
+| Scenario    | Expected Behavior | Validation Method |
+| ----------- | ----------------- | ----------------- |
+| [Edge case] | [Behavior]        | [How to verify]   |
 
 ## Validation Criteria
 
@@ -213,9 +245,9 @@ build_artifact: file  # Description: [content type]
 
 ### Version History
 
-| Version | Date | Changes | Author |
-|---------|------|---------|--------|
-| 1.0 | [Date] | Initial specification | [Author] |
+| Version | Date   | Changes               | Author   |
+| ------- | ------ | --------------------- | -------- |
+| 1.0     | [Date] | Initial specification | [Author] |
 
 ## Related Specifications
 
@@ -223,7 +255,7 @@ build_artifact: file  # Description: [content type]
 - [Link to infrastructure specs]
 - [Link to deployment specs]
 
-```
+````
 
 ## Analysis Instructions
 
@@ -250,16 +282,18 @@ style TriggerNode fill:#e1f5fe
 style SuccessNode fill:#e8f5e8
 style FailureNode fill:#ffebee
 style ProcessNode fill:#f3e5f5
-```
+````
 
 ### Complex Workflows
+
 For workflows with 5+ jobs, use subgraphs:
+
 ```mermaid
 graph TD
     subgraph "Build Phase"
         A[Lint] --> B[Test] --> C[Build]
     end
-    subgraph "Deploy Phase"  
+    subgraph "Deploy Phase"
         D[Staging] --> E[Production]
     end
     C --> D

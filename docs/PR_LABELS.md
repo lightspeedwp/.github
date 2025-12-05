@@ -15,17 +15,17 @@ Use this reference for consistent, correct PR labels and full alignment with aut
 
 Every PR should use a standard branch prefix for correct label and template automation:
 
-| Prefix    | Purpose                     | Maps to Type / Label | PR Template                                        |
-| --------- | --------------------------- | -------------------- | -------------------------------------------------- |
-| fix/      | Bugfix or regression        | bug                  | .github/PULL_REQUEST_TEMPLATE/pr_bug.md            |
-| chore/    | Maintenance/hygiene tasks   | chore                | .github/PULL_REQUEST_TEMPLATE/pr_chore.md          |
-| ci/       | CI/CD or workflow changes   | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_ci.md             |
-| ci/       | CI/CD or workflow changes   | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_dep_update.md     |
-| docs/     | Documentation changes       | documentation        | .github/PULL_REQUEST_TEMPLATE/pr_docs.md           |
-| hotfix/   | Emergency production fix    | hotfix / bug         | .github/PULL_REQUEST_TEMPLATE/pr_hotfix.md         |
-| feat/     | New feature or enhancement  | feature              | .github/PULL_REQUEST_TEMPLATE/pr_feature.md        |
-| refactor/ | Internal code refactoring   | refactor             | .github/PULL_REQUEST_TEMPLATE/pr_refactor.md       |
-| release/  | Release prep/deployment     | release              | .github/PULL_REQUEST_TEMPLATE/pr_release.md        |
+| Prefix    | Purpose                    | Maps to Type / Label | PR Template                                    |
+| --------- | -------------------------- | -------------------- | ---------------------------------------------- |
+| fix/      | Bugfix or regression       | bug                  | .github/PULL_REQUEST_TEMPLATE/pr_bug.md        |
+| chore/    | Maintenance/hygiene tasks  | chore                | .github/PULL_REQUEST_TEMPLATE/pr_chore.md      |
+| ci/       | CI/CD or workflow changes  | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_ci.md         |
+| ci/       | CI/CD or workflow changes  | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_dep_update.md |
+| docs/     | Documentation changes      | documentation        | .github/PULL_REQUEST_TEMPLATE/pr_docs.md       |
+| hotfix/   | Emergency production fix   | hotfix / bug         | .github/PULL_REQUEST_TEMPLATE/pr_hotfix.md     |
+| feat/     | New feature or enhancement | feature              | .github/PULL_REQUEST_TEMPLATE/pr_feature.md    |
+| refactor/ | Internal code refactoring  | refactor             | .github/PULL_REQUEST_TEMPLATE/pr_refactor.md   |
+| release/  | Release prep/deployment    | release              | .github/PULL_REQUEST_TEMPLATE/pr_release.md    |
 
 ### Branch specific PR Templates to be created
 

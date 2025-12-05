@@ -1,8 +1,27 @@
 ---
-mode: 'agent'
-description: 'Update the llms.txt file in the root folder to reflect changes in documentation or specifications following the llms.txt specification at https://llmstxt.org/'
-tools: ['changes', 'search/codebase', 'edit/editFiles', 'extensions', 'fetch', 'githubRepo', 'openSimpleBrowser', 'problems', 'runTasks', 'search', 'search/searchResults', 'runCommands/terminalLastCommand', 'runCommands/terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
+mode: "agent"
+description: "Update the llms.txt file in the root folder to reflect changes in documentation or specifications following the llms.txt specification at https://llmstxt.org/"
+tools:
+  [
+    "changes",
+    "search/codebase",
+    "edit/editFiles",
+    "extensions",
+    "fetch",
+    "githubRepo",
+    "openSimpleBrowser",
+    "problems",
+    "runTasks",
+    "search",
+    "search/searchResults",
+    "runCommands/terminalLastCommand",
+    "runCommands/terminalSelection",
+    "testFailure",
+    "usages",
+    "vscodeAPI",
+  ]
 ---
+
 # Update LLMs.txt File
 
 Update the existing `llms.txt` file in the root of the repository to reflect changes in documentation, specifications, or repository structure. This file provides high-level guidance to large language models (LLMs) on where to find relevant content for understanding the repository's purpose and specifications.
@@ -16,17 +35,20 @@ Update the existing `llms.txt` file to maintain accuracy and compliance with the
 Before updating the `llms.txt` file, you must complete a thorough analysis:
 
 ### Step 1: Review Current File and Specification
+
 - Read the existing `llms.txt` file to understand current structure
-- Review the official specification at https://llmstxt.org/ to ensure continued compliance
+- Review the official specification at <https://llmstxt.org/> to ensure continued compliance
 - Identify areas that may need updates based on repository changes
 
 ### Step 2: Repository Structure Analysis
+
 - Examine the current repository structure using appropriate tools
 - Compare current structure with what's documented in existing `llms.txt`
 - Identify new directories, files, or documentation that should be included
 - Note any removed or relocated files that need to be updated
 
 ### Step 3: Content Discovery and Change Detection
+
 - Identify new README files and their locations
 - Find new documentation files (`.md` files in `/docs/`, `/spec/`, etc.)
 - Locate new specification files and their purposes
@@ -35,7 +57,9 @@ Before updating the `llms.txt` file, you must complete a thorough analysis:
 - Identify any changes to existing documentation structure
 
 ### Step 4: Create Update Plan
+
 Based on your analysis, create a structured plan that includes:
+
 - Changes needed to maintain accuracy
 - New files to be added to the llms.txt
 - Outdated references to be removed or updated
@@ -44,6 +68,7 @@ Based on your analysis, create a structured plan that includes:
 ## Implementation Requirements
 
 ### Format Compliance
+
 The updated `llms.txt` file must maintain this exact structure per the specification:
 
 1. **H1 Header**: Single line with repository/project name (required)
@@ -54,15 +79,19 @@ The updated `llms.txt` file must maintain this exact structure per the specifica
 ### Content Requirements
 
 #### Required Elements
+
 - **Project Name**: Clear, descriptive title as H1
 - **Summary**: Concise blockquote explaining the repository's purpose
 - **Key Files**: Essential files organized by category (H2 sections)
 
 #### File Link Format
+
 Each file link must follow: `[descriptive-name](relative-url): optional description`
 
 #### Section Organization
+
 Organize files into logical H2 sections such as:
+
 - **Documentation**: Core documentation files
 - **Specifications**: Technical specifications and requirements
 - **Examples**: Sample code and usage examples
@@ -72,13 +101,16 @@ Organize files into logical H2 sections such as:
 ### Content Guidelines
 
 #### Language and Style
+
 - Use concise, clear, unambiguous language
 - Avoid jargon without explanation
 - Write for both human and LLM readers
 - Be specific and informative in descriptions
 
 #### File Selection Criteria
+
 Include files that:
+
 - Explain the repository's purpose and scope
 - Provide essential technical documentation
 - Show usage examples and patterns
@@ -86,6 +118,7 @@ Include files that:
 - Contain configuration and setup instructions
 
 Exclude files that:
+
 - Are purely implementation details
 - Contain redundant information
 - Are build artifacts or generated content
@@ -94,6 +127,7 @@ Exclude files that:
 ## Execution Steps
 
 ### Step 1: Current State Analysis
+
 1. Read the existing `llms.txt` file thoroughly
 2. Examine the current repository structure completely
 3. Compare existing file references with actual repository content
@@ -101,6 +135,7 @@ Exclude files that:
 5. Note any structural issues with the current file
 
 ### Step 2: Content Planning
+
 1. Determine if the primary purpose statement needs updates
 2. Review and update the summary blockquote if needed
 3. Plan additions for new files and directories
@@ -108,6 +143,7 @@ Exclude files that:
 5. Reorganize sections if needed for better clarity
 
 ### Step 3: File Updates
+
 1. Update the existing `llms.txt` file in the repository root
 2. Maintain compliance with the exact format specification
 3. Add new file references with appropriate descriptions
@@ -115,7 +151,8 @@ Exclude files that:
 5. Ensure all links are valid relative paths
 
 ### Step 4: Validation
-1. Verify continued compliance with https://llmstxt.org/ specification
+
+1. Verify continued compliance with <https://llmstxt.org/> specification
 2. Check that all links are valid and accessible
 3. Ensure the file still serves as an effective LLM navigation tool
 4. Confirm the file remains both human and machine readable
@@ -123,6 +160,7 @@ Exclude files that:
 ## Quality Assurance
 
 ### Format Validation
+
 - ✅ H1 header with project name
 - ✅ Blockquote summary (if included)
 - ✅ H2 sections for file lists
@@ -131,6 +169,7 @@ Exclude files that:
 - ✅ Consistent formatting throughout
 
 ### Content Validation
+
 - ✅ Clear, unambiguous language
 - ✅ Comprehensive coverage of essential files
 - ✅ Logical organization of content
@@ -138,7 +177,8 @@ Exclude files that:
 - ✅ Serves as effective LLM navigation tool
 
 ### Specification Compliance
-- ✅ Follows https://llmstxt.org/ format exactly
+
+- ✅ Follows <https://llmstxt.org/> format exactly
 - ✅ Uses required markdown structure
 - ✅ Implements optional sections appropriately
 - ✅ File located at repository root (`/llms.txt`)
@@ -146,7 +186,9 @@ Exclude files that:
 ## Update Strategy
 
 ### Addition Process
+
 When adding new content:
+
 1. Identify the appropriate section for new files
 2. Create clear, descriptive names for links
 3. Write concise but informative descriptions
@@ -154,14 +196,18 @@ When adding new content:
 5. Consider if new sections are needed for new content types
 
 ### Removal Process
+
 When removing outdated content:
+
 1. Verify files are actually removed or relocated
 2. Check if relocated files should be updated rather than removed
 3. Remove entire sections if they become empty
 4. Update cross-references if needed
 
 ### Reorganization Process
+
 When restructuring content:
+
 1. Maintain logical flow from general to specific
 2. Keep essential documentation in primary sections
 3. Move secondary content to "Optional" section if appropriate
@@ -206,6 +252,7 @@ Example structure for `llms.txt`:
 ## Success Criteria
 
 The updated `llms.txt` file should:
+
 1. Accurately reflect the current repository structure and content
 2. Maintain compliance with the llms.txt specification
 3. Provide clear navigation to essential documentation

@@ -49,7 +49,7 @@ To make documentation more engaging and scannable, you should add relevant emoji
 
 **Tip:** Prefer one emoji per heading, placed at the start. Use only widely-recognised emoji that match the section’s intent.
 
-## Badges Instructions 
+## Badges Instructions
 
 See [Branding Agent Instructions](./branding.agent.md) for unified automation of badges, headers, and footers.
 
@@ -86,7 +86,6 @@ All badge blocks are auto-inserted below the header and formatted consistently.
   - Insert/update the badge block using the standard markers.
   - Ensure one and only one footer is present at the end of each doc.
 
-
 ## References
 
 - [Header & Footer Agent Spec](./header-footer.agent.md)
@@ -100,7 +99,7 @@ All badge blocks are auto-inserted below the header and formatted consistently.
 
 ---
 
-_This document is part of the LightSpeedWP automation suite. For more, see the [Documentation Hub](../../docs/README.md)._
+*This document is part of the LightSpeedWP automation suite. For more, see the [Documentation Hub](../../docs/README.md).*
 
 ---
 

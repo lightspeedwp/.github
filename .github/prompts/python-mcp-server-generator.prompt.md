@@ -1,6 +1,6 @@
 ---
-mode: 'agent'
-description: 'Generate a complete MCP server project in Python with tools, resources, and proper configuration'
+mode: "agent"
+description: "Generate a complete MCP server project in Python with tools, resources, and proper configuration"
 ---
 
 # Generate Python MCP Server
@@ -18,6 +18,7 @@ Create a complete Model Context Protocol (MCP) server in Python with the followi
 ## Implementation Details
 
 ### Project Setup
+
 - Initialize with `uv init project-name`
 - Add MCP SDK: `uv add "mcp[cli]"`
 - Create main server file (e.g., `server.py`)
@@ -25,12 +26,14 @@ Create a complete Model Context Protocol (MCP) server in Python with the followi
 - Configure for direct execution with `if __name__ == "__main__"`
 
 ### Server Configuration
+
 - Use `FastMCP` class from `mcp.server.fastmcp`
 - Set server name and optional instructions
 - Choose transport: stdio (default) or streamable-http
 - For HTTP: optionally configure host, port, and stateless mode
 
 ### Tool Implementation
+
 - Use `@mcp.tool()` decorator on functions
 - Always include type hints - they generate schemas automatically
 - Write clear docstrings - they become tool descriptions
@@ -39,12 +42,14 @@ Create a complete Model Context Protocol (MCP) server in Python with the followi
 - Include proper error handling
 
 ### Resource/Prompt Setup (Optional)
+
 - Add resources with `@mcp.resource()` decorator
 - Use URI templates for dynamic resources: `"resource://{param}"`
 - Add prompts with `@mcp.prompt()` decorator
 - Return strings or Message lists from prompts
 
 ### Code Quality
+
 - Use type hints for all function parameters and returns
 - Write docstrings for tools, resources, and prompts
 - Follow PEP 8 style guidelines
@@ -53,6 +58,7 @@ Create a complete Model Context Protocol (MCP) server in Python with the followi
 - Add inline comments for complex logic
 
 ## Example Tool Types to Consider
+
 - Data processing and transformation
 - File system operations (read, analyze, search)
 - External API integrations
@@ -62,11 +68,11 @@ Create a complete Model Context Protocol (MCP) server in Python with the followi
 - Math or scientific calculations
 
 ## Configuration Options
+
 - **For stdio Servers**:
   - Simple direct execution
   - Test with `uv run mcp dev server.py`
   - Install to Claude: `uv run mcp install server.py`
-  
 - **For HTTP Servers**:
   - Port configuration via environment variables
   - Stateless mode for scalability: `stateless_http=True`
@@ -75,6 +81,7 @@ Create a complete Model Context Protocol (MCP) server in Python with the followi
   - Mounting to existing ASGI servers (Starlette/FastAPI)
 
 ## Testing Guidance
+
 - Explain how to run the server:
   - stdio: `python server.py` or `uv run server.py`
   - HTTP: `python server.py` then connect to `http://localhost:PORT/mcp`
@@ -84,6 +91,7 @@ Create a complete Model Context Protocol (MCP) server in Python with the followi
 - Add troubleshooting tips
 
 ## Additional Features to Consider
+
 - Context usage for logging, progress, and notifications
 - LLM sampling for AI-powered tools
 - User input elicitation for interactive workflows
@@ -94,6 +102,7 @@ Create a complete Model Context Protocol (MCP) server in Python with the followi
 - Completion support for better UX
 
 ## Best Practices
+
 - Use type hints everywhere - they're not optional
 - Return structured data when possible
 - Log to stderr (or use Context logging) to avoid stdout pollution

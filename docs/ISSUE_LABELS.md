@@ -13,14 +13,14 @@ Use this reference to classify Issues consistently, apply correct labels, and al
 
 ## Label Families (Issues)
 
-- **`status:*`** — blocked, duplicate, in-progress, needs-\*, on-hold, ready, ready-for-deployment, scope-creep, wontfix.
+- **`status:*`** — blocked, duplicate, in-progress, needs-*, on-hold, ready, wontfix.
 - **`priority:*`** — critical, important, normal, minor.
-- **`type:*`** — bug, feature, documentation, task, refactor, performance, test, security, a11y, design, improvement, etc.
-- **`area:*`** — analytics, block-visibility, cards, ci, content, etc.
-- **`comp:*`** — block-editor, block-json, block-patterns, etc.
-- **Context labels:** `env:*`, `phase:*`, `page:*`, `device:*`, `layout:*`, `theme:*`, `block:*`, `template:*`, etc.
-- **Meta & release labels:** meta:needs-changelog, release:patch, release:minor, release:major, etc.
-- **Contributor labels:** contrib:good-first-issue, contrib:help-wanted, contrib:discussion.
+- **`type:*`** — bug, feature, documentation, task, refactor, performance, test, security, a11y, design, improvement, release, etc.
+- **`area:*`** — content, theme, navigation, forms, ci, deployment, dependencies, analytics, woocommerce, etc.
+- **`comp:*`** — block-editor, block-json, theme-json, templates, patterns, typography, spacing, etc.
+- **Context labels:** `env:*`, `compat:*`, `cpt:*`, `lang:*`, plus repo‑specific `phase:*`, `page:*`, `device:*`, `layout:*`, `template:*`, etc.
+- **Meta & release labels:** `meta:needs-changelog`, `meta:has-pr`, `meta:no-issue-activity`, `meta:no-pr-activity`, `meta:stale`, `release:patch`, `release:minor`, `release:major`, `release:hotfix`.
+- **Contributor labels:** `contrib:good-first-issue`, `contrib:help-wanted`, `contrib:discussion`.
 
 See [labels.yml](./labels.yml) for the up-to-date, authoritative list.
 
@@ -93,4 +93,4 @@ labels:
 
 ---
 
-_The labeling agent is the single source of truth for all issue labeling, status, type, and standardization. All guidance here is directly reflected in labels.yml and enforced via automation._
+*The labeling agent is the single source of truth for all issue labeling, status, type, and standardization. All guidance here is directly reflected in labels.yml and enforced via automation.*

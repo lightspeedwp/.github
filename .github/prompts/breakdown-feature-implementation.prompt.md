@@ -1,6 +1,6 @@
 ---
-mode: 'agent'
-description: 'Prompt for creating detailed feature implementation plans, following Epoch monorepo structure.'
+mode: "agent"
+description: "Prompt for creating detailed feature implementation plans, following Epoch monorepo structure."
 ---
 
 # Feature Implementation Plan Prompt
@@ -56,6 +56,7 @@ Create a comprehensive system architecture diagram using Mermaid that shows how 
 Use subgraphs to organize these layers clearly. Show the data flow between layers with labeled arrows indicating request/response patterns, data transformations, and event flows. Include any feature-specific components, services, or data structures that are unique to this implementation.
 
 - **Technology Stack Selection**: Document choice rationale for each layer
+
 ```
 
 - **Technology Stack Selection**: Document choice rationale for each layer
@@ -89,26 +90,28 @@ The component structure will leverage the `shadcn/ui` library for a consistent a
 **Layout Structure:**
 
 ```
+
 Recipe Library Page
 ├── Header Section (shadcn: Card)
-│   ├── Title (shadcn: Typography `h1`)
-│   ├── Add Recipe Button (shadcn: Button with DropdownMenu)
-│   │   ├── Manual Entry (DropdownMenuItem)
-│   │   ├── Import from URL (DropdownMenuItem)
-│   │   └── Import from PDF (DropdownMenuItem)
-│   └── Search Input (shadcn: Input with icon)
+│ ├── Title (shadcn: Typography `h1`)
+│ ├── Add Recipe Button (shadcn: Button with DropdownMenu)
+│ │ ├── Manual Entry (DropdownMenuItem)
+│ │ ├── Import from URL (DropdownMenuItem)
+│ │ └── Import from PDF (DropdownMenuItem)
+│ └── Search Input (shadcn: Input with icon)
 ├── Main Content Area (flex container)
-│   ├── Filter Sidebar (aside)
-│   │   ├── Filter Title (shadcn: Typography `h4`)
-│   │   ├── Category Filters (shadcn: Checkbox group)
-│   │   ├── Cuisine Filters (shadcn: Checkbox group)
-│   │   └── Difficulty Filters (shadcn: RadioGroup)
-│   └── Recipe Grid (main)
-│       └── Recipe Card (shadcn: Card)
-│           ├── Recipe Image (img)
-│           ├── Recipe Title (shadcn: Typography `h3`)
-│           ├── Recipe Tags (shadcn: Badge)
-│           └── Quick Actions (shadcn: Button - View, Edit)
+│ ├── Filter Sidebar (aside)
+│ │ ├── Filter Title (shadcn: Typography `h4`)
+│ │ ├── Category Filters (shadcn: Checkbox group)
+│ │ ├── Cuisine Filters (shadcn: Checkbox group)
+│ │ └── Difficulty Filters (shadcn: RadioGroup)
+│ └── Recipe Grid (main)
+│ └── Recipe Card (shadcn: Card)
+│ ├── Recipe Image (img)
+│ ├── Recipe Title (shadcn: Typography `h3`)
+│ ├── Recipe Tags (shadcn: Badge)
+│ └── Quick Actions (shadcn: Button - View, Edit)
+
 ```
 
 - **State Flow Diagram**: Component state management using Mermaid
@@ -126,3 +129,4 @@ Recipe Library Page
 ## Context Template
 
 - **Feature PRD:** [The content of the Feature PRD markdown file]
+```

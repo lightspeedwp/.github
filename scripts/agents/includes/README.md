@@ -113,4 +113,4 @@ includes/
 
 ---
 
-_Shared utilities for the LightSpeedWP automation ecosystem_
+*Shared utilities for the LightSpeedWP automation ecosystem*

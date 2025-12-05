@@ -1,7 +1,8 @@
 ---
-description: 'Specification-Driven Workflow v1 provides a structured approach to software development, ensuring that requirements are clearly defined, designs are meticulously planned, and implementations are thoroughly documented and validated.'
-applyTo: '**'
+description: "Specification-Driven Workflow v1 provides a structured approach to software development, ensuring that requirements are clearly defined, designs are meticulously planned, and implementations are thoroughly documented and validated."
+applyTo: "**"
 ---
+
 # Spec Driven Workflow v1
 
 **Specification-Driven Workflow:**
@@ -77,20 +78,12 @@ For use in pull request summaries or executive summaries.
 
 **Checklist:**
 
-- [ ] Read all provided code, documentation, tests, and logs.
-      - Document file inventory, summaries, and initial analysis results.
-- [ ] Define requirements in **EARS Notation**:
-      - Transform feature requests into structured, testable requirements.
-      - Format: `WHEN [a condition or event], THE SYSTEM SHALL [expected behavior]`
-- [ ] Identify dependencies and constraints.
-      - Document a dependency graph with risks and mitigation strategies.
-- [ ] Map data flows and interactions.
-      - Document system interaction diagrams and data models.
-- [ ] Catalog edge cases and failures.
-      - Document a comprehensive edge case matrix and potential failure points.
-- [ ] Assess confidence.
-      - Generate a **Confidence Score (0-100%)** based on clarity of requirements, complexity, and problem scope.
-      - Document the score and its rationale.
+- [ ] Read all provided code, documentation, tests, and logs. - Document file inventory, summaries, and initial analysis results.
+- [ ] Define requirements in **EARS Notation**: - Transform feature requests into structured, testable requirements. - Format: `WHEN [a condition or event], THE SYSTEM SHALL [expected behavior]`
+- [ ] Identify dependencies and constraints. - Document a dependency graph with risks and mitigation strategies.
+- [ ] Map data flows and interactions. - Document system interaction diagrams and data models.
+- [ ] Catalog edge cases and failures. - Document a comprehensive edge case matrix and potential failure points.
+- [ ] Assess confidence. - Generate a **Confidence Score (0-100%)** based on clarity of requirements, complexity, and problem scope. - Document the score and its rationale.
 
 **Critical Constraint:**
 
@@ -148,16 +141,11 @@ For use in pull request summaries or executive summaries.
 
 **Checklist:**
 
-- [ ] Code in small, testable increments.
-      - Document each increment with code changes, results, and test links.
-- [ ] Implement from dependencies upward.
-      - Document resolution order, justification, and verification.
-- [ ] Follow conventions.
-      - Document adherence and any deviations with a Decision Record.
-- [ ] Add meaningful comments.
-      - Focus on intent ("why"), not mechanics ("what").
-- [ ] Create files as planned.
-      - Document file creation log.
+- [ ] Code in small, testable increments. - Document each increment with code changes, results, and test links.
+- [ ] Implement from dependencies upward. - Document resolution order, justification, and verification.
+- [ ] Follow conventions. - Document adherence and any deviations with a Decision Record.
+- [ ] Add meaningful comments. - Focus on intent ("why"), not mechanics ("what").
+- [ ] Create files as planned. - Document file creation log.
 - [ ] Update task status in real time.
 
 **Critical Constraint:**
@@ -172,17 +160,11 @@ For use in pull request summaries or executive summaries.
 
 **Checklist:**
 
-- [ ] Execute automated tests.
-      - Document outputs, logs, and coverage reports.
-      - For failures, document root cause analysis and remediation.
-- [ ] Perform manual verification if necessary.
-      - Document procedures, checklists, and results.
-- [ ] Test edge cases and errors.
-      - Document results and evidence of correct error handling.
-- [ ] Verify performance.
-      - Document metrics and profile critical sections.
-- [ ] Log execution traces.
-      - Document path analysis and runtime behavior.
+- [ ] Execute automated tests. - Document outputs, logs, and coverage reports. - For failures, document root cause analysis and remediation.
+- [ ] Perform manual verification if necessary. - Document procedures, checklists, and results.
+- [ ] Test edge cases and errors. - Document results and evidence of correct error handling.
+- [ ] Verify performance. - Document metrics and profile critical sections.
+- [ ] Log execution traces. - Document path analysis and runtime behavior.
 
 **Critical Constraint:**
 
@@ -196,18 +178,12 @@ For use in pull request summaries or executive summaries.
 
 **Checklist:**
 
-- [ ] Refactor for maintainability.
-      - Document decisions, before/after comparisons, and impact.
-- [ ] Update all project documentation.
-      - Ensure all READMEs, diagrams, and comments are current.
-- [ ] Identify potential improvements.
-      - Document backlog with prioritization.
-- [ ] Validate success criteria.
-      - Document final verification matrix.
-- [ ] Perform meta-analysis.
-      - Reflect on efficiency, tool usage, and protocol adherence.
-- [ ] Auto-create technical debt issues.
-      - Document inventory and remediation plans.
+- [ ] Refactor for maintainability. - Document decisions, before/after comparisons, and impact.
+- [ ] Update all project documentation. - Ensure all READMEs, diagrams, and comments are current.
+- [ ] Identify potential improvements. - Document backlog with prioritization.
+- [ ] Validate success criteria. - Document final verification matrix.
+- [ ] Perform meta-analysis. - Reflect on efficiency, tool usage, and protocol adherence.
+- [ ] Auto-create technical debt issues. - Document inventory and remediation plans.
 
 **Critical Constraint:**
 
@@ -221,17 +197,14 @@ For use in pull request summaries or executive summaries.
 
 **Checklist:**
 
-- [ ] Generate executive summary.
-      - Use **Compressed Decision Record** format.
+- [ ] Generate executive summary. - Use **Compressed Decision Record** format.
 - [ ] Prepare pull request (if applicable):
-    1. Executive summary.
-    2. Changelog from **Streamlined Action Log**.
-    3. Links to validation artifacts and Decision Records.
-    4. Links to final `requirements.md`, `design.md`, and `tasks.md`.
-- [ ] Finalize workspace.
-      - Archive intermediate files, logs, and temporary artifacts to `.agent_work/`.
-- [ ] Continue to next task.
-      - Document transition or completion.
+  1. Executive summary.
+  2. Changelog from **Streamlined Action Log**.
+  3. Links to validation artifacts and Decision Records.
+  4. Links to final `requirements.md`, `design.md`, and `tasks.md`.
+- [ ] Finalize workspace. - Archive intermediate files, logs, and temporary artifacts to `.agent_work/`.
+- [ ] Continue to next task. - Document transition or completion.
 
 **Critical Constraint:**
 

@@ -167,7 +167,7 @@ graph LR
 
 ---
 
-_This testing framework ensures reliable, maintainable code across the LightSpeedWP organization. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for quality assurance policies._
+*This testing framework ensures reliable, maintainable code across the LightSpeedWP organization. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for quality assurance policies.*
 
 ---
 

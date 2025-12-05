@@ -65,4 +65,3 @@ Sync GitHub Project board meta fields (Status, Priority, Type) from issue/PR lab
 - [Workflow instructions](../../workflows/workflow-project-meta-sync.instructions.md)
 
 ---
-

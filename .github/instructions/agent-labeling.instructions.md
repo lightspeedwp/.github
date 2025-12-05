@@ -41,7 +41,6 @@ Automatically label Issues & PRs according to changed files, branch naming, or p
 
 ---
 
-
 # Labeling Agent Instructions
 
 ## Mission

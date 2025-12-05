@@ -1,6 +1,6 @@
 ---
-mode: 'agent'
-description: 'Prompt for creating Product Requirements Documents (PRDs) for new features, based on an Epic.'
+mode: "agent"
+description: "Prompt for creating Product Requirements Documents (PRDs) for new features, based on an Epic."
 ---
 
 # Feature PRD Prompt
@@ -52,7 +52,7 @@ The output should be a complete PRD in Markdown format, saved to `/docs/ways-of-
 
 #### 8. Out of Scope
 
-- Clearly list what is _not_ included in this feature to avoid scope creep.
+- Clearly list what is *not* included in this feature to avoid scope creep.
 
 ## Context Template
 

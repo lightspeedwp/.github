@@ -1,8 +1,27 @@
 ---
-mode: 'agent'
-description: 'Update an existing specification file for the solution, optimized for Generative AI consumption based on new requirements or updates to any existing code.'
-tools: ['changes', 'search/codebase', 'edit/editFiles', 'extensions', 'fetch', 'githubRepo', 'openSimpleBrowser', 'problems', 'runTasks', 'search', 'search/searchResults', 'runCommands/terminalLastCommand', 'runCommands/terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
+mode: "agent"
+description: "Update an existing specification file for the solution, optimized for Generative AI consumption based on new requirements or updates to any existing code."
+tools:
+  [
+    "changes",
+    "search/codebase",
+    "edit/editFiles",
+    "extensions",
+    "fetch",
+    "githubRepo",
+    "openSimpleBrowser",
+    "problems",
+    "runTasks",
+    "search",
+    "search/searchResults",
+    "runCommands/terminalLastCommand",
+    "runCommands/terminalSelection",
+    "testFailure",
+    "usages",
+    "vscodeAPI",
+  ]
 ---
+
 # Update Specification
 
 Your goal is to update the existing specification file `${file}` based on new requirements or updates to any existing code.
@@ -25,7 +44,7 @@ The specification file must be formatted in well formed Markdown.
 
 Specification files must follow the template below, ensuring that all sections are filled out appropriately. The front matter for the markdown should be structured correctly as per the example following:
 
-```md
+````md
 ---
 title: [Concise Title Describing the Specification's Focus]
 version: [Optional: e.g., 1.0, Date]
@@ -90,21 +109,27 @@ tags: [Optional: List of relevant tags or categories, e.g., `infrastructure`, `p
 [Define the external systems, services, and architectural dependencies required for this specification. Focus on **what** is needed rather than **how** it's implemented. Avoid specific package or library versions unless they represent architectural constraints.]
 
 ### External Systems
+
 - **EXT-001**: [External system name] - [Purpose and integration type]
 
 ### Third-Party Services
+
 - **SVC-001**: [Service name] - [Required capabilities and SLA requirements]
 
 ### Infrastructure Dependencies
+
 - **INF-001**: [Infrastructure component] - [Requirements and constraints]
 
 ### Data Dependencies
+
 - **DAT-001**: [External data source] - [Format, frequency, and access requirements]
 
 ### Technology Platform Dependencies
+
 - **PLT-001**: [Platform/runtime requirement] - [Version constraints and rationale]
 
 ### Compliance Dependencies
+
 - **COM-001**: [Regulatory or compliance requirement] - [Impact on implementation]
 
 **Note**: This section should focus on architectural and business dependencies, not specific package implementations. For example, specify "OAuth 2.0 authentication library" rather than "Microsoft.AspNetCore.Authentication.JwtBearer v6.0.1".
@@ -114,6 +139,7 @@ tags: [Optional: List of relevant tags or categories, e.g., `infrastructure`, `p
 ```code
 // Code snippet or data example demonstrating the correct application of the guidelines, including edge cases
 ```
+````
 
 ## 10. Validation Criteria
 
@@ -123,5 +149,7 @@ tags: [Optional: List of relevant tags or categories, e.g., `infrastructure`, `p
 
 [Link to related spec 1]
 [Link to relevant external documentation]
+
+```
 
 ```

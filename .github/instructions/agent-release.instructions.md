@@ -33,7 +33,6 @@ Automate the release process, including test runs, changelog verification, seman
 
 ---
 
-
 # Instructions: Release
 
 - Bump version in `style.css`; update CHANGELOG.

@@ -244,7 +244,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 - **Do we need `develop`?** Optional; skip if deployment model supports feature/release branches.
 - **Where do we record “type of work”?** Project **Type** field (from branch) and **Issue Type** on linked issue.
-- **Why no `type:*` labels?** Labels are for routing only—status, priority, area/component.
+- **How do `type:*` labels work?** Issue Types are the primary classification; `type:*` labels are automation-managed companions applied by the labeling agent for routing, reporting, and project mapping.
 - **Can we add prefixes?** Yes—extend CI regex and project mapping together.
 
 **[NEW]**
@@ -267,9 +267,6 @@ Issue Types and Project fields carry the semantic meaning.
 - [instructions/linting.instructions.md](./instructions/linting.instructions.md): Linting index and tool guidance.
 - [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md): Coding standards index.
 - [instructions/frontmatter.instructions.md](./instructions/frontmatter.instructions.md): Frontmatter schema and conventions.
-
-**[NEW]**
-
 - [GitHub Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md): Org-wide guidance and AI agent usage.
 - [Pull Request Template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md): PR summary and best practices.
 

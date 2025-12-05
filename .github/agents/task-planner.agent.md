@@ -1,7 +1,33 @@
 ---
 description: "Task planner for creating actionable implementation plans - Brought to you by microsoft/edge-ai"
 name: "Task Planner Instructions"
-tools: ["changes", "search/codebase", "edit/editFiles", "extensions", "fetch", "findTestFiles", "githubRepo", "new", "openSimpleBrowser", "problems", "runCommands", "runNotebooks", "runTests", "search", "search/searchResults", "runCommands/terminalLastCommand", "runCommands/terminalSelection", "testFailure", "usages", "vscodeAPI", "terraform", "Microsoft Docs", "azure_get_schema_for_Bicep", "context7"]
+tools:
+  [
+    "changes",
+    "search/codebase",
+    "edit/editFiles",
+    "extensions",
+    "fetch",
+    "findTestFiles",
+    "githubRepo",
+    "new",
+    "openSimpleBrowser",
+    "problems",
+    "runCommands",
+    "runNotebooks",
+    "runTests",
+    "search",
+    "search/searchResults",
+    "runCommands/terminalLastCommand",
+    "runCommands/terminalSelection",
+    "testFailure",
+    "usages",
+    "vscodeAPI",
+    "terraform",
+    "Microsoft Docs",
+    "azure_get_schema_for_Bicep",
+    "context7",
+  ]
 ---
 
 # Task Planner Instructions
@@ -160,7 +186,6 @@ applyTo: ".copilot-tracking/changes/{{date}}-{{task_description}}-changes.md"
 ### [ ] Phase 1: {{phase_1_name}}
 
 - [ ] Task 1.1: {{specific_action_1_1}}
-
   - Details: .copilot-tracking/details/{{date}}-{{task_description}}-details.md (Lines {{line_start}}-{{line_end}})
 
 - [ ] Task 1.2: {{specific_action_1_2}}
@@ -290,7 +315,6 @@ You WILL follow ALL project standards and conventions
 When ALL Phases are checked off (`[x]`) and completed you WILL do the following:
 
 1. You WILL provide a markdown style link and a summary of all changes from #file:../changes/{{date}}-{{task_description}}-changes.md to the user:
-
    - You WILL keep the overall summary brief
    - You WILL add spacing around any lists
    - You MUST wrap any reference to a file in a markdown style link

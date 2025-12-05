@@ -30,7 +30,7 @@ This guide is for choosing a type, understanding type automation, and aligning w
 - **Refactor** — Internal restructure for maintainability, no behaviour change.  
   *Label:* `type:refactor`
 - **Build & CI** — Tooling, pipelines, packaging, releases, deploys.  
-  *Label:* `type:chore` or `area:ci`
+  *Label:* `type:build` (plus `area:ci` as needed)
 - **Automation** — Bots/actions/scripts that reduce toil.  
   *Label:* `type:automation` or `area:ci`
 - **Test Coverage** — Add or expand tests (unit, integration, E2E).  
@@ -42,13 +42,13 @@ This guide is for choosing a type, understanding type automation, and aligning w
 - **Security** — Security issues or improvements.  
   *Label:* `type:security`
 - **Compatibility** — Browser/device/plugin compatibility.  
-  *Label:* `type:compat`
+  *Label:* `type:compatibility`
 - **Integration** — Integration with external systems/services.  
   *Label:* `type:integration`
 - **Release** — Release management and deployment.  
   *Label:* `type:release`
 - **Maintenance** — Routine maintenance, updates, or audits.  
-  *Label:* `type:chore`
+  *Label:* `type:maintenance`
 - **Documentation** — Docs, guides, onboarding, or knowledge base.  
   *Label:* `type:documentation`
 - **Research** — Discovery, investigation, or technical spikes.  

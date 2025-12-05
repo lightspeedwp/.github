@@ -1,5 +1,5 @@
 ---
-_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER-SCHEMA.md](../.github/FRONTMATTER-SCHEMA.md)._
+_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER_SCHEMA.md](../.github/FRONTMATTER_SCHEMA.md)._
 ---
 
 # LightSpeed GitHub Labelling Strategy
@@ -93,13 +93,13 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 ### A. Community & Discussion-Specific Labels
 
-- **community:** For social, networking, or open-ended topics
-- **showcase:** User projects, demos, "Show & Tell" threads
-- **announcement:** Official news and team updates
-- **feedback:** Suggestions, general ideas, and user experience comments
-- **support:** “How do I…”, setup, troubleshooting, or help requests that aren’t confirmed bugs
-- **sponsorship:** Funding, GitHub Sponsors, and financial topics
-- **partnership:** Collaboration, business, or outreach threads
+- **discussion:community:** For social, networking, or open-ended topics
+- **discussion:showcase:** User projects, demos, "Show & Tell" threads
+- **discussion:announcement:** Official news and team updates
+- **discussion:feedback:** Suggestions, general ideas, and user experience comments
+- **discussion:support:** “How do I…” setup, troubleshooting, or help requests that aren’t confirmed bugs
+- **discussion:sponsorship:** Funding, GitHub Sponsors, and financial topics
+- **discussion:partnership:** Collaboration, business, or outreach threads
 
 ### B. How to Use
 

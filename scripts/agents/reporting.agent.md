@@ -242,4 +242,4 @@ I'll verify:
 
 ---
 
-_Reporting Chatmode - Your guide to well-organised documentation._
+*Reporting Chatmode - Your guide to well-organised documentation.*

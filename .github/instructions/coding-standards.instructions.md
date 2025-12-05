@@ -61,7 +61,6 @@ This document is the single source of truth for all coding standards in LightSpe
 - **Markdown:**
   - Use markdownlint + Prettier.
   - Reference: [`linting-markdown.instructions.md`](./linting-markdown.instructions.md)
-  
 - **YAML:**
   - Use yamllint, Spectral, actionlint for workflows.
   - Reference: [`linting-yaml.instructions.md`](./linting-yaml.instructions.md)

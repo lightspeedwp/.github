@@ -1,6 +1,6 @@
 ---
-description: 'Shell scripting best practices and conventions for bash, sh, zsh, and other shells'
-applyTo: '**/*.sh'
+description: "Shell scripting best practices and conventions for bash, sh, zsh, and other shells"
+applyTo: "**/*.sh"
 ---
 
 # Shell Scripting Guidelines
@@ -97,13 +97,13 @@ main() {
         echo "Error: failed to create temporary directory" >&2
         exit 1
     fi
-    
+
     echo "============================================================================"
     echo "Script Execution Started"
     echo "============================================================================"
-    
+
     # Main logic here
-    
+
     echo "============================================================================"
     echo "Script Execution Completed"
     echo "============================================================================"

@@ -1,13 +1,29 @@
 ---
 file_type: "documentation"
 title: "Frontmatter Schema Documentation"
-version: "v1.2"
+version: "v2.0"
 last_updated: "2025-12-04"
 author: "LightSpeedWP"
 maintainer: "Ash Shaw"
-description: "Documentation and governance for the LightSpeedWP Markdown/JSON frontmatter schema."
-tags: ["lightspeed","schema","frontmatter","governance"]
-file_type: "spec"
+description: "Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter schema, including GitHub templates, AI configurations, and validation guidelines."
+tags:
+  [
+    "lightspeed",
+    "schema",
+    "frontmatter",
+    "governance",
+    "github",
+    "copilot",
+    "claude",
+    "gemini",
+  ]
+stability: "stable"
+domain: "governance"
+references:
+  - "../schemas/frontmatter.schema.json"
+  - "../AGENTS.md"
+  - "../.vscode/settings.json"
+  - "../GOVERNANCE.md"
 ---
 
 ## Frontmatter Schema Specification
@@ -23,7 +39,7 @@ This document describes the structure, fields, and validation rules for the Ligh
 ## Location
 
 - **Schema file:** `schemas/frontmatter.schema.json`
-- **This documentation:** `docs/frontmatter-schema.md`
+- **This documentation:** `docs/FRONTMATTER_SCHEMA.md`
 
 ## Referencing the Schema
 
@@ -41,6 +57,43 @@ $schema: "schemas/frontmatter.schema.json"
 ---
 title: "..."
 ```
+
+## How Schema Validation Works
+
+The LightSpeedWP frontmatter schema uses **Ajv JSON Schema validator** (Draft 07) with a **discriminator pattern** for efficient validation routing.
+
+### Validation Process
+
+1. **Parse YAML Frontmatter**: Extract frontmatter block from Markdown files
+2. **Load Schema**: Read `schemas/frontmatter.schema.json`
+3. **Discriminator Routing**: Use `file_type` field to route to appropriate schema variant
+4. **Validate Fields**: Check all required and optional fields against schema rules
+5. **Report Errors**: Provide detailed error messages with field paths and validation failures
+
+### Discriminator Pattern
+
+The schema uses the `file_type` field as a discriminator to determine which validation rules apply:
+
+```json
+{
+  "discriminator": {
+    "propertyName": "file_type"
+  },
+  "oneOf": [
+    { "properties": { "file_type": { "const": "agent" } } },
+    { "properties": { "file_type": { "const": "instructions" } } },
+    { "properties": { "file_type": { "const": "prompt" } } },
+    { "properties": { "file_type": { "const": "documentation" } } }
+  ]
+}
+```
+
+This pattern ensures:
+
+- **Type Safety**: Each file type has specific required fields
+- **Performance**: Fast validation routing without checking all variants
+- **Clarity**: Clear error messages specific to each file type
+- **Extensibility**: Easy to add new file types without breaking existing validation
 
 ## Typical Fields
 
@@ -90,9 +143,9 @@ type: "agent"
 references:
   - "../workflows/labeling.yml"
   - "../prompts/label-issues.prompt.md"
-  - "./agents.instructions.md"
-  - "../ISSUE_LABELS.md"
-  - "../PR_LABELS.md"
+  - "../.github/instructions/agents.instructions.md"
+  - "./ISSUE_LABELS.md"
+  - "./PR_LABELS.md"
 ---
 
 # 🏷️ Labeling Agent Specification
@@ -101,10 +154,9 @@ references:
 
 ## 🔗 Related Documentation
 
-- **[Labeling Workflow](../workflows/labeling.yml)** - GitHub Actions implementation
-- **[Issue Labels](../ISSUE_LABELS.md)** - Complete labeling taxonomy
-- **[PR Labels](../PR_LABELS.md)** - Pull request labeling standards
-- **[Label Issues Prompt](../prompts/label-issues.prompt.md)** - AI prompt for labeling
+- **[Labeling Workflow](../.github/workflows/labeling.yml)** - GitHub Actions implementation
+- **[Issue Labels](./ISSUE_LABELS.md)** - Complete labeling taxonomy
+- **[PR Labels](./PR_LABELS.md)** - Pull request labeling standards
 
 ---
 
@@ -156,7 +208,7 @@ references:
 ```yaml
 references:
   - "../instructions/prompts.instructions.md"
-  - "../chatmodes/chatmodes.md"
+  - "../agents/agent.md"
   - "../agents/agent-name.agent.md"
 ```
 
@@ -192,18 +244,874 @@ Use descriptive markdown links that help humans understand context:
 - **[Security Guidelines](./instructions/security.instructions.md)** - Security best practices
 ```
 
-## Validation
+---
 
-- The official schema is at `schemas/frontmatter.schema.json`
-- All files in agents, prompts, instructions, and docs must have valid frontmatter.
-- VS Code and Copilot should be configured to use this schema for validation.
+## GitHub Issue Template Frontmatter (Issue Forms)
 
-## References
+GitHub **issue templates** use YAML frontmatter for the new **Issue Forms** feature to define metadata and form fields. All issue form files **must** begin with at least three keys: `name`, `description`, and `body`.
 
-- [Schema JSON file](../schemas/frontmatter.schema.json)
-- [VS Code Settings](../.vscode/settings.json)
-- [LightSpeedWP Governance](../GOVERNANCE.md)
+### Top-Level Frontmatter Fields
+
+| Field         | Type         | Required | Description                                                                |
+| ------------- | ------------ | -------- | -------------------------------------------------------------------------- |
+| `name`        | string       | ✅       | Unique name for the template (appears in template picker UI)               |
+| `description` | string       | ✅       | Short explanation of the template's purpose (shown in picker UI)           |
+| `body`        | array        | ✅       | Array defining the form fields and content blocks for the issue form       |
+| `title`       | string       | 📋       | Default title that will pre-fill in the new issue title input              |
+| `labels`      | array/string | 📋       | Labels to auto-apply on issue creation (array or comma-separated)          |
+| `assignees`   | array/string | 📋       | GitHub usernames to auto-assign the issue to (array or comma-separated)    |
+| `projects`    | array/string | 📋       | GitHub Projects to auto-add the issue to (format `"OWNER/PROJECT-NUMBER"`) |
+| `type`        | string       | 📋       | Issue type to assign (if your organization uses custom issue types)        |
+
+### Example Issue Form Template
+
+```yaml
+---
+name: "Bug Report"
+description: "Report a bug in the project."
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: ["octocat"]
+projects: ["my-org/42"]
+type: bug
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thank you for reporting a bug!
+        Please fill out the sections below.
+
+  - type: input
+    id: "contact"
+    attributes:
+      label: "Contact Details"
+      description: "How can the team reach you for more info?"
+      placeholder: "e.g. email@example.com"
+    validations:
+      required: false
+
+  - type: textarea
+    id: "steps"
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Provide step-by-step instructions to reproduce the issue."
+      placeholder: |
+        1. Step one...
+        2. Step two...
+        3. *Feel free to add more steps as needed...*
+    validations:
+      required: true
+
+  - type: dropdown
+    id: "browser"
+    attributes:
+      label: "Affected Browser(s)"
+      description: "Which web browsers show the issue?"
+      options:
+        - "Firefox"
+        - "Chrome"
+        - "Safari"
+        - "Edge"
+      multiple: true
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: "agree"
+    attributes:
+      label: "Code of Conduct Agreement"
+      description: "Please confirm:"
+      options:
+        - label: "I have searched for duplicate issues"
+          required: true
+        - label: "I agree to follow the project's Code of Conduct"
+          required: true
+---
+```
+
+### Body Field Types
+
+The `body` array supports these input types:
+
+- **`markdown`** — Static text guidance (not included in final issue content)
+- **`input`** — Single-line text field with `label`, `description`, `placeholder`, `value`, and `validations`
+- **`textarea`** — Multi-line text field, supports `render` to format as code block
+- **`dropdown`** — Single or multi-select from options list, supports `multiple: true` and `default` index
+- **`checkboxes`** — Group of checkboxes, each with `label` and optional `required: true`
+
+### Best Practices
+
+- Enclose frontmatter between `---` lines at the top of the template file
+- Quote strings containing special characters (`:`, `#`) or beginning with `[`
+- Use pipe `|` for multiline text to preserve line breaks
+- Use `validations: required: true` judiciously — only when necessary
+- Assign unique IDs to inputs for programmatic reference
+- Keep forms short — only ask for necessary information
 
 ---
 
-*Keep this document and the schema in sync. PRs are welcome for improvements!*
+## GitHub Pull Request Template Frontmatter
+
+Pull request templates are simpler — GitHub **does not currently support form-style PR templates with YAML-defined inputs**. Issue forms are for issues only.
+
+You can include YAML frontmatter at the top of a PR template, but **GitHub ignores these fields for PRs**. Any frontmatter will simply remain as visible text in the PR body.
+
+### Example PR Template Frontmatter (Not Parsed)
+
+```yaml
+---
+name: "Feature PR Template"
+about: "Use this template for pull requests adding a new feature"
+title: "feat: <brief description of feature>"
+labels: enhancement, needs-review
+assignees: octocat
+---
+```
+
+⚠️ **Note**: This frontmatter is currently **not processed** by GitHub for PRs. Many repositories omit YAML frontmatter in PR templates and use plain Markdown with HTML comments for guidance.
+
+### Best Practices for PR Templates
+
+- Use HTML comments (`<!-- ... -->`) for guidance text
+- Encourage linking issues (e.g., "Closes #123")
+- Include sections for "Linked Issue", "Summary of Changes", "Testing Instructions"
+- Use Markdown checklists for reviewer guidance
+
+---
+
+## GitHub Saved Replies
+
+GitHub **saved replies** are canned responses for commenting on issues and PRs. They **do not use file-based YAML frontmatter** — they are created and managed via the GitHub web UI.
+
+Each saved reply has:
+
+- **Title** — Short name for the reply (for your reference in the UI)
+- **Body content** — The actual text (supports Markdown) inserted when used
+
+**Usage**: Create/edit via **Settings > Saved replies**. Only the body content gets inserted into comments.
+
+---
+
+## GitHub Copilot Configuration
+
+### Repository-Wide Instructions
+
+Create a file named **`.github/copilot-instructions.md`** at the repository root. This file contains plain Markdown guidance for Copilot — **no YAML frontmatter needed**.
+
+**Example**:
+
+```markdown
+# Project Coding Guidelines
+
+- Follow WordPress Coding Standards for PHP, JavaScript, and CSS
+- Use semantic HTML and ensure accessibility (WCAG 2.2 AA)
+- All code must pass ESLint, PHPCS, and Prettier formatting
+- Include comprehensive JSDoc and PHPDoc for all functions
+```
+
+### Path-Specific Instructions
+
+Create files in `.github/instructions/` with names like `XYZ.instructions.md`. These **require YAML frontmatter** with `applyTo` patterns.
+
+#### Frontmatter Fields for Instructions
+
+| Field         | Type         | Required | Description                              |
+| ------------- | ------------ | -------- | ---------------------------------------- |
+| `applyTo`     | string/array | ✅       | Glob pattern(s) of files this applies to |
+| `description` | string       | 📋       | Short description (shown in VS Code UI)  |
+
+**Example**:
+
+```yaml
+---
+applyTo: "**/*.py"
+description: "Python code style guidelines for this repo"
+---
+# Python Coding Guidelines
+
+- Follow PEP 8 style guide (use `black` for formatting)
+- Use type hints for all functions and methods
+- Prefer list comprehensions for simple loops
+- Avoid wildcard `import` statements
+```
+
+**Best Practices**:
+
+- Keep instructions concise and natural language
+- Use separate files for distinct domains (language, testing, deployment)
+- Name files logically (e.g., `python.instructions.md`, `frontend.instructions.md`)
+- Use precise `applyTo` glob patterns
+
+### Custom Prompt Files (`.prompt.md`)
+
+Prompt files define reusable prompts for VS Code Copilot Chat with YAML frontmatter.
+
+#### Frontmatter Fields for Prompts
+
+| Field         | Type   | Required | Description                                                      |
+| ------------- | ------ | -------- | ---------------------------------------------------------------- |
+| `description` | string | ✅       | Short description of what the prompt does                        |
+| `mode`        | enum   | 📋       | Execution mode: `"ask"`, `"edit"`, or `"agent"` (default: agent) |
+| `model`       | string | 📋       | Preferred AI model (e.g., "gpt-4", "claude-3")                   |
+| `tools`       | array  | 📋       | List of tools/capabilities the prompt can use                    |
+
+**Example**:
+
+```yaml
+---
+description: "Convert a code snippet into a well-documented function"
+mode: "edit"
+model: "GPT-4"
+tools: []
+---
+# Convert to Documented Function
+
+Take the selected code and refactor it into a self-contained function with a clear name.
+
+- Add a concise docstring explaining purpose, inputs, and output
+- Add comments for complex logic
+- **Do not** change external behavior
+```
+
+**Variables**: Use placeholders like `${selection}`, `${file}`, or `${input:variableName}` in prompt body.
+
+### Custom Agent Files (`.agent.md`)
+
+**⚠️ MIGRATION NOTE**: GitHub has deprecated `.chatmode.md` files in favor of `.agent.md` files. All chatmode references should be migrated to agent format.
+
+Agent files define specialized AI modes for Copilot Chat. Structure mirrors prompt files with expanded capabilities.
+
+#### Frontmatter Fields for Agents
+
+| Field          | Type   | Required | Description                                |
+| -------------- | ------ | -------- | ------------------------------------------ | ------------------ | ------------ |
+| `name`         | string | ✅       | Human-readable agent name (VS Code native) |
+| `description`  | string | ✅       | Brief description of agent purpose         |
+| `tools`        | array  | 📋       | Available tools/capabilities               |
+| `model`        | string | 📋       | Preferred AI model                         |
+| `handoffs`     | array  | 📋       | Handoff definitions for agent chaining     |
+| `version`      | string | 📋       | Version string (LightSpeed extended)       |
+| `last_updated` | string | 📋       | ISO date                                   |
+| `owners`       | array  | 📋       | Responsible teams                          |
+| `category`     | string | 📋       | Classification                             |
+| `status`       | string | 📋       | `"active"`                                 | `"deprecated"`     | `"draft"`    |
+| `target`       | string | 📋       | `"vscode"`                                 | `"github-copilot"` | `"cli"`      |
+| `visibility`   | string | 📋       | `"public"`                                 | `"private"`        | `"internal"` |
+| `metadata`     | object | 📋       | Additional agent metadata                  |
+
+**Example**:
+
+```yaml
+---
+name: "security-reviewer"
+description: "Security vulnerability assessment and remediation guidance"
+tools: ["search", "codebase", "problems"]
+model: "gpt-4"
+handoffs:
+  - label: "Fix Issues"
+    agent: "implementation"
+    prompt: "Now implement the security fixes identified above."
+    send: false
+version: "v1.0"
+last_updated: "2025-12-04"
+owners: ["lightspeedwp/security-team"]
+category: "security"
+status: "active"
+target: "vscode"
+visibility: "public"
+---
+# Security Reviewer Agent
+
+You are a security expert focusing on WordPress vulnerabilities...
+```
+
+**Agent Tools**: Values include `codebase`, `search`, `usages`, `editFiles`, `fetchWebpage`, `findTestFiles`, `githubRepo`, `problems`, `runCommands`, `runNotebooks`, `runTasks`, `runTests`, `terminalLastCommand`, `terminalSelection`, `thinking`, `vscodeAPI`, and custom MCP tools.
+
+---
+
+## Unified Multi-Agent Instructions – `AGENTS.md`
+
+The **`AGENTS.md`** file at repository root provides guidelines for *all* AI assistants working on the repository. This convention unifies rules across GitHub Copilot, Claude, Gemini, and other AI tools.
+
+### Format
+
+`AGENTS.md` is plain Markdown — **no YAML frontmatter required**. Content should be universal rules applicable to any AI assistant.
+
+**Example**:
+
+```markdown
+# Project AI Guidelines
+
+- All code must follow the style guide in [CONTRIBUTING.md](CONTRIBUTING.md)
+- Assume users are familiar with the project domain
+- Prioritize security and privacy — never output secrets
+- Every generated function _must_ have a docstring
+- Follow OWASP security best practices
+```
+
+### Scope
+
+- **Broad Application**: Rules apply to all AI actions in the repo
+- **Static Guidelines**: Should be relatively stable and universal
+- **Cross-Platform**: Works with GitHub Copilot, Claude, Gemini, Continue.dev, etc.
+
+### Best Practices
+
+- Keep high-level (project-wide concerns only)
+- Avoid granular/context-specific rules (use `.instructions.md` for those)
+- Update as project practices evolve
+- Single source of truth for AI behavior
+
+---
+
+## Anthropic Claude Configuration
+
+### Custom Instructions (`CLAUDE.md`)
+
+Claude (especially **Claude Code**) loads a **`CLAUDE.md`** file from repository root as a "memory file" for persistent context.
+
+**Format**: Plain Markdown — **no YAML frontmatter required**.
+
+**Example**:
+
+```markdown
+# Claude Instructions for MyProject
+
+**Project Overview**: Web application for online book reviews (Python Flask backend, React frontend)
+
+**Coding Style**:
+
+- Python: PEP8 (4 spaces, snake_case)
+- JavaScript/React: Airbnb style guide
+
+**Testing**: Include unit tests (PyTest for backend, Jest for frontend)
+
+**Do's**:
+
+- Be concise in explanations
+- Use docstrings in all public functions
+
+**Don'ts**:
+
+- Don't disclose API keys or secrets
+- Don't assume user data validity — validate everything
+```
+
+### Custom Sub-Agents (YAML Configuration)
+
+Claude supports **subagents** — specialized AI agents with their own YAML configurations. Store in `.claude/agents/` (project) or `~/.claude/agents/` (user-wide).
+
+#### Subagent Frontmatter Fields
+
+| Field         | Type   | Required | Description                                  |
+| ------------- | ------ | -------- | -------------------------------------------- |
+| `name`        | string | ✅       | Subagent identifier (how to invoke it)       |
+| `description` | string | ✅       | Role or specialty description                |
+| `tools`       | array  | 📋       | Whitelisted tools (if omitted, inherits all) |
+
+**Example** (`architect-review.md`):
+
+```yaml
+---
+name: "architect-review"
+description: "Validates designs against constraints and produces ADRs"
+tools: ["Read", "Search"]
+---
+
+You are the **Architect** sub-agent. Your goal is to review proposed software designs.
+
+When activated:
+- Read the feature spec from `specs/` directory
+- Analyze for compliance with scalability/security requirements
+- Output an **Architecture Decision Record (ADR)** with Context, Decision, Rationale, Consequences
+
+You should not write code. Focus only on architectural guidance.
+```
+
+**Best Practices**:
+
+- One clear responsibility per subagent (single responsibility principle)
+- Use `tools` limitation to sandbox capabilities
+- Keep instructions focused on specific role
+- Claude can auto-select subagents based on descriptions
+
+---
+
+## Google Gemini Configuration
+
+### Custom Instructions (`GEMINI.md`)
+
+Similar to `CLAUDE.md`, create a **`GEMINI.md`** file at repository root for Gemini-specific instructions.
+
+**Format**: Plain Markdown — **no official YAML schema yet**.
+
+**Example**:
+
+```markdown
+# Gemini Instructions for MyProject
+
+This project is a machine learning pipeline for image classification.
+
+- Codebase: TensorFlow (Python) and C++ for performance-critical components
+- **Style**: Follow Google Python/C++ style guides
+- **Constraints**: Only use packages in `requirements.txt`
+- Focus on clarity and maintainability over cleverness
+
+Provide simple implementations with explanatory comments.
+```
+
+**Note**: Gemini configuration is still evolving. Some tools support the unified `AGENTS.md` convention for cross-platform compatibility.
+
+---
+
+## Validation Tooling
+
+### Schema Validation with Ajv
+
+The LightSpeedWP frontmatter schema uses **Ajv JSON Schema validator** with a **discriminator pattern** on the `file_type` field for routing validation rules.
+
+#### Discriminator Pattern
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "discriminator": {
+    "propertyName": "file_type"
+  },
+  "oneOf": [
+    { "properties": { "file_type": { "const": "agent" } } },
+    { "properties": { "file_type": { "const": "instructions" } } },
+    { "properties": { "file_type": { "const": "prompt" } } }
+  ]
+}
+```
+
+The `file_type` field determines which validation rules apply to each file.
+
+#### Validation Workflow
+
+1. **Parse YAML frontmatter** from Markdown files
+2. **Extract `file_type` field** to determine schema variant
+3. **Route to appropriate schema** using discriminator
+4. **Validate all fields** against schema requirements
+5. **Report errors** with file path and field details
+
+#### Common Validation Failures
+
+| Error                    | Cause                           | Solution                                        |
+| ------------------------ | ------------------------------- | ----------------------------------------------- |
+| "Missing required field" | Required field omitted          | Add missing field to frontmatter                |
+| "Invalid file_type"      | Typo or unsupported type        | Check spelling, use valid type                  |
+| "Duplicate property"     | Same field appears twice        | Remove duplicate (common: `file_type`)          |
+| "Invalid enum value"     | Field value not in allowed list | Use valid enum value from schema                |
+| "Type mismatch"          | Wrong data type                 | Convert to correct type (e.g., string vs array) |
+
+### VS Code Integration
+
+Configure VS Code to validate frontmatter in real-time:
+
+**`.vscode/settings.json`**:
+
+```json
+{
+  "yaml.schemas": {
+    "./schemas/frontmatter.schema.json": [".github/**/*.md", "docs/**/*.md"]
+  },
+  "yaml.validate": true,
+  "yaml.format.enable": true
+}
+```
+
+**Benefits**:
+
+- Real-time validation as you type
+- IntelliSense autocomplete for fields
+- Inline error messages
+- Quick fixes for common issues
+
+### CI/CD Integration
+
+Automated validation in GitHub Actions:
+
+**`.github/workflows/validate-frontmatter.yml`**:
+
+```yaml
+name: Validate Frontmatter
+
+on:
+  pull_request:
+    paths:
+      - "**.md"
+      - "schemas/frontmatter.schema.json"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npm run validate:frontmatter
+```
+
+**Validation Script** (`scripts/json-validation/validate-frontmatter.js`):
+
+```javascript
+const Ajv = require("ajv");
+const yaml = require("js-yaml");
+const fs = require("fs");
+const glob = require("glob");
+
+const ajv = new Ajv({ discriminator: true, allErrors: true });
+const schema = JSON.parse(
+  fs.readFileSync("./schemas/frontmatter.schema.json", "utf8"),
+);
+const validate = ajv.compile(schema);
+
+const files = glob.sync(".github/**/*.md");
+let errors = 0;
+
+files.forEach((file) => {
+  const content = fs.readFileSync(file, "utf8");
+  const match = content.match(/^---\n([\s\S]+?)\n---/);
+
+  if (match) {
+    try {
+      const frontmatter = yaml.load(match[1]);
+      const valid = validate(frontmatter);
+
+      if (!valid) {
+        console.error(`\nValidation errors in ${file}:`);
+        validate.errors.forEach((err) => {
+          console.error(`  - ${err.instancePath}: ${err.message}`);
+        });
+        errors++;
+      }
+    } catch (e) {
+      console.error(`\nYAML parse error in ${file}:`, e.message);
+      errors++;
+    }
+  }
+});
+
+if (errors > 0) {
+  console.error(`\n❌ Validation failed: ${errors} file(s) with errors`);
+  process.exit(1);
+} else {
+  console.log("\n✅ All frontmatter is valid");
+}
+```
+
+### Pre-Commit Hooks
+
+Validate before committing with Husky:
+
+**`.husky/pre-commit`**:
+
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run validate:frontmatter
+```
+
+**`package.json`**:
+
+```json
+{
+  "scripts": {
+    "validate:frontmatter": "node scripts/json-validation/validate-frontmatter.js"
+  }
+}
+```
+
+---
+
+## Field Categories and Specifications
+
+### Universal Required Fields
+
+| Field          | Type          | Required | Description                                               |
+| -------------- | ------------- | -------- | --------------------------------------------------------- |
+| `file_type`    | string        | ✅       | Discriminator for schema validation (const per file type) |
+| `description`  | string        | ✅       | Human-readable summary (single sentence preferred)        |
+| `title`        | string        | ✅\*     | Human-readable title (required for governance files)      |
+| `version`      | string        | ✅\*     | Version string (e.g., v1.1) for governance tracking       |
+| `last_updated` | string        | ✅\*     | ISO date of last update (YYYY-MM-DD format)               |
+| `author`       | string        | 📋       | Main author or responsible party                          |
+| `maintainer`   | string        | 📋       | Current maintainer                                        |
+| `owners`       | array[string] | 📋       | List of owners/maintainers (alternative to maintainer)    |
+
+### Integration Fields (Awesome-Copilot Compatible)
+
+| Field          | Type          | Description                                      |
+| -------------- | ------------- | ------------------------------------------------ |
+| `mode`         | enum          | Execution style: `agent`, `ask`, `edit`          |
+| `applyTo`      | string/array  | Glob patterns for auto-application scope         |
+| `model`        | string        | Preferred AI model (e.g., "gpt-4", "claude-3")   |
+| `tools`        | array[string] | Available tools/capabilities                     |
+| `deprecated`   | boolean       | Signals exclusion from generated tables          |
+| `replacement`  | string        | Points to canonical successor file               |
+| `stability`    | enum          | Maturity: `stable`, `experimental`, `incubating` |
+| `tags`         | array[string] | Taxonomy for discovery/filtering (max 8)         |
+| `domain`       | enum          | Primary classification                           |
+| `extraDomains` | array[string] | Secondary classifications                        |
+| `license`      | string        | License identifier (e.g., "GPL-3.0", "MIT")      |
+| `references`   | array[object] | AI-focused references with path and description  |
+
+### Domain Taxonomy
+
+**Primary Domains** (choose exactly one for `domain`):
+
+- `wp-core` — WordPress core functionality, hooks, APIs
+- `block-theme` — Block themes, FSE, theme.json, patterns
+- `plugin-hardening` — Plugin security, validation, best practices
+- `perf` — Performance optimization, caching, speed
+- `a11y` — Accessibility, WCAG compliance, inclusive design
+- `i18n` — Internationalization, localization, translations
+- `security` — Security hardening, sanitization, authentication
+- `headless` — Headless WordPress, APIs, decoupled architecture
+- `generic` — General purpose, cross-domain, or unclassified
+
+**Supplemental Tags** (use in `tags` array, max 8 total):
+
+- **Development**: `testing`, `lint`, `ci`, `automation`, `docs`, `validation`
+- **WordPress**: `rest`, `graphql`, `gutenberg`, `blocks`, `patterns`, `theme-json`
+- **Technical**: `api`, `data`, `editor`, `cli`, `deployment`, `logging`
+- **UX/Design**: `ux`, `design-tokens`, `accessibility`, `responsive`, `mobile`
+
+### Tagging Rules
+
+1. **Limit**: Max 8 tags total for clarity and performance
+2. **Format**: Use lowercase kebab-case only (no spaces, no uppercase)
+3. **No Duplication**: Don't repeat `domain` in `tags` (it's implicit)
+4. **Consistency**: Prefer existing tags; only create new ones with clear reuse potential
+5. **Specificity**: Be specific enough for discovery, general enough for reuse
+
+### Stability Lifecycle
+
+| Stability      | Intent                         | Change Expectations                       |
+| -------------- | ------------------------------ | ----------------------------------------- |
+| `experimental` | Early exploration              | Breaking changes likely                   |
+| `incubating`   | Maturing, seeking feedback     | Minor structural tweaks possible          |
+| `stable`       | Adopted, versioned conventions | Backward compatibility strongly preferred |
+
+---
+
+## Validation Tooling
+
+### Schema Validation with Ajv
+
+The LightSpeedWP frontmatter schema uses **Ajv JSON Schema validator** with a **discriminator pattern** on the `file_type` field for routing validation rules.
+
+#### Discriminator Pattern
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "discriminator": {
+    "propertyName": "file_type"
+  },
+  "oneOf": [
+    { "properties": { "file_type": { "const": "agent" } } },
+    { "properties": { "file_type": { "const": "instructions" } } },
+    { "properties": { "file_type": { "const": "prompt" } } }
+  ]
+}
+```
+
+The `file_type` field determines which validation rules apply to each file.
+
+#### Validation Workflow
+
+1. **Parse YAML frontmatter** from Markdown files
+2. **Extract `file_type` field** to determine schema variant
+3. **Route to appropriate schema** using discriminator
+4. **Validate all fields** against schema requirements
+5. **Report errors** with file path and field details
+
+#### Common Validation Failures
+
+| Error                    | Cause                           | Solution                                        |
+| ------------------------ | ------------------------------- | ----------------------------------------------- |
+| "Missing required field" | Required field omitted          | Add missing field to frontmatter                |
+| "Invalid file_type"      | Typo or unsupported type        | Check spelling, use valid type                  |
+| "Duplicate property"     | Same field appears twice        | Remove duplicate (common: `file_type`)          |
+| "Invalid enum value"     | Field value not in allowed list | Use valid enum value from schema                |
+| "Type mismatch"          | Wrong data type                 | Convert to correct type (e.g., string vs array) |
+
+### VS Code Integration
+
+Configure VS Code to validate frontmatter in real-time:
+
+**`.vscode/settings.json`**:
+
+```json
+{
+  "yaml.schemas": {
+    "./schemas/frontmatter.schema.json": [".github/**/*.md", "docs/**/*.md"]
+  },
+  "yaml.validate": true,
+  "yaml.format.enable": true
+}
+```
+
+**Benefits**:
+
+- Real-time validation as you type
+- IntelliSense autocomplete for fields
+- Inline error messages
+- Quick fixes for common issues
+
+### CI/CD Integration
+
+Automated validation in GitHub Actions:
+
+**`.github/workflows/validate-frontmatter.yml`**:
+
+```yaml
+name: Validate Frontmatter
+
+on:
+  pull_request:
+    paths:
+      - "**.md"
+      - "schemas/frontmatter.schema.json"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npm run validate:frontmatter
+```
+
+**Validation Script** (`scripts/validate-frontmatter.js`):
+
+```javascript
+const Ajv = require("ajv");
+const yaml = require("js-yaml");
+const fs = require("fs");
+const glob = require("glob");
+
+const ajv = new Ajv({ discriminator: true, allErrors: true });
+const schema = JSON.parse(
+  fs.readFileSync("./schemas/frontmatter.schema.json", "utf8"),
+);
+const validate = ajv.compile(schema);
+
+const files = glob.sync(".github/**/*.md");
+let errors = 0;
+
+files.forEach((file) => {
+  const content = fs.readFileSync(file, "utf8");
+  const match = content.match(/^---\n([\s\S]+?)\n---/);
+
+  if (match) {
+    try {
+      const frontmatter = yaml.load(match[1]);
+      const valid = validate(frontmatter);
+
+      if (!valid) {
+        console.error(`\nValidation errors in ${file}:`);
+        validate.errors.forEach((err) => {
+          console.error(`  - ${err.instancePath}: ${err.message}`);
+        });
+        errors++;
+      }
+    } catch (e) {
+      console.error(`\nYAML parse error in ${file}:`, e.message);
+      errors++;
+    }
+  }
+});
+
+if (errors > 0) {
+  console.error(`\n❌ Validation failed: ${errors} file(s) with errors`);
+  process.exit(1);
+} else {
+  console.log("\n✅ All frontmatter is valid");
+}
+```
+
+### Pre-Commit Hooks
+
+Validate before committing with Husky:
+
+**`.husky/pre-commit`**:
+
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run validate:frontmatter
+```
+
+**`package.json`**:
+
+```json
+{
+  "scripts": {
+    "validate:frontmatter": "node scripts/validate-frontmatter.js"
+  }
+}
+```
+
+---
+
+## Migration Guide
+
+### Updating Existing Files
+
+1. **Add `file_type` field** — Required for schema discrimination
+2. **Update field names** — Change `apply_to` → `applyTo` for instructions
+3. **Add governance fields** — Include `version`, `last_updated`, `author` for docs
+4. **Select domain** — Choose primary domain from approved taxonomy
+5. **Limit tags** — Reduce to 8 or fewer, use kebab-case
+6. **Add references** — Include AI-focused cross-links in frontmatter
+
+### Common Migration Issues
+
+| Issue                   | Fix                                |
+| ----------------------- | ---------------------------------- |
+| Duplicate `file_type`   | Remove second instance             |
+| Missing required fields | Add `description`, `file_type`     |
+| Invalid domain          | Use approved domain from taxonomy  |
+| Too many tags           | Reduce to 8, remove redundant ones |
+| Uppercase tags          | Convert to lowercase kebab-case    |
+| Old field names         | Update `apply_to` → `applyTo`      |
+
+---
+
+## References
+
+### 📚 Core Documentation
+
+- **[Frontmatter Schema JSON](../schemas/frontmatter.schema.json)** — Official schema definition
+- **[VS Code Settings](../.vscode/settings.json)** — Editor configuration
+- **[LightSpeedWP Governance](../GOVERNANCE.md)** — Organization governance policies
+- **[AGENTS.md](../AGENTS.md)** — Universal AI rules and guidelines
+
+### ⚙️ Implementation
+
+- **[Validation Script](../scripts/validation/validate-frontmatter.js)** — Frontmatter validation tool
+- **[Frontmatter Schema Documentation](./frontmatter-schema.md)** — This document
+- **[Tagging Conventions](../.github/instructions/tagging-and-frontmatter-conventions.instructions.md)** — Detailed tagging rules
+
+### 🎯 Specialized Guides
+
+- **[Agent Development](../.github/instructions/agents.instructions.md)** — Creating AI agents
+- **[Prompt Authoring](../.github/instructions/prompt.instructions.md)** — Writing effective prompts
+- **[Instruction Files](../.github/instructions/instructions.instructions.md)** — Copilot instructions
+- **[Coding Standards](../.github/instructions/coding-standards.instructions.md)** — Development standards
+
+---
+
+*This document is the canonical reference for LightSpeedWP frontmatter schema. Keep synchronized with `schemas/frontmatter.schema.json`. PRs welcome for improvements!*

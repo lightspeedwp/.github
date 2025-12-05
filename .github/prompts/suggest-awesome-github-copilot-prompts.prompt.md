@@ -1,8 +1,23 @@
 ---
-mode: 'agent'
-description: 'Suggest relevant GitHub Copilot prompt files from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing prompts in this repository.'
-tools: ['edit', 'search', 'runCommands', 'runTasks', 'think', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'todos', 'search']
+mode: "agent"
+description: "Suggest relevant GitHub Copilot prompt files from the awesome-copilot repository based on current repository context and chat history, avoiding duplicates with existing prompts in this repository."
+tools:
+  [
+    "edit",
+    "search",
+    "runCommands",
+    "runTasks",
+    "think",
+    "changes",
+    "testFailure",
+    "openSimpleBrowser",
+    "fetch",
+    "githubRepo",
+    "todos",
+    "search",
+  ]
 ---
+
 # Suggest Awesome GitHub Copilot Prompts
 
 Analyze current repository context and suggest relevant prompt files from the [GitHub awesome-copilot repository](https://github.com/github/awesome-copilot/blob/main/docs/README.prompts.md) that are not already available in this repository.
@@ -24,12 +39,14 @@ Analyze current repository context and suggest relevant prompt files from the [G
 ## Context Analysis Criteria
 
 🔍 **Repository Patterns**:
+
 - Programming languages used (.cs, .js, .py, etc.)
 - Framework indicators (ASP.NET, React, Azure, etc.)
 - Project types (web apps, APIs, libraries, tools)
 - Documentation needs (README, specs, ADRs)
 
 🗨️ **Chat History Context**:
+
 - Recent discussions and pain points
 - Feature requests or implementation needs
 - Code review patterns
@@ -39,11 +56,11 @@ Analyze current repository context and suggest relevant prompt files from the [G
 
 Display analysis results in structured table comparing awesome-copilot prompts with existing repository prompts:
 
-| Awesome-Copilot Prompt | Description | Already Installed | Similar Local Prompt | Suggestion Rationale |
-|-------------------------|-------------|-------------------|---------------------|---------------------|
-| [code-review.md](https://github.com/github/awesome-copilot/blob/main/prompts/code-review.md) | Automated code review prompts | ❌ No | None | Would enhance development workflow with standardized code review processes |
-| [documentation.md](https://github.com/github/awesome-copilot/blob/main/prompts/documentation.md) | Generate project documentation | ✅ Yes | create_oo_component_documentation.prompt.md | Already covered by existing documentation prompts |
-| [debugging.md](https://github.com/github/awesome-copilot/blob/main/prompts/debugging.md) | Debug assistance prompts | ❌ No | None | Could improve troubleshooting efficiency for development team |
+| Awesome-Copilot Prompt                                                                           | Description                    | Already Installed | Similar Local Prompt                        | Suggestion Rationale                                                       |
+| ------------------------------------------------------------------------------------------------ | ------------------------------ | ----------------- | ------------------------------------------- | -------------------------------------------------------------------------- |
+| [code-review.md](https://github.com/github/awesome-copilot/blob/main/prompts/code-review.md)     | Automated code review prompts  | ❌ No             | None                                        | Would enhance development workflow with standardized code review processes |
+| [documentation.md](https://github.com/github/awesome-copilot/blob/main/prompts/documentation.md) | Generate project documentation | ✅ Yes            | create_oo_component_documentation.prompt.md | Already covered by existing documentation prompts                          |
+| [debugging.md](https://github.com/github/awesome-copilot/blob/main/prompts/debugging.md)         | Debug assistance prompts       | ❌ No             | None                                        | Could improve troubleshooting efficiency for development team              |
 
 ## Local Prompts Discovery Process
 
@@ -63,7 +80,6 @@ Display analysis results in structured table comparing awesome-copilot prompts w
 - Provide clear rationale for each suggestion
 - Include links to both awesome-copilot prompts and similar local prompts
 - Don't provide any additional information or context beyond the table and the analysis
-
 
 ## Icons Reference
 
