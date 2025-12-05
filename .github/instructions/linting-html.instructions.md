@@ -2,7 +2,7 @@
 file_type: "instructions"
 applyTo: ["**/*.html", "**/*.htm"]
 description: "Validate and lint HTML/HTM files for accessibility and semantic correctness using html-validate, Prettier, and automation scripts."
-last_updated: "2025-10-23"
+last_updated: "2025-12-04"
 version: "v2.0"
 owners: ["LightSpeedWP Team"]
 tags: ["html", "lint", "accessibility", "automation"]

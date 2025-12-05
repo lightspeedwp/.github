@@ -310,6 +310,7 @@ npm ci
 
 - [Custom Instructions](../.github/custom-instructions.md)
 - [Agents Documentation](../.github/agents/agent.md)
+- [Prompts Library](../.github/prompts/prompts.md)
 - [Scripts Directory](../scripts/)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 

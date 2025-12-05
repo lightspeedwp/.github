@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Reporting Instructions"
 description: "Standards for creating, organising, and maintaining reports in the LightSpeedWP .github repository."
 version: "v1.1"
-last_updated: "2025-11-26"
+last_updated: "2025-12-04"
 applyTo: ".github/reports/**/*"
 owners: ["LightSpeedWP Team"]
 tags: ["reporting", "documentation", "automation", "governance"]

@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "Husky Testing Guide"
 description: "Test and verify Husky pre-commit and pre-push hooks"
-last_updated: "2025-11-25"
+last_updated: "2025-12-04"
 version: "1.0"
 maintainer: "LightSpeed DevOps"
 tags: ["husky", "testing"]

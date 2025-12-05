@@ -1,7 +1,7 @@
 ---
 title: "Shared Utilities & Test Helpers"
 version: "v2.1"
-last_updated: "2025-01-14"
+last_updated: "2025-12-04"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Reusable shell functions, utilities, and test helpers used across all LightSpeed WP scripts and test suites. Comprehensive CLI utilities, logging, validation, and testing infrastructure."

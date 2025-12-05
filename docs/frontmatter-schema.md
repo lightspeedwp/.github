@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "Frontmatter Schema Documentation"
 version: "v1.2"
-last_updated: "2025-10-23"
+last_updated: "2025-12-04"
 author: "LightSpeedWP"
 maintainer: "Ash Shaw"
 description: "Documentation and governance for the LightSpeedWP Markdown/JSON frontmatter schema."

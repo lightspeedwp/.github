@@ -1,7 +1,7 @@
 ---
 title: "GitHub Projects Management Scripts"
 version: "v1.2"
-last_updated: "2025-01-14"
+last_updated: "2025-12-04"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Scripts for managing GitHub Projects, including creation, updates, and field management. Centralized project management with type-specific wrappers for Client Delivery and Product Development workflows."

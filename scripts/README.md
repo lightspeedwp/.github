@@ -1,19 +1,28 @@
 ---
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
 version: "2.5"
-last_updated: "2025-10-25"
+last_updated: "2025-12-04"
 owners:
   - LightSpeedWP Team
 references:
-  - ../.github/instructions/coding-standards.instructions.md
-  - ../.github/instructions/frontmatter.instructions.md
-  - ../schemas/frontmatter.schema.json
-  - ../schemas/collection.schema.json
-  - ../tests/README.md
-  - ../docs/WORKFLOWS.md
-  - ../CHANGELOG.md
-  - ../docs/TESTING.md
-  - ../docs/LINTING.md
+  - path: ../.github/instructions/coding-standards.instructions.md
+    description: Coding standards for all scripts
+  - path: ../.github/instructions/frontmatter.instructions.md
+    description: Frontmatter validation standards
+  - path: ../schemas/frontmatter.schema.json
+    description: Frontmatter schema
+  - path: ../schemas/collection.schema.json
+    description: Collection schema
+  - path: ../tests/README.md
+    description: Testing framework
+  - path: ../docs/WORKFLOWS.md
+    description: Workflow documentation
+  - path: ../CHANGELOG.md
+    description: Project changelog
+  - path: ../docs/TESTING.md
+    description: Testing standards
+  - path: ../docs/LINTING.md
+    description: Linting standards
 ---
 
 ---
@@ -290,7 +299,7 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 ## Internal References
 
 - [Coding Standards](../.github/instructions/coding-standards.instructions.md)
-- [Testing Standards](../.github/instructions/testing-standards.instructions.md)
+- [Testing Standards](../.github/instructions/tests.instructions.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 - [Schema Definitions](../schemas/)
 
@@ -387,7 +396,7 @@ When contributing new scripts or modifications:
 - [Custom Instructions](../.github/custom-instructions.md)
 - [Agents Documentation](../.github/agents/agent.md)
 - [Prompts Library](../.github/prompts/prompts.md)
-- [Automation Governance](../GOVERNANCE.md)
+- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
 
 ---
 

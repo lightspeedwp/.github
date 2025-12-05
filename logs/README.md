@@ -4,7 +4,7 @@ title: "Logs Directory"
 description: "Repository for automation logs, validation outputs, and debugging information from LightSpeedWP GitHub repository operations."
 version: "v1.1"
 created_date: "2025-10-24"
-last_updated: "2025-11-25"
+last_updated: "2025-12-04"
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]

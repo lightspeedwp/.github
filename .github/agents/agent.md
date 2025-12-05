@@ -1,7 +1,7 @@
 ---
 title: "Main Agent Index"
 version: "v2.0"
-last_updated: "2025-12-02"
+last_updated: "2025-12-04"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Directory index referencing all agents, instructions, PR templates, and cross-references."

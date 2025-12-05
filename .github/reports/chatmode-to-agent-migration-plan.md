@@ -4,7 +4,7 @@ title: "Chatmode to Agent Migration Plan"
 description: "Comprehensive plan to migrate .chatmode.md files to .agent.md format following VS Code's official terminology change"
 version: "v1.0"
 created_date: "2025-12-01"
-last_updated: "2025-12-01"
+last_updated: "2025-12-04"
 author: "LightSpeedWP Team"
 maintainer: "LightSpeedWP Team"
 domain: "governance"
@@ -198,7 +198,7 @@ handoffs:
 # LightSpeed Governance Fields (optional but recommended)
 file_type: "agent"  # For schema validation
 version: "v1.0"
-last_updated: "2025-12-01"
+last_updated: "2025-12-04"
 author: "LightSpeedWP Team"
 maintainer: "LightSpeedWP Team"
 owners: ["lightspeedwp/maintainers"]

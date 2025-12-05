@@ -1,7 +1,7 @@
 ---
 title: "Repository Maintenance Scripts"
 version: "v1.6"
-last_updated: "2025-01-14"
+last_updated: "2025-12-04"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Scripts for repository maintenance, automation, and quality assurance. Enforces standards, keeps documentation up-to-date, and streamlines development tasks."

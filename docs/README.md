@@ -4,7 +4,7 @@ title: "LightSpeedWP Documentation Hub"
 description: "Comprehensive documentation repository for LightSpeedWP containing standards, guides, workflows, and configurations. Central hub for all development ecosystem documentation with cross-linked architecture."
 version: "3.4"
 created_date: "2025-10-15"
-last_updated: "2025-11-25"
+last_updated: "2025-12-04"
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]

@@ -1,7 +1,7 @@
 ---
 title: "Automation Governance"
 version: "v1.0.0"
-last_updated: "2025-11-17"
+last_updated: "2025-12-04"
 author: "LightSpeed WP Team"
 description: "Governance policies for GitHub automation, agents, and labeling workflows"
 tags: ["governance", "automation", "labels", "workflows", "agents"]

@@ -2,7 +2,7 @@
 file_type: documentation
 name: Python Test Suite
 folder: pytests
-last_updated: 2025-10-25
+last_updated: 2025-12-04
 description: |
   Python-based tests and helpers for validating documentation, changelogs, markdown structure, PR templates, and repo automation in LightSpeed WP.
 domain: tests

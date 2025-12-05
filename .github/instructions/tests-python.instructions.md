@@ -4,7 +4,7 @@ title: "Python Test Instructions"
 description: "How to set up and write tests for Python projects at LightSpeed."
 version: "1.0.0"
 apply_to: "Python projects"
-last_updated: "2025-10-22"
+last_updated: "2025-12-04"
 owners: ["LightSpeed Engineering"]
 references:
   - "../tests.instructions.md"

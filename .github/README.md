@@ -4,7 +4,7 @@ title: "LightSpeed .github Community Health Repository"
 description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
 version: "3.1"
 created_date: "2025-01-15"
-last_updated: "2025-11-25"
+last_updated: "2025-12-04"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
 license: "GPL-3.0"
@@ -27,20 +27,28 @@ references:
     description: Main agents index
   - path: ./prompts/prompts.md
     description: Prompts index
-  - path: ./chatmodes/chatmodes.md
-    description: Chatmodes index
   - path: ../AGENTS.md
     description: Organization-wide agents documentation
-  - path: ./automation/AUTOMATION_GOVERNANCE.md
+  - path: ../docs/AUTOMATION_GOVERNANCE.md
     description: Automation governance policies
-  - path: ./automation/labels.yml
+  - path: ./labels.yml
     description: Label definitions
-  - path: ./automation/labeler.yml
+  - path: ./labeler.yml
     description: Labeler configuration
+  - path: ./issue-types.yml
+    description: Issue type definitions
   - path: ./instructions/coding-standards.instructions.md
     description: Coding standards instructions
+  - path: ./instructions/linting.instructions.md
+    description: Linting standards index
+  - path: ./instructions/tests.instructions.md
+    description: Testing standards index
+  - path: ./workflows/README.md
+    description: Workflows directory index
   - path: ../CONTRIBUTING.md
     description: Contribution guidelines
+  - path: ../docs/README.md
+    description: Documentation hub
 ---
 
 # 🏛️ LightSpeed Organisation .github Community Health Repository
@@ -154,7 +162,7 @@ Follow these steps to onboard and use this repository effectively across the org
 
 1. Reference issue and PR templates automatically surfaced when creating new items in any repo without overrides.
 2. Use files in `instructions/` before starting development to align with standards.
-3. For AI-assisted workflows, load prompts from `prompts/` and chat modes from `chatmodes/`.
+3. For AI-assisted workflows, load prompts from `prompts/` and agents from `agents/`.
 4. Reusable workflows in `workflows/` can be invoked via `uses:` in member repositories.
 5. Update labels or labeler rules only in `automation/` to propagate consistency.
 6. Add or adjust saved replies in `SAVED_REPLIES/` for common maintainer responses.
@@ -192,7 +200,7 @@ Refer to the organisation-wide [CHANGELOG.md](../CHANGELOG.md) for historical ch
 
 **Labels didn’t auto-apply?** Confirm the path/branch patterns in `automation/labeler.yml` match the change set and that the workflow ran.
 
-**How do I add a new chat mode?** Create or update `chatmodes/chatmodes.md` and reference it in `custom-instructions.md` if globally relevant.
+**How do I add a new chat mode?** Chat modes have been deprecated in favor of agents. Use the agent system instead.
 
 **Agent behavior seems outdated?** Check `AGENTS.md` and the specific agent file in `agents/` for version updates; bump the frontmatter version when modifying logic.
 
@@ -264,129 +272,107 @@ graph TB
     subgraph "📁 .github/ Directory Structure"
         A[📋 instructions/]
         B[🎯 prompts/]
-        C[💬 chatmodes/]
-        D[🤖 agents/]
-        E[⚙️ workflows/]
-        F[📝 ISSUE_TEMPLATE/]
-        G[🔄 PULL_REQUEST_TEMPLATE/]
-        H[💾 SAVED_REPLIES/]
-        I[🔧 automation/]
+        C[🤖 agents/]
+        D[⚙️ workflows/]
+        E[📝 ISSUE_TEMPLATE/]
+        F[🔄 PULL_REQUEST_TEMPLATE/]
+        G[💾 SAVED_REPLIES/]
+        H[🔧 automation/]
     end
 
     subgraph "📋 Instructions Ecosystem"
         A1[coding-standards.instructions.md]
         A2[linting.instructions.md]
-        A3[html-template.instructions.md]
-        A4[pattern-development.instructions.md]
-        A5[php-block.instructions.md]
-        A6[theme-json.instructions.md]
+        A3[a11y.instructions.md]
+        A4[security.instructions.md]
     end
 
     subgraph "🤖 AI Integration Hub"
         B1[accessibility-review.prompt.md]
         B2[code-review.prompt.md]
         B3[pattern-generation.prompt.md]
-        C1[chatmodes.md]
-        D1[agent.md]
+        C1[agent.md]
     end
 
     subgraph "⚙️ Automation Core"
-        I1[labels.yml]
-        I2[labeler.yml]
-        I3[issue-types.yml]
-        I4[AUTOMATION_GOVERNANCE.md]
-        E1[labels-issues-prs.yml]
-        E2[project-meta-sync.yml]
+        H1[labels.yml]
+        H2[labeler.yml]
+        H3[issue-types.yml]
+        H4[AUTOMATION_GOVERNANCE.md]
+        D1[labeling.yml]
     end
 
     A --> A1
     A --> A2
     A --> A3
     A --> A4
-    A --> A5
-    A --> A6
 
     B --> B1
     B --> B2
     B --> B3
     C --> C1
-    D --> D1
 
-    I --> I1
-    I --> I2
-    I --> I3
-    I --> I4
-    E --> E1
-    E --> E2
+    H --> H1
+    H --> H2
+    H --> H3
+    H --> H4
+    D --> D1
 
     style A fill:#e1f5fe
     style B fill:#fce4ec
-    style I fill:#e8f5e8
-    style E fill:#fff3e0
+    style H fill:#e8f5e8
+    style D fill:#fff3e0
 ```
 
 ## Directory Structure Details
 
 ```text
 .github/
-├── instructions/           # Coding, linting, template, pattern, and workflow instructions
+├── instructions/           # Coding, linting, and development standards
+│   ├── block-plugin/       # Block plugin development instructions
+│   ├── block-theme/        # Block theme development instructions
+│   ├── wpcs/               # WordPress coding standards instructions
 │   ├── coding-standards.instructions.md
 │   ├── linting.instructions.md
-│   ├── html-template.instructions.md
-│   ├── pattern-development.instructions.md
-│   ├── php-block.instructions.md
-│   ├── theme-json.instructions.md
-│   └── ... (topic-specific instructions)
+│   ├── a11y.instructions.md
+│   ├── security.instructions.md
+│   └── ... (other instruction files)
 │
-├── prompts/                # AI prompt templates (accessibility, code review, block patterns, etc.)
+├── prompts/                # AI prompt templates
 │   └── *.prompt.md
 │
-├── chatmodes/              # Chat mode indexes & usage guides for Copilot/agents
-│   └── chatmodes.md
-│
-├── agents/                 # Agent specs and agentic workflow documentation
+├── agents/                 # Agent specs and automation
 │   └── agent.md
 │
 ├── workflows/              # Reusable GitHub Actions workflows
-│   ├── labels-issues-prs.yml
-│   ├── project-meta-sync.yml
+│   ├── labeling.yml
 │   └── ... (other workflows)
 │
-├── metrics/                # Metrics collection scripts and configuration
+├── metrics/                # Metrics collection and reporting
 │   ├── README.md
-│   ├── metrics.config.json
-│   ├── frontmatter-metrics.js
-│   ├── branding.json
-│   └── branding-log.md
+│   └── ... (metrics files)
 │
-├── reporting/              # Generated reports and metrics artifacts
+├── reports/                # Generated reports and artifacts
 │   ├── README.md
-│   ├── frontmatter/
-│   ├── branding/
-│   └── issue-metrics/
+│   └── ... (report categories)
 │
-├── ISSUE_TEMPLATE/         # Issue templates for bugs, features, docs, tasks, etc.
+├── ISSUE_TEMPLATE/         # Issue templates
 │   └── *.md
 │
-├── PULL_REQUEST_TEMPLATE/  # Pull request templates (feature, fix, docs, etc.)
+├── PULL_REQUEST_TEMPLATE/  # Pull request templates
 │   └── *.md
 │
-├── SAVED_REPLIES/          # Canonical saved replies for support and triage
-│   └── SAVED_REPLIES.md
+├── SAVED_REPLIES/          # Saved replies for maintainers
+│   └── *.md
 │
-├── automation/             # Labeler rules, automation governance, branching, etc.
-│   ├── labeler.yml
-│   ├── labels.yml
-│   ├── issue-types.yml
-│   ├── AUTOMATION_GOVERNANCE.md
-│   ├── BRANCHING_STRATEGY.md
-│   └── ... (automation reference files)
+├── schemas/                # JSON schemas for validation
+│   └── *.json
 │
-├── custom-instructions.md  # Org-wide Copilot and agent instructions
-├── AGENTS.md               # Global agent rules and contribution principles
+├── custom-instructions.md  # Org-wide Copilot instructions
+├── AGENTS.md               # Global agent rules
 ├── GEMINI.md               # Gemini agent guidance
 ├── CLAUDE.md               # Claude agent guidance
-├── README.md               # This file: folder overview and usage
+├── README.md               # This file: folder overview
 └── ... (other shared files)
 ```
 
@@ -474,13 +460,13 @@ Have questions, feedback, or want to propose an idea? Visit our [GitHub Discussi
 
 For all contributors, please reference these key guidelines and indexes:
 
-- [LightSpeed General Copilot Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-- [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-- [HTML Templates](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/html-template.instructions.md)
-- [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/pattern-development.instructions.md)
-- [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/php-block.instructions.md)
-- [Theme JSON](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/theme-json.instructions.md)
-- When generating a summary for pull requests, use this [pull request template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md).
+- [LightSpeed General Copilot Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/custom-instructions.md)
+- [Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/coding-standards.instructions.md)
+- [HTML Templates](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/html-template.instructions.md)
+- [Pattern Development](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/pattern-development.instructions.md)
+- [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/php-block.instructions.md)
+- [Theme JSON](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/theme-json.instructions.md)
+- When generating a summary for pull requests, use this [pull request template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/PULL_REQUEST_TEMPLATE.md).
 
 ---
 
@@ -563,21 +549,20 @@ This repository and all its contents are licensed under the GNU General Public L
 - [🧠 AI Agents Overview](../AGENTS.md) - Global AI rules and agent specifications
 - [💬 Custom Instructions](./custom-instructions.md) - Organization-wide Copilot settings
 - [🎯 Prompt Library](./prompts/prompts.md) - Reusable AI prompts and templates
-- [💭 Chat Modes](./chatmodes/chatmodes.md) - Specialized AI conversation modes
 
 ## ⚙️ Automation & Governance
 
-- [🏷️ Label Definitions](./automation/labels.yml) - Canonical organization labels
-- [🔧 Labeler Configuration](./automation/labeler.yml) - Automated labeling rules
-- [📋 Issue Types](./automation/issue-types.yml) - Standardized issue categorization
-- [⚖️ Automation Governance](./automation/AUTOMATION_GOVERNANCE.md) - Automation standards and oversight
+- [🏷️ Label Definitions](./labels.yml) - Canonical organization labels
+- [🔧 Labeler Configuration](./labeler.yml) - Automated labeling rules
+- [📋 Issue Types](./issue-types.yml) - Standardized issue categorization
+- [⚖️ Automation Governance](../docs/AUTOMATION_GOVERNANCE.md) - Automation standards and oversight
 
 ## 🔧 Development Standards
 
 - [💻 Coding Standards](./instructions/coding-standards.instructions.md) - Unified development guidelines
 - [🎨 Linting Instructions](./instructions/linting.instructions.md) - Code quality and formatting
-- [🏗️ Pattern Development](./instructions/pattern-development.instructions.md) - WordPress block patterns
-- [🌐 HTML Templates](./instructions/html-template.instructions.md) - Semantic markup standards
+- [🏗️ Pattern Development](./instructions/block-theme/pattern-development.instructions.md) - WordPress block patterns
+- [🌐 HTML Templates](./instructions/block-theme/html-template.instructions.md) - Semantic markup standards
 
 ---
 

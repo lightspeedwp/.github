@@ -3,7 +3,7 @@ file_type: "instructions"
 description: "Unified coding standards for all LightSpeedWP projects: applies to all code, documentation, automation, and AI contributions."
 applyTo: "**"
 version: "v2.1"
-last_updated: "2025-11-27"
+last_updated: "2025-12-04"
 owners: ["LightSpeedWP Team"]
 tags: ["coding-standards", "governance", "automation", "docs", "lint", "ai"]
 references:
@@ -118,5 +118,5 @@ All documentation links to files within the same repository should use `/blob/HE
 
 ---
 
-_This file is the canonical reference for all code, documentation, and automation standards in LightSpeedWP projects.  
-All contributors, agents, and AI assistants must comply with these standards._
+*This file is the canonical reference for all code, documentation, and automation standards in LightSpeedWP projects.  
+All contributors, agents, and AI assistants must comply with these standards.*

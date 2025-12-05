@@ -2,7 +2,7 @@
 file_type: "instructions"
 title: "Frontmatter Instructions"
 version: "v1.1"
-last_updated: "2025-10-23"
+last_updated: "2025-12-04"
 author: "LightSpeedWP"
 maintainer: "Ash Shaw"
 description: "Instructions for creating and validating YAML frontmatter for all LightSpeedWP documentation and code files."

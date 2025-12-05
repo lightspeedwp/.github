@@ -2,7 +2,7 @@
 title: "Schema References Audit"
 description: "Complete audit of all schema file references across the LightSpeed organization to ensure consistency and correctness."
 version: "v1.0"
-last_updated: "2025-10-24"
+last_updated: "2025-12-04"
 author: "LightSpeed Team"
 tags: ["schemas", "audit", "references", "documentation"]
 ---

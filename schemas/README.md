@@ -14,19 +14,19 @@ stability: "stable"
 tags: ["schemas", "json-schema", "validation", "vscode", "frontmatter"]
 references:
   - path: ../.github/instructions/frontmatter.instructions.md
-    description: "Frontmatter implementation guidelines"
+    description: Frontmatter implementation guidelines
   - path: ../scripts/json-validation/
-    description: "Validation scripts"
+    description: Validation scripts
   - path: ../.vscode/settings.json
-    description: "VS Code schema integration"
+    description: VS Code schema integration
   - path: ./frontmatter.schema.json
-    description: "Frontmatter schema definition"
+    description: Frontmatter schema definition
   - path: ./collection.schema.json
-    description: "Collection schema"
+    description: Collection schema
   - path: ./header-footer.schema.json
-    description: "Header/footer schema"
+    description: Header/footer schema
   - path: ../CHANGELOG.md
-    description: "Changelog documentation"
+    description: Changelog documentation
 ---
 
 # 📊 LightSpeed JSON Schemas Collection
@@ -314,6 +314,8 @@ For organization-wide evolution see `../CHANGELOG.md` and individual commit mess
 ## AI & Automation References
 
 - [Custom Instructions](../.github/custom-instructions.md)
+- [Agents Documentation](../.github/agents/agent.md)
+- [Prompts Library](../.github/prompts/prompts.md)
 - [Validation Workflows](../.github/workflows/)
 - [JSON Validation Scripts](../scripts/json-validation/)
 - [Schema Testing Guidelines](../.github/instructions/tests.instructions.md)

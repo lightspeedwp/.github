@@ -4,7 +4,7 @@ title: "LightSpeed Reports Directory"
 description: "Central location for all generated reports, analysis summaries, and data artifacts across LightSpeed repositories."
 version: "v2.0"
 created_date: "2025-10-20"
-last_updated: "2025-11-26"
+last_updated: "2025-12-04"
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
@@ -13,10 +13,10 @@ domain: "governance"
 stability: "stable"
 tags: ["reporting", "metrics", "analytics", "artifacts", "automation"]
 references:
-  - path: ".github/instructions/reporting.instructions.md"
-    description: "Reporting standards and file conventions"
-  - path: ".github/instructions/file-management-guidelines.instructions.md"
-    description: "General file management guidelines"
+  - path: ../instructions/reporting.instructions.md
+    description: Reporting standards and file conventions
+  - path: ../instructions/file-management-guidelines.instructions.md
+    description: General file management guidelines
 ---
 
 # 📊 LightSpeed Reports Directory
@@ -203,26 +203,25 @@ To add new reports:
 
 The reporting system includes automation components for generating, validating, and maintaining reports:
 
-| Component    | Location                                         | Purpose                              |
-| ------------ | ------------------------------------------------ | ------------------------------------ |
-| Agent Spec   | `.github/agents/reporting.agent.md`              | Agent configuration and capabilities |
-| Agent Code   | `.github/agents/reporting.agent.js`              | Node.js implementation               |
-| Workflow     | `.github/workflows/reporting.yml`                | GitHub Actions automation            |
-| Prompt       | `.github/prompts/reporting.prompt.md`            | Copilot prompt for report generation |
-| Chatmode     | `.github/chatmodes/reporting.chatmode.md`        | Interactive reporting assistance     |
-| Instructions | `.github/instructions/reporting.instructions.md` | Standards and conventions            |
+| Component    | Location                                  | Purpose                              |
+| ------------ | ----------------------------------------- | ------------------------------------ |
+| Agent Spec   | `../agents/reporting.agent.md`            | Agent configuration and capabilities |
+| Agent Code   | `../agents/reporting.agent.js`            | Node.js implementation               |
+| Workflow     | `../workflows/reporting.yml`              | GitHub Actions automation            |
+| Prompt       | `../prompts/reporting.prompt.md`          | Copilot prompt for report generation |
+| Instructions | `../instructions/reporting.instructions.md` | Standards and conventions            |
 
 ### Running Manually
 
 ```bash
 # Generate a report for a specific category
-node .github/agents/reporting.agent.js --category=linting
+node ../.github/agents/reporting.agent.js --category=linting
 
 # Dry run (preview without changes)
-node .github/agents/reporting.agent.js --category=agents --dry-run
+node ../.github/agents/reporting.agent.js --category=agents --dry-run
 
 # Organise and validate all reports
-node .github/agents/reporting.agent.js --organise
+node ../.github/agents/reporting.agent.js --organise
 ```
 
 ### Automated Runs

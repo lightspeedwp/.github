@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Labeling Agent Instructions"
 description: "Instructions for Labeling Agent: Automated label enforcement, triage, and standardization."
 version: "v1.0"
-last_updated: "2025-10-23"
+last_updated: "2025-12-04"
 owners: ["lightspeedwp/maintainers"]
 tags: ["agents", "labeling", "instructions", "automation", "triage"]
 file_type: "instructions"

@@ -2,7 +2,7 @@
 file_type: "instructions"
 applyTo: ["**/*.md", "agents/**"]
 description: "Author, evaluate, and test AI agents; design agentic workflows."
-last_updated: "2025-10-19"
+last_updated: "2025-12-04"
 version: "v1.0"
 owners: ["LightSpeed Engineering"]
 ---

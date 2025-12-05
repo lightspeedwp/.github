@@ -1,7 +1,7 @@
 ---
 title: "Utility Scripts Collection"
 version: "v1.4"
-last_updated: "2025-01-14"
+last_updated: "2025-12-04"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Utility scripts providing common, reusable functionality and repository-wide maintenance tasks. Standardized logging, validation, and release management utilities."

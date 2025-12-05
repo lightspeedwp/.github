@@ -40,8 +40,8 @@ This file provides a unified, always-up-to-date index of all key documentation f
 
 ## 📝 Templates & Config
 
-- [.github/ISSUE_LABELS.md](.github/ISSUE_LABELS.md)
-- [.github/PR_LABELS.md](.github/PR_LABELS.md)
+- [ISSUE_LABELS.md](docs/ISSUE_LABELS.md)
+- [PR_LABELS.md](docs/PR_LABELS.md)
 - [.github/labels.yml](.github/labels.yml)
 - [.github/labeler.yml](.github/labeler.yml)
 - [.github/issue-types.yml](.github/issue-types.yml)

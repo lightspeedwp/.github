@@ -66,10 +66,18 @@ graph TB
 ### 🤖 Automation & AI
 
 - **[Agents Instructions](agents.instructions.md)** - AI agent specifications and automation standards
-- **[Awesome Copilot Instructions](awesome-copilot.instructions.md)** - Advanced Copilot usage and configuration
-- **[Automation Instructions](automation.instructions.md)** - General automation guidelines and best practices
-- **[Automation Testing Instructions](automation-testing.instructions.md)** - Testing strategies for automation systems
 - **[Copilot Instructions](copilot.instructions.md)** - GitHub Copilot configuration and usage
+- **[Agent Badges Instructions](agent-badges.instructions.md)** - Badge generation and management
+- **[Agent Branding Instructions](agent-branding.instructions.md)** - Header/footer automation
+- **[Agent Design Instructions](agent-design.instructions.md)** - AI agent development guidelines
+- **[Agent Labeling Instructions](agent-labeling.instructions.md)** - Automated labeling systems
+- **[Agent Linting Instructions](agent-linting.instructions.md)** - Automated code quality enforcement
+- **[Agent Metrics Instructions](agent-metrics.instructions.md)** - Repository metrics collection
+- **[Agent Planner Instructions](agent-planner.instructions.md)** - Project planning automation
+- **[Agent Project Meta Sync Instructions](agent-project-meta-sync.instructions.md)** - Project metadata synchronization
+- **[Agent Release Instructions](agent-release.instructions.md)** - Release management automation
+- **[Agent Reporting Instructions](agent-reporting.instructions.md)** - Report generation standards
+- **[Agent Reviewer Instructions](agent-reviewer.instructions.md)** - Automated code review processes
 
 ### 💻 Development Standards
 
@@ -77,81 +85,70 @@ graph TB
 - **[Linting Instructions](linting.instructions.md)** - Code quality and linting standards
 - **[Testing Instructions](tests.instructions.md)** - Comprehensive testing strategies and standards
 - **[Inline Documentation Instructions](inline-docs.instructions.md)** - Code documentation standards
+- **[JavaScript WordPress Instructions](javascript-wordpress.instructions.md)** - WordPress JavaScript development
+- **[JSON Schema Instructions](json-schema.instructions.md)** - JSON schema creation and validation
+- **[Security Instructions](security.instructions.md)** - Security best practices and standards
 
 ### 🏗️ Architecture & Workflows
 
 - **[Workflows Instructions](workflows.instructions.md)** - GitHub Actions and CI/CD standards
-- **[WordPress Instructions](wordpress.instructions.md)** - WordPress-specific development guidelines
-- **[GitOps Instructions](gitops.instructions.md)** - Git-based operations and deployment strategies
+- **[Tools Instructions](tools.instructions.md)** - Development tool configuration
+- **[TaskSync Instructions](tasksync.instructions.md)** - Task synchronization protocol
 
 ### 📚 Documentation & Communication
 
 - **[Documentation Instructions](docs.instructions.md)** - Documentation standards and practices
 - **[Markdown Instructions](markdown.instructions.md)** - Markdown formatting and style guidelines
 - **[Issues Instructions](issues.instructions.md)** - Issue creation and management guidelines
-- **[Reviews Instructions](reviews.instructions.md)** - Code review processes and standards
+- **[PR Creation Instructions](pr-creation.instructions.md)** - Pull request creation and management guidelines
+- **[README Instructions](readme.instructions.md)** - README file standards
+- **[Saved Replies Instructions](saved-replies.instructions.md)** - GitHub saved replies management
 
-## 🎯 Specialized Instructions
+### 🎯 Specialized Instructions
 
 ### 🔧 Technology-Specific
 
-- **[PHP Instructions](php.instructions.md)** - PHP development standards
-- **[JavaScript Instructions](js.instructions.md)** - JavaScript and TypeScript guidelines
-- **[JSON Instructions](json.instructions.md)** - JSON formatting and validation
-- **[Theme JSON Instructions](theme-json.instructions.md)** - WordPress theme.json configuration
+- **[Linting CSS Instructions](linting-css.instructions.md)** - CSS/SCSS linting standards
+- **[Linting HTML Instructions](linting-html.instructions.md)** - HTML validation standards
+- **[Linting JavaScript Instructions](linting-javascript.instructions.md)** - JavaScript/TypeScript linting
+- **[Linting JSON Instructions](linting-json.instructions.md)** - JSON validation standards
+- **[Linting Markdown Instructions](linting-markdown.instructions.md)** - Markdown linting standards
+- **[Linting PHP Instructions](linting-php.instructions.md)** - PHP linting standards
+- **[Linting Python Instructions](linting-python.instructions.md)** - Python linting standards
+- **[Linting Shell Instructions](linting-shell.instructions.md)** - Shell script linting
+- **[Linting Tests Instructions](linting-tests.instructions.md)** - Test linting standards
+- **[Linting YAML Instructions](linting-yaml.instructions.md)** - YAML linting standards
 
 ### 🧪 Testing & Quality
 
-- **[Playwright Tests Instructions](playwright-tests.instructions.md)** - End-to-end testing with Playwright
-- **[Performance Instructions](performance.instructions.md)** - Performance optimization guidelines
-- **[Security Instructions](security.instructions.md)** - Security best practices and standards
+- **[Tests Bats Instructions](tests-bats.instructions.md)** - Shell script testing with Bats
+- **[Tests Jest Instructions](tests-jest.instructions.md)** - JavaScript testing with Jest
+- **[Tests PHPUnit Instructions](tests-phpunit.instructions.md)** - PHP testing with PHPUnit
+- **[Tests Playwright Instructions](tests-playwright.instructions.md)** - E2E testing with Playwright
+- **[Tests Python Instructions](tests-python.instructions.md)** - Python testing standards
 
 ### 🎨 Design & Patterns
 
-- **[Pattern Development Instructions](pattern-development.instructions.md)** - Design pattern creation guidelines
-- **[Block Development Instructions](blocks.instructions.md)** - WordPress block development standards
-- **[Accessibility Instructions](a11y.instructions.md)** - Accessibility compliance and testing
+- **[Mermaid Diagrams Instructions](mermaid-diagrams.instructions.md)** - Diagram creation standards
+- **[Accessibility Instructions](a11y.instructions.md)** - Accessibility compliance guidelines
 
-## 📂 Specialized Subdirectories
+### 📝 Content & Documentation
 
-### 🤖 agents/
+- **[Inline CSS Instructions](inline-css.instructions.md)** - CSS inline documentation
+- **[Inline I18n Instructions](inline-i18n.instructions.md)** - Internationalization standards
+- **[Inline JSDoc Instructions](inline-jsdoc.instructions.md)** - JavaScript documentation
+- **[Inline Markdown Instructions](inline-markdown.instructions.md)** - Markdown inline docs
+- **[Inline PHPDoc Instructions](inline-phpdoc.instructions.md)** - PHP documentation standards
+- **[Inline TXT Instructions](inline-txt.instructions.md)** - Plain text documentation
+- **[Inline XML Instructions](inline-xml.instructions.md)** - XML documentation standards
+- **[Inline YAML Instructions](Inline-yaml.instructions.md)** - YAML inline documentation
 
-Agent-specific instruction files for individual automation agents:
+### 🏷️ Organization & Governance
 
-- `badges.instructions.md` - Badge generation and management
-- `header-footer.instructions.md` - Header/footer automation
-- `jsdoc-review.instructions.md` - JSDoc review automation
-- `labeling.instructions.md` - Issue and PR labeling automation
-- `linting.instructions.md` - Automated linting processes
-- `manage-readmes.instructions.md` - README maintenance automation
-- `metrics.instructions.md` - Metrics collection and reporting
-- `planner.instructions.md` - Project planning automation
-- `project-meta-sync.instructions.md` - Project metadata synchronization
-- `release.instructions.md` - Release management automation
-- `reviewer.instructions.md` - Automated code review processes
-
-### 🎨 awesome-copilot/
-
-Advanced Copilot instructions for specialized domains:
-
-- `a11y.instructions.md` - Accessibility-focused Copilot usage
-- `angular.instructions.md` - Angular development with Copilot
-- `ai-prompt-engineering-safety-best-practices.instructions.md` - Safe AI prompt engineering
-- `bicep-code-best-practices.instructions.md` - Azure Bicep development standards
-- And many more specialized instruction files...
-
-### 💬 chatmodes/
-
-Instructions for specialized AI conversation modes:
-
-- `awesome-copilot.chatmodes.md` - Advanced chatmode configurations
-- Various chatmode-specific instruction files
-
-### 🎯 prompts/
-
-Prompt-specific instruction files:
-
-- `awesome-copilot.prompts.md` - Advanced prompt engineering instructions
+- **[Frontmatter Instructions](frontmatter.instructions.md)** - YAML frontmatter standards
+- **[Naming Conventions Instructions](naming-conventions.instructions.md)** - File and variable naming
+- **[Tagging and Frontmatter Conventions](tagging-and-frontmatter-conventions.instructions.md)** - Tagging standards
+- **[File Management Guidelines](file-management-guidelines.instructions.md)** - File organization standards
 
 ## 🔗 Integration Points
 
@@ -159,9 +156,8 @@ Instructions integrate with:
 
 - **[Agents Directory](../agents/README.md)** - Automation implementation
 - **[Workflows Directory](../workflows/README.md)** - CI/CD implementation
-- **[Chatmodes Directory](../chatmodes/README.md)** - AI conversation modes
 - **[Prompts Directory](../prompts/README.md)** - Structured AI prompts
-- **[Collections Directory](../collections/README.md)** - Curated instruction sets
+- **[Reports Directory](../reports/README.md)** - Generated reports and artifacts
 
 ## 💡 Usage Guidelines
 
@@ -217,7 +213,7 @@ Instructions are tracked for:
 
 ---
 
-*This directory provides the foundation for consistent, high-quality development across the LightSpeedWP organization. See [Automation Governance](../AUTOMATION_GOVERNANCE.md) for enforcement policies.*
+*This directory provides the foundation for consistent, high-quality development across the LightSpeedWP organization. See [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) for enforcement policies.*
 
 ---
 
