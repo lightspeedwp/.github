@@ -15,21 +15,28 @@ Use this reference for consistent, correct PR labels and full alignment with aut
 
 Every PR should use a standard branch prefix for correct label and template automation:
 
-| Prefix    | Purpose                     | Maps to Type / Label |
-| --------- | --------------------------- | -------------------- |
-| feat/     | New feature or enhancement  | feature              |
-| fix/      | Bugfix or regression        | bug                  |
-| docs/     | Documentation changes       | documentation        |
-| chore/    | Maintenance/hygiene tasks   | chore                |
-| build/    | Build/CI/automation changes | build / ci           |
-| refactor/ | Internal code refactoring   | refactor             |
-| test/     | Add or update tests         | test                 |
-| perf/     | Performance improvements    | performance          |
-| ci/       | CI/CD or workflow changes   | ci                   |
-| release/  | Release prep/deployment     | release              |
-| hotfix/   | Emergency production fix    | hotfix / bug         |
-| design/   | Design changes/assets       | design               |
-| research/ | Technical spike/research    | research             |
+| Prefix    | Purpose                     | Maps to Type / Label | PR Template                                        |
+| --------- | --------------------------- | -------------------- | -------------------------------------------------- |
+| fix/      | Bugfix or regression        | bug                  | .github/PULL_REQUEST_TEMPLATE/pr_bug.md            |
+| chore/    | Maintenance/hygiene tasks   | chore                | .github/PULL_REQUEST_TEMPLATE/pr_chore.md          |
+| ci/       | CI/CD or workflow changes   | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_ci.md             |
+| ci/       | CI/CD or workflow changes   | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_dep_update.md     |
+| docs/     | Documentation changes       | documentation        | .github/PULL_REQUEST_TEMPLATE/pr_docs.md           |
+| hotfix/   | Emergency production fix    | hotfix / bug         | .github/PULL_REQUEST_TEMPLATE/pr_hotfix.md         |
+| feat/     | New feature or enhancement  | feature              | .github/PULL_REQUEST_TEMPLATE/pr_feature.md        |
+| refactor/ | Internal code refactoring   | refactor             | .github/PULL_REQUEST_TEMPLATE/pr_refactor.md       |
+| release/  | Release prep/deployment     | release              | .github/PULL_REQUEST_TEMPLATE/pr_release.md        |
+
+### Branch specific PR Templates to be created
+
+| Prefix    | Purpose                     | Maps to Type / Label | PR Template to be created                          |
+| --------- | --------------------------- | -------------------- | -------------------------------------------------- |
+| build/    | Build/CI/automation changes | build / ci           | .github/PULL_REQUEST_TEMPLATE/pr_build.md          |
+| test/     | Add or update tests         | test                 | .github/PULL_REQUEST_TEMPLATE/pr_test.md           |
+| design/   | Design changes/assets       | design               | .github/PULL_REQUEST_TEMPLATE/pr_design.md         |
+| research/ | Technical spike/research    | research             | .github/PULL_REQUEST_TEMPLATE/pr_research.md       |
+| perf/     | Performance improvements    | performance          | .github/PULL_REQUEST_TEMPLATE/pr_performance.md    |
+| --------- | --------------------------- | -------------------- | -------------------------------------------------- |
 
 ---
 
@@ -81,4 +88,4 @@ Every PR should use a standard branch prefix for correct label and template auto
 
 ---
 
-_Labeling, status, type, and standardization for PRs are handled exclusively by the unified agent and workflow._
+*Labeling, status, type, and standardization for PRs are handled exclusively by the unified agent and workflow.*

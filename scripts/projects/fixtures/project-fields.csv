@@ -1,8 +1,0 @@
-Priority,SINGLE_SELECT,High,Medium,Low
-Status,SINGLE_SELECT,Todo,In Progress,Done
-Severity,SINGLE_SELECT,Low,Medium,High
-Assignee,TEXT,
-Due Date,DATE,
-Story Points,NUMBER,
-Area,SINGLE_SELECT,Frontend,Backend,Build & CI,Deployment/DevOps,Design System,Content,Analytics,A11y
-Theme,SINGLE_SELECT,Design System,Content Management,Commerce (WooCommerce),Editorial UX (Authoring),Performance,Accessibility (A11y),Security & Privacy,Integrations & APIs,Internationalisation (i18n),Analytics & Measurement,SEO,Release & Deployment

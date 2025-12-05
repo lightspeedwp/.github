@@ -1,12 +1,11 @@
 ---
 description: "Prompt for generating an AGENTS.md file for a repository"
 mode: "agent"
-license: "GPL-3.0"
 ---
 
 # Create high‑quality AGENTS.md file
 
-You are a code agent. Your task is to create a complete, accurate AGENTS.md at the root of this repository that follows the public guidance at <https://agents.md/>.
+You are a code agent. Your task is to create a complete, accurate AGENTS.md at the root of this repository that follows the public guidance at https://agents.md/.
 
 AGENTS.md is an open format designed to provide coding agents with the context and instructions they need to work effectively on a project.
 
@@ -107,7 +106,7 @@ AGENTS.md is a Markdown file that serves as a "README for agents" - a dedicated,
 
 ## Example Template
 
-Use this as a starting template and customise based on the specific project:
+Use this as a starting template and customize based on the specific project:
 
 ```markdown
 # AGENTS.md
@@ -195,19 +194,22 @@ Here's a real example from the agents.md website:
 
 ## Implementation Steps
 
-1. **Analyse the project structure** to understand:
+1. **Analyze the project structure** to understand:
+
    - Programming languages and frameworks used
    - Package managers and build tools
    - Testing frameworks
    - Project architecture (monorepo, single package, etc.)
 
 2. **Identify key workflows** by examining:
+
    - package.json scripts
    - Makefile or other build files
    - CI/CD configuration files
    - Documentation files
 
 3. **Create comprehensive sections** covering:
+
    - All essential setup and development commands
    - Testing strategies and commands
    - Code style and conventions

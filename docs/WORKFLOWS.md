@@ -625,7 +625,6 @@ Prepares repository for upcoming releases.
 *This document must be updated whenever workflows are changed, added, or removed.  
 It is the single source of truth for workflow governance in LightSpeedWP projects.*
 
-
 # GitHub Actions Workflow Validation Framework
 
 ## Overview
@@ -953,7 +952,7 @@ The validation automatically runs in:
 - [GitHub Actions Security Documentation](https://docs.github.com/en/actions/security-guides)
 - [Workflow Best Practices](https://docs.github.com/en/actions/guides)
 - [LightSpeed Coding Standards](./../.github/instructions/coding-standards.instructions.md)
-- [Automation Governance](./../.github/AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
 
 ## Maintenance
 
@@ -964,7 +963,3 @@ The validation framework is maintained by the LightSpeed team. To propose improv
 3. Link to relevant GitHub Actions documentation
 
 ---
-
-**Last Updated**: 2025-11-25  
-**Status**: ✅ Active  
-**Maintainer**: Ash Shaw (@ashshaw)

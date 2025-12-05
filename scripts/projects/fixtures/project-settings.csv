@@ -1,6 +1,0 @@
-Setting,Type,Default,Description
-Sprint Length,NUMBER,2,Number of weeks per sprint
-Default Status,SINGLE_SELECT,Todo,Initial status for new items
-Review Required,BOOLEAN,true,Require review before completion
-Access Level,SINGLE_SELECT,Contributor,Default access level for new users
-Due Date Required,BOOLEAN,false,Is due date required for all items

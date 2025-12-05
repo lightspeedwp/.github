@@ -4,30 +4,6 @@ Keep `main` always deployable, reduce merge risk, and make PR automation predict
 
 ---
 
-## Table of Contents
-
-- [1. High-level Rules](#1-high-level-rules)
-- [2. Branch Protection](#2-branch-protection)
-- [3. Branch Naming](#3-branch-naming)
-  - [3.1. Shared Core Prefixes](#31-shared-core-prefixes)
-  - [3.2. Product-specific Prefixes](#32-product-specific-prefixes)
-  - [3.3. Client-specific Prefixes](#33-client-specific-prefixes)
-  - [3.4. Examples](#34-examples)
-- [4. Branch Name Enforcement via CI](#4-branch-name-enforcement-via-ci)
-- [5. Prefixes Drive Automation](#5-prefixes-drive-automation)
-  - [5.1. Labeler (Status Kick-off)](#51-labeler-status-kick-off)
-  - [5.2. Project Type Mapping](#52-project-type-mapping)
-- [6. Merge Discipline](#6-merge-discipline)
-- [7. Release & Hotfix Flow](#7-release-hotfix-flow)
-- [8. Quick Per-Repo Checklist](#8-quick-per-repo-checklist)
-- [9. FAQ & Guardrails](#9-faq-guardrails)
-- [10. References](#10-references)
-- [11. Appendix: Getting Started](#11-appendix-getting-started)
-- [12. Advanced Practices & Troubleshooting](#12-advanced-practices--troubleshooting)
-- [13. Onboarding & Training](#13-onboarding--training)
-
----
-
 ## 1. High-level Rules
 
 - `main` is production-ready at all times.

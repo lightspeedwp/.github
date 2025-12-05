@@ -1,7 +1,0 @@
-# name,type,options(optional)
-Priority,single_select,High,Medium,Low
-Status,single_select,Todo,In Progress,Done
-Severity,single_select,Blocker,Critical,Major,Minor,Trivial
-Assignee,text,
-Due Date,date,
-Story Points,number,
