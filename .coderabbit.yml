@@ -1,11 +1,11 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/coderabbit-overrides.v2.json
 reviews:
   # === Review Workflow Settings ===
-  request_changes_workflow: true  # Require workflow for requesting changes
-  high_level_summary: true        # Provide high-level summary in reviews
-  poem: false                    # Disable poem output in reviews
-  review_status: true            # Show review status in output
-  collapse_walkthrough: true     # Collapse walkthroughs by default
+  request_changes_workflow: true # Require workflow for requesting changes
+  high_level_summary: true # Provide high-level summary in reviews
+  poem: false # Disable poem output in reviews
+  review_status: true # Show review status in output
+  collapse_walkthrough: true # Collapse walkthroughs by default
 
   # === Path Filters (Exclude from Review) ===
   path_filters:
@@ -48,11 +48,11 @@ reviews:
 
     - path: "**/.github/prompts/prompts.md"
       instructions: |
-          - Ensure the file documents prompt conventions and usage patterns.
-          - Review the prompts index file:
-          - Ensure a dynamic index reference to all *.prompt.md files exists.
-          - Validate YAML frontmatter and update date/version fields.
-          - Confirm all prompt files are discoverable from this index.
+        - Ensure the file documents prompt conventions and usage patterns.
+        - Review the prompts index file:
+        - Ensure a dynamic index reference to all *.prompt.md files exists.
+        - Validate YAML frontmatter and update date/version fields.
+        - Confirm all prompt files are discoverable from this index.
 
     - path: "**/.github/prompts/*.md"
       instructions: |
@@ -112,13 +112,13 @@ reviews:
 
     - path: "**/e2e/*.{ts,js}"
       instructions: |
-        Review Jest/Playwright tests for agents and blocks:
+        Review Jest tests for agents and blocks:
           - Ensure tests cover accessibility and Full Site Editing (FSE) functionality.
           - Check for reliable, non-flaky tests and clear assertions.
           - Confirm test coverage for critical user flows and edge cases.
           - Validate use of test fixtures, mocks, and snapshot testing where appropriate.
 
-    - path: '**/scripts/**/*.sh'
+    - path: "**/scripts/**/*.sh"
       instructions: |
         Review shell scripts for automation:
           - Check for POSIX compliance and portability.
@@ -130,7 +130,7 @@ reviews:
           - Ensure use of `set -euo pipefail` and shebang at the top.
 
     # 5. Workflow and automation files
-    - path: '**/.github/workflows/*.yml'
+    - path: "**/.github/workflows/*.yml"
       instructions: |
         Review .github workflows for CI/CD:
           - Check for use of reusable workflow templates and matrix strategies.
@@ -155,7 +155,6 @@ reviews:
         Review Claude AI specification file:
           - Verify this file
 
-
     - path: ".github/agents/AGENTS.md"
       instructions: |
         Review the main agents index file:
@@ -172,7 +171,6 @@ reviews:
           - Confirm agent lifecycle, error handling, and security practices are documented.
           - Require a section on agent test strategy (unit, integration, workflow).
           - Ensure YAML files are referenced in agent indexes or documentation.
-          - Ensure proper configuration and usage of Playwright and agent tools.
           - Validate header of *.sh, *.js, *.py files start with a shebang.
           - Confirm agent documentation is clear and up-to-date.
 
@@ -221,7 +219,7 @@ reviews:
 
     # 7. Tests folders
 
-    - path: '**/tests/*.*'
+    - path: "**/tests/*.*"
       instructions: |
         Review all test files:
           - Ensure valid syntax, logical structure, and clear instructions for users.
@@ -237,7 +235,7 @@ reviews:
 
     # 8. Templates, prompts, and saved replies
 
-    - path: '**/.github/ISSUE_TEMPLATE/*.md'
+    - path: "**/.github/ISSUE_TEMPLATE/*.md"
       instructions: |
         Review all issue template files:
           - Ensure valid markdown syntax, logical structure, and clear, actionable instructions for users.
@@ -247,7 +245,7 @@ reviews:
           - Confirm that templates are up to date with current project processes and reference related documentation where relevant.
           - Ensure accessibility (e.g., clear headings, no ambiguous language).
 
-    - path: '**/.github/PULL_REQUEST_TEMPLATE/*.md'
+    - path: "**/.github/PULL_REQUEST_TEMPLATE/*.md"
       instructions: |
         Review all pull request template files:
           - Ensure valid markdown syntax, logical structure, and clear, actionable instructions for contributors.
@@ -257,7 +255,7 @@ reviews:
           - Confirm that templates are up to date with current project processes and reference related documentation where relevant.
           - Ensure accessibility (e.g., clear headings, no ambiguous language).
 
-    - path: '**/.github/DISCUSSION_TEMPLATE/*.yml'
+    - path: "**/.github/DISCUSSION_TEMPLATE/*.yml"
       instructions: |
         Review all discussion template YAML files:
           - Ensure valid YAML syntax, logical structure, and clear, actionable instructions for users.
@@ -267,7 +265,7 @@ reviews:
           - Confirm that templates are up to date with current project processes and reference related documentation where relevant.
           - Ensure accessibility (e.g., clear field names, no ambiguous language).
 
-    - path: '**/.github/SAVED_REPLIES.md'
+    - path: "**/.github/SAVED_REPLIES.md"
       instructions: |
         Review the saved replies index file:
           - Ensure the file links dynamically to all saved replies or lists all available saved reply files.
@@ -276,7 +274,7 @@ reviews:
           - Ensure the file provides guidance on how to use saved replies and when to use each one.
           - Confirm that replies are referenced from the index and are up to date with current project processes.
 
-    - path: '**/.github/SAVED_REPLIES/**/*.md'
+    - path: "**/.github/SAVED_REPLIES/**/*.md"
       instructions: |
         Review all saved replies:
           - Ensure all saved replies are valid *.md files, make sense for the project, and are actionable.
@@ -285,7 +283,7 @@ reviews:
           - Ensure replies are referenced from the saved replies index and are up to date with current project processes.
 
     # 9. Documentation Folders
-    - path: '**/docs/*.*/*.md'
+    - path: "**/docs/*.*/*.md"
       instructions: |
         Review all documentation files:
           - Ensure markdown is linted and formatted according to project style guides.
@@ -296,13 +294,13 @@ reviews:
 
 early_access: true
 auto_labels:
-    enabled: true
-        - A canonical list of org wide default labels exists in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml" https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml
-        - A set of labeler rules exist in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml"
+  enabled: true
+    - A canonical list of org wide default labels exists in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml" https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml
+    - A set of labeler rules exist in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml"
 auto_assign:
-    enabled: true
-    reviewers:
-        - 'ashleyshaw'
+  enabled: true
+  reviewers:
+    - "ashleyshaw"
 auto_review:
   enabled: true
   ignore_title_keywords:

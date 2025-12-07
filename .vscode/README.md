@@ -15,7 +15,7 @@ file_type: "configuration"
 ![Tasks Badge](https://img.shields.io/badge/tasks-automated-orange?style=flat-square)
 ![AI Badge](https://img.shields.io/badge/ai-integrated-purple?style=flat-square)
 
-This folder contains all Visual Studio Code workspace settings, tasks, and recommended extensions for the LightSpeedWP project.  
+This folder contains all Visual Studio Code workspace settings, tasks, and recommended extensions for the LightSpeedWP project.
 It ensures a consistent, automated, and standards-driven development experience for all contributors.
 
 ## 📊 VS Code Configuration Architecture
@@ -38,9 +38,8 @@ flowchart TD
     F --> O[Stylelint]
     F --> P[Markdownlint]
     G --> Q[Jest]
-    G --> R[Playwright]
     H --> S[Unit Tests]
-    I --> T[E2E Tests]
+    I --> T[Test Coverage]
     J --> U[Formatting]
     K --> V[Shortcuts]
     L --> W[Prompts]
@@ -68,10 +67,10 @@ flowchart TD
   - GitHub workflow tools (PRs, Codespaces, Actions, GitLens)
   - Linting and formatting (Prettier, ESLint, Stylelint, Markdownlint)
   - WordPress/PHP development (Intelephense, PHPCS, WP Toolbox)
-  - Testing (Playwright)
+  - Testing (Jest)
   - JSON, Docker, and other core dev tools
 
-- **settings.json**  
+- **settings.json**
   Workspace-wide editor and tool settings:
   - Enforces formatting on save, trailing whitespace trimming, and newline rules
   - Language-specific formatting and linting (PHP, JS, CSS, JSON, Markdown)
@@ -80,19 +79,20 @@ flowchart TD
   - Excludes build and dependency folders from search and file watching
   - YAML schema mapping for documentation and automation
 
-- **tasks.json**  
+- **tasks.json**
   Predefined tasks for common workflows:
   - Run unit tests (`npm: test-unit`)
   - Lint JavaScript, CSS, and Markdown
-  - Run Playwright E2E tests
   - Collect test coverage
 
-- **launch.json**  
-  Debugger configuration for PHP (Xdebug on port 9003).
+- **launch.json**
+  Debugger configurations:
+  - PHP (Xdebug on port 9003)
+  - Node.js debugging for Jest tests and scripts
 
-- **mcp.json**  
+- **mcp.json**
   Model Context Protocol (MCP) server configuration:
-  - Integrates GitHub and Playwright MCP servers for advanced automation, E2E testing, and Copilot Spaces.
+  - Integrates GitHub MCP server for advanced automation and Copilot Spaces.
 
 ---
 

@@ -272,7 +272,7 @@ npm ci
 - [Test Coverage Summary](./TEST_COVERAGE_SUMMARY.md) — Comprehensive coverage analysis and test details
 - [Jest Configuration](../jest.config.js) — JavaScript testing framework configuration
 - [Test Runner Script](../run-all-tests.sh) — Automated test execution script
-- [LightSpeedWP Testing Guidelines](../.github/instructions/tests.instructions.md) — Testing standards and best practices
+- [Quality Assurance](../.github/instructions/quality-assurance.instructions.md) — Testing standards and best practices
 
 #### Test Folder Documentation
 

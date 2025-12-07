@@ -266,7 +266,7 @@ Issue Types and Project fields carry the semantic meaning.
 - [custom-instructions.md](./custom-instructions.md): Copilot and agent instructions.
 - [instructions/linting.instructions.md](./instructions/linting.instructions.md): Linting index and tool guidance.
 - [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md): Coding standards index.
-- [instructions/frontmatter.instructions.md](./instructions/frontmatter.instructions.md): Frontmatter schema and conventions.
+- [instructions/documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md): Frontmatter schema and conventions.
 - [GitHub Custom Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/custom-instructions.md): Org-wide guidance and AI agent usage.
 - [Pull Request Template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/PULL_REQUEST_TEMPLATE.md): PR summary and best practices.
 

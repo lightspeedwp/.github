@@ -68,10 +68,13 @@ async function enforceOneHotLabels({
       }
     }
 
-    // Enforce one-hot: keep first, remove rest
+    // Enforce one-hot: keep first (or priority-ordered for status), remove rest
     for (const [prefix, labels] of Object.entries(categories)) {
       if (labels.length > 1) {
-        const [keep, ...remove] = labels;
+        // Use priority ordering for status labels, first label for others
+        const keep =
+          prefix === "status:" ? _pickPrimaryStatus(labels) : labels[0];
+        const remove = labels.filter((l) => l !== keep);
         core.info(
           `[label-enforcer] Multiple ${prefix}* labels found on #${number}: ${labels.join(", ")}`,
         );

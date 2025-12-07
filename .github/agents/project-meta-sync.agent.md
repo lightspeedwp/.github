@@ -1,5 +1,5 @@
 ---
-name: "project-meta-sync"
+name: "Project Meta Sync"
 description: "Syncs GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names, automating project management and triage workflows."
 target: "github-copilot"
 tools: ["github/*", "read", "search"]
@@ -23,7 +23,7 @@ references:
     description: "Implementation script"
   - path: ".github/workflows/project-meta-sync.yml"
     description: "GitHub Actions workflow"
-  - path: ".github/automation/labels.yml"
+  - path: ".github/labels.yml"
     description: "Canonical label definitions"
 owners: ["lightspeedwp/maintainers"]
 metadata:

@@ -1,7 +1,7 @@
 ---
 title: "Main Agent Index"
 version: "v2.0"
-last_updated: "2025-12-04"
+last_updated: "2025-12-07"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Directory index referencing all agents, instructions, PR templates, and cross-references."
@@ -46,16 +46,16 @@ All agent specs, templates, and stubs are in the `.github/agents/` directory.
 
 ### Automation & CI/CD
 
-| Agent File                                                 | Purpose / Notes                               |
-| ---------------------------------------------------------- | --------------------------------------------- |
-| [branding.agent.md](./branding.agent.md)                   | Unified branding: header, footer, badges      |
-| [devops-helper.agent.md](./devops-helper.agent.md)         | CI/CD, release tagging, workflow hardening    |
-| [labeling.agent.md](./labeling.agent.md)                   | Unified issue/PR labeling and standardization |
-| [issue-type.agent.md](./issue-type.agent.md)               | Issue type classification and management      |
-| [project-meta-sync.agent.md](./project-meta-sync.agent.md) | GitHub Projects field synchronization         |
-| [release.agent.md](./release.agent.md)                     | Release automation, changelog, versioning     |
-| [metrics.agent.md](./metrics.agent.md)                     | Metrics collection and reporting              |
-| [reporting.agent.md](./reporting.agent.md)                 | Report generation and automation              |
+| Agent File                                                 | Purpose / Notes                                                       |
+| ---------------------------------------------------------- | --------------------------------------------------------------------- |
+| [meta.agent.md](./meta.agent.md)                           | Metadata automation: front matter, badges, references, quirky footers |
+| [devops-helper.agent.md](./devops-helper.agent.md)         | CI/CD, release tagging, workflow hardening                            |
+| [labeling.agent.md](./labeling.agent.md)                   | Unified issue/PR labeling and standardization                         |
+| [issue-type.agent.md](./issue-type.agent.md)               | Issue type classification and management                              |
+| [project-meta-sync.agent.md](./project-meta-sync.agent.md) | GitHub Projects field synchronization                                 |
+| [release.agent.md](./release.agent.md)                     | Release automation, changelog, versioning                             |
+| [metrics.agent.md](./metrics.agent.md)                     | Metrics collection and reporting                                      |
+| [reporting.agent.md](./reporting.agent.md)                 | Report generation and automation                                      |
 
 ### Code Quality & Standards
 
@@ -79,6 +79,14 @@ All agent specs, templates, and stubs are in the `.github/agents/` directory.
 | [test-coach.agent.md](./test-coach.agent.md)               | Testing guidance and coverage improvement |
 | [qa-test-architect.agent.md](./qa-test-architect.agent.md) | Test strategy and architecture design     |
 
+### Planning & Development
+
+| Agent File                                             | Purpose / Notes                                       |
+| ------------------------------------------------------ | ----------------------------------------------------- |
+| [planner.agent.md](./planner.agent.md)                 | Strategic planning, architecture, and task planning   |
+| [issues.agent.md](./issues.agent.md)                   | Issue management, triage, type assignment, enrichment |
+| [prompt-engineer.agent.md](./prompt-engineer.agent.md) | Prompt engineering, validation, and improvement       |
+
 ### Documentation
 
 | Agent File                                           | Purpose / Notes                  |
@@ -99,14 +107,18 @@ All agent specs, templates, and stubs are in the `.github/agents/` directory.
 
 ## Key Indexes & Contribution Guidelines
 
-| Area                    | Reference                                                                                            | Notes / Usage                                                    |
-| ----------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| **Custom Instructions** | [../custom-instructions.md](../custom-instructions.md)                                               | Central Copilot/org standards                                    |
-| **Global AI Rules**     | [../../AGENTS.md](../../AGENTS.md)                                                                   | Org-wide AI and coding rules (references custom-instructions.md) |
-| **Coding Standards**    | [../instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md) | Unified standards for all code                                   |
-| **Linting Standards**   | [../instructions/linting.instructions.md](../instructions/linting.instructions.md)                   | Main index for all linting rules                                 |
-| **PR Templates**        | [../PULL_REQUEST_TEMPLATE.md](../PULL_REQUEST_TEMPLATE.md)                                           | Default PR template                                              |
-| **All PR Templates**    | [../PULL_REQUEST_TEMPLATES/](../PULL_REQUEST_TEMPLATES/)                                             | Directory containing additional PR templates                     |
+| Area                    | Reference                                                                                              | Notes / Usage                                                    |
+| ----------------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| **Custom Instructions** | [../custom-instructions.md](../custom-instructions.md)                                                 | Central Copilot/org standards                                    |
+| **Global AI Rules**     | [../../AGENTS.md](../../AGENTS.md)                                                                     | Org-wide AI and coding rules (references custom-instructions.md) |
+| **Coding Standards**    | [../instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md)   | Unified standards for all code                                   |
+| **Quality & Testing**   | [../instructions/quality-assurance.instructions.md](../instructions/quality-assurance.instructions.md) | Testing, Jest, coverage, CI/CD integration                       |
+| **Languages & Linting** | [../instructions/languages.instructions.md](../instructions/languages.instructions.md)                 | JS/TS, JSON, YAML, JSDoc, linting standards                      |
+| **Documentation Formats** | [../instructions/documentation-formats.instructions.md](../instructions/documentation-formats.instructions.md) | Markdown, YAML frontmatter, Mermaid                               |
+| **Automation**          | [../instructions/automation.instructions.md](../instructions/automation.instructions.md)               | Agents, labeling, release, metrics, workflows                    |
+| **Community Standards** | [../instructions/community-standards.instructions.md](../instructions/community-standards.instructions.md) | File organisation, naming, README, saved replies                 |
+| **PR Templates**        | [../PULL_REQUEST_TEMPLATE.md](../PULL_REQUEST_TEMPLATE.md)                                             | Default PR template                                              |
+| **All PR Templates**    | [../PULL_REQUEST_TEMPLATES/](../PULL_REQUEST_TEMPLATES/)                                               | Directory containing additional PR templates                     |
 
 ---
 

@@ -1,5 +1,4 @@
 ---
-file_type: "agent"
 title: "Template: Agent Specification"
 description: "Template/spec for defining a custom Copilot agent’s capabilities, inputs, outputs, and safety guardrails."
 version: "v1.0"
@@ -8,6 +7,7 @@ owners: ["LightSpeedWP Engineering"]
 tags: ["template", "agent", "spec", "copilot"]
 status: "draft"
 apply_to: [".github/agents/*.agent.md"]
+file_type: "template"
 references:
   - "AGENTS.md"
   - "agents.instructions.md"

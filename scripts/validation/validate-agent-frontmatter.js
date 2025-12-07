@@ -28,7 +28,7 @@ const validate = ajv.compile(schema);
 const agentDir = path.join(__dirname, "../../.github/agents");
 const agentFiles = [
   "badges.agent.md",
-  "branding.agent.md",
+  "meta.agent.md",
   "header-footer.agent.md",
   "issue-type.agent.md",
   "jsdoc-review.agent.md",

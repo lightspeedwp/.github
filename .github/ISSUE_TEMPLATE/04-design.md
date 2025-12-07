@@ -2,8 +2,7 @@
 name: "🎨 Design"
 about: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
 title: "[Design] <Brief summary>"
-labels:
-  [status:needs-design-review, priority:normal, area:design-system]
+labels: [status:needs-design-review, priority:normal, area:design-system]
 assignees: []
 projects: []
 milestone: ""
@@ -81,4 +80,4 @@ Add links, screenshots, references, or other design docs.
 - [ ] Design reviewed and approved
 - [ ] PR uses correct branch prefix (design/)
 
---- 
+---

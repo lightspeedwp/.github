@@ -65,7 +65,7 @@ graph TB
     D --> D6[header-footer.agent.js]
     D --> D7[linting.agent.js]
     D --> D8[label-standardization.agent.js]
-    D --> D9[branding.agent.js]
+    D --> D9[meta.agent.js]
 
     E --> E1[wp-accessibility-review-agent.js]
     E --> E2[wp-performance-audit-agent.js]
@@ -100,16 +100,16 @@ graph TB
 
 ## 🤖 Available Agents
 
-| Agent                                                              | Description                                                   | Status        | Tests                                                        |
-| ------------------------------------------------------------------ | ------------------------------------------------------------- | ------------- | ------------------------------------------------------------ |
-| [branding.agent.js](./branding.agent.js)                           | Unified branding agent for headers, footers, badges           | ✅ Active     | -                                                            |
-| [badges.agent.js](./badges.agent.js)                               | Manages repository badges and automation status indicators    | ❌ Deprecated | -                                                            |
-| [header-footer.agent.js](./header-footer.agent.js)                 | Maintains consistent headers and footers across documentation | ❌ Deprecated | -                                                            |
+| Agent                                                              | Description                                                   | Status        | Tests                                                                          |
+| ------------------------------------------------------------------ | ------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------ |
+| [meta.agent.js](./meta.agent.js)                                   | Applies front matter, badges, human references, quirky footers | ✅ Active     | -                                                                              |
+| [badges.agent.js](./badges.agent.js)                               | Manages repository badges and automation status indicators    | ❌ Deprecated | -                                                                              |
+| [header-footer.agent.js](./header-footer.agent.js)                 | Maintains consistent headers and footers across documentation | ❌ Deprecated | -                                                                              |
 | [issue-type.agent.js](./issue-type.agent.js)                       | Automatically assigns issue types based on content analysis   | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/issue-type.agent.test.js)            |
 | [label-standardization.agent.js](./label-standardization.agent.js) | Ensures consistent labeling across repositories               | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/label-standardization.agent.test.js) |
 | [labeling.agent.js](./labeling.agent.js)                           | Unified labeling system for issues and pull requests          | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/labeling.agent.test.js)              |
-| [linting.agent.js](./linting.agent.js)                             | Code quality and linting enforcement                          | ✅ Active     | -                                                            |
-| [manage-readmes.agent.js](./manage-readmes.agent.js)               | Automated README generation and maintenance                   | ✅ Active     | -                                                            |
+| [linting.agent.js](./linting.agent.js)                             | Code quality and linting enforcement                          | ✅ Active     | -                                                                              |
+| [manage-readmes.agent.js](./manage-readmes.agent.js)               | Automated README generation and maintenance                   | ✅ Active     | -                                                                              |
 | [reviewer.agent.js](./reviewer.agent.js)                           | Automated code review and feedback                            | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/reviewer.agent.test.js)              |
 
 ### WordPress-Specific Agents
@@ -124,7 +124,7 @@ graph TB
 
 | Agent                                                              | Markdown Documentation                               |
 | ------------------------------------------------------------------ | ---------------------------------------------------- |
-| [branding.agent.md](./branding.agent.md)                           | Unified branding agent specification                 |
+| [meta.agent.md](./meta.agent.md)                                   | Meta data automation specification                   |
 | [badges.agent.md](./badges.agent.md)                               | Badge management specification (Deprecated)          |
 | [header-footer.agent.md](./header-footer.agent.md)                 | Header/footer maintenance specification (Deprecated) |
 | [issue-type.agent.md](./issue-type.agent.md)                       | Issue type assignment specification                  |
@@ -141,21 +141,21 @@ These GitHub Actions workflows integrate with and trigger our agents:
 
 ### Core Automation Workflows
 
-| Workflow                                                     | Triggers                                | Agent(s) Used                         | Description                                                 |
-| ------------------------------------------------------------ | --------------------------------------- | ------------------------------------- | ----------------------------------------------------------- |
+| Workflow                                                  | Triggers                                | Agent(s) Used                         | Description                                                 |
+| --------------------------------------------------------- | --------------------------------------- | ------------------------------------- | ----------------------------------------------------------- |
 | **[labeling.yml](../workflows/labeling.yml)**             | `push`, `pull_request`, `issues` events | `labeling.agent.js`                   | Unified labeling for issues and PRs with status enforcement |
 | **[reviewer.yml](../workflows/reviewer.yml)**             | `push`, `pull_request` on `develop`     | `reviewer.agent.js`                   | Automated code review and feedback                          |
 | **[planner.yml](../workflows/planner.yml)**               | `push`, `pull_request` on `develop`     | Internal planner logic                | Project planning automation                                 |
-| **[branding.yml](../workflows/branding.yml)**             | File changes, `workflow_dispatch`       | `branding.agent.js`                   | Unified header, footer, badge automation                    |
+| **[meta.yml](../workflows/meta.yml)**                     | File changes, `workflow_dispatch`       | `meta.agent.js`                       | Apply front matter, badges, references, quirky footers      |
 | **[badges.yml](../workflows/badges.yml)**                 | Path changes, `workflow_dispatch`       | `badges.agent.js` (Deprecated)        | Badge status updates                                        |
 | **[manage-readmes.yml](../workflows/manage-readmes.yml)** | Path changes, `workflow_dispatch`       | `manage-readmes.agent.js`             | README maintenance                                          |
 | **[header-footer.yml](../workflows/header-footer.yml)**   | File changes                            | `header-footer.agent.js` (Deprecated) | Documentation consistency                                   |
 
 ### Supporting Workflows
 
-| Workflow                                                           | Purpose                          | Agent Integration               |
-| ------------------------------------------------------------------ | -------------------------------- | ------------------------------- |
-| **[linting.yml](../workflows/linting.yml)**                       | Code quality enforcement         | Works with `linting.agent.js`   |
+| Workflow                                                        | Purpose                          | Agent Integration               |
+| --------------------------------------------------------------- | -------------------------------- | ------------------------------- |
+| **[linting.yml](../workflows/linting.yml)**                     | Code quality enforcement         | Works with `linting.agent.js`   |
 | **[jest-test-audit.yml](../workflows/jest-test-audit.yml)**     | Test execution for agents        | Runs agent test suites          |
 | **[metrics.yml](../workflows/metrics.yml)**                     | Repository health metrics        | Data used by multiple agents    |
 | **[labels-issues-prs.yml](../workflows/labels-issues-prs.yml)** | Legacy labeling support          | Transitioning to unified system |
@@ -277,15 +277,15 @@ graph TD
 
 ## 📚 Related Resources
 
-| Resource                  | Purpose                               | Location                                                   |
-| ------------------------- | ------------------------------------- | ---------------------------------------------------------- |
-| **Main Agent Index**      | Directory of all agent specifications | [agent.md](./agent.md)                                     |
-| **Custom Instructions**   | Central Copilot/org standards         | [../custom-instructions.md](../custom-instructions.md)     |
+| Resource                  | Purpose                               | Location                                                                   |
+| ------------------------- | ------------------------------------- | -------------------------------------------------------------------------- |
+| **Main Agent Index**      | Directory of all agent specifications | [agent.md](./agent.md)                                                     |
+| **Custom Instructions**   | Central Copilot/org standards         | [../custom-instructions.md](../custom-instructions.md)                     |
 | **Automation Governance** | Workflow and agent policies           | [../../docs/AUTOMATION_GOVERNANCE.md](../../docs/AUTOMATION_GOVERNANCE.md) |
-| **Global AI Rules**       | Organization-wide AI guidelines       | [../../AGENTS.md](../../AGENTS.md)                         |
-| **Collections**           | Curated agent toolkits                | [../collections/](../collections/)                         |
-| **Metrics Directory**     | Metrics collection and configuration  | [../metrics/](../metrics/)                                 |
-| **Reporting Directory**   | Generated reports and artifacts       | [../reports/](../reports/)                             |
+| **Global AI Rules**       | Organization-wide AI guidelines       | [../../AGENTS.md](../../AGENTS.md)                                         |
+| **Collections**           | Curated agent toolkits                | [../collections/](../collections/)                                         |
+| **Metrics Directory**     | Metrics collection and configuration  | [../metrics/](../metrics/)                                                 |
+| **Reporting Directory**   | Generated reports and artifacts       | [../reports/](../reports/)                                                 |
 
 ---
 

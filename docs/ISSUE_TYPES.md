@@ -1,4 +1,33 @@
-# .github/ISSUE_TYPES.md
+---
+title: "Issue Types Reference Guide"
+description: "Canonical guide for org-wide issue type definitions, assignment, and automation. Covers all type categories, labels, and how the labeling agent assigns types."
+file_type: "documentation"
+version: "v1.0"
+created_date: "2025-10-20"
+last_updated: "2025-12-04"
+author: "LightSpeed Team"
+maintainer: "Ash Shaw"
+owners: ["lightspeedwp/maintainers"]
+tags: ["github", "labeling", "issue-types", "automation", "triage"]
+category: "governance"
+status: "active"
+stability: "stable"
+references:
+  - path: "./LABEL_STRATEGY.md"
+    description: "Unified labeling strategy and best practices"
+  - path: "./AUTOMATION_GOVERNANCE.md"
+    description: "Automation governance policies"
+  - path: "../.github/issue-types.yml"
+    description: "Canonical issue type definitions"
+  - path: "../.github/agents/labeling.agent.md"
+    description: "Labeling agent specification"
+  - path: "../.github/workflows/labeling.yml"
+    description: "Labeling workflow implementation"
+  - path: "./LABELING.md"
+    description: "Agent usage and configuration guide"
+---
+
+# Issue Types Reference Guide
 
 > **Note:** All type assignment for issues and PRs is handled by the unified [labeling agent](../.github/agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). The canonical type mapping is maintained in [issue-types.yml](../.github/issue-types.yml).
 
@@ -6,63 +35,63 @@
 
 ## Purpose
 
-Defines the org-wide standard for **Issue Types** in LightSpeed projects.  
+Defines the org-wide standard for **Issue Types** in LightSpeed projects.
 This guide is for choosing a type, understanding type automation, and aligning with org-wide labeling and reporting.
 
 ---
 
 ## Issue Types
 
-- **Task** — Small, well-scoped unit of work (e.g., config update, copy edit).  
+- **Task** — Small, well-scoped unit of work (e.g., config update, copy edit).
   *Label:* `type:task`
-- **Bug** — Broken/incorrect behaviour (e.g., error, regression, failed test).  
+- **Bug** — Broken/incorrect behaviour (e.g., error, regression, failed test).
   *Label:* `type:bug`
-- **Feature** — Net-new capability or enhancement (e.g., new block, API).  
+- **Feature** — Net-new capability or enhancement (e.g., new block, API).
   *Label:* `type:feature`
-- **Design** — Design artefacts/decisions (e.g., Figma, specs, a11y checks).  
+- **Design** — Design artefacts/decisions (e.g., Figma, specs, a11y checks).
   *Label:* `type:design`
-- **Epic** — Parent issue grouping stories/tasks for a larger outcome.  
+- **Epic** — Parent issue grouping stories/tasks for a larger outcome.
   *Label:* `type:epic`
-- **Story** — User-centred vertical slice within an Epic.  
+- **Story** — User-centred vertical slice within an Epic.
   *Label:* `type:story`
-- **Improvement** — Enhance existing behaviour or UX.  
+- **Improvement** — Enhance existing behaviour or UX.
   *Label:* `type:improve`
-- **Refactor** — Internal restructure for maintainability, no behaviour change.  
+- **Refactor** — Internal restructure for maintainability, no behaviour change.
   *Label:* `type:refactor`
-- **Build & CI** — Tooling, pipelines, packaging, releases, deploys.  
+- **Build & CI** — Tooling, pipelines, packaging, releases, deploys.
   *Label:* `type:build` (plus `area:ci` as needed)
-- **Automation** — Bots/actions/scripts that reduce toil.  
+- **Automation** — Bots/actions/scripts that reduce toil.
   *Label:* `type:automation` or `area:ci`
-- **Test Coverage** — Add or expand tests (unit, integration, E2E).  
+- **Test Coverage** — Add or expand tests (unit, integration, E2E).
   *Label:* `type:test`
-- **Performance** — Improve speed/efficiency.  
+- **Performance** — Improve speed/efficiency.
   *Label:* `type:performance`
-- **A11y** — Accessibility to WCAG 2.1 AA.  
+- **A11y** — Accessibility to WCAG 2.1 AA.
   *Label:* `type:a11y`
-- **Security** — Security issues or improvements.  
+- **Security** — Security issues or improvements.
   *Label:* `type:security`
-- **Compatibility** — Browser/device/plugin compatibility.  
+- **Compatibility** — Browser/device/plugin compatibility.
   *Label:* `type:compatibility`
-- **Integration** — Integration with external systems/services.  
+- **Integration** — Integration with external systems/services.
   *Label:* `type:integration`
-- **Release** — Release management and deployment.  
+- **Release** — Release management and deployment.
   *Label:* `type:release`
-- **Maintenance** — Routine maintenance, updates, or audits.  
+- **Maintenance** — Routine maintenance, updates, or audits.
   *Label:* `type:maintenance`
-- **Documentation** — Docs, guides, onboarding, or knowledge base.  
+- **Documentation** — Docs, guides, onboarding, or knowledge base.
   *Label:* `type:documentation`
-- **Research** — Discovery, investigation, or technical spikes.  
+- **Research** — Discovery, investigation, or technical spikes.
   *Label:* `type:research`
-- **Audit** — Security, code, or process audits.  
+- **Audit** — Security, code, or process audits.
   *Label:* `type:audit`
-- **Code Review** — Peer review, QA, or validation.  
+- **Code Review** — Peer review, QA, or validation.
   *Label:* `type:review`
-- **AI Ops** — AI/automation operations, agents, or datasets.  
+- **AI Ops** — AI/automation operations, agents, or datasets.
   *Label:* `type:ai-ops`
-- **Content Modelling** — Content structure, CPTs, or taxonomy.  
+- **Content Modelling** — Content structure, CPTs, or taxonomy.
   *Label:* `type:content-modelling`
 
-See [issue-types.yml](./issue-types.yml) for the up-to-date, machine-readable mapping.
+See ../.github/issue-types.yml for the up-to-date, machine-readable mapping.
 
 ---
 
@@ -72,7 +101,7 @@ See [issue-types.yml](./issue-types.yml) for the up-to-date, machine-readable ma
 - Then add routing labels: **Priority \+ Status \+ Area/Component**; add **Lang/Env/Compat/CPT** as needed.
 - Each section gives **Description, Why (colour), Use when, Relevant labels, Process, DoR/DoD add‑ons**.
 
-**Issue Type colour palette**  
+**Issue Type colour palette**
 Grey `#9198a1` • Blue `#4393f8` • Green `#3fb950` • Yellow `#d29922` • Orange `#8d4821` • Red `#9f3734` • Pink `#db61a2` • Purple `#ab7df8`
 
 ---
@@ -81,10 +110,10 @@ Grey `#9198a1` • Blue `#4393f8` • Green `#3fb950` • Yellow `#d29922` • O
 
 ## **🧩 Task — *Blue `#4393f8`*** {#🧩-task-—-blue-#4393f8}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Small, well‑scoped unit of work: adjust a template part, update `theme.json` tokens, tweak CI, add a block setting, write a micro‑migration, or tidy copy. Typically ≤2 days with minimal discovery.
 
-**Why blue?**  
+**Why blue?**
 Operational engineering execution.
 
 **Use when**
@@ -99,23 +128,23 @@ Operational engineering execution.
 - `comp:block-templates|template-parts|block-patterns|block-editor|theme-json|spacing|typography|color-palette`
 - `lang:php|js|css|html|md|json|yaml` • `env:staging|live` • `cpt:posts|pages` • `meta:has-pr`
 
-**Process (typical flow)**  
+**Process (typical flow)**
 Pick up from Ready → Implement → PR & review → QA/verify → Done.
 
-**DoR add-ons for Task**  
+**DoR add-ons for Task**
 AC; owner; impacted files; rollback note.
 
-**DoD add-ons for Task / PR**  
+**DoD add-ons for Task / PR**
 Tests/docs updated; screenshots; changelog if user‑visible.
 
 ---
 
 ## **🐞 Bug — *Red `#9f3734`*** {#🐞-bug-—-red-#9f3734}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Broken/incorrect behaviour: PHP errors, block render issues, CSS regressions, JS console errors, REST faults, Woo checkout breakage. Provide repro steps, expected/actual, and affected environment(s).
 
-**Why red?**  
+**Why red?**
 Risk and impact.
 
 **Use when**
@@ -130,23 +159,23 @@ Risk and impact.
 - `comp:block-editor|block-templates|template-parts|block-json|theme-json|wp-admin|settings|post-settings|block-inserter`
 - `lang:php|js|css` • `cpt:posts|pages` • `meta:has-pr`
 
-**Process (typical flow)**  
+**Process (typical flow)**
 Reproduce → Fix on branch → PR → Verify in CI/UAT → Release note.
 
-**DoR add-ons for Bug**  
+**DoR add-ons for Bug**
 Repro steps; scope; env matrix; error/logs.
 
-**DoD add-ons for Bug / PR**  
+**DoD add-ons for Bug / PR**
 Regression tests; release notes; monitors/alerts checked.
 
 ---
 
 ## **✨ Feature — *Green `#3fb950`*** {#✨-feature-—-green-#3fb950}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Net‑new capability: new block/pattern, screen, API, or editorial workflow. Includes design/spec, implementation, review, QA and rollout plan across environments.
 
-**Why green?**  
+**Why green?**
 Delivery and customer value.
 
 **Use when**
@@ -160,23 +189,23 @@ Delivery and customer value.
 - `comp:theme-json|block-templates|template-parts|block-patterns|block-variations|block-styles|style-variations|typography|color-palette|section-styles|spacing`
 - `area:design-system` • `compat:*` • `env:staging` then `env:live` • `lang:*` • `cpt:*` • `meta:has-pr`
 
-**Process (typical flow)**  
+**Process (typical flow)**
 Define spec → Design sign‑off → Build → Review → QA → Release.
 
-**DoR add-ons for Feature**  
+**DoR add-ons for Feature**
 Story; non‑functional budgets (perf/a11y/security); migration flags.
 
-**DoD add-ons for Feature / PR**  
+**DoD add-ons for Feature / PR**
 Docs & changelog; feature flags/toggles noted; rollout/rollback steps.
 
 ---
 
 ## **🎨 Design — *Purple `#ab7df8`*** {#🎨-design-—-purple-#ab7df8}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Design artefacts/decisions: UX flows, wireframes, hi‑fi Figma, block/pattern specs, `theme.json` tokens, component states, microcopy, a11y checks, and developer handoff notes.
 
-**Why purple?**  
+**Why purple?**
 Planning/specification that guides delivery.
 
 **Use when**
@@ -190,23 +219,23 @@ Planning/specification that guides delivery.
 - `area:design-system` • `comp:theme-json|block-styles|style-variations|typography|color-palette|section-styles|spacing|block-templates|template-parts|block-patterns`
 - `cpt:*` (if modelling content)
 
-**Process (typical flow)**  
+**Process (typical flow)**
 Brief → Explorations → Review → Final spec → Handoff.
 
-**DoR add-ons for Design**  
+**DoR add-ons for Design**
 Problem statement; user goals; constraints; a11y criteria; impacted components.
 
-**DoD add-ons for Design / PR**  
+**DoD add-ons for Design / PR**
 Figma links; annotated specs; token diffs; handoff checklist complete.
 
 ---
 
 ## **🧭 Epic — *Purple `#ab7df8`*** {#🧭-epic-—-purple-#ab7df8}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Parent issue grouping stories/tasks across repos to realise a larger outcome. Defines scope, timebox, and KPIs. Tracks progress via linked child issues and milestones.
 
-**Why purple?**  
+**Why purple?**
 Strategic structure and planning.
 
 **Use when**
@@ -218,23 +247,23 @@ Strategic structure and planning.
 
 - `priority:*` • `area:*` • optional `compat:*` • `env:*` for scoped rollouts • `meta:stale` (guard long‑running epics)
 
-**Process (typical flow)**  
+**Process (typical flow)**
 Create epic → Draft stories → Link children → Track roll‑up progress → Close.
 
-**DoR add-ons for Epic**  
+**DoR add-ons for Epic**
 Outcome/KPIs; milestone; child plan; risks/dependencies; stakeholders.
 
-**DoD add-ons for Epic / PR**  
+**DoD add-ons for Epic / PR**
 All children closed; KPI target met/reviewed; notes captured.
 
 ---
 
 ## **📖 Story — *Blue `#4393f8`*** {#📖-story-—-blue-#4393f8}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 User‑centred vertical slice within an Epic. Delivers a demonstrable capability with acceptance criteria, ready for UAT and release when verified.
 
-**Why blue?**  
+**Why blue?**
 Engineering execution tied to outcomes.
 
 **Use when**
@@ -252,23 +281,23 @@ Engineering execution tied to outcomes.
 - `cpt:*`
 - `meta:has-pr`
 
-**Process**  
+**Process**
 Build → Review → QA → Demo → Done.
 
-**DoR add-ons**  
+**DoR add-ons**
 AC; design refs; risks.
 
-**DoD add-ons**  
+**DoD add-ons**
 Demo evidence; docs updated; Epic progress noted.
 
 ---
 
 ## **🔧 Improvement — *Grey `#9198a1`*** {#🔧-improvement-—-grey-#9198a1}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Enhance existing behaviour or UX without adding a new feature. Examples: copy, validation, empty states, small editor polish, incremental UI consistency.
 
-**Why grey?**  
+**Why grey?**
 Quality uplift, low risk.
 
 **Use when**
@@ -284,23 +313,23 @@ Quality uplift, low risk.
 - `lang:*`
 - `cpt:*`
 
-**Process**  
+**Process**
 Scope → Implement → Light review/QA.
 
-**DoR add-ons**  
+**DoR add-ons**
 Before/after; success measure.
 
-**DoD add-ons**  
+**DoD add-ons**
 Screenshots; no regressions.
 
 ---
 
 ## **♻️ Code Refactor — *Grey `#9198a1`*** {#♻️-code-refactor-—-grey-#9198a1}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Internal restructure to improve readability/testability/maintainability without changing behaviour. Ideal for paying down technical debt and preparing for features.
 
-**Why grey?**  
+**Why grey?**
 Hygiene/maintainability.
 
 **Use when**
@@ -316,23 +345,23 @@ Hygiene/maintainability.
 - `lang:*`
 - `meta:stale` (guard long branches)
 
-**Process**  
+**Process**
 Safe refactor → Tests → Merge.
 
-**DoR add-ons**  
+**DoR add-ons**
 Risk notes; blast radius; test plan.
 
-**DoD add-ons**  
+**DoD add-ons**
 Coverage stable/↑; changelog N/A or internal.
 
 ---
 
 ## **⚙️ Build & CI — *Blue `#4393f8`*** {#⚙️-build-&-ci-—-blue-#4393f8}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Tooling, pipelines, packaging, releases, deploys. Includes actions, test runners, caching, matrix builds, and release automation.
 
-**Why blue?**  
+**Why blue?**
 Engineering operations and enablement.
 
 **Use when**
@@ -347,23 +376,23 @@ Engineering operations and enablement.
 - `env:staging` • `compat:php|wordpress`
 - `meta:no-issue-activity|no-pr-activity`
 
-**Process**  
+**Process**
 Propose → Test → Rollout.
 
-**DoR add-ons**  
+**DoR add-ons**
 Rollback plan; secrets/permissions.
 
-**DoD add-ons**  
+**DoD add-ons**
 Pipelines green; docs updated.
 
 ---
 
 ## **🤖 Automation — *Blue `#4393f8`*** {#🤖-automation-—-blue-#4393f8}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Bots/actions/scripts that reduce toil: labelers, sync scripts, scaffolding, changelog generators, stale‑sweeps.
 
-**Why blue?**  
+**Why blue?**
 Ops & engineering automation.
 
 **Use when**
@@ -378,23 +407,23 @@ Ops & engineering automation.
 - `meta:has-pr|stale|no-issue-activity|no-pr-activity`
 - `ai-ops:tools` (if AI‑assisted)
 
-**Process**  
+**Process**
 Define trigger → Dry‑run → Enable.
 
-**DoR add-ons**  
+**DoR add-ons**
 Permissions; failure modes.
 
-**DoD add-ons**  
+**DoD add-ons**
 Logs verified; audit notes.
 
 ---
 
 ## **🧪 Test Coverage — *Yellow `#d29922`*** {#🧪-test-coverage-—-yellow-#d29922}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Add or expand tests: unit, integration, E2E. Raise confidence and guard regressions across blocks, templates, and PHP APIs.
 
-**Why yellow?**  
+**Why yellow?**
 Quality signalling.
 
 **Use when**
@@ -411,23 +440,23 @@ Quality signalling.
 - `compat:*`
 - `lang:js|php`
 
-**Process**  
+**Process**
 Plan → Implement → Report.
 
-**DoR add-ons**  
+**DoR add-ons**
 Fixtures; env matrix.
 
-**DoD add-ons**  
+**DoD add-ons**
 Coverage delta; CI green.
 
 ---
 
 ## **⚡ Performance — *Yellow `#d29922`*** {#⚡-performance-—-yellow-#d29922}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Improve speed/efficiency: render and bundle sizes, query counts, LCP/CLS, lazy‑loading, asset strategy. Must include a baseline and target.
 
-**Why yellow?**  
+**Why yellow?**
 Quality budgets & measurable gains.
 
 **Use when**
@@ -444,23 +473,23 @@ Quality budgets & measurable gains.
 - `env:staging`
 - `lang:*`
 
-**Process**  
+**Process**
 Baseline → Optimise → Measure → Ship.
 
-**DoR add-ons**  
+**DoR add-ons**
 Targets and method.
 
-**DoD add-ons**  
+**DoD add-ons**
 Metrics improved; notes logged.
 
 ---
 
 ## **♿ A11y — *Pink `#db61a2`*** {#♿-a11y-—-pink-#db61a2}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Accessibility to WCAG 2.1 AA: semantics, focus, contrast, keyboard paths, screen reader support. Includes audits, fixes, and verification.
 
-**Why pink?**  
+**Why pink?**
 Inclusion and accessibility.
 
 **Use when**
@@ -476,23 +505,23 @@ Inclusion and accessibility.
 - `cpt:*`
 - `env:staging`
 
-**Process**  
+**Process**
 Audit → Fix → Verify.
 
-**DoR add-ons**  
+**DoR add-ons**
 Criteria & AT matrix.
 
-**DoD add-ons**  
+**DoD add-ons**
 Checklist \+ screenshots.
 
 ---
 
 ## **🔒 Security — *Red `#9f3734`*** {#🔒-security-—-red-#9f3734}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Hardening and fixes: sanitise/escape, nonces, capabilities, dependency CVEs, secrets handling, permission checks. Confidential handling as needed.
 
-**Why red?**  
+**Why red?**
 Risk mitigation.
 
 **Use when**
@@ -509,23 +538,23 @@ Risk mitigation.
 - `env:*`
 - `meta:stale` (time‑boxed follow‑ups)
 
-**Process**  
+**Process**
 Assess → Patch → Verify → Release.
 
-**DoR add-ons**  
+**DoR add-ons**
 Threat & impact notes.
 
-**DoD add-ons**  
+**DoD add-ons**
 Tests; disclosure plan (if needed).
 
 ---
 
 ## **🔌 Compatibility — *Orange `#8d4821`*** {#🔌-compatibility-—-orange-#8d4821}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Work to align with version/platform constraints: WordPress/Gutenberg updates, PHP min/tested‑up‑to, Woo compatibility, RTL support.
 
-**Why orange?**  
+**Why orange?**
 External dependencies and support matrix.
 
 **Use when**
@@ -540,23 +569,23 @@ External dependencies and support matrix.
 - `env:staging`
 - `meta:has-pr`
 
-**Process**  
+**Process**
 Define matrix → Test/fix → Document.
 
-**DoR add-ons**  
+**DoR add-ons**
 Target matrix; risks.
 
-**DoD add-ons**  
+**DoD add-ons**
 Readme “tested up to”; CI matrix green.
 
 ---
 
 ## **🔄 Integration — *Orange `#8d4821`*** {#🔄-integration-—-orange-#8d4821}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Integrating external plugins/services/APIs (payments, search, analytics). Includes sandboxing, fail‑path handling, logging and observability.
 
-**Why orange?**  
+**Why orange?**
 External surface area and contracts.
 
 **Use when**
@@ -572,23 +601,23 @@ External surface area and contracts.
 - `compat:*`
 - `meta:has-pr`
 
-**Process**  
+**Process**
 Sandbox → Implement → Fail‑path tests → Live.
 
-**DoR add-ons**  
+**DoR add-ons**
 Keys/secrets; flows.
 
-**DoD add-ons**  
+**DoD add-ons**
 Logs/tracing \+ docs.
 
 ---
 
 ## **🚀 Release — *Green `#3fb950`*** {#🚀-release-—-green-#3fb950}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Plan, cut and ship a release/hotfix. Coordinates changelog, tagging, deployment, and comms. Serves as the shipping record for environments.
 
-**Why green?**  
+**Why green?**
 Delivery signal.
 
 **Use when**
@@ -604,23 +633,23 @@ Delivery signal.
 - `meta:has-pr`
 - `compat:*`
 
-**Process**  
+**Process**
 Candidate → QA → Tag → Deploy → Announce.
 
-**DoR add-ons**  
+**DoR add-ons**
 Scope/date; owners.
 
-**DoD add-ons**  
+**DoD add-ons**
 Tag \+ notes; monitoring.
 
 ---
 
 ## **🧰 Maintenance — *Grey `#9198a1`*** {#🧰-maintenance-—-grey-#9198a1}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Routine upkeep: dependency bumps, lint/format, small housekeeping. Low risk but keeps repos healthy and secure.
 
-**Why grey?**  
+**Why grey?**
 Hygiene work.
 
 **Use when**
@@ -636,23 +665,23 @@ Hygiene work.
 - `compat:*`
 - `meta:no-issue-activity|no-pr-activity`
 
-**Process**  
+**Process**
 Batch → Verify → Merge.
 
-**DoR add-ons**  
+**DoR add-ons**
 Change list; risk level.
 
-**DoD add-ons**  
+**DoD add-ons**
 CI green; smoke test.
 
 ---
 
 ## **📚 Documentation — *Grey `#9198a1`*** {#📚-documentation-—-grey-#9198a1}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Docs & guides for developers, editors, or contributors. Includes READMEs, user docs, saved replies, and in‑repo handbooks.
 
-**Why grey?**  
+**Why grey?**
 Knowledge, not code.
 
 **Use when**
@@ -668,23 +697,23 @@ Knowledge, not code.
 - `ai-ops:instructions|prompts|chat-modes`
 - `meta:has-pr`
 
-**Process**  
+**Process**
 Draft → Review → Publish.
 
-**DoR add-ons**  
+**DoR add-ons**
 Audience; outline.
 
-**DoD add-ons**  
+**DoD add-ons**
 Links from README/wiki; docs build if any.
 
 ---
 
 ## **🔬 Research — *Grey `#9198a1`*** {#🔬-research-—-grey-#9198a1}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Time‑boxed exploration to reduce uncertainty: compare approaches, PoC a pattern, validate feasibility, or gather metrics to decide a direction.
 
-**Why grey?**  
+**Why grey?**
 Learning and risk reduction.
 
 **Use when**
@@ -700,23 +729,23 @@ Learning and risk reduction.
 - `ai-ops:*` (if researching prompts/agents)
 - `meta:stale`
 
-**Process**  
+**Process**
 Question/time‑box → Explore → Report.
 
-**DoR add-ons**  
+**DoR add-ons**
 Hypothesis; success test.
 
-**DoD add-ons**  
+**DoD add-ons**
 Findings; follow‑ups filed.
 
 ---
 
 ## **🧹 Chore — *Grey `#9198a1`*** {#🧹-chore-—-grey-#9198a1}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Small housekeeping: file moves, ignore rules, repo settings, GH Actions tweaks. Quicker than Tasks; often unblocks other work.
 
-**Why grey?**  
+**Why grey?**
 Low‑risk hygiene.
 
 **Use when**
@@ -731,23 +760,23 @@ Low‑risk hygiene.
 - `meta:no-issue-activity|no-pr-activity`
 - `contrib:good-first-issue` (if suitable)
 
-**Process**  
+**Process**
 Quick change → Review → Merge.
 
-**DoR add-ons**  
+**DoR add-ons**
 Tiny scope; owner.
 
-**DoD add-ons**  
+**DoD add-ons**
 Verified; no side effects.
 
 ---
 
 ## **🧾 Audit — *Grey `#9198a1`*** {#🧾-audit-—-grey-#9198a1}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Structured review of current state, producing findings and actions: a11y, performance, security, content, or SEO audits.
 
-**Why grey?**  
+**Why grey?**
 Assessment to drive follow‑ups.
 
 **Use when**
@@ -764,23 +793,23 @@ Assessment to drive follow‑ups.
 - `env:staging`
 - `meta:stale`
 
-**Process**  
+**Process**
 Scope → Review → Report → File actions.
 
-**DoR add-ons**  
+**DoR add-ons**
 Criteria/tools; sampling.
 
-**DoD add-ons**  
+**DoD add-ons**
 Report \+ actions list.
 
 ---
 
 ## **👀 Code Review — *Blue `#4393f8`*** {#👀-code-review-—-blue-#4393f8}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Focused review tasks not tied to a single PR (cross‑cutting, security sweeps, migration reviews) or formal approvals on complex changes.
 
-**Why blue?**  
+**Why blue?**
 Engineering assurance.
 
 **Use when**
@@ -795,23 +824,23 @@ Engineering assurance.
 - `comp:*`
 - quality areas via `compat:*` or `area:*`
 
-**Process**  
+**Process**
 Request → Review → Approve/changes → Merge.
 
-**DoR add-ons**  
+**DoR add-ons**
 PR links; review asks.
 
-**DoD add-ons**  
+**DoD add-ons**
 Approvals; follow‑ups filed.
 
 ---
 
 ## **🧠 AI Ops — *Blue `#4393f8`*** {#🧠-ai-ops-—-blue-#4393f8}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Manage AI assets and workflows: instructions, prompts, chat modes, agents, datasets, evaluations and tools that live in the repo.
 
-**Why blue?**  
+**Why blue?**
 Engineering operations for AI systems.
 
 **Use when**
@@ -826,23 +855,23 @@ Engineering operations for AI systems.
 - `lang:md|json|yaml`
 - `area:design-system` (if UX surfacing)
 
-**Process**  
+**Process**
 Draft → Review (legal/eng) → Publish → Iterate.
 
-**DoR add-ons**  
+**DoR add-ons**
 Risks/governance.
 
-**DoD add-ons**  
+**DoD add-ons**
 Versioned; rollout notes.
 
 ---
 
 ## **🗂️ Content Modelling — *Purple `#ab7df8`*** {#🗂️-content-modelling-—-purple-#ab7df8}
 
-**Description (200–250 chars):**  
+**Description (200–250 chars):**
 Define post types/taxonomies/fields and map to templates/patterns. Aligns with editor experience, tokens, and migrations for authoring at scale.
 
-**Why purple?**  
+**Why purple?**
 Information architecture & design decisions.
 
 **Use when**
@@ -857,13 +886,13 @@ Information architecture & design decisions.
 - `comp:block-templates|template-parts|block-patterns|theme-json|color-palette|typography|spacing`
 - `env:staging`
 
-**Process**  
+**Process**
 Audit → IA → Model → Template map → Review → Handoff.
 
-**DoR add-ons**  
+**DoR add-ons**
 Goals/constraints; migration notes.
 
-**DoD add-ons**  
+**DoD add-ons**
 Schema approved; redirects in place.
 
 ---

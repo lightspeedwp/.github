@@ -47,8 +47,8 @@ Files in the parent `agents/` directory are **executable agents** that:
 | `label-reporting.js` | Label analytics and reporting               | Labeling workflows             |
 | `status-enforcer.js` | One-hot label enforcement                   | `labeling.agent.js`            |
 | `readmeUtils.js`     | README file discovery and updates           | `manage-readmes.agent.js`      |
-| `badgeUtils.js`      | Badge generation and management             | `branding.agent.js`            |
-| `footerUtils.js`     | Footer generation and insertion             | `branding.agent.js`            |
+| `badgeUtils.js`      | Badge generation and management             | `meta.agent.js`                |
+| `footerUtils.js`     | Footer generation and insertion             | `meta.agent.js`                |
 | `yaml-parser.js`     | YAML configuration parsing                  | Multiple agents                |
 | `yaml-validator.js`  | Schema validation for YAML files            | Validation workflows           |
 
@@ -108,7 +108,7 @@ includes/
 
 - [Agent Directory](../agent.md) - Main agent index
 - [Coding Standards](../../instructions/coding-standards.instructions.md)
-- [Testing Standards](../../instructions/tests.instructions.md)
+- [Quality Assurance](../../instructions/quality-assurance.instructions.md)
 - [Automation Governance](../../automation/AUTOMATION_GOVERNANCE.md)
 
 ---

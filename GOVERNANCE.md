@@ -1,6 +1,21 @@
+---
+file_type: "documentation"
+title: "Governance"
+description: "Maintainer and contributor roles, responsibilities, and decision-making processes for LightSpeed community health repository"
+version: "1.0"
+last_updated: "2025-12-04"
+owners: ["LightSpeed Maintainers"]
+tags: ["governance", "maintainers", "contributors", "decision-making", "roles"]
+references:
+  - path: "CONTRIBUTING.md"
+    description: "Contribution guidelines"
+  - path: "CODE_OF_CONDUCT.md"
+    description: "Code of conduct"
+---
+
 # LightSpeed Community Health Repo Governance
 
-Defines maintainer/contributor roles and decision making.  
+Defines maintainer/contributor roles and decision making.
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ## Overview

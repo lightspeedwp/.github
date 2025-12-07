@@ -1,5 +1,5 @@
 ---
-_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER_SCHEMA.md](../.github/FRONTMATTER_SCHEMA.md)._
+_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md)._
 ---
 
 # LightSpeed Issue Creation Guide
@@ -12,7 +12,7 @@ This guide describes how to create actionable, well-labeled issues in LightSpeed
 
 - **Search existing issues** to avoid duplicates.
 - **Decide on the right issue type:** Is this a bug, feature, task, doc update, design, or something else?
-- **Is your question general or exploratory?**  
+- **Is your question general or exploratory?**
   For open-ended questions, proposals, or feedback, use [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions).
 
 ---
@@ -65,7 +65,7 @@ Labels are managed automatically, but review and adjust as needed.
 
 ## 5. **Write a Clear and Consistent Title**
 
-Format:  
+Format:
 `[Phase X.Y] Area/Component: Brief description`
 
 Examples:

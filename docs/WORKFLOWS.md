@@ -1,11 +1,11 @@
 ---
-_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER_SCHEMA.md](../.github/FRONTMATTER_SCHEMA.md)._
+_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md)._
 ---
 
 # LightSpeedWP Core GitHub Workflows
 
-This document is the single source of truth for all core GitHub workflows in the `.github/workflows/` directory.  
-**Each workflow must correspond to a single agent in `.github/agents/` where possible.**  
+This document is the single source of truth for all core GitHub workflows in the `.github/workflows/` directory.
+**Each workflow must correspond to a single agent in `.github/agents/` where possible.**
 Workflows and agents automate project health, enforce governance, and maintain data and process quality across all repos.
 
 ---
@@ -79,9 +79,9 @@ on:
 
 ## 1. `release.yml` — **Release Agent**
 
-**Branch:** `main` only  
-**Agent:** [`release.agent.js`](../.github/agents/release.agent.js)  
-**Purpose:**  
+**Branch:** `main` only
+**Agent:** `release.agent.js`
+**Purpose:**
 Automates versioning, changelog, tagging, and release notes in a single, auditable workflow.
 
 **Triggers:**
@@ -103,9 +103,9 @@ Automates versioning, changelog, tagging, and release notes in a single, auditab
 
 ## 2. `planner.yml` — **Planner Agent**
 
-**Branch:** `develop`  
-**Agent:** [`planner.agent.js`](../scripts/agents/planner.agent.js)  
-**Purpose:**  
+**Branch:** `develop`
+**Agent:** [`planner.agent.js`](../scripts/agents/planner.agent.js)
+**Purpose:**
 Posts a Markdown checklist and exit criteria to PRs, standardizing merge readiness and ensuring governance.
 
 **Triggers:**
@@ -121,9 +121,9 @@ Posts a Markdown checklist and exit criteria to PRs, standardizing merge readine
 
 ## 3. `reviewer.yml` — **Reviewer Agent**
 
-**Branch:** `develop`  
-**Agent:** [`reviewer.agent.js`](../scripts/agents/reviewer.agent.js)  
-**Purpose:**  
+**Branch:** `develop`
+**Agent:** [`reviewer.agent.js`](../scripts/agents/reviewer.agent.js)
+**Purpose:**
 Automates PR review and feedback using reviewer agent.
 
 **Triggers:**
@@ -139,10 +139,10 @@ Automates PR review and feedback using reviewer agent.
 
 ## 4. `labeling.yml` — **Unified Labeling, Status, and Type Automation**
 
-**Branch:** `develop`  
-**Agent:** [`labeling.agent.js`](../scripts/agents/labeling.agent.js)  
-**Purpose:**  
-Unified workflow for all labeling, status/priority, and issue type automation.  
+**Branch:** `develop`
+**Agent:** [`labeling.agent.js`](../scripts/agents/labeling.agent.js)
+**Purpose:**
+Unified workflow for all labeling, status/priority, and issue type automation.
 
 **Triggers:**
 
@@ -170,9 +170,9 @@ Unified workflow for all labeling, status/priority, and issue type automation.
 
 ## 5. `project-meta-sync.yml` — **Project Board Metadata Sync**
 
-**Branch:** `develop`  
-**Agent:** [project meta sync agent, if present]  
-**Purpose:**  
+**Branch:** `develop`
+**Agent:** [project meta sync agent, if present]
+**Purpose:**
 Maps issues/PRs to projects and syncs status/priority/type fields from labels.
 
 **Triggers:**
@@ -243,24 +243,25 @@ Validates and generates changelog entries.
 
 ---
 
-## 13. `branding.yml` — **Branding Automation**
+## 13. `meta.yml` — **Meta Data Automation**
 
 **Branch:** `develop`
-**Agent:** [`branding.agent.js`](../scripts/agents/branding.agent.js)
+**Agent:** [`meta.agent.js`](../scripts/agents/meta.agent.js)
 **Purpose:**
-Unified header, footer, and badge automation for documentation.
+Apply documentation metadata in one pass: validate/enrich front matter, update badges, inject human references, and select category-specific quirky footers.
 
 **Triggers:**
 
-- File changes to documentation, badges, or headers/footers
+- File changes to documentation or metadata config
 - Weekly schedule
 - `workflow_dispatch`
 
 **Key Steps:**
 
-- Updates headers and footers across documentation
-- Manages badge consistency
-- Runs branding agent
+- Validates front matter
+- Updates badge blocks under the H1
+- Inserts reference blocks (when present) and applies deterministic quirky footers by category
+- Runs the meta agent
 
 ---
 
@@ -281,7 +282,7 @@ Repository badge status updates and maintenance.
 - Updates repository badges
 - Maintains badge consistency
 
-**Note:** Deprecated in favor of `branding.yml` for most use cases.
+**Note:** Deprecated in favor of `meta.yml` for most use cases.
 
 ---
 
@@ -313,7 +314,7 @@ Gathers repository health and performance metrics.
 
 ---
 
-*This document must be updated whenever workflows are changed, added, or removed.  
+*This document must be updated whenever workflows are changed, added, or removed.
 It is the single source of truth for workflow governance in LightSpeedWP projects.*
 
 # GitHub Actions Workflow Validation Framework

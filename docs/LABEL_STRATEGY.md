@@ -1,5 +1,5 @@
 ---
-_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER_SCHEMA.md](../.github/FRONTMATTER_SCHEMA.md)._
+_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md)._
 ---
 
 # LightSpeed GitHub Labelling Strategy
@@ -111,7 +111,7 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 ## 6. Automation, Workflow, and Agents
 
-- **Labeler Config:**  
+- **Labeler Config:**
   `.github/labeler.yml` auto-applies labels based on:
   - Branch prefixes (e.g., `feat/`, `fix/`)
   - File paths/globs (e.g., `src/blocks/**` → `area:block-editor`)
@@ -195,7 +195,7 @@ The labeling agent automates all aspects of labeling, status/priority enforcemen
 - **Entry Point:**
   The agent is triggered via the `labeling.yml` workflow on issue and PR events.
 - **Config-Driven:**
-  It uses `.github/automation/labels.yml`, `.github/automation/labeler.yml`, and `.github/automation/issue-types.yml` for all canonical label/type logic.
+  It uses `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml` for all canonical label/type logic.
 - **Modular Utilities:**
   The agent orchestrates core logic by calling a suite of shared utility modules in `scripts/utility/`, each responsible for one aspect (label lookup, type assignment, file/branch rules, reporting, etc.).
 
@@ -292,24 +292,24 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 
 ## 5. **Configuration & Files**
 
-- `.github/automation/labels.yml`: Canonical label definitions (names, colors, aliases)
-- `.github/automation/labeler.yml`: File/branch-based label rules
-- `.github/automation/issue-types.yml`: Canonical issue type definitions
+- `.github/labels.yml`: Canonical label definitions (names, colors, aliases)
+- `.github/labeler.yml`: File/branch-based label rules
+- `.github/issue-types.yml`: Canonical issue type definitions
 - `.github/agents/includes/`: Shared JS helpers for all agents/scripts
 
 ---
 
 ## 6. **Best Practices**
 
-- **Agents orchestrate, utilities do the work:**  
+- **Agents orchestrate, utilities do the work:**
   Keep agent files lean—just call helpers, passing context and config.
-- **Always use canonical config:**  
+- **Always use canonical config:**
   Never hardcode label/type lists; always read from YAML.
 - **Write utility tests:**
   Each utility in `scripts/agents/includes/` should have a test in `scripts/agents/includes/__tests__/`.
-- **Keep logic DRY:**  
+- **Keep logic DRY:**
   Avoid duplicate logic for label lookup, migration, or reporting.
-- **Document all new utility functions:**  
+- **Document all new utility functions:**
   Use JSDoc or comment blocks so team members can easily extend.
 
 ---
@@ -317,7 +317,7 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 ## 7. **Troubleshooting & Extension**
 
 - **Missing labels or types?**
-  Check `.github/automation/labels.yml` and `.github/automation/issue-types.yml` for missing/typo entries.
+  Check `.github/labels.yml` and `.github/issue-types.yml` for missing/typo entries.
 - **Label not applied as expected?**
   Debug with utility tests in `.github/agents/includes/__tests__/`.
 - **Want to add a new heuristic or report?**

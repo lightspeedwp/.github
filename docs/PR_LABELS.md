@@ -1,12 +1,12 @@
 # .github/PR_LABELS.md
 
-> **Note:** All PR labeling, status, type, and standardization is handled by the unified [labeling agent](../.github/agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). The canonical PR labels and assignment rules are maintained in [labels.yml](../.github/labels.yml) and [labeler.yml](../.github/labeler.yml).
+> **Note:** All PR labeling, status, type, and standardization is handled by the unified labeling agent and labeling workflow. The canonical PR labels and assignment rules are maintained in ../.github/labels.yml and ../.github/labeler.yml.
 
 ---
 
 ## Purpose
 
-Defines the org-wide standard for high-signal, automated **PR labeling** for review routing, release hygiene, and search in LightSpeed projects.  
+Defines the org-wide standard for high-signal, automated **PR labeling** for review routing, release hygiene, and search in LightSpeed projects.
 Use this reference for consistent, correct PR labels and full alignment with automation.
 
 ---

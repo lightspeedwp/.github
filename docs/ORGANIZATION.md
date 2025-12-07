@@ -1,5 +1,16 @@
 ---
-_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER_SCHEMA.md](../.github/FRONTMATTER_SCHEMA.md)._
+file_type: "documentation"
+title: "Documentation Organization"
+description: "Document types, folder structure, and navigation guide for LightSpeedWP repository"
+version: "1.0"
+last_updated: "2025-12-04"
+owners: ["LightSpeed Team"]
+tags: ["documentation", "organization", "structure", "navigation"]
+references:
+  - path: VERSIONING.md
+    description: "Versioning conventions"
+  - path: FRONTMATTER_SCHEMA.md
+    description: "Frontmatter schema reference"
 ---
 
 # Documentation Organization
@@ -22,35 +33,35 @@ Document types, folder structure, and navigation guide.
 
 ## Folder Structure
 
-```
+\`\`\`
 docs/
-  ARCHITECTURE.md
-  DECISIONS.md
-  DISCUSSIONS.md
-  ISSUE_CREATION_GUIDE.md
-  LABEL_STRATEGY.md
-  ORGANIZATION.md
-  PR_CREATION_PROCESS.md
-  ROADMAP.md
-  TESTING.md
-  WORKFLOWS.md
-  VERSIONING.md
+ARCHITECTURE.md
+DECISIONS.md
+DISCUSSIONS.md
+ISSUE_CREATION_GUIDE.md
+LABEL_STRATEGY.md
+ORGANIZATION.md
+PR_CREATION_PROCESS.md
+ROADMAP.md
+TESTING.md
+WORKFLOWS.md
+VERSIONING.md
 .github/
-  labels.yml
-  labeler.yml
-  issue-types.yml
-  ...
+labels.yml
+labeler.yml
+issue-types.yml
+...
 CONTRIBUTING.md
 GOVERNANCE.md
 README.md
-```
+\`\`\`
 
 ---
 
 ## Navigation
 
-- All core documentation is under `docs/`
-- Automation and label definitions are under `.github/`
+- All core documentation is under \`docs/\`
+- Automation and label definitions are under \`.github/\`
 - Contributor and governance docs are at repo root
 - Link between docs to ensure discoverability (see cross-references in each file)
 

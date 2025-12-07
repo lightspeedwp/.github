@@ -3,14 +3,25 @@ on:
   workflow_dispatch:
     inputs:
       scope:
-        description: 'Comma-separated package scope (optional)'
+        description: "Comma-separated package scope (optional)"
         required: false
-        default: ''
+        default: ""
 jobs:
   lint:
-    uses: ./.github/workflows/lint.yml  # reuse if using reusable workflows; else inline
+    uses: ./.github/workflows/linting.yml # reuse if using reusable workflows; else inline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - name: Install
+        run: npm ci
+      - name: Lint
+        run: npm run lint
   release:
-    needs: [lint]  # hard gate
+    needs: [lint] # hard gate
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -22,12 +33,24 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: "lts/*"
       - name: Install
         run: npm ci
+      - name: Configure git user
+        run: |
+          git config user.name "lightspeed-bot"
+          git config user.email "ops@lightspeedwp.agency"
+      - name: Validate changelog (schema + unreleased content)
+        run: |
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
       - name: Run Release Agent
         run: |
-          node .github/agents/release.agent.cjs --scope "${{ github.event.inputs.scope }}" --dry-run=false
+          SCOPE_INPUT="${{ github.event.inputs.scope }}"
+          if [ -z "$SCOPE_INPUT" ]; then
+            SCOPE_INPUT="patch"
+          fi
+          node scripts/agents/release.agent.js --scope="$SCOPE_INPUT"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Post metrics

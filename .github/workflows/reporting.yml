@@ -24,7 +24,7 @@ on:
           - labeling
           - frontmatter
           - coverage
-          - branding
+          - meta
           - issue-metrics
       dry_run:
         description: 'Dry run (no changes)'
@@ -89,7 +89,7 @@ jobs:
           fi
 
           # Check for required subfolders
-          REQUIRED_DIRS="agents linting labeling frontmatter coverage branding issue-metrics"
+          REQUIRED_DIRS="agents linting labeling frontmatter coverage meta issue-metrics"
           for dir in $REQUIRED_DIRS; do
             if [ -d ".github/reports/$dir" ]; then
               echo "✅ Found .github/reports/$dir/" >> $GITHUB_STEP_SUMMARY
@@ -205,7 +205,7 @@ jobs:
           - \`.github/reports/labeling/\` - Label automation reports
           - \`.github/reports/frontmatter/\` - Schema validation reports
           - \`.github/reports/coverage/\` - Test coverage reports
-          - \`.github/reports/branding/\` - Branding metrics
+          - \`.github/reports/meta/\` - Metadata application metrics
           - \`.github/reports/issue-metrics/\` - GitHub analytics
 
           ## References

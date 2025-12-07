@@ -13,7 +13,7 @@ This repository provides a comprehensive set of instructions and prompts for Git
 
 The files are organised under the `.github/` directory:
 
-- [`AGENTS.md`](../AGENTS.md): Global AI rules applicable to all projects. Defines language, security, accessibility, modularity, and review requirements. Reference this file for central guidance on frontmatter schemas ([schemas/frontmatter.schema.json](./schemas/frontmatter.schema.json))
+- [`AGENTS.md`](../AGENTS.md): Global AI rules applicable to all projects. Defines language, security, accessibility, modularity, and review requirements. Reference this file for central guidance on frontmatter schemas ([schemas/frontmatter.schema.json](../schemas/frontmatter.schema.json))
 - [`agents/agent.md`](./agents/agent.md): Main agent index. Links all agent specs, stubs, and explains local/dry-run usage. Reference this for agent implementation and testing.
 - [`instructions/`](./instructions/): Modular `.instructions.md` files scoped by language, file type, or topic. Each file includes YAML frontmatter describing its scope, mission, guidelines, checklists, and references. See below for a full index.
 - [`prompts/prompts.md`](./prompts/prompts.md): Master prompt index and guidance. Reference this for prompt authoring conventions and to locate all available prompts.
@@ -29,36 +29,19 @@ The files are organised under the `.github/` directory:
 
 ---
 
-## Instructions Index (Table)
+## Consolidated Instructions Index (5 Files)
 
-| File                                                                                                              | Description                                                                              |
-| ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| [ai-agents.instructions.md](./instructions/ai-agents.instructions.md)                                             | Author, evaluate, and test AI agents; design agentic workflows.                          |
-| [coding-standards.instructions.md](./instructions/coding-standards.instructions.md)                               | Comprehensive coding standards and best practices for all LightSpeed WordPress projects. |
-| [frontmatter.instructions.md](./instructions/frontmatter.instructions.md)                                         | Standardise YAML frontmatter fields across docs, prompts and instructions.               |
-| [javascript-inline-documentation.instructions.md](./instructions/javascript-inline-documentation.instructions.md) | WordPress JavaScript inline documentation standards using JSDoc format.                  |
-| [json-schema.instructions.md](./instructions/json-schema.instructions.md)                                         | Create, validate, and document JSON Schemas; wire them into CI.                          |
-| [labels-issues.instructions.md](./instructions/labels-issues.instructions.md)                                     | Org-wide labels & issue types; automate labels on PRs only.                              |
-| [linting-css.instructions.md](./instructions/linting-css.instructions.md)                                         | stylelint aligned with WordPress CSS rules.                                              |
-| [linting-html.instructions.md](./instructions/linting-html.instructions.md)                                       | HTML validation; accessibility and semantics first.                                      |
-| [linting-javascript.instructions.md](./instructions/linting-javascript.instructions.md)                           | ESLint + Prettier aligned to WordPress and LightSpeed standards; fix before commit.      |
-| [linting-json.instructions.md](./instructions/linting-json.instructions.md)                                       | JSON schema validation; sorted keys where helpful.                                       |
-| [linting-markdown.instructions.md](./instructions/linting-markdown.instructions.md)                               | markdownlint rules; keep headings, lists and links consistent.                           |
-| [linting-php.instructions.md](./instructions/linting-php.instructions.md)                                         | PHPCS with WordPress rulesets; auto-fix via phpcbf when safe.                            |
-| [linting-python.instructions.md](./instructions/linting-python.instructions.md)                                   | Black + Ruff; type hints required.                                                       |
-| [linting-shell.instructions.md](./instructions/linting-shell.instructions.md)                                     | Shellcheck with strict mode; portable sh where possible.                                 |
-| [linting-tests.instructions.md](./instructions/linting-tests.instructions.md)                                     | Consistent test style across Jest, Playwright, Python and Bats.                          |
-| [linting-yaml.instructions.md](./instructions/linting-yaml.instructions.md)                                       | YAML schema-aware linting; prefer 2-space indent.                                        |
-| [pattern-development.instructions.md](./instructions/block-theme/pattern-development.instructions.md)             | Guide for developing reusable block patterns in LightSpeed WordPress projects.           |
-| [playwright-tests.instructions.md](./instructions/playwright-tests.instructions.md)                               | Guidelines for creating and running Playwright tests in LightSpeed WordPress projects.   |
-| [tests.instructions.md](./instructions/tests.instructions.md)                                                     | Write and expand tests: workflows, agents, Bats, Playwright, Jest, Python.               |
-| [wordpress-css.instructions.md](./instructions/wordpress-css.instructions.md)                                     | Enforce WordPress CSS coding standards, naming, specificity and formatting.              |
-| [wordpress-html.instructions.md](./instructions/wordpress-html.instructions.md)                                   | Enforce WordPress HTML standards and semantic markup.                                    |
-| [wordpress-javascript.instructions.md](./instructions/wordpress-javascript.instructions.md)                       | Apply WordPress JavaScript coding standards (formatting, naming, patterns).              |
-| [wordpress-js-docs.instructions.md](./instructions/wordpress-js-docs.instructions.md)                             | Enforce WordPress JavaScript inline documentation (JSDoc).                               |
-| [wordpress-php-docs.instructions.md](./instructions/wordpress-php-docs.instructions.md)                           | Enforce WordPress PHP inline documentation (DocBlocks).                                  |
-| [wordpress-php.instructions.md](./instructions/wordpress-php.instructions.md)                                     | Apply WordPress PHP standards (formatting, naming, security, I18N).                      |
-| [workflows.instructions.md](./instructions/workflows.instructions.md)                                             | Write secure, cache-efficient, reusable workflows with tests.                            |
+We've consolidated 22 instruction files into 5 comprehensive, maintainable guides:
+
+> 📖 **Migration Guide:** See [MIGRATION_GUIDE.md](../MIGRATION_GUIDE.md) for complete mapping of old → new file locations.
+
+| File                                                                                          | Coverage                                                      | Consolidated From |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ----------------------------------------- |
+| [languages.instructions.md](./instructions/languages.instructions.md)                         | JS/TS linting, JSDoc, JSON schemas, YAML, GitHub workflow validation | 4 files (javascript, jsdoc, json, yaml) |
+| [documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md) | Markdown standards, YAML frontmatter, Mermaid diagrams, A11y  | 3 files (markdown, frontmatter, mermaid) |
+| [quality-assurance.instructions.md](./instructions/quality-assurance.instructions.md)         | Testing pyramid, Jest, unit/integration/E2E, coverage, CI/CD  | 3 files (testing, tests, jest) |
+| [automation.instructions.md](./instructions/automation.instructions.md)                       | Agents, labeling, release, metrics, project sync, planning, review | 8 files (agents, branding, metrics, planner, project-meta-sync, release, reporting, reviewer) |
+| [community-standards.instructions.md](./instructions/community-standards.instructions.md)     | File org, naming conventions, README, saved replies, community health | 4 files (file-management, naming-conventions, readme, saved-replies) |
 
 ---
 
@@ -110,25 +93,6 @@ Use comprehensive inline documentation following WordPress standards (see [codin
 
 ---
 
-## Awesome Copilot
-
-- Reference the dynamic [awesome-copilot-prompts-index.md](./prompts/awesome-copilot-prompts-index.md) for the latest prompt additions.
-
-Use comprehensive inline documentation following WordPress standards:
-
-- [WordPress PHP Documentation Standards](https://developer.wordpress.org/coding-standards/inline-documentation-standards/php/)
-- [WordPress JavaScript Documentation Standards](https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/)
-- [Inline Documentation Standards (Overview)](https://developer.wordpress.org/coding-standards/inline-documentation-standards/)
-- [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/)
-
-- Follow WordPress coding standards for PHP, JavaScript, and CSS
-- Use `theme.json` for color palettes, typography, spacing, and layout settings
-- Prefer native WordPress block patterns and core blocks
-- Maintain accessibility: semantic HTML, ARIA roles, alt text, and correct heading hierarchy
-- Use semantic CSS naming (BEM or utility-first), avoid inline styles, and optimize assets
-
----
-
 ## Workflow Expectations
 
 - Use GitHub Issues to track tasks, feature branches, and Pull Requests for code review
@@ -140,8 +104,8 @@ Use comprehensive inline documentation following WordPress standards:
 
 ## Using Instructions & Prompts
 
-- `.github/.github/instructions/` contains `.instructions.md` files for file-type-specific Copilot guidance
-- `.github/.github/prompts/` contains reusable prompt templates for code review, accessibility, and pattern generation
+- `.github/instructions/` contains `.instructions.md` files for file-type-specific Copilot guidance
+- `.github/prompts/` contains reusable prompt templates for code review, accessibility, and pattern generation
 - Reference these files in your workflow for consistent standards across all LightSpeed projects
 
 ---

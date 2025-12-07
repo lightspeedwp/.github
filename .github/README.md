@@ -377,6 +377,21 @@ graph TB
 ```
 
 ---
+## 📋 Instruction Consolidation (v2.0)
+
+**22 instruction files → 5 consolidated files (77% reduction)**
+
+We've consolidated related instruction files for better maintainability:
+
+- **languages.instructions.md** - JS/TS, JSON, YAML, JSDoc, linting (4 files)
+- **documentation-formats.instructions.md** - Markdown, frontmatter, Mermaid (3 files)
+- **quality-assurance.instructions.md** - Testing, Jest, coverage, CI/CD (3 files)
+- **automation.instructions.md** - Agents, labeling, release, metrics (8 files)
+- **community-standards.instructions.md** - File org, naming, README, replies (4 files)
+
+📖 **[View Migration Guide](../MIGRATION_GUIDE.md)** - Complete mapping of old → new locations
+
+---
 
 ## Comprehensive Workflow Integration
 

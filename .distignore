@@ -29,7 +29,6 @@ composer.phar
 
 # Test directories
 coverage
-playwright-report
 test-results
 tests/
 
@@ -64,7 +63,6 @@ scripts/
 .npmrc
 .prettierrc.js
 eslint.config.js
-playwright.config.js
 postcss.config.js
 stylelint.config.js
 tsconfig.json

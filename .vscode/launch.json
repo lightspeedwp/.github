@@ -25,14 +25,6 @@
             "name": "Debug Node.js Script",
             "program": "${file}",
             "console": "integratedTerminal"
-        },
-        {
-            "type": "pwa-node",
-            "request": "launch",
-            "name": "Debug Playwright E2E Tests",
-            "program": "${workspaceFolder}/node_modules/.bin/playwright",
-            "args": ["test"],
-            "console": "integratedTerminal"
         }
     ]
 }

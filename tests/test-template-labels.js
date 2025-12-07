@@ -4,7 +4,7 @@ const path = require("path");
 const yaml = require("js-yaml");
 
 const labelsYaml = yaml.load(
-  fs.readFileSync(path.resolve(".github/automation/labels.yml"), "utf8"),
+  fs.readFileSync(path.resolve(".github/labels.yml"), "utf8"),
 );
 const labels = new Set(Object.keys(labelsYaml.labels || {}));
 

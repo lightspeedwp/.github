@@ -25,7 +25,7 @@ references:
     description: "Agent specification template"
   - path: "../schemas/frontmatter.schema.json"
     description: "Frontmatter validation schema"
-  - path: "../.github/instructions/agents.instructions.md"
+  - path: "../.github/instructions/automation.instructions.md"
     description: "Agent development instructions"
 ---
 
@@ -74,7 +74,7 @@ Agent specification files (`.agent.md`) serve as the canonical documentation for
 labeling.agent.md
 reviewer.agent.md
 planner.agent.md
-branding.agent.md
+meta.agent.md
 ```
 
 ### Location
@@ -362,7 +362,7 @@ Example:
 Example:
 
 - **Triggered by**: `.github/workflows/labeling.yml`
-- **Uses config**: `.github/automation/labels.yml`
+- **Uses config**: `.github/labels.yml`
 - **Syncs with**: GitHub Projects via project-meta-sync
 ```
 
@@ -756,7 +756,7 @@ references:
 - [Agents Directory README](../.github/agents/README.md)
 - [Main Agent Index](../.github/agents/agent.md)
 - [Agent Template](../.github/agents/template.agent.md)
-- [Agent Instructions](../.github/instructions/agents.instructions.md)
+- [Automation Instructions](../.github/instructions/automation.instructions.md)
 
 ### Schema and Validation
 
@@ -766,14 +766,14 @@ references:
 ### Related Standards
 
 - [Coding Standards](../.github/instructions/coding-standards.instructions.md)
-- [Testing Standards](../.github/instructions/tests.instructions.md)
+- [Quality Assurance](../.github/instructions/quality-assurance.instructions.md)
 - [Documentation Standards](../.github/instructions/docs.instructions.md)
 
 ### Examples
 
 - [Labeling Agent](../.github/agents/labeling.agent.md) - Complex automation
 - [Reviewer Agent](../.github/agents/reviewer.agent.md) - PR review automation
-- [Branding Agent](../.github/agents/branding.agent.md) - Content management
+- [Meta Agent](../.github/agents/meta.agent.md) - Metadata and content management
 
 ---
 

@@ -14,7 +14,7 @@ Please complete all sections for review and automation.
 
 <!--
 Describe the purpose, scope, and workflow/feature/bug this test covers.
-Specify if it's Playwright, unit, integration, E2E, or other.
+Specify if it's unit, integration, or other.
 -->
 
 ## Action
@@ -50,7 +50,7 @@ Define where and how this test will be used.
 - [ ] Change is documented in the project change log
 - [ ] Test has been run and passes as expected
 - [ ] Changelog entry prepared for PR if user-facing
-- [ ] PR uses correct branch prefix (test/ or playwright/)
+- [ ] PR uses correct branch prefix (test/)
 - [ ] Approved by at least one maintainer
 
 ---
@@ -68,7 +68,7 @@ Define where and how this test will be used.
 - [ ] Changelog entry prepared for PR
 - [ ] Test passes all required scenarios and environments
 - [ ] Documentation updated (if needed)
-- [ ] PR uses correct branch prefix (test/ or playwright/)
+- [ ] PR uses correct branch prefix (test/)
 - [ ] Approved by at least one maintainer
 
 ---

@@ -17,6 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Planner
-        run: node .github/agents/planner.agent.js
+        run: node scripts/agents/planner.agent.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

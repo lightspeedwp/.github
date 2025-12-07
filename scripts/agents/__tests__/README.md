@@ -28,7 +28,7 @@ node scripts/validation/validate-agent-frontmatter.js
 | Agent File                     | Status   |
 | ------------------------------ | -------- |
 | badges.agent.md                | ✅ Valid |
-| branding.agent.md              | ✅ Valid |
+| meta.agent.md                  | ✅ Valid |
 | header-footer.agent.md         | ✅ Valid |
 | issue-type.agent.md            | ✅ Valid |
 | jsdoc-review.agent.md          | ✅ Valid |
@@ -342,7 +342,7 @@ npm test -- .github/agents/__tests__/ --verbose
 
 - [Agent Specifications](../README.md) - Main agents directory
 - [Agent Includes](../includes/README.md) - Shared utility modules
-- [Testing Standards](.github/instructions/testing.instructions.md) - Organization testing guidelines
+- [Quality Assurance](../../.github/instructions/quality-assurance.instructions.md) - Testing strategy, coverage, and CI integration
 - [Jest Configuration](jest.config.js) - Jest setup and configuration
 
 ## ✨ Continuous Integration

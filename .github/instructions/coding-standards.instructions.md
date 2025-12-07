@@ -40,17 +40,7 @@ This document is the single source of truth for all coding standards in LightSpe
 
 ## Language-Specific Standards
 
-- **CSS/SCSS/Sass:**
-  - Linting instructions index file.
-  - Reference: [`linting.instructions.md`](./linting.instructions.md)
-
-- **HTML:**
-  - Use [WordPress HTML Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/html/)
-  - Lint with html-validate + Prettier.
-  - Reference: [`linting-html.instructions.md`](./linting-html.instructions.md)
-
 - **JavaScript/TypeScript:**
-  - Use [WordPress JS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/)
   - Lint with ESLint (flat/classic), Prettier.
   - Reference: [`linting-javascript.instructions.md`](./linting-javascript.instructions.md)
 
@@ -98,5 +88,5 @@ All documentation links to files within the same repository should use `/blob/HE
 
 ---
 
-*This file is the canonical reference for all code, documentation, and automation standards in LightSpeedWP projects.  
+*This file is the canonical reference for all code, documentation, and automation standards in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards.*

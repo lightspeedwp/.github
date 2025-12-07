@@ -1,7 +1,7 @@
 ---
 title: "CLAUDE.md – Claude Agent Guidance"
 version: "v1.2"
-last_updated: "2025-12-04"
+last_updated: "2025-12-07"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Root-level guidance for Claude agents, LightSpeed model selection, and Copilot agent best practices."
@@ -15,38 +15,6 @@ references:
   - path: ".github/prompts/prompts.md"
     description: "Prompts index"
 ---
-
-# Claude Model Selection at LightSpeed
-
-Claude models are preferred for:
-
-- Deep reasoning, technical documentation, and analysis
-- Large context tasks (long documents, multi-step workflows)
-- Code review, security, and situations requiring high accuracy and safety
-
-**Available Claude Models:**
-
-- **Claude Sonnet 3.5**: Best for general reasoning, technical writing, and long context tasks. Fast, reliable, and safe.
-- **Claude Sonnet 3.7**: Improved reasoning, larger context, and better multimodal support than 3.5. Great for complex research and technical work.
-- **Claude Sonnet 3.7 Thinking**: Tuned for advanced, multi-step problem solving and deep research. Use for architectural planning, research, and when the task requires chain-of-thought.
-- **Claude Sonnet 4.0**: (if available) For highest context, most advanced reasoning, and mission-critical tasks.
-
-**Model Comparison and Use Cases:**
-
-| Model        | Strengths                             | Best For                                        | Limitations             |
-| ------------ | ------------------------------------- | ----------------------------------------------- | ----------------------- |
-| Sonnet 3.5   | Fast, safe, good context              | General analysis, doc writing, code review      | Less advanced reasoning |
-| Sonnet 3.7   | Advanced reasoning, larger context    | Deep research, breakdowns, large docs           | Slightly higher latency |
-| 3.7 Thinking | Most advanced reasoning, long context | Multi-step plans, architecture, security review | Slowest, most expensive |
-| 4.0          | Max context, highest accuracy         | Mission-critical, regulatory, legal, audits     | Cost, availability      |
-
-**Selection Guidance:**
-
-- Use **Sonnet 3.5** for most tasks (speed, context, safety)
-- Use **Sonnet 3.7** for more complex or context-heavy work, or when 3.5 hits limits
-- Use **3.7 Thinking** for tasks that require deep reasoning, multi-step planning, or strict risk/safety review
-- Use **4.0** for legal, regulatory, or mission-critical output (if available)
-- Escalate to Gemini for quantitative/Google integration or multimodal tasks; ChatGPT for creative or conversational jobs; Copilot for IDE-integrated coding
 
 **Prompting & Best Practices:**
 
@@ -65,6 +33,7 @@ You are a Claude agent (Sonnet/Opus family) at LightSpeed.
 - Write, review, and document code, technical content, and workflows for LightSpeed WordPress and web projects
 - Choose the best Claude model for the task (see guidance above)
 - Reference [AGENTS.md](./AGENTS.md), [custom instructions](./.github/custom-instructions.md), and project standards
+- Use consolidated instruction guides in `.github/instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `.github/instructions/MIGRATION_GUIDE.md`).
 - Use UK English and follow all safety and compliance best practices
 
 # Style (required)
@@ -103,9 +72,10 @@ You are a Claude agent (Sonnet/Opus family) at LightSpeed.
 
 1. Review [AGENTS.md](./AGENTS.md), [custom-instructions.md](./.github/custom-instructions.md), and [model comparison guides](./ai-model-comparison.md)
 2. Confirm project scope, requirements, and correct model selection before coding
-3. Use GitHub Issues and PRs for all changes; follow the [pull request template](./.github/PULL_REQUEST_TEMPLATE.md)
-4. Document rationale and tests for every change
-5. Automate linting, accessibility, and test coverage before merge
+3. Use GitHub Issues and PRs for all changes; start from [issue templates](./.github/ISSUE_TEMPLATE/) and [pull request template](./.github/PULL_REQUEST_TEMPLATE.md)
+4. Apply canonical labels from [.github/labels.yml](./.github/labels.yml) using [LABEL_STRATEGY.md](./docs/LABEL_STRATEGY.md), [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md), and [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md) as references
+5. Follow [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) when selecting PR templates in [.github/PULL_REQUEST_TEMPLATES/](./.github/PULL_REQUEST_TEMPLATES/) if required
+6. Document rationale and tests for every change, and automate linting, accessibility, and test coverage before merge per [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md)
 
 # Constraints (required)
 
@@ -173,14 +143,14 @@ You are a Claude agent (Sonnet/Opus family) at LightSpeed.
 
 # Resource links (optional)
 
-- [AI Model Comparison Guide](./ai-model-comparison.md)
-- [Claude Sonnet 3.5 explainer](./claude-sonnet-3.5.md)
-- [Claude Sonnet 3.7 explainer](./claude-sonnet-3.7.md)
-- [Claude Sonnet 3.7 Thinking explainer](./claude-sonnet-3.7-thinking.md)
-- [Claude Sonnet 4.0 explainer](./claude-sonnet-4.0.md)
 - [LightSpeed Custom Instructions](./.github/custom-instructions.md)
 - [AGENTS.md](./AGENTS.md)
 - [Coding Standards](./.github/instructions/coding-standards.instructions.md)
+- [Languages & Linting](./.github/instructions/languages.instructions.md)
+- [Documentation Formats](./.github/instructions/documentation-formats.instructions.md)
+- [Quality Assurance](./.github/instructions/quality-assurance.instructions.md)
+- [Automation](./.github/instructions/automation.instructions.md)
+- [Community Standards](./.github/instructions/community-standards.instructions.md)
 - [Pattern Development](./.github/instructions/block-theme/pattern-development.instructions.md)
 - [Prompts Index](./.github/prompts/prompts.md)
 - [Pull Request Template](./.github/PULL_REQUEST_TEMPLATE.md)

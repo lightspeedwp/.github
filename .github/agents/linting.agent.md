@@ -1,5 +1,5 @@
 ---
-name: "linting"
+name: "Linting"
 description: "Enforces code quality and linting standards across all supported languages and file types. Validates JavaScript/TypeScript, CSS/SCSS, HTML, JSON, Markdown, YAML, PHP, Python, and Shell scripts against canonical standards."
 target: "vscode"
 tools: ["read", "edit", "search", "shell"]

@@ -2,7 +2,7 @@
 /**
  * ============================================================================
  * Script Name: label-sync.js
- * Location: scripts/utility/label-sync.js
+ * Location: scripts/agents/includes/label-sync.js
  * Description: Utilities for syncing repository labels with canonical org standards.
  *   Includes functions for validation, standardization, and migration.
  * Version: v1.0.0

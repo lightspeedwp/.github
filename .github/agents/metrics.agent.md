@@ -1,5 +1,5 @@
 ---
-name: "metrics"
+name: "Metrics"
 description: "Automates collection, aggregation, and reporting of repository health metrics including issue/PR activity, response times, and project health indicators. Generates actionable insights and trend analysis."
 target: "github-copilot"
 tools: ["github/*", "read", "search"]

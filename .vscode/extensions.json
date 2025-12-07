@@ -41,7 +41,6 @@
         "ms-azuretools.vscode-docker",
 
         // Unit Testing Extensions - Automated testing tools
-        "ms-playwright.playwright",
         "orta.vscode-jest",
 
         // Linting Extensions - Code quality

@@ -36,10 +36,10 @@ You have access to:
   - `docs/` (for human-facing guides: `ISSUE_CREATION_GUIDE.md`, `LABEL_STRATEGY.md`, `ORGANIZATION.md`, `PR_CREATION_PROCESS.md`, `WORKFLOWS.md`, `VERSIONING.md`, etc.)
   - `.github/` (community health files, automation governance, AI/agent docs, instructions).
 - Frontmatter schema and governance:
-  - `docs/FRONTMATTER_SCHEMA.md` (or equivalent)  
+  - `docs/FRONTMATTER_SCHEMA.md` (or equivalent)
   - `docs/VERSIONING.md` for version and frontmatter rules.
 
-**Out of scope:**  
+**Out of scope:**
 
 - Changing core semantics of branching, release, or workflow docs beyond what’s needed to fix labels, links, and references.
 - Inventing new labels, issue types, or files that do not exist in the canonical configs.
@@ -61,7 +61,7 @@ When editing files, always respect these rules:
      - Label names
      - Families (status, priority, area, comp, env, lang, compat, release, meta, contrib, ai-ops, discussion, etc.)
    - Ensure label docs describe labels that actually exist in `labels.yml`:
-     - **Add/confirm** families: `env:*`, `compat:*`, `lang:*`, `area:*`, `comp:*`, `meta:*`, `ai-ops:*`, `release:*`, `discussion:*`.  
+     - **Add/confirm** families: `env:*`, `compat:*`, `lang:*`, `area:*`, `comp:*`, `meta:*`, `ai-ops:*`, `release:*`, `discussion:*`.
      - **Do not describe** any label that is not defined in `labels.yml`.
 
 3. **Frontmatter schema & references**
@@ -74,7 +74,7 @@ When editing files, always respect these rules:
    - Do **not** introduce new frontmatter keys that are not documented in the schema, unless they already appear consistently elsewhere.
 
 4. **Human “References” sections**
-   - Most docs end with a “References” / “Related Documentation” style section.  
+   - Most docs end with a “References” / “Related Documentation” style section.
    - Make sure:
      - Links are valid and point to current files (no `FRONTMATTER-SCHEMA.md` vs `FRONTMATTER_SCHEMA.md` confusion, no `labels-guide.md` if the file has been renamed to `ISSUE_LABELS.md`, etc.).
      - The set of links is consistent with frontmatter `references` (same targets, different formatting).
@@ -140,7 +140,7 @@ For each Markdown file in `docs/` and `.github/`:
      - Labels are described as **routing and automation signals** (status, priority, area, etc.), not as a parallel type system.
 
 3. **Normalise discussion/community labels:**
-   - Ensure `LABEL_STRATEGY.md` and any community docs use the canonical `discussion:*` family (e.g., `discussion:community`, `discussion:showcase`) instead of bare `community`, `showcase`, etc. :contentReference[oaicite:19]{index=19}  
+   - Ensure `LABEL_STRATEGY.md` and any community docs use the canonical `discussion:*` family (e.g., `discussion:community`, `discussion:showcase`) instead of bare `community`, `showcase`, etc. :contentReference[oaicite:19]{index=19}
 
 4. **Fix frontmatter metadata:**
    - Where frontmatter exists:
@@ -156,7 +156,7 @@ For each Markdown file in `docs/` and `.github/`:
 
 6. **Respect organisation doc:**
    - Cross-check against `docs/ORGANIZATION.md`:
-     - If a document claims another file exists somewhere else, update the link to match the structure defined in `ORGANIZATION.md`. :contentReference[oaicite:22]{index=22}  
+     - If a document claims another file exists somewhere else, update the link to match the structure defined in `ORGANIZATION.md`. :contentReference[oaicite:22]{index=22}
 
 ### Phase 3 – Validation & Reporting
 
@@ -165,7 +165,7 @@ For each Markdown file in `docs/` and `.github/`:
      - `type:` in `labels.yml` → should only exist as values in `issue-types.yml`, not label names.
      - `type:` in docs → should not suggest adding `type:*` labels to issues/PRs.
    - Check for references to:
-     - `FRONTMATTER-SCHEMA.md` (should be `FRONTMATTER_SCHEMA.md` or whatever the canonical filename is). :contentReference[oaicite:23]{index=23}  
+     - `FRONTMATTER-SCHEMA.md` (should be `FRONTMATTER_SCHEMA.md` or whatever the canonical filename is). :contentReference[oaicite:23]{index=23}
      - `labels-guide.md` (should be the current label doc: `ISSUE_LABELS.md` or `LABEL_STRATEGY.md`).
    - Ensure all `references:` frontmatter entries resolve to existing paths.
 

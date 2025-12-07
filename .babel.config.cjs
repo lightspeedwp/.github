@@ -58,7 +58,6 @@ module.exports = {
               'build', // Build output directories
               'dist', // Distribution builds
               'coverage', // Test coverage reports
-              'playwright-report', // E2E test reports
               'test-results', // Test artifacts
               'vendor', // Third-party code
               '.next', // Next.js build cache

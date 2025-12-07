@@ -1,19 +1,19 @@
 # .github/ISSUE_LABELS.md
 
-> **Note:** All labeling, status, type, and standardization is now handled by the unified [labeling agent](./agents/labeling.agent.md) and [labeling workflow](./workflows/labeling.yml). The canonical label definitions and automation rules are maintained in [labels.yml](./labels.yml) and [labeler.yml](./labeler.yml). This file provides human-readable guidance, while the YAML files are used for automation and syncing across the organization.
+> **Note:** All labeling, status, type, and standardization is now handled by the unified labeling agent and labeling workflow. The canonical label definitions and automation rules are maintained in ../.github/labels.yml and ../.github/labeler.yml. This file provides human-readable guidance, while the YAML files are used for automation and syncing across the organization.
 
 ---
 
 ## Purpose
 
-Defines the org-wide standard for providing high‑signal, automated **Issue labeling** for review routing, release hygiene, and search in LightSpeed projects.  
+Defines the org-wide standard for providing high‑signal, automated **Issue labeling** for review routing, release hygiene, and search in LightSpeed projects.
 Use this reference to classify Issues consistently, apply correct labels, and align with org-wide automation and reporting.
 
 ---
 
 ## Label Families (Issues)
 
-- **`status:*`** — blocked, duplicate, in-progress, needs-*, on-hold, ready, wontfix.
+- **`status:*`** — blocked, duplicate, in-progress, needs-\*, on-hold, ready, wontfix.
 - **`priority:*`** — critical, important, normal, minor.
 - **`type:*`** — bug, feature, documentation, task, refactor, performance, test, security, a11y, design, improvement, release, etc.
 - **`area:*`** — content, theme, navigation, forms, ci, deployment, dependencies, analytics, woocommerce, etc.
@@ -22,7 +22,7 @@ Use this reference to classify Issues consistently, apply correct labels, and al
 - **Meta & release labels:** `meta:needs-changelog`, `meta:has-pr`, `meta:no-issue-activity`, `meta:no-pr-activity`, `meta:stale`, `release:patch`, `release:minor`, `release:major`, `release:hotfix`.
 - **Contributor labels:** `contrib:good-first-issue`, `contrib:help-wanted`, `contrib:discussion`.
 
-See [labels.yml](../.github/labels.yml) for the up-to-date, authoritative list.
+See ../.github/labels.yml for the up-to-date, authoritative list.
 
 ---
 
@@ -34,14 +34,14 @@ See [labels.yml](../.github/labels.yml) for the up-to-date, authoritative list.
 - **At least one** `area:*` or `comp:*` (e.g., `area:ci`)
 - **Meta/context labels** as needed (e.g., `meta:needs-changelog`, `phase:6`)
 
-These are **enforced automatically** by the [unified labeling agent](../.github/agents/labeling.agent.md).
+These are **enforced automatically** by the unified labeling agent.
 
 ---
 
 ## Color System
 
-Labels use a consistent color palette for rapid scanning and workflow automation.  
-Colors are assigned by family and purpose; see `labels.yml` for mapping.
+Labels use a consistent color palette for rapid scanning and workflow automation.
+Colors are assigned by family and purpose; see `../.github/labels.yml` for mapping.
 
 ---
 

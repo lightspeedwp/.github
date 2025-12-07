@@ -1,3 +1,20 @@
+---
+file_type: "documentation"
+title: "Contributing Guidelines"
+description: "Comprehensive contribution guidelines for LightSpeed community health repository including setup, standards, and workflow"
+version: "1.0"
+last_updated: "2025-12-04"
+owners: ["LightSpeed Team"]
+tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
+references:
+  - path: ".github/instructions/coding-standards.instructions.md"
+    description: "Coding standards"
+  - path: "docs/LINTING.md"
+    description: "Linting standards"
+  - path: "DOCS.md"
+    description: "Documentation index"
+---
+
 # Contributing
 
 ## 🚀 Quick Start (TL;DR)
@@ -33,7 +50,7 @@ flowchart TD
 
 **Last Updated:** 2025-10-21 • **Version:** v0.2.0
 
-Thank you for your interest in contributing to LightSpeed!  
+Thank you for your interest in contributing to LightSpeed!
 To maintain a consistent, high-quality codebase and community, please follow these guidelines.
 
 ---
@@ -49,16 +66,16 @@ To maintain a consistent, high-quality codebase and community, please follow the
   - For bugs: include reproduction steps, expected vs actual behavior, screenshots, logs, and environment info.
   - For features/enhancements: describe the problem/opportunity, proposed solution, mockups/designs, and acceptance criteria.
   - For other types: explain context, goals, action items, and impact.
-- **Reference relevant docs or standards:**  
+- **Reference relevant docs or standards:**
   See [Coding Standards](.github/instructions/coding-standards.instructions.md), [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md), [Theme JSON](.github/instructions/theme-json.instructions.md), etc.
 - **Outline your planned approach for complex issues** and request feedback before implementation.
 - **Automation:** Well-formed issues using the right template are automatically labeled, routed, and prioritized.
 
 ### 2. Branching & Development
 
-- **Branch naming:**  
+- **Branch naming:**
   Use `{type}/{scope}-{short-title}` format (e.g., `feat/cart-coupon-flow`, `fix/wp6-6-compat`, `docs/readme-install-steps`, `chore/deps-2025-09`).
-- **Allowed prefixes:**  
+- **Allowed prefixes:**
   `feat/`, `fix/`, `docs/`, `chore/`, `build/`, `refactor/`, `test/`, `perf/`, `ci/`, `release/`, `hotfix/`, `design/`, `research/`.
 - See [Org-wide Branching Strategy](./docs/BRANCHING_STRATEGY.md) for full rules and automation mapping.
 - Ensure your branch maps to the correct issue type and PR template for automated labeling and changelog governance.
@@ -75,7 +92,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
 
 ### 4. Create a Pull Request (PR)
 
-- **Select the correct PR template:**  
+- **Select the correct PR template:**
   Bugfix, Feature, Chore, Docs, Build/CI, Dependencies/Maintenance, Hotfix, Release, Refactor, or General PR template.
   - Your branch prefix should match the PR template (e.g., `fix/` → Bugfix PR, `feat/` → Feature PR).
   - See [PR_LABELS.md](./docs/PR_LABELS.md) for template-to-label mapping and automation.

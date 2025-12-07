@@ -364,4 +364,4 @@ Test your Markdown:
 - [Prettier Configuration](./lint-prettier.md) - Code formatting
 - [Linting Overview](../LINTING.md) - All linting tools
 - [npm Scripts](./npm-scripts.md) - Available commands
-- [Documentation Standards](../../instructions/markdown.instructions.md) - Content guidelines
+- [Documentation Formats](../../instructions/documentation-formats.instructions.md) - Markdown/frontmatter/Mermaid guidelines

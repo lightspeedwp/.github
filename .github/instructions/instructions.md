@@ -42,8 +42,6 @@ This is the canonical index for all Copilot, agent, and automation instructions 
 
 - [automation-testing.instructions.md](./automation-testing.instructions.md) — Testing and shared utility modules
 - [gitops.instructions.md](./gitops.instructions.md) — GitOps workflows
-- [playwright-tests.instructions.md](./playwright-tests.instructions.md) — Playwright test guidelines
-- [playwright-typescript.instructions.md](./playwright-typescript.instructions.md) — Playwright with TypeScript
 - [testing.instructions.md](./testing.instructions.md) — Testing standards
 - [tests.instructions.md](./tests.instructions.md) — Test implementation guide
 - [workflows.instructions.md](./workflows.instructions.md) — GitHub Actions workflows

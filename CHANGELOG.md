@@ -9,10 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Comprehensive branding agent (`branding.agent.js`) for unified header, footer, and badge automation
+- Comprehensive meta agent (`meta.agent.js`) for unified front matter, badge, human reference, and footer automation (renamed from branding agent)
 - Unified labeling agent (`labeling.agent.js`) replacing split status/type/standardization agents
 - Extended README management with support for dynamic header/footer insertion and frontmatter validation
-- Footer schema configuration (`footer.schema.json`) and header schema for consistent branding
+- Footer schema configuration (`footer.schema.json`) and header schema for consistent presentation
 - Enhanced frontmatter validation across all `.md` files in repository
 - Support for multiple footer variants with deterministic selection via seeding
 - Emoji support in README headings for improved visual hierarchy
@@ -24,20 +24,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated all README files with emoji-enhanced headings for better visual hierarchy
 - Migrated frontmatter across core documentation to unified `frontmatter.schema.json` standard
 - Reorganized `.github/agents/` structure with shared utilities in `includes/` subdirectory
-- Consolidated badge management under branding agent (deprecated `badges.agent.js`)
-- Unified header/footer handling under branding agent (deprecated `header-footer.agent.js`)
+- Consolidated badge management under meta agent (deprecated `badges.agent.js`)
+- Unified header/footer handling under meta agent (deprecated `header-footer.agent.js`)
 - Standardized YAML frontmatter metadata across all documentation files
 - Enhanced README file templates with proper frontmatter structure
 - Updated version numbers for all core README files to reflect latest changes
 
 ### Deprecated
 
-- `badges.agent.js` - Use `branding.agent.js` instead for unified badge/header/footer management
-- `header-footer.agent.js` - Use `branding.agent.js` instead for unified automation
+- `badges.agent.js` - Use `meta.agent.js` instead for unified badge/header/footer management
+- `header-footer.agent.js` - Use `meta.agent.js` instead for unified automation
 
 ### Documentation
 
-- Added comprehensive branding agent specification in `.github/agents/branding.agent.md`
+- Added comprehensive meta agent specification in `.github/agents/meta.agent.md`
 - Updated unified labeling agent documentation with latest configuration options
 - Created detailed README templates for nested project directories
 - Enhanced footer-content.json with multiple funky footer variants
@@ -58,7 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Optimized README file updates with batch multi-replace operations
 - Improved footer selection performance with deterministic seeding
-- Enhanced memory efficiency in branding agent for large file batches
+- Enhanced memory efficiency in meta agent for large file batches
 
 ## [0.1.0] - 2025-09-25
 

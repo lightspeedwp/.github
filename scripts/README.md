@@ -7,8 +7,8 @@ owners:
 references:
   - path: ../.github/instructions/coding-standards.instructions.md
     description: Coding standards for all scripts
-  - path: ../.github/instructions/frontmatter.instructions.md
-    description: Frontmatter validation standards
+  - path: ../.github/instructions/documentation-formats.instructions.md
+    description: Frontmatter and documentation format standards
   - path: ../schemas/frontmatter.schema.json
     description: Frontmatter schema
   - path: ../schemas/collection.schema.json
@@ -299,7 +299,7 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 ## Internal References
 
 - [Coding Standards](../.github/instructions/coding-standards.instructions.md)
-- [Testing Standards](../.github/instructions/tests.instructions.md)
+- [Quality Assurance](../.github/instructions/quality-assurance.instructions.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 - [Schema Definitions](../schemas/)
 
@@ -381,7 +381,7 @@ When contributing new scripts or modifications:
 
 - [LightSpeedWP Main Repository](https://github.com/lightspeedwp/.github)
 - [Coding Standards Instructions](../.github/instructions/coding-standards.instructions.md)
-- [Testing Guidelines](../.github/instructions/tests.instructions.md)
+- [Quality Assurance](../.github/instructions/quality-assurance.instructions.md)
 - [WordPress Development Standards](https://developer.wordpress.org/coding-standards/)
 
 ## Development Resources

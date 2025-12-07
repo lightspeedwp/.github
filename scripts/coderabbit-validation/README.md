@@ -255,7 +255,7 @@ sequenceDiagram
 
 - [Schema Definitions Directory](../../schemas/)
 - [Shared Includes Directory](../includes/)
-- [Testing Guidelines](../../.github/instructions/tests.instructions.md)
+- [Quality Assurance](../../.github/instructions/quality-assurance.instructions.md)
 - [Node.js Package Configuration](../../package.json)
 
 ### 🎯 AI & Automation

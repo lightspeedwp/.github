@@ -17,11 +17,11 @@ const path = require('path');
 const fs = require('fs');
 
 // Import changelogUtils
-const changelogUtilsPath = path.join(__dirname, '../.github/agents/includes/changelogUtils.cjs');
+const changelogUtilsPath = path.join(__dirname, '../agents/includes/changelogUtils.cjs');
 
 if (!fs.existsSync(changelogUtilsPath)) {
     console.error('Error: changelogUtils.js not found at', changelogUtilsPath);
-    console.error('Please ensure .github/agents/includes/changelogUtils.js exists');
+    console.error('Please ensure scripts/agents/includes/changelogUtils.js exists');
     process.exit(1);
 }
 

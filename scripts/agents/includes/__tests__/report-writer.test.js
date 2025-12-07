@@ -499,8 +499,8 @@ describe("report-writer.js", () => {
       const telemetry = getDefaultTelemetry();
       const report = generateReport(telemetry);
 
-      expect(report).toContain("[.github/automation/labels.yml]");
-      expect(report).toContain("[.github/automation/labeler.yml]");
+      expect(report).toContain("[.github/labels.yml]");
+      expect(report).toContain("[.github/labeler.yml]");
       expect(report).toContain("Labeling Agent Usage");
     });
   });

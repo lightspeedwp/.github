@@ -1,7 +1,7 @@
 ---
 title: "GEMINI.md – Gemini Agent Guidance"
 version: "v1.2"
-last_updated: "2025-12-04"
+last_updated: "2025-12-07"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Root-level guidance for Gemini agents, with LightSpeed and Copilot best practices."
@@ -24,48 +24,23 @@ Gemini agents (Gemini Pro, Flash) are preferred at LightSpeed for:
 - Data extraction, research, and design/UI tasks
 - Integration with Google data, Workspace, or image-rich workflows
 
-**See also:** [AGENTS.md](./AGENTS.md) and [Custom Instructions](./.github/custom-instructions.md)
-
----
-
-# Model Selection: When to Use Gemini vs Other Models
-
-**Use Gemini (Pro/Flash) when:**
-
-- You need to process or generate text, images, and code in the same task
-- Tasks require fast response or are UI/data heavy (Flash excels at speed/multimodal)
-- Integrating with Google tools or handling Google Workspace content
-- Working with large context or complex data (Pro for longer context/reasoning, Flash for quick tasks)
-- Automating content extraction from screenshots, PDFs, or design files
-
-**Use ChatGPT (OpenAI) when:**
-
-- You need creative writing, brainstorming, or marketing copy
-- General conversational interactions
-- You want the broadest API/connector ecosystem
-
-**Use Claude (Anthropic) when:**
-
-- You need very long context windows (e.g., large documents)
-- Tasks require deep reasoning, analysis, or strict adherence to guidelines/safety
-
-**Use Copilot when:**
-
-- You want best-in-class code completion, IDE integration, or GitHub-native code review
-
-*See [AGENTS.md](./AGENTS.md) for model selection guidance.*
+**See also:** [AGENTS.md](./AGENTS.md), [Custom Instructions](./.github/custom-instructions.md), and consolidated guides in `.github/instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `.github/instructions/MIGRATION_GUIDE.md`).
 
 ---
 
 # Best Practices for Gemini Agents
 
-- **Prompting:** Be explicit—define goals, expected output format, and provide examples.  
+- **Prompting:** Be explicit—define goals, expected output format, and provide examples.
   Keep prompts short and focused for Flash; chunk context for Pro.
 - **Multimodal:** Use Gemini for text+image workflows, UI analysis, or design-to-code tasks.
 - **Model choice:** Flash for speed/multimodal, Pro for longer context or advanced reasoning.
 - **Verification:** Always review output for accuracy, accessibility, and compliance with LightSpeed standards.
 - **Chunk context:** For large tasks, split data and process in steps. Pin critical facts.
 - **Escalation:** If Flash or Pro can't handle a task (limits, reasoning, or context), escalate to Claude (for long context/reasoning) or ChatGPT (for creative/marketing tasks).
+- **Adhere to all coding and documentation standards.**
+- **Promote accessibility, semantic markup, and modular design.**
+- **Use Gemini for tasks best suited to its speed and multimodal strengths.**
+- **Escalate to Claude or ChatGPT when needed, per model guidance.**
 
 ---
 
@@ -122,9 +97,10 @@ You are a Gemini agent (Pro or Flash) operating in LightSpeed.
 
 1. Review all agent and model guides.
 2. Confirm project requirements and constraints.
-3. Use Issues and PRs for all changes; follow the [PR template](./.github/PULL_REQUEST_TEMPLATE.md).
-4. Document rationale, tests, and accessibility for every change.
-5. Automate linting, accessibility, and testing before merge.
+3. Use GitHub Issues and PRs for all changes; start from [issue templates](./.github/ISSUE_TEMPLATE/) and [pull request template](./.github/PULL_REQUEST_TEMPLATE.md)
+4. Apply canonical labels from [.github/labels.yml](./.github/labels.yml) using [LABEL_STRATEGY.md](./docs/LABEL_STRATEGY.md), [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md), [PR_LABELS.md](./docs/PR_LABELS.md), and [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md) as references
+5. Follow [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) when selecting PR templates in [.github/PULL_REQUEST_TEMPLATES/](./.github/PULL_REQUEST_TEMPLATES/) if required
+6. Document rationale, tests, and accessibility for every change; automate linting, accessibility, and testing before merge per [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md)
 
 # Constraints (required)
 
@@ -143,13 +119,6 @@ You are a Gemini agent (Pro or Flash) operating in LightSpeed.
 - Do not output secrets, credentials, or data.
 - Do not bypass linting, testing, accessibility, or documentation.
 - Do not use non-WordPress or unapproved tools without review.
-
-# Best Practices (required)
-
-- Adhere to all coding and documentation standards.
-- Promote accessibility, semantic markup, and modular design.
-- Use Gemini for tasks best suited to its speed and multimodal strengths.
-- Escalate to Claude or ChatGPT when needed, per model guidance.
 
 # Guardrails (required)
 
@@ -173,8 +142,15 @@ You are a Gemini agent (Pro or Flash) operating in LightSpeed.
 # Resource Links
 
 - [AGENTS.md](./AGENTS.md)
-- [Coding Standards](./.github/instructions/coding-standards.instructions.md)
 - [Pull Request Template](./.github/PULL_REQUEST_TEMPLATE.md)
+- [Branch specific Pull Request Templates](./.github/PULL_REQUEST_TEMPLATE/)
+- [Issue Templates](./.github/ISSUE_TEMPLATE/)
+- [Coding Standards](./.github/instructions/coding-standards.instructions.md)
+- [Languages & Linting](./.github/instructions/languages.instructions.md)
+- [Documentation Formats](./.github/instructions/documentation-formats.instructions.md)
+- [Quality Assurance](./.github/instructions/quality-assurance.instructions.md)
+- [Automation](./.github/instructions/automation.instructions.md)
+- [Community Standards](./.github/instructions/community-standards.instructions.md)
 - [Prompts Index](./.github/prompts/prompts.md)
 
 # Prompt (required)

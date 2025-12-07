@@ -3,7 +3,7 @@ title: "LightSpeed Community Health & Automation Repository"
 description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
 version: "2.1"
 created_date: "2025-01-10"
-last_updated: "2025-12-04"
+last_updated: "2025-12-07"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -25,8 +25,8 @@ references:
     description: "Custom instructions for AI agents"
   - path: ".github/agents/agent.md"
     description: "Main agents index"
-  - path: .github/prompts/prompts.md
-    description: Prompts index
+  - path: ".github/prompts/prompts.md"
+    description: "Prompts index"
   - path: AGENTS.md
     description: Organization-wide agents documentation
   - path: docs/README.md
@@ -35,31 +35,31 @@ references:
     description: "Contribution guidelines"
   - path: ".github/GOVERNANCE.md"
     description: "Governance policies"
-  - path: ".github/docs/AUTOMATION_GOVERNANCE.md"
+  - path: "docs/AUTOMATION_GOVERNANCE.md"
     description: "Automation governance policies"
-  - path: ".github/.github/instructions/coding-standards.instructions.md"
+  - path: "./.github/instructions/coding-standards.instructions.md"
     description: "Coding standards instructions"
-  - path: ".github/.github/instructions/linting.instructions.md"
-    description: "Linting standards index"
-  - path: ".github/.github/instructions/tests.instructions.md"
-    description: "Testing standards index"
-  - path: ".github/.github/instructions/workflows.instructions.md"
-    description: "Workflow standards"
-  - path: ".github/.github/instructions/docs.instructions.md"
-    description: "Documentation standards"
-  - path: ".github/.github/instructions/a11y.instructions.md"
-    description: "Accessibility standards"
-  - path: ".github/.github/instructions/block-theme/pattern-development.instructions.md"
+  - path: "./.github/instructions/languages.instructions.md"
+    description: "Languages, linting, JSON/YAML validation"
+  - path: "./.github/instructions/documentation-formats.instructions.md"
+    description: "Markdown, frontmatter, Mermaid, accessibility"
+  - path: "./.github/instructions/quality-assurance.instructions.md"
+    description: "Testing pyramid, Jest, coverage, CI/CD"
+  - path: "./.github/instructions/automation.instructions.md"
+    description: "Agents, labeling, release, metrics, planning"
+  - path: "./.github/instructions/community-standards.instructions.md"
+    description: "File organisation, naming, README, saved replies"
+  - path: "./.github/instructions/block-theme/pattern-development.instructions.md"
     description: "Block pattern development"
-  - path: ".github/.github/instructions/block-theme/theme-json.instructions.md"
+  - path: "./.github/instructions/block-theme/theme-json.instructions.md"
     description: "Theme JSON configuration"
-  - path: ".github/.github/instructions/block-plugin/block-json.instructions.md"
+  - path: "./.github/instructions/block-plugin/block-json.instructions.md"
     description: "Block plugin configuration"
-  - path: ".github/.github/instructions/wpcs/php-wordpress.instructions.md"
+  - path: "./.github/instructions/wpcs/php-wordpress.instructions.md"
     description: "WordPress PHP standards"
-  - path: ".github/.github/instructions/wpcs/javascript-wordpress.instructions.md"
+  - path: "./.github/instructions/wpcs/javascript-wordpress.instructions.md"
     description: "WordPress JavaScript standards"
-  - path: ".github/.github/instructions/security.instructions.md"
+  - path: "./.github/instructions/security.instructions.md"
     description: "Security standards"
 ---
 
@@ -492,7 +492,7 @@ on:
 
 jobs:
   sync:
-    uses: lightspeedwp/.github/.github/workflows/label-sync.yml@develop
+    uses: lightspeedwp/.github/workflows/label-sync.yml@develop
     with:
       labels_source_repo: "lightspeedwp/.github"
       labels_source_path: ".github/automation/labels.yml"
@@ -535,7 +535,7 @@ on:
 
 jobs:
   labeling:
-    uses: lightspeedwp/.github/.github/workflows/labeling.yml@develop
+    uses: lightspeedwp/.github/workflows/labeling.yml@develop
     secrets: inherit
 ```
 
@@ -555,7 +555,7 @@ Copy issue templates from this repository to ensure consistent triage and automa
 cp -r .github/ISSUE_TEMPLATE /path/to/your/repo/.github/
 
 # Or create a symlink (for local development)
-ln -s ../../.github/.github/ISSUE_TEMPLATE /path/to/your/repo/.github/ISSUE_TEMPLATE
+ln -s ../../.github/ISSUE_TEMPLATE /path/to/your/repo/.github/ISSUE_TEMPLATE
 ```
 
 **Available Templates:**
@@ -612,7 +612,7 @@ git checkout -b hotfix/payment-gateway-fix
 - `docs/*` → `type:documentation`, `area:documentation`
 - `hotfix/*` → `type:bug`, `priority:critical`
 
-See [Branching Strategy](./.github/automation/BRANCHING_STRATEGY.md) for complete conventions.
+See [Branching Strategy](./docs/BRANCHING_STRATEGY.md) for complete conventions.
 
 ### 6. Configuring Labeler Rules
 
@@ -721,7 +721,7 @@ on:
   workflow_dispatch:
 jobs:
   sync:
-    uses: lightspeedwp/.github/.github/workflows/label-sync.yml@develop
+    uses: lightspeedwp/.github/workflows/label-sync.yml@develop
     secrets: inherit
 EOF
 
@@ -735,7 +735,7 @@ on:
     types: [opened, edited, reopened]
 jobs:
   labeling:
-    uses: lightspeedwp/.github/.github/workflows/labeling.yml@develop
+    uses: lightspeedwp/.github/workflows/labeling.yml@develop
     secrets: inherit
 EOF
 
@@ -779,7 +779,7 @@ Set up monitoring to ensure standards remain in sync:
 
 ## Troubleshooting & Adoption
 
-- **Labels/Types not applied:** Confirm your repo references `.github/.github/automation/labels.yml` and `.github/.github/automation/issue-types.yml` from this repository.
+- **Labels/Types not applied:** Confirm your repo references `./.github/automation/labels.yml` and `./.github/automation/issue-types.yml` from this repository.
 - **Templates missing:** Ensure your repo points to `.github` for templates, or copies them from this repo.
 - **Automation issues:** Reference [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md) for setup and troubleshooting.
 - For any org-wide questions, open an issue or discussion in this repository.
@@ -790,10 +790,10 @@ Set up monitoring to ensure standards remain in sync:
 
 - [Contributing Guidelines](./CONTRIBUTING.md)
 - [Support](./SUPPORT.md)
-- [Canonical Labels](./.github/.github/automation/labels.yml)
-- [Canonical Issue Types](./.github/.github/automation/issue-types.yml)
+- [Canonical Labels](./.github/automation/labels.yml)
+- [Canonical Issue Types](./.github/automation/issue-types.yml)
 - [Governance](./docs/AUTOMATION_GOVERNANCE.md)
-- [General Instructions](./.github/.github/custom-instructions.md)
+- [General Instructions](./.github/custom-instructions.md)
 - [Documentation Index](./docs/README.md)
 
 ---
@@ -832,14 +832,14 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 ### 🤖 AI & Automation
 
 - [🧠 AI Agents Overview](./AGENTS.md) - Global AI rules and agent specifications
-- [💬 Custom Instructions](./.github/.github/custom-instructions.md) - Organization-wide Copilot settings
-- [🎯 Prompt Library](./.github/.github/prompts/prompts.md) - Reusable AI prompts and templates
+- [💬 Custom Instructions](./.github/custom-instructions.md) - Organization-wide Copilot settings
+- [🎯 Prompt Library](./.github/prompts/prompts.md) - Reusable AI prompts and templates
 
 ### ⚙️ Configuration & Standards
 
-- [🏷️ Label Management](./.github/.github/automation/labels.yml) - Canonical label definitions
-- [📋 Issue Types](./.github/.github/automation/issue-types.yml) - Standardized issue categorization
-- [🔧 Coding Standards](./.github/.github/instructions/coding-standards.instructions.md) - Development guidelines
+- [🏷️ Label Management](./.github/automation/labels.yml) - Canonical label definitions
+- [📋 Issue Types](./.github/automation/issue-types.yml) - Standardized issue categorization
+- [🔧 Coding Standards](./.github/instructions/coding-standards.instructions.md) - Development guidelines
 - [🎨 Linting Configuration](./docs/LINTING.md) - Code quality and formatting standards
 
 ### � Key Directory Documentation

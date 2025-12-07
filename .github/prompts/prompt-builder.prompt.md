@@ -72,7 +72,7 @@ Which tools does this prompt need? Common options include:
 - **File Operations**: `codebase`, `editFiles`, `search`, `problems`
 - **Execution**: `runCommands`, `runTasks`, `runTests`, `terminalLastCommand`
 - **External**: `fetch`, `githubRepo`, `openSimpleBrowser`
-- **Specialized**: `playwright`, `usages`, `vscodeAPI`, `extensions`
+- **Specialized**: `usages`, `vscodeAPI`, `extensions`
 - **Analysis**: `changes`, `findTestFiles`, `testFailure`, `searchResults`
 
 ### 8. **Technical Configuration**
@@ -93,7 +93,7 @@ Which tools does this prompt need? Common options include:
 Based on analysis of existing prompts, I will ensure your prompt includes:
 
 ✅ **Clear Structure**: Well-organized sections with logical flow
-✅ **Specific Instructions**: Actionable, unambiguous directions  
+✅ **Specific Instructions**: Actionable, unambiguous directions
 ✅ **Proper Context**: All necessary information for task completion
 ✅ **Tool Integration**: Appropriate tool selection for the task
 ✅ **Error Handling**: Guidance for edge cases and failures
@@ -148,7 +148,7 @@ The generated prompt will follow patterns observed in high-quality prompts like:
 - **Structured specifications** (create-github-action-workflow-specification)
 - **Best practice guides** (dotnet-best-practices, csharp-xunit)
 - **Implementation plans** (create-implementation-plan)
-- **Code generation** (playwright-generate-test)
+- **Code generation** (generate test patterns)
 
 Each prompt will be optimized for:
 

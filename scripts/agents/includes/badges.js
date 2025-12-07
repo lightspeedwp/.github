@@ -1,6 +1,6 @@
 /**
  * badges.js
- * Badge generation and insertion for the branding agent
+ * Badge generation and insertion for the meta agent
  * Based on .github/agents/includes/badgeUtils.js
  */
 

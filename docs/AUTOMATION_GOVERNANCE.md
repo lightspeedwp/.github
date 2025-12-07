@@ -1,6 +1,6 @@
 # Automation Governance & Agent-Driven Release Strategy
 
-**LightSpeed Organisation — Community Health Defaults**  
+**LightSpeed Organisation — Community Health Defaults**
 *Last updated: 2025-12-05*
 
 ---
@@ -10,7 +10,7 @@
 All automation in this repository is implemented and governed according to the following standards:
 
 - **Instruction-First:** Each automation workflow is paired with a canonical instruction file in [.github/instructions/workflows.instructions.md](./instructions/workflows.instructions.md).
-- **Agent-Driven:** Each workflow is powered by a corresponding agent, documented in [.github/instructions/agents.instructions.md](./instructions/agents.instructions.md).
+- **Agent-Driven:** Each workflow is powered by a corresponding agent, documented in [.github/instructions/automation.instructions.md](./instructions/automation.instructions.md).
 - **Dynamic Indexing:** Agents and workflows are discoverable and versioned via dynamic index files. These files are the single source of truth for automation and should be referenced for all changes or onboarding.
 - **Reciprocal Specification:** Every workflow must reference its agent; every agent must have a reciprocal specification file and reference its workflow(s).
 - **Evolving Standards:** All automation governance, standards, and best practices are maintained in the `.github/instructions/` folder and updated as the organization evolves.
@@ -107,7 +107,7 @@ Repositories may have specific labels not in the canonical set.
 - **Single-select Enforcement:** Exactly one `status:*`, one `priority:*`, and one `area:*` or `comp:*` per item; enforced by the labeling agent.
 - **Issue Types:** Classification is set via the Issue Type field and mirrored by `type:*` labels (for example, `type:bug`, `type:feature`). These labels are applied and normalised by the labeling agent using the canonical mapping in `.github/issue-types.yml` and the [Issue Types Guide](./ISSUE_TYPES.md).
 - **Org Standards:** All labels must match org-wide colours and naming defined in `.github/labels.yml` and documented in the [Issue Labels Guide](./ISSUE_LABELS.md) and [Issue Types Guide](./ISSUE_TYPES.md).
-- **Automated Assignment:** Label assignment and enforcement is handled by agents and described in their specifications.
+- **Automated Assignment:** Label assignment and enforcement is handled by the unified labeling agent and described in its specification.
 
 ---
 
@@ -171,6 +171,17 @@ Repositories may have specific labels not in the canonical set.
 1. Revert PR if critical issues detected
 2. Create hotfix for critical bugs
 3. Document incident in post-mortem
+
+### 4.4 Meta Data Application
+
+Documentation metadata is applied by the **Meta Agent** (`.github/agents/meta.agent.md`) via `.github/workflows/meta.yml`. Each Markdown document is processed in a single pass to ensure the following layers stay in sync:
+
+- **Front matter:** Validated and enriched against `frontmatter.schema.json`; honour `no_meta: true` (legacy: `no_branding: true`) opt-outs.
+- **Badges:** Inserted/updated under the H1 between `<!-- BADGES-START -->` and `<!-- BADGES-END -->`.
+- **Human references:** When `references` exist in front matter, a “References” block is injected immediately above the footer.
+- **Category-specific quirky footers:** Deterministically selected per `category`/`file_type` so docs share consistent, on-brand endings without repetition.
+
+Opt-outs: use `<!-- meta: off -->` (legacy `<!-- branding: off -->`) for body-level exclusions. The workflow must fail on validation errors to prevent partial metadata application.
 
 ---
 
@@ -285,6 +296,34 @@ When `develop` merges to `main` (or on a release PR to main):
 
 ---
 
+## 7. Pre-commit Hooks (Husky)
+
+To ensure code quality before it even reaches CI, we use **Husky** to run local pre-commit and pre-push hooks. This serves as a "first line" quality gate.
+
+- **Pre-commit**: `lint-staged` runs on staged files, applying linters and formatters (ESLint, Prettier, etc.). This prevents commits with style or syntax errors.
+- **Pre-push**: The full test suite (`npm test`) is run to ensure that all tests pass before code is shared with the team.
+
+This multi-layered approach provides fast local feedback and reduces CI failures. For more details on configuration and bypassing hooks, see the LINTING.md guide.
+
+```mermaid
+flowchart LR
+    A[Stage Files] --> B[git commit]
+    B --> C{Pre-commit Hook}
+    C -->|Run lint-staged| D{Checks Pass?}
+    D -->|No| E[Commit Aborted]
+    D -->|Yes| F[Commit Created]
+    F --> G[git push]
+    G --> H{Pre-push Hook}
+    H -->|Run Tests| I{Tests Pass?}
+    I -->|No| J[Push Aborted]
+    I -->|Yes| K[Push to Remote]
+    E --> L[Fix Issues]
+    J --> L
+    L --> A
+```
+
+---
+
 ## 7. Secrets & Permissions
 
 - Use repo/org **Environments** for release tokens and automation secrets.
@@ -327,7 +366,7 @@ When `develop` merges to `main` (or on a release PR to main):
 
 ---
 
-## 10. Rollout Plan
+## 11. Rollout Plan
 
 1. Add labels, Issue/PR templates, and labeler config to `.github` repo.
 2. Enable changelog enforcer and educate contributors.
@@ -336,7 +375,7 @@ When `develop` merges to `main` (or on a release PR to main):
 
 ---
 
-## 11. Maintaining and Auditing Automation
+## 12. Maintaining and Auditing Automation
 
 - **Yearly Audit:** Annually, inventory all workflows and ensure every referenced agent has a reciprocal specification file in `.github/instructions/`.
 - **Change Process:** Any automation or agent update must update both its workflow and agent instruction/specification files.
@@ -344,7 +383,7 @@ When `develop` merges to `main` (or on a release PR to main):
 
 ---
 
-## How to Use This Document
+## 13. How to Use This Document
 
 - Reference this file in repo-level README, CONTRIBUTING, and PR templates.
 - Link to it in project onboarding docs and contributor guides.
@@ -356,7 +395,7 @@ When `develop` merges to `main` (or on a release PR to main):
 ## Reference
 
 - [Workflows Instructions Index](./instructions/workflows.instructions.md)
-- [Agent Instructions Index](./instructions/agents.instructions.md)
+- [Automation Instructions](./instructions/automation.instructions.md)
 - [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
 - [CHANGELOG.md](../CHANGELOG.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
@@ -453,7 +492,7 @@ When `develop` merges to `main` (or on a release PR to main):
 
 ### 8.2 Resources
 
-- **Documentation:** [docs/LABELING_AGENT_USAGE.md](./LABELING_AGENT_USAGE.md)
+- **Documentation:** [docs/LABELING.md](./LABELING.md)
 - **Agent Spec:** [.github/agents/labeling.agent.md](.github/agents/labeling.agent.md)
 - **Label Strategy:** [docs/LABEL_STRATEGY.md](./LABEL_STRATEGY.md)
 - **Coding Standards:** [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)

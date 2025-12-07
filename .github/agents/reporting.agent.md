@@ -1,7 +1,7 @@
 ---
+name: "Reporting"
+description: "Interactive agent for creating, organising, and maintaining reports following LightSpeed standards. Guides users through report creation with proper structure and categorisation."
 file_type: "agent"
-title: "Reporting Chatmode"
-description: "Interactive chatmode for creating, organising, and maintaining reports following LightSpeed standards. Guides users through report creation with proper structure and categorisation."
 version: "v1.0"
 created_date: "2025-11-26"
 last_updated: "2025-11-26"
@@ -107,7 +107,7 @@ First, what category does this report belong to?
 - labeling (label automation)
 - frontmatter (schema validation)
 - coverage (test coverage)
-- branding (documentation branding)
+- meta (documentation metadata: badges, references, footers)
 - issue-metrics (GitHub analytics)
 ```
 
@@ -146,7 +146,7 @@ Would you like me to:
 | `labeling`      | `.github/reports/labeling/`      | Refactor analysis, sync logs       |
 | `frontmatter`   | `.github/reports/frontmatter/`   | Schema validation, compliance      |
 | `coverage`      | `.github/reports/coverage/`      | Test coverage reports              |
-| `branding`      | `.github/reports/branding/`      | Header/footer metrics              |
+| `meta`          | `.github/reports/meta/`          | Metadata application metrics       |
 | `issue-metrics` | `.github/reports/issue-metrics/` | GitHub analytics                   |
 
 ## Guardrails

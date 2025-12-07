@@ -46,4 +46,4 @@ labels: [status:needs-triage, area:ai]
 - [ ] Documentation updated
 - [ ] PR uses correct branch prefix (ai/)
 
---- 
+---

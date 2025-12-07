@@ -2,9 +2,9 @@
 file_type: "documentation"
 title: "Husky Pre-commit Hooks"
 description: "Using Husky to enforce quality gates (linting/tests) before commits"
-last_updated: "2025-11-18"
 version: "1.0.0"
-maintainers: ["LightSpeed DevOps"]
+last_updated: "2025-11-18"
+owners: ["LightSpeed DevOps"]
 tags: ["husky", "pre-commit", "lint-staged", "automation", "linting"]
 ---
 

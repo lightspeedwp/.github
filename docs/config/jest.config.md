@@ -52,7 +52,7 @@ module.exports = {
 
 ## Usage
 
-Jest is used for unit testing and is integrated with Babel and TypeScript. See [tests.instructions.md](../../.github/instructions/tests.instructions.md) for test authoring standards.
+Jest is used for unit testing and is integrated with Babel and TypeScript. See [quality-assurance.instructions.md](../../.github/instructions/quality-assurance.instructions.md) for test authoring standards.
 
 ## Related Docs
 

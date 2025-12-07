@@ -1,6 +1,7 @@
 /**
  * Jest configuration (CommonJS) for JavaScript and TypeScript tests.
  * Uses Babel for transforming JS/TS; no ts-jest required.
+ * Supports both CommonJS and ES modules via Babel transformation.
  * Loaded via --config jest.config.cjs in package.json scripts.
  */
 require('dotenv').config();
@@ -21,6 +22,10 @@ module.exports = {
     transform: {
         '^.+\\.[jt]sx?$': process.env.JEST_TRANSFORM || 'babel-jest',
     },
+    // Enable Babel to transform ES modules in scripts directory
+    transformIgnorePatterns: [
+        'node_modules/(?!(scripts)/)',
+    ],
     moduleFileExtensions: ['js', 'ts', 'jsx', 'tsx', 'json'],
     coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
     collectCoverage: process.env.JEST_COLLECT_COVERAGE === 'false' ? false : true,
@@ -37,7 +42,6 @@ module.exports = {
         '<rootDir>/dist/',
         '<rootDir>/build/',
         '<rootDir>/coverage/',
-        '<rootDir>/playwright-report/',
         '<rootDir>/test-results/',
         '<rootDir>/logs/',
         '<rootDir>/tmp/',

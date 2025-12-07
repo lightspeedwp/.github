@@ -26,7 +26,7 @@ const CATEGORIES = {
   labeling: ".github/reports/labeling",
   frontmatter: ".github/reports/frontmatter",
   coverage: ".github/reports/coverage",
-  branding: ".github/reports/branding",
+  meta: ".github/reports/meta",
   "issue-metrics": ".github/reports/issue-metrics",
 };
 
@@ -261,11 +261,14 @@ function determineCategory(content) {
     return "coverage";
   }
   if (
-    contentLower.includes("branding") ||
+    contentLower.includes("meta agent") ||
+    contentLower.includes("metadata") ||
+    contentLower.includes("branding agent") ||
     contentLower.includes("header") ||
-    contentLower.includes("footer")
+    contentLower.includes("footer") ||
+    contentLower.includes("badge")
   ) {
-    return "branding";
+    return "meta";
   }
   if (
     contentLower.includes("issue") ||

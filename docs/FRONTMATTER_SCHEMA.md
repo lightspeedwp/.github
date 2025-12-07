@@ -143,7 +143,8 @@ type: "agent"
 references:
   - "../workflows/labeling.yml"
   - "../prompts/label-issues.prompt.md"
-  - "../.github/instructions/agents.instructions.md"
+  - "../.github/instructions/automation.instructions.md"
+  - "../.github/instructions/labeling.instructions.md"
   - "./ISSUE_LABELS.md"
   - "./PR_LABELS.md"
 ---
@@ -1107,7 +1108,7 @@ npm run validate:frontmatter
 
 ### 🎯 Specialized Guides
 
-- **[Agent Development](../.github/instructions/agents.instructions.md)** — Creating AI agents
+- **[Automation & Agents](../.github/instructions/automation.instructions.md)** — Creating AI agents and automation standards
 - **[Prompt Authoring](../.github/instructions/prompt.instructions.md)** — Writing effective prompts
 - **[Instruction Files](../.github/instructions/instructions.instructions.md)** — Copilot instructions
 - **[Coding Standards](../.github/instructions/coding-standards.instructions.md)** — Development standards

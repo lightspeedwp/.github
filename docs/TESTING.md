@@ -1,5 +1,5 @@
 ---
-_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER-SCHEMA.md](../.github/FRONTMATTER-SCHEMA.md)._
+_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md)._
 ---
 
 # Testing Guide
@@ -143,10 +143,10 @@ This guide describes how to run, write, and automate tests for LightSpeed projec
 
 ## 5. Accessibility & Performance
 
-- **Accessibility:**  
-  Integrate Playwright accessibility audits using axe-core or Playwright’s built-in roles/assertions.  
+- **Accessibility:**
+  Integrate Playwright accessibility audits using axe-core or Playwright’s built-in roles/assertions.
   All new UI must meet WCAG 2.1 AA.
-- **Performance:**  
+- **Performance:**
   Run Lighthouse or Web Vitals on main user flows. Flag regressions in PRs.
 
 ---
@@ -160,7 +160,7 @@ All PRs and main branch pushes are tested via GitHub Actions:
 - **Coverage:** Minimum thresholds enforced for core code.
 - **Artifacts:** Test results and coverage reports available in CI.
 
-**CI Example:**  
+**CI Example:**
 See `.github/workflows/` for workflow definitions.
 
 ---

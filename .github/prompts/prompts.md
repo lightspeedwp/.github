@@ -1,6 +1,6 @@
 ---
 version: "v2.0"
-last_updated: "2025-12-04"
+last_updated: "2025-12-07"
 author: "LightSpeedWP Team"
 maintainer: "Ash Shaw"
 description: "Master prompt index for all Copilot Chat and automation prompts in the LightSpeed organisation. Lists and cross-references all prompt files and related instructions."
@@ -46,7 +46,6 @@ All prompt files in this directory:
 
 - **[increase-test-coverage.prompt.md](./increase-test-coverage.prompt.md)** - Expand test coverage focusing on risk and critical paths
 - **[write-phpunit-tests.prompts.md](./write-phpunit-tests.prompts.md)** - Generate comprehensive PHPUnit tests
-- **[write-playwright-tests.prompts.md](./write-playwright-tests.prompts.md)** - Create end-to-end Playwright tests
 
 #### 📚 Documentation & Content
 
@@ -174,9 +173,6 @@ All prompt files in this directory:
 - **[csharp-xunit.prompt.md](./awesome-copilot/csharp-xunit.prompt.md)** - C# XUnit testing
 - **[java-junit.prompt.md](./awesome-copilot/java-junit.prompt.md)** - Java JUnit testing
 - **[javascript-typescript-jest.prompt.md](./awesome-copilot/javascript-typescript-jest.prompt.md)** - JavaScript/TypeScript Jest testing
-- **[playwright-automation-fill-in-form.prompt.md](./awesome-copilot/playwright-automation-fill-in-form.prompt.md)** - Playwright form automation
-- **[playwright-explore-website.prompt.md](./awesome-copilot/playwright-explore-website.prompt.md)** - Playwright website exploration
-- **[playwright-generate-test.prompt.md](./awesome-copilot/playwright-generate-test.prompt.md)** - Generate Playwright tests
 
 > **📊 Statistics**: 163 total prompts across 12 categories, including 90+ advanced prompts in the awesome-copilot collection
 
@@ -212,9 +208,12 @@ Prompts evolve with our project standards:
 ### 📚 Related Documentation
 
 - **[Custom Instructions](../custom-instructions.md)** - Organization-wide Copilot settings
-- **[Agents Directory](../agents/README.md)** - Automation agents and specialized AI modes
-- **[Instructions Directory](../instructions/README.md)** - Development guidelines and standards
-- **[Collections Directory](../collections/README.md)** - Curated instruction sets
+- **[Coding Standards](../instructions/coding-standards.instructions.md)** - Code quality standards
+- **[Languages & Linting](../instructions/languages.instructions.md)** - JS/TS, JSON, YAML, linting
+- **[Quality Assurance](../instructions/quality-assurance.instructions.md)** - Testing, Jest, CI/CD
+- **[Automation](../instructions/automation.instructions.md)** - Agents, labeling, release, workflows
+- **[Documentation Formats](../instructions/documentation-formats.instructions.md)** - Markdown, frontmatter, Mermaid
+- **[Community Standards](../instructions/community-standards.instructions.md)** - File organisation, naming, README, saved replies
 
 ### 🤖 Automation Integration
 
@@ -224,9 +223,8 @@ Prompts evolve with our project standards:
 
 ### 🎯 Specialized Indexes
 
-- **[Agents Instructions](../instructions/agents.instructions.md)** - Agent-specific instruction index
-- **[Awesome Copilot Instructions](../instructions/awesome-copilot.instructions.md)** - Advanced Copilot usage
-- **[LintSpeed Linting Instructions](../instructions/linting.instructions.md)** - Code quality and linting
+- **[Agents Directory](../agents/README.md)** - Automation agents and specialized AI modes
+- **[Instructions Directory](../instructions/README.md)** - Consolidated instruction files
 
 ## 📊 Usage Statistics
 

@@ -27,7 +27,6 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "build/**", // Build output
       "dist/**", // Distribution files
       "coverage/**", // Test coverage reports
-      "playwright-report/**", // E2E test reports
       "test-results/**", // Test artifacts
       "vendor/**", // Vendor libraries
       ".next/**", // Next.js build cache

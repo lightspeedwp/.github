@@ -1,5 +1,5 @@
 ---
-_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [docs/VERSIONING.md](VERSIONING.md) and [.github/FRONTMATTER_SCHEMA.md](../.github/FRONTMATTER_SCHEMA.md)._
+_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md)._
 ---
 
 # LightSpeed Pull Request (PR) Creation Guide
@@ -10,12 +10,12 @@ This guide explains how to create actionable, well-labeled pull requests (PRs) i
 
 ## 1. **Before You Open a PR**
 
-- **Ensure your changes are linked to an actionable issue.**  
+- **Ensure your changes are linked to an actionable issue.**
   Reference the related issue number in your PR description (e.g., “Closes #123”).
 - **Rebase or update your branch to the latest `main` (or target) branch.**
-- **Run all tests and linting locally.**  
+- **Run all tests and linting locally.**
   See [Testing Guide](TESTING.md).
-- **Update documentation as needed.**  
+- **Update documentation as needed.**
   If you’ve changed behaviors or APIs, update relevant docs.
 
 ---
@@ -30,7 +30,7 @@ Use a branch prefix that matches your change type:
 - `chore/` for chores and maintenance
 - `refactor/`, `test/`, `perf/`, `ci/`, etc. as appropriate
 
-Example:  
+Example:
 `feat/header-block-responsive-layout`
 
 > **Tip:** Branch prefixes determine automation, label application, and PR template selection.
@@ -73,7 +73,7 @@ Every PR should use a standard branch prefix for correct label and template auto
 
 ## 4. **Write a Clear PR Title**
 
-Format:  
+Format:
 `[Type] Area/Component: Brief summary (Closes #issue)`
 
 Examples:

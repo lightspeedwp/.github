@@ -1,6 +1,6 @@
 /**
  * header-footer.js
- * Header and footer insertion for the branding agent
+ * Header and footer insertion for the meta agent
  * Integrates functionality from .github/agents/includes/footerUtils.js
  */
 
@@ -184,7 +184,7 @@ async function insertHeaderFooter(filePath, config = {}, options = {}) {
   }
 
   // For now, we'll just handle footers
-  // Headers are typically handled by the branding agent's applyHeader function
+  // Headers are typically handled by the meta agent's applyHeader function
   ensureFooter(filePath, { category, seed, backup });
 
   return true;

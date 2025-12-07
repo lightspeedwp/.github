@@ -1,3 +1,18 @@
+---
+file_type: "documentation"
+title: "Development Setup"
+description: "Developer setup guide and repository contribution instructions for the LightSpeed community health repository"
+version: "1.0"
+last_updated: "2025-12-04"
+owners: ["LightSpeed Team"]
+tags: ["development", "setup", "installation", "contributing"]
+references:
+  - path: "CONTRIBUTING.md"
+    description: "Full contribution guidelines"
+  - path: "docs/LINTING.md"
+    description: "Linting standards and troubleshooting"
+---
+
 # Community Health Repository Setup
 
 This document provides guidance for contributing to and maintaining this community health repository for the [LightSpeed](https://github.com/lightspeedwp/) organization.
@@ -22,7 +37,7 @@ This document provides guidance for contributing to and maintaining this communi
    npm install
    ```
 
-3. **Review `package.json`:**  
+3. **Review `package.json`:**
    Before getting started, check the `package.json` file to understand available scripts, dependencies, and tooling relevant to this repository.
 
 ## Linting and Code Quality

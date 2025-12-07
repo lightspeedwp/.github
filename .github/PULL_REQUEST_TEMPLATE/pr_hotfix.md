@@ -3,12 +3,7 @@ name: "Hotfix PR"
 about: "Critical fixes for production issues"
 title: "fix: {short summary}"
 labels:
-  [
-    "status:needs-review",
-    "area:hotfix",
-    "priority:critical",
-    "release:hotfix",
-  ]
+  ["status:needs-review", "area:hotfix", "priority:critical", "release:hotfix"]
 ---
 
 # Hotfix Pull Request
