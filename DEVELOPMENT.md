@@ -144,7 +144,7 @@ Agents are written in JavaScript, and reusable logic or utilities should be plac
 
 ## Contributing and Code of Conduct
 
-We welcome contributions! Please review our [Contributing Guidelines](https://github.com/lightspeedwp/.github/blob/master/.github/CONTRIBUTING.md) and [Code of Conduct](https://github.com/lightspeedwp/.github/blob/master/.github/CODE_OF_CONDUCT.md).
+We welcome contributions! Please review our [Contributing Guidelines](https://github.com/lightspeedwp/.github/blob/HEAD/CONTRIBUTING.md) and [Code of Conduct](https://github.com/lightspeedwp/.github/blob/HEAD/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -154,12 +154,12 @@ This project is licensed under the GNU General Public License v3.0 — see the [
 
 ## Reference
 
-- [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
-- [CHANGELOG.md](../CHANGELOG.md): Changelog format, release notes, and versioning.
-- [CONTRIBUTING.md](../CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
-- [AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
-- [Org-wide Issue Labels](./ISSUE_LABELS.md): Default labels and usage guidance.
-- [Pull Request Labels](./PR_LABELS.md): PR classification labels and automation standards.
-- [Canonical Issue Types YAML](./issue-types.yml): Machine-readable issue types for workflow and automation.
-- [Canonical Label Definitions](./labels.yml): Label names, colours, and descriptions.
-- [Automated Label Assignment Rules](./labeler.yml): Automation for applying labels based on file changes and branch patterns.
+- [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
+- [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
+- [CONTRIBUTING.md](./CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
+- [AUTOMATION_GOVERNANCE.md](docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
+- [Org-wide Issue Labels](docs/ISSUE_LABELS.md): Default labels and usage guidance.
+- [Pull Request Labels](docs/PR_LABELS.md): PR classification labels and automation standards.
+- [Canonical Issue Types YAML](.github/issue-types.yml): Machine-readable issue types for workflow and automation.
+- [Canonical Label Definitions](.github/labels.yml): Label names, colours, and descriptions.
+- [Automated Label Assignment Rules](.github/labeler.yml): Automation for applying labels based on file changes and branch patterns.

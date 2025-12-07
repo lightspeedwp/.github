@@ -2,22 +2,7 @@
 name: "⚡ Performance"
 about: "Report performance-related issues (speed, efficiency, resource usage) or propose optimizations."
 title: "[Performance] <Short summary>"
-labels:
-  [type:performance, status:needs-triage, priority:normal, area:performance]
-assignees: []
-projects: []
-milestone: ""
-file_type: performance
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+labels: [status:needs-triage, priority:normal, area:performance]
 ---
 
 <!--
@@ -91,18 +76,6 @@ Are there deadlines, business impact, or related milestones?
 Use correct branch prefix (perf/) for any PR.
 -->
 
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
-
 ---
 
 ### Definition of Ready (DoR)
@@ -131,16 +104,3 @@ Checklist items to ensure the fix/update is complete and actionable.
 - [ ] No adverse impact on other functionality
 
 ---
-
-## Directions & Next Steps
-
-<!--
-Instructions for contributors and maintainers.
--->
-
-- Double-check all details, steps to reproduce, benchmarks, and references above.
-- For any related PR, use the branch prefix `perf/` (see [Branching Strategy](../AUTOMATION_GOVERNANCE.md)).
-- Reference this issue in your PR using keywords like `fixes #{issue_number}` for auto-closing.
-- Tag a maintainer for review or triage if needed.
-- See [Contribution Guidelines](../CONTRIBUTING.md) and [Coding Standards](../instructions/coding-standards.instructions.md).
-- For automation, labels, and issue types, review [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).

@@ -2,16 +2,7 @@
 name: "🐛 Bug report"
 about: Report a bug to help us improve this WordPress project
 title: "[Bug] <Short description>"
-labels: [status:needs-triage, priority:normal, type:bug, area:core]
-assignees: []
-projects: []
-milestone: ""
-file_type: bug
-references:
-  - CONTRIBUTING.md
-  - ISSUE_TYPES.md
-  - PR_LABELS.md
-  - AUTOMATION_GOVERNANCE.md
+labels: [status:needs-triage, priority:normal, area:core]
 ---
 
 <!--
@@ -87,21 +78,9 @@ Add any other context, screenshots, code snippets, or references to related issu
 Use correct branch prefix (fix/) for any related PR.
 -->
 
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
-
 ---
 
-### Definition of Ready (DoR)
+## Definition of Ready (DoR)
 
 - [ ] Bug is reproducible and clearly described
 - [ ] Steps to reproduce written
@@ -111,7 +90,7 @@ Use correct branch prefix (fix/) for any related PR.
 - [ ] Estimate added (if relevant)
 - [ ] Ready for triage
 
-### Definition of Done (DoD)
+## Definition of Done (DoD)
 
 - [ ] Bug confirmed and reproducible
 - [ ] Fix implemented and tested (all supported browsers/devices)
@@ -123,12 +102,3 @@ Use correct branch prefix (fix/) for any related PR.
 - [ ] Linked issue closed
 
 ---
-
-## Directions & Next Steps
-
-- Review that all reproduction steps, environment details, and screenshots (if any) are included.
-- For any related PR, use the branch prefix `fix/` (see [Branching Strategy](../AUTOMATION_GOVERNANCE.md)).
-- Reference this issue in your PR using keywords like `fixes #{issue_number}` for auto-closing.
-- Tag a maintainer for review or triage if needed.
-- See [Contribution Guidelines](../CONTRIBUTING.md) and [Coding Standards](../instructions/coding-standards.instructions.md) for submission requirements.
-- For automation, labels, and issue types, check [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).

@@ -162,7 +162,7 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 ## 8. References
 
-- [Automation Governance](../.github/AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
 - [Issue Labels Guide](./ISSUE_LABELS.md)
 - [Canonical Labels & Colours](../.github/labels.yml)
 - [Labeler rules](../.github/labeler.yml)
@@ -306,7 +306,7 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - **Always use canonical config:**  
   Never hardcode label/type lists; always read from YAML.
 - **Write utility tests:**
-  Each utility in `.github/agents/includes/` should have a test in `.github/agents/includes/__tests__/`.
+  Each utility in `scripts/agents/includes/` should have a test in `scripts/agents/includes/__tests__/`.
 - **Keep logic DRY:**  
   Avoid duplicate logic for label lookup, migration, or reporting.
 - **Document all new utility functions:**  
@@ -327,9 +327,9 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 
 ## 8. **References**
 
-- [labels.yml](../.github/automation/labels.yml)
-- [labeler.yml](../.github/automation/labeler.yml)
-- [issue-types.yml](../.github/automation/issue-types.yml)
+- [labels.yml](../.github/labels.yml)
+- [labeler.yml](../.github/labeler.yml)
+- [issue-types.yml](../.github/issue-types.yml)
 - [Coding Standards](../.github/instructions/coding-standards.instructions.md)
 - [Custom Instructions](../.github/custom-instructions.md)
 - [Main Agent Spec](../.github/agents/labeling.agent.md)

@@ -3,20 +3,6 @@ name: "❓ Help / Support"
 about: "Submit your WordPress-related questions or support requests."
 title: "[Help] <Short summary>"
 labels: [question, support, status:needs-triage]
-assignees: []
-projects: []
-milestone: ""
-file_type: help
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
 ---
 
 <!--
@@ -44,37 +30,18 @@ Add any other context, screenshots, or code snippets that might help us understa
 Link to related docs, issues, or saved replies if applicable.
 -->
 
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
-
 ---
 
-### Definition of Ready (DoR)
+## Definition of Ready (DoR)
 
 - [ ] Question or issue clearly described
 - [ ] Steps taken provided
 - [ ] Context/screenshots attached (if applicable)
 
-### Definition of Done (DoD)
+## Definition of Done (DoD)
 
 - [ ] Issue resolved or routed to correct template
 - [ ] Maintainer saved reply used if applicable
 - [ ] Documentation or help resources referenced (if needed)
 
 ---
-
-## Directions & Next Steps
-
-- Review your submission for completeness and clarity.
-- Tag a maintainer if you need triage or a faster response.
-- Check [Contribution Guidelines](../CONTRIBUTING.md) and [Coding Standards](../instructions/coding-standards.instructions.md) for further help.
-- For automation, labels, and issue types, review [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).

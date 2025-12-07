@@ -1,6 +1,6 @@
 # .github/ISSUE_TYPES.md
 
-> **Note:** All type assignment for issues and PRs is handled by the unified [labeling agent](./agents/labeling.agent.md) and [labeling workflow](./workflows/labeling.yml). The canonical type mapping is maintained in [issue-types.yml](./issue-types.yml).
+> **Note:** All type assignment for issues and PRs is handled by the unified [labeling agent](../.github/agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). The canonical type mapping is maintained in [issue-types.yml](../.github/issue-types.yml).
 
 ---
 
@@ -63,74 +63,6 @@ This guide is for choosing a type, understanding type automation, and aligning w
   *Label:* `type:content-modelling`
 
 See [issue-types.yml](./issue-types.yml) for the up-to-date, machine-readable mapping.
-
----
-
-***Version:*** 1.5 • ***Last updated:*** 6 Oct 2025  
-***Scope:*** WordPress themes, plugins, blocks, WooCommerce, FSE projects  
-***Purpose:*** A practical, organisation-wide reference for **Issue Types** with colour rationale, labels to use, process guidance, and DoR/DoD templates.
-
----
-
-[0\) How to use this guide](<#0)-how-to-use-this-guide>)
-
-[1\) The Issue Types (expanded with label families)](<#1)-the-issue-types-(expanded-with-label-families)>)
-
-[🧩 Task — Blue \#4393f8](#🧩-task-—-blue-#4393f8)
-
-[🐞 Bug — Red \#9f3734](#🐞-bug-—-red-#9f3734)
-
-[✨ Feature — Green \#3fb950](#✨-feature-—-green-#3fb950)
-
-[🎨 Design — Purple \#ab7df8](#🎨-design-—-purple-#ab7df8)
-
-[🧭 Epic — Purple \#ab7df8](#🧭-epic-—-purple-#ab7df8)
-
-[📖 Story — Blue \#4393f8](#📖-story-—-blue-#4393f8)
-
-[🔧 Improvement — Grey \#9198a1](#🔧-improvement-—-grey-#9198a1)
-
-[♻️ Code Refactor — Grey \#9198a1](#♻️-code-refactor-—-grey-#9198a1)
-
-[⚙️ Build & CI — Blue \#4393f8](#⚙️-build-&-ci-—-blue-#4393f8)
-
-[🤖 Automation — Blue \#4393f8](#🤖-automation-—-blue-#4393f8)
-
-[🧪 Test Coverage — Yellow \#d29922](#🧪-test-coverage-—-yellow-#d29922)
-
-[⚡ Performance — Yellow \#d29922](#⚡-performance-—-yellow-#d29922)
-
-[♿ A11y — Pink \#db61a2](#♿-a11y-—-pink-#db61a2)
-
-[🔒 Security — Red \#9f3734](#🔒-security-—-red-#9f3734)
-
-[🔌 Compatibility — Orange \#8d4821](#🔌-compatibility-—-orange-#8d4821)
-
-[🔄 Integration — Orange \#8d4821](#🔄-integration-—-orange-#8d4821)
-
-[🚀 Release — Green \#3fb950](#🚀-release-—-green-#3fb950)
-
-[🧰 Maintenance — Grey \#9198a1](#🧰-maintenance-—-grey-#9198a1)
-
-[📚 Documentation — Grey \#9198a1](#📚-documentation-—-grey-#9198a1)
-
-[🔬 Research — Grey \#9198a1](#🔬-research-—-grey-#9198a1)
-
-[🧹 Chore — Grey \#9198a1](#🧹-chore-—-grey-#9198a1)
-
-[🧾 Audit — Grey \#9198a1](#🧾-audit-—-grey-#9198a1)
-
-[👀 Code Review — Blue \#4393f8](#👀-code-review-—-blue-#4393f8)
-
-[🧠 AI Ops — Blue \#4393f8](#🧠-ai-ops-—-blue-#4393f8)
-
-[🗂️ Content Modelling — Purple \#ab7df8](#🗂️-content-modelling-—-purple-#ab7df8)
-
-[2\) Pull Request templates (suggested)](<#2)-pull-request-templates-(suggested)>)
-
-[3\) Saved searches (pin in Projects)](<#3)-saved-searches-(pin-in-projects)>)
-
-[4\) Notes & guardrails](<#4)-notes-&-guardrails>)
 
 ---
 
@@ -974,7 +906,7 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 
 References
 
-- [Automation Governance](../.github/AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
 - [Issue Labels Guide](./ISSUE_LABELS.md)
 - [Canonical Labels & Colours](../.github/labels.yml)
 - [Labeler rules](../.github/labeler.yml)

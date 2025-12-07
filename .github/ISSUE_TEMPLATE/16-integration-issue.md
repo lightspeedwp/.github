@@ -2,22 +2,7 @@
 name: "🔗 Integration"
 about: "Report or propose integration with external plugins, services, or APIs."
 title: "[Integration] <Short summary>"
-labels:
-  [type:integration, status:needs-triage, priority:normal, area:integration]
-assignees: []
-projects: []
-milestone: ""
-file_type: integration
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+labels: [status:needs-triage, priority:normal, area:integration]
 ---
 
 <!--
@@ -85,21 +70,9 @@ Add any other relevant information, external links, screenshots, related issues/
 For any PR, use correct branch prefix (fix/ or integration/).
 -->
 
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
-
 ---
 
-### Definition of Ready (DoR)
+## Definition of Ready (DoR)
 
 <!--
 Checklist items to ensure the integration issue is ready for work.
@@ -112,7 +85,7 @@ Checklist items to ensure the integration issue is ready for work.
 - [ ] Estimate added (if relevant)
 - [ ] Milestone/release assigned (if applicable)
 
-### Definition of Done (DoD)
+## Definition of Done (DoD)
 
 <!--
 Checklist items to ensure the integration fix/update is complete.
@@ -126,16 +99,3 @@ Checklist items to ensure the integration fix/update is complete.
 - [ ] No adverse impact on other integrations or core functionality
 
 ---
-
-## Directions & Next Steps
-
-<!--
-Instructions for contributors and maintainers.
--->
-
-- Double-check all sections, details, steps to reproduce, and references above.
-- For any related PR, use the branch prefix `fix/` or `integration/` (see [Branching Strategy](../AUTOMATION_GOVERNANCE.md)).
-- Reference this issue in your PR using keywords like `fixes #{issue_number}` for auto-closing.
-- Tag a maintainer for review or triage if needed.
-- See [Contribution Guidelines](../CONTRIBUTING.md) and [Coding Standards](../instructions/coding-standards.instructions.md).
-- For automation, labels, and issue types, review [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).

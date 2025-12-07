@@ -2,21 +2,7 @@
 name: "📖 Content Modelling"
 about: "Propose, update, or discuss content structure, CPTs, or taxonomy."
 title: "[Content Modelling] <Brief summary>"
-labels: [type:content-modelling, status:needs-triage, area:content]
-assignees: []
-projects: []
-milestone: ""
-type: content-modelling
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+labels: [status:needs-triage, area:content]
 ---
 
 ## Content Modelling Summary
@@ -42,18 +28,6 @@ references:
 
 <!-- Add links, diagrams, references, or related docs. -->
 
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
-
 ---
 
 ### Definition of Ready (DoR)
@@ -68,3 +42,5 @@ references:
 - [ ] All acceptance criteria met
 - [ ] Structure/model tested and verified
 - [ ] Documentation updated
+
+---

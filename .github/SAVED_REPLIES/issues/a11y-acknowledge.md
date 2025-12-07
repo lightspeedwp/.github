@@ -3,7 +3,6 @@ title: "Accessibility (A11y) Issue Acknowledgement Saved Replies"
 description: "Standard response for accessibility-related issues, confirming routing to the a11y review process."
 category: "Issue Management"
 labels:
-  - type:a11y
   - status:needs-design
 references:
   - "../ISSUE_LABELS.md"
@@ -14,7 +13,7 @@ references:
 
 ## Accessibility Review Process
 
-**Use case**: For issues labeled `type:a11y`, confirming review and triage.
+**Use case**: For issues classified as **Accessibility (A11y)** via the Issue Type field, confirming review and triage.
 
 ```markdown
 Hi @username,

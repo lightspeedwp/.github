@@ -105,12 +105,12 @@ graph TB
 | [branding.agent.js](./branding.agent.js)                           | Unified branding agent for headers, footers, badges           | ✅ Active     | -                                                            |
 | [badges.agent.js](./badges.agent.js)                               | Manages repository badges and automation status indicators    | ❌ Deprecated | -                                                            |
 | [header-footer.agent.js](./header-footer.agent.js)                 | Maintains consistent headers and footers across documentation | ❌ Deprecated | -                                                            |
-| [issue-type.agent.js](./issue-type.agent.js)                       | Automatically assigns issue types based on content analysis   | ✅ Active     | [✅ Tests](../__tests__/issue-type.agent.test.js)            |
-| [label-standardization.agent.js](./label-standardization.agent.js) | Ensures consistent labeling across repositories               | ✅ Active     | [✅ Tests](../__tests__/label-standardization.agent.test.js) |
-| [labeling.agent.js](./labeling.agent.js)                           | Unified labeling system for issues and pull requests          | ✅ Active     | [✅ Tests](../__tests__/labeling.agent.test.js)              |
+| [issue-type.agent.js](./issue-type.agent.js)                       | Automatically assigns issue types based on content analysis   | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/issue-type.agent.test.js)            |
+| [label-standardization.agent.js](./label-standardization.agent.js) | Ensures consistent labeling across repositories               | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/label-standardization.agent.test.js) |
+| [labeling.agent.js](./labeling.agent.js)                           | Unified labeling system for issues and pull requests          | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/labeling.agent.test.js)              |
 | [linting.agent.js](./linting.agent.js)                             | Code quality and linting enforcement                          | ✅ Active     | -                                                            |
 | [manage-readmes.agent.js](./manage-readmes.agent.js)               | Automated README generation and maintenance                   | ✅ Active     | -                                                            |
-| [reviewer.agent.js](./reviewer.agent.js)                           | Automated code review and feedback                            | ✅ Active     | [✅ Tests](../__tests__/reviewer.agent.test.js)              |
+| [reviewer.agent.js](./reviewer.agent.js)                           | Automated code review and feedback                            | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/reviewer.agent.test.js)              |
 
 ### WordPress-Specific Agents
 
@@ -143,25 +143,25 @@ These GitHub Actions workflows integrate with and trigger our agents:
 
 | Workflow                                                     | Triggers                                | Agent(s) Used                         | Description                                                 |
 | ------------------------------------------------------------ | --------------------------------------- | ------------------------------------- | ----------------------------------------------------------- |
-| **[labeling.yml](../../workflows/labeling.yml)**             | `push`, `pull_request`, `issues` events | `labeling.agent.js`                   | Unified labeling for issues and PRs with status enforcement |
-| **[reviewer.yml](../../workflows/reviewer.yml)**             | `push`, `pull_request` on `develop`     | `reviewer.agent.js`                   | Automated code review and feedback                          |
-| **[planner.yml](../../workflows/planner.yml)**               | `push`, `pull_request` on `develop`     | Internal planner logic                | Project planning automation                                 |
-| **[branding.yml](../../workflows/branding.yml)**             | File changes, `workflow_dispatch`       | `branding.agent.js`                   | Unified header, footer, badge automation                    |
-| **[badges.yml](../../workflows/badges.yml)**                 | Path changes, `workflow_dispatch`       | `badges.agent.js` (Deprecated)        | Badge status updates                                        |
-| **[manage-readmes.yml](../../workflows/manage-readmes.yml)** | Path changes, `workflow_dispatch`       | `manage-readmes.agent.js`             | README maintenance                                          |
-| **[header-footer.yml](../../workflows/header-footer.yml)**   | File changes                            | `header-footer.agent.js` (Deprecated) | Documentation consistency                                   |
+| **[labeling.yml](../workflows/labeling.yml)**             | `push`, `pull_request`, `issues` events | `labeling.agent.js`                   | Unified labeling for issues and PRs with status enforcement |
+| **[reviewer.yml](../workflows/reviewer.yml)**             | `push`, `pull_request` on `develop`     | `reviewer.agent.js`                   | Automated code review and feedback                          |
+| **[planner.yml](../workflows/planner.yml)**               | `push`, `pull_request` on `develop`     | Internal planner logic                | Project planning automation                                 |
+| **[branding.yml](../workflows/branding.yml)**             | File changes, `workflow_dispatch`       | `branding.agent.js`                   | Unified header, footer, badge automation                    |
+| **[badges.yml](../workflows/badges.yml)**                 | Path changes, `workflow_dispatch`       | `badges.agent.js` (Deprecated)        | Badge status updates                                        |
+| **[manage-readmes.yml](../workflows/manage-readmes.yml)** | Path changes, `workflow_dispatch`       | `manage-readmes.agent.js`             | README maintenance                                          |
+| **[header-footer.yml](../workflows/header-footer.yml)**   | File changes                            | `header-footer.agent.js` (Deprecated) | Documentation consistency                                   |
 
 ### Supporting Workflows
 
 | Workflow                                                           | Purpose                          | Agent Integration               |
 | ------------------------------------------------------------------ | -------------------------------- | ------------------------------- |
-| **[lint.yml](../../workflows/lint.yml)**                           | Code quality enforcement         | Works with `linting.agent.js`   |
-| **[jest-test-audit.yml](../../workflows/jest-test-audit.yml)**     | Test execution for agents        | Runs agent test suites          |
-| **[issue_metrics.yml](../../workflows/issue_metrics.yml)**         | Repository health metrics        | Data used by multiple agents    |
-| **[labels-issues-prs.yml](../../workflows/labels-issues-prs.yml)** | Legacy labeling support          | Transitioning to unified system |
-| **[pr-project-label.yml](../../workflows/pr-project-label.yml)**   | Project-based PR labeling        | Integrates with labeling system |
-| **[project-meta-sync.yml](../../workflows/project-meta-sync.yml)** | Project metadata synchronization | Cross-repository consistency    |
-| **[release.yml](../../workflows/release.yml)**                     | Release automation               | Coordinated release processes   |
+| **[linting.yml](../workflows/linting.yml)**                       | Code quality enforcement         | Works with `linting.agent.js`   |
+| **[jest-test-audit.yml](../workflows/jest-test-audit.yml)**     | Test execution for agents        | Runs agent test suites          |
+| **[metrics.yml](../workflows/metrics.yml)**                     | Repository health metrics        | Data used by multiple agents    |
+| **[labels-issues-prs.yml](../workflows/labels-issues-prs.yml)** | Legacy labeling support          | Transitioning to unified system |
+| **[pr-project-label.yml](../workflows/pr-project-label.yml)**   | Project-based PR labeling        | Integrates with labeling system |
+| **[project-meta-sync.yml](../workflows/project-meta-sync.yml)** | Project metadata synchronization | Cross-repository consistency    |
+| **[release.yml](../workflows/release.yml)**                     | Release automation               | Coordinated release processes   |
 
 ## 🧪 Test Suite
 
@@ -281,11 +281,11 @@ graph TD
 | ------------------------- | ------------------------------------- | ---------------------------------------------------------- |
 | **Main Agent Index**      | Directory of all agent specifications | [agent.md](./agent.md)                                     |
 | **Custom Instructions**   | Central Copilot/org standards         | [../custom-instructions.md](../custom-instructions.md)     |
-| **Automation Governance** | Workflow and agent policies           | [../AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md) |
+| **Automation Governance** | Workflow and agent policies           | [../../docs/AUTOMATION_GOVERNANCE.md](../../docs/AUTOMATION_GOVERNANCE.md) |
 | **Global AI Rules**       | Organization-wide AI guidelines       | [../../AGENTS.md](../../AGENTS.md)                         |
 | **Collections**           | Curated agent toolkits                | [../collections/](../collections/)                         |
 | **Metrics Directory**     | Metrics collection and configuration  | [../metrics/](../metrics/)                                 |
-| **Reporting Directory**   | Generated reports and artifacts       | [../reporting/](../reporting/)                             |
+| **Reporting Directory**   | Generated reports and artifacts       | [../reports/](../reports/)                             |
 
 ---
 

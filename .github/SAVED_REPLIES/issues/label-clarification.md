@@ -21,10 +21,11 @@ We’ve updated the labels on this issue to improve triage and automate routing.
 
 **Key label families:**
 
-- `type:*` — describes the nature of the issue (feature, bug, documentation, etc.)
+Issue Types (Bug, Feature, Task, etc.) are set via the Issue Type field in the issue form. They are not represented as `type:*` labels.
+
 - `status:*` — current workflow status
 - `priority:*` — urgency/impact
 - `area:*` or `comp:*` — affected area/component
 
-If you have questions about how labels are used, see our [Label Guide](../ISSUE_LABELS.md), or ask in the comments. Proper labeling ensures your issue gets the right attention!
+If you have questions about how labels are used, see our [Issue Labels Guide](../ISSUE_LABELS.md), or ask in the comments. Proper labeling ensures your issue gets the right attention!
 ```

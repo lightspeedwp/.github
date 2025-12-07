@@ -3,7 +3,7 @@ title: "Security Saved Reply"
 description: "Response for security concerns, vulnerabilities, or sensitive data."
 category: "Technical"
 labels:
-  - type:security
+  # Note: Issue Type (Security) is specified via the Issue Type field, not a label
 ---
 
 # Security Saved Reply

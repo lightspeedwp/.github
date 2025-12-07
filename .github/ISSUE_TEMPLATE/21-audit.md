@@ -2,21 +2,7 @@
 name: "🛡️ Audit"
 about: "Propose, conduct, or document a security, accessibility, code, or process audit."
 title: "[Audit] <Brief summary>"
-labels: [type:audit, status:needs-audit, priority:normal, area:security]
-assignees: []
-projects: []
-milestone: ""
-file_type: audit
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+labels: [status:needs-audit, priority:normal, area:security]
 ---
 
 <!--
@@ -69,18 +55,6 @@ List actions, recommendations, or follow-up tickets.
 Add links, standards, references, or related issues.
 -->
 
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
-
 ---
 
 ### Definition of Ready (DoR)
@@ -97,12 +71,3 @@ Add links, standards, references, or related issues.
 - [ ] PR uses correct branch prefix (audit/)
 
 ---
-
-## Directions & Next Steps
-
-- Complete all sections, checklist, and findings above.
-- For related PRs, use the branch prefix `audit/`.
-- Reference this issue in your PR using keywords like `fixes #{issue_number}`.
-- Tag a maintainer for compliance or follow-up.
-- See [Contribution Guidelines](../CONTRIBUTING.md) and [Coding Standards](../instructions/coding-standards.instructions.md).
-- For automation, labels, and issue types, see [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).

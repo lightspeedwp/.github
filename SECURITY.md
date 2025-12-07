@@ -96,13 +96,8 @@ We follow industry-standard security practices:
 
 ## Security Updates and Advisories
 
-- **GitHub Security Advisories** – Published at [github.com/lightspeedwp/.github/security/advisories](https://github.com/lightspeedwp/.github/security/advisories)
 - **Release Notes** – Security fixes documented in [CHANGELOG.md](./CHANGELOG.md)
 - **Notifications** – Critical security updates announced via GitHub Discussions
-
-## Past Security Advisories
-
-View historical security advisories: [Security Advisories](https://github.com/lightspeedwp/.github/security/advisories)
 
 ## Questions or Concerns?
 

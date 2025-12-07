@@ -678,7 +678,7 @@ After testing:
 2. ✅ Run `npm run lint:all` to fix any remaining issues
 3. ✅ Make a real commit to test full workflow
 4. ✅ Attempt a push to test pre-push hook
-5. ✅ Review [HUSKY-PRECOMMITS.md](docs/HUSKY-PRECOMMITS.md) for detailed documentation
+5. ✅ Review [HUSKY-PRECOMMITS.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/HUSKY-PRECOMMITS.md) for detailed documentation
 
 ---
 

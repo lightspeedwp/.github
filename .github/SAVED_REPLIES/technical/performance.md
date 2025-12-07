@@ -3,7 +3,7 @@ title: "Performance Technical Saved Reply"
 description: "Notice and suggestions for PRs/issues with performance impact."
 category: "Technical"
 labels:
-  - type:performance
+  # Note: Issue Type is set via the Issue Type field, not a label
 ---
 
 # Performance Technical Saved Reply

@@ -2,21 +2,7 @@
 name: "🧠 AI Ops"
 about: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
 title: "[AI Ops] <Brief summary>"
-labels: [type:ai-ops, status:needs-triage, area:ai]
-assignees: []
-projects: []
-milestone: ""
-type: ai-ops
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+labels: [status:needs-triage, area:ai]
 ---
 
 ## AI Ops Summary
@@ -44,18 +30,6 @@ references:
 
 <!-- Add links to datasets, models, logs, or related issues. -->
 
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
-
 ---
 
 ### Definition of Ready (DoR)
@@ -71,3 +45,5 @@ references:
 - [ ] Solution/automation verified
 - [ ] Documentation updated
 - [ ] PR uses correct branch prefix (ai/)
+
+--- 

@@ -3,7 +3,6 @@ title: "Documentation Request Saved Replies"
 description: "Responses for documentation improvements, clarifications, and updates. Follows LightSpeedWP doc standards and automation."
 category: "Issue Management"
 labels:
-  - type:documentation
   - status:needs-triage
 references:
   - "../ISSUE_LABELS.md"

@@ -2,21 +2,7 @@
 name: "🧪 Test Coverage"
 about: "Propose, add, or expand tests (unit, integration, E2E)."
 title: "[Test Coverage] <Short summary>"
-labels: [type:test, status:needs-triage, priority:normal, area:testing]
-assignees: []
-projects: []
-milestone: ""
-file_type: test
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+labels: [status:needs-triage, priority:normal, area:testing]
 ---
 
 <!--
@@ -67,21 +53,6 @@ Define where and how this test will be used.
 - [ ] PR uses correct branch prefix (test/ or playwright/)
 - [ ] Approved by at least one maintainer
 
-## References
-
-- [Playwright Documentation](https://playwright.dev/docs/intro)
-- [LightSpeed General Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-- [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-- [HTML Templates](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/block-theme/html-template.instructions.md)
-- [Pattern Development](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/block-theme/pattern-development.instructions.md)
-- [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/block-theme/php-block.instructions.md)
-- [Theme JSON](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/theme-json.instructions.md)
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
-- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
-- [PR_LABELS.md](../PR_LABELS.md)
-- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
-
 ---
 
 ### Definition of Ready (DoR)
@@ -101,12 +72,3 @@ Define where and how this test will be used.
 - [ ] Approved by at least one maintainer
 
 ---
-
-## Directions & Next Steps
-
-- Double-check all sections and content above.
-- For related PRs, use the branch prefix `test/` or `playwright/` as per [Branching Strategy](../AUTOMATION_GOVERNANCE.md).
-- Reference this issue in your PR using keywords like `fixes #{issue_number}`.
-- Tag a maintainer for review or triage as needed.
-- See [Contribution Guidelines](../CONTRIBUTING.md) and [Coding Standards](../instructions/coding-standards.instructions.md).
-- For automation, labels, and issue types, see [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).

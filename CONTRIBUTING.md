@@ -6,7 +6,7 @@
 2. **Install dependencies:** `npm install`
 3. **Create a branch:** Use the correct prefix (e.g. `feat/`, `fix/`, `docs/`).
 4. **Write code & tests:** Follow [Coding Standards](.github/instructions/coding-standards.instructions.md) and add/expand tests.
-5. **Lint & test:** Run `npm run lint:all` and `npm test` before committing. If you need to update or add new linting rules, or troubleshoot lint failures, see the [Updating Linting Rules & Troubleshooting](./README.md#updating-linting-rules--troubleshooting) section in the README for step-by-step guidance.
+5. **Lint & test:** Run `npm run lint:all` and `npm test` before committing. If you need to update or add new linting rules, or troubleshoot lint failures, see the [Updating Linting Rules & Troubleshooting](./docs/LINTING.md) section in the README for step-by-step guidance.
 6. **Commit & push:** Use clear commit messages and push your branch.
 7. **Open a PR:** Use the correct PR template and link to the related issue.
 8. **Respond to feedback:** Make changes as requested by reviewers or Copilot.
@@ -60,7 +60,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
   Use `{type}/{scope}-{short-title}` format (e.g., `feat/cart-coupon-flow`, `fix/wp6-6-compat`, `docs/readme-install-steps`, `chore/deps-2025-09`).
 - **Allowed prefixes:**  
   `feat/`, `fix/`, `docs/`, `chore/`, `build/`, `refactor/`, `test/`, `perf/`, `ci/`, `release/`, `hotfix/`, `design/`, `research/`.
-- See [Org-wide Branching Strategy](.github/git-org-wide-branching-strategy.md) for full rules and automation mapping.
+- See [Org-wide Branching Strategy](./docs/BRANCHING_STRATEGY.md) for full rules and automation mapping.
 - Ensure your branch maps to the correct issue type and PR template for automated labeling and changelog governance.
 
 ### 3. Coding Standards
@@ -78,7 +78,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
 - **Select the correct PR template:**  
   Bugfix, Feature, Chore, Docs, Build/CI, Dependencies/Maintenance, Hotfix, Release, Refactor, or General PR template.
   - Your branch prefix should match the PR template (e.g., `fix/` → Bugfix PR, `feat/` → Feature PR).
-  - See [PR_LABELS.md](.github/PR_LABELS.md) for template-to-label mapping and automation.
+  - See [PR_LABELS.md](./docs/PR_LABELS.md) for template-to-label mapping and automation.
 - **Required PR details:**
   - Accurate, up-to-date description.
   - Link to the related GitHub Issue.
@@ -112,20 +112,19 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 
 - **Saved Replies:** Use [SAVED_REPLIES.md](.github/SAVED_REPLIES.md) for common responses and efficient communication.
 - **Documentation:** Update relevant docs (README, instructions) for any user-facing change.
-- **Automation & Labels:** Ensure your issue/PR complies with [AUTOMATION_GOVERNANCE.md](.github/AUTOMATION_GOVERNANCE.md), [ISSUE_LABELS.md](.github/ISSUE_LABELS.md), and [ISSUE_TYPES.md](.github/ISSUE_TYPES.md).
+- **Automation & Labels:** Ensure your issue/PR complies with [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md), [ISSUE_LABELS.md](docs/ISSUE_LABELS.md), and [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md).
 - **Changelog:** All user-facing changes, fixes, and features must be entered in [CHANGELOG.md](./CHANGELOG.md) in Keep a Changelog format. See example sections in the changelog for proper grouping and linking.
 
 ---
 
 ## References
 
-- [BRANCHING_STRATEGY.md](.github/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
+- [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
-- [AUTOMATION_GOVERNANCE.md](.github/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, label, and release strategy.
-- [ISSUE_TYPES.md](.github/ISSUE_TYPES.md): Issue type mapping and usage.
-- [ISSUE_LABELS.md](.github/ISSUE_LABELS.md): Label families, triage, and workflow.
-- [PR_LABELS.md](.github/PR_LABELS.md): PR labeling, templates, and automation.
-- [Org-wide Branching Strategy](.github/git-org-wide-branching-strategy.md): Full branching convention and rules.
+- [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, label, and release strategy.
+- [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md): Issue type mapping and usage.
+- [ISSUE_LABELS.md](./docs//ISSUE_LABELS.md): Label families, triage, and workflow.
+- [PR_LABELS.md](./docs//PR_LABELS.md): PR labeling, templates, and automation.
 - [Coding Standards](.github/instructions/coding-standards.instructions.md)
 - [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md)
 - [Theme JSON](.github/instructions/theme-json.instructions.md)

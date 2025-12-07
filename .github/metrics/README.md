@@ -9,7 +9,7 @@ tags: ["metrics", "analytics", "automation", "monitoring", "quality"]
 file_type: "documentation"
 category: "infrastructure"
 references:
-  - path: "../reporting/README.md"
+  - path: "../reports/README.md"
     description: "Reporting documentation"
   - path: "../agents/metrics.agent.md"
     description: "Metrics agent configuration"
@@ -17,7 +17,7 @@ references:
     description: "Branding guidelines"
   - path: "../workflows/branding.yml"
     description: "Branding workflow"
-  - path: "../workflows/issue_metrics.yml"
+  - path: "../workflows/metrics.yml"
     description: "Issue metrics workflow"
 ---
 

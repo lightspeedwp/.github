@@ -391,14 +391,14 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 
 ### Labels & Labeler Configuration
 
-- [labels.yml](./.github/automation/labels.yml) – **Canonical label definitions** for all issues and PRs.
-- [labeler.yml](./.github/automation/labeler.yml) – Automated file/branch-based label application.
-- [ISSUE_LABELS.md](./.github/automation/ISSUE_LABELS.md) – Issue label documentation.
-- [PR_LABELS.md](./.github/automation/PR_LABELS.md) – PR label documentation.
+- [labels.yml](./.github/labels.yml) – **Canonical label definitions** for all issues and PRs.
+- [labeler.yml](./.github/labeler.yml) – Automated file/branch-based label application.
+- [ISSUE_LABELS.md](./.docs/ISSUE_LABELS.md) – Issue label documentation.
+- [PR_LABELS.md](./.docs/PR_LABELS.md) – PR label documentation.
 
 ### Issue Types & Templates
 
-- [issue-types.yml](./.github/automation/issue-types.yml) – **Canonical issue types** for automation and triage.
+- [issue-types.yml](./.github/issue-types.yml) – **Canonical issue types** for automation and triage.
 - [ISSUE_TYPES.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/ISSUE_TYPES.md) – Issue type documentation.
 - [Saved replies for issues](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/README.md)
 - [Bug report saved reply](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/bug-reports.md)
@@ -412,7 +412,7 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 
 ### Workflows & Automation
 
-- `.github/workflows/labels-issues-prs.yml` – Automated labeling for issues/PRs.
+- `.github/workflows/labeling.yml` – Automated labeling for issues/PRs.
 - `.github/workflows/project-meta-sync.yml` – Syncs issues/PRs with Projects (Beta) and fields.
 - [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) – Orchestrates how automation is governed org-wide.
 
@@ -428,15 +428,11 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 - [Agent instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/agents/agent.md)
 - [AGENTS.md](https://github.com/lightspeedwp/.github/blob/HEAD/AGENTS.md)
 - [GEMINI.md](https://github.com/lightspeedwp/.github/blob/HEAD/GEMINI.md)
-- [CLAUDE.md](https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md)
+- [CLAUDE.md](https://github.com/lightspeedwp/.github/blob/HEAD/CLAUDE.md)
 
 ### Coding & Contribution Guidelines
 
 - [Coding Standards](./.github/instructions/coding-standards.instructions.md)
-- [HTML Templates](./.github/instructions/block-theme/html-template.instructions.md)
-- [Pattern Development](./.github/instructions/block-theme/pattern-development.instructions.md)
-- [PHP Block Instructions](./.github/instructions/block-theme/php-block.instructions.md)
-- [Theme JSON](./.github/instructions/theme-json.instructions.md)
 
 ---
 

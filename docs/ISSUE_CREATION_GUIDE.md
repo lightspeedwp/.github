@@ -19,7 +19,7 @@ This guide describes how to create actionable, well-labeled issues in LightSpeed
 
 ## 2. **Choose the Correct Issue Template**
 
-Visit the repository’s [Issues page](../../issues/new/choose) and select the template that matches your intent:
+Visit the repository’s [Issues page](https://github.com/lightspeedwp/.github/issues/new/choose) and select the template that matches your intent:
 
 - **Bug Report:** Broken features, regressions, or unexpected behavior.
 - **Feature Request:** Proposing new capabilities or enhancements.
@@ -161,9 +161,9 @@ Any implementation notes, design decisions, or technical context.
 
 ## 12. References
 
-- [Automation Governance](../.github/AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
 - [Issue Labels Guide](./ISSUE_LABELS.md)
-- [Canonical Labels & Colours](../.github/labels.yml)
+- [Canonical Labels & Colours](./.github/labels.yml)
 - [Labeler rules](../.github/labeler.yml)
 - [Issue Types Guide](./ISSUE_TYPES.md)
 - [Canonical Issue Types](../.github/issue-types.yml)

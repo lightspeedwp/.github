@@ -2,21 +2,7 @@
 name: "💡 User Experience Feedback"
 about: Share feedback on the usability and interface design of this WordPress project
 title: "[UX] <Short summary>"
-labels: [type:improve, status:needs-triage, priority:normal, area:core]
-assignees: []
-projects: []
-milestone: ""
-file_type: improve
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+labels: [status:needs-triage, priority:normal, area:core]
 ---
 
 ## Describe your experience
@@ -44,26 +30,16 @@ Add screenshots if applicable.
 Add any other relevant information or examples.
 -->
 
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
-
 ---
 
-### Definition of Ready (DoR)
+## Definition of Ready (DoR)
 
 - [ ] Feedback/experience described
 - [ ] Suggestions listed
 
-### Definition of Done (DoD)
+## Definition of Done (DoD)
 
 - [ ] Feedback incorporated and changes documented
 - [ ] Changelog entry prepared for PR if applicable
+
+---

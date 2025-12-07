@@ -1,6 +1,6 @@
 # .github/PR_LABELS.md
 
-> **Note:** All PR labeling, status, type, and standardization is handled by the unified [labeling agent](./agents/labeling.agent.md) and [labeling workflow](./workflows/labeling.yml). The canonical PR labels and assignment rules are maintained in [labels.yml](./labels.yml) and [labeler.yml](./labeler.yml).
+> **Note:** All PR labeling, status, type, and standardization is handled by the unified [labeling agent](../.github/agents/labeling.agent.md) and [labeling workflow](../.github/workflows/labeling.yml). The canonical PR labels and assignment rules are maintained in [labels.yml](../.github/labels.yml) and [labeler.yml](../.github/labeler.yml).
 
 ---
 
@@ -43,7 +43,7 @@ Every PR should use a standard branch prefix for correct label and template auto
 ## PR Templates & Usage
 
 - Select the correct template for your PR type.
-- **Labels** are set automatically by the [unified agent and workflow](./workflows/labeling.yml).
+- **Labels** are set automatically by the [unified agent and workflow](../.github/workflows/labeling.yml).
 - Each PR must have:
   - Exactly one `status:*` (e.g., `status:needs-review`)
   - Exactly one `priority:*`
@@ -55,8 +55,8 @@ Every PR should use a standard branch prefix for correct label and template auto
 
 ## Label Automation
 
-- All label assignment, enforcement, and standardization is handled by the **unified labeling agent** ([labeling.agent.js](./agents/labeling.agent.js)).
-- **File/branch-based rules** are defined in [labeler.yml](./labeler.yml).
+- All label assignment, enforcement, and standardization is handled by the **unified labeling agent** ([labeling.agent.js](../.github/agents/labeling.agent.js)).
+- **File/branch-based rules** are defined in [labeler.yml](../.github/labeler.yml).
 - **Non-canonical or legacy labels** are automatically removed or migrated.
 
 ---
@@ -65,25 +65,25 @@ Every PR should use a standard branch prefix for correct label and template auto
 
 - All PRs affecting user-facing features/fixes must include a valid changelog label; if missing, the agent will add `meta:needs-changelog`.
 - Only one `status:*` and one `release:*` label per PR.
-- See [labels.yml](./labels.yml) for the current canonical options.
+- See [labels.yml](../.github/abels.yml) for the current canonical options.
 
 ---
 
 ## Usage Notes
 
 - All PR labeling, status, type, and standardization is automated and validated; maintainers may adjust as needed.
-- For a full list of canonical PR labels and colors, see [labels.yml](./labels.yml).
+- For a full list of canonical PR labels and colors, see [labels.yml](../.github/labels.yml).
 
 ---
 
 ## References
 
-- [labels.yml](./labels.yml)
-- [labeler.yml](./labeler.yml)
-- [issue-types.yml](./issue-types.yml)
-- [labeling.agent.md](./agents/labeling.agent.md)
-- [labeling.yml](./workflows/labeling.yml)
-- [Labeling Strategy](../docs/LABEL_STRATEGY.md)
+- [labels.yml](../.github/labels.yml)
+- [labeler.yml](../.github/labeler.yml)
+- [issue-types.yml](../.github/issue-types.yml)
+- [labeling.agent.md](../.github/agents/labeling.agent.md)
+- [labeling.yml](../.github/workflows/labeling.yml)
+- [Labeling Strategy](./LABEL_STRATEGY.md)
 - [Automation Governance](./AUTOMATION_GOVERNANCE.md)
 
 ---

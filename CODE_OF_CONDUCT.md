@@ -1,4 +1,4 @@
-# LightSpeed Code of Conduct (Aligned with the WordPress Community)
+# LightSpeed Code of Conduct
 
 ## Our Pledge
 

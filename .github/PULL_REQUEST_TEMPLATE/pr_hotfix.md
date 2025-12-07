@@ -4,7 +4,6 @@ about: "Critical fixes for production issues"
 title: "fix: {short summary}"
 labels:
   [
-    "type:bug",
     "status:needs-review",
     "area:hotfix",
     "priority:critical",
@@ -82,19 +81,5 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 - [ ] Security/perf impact reviewed where relevant
 - [ ] Code/design reviews approved
 - [ ] CI green; linked issues closed; release notes prepared (if shipping)
-
----
-
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
 
 ---

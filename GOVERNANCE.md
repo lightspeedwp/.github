@@ -126,7 +126,7 @@ This `.github` repository follows a regular release cadence to ensure predictabl
 #### Release Process
 
 1. **Planning** – Updates planned and scoped in GitHub Projects
-2. **Development** – Changes developed in feature branches following [BRANCHING_STRATEGY.md](.github/automation/BRANCHING_STRATEGY.md)
+2. **Development** – Changes developed in feature branches following [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md)
 3. **Testing** – All changes tested with CI/CD before merge to `develop`
 4. **Review** – Minimum one maintainer approval required
 5. **Release** – Tagged release created with changelog and migration guide
@@ -175,13 +175,13 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 
 - [General Org Instructions](./.github/custom-instructions.md)
 - [Coding Standards](./.github/instructions/coding-standards.instructions.md)
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](../BRANCHING_STRATEGY.md)
-- [Automation Governance](../AUTOMATION_GOVERNANCE.md)
-- [Issue & PR Labels](../ISSUE_LABELS.md), [../PR_LABELS.md](../PR_LABELS.md), [../labels.yml](../labels.yml), [../labeler.yml](../labeler.yml)
-- [Issue Types YAML](../issue-types.yml)
+- [Contribution Guidelines](./CONTRIBUTING.md)
+- [Branching Strategy](./docs/BRANCHING_STRATEGY.md)
+- [Automation Governance](./docs/AUTOMATION_GOVERNANCE.md)
+- [Issue & PR Labels](./docs/ISSUE_LABELS.md), [../PR_LABELS.md](./docs/PR_LABELS.md), [../labels.yml](./.github/labels.yml), [../labeler.yml](./.githublabeler.yml)
+- [Issue Types YAML](./.github/issue-types.yml)
 - [Pull Request Template](./.github/PULL_REQUEST_TEMPLATE.md)
-- [CHANGELOG](../CHANGELOG.md)
+- [CHANGELOG](./CHANGELOG.md)
 
 ---
 

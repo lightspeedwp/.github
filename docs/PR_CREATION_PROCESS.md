@@ -151,15 +151,15 @@ Each PR template includes a checklist. Ensure you:
 
 ## 11. **References**
 
-- [Pull Request Template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
-- [Issue Types Guide](../.github/ISSUE_TYPES.md)
-- [Label Guide](../.github/ISSUE_LABELS.md)
-- [Automated Label Rules](../.github/labeler.yml)
-- [Branching Strategy](../.github/BRANCHING_STRATEGY.md)
-- [Testing Guide](TESTING.md)
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Roadmap](ROADMAP.md)
+- [Pull Request Template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/PULL_REQUEST_TEMPLATE.md)
 - [GitHub PR Templates](../.github/PULL_REQUEST_TEMPLATES/)
+- [Issue Types Guide](./ISSUE_TYPES.md)
+- [Label Guide](./ISSUE_LABELS.md)
+- [Automated Label Rules](../.github/labeler.yml)
+- [Branching Strategy](./BRANCHING_STRATEGY.md)
+- [Testing Guide](./TESTING.md)
+- [Contribution Guidelines](../CONTRIBUTING.md)
+- [Roadmap](./ROADMAP.md)
 
 ---
 

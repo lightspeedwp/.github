@@ -22,7 +22,7 @@ Use this reference to classify Issues consistently, apply correct labels, and al
 - **Meta & release labels:** `meta:needs-changelog`, `meta:has-pr`, `meta:no-issue-activity`, `meta:no-pr-activity`, `meta:stale`, `release:patch`, `release:minor`, `release:major`, `release:hotfix`.
 - **Contributor labels:** `contrib:good-first-issue`, `contrib:help-wanted`, `contrib:discussion`.
 
-See [labels.yml](./labels.yml) for the up-to-date, authoritative list.
+See [labels.yml](../.github/labels.yml) for the up-to-date, authoritative list.
 
 ---
 
@@ -34,7 +34,7 @@ See [labels.yml](./labels.yml) for the up-to-date, authoritative list.
 - **At least one** `area:*` or `comp:*` (e.g., `area:ci`)
 - **Meta/context labels** as needed (e.g., `meta:needs-changelog`, `phase:6`)
 
-These are **enforced automatically** by the [unified labeling agent](./agents/labeling.agent.md).
+These are **enforced automatically** by the [unified labeling agent](../.github/agents/labeling.agent.md).
 
 ---
 
@@ -47,7 +47,7 @@ Colors are assigned by family and purpose; see `labels.yml` for mapping.
 
 ## Automation
 
-- **Labeling, status, type, and standardization** are all handled by the **unified agent and workflow** ([labeling.agent.js](./agents/labeling.agent.js), [labeling.yml](./workflows/labeling.yml)).
+- **Labeling, status, type, and standardization** are all handled by the **unified agent and workflow** ([labeling.agent.js](../scripts/agents/labeling.agent.js), [labeling.yml](../.github/workflows/labeling.yml)).
 - **Default labels** are applied and enforced on all issues.
 - **Label conflicts and non-canonical labels** are removed or migrated automatically.
 
@@ -77,18 +77,18 @@ labels:
 
 - Keep exactly one `status:*` and one `priority:*` on every issue.
 - All labeling is **automated and enforced**; maintainers may adjust as needed.
-- For a full list of canonical labels and colors, see [labels.yml](./labels.yml).
+- For a full list of canonical labels and colors, see [labels.yml](../.github/labels.yml).
 
 ---
 
 ## References
 
-- [labels.yml](./labels.yml)
-- [labeler.yml](./labeler.yml)
-- [issue-types.yml](./issue-types.yml)
-- [labeling.agent.md](./agents/labeling.agent.md)
-- [labeling.yml](./workflows/labeling.yml)
-- [Labeling Strategy](../docs/LABEL_STRATEGY.md)
+- [labels.yml](../.github/labels.yml)
+- [labeler.yml](../.github/labeler.yml)
+- [issue-types.yml](../.github/issue-types.yml)
+- [labeling.agent.md](../.github/agents/labeling.agent.md)
+- [labeling.yml](../.github/workflows/labeling.yml)
+- [Labeling Strategy](./LABEL_STRATEGY.md)
 - [Automation Governance](./AUTOMATION_GOVERNANCE.md)
 
 ---

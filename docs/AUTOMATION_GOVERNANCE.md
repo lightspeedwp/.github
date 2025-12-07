@@ -453,9 +453,9 @@ When `develop` merges to `main` (or on a release PR to main):
 
 ### 8.2 Resources
 
-- **Documentation:** [docs/LABELING_AGENT_USAGE.md](../docs/LABELING_AGENT_USAGE.md)
+- **Documentation:** [docs/LABELING_AGENT_USAGE.md](./LABELING_AGENT_USAGE.md)
 - **Agent Spec:** [.github/agents/labeling.agent.md](.github/agents/labeling.agent.md)
-- **Label Strategy:** [docs/LABEL_STRATEGY.md](../docs/LABEL_STRATEGY.md)
+- **Label Strategy:** [docs/LABEL_STRATEGY.md](./LABEL_STRATEGY.md)
 - **Coding Standards:** [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)
 
 ---
@@ -523,9 +523,8 @@ When `develop` merges to `main` (or on a release PR to main):
 **Escalation Path:**
 
 1. Create issue in `.github` repository
-2. Mention `@platform-team` for urgent issues
-3. Use `#platform` Slack channel for real-time help
-4. Email <platform-team@lightspeedwp.com> for critical issues
+2. Mention `@ashleyshaw` for urgent issues
+3. Email <support@lightspeedwp.agency> for critical issues
 
 ---
 

@@ -3,21 +3,11 @@ name: "🎨 Design"
 about: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
 title: "[Design] <Brief summary>"
 labels:
-  [type:design, status:needs-design-review, priority:normal, area:design-system]
+  [status:needs-design-review, priority:normal, area:design-system]
 assignees: []
 projects: []
 milestone: ""
 file_type: design
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
 ---
 
 <!--
@@ -75,41 +65,20 @@ How will the design be verified (review, accessibility testing, user feedback)?
 Add links, screenshots, references, or other design docs.
 -->
 
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
-
 ---
 
-### Definition of Ready (DoR)
+## Definition of Ready (DoR)
 
 - [ ] Design goal/scope defined
 - [ ] Artefact/objective listed
 - [ ] Accessibility criteria mapped
 - [ ] Dependencies mapped
 
-### Definition of Done (DoD)
+## Definition of Done (DoD)
 
 - [ ] All design acceptance criteria met
 - [ ] Documentation/changelog updated
 - [ ] Design reviewed and approved
 - [ ] PR uses correct branch prefix (design/)
 
----
-
-## Directions & Next Steps
-
-- Complete all sections and attach relevant design files.
-- Use the branch prefix `design/` for related PRs.
-- Reference this issue in your PR using keywords like `fixes #{issue_number}`.
-- Tag a design/maintainer reviewer as needed.
-- See [Contribution Guidelines](../CONTRIBUTING.md), [Pattern Development](../instructions/block-theme/pattern-development.instructions.md), and [Coding Standards](../instructions/coding-standards.instructions.md).
-- For automation, labels, and issue types, see [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).
+--- 

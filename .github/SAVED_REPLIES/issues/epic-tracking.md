@@ -3,7 +3,6 @@ title: "Epic Tracking Saved Replies"
 description: "Standard responses for issues identified as epics, providing guidance on linking child issues and tracking progress. Aligns with LightSpeedWP Issue Type and Project field standards."
 category: "Issue Management"
 labels:
-  - type:epic
   - status:in-progress
 references:
   - "../ISSUE_TYPES.md"
@@ -25,7 +24,7 @@ This issue is classified as an **Epic**—it groups related stories, tasks, or f
 
 - Link child issues (stories, tasks, bugs) using phrases like "Part of #XX" or "Child of #XX"
 - Use the checklist or task list below to track progress for each sub-issue
-- Ensure each child issue is properly labeled with the correct `type:`, `area:`, and `priority:`
+- Ensure each child issue is assigned the correct **Issue Type** via the issue form and labeled with appropriate `area:*` and `priority:*`
 
 **Epic Progress Checklist:**
 

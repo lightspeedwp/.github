@@ -2,21 +2,7 @@
 name: "♻️ Code Refactor"
 about: "Request or propose a code refactoring or review to improve code quality, maintainability, and consistency."
 title: "[Refactor] <Short summary>"
-labels: [type:refactor, status:needs-review, priority:normal, area:core]
-assignees: []
-projects: []
-milestone: ""
-file_type: refactor
-references:
-  - ../CONTRIBUTING.md
-  - .github/BRANCHING_STRATEGY.md
-  - .github/AUTOMATION_GOVERNANCE.md
-  - .github/PR_LABELS.md
-  - .github/SAVED_REPLIES.md
-  - .github/PROJECT_META.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+labels: [status:needs-review, priority:normal, area:core]
 ---
 
 <!--
@@ -114,22 +100,9 @@ Tick all that apply and/or describe in detail.
 - [ ] Integrations
 - [ ] Other: <!-- Please specify -->
 
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md)
-- [Automation Governance](.github/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](.github/PR_LABELS.md)
-- [Saved Replies](.github/SAVED_REPLIES.md)
-- [Project Meta](.github/PROJECT_META.md)
-- [Labeler Config](.github/labeler.yml)
-- [Labels](.github/labels.yml)
-- [Issue Types](.github/issue-types.yml)
-  -->
-
 ---
 
-### Definition of Ready (DoR)
+## Definition of Ready (DoR)
 
 <!--
 Checklist items to ensure the issue is ready for work.
@@ -140,7 +113,7 @@ Checklist items to ensure the issue is ready for work.
 - [ ] Estimate added
 - [ ] Dependencies mapped
 
-### Definition of Done (DoD)
+## Definition of Done (DoD)
 
 <!--
 Checklist items to ensure the refactoring/review is complete.
@@ -153,16 +126,3 @@ Checklist items to ensure the refactoring/review is complete.
 - [ ] PR uses correct branch prefix
 
 ---
-
-## Directions & Next Steps
-
-<!--
-Instructions for contributors and maintainers.
--->
-
-- Review that all refactoring scope, goals, and impacted areas are described above.
-- For any related PR, use the branch prefix `refactor/` (see [Branching Strategy](../AUTOMATION_GOVERNANCE.md)).
-- Reference this issue in your PR using keywords like `fixes #{issue_number}` for auto-closing.
-- Tag a maintainer for review or triage if needed.
-- See [Contribution Guidelines](../CONTRIBUTING.md) and [Coding Standards](../instructions/coding-standards.instructions.md) for submission requirements.
-- For automation, labels, and issue types, check [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md).
