@@ -27,20 +27,22 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 **Old Files (4):**
 
-| Old File | New Section | Status |
-|----------|-------------|--------|
+| Old File                     | New Section                      | Status       |
+| ---------------------------- | -------------------------------- | ------------ |
 | `javascript.instructions.md` | §2 JavaScript/TypeScript Linting | Consolidated |
-| `jsdoc.instructions.md` | §2.1 JSDoc Standards | Consolidated |
-| `json.instructions.md` | §2.2 JSON Schemas | Consolidated |
-| `yaml.instructions.md` | §2.3 YAML Linting | Consolidated |
+| `jsdoc.instructions.md`      | §2.1 JSDoc Standards             | Consolidated |
+| `json.instructions.md`       | §2.2 JSON Schemas                | Consolidated |
+| `yaml.instructions.md`       | §2.3 YAML Linting                | Consolidated |
 
 **Direct Cross-References:** Update any links from:
 
 ```markdown
 # OLD
+
 [JavaScript Linting](.github/instructions/javascript.instructions.md)
 
 # NEW
+
 [JavaScript Linting](.github/instructions/languages.instructions.md#javascript--typescript-linting)
 ```
 
@@ -55,19 +57,21 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 **Old Files (3):**
 
-| Old File | New Section | Status |
-|----------|-------------|--------|
-| `markdown.instructions.md` | §3 Markdown Standards | Consolidated |
+| Old File                      | New Section           | Status       |
+| ----------------------------- | --------------------- | ------------ |
+| `markdown.instructions.md`    | §3 Markdown Standards | Consolidated |
 | `frontmatter.instructions.md` | §3.1 YAML Frontmatter | Consolidated |
-| `mermaid.instructions.md` | §3.2 Mermaid Diagrams | Consolidated |
+| `mermaid.instructions.md`     | §3.2 Mermaid Diagrams | Consolidated |
 
 **Direct Cross-References:** Update any links from:
 
 ```markdown
 # OLD
+
 [Markdown Standards](.github/instructions/markdown.instructions.md)
 
 # NEW
+
 [Markdown Standards](.github/instructions/documentation-formats.instructions.md#markdown-standards)
 ```
 
@@ -77,19 +81,21 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 **Old Files (3):**
 
-| Old File | New Section | Status |
-|----------|-------------|--------|
-| `testing.instructions.md` | §4 Testing Strategy | Consolidated |
-| `tests.instructions.md` | §4.1 Test Standards | Consolidated |
-| `jest.instructions.md` | §4.2 Jest Configuration | Consolidated |
+| Old File                  | New Section             | Status       |
+| ------------------------- | ----------------------- | ------------ |
+| `testing.instructions.md` | §4 Testing Strategy     | Consolidated |
+| `tests.instructions.md`   | §4.1 Test Standards     | Consolidated |
+| `jest.instructions.md`    | §4.2 Jest Configuration | Consolidated |
 
 **Direct Cross-References:** Update any links from:
 
 ```markdown
 # OLD
+
 [Testing Guide](.github/instructions/testing.instructions.md)
 
 # NEW
+
 [Testing Guide](.github/instructions/quality-assurance.instructions.md#testing-pyramid)
 ```
 
@@ -99,24 +105,26 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 **Old Files (8):**
 
-| Old File | New Section | Status |
-|----------|-------------|--------|
-| `agents.instructions.md` | §5.1 Agent Development | Consolidated |
-| `branding.instructions.md` | §5.2 Documentation Branding | Consolidated |
-| `metrics.instructions.md` | §5.3 Metrics Collection | Consolidated |
-| `planner.instructions.md` | §5.4 Planning Automation | Consolidated |
-| `project-meta-sync.instructions.md` | §5.5 Project Sync | Consolidated |
-| `release.instructions.md` | §5.6 Release Management | Consolidated |
-| `reporting.instructions.md` | §5.7 Report Generation | Consolidated |
-| `reviewer.instructions.md` | §5.8 PR Review Automation | Consolidated |
+| Old File                            | New Section                 | Status       |
+| ----------------------------------- | --------------------------- | ------------ |
+| `agents.instructions.md`            | §5.1 Agent Development      | Consolidated |
+| `branding.instructions.md`          | §5.2 Documentation Branding | Consolidated |
+| `metrics.instructions.md`           | §5.3 Metrics Collection     | Consolidated |
+| `planner.instructions.md`           | §5.4 Planning Automation    | Consolidated |
+| `project-meta-sync.instructions.md` | §5.5 Project Sync           | Consolidated |
+| `release.instructions.md`           | §5.6 Release Management     | Consolidated |
+| `reporting.instructions.md`         | §5.7 Report Generation      | Consolidated |
+| `reviewer.instructions.md`          | §5.8 PR Review Automation   | Consolidated |
 
 **Direct Cross-References:** Update any links from:
 
 ```markdown
 # OLD
+
 [Release Management](.github/instructions/release.instructions.md)
 
 # NEW
+
 [Release Management](.github/instructions/automation.instructions.md#56-release-management)
 ```
 
@@ -133,20 +141,22 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 **Old Files (4):**
 
-| Old File | New Section | Status |
-|----------|-------------|--------|
-| `file-management.instructions.md` | §6.1 File Organization | Consolidated |
+| Old File                             | New Section             | Status       |
+| ------------------------------------ | ----------------------- | ------------ |
+| `file-management.instructions.md`    | §6.1 File Organization  | Consolidated |
 | `naming-conventions.instructions.md` | §6.2 Naming Conventions | Consolidated |
-| `readme.instructions.md` | §6.3 README Standards | Consolidated |
-| `saved-replies.instructions.md` | §6.4 Saved Replies | Consolidated |
+| `readme.instructions.md`             | §6.3 README Standards   | Consolidated |
+| `saved-replies.instructions.md`      | §6.4 Saved Replies      | Consolidated |
 
 **Direct Cross-References:** Update any links from:
 
 ```markdown
 # OLD
+
 [Naming Conventions](.github/instructions/naming-conventions.instructions.md)
 
 # NEW
+
 [Naming Conventions](.github/instructions/community-standards.instructions.md#62-naming-conventions)
 ```
 
@@ -303,7 +313,7 @@ cp -r .github/instructions/.archive/* .github/instructions/
 
 ## Questions?
 
-- See [`DOCS.md`](./DOCS.md) for documentation architecture
+- See [docs/README.md](./docs/README.md) for documentation architecture
 - Check [`README.md`](./.github/README.md) for community health files
 - Review [`coding-standards.instructions.md`](./.github/instructions/coding-standards.instructions.md) for coding rules
 
@@ -311,8 +321,8 @@ cp -r .github/instructions/.archive/* .github/instructions/
 
 **Version History:**
 
-| Date | Changes |
-|------|---------|
+| Date       | Changes                                                        |
+| ---------- | -------------------------------------------------------------- |
 | 2025-12-07 | Initial migration guide created. 22 files consolidated into 5. |
 
 ---

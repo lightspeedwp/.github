@@ -5,7 +5,15 @@ description: "Comprehensive standards for file management, naming conventions, R
 version: "v1.0"
 last_updated: "2025-12-07"
 owners: ["GitHub Community Health Team"]
-tags: ["community", "standards", "file-management", "naming", "readme", "best-practices"]
+tags:
+  [
+    "community",
+    "standards",
+    "file-management",
+    "naming",
+    "readme",
+    "best-practices",
+  ]
 applyTo: ["**/*"]
 status: "active"
 stability: "stable"
@@ -35,11 +43,11 @@ Ensure repositories are well-organized, easily navigable, and welcoming to contr
 - [README Standards](#readme-standards)
   - [Required Sections](#required-sections)
   - [README Templates](#readme-templates)
-  - [Best Practices](#readme-best-practices)
+  - [Best Practices](#best-practices)
 - [Saved Replies](#saved-replies)
   - [Usage Guidelines](#usage-guidelines)
   - [Creating Replies](#creating-replies)
-- [Best Practices](#best-practices)
+- [Best Practices](#best-practices-1)
 - [References](#references)
 
 ---
@@ -90,12 +98,14 @@ Ensure repositories are well-organized, easily navigable, and welcoming to contr
 ### File Lifecycle
 
 **Permanent Files:**
+
 - Committed to version control
 - Stored in appropriate permanent directories
 - Updated with version tracking
 - Archived when deprecated (not deleted)
 
 **Temporary Files:**
+
 - Stored in `tmp/` directory
 - NOT committed to version control
 - Deleted after workflow completion
@@ -110,6 +120,7 @@ Ensure repositories are well-organized, easily navigable, and welcoming to contr
 **Purpose**: Long-term documentation and analysis
 
 **Use For:**
+
 - Final reports and summaries
 - Baseline data and benchmarks
 - Decision records
@@ -117,6 +128,7 @@ Ensure repositories are well-organized, easily navigable, and welcoming to contr
 - Metrics reports
 
 **Naming:**
+
 ```
 reports/
 ├── {category}/
@@ -133,6 +145,7 @@ reports/
 **Purpose**: Short-term processing artifacts
 
 **Use For:**
+
 - Intermediate processing outputs
 - Working documents
 - Draft versions
@@ -140,6 +153,7 @@ reports/
 - Temporary experiments
 
 **Naming:**
+
 ```
 tmp/
 ├── processing-{phase}-{timestamp}.json
@@ -149,6 +163,7 @@ tmp/
 ```
 
 **Lifecycle:**
+
 1. Create during processing
 2. Use for calculations
 3. Move to `reports/` if permanent
@@ -175,6 +190,7 @@ Is this a FINAL, permanent result?
 ### File Names
 
 **General Rules:**
+
 - Use **lowercase** with **hyphens** for word separation
 - Be descriptive and concise
 - Include file type suffix when appropriate
@@ -182,21 +198,22 @@ Is this a FINAL, permanent result?
 
 **File Type Patterns:**
 
-| File Type | Pattern | Example |
-|-----------|---------|---------|
-| Documentation | `{name}.md` | `contributing.md` |
-| Instructions | `{name}.instructions.md` | `coding-standards.instructions.md` |
-| Agent Spec | `{name}.agent.md` | `labeling.agent.md` |
-| Agent Code | `{name}.agent.js` | `labeling.agent.js` |
-| Prompt | `{name}.prompt.md` | `code-review.prompt.md` |
-| Workflow | `{name}.yml` | `labeling.yml` |
-| Test | `{name}.test.js` | `labeling.test.js` |
-| Report | `{subject}-{type}.md` | `metrics-monthly.md` |
-| Spec File | `{json-file}.spec.md` | `baseline.json.spec.md` |
+| File Type     | Pattern                  | Example                            |
+| ------------- | ------------------------ | ---------------------------------- |
+| Documentation | `{name}.md`              | `contributing.md`                  |
+| Instructions  | `{name}.instructions.md` | `coding-standards.instructions.md` |
+| Agent Spec    | `{name}.agent.md`        | `labeling.agent.md`                |
+| Agent Code    | `{name}.agent.js`        | `labeling.agent.js`                |
+| Prompt        | `{name}.prompt.md`       | `code-review.prompt.md`            |
+| Workflow      | `{name}.yml`             | `labeling.yml`                     |
+| Test          | `{name}.test.js`         | `labeling.test.js`                 |
+| Report        | `{subject}-{type}.md`    | `metrics-monthly.md`               |
+| Spec File     | `{json-file}.spec.md`    | `baseline.json.spec.md`            |
 
 **Examples:**
 
 ✅ **GOOD:**
+
 - `code-of-conduct.md`
 - `coding-standards.instructions.md`
 - `labeling.agent.js`
@@ -204,6 +221,7 @@ Is this a FINAL, permanent result?
 - `eslint-baseline.json`
 
 ❌ **BAD:**
+
 - `Code_Of_Conduct.md` (wrong case)
 - `codingStandards.instructions.md` (camelCase)
 - `LabelingAgent.js` (wrong case)
@@ -213,6 +231,7 @@ Is this a FINAL, permanent result?
 ### Directory Names
 
 **Rules:**
+
 - Use **lowercase** with **hyphens**
 - Use **plural** for collections
 - Keep names short but meaningful
@@ -220,12 +239,14 @@ Is this a FINAL, permanent result?
 **Examples:**
 
 ✅ **GOOD:**
+
 - `agents/`
 - `workflows/`
 - `instructions/`
 - `reports/labeling/`
 
 ❌ **BAD:**
+
 - `Agents/`
 - `work-flows/`
 - `instruction/`
@@ -266,17 +287,20 @@ These files use **UPPERCASE** for visibility:
 **RULE**: One `README.md` per folder only.
 
 **Prohibited:**
+
 - `README.{filename}.md`
 - `README.{NAME}.md.md`
 - Any `README.*.md` except `README.md`
 
 **Rationale:**
+
 - File-specific READMEs create clutter
 - Folder README should index all files
 - Use inline docs for individual files
 - Special docs belong in `docs/` folder
 
 **If You Need to Document a File:**
+
 1. Add inline documentation
 2. Reference in folder's `README.md`
 3. Create detailed docs in `docs/`
@@ -318,7 +342,7 @@ How to use or interact with contents.
 
 #### **Repository Root README**
 
-```markdown
+````markdown
 ---
 description: "GitHub community health repository"
 last_updated: "YYYY-MM-DD"
@@ -341,6 +365,7 @@ npm install
 # Usage
 npm test
 ```
+````
 
 ## Structure
 
@@ -353,7 +378,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## License
 
 [LICENSE](LICENSE)
-```
+
+````
 
 #### **Folder README**
 
@@ -383,11 +409,12 @@ How to use files in this folder.
 ## References
 
 - [Related documentation]
-```
+````
 
 ### Best Practices
 
 **DO:**
+
 - ✅ Keep READMEs concise and scannable
 - ✅ Use tables for file listings
 - ✅ Include code examples
@@ -397,6 +424,7 @@ How to use files in this folder.
 - ✅ Use relative links
 
 **DON'T:**
+
 - ❌ Create multiple README files per folder
 - ❌ Duplicate content from other docs
 - ❌ Include outdated information
@@ -415,6 +443,7 @@ Saved replies are pre-written responses for common GitHub interactions.
 **Location**: `.github/SAVED_REPLIES/`
 
 **Organization:**
+
 ```
 SAVED_REPLIES/
 ├── issues/
@@ -462,10 +491,12 @@ Hi @username,
 [Standard response content]
 
 **Next Steps:**
+
 1. Action item 1
 2. Action item 2
 
 **Resources:**
+
 - [Link to documentation]
 
 Thank you!
@@ -482,14 +513,14 @@ Thank you!
 
 **Common Saved Replies:**
 
-| File | Purpose |
-|------|---------|
-| `missing-info.md` | Request more details |
-| `duplicate.md` | Mark as duplicate |
-| `stale.md` | Close inactive issue |
-| `missing-tests.md` | Request tests |
-| `needs-changelog.md` | Request changelog |
-| `ready-to-merge.md` | Approve PR |
+| File                 | Purpose              |
+| -------------------- | -------------------- |
+| `missing-info.md`    | Request more details |
+| `duplicate.md`       | Mark as duplicate    |
+| `stale.md`           | Close inactive issue |
+| `missing-tests.md`   | Request tests        |
+| `needs-changelog.md` | Request changelog    |
+| `ready-to-merge.md`  | Approve PR           |
 
 ---
 
@@ -498,6 +529,7 @@ Thank you!
 ### File Organization
 
 **DO:**
+
 - ✅ Use consistent naming across repository
 - ✅ Store files in appropriate directories
 - ✅ Clean up temporary files regularly
@@ -506,6 +538,7 @@ Thank you!
 - ✅ Maintain directory READMEs
 
 **DON'T:**
+
 - ❌ Mix temporary and permanent files
 - ❌ Use vague file names
 - ❌ Create deeply nested structures
@@ -516,6 +549,7 @@ Thank you!
 ### Documentation
 
 **DO:**
+
 - ✅ Write clear, concise docs
 - ✅ Use consistent formatting
 - ✅ Include examples
@@ -524,6 +558,7 @@ Thank you!
 - ✅ Link related resources
 
 **DON'T:**
+
 - ❌ Write overly technical docs
 - ❌ Assume prior knowledge
 - ❌ Skip code examples
@@ -534,6 +569,7 @@ Thank you!
 ### Community Interaction
 
 **DO:**
+
 - ✅ Be welcoming and inclusive
 - ✅ Respond promptly
 - ✅ Provide helpful feedback
@@ -542,6 +578,7 @@ Thank you!
 - ✅ Recognize contributors
 
 **DON'T:**
+
 - ❌ Be dismissive or rude
 - ❌ Ignore questions
 - ❌ Provide generic responses
@@ -556,15 +593,18 @@ Thank you!
 ### Regular Tasks
 
 **Daily:**
+
 - Monitor `tmp/` folder size
 - Delete stale temporary files (> 7 days)
 
 **Weekly:**
+
 - Archive completed reports
 - Clean up temporary processing files
 - Review for accidentally committed temp files
 
 **Monthly:**
+
 - Archive old reports per retention policy
 - Review folder structure
 - Update documentation
@@ -620,16 +660,19 @@ coverage/
 ## References
 
 ### GitHub Documentation
+
 - [Community Health Files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions)
 - [About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
 - [Saved Replies](https://docs.github.com/en/get-started/writing-on-github/working-with-saved-replies/using-saved-replies)
 
 ### Best Practices
+
 - [README Best Practices](https://www.makeareadme.com/)
 - [Open Source Guides](https://opensource.guide/)
 - [Conventional Commits](https://www.conventionalcommits.org/)
 
 ### Related Instructions
+
 - [Documentation Formats](./documentation-formats.instructions.md)
 - [Automation](./automation.instructions.md)
 - [Workflows](./workflows.instructions.md)

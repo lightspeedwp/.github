@@ -18,13 +18,6 @@ status: "active"
 visibility: "public"
 tags: ["lightspeed", "project-management", "automation", "github", "labels"]
 language: "en"
-references:
-  - path: ".github/agents/project-meta-sync.agent.js"
-    description: "Implementation script"
-  - path: ".github/workflows/project-meta-sync.yml"
-    description: "GitHub Actions workflow"
-  - path: ".github/labels.yml"
-    description: "Canonical label definitions"
 owners: ["lightspeedwp/maintainers"]
 metadata:
   guardrails: "Only update fields based on canonical label mappings. Notify maintainers on mapping conflicts. Support rollback and audit logging. Never remove items from project without warning."

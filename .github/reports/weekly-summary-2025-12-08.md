@@ -17,13 +17,13 @@ Automated summary of reports generated for week 50 of 2025.
 
 ## Key Metrics
 
-| Category | Count | Status |
-|----------|-------|--------|
-| Agents | 0 | ✅ |
-| Linting | 0 | ✅ |
-| Labeling | 0 | ✅ |
-| Frontmatter | 0 | ✅ |
-| **Total** | **1** | ✅ |
+| Category    | Count | Status |
+| ----------- | ----- | ------ |
+| Agents      | 0     | ✅     |
+| Linting     | 0     | ✅     |
+| Labeling    | 0     | ✅     |
+| Frontmatter | 0     | ✅     |
+| **Total**   | **1** | ✅     |
 
 ## Details
 

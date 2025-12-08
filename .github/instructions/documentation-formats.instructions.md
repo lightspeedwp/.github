@@ -5,7 +5,8 @@ description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diag
 version: "v1.0"
 last_updated: "2025-12-07"
 owners: ["GitHub Community Health Team"]
-tags: ["markdown", "frontmatter", "mermaid", "documentation", "diagrams", "yaml"]
+tags:
+  ["markdown", "frontmatter", "mermaid", "documentation", "diagrams", "yaml"]
 applyTo: ["**/*.md"]
 status: "active"
 stability: "stable"
@@ -50,6 +51,7 @@ All documentation files (README, CONTRIBUTING, CODE_OF_CONDUCT, etc.) must follo
 ### Formatting Rules
 
 **Headings:**
+
 - Use ATX-style headings (`#`, `##`, `###`)
 - **One H1 per file** (typically the title)
 - No skipped heading levels (H1 → H2 → H3, not H1 → H3)
@@ -57,6 +59,7 @@ All documentation files (README, CONTRIBUTING, CODE_OF_CONDUCT, etc.) must follo
 - Add blank lines before and after headings
 
 **Lists:**
+
 - Use `-` for unordered lists
 - Use `1.` for ordered lists (auto-numbering)
 - Indent nested lists with 2 spaces
@@ -64,11 +67,13 @@ All documentation files (README, CONTRIBUTING, CODE_OF_CONDUCT, etc.) must follo
 - Use consistent punctuation (all items or no items)
 
 **Code Blocks:**
+
 - Use fenced code blocks with triple backticks
 - **Always specify language** for syntax highlighting
 - Supported languages: `bash`, `javascript`, `json`, `yaml`, `markdown`, `diff`, etc.
 
 **Example:**
+
 ````markdown
 ```javascript
 function greet(name) {
@@ -78,25 +83,29 @@ function greet(name) {
 ````
 
 **Links:**
+
 - Use **relative links** for internal documentation
 - Use descriptive link text (not "click here")
 - Format: `[Link Text](relative/path/to/file.md)`
 - Verify all links are valid
 
 **Images:**
+
 - Use descriptive alt text: `![Alt text description](image.png)`
 - Store images in `docs/images/` or `.github/images/`
 - Optimize images for web (< 500KB)
 
 **Tables:**
+
 - Use pipe tables with proper alignment
 - Include header row
 - Align columns consistently
 
 **Example:**
+
 ```markdown
 | Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
+| -------- | -------- | -------- |
 | Data 1   | Data 2   | Data 3   |
 | Data 4   | Data 5   | Data 6   |
 ```
@@ -114,6 +123,7 @@ function greet(name) {
 7. **Footer** (optional) - Metadata, license info
 
 **Writing Guidelines:**
+
 - Clear, concise, task-focused writing
 - Use active voice
 - Write for international audiences (avoid idioms)
@@ -127,12 +137,14 @@ function greet(name) {
 **Formatter:** [Prettier](https://prettier.io/)
 
 **Configuration Files:**
+
 - Config: [`.markdownlint.json`](../../.markdownlint.json)
 - Ignore: [`.markdownlintignore`](../../.markdownlintignore)
 - Prettier: [`prettier.config.js`](../../prettier.config.js)
 - Editor: [`.editorconfig`](../../.editorconfig)
 
 **NPM Scripts:**
+
 ```json
 {
   "scripts": {
@@ -142,12 +154,14 @@ function greet(name) {
 ```
 
 **Setup:**
+
 ```bash
 npm install --save-dev markdownlint-cli prettier
 npx husky add .husky/pre-commit "npm run lint:md"
 ```
 
 **Enforced Rules:**
+
 - Lines ≤ 120 characters (or natural wrapping)
 - Blank lines between sections
 - Consistent list marker style
@@ -156,6 +170,7 @@ npx husky add .husky/pre-commit "npm run lint:md"
 - Language specified for code blocks
 
 **Running:**
+
 - Manual: `npm run lint:md`
 - Auto-fix: Automatically fixes most issues
 - Format: `npx prettier --write '**/*.md'`
@@ -186,30 +201,31 @@ status: "active"
 
 ### Field Specifications
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `file_type` | string | ✅ | Document classification (see types below) |
-| `title` | string | ✅ | Human-readable title |
-| `description` | string | ✅ | Single-sentence summary (≤ 120 chars) |
-| `version` | string | ✅ | Semantic version (e.g., `v1.0`) |
-| `last_updated` | string | ✅ | ISO date (YYYY-MM-DD) |
-| `author` | string | ✅ | Original author |
-| `maintainer` | string | ✅ | Current maintainer |
-| `owners` | array | 📋 | Team or individual owners |
-| `tags` | array | 📋 | Keywords (max 8, kebab-case) |
-| `status` | string | 📋 | `active`, `deprecated`, `draft` |
-| `stability` | string | 📋 | `stable`, `experimental`, `incubating` |
-| `deprecated` | boolean | 📋 | Mark as deprecated |
-| `replacement` | string | 📋 | Path to replacement (if deprecated) |
-| `applyTo` | string/array | 📋 | File patterns for instructions |
-| `domain` | string | 📋 | Classification domain |
-| `references` | array | 📋 | Related documentation paths |
+| Field          | Type         | Required | Description                               |
+| -------------- | ------------ | -------- | ----------------------------------------- |
+| `file_type`    | string       | ✅       | Document classification (see types below) |
+| `title`        | string       | ✅       | Human-readable title                      |
+| `description`  | string       | ✅       | Single-sentence summary (≤ 120 chars)     |
+| `version`      | string       | ✅       | Semantic version (e.g., `v1.0`)           |
+| `last_updated` | string       | ✅       | ISO date (YYYY-MM-DD)                     |
+| `author`       | string       | ✅       | Original author                           |
+| `maintainer`   | string       | ✅       | Current maintainer                        |
+| `owners`       | array        | 📋       | Team or individual owners                 |
+| `tags`         | array        | 📋       | Keywords (max 8, kebab-case)              |
+| `status`       | string       | 📋       | `active`, `deprecated`, `draft`           |
+| `stability`    | string       | 📋       | `stable`, `experimental`, `incubating`    |
+| `deprecated`   | boolean      | 📋       | Mark as deprecated                        |
+| `replacement`  | string       | 📋       | Path to replacement (if deprecated)       |
+| `applyTo`      | string/array | 📋       | File patterns for instructions            |
+| `domain`       | string       | 📋       | Classification domain                     |
+| `references`   | array        | 📋       | Related documentation paths               |
 
 **Legend:** ✅ Required | 📋 Recommended
 
 ### File Type Examples
 
 #### **Documentation File**
+
 ```yaml
 ---
 file_type: "documentation"
@@ -226,6 +242,7 @@ stability: "stable"
 ```
 
 #### **Instructions File**
+
 ```yaml
 ---
 file_type: "instructions"
@@ -240,6 +257,7 @@ status: "active"
 ```
 
 #### **Issue/PR Template**
+
 ```yaml
 ---
 name: "Bug Report"
@@ -250,6 +268,7 @@ labels: ["bug", "needs-triage"]
 ```
 
 #### **Deprecated File**
+
 ```yaml
 ---
 file_type: "documentation"
@@ -272,6 +291,7 @@ replacement: "docs/configuration-v2.md"
 **Schema:** All frontmatter validates against `schemas/frontmatter.schema.json`
 
 **Validation Rules:**
+
 - Required fields must be present
 - Dates in ISO format (YYYY-MM-DD)
 - Tags use kebab-case (lowercase, hyphens)
@@ -280,6 +300,7 @@ replacement: "docs/configuration-v2.md"
 - If `deprecated: true`, must include `replacement`
 
 **Validation Tools:**
+
 - VS Code: Real-time validation with schema
 - CLI: `validate-frontmatter.js` script
 - CI/CD: Automatic validation on PRs
@@ -295,24 +316,28 @@ Mermaid diagrams enhance documentation by visualizing complex relationships, pro
 **✅ MANDATORY Use Cases:**
 
 **Architecture & Structure:**
+
 - Directory/folder relationships
 - System component interactions
 - Repository structure
 - Workflow dependencies
 
 **Process Flows:**
+
 - CI/CD pipelines
 - Issue/PR lifecycles
 - Automation workflows
 - Decision trees
 
 **Documentation Enhancement:**
+
 - Complex README files
 - Technical specifications
 - Onboarding guides
 - Troubleshooting flows
 
 **⚠️ When to Avoid:**
+
 - Simple lists work better
 - Information changes frequently
 - Diagram much larger than text it represents
@@ -404,12 +429,14 @@ stateDiagram-v2
 **Consistent Styling:**
 
 **Node Shapes:**
+
 - `[Rectangle]` - Standard processes
 - `{Diamond}` - Decisions
 - `((Circle))` - Start/end points
 - `[/Parallelogram/]` - Input/output
 
 **Color Coding:**
+
 ```mermaid
 flowchart TD
     A[Input] --> B[Process]
@@ -425,12 +452,14 @@ flowchart TD
 ```
 
 **Size Guidelines:**
+
 - Maximum 15 nodes per diagram
 - Maximum 3 nesting levels
 - Maximum 20 connections
 - Break large diagrams into smaller focused ones
 
 **Placement:**
+
 - After introductory paragraph
 - Before detailed sections
 - At end for summary diagrams
@@ -438,11 +467,13 @@ flowchart TD
 ### Diagram Accessibility
 
 **Always Include:**
+
 - Descriptive context before diagram
 - Text explanation of key relationships
 - Alternative text in surrounding prose
 
 **Example:**
+
 ````markdown
 The following diagram shows the issue lifecycle:
 
@@ -461,6 +492,7 @@ when complete.
 ````
 
 **Quality Checklist:**
+
 - [ ] Diagram adds clarity beyond text
 - [ ] All nodes labeled clearly
 - [ ] Color coding is meaningful
@@ -470,6 +502,7 @@ when complete.
 - [ ] Tested in Mermaid Live Editor
 
 **Testing:**
+
 - [Mermaid Live Editor](https://mermaid.live)
 - GitHub preview (native support)
 - VS Code with Mermaid extensions
@@ -481,6 +514,7 @@ when complete.
 All documentation format standards are enforced through GitHub Actions:
 
 **Workflow Example:**
+
 ```yaml
 name: Documentation Lint
 on: [pull_request, push]
@@ -510,10 +544,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: lycheeverse/lychee-action@v1
         with:
-          args: '**/*.md'
+          args: "**/*.md"
 ```
 
 **Enforcement:**
+
 - Markdown linting must pass
 - Frontmatter must validate against schema
 - Internal links must be valid
@@ -525,23 +560,27 @@ jobs:
 ## References
 
 ### Markdown
+
 - [markdownlint Documentation](https://github.com/DavidAnson/markdownlint)
 - [Prettier Markdown Support](https://prettier.io/docs/en/options.html#prose-wrap)
 - [GitHub Flavored Markdown](https://github.github.com/gfm/)
 - [CommonMark Specification](https://commonmark.org/)
 
 ### YAML Frontmatter
+
 - [YAML Specification](https://yaml.org/spec/)
 - [JSON Schema](https://json-schema.org/)
 - [GitHub Issue Templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests)
 
 ### Mermaid
+
 - [Mermaid Documentation](https://mermaid.js.org/)
 - [GitHub Mermaid Support](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/)
 - [Mermaid Live Editor](https://mermaid.live)
 - [W3C Complex Images](https://www.w3.org/WAI/tutorials/images/complex/)
 
 ### Related Instructions
+
 - [Coding Standards](./coding-standards.instructions.md)
 - [Languages Standards](./languages.instructions.md)
 - [Accessibility Standards](./a11y.instructions.md)

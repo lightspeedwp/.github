@@ -2,7 +2,23 @@
 name: "Release Manager"
 description: "Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes."
 target: "github-copilot"
-tools: ["codebase", "edit", "read", "shell", "search", "github/*", "githubRepo", "fetch", "list_issues", "search_issues", "add_issue_comment", "create_issue", "update_issue", "get_issue"]
+tools:
+  [
+    "codebase",
+    "edit",
+    "read",
+    "shell",
+    "search",
+    "github/*",
+    "githubRepo",
+    "fetch",
+    "list_issues",
+    "search_issues",
+    "add_issue_comment",
+    "create_issue",
+    "update_issue",
+    "get_issue",
+  ]
 handoffs:
   - label: "Publish Release"
     agent: "deployment"
@@ -20,7 +36,16 @@ file_type: "agent"
 category: "release-management"
 status: "active"
 visibility: "public"
-tags: ["lightspeed", "release", "agents", "github", "semantic-versioning", "release-prep", "health-scan"]
+tags:
+  [
+    "lightspeed",
+    "release",
+    "agents",
+    "github",
+    "semantic-versioning",
+    "release-prep",
+    "health-scan",
+  ]
 references:
   - path: "scripts/agents/release.agent.js"
     description: "Automated release implementation"
@@ -88,7 +113,7 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 12. **Deliverables**
     - Pre-release checklist, release notes template, tracking issues (for blockers), summary of gating status.
 
-## Phase 2: Release Execution (release/* → main)
+## Phase 2: Release Execution (release/\* → main)
 
 1. Validate readiness: lint/test gates green; `CHANGELOG.md` schema-valid with unreleased entries.
 2. Create `release/vX.Y.Z` from `develop`.

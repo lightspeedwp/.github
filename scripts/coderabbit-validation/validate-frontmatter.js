@@ -114,8 +114,6 @@ function findMarkdownFiles() {
     ".github/SAVED_REPLIES/**/*.md",
     "docs/**/*.md",
     "AGENTS.md",
-    "CLAUDE.md",
-    "GEMINI.md",
   ];
 
   const files = [];

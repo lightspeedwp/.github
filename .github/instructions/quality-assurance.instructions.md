@@ -61,19 +61,20 @@ graph TD
 ```
 
 **Test Layer Distribution:**
+
 - **Unit Tests**: 70% of test coverage (fast, isolated)
 - **Integration Tests**: 20% of test coverage (component interaction)
 - **E2E Tests**: 10% of test coverage (critical user paths)
 
 ### Coverage Requirements
 
-| Code Type | Minimum Coverage | Target Coverage |
-|-----------|------------------|-----------------|
-| Critical business logic | 90% | 95% |
-| Automation scripts | 85% | 90% |
-| Utility functions | 80% | 85% |
-| UI components | 75% | 80% |
-| **Overall project** | **75%** | **85%** |
+| Code Type               | Minimum Coverage | Target Coverage |
+| ----------------------- | ---------------- | --------------- |
+| Critical business logic | 90%              | 95%             |
+| Automation scripts      | 85%              | 90%             |
+| Utility functions       | 80%              | 85%             |
+| UI components           | 75%              | 80%             |
+| **Overall project**     | **75%**          | **85%**         |
 
 ---
 
@@ -84,11 +85,13 @@ graph TD
 ### Jest Configuration
 
 **Config Files:**
+
 - Main config: [`jest.config.js`](../../jest.config.js) or [`jest.config.cjs`](../../jest.config.cjs)
 - Setup: `jest.setup.js` for global test setup
 - Helpers: `tests/test-helpers.js` for shared utilities
 
 **NPM Scripts:**
+
 ```json
 {
   "scripts": {
@@ -101,42 +104,41 @@ graph TD
 ```
 
 **Setup:**
+
 ```bash
 npm install --save-dev jest @types/jest babel-jest
 ```
 
 **Example Configuration:**
+
 ```javascript
 // jest.config.js
 module.exports = {
-  testEnvironment: 'node',
-  coverageDirectory: 'coverage',
+  testEnvironment: "node",
+  coverageDirectory: "coverage",
   collectCoverageFrom: [
-    'scripts/**/*.js',
-    '!scripts/**/*.test.js',
-    '!**/node_modules/**'
+    "scripts/**/*.js",
+    "!scripts/**/*.test.js",
+    "!**/node_modules/**",
   ],
   coverageThreshold: {
     global: {
       branches: 75,
       functions: 75,
       lines: 75,
-      statements: 75
-    }
+      statements: 75,
+    },
   },
-  testMatch: [
-    '**/__tests__/**/*.test.js',
-    '**/*.test.js',
-    '**/*.spec.js'
-  ]
+  testMatch: ["**/__tests__/**/*.test.js", "**/*.test.js", "**/*.spec.js"],
 };
 ```
 
 ### Writing Unit Tests
 
 **Test Structure (Arrange-Act-Assert):**
+
 ```javascript
-describe('Module/Function Name', () => {
+describe("Module/Function Name", () => {
   // Setup
   beforeEach(() => {
     // Test setup - runs before each test
@@ -147,48 +149,49 @@ describe('Module/Function Name', () => {
     // Cleanup - runs after each test
   });
 
-  it('should do something specific', () => {
+  it("should do something specific", () => {
     // Arrange - setup test data
-    const input = 'test';
+    const input = "test";
 
     // Act - execute the function
     const result = functionUnderTest(input);
 
     // Assert - verify the result
-    expect(result).toBe('expected');
+    expect(result).toBe("expected");
   });
 
-  it('should handle edge case', () => {
+  it("should handle edge case", () => {
     // Test edge cases
-    expect(functionUnderTest('')).toBe('');
+    expect(functionUnderTest("")).toBe("");
     expect(functionUnderTest(null)).toBe(null);
   });
 
-  it('should throw error for invalid input', () => {
+  it("should throw error for invalid input", () => {
     // Test error handling
     expect(() => {
       functionUnderTest(undefined);
-    }).toThrow('Invalid input');
+    }).toThrow("Invalid input");
   });
 });
 ```
 
 **Testing GitHub Actions Scripts:**
+
 ```javascript
-describe('Label Sync Utility', () => {
-  const { syncLabels } = require('../scripts/agents/includes/label-sync');
+describe("Label Sync Utility", () => {
+  const { syncLabels } = require("../scripts/agents/includes/label-sync");
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should sync labels from configuration', async () => {
+  it("should sync labels from configuration", async () => {
     // Arrange
     const mockConfig = {
       labels: [
-        { name: 'bug', color: 'd73a4a' },
-        { name: 'enhancement', color: 'a2eeef' }
-      ]
+        { name: "bug", color: "d73a4a" },
+        { name: "enhancement", color: "a2eeef" },
+      ],
     };
 
     // Act
@@ -196,18 +199,18 @@ describe('Label Sync Utility', () => {
 
     // Assert
     expect(result.created).toHaveLength(2);
-    expect(result.created).toContain('bug');
-    expect(result.created).toContain('enhancement');
+    expect(result.created).toContain("bug");
+    expect(result.created).toContain("enhancement");
   });
 
-  it('should handle sync errors gracefully', async () => {
+  it("should handle sync errors gracefully", async () => {
     // Arrange
     const invalidConfig = { labels: null };
 
     // Act & Assert
-    await expect(syncLabels(invalidConfig))
-      .rejects
-      .toThrow('Invalid configuration');
+    await expect(syncLabels(invalidConfig)).rejects.toThrow(
+      "Invalid configuration",
+    );
   });
 });
 ```
@@ -215,6 +218,7 @@ describe('Label Sync Utility', () => {
 ### Unit Test Best Practices
 
 **DO:**
+
 - ✅ Write descriptive test names that explain intent
 - ✅ Follow Arrange-Act-Assert pattern
 - ✅ Test one thing per test case
@@ -226,6 +230,7 @@ describe('Label Sync Utility', () => {
 - ✅ Use `describe` blocks to group related tests
 
 **DON'T:**
+
 - ❌ Test implementation details
 - ❌ Share state between tests
 - ❌ Use real network calls
@@ -240,46 +245,48 @@ describe('Label Sync Utility', () => {
 Integration tests verify that components work correctly together.
 
 **Example: API Integration Test**
+
 ```javascript
-describe('GitHub API Integration', () => {
-  it('should fetch and process repository data', async () => {
+describe("GitHub API Integration", () => {
+  it("should fetch and process repository data", async () => {
     // Arrange
     const mockOctokit = createMockOctokit();
 
     // Act
-    const data = await fetchRepositoryData('owner', 'repo');
+    const data = await fetchRepositoryData("owner", "repo");
 
     // Assert
-    expect(data).toHaveProperty('name');
-    expect(data).toHaveProperty('labels');
+    expect(data).toHaveProperty("name");
+    expect(data).toHaveProperty("labels");
     expect(data.labels).toBeInstanceOf(Array);
   });
 
-  it('should handle rate limiting', async () => {
+  it("should handle rate limiting", async () => {
     // Test rate limit handling
-    const result = await fetchWithRetry('/api/endpoint');
+    const result = await fetchWithRetry("/api/endpoint");
     expect(result.retries).toBeGreaterThan(0);
   });
 });
 ```
 
 **Workflow Integration Test:**
+
 ```javascript
-describe('Labeling Workflow Integration', () => {
-  it('should apply labels based on file changes', () => {
+describe("Labeling Workflow Integration", () => {
+  it("should apply labels based on file changes", () => {
     // Arrange
     const changedFiles = [
-      'scripts/agents/labeling.agent.js',
-      'tests/labeling.test.js'
+      "scripts/agents/labeling.agent.js",
+      "tests/labeling.test.js",
     ];
 
     // Act
     const labels = determineLabels(changedFiles);
 
     // Assert
-    expect(labels).toContain('area:agents');
-    expect(labels).toContain('lang:javascript');
-    expect(labels).toContain('type:automation');
+    expect(labels).toContain("area:agents");
+    expect(labels).toContain("lang:javascript");
+    expect(labels).toContain("type:automation");
   });
 });
 ```
@@ -291,34 +298,36 @@ describe('Labeling Workflow Integration', () => {
 E2E tests validate critical user workflows and interactions.
 
 **When to Write E2E Tests:**
+
 - Critical user journeys (issue creation, PR submission)
 - Multi-step workflows (labeling → project sync → notification)
 - Integration with external systems (GitHub Actions, APIs)
 - UI interactions (if applicable)
 
 **E2E Test Example:**
+
 ```javascript
-describe('Issue Lifecycle E2E', () => {
-  it('should complete full issue workflow', async () => {
+describe("Issue Lifecycle E2E", () => {
+  it("should complete full issue workflow", async () => {
     // 1. Create issue
     const issue = await createIssue({
-      title: 'Test Issue',
-      body: 'Test description',
-      labels: ['bug']
+      title: "Test Issue",
+      body: "Test description",
+      labels: ["bug"],
     });
 
     // 2. Verify labeling workflow ran
-    await waitForWorkflow('labeling.yml');
+    await waitForWorkflow("labeling.yml");
 
     // 3. Check labels applied correctly
     const updatedIssue = await getIssue(issue.number);
     expect(updatedIssue.labels).toContainEqual(
-      expect.objectContaining({ name: 'status:needs-triage' })
+      expect.objectContaining({ name: "status:needs-triage" }),
     );
 
     // 4. Verify project sync
     const projectItem = await getProjectItem(issue.number);
-    expect(projectItem.status).toBe('Triage');
+    expect(projectItem.status).toBe("Triage");
   });
 });
 ```
@@ -390,6 +399,7 @@ jobs:
 ### Coverage Reporting
 
 **Upload Coverage:**
+
 ```yaml
 - uses: codecov/codecov-action@v3
   with:
@@ -398,6 +408,7 @@ jobs:
 ```
 
 **Coverage Badge:**
+
 ```markdown
 ![Coverage](https://codecov.io/gh/owner/repo/branch/main/graph/badge.svg)
 ```
@@ -436,6 +447,7 @@ coverageThreshold: {
 ### Manual Review Checklist
 
 **For Code Reviewers:**
+
 - [ ] Tests cover happy path and error cases
 - [ ] Tests are clear and maintainable
 - [ ] No flaky or random test failures
@@ -451,6 +463,7 @@ coverageThreshold: {
 ### Common Issues
 
 **Tests fail locally but pass in CI:**
+
 ```bash
 # Check Node.js version matches CI
 node --version  # Should match .nvmrc or workflow
@@ -464,6 +477,7 @@ npm test -- --clearCache
 ```
 
 **Coverage below threshold:**
+
 ```bash
 # Generate detailed coverage report
 npm test -- --coverage
@@ -476,6 +490,7 @@ npm test -- --coverage --collectCoverageFrom='scripts/**/*.js'
 ```
 
 **Flaky tests:**
+
 - Investigate timing-related issues
 - Add proper waits and assertions
 - Check for race conditions
@@ -483,12 +498,13 @@ npm test -- --coverage --collectCoverageFrom='scripts/**/*.js'
 - Avoid shared state between tests
 
 **Test timeout:**
+
 ```javascript
 // Increase timeout for slow tests
 jest.setTimeout(10000);
 
 // Or per-test
-it('slow test', async () => {
+it("slow test", async () => {
   // test code
 }, 10000);
 ```
@@ -517,19 +533,23 @@ tests/
 ## References
 
 ### Jest
+
 - [Jest Documentation](https://jestjs.io/)
 - [Jest Best Practices](https://jestjs.io/docs/best-practices)
 - [Testing Library](https://testing-library.com/)
 
 ### Testing Principles
+
 - [Test Pyramid](https://martinfowler.com/articles/practical-test-pyramid.html)
 - [AAA Pattern](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/)
 
 ### Coverage
+
 - [Istanbul Coverage](https://istanbul.js.org/)
 - [Codecov](https://about.codecov.io/)
 
 ### Related Instructions
+
 - [Coding Standards](./coding-standards.instructions.md)
 - [Languages Standards](./languages.instructions.md)
 - [Workflows](./workflows.instructions.md)

@@ -144,17 +144,7 @@ reviews:
           - Ensure agent files reference org-wide standards and indexes.
           - Ensure workflows run markdownlint, test jobs, and security checks as required.
 
-    # 6. Copilot/agent and meta files
-    - path: "**/GEMINI.md"
-      instructions: |
-        Review Gemini AI specification file:
-          - Verify this file
-
-    - path: "**/CLAUDE.md"
-      instructions: |
-        Review Claude AI specification file:
-          - Verify this file
-
+    # 6. Agent and meta files
     - path: ".github/agents/AGENTS.md"
       instructions: |
         Review the main agents index file:

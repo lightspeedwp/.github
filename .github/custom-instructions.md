@@ -35,13 +35,13 @@ We've consolidated 22 instruction files into 5 comprehensive, maintainable guide
 
 > 📖 **Migration Guide:** See [MIGRATION_GUIDE.md](../MIGRATION_GUIDE.md) for complete mapping of old → new file locations.
 
-| File                                                                                          | Coverage                                                      | Consolidated From |
-| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ----------------------------------------- |
-| [languages.instructions.md](./instructions/languages.instructions.md)                         | JS/TS linting, JSDoc, JSON schemas, YAML, GitHub workflow validation | 4 files (javascript, jsdoc, json, yaml) |
-| [documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md) | Markdown standards, YAML frontmatter, Mermaid diagrams, A11y  | 3 files (markdown, frontmatter, mermaid) |
-| [quality-assurance.instructions.md](./instructions/quality-assurance.instructions.md)         | Testing pyramid, Jest, unit/integration/E2E, coverage, CI/CD  | 3 files (testing, tests, jest) |
-| [automation.instructions.md](./instructions/automation.instructions.md)                       | Agents, labeling, release, metrics, project sync, planning, review | 8 files (agents, branding, metrics, planner, project-meta-sync, release, reporting, reviewer) |
-| [community-standards.instructions.md](./instructions/community-standards.instructions.md)     | File org, naming conventions, README, saved replies, community health | 4 files (file-management, naming-conventions, readme, saved-replies) |
+| File                                                                                          | Coverage                                                              | Consolidated From                                                                             |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| [languages.instructions.md](./instructions/languages.instructions.md)                         | JS/TS linting, JSDoc, JSON schemas, YAML, GitHub workflow validation  | 4 files (javascript, jsdoc, json, yaml)                                                       |
+| [documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md) | Markdown standards, YAML frontmatter, Mermaid diagrams, A11y          | 3 files (markdown, frontmatter, mermaid)                                                      |
+| [quality-assurance.instructions.md](./instructions/quality-assurance.instructions.md)         | Testing pyramid, Jest, unit/integration/E2E, coverage, CI/CD          | 3 files (testing, tests, jest)                                                                |
+| [automation.instructions.md](./instructions/automation.instructions.md)                       | Agents, labeling, release, metrics, project sync, planning, review    | 8 files (agents, branding, metrics, planner, project-meta-sync, release, reporting, reviewer) |
+| [community-standards.instructions.md](./instructions/community-standards.instructions.md)     | File org, naming conventions, README, saved replies, community health | 4 files (file-management, naming-conventions, readme, saved-replies)                          |
 
 ---
 

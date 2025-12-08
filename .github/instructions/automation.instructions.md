@@ -5,7 +5,8 @@ description: "Comprehensive standards for GitHub automation agents, workflows, a
 version: "v1.0"
 last_updated: "2025-12-07"
 owners: ["GitHub Community Health Team"]
-tags: ["automation", "agents", "workflows", "github-actions", "release", "labeling"]
+tags:
+  ["automation", "agents", "workflows", "github-actions", "release", "labeling"]
 applyTo: [".github/agents/**/*", ".github/workflows/**/*"]
 status: "active"
 stability: "stable"
@@ -79,13 +80,13 @@ graph TB
 
 ### Automation Components
 
-| Component | Purpose | Files |
-|-----------|---------|-------|
-| **Agents** | Executable automation logic | `.github/agents/*.agent.js` |
-| **Workflows** | GitHub Actions triggers | `.github/workflows/*.yml` |
-| **Instructions** | Agent behavior documentation | `.github/instructions/*.instructions.md` |
-| **Prompts** | Reusable automation templates | `.github/prompts/*.prompt.md` |
-| **Reports** | Automation outputs | `.github/reports/**/*` |
+| Component        | Purpose                       | Files                                    |
+| ---------------- | ----------------------------- | ---------------------------------------- |
+| **Agents**       | Executable automation logic   | `.github/agents/*.agent.js`              |
+| **Workflows**    | GitHub Actions triggers       | `.github/workflows/*.yml`                |
+| **Instructions** | Agent behavior documentation  | `.github/instructions/*.instructions.md` |
+| **Prompts**      | Reusable automation templates | `.github/prompts/*.prompt.md`            |
+| **Reports**      | Automation outputs            | `.github/reports/**/*`                   |
 
 ---
 
@@ -96,6 +97,7 @@ graph TB
 All agents must have both a specification file (`.agent.md`) and implementation (`.agent.js`).
 
 **Agent Specification Template:**
+
 ```markdown
 ---
 file_type: "agent"
@@ -153,6 +155,7 @@ What this agent does and why it exists.
 ### Agent Implementation Standards
 
 **File Structure:**
+
 ```javascript
 #!/usr/bin/env node
 
@@ -166,8 +169,8 @@ What this agent does and why it exists.
 
 // Configuration
 const config = {
-  dryRun: process.argv.includes('--dry-run'),
-  verbose: process.argv.includes('--verbose')
+  dryRun: process.argv.includes("--dry-run"),
+  verbose: process.argv.includes("--verbose"),
 };
 
 // Main execution
@@ -185,7 +188,7 @@ async function main() {
     // Exit successfully
     process.exit(0);
   } catch (error) {
-    console.error('Agent failed:', error);
+    console.error("Agent failed:", error);
     process.exit(1);
   }
 }
@@ -204,17 +207,18 @@ All agents must have corresponding test files:
 
 ```javascript
 // __tests__/agent-name.test.js
-const { main } = require('../agent-name.agent');
+const { main } = require("../agent-name.agent");
 
-describe('Agent Name', () => {
-  it('should execute successfully with valid config', async () => {
+describe("Agent Name", () => {
+  it("should execute successfully with valid config", async () => {
     const result = await main({ dryRun: true });
     expect(result).toBeDefined();
   });
 
-  it('should handle errors gracefully', async () => {
-    await expect(main({ invalid: true }))
-      .rejects.toThrow('Invalid configuration');
+  it("should handle errors gracefully", async () => {
+    await expect(main({ invalid: true })).rejects.toThrow(
+      "Invalid configuration",
+    );
   });
 });
 ```
@@ -235,14 +239,14 @@ Automatically apply, validate, and manage labels on issues and pull requests bas
 
 ### Label Categories
 
-| Category | Format | Purpose | Examples |
-|----------|--------|---------|----------|
-| **Status** | `status:*` | Issue/PR lifecycle | `status:needs-triage`, `status:in-progress` |
-| **Type** | `type:*` | Work classification | `type:bug`, `type:feature` |
-| **Priority** | `priority:*` | Urgency | `priority:high`, `priority:low` |
-| **Area** | `area:*` | Repository section | `area:docs`, `area:workflows` |
-| **Component** | `comp:*` | Specific component | `comp:ci-cd`, `comp:automation` |
-| **Language** | `lang:*` | Programming language | `lang:javascript`, `lang:yaml` |
+| Category      | Format       | Purpose              | Examples                                    |
+| ------------- | ------------ | -------------------- | ------------------------------------------- |
+| **Status**    | `status:*`   | Issue/PR lifecycle   | `status:needs-triage`, `status:in-progress` |
+| **Type**      | `type:*`     | Work classification  | `type:bug`, `type:feature`                  |
+| **Priority**  | `priority:*` | Urgency              | `priority:high`, `priority:low`             |
+| **Area**      | `area:*`     | Repository section   | `area:docs`, `area:workflows`               |
+| **Component** | `comp:*`     | Specific component   | `comp:ci-cd`, `comp:automation`             |
+| **Language**  | `lang:*`     | Programming language | `lang:javascript`, `lang:yaml`              |
 
 ### Labeling Workflow
 
@@ -269,29 +273,30 @@ jobs:
 
 ```yaml
 # .github/labeler.yml
-'area:docs':
+"area:docs":
   - changed-files:
-    - any-glob-to-any-file: 'docs/**/*'
-    - any-glob-to-any-file: '**/*.md'
+      - any-glob-to-any-file: "docs/**/*"
+      - any-glob-to-any-file: "**/*.md"
 
-'area:workflows':
+"area:workflows":
   - changed-files:
-    - any-glob-to-any-file: '.github/workflows/**/*.yml'
+      - any-glob-to-any-file: ".github/workflows/**/*.yml"
 
-'lang:javascript':
+"lang:javascript":
   - changed-files:
-    - any-glob-to-any-file: '**/*.{js,jsx,ts,tsx}'
+      - any-glob-to-any-file: "**/*.{js,jsx,ts,tsx}"
 
-'type:bug':
-  - head-branch: ['^fix/', '^hotfix/']
+"type:bug":
+  - head-branch: ["^fix/", "^hotfix/"]
 
-'type:feature':
-  - head-branch: ['^feat/', '^feature/']
+"type:feature":
+  - head-branch: ["^feat/", "^feature/"]
 ```
 
 ### Label Validation
 
 The labeling agent enforces:
+
 - **One status label** per issue/PR
 - **One priority label** per issue/PR
 - **At least one type label**
@@ -309,6 +314,7 @@ The labeling agent enforces:
 **Purpose**: Analyze repository health before release
 
 **Tasks:**
+
 - Scan repository structure
 - Validate agent specifications
 - Check test coverage
@@ -323,6 +329,7 @@ The labeling agent enforces:
 **Purpose**: Execute validated release
 
 **Tasks:**
+
 - Validate prerequisites (tests pass, linting clean)
 - Determine semantic version
 - Update VERSION file
@@ -342,6 +349,7 @@ Format: `MAJOR.MINOR.PATCH`
 - **PATCH**: Bug fixes (backward-compatible)
 
 **Version Bumping:**
+
 ```bash
 # Patch release (default)
 node .github/agents/release.agent.js --scope=patch
@@ -361,7 +369,7 @@ on:
   workflow_dispatch:
     inputs:
       scope:
-        description: 'Release scope'
+        description: "Release scope"
         required: true
         type: choice
         options:
@@ -392,20 +400,25 @@ jobs:
 ## [Unreleased]
 
 ### Added
+
 - New features
 
 ### Changed
+
 - Changes to existing functionality
 
 ### Fixed
+
 - Bug fixes
 
 ### Removed
+
 - Removed features
 
 ## [1.0.0] - 2025-12-07
 
 ### Added
+
 - Initial release
 ```
 
@@ -416,6 +429,7 @@ jobs:
 ### Metrics Collection
 
 **Automated Metrics:**
+
 - Issue/PR counts (open, closed, merged)
 - Response times (first response, time to close)
 - Label distribution
@@ -428,7 +442,7 @@ jobs:
 name: Issue Metrics
 on:
   schedule:
-    - cron: '0 0 1 * *'  # Monthly
+    - cron: "0 0 1 * *" # Monthly
   workflow_dispatch:
 
 jobs:
@@ -445,6 +459,7 @@ jobs:
 ### Report Generation
 
 **Report Structure:**
+
 ```markdown
 ---
 file_type: "report"
@@ -487,15 +502,15 @@ Sync GitHub Project board fields with issue/PR metadata and labels.
 
 ### Field Mapping
 
-| Label | Project Field | Value |
-|-------|---------------|-------|
-| `status:needs-triage` | Status | Triage |
-| `status:in-progress` | Status | In Progress |
-| `status:needs-review` | Status | Review |
-| `priority:high` | Priority | High |
-| `priority:normal` | Priority | Normal |
-| `type:bug` | Type | Bug |
-| `type:feature` | Type | Feature |
+| Label                 | Project Field | Value       |
+| --------------------- | ------------- | ----------- |
+| `status:needs-triage` | Status        | Triage      |
+| `status:in-progress`  | Status        | In Progress |
+| `status:needs-review` | Status        | Review      |
+| `priority:high`       | Priority      | High        |
+| `priority:normal`     | Priority      | Normal      |
+| `type:bug`            | Type          | Bug         |
+| `type:feature`        | Type          | Feature     |
 
 ### Sync Workflow
 
@@ -552,17 +567,21 @@ jobs:
 ## PR Review Summary
 
 ### CI Status
+
 ✅ All checks passed
 
 ### Required Files
+
 ✅ Changelog present
 ✅ Tests included
 
 ### File Changes
+
 - `scripts/agents/labeling.agent.js`: Modified
 - `tests/labeling.test.js`: Added
 
 ### Recommendations
+
 - Ensure test coverage > 75%
 - Update documentation if needed
 ```
@@ -576,6 +595,7 @@ jobs:
 **Purpose**: Auto-generate and update merge checklists
 
 **Checklist Components:**
+
 - [ ] Tests pass
 - [ ] Documentation updated
 - [ ] Changelog entry added
@@ -624,6 +644,7 @@ sequenceDiagram
 ### Required CI Checks
 
 All automation must pass these gates:
+
 - [ ] Linting (ESLint, YAML lint)
 - [ ] Unit tests (Jest)
 - [ ] Integration tests
@@ -638,6 +659,7 @@ All automation must pass these gates:
 ### Agent Development
 
 **DO:**
+
 - ✅ Support `--dry-run` mode for testing
 - ✅ Provide verbose logging with `--verbose`
 - ✅ Validate all inputs before execution
@@ -647,6 +669,7 @@ All automation must pass these gates:
 - ✅ Document all configuration options
 
 **DON'T:**
+
 - ❌ Make changes without dry-run testing
 - ❌ Skip input validation
 - ❌ Ignore error conditions
@@ -666,18 +689,18 @@ All automation must pass these gates:
 ### Testing Automation
 
 ```javascript
-describe('Automation Agent', () => {
-  it('should run in dry-run mode', async () => {
+describe("Automation Agent", () => {
+  it("should run in dry-run mode", async () => {
     const result = await runAgent({ dryRun: true });
     expect(result.filesModified).toBe(0);
   });
 
-  it('should validate configuration', () => {
+  it("should validate configuration", () => {
     expect(() => validateConfig({})).toThrow();
   });
 
-  it('should handle API errors', async () => {
-    mockAPI.mockRejectedValue(new Error('API Error'));
+  it("should handle API errors", async () => {
+    mockAPI.mockRejectedValue(new Error("API Error"));
     await expect(runAgent()).rejects.toThrow();
   });
 });
@@ -690,6 +713,7 @@ describe('Automation Agent', () => {
 ### Common Issues
 
 **Agent fails silently:**
+
 ```bash
 # Run with verbose logging
 node .github/agents/agent-name.agent.js --verbose
@@ -699,12 +723,14 @@ echo $?
 ```
 
 **Workflow not triggering:**
+
 - Check event filters in workflow YAML
 - Verify workflow file syntax
 - Check repository permissions
 - Review workflow run history
 
 **Labels not syncing:**
+
 - Validate `.github/labeler.yml` syntax
 - Check label definitions in `.github/labels.yml`
 - Verify file path patterns match
@@ -715,12 +741,14 @@ echo $?
 ## References
 
 ### Documentation
+
 - [GitHub Actions](https://docs.github.com/en/actions)
 - [GitHub API](https://docs.github.com/en/rest)
 - [Semantic Versioning](https://semver.org/)
 - [Keep a Changelog](https://keepachangelog.com/)
 
 ### Related Instructions
+
 - [Workflows](./workflows.instructions.md)
 - [Labeling](./labeling.instructions.md)
 - [Pull Requests](./pull-requests.instructions.md)

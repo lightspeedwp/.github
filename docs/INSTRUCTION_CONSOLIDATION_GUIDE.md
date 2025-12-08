@@ -22,12 +22,12 @@ As of December 7, 2025, the LightSpeed instruction files have been consolidated 
 
 **New File:** `.github/instructions/languages.instructions.md`
 
-| Old File | New Section | Location |
-|----------|-------------|----------|
+| Old File                     | New Section                   | Location  |
+| ---------------------------- | ----------------------------- | --------- |
 | `javascript.instructions.md` | JavaScript/TypeScript Linting | Section 2 |
-| `jsdoc.instructions.md` | JSDoc Documentation | Section 3 |
-| `json.instructions.md` | JSON Schema Validation | Section 4 |
-| `yaml.instructions.md` | YAML Linting & Validation | Section 5 |
+| `jsdoc.instructions.md`      | JSDoc Documentation           | Section 3 |
+| `json.instructions.md`       | JSON Schema Validation        | Section 4 |
+| `yaml.instructions.md`       | YAML Linting & Validation     | Section 5 |
 
 **Archive Location:** `.github/instructions/.archive/languages/`
 
@@ -37,11 +37,11 @@ As of December 7, 2025, the LightSpeed instruction files have been consolidated 
 
 **New File:** `.github/instructions/documentation-formats.instructions.md`
 
-| Old File | New Section | Location |
-|----------|-------------|----------|
-| `markdown.instructions.md` | Markdown Standards | Section 2 |
-| `frontmatter.instructions.md` | YAML Frontmatter | Section 3 |
-| `mermaid.instructions.md` | Mermaid Diagrams | Section 4 |
+| Old File                      | New Section        | Location  |
+| ----------------------------- | ------------------ | --------- |
+| `markdown.instructions.md`    | Markdown Standards | Section 2 |
+| `frontmatter.instructions.md` | YAML Frontmatter   | Section 3 |
+| `mermaid.instructions.md`     | Mermaid Diagrams   | Section 4 |
 
 **Note:** `a11y.instructions.md` remains separate as it's used across all document types
 
@@ -53,11 +53,11 @@ As of December 7, 2025, the LightSpeed instruction files have been consolidated 
 
 **New File:** `.github/instructions/quality-assurance.instructions.md`
 
-| Old File | New Section | Location |
-|----------|-------------|----------|
-| `testing.instructions.md` | Testing Standards Overview | Section 2 |
-| `tests.instructions.md` | Test Framework Index | Section 3 |
-| `jest.instructions.md` | Jest Configuration & Best Practices | Section 4 |
+| Old File                  | New Section                         | Location  |
+| ------------------------- | ----------------------------------- | --------- |
+| `testing.instructions.md` | Testing Standards Overview          | Section 2 |
+| `tests.instructions.md`   | Test Framework Index                | Section 3 |
+| `jest.instructions.md`    | Jest Configuration & Best Practices | Section 4 |
 
 **Archive Location:** `.github/instructions/.archive/quality-assurance/`
 
@@ -67,16 +67,16 @@ As of December 7, 2025, the LightSpeed instruction files have been consolidated 
 
 **New File:** `.github/instructions/automation.instructions.md`
 
-| Old File | New Section | Location |
-|----------|-------------|----------|
-| `agents.instructions.md` | Agent Development & Standards | Section 2 |
-| `labeling.instructions.md` | Labeling System & Automation | Section 3 |
-| `release.instructions.md` | Release Management Automation | Section 4 |
-| `metrics.instructions.md` | Metrics Collection & Reporting | Section 5 |
-| `reporting.instructions.md` | Report Generation & Organization | Section 6 |
-| `project-meta-sync.instructions.md` | Project Field Synchronization | Section 7 |
-| `planner.instructions.md` | Planning & Task Management | Section 8 |
-| `reviewer.instructions.md` | Code Review Automation | Section 9 |
+| Old File                            | New Section                      | Location  |
+| ----------------------------------- | -------------------------------- | --------- |
+| `agents.instructions.md`            | Agent Development & Standards    | Section 2 |
+| `labeling.instructions.md`          | Labeling System & Automation     | Section 3 |
+| `release.instructions.md`           | Release Management Automation    | Section 4 |
+| `metrics.instructions.md`           | Metrics Collection & Reporting   | Section 5 |
+| `reporting.instructions.md`         | Report Generation & Organization | Section 6 |
+| `project-meta-sync.instructions.md` | Project Field Synchronization    | Section 7 |
+| `planner.instructions.md`           | Planning & Task Management       | Section 8 |
+| `reviewer.instructions.md`          | Code Review Automation           | Section 9 |
 
 **Note:** Each section includes cross-references to corresponding agent specs and prompts
 
@@ -88,12 +88,12 @@ As of December 7, 2025, the LightSpeed instruction files have been consolidated 
 
 **New File:** `.github/instructions/community-standards.instructions.md`
 
-| Old File | New Section | Location |
-|----------|-------------|----------|
-| `file-management.instructions.md` | File Organization & Management | Section 2 |
-| `naming-conventions.instructions.md` | Naming Conventions | Section 3 |
-| `readme.instructions.md` | README Standards | Section 4 |
-| `saved-replies.instructions.md` | GitHub Saved Replies | Section 5 |
+| Old File                             | New Section                    | Location  |
+| ------------------------------------ | ------------------------------ | --------- |
+| `file-management.instructions.md`    | File Organization & Management | Section 2 |
+| `naming-conventions.instructions.md` | Naming Conventions             | Section 3 |
+| `readme.instructions.md`             | README Standards               | Section 4 |
+| `saved-replies.instructions.md`      | GitHub Saved Replies           | Section 5 |
 
 **Archive Location:** `.github/instructions/.archive/community/`
 
@@ -126,7 +126,6 @@ These files remain separate due to their specialized scope:
 These files have been updated to reference the new consolidated structure:
 
 - `AGENTS.md` - Global AI rules and agent references
-- `DOCS.md` - Documentation index
 - `.github/agents/agent.md` - Main agent specification index
 - `.github/custom-instructions.md` - Organization-wide Copilot settings
 - `.github/prompts/prompts.md` - Prompt library index
@@ -137,27 +136,27 @@ These files have been updated to reference the new consolidated structure:
 
 ### Quick Lookup Table
 
-| Looking for... | Check New File | Section |
-|---|---|---|
-| ESLint/Prettier config | `languages.instructions.md` | JavaScript/TypeScript |
-| JSDoc standards | `languages.instructions.md` | JSDoc Documentation |
-| JSON Schema validation | `languages.instructions.md` | JSON Schema |
-| YAML linting | `languages.instructions.md` | YAML Validation |
-| Markdown formatting | `documentation-formats.instructions.md` | Markdown |
-| Frontmatter validation | `documentation-formats.instructions.md` | YAML Frontmatter |
-| Mermaid diagrams | `documentation-formats.instructions.md` | Mermaid |
-| Testing strategy | `quality-assurance.instructions.md` | Testing Standards |
-| Jest setup | `quality-assurance.instructions.md` | Jest |
-| Agent development | `automation.instructions.md` | Agents |
-| Labeling automation | `automation.instructions.md` | Labeling |
-| Release process | `automation.instructions.md` | Release |
-| Metrics collection | `automation.instructions.md` | Metrics |
-| Report generation | `automation.instructions.md` | Reporting |
-| Project sync | `automation.instructions.md` | Project Meta Sync |
-| File organization | `community-standards.instructions.md` | File Management |
-| File naming | `community-standards.instructions.md` | Naming Conventions |
-| README format | `community-standards.instructions.md` | README |
-| Saved replies | `community-standards.instructions.md` | Saved Replies |
+| Looking for...         | Check New File                          | Section               |
+| ---------------------- | --------------------------------------- | --------------------- |
+| ESLint/Prettier config | `languages.instructions.md`             | JavaScript/TypeScript |
+| JSDoc standards        | `languages.instructions.md`             | JSDoc Documentation   |
+| JSON Schema validation | `languages.instructions.md`             | JSON Schema           |
+| YAML linting           | `languages.instructions.md`             | YAML Validation       |
+| Markdown formatting    | `documentation-formats.instructions.md` | Markdown              |
+| Frontmatter validation | `documentation-formats.instructions.md` | YAML Frontmatter      |
+| Mermaid diagrams       | `documentation-formats.instructions.md` | Mermaid               |
+| Testing strategy       | `quality-assurance.instructions.md`     | Testing Standards     |
+| Jest setup             | `quality-assurance.instructions.md`     | Jest                  |
+| Agent development      | `automation.instructions.md`            | Agents                |
+| Labeling automation    | `automation.instructions.md`            | Labeling              |
+| Release process        | `automation.instructions.md`            | Release               |
+| Metrics collection     | `automation.instructions.md`            | Metrics               |
+| Report generation      | `automation.instructions.md`            | Reporting             |
+| Project sync           | `automation.instructions.md`            | Project Meta Sync     |
+| File organization      | `community-standards.instructions.md`   | File Management       |
+| File naming            | `community-standards.instructions.md`   | Naming Conventions    |
+| README format          | `community-standards.instructions.md`   | README                |
+| Saved replies          | `community-standards.instructions.md`   | Saved Replies         |
 
 ---
 
@@ -198,13 +197,13 @@ All consolidated files have been moved to `.github/instructions/.archive/`:
 
 ### 📊 Quantitative Improvements
 
-| Metric | Before | After | Change |
-|--------|--------|-------|--------|
-| Active instruction files | 22 | 5 | -77% |
-| Consolidated sections | 22 | 1 | - |
-| Cross-reference complexity | High | Low | Simplified |
-| Discoverability | Scattered | Organized | Enhanced |
-| Maintenance burden | High | Low | Reduced |
+| Metric                     | Before    | After     | Change     |
+| -------------------------- | --------- | --------- | ---------- |
+| Active instruction files   | 22        | 5         | -77%       |
+| Consolidated sections      | 22        | 1         | -          |
+| Cross-reference complexity | High      | Low       | Simplified |
+| Discoverability            | Scattered | Organized | Enhanced   |
+| Maintenance burden         | High      | Low       | Reduced    |
 
 ### ✨ Qualitative Benefits
 
@@ -227,10 +226,10 @@ All consolidated files have been moved to `.github/instructions/.archive/`:
 
 ```yaml
 # Load consolidated instruction groups
-- languages.instructions.md          # All language/linting standards
-- documentation-formats.instructions.md  # All docs standards
-- quality-assurance.instructions.md  # All testing standards
-- automation.instructions.md         # All automation standards
+- languages.instructions.md # All language/linting standards
+- documentation-formats.instructions.md # All docs standards
+- quality-assurance.instructions.md # All testing standards
+- automation.instructions.md # All automation standards
 - community-standards.instructions.md # All community standards
 ```
 

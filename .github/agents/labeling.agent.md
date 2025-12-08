@@ -25,31 +25,6 @@ tags:
     "agents",
     "github",
   ]
-references:
-  - path: ".github/labels.yml"
-    description: "Canonical label definitions"
-  - path: ".github/labeler.yml"
-    description: "Labeling rules and patterns"
-  - path: ".github/issue-types.yml"
-    description: "Issue type to label mappings"
-  - path: "scripts/agents/labeling.agent.js"
-    description: "Main implementation script"
-  - path: "scripts/agents/includes/label-lookup.js"
-    description: "Label lookup and alias utilities"
-  - path: "scripts/agents/includes/labeler-utils.js"
-    description: "Branch and file pattern matching"
-  - path: "scripts/agents/includes/status-enforcer.js"
-    description: "One-hot constraint enforcement"
-  - path: "scripts/agents/includes/label-sync.js"
-    description: "Label synchronization utilities"
-  - path: "scripts/agents/includes/label-reporting.js"
-    description: "Reporting and audit utilities"
-  - path: ".github/workflows/labeling.yml"
-    description: "GitHub Actions workflow"
-  - path: "docs/LABELING.md"
-    description: "Labeling system documentation"
-  - path: "docs/LABEL_STRATEGY.md"
-    description: "Label strategy and philosophy"
 owners: ["lightspeedwp/maintainers"]
 ---
 

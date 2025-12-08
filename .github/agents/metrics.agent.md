@@ -17,13 +17,6 @@ category: "analytics"
 status: "active"
 visibility: "public"
 tags: ["lightspeed", "metrics", "agents", "analytics", "reporting"]
-references:
-  - path: ".github/agents/metrics.agent.js"
-    description: "Implementation script"
-  - path: ".github/workflows/metrics.yml"
-    description: "GitHub Actions workflow"
-  - path: ".github/metrics/"
-    description: "Metrics collection and storage"
 owners: ["lightspeedwp/maintainers"]
 metadata:
   guardrails: "Do not expose sensitive data or credentials in metrics. Log all collection runs. Support multi-repository aggregation. Validate data before reporting."

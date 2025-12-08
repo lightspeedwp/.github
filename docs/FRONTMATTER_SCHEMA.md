@@ -19,11 +19,6 @@ tags:
   ]
 stability: "stable"
 domain: "governance"
-references:
-  - "../schemas/frontmatter.schema.json"
-  - "../AGENTS.md"
-  - "../.vscode/settings.json"
-  - "../GOVERNANCE.md"
 ---
 
 ## Frontmatter Schema Specification
@@ -46,7 +41,7 @@ This document describes the structure, fields, and validation rules for the Ligh
 **How to reference in documentation:**
 
 ```markdown
-**JSON Schema:**  
+**JSON Schema:**
 See [`schemas/frontmatter.schema.json`](../schemas/frontmatter.schema.json)
 ```
 
@@ -566,106 +561,6 @@ The **`AGENTS.md`** file at repository root provides guidelines for *all* AI ass
 
 ---
 
-## Anthropic Claude Configuration
-
-### Custom Instructions (`CLAUDE.md`)
-
-Claude (especially **Claude Code**) loads a **`CLAUDE.md`** file from repository root as a "memory file" for persistent context.
-
-**Format**: Plain Markdown — **no YAML frontmatter required**.
-
-**Example**:
-
-```markdown
-# Claude Instructions for MyProject
-
-**Project Overview**: Web application for online book reviews (Python Flask backend, React frontend)
-
-**Coding Style**:
-
-- Python: PEP8 (4 spaces, snake_case)
-- JavaScript/React: Airbnb style guide
-
-**Testing**: Include unit tests (PyTest for backend, Jest for frontend)
-
-**Do's**:
-
-- Be concise in explanations
-- Use docstrings in all public functions
-
-**Don'ts**:
-
-- Don't disclose API keys or secrets
-- Don't assume user data validity — validate everything
-```
-
-### Custom Sub-Agents (YAML Configuration)
-
-Claude supports **subagents** — specialized AI agents with their own YAML configurations. Store in `.claude/agents/` (project) or `~/.claude/agents/` (user-wide).
-
-#### Subagent Frontmatter Fields
-
-| Field         | Type   | Required | Description                                  |
-| ------------- | ------ | -------- | -------------------------------------------- |
-| `name`        | string | ✅       | Subagent identifier (how to invoke it)       |
-| `description` | string | ✅       | Role or specialty description                |
-| `tools`       | array  | 📋       | Whitelisted tools (if omitted, inherits all) |
-
-**Example** (`architect-review.md`):
-
-```yaml
----
-name: "architect-review"
-description: "Validates designs against constraints and produces ADRs"
-tools: ["Read", "Search"]
----
-
-You are the **Architect** sub-agent. Your goal is to review proposed software designs.
-
-When activated:
-- Read the feature spec from `specs/` directory
-- Analyze for compliance with scalability/security requirements
-- Output an **Architecture Decision Record (ADR)** with Context, Decision, Rationale, Consequences
-
-You should not write code. Focus only on architectural guidance.
-```
-
-**Best Practices**:
-
-- One clear responsibility per subagent (single responsibility principle)
-- Use `tools` limitation to sandbox capabilities
-- Keep instructions focused on specific role
-- Claude can auto-select subagents based on descriptions
-
----
-
-## Google Gemini Configuration
-
-### Custom Instructions (`GEMINI.md`)
-
-Similar to `CLAUDE.md`, create a **`GEMINI.md`** file at repository root for Gemini-specific instructions.
-
-**Format**: Plain Markdown — **no official YAML schema yet**.
-
-**Example**:
-
-```markdown
-# Gemini Instructions for MyProject
-
-This project is a machine learning pipeline for image classification.
-
-- Codebase: TensorFlow (Python) and C++ for performance-critical components
-- **Style**: Follow Google Python/C++ style guides
-- **Constraints**: Only use packages in `requirements.txt`
-- Focus on clarity and maintainability over cleverness
-
-Provide simple implementations with explanatory comments.
-```
-
-**Note**: Gemini configuration is still evolving. Some tools support the unified `AGENTS.md` convention for cross-platform compatibility.
-
----
-
 ## Validation Tooling
 
 ### Schema Validation with Ajv
@@ -1088,30 +983,6 @@ npm run validate:frontmatter
 | Too many tags           | Reduce to 8, remove redundant ones |
 | Uppercase tags          | Convert to lowercase kebab-case    |
 | Old field names         | Update `apply_to` → `applyTo`      |
-
----
-
-## References
-
-### 📚 Core Documentation
-
-- **[Frontmatter Schema JSON](../schemas/frontmatter.schema.json)** — Official schema definition
-- **[VS Code Settings](../.vscode/settings.json)** — Editor configuration
-- **[LightSpeedWP Governance](../GOVERNANCE.md)** — Organization governance policies
-- **[AGENTS.md](../AGENTS.md)** — Universal AI rules and guidelines
-
-### ⚙️ Implementation
-
-- **[Validation Script](../scripts/validation/validate-frontmatter.js)** — Frontmatter validation tool
-- **[Frontmatter Schema Documentation](./frontmatter-schema.md)** — This document
-- **[Tagging Conventions](../.github/instructions/tagging-and-frontmatter-conventions.instructions.md)** — Detailed tagging rules
-
-### 🎯 Specialized Guides
-
-- **[Automation & Agents](../.github/instructions/automation.instructions.md)** — Creating AI agents and automation standards
-- **[Prompt Authoring](../.github/instructions/prompt.instructions.md)** — Writing effective prompts
-- **[Instruction Files](../.github/instructions/instructions.instructions.md)** — Copilot instructions
-- **[Coding Standards](../.github/instructions/coding-standards.instructions.md)** — Development standards
 
 ---
 

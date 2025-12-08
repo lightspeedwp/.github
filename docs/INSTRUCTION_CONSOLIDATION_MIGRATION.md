@@ -34,12 +34,12 @@ The LightSpeed organization has successfully consolidated 22 specialized instruc
 
 Consolidates these 4 legacy files:
 
-| Legacy File | New Section | Status |
-| --- | --- | --- |
-| `javascript.instructions.md` | JavaScript/TypeScript Standards | ✅ Migrated |
-| `jsdoc.instructions.md` | JSDoc Documentation Standards | ✅ Migrated |
-| `json.instructions.md` | JSON Schema Validation | ✅ Migrated |
-| `yaml.instructions.md` | YAML & GitHub Actions Validation | ✅ Migrated |
+| Legacy File                  | New Section                      | Status      |
+| ---------------------------- | -------------------------------- | ----------- |
+| `javascript.instructions.md` | JavaScript/TypeScript Standards  | ✅ Migrated |
+| `jsdoc.instructions.md`      | JSDoc Documentation Standards    | ✅ Migrated |
+| `json.instructions.md`       | JSON Schema Validation           | ✅ Migrated |
+| `yaml.instructions.md`       | YAML & GitHub Actions Validation | ✅ Migrated |
 
 **Content Includes:**
 
@@ -64,11 +64,11 @@ Consolidates these 4 legacy files:
 
 Consolidates these 3 legacy files:
 
-| Legacy File | New Section | Status |
-| --- | --- | --- |
-| `markdown.instructions.md` | Markdown Standards & Best Practices | ✅ Migrated |
-| `frontmatter.instructions.md` | YAML Frontmatter Validation | ✅ Migrated |
-| `mermaid.instructions.md` | Mermaid Diagram Standards | ✅ Migrated |
+| Legacy File                   | New Section                         | Status      |
+| ----------------------------- | ----------------------------------- | ----------- |
+| `markdown.instructions.md`    | Markdown Standards & Best Practices | ✅ Migrated |
+| `frontmatter.instructions.md` | YAML Frontmatter Validation         | ✅ Migrated |
+| `mermaid.instructions.md`     | Mermaid Diagram Standards           | ✅ Migrated |
 
 **Content Includes:**
 
@@ -93,11 +93,11 @@ Consolidates these 3 legacy files:
 
 Consolidates these 3 legacy files:
 
-| Legacy File | New Section | Status |
-| --- | --- | --- |
+| Legacy File               | New Section                  | Status      |
+| ------------------------- | ---------------------------- | ----------- |
 | `testing.instructions.md` | Testing Strategy & Framework | ✅ Migrated |
-| `tests.instructions.md` | Test Standards Index | ✅ Migrated |
-| `jest.instructions.md` | Jest Configuration & Usage | ✅ Migrated |
+| `tests.instructions.md`   | Test Standards Index         | ✅ Migrated |
+| `jest.instructions.md`    | Jest Configuration & Usage   | ✅ Migrated |
 
 **Content Includes:**
 
@@ -124,16 +124,16 @@ Consolidates these 3 legacy files:
 
 Consolidates these 8 legacy files:
 
-| Legacy File | New Section | Status |
-| --- | --- | --- |
-| `agents.instructions.md` | Agent Development Standards | ✅ Migrated |
-| `branding.instructions.md` | Meta/Branding Automation | ✅ Migrated |
-| `metrics.instructions.md` | Metrics Collection & Reporting | ✅ Migrated |
-| `planner.instructions.md` | Planning & Architecture Agents | ✅ Migrated |
-| `project-meta-sync.instructions.md` | Project Synchronization | ✅ Migrated |
-| `release.instructions.md` | Release Automation & Versioning | ✅ Migrated |
-| `reporting.instructions.md` | Report Generation & Org | ✅ Migrated |
-| `reviewer.instructions.md` | Code Review Automation | ✅ Migrated |
+| Legacy File                         | New Section                     | Status      |
+| ----------------------------------- | ------------------------------- | ----------- |
+| `agents.instructions.md`            | Agent Development Standards     | ✅ Migrated |
+| `branding.instructions.md`          | Meta/Branding Automation        | ✅ Migrated |
+| `metrics.instructions.md`           | Metrics Collection & Reporting  | ✅ Migrated |
+| `planner.instructions.md`           | Planning & Architecture Agents  | ✅ Migrated |
+| `project-meta-sync.instructions.md` | Project Synchronization         | ✅ Migrated |
+| `release.instructions.md`           | Release Automation & Versioning | ✅ Migrated |
+| `reporting.instructions.md`         | Report Generation & Org         | ✅ Migrated |
+| `reviewer.instructions.md`          | Code Review Automation          | ✅ Migrated |
 
 **Content Includes:**
 
@@ -163,12 +163,12 @@ Consolidates these 8 legacy files:
 
 Consolidates these 4 legacy files:
 
-| Legacy File | New Section | Status |
-| --- | --- | --- |
-| `file-management.instructions.md` | File & Folder Organization | ✅ Migrated |
-| `naming-conventions.instructions.md` | Naming Conventions | ✅ Migrated |
-| `readme.instructions.md` | README & Documentation Standards | ✅ Migrated |
-| `saved-replies.instructions.md` | Saved Replies Management | ✅ Migrated |
+| Legacy File                          | New Section                      | Status      |
+| ------------------------------------ | -------------------------------- | ----------- |
+| `file-management.instructions.md`    | File & Folder Organization       | ✅ Migrated |
+| `naming-conventions.instructions.md` | Naming Conventions               | ✅ Migrated |
+| `readme.instructions.md`             | README & Documentation Standards | ✅ Migrated |
+| `saved-replies.instructions.md`      | Saved Replies Management         | ✅ Migrated |
 
 **Content Includes:**
 
@@ -300,25 +300,25 @@ references:
 
 ## Quick Reference: Where to Find What
 
-| Topic | New Location |
-| --- | --- |
-| JavaScript/TypeScript linting | `languages.instructions.md` |
-| JSDoc standards | `languages.instructions.md` |
-| JSON Schema creation | `languages.instructions.md` |
-| YAML validation | `languages.instructions.md` |
-| Markdown formatting | `documentation-formats.instructions.md` |
-| YAML frontmatter | `documentation-formats.instructions.md` |
-| Mermaid diagrams | `documentation-formats.instructions.md` |
-| Testing strategy | `quality-assurance.instructions.md` |
-| Jest configuration | `quality-assurance.instructions.md` |
-| Code coverage | `quality-assurance.instructions.md` |
-| Agent development | `automation.instructions.md` |
-| Release automation | `automation.instructions.md` |
-| Labeling system | `labeling.instructions.md` |
-| File organization | `community-standards.instructions.md` |
-| Naming conventions | `community-standards.instructions.md` |
-| README standards | `community-standards.instructions.md` |
-| Saved replies | `community-standards.instructions.md` |
+| Topic                         | New Location                            |
+| ----------------------------- | --------------------------------------- |
+| JavaScript/TypeScript linting | `languages.instructions.md`             |
+| JSDoc standards               | `languages.instructions.md`             |
+| JSON Schema creation          | `languages.instructions.md`             |
+| YAML validation               | `languages.instructions.md`             |
+| Markdown formatting           | `documentation-formats.instructions.md` |
+| YAML frontmatter              | `documentation-formats.instructions.md` |
+| Mermaid diagrams              | `documentation-formats.instructions.md` |
+| Testing strategy              | `quality-assurance.instructions.md`     |
+| Jest configuration            | `quality-assurance.instructions.md`     |
+| Code coverage                 | `quality-assurance.instructions.md`     |
+| Agent development             | `automation.instructions.md`            |
+| Release automation            | `automation.instructions.md`            |
+| Labeling system               | `labeling.instructions.md`              |
+| File organization             | `community-standards.instructions.md`   |
+| Naming conventions            | `community-standards.instructions.md`   |
+| README standards              | `community-standards.instructions.md`   |
+| Saved replies                 | `community-standards.instructions.md`   |
 
 ---
 
@@ -384,7 +384,7 @@ If you have questions about finding content in the new structure:
 ## Timeline
 
 - **December 7, 2025:** Consolidation completed
-- **All references updated** across DOCS.md, AGENTS.md, custom-instructions.md, and prompts.md
+- **All references updated** across AGENTS.md, custom-instructions.md, and prompts.md
 - **Legacy files archived** in `.archive/` for historical reference
 - **Migration guide** (this file) created
 

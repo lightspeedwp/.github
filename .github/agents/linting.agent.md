@@ -28,15 +28,6 @@ tags:
     "automation",
   ]
 language: "en"
-references:
-  - path: ".github/agents/linting.agent.js"
-    description: "Implementation script"
-  - path: ".github/workflows/lint.yml"
-    description: "GitHub Actions linting workflow"
-  - path: ".github/instructions/linting.instructions.md"
-    description: "Master linting standards index"
-  - path: ".github/instructions/coding-standards.instructions.md"
-    description: "Unified coding standards"
 owners: ["lightspeedwp/maintainers"]
 metadata:
   guardrails: "Reference canonical config files only (.eslintrc.json, stylelint.json, etc). Never bypass failing linting checks. Log all linting actions and results. Provide clear, actionable error messages."

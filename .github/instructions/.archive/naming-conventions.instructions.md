@@ -11,7 +11,7 @@ category: "governance"
 
 # Naming Conventions
 
-- Documentation and configuration filenames **must** use lowercase with hyphens (`-`) for spaces, except for top-level summary/reference files (e.g., `AGENTS.md`, `FRONTMATTER-SCHEMA.md`, `CLAUDE.md`), which are all uppercase.
+- Documentation and configuration filenames **must** use lowercase with hyphens (`-`) for spaces, except for top-level summary/reference files (e.g., `AGENTS.md`, `FRONTMATTER-SCHEMA.md`), which are all uppercase.
 - **Single instruction files:** `name.instructions.md` (e.g., `coding-standards.instructions.md`)
 - **Single prompt files:** `name.prompt.md` (e.g., `refactor-function.prompt.md`)
 - **Agent specification:** `name.agent.md` (e.g., `jsdoc-review.agent.md`)

@@ -8,7 +8,8 @@ last_updated: "2025-12-04"
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
-tags: ["issue-management", "triage", "automation", "type-assignment", "refinement"]
+tags:
+  ["issue-management", "triage", "automation", "type-assignment", "refinement"]
 category: "automation"
 status: "active"
 stability: "stable"
@@ -16,17 +17,6 @@ visibility: "public"
 target: "github-copilot"
 tools: ["github/*", "read", "search", "edit"]
 domain: "governance"
-references:
-  - path: ".github/instructions/issues.instructions.md"
-    description: "Issue creation and management guidance"
-  - path: ".github/issue-types.yml"
-    description: "Canonical issue type definitions"
-  - path: ".github/labels.yml"
-    description: "Canonical label definitions"
-  - path: "docs/LABEL_STRATEGY.md"
-    description: "Label strategy and best practices"
-  - path: "CONTRIBUTING.md"
-    description: "Contribution guidelines"
 metadata:
   guardrails: "Only apply types/labels from canonical configs. Never overwrite without warning. Validate all content. Log all actions. Preserve user data integrity."
 ---

@@ -26,12 +26,14 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ❌ BROKEN - Will fail to execute
 
 **Issues**:
+
 - Line 73: `node .github/agents/includes/label-sync.js` → **WRONG PATH**
 - Line 81: `node .github/agents/includes/check-template-labels.js` → **WRONG PATH**
 - Line 99: `node .github/agents/labeling.agent.js` → **WRONG PATH**
 - Line 105: `node .github/agents/includes/report-writer.js` → **WRONG PATH**
 
 **Actual Locations**:
+
 - ✅ `scripts/agents/includes/label-sync.js`
 - ✅ `scripts/agents/labeling.agent.js`
 - ✅ `scripts/agents/includes/report-writer.js`
@@ -46,10 +48,12 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ❌ BROKEN - Will fail to execute
 
 **Issues**:
+
 - Line 56: `node .github/scripts/validate-frontmatter.js` → **WRONG - directory doesn't exist**
 - Line 88: `node .github/agents/branding.agent.js` → **WRONG PATH**
 
 **Actual Locations**:
+
 - ✅ `scripts/agents/branding.agent.js`
 - ❓ `validate-frontmatter.js` - needs to be located or created
 
@@ -62,9 +66,11 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ❌ BROKEN - Will fail to execute
 
 **Issues**:
+
 - Line 20: `node .github/agents/includes/changelogUtils.cjs` → **WRONG PATH**
 
 **Actual Location**:
+
 - ❓ `changelogUtils.cjs` - needs to be located or created
 
 **Impact**: Changelog validation will fail
@@ -76,9 +82,11 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ❌ BROKEN - Will fail to execute
 
 **Issues**:
+
 - Line 20: `node .github/agents/planner.agent.js` → **WRONG PATH**
 
 **Actual Location**:
+
 - ❓ `planner.agent.js` - not found in `scripts/agents/`
 - ⚠️ `.github/agents/planner.agent.md` exists but it's markdown, not executable JS
 
@@ -93,10 +101,12 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ❌ BROKEN - Will fail to execute
 
 **Issues**:
+
 - Line 11: `uses: ./.github/workflows/lint.yml` → **FILE DOESN'T EXIST**
 - Line 30: `node .github/agents/release.agent.cjs` → **WRONG PATH**
 
 **Actual Locations**:
+
 - ✅ `scripts/agents/release.agent.cjs`
 - ❌ `lint.yml` workflow doesn't exist (should be `linting.yml`)
 
@@ -111,6 +121,7 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ✅ WORKING
 
 **Configuration**:
+
 - Node version from `.nvmrc` ✓
 - Runs `npm ci` and `npm run check` ✓
 - All scripts exist in `package.json` ✓
@@ -124,6 +135,7 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ✅ WORKING
 
 **Configuration**:
+
 - Node version: LTS ✓
 - Runs `npm run lint` ✓
 - Script exists in `package.json` ✓
@@ -137,6 +149,7 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ✅ WORKING
 
 **Configuration**:
+
 - **CORRECT PATH**: `node scripts/agents/reviewer.agent.js` ✓
 - Script exists at correct location ✓
 
@@ -151,6 +164,7 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ✅ WORKING
 
 **Configuration**:
+
 - Runs `npm run metrics:ci` ✓
 - Script exists in `package.json` ✓
 - References output files in `metrics/out/` ✓
@@ -164,6 +178,7 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ✅ WORKING (no script references)
 
 **Configuration**:
+
 - Uses inline bash scripts ✓
 - Uses GitHub CLI (`gh`) ✓
 - Uses external actions only ✓
@@ -179,6 +194,7 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 **Status**: ✅ WORKING (uses bash/find commands)
 
 **Configuration**:
+
 - All operations use bash/find/git commands ✓
 - No Node.js script references ✓
 - Creates reports in `.github/reports/` ✓
@@ -195,19 +211,19 @@ Comprehensive audit of 11 GitHub Actions workflow files revealed **critical path
 
 All workflows use appropriate minimal permissions:
 
-| Workflow | Permissions | Assessment |
-|----------|-------------|------------|
-| testing.yml | `contents: read` | ✅ Minimal |
-| linting.yml | Default (read-only) | ✅ Minimal |
-| reviewer.yml | `contents: write, pull-requests: write` | ✅ Appropriate |
-| metrics.yml | `contents: write` | ✅ Appropriate |
-| labeling.yml | `contents: write, issues: write, pull-requests: write` | ✅ Appropriate |
-| branding.yml | `contents: write` | ✅ Appropriate |
-| project-meta-sync.yml | `contents: read, issues: read, pull-requests: read` | ✅ Minimal |
-| reporting.yml | `contents: write, pull-requests: write` | ✅ Appropriate |
-| release.yml | `contents: write, pull-requests: write` | ✅ Appropriate |
-| planner.yml | `contents: read, pull-requests: write, issues: write` | ✅ Appropriate |
-| changelog.yml | None specified | ✅ Uses default read-only |
+| Workflow              | Permissions                                            | Assessment                |
+| --------------------- | ------------------------------------------------------ | ------------------------- |
+| testing.yml           | `contents: read`                                       | ✅ Minimal                |
+| linting.yml           | Default (read-only)                                    | ✅ Minimal                |
+| reviewer.yml          | `contents: write, pull-requests: write`                | ✅ Appropriate            |
+| metrics.yml           | `contents: write`                                      | ✅ Appropriate            |
+| labeling.yml          | `contents: write, issues: write, pull-requests: write` | ✅ Appropriate            |
+| branding.yml          | `contents: write`                                      | ✅ Appropriate            |
+| project-meta-sync.yml | `contents: read, issues: read, pull-requests: read`    | ✅ Minimal                |
+| reporting.yml         | `contents: write, pull-requests: write`                | ✅ Appropriate            |
+| release.yml           | `contents: write, pull-requests: write`                | ✅ Appropriate            |
+| planner.yml           | `contents: read, pull-requests: write, issues: write`  | ✅ Appropriate            |
+| changelog.yml         | None specified                                         | ✅ Uses default read-only |
 
 **Finding**: ✅ All permissions follow least-privilege principle
 
@@ -265,6 +281,7 @@ Update all workflows to use correct paths:
 **Files requiring updates**:
 
 1. **labeling.yml** (4 path references)
+
    ```diff
    - node .github/agents/includes/label-sync.js
    + node scripts/agents/includes/label-sync.js
@@ -280,6 +297,7 @@ Update all workflows to use correct paths:
    ```
 
 2. **branding.yml** (2 path references)
+
    ```diff
    - node .github/scripts/validate-frontmatter.js
    + node scripts/validate-frontmatter.js  # after creating/locating this file
@@ -289,18 +307,21 @@ Update all workflows to use correct paths:
    ```
 
 3. **changelog.yml** (1 path reference)
+
    ```diff
    - node .github/agents/includes/changelogUtils.cjs
    + node scripts/agents/includes/changelogUtils.cjs  # after creating/locating
    ```
 
 4. **planner.yml** (1 path reference)
+
    ```diff
    - node .github/agents/planner.agent.js
    + node scripts/agents/planner.agent.js  # after creating implementation
    ```
 
 5. **release.yml** (2 issues)
+
    ```diff
    - uses: ./.github/workflows/lint.yml
    + uses: ./.github/workflows/linting.yml
@@ -369,19 +390,19 @@ jobs:
 
 ### Workflows Tested
 
-| Workflow | Status | Runs On | Notes |
-|----------|--------|---------|-------|
-| testing.yml | ✅ Can execute | push, pull_request | Uses npm scripts |
-| linting.yml | ✅ Can execute | push, pull_request | Uses npm scripts |
-| reviewer.yml | ✅ Can execute | pull_request_review | Correct paths |
-| metrics.yml | ✅ Can execute | push, schedule | Uses npm scripts |
-| project-meta-sync.yml | ✅ Can execute | push, issues, pull_request | Bash only |
-| reporting.yml | ✅ Can execute | schedule, workflow_dispatch | Bash only |
-| labeling.yml | ❌ Will fail | push, issues, pull_request | Path errors |
-| branding.yml | ❌ Will fail | push | Path errors |
-| changelog.yml | ❌ Will fail | push, pull_request | Path errors |
-| planner.yml | ❌ Will fail | push, pull_request | Path errors |
-| release.yml | ❌ Will fail | workflow_dispatch | Path errors |
+| Workflow              | Status         | Runs On                     | Notes            |
+| --------------------- | -------------- | --------------------------- | ---------------- |
+| testing.yml           | ✅ Can execute | push, pull_request          | Uses npm scripts |
+| linting.yml           | ✅ Can execute | push, pull_request          | Uses npm scripts |
+| reviewer.yml          | ✅ Can execute | pull_request_review         | Correct paths    |
+| metrics.yml           | ✅ Can execute | push, schedule              | Uses npm scripts |
+| project-meta-sync.yml | ✅ Can execute | push, issues, pull_request  | Bash only        |
+| reporting.yml         | ✅ Can execute | schedule, workflow_dispatch | Bash only        |
+| labeling.yml          | ❌ Will fail   | push, issues, pull_request  | Path errors      |
+| branding.yml          | ❌ Will fail   | push                        | Path errors      |
+| changelog.yml         | ❌ Will fail   | push, pull_request          | Path errors      |
+| planner.yml           | ❌ Will fail   | push, pull_request          | Path errors      |
+| release.yml           | ❌ Will fail   | workflow_dispatch           | Path errors      |
 
 ---
 

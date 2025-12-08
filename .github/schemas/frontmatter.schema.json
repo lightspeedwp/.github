@@ -7,7 +7,10 @@
     "commonFields": {
       "type": "object",
       "properties": {
-        "title": { "type": "string", "description": "Human-readable title" },
+        "title": {
+          "type": "string",
+          "description": "Human-readable title"
+        },
         "description": {
           "type": "string",
           "description": "Brief description of purpose (required for most file types)"
@@ -50,23 +53,36 @@
         },
         "owners": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "List of owners/maintainers"
         },
         "tags": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "maxItems": 8,
           "description": "Keywords for discovery/filtering (max 8)"
         },
         "status": {
           "type": "string",
-          "enum": ["active", "deprecated", "draft", "experimental"],
+          "enum": [
+            "active",
+            "deprecated",
+            "draft",
+            "experimental"
+          ],
           "description": "Current status"
         },
         "stability": {
           "type": "string",
-          "enum": ["stable", "experimental", "incubating"],
+          "enum": [
+            "stable",
+            "experimental",
+            "incubating"
+          ],
           "description": "Maturity expectation"
         },
         "deprecated": {
@@ -97,10 +113,15 @@
         },
         "extraDomains": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Secondary classifications"
         },
-        "license": { "type": "string", "description": "License identifier" },
+        "license": {
+          "type": "string",
+          "description": "License identifier"
+        },
         "references": {
           "type": "array",
           "items": {
@@ -115,7 +136,10 @@
                 "description": "Brief description of the reference"
               }
             },
-            "required": ["path", "description"],
+            "required": [
+              "path",
+              "description"
+            ],
             "additionalProperties": false
           },
           "description": "AI-focused references to related documentation (relative paths from current file)",
@@ -124,7 +148,10 @@
               "path": "CONTRIBUTING.md",
               "description": "Contribution guidelines"
             },
-            { "path": "README.md", "description": "Main documentation" },
+            {
+              "path": "README.md",
+              "description": "Main documentation"
+            },
             {
               "path": ".github/README.md",
               "description": "GitHub-specific documentation"
@@ -146,65 +173,80 @@
       "title": "AGENTS.md (Main Agents Index)",
       "description": "Main agents reference file.",
       "properties": {
-        "file_type": { "const": "agents-index" },
-        "title": { "type": "string" },
-        "description": { "type": "string" },
-        "version": { "type": "string" },
-        "last_updated": { "type": "string" },
-        "owners": { "type": "array", "items": { "type": "string" } },
-        "labels": { "type": "array", "items": { "type": "string" } },
-        "category": { "type": "string" }
+        "file_type": {
+          "const": "agents-index"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "last_updated": {
+          "type": "string"
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "category": {
+          "type": "string"
+        }
       },
-      "required": ["file_type", "title", "description"],
-      "additionalProperties": true
-    },
-    {
-      "title": "CLAUDE.md (Claude AI Instructions)",
-      "description": "Claude config/instructions.",
-      "properties": {
-        "file_type": { "const": "claude-instructions" },
-        "title": { "type": "string" },
-        "description": { "type": "string" },
-        "version": { "type": "string" },
-        "last_updated": { "type": "string" },
-        "owners": { "type": "array", "items": { "type": "string" } }
-      },
-      "required": ["file_type", "title", "description"],
-      "additionalProperties": true
-    },
-    {
-      "title": "GEMINI.md (Gemini AI Instructions)",
-      "description": "Gemini config/instructions.",
-      "properties": {
-        "file_type": { "const": "gemini-instructions" },
-        "title": { "type": "string" },
-        "description": { "type": "string" },
-        "version": { "type": "string" },
-        "last_updated": { "type": "string" },
-        "owners": { "type": "array", "items": { "type": "string" } }
-      },
-      "required": ["file_type", "title", "description"],
+      "required": [
+        "file_type",
+        "title",
+        "description"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Agent Index (.github/agents/agent.md)",
       "description": "Agent directory index file.",
       "properties": {
-        "file_type": { "const": "agent-index" },
-        "title": { "type": "string" },
-        "description": { "type": "string" }
+        "file_type": {
+          "const": "agent-index"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
       },
-      "required": ["file_type", "title", "description"],
+      "required": [
+        "file_type",
+        "title",
+        "description"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Agent Specification (.github/agents/*.agent.md)",
       "description": "Individual agent specification files. Supports both VS Code native format and LightSpeed extended format.",
-      "allOf": [{ "$ref": "#/definitions/commonFields" }],
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonFields"
+        }
+      ],
       "properties": {
         "file_type": {
           "type": "string",
-          "enum": ["agent", "chatmode"],
+          "enum": [
+            "agent",
+            "chatmode"
+          ],
           "description": "File type identifier. 'chatmode' is deprecated and will be migrated to 'agent'."
         },
         "name": {
@@ -217,7 +259,9 @@
         },
         "tools": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Available tools/capabilities (VS Code field). Values: codebase, search, usages, editFiles, fetchWebpage, findTestFiles, githubRepo, problems, runCommands, runNotebooks, runTasks, runTests, terminalLastCommand, terminalSelection, thinking, vscodeAPI, custom MCP tools"
         },
         "model": {
@@ -233,7 +277,10 @@
                 "type": "string",
                 "description": "Button label for handoff"
               },
-              "agent": { "type": "string", "description": "Target agent name" },
+              "agent": {
+                "type": "string",
+                "description": "Target agent name"
+              },
               "prompt": {
                 "type": "string",
                 "description": "Prompt to pass to target agent"
@@ -244,25 +291,60 @@
                 "default": false
               }
             },
-            "required": ["label", "agent", "prompt"]
+            "required": [
+              "label",
+              "agent",
+              "prompt"
+            ]
           },
           "description": "Handoff definitions for agent chaining (VS Code optional field)"
         },
-        "version": { "type": "string" },
-        "last_updated": { "type": "string" },
-        "owners": { "type": "array", "items": { "type": "string" } },
-        "category": { "type": "string" },
-        "labels": { "type": "array", "items": { "type": "string" } },
-        "tags": { "type": "array", "items": { "type": "string" } },
-        "status": { "type": "string" },
+        "version": {
+          "type": "string"
+        },
+        "last_updated": {
+          "type": "string"
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "category": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        },
         "target": {
           "type": "string",
-          "enum": ["vscode", "github-copilot", "cli"],
+          "enum": [
+            "vscode",
+            "github-copilot",
+            "cli"
+          ],
           "description": "Target environment for the agent"
         },
         "visibility": {
           "type": "string",
-          "enum": ["public", "private", "internal"],
+          "enum": [
+            "public",
+            "private",
+            "internal"
+          ],
           "description": "Agent visibility scope"
         },
         "metadata": {
@@ -298,88 +380,154 @@
           "description": "Response length limitations (legacy chatmode field)"
         }
       },
-      "required": ["description"],
+      "required": [
+        "description"
+      ],
       "additionalProperties": true
     },
     {
       "title": "JavaScript Agent File (.github/agents/*.agent.js)",
       "description": "Node.js-based agent implementation.",
       "properties": {
-        "file_type": { "const": "agent-js" },
-        "title": { "type": "string" }
+        "file_type": {
+          "const": "agent-js"
+        },
+        "title": {
+          "type": "string"
+        }
       },
-      "required": ["file_type"],
+      "required": [
+        "file_type"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Shell Agent File (.github/agents/*.agent.sh)",
       "description": "Shell-based agent implementation.",
       "properties": {
-        "file_type": { "const": "agent-sh" },
-        "title": { "type": "string" }
+        "file_type": {
+          "const": "agent-sh"
+        },
+        "title": {
+          "type": "string"
+        }
       },
-      "required": ["file_type"],
+      "required": [
+        "file_type"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Python Agent File (.github/agents/*.agent.py)",
       "description": "Python-based agent implementation.",
       "properties": {
-        "file_type": { "const": "agent-py" },
-        "title": { "type": "string" }
+        "file_type": {
+          "const": "agent-py"
+        },
+        "title": {
+          "type": "string"
+        }
       },
-      "required": ["file_type"],
+      "required": [
+        "file_type"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Deprecated: Chatmodes Index (.github/chatmodes/chatmodes.md)",
       "description": "DEPRECATED: GitHub has deprecated chatmodes in favour of agents. This file type is preserved for backward compatibility only.",
       "properties": {
-        "file_type": { "const": "chatmode-index" },
-        "title": { "type": "string" },
-        "deprecated": { "const": true }
+        "file_type": {
+          "const": "chatmode-index"
+        },
+        "title": {
+          "type": "string"
+        },
+        "deprecated": {
+          "const": true
+        }
       },
-      "required": ["file_type", "title"],
+      "required": [
+        "file_type",
+        "title"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Custom Instructions (.github/custom-instructions.md)",
       "description": "Main instructions file.",
       "properties": {
-        "file_type": { "const": "custom-instructions" },
-        "title": { "type": "string" },
-        "description": { "type": "string" }
+        "file_type": {
+          "const": "custom-instructions"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
       },
-      "required": ["file_type", "title", "description"],
+      "required": [
+        "file_type",
+        "title",
+        "description"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Instructions File (.github/instructions/*.instructions.md)",
       "description": "Instructions for contributors, bots, or Copilot with LightSpeed governance and awesome-copilot conventions.",
-      "allOf": [{ "$ref": "#/definitions/commonFields" }],
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonFields"
+        }
+      ],
       "properties": {
-        "file_type": { "const": "instructions" },
-        "description": { "type": "string" },
+        "file_type": {
+          "const": "instructions"
+        },
+        "description": {
+          "type": "string"
+        },
         "applyTo": {
           "oneOf": [
-            { "type": "string" },
-            { "type": "array", "items": { "type": "string" } }
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           ],
           "description": "Glob patterns for files this applies to (awesome-copilot style)"
         },
         "apply_to": {
           "oneOf": [
-            { "type": "string" },
-            { "type": "array", "items": { "type": "string" } }
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           ],
           "description": "Alias for applyTo (LightSpeed legacy)"
         },
         "mode": {
           "type": "string",
-          "enum": ["agent", "ask"],
+          "enum": [
+            "agent",
+            "ask"
+          ],
           "description": "Execution style for Copilot"
         },
-        "domain": { "$ref": "#/definitions/commonFields/properties/domain" },
+        "domain": {
+          "$ref": "#/definitions/commonFields/properties/domain"
+        },
         "stability": {
           "$ref": "#/definitions/commonFields/properties/stability"
         },
@@ -390,38 +538,67 @@
           "$ref": "#/definitions/commonFields/properties/replacement"
         }
       },
-      "required": ["file_type", "description"],
+      "required": [
+        "file_type",
+        "description"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Prompts Index (.github/prompts/prompts.md)",
       "description": "Prompts index file.",
       "properties": {
-        "file_type": { "const": "prompt-index" },
-        "title": { "type": "string" }
+        "file_type": {
+          "const": "prompt-index"
+        },
+        "title": {
+          "type": "string"
+        }
       },
-      "required": ["file_type", "title"],
+      "required": [
+        "file_type",
+        "title"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Prompt Specification (.github/prompts/*.prompt.md)",
       "description": "Prompt files for Copilot and bots with awesome-copilot conventions.",
-      "allOf": [{ "$ref": "#/definitions/commonFields" }],
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonFields"
+        }
+      ],
       "properties": {
-        "file_type": { "const": "prompt" },
-        "description": { "type": "string" },
+        "file_type": {
+          "const": "prompt"
+        },
+        "description": {
+          "type": "string"
+        },
         "mode": {
           "type": "string",
-          "enum": ["ask", "edit", "agent"],
+          "enum": [
+            "ask",
+            "edit",
+            "agent"
+          ],
           "description": "Copilot execution mode"
         },
-        "model": { "type": "string", "description": "Preferred AI model" },
+        "model": {
+          "type": "string",
+          "description": "Preferred AI model"
+        },
         "tools": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Available tools/capabilities"
         },
-        "domain": { "$ref": "#/definitions/commonFields/properties/domain" },
+        "domain": {
+          "$ref": "#/definitions/commonFields/properties/domain"
+        },
         "stability": {
           "$ref": "#/definitions/commonFields/properties/stability"
         },
@@ -432,68 +609,120 @@
           "$ref": "#/definitions/commonFields/properties/replacement"
         }
       },
-      "required": ["file_type", "description"],
+      "required": [
+        "file_type",
+        "description"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Issue Template (.github/ISSUE_TEMPLATE/*.md)",
       "description": "Templates for GitHub issues.",
       "properties": {
-        "file_type": { "const": "issue-template" },
-        "name": { "type": "string" },
-        "description": { "type": "string" }
+        "file_type": {
+          "const": "issue-template"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
       },
-      "required": ["file_type", "name", "description"],
+      "required": [
+        "file_type",
+        "name",
+        "description"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Pull Request Template (.github/PULL_REQUEST_TEMPLATE/*.md)",
       "description": "Templates for GitHub PRs.",
       "properties": {
-        "file_type": { "const": "pr-template" },
-        "title": { "type": "string" }
+        "file_type": {
+          "const": "pr-template"
+        },
+        "title": {
+          "type": "string"
+        }
       },
-      "required": ["file_type", "title"],
+      "required": [
+        "file_type",
+        "title"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Discussion Template (.github/DISCUSSION_TEMPLATES/*.yml)",
       "description": "Templates for GitHub Discussions.",
       "properties": {
-        "file_type": { "const": "discussion-template" },
-        "name": { "type": "string" },
-        "description": { "type": "string" }
+        "file_type": {
+          "const": "discussion-template"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
       },
-      "required": ["file_type", "name", "description"],
+      "required": [
+        "file_type",
+        "name",
+        "description"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Saved Replies Index (.github/SAVED_REPLIES.md)",
       "description": "Index file for all saved replies.",
       "properties": {
-        "file_type": { "const": "saved-replies-index" },
-        "title": { "type": "string" }
+        "file_type": {
+          "const": "saved-replies-index"
+        },
+        "title": {
+          "type": "string"
+        }
       },
-      "required": ["file_type", "title"],
+      "required": [
+        "file_type",
+        "title"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Saved Reply (.github/SAVED_REPLIES/*.md)",
       "description": "Individual saved reply files.",
       "properties": {
-        "file_type": { "const": "saved-reply" },
-        "title": { "type": "string" }
+        "file_type": {
+          "const": "saved-reply"
+        },
+        "title": {
+          "type": "string"
+        }
       },
-      "required": ["file_type", "title"],
+      "required": [
+        "file_type",
+        "title"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Deprecated: Chatmode (.github/chatmodes/*.chatmode.md)",
       "description": "DEPRECATED: GitHub has deprecated chatmodes in favour of agents. Use .agent.md files instead. This schema is preserved for backward compatibility only.",
-      "allOf": [{ "$ref": "#/definitions/commonFields" }],
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonFields"
+        }
+      ],
       "properties": {
-        "file_type": { "const": "chatmode" },
-        "description": { "type": "string" },
+        "file_type": {
+          "const": "chatmode"
+        },
+        "description": {
+          "type": "string"
+        },
         "deprecated": {
           "const": true,
           "description": "Chatmodes are deprecated; migrate to agents"
@@ -504,15 +733,25 @@
         },
         "mode": {
           "type": "string",
-          "enum": ["instruction", "conversation", "template", "information"],
+          "enum": [
+            "instruction",
+            "conversation",
+            "template",
+            "information"
+          ],
           "description": "Chatmode operational mode (deprecated)"
         },
         "tools": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Available tools/capabilities"
         },
-        "model": { "type": "string", "description": "Preferred AI model" },
+        "model": {
+          "type": "string",
+          "description": "Preferred AI model"
+        },
         "context_window": {
           "type": "integer",
           "description": "Token limit considerations"
@@ -527,7 +766,9 @@
           "type": "integer",
           "description": "Response length limitations"
         },
-        "domain": { "$ref": "#/definitions/commonFields/properties/domain" },
+        "domain": {
+          "$ref": "#/definitions/commonFields/properties/domain"
+        },
         "stability": {
           "$ref": "#/definitions/commonFields/properties/stability"
         },
@@ -538,22 +779,39 @@
           "$ref": "#/definitions/commonFields/properties/replacement"
         }
       },
-      "required": ["file_type", "description"],
+      "required": [
+        "file_type",
+        "description"
+      ],
       "additionalProperties": true
     },
     {
       "title": "Documentation (docs/*.md)",
       "description": "General documentation files.",
-      "allOf": [{ "$ref": "#/definitions/commonFields" }],
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonFields"
+        }
+      ],
       "properties": {
-        "file_type": { "const": "documentation" },
-        "description": { "type": "string" },
+        "file_type": {
+          "const": "documentation"
+        },
+        "description": {
+          "type": "string"
+        },
         "mode": {
           "type": "string",
-          "enum": ["information", "instruction", "reference"],
+          "enum": [
+            "information",
+            "instruction",
+            "reference"
+          ],
           "description": "Documentation type"
         },
-        "domain": { "$ref": "#/definitions/commonFields/properties/domain" },
+        "domain": {
+          "$ref": "#/definitions/commonFields/properties/domain"
+        },
         "stability": {
           "$ref": "#/definitions/commonFields/properties/stability"
         },
@@ -572,7 +830,10 @@
           "$ref": "#/definitions/commonFields/properties/last_updated"
         }
       },
-      "required": ["file_type", "description"],
+      "required": [
+        "file_type",
+        "description"
+      ],
       "additionalProperties": true
     }
   ],
@@ -584,16 +845,29 @@
       "description": "Audits JS/TS code for JSDoc coverage.",
       "version": "v0.2.0",
       "last_updated": "2025-10-22",
-      "owners": ["lightspeedwp/maintainers"],
+      "owners": [
+        "lightspeedwp/maintainers"
+      ],
       "status": "active",
       "category": "documentation",
       "domain": "generic",
       "stability": "stable",
-      "tags": ["jsdoc", "lint"],
-      "tools": ["Read"],
+      "tags": [
+        "jsdoc",
+        "lint"
+      ],
+      "tools": [
+        "Read"
+      ],
       "references": [
-        { "path": "CONTRIBUTING.md", "description": "Contribution guidelines" },
-        { "path": "README.md", "description": "Main documentation" },
+        {
+          "path": "CONTRIBUTING.md",
+          "description": "Contribution guidelines"
+        },
+        {
+          "path": "README.md",
+          "description": "Main documentation"
+        },
         {
           "path": ".github/README.md",
           "description": "GitHub-specific documentation"
@@ -611,10 +885,20 @@
       "applyTo": "includes/api/**/*.php",
       "domain": "security",
       "stability": "stable",
-      "tags": ["security", "rest", "validation"],
+      "tags": [
+        "security",
+        "rest",
+        "validation"
+      ],
       "references": [
-        { "path": "docs/SECURITY.md", "description": "Security guidelines" },
-        { "path": "CONTRIBUTING.md", "description": "Contribution guidelines" },
+        {
+          "path": "docs/SECURITY.md",
+          "description": "Security guidelines"
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "description": "Contribution guidelines"
+        },
         {
           "path": "schemas/frontmatter.schema.json",
           "description": "Frontmatter schema definition"

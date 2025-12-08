@@ -5,7 +5,8 @@ description: "Unified linting, formatting, and documentation standards for JavaS
 version: "v1.0"
 last_updated: "2025-12-07"
 owners: ["GitHub Community Health Team"]
-tags: ["javascript", "typescript", "json", "yaml", "linting", "formatting", "jsdoc"]
+tags:
+  ["javascript", "typescript", "json", "yaml", "linting", "formatting", "jsdoc"]
 applyTo: ["**/*.{js,jsx,ts,tsx,mjs,cjs}", "**/*.json", "**/*.{yml,yaml}"]
 status: "active"
 stability: "stable"
@@ -46,16 +47,19 @@ Ensure consistent code quality, formatting, and documentation across all program
 ### JS Configuration
 
 **Linters:**
+
 - [ESLint](https://eslint.org/) - Code quality and style enforcement
 - [Prettier](https://prettier.io/) - Code formatting
 
 **Config Files:**
+
 - Flat config: [`eslint.config.js`](../../eslint.config.js) or [`eslint.config.mjs`](../../eslint.config.mjs)
 - Classic config: [`.eslintrc.json`](../../.eslintrc.json) or [`.eslintrc.cjs`](../../.eslintrc.cjs)
 - Formatter: [`prettier.config.js`](../../prettier.config.js)
 - Editor: [`.editorconfig`](../../.editorconfig)
 
 **NPM Scripts:**
+
 ```json
 {
   "scripts": {
@@ -67,6 +71,7 @@ Ensure consistent code quality, formatting, and documentation across all program
 **Setup:**
 
 1. Install dependencies:
+
    ```bash
    npm install --save-dev eslint prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-prettier husky
    ```
@@ -76,6 +81,7 @@ Ensure consistent code quality, formatting, and documentation across all program
 3. Add NPM script (see above)
 
 4. Optional pre-commit hook:
+
    ```bash
    npx husky add .husky/pre-commit "npm run lint:js"
    ```
@@ -94,6 +100,7 @@ Follow JSDoc standards for documenting JavaScript and TypeScript code in GitHub 
 #### Required Documentation Blocks
 
 **Functions:**
+
 ```javascript
 /**
  * Get a paginated slice of items.
@@ -112,6 +119,7 @@ export function getPage(items, page, perPage) {
 ```
 
 **Classes:**
+
 ```javascript
 /**
  * Class for handling GitHub issue labeling.
@@ -144,6 +152,7 @@ class LabelHandler {
 ```
 
 **Required Tags:**
+
 - `@param {type} name - description` - For all parameters
 - `@returns {type} description` - For return values
 - `@throws {ErrorType} description` - For expected errors
@@ -154,11 +163,13 @@ class LabelHandler {
 ### JS Linting & Formatting
 
 **Running:**
+
 - Manual: `npm run lint:js`
 - Auto-fix: `eslint '**/*.{js,jsx,ts,tsx}' --fix`
 - Format: `npx prettier --write '**/*.{js,jsx,ts,tsx}'`
 
 **Standards:**
+
 - 2-space indentation
 - Single quotes
 - Strict equality (`===`)
@@ -175,10 +186,12 @@ class LabelHandler {
 **Validator:** [AJV](https://ajv.js.org/) (optional)
 
 **Config Files:**
+
 - Formatter: [`prettier.config.js`](../../prettier.config.js)
 - Editor: [`.editorconfig`](../../.editorconfig)
 
 **NPM Scripts:**
+
 ```json
 {
   "scripts": {
@@ -193,6 +206,7 @@ class LabelHandler {
 Store schemas in `schemas/<domain>/<name>.schema.json`
 
 **Required Schema Fields:**
+
 ```json
 {
   "$id": "https://example.com/schemas/config.schema.json",
@@ -218,6 +232,7 @@ Store schemas in `schemas/<domain>/<name>.schema.json`
 ```
 
 **Schema Authoring Guidelines:**
+
 - Include `$id`, `$schema`, `title`, `description`, `version`
 - Define `type`, `properties`, `required`, `additionalProperties`
 - Provide `examples` for documentation
@@ -226,11 +241,13 @@ Store schemas in `schemas/<domain>/<name>.schema.json`
 ### JSON Formatting
 
 **Running:**
+
 - Check: `npm run lint:json`
 - Fix: `npx prettier --write '**/*.json'`
 - Validate (optional): `ajv validate -s schema.json -d data.json`
 
 **Standards:**
+
 - 2-space indentation
 - Double quotes for strings
 - No trailing commas
@@ -243,17 +260,20 @@ Store schemas in `schemas/<domain>/<name>.schema.json`
 ### YAML Configuration
 
 **Linters:**
+
 - [yamllint](https://yamllint.readthedocs.io/) - YAML syntax validation
 - [Spectral](https://github.com/stoplightio/spectral) - Advanced rules
 - [actionlint](https://github.com/rhysd/actionlint) - GitHub Actions validation
 
 **Config Files:**
+
 - YAML lint: [`.yamllint`](../../.yamllint)
 - Spectral: [`.spectral.yaml`](../../.spectral.yaml)
 - Workflows: [`.spectral-workflows.yaml`](../../.spectral-workflows.yaml)
 - Editor: [`.editorconfig`](../../.editorconfig)
 
 **NPM Scripts:**
+
 ```json
 {
   "scripts": {
@@ -266,6 +286,7 @@ Store schemas in `schemas/<domain>/<name>.schema.json`
 **Setup:**
 
 1. Install dependencies:
+
    ```bash
    pip install yamllint
    npm install --save-dev @stoplight/spectral-cli husky
@@ -276,6 +297,7 @@ Store schemas in `schemas/<domain>/<name>.schema.json`
 3. Add NPM scripts (see above)
 
 4. Optional pre-commit hook:
+
    ```bash
    npx husky add .husky/pre-commit "npm run lint:yaml"
    ```
@@ -283,12 +305,14 @@ Store schemas in `schemas/<domain>/<name>.schema.json`
 ### YAML Linting
 
 **Running:**
+
 - Manual: `npm run lint:yaml`
 - System: `yamllint .`
 - Workflows: `npm run lint:workflows`
 - Actions: `actionlint .github/workflows/*.yml`
 
 **Standards:**
+
 - 2-space indentation
 - Consistent key style
 - Explicit values (no implicit truthy/falsey)
@@ -298,6 +322,7 @@ Store schemas in `schemas/<domain>/<name>.schema.json`
 ### YAML GitHub Actions
 
 **Example Workflow:**
+
 ```yaml
 name: CI
 on:
@@ -317,6 +342,7 @@ jobs:
 ```
 
 **Best Practices:**
+
 - Document complex steps with comments
 - Use explicit boolean values (`true`/`false`, not `yes`/`no`)
 - Validate with `actionlint` before committing
@@ -330,11 +356,13 @@ jobs:
 All language standards are enforced through GitHub Actions:
 
 **Workflow Triggers:**
+
 - Pull requests to main/develop branches
 - Pushes to protected branches
 - Manual workflow dispatch
 
 **Required Checks:**
+
 - JavaScript/TypeScript linting passes
 - JSON formatting validated
 - YAML syntax validated
@@ -342,6 +370,7 @@ All language standards are enforced through GitHub Actions:
 - All tests pass before merge
 
 **CI Configuration:**
+
 ```yaml
 name: Lint
 on: [pull_request, push]
@@ -379,23 +408,27 @@ jobs:
 ## References
 
 ### JavaScript/TypeScript
+
 - [ESLint Documentation](https://eslint.org/)
 - [Prettier Documentation](https://prettier.io/)
 - [TypeScript Documentation](https://www.typescriptlang.org/)
 - [JSDoc Documentation](https://jsdoc.app/)
 
 ### JSON
+
 - [JSON Schema Specification](https://json-schema.org/draft/2020-12/schema)
 - [AJV Documentation](https://ajv.js.org/)
 - [Prettier JSON Support](https://prettier.io/docs/en/options.html)
 
 ### YAML
+
 - [YAML Specification](https://yaml.org/spec/)
 - [yamllint Documentation](https://yamllint.readthedocs.io/)
 - [Spectral Documentation](https://github.com/stoplightio/spectral)
 - [actionlint Documentation](https://github.com/rhysd/actionlint)
 
 ### Related Instructions
+
 - [Coding Standards](./coding-standards.instructions.md)
 - [Linting Standards](./linting.instructions.md)
 - [Workflows](./workflows.instructions.md)

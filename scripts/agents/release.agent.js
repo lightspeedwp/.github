@@ -391,7 +391,9 @@ async function validateRelease(options = {}) {
         if (hasUnreleasedChanges(changelogData)) {
           console.log("   ✓ Unreleased changes found");
         } else {
-          errors.push("No unreleased changes in CHANGELOG — add entries before releasing");
+          errors.push(
+            "No unreleased changes in CHANGELOG — add entries before releasing",
+          );
         }
       }
     } catch (error) {

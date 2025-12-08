@@ -16,19 +16,17 @@ file_type: "agent"
 category: "automation"
 status: "active"
 visibility: "public"
-tags: ["meta", "frontmatter", "badges", "references", "footers", "automation", "documentation"]
+tags:
+  [
+    "meta",
+    "frontmatter",
+    "badges",
+    "references",
+    "footers",
+    "automation",
+    "documentation",
+  ]
 language: "en"
-references:
-  - path: "schemas/header-footer-agent/agent-config.schema.json"
-    description: "Footer selection schema"
-  - path: "scripts/agents/includes/header-footer.js"
-    description: "Header/footer utilities"
-  - path: "scripts/agents/includes/badges.js"
-    description: "Badge utilities"
-  - path: "scripts/agents/meta.agent.js"
-    description: "Implementation script"
-  - path: ".github/workflows/meta.yml"
-    description: "GitHub Actions workflow"
 owners: ["lightspeedwp/maintainers"]
 metadata:
   guardrails: "Never overwrite content outside designated blocks. Always create backups before modifications. Validate configuration schema before applying. Respect file-specific opt-out markers."

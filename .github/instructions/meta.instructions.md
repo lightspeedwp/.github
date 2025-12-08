@@ -5,7 +5,16 @@ description: "How to use the Meta Agent to apply front matter, badges, human ref
 version: "v1.1"
 last_updated: "2025-12-05"
 owners: ["LightSpeedWP Engineering"]
-tags: ["metadata", "frontmatter", "badges", "references", "footers", "automation", "docs"]
+tags:
+  [
+    "metadata",
+    "frontmatter",
+    "badges",
+    "references",
+    "footers",
+    "automation",
+    "docs",
+  ]
 status: "active"
 references:
   - "./meta.agent.md"

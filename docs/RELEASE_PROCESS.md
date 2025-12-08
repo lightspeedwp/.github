@@ -36,16 +36,16 @@ references:
 
 ## Automation & gates
 
-- **Changelog validation (`.github/workflows/changelog.yml`)**  
+- **Changelog validation (`.github/workflows/changelog.yml`)**
   - Runs on **every PR** (all branches) and on `develop` pushes to ensure:
     - `CHANGELOG.md` conforms to `changelog.schema.json`.
     - Unreleased section exists and is populated.
-- **Release workflow (`.github/workflows/release.yml`)**  
+- **Release workflow (`.github/workflows/release.yml`)**
   - Manual `workflow_dispatch` (scope input, default patch).
   - Hard gate on lint (`linting.yml` reuse).
   - Runs schema + unreleased validation before invoking `release.agent.js`.
   - Uses `release.agent.js` (ESM) to create release branch, PR → `main`, tag, and GitHub Release with compiled notes.
-- **Required checks before merging release PR**  
+- **Required checks before merging release PR**
   - Lint/test green.
   - Changelog validation green.
   - Version bump and dated changelog entry present.
@@ -109,4 +109,4 @@ node scripts/agents/release.agent.js --scope=minor --dry-run
 
 ---
 
-*This document is authoritative for the release flow, gating, and automation alignment in `lightspeedwp/.github`.* 
+*This document is authoritative for the release flow, gating, and automation alignment in `lightspeedwp/.github`.*

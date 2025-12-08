@@ -1,7 +1,7 @@
 ---
 title: "LightSpeed Community Health & Automation Repository"
 description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
-version: "2.1"
+version: "2.0"
 created_date: "2025-01-10"
 last_updated: "2025-12-07"
 file_type: "documentation"
@@ -9,58 +9,106 @@ maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
 license: "GPL-3.0"
 tags:
-  [
-    "community-health",
-    "automation",
-    "governance",
-    "labels",
-    "workflows",
-    "ai",
-    "copilot",
-  ]
+  ["community-health", "automation", "governance", "labels", "workflows", "ai"]
 domain: "governance"
 stability: "stable"
 references:
   - path: ".github/custom-instructions.md"
-    description: "Custom instructions for AI agents"
-  - path: ".github/agents/agent.md"
-    description: "Main agents index"
-  - path: ".github/prompts/prompts.md"
-    description: "Prompts index"
-  - path: AGENTS.md
-    description: Organization-wide agents documentation
-  - path: docs/README.md
-    description: "Documentation index"
-  - path: ".github/CONTRIBUTING.md"
-    description: "Contribution guidelines"
-  - path: ".github/GOVERNANCE.md"
-    description: "Governance policies"
-  - path: "docs/AUTOMATION_GOVERNANCE.md"
-    description: "Automation governance policies"
-  - path: "./.github/instructions/coding-standards.instructions.md"
-    description: "Coding standards instructions"
-  - path: "./.github/instructions/languages.instructions.md"
-    description: "Languages, linting, JSON/YAML validation"
-  - path: "./.github/instructions/documentation-formats.instructions.md"
-    description: "Markdown, frontmatter, Mermaid, accessibility"
-  - path: "./.github/instructions/quality-assurance.instructions.md"
-    description: "Testing pyramid, Jest, coverage, CI/CD"
-  - path: "./.github/instructions/automation.instructions.md"
-    description: "Agents, labeling, release, metrics, planning"
-  - path: "./.github/instructions/community-standards.instructions.md"
-    description: "File organisation, naming, README, saved replies"
-  - path: "./.github/instructions/block-theme/pattern-development.instructions.md"
-    description: "Block pattern development"
-  - path: "./.github/instructions/block-theme/theme-json.instructions.md"
-    description: "Theme JSON configuration"
-  - path: "./.github/instructions/block-plugin/block-json.instructions.md"
-    description: "Block plugin configuration"
-  - path: "./.github/instructions/wpcs/php-wordpress.instructions.md"
-    description: "WordPress PHP standards"
-  - path: "./.github/instructions/wpcs/javascript-wordpress.instructions.md"
-    description: "WordPress JavaScript standards"
-  - path: "./.github/instructions/security.instructions.md"
-    description: "Security standards"
+    description: "Custom instructions for GitHub Copilot"
+  - path: ".github/instructions/coding-standards.instructions.md"
+    description: "Unified coding standards"
+  - path: ".github/instructions/automation.instructions.md"
+    description: "Automation and agent standards"
+---
+
+# 🏠 LightSpeed Community Health & Automation Repository
+
+[Keep main content as is, but update the sections below...]
+
+## 🔗 Related Documentation
+
+### 📚 Quick Start
+
+- [CONTRIBUTING.md](./CONTRIBUTING.md) - How to contribute
+- [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) - Community standards
+- [SUPPORT.md](./SUPPORT.md) - Getting help
+
+### 🤖 AI & Automation
+
+- [AGENTS.md](./AGENTS.md) - Global AI rules and agent overview
+- [.github/custom-instructions.md](./.github/custom-instructions.md) - Copilot configuration
+- [.github/agents/agent.md](./.github/agents/agent.md) - Agent specifications
+- [.github/prompts/prompts.md](./.github/prompts/prompts.md) - Prompt library
+
+### 📖 Standards & Guidelines
+
+- [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) - Coding standards
+- [.github/instructions/languages.instructions.md](./.github/instructions/languages.instructions.md) - Language-specific standards
+- [.github/instructions/automation.instructions.md](./.github/instructions/automation.instructions.md) - Automation standards
+
+### 🏷️ Labels & Issue Management
+
+- [.github/labels.yml](./.github/labels.yml) - Canonical label definitions
+- [.github/labeler.yml](./.github/labeler.yml) - Labeler automation rules
+- [.github/issue-types.yml](./.github/issue-types.yml) - Issue type definitions
+- [docs/AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md) - Automation governance
+
+### 📋 Issue & PR Templates
+
+- [.github/ISSUE_TEMPLATE/](./.github/ISSUE_TEMPLATE/) - Issue templates
+- [.github/PULL_REQUEST_TEMPLATE/](./.github/PULL_REQUEST_TEMPLATE/) - PR templates
+- [docs/ISSUE_CREATION_GUIDE.md](./docs/ISSUE_CREATION_GUIDE.md) - How to create issues
+- [docs/PR_CREATION_PROCESS.md](./docs/PR_CREATION_PROCESS.md) - How to create PRs
+
+### 🔧 Configuration & Setup
+
+- [docs/CONFIGS.md](./docs/CONFIGS.md) - Configuration documentation
+- [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) - Git branching strategy
+- [DEVELOPMENT.md](./DEVELOPMENT.md) - Development setup
+
+---
+
+## 📊 Repository Structure
+
+[Keep existing structure, but simplify the overview]
+
+.github/ # Community health files
+├── custom-instructions.md # Copilot configuration
+├── labels.yml # Canonical labels
+├── labeler.yml # Labeler rules
+├── issue-types.yml # Issue type definitions
+├── instructions/ # Development standards (6 consolidated files)
+├── agents/ # Agent specifications
+├── prompts/ # Reusable prompts
+├── workflows/ # GitHub Actions workflows
+└── PULL_REQUEST_TEMPLATE/ # PR templates
+
+docs/ # Governance and strategy documentation
+scripts/ # Automation scripts and utilities
+tests/ # Test suites
+
+---
+
+## 🚀 Getting Started
+
+1. **New Contributor?** Start with [CONTRIBUTING.md](./CONTRIBUTING.md)
+2. **Setting up development?** See [DEVELOPMENT.md](./DEVELOPMENT.md)
+3. **Need coding standards?** Check [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md)
+4. **Automation questions?** Read [docs/AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md)
+
+---
+
+## 📚 Key Documentation
+
+| Topic                  | File                                                                                                               |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Coding Standards**   | [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md)   |
+| **Language Standards** | [.github/instructions/languages.instructions.md](./.github/instructions/languages.instructions.md)                 |
+| **Testing & QA**       | [.github/instructions/quality-assurance.instructions.md](./.github/instructions/quality-assurance.instructions.md) |
+| **Automation**         | [.github/instructions/automation.instructions.md](./.github/instructions/automation.instructions.md)               |
+| **Labels & Issues**    | [docs/AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md)                                                   |
+| **Branching**          | [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md)                                                         |
+
 ---
 
 # 🏠 LightSpeed Community Health & Automation Repository
@@ -74,7 +122,7 @@ references:
 
 This repository is the **central hub** for the LightSpeed organization's community health files, automation standards, label and issue type management, governance documentation, and org-wide resources on GitHub usage and contribution. All member repositories reference and inherit canonical files, workflows, and instructions from here—making it the backbone for consistency, quality, and automated project management across LightSpeed.
 
-For a unified, always-up-to-date index of all documentation, see [DOCS.md](./DOCS.md).
+For comprehensive documentation, see the [docs/](./docs/) folder and [.github/README.md](./.github/README.md) for repository-specific guidance.
 
 ## 📊 Repository Architecture
 
@@ -426,9 +474,7 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 - [General Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/custom-instructions.md)
 - [Prompt templates](https://github.com/lightspeedwp/.github/blob/HEAD/.github/prompts/prompts.md)
 - [Agent instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/agents/agent.md)
-- [AGENTS.md](https://github.com/lightspeedwp/.github/blob/HEAD/AGENTS.md)
-- [GEMINI.md](https://github.com/lightspeedwp/.github/blob/HEAD/GEMINI.md)
-- [CLAUDE.md](https://github.com/lightspeedwp/.github/blob/HEAD/CLAUDE.md)
+- [AGENTS.md](https://github.com/lightspeedwp/.github/blob/HEAD/AGENTS.md) - Global AI rules
 
 ### Coding & Contribution Guidelines
 
@@ -451,8 +497,6 @@ This repository will include and orchestrate org-wide agents for managing issue 
 All organizational documentation—including contribution guidelines, support procedures, governance, GitHub usage tips, and more—is **centralized in this repository**. As our documentation grows, this is the authoritative source for LightSpeed team members and contributors.
 
 All organizational documentation—including contribution guidelines, support procedures, governance, GitHub usage tips, and more—is **centralized in this repository**. As our documentation grows, this is the authoritative source for LightSpeed team members and contributors.
-
-See [DOCS.md](./DOCS.md) for a full documentation index and quick links to all health, automation, and configuration docs.
 
 - **GitHub Usage:** We are building up resources and best practices for effective use of GitHub and project automation.
 - **Specialized Docs:** Even as we add specific documentation repositories, this remains the main storage and reference point for org-level docs.
@@ -786,30 +830,6 @@ Set up monitoring to ensure standards remain in sync:
 
 ---
 
-## Quick Links
-
-- [Contributing Guidelines](./CONTRIBUTING.md)
-- [Support](./SUPPORT.md)
-- [Canonical Labels](./.github/automation/labels.yml)
-- [Canonical Issue Types](./.github/automation/issue-types.yml)
-- [Governance](./docs/AUTOMATION_GOVERNANCE.md)
-- [General Instructions](./.github/custom-instructions.md)
-- [Documentation Index](./docs/README.md)
-
----
-
-## 📋 Table of Contents
-
-- [Repository Architecture](#-repository-architecture)
-- [Comprehensive Workflow Overview](#-comprehensive-workflow-overview)
-- [Linting, Formatting, and Testing Workflow](#-linting-formatting-and-testing-workflow)
-- [Key Resources & Canonical Files](#key-resources--canonical-files)
-- [Automation & Agents Strategy](#automation--agents-strategy)
-- [Documentation & Knowledge Resources](#documentation--knowledge-resources)
-- [Quick Links](#quick-links)
-
----
-
 ## 📄 License
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
@@ -817,51 +837,6 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 ## 🚀 Like what you see?
 
 [![Work with us at LightSpeed](https://www.lsdev.biz/wp-content/uploads/2020/02/work-with-lightspeed.png)](https://www.lsdev.biz/contact/)
-
----
-
-## 🔗 Related Documentation
-
-### 📚 Core Documentation
-
-- [📖 Documentation Index (DOCS.md)](./DOCS.md) - Comprehensive documentation catalog
-- [🤝 Contributing Guidelines](./CONTRIBUTING.md) - How to contribute to LightSpeed projects
-- [🛡️ Code of Conduct](./CODE_OF_CONDUCT.md) - Community standards and expectations
-- [🆘 Support](./SUPPORT.md) - Getting help and support resources
-
-### 🤖 AI & Automation
-
-- [🧠 AI Agents Overview](./AGENTS.md) - Global AI rules and agent specifications
-- [💬 Custom Instructions](./.github/custom-instructions.md) - Organization-wide Copilot settings
-- [🎯 Prompt Library](./.github/prompts/prompts.md) - Reusable AI prompts and templates
-
-### ⚙️ Configuration & Standards
-
-- [🏷️ Label Management](./.github/automation/labels.yml) - Canonical label definitions
-- [📋 Issue Types](./.github/automation/issue-types.yml) - Standardized issue categorization
-- [🔧 Coding Standards](./.github/instructions/coding-standards.instructions.md) - Development guidelines
-- [🎨 Linting Configuration](./docs/LINTING.md) - Code quality and formatting standards
-
-### � Key Directory Documentation
-
-- [📚 Documentation Hub](./docs/README.md) - Comprehensive guides and standards
-- [🔧 Scripts & Automation](./scripts/README.md) - Utility scripts and automation tools
-- [🧪 Testing Framework](./tests/README.md) - Test suites and coverage documentation
-- [📋 JSON Schemas](./schemas/README.md) - Schema validation and VS Code integration
-- [👤 Organization Profile](./profile/README.md) - Public organization profile and community
-- [🤖 Agent Specifications](./.github/agents/README.md) - Automation agents and workflows
-- [📝 Instructions Library](./.github/instructions/README.md) - Development standards and practices
-- [📚 Collections Directory](./.github/collections/README.md) - Curated instruction collections
-- [📊 Metrics Directory](./.github/metrics/README.md) - Metrics collection and configuration
-- [📈 Reporting Directory](./.github/reporting/README.md) - Generated reports and artifacts
-- [🔧 VS Code Configuration](./.vscode/README.md) - Development environment setup
-
-### �🔄 Workflows & Governance
-
-- [⚖️ Governance](./GOVERNANCE.md) - Organizational policies and procedures
-- [🤖 Automation Governance](./.github/AUTOMATION_GOVERNANCE.md) - Automation standards and oversight
-- [🌿 Branching Strategy](./.github/BRANCHING_STRATEGY.md) - Git workflow and branch management
-- [🔗 Workflow Templates](./.github/workflows/) - Reusable GitHub Actions workflows
 
 ---
 

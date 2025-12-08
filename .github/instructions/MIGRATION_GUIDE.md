@@ -17,13 +17,13 @@ As of December 7, 2025, LightSpeed has consolidated 22 instruction files into 5 
 
 ## Consolidation Summary
 
-| Old Files (22) | New File (5) | Consolidation Date |
-|---|---|---|
-| javascript.instructions.md, jsdoc.instructions.md, json.instructions.md, yaml.instructions.md | [languages.instructions.md](./languages.instructions.md) | 2025-12-07 |
-| markdown.instructions.md, frontmatter.instructions.md, mermaid.instructions.md | [documentation-formats.instructions.md](./documentation-formats.instructions.md) | 2025-12-07 |
-| testing.instructions.md, tests.instructions.md, jest.instructions.md | [quality-assurance.instructions.md](./quality-assurance.instructions.md) | 2025-12-07 |
-| agents.instructions.md, branding.instructions.md, metrics.instructions.md, planner.instructions.md, project-meta-sync.instructions.md, release.instructions.md, reporting.instructions.md, reviewer.instructions.md | [automation.instructions.md](./automation.instructions.md) | 2025-12-07 |
-| file-management.instructions.md, naming-conventions.instructions.md, readme.instructions.md, saved-replies.instructions.md | [community-standards.instructions.md](./community-standards.instructions.md) | 2025-12-07 |
+| Old Files (22)                                                                                                                                                                                                      | New File (5)                                                                     | Consolidation Date |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------ |
+| javascript.instructions.md, jsdoc.instructions.md, json.instructions.md, yaml.instructions.md                                                                                                                       | [languages.instructions.md](./languages.instructions.md)                         | 2025-12-07         |
+| markdown.instructions.md, frontmatter.instructions.md, mermaid.instructions.md                                                                                                                                      | [documentation-formats.instructions.md](./documentation-formats.instructions.md) | 2025-12-07         |
+| testing.instructions.md, tests.instructions.md, jest.instructions.md                                                                                                                                                | [quality-assurance.instructions.md](./quality-assurance.instructions.md)         | 2025-12-07         |
+| agents.instructions.md, branding.instructions.md, metrics.instructions.md, planner.instructions.md, project-meta-sync.instructions.md, release.instructions.md, reporting.instructions.md, reviewer.instructions.md | [automation.instructions.md](./automation.instructions.md)                       | 2025-12-07         |
+| file-management.instructions.md, naming-conventions.instructions.md, readme.instructions.md, saved-replies.instructions.md                                                                                          | [community-standards.instructions.md](./community-standards.instructions.md)     | 2025-12-07         |
 
 **Reduction**: 77% fewer files (17 consolidated → 5 consolidated)
 
@@ -220,13 +220,13 @@ Old instruction files have been moved to [`.archive/`](./.archive/) for referenc
 
 ## Timeline
 
-| Date | Event |
-|------|-------|
-| 2025-12-07 | Consolidation completed |
-| 2025-12-07 | Old files moved to `.archive/` |
-| 2025-12-07 | Migration guide created |
-| 2025-12-07 | Cross-references updated |
-| TBD | Old `.archive/` files permanently removed (after 90-day grace period) |
+| Date       | Event                                                                 |
+| ---------- | --------------------------------------------------------------------- |
+| 2025-12-07 | Consolidation completed                                               |
+| 2025-12-07 | Old files moved to `.archive/`                                        |
+| 2025-12-07 | Migration guide created                                               |
+| 2025-12-07 | Cross-references updated                                              |
+| TBD        | Old `.archive/` files permanently removed (after 90-day grace period) |
 
 ---
 

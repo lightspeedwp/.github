@@ -8,21 +8,36 @@ last_updated: "2025-12-07"
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
-tags: ["planning", "architecture", "strategy", "implementation-plans", "task-planning"]
+tags:
+  [
+    "planning",
+    "architecture",
+    "strategy",
+    "implementation-plans",
+    "task-planning",
+  ]
 category: "planning"
 status: "active"
 stability: "stable"
 visibility: "public"
 target: "github-copilot"
-tools: ["codebase", "extensions", "fetch", "findTestFiles", "githubRepo", "problems", "search", "searchResults", "usages", "vscodeAPI", "edit", "runCommands", "runTasks"]
+tools:
+  [
+    "codebase",
+    "extensions",
+    "fetch",
+    "findTestFiles",
+    "githubRepo",
+    "problems",
+    "search",
+    "searchResults",
+    "usages",
+    "vscodeAPI",
+    "edit",
+    "runCommands",
+    "runTasks",
+  ]
 domain: "governance"
-references:
-  - path: ".github/instructions/spec-driven-workflow.instructions.md"
-    description: "Spec-driven development methodology"
-  - path: "docs/ARCHITECTURE.md"
-    description: "System architecture documentation"
-  - path: "CONTRIBUTING.md"
-    description: "Contribution guidelines"
 metadata:
   guardrails: "Think first, code later. Default to read-only analysis. Never skip research validation. Generate plans before implementation. Always clarify requirements before planning."
 ---

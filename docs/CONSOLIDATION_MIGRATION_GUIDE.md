@@ -40,12 +40,12 @@ The LightSpeedWP instruction file library has been consolidated from 22 separate
 
 **New File**: `.github/instructions/languages.instructions.md`
 
-| Old File | New Location | Section |
-|----------|--------------|---------|
-| `javascript.instructions.md` | Section 1 | JavaScript/TypeScript Linting |
-| `jsdoc.instructions.md` | Section 2 | JSDoc Documentation Standards |
-| `json.instructions.md` | Section 3 | JSON Schema Validation |
-| `yaml.instructions.md` | Section 4 | YAML Linting & GitHub Actions |
+| Old File                     | New Location | Section                       |
+| ---------------------------- | ------------ | ----------------------------- |
+| `javascript.instructions.md` | Section 1    | JavaScript/TypeScript Linting |
+| `jsdoc.instructions.md`      | Section 2    | JSDoc Documentation Standards |
+| `json.instructions.md`       | Section 3    | JSON Schema Validation        |
+| `yaml.instructions.md`       | Section 4    | YAML Linting & GitHub Actions |
 
 **Key Sections**:
 
@@ -61,11 +61,11 @@ The LightSpeedWP instruction file library has been consolidated from 22 separate
 
 **New File**: `.github/instructions/documentation-formats.instructions.md`
 
-| Old File | New Location | Section |
-|----------|--------------|---------|
-| `markdown.instructions.md` | Section 1 | Markdown Standards |
-| `frontmatter.instructions.md` | Section 2 | YAML Frontmatter |
-| `mermaid.instructions.md` | Section 3 | Mermaid Diagrams |
+| Old File                      | New Location | Section            |
+| ----------------------------- | ------------ | ------------------ |
+| `markdown.instructions.md`    | Section 1    | Markdown Standards |
+| `frontmatter.instructions.md` | Section 2    | YAML Frontmatter   |
+| `mermaid.instructions.md`     | Section 3    | Mermaid Diagrams   |
 
 **Key Sections**:
 
@@ -80,11 +80,11 @@ The LightSpeedWP instruction file library has been consolidated from 22 separate
 
 **New File**: `.github/instructions/quality-assurance.instructions.md`
 
-| Old File | New Location | Section |
-|----------|--------------|---------|
-| `testing.instructions.md` | Section 1 | Testing Standards |
-| `tests.instructions.md` | Section 2 | Test Index & Overview |
-| `jest.instructions.md` | Section 3 | Jest Configuration |
+| Old File                  | New Location | Section               |
+| ------------------------- | ------------ | --------------------- |
+| `testing.instructions.md` | Section 1    | Testing Standards     |
+| `tests.instructions.md`   | Section 2    | Test Index & Overview |
+| `jest.instructions.md`    | Section 3    | Jest Configuration    |
 
 **Key Sections**:
 
@@ -100,16 +100,16 @@ The LightSpeedWP instruction file library has been consolidated from 22 separate
 
 **New File**: `.github/instructions/automation.instructions.md`
 
-| Old File | New Location | Section |
-|----------|--------------|---------|
-| `agents.instructions.md` | Section 1 | Agent Development Standards |
-| `branding.instructions.md` | Section 2 | Meta/Branding Automation |
-| `metrics.instructions.md` | Section 3 | Metrics Collection & Reporting |
-| `planner.instructions.md` | Section 4 | Planning & Architecture Agents |
-| `project-meta-sync.instructions.md` | Section 5 | Project Board Automation |
-| `release.instructions.md` | Section 6 | Release Management Automation |
-| `reporting.instructions.md` | Section 7 | Reporting Automation |
-| `reviewer.instructions.md` | Section 8 | Code Review Automation |
+| Old File                            | New Location | Section                        |
+| ----------------------------------- | ------------ | ------------------------------ |
+| `agents.instructions.md`            | Section 1    | Agent Development Standards    |
+| `branding.instructions.md`          | Section 2    | Meta/Branding Automation       |
+| `metrics.instructions.md`           | Section 3    | Metrics Collection & Reporting |
+| `planner.instructions.md`           | Section 4    | Planning & Architecture Agents |
+| `project-meta-sync.instructions.md` | Section 5    | Project Board Automation       |
+| `release.instructions.md`           | Section 6    | Release Management Automation  |
+| `reporting.instructions.md`         | Section 7    | Reporting Automation           |
+| `reviewer.instructions.md`          | Section 8    | Code Review Automation         |
 
 **Key Sections**:
 
@@ -127,12 +127,12 @@ The LightSpeedWP instruction file library has been consolidated from 22 separate
 
 **New File**: `.github/instructions/community-standards.instructions.md`
 
-| Old File | New Location | Section |
-|----------|--------------|---------|
-| `file-management.instructions.md` | Section 1 | File Organization |
-| `naming-conventions.instructions.md` | Section 2 | Naming Conventions |
-| `readme.instructions.md` | Section 3 | README Documentation |
-| `saved-replies.instructions.md` | Section 4 | Saved Replies |
+| Old File                             | New Location | Section              |
+| ------------------------------------ | ------------ | -------------------- |
+| `file-management.instructions.md`    | Section 1    | File Organization    |
+| `naming-conventions.instructions.md` | Section 2    | Naming Conventions   |
+| `readme.instructions.md`             | Section 3    | README Documentation |
+| `saved-replies.instructions.md`      | Section 4    | Saved Replies        |
 
 **Key Sections**:
 
@@ -324,21 +324,21 @@ All old instruction files have been archived for reference:
 
 ## Quick Reference
 
-| Need | New Location |
-|------|--------------|
-| JavaScript/TypeScript linting | `languages.instructions.md` §1 |
-| JSDoc standards | `languages.instructions.md` §2 |
-| JSON schemas | `languages.instructions.md` §3 |
-| YAML validation | `languages.instructions.md` §4 |
-| Markdown standards | `documentation-formats.instructions.md` §1 |
-| Frontmatter specs | `documentation-formats.instructions.md` §2 |
-| Mermaid diagrams | `documentation-formats.instructions.md` §3 |
-| Testing & Jest | `quality-assurance.instructions.md` §1-3 |
-| Agents & automation | `automation.instructions.md` §1-8 |
-| File organization | `community-standards.instructions.md` §1 |
-| Naming conventions | `community-standards.instructions.md` §2 |
-| README standards | `community-standards.instructions.md` §3 |
-| Saved replies | `community-standards.instructions.md` §4 |
+| Need                          | New Location                               |
+| ----------------------------- | ------------------------------------------ |
+| JavaScript/TypeScript linting | `languages.instructions.md` §1             |
+| JSDoc standards               | `languages.instructions.md` §2             |
+| JSON schemas                  | `languages.instructions.md` §3             |
+| YAML validation               | `languages.instructions.md` §4             |
+| Markdown standards            | `documentation-formats.instructions.md` §1 |
+| Frontmatter specs             | `documentation-formats.instructions.md` §2 |
+| Mermaid diagrams              | `documentation-formats.instructions.md` §3 |
+| Testing & Jest                | `quality-assurance.instructions.md` §1-3   |
+| Agents & automation           | `automation.instructions.md` §1-8          |
+| File organization             | `community-standards.instructions.md` §1   |
+| Naming conventions            | `community-standards.instructions.md` §2   |
+| README standards              | `community-standards.instructions.md` §3   |
+| Saved replies                 | `community-standards.instructions.md` §4   |
 
 ---
 

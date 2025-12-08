@@ -301,7 +301,7 @@ function updateReadmeStructure(content, filePath) {
       "## Installation",
       "## Usage",
       "## Contributing",
-      "## License"
+      "## License",
     ];
 
     // This is a placeholder - full implementation would ensure these sections exist
@@ -324,17 +324,19 @@ function updateReadmeIndexes(content, filePath) {
   const dir = path.dirname(filePath);
 
   // List files in directory
-  const files = fs.readdirSync(dir).filter(f => {
+  const files = fs.readdirSync(dir).filter((f) => {
     const fullPath = path.join(dir, f);
     return fs.statSync(fullPath).isFile() && f !== "README.md";
   });
 
   // Generate file index
-  const fileIndex = files.map(f => {
-    const ext = path.extname(f);
-    const name = path.basename(f, ext);
-    return `- [${name}](${f})`;
-  }).join("\n");
+  const fileIndex = files
+    .map((f) => {
+      const ext = path.extname(f);
+      const name = path.basename(f, ext);
+      return `- [${name}](${f})`;
+    })
+    .join("\n");
 
   // Replace between markers
   const pattern = /<!-- FILE-INDEX-START -->[\s\S]*?<!-- FILE-INDEX-END -->/;

@@ -28,7 +28,7 @@ references:
 7. **Open a PR:** Use the correct PR template and link to the related issue.
 8. **Respond to feedback:** Make changes as requested by reviewers or Copilot.
 
-For details, see the full guidelines below and the [Documentation Index (DOCS.md)](./DOCS.md).
+For details, see the full guidelines below and the [Documentation Index](./docs/README.md).
 
 ---
 

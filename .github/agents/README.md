@@ -100,17 +100,17 @@ graph TB
 
 ## 🤖 Available Agents
 
-| Agent                                                              | Description                                                   | Status        | Tests                                                                          |
-| ------------------------------------------------------------------ | ------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------ |
+| Agent                                                              | Description                                                    | Status        | Tests                                                                          |
+| ------------------------------------------------------------------ | -------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------ |
 | [meta.agent.js](./meta.agent.js)                                   | Applies front matter, badges, human references, quirky footers | ✅ Active     | -                                                                              |
-| [badges.agent.js](./badges.agent.js)                               | Manages repository badges and automation status indicators    | ❌ Deprecated | -                                                                              |
-| [header-footer.agent.js](./header-footer.agent.js)                 | Maintains consistent headers and footers across documentation | ❌ Deprecated | -                                                                              |
-| [issue-type.agent.js](./issue-type.agent.js)                       | Automatically assigns issue types based on content analysis   | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/issue-type.agent.test.js)            |
-| [label-standardization.agent.js](./label-standardization.agent.js) | Ensures consistent labeling across repositories               | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/label-standardization.agent.test.js) |
-| [labeling.agent.js](./labeling.agent.js)                           | Unified labeling system for issues and pull requests          | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/labeling.agent.test.js)              |
-| [linting.agent.js](./linting.agent.js)                             | Code quality and linting enforcement                          | ✅ Active     | -                                                                              |
-| [manage-readmes.agent.js](./manage-readmes.agent.js)               | Automated README generation and maintenance                   | ✅ Active     | -                                                                              |
-| [reviewer.agent.js](./reviewer.agent.js)                           | Automated code review and feedback                            | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/reviewer.agent.test.js)              |
+| [badges.agent.js](./badges.agent.js)                               | Manages repository badges and automation status indicators     | ❌ Deprecated | -                                                                              |
+| [header-footer.agent.js](./header-footer.agent.js)                 | Maintains consistent headers and footers across documentation  | ❌ Deprecated | -                                                                              |
+| [issue-type.agent.js](./issue-type.agent.js)                       | Automatically assigns issue types based on content analysis    | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/issue-type.agent.test.js)            |
+| [label-standardization.agent.js](./label-standardization.agent.js) | Ensures consistent labeling across repositories                | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/label-standardization.agent.test.js) |
+| [labeling.agent.js](./labeling.agent.js)                           | Unified labeling system for issues and pull requests           | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/labeling.agent.test.js)              |
+| [linting.agent.js](./linting.agent.js)                             | Code quality and linting enforcement                           | ✅ Active     | -                                                                              |
+| [manage-readmes.agent.js](./manage-readmes.agent.js)               | Automated README generation and maintenance                    | ✅ Active     | -                                                                              |
+| [reviewer.agent.js](./reviewer.agent.js)                           | Automated code review and feedback                             | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/reviewer.agent.test.js)              |
 
 ### WordPress-Specific Agents
 

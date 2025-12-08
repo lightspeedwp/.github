@@ -52,6 +52,7 @@ The following modules use ES module syntax (`import`/`export`) which is not comp
 ### Why These Can't Be Tested
 
 The project uses:
+
 - `"type": "module"` in [package.json](../../../../package.json) for ES module support
 - Jest with Babel transformation for CommonJS tests
 - Mixed module formats (CommonJS and ES modules)
@@ -74,6 +75,7 @@ For ES modules, consider:
 ### Recommended Solution
 
 For new utility modules:
+
 - Use **CommonJS** (`require`/`module.exports`) for testability
 - Reserve ES modules for application code where integration tests are more appropriate
 - See [badgeUtils.js](../badgeUtils.js) as an example of a testable CommonJS utility

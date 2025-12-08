@@ -190,8 +190,8 @@ node scripts/validation/validate-frontmatter.js .github/
 
 ## Change Log / History
 
-Version: 3.0 (see `version` frontmatter field)  
-Last Updated: 2025-10-24  
+Version: 3.0 (see `version` frontmatter field)
+Last Updated: 2025-10-24
 Refer to the organisation-wide [CHANGELOG.md](../CHANGELOG.md) for historical changes impacting templates, automation, or agent instructions.
 
 ## FAQ / Troubleshooting
@@ -377,6 +377,7 @@ graph TB
 ```
 
 ---
+
 ## 📋 Instruction Consolidation (v2.0)
 
 **22 instruction files → 5 consolidated files (77% reduction)**
