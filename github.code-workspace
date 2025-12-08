@@ -24,7 +24,7 @@
 		"editor.guides.bracketPairs": true,
 		"workbench.editor.enablePreview": false,
 		"workbench.editor.revealIfOpen": true,
-		"explorer.confirmDelete": true,
+		"explorer.confirmDelete": false,
 		"explorer.confirmDragAndDrop": false,
 		"search.exclude": {
 			"**/node_modules": true,
