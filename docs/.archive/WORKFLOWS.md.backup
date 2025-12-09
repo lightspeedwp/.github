@@ -304,7 +304,7 @@ Gathers repository health and performance metrics.
 
 ---
 
-## Workflow Governance Principles
+## Best Practices
 
 - Each workflow must correspond to a single agent where possible.
 - No workflow duplication: all logic is agent-driven, DRY, and maintainable.
@@ -493,7 +493,7 @@ Current workflow validation results:
 - **Quality**: 20 workflows have steps without descriptive names
 - **Consistency**: All workflows follow organizational patterns
 
-## Implementation Best Practices
+## Best Practices
 
 ### When Creating New Workflows
 
@@ -638,6 +638,13 @@ The validation automatically runs in:
 - **PR Workflow**: Validates modified workflows
 - **Scheduled Jobs**: Weekly comprehensive validation
 - **Pre-commit Hooks**: Local validation via Husky
+
+## References
+
+- [GitHub Actions Security Documentation](https://docs.github.com/en/actions/security-guides)
+- [Workflow Best Practices](https://docs.github.com/en/actions/guides)
+- [LightSpeed Coding Standards](./../.github/instructions/coding-standards.instructions.md)
+- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
 
 ## Maintenance
 

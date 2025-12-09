@@ -12,19 +12,6 @@ tags: ["github", "labeling", "issue-types", "automation", "triage"]
 category: "governance"
 status: "active"
 stability: "stable"
-references:
-  - path: "./LABEL_STRATEGY.md"
-    description: "Unified labeling strategy and best practices"
-  - path: "./AUTOMATION_GOVERNANCE.md"
-    description: "Automation governance policies"
-  - path: "../.github/issue-types.yml"
-    description: "Canonical issue type definitions"
-  - path: "../.github/agents/labeling.agent.md"
-    description: "Labeling agent specification"
-  - path: "../.github/workflows/labeling.yml"
-    description: "Labeling workflow implementation"
-  - path: "./LABELING.md"
-    description: "Agent usage and configuration guide"
 ---
 
 # Issue Types Reference Guide
@@ -173,21 +160,6 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 - [ ] A11y/perf/security impacts considered
 - [ ] Docs/changelog updated (if user-facing)
 - [ ] Reviews approved; CI green; linked issues closed
-
----
-
-## References
-
-- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
-- [Issue Labels Guide](./ISSUE_LABELS.md)
-- [Canonical Labels & Colours](../.github/labels.yml)
-- [Labeler rules](../.github/labeler.yml)
-- [Canonical Issue Types](../.github/issue-types.yml)
-- [PR Labels Guide](./PR_LABELS.md)
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
-- [Agent Spec for Labeling](../.github/agents/labeling.agent.md)
-- [labeling.yml Workflow](../.github/workflows/labeling.yml)
 
 ---
 

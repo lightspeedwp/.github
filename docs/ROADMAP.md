@@ -233,13 +233,6 @@ To contribute to the roadmap:
 3. **Implement**: Follow phase plan and delivery criteria
 4. **Document**: Update this roadmap as phases complete
 
-## Related Documentation
-
-- [Architecture](./ARCHITECTURE.md)
-- [Decisions](./DECISIONS.md)
-- [Contributing](../CONTRIBUTING.md)
-- [GOVERNANCE](../GOVERNANCE.md)
-
 ---
 
 **Last Updated**: 2025-12-04

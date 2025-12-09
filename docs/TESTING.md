@@ -201,17 +201,7 @@ See `.github/workflows/` for workflow definitions.
 
 ---
 
-## 10. Reference
-
-- [Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
-- [Jest Docs](https://jestjs.io/docs/getting-started)
-- [CI/CD Workflows](../.github/workflows/)
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [Branching Strategy](../.github/BRANCHING_STRATEGY.md)
-
----
-
-## 11. Need Help?
+## 10. Need Help?
 
 - Check error output and logs.
 - Review [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) for community support.

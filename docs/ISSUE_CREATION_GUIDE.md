@@ -159,20 +159,4 @@ Any implementation notes, design decisions, or technical context.
 
 ---
 
-## 12. References
-
-- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
-- [Issue Labels Guide](./ISSUE_LABELS.md)
-- [Canonical Labels & Colours](./.github/labels.yml)
-- [Labeler rules](../.github/labeler.yml)
-- [Issue Types Guide](./ISSUE_TYPES.md)
-- [Canonical Issue Types](../.github/issue-types.yml)
-- [PR Labels Guide](./PR_LABELS.md)
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
-- [Agent Spec for Labeling](../.github/agents/labeling.agent.md)
-- [labeling.yml Workflow](../.github/workflows/labeling.yml)
-
----
-
 *Use this guide to create clear, automated, and contributor-friendly issues in all LightSpeed projects. If you’re not sure where your request fits, start with [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) or ask a maintainer!*

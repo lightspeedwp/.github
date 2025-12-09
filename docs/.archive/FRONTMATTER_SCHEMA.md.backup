@@ -795,6 +795,173 @@ npm run validate:frontmatter
 | `incubating`   | Maturing, seeking feedback     | Minor structural tweaks possible          |
 | `stable`       | Adopted, versioned conventions | Backward compatibility strongly preferred |
 
+---
+
+## Validation Tooling
+
+### Schema Validation with Ajv
+
+The LightSpeedWP frontmatter schema uses **Ajv JSON Schema validator** with a **discriminator pattern** on the `file_type` field for routing validation rules.
+
+#### Discriminator Pattern
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "discriminator": {
+    "propertyName": "file_type"
+  },
+  "oneOf": [
+    { "properties": { "file_type": { "const": "agent" } } },
+    { "properties": { "file_type": { "const": "instructions" } } },
+    { "properties": { "file_type": { "const": "prompt" } } }
+  ]
+}
+```
+
+The `file_type` field determines which validation rules apply to each file.
+
+#### Validation Workflow
+
+1. **Parse YAML frontmatter** from Markdown files
+2. **Extract `file_type` field** to determine schema variant
+3. **Route to appropriate schema** using discriminator
+4. **Validate all fields** against schema requirements
+5. **Report errors** with file path and field details
+
+#### Common Validation Failures
+
+| Error                    | Cause                           | Solution                                        |
+| ------------------------ | ------------------------------- | ----------------------------------------------- |
+| "Missing required field" | Required field omitted          | Add missing field to frontmatter                |
+| "Invalid file_type"      | Typo or unsupported type        | Check spelling, use valid type                  |
+| "Duplicate property"     | Same field appears twice        | Remove duplicate (common: `file_type`)          |
+| "Invalid enum value"     | Field value not in allowed list | Use valid enum value from schema                |
+| "Type mismatch"          | Wrong data type                 | Convert to correct type (e.g., string vs array) |
+
+### VS Code Integration
+
+Configure VS Code to validate frontmatter in real-time:
+
+**`.vscode/settings.json`**:
+
+```json
+{
+  "yaml.schemas": {
+    "./schemas/frontmatter.schema.json": [".github/**/*.md", "docs/**/*.md"]
+  },
+  "yaml.validate": true,
+  "yaml.format.enable": true
+}
+```
+
+**Benefits**:
+
+- Real-time validation as you type
+- IntelliSense autocomplete for fields
+- Inline error messages
+- Quick fixes for common issues
+
+### CI/CD Integration
+
+Automated validation in GitHub Actions:
+
+**`.github/workflows/validate-frontmatter.yml`**:
+
+```yaml
+name: Validate Frontmatter
+
+on:
+  pull_request:
+    paths:
+      - "**.md"
+      - "schemas/frontmatter.schema.json"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npm run validate:frontmatter
+```
+
+**Validation Script** (`scripts/validate-frontmatter.js`):
+
+```javascript
+const Ajv = require("ajv");
+const yaml = require("js-yaml");
+const fs = require("fs");
+const glob = require("glob");
+
+const ajv = new Ajv({ discriminator: true, allErrors: true });
+const schema = JSON.parse(
+  fs.readFileSync("./schemas/frontmatter.schema.json", "utf8"),
+);
+const validate = ajv.compile(schema);
+
+const files = glob.sync(".github/**/*.md");
+let errors = 0;
+
+files.forEach((file) => {
+  const content = fs.readFileSync(file, "utf8");
+  const match = content.match(/^---\n([\s\S]+?)\n---/);
+
+  if (match) {
+    try {
+      const frontmatter = yaml.load(match[1]);
+      const valid = validate(frontmatter);
+
+      if (!valid) {
+        console.error(`\nValidation errors in ${file}:`);
+        validate.errors.forEach((err) => {
+          console.error(`  - ${err.instancePath}: ${err.message}`);
+        });
+        errors++;
+      }
+    } catch (e) {
+      console.error(`\nYAML parse error in ${file}:`, e.message);
+      errors++;
+    }
+  }
+});
+
+if (errors > 0) {
+  console.error(`\n❌ Validation failed: ${errors} file(s) with errors`);
+  process.exit(1);
+} else {
+  console.log("\n✅ All frontmatter is valid");
+}
+```
+
+### Pre-Commit Hooks
+
+Validate before committing with Husky:
+
+**`.husky/pre-commit`**:
+
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run validate:frontmatter
+```
+
+**`package.json`**:
+
+```json
+{
+  "scripts": {
+    "validate:frontmatter": "node scripts/validate-frontmatter.js"
+  }
+}
+```
+
+---
+
 ## Migration Guide
 
 ### Updating Existing Files

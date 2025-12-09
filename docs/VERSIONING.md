@@ -25,7 +25,7 @@ version: "1.2.3" # Must match contents of root VERSION file
 ---
 ```
 
-**Validation:**  
+**Validation:**
 Use scripts or CI to ensure all frontmatter `version` fields remain synchronized with the root `VERSION` file.
 
 ---
@@ -38,7 +38,7 @@ Version numbers follow the format: `MAJOR.MINOR.PATCH`
 - **MINOR**: Incremented for backwards-compatible functionality additions
 - **PATCH**: Incremented for backwards-compatible bug fixes
 
-**Pre-release Versions:**  
+**Pre-release Versions:**
 May include identifiers:
 
 - `1.0.0-alpha.1`
@@ -293,10 +293,5 @@ Consider adding these scripts to GitHub Actions workflows for:
 - Pre-commit hooks (validate versions before commit)
 - Pull request checks (ensure references are valid)
 - Release automation (bulk bump versions on release)
-
-## References
-
-- [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
-- [RELEASE_PROCESS.md](./RELEASE_PROCESS.md)
 
 ---

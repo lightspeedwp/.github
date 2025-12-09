@@ -81,16 +81,4 @@ labels:
 
 ---
 
-## References
-
-- [labels.yml](../.github/labels.yml)
-- [labeler.yml](../.github/labeler.yml)
-- [issue-types.yml](../.github/issue-types.yml)
-- [labeling.agent.md](../.github/agents/labeling.agent.md)
-- [labeling.yml](../.github/workflows/labeling.yml)
-- [Labeling Strategy](./LABEL_STRATEGY.md)
-- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
-
----
-
 *The labeling agent is the single source of truth for all issue labeling, status, type, and standardization. All guidance here is directly reflected in labels.yml and enforced via automation.*
