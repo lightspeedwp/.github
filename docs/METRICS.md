@@ -87,3 +87,5 @@ Over time, these metrics will tell us if our efforts are paying off. For example
 - [scripts/gather-metrics.js](../scripts/gather-metrics.js) — Metrics gathering script
 
 ---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

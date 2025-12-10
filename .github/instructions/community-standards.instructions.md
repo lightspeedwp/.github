@@ -79,11 +79,28 @@ Ensure repositories are well-organized, easily navigable, and welcoming to contr
 ├── prompts/                      # Reusable prompts
 │   ├── README.md
 │   └── *.prompt.md
-├── reports/                      # Generated reports (permanent)
+├── reports/                      # Generated reports and analysis outputs
 │   ├── README.md
-│   ├── agents/                  # Agent-related reports
-│   ├── labeling/                # Labeling reports
-│   └── metrics/                 # Metrics reports
+│   ├── analysis/                # Code analysis and technical audits
+│   ├── audits/                  # One-time audit reports
+│   ├── implementation/          # Implementation tracking
+│   ├── migration/               # Migration reports
+│   ├── validation/              # Schema/config validation
+│   ├── agents/                  # Agent execution reports
+│   ├── coverage/                # Test coverage reports
+│   ├── frontmatter/             # Frontmatter validation
+│   ├── issue-metrics/           # GitHub analytics
+│   ├── labeling/                # Labeling agent reports
+│   ├── linting/                 # Code quality reports
+│   ├── meta/                    # Documentation metadata
+│   ├── metrics/                 # Metrics collection
+│   └── optimisation/            # Performance optimisation
+├── projects/                     # Task tracking and project planning
+│   ├── README.md
+│   ├── active/                  # Current active projects and sprints
+│   ├── completed/               # Finished project archives
+│   ├── planning/                # Planning and scoping documents
+│   └── ADR/                     # Architecture Decision Records
 ├── tmp/                          # Temporary files (gitignored)
 │   └── .gitkeep
 ├── ISSUE_TEMPLATE/              # Issue templates
@@ -203,12 +220,14 @@ Is this a FINAL, permanent result?
 | Documentation | `{name}.md`              | `contributing.md`                  |
 | Instructions  | `{name}.instructions.md` | `coding-standards.instructions.md` |
 | Agent Spec    | `{name}.agent.md`        | `labeling.agent.md`                |
-| Agent Code    | `{name}.agent.js`        | `labeling.agent.js`                |
+| Agent Code    | `{name}.agent.{js,py,sh}`| `labeling.agent.js`                |
 | Prompt        | `{name}.prompt.md`       | `code-review.prompt.md`            |
 | Workflow      | `{name}.yml`             | `labeling.yml`                     |
 | Test          | `{name}.test.js`         | `labeling.test.js`                 |
 | Report        | `{subject}-{type}.md`    | `metrics-monthly.md`               |
 | Spec File     | `{json-file}.spec.md`    | `baseline.json.spec.md`            |
+| Chatmode      | `{name}.chatmode.md`     | `thinking.chatmode.md`             |
+| Saved Reply   | `name.md` in `.github/SAVED_REPLIES/` | `triage.md`          |
 
 **Examples:**
 
@@ -227,6 +246,7 @@ Is this a FINAL, permanent result?
 - `LabelingAgent.js` (wrong case)
 - `IssueMetrics.YAML` (wrong case)
 - `baseline.json` (not descriptive)
+- Missing `file_type` in frontmatter (required for instruction/spec/report docs)
 
 ### Directory Names
 
@@ -339,6 +359,8 @@ How to use or interact with contents.
 ```
 
 ### README Templates
+
+**Recommended extra sections:** Owners/Maintainers, Status/Badges, Structure/Contents, Contribution/Development, Inputs/Examples, Validation/Testing, Change History/Changelog, and References/Links (including badges/TOC where relevant).
 
 #### **Repository Root README**
 

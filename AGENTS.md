@@ -49,14 +49,15 @@ references:
 
 ## Contribution Guidelines & Indexes
 
-| Area                      | File Reference                                                                                                           | Notes / Usage                                                 |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| **Coding Standards**      | [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)           | Unified standards for all code                                |
-| **Quality Assurance**     | [.github/instructions/quality-assurance.instructions.md](.github/instructions/quality-assurance.instructions.md)         | Testing pyramid, Jest, coverage, CI/CD (3 files consolidated) |
-| **Languages & Linting**   | [.github/instructions/languages.instructions.md](.github/instructions/languages.instructions.md)                         | JS/TS, JSON, YAML, JSDoc, linting (4 files consolidated)      |
-| **Documentation Formats** | [.github/instructions/documentation-formats.instructions.md](.github/instructions/documentation-formats.instructions.md) | Markdown, YAML frontmatter, Mermaid (3 files consolidated)    |
-| **Automation**            | [.github/instructions/automation.instructions.md](.github/instructions/automation.instructions.md)                       | Agents, labeling, release, metrics (8 files consolidated)     |
-| **Community Standards**   | [.github/instructions/community-standards.instructions.md](.github/instructions/community-standards.instructions.md)     | Files, naming, README, replies (4 files consolidated)         |
+| Area                      | File Reference                                                                                                                 | Notes / Usage                                                 |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| **Coding Standards**      | [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)                 | Unified standards for all code                                |
+| **File Organization**     | [.github/instructions/file-output-organization.instructions.md](.github/instructions/file-output-organization.instructions.md) | Where to create reports, tasks, and project files (CRITICAL)  |
+| **Quality Assurance**     | [.github/instructions/quality-assurance.instructions.md](.github/instructions/quality-assurance.instructions.md)               | Testing pyramid, Jest, coverage, CI/CD (3 files consolidated) |
+| **Languages & Linting**   | [.github/instructions/languages.instructions.md](.github/instructions/languages.instructions.md)                               | JS/TS, JSON, YAML, JSDoc, linting (4 files consolidated)      |
+| **Documentation Formats** | [.github/instructions/documentation-formats.instructions.md](.github/instructions/documentation-formats.instructions.md)       | Markdown, YAML frontmatter, Mermaid (3 files consolidated)    |
+| **Automation**            | [.github/instructions/automation.instructions.md](.github/instructions/automation.instructions.md)                             | Agents, labeling, release, metrics (8 files consolidated)     |
+| **Community Standards**   | [.github/instructions/community-standards.instructions.md](.github/instructions/community-standards.instructions.md)           | Files, naming, README, replies (4 files consolidated)         |
 
 **Consolidated Instructions (5 Files):**
 
@@ -106,3 +107,6 @@ Start here for all key standards:
 
 *This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards.*
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

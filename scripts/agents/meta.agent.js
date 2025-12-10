@@ -1,8 +1,8 @@
 // meta.agent.js - Applies documentation metadata (front matter, badges, human references, quirky footers) to Markdown files.
 // See .github/agents/meta.agent.md for spec.
 
-import { ensureFooter } from "../../scripts/includes/header-footer.js";
-import { updateBadgesInReadme } from "../../scripts/includes/badges.js";
+import { ensureFooter } from "./includes/header-footer.js";
+import { updateBadgesInReadme } from "./includes/badges.js";
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";

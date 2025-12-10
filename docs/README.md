@@ -10,3 +10,5 @@ description: "Index and overview of all documentation in the docs/ folder"
 # Documentation Hub
 
 Central index for all documentation in the LightSpeed .github repository.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

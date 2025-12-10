@@ -10,3 +10,6 @@ description: "System architecture and design overview of the .github community h
 # Repository Architecture
 
 Need to describe the current architecture of the .github community health repository
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -16,8 +16,11 @@ The files are organised under the `.github/` directory:
 - [`AGENTS.md`](../AGENTS.md): Global AI rules applicable to all projects. Defines language, security, accessibility, modularity, and review requirements. Reference this file for central guidance on frontmatter schemas ([schemas/frontmatter.schema.json](../schemas/frontmatter.schema.json))
 - [`agents/agent.md`](./agents/agent.md): Main agent index. Links all agent specs, stubs, and explains local/dry-run usage. Reference this for agent implementation and testing.
 - [`instructions/`](./instructions/): Modular `.instructions.md` files scoped by language, file type, or topic. Each file includes YAML frontmatter describing its scope, mission, guidelines, checklists, and references. See below for a full index.
+  - **[file-output-organization.instructions.md](./instructions/file-output-organization.instructions.md)**: **CRITICAL** - Defines where Copilot/agents should create reports, task files, and project artifacts. Always follow these rules to prevent file organization drift.
 - [`prompts/prompts.md`](./prompts/prompts.md): Master prompt index and guidance. Reference this for prompt authoring conventions and to locate all available prompts.
 - [`prompts/`](./prompts/): Reusable `.prompt.md` files for Copilot Chat and GitHub Actions. Each prompt describes a specific task (e.g. audit docs, fix lint, author JSON schema, generate workflow, increase test coverage). See below for a full index.
+- [`reports/`](./reports/): Generated reports, analysis outputs, and audit files. All Copilot/agent reports must be created here, not in docs/ or repository root.
+- [`projects/`](./projects/): Task tracking, project planning, and implementation roadmaps. All task lists and project files must be created here, not in docs/.
 - [`README.md`](../README.md): Explains the purpose of the repository and how to use the instructions and prompts.
 
 ---

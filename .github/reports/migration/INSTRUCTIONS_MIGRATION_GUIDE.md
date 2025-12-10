@@ -22,7 +22,7 @@ As of December 7, 2025, LightSpeed has consolidated 22 instruction files into 5 
 | javascript.instructions.md, jsdoc.instructions.md, json.instructions.md, yaml.instructions.md                                                                                                                       | [languages.instructions.md](./languages.instructions.md)                         | 2025-12-07         |
 | markdown.instructions.md, frontmatter.instructions.md, mermaid.instructions.md                                                                                                                                      | [documentation-formats.instructions.md](./documentation-formats.instructions.md) | 2025-12-07         |
 | testing.instructions.md, tests.instructions.md, jest.instructions.md                                                                                                                                                | [quality-assurance.instructions.md](./quality-assurance.instructions.md)         | 2025-12-07         |
-| agents.instructions.md, branding.instructions.md, metrics.instructions.md, planner.instructions.md, project-meta-sync.instructions.md, release.instructions.md, reporting.instructions.md, reviewer.instructions.md | [automation.instructions.md](./automation.instructions.md)                       | 2025-12-07         |
+| agents.instructions.md, branding.instructions.md (now meta.instructions.md), metrics.instructions.md, planner.instructions.md, project-meta-sync.instructions.md, release.instructions.md, reporting.instructions.md, reviewer.instructions.md | [automation.instructions.md](./automation.instructions.md)                       | 2025-12-07         |
 | file-management.instructions.md, naming-conventions.instructions.md, readme.instructions.md, saved-replies.instructions.md                                                                                          | [community-standards.instructions.md](./community-standards.instructions.md)     | 2025-12-07         |
 
 **Reduction**: 77% fewer files (17 consolidated → 5 consolidated)
@@ -102,7 +102,7 @@ All testing and QA guidance is now consolidated in [**quality-assurance.instruct
 #### Old Files
 
 - **agents.instructions.md** → [automation.instructions.md § Agents](./automation.instructions.md#agents)
-- **branding.instructions.md** → [automation.instructions.md § Documentation Metadata](./automation.instructions.md#documentation-metadata)
+- **branding.instructions.md** (renamed to **meta.instructions.md**) → [meta.instructions.md](./meta.instructions.md)
 - **metrics.instructions.md** → [automation.instructions.md § Metrics Collection](./automation.instructions.md#metrics-collection)
 - **planner.instructions.md** → [automation.instructions.md § Planning Automation](./automation.instructions.md#planning-automation)
 - **project-meta-sync.instructions.md** → [automation.instructions.md § Project Synchronization](./automation.instructions.md#project-synchronization)
@@ -227,6 +227,10 @@ Old instruction files have been moved to [`.archive/`](./.archive/) for referenc
 | 2025-12-07 | Migration guide created                                               |
 | 2025-12-07 | Cross-references updated                                              |
 | TBD        | Old `.archive/` files permanently removed (after 90-day grace period) |
+
+**Notes:**
+
+- `branding.instructions.md` has been superseded by `meta.instructions.md` and is not kept in the archive; use the new file for metadata/branding guidance.
 
 ---
 

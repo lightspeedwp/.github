@@ -203,3 +203,6 @@ npm run coverage  # Generate coverage reports
 - Review [Linting Standards](./LINTING.md) for code quality configuration
 - See [Configuration Files Index](./config/README.md) for detailed file documentation
 - Check [Testing Guide](./TESTING.md) for test configuration details
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

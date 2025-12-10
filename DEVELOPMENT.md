@@ -178,3 +178,6 @@ This project is licensed under the GNU General Public License v3.0 — see the [
 - [Canonical Issue Types YAML](.github/issue-types.yml): Machine-readable issue types for workflow and automation.
 - [Canonical Label Definitions](.github/labels.yml): Label names, colours, and descriptions.
 - [Automated Label Assignment Rules](.github/labeler.yml): Automation for applying labels based on file changes and branch patterns.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -328,3 +328,6 @@ cp -r .github/instructions/.archive/* .github/instructions/
 ---
 
 *This migration improves maintainability by consolidating related topics. All content is preserved; only organization has changed.*
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

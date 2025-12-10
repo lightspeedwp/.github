@@ -308,3 +308,6 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 *This profile is part of our commitment to transparency, community engagement, and open-source collaboration. All our projects follow the [LightSpeed development standards](./.github/instructions/coding-standards.instructions.md) and are enhanced with AI-powered development tools.*
 
 <!-- RANDOM FOOTER: ✨ Maintained with ❤️ by LightSpeedWP Automation Team -->
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

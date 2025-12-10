@@ -1,5 +1,5 @@
 ---
-_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md)._
+*Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
 ---
 
 # GitHub Discussions Guide
@@ -123,15 +123,7 @@ These labels help you:
 
 ---
 
-## References
-
-- [LightSpeed Discussions](https://github.com/orgs/lightspeedwp/discussions)
-- [labels.yml](../.github/labels.yml) — full label taxonomy
-- [Issue Creation Guide](ISSUE_CREATION_GUIDE.md)
-- [GitHub Discussions documentation](https://docs.github.com/en/discussions)
-- [Code of Conduct](../CODE_OF_CONDUCT.md)
-- [Support Policy](../SUPPORT.md)
-
----
-
 *Want to propose a new label or discussion category? Start a [community discussion](https://github.com/orgs/lightspeedwp/discussions) or tag a maintainer!*
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

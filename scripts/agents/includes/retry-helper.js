@@ -31,6 +31,11 @@ const DEFAULT_CONFIG = {
  * @returns {boolean} True if the error is retryable
  */
 function isRetryableError(error, config = DEFAULT_CONFIG) {
+  // Handle null or invalid error
+  if (!error || typeof error !== "object") {
+    return false;
+  }
+
   // Check for status codes (GitHub API errors)
   if (error.status && config.retryableStatusCodes.includes(error.status)) {
     return true;

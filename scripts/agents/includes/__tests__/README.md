@@ -161,3 +161,6 @@ When adding new utility modules:
 - [Jest Documentation](https://jestjs.io/docs/getting-started)
 - [Testing Best Practices](../../../../docs/TESTING.md)
 - [Labelling Agent Documentation](../../../../docs/LABELING.md)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

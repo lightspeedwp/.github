@@ -36,6 +36,7 @@ ehthumbs.db
 Desktop.ini
 
 # Logs
+/logs
 *.log
 npm-debug.log*
 .eslintcache
@@ -46,6 +47,7 @@ npm-debug.log*
 /.nyc_output
 
 # Misc
+/tmp
 *.zip
 *.tar.gz
 *.tgz

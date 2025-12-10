@@ -2,25 +2,33 @@
  * Global Jest test helpers for agents and utilities.
  * - Mocks Octokit, context, PR/Issue payloads, etc.
  * - Shared assertions and setup/teardown functions.
+ *
+ * Export for use in tests across scripts/ and other directories
  */
 
 function mockOctokit(overrides = {}) {
   return {
     rest: {
       issues: {
-        addLabels: jest.fn(),
-        createComment: jest.fn(),
-        listLabelsOnIssue: jest.fn(),
-        removeLabel: jest.fn(),
+        addLabels: jest.fn().mockResolvedValue({ data: {} }),
+        createComment: jest.fn().mockResolvedValue({
+          data: { id: 1, body: "test comment", user: { login: "test" } },
+        }),
+        listLabelsOnIssue: jest.fn().mockResolvedValue({ data: [] }),
+        removeLabel: jest.fn().mockResolvedValue({ data: {} }),
+        update: jest.fn().mockResolvedValue({ data: {} }),
         ...((overrides.rest || {}).issues || {}),
       },
       pulls: {
-        listFiles: jest.fn(),
+        listFiles: jest.fn().mockResolvedValue({ data: [] }),
+        createReview: jest.fn().mockResolvedValue({ data: { id: 1 } }),
         ...((overrides.rest || {}).pulls || {}),
       },
       repos: {
-        getContent: jest.fn(),
-        getCombinedStatusForRef: jest.fn(),
+        getContent: jest.fn().mockResolvedValue({ data: {} }),
+        getCombinedStatusForRef: jest
+          .fn()
+          .mockResolvedValue({ data: { state: "success" } }),
         ...((overrides.rest || {}).repos || {}),
       },
       ...overrides.rest,

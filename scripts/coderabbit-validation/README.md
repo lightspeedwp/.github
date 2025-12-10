@@ -272,3 +272,6 @@ GPL v3. See [LICENSE](../../LICENSE).
 ---
 
 *✅ Ensuring configuration integrity through automated validation and schema compliance.*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

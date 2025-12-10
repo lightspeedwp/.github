@@ -68,3 +68,6 @@ README.md
 ---
 
 *If you add new documentation types or major files, update this file and cross-references in the docs suite.*
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

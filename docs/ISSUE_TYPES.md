@@ -61,33 +61,33 @@ See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-rea
 
 ## Detailed Comparison Table
 
-| Type | Label | Color | Use When | Priority | Key Labels |
-|------|-------|-------|----------|----------|------------|
-| 🧩 **Task** | `type:task` | Blue `#4393f8` | Small scoped work ≤2 days | normal | `status:ready`, `comp:*`, `lang:*` |
-| 🐞 **Bug** | `type:bug` | Red `#9f3734` | Broken/incorrect behaviour | critical/important | `priority:critical`, `env:*`, `compat:*` |
-| ✨ **Feature** | `type:feature` | Green `#3fb950` | Net-new capability | important/normal | `status:needs-design`, `comp:*`, `meta:has-pr` |
-| 🎨 **Design** | `type:design` | Purple `#ab7df8` | Design artefacts/specs | important/normal | `status:needs-design`, `area:design-system` |
-| 🧭 **Epic** | `type:epic` | Purple `#ab7df8` | Parent issue (3+ sprints) | important | `status:in-discussion`, `meta:needs-changelog` |
-| 📖 **Story** | `type:story` | Blue `#4393f8` | User-centred vertical slice | normal/important | `comp:*`, `env:staging`, `meta:has-pr` |
-| 🔧 **Improvement** | `type:improve` | Grey `#9198a1` | Enhance existing behaviour | normal/minor | `comp:*`, `area:*`, `meta:has-pr` |
-| ♻️ **Refactor** | `type:refactor` | Grey `#9198a1` | Internal restructure (no UX change) | normal/minor | `lang:*`, `meta:no-changelog` |
-| ⚙️ **Build & CI** | `type:build` | Blue `#4393f8` | Tooling/pipelines/releases | normal/important | `area:ci`, `lang:js\|yaml`, `env:*` |
-| 🤖 **Automation** | `type:automation` | Blue `#4393f8` | Bots/actions/scripts | normal | `area:ci`, `meta:has-pr` |
-| 🧪 **Test Coverage** | `type:test` | Yellow `#d29922` | Add/expand tests | normal/important | `area:tests`, `lang:*`, `env:staging` |
-| ⚡ **Performance** | `type:performance` | Yellow `#d29922` | Improve speed/efficiency | important/critical | `comp:*`, `env:*`, `meta:has-pr` |
-| ♿ **A11y** | `type:a11y` | Pink `#db61a2` | Accessibility (WCAG 2.1 AA) | critical/important | `comp:*`, `env:*`, `meta:has-pr` |
-| 🔒 **Security** | `type:security` | Red `#9f3734` | Security issues/improvements | critical | `priority:critical`, `env:*`, `compat:*` |
-| 🔌 **Compatibility** | `type:compatibility` | Orange `#8d4821` | Browser/device/plugin compat | important/critical | `compat:*`, `env:*`, `meta:has-pr` |
-| 🔄 **Integration** | `type:integration` | Orange `#8d4821` | External systems/services | important/normal | `area:integration`, `lang:*`, `env:*` |
-| 🚀 **Release** | `type:release` | Green `#3fb950` | Release management/deployment | critical/important | `release:*`, `env:*`, `meta:needs-changelog` |
-| 🧰 **Maintenance** | `type:maintenance` | Grey `#9198a1` | Routine updates/audits | normal/minor | `area:dependencies`, `lang:*` |
-| 📚 **Documentation** | `type:documentation` | Grey `#9198a1` | Docs/guides/knowledge base | normal/important | `area:documentation`, `lang:md` |
-| 🔬 **Research** | `type:research` | Grey `#9198a1` | Discovery/investigation/spikes | normal/important | `area:*`, `env:prototype` |
-| 🧹 **Chore** | `type:chore` | Grey `#9198a1` | Small hygiene change | minor | `priority:minor`, `meta:no-changelog` |
-| 🧪 **Audit** | `type:audit` | Grey `#9198a1` | Security/code/process audits | important/normal | `type:security\|a11y\|performance` |
-| ✅ **Code Review** | `type:review` | Blue `#4393f8` | Peer review/QA/validation | normal | `status:needs-review`, `meta:has-pr` |
-| 🤖 **AI Ops** | `type:ai-ops` | Blue `#4393f8` | AI agents/prompts/datasets | normal | `ai-ops:*`, `lang:md\|json\|yaml` |
-| 🗂️ **Content Modelling** | `type:content-modelling` | Purple `#ab7df8` | CPT/taxonomies/field mapping | important | `cpt:*`, `comp:*`, `env:staging` |
+| Type                     | Label                    | Color            | Use When                            | Priority           | Key Labels                                     |
+| ------------------------ | ------------------------ | ---------------- | ----------------------------------- | ------------------ | ---------------------------------------------- |
+| 🧩 **Task**              | `type:task`              | Blue `#4393f8`   | Small scoped work ≤2 days           | normal             | `status:ready`, `comp:*`, `lang:*`             |
+| 🐞 **Bug**               | `type:bug`               | Red `#9f3734`    | Broken/incorrect behaviour          | critical/important | `priority:critical`, `env:*`, `compat:*`       |
+| ✨ **Feature**           | `type:feature`           | Green `#3fb950`  | Net-new capability                  | important/normal   | `status:needs-design`, `comp:*`, `meta:has-pr` |
+| 🎨 **Design**            | `type:design`            | Purple `#ab7df8` | Design artefacts/specs              | important/normal   | `status:needs-design`, `area:design-system`    |
+| 🧭 **Epic**              | `type:epic`              | Purple `#ab7df8` | Parent issue (3+ sprints)           | important          | `status:in-discussion`, `meta:needs-changelog` |
+| 📖 **Story**             | `type:story`             | Blue `#4393f8`   | User-centred vertical slice         | normal/important   | `comp:*`, `env:staging`, `meta:has-pr`         |
+| 🔧 **Improvement**       | `type:improve`           | Grey `#9198a1`   | Enhance existing behaviour          | normal/minor       | `comp:*`, `area:*`, `meta:has-pr`              |
+| ♻️ **Refactor**          | `type:refactor`          | Grey `#9198a1`   | Internal restructure (no UX change) | normal/minor       | `lang:*`, `meta:no-changelog`                  |
+| ⚙️ **Build & CI**        | `type:build`             | Blue `#4393f8`   | Tooling/pipelines/releases          | normal/important   | `area:ci`, `lang:js\|yaml`, `env:*`            |
+| 🤖 **Automation**        | `type:automation`        | Blue `#4393f8`   | Bots/actions/scripts                | normal             | `area:ci`, `meta:has-pr`                       |
+| 🧪 **Test Coverage**     | `type:test`              | Yellow `#d29922` | Add/expand tests                    | normal/important   | `area:tests`, `lang:*`, `env:staging`          |
+| ⚡ **Performance**       | `type:performance`       | Yellow `#d29922` | Improve speed/efficiency            | important/critical | `comp:*`, `env:*`, `meta:has-pr`               |
+| ♿ **A11y**              | `type:a11y`              | Pink `#db61a2`   | Accessibility (WCAG 2.1 AA)         | critical/important | `comp:*`, `env:*`, `meta:has-pr`               |
+| 🔒 **Security**          | `type:security`          | Red `#9f3734`    | Security issues/improvements        | critical           | `priority:critical`, `env:*`, `compat:*`       |
+| 🔌 **Compatibility**     | `type:compatibility`     | Orange `#8d4821` | Browser/device/plugin compat        | important/critical | `compat:*`, `env:*`, `meta:has-pr`             |
+| 🔄 **Integration**       | `type:integration`       | Orange `#8d4821` | External systems/services           | important/normal   | `area:integration`, `lang:*`, `env:*`          |
+| 🚀 **Release**           | `type:release`           | Green `#3fb950`  | Release management/deployment       | critical/important | `release:*`, `env:*`, `meta:needs-changelog`   |
+| 🧰 **Maintenance**       | `type:maintenance`       | Grey `#9198a1`   | Routine updates/audits              | normal/minor       | `area:dependencies`, `lang:*`                  |
+| 📚 **Documentation**     | `type:documentation`     | Grey `#9198a1`   | Docs/guides/knowledge base          | normal/important   | `area:documentation`, `lang:md`                |
+| 🔬 **Research**          | `type:research`          | Grey `#9198a1`   | Discovery/investigation/spikes      | normal/important   | `area:*`, `env:prototype`                      |
+| 🧹 **Chore**             | `type:chore`             | Grey `#9198a1`   | Small hygiene change                | minor              | `priority:minor`, `meta:no-changelog`          |
+| 🧪 **Audit**             | `type:audit`             | Grey `#9198a1`   | Security/code/process audits        | important/normal   | `type:security\|a11y\|performance`             |
+| ✅ **Code Review**       | `type:review`            | Blue `#4393f8`   | Peer review/QA/validation           | normal             | `status:needs-review`, `meta:has-pr`           |
+| 🤖 **AI Ops**            | `type:ai-ops`            | Blue `#4393f8`   | AI agents/prompts/datasets          | normal             | `ai-ops:*`, `lang:md\|json\|yaml`              |
+| 🗂️ **Content Modelling** | `type:content-modelling` | Purple `#ab7df8` | CPT/taxonomies/field mapping        | important          | `cpt:*`, `comp:*`, `env:staging`               |
 
 ---
 
@@ -164,3 +164,5 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 ---
 
 *Type assignment is fully automated and standardized by the unified agent and workflow. All changes are canonical and traceable.*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

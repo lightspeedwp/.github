@@ -357,3 +357,6 @@ graph TD
 - [Mermaid Diagrams](../../.github/instructions/mermaid-diagrams.instructions.md)
 - [YAML Documentation](../../docs/YAML.md)
 - [Test Coverage Reports](../../coverage/README.md)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

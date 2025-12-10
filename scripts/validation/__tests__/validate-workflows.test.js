@@ -218,8 +218,9 @@ describe("Workflow Validation Guardrails", () => {
   describe("Quality Guardrails", () => {
     test("should flag bad Node versions", () => {
       const nodeStep = MOCK_WORKFLOWS.badNodeVersion.jobs.test.steps[0];
-      expect(nodeStep.with["node-version"]).toBe("16");
-      expect(nodeStep.with["node-version"]).toBeLessThan(18);
+      const nodeVersion = nodeStep.with["node-version"];
+      expect(nodeVersion).toBe("16");
+      expect(parseInt(nodeVersion)).toBeLessThan(18);
     });
 
     test("should flag missing step names", () => {

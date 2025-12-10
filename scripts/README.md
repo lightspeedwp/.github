@@ -403,3 +403,6 @@ When contributing new scripts or modifications:
 *⚡ Empowering WordPress development through intelligent automation and shared utilities.*
 
 <!-- RANDOM FOOTER: ⚡ Magic Automation Unicorns at work! -->
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

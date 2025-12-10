@@ -1,5 +1,5 @@
 ---
-_Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md)._
+*Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
 ---
 
 # LightSpeed Issue Creation Guide
@@ -160,3 +160,5 @@ Any implementation notes, design decisions, or technical context.
 ---
 
 *Use this guide to create clear, automated, and contributor-friendly issues in all LightSpeed projects. If you’re not sure where your request fits, start with [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) or ask a maintainer!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

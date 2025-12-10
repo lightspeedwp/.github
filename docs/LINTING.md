@@ -507,3 +507,6 @@ npx eslint --debug
 ## Husky Pre-Commit Integration
 
 For details on how linting is enforced before commits, see [HUSKY-PRECOMMITS.md](./HUSKY-PRECOMMITS.md). This document explains how Husky is configured to run linting and other checks automatically, and how to manage or bypass hooks if needed.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

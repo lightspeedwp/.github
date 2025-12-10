@@ -14,7 +14,15 @@
  */
 
 // Re-export from unified agent for backward compatibility
-import { detectIssueTypeFromContent } from "./labeling.agent.js";
+// Use dynamic import or CommonJS for Jest compatibility
+let detectIssueTypeFromContent;
+try {
+  const labelingAgent = require("./labeling.agent.js");
+  detectIssueTypeFromContent = labelingAgent.detectIssueTypeFromContent;
+} catch (e) {
+  // Fallback for ES module import
+  // This will be handled at runtime when called as an agent
+}
 
 /**
  * @deprecated Use detectIssueTypeFromContent from labeling.agent.js

@@ -213,7 +213,9 @@ Keep a default \`pull_request_template.md\` and optional specialised templates (
 fs.writeFileSync(targetFile, consolidatedContent, "utf8");
 
 const newLines = consolidatedContent.split("\n").length;
-const oldLines = fs.readFileSync(targetFile + ".backup", "utf8").split("\n").length;
+const oldLines = fs
+  .readFileSync(targetFile + ".backup", "utf8")
+  .split("\n").length;
 const reduction = oldLines - newLines;
 const pctReduction = ((reduction / oldLines) * 100).toFixed(1);
 

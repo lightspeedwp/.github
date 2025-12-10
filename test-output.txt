@@ -1,0 +1,236 @@
+
+> @lightspeedwp/github-community-health@0.1.0 test
+> npm run test:js
+
+
+> @lightspeedwp/github-community-health@0.1.0 test:js
+> jest --config .jest.config.cjs --coverage --forceExit --detectOpenHandles
+
+  console.log
+    [36m[INFO][0m Test info message
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+    [33m[WARN][0m Test warning message
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+    [31m[ERROR][0m Test error message
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+    [32m[SUCCESS][0m Test success message
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+    [36m[INFO][0m Test message
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+    [36m[INFO][0m Validation log written to: /var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-6JZ7tw/test.log
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+    [32m[SUCCESS][0m Valid frontmatter [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-nNXrdD/valid.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+    [36m[INFO][0m Missing recommended fields [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-nNXrdD/valid.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+      {
+      "fileType": "unknown",
+      "missingRecommended": [
+        "owners",
+        "tags"
+      ],
+      "suggestion": "Consider adding: owners, tags"
+    }
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:87:15)
+
+  console.log
+    [31m[ERROR][0m Invalid frontmatter [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-olvivy/missing-desc.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+      {
+      "errors": [
+        {
+          "instancePath": "",
+          "schemaPath": "#/required",
+          "keyword": "required",
+          "params": {
+            "missingProperty": "description"
+          },
+          "message": "must have required property 'description'"
+        }
+      ]
+    }
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:87:15)
+
+  console.log
+    [36m[INFO][0m Missing recommended fields [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-olvivy/missing-desc.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+      {
+      "fileType": "unknown",
+      "missingRecommended": [
+        "owners",
+        "tags"
+      ],
+      "suggestion": "Consider adding: owners, tags"
+    }
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:87:15)
+
+  console.log
+    [31m[ERROR][0m Invalid frontmatter [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-80xvTX/invalid-type.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+      {
+      "errors": [
+        {
+          "instancePath": "/file_type",
+          "schemaPath": "#/properties/file_type/enum",
+          "keyword": "enum",
+          "params": {
+            "allowedValues": [
+              "documentation",
+              "agent",
+              "readme"
+            ]
+          },
+          "message": "must be equal to one of the allowed values"
+        }
+      ]
+    }
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:87:15)
+
+  console.log
+    [36m[INFO][0m Missing recommended fields [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-80xvTX/invalid-type.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+      {
+      "fileType": "unknown",
+      "missingRecommended": [
+        "owners",
+        "tags"
+      ],
+      "suggestion": "Consider adding: owners, tags"
+    }
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:87:15)
+
+  console.log
+    [32m[SUCCESS][0m Valid frontmatter [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-u99v8x/with-refs.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+    [36m[INFO][0m Missing recommended fields [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-u99v8x/with-refs.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+      {
+      "fileType": "unknown",
+      "missingRecommended": [
+        "owners",
+        "tags"
+      ],
+      "suggestion": "Consider adding: owners, tags"
+    }
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:87:15)
+
+  console.log
+    [33m[WARN][0m Referenced file does not exist: referenced.md [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-u99v8x/with-refs.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+          at Array.forEach (<anonymous>)
+
+  console.log
+    [33m[WARN][0m Referenced file does not exist: non-existent.md [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-u99v8x/with-refs.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+          at Array.forEach (<anonymous>)
+
+  console.log
+    [33m[WARN][0m Missing frontmatter [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-T6vUQt/README.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+      {
+      "reason": "File should have frontmatter according to LightSpeed standards",
+      "fileType": "readme"
+    }
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:87:15)
+
+  console.warn
+    Skipping real schema test - schema file not found
+
+      328 |         }).not.toThrow();
+      329 |       } else {
+    > 330 |         console.warn("Skipping real schema test - schema file not found");
+          |                 ^
+      331 |       }
+      332 |     });
+      333 |
+
+      at Object.warn (scripts/validation/__tests__/validate-frontmatter.test.js:330:17)
+
+  console.log
+    [32m[SUCCESS][0m Valid frontmatter [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-B3WcHr/.github/agents/test-agent.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+
+  console.log
+    [33m[WARN][0m Referenced file does not exist: schemas/frontmatter.schema.json [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-B3WcHr/.github/agents/test-agent.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+          at Array.forEach (<anonymous>)
+
+  console.log
+    [33m[WARN][0m Referenced file does not exist: .github/instructions/tagging-and-frontmatter-conventions.instructions.md [../../../../var/folders/qc/582v93jj5nvbzn8xbswflkj00000gn/T/frontmatter-test-B3WcHr/.github/agents/test-agent.md]
+
+      at Logger.log (scripts/validation/validate-frontmatter.js:84:13)
+          at Array.forEach (<anonymous>)
+
+  console.error
+    VERSION file not found.
+
+       9 |
+      10 | if (!fs.existsSync(versionFile)) {
+    > 11 |   console.error("VERSION file not found.");
+         |           ^
+      12 |   process.exit(1);
+      13 | }
+      14 |
+
+      at Object.error (scripts/agents/includes/sync-version.js:11:11)
+      at require (scripts/agents/includes/__tests__/sync-version.test.js:8:18)
+      at Object.<anonymous> (node_modules/@jest/expect/node_modules/expect/build/index.js:1824:9)
+      at Object.throwingMatcher [as toThrow] (node_modules/@jest/expect/node_modules/expect/build/index.js:2235:93)
+      at Object.toThrow (scripts/agents/includes/__tests__/sync-version.test.js:8:53)
+

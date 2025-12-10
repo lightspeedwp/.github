@@ -236,14 +236,10 @@ All architectural decisions should follow this format:
 - Updates occur quarterly during architecture reviews
 - All team members can propose new decisions
 
-## Related Documentation
-
-- [Architecture](./ARCHITECTURE.md) — System design and high-level overview
-- [ADR Directory](./ADR/) — Individual detailed ADRs
-- [ORGANIZATION.md](./ORGANIZATION.md) — Repository organization
-- [Contributing Guidelines](../CONTRIBUTING.md) — How to contribute
-
 ---
 
 *Last reviewed: 2025-12-04*
 *Next review scheduled: 2025-12-31*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

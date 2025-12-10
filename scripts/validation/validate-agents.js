@@ -19,7 +19,7 @@ import { fileURLToPath } from "url";
 import { globSync } from "glob";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.join(__dirname, "..");
+const REPO_ROOT = path.join(__dirname, "../..");
 const AGENTS_DIR = path.join(REPO_ROOT, ".github", "agents");
 const SCHEMAS_DIR = path.join(REPO_ROOT, "schemas");
 const WORKFLOWS_DIR = path.join(REPO_ROOT, ".github", "workflows");

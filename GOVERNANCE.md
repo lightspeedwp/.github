@@ -38,7 +38,7 @@ This document explains how the LightSpeed community health repository is governe
 
 ## Roles & Responsibilities
 
-#### Responsibilities
+### Responsibilities
 
 - Triage issues and pull requests
 - Review, merge, and release features and fixes
@@ -201,3 +201,5 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 ---
 
 *This document is maintained by the LightSpeed community. Propose changes via pull request.*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

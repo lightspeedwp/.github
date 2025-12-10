@@ -24,8 +24,11 @@ module.exports = {
     },
     // Enable Babel to transform ES modules in scripts directory
     transformIgnorePatterns: [
-        'node_modules/(?!(scripts)/)',
+        'node_modules/(?!(scripts|@actions)\/)',
     ],
+    moduleNameMapper: {
+        '^(\.{1,2}/.*)\.js$': '$1',
+    },
     moduleFileExtensions: ['js', 'ts', 'jsx', 'tsx', 'json'],
     coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
     collectCoverage: process.env.JEST_COLLECT_COVERAGE === 'false' ? false : true,
