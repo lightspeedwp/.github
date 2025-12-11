@@ -67,6 +67,29 @@ Agent specification files (`.agent.md`) serve as the canonical documentation for
 - **Guardrails and Safety**: Constraints and validation rules
 - **Testing Requirements**: How to validate functionality
 
+**Human-Focused Governance for Authoring New AI Agents**
+*Organisation-Wide Standards*
+
+This document defines **how humans plan, draft, review, and publish agent specifications** across all LightSpeed repositories.
+It complements—but does not duplicate:
+
+- the **Agent Specification Template** (`template.agent.md`)
+- **agent-spec.instructions.md** (Copilot behaviour rules)
+- the **Agent Specification Authoring Guide** (technical writing reference)
+
+This file is intentionally **non-technical**. It focuses on:
+
+- governance
+- safety
+- ownership
+- authoring behaviour
+- lifecycle
+- quality gates
+- approvals
+- documentation expectations
+
+---
+
 ### File Naming Convention
 
 ```bash
@@ -133,677 +156,390 @@ graph TB
 
 ---
 
-## Frontmatter Requirements
+# 0. Why This Document Exists
 
-### Required Fields
+LightSpeed uses a growing ecosystem of specialised AI agents.
+To ensure systems remain **safe, predictable, maintainable, and auditable**, every new agent must follow unified governance rules.
 
-All agent specification files **MUST** include these frontmatter fields:
+This document answers:
 
-```yaml
+❓ *When should a new agent be created?*
+❓ *Who approves it?*
+❓ *What must be included in the spec?*
+❓ *How do we prevent scope creep or unsafe behaviour?*
+❓ *How do we ensure long-term maintainability?*
+
 ---
-file_type: "agent" # REQUIRED: Must be "agent"
-name: "agent-name" # REQUIRED: Unique identifier
-description: "brief description" # REQUIRED: Clear purpose statement
-version: "v1.0" # REQUIRED: Semantic version
-last_updated: "YYYY-MM-DD" # REQUIRED: ISO date format
-owners: ["team/maintainers"] # REQUIRED: Responsible parties
+
+# 1. When You Should Create a New Agent
+
+Create a new agent when:
+
+- A workflow is **repetitive**, **rules-driven**, or **document-heavy**
+- The behaviour can be described **deterministically**
+- Safety guardrails can be stated clearly
+- Humans currently perform manual steps that can be systematised
+- The behaviour does **not** belong to an existing agent
+- The workflow has **stable, governed rules**
+
+### Mermaid: Should You Create a New Agent?
+
+```mermaid
+flowchart TD
+    A([New Workflow Identified]) --> B{Is it deterministic?}
+    B -->|No| N1[Do NOT create agent]
+    B -->|Yes| C{Is there an existing agent<br/>that covers this scope?}
+    C -->|Yes| N2[Extend/update existing agent]
+    C -->|No| D{Can guardrails prevent<br/>harm or ambiguity?}
+    D -->|No| N3[Do NOT create agent]
+    D -->|Yes| E{Is a maintainer willing<br/>to own the lifecycle?}
+    E -->|No| N4[Do NOT create agent]
+    E -->|Yes| F([Proceed with Spec Draft])
+````
+
 ---
-```
 
-### Recommended Fields
+# 2. Pre-Creation Checklist (Human)
 
-Include these fields for comprehensive documentation:
+Before drafting a spec:
 
-```yaml
-author: "Original Creator" # Creator's name
-maintainer: "Current Lead" # Current maintainer
-tags: # Keywords for discovery
-  - automation
-  - labeling
-  - github
-category: "automation" # Classification
-status: "active" # active|deprecated|experimental
-visibility: "public" # public|internal
-target: "github-copilot" # github-copilot|vscode|cli
-tools: # Available capabilities
-  - "github/*"
-  - "read"
-  - "edit"
-```
+- [ ] Define the **problem** the agent solves
+- [ ] Determine whether this is an **organisation-wide** or **repo-specific** agent
+- [ ] Confirm clear **handoff boundaries** with existing agents
+- [ ] List the **allowed tools** (GitHub API scope, repository access, fs operations, read-only vs write)
+- [ ] Document the **risk level** (Low, Medium, High)
+- [ ] Define **guardrails** proportional to the risk
+- [ ] Check for **overlap** with any existing agent
+- [ ] Capture **inputs** (events, prompts, triggers)
+- [ ] Decide how the agent’s success/failure is **observable**
 
-### Agent-Specific Fields
+### Mermaid: Pre-Creation Review Path
 
-```yaml
-handoffs: # Agent collaboration points
-  - label: "Start Review"
-    agent: "reviewer"
-    prompt: "Begin code review process"
-    send: false
-
-language: "en" # Primary language
-
-references: # Related documentation
-  - path: "../workflows/agent.yml"
-    description: "Agent workflow"
-  - path: "./includes/utils.js"
-    description: "Utility functions"
-
-metadata: # Additional context
-  guardrails: "Specific safety rules and constraints"
-```
-
-### Complete Frontmatter Example
-
-```yaml
----
-name: "labeling"
-description: "Unified agent for dynamic, canonical, and automated labeling of issues and PRs. Handles status, type, priority enforcement."
-target: "github-copilot"
-tools: ["github/*", "edit", "search"]
-handoffs:
-  - label: "Start Implementation"
-    agent: "implementation"
-    prompt: "Now implement the labeling changes outlined above."
-    send: false
-version: "v2.0"
-last_updated: "2025-11-20"
-author: "LightSpeedWP"
-maintainer: "Ash Shaw"
-file_type: "agent"
-category: "automation"
-status: "active"
-visibility: "public"
-tags:
-  - lightspeed
-  - labeling
-  - automation
-  - canonical-labels
-  - agents
-  - github
-references:
-  - path: ".github/automation/labels.yml"
-    description: "Canonical label definitions"
-  - path: ".github/automation/labeler.yml"
-    description: "Labeling rules and patterns"
-  - path: ".github/agents/labeling.agent.js"
-    description: "Implementation script"
-  - path: ".github/workflows/labeling.yml"
-    description: "GitHub Actions workflow"
-owners: ["lightspeedwp/maintainers"]
-metadata:
-  guardrails: "Only apply existing labels. Never create new types without approval. Log all type assignments."
----
+```mermaid
+flowchart LR
+    Start([Start]) --> Check1[Define Problem]
+    Check1 --> Check2[Assess Overlap]
+    Check2 --> Check3[Define Tools + Permissions]
+    Check3 --> Check4[Define Guardrails]
+    Check4 --> Check5[Assign Owner]
+    Check5 --> Decision{All Preconditions Met?}
+    Decision -->|No| Stop([Stop - Revise Concept])
+    Decision -->|Yes| Proceed([Write Spec File])
 ```
 
 ---
 
-## Documentation Structure
+# 3. Required Structure of the Spec File
 
-### Standard Section Order
+Every `.agent.md` MUST include:
 
-Every agent specification should follow this structure:
+### Mandatory Sections (from template.agent.md)
 
-1. **Title and Badge Row** (H1)
-2. **Purpose** - High-level goals
-3. **Responsibilities** - What it manages
-4. **Process** - Step-by-step workflow
-5. **Guardrails** - Safety constraints
-6. **Integration** - System connections
-7. **References** - Related documentation
+- **Role & Scope**
+- **Responsibilities & Capabilities**
+- **Allowed Tools & Integrations**
+- **Input Specification**
+- **Output Specification**
+- **Safety Guardrails**
+- **Failure & Rollback Strategy**
+- **Test Tasks**
+- **Observability & Logging**
+- **Changelog**
 
-### Section Templates
+### Why strict structure matters
 
-#### 1. Title and Purpose
+Agents are reviewed, linted, validated, and audited. A consistent structure ensures:
 
-```markdown
-# Agent Name Agent
+- machine readability
+- human readability
+- auditability
+- easier cross-agent governance
+- predictable behaviour when deployed across repos
 
-## Purpose
+---
 
-[Clear, concise statement of the agent's primary function and value proposition]
+# 4. Writing Clear Human-Focused Behaviour
 
-Example:
-Automate the application, enforcement, and standardization of labels on issues and PRs,
-ensuring one-hot status/priority labeling and reducing manual workload.
-```
+Unlike implementation instructions, this governance doc ensures **specs are written for humans**, not machines.
 
-#### 2. Responsibilities
+Write:
 
-```markdown
-## Responsibilities
+- In **plain, concrete language**
+- In **imperative style**
+- With **binary decisions** (“If X, do Y; otherwise Z”)
+- With **hard limitations** (“The agent must never…”)
+- With **fully defined success/failure conditions**
 
-- **Primary Function**: [Main capability]
-- **Secondary Functions**: [Supporting capabilities]
-- **Data Management**: [What data it handles]
-- **Integration Points**: [What it connects with]
+Avoid:
 
-Example:
+- Open-ended guidance (“use judgement”, “do your best”)
+- Delegating to Copilot what humans should define
+- Implicit powers (“The agent may update repo settings…”)
+- Scope drift (“This agent also might handle …”)
 
-- **Label Application**: Apply labels based on file/branch heuristics, content, and front matter
-- **Type Assignment**: Ensure exactly one type label per issue/PR
-- **Status Enforcement**: Maintain single status label across lifecycle
-- **Priority Management**: Apply and update priority labels
-```
+Agents must not guess.
+*If you can’t write the rule, the agent can’t follow it.*
 
-#### 3. Process Flow
+---
 
-```markdown
-## Process
+# 5. Governance: Approval & Ownership
 
-### Trigger Conditions
+### Required approvals
 
-[When the agent activates]
+A new agent spec requires:
 
-### Execution Steps
+- ✔ **Maintainer Review** — technical feasibility
+- ✔ **Governance Review** — safety, scope, cross-agent consistency
+- ✔ Optional: **Product Review** — if agent affects workflows
 
-1. **[Step Name]**: [What happens]
-2. **[Step Name]**: [What happens]
-3. **[Step Name]**: [What happens]
+### Ownership rules
 
-### Output Actions
+Frontmatter `owners:` must map to a team or individual who is responsible for:
 
-[What the agent produces or modifies]
+- reviewing behavioural drift
+- updating the spec when workflows change
+- responding to incidents
+- ensuring testing coverage remains valid
 
-Example:
+### Mermaid: Approval Workflow
 
-1. **Detect Event**: PR/issue creation or label change
-2. **Analyze Context**: Review file changes, branch name, content
-3. **Apply Rules**: Match against canonical label set
-4. **Enforce Constraints**: Ensure one-hot label families
-5. **Log Actions**: Record all changes for audit
-```
-
-#### 4. Guardrails
-
-```markdown
-## Guardrails
-
-### Safety Constraints
-
-- [Constraint 1]
-- [Constraint 2]
-- [Constraint 3]
-
-### Validation Rules
-
-- [Rule 1]
-- [Rule 2]
-
-### Error Handling
-
-[How errors are managed]
-
-Example:
-
-- Only apply labels from canonical set
-- Never overwrite user-applied labels without warning
-- Log all label actions
-- Validate content before classification
-- Abort on missing configuration
-```
-
-#### 5. Integration
-
-```markdown
-## Integration
-
-### Workflows
-
-- [Workflow name and purpose]
-
-### Dependencies
-
-- [Required systems or files]
-
-### API Interactions
-
-- [External systems accessed]
-
-Example:
-
-- **Triggered by**: `.github/workflows/labeling.yml`
-- **Uses config**: `.github/labels.yml`
-- **Syncs with**: GitHub Projects via project-meta-sync
-```
-
-#### 6. References
-
-```markdown
-## References
-
-### Documentation
-
-- [Document name and link]
-
-### Configuration
-
-- [Config file and purpose]
-
-### Related Agents
-
-- [Agent name and relationship]
-
-Example:
-
-- [Canonical Labels](../../.github/automation/labels.yml)
-- [Label Strategy](../../docs/LABEL_STRATEGY.md)
-- [Automation Governance](../../.github/AUTOMATION_GOVERNANCE.md)
+```mermaid
+flowchart TD
+    A([Spec Drafted]) --> B[Frontmatter Validation]
+    B --> C[Add to Agent Index]
+    C --> D[Maintainer Review]
+    D --> E[Governance Review]
+    E --> Decision{Approved?}
+    Decision -->|No| Revise[Return to Author]
+    Decision -->|Yes| Publish([Merge + Begin Implementation])
 ```
 
 ---
 
-## Implementation Patterns
+# 6. Frontmatter Governance Rules
 
-### Agent Code Organization
+Frontmatter is **machine-validated**. Errors break CI.
 
-```
-.github/agents/
-├── agent-name.agent.md          # Specification
-├── agent-name.agent.js          # Implementation
-├── includes/                     # Shared utilities
-│   ├── label-lookup.js
-│   ├── status-enforcer.js
-│   └── label-reporting.js
-└── __tests__/                    # Test suite
-    └── agent-name.agent.test.js
-```
+### Required
 
-### Implementation Template
+- `file_type: "agent"`
+- `name:` unique across repository
+- `description:` concise behaviour overview
+- `version:` semantic
+- `last_updated:` ISO date
+- `owners:` responsible maintainers
 
-```javascript
-/**
- * agent-name.agent.js
- * [Brief description]
- *
- * @module agent-name.agent.js
- * @author LightSpeedWP
- * @see .github/agents/agent-name.agent.md for specification
- */
+### Recommended (strongly encouraged)
 
-import core from "@actions/core";
-import github from "@actions/github";
+- `category:` automation / governance / documentation
+- `status:` draft / active / deprecated / experimental
+- `tools:` list *exact* allowed capabilities
+- `target:` github-copilot / actions / workspace
+- `visibility:` public / internal
+- `metadata.guardrails:` human-written hard limits
 
-/**
- * Main orchestrator for Agent Name Agent.
- * @param {Object} opts - Configuration options
- * @returns {Promise<void>}
- */
-async function runAgent(opts = {}) {
-  try {
-    // 1. Initialize
-    const context = opts.context || github.context;
-    const octokit =
-      opts.github ||
-      github.getOctokit(
-        core.getInput("github-token") || process.env.GITHUB_TOKEN,
-      );
+### Agent-specific fields
 
-    // 2. Validate inputs
-    validateInputs(context);
+- `handoffs:` to specify multi-agent orchestration
+- `references:` linking workflows, schemas, instructions
+- `language:` default natural language for outputs
 
-    // 3. Execute main logic
-    await executeMainLogic(context, octokit, opts);
+### Mermaid: Frontmatter Scope Map
 
-    // 4. Report results
-    core.info("[agent-name] Completed successfully.");
-  } catch (error) {
-    core.setFailed(`[agent-name] Error: ${error.message}`);
-  }
-}
-
-/**
- * Validate required inputs
- */
-function validateInputs(context) {
-  // Validation logic
-}
-
-/**
- * Execute main agent logic
- */
-async function executeMainLogic(context, octokit, opts) {
-  // Implementation
-}
-
-// Export for testing
-export { runAgent };
-
-// Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  runAgent().catch((error) => {
-    core.setFailed(error.message);
-  });
-}
+```mermaid
+mindmap
+  root((Frontmatter))
+    Required
+      file_type
+      name
+      description
+      version
+      last_updated
+      owners
+    Recommended
+      category
+      status
+      visibility
+      tools
+    Agent-Specific
+      handoffs
+      references
+      metadata.guardrails
+    Validation
+      semantic versioning
+      ISO date
+      unique naming
 ```
 
 ---
 
-## Testing Requirements
+# 7. Publishing Workflow (Spec → Implementation)
 
-### Test Structure
+1. Draft `.agent.md` following this governance document
+2. Validate frontmatter
 
-Every agent **MUST** have corresponding tests:
+   ```bash
+   npm run validate:agents
+   ```
 
-```javascript
-/**
- * Tests for agent-name.agent.js
- * @see .github/agents/agent-name.agent.md for specification
- */
+3. Add entry to `.github/agents/agent.md`
+4. Commit the **spec only**
+5. Write the `.agent.js` implementation
+6. Write tests (`__tests__/`)
+7. Run validation, linting, and test suites
+8. Submit PR containing:
 
-const { runAgent } = require("../agent-name.agent.js");
-const {
-  mockOctokit,
-  mockContext,
-  setTestEnv,
-  resetTestEnv,
-} = require("../../tests/test-helpers");
+   - spec
+   - implementation
+   - tests
+   - agent index update
 
-describe("Agent Name Agent", () => {
-  beforeAll(() => setTestEnv({ GITHUB_TOKEN: "test" }));
-  afterAll(() => resetTestEnv(["GITHUB_TOKEN"]));
+### Mermaid: Full Publishing Pipeline
 
-  it("should initialize without error", () => {
-    expect(runAgent).toBeDefined();
-  });
+```mermaid
+sequenceDiagram
+    participant H as Human Author
+    participant CI as CI Validation
+    participant Git as GitHub Repo
+    participant Gov as Governance Reviewer
 
-  it("should execute main functionality", async () => {
-    const octokit = mockOctokit();
-    const context = mockContext();
-
-    await runAgent({ context, github: octokit, dryRun: false });
-
-    // Assertions
-    expect(octokit.rest.issues.addLabels).toHaveBeenCalled();
-  });
-
-  it("should handle errors gracefully", async () => {
-    // Error handling tests
-  });
-});
+    H->>H: Draft agent spec (.agent.md)
+    H->>CI: Run validate:agents
+    CI->>H: Validation Success/Fail
+    H->>Git: Commit + PR (spec only)
+    Gov->>Git: Review + Approve
+    H->>Git: Commit Implementation + Tests
+    CI->>Git: Validate + Test
+    Git->>H: Ready to Merge
 ```
-
-### Required Test Coverage
-
-- ✅ Initialization and configuration
-- ✅ Main execution path
-- ✅ Error handling
-- ✅ Dry-run mode
-- ✅ Edge cases
-- ✅ Integration with utilities
 
 ---
 
-## Validation and Quality Gates
+# 8. Long-Term Governance & Maintenance
 
-### Automated Validation
+Agents are **living components** of the automation ecosystem.
 
-All agent specifications are validated automatically:
+Review an agent if:
+
+- its behaviour drifts from the spec
+- GitHub APIs or repository workflows change
+- new organisational rules affect safety
+- the toolchain changes (e.g., new CI patterns)
+- its responsibilities grow beyond original scope
+
+### Deprecation Rules
+
+Deprecate an agent when:
+
+- another agent supersedes it
+- its workflow becomes obsolete
+- it introduces unavoidable risk
+
+Deprecation requires:
+
+- updating status to `deprecated`
+- documenting migration path
+- removing from active orchestration
+
+---
+
+# 9. Quality Gates (Human + Machine)
+
+A spec **must not pass review** unless:
+
+- Behaviour is deterministic
+- Safety guardrails prevent destructive actions
+- Scope is tightly written
+- Inputs/outputs are fully defined
+- References resolve correctly
+- Responsibilities do NOT overlap another agent
+
+CI quality gates:
+
+- frontmatter schema validation
+- markdown linting
+- references must be resolvable
+- tests must cover happy paths + edge cases + failure modes
+
+---
+
+# 10. Agent Lifecycle Maturity Model
+
+To avoid premature complexity, agents evolve through stages:
+
+```mermaid
+flowchart LR
+    Draft --> Prototype --> Active --> Mature --> Deprecated
+```
+
+### Draft
+
+Spec written, no implementation.
+
+### Prototype
+
+Partial implementation exists, high iteration expected.
+
+### Active
+
+Fully implemented, tested, and used.
+
+### Mature
+
+Stable, minimal changes expected.
+
+### Deprecated
+
+Retired but kept for archive/migration purposes.
+
+---
+
+# 11. Cross-Agent Collaboration & Handoffs
+
+Some workflows require multiple agents acting in sequence.
+
+Use `handoffs:` to define:
+
+- **what triggers a handoff**
+- **what data or context is passed**
+- **which agent receives the handoff**
+- **whether the handoff is automatic or manual**
+
+This enables predictable multi-agent orchestration.
+
+Example patterns:
+
+- Labeling → Reviewer
+- Planner → Implementation Agent
+- Auditor → Metadata Agent
+
+### Mermaid: Handoff Example
+
+```mermaid
+flowchart TD
+    A[Labeling Agent] --> B{Conditions Met?}
+    B -->|Yes| C[Reviewer Agent]
+    B -->|No| D[No Handoff]
+```
+
+---
+
+# 12. Quick Start Template
 
 ```bash
-# Frontmatter validation
-npm run validate:agents
-
-# Linting
-npm run lint:md
-
-# Testing
-npm test
+cp .github/agents/template.agent.md .github/agents/my-agent.agent.md
 ```
 
-### Manual Checklist
-
-Before submitting an agent specification:
-
-- [ ] Frontmatter includes all required fields
-- [ ] Version follows semantic versioning
-- [ ] Description is clear and concise
-- [ ] All sections are complete
-- [ ] References are valid and accessible
-- [ ] Implementation file exists
-- [ ] Tests are comprehensive
-- [ ] Documentation is up-to-date
-- [ ] Follows naming conventions
-- [ ] Includes guardrails and safety rules
-
-### Validation Script
-
-```javascript
-// scripts/validation/validate-agent-frontmatter.js
-import fs from "fs";
-import yaml from "js-yaml";
-import Ajv from "ajv";
-
-const schema = JSON.parse(
-  fs.readFileSync("schemas/agent-frontmatter.schema.json", "utf8"),
-);
-
-function validateAgentSpec(filePath) {
-  const content = fs.readFileSync(filePath, "utf8");
-  const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-
-  if (!frontmatterMatch) {
-    throw new Error(`No frontmatter found in ${filePath}`);
-  }
-
-  const frontmatter = yaml.load(frontmatterMatch[1]);
-  const ajv = new Ajv();
-  const validate = ajv.compile(schema);
-
-  if (!validate(frontmatter)) {
-    throw new Error(`Invalid frontmatter: ${JSON.stringify(validate.errors)}`);
-  }
-
-  return true;
-}
-```
+Then follow the governance checklist on this page.
 
 ---
 
-## Examples and Templates
+# 13. References
 
-### Example 1: Simple Automation Agent
-
-```markdown
----
-name: "badge-updater"
-description: "Automates workflow badge updates in README files"
-file_type: "agent"
-version: "v1.0"
-last_updated: "2025-01-15"
-owners: ["lightspeedwp/maintainers"]
-tags: ["badges", "automation", "readme"]
-category: "documentation"
-status: "active"
----
-
-# Badge Updater Agent
-
-## Purpose
-
-Automatically discover, generate, and update workflow badges in README.md files.
-
-## Responsibilities
-
-- Scan `.github/workflows/` for active workflows
-- Generate badge markdown for each workflow
-- Insert/update badge block in README files
-- Maintain badge formatting consistency
-
-## Process
-
-1. Detect README file changes or workflow updates
-2. Scan workflow directory
-3. Generate badge markdown
-4. Update README between markers
-5. Commit changes (if authorized)
-
-## Guardrails
-
-- Only update content between `<!-- BADGES-START -->
-[![changelog](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml)
-[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
-[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
-[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
-[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
-[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
-[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
-[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
-[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
-[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
-[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
-[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-<!-- BADGES-END -->`
-- Never modify content outside badge block
-- Create backup before modifications
-- Log all changes
-
-## Integration
-
-- Triggered by `.github/workflows/badges.yml`
-- Uses `scripts/includes/badges.js` utilities
-
-## References
-
-- [Badge Documentation](../../docs/BADGES.md)
-- [Implementation](./badge-updater.agent.js)
-```
-
-### Example 2: Complex Multi-Function Agent
-
-See [labeling.agent.md](../.github/agents/labeling.agent.md) for a comprehensive example of a complex agent with:
-
-- Multiple responsibilities
-- Extensive guardrails
-- Complex integration points
-- Comprehensive references
-
----
-
-## Common Patterns
-
-### Pattern 1: Event-Driven Agent
-
-Agents that respond to GitHub events (issues, PRs, pushes):
-
-```yaml
-triggers:
-  - issue creation
-  - PR opened
-  - label change
-
-process: 1. Detect event
-  2. Analyze context
-  3. Apply rules
-  4. Update resources
-  5. Log actions
-```
-
-### Pattern 2: Scheduled Agent
-
-Agents that run on a schedule:
-
-```yaml
-triggers:
-  - cron: "0 6 * * 1" # Weekly
-  - workflow_dispatch
-
-process: 1. Collect data
-  2. Analyze metrics
-  3. Generate report
-  4. Deliver output
-```
-
-### Pattern 3: Validation Agent
-
-Agents that validate content or configurations:
-
-```yaml
-triggers:
-  - PR submission
-  - configuration change
-
-process: 1. Load schema
-  2. Validate content
-  3. Report errors
-  4. Block if critical
-```
-
----
-
-## Troubleshooting
-
-### Common Issues
-
-#### Issue: Frontmatter validation fails
-
-**Solution**: Ensure all required fields are present and correctly formatted:
-
-```bash
-npm run validate:agents -- .github/agents/your-agent.agent.md
-```
-
-#### Issue: References not resolving
-
-**Solution**: Use relative paths from the agent file location:
-
-```yaml
-references:
-  - path: "../workflows/agent.yml" # Correct
-  - path: ".github/workflows/agent.yml" # Incorrect
-```
-
-#### Issue: Agent not appearing in index
-
-**Solution**: Ensure the agent is registered in `agent.md`:
-
-```markdown
-| [your-agent.agent.md](./your-agent.agent.md) | Description |
-```
-
----
-
-## References
-
-### Core Documentation
-
-- [Agents Directory README](../.github/agents/README.md)
-- [Main Agent Index](../.github/agents/agent.md)
-- [Agent Template](../.github/agents/template.agent.md)
-- [Automation Instructions](../.github/instructions/automation.instructions.md)
-
-### Schema and Validation
-
-- [Frontmatter Schema](../schemas/frontmatter.schema.json)
-- [Validation Scripts](../scripts/validation/)
-
-### Related Standards
-
-- [Coding Standards](../.github/instructions/coding-standards.instructions.md)
-- [Quality Assurance](../.github/instructions/quality-assurance.instructions.md)
-- [Documentation Standards](../.github/instructions/docs.instructions.md)
-
-### Examples
-
-- [Labeling Agent](../.github/agents/labeling.agent.md) - Complex automation
-- [Reviewer Agent](../.github/agents/reviewer.agent.md) - PR review automation
-- [Meta Agent](../.github/agents/meta.agent.md) - Metadata and content management
-
----
-
-## Quick Start Checklist
-
-Ready to create a new agent? Follow this checklist:
-
-1. [ ] Copy template from `.github/agents/template.agent.md`
-2. [ ] Update frontmatter with all required fields
-3. [ ] Fill in all documentation sections
-4. [ ] Create implementation file (`.agent.js`)
-5. [ ] Write comprehensive tests
-6. [ ] Add references to related files
-7. [ ] Update main agent index
-8. [ ] Run validation: `npm run validate:agents`
-9. [ ] Run tests: `npm test`
-10. [ ] Submit PR with complete documentation
+- Organisation-wide agent index (`.github/agents/agent.md`)
+- Agent Specification Authoring Guide
+- Frontmatter schema (`schemas/frontmatter.schema.json`)
+- Agent instructions (`agent-spec.instructions.md`)
 
 ---
 
