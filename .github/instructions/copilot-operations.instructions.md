@@ -62,8 +62,6 @@ Applies to all Copilot/agent work in this repository. Covers behaviour guardrail
 
 ## References
 
-- `.github/instructions/instructions.instructions.md`
-- `.github/instructions/file-organisation.instructions.md`
-- `.github/instructions/coding-standards.instructions.md`
-
----
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)
+- [coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)

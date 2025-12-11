@@ -331,6 +331,6 @@ Each requirement must be:
 
 ## References
 
-- `.github/instructions/file-organisation.instructions.md`
-- `.github/instructions/task-implementation.instructions.md`
-- `.github/instructions/instructions.instructions.md`
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)
+- [task-implementation.instructions.md](.github/instructions/task-implementation.instructions.md)
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)

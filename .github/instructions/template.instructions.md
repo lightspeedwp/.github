@@ -126,5 +126,5 @@ You are a [role]. Follow our [framework/patterns] to [type of task]. Avoid [prac
 
 ## References
 
-- `.github/instructions/instructions.instructions.md`
-- `.github/instructions/file-organisation.instructions.md`
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)

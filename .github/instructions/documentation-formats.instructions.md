@@ -44,20 +44,6 @@ Applies to Markdown files across the repository. Covers formatting rules, frontm
 - Validate frontmatter against repo schemas where applicable.
 - Use Mermaid preview/render checks and contrast verification for diagrams.
 
-## References
-
-- `.github/instructions/readme.instructions.md`
-- `.github/instructions/a11y.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-
-This document consolidates standards for Markdown formatting, YAML frontmatter metadata, and Mermaid diagram implementation across all GitHub repository documentation and community health files.
-
-## Purpose
-
-Ensure consistent, accessible, and well-structured documentation that supports automation, discoverability, and maintainability across GitHub repositories.
-
----
-
 ## Table of Contents
 
 - [Markdown Standards](#markdown-standards)
@@ -594,33 +580,19 @@ jobs:
 
 ## References
 
-### Markdown
-
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [readme.instructions.md](.github/instructions/readme.instructions.md)
+- [a11y.instructions.md](.github/instructions/a11y.instructions.md)
+- [languages.instructions.md](.github/instructions/languages.instructions.md)
+- [linting.instructions.md](.github/instructions/linting.instructions.md)
 - [markdownlint Documentation](https://github.com/DavidAnson/markdownlint)
 - [Prettier Markdown Support](https://prettier.io/docs/en/options.html#prose-wrap)
 - [GitHub Flavored Markdown](https://github.github.com/gfm/)
 - [CommonMark Specification](https://commonmark.org/)
-
-### YAML Frontmatter
-
 - [YAML Specification](https://yaml.org/spec/)
 - [JSON Schema](https://json-schema.org/)
 - [GitHub Issue Templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests)
-
-### Mermaid
-
 - [Mermaid Documentation](https://mermaid.js.org/)
 - [GitHub Mermaid Support](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/)
 - [Mermaid Live Editor](https://mermaid.live)
 - [W3C Complex Images](https://www.w3.org/WAI/tutorials/images/complex/)
-
-### Related Instructions
-
-- [Coding Standards](./coding-standards.instructions.md)
-- [Languages Standards](./languages.instructions.md)
-- [Accessibility Standards](./a11y.instructions.md)
-- [Linting Standards](./linting.instructions.md)
-
----
-
-*This document consolidates documentation format standards for GitHub community health repositories. All documentation must follow these standards for consistency, accessibility, and automation compatibility.*

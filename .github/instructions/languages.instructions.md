@@ -44,20 +44,6 @@ Applies to JS/TS, JSON, and YAML across automation, workflows, and configs. Cove
 - Validate JSON with schemas (e.g., AJV) and run yamllint/actionlint for YAML.
 - Ensure JSDoc comments align with types and lint rules.
 
-## References
-
-- `.github/instructions/linting.instructions.md`
-- `.github/instructions/coding-standards.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-
-This document consolidates linting, formatting, and documentation standards for JavaScript/TypeScript, JSON, and YAML files used across GitHub repositories and community health documentation.
-
-## Purpose
-
-Ensure consistent code quality, formatting, and documentation across all programming languages used in repository automation, GitHub Actions workflows, configuration files, and community health documentation.
-
----
-
 ## Table of Contents
 
 - [JavaScript & TypeScript](#javascript--typescript)
@@ -442,33 +428,19 @@ jobs:
 
 ## References
 
-### JavaScript/TypeScript
-
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [linting.instructions.md](.github/instructions/linting.instructions.md)
+- [coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)
+- [documentation-formats.instructions.md](.github/instructions/documentation-formats.instructions.md)
+- [workflows.instructions.md](.github/instructions/workflows.instructions.md)
 - [ESLint Documentation](https://eslint.org/)
 - [Prettier Documentation](https://prettier.io/)
 - [TypeScript Documentation](https://www.typescriptlang.org/)
 - [JSDoc Documentation](https://jsdoc.app/)
-
-### JSON
-
 - [JSON Schema Specification](https://json-schema.org/draft/2020-12/schema)
 - [AJV Documentation](https://ajv.js.org/)
 - [Prettier JSON Support](https://prettier.io/docs/en/options.html)
-
-### YAML
-
 - [YAML Specification](https://yaml.org/spec/)
 - [yamllint Documentation](https://yamllint.readthedocs.io/)
 - [Spectral Documentation](https://github.com/stoplightio/spectral)
 - [actionlint Documentation](https://github.com/rhysd/actionlint)
-
-### Related Instructions
-
-- [Coding Standards](./coding-standards.instructions.md)
-- [Linting Standards](./linting.instructions.md)
-- [Workflows](./workflows.instructions.md)
-- [Documentation Formats](./documentation-formats.instructions.md)
-
----
-
-*This document consolidates language-specific standards for GitHub community health repositories. All code must follow these standards for consistency and automation compatibility.*

@@ -98,12 +98,6 @@ Ensure all Copilot- and agent-generated files live in predictable, correct locat
 - Confirm temp files are cleaned from `.github/tmp/` after promotion.
 - Verify naming is kebab-case with dates where useful.
 
-## References
-
-- `.github/instructions/instructions.instructions.md`
-- `.github/instructions/readme.instructions.md`
-- `.github/instructions/reporting.instructions.md`
-
 ## Decision Checklist (before creating a file)
 
 - [ ] Identify file type (report, project, doc, agent, instruction, prompt, temp).
@@ -116,3 +110,9 @@ Ensure all Copilot- and agent-generated files live in predictable, correct locat
 ## Deprecated Path
 
 `file-output-organization.instructions.md` is superseded by this file. Update references to use the UK English spelling: `file-organisation.instructions.md`.
+
+## References
+
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [readme.instructions.md](.github/instructions/readme.instructions.md)
+- [reporting.instructions.md](.github/instructions/reporting.instructions.md)

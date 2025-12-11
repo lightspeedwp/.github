@@ -40,13 +40,6 @@ Applies to all Mermaid diagrams in this repository. Covers when to use diagrams,
 - Check labels, alt text, and prose context accompany each diagram.
 - Run markdownlint/Prettier on files containing diagrams.
 
-## References
-
-- `.github/instructions/readme.instructions.md`
-- `.github/instructions/documentation-formats.instructions.md`
-- `.github/instructions/a11y.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-
 ## Scope
 
 Use this file for **how** to create high-quality Mermaid diagrams: layout, styling, accessibility (including **WCAG AA contrast**), and validation. For **when** a README must include a diagram, follow `readme.instructions.md` (mandatory/optional/unnecessary rules). For placement/naming, see `file-organisation.instructions.md`.
@@ -436,8 +429,11 @@ flowchart TD
 
 ## References
 
-- `readme.instructions.md` — when diagrams are required/optional in READMEs.
-- `file-organisation.instructions.md` — placement/naming of files.
-- Mermaid docs: <https://mermaid.js.org/>
-- GitHub support: <https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/>
-- Accessibility: <https://www.w3.org/WAI/tutorials/images/complex/>
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [readme.instructions.md](.github/instructions/readme.instructions.md)
+- [documentation-formats.instructions.md](.github/instructions/documentation-formats.instructions.md)
+- [a11y.instructions.md](.github/instructions/a11y.instructions.md)
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)
+- [Mermaid Documentation](https://mermaid.js.org/)
+- [GitHub Mermaid Support](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/)
+- [W3C Complex Images](https://www.w3.org/WAI/tutorials/images/complex/)

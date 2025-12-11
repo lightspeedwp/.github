@@ -43,21 +43,6 @@ Applies to testing and QA across code, automation, and workflows. Covers strateg
 - Verify CI pipelines enforce tests and quality gates.
 - Ensure test configs and scripts match documentation.
 
-## References
-
-- `.github/instructions/linting.instructions.md`
-- `.github/instructions/coding-standards.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-- Relevant workflow files (e.g., `.github/workflows/test*.yml`)
-
-This document consolidates testing, validation, and quality assurance standards for all code, automation, and workflows in GitHub repositories and community health documentation.
-
-## Purpose
-
-Ensure reliable, maintainable, and high-quality code through comprehensive testing strategies, automated validation, and continuous quality monitoring across all repository components.
-
----
-
 ## Table of Contents
 
 - [Testing Strategy](#testing-strategy)
@@ -564,33 +549,25 @@ tests/
     └── issue-lifecycle.e2e.test.js
 ```
 
+
+*This document consolidates quality assurance standards for GitHub community health repositories. All code must be tested and validated before merge.*
+
 ---
 
 ## References
 
-### Jest
-
+- [instructions.instructions.md](./instructions.instructions.md)
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)
+- [linting.instructions.md](.github/instructions/linting.instructions.md)
+- [workflows.instructions.md](.github/instructions/workflows.instructions.md)
+- [languages.instructions.md](.github/instructions/languages.instructions.md)
+- [test workflows](.github/workflows/test*.yml)
 - [Jest Documentation](https://jestjs.io/)
 - [Jest Best Practices](https://jestjs.io/docs/best-practices)
 - [Testing Library](https://testing-library.com/)
-
-### Testing Principles
-
 - [Test Pyramid](https://martinfowler.com/articles/practical-test-pyramid.html)
 - [AAA Pattern](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/)
-
-### Coverage
-
 - [Istanbul Coverage](https://istanbul.js.org/)
 - [Codecov](https://about.codecov.io/)
-
-### Related Instructions
-
-- [Coding Standards](./coding-standards.instructions.md)
-- [Languages Standards](./languages.instructions.md)
-- [Workflows](./workflows.instructions.md)
-- [Linting Standards](./linting.instructions.md)
-
----
-
-*This document consolidates quality assurance standards for GitHub community health repositories. All code must be tested and validated before merge.*

@@ -39,13 +39,6 @@ Applies to all `README.md` files (root and subfolders). Covers required sections
 - Confirm diagram policy applied (mandatory/optional/unnecessary rationale).
 - Check links, commands, and references for accuracy; ensure badges/footers work with meta agent.
 
-## References
-
-- `.github/instructions/docs.instructions.md`
-- `.github/instructions/mermaid.instructions.md`
-- `.github/instructions/file-organisation.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-
 ## Scope & Purpose
 
 These rules apply to every `README.md` in the repository (root and subfolders). They ensure consistency, clarity, accessibility, and alignment with automation agents (`meta.agent`, `linting.agent`). Follow `file-organisation.instructions.md` for where files belong, and `mermaid.instructions.md` for how to craft diagrams.
@@ -119,3 +112,12 @@ Add/maintain:
 - [ ] Links/references verified.
 - [ ] Commands tested or marked as examples.
 - [ ] Language/spelling in UK English.
+
+## References
+
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [docs.instructions.md](.github/instructions/docs.instructions.md)
+- [documentation-formats.instructions.md](.github/instructions/documentation-formats.instructions.md)
+- [a11y.instructions.md](.github/instructions/a11y.instructions.md)
+- [mermaid.instructions.md](.github/instructions/mermaid.instructions.md)
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)

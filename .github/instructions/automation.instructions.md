@@ -63,16 +63,6 @@ Ensure consistent, reliable, and maintainable automation across GitHub repositor
 - Validate workflows with `actionlint` and ensure actions are pinned to SHAs.
 - Check labeler/labels/issue-types YAML against schemas where provided.
 
-## References
-
-- `.github/instructions/instructions.instructions.md`
-- `.github/instructions/workflows.instructions.md`
-- `.github/instructions/labeling.instructions.md`
-- `.github/instructions/file-organisation.instructions.md`
-- `.github/agents/agent.md`
-
----
-
 ## Automation Architecture
 
 ### System Overview
@@ -179,7 +169,7 @@ What this agent does and why it exists.
 - Validation requirements
 - Failure handling
 
-## References
+## Template References
 
 - Related workflows
 - Documentation
@@ -774,21 +764,15 @@ echo $?
 
 ## References
 
-### Documentation
-
-- [GitHub Actions](https://docs.github.com/en/actions)
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [workflows.instructions.md](.github/instructions/workflows.instructions.md)
+- [labeling.instructions.md](.github/instructions/labeling.instructions.md)
+- [pull-requests.instructions.md](.github/instructions/pull-requests.instructions.md)
+- [issues.instructions.md](.github/instructions/issues.instructions.md)
+- [quality-assurance.instructions.md](.github/instructions/quality-assurance.instructions.md)
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)
+- [agent.md](.github/agents/agent.md)
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [GitHub API](https://docs.github.com/en/rest)
 - [Semantic Versioning](https://semver.org/)
 - [Keep a Changelog](https://keepachangelog.com/)
-
-### Related Instructions
-
-- [Workflows](./workflows.instructions.md)
-- [Labeling](./labeling.instructions.md)
-- [Pull Requests](./pull-requests.instructions.md)
-- [Issues](./issues.instructions.md)
-- [Quality Assurance](./quality-assurance.instructions.md)
-
----
-
-*This document consolidates automation standards for GitHub community health repositories. All automation must follow these standards for consistency and reliability.*

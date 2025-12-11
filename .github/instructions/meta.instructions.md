@@ -58,14 +58,6 @@ Applies to the Meta Agent that updates Markdown front matter, badges, references
 - Verify backups restore on validation errors.
 - Confirm badges/references/footers are in correct positions post-run.
 
-## References
-
-- `.github/instructions/instructions.instructions.md`
-- `.github/instructions/documentation-formats.instructions.md`
-- `../../scripts/agents/meta.agent.js`
-- `../../schemas/frontmatter.schema.json`
-- `../../schemas/header-footer-agent/agent-config.schema.json`
-
 The **Meta Agent** keeps Markdown documentation consistent by managing four metadata layers in a single pass:
 
 - **Front matter:** Validate and enrich YAML front matter; respect `no_meta: true` opt-outs (and legacy `no_branding`).
@@ -95,15 +87,15 @@ The **Meta Agent** keeps Markdown documentation consistent by managing four meta
 - **Footers:** Selected by category (`category` or `file_type` in front matter; defaults to `default`).
 - **Banner:** Disabled by default; enable in `meta.agent.js` once assets are ready.
 
-## References
-
-- [Meta Agent Spec](./meta.agent.md)
-- [Meta Agent Script](../../scripts/agents/meta.agent.js)
-- [Meta Workflow](../workflows/meta.yml)
-- [Front Matter Schema](../../schemas/frontmatter.schema.json)
-- [Footer Selection Schema](../../schemas/header-footer-agent/agent-config.schema.json)
-
----
-
 Documentation lovingly automated by the LightSpeedWP 🛠️ team.  
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+## References
+
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [documentation-formats.instructions.md](.github/instructions/documentation-formats.instructions.md)
+- [Meta Agent Spec](.github/agents/meta.agent.md)
+- [Meta Agent Script](scripts/agents/meta.agent.js)
+- [Meta Workflow](.github/workflows/meta.yml)
+- [Front Matter Schema](.github/schemas/frontmatter.schema.json)
+- [Footer Selection Schema](.github/schemas/header-footer-agent/agent-config.schema.json)

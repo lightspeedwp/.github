@@ -43,13 +43,6 @@ Applies to linting across all supported file types. Covers linting library usage
 - Ensure CI lint workflows pass and configurations remain pinned.
 - Check instruction precedence when multiple linting guides apply.
 
-## References
-
-- `.github/instructions/coding-standards.instructions.md`
-- `.github/instructions/languages.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-- `.github/workflows/lint.yml`
-
 ![Linting Badge](https://img.shields.io/badge/linting-standards-brightgreen?style=flat-square)
 ![Quality Badge](https://img.shields.io/badge/code%20quality-enforced-blue?style=flat-square)
 
@@ -87,7 +80,7 @@ Validate and enforce linting standards for all supported file types (JS, TS, She
 
 ## Best Practices
 
-- Reference [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md).
+- Reference [LightSpeed Coding Standards](./coding-standards.instructions.md).
 - Output clear, actionable remediation steps.
 
 ## Guardrails
@@ -135,16 +128,6 @@ graph TD
 
 ---
 
-## Dynamic Reference
-
-All linting instruction files in this directory:
-
-- [`linting/*.instructions.md`](./linting/) — All Markdown files ending with `.instructions.md` inside the `linting/` folder are considered reusable linting instructions for Copilot Chat, GitHub Actions, VS Code, and workflow automation.
-
-> **When adding a new linting instruction file, ensure it has clear YAML frontmatter (`file_type: instructions`, `applyTo`, `description`), complies with our governance schema, and is listed below.**
-
----
-
 ## 🛠️ Linting Toolchain
 
 ```mermaid
@@ -168,20 +151,6 @@ graph LR
     K --> L
 ```
 
-## 📋 Explicit Linting Instructions File Index
-
-Below are all linting instruction files available in this folder. Each file defines standards, config, and tools for linting a specific file type:
-
-| File                                                                       | Description                                                                             |
-| -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| [linting-javascript.instructions.md](./linting-javascript.instructions.md) | Lint JavaScript/TypeScript with ESLint (flat/classic), Prettier, and project standards. |
-| [linting-json.instructions.md](./linting-json.instructions.md)             | Validate JSON files against schemas and enforce formatting with Prettier.               |
-| [linting-markdown.instructions.md](./linting-markdown.instructions.md)     | Lint Markdown for style and readability using markdownlint and Prettier.                |
-| [linting-tests.instructions.md](./linting-tests.instructions.md)           | Enforce consistent test style for Jest, Playwright, Python, and shell tests.            |
-| [linting-yaml.instructions.md](./linting-yaml.instructions.md)             | Lint YAML files and workflows using yamllint, Spectral, and actionlint.                 |
-
----
-
 ## Reference: Coding Standards
 
 For unified coding standards and documentation practices, see:
@@ -192,21 +161,21 @@ For unified coding standards and documentation practices, see:
 
 ## How to Use
 
-1. Copy the content of the relevant linting instruction.
-2. Paste it into GitHub Copilot Chat, your editor, or your workflow.
-3. Customize as needed for your project.
-4. Use the generated config, scripts, or workflow as a starting point.
+1. Apply the standards in this file and linked configs within Copilot Chat, your editor, and workflows.
+2. Run repository lint scripts locally (and in CI) to enforce the rules.
+3. Reuse pinned configs as-is; document any deviations with rationale.
+4. Keep remediation guidance actionable when surfacing lint findings.
 
 ---
 
 ## Creating or Updating Linting Instructions
 
-When creating or updating linting instructions for this directory:
+When creating or updating linting guidance:
 
-1. Use clear, descriptive filenames with the `linting-*.instructions.md` extension.
-2. Include a YAML frontmatter with `file_type: instructions`, `applyTo`, `description`, and other relevant fields per the frontmatter schema.
-3. Structure the instruction with clear setup steps, config references, tools, scripts, and links to org-wide documentation.
-4. Update this index to include the new or changed instruction.
+1. Use clear, descriptive filenames with the `linting-*.instructions.md` extension when adding per-language supplements.
+2. Include YAML frontmatter with `file_type: instructions`, `applyTo`, `description`, and other relevant fields per the frontmatter schema.
+3. Structure guidance with setup steps, config references, tools, scripts, and links to org-wide documentation.
+4. Keep this index in sync by linking any new linting files you add.
 
 ---
 
@@ -235,8 +204,9 @@ These linting instructions are part of the LightSpeed organization's community h
 
 ## References
 
-- [Linting Agent Spec](../../agents/linting.agent.md)
-- [Workflows Instructions](../workflows.instructions.md)
-- [Automation Governance](../../AUTOMATION_GOVERNANCE.md)
-
----
+- [instructions.instructions.md](./instructions.instructions.md)
+- [coding-standards.instructions.md](./coding-standards.instructions.md)
+- [languages.instructions.md](./languages.instructions.md)
+- [workflows.instructions.md](./workflows.instructions.md)
+- [Linting Agent Spec](.github/agents/linting.agent.md)
+- [Automation Governance](AUTOMATION_GOVERNANCE.md)

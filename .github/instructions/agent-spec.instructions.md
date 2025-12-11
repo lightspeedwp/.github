@@ -133,10 +133,10 @@ metadata:
 
 ## References
 
-- `AGENTS.md`
-- `.github/agents/template.agent.md`
-- `.github/instructions/instructions.instructions.md`
-- `.github/instructions/automation.instructions.md`
-- `.github/instructions/documentation-formats.instructions.md`
-- `.github/instructions/quality-assurance.instructions.md`
-- `SECURITY.md`
+- [AGENTS.md](AGENTS.md)
+- [template.agent.md](.github/agents/template.agent.md)
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [automation.instructions.md](.github/instructions/automation.instructions.md)
+- [documentation-formats.instructions.md](.github/instructions/documentation-formats.instructions.md)
+- [quality-assurance.instructions.md](.github/instructions/quality-assurance.instructions.md)
+- [SECURITY.md](SECURITY.md)

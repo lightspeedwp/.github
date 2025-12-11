@@ -93,12 +93,9 @@ Standard pipeline order: **lint → unit → e2e → build → release** (tag/ch
 
 ## References
 
-- `.github/instructions/instructions.instructions.md`
-- `.github/instructions/automation.instructions.md`
-- `.github/instructions/file-organisation.instructions.md`
-
-# References
-
-- <https://docs.github.com/en/actions>
-- <https://docs.github.com/en/actions/tutorials>
-- <https://docs.github.com/en/actions/tutorials/create-an-example-workflow>
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [automation.instructions.md](.github/instructions/automation.instructions.md)
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)
+- [GitHub Actions Tutorials](https://docs.github.com/en/actions/tutorials)
+- [Create an Example Workflow](https://docs.github.com/en/actions/tutorials/create-an-example-workflow)

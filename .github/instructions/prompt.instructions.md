@@ -82,12 +82,6 @@ Instructions for creating effective and maintainable prompt files that guide Git
 - Verify tool lists are minimal and documented; check formatting with markdownlint/Prettier.
 - Ensure referenced files/paths exist and links are valid.
 
-## References
-
-- `.github/instructions/instructions.instructions.md`
-- `.github/instructions/file-organisation.instructions.md`
-- `.github/instructions/coding-standards.instructions.md`
-
 ## Examples and Reusable Assets
 
 - Embed Good/Bad examples or scaffolds (Markdown templates, JSON stubs) that the prompt should produce or follow.
@@ -115,3 +109,9 @@ Instructions for creating effective and maintainable prompt files that guide Git
 - [Prompt Files Documentation](https://code.visualstudio.com/docs/copilot/customization/prompt-files#_prompt-file-format)
 - [Awesome Copilot Prompt Files](https://github.com/github/awesome-copilot/tree/main/prompts)
 - [Tool Configuration](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode#_agent-mode-tools)
+
+## References
+
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)
+- [coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)

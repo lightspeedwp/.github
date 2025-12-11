@@ -130,13 +130,6 @@ Every documentation file should start with YAML frontmatter including:
 - Validate links and frontmatter references after edits.
 - Use accessibility checks for headings, contrast (if styled), and alt text.
 
-## References
-
-- `.github/instructions/instructions.instructions.md`
-- `.github/instructions/readme.instructions.md`
-- `.github/instructions/a11y.instructions.md`
-- `.github/instructions/documentation-formats.instructions.md`
-
 ### Documentation Checklist
 
 - [ ] YAML frontmatter is present and complete
@@ -153,3 +146,10 @@ Every documentation file should start with YAML frontmatter including:
 - [ ] Contribution and review process described
 - [ ] Compliance/security info present if needed
 - [ ] Footer is present and complete
+
+## References
+
+- [instructions.instructions.md](./instructions.instructions.md)
+- [readme.instructions.md](./readme.instructions.md)
+- [a11y.instructions.md](./a11y.instructions.md)
+- [documentation-formats.instructions.md](./documentation-formats.instructions.md)

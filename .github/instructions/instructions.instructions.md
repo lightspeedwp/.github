@@ -76,7 +76,18 @@ Inside each `*.instructions.md` file, use this structure:
 3. **Detailed Guidance** – subsections for specific topics (for example naming, formatting, security, documentation).
 4. **Examples** – small, focused examples that show preferred and discouraged patterns.
 5. **Validation** – commands and tools to verify correctness (build, lint, tests, security checks).
-6. **References** – links or pointers to related documents in this repository (for example `CONTRIBUTING.md`, `SECURITY.md`, `GOVERNANCE.md`).
+6. **References** – repository-relative Markdown links to related documents in this repository (for example `CONTRIBUTING.md`, `SECURITY.md`, `GOVERNANCE.md`).
+
+Always place the `## References` section at the end of the file and express each reference as a Markdown link with a repository-relative path.
+
+## Updating Existing Instruction Files (merge-first approach)
+
+- **Preserve existing intent:** Before editing, read the whole file to capture current scope, constraints, and references. Keep existing section content where still correct.
+- **Merge, don’t overwrite:** When adding the role line and required sections, integrate with existing text instead of deleting it. Fold duplicate sections into the recommended layout (for example, combine two “Overview” blocks into one concise Overview).
+- **Handle duplicates:** If similar sections exist (e.g., two “References” lists), merge them into one section in the recommended order and remove repetition.
+- **Reference hygiene:** Verify existing references first; keep valid links, fix or remove broken ones, and add missing related docs. Ensure the `## References` section is a bulleted list placed at the very end of the file, and format each entry as a Markdown link using repository-relative paths (for example `- [CONTRIBUTING.md](.github/CONTRIBUTING.md)`).
+- **Section order:** Reorder content to match the layout above; do not drop unique guidance—move it to the appropriate section (Overview, General Rules, Detailed Guidance, Examples, Validation, References).
+- **Stylistic alignment:** Rewrite for concise, imperative language, UK English, and consistent bullets; avoid vague phrasing.
 
 ## Writing Style for Copilot-Facing Instructions
 
@@ -141,3 +152,9 @@ Explain when these standards apply and how they interact with project-specific r
 - Update examples when tools, workflows, or language versions change.
 - Ensure new instruction files are added to any index or documentation that lists available instructions.
 - Periodically review for duplication or conflicts with project-level guidance and resolve them in favour of clarity.
+
+## References
+
+- [MIGRATION_GUIDE.md](.github/instructions/MIGRATION_GUIDE.md)
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)

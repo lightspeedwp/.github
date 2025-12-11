@@ -34,13 +34,6 @@ Applies to labelling automation across issues, PRs, and discussions. Covers miss
 - Run labeling workflow dry-runs when adding new rules.
 - Check audit reports for one-hot enforcement and alias migrations.
 
-## References
-
-- `.github/labels.yml`
-- `.github/labeler.yml`
-- `.github/issue-types.yml`
-- `.github/instructions/instructions.instructions.md`
-
 ## Mission
 
 Automate the application, enforcement, and standardization of labels across issues, pull requests, and discussions. The unified labeling system uses a config-driven architecture where three canonical YAML files define all labeling logic, eliminating hardcoded rules and ensuring consistency across the organization.
@@ -318,31 +311,24 @@ A: The agent performs alias-based migration for legacy label names. If you see a
 2. Your old label name is listed as an alias and was automatically standardized
 3. The new canonical label name should now be used going forward
 
-## References
+## Execution Snapshot
 
-- [Labeling Agent Specification](../agents/labeling.agent.md)
-- [GitHub Actions Labeler Documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpull_requestpull-request-target-event-payload)
-- [Label Strategy Philosophy](../../docs/LABEL_STRATEGY.md)
-- [Automation Governance Policies](../../docs/AUTOMATION_GOVERNANCE.md)
-- [Issue Creation Guide](../../docs/ISSUE_CREATION_GUIDE.md)
-- [Pull Request Creation Process](../../docs/PR_CREATION_PROCESS.md)
-
-- Triggered on issue/PR open, update, or label events ([labeling.yml](../workflows/labeling.yml) - automation workflow).
-- Analyze content, files, and metadata.
-- Apply/remove labels as needed based on config (labeler.yml, labels.yml, issue-types.yml).
-- Enforce required labels (status, priority).
-- Remove redundant/conflicting labels.
+- Triggered on issue/PR open, update, or label events (`labeling.yml`).
+- Analyse content, files, and metadata.
+- Apply or remove labels based on `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml`.
+- Enforce required labels (`status:*`, `priority:*`, `type:*`).
+- Remove redundant or conflicting labels.
 
 ## What It Checks
 
 - Presence of status, priority, and type labels.
-- File path, branch, frontmatter-based label mapping.
+- File path, branch, and frontmatter-based label mapping.
 - Conflict and redundancy resolution.
 
 ## Best Practices
 
 - Keep label logic DRY and agent-driven.
-- Allow per-repo config (labels.yml, labeler.yml).
+- Allow per-repo config (`labels.yml`, `labeler.yml`).
 
 ## Guardrails
 
@@ -352,7 +338,19 @@ A: The agent performs alias-based migration for legacy label names. If you see a
 
 ## Outputs
 
-- Updated labels on issues/PRs.
+- Updated labels on issues and pull requests.
 - Action logs.
 
----
+## References
+
+- [labels.yml](../labels.yml)
+- [labeler.yml](../labeler.yml)
+- [issue-types.yml](../issue-types.yml)
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [workflows.instructions.md](.github/instructions/workflows.instructions.md)
+- [Labeling Agent Specification](../agents/labeling.agent.md)
+- [Label Strategy Philosophy](../../docs/LABEL_STRATEGY.md)
+- [Automation Governance Policies](../../docs/AUTOMATION_GOVERNANCE.md)
+- [Issue Creation Guide](../../docs/ISSUE_CREATION_GUIDE.md)
+- [Pull Request Creation Process](../../docs/PR_CREATION_PROCESS.md)
+- [GitHub Actions Labeler Documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpull_requestpull-request-target-event-payload)

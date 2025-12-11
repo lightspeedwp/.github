@@ -40,13 +40,6 @@ Applies to all issue templates and issue creation workflows. Covers frontmatter,
 - Verify labels meet one-hot rules and align with `labels.yml`/`labeler.yml`.
 - Confirm templates live under `.github/ISSUE_TEMPLATE/*.md`.
 
-## References
-
-- `.github/instructions/labeling.instructions.md`
-- `.github/instructions/pull-requests.instructions.md`
-- `.github/instructions/file-organisation.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-
 This document defines how to create, label, and manage Issues in LightSpeedWP repositories.  
 It covers templates, issue types, labels, frontmatter, and workflows, referencing all canonical guides, configs, and automation logic.  
 **All contributors, maintainers, and bots must follow these instructions for consistency, automation, and project health.**
@@ -87,7 +80,7 @@ labels: ["type:bug", "status:needs-triage", "priority:normal"]
 
 - `assignees`, `projects`, `milestone`, `type`, `references`
 
-See [frontmatter instructions](./frontmatter.instructions.md) and [frontmatter schema](../../schema/frontmatter.schema.json) for validation details.
+See [FRONTMATTER_SCHEMA.md](docs/FRONTMATTER_SCHEMA.md) and [frontmatter.schema.json](.github/schemas/frontmatter.schema.json) for validation details.
 
 ---
 
@@ -226,22 +219,22 @@ See [docs/frontmatter/issue-templates.md](../../docs/frontmatter/issue-templates
 
 ## 7. Frontmatter and Template Validation
 
-- All templates and issues must validate against the [frontmatter.schema.json](../../schema/frontmatter.schema.json).
-- Use [frontmatter.instructions.md](./frontmatter.instructions.md) for full schema details.
+- All templates and issues must validate against the [frontmatter.schema.json](.github/schemas/frontmatter.schema.json).
+- Use [FRONTMATTER_SCHEMA.md](docs/FRONTMATTER_SCHEMA.md) for full schema details.
 
----
-
-## 8. References
-
-- [Labeling Strategy](../../docs/LABEL_STRATEGY.md)
-- [Canonical Labels](../../.github/labels.yml)
-- [Labeler Rules](../../.github/labeler.yml)
-- [Issue Types](../../.github/ISSUE_TYPES.md)
-- [Workflows](../../docs/WORKFLOWS.md)
-- [Automated Labeling](../agents/labeling.agent.js)
-
----
 
 **For questions or clarifications, see the project’s [CONTRIBUTING.md](../../CONTRIBUTING.md) or open a GitHub Discussion.**
 
----
+
+## References
+
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)
+- [labeling.instructions.md](.github/instructions/labeling.instructions.md)
+- [pull-requests.instructions.md](.github/instructions/pull-requests.instructions.md)
+- [Label Strategy](docs/LABEL_STRATEGY.md)
+- [Canonical Labels](.github/labels.yml)
+- [Labeler Rules](.github/labeler.yml)
+- [Issue Types](.github/issue-types.yml)
+- [Workflows](docs/WORKFLOWS.md)
+- [Automated Labeling](scripts/agents/labeling.agent.js)

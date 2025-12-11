@@ -90,7 +90,7 @@ Provide a brief rationale for **keeping or removing** this tool:
 - **Cost:** The overhead it introduces (maintenance effort, longer commit times, etc.).
 - **Decision:** State whether we plan to _Keep_ or _Retire_ the tool and why. For example, _“**Keep** – high lint coverage prevents bugs, worth the minor config upkeep”_ or _“**Retire** – low usage and high maintenance (see Audit)”._
 
-## References
+## Reference Guidance
 
 Link to relevant files and external docs:
 
@@ -113,5 +113,5 @@ _By following this template, every `docs/config/_` page will be structured unifo
 
 ## References
 
-- `.github/instructions/instructions.instructions.md`
-- `.github/instructions/file-organisation.instructions.md`
+- [instructions.instructions.md](./instructions.instructions.md)
+- [file-organisation.instructions.md](./file-organisation.instructions.md)

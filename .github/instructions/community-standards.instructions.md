@@ -358,7 +358,7 @@ How to use or interact with contents.
 ├── file2.js - Description
 └── folder/ - Description
 
-## References
+## Template References
 
 - [Link to related docs]
 - [Link to instructions]
@@ -434,7 +434,7 @@ What this folder contains and why.
 
 How to use files in this folder.
 
-## References
+## Template References
 
 - [Related documentation]
 ````
@@ -683,30 +683,24 @@ build/
 coverage/
 ```
 
+
+*This document consolidates community health standards for GitHub repositories. All files and documentation must follow these standards for consistency and professionalism.*
+
 ---
 
 ## References
 
-### GitHub Documentation
-
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)
+- [documentation-formats.instructions.md](.github/instructions/documentation-formats.instructions.md)
+- [readme.instructions.md](.github/instructions/readme.instructions.md)
+- [automation.instructions.md](.github/instructions/automation.instructions.md)
+- [workflows.instructions.md](.github/instructions/workflows.instructions.md)
+- [issues.instructions.md](.github/instructions/issues.instructions.md)
+- [pull-requests.instructions.md](.github/instructions/pull-requests.instructions.md)
 - [Community Health Files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions)
 - [About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
 - [Saved Replies](https://docs.github.com/en/get-started/writing-on-github/working-with-saved-replies/using-saved-replies)
-
-### Best Practices
-
 - [README Best Practices](https://www.makeareadme.com/)
 - [Open Source Guides](https://opensource.guide/)
 - [Conventional Commits](https://www.conventionalcommits.org/)
-
-### Related Instructions
-
-- [Documentation Formats](./documentation-formats.instructions.md)
-- [Automation](./automation.instructions.md)
-- [Workflows](./workflows.instructions.md)
-- [Issues](./issues.instructions.md)
-- [Pull Requests](./pull-requests.instructions.md)
-
----
-
-*This document consolidates community health standards for GitHub repositories. All files and documentation must follow these standards for consistency and professionalism.*

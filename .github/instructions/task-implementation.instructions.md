@@ -160,17 +160,13 @@ Implementation is complete when:
 - Ensure code passes relevant tests/lints and follows workspace patterns.
 - Confirm divergences are documented with reasons.
 
-## References
-
-- `.github/instructions/file-organisation.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-- ✅ Changes file is updated after every task completion with Added, Modified, or Removed entries
-- ✅ Changes file documents all phases with detailed release-ready documentation and final release summary
-
 ## Template Changes File
 
 Use the following as a template for the changes file that tracks implementation progress for releases.
 Replace `{{ }}` with appropriate values. Create this file in `./.copilot-tracking/changes/` with filename: `YYYYMMDD-task-description-changes.md`
+
+- ✅ Changes file is updated after every task completion with Added, Modified, or Removed entries.
+- ✅ Changes file documents all phases with detailed release-ready documentation and final release summary.
 
 **IMPORTANT**: Update this file after EVERY task completion by appending to Added, Modified, or Removed sections.
 **MANDATORY**: Always include the following at the top of the changes file: `<!-- markdownlint-disable-file -->`
@@ -232,3 +228,8 @@ Replace `{{ }}` with appropriate values. Create this file in `./.copilot-trackin
 ```
 
 <!-- </changes-template> -->
+
+## References
+
+- [file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md)
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)

@@ -107,11 +107,6 @@ const response = await fetch(githubApiUrl);
 - Review diffs to ensure comments add intent/clarity and remain current with code.
 - Prefer refactoring names/structure when comments feel redundant.
 
-## References
-
-- `.github/instructions/coding-standards.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-
 ## Decision Framework
 
 Before writing a comment, ask:
@@ -212,3 +207,8 @@ Before committing, ensure your comments:
 ## Summary
 
 Remember: **The best comment is the one you don't need to write because the code is self-documenting.**
+
+## References
+
+- [coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)

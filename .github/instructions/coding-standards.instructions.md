@@ -42,13 +42,6 @@ Applies to all code, documentation, automation, and AI-generated content across 
 - Validate links in docs and ensure accessibility standards are met.
 - Confirm AI outputs adhere to this file and project-specific instructions.
 
-## References
-
-- `.github/instructions/linting.instructions.md`
-- `.github/instructions/documentation-formats.instructions.md`
-- `.github/instructions/a11y.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-
 This document is the single source of truth for all coding standards in LightSpeedWP projects. It applies to **all code, docs, automation, and AI-generated content**.
 
 ---
@@ -60,7 +53,7 @@ This document is the single source of truth for all coding standards in LightSpe
 - [Formatting & Automation](#formatting--automation)
 - [Documentation Standards](#documentation-standards)
 - [AI & Copilot Instructions](#ai--copilot-instructions)
-- [References & Related Guidance](#references--related-guidance)
+- [References](#references)
 
 ---
 
@@ -77,19 +70,19 @@ This document is the single source of truth for all coding standards in LightSpe
 ## Language-Specific Standards
 
 - **JavaScript/TypeScript:**
-  - Lint with ESLint (flat/classic), Prettier.
-  - Reference: [`linting-javascript.instructions.md`](./linting-javascript.instructions.md)
+  - Lint with ESLint (flat/classic) and Prettier.
+  - Reference: [`languages.instructions.md`](./languages.instructions.md)
 
 - **JSON:**
-  - Enforce strict schemas and formatting with Prettier, (optionally) AJV.
-  - Reference: [`linting-json.instructions.md`](./linting-json.instructions.md)
+  - Enforce strict schemas and formatting with Prettier and, where required, AJV.
+  - Reference: [`languages.instructions.md`](./languages.instructions.md)
 
 - **Markdown:**
-  - Use markdownlint + Prettier.
-  - Reference: [`linting-markdown.instructions.md`](./linting-markdown.instructions.md)
+  - Use markdownlint and Prettier.
+  - Reference: [`documentation-formats.instructions.md`](./documentation-formats.instructions.md)
 - **YAML:**
-  - Use yamllint, Spectral, actionlint for workflows.
-  - Reference: [`linting-yaml.instructions.md`](./linting-yaml.instructions.md)
+  - Use yamllint, Spectral, and actionlint for workflows.
+  - Reference: [`languages.instructions.md`](./languages.instructions.md) and [`workflows.instructions.md`](./workflows.instructions.md)
 
 ---
 
@@ -115,14 +108,15 @@ All documentation links to files within the same repository should use `/blob/HE
 
 ---
 
-## References & Related Guidance
+## References
 
-- [LightSpeed Custom Instructions](../custom-instructions.md)
-- [LightSpeed Copilot Prompts Index](../prompts/prompts.md)
-- [LightSpeed Agents Index](../agents/agent.md)
-- [LightSpeed GitHub Workflow Governance](../docs/WORKFLOWS.md)
-
----
-
-*This file is the canonical reference for all code, documentation, and automation standards in LightSpeedWP projects.
-All contributors, agents, and AI assistants must comply with these standards.*
+- [linting.instructions.md](.github/instructions/linting.instructions.md)
+- [documentation-formats.instructions.md](.github/instructions/documentation-formats.instructions.md)
+- [languages.instructions.md](.github/instructions/languages.instructions.md)
+- [a11y.instructions.md](.github/instructions/a11y.instructions.md)
+- [workflows.instructions.md](.github/instructions/workflows.instructions.md)
+- [instructions.instructions.md](.github/instructions/instructions.instructions.md)
+- [LightSpeed Custom Instructions](.github/custom-instructions.md)
+- [LightSpeed Copilot Prompts Index](.github/prompts/prompts.md)
+- [LightSpeed Agents Index](.github/agents/agent.md)
+- [LightSpeed GitHub Workflow Governance](docs/WORKFLOWS.md)

@@ -40,13 +40,6 @@ Applies to all PR templates and submissions. Covers frontmatter, branching, temp
 - Verify labels meet required families and branch naming matches patterns.
 - Confirm CI (lint/test/build) passes and checklists are completed.
 
-## References
-
-- `.github/instructions/issues.instructions.md`
-- `.github/instructions/labeling.instructions.md`
-- `.github/instructions/file-organisation.instructions.md`
-- `.github/instructions/instructions.instructions.md`
-
 This document defines the standards, steps, and requirements for opening, labeling, and maintaining Pull Requests (PRs) in LightSpeedWP repositories. All contributors, bots, and maintainers **must** follow these instructions to ensure automation, traceability, and high-quality code review.
 
 ---
@@ -170,19 +163,19 @@ See [BRANCHING_STRATEGY.md](../BRANCHING_STRATEGY.md) for full details and enfor
 ## 7. Reference Files and Checklists
 
 - **Templates:**
-  - [pull_request_template.md](../pull_request_template.md)
-  - [All PR templates](../PULL_REQUEST_TEMPLATE/)
+  - [PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)
+  - [All PR templates](.github/PULL_REQUEST_TEMPLATE/)
 - **Labeling:**
-  - [labeler.yml](../labeler.yml)
-  - [labels.yml](../labels.yml)
-  - [PR_LABELS.md](../PR_LABELS.md)
+  - [labeler.yml](.github/labeler.yml)
+  - [labels.yml](.github/labels.yml)
+  - [PR_LABELS.md](docs/PR_LABELS.md)
 - **Branching:**
-  - [BRANCHING_STRATEGY.md](../BRANCHING_STRATEGY.md)
+  - [BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
 - **Saved Replies:**
-  - [Pull Request Saved Replies](../SAVED_REPLIES/pull-requests/)
+  - [Pull Request Saved Replies](.github/SAVED_REPLIES/pull-requests/)
 - **Frontmatter:**
-  - [frontmatter.instructions.md](./frontmatter.instructions.md)
-  - [docs/frontmatter/pr-templates.md](../../docs/frontmatter/pr-templates.md)
+  - [Frontmatter Schema Guide](docs/FRONTMATTER_SCHEMA.md)
+  - [Frontmatter Schema](.github/schemas/frontmatter.schema.json)
 
 ---
 
@@ -221,27 +214,26 @@ For maintainers and reviewers, reference these [Saved Replies](../SAVED_REPLIES/
 
 ---
 
-## 10. References and Further Reading
-
-- [PR Creation Process Guide](../../docs/PR_CREATION_PROCESS.md)
-- [Label Strategy](../../docs/LABEL_STRATEGY.md)
-- [Frontmatter PR Templates Guide](../../docs/frontmatter/pr-templates.md)
-- [Label Definitions](../labels.yml)
-- [Labeler Automation Rules](../labeler.yml)
-- [PR Labels](../PR_LABELS.md)
-- [Branching Strategy](../BRANCHING_STRATEGY.md)
-- [pull_request_template.md](../pull_request_template.md)
-- [All PR Templates](../PULL_REQUEST_TEMPLATE/)
-- [Frontmatter Schema](../../schema/frontmatter.schema.json)
-- [Frontmatter Instructions](./frontmatter.instructions.md)
-- [Saved Replies](../SAVED_REPLIES/pull-requests/)
-
----
-
 **For questions or clarifications:**
 
-- Start with [CONTRIBUTING.md](../CONTRIBUTING.md)
+- Start with [CONTRIBUTING.md](CONTRIBUTING.md)
 - Ask in [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
 - Contact a maintainer.
 
----
+## References
+
+- [instructions.instructions.md](./instructions.instructions.md)
+- [issues.instructions.md](./issues.instructions.md)
+- [labeling.instructions.md](./labeling.instructions.md)
+- [file-organisation.instructions.md](./file-organisation.instructions.md)
+- [PR Creation Process Guide](../../docs/PR_CREATION_PROCESS.md)
+- [Label Strategy](../../docs/LABEL_STRATEGY.md)
+- [PR Labels](../../docs/PR_LABELS.md)
+- [Branching Strategy](../../docs/BRANCHING_STRATEGY.md)
+- [Label Definitions](../labels.yml)
+- [Labeler Automation Rules](../labeler.yml)
+- [PULL_REQUEST_TEMPLATE.md](../PULL_REQUEST_TEMPLATE.md)
+- [All PR Templates](../PULL_REQUEST_TEMPLATE/)
+- [Frontmatter Schema](../schemas/frontmatter.schema.json)
+- [Frontmatter Schema Guide](../../docs/FRONTMATTER_SCHEMA.md)
+- [Saved Replies](../SAVED_REPLIES/pull-requests/)
