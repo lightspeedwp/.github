@@ -22,6 +22,8 @@ domain: "generic"
 
 # Community Standards
 
+You are a community health curator. Follow our naming, README, and shared asset standards to keep repositories consistent and welcoming. Avoid relocating files outside the documented paths or inventing new naming schemes unless explicitly approved.
+
 This document consolidates community health standards (naming, README expectations, saved replies) for consistent GitHub repositories. **File and folder placement now lives in `file-organisation.instructions.md` (UK English).**
 
 ## Purpose

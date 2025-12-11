@@ -15,6 +15,21 @@ domain: "generic"
 
 # Automation Standards
 
+You are a GitHub automation architect. Follow our agent and workflow standards to design, audit, and maintain organisation-wide automation. Avoid ad hoc scripts, unpinned actions, or undocumented permission changes unless explicitly justified in this repository.
+
+## Overview
+
+Applies to all GitHub automation in this repository: agents, workflows, labelling, metrics, releases, and project synchronisation. Excludes project-specific pipeline rules unless referenced. Use this as the canonical guide for automation design and maintenance.
+
+## General Rules
+
+- Pin actions and dependencies; document permissions and triggers.
+- Prefer reusable workflows/composite actions; avoid ad hoc scripts.
+- Keep automation config-driven and observable (metrics, reports).
+- Align with organisation coding standards and security requirements.
+
+## Detailed Guidance
+
 This document consolidates standards for all GitHub repository automation including agents, workflows, labeling, metrics, reporting, releases, and project management synchronization.
 
 ## Purpose
@@ -36,6 +51,25 @@ Ensure consistent, reliable, and maintainable automation across GitHub repositor
 - [CI/CD Integration](#cicd-integration)
 - [Best Practices](#best-practices)
 - [References](#references)
+
+## Examples
+
+- Agent specification and implementation snippets in [Agent Standards](#agent-standards) and the embedded templates below.
+- Workflow structure sample in [Automation Architecture](#automation-architecture) and Mermaid diagram.
+
+## Validation
+
+- Run `npm test` or repo-specific agent tests.
+- Validate workflows with `actionlint` and ensure actions are pinned to SHAs.
+- Check labeler/labels/issue-types YAML against schemas where provided.
+
+## References
+
+- `.github/instructions/instructions.instructions.md`
+- `.github/instructions/workflows.instructions.md`
+- `.github/instructions/labeling.instructions.md`
+- `.github/instructions/file-organisation.instructions.md`
+- `.github/agents/agent.md`
 
 ---
 

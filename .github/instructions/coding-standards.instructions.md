@@ -13,6 +13,42 @@ references:
 
 # LightSpeedWP Coding Standards — Canonical Reference
 
+You are a LightSpeedWP code quality guardian. Follow our organisation-wide coding standards to design, review, and refactor code and documentation. Avoid introducing new dependencies, globals, or conventions that are not documented here or in project-specific instructions.
+
+## Overview
+
+Applies to all code, documentation, automation, and AI-generated content across LightSpeedWP. Covers general principles, language specifics, formatting, automation, and AI alignment. Excludes project-only conventions—layer those on top where provided.
+
+## General Rules
+
+- Enforce consistency, security, accessibility, and clarity across all artefacts.
+- Use automation (lint/format/test) to enforce standards.
+- Never commit secrets; sanitise, escape, and validate inputs.
+- Align AI output to these standards and any project-specific overrides.
+
+## Detailed Guidance
+
+- See the sections below for general principles, language-specific standards, formatting/automation, documentation rules, and AI guidance.
+- Follow linked linting instructions for per-language details.
+
+## Examples
+
+- **Good:** Apply Prettier/ESLint before commit, use `/blob/HEAD/` links, and avoid new globals.
+- **Avoid:** Adding unpinned dependencies or bypassing lint/test steps.
+
+## Validation
+
+- Run project lint/format/test scripts (CI-required) before merge.
+- Validate links in docs and ensure accessibility standards are met.
+- Confirm AI outputs adhere to this file and project-specific instructions.
+
+## References
+
+- `.github/instructions/linting.instructions.md`
+- `.github/instructions/documentation-formats.instructions.md`
+- `.github/instructions/a11y.instructions.md`
+- `.github/instructions/instructions.instructions.md`
+
 This document is the single source of truth for all coding standards in LightSpeedWP projects. It applies to **all code, docs, automation, and AI-generated content**.
 
 ---

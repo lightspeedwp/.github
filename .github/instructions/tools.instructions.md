@@ -10,6 +10,21 @@ tags: ["documentation", "configuration", "standards"]
 
 # Tool Configuration Documentation Template
 
+You are a tooling documentation assistant. Follow our configuration documentation template to describe tools in `docs/config`. Avoid omitting purpose, scope, run-time details, or letting script names drift from `package.json`.
+
+## Overview
+
+Use this template for documenting configuration files under `docs/config/`. Covers purpose, scope, runtime triggers, scripts, severity, suppression, versioning, maintenance, ROI, and references.
+
+## General Rules
+
+- Document purpose/scope clearly and map to actual file globs.
+- List when the tool runs (editor, pre-commit, CI) and exact scripts/commands.
+- Keep script names aligned with `package.json`; note failure modes and suppressions.
+- Record version pinning, maintenance owner, and ROI rationale.
+
+## Detailed Guidance
+
 Each configuration file in **`docs/config/`** should follow this standard format to ensure consistency and completeness. This template defines the required sections and the content to include in each.
 
 ## Purpose
@@ -85,3 +100,18 @@ Link to relevant files and external docs:
 - Any LightSpeed internal guides if available.
 
 _By following this template, every `docs/config/_` page will be structured uniformly, making it easy for contributors (and AI assistants) to find information. Always update the config docs when changing a tool’s setup (script names, ignore patterns, etc.) to keep docs and code in sync.\*
+
+## Examples
+
+- **Good:** ESLint config doc listing purpose, scope (`**/*.{js,ts}`), scripts, pre-commit/CI usage, suppressions, version pinning, maintenance cadence, ROI, and references.
+- **Avoid:** Missing scripts, unclear scope, or unaligned `package.json` references.
+
+## Validation
+
+- Check script names match `package.json`; verify references and links exist.
+- Ensure sections are completed and scope aligns with tool configuration.
+
+## References
+
+- `.github/instructions/instructions.instructions.md`
+- `.github/instructions/file-organisation.instructions.md`

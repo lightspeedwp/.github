@@ -11,6 +11,42 @@ tags: ["mermaid", "diagrams", "documentation", "a11y", "visuals"]
 
 # Mermaid Diagram Guide
 
+You are a Mermaid diagram editor. Follow our layout, accessibility, and validation standards to visualise flows clearly and accessibly. Avoid inaccessible colour palettes, unlabeled edges, or omitting contextual prose and alt text.
+
+## Overview
+
+Applies to all Mermaid diagrams in this repository. Covers when to use diagrams, types, layout, accessibility, styling, and validation. Excludes README inclusion rules (see `readme.instructions.md`).
+
+## General Rules
+
+- Provide contextual prose and alt text; never rely on colour alone.
+- Keep diagrams readable (≈15 nodes) with labelled edges and clear flow direction.
+- Use WCAG AA-compliant palettes and maintain connector contrast.
+- Place diagrams per file-organisation guidance and README policy.
+
+## Detailed Guidance
+
+- Follow the sections below for scope, when to use diagrams, types, layout, style, accessibility, and palette options.
+- Use placement rules in `readme.instructions.md` and `file-organisation.instructions.md`.
+
+## Examples
+
+- **Good:** Flowchart with labelled edges, WCAG-compliant colours, alt text, and short prose explaining the diagram.
+- **Avoid:** Large, unlabeled diagrams with low contrast or missing context/alt text.
+
+## Validation
+
+- Render diagrams to confirm readability and contrast in light/dark modes.
+- Check labels, alt text, and prose context accompany each diagram.
+- Run markdownlint/Prettier on files containing diagrams.
+
+## References
+
+- `.github/instructions/readme.instructions.md`
+- `.github/instructions/documentation-formats.instructions.md`
+- `.github/instructions/a11y.instructions.md`
+- `.github/instructions/instructions.instructions.md`
+
 ## Scope
 
 Use this file for **how** to create high-quality Mermaid diagrams: layout, styling, accessibility (including **WCAG AA contrast**), and validation. For **when** a README must include a diagram, follow `readme.instructions.md` (mandatory/optional/unnecessary rules). For placement/naming, see `file-organisation.instructions.md`.
@@ -41,9 +77,6 @@ Mermaid diagrams enhance documentation by visualising:
 - Technical specifications with interdependencies
 - Onboarding guides with sequential steps
 - Troubleshooting decision trees
-- READMEs: obey inclusion rules in `readme.instructions.md`; typically add after the Overview or before detailed sections.
-- Other docs: place diagrams adjacent to the explanatory text and precede them with a one-line description.
-- File placement/naming: follow `file-organisation.instructions.md`.
 
 ### ⚠️ Limited exceptions (skip only if ALL true)
 
@@ -75,10 +108,39 @@ Mermaid diagrams enhance documentation by visualising:
 ## Style & WCAG AA Accessibility
 
 - Provide prose context and alt text near every diagram (purpose + key relationships).
-- Ensure colour contrast meets **WCAG AA** (4.5:1 for normal text):
-  - Dark on light: `#0f172a` on `#e2e8f0` (~10:1), `#0f172a` on `#d9f2ff` (>10:1).
-  - Light on dark: `#f8fafc` on `#1f2937` (~12:1), `#f8fafc` on `#2563eb` (>7:1).
-- Define classes to enforce contrast and consistency:
+- Ensure colour contrast meets **WCAG AA** (4.5:1 for normal text).
+- Maintain connector contrast; avoid pale strokes on light backgrounds.
+- Do not rely on colour alone; reinforce meaning with labels/icons.
+- Keep font sizes at least Mermaid defaults; check light and dark theme legibility.
+
+### Palette Library (WCAG AA compliant)
+
+Use these text-on-fill pairs (stroke in brackets). All meet or exceed AA; prefer dark-on-light for body, light-on-dark for emphasis.
+
+1. `#0f172a` on `#e2e8f0` (stroke `#0f172a`)
+2. `#0f172a` on `#d9f2ff` (stroke `#0f172a`)
+3. `#0f172a` on `#d1fae5` (stroke `#0f172a`)
+4. `#0f172a` on `#fef3c7` (stroke `#92400e`)
+5. `#0f172a` on `#fee2e2` (stroke `#b91c1c`)
+6. `#0f172a` on `#f3e8ff` (stroke `#6b21a8`)
+7. `#0f172a` on `#ede9fe` (stroke `#5b21b6`)
+8. `#0f172a` on `#e0f2fe` (stroke `#0ea5e9`)
+9. `#0f172a` on `#ecfccb` (stroke `#4d7c0f`)
+10. `#0f172a` on `#ffe4e6` (stroke `#be123c`)
+11. `#f8fafc` on `#1f2937` (stroke `#0f172a`)
+12. `#f8fafc` on `#111827` (stroke `#0f172a`)
+13. `#f8fafc` on `#2563eb` (stroke `#0b1b3f`)
+14. `#f8fafc` on `#4338ca` (stroke `#1e1b4b`)
+15. `#f8fafc` on `#0f766e` (stroke `#134e4a`)
+16. `#f8fafc` on `#b91c1c` (stroke `#7f1d1d`)
+17. `#f8fafc` on `#92400e` (stroke `#78350f`)
+18. `#f8fafc` on `#6b21a8` (stroke `#4c1d95`)
+19. `#0f172a` on `#c7d2fe` (stroke `#312e81`)
+20. `#0f172a` on `#bae6fd` (stroke `#0ea5e9`)
+
+Keep connectors dark (`#0f172a` or similar) on light backgrounds; if using dark fills, keep connectors light but still contrasted.
+
+### Example class definitions
 
 ```mermaid
 flowchart TD
@@ -97,9 +159,35 @@ flowchart TD
     class E accent
 ```
 
-- Maintain connector contrast; avoid pale strokes on light backgrounds.
-- Do not rely on colour alone; reinforce meaning with labels/icons.
-- Keep font sizes at least Mermaid defaults; check light and dark theme legibility.
+### Label placement & legibility
+
+- Node labels: centre within nodes; avoid manual offsets that collide with edges.
+- Edge labels: keep near edge midpoints and away from intersections; if edges cross, reorder nodes or split diagrams.
+- Minimise edge crossings; use subgraphs or multiple diagrams if flows intersect heavily.
+- Keep connectors away from node text; avoid routing arrows directly through labels.
+
+### Accessible metadata (Mermaid)
+
+- The diagram type (e.g., `flowchart`, `graph`, etc.) goes on the first line above the accessible metadata.
+- Use `accTitle:` (short title) and `accDescr` (one-line or multi-line block) to populate `<title>`/`<desc>` and ARIA labels.
+- Mermaid auto-sets `aria-roledescription` per diagram type; keep `accTitle` concise and `accDescr` descriptive.
+- Provide a nearby text summary for complex diagrams; ensure surrounding content conveys the same information.
+- Where diagrams are key to understanding, add an HTML summary or table alternative below the diagram.
+
+**Example (flowchart with accessible metadata)**
+
+```mermaid
+%% Accessible flow example
+flowchart TD
+  accTitle: Onboarding flow
+  accDescr {
+    A simple onboarding flow from sign-up to activation.
+    Users can choose email or social sign-in.
+  }
+  A[Sign up] --> B{Verify email?}
+  B -- Yes --> C[Activate account]
+  B -- No --> D[Resend verification]
+```
 
 ## Placement & Integration
 
@@ -215,6 +303,13 @@ gitgraph
 
 - Recommended maxima: ~15 nodes, 3 levels of subgraph nesting, ~20 connections.
 - Break large diagrams into multiple focused views (overview → detail).
+
+### Validation workflow
+
+- Syntax: validate in Mermaid Live Editor or VS Code preview.
+- Contrast: apply the palette above; verify with Stark/axe/WebAIM in both light and dark themes.
+- Visual: ensure labels are readable and not overlapped by edges; no colour-only meaning; connectors legible.
+- Reporting: when auditing, log findings in `.github/reports/mermaid/` (see `reporting.instructions.md`).
 
 ### Documentation integration
 

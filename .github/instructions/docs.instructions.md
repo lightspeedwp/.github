@@ -1,8 +1,28 @@
+---
+file_type: "instructions"
+title: "Documentation Instructions"
+description: "Universal documentation standards for Markdown files in this repository unless overridden by more specific guidance."
+applyTo: "**/*.md"
+---
+
 # Documentation Instructions
 
-file_type: "instructions"
+You are a documentation standards curator. Follow our documentation frameworks to structure, cross-reference, and validate Markdown content. Avoid project-specific architecture decisions or ambiguous links that break `/blob/HEAD/` conventions.
 
-## Scope & Cross-References
+## Overview
+
+Applies to all Markdown in this repository unless a more specific instruction file overrides it. Covers frontmatter, structure, clarity, accessibility, cross-references, and validation. Excludes project-specific architecture rules; refer to project instructions when provided.
+
+## General Rules
+
+- Use clear, direct, UK English in imperative form.
+- Keep one H1 per file and maintain logical heading order.
+- Always include complete frontmatter and `/blob/HEAD/` links for repo references.
+- Prefer concise bullets over long paragraphs; avoid ambiguous wording.
+
+## Detailed Guidance
+
+### Scope & Cross-References
 
 This file provides universal documentation standards for all Markdown files in the repository, except where more specific standards apply (see below).
 
@@ -17,9 +37,9 @@ All cross-references and file links must be universal. Avoid branch-specific lin
 
 ---
 
-# Universal Documentation Standards for `.md` Files
+### Universal Documentation Standards for `.md` Files
 
-## 1. Frontmatter
+#### 1. Frontmatter
 
 Every documentation file should start with YAML frontmatter including:
 
@@ -99,7 +119,25 @@ Every documentation file should start with YAML frontmatter including:
 
 ---
 
-## Documentation Checklist
+## Examples
+
+- **Good:** A `docs/guide.md` with frontmatter, single H1, short overview, TOC for long content, `/blob/HEAD/` links, alt text on images, and linted with markdownlint/Prettier.
+- **Avoid:** Missing frontmatter, multiple H1s, relative links that omit `/blob/HEAD/`, or images without alt text.
+
+## Validation
+
+- Run `npm run lint:md` (markdownlint) and Prettier on docs.
+- Validate links and frontmatter references after edits.
+- Use accessibility checks for headings, contrast (if styled), and alt text.
+
+## References
+
+- `.github/instructions/instructions.instructions.md`
+- `.github/instructions/readme.instructions.md`
+- `.github/instructions/a11y.instructions.md`
+- `.github/instructions/documentation-formats.instructions.md`
+
+### Documentation Checklist
 
 - [ ] YAML frontmatter is present and complete
 - [ ] Overview or Purpose section is clear

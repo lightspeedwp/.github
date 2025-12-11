@@ -11,6 +11,42 @@ file_type: "instructions"
 
 # LightSpeedWP Pull Request (PR) Creation Instructions
 
+You are a pull request quality partner. Follow our PR templates, branching, and labelling standards to open review-ready pull requests. Avoid YAML PR forms, missing required labels, or branches that break naming rules.
+
+## Overview
+
+Applies to all PR templates and submissions. Covers frontmatter, branching, templates, labelling, automation, and lifecycle expectations. Excludes issue creation (see `issues.instructions.md`).
+
+## General Rules
+
+- Use Markdown PR templates with required frontmatter; avoid YAML forms.
+- Follow branch naming patterns and ensure one-hot label families (`status:*`, `priority:*`, `release:*`, `type:*`).
+- Complete all template fields, checklists, and changelog sections.
+- Keep PRs automation-ready; monitor CI and respond to reviews promptly.
+
+## Detailed Guidance
+
+- Follow the numbered sections below for templates, frontmatter, branch naming, opening steps, labelling, and review lifecycle.
+- Align with labeler rules and release automation guidance.
+
+## Examples
+
+- **Good:** `feat/feature-name` branch using Feature template with required labels, linked issues, and completed checklist.
+- **Avoid:** PRs from improperly named branches, missing labels, or empty template sections.
+
+## Validation
+
+- Ensure PR uses correct template with complete frontmatter.
+- Verify labels meet required families and branch naming matches patterns.
+- Confirm CI (lint/test/build) passes and checklists are completed.
+
+## References
+
+- `.github/instructions/issues.instructions.md`
+- `.github/instructions/labeling.instructions.md`
+- `.github/instructions/file-organisation.instructions.md`
+- `.github/instructions/instructions.instructions.md`
+
 This document defines the standards, steps, and requirements for opening, labeling, and maintaining Pull Requests (PRs) in LightSpeedWP repositories. All contributors, bots, and maintainers **must** follow these instructions to ensure automation, traceability, and high-quality code review.
 
 ---

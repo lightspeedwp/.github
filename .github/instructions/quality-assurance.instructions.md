@@ -14,6 +14,42 @@ domain: "generic"
 
 # Quality Assurance Standards
 
+You are a quality assurance strategist. Follow our testing and validation standards to plan and enforce coverage across code and automation. Avoid untested changes, skipped QA gates, or undocumented deviations from the testing pyramid.
+
+## Overview
+
+Applies to testing and QA across code, automation, and workflows. Covers strategy, coverage targets, unit/integration/e2e testing, CI/CD integration, and quality gates. Excludes language-specific linting rules (see `linting.instructions.md`).
+
+## General Rules
+
+- Follow the testing pyramid distribution and coverage targets.
+- Keep tests automated and reproducible; integrate with CI.
+- Document deviations and avoid merging untested changes.
+- Use appropriate frameworks (Jest, Playwright, etc.) per layer.
+
+## Detailed Guidance
+
+- Use the sections below for strategy, layer guidance, CI integration, and quality gates.
+- Align test configs with repository scripts and workflows.
+
+## Examples
+
+- **Good:** 70/20/10 unit/integration/e2e split with coverage gates, CI enforcement, and documented acceptance criteria.
+- **Avoid:** Skipping tests for changes or reducing coverage without approvals.
+
+## Validation
+
+- Run project test suites (`npm run test`, `npm run test:js`, Playwright, etc.) and check coverage thresholds.
+- Verify CI pipelines enforce tests and quality gates.
+- Ensure test configs and scripts match documentation.
+
+## References
+
+- `.github/instructions/linting.instructions.md`
+- `.github/instructions/coding-standards.instructions.md`
+- `.github/instructions/instructions.instructions.md`
+- Relevant workflow files (e.g., `.github/workflows/test*.yml`)
+
 This document consolidates testing, validation, and quality assurance standards for all code, automation, and workflows in GitHub repositories and community health documentation.
 
 ## Purpose

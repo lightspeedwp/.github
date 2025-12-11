@@ -1,52 +1,90 @@
 ---
 title: "Template: Agent Specification"
-description: "Template/spec for defining a custom Copilot agent’s capabilities, inputs, outputs, and safety guardrails."
-version: "v1.0"
-last_updated: "2025-10-23"
+description: "Standard specification for defining a LightSpeed Copilot Agent: role, behaviours, tooling, schemas, and safety constraints."
+version: "v1.1"
+last_updated: "2025-12-11"
 owners: ["LightSpeedWP Engineering"]
-tags: ["template", "agent", "spec", "copilot"]
+tags: ["agent", "spec", "template", "copilot"]
 status: "draft"
 apply_to: [".github/agents/*.agent.md"]
 file_type: "template"
+tools: ["Copilot Agents"]
 references:
   - "AGENTS.md"
-  - "agents.instructions.md"
+  - ".github/instructions/agent-spec.instructions.md"
+  - "SECURITY.md"
 examples:
-  - ".github/agents/agent-release.agent.md"
+  - ".github/agents/adr.agent.md"
+metadata:
+  guardrails: "Agents must never perform destructive or irreversible actions without explicit confirmation."
 ---
 
-# Role
+# 1. Role & Scope
 
-Describe the agent’s purpose and persona (e.g. “continuous integration assistant for WP builds”).
+Describe:
+- The agent's purpose and boundaries.
+- The persona or operating context (if relevant).
+- The primary systems, workflows, or teams it supports.
 
-# Capabilities
+# 2. Responsibilities & Capabilities
 
-- List the high-level actions the agent can perform, plus any limitations.
+List what the agent can do and where it must stop:
+- Core functions (for example CI checks, content linting, documentation support).
+- Allowed transformations or automation rules.
+- Explicit limitations (for example read-only, cannot deploy, no billing actions).
 
-# Allowed Tools
+# 3. Allowed Tools & Integrations
 
-- Enumerate the connectors and tools the agent may use (GitHub, Google Drive, custom APIs).
+Enumerate all approved tools:
+- GitHub APIs and scopes.
+- Third-party connectors (for example Drive, Sheets, internal APIs).
+- Command-line interfaces or scripts the agent may call.
+- Required environment variables (never list real values).
 
-# Input Schema
+# 4. Input Specification
 
-- Define the expected inputs to the agent (as a list or JSON Schema).
+Define all accepted inputs:
+- Natural-language prompts or commands.
+- Structured inputs (JSON, YAML, forms) with examples.
+- JSON Schema when structure needs enforcement.
 
-# Output Schema
+# 5. Output Specification
 
-- Specify the structure of agent responses, including error fields.
+Describe the required response format:
+- Success, warning, and error shapes (fields such as status, summary, actions, logs).
+- Formatting rules (for example Markdown with code blocks, JSON blocks, or tables).
+- Deterministic fields needed for automation or parsing.
 
-# Safety Guardrails
+# 6. Safety Guardrails
 
-- Rules for avoiding harmful actions (e.g. never expose secrets, confirm before publishing).
+Set non-negotiable safety rules:
+- Never expose, request, or infer secrets or customer data.
+- Do not destroy or mutate production data without explicit human confirmation.
+- Stay within scope; refuse tasks that breach boundaries.
+- Define escalation paths (for example flag to human review) and rate/moderation limits.
 
-# Failure/Rollback Policy
+# 7. Failure & Rollback Strategy
 
-- How the agent should handle errors and rollbacks.
+Explain how the agent handles issues:
+- Invalid inputs and missing context.
+- External tool/API failures.
+- Partial successes and rollback expectations or limits.
 
-# Test Tasks
+# 8. Test Tasks (for Validation)
 
-- Provide example tasks for validation.
+Provide validation tasks with expected behaviours:
+- A typical task the agent should complete.
+- An edge case the agent should handle safely.
+- A failure scenario with the expected error response.
 
-# Observability Notes
+# 9. Observability & Logging
 
-- How the agent logs actions and monitors metrics.
+Specify observability expectations:
+- What to log (timestamps, tool calls, external interactions).
+- How to report metrics and surface audit trails.
+- Privacy considerations for any captured data.
+
+# 10. Changelog
+
+Maintain a simple audit trail of spec changes:
+- Version, date, and a short note (for example `v1.1 - Updated guardrails; clarified rollback behaviour`).

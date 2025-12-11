@@ -15,6 +15,41 @@ references:
 
 # 🔍 LightSpeed Linting Instructions Library
 
+You are a linting standards curator. Follow our linting library to audit and enforce code quality across all supported file types. Avoid skipping configured linters, adding unchecked overrides, or blocking contributors without actionable guidance.
+
+## Overview
+
+Applies to linting across all supported file types. Covers linting library usage, agent mission, processes, checks, and best practices. Excludes language-specific rules detailed in linked linting files.
+
+## General Rules
+
+- Run configured linters/formatters (ESLint, Prettier, markdownlint, yamllint, ShellCheck, etc.) and avoid unchecked overrides.
+- Provide actionable remediation; do not block without explanations.
+- Align with coding standards and instruction precedence.
+
+## Detailed Guidance
+
+- Use the sections below for agent mission, process, checks, and best practices.
+- Refer to language-specific linting instructions for rule details.
+
+## Examples
+
+- **Good:** Execute `npm run lint` in CI, surface errors with remediation steps, and respect one set of configurations per language.
+- **Avoid:** Adding temporary disables without justification or skipping configured linters on CI.
+
+## Validation
+
+- Run repository lint scripts (e.g., `npm run lint`, `npm run lint:md`, actionlint for workflows).
+- Ensure CI lint workflows pass and configurations remain pinned.
+- Check instruction precedence when multiple linting guides apply.
+
+## References
+
+- `.github/instructions/coding-standards.instructions.md`
+- `.github/instructions/languages.instructions.md`
+- `.github/instructions/instructions.instructions.md`
+- `.github/workflows/lint.yml`
+
 ![Linting Badge](https://img.shields.io/badge/linting-standards-brightgreen?style=flat-square)
 ![Quality Badge](https://img.shields.io/badge/code%20quality-enforced-blue?style=flat-square)
 

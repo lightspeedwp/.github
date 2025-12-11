@@ -29,6 +29,43 @@ references:
 
 # 🧭 Meta Data Automation
 
+You are a metadata automation assistant. Follow our meta agent standards to manage front matter, badges, references, and footers consistently. Avoid writing outside the designated regions or ignoring documented opt-outs.
+
+## Overview
+
+Applies to the Meta Agent that updates Markdown front matter, badges, references, and footers. Covers scope, guardrails, placement, and operations. Excludes content rules handled by documentation/coding standards.
+
+## General Rules
+
+- Edit only the designated regions (front matter, badges, references, footer); never touch other content.
+- Respect opt-outs (`no_meta: true`, `meta: off`, legacy flags).
+- Use CI/local commands provided; keep configs pinned.
+- Back up before edits; fail fast on validation errors.
+
+## Detailed Guidance
+
+- Follow the sections below for how it runs, guardrails, placement rules, and references to scripts/schemas.
+- Use category-based footers and badge placement exactly as specified.
+
+## Examples
+
+- **Good:** Run meta agent in CI to update badges and references, respecting `no_meta: true` and placing badges under H1.
+- **Avoid:** Editing body content or ignoring opt-outs while running the agent.
+
+## Validation
+
+- Run `.github/workflows/meta.yml` or `node scripts/agents/meta.agent.js --verbose --dry-run` before committing.
+- Verify backups restore on validation errors.
+- Confirm badges/references/footers are in correct positions post-run.
+
+## References
+
+- `.github/instructions/instructions.instructions.md`
+- `.github/instructions/documentation-formats.instructions.md`
+- `../../scripts/agents/meta.agent.js`
+- `../../schemas/frontmatter.schema.json`
+- `../../schemas/header-footer-agent/agent-config.schema.json`
+
 The **Meta Agent** keeps Markdown documentation consistent by managing four metadata layers in a single pass:
 
 - **Front matter:** Validate and enrich YAML front matter; respect `no_meta: true` opt-outs (and legacy `no_branding`).

@@ -23,7 +23,16 @@ references:
 
 # 🏠 LightSpeed Community Health & Automation Repository
 
-[Keep main content as is, but update the sections below...]
+[![Test Coverage](https://img.shields.io/badge/coverage-auto-blue)](./tests/TEST_COVERAGE_SUMMARY.md)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/lightspeedwp/.github/actions)
+[![Documentation](https://img.shields.io/badge/docs-comprehensive-informational)](./docs/README.md)
+[![AI Integration](https://img.shields.io/badge/AI-enhanced-purple)](./AGENTS.md)
+[![Automation](https://img.shields.io/badge/automation-active-success)](.github/workflows/)
+
+This repository is the **central hub** for the LightSpeed organization's community health files, automation standards, label and issue type management, governance documentation, and org-wide resources on GitHub usage and contribution. All member repositories reference and inherit canonical files, workflows, and instructions from here—making it the backbone for consistency, quality, and automated project management across LightSpeed.
+
+For comprehensive documentation, see the [docs/](./docs/) folder and [.github/README.md](./.github/README.md) for repository-specific guidance.
 
 ## 🔗 Related Documentation
 
@@ -98,40 +107,22 @@ tests/ # Test suites
 
 ---
 
-## 📚 Key Documentation
-
-| Topic                  | File                                                                                                               |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| **Coding Standards**   | [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md)   |
-| **Language Standards** | [.github/instructions/languages.instructions.md](./.github/instructions/languages.instructions.md)                 |
-| **Testing & QA**       | [.github/instructions/quality-assurance.instructions.md](./.github/instructions/quality-assurance.instructions.md) |
-| **Automation**         | [.github/instructions/automation.instructions.md](./.github/instructions/automation.instructions.md)               |
-| **Labels & Issues**    | [docs/AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md)                                                   |
-| **Branching**          | [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md)                                                         |
-
----
-
-# 🏠 LightSpeed Community Health & Automation Repository
-
-[![Test Coverage](https://img.shields.io/badge/coverage-auto-blue)](./tests/TEST_COVERAGE_SUMMARY.md)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/lightspeedwp/.github/actions)
-[![Documentation](https://img.shields.io/badge/docs-comprehensive-informational)](./docs/README.md)
-[![AI Integration](https://img.shields.io/badge/AI-enhanced-purple)](./AGENTS.md)
-[![Automation](https://img.shields.io/badge/automation-active-success)](.github/workflows/)
-
-This repository is the **central hub** for the LightSpeed organization's community health files, automation standards, label and issue type management, governance documentation, and org-wide resources on GitHub usage and contribution. All member repositories reference and inherit canonical files, workflows, and instructions from here—making it the backbone for consistency, quality, and automated project management across LightSpeed.
-
-For comprehensive documentation, see the [docs/](./docs/) folder and [.github/README.md](./.github/README.md) for repository-specific guidance.
-
 ## 📊 Repository Architecture
+
+The diagram below highlights how the key .github directories (community health, automation, labeling, AI, documentation, and testing) interconnect to uphold LightSpeed governance, automation, and quality practices.
 
 ```mermaid
 graph TD
+accTitle: "Repository architecture overview"
+accDescr {
+  High-level view of the .github repository structure, showing community health files, automation workflows, canonical labels, AI/collaboration resources, supporting documentation, and testing artefacts.
+}
     A[🏠 LightSpeed .github Repository] --> B[📁 Community Health Files]
     A --> C[🤖 Automation & Workflows]
     A --> D[🏷️ Labels & Issue Types]
     A --> E[🧠 AI & Copilot Resources]
+    A --> F[📚 Documentation]
+    A --> G[🧪 Testing & Quality]
 
     B --> B1[CONTRIBUTING.md]
     B --> B2[CODE_OF_CONDUCT.md]
@@ -152,48 +143,135 @@ graph TD
     E --> E2[Agent Specifications]
     E --> E3[Prompt Library]
 
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style C fill:#e8f5e8
-    style D fill:#fff3e0
-    style E fill:#fce4ec
-```
+    F --> H[LINTING.md]
+    F --> I[HUSKY-PRECOMMITS.md]
+    F --> J[docs/config/]
+    F --> K[AUTOMATION_GOVERNANCE.md]
+    F --> L[LABEL_STRATEGY.md]
+    F --> M[LABELING.md]
+    F --> N[README Sections]
+
+    G --> O[Unit Tests]
+    G --> P[Integration Tests]
+    G --> Q[E2E Tests]
+    G --> R[Coverage Reports]
+
+    classDef core fill:#e2e8f0,stroke:#0f172a,color:#0f172a
+    classDef docs fill:#d1fae5,stroke:#0f172a,color:#0f172a
+    classDef automation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
+    classDef automation-sub fill:#c7d2fe,stroke:#0f172a,color:#0f172a
+    classDef label fill:#fee2e2,stroke:#0f172a,color:#0f172a
+    classDef label-sub fill:#ffe4e6,stroke:#0f172a,color:#0f172a
+    classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a
+    classDef ai-sub fill:#fef3c7,stroke:#0f172a,color:#0f172a
+    classDef docs-sub fill:#e0f2fe,stroke:#0f172a,color:#0f172a
+    classDef testing fill:#ecfccb,stroke:#0f172a,color:#0f172a
+    classDef testing-sub fill:#bae6fd,stroke:#0f172a,color:#0f172a
+
+    class A core
+    class B core
+    class B1 docs-sub
+    class B2 docs-sub
+    class B3 docs-sub
+    class B4 docs-sub
+    class B5 docs-sub
+    class C automation
+    class C1 automation-sub
+    class C2 automation-sub
+    class C3 automation-sub
+    class C4 automation-sub
+    class D label
+    class D1 label-sub
+    class D2 label-sub
+    class D3 label-sub
+    class E ai
+    class E1 ai-sub
+    class E2 ai-sub
+    class E3 ai-sub
+    class F docs
+    class H docs-sub
+    class I docs-sub
+    class J docs-sub
+    class K docs-sub
+    class L docs-sub
+    class M docs-sub
+    class N docs-sub
+    class G testing
+    class O testing-sub
+    class P testing-sub
+    class Q testing-sub
+    class R testing-sub
+
+    linkStyle default stroke:#0f172a,stroke-width:1.4px
+
+  ```
 
 ## 🔄 Comprehensive Workflow Overview
 
 ### Repository Inheritance & Automation Flow
 
+The next diagram tracks how repository inheritance feeds automation and AI integration phases to uphold consistent governance across LightSpeed repositories.
+
 ```mermaid
 flowchart LR
-    subgraph "Repository Inheritance"
-        A[LightSpeed Repo] --> B[Inherits Health Files]
-        B --> C[Applies Labels & Types]
-        C --> D[Uses Workflows]
-        D --> E[Follows Standards]
-    end
+accTitle: "Inheritance and automation flow"
+accDescr {
+  Shows how canonical community health files propagate through automation workflows and AI integration to enforce labels, standards, and governance.
+}
+  subgraph "Repository Inheritance"
+    A[LightSpeed Repo] --> B[Inherits Health Files]
+    B --> C[Applies Labels & Types]
+    C --> D[Uses Workflows]
+    D --> E[Follows Standards]
+  end
 
-    subgraph "Automation Flow"
-        F[Issue/PR Created] --> G[Auto-Label Applied]
-        G --> H[Project Sync]
-        H --> I[Quality Checks]
-        I --> J[Governance Review]
-    end
+  subgraph "Automation Flow"
+    F[Issue/PR Created] --> G[Auto-Label Applied]
+    G --> H[Project Sync]
+    H --> I[Quality Checks]
+    I --> J[Governance Review]
+  end
 
-    subgraph "AI Integration"
-        K[Copilot Instructions] --> L[Agent Processing]
-        L --> M[Automated Tasks]
-        M --> N[Quality Assurance]
-    end
+  subgraph "AI Integration"
+    K[Copilot Instructions] --> L[Agent Processing]
+    L --> M[Automated Tasks]
+    M --> N[Quality Assurance]
+  end
 
-    style A fill:#e1f5fe
-    style F fill:#f3e5f5
-    style K fill:#fce4ec
+  classDef repo fill:#e2e8f0,stroke:#0f172a,color:#0f172a
+  classDef automation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
+  classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a
+  classDef development fill:#c7d2fe,stroke:#0f172a,color:#0f172a
+  classDef review fill:#fef3c7,stroke:#0f172a,color:#0f172a
+
+  class A repo
+  class B repo
+  class C repo
+  class D repo
+  class E repo
+  class F automation
+  class G automation
+  class H development
+  class I development
+  class J review
+  class K ai
+  class L ai
+  class M development
+  class N review
+
+  linkStyle default stroke:#0f172a,stroke-width:1.4px
 ```
 
 ### Development Workflow Process
 
+This flowchart walks through the development workflow (lint, test, coverage, deployment) and shows how failures redirect engineers back to fix issues before progressing.
+
 ```mermaid
 flowchart TD
+accTitle: "Development workflow process"
+accDescr {
+  The diagram shows code changes entering pre-commit hooks, passing lint/test stages, generating coverage, and finally pushing through CI/CD and deployment.
+}
     A[📝 Code Change] --> B[🔍 Pre-commit Hooks]
     B --> C{🎯 Linting Pass?}
     C -->|❌ No| D[🛠️ Fix Issues]
@@ -208,16 +286,38 @@ flowchart TD
     J --> K[🚀 CI/CD Pipeline]
     K --> L[🌐 Deploy/Merge]
 
-    style A fill:#e1f5fe
-    style E fill:#f3e5f5
-    style K fill:#e8f5e8
-    style L fill:#c8e6c9
+    classDef change fill:#e2e8f0,stroke:#0f172a,color:#0f172a
+    classDef hook fill:#d9f2ff,stroke:#0f172a,color:#0f172a
+    classDef test fill:#d1fae5,stroke:#0f172a,color:#0f172a
+    classDef check fill:#c7d2fe,stroke:#0f172a,color:#0f172a
+    classDef deployment fill:#f3e8ff,stroke:#0f172a,color:#0f172a
+
+    class A change
+    class B hook
+    class C hook
+    class D hook
+    class E test
+    class F check
+    class G check
+    class H test
+    class I test
+    class J deployment
+    class K deployment
+    class L deployment
+
+    linkStyle default stroke:#0f172a,stroke-width:1.4px
 ```
 
 ### AI & Automation Integration Pipeline
 
+The sequence diagram below traces how a developer push triggers AI agents, workflows, and validation gates that close the loop with repository feedback.
+
 ```mermaid
 sequenceDiagram
+accTitle: "AI and automation integration pipeline"
+accDescr {
+  Visualizes how developer pushes trigger AI automation, workflow execution, validation checks, and status updates back to the repository.
+}
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Repository
     participant AI as 🤖 AI Agent

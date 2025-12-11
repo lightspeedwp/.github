@@ -5,7 +5,22 @@ applyTo: "**/*.prompt.md"
 
 # Copilot Prompt Files Guidelines
 
-Instructions for creating effective and maintainable prompt files that guide GitHub Copilot in delivering consistent, high-quality outcomes across any repository.
+You are a prompt design curator. Follow our prompt file framework to craft reusable, predictable Copilot prompts. Avoid bloated tool lists, vague inputs, or missing frontmatter metadata.
+
+## Overview
+
+Applies to all `.prompt.md` files. Covers frontmatter, naming/placement, body structure, input handling, tools/permissions, tone, outputs, and QA. Excludes general coding standards (see `coding-standards.instructions.md`).
+
+## General Rules
+
+- Include complete frontmatter (`description`, `mode`, `tools`, and model when needed).
+- Keep prompts minimal and reusable with clear inputs and outputs.
+- Use least-privilege tool lists and call out destructive steps.
+- Write in direct, imperative, inclusive language.
+
+## Detailed Guidance
+
+Instructions for creating effective and maintainable prompt files that guide GitHub Copilot in delivering consistent, high-quality outcomes across any repository. Use the sections below for scope, frontmatter, naming, structure, inputs, tools, tone, outputs, and examples.
 
 ## Scope and Principles
 
@@ -55,6 +70,23 @@ Instructions for creating effective and maintainable prompt files that guide Git
 - Specify the format, structure, and location of expected results (for example, “Create `docs/adr/adr-XXXX.md` using the template below”).
 - Include success criteria and failure triggers so Copilot knows when to halt or retry.
 - Provide validation steps—manual checks, automated commands, or acceptance criteria lists—that reviewers can execute after running the prompt.
+
+## Examples
+
+- **Good:** `generate-readme.prompt.md` with frontmatter, clear inputs, workflow steps, outputs, and validation checklist.
+- **Avoid:** Prompts without frontmatter, unclear inputs, or broad tool permissions.
+
+## Validation
+
+- Test prompts via VS Code “Chat: Run Prompt” with representative inputs.
+- Verify tool lists are minimal and documented; check formatting with markdownlint/Prettier.
+- Ensure referenced files/paths exist and links are valid.
+
+## References
+
+- `.github/instructions/instructions.instructions.md`
+- `.github/instructions/file-organisation.instructions.md`
+- `.github/instructions/coding-standards.instructions.md`
 
 ## Examples and Reusable Assets
 

@@ -15,6 +15,41 @@ domain: "generic"
 
 # Programming Languages Standards
 
+You are a languages quality assistant. Follow our JavaScript, TypeScript, JSON, and YAML standards to lint, format, and document code consistently. Avoid custom lint rules, schema drift, or unpinned tool versions outside the documented configurations.
+
+## Overview
+
+Applies to JS/TS, JSON, and YAML across automation, workflows, and configs. Covers linters, formatters, schemas, and documentation standards. Excludes language-specific project rules unless referenced.
+
+## General Rules
+
+- Use pinned ESLint/Prettier/yamllint configs and follow documented scripts.
+- Keep schemas and types in sync; avoid ad hoc rule changes.
+- Document code with JSDoc where applicable and follow repository standards.
+- Align with CI and pre-commit hooks for lint/format enforcement.
+
+## Detailed Guidance
+
+- Follow the language-specific sections below for configuration, documentation, and lint/format commands.
+- Use CI/CD integration notes to ensure consistent enforcement.
+
+## Examples
+
+- **Good:** Run `npm run lint:js` with pinned configs, validate JSON against schemas, lint YAML with yamllint/actionlint.
+- **Avoid:** Introducing new lint rules without documentation or skipping schema validation.
+
+## Validation
+
+- Execute language-specific lint/format scripts before commit/CI.
+- Validate JSON with schemas (e.g., AJV) and run yamllint/actionlint for YAML.
+- Ensure JSDoc comments align with types and lint rules.
+
+## References
+
+- `.github/instructions/linting.instructions.md`
+- `.github/instructions/coding-standards.instructions.md`
+- `.github/instructions/instructions.instructions.md`
+
 This document consolidates linting, formatting, and documentation standards for JavaScript/TypeScript, JSON, and YAML files used across GitHub repositories and community health documentation.
 
 ## Purpose

@@ -5,6 +5,21 @@ description: "Instructions for implementing task plans with progressive tracking
 
 # Task Plan Implementation Instructions
 
+You are a task plan implementation assistant. Follow our `.copilot-tracking` plan and changes workflow to deliver tasks sequentially and completely. Avoid deviating from plan order, skipping change log updates, or leaving tasks unchecked without reasons.
+
+## Overview
+
+Applies to implementing task plans tracked in `.copilot-tracking/plans/**` and `.copilot-tracking/details/**` with progress recorded in `.copilot-tracking/changes/**`. Covers preparation, execution, validation, and completion.
+
+## General Rules
+
+- Read plan and changes files fully before starting; process tasks strictly in order.
+- Associate work with a specific task and read its details file before coding.
+- Update plan checkboxes and changes files after each task; document any deviations.
+- Follow workspace patterns with proper validation and error handling.
+
+## Detailed Guidance
+
 You will implement your specific task plan located in `.copilot-tracking/plans/**` and `.copilot-tracking/details/**`. Your goal is to progressively and completely implement each step in the plan files to create high-quality, working software that meets all specified requirements.
 
 Implementation progress MUST be tracked in a corresponding changes files located in `.copilot-tracking/changes/**`.
@@ -133,6 +148,22 @@ Implementation is complete when:
 - ✅ All specified files contain working code
 - ✅ Code follows workspace patterns and conventions
 - ✅ All functionality works as expected within the project
+
+## Examples
+
+- **Good:** Sequentially completes tasks, updates plan and changes files after each task with concise summaries, and documents any deviations.
+- **Avoid:** Skipping task details, merging steps without tracking, or leaving plan checkboxes unchecked.
+
+## Validation
+
+- Verify plan files have updated checkboxes and changes files include Added/Modified/Removed summaries per task.
+- Ensure code passes relevant tests/lints and follows workspace patterns.
+- Confirm divergences are documented with reasons.
+
+## References
+
+- `.github/instructions/file-organisation.instructions.md`
+- `.github/instructions/instructions.instructions.md`
 - ✅ Changes file is updated after every task completion with Added, Modified, or Removed entries
 - ✅ Changes file documents all phases with detailed release-ready documentation and final release summary
 

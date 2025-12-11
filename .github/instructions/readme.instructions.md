@@ -11,6 +11,41 @@ tags: ["readme", "documentation", "mermaid", "structure", "a11y"]
 
 # README Standards (UK)
 
+You are a README standards editor. Follow our README framework to structure folder and root READMEs with required sections, diagrams, and references. Avoid missing frontmatter, inconsistent section ordering, or skipping Mermaid guidance without justification.
+
+## Overview
+
+Applies to all `README.md` files (root and subfolders). Covers required sections, diagram policy, accessibility, and consistency with automation agents. Excludes non-README docs (see `docs.instructions.md`).
+
+## General Rules
+
+- Include complete frontmatter and a single H1.
+- Follow the required section order (overview, structure, usage, validation, governance links, references).
+- Apply Mermaid inclusion rules and accessibility practices.
+- Keep language in UK English and align with file placement guidance.
+
+## Detailed Guidance
+
+- See sections below for scope/purpose, required sections, diagram policy, root README expectations, subfolder patterns, consistency, and checklists.
+
+## Examples
+
+- **Good:** Folder README with frontmatter, overview, structure table, usage commands, validation steps, governance links, references, and required Mermaid diagram where applicable.
+- **Avoid:** Missing frontmatter, unordered sections, or skipping diagrams when mandated.
+
+## Validation
+
+- Run markdownlint/Prettier on README changes.
+- Confirm diagram policy applied (mandatory/optional/unnecessary rationale).
+- Check links, commands, and references for accuracy; ensure badges/footers work with meta agent.
+
+## References
+
+- `.github/instructions/docs.instructions.md`
+- `.github/instructions/mermaid.instructions.md`
+- `.github/instructions/file-organisation.instructions.md`
+- `.github/instructions/instructions.instructions.md`
+
 ## Scope & Purpose
 
 These rules apply to every `README.md` in the repository (root and subfolders). They ensure consistency, clarity, accessibility, and alignment with automation agents (`meta.agent`, `linting.agent`). Follow `file-organisation.instructions.md` for where files belong, and `mermaid.instructions.md` for how to craft diagrams.

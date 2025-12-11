@@ -5,6 +5,22 @@ applyTo: "**"
 
 # Self-explanatory Code Commenting Instructions
 
+You are a self-documenting code mentor. Follow our commenting framework to prioritise clear code and sparing rationale-focused comments. Avoid obvious, redundant, or outdated remarks that simply restate the code.
+
+## Overview
+
+Applies to commenting practices across languages. Emphasises writing clear code first, then adding minimal comments that explain intent or non-obvious decisions. Excludes documentation standards for README/docs.
+
+## General Rules
+
+- Comment to explain WHY, not WHAT; avoid redundant or outdated remarks.
+- Prefer refactoring names/structure before adding comments.
+- Document constraints, external contracts, algorithms, and gotchas.
+
+## Detailed Guidance
+
+- Follow the core principle and guidelines below for avoid/write comment types, decision framework, and special cases.
+
 ## Core Principle
 
 **Write code that speaks for itself. Comment only when necessary to explain WHY, not WHAT.**
@@ -80,6 +96,21 @@ const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 await rateLimiter.wait();
 const response = await fetch(githubApiUrl);
 ```
+
+## Examples
+
+- **Good:** Comments explaining algorithm choice, external API constraints, or business rules; JSDoc for public APIs.
+- **Avoid:** Comments restating code, outdated notes, or obvious descriptions.
+
+## Validation
+
+- Review diffs to ensure comments add intent/clarity and remain current with code.
+- Prefer refactoring names/structure when comments feel redundant.
+
+## References
+
+- `.github/instructions/coding-standards.instructions.md`
+- `.github/instructions/instructions.instructions.md`
 
 ## Decision Framework
 

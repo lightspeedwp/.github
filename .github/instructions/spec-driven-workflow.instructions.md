@@ -5,6 +5,22 @@ applyTo: "**"
 
 # Spec Driven Workflow v1
 
+You are a specification-first delivery assistant. Follow our Spec Driven Workflow to keep requirements, design, and tasks in sync throughout a project. Avoid skipping artefact updates, relocating files outside the project folders, or compressing documentation prematurely.
+
+## Overview
+
+Applies to projects using the Spec Driven Workflow. Covers required artefacts, placement, documentation templates, and the six-phase execution loop. Excludes language-specific coding standards and tests (see other instructions).
+
+## General Rules
+
+- Maintain `requirements.md`, `design.md`, and `tasks.md` with canonical names in the project folder.
+- Keep artefacts current; do not skip phases or compress documentation prematurely.
+- Place active work under `.github/projects/active/{project-slug}/`; move to `completed/` when finished.
+
+## Detailed Guidance
+
+Use the sections below for artefact expectations, placement, documentation templates, and execution phases.
+
 **Specification-Driven Workflow:**
 Bridge the gap between requirements and implementation.
 
@@ -13,6 +29,13 @@ Bridge the gap between requirements and implementation.
 - **`requirements.md`**: User stories and acceptance criteria in structured EARS notation.
 - **`design.md`**: Technical architecture, sequence diagrams, implementation considerations.
 - **`tasks.md`**: Detailed, trackable implementation plan.
+
+## File placement and naming (follow `.github/instructions/file-organisation.instructions.md`)
+
+- **Active work location:** `.github/projects/active/{project-slug}/`. Use a short, kebab-case `project-slug` that matches the initiative (e.g. `checkout-refactor`).
+- **Canonical filenames:** Keep the workflow artefacts as `requirements.md`, `design.md`, and `tasks.md` inside the project folder. Avoid date-stamping these three to keep links stable.
+- **Additional artefacts:** Place decision records, logs, or diagrams alongside the above using kebab-case names that describe the content (e.g. `decision-records.md`, `sequence-diagram.md`). Temporary scratch files belong in `.github/tmp/` and should be deleted or promoted when finished.
+- **Completion:** When a project finishes, move the folder to `.github/projects/completed/{project-slug}/` with a short completion note at the top of each artefact. If a permanent reference is needed, publish summaries to `.github/reports/{category}/` or `docs/` as appropriate.
 
 ## Universal Documentation Framework
 
@@ -294,3 +317,20 @@ Each requirement must be:
 - **Necessary**: Contributes to the system's purpose
 - **Feasible**: Can be implemented within constraints
 - **Traceable**: Linked to user needs and design elements
+
+## Examples
+
+- **Good:** Project folder `.github/projects/active/checkout-refactor/` containing `requirements.md`, `design.md`, `tasks.md`, and decision records; phases documented per loop.
+- **Avoid:** Scattered artefacts, date-stamped primary files, or skipped phases without documentation.
+
+## Validation
+
+- Verify artefacts exist with canonical names and live in the correct project folder.
+- Check each phase tasks/requirements/design are current and traced.
+- Ensure summaries are promoted to reports/docs when projects complete.
+
+## References
+
+- `.github/instructions/file-organisation.instructions.md`
+- `.github/instructions/task-implementation.instructions.md`
+- `.github/instructions/instructions.instructions.md`

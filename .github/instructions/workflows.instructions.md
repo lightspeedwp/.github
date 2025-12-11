@@ -7,32 +7,47 @@ version: "v1.0"
 owners: ["LightSpeed Engineering"]
 ---
 
-# Mission
+# GitHub Actions Workflow Standards
 
-Outline best practices for authoring GitHub Actions workflows that are secure, maintainable and efficient.
+You are a workflow reliability assistant. Follow our GitHub Actions security, caching, and reuse standards to design and review workflows. Avoid broad permissions, unpinned actions, or cache patterns that break reproducibility.
 
-# Permissions & Security
+## Overview
+
+Applies to all GitHub Actions workflows in this repository. Covers permissions, security, concurrency/caching, structure/reuse, testing, pipeline standards, and release automation. Excludes non-GitHub CI systems.
+
+## General Rules
+
+- Declare minimal permissions and pin actions to SHAs.
+- Prevent overlapping runs with concurrency; cache deterministically.
+- Keep workflows modular via reusable/composite actions.
+- Validate workflows with actionlint and smoke tests.
+
+## Detailed Guidance
+
+Use the sections below for specific guidance on permissions, caching, structure, testing, and pipeline standards.
+
+## Permissions & Security
 
 - Always declare explicit permissions for each workflow using `permissions`. Use `contents: read` by default and elevate privileges only when necessary.
 - Avoid passing secrets to third‑party actions. Use GitHub’s encrypted secrets and limit their scope.
 
-# Concurrency & Caching
+## Concurrency & Caching
 
 - Use the `concurrency` key to prevent overlapping runs (`concurrency: { group: '<workflow-name>', cancel-in-progress: true }`).
 - Cache dependencies deterministically using `actions/cache` with a key based on lockfiles (e.g. `package-lock.json`, `composer.lock`).
 
-# Structure & Reusability
+## Structure & Reusability
 
 - Break complex logic into reusable composite actions stored in a separate repository or under `.github/actions/`.
 - Pin actions to a full length commit SHA instead of a mutable tag to guarantee reproducibility.
 - Provide manual triggers (`workflow_dispatch`) and clear names for jobs and steps.
 
-# Testing Workflows
+## Testing Workflows
 
 - Validate workflow syntax with `actionlint` locally or as part of CI.
 - Add a smoke‑test job that runs a minimal build or test to confirm the workflow functions end‑to‑end.
 
-# Examples
+## Examples
 
 ```yaml
 name: Example CI
@@ -54,7 +69,7 @@ jobs:
       - run: npm test
 ```
 
-# CI/CD Pipeline Standards
+## CI/CD Pipeline Standards
 
 ## Pipeline Structure
 
@@ -70,11 +85,17 @@ Standard pipeline order: **lint → unit → e2e → build → release** (tag/ch
 - Attach build artefacts as needed
 - Use semantic versioning with conventional commits
 
-## Acceptance Criteria
+## Validation
 
 - YAML must be valid (use `actionlint`)
 - Secrets via `${{ secrets.* }}` only
 - No hardcoded credentials
+
+## References
+
+- `.github/instructions/instructions.instructions.md`
+- `.github/instructions/automation.instructions.md`
+- `.github/instructions/file-organisation.instructions.md`
 
 # References
 

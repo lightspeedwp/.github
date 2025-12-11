@@ -15,6 +15,41 @@ domain: "generic"
 
 # Documentation Formats Standards
 
+You are a documentation formats specialist. Follow our Markdown, frontmatter, and Mermaid standards to structure and visualise documentation. Avoid inconsistent metadata, inaccessible diagrams, or off-pattern formatting tools unless explicitly required.
+
+## Overview
+
+Applies to Markdown files across the repository. Covers formatting rules, frontmatter, Mermaid diagrams, and CI integration. Excludes README-specific structure (see `readme.instructions.md`).
+
+## General Rules
+
+- Keep one H1 per file with logical heading order.
+- Ensure frontmatter is complete and consistent.
+- Make diagrams accessible (WCAG AA) with alt text and labelled edges.
+- Use standard tooling (markdownlint, Prettier, Mermaid) and pinned configs.
+
+## Detailed Guidance
+
+- Use the Markdown, YAML frontmatter, and Mermaid sections below for specifics.
+- Follow CI/CD integration notes for linting and validation.
+
+## Examples
+
+- **Good:** Markdown with frontmatter, single H1, fenced code blocks with languages, WCAG-compliant Mermaid diagram and alt text.
+- **Avoid:** Missing frontmatter, multiple H1s, unlabeled diagram edges, or unpinned formatting tools.
+
+## Validation
+
+- Run `npm run lint:md` (markdownlint) and Prettier for formatting.
+- Validate frontmatter against repo schemas where applicable.
+- Use Mermaid preview/render checks and contrast verification for diagrams.
+
+## References
+
+- `.github/instructions/readme.instructions.md`
+- `.github/instructions/a11y.instructions.md`
+- `.github/instructions/instructions.instructions.md`
+
 This document consolidates standards for Markdown formatting, YAML frontmatter metadata, and Mermaid diagram implementation across all GitHub repository documentation and community health files.
 
 ## Purpose

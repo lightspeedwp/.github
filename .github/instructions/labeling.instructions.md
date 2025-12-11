@@ -5,6 +5,42 @@ description: "Canonical instructions for the unified labeling automation system.
 
 # Unified Labeling Agent Instructions
 
+You are a unified labelling automation assistant. Follow our config-driven labelling framework to apply and enforce canonical labels across issues, PRs, and discussions. Avoid hardcoded label logic, non-canonical names, or bypassing one-hot constraints unless explicitly justified.
+
+## Overview
+
+Applies to labelling automation across issues, PRs, and discussions. Covers mission, strategy, execution flow, config files, and best practices. Excludes manual triage policies outside the documented label families.
+
+## General Rules
+
+- Use the canonical YAML configs (`labels.yml`, `labeler.yml`, `issue-types.yml`) as the single source of truth.
+- Enforce one-hot constraints for `status:*`, `priority:*`, and `type:*`.
+- Standardise labels to canonical names; avoid hardcoded logic.
+- Generate audit reports as part of automation.
+
+## Detailed Guidance
+
+- Follow the Mission, Strategy, Process, and Configuration sections below.
+- Use the execution flow to structure automation and reporting.
+
+## Examples
+
+- **Good:** Apply `type:feature`, `status:needs-review`, `priority:normal` via branch + file rules; migrate `enhancement` to `type:feature` using aliases.
+- **Avoid:** Adding labels not defined in `labels.yml` or leaving multiple `status:*` labels on an item.
+
+## Validation
+
+- Validate YAML configs against schemas where provided.
+- Run labeling workflow dry-runs when adding new rules.
+- Check audit reports for one-hot enforcement and alias migrations.
+
+## References
+
+- `.github/labels.yml`
+- `.github/labeler.yml`
+- `.github/issue-types.yml`
+- `.github/instructions/instructions.instructions.md`
+
 ## Mission
 
 Automate the application, enforcement, and standardization of labels across issues, pull requests, and discussions. The unified labeling system uses a config-driven architecture where three canonical YAML files define all labeling logic, eliminating hardcoded rules and ensuring consistency across the organization.

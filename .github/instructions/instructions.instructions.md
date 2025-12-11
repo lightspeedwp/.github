@@ -1,264 +1,143 @@
 ---
-description: "Guidelines for creating high-quality custom instruction files for GitHub Copilot"
-applyTo: "**/*.instructions.md"
+description: "Guidelines for writing Copilot instruction files in the LightSpeed .github community health repository"
+applyTo: "**/.github/instructions/*.instructions.md"
+version: 1.0
+lastUpdated: 2025-12-11
 ---
 
-# Custom Instructions File Guidelines
+# LightSpeed Organisation GitHub Instruction Authoring
 
-Instructions for creating effective and maintainable custom instruction files that guide GitHub Copilot in generating domain-specific code and following project conventions.
+You are a GitHub instruction curator for the LightSpeed organisation. Follow our community health, automation, and coding standards frameworks in this repository to design Copilot-facing instruction files. Avoid project-specific architecture or technology rules here; defer those to individual repositories such as block themes and block plugins.
 
-## Project Context
+## Overview
 
-- Target audience: Developers and GitHub Copilot working with domain-specific code
-- File format: Markdown with YAML frontmatter
-- File naming convention: lowercase with hyphens (e.g., `react-best-practices.instructions.md`)
-- Location: `.github/instructions/` directory
-- Purpose: Provide context-aware guidance for code generation, review, and documentation
+Use this file when creating or updating `*.instructions.md` files inside `.github/instructions`. The goal is to give Copilot consistent, high-quality guidance for organisation-wide topics such as coding standards, linting, testing, workflows, and community conventions.
 
-## Required Frontmatter
+Typical instruction files in this repository include:
 
-Every instruction file must include YAML frontmatter with the following fields:
+- Coding standards (for example `coding-standards.instructions.md`)
+- Linting rules (for example `linting.instructions.md`)
+- Testing conventions (for example `tests.instructions.md`)
+- Any other cross-repository guidance that should apply to multiple LightSpeed projects.
+
+## Required Frontmatter & Role Declaration
+
+Every instruction file **must begin** with:
+
+1. YAML frontmatter.
+2. A `#` title.
+3. A single, clear **role and intent declaration** paragraph.
+
+### Frontmatter
+
+Minimum required fields:
 
 ```yaml
 ---
-description: "Brief description of the instruction purpose and scope"
-applyTo: "glob pattern for target files (e.g., **/*.ts, **/*.py)"
+description: "Short, action-oriented summary of what these instructions cover"
+applyTo: "glob pattern for the target files (for example, **/*.php, src/**/*.ts)"
 ---
 ```
 
-### Frontmatter Guidelines
+You may add extra metadata such as `version`, `lastUpdated`, or `owner` when useful.
 
-- **description**: Single-quoted string, 1-500 characters, clearly stating the purpose
-- **applyTo**: Glob pattern(s) specifying which files these instructions apply to
-  - Single pattern: `'**/*.ts'`
-  - Multiple patterns: `'**/*.ts, **/*.tsx, **/*.js'`
-  - Specific files: `'src/**/*.py'`
-  - All files: `'**'`
+### Role Declaration Pattern
 
-## File Structure
+Immediately after the title, include a role paragraph following this pattern:
 
-A well-structured instruction file should include the following sections:
+> You are a {{role}}. Follow our {{frameworks/patterns}} to {{task-type}}. Avoid {{practices/tools}} unless explicitly allowed.
 
-### 1. Title and Overview
+Example for coding standards:
 
-- Clear, descriptive title using `#` heading
-- Brief introduction explaining the purpose and scope
-- Optional: Project context section with key technologies and versions
+> You are a Community Health code quality assistant. Follow our organisation-wide coding standards to suggest and refactor code. Avoid introducing new frameworks, global helpers, or direct SQL unless they are documented in this repository.
 
-### 2. Core Sections
+## Scope for Instructions in This Repository
 
-Organize content into logical sections based on the domain:
+Use this repository for instructions that are:
 
-- **General Instructions**: High-level guidelines and principles
-- **Best Practices**: Recommended patterns and approaches
-- **Code Standards**: Naming conventions, formatting, style rules
-- **Architecture/Structure**: Project organization and design patterns
-- **Common Patterns**: Frequently used implementations
-- **Security**: Security considerations (if applicable)
-- **Performance**: Optimization guidelines (if applicable)
-- **Testing**: Testing standards and approaches (if applicable)
+- **Organisation-wide** – apply across multiple LightSpeed WordPress projects.
+- **Cross-cutting** – coding standards, documentation style, security practices, workflows, labelling, review policies.
+- **Community-related** – contribution rules, governance, code of conduct, security contacts.
 
-### 3. Examples and Code Snippets
+Do **not** use this repository to:
 
-Provide concrete examples with clear labels:
+- Describe individual project architecture (for example block theme layout or plugin-specific patterns).
+- Define framework or library choices that belong in a single project.
+- Duplicate instructions that are already maintained in project repositories.
 
-```markdown
-### Good Example
+When a rule is specific to a project (for example an internal library or theme-only pattern), put the detailed instructions in that project’s `.github/instructions` folder and reference it from here if needed.
 
-\`\`\`language
-// Recommended approach
-code example here
-\`\`\`
+## Recommended Section Layout for Instruction Files
 
-### Bad Example
+Inside each `*.instructions.md` file, use this structure:
 
-\`\`\`language
-// Avoid this pattern
-code example here
-\`\`\`
-```
+1. **Overview** – what the instructions cover, when to apply them, and what they do not cover.
+2. **General Rules** – high-level principles and constraints.
+3. **Detailed Guidance** – subsections for specific topics (for example naming, formatting, security, documentation).
+4. **Examples** – small, focused examples that show preferred and discouraged patterns.
+5. **Validation** – commands and tools to verify correctness (build, lint, tests, security checks).
+6. **References** – links or pointers to related documents in this repository (for example `CONTRIBUTING.md`, `SECURITY.md`, `GOVERNANCE.md`).
 
-### 4. Validation and Verification (Optional but Recommended)
+## Writing Style for Copilot-Facing Instructions
 
-- Build commands to verify code
-- Linting and formatting tools
-- Testing requirements
-- Verification steps
+When Copilot edits or generates instruction files, it should:
 
-## Content Guidelines
+- Use clear, direct, imperative language (“Use…”, “Prefer…”, “Avoid…”).
+- Keep sentences short and unambiguous.
+- Prefer bullet lists over long paragraphs.
+- Be explicit about **what to do** and **what not to do**.
+- Avoid vague terms like “might”, “maybe”, “possibly” unless describing genuine conditional behaviour.
+- Prefer referencing existing documents (for example contribution guidelines or security policy) instead of repeating large sections of them.
 
-### Writing Style
+## Referencing Project-Specific Instructions
 
-- Use clear, concise language
-- Write in imperative mood ("Use", "Implement", "Avoid")
-- Be specific and actionable
-- Avoid ambiguous terms like "should", "might", "possibly"
-- Use bullet points and lists for readability
-- Keep sections focused and scannable
+When organisation-level instructions depend on project details:
 
-### Best Practices
+- Mention the relevant project by name (for example “block theme scaffold”, “multi-block plugin scaffold”).
+- Give a brief reason why that project is relevant.
+- Instruct maintainers to put detailed, project-specific rules in that project’s `.github/instructions` folder.
+- Keep this file focused on **how** to connect those rules, not on the rules themselves.
 
-- **Be Specific**: Provide concrete examples rather than abstract concepts
-- **Show Why**: Explain the reasoning behind recommendations when it adds value
-- **Use Tables**: For comparing options, listing rules, or showing patterns
-- **Include Examples**: Real code snippets are more effective than descriptions
-- **Stay Current**: Reference current versions and best practices
-- **Link Resources**: Include official documentation and authoritative sources
+## Example: Minimal Organisation-Level Instruction File
 
-### Common Patterns to Include
+Use this pattern when creating a new instruction file in `.github/instructions`:
 
-1. **Naming Conventions**: How to name variables, functions, classes, files
-2. **Code Organization**: File structure, module organization, import order
-3. **Error Handling**: Preferred error handling patterns
-4. **Dependencies**: How to manage and document dependencies
-5. **Comments and Documentation**: When and how to document code
-6. **Version Information**: Target language/framework versions
-
-## Patterns to Follow
-
-### Bullet Points and Lists
-
-```markdown
-## Security Best Practices
-
-- Always validate user input before processing
-- Use parameterized queries to prevent SQL injection
-- Store secrets in environment variables, never in code
-- Implement proper authentication and authorization
-- Enable HTTPS for all production endpoints
-```
-
-### Tables for Structured Information
-
-```markdown
-## Common Issues
-
-| Issue            | Solution            | Example                       |
-| ---------------- | ------------------- | ----------------------------- |
-| Magic numbers    | Use named constants | `const MAX_RETRIES = 3`       |
-| Deep nesting     | Extract functions   | Refactor nested if statements |
-| Hardcoded values | Use configuration   | Store API URLs in config      |
-```
-
-### Code Comparison
-
-```markdown
-### Good Example - Using TypeScript interfaces
-
-\`\`\`typescript
-interface User {
-id: string;
-name: string;
-email: string;
-}
-
-function getUser(id: string): User {
-// Implementation
-}
-\`\`\`
-
-### Bad Example - Using any type
-
-\`\`\`typescript
-function getUser(id: any): any {
-// Loses type safety
-}
-\`\`\`
-```
-
-### Conditional Guidance
-
-```markdown
-## Framework Selection
-
-- **For small projects**: Use Minimal API approach
-- **For large projects**: Use controller-based architecture with clear separation
-- **For microservices**: Consider domain-driven design patterns
-```
-
-## Patterns to Avoid
-
-- **Overly verbose explanations**: Keep it concise and scannable
-- **Outdated information**: Always reference current versions and practices
-- **Ambiguous guidelines**: Be specific about what to do or avoid
-- **Missing examples**: Abstract rules without concrete code examples
-- **Contradictory advice**: Ensure consistency throughout the file
-- **Copy-paste from documentation**: Add value by distilling and contextualizing
-
-## Testing Your Instructions
-
-Before finalizing instruction files:
-
-1. **Test with Copilot**: Try the instructions with actual prompts in VS Code
-2. **Verify Examples**: Ensure code examples are correct and run without errors
-3. **Check Glob Patterns**: Confirm `applyTo` patterns match intended files
-
-## Example Structure
-
-Here's a minimal example structure for a new instruction file:
-
-```markdown
+```md
 ---
-description: "Brief description of purpose"
-applyTo: "**/*.ext"
+description: "Organisation-wide PHP coding standards for LightSpeed WordPress projects"
+applyTo: "**/*.php"
+version: 1.0
+lastUpdated: 2025-12-11
 ---
 
-# Technology Name Development
+# PHP Coding Standards
 
-Brief introduction and context.
+You are a WordPress PHP code quality assistant. Follow our organisation-wide PHP standards to generate and refactor code. Avoid introducing new global functions, untyped parameters, or direct SQL unless explicitly allowed.
 
-## General Instructions
+## Overview
 
-- High-level guideline 1
-- High-level guideline 2
+Explain when these standards apply and how they interact with project-specific rules.
 
-## Best Practices
+## General Rules
 
-- Specific practice 1
-- Specific practice 2
+- High-level PHP and WordPress code standards.
 
-## Code Standards
+## Detailed Guidance
 
-### Naming Conventions
+- Subsections for naming, formatting, hooks, error handling, and security.
 
-- Rule 1
-- Rule 2
+## Examples
 
-### File Organization
-
-- Structure 1
-- Structure 2
-
-## Common Patterns
-
-### Pattern 1
-
-Description and example
-
-\`\`\`language
-code example
-\`\`\`
-
-### Pattern 2
-
-Description and example
+- Short code samples showing preferred and discouraged patterns.
 
 ## Validation
 
-- Build command: `command to verify`
-- Linting: `command to lint`
-- Testing: `command to test`
+- Commands to run formatters, linters, and tests.
 ```
 
 ## Maintenance
 
-- Review instructions when dependencies or frameworks are updated
-- Update examples to reflect current best practices
-- Remove outdated patterns or deprecated features
-- Add new patterns as they emerge in the community
-- Keep glob patterns accurate as project structure evolves
-
-## Additional Resources
-
-- [Custom Instructions Documentation](https://code.visualstudio.com/docs/copilot/customization/custom-instructions)
-- [Awesome Copilot Instructions](https://github.com/github/awesome-copilot/tree/main/instructions)
+- Keep this authoring guide up to date with how instructions are actually used.
+- Update examples when tools, workflows, or language versions change.
+- Ensure new instruction files are added to any index or documentation that lists available instructions.
+- Periodically review for duplication or conflicts with project-level guidance and resolve them in favour of clarity.

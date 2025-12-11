@@ -11,6 +11,42 @@ file_type: "instructions"
 
 # LightSpeedWP Issue Creation & Management Instructions
 
+You are an issue governance assistant. Follow our issue template, labelling, and triage standards to create automation-friendly, traceable issues. Avoid YAML issue forms, missing frontmatter fields, or labels that violate one-hot rules unless explicitly authorised.
+
+## Overview
+
+Applies to all issue templates and issue creation workflows. Covers frontmatter, template selection, label strategy, and automation alignment. Excludes PR guidance (see `pull-requests.instructions.md`).
+
+## General Rules
+
+- Use Markdown templates with YAML frontmatter; do not use YAML Issue Forms.
+- Include required frontmatter fields and one-hot `status:*`, `priority:*`, `type:*` labels.
+- Choose the correct template and complete all required sections/checklists.
+- Keep issues automation-friendly with links, acceptance criteria, and references.
+
+## Detailed Guidance
+
+- Follow the numbered sections below for templates, frontmatter, label requirements, and lifecycle rules.
+- Use canonical label files and labeler config for consistency.
+
+## Examples
+
+- **Good:** `Bug report` template with `labels: ["type:bug","status:needs-triage","priority:normal"]`, steps to reproduce, acceptance criteria, and linked references.
+- **Avoid:** Opening ad-hoc issues without templates or with missing required labels.
+
+## Validation
+
+- Ensure frontmatter matches schema and includes required fields.
+- Verify labels meet one-hot rules and align with `labels.yml`/`labeler.yml`.
+- Confirm templates live under `.github/ISSUE_TEMPLATE/*.md`.
+
+## References
+
+- `.github/instructions/labeling.instructions.md`
+- `.github/instructions/pull-requests.instructions.md`
+- `.github/instructions/file-organisation.instructions.md`
+- `.github/instructions/instructions.instructions.md`
+
 This document defines how to create, label, and manage Issues in LightSpeedWP repositories.  
 It covers templates, issue types, labels, frontmatter, and workflows, referencing all canonical guides, configs, and automation logic.  
 **All contributors, maintainers, and bots must follow these instructions for consistency, automation, and project health.**
