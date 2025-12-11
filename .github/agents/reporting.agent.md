@@ -123,6 +123,7 @@ First, what category does this report belong to?
 - issue-metrics (GitHub issue analytics, trends)
 - labeling (label automation, sync logs)
 - linting (ESLint, code quality reports)
+- mermaid (diagram coverage, accessibility checks, rendering/contrast audits)
 - meta (documentation metadata: badges, references, footers)
 - metrics (general metrics, weekly summaries)
 - optimisation (performance optimisation, token reduction)

@@ -16,7 +16,7 @@ The files are organised under the `.github/` directory:
 - [`AGENTS.md`](../AGENTS.md): Global AI rules applicable to all projects. Defines language, security, accessibility, modularity, and review requirements. Reference this file for central guidance on frontmatter schemas ([schemas/frontmatter.schema.json](../schemas/frontmatter.schema.json))
 - [`agents/agent.md`](./agents/agent.md): Main agent index. Links all agent specs, stubs, and explains local/dry-run usage. Reference this for agent implementation and testing.
 - [`instructions/`](./instructions/): Modular `.instructions.md` files scoped by language, file type, or topic. Each file includes YAML frontmatter describing its scope, mission, guidelines, checklists, and references. See below for a full index.
-  - **[file-output-organization.instructions.md](./instructions/file-output-organization.instructions.md)**: **CRITICAL** - Defines where Copilot/agents should create reports, task files, and project artifacts. Always follow these rules to prevent file organization drift.
+  - **[file-organisation.instructions.md](./instructions/file-organisation.instructions.md)**: **CRITICAL** - Defines where Copilot/agents should create reports, task files, and project artefacts. Always follow these rules to prevent file organisation drift.
 - [`prompts/prompts.md`](./prompts/prompts.md): Master prompt index and guidance. Reference this for prompt authoring conventions and to locate all available prompts.
 - [`prompts/`](./prompts/): Reusable `.prompt.md` files for Copilot Chat and GitHub Actions. Each prompt describes a specific task (e.g. audit docs, fix lint, author JSON schema, generate workflow, increase test coverage). See below for a full index.
 - [`reports/`](./reports/): Generated reports, analysis outputs, and audit files. All Copilot/agent reports must be created here, not in docs/ or repository root.
@@ -118,5 +118,10 @@ Use comprehensive inline documentation following WordPress standards (see [codin
 - Keep instructions and prompts generic and reusable for any LightSpeed WordPress project
 - Update as standards evolve or new best practices emerge
 - Document significant changes in commit messages
+
+## Community Health Assets (Shared vs Repository-Scoped)
+
+- **Shared across the organisation:** discussion templates (`.github/DISCUSSION_TEMPLATE/`), saved replies (`.github/SAVED_REPLIES/`), issue templates (`.github/ISSUE_TEMPLATE/`), pull request templates (branch-specific) (`.github/PULL_REQUEST_TEMPLATE/`), default PR template (`.github/PULL_REQUEST_TEMPLATE.md`).
+- **Repository-scoped only:** issue types (`.github/issue-types.yml`) and labels (`.github/labels.yml`) are defined per repository and are **not** shared organisation-wide.
 
 For more details, see the README files in the `instructions` and `prompts` folders.

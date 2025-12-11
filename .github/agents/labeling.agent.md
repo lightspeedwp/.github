@@ -205,4 +205,4 @@ Maps issue template types to labels:
 - [labeling.agent.js](../../scripts/agents/labeling.agent.js) - Main implementation
 - [Labeling Documentation](../../docs/LABELING.md) - Complete labeling system docs
 - [Label Strategy](../../docs/LABEL_STRATEGY.md) - Label philosophy and best practices
-- [Coding Standards](../.github/instructions/coding-standards.instructions.md) - Development guidelines
+- [Coding Standards](../instructions/coding-standards.instructions.md) - Development guidelines

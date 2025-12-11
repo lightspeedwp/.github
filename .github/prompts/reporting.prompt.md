@@ -45,6 +45,7 @@ Use this prompt when you need to:
 | `coverage`      | `.github/reports/coverage/`      | Test coverage reports                  |
 | `branding`      | `.github/reports/branding/`      | Documentation branding metrics         |
 | `issue-metrics` | `.github/reports/issue-metrics/` | GitHub analytics                       |
+| `mermaid`       | `.github/reports/mermaid/`       | Diagram coverage, accessibility/contrast audits, rendering checks |
 
 ## Instructions
 

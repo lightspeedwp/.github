@@ -315,7 +315,7 @@ Comprehensive planning agent supporting three complementary modes:
 
 ## Reference Documentation
 
-- [Spec-Driven Workflow](.github/instructions/spec-driven-workflow.instructions.md)
-- [Architecture Guide](docs/ARCHITECTURE.md)
-- [Contributing Guidelines](CONTRIBUTING.md)
-- [Coding Standards](.github/instructions/coding-standards.instructions.md)
+- [Spec-Driven Workflow](../instructions/spec-driven-workflow.instructions.md)
+- [Architecture Guide](../../docs/ARCHITECTURE.md)
+- [Contributing Guidelines](../../CONTRIBUTING.md)
+- [Coding Standards](../instructions/coding-standards.instructions.md)

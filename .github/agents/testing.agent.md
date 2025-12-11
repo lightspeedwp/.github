@@ -29,14 +29,10 @@ tags:
   ]
 language: "en"
 references:
-  - path: ".github/agents/testing.agent.js"
-    description: "Implementation script"
   - path: ".github/workflows/testing.yml"
-    description: "GitHub Actions testing workflow"
-  - path: ".github/instructions/testing.instructions.md"
-    description: "Master testing standards index"
-  - path: ".github/instructions/tests.instructions.md"
-    description: "Test framework standards"
+    description: "GitHub Actions testing workflow (uses npm scripts)"
+  - path: "package.json"
+    description: "Test scripts configuration (npm run check, npm run test, npm run lint:all)"
   - path: ".github/instructions/coding-standards.instructions.md"
     description: "Unified coding standards"
 owners: ["lightspeedwp/maintainers"]
@@ -49,6 +45,8 @@ metadata:
 ## Purpose
 
 Automate test execution, coverage reporting, and quality validation across all testing frameworks used in LightSpeed projects.
+
+**Implementation Note:** This agent uses npm scripts defined in `package.json` rather than a dedicated `.agent.js` script file. The workflow executes `npm run check` which orchestrates linting and testing via package.json scripts.
 
 ## Responsibilities
 

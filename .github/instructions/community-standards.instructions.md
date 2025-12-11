@@ -1,7 +1,7 @@
 ---
 file_type: "instructions"
 title: "Community Standards"
-description: "Comprehensive standards for file management, naming conventions, README documentation, and community health best practices"
+description: "Community health standards: naming conventions, README expectations, saved replies, and shared assets. File placement lives in file-organisation.instructions.md."
 version: "v1.0"
 last_updated: "2025-12-07"
 owners: ["GitHub Community Health Team"]
@@ -22,7 +22,7 @@ domain: "generic"
 
 # Community Standards
 
-This document consolidates standards for file organization, naming conventions, README documentation, and saved replies to maintain consistent and professional GitHub community health repositories.
+This document consolidates community health standards (naming, README expectations, saved replies) for consistent GitHub repositories. **File and folder placement now lives in `file-organisation.instructions.md` (UK English).**
 
 ## Purpose
 
@@ -32,10 +32,6 @@ Ensure repositories are well-organized, easily navigable, and welcoming to contr
 
 ## Table of Contents
 
-- [File Management](#file-management)
-  - [Directory Structure](#directory-structure)
-  - [File Lifecycle](#file-lifecycle)
-  - [Temporary vs Permanent Files](#temporary-vs-permanent-files)
 - [Naming Conventions](#naming-conventions)
   - [File Names](#file-names)
   - [Directory Names](#directory-names)
@@ -49,6 +45,14 @@ Ensure repositories are well-organized, easily navigable, and welcoming to contr
   - [Creating Replies](#creating-replies)
 - [Best Practices](#best-practices-1)
 - [References](#references)
+
+---
+
+## Community Health Assets (Org-wide)
+
+- **Shared across the organisation:** discussion templates (`.github/DISCUSSION_TEMPLATE/`), saved replies (`.github/SAVED_REPLIES/`), issue templates (`.github/ISSUE_TEMPLATE/`), pull request templates (including branch-specific) (`.github/PULL_REQUEST_TEMPLATE/`), and the default PR template (`.github/PULL_REQUEST_TEMPLATE.md`).
+- **Repository-scoped only:** issue types (`.github/issue-types.yml`) and labels (`.github/labels.yml`) are defined per repository and must not be assumed shared org-wide.
+- **File placement:** see `file-organisation.instructions.md` for canonical folder/file location rules.
 
 ---
 
@@ -215,19 +219,19 @@ Is this a FINAL, permanent result?
 
 **File Type Patterns:**
 
-| File Type     | Pattern                  | Example                            |
-| ------------- | ------------------------ | ---------------------------------- |
-| Documentation | `{name}.md`              | `contributing.md`                  |
-| Instructions  | `{name}.instructions.md` | `coding-standards.instructions.md` |
-| Agent Spec    | `{name}.agent.md`        | `labeling.agent.md`                |
-| Agent Code    | `{name}.agent.{js,py,sh}`| `labeling.agent.js`                |
-| Prompt        | `{name}.prompt.md`       | `code-review.prompt.md`            |
-| Workflow      | `{name}.yml`             | `labeling.yml`                     |
-| Test          | `{name}.test.js`         | `labeling.test.js`                 |
-| Report        | `{subject}-{type}.md`    | `metrics-monthly.md`               |
-| Spec File     | `{json-file}.spec.md`    | `baseline.json.spec.md`            |
-| Chatmode      | `{name}.chatmode.md`     | `thinking.chatmode.md`             |
-| Saved Reply   | `name.md` in `.github/SAVED_REPLIES/` | `triage.md`          |
+| File Type     | Pattern                               | Example                            |
+| ------------- | ------------------------------------- | ---------------------------------- |
+| Documentation | `{name}.md`                           | `contributing.md`                  |
+| Instructions  | `{name}.instructions.md`              | `coding-standards.instructions.md` |
+| Agent Spec    | `{name}.agent.md`                     | `labeling.agent.md`                |
+| Agent Code    | `{name}.agent.{js,py,sh}`             | `labeling.agent.js`                |
+| Prompt        | `{name}.prompt.md`                    | `code-review.prompt.md`            |
+| Workflow      | `{name}.yml`                          | `labeling.yml`                     |
+| Test          | `{name}.test.js`                      | `labeling.test.js`                 |
+| Report        | `{subject}-{type}.md`                 | `metrics-monthly.md`               |
+| Spec File     | `{json-file}.spec.md`                 | `baseline.json.spec.md`            |
+| Chatmode      | `{name}.chatmode.md`                  | `thinking.chatmode.md`             |
+| Saved Reply   | `name.md` in `.github/SAVED_REPLIES/` | `triage.md`                        |
 
 **Examples:**
 
