@@ -15,7 +15,7 @@ status: "active"
 stability: "stable"
 visibility: "public"
 target: "github-copilot"
-tools: ["github/*", "read", "search", "edit"]
+tools:  ["file_system", "markdown_generator", "input_collector", "adr_naming_helper", "quality_checker", "template_filler", "context_analyzer", "decision_rationale_extractor", "alternative_evaluator", "consequence_analyzer", "implementation_planner", "reference_manager", "date_manager", "stakeholder_identifier", "status_manager", "tag_manager", "supersession_tracker", "yaml_front_matter_generator", "markdown_saver", "language_enforcer", "structure_enforcer", "completeness_verifier", "clarity_checker", "consistency_checker", "timeliness_checker", "connection_checker", "contextual_accuracy_checker", "github/*", "read", "search", "edit"]
 domain: "governance"
 metadata:
   guardrails: "Only apply types/labels from canonical configs. Never overwrite without warning. Validate all content. Log all actions. Preserve user data integrity."
