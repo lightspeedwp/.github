@@ -90,12 +90,11 @@ Start here for all key standards:
 
 | Resource Name             | Reference                                                        | Purpose / Notes                                                    |
 | ------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
+| **Main Instructions Index** | [.github/instructions/_index.instructions.md](.github/instructions/_index.instructions.md) | Master index for all instruction files |
 | **Custom Instructions**   | [.github/custom-instructions.md](.github/custom-instructions.md) | Central Copilot/org instructions, prompts, and standards           |
 | **Main Agent Index**      | [.github/agents/agent.md](.github/agents/agent.md)               | Directory of agent specs, stubs, usage, implementation             |
 | **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Master prompt index and authoring conventions                      |
-| **Instruction Migration** | [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)                         | Mapping from legacy instruction files to the 5 consolidated guides |
-
----
+| **Instruction Migration** | [.github/MIGRATION_GUIDE.md](.github/MIGRATION_GUIDE.md)         | Mapping from legacy instruction files to the 5 consolidated guides |
 
 ---
 
@@ -107,6 +106,8 @@ Start here for all key standards:
 
 *This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards.*
+
+---
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

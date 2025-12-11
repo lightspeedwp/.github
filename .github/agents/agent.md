@@ -27,6 +27,7 @@ This document serves as the master index for all agent specifications, templates
 - Link all agent specs and stubs.
 - Reference key instruction indexes for Copilot and workflow guidance.
 - Ensure agents follow org-wide standards for clarity, security, and maintainability.
+- All agents must adhere to the global rules defined in [`AGENTS.md`](../../AGENTS.md).
 
 ---
 
@@ -41,6 +42,7 @@ All agent specs are in the `.github/agents/` directory:
 | Resource Name        | Reference                                      | Purpose / Notes                     |
 | -------------------- | ---------------------------------------------- | ----------------------------------- |
 | **Main Agent Index** | [agent.md](./agent.md)                         | Directory of agent specs and usage  |
+| **Global AI Rules**  | ../../AGENTS.md             | Organisation-wide AI agent rules    |
 | **Prompts Index**    | [../prompts/prompts.md](../prompts/prompts.md) | Master prompt index and conventions |
 
 ---
