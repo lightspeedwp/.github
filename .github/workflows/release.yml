@@ -11,7 +11,7 @@ jobs:
     uses: ./.github/workflows/linting.yml # reuse if using reusable workflows; else inline
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -27,7 +27,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: develop
       - name: Setup Node
