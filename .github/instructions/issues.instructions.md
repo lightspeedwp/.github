@@ -222,9 +222,7 @@ See [docs/frontmatter/issue-templates.md](../../docs/frontmatter/issue-templates
 - All templates and issues must validate against the [frontmatter.schema.json](.github/schemas/frontmatter.schema.json).
 - Use [FRONTMATTER_SCHEMA.md](docs/FRONTMATTER_SCHEMA.md) for full schema details.
 
-
 **For questions or clarifications, see the project’s [CONTRIBUTING.md](../../CONTRIBUTING.md) or open a GitHub Discussion.**
-
 
 ## References
 

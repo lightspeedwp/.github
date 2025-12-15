@@ -43,15 +43,20 @@ references:
 
 - [Overview](#overview)
 - [Agent Specification Architecture](#agent-specification-architecture)
-- [Frontmatter Requirements](#frontmatter-requirements)
-- [Documentation Structure](#documentation-structure)
-- [Implementation Patterns](#implementation-patterns)
-- [Testing Requirements](#testing-requirements)
-- [Validation and Quality Gates](#validation-and-quality-gates)
-- [Examples and Templates](#examples-and-templates)
-- [Common Patterns](#common-patterns)
-- [Troubleshooting](#troubleshooting)
-- [References](#references)
+- [0. Why This Document Exists](#0-why-this-document-exists)
+- [1. When You Should Create a New Agent](#1-when-you-should-create-a-new-agent)
+- [2. Pre-Creation Checklist (Human)](#2-pre-creation-checklist-human)
+- [3. Required Structure of the Spec File](#3-required-structure-of-the-spec-file)
+- [4. Writing Clear Human-Focused Behaviour](#4-writing-clear-human-focused-behaviour)
+- [5. Governance: Approval & Ownership](#5-governance-approval-ownership)
+- [6. Frontmatter Governance Rules](#6-frontmatter-governance-rules)
+- [7. Publishing Workflow (Spec → Implementation)](#7-publishing-workflow-spec-implementation)
+- [8. Long-Term Governance & Maintenance](#8-long-term-governance-maintenance)
+- [9. Quality Gates (Human + Machine)](#9-quality-gates-human-machine)
+- [10. Agent Lifecycle Maturity Model](#10-agent-lifecycle-maturity-model)
+- [11. Cross-Agent Collaboration & Handoffs](#11-cross-agent-collaboration-handoffs)
+- [12. Quick Start Template](#12-quick-start-template)
+- [13. References](#13-references)
 
 ---
 
@@ -156,7 +161,7 @@ graph TB
 
 ---
 
-# 0. Why This Document Exists
+## 0. Why This Document Exists
 
 LightSpeed uses a growing ecosystem of specialised AI agents.
 To ensure systems remain **safe, predictable, maintainable, and auditable**, every new agent must follow unified governance rules.
@@ -171,7 +176,7 @@ This document answers:
 
 ---
 
-# 1. When You Should Create a New Agent
+## 1. When You Should Create a New Agent
 
 Create a new agent when:
 
@@ -199,7 +204,7 @@ flowchart TD
 
 ---
 
-# 2. Pre-Creation Checklist (Human)
+## 2. Pre-Creation Checklist (Human)
 
 Before drafting a spec:
 
@@ -229,7 +234,7 @@ flowchart LR
 
 ---
 
-# 3. Required Structure of the Spec File
+## 3. Required Structure of the Spec File
 
 Every `.agent.md` MUST include:
 
@@ -258,7 +263,7 @@ Agents are reviewed, linted, validated, and audited. A consistent structure ensu
 
 ---
 
-# 4. Writing Clear Human-Focused Behaviour
+## 4. Writing Clear Human-Focused Behaviour
 
 Unlike implementation instructions, this governance doc ensures **specs are written for humans**, not machines.
 
@@ -282,7 +287,7 @@ Agents must not guess.
 
 ---
 
-# 5. Governance: Approval & Ownership
+## 5. Governance: Approval & Ownership {#5-governance-approval-ownership}
 
 ### Required approvals
 
@@ -316,7 +321,7 @@ flowchart TD
 
 ---
 
-# 6. Frontmatter Governance Rules
+## 6. Frontmatter Governance Rules
 
 Frontmatter is **machine-validated**. Errors break CI.
 
@@ -373,7 +378,7 @@ mindmap
 
 ---
 
-# 7. Publishing Workflow (Spec → Implementation)
+## 7. Publishing Workflow (Spec → Implementation) {#7-publishing-workflow-spec-implementation}
 
 1. Draft `.agent.md` following this governance document
 2. Validate frontmatter
@@ -415,7 +420,7 @@ sequenceDiagram
 
 ---
 
-# 8. Long-Term Governance & Maintenance
+## 8. Long-Term Governance & Maintenance {#8-long-term-governance-maintenance}
 
 Agents are **living components** of the automation ecosystem.
 
@@ -443,7 +448,7 @@ Deprecation requires:
 
 ---
 
-# 9. Quality Gates (Human + Machine)
+## 9. Quality Gates (Human + Machine) {#9-quality-gates-human-machine}
 
 A spec **must not pass review** unless:
 
@@ -463,7 +468,7 @@ CI quality gates:
 
 ---
 
-# 10. Agent Lifecycle Maturity Model
+### 10. Agent Lifecycle Maturity Model
 
 To avoid premature complexity, agents evolve through stages:
 
@@ -494,7 +499,7 @@ Retired but kept for archive/migration purposes.
 
 ---
 
-# 11. Cross-Agent Collaboration & Handoffs
+### 11. Cross-Agent Collaboration & Handoffs {#11-cross-agent-collaboration-handoffs}
 
 Some workflows require multiple agents acting in sequence.
 
@@ -513,7 +518,7 @@ Example patterns:
 - Planner → Implementation Agent
 - Auditor → Metadata Agent
 
-### Mermaid: Handoff Example
+#### Mermaid: Handoff Example
 
 ```mermaid
 flowchart TD
@@ -524,7 +529,7 @@ flowchart TD
 
 ---
 
-# 12. Quick Start Template
+### 12. Quick Start Template
 
 ```bash
 cp .github/agents/template.agent.md .github/agents/my-agent.agent.md
@@ -534,7 +539,7 @@ Then follow the governance checklist on this page.
 
 ---
 
-# 13. References
+### 13. References
 
 - Organisation-wide agent index (`.github/agents/agent.md`)
 - Agent Specification Authoring Guide

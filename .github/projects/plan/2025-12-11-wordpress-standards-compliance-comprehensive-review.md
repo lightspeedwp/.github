@@ -15,9 +15,10 @@
 ### Task 0.1: Expand and Refine Markdown Instructions File
 
 **Files:**
+
 - Modify: `.github/instructions/markdown.instructions.md`
-- Reference: https://spec.commonmark.org/
-- Reference: https://github.github.com/gfm/ (GitHub Flavored Markdown)
+- Reference: <https://spec.commonmark.org/>
+- Reference: <https://github.github.com/gfm/> (GitHub Flavored Markdown)
 
 **Step 1: Read current markdown instructions**
 
@@ -28,6 +29,7 @@ cat .github/instructions/markdown.instructions.md
 **Step 2: Research CommonMark specification**
 
 Review the CommonMark specification for:
+
 - Proper heading hierarchy (only one H1 per document)
 - List formatting (consistent markers, proper indentation)
 - Code block syntax (fenced vs indented)
@@ -87,12 +89,14 @@ This project uses markdownlint to enforce consistent markdown style. Key rules:
 When documenting scaffold files with `{{mustache}}` placeholders:
 
 **DO:**
+
 - Explain what each placeholder represents
 - Provide examples with realistic values
 - Document placeholder transformations (e.g., `{{namespace|lowerCase}}`)
 - Link to schema definitions
 
 **DON'T:**
+
 - Remove or replace placeholders in documentation
 - Use literal values instead of placeholders in examples
 - Document placeholders without context
@@ -154,6 +158,7 @@ code here
 ````
 
 **Use syntax highlighting for:**
+
 - `php` - PHP code
 - `javascript` or `js` - JavaScript
 - `json` - JSON configuration
@@ -261,6 +266,7 @@ Jump to [Installation](#installation) section.
 ### File-Specific Guidelines
 
 **README.md:**
+
 - Must have single H1 title
 - Include badges (version, license, build status)
 - Quick start section
@@ -268,22 +274,26 @@ Jump to [Installation](#installation) section.
 - Link to full documentation
 
 **CHANGELOG.md:**
+
 - Follow [Keep a Changelog](https://keepachangelog.com/) format
 - Use [Semantic Versioning](https://semver.org/)
 - Categories: Added, Changed, Deprecated, Removed, Fixed, Security
 
 **CONTRIBUTING.md:**
+
 - Code of conduct reference
 - Development setup
 - Pull request process
 - Coding standards links
 
 **Instruction files (.instructions.md):**
+
 - Focused, single-purpose guidance
 - Step-by-step format
 - Code examples with explanations
 - Link to official WordPress/SCF docs
 - Troubleshooting section
+
 ```
 
 **Step 4: Add scaffold-specific section**
@@ -340,6 +350,7 @@ Jump to [Installation](#installation) section.
 ### Examples Must Be Runnable
 
 All code examples should:
+
 1. Be syntactically valid
 2. Show complete context (not fragments)
 3. Include required imports/includes
@@ -379,6 +390,7 @@ if ( get_field( 'movie_title', $post_id ) === $sanitized_title ) {
 }
 \```
 ```
+
 ```
 
 **Step 5: Commit**
@@ -393,6 +405,7 @@ git commit -m "docs: expand markdown instructions with linting rules and scaffol
 ### Task 0.2: Review and Update docs/ Folder README
 
 **Files:**
+
 - Modify: `docs/README.md`
 - Cross-reference: All files in `docs/` directory
 
@@ -409,6 +422,7 @@ Read current `docs/README.md` and compare with actual files.
 **Step 3: Update documentation index**
 
 Ensure README includes:
+
 - Current, accurate descriptions
 - Proper categorization
 - Mermaid flowchart reflecting actual docs
@@ -419,6 +433,7 @@ Ensure README includes:
 **Step 4: Add missing documentation references**
 
 If documentation exists but isn't linked, add to appropriate category:
+
 - Getting Started
 - Architecture & Development
 - Quality & Risk
@@ -427,6 +442,7 @@ If documentation exists but isn't linked, add to appropriate category:
 **Step 5: Update Mermaid diagram**
 
 Ensure flowchart accurately represents:
+
 - Current documentation structure
 - Logical documentation flow
 - Dependencies between documents
@@ -445,8 +461,9 @@ git commit -m "docs: update docs index to reflect current documentation structur
 ### Task 1.1: Review and Update PHP Coding Standards Instructions
 
 **Files:**
+
 - Modify: `.github/instructions/wpcs-php.instructions.md`
-- Reference: https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/
+- Reference: <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/>
 
 **Step 1: Fetch WordPress PHP coding standards**
 
@@ -467,6 +484,7 @@ Ensure file includes all sections from WordPress documentation:
 1. **Single and Double Quotes**
    - Use single quotes for strings
    - Use double quotes only for interpolation
+
    ```php
    // Good
    echo '<a href="/static/link">Link</a>';
@@ -479,6 +497,7 @@ Ensure file includes all sections from WordPress documentation:
 2. **Indentation**
    - Use real tabs, not spaces
    - Use spaces for mid-line alignment only
+
    ```php
    // Good
    function my_function( $param1, $param2 ) {
@@ -493,6 +512,7 @@ Ensure file includes all sections from WordPress documentation:
    - Opening braces on same line as declaration
    - Closing braces on own line
    - Always use braces, even for single statements
+
    ```php
    // Good
    if ( condition ) {
@@ -508,6 +528,7 @@ Ensure file includes all sections from WordPress documentation:
    - Use long array syntax `array()` not short `[]`
    - Multi-item associative arrays: one item per line
    - Include trailing comma after last item
+
    ```php
    // Good
    $array = array(
@@ -529,6 +550,7 @@ Ensure file includes all sections from WordPress documentation:
    - Constants: UPPERCASE_WITH_UNDERSCORES
    - Files: lowercase-with-hyphens.php
    - Class files: class-classname.php
+
    ```php
    // Good
    function my_plugin_function() {}
@@ -543,6 +565,7 @@ Ensure file includes all sections from WordPress documentation:
 6. **Interpolation**
    - Prefer concatenation for simple variables
    - Use braces for complex variables
+
    ```php
    // Good
    echo 'Hello ' . $name;
@@ -556,6 +579,7 @@ Ensure file includes all sections from WordPress documentation:
    - Space after keyword, before opening parenthesis
    - Space after opening parenthesis, before closing
    - Use `elseif` not `else if`
+
    ```php
    // Good
    if ( condition ) {
@@ -569,6 +593,7 @@ Ensure file includes all sections from WordPress documentation:
 
 8. **Yoda Conditions**
    - Place constant or literal on left side
+
    ```php
    // Good
    if ( true === $the_force ) {}
@@ -582,6 +607,7 @@ Ensure file includes all sections from WordPress documentation:
 9. **Type Declarations**
    - One space before and after type keyword
    - No space between nullability operator and type
+
    ```php
    // Good
    function my_function( string $param ): void {}
@@ -595,6 +621,7 @@ Ensure file includes all sections from WordPress documentation:
 10. **Clever Code**
     - Favor readability over brevity
     - Avoid ternaries nested more than once
+
     ```php
     // Good
     if ( isset( $_POST['value'] ) ) {
@@ -681,6 +708,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // File contents...
 ```
+
 ```
 
 **Step 5: Commit**
@@ -695,8 +723,9 @@ git commit -m "docs: update PHP coding standards with complete WordPress guideli
 ### Task 1.2: Review and Update JavaScript Coding Standards Instructions
 
 **Files:**
+
 - Modify: `.github/instructions/wpcs-javascript.instructions.md`
-- Reference: https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/
+- Reference: <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/>
 
 **Step 1: Fetch WordPress JavaScript coding standards**
 
@@ -710,6 +739,7 @@ Ensure file includes:
    - Tabs for indentation (not spaces)
    - No trailing whitespace
    - 80-character line soft limit, 100-character hard limit
+
    ```javascript
    // Good
    function myFunction() {
@@ -721,6 +751,7 @@ Ensure file includes:
 2. **Semicolons**
    - Required after statements
    - Never rely on ASI (Automatic Semicolon Insertion)
+
    ```javascript
    // Good
    const value = getValue();
@@ -733,6 +764,7 @@ Ensure file includes:
 
 3. **Quotes**
    - Use single quotes exclusively
+
    ```javascript
    // Good
    const message = 'Hello World';
@@ -744,6 +776,7 @@ Ensure file includes:
 4. **Variable Declaration**
    - Prefer `const` and `let` over `var`
    - One declaration per line
+
    ```javascript
    // Good
    const firstName = 'John';
@@ -758,6 +791,7 @@ Ensure file includes:
    - Variables/Functions: camelCase
    - Classes: UpperCamelCase
    - Constants: SCREAMING_SNAKE_CASE
+
    ```javascript
    // Good
    const myVariable = 'value';
@@ -774,6 +808,7 @@ Ensure file includes:
 6. **Equality**
    - Always use strict equality (`===`, `!==`)
    - Never use loose equality (`==`, `!=`)
+
    ```javascript
    // Good
    if ( value === 5 ) {}
@@ -785,6 +820,7 @@ Ensure file includes:
    ```
 
 7. **Type Checks**
+
    ```javascript
    // Strings
    typeof object === 'string'
@@ -813,6 +849,7 @@ Ensure file includes:
    - Block comments above code
    - Inline comments for complex logic
    - Use JSDoc for functions
+
    ```javascript
    /**
     * Block comment for complex sections.
@@ -827,6 +864,7 @@ Ensure file includes:
 9. **Objects and Arrays**
    - Use object/array shorthand
    - Trailing commas for multi-line
+
    ```javascript
    // Good
    const obj = {
@@ -850,6 +888,7 @@ Ensure file includes:
    ```
 
 10. **jQuery Integration**
+
     ```javascript
     ( function( $ ) {
     →   'use strict';
@@ -953,6 +992,7 @@ registerBlockType( '{{slug}}/{{cpt_slug}}-card', {
 →   // Block configuration
 } );
 ```
+
 ```
 
 **Step 4: Commit**
@@ -967,8 +1007,9 @@ git commit -m "docs: update JavaScript coding standards with WordPress and block
 ### Task 1.3: Review and Update CSS Coding Standards Instructions
 
 **Files:**
+
 - Modify: `.github/instructions/wpcs-css.instructions.md`
-- Reference: https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/
+- Reference: <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/>
 
 **Step 1: Update with comprehensive CSS standards**
 
@@ -1363,6 +1404,7 @@ div.container section.content div.card h2.card-title {}
 →   box-sizing: border-box;
 }
 ```
+
 ```
 
 **Step 2: Commit**

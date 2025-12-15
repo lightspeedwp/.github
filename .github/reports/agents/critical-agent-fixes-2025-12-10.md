@@ -212,16 +212,16 @@ ls -1 .github/agents/*.agent.md | wc -l  # Should be 13+ files
 
 ### Long-term (Future Sprints)
 
-3. **Restore test coverage** (1-2 weeks)
+1. **Restore test coverage** (1-2 weeks)
    - Prioritize: labeling, meta, release agents
    - Target: 80% coverage on critical paths
 
-4. **Implement issues automation** (3-5 days)
+2. **Implement issues automation** (3-5 days)
    - Create `scripts/agents/issues.agent.js`
    - Create workflow
    - Integrate with labeling agent
 
-5. **Standardize agent structure** (1 week)
+3. **Standardize agent structure** (1 week)
    - Ensure all agents follow template
    - Complete instruction files
    - Document agent development process

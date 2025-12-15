@@ -75,6 +75,7 @@ This section details the purpose of each report category and the required file n
 **Purpose**: Logs and outputs from AI agent executions, agent infrastructure audits, agent performance reports, and any documentation about agent implementations or fixes.
 **File Naming**: `{agent-name}-{task-id}-{YYYY-MM-DD}.{log|md|json}`
 **Examples**:
+
 - `labeling-agent-pr-123-2025-12-08.log`
 - `agent-infrastructure-audit-2025-12-10.md`
 - `critical-agent-fixes-2025-12-10.md`
@@ -134,6 +135,7 @@ This section details the purpose of each report category and the required file n
 **Purpose**: Mermaid diagram reports — coverage of required diagrams, accessibility/contrast audits (WCAG AA), rendering checks, and update tracking.
 **File Naming**: `mermaid-{subject}-{YYYY-MM-DD}.{md|csv|json}`
 **Examples**:
+
 - `mermaid-coverage-audit-2025-12-12.md`
 - `mermaid-contrast-checks-2025-12-12.csv`
 - `mermaid-readme-updates-2025-12-12.json`

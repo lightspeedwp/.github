@@ -58,24 +58,33 @@ This index maps every instruction file in the repository and when to use it. Use
 ## 🎯 Quick Start Guides
 
 ### New to Block Development?
+
 Start here:
+
 1. [blocks-development.instructions.md](#block-development) — Core block development patterns
 2. [block-json.instructions.md](#block-development) — Block metadata reference
 3. [javascript-react-development.instructions.md](#javascriptreact-development) — React patterns
 
 ### Building a Plugin?
+
 1. [generate-plugin.instructions.md](#plugin-scaffolding) — Plugin generator
 2. [scaffold-extensions.instructions.md](#plugin-scaffolding) — Extending the scaffold
 3. [folder-structure.instructions.md](#project-organization) — Project organization
 
 ### Need Coding Standards?
+
 All `wpcs-*` files in the [WordPress Coding Standards](#wordpress-coding-standards-wpcs) section
+
+### JavaScript + React Development {#javascriptreact-development}
+
+- [languages.instructions.md](./languages.instructions.md) — JavaScript, TypeScript, and React code standards
+- [spec-driven-workflow.instructions.md](./spec-driven-workflow.instructions.md) — Spec-driven React workflows and component patterns
 
 ---
 
 ## 📂 File Categories
 
-### WordPress Coding Standards (wpcs-*)
+### WordPress Coding Standards (wpcs-*) {#wordpress-coding-standards-wpcs}
 
 > **Protected Files** — These files define core WordPress coding standards and should NOT be reduced or deleted.
 
@@ -167,6 +176,7 @@ All `wpcs-*` files in the [WordPress Coding Standards](#wordpress-coding-standar
 ### Files Eliminated (9 files)
 
 ✅ **Deleted:**
+
 1. `block-plugin-development.instructions.md` → merged into `blocks-development.instructions.md`
 2. `blocks.instructions.md` → merged into `blocks-development.instructions.md`
 3. `patterns.instructions.md` → merged into `patterns-and-templates.instructions.md`
@@ -178,6 +188,7 @@ All `wpcs-*` files in the [WordPress Coding Standards](#wordpress-coding-standar
 9. `wp-security.instructions.md` → redundant (covered by `security.instructions.md`)
 
 ✅ **Renamed:**
+
 1. `block-plugin.instructions.md` → `scaffold-extensions.instructions.md` (clearer purpose)
 
 ---

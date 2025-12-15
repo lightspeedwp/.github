@@ -20,7 +20,10 @@ module.exports = {
     ],
     verbose: process.env.JEST_VERBOSE === 'false' ? false : true,
     transform: {
-        '^.+\\.[jt]sx?$': process.env.JEST_TRANSFORM || 'babel-jest',
+        '^.+\\.[jt]sx?$': [
+            process.env.JEST_TRANSFORM || 'babel-jest',
+            { configFile: './babel.config.cjs' },
+        ],
     },
     // Enable Babel to transform ES modules in scripts directory
     transformIgnorePatterns: [

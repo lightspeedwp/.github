@@ -549,7 +549,6 @@ tests/
     └── issue-lifecycle.e2e.test.js
 ```
 
-
 *This document consolidates quality assurance standards for GitHub community health repositories. All code must be tested and validated before merge.*
 
 ---
