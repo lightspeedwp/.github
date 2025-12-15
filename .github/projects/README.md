@@ -1,7 +1,4 @@
-# Projects Directory
-
 ---
-
 file_type: "documentation"
 title: "Reports Directory"
 description: "An overview of the reports directory, detailing the purpose of each subfolder for storing generated artifacts."
@@ -10,6 +7,7 @@ last_updated: "2025-12-08"
 owners: ["LightSpeed Engineering"]
 tags: ["reports", "documentation", "governance"]
 ---
+# Projects Directory
 
 This directory contains all task tracking files, project planning documents, implementation roadmaps, and progress tracking.
 

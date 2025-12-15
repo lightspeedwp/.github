@@ -43,12 +43,14 @@ Ensure all Copilot- and agent-generated files live in predictable, correct locat
 ## File Type → Location Mapping
 
 ### 📊 Reports & Analysis Outputs
+
 - **Location:** `.github/reports/{category}/`
 - **Naming:** `{type}-{subject}-{timestamp?}.{ext}`
 - **Categories:** analysis, audits, implementation, migration, validation, agents, coverage, frontmatter, issue-metrics, labeling, linting, meta, metrics, optimisation, tech-debt
 - **Rule:** All reports, logs, and metrics belong under `.github/reports/` (never root or `docs/`).
 
 ### 🚧 Active Project Work (tasks, docs, Copilot outputs)
+
 - **Location:** `.github/projects/active/{project-slug}/` for in-flight work; move completed items to `.github/projects/completed/` when done.
 - **Use for:** Project-specific instructions, work-in-progress notes, task lists, ADRs, context packs for Copilot/agents, and any project-only docs that are not yet permanent reference material.
 - **Naming:** `{project-slug}-{purpose}-{date}.{ext}` (e.g., `checkout-refactor-tasks-2025-12-11.md`, `checkout-refactor-context-pack.md`).
@@ -57,31 +59,37 @@ Ensure all Copilot- and agent-generated files live in predictable, correct locat
 - **Project outputs ready for visibility:** place analyses in `.github/reports/{category}/`, and long-lived documentation in `docs/` once stable.
 
 ### 📋 Task Tracking & Planning
+
 - **Location:** `.github/projects/`
 - **Naming:** `{project-name}-{type}.md` (e.g., `context-reduction-tasks.md`, `phase6-planning.md`)
 - **Subfolders:** `active/`, `completed/`, `planning/`, `ADR/`
 - **Root rule:** keep only indexes/README files at `.github/projects/`; place live artefacts under `active/` and archive finished items under `completed/` to avoid drift.
 
 ### 📚 Permanent Documentation
+
 - **Location:** `docs/`
 - **Use for:** Architecture, governance, policies, user guides, reference docs that must persist.
 - **Not for:** Reports, tasks, or transient artefacts.
 
 ### 🔧 Agents & Utilities
+
 - **Location:** `.github/agents/`
 - **Use for:** Agent specs (`*.agent.md`), implementations (`*.agent.js`), shared includes, and tests.
 - **Not for:** Reports or project trackers.
 
 ### 🤖 Instructions
+
 - **Location:** `.github/instructions/`
 - **Use for:** Copilot/agent instruction files (`*.instructions.md`).
 - **Note:** This file is the canonical guide for placement; `file-output-organization.instructions.md` is now deprecated.
 
 ### 🎯 Prompts
+
 - **Location:** `.github/prompts/`
 - **Use for:** Reusable prompts and prompt indexes (`*.prompt.md`, `prompts.md`).
 
 ### 📝 Temporary & Working Files
+
 - **Location:** `.github/tmp/`
 - **Use for:** Drafts, intermediate outputs, scratch analysis during workflows.
 - **Naming:** `{workflow}-{step}-{date}-{description}.{ext}` (e.g., `analysis-step-2-2025-12-10.json`).
