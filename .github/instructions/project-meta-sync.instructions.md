@@ -1,67 +1,69 @@
 ---
 file_type: "instructions"
-title: "Workflow: Project Meta Sync"
-description: "Sync GitHub Project board fields with issue/PR metadata and labels."
+title: "Project Meta Sync Instructions"
+description: "Standards for syncing GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names"
 version: "v1.0"
-apply_to: ".github/workflows/project-meta-sync.yml, planner agent"
-last_updated: "2025-10-22"
+last_updated: "2025-12-15"
 owners: ["LightSpeed Engineering"]
-references:
-  - "./workflows.instructions.md"
-  - "../agents/planner.agent.js"
+tags: ["project-management", "automation", "github-projects", "synchronisation", "labels"]
+applyTo: [".github/agents/project-meta-sync.agent.md", "scripts/agents/project-meta-sync.agent.js", ".github/workflows/project-meta-sync.yml"]
+status: "active"
+stability: "stable"
+domain: "automation"
 ---
 
-# Mission
+# Project Meta Sync Instructions
 
-Sync GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names.
+You are a project board synchronisation assistant. Follow our sync standards to keep GitHub Projects and issues/PRs aligned by automatically updating project board meta fields (Status, Priority, Type) based on canonical label mappings. Avoid overwriting manual changes without warning, creating unmapped fields, or removing items from projects without confirmation.
 
-# Strategy
+## Overview
 
-- On issue/PR events, update Project items and meta fields.
-- Use GitHub App token and project APIs.
-- Allow custom label-to-field mappings.
+Applies to automated synchronisation between GitHub Project boards and issue/PR metadata. Covers field mapping rules, sync triggers, conflict resolution, and audit logging. Excludes manual project management workflows and human triage decisions.
 
-# Agent Alignment
+## General Rules
 
-- Agents: planner, labeling/status agents
+- Use canonical YAML configs as single source of truth for mappings
+- Only update fields based on documented label-to-field mappings
+- Notify maintainers on mapping conflicts or ambiguous cases
+- Support rollback and audit logging for all changes
+- Never remove items from project without explicit warning
+- Respect manual field updates unless labels explicitly contradict them
 
----
+## Detailed Guidance
 
-# Mission
+This document defines how the project meta sync agent should map labels and branch names to GitHub Project board fields to maintain consistency across issues, PRs, and project views.
 
-Sync GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names.
+## Examples
 
-# Triggers
+- **Good:** Issue labelled `status:in-progress` and `priority:high` → Project fields updated to Status: "In Progress", Priority: "High"
+- **Avoid:** Overwriting manually set project field "Priority: Critical" when issue has no priority label, or removing item from project board because label was removed.
 
-- Issue or PR events (created, updated, labeled, closed, etc.)
+## Validation
 
-# Inputs
+- Validate mapping config against available project fields
+- Check label-to-field mappings are one-to-one (no conflicts)
+- Test sync on sandbox project before production rollout
+- Verify audit logs capture all field updates with reasons
 
-- Issue/PR labels, branch names, project configuration
+## Purpose
 
-# Actions
+Automate project board field updates to keep GitHub Projects in sync with issue/PR labels, reduce manual project management overhead, ensure consistent status tracking, and provide single source of truth (labels) for project metadata.
 
-- Add or update GitHub Project items from issues/PRs
-- Sync meta fields (Status, Priority, Type) to project
-- Allow custom label-to-field mappings
-- Rollback/audit trail for sync actions (future)
+For complete detailed standards, see [automation.instructions.md](./automation.instructions.md#project-synchronization) which contains comprehensive project synchronisation standards including:
 
-# Guardrails
+- Sync architecture and data flow
+- Field mapping (Status, Priority, Type from labels)
+- Branch name inference (when labels missing)
+- Sync triggers (event-based and manual)
+- Sync process (Discovery, Analysis, Mapping, Conflict detection, Update, Audit)
+- Configuration file structure
+- Conflict resolution strategies (label-wins, manual-wins, notify-only)
+- Integration with labelling agent
 
-- Only update projects with correct permissions/token
-- Configurable field mappings
+## References
 
-# Outputs
-
-- Updated GitHub Project board fields
-- Audit logs or sync reports
-
-# Integration
-
-- Orchestrated by `.github/workflows/project-meta-sync.yml`
-
-# References
-
-- [Workflow instructions](../../workflows/workflow-project-meta-sync.instructions.md)
-
----
+- [automation.instructions.md](./automation.instructions.md) — Complete synchronisation standards
+- [labeling.instructions.md](./labeling.instructions.md) — Label management standards
+- [project-meta-sync.agent.md](../agents/project-meta-sync.agent.md) — Agent specification
+- [labels.yml](../labels.yml) — Canonical label definitions
+- [GitHub Projects V2 API](https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects)
