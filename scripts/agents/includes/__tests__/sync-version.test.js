@@ -12,7 +12,15 @@ describe("sync-version (canonical includes)", () => {
     const mockExistSync = jest.spyOn(fs, "existsSync").mockReturnValue(true);
     const mockReadFile = jest
       .spyOn(fs, "readFileSync")
-      .mockReturnValue("1.0.0");
+      .mockImplementation((filePath) => {
+        if (filePath.endsWith("VERSION")) {
+          return "1.0.0";
+        }
+        if (filePath.endsWith("package.json")) {
+          return JSON.stringify({ version: "1.0.0" });
+        }
+        return "{}";
+      });
 
     expect(() => require("../sync-version.js")).not.toThrow();
 

@@ -39,11 +39,30 @@ All agent specs are in the `.github/agents/` directory:
 
 ## Discoverability & Workflow Integration
 
-| Resource Name        | Reference                                      | Purpose / Notes                     |
-| -------------------- | ---------------------------------------------- | ----------------------------------- |
-| **Main Agent Index** | [agent.md](./agent.md)                         | Directory of agent specs and usage  |
-| **Global AI Rules**  | ../../AGENTS.md             | Organisation-wide AI agent rules    |
-| **Prompts Index**    | [../prompts/prompts.md](../prompts/prompts.md) | Master prompt index and conventions |
+| Resource Name           | Reference                                                    | Purpose / Notes                                  |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
+| **Main Agent Index**    | [agent.md](./agent.md)                                       | Directory of agent specs and usage               |
+| **Instructions Index**  | [../instructions/_index.instructions.md](../instructions/_index.instructions.md) | Master index of all instruction files            |
+| **Global AI Rules**     | ../../AGENTS.md                                              | Organisation-wide AI agent rules                 |
+| **Prompts Index**       | [../prompts/prompts.md](../prompts/prompts.md)               | Master prompt index and conventions              |
+| **Automation Standards**| [../instructions/automation.instructions.md](../instructions/automation.instructions.md) | Comprehensive automation standards for agents    |
+
+---
+
+## Agent Instruction Files
+
+The following instruction files provide detailed standards for agent development and automation:
+
+| Instruction File | Purpose | Agent(s) |
+|-----------------|---------|----------|
+| [automation.instructions.md](../instructions/automation.instructions.md) | Comprehensive automation standards for agents, workflows, and repository health | All agents |
+| [labeling.instructions.md](../instructions/labeling.instructions.md) | Unified labelling automation system (config-driven) | labeling.agent.md |
+| [metrics.instructions.md](../instructions/metrics.instructions.md) | Metrics collection, aggregation, and reporting standards | metrics.agent.md |
+| [planner.instructions.md](../instructions/planner.instructions.md) | PR planning, checklist generation, and merge readiness validation | planner.agent.md (to be created) |
+| [project-meta-sync.instructions.md](../instructions/project-meta-sync.instructions.md) | GitHub Project board field synchronisation from labels | project-meta-sync.agent.md |
+| [release.instructions.md](../instructions/release.instructions.md) | Release management, semantic versioning, and changelog compliance | release.agent.md |
+| [workflows.instructions.md](../instructions/workflows.instructions.md) | GitHub Actions workflow standards and patterns | All workflow files |
+| [reporting.instructions.md](../instructions/reporting.instructions.md) | Report generation, storage, and formatting standards | All agents that generate reports |
 
 ---
 
@@ -52,6 +71,7 @@ All agent specs are in the `.github/agents/` directory:
 - Keep agent specs and templates close to code for maintainability.
 - Reference all relevant standards and workflow documents above.
 - Update this index whenever new agent files or templates are added.
+- Always consult the corresponding instruction file before implementing or modifying an agent.
 
 ---
 

@@ -41,8 +41,8 @@ This index maps every instruction file in the repository and when to use it. Use
 - Ensure every `*.instructions.md` file in `.github/instructions` is listed or intentionally excluded.
 - Check links resolve to existing files after renames.
 
-**Last Updated:** 2025-12-10
-**Total Files:** 19 instruction files
+**Last Updated:** 2025-12-15
+**Total Files:** 27 instruction files
 
 ---
 
@@ -74,6 +74,13 @@ Start here:
 ### Need Coding Standards?
 
 All `wpcs-*` files in the [WordPress Coding Standards](#wordpress-coding-standards-wpcs) section
+
+### Working with Automation & Agents?
+
+1. [automation.instructions.md](#automation--agent-infrastructure) — Overall automation architecture
+2. [metrics.instructions.md](#automation--agent-infrastructure) — Metrics collection and reporting
+3. [release.instructions.md](#automation--agent-infrastructure) — Release preparation and execution
+4. [labeling.instructions.md](#automation--agent-infrastructure) — Label automation system
 
 ### JavaScript + React Development {#javascriptreact-development}
 
@@ -149,22 +156,64 @@ All `wpcs-*` files in the [WordPress Coding Standards](#wordpress-coding-standar
 
 ---
 
+### Automation & Agent Infrastructure
+
+| File | Size | Purpose | When to Use |
+|------|------|---------|-------------|
+| [automation.instructions.md](./automation.instructions.md) | ~50KB | Comprehensive automation standards for agents, workflows, and repository health | When designing, auditing, or maintaining GitHub automation |
+| [labeling.instructions.md](./labeling.instructions.md) | ~17KB | Unified labelling automation system (config-driven) | When configuring or troubleshooting label automation |
+| [metrics.instructions.md](./metrics.instructions.md) | 13KB | **NEW** — Metrics collection, aggregation, and reporting standards | When collecting repository health metrics or generating analytics reports |
+| [planner.instructions.md](./planner.instructions.md) | 14KB | **NEW** — PR planning, checklist generation, and merge readiness validation | When implementing PR automation or checklist workflows |
+| [project-meta-sync.instructions.md](./project-meta-sync.instructions.md) | 17KB | **NEW** — GitHub Project board field synchronisation from labels | When syncing project boards with issue/PR labels |
+| [release.instructions.md](./release.instructions.md) | 20KB | **NEW** — Release management, semantic versioning, and changelog compliance | When preparing, validating, or publishing releases |
+| [workflows.instructions.md](./workflows.instructions.md) | ~15KB | GitHub Actions workflow standards and patterns | When creating or modifying workflow files |
+
+**Total Automation Files:** 7 files (~146KB)
+
+---
+
 ### Special Topics
 
 | File | Size | Purpose | When to Use |
 |------|------|---------|-------------|
 | [a11y.instructions.md](./a11y.instructions.md) | 27.8KB | Accessibility standards for block plugins (WCAG 2.2 AA) | When developing block controls, editor UX, or block output |
-| [i18n.instructions.md](./i18n.instructions.md) | 550 bytes | Internationalization guidelines | When adding translatable strings |
+| [i18n.instructions.md](./i18n.instructions.md) | 550 bytes | Internationalisation guidelines | When adding translatable strings |
 | [scf-fields.instructions.md](./scf-fields.instructions.md) | 19.8KB | Custom field development | When creating custom fields functionality |
-| [reporting.instructions.md](./reporting.instructions.md) | 19.0KB | Reporting and documentation standards | When creating reports or documentation |
+| [community-standards.instructions.md](./community-standards.instructions.md) | ~10KB | Community health file standards | When maintaining community documentation |
+| [coding-standards.instructions.md](./coding-standards.instructions.md) | ~15KB | Unified coding standards | When writing code across languages |
+| [file-organisation.instructions.md](./file-organisation.instructions.md) | ~12KB | File and folder organisation rules | When organising project structure |
 
-**Total Special Topics:** 4 files (~67KB)
+**Total Special Topics:** 6 files (~84KB)
 
 ---
 
 ## 📊 File Statistics
 
-### Consolidation Summary
+### Current Summary (2025-12-15)
+
+| Metric | Count | Size |
+|--------|-------|------|
+| **Total Files** | 27 files | ~535KB |
+| **WordPress WPCS Files** | 7 files | ~174KB |
+| **Block Development Files** | 4 files | ~82KB |
+| **Automation & Agent Files** | 7 files | ~146KB |
+| **Testing & QA Files** | 2 files | ~13KB |
+| **Plugin Scaffolding Files** | 2 files | ~24KB |
+| **Project Organisation Files** | 3 files | ~29KB |
+| **Special Topics Files** | 6 files | ~84KB |
+
+### Recent Changes (2025-12-15)
+
+**Added 4 New Automation Files:**
+
+1. `metrics.instructions.md` (13KB) — Metrics collection and reporting
+2. `planner.instructions.md` (14KB) — PR planning and checklists
+3. `project-meta-sync.instructions.md` (17KB) — Project board synchronisation
+4. `release.instructions.md` (20KB) — Release management standards
+
+**Total Addition:** +64KB of agent infrastructure documentation
+
+### Previous Consolidation Summary (2025-12-10)
 
 | Metric | Before | After | Change |
 |--------|--------|-------|--------|
@@ -293,6 +342,21 @@ A11y: wpcs-accessibility.instructions.md
 **Q: How do I generate a new plugin?**
 → See [generate-plugin.instructions.md](./generate-plugin.instructions.md)
 
+**Q: How do I collect repository metrics?**
+→ See [metrics.instructions.md](./metrics.instructions.md)
+
+**Q: How do I prepare a release?**
+→ See [release.instructions.md](./release.instructions.md)
+
+**Q: How do I configure label automation?**
+→ See [labeling.instructions.md](./labeling.instructions.md)
+
+**Q: How do I sync GitHub Project boards?**
+→ See [project-meta-sync.instructions.md](./project-meta-sync.instructions.md)
+
+**Q: How do I create PR checklists?**
+→ See [planner.instructions.md](./planner.instructions.md)
+
 ---
 
 ## 📝 Maintenance & Updates
@@ -360,33 +424,44 @@ Found an issue with an instruction file?
 
 1. [_index.instructions.md](./_index.instructions.md) — This file
 2. [a11y.instructions.md](./a11y.instructions.md) — Accessibility standards
-3. [block-json.instructions.md](./block-json.instructions.md) — Block.json reference
-4. [blocks-development.instructions.md](./blocks-development.instructions.md) — **NEW** Block development guide
-5. [folder-structure.instructions.md](./folder-structure.instructions.md) — Project organization
-6. [generate-plugin.instructions.md](./generate-plugin.instructions.md) — Plugin generator
-7. [i18n.instructions.md](./i18n.instructions.md) — Internationalization
-8. [javascript-react-development.instructions.md](./javascript-react-development.instructions.md) — **CONSOLIDATED** React/JS patterns
-9. [patterns-and-templates.instructions.md](./patterns-and-templates.instructions.md) — **NEW** Pattern development
-10. [reporting.instructions.md](./reporting.instructions.md) — Reporting standards
-11. [scaffold-extensions.instructions.md](./scaffold-extensions.instructions.md) — **RENAMED** Scaffold extensions
-12. [scf-fields.instructions.md](./scf-fields.instructions.md) — Custom fields
-13. [schema-files.instructions.md](./schema-files.instructions.md) — Schema organization
-14. [security.instructions.md](./security.instructions.md) — Security best practices
-15. [temp-files.instructions.md](./temp-files.instructions.md) — Temporary files
-16. [testing-e2e.instructions.md](./testing-e2e.instructions.md) — **RENAMED** E2E testing
-17. [wpcs-accessibility.instructions.md](./wpcs-accessibility.instructions.md) — WPCS Accessibility
-18. [wpcs-css.instructions.md](./wpcs-css.instructions.md) — WPCS CSS
-19. [wpcs-html.instructions.md](./wpcs-html.instructions.md) — WPCS HTML
-20. [wpcs-javascript.instructions.md](./wpcs-javascript.instructions.md) — WPCS JavaScript
-21. [wpcs-js-docs.instructions.md](./wpcs-js-docs.instructions.md) — WPCS JS Docs
-22. [wpcs-php.instructions.md](./wpcs-php.instructions.md) — WPCS PHP
-23. [wpcs-php-docs.instructions.md](./wpcs-php-docs.instructions.md) — WPCS PHP Docs
+3. [automation.instructions.md](./automation.instructions.md) — Automation standards for agents and workflows
+4. [block-json.instructions.md](./block-json.instructions.md) — Block.json reference
+5. [blocks-development.instructions.md](./blocks-development.instructions.md) — Block development guide
+6. [coding-standards.instructions.md](./coding-standards.instructions.md) — Unified coding standards
+7. [community-standards.instructions.md](./community-standards.instructions.md) — Community health file standards
+8. [file-organisation.instructions.md](./file-organisation.instructions.md) — File and folder organisation
+9. [folder-structure.instructions.md](./folder-structure.instructions.md) — Project organisation
+10. [generate-plugin.instructions.md](./generate-plugin.instructions.md) — Plugin generator
+11. [i18n.instructions.md](./i18n.instructions.md) — Internationalisation
+12. [javascript-react-development.instructions.md](./javascript-react-development.instructions.md) — React/JS patterns
+13. [labeling.instructions.md](./labeling.instructions.md) — Unified labelling automation
+14. [metrics.instructions.md](./metrics.instructions.md) — **NEW** Metrics collection and reporting
+15. [patterns-and-templates.instructions.md](./patterns-and-templates.instructions.md) — Pattern development
+16. [planner.instructions.md](./planner.instructions.md) — **NEW** PR planning and checklists
+17. [project-meta-sync.instructions.md](./project-meta-sync.instructions.md) — **NEW** Project board synchronisation
+18. [release.instructions.md](./release.instructions.md) — **NEW** Release management standards
+19. [reporting.instructions.md](./reporting.instructions.md) — Reporting standards
+20. [scaffold-extensions.instructions.md](./scaffold-extensions.instructions.md) — Scaffold extensions
+21. [scf-fields.instructions.md](./scf-fields.instructions.md) — Custom fields
+22. [schema-files.instructions.md](./schema-files.instructions.md) — Schema organisation
+23. [security.instructions.md](./security.instructions.md) — Security best practices
+24. [temp-files.instructions.md](./temp-files.instructions.md) — Temporary files
+25. [testing-e2e.instructions.md](./testing-e2e.instructions.md) — E2E testing
+26. [workflows.instructions.md](./workflows.instructions.md) — GitHub Actions workflow standards
+27. [wpcs-accessibility.instructions.md](./wpcs-accessibility.instructions.md) — WPCS Accessibility
+28. [wpcs-css.instructions.md](./wpcs-css.instructions.md) — WPCS CSS
+29. [wpcs-html.instructions.md](./wpcs-html.instructions.md) — WPCS HTML
+30. [wpcs-javascript.instructions.md](./wpcs-javascript.instructions.md) — WPCS JavaScript
+31. [wpcs-js-docs.instructions.md](./wpcs-js-docs.instructions.md) — WPCS JS Docs
+32. [wpcs-php.instructions.md](./wpcs-php.instructions.md) — WPCS PHP
+33. [wpcs-php-docs.instructions.md](./wpcs-php-docs.instructions.md) — WPCS PHP Docs
 
 </details>
 
 ---
 
-**Last Updated:** 2025-12-10
+**Last Updated:** 2025-12-15
+**Recent Updates:** [.github/reports/agents/instruction-files-creation-2025-12-15.md](../reports/agents/instruction-files-creation-2025-12-15.md)
 **Consolidation Report:** [.github/reports/instruction-consolidation-audit-2025-12-10.md](../reports/instruction-consolidation-audit-2025-12-10.md)
 **Implementation Tasks:** [.github/projects/active/2025-12-10-instruction-consolidation.md](../projects/active/2025-12-10-instruction-consolidation.md)
 
