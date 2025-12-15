@@ -31,14 +31,14 @@ jobs:
         run: npm run metrics:ci
 
       - name: Upload JSON artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: frontmatter-metrics-json
           path: metrics/out/frontmatter-metrics.json
           if-no-files-found: warn
 
       - name: Upload Markdown report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: frontmatter-metrics-md
           path: metrics/out/frontmatter-metrics.md

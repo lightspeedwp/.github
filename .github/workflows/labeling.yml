@@ -105,7 +105,7 @@ jobs:
           node scripts/agents/includes/report-writer.js > .github/reports/labeling/${{ github.run_id }}.md
 
       - name: Upload report artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: labeling-report-${{ github.run_id }}
           path: .github/reports/labeling/${{ github.run_id }}.md
