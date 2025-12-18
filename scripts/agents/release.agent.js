@@ -6,11 +6,24 @@
  *   - Automates release validation, changelog enforcement, versioning, tagging, and GitHub Releases
  *   - Main functions: run(), validateRelease(), bumpVersion(), createTag(), publishRelease()
  *   - Uses shared utilities: changelogUtils, validate-version, validate-changelog
- *   - Supports dry-run mode for testing
+ *   - Supports dry-run mode for testing and audit logging
  * Standards:
  *   - Follows [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
  *   - See org instructions: [Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
  *   - See spec: .github/agents/release.agent.md
+ * Guardrails:
+ *   - Never publish incomplete or broken releases
+ *   - Abort and notify if any validation fails
+ *   - Always lint and test before release
+ *   - Support dry-run mode for all operations
+ *   - Log all actions for audit trails
+ *   - Default to read-only analysis unless user explicitly requests changes
+ * Process:
+ *   - Preparation: Health scan, alignment, coverage, lint, config, docs, gating summary
+ *   - Automation: Validate, bump version, update changelog, create branch, tag, PR, GitHub Release
+ * Outputs:
+ *   - Preparation: Health summary, alignment report, coverage analysis, checklist, release notes template, tracking issues
+ *   - Automation: Release notes, version bump, tag, GitHub Release link, audit log
  * ============================================================================
  * @module scripts/agents/release.agent.js
  * @see .github/agents/release.agent.md
@@ -690,6 +703,7 @@ async function run() {
 
 // Run if executed directly
 if (import.meta.url === `file://${process.argv[1]}`) {
+  // Support --dry-run flag for safe preview
   run();
 }
 

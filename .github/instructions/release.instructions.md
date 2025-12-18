@@ -1,9 +1,9 @@
 ---
 file_type: "instructions"
 title: "Release Management Instructions"
-description: "Comprehensive standards for release preparation, validation, automation, semantic versioning, changelog management, and GitHub Release publication"
-version: "v2.0"
-last_updated: "2025-12-15"
+description: "Comprehensive standards for release preparation, validation, automation, semantic versioning, changelog management, and GitHub Release publication."
+version: "v2.1"
+last_updated: "2025-12-18"
 owners: ["LightSpeed Engineering"]
 tags: ["release", "semantic-versioning", "changelog", "automation", "github", "governance"]
 applyTo: [".github/agents/release.agent.md", "scripts/agents/release.agent.js", ".github/workflows/release.yml", ".github/workflows/changelog.yml", "docs/RELEASE_PROCESS.md"]
@@ -33,7 +33,14 @@ Applies to all release preparation, validation, and publication workflows. Cover
 
 ## Detailed Guidance
 
-This document defines the complete release process from preparation through publication, including health checks, validation gates, version bumping, and release notes compilation.
+This document defines the complete release process from preparation through publication, including:
+
+- Health checks and repository scan
+- Validation gates (lint, test, changelog schema)
+- Version bumping (SemVer)
+- Release branch and PR creation
+- Tagging and GitHub Release publication
+- Release notes compilation (highlights, breaking changes, contributors, compare links)
 
 ## Examples
 
@@ -51,9 +58,17 @@ This document defines the complete release process from preparation through publ
 
 ## Purpose
 
-Automate and standardise the release process to ensure consistent release quality, reduce manual effort, enforce standards, provide comprehensive validation, generate professional releases, maintain audit trails, and enable safe, repeatable workflows.
+Automate and standardise the release process to ensure:
 
-For complete detailed standards, see [automation.instructions.md](./automation.instructions.md#release-management) which contains comprehensive release management standards including:
+- Consistent release quality
+- Reduced manual effort
+- Enforced standards
+- Comprehensive validation
+- Professional release notes
+- Maintained audit trails
+- Safe, repeatable workflows
+
+For full standards, see [automation.instructions.md](./automation.instructions.md#release-management) for:
 
 - Two-phase release approach (Preparation + Execution)
 - Semantic versioning rules and version bumping
