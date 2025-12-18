@@ -639,19 +639,21 @@ async function run() {
       console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
     }
 
+
     // Step 3: Bump version
     bumpVersion(nextVersion, { dryRun });
 
     // Step 4: Update changelog
     updateChangelog(nextVersion, { dryRun });
 
-    // Step 5: Commit changes
+    // Step 5: Stage all changes and run Husky pre-commit hooks, then commit
     if (!dryRun) {
-      exec("git add VERSION CHANGELOG.md");
+      exec("git add .");
+      exec("npx husky run pre-commit");
       exec(`git commit -m "chore(release): bump version to ${nextVersion}"`);
     } else {
       console.log(
-        `\n[DRY-RUN] Would commit VERSION and CHANGELOG.md with message: "chore(release): bump version to ${nextVersion}"`,
+        `\n[DRY-RUN] Would stage all changes, run Husky pre-commit hooks, and commit with message: "chore(release): bump version to ${nextVersion}"`,
       );
     }
 
