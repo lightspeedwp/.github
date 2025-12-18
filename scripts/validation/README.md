@@ -22,13 +22,20 @@ references:
   - "../../.github/instructions/mermaid-diagrams.instructions.md"
 ---
 
-# Frontmatter Validation
 
-This directory contains comprehensive frontmatter validation scripts for the LightSpeedWP .github repository. The validation system ensures all files maintain consistent frontmatter structure according to our established schema and conventions.
+# JSON, YAML & Frontmatter Validation
+
+This directory contains all validation scripts and tests for JSON, YAML, and Markdown frontmatter used throughout the LightSpeedWP .github repository. All validation logic has been consolidated here from previous locations (including `scripts/coderabbit-validation/`).
 
 ## Overview
 
-The frontmatter validation system provides automated checking of YAML frontmatter across all repository files, ensuring compliance with LightSpeed standards and detecting inconsistencies or missing required fields.
+The validation system provides automated checking of:
+
+- YAML frontmatter in Markdown files (schema and field validation)
+- JSON files (linting, formatting, schema validation)
+- YAML configuration files (including `.coderabbit.yml`)
+
+All schema files are stored in `schemas/`.
 
 ```mermaid
 graph TD
@@ -48,234 +55,99 @@ graph TD
     style G fill:#e8f5e8
 ```
 
-## Files
+## Main Scripts
 
-### Core Scripts
+- **`validate-frontmatter.js`** — Validates Markdown frontmatter for all .md files in the repo against the canonical schema
+- **`validate-json.js`** — Comprehensive JSON linting and validation tool (Prettier, JSONLint, Ajv schema validation)
+- **`validate-coderabbit-yml.cjs`** — Validates `.coderabbit.yml` for YAML syntax and required fields, using the latest CodeRabbit schema
+- **`update-coderabbit-schema.cjs`** — Downloads and updates the latest CodeRabbit schema for offline validation
 
-- **`validate-frontmatter.js`** - Main validation script with comprehensive frontmatter checking
-- **`package.json`** - Dependencies and script configuration
-- **`README.md`** - This documentation file
+## Test Files
 
-### Test Suite
-
-- **`__tests__/validate-frontmatter.test.js`** - Comprehensive test suite for validation functionality
+- **`__tests__/validate-frontmatter.test.js`** — Test suite for frontmatter validation
+- **`validate-coderabbit-yml.test.js`** — Jest test suite for the CodeRabbit YAML validator
 
 ## Features
 
 ### ✅ Schema Validation
 
 - Validates frontmatter against `frontmatter.schema.json`
-- Supports all JSON Schema validation features
-- Provides detailed error reporting with field-level feedback
+- Validates JSON files against schemas (Ajv)
+- Validates `.coderabbit.yml` against the latest CodeRabbit schema
 
 ### 🔍 File Type Detection
 
-- Automatically detects file types based on path patterns
-- Applies type-specific validation rules
-- Supports all LightSpeed file types:
-  - `agent` - .github/agents/
-  - `chatmode` - .github/chatmodes/
-  - `instruction` - .github/instructions/
-  - `prompt` - .github/prompts/
-  - `collection` - .github/collections/
-  - `readme` - README.md files
-  - `documentation` - General .github/\*.md files
-  - `template` - Issue/PR/Discussion templates
-  - `saved_reply` - Saved reply files
+- Detects file types and applies type-specific validation rules
 
 ### 📋 Required Fields Validation
 
-- Enforces required fields based on file type
-- Validates field presence and non-empty values
-- Provides specific recommendations for missing fields
+- Enforces required fields for frontmatter and config files
 
 ### 💡 Recommended Fields Checking
 
-- Suggests optional but recommended fields
-- Helps maintain consistency across files
-- Supports best practices enforcement
+- Suggests optional but recommended fields for consistency
 
 ### 🔗 Reference Validation
 
-- Validates `references` field arrays
-- Checks if referenced files exist
-- Ensures proper relative path formatting
+- Validates `references` fields and file existence
 
 ### 📊 Comprehensive Reporting
 
-- Color-coded console output
-- Detailed logging to files
-- Statistics summary with counts
-- Error categorization (errors, warnings, info)
+- Color-coded console output, detailed logs, and summary statistics
 
-## Usage
+## Usage Examples
 
-### Basic Validation
+### Frontmatter Validation
 
 ```bash
 # Run validation with default settings
 node validate-frontmatter.js
-
-# Show help information
-node validate-frontmatter.js --help
 ```
 
-### Custom Configuration
+### JSON Validation & Linting
 
 ```bash
-# Use custom schema file
-node validate-frontmatter.js --schema ./custom-schema.json
+# Format all JSON files (read-only check)
+node validate-json.js --format-only --read-only
 
-# Specify different root directory
-node validate-frontmatter.js --root /path/to/repo
+# Validate syntax only (strict mode)
+node validate-json.js --validate-only --strict
 
-# Custom output log file
-node validate-frontmatter.js --output ./validation-results.log
+# Validate against a schema
+node validate-json.js --glob "data/**/*.json" --schema "schema/my-doc.schema.json" --spec draft2020
 ```
 
-### npm Scripts
+### Validate CodeRabbit Configuration
 
 ```bash
-# Run validation
-npm run validate
+# Validate the main .coderabbit.yml file
+node validate-coderabbit-yml.cjs
+```
 
-# Show help
-npm run validate:help
+### Update CodeRabbit Schema
 
-# Run tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Watch mode for development
-npm run test:watch
+```bash
+node update-coderabbit-schema.cjs
 ```
 
 ## Configuration
 
-The validation system uses the following default configuration:
-
-```javascript
-const CONFIG = {
-  schemaPath: "../../schemas/frontmatter.schema.json",
-  rootDir: "../..",
-  logDir: "../../logs/validation",
-  outputFile: "../../logs/validation/frontmatter-validation.log",
-  patterns: [
-    "**/*.md",
-    "**/*.yml",
-    "**/*.yaml",
-    ".github/**/*.md",
-    ".github/**/*.yml",
-    ".github/**/*.yaml",
-  ],
-  excludePatterns: [
-    "node_modules/**",
-    ".git/**",
-    "coverage/**",
-    "logs/**",
-    "**/package-lock.json",
-  ],
-};
-```
+All schema files are stored in `schemas/`.
+Default configuration for frontmatter validation is in `validate-frontmatter.js`.
 
 ## Validation Rules
 
-### File Type Requirements
-
-```mermaid
-graph LR
-    A[File Types] --> B[Agent]
-    A --> C[Chatmode]
-    A --> D[Instruction]
-    A --> E[README]
-
-    B --> B1["file_type<br/>name<br/>description"]
-    C --> C1["file_type<br/>description"]
-    D --> D1["file_type<br/>description<br/>apply_to"]
-    E --> E1["file_type<br/>name<br/>description"]
-
-    style B1 fill:#ffebee
-    style C1 fill:#e3f2fd
-    style D1 fill:#f3e5f5
-    style E1 fill:#e8f5e8
-```
-
-### Recommended Fields by Type
-
-| File Type       | Required Fields                  | Recommended Fields                  |
-| --------------- | -------------------------------- | ----------------------------------- |
-| `agent`         | file_type, name, description     | version, last_updated, owners, tags |
-| `chatmode`      | file_type, description           | tools, model, owners                |
-| `instruction`   | file_type, description, apply_to | owners, tags, version               |
-| `prompt`        | file_type, description           | mode, model, tools, tags            |
-| `collection`    | file_type, name, description     | version, last_updated, tags         |
-| `readme`        | file_type, name, description     | version, last_updated, owners, tags |
-| `documentation` | file_type, description           | owners, tags, references            |
+See the schema files in `schemas/` for required and recommended fields for each file type.
 
 ## Output Examples
 
-### Successful Validation
-
-```
-[SUCCESS] Valid frontmatter [.github/agents/example.md]
-[INFO] Validation completed
-  {
-    "total": 45,
-    "validated": 43,
-    "errors": 0,
-    "warnings": 2,
-    "skipped": 0
-  }
-```
-
-### Error Detection
-
-```
-[ERROR] Invalid frontmatter [.github/agents/broken.md]
-  {
-    "errors": [
-      {
-        "instancePath": "/file_type",
-        "schemaPath": "#/properties/file_type/enum",
-        "keyword": "enum",
-        "message": "must be equal to one of the allowed values"
-      }
-    ]
-  }
-```
-
-### Warning Examples
-
-```
-[WARN] Missing required fields [.github/agents/incomplete.md]
-  {
-    "fileType": "agent",
-    "missingFields": ["name", "description"],
-    "recommendation": "Add the following fields: name, description"
-  }
-
-[WARN] Referenced file does not exist: non-existent.md [.github/agents/bad-refs.md]
-```
+See script output and logs for validation results, errors, and warnings.
 
 ## Integration
 
-### Test Suite Integration
-
-The validation script integrates with the repository test suite:
-
-1. **Automated Testing**: Runs as part of CI/CD pipeline
-2. **Pre-commit Hooks**: Validates frontmatter before commits
-3. **Coverage Reporting**: Generates coverage reports in `../../coverage/validation/`
-
-### Logging Integration
-
-All validation results are logged to:
-
-- **Console**: Color-coded real-time output
-- **Log File**: `../../logs/validation/frontmatter-validation.log`
-- **Coverage**: Test coverage reports for validation code
+- Automated testing: All validation scripts are run as part of CI/CD pipeline
+- Pre-commit hooks: Validate configs and docs before commit
+- Logging: Results are logged to `../../logs/validation/`
 
 ## Development
 
@@ -284,63 +156,24 @@ All validation results are logged to:
 ```bash
 # Install dependencies
 npm install
-
 # Run all tests
 npm test
-
 # Run tests with coverage
 npm run test:coverage
-
 # Watch mode for development
 npm run test:watch
 ```
 
 ### Adding New Validation Rules
 
-1. **Update Schema**: Modify `../../schemas/frontmatter.schema.json`
-2. **Add Type Rules**: Update `getRequiredFieldsByType()` and `getRecommendedFieldsByType()`
-3. **Create Tests**: Add test cases in `__tests__/validate-frontmatter.test.js`
-4. **Update Documentation**: Reflect changes in this README
-
-### Testing Patterns
-
-The test suite covers:
-
-- ✅ Frontmatter extraction from various formats
-- ✅ Schema validation with real and mock schemas
-- ✅ File type detection for all supported patterns
-- ✅ Required and recommended field validation
-- ✅ Reference validation and file existence checking
-- ✅ Error handling and edge cases
-- ✅ Integration with real LightSpeed frontmatter patterns
+1. Update or add schema in `schemas/`
+2. Add or update validation script in this folder
+3. Add or update test cases
+4. Update this README
 
 ## Error Handling
 
-The validation system provides robust error handling:
-
-```mermaid
-graph TD
-    A[Input File] --> B{Has Frontmatter?}
-    B -->|No| C{Should Have?}
-    B -->|Yes| D{Valid YAML?}
-
-    C -->|Yes| E[Warning: Missing]
-    C -->|No| F[Skip File]
-
-    D -->|No| G[Error: Invalid YAML]
-    D -->|Yes| H[Schema Validation]
-
-    H --> I{Valid Schema?}
-    I -->|No| J[Error: Schema Violation]
-    I -->|Yes| K[LightSpeed Rules]
-
-    K --> L[Success/Warnings]
-
-    style E fill:#fff3e0
-    style G fill:#ffebee
-    style J fill:#ffebee
-    style L fill:#e8f5e8
-```
+All validation scripts provide robust error handling and log errors to the console and log files.
 
 ## Dependencies
 
@@ -353,6 +186,7 @@ graph TD
 ## Related Documentation
 
 - [Frontmatter Schema](../../schemas/frontmatter.schema.json)
+- [CodeRabbit Schema](../../schemas/coderabbit-overrides.v2.json)
 - [Tagging Conventions](../../.github/instructions/tagging-and-frontmatter-conventions.instructions.md)
 - [Mermaid Diagrams](../../.github/instructions/mermaid-diagrams.instructions.md)
 - [YAML Documentation](../../docs/YAML.md)
