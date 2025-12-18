@@ -1,11 +1,12 @@
 # Dependencies
-/node_modules
+node_modules/
 /vendor
 
 # Build directories
 /build
 /dist
 /out
+metrics/out/
 
 # WordPress specific
 /wp-content/uploads
@@ -20,14 +21,13 @@
 !.env.example
 
 # IDE and editor files
-.idea
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-*.sublime-project
-*.sublime-workspace
+# .vscode/*
+# .vscode/extensions.json
+# .vscode/settings.json
+# .vscode/tasks.json
+# .vscode/launch.json
+# *.sublime-project
+# *.sublime-workspace
 
 # System files
 .DS_Store
@@ -36,10 +36,9 @@ ehthumbs.db
 Desktop.ini
 
 # Logs
+logs/
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 .eslintcache
 .phpcs-cache
 
@@ -47,7 +46,12 @@ yarn-error.log*
 /coverage
 /.nyc_output
 
+# Generator output
+output-plugin/
+generated-plugins/
+
 # Misc
+tmp/
 *.zip
 *.tar.gz
 *.tgz

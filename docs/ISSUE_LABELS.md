@@ -1,66 +1,104 @@
 # .github/ISSUE_LABELS.md
 
-## Purpose
-Consistent, low‑friction **issue labelling** that complements the **Issue Type** Project field (Epic/Story/Task/Bug/etc.) without duplicating it.
+<!-- BADGES-START -->
 
-## Label families (issues)
-- **`status:*`** — lifecycle signal (exactly one per issue): `needs-triage`, `ready`, `in-progress`, `needs-review`, `needs-qa`, `blocked`, `in-discussion`, `needs-more-info`.
-- **`priority:*`** — `critical`, `important`, `normal`, `minor`.
-- **`area:*`** (broad area) **or** **`comp:*`** (specific artefact, e.g. `comp:theme-json`, `comp:block-templates`, `comp:block-patterns`).
-- Optional routing: **`lang:*`** (`php`, `js`, `css`, `md`, …), **`env:*`** (prototype/staging/live), **`compat:*`** (wordpress/php/woocommerce/etc.), **`cpt:*`** (content types), **`meta:*`** (hygiene: `meta:stale`, `meta:no-issue-activity`).
+[![changelog](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml)
+[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
+[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
+[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
+[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
+[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
+[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
+[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
+[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
+[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
+[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
+[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
 
-> **No `type:*` labels.** Classification lives in the **Issue Type** field. Labels are routing signals.
+<!-- BADGES-END -->
 
-## Triage workflow (5 steps)
-1. **Set Issue Type** (Epic/Story/Task/Bug/…); link **Parent Epic** when applicable.
-2. Add **one** `priority:*`.
-3. Add **one** of `area:*` **or** `comp:*`.
-4. Set **`status:needs-triage`** (intake). When ready to start, switch to **`status:ready`** (keep exactly one status).
-5. Add optional routing labels (`lang:*`, `env:*`, `compat:*`, `cpt:*`) only if they help discovery or assignment.
-
-## Automations affecting issues
-- On **open/reopen/transfer** → add **`status:needs-triage`** if missing.
-- Enforce **max one** `status:*`.
-- If no `priority:*` is set → default to **`priority:normal`**.
-
-> These behaviours are managed by `.github/workflows/labels-issues-prs.yml`.
-
-## Do & Don’t
-- ✅ Keep labels **orthogonal** and minimal (1× status, 1× priority, 1× area/comp).
-- ✅ Use `blocked` + a note in the issue **Blocked reason** (or body) instead of extra labels.
-- ❌ Don’t mirror Issue Type with labels (no `type:feature`, `type:bug`, etc.).
-
-## Notes on Stories
-**Stories are primarily used during initial scoping** (client engagement kick‑off or product initiative framing). Prefer **Task/Feature/Improvement** for day‑to‑day delivery; keep Stories lean and demo‑able within an Epic.
+> **Note:** All labeling, status, type, and standardization is now handled by the unified labeling agent and labeling workflow. The canonical label definitions and automation rules are maintained in ../.github/labels.yml and ../.github/labeler.yml. This file provides human-readable guidance, while the YAML files are used for automation and syncing across the organization.
 
 ---
 
-# .github/PR_LABELS.md (updated)
-
 ## Purpose
-Provide high‑signal, automated **PR labels** for review routing, release hygiene, and search—without introducing `type:*` PR labels.
 
-## How labels are applied
-1) **Paths → labels** via `.github/labeler.yml`:
-   - `area:ci`, `area:dependencies`, `area:block-editor`, `area:theme`, `area:integration` …
-   - `lang:php`, `lang:javascript`, `lang:css`, `lang:md` …
-2) **Branch prefixes → status** (on PR open):
-   - `feat/`, `fix/`, `docs/`, `chore/`, `build/` → add **`status:needs-review`** by default.
+Defines the org-wide standard for providing high‑signal, automated **Issue labeling** for review routing, release hygiene, and search in LightSpeed projects.
+Use this reference to classify Issues consistently, apply correct labels, and align with org-wide automation and reporting.
 
-### Optional branch→type mapping (for Projects)
-When the Project **Type** field is present, workflows may map PR branches to **Type**:
-- `feat/`→`Feature` · `fix/`→`Bug` · `docs/`→`Documentation` · `chore/|build/`→`Task`.
+---
 
-## Changelog hygiene
-- On PR open, if no changelog marker exists, add **`meta:needs-changelog`**.
-- Remove it after updating changelog/README (or apply `meta:no-changelog` if internal‑only).
+## Label Families (Issues)
 
-## Status rules (PRs)
-- Keep **exactly one** `status:*`. The workflow adds `status:needs-review` if none exists and fails if multiple are present.
+- **`status:*`** — blocked, duplicate, in-progress, needs-\*, on-hold, ready, wontfix.
+- **`priority:*`** — critical, important, normal, minor.
+- **`type:*`** — bug, feature, documentation, task, refactor, performance, test, security, a11y, design, improvement, release, etc.
+- **`area:*`** — content, theme, navigation, forms, ci, deployment, dependencies, analytics, woocommerce, etc.
+- **`comp:*`** — block-editor, block-json, theme-json, templates, patterns, typography, spacing, etc.
+- **Context labels:** `env:*`, `compat:*`, `cpt:*`, `lang:*`, plus repo‑specific `phase:*`, `page:*`, `device:*`, `layout:*`, `template:*`, etc.
+- **Meta & release labels:** `meta:needs-changelog`, `meta:has-pr`, `meta:no-issue-activity`, `meta:no-pr-activity`, `meta:stale`, `release:patch`, `release:minor`, `release:major`, `release:hotfix`.
+- **Contributor labels:** `contrib:good-first-issue`, `contrib:help-wanted`, `contrib:discussion`.
 
-## Dependabot PRs
-- Path rules label dependency updates (e.g. `area:dependencies`) to help batching and release notes.
+See ../.github/labels.yml for the up-to-date, authoritative list.
 
-## Files powering this
-- `.github/labeler.yml` — path & branch rules.
-- `.github/workflows/labels-issues-prs.yml` — defaults, status enforcement, changelog nudge.
+---
+
+## Minimum Required Labels per Issue
+
+- **One** `status:*` (e.g., `status:needs-triage`)
+- **One** `priority:*` (e.g., `priority:normal`)
+- **One** `type:*` (e.g., `type:bug`)
+- **At least one** `area:*` or `comp:*` (e.g., `area:ci`)
+- **Meta/context labels** as needed (e.g., `meta:needs-changelog`, `phase:6`)
+
+These are **enforced automatically** by the unified labeling agent.
+
+---
+
+## Color System
+
+Labels use a consistent color palette for rapid scanning and workflow automation.
+Colors are assigned by family and purpose; see `../.github/labels.yml` for mapping.
+
+---
+
+## Automation
+
+- **Labeling, status, type, and standardization** are all handled by the **unified agent and workflow** ([labeling.agent.js](../scripts/agents/labeling.agent.js), [labeling.yml](../.github/workflows/labeling.yml)).
+- **Default labels** are applied and enforced on all issues.
+- **Label conflicts and non-canonical labels** are removed or migrated automatically.
+
+---
+
+## Changelog & Release Labels
+
+- PRs/issues affecting user-facing features must include `meta:needs-changelog` or a canonical changelog label.
+- Release labels (`release:patch`, `release:minor`, etc.) are required for all shipping PRs.
+
+---
+
+## Sample: Issue Label Front Matter
+
+```yaml
+labels:
+  - status:needs-triage
+  - priority:normal
+  - type:bug
+  - area:ci
+  - meta:needs-changelog
+```
+
+---
+
+## Usage Notes
+
+- Keep exactly one `status:*` and one `priority:*` on every issue.
+- All labeling is **automated and enforced**; maintainers may adjust as needed.
+- For a full list of canonical labels and colors, see [labels.yml](../.github/labels.yml).
+
+---
+
+*The labeling agent is the single source of truth for all issue labeling, status, type, and standardization. All guidance here is directly reflected in labels.yml and enforced via automation.*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

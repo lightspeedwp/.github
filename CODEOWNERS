@@ -1,0 +1,42 @@
+# CODEOWNERS for LightSpeed WP Scripts
+# Assign reviewers for critical paths in the repository
+# See <https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners>
+
+# Global Owner (fallback for all files)
+* @ashleyshaw @lightspeedwp
+
+# Governance and Documentation
+/GOVERNANCE.md @ashleyshaw
+/CONTRIBUTING.md @ashleyshaw
+/CODE_OF_CONDUCT.md @ashleyshaw
+/SECURITY.md @ashleyshaw
+/README.md @ashleyshaw
+
+# Workflows and Automation (critical for org-wide automation)
+/.github/workflows/ @ashleyshaw
+/.github/automation/ @ashleyshaw
+
+# Labels and Issue Types (critical for automation)
+/.github/automation/labels.yml @ashleyshaw
+/.github/automation/issue-types.yml @ashleyshaw
+/.github/automation/labeler.yml @ashleyshaw
+
+# AI and Copilot Instructions
+/.github/custom-instructions.md @ashleyshaw
+/.github/agents/ @ashleyshaw
+/.github/chatmodes/ @ashleyshaw
+/.github/prompts/ @ashleyshaw
+/.github/instructions/ @ashleyshaw
+/AGENTS.md @ashleyshaw
+
+# Core Documentation
+/docs/ @ashleyshaw
+
+# Scripts (validation, automation, testing)
+/scripts/ @ashleyshaw
+
+# Tests (quality assurance)
+/tests/ @ashleyshaw
+
+# Schemas (JSON validation)
+/.github/schemas/ @ashleyshaw

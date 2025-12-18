@@ -1,0 +1,122 @@
+name: Labeling • Discussions, Issues & PRs (Unified)
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+    types:
+      [
+        opened,
+        edited,
+        synchronize,
+        reopened,
+        ready_for_review,
+        labeled,
+        unlabeled,
+        transferred,
+      ]
+  issues:
+    types: [opened, edited, reopened, labeled, unlabeled, transferred]
+  discussion:
+    types: [created, edited, answered, reopened]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run without writing labels"
+        required: false
+        default: "true"
+      report_commit:
+        description: "Commit report to repo (requires contents: write)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  discussions: write
+
+concurrency:
+  group: labeling-${{ github.event_name }}-${{ github.event.number || github.run_id }}
+  cancel-in-progress: false
+
+env:
+  LABELS_CONFIG: .github/labels.yml
+  ISSUE_TYPES_CONFIG: .github/issue-types.yml
+  LABELER_RULES: .github/labeler.yml
+
+jobs:
+  labeling:
+    name: Unified Labeling, Status, and Type Assignment
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip labeling]')"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: develop
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci || true
+
+      - name: Sync labels with canonical set
+        run: |
+          npm install --no-save js-yaml
+          node scripts/agents/includes/label-sync.js
+        shell: bash
+        continue-on-error: false
+
+      # Guardrail: Check for unknown labels in templates/types
+      - name: Guardrail — Check for unknown labels in templates/types
+        run: |
+          npm install --no-save js-yaml
+          node scripts/agents/includes/check-template-labels.js
+        shell: bash
+        continue-on-error: false
+
+      # Apply file/branch-based labels using labeler.yml (for PRs)
+      - name: File/branch labeler (actions/labeler)
+        if: github.event_name == 'pull_request'
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: ${{ env.LABELER_RULES }}
+          sync-labels: true
+
+      # Run unified labeling agent for issues and PRs
+      - name: Run labeling agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: node scripts/agents/labeling.agent.js
+
+      - name: Generate report
+        id: report
+        run: |
+          mkdir -p .github/reports/labeling
+          node scripts/agents/includes/report-writer.js > .github/reports/labeling/${{ github.run_id }}.md
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: labeling-report-${{ github.run_id }}
+          path: .github/reports/labeling/${{ github.run_id }}.md
+
+      - name: Optionally commit report
+        if: ${{ inputs.report_commit == 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/reports/labeling/${{ github.run_id }}.md
+          git commit -m "chore(labeling): add report for run ${{ github.run_id }}"
+          git push origin HEAD:develop

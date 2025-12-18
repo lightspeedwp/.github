@@ -1,0 +1,12 @@
+name: "Product Support: Tour Operator"
+description: "Get help, ask questions, or share issues about the Tour Operator plugin or extensions."
+labels:
+  - discussion:support
+template: |
+  ## ❓ Tour Operator Support
+
+  - **Describe your issue or question:**
+  - **Tour Operator version (and extensions):**
+  - **WordPress version:**
+  - **Steps to reproduce (if relevant):**
+  - **Screenshots or error messages:**

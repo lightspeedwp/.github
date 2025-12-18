@@ -1,87 +1,111 @@
 # .github/PR_LABELS.md
 
-## Purpose
-Provide high‑signal, automated **PR labels** for review routing, release hygiene, and search—without introducing `type:*` PR labels.
+<!-- BADGES-START -->
 
-## How labels are applied
-1) **Paths → labels** via `.github/labeler.yml`:
-   - `area:ci`, `area:dependencies`, `area:block-editor`, `area:theme`, `area:integration` …
-   - `lang:php`, `lang:javascript`, `lang:css`, `lang:md` …
-2) **Branch prefixes → status** (on PR open):
-   - `feat/`, `fix/`, `docs/`, `chore/`, `build/` → add **`status:needs-review`** by default.
+[![changelog](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml)
+[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
+[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
+[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
+[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
+[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
+[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
+[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
+[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
+[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
+[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
+[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
 
-### Optional branch→type mapping (for Projects)
-When the Project **Type** field is present, workflows may map PR branches to **Type**:
-- `feat/`→`Feature` · `fix/`→`Bug` · `docs/`→`Documentation` · `chore/|build/`→`Task`.
+<!-- BADGES-END -->
 
-## Changelog hygiene
-- On PR open, if no changelog marker exists, add **`meta:needs-changelog`**.
-- Remove it after updating changelog/README (or apply `meta:no-changelog` if internal‑only).
-
-## Status rules (PRs)
-- Keep **exactly one** `status:*`. The workflow adds `status:needs-review` if none exists and fails if multiple are present.
-
-## Dependabot PRs
-- Path rules label dependency updates (e.g. `area:dependencies`) to help batching and release notes.
-
-## Files powering this
-- `.github/labeler.yml` — path & branch rules.
-- `.github/workflows/labels-issues-prs.yml` — defaults, status enforcement, changelog nudge.
+> **Note:** All PR labeling, status, type, and standardization is handled by the unified labeling agent and labeling workflow. The canonical PR labels and assignment rules are maintained in ../.github/labels.yml and ../.github/labeler.yml.
 
 ---
 
-# .github/PROJECT_META.md (shared core, updated)
-
 ## Purpose
-Automatically **add issues/PRs to the org Project** and keep Project **fields in sync** with labels and branch semantics.
 
-## What the workflow does
-- **Triggers** on issue and PR events.
-- **Adds the item** to the org Project using `LS_PROJECT_URL`.
-- **Derives** and writes Project fields:
-  - **Status** from `status:*` labels (closed/merged → `Done`; default `Triage`).
-  - **Priority** from `priority:*` labels.
-  - **Type** from **PR head branch** (see PR labels).
-
-## Setup requirements
-- **Org/repo variables:** `LS_PROJECT_URL`, `LS_APP_ID`.
-- **Secrets:** `LS_APP_PRIVATE_KEY`.
-- **Project fields:** Ensure **Status**, **Priority**, **Type** field names match exactly.
-
-## Guardrails
-- Labels are **signals**; the Project is the **source of truth** for delivery state.
-- Mapping from branch → **Type** is **advisory**; **Issues** still set **Issue Type** manually.
-- Keep Status values **lean**; use labels `needs-qa`, `needs-review`, `blocked` and let the workflow sync.
-
-## Template‑specific READMEs
-- **Client Delivery:** uses **Todo** instead of Ready and includes UAT views.
-- **Product Development:** uses **Ready** and includes Release/Milestone views and PR discipline.
+Defines the org-wide standard for high-signal, automated **PR labeling** for review routing, release hygiene, and search in LightSpeed projects.
+Use this reference for consistent, correct PR labels and full alignment with automation.
 
 ---
 
-# .github/PROJECT_META.client-delivery.md (new)
+## Branch Prefixes
 
-## Quick Start
-1) **Create Project** → Name `Client – {ClientName}`; Description with scope + contract link.
-2) **Add fields**: Status (Backlog, **Todo**, In progress, In review, In QA, Done), Issue Type (Epic, Story, Task, Bug, Chore, Design, Research), Priority, Area, Theme, Size (number), Start Date, Deadline, Milestone, Environment, Parent Issue, Sub‑issues Progress, Time (hours). Optional: Iteration.
-3) **Automations**: Auto‑add → Backlog; On Assignee → In progress; On linked PR → In review; On `status:needs-qa` → In QA; On close/merge → Done.
-4) **Pin views**: Board — Team Flow (group by Assignee), Backlog — Table, **QA Gate**, **UAT (Client)**, Roadmap, Blocked, Epics (Tracking) — Table/Roadmap.
-5) **Intake hygiene**: Create **Intake** view (`Status = Backlog` AND missing Assignee/Priority/Issue Type) and clear it weekly.
+Every PR should use a standard branch prefix for correct label and template automation:
 
-## Status
-Backlog → **Todo** → In progress → In review → In QA → Done.
+| Prefix    | Purpose                    | Maps to Type / Label | PR Template                                    |
+| --------- | -------------------------- | -------------------- | ---------------------------------------------- |
+| fix/      | Bugfix or regression       | bug                  | .github/PULL_REQUEST_TEMPLATE/pr_bug.md        |
+| chore/    | Maintenance/hygiene tasks  | chore                | .github/PULL_REQUEST_TEMPLATE/pr_chore.md      |
+| ci/       | CI/CD or workflow changes  | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_ci.md         |
+| ci/       | CI/CD or workflow changes  | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_dep_update.md |
+| docs/     | Documentation changes      | documentation        | .github/PULL_REQUEST_TEMPLATE/pr_docs.md       |
+| hotfix/   | Emergency production fix   | hotfix / bug         | .github/PULL_REQUEST_TEMPLATE/pr_hotfix.md     |
+| feat/     | New feature or enhancement | feature              | .github/PULL_REQUEST_TEMPLATE/pr_feature.md    |
+| refactor/ | Internal code refactoring  | refactor             | .github/PULL_REQUEST_TEMPLATE/pr_refactor.md   |
+| release/  | Release prep/deployment    | release              | .github/PULL_REQUEST_TEMPLATE/pr_release.md    |
 
-## Field guidance
-- **Environment**: Prototype · Staging · Live (drives QA/UAT views).
-- **Issue Type**: Use **Story** mainly during initial scoping; prefer **Task/Improvement** for ongoing delivery.
-- **Parent Issue**: Link the Epic; track roll‑up via **Sub‑issues Progress**.
+### Branch specific PR Templates to be created
 
-## Recommended Views
-- **QA Gate** — filter `Status IN (In review, In QA)`; group by Environment.
-- **UAT (Client)** — `Environment = Staging AND Status IN (In review, In QA)`.
-- **Board — Team Flow** — daily stand‑ups; group by Assignee; sort by Priority.
-- **Roadmap** — group by Theme (or Area); bars **Start Date → Deadline**.
-- **Epics (Tracking)** — `Issue Type = Epic`; show Sub‑issues Progress.
+| Prefix    | Purpose                     | Maps to Type / Label | PR Template to be created                          |
+| --------- | --------------------------- | -------------------- | -------------------------------------------------- |
+| build/    | Build/CI/automation changes | build / ci           | .github/PULL_REQUEST_TEMPLATE/pr_build.md          |
+| test/     | Add or update tests         | test                 | .github/PULL_REQUEST_TEMPLATE/pr_test.md           |
+| design/   | Design changes/assets       | design               | .github/PULL_REQUEST_TEMPLATE/pr_design.md         |
+| research/ | Technical spike/research    | research             | .github/PULL_REQUEST_TEMPLATE/pr_research.md       |
+| perf/     | Performance improvements    | performance          | .github/PULL_REQUEST_TEMPLATE/pr_performance.md    |
+| --------- | --------------------------- | -------------------- | -------------------------------------------------- |
 
-## Cadence
-Groom weekly · Stand‑up daily (focus on Blocked) · UAT weekly (e.g., Thu) · Release after UAT sign‑off.
+---
+
+## PR Templates & Usage
+
+- Select the correct template for your PR type.
+- **Labels** are set automatically by the [unified agent and workflow](../.github/workflows/labeling.yml).
+- Each PR must have:
+  - Exactly one `status:*` (e.g., `status:needs-review`)
+  - Exactly one `priority:*`
+  - Exactly one `type:*`
+  - At least one `area:*` or `comp:*`
+  - A canonical release label (`release:patch`, etc.) for shipping PRs
+
+---
+
+## Label Automation
+
+- All label assignment, enforcement, and standardization is handled by the **unified labeling agent** ([labeling.agent.js](../.github/agents/labeling.agent.js)).
+- **File/branch-based rules** are defined in [labeler.yml](../.github/labeler.yml).
+- **Non-canonical or legacy labels** are automatically removed or migrated.
+
+---
+
+## Release & Changelog Process
+
+- All PRs affecting user-facing features/fixes must include a valid changelog label; if missing, the agent will add `meta:needs-changelog`.
+- Only one `status:*` and one `release:*` label per PR.
+- See [labels.yml](../.github/abels.yml) for the current canonical options.
+
+---
+
+## Usage Notes
+
+- All PR labeling, status, type, and standardization is automated and validated; maintainers may adjust as needed.
+- For a full list of canonical PR labels and colors, see [labels.yml](../.github/labels.yml).
+
+---
+
+## References
+
+- [labels.yml](../.github/labels.yml)
+- [labeler.yml](../.github/labeler.yml)
+- [issue-types.yml](../.github/issue-types.yml)
+- [labeling.agent.md](../.github/agents/labeling.agent.md)
+- [labeling.yml](../.github/workflows/labeling.yml)
+- [Labeling Strategy](./LABEL_STRATEGY.md)
+- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
+
+---
+
+*Labeling, status, type, and standardization for PRs are handled exclusively by the unified agent and workflow.*
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

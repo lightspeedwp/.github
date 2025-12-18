@@ -1,3 +1,11 @@
+# YAML files
+[*.yml]
+indent_style = space
+indent_size = 2
+
+[*.yaml]
+indent_style = space
+indent_size = 2
 # EditorConfig is awesome: https://EditorConfig.org
 
 # top-most EditorConfig file

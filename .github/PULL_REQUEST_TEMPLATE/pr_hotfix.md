@@ -1,10 +1,9 @@
 ---
-
-name: "Hotfix PR"  
-about: "Critical fixes for production issues"  
-title: "fix: {short summary}"  
-labels: ["status:needs-review", "area:hotfix"]  
-
+name: "Hotfix PR"
+about: "Critical fixes for production issues"
+title: "fix: {short summary}"
+labels:
+  ["status:needs-review", "area:hotfix", "priority:critical", "release:hotfix"]
 ---
 
 # Hotfix Pull Request
@@ -32,28 +31,50 @@ Summarise the incident or bug and the root cause (add links if needed).
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the `skip-changelog` label.
+User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
 Example:
-### Fixed
-- Checkout fails when shipping method changes on mobile. (Fixes #456)
+### Changed
+- Switched to action/cache@v3 for build speedup. (Relates to #789)
 -->
 
 ### Added
 
+<!--
 - [placeholder]
+-->
 
 ### Changed
 
+<!--
 - [placeholder]
+-->
 
 ### Fixed
 
+<!--
 - [placeholder]
+-->
 
 ### Removed
 
+<!--
 - [placeholder]
+-->
 
 <!--
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
 -->
+
+- [placeholder]
+
+### Checklist (Global DoD / PR)
+
+- [ ] All AC met and demonstrated
+- [ ] Tests added/updated (unit/E2E as appropriate)
+- [ ] A11y considerations addressed where relevant
+- [ ] Docs/readme/changelog updated (if user-facing)
+- [ ] Security/perf impact reviewed where relevant
+- [ ] Code/design reviews approved
+- [ ] CI green; linked issues closed; release notes prepared (if shipping)
+
+---

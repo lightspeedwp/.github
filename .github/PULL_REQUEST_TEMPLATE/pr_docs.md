@@ -1,16 +1,14 @@
 ---
-
-name: "Docs-only PR"  
-about: "Documentation updates: READMEs, guides, contributor docs"  
-title: "docs: {short summary}"  
-labels: ["status:needs-review", "lang:md"]  
-
+name: "Docs-only PR"
+about: "Documentation updates: READMEs, guides, contributor docs"
+title: "docs: {short summary}"
+labels: ["status:needs-review", "lang:md", "area:documentation"]
 ---
 
 # Documentation Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for required rules.
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues
 
@@ -45,25 +43,33 @@ Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
 User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
 Example:
-### Added
-- Added setup guide for staging deployments. (Relates to #789)
+### Changed
+- Switched to action/cache@v3 for build speedup. (Relates to #789)
 -->
 
 ### Added
 
+<!--
 - [placeholder]
+-->
 
 ### Changed
 
+<!--
 - [placeholder]
+-->
 
 ### Fixed
 
+<!--
 - [placeholder]
+-->
 
 ### Removed
 
+<!--
 - [placeholder]
+-->
 
 <!--
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
@@ -81,3 +87,5 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 - [ ] Security/perf impact reviewed where relevant
 - [ ] Code/design reviews approved
 - [ ] CI green; linked issues closed; release notes prepared (if shipping)
+
+---

@@ -1,31 +1,156 @@
-# Label families → keep to the canonical names from labels-guide
+# Org-wide Labeler Rules
+# All labeling, status, type, and standardization is handled by the unified labeling agent and workflow.
+# This file maps branch patterns and file changes to canonical labels as defined in labels.yml.
 
-# Head branch → status hints (works on PRs)
+# Branch status kick-off
 "status:needs-review":
-  - head-branch: ['^feat/.*', '^fix/.*', '^docs?/.*', '^(chore|build)/.*']
+  head-branch:
+    - '^feat/.*'
+    - '^fix/.*'
+    - '^docs?/.*'
+    - '^(chore|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry)/.*'
 
-# Blocks & Editor surfaces
+# Type mapping (by branch)
+"type:feature":
+  head-branch: ['^feat/.*']
+"type:bug":
+  head-branch: ['^fix/.*', '^hotfix/.*']
+"type:documentation":
+  head-branch: ['^docs/.*']
+"type:chore":
+  head-branch: ['^chore/.*', '^build/.*', '^ci/.*']
+"type:refactor":
+  head-branch: ['^refactor/.*']
+"type:test":
+  head-branch: ['^test/.*']
+"type:performance":
+  head-branch: ['^perf/.*']
+"type:design":
+  head-branch: ['^design/.*']
+"type:a11y":
+  head-branch: ['^a11y/.*']
+"type:qa":
+  head-branch: ['^qa/.*']
+
+# Priority mapping (by branch)
+"priority:critical":
+  head-branch: ['^hotfix/.*']
+"priority:normal":
+  head-branch: ['^feat/.*', '^fix/.*', '^docs/.*', '^chore/.*']
+
+# Area/component mapping (by file path)
 "area:block-editor":
-  - changed-files:
-      - any-glob-to-any-file: ['**/block.json', '**/src/blocks/**']
+  changed-files:
+    any-glob-to-any-file:
+      - 'src/blocks/**'
+      - 'src/block-editor/**'
+      - '**/block.json'
 
 "area:theme":
-  - any:
-      - changed-files:
-          - any-glob-to-any-file: ['**/theme.json', '**/templates/**', '**/patterns/**', '**/parts/**']
+  changed-files:
+    any-glob-to-any-file:
+      - '**/theme.json'
+      - '**/templates/**'
+      - '**/patterns/**'
+      - '**/parts/**'
+      - 'theme/**/*'
 
-# Languages / formats
-"lang:php":
-  - changed-files:
-      - any-glob-to-any-file: ['**/*.php']
-"lang:javascript":
-  - changed-files:
-      - any-glob-to-any-file: ['**/*.{js,jsx,ts,tsx}']
-"lang:css":
-  - changed-files:
-      - any-glob-to-any-file: ['**/*.{css,scss}']
-
-# CI / Ops
 "area:ci":
-  - changed-files:
-      - any-glob-to-any-file: ['.github/workflows/**']
+  changed-files:
+    any-glob-to-any-file:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+      - 'ci/**/*'
+
+"area:documentation":
+  changed-files:
+    any-glob-to-any-file:
+      - '**/*.md'
+      - 'docs/**'
+      - 'README.md'
+      - '**/README.md'
+
+"area:tests":
+  changed-files:
+    any-glob-to-any-file:
+      - 'tests/**/*'
+      - '**/*.test.*'
+      - '**/*.spec.*'
+      - '**/__tests__/**'
+
+"area:scripts":
+  changed-files:
+    any-glob-to-any-file:
+      - 'scripts/**/*'
+      - '**/*.sh'
+      - '**/*.bash'
+
+"area:assets":
+  changed-files:
+    any-glob-to-any-file:
+      - 'assets/**/*'
+      - 'images/**/*'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.svg'
+
+"area:woocommerce":
+  changed-files:
+    any-glob-to-any-file:
+      - 'woocommerce/**/*'
+      - '**/woocommerce*.css'
+      - '**/woocommerce*.php'
+      - '**/woocommerce*.js'
+
+# Language labels
+"lang:php":
+  changed-files:
+    any-glob-to-any-file:
+      - '**/*.php'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'phpunit.xml'
+
+"lang:js":
+  changed-files:
+    any-glob-to-any-file:
+      - '**/*.{js,jsx,ts,tsx}'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+
+"lang:css":
+  changed-files:
+    any-glob-to-any-file:
+      - '**/*.{css,scss,sass,less}'
+
+# (Deliberately no direct changelog meta mapping; the labeling agent manages meta:needs-changelog)
+
+# Discussion labels (for reference/documentation)
+"discussion:announcement":
+  changed-files:
+    any-glob-to-any-file: []
+
+"discussion:showcase":
+  changed-files:
+    any-glob-to-any-file: []
+
+"discussion:community":
+  changed-files:
+    any-glob-to-any-file: []
+
+"discussion:feedback":
+  changed-files:
+    any-glob-to-any-file: []
+
+"discussion:support":
+  changed-files:
+    any-glob-to-any-file: []
+
+"discussion:sponsorship":
+  changed-files:
+    any-glob-to-any-file: []
+
+"discussion:partnership":
+  changed-files:
+    any-glob-to-any-file: []

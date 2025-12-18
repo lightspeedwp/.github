@@ -41,17 +41,23 @@
         "ms-azuretools.vscode-docker",
 
         // Unit Testing Extensions - Automated testing tools
-        "ms-playwright.playwright",
+        "orta.vscode-jest",
 
-        // Linting Extensions - Code quality and formatting
-        "esbenp.prettier-vscode",
+        // Linting Extensions - Code quality
         "davidanson.vscode-markdownlint",
+        "redhat.vscode-yaml",
+        "stoplight.spectral",
         "syler.sass-indented",
         "stylelint.vscode-stylelint",
         "sibiraj-s.vscode-scss-formatter",
         "mrmlnc.vscode-scss",
         "michelemelluso.code-beautifier",
         "dbaeumer.vscode-eslint",
+
+        // Build & Tooling Extensions - Front-end build pipeline helpers
+        "mgmcdermott.vscode-language-babel",
+        "csstools.postcss",
+        "jeremyrajan.webpack",
 
         // WordPress Development - WordPress specific tools
         "wordpresstoolbox.wordpress-toolbox",
@@ -66,10 +72,13 @@
         "wongjn.php-sniffer",
 
         // JSON and Configuration - Enhanced JSON support
+        "dotenv.dotenv-vscode",
+        "webben.browserslist",
         "zainchen.json",
         "quicktype.quicktype",
 
-        // Core development tools
-        "editorconfig.editorconfig"
+        // Code Formatting
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode"
     ]
 }

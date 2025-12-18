@@ -7,18 +7,71 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-12-18
+
+### Maintenance
+
+- Repository maintenance: metrics snapshot updates, documentation and script syncs, and archive moves ([#64c3662](https://github.com/lightspeedwp/.github/commit/64c3662927b55996ad3c1966b9d65fe0d5253e16), [#aa66dc6](https://github.com/lightspeedwp/.github/commit/aa66dc6fe959113f24080d35749524d1f6784338), [#dd5b55f](https://github.com/lightspeedwp/.github/commit/dd5b55f14c4a2b697ca4f370f50830e099f197aa)).
+
+## [0.2.0] - 2025-12-18
+
 ### Added
+
+- Comprehensive meta agent (`meta.agent.js`) for unified front matter, badge, human reference, and footer automation (renamed from branding agent)
+- Unified labeling agent (`labeling.agent.js`) replacing split status/type/standardization agents
+- Extended README management with support for dynamic header/footer insertion and frontmatter validation
+- Footer schema configuration (`footer.schema.json`) and header schema for consistent presentation
+- Enhanced frontmatter validation across all `.md` files in repository
+- Support for multiple footer variants with deterministic selection via seeding
+- Emoji support in README headings for improved visual hierarchy
+- Mermaid diagram preservation in all README updates
+- Batch processing capabilities for efficient multi-file updates
+
 ### Changed
+
+- Updated all README files with emoji-enhanced headings for better visual hierarchy
+- Migrated frontmatter across core documentation to unified `frontmatter.schema.json` standard
+- Reorganized `.github/agents/` structure with shared utilities in `includes/` subdirectory
+- Consolidated badge management under meta agent (deprecated `badges.agent.js`)
+- Unified header/footer handling under meta agent (deprecated `header-footer.agent.js`)
+- Standardized YAML frontmatter metadata across all documentation files
+- Enhanced README file templates with proper frontmatter structure
+- Updated version numbers for all core README files to reflect latest changes
+
 ### Deprecated
-### Removed
+
+- `badges.agent.js` - Use `meta.agent.js` instead for unified badge/header/footer management
+- `header-footer.agent.js` - Use `meta.agent.js` instead for unified automation
+
+### Documentation
+
+- Added comprehensive meta agent specification in `.github/agents/meta.agent.md`
+- Updated unified labeling agent documentation with latest configuration options
+- Created detailed README templates for nested project directories
+- Enhanced footer-content.json with multiple funky footer variants
+- Documented footer schema validation and implementation
+- Added examples for frontmatter validation across file types
+- Created inline documentation for all agent helper functions
+
 ### Fixed
-### Security
 
----
+- Corrected frontmatter schema validation errors in documentation files
+- Fixed missing `created_date` fields in core README files
+- Resolved inconsistent emoji usage across headings
+- Fixed footer text alignment and markdown formatting
+- Corrected references paths in frontmatter to use relative paths consistently
+- Fixed mermaid diagram formatting in README files
 
-## [0.1.0] - 2025-10-10
+### Performance
+
+- Optimized README file updates with batch multi-replace operations
+- Improved footer selection performance with deterministic seeding
+- Enhanced memory efficiency in meta agent for large file batches
+
+## [0.1.0] - 2025-09-25
 
 ### Added
+
 - Initial release of LightSpeed WordPress organization community health files
 - GitHub Copilot custom instructions and organization-wide guidelines
 - Comprehensive instruction files for WordPress development:
@@ -49,7 +102,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Saved replies for common support scenarios
 - Organization profile README showcasing LightSpeed projects
 
+### Fixed
+
+- Standardized YAML frontmatter across all instruction files
+- Corrected indentation and formatting inconsistencies
+- Aligned VS Code settings with repository structure
+- Removed non-standard configuration keys for better compatibility
+
 ### Changed
+
 - Updated author attribution to "LightSpeedWP Team" for consistency
 - Standardized related_links format as simple URL lists
 - Enhanced MCP configuration for WordPress development context
@@ -67,13 +128,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Aligned VS Code settings with repository structure
 
 ### Documentation
+
 - Added comprehensive README files for instructions and prompts
 - Created implementation guide for WordPress block development
 - Established clear contribution guidelines and coding standards
 - Documented VS Code configuration and MCP setup procedures
 
+### Performance
+
+- [placeholder]
+
+### Removed
+
+- [placeholder]
+
 ### Security
+
 - Implemented proper input sanitization and output escaping in examples
 - Added security guidelines in coding standards
 - Established secure development practices in instruction files
 
+---

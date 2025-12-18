@@ -1,0 +1,23 @@
+# Temporary Files Directory
+
+This directory stores temporary processing files generated during Copilot agent operations.
+
+## Purpose
+- Intermediate reports and analysis outputs
+- Working documents during complex tasks
+- Temporary logs and processing artifacts
+
+## Cleanup Policy
+Files in this directory should be:
+1. Moved to `../reports/` if they are permanent documentation
+2. Deleted after workflow completion if they are temporary processing files
+3. Never committed to version control (this folder is typically .gitignored)
+
+## Expected Lifespan
+- **Short-term**: Hours to days (temporary processing)
+- **Medium-term**: During active Copilot operations
+- **Long-term**: Only if moved to reports/ for permanent archival
+
+---
+
+See `.github/instructions/file-management-guidelines.md` for detailed file organization instructions.

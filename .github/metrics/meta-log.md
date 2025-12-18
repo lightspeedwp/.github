@@ -1,0 +1,16 @@
+| 2025-12-07T22:26:16.765Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
+| 2025-12-08T03:35:22.381Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
+| 2025-12-08T16:21:16.775Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
+| 2025-12-08T18:03:05.185Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
+| 2025-12-10T11:26:44.238Z | coverage:0 | changes:0 | errors:0 | optouts:0 |
+| 2025-12-11T11:58:22.568Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
+| 2025-12-11T19:06:34.280Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
+| 2025-12-11T20:56:18.581Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
+| 2025-12-11T22:06:46.034Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
+| 2025-12-11T22:50:00.127Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
+| 2025-12-11T23:17:25.790Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
+| 2025-12-15T03:39:08.452Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
+| 2025-12-15T18:10:27.711Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
+| 2025-12-18T08:36:17.825Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
+| 2025-12-18T08:37:14.549Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
+| 2025-12-18T09:32:42.281Z | coverage:93 | changes:40 | errors:0 | optouts:3 |
