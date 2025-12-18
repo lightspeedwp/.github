@@ -146,16 +146,3 @@ Include:
 - [ ] Testing instructions provided above
 
 ---
-
-## References
-
-- [Contribution Guidelines](../CONTRIBUTING.md)
-- [Branching Strategy](../docs/BRANCHING_STRATEGY.md)
-- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](../docs/PR_LABELS.md)
-- [Saved Replies](./SAVED_REPLIES.md)
-- [Labeler Config](./labeler.yml)
-- [Labels](./labels.yml)
-- [Issue Types](./issue-types.yml)
-
----

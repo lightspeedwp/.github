@@ -50,9 +50,28 @@ User-facing notes only. Internal-only PRs (rare) may use the skip-changelog labe
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
+- Updated CI config for improved cache usage. (Relates to #789)
 -->
 
 ### Added
+
+<!--
+- [placeholder]
+-->
+
+### Changed
+
+<!--
+- [placeholder]
+-->
+
+### Fixed
+
+<!--
+- [placeholder]
+-->
+
+### Removed
 
 <!--
 - [placeholder]
@@ -81,6 +100,7 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 -->
 
 ---
+
 
 ### Checklist (Global DoD / PR)
 

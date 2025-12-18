@@ -57,9 +57,29 @@ User-facing notes only. Internal-only PRs (rare) may use the skip-changelog labe
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
+### Fixed
+- Correct VAT rounding on order totals in EU regions. (Fixes #456, @alice)
 -->
 
 ### Added
+
+<!--
+- [placeholder]
+-->
+
+### Changed
+
+<!--
+- [placeholder]
+-->
+
+### Fixed
+
+<!--
+- [placeholder]
+-->
+
+### Removed
 
 <!--
 - [placeholder]

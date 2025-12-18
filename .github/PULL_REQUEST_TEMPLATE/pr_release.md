@@ -60,8 +60,6 @@ Example:
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
 -->
 
----
-
 ### Checklist (Global DoD / PR)
 
 - [ ] All AC met and demonstrated

@@ -65,7 +65,7 @@ Example:
 If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
 -->
 
----
+- [placeholder]
 
 ### Checklist (Global DoD / PR)
 
