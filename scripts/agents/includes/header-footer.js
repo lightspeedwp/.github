@@ -39,19 +39,25 @@ const DEFAULT_FOOTERS = [
  * @returns {Array<string>} Array of footer phrases
  */
 function getFooterPhrases(category = "default") {
-  const config = loadFooterConfig();
-  if (!config || !config.categories) {
+  const loadedConfig = loadFooterConfig();
+  if (!loadedConfig || !loadedConfig.categories) {
     return DEFAULT_FOOTERS;
   }
 
   // Try to get category-specific footers
-  if (config.categories[category] && config.categories[category].phrases) {
-    return config.categories[category].phrases;
+  if (
+    loadedConfig.categories[category] &&
+    loadedConfig.categories[category].phrases
+  ) {
+    return loadedConfig.categories[category].phrases;
   }
 
   // Fall back to default category
-  if (config.categories.default && config.categories.default.phrases) {
-    return config.categories.default.phrases;
+  if (
+    loadedConfig.categories.default &&
+    loadedConfig.categories.default.phrases
+  ) {
+    return loadedConfig.categories.default.phrases;
   }
 
   return DEFAULT_FOOTERS;

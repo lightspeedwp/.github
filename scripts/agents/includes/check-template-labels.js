@@ -19,20 +19,12 @@ function validateSchema(content, schemaPath) {
   const schema = JSON.parse(fs.readFileSync(schemaPath, "utf-8"));
   const validate = ajv.compile(schema);
   return validate(content);
-}
+  // Removed unused function validateSchema
 
 /**
  * Validate labels.yml structure
  */
-function validateLabelsYml(labels) {
-  if (!Array.isArray(labels)) {
-    return false;
-  }
-  return labels.every(
-    (label) =>
-      typeof label === "string" || (typeof label === "object" && label.name),
-  );
-}
+// Removed unused function validateLabelsYml
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);

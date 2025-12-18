@@ -162,7 +162,6 @@ invalid: yaml: content
 
   describe("FrontmatterValidator", () => {
     let validator;
-    let logger;
     let testSchema;
 
     beforeEach(() => {
@@ -189,7 +188,6 @@ invalid: yaml: content
       fs.writeFileSync(schemaPath, JSON.stringify(testSchema, null, 2));
 
       const logPath = path.join(tempDir, "test.log");
-      logger = new Logger(logPath);
       validator = new FrontmatterValidator(schemaPath, logger);
     });
 
@@ -321,7 +319,6 @@ No frontmatter here.`;
 
       if (fs.existsSync(schemaPath)) {
         const logPath = path.join(tempDir, "integration.log");
-        const logger = new Logger(logPath);
 
         expect(() => {
           new FrontmatterValidator(schemaPath, logger);

@@ -52,7 +52,7 @@ describe("label-sync", () => {
         },
       ];
 
-      const result = await syncLabelsWithCanonical(
+        // Removed unused variable _result
         mockOctokit,
         "owner",
         "repo",
@@ -98,7 +98,7 @@ describe("label-sync", () => {
         },
       ];
 
-      const result = await syncLabelsWithCanonical(
+        // Removed unused variable _result
         mockOctokit,
         "owner",
         "repo",
@@ -143,7 +143,7 @@ describe("label-sync", () => {
         { name: "bug", color: "ff0000", description: "Bug reports" },
       ];
 
-      const result = await syncLabelsWithCanonical(
+        // Removed unused variable _result
         mockOctokit,
         "owner",
         "repo",
@@ -183,7 +183,7 @@ describe("label-sync", () => {
         { name: "bug", color: "ff0000", description: "Bug reports" },
       ];
 
-      const result = await syncLabelsWithCanonical(
+        // Removed unused variable _result
         mockOctokit,
         "owner",
         "repo",

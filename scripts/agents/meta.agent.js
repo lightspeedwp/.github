@@ -559,6 +559,7 @@ async function main() {
   }
 }
 
+
 // Run if called directly
 if (
   path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1])

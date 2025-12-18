@@ -50,12 +50,9 @@ const validateVersionPath = path.join(
   "../validation/validate-version.cjs",
 );
 
-const {
-  parseChangelog,
-  validateChangelog,
-  getUnreleasedChanges,
-  hasUnreleasedChanges,
-} = require(changelogUtilsPath);
+const { parseChangelog, validateChangelog, hasUnreleasedChanges } = require(
+  changelogUtilsPath,
+);
 const { validateVersion, parseVersion } = require(validateVersionPath);
 
 /**
@@ -404,7 +401,7 @@ async function validateRelease(options = {}) {
         );
 
         // Check for unreleased changes
-        const unreleased = getUnreleasedChanges(changelogData);
+        // ...existing code... (removed unused variable assignment)
         if (hasUnreleasedChanges(changelogData)) {
           console.log("   ✓ Unreleased changes found");
         } else {
@@ -651,7 +648,6 @@ async function run() {
     } else {
       console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
     }
-
 
     // Step 3: Bump version
     bumpVersion(nextVersion, { dryRun });

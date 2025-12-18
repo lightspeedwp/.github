@@ -76,7 +76,6 @@ function processFile(file) {
   const lines = original.split(/\n/);
 
   let inFence = false;
-  let fenceLang = "";
   let inFrontMatter = false;
   let changed = false;
 
@@ -97,7 +96,6 @@ function processFile(file) {
       if (fenceMatch) {
         if (!inFence) {
           inFence = true;
-          fenceLang = fenceMatch[1].trim();
         } else {
           inFence = false;
           fenceLang = "";

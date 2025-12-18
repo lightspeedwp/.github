@@ -2,10 +2,8 @@ const {
   mockOctokit,
   mockContext,
   mockPrPayload,
-  mockIssuePayload: _mockIssuePayload,
   setTestEnv,
   resetTestEnv,
-  expectCommentPosted: _expectCommentPosted,
 } = require("../../tests/test-helpers");
 const { runLabelingAgent } = require("../labeling.agent.js");
 

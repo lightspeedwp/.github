@@ -22,7 +22,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.join(__dirname, "../..");
 const AGENTS_DIR = path.join(REPO_ROOT, ".github", "agents");
 const SCHEMAS_DIR = path.join(REPO_ROOT, "schemas");
-const WORKFLOWS_DIR = path.join(REPO_ROOT, ".github", "workflows");
+// Removed unused variable WORKFLOWS_DIR
 
 // Configuration
 const args = process.argv.slice(2);

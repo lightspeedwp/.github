@@ -16,7 +16,6 @@ import yaml from "js-yaml";
 import core from "@actions/core";
 import github from "@actions/github";
 import {
-  fetchCanonicalLabels,
   buildLabelAliasMap,
   findStandardLabel,
 } from "./includes/label-lookup.js";
@@ -30,15 +29,11 @@ import {
   fetchLabelerRules,
   applyLabelerRules,
 } from "./includes/labeler-utils.js";
-import {
-  buildLabelingReport,
-  formatErrors,
-} from "./includes/label-reporting.js";
+import { buildLabelingReport } from "./includes/label-reporting.js";
 
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG = process.env.LABELS_CONFIG || ".github/labels.yml";
-const ISSUE_TYPES_CONFIG =
-  process.env.ISSUE_TYPES_CONFIG || ".github/issue-types.yml";
+// Removed unused variable ISSUE_TYPES_CONFIG
 const LABELER_RULES = process.env.LABELER_RULES || ".github/labeler.yml";
 
 // Enhanced content-based type detection heuristics

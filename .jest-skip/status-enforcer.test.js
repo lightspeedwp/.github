@@ -770,7 +770,7 @@ describe("status-enforcer.js", () => {
  * Moved from `tests/utility/status-enforcer.test.js` to consolidate under agents/includes.
  * TODO: Consider adding negative tests (duplicate status removal) & dry-run scenarios.
  */
-const path = require("path");
+// Removed unused variable path
 
 describe("status-enforcer (canonical)", () => {
   it("loads without error", () => {
