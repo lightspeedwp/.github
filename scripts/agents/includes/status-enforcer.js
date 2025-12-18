@@ -9,6 +9,7 @@
  * License: GPL v3 or later
  * ============================================================================
  */
+// TODO: Align this helper with the latest automation spec updates.
 
 import core from "@actions/core";
 

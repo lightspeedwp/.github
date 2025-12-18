@@ -3,6 +3,7 @@
  * check-template-labels.js
  * Validates that all labels referenced in issue/PR templates exist in labels.yml
  */
+// TODO: Align this helper with the latest automation spec updates.
 
 import fs from "fs";
 import yaml from "js-yaml";

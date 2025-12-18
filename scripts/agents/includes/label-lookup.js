@@ -3,6 +3,8 @@
  * @module label-lookup
  */
 
+// TODO: Align this helper with the latest automation spec updates.
+
 import fs from "fs";
 import yaml from "js-yaml";
 

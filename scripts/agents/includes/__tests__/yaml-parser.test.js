@@ -1,3 +1,7 @@
+/**
+ * Jest suite verifying the baseline behaviour of `yaml-parser.js`.
+ * @see ../yaml-parser.js
+ */
 const path = require("path");
 
 describe("yaml-parser.js", () => {

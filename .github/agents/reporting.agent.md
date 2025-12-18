@@ -7,21 +7,17 @@ created_date: "2025-11-26"
 last_updated: "2025-12-11"
 author: "LightSpeed Team"
 mode: "conversation"
-tools: ["read", "edit", "search", "shell"]
 model: "claude-sonnet"
 tags: ["reporting", "documentation", "automation", "interactive"]
 domain: "governance"
 stability: "stable"
-references:
-  - path: ".github/instructions/reporting.instructions.md"
-    description: "Reporting standards and conventions"
-  - path: ".github/reports/README.md"
-    description: "Reports directory index"
-  - path: ".github/agents/reporting.agent.md"
-    description: "Reporting agent specification"
-  - path: ".github/prompts/reporting.prompt.md"
-    description: "Reporting prompt template"
 tools:  ["file_system", "markdown_generator", "input_collector", "adr_naming_helper", "quality_checker", "template_filler", "context_analyzer", "decision_rationale_extractor", "alternative_evaluator", "consequence_analyzer", "implementation_planner", "reference_manager", "date_manager", "stakeholder_identifier", "status_manager", "tag_manager", "supersession_tracker", "yaml_front_matter_generator", "markdown_saver", "language_enforcer", "structure_enforcer", "completeness_verifier", "clarity_checker", "consistency_checker", "timeliness_checker", "connection_checker", "contextual_accuracy_checker", "github/*", "read", "search", "edit"]
+permissions:
+  - "read"
+  - "write"
+  - "filesystem"
+  - "network"
+  - "github:repo"
 ---
 
 # Reporting Chatmode
@@ -125,7 +121,7 @@ First, what category does this report belong to?
 - labeling (label automation, sync logs)
 - linting (ESLint, code quality reports)
 - mermaid (diagram coverage, accessibility checks, rendering/contrast audits)
-- meta (documentation metadata: badges, references, footers)
+- meta (documentation metadata: badges and footers)
 - metrics (general metrics, weekly summaries)
 - optimisation (performance optimisation, token reduction)
 - progress (daily updates, weekly summaries for long-running work)
@@ -270,7 +266,7 @@ All progress files go in `.github/reports/progress/` with kebab-case filenames (
 
 - Create `.spec.md` for every JSON
 - Include complete frontmatter
-- Add references section
+- Link to related docs inline (frontmatter no longer supports `references`)
 
 ## Example Interactions
 

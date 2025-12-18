@@ -9,10 +9,6 @@ status: "draft"
 apply_to: [".github/agents/*.agent.md"]
 file_type: "template"
 tools: ["Copilot Agents"]
-references:
-  - "AGENTS.md"
-  - ".github/instructions/agent-spec.instructions.md"
-  - "SECURITY.md"
 examples:
   - ".github/agents/adr.agent.md"
 metadata:

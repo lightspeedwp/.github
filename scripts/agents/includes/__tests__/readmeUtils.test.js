@@ -1,3 +1,7 @@
+/**
+ * Jest suite verifying the baseline behaviour of `readmeUtils.js`.
+ * @see ../readmeUtils.js
+ */
 const fs = require("fs");
 // ...existing code...
 const {

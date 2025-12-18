@@ -4,26 +4,23 @@
  * Lightweight placeholder implementation to keep the planner workflow healthy.
  * Currently runs in dry-run mode and logs context; extend with real automation
  * when the planner specification is implemented.
+ * @module scripts/agents/planner.agent.js
+ * @see .github/agents/planner.agent.md
  */
 
-import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const path = require("path");
+const __filename = __filename || process.argv[1];
+const __dirname = __dirname || path.dirname(__filename);
+
 
 function log(message) {
   const timestamp = new Date().toISOString();
   console.log(`[planner] ${timestamp} ${message}`);
 }
 
-/**
- * Run the planner agent in advisory mode.
- *
- * @param {object} options
- * @param {boolean} [options.dryRun=true] - When true, only logs contextual information.
- */
-export async function runPlanner(options = {}) {
+
+async function runPlanner(options = {}) {
   const { dryRun = true } = options;
   const eventName = process.env.GITHUB_EVENT_NAME || "local";
   const repoRoot = path.resolve(__dirname, "..", "..");
@@ -32,13 +29,18 @@ export async function runPlanner(options = {}) {
   log(`Context: event=${eventName}, repoRoot=${repoRoot}`);
 
   if (!dryRun) {
+    // TODO: Implement planner automation (context analysis, sequencing, scheduling) before leaving dry-run.
     log("No write actions implemented yet; exiting without changes.");
   }
 
   log("Planner agent finished without errors.");
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+module.exports = {
+  runPlanner,
+};
+
+if (require.main === module) {
   const dryRun = !process.argv.includes("--apply");
   runPlanner({ dryRun }).catch((error) => {
     console.error("[planner] fatal error", error);

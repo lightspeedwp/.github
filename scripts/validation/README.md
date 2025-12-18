@@ -16,10 +16,6 @@ apply_to:
   - "repository maintenance"
   - "documentation standards"
   - "quality assurance"
-references:
-  - "../../schemas/frontmatter.schema.json"
-  - "../../.github/instructions/tagging-and-frontmatter-conventions.instructions.md"
-  - "../../.github/instructions/mermaid-diagrams.instructions.md"
 ---
 
 
@@ -35,7 +31,7 @@ The validation system provides automated checking of:
 - JSON files (linting, formatting, schema validation)
 - YAML configuration files (including `.coderabbit.yml`)
 
-All schema files are stored in `schemas/`.
+All schema files are stored in `.github/schemas/`.
 
 ```mermaid
 graph TD
@@ -87,9 +83,9 @@ graph TD
 
 - Suggests optional but recommended fields for consistency
 
-### 🔗 Reference Validation
+### 🔗 Reference Policy
 
-- Validates `references` fields and file existence
+- Verifies that the deprecated `references` frontmatter field is not present and that any needed links live inline in the document body
 
 ### 📊 Comprehensive Reporting
 
@@ -132,12 +128,12 @@ node update-coderabbit-schema.cjs
 
 ## Configuration
 
-All schema files are stored in `schemas/`.
+All schema files are stored in `.github/schemas/`.
 Default configuration for frontmatter validation is in `validate-frontmatter.js`.
 
 ## Validation Rules
 
-See the schema files in `schemas/` for required and recommended fields for each file type.
+See the schema files in `.github/schemas/` for required and recommended fields for each file type.
 
 ## Output Examples
 
@@ -166,7 +162,7 @@ npm run test:watch
 
 ### Adding New Validation Rules
 
-1. Update or add schema in `schemas/`
+1. Update or add schema in `.github/schemas/`
 2. Add or update validation script in this folder
 3. Add or update test cases
 4. Update this README
@@ -185,8 +181,8 @@ All validation scripts provide robust error handling and log errors to the conso
 
 ## Related Documentation
 
-- [Frontmatter Schema](../../schemas/frontmatter.schema.json)
-- [CodeRabbit Schema](../../schemas/coderabbit-overrides.v2.json)
+- [Frontmatter Schema](../../.github/schemas/frontmatter.schema.json)
+- [CodeRabbit Schema](../../.github/schemas/coderabbit-overrides.v2.json)
 - [Tagging Conventions](../../.github/instructions/tagging-and-frontmatter-conventions.instructions.md)
 - [Mermaid Diagrams](../../.github/instructions/mermaid-diagrams.instructions.md)
 - [YAML Documentation](../../docs/YAML.md)

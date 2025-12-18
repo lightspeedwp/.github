@@ -15,6 +15,8 @@
  *   - Update docblock with new logic or helper usage
  *   - Add new helpers to tests/utility/test-helpers.js as needed
  * ============================================================================
+ * @module scripts/agents/reviewer.agent.js
+ * @see .github/agents/reviewer.agent.md
  */
 
 const core = require("@actions/core");

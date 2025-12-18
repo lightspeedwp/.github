@@ -1,5 +1,10 @@
 #!/usr/bin/env node
-// sync-version.js: Set package.json version from VERSION file
+/**
+ * Synchronises the package version fields with the canonical VERSION file.
+ * @module scripts/agents/includes/sync-version.js
+ */
+
+// TODO: Align this helper with the latest automation spec updates.
 const fs = require("fs");
 const path = require("path");
 

@@ -1,5 +1,5 @@
 File,Reference Count,References,Recommendation
-".github/agents/release.agent.md",7,"scripts/agents/release.agent.js | .github/workflows/release.yml | .github/workflows/changelog.yml | schemas/changelog.schema.json | scripts/validation/validate-changelog.cjs | docs/RELEASE_PROCESS.md | CHANGELOG.md",REDUCE
+".github/agents/release.agent.md",7,"scripts/agents/release.agent.js | .github/workflows/release.yml | .github/workflows/changelog.yml | .github/schemas/changelog.schema.json | scripts/validation/validate-changelog.cjs | docs/RELEASE_PROCESS.md | CHANGELOG.md",REDUCE
 ".github/agents/reporting.agent.md",4,".github/instructions/reporting.instructions.md | .github/reports/README.md | .github/agents/reporting.agent.md | .github/prompts/reporting.prompt.md",EVALUATE
 ".github/agents/reviewer.agent.md",4,"../../scripts/agents/reviewer.agent.js | ../workflows/reviewer.yml | ../instructions/pull-requests.instructions.md | ../instructions/coding-standards.instructions.md",EVALUATE
 ".github/agents/testing.agent.md",3,".github/workflows/testing.yml | package.json | .github/instructions/coding-standards.instructions.md",KEEP
@@ -264,7 +264,7 @@ File,Reference Count,References,Recommendation
 ".github/reports/validation/pre-launch-validation-2025-12-10.md",0,"",KEEP_NO_REFS
 ".github/reports/validation/v1.0.0-launch-readiness-final-2025-12-10.md",0,"",KEEP_NO_REFS
 ".github/reports/weekly-summary-2025-12-15.md",0,"",KEEP_NO_REFS
-"schemas/README.md",0,"",KEEP_NO_REFS
+".github/schemas/README.md",0,"",KEEP_NO_REFS
 ".github/workflows/README.md",0,"",KEEP_NO_REFS
 "docs/AGENT_CREATION.md",0,"",KEEP_NO_REFS
 "docs/ARCHITECTURE.md",0,"",KEEP_NO_REFS

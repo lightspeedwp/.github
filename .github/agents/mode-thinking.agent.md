@@ -4,6 +4,12 @@ description: "Autonomous problem-solving agent with deep research, iterative imp
 version: "v2.0"
 last_updated: "2025-12-07"
 tools: ["codebase", "fetch", "search", "edit", "bash", "webSearch"]
+permissions:
+  - "read"
+  - "write"
+  - "github:repo"
+metadata:
+  guardrails: "Announce each action before executing, research thoroughly before editing, and never finish until the problem is resolved with documented validation."
 file_type: "agent"
 status: "active"
 ---

@@ -11,6 +11,7 @@
  * Usage: Import for canonical label fetching.
  * ============================================================================
  */
+// TODO: Align this helper with the latest automation spec updates.
 
 /**
  * @fileoverview Utility for loading canonical label names from labels.yml.

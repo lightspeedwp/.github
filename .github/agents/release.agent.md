@@ -2,23 +2,6 @@
 name: "Release Manager"
 description: "Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes."
 target: "github-copilot"
-tools:
-  [
-    "codebase",
-    "edit",
-    "read",
-    "shell",
-    "search",
-    "github/*",
-    "githubRepo",
-    "fetch",
-    "list_issues",
-    "search_issues",
-    "add_issue_comment",
-    "create_issue",
-    "update_issue",
-    "get_issue",
-  ]
 handoffs:
   - label: "Publish Release"
     agent: "deployment"
@@ -46,23 +29,18 @@ tags:
     "release-prep",
     "health-scan",
   ]
-references:
-  - path: "scripts/agents/release.agent.js"
-    description: "Automated release implementation"
-  - path: ".github/workflows/release.yml"
-    description: "GitHub Actions automation"
-  - path: ".github/workflows/changelog.yml"
-    description: "Changelog validation on every PR"
-  - path: ".github/schemas/changelog.schema.json"
-    description: "Keep a Changelog schema"
-  - path: "scripts/validation/validate-changelog.cjs"
-    description: "Schema validation script"
-  - path: "docs/RELEASE_PROCESS.md"
-    description: "Release process and governance"
-  - path: "CHANGELOG.md"
-    description: "Changelog standards and format"
 owners: ["lightspeedwp/maintainers"]
 tools:  ["file_system", "markdown_generator", "input_collector", "adr_naming_helper", "quality_checker", "template_filler", "context_analyzer", "decision_rationale_extractor", "alternative_evaluator", "consequence_analyzer", "implementation_planner", "reference_manager", "date_manager", "stakeholder_identifier", "status_manager", "tag_manager", "supersession_tracker", "yaml_front_matter_generator", "markdown_saver", "language_enforcer", "structure_enforcer", "completeness_verifier", "clarity_checker", "consistency_checker", "timeliness_checker", "connection_checker", "contextual_accuracy_checker", "github/*", "read", "search", "edit"]
+permissions:
+  - "read"
+  - "write"
+  - "filesystem"
+  - "network"
+  - "github:repo"
+  - "github:actions"
+  - "github:workflows"
+  - "github:pulls"
+  - "shell"
 metadata:
   guardrails: "Never publish incomplete or broken releases. Abort and notify if any validation fails. Always lint and test before release. Support dry-run mode. Log all actions for audit trails. Default to read-only analysis unless user explicitly requests changes."
 ---

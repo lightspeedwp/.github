@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Workflow Validation Script
- * Validates all GitHub Actions workflows against best practices and guardrails
+ * Workflow validation runner that enforces guardrails on GitHub Actions files.
+ * @module scripts/validation/validate-workflows
+ * @see .github/instructions/quality-assurance.instructions.md
  */
 
 const fs = require("fs");

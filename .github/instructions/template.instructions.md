@@ -8,9 +8,6 @@ owners: ["LightSpeedWP Engineering"]
 tags: ["template", "instructions", "copilot", "guidance"]
 status: "draft"
 applyTo: ["**/*.instructions.md"]
-references:
-  - "CONTRIBUTING.md"
-  - "README.md"
 examples:
   - ".github/instructions/coding-standards.instructions.md"
 ---
@@ -29,6 +26,7 @@ Use this template to create new `.instructions.md` files that comply with LightS
 - Add a role declaration after the H1 using the required pattern.
 - Structure content with Overview, General Rules, Detailed Guidance, Examples, Validation, and References.
 - Keep placeholders until tailored; remove template notes before publishing.
+- Do not add a `references` front matter field; the schema no longer supports it—use inline links or footer guidance instead.
 
 ## Detailed Guidance
 

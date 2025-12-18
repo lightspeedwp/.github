@@ -9,6 +9,7 @@
  * License: GPL v3 or later
  * ============================================================================
  */
+// TODO: Align this helper with the latest automation spec updates.
 
 /**
  * Build a comprehensive Markdown summary for labeling actions

@@ -1,3 +1,10 @@
+/**
+ * @jest-environment jsdom
+ */
+/**
+ * Jest suite verifying the baseline behaviour of `build-labeling-report.js`.
+ * @see ../build-labeling-report.js
+ */
 const { buildLabelingReport } = require("../build-labeling-report");
 const { labelsToMarkdownTable, diffLabels } = require("../label-utils");
 

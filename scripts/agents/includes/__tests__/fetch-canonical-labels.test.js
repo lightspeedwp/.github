@@ -1,3 +1,7 @@
+/**
+ * Jest suite verifying the baseline behaviour of `fetch-canonical-labels.js`.
+ * @see ../fetch-canonical-labels.js
+ */
 const fs = require("fs");
 const yaml = require("js-yaml");
 const { fetchCanonicalLabels } = require("../fetch-canonical-labels");

@@ -16,6 +16,9 @@ tools:
     "get_issue",
     "search_issues",
   ]
+metadata:
+  guardrails: "Ask clarifying questions first, confirm scope before drafting any PRD, only create docs with user approval, and never write issues without explicit consent."
+
 ---
 
 # Create PRD Agent

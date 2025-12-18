@@ -33,7 +33,7 @@ This document describes the structure, fields, and validation rules for the Ligh
 
 ## Location
 
-- **Schema file:** `schemas/frontmatter.schema.json`
+- **Schema file:** `.github/schemas/frontmatter.schema.json`
 - **This documentation:** `docs/FRONTMATTER_SCHEMA.md`
 
 ## Referencing the Schema
@@ -42,13 +42,13 @@ This document describes the structure, fields, and validation rules for the Ligh
 
 ```markdown
 **JSON Schema:**
-See [`schemas/frontmatter.schema.json`](../schemas/frontmatter.schema.json)
+See [`.github/schemas/frontmatter.schema.json`](../.github/schemas/frontmatter.schema.json)
 ```
 
 **How to reference in frontmatter files (YAML):**
 
 ```yaml
-$schema: "schemas/frontmatter.schema.json"
+$schema: ".github/schemas/frontmatter.schema.json"
 ---
 title: "..."
 ```
@@ -60,7 +60,7 @@ The LightSpeedWP frontmatter schema uses **Ajv JSON Schema validator** (Draft 07
 ### Validation Process
 
 1. **Parse YAML Frontmatter**: Extract frontmatter block from Markdown files
-2. **Load Schema**: Read `schemas/frontmatter.schema.json`
+2. **Load Schema**: Read `.github/schemas/frontmatter.schema.json`
 3. **Discriminator Routing**: Use `file_type` field to route to appropriate schema variant
 4. **Validate Fields**: Check all required and optional fields against schema rules
 5. **Report Errors**: Provide detailed error messages with field paths and validation failures
@@ -125,7 +125,7 @@ The LightSpeedWP frontmatter schema implements a **dual reference system** to se
 ## Example Frontmatter Implementation
 
 ```yaml
-$schema: "schemas/frontmatter.schema.json"
+$schema: ".github/schemas/frontmatter.schema.json"
 ---
 title: "Labeling Agent Spec"
 description: "Automated labeling system for issues and pull requests"
@@ -612,7 +612,7 @@ Configure VS Code to validate frontmatter in real-time:
 ```json
 {
   "yaml.schemas": {
-    "./schemas/frontmatter.schema.json": [".github/**/*.md", "docs/**/*.md"]
+    "./.github/schemas/frontmatter.schema.json": [".github/**/*.md", "docs/**/*.md"]
   },
   "yaml.validate": true,
   "yaml.format.enable": true
@@ -639,7 +639,7 @@ on:
   pull_request:
     paths:
       - "**.md"
-      - "schemas/frontmatter.schema.json"
+      - ".github/schemas/frontmatter.schema.json"
 
 jobs:
   validate:
@@ -653,7 +653,7 @@ jobs:
       - run: npm run validate:frontmatter
 ```
 
-**Validation Script** (`scripts/json-validation/validate-frontmatter.js`):
+**Validation Script** (`scripts/validation/validate-frontmatter.js`):
 
 ```javascript
 const Ajv = require("ajv");
@@ -663,7 +663,7 @@ const glob = require("glob");
 
 const ajv = new Ajv({ discriminator: true, allErrors: true });
 const schema = JSON.parse(
-  fs.readFileSync("./schemas/frontmatter.schema.json", "utf8"),
+  fs.readFileSync("./.github/schemas/frontmatter.schema.json", "utf8"),
 );
 const validate = ajv.compile(schema);
 
@@ -719,7 +719,7 @@ npm run validate:frontmatter
 ```json
 {
   "scripts": {
-    "validate:frontmatter": "node scripts/json-validation/validate-frontmatter.js"
+    "validate:frontmatter": "node scripts/validation/validate-frontmatter.js"
   }
 }
 ```
@@ -749,6 +749,7 @@ npm run validate:frontmatter
 | `applyTo`      | string/array  | Glob patterns for auto-application scope         |
 | `model`        | string        | Preferred AI model (e.g., "gpt-4", "claude-3")   |
 | `tools`        | array[string] | Available tools/capabilities                     |
+| `permissions`  | array[string] | Declared permission scopes (read/write/edit, shell, GitHub subsets) |
 | `deprecated`   | boolean       | Signals exclusion from generated tables          |
 | `replacement`  | string        | Points to canonical successor file               |
 | `stability`    | enum          | Maturity: `stable`, `experimental`, `incubating` |
@@ -819,7 +820,7 @@ npm run validate:frontmatter
 
 ---
 
-*This document is the canonical reference for LightSpeedWP frontmatter schema. Keep synchronized with `schemas/frontmatter.schema.json`. PRs welcome for improvements!*
+*This document is the canonical reference for LightSpeedWP frontmatter schema. Keep synchronized with `.github/schemas/frontmatter.schema.json`. PRs welcome for improvements!* 
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

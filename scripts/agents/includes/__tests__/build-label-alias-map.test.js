@@ -1,3 +1,7 @@
+/**
+ * Jest suite verifying the baseline behaviour of `build-label-alias-map.js`.
+ * @see ../build-label-alias-map.js
+ */
 const fs = require("fs");
 const yaml = require("js-yaml");
 const { buildLabelAliasMap } = require("../build-label-alias-map");

@@ -11,6 +11,8 @@
  *   - Follows LightSpeed Coding Standards
  *   - See: https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md
  * ============================================================================
+ * @module scripts/validation/validate-changelog
+ * @see scripts/agents/includes/changelogUtils.cjs
  */
 
 const path = require('path');

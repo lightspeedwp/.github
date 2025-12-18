@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-
 /**
- * validate-agents.js
- *
- * Validates all agent files against the agent frontmatter schema and LightSpeed standards
+ * Validates agent specs against the agent frontmatter schema and organisational rules.
  *
  * Usage:
  *   node scripts/validate-agents.js                    # Validate all agents
  *   node scripts/validate-agents.js labeling           # Validate specific agent
  *   node scripts/validate-agents.js --json             # Output JSON format
+ *
+ * @module scripts/validation/validate-agents
+ * @see .github/agents/agent.md
  */
 
 import fs from "fs";
@@ -138,33 +138,14 @@ function validateAgent(filePath) {
   }
 
   // Additional validations
-  validateReferences(agentName, frontmatter, agentResult);
   validateTools(agentName, frontmatter, agentResult);
   validateHandoffs(agentName, frontmatter, agentResult);
-  validateWorkflow(agentName, frontmatter, agentResult);
 
   if (agentResult.warnings.length > 0) {
     results.warnings += agentResult.warnings.length;
   }
 
   results.agents[agentName] = agentResult;
-}
-
-/**
- * Validate references
- */
-function validateReferences(agentName, frontmatter, result) {
-  if (!frontmatter.references || !Array.isArray(frontmatter.references)) {
-    result.warnings.push("No references defined");
-    return;
-  }
-
-  for (const ref of frontmatter.references) {
-    const fullPath = path.join(REPO_ROOT, ref.path);
-    if (!fs.existsSync(fullPath)) {
-      result.warnings.push(`Reference not found: ${ref.path}`);
-    }
-  }
 }
 
 /**
@@ -231,22 +212,6 @@ function validateHandoffs(agentName, frontmatter, result) {
     const agentFile = path.join(AGENTS_DIR, `${handoff.agent}.agent.md`);
     if (!fs.existsSync(agentFile)) {
       result.warnings.push(`Handoff target not found: ${handoff.agent}`);
-    }
-  }
-}
-
-/**
- * Validate workflow reference
- */
-function validateWorkflow(agentName, frontmatter, result) {
-  if (!frontmatter.references) return;
-
-  for (const ref of frontmatter.references) {
-    if (ref.path.includes("workflows/")) {
-      const workflowPath = path.join(REPO_ROOT, ref.path);
-      if (!fs.existsSync(workflowPath)) {
-        result.warnings.push(`Workflow not found: ${ref.path}`);
-      }
     }
   }
 }

@@ -239,7 +239,8 @@ status: "active"
 | `replacement`  | string       | 📋       | Path to replacement (if deprecated)       |
 | `applyTo`      | string/array | 📋       | File patterns for instructions            |
 | `domain`       | string       | 📋       | Classification domain                     |
-| `references`   | array        | 📋       | Related documentation paths               |
+
+> The `references` frontmatter field is retired; cite supporting resources inline or via approved footers instead.
 
 **Legend:** ✅ Required | 📋 Recommended
 

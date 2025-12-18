@@ -4,6 +4,8 @@
  * Based on .github/agents/includes/badgeUtils.js
  */
 
+// TODO: Align this helper with the latest automation spec updates.
+
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";

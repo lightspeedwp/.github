@@ -1,5 +1,8 @@
-// meta.agent.js - Applies documentation metadata (front matter, badges, human references, quirky footers) to Markdown files.
-// See .github/agents/meta.agent.md for spec.
+/**
+ * Meta agent that applies metadata, badges, and category-specific footers to Markdown files.
+ * Meta agent that applies metadata, badges, and category-specific footers to Markdown files.
+ * @module scripts/agents/meta.agent.js
+ */
 
 import { ensureFooter } from "./includes/header-footer.js";
 import { updateBadgesInReadme } from "./includes/badges.js";
@@ -10,11 +13,24 @@ import { globSync } from "glob";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
+/**
+ * The filename of the current module.
+ * @type {string}
+ */
 const __filename = fileURLToPath(import.meta.url);
+/**
+ * The directory name of the current module.
+ * @type {string}
+ */
 const __dirname = dirname(__filename);
 
 // Load schemas and configs
-function loadEmojiSchema() {
+// TODO: Move schema and config loading to a dedicated config-loader module.
+/**
+ * Loads the emoji schema from the YAML file.
+ * @returns {object} The loaded emoji schema or a default schema if loading fails.
+ */
+function loadEmojiSchema() { // TODO: Implement cached schema loading as noted in config-schema.js TODOs.
   const schemaPath = path.join(__dirname, "../automation/emoji.schema.yml");
   if (!fs.existsSync(schemaPath)) {
     return { apply_to: ["h1", "h2"], map: {}, skip: [] };
@@ -29,10 +45,18 @@ function loadEmojiSchema() {
   }
 }
 
+/**
+ * The loaded emoji schema configuration.
+ * @type {object}
+ */
 const emojiSchema = loadEmojiSchema();
 
 /**
- * Check if file should skip meta application
+ * Checks if a file should be skipped based on its name or content.
+ * It skips formal documents, files with opt-out comments, or front matter flags.
+ * @param {string} filePath - The path to the file.
+ * @param {string} content - The content of the file.
+ * @returns {boolean} True if the file should be skipped, false otherwise.
  */
 function shouldSkipMeta(filePath, content) {
   const fileName = path.basename(filePath);
@@ -57,6 +81,7 @@ function shouldSkipMeta(filePath, content) {
     try {
       const frontMatter = yaml.load(frontMatterMatch[1]);
       if (
+        // TODO: Add support for 'meta: false' and 'branding: false' as aliases for consistency.
         frontMatter &&
         (frontMatter.no_meta === true || frontMatter.no_branding === true)
       ) {
@@ -71,7 +96,9 @@ function shouldSkipMeta(filePath, content) {
 }
 
 /**
- * Extract front matter from markdown file
+ * Extracts and parses YAML front matter from a Markdown file's content.
+ * @param {string} content - The content of the Markdown file.
+ * @returns {object|null} The parsed front matter object, or null if not found or parsing fails.
  */
 function extractFrontMatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
@@ -87,7 +114,10 @@ function extractFrontMatter(content) {
 }
 
 /**
- * Get category from front matter
+ * Gets the category from the front matter.
+ * It looks for `category` or `file_type` properties, defaulting to "default".
+ * @param {object|null} frontMatter - The parsed front matter object.
+ * @returns {string} The determined category.
  */
 function getCategory(frontMatter) {
   if (!frontMatter) return "default";
@@ -95,7 +125,10 @@ function getCategory(frontMatter) {
 }
 
 /**
- * Apply emojis to H1 and H2 headings
+ * Applies emojis to H1 and H2 headings in the content based on the emoji schema.
+ * @param {string} content - The Markdown content.
+ * @param {string} filePath - The path to the file, used for checking skip rules.
+ * @returns {string} The content with emojis applied to headings.
  */
 function applyEmojis(content, filePath) {
   const fileName = path.basename(filePath);
@@ -125,7 +158,9 @@ function applyEmojis(content, filePath) {
 }
 
 /**
- * Apply emoji to a single heading line
+ * Applies an emoji to a single heading line if it matches a keyword and doesn't already have one.
+ * @param {string} line - The heading line (e.g., "# My Title").
+ * @returns {string} The heading line with an emoji, or the original line.
  */
 function applyEmojiToHeading(line) {
   // Skip if already has emoji
@@ -151,7 +186,11 @@ function applyEmojiToHeading(line) {
 }
 
 /**
- * Apply badges to markdown content
+ * Applies workflow status badges to the Markdown content.
+ * @param {string} filePath - The path to the file being processed.
+ * @param {string} content - The original content of the file.
+ * @param {object|null} frontMatter - The parsed front matter.
+ * @returns {Promise<string>} The updated content with badges.
  */
 async function applyBadges(filePath, content, frontMatter) {
   const repo = process.env.GITHUB_REPOSITORY || "lightspeedwp/.github";
@@ -173,7 +212,11 @@ async function applyBadges(filePath, content, frontMatter) {
 }
 
 /**
- * Apply footer to markdown content
+ * Applies a category-specific footer to the Markdown content.
+ * @param {string} filePath - The path to the file being processed.
+ * @param {string} content - The original content of the file.
+ * @param {object|null} frontMatter - The parsed front matter.
+ * @returns {string} The updated content with the footer.
  */
 function applyFooter(filePath, content, frontMatter) {
   const category = getCategory(frontMatter);
@@ -189,44 +232,9 @@ function applyFooter(filePath, content, frontMatter) {
 }
 
 /**
- * Apply references section before the footer
- */
-function applyReferences(content, frontMatter) {
-  // If there are references in front matter, add them before the footer
-  if (
-    !frontMatter ||
-    !frontMatter.references ||
-    frontMatter.references.length === 0
-  ) {
-    return content;
-  }
-
-  const referencesSection =
-    "\n## References\n\n" +
-    frontMatter.references.map((ref) => `- [${ref}](${ref})`).join("\n") +
-    "\n";
-
-  // Insert before the footer (look for footer patterns)
-  const footerPattern =
-    /\n(_Maintained with|_Built by|_Have questions|_This page brought|_Docs signed|Made with ❤️)/;
-  const footerMatch = content.match(footerPattern);
-
-  if (footerMatch) {
-    const insertIndex = content.indexOf(footerMatch[0]);
-    return (
-      content.slice(0, insertIndex) +
-      "\n---\n" +
-      referencesSection +
-      content.slice(insertIndex)
-    );
-  }
-
-  // If no footer found, append to end
-  return content + "\n---\n" + referencesSection;
-}
-
-/**
- * Apply banner image before the footer
+ * Inserts a banner image before the footer section.
+ * @param {string} content - The Markdown content.
+ * @returns {string} The content with the banner added.
  */
 function applyBanner(content) {
   const bannerPath = "assets/banners/work-with-us.png";
@@ -261,7 +269,9 @@ function applyBanner(content) {
 }
 
 /**
- * Apply header formatting (ensure proper structure)
+ * Ensures proper header formatting, like a blank line between the H1 and badge block.
+ * @param {string} content - The Markdown content.
+ * @returns {string} The formatted content.
  */
 function applyHeader(content) {
   // Ensure there's a blank line after the title and before badges
@@ -285,9 +295,13 @@ function applyHeader(content) {
 }
 
 /**
- * Update README.md file structure and formatting
+ * Updates the structure and formatting of a README.md file.
+ * @param {string} content - The content of the README file.
+ * @param {string} filePath - The path to the README file.
+ * @returns {string} The updated README content.
  */
 function updateReadmeStructure(content, filePath) {
+  // TODO: Implement logic to ensure required sections (Overview, Features, etc.) exist in the root README.md.
   // Ensure proper heading hierarchy
   let lines = content.split("\n");
 
@@ -312,9 +326,14 @@ function updateReadmeStructure(content, filePath) {
 }
 
 /**
- * Update file/folder indexes in README
+ * Updates the file index within a README.md file.
+ * It looks for `<!-- FILE-INDEX-START -->` and `<!-- FILE-INDEX-END -->` markers.
+ * @param {string} content - The content of the README file.
+ * @param {string} filePath - The path to the README file.
+ * @returns {string} The content with an updated file index.
  */
 function updateReadmeIndexes(content, filePath) {
+  // TODO: Add support for indexing directories in addition to files.
   // Check if README contains a file index marker
   if (!content.includes("<!-- FILE-INDEX-START -->")) {
     return content;
@@ -346,7 +365,10 @@ function updateReadmeIndexes(content, filePath) {
 }
 
 /**
- * Sync workflow status badges in README
+ * A placeholder function for clarifying the badge update process.
+ * The actual logic is handled by `applyBadges`.
+ * @param {string} content - The Markdown content.
+ * @returns {string} The original content.
  */
 function syncWorkflowBadges(content) {
   // This is handled by the applyBadges function
@@ -355,7 +377,12 @@ function syncWorkflowBadges(content) {
 }
 
 /**
- * Process a single markdown file
+ * Processes a single Markdown file to apply all meta updates.
+ * @param {string} filePath - The path to the Markdown file.
+ * @param {object} [options={}] - Processing options.
+ * @param {boolean} [options.dryRun=false] - If true, no files are written.
+ * @param {boolean} [options.verbose=false] - If true, logs detailed processing steps.
+ * @returns {Promise<object>} A result object for the processed file.
  */
 async function processMarkdownFile(filePath, options = {}) {
   const { dryRun = false, verbose = false } = options;
@@ -403,10 +430,7 @@ async function processMarkdownFile(filePath, options = {}) {
     // 4. Emojis
     content = applyEmojis(content, filePath);
 
-    // 5. References
-    content = applyReferences(content, frontMatter);
-
-    // 6. Banner (commented out for now - needs banner assets)
+    // TODO: Enable banner application once banner assets are available.
     // content = applyBanner(content);
 
     // 7. Footer (writes to file)
@@ -446,7 +470,10 @@ async function processMarkdownFile(filePath, options = {}) {
 }
 
 /**
- * Process all markdown files in the repository
+ * Finds and processes all Markdown files in the repository.
+ * @param {object} [options={}] - Processing options, passed to `processMarkdownFile`.
+ * @param {string} [options.pattern="**/*.md"] - The glob pattern to find files.
+ * @returns {Promise<object>} A summary object of the results.
  */
 async function processAllMarkdownFiles(options = {}) {
   const { pattern = "**/*.md" } = options;
@@ -486,9 +513,10 @@ async function processAllMarkdownFiles(options = {}) {
 }
 
 /**
- * Main entry point
+ * Main entry point for the meta agent script. Parses CLI args and runs the processor.
  */
 async function main() {
+  // TODO: Implement a more robust CLI argument parser (e.g., yargs, commander) to automatically handle help text generation and flag synchronization.
   const verbose =
     process.argv.includes("--verbose") || process.argv.includes("-v");
   const dryRun = process.argv.includes("--dry-run");
@@ -507,6 +535,7 @@ async function main() {
   console.log(`  Errors: ${results.errors}`);
 
   // Write metrics
+  // TODO: Add log rotation/environment overrides for the logger as per logger TODOs.
   const metricsPath = path.join(
     process.cwd(),
     ".github/metrics/meta-metrics.json",
@@ -547,7 +576,6 @@ export {
   applyBadges,
   applyFooter,
   applyEmojis,
-  applyReferences,
   applyBanner,
   shouldSkipMeta,
   extractFrontMatter,

@@ -1,0 +1,5 @@
+# Minimal valid .coderabbit.yml for test
+reviews:
+  path_filters:
+    - "src/**/*.js"
+  auto_review: true

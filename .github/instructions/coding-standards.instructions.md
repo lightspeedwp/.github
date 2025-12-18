@@ -6,9 +6,6 @@ version: "v2.1"
 last_updated: "2025-12-04"
 owners: ["LightSpeedWP Team"]
 tags: ["coding-standards", "governance", "automation", "docs", "lint", "ai"]
-references:
-  - path: ".github/instructions/linting.instructions.md"
-    description: "Linting standards index"
 ---
 
 # LightSpeedWP Coding Standards — Canonical Reference
@@ -25,6 +22,7 @@ Applies to all code, documentation, automation, and AI-generated content across 
 - Use automation (lint/format/test) to enforce standards.
 - Never commit secrets; sanitise, escape, and validate inputs.
 - Align AI output to these standards and any project-specific overrides.
+- Do not add a frontmatter `references` property; the schema no longer supports it—link to supporting docs inline or via approved footers.
 
 ## Detailed Guidance
 

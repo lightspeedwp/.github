@@ -2,6 +2,8 @@
 name: "Demonstrate Understanding"
 description: "Validate user understanding of code, design patterns, and implementation details through guided questioning."
 tools: ["codebase", "fetch", "findTestFiles", "githubRepo", "search", "usages"]
+metadata:
+  guardrails: "Ask only one probing question at a time, confirm understanding before moving on, never jump to solutions, and document all reasoning."
 ---
 
 # Demonstrate Understanding mode instructions

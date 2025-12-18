@@ -3,6 +3,8 @@
  * Provides fun, randomized signature footers for documentation and README files.
  */
 
+// TODO: Align this helper with the latest automation spec updates.
+
 const fs = require("fs");
 
 /**

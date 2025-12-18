@@ -10,6 +10,7 @@
  * Usage: Import for labeler rule integration.
  * ============================================================================
  */
+// TODO: Align this helper with the latest automation spec updates.
 
 import fs from "fs";
 import yaml from "js-yaml";

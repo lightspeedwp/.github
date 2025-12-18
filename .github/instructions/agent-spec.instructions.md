@@ -28,13 +28,22 @@ Use this guide when drafting or updating `.agent.md` files in `.github/agents/`.
 - Prefer minimal, modular behaviour; justify complex automation with clear value and maintainability.
 - Use UK English, concise bullets, and the provided template; include realistic test tasks drawn from LightSpeed workflows.
 
+> **Schema authority:** Always edit `.github/schemas/frontmatter.schema.json` for schema updates; remove or ignore legacy copies elsewhere to keep the validator deterministic.
+
 ## Detailed Guidance
 
 ### Frontmatter and Metadata
 
-- Use the template frontmatter fields (`title`, `description`, `version`, `last_updated`, `owners`, `tags`, `status`, `apply_to`, `file_type`, `tools`, `references`, `examples`, optional `metadata`).
+- Use the template frontmatter fields (`title`, `description`, `version`, `last_updated`, `owners`, `tags`, `status`, `apply_to`, `file_type`, `tools`, `examples`, optional `metadata`). Do not add a `references` property; the schema no longer recognises it—link to related docs inline or in footers.
+- Declare permissions through the optional `permissions` array; follow the approved vocabulary in `docs/FRONTMATTER_SCHEMA.md` (e.g., `read`, `write`, `shell`, `github:*`) so automation tooling always validates these scopes.
 - Keep `apply_to` targeting `.github/agents/*.agent.md`; update `last_updated` whenever the spec meaningfully changes.
 - Add `metadata.guardrails` for non-negotiable safety notes; reference relevant instructions and `SECURITY.md`.
+
+### Permissions vocabulary
+
+- Permissions describe the operational scopes the agent truly needs—complimenting tools without inflating capability. Declare them as `permissions: ["read", "github:repo"]` in the frontmatter.
+- Use the approved enum from `.github/schemas/frontmatter.schema.json` (currently: `read`, `write`, `execute`, `shell`, `filesystem`, `network`, `github:repo`, `github:issues`, `github:pulls`, `github:workflows`, `github:checks`, `github:actions`).
+- Before introducing additional strings, extend the schema and update this instruction section at the same time so documentation, linting, and validation stay aligned.
 
 ### Role and Scope
 
@@ -85,6 +94,7 @@ Use this guide when drafting or updating `.agent.md` files in `.github/agents/`.
 - Role & Scope: [ ] Purpose is unambiguous; [ ] Boundaries are explicit.
 - Capabilities: [ ] Only supported actions listed; [ ] No implied powers.
 - Tools: [ ] All external tools are named with scopes; [ ] Auth/permissions noted.
+- Permissions: [ ] Declared scopes use the approved `permissions` list from `docs/FRONTMATTER_SCHEMA.md`; keep the schema + docs in sync if you expand the vocabulary.
 - Input/Output: [ ] Schemas/examples provided; [ ] Error format deterministic.
 - Safety: [ ] Guardrails align with `SECURITY.md`; [ ] Confirmation rules present.
 - Failure/Rollback: [ ] Partial-failure handling documented.
@@ -107,9 +117,6 @@ status: "active"
 apply_to: [".github/agents/*.agent.md"]
 file_type: "agent-spec"
 tools: ["GitHub API", "Release workflows"]
-references:
-  - "AGENTS.md"
-  - ".github/instructions/agent-spec.instructions.md"
 metadata:
   guardrails: "Never publish or tag without human confirmation."
 ---
@@ -128,7 +135,7 @@ metadata:
 
 - Run `npm run lint:md` for formatting and linting.
 - Validate agent frontmatter with `npm run validate:agents`.
-- Ensure references resolve (for example `AGENTS.md`, `.github/agents/template.agent.md`, `SECURITY.md`).
+- Confirm the retired `references` frontmatter field is absent and convert supporting links to inline references or footer copy.
 - Cross-check guardrails against `SECURITY.md` and automation constraints in `.github/instructions/automation.instructions.md`.
 
 ## References

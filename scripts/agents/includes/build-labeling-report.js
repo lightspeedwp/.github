@@ -3,6 +3,8 @@
  * @module build-labeling-report
  */
 
+// TODO: Align this helper with the latest automation spec updates.
+
 const { labelsToMarkdownTable, diffLabels } = require("./label-utils");
 
 /**

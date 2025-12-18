@@ -2,7 +2,6 @@
 name: "Testing"
 description: "Comprehensive test execution agent for running unit tests, integration tests, and generating coverage reports across all supported testing frameworks."
 target: "vscode"
-tools: ["read", "edit", "search", "shell"]
 handoffs:
   - label: "Fix Test Failures"
     agent: "test-fixer"
@@ -28,15 +27,16 @@ tags:
     "automation",
   ]
 language: "en"
-references:
-  - path: ".github/workflows/testing.yml"
-    description: "GitHub Actions testing workflow (uses npm scripts)"
-  - path: "package.json"
-    description: "Test scripts configuration (npm run check, npm run test, npm run lint:all)"
-  - path: ".github/instructions/coding-standards.instructions.md"
-    description: "Unified coding standards"
 owners: ["lightspeedwp/maintainers"]
 tools:  ["file_system", "markdown_generator", "input_collector", "adr_naming_helper", "quality_checker", "template_filler", "context_analyzer", "decision_rationale_extractor", "alternative_evaluator", "consequence_analyzer", "implementation_planner", "reference_manager", "date_manager", "stakeholder_identifier", "status_manager", "tag_manager", "supersession_tracker", "yaml_front_matter_generator", "markdown_saver", "language_enforcer", "structure_enforcer", "completeness_verifier", "clarity_checker", "consistency_checker", "timeliness_checker", "connection_checker", "contextual_accuracy_checker", "github/*", "read", "search", "edit"]
+permissions:
+  - "read"
+  - "write"
+  - "filesystem"
+  - "github:repo"
+  - "github:actions"
+  - "github:workflows"
+  - "shell"
 metadata:
   guardrails: "Never skip tests. Always run complete test suites before merge. Log all test results. Provide clear failure diagnostics. Ensure minimum coverage thresholds are met."
 ---

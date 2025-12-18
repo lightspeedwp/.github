@@ -39,4 +39,4 @@
 /tests/ @ashleyshaw
 
 # Schemas (JSON validation)
-/schemas/ @ashleyshaw
+/.github/schemas/ @ashleyshaw

@@ -9,9 +9,9 @@ references:
     description: Coding standards for all scripts
   - path: ../.github/instructions/documentation-formats.instructions.md
     description: Frontmatter and documentation format standards
-  - path: ../schemas/frontmatter.schema.json
+  - path: ../.github/schemas/frontmatter.schema.json
     description: Frontmatter schema
-  - path: ../schemas/collection.schema.json
+  - path: ../.github/schemas/collection.schema.json
     description: Collection schema
   - path: ../tests/README.md
     description: Testing framework
@@ -193,7 +193,7 @@ Scripts integrate with GitHub Actions workflows:
 Scripts work with various configuration files:
 
 - `.coderabbit.yml` — CodeRabbit configuration
-- `schemas/` — JSON/YAML validation schemas
+- `.github/schemas/` — JSON/YAML validation schemas
 - `.github/workflows/` — GitHub Actions definitions
 - `fixtures/` — Test data and templates
 
@@ -212,7 +212,7 @@ scripts/maintenance/update-readme-and-changelog.sh
 scripts/utility/label-sync.js --dry-run
 
 # Validate configuration
-node scripts/json-validation/validate-coderabbit-yml.cjs
+node scripts/validation/validate-coderabbit-yml.cjs
 ```
 
 ## Running Test Suites
@@ -301,7 +301,7 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 - [Coding Standards](../.github/instructions/coding-standards.instructions.md)
 - [Quality Assurance](../.github/instructions/quality-assurance.instructions.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
-- [Schema Definitions](../schemas/)
+- [Schema Definitions](../.github/schemas/)
 
 ## External Dependencies
 
@@ -387,7 +387,7 @@ When contributing new scripts or modifications:
 ## Development Resources
 
 - [GitHub Actions Workflows](../.github/workflows/)
-- [Schema Definitions](../schemas/)
+- [Schema Definitions](../.github/schemas/)
 - [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 

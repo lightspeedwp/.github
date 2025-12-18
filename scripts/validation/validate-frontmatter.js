@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * Frontmatter Validation Script
+ * Frontmatter validation runner covering markdown and YAML files across the repo.
+ * Ensures compliance with the shared frontmatter schema.
  *
- * Validates frontmatter compliance across all .github files using the aligned
- * frontmatter.schema.json. This script ensures consistency and completeness
- * of frontmatter across the repository.
- *
+ * @module scripts/validation/validate-frontmatter
  * @fileoverview Comprehensive frontmatter validation for LightSpeedWP .github repository
+ * @see .github/schemas/frontmatter.schema.json
  * @author LightSpeedWP Team
  * @version 1.0.0
  */
@@ -21,7 +20,7 @@ const glob = require("glob");
 
 // Configuration
 const CONFIG = {
-  schemaPath: path.join(__dirname, "../../schemas/frontmatter.schema.json"),
+  schemaPath: path.join(__dirname, "../../.github/schemas/frontmatter.schema.json"),
   rootDir: path.join(__dirname, "../.."),
   logDir: path.join(__dirname, "../../logs/validation"),
   outputFile: path.join(
@@ -265,6 +264,18 @@ class FrontmatterValidator {
   performLightSpeedValidations(frontmatter, filePath) {
     const fileType = this.getFileType(filePath);
 
+    // Ensure the removed `references` field is not present
+    if (
+      frontmatter &&
+      Object.prototype.hasOwnProperty.call(frontmatter, "references")
+    ) {
+      this.logger.error(
+        "The frontmatter 'references' field has been removed; convert any links to inline citations instead.",
+        filePath,
+      );
+      this.stats.errors++;
+    }
+
     // Check for required fields based on file type
     const requiredFields = this.getRequiredFieldsByType(fileType);
     const missingFields = requiredFields.filter(
@@ -298,10 +309,6 @@ class FrontmatterValidator {
       });
     }
 
-    // Validate references field format
-    if (frontmatter.references) {
-      this.validateReferences(frontmatter.references, filePath);
-    }
   }
 
   getRequiredFieldsByType(fileType) {
@@ -324,66 +331,24 @@ class FrontmatterValidator {
 
   getRecommendedFieldsByType(fileType) {
     const recommendations = {
-      agent: ["version", "last_updated", "owners", "tags", "references"],
+      agent: ["version", "last_updated", "owners", "tags"],
       chatmode: [
         "tools",
         "model",
         "owners",
         "tags",
-        "references",
         "context_window",
         "temperature",
         "max_tokens",
       ],
-      instruction: ["owners", "tags", "version", "references"],
-      prompt: ["mode", "model", "tools", "tags", "references"],
-      collection: ["version", "last_updated", "tags", "references"],
-      readme: ["version", "last_updated", "owners", "tags", "references"],
-      documentation: ["owners", "tags", "references"],
+      instruction: ["owners", "tags", "version"],
+      prompt: ["mode", "model", "tools", "tags"],
+      collection: ["version", "last_updated", "tags"],
+      readme: ["version", "last_updated", "owners", "tags"],
+      documentation: ["owners", "tags"],
     };
 
     return recommendations[fileType] || ["owners", "tags"];
-  }
-
-  validateReferences(references, filePath) {
-    if (!Array.isArray(references)) {
-      this.logger.warn("References should be an array", filePath);
-      return;
-    }
-
-    references.forEach((ref, index) => {
-      let refPath;
-      if (typeof ref === "string") {
-        // legacy string format
-        refPath = ref;
-      } else if (ref && typeof ref === "object") {
-        refPath = ref.path;
-        if (!ref.description) {
-          this.logger.info(
-            `Reference ${index} missing description (recommended)`,
-            filePath,
-          );
-        }
-      } else {
-        this.logger.warn(`Reference ${index} has invalid format`, filePath, {
-          value: ref,
-        });
-        return;
-      }
-
-      if (!refPath) {
-        this.logger.warn(`Reference ${index} missing path value`, filePath);
-        return;
-      }
-
-      const referencedPath = path.resolve(CONFIG.rootDir, refPath);
-      if (!fs.existsExists && !fs.existsSync(referencedPath)) {
-        this.logger.warn(
-          `Referenced file does not exist: ${refPath}`,
-          filePath,
-        );
-      }
-    });
   }
 
   getStats() {
@@ -407,6 +372,28 @@ class FileDiscovery {
 
     // Remove duplicates and sort
     return [...new Set(allFiles)].sort();
+  }
+}
+
+function runAltValidation() {
+  try {
+    const schemaContent = fs.readFileSync(CONFIG.schemaPath, "utf8");
+    const schema = JSON.parse(schemaContent);
+    const files = FileDiscovery.findFiles(
+      CONFIG.patterns,
+      CONFIG.excludePatterns,
+      CONFIG.rootDir,
+    );
+
+    console.log("Alt frontmatter validation placeholder.");
+    console.log(
+      `Schema title: ${schema.title || "unknown"} | Files discovered: ${files.length}`,
+    );
+
+    process.exit(0);
+  } catch (error) {
+    console.error("Alt frontmatter validation failed:", error.message);
+    process.exit(1);
   }
 }
 
@@ -460,6 +447,8 @@ async function validateFrontmatter() {
 if (require.main === module) {
   const args = process.argv.slice(2);
 
+  const altMode = args.includes("--alt");
+
   if (args.includes("--help") || args.includes("-h")) {
     console.log(`
 Frontmatter Validation Script
@@ -496,7 +485,11 @@ Examples:
     CONFIG.outputFile = path.resolve(args[outputIndex + 1]);
   }
 
-  validateFrontmatter();
+  if (altMode) {
+    runAltValidation();
+  } else {
+    validateFrontmatter();
+  }
 }
 
 module.exports = {

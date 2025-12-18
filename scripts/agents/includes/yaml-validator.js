@@ -9,6 +9,7 @@
  * License: GPL v3 or later
  * ============================================================================
  */
+// TODO: Align this helper with the latest automation spec updates.
 
 const fs = require("fs");
 const yaml = require("js-yaml");

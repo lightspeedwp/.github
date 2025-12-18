@@ -23,7 +23,7 @@ references:
     description: "Main agent index"
   - path: "../.github/agents/template.agent.md"
     description: "Agent specification template"
-  - path: "../schemas/frontmatter.schema.json"
+  - path: "../.github/schemas/frontmatter.schema.json"
     description: "Frontmatter validation schema"
   - path: "../.github/instructions/automation.instructions.md"
     description: "Agent development instructions"
@@ -33,7 +33,7 @@ references:
 
 [![Documentation](https://img.shields.io/badge/docs-comprehensive-blue)](../docs/)
 [![Standards](https://img.shields.io/badge/standards-enforced-success)](../.github/instructions/)
-[![Validation](https://img.shields.io/badge/validation-automated-informational)](../schemas/)
+[![Validation](https://img.shields.io/badge/validation-automated-informational)](../.github/schemas/)
 
 > **Complete guide** for authoring agent specification files that follow LightSpeed organizational standards, including frontmatter requirements, documentation structure, implementation patterns, and validation processes.
 
@@ -543,7 +543,7 @@ Then follow the governance checklist on this page.
 
 - Organisation-wide agent index (`.github/agents/agent.md`)
 - Agent Specification Authoring Guide
-- Frontmatter schema (`schemas/frontmatter.schema.json`)
+- Frontmatter schema (`.github/schemas/frontmatter.schema.json`)
 - Agent instructions (`agent-spec.instructions.md`)
 
 ---

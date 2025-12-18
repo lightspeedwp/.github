@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Agent Frontmatter Validation Script
- * Validates all agent specification files against the canonical schema
+ * Validates agent specification frontmatter against the canonical schema.
+ * @module scripts/validation/validate-agent-frontmatter
+ * @see .github/schemas/frontmatter.schema.json
  */
 
 const fs = require("fs");
@@ -17,37 +18,26 @@ addFormats(ajv);
 // Load the unified frontmatter schema
 const schemaPath = path.join(
   __dirname,
-  "../../schemas/frontmatter.schema.json",
+  "../../.github/schemas/frontmatter.schema.json",
 );
 const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
 
 // Compile the schema
 const validate = ajv.compile(schema);
 
-// Agent files to validate
+// Agent directory
 const agentDir = path.join(__dirname, "../../.github/agents");
-const agentFiles = [
-  "badges.agent.md",
-  "meta.agent.md",
-  "header-footer.agent.md",
-  "issue-type.agent.md",
-  "jsdoc-review.agent.md",
-  "label-standardization.agent.md",
-  "labeling.agent.md",
-  "linting.agent.md",
-  "manage-readmes.agent.md",
-  "metrics.agent.md",
-  "planner.agent.md",
-  "release.agent.md",
-  "reviewer.agent.md",
-  "template.agent.md",
-];
+const agentFiles = fs
+  .readdirSync(agentDir)
+  .filter((filename) => filename.endsWith(".agent.md"))
+  .sort();
 
 // Validation results
 const results = {
   total: 0,
   passed: 0,
   failed: 0,
+  skipped: 0,
   errors: [],
 };
 
@@ -82,6 +72,13 @@ agentFiles.forEach((filename) => {
   try {
     const frontmatter = yaml.load(frontmatterMatch[1]);
 
+    if (!frontmatter || frontmatter.file_type !== "agent") {
+      const fileTypeLabel = frontmatter?.file_type || "unknown";
+      console.log(`ℹ️  ${filename}: Skipped (file_type=${fileTypeLabel})`);
+      results.skipped++;
+      return;
+    }
+
     // Validate against schema
     const valid = validate(frontmatter);
 
@@ -115,6 +112,7 @@ console.log("\n📊 Validation Summary:");
 console.log(`   Total files: ${results.total}`);
 console.log(`   ✅ Passed: ${results.passed}`);
 console.log(`   ❌ Failed: ${results.failed}`);
+console.log(`   ⏭ Skipped: ${results.skipped}`);
 
 if (results.failed > 0) {
   console.log("\n❌ Validation failed. Please fix the errors above.");

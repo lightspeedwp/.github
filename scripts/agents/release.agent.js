@@ -12,6 +12,8 @@
  *   - See org instructions: [Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
  *   - See spec: .github/agents/release.agent.md
  * ============================================================================
+ * @module scripts/agents/release.agent.js
+ * @see .github/agents/release.agent.md
  */
 
 import fs from "fs";
@@ -25,6 +27,8 @@ import { createRequire } from "module";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
+
+// TODO (a): Expand CLI parsing to accept changelog/version overrides and plug in explicit changelog detection before determining the next release.
 
 // Import utilities (CommonJS modules via require)
 const changelogUtilsPath = path.join(__dirname, "includes/changelogUtils.cjs");
@@ -529,6 +533,8 @@ function createRelease(version, options = {}) {
   // Extract release notes from changelog
   const releaseNotes = formatReleaseNotes({ version, changelogPath });
 
+  // TODO (c): Harden GitHub release/tag creation with retries, templated notes, and PR gating before publishing.
+
   if (dryRun) {
     console.log("[DRY-RUN] Would create GitHub release:");
     console.log(releaseNotes);
@@ -599,6 +605,7 @@ async function run() {
     console.log("");
     console.log(`Mode: ${dryRun ? "DRY-RUN" : "LIVE"}`);
     console.log(`Scope: ${scope}`);
+    // TODO (d): Clarify dry-run vs apply controls (additional flags or safeguards) so we can safely exercise the workflow end-to-end.
     console.log("");
 
     // Step 1: Validate release readiness
@@ -623,6 +630,7 @@ async function run() {
     const releaseBranch = `release/v${nextVersion}`;
 
     console.log(`\nVersion bump: ${currentVersion} → ${nextVersion}`);
+    // TODO (b): Strengthen the version bump + validation steps to lock changelog sections, dependencies, and metadata before mutating files.
 
     // Step 2b: Create release branch
     if (!dryRun) {

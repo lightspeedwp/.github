@@ -11,7 +11,16 @@ module.exports = {
     // Switch to jsdom to provide window/localStorage, mitigating the SecurityError seen under node.
     testEnvironment: process.env.JEST_ENVIRONMENT || 'jsdom',
     // Provide a setup file that polyfills localStorage (defensive if environment overridden).
-    setupFilesAfterEnv: ['<rootDir>/tests/jest.setup.localstorage.js'],
+    setupFilesAfterEnv: [
+        '<rootDir>/.github/tests/jest.setup.localstorage.js',
+    ],
+    globals: {
+        'babel-jest': {
+            useESM: true,
+        },
+    },
+    // Treat TypeScript modules as ESM so import.meta and top-level await work in tests.
+    extensionsToTreatAsEsm: ['.ts', '.tsx'],
     testMatch: [
         process.env.JEST_TEST_MATCH_1 || '**/tests/**/*.test.js',
         process.env.JEST_TEST_MATCH_2 || '**/tests/**/*.test.ts',

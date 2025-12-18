@@ -1,3 +1,7 @@
+/**
+ * Jest suite verifying the baseline behaviour of `footerUtils.js`.
+ * @see ../footerUtils.js
+ */
 const fs = require("fs");
 const { getRandomFooter, ensureFooter, footers } = require("../footerUtils");
 

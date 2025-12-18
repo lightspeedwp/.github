@@ -5,7 +5,8 @@
  * Uses canonical config from .github/labels.yml, .github/labeler.yml, .github/issue-types.yml.
  * Replaces all prior split agents.
  *
- * @module labeling.agent.js
+ * @module scripts/agents/labeling.agent.js
+ * @see .github/agents/labeling.agent.md
  * @version 2.0.0
  * @author LightSpeedWP
  */

@@ -102,7 +102,7 @@ Start here for all key standards:
 
 - [Contributing Guidelines](../CONTRIBUTING.md) - For human contributors
 - [Main Documentation](../README.md) - Project overview
-- [Frontmatter Schema](schemas/frontmatter.schema.json) - Schema validation
+- [Frontmatter Schema](.github/schemas/frontmatter.schema.json) - Schema validation
 
 *This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards.*

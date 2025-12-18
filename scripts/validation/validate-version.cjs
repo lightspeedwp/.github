@@ -2,7 +2,7 @@
 /**
  * ============================================================================
  * Script: validate-version.cjs
- * Location: scripts/validate-version.cjs
+ * Location: scripts/validation/validate-version.cjs
  * Description:
  *   - Validates VERSION file against semantic versioning format
  *   - Validates against version.schema.json
@@ -11,6 +11,8 @@
  *   - Follows LightSpeed Coding Standards
  *   - See: https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md
  * ============================================================================
+ * @module scripts/validation/validate-version
+ * @see schemas/version.schema.json
  */
 
 const path = require('path');

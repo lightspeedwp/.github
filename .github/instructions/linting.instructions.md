@@ -6,11 +6,6 @@ version: "v2.0"
 last_updated: "2025-11-27"
 owners: ["LightSpeedWP Team"]
 tags: ["linting", "standards", "eslint", "prettier", "automation"]
-references:
-  - path: ".github/instructions/coding-standards.instructions.md"
-    description: "Unified coding standards"
-  - path: ".github/instructions/INSTRUCTION_PRECEDENCE.md"
-    description: "Instruction file precedence documentation"
 ---
 
 # 🔍 LightSpeed Linting Instructions Library
@@ -26,6 +21,7 @@ Applies to linting across all supported file types. Covers linting library usage
 - Run configured linters/formatters (ESLint, Prettier, markdownlint, yamllint, ShellCheck, etc.) and avoid unchecked overrides.
 - Provide actionable remediation; do not block without explanations.
 - Align with coding standards and instruction precedence.
+- Do not add the retired `references` front matter field; rely on inline documentation links when pointing at related content.
 
 ## Detailed Guidance
 

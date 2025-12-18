@@ -4,14 +4,15 @@
  * Advisory implementation for the Issues agent. Provides lightweight
  * recommendations without mutating GitHub state. Extend with API calls when
  * ready to automate labelling and enrichment.
+ * @module scripts/agents/issues.agent.js
+ * @see .github/agents/issues.agent.md
  */
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const fs = require("fs");
+const path = require("path");
+const __filename = __filename || process.argv[1];
+const __dirname = __dirname || path.dirname(__filename);
 
 const DEFAULT_LABELS = ["status:needs-triage", "priority:normal"];
 const KEYWORD_TYPE_MAP = {
@@ -75,7 +76,7 @@ function buildRecommendations(payload) {
   };
 }
 
-export async function runIssuesAgent(options = {}) {
+async function runIssuesAgent(options = {}) {
   const dryRun = options.dryRun ?? true;
   const payload = loadIssuePayload();
   const repoRoot = path.resolve(__dirname, "..", "..");
@@ -100,6 +101,7 @@ export async function runIssuesAgent(options = {}) {
   );
 
   if (!dryRun) {
+    // TODO: Implement apply mode automation (labels/comments) once the full agent workflow is ready.
     log("Apply mode requested but automation is not implemented yet.");
   }
 
@@ -107,7 +109,12 @@ export async function runIssuesAgent(options = {}) {
   log("Issues agent finished without errors.");
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+
+module.exports = {
+  runIssuesAgent,
+};
+
+if (require.main === module) {
   const dryRun = !process.argv.includes("--apply");
   runIssuesAgent({ dryRun }).catch((error) => {
     console.error("[issues-agent] fatal error", error);

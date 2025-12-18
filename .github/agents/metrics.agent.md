@@ -2,7 +2,6 @@
 name: "Metrics"
 description: "Automates collection, aggregation, and reporting of repository health metrics including issue/PR activity, response times, and project health indicators. Generates actionable insights and trend analysis."
 target: "github-copilot"
-tools: ["github/*", "read", "search"]
 handoffs:
   - label: "Generate Report"
     agent: "report-writer"
@@ -19,6 +18,12 @@ visibility: "public"
 tags: ["lightspeed", "metrics", "agents", "analytics", "reporting"]
 owners: ["lightspeedwp/maintainers"]
 tools:  ["file_system", "markdown_generator", "input_collector", "adr_naming_helper", "quality_checker", "template_filler", "context_analyzer", "decision_rationale_extractor", "alternative_evaluator", "consequence_analyzer", "implementation_planner", "reference_manager", "date_manager", "stakeholder_identifier", "status_manager", "tag_manager", "supersession_tracker", "yaml_front_matter_generator", "markdown_saver", "language_enforcer", "structure_enforcer", "completeness_verifier", "clarity_checker", "consistency_checker", "timeliness_checker", "connection_checker", "contextual_accuracy_checker", "github/*", "read", "search", "edit"]
+permissions:
+  - "read"
+  - "write"
+  - "filesystem"
+  - "network"
+  - "github:repo"
 metadata:
   guardrails: "Do not expose sensitive data or credentials in metrics. Log all collection runs. Support multi-repository aggregation. Validate data before reporting."
 ---

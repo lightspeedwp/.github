@@ -1,7 +1,8 @@
 /**
  * issue-type.agent.js
  * @deprecated This agent has been merged into labeling.agent.js (Dec 2024)
- * @see labeling.agent.js for unified label and type management
+ * @module scripts/agents/issue-type.agent.js
+ * @see ./labeling.agent.js for unified label and type management
  *
  * DEPRECATION NOTICE:
  * Issue type detection is now handled by the unified labeling agent.
@@ -15,6 +16,7 @@
 
 // Re-export from unified agent for backward compatibility
 // Use dynamic import or CommonJS for Jest compatibility
+
 let detectIssueTypeFromContent;
 try {
   const labelingAgent = require("./labeling.agent.js");
@@ -54,4 +56,10 @@ async function run(context = {}) {
   };
 }
 
-export { run, detectIssueType };
+
+module.exports = {
+  run,
+  detectIssueType,
+};
+
+// TODO: Remove this shim once all consumers exclusively import labeling.agent.js.

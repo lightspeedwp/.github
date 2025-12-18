@@ -1,3 +1,7 @@
+/**
+ * Jest suite verifying the baseline behaviour of `update-readme.js`.
+ * @see ../update-readme.js
+ */
 const path = require("path");
 
 describe("update-readme.js", () => {

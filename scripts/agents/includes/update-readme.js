@@ -1,6 +1,9 @@
 #!/usr/bin/env node
-// Thin shim to invoke canonical implementation now located under .github/scripts.
-// This preserves existing npm script / tooling references to `node update-readme.js`.
+/**
+ * Compatibility shim that forwards existing tooling to the canonical README updater.
+ * @module scripts/agents/includes/update-readme.js
+ */
+// TODO: Align this helper with the latest automation spec updates.
 
 const path = require("path");
 require(path.join(__dirname, ".github", "scripts", "update-readme.js"));

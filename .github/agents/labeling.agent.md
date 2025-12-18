@@ -2,7 +2,6 @@
 name: "Labeling"
 description: "Unified agent for dynamic, canonical, and automated labeling of issues and PRs. Handles status, type, priority, and project-field enforcement, label standardization, and migration based on .github/labels.yml."
 target: "github-copilot"
-tools: ["github/*", "edit", "search"]
 handoffs:
   - label: "Start Implementation"
     agent: "implementation"
@@ -17,6 +16,11 @@ category: "automation"
 status: "active"
 visibility: "public"
 tools:  ["file_system", "markdown_generator", "input_collector", "adr_naming_helper", "quality_checker", "template_filler", "context_analyzer", "decision_rationale_extractor", "alternative_evaluator", "consequence_analyzer", "implementation_planner", "reference_manager", "date_manager", "stakeholder_identifier", "status_manager", "tag_manager", "supersession_tracker", "yaml_front_matter_generator", "markdown_saver", "language_enforcer", "structure_enforcer", "completeness_verifier", "clarity_checker", "consistency_checker", "timeliness_checker", "connection_checker", "contextual_accuracy_checker", "github/*", "read", "search", "edit"]
+permissions:
+  - "read"
+  - "write"
+  - "github:repo"
+  - "github:issues"
 tags:
   [
     "lightspeed",
@@ -27,6 +31,8 @@ tags:
     "github",
   ]
 owners: ["lightspeedwp/maintainers"]
+metadata:
+  guardrails: "Only apply types/labels from canonical configs, never overwrite without warning, validate content before labeling, and log every action."
 ---
 
 # LightSpeed Unified Labeling Agent

@@ -29,7 +29,7 @@ This file provides universal documentation standards for all Markdown files in t
 - For README-specific standards, see [readme.instructions.md](./readme.instructions.md).
 - For accessibility, see [a11y.instructions.md](./a11y.instructions.md).
 
-All documentation must comply with the standards below and respect the references and cross-linking conventions for every document created or updated. Every `.md` file in `docs/` and its subfolders must include YAML frontmatter, clear structure, accessibility, and cross-references as described.
+All documentation must comply with the standards below and respect cross-linking conventions for every document created or updated. Every `.md` file in `docs/` and its subfolders must include YAML frontmatter, clear structure, accessibility, and cross-references as described. The `references` frontmatter property has been retired; cite supporting resources inline or via approved footers instead.
 
 ## Structure
 
@@ -47,7 +47,8 @@ Every documentation file should start with YAML frontmatter including:
 - `description`: Brief summary of the file’s purpose (required)
 - `last_updated`: Date of last meaningful update (required)
 - `owners`: Responsible maintainers or teams (required)
-- `references`: Related files, specs, or external resources (required; must be real, repo-relative links)
+
+> The `references` field is retired; cite supporting resources inline or through approved footers instead.
 
 ## 2. Structure & Headings
 
@@ -65,7 +66,7 @@ Every documentation file should start with YAML frontmatter including:
 
 - Reference parent indexes and related docs (see `CHECKLIST_CROSSLINKING.md`).
 - Ensure bidirectional and lateral links—no dead ends.
-- All references must be respected and validated for every document.
+- All inline links must be respected and validated for every document.
 - Use `/blob/HEAD/` for repo-local files and relative links for files within the same repo.
 
 ## 5. Formatting & Accessibility
@@ -90,7 +91,7 @@ Every documentation file should start with YAML frontmatter including:
 ## 8. Validation & Testing
 
 - Document how to validate, test, or review the content (e.g., linting, schema checks).
-- Validate all links and references after every edit.
+- Validate all links after every edit (the `references` frontmatter field is retired).
 
 ## 9. Change Log & Versioning
 
@@ -115,7 +116,7 @@ Every documentation file should start with YAML frontmatter including:
 
 ## 13. Footer
 
-- Add a consistent footer with references, contact info, and license.
+- Add a consistent footer with contact info and license; the `references` block is retired.
 
 ---
 
@@ -127,7 +128,7 @@ Every documentation file should start with YAML frontmatter including:
 ## Validation
 
 - Run `npm run lint:md` (markdownlint) and Prettier on docs.
-- Validate links and frontmatter references after edits.
+- Validate links (the `references` frontmatter field is retired) after edits.
 - Use accessibility checks for headings, contrast (if styled), and alt text.
 
 ### Documentation Checklist
@@ -137,7 +138,7 @@ Every documentation file should start with YAML frontmatter including:
 - [ ] Table of Contents included for long files
 - [ ] Headings are hierarchical and logical
 - [ ] All links use `/blob/HEAD/` for repo-local files
-- [ ] All references are respected and validated
+- [ ] All inline links are respected and validated
 - [ ] Formatting is clear and accessible
 - [ ] Diagrams and images have alt text
 - [ ] Examples and usage are provided where relevant

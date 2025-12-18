@@ -121,46 +121,6 @@
         "license": {
           "type": "string",
           "description": "License identifier"
-        },
-        "references": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "path": {
-                "type": "string",
-                "description": "Relative path to referenced file"
-              },
-              "description": {
-                "type": "string",
-                "description": "Brief description of the reference"
-              }
-            },
-            "required": [
-              "path",
-              "description"
-            ],
-            "additionalProperties": false
-          },
-          "description": "AI-focused references to related documentation (relative paths from current file)",
-          "examples": [
-            {
-              "path": "CONTRIBUTING.md",
-              "description": "Contribution guidelines"
-            },
-            {
-              "path": "README.md",
-              "description": "Main documentation"
-            },
-            {
-              "path": ".github/README.md",
-              "description": "GitHub-specific documentation"
-            },
-            {
-              "path": "schemas/frontmatter.schema.json",
-              "description": "Frontmatter schema definition"
-            }
-          ]
         }
       }
     }
@@ -263,6 +223,27 @@
             "type": "string"
           },
           "description": "Available tools/capabilities (VS Code field). Values: codebase, search, usages, editFiles, fetchWebpage, findTestFiles, githubRepo, problems, runCommands, runNotebooks, runTasks, runTests, terminalLastCommand, terminalSelection, thinking, vscodeAPI, custom MCP tools"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "read",
+              "write",
+              "execute",
+              "shell",
+              "filesystem",
+              "network",
+              "github:repo",
+              "github:issues",
+              "github:pulls",
+              "github:workflows",
+              "github:checks",
+              "github:actions"
+            ]
+          },
+          "description": "Explicit permissions or scopes required by the agent; complements `tools`."
         },
         "model": {
           "type": "string",
@@ -858,24 +839,6 @@
       ],
       "tools": [
         "Read"
-      ],
-      "references": [
-        {
-          "path": "CONTRIBUTING.md",
-          "description": "Contribution guidelines"
-        },
-        {
-          "path": "README.md",
-          "description": "Main documentation"
-        },
-        {
-          "path": ".github/README.md",
-          "description": "GitHub-specific documentation"
-        },
-        {
-          "path": "schemas/frontmatter.schema.json",
-          "description": "Frontmatter schema definition"
-        }
       ]
     },
     {
@@ -889,20 +852,6 @@
         "security",
         "rest",
         "validation"
-      ],
-      "references": [
-        {
-          "path": "docs/SECURITY.md",
-          "description": "Security guidelines"
-        },
-        {
-          "path": "CONTRIBUTING.md",
-          "description": "Contribution guidelines"
-        },
-        {
-          "path": "schemas/frontmatter.schema.json",
-          "description": "Frontmatter schema definition"
-        }
       ]
     }
   ]

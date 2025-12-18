@@ -46,6 +46,10 @@ npm-debug.log*
 /coverage
 /.nyc_output
 
+# Generator output
+output-plugin/
+generated-plugins/
+
 # Misc
 tmp/
 *.zip

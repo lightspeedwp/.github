@@ -25,7 +25,7 @@
 | Version        | 2.2.0                                                                                                                                                                                                                                                                                                                                      |
 | Last Updated   | 2025-10-25                                                                                                                                                                                                                                                                                                                                 |
 | Owners         | Ash Shaw; LightSpeedWP QA                                                                                                                                                                                                                                                                                                                  |
-| Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md), [`test-helper.bash`](./test-helper.bash), [`coverage/README.md`](../coverage/README.md), [`scripts/README.md`](../scripts/README.md), [`schemas/README.md`](../schemas/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
+| Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md), [`test-helper.bash`](./test-helper.bash), [`coverage/README.md`](../coverage/README.md), [`scripts/README.md`](../scripts/README.md), [`.github/schemas/README.md`](../.github/schemas/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
 ![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
@@ -317,9 +317,9 @@ npm ci
 #### Related Project Documentation
 
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
-- [Schema Validation](../schemas/README.md) — JSON schema validation and configuration
-- [CodeRabbit Schemas](../schemas/coderabbit/README.md) — AI code review configuration schemas
-- [WordPress Automation Schemas](../schemas/header-footer-agent/README.md) — WordPress theme automation schemas
+- [Schema Validation](../.github/schemas/README.md) — JSON schema validation and configuration
+- [CodeRabbit Schemas](../.github/schemas/coderabbit/README.md) — AI code review configuration schemas
+- [WordPress Automation Schemas](../.github/schemas/header-footer-agent/README.md) — WordPress theme automation schemas
 - [Coverage Reports](../coverage/README.md) — Test coverage reporting and analysis
 - [HTML Coverage Reports](../coverage/lcov-report/README.md) — Interactive coverage visualization
 

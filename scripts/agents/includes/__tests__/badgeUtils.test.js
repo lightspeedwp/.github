@@ -1,3 +1,7 @@
+/**
+ * Jest suite verifying the baseline behaviour of `badgeUtils.js`.
+ * @see ../badgeUtils.js
+ */
 const fs = require("fs");
 // ...existing code...
 const { generateWorkflowBadges, updateReadmeBadges } = require("../badgeUtils");

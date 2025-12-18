@@ -11,4 +11,6 @@ handoffs:
 version: "v1.0"
 last_updated: "2024-06-20"
 author: "LightSpeed"
+metadata:
+  guardrails: "Gather verifiable references, do not act until research is complete, and document every source and assumption before handing off."
 ---

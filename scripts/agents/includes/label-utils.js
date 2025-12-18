@@ -3,6 +3,8 @@
  * @module label-utils
  */
 
+// TODO: Align this helper with the latest automation spec updates.
+
 /**
  * Converts an array of label names into a Markdown table.
  * @param {string[]} labels - Array of label names.

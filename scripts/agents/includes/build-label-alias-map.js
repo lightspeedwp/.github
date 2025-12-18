@@ -3,6 +3,8 @@
  * @module build-label-alias-map
  */
 
+// TODO: Align this helper with the latest automation spec updates.
+
 const fs = require("fs");
 const yaml = require("js-yaml");
 

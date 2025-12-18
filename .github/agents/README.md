@@ -12,13 +12,6 @@ license: "GPL-3.0"
 domain: "governance"
 stability: "stable"
 tags: ["lightspeed", "agents", "automation", "workflows", "github-actions"]
-references:
-  - path: ./agent.md
-    description: "Main agent index"
-  - path: ../workflows/README.md
-    description: "Workflows directory"
-  - path: ../instructions/agents.instructions.md
-    description: "Agent development instructions"
 ---
 
 ## 🚀 Quick Start
@@ -102,7 +95,7 @@ graph TB
 
 | Agent                                                              | Description                                                    | Status        | Tests                                                                          |
 | ------------------------------------------------------------------ | -------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------ |
-| [meta.agent.js](./meta.agent.js)                                   | Applies front matter, badges, human references, quirky footers | ✅ Active     | -                                                                              |
+| [meta.agent.js](./meta.agent.js)                                   | Applies front matter, badges, quirky footers                    | ✅ Active     | -                                                                              |
 | [badges.agent.js](./badges.agent.js)                               | Manages repository badges and automation status indicators     | ❌ Deprecated | -                                                                              |
 | [header-footer.agent.js](./header-footer.agent.js)                 | Maintains consistent headers and footers across documentation  | ❌ Deprecated | -                                                                              |
 | [issue-type.agent.js](./issue-type.agent.js)                       | Automatically assigns issue types based on content analysis    | ✅ Active     | [✅ Tests](../../scripts/agents/__tests__/issue-type.agent.test.js)            |
@@ -146,7 +139,7 @@ These GitHub Actions workflows integrate with and trigger our agents:
 | **[labeling.yml](../workflows/labeling.yml)**             | `push`, `pull_request`, `issues` events | `labeling.agent.js`                   | Unified labeling for issues and PRs with status enforcement |
 | **[reviewer.yml](../workflows/reviewer.yml)**             | `push`, `pull_request` on `develop`     | `reviewer.agent.js`                   | Automated code review and feedback                          |
 | **[planner.yml](../workflows/planner.yml)**               | `push`, `pull_request` on `develop`     | Internal planner logic                | Project planning automation                                 |
-| **[meta.yml](../workflows/meta.yml)**                     | File changes, `workflow_dispatch`       | `meta.agent.js`                       | Apply front matter, badges, references, quirky footers      |
+| **[meta.yml](../workflows/meta.yml)**                     | File changes, `workflow_dispatch`       | `meta.agent.js`                       | Apply front matter, badges, quirky footers                   |
 | **[badges.yml](../workflows/badges.yml)**                 | Path changes, `workflow_dispatch`       | `badges.agent.js` (Deprecated)        | Badge status updates                                        |
 | **[manage-readmes.yml](../workflows/manage-readmes.yml)** | Path changes, `workflow_dispatch`       | `manage-readmes.agent.js`             | README maintenance                                          |
 | **[header-footer.yml](../workflows/header-footer.yml)**   | File changes                            | `header-footer.agent.js` (Deprecated) | Documentation consistency                                   |

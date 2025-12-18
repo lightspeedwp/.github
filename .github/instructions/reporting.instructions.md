@@ -21,6 +21,7 @@ Applies to all report outputs (Markdown, JSON, CSV, HTML) created by contributor
 - Store reports under `.github/reports/{category}/` with kebab-case names and dates/versions.
 - Never store reports in repo root, `docs/`, or `/tmp/` (except transient processing).
 - Align categories with purposes and follow naming patterns.
+- Do not add a `references` front matter field to report docs; use inline links or the footer to cite supporting resources.
 
 ## Detailed Guidance
 
