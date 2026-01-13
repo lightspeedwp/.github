@@ -109,7 +109,7 @@
     "@babel/preset-env": "7.28.5",
     "@babel/preset-react": "7.27.1",
     "@babel/preset-typescript": "7.28.5",
-    "@babel/runtime": "^7.24.1",
+    "@babel/runtime": "^7.28.6",
     "@github/markdownlint-github": "^0.8.0",
     "@jest/pattern": "30.0.1",
     "@mermaid-js/mermaid-cli": "11.4.0",
