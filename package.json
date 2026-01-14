@@ -117,7 +117,7 @@
     "@stoplight/spectral-core": "^1.18.0",
     "@stoplight/spectral-functions": "^1.0.0",
     "@types/jest": "29.5.14",
-    "@types/node": "^20.0.0",
+    "@types/node": "^25.0.8",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "ajv": "^8.17.1",
