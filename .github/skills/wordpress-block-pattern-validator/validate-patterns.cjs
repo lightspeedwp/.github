@@ -1,0 +1,512 @@
+#!/usr/bin/env node
+
+/**
+ * WordPress Block Pattern Validator
+ * 
+ * Validates and optionally fixes WordPress block pattern files to ensure
+ * HTML output matches block comment attributes.
+ * 
+ * Usage:
+ *   node validate-patterns.js <file-or-directory> [--fix] [--verbose]
+ * 
+ * Examples:
+ *   node validate-patterns.js patterns/hero.php
+ *   node validate-patterns.js patterns/ --fix
+ *   node validate-patterns.js patterns/ --verbose
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+class WordPressBlockValidator {
+  constructor(options = {}) {
+    this.options = {
+      fix: options.fix || false,
+      verbose: options.verbose || false,
+      dryRun: options.dryRun || false,
+    };
+    this.errors = [];
+    this.filesScanned = 0;
+    this.filesWithErrors = 0;
+    this.totalErrors = 0;
+  }
+
+  /**
+   * Parse WordPress block comment and extract attributes
+   */
+  parseBlockComment(line) {
+    const match = line.match(/<!--\s+wp:([a-z/-]+)\s+({.*?})\s+-->/);
+    if (!match) return null;
+    
+    try {
+      return {
+        blockType: match[1],
+        attributes: JSON.parse(match[2]),
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /**
+   * Parse HTML tag and extract classes and styles
+   */
+  parseHtmlTag(line) {
+    const tagMatch = line.match(/<([a-z0-9]+)([^>]*)>/i);
+    if (!tagMatch) return null;
+
+    const tagName = tagMatch[1];
+    const attributes = tagMatch[2];
+
+    // Extract class attribute
+    const classMatch = attributes.match(/class="([^"]*)"/);
+    const classes = classMatch ? classMatch[1].split(/\s+/).filter(Boolean) : [];
+
+    // Extract style attribute
+    const styleMatch = attributes.match(/style="([^"]*)"/);
+    const styles = styleMatch ? styleMatch[1] : '';
+
+    return { tagName, classes, styles, fullTag: line };
+  }
+
+  /**
+   * Convert var:preset|type|value to var(--wp--preset--type--value)
+   * Also handles var:custom|type|value to var(--wp--custom--type--value)
+   */
+  convertPresetNotation(value) {
+    if (typeof value !== 'string') return value;
+    // Handle both preset and custom notation
+    return value
+      .replace(/var:preset\|([^|]+)\|([^|]+)/g, 'var(--wp--preset--$1--$2)')
+      .replace(/var:custom\|([^|]+)\|([^|]+)/g, 'var(--wp--custom--$1--$2)');
+  }
+
+  /**
+   * Generate expected classes based on block attributes
+   */
+  generateExpectedClasses(blockType, attributes, isButtonLink = false) {
+    const classes = [];
+
+    // Base block class
+    // Special case: button inner link uses 'wp-block-button__link' instead of 'wp-block-button'
+    const baseClass = (blockType === 'button' && isButtonLink) 
+      ? 'wp-block-button__link' 
+      : `wp-block-${blockType.replace('/', '-')}`;
+    classes.push(baseClass);
+
+    // Alignment
+    if (attributes.align) {
+      classes.push(`align${attributes.align}`);
+    }
+
+    // Custom className
+    if (attributes.className) {
+      classes.push(attributes.className);
+    }
+
+    // Text color
+    if (attributes.textColor) {
+      classes.push(`has-${attributes.textColor}-color`);
+      classes.push('has-text-color');
+    }
+
+    // Background color
+    if (attributes.backgroundColor) {
+      classes.push(`has-${attributes.backgroundColor}-background-color`);
+      classes.push('has-background');
+    }
+
+    // Text alignment
+    if (attributes.textAlign) {
+      classes.push(`has-text-align-${attributes.textAlign}`);
+    }
+
+    // Font size
+    if (attributes.fontSize) {
+      classes.push(`has-${attributes.fontSize}-font-size`);
+    }
+
+    return classes;
+  }
+
+  /**
+   * Generate expected inline styles based on block attributes
+   */
+  generateExpectedStyles(attributes) {
+    const styles = [];
+
+    if (!attributes.style) return '';
+
+    const styleObj = attributes.style;
+
+    // Spacing - Padding
+    if (styleObj.spacing?.padding) {
+      const padding = styleObj.spacing.padding;
+      if (padding.top) styles.push(`padding-top:${this.convertPresetNotation(padding.top)}`);
+      if (padding.right) styles.push(`padding-right:${this.convertPresetNotation(padding.right)}`);
+      if (padding.bottom) styles.push(`padding-bottom:${this.convertPresetNotation(padding.bottom)}`);
+      if (padding.left) styles.push(`padding-left:${this.convertPresetNotation(padding.left)}`);
+    }
+
+    // Spacing - Margin
+    if (styleObj.spacing?.margin) {
+      const margin = styleObj.spacing.margin;
+      if (margin.top) styles.push(`margin-top:${this.convertPresetNotation(margin.top)}`);
+      if (margin.right) styles.push(`margin-right:${this.convertPresetNotation(margin.right)}`);
+      if (margin.bottom) styles.push(`margin-bottom:${this.convertPresetNotation(margin.bottom)}`);
+      if (margin.left) styles.push(`margin-left:${this.convertPresetNotation(margin.left)}`);
+    }
+
+    // Border
+    if (styleObj.border?.radius) {
+      styles.push(`border-radius:${this.convertPresetNotation(styleObj.border.radius)}`);
+    }
+    if (styleObj.border?.width) {
+      styles.push(`border-width:${this.convertPresetNotation(styleObj.border.width)}`);
+    }
+    if (styleObj.border?.color) {
+      styles.push(`border-color:${this.convertPresetNotation(styleObj.border.color)}`);
+    }
+
+    // Colors (custom)
+    if (styleObj.color?.background) {
+      styles.push(`background-color:${this.convertPresetNotation(styleObj.color.background)}`);
+    }
+    if (styleObj.color?.text) {
+      styles.push(`color:${this.convertPresetNotation(styleObj.color.text)}`);
+    }
+
+    // Typography
+    if (styleObj.typography?.fontSize) {
+      styles.push(`font-size:${this.convertPresetNotation(styleObj.typography.fontSize)}`);
+    }
+    if (styleObj.typography?.lineHeight) {
+      styles.push(`line-height:${this.convertPresetNotation(styleObj.typography.lineHeight)}`);
+    }
+
+    return styles.join(';');
+  }
+
+  /**
+   * Validate a single block
+   */
+  validateBlock(blockComment, htmlTag, lineNumber, filePath) {
+    const block = this.parseBlockComment(blockComment);
+    if (!block) return null;
+
+    let html = this.parseHtmlTag(htmlTag);
+    if (!html) return null;
+
+    let isButtonLink = false;
+
+    // SPECIAL CASE: Button blocks apply attributes to inner <a> tag, not wrapper div
+    // WordPress structure: <div class="wp-block-button"><a class="wp-block-button__link ...">
+    if (block.blockType === 'button' && html.tagName === 'div') {
+      // Try to extract the inner <a> tag
+      const innerLinkMatch = htmlTag.match(/<a\s+([^>]*)>/);
+      if (innerLinkMatch) {
+        const linkHtml = this.parseHtmlTag(innerLinkMatch[0]);
+        if (linkHtml) {
+          // Use the inner link for validation instead of wrapper div
+          html = linkHtml;
+          isButtonLink = true;
+        }
+      }
+    }
+
+    const expectedClasses = this.generateExpectedClasses(block.blockType, block.attributes, isButtonLink);
+    const expectedStyles = this.generateExpectedStyles(block.attributes);
+
+    const errors = [];
+    const missingClasses = [];
+    const extraClasses = [];
+
+    // Check for missing classes
+    expectedClasses.forEach(expectedClass => {
+      if (!html.classes.includes(expectedClass)) {
+        missingClasses.push(expectedClass);
+      }
+    });
+
+    // Check for expected styles
+    const missingStyles = [];
+    if (expectedStyles && !html.styles.includes(expectedStyles)) {
+      if (expectedStyles && !html.styles) {
+        missingStyles.push(`Missing entire style attribute: ${expectedStyles}`);
+      } else {
+        // Parse and compare individual style properties
+        const expectedStyleProps = expectedStyles.split(';').filter(Boolean);
+        expectedStyleProps.forEach(prop => {
+          if (!html.styles.includes(prop.trim())) {
+            missingStyles.push(prop.trim());
+          }
+        });
+      }
+    }
+
+    if (missingClasses.length > 0 || missingStyles.length > 0) {
+      return {
+        lineNumber,
+        blockType: block.blockType,
+        blockComment,
+        htmlTag,
+        missingClasses,
+        missingStyles,
+        expectedClasses,
+        expectedStyles,
+        currentClasses: html.classes,
+        currentStyles: html.styles,
+      };
+    }
+
+    return null;
+  }
+
+  /**
+   * Fix HTML tag with correct classes and styles
+   */
+  fixHtmlTag(htmlTag, expectedClasses, expectedStyles) {
+    const html = this.parseHtmlTag(htmlTag);
+    if (!html) return htmlTag;
+
+    // Rebuild class attribute
+    const classAttr = `class="${expectedClasses.join(' ')}"`;
+
+    // Rebuild style attribute
+    const styleAttr = expectedStyles ? ` style="${expectedStyles}"` : '';
+
+    // Extract any other attributes (href, etc.)
+    let otherAttrs = '';
+    const fullAttrs = htmlTag.match(/<[a-z0-9]+([^>]*)>/i);
+    if (fullAttrs) {
+      otherAttrs = fullAttrs[1]
+        .replace(/class="[^"]*"/g, '')
+        .replace(/style="[^"]*"/g, '')
+        .trim();
+    }
+
+    // Reconstruct tag
+    const indent = htmlTag.match(/^(\s*)/)[1];
+    const closingTag = htmlTag.match(/>$/);
+    const selfClosing = htmlTag.includes('/>');
+    
+    let newTag = `${indent}<${html.tagName} ${classAttr}`;
+    if (styleAttr) newTag += styleAttr;
+    if (otherAttrs) newTag += ` ${otherAttrs}`;
+    newTag += selfClosing ? '/>' : '>';
+
+    return newTag;
+  }
+
+  /**
+   * Validate a single file
+   */
+  validateFile(filePath) {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const lines = content.split('\n');
+    const fileErrors = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      
+      // Check if this is a WordPress block comment
+      if (line.includes('<!-- wp:')) {
+        // Get the next non-empty line
+        let nextLineIndex = i + 1;
+        while (nextLineIndex < lines.length && !lines[nextLineIndex].trim()) {
+          nextLineIndex++;
+        }
+
+        if (nextLineIndex < lines.length) {
+          const htmlLine = lines[nextLineIndex];
+          const error = this.validateBlock(line, htmlLine, i + 1, filePath);
+          
+          if (error) {
+            error.htmlLineNumber = nextLineIndex + 1;
+            error.htmlLine = htmlLine;
+            fileErrors.push(error);
+          }
+        }
+      }
+    }
+
+    return { filePath, errors: fileErrors, lines };
+  }
+
+  /**
+   * Fix errors in a file
+   */
+  fixFile(filePath, validationResult) {
+    if (validationResult.errors.length === 0) return false;
+
+    const lines = [...validationResult.lines];
+    
+    // Fix errors in reverse order to maintain line numbers
+    validationResult.errors.reverse().forEach(error => {
+      const fixedHtml = this.fixHtmlTag(
+        error.htmlLine,
+        error.expectedClasses,
+        error.expectedStyles
+      );
+      lines[error.htmlLineNumber - 1] = fixedHtml;
+    });
+
+    if (!this.options.dryRun) {
+      fs.writeFileSync(filePath, lines.join('\n'));
+    }
+
+    return true;
+  }
+
+  /**
+   * Generate validation report
+   */
+  generateReport(results) {
+    console.log('\n' + '='.repeat(60));
+    console.log('WordPress Block Pattern Validation Report');
+    console.log('='.repeat(60) + '\n');
+
+    results.forEach(result => {
+      const status = result.errors.length === 0 ? '✅' : '❌';
+      console.log(`${status} ${result.filePath}`);
+      
+      if (result.errors.length > 0) {
+        console.log(`   Found ${result.errors.length} error(s)\n`);
+        
+        result.errors.forEach((error, index) => {
+          console.log(`   Error ${index + 1}:`);
+          console.log(`   Block: ${error.blockType} (Line ${error.lineNumber})`);
+          console.log(`   HTML Tag: Line ${error.htmlLineNumber}`);
+          
+          if (error.missingClasses.length > 0) {
+            console.log(`   Missing classes: ${error.missingClasses.join(', ')}`);
+          }
+          
+          if (error.missingStyles.length > 0) {
+            console.log(`   Missing styles: ${error.missingStyles.join('; ')}`);
+          }
+
+          if (this.options.verbose) {
+            console.log(`   Current: ${error.currentClasses.join(' ')}`);
+            console.log(`   Expected: ${error.expectedClasses.join(' ')}`);
+            if (error.expectedStyles) {
+              console.log(`   Expected styles: ${error.expectedStyles}`);
+            }
+          }
+          
+          console.log('');
+        });
+      }
+    });
+
+    console.log('='.repeat(60));
+    console.log(`Files scanned: ${this.filesScanned}`);
+    console.log(`Files with errors: ${this.filesWithErrors}`);
+    console.log(`Total errors: ${this.totalErrors}`);
+    console.log('='.repeat(60) + '\n');
+  }
+
+  /**
+   * Scan directory recursively for PHP files
+   */
+  scanDirectory(dirPath) {
+    const files = [];
+    const items = fs.readdirSync(dirPath);
+
+    items.forEach(item => {
+      const fullPath = path.join(dirPath, item);
+      const stat = fs.statSync(fullPath);
+
+      if (stat.isDirectory()) {
+        files.push(...this.scanDirectory(fullPath));
+      } else if (stat.isFile() && item.endsWith('.php')) {
+        files.push(fullPath);
+      }
+    });
+
+    return files;
+  }
+
+  /**
+   * Run validation
+   */
+  run(targetPath) {
+    let files = [];
+
+    const stat = fs.statSync(targetPath);
+    if (stat.isDirectory()) {
+      files = this.scanDirectory(targetPath);
+    } else if (stat.isFile()) {
+      files = [targetPath];
+    }
+
+    const results = [];
+
+    files.forEach(file => {
+      this.filesScanned++;
+      const result = this.validateFile(file);
+      
+      if (result.errors.length > 0) {
+        this.filesWithErrors++;
+        this.totalErrors += result.errors.length;
+        
+        if (this.options.fix) {
+          const fixed = this.fixFile(file, result);
+          if (fixed) {
+            console.log(`✅ Fixed: ${file}`);
+          }
+        }
+      }
+
+      results.push(result);
+    });
+
+    this.generateReport(results);
+
+    return {
+      success: this.totalErrors === 0,
+      filesScanned: this.filesScanned,
+      filesWithErrors: this.filesWithErrors,
+      totalErrors: this.totalErrors,
+    };
+  }
+}
+
+// CLI
+if (require.main === module) {
+  const args = process.argv.slice(2);
+  
+  if (args.length === 0 || args.includes('--help')) {
+    console.log(`
+WordPress Block Pattern Validator
+
+Usage:
+  node validate-patterns.js <file-or-directory> [options]
+
+Options:
+  --fix         Automatically fix errors
+  --verbose     Show detailed error information
+  --dry-run     Show what would be fixed without making changes
+
+Examples:
+  node validate-patterns.js patterns/hero.php
+  node validate-patterns.js patterns/ --fix
+  node validate-patterns.js patterns/ --verbose --dry-run
+    `);
+    process.exit(0);
+  }
+
+  const targetPath = args[0];
+  const options = {
+    fix: args.includes('--fix'),
+    verbose: args.includes('--verbose'),
+    dryRun: args.includes('--dry-run'),
+  };
+
+  const validator = new WordPressBlockValidator(options);
+  const result = validator.run(targetPath);
+
+  process.exit(result.success ? 0 : 1);
+}
+
+module.exports = WordPressBlockValidator;
