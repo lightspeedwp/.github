@@ -186,6 +186,23 @@ class WordPressBlockValidator {
       styles.push(`color:${this.convertPresetNotation(styleObj.color.text)}`);
     }
 
+    // Background Image
+    if (styleObj.background?.backgroundImage) {
+      const bgImage = styleObj.background.backgroundImage;
+      if (bgImage.url) {
+        styles.push(`background-image:url('${bgImage.url}')`);
+      }
+    }
+    if (styleObj.background?.backgroundSize) {
+      styles.push(`background-size:${styleObj.background.backgroundSize}`);
+    }
+    if (styleObj.background?.backgroundPosition) {
+      styles.push(`background-position:${styleObj.background.backgroundPosition}`);
+    }
+    if (styleObj.background?.backgroundRepeat) {
+      styles.push(`background-repeat:${styleObj.background.backgroundRepeat}`);
+    }
+
     // Typography
     if (styleObj.typography?.fontSize) {
       styles.push(`font-size:${this.convertPresetNotation(styleObj.typography.fontSize)}`);

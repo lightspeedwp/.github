@@ -191,6 +191,45 @@ Note: The validator checks for any HTML comment that doesn't start with `wp:` or
 - **Attribute**: `"style":{"border":{"width":"2px","color":"#000"}}`
 - **Inline Style**: `border-width:2px;border-color:#000`
 
+### Background Image Attributes
+
+#### Background Image with Properties
+- **Attribute**: `"style":{"background":{"backgroundImage":{"url":"/path/to/image.png","source":"file","title":"image"},"backgroundSize":"cover","backgroundPosition":"center","backgroundRepeat":"no-repeat"}}`
+- **Inline Style**: `background-image:url('/path/to/image.png');background-size:cover;background-position:center;background-repeat:no-repeat`
+- **CRITICAL**: Background images must appear in BOTH block attributes AND HTML inline styles
+- **Why**: Block attributes are for the editor, inline styles are for frontend rendering
+
+**IMPORTANT CONSTRAINT:** Blocks with background images CANNOT have background colors or gradients:
+- Background images will override any `backgroundColor` or `gradient` attributes
+- The validator should flag blocks that have both a background image AND a backgroundColor/gradient attribute
+- ❌ **ERROR:** `"gradient":"brand-red"` + background image
+- ❌ **ERROR:** `"backgroundColor":"primary"` + background image
+- ✅ **VALID:** Only background image attribute present
+
+**Example:**
+```html
+<!-- Block comment with background attributes -->
+<!-- wp:group {"style":{"background":{"backgroundImage":{"url":"/wp-content/themes/theme/assets/images/texture.png","source":"file","title":"texture"},"backgroundSize":"cover"}}} -->
+<!-- HTML must have inline styles -->
+<div class="wp-block-group has-background" style="background-image:url('/wp-content/themes/theme/assets/images/texture.png');background-size:cover">
+```
+
+**Invalid Example (conflicting backgrounds):**
+```html
+<!-- INVALID: Has both gradient and background image -->
+<!-- wp:group {"gradient":"brand-red","style":{"background":{"backgroundImage":{...}}}} -->
+<div class="wp-block-group has-brand-red-gradient-background has-background">
+<!-- This will fail validation - remove "gradient" attribute -->
+```
+
+#### Background Image Properties
+- **backgroundImage.url**: Required - Full path to image
+- **backgroundImage.source**: Typically `"file"` for theme assets
+- **backgroundImage.title**: Optional - Image title/alt description
+- **backgroundSize**: `cover`, `contain`, `auto`, or custom value
+- **backgroundPosition**: `center`, `top`, `bottom`, `left`, `right`, or custom
+- **backgroundRepeat**: `no-repeat`, `repeat`, `repeat-x`, `repeat-y`
+
 ### Typography Attributes
 
 #### Font Size
