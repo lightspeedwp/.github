@@ -2,7 +2,7 @@
 
 ## Description
 
-Expert in validating and fixing WordPress block pattern files to ensure HTML output matches block comment attributes according to WordPress core rendering rules. Detects and corrects mismatches between block attributes (JSON in comments) and their corresponding HTML output.
+Expert in validating and fixing WordPress block pattern files to ensure HTML output matches block comment attributes according to WordPress core rendering rules. Detects and corrects mismatches between block attributes (JSON in comments) and their corresponding HTML output, including redundant fontFamily attributes and malformed font size classes that cause block validation errors.
 
 ## Capabilities
 
@@ -10,9 +10,106 @@ Expert in validating and fixing WordPress block pattern files to ensure HTML out
 - Validate HTML output against WordPress core rendering rules
 - Detect missing or incorrect CSS classes
 - Detect missing or incorrect inline styles
+- **Detect redundant `fontFamily` attributes that WordPress strips on save**
+- **Detect malformed font size classes (e.g., `has-h-3-font-size` vs `has-h3-font-size`)**
+- **Detect and flag non-WordPress block comments (descriptive HTML comments)**
 - Auto-fix common rendering errors in pattern files
 - Scan multiple pattern files for validation errors
 - Generate validation reports with line-by-line error details
+
+## Critical Block Validation Error Checks
+
+### Redundant Font Family Attributes
+
+WordPress optimizes saved content by stripping CSS properties that match theme defaults. This causes block validation errors when:
+
+**Problem:**
+- Block attributes include: `"style":{"typography":{"fontFamily":"var:preset|font-family|roboto-serif"}}`
+- WordPress renders it in the editor with: `style="font-family:var(--wp--preset--font-family--roboto-serif)"`
+- But the saved database content omits it (because it matches the theme default)
+- Result: **Block validation error** ❌
+
+**Solution:**
+- Remove `fontFamily` from block attributes if it matches your `theme.json` default
+- The validator detects this pattern and warns you
+
+**Example:**
+```html
+<!-- BEFORE (causes validation error) -->
+<!-- wp:heading {"style":{"typography":{"fontFamily":"var:preset|font-family|roboto-serif"}}} -->
+<h3 class="wp-block-heading">Text</h3>
+
+<!-- AFTER (no validation error) -->
+<!-- wp:heading {} -->
+<h3 class="wp-block-heading">Text</h3>
+```
+
+### Malformed Font Size Classes
+
+Typos in font size class names cause block validation mismatches.
+
+**Problem:**
+- Block attributes: `"fontSize":"h3"`
+- Expected HTML: `class="wp-block-heading has-h3-font-size"`
+- Actual HTML: `class="wp-block-heading has-h-3-font-size"` (extra dash)
+- Result: **Block validation error** ❌
+
+**Solution:**
+- Ensure font size class matches the pattern: `has-{fontSize}-font-size`
+- No extra dashes or characters in the slug
+
+**Example:**
+```html
+<!-- WRONG (causes validation error) -->
+<!-- wp:heading {"fontSize":"h3"} -->
+<h3 class="wp-block-heading has-h-3-font-size">Text</h3>
+
+<!-- CORRECT (no validation error) -->
+<!-- wp:heading {"fontSize":"h3"} -->
+<h3 class="wp-block-heading has-h3-font-size">Text</h3>
+```
+
+### Invalid HTML Comments (Non-WordPress Block Comments)
+
+WordPress block templates and patterns should **only** contain WordPress block comments. Descriptive HTML comments are not allowed and may interfere with block parsing.
+
+**Problem:**
+- Template contains descriptive comments like: `<!-- Social Media Icons -->`, `<!-- Top Navigation Links -->`, `<!-- Newsletter Section -->`
+- These are standard HTML comments, not WordPress block comments
+- WordPress block template parser expects only block-related comments
+- Result: **Potential parsing issues** ❌ and template pollution
+
+**Valid WordPress Block Comments:**
+- Opening block: `<!-- wp:blockname {...} -->`
+- Closing block: `<!-- /wp:blockname -->`
+- Third-party blocks: `<!-- wp:namespace/blockname {...} -->` (e.g., `<!-- wp:woocommerce/mini-cart -->`)
+
+**Invalid Comments (will be flagged):**
+- `<!-- Social Media Icons -->` ❌
+- `<!-- Top Navigation Links -->` ❌
+- `<!-- Newsletter CTA Section -->` ❌
+- `<!-- Column 1: About Us -->` ❌
+
+**Solution:**
+- Remove ALL descriptive HTML comments from block templates
+- WordPress block structure should be self-documenting through proper nesting and block types
+- Use meaningful class names instead of comments to identify sections
+
+**Example:**
+```html
+<!-- WRONG (validator will flag these) -->
+<!-- Social Media Icons -->
+<!-- wp:social-links {...} -->
+<ul class="wp-block-social-links">...</ul>
+<!-- /wp:social-links -->
+
+<!-- CORRECT (no descriptive comments) -->
+<!-- wp:social-links {...} -->
+<ul class="wp-block-social-links is-style-logos-only header-social">...</ul>
+<!-- /wp:social-links -->
+```
+
+Note: The validator checks for any HTML comment that doesn't start with `wp:` or `/wp:` and flags it as an error.
 
 ## Common WordPress Block Rendering Rules
 

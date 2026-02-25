@@ -220,6 +220,7 @@ class WordPressBlockValidator {
     const errors = [];
     const missingClasses = [];
     const extraClasses = [];
+    const warnings = [];
 
     // Check for missing classes
     expectedClasses.forEach(expectedClass => {
@@ -244,7 +245,38 @@ class WordPressBlockValidator {
       }
     }
 
-    if (missingClasses.length > 0 || missingStyles.length > 0) {
+    // NEW CHECK: Detect redundant fontFamily that WordPress strips
+    if (block.attributes.style?.typography?.fontFamily) {
+      const fontFamilyValue = this.convertPresetNotation(block.attributes.style.typography.fontFamily);
+      if (html.styles && html.styles.includes(`font-family:${fontFamilyValue}`)) {
+        warnings.push({
+          type: 'redundant-font-family',
+          message: `Block has fontFamily in attributes that appears in HTML but WordPress may strip it if it matches theme default: ${fontFamilyValue}`,
+          fix: 'Remove fontFamily from block attributes if it matches your theme.json default',
+        });
+      }
+    }
+
+    // NEW CHECK: Detect malformed font size classes (e.g., has-h-3-font-size instead of has-h3-font-size)
+    if (block.attributes.fontSize) {
+      const expectedFontSizeClass = `has-${block.attributes.fontSize}-font-size`;
+      // Check for common typo: extra dashes in font size slug
+      const malformedPattern = html.classes.find(cls => {
+        return cls.startsWith('has-') && cls.endsWith('-font-size') && cls !== expectedFontSizeClass;
+      });
+      
+      if (malformedPattern && !html.classes.includes(expectedFontSizeClass)) {
+        warnings.push({
+          type: 'malformed-font-size-class',
+          message: `Font size class is malformed: "${malformedPattern}" should be "${expectedFontSizeClass}"`,
+          current: malformedPattern,
+          expected: expectedFontSizeClass,
+          fix: `Change "${malformedPattern}" to "${expectedFontSizeClass}"`,
+        });
+      }
+    }
+
+    if (missingClasses.length > 0 || missingStyles.length > 0 || warnings.length > 0) {
       return {
         lineNumber,
         blockType: block.blockType,
@@ -252,6 +284,7 @@ class WordPressBlockValidator {
         htmlTag,
         missingClasses,
         missingStyles,
+        warnings,
         expectedClasses,
         expectedStyles,
         currentClasses: html.classes,
@@ -308,6 +341,35 @@ class WordPressBlockValidator {
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
+      
+      // Check for non-WordPress block comments (these are not allowed)
+      const htmlCommentMatch = line.match(/<!--\s*(.+?)\s*-->/);
+      if (htmlCommentMatch) {
+        const commentContent = htmlCommentMatch[1].trim();
+        // Valid WordPress block comments start with "wp:" or "/wp:"
+        const isWordPressComment = commentContent.startsWith('wp:') || commentContent.startsWith('/wp:');
+        
+        if (!isWordPressComment) {
+          fileErrors.push({
+            lineNumber: i + 1,
+            blockType: 'invalid-comment',
+            blockComment: line,
+            htmlTag: '',
+            missingClasses: [],
+            missingStyles: [],
+            warnings: [{
+              type: 'non-wordpress-comment',
+              message: `Invalid comment: Only WordPress block comments are allowed`,
+              current: htmlCommentMatch[0],
+              fix: 'Remove this comment. WordPress block templates should only contain block comments (<!-- wp:blocktype --> or <!-- /wp:blocktype -->)',
+            }],
+            expectedClasses: [],
+            expectedStyles: '',
+            currentClasses: [],
+            currentStyles: '',
+          });
+        }
+      }
       
       // Check if this is a WordPress block comment
       if (line.includes('<!-- wp:')) {
@@ -377,6 +439,23 @@ class WordPressBlockValidator {
           console.log(`   Error ${index + 1}:`);
           console.log(`   Block: ${error.blockType} (Line ${error.lineNumber})`);
           console.log(`   HTML Tag: Line ${error.htmlLineNumber}`);
+          
+          // Show warnings first (these are critical issues causing validation errors)
+          if (error.warnings && error.warnings.length > 0) {
+            error.warnings.forEach(warning => {
+              if (warning.type === 'non-wordpress-comment') {
+                console.log(`   ⚠️  ERROR: ${warning.message}`);
+                console.log(`   Comment: ${warning.current}`);
+                console.log(`   Fix: ${warning.fix}`);
+              } else if (warning.type === 'malformed-font-size-class') {
+                console.log(`   ⚠️  CRITICAL: ${warning.message}`);
+                console.log(`   Fix: ${warning.fix}`);
+              } else if (warning.type === 'redundant-font-family') {
+                console.log(`   ⚠️  WARNING: ${warning.message}`);
+                console.log(`   Fix: ${warning.fix}`);
+              }
+            });
+          }
           
           if (error.missingClasses.length > 0) {
             console.log(`   Missing classes: ${error.missingClasses.join(', ')}`);

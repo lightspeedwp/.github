@@ -4,6 +4,10 @@ Validates and automatically fixes WordPress block pattern files to ensure HTML o
 
 ## Recent Updates
 
+✅ **Comment Validation** - Now detects and flags non-WordPress block comments (descriptive HTML comments) that shouldn't exist in block templates!
+
+✅ **Critical Block Validation Error Detection** - Now detects redundant `fontFamily` attributes and malformed font size classes that cause WordPress editor validation errors!
+
 ✅ **Button Block Handling** - The validator now correctly validates button blocks by checking the inner `<a class="wp-block-button__link">` tag instead of the wrapper div, matching WordPress core rendering behavior. No more false positives!
 
 ✅ **Custom Notation Support** - Now handles both `var:preset|` and `var:custom|` notation for colors, spacing, typography, and border properties.
@@ -42,6 +46,60 @@ node validate-patterns.cjs patterns/ --fix --dry-run
 ```
 
 ## What It Checks
+
+### ⚠️ Critical Block Validation Errors
+
+#### Redundant Font Family Attributes
+Detects when `fontFamily` is specified in block attributes but will be stripped by WordPress (causing validation errors):
+
+```html
+<!-- ❌ CAUSES VALIDATION ERROR -->
+<!-- wp:heading {"style":{"typography":{"fontFamily":"var:preset|font-family|roboto-serif"}}} -->
+<h3 class="wp-block-heading">Text</h3>
+
+<!-- ✅ FIXED - fontFamily removed -->
+<!-- wp:heading {} -->
+<h3 class="wp-block-heading">Text</h3>
+```
+
+#### Malformed Font Size Classes
+Catches typos in font size class names:
+
+```html
+<!-- ❌ WRONG - extra dash causes validation error -->
+<!-- wp:heading {"fontSize":"h3"} -->
+<h3 class="wp-block-heading has-h-3-font-size">Text</h3>
+
+<!-- ✅ CORRECT -->
+<!-- wp:heading {"fontSize":"h3"} -->
+<h3 class="wp-block-heading has-h3-font-size">Text</h3>
+```
+
+#### Invalid HTML Comments (Non-WordPress Block Comments)
+Detects descriptive HTML comments that shouldn't exist in block templates:
+
+```html
+<!-- ❌ INVALID - Descriptive comment not allowed -->
+<!-- Social Media Icons -->
+<!-- wp:social-links {...} -->
+<ul class="wp-block-social-links">...</ul>
+<!-- /wp:social-links -->
+
+<!-- ✅ VALID - Only WordPress block comments -->
+<!-- wp:social-links {...} -->
+<ul class="wp-block-social-links is-style-logos-only header-social">...</ul>
+<!-- /wp:social-links -->
+```
+
+**Valid comments:**
+- `<!-- wp:blockname {...} -->` (opening block)
+- `<!-- /wp:blockname -->` (closing block)
+- `<!-- wp:namespace/blockname {...} -->` (third-party blocks like WooCommerce)
+
+**Invalid comments (will be flagged):**
+- `<!-- Social Media Icons -->` ❌
+- `<!-- Top Navigation Links -->` ❌
+- `<!-- Newsletter Section -->` ❌
 
 ### ✅ Color Classes
 - `backgroundColor` → `has-{color}-background-color has-background`
