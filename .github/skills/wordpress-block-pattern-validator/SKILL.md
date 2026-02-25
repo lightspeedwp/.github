@@ -193,11 +193,34 @@ Note: The validator checks for any HTML comment that doesn't start with `wp:` or
 
 ### Background Image Attributes
 
-#### Background Image with Properties
+WordPress blocks support two valid patterns for implementing background images:
+
+#### Pattern 1: Simple Backgrounds (Attributes + Inline Styles)
 - **Attribute**: `"style":{"background":{"backgroundImage":{"url":"/path/to/image.png","source":"file","title":"image"},"backgroundSize":"cover","backgroundPosition":"center","backgroundRepeat":"no-repeat"}}`
 - **Inline Style**: `background-image:url('/path/to/image.png');background-size:cover;background-position:center;background-repeat:no-repeat`
-- **CRITICAL**: Background images must appear in BOTH block attributes AND HTML inline styles
-- **Why**: Block attributes are for the editor, inline styles are for frontend rendering
+- **Use Case**: Simple background images without advanced effects
+- **Rendering**: Browser renders directly from inline styles
+- **Validation**: Background must appear in BOTH attributes AND inline styles
+
+#### Pattern 2: Advanced Backgrounds (Attributes Only + SCSS)
+- **Attribute**: `"style":{"background":{"backgroundImage":{"url":"/path/to/image.png","source":"file","title":"image"},"backgroundSize":"cover","backgroundPosition":"center","backgroundRepeat":"no-repeat"}}`
+- **Inline Style**: NO background properties in HTML inline styles
+- **Use Case**: Backgrounds with advanced effects (blend modes, opacity, positioning)
+- **Rendering**: SCSS handles frontend rendering with advanced CSS properties
+- **Validation**: Background ONLY in attributes, empty HTML div for SCSS targeting
+- **⚠️ NOTE**: Current validator will flag missing inline styles - this is expected for Pattern 2
+
+**Pattern 2 Implementation:**
+```html
+<!-- Background in attributes for editor preview -->
+<!-- wp:group {"style":{"background":{"backgroundImage":{"url":"/wp-content/themes/theme/assets/images/texture.png","source":"file","title":"texture"},"backgroundSize":"cover"}},"className":"header-main"} -->
+<!-- NO background in inline styles - SCSS handles rendering -->
+<div class="wp-block-group header-main has-background" style="border-bottom-color:var(--wp--preset--color--secondary)">
+  <!-- Empty div for SCSS targeting with .header-main > div:first-child -->
+  <div></div>
+  <!-- Rest of content -->
+</div>
+```
 
 **IMPORTANT CONSTRAINT:** Blocks with background images CANNOT have background colors or gradients:
 - Background images will override any `backgroundColor` or `gradient` attributes
@@ -205,14 +228,6 @@ Note: The validator checks for any HTML comment that doesn't start with `wp:` or
 - ❌ **ERROR:** `"gradient":"brand-red"` + background image
 - ❌ **ERROR:** `"backgroundColor":"primary"` + background image
 - ✅ **VALID:** Only background image attribute present
-
-**Example:**
-```html
-<!-- Block comment with background attributes -->
-<!-- wp:group {"style":{"background":{"backgroundImage":{"url":"/wp-content/themes/theme/assets/images/texture.png","source":"file","title":"texture"},"backgroundSize":"cover"}}} -->
-<!-- HTML must have inline styles -->
-<div class="wp-block-group has-background" style="background-image:url('/wp-content/themes/theme/assets/images/texture.png');background-size:cover">
-```
 
 **Invalid Example (conflicting backgrounds):**
 ```html
