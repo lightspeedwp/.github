@@ -44,6 +44,36 @@ WordPress optimizes saved content by stripping CSS properties that match theme d
 <h3 class="wp-block-heading">Text</h3>
 ```
 
+### Redundant FontFamily Attributes
+
+WordPress optimizes out `fontFamily` attributes when they match the theme default, causing block validation mismatches.
+
+**Problem:**
+- Block attributes include: `"style":{"typography":{"fontFamily":"var:preset|font-family|inter"}}`
+- Theme default font family (from theme.json): `inter`
+- WordPress saves block WITHOUT fontFamily in database (optimization)
+- Result: **Block validation error** ❌ (attribute mismatch between save function and database)
+
+**Button Blocks Specific Issue:**
+- Attributes: `"typography":{"fontFamily":"var:preset|font-family|inter","fontWeight":"600"}`
+- Save function generates: `font-family:var(--wp--preset--font-family--inter);font-weight:600`
+- Database content: `font-weight:600` (fontFamily stripped)
+- Result: Validation error showing mismatch
+
+**Solution:**
+- Remove `fontFamily` from block attributes when it matches theme.json default
+- Keep other typography properties like `fontWeight`, `fontSize`, `letterSpacing`
+- WordPress will apply default font family automatically
+
+**Example:**
+```html
+<!-- WRONG (causes validation error) -->
+<!-- wp:button {...,"typography":{"fontFamily":"var:preset|font-family|inter","fontWeight":"600"}...} -->
+
+<!-- CORRECT (no validation error) -->
+<!-- wp:button {...,"typography":{"fontWeight":"600"}...} -->
+```
+
 ### Malformed Font Size Classes
 
 Typos in font size class names cause block validation mismatches.
@@ -167,6 +197,52 @@ Note: The validator checks for any HTML comment that doesn't start with `wp:` or
 - **Attribute**: `"fontSize":"large"`
 - **Required Class**: `has-large-font-size`
 
+#### Default Font Size Optimization
+- **Special Case**: WordPress handles `fontSize="base"` differently for button wrapper vs link element
+- **Theme Default**: `fontSize="base"` (defined in theme.json)
+- **Button Wrapper Behavior**: When `fontSize="base"`, wrapper `<div>` gets NO font size classes (optimization)
+- **Button Link Behavior**: Link `<a>` ALWAYS gets font size classes, even for default
+- **Validator Logic**: Expects classes on `<a>` but NOT on wrapper `<div>` when `fontSize="base"`
+
+**Example (Default Font Size):**
+```html
+<!-- Block Attributes -->
+"fontSize":"base"
+
+<!-- What WordPress SAVES -->
+<div class="wp-block-button">
+  <a class="wp-block-button__link has-base-font-size has-custom-font-size ...">Subscribe</a>
+</div>
+
+<!-- What validator EXPECTS -->
+- Wrapper div: NO font size classes ✅
+- Link element: has-base-font-size has-custom-font-size ✅
+```
+
+**Example (Custom Font Size):**
+```html
+<!-- Block Attributes -->
+"fontSize":"sm"
+
+<!-- What WordPress saves -->
+<div class="wp-block-button has-custom-font-size has-sm-font-size">
+  <a class="wp-block-button__link has-sm-font-size has-custom-font-size ...">Subscribe</a>
+</div>
+
+<!-- What validator expects -->
+- Wrapper div: has-custom-font-size has-sm-font-size ✅
+- Link element: has-sm-font-size has-custom-font-size ✅
+```
+
+**Common Issue:**
+- Developer adds font size classes to wrapper div when `fontSize="base"`
+- WordPress strips them from wrapper (keeps on link only)
+- Result: **Validation error** ❌ (class mismatch)
+
+**Solution:**
+- When `fontSize="base"`: NO classes on wrapper `<div>`, YES classes on link `<a>`
+- When `fontSize` is custom (sm, lg, etc.): YES classes on BOTH wrapper and link
+
 #### Custom Font Size
 - **Attribute**: `"style":{"typography":{"fontSize":"2rem"}}`
 - **Inline Style**: `font-size:2rem`
@@ -206,6 +282,81 @@ The **Cover block** has a specific HTML structure that must be followed for prop
 - ❌ Missing `data-object-fit="cover"` on image
 - ❌ Using descriptive alt text instead of empty `alt=""`
 - ❌ Formatting with line breaks (WordPress outputs inline)
+
+### Navigation Block Structure
+
+Navigation blocks must use **correct block comment syntax** based on whether they have children.
+
+#### Block Comment Syntax Rules
+
+**Rule 1: Self-Closing (No Children)**
+```html
+<!-- CORRECT: Self-closing navigation block -->
+<!-- wp:navigation {"overlayMenu":"never","ref":123} /-->
+```
+- Ends with `/-->`
+- No closing `<!-- /wp:navigation -->` tag
+- Typically used with `ref` attribute to reference a menu from WordPress admin
+
+**Rule 2: With Children**
+```html
+<!-- CORRECT: Navigation with child links -->
+<!-- wp:navigation {"overlayMenu":"never","layout":{"type":"flex","orientation":"vertical"}} -->
+  <!-- wp:navigation-link {"label":"Home","url":"/"} /-->
+  <!-- wp:navigation-link {"label":"About","url":"/about"} /-->
+  <!-- wp:navigation-link {"label":"Contact","url":"/contact"} /-->
+<!-- /wp:navigation -->
+```
+- Opening tag ends with `-->` (NOT `/-->`)
+- Must have closing `<!-- /wp:navigation -->` tag
+- Can contain `navigation-link` children
+
+**Rule 3: NEVER Mix Syntax**
+```html
+<!-- ❌ INCORRECT: Self-closing WITH children -->
+<!-- wp:navigation {"overlayMenu":"never"} /-->
+  <!-- wp:navigation-link {"label":"Home","url":"/"} /-->
+  <!-- wp:navigation-link {"label":"About","url":"/about"} /-->
+<!-- /wp:navigation -->
+```
+- Opening tag is self-closing (`/-->`) but children and closing tag exist
+- WordPress parser will not handle this correctly
+- **This is invalid block comment syntax**
+
+#### Validation Rules
+
+The validator checks:
+1. ✅ If opening tag ends with `/-->`, there should be NO children and NO closing tag
+2. ✅ If opening tag ends with `-->`, there MUST be a closing `<!-- /wp:navigation -->` tag
+3. ❌ Flags mixed syntax (self-closing opening with children/closing tag)
+
+**Common mistakes:**
+- ❌ Using self-closing syntax (`/-->`) when navigation has children
+- ❌ Forgetting to remove `/` from opening tag when adding children
+- ❌ Having both `/-->` and `<!-- /wp:navigation -->` in the same block
+
+**Best Practice Workflow:**
+1. Create menu in WordPress admin (Appearance → Menus)
+2. Add menu items and organize structure
+3. Note the menu ID from database or admin URL
+4. Use self-closing navigation block with `ref` attribute in patterns/templates
+5. WordPress will automatically render the menu items at runtime
+
+**Example with Attributes:**
+```html
+<!-- Self-closing navigation with full styling -->
+<!-- wp:navigation {
+  "ref":123,
+  "overlayMenu":"never",
+  "layout":{"type":"flex","orientation":"vertical"},
+  "style":{
+    "spacing":{"blockGap":"var:preset|spacing|30"},
+    "typography":{"fontSize":"14px"}
+  }
+} /-->
+```
+
+**Note:** When `ref` is omitted, WordPress will use the menu assigned to the "Primary" menu location (or prompt users to create a menu in the editor).
 
 ## Validation Algorithm
 

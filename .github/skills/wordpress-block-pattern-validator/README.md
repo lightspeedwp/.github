@@ -4,6 +4,8 @@ Validates and automatically fixes WordPress block pattern files to ensure HTML o
 
 ## Recent Updates
 
+✅ **Navigation Block Syntax Validation** - Now validates block comment syntax: detects when navigation blocks incorrectly use self-closing (`/-->`) with children, which causes WordPress parsing errors!
+
 ✅ **Comment Validation** - Now detects and flags non-WordPress block comments (descriptive HTML comments) that shouldn't exist in block templates!
 
 ✅ **Critical Block Validation Error Detection** - Now detects redundant `fontFamily` attributes and malformed font size classes that cause WordPress editor validation errors!
@@ -61,6 +63,40 @@ Detects when `fontFamily` is specified in block attributes but will be stripped 
 <!-- wp:heading {} -->
 <h3 class="wp-block-heading">Text</h3>
 ```
+
+**Button Block Example:**
+```html
+<!-- ❌ CAUSES VALIDATION ERROR - fontFamily matches theme default -->
+<!-- wp:button {...,"typography":{"fontFamily":"var:preset|font-family|inter","fontWeight":"600"}...} -->
+
+<!-- ✅ FIXED - fontFamily removed, fontWeight kept -->
+<!-- wp:button {...,"typography":{"fontWeight":"600"}...} -->
+```
+
+#### Default Font Size Optimization
+WordPress handles `fontSize="base"` differently for button wrapper vs link:
+
+```html
+<!-- Block attributes have fontSize="base" -->
+<!-- wp:button {...,"fontSize":"base"} -->
+
+<!-- ❌ WRONG - wrapper should not have font size classes when base -->
+<div class="wp-block-button has-base-font-size">
+  <a class="wp-block-button__link has-base-font-size has-custom-font-size ...">Text</a>
+</div>
+
+<!-- ✅ CORRECT - wrapper has no classes, link has both classes -->
+<div class="wp-block-button">
+  <a class="wp-block-button__link has-base-font-size has-custom-font-size ...">Text</a>
+</div>
+
+<!-- For custom sizes like fontSize="sm", both get classes -->
+<div class="wp-block-button has-custom-font-size has-sm-font-size">
+  <a class="wp-block-button__link has-sm-font-size has-custom-font-size ...">Text</a>
+</div>
+```
+
+**Key Rule:** Link element `<a>` always gets font size classes, wrapper `<div>` only for non-default sizes.
 
 #### Malformed Font Size Classes
 Catches typos in font size class names:
@@ -126,6 +162,36 @@ Detects descriptive HTML comments that shouldn't exist in block templates:
 - Validates correct child element order: `<img>` → `<span>` → `<div>`
 - Checks for `data-object-fit="cover"` attribute on images
 - Verifies proper overlay background classes
+
+### ✅ Navigation Block Syntax
+
+Navigation blocks must use correct block comment syntax:
+
+**⚠️ Common Mistake (Self-Closing WITH Children):**
+```html
+<!-- ❌ WRONG - Self-closing but has children and closing tag -->
+<!-- wp:navigation {"overlayMenu":"never"} /-->
+  <!-- wp:navigation-link {"label":"Home","url":"/"} /-->
+  <!-- wp:navigation-link {"label":"About","url":"/about"} /-->
+<!-- /wp:navigation -->
+```
+
+**✅ CORRECT - Two Valid Options:**
+
+*Option 1: Self-closing (no children):*
+```html
+<!-- wp:navigation {"ref":123,"overlayMenu":"never"} /-->
+```
+
+*Option 2: With children (not self-closing):*
+```html
+<!-- wp:navigation {"overlayMenu":"never","layout":{"type":"flex"}} -->
+  <!-- wp:navigation-link {"label":"Home","url":"/"} /-->
+  <!-- wp:navigation-link {"label":"About","url":"/about"} /-->
+<!-- /wp:navigation -->
+```
+
+**Key Rule:** If block has children, opening tag must end with `-->` (NOT `/-->`)
 
 ## Common Errors Fixed
 

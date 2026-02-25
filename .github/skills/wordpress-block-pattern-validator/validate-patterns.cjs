@@ -99,9 +99,10 @@ class WordPressBlockValidator {
       classes.push(`align${attributes.align}`);
     }
 
-    // Custom className
+    // Custom className - split by spaces to handle multiple classes
     if (attributes.className) {
-      classes.push(attributes.className);
+      const customClasses = attributes.className.split(/\s+/).filter(Boolean);
+      classes.push(...customClasses);
     }
 
     // Text color
@@ -122,8 +123,17 @@ class WordPressBlockValidator {
     }
 
     // Font size
+    // SPECIAL CASE: Button links always get font size classes, even for default (base)
+    // Wrapper divs only get them for non-default sizes
     if (attributes.fontSize) {
-      classes.push(`has-${attributes.fontSize}-font-size`);
+      if (isButtonLink || attributes.fontSize !== 'base') {
+        classes.push(`has-${attributes.fontSize}-font-size`);
+      }
+    }
+
+    // Custom font size indicator (appears when fontSize is set)
+    if (attributes.fontSize && isButtonLink) {
+      classes.push('has-custom-font-size');
     }
 
     return classes;
@@ -371,6 +381,56 @@ class WordPressBlockValidator {
         }
       }
       
+      // Check for navigation block syntax errors (but not navigation-link)
+      if (line.includes('<!-- wp:navigation ') && !line.includes('<!-- wp:navigation-link')) {
+        const isSelfClosing = line.trim().endsWith('/-->');
+        
+        // Look ahead for children or closing tag
+        let hasChildren = false;
+        let hasClosingTag = false;
+        
+        for (let j = i + 1; j < Math.min(i + 50, lines.length); j++) {
+          const futureLine = lines[j];
+          if (futureLine.indexOf('<!-- wp:navigation-link') !== -1) {
+            hasChildren = true;
+          }
+          if (futureLine.indexOf('<!-- /wp:navigation -->') !== -1) {
+            hasClosingTag = true;
+            break;
+          }
+          // Stop if we hit another block opening
+          if (j > i + 1 && futureLine.indexOf('<!-- wp:') !== -1 && futureLine.indexOf('<!-- /wp:') === -1) {
+            break;
+          }
+        }
+        
+        // Error: Self-closing but has children or closing tag
+        if (isSelfClosing && (hasChildren || hasClosingTag)) {
+          fileErrors.push({
+            lineNumber: i + 1,
+            htmlLineNumber: i + 1, // Add this so report generation works
+            blockType: 'navigation',
+            blockComment: line.trim(),
+            htmlTag: line.trim(),
+            htmlLine: line.trim(),
+            missingClasses: [],
+            missingStyles: [],
+            warnings: [{
+              type: 'navigation-syntax-error',
+              message: `Navigation block uses self-closing syntax (/-->) but has children or closing tag`,
+              current: line.trim(),
+              fix: hasChildren 
+                ? 'Change /--&gt; to --&gt; (remove the slash) because this block has children'
+                : 'Remove the closing <!-- /wp:navigation --> tag because this block is self-closing',
+            }],
+            expectedClasses: [],
+            expectedStyles: '',
+            currentClasses: [],
+            currentStyles: '',
+          });
+        }
+      }
+      
       // Check if this is a WordPress block comment
       if (line.includes('<!-- wp:')) {
         // Get the next non-empty line
@@ -446,6 +506,10 @@ class WordPressBlockValidator {
               if (warning.type === 'non-wordpress-comment') {
                 console.log(`   ⚠️  ERROR: ${warning.message}`);
                 console.log(`   Comment: ${warning.current}`);
+                console.log(`   Fix: ${warning.fix}`);
+              } else if (warning.type === 'navigation-syntax-error') {
+                console.log(`   ⚠️  CRITICAL: ${warning.message}`);
+                console.log(`   Block: ${warning.current}`);
                 console.log(`   Fix: ${warning.fix}`);
               } else if (warning.type === 'malformed-font-size-class') {
                 console.log(`   ⚠️  CRITICAL: ${warning.message}`);
