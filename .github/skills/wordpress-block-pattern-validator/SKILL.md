@@ -245,6 +245,109 @@ WordPress blocks support two valid patterns for implementing background images:
 - **backgroundPosition**: `center`, `top`, `bottom`, `left`, `right`, or custom
 - **backgroundRepeat**: `no-repeat`, `repeat`, `repeat-x`, `repeat-y`
 
+### Drop Shadow Attributes
+
+WordPress blocks support drop shadows via the `shadow` attribute. However, there are important constraints:
+
+#### When Drop Shadows Should Use Block Attributes
+
+- **Standalone blocks**: Blocks NOT part of a section or pattern
+- **Editable shadows**: Shadows that should be changeable in the WordPress editor
+- **Simple shadows**: Single-layer shadows without advanced effects
+
+**Valid Example (Standalone Block):**
+```html
+<!-- wp:group {"style":{"shadow":"0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)"},"className":"header-categories"} -->
+<div class="wp-block-group header-categories" style="box-shadow:0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)">
+```
+
+#### When Drop Shadows Should Use SCSS
+
+- **Section/pattern blocks**: Blocks that are part of a larger section or pattern
+- **Complex shadows**: Multi-layer shadows or shadows with hover states
+- **Design system**: Shadows that are part of the theme's design system
+
+**Valid Example (Part of Section - NO shadow in attributes):**
+```html
+<!-- wp:group {"className":"pattern-hero-section"} -->
+<div class="wp-block-group pattern-hero-section">
+  <!-- Shadow handled by _hero.scss -->
+```
+
+#### Drop Shadow Validation Rules
+
+- **Attribute**: `"style":{"shadow":"CSS_VALUE"}`
+- **Inline Style**: `style="box-shadow:CSS_VALUE"`
+- **CRITICAL**: If shadow is in block attributes, it MUST also be in inline styles
+- **CONSTRAINT**: Do NOT validate missing inline shadows as errors if block is part of a section/pattern
+- **⚠️ NOTE**: Current validator may flag missing inline shadows for section/pattern blocks - this is expected behavior and should be ignored when SCSS handles the shadow
+
+**Validation Logic:**
+1. If `style.shadow` exists in block attributes:
+   - Check if block has a className indicating it's part of a section/pattern (e.g., contains "pattern-", "section-")
+   - If standalone block: Require matching inline `box-shadow` style
+   - If section/pattern block: Flag as warning (should use SCSS instead)
+2. If no `style.shadow` in attributes:
+   - Valid (no validation needed)
+
+### Sticky Position Attributes
+
+WordPress blocks support sticky positioning via the `position` attribute:
+
+#### Sticky Position Pattern
+
+- **Attribute**: `"style":{"position":{"type":"sticky","top":"0px"}}`
+- **Inline Style**: `style="position:sticky;top:0px"`
+- **CRITICAL**: If position is in block attributes, it MUST also be in inline styles
+
+**Valid Example (Sticky Header):**
+```html
+<!-- wp:group {"style":{"position":{"type":"sticky","top":"0px"}},"className":"site-header"} -->
+<div class="wp-block-group site-header" style="position:sticky;top:0px">
+```
+
+#### Position Attribute Structure
+
+```json
+{
+  "style": {
+    "position": {
+      "type": "sticky|fixed|absolute|relative",
+      "top": "0px",     // optional
+      "bottom": "0px",  // optional
+      "left": "0px",    // optional
+      "right": "0px"    // optional
+    }
+  }
+}
+```
+
+#### Sticky Position Validation Rules
+
+- **Attribute**: `"style":{"position":{"type":"VALUE"}}`
+- **Inline Style**: `style="position:VALUE"`
+- **CRITICAL**: Position type must match between attributes and inline styles
+- **Position offsets**: If `top`, `bottom`, `left`, or `right` specified in attributes, they MUST appear in inline styles
+
+**Validation Logic:**
+1. If `style.position` exists in block attributes:
+   - Require matching inline `position` style
+   - Validate position type matches (sticky, fixed, absolute, relative)
+   - If offset properties present (top/bottom/left/right), require matching inline styles
+2. If no `style.position` in attributes:
+   - Valid (no validation needed)
+
+**Common Validation Errors:**
+```html
+<!-- ❌ WRONG: Position in attributes but not in inline styles -->
+<!-- wp:group {"style":{"position":{"type":"sticky","top":"0px"}}} -->
+<div class="wp-block-group">
+
+<!-- ✅ CORRECT: Position in both attributes and inline styles -->
+<!-- wp:group {"style":{"position":{"type":"sticky","top":"0px"}}} -->
+<div class="wp-block-group" style="position:sticky;top:0px">
+```
+
 ### Typography Attributes
 
 #### Font Size

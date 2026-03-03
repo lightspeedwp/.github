@@ -361,6 +361,97 @@ When you need CSS properties not supported by block attributes (blend modes, opa
    ✗ 59f5f21fc3ab664ddea62e2cde218d15718c0a5b.png
    ```
 
+## Drop Shadow Conversion (TSX/React to WordPress Blocks)
+
+When converting React/TSX components with drop shadows to WordPress blocks, follow these guidelines:
+
+### When to Use Block Attributes vs SCSS
+
+**Use Block Attributes (Individual Blocks):**
+- ✅ Standalone blocks NOT part of a section or pattern
+- ✅ Simple drop shadows without advanced effects
+- ✅ Shadows that should be editable in the WordPress editor
+
+**Use SCSS (Sections/Patterns):**
+- ✅ Blocks within sections or patterns
+- ✅ Complex shadow effects with multiple layers
+- ✅ Shadows with hover states or transitions
+- ✅ Shadows that are part of the design system
+
+### Block Attribute Pattern (Individual Blocks)
+
+For standalone blocks, use WordPress block attributes:
+
+**React/TSX:**
+```tsx
+<div className="header-categories" style={{ boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
+  <nav>...</nav>
+</div>
+```
+
+**WordPress Block Pattern:**
+```html
+<!-- wp:group {"style":{"shadow":"0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)"},"className":"header-categories"} -->
+<div class="wp-block-group header-categories" style="box-shadow:0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)">
+  <!-- Navigation blocks -->
+</div>
+<!-- /wp:group -->
+```
+
+**CRITICAL:** Drop shadows in block attributes must appear in BOTH places:
+1. **Block comment attributes**: `"style":{"shadow":"CSS_VALUE"}`
+2. **HTML inline styles**: `style="box-shadow:CSS_VALUE"`
+
+### SCSS Pattern (Sections/Patterns)
+
+For blocks within sections or patterns, use SCSS:
+
+**WordPress Block Pattern (NO shadow in attributes):**
+```html
+<!-- wp:group {"className":"header-categories"} -->
+<div class="wp-block-group header-categories">
+  <!-- Navigation blocks -->
+</div>
+<!-- /wp:group -->
+```
+
+**SCSS Module (_header.scss):**
+```scss
+.header-categories {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  
+  // Optional: Add hover effects
+  &:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+}
+```
+
+### Common Drop Shadow Values
+
+```css
+/* Subtle shadow (similar to Tailwind shadow-sm) */
+0 1px 2px 0 rgba(0, 0, 0, 0.05)
+
+/* Medium shadow (similar to Tailwind shadow-md) */
+0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+
+/* Large shadow (similar to Tailwind shadow-lg) */
+0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)
+
+/* Extra large shadow (similar to Tailwind shadow-xl) */
+0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)
+```
+
+### IMPORTANT CONSTRAINT
+
+❌ **DO NOT** add drop shadows via block attributes if the block is part of a section or pattern
+✅ **DO** use SCSS for shadows in sections/patterns
+❌ **DO NOT** mix block attribute shadows with SCSS shadows on the same element
+✅ **DO** use block attributes for standalone, editable blocks
+
 ### Conversion Checklist
 
 **For Pattern 1 (Simple backgrounds):**
@@ -384,6 +475,94 @@ When you need CSS properties not supported by block attributes (blend modes, opa
 - [ ] SCSS module targets overlay div correctly
 - [ ] Theme rebuilt after SCSS changes
 
+## Sticky Position (TSX/React to WordPress Blocks)
+
+When converting React/TSX components with sticky positioning to WordPress blocks, follow this pattern:
+
+### React/TSX Sticky Position Pattern
+
+```tsx
+// React component with sticky positioning
+<header className="site-header sticky top-0 z-50">
+  <nav>...</nav>
+</header>
+```
+
+### WordPress Block Pattern
+
+For sticky elements, use WordPress block attributes:
+
+```html
+<!-- wp:group {"style":{"position":{"type":"sticky","top":"0px"}},"className":"site-header sticky top-0 z-50"} -->
+<div class="wp-block-group site-header sticky top-0 z-50" style="position:sticky;top:0px">
+  <!-- Navigation blocks -->
+</div>
+<!-- /wp:group -->
+```
+
+**CRITICAL:** Sticky positioning must appear in BOTH places:
+1. **Block comment attributes**: `"style":{"position":{"type":"sticky","top":"0px"}}`
+2. **HTML inline styles**: `style="position:sticky;top:0px"`
+
+### Sticky Position Attribute Structure
+
+```json
+{
+  "style": {
+    "position": {
+      "type": "sticky",
+      "top": "0px"  // or "bottom", "left", "right"
+    }
+  }
+}
+```
+
+### Common Sticky Patterns
+
+**Sticky Header:**
+```html
+<!-- wp:group {"style":{"position":{"type":"sticky","top":"0px"}},"className":"site-header"} -->
+<div class="wp-block-group site-header" style="position:sticky;top:0px">
+```
+
+**Sticky Sidebar:**
+```html
+<!-- wp:group {"style":{"position":{"type":"sticky","top":"2rem"}},"className":"sidebar"} -->
+<div class="wp-block-group sidebar" style="position:sticky;top:2rem">
+```
+
+**Sticky Footer:**
+```html
+<!-- wp:group {"style":{"position":{"type":"sticky","bottom":"0px"}},"className":"site-footer"} -->
+<div class="wp-block-group site-footer" style="position:sticky;bottom:0px">
+```
+
+### Additional Sticky Positioning Considerations
+
+- **Z-index**: Add Tailwind utility classes like `z-50` to ensure proper stacking
+- **Background**: Sticky elements usually need a background color to prevent content showing through
+- **Box shadow**: Consider adding shadows to create depth (e.g., `shadow-sm` class)
+- **Responsive**: Use responsive Tailwind classes to control sticky behavior at different breakpoints
+
+### IMPORTANT CONSTRAINT
+
+✅ **DO** use WordPress block attributes for sticky positioning
+✅ **DO** include matching inline styles in HTML
+✅ **DO** add z-index utilities for proper stacking
+✅ **DO** add background colors to prevent transparent overlap
+❌ **DO NOT** rely solely on CSS classes for sticky positioning
+❌ **DO NOT** forget to add inline styles matching the block attributes
+
+### Conversion Checklist - Sticky Position
+
+- [ ] Position type set to `"sticky"` in block attributes
+- [ ] Top/bottom/left/right offset specified (e.g., `"top":"0px"`)
+- [ ] Inline style includes: `position:sticky;top:0px` (matching attributes)
+- [ ] Z-index utility class added (e.g., `z-50`)
+- [ ] Background color set to prevent transparent overlap
+- [ ] Optional: Box shadow added for depth perception
+- [ ] Tested on different screen sizes for responsive behavior
+
 ## Related Skills
 
 - `block-theme-development` - Overall theme development standards
@@ -392,13 +571,32 @@ When you need CSS properties not supported by block attributes (blend modes, opa
 
 ## Version
 
-1.5.0
+1.7.0
 
 ## Last Updated
 
 2026-02-25
 
 ## Changelog
+
+### 1.7.0 (2026-02-25)
+- **MAJOR UPDATE**: Added comprehensive sticky position documentation
+  - Documented sticky positioning with WordPress block attributes
+  - Block attributes: `"style":{"position":{"type":"sticky","top":"0px"}}`
+  - Inline styles: `style="position:sticky;top:0px"`
+  - Added common sticky patterns (header, sidebar, footer)
+  - Added validation rules for position attributes
+  - Updated conversion checklist to include sticky position considerations
+  - Added z-index and background color recommendations for sticky elements
+
+### 1.6.0 (2026-02-25)
+- **MAJOR UPDATE**: Added comprehensive drop shadow documentation
+  - Documented when to use block attributes vs SCSS for drop shadows
+  - Block attributes: For standalone blocks NOT part of sections/patterns
+  - SCSS: For blocks within sections/patterns or with advanced effects
+- Added common drop shadow values (sm, md, lg, xl)
+- Added constraint: Do NOT mix block attribute shadows with SCSS shadows
+- Updated conversion checklist to include drop shadow considerations
 
 ### 1.5.0 (2026-02-25)
 - **MAJOR UPDATE**: Documented two distinct patterns for background images
