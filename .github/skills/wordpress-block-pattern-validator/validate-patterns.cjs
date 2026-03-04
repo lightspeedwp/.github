@@ -84,15 +84,23 @@ class WordPressBlockValidator {
   /**
    * Generate expected classes based on block attributes
    */
-  generateExpectedClasses(blockType, attributes, isButtonLink = false) {
+  generateExpectedClasses(blockType, attributes, isButtonLink = false, isButtonWrapper = false) {
     const classes = [];
 
     // Base block class
-    // Special case: button inner link uses 'wp-block-button__link' instead of 'wp-block-button'
-    const baseClass = (blockType === 'button' && isButtonLink) 
-      ? 'wp-block-button__link' 
-      : `wp-block-${blockType.replace('/', '-')}`;
-    classes.push(baseClass);
+    if (blockType === 'button') {
+      if (isButtonWrapper) {
+        // Button wrapper div gets wp-block-button
+        classes.push('wp-block-button');
+      } else if (isButtonLink) {
+        // Button inner link gets wp-block-button__link and wp-element-button
+        classes.push('wp-block-button__link');
+        classes.push('wp-element-button');
+      }
+    } else {
+      // All other blocks use standard pattern
+      classes.push(`wp-block-${blockType.replace('/', '-')}`);
+    }
 
     // Alignment
     if (attributes.align) {
@@ -100,9 +108,23 @@ class WordPressBlockValidator {
     }
 
     // Custom className - split by spaces to handle multiple classes
+    // For button blocks: style classes (is-style-*) go on wrapper div, not inner link
     if (attributes.className) {
       const customClasses = attributes.className.split(/\s+/).filter(Boolean);
-      classes.push(...customClasses);
+      
+      if (blockType === 'button') {
+        if (isButtonWrapper) {
+          // Wrapper div gets ALL custom classes including is-style-*
+          classes.push(...customClasses);
+        } else if (isButtonLink) {
+          // Inner link does NOT get style classes, only other custom classes
+          const nonStyleClasses = customClasses.filter(cls => !cls.startsWith('is-style-'));
+          classes.push(...nonStyleClasses);
+        }
+      } else {
+        // Non-button blocks: all custom classes go on the element
+        classes.push(...customClasses);
+      }
     }
 
     // Text color
@@ -225,29 +247,78 @@ class WordPressBlockValidator {
     if (!html) return null;
 
     let isButtonLink = false;
+    let isButtonWrapper = false;
+    const missingClasses = [];
+    const warnings = [];
 
-    // SPECIAL CASE: Button blocks apply attributes to inner <a> tag, not wrapper div
-    // WordPress structure: <div class="wp-block-button"><a class="wp-block-button__link ...">
+    // SPECIAL CASE: Button blocks have two parts to validate:
+    // 1. Wrapper div: <div class="wp-block-button is-style-*">
+    // 2. Inner link: <a class="wp-block-button__link wp-element-button">
+    // Style classes (is-style-*) belong on the wrapper div, NOT the inner link
     if (block.blockType === 'button' && html.tagName === 'div') {
-      // Try to extract the inner <a> tag
+      isButtonWrapper = true;
+      
+      // Validate the wrapper div
+      const wrapperExpectedClasses = this.generateExpectedClasses(block.blockType, block.attributes, false, true);
+      wrapperExpectedClasses.forEach(expectedClass => {
+        if (!html.classes.includes(expectedClass)) {
+          missingClasses.push(expectedClass);
+        }
+      });
+      
+      // Try to extract and validate the inner <a> tag
       const innerLinkMatch = htmlTag.match(/<a\s+([^>]*)>/);
       if (innerLinkMatch) {
         const linkHtml = this.parseHtmlTag(innerLinkMatch[0]);
         if (linkHtml) {
-          // Use the inner link for validation instead of wrapper div
-          html = linkHtml;
           isButtonLink = true;
+          const linkExpectedClasses = this.generateExpectedClasses(block.blockType, block.attributes, true, false);
+          
+          // Check for missing classes on the link
+          linkExpectedClasses.forEach(expectedClass => {
+            if (!linkHtml.classes.includes(expectedClass)) {
+              missingClasses.push(`${expectedClass} (on inner link)`);
+            }
+          });
+          
+          // Check if style classes are incorrectly on the inner link
+          const styleClassesOnLink = linkHtml.classes.filter(cls => cls.startsWith('is-style-'));
+          if (styleClassesOnLink.length > 0) {
+            warnings.push({
+              type: 'misplaced-style-class',
+              message: `Style classes should be on wrapper div, not inner link: ${styleClassesOnLink.join(', ')}`,
+              fix: `Move ${styleClassesOnLink.join(', ')} from <a> to <div class="wp-block-button">`,
+            });
+          }
         }
       }
+      
+      // If there are errors or warnings, return them
+      if (missingClasses.length > 0 || warnings.length > 0) {
+        const allExpectedClasses = this.generateExpectedClasses(block.blockType, block.attributes, false, true);
+        return {
+          lineNumber,
+          blockType: block.blockType,
+          blockComment,
+          htmlTag,
+          missingClasses,
+          missingStyles: [],
+          warnings,
+          expectedClasses: allExpectedClasses,
+          expectedStyles: '',
+          currentClasses: html.classes,
+          currentStyles: html.styles || '',
+        };
+      }
+      
+      return null;
     }
 
-    const expectedClasses = this.generateExpectedClasses(block.blockType, block.attributes, isButtonLink);
+    const expectedClasses = this.generateExpectedClasses(block.blockType, block.attributes, isButtonLink, isButtonWrapper);
     const expectedStyles = this.generateExpectedStyles(block.attributes);
 
     const errors = [];
-    const missingClasses = [];
     const extraClasses = [];
-    const warnings = [];
 
     // Check for missing classes
     expectedClasses.forEach(expectedClass => {

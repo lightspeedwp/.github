@@ -348,6 +348,88 @@ WordPress blocks support sticky positioning via the `position` attribute:
 <div class="wp-block-group" style="position:sticky;top:0px">
 ```
 
+### Button Block Structure and Style Classes
+
+**CRITICAL RULE:** Button blocks have a two-element structure where style classes MUST be placed correctly:
+
+#### Button Block Anatomy
+```html
+<!-- wp:button {"className":"is-style-button-default"} -->
+<div class="wp-block-button is-style-button-default">
+  <a class="wp-block-button__link wp-element-button">Button Text</a>
+</div>
+<!-- /wp:button -->
+```
+
+#### Style Class Placement Rules
+
+**Wrapper `<div>` Element:**
+- **MUST have**: `wp-block-button`
+- **MUST have**: Style classes (`is-style-*`) when defined in attributes
+- **MAY have**: All other custom classes from `className` attribute
+- **MAY have**: Font size classes (when not default)
+- **Example**: `<div class="wp-block-button is-style-button-default is-style-outline">`
+
+**Inner `<a>` Element:**
+- **MUST have**: `wp-block-button__link` 
+- **MUST have**: `wp-element-button`
+- **MUST NOT have**: Style classes (`is-style-*`) - These belong on the wrapper ONLY
+- **MAY have**: Other functional classes but NOT style variants
+- **Example**: `<a class="wp-block-button__link wp-element-button">`
+
+#### Common Validation Errors
+
+**❌ WRONG: Style class on anchor element**
+```html
+<!-- wp:button {"className":"is-style-button-default"} -->
+<div class="wp-block-button">
+  <a class="wp-block-button__link wp-element-button is-style-button-default">Text</a>
+</div>
+```
+**Issue**: `is-style-button-default` is on the `<a>` element instead of the wrapper `<div>`
+
+**✅ CORRECT: Style class on wrapper div**
+```html
+<!-- wp:button {"className":"is-style-button-default"} -->
+<div class="wp-block-button is-style-button-default">
+  <a class="wp-block-button__link wp-element-button">Text</a>
+</div>
+```
+
+**❌ WRONG: Multiple style violations**
+```html
+<!-- wp:button {"className":"is-style-outline is-style-large"} -->
+<div class="wp-block-button">
+  <a class="wp-block-button__link wp-element-button is-style-outline is-style-large">Text</a>
+</div>
+```
+**Issues**:
+1. Both style classes on `<a>` instead of `<div>`
+2. Wrapper `<div>` missing style classes
+
+**✅ CORRECT: Multiple styles on wrapper**
+```html
+<!-- wp:button {"className":"is-style-outline is-style-large"} -->
+<div class="wp-block-button is-style-outline is-style-large">
+  <a class="wp-block-button__link wp-element-button">Text</a>
+</div>
+```
+
+#### Validator Implementation
+
+The validator now:
+1. ✅ Detects button blocks and validates BOTH wrapper div and inner anchor separately
+2. ✅ Expects style classes (`is-style-*`) ONLY on wrapper `<div>`
+3. ✅ Expects functional classes (`wp-block-button__link`, `wp-element-button`) on inner `<a>`
+4. ✅ Flags errors when style classes are found on inner anchor
+5. ✅ Validates custom classes from `className` attribute appear on wrapper
+
+**Why This Matters:**
+- WordPress core renders button styles based on wrapper element classes
+- Style classes on the anchor element are ignored by WordPress CSS
+- Patterns with misplaced style classes won't display the intended design
+- This is a common mistake when manually creating button block patterns
+
 ### Typography Attributes
 
 #### Font Size
@@ -623,19 +705,25 @@ Generate a validation report for pattern files in [directory] showing all errors
 - **Fix**: Reorder to WordPress convention
 - **Severity**: Low (cosmetic, no functional impact)
 
-### Type 6: Button Block Handling (Resolved)
-- **Previous Issue**: Early versions reported missing classes/styles on `<div class="wp-block-button">`
-- **Current Behavior**: ✅ Validator now correctly checks the **inner `<a>` tag** where WordPress applies attributes
-- **WordPress Behavior**: Button blocks use a two-layer structure:
+### Type 6: Button Block Style Class Placement
+- **Critical Issue**: Style classes (`is-style-*`) must be on wrapper `<div>` NOT inner `<a>` element
+- **Current Behavior**: ✅ Validator validates BOTH wrapper div and inner anchor separately
+- **WordPress Behavior**: Button blocks use a two-layer structure with specific class placement:
   ```html
-  <!-- wp:button {"backgroundColor":"primary","textColor":"base"} -->
-  <div class="wp-block-button">                    <!-- Wrapper: minimal classes -->
-      <a class="wp-block-button__link has-primary-background-color has-base-color has-text-color has-background">
-        Button Text  <!-- ✅ Validator checks this tag -->
+  <!-- wp:button {"className":"is-style-button-default","backgroundColor":"primary","textColor":"base"} -->
+  <div class="wp-block-button is-style-button-default">    <!-- ✅ Style classes here -->
+      <a class="wp-block-button__link wp-element-button has-primary-background-color has-base-color has-text-color has-background">
+        Button Text  <!-- ✅ NO style classes here -->
       </a>
   </div>
   ```
-- **Implementation**: The validator automatically detects button blocks and extracts the inner `<a>` tag for validation, ensuring accurate results.
+- **Common Error**: Placing `is-style-*` classes on the `<a>` element instead of wrapper `<div>`
+- **Impact**: Buttons won't display intended styling (WordPress CSS targets wrapper classes)
+- **Validation Logic**: 
+  - Wrapper `<div>`: Expects `wp-block-button` + all style classes (`is-style-*`) + custom classes
+  - Inner `<a>`: Expects functional classes (`wp-block-button__link`, `wp-element-button`) but NEVER style classes
+  - Flags error if style classes found on inner anchor element
+- **See Also**: [Button Block Structure and Style Classes](#button-block-structure-and-style-classes) for complete documentation
 
 ## Output Format
 
