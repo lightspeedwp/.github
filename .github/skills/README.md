@@ -248,6 +248,26 @@ Total changes: Z
 5. **Backup or commit** before applying changes
 6. **Test thoroughly** after applying
 
+---
+
+### 🧩 3. Theme JSON To Preset Folders
+**File**: `theme-json-to-preset-folders/SKILL.md`  
+**Purpose**: Convert monolithic `theme.json` files into modular `styles/presets/` files while keeping root `theme.json` minimal for WordPress recognition and colours.
+
+**Use Cases**:
+- migrating large `theme.json` files to modular preset folders
+- aligning preset naming/structure with a reference theme
+- reducing merge conflicts in design token management
+
+**What It Covers**:
+1. Structure and naming audit
+2. Extraction plan (what stays in `theme.json`, what moves to presets)
+3. Preset file creation patterns (including `styles/presets/blocks/`)
+4. JSON validation workflow
+5. PR-ready summary guidance
+
+**Documentation**: `theme-json-to-preset-folders/SKILL.md`
+
 ### Recommended Workflow:
 ```bash
 # 1. Backup
