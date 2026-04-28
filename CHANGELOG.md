@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **WordPress Block Pattern Generator Skill** (`wordpress-block-pattern-generator/SKILL.md`) - Expert skill for generating production-ready WordPress block patterns with accessibility (WCAG 2.1 AA), ACF integration, WooCommerce/LifterLMS support, and BEM naming conventions
+- **WordPress Block Pattern Validator Skill** (`wordpress-block-pattern-validator/SKILL.md`) - Comprehensive validator for WordPress block patterns that detects and auto-fixes rendering mismatches, redundant font attributes, malformed CSS classes, and background image issues
+- **WordPress Theme.json Mapper Skill** (`wordpress-theme-json-mapper/SKILL.md`) - Automates mapping of design system tokens (colours, typography, spacing, layouts) to WordPress-compatible theme.json structure with block styles and CSS custom properties
+- **Theme JSON to Preset Folders Skill** (`theme-json-to-preset-folders/SKILL.md`) - Extracts monolithic theme.json into modular preset files for improved maintainability and reduced merge conflicts
+
+### Documentation
+
+- Skills README (`skills/README.md`) - Comprehensive documentation for all WordPress theme development skills
+- WordPress Block Pattern Generator usage guide with prerequisites and setup instructions
+- WordPress Block Pattern Validator documentation with detailed validation rules and examples
+- WordPress Theme.json Mapper documentation including design token structure and mapping process
+- Inc Formatter documentation (`INC-FORMATTER.md`) and bugfix report for theme PHP conventions
+- Spacing migration guides (`SPACING-MIGRATION.md`, `SPACING-MAPPER-USAGE.md`) for WordPress spacing preset systems
+- Footer sections refactor report (`bin/footer-sections-refactor-report.md`)
+
+### Utilities
+
+- Pattern validator script (`validate-patterns.cjs`) - Automated validation tool for WordPress block pattern files
+- Inc formatter script (`inc-formatter.cjs`) - PHP formatting tool for WordPress theme conventions
+- Spacing mapper script (`spacing-mapper.cjs`) - Utility for mapping spacing tokens to WordPress presets
+
 ## [0.3.0] - 2025-12-18
 
 ### Maintenance
