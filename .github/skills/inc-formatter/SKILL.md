@@ -6,8 +6,8 @@ description: >
   converting prefixed functions to namespaced ones, ensuring consistent PHP
   code structure across themes, removing function_exists wrappers, modernizing
   PHP code, or cleaning up legacy theme functions—even if they just mention
-  standardizing or formatting theme PHP files. Works on themes using the dp_
-  prefix convention.
+  standardizing or formatting theme PHP files. Auto-detects namespace and prefix
+  or accepts explicit values via CLI arguments.
 license: MIT
 compatibility: Requires Node.js 18+
 metadata:
@@ -20,18 +20,23 @@ metadata:
 ## Purpose
 
 Automate formatting of PHP include files to follow modern WordPress theme conventions:
-- Add consistent namespace declarations
-- Remove legacy function prefixes (e.g., `dp_`)
+- Add consistent namespace declarations (auto-detected or specified)
+- Remove legacy function prefixes (auto-detected or specified)
 - Update WordPress hook callbacks to use `__NAMESPACE__`
 - Clean up function_exists wrappers
+
+The script intelligently detects your theme's namespace and function prefix patterns, or you can explicitly specify them.
 
 ## Quick Start
 
 ```bash
 # From theme root
 
-# Show what would be changed
+# Auto-detect namespace/prefix and show what would be changed
 node scripts/inc-formatter.cjs --scan inc/
+
+# With explicit namespace and prefix
+node scripts/inc-formatter.cjs --scan inc/ --namespace="MyTheme\\includes" --prefix="mt_"
 
 # Preview changes (doesn't modify files)
 node scripts/inc-formatter.cjs --format inc/ --dry-run
@@ -47,7 +52,7 @@ node scripts/inc-formatter.cjs --format inc/block-bindings.php
 
 ### 1. Add Namespace
 
-Adds the theme namespace after the file docblock:
+Adds the theme namespace after the file docblock (auto-detected or specified via `--namespace`):
 
 ```php
 // BEFORE
@@ -60,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-function dp_my_function() {
+function mytheme_my_function() {
 ```
 
 ```php
@@ -69,7 +74,7 @@ function dp_my_function() {
 /**
  * File docblock
  */
-namespace DiePapierTema\includes;
+namespace MyTheme\includes;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -80,16 +85,16 @@ function my_function() {
 
 ### 2. Remove Function Prefix
 
-Removes the `dp_` prefix from all function declarations:
+Removes the function prefix from all function declarations (auto-detected or specified via `--prefix`):
 
 ```php
 // BEFORE
-function dp_register_block_bindings() {
+function mytheme_register_blocks() {
 	// ...
 }
 
 // AFTER
-function register_block_bindings() {
+function register_blocks() {
 	// ...
 }
 ```
@@ -100,10 +105,10 @@ Updates `add_action` and `add_filter` callbacks to use namespace:
 
 ```php
 // BEFORE
-add_action( 'init', 'dp_register_block_bindings' );
+add_action( 'init', 'mytheme_register_blocks' );
 
 // AFTER
-add_action( 'init', __NAMESPACE__ . '\register_block_bindings' );
+add_action( 'init', __NAMESPACE__ . '\register_blocks' );
 ```
 
 ### 4. Clean Orphaned Endif Statements

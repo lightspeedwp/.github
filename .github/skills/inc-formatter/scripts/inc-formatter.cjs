@@ -1,29 +1,29 @@
 #!/usr/bin/env node
 
 /**
- * Inc Folder PHP Formatter - Die Papier Tema
+ * Inc Folder PHP Formatter - WordPress Themes
  * 
  * Formats PHP files in the inc/ folder to follow theme conventions:
- * 1. Add namespace DiePapierTema\includes; at the top
- * 2. Remove dp_ prefix from function names
+ * 1. Add namespace to PHP files (auto-detected or specified)
+ * 2. Remove function prefix from function names (auto-detected or specified)
  * 3. Update add_action/add_filter to use __NAMESPACE__ . '\function_name'
  * 
  * Usage:
- *   node scripts/inc-formatter.js --scan [file/folder]
- *   node scripts/inc-formatter.js --format [file/folder] [--dry-run]
+ *   node scripts/inc-formatter.js --scan [file/folder] [--namespace=...] [--prefix=...]
+ *   node scripts/inc-formatter.js --format [file/folder] [--dry-run] [--namespace=...] [--prefix=...]
  */
 
 const fs = require('fs');
 const path = require('path');
-
-const NAMESPACE = 'DiePapierTema\\includes';
-const FUNCTION_PREFIX = 'dp_';
+const readline = require('readline');
 
 class IncFormatter {
 	constructor(options = {}) {
 		this.options = {
 			verbose: options.verbose || false,
 			dryRun: options.dryRun || false,
+			namespace: options.namespace || null,
+			prefix: options.prefix || null,
 		};
 		this.results = {
 			filesScanned: 0,
@@ -31,6 +31,144 @@ class IncFormatter {
 			changes: [],
 			errors: [],
 		};
+		this.namespace = null;
+		this.functionPrefix = null;
+	}
+
+	/**
+	 * Auto-detect namespace from existing PHP files
+	 */
+	async detectNamespace(targetPath) {
+		const resolvedPath = path.resolve(targetPath);
+		const files = this.getPhpFiles(resolvedPath);
+		
+		// Look for existing namespace declarations
+		for (const file of files) {
+			try {
+				const content = fs.readFileSync(file, 'utf8');
+				const namespaceMatch = content.match(/^\s*namespace\s+([^;]+);/m);
+				if (namespaceMatch) {
+					return namespaceMatch[1].trim();
+				}
+			} catch (error) {
+				// Continue to next file
+			}
+		}
+		
+		return null;
+	}
+
+	/**
+	 * Auto-detect function prefix from existing PHP files
+	 */
+	async detectPrefix(targetPath) {
+		const resolvedPath = path.resolve(targetPath);
+		const files = this.getPhpFiles(resolvedPath);
+		
+		// Look for common function prefix patterns
+		const prefixCounts = {};
+		
+		for (const file of files) {
+			try {
+				const content = fs.readFileSync(file, 'utf8');
+				const functionMatches = content.matchAll(/function\s+([a-z]+)_[a-zA-Z0-9_]+\s*\(/g);
+				
+				for (const match of functionMatches) {
+					const prefix = match[1] + '_';
+					prefixCounts[prefix] = (prefixCounts[prefix] || 0) + 1;
+				}
+			} catch (error) {
+				// Continue to next file
+			}
+		}
+		
+		// Return most common prefix
+		if (Object.keys(prefixCounts).length > 0) {
+			return Object.entries(prefixCounts)
+				.sort((a, b) => b[1] - a[1])[0][0];
+		}
+		
+		return null;
+	}
+
+	/**
+	 * Prompt user for namespace
+	 */
+	async promptNamespace(detected = null) {
+		const rl = readline.createInterface({
+			input: process.stdin,
+			output: process.stdout
+		});
+
+		return new Promise((resolve) => {
+			const suggestion = detected || 'YourTheme\\includes';
+			rl.question(`\nEnter theme namespace [${suggestion}]: `, (answer) => {
+				rl.close();
+				resolve(answer.trim() || suggestion);
+			});
+		});
+	}
+
+	/**
+	 * Prompt user for function prefix
+	 */
+	async promptPrefix(detected = null) {
+		const rl = readline.createInterface({
+			input: process.stdin,
+			output: process.stdout
+		});
+
+		return new Promise((resolve) => {
+			const suggestion = detected || 'theme_';
+			rl.question(`\nEnter function prefix to remove [${suggestion}]: `, (answer) => {
+				rl.close();
+				resolve(answer.trim() || suggestion);
+			});
+		});
+	}
+
+	/**
+	 * Initialize namespace and prefix (detect or prompt)
+	 */
+	async initialize(targetPath) {
+		// Use provided options first
+		if (this.options.namespace && this.options.prefix) {
+			this.namespace = this.options.namespace;
+			this.functionPrefix = this.options.prefix;
+			console.log(`\n✓ Using namespace: ${this.namespace}`);
+			console.log(`✓ Using prefix: ${this.functionPrefix}\n`);
+			return;
+		}
+
+		// Try to auto-detect
+		console.log('\n🔍 Auto-detecting theme configuration...\n');
+		
+		const detectedNamespace = await this.detectNamespace(targetPath);
+		const detectedPrefix = await this.detectPrefix(targetPath);
+
+		if (detectedNamespace) {
+			console.log(`✓ Detected namespace: ${detectedNamespace}`);
+		}
+		if (detectedPrefix) {
+			console.log(`✓ Detected prefix: ${detectedPrefix}`);
+		}
+
+		// Prompt for namespace if not provided
+		if (!this.options.namespace) {
+			this.namespace = await this.promptNamespace(detectedNamespace);
+		} else {
+			this.namespace = this.options.namespace;
+		}
+
+		// Prompt for prefix if not provided
+		if (!this.options.prefix) {
+			this.functionPrefix = await this.promptPrefix(detectedPrefix);
+		} else {
+			this.functionPrefix = this.options.prefix;
+		}
+
+		console.log(`\n→ Namespace: ${this.namespace}`);
+		console.log(`→ Prefix: ${this.functionPrefix}\n`);
 	}
 
 	/**
@@ -88,12 +226,12 @@ class IncFormatter {
 			const namespaceMatch = content.match(/^\s*namespace\s+([^;]+);/m);
 			if (namespaceMatch) {
 				analysis.hasNamespace = true;
-				if (namespaceMatch[1].trim() !== NAMESPACE) {
+				if (namespaceMatch[1].trim() !== this.namespace) {
 					analysis.needsNamespace = true;
 					analysis.changes.push({
 						type: 'namespace',
 						from: namespaceMatch[1].trim(),
-						to: NAMESPACE,
+						to: this.namespace,
 					});
 				}
 			} else {
@@ -101,7 +239,7 @@ class IncFormatter {
 				analysis.changes.push({
 					type: 'namespace',
 					from: null,
-					to: NAMESPACE,
+					to: this.namespace,
 				});
 			}
 
@@ -153,10 +291,10 @@ class IncFormatter {
 		analysis.orphanedEndifs = orphanedEndifs;
 
 		// Find function declarations with prefix
-		const functionRegex = new RegExp(`function\\s+(${FUNCTION_PREFIX}[a-zA-Z0-9_]+)\\s*\\(`, 'g');
+		const functionRegex = new RegExp(`function\\s+(${this.functionPrefix}[a-zA-Z0-9_]+)\\s*\\(`, 'g');
 			while ((match = functionRegex.exec(content)) !== null) {
 				const funcName = match[1];
-				const newName = funcName.replace(new RegExp(`^${FUNCTION_PREFIX}`), '');
+				const newName = funcName.replace(new RegExp(`^${this.functionPrefix}`), '');
 				analysis.prefixedFunctions.push({
 					oldName: funcName,
 					newName: newName,
@@ -177,8 +315,8 @@ class IncFormatter {
 				const callback = match[3];
 				
 				// Check if callback uses prefix
-				if (callback.startsWith(FUNCTION_PREFIX)) {
-					const newCallback = callback.replace(new RegExp(`^${FUNCTION_PREFIX}`), '');
+				if (callback.startsWith(this.functionPrefix)) {
+					const newCallback = callback.replace(new RegExp(`^${this.functionPrefix}`), '');
 					analysis.hookCalls.push({
 						type: hookType,
 						hook: hookName,
@@ -245,7 +383,7 @@ class IncFormatter {
 						if (docBlockMatch) {
 							const insertPosition = phpTagIndex + phpTag.length + docBlockMatch[0].length;
 							content = content.substring(0, insertPosition) +
-								`\nnamespace ${NAMESPACE};\n` +
+								`\nnamespace ${this.namespace};\n` +
 								content.substring(insertPosition);
 						}
 					}
@@ -364,7 +502,7 @@ class IncFormatter {
 	/**
 	 * Scan files and report what would be changed
 	 */
-	scan(targetPath) {
+	async scan(targetPath) {
 		const resolvedPath = path.resolve(targetPath);
 		
 		if (!fs.existsSync(resolvedPath)) {
@@ -372,7 +510,10 @@ class IncFormatter {
 			return this.results;
 		}
 
-		console.log(`\n🔍 Scanning: ${resolvedPath}\n`);
+		// Initialize namespace and prefix
+		await this.initialize(resolvedPath);
+
+		console.log(`🔍 Scanning files...\n`);
 
 		const files = this.getPhpFiles(resolvedPath);
 
@@ -393,9 +534,9 @@ class IncFormatter {
 	/**
 	 * Format files according to the rules
 	 */
-	format(targetPath) {
+	async format(targetPath) {
 		// First scan to find what needs changing
-		this.scan(targetPath);
+		await this.scan(targetPath);
 
 		if (this.results.changes.length === 0) {
 			console.log('\n✅ No formatting needed.\n');
@@ -481,7 +622,7 @@ class IncFormatter {
 /**
  * CLI Interface
  */
-function main() {
+async function main() {
 	const args = process.argv.slice(2);
 	
 	if (args.length === 0 || args.includes('--help') || args.includes('-h')) {
@@ -491,9 +632,16 @@ function main() {
 
 	const command = args[0];
 	const targetPath = args[1] || './inc';
+	
+	// Extract namespace and prefix from args
+	const namespaceArg = args.find(arg => arg.startsWith('--namespace='));
+	const prefixArg = args.find(arg => arg.startsWith('--prefix='));
+	
 	const options = {
 		verbose: args.includes('--verbose') || args.includes('-v'),
 		dryRun: args.includes('--dry-run'),
+		namespace: namespaceArg ? namespaceArg.split('=')[1] : null,
+		prefix: prefixArg ? prefixArg.split('=')[1] : null,
 	};
 
 	const formatter = new IncFormatter(options);
@@ -501,13 +649,13 @@ function main() {
 	switch (command) {
 		case '--scan':
 		case '-s':
-			formatter.scan(targetPath);
+			await formatter.scan(targetPath);
 			formatter.printReport();
 			break;
 
 		case '--format':
 		case '-f':
-			formatter.format(targetPath);
+			await formatter.format(targetPath);
 			formatter.printReport();
 			break;
 
@@ -521,7 +669,7 @@ function main() {
 function printHelp() {
 	console.log(`
 ╔════════════════════════════════════════════════════════════════════╗
-║              🔧 Inc Formatter - Die Papier Tema                    ║
+║              🔧 Inc Formatter - WordPress Themes                   ║
 ╚════════════════════════════════════════════════════════════════════╝
 
 USAGE:
@@ -533,20 +681,27 @@ COMMANDS:
   --help, -h            Show this help message
 
 OPTIONS:
+  --namespace=<value>   Specify namespace (e.g., MyTheme\\\\includes)
+  --prefix=<value>      Specify function prefix to remove (e.g., mytheme_)
   --dry-run             Preview changes without writing files
   --verbose, -v         Show detailed output
 
 FORMATTING RULES:
-  1. Add namespace: DiePapierTema\\includes;
-  2. Remove dp_ prefix from function names
+  1. Add namespace to PHP files
+  2. Remove function prefix from function names
   3. Update add_action/add_filter to use __NAMESPACE__ . '\\function_name'
 
+AUTO-DETECTION:
+  If --namespace or --prefix are not provided, the tool will:
+  1. Auto-detect from existing PHP files
+  2. Prompt you to confirm or enter values
+
 EXAMPLES:
-  # Scan inc folder
+  # Scan with auto-detection
   node scripts/inc-formatter.js --scan ./inc
 
-  # Scan specific file
-  node scripts/inc-formatter.js --scan ./inc/block-bindings.php
+  # Scan with explicit values
+  node scripts/inc-formatter.js --scan ./inc --namespace="MyTheme\\\\includes" --prefix="mt_"
 
   # Format with dry run (preview only)
   node scripts/inc-formatter.js --format ./inc --dry-run
@@ -554,18 +709,15 @@ EXAMPLES:
   # Format all files in inc folder
   node scripts/inc-formatter.js --format ./inc
 
-  # Format single file
-  node scripts/inc-formatter.js --format ./inc/block-bindings.php
-
 BEFORE:
-  function dp_register_block_bindings() { ... }
-  add_action( 'init', 'dp_register_block_bindings' );
+  function mytheme_register_blocks() { ... }
+  add_action( 'init', 'mytheme_register_blocks' );
 
 AFTER:
-  namespace DiePapierTema\\includes;
+  namespace MyTheme\\includes;
   
-  function register_block_bindings() { ... }
-  add_action( 'init', __NAMESPACE__ . '\\register_block_bindings' );
+  function register_blocks() { ... }
+  add_action( 'init', __NAMESPACE__ . '\\register_blocks' );
 `);
 }
 
