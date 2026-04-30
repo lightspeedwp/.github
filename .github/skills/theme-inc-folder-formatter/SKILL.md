@@ -1,5 +1,5 @@
 ---
-name: inc-formatter
+name: theme-inc-folder-formatter
 description: >
   Standardize WordPress theme PHP files with namespaces and remove legacy
   function prefixes. Use when migrating theme inc/ files to modern conventions,
