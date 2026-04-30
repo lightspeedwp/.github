@@ -1,13 +1,23 @@
-# Theme JSON To Preset Folders Skill
+---
+name: theme-json-to-preset-folders
+description: >
+  Extract a monolithic WordPress theme.json into modular preset files under
+  styles/presets/. Use when migrating to modular theme.json architecture,
+  reducing merge conflicts in design tokens, aligning with reference theme
+  structure (e.g., Die Papier Tema), improving maintainability of theme settings,
+  or splitting theme.json into focused, single-concern files.
+license: MIT
+compatibility: Requires understanding of theme.json structure and wp_theme_json_data_theme filter
+metadata:
+  version: "1.0.0"
+  author: lightspeedwp
+---
 
-## Description
+# Theme JSON To Preset Folders
+
+## Purpose
 
 Extract a WordPress theme `theme.json` into modular preset files under `styles/presets/`, keep `theme.json` minimal (theme recognition + colour tokens), and ensure the preset loader merges files safely.
-
-Use this skill when:
-- migrating a monolithic `theme.json` to modular presets
-- aligning structure and naming with another reference theme (for example `die-papier-tema`)
-- reducing merge conflicts and improving maintainability of design tokens
 
 ## Goal
 
