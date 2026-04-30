@@ -1,0 +1,82 @@
+[
+  {
+    "query": "my theme.json is huge and causing merge conflicts. can you split it into modular files?",
+    "should_trigger": true,
+    "notes": "Direct mention of splitting theme.json"
+  },
+  {
+    "query": "i want to organize my theme.json into separate preset files like die papier tema does",
+    "should_trigger": true,
+    "notes": "Reference theme mentioned"
+  },
+  {
+    "query": "need to extract my theme.json settings into a modular architecture",
+    "should_trigger": true,
+    "notes": "Modular architecture extraction"
+  },
+  {
+    "query": "can you help me break up my monolithic theme.json file?",
+    "should_trigger": true,
+    "notes": "Breaking up monolithic file"
+  },
+  {
+    "query": "migrating to modular theme.json structure to reduce conflicts",
+    "should_trigger": true,
+    "notes": "Migration to modular structure"
+  },
+  {
+    "query": "i want my theme.json split into styles/presets/ directory",
+    "should_trigger": true,
+    "notes": "Specific directory mentioned"
+  },
+  {
+    "query": "improving maintainability of my theme's design tokens by splitting theme.json",
+    "should_trigger": true,
+    "notes": "Maintainability improvement via splitting"
+  },
+  {
+    "query": "how do i keep only color tokens in theme.json and move everything else to presets?",
+    "should_trigger": true,
+    "notes": "Specific extraction task"
+  },
+  {
+    "query": "can you help me create a new theme.json from scratch?",
+    "should_trigger": false,
+    "notes": "Creating new - not extracting existing"
+  },
+  {
+    "query": "i need to validate my theme.json syntax",
+    "should_trigger": false,
+    "notes": "Validation - not extraction"
+  },
+  {
+    "query": "how do i add new color presets to my theme?",
+    "should_trigger": false,
+    "notes": "Adding presets - not restructuring"
+  },
+  {
+    "query": "my wordpress theme won't install",
+    "should_trigger": false,
+    "notes": "Installation issue - not theme.json structure"
+  },
+  {
+    "query": "can you help me merge multiple theme.json files?",
+    "should_trigger": false,
+    "notes": "Merging - opposite direction"
+  },
+  {
+    "query": "i want to convert my classic theme to a block theme",
+    "should_trigger": false,
+    "notes": "Classic to block - broader migration"
+  },
+  {
+    "query": "need help with my webpack configuration for theme assets",
+    "should_trigger": false,
+    "notes": "Webpack - build process, not theme.json"
+  },
+  {
+    "query": "how do i customize the theme customizer?",
+    "should_trigger": false,
+    "notes": "Theme customizer - different feature"
+  }
+]

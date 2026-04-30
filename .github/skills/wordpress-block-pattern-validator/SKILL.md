@@ -5,7 +5,9 @@ description: >
   comment attributes. Use when debugging block validation errors, fixing font
   family attribute mismatches, correcting malformed CSS classes (e.g., has-h-3-font-size
   vs has-h3-font-size), ensuring pattern files pass WordPress core rendering rules,
-  or detecting redundant fontFamily attributes that WordPress strips on save.
+  detecting redundant fontFamily attributes that WordPress strips on save, or
+  troubleshooting patterns showing errors in the block editor—even if they just
+  mention pattern errors or validation issues.
 license: MIT
 compatibility: Requires Node.js 18+
 metadata:

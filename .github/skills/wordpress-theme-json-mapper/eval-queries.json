@@ -1,0 +1,82 @@
+[
+  {
+    "query": "I need to convert my design system tokens into a wordpress theme.json file",
+    "should_trigger": true,
+    "notes": "Direct mention of design tokens to theme.json"
+  },
+  {
+    "query": "can you help me map my figma design tokens to wordpress theme.json?",
+    "should_trigger": true,
+    "notes": "Figma tokens to WP - clear mapping task"
+  },
+  {
+    "query": "i have a style guide with colors, typography, and spacing that needs to become wordpress presets",
+    "should_trigger": true,
+    "notes": "Style guide to presets - implicit"
+  },
+  {
+    "query": "need to generate theme.json from our documentation",
+    "should_trigger": true,
+    "notes": "Generate theme.json from docs"
+  },
+  {
+    "query": "how do i translate my tailwind config into wordpress theme.json?",
+    "should_trigger": true,
+    "notes": "Tailwind to theme.json translation"
+  },
+  {
+    "query": "creating block styles from my company's design system",
+    "should_trigger": true,
+    "notes": "Design system to block styles"
+  },
+  {
+    "query": "i want to automate the process of updating theme.json from our design tokens",
+    "should_trigger": true,
+    "notes": "Automation of token extraction"
+  },
+  {
+    "query": "converting our css variables to wordpress preset format",
+    "should_trigger": true,
+    "notes": "CSS variables to presets"
+  },
+  {
+    "query": "can you help me write a javascript function to parse json?",
+    "should_trigger": false,
+    "notes": "JavaScript coding - not design token mapping"
+  },
+  {
+    "query": "i need to customize my wordpress admin theme",
+    "should_trigger": false,
+    "notes": "Admin theme - not theme.json"
+  },
+  {
+    "query": "how do i create a child theme in wordpress?",
+    "should_trigger": false,
+    "notes": "Child theme creation - different task"
+  },
+  {
+    "query": "my theme's css needs organizing",
+    "should_trigger": false,
+    "notes": "CSS organization - not token mapping"
+  },
+  {
+    "query": "can you help me set up sass compilation for my theme?",
+    "should_trigger": false,
+    "notes": "Sass setup - build process, not token mapping"
+  },
+  {
+    "query": "need to migrate from bootstrap to custom css",
+    "should_trigger": false,
+    "notes": "Bootstrap migration - not WP theme.json"
+  },
+  {
+    "query": "i want to create a design system from scratch",
+    "should_trigger": false,
+    "notes": "Creating design system - opposite direction"
+  },
+  {
+    "query": "how do i customize woocommerce product templates?",
+    "should_trigger": false,
+    "notes": "WooCommerce templates - different scope"
+  }
+]

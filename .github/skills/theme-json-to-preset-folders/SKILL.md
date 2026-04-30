@@ -5,7 +5,9 @@ description: >
   styles/presets/. Use when migrating to modular theme.json architecture,
   reducing merge conflicts in design tokens, aligning with reference theme
   structure (e.g., Die Papier Tema), improving maintainability of theme settings,
-  or splitting theme.json into focused, single-concern files.
+  splitting theme.json into focused single-concern files, organizing large or
+  huge theme.json files, or improving team collaboration on theme settings—even
+  when they mention theme.json being unwieldy or causing conflicts.
 license: MIT
 compatibility: Requires understanding of theme.json structure and wp_theme_json_data_theme filter
 metadata:

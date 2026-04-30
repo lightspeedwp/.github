@@ -1,0 +1,82 @@
+[
+  {
+    "query": "I need to migrate my theme from numeric spacing (40, 50, 60) to semantic names (medium, large, x-large)",
+    "should_trigger": true,
+    "notes": "Direct mention of numeric to semantic migration"
+  },
+  {
+    "query": "converting Die Papier spacing system to Ollie's spacing presets",
+    "should_trigger": true,
+    "notes": "Specific theme names mentioned"
+  },
+  {
+    "query": "my theme.json uses spacing|40 and I need to change it to spacing|medium everywhere",
+    "should_trigger": true,
+    "notes": "Explicit spacing preset migration task"
+  },
+  {
+    "query": "can you help me scan my theme for spacing preset usage and update them?",
+    "should_trigger": true,
+    "notes": "Scanning and updating spacing presets"
+  },
+  {
+    "query": "need to standardize design tokens across our wordpress themes",
+    "should_trigger": true,
+    "notes": "Standardizing design tokens - includes spacing"
+  },
+  {
+    "query": "how do i change all my pattern files to use the new spacing system?",
+    "should_trigger": true,
+    "notes": "Implicit - updating patterns with new spacing"
+  },
+  {
+    "query": "migrating spacing values from one theme to another",
+    "should_trigger": true,
+    "notes": "Migration task - theme to theme"
+  },
+  {
+    "query": "i have a lot of var(--wp--preset--spacing--40) references that need updating",
+    "should_trigger": true,
+    "notes": "Specific CSS variable format mentioned"
+  },
+  {
+    "query": "can you help me migrate my theme from tailwind to wordpress spacing presets?",
+    "should_trigger": false,
+    "notes": "Tailwind to WP - different migration, not numeric to semantic"
+  },
+  {
+    "query": "need to update my theme's color palette",
+    "should_trigger": false,
+    "notes": "Color palette - different design token type"
+  },
+  {
+    "query": "how do i add custom spacing sizes to my theme.json?",
+    "should_trigger": false,
+    "notes": "Adding spacing - not migrating existing ones"
+  },
+  {
+    "query": "my css has hardcoded pixel values that need fixing",
+    "should_trigger": false,
+    "notes": "Hardcoded pixels - not WordPress preset migration"
+  },
+  {
+    "query": "can you help me configure my theme's typography scale?",
+    "should_trigger": false,
+    "notes": "Typography, not spacing"
+  },
+  {
+    "query": "i need to migrate my bootstrap spacing classes to custom css",
+    "should_trigger": false,
+    "notes": "Bootstrap - not WordPress themes"
+  },
+  {
+    "query": "converting my react app spacing system",
+    "should_trigger": false,
+    "notes": "React app - not WordPress"
+  },
+  {
+    "query": "need help with margin and padding in my css grid layout",
+    "should_trigger": false,
+    "notes": "General CSS layout - not WordPress preset migration"
+  }
+]

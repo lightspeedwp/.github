@@ -1,0 +1,82 @@
+[
+  {
+    "query": "I need to create a hero section pattern for my WordPress block theme",
+    "should_trigger": true,
+    "notes": "Direct mention of creating pattern for block theme"
+  },
+  {
+    "query": "can you help me build a query loop that displays my custom post type 'research-article' with ACF fields?",
+    "should_trigger": true,
+    "notes": "Query loop + custom post type + ACF - all key features"
+  },
+  {
+    "query": "need to generate product cards for woocommerce in my theme patterns",
+    "should_trigger": true,
+    "notes": "WooCommerce integration mentioned"
+  },
+  {
+    "query": "my boss wants accessible card components that meet wcag 2.1 aa standards",
+    "should_trigger": true,
+    "notes": "Implicit - accessibility requirement"
+  },
+  {
+    "query": "creating a pattern with taxonomy filters for my custom post types",
+    "should_trigger": true,
+    "notes": "Taxonomy filters mentioned"
+  },
+  {
+    "query": "how do i make a block pattern that shows lifterlms courses with enrollment buttons?",
+    "should_trigger": true,
+    "notes": "LifterLMS integration"
+  },
+  {
+    "query": "i want to create patterns for my theme using proper spacing presets and bem naming",
+    "should_trigger": true,
+    "notes": "Mentions spacing presets and BEM"
+  },
+  {
+    "query": "need help building a responsive newsletter signup pattern",
+    "should_trigger": true,
+    "notes": "Implicit - newsletter pattern for block theme"
+  },
+  {
+    "query": "can you write a gutenberg block plugin for me?",
+    "should_trigger": false,
+    "notes": "Block plugin development - not pattern generation"
+  },
+  {
+    "query": "i need to create a react component for my headless wordpress site",
+    "should_trigger": false,
+    "notes": "React component - not WordPress block pattern"
+  },
+  {
+    "query": "how do i register a custom block type in functions.php?",
+    "should_trigger": false,
+    "notes": "Block registration - not pattern generation"
+  },
+  {
+    "query": "my classic wordpress theme needs a new page template",
+    "should_trigger": false,
+    "notes": "Classic theme - not block theme"
+  },
+  {
+    "query": "can you help me style my woocommerce product pages with css?",
+    "should_trigger": false,
+    "notes": "CSS styling - not pattern generation"
+  },
+  {
+    "query": "need to create an elementor template",
+    "should_trigger": false,
+    "notes": "Elementor - different page builder"
+  },
+  {
+    "query": "i want to build a wordpress plugin that adds new blocks",
+    "should_trigger": false,
+    "notes": "Plugin development - not patterns"
+  },
+  {
+    "query": "how do i customize the wordpress admin dashboard?",
+    "should_trigger": false,
+    "notes": "Admin customization - not patterns"
+  }
+]

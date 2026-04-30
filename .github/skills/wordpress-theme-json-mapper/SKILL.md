@@ -4,8 +4,11 @@ description: >
   Map design system tokens (colors, typography, spacing, layouts) to WordPress
   theme.json configuration. Use when translating design tokens to theme.json,
   converting style guides to WordPress presets, generating block styles from
-  design systems, creating theme.json from existing documentation, or automating
-  the process of extracting design tokens into WordPress-compatible format.
+  design systems, creating theme.json from existing documentation, automating
+  the process of extracting design tokens into WordPress-compatible format,
+  or converting design systems from Figma, Tailwind, or other platforms—even
+  if they just mention design tokens, style guides, or theme.json generation
+  without specifying WordPress.
 license: MIT
 compatibility: Requires access to design system documentation
 metadata:

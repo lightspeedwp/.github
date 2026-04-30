@@ -4,8 +4,9 @@ description: >
   Migrate WordPress theme spacing presets from numeric to semantic slugs
   (e.g., Die Papier to Ollie). Use when converting theme spacing systems,
   standardizing design tokens between themes, updating spacing preset naming
-  conventions in theme.json and pattern files, or aligning with reference
-  theme spacing architecture.
+  conventions in theme.json and pattern files, migrating spacing values,
+  updating CSS variables for spacing, or aligning with reference theme spacing
+  architecture—even when they just mention spacing presets or design token migration.
 license: MIT
 compatibility: Requires Node.js 18+
 metadata:

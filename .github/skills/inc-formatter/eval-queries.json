@@ -1,0 +1,82 @@
+[
+  {
+    "query": "I need to add proper namespaces to my theme's PHP files in the inc folder",
+    "should_trigger": true,
+    "notes": "Direct mention of namespaces and inc folder"
+  },
+  {
+    "query": "can you help me remove the dp_ prefix from all my theme functions and convert them to use namespaces?",
+    "should_trigger": true,
+    "notes": "Explicit mention of prefix removal and namespace conversion"
+  },
+  {
+    "query": "my wordpress theme has old-style function prefixes that need modernizing",
+    "should_trigger": true,
+    "notes": "Implicit - modernizing old-style function prefixes"
+  },
+  {
+    "query": "I want to clean up my theme's inc files and make them follow modern php conventions",
+    "should_trigger": true,
+    "notes": "Implicit - cleaning up inc files with modern conventions"
+  },
+  {
+    "query": "how do i convert my legacy theme functions to use __NAMESPACE__ in hook callbacks?",
+    "should_trigger": true,
+    "notes": "Specific mention of __NAMESPACE__ and hook callbacks"
+  },
+  {
+    "query": "need to standardize php code across multiple wordpress themes",
+    "should_trigger": true,
+    "notes": "Standardizing PHP code - task this skill does"
+  },
+  {
+    "query": "my theme has function_exists wrappers everywhere that seem unnecessary",
+    "should_trigger": true,
+    "notes": "Mentions function_exists wrappers"
+  },
+  {
+    "query": "converting die papier theme to use namespaces instead of prefixes",
+    "should_trigger": true,
+    "notes": "Specific theme mentioned + namespace conversion"
+  },
+  {
+    "query": "can you write a python script to format my php code?",
+    "should_trigger": false,
+    "notes": "Python script - wrong language/tool"
+  },
+  {
+    "query": "i need to add namespaces to my laravel application controllers",
+    "should_trigger": false,
+    "notes": "Laravel, not WordPress - different context"
+  },
+  {
+    "query": "how do i configure phpcs for my wordpress theme?",
+    "should_trigger": false,
+    "notes": "PHPCS configuration - different tool"
+  },
+  {
+    "query": "need help with composer autoloading in my theme",
+    "should_trigger": false,
+    "notes": "Composer autoloading - different concern"
+  },
+  {
+    "query": "my theme's javascript files need formatting",
+    "should_trigger": false,
+    "notes": "JavaScript, not PHP"
+  },
+  {
+    "query": "can you help me write wordpress plugin code with namespaces?",
+    "should_trigger": false,
+    "notes": "Plugin code, not theme inc/ files - different scope"
+  },
+  {
+    "query": "i want to refactor my theme's template files",
+    "should_trigger": false,
+    "notes": "Template files, not inc/ PHP files"
+  },
+  {
+    "query": "need to update my theme's functions.php file",
+    "should_trigger": false,
+    "notes": "functions.php, not inc/ - different scope"
+  }
+]

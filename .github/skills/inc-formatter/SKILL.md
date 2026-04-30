@@ -4,8 +4,10 @@ description: >
   Standardize WordPress theme PHP files with namespaces and remove legacy
   function prefixes. Use when migrating theme inc/ files to modern conventions,
   converting prefixed functions to namespaced ones, ensuring consistent PHP
-  code structure across themes, or removing function_exists wrappers. Works
-  on themes using the dp_ prefix convention.
+  code structure across themes, removing function_exists wrappers, modernizing
+  PHP code, or cleaning up legacy theme functions—even if they just mention
+  standardizing or formatting theme PHP files. Works on themes using the dp_
+  prefix convention.
 license: MIT
 compatibility: Requires Node.js 18+
 metadata:

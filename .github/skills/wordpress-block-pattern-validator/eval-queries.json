@@ -1,0 +1,82 @@
+[
+  {
+    "query": "my block patterns keep showing validation errors in the wordpress editor",
+    "should_trigger": true,
+    "notes": "Direct mention of block validation errors"
+  },
+  {
+    "query": "i'm getting 'has-h-3-font-size' instead of 'has-h3-font-size' in my patterns",
+    "should_trigger": true,
+    "notes": "Specific error this skill fixes"
+  },
+  {
+    "query": "wordpress is stripping my fontFamily attributes and causing validation errors",
+    "should_trigger": true,
+    "notes": "Specific fontFamily issue"
+  },
+  {
+    "query": "can you check if my pattern files match wordpress core rendering rules?",
+    "should_trigger": true,
+    "notes": "Checking rendering rules compliance"
+  },
+  {
+    "query": "my block comment attributes don't match the html output",
+    "should_trigger": true,
+    "notes": "Attribute/HTML mismatch"
+  },
+  {
+    "query": "need to fix malformed css classes in my block patterns",
+    "should_trigger": true,
+    "notes": "Malformed CSS classes"
+  },
+  {
+    "query": "the block editor shows 'Block validation failed' for my custom patterns",
+    "should_trigger": true,
+    "notes": "Block validation failed error"
+  },
+  {
+    "query": "can you validate all my pattern files and fix common errors?",
+    "should_trigger": true,
+    "notes": "Explicit validation + fix request"
+  },
+  {
+    "query": "i need to validate my javascript code",
+    "should_trigger": false,
+    "notes": "JavaScript validation - wrong language"
+  },
+  {
+    "query": "can you help me fix eslint errors in my theme?",
+    "should_trigger": false,
+    "notes": "ESLint - different tool"
+  },
+  {
+    "query": "my php code has syntax errors",
+    "should_trigger": false,
+    "notes": "PHP syntax - not block pattern validation"
+  },
+  {
+    "query": "need help with html validation for my website",
+    "should_trigger": false,
+    "notes": "General HTML validation - not WordPress blocks"
+  },
+  {
+    "query": "my css doesn't validate on w3c validator",
+    "should_trigger": false,
+    "notes": "CSS W3C validation - different validator"
+  },
+  {
+    "query": "can you check my wordpress database for errors?",
+    "should_trigger": false,
+    "notes": "Database errors - different scope"
+  },
+  {
+    "query": "i need to validate my woocommerce products",
+    "should_trigger": false,
+    "notes": "Product validation - not block patterns"
+  },
+  {
+    "query": "my contact form isn't validating user input correctly",
+    "should_trigger": false,
+    "notes": "Form validation - different context"
+  }
+]
