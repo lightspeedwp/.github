@@ -1,0 +1,856 @@
+
+===== current branch =====
+$ git branch --show-current
+work
+EXIT_CODE=0
+
+===== current commit =====
+$ git rev-parse HEAD
+7cf938ac02eb1089697cdd107778537b83da22e0
+EXIT_CODE=0
+
+===== npm ci =====
+$ npm ci
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated @babel/plugin-proposal-class-properties@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-class-properties instead.
+npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated @babel/plugin-proposal-object-rest-spread@7.20.7: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-object-rest-spread instead.
+npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+npm warn deprecated puppeteer@23.11.1: < 24.15.0 is no longer supported
+npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+> @lightspeedwp/github-community-health@0.2.0 prepare
+> husky
+
+
+added 1720 packages, and audited 1721 packages in 30s
+
+36 vulnerabilities (1 low, 17 moderate, 16 high, 2 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+EXIT_CODE=0
+
+===== validate agents =====
+$ npm run validate:agents
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @lightspeedwp/github-community-health@0.2.0 validate:agents
+> node scripts/validation/validate-agent-frontmatter.js
+
+🔍 Validating Agent Frontmatter
+
+================================================================================
+ℹ️  adr.agent.md: Skipped (file_type=unknown)
+✅ issues.agent.md: Valid
+✅ labeling.agent.md: Valid
+✅ linting.agent.md: Valid
+✅ meta.agent.md: Valid
+✅ metrics.agent.md: Valid
+ℹ️  mode-demonstrate-understanding.agent.md: Skipped (file_type=unknown)
+ℹ️  mode-document-reviewer.agent.md: Skipped (file_type=unknown)
+ℹ️  mode-prd.agent.md: Skipped (file_type=unknown)
+✅ mode-thinking.agent.md: Valid
+✅ project-meta-sync.agent.md: Valid
+✅ prompt-engineer.agent.md: Valid
+✅ release.agent.md: Valid
+✅ reporting.agent.md: Valid
+✅ reviewer.agent.md: Valid
+✅ task-planner.agent.md: Valid
+ℹ️  task-researcher.agent.md: Skipped (file_type=unknown)
+ℹ️  template.agent.md: Skipped (file_type=template)
+✅ testing.agent.md: Valid
+
+================================================================================
+
+📊 Validation Summary:
+   Total files: 13
+   ✅ Passed: 13
+   ❌ Failed: 0
+   ⏭ Skipped: 6
+
+✅ All agent files validated successfully!
+EXIT_CODE=0
+
+===== validate workflows =====
+$ npm run validate:workflows
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @lightspeedwp/github-community-health@0.2.0 validate:workflows
+> node scripts/validation/validate-workflows.js
+
+Found 12 workflow files to validate
+
+🔍 Workflow Validation Results
+
+================================================================================
+
+⚠️  WARNINGS:
+   changelog.yml: Missing permissions block (should default to contents: read)
+   changelog.yml: Consider adding concurrency to prevent overlapping runs
+   changelog.yml: Consider using fetch-depth for faster checkout
+   issues.yml: Consider adding concurrency to prevent overlapping runs
+   issues.yml: Consider using fetch-depth for faster checkout
+   labeling.yml: Consider adding caching for dependencies (npm/pip)
+   linting.yml: Missing permissions block (should default to contents: read)
+   linting.yml: Consider adding concurrency to prevent overlapping runs
+   linting.yml: Consider adding caching for dependencies (npm/pip)
+   linting.yml: Consider using fetch-depth for faster checkout
+   linting.yml: Job "lint": Step with run: should have descriptive name:
+   linting.yml: Job "lint": Step with run: should have descriptive name:
+   meta.yml: Consider adding caching for dependencies (npm/pip)
+   metrics.yml: Consider adding concurrency to prevent overlapping runs
+   metrics.yml: Consider adding caching for dependencies (npm/pip)
+   metrics.yml: Consider using fetch-depth for faster checkout
+   planner.yml: Consider adding concurrency to prevent overlapping runs
+   planner.yml: Consider using fetch-depth for faster checkout
+   project-meta-sync.yml: Consider adding concurrency to prevent overlapping runs
+   release.yml: Missing permissions block (should default to contents: read)
+   release.yml: Consider adding concurrency to prevent overlapping runs
+   release.yml: Consider adding caching for dependencies (npm/pip)
+   release.yml: Consider using fetch-depth for faster checkout
+   reporting.yml: Consider adding caching for dependencies (npm/pip)
+   reporting.yml: Consider using fetch-depth for faster checkout
+   reviewer.yml: Consider adding concurrency to prevent overlapping runs
+   reviewer.yml: Consider adding caching for dependencies (npm/pip)
+   reviewer.yml: Consider using fetch-depth for faster checkout
+   testing.yml: Missing permissions block (should default to contents: read)
+   testing.yml: Consider adding concurrency to prevent overlapping runs
+   testing.yml: Consider adding caching for dependencies (npm/pip)
+   testing.yml: Consider using fetch-depth for faster checkout
+   testing.yml: Job "check": Step with run: should have descriptive name:
+   testing.yml: Job "check": Step with run: should have descriptive name:
+
+================================================================================
+
+📊 Summary:
+   Total workflows: 12
+   ✅ Passed: 12
+   ❌ Failed: 0
+   ⚠️  Warnings: 34
+
+⚠️  Validation passed with warnings. Consider addressing warnings above.
+EXIT_CODE=0
+
+===== validate json schemas =====
+$ npm run validate:json:schemas
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @lightspeedwp/github-community-health@0.2.0 validate:json:schemas
+> node scripts/validation/validate-json.js --glob '.github/schemas/**/*.schema.json' --strict
+
+[36mℹ[0m JSON Linting & Validation Tool v1.0.0
+[36mℹ[0m ────────────────────────────────────────────────────────────
+[36mℹ[0m Found 4 JSON file(s)
+
+────────────────────────────────────────────────────────────
+Runnable Commands
+────────────────────────────────────────────────────────────
+
+# Format JSON files:
+npx prettier --write ".github/schemas/**/*.schema.json"
+
+# Strict syntax check:
+npx jsonlint -cq .github/schemas/version.schema.json .github/schemas/project-fields.schema.json .github/schemas/frontmatter.schema.json ...
+────────────────────────────────────────────────────────────
+
+[36mℹ[0m Formatting JSON files with Prettier...
+[32m✓[0m Formatted 4 file(s)
+[36mℹ[0m Validating JSON syntax with JSONLint...
+[31m✗[0m .github/schemas/project-fields.schema.json → Syntax error: Expected property name or '}' in JSON at position 387
+[36mℹ[0m Syntax errors written to: reports/jsonlint.log
+
+============================================================
+JSON Validation Summary
+============================================================
+Total files:      4
+Formatted:        4
+Syntax valid:     3
+Schema valid:     4
+Invalid:          1
+Schema spec:      N/A
+============================================================
+
+[31mValidation failed with 1 error(s)[0m
+See reports in: ./reports/
+
+EXIT_CODE=1
+
+===== npm test =====
+$ npm test
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @lightspeedwp/github-community-health@0.2.0 test
+> npm run test:js
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @lightspeedwp/github-community-health@0.2.0 test:js
+> jest --config .jest.config.cjs --coverage --forceExit --detectOpenHandles
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+PASS scripts/agents/includes/__tests__/label-utils.test.js
+  label-utils.js
+    labelsToMarkdownTable
+      ✓ converts labels array to Markdown table (5 ms)
+      ✓ handles single label (2 ms)
+      ✓ handles empty array (1 ms)
+      ✓ handles null input (7 ms)
+      ✓ handles undefined input (2 ms)
+      ✓ formats labels with special characters (2 ms)
+      ✓ handles labels with spaces (2 ms)
+      ✓ handles very long label names (1 ms)
+      ✓ handles many labels (1 ms)
+      ✓ preserves label order (1 ms)
+      ✓ handles labels with Markdown special characters (1 ms)
+      ✓ generates valid Markdown structure (1 ms)
+    diffLabels
+      ✓ identifies missing labels (2 ms)
+      ✓ identifies extra labels (1 ms)
+      ✓ identifies both missing and extra labels (1 ms)
+      ✓ returns empty arrays when labels match (2 ms)
+      ✓ handles empty current labels (1 ms)
+      ✓ handles empty canonical labels (2 ms)
+      ✓ handles both arrays empty (1 ms)
+      ✓ identifies multiple missing labels (1 ms)
+      ✓ identifies multiple extra labels (1 ms)
+      ✓ handles duplicate labels in current (1 ms)
+      ✓ preserves order of missing labels (12 ms)
+      ✓ preserves order of extra labels (1 ms)
+      ✓ handles labels with special characters (1 ms)
+      ✓ is case-sensitive (1 ms)
+      ✓ handles labels with spaces (1 ms)
+    integration scenarios
+      ✓ complete workflow: diff and table generation (2 ms)
+      ✓ generates report for label standardization (1 ms)
+      ✓ handles perfect alignment (no diff) (1 ms)
+    edge cases and error handling
+      ✓ handles very large arrays efficiently (6 ms)
+      ✓ handles labels with only whitespace (1 ms)
+      ✓ handles empty string labels (1 ms)
+      ✓ labelsToMarkdownTable handles array with null values (2 ms)
+      ✓ labelsToMarkdownTable handles array with undefined values (1 ms)
+
+PASS scripts/agents/includes/__tests__/fetch-canonical-labels.test.js
+  fetch-canonical-labels.js
+    fetchCanonicalLabels
+      ✓ should use default path if no path provided (5 ms)
+      ✓ should use custom path when provided (2 ms)
+      ✓ should return empty array for empty labels file (1 ms)
+      ✓ should extract label names from object format (2 ms)
+      ✓ should handle string format labels (2 ms)
+      ✓ should handle mixed string and object format (2 ms)
+      ✓ should handle labels with additional properties (14 ms)
+      ✓ should preserve label name order (2 ms)
+      ✓ should handle labels with special characters (1 ms)
+      ✓ should handle labels with emojis (1 ms)
+      ✓ should handle single label (2 ms)
+      ✓ should handle labels with hyphenated names (2 ms)
+      ✓ should handle labels with uppercase names (1 ms)
+      ✓ should handle real-world labels.yml structure (2 ms)
+      ✓ should throw error if file reading fails (18 ms)
+      ✓ should throw error if YAML parsing fails (3 ms)
+      ✓ should handle null or undefined YAML content (2 ms)
+      ✓ should return array of strings only (2 ms)
+      ✓ should handle labels with only name property (2 ms)
+      ✓ should handle large number of labels (2 ms)
+      ✓ should handle labels with numeric names (1 ms)
+      ✓ should handle labels with underscores (9 ms)
+      ✓ should handle labels with dots (1 ms)
+      ✓ should handle empty string label names (1 ms)
+      ✓ should call yaml.load with file content (1 ms)
+      ✓ should handle labels with whitespace in names (1 ms)
+
+PASS scripts/agents/includes/__tests__/build-labeling-report.test.js
+  build-labeling-report.js
+    buildLabelingReport
+      ✓ should generate report with matching labels (6 ms)
+      ✓ should show missing labels in report (2 ms)
+      ✓ should show extra labels in report (3 ms)
+      ✓ should show both missing and extra labels (2 ms)
+      ✓ should handle empty current labels (1 ms)
+      ✓ should handle empty canonical labels (2 ms)
+      ✓ should handle both empty arrays (3 ms)
+      ✓ should call labelsToMarkdownTable for current labels (2 ms)
+      ✓ should call labelsToMarkdownTable for canonical labels (1 ms)
+      ✓ should call labelsToMarkdownTable for missing labels (1 ms)
+      ✓ should call labelsToMarkdownTable for extra labels (2 ms)
+      ✓ should call diffLabels with correct arguments (1 ms)
+      ✓ should handle labels with special characters (2 ms)
+      ✓ should handle case-sensitive labels (2 ms)
+      ✓ should handle large number of labels (2 ms)
+      ✓ should generate proper Markdown structure (7 ms)
+      ✓ should maintain proper section order in report (1 ms)
+      ✓ should handle labels with emojis (2 ms)
+      ✓ should return string type (2 ms)
+      ✓ should not modify input arrays (1 ms)
+
+PASS scripts/agents/includes/__tests__/build-label-alias-map.test.js
+  build-label-alias-map.js
+    buildLabelAliasMap
+      ✓ should use default path if no path provided (5 ms)
+      ✓ should use custom path when provided (2 ms)
+      ✓ should return empty object if no labels in file (2 ms)
+      ✓ should build alias map for labels with aliases (5 ms)
+      ✓ should skip labels without aliases property (1 ms)
+      ✓ should skip labels with empty aliases array (2 ms)
+      ✓ should throw error on null label entries (18 ms)
+      ✓ should skip labels with non-array aliases (2 ms)
+      ✓ should handle labels with color and description (1 ms)
+      ✓ should handle multiple labels with multiple aliases (2 ms)
+      ✓ should handle case-sensitive aliases (2 ms)
+      ✓ should handle aliases with special characters (2 ms)
+      ✓ should throw error if file reading fails (3 ms)
+      ✓ should throw error if YAML parsing fails (2 ms)
+      ✓ should throw error with mixed valid and null entries (2 ms)
+      ✓ should handle empty YAML file (2 ms)
+      ✓ should handle YAML file with single label (2 ms)
+      ✓ should overwrite duplicate aliases with last occurrence (1 ms)
+      ✓ should handle real-world labels.yml structure (2 ms)
+
+PASS scripts/agents/__tests__/release.agent.test.js
+  Release Agent
+    Version Determination
+      ✓ should correctly bump patch version (4 ms)
+      ✓ should correctly bump minor version and reset patch (2 ms)
+      ✓ should correctly bump major version and reset minor/patch (1 ms)
+      ✓ should handle versions with leading zeros (11 ms)
+    Version Validation
+      ✓ should accept valid semantic versions (3 ms)
+      ✓ should reject invalid version formats (2 ms)
+    Changelog Validation
+      ✓ should detect unreleased section in changelog (2 ms)
+      ✓ should validate changelog has entries under unreleased (2 ms)
+      ✓ should reject changelog without unreleased section (2 ms)
+      ✓ should detect empty unreleased section (2 ms)
+    Dry Run Mode
+      ✓ should not execute commands in dry run mode (2 ms)
+      ✓ should log commands without executing in dry run (3 ms)
+    Git Tag Creation
+      ✓ should format git tag command correctly (2 ms)
+      ✓ should include changelog in tag message (1 ms)
+    Release PR Creation
+      ✓ should format release branch name correctly (2 ms)
+      ✓ should create PR from release branch to main (2 ms)
+    Error Handling
+      ✓ should throw error for missing changelog (16 ms)
+      ✓ should throw error for invalid version format (2 ms)
+      ✓ should handle git command failures gracefully (3 ms)
+    Changelog Update
+      ✓ should move unreleased entries to versioned section (1 ms)
+      ✓ should preserve unreleased section for next cycle (1 ms)
+    Scope Detection
+      ✓ should detect scope from command line args (2 ms)
+      ✓ should default to patch when no scope provided (5 ms)
+      ✓ should handle all valid scope values (2 ms)
+
+PASS scripts/agents/includes/__tests__/yaml-parser.test.js
+  yaml-parser.js
+    shim functionality
+      ✓ should be a shim file that exports canonical implementation (4 ms)
+      ✓ should use path.join for cross-platform path resolution (2 ms)
+      ✓ should support Node.js module.exports mechanism (1 ms)
+    backwards compatibility
+      ✓ should preserve existing require paths (1 ms)
+      ✓ should delegate to .github/scripts/yaml-parser.js (1 ms)
+    shim pattern
+      ✓ should follow the re-export shim pattern (2 ms)
+      ✓ should not contain business logic (1 ms)
+      ✓ should be a minimal file (1 ms)
+    module resolution
+      ✓ should use __dirname for relative path resolution (1 ms)
+      ✓ should construct platform-appropriate paths (1 ms)
+
+PASS scripts/agents/includes/__tests__/update-readme.test.js
+  update-readme.js
+    shim functionality
+      ✓ should be a shim file that delegates to canonical implementation (4 ms)
+      ✓ should use path.join for cross-platform path resolution (1 ms)
+      ✓ should support Node.js require mechanism (4 ms)
+    backwards compatibility
+      ✓ should preserve existing require paths (2 ms)
+      ✓ should delegate to .github/scripts/update-readme.js (2 ms)
+    shim pattern
+      ✓ should be a minimal delegation file (1 ms)
+      ✓ should not contain business logic (1 ms)
+
+PASS scripts/agents/includes/__tests__/readmeUtils.test.js
+  readmeUtils
+    ✓ findReadmeFiles finds README.md recursively (5 ms)
+    ✓ ensureStringInFile appends string if missing (3 ms)
+    ✓ updateReadme adds license badge and contributing link (2 ms)
+
+PASS scripts/agents/includes/__tests__/badgeUtils.test.js
+  badgeUtils
+    ✓ generateWorkflowBadges returns badge markdown (4 ms)
+    ✓ updateReadmeBadges inserts badge block (3 ms)
+
+Warning: Using local schema due to fetch error: 
+Warning: Using local schema due to fetch error: 
+[31mError: Missing required top-level field: reviews[0m
+PASS scripts/validation/__tests__/validate-coderabbit-yml.test.js
+  Coderabbit YML Validation
+    ✓ should validate a correct coderabbit.yml file (286 ms)
+    ✓ should fail on an invalid coderabbit.yml file (353 ms)
+
+PASS scripts/agents/includes/__tests__/footerUtils.test.js
+  footerUtils
+    ✓ getRandomFooter returns a footer from the list (4 ms)
+    ✓ ensureFooter replaces existing footer (4 ms)
+    ✓ ensureFooter appends if footer not present (2 ms)
+
+PASS scripts/agents/includes/__tests__/sync-version.test.js
+  sync-version (canonical includes)
+    ✓ loads without error (5 ms)
+
+PASS scripts/validation/__tests__/validate-frontmatter.test.js
+  Frontmatter Validation
+    ✓ should validate all markdown files and report errors for invalid frontmatter (328 ms)
+
+PASS scripts/validation/__tests__/validate-workflows.test.js
+  Workflow Validation
+    ✓ should run the workflow validation script and output expected result (233 ms)
+
+PASS scripts/validation/__tests__/validate-frontmatter-alt.test.js
+  validate-frontmatter alt mode
+    ✓ runs the alternate frontmatter validation stub (591 ms)
+
+PASS scripts/validation/__tests__/validate-agent-frontmatter.test.js
+  Agent Frontmatter Validation
+    ✓ should validate all agent spec files and report errors for invalid frontmatter (437 ms)
+
+PASS scripts/validation/__tests__/validate-json.test.js
+  JSON Validation
+    ✓ should run the JSON validation script and output placeholder message (260 ms)
+
+PASS scripts/validation/__tests__/run-agent-handoff-audit.test.js
+  run-agent-handoff-audit.js
+    ✓ exists in the validation folder (4 ms)
+
+PASS scripts/validation/__tests__/validate-changelog.test.js
+  validate-changelog.cjs
+    ✓ exists and can be referenced by newer tooling (4 ms)
+
+PASS scripts/validation/__tests__/validate-version.test.js
+  validate-version.cjs
+    ✓ is available for semantic version enforcement (4 ms)
+
+PASS scripts/validation/__tests__/validate-agents.test.js
+  validate-agents.js
+    ✓ exists so tooling has an entry point (4 ms)
+
+PASS scripts/agents/__tests__/mode-demonstrate-understanding.agent.test.js
+  mode-demonstrate-understanding.agent
+    ✓ should be defined (4 ms)
+
+PASS scripts/agents/__tests__/mode-document-reviewer.agent.test.js
+  mode-document-reviewer.agent
+    ✓ should be defined (5 ms)
+
+PASS scripts/agents/__tests__/reporting.agent.test.js
+  reporting.agent
+    ✓ agent module file exists (5 ms)
+
+PASS scripts/agents/__tests__/template.agent.test.js
+  template.agent
+    ✓ agent module file exists (4 ms)
+
+PASS scripts/agents/__tests__/labeling.agent.test.js
+  labeling.agent
+    ✓ agent module file exists (3 ms)
+
+  console.error
+    Project sync failed: Error: LS_PROJECT_URL not set
+        at /workspace/.github/scripts/agents/project-meta-sync.agent.js:21:13
+        at /workspace/.github/node_modules/@babel/runtime/helpers/regeneratorRuntime.js:52:18
+        at Generator.<anonymous> (/workspace/.github/node_modules/@babel/runtime/helpers/regenerator.js:52:51)
+        at Generator.next (/workspace/.github/node_modules/@babel/runtime/helpers/regeneratorDefine.js:11:21)
+        at asyncGeneratorStep (/workspace/.github/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+        at _next (/workspace/.github/node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+        at /workspace/.github/node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+        at new Promise (<anonymous>)
+        at /workspace/.github/node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12
+        at apply (/workspace/.github/scripts/agents/project-meta-sync.agent.js:278:2)
+        at apply (/workspace/.github/scripts/agents/project-meta-sync.agent.js:16:19)
+        at Object.run (/workspace/.github/scripts/agents/project-meta-sync.agent.js:280:1)
+        at Runtime._execModule (/workspace/.github/node_modules/jest-runtime/build/index.js:1268:24)
+        at Runtime._loadModule (/workspace/.github/node_modules/jest-runtime/build/index.js:944:12)
+        at Runtime.requireModule (/workspace/.github/node_modules/jest-runtime/build/index.js:832:12)
+        at Runtime.requireModuleOrMock (/workspace/.github/node_modules/jest-runtime/build/index.js:964:21)
+        at Object.require (/workspace/.github/scripts/agents/__tests__/project-meta-sync.agent.test.js:6:15)
+        at Runtime._execModule (/workspace/.github/node_modules/jest-runtime/build/index.js:1268:24)
+        at Runtime._loadModule (/workspace/.github/node_modules/jest-runtime/build/index.js:944:12)
+        at Runtime.requireModule (/workspace/.github/node_modules/jest-runtime/build/index.js:832:12)
+        at jestAdapter (/workspace/.github/node_modules/jest-circus/build/runner.js:95:13)
+        at runTestInternal (/workspace/.github/node_modules/jest-runner/build/index.js:275:16)
+        at runTest (/workspace/.github/node_modules/jest-runner/build/index.js:343:7)
+
+      273 |     console.log("Project sync complete.");
+      274 |   } catch (error) {
+    > 275 |     console.error("Project sync failed:", error);
+          |             ^
+      276 |     core.setFailed(error.message);
+      277 |   }
+      278 | }
+
+      at error (scripts/agents/project-meta-sync.agent.js:275:13)
+      at node_modules/@babel/runtime/helpers/regeneratorRuntime.js:52:18
+      at Generator.<anonymous> (node_modules/@babel/runtime/helpers/regenerator.js:52:51)
+      at Generator.next (node_modules/@babel/runtime/helpers/regeneratorDefine.js:11:21)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12
+      at apply (scripts/agents/project-meta-sync.agent.js:278:2)
+      at apply (scripts/agents/project-meta-sync.agent.js:16:19)
+      at Object.run (scripts/agents/project-meta-sync.agent.js:280:1)
+      at Object.require (scripts/agents/__tests__/project-meta-sync.agent.test.js:6:15)
+
+::error::LS_PROJECT_URL not set
+PASS scripts/agents/__tests__/project-meta-sync.agent.test.js
+  project-meta-sync.agent
+    ✓ should be defined (4 ms)
+
+PASS scripts/agents/__tests__/task-researcher.agent.test.js
+  task-researcher.agent
+    ✓ should be defined (4 ms)
+
+PASS scripts/agents/__tests__/prompt-engineer.agent.test.js
+  prompt-engineer.agent
+    ✓ should be defined (4 ms)
+
+PASS scripts/agents/__tests__/mode-thinking.agent.test.js
+  mode-thinking.agent
+    ✓ should be defined (3 ms)
+
+PASS scripts/agents/__tests__/task-planner.agent.test.js
+  task-planner.agent
+    ✓ should be defined (4 ms)
+
+PASS scripts/agents/__tests__/meta.agent.test.js
+  meta.agent
+    ✓ agent module file exists (4 ms)
+
+PASS scripts/agents/__tests__/issue-type.agent.test.js
+  issue-type.agent
+    ✓ should be defined (4 ms)
+
+PASS scripts/agents/__tests__/metrics.agent.test.js
+  metrics.agent
+    ✓ should be defined (20 ms)
+
+PASS scripts/agents/__tests__/linting.agent.test.js
+  linting.agent
+    ✓ should be defined (21 ms)
+
+PASS scripts/agents/__tests__/reviewer.agent.test.js
+  reviewer.agent
+    ✓ should be defined (4 ms)
+
+PASS scripts/agents/__tests__/mode-prd.agent.test.js
+  mode-prd.agent
+    ✓ should be defined (4 ms)
+
+PASS scripts/agents/__tests__/planner.agent.test.js
+  planner.agent
+    ✓ should be defined (3 ms)
+
+PASS scripts/agents/__tests__/testing.agent.test.js
+  testing.agent
+    ✓ should be defined (4 ms)
+
+PASS scripts/agents/__tests__/issues.agent.test.js
+  issues.agent
+    ✓ should be defined (4 ms)
+
+PASS scripts/agents/__tests__/adr.agent.test.js
+  adr.agent
+    ✓ should be defined (4 ms)
+
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |       0 |        0 |       0 |       0 |                   
+----------|---------|----------|---------|---------|-------------------
+Test Suites: 41 passed, 41 total
+Tests:       181 passed, 181 total
+Snapshots:   0 total
+Time:        14.895 s
+Ran all test suites.
+EXIT_CODE=0
+
+===== npm audit =====
+$ npm audit --audit-level=low
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+# npm audit report
+
+@babel/plugin-transform-modules-systemjs  7.12.0 - 7.29.0
+Severity: high
+@babel/plugin-transform-modules-systemjs generates arbitrary code when compiling malicious input - https://github.com/advisories/GHSA-fv7c-fp4j-7gwp
+fix available via `npm audit fix`
+node_modules/@babel/plugin-transform-modules-systemjs
+
+ajv  <6.14.0 || >=7.0.0-alpha.0 <8.18.0
+Severity: moderate
+ajv has ReDoS when using `$data` option - https://github.com/advisories/GHSA-2g4f-4pwh-qvx6
+ajv has ReDoS when using `$data` option - https://github.com/advisories/GHSA-2g4f-4pwh-qvx6
+fix available via `npm audit fix`
+node_modules/@eslint/eslintrc/node_modules/ajv
+node_modules/ajv
+node_modules/eslint/node_modules/ajv
+node_modules/npm-package-json-lint/node_modules/ajv
+
+basic-ftp  <=5.3.0
+Severity: critical
+Basic FTP has Path Traversal Vulnerability in its downloadToDir() method - https://github.com/advisories/GHSA-5rq4-664w-9x2c
+basic-ftp: Incomplete CRLF Injection Protection Allows Arbitrary FTP Command Execution via Credentials and MKD Commands - https://github.com/advisories/GHSA-6v7q-wjvx-w8wg
+basic-ftp vulnerable to denial of service via unbounded memory consumption in Client.list() - https://github.com/advisories/GHSA-rp42-5vxx-qpwr
+basic-ftp allows a malicious FTP server to cause client-side denial of service via unbounded multiline control response buffering - https://github.com/advisories/GHSA-rpmf-866q-6p89
+fix available via `npm audit fix`
+node_modules/basic-ftp
+
+brace-expansion  <1.1.13 || >=2.0.0 <2.0.3
+Severity: moderate
+brace-expansion: Zero-step sequence causes process hang and memory exhaustion - https://github.com/advisories/GHSA-f886-m6hf-6m8v
+brace-expansion: Zero-step sequence causes process hang and memory exhaustion - https://github.com/advisories/GHSA-f886-m6hf-6m8v
+fix available via `npm audit fix`
+node_modules/@typescript-eslint/typescript-estree/node_modules/brace-expansion
+node_modules/brace-expansion
+node_modules/glob/node_modules/brace-expansion
+node_modules/typescript-eslint/node_modules/brace-expansion
+
+diff  5.0.0 - 5.2.1
+jsdiff has a Denial of Service vulnerability in parsePatch and applyPatch - https://github.com/advisories/GHSA-73rr-hh4g-fpgx
+fix available via `npm audit fix`
+node_modules/diff
+
+dompurify  <=3.3.3
+Severity: moderate
+DOMPurify contains a Cross-site Scripting vulnerability - https://github.com/advisories/GHSA-v2wj-7wpq-c8vv
+DOMPurify ADD_ATTR predicate skips URI validation - https://github.com/advisories/GHSA-cjmm-f4jc-qw8r
+DOMPurify USE_PROFILES prototype pollution allows event handlers - https://github.com/advisories/GHSA-cj63-jhhr-wcxv
+DOMPurify's ADD_TAGS function form bypasses FORBID_TAGS due to short-circuit evaluation - https://github.com/advisories/GHSA-39q2-94rc-95cp
+DOMPurify: FORBID_TAGS bypassed by function-based ADD_TAGS predicate (asymmetry with FORBID_ATTR fix) - https://github.com/advisories/GHSA-h7mw-gpvr-xq4m
+DOMPurify has a SAFE_FOR_TEMPLATES bypass in RETURN_DOM mode - https://github.com/advisories/GHSA-crv5-9vww-q3g8
+DOMPurify: Prototype Pollution to XSS Bypass via CUSTOM_ELEMENT_HANDLING Fallback - https://github.com/advisories/GHSA-v9jr-rg53-9pgp
+DOMPurify is vulnerable to mutation-XSS via Re-Contextualization  - https://github.com/advisories/GHSA-h8r8-wccr-v5f2
+fix available via `npm audit fix`
+node_modules/dompurify
+
+fast-uri  <=3.1.1
+Severity: high
+fast-uri vulnerable to path traversal via percent-encoded dot segments - https://github.com/advisories/GHSA-q3j6-qgpj-74h6
+fast-uri vulnerable to host confusion via percent-encoded authority delimiters - https://github.com/advisories/GHSA-v39h-62p7-jpjc
+fix available via `npm audit fix`
+node_modules/fast-uri
+
+flatted  <=3.4.1
+Severity: high
+flatted vulnerable to unbounded recursion DoS in parse() revive phase - https://github.com/advisories/GHSA-25h7-pfq9-p65f
+Prototype Pollution via parse() in NodeJS flatted - https://github.com/advisories/GHSA-rf6f-7fwh-wjgh
+fix available via `npm audit fix`
+node_modules/flatted
+
+handlebars  4.0.0 - 4.7.8
+Severity: critical
+Handlebars.js has JavaScript Injection via AST Type Confusion by tampering @partial-block - https://github.com/advisories/GHSA-3mfm-83xf-c92r
+Handlebars.js has JavaScript Injection via AST Type Confusion - https://github.com/advisories/GHSA-2w6w-674q-4c4q
+Handlebars.js has Prototype Pollution Leading to XSS through Partial Template Injection - https://github.com/advisories/GHSA-2qvq-rjwj-gvw9
+Handlebars.js has a Prototype Method Access Control Gap via Missing __lookupSetter__ Blocklist Entry - https://github.com/advisories/GHSA-7rx3-28cr-v5wh
+Handlebars.js has a Property Access Validation Bypass in container.lookup - https://github.com/advisories/GHSA-442j-39wm-28r2
+Handlebars.js has JavaScript Injection via AST Type Confusion when passing an object as dynamic partial - https://github.com/advisories/GHSA-xhpv-hc6g-r9c6
+Handlebars.js has Denial of Service via Malformed Decorator Syntax in Template Compilation - https://github.com/advisories/GHSA-9cx6-37pm-9jff
+Handlebars.js has JavaScript Injection in CLI Precompiler via Unescaped Names and Options - https://github.com/advisories/GHSA-xjpj-3mr7-gcpf
+fix available via `npm audit fix`
+node_modules/handlebars
+
+ip-address  <=10.1.0
+Severity: moderate
+ip-address has XSS in Address6 HTML-emitting methods - https://github.com/advisories/GHSA-v2v4-37r5-5v8g
+fix available via `npm audit fix`
+node_modules/ip-address
+
+lodash  <=4.17.23
+Severity: high
+Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions - https://github.com/advisories/GHSA-xxjr-mmjv-4gpg
+lodash vulnerable to Code Injection via `_.template` imports key names - https://github.com/advisories/GHSA-r5fr-rjxr-66jc
+lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit` - https://github.com/advisories/GHSA-f23m-r3pf-42rh
+fix available via `npm audit fix`
+node_modules/lodash
+
+lodash-es  <=4.17.23
+Severity: high
+Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions - https://github.com/advisories/GHSA-xxjr-mmjv-4gpg
+lodash vulnerable to Code Injection via `_.template` imports key names - https://github.com/advisories/GHSA-r5fr-rjxr-66jc
+lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit` - https://github.com/advisories/GHSA-f23m-r3pf-42rh
+fix available via `npm audit fix`
+node_modules/lodash-es
+  @chevrotain/cst-dts-gen  11.0.0 - 11.1.0
+  Depends on vulnerable versions of @chevrotain/gast
+  Depends on vulnerable versions of lodash-es
+  node_modules/@chevrotain/cst-dts-gen
+  @chevrotain/gast  11.0.0 - 11.1.0
+  Depends on vulnerable versions of lodash-es
+  node_modules/@chevrotain/gast
+  chevrotain  11.0.0 - 11.1.0
+  Depends on vulnerable versions of @chevrotain/cst-dts-gen
+  Depends on vulnerable versions of @chevrotain/gast
+  Depends on vulnerable versions of lodash-es
+  node_modules/chevrotain
+    langium  2.1.0 - 4.1.3
+    Depends on vulnerable versions of chevrotain
+    node_modules/langium
+      @mermaid-js/parser  <=0.6.3
+      Depends on vulnerable versions of langium
+      node_modules/@mermaid-js/parser
+        mermaid  <=10.9.5 || 11.0.0-alpha.1 - 11.14.0
+        Depends on vulnerable versions of @mermaid-js/parser
+        node_modules/@mermaid-js/mermaid-cli/node_modules/mermaid
+        node_modules/mermaid
+
+markdown-it  13.0.0 - 14.1.0
+Severity: moderate
+markdown-it is has a Regular Expression Denial of Service (ReDoS) - https://github.com/advisories/GHSA-38c4-r59v-3vqw
+fix available via `npm audit fix --force`
+Will install markdownlint-cli2@0.22.1, which is a breaking change
+node_modules/markdown-it
+node_modules/markdownlint-cli2/node_modules/markdown-it
+  markdownlint  0.26.0 - 0.37.4
+  Depends on vulnerable versions of markdown-it
+  node_modules/markdownlint
+  markdownlint-cli2  0.18.0 - 0.20.0
+  Depends on vulnerable versions of markdown-it
+  node_modules/markdownlint-cli2
+
+
+minimatch  <=3.1.3 || 9.0.0 - 9.0.6
+Severity: high
+minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern - https://github.com/advisories/GHSA-3ppc-4f35-3m26
+minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern - https://github.com/advisories/GHSA-3ppc-4f35-3m26
+minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments - https://github.com/advisories/GHSA-7r86-cg39-jmmj
+minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments - https://github.com/advisories/GHSA-7r86-cg39-jmmj
+minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions - https://github.com/advisories/GHSA-23c5-xmqv-rm74
+minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions - https://github.com/advisories/GHSA-23c5-xmqv-rm74
+fix available via `npm audit fix`
+node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch
+node_modules/glob/node_modules/minimatch
+node_modules/minimatch
+node_modules/typescript-eslint/node_modules/minimatch
+  @stoplight/spectral-core  1.2.1 - 1.21.1-beta-0.1
+  Depends on vulnerable versions of minimatch
+  node_modules/@stoplight/spectral-core
+  @typescript-eslint/typescript-estree  6.16.0 - 7.5.0
+  Depends on vulnerable versions of minimatch
+  node_modules/@typescript-eslint/typescript-estree
+    @typescript-eslint/parser  6.16.0 - 7.5.0
+    Depends on vulnerable versions of @typescript-eslint/typescript-estree
+    node_modules/@typescript-eslint/parser
+    @typescript-eslint/type-utils  6.16.0 - 7.5.0
+    Depends on vulnerable versions of @typescript-eslint/typescript-estree
+    Depends on vulnerable versions of @typescript-eslint/utils
+    node_modules/@typescript-eslint/type-utils
+      @typescript-eslint/eslint-plugin  6.16.0 - 7.5.0
+      Depends on vulnerable versions of @typescript-eslint/type-utils
+      Depends on vulnerable versions of @typescript-eslint/utils
+      node_modules/@typescript-eslint/eslint-plugin
+    @typescript-eslint/utils  6.16.0 - 7.5.0
+    Depends on vulnerable versions of @typescript-eslint/typescript-estree
+    node_modules/@typescript-eslint/utils
+
+picomatch  <=2.3.1 || 4.0.0 - 4.0.3
+Severity: high
+Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching - https://github.com/advisories/GHSA-3v7f-55p6-f55p
+Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching - https://github.com/advisories/GHSA-3v7f-55p6-f55p
+Picomatch has a ReDoS vulnerability via extglob quantifiers - https://github.com/advisories/GHSA-c2c7-rcm5-vvqj
+Picomatch has a ReDoS vulnerability via extglob quantifiers - https://github.com/advisories/GHSA-c2c7-rcm5-vvqj
+fix available via `npm audit fix`
+node_modules/@jest/console/node_modules/picomatch
+node_modules/@jest/core/node_modules/picomatch
+node_modules/@jest/environment-jsdom-abstract/node_modules/picomatch
+node_modules/@jest/expect/node_modules/picomatch
+node_modules/@jest/fake-timers/node_modules/picomatch
+node_modules/@jest/reporters/node_modules/picomatch
+node_modules/@jest/test-sequencer/node_modules/picomatch
+node_modules/jest-changed-files/node_modules/picomatch
+node_modules/jest-circus/node_modules/picomatch
+node_modules/jest-cli/node_modules/picomatch
+node_modules/jest-config/node_modules/picomatch
+node_modules/jest-each/node_modules/picomatch
+node_modules/jest-environment-node/node_modules/picomatch
+node_modules/jest-mock/node_modules/picomatch
+node_modules/jest-resolve/node_modules/picomatch
+node_modules/jest-runner/node_modules/picomatch
+node_modules/jest-runtime/node_modules/picomatch
+node_modules/jest-snapshot/node_modules/picomatch
+node_modules/jest-watcher/node_modules/picomatch
+node_modules/picomatch
+
+rollup  <2.80.0
+Severity: high
+Rollup 4 has Arbitrary File Write via Path Traversal - https://github.com/advisories/GHSA-mw96-cpmx-2vgc
+fix available via `npm audit fix`
+node_modules/rollup
+  @stoplight/spectral-ruleset-bundler  <=1.6.3
+  Depends on vulnerable versions of rollup
+  node_modules/@stoplight/spectral-ruleset-bundler
+
+undici  <=6.23.0
+Severity: high
+Undici has an unbounded decompression chain in HTTP responses on Node.js Fetch API via Content-Encoding leads to resource exhaustion - https://github.com/advisories/GHSA-g9mf-h72j-4rw9
+Undici has an HTTP Request/Response Smuggling issue - https://github.com/advisories/GHSA-2mjp-6q6p-2qxm
+Undici has Unbounded Memory Consumption in WebSocket permessage-deflate Decompression - https://github.com/advisories/GHSA-vrm6-8vpv-qv8q
+Undici has Unhandled Exception in WebSocket Client Due to Invalid server_max_window_bits Validation - https://github.com/advisories/GHSA-v9p9-hfj2-hcw8
+Undici has CRLF Injection in undici via `upgrade` option - https://github.com/advisories/GHSA-4992-7rv2-5pvq
+fix available via `npm audit fix --force`
+Will install @actions/github@9.1.1, which is a breaking change
+node_modules/undici
+  @actions/github  6.0.0 - 8.0.0
+  Depends on vulnerable versions of @actions/http-client
+  Depends on vulnerable versions of undici
+  node_modules/@actions/github
+  @actions/http-client  2.2.0 - 3.0.1
+  Depends on vulnerable versions of undici
+  node_modules/@actions/http-client
+
+uuid  11.0.0 - 11.1.0
+Severity: moderate
+uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided - https://github.com/advisories/GHSA-w5hq-g745-h8pq
+fix available via `npm audit fix`
+node_modules/@mermaid-js/mermaid-cli/node_modules/uuid
+
+yaml  2.0.0 - 2.8.2
+Severity: moderate
+yaml is vulnerable to Stack Overflow via deeply nested YAML collections - https://github.com/advisories/GHSA-48c2-rrv3-qjmp
+fix available via `npm audit fix --force`
+Will install yaml@2.9.0, which is outside the stated dependency range
+node_modules/yaml
+
+36 vulnerabilities (1 low, 17 moderate, 16 high, 2 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+EXIT_CODE=1
+
+===== git status after baseline =====
+$ git status --short
+ M .github/schemas/frontmatter.schema.json
+ M .github/schemas/project-fields.schema.json
+?? .github/projects/active/portable-ai-plugin-restructure/portable-ai-plugin-restructure-inventory-report-2026-05-15.md
+?? .github/projects/active/portable-ai-plugin-restructure/portable-ai-plugin-restructure-migration-map-2026-05-15.csv
+EXIT_CODE=0
