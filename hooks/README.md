@@ -9,7 +9,6 @@ maintainer: "LightSpeed Team"
 owners: ["LightSpeed Team"]
 tags: ["hooks", "guardrails", "automation", "ai-ops"]
 status: "active"
-stability: "draft"
 ---
 
 # Portable Hooks
