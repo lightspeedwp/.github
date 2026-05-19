@@ -17,7 +17,7 @@ Parent epic: #282 (<https://github.com/lightspeedwp/.github/issues/282>).
 
 ## Audit Checklist / Scope
 
-- [ ] Inventory `.github/agents`, `.github/instructions`, `.github/prompts`, `.github/schemas`, `.github/workflows`, `scripts/agents`, and `scripts/validation`.
+- [ ] Inventory `.github/agents`, `.github/instructions`, `.github/prompts`, `.github/schemas`, `.github/workflows`, `.github/ISSUE_TEMPLATE`, `.github/SAVED_REPLIES`, `scripts/agents`, and `scripts/validation`.
 - [ ] Record decision for each item: keep, move, convert, archive, delete, or defer.
 - [ ] Capture target path for every moved or converted asset.
 - [ ] Flag assets with hard-coded `.github/*` paths.
