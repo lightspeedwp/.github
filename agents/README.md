@@ -30,8 +30,8 @@ LightSpeed Team owns this folder. Repo-only maintenance agents stay in
 | Path | Purpose |
 | --- | --- |
 | `agents/README.md` | Ownership and migration rules for this folder. |
-| `agents/<agent-id>.agent.md` | Portable agent specification with frontmatter and tool-neutral behaviour. |
-| `agents/<agent-id>/` | Optional folder for larger agents that need assets, examples, or adapter notes. |
+| `agents/<agent-id>.agent.md` | Portable agent specification (flat structure). |
+| `agents/<agent-id>/AGENT.md` | Portable agent specification (folder structure entrypoint). |
 
 ## Usage
 
