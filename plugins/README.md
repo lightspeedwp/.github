@@ -8,8 +8,7 @@ author: "Codex"
 maintainer: "LightSpeed Team"
 owners: ["LightSpeed Team"]
 tags: ["plugins", "ai-ops", "installable-assets", "governance"]
-status: "active"
-stability: "draft"
+status: "draft"
 ---
 
 # Portable Plugins
