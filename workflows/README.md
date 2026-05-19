@@ -30,6 +30,7 @@ processes rather than repository CI configuration.
 | --- | --- |
 | `workflows/README.md` | Ownership and migration rules for this folder. |
 | `workflows/<workflow-id>/README.md` | Workflow purpose, inputs, outputs, risks, and validation. |
+| `workflows/<workflow-id>/workflow.yml` | Portable workflow definition file. |
 | `workflows/<workflow-id>/<adapter>.md` | Optional tool adapter notes for supported runtimes. |
 
 ## Usage
