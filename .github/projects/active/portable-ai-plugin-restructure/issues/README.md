@@ -49,8 +49,8 @@ frontmatter.
 
 ## Labels And Branch Prefixes
 
-- Parent epics use `status:needs-planning`, `priority:important`, `type:epic`, and relevant area/type labels.
-- AI operations work uses `type:ai-ops` and branch prefix `ai/`.
+- Parent epics use `status:needs-planning`, `priority:important`, `type:epic`, and relevant non-type labels such as `area:*` or `ai-ops:*`.
+- AI operations work uses relevant `ai-ops:*` labels and branch prefix `ai/`.
 - Refactor work uses branch prefix `refactor/`.
 - Documentation work uses branch prefix `docs/`.
 - Build and validation work uses branch prefix `ci/` or `build/`.
