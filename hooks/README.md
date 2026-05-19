@@ -45,7 +45,7 @@ it is rewritten into a smaller hook, workflow, or skill-local script.
 Validate changed Markdown files and any hook scripts before a PR.
 
 ```bash
-npx markdownlint-cli2 "hooks/README.md"
+npx markdownlint-cli2 "hooks/**/*.md"
 ```
 
 ## Migration Rules

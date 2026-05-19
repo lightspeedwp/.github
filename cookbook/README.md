@@ -45,7 +45,7 @@ LightSpeed Team owns this folder. Keep active project notes in
 Validate changed Markdown files before a PR.
 
 ```bash
-npx markdownlint-cli2 "cookbook/README.md"
+npx markdownlint-cli2 "cookbook/**/*.md"
 ```
 
 ## Migration Rules

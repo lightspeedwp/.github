@@ -29,7 +29,8 @@ bundled into plugins only when a plugin needs them.
 | Path | Purpose |
 | --- | --- |
 | `skills/README.md` | Ownership, backlog, and migration rules for this folder. |
-| `skills/<skill-id>/SKILL.md` | Required entrypoint for a skill. |
+| `skills/<skill-id>.skill.md` | Portable skill specification (flat structure). |
+| `skills/<skill-id>/SKILL.md` | Portable skill specification (folder structure entrypoint). |
 | `skills/<skill-id>/assets/` | Optional static assets used by the skill. |
 | `skills/<skill-id>/scripts/` | Optional helper scripts owned by the skill. |
 | `skills/<skill-id>/templates/` | Optional reusable output templates. |
@@ -59,7 +60,7 @@ Validate changed Markdown files now. Add skill structure checks once the
 validation reset introduces skill validation.
 
 ```bash
-npx markdownlint-cli2 "skills/README.md"
+npx markdownlint-cli2 "skills/**/*.md"
 ```
 
 ## Migration Rules

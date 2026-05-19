@@ -48,7 +48,7 @@ Validate changed Markdown files now. Add workflow structure checks once the
 validation reset introduces portable workflow validation.
 
 ```bash
-npx markdownlint-cli2 "workflows/README.md"
+npx markdownlint-cli2 "workflows/**/*.md"
 ```
 
 ## Migration Rules

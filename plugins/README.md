@@ -56,7 +56,7 @@ Validate changed Markdown files now. Add manifest validation once the validation
 reset introduces `validate:plugins`.
 
 ```bash
-npx markdownlint-cli2 "plugins/README.md"
+npx markdownlint-cli2 "plugins/**/*.md"
 ```
 
 ## Migration Rules

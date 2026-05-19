@@ -45,7 +45,7 @@ stay in `.github/instructions/` or `.github/custom-instructions.md`.
 Validate changed Markdown files and future frontmatter checks before a PR.
 
 ```bash
-npx markdownlint-cli2 "instructions/README.md"
+npx markdownlint-cli2 "instructions/**/*.md"
 ```
 
 ## Migration Rules

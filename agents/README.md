@@ -44,7 +44,7 @@ LightSpeed Team owns this folder. Repo-only maintenance agents stay in
 Validate changed Markdown files and any future agent schema checks before a PR.
 
 ```bash
-npx markdownlint-cli2 "agents/README.md"
+npx markdownlint-cli2 "agents/**/*.md"
 ```
 
 ## Migration Rules
