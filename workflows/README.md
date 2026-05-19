@@ -9,7 +9,7 @@ maintainer: "LightSpeed Team"
 owners: ["LightSpeed Team"]
 tags: ["workflows", "ai-ops", "automation", "governance"]
 status: "active"
-stability: "draft"
+stability: "incubating"
 ---
 
 # Portable Workflows
