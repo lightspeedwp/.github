@@ -37,7 +37,15 @@ Instructions for creating effective and maintainable prompt files that guide Git
 
 ## File Naming and Placement
 
-- Use kebab-case filenames ending with `.prompt.md` and store them under `.github/prompts/` unless your workspace standard specifies another directory.
+- Use kebab-case filenames ending with `.prompt.md`.
+- Store repo-local or legacy prompt files under `.github/prompts/` while the
+  migration is in progress.
+- Convert repeatable prompt workflows into `skills/<skill-id>/SKILL.md` when
+  they have clear steps, inputs, outputs, and validation.
+- Convert teaching examples or playbooks into `cookbook/` when they are useful
+  but not strict skills.
+- Do not add new permanent portable prompt collections under `.github/prompts/`
+  by default.
 - Provide a short filename that communicates the action (for example, `generate-readme.prompt.md` rather than `prompt1.prompt.md`).
 
 ## Body Structure

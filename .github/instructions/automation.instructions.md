@@ -102,15 +102,19 @@ graph TB
     D --> G --> K --> O
 ```
 
-### Automation Components
+### Repo Automation Components
 
 | Component        | Purpose                       | Files                                    |
 | ---------------- | ----------------------------- | ---------------------------------------- |
 | **Agents**       | Executable automation logic   | `.github/agents/*.agent.js`              |
 | **Workflows**    | GitHub Actions triggers       | `.github/workflows/*.yml`                |
 | **Instructions** | Agent behavior documentation  | `.github/instructions/*.instructions.md` |
-| **Prompts**      | Reusable automation templates | `.github/prompts/*.prompt.md`            |
+| **Prompts**      | Legacy/repo-local automation templates during migration | `.github/prompts/*.prompt.md` |
 | **Reports**      | Automation outputs            | `.github/reports/**/*`                   |
+
+Portable agent specs, skills, hooks, instructions, and agentic workflows belong
+in the matching top-level source folders described in
+`file-organisation.instructions.md`.
 
 ---
 
