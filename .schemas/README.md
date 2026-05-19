@@ -9,7 +9,6 @@ maintainer: "LightSpeed Team"
 owners: ["LightSpeed Team"]
 tags: ["schemas", "validation", "ai-ops", "governance"]
 status: "active"
-stability: "draft"
 ---
 
 # Portable Schemas
