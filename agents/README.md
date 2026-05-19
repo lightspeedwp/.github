@@ -8,8 +8,7 @@ author: "Codex"
 maintainer: "LightSpeed Team"
 owners: ["LightSpeed Team"]
 tags: ["agents", "ai-ops", "governance", "portable-assets"]
-status: "active"
-stability: "draft"
+status: "draft"
 ---
 
 # Portable Agents
