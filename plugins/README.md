@@ -31,7 +31,7 @@ LightSpeed Team owns this folder. The first implementation target is the
 | --- | --- |
 | `plugins/README.md` | Ownership and migration rules for this folder. |
 | `plugins/<plugin-id>/README.md` | Plugin purpose, contents, install notes, and support status. |
-| `plugins/<plugin-id>/.github/plugin/plugin.json` | Plugin manifest for compatible tooling. |
+| `plugins/<plugin-id>/plugin.json` | Plugin manifest for compatible tooling. |
 | `plugins/<plugin-id>/skills/` | Plugin-local skills when bundling is useful. |
 | `plugins/<plugin-id>/agents/` | Plugin-local agent specs when bundling is useful. |
 
