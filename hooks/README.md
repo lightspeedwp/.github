@@ -30,6 +30,7 @@ it is rewritten into a smaller hook, workflow, or skill-local script.
 | --- | --- |
 | `hooks/README.md` | Ownership and migration rules for this folder. |
 | `hooks/<hook-id>/README.md` | Hook purpose, inputs, outputs, risks, and usage. |
+| `hooks/<hook-id>/hook.sh` | Actual hook implementation (or other language-specific entrypoint). |
 | `hooks/<hook-id>/<adapter>.md` | Optional tool adapter notes for Codex, Copilot, Claude, or other runtimes. |
 
 ## Usage
