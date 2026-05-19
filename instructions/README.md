@@ -22,7 +22,7 @@ behaviour without assuming they live inside `.github`.
 ## Ownership
 
 LightSpeed Team owns this folder. Instructions for maintaining this repository
-stay in `.github/instructions/` or `.github/copilot-instructions.md`.
+stay in `.github/instructions/` or `.github/custom-instructions.md`.
 
 ## Structure
 
