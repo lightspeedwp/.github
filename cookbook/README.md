@@ -9,7 +9,6 @@ maintainer: "LightSpeed Team"
 owners: ["LightSpeed Team"]
 tags: ["cookbook", "recipes", "examples", "ai-ops"]
 status: "active"
-stability: "draft"
 ---
 
 # Portable Cookbook
