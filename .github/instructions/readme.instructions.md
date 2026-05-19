@@ -87,11 +87,19 @@ Add/maintain:
 
 ## Subfolder README Patterns (pick relevant)
 
-- **Agents (`.github/agents/`)**: List agents, specs, scripts, workflows, tests; include an ecosystem Mermaid map if multiple agents interact.
-- **Workflows (`.github/workflows/`)**: Index workflows, triggers, key env vars; add CI/CD flow diagram.
-- **Instructions (`.github/instructions/`)**: Index instructions with scope; note consolidated files; diagram optional (small index).
-- **Prompts (`.github/prompts/`)**: Index prompt files, intended use, guardrails; simple flow diagram optional.
-- **Schemas (`.github/schemas/`)**: List schemas, validation commands, consumers; include schema relationship diagram.
+- **Repo agents (`.github/agents/`)**: List repo-only agents, legacy specs, scripts, workflows, and tests; include an ecosystem Mermaid map if multiple agents interact.
+- **Portable agents (`agents/`)**: List reusable agent specs, portability assumptions, source mappings, and plugin fit.
+- **GitHub Actions (`.github/workflows/`)**: Index workflow triggers, key env vars, and reusable Actions; add CI/CD flow diagram.
+- **Portable workflows (`workflows/`)**: Index agentic workflows, inputs, outputs, guardrails, and tool adapters.
+- **Repo instructions (`.github/instructions/`)**: Index repo-local instructions with scope; note consolidated files; diagram optional.
+- **Portable instructions (`instructions/`)**: Index reusable instruction domains and the `.github` assumptions removed during migration.
+- **Legacy prompts (`.github/prompts/`)**: Index prompt files during migration; mark whether each prompt will convert to a skill, cookbook recipe, archive item, or deletion candidate.
+- **Portable skills (`skills/`)**: List skill folders, `SKILL.md` entrypoints, assets, scripts, examples, and validation expectations.
+- **Cookbook (`cookbook/`)**: List recipes, examples, playbooks, and the source prompts or issues they came from.
+- **Repo schemas (`.github/schemas/`)**: List schemas, validation commands, consumers, and migration status.
+- **Portable schemas (`.schemas/`)**: List active portable schemas, consumers, and validation commands; include schema relationship diagram when useful.
+- **Plugins (`plugins/`)**: List plugin families, manifests, bundled assets, install notes, and support status.
+- **Hooks (`hooks/`)**: List hooks, guardrails, dry-run behaviour, permissions, and tool adapters.
 - **Reports/Projects/Tasks**: Clarify categories, naming conventions, and pointers to indexes; diagram optional unless complex hierarchy.
 - **Tests/Scripts**: How to run, dependencies, coverage/metrics; include testing or tooling flow diagram if non-trivial.
 

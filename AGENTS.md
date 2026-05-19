@@ -90,10 +90,10 @@ Start here for all key standards:
 
 | Resource Name             | Reference                                                        | Purpose / Notes                                                    |
 | ------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
-| **Main Instructions Index** | [.github/instructions/_index.instructions.md](.github/instructions/_index.instructions.md) | Master index for all instruction files |
-| **Custom Instructions**   | [.github/custom-instructions.md](.github/custom-instructions.md) | Central Copilot/org instructions, prompts, and standards           |
+| **Instructions Guide** | [.github/instructions/instructions.instructions.md](.github/instructions/instructions.instructions.md) | Guide for authoring and maintaining instruction files |
+| **Custom Instructions**   | [.github/custom-instructions.md](.github/custom-instructions.md) | Repo-local Copilot instructions and `.github` boundary rules       |
 | **Main Agent Index**      | [.github/agents/agent.md](.github/agents/agent.md)               | Directory of agent specs, stubs, usage, implementation             |
-| **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Master prompt index and authoring conventions                      |
+| **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Legacy prompt index pending skills/cookbook migration              |
 | **Instruction Migration** | [.github/MIGRATION_GUIDE.md](.github/MIGRATION_GUIDE.md)         | Mapping from legacy instruction files to the 5 consolidated guides |
 
 ---
