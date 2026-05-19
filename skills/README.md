@@ -8,8 +8,7 @@ author: "Codex"
 maintainer: "LightSpeed Team"
 owners: ["LightSpeed Team"]
 tags: ["skills", "ai-ops", "portable-assets", "governance"]
-status: "active"
-stability: "draft"
+status: "draft"
 ---
 
 # Portable Skills
