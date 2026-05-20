@@ -3,7 +3,7 @@ title: "LightSpeed Community Health & Automation Repository"
 description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
 version: "2.0"
 created_date: "2025-01-10"
-last_updated: "2025-12-07"
+last_updated: "2026-05-18"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -48,6 +48,17 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 - [.github/custom-instructions.md](./.github/custom-instructions.md) - Copilot configuration
 - [agents/agent.md](agents/agent.md) - Agent specifications
 - [.github/prompts/prompts.md](./.github/prompts/prompts.md) - Prompt library
+
+### Portable AI Source Folders
+
+- [.schemas/README.md](./.schemas/README.md) - Portable schema ownership
+- [agents/README.md](./agents/README.md) - Portable agent specs
+- [cookbook/README.md](./cookbook/README.md) - Recipes and examples
+- [hooks/README.md](./hooks/README.md) - Hooks and guardrails
+- [instructions/README.md](./instructions/README.md) - Portable instruction scope
+- [plugins/README.md](./plugins/README.md) - Plugin family strategy
+- [skills/README.md](./skills/README.md) - Skill folder rules
+- [workflows/README.md](./workflows/README.md) - Agentic workflow boundary
 
 ### 📖 Standards & Guidelines
 

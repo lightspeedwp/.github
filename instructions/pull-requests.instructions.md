@@ -108,7 +108,7 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
    - **Linked issues:** Use `Closes #123` or similar.
    - **Description:** Clearly state *what* changed and *why*.
    - **Changelog section:** [Required for release automation.]
-   - **Checklist:** Complete all items (tests, docs, a11y, linked issues, CI, etc.).
+   - **Checklist:** Complete all items, including explicit accessibility and security checks.
 
 4. **Write a clear title**  
    Format: `[Type] Area/Component: Brief summary (Closes #issue)`
@@ -150,7 +150,9 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
 
 ## 6. PR Review & Lifecycle
 
-- **Checklist must be completed** (tests, docs, a11y, linked issues, etc.).
+- **Checklist must be completed** (tests, docs, linked issues, CI, and explicit accessibility/security checks).
+- **Accessibility baseline:** Confirm semantic structure, keyboard/focus behaviour, and contrast/non-colour cues against WCAG 2.1 AA or higher.
+- **Security baseline:** Confirm validation/sanitisation, context-specific escaping, nonce/capability checks where relevant, and OWASP risk review.
 - **CI and all status checks must pass.**
 - **Respond promptly to reviewer feedback**; see [awaiting-author.md](../.github/SAVED_REPLIES/pull-requests/awaiting-author.md)
 - **Ready for review:** Mark as ready and ping reviewers; see [ready-for-review.md](../.github/SAVED_REPLIES/pull-requests/ready-for-review.md)
