@@ -8,20 +8,24 @@
  *   node scripts/validate-agents.js --json             # Output JSON format
  *
  * @module scripts/validation/validate-agents
- * @see .github/agents/agent.md
+ * @see agents/agent.md
  */
 
 import fs from "fs";
 import path from "path";
 import Ajv from "ajv";
+import addFormats from "ajv-formats";
 import yaml from "js-yaml";
 import { fileURLToPath } from "url";
 import { globSync } from "glob";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.join(__dirname, "../..");
-const AGENTS_DIR = path.join(REPO_ROOT, ".github", "agents");
-const SCHEMAS_DIR = path.join(REPO_ROOT, "schemas");
+const AGENT_DIRS = [
+  path.join(REPO_ROOT, "agents"),
+  path.join(REPO_ROOT, ".github", "agents"),
+].filter((dir) => fs.existsSync(dir));
+const SCHEMAS_DIR = path.join(REPO_ROOT, ".schemas");
 const WORKFLOWS_DIR = path.join(REPO_ROOT, ".github", "workflows");
 
 // Configuration
@@ -31,13 +35,15 @@ const outputJson = args.includes("--json");
 const verbose = args.includes("--verbose");
 
 // Initialize Ajv validator
-const ajv = new Ajv({ allErrors: true });
+const ajv = new Ajv({ allErrors: true, strict: false });
+addFormats(ajv);
 
 // Results tracking
 const results = {
   total: 0,
   valid: 0,
   invalid: 0,
+  skipped: 0,
   warnings: 0,
   errors: [],
   agents: {},
@@ -111,10 +117,20 @@ function validateAgent(filePath) {
     return;
   }
 
+  if (frontmatter.file_type && frontmatter.file_type !== "agent") {
+    results.skipped++;
+    results.agents[agentName] = {
+      valid: true,
+      skipped: true,
+      frontmatter,
+      errors: [],
+      warnings: [`Skipped file_type=${frontmatter.file_type}`],
+    };
+    return;
+  }
+
   // Validate against schema
-  const schema = loadSchema(
-    path.join(SCHEMAS_DIR, "agent-frontmatter.schema.json"),
-  );
+  const schema = loadSchema(path.join(SCHEMAS_DIR, "frontmatter.schema.json"));
   const validate = ajv.compile(schema);
   const valid = validate(frontmatter);
 
@@ -209,11 +225,24 @@ function validateHandoffs(agentName, frontmatter, result) {
     }
 
     // Verify target agent exists
-    const agentFile = path.join(AGENTS_DIR, `${handoff.agent}.agent.md`);
-    if (!fs.existsSync(agentFile)) {
+    const agentFile = findAgentFileByName(handoff.agent);
+    if (!agentFile) {
       result.warnings.push(`Handoff target not found: ${handoff.agent}`);
     }
   }
+}
+
+/**
+ * Find an agent file by base agent name across active agent directories.
+ */
+function findAgentFileByName(agentName) {
+  for (const dir of AGENT_DIRS) {
+    const agentFile = path.join(dir, `${agentName}.agent.md`);
+    if (fs.existsSync(agentFile)) {
+      return agentFile;
+    }
+  }
+  return null;
 }
 
 /**
@@ -221,15 +250,15 @@ function validateHandoffs(agentName, frontmatter, result) {
  */
 function findAgentFiles() {
   if (targetAgent) {
-    const agentFile = path.join(AGENTS_DIR, `${targetAgent}.agent.md`);
-    if (!fs.existsSync(agentFile)) {
+    const agentFile = findAgentFileByName(targetAgent);
+    if (!agentFile) {
       console.error(`Agent not found: ${targetAgent}`);
       process.exit(1);
     }
     return [agentFile];
   }
 
-  return globSync(path.join(AGENTS_DIR, "*.agent.md"));
+  return AGENT_DIRS.flatMap((dir) => globSync(path.join(dir, "*.agent.md")));
 }
 
 /**
@@ -238,6 +267,9 @@ function findAgentFiles() {
 function generateReport() {
   if (outputJson) {
     console.log(JSON.stringify(results, null, 2));
+    if (results.invalid > 0) {
+      process.exit(1);
+    }
     return;
   }
 
@@ -252,6 +284,7 @@ function generateReport() {
   console.log(`Total agents:    ${results.total}`);
   console.log(`Valid:           ${results.valid} ✓`);
   console.log(`Invalid:         ${results.invalid} ✗`);
+  console.log(`Skipped:         ${results.skipped}`);
   console.log(`Warnings:        ${results.warnings} ⚠`);
 
   if (results.errors.length > 0) {
@@ -288,7 +321,7 @@ function generateReport() {
  */
 function main() {
   if (verbose) {
-    console.log(`Validating agents in: ${AGENTS_DIR}\n`);
+    console.log(`Validating agents in: ${AGENT_DIRS.join(", ")}\n`);
   }
 
   const agentFiles = findAgentFiles();

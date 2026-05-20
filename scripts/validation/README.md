@@ -31,7 +31,7 @@ The validation system provides automated checking of:
 - JSON files (linting, formatting, schema validation)
 - YAML configuration files (including `.coderabbit.yml`)
 
-All schema files are stored in `.github/schemas/`.
+All schema files are stored in `../../.schemas/`.
 
 ```mermaid
 graph TD
@@ -100,17 +100,30 @@ graph TD
 node validate-frontmatter.js
 ```
 
+### Structure Validation
+
+```bash
+# Validate required portable source folders without modifying files
+npm run validate:structure
+```
+
 ### JSON Validation & Linting
 
 ```bash
-# Format all JSON files (read-only check)
+# Check whether JSON files would be formatted
 node validate-json.js --format-only --read-only
 
-# Validate syntax only (strict mode)
-node validate-json.js --validate-only --strict
+# Validate syntax only (strict, read-only mode)
+node validate-json.js --validate-only --strict --read-only
+
+# Format all JSON files
+npm run format:json
+
+# Format active schema files
+npm run format:json:schemas
 
 # Validate against a schema
-node validate-json.js --glob "data/**/*.json" --schema "schema/my-doc.schema.json" --spec draft2020
+node validate-json.js --glob "data/**/*.json" --schema "schema/my-doc.schema.json" --spec draft2020 --validate-only --read-only
 ```
 
 ### Validate CodeRabbit Configuration
@@ -128,12 +141,12 @@ node update-coderabbit-schema.cjs
 
 ## Configuration
 
-All schema files are stored in `.github/schemas/`.
+All schema files are stored in `../../.schemas/`.
 Default configuration for frontmatter validation is in `validate-frontmatter.js`.
 
 ## Validation Rules
 
-See the schema files in `.github/schemas/` for required and recommended fields for each file type.
+See the schema files in `../../.schemas/` for required and recommended fields for each file type.
 
 ## Output Examples
 
@@ -162,7 +175,7 @@ npm run test:watch
 
 ### Adding New Validation Rules
 
-1. Update or add schema in `.github/schemas/`
+1. Update or add schema in `../../.schemas/`
 2. Add or update validation script in this folder
 3. Add or update test cases
 4. Update this README
@@ -181,8 +194,8 @@ All validation scripts provide robust error handling and log errors to the conso
 
 ## Related Documentation
 
-- [Frontmatter Schema](../../.github/schemas/frontmatter.schema.json)
-- [CodeRabbit Schema](../../.github/schemas/coderabbit-overrides.v2.json)
+- [Frontmatter Schema](../../.schemas/frontmatter.schema.json)
+- [CodeRabbit Schema](../../.schemas/coderabbit-overrides.v2.json)
 - [Tagging Conventions](../../.github/instructions/tagging-and-frontmatter-conventions.instructions.md)
 - [Mermaid Diagrams](../../.github/instructions/mermaid-diagrams.instructions.md)
 - [YAML Documentation](../../docs/YAML.md)

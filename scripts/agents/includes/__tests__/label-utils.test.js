@@ -1,7 +1,7 @@
 /**
  * ============================================================================
  * Tests for label-utils utility functions
- * Location: .github/agents/includes/__tests__/label-utils.test.js
+ * Location: ../__tests__/label-utils.test.js
  * Description:
  *   - Tests label formatting and comparison utilities
  *   - Covers Markdown table generation and label diffing

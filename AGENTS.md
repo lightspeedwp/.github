@@ -11,7 +11,7 @@ tags: ["agents", "ai", "coding-standards", "governance", "wordpress"]
 domain: "governance"
 stability: "stable"
 references:
-  - path: ".github/agents/agent.md"
+  - path: "agents/agent.md"
     description: "Main agent implementations index"
   - path: ".github/custom-instructions.md"
     description: "Organisation-wide Copilot instructions"
@@ -29,13 +29,13 @@ references:
 - Accessibility and performance are non‑negotiable; highlight potential issues during reviews.
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
 - When unsure, propose safe defaults and ask **one** focused question to clarify requirements.
-- Core instructions consolidated: see `.github/instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `.github/instructions/MIGRATION_GUIDE.md`).
+- Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `MIGRATION_GUIDE.md`).
 
 ## Agent Directory
 
-- See [Main Agent Index](.github/agents/agent.md) for all agent implementations and specs.
+- See [Main Agent Index](agents/agent.md) for all agent implementations and specs.
 - Each agent must have both a code file (`.js`, `.py`, etc.) and a spec (`.md`) following the template.
-- All contributors must follow the org [Coding Standards](.github/instructions/coding-standards.instructions.md).
+- All contributors must follow the org [Coding Standards](instructions/coding-standards.instructions.md).
 
 ## Agent Test Status
 
@@ -51,13 +51,13 @@ references:
 
 | Area                      | File Reference                                                                                                                 | Notes / Usage                                                 |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| **Coding Standards**      | [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)                 | Unified standards for all code                                |
-| **File Organisation**     | [.github/instructions/file-organisation.instructions.md](.github/instructions/file-organisation.instructions.md) | Where to create reports, tasks, and project files (CRITICAL)  |
-| **Quality Assurance**     | [.github/instructions/quality-assurance.instructions.md](.github/instructions/quality-assurance.instructions.md)               | Testing pyramid, Jest, coverage, CI/CD (3 files consolidated) |
-| **Languages & Linting**   | [.github/instructions/languages.instructions.md](.github/instructions/languages.instructions.md)                               | JS/TS, JSON, YAML, JSDoc, linting (4 files consolidated)      |
-| **Documentation Formats** | [.github/instructions/documentation-formats.instructions.md](.github/instructions/documentation-formats.instructions.md)       | Markdown, YAML frontmatter, Mermaid (3 files consolidated)    |
-| **Automation**            | [.github/instructions/automation.instructions.md](.github/instructions/automation.instructions.md)                             | Agents, labeling, release, metrics (8 files consolidated)     |
-| **Community Standards**   | [.github/instructions/community-standards.instructions.md](.github/instructions/community-standards.instructions.md)           | Files, naming, README, replies (4 files consolidated)         |
+| **Coding Standards**      | [instructions/coding-standards.instructions.md](instructions/coding-standards.instructions.md)                 | Unified standards for all code                                |
+| **File Organisation**     | [instructions/file-organisation.instructions.md](instructions/file-organisation.instructions.md) | Where to create reports, tasks, and project files (CRITICAL)  |
+| **Quality Assurance**     | [instructions/quality-assurance.instructions.md](instructions/quality-assurance.instructions.md)               | Testing pyramid, Jest, coverage, CI/CD (3 files consolidated) |
+| **Languages & Linting**   | [instructions/languages.instructions.md](instructions/languages.instructions.md)                               | JS/TS, JSON, YAML, JSDoc, linting (4 files consolidated)      |
+| **Documentation Formats** | [instructions/documentation-formats.instructions.md](instructions/documentation-formats.instructions.md)       | Markdown, YAML frontmatter, Mermaid (3 files consolidated)    |
+| **Automation**            | [instructions/automation.instructions.md](instructions/automation.instructions.md)                             | Agents, labeling, release, metrics (8 files consolidated)     |
+| **Community Standards**   | [instructions/community-standards.instructions.md](instructions/community-standards.instructions.md)           | Files, naming, README, replies (4 files consolidated)         |
 
 **Consolidated Instructions (5 Files):**
 
@@ -81,8 +81,8 @@ references:
 
 Start here for all key standards:
 
-- [Coding Standards Index](.github/instructions/coding-standards.instructions.md): Unified standards, best practices, and documentation for all LightSpeed projects.
-- [Linting Instructions Index](.github/instructions/linting.instructions.md): Primary index and guidance for all linting rules, tools, and file-type-specific standards.
+- [Coding Standards Index](instructions/coding-standards.instructions.md): Unified standards, best practices, and documentation for all LightSpeed projects.
+- [Linting Instructions Index](instructions/linting.instructions.md): Primary index and guidance for all linting rules, tools, and file-type-specific standards.
 
 ---
 
@@ -90,19 +90,28 @@ Start here for all key standards:
 
 | Resource Name             | Reference                                                        | Purpose / Notes                                                    |
 | ------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
+<<<<<<< Updated upstream
 | **Instructions Guide** | [.github/instructions/instructions.instructions.md](.github/instructions/instructions.instructions.md) | Guide for authoring and maintaining instruction files |
 | **Custom Instructions**   | [.github/custom-instructions.md](.github/custom-instructions.md) | Repo-local Copilot instructions and `.github` boundary rules       |
+| **Claude Instructions**   | [CLAUDE.md](CLAUDE.md) | Claude-specific project instructions; companion to this file       |
 | **Main Agent Index**      | [.github/agents/agent.md](.github/agents/agent.md)               | Directory of agent specs, stubs, usage, implementation             |
 | **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Legacy prompt index pending skills/cookbook migration              |
 | **Instruction Migration** | [.github/MIGRATION_GUIDE.md](.github/MIGRATION_GUIDE.md)         | Mapping from legacy instruction files to the 5 consolidated guides |
+=======
+| **Instructions Guide** | [instructions/instructions.instructions.md](instructions/instructions.instructions.md) | Guide for authoring and maintaining instruction files |
+| **Custom Instructions**   | [.github/custom-instructions.md](.github/custom-instructions.md) | Repo-local Copilot instructions and `.github` boundary rules       |
+| **Main Agent Index**      | [agents/agent.md](agents/agent.md)               | Directory of agent specs, stubs, usage, implementation             |
+| **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Legacy prompt index pending skills/cookbook migration              |
+| **Instruction Migration** | [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)                         | Mapping from legacy instruction files to the 5 consolidated guides |
+>>>>>>> Stashed changes
 
 ---
 
 ## References
 
-- [Contributing Guidelines](../CONTRIBUTING.md) - For human contributors
-- [Main Documentation](../README.md) - Project overview
-- [Frontmatter Schema](.github/schemas/frontmatter.schema.json) - Schema validation
+- [Contributing Guidelines](CONTRIBUTING.md) - For human contributors
+- [Main Documentation](README.md) - Project overview
+- [Frontmatter Schema](.schemas/frontmatter.schema.json) - Schema validation
 
 *This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards.*

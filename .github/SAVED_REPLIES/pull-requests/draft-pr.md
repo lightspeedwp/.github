@@ -6,7 +6,7 @@ labels:
   - status:in-progress
 references:
   - "../../CONTRIBUTING.md"
-  - "../../pull_request_template.md"
+  - "../../PULL_REQUEST_TEMPLATE.md"
 ---
 
 # Draft PR Saved Replies

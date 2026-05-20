@@ -171,7 +171,7 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 - [PR Labels Guide](./PR_LABELS.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
-- [Agent Spec for Labeling](../.github/agents/labeling.agent.md)
+- [Agent Spec for Labeling](../agents/labeling.agent.md)
 - [labeling.yml Workflow](../.github/workflows/labeling.yml)
 
 *For questions or changes, open a PR or discussion in the `.github` repository.*
@@ -203,7 +203,7 @@ The labeling agent automates all aspects of labeling, status/priority enforcemen
 
 ## 3. **Utility Modules (Modularization)**
 
-**Utilities are located in `.github/agents/includes/` and imported as needed:**
+**Utilities are located in `../scripts/agents/includes/` and imported as needed:**
 
 | Utility File          | Core Functions (examples)                                                  | Used by                       |
 | --------------------- | -------------------------------------------------------------------------- | ----------------------------- |
@@ -225,30 +225,30 @@ const {
   fetchCanonicalLabels,
   buildLabelAliasMap,
   findStandardLabel,
-} = require("../../.github/agents/includes/label-lookup");
+} = require("../scripts/agents/includes/label-lookup");
 const {
   fetchLabelerRules,
   applyLabelerRules,
-} = require("../../.github/agents/includes/labeler-utils");
+} = require("../scripts/agents/includes/labeler-utils");
 const {
   syncLabelsWithCanonical,
   standardizeLabelsOnRepo,
-} = require("../../.github/agents/includes/label-sync");
+} = require("../scripts/agents/includes/label-sync");
 const {
   enforceOneHotStatus,
   applyDefaultStatus,
   applyDefaultPriority,
-} = require("../../.github/agents/includes/status-enforcer");
+} = require("../scripts/agents/includes/status-enforcer");
 const {
   buildLabelingReport,
-} = require("../../.github/agents/includes/label-reporting");
+} = require("../scripts/agents/includes/label-reporting");
 const {
   loadIssueTypes,
   findIssueTypeByNameOrAlias,
-} = require("../../.github/agents/includes/type-lookup");
+} = require("../scripts/agents/includes/type-lookup");
 const {
   suggestLabelsFromContent,
-} = require("../../.github/agents/includes/label-heuristics");
+} = require("../scripts/agents/includes/label-heuristics");
 
 // Example usage in agent's main function:
 async function runLabelingAgent(context, configs, dryRun = false) {
@@ -295,7 +295,7 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - `.github/labels.yml`: Canonical label definitions (names, colors, aliases)
 - `.github/labeler.yml`: File/branch-based label rules
 - `.github/issue-types.yml`: Canonical issue type definitions
-- `.github/agents/includes/`: Shared JS helpers for all agents/scripts
+- `../scripts/agents/includes/`: Shared JS helpers for all agents/scripts
 
 ---
 
@@ -319,9 +319,9 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - **Missing labels or types?**
   Check `.github/labels.yml` and `.github/issue-types.yml` for missing/typo entries.
 - **Label not applied as expected?**
-  Debug with utility tests in `.github/agents/includes/__tests__/`.
+  Debug with utility tests in `../scripts/agents/includes/__tests__/`.
 - **Want to add a new heuristic or report?**
-  Add it as a new utility in `.github/agents/includes/`, write a test in `__tests__/`, and import it in the agent.
+  Add it as a new utility in `../scripts/agents/includes/`, write a test in `__tests__/`, and import it in the agent.
 
 ---
 
@@ -330,9 +330,9 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - [labels.yml](../.github/labels.yml)
 - [labeler.yml](../.github/labeler.yml)
 - [issue-types.yml](../.github/issue-types.yml)
-- [Coding Standards](../.github/instructions/coding-standards.instructions.md)
+- [Coding Standards](../instructions/coding-standards.instructions.md)
 - [Custom Instructions](../.github/custom-instructions.md)
-- [Main Agent Spec](../.github/agents/labeling.agent.md)
+- [Main Agent Spec](../agents/labeling.agent.md)
 
 ---
 

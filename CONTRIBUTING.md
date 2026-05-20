@@ -7,7 +7,7 @@ last_updated: "2025-12-04"
 owners: ["LightSpeed Team"]
 tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
 references:
-  - path: ".github/instructions/coding-standards.instructions.md"
+  - path: "instructions/coding-standards.instructions.md"
     description: "Coding standards"
   - path: "docs/LINTING.md"
     description: "Linting standards"
@@ -22,7 +22,7 @@ references:
 1. **Fork & Clone:** Fork this repo and clone it locally.
 2. **Install dependencies:** `npm install`
 3. **Create a branch:** Use the correct prefix (e.g. `feat/`, `fix/`, `docs/`).
-4. **Write code & tests:** Follow [Coding Standards](.github/instructions/coding-standards.instructions.md) and add/expand tests.
+4. **Write code & tests:** Follow [Coding Standards](instructions/coding-standards.instructions.md) and add/expand tests.
 5. **Lint & test:** Run `npm run lint:all` and `npm test` before committing. If you need to update or add new linting rules, or troubleshoot lint failures, see the [Updating Linting Rules & Troubleshooting](./docs/LINTING.md) section in the README for step-by-step guidance.
 6. **Commit & push:** Use clear commit messages and push your branch.
 7. **Open a PR:** Use the correct PR template and link to the related issue.
@@ -67,7 +67,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
   - For features/enhancements: describe the problem/opportunity, proposed solution, mockups/designs, and acceptance criteria.
   - For other types: explain context, goals, action items, and impact.
 - **Reference relevant docs or standards:**
-  See [Coding Standards](.github/instructions/coding-standards.instructions.md), [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md), [Theme JSON](.github/instructions/theme-json.instructions.md), etc.
+  See [Coding Standards](instructions/coding-standards.instructions.md), [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md), [Theme JSON](.github/instructions/theme-json.instructions.md), etc.
 - **Outline your planned approach for complex issues** and request feedback before implementation.
 - **Automation:** Well-formed issues using the right template are automatically labeled, routed, and prioritized.
 
@@ -82,7 +82,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
 
 ### 3. Coding Standards
 
-- Follow [LightSpeed coding standards](.github/instructions/coding-standards.instructions.md) for PHP, JS, CSS, and other languages.
+- Follow [LightSpeed coding standards](instructions/coding-standards.instructions.md) for PHP, JS, CSS, and other languages.
 - Use configured linters/formatters (e.g. ESLint, Prettier, PHPCS) and ensure all code passes checks.
 - Write clear, concise commit messages and document significant changes inline.
 
@@ -142,7 +142,7 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 - [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md): Issue type mapping and usage.
 - [ISSUE_LABELS.md](./docs//ISSUE_LABELS.md): Label families, triage, and workflow.
 - [PR_LABELS.md](./docs//PR_LABELS.md): PR labeling, templates, and automation.
-- [Coding Standards](.github/instructions/coding-standards.instructions.md)
+- [Coding Standards](instructions/coding-standards.instructions.md)
 - [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md)
 - [Theme JSON](.github/instructions/theme-json.instructions.md)
 

@@ -6,7 +6,7 @@ file_type: "process-guide"
 category: "release-management"
 description: "Authoritative release process for lightspeedwp/.github: develop → main flow, gating, changelog validation, release PRs, tags, and GitHub Releases."
 references:
-  - path: "../.github/agents/release.agent.md"
+  - path: "../agents/release.agent.md"
     description: "Release agent specification"
   - path: "../scripts/agents/release.agent.js"
     description: "Release automation implementation"
@@ -14,7 +14,7 @@ references:
     description: "Release workflow (develop → main)"
   - path: "../.github/workflows/changelog.yml"
     description: "Changelog validation on every PR"
-  - path: "../.github/schemas/changelog.schema.json"
+  - path: "../.schemas/changelog.schema.json"
     description: "Keep a Changelog schema"
   - path: "../scripts/validation/validate-changelog.cjs"
     description: "Schema validation script"
@@ -83,7 +83,7 @@ node scripts/agents/release.agent.js --scope=minor --dry-run
 ## Changelog governance
 
 - Format: Keep a Changelog.
-- Schema: `.github/schemas/changelog.schema.json` enforced by:
+- Schema: `../.schemas/changelog.schema.json` enforced by:
   - `scripts/validation/validate-changelog.cjs`
   - `scripts/agents/includes/changelogUtils.cjs --validate/--unreleased`
 - Requirements:

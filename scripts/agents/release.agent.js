@@ -8,12 +8,12 @@
  *   - Uses shared utilities: changelogUtils, validate-version, validate-changelog
  *   - Supports dry-run mode for testing
  * Standards:
- *   - Follows [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
+ *   - Follows [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/instructions/coding-standards.instructions.md)
  *   - See org instructions: [Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
- *   - See spec: .github/agents/release.agent.md
+ *   - See spec: ../../agents/release.agent.md
  * ============================================================================
  * @module scripts/agents/release.agent.js
- * @see .github/agents/release.agent.md
+ * @see ../../agents/release.agent.md
  */
 
 import fs from "fs";

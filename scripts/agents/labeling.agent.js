@@ -6,7 +6,7 @@
  * Replaces all prior split agents.
  *
  * @module scripts/agents/labeling.agent.js
- * @see .github/agents/labeling.agent.md
+ * @see ../../agents/labeling.agent.md
  * @version 2.0.0
  * @author LightSpeedWP
  */

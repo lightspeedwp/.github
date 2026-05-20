@@ -37,12 +37,21 @@ Use these files as the primary map before editing:
 | File | Purpose |
 | --- | --- |
 | [`../AGENTS.md`](../AGENTS.md) | Global AI rules, tone, security, accessibility, and contribution expectations. |
+<<<<<<< Updated upstream
 | [`instructions/file-organisation.instructions.md`](./instructions/file-organisation.instructions.md) | Canonical placement rules for GitHub-native files versus portable AI assets. |
 | [`instructions/coding-standards.instructions.md`](./instructions/coding-standards.instructions.md) | Coding standards and WordPress-oriented engineering expectations. |
 | [`instructions/documentation-formats.instructions.md`](./instructions/documentation-formats.instructions.md) | Markdown, frontmatter, and Mermaid standards. |
 | [`instructions/quality-assurance.instructions.md`](./instructions/quality-assurance.instructions.md) | Testing, validation, and quality guidance. |
 | [`instructions/automation.instructions.md`](./instructions/automation.instructions.md) | Repo automation, agents, labels, releases, and metrics. |
 | [`instructions/community-standards.instructions.md`](./instructions/community-standards.instructions.md) | Community files, naming, README, and saved reply guidance. |
+=======
+| [`.github/instructions/file-organisation.instructions.md`](./instructions/file-organisation.instructions.md) | Repo-local placement rules for GitHub-native files versus portable AI assets. |
+| [`../instructions/coding-standards.instructions.md`](../instructions/coding-standards.instructions.md) | Coding standards and WordPress-oriented engineering expectations. |
+| [`../instructions/documentation-formats.instructions.md`](../instructions/documentation-formats.instructions.md) | Markdown, frontmatter, and Mermaid standards. |
+| [`../instructions/quality-assurance.instructions.md`](../instructions/quality-assurance.instructions.md) | Testing, validation, and quality guidance. |
+| [`../instructions/automation.instructions.md`](../instructions/automation.instructions.md) | Repo automation, agents, labels, releases, and metrics. |
+| [`../instructions/community-standards.instructions.md`](../instructions/community-standards.instructions.md) | Community files, naming, README, and saved reply guidance. |
+>>>>>>> Stashed changes
 
 ## Repository Structure
 

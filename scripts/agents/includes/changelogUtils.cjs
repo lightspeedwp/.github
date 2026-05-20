@@ -2,7 +2,7 @@
 /**
  * ============================================================================
  * Utility: changelogUtils.cjs
- * Location: .github/agents/includes/changelogUtils.cjs
+ * Location: includes/changelogUtils.cjs
  * Description:
  *   - Parses and validates CHANGELOG.md files against Keep a Changelog format
  *   - Validates against changelog.schema.json
@@ -10,7 +10,7 @@
  *   - Can be used as CLI tool or imported as module
  * Standards:
  *   - Follows LightSpeed Coding Standards
- *   - See: https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md
+ *   - See: https://github.com/lightspeedwp/.github/blob/HEAD/instructions/coding-standards.instructions.md
  * ============================================================================
  */
 // TODO: Align this helper with the latest automation spec updates.

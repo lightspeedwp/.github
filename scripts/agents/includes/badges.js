@@ -1,7 +1,7 @@
 /**
  * badges.js
  * Badge generation and insertion for the meta agent
- * Based on .github/agents/includes/badgeUtils.js
+ * Based on includes/badgeUtils.js
  */
 
 // TODO: Align this helper with the latest automation spec updates.
