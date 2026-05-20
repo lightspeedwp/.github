@@ -19,7 +19,7 @@ Thank you for your contribution! Before we can merge this PR, we need to ensure 
 
 - Add or update automated tests to cover your changes
 - Tests should verify both typical use and edge cases
-- Please follow our [testing guidelines](.github/instructions/bats-tests-and-runner-scripts.md)
+- Please follow our [testing guidelines](../../instructions/quality-assurance.instructions.md)
 
 **Checklist:**
 
@@ -48,7 +48,7 @@ Thanks for including tests in this PR! There are a few ways we can improve test 
 
 **Resources:**
 
-- [Testing Guidelines](.github/instructions/bats-tests-and-runner-scripts.md)
+- [Quality Assurance Instructions](../../instructions/quality-assurance.instructions.md)
 
 If you have questions about these suggestions, let us know!
 ```
