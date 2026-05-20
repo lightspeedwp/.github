@@ -65,7 +65,7 @@ These templates integrate with:
 1. **Template Selection**: Choose the template that best matches your PR type
 2. **Required Fields**: Complete all required sections in the template
 3. **Branch Naming**: Follow the [branching strategy](../docs/BRANCHING_STRATEGY.md) for automatic detection
-4. **A11y & Security**: Complete the WCAG 2.1 AA+ and OWASP-aligned checklist items before review
+4. **A11y & Security**: Complete the WCAG 2.2 AA and OWASP-aligned checklist items before review
 5. **Automation**: Let the system handle labeling and assignment - avoid manual changes
 
 ## ⚠️ Important Notes
