@@ -2,7 +2,7 @@
 /**
  * Workflow validation runner that enforces guardrails on GitHub Actions files.
  * @module scripts/validation/validate-workflows
- * @see .github/instructions/quality-assurance.instructions.md
+ * @see ../../instructions/quality-assurance.instructions.md
  */
 
 const fs = require("fs");

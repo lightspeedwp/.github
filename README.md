@@ -15,9 +15,9 @@ stability: "stable"
 references:
   - path: ".github/custom-instructions.md"
     description: "Custom instructions for GitHub Copilot"
-  - path: ".github/instructions/coding-standards.instructions.md"
+  - path: "instructions/coding-standards.instructions.md"
     description: "Unified coding standards"
-  - path: ".github/instructions/automation.instructions.md"
+  - path: "instructions/automation.instructions.md"
     description: "Automation and agent standards"
 ---
 
@@ -46,14 +46,14 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 
 - [AGENTS.md](./AGENTS.md) - Global AI rules and agent overview
 - [.github/custom-instructions.md](./.github/custom-instructions.md) - Copilot configuration
-- [.github/agents/agent.md](./.github/agents/agent.md) - Agent specifications
+- [agents/agent.md](agents/agent.md) - Agent specifications
 - [.github/prompts/prompts.md](./.github/prompts/prompts.md) - Prompt library
 
 ### 📖 Standards & Guidelines
 
-- [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) - Coding standards
-- [.github/instructions/languages.instructions.md](./.github/instructions/languages.instructions.md) - Language-specific standards
-- [.github/instructions/automation.instructions.md](./.github/instructions/automation.instructions.md) - Automation standards
+- [instructions/coding-standards.instructions.md](instructions/coding-standards.instructions.md) - Coding standards
+- [instructions/languages.instructions.md](instructions/languages.instructions.md) - Language-specific standards
+- [instructions/automation.instructions.md](instructions/automation.instructions.md) - Automation standards
 
 ### 🏷️ Labels & Issue Management
 
@@ -86,12 +86,13 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 ├── labels.yml # Canonical labels
 ├── labeler.yml # Labeler rules
 ├── issue-types.yml # Issue type definitions
-├── instructions/ # Development standards (6 consolidated files)
+├── instructions/ # Repo-local placement rules and migration archive
 ├── agents/ # Agent specifications
 ├── prompts/ # Reusable prompts
 ├── workflows/ # GitHub Actions workflows
 └── PULL_REQUEST_TEMPLATE/ # PR templates
 
+instructions/ # Portable reusable instruction files
 docs/ # Governance and strategy documentation
 scripts/ # Automation scripts and utilities
 tests/ # Test suites
@@ -102,7 +103,7 @@ tests/ # Test suites
 
 1. **New Contributor?** Start with [CONTRIBUTING.md](./CONTRIBUTING.md)
 2. **Setting up development?** See [DEVELOPMENT.md](./DEVELOPMENT.md)
-3. **Need coding standards?** Check [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md)
+3. **Need coding standards?** Check [instructions/coding-standards.instructions.md](instructions/coding-standards.instructions.md)
 4. **Automation questions?** Read [docs/AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md)
 
 ---
@@ -144,7 +145,7 @@ accDescr {
     E --> E3[Prompt Library]
 
     F --> H[LINTING.md]
-    F --> I[HUSKY-PRECOMMITS.md]
+    F --> I[HUSKY_PRECOMMITS.md]
     F --> J[docs/config/]
     F --> K[AUTOMATION_GOVERNANCE.md]
     F --> L[LABEL_STRATEGY.md]
@@ -439,7 +440,7 @@ stateDiagram-v2
 All code quality, formatting, and automation standards are documented and enforced across the repository. See:
 
 - [LINTING.md](./docs/LINTING.md) — Main linting strategy, tool configuration, and automation
-- [HUSKY-PRECOMMITS.md](./docs/HUSKY-PRECOMMITS.md) — Pre-commit hook and automation details
+- [HUSKY_PRECOMMITS.md](./docs/HUSKY_PRECOMMITS.md) — Pre-commit hook and automation details
 - [docs/config/](./docs/config/) — All configuration file documentation (ESLint, Prettier, Stylelint, Playwright, Jest, npm scripts, etc.)
 
 ### Local Linting & Formatting
@@ -506,7 +507,7 @@ flowchart LR
 
 ### Automation & Pre-commit
 
-- Husky and lint-staged enforce linting and formatting before every commit. See [HUSKY-PRECOMMITS.md](./docs/HUSKY-PRECOMMITS.md).
+- Husky and lint-staged enforce linting and formatting before every commit. See [HUSKY_PRECOMMITS.md](./docs/HUSKY_PRECOMMITS.md).
 
 ### Troubleshooting & Updates
 
@@ -573,12 +574,12 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 
 - [General Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/custom-instructions.md)
 - [Prompt templates](https://github.com/lightspeedwp/.github/blob/HEAD/.github/prompts/prompts.md)
-- [Agent instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/agents/agent.md)
+- [Agent instructions](https://github.com/lightspeedwp/.github/blob/HEAD/agents/agent.md)
 - [AGENTS.md](https://github.com/lightspeedwp/.github/blob/HEAD/AGENTS.md) - Global AI rules
 
 ### Coding & Contribution Guidelines
 
-- [Coding Standards](./.github/instructions/coding-standards.instructions.md)
+- [Coding Standards](instructions/coding-standards.instructions.md)
 
 ---
 
@@ -609,7 +610,7 @@ All LightSpeed repositories should:
 
 - Reference this repository for issue/PR templates, label and issue type configuration, and automation workflows.
 - Link to contribution and support guidelines found here.
-- Use the canonical `.github/automation/labels.yml`, `.github/automation/labeler.yml`, and `.github/automation/issue-types.yml` for automation.
+- Use the canonical `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml` for automation.
 - Adopt governance and coding standards maintained here.
 
 ---
@@ -620,7 +621,7 @@ This section provides practical examples for consuming repositories to adopt Lig
 
 ### 1. Syncing Labels from Canonical Source
 
-All LightSpeed repositories should sync labels from the canonical [labels.yml](./.github/automation/labels.yml) to ensure consistency.
+All LightSpeed repositories should sync labels from the canonical [labels.yml](./.github/labels.yml) to ensure consistency.
 
 #### Option A: Call Reusable Label Sync Workflow
 
@@ -639,7 +640,7 @@ jobs:
     uses: lightspeedwp/.github/workflows/label-sync.yml@develop
     with:
       labels_source_repo: "lightspeedwp/.github"
-      labels_source_path: ".github/automation/labels.yml"
+      labels_source_path: ".github/labels.yml"
       dry_run: false
     secrets: inherit
 ```
@@ -717,7 +718,7 @@ Use the canonical PR template with risk assessment and testing prompts:
 
 ```bash
 # Copy PR template
-cp .github/pull_request_template.md /path/to/your/repo/.github/
+cp .github/PULL_REQUEST_TEMPLATE.md /path/to/your/repo/.github/
 
 # Or reference it directly in your repository's settings
 # GitHub → Settings → Pull Requests → Template repository: lightspeedwp/.github
@@ -764,7 +765,7 @@ Create `.github/labeler.yml` to auto-apply labels based on file paths:
 
 ```yaml
 # Copy canonical labeler configuration
-cp .github/automation/labeler.yml /path/to/your/repo/.github/
+cp .github/labeler.yml /path/to/your/repo/.github/
 
 # Or customize for your repository:
 
@@ -851,10 +852,10 @@ mkdir -p "$REPO_PATH/.github/workflows"
 cp -r .github/ISSUE_TEMPLATE "$REPO_PATH/.github/"
 
 # Copy PR template
-cp .github/pull_request_template.md "$REPO_PATH/.github/"
+cp .github/PULL_REQUEST_TEMPLATE.md "$REPO_PATH/.github/"
 
 # Copy labeler configuration
-cp .github/automation/labeler.yml "$REPO_PATH/.github/"
+cp .github/labeler.yml "$REPO_PATH/.github/"
 
 # Create label sync workflow
 cat > "$REPO_PATH/.github/workflows/label-sync.yml" <<EOF
@@ -923,7 +924,7 @@ Set up monitoring to ensure standards remain in sync:
 
 ## Troubleshooting & Adoption
 
-- **Labels/Types not applied:** Confirm your repo references `./.github/automation/labels.yml` and `./.github/automation/issue-types.yml` from this repository.
+- **Labels/Types not applied:** Confirm your repo references `./.github/labels.yml` and `./.github/issue-types.yml` from this repository.
 - **Templates missing:** Ensure your repo points to `.github` for templates, or copies them from this repo.
 - **Automation issues:** Reference [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md) for setup and troubleshooting.
 - For any org-wide questions, open an issue or discussion in this repository.

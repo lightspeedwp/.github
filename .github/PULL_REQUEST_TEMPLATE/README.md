@@ -56,8 +56,8 @@ These templates integrate with:
 
 - [**Agents Directory**](../agents/agent.md) - PR automation agents
 - [**Workflows**](../workflows/README.md) - GitHub Actions for PRs
-- [**Saved Replies**](./SAVED_REPLIES.md) - PR response templates
-- [**Instructions**](../instructions/instructions.md) - PR handling instructions
+- [**Saved Replies**](../SAVED_REPLIES/README.md) - PR response templates
+- [**Instructions**](../instructions/pull-requests.instructions.md) - PR handling instructions
 
 ## 💡 Usage Guidelines
 

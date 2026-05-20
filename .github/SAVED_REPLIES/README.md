@@ -96,7 +96,7 @@ Saved replies integrate with:
 
 ## 📚 Related Documentation
 
-- [**Main Saved Replies Index**](../SAVED_REPLIES.md) - Complete saved replies documentation
+- [**Saved Replies Index**](./README.md) - Complete saved replies documentation
 - [**Automation Governance**](../AUTOMATION_GOVERNANCE.md) - Communication automation standards
 - [**Issue Labels**](../ISSUE_LABELS.md) - Label-based response triggers
 - [**PR Labels**](../PR_LABELS.md) - PR-based response automation
@@ -113,7 +113,7 @@ Saved replies integrate with:
 
 - **Issue Templates**: Work with [issue templates](../ISSUE_TEMPLATE/README.md) for complete workflows
 - **PR Templates**: Complement [PR templates](../PULL_REQUEST_TEMPLATE/README.md) for comprehensive communication
-- **Chatmodes**: Enhanced by [communication chatmodes](../chatmodes/README.md)
+- **Agents**: Enhanced by repo-local agents and future portable skills
 
 ---
 

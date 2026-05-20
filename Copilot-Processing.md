@@ -2,7 +2,7 @@
 
 ## Request Details
 
-- User wants to update Mermaid diagrams per `.github/prompts/update-mermaid-diagrams.prompt.md` and follow `.github/instructions/mermaid.instructions.md` while validating and improving diagrams.
+- User wants to update Mermaid diagrams per `.github/prompts/update-mermaid-diagrams.prompt.md` and follow `instructions/mermaid.instructions.md` while validating and improving diagrams.
 - Need to audit diagram usage, accessibility, placements, and produce updates as guided.
 - Output should follow instructions for mermaid diagrams (WCAG AA, metadata, etc.).
 

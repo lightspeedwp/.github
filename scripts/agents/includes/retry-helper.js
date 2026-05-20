@@ -2,7 +2,7 @@
 /**
  * ============================================================================
  * Script Name: retry-helper.js
- * Location: .github/agents/includes/retry-helper.js
+ * Location: includes/retry-helper.js
  * Description: Retry logic with exponential backoff for GitHub API calls
  * Version: v1.0.0
  * Author: LightSpeed WP Team

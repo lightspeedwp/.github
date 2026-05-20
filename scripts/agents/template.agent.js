@@ -1,8 +1,8 @@
 /**
  * Template agent stub that demonstrates the minimal structure agents should follow.
- * Adjust this placeholder per .github/agents/template.agent.md when building new automation.
+ * Adjust this placeholder per ../../agents/template.agent.md when building new automation.
  * @module scripts/agents/template.agent.js
- * @see .github/agents/template.agent.md
+ * @see ../../agents/template.agent.md
  */
 /* eslint-disable */
 // last_updated: 2025-10-23

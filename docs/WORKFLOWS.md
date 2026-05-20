@@ -310,7 +310,7 @@ Gathers repository health and performance metrics.
 - No workflow duplication: all logic is agent-driven, DRY, and maintainable.
 - Canonical configuration for labels and issue types is in `.github/labels.yml` and `.github/issue-types.yml`.
 - Label mapping/file/branch rules are in `.github/labeler.yml`.
-- All workflow changes must comply with [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md).
+- All workflow changes must comply with [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/instructions/coding-standards.instructions.md).
 
 ---
 

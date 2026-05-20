@@ -216,7 +216,7 @@ Options:
 
 Examples:
   # Bump patch version of a single file
-  node bump-file-version.js .github/instructions/coding-standards.instructions.md patch
+  node bump-file-version.js ../instructions/coding-standards.instructions.md patch
 
   # Bump minor version
   node bump-file-version.js .github/prompts/review.prompt.md minor

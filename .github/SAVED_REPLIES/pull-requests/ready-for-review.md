@@ -6,7 +6,7 @@ labels:
   - status:needs-review
 references:
   - "../../CONTRIBUTING.md"
-  - "../../pull_request_template.md"
+  - "../../PULL_REQUEST_TEMPLATE.md"
 ---
 
 # Ready for Review Saved Replies

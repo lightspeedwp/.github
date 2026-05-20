@@ -53,7 +53,7 @@ For detailed ADR documentation, see [Architectural Decision Records](./ADR/).
 
 **References**:
 
-- [labeling.agent.md](../.github/agents/labeling.agent.md)
+- [labeling.agent.md](../agents/labeling.agent.md)
 - [labels.yml](../.github/labels.yml)
 - [labeler.yml](../.github/labeler.yml)
 
@@ -103,7 +103,7 @@ For detailed ADR documentation, see [Architectural Decision Records](./ADR/).
 
 **References**:
 
-- [spec-driven-workflow.instructions.md](../.github/instructions/spec-driven-workflow.instructions.md)
+- [spec-driven-workflow.instructions.md](../instructions/spec-driven-workflow.instructions.md)
 
 ### ADR-004: Modular Agent Architecture
 
@@ -120,14 +120,14 @@ For detailed ADR documentation, see [Architectural Decision Records](./ADR/).
 
 **Impact**:
 
-- Shared utilities in `.github/agents/includes/`
+- Shared utilities in `../scripts/agents/includes/`
 - Focused agent files orchestrating utilities
 - Unit test coverage for each utility
 - Clear separation of concerns
 
 **References**:
 
-- [automation.instructions.md](../.github/instructions/automation.instructions.md)
+- [automation.instructions.md](../instructions/automation.instructions.md)
 - [.github/agents/](../.github/agents/)
 
 ### ADR-005: Canonical Configuration Over Convention
@@ -203,7 +203,7 @@ For detailed ADR documentation, see [Architectural Decision Records](./ADR/).
 
 **References**:
 
-- [a11y.instructions.md](../.github/instructions/a11y.instructions.md)
+- [a11y.instructions.md](../instructions/a11y.instructions.md)
 - [accessibility-auditor.agent.md](../.github/agents/accessibility-auditor.agent.md)
 
 ## Decision Making Process

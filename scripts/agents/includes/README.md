@@ -55,7 +55,7 @@ Files in the parent `agents/` directory are **executable agents** that:
 ## Usage Example
 
 ```javascript
-// In an agent file: .github/agents/my-agent.agent.js
+// In an agent file: ../my-agent.agent.js
 const { generateReport } = require("./includes/report-writer.js");
 const { findReadmeFiles } = require("./includes/readmeUtils.js");
 
@@ -76,7 +76,7 @@ Each utility should have comprehensive tests in `__tests__/`:
 npm run test:js
 
 # Run specific utility tests
-jest .github/agents/includes/__tests__/report-writer.test.js
+jest includes/__tests__/report-writer.test.js
 ```
 
 ## Adding New Utilities

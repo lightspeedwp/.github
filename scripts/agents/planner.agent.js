@@ -5,20 +5,17 @@
  * Currently runs in dry-run mode and logs context; extend with real automation
  * when the planner specification is implemented.
  * @module scripts/agents/planner.agent.js
- * @see .github/agents/planner.agent.md
+ * @see agents/task-planner.agent.md
  */
-
 
 const path = require("path");
 const __filename = __filename || process.argv[1];
 const __dirname = __dirname || path.dirname(__filename);
 
-
 function log(message) {
   const timestamp = new Date().toISOString();
   console.log(`[planner] ${timestamp} ${message}`);
 }
-
 
 async function runPlanner(options = {}) {
   const { dryRun = true } = options;

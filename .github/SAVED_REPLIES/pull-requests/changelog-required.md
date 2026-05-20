@@ -7,7 +7,7 @@ labels:
 references:
   - "../../AUTOMATION_GOVERNANCE.md"
   - "../../CONTRIBUTING.md"
-  - "../../pull_request_template.md"
+  - "../../PULL_REQUEST_TEMPLATE.md"
 ---
 
 # Changelog Required Saved Replies
@@ -29,7 +29,7 @@ All PRs must include a **changelog entry** in the PR description for release and
 
 **References:**
 
-- [PR Template](../../pull_request_template.md)
+- [PR Template](../../PULL_REQUEST_TEMPLATE.md)
 - [Automation Governance](../../AUTOMATION_GOVERNANCE.md)
 - [Contribution Guidelines](../../CONTRIBUTING.md)
 

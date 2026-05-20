@@ -2,7 +2,7 @@
 /**
  * ============================================================================
  * Script Name: yaml-validator.js
- * Location: .github/agents/includes/yaml-validator.js
+ * Location: includes/yaml-validator.js
  * Description: YAML schema validation for labeling configuration files
  * Version: v1.0.0
  * Author: LightSpeed WP Team

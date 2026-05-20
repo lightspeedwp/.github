@@ -2,7 +2,7 @@
 /**
  * ============================================================================
  * Script Name: status-enforcer.js
- * Location: .github/agents/includes/status-enforcer.js
+ * Location: includes/status-enforcer.js
  * Description: Utility functions for enforcing status and priority label conventions.
  * Version: v1.0.0
  * Author: LightSpeed WP Team

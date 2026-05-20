@@ -34,7 +34,7 @@ Discussion templates work with:
 - **[Discussion Labels](../DISCUSSION_LABELS.md)** - Automated discussion categorization
 - **[Community Guidelines](../SAVED_REPLIES/community/guidelines.md)** - Community interaction standards
 - **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Discussion workflow automation
-- **[Chatmodes](../chatmodes/README.md)** - AI-assisted discussion moderation
+- **[Agents](../agents/README.md)** - AI-assisted discussion moderation and governance support
 
 ## 🤖 Automation Features
 
