@@ -112,7 +112,7 @@
     "@babel/runtime": "^7.24.1",
     "@github/markdownlint-github": "^0.8.0",
     "@jest/pattern": "30.0.1",
-    "@mermaid-js/mermaid-cli": "11.4.0",
+    "@mermaid-js/mermaid-cli": "11.15.0",
     "@stoplight/spectral-cli": "^6.11.0",
     "@stoplight/spectral-core": "^1.18.0",
     "@stoplight/spectral-functions": "^1.0.0",
