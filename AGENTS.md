@@ -92,6 +92,7 @@ Start here for all key standards:
 | ------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
 | **Instructions Guide** | [.github/instructions/instructions.instructions.md](.github/instructions/instructions.instructions.md) | Guide for authoring and maintaining instruction files |
 | **Custom Instructions**   | [.github/custom-instructions.md](.github/custom-instructions.md) | Repo-local Copilot instructions and `.github` boundary rules       |
+| **Claude Instructions**   | [CLAUDE.md](CLAUDE.md) | Claude-specific project instructions; companion to this file       |
 | **Main Agent Index**      | [.github/agents/agent.md](.github/agents/agent.md)               | Directory of agent specs, stubs, usage, implementation             |
 | **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Legacy prompt index pending skills/cookbook migration              |
 | **Instruction Migration** | [.github/MIGRATION_GUIDE.md](.github/MIGRATION_GUIDE.md)         | Mapping from legacy instruction files to the 5 consolidated guides |
