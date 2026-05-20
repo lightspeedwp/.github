@@ -126,7 +126,7 @@
     "all-contributors-cli": "6.26.1",
     "babel-jest": "29.7.0",
     "bats": "^1.8.0",
-    "dotenv": "^16.4.5",
+    "dotenv": "^17.4.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
