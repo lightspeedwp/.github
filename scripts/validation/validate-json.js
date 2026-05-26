@@ -24,7 +24,7 @@
  *   --errors <format>      Error format: text|json (default: text)
  *
  * @module scripts/validation/validate-json
- * @see .github/instructions/linting.instructions.md
+ * @see ../../instructions/linting.instructions.md
  * @version 1.0.0
  * @license GPL-3.0-or-later
  */

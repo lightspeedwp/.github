@@ -6,7 +6,7 @@
  *
  * @module scripts/validation/validate-frontmatter
  * @fileoverview Comprehensive frontmatter validation for LightSpeedWP .github repository
- * @see .github/schemas/frontmatter.schema.json
+ * @see .schemas/frontmatter.schema.json
  * @author LightSpeedWP Team
  * @version 1.0.0
  */
@@ -20,10 +20,7 @@ const glob = require("glob");
 
 // Configuration
 const CONFIG = {
-  schemaPath: path.join(
-    __dirname,
-    "../../.github/schemas/frontmatter.schema.json",
-  ),
+  schemaPath: path.join(__dirname, "../../.schemas/frontmatter.schema.json"),
   rootDir: path.join(__dirname, "../.."),
   logDir: path.join(__dirname, "../../logs/validation"),
   outputFile: path.join(
@@ -247,7 +244,8 @@ class FrontmatterValidator {
   }
 
   getFileType(filePath) {
-    if (filePath.includes("/.github/agents/")) return "agent";
+    if (filePath.includes("/agents/") || filePath.includes("/.github/agents/"))
+      return "agent";
     if (filePath.includes("/.github/chatmodes/")) return "chatmode";
     if (filePath.includes("/.github/instructions/")) return "instruction";
     if (filePath.includes("/.github/prompts/")) return "prompt";

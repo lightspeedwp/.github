@@ -7,7 +7,7 @@
  * It adds the triggered issue or PR to the configured project (if not already added)
  * and updates the project's fields (Status, Priority, Type) based on labels and PR branch.
  * @module scripts/agents/project-meta-sync.agent.js
- * @see .github/agents/project-meta-sync.agent.md
+ * @see ../../agents/project-meta-sync.agent.md
  */
 
 const { getOctokit } = require("@actions/github"); // if running in Actions context

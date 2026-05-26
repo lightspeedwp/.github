@@ -17,15 +17,15 @@ tags:
   - automation
   - specifications
 references:
-  - path: "../.github/agents/README.md"
+  - path: "../agents/README.md"
     description: "Agents directory overview"
-  - path: "../.github/agents/agent.md"
+  - path: "../agents/agent.md"
     description: "Main agent index"
-  - path: "../.github/agents/template.agent.md"
+  - path: "../agents/template.agent.md"
     description: "Agent specification template"
-  - path: "../.github/schemas/frontmatter.schema.json"
+  - path: "../.schemas/frontmatter.schema.json"
     description: "Frontmatter validation schema"
-  - path: "../.github/instructions/automation.instructions.md"
+  - path: "../instructions/automation.instructions.md"
     description: "Agent development instructions"
 ---
 
@@ -33,7 +33,7 @@ references:
 
 [![Documentation](https://img.shields.io/badge/docs-comprehensive-blue)](../docs/)
 [![Standards](https://img.shields.io/badge/standards-enforced-success)](../.github/instructions/)
-[![Validation](https://img.shields.io/badge/validation-automated-informational)](../.github/schemas/)
+[![Validation](https://img.shields.io/badge/validation-automated-informational)](../.schemas/)
 
 > **Complete guide** for authoring agent specification files that follow LightSpeed organizational standards, including frontmatter requirements, documentation structure, implementation patterns, and validation processes.
 
@@ -110,7 +110,7 @@ meta.agent.md
 All agent specifications must be stored in:
 
 ```
-.github/agents/{agent-name}.agent.md
+agents/{agent-name}.agent.md
 ```
 
 ---
@@ -387,7 +387,7 @@ mindmap
    npm run validate:agents
    ```
 
-3. Add entry to `.github/agents/agent.md`
+3. Add entry to `../agents/agent.md`
 4. Commit the **spec only**
 5. Write the `.agent.js` implementation
 6. Write tests (`__tests__/`)
@@ -532,7 +532,7 @@ flowchart TD
 ### 12. Quick Start Template
 
 ```bash
-cp .github/agents/template.agent.md .github/agents/my-agent.agent.md
+cp agents/template.agent.md agents/my-agent.agent.md
 ```
 
 Then follow the governance checklist on this page.
@@ -541,9 +541,9 @@ Then follow the governance checklist on this page.
 
 ### 13. References
 
-- Organisation-wide agent index (`.github/agents/agent.md`)
+- Organisation-wide agent index (`../agents/agent.md`)
 - Agent Specification Authoring Guide
-- Frontmatter schema (`.github/schemas/frontmatter.schema.json`)
+- Frontmatter schema (`../.schemas/frontmatter.schema.json`)
 - Agent instructions (`agent-spec.instructions.md`)
 
 ---

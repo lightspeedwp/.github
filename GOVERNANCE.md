@@ -189,7 +189,7 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 ## Key Documents & Standards
 
 - [General Org Instructions](./.github/custom-instructions.md)
-- [Coding Standards](./.github/instructions/coding-standards.instructions.md)
+- [Coding Standards](instructions/coding-standards.instructions.md)
 - [Contribution Guidelines](./CONTRIBUTING.md)
 - [Branching Strategy](./docs/BRANCHING_STRATEGY.md)
 - [Automation Governance](./docs/AUTOMATION_GOVERNANCE.md)

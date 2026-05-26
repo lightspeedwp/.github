@@ -14,7 +14,6 @@
         "github.remotehub",
         "github.vscode-github-actions",
         "github.vscode-pull-request-github",
-        "eamodio.gitlens",
         "mhutchie.git-graph",
 
         // Microsoft Extensions - Official Microsoft development tools

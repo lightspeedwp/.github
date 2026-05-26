@@ -1,7 +1,7 @@
 /**
  * header-footer.js
  * Header and footer insertion for the meta agent
- * Integrates functionality from .github/agents/includes/footerUtils.js
+ * Integrates functionality from includes/footerUtils.js
  */
 
 // TODO: Align this helper with the latest automation spec updates.

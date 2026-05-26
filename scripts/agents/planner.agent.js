@@ -5,7 +5,7 @@
  * Currently runs in dry-run mode and logs context; extend with real automation
  * when the planner specification is implemented.
  * @module scripts/agents/planner.agent.js
- * @see .github/agents/planner.agent.md
+ * @see agents/task-planner.agent.md
  */
 
 const path = require("path");

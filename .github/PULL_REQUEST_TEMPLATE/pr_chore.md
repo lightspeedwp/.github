@@ -106,9 +106,17 @@ If no user-facing changelog entry is needed, apply the skip-changelog label to t
 
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)
-- [ ] A11y considerations addressed where relevant
+- [ ] Accessibility checklist completed (where relevant):
+  - [ ] Semantic HTML and heading order verified
+  - [ ] Keyboard navigation and visible focus states verified
+  - [ ] ARIA used only where needed
+  - [ ] Contrast and non-colour cues reviewed (WCAG 2.1 AA or higher)
 - [ ] Docs/readme/changelog updated (if user-facing)
-- [ ] Security/perf impact reviewed where relevant
+- [ ] Security checklist completed (where relevant):
+  - [ ] Untrusted input validated and sanitised
+  - [ ] Output escaped for its rendering context
+  - [ ] Privileged actions enforce nonce and capability checks
+  - [ ] No secrets/sensitive data introduced; OWASP risks reviewed
 - [ ] Code/design reviews approved
 - [ ] CI green; linked issues closed; release notes prepared (if shipping)
 

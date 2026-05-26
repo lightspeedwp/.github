@@ -1,4 +1,5 @@
 name: release
+
 on:
   workflow_dispatch:
     inputs:
@@ -6,9 +7,12 @@ on:
         description: "Comma-separated package scope (optional)"
         required: false
         default: ""
+
+permissions:
+  contents: read
+
 jobs:
   lint:
-    uses: ./.github/workflows/linting.yml # reuse if using reusable workflows; else inline
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,8 +24,9 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
+
   release:
-    needs: [lint] # hard gate
+    needs: [lint]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -45,14 +50,14 @@ jobs:
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
           node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
       - name: Run Release Agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           SCOPE_INPUT="${{ github.event.inputs.scope }}"
           if [ -z "$SCOPE_INPUT" ]; then
             SCOPE_INPUT="patch"
           fi
           node scripts/agents/release.agent.js --scope="$SCOPE_INPUT"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Post metrics
         if: always()
         run: echo "metric=release_cycle conclusion=${{ job.status }}"

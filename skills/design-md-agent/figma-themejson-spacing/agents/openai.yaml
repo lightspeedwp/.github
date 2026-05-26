@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figma ThemeJSON Spacing"
+  short_description: "Extract theme.json spacing tokens from Figma variables"
+  default_prompt: "Use $figma-themejson-spacing to extract WordPress theme.json spacing tokens from a Figma variables table."

@@ -18,7 +18,7 @@ const { execSync } = require('child_process');
 
 // Import utilities
 const { parseVersion } = require('./validate-version.cjs');
-const { parseChangelog, getUnreleasedChanges } = require('../.github/agents/includes/changelogUtils.cjs');
+const { parseChangelog, getUnreleasedChanges } = require('agents/includes/changelogUtils.cjs');
 
 /**
  * Execute shell command

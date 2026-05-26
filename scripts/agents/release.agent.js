@@ -6,27 +6,14 @@
  *   - Automates release validation, changelog enforcement, versioning, tagging, and GitHub Releases
  *   - Main functions: run(), validateRelease(), bumpVersion(), createTag(), publishRelease()
  *   - Uses shared utilities: changelogUtils, validate-version, validate-changelog
- *   - Supports dry-run mode for testing and audit logging
+ *   - Supports dry-run mode for testing
  * Standards:
- *   - Follows [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
+ *   - Follows [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/instructions/coding-standards.instructions.md)
  *   - See org instructions: [Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
- *   - See spec: .github/agents/release.agent.md
- * Guardrails:
- *   - Never publish incomplete or broken releases
- *   - Abort and notify if any validation fails
- *   - Always lint and test before release
- *   - Support dry-run mode for all operations
- *   - Log all actions for audit trails
- *   - Default to read-only analysis unless user explicitly requests changes
- * Process:
- *   - Preparation: Health scan, alignment, coverage, lint, config, docs, gating summary
- *   - Automation: Validate, bump version, update changelog, create branch, tag, PR, GitHub Release
- * Outputs:
- *   - Preparation: Health summary, alignment report, coverage analysis, checklist, release notes template, tracking issues
- *   - Automation: Release notes, version bump, tag, GitHub Release link, audit log
+ *   - See spec: ../../agents/release.agent.md
  * ============================================================================
  * @module scripts/agents/release.agent.js
- * @see .github/agents/release.agent.md
+ * @see ../../agents/release.agent.md
  */
 
 import fs from "fs";
@@ -50,9 +37,12 @@ const validateVersionPath = path.join(
   "../validation/validate-version.cjs",
 );
 
-const { parseChangelog, validateChangelog, hasUnreleasedChanges } = require(
-  changelogUtilsPath,
-);
+const {
+  parseChangelog,
+  validateChangelog,
+  getUnreleasedChanges,
+  hasUnreleasedChanges,
+} = require(changelogUtilsPath);
 const { validateVersion, parseVersion } = require(validateVersionPath);
 
 /**
@@ -401,7 +391,7 @@ async function validateRelease(options = {}) {
         );
 
         // Check for unreleased changes
-        // ...existing code... (removed unused variable assignment)
+        const unreleased = getUnreleasedChanges(changelogData);
         if (hasUnreleasedChanges(changelogData)) {
           console.log("   ✓ Unreleased changes found");
         } else {
@@ -649,6 +639,7 @@ async function run() {
       console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
     }
 
+
     // Step 3: Bump version
     bumpVersion(nextVersion, { dryRun });
 
@@ -699,7 +690,6 @@ async function run() {
 
 // Run if executed directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  // Support --dry-run flag for safe preview
   run();
 }
 

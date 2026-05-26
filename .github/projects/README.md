@@ -156,11 +156,11 @@ phase6-planning-suite-consolidation.md
 
 ## Related Documentation
 
-- [File Output Organization Instructions](../instructions/file-output-organization.instructions.md)
+- [File Organisation Instructions](../instructions/file-organisation.instructions.md)
 - [Community Standards](../instructions/community-standards.instructions.md)
 - [Roadmap](../../docs/ROADMAP.md)
 
 ---
 
-*For questions about project file organization, see [file-output-organization.instructions.md](../instructions/file-output-organization.instructions.md)*
+*For questions about project file organisation, see [file-organisation.instructions.md](../instructions/file-organisation.instructions.md)*
 *This directory is managed by automated workflows. Please do not add files manually unless specified by the reporting instructions.*

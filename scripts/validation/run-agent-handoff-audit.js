@@ -2,7 +2,7 @@
 /**
  * Audit agent handoff relationships for cycles and missing targets.
  * @module scripts/validation/run-agent-handoff-audit
- * @see .github/agents/agent.md
+ * @see ../../agents/agent.md
  */
 
 const fs = require("fs");

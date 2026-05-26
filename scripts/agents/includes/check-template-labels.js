@@ -8,36 +8,23 @@
 import fs from "fs";
 import yaml from "js-yaml";
 import path from "path";
-import Ajv from "ajv";
 
-const ajv = new Ajv();
+function resolveFromRoot(inputPath, fallbackPath) {
+  const target = inputPath && inputPath.trim() ? inputPath : fallbackPath;
+  return path.resolve(process.cwd(), target);
+}
 
-/**
- * Validate YAML content against a schema
- */
-function validateSchema(content, schemaPath) {
-  const schema = JSON.parse(fs.readFileSync(schemaPath, "utf-8"));
-  const validate = ajv.compile(schema);
-  return validate(content);
-  // Removed unused function validateSchema
-
-/**
- * Validate labels.yml structure
- */
-// Removed unused function validateLabelsYml
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const LABELS_FILE = path.resolve(__dirname, "../../automation/labels.yml");
-const ISSUE_TYPES_FILE = path.resolve(
-  __dirname,
-  "../../automation/issue-types.yml",
+const LABELS_FILE = resolveFromRoot(
+  process.env.LABELS_CONFIG,
+  ".github/labels.yml",
 );
-const ISSUE_TEMPLATE_DIR = path.resolve(
-  __dirname,
-  "../../../.github/ISSUE_TEMPLATE",
+const ISSUE_TYPES_FILE = resolveFromRoot(
+  process.env.ISSUE_TYPES_CONFIG,
+  ".github/issue-types.yml",
+);
+const ISSUE_TEMPLATE_DIR = resolveFromRoot(
+  process.env.ISSUE_TEMPLATE_DIR,
+  ".github/ISSUE_TEMPLATE",
 );
 
 function loadYaml(file) {
@@ -46,7 +33,17 @@ function loadYaml(file) {
 
 function getCanonicalLabels() {
   const labels = loadYaml(LABELS_FILE);
-  return new Set(labels.map((l) => l.name));
+  return new Set(
+    labels
+      .map((label) =>
+        typeof label === "string"
+          ? label
+          : typeof label === "object" && label?.name
+            ? label.name
+            : null,
+      )
+      .filter(Boolean),
+  );
 }
 
 function getIssueTypeLabels() {

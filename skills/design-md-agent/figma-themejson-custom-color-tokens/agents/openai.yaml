@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figma ThemeJSON Custom Color Tokens"
+  short_description: "Extract semantic custom color tokens from Figma"
+  default_prompt: "Use $figma-themejson-custom-color-tokens to extract semantic custom color tokens for a WordPress theme from a Figma variables table."

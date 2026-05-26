@@ -1,0 +1,14 @@
+interface:
+  display_name: LightSpeed Project Researcher
+  short_description: Research briefs, Figma, repos and sites before PRD/task planning.
+  icon: ../assets/icon.svg
+  accent_color: "#1E40AF"
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

@@ -1,7 +1,7 @@
 /**
  * ============================================================================
  * Agent: reviewer.agent.js
- * Location: .github/agents/reviewer.agent.js
+ * Location: reviewer.agent.js
  * Description:
  *   - Posts automated review summaries for PRs, including CI status, changelog presence, and recommendations.
  *   - Main functions: run(), CI status check, file analysis, markdown summary/comment.
@@ -9,18 +9,19 @@
  *   - Shared test helpers: mockOctokit, mockContext, mockChangedFiles, expectCommentPosted, expectDryRun, etc.
  *   - Coverage: Review summary posting, changelog checks, CI state, dry-run, error handling.
  * Standards:
- *   - Follows [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md)
+ *   - Follows [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/instructions/coding-standards.instructions.md)
  *   - See org instructions: [Custom Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
  * Contribution:
  *   - Update docblock with new logic or helper usage
  *   - Add new helpers to tests/utility/test-helpers.js as needed
  * ============================================================================
  * @module scripts/agents/reviewer.agent.js
- * @see .github/agents/reviewer.agent.md
+ * @see ../../agents/reviewer.agent.md
  */
 
-const core = require("@actions/core");
-const github = require("@actions/github");
+import * as core from "@actions/core";
+import * as github from "@actions/github";
+import { pathToFileURL } from "url";
 
 /**
  * Main orchestrator for Reviewer Agent.
@@ -92,6 +93,11 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
   }
 }
 
-if (require.main === module) run();
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  run();
+}
 
-module.exports = { run };
+export { run };

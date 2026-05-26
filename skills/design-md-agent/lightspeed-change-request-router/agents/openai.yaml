@@ -1,0 +1,16 @@
+interface:
+  display_name: LightSpeed Change Request Router
+  short_description:
+    Triage scope changes, impact, approvals and task updates for
+    LightSpeed WordPress projects.
+  icon: assets/icon.svg
+  accent_color: "#663399"
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

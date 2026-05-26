@@ -4,12 +4,12 @@
  * Reporting Agent implementation for LightSpeed.
  * Automates report creation, organisation, and maintenance.
  *
- * @file .github/agents/reporting.agent.js
+ * @file reporting.agent.js
  * @version 1.0.0
  * @author LightSpeed Team
  * @license GPL-3.0
  * @module scripts/agents/reporting.agent.js
- * @see .github/agents/reporting.agent.md
+ * @see ../../agents/reporting.agent.md
  */
 
 import fs from "fs";

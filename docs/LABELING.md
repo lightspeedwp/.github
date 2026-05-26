@@ -167,9 +167,9 @@ async function runLabelingAgent(context, configs, dryRun = false) {
 - [labels.yml](../.github/labels.yml)
 - [labeler.yml](../.github/labeler.yml)
 - [issue-types.yml](../.github/issue-types.yml)
-- [Coding Standards](../.github/instructions/coding-standards.instructions.md)
+- [Coding Standards](../instructions/coding-standards.instructions.md)
 - [Custom Instructions](../.github/custom-instructions.md)
-- [Main Agent Spec](../.github/agents/labeling.agent.md)
+- [Main Agent Spec](../agents/labeling.agent.md)
 
 ---
 

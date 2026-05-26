@@ -114,6 +114,8 @@ Each PR template includes a checklist. Ensure you:
 - [ ] Ran all tests and linters
 - [ ] Updated documentation (if needed)
 - [ ] Added/updated tests
+- [ ] Completed accessibility checks (semantic structure, keyboard/focus, ARIA only when needed, contrast/non-colour cues; WCAG 2.2 AA)
+- [ ] Completed security checks (validation/sanitisation, context-specific escaping, nonce/capability checks where relevant, and OWASP risk review)
 - [ ] Linked issues
 - [ ] Provided screenshots or video (for UI changes)
 - [ ] Selected appropriate labels

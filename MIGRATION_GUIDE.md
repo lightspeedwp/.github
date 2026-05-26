@@ -23,7 +23,7 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 ## Consolidation Map
 
-### 1. **LANGUAGES & LINTING** → `.github/instructions/languages.instructions.md`
+### 1. **LANGUAGES & LINTING** → `instructions/languages.instructions.md`
 
 **Old Files (4):**
 
@@ -43,7 +43,7 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 # NEW
 
-[JavaScript Linting](.github/instructions/languages.instructions.md#javascript--typescript-linting)
+[JavaScript Linting](instructions/languages.instructions.md#javascript--typescript-linting)
 ```
 
 **Related Files Updated:**
@@ -53,7 +53,7 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 ---
 
-### 2. **DOCUMENTATION FORMATS** → `.github/instructions/documentation-formats.instructions.md`
+### 2. **DOCUMENTATION FORMATS** → `instructions/documentation-formats.instructions.md`
 
 **Old Files (3):**
 
@@ -72,12 +72,12 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 # NEW
 
-[Markdown Standards](.github/instructions/documentation-formats.instructions.md#markdown-standards)
+[Markdown Standards](instructions/documentation-formats.instructions.md#markdown-standards)
 ```
 
 ---
 
-### 3. **QUALITY ASSURANCE & TESTING** → `.github/instructions/quality-assurance.instructions.md`
+### 3. **QUALITY ASSURANCE & TESTING** → `instructions/quality-assurance.instructions.md`
 
 **Old Files (3):**
 
@@ -96,12 +96,12 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 # NEW
 
-[Testing Guide](.github/instructions/quality-assurance.instructions.md#testing-pyramid)
+[Testing Guide](instructions/quality-assurance.instructions.md#testing-pyramid)
 ```
 
 ---
 
-### 4. **AUTOMATION & WORKFLOWS** → `.github/instructions/automation.instructions.md`
+### 4. **AUTOMATION & WORKFLOWS** → `instructions/automation.instructions.md`
 
 **Old Files (8):**
 
@@ -121,23 +121,23 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 ```markdown
 # OLD
 
-[Release Management](.github/instructions/release.instructions.md)
+[Release Management](instructions/release.instructions.md)
 
 # NEW
 
-[Release Management](.github/instructions/automation.instructions.md#56-release-management)
+[Release Management](instructions/automation.instructions.md#56-release-management)
 ```
 
 **Critical Files Affected:**
 
 - `.github/workflows/release.yml` - References release instructions
-- `.github/agents/release.agent.md` - References release instructions
+- `agents/release.agent.md` - References release instructions
 - `.github/workflows/labeling.yml` - References labeling instructions
-- `.github/agents/labeling.agent.md` - References labeling instructions
+- `agents/labeling.agent.md` - References labeling instructions
 
 ---
 
-### 5. **COMMUNITY STANDARDS & GOVERNANCE** → `.github/instructions/community-standards.instructions.md`
+### 5. **COMMUNITY STANDARDS & GOVERNANCE** → `instructions/community-standards.instructions.md`
 
 **Old Files (4):**
 
@@ -157,7 +157,7 @@ This guide maps the old, fragmented instruction structure to the new consolidate
 
 # NEW
 
-[Naming Conventions](.github/instructions/community-standards.instructions.md#62-naming-conventions)
+[Naming Conventions](instructions/community-standards.instructions.md#62-naming-conventions)
 ```
 
 ---
@@ -280,8 +280,8 @@ The following files have been pre-updated to reference the new consolidated file
 ✅ `AGENTS.md` - References to new locations
 ✅ `DOCS.md` - Updated index
 ✅ `docs/README.md` - Updated documentation structure
-✅ `.github/instructions/linting.instructions.md` - References consolidated files
-✅ `.github/agents/agent.md` - Updated references
+✅ `instructions/linting.instructions.md` - References consolidated files
+✅ `agents/agent.md` - Updated references
 ✅ `.github/custom-instructions.md` - Updated references
 
 ---
@@ -315,7 +315,7 @@ cp -r .github/instructions/.archive/* .github/instructions/
 
 - See [docs/README.md](./docs/README.md) for documentation architecture
 - Check [`README.md`](./.github/README.md) for community health files
-- Review [`coding-standards.instructions.md`](./.github/instructions/coding-standards.instructions.md) for coding rules
+- Review [`coding-standards.instructions.md`](instructions/coding-standards.instructions.md) for coding rules
 
 ---
 
