@@ -30,7 +30,8 @@ const __dirname = dirname(__filename);
  * Loads the emoji schema from the YAML file.
  * @returns {object} The loaded emoji schema or a default schema if loading fails.
  */
-function loadEmojiSchema() { // TODO: Implement cached schema loading as noted in config-schema.js TODOs.
+function loadEmojiSchema() {
+  // TODO: Implement cached schema loading as noted in config-schema.js TODOs.
   const schemaPath = path.join(__dirname, "../automation/emoji.schema.yml");
   if (!fs.existsSync(schemaPath)) {
     return { apply_to: ["h1", "h2"], map: {}, skip: [] };
@@ -472,7 +473,7 @@ async function processMarkdownFile(filePath, options = {}) {
 /**
  * Finds and processes all Markdown files in the repository.
  * @param {object} [options={}] - Processing options, passed to `processMarkdownFile`.
- * @param {string} [options.pattern="**/*.md"] - The glob pattern to find files.
+ * @param {string} [options.pattern] - Glob pattern used to find Markdown files.
  * @returns {Promise<object>} A summary object of the results.
  */
 async function processAllMarkdownFiles(options = {}) {
