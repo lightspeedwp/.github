@@ -1,0 +1,14 @@
+interface:
+  display_name: WP Section Style Generator
+  short_description:
+    Generate reusable styling guidance for WordPress section-level
+    layout zones.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

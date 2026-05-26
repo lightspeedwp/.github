@@ -1,0 +1,4 @@
+interface:
+  display_name: "DESIGN.md Standards Validator"
+  short_description: "Validate standards and compliance across design docs"
+  default_prompt: "Use $design-md-standards-validator to validate standards and compliance across DESIGN.md, design-md-source-map.md, and design-md-validation-report.md."

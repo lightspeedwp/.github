@@ -40,6 +40,7 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "docs/mustache-repo-templates/**", // Template files
       "scripts/utility/__tests__/**", // Test files
       "scripts/utility/__fixtures__/**", // Test fixtures
+      "skills/design-md-agent/figma-use/references/plugin-api-standalone.d.ts", // Imported Figma API typings
     ];
 
 /**

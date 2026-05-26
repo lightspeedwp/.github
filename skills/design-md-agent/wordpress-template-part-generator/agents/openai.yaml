@@ -1,0 +1,14 @@
+interface:
+  display_name: WP Template Part Generator
+  short_description:
+    Generate reusable WordPress block theme template parts and insertion
+    markup.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

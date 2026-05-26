@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix Design-System Finding [fix-design-system-finding]"
+  short_description: "Fix a specific design-system integration finding in Figma."
+  default_prompt: "Use $fix-design-system-finding on this specific audit-design-system finding and fix only that targeted issue in Figma."
