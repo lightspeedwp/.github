@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "asset_id": "agent:reviewer",
+  "asset_type": "agent",
+  "source_path": "agents/reviewer.agent.md",
+  "scope": "project",
+  "retention":
+    {
+      "mode": "rolling",
+      "ttl_days": 120,
+      "archive_after_days": 240,
+      "deletion_policy": "manual-review",
+    },
+  "sensitivity": "internal",
+  "memory_options":
+    [
+      {
+        "id": "user-defaults",
+        "family": "user_defaults",
+        "description": "Persist stable user conventions for response style, tone, and structure.",
+        "required": false,
+        "update_strategy": "on_change",
+        "storage_scope": "user",
+      },
+      {
+        "id": "project-context",
+        "family": "project_context",
+        "description": "Capture repository and delivery context needed to resume work accurately.",
+        "required": true,
+        "update_strategy": "per_run",
+        "storage_scope": "project",
+      },
+      {
+        "id": "decision-log",
+        "family": "decision_log",
+        "description": "Track important implementation and governance decisions with rationale.",
+        "required": true,
+        "update_strategy": "on_change",
+        "storage_scope": "asset",
+      },
+      {
+        "id": "risks-blockers",
+        "family": "risks_blockers",
+        "description": "Record blockers, uncertainty, and mitigation actions.",
+        "required": true,
+        "update_strategy": "per_run",
+        "storage_scope": "asset",
+      },
+      {
+        "id": "execution-state",
+        "family": "execution_state",
+        "description": "Store progress checkpoints and pending next actions.",
+        "required": true,
+        "update_strategy": "per_run",
+        "storage_scope": "asset",
+      },
+      {
+        "id": "qa-gates",
+        "family": "qa_gates",
+        "description": "Persist validation outcomes and unresolved quality gates.",
+        "required": true,
+        "update_strategy": "per_run",
+        "storage_scope": "project",
+      },
+      {
+        "id": "tool-runtime-constraints",
+        "family": "tool_runtime_constraints",
+        "description": "Track tool availability, command limits, and runtime caveats.",
+        "required": false,
+        "update_strategy": "on_change",
+        "storage_scope": "org",
+      },
+      {
+        "id": "compliance-privacy",
+        "family": "compliance_privacy",
+        "description": "Record data handling limits and compliance constraints.",
+        "required": true,
+        "update_strategy": "on_handoff",
+        "storage_scope": "org",
+      },
+      {
+        "id": "output-preferences",
+        "family": "output_preferences",
+        "description": "Store recurring output-format expectations and defaults.",
+        "required": false,
+        "update_strategy": "on_change",
+        "storage_scope": "user",
+      },
+      {
+        "id": "handoff",
+        "family": "handoff",
+        "description": "Capture concise continuation context for future agents and teammates.",
+        "required": true,
+        "update_strategy": "on_handoff",
+        "storage_scope": "project",
+      },
+    ],
+  "required_keys":
+    [
+      "project_context.repo",
+      "decision_log.latest",
+      "execution_state.next_action",
+      "qa_gates.status",
+      "handoff.summary",
+    ],
+  "validation_rules":
+    [
+      {
+        "rule": "all required_keys must exist in at least one record by handoff",
+        "level": "error",
+        "error_message": "Required key coverage is incomplete for this asset.",
+      },
+      {
+        "rule": "records marked stale require a fresh replacement within two runs",
+        "level": "warning",
+        "error_message": "Stale memory records should be refreshed.",
+      },
+      {
+        "rule": "compliance_privacy records cannot include secrets or production credentials",
+        "level": "error",
+        "error_message": "Sensitive secret material is prohibited in memory records.",
+      },
+    ],
+  "example_refs":
+    ["workflows/memory/examples/agents/reviewer.memory.example.yaml"],
+}
