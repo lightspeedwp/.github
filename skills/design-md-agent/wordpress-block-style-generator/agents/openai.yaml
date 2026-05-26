@@ -1,0 +1,12 @@
+interface:
+  display_name: WP Block Style Generator
+  short_description: Generate reusable styles for specific WordPress blocks.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

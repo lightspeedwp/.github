@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Evidence Harvester"
+  short_description: "Gather and normalize design-system evidence first."
+  default_prompt: "Use $design-evidence-harvester to collect Figma, GitHub, and Drive evidence before drafting or auditing DESIGN.md."

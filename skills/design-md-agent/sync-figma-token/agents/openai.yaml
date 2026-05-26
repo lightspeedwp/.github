@@ -1,0 +1,5 @@
+interface:
+  display_name: sync-figma-token
+  short_description:
+    Sync design tokens between code and Figma variables with strict
+    drift reporting, mandatory approval gate, safe delta apply, and persisted reports.

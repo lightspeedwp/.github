@@ -1,0 +1,4 @@
+interface:
+  display_name: "DESIGN.md Intake Triage"
+  short_description: "Classify DESIGN.md work and route the next step"
+  default_prompt: "Use $design-md-intake-triage to classify the request, check evidence sufficiency, and route to the right DESIGN.md workflow."
