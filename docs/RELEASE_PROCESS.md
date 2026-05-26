@@ -41,10 +41,13 @@ references:
     - `CHANGELOG.md` conforms to `changelog.schema.json`.
     - Unreleased section exists and is populated.
 - **Release workflow (`.github/workflows/release.yml`)**
-  - Manual `workflow_dispatch` (scope input, default patch).
+  - Manual `workflow_dispatch` and reusable `workflow_call`.
+  - Typed inputs: `version`, `notes_from`, `scope`, `dry_run`.
   - Hard gate on lint (`linting.yml` reuse).
   - Runs schema + unreleased validation before invoking `release.agent.js`.
   - Uses `release.agent.js` (ESM) to create release branch, PR → `main`, tag, and GitHub Release with compiled notes.
+  - Dry-run mode publishes review artefacts (`release-agent.log`, `release-notes-preview.md`) without creating commits/tags/releases.
+  - Trigger telemetry records unauthorised trigger attempts (expected `0`).
 - **Required checks before merging release PR**
   - Lint/test green.
   - Changelog validation green.
@@ -106,6 +109,19 @@ node scripts/agents/release.agent.js --scope=minor --dry-run
 - **No unreleased changes:** add entries under `[Unreleased]` before running release agent.
 - **PR not created:** ensure `gh` CLI and `GITHUB_TOKEN` available; otherwise create PR from `release/vX.Y.Z` → `main` manually.
 - **Tag conflicts:** delete or move existing tag before rerunning; ensure working tree clean.
+
+## Rollback notes
+
+If a release is started but must be rolled back:
+
+1. Delete the release branch (`release/vX.Y.Z`) if it should not proceed.
+2. Delete the tag locally and remotely:
+   - `git tag -d vX.Y.Z`
+   - `git push origin :refs/tags/vX.Y.Z`
+3. If a GitHub Release was created, remove it:
+   - `gh release delete vX.Y.Z --yes`
+4. Restore `VERSION` and `CHANGELOG.md` to the last known good commit on `develop`.
+5. Re-run the workflow in `dry_run` mode first to validate fixes before re-attempting a live release.
 
 ---
 

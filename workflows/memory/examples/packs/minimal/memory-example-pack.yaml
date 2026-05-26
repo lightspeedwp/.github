@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "pack_id": "minimal-memory-pack",
+  "description": "Minimal pack containing one agent and one skill memory example for smoke validation.",
+  "profile_refs":
+    [
+      "workflows/memory/profiles/agents/adr.memory-profile.yaml",
+      "workflows/memory/profiles/skills/design-md-agent-agent-creator.memory-profile.yaml",
+    ],
+  "example_refs":
+    [
+      "workflows/memory/examples/agents/adr.memory.example.yaml",
+      "workflows/memory/examples/skills/design-md-agent-agent-creator.memory.example.yaml",
+    ],
+  "coverage":
+    {
+      "agent_profiles": 1,
+      "skill_profiles": 1,
+      "agent_examples": 1,
+      "skill_examples": 1,
+    },
+}

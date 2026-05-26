@@ -102,6 +102,27 @@ function determineNextVersion(currentVersion, scope = "patch") {
 }
 
 /**
+ * Compare two semver strings.
+ * @param {string} leftVersion - Left version
+ * @param {string} rightVersion - Right version
+ * @returns {number} -1 if left < right, 0 if equal, 1 if left > right
+ */
+function compareVersions(leftVersion, rightVersion) {
+  const left = parseVersion(leftVersion);
+  const right = parseVersion(rightVersion);
+  if (!left || !right) {
+    throw new Error(
+      `Cannot compare invalid versions: ${leftVersion}, ${rightVersion}`,
+    );
+  }
+
+  if (left.major !== right.major) return left.major > right.major ? 1 : -1;
+  if (left.minor !== right.minor) return left.minor > right.minor ? 1 : -1;
+  if (left.patch !== right.patch) return left.patch > right.patch ? 1 : -1;
+  return 0;
+}
+
+/**
  * Fetch merged PRs between two tags (inclusive of toTag)
  */
 function getMergedPRs(fromTag, toTag = "HEAD") {
@@ -230,6 +251,7 @@ function formatReleaseNotes(options = {}) {
   const {
     version,
     changelogPath = "CHANGELOG.md",
+    notesFrom = "",
     includeContributors = true,
     includeBreakingChanges = true,
     includeHighlights = true,
@@ -254,8 +276,9 @@ function formatReleaseNotes(options = {}) {
     currentIndex >= 0 && currentIndex < tags.length - 1
       ? tags[currentIndex + 1]
       : null;
+  const rangeStart = notesFrom || previousTag;
 
-  const prs = getMergedPRs(previousTag, currentTag);
+  const prs = getMergedPRs(rangeStart, currentTag);
   const contributors = getContributors(prs);
   const breakingChanges = includeBreakingChanges
     ? detectBreakingChanges(changelogData, version)
@@ -335,8 +358,8 @@ function formatReleaseNotes(options = {}) {
 
   notes += "---\n\n";
   notes += "**Full Changelog**: ";
-  if (previousTag) {
-    notes += `[\`${previousTag}...v${version}\`](../../compare/${previousTag}...v${version})\n`;
+  if (rangeStart) {
+    notes += `[\`${rangeStart}...v${version}\`](../../compare/${rangeStart}...v${version})\n`;
   } else {
     notes += `[View all changes](../../commits/v${version})\n`;
   }
@@ -526,12 +549,20 @@ function pushChanges(options = {}) {
  * @param {Object} options - Options
  */
 function createRelease(version, options = {}) {
-  const { changelogPath = "CHANGELOG.md", dryRun = false } = options;
+  const {
+    changelogPath = "CHANGELOG.md",
+    dryRun = false,
+    notesFrom = "",
+  } = options;
 
   console.log(`\n=== Creating GitHub Release for v${version} ===`);
 
   // Extract release notes from changelog
-  const releaseNotes = formatReleaseNotes({ version, changelogPath });
+  const releaseNotes = formatReleaseNotes({
+    version,
+    changelogPath,
+    notesFrom,
+  });
 
   // TODO (c): Harden GitHub release/tag creation with retries, templated notes, and PR gating before publishing.
 
@@ -597,7 +628,11 @@ async function run() {
     const dryRun =
       args.includes("--dry-run") || args.includes("--dry-run=true");
     const scopeArg = args.find((arg) => arg.startsWith("--scope="));
+    const versionArg = args.find((arg) => arg.startsWith("--version="));
+    const notesFromArg = args.find((arg) => arg.startsWith("--notes-from="));
     const scope = scopeArg ? scopeArg.split("=")[1] : "patch";
+    const explicitVersion = versionArg ? versionArg.split("=")[1] : "";
+    const notesFrom = notesFromArg ? notesFromArg.split("=")[1] : "";
 
     console.log("╔════════════════════════════════════════╗");
     console.log("║     LightSpeed Release Agent           ║");
@@ -605,6 +640,12 @@ async function run() {
     console.log("");
     console.log(`Mode: ${dryRun ? "DRY-RUN" : "LIVE"}`);
     console.log(`Scope: ${scope}`);
+    if (explicitVersion) {
+      console.log(`Target Version: ${explicitVersion}`);
+    }
+    if (notesFrom) {
+      console.log(`Release Notes Start: ${notesFrom}`);
+    }
     // TODO (d): Clarify dry-run vs apply controls (additional flags or safeguards) so we can safely exercise the workflow end-to-end.
     console.log("");
 
@@ -626,7 +667,21 @@ async function run() {
 
     // Step 2: Determine next version
     const currentVersion = fs.readFileSync("VERSION", "utf8").trim();
-    const nextVersion = determineNextVersion(currentVersion, scope);
+    let nextVersion = determineNextVersion(currentVersion, scope);
+    if (explicitVersion) {
+      const versionResult = validateVersion(explicitVersion);
+      if (!versionResult.valid) {
+        throw new Error(
+          `Invalid explicit version "${explicitVersion}": ${versionResult.error}`,
+        );
+      }
+      if (compareVersions(explicitVersion, currentVersion) <= 0) {
+        throw new Error(
+          `Explicit version ${explicitVersion} must be greater than current version ${currentVersion}`,
+        );
+      }
+      nextVersion = explicitVersion;
+    }
     const releaseBranch = `release/v${nextVersion}`;
 
     console.log(`\nVersion bump: ${currentVersion} → ${nextVersion}`);
@@ -638,7 +693,6 @@ async function run() {
     } else {
       console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
     }
-
 
     // Step 3: Bump version
     bumpVersion(nextVersion, { dryRun });
@@ -667,7 +721,7 @@ async function run() {
     createReleasePR(nextVersion, releaseBranch, { dryRun });
 
     // Step 8: Create GitHub Release
-    createRelease(nextVersion, { dryRun });
+    createRelease(nextVersion, { dryRun, notesFrom });
 
     console.log("\n");
     console.log("╔════════════════════════════════════════╗");

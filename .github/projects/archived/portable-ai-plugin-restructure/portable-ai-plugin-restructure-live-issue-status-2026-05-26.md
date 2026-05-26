@@ -1,7 +1,7 @@
 ---
 title: "Portable AI Plugin Restructure Live Issue Status"
 description: "Live GitHub issue state snapshot for parent and child restructure issues."
-version: "v0.1.0"
+version: "v0.3.0"
 last_updated: "2026-05-26"
 file_type: "project"
 maintainer: "LightSpeed Team"
@@ -12,15 +12,15 @@ domain: "governance"
 stability: "active"
 ---
 
-# Portable AI Plugin Restructure Live Issue Status (2026-05-26, Final)
+# Portable AI Plugin Restructure Live Issue Status (2026-05-26)
 
 ## Snapshot summary
 
-- Snapshot source: GitHub REST API (`/repos/lightspeedwp/.github/issues/{number}`) and GitHub connector checks.
-- Snapshot time (UTC): 2026-05-26 final reconciliation.
+- Snapshot source: GitHub REST API (`/repos/lightspeedwp/.github/issues/{number}`).
+- Snapshot time (UTC): 2026-05-26.
 - Scope: Parent issues #282-#285 and child issues #286-#321.
 - Totals: 40 tracked issues, 0 open, 40 closed.
-- Closed issues: #282-#321 (all tracked parent and child issues).
+- Closed issues: #282-#321.
 
 ## Parent issue status
 
@@ -35,13 +35,8 @@ stability: "active"
 
 ### Closed
 
-- #286-#321 (all child issues closed).
-
-### Open
-
-- None.
+- #286 through #321
 
 ## Notes for operators
 
-- GitHub issue comments, status-label updates, and closures were applied through the GitHub connector during the 2026-05-26 completion run.
-- Programme state now meets the orchestration prompt's required final issue state: all tracked parent and child issues are closed.
+- This workspace is authenticated via GitHub CLI and can post issue updates.
