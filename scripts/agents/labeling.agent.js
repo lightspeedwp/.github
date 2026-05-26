@@ -83,9 +83,9 @@ const KEYWORD_TYPE_MAP = {
   ci: "type:ci",
   "continuous integration": "type:ci",
   workflow: "type:ci",
-  a11y: "type:accessibility",
-  accessibility: "type:accessibility",
-  wcag: "type:accessibility",
+  a11y: "type:a11y",
+  accessibility: "type:a11y",
+  wcag: "type:a11y",
 };
 
 // Branch prefix to type mapping for PRs
@@ -105,7 +105,7 @@ const BRANCH_PREFIX_TYPE_MAP = {
   "ci/": "type:ci",
   "deps/": "type:dependencies",
   "security/": "type:security",
-  "a11y/": "type:accessibility",
+  "a11y/": "type:a11y",
 };
 
 function readYamlArrayFile(path, purpose) {
@@ -376,7 +376,11 @@ async function runLabelingAgent(opts = {}) {
       try {
         const branchName = context.payload.pull_request.head.ref;
         const branchType = detectTypeFromBranch(branchName);
-        if (branchType && !currentLabels.includes(branchType)) {
+        if (
+          branchType &&
+          canonicalSet.has(branchType) &&
+          !currentLabels.includes(branchType)
+        ) {
           if (!dryRun) {
             await octokit.rest.issues.addLabels({
               owner,
@@ -387,6 +391,10 @@ async function runLabelingAgent(opts = {}) {
           }
           report.added.push(branchType);
           report.rulesApplied.push(`Branch prefix detection: ${branchType}`);
+        } else if (branchType && !canonicalSet.has(branchType)) {
+          core.warning(
+            `[labeling.agent] Branch-derived type is non-canonical and will be skipped: ${branchType}`,
+          );
         }
       } catch (error) {
         core.warning(
@@ -468,7 +476,7 @@ async function runLabelingAgent(opts = {}) {
           : context.payload.pull_request.body;
         const detectedType = detectIssueTypeFromContent(title, body);
 
-        if (detectedType) {
+        if (detectedType && canonicalSet.has(detectedType)) {
           if (!dryRun) {
             await octokit.rest.issues.addLabels({
               owner,
@@ -480,6 +488,10 @@ async function runLabelingAgent(opts = {}) {
           report.added.push(detectedType);
           report.rulesApplied.push(
             `Content-based type detection: ${detectedType}`,
+          );
+        } else if (detectedType && !canonicalSet.has(detectedType)) {
+          core.warning(
+            `[labeling.agent] Content-derived type is non-canonical and will be skipped: ${detectedType}`,
           );
         }
       } catch (error) {
