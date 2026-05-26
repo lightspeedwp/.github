@@ -54,7 +54,7 @@ references:
 # 🏛️ LightSpeed Organisation .github Community Health Repository
 
 [![Templates](https://img.shields.io/badge/templates-comprehensive-blue)](./ISSUE_TEMPLATE/)
-[![Automation](https://img.shields.io/badge/automation-active-success)](./automation/)
+[![Automation](https://img.shields.io/badge/automation-active-success)](./workflows/)
 [![AI Integration](https://img.shields.io/badge/AI-enhanced-purple)](./custom-instructions.md)
 [![Workflows](https://img.shields.io/badge/workflows-reusable-informational)](./workflows/)
 [![Instructions](https://img.shields.io/badge/instructions-standardized-orange)](./instructions/)
@@ -164,7 +164,7 @@ Follow these steps to onboard and use this repository effectively across the org
 2. Use files in `instructions/` before starting development to align with standards.
 3. For AI-assisted workflows, load prompts from `prompts/` and agents from `agents/`.
 4. Reusable workflows in `workflows/` can be invoked via `uses:` in member repositories.
-5. Update labels or labeler rules only in `automation/` to propagate consistency.
+5. Update labels or labeler rules only in `.github/` canonical config files to propagate consistency.
 6. Add or adjust saved replies in `SAVED_REPLIES/` for common maintainer responses.
 7. Consult `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` before modifying AI agent behavior.
 
@@ -198,7 +198,7 @@ Refer to the organisation-wide [CHANGELOG.md](../CHANGELOG.md) for historical ch
 
 **Templates not appearing in a repo?** Ensure the target repository does not already have local conflicting templates.
 
-**Labels didn’t auto-apply?** Confirm the path/branch patterns in `automation/labeler.yml` match the change set and that the workflow ran.
+**Labels didn’t auto-apply?** Confirm the path/branch patterns in `.github/labeler.yml` match the change set and that the workflow ran.
 
 **How do I add a new chat mode?** Chat modes have been deprecated in favor of agents. Use the agent system instead.
 
@@ -219,9 +219,9 @@ Refer to the organisation-wide [CHANGELOG.md](../CHANGELOG.md) for historical ch
 
 This repository is the **canonical, organisation-wide source** for:
 
-- **Labels** ([automation/labels.yml](./automation/labels.yml)): Official label names, colours, and descriptions.
-- **Labeler Rules** ([automation/labeler.yml](./automation/labeler.yml)): Automation for applying labels based on file paths, branch names, or PR type.
-- **Issue Types** ([automation/issue-types.yml](./automation/issue-types.yml)): Machine-readable definitions mapping issue templates, types, and automation.
+- **Labels** ([labels.yml](./labels.yml)): Official label names, colours, and descriptions.
+- **Labeler Rules** ([labeler.yml](./labeler.yml)): Automation for applying labels based on file paths, branch names, or PR type.
+- **Issue Types** ([issue-types.yml](./issue-types.yml)): Machine-readable definitions mapping issue templates, types, and automation.
 
 ## GitHub Automation Workflow Process
 
@@ -250,14 +250,14 @@ sequenceDiagram
 - If a repository does not have its own label or labeler config, the defaults from this repo apply.
 - **Automated labelling** ensures consistent triage, prioritisation, and project management across the organisation.
 - Maintainers should update labels and labeler rules *here* to synchronise org-wide conventions.
-- For more detail, see [AUTOMATION_GOVERNANCE.md](./automation/AUTOMATION_GOVERNANCE.md) and [ISSUE_LABELS.md](./automation/ISSUE_LABELS.md).
+- For more detail, see [AUTOMATION_GOVERNANCE.md](../docs/AUTOMATION_GOVERNANCE.md) and [ISSUE_LABELS.md](../docs/ISSUE_LABELS.md).
 
 **Quick links:**
 
-- [Label Definitions](./automation/labels.yml)
-- [Labeler Rules](./automation/labeler.yml)
-- [Issue Types](./automation/issue-types.yml)
-- [Automation Governance](./automation/AUTOMATION_GOVERNANCE.md)
+- [Label Definitions](./labels.yml)
+- [Labeler Rules](./labeler.yml)
+- [Issue Types](./issue-types.yml)
+- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
 
 ---
 
@@ -459,7 +459,7 @@ flowchart LR
 - **Instructions**: The `instructions/` folder contains canonical, versioned standards for coding, linting, HTML templates, WordPress pattern development, PHP blocks, and theme configuration. Always reference these before starting work or reviewing code.
 - **Prompts & Chat Modes**: Modular prompt templates and chat modes designed for Copilot, Gemini, Claude, and custom agents—enabling consistent AI-assisted workflows and reviews.
 - **Agents**: Agent specs and rules (see `AGENTS.md`, `GEMINI.md`, `CLAUDE.md`) detail expected behaviour, standards, and escalation procedures for all automated or AI contributors.
-- **Workflows & Automation**: Includes reusable GitHub Actions workflows for labelling, project syncing, and more. The `automation/` folder covers label rules, branching, and governance files.
+- **Workflows & Automation**: Includes reusable GitHub Actions workflows for labelling, project syncing, and more. Canonical governance configs live in `.github/` and supporting guidance lives in `docs/`.
 - **Templates**: Issue and PR templates standardise reporting, changelog, and review for all repos, supporting automation and reducing triage effort. Saved replies help maintainers respond consistently.
 - **Custom Instructions**: The root-level `custom-instructions.md` and agent files define Copilot/AI behaviour org-wide, so all automated actions and suggestions follow LightSpeed rules.
 - **Discoverability & Onboarding**: All files are indexed, referenced, and cross-linked for easy discoverability. New contributors can start in this folder and be directed to relevant standards, templates, or automation docs.

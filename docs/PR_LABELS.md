@@ -82,7 +82,7 @@ Every PR should use a standard branch prefix for correct label and template auto
 
 - All PRs affecting user-facing features/fixes must include a valid changelog label; if missing, the agent will add `meta:needs-changelog`.
 - Only one `status:*` and one `release:*` label per PR.
-- See [labels.yml](../.github/abels.yml) for the current canonical options.
+- See [labels.yml](../.github/labels.yml) for the current canonical options.
 
 ---
 
