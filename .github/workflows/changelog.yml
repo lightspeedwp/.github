@@ -1,26 +1,140 @@
 name: changelog-validate
 on:
   pull_request:
-    branches:
-      - "**"
+    branches: [develop]
+    types:
+      [
+        opened,
+        synchronize,
+        reopened,
+        edited,
+        ready_for_review,
+        labeled,
+        unlabeled,
+      ]
   push:
     branches: [develop]
-    paths:
-      - 'CHANGELOG.md'
   workflow_call:
     secrets:
       GITHUB_TOKEN:
         required: false
+permissions:
+  contents: write
+  pull-requests: read
 jobs:
   validate:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Require changelog update or skip label
+        env:
+          PR_LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if git diff --name-only "${BASE_SHA}" "${HEAD_SHA}" | grep -q "^CHANGELOG.md$"; then
+            echo "CHANGELOG.md updated in PR diff."
+            exit 0
+          fi
+
+          if echo "${PR_LABELS}" | grep -q '"meta:no-changelog"'; then
+            echo "Skipping changelog requirement due to meta:no-changelog label."
+            exit 0
+          fi
+
+          echo "::error::PR requires a CHANGELOG.md update or the meta:no-changelog label."
+          exit 1
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
       - name: Validate changelog schema
         run: |
           node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
+
+  append-on-develop-push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changelog change in pushed commits
+        id: diffcheck
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: |
+          if git diff --name-only "${BEFORE_SHA}" "${AFTER_SHA}" | grep -q "^CHANGELOG.md$"; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node
+        if: steps.diffcheck.outputs.changed == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Append automatic changelog note
+        if: steps.diffcheck.outputs.changed == 'false'
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          REPO: ${{ github.repository }}
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs");
+          const path = "CHANGELOG.md";
+          const sha = process.env.COMMIT_SHA || "";
+          const short = sha.slice(0, 7);
+          const repo = process.env.REPO || "lightspeedwp/.github";
+          const message = (process.env.COMMIT_MESSAGE || "Direct update on develop").split("\n")[0].trim();
+
+          let content = fs.readFileSync(path, "utf8");
+          if (content.includes(short)) {
+            console.log("Changelog entry already includes this commit.");
+            process.exit(0);
+          }
+
+          const marker = "## [Unreleased]";
+          const idx = content.indexOf(marker);
+          if (idx === -1) {
+            throw new Error("Missing [Unreleased] section in CHANGELOG.md");
+          }
+
+          const nextHeaderIdx = content.indexOf("\n## [", idx + marker.length);
+          const endIdx = nextHeaderIdx === -1 ? content.length : nextHeaderIdx;
+          const unreleased = content.slice(idx, endIdx);
+          const sectionHeader = "### Maintenance";
+          const note = `- Auto-entry for develop push: ${message} ([#${short}](https://github.com/${repo}/commit/${sha})).`;
+
+          let updatedUnreleased;
+          if (unreleased.includes(sectionHeader)) {
+            updatedUnreleased = unreleased.replace(sectionHeader, `${sectionHeader}\n\n${note}`);
+          } else {
+            updatedUnreleased = `${unreleased.trimEnd()}\n\n${sectionHeader}\n\n${note}\n`;
+          }
+
+          content = `${content.slice(0, idx)}${updatedUnreleased}${content.slice(endIdx)}`;
+          fs.writeFileSync(path, content, "utf8");
+          NODE
+
+      - name: Commit automatic changelog update
+        if: steps.diffcheck.outputs.changed == 'false'
+        run: |
+          if git diff --quiet -- CHANGELOG.md; then
+            echo "No automatic changelog update required."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "chore(changelog): auto-update for develop push [skip ci]"
+          git push origin HEAD:develop
