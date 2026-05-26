@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+
+- Added a canonical shared `.github` adoption guide with required, recommended,
+  optional, and repo-local-only classifications, plus update and validation
+  workflows for consuming repositories.
+
 ## [0.3.0] - 2025-12-18
 
 ### Maintenance

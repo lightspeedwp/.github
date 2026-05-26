@@ -630,6 +630,9 @@ All LightSpeed repositories should:
 
 This section provides practical examples for consuming repositories to adopt LightSpeed organization standards.
 
+For the canonical adoption policy and end-to-end checklist, use
+[`docs/SHARED_GITHUB_ADOPTION_GUIDE.md`](./docs/SHARED_GITHUB_ADOPTION_GUIDE.md).
+
 ### 1. Syncing Labels from Canonical Source
 
 All LightSpeed repositories should sync labels from the canonical [labels.yml](./.github/labels.yml) to ensure consistency.
