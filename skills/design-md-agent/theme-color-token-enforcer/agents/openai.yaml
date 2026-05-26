@@ -1,0 +1,4 @@
+interface:
+  display_name: "Theme Color Token Enforcer"
+  short_description: "Audit or fix semantic color token usage in block themes"
+  default_prompt: "Use $theme-color-token-enforcer to audit or remediate semantic color token usage in a WordPress block theme."

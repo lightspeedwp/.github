@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Design System [audit-design-system]"
+  short_description: "Audit a Figma screen or component for design-system integration drift."
+  default_prompt: "Use $audit-design-system on this Figma link to audit design-system integration drift and, when credible, suggest replacement components that can route to $fix-design-system-finding or $apply-design-system."

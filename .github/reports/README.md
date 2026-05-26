@@ -225,10 +225,10 @@ progress/weekly-summary-2025-w50.md
 
 ## Related Documentation
 
-- [File Output Organization Instructions](../instructions/file-output-organization.instructions.md)
+- [File Organisation Instructions](../instructions/file-organisation.instructions.md)
 - [Community Standards](../instructions/community-standards.instructions.md)
 - [Agent Development Standards](../instructions/automation.instructions.md)
 
 ---
 
-*For questions about report organization, see [file-output-organization.instructions.md](../instructions/file-output-organization.instructions.md)*
+*For questions about report organisation, see [file-organisation.instructions.md](../instructions/file-organisation.instructions.md)*

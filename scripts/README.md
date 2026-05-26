@@ -5,13 +5,13 @@ last_updated: "2025-12-04"
 owners:
   - LightSpeedWP Team
 references:
-  - path: ../.github/instructions/coding-standards.instructions.md
+  - path: ../instructions/coding-standards.instructions.md
     description: Coding standards for all scripts
-  - path: ../.github/instructions/documentation-formats.instructions.md
+  - path: ../instructions/documentation-formats.instructions.md
     description: Frontmatter and documentation format standards
-  - path: ../.github/schemas/frontmatter.schema.json
+  - path: ../.schemas/frontmatter.schema.json
     description: Frontmatter schema
-  - path: ../.github/schemas/collection.schema.json
+  - path: ../.schemas/collection.schema.json
     description: Collection schema
   - path: ../tests/README.md
     description: Testing framework
@@ -193,7 +193,7 @@ Scripts integrate with GitHub Actions workflows:
 Scripts work with various configuration files:
 
 - `.coderabbit.yml` — CodeRabbit configuration
-- `.github/schemas/` — JSON/YAML validation schemas
+- `../.schemas/` — JSON/YAML validation schemas
 - `.github/workflows/` — GitHub Actions definitions
 - `fixtures/` — Test data and templates
 
@@ -298,10 +298,10 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 
 ## Internal References
 
-- [Coding Standards](../.github/instructions/coding-standards.instructions.md)
-- [Quality Assurance](../.github/instructions/quality-assurance.instructions.md)
+- [Coding Standards](../instructions/coding-standards.instructions.md)
+- [Quality Assurance](../instructions/quality-assurance.instructions.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
-- [Schema Definitions](../.github/schemas/)
+- [Schema Definitions](../.schemas/)
 
 ## External Dependencies
 
@@ -380,21 +380,21 @@ When contributing new scripts or modifications:
 ## Documentation Links
 
 - [LightSpeedWP Main Repository](https://github.com/lightspeedwp/.github)
-- [Coding Standards Instructions](../.github/instructions/coding-standards.instructions.md)
-- [Quality Assurance](../.github/instructions/quality-assurance.instructions.md)
+- [Coding Standards Instructions](../instructions/coding-standards.instructions.md)
+- [Quality Assurance](../instructions/quality-assurance.instructions.md)
 - [WordPress Development Standards](https://developer.wordpress.org/coding-standards/)
 
 ## Development Resources
 
 - [GitHub Actions Workflows](../.github/workflows/)
-- [Schema Definitions](../.github/schemas/)
+- [Schema Definitions](../.schemas/)
 - [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References
 
 - [Custom Instructions](../.github/custom-instructions.md)
-- [Agents Documentation](../.github/agents/agent.md)
+- [Agents Documentation](../agents/agent.md)
 - [Prompts Library](../.github/prompts/prompts.md)
 - [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
 

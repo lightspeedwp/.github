@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figma ThemeJSON Shadow"
+  short_description: "Extract shadow presets for theme.json from Figma"
+  default_prompt: "Use $figma-themejson-shadow to extract WordPress theme.json shadow presets from a Figma variables table."

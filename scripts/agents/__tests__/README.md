@@ -342,7 +342,7 @@ npm test -- .github/agents/__tests__/ --verbose
 
 - [Agent Specifications](../README.md) - Main agents directory
 - [Agent Includes](../includes/README.md) - Shared utility modules
-- [Quality Assurance](../../.github/instructions/quality-assurance.instructions.md) - Testing strategy, coverage, and CI integration
+- [Quality Assurance](../../../instructions/quality-assurance.instructions.md) - Testing strategy, coverage, and CI integration
 - [Jest Configuration](jest.config.js) - Jest setup and configuration
 
 ## ✨ Continuous Integration

@@ -9,8 +9,8 @@
 
 All automation in this repository is implemented and governed according to the following standards:
 
-- **Instruction-First:** Each automation workflow is paired with a canonical instruction file in [.github/instructions/workflows.instructions.md](./instructions/workflows.instructions.md).
-- **Agent-Driven:** Each workflow is powered by a corresponding agent, documented in [.github/instructions/automation.instructions.md](./instructions/automation.instructions.md).
+- **Instruction-First:** Each automation workflow is paired with a canonical instruction file in [../instructions/workflows.instructions.md](./instructions/workflows.instructions.md).
+- **Agent-Driven:** Each workflow is powered by a corresponding agent, documented in [../instructions/automation.instructions.md](./instructions/automation.instructions.md).
 - **Dynamic Indexing:** Agents and workflows are discoverable and versioned via dynamic index files. These files are the single source of truth for automation and should be referenced for all changes or onboarding.
 - **Reciprocal Specification:** Every workflow must reference its agent; every agent must have a reciprocal specification file and reference its workflow(s).
 - **Evolving Standards:** All automation governance, standards, and best practices are maintained in the `.github/instructions/` folder and updated as the organization evolves.
@@ -174,7 +174,7 @@ Repositories may have specific labels not in the canonical set.
 
 ### 4.4 Meta Data Application
 
-Documentation metadata is applied by the **Meta Agent** (`.github/agents/meta.agent.md`) via `.github/workflows/meta.yml`. Each Markdown document is processed in a single pass to ensure the following layers stay in sync:
+Documentation metadata is applied by the **Meta Agent** (`../agents/meta.agent.md`) via `.github/workflows/meta.yml`. Each Markdown document is processed in a single pass to ensure the following layers stay in sync:
 
 - **Front matter:** Validated and enriched against `frontmatter.schema.json`; honour `no_meta: true` (legacy: `no_branding: true`) opt-outs.
 - **Badges:** Inserted/updated under the H1 between `<!-- BADGES-START -->` and `<!-- BADGES-END -->`.
@@ -493,9 +493,9 @@ flowchart LR
 ### 8.2 Resources
 
 - **Documentation:** [docs/LABELING.md](./LABELING.md)
-- **Agent Spec:** [.github/agents/labeling.agent.md](.github/agents/labeling.agent.md)
+- **Agent Spec:** [../agents/labeling.agent.md](../agents/labeling.agent.md)
 - **Label Strategy:** [docs/LABEL_STRATEGY.md](./LABEL_STRATEGY.md)
-- **Coding Standards:** [.github/instructions/coding-standards.instructions.md](.github/instructions/coding-standards.instructions.md)
+- **Coding Standards:** [../instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md)
 
 ---
 

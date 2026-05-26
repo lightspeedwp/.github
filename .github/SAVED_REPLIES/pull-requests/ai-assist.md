@@ -6,7 +6,7 @@ labels:
   - status:needs-review
 references:
   - "../../custom-instructions.md"
-  - "../../pull_request_template.md"
+  - "../../PULL_REQUEST_TEMPLATE.md"
 ---
 
 # AI-Assisted PR Saved Replies

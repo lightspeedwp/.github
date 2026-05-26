@@ -9,7 +9,7 @@
  *   - Exits with code 0 on success, 1 on failure
  * Standards:
  *   - Follows LightSpeed Coding Standards
- *   - See: https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md
+ *   - See: https://github.com/lightspeedwp/.github/blob/HEAD/instructions/coding-standards.instructions.md
  * ============================================================================
  * @module scripts/validation/validate-version
  * @see schemas/version.schema.json

@@ -14,19 +14,19 @@
 
 # Workflows and Automation (critical for org-wide automation)
 /.github/workflows/ @ashleyshaw
-/.github/automation/ @ashleyshaw
 
 # Labels and Issue Types (critical for automation)
-/.github/automation/labels.yml @ashleyshaw
-/.github/automation/issue-types.yml @ashleyshaw
-/.github/automation/labeler.yml @ashleyshaw
+/.github/labels.yml @ashleyshaw
+/.github/issue-types.yml @ashleyshaw
+/.github/labeler.yml @ashleyshaw
 
 # AI and Copilot Instructions
 /.github/custom-instructions.md @ashleyshaw
 /.github/agents/ @ashleyshaw
-/.github/chatmodes/ @ashleyshaw
+/agents/ @ashleyshaw
 /.github/prompts/ @ashleyshaw
 /.github/instructions/ @ashleyshaw
+/instructions/ @ashleyshaw
 /AGENTS.md @ashleyshaw
 
 # Core Documentation
@@ -39,4 +39,5 @@
 /tests/ @ashleyshaw
 
 # Schemas (JSON validation)
-/.github/schemas/ @ashleyshaw
+/.schemas/ @ashleyshaw
+/.schemas/ @ashleyshaw

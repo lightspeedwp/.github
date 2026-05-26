@@ -1,0 +1,16 @@
+interface:
+  display_name: LightSpeed Policy Page Generator
+  short_description:
+    Draft policy and trust-page briefs for WordPress, AI and chatbot
+    projects.
+  icon: ../assets/icon.svg
+  accent_color: "#2563EB"
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

@@ -2,7 +2,7 @@
 /**
  * Validates agent specification frontmatter against the canonical schema.
  * @module scripts/validation/validate-agent-frontmatter
- * @see .github/schemas/frontmatter.schema.json
+ * @see .schemas/frontmatter.schema.json
  */
 
 const fs = require("fs");
@@ -18,19 +18,35 @@ addFormats(ajv);
 // Load the unified frontmatter schema
 const schemaPath = path.join(
   __dirname,
-  "../../.github/schemas/frontmatter.schema.json",
+  "../../.schemas/frontmatter.schema.json",
 );
 const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
 
 // Compile the schema
 const validate = ajv.compile(schema);
 
-// Agent directory
-const agentDir = path.join(__dirname, "../../.github/agents");
-const agentFiles = fs
-  .readdirSync(agentDir)
-  .filter((filename) => filename.endsWith(".agent.md"))
-  .sort();
+// Agent directories. Portable specs live in /agents; .github/agents remains for
+// repo-local boundary notes or legacy specs during migration.
+const agentDirs = [
+  path.join(__dirname, "../../agents"),
+  path.join(__dirname, "../../.github/agents"),
+].filter((dir) => fs.existsSync(dir));
+
+const agentFiles = agentDirs
+  .flatMap((dir) =>
+    fs
+      .readdirSync(dir)
+      .filter((filename) => filename.endsWith(".agent.md"))
+      .map((filename) => ({
+        filename,
+        filePath: path.join(dir, filename),
+        displayPath: path.relative(
+          path.join(__dirname, "../.."),
+          path.join(dir, filename),
+        ),
+      })),
+  )
+  .sort((a, b) => a.displayPath.localeCompare(b.displayPath));
 
 // Validation results
 const results = {
@@ -45,14 +61,12 @@ console.log("🔍 Validating Agent Frontmatter\n");
 console.log("=".repeat(80));
 
 // Validate each agent file
-agentFiles.forEach((filename) => {
-  const filePath = path.join(agentDir, filename);
-
+agentFiles.forEach(({ filename, filePath, displayPath }) => {
   if (!fs.existsSync(filePath)) {
-    console.log(`⚠️  ${filename}: File not found`);
+    console.log(`⚠️  ${displayPath}: File not found`);
     results.total++;
     results.failed++;
-    results.errors.push({ file: filename, error: "File not found" });
+    results.errors.push({ file: displayPath, error: "File not found" });
     return;
   }
 
@@ -62,10 +76,10 @@ agentFiles.forEach((filename) => {
   const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
 
   if (!frontmatterMatch) {
-    console.log(`❌ ${filename}: No frontmatter found`);
+    console.log(`❌ ${displayPath}: No frontmatter found`);
     results.total++;
     results.failed++;
-    results.errors.push({ file: filename, error: "No frontmatter found" });
+    results.errors.push({ file: displayPath, error: "No frontmatter found" });
     return;
   }
 
@@ -74,7 +88,7 @@ agentFiles.forEach((filename) => {
 
     if (!frontmatter || frontmatter.file_type !== "agent") {
       const fileTypeLabel = frontmatter?.file_type || "unknown";
-      console.log(`ℹ️  ${filename}: Skipped (file_type=${fileTypeLabel})`);
+      console.log(`ℹ️  ${displayPath}: Skipped (file_type=${fileTypeLabel})`);
       results.skipped++;
       return;
     }
@@ -85,25 +99,25 @@ agentFiles.forEach((filename) => {
     results.total++;
 
     if (valid) {
-      console.log(`✅ ${filename}: Valid`);
+      console.log(`✅ ${displayPath}: Valid`);
       results.passed++;
     } else {
-      console.log(`❌ ${filename}: Invalid`);
+      console.log(`❌ ${displayPath}: Invalid`);
       console.log("   Errors:");
       validate.errors.forEach((error) => {
         console.log(`   - ${error.instancePath} ${error.message}`);
       });
       results.failed++;
       results.errors.push({
-        file: filename,
+        file: displayPath,
         errors: validate.errors,
       });
     }
   } catch (error) {
-    console.log(`❌ ${filename}: Parse error - ${error.message}`);
+    console.log(`❌ ${displayPath}: Parse error - ${error.message}`);
     results.total++;
     results.failed++;
-    results.errors.push({ file: filename, error: error.message });
+    results.errors.push({ file: displayPath, error: error.message });
   }
 });
 

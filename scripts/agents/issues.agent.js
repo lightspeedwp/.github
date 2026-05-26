@@ -5,7 +5,7 @@
  * recommendations without mutating GitHub state. Extend with API calls when
  * ready to automate labelling and enrichment.
  * @module scripts/agents/issues.agent.js
- * @see .github/agents/issues.agent.md
+ * @see ../../agents/issues.agent.md
  */
 
 

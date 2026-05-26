@@ -2,7 +2,7 @@
 /**
  * ============================================================================
  * Script Name: report-writer.js
- * Location: .github/agents/includes/report-writer.js
+ * Location: includes/report-writer.js
  * Description: Generates comprehensive Markdown reports for labeling agent runs
  * Version: v2.0.0
  * Author: LightSpeed WP Team

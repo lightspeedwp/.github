@@ -226,7 +226,7 @@ Use `scripts/versioning/bump-file-version.js` for single or bulk version bumps:
 
 ```bash
 # Bump patch version of a single file
-node scripts/versioning/bump-file-version.js .github/instructions/coding-standards.instructions.md patch
+node scripts/versioning/bump-file-version.js ../instructions/coding-standards.instructions.md patch
 
 # Bump minor version (with guardrail check)
 node scripts/versioning/bump-file-version.js .github/prompts/review.prompt.md minor
