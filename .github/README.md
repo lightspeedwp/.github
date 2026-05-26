@@ -144,8 +144,8 @@ flowchart TB
 
 - Standardise contribution, code quality, review, and labelling across all repos.
 - Automate issue/PR labelling, project syncing, and governance.
-- Provide a canonical set of instructions for AI agents & Copilot.
-- Centralise saved replies, prompts, chatmodes, and reusable workflows.
+- Provide repo-local guidance for AI agents and Copilot.
+- Centralise saved replies, prompt migration records, and reusable GitHub Actions.
 - Enable fast onboarding and safe, scalable development.
 
 See [GitHub: About organisation-wide community health files](https://github.blog/changelog/2019-02-21-organization-wide-community-health-files/) and [Creating a default community health file for your organization](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file) for more context.
@@ -161,12 +161,12 @@ Organizations can add community health files to a specially named `.github` repo
 Follow these steps to onboard and use this repository effectively across the organisation:
 
 1. Reference issue and PR templates automatically surfaced when creating new items in any repo without overrides.
-2. Use files in `instructions/` before starting development to align with standards.
-3. For AI-assisted workflows, load prompts from `prompts/` and agents from `agents/`.
-4. Reusable workflows in `workflows/` can be invoked via `uses:` in member repositories.
-5. Update labels or labeler rules only in `automation/` to propagate consistency.
+2. Use portable files in `/instructions` before starting development to align with standards.
+3. For AI-assisted workflows, use portable assets from `/agents`, `/skills`, `/cookbook`, and `/workflows`.
+4. Reusable GitHub Actions in `.github/workflows/` can be invoked via `uses:` in member repositories.
+5. Update labels and labeler rules in `.github/labels.yml` and `.github/labeler.yml` to propagate consistency.
 6. Add or adjust saved replies in `SAVED_REPLIES/` for common maintainer responses.
-7. Consult `AGENTS.md`, `GEMINI.md`, or `CLAUDE.md` before modifying AI agent behavior.
+7. Consult `AGENTS.md` and `.github/custom-instructions.md` before modifying repo-local AI guidance.
 
 > To override an org-wide template in a member repository, add a local copy there; GitHub will prefer the repo-local version.
 
@@ -368,10 +368,8 @@ graph TB
 ├── schemas/                # JSON schemas for validation
 │   └── *.json
 │
-├── custom-instructions.md  # Org-wide Copilot instructions
+├── custom-instructions.md  # Repo-local Copilot instructions
 ├── AGENTS.md               # Global agent rules
-├── GEMINI.md               # Gemini agent guidance
-├── CLAUDE.md               # Claude agent guidance
 ├── README.md               # This file: folder overview
 └── ... (other shared files)
 ```
@@ -457,11 +455,11 @@ flowchart LR
 ## Component Integration Details
 
 - **Instructions**: The `instructions/` folder contains canonical, versioned standards for coding, linting, HTML templates, WordPress pattern development, PHP blocks, and theme configuration. Always reference these before starting work or reviewing code.
-- **Prompts & Chat Modes**: Modular prompt templates and chat modes designed for Copilot, Gemini, Claude, and custom agents—enabling consistent AI-assisted workflows and reviews.
-- **Agents**: Agent specs and rules (see `AGENTS.md`, `GEMINI.md`, `CLAUDE.md`) detail expected behaviour, standards, and escalation procedures for all automated or AI contributors.
-- **Workflows & Automation**: Includes reusable GitHub Actions workflows for labelling, project syncing, and more. The `automation/` folder covers label rules, branching, and governance files.
+- **Prompts**: Legacy prompt templates remain under `.github/prompts/` while durable workflows are classified for `/skills` or `/cookbook`.
+- **Agents**: Agent specs and rules in `AGENTS.md`, `/agents`, and `.github/custom-instructions.md` detail expected behaviour, standards, and escalation procedures for automated or AI contributors.
+- **Workflows & Automation**: Includes reusable GitHub Actions workflows for labelling, project syncing, and more. Label rules and governance files live directly under `.github`.
 - **Templates**: Issue and PR templates standardise reporting, changelog, and review for all repos, supporting automation and reducing triage effort. Saved replies help maintainers respond consistently.
-- **Custom Instructions**: The root-level `custom-instructions.md` and agent files define Copilot/AI behaviour org-wide, so all automated actions and suggestions follow LightSpeed rules.
+- **Custom Instructions**: `.github/custom-instructions.md` defines repo-local Copilot behaviour, while portable guidance belongs in the top-level source folders.
 - **Discoverability & Onboarding**: All files are indexed, referenced, and cross-linked for easy discoverability. New contributors can start in this folder and be directed to relevant standards, templates, or automation docs.
 
 ---

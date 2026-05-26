@@ -1,8 +1,8 @@
 ---
 title: "Portable AI Plugin Restructure Inventory And Migration Map"
 description: "Issue #286 audit output for current AI, automation, governance, schema, prompt, and validation assets before portable plugin restructuring."
-version: "v0.1.0"
-last_updated: "2026-05-15"
+version: "v0.1.1"
+last_updated: "2026-05-26"
 file_type: "project-audit"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
@@ -29,9 +29,9 @@ This audit inventories the current files under `.github/agents`, `.github/instru
 
 ## Summary
 
-- Total inventoried files: **385**.
-- Files with hard-coded `.github/*` references: **150**.
-- Files without detected hard-coded `.github/*` references: **235**.
+- Total inventoried files: **416**.
+- Files with hard-coded `.github/*` references: **163**.
+- Files without detected hard-coded `.github/*` references: **253**.
 
 ### Files By Asset Type
 
@@ -39,11 +39,15 @@ This audit inventories the current files under `.github/agents`, `.github/instru
 | --- | ---: |
 | `agent-spec` | 21 |
 | `github-action-workflow` | 14 |
+| `github-discussion-template` | 10 |
+| `github-governance-config` | 7 |
 | `github-issue-template` | 29 |
+| `github-pr-template` | 13 |
 | `instruction` | 54 |
 | `legacy-agent-runtime` | 82 |
 | `legacy-validation-runtime` | 25 |
 | `prompt` | 73 |
+| `repo-local-copilot-instructions` | 1 |
 | `saved-reply` | 81 |
 | `schema` | 6 |
 
@@ -52,19 +56,28 @@ This audit inventories the current files under `.github/agents`, `.github/instru
 | Decision | Count | Meaning |
 | --- | ---: | --- |
 | `archive` | 21 | Keep archived unless later reviewed. |
-| `convert` | 74 | Convert into a skill, cookbook entry, or split repo-local/portable asset. |
-| `defer` | 107 | Keep in place until a later scoped rewrite or validation reset. |
-| `delete` | 7 | Remove after confirmation. |
-| `keep` | 117 | Remain in the current path. |
-| `move` | 59 | Move to the new top-level source collection after references are updated. |
+| `convert` | 77 | Convert into a skill, cookbook entry, or split repo-local/portable asset. |
+| `defer` | 109 | Keep in place until a later scoped rewrite or validation reset. |
+| `delete` | 8 | Remove after confirmation. |
+| `keep` | 145 | Remain in the current path. |
+| `move` | 56 | Move to the new top-level source collection after references are updated. |
 
 ## Key Findings
 
 - `.github` contains both GitHub-native governance content and portable AI operations content, so migration must be decision-led rather than a bulk move.
 - Issue templates, saved replies, and GitHub Actions should remain under `.github` because they provide repository and organisation governance behaviour.
+- Pull request templates, discussion templates, labels, Dependabot, funding, issue types, labeler rules, and repo-local Copilot configuration are GitHub-native governance assets that should remain under `.github`.
 - Agent specs, instruction files, prompt workflows, and schemas are the strongest candidates for top-level portable source collections, but most require reference updates before moving.
 - Legacy JavaScript runners and validators should be deferred and rewritten selectively; moving them as-is would preserve the current complexity that the PRD wants to reduce.
 - Zero-byte macOS `Icon` metadata files are flagged for deletion after the link audit confirms no references.
+
+## 2026-05-26 Reconciliation Note
+
+The migration map was reconciled after later #293 classification work expanded
+the inventory to include previously omitted pull request templates, discussion
+templates, GitHub governance configuration, and repo-local Copilot
+configuration. Committed conflict markers were removed from the canonical CSV,
+and this report now reflects the active 416-row map.
 
 ## Remediation Links
 

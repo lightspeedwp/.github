@@ -1,8 +1,8 @@
 ---
 title: "Portable AI Plugin Restructure Stale Reference Cleanup Report"
 description: "Issue #294 cleanup report for stale path references and zero-byte metadata files before portable source migration."
-version: "v0.1.0"
-last_updated: "2026-05-19"
+version: "v0.1.1"
+last_updated: "2026-05-26"
 file_type: "project-report"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
@@ -63,6 +63,7 @@ keeps quoted source-path rows for traceability and links those cleanup rows to
 | Item | Decision |
 | --- | --- |
 | Historical reports that mention old paths | Leave unchanged as historical evidence unless a later archive cleanup rewrites old reports. |
+| Legacy prompt content that references awesome-copilot `chatmodes` or `collections` | Leave until #299 classifies legacy prompts as skill, cookbook, archive, or delete. These are source prompt references, not active placement rules. |
 | `.github/pull_request_template.md` duplicate | Defer removal until a maintainer confirms whether the lowercase copy is still intentionally supported. |
 | `.github/funding.yml` duplicate | Defer removal until a maintainer confirms whether the lowercase copy is still intentionally supported. |
 | Deprecated schema support for chatmodes and collections | Leave for validation compatibility until the schema reset issues decide whether to remove backward-compatible file types. |
@@ -86,5 +87,8 @@ keeps quoted source-path rows for traceability and links those cleanup rows to
 
 The active-reference search was run across `README.md`, `docs`, `.github`
 active documentation folders, `.github/prompts`, `.github/instructions`, and
-`package.json`. It returned no matches for the stale active patterns after this
-cleanup.
+`package.json`. Remaining `chatmodes` and `collections` matches are confined to
+legacy prompt content and are intentionally deferred to #299. The active
+`.github/README.md` guidance no longer points maintainers to `GEMINI.md`,
+`CLAUDE.md`, `chatmodes`, `collections`, `.github/automation/*`, or the old
+hyphenated Husky document path.
