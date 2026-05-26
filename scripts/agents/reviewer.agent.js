@@ -19,8 +19,9 @@
  * @see ../../agents/reviewer.agent.md
  */
 
-const core = require("@actions/core");
-const github = require("@actions/github");
+import * as core from "@actions/core";
+import * as github from "@actions/github";
+import { pathToFileURL } from "url";
 
 /**
  * Main orchestrator for Reviewer Agent.
@@ -92,6 +93,11 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
   }
 }
 
-if (require.main === module) run();
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  run();
+}
 
-module.exports = { run };
+export { run };
