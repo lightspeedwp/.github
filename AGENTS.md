@@ -14,7 +14,7 @@ references:
   - path: "agents/agent.md"
     description: "Main agent implementations index"
   - path: ".github/custom-instructions.md"
-    description: "Organisation-wide Copilot instructions"
+    description: "Repo-local Copilot and agent instructions"
   - path: ".github/prompts/prompts.md"
     description: "Prompts index"
 ---
@@ -72,7 +72,7 @@ references:
 ## PR Templates
 
 - Use the default PR template: [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)
-- Additional PR templates are available in: [.github/PULL_REQUEST_TEMPLATES/](.github/PULL_REQUEST_TEMPLATES/)
+- Additional PR templates are available in: [.github/PULL_REQUEST_TEMPLATE/](.github/PULL_REQUEST_TEMPLATE/)
   - Use the template most relevant to your change (e.g. feature, fix, documentation, etc.)
 
 ---
