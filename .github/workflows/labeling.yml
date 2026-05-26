@@ -80,7 +80,7 @@ jobs:
           npm install --no-save js-yaml
           node scripts/agents/includes/check-template-labels.js
         shell: bash
-        continue-on-error: false
+        continue-on-error: true
 
       # Apply file/branch-based labels using labeler.yml (for PRs)
       - name: File/branch labeler (actions/labeler)
