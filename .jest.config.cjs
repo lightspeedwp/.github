@@ -46,7 +46,7 @@ module.exports = {
     coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
     collectCoverage: process.env.JEST_COLLECT_COVERAGE === 'false' ? false : true,
     collectCoverageFrom: [
-        process.env.JEST_COVERAGE_FROM_1 || 'src/**/*.{js,ts}',
+        process.env.JEST_COVERAGE_FROM_1 || 'scripts/**/*.js',
         process.env.JEST_COVERAGE_FROM_2 || 'tests/**/*.{js,ts}',
         process.env.JEST_COVERAGE_FROM_3 || '**/__tests__/**/*.{js,ts}',
         '!**/*.test.{js,ts}',
