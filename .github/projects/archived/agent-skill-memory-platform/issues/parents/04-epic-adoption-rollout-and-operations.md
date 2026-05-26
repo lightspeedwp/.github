@@ -20,10 +20,10 @@ Document operational usage and roll out adoption guidance so teams can maintain 
 
 ## Acceptance Criteria
 
-- [ ] Memory authoring and safety guide is published.
-- [ ] Rollout checklist and adoption plan are complete.
-- [ ] Launch-readiness audit and handoff package are complete.
-- [ ] Backlog includes post-launch maintenance touchpoints.
+- [x] Memory authoring and safety guide is published.
+- [x] Rollout checklist and adoption plan are complete.
+- [x] Launch-readiness audit and handoff package are complete.
+- [x] Backlog includes post-launch maintenance touchpoints.
 
 ## Dependencies / Blockers
 
@@ -36,16 +36,16 @@ This epic is part of the active project at `.github/projects/active/agent-skill-
 
 ## Definition of Ready (DoR)
 
-- [ ] Epic goal and scope defined.
-- [ ] Linked stories/tasks listed.
-- [ ] Milestones and timeline mapped.
-- [ ] Dependencies/blockers identified.
-- [ ] Estimate added.
-- [ ] Stakeholders/approvers listed.
+- [x] Epic goal and scope defined.
+- [x] Linked stories/tasks listed.
+- [x] Milestones and timeline mapped.
+- [x] Dependencies/blockers identified.
+- [x] Estimate added.
+- [x] Stakeholders/approvers listed.
 
 ## Definition of Done (DoD)
 
-- [ ] All linked stories/tasks completed and closed.
-- [ ] Documentation/changelog updated.
-- [ ] QA and testing complete.
-- [ ] Milestone closed and release notes prepared.
+- [x] All linked stories/tasks completed and closed.
+- [x] Documentation/changelog updated.
+- [x] QA and testing complete.
+- [x] Milestone closed and release notes prepared.

@@ -21,10 +21,10 @@ Define and govern the shared memory taxonomy, schema contracts, and repository o
 
 ## Acceptance Criteria
 
-- [ ] Memory option taxonomy approved and documented.
-- [ ] Core memory schemas created and validated.
-- [ ] Inventory lock policy and drift signals defined.
-- [ ] Issue linking plan ready for live posting.
+- [x] Memory option taxonomy approved and documented.
+- [x] Core memory schemas created and validated.
+- [x] Inventory lock policy and drift signals defined.
+- [x] Issue linking plan ready for live posting.
 
 ## Dependencies / Blockers
 
@@ -37,16 +37,16 @@ This epic is part of the active project at `.github/projects/active/agent-skill-
 
 ## Definition of Ready (DoR)
 
-- [ ] Epic goal and scope defined.
-- [ ] Linked stories/tasks listed.
-- [ ] Milestones and timeline mapped.
-- [ ] Dependencies/blockers identified.
-- [ ] Estimate added.
-- [ ] Stakeholders/approvers listed.
+- [x] Epic goal and scope defined.
+- [x] Linked stories/tasks listed.
+- [x] Milestones and timeline mapped.
+- [x] Dependencies/blockers identified.
+- [x] Estimate added.
+- [x] Stakeholders/approvers listed.
 
 ## Definition of Done (DoD)
 
-- [ ] All linked stories/tasks completed and closed.
-- [ ] Documentation/changelog updated.
-- [ ] QA and testing complete.
-- [ ] Milestone closed and release notes prepared.
+- [x] All linked stories/tasks completed and closed.
+- [x] Documentation/changelog updated.
+- [x] QA and testing complete.
+- [x] Milestone closed and release notes prepared.
