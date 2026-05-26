@@ -39,6 +39,9 @@ GitHub issue loading was verified on 2026-05-19:
 Before starting new work, re-check the live GitHub issue state because issue
 status can change after this prompt was written.
 
+Latest local re-check: see `portable-ai-plugin-restructure-live-issue-status-2026-05-26.md`
+for the 2026-05-26 snapshot (37 open, 3 closed).
+
 ## Guardrails
 
 - Use UK English.
