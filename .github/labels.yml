@@ -52,6 +52,10 @@
   color: FEF2C0
   description: "Testing needed (manual/automated)"
 
+- name: status:needs-audit
+  color: FEF2C0
+  description: "Needs audit or validation pass"
+
 - name: status:needs-documentation
   color: BFD4F2
   description: "Needs documentation update"
@@ -270,6 +274,10 @@
   color: D4C5F9
   description: "Test suites & harnesses"
 
+- name: area:testing
+  color: D4C5F9
+  description: "Testing and QA"
+
 - name: area:scripts
   color: C5DEF5
   description: "Scripts & tooling"
@@ -310,6 +318,10 @@
   color: C2E0C6
   description: "Technical SEO (meta, schema, sitemaps)"
 
+- name: area:ai
+  color: C5DEF5
+  description: "AI and automation systems"
+
 - name: area:analytics
   color: C2E0C6
   description: "Analytics & tracking"
@@ -317,6 +329,34 @@
 - name: area:infrastructure
   color: 006B75
   description: "Infrastructure / hosting / platform"
+
+- name: area:automation
+  color: BFD4F2
+  description: "Automation workflows and agents"
+
+- name: area:performance
+  color: D29922
+  description: "Performance-focused work"
+
+- name: area:a11y
+  color: DB61A2
+  description: "Accessibility-focused work"
+
+- name: area:security
+  color: 9F3734
+  description: "Security-focused work"
+
+- name: area:compatibility
+  color: 8D4821
+  description: "Compatibility and cross-environment concerns"
+
+- name: area:release
+  color: 3FB950
+  description: "Release process and readiness"
+
+- name: area:maintenance
+  color: 9198A1
+  description: "Maintenance and routine upkeep"
 
 - name: area:i18n
   color: C5DEF5
@@ -543,6 +583,16 @@
 - name: contrib:discussion
   color: C2E0C6
   description: "Contributor/community discussion"
+
+# --- Generic support labels ---
+
+- name: question
+  color: 5319E7
+  description: "General question"
+
+- name: support
+  color: 0E8A16
+  description: "Support request"
 
 # --- Discussions (GitHub Discussions categories) ---
 

@@ -65,11 +65,10 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: npm ci || true
+        run: npm ci
 
       - name: Sync labels with canonical set
         run: |
-          npm install --no-save js-yaml
           node scripts/agents/includes/label-sync.js
         shell: bash
         continue-on-error: false
@@ -77,10 +76,9 @@ jobs:
       # Guardrail: Check for unknown labels in templates/types
       - name: Guardrail — Check for unknown labels in templates/types
         run: |
-          npm install --no-save js-yaml
           node scripts/agents/includes/check-template-labels.js
         shell: bash
-        continue-on-error: true
+        continue-on-error: false
 
       # Apply file/branch-based labels using labeler.yml (for PRs)
       - name: File/branch labeler (actions/labeler)
