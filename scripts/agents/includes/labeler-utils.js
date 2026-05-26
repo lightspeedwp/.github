@@ -15,7 +15,9 @@
 import fs from "fs";
 import yaml from "js-yaml";
 import core from "@actions/core";
-import { minimatch } from "minimatch";
+import minimatchPackage from "minimatch";
+
+const { minimatch } = minimatchPackage;
 
 /**
  * Loads labeler rules from YAML configuration file

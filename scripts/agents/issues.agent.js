@@ -8,11 +8,12 @@
  * @see ../../agents/issues.agent.md
  */
 
+import fs from "fs";
+import path from "path";
+import { fileURLToPath, pathToFileURL } from "url";
 
-const fs = require("fs");
-const path = require("path");
-const __filename = __filename || process.argv[1];
-const __dirname = __dirname || path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const DEFAULT_LABELS = ["status:needs-triage", "priority:normal"];
 const KEYWORD_TYPE_MAP = {
@@ -109,12 +110,12 @@ async function runIssuesAgent(options = {}) {
   log("Issues agent finished without errors.");
 }
 
+export { runIssuesAgent };
 
-module.exports = {
-  runIssuesAgent,
-};
-
-if (require.main === module) {
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
   const dryRun = !process.argv.includes("--apply");
   runIssuesAgent({ dryRun }).catch((error) => {
     console.error("[issues-agent] fatal error", error);
