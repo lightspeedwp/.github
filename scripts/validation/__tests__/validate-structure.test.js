@@ -41,9 +41,13 @@ describe("structure validation", () => {
       writeFile(path.join(root, folder, "README.md"));
     }
 
-    const output = execFileSync(process.execPath, [scriptPath, "--root", root], {
-      encoding: "utf8",
-    });
+    const output = execFileSync(
+      process.execPath,
+      [scriptPath, "--root", root],
+      {
+        encoding: "utf8",
+      },
+    );
 
     expect(output).toMatch(/Structure validation passed/);
   });
