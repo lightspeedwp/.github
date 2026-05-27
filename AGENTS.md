@@ -74,7 +74,7 @@ references:
 
 ## PR Templates
 
-- Use the default PR template: [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)
+- Use the default PR template: [.github/pull_request_template.md](.github/pull_request_template.md)
 - Additional PR templates are available in: [.github/PULL_REQUEST_TEMPLATE/](.github/PULL_REQUEST_TEMPLATE/)
   - Use the template most relevant to your change (e.g. feature, fix, documentation, etc.)
 
