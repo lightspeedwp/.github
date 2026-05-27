@@ -95,10 +95,29 @@ jobs:
 
           npx markdownlint-cli2 $FILES
 
+      - name: Collect Link Targets
+        id: link_targets
+        run: |
+          set -euo pipefail
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            BASE_SHA="${{ github.event.before }}"
+            HEAD_SHA="${{ github.sha }}"
+          else
+            echo "files=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | tr '\n' ' ')
+          echo "files=${FILES}" >> "$GITHUB_OUTPUT"
+
       - name: Check Links
+        if: steps.link_targets.outputs.files != ''
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --verbose ${{ github.workspace }}/README.md
+          args: --no-progress --verbose ${{ steps.link_targets.outputs.files }}
 
   apply-meta:
     if: ${{ github.event_name != 'pull_request' }}
