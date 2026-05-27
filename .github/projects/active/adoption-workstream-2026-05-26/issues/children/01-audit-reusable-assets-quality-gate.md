@@ -2,7 +2,8 @@
 name: "Audit"
 title: "[Audit] Reusable .github assets quality gate"
 labels: [status:needs-audit, priority:important, type:documentation]
-github_issue: "https://github.com/lightspeedwp/.github/issues/326"
+github_issue: "https://github.com/lightspeedwp/.github/issues/416"
+legacy_issue: "https://github.com/lightspeedwp/.github/issues/326"
 ---
 
 ## Scope

@@ -9,7 +9,9 @@ labels: [status:needs-triage, priority:important, type:epic, area:documentation]
 Track execution of the adoption governance slice using already-open issue
 threads and one delivery PR.
 
-## Child issue mapping
+Primary tracker: #416
+
+## Historical child issue mapping (closed)
 
 - #326 Audit reusable `.github` assets
 - #327 Define adoption policy

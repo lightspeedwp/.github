@@ -9,16 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- Added adoption workstream metadata alignment notes: linked the pack to live tracker `#416`, preserved legacy issue references (`#326-#330`), and clarified scaffold-only impact in the workstream PR draft.
+
 - Added a canonical shared `.github` adoption guide with required, recommended,
   optional, and repo-local-only classifications, plus update and validation
   workflows for consuming repositories.
 - Added a downstream override policy document for org defaults and linked it
   from contribution and docs index pages to support repository-level adoption
   decisions.
+- Added canonical issue-field governance documentation and automation, including
+  `.github/issue-fields.yml`, `docs/ISSUE-FIELDS.md`, and workflow validation
+  support for metadata consistency across issues and PRs.
+- Expanded issue field governance to an organization-level v2 model aligned to
+  GitHub field capabilities (typed custom fields, hidden/system fields, and
+  iteration policy) with stricter validation.
 
 ## [0.3.0] - 2025-12-18
 
-### Maintenance
+### Changed
 
 - Repository maintenance: metrics snapshot updates, documentation and script syncs, and archive moves ([#64c3662](https://github.com/lightspeedwp/.github/commit/64c3662927b55996ad3c1966b9d65fe0d5253e16), [#aa66dc6](https://github.com/lightspeedwp/.github/commit/aa66dc6fe959113f24080d35749524d1f6784338), [#dd5b55f](https://github.com/lightspeedwp/.github/commit/dd5b55f14c4a2b697ca4f370f50830e099f197aa)).
 
@@ -152,10 +160,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Reference
 
-- [Branching Strategy](.github/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
+- [Branching Strategy](docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
 - [CONTRIBUTING.md](./CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
-- [AUTOMATION_GOVERNANCE.md](.github/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
-- [Org-wide Issue Labels](.github/ISSUE_LABELS.md): Default labels and usage guidance.
-- [Pull Request Labels](.github/PR_LABELS.md): PR classification and automation standards.
-- [Issue Types Guide](.github/ISSUE_TYPES.md): Classification and usage of issue types.
+- [AUTOMATION_GOVERNANCE.md](docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
+- [Org-wide Issue Labels](docs/ISSUE_LABELS.md): Default labels and usage guidance.
+- [Pull Request Labels](docs/PR_LABELS.md): PR classification and automation standards.
+- [Issue Types Guide](docs/ISSUE_TYPES.md): Classification and usage of issue types.

@@ -121,6 +121,6 @@ scope. The target direction is:
 
 ## Related Project Documents
 
-- [Agent skill memory platform PRD](./projects/active/agent-skill-memory-platform/agent-skill-memory-platform-prd-2026-05-26.md)
-- [Agent skill memory platform inventory](./projects/active/agent-skill-memory-platform/agent-skill-memory-platform-inventory-2026-05-26.md)
-- [Agent skill memory platform parent issues](./projects/active/agent-skill-memory-platform/issues/parents/)
+- [Agent skill memory platform PRD](./projects/archived/agent-skill-memory-platform/agent-skill-memory-platform-prd-2026-05-26.md)
+- [Agent skill memory platform inventory](./projects/archived/agent-skill-memory-platform/agent-skill-memory-platform-inventory-2026-05-26.md)
+- [Agent skill memory platform parent issues](./projects/archived/agent-skill-memory-platform/issues/parents/)
