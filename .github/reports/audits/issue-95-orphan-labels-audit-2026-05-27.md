@@ -54,6 +54,9 @@ labels.
 The sync also updated 35 existing canonical labels so their live colours and
 descriptions match `.github/labels.yml`.
 
+The durable contributor-facing migration map is documented in
+[`docs/MIGRATION.md`](../../../docs/MIGRATION.md#issue-label-migration).
+
 ## Canonical Model Updates
 
 The canonical files now enforce the label-family rule:
@@ -109,6 +112,8 @@ change historical issue and pull request metadata.
 
 The following open issues and pull requests used legacy labels that had clear
 canonical mappings. They have now been migrated without deleting label history.
+The reusable mapping rules live in
+[`docs/MIGRATION.md`](../../../docs/MIGRATION.md#clear-legacy-to-canonical-mappings).
 
 | Item | Legacy labels | Canonical migration |
 | --- | --- | --- |
@@ -124,7 +129,8 @@ canonical mappings. They have now been migrated without deleting label history.
 ## Active Legacy Labels Still Requiring Maintainer Decision
 
 These legacy labels are still used on open issues and do not have a clear
-one-to-one canonical target:
+one-to-one canonical target. Keep this decision list aligned with
+[`docs/MIGRATION.md`](../../../docs/MIGRATION.md#labels-requiring-maintainer-decision).
 
 | Legacy label | Active usage | Notes |
 | --- | ---: | --- |
