@@ -1,7 +1,7 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Prioritised execution plan for the next open issues after label-governance stabilisation closeout."
-version: "v1.0.1"
+version: "v1.0.2"
 last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
@@ -20,17 +20,15 @@ This plan prioritises the next open `lightspeedwp/.github` issues that are
 ready and high-leverage after closing the label governance sequence (`#66`,
 `#67`, `#69`, `#95`, `#449`).
 
-Live check: issue `#65` is now closed (merged via PR `#452` on 2026-05-27),
-so Wave 1 now starts at `#63`.
+Live checks on 2026-05-28: issue `#65` is closed (merged via PR `#452` on
+2026-05-27), and issue `#63` is now also closed (merged via PR `#454` on
+2026-05-27). Wave 1 now starts at `#62`.
 
 ## Prioritised backlog
 
 ### Wave 1 - CI and governance reliability (start here)
 
-1. `#63` [Workflows/Agents] Validate imports/includes; add bats/jest smoke
-   tests  
-   Link: [#63](https://github.com/lightspeedwp/.github/issues/63)
-2. `#62` [Workflows] Add Husky pre-commit/pre-push with lint-staged +
+1. `#62` [Workflows] Add Husky pre-commit/pre-push with lint-staged +
    jest/bats  
    Link: [#62](https://github.com/lightspeedwp/.github/issues/62)
 
@@ -69,11 +67,9 @@ Why second:
 
 ## Execution order and dependencies
 
-1. Execute `#63` before `#62` so pre-push hooks are based on validated
-   scripts/tests.
-2. Execute `#64` before `#61` and `#52` to avoid duplicate source-of-truth
+1. Execute `#64` before `#61` and `#52` to avoid duplicate source-of-truth
    edits.
-3. Defer broader doc audits (`#31`, `#23`) until Waves 1-2 are merged.
+2. Defer broader doc audits (`#31`, `#23`) until Waves 1-2 are merged.
 
 ## Definition of done per issue
 
@@ -84,4 +80,4 @@ Why second:
 
 ## Proposed immediate next action
 
-Start with `#63` in a dedicated branch and open the next PR from that issue.
+Start with `#62` in a dedicated branch and open the next PR from that issue.

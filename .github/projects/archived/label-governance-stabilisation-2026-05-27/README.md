@@ -1,22 +1,24 @@
 ---
 title: "Label Governance Stabilisation Workstream"
 description: "Issue-first workstream to eliminate orphan labels and harden label governance automation."
-version: "v0.1.1"
-last_updated: "2026-05-27"
+version: "v0.1.2"
+last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["governance", "labels", "automation", "issues"]
 domain: "governance"
-stability: "active"
+stability: "archived"
 ---
 
-# Label Governance Stabilisation Workstream
+## Label Governance Stabilisation Workstream
 
 ## Why This Is Next
 
-This is the highest-impact follow-on after PR #428 because label hygiene and policy enforcement directly affect issue triage quality, automation routing, and reporting fidelity across the whole repository.
+This is the highest-impact follow-on after PR #428 because label hygiene and
+policy enforcement directly affect issue triage quality, automation routing,
+and reporting fidelity across the whole repository.
 
 Live anchors on 2026-05-27:
 
@@ -43,7 +45,8 @@ Create a single, issue-first execution pack that:
   - Canonical labels in `.github/labels.yml`: 149
   - Orphan labels: 31
   - Canonical labels missing from GitHub: 0
-- Current gate: maintainer decision table for ambiguous active legacy labels in #95 before final cleanup execution.
+- Current gate: maintainer decision table for ambiguous active legacy labels
+  in #95 before final cleanup execution.
 
 ## Structure
 
@@ -51,3 +54,9 @@ Create a single, issue-first execution pack that:
 - `issues/children/batch-00-triage/` orphan-label audit and remediation plan
 - `issues/children/batch-01-execution/` execution tasks mapped to open issues
 - `issue-posting-and-linking-plan.md` posting order and linking map
+
+## Archive Status
+
+- Archived on 2026-05-28 after completion of epic `#449` and linked issues
+  `#95`, `#66`, `#67`, and `#69`.
+- Delivery PRs merged: `#452` and follow-on `#454`.
