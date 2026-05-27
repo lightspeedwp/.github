@@ -1,7 +1,7 @@
 ---
 title: "Downstream Override Policy For Organisation Defaults"
 description: "Policy defining mandatory and optional organisation defaults for downstream repositories, including exceptions, versioning, and promotion."
-version: "v0.1.0"
+version: "v0.1.1"
 last_updated: "2026-05-27"
 owners: ["LightSpeed Team"]
 tags: ["governance", "policy", "adoption", "override", "documentation"]

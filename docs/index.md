@@ -1,5 +1,5 @@
 ---
-version: "v0.1.0"
+version: "v0.1.1"
 last_updated: "2026-05-27"
 owners: ["lightspeedwp"]
 file_type: "index"
