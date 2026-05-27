@@ -67,7 +67,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
   - For features/enhancements: describe the problem/opportunity, proposed solution, mockups/designs, and acceptance criteria.
   - For other types: explain context, goals, action items, and impact.
 - **Reference relevant docs or standards:**
-  See [Coding Standards](instructions/coding-standards.instructions.md), [Documentation Formats](instructions/documentation-formats.instructions.md), [Community Standards](instructions/community-standards.instructions.md), etc.
+  See [Coding Standards](instructions/coding-standards.instructions.md), [Documentation Formats](instructions/documentation-formats.instructions.md), [Languages & Linting](instructions/languages.instructions.md), and [Community Standards](instructions/community-standards.instructions.md).
 - **Outline your planned approach for complex issues** and request feedback before implementation.
 - **Automation:** Well-formed issues using the right template are automatically labeled, routed, and prioritized.
 
@@ -127,9 +127,10 @@ To ensure a consistent development experience and code quality, all contributors
 
 Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authoritative list and configuration.
 
-- **Saved Replies:** Use [SAVED_REPLIES](.github/SAVED_REPLIES/README.md) for common responses and efficient communication.
+- **Saved Replies:** Use [SAVED_REPLIES/README.md](.github/SAVED_REPLIES/README.md) for common responses and efficient communication.
 - **Documentation:** Update relevant docs (README, instructions) for any user-facing change.
 - **Automation & Labels:** Ensure your issue/PR complies with [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md), [ISSUE_LABELS.md](docs/ISSUE_LABELS.md), and [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md).
+- **Downstream overrides:** If you are adopting org defaults in another repository, follow [Downstream Override Policy](./docs/override-policy.md) and link any approved exception.
 - **Changelog:** All user-facing changes, fixes, and features must be entered in [CHANGELOG.md](./CHANGELOG.md) in Keep a Changelog format. See example sections in the changelog for proper grouping and linking.
 
 ---
@@ -139,12 +140,14 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 - [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
 - [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, label, and release strategy.
+- [override-policy.md](./docs/override-policy.md): Mandatory versus optional org defaults, exception handling, and promotion model.
 - [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md): Issue type mapping and usage.
 - [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md): Label families, triage, and workflow.
 - [PR_LABELS.md](./docs/PR_LABELS.md): PR labeling, templates, and automation.
 - [Coding Standards](instructions/coding-standards.instructions.md)
 - [Documentation Formats](instructions/documentation-formats.instructions.md)
 - [Community Standards](instructions/community-standards.instructions.md)
+- [Languages & Linting](instructions/languages.instructions.md)
 
 ---
 

@@ -56,7 +56,6 @@ async function run(context = {}) {
   };
 }
 
-
 module.exports = {
   run,
   detectIssueType,
