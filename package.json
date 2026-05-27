@@ -108,7 +108,9 @@
     "test": "npm run test:js",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "contributors:check": "all-contributors check"
+    "contributors:check": "all-contributors check",
+    "test:bash": "bats tests/bash/*.bats",
+    "test:imports": "jest --config .jest.config.cjs tests/js/import-includes-smoke.test.js --runInBand"
   },
   "devDependencies": {
     "@actions/core": "1.11.1",
