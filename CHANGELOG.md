@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Expanded issue field governance to an organization-level v2 model aligned to
   GitHub field capabilities (typed custom fields, hidden/system fields, and
   iteration policy) with stricter validation.
+- Clarified adoption workstream tracker links and historical issue references
+  in the active adoption pack documentation.
 
 ## [0.4.0] - 2026-05-27
 
