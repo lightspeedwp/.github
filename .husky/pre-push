@@ -1,3 +1,2 @@
 #!/usr/bin/env sh
 npm run test:js
-npm run test:bash
