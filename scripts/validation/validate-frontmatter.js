@@ -150,7 +150,6 @@ class FrontmatterValidator {
       allErrors: true,
       verbose: true,
       strict: false,
-      discriminator: true,
     });
     addFormats(this.ajv);
     this.validate = this.ajv.compile(this.schema);
