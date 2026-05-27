@@ -110,7 +110,8 @@
     "contributors:generate": "all-contributors generate",
     "contributors:check": "all-contributors check",
     "test:bash": "bats tests/bash/*.bats",
-    "test:imports": "jest --config .jest.config.cjs tests/js/import-includes-smoke.test.js --runInBand"
+    "test:imports": "jest --config .jest.config.cjs tests/js/import-includes-smoke.test.js --runInBand",
+    "test:workflow-scripts": "jest --config .jest.config.cjs scripts/workflows/__tests__/release-workflow-scripts.test.js --runInBand"
   },
   "devDependencies": {
     "@actions/core": "1.11.1",

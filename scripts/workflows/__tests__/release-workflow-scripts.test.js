@@ -1,0 +1,113 @@
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { execFileSync } from "node:child_process";
+
+const repoRoot = process.cwd();
+const runtimeScript = path.join(
+  repoRoot,
+  "scripts/workflows/release/trigger-telemetry.cjs",
+);
+const releaseAgentScript = path.join(
+  repoRoot,
+  "scripts/workflows/release/run-release-agent.cjs",
+);
+const notesPreviewScript = path.join(
+  repoRoot,
+  "scripts/workflows/release/build-notes-preview.cjs",
+);
+
+describe("release workflow JS scripts", () => {
+  test("trigger-telemetry writes expected GITHUB_OUTPUT and telemetry payload", () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "wf-telemetry-"));
+    const outputPath = path.join(tempDir, "github_output.txt");
+
+    execFileSync(process.execPath, [runtimeScript], {
+      cwd: tempDir,
+      env: {
+        ...process.env,
+        GITHUB_OUTPUT: outputPath,
+        GITHUB_EVENT_NAME: "workflow_dispatch",
+        GITHUB_ACTOR: "ash",
+      },
+      encoding: "utf8",
+    });
+
+    const outputContent = fs.readFileSync(outputPath, "utf8");
+    const telemetry = JSON.parse(
+      fs.readFileSync(path.join(tempDir, "trigger-telemetry.json"), "utf8"),
+    );
+
+    expect(outputContent).toContain("unauthorized_attempts=0");
+    expect(telemetry).toEqual({
+      event: "workflow_dispatch",
+      actor: "ash",
+      unauthorized_attempts: 0,
+    });
+  });
+
+  test("run-release-agent composes args and validates scope", () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "wf-release-agent-"));
+    const captureFile = path.join(tempDir, "args.json");
+    const mockAgentPath = path.join(tempDir, "mock-release-agent.js");
+
+    fs.writeFileSync(
+      mockAgentPath,
+      `const fs = require('fs'); fs.writeFileSync(${JSON.stringify(captureFile)}, JSON.stringify(process.argv.slice(2)));`,
+      "utf8",
+    );
+
+    execFileSync(process.execPath, [releaseAgentScript], {
+      cwd: repoRoot,
+      env: {
+        ...process.env,
+        INPUT_SCOPE: "minor",
+        INPUT_VERSION: "1.2.3",
+        INPUT_NOTES_FROM: "v1.2.2",
+        INPUT_DRY_RUN: "true",
+        RELEASE_AGENT_PATH: mockAgentPath,
+      },
+      encoding: "utf8",
+    });
+
+    const args = JSON.parse(fs.readFileSync(captureFile, "utf8"));
+    expect(args).toEqual([
+      "--scope=minor",
+      "--version=1.2.3",
+      "--notes-from=v1.2.2",
+      "--dry-run",
+    ]);
+
+    expect(() =>
+      execFileSync(process.execPath, [releaseAgentScript], {
+        cwd: repoRoot,
+        env: {
+          ...process.env,
+          INPUT_SCOPE: "invalid",
+        },
+        encoding: "utf8",
+      }),
+    ).toThrow(/Invalid release scope/);
+  });
+
+  test("build-notes-preview writes markdown file", () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "wf-notes-"));
+    const previewPath = path.join(tempDir, "preview.md");
+
+    execFileSync(process.execPath, [notesPreviewScript], {
+      cwd: repoRoot,
+      env: {
+        ...process.env,
+        INPUT_NOTES_FROM: "HEAD~1",
+        RELEASE_NOTES_PREVIEW_PATH: previewPath,
+      },
+      encoding: "utf8",
+    });
+
+    const preview = fs.readFileSync(previewPath, "utf8");
+    expect(preview).toBeDefined();
+    if (preview.trim().length > 0) {
+      expect(preview).toMatch(/^-\s+[0-9a-f]+\s+/m);
+    }
+  });
+});

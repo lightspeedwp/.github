@@ -1,18 +1,18 @@
 ---
 title: "Label Governance Stabilisation Workstream"
 description: "Issue-first workstream to eliminate orphan labels and harden label governance automation."
-version: "v0.1.1"
-last_updated: "2026-05-27"
+version: "v0.1.2"
+last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["governance", "labels", "automation", "issues"]
 domain: "governance"
-stability: "active"
+stability: "archived"
 ---
 
-# Label Governance Stabilisation Workstream
+# Label Governance Stabilisation Workstream (Archived)
 
 ## Why This Is Next
 
@@ -34,16 +34,16 @@ Create a single, issue-first execution pack that:
 - Prevents noisy or racing README updates.
 - Enforces PR review ordering policy at workflow level.
 
-## Live Status Snapshot (2026-05-27)
+## Live Status Snapshot (2026-05-28)
 
-- Epic issue: [#449](https://github.com/lightspeedwp/.github/issues/449) (`status:in-progress`)
-- Dependency issue: [#95](https://github.com/lightspeedwp/.github/issues/95) (`status:needs-audit`)
+- Epic issue: [#449](https://github.com/lightspeedwp/.github/issues/449) (`closed`)
+- Dependency issue: [#95](https://github.com/lightspeedwp/.github/issues/95) (`closed`)
 - Reconciliation baseline:
   - Repository labels on GitHub: 180
   - Canonical labels in `.github/labels.yml`: 149
   - Orphan labels: 31
   - Canonical labels missing from GitHub: 0
-- Current gate: maintainer decision table for ambiguous active legacy labels in #95 before final cleanup execution.
+- Closed via merged PR [#452](https://github.com/lightspeedwp/.github/pull/452).
 
 ## Structure
 
