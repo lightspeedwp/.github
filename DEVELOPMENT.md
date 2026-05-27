@@ -3,14 +3,9 @@ file_type: "documentation"
 title: "Development Setup"
 description: "Developer setup guide and repository contribution instructions for the LightSpeed community health repository"
 version: "1.0"
-last_updated: "2025-12-04"
+last_updated: "2026-05-27"
 owners: ["LightSpeed Team"]
 tags: ["development", "setup", "installation", "contributing"]
-references:
-  - path: "CONTRIBUTING.md"
-    description: "Full contribution guidelines"
-  - path: "docs/LINTING.md"
-    description: "Linting standards and troubleshooting"
 ---
 
 # Community Health Repository Setup
@@ -34,7 +29,7 @@ This document provides guidance for contributing to and maintaining this communi
 2. Install dependencies:
 
    ```bash
-   npm install
+   npm ci
    ```
 
 3. **Review `package.json`:**
@@ -64,11 +59,14 @@ This repository provides linting tools for JavaScript, CSS, and other code stand
 
 ## Git Hooks & Automation with Husky
 
-This repository uses [Husky](https://typicode.github.io/husky/) to automate code quality checks via Git hooks. Husky runs automatically when you commit or push code, ensuring all changes meet quality standards before they're shared.
+This repository uses [Husky](https://typicode.github.io/husky/) to automate code quality checks via Git hooks. Husky runs automatically when you install dependencies (`npm ci`). Two Git hooks are configured:
+
+1. **pre-commit**: Runs linting and formatting checks on staged files before each commit
+2. **pre-push**: Runs the full test suite before pushing to remote
 
 ### How Husky Works
 
-Husky is configured to run automatically when you install dependencies (`npm install`). Two Git hooks are configured:
+Husky is configured to run automatically when you install dependencies (`npm ci`). Two Git hooks are configured:
 
 1. **pre-commit**: Runs linting and formatting checks on staged files before each commit
 2. **pre-push**: Runs the full test suite before pushing to remote
@@ -98,7 +96,7 @@ If any checks fail, the commit will be blocked until you fix the issues.
 The pre-push hook runs the full test suite before allowing a push to the remote repository:
 
 ```bash
-npm test
+npm run test:js
 ```
 
 This ensures that all tests pass before code is shared with the team.
@@ -118,7 +116,7 @@ git push --no-verify
 
 If hooks aren't running:
 
-1. Ensure dependencies are installed: `npm install`
+1. Ensure dependencies are installed: `npm ci`
 2. Check that `.husky/` directory exists
 3. Verify hooks are executable: `ls -la .husky/`
 4. Re-initialize Husky: `npm run prepare`
@@ -172,7 +170,7 @@ This project is licensed under the GNU General Public License v3.0 — see the [
 - [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
 - [CONTRIBUTING.md](./CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
-- [AUTOMATION_GOVERNANCE.md](docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
+- [AUTOMATION_GOVERNANCE.md](docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labelling, and release strategy.
 - [Org-wide Issue Labels](docs/ISSUE_LABELS.md): Default labels and usage guidance.
 - [Pull Request Labels](docs/PR_LABELS.md): PR classification labels and automation standards.
 - [Canonical Issue Types YAML](.github/issue-types.yml): Machine-readable issue types for workflow and automation.
