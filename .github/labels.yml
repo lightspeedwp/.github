@@ -111,6 +111,8 @@
 - name: type:bug
   color: 9F3734
   description: "Bug or defect"
+  aliases:
+    - bug
 
 - name: type:feature
   color: 3FB950
@@ -143,10 +145,14 @@
 - name: type:automation
   color: 4393F8
   description: "Automation"
+  aliases:
+    - automation
 
 - name: type:test
   color: D29922
   description: "Testing/coverage"
+  aliases:
+    - test
 
 - name: type:performance
   color: D29922
@@ -155,10 +161,14 @@
 - name: type:a11y
   color: DB61A2
   description: "Accessibility"
+  aliases:
+    - a11y
 
 - name: type:security
   color: 9F3734
   description: "Security issue"
+  aliases:
+    - security
 
 - name: type:compatibility
   color: 8D4821
@@ -175,10 +185,14 @@
 - name: type:maintenance
   color: 9198A1
   description: "Maintenance"
+  aliases:
+    - maintenance
 
 - name: type:documentation
   color: 9198A1
   description: "Documentation"
+  aliases:
+    - documentation
 
 - name: type:research
   color: 9198A1
@@ -191,6 +205,8 @@
 - name: type:audit
   color: 9198A1
   description: "Audit"
+  aliases:
+    - audit
 
 - name: type:qa
   color: D29922
@@ -207,6 +223,18 @@
 - name: type:content-modelling
   color: AB7DF8
   description: "Content Modelling"
+
+- name: type:question
+  color: "5319E7"
+  description: "Question or request for clarification"
+  aliases:
+    - question
+
+- name: type:support
+  color: 0E8A16
+  description: "Support request"
+  aliases:
+    - support
 
 # --- Meta / housekeeping ---
 
@@ -257,6 +285,10 @@
 - name: area:core
   color: C5DEF5
   description: "Core / shared infrastructure"
+
+- name: area:labels
+  color: C5DEF5
+  description: "Label governance and routing"
 
 - name: area:block-editor
   color: C5DEF5
@@ -365,6 +397,8 @@
 - name: area:ci
   color: BFD4F2
   description: "Build and CI pipelines"
+  aliases:
+    - ci
 
 - name: area:deployment
   color: 006B75
@@ -373,6 +407,8 @@
 - name: area:dependencies
   color: F9D0C4
   description: "Composer/npm dependency work"
+  aliases:
+    - dependencies
 
 - name: area:integration
   color: D93F0B
@@ -469,6 +505,10 @@
 - name: lang:js
   color: C5DEF5
   description: "JavaScript/TypeScript"
+  aliases:
+    - js
+    - javascript
+    - lang:javascript
 
 - name: lang:css
   color: C5DEF5
@@ -583,16 +623,6 @@
 - name: contrib:discussion
   color: C2E0C6
   description: "Contributor/community discussion"
-
-# --- Generic support labels ---
-
-- name: question
-  color: 5319E7
-  description: "General question"
-
-- name: support
-  color: 0E8A16
-  description: "Support request"
 
 # --- Discussions (GitHub Discussions categories) ---
 
