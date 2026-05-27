@@ -17,7 +17,7 @@
 
 <!-- BADGES-END -->
 
-> **Note:** All labeling, status, type, and standardization is now handled by the unified labeling agent and labeling workflow. The canonical label definitions and automation rules are maintained in ../.github/labels.yml and ../.github/labeler.yml. This file provides human-readable guidance, while the YAML files are used for automation and syncing across the organization.
+> **Note:** All labeling, status, type, and standardization is now handled by the unified labeling agent and labeling workflow. The canonical label definitions and automation rules are maintained in [`.github/labels.yml`](../.github/labels.yml) and [`.github/labeler.yml`](../.github/labeler.yml). This file provides human-readable guidance, while the YAML files are used for automation and syncing across the organization.
 
 ---
 
@@ -39,7 +39,14 @@ Use this reference to classify Issues consistently, apply correct labels, and al
 - **Meta & release labels:** `meta:needs-changelog`, `meta:has-pr`, `meta:no-issue-activity`, `meta:no-pr-activity`, `meta:stale`, `release:patch`, `release:minor`, `release:major`, `release:hotfix`.
 - **Contributor labels:** `contrib:good-first-issue`, `contrib:help-wanted`, `contrib:discussion`.
 
-See ../.github/labels.yml for the up-to-date, authoritative list.
+All canonical labels must use a label-family prefix such as `status:`,
+`priority:`, `type:`, `area:`, `comp:`, `lang:`, `env:`, `compat:`, `cpt:`,
+`ai-ops:`, `contrib:`, `discussion:`, `release:`, or `meta:`. Unprefixed
+legacy labels such as `bug`, `documentation`, `question`, `support`, `a11y`, or
+`ci` must be migrated to their canonical equivalents.
+
+See [`.github/labels.yml`](../.github/labels.yml) for the up-to-date,
+authoritative list.
 
 ---
 
@@ -93,6 +100,8 @@ labels:
 ## Usage Notes
 
 - Keep exactly one `status:*` and one `priority:*` on every issue.
+- Keep exactly one issue type. Issue type labels use the `type:*` family and are
+  mapped in [`.github/issue-types.yml`](../.github/issue-types.yml).
 - All labeling is **automated and enforced**; maintainers may adjust as needed.
 - For a full list of canonical labels and colors, see [labels.yml](../.github/labels.yml).
 
