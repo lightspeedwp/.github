@@ -53,7 +53,7 @@ exception is recorded.
 
 Use this process for any deviation from a mandatory default:
 
-1. Open a governance issue in `lightspeedwp/.github` with:
+1. Open a governance issue in [lightspeedwp/.github](https://github.com/lightspeedwp/.github/issues) with:
    - downstream repository name and path;
    - default being overridden;
    - business or technical reason;
