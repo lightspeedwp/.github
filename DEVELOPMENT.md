@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Development Setup"
 description: "Developer setup guide and repository contribution instructions for the LightSpeed community health repository"
-version: "1.0"
-last_updated: "2025-12-04"
+version: "1.1"
+last_updated: "2026-05-27"
 owners: ["LightSpeed Team"]
 tags: ["development", "setup", "installation", "contributing"]
 references:
@@ -20,7 +20,8 @@ This document provides guidance for contributing to and maintaining this communi
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18 or later)
-- [npm](https://www.npmjs.com/) (v9 or later)
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+  (v9 or later)
 
 ## Installation & Package Review
 
@@ -152,7 +153,10 @@ Agents are written in JavaScript, and reusable logic or utilities should be plac
    git push origin feature/your-feature-name
    ```
 
-4. Reference any related issues in your pull request description. Please use the [pull request template](https://github.com/lightspeedwp/.github/blob/master/.github/PULL_REQUEST_TEMPLATE.md) for summaries.
+4. Reference any related issues in your pull request description. Please use
+   the
+   [pull request template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/pull_request_template.md)
+   for summaries.
 
 ## Need Help?
 
@@ -168,7 +172,7 @@ We welcome contributions! Please review our [Contributing Guidelines](https://gi
 
 This project is licensed under the GNU General Public License v3.0 — see the [LICENSE](LICENSE) file for details.
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://choosealicense.com/licenses/gpl-3.0/)
 
 ## Reference
 
