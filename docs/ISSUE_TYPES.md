@@ -27,7 +27,7 @@ This guide is for choosing a type, understanding type automation, and aligning w
 
 ---
 
-## Quick Reference (All 24 Types)
+## Quick Reference (All 27 Types)
 
 - **Task** — Small, well-scoped unit of work (e.g., config update, copy edit). *Label:* `type:task`
 - **Bug** — Broken/incorrect behaviour (e.g., error, regression, failed test). *Label:* `type:bug`
@@ -54,6 +54,8 @@ This guide is for choosing a type, understanding type automation, and aligning w
 - **Code Review** — Peer review, QA, or validation. *Label:* `type:review`
 - **AI Ops** — AI/automation operations, agents, or datasets. *Label:* `type:ai-ops`
 - **Content Modelling** — Content structure, CPTs, or taxonomy. *Label:* `type:content-modelling`
+- **Question** — Clarification request or open question. *Label:* `type:question`
+- **Support** — Support request or troubleshooting help. *Label:* `type:support`
 
 See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-readable mapping.
 
@@ -88,6 +90,8 @@ See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-rea
 | ✅ **Code Review**       | `type:review`            | Blue `#4393f8`   | Peer review/QA/validation           | normal             | `status:needs-review`, `meta:has-pr`           |
 | 🤖 **AI Ops**            | `type:ai-ops`            | Blue `#4393f8`   | AI agents/prompts/datasets          | normal             | `ai-ops:*`, `lang:md\|json\|yaml`              |
 | 🗂️ **Content Modelling** | `type:content-modelling` | Purple `#ab7df8` | CPT/taxonomies/field mapping        | important          | `cpt:*`, `comp:*`, `env:staging`               |
+| ❓ **Question**           | `type:question`          | Purple `#ab7df8` | Clarification request/open question | normal             | `status:needs-more-info`, `area:*`             |
+| 🛟 **Support**           | `type:support`           | Green `#0e8a16`  | Support or troubleshooting request  | normal/important   | `status:needs-triage`, `area:*`                |
 
 ---
 
@@ -137,6 +141,8 @@ Grey `#9198a1` • Blue `#4393f8` • Green `#3fb950` • Yellow `#d29922` • O
 ## Best Practices
 
 - **Don't over-use types** — prefer labels for orthogonal concerns (priority, status, area)
+- **Use one issue type only** — do not keep old unprefixed labels such as `bug`,
+  `question`, `support`, or `a11y` alongside canonical `type:*` labels
 - **Design → Implementation** — either convert to Feature/Task or link child Stories
 - **Story stays child of Epic** — track progress via parent roll-up in Projects
 - **Use saved searches** — pin in Projects for engineers' queue, QA sweep, release gate
