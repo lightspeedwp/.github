@@ -24,3 +24,6 @@ stability: "archived"
 - `children/batch-01-execution/01-01-task-canonical-labels-and-seeding-issue-66.md`
 - `children/batch-01-execution/01-02-task-readme-regeneration-scope-and-concurrency-issue-67.md`
 - `children/batch-01-execution/01-03-task-review-order-enforcement-issue-69.md`
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

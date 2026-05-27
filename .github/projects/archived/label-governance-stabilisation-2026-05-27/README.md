@@ -60,3 +60,6 @@ Create a single, issue-first execution pack that:
 - Archived on 2026-05-28 after completion of epic `#449` and linked issues
   `#95`, `#66`, `#67`, and `#69`.
 - Delivery PRs merged: `#452` and follow-on `#454`.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
