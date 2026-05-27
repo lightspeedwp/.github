@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "Contributing Guidelines"
 description: "Comprehensive contribution guidelines for LightSpeed community health repository including setup, standards, and workflow"
-version: "1.1"
+version: "1.2"
 last_updated: "2026-05-27"
 owners: ["LightSpeed Team"]
 tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
