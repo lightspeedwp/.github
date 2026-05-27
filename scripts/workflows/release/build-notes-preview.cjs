@@ -22,10 +22,20 @@ function execGit(command, allowError = false) {
   }
 }
 
-function buildGitLogContent(rangeStart) {
+function resolveTargetRef() {
+  const preferred = readEnv("RELEASE_NOTES_TARGET_REF", {
+    defaultValue: "develop",
+  }).trim();
+  if (preferred && execGit(`git rev-parse --verify ${preferred}`, true)) {
+    return preferred;
+  }
+  return "HEAD";
+}
+
+function buildGitLogContent(rangeStart, targetRef) {
   if (rangeStart) {
     const ranged = execGit(
-      `git log ${rangeStart}..develop --first-parent --pretty=format:"- %h %s"`,
+      `git log ${rangeStart}..${targetRef} --first-parent --pretty=format:"- %h %s"`,
       true,
     );
     if (ranged) {
@@ -33,7 +43,9 @@ function buildGitLogContent(rangeStart) {
     }
   }
 
-  return execGit('git log develop --first-parent --pretty=format:"- %h %s"');
+  return execGit(
+    `git log ${targetRef} --first-parent --pretty=format:"- %h %s"`,
+  );
 }
 
 async function main() {
@@ -49,15 +61,17 @@ async function main() {
     }),
   );
 
-  const content = buildGitLogContent(rangeStart);
+  const targetRef = resolveTargetRef();
+  const content = buildGitLogContent(rangeStart, targetRef);
   fs.writeFileSync(previewPath, `${content}\n`, "utf8");
 
   log("info", "Built dry-run release notes preview", {
     rangeStart,
+    targetRef,
     previewPath,
   });
 }
 
-module.exports = { buildGitLogContent };
+module.exports = { buildGitLogContent, resolveTargetRef };
 
 runMain(main);
