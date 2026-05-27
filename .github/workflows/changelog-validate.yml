@@ -1,4 +1,5 @@
 name: changelog-validate
+
 on:
   pull_request:
     branches: [develop]
@@ -12,21 +13,19 @@ on:
         labeled,
         unlabeled,
       ]
-  workflow_call:
-    secrets:
-      GITHUB_TOKEN:
-        required: false
+
 permissions:
   contents: read
   pull-requests: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Require changelog update or skip label
         env:
           PR_LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
@@ -45,10 +44,12 @@ jobs:
 
           echo "::error::PR requires a CHANGELOG.md update or the meta:no-changelog label."
           exit 1
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
       - name: Validate changelog schema
         run: |
           node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
