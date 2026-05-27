@@ -389,6 +389,8 @@ flowchart LR
 - Link to it in project onboarding docs and contributor guides.
 - Treat as the single source of truth for automation, changelog, release, and labelling policies.
 - Update as automation or org-wide standards evolve; changes should be reviewed by maintainers.
+- Record governance/process updates in `docs/GOVERNANCE_REVISION_LOG.md` when
+  policy or workflow expectations change.
 
 ---
 
@@ -404,6 +406,7 @@ flowchart LR
 - [Issue Types YAML](../.github/issue-types.yml)
 - [Canonical Label Definitions](../.github/labels.yml)
 - [Automated Label Assignment Rules](../.github/labeler.yml)
+- [Governance Revision Log](./GOVERNANCE_REVISION_LOG.md)
 
 ---
 
