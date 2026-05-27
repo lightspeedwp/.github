@@ -61,6 +61,12 @@ const emojiSchema = loadEmojiSchema();
  */
 function shouldSkipMeta(filePath, content) {
   const fileName = path.basename(filePath);
+  const skipReadme =
+    String(process.env.META_SKIP_README || "").toLowerCase() === "true";
+
+  if (skipReadme && fileName === "README.md") {
+    return true;
+  }
 
   // Skip formal documents
   const formalDocs = ["CHANGELOG.md", "CODE_OF_CONDUCT.md"];
@@ -477,12 +483,15 @@ async function processMarkdownFile(filePath, options = {}) {
  * @returns {Promise<object>} A summary object of the results.
  */
 async function processAllMarkdownFiles(options = {}) {
-  const { pattern = "**/*.md" } = options;
+  const { pattern = "**/*.md", files: explicitFiles } = options;
 
-  const files = globSync(pattern, {
-    cwd: process.cwd(),
-    ignore: ["node_modules/**", ".git/**", "**/node_modules/**"],
-  });
+  const files =
+    Array.isArray(explicitFiles) && explicitFiles.length > 0
+      ? explicitFiles
+      : globSync(pattern, {
+          cwd: process.cwd(),
+          ignore: ["node_modules/**", ".git/**", "**/node_modules/**"],
+        });
 
   const results = {
     total: files.length,
@@ -521,12 +530,24 @@ async function main() {
   const verbose =
     process.argv.includes("--verbose") || process.argv.includes("-v");
   const dryRun = process.argv.includes("--dry-run");
+  const filesArgIndex = process.argv.findIndex((arg) => arg === "--files");
+  const fileList =
+    filesArgIndex > -1 && process.argv[filesArgIndex + 1]
+      ? process.argv[filesArgIndex + 1]
+          .split(",")
+          .map((f) => f.trim())
+          .filter(Boolean)
+      : [];
 
   console.log("Meta Agent - Starting...");
   console.log(`Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
   console.log("");
 
-  const results = await processAllMarkdownFiles({ verbose, dryRun });
+  const results = await processAllMarkdownFiles({
+    verbose,
+    dryRun,
+    files: fileList,
+  });
 
   console.log("\nMeta Agent - Summary:");
   console.log(`  Total files: ${results.total}`);

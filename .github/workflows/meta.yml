@@ -145,6 +145,8 @@ jobs:
           node-version: "20"
 
       - name: Run Meta Agent
+        env:
+          META_SKIP_README: "true"
         run: |
           node scripts/agents/meta.agent.js
 

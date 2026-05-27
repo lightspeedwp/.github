@@ -75,6 +75,9 @@ Colors are assigned by family and purpose; see `../.github/labels.yml` for mappi
 - The label sync step (`scripts/agents/includes/label-sync.js`) now runs as an executable CLI in CI.
   - On `pull_request` events it runs in dry-run mode.
   - On other labeling workflow events it enforces canonical sync against `.github/labels.yml`.
+- Orphan-label cleanup policy is controlled in [`.github/label-governance-policy.yml`](../.github/label-governance-policy.yml):
+  - `destructive_cleanup.enabled` gates destructive label deletion.
+  - `never_delete_labels` documents accepted repository-specific exceptions.
 - **Default labels** are applied and enforced on all issues.
 - **Label conflicts and non-canonical labels** are removed or migrated automatically.
 

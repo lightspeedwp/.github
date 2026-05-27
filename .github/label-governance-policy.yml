@@ -10,4 +10,34 @@ destructive_cleanup:
   gated_by_issue: 95
   approved_orphan_labels: []
   never_delete_labels:
+    - a11y
+    - audit
+    - automation
+    - bats
+    - blocker
+    - bug
+    - checklist
+    - ci
+    - comp:help-tabs
+    - configuration
     - codex
+    - cross-reference
+    - css
+    - dependencies
+    - documentation
+    - github_actions
+    - governance
+    - javascript
+    - js
+    - lang:javascript
+    - maintenance
+    - meta
+    - meta:duplicate
+    - onboarding
+    - package.json
+    - path-resolution
+    - php
+    - quickstart
+    - security
+    - standards
+    - test

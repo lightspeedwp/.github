@@ -184,7 +184,13 @@ async function syncLabelsWithCanonical(
   }
 }
 
-async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
+async function validateRepoLabels(
+  octokit,
+  owner,
+  repo,
+  canonicalLabels,
+  allowedExtraSet = new Set(),
+) {
   try {
     const { data: repoLabels } = await octokit.rest.issues.listLabelsForRepo({
       owner,
@@ -211,13 +217,19 @@ async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
       missing: Array.from(canonicalSet).filter(
         (name) => !repoLabelSet.has(name),
       ),
-      extra: repoLabelNames.filter((name) => !canonicalSet.has(name)),
+      extra: repoLabelNames.filter(
+        (name) => !canonicalSet.has(name) && !allowedExtraSet.has(name),
+      ),
+      allowedExtra: repoLabelNames.filter(
+        (name) => !canonicalSet.has(name) && allowedExtraSet.has(name),
+      ),
       nonCompliant: [],
       summary: {
         totalCanonical: canonicalSet.size,
         totalRepo: repoLabels.length,
         missingCount: 0,
         extraCount: 0,
+        allowedExtraCount: 0,
         nonCompliantCount: 0,
       },
     };
@@ -253,6 +265,7 @@ async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
 
     report.summary.missingCount = report.missing.length;
     report.summary.extraCount = report.extra.length;
+    report.summary.allowedExtraCount = report.allowedExtra.length;
     report.summary.nonCompliantCount = report.nonCompliant.length;
     report.valid =
       report.missing.length === 0 &&
@@ -403,6 +416,7 @@ function generateSyncReport(
     report += `- **Total Repository:** ${validationReport.summary.totalRepo}\n`;
     report += `- **Missing:** ${validationReport.summary.missingCount}\n`;
     report += `- **Extra:** ${validationReport.summary.extraCount}\n`;
+    report += `- **Allowed extra:** ${validationReport.summary.allowedExtraCount}\n`;
     report += `- **Non-compliant:** ${validationReport.summary.nonCompliantCount}\n\n`;
   }
 
@@ -511,6 +525,7 @@ async function runCli() {
     owner,
     repo,
     canonicalLabels,
+    protectedDeletionSet,
   );
 
   const report = generateSyncReport(syncReport, validationReport, null);
