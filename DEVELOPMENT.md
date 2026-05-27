@@ -68,7 +68,8 @@ This repository uses [Husky](https://typicode.github.io/husky/) to automate code
 
 ### How Husky Works
 
-Husky is configured to run automatically when you install dependencies (`npm install`). Two Git hooks are configured:
+Husky is configured to run automatically when you install dependencies
+(`npm install` or `npm ci`). Two Git hooks are configured:
 
 1. **pre-commit**: Runs linting and formatting checks on staged files before each commit
 2. **pre-push**: Runs the full test suite before pushing to remote
@@ -95,10 +96,12 @@ If any checks fail, the commit will be blocked until you fix the issues.
 
 ### Pre-push Hook
 
-The pre-push hook runs the full test suite before allowing a push to the remote repository:
+The pre-push hook runs the local JavaScript and shell test suites before
+allowing a push to the remote repository:
 
 ```bash
-npm test
+npm run test:js
+npm run test:bash
 ```
 
 This ensures that all tests pass before code is shared with the team.
