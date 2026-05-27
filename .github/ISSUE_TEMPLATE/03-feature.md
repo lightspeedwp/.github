@@ -20,7 +20,7 @@ What outcome or user benefit does this feature deliver?
 ## Proposed Solution
 
 <!--
-Describe the feature you’d like to see.
+Describe the feature you'd like to see.
 Include examples, user stories, or references to similar features in other plugins/themes.
 -->
 
@@ -77,7 +77,9 @@ Use correct branch prefix (feat/) for any PR.
 
 - [ ] All acceptance criteria met
 - [ ] Tests added/updated; CI green
-- [ ] Accessibility, performance, security checks (where relevant)
+- [ ] Accessibility: WCAG 2.2 AA compliance verified (semantic HTML, keyboard support, colour contrast)
+- [ ] Security: input validated, output escaped, no [OWASP Top 10](https://owasp.org/www-project-top-ten/) vulnerabilities
+- [ ] Performance: no measurable regression introduced
 - [ ] Docs/changelog updated
 - [ ] Feature toggles/rollout considered
 - [ ] QA verified/UAT approved (if applicable)
