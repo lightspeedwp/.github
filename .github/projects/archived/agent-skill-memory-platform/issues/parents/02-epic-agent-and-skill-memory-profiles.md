@@ -21,10 +21,10 @@ Create memory profiles and examples for every current agent and skill, aligned t
 
 ## Acceptance Criteria
 
-- [ ] All agent profiles and examples are present and valid.
-- [ ] All skill profiles and examples are present and valid.
-- [ ] Every profile references at least one example snapshot.
-- [ ] Registry counts match inventory lock values.
+- [x] All agent profiles and examples are present and valid.
+- [x] All skill profiles and examples are present and valid.
+- [x] Every profile references at least one example snapshot.
+- [x] Registry counts match inventory lock values.
 
 ## Dependencies / Blockers
 
@@ -37,16 +37,16 @@ This epic is part of the active project at `.github/projects/active/agent-skill-
 
 ## Definition of Ready (DoR)
 
-- [ ] Epic goal and scope defined.
-- [ ] Linked stories/tasks listed.
-- [ ] Milestones and timeline mapped.
-- [ ] Dependencies/blockers identified.
-- [ ] Estimate added.
-- [ ] Stakeholders/approvers listed.
+- [x] Epic goal and scope defined.
+- [x] Linked stories/tasks listed.
+- [x] Milestones and timeline mapped.
+- [x] Dependencies/blockers identified.
+- [x] Estimate added.
+- [x] Stakeholders/approvers listed.
 
 ## Definition of Done (DoD)
 
-- [ ] All linked stories/tasks completed and closed.
-- [ ] Documentation/changelog updated.
-- [ ] QA and testing complete.
-- [ ] Milestone closed and release notes prepared.
+- [x] All linked stories/tasks completed and closed.
+- [x] Documentation/changelog updated.
+- [x] QA and testing complete.
+- [x] Milestone closed and release notes prepared.

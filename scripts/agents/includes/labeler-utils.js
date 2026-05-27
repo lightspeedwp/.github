@@ -14,10 +14,13 @@
 
 import fs from "fs";
 import yaml from "js-yaml";
-import core from "@actions/core";
+import * as core from "@actions/core";
 import minimatchPackage from "minimatch";
 
-const { minimatch } = minimatchPackage;
+const minimatch =
+  typeof minimatchPackage === "function"
+    ? minimatchPackage
+    : minimatchPackage.minimatch;
 
 /**
  * Loads labeler rules from YAML configuration file

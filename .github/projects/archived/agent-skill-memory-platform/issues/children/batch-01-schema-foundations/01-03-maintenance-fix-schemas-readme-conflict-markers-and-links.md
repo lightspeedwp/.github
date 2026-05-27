@@ -16,15 +16,15 @@ Resolve schema-readme inconsistencies and stale references in schema docs.
 
 ## Acceptance Criteria
 
-- [ ] Scope is clearly implemented and documented.
-- [ ] Validation commands and/or tests updated where relevant.
-- [ ] No regression in existing validation pipeline.
-- [ ] Documentation/changelog updated when needed.
+- [x] Scope is clearly implemented and documented.
+- [x] Validation commands and/or tests updated where relevant.
+- [x] No regression in existing validation pipeline.
+- [x] Documentation/changelog updated when needed.
 
 ## Dependencies
 
-- [ ] Parent epic linkage confirmed.
-- [ ] Upstream schema and registry assumptions still valid.
+- [x] Parent epic linkage confirmed.
+- [x] Upstream schema and registry assumptions still valid.
 
 ## Additional Context
 
@@ -33,14 +33,14 @@ Resolve schema-readme inconsistencies and stale references in schema docs.
 
 ## Definition of Ready (DoR)
 
-- [ ] Problem statement and outcome defined.
-- [ ] Acceptance criteria written.
-- [ ] Dependencies mapped.
-- [ ] Estimate added.
+- [x] Problem statement and outcome defined.
+- [x] Acceptance criteria written.
+- [x] Dependencies mapped.
+- [x] Estimate added.
 
 ## Definition of Done (DoD)
 
-- [ ] All acceptance criteria met.
-- [ ] Tests and validation checks pass.
-- [ ] Documentation/changelog updated as needed.
-- [ ] Local draft reflects final implementation status.
+- [x] All acceptance criteria met.
+- [x] Tests and validation checks pass.
+- [x] Documentation/changelog updated as needed.
+- [x] Local draft reflects final implementation status.
