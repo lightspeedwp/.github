@@ -158,7 +158,7 @@ Unified workflow for all labeling, status/priority, and issue type automation.
 
 **Key Steps:**
 
-- File/branch-based labels via native labeler action
+- Validates `.github/labels.yml`, `.github/issue-types.yml`, and `.github/labeler.yml` schema before label execution
 - Runs unified agent for:
   - One-hot status and priority enforcement
   - Type label assignment using `issue-types.yml` and heuristics

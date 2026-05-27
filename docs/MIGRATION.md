@@ -86,3 +86,15 @@ maintainer approves the intended mapping.
   deletion or archival.
 - If a legacy label is still actively used and the mapping is ambiguous, document
   the decision here before changing live GitHub labels.
+
+## Workflow Migration Notes
+
+### 2026-05-27 — Labeler Hardening (Issue #419)
+
+- `actions/labeler@v5` execution was retired from the labeling workflow due to
+  persistent schema incompatibility with the canonical `labeler.yml` structure.
+- The unified runtime path is now `scripts/agents/labeling.agent.js`, backed by
+  canonical configs in `.github/labels.yml`, `.github/issue-types.yml`, and
+  `.github/labeler.yml`.
+- A fail-fast schema gate now validates those three config files before label
+  execution in CI.

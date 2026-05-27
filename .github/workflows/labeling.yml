@@ -66,6 +66,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate labeling config schema
+        run: node scripts/validation/validate-labeling-configs.cjs
+
       - name: Sync labels with canonical set
         run: |
           node scripts/agents/includes/label-sync.js
@@ -78,16 +81,6 @@ jobs:
           node scripts/agents/includes/check-template-labels.js
         shell: bash
         continue-on-error: false
-
-      # NOTE: Disabled due to schema incompatibility in labeler.yml with actions/labeler v5.
-      # Unified labeling is handled by scripts/agents/labeling.agent.js below.
-      - name: File/branch labeler (actions/labeler)
-        if: ${{ false }}
-        uses: actions/labeler@v5
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          configuration-path: ${{ env.LABELER_RULES }}
-          sync-labels: true
 
       # Run unified labeling agent for issues and PRs
       - name: Run labeling agent

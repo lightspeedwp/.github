@@ -355,7 +355,7 @@ flowchart LR
 
 - Changelog enforcement/compilation: `changelog-enforcer`, `release.agent.js`
 - Release creation: `release.agent.js`
-- Label automation: `labeling.agent.js`, `actions/labeler@v5`
+- Label automation: `labeling.agent.js` (unified source of execution)
 - Project sync: `project-meta-sync.agent.js`, `actions/add-to-project@v1`
 
 **Example configs:**
