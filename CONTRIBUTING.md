@@ -67,7 +67,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
   - For features/enhancements: describe the problem/opportunity, proposed solution, mockups/designs, and acceptance criteria.
   - For other types: explain context, goals, action items, and impact.
 - **Reference relevant docs or standards:**
-  See [Coding Standards](instructions/coding-standards.instructions.md), [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md), [Theme JSON](.github/instructions/theme-json.instructions.md), etc.
+  See [Coding Standards](instructions/coding-standards.instructions.md), [Documentation Formats](instructions/documentation-formats.instructions.md), [Community Standards](instructions/community-standards.instructions.md), etc.
 - **Outline your planned approach for complex issues** and request feedback before implementation.
 - **Automation:** Well-formed issues using the right template are automatically labeled, routed, and prioritized.
 
@@ -143,8 +143,8 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 - [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md): Label families, triage, and workflow.
 - [PR_LABELS.md](./docs/PR_LABELS.md): PR labeling, templates, and automation.
 - [Coding Standards](instructions/coding-standards.instructions.md)
-- [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md)
-- [Theme JSON](.github/instructions/theme-json.instructions.md)
+- [Documentation Formats](instructions/documentation-formats.instructions.md)
+- [Community Standards](instructions/community-standards.instructions.md)
 
 ---
 

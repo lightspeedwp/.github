@@ -159,9 +159,9 @@ function greet(name) {
 
 **Configuration Files:**
 
-- Config: [`.markdownlint.json`](../.markdownlint.json)
-- Ignore: [`.markdownlintignore`](../.markdownlintignore)
-- Prettier: [`prettier.config.js`](../prettier.config.js)
+- Config: [`.markdownlint.config.cjs`](../.markdownlint.config.cjs)
+- CLI config: [`.markdownlint-cli2.config.cjs`](../.markdownlint-cli2.config.cjs)
+- Prettier: [`.prettier.config.cjs`](../.prettier.config.cjs)
 - Editor: [`.editorconfig`](../.editorconfig)
 
 **NPM Scripts:**
