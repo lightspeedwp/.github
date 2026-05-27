@@ -1,8 +1,8 @@
 ---
 title: "Adoption Workstream Pack"
 description: "Execution pack for the next governance adoption workstream."
-version: "v0.1.0"
-last_updated: "2026-05-26"
+version: "v0.1.1"
+last_updated: "2026-05-27"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
@@ -19,7 +19,11 @@ stability: "active"
 Execute the next governance adoption slice by consolidating reusable `.github`
 asset audit findings into a practical policy, usage guide, and decision record.
 
-## Linked live issues
+## Linked live issue
+
+- [#416](https://github.com/lightspeedwp/.github/issues/416)
+
+## Historical references (closed)
 
 - [#326](https://github.com/lightspeedwp/.github/issues/326)
 - [#327](https://github.com/lightspeedwp/.github/issues/327)
