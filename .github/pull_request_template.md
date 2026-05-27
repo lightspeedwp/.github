@@ -143,6 +143,7 @@ Include:
   - [ ] ARIA used only where needed
   - [ ] Contrast and non-colour cues reviewed (WCAG 2.2 AA)
 - [ ] Docs/readme/changelog updated (if user-facing)
+- [ ] I have reviewed and applied the downstream override policy (or linked an approved exception)
 - [ ] Security checklist completed (where relevant):
   - [ ] Untrusted input validated and sanitised
   - [ ] Output escaped for its rendering context
@@ -161,7 +162,7 @@ Include:
 - [Branching Strategy](../docs/BRANCHING_STRATEGY.md)
 - [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
 - [PR Labels](../docs/PR_LABELS.md)
-- [Saved Replies](./SAVED_REPLIES.md)
+- [Saved Replies](./SAVED_REPLIES/README.md)
 - [Labeler Config](./labeler.yml)
 - [Labels](./labels.yml)
 - [Issue Types](./issue-types.yml)
