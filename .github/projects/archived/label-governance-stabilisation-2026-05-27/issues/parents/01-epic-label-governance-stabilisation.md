@@ -30,4 +30,4 @@ Stabilise label governance by resolving orphan labels, enforcing canonical label
 
 ## Additional Context
 
-This epic belongs to `.github/projects/active/label-governance-stabilisation-2026-05-27/`.
+This epic belongs to `.github/projects/archived/label-governance-stabilisation-2026-05-27/`.

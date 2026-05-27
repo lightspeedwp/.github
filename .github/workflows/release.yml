@@ -57,17 +57,10 @@ jobs:
     steps:
       - id: telemetry
         name: Record trigger telemetry
-        shell: bash
-        run: |
-          set -euo pipefail
-          case "${{ github.event_name }}" in
-            workflow_dispatch|workflow_call) unauthorized_attempts=0 ;;
-            *) unauthorized_attempts=1 ;;
-          esac
-          echo "unauthorized_attempts=${unauthorized_attempts}" >> "$GITHUB_OUTPUT"
-          cat > trigger-telemetry.json <<EOF
-          {"event":"${{ github.event_name }}","actor":"${{ github.actor }}","unauthorized_attempts":${unauthorized_attempts}}
-          EOF
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          GITHUB_ACTOR: ${{ github.actor }}
+        run: node scripts/workflows/release/trigger-telemetry.cjs
       - name: Upload telemetry artefact
         uses: actions/upload-artifact@v4
         with:
@@ -120,36 +113,12 @@ jobs:
           INPUT_VERSION: ${{ inputs.version || github.event.inputs.version || '' }}
           INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
           INPUT_DRY_RUN: ${{ inputs.dry_run }}
-        run: |
-          set -euo pipefail
-          if [ -z "${INPUT_SCOPE}" ]; then
-            INPUT_SCOPE="patch"
-          fi
-          EXTRA_ARGS=""
-          if [ -n "${INPUT_VERSION}" ]; then
-            EXTRA_ARGS="${EXTRA_ARGS} --version=${INPUT_VERSION}"
-          fi
-          if [ -n "${INPUT_NOTES_FROM}" ]; then
-            EXTRA_ARGS="${EXTRA_ARGS} --notes-from=${INPUT_NOTES_FROM}"
-          fi
-          if [ "${INPUT_DRY_RUN}" = "true" ]; then
-            EXTRA_ARGS="${EXTRA_ARGS} --dry-run"
-          fi
-          node scripts/agents/release.agent.js --scope="${INPUT_SCOPE}" ${EXTRA_ARGS} | tee release-agent.log
+        run: node scripts/workflows/release/run-release-agent.cjs | tee release-agent.log
       - name: Build dry-run release notes preview
         if: inputs.dry_run == true
-        shell: bash
-        run: |
-          set -euo pipefail
-          RANGE_START="${{ inputs.notes_from || github.event.inputs.notes_from }}"
-          if [ -z "${RANGE_START}" ]; then
-            RANGE_START="$(git describe --tags --abbrev=0 2>/dev/null || true)"
-          fi
-          if [ -n "${RANGE_START}" ]; then
-            git log "${RANGE_START}..develop" --first-parent --pretty=format:"- %h %s" > release-notes-preview.md
-          else
-            git log develop --first-parent --pretty=format:"- %h %s" > release-notes-preview.md
-          fi
+        env:
+          INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
+        run: node scripts/workflows/release/build-notes-preview.cjs
       - name: Upload dry-run artefacts
         if: inputs.dry_run == true
         uses: actions/upload-artifact@v4
