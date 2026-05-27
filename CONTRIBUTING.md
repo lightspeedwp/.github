@@ -2,17 +2,10 @@
 file_type: "documentation"
 title: "Contributing Guidelines"
 description: "Comprehensive contribution guidelines for LightSpeed community health repository including setup, standards, and workflow"
-version: "1.0"
-last_updated: "2025-12-04"
+version: "1.2"
+last_updated: "2026-05-27"
 owners: ["LightSpeed Team"]
 tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
-references:
-  - path: "instructions/coding-standards.instructions.md"
-    description: "Coding standards"
-  - path: "docs/LINTING.md"
-    description: "Linting standards"
-  - path: "DOCS.md"
-    description: "Documentation index"
 ---
 
 # Contributing
@@ -20,7 +13,7 @@ references:
 ## 🚀 Quick Start (TL;DR)
 
 1. **Fork & Clone:** Fork this repo and clone it locally.
-2. **Install dependencies:** `npm install`
+2. **Install dependencies:** `npm ci`
 3. **Create a branch:** Use the correct prefix (e.g. `feat/`, `fix/`, `docs/`).
 4. **Write code & tests:** Follow [Coding Standards](instructions/coding-standards.instructions.md) and add/expand tests.
 5. **Lint & test:** Run `npm run lint:all` and `npm test` before committing. If you need to update or add new linting rules, or troubleshoot lint failures, see the [Updating Linting Rules & Troubleshooting](./docs/LINTING.md) section in the README for step-by-step guidance.
@@ -48,7 +41,7 @@ flowchart TD
 
 ---
 
-**Last Updated:** 2025-10-21 • **Version:** v0.2.0
+**Last Updated:** 2026-05-27 • **Version:** v0.2.0
 
 Thank you for your interest in contributing to LightSpeed!
 To maintain a consistent, high-quality codebase and community, please follow these guidelines.
@@ -67,9 +60,9 @@ To maintain a consistent, high-quality codebase and community, please follow the
   - For features/enhancements: describe the problem/opportunity, proposed solution, mockups/designs, and acceptance criteria.
   - For other types: explain context, goals, action items, and impact.
 - **Reference relevant docs or standards:**
-  See [Coding Standards](instructions/coding-standards.instructions.md), [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md), [Theme JSON](.github/instructions/theme-json.instructions.md), etc.
+  See [Coding Standards](instructions/coding-standards.instructions.md), [Documentation Formats](instructions/documentation-formats.instructions.md), [Languages & Linting](instructions/languages.instructions.md), and [Community Standards](instructions/community-standards.instructions.md).
 - **Outline your planned approach for complex issues** and request feedback before implementation.
-- **Automation:** Well-formed issues using the right template are automatically labeled, routed, and prioritized.
+- **Automation:** Well-formed issues using the right template are automatically labelled, routed, and prioritised.
 
 ### 2. Branching & Development
 
@@ -78,7 +71,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
 - **Allowed prefixes:**
   `feat/`, `fix/`, `docs/`, `chore/`, `build/`, `refactor/`, `test/`, `perf/`, `ci/`, `release/`, `hotfix/`, `design/`, `research/`.
 - See [Org-wide Branching Strategy](./docs/BRANCHING_STRATEGY.md) for full rules and automation mapping.
-- Ensure your branch maps to the correct issue type and PR template for automated labeling and changelog governance.
+- Ensure your branch maps to the correct issue type and PR template for automated labelling and changelog governance.
 
 ### 3. Coding Standards
 
@@ -127,9 +120,11 @@ To ensure a consistent development experience and code quality, all contributors
 
 Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authoritative list and configuration.
 
-- **Saved Replies:** Use [SAVED_REPLIES.md](.github/SAVED_REPLIES.md) for common responses and efficient communication.
+- **Saved Replies:** Use [SAVED_REPLIES/README.md](.github/SAVED_REPLIES/README.md) for common responses and efficient communication.
 - **Documentation:** Update relevant docs (README, instructions) for any user-facing change.
 - **Automation & Labels:** Ensure your issue/PR complies with [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md), [ISSUE_LABELS.md](docs/ISSUE_LABELS.md), and [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md).
+- **Governance process updates:** If your change modifies governance policy or contributor workflow expectations, add an entry to [GOVERNANCE_REVISION_LOG.md](./docs/GOVERNANCE_REVISION_LOG.md).
+- **Downstream overrides:** If you are adopting org defaults in another repository, follow [Downstream Override Policy](./docs/override-policy.md) and link any approved exception.
 - **Changelog:** All user-facing changes, fixes, and features must be entered in [CHANGELOG.md](./CHANGELOG.md) in Keep a Changelog format. See example sections in the changelog for proper grouping and linking.
 
 ---
@@ -139,16 +134,19 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 - [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
 - [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, label, and release strategy.
+- [GOVERNANCE_REVISION_LOG.md](./docs/GOVERNANCE_REVISION_LOG.md): Lightweight audit trail for governance/process changes.
+- [override-policy.md](./docs/override-policy.md): Mandatory versus optional org defaults, exception handling, and promotion model.
 - [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md): Issue type mapping and usage.
-- [ISSUE_LABELS.md](./docs//ISSUE_LABELS.md): Label families, triage, and workflow.
-- [PR_LABELS.md](./docs//PR_LABELS.md): PR labeling, templates, and automation.
+- [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md): Label families, triage, and workflow.
+- [PR_LABELS.md](./docs/PR_LABELS.md): PR labelling, templates, and automation.
 - [Coding Standards](instructions/coding-standards.instructions.md)
-- [Pattern Development](.github/instructions/block-theme/pattern-development.instructions.md)
-- [Theme JSON](.github/instructions/theme-json.instructions.md)
+- [Documentation Formats](instructions/documentation-formats.instructions.md)
+- [Community Standards](instructions/community-standards.instructions.md)
+- [Languages & Linting](instructions/languages.instructions.md)
 
 ---
 
-## License
+## Licence
 
 By contributing to this project, you agree that your contributions will be licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
 
