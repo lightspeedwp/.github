@@ -1,7 +1,7 @@
 ---
 title: "Label Governance Stabilisation Workstream"
 description: "Issue-first workstream to eliminate orphan labels and harden label governance automation."
-version: "v0.1.0"
+version: "v0.1.1"
 last_updated: "2026-05-27"
 file_type: "project"
 maintainer: "LightSpeed Team"

@@ -1,7 +1,7 @@
 ---
 title: "Issue #95 Orphan Labels Audit"
 description: "Live reconciliation of repository labels against the canonical labels configuration."
-version: "v0.1.0"
+version: "v0.1.1"
 last_updated: "2026-05-27"
 file_type: "audit"
 maintainer: "LightSpeed Team"
