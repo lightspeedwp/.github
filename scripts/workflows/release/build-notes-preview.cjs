@@ -24,9 +24,13 @@ function execGit(command, allowError = false) {
 
 function buildGitLogContent(rangeStart) {
   if (rangeStart) {
-    return execGit(
+    const ranged = execGit(
       `git log ${rangeStart}..develop --first-parent --pretty=format:"- %h %s"`,
+      true,
     );
+    if (ranged) {
+      return ranged;
+    }
   }
 
   return execGit('git log develop --first-parent --pretty=format:"- %h %s"');
