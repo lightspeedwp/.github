@@ -113,6 +113,26 @@ projects, or plugin bundles.
 | Permanent human documentation | `docs/` | Use for stable architecture, policy, setup, and reference docs. |
 | Temporary scratch output | `.github/tmp/` | Delete or promote before finishing. |
 
+## Canonical Instruction Reference Policy
+
+Use this rule for links and references in governance documentation:
+
+- Reference `.github/instructions/` only for repo-local instructions used to
+  maintain this `.github` control-plane repository.
+- Reference `instructions/` for portable instruction guidance intended to be
+  reused across repositories, agents, or plugin bundles.
+- If a document mixes repo-local and portable concerns, cite both paths and
+  label each reference explicitly to avoid ambiguity.
+
+Examples:
+
+- **Repo-local maintenance guidance:** link
+  `.github/instructions/file-organisation.instructions.md`.
+- **Portable standards guidance:** link
+  `instructions/{coding-standards,languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md`.
+- **Do not** point to archived or removed instruction paths when an active
+  canonical target exists.
+
 ## Reports And Analysis Outputs
 
 - **Location:** `.github/reports/{category}/`
@@ -185,7 +205,7 @@ references to use the UK English spelling:
 
 ## References
 
-- [Portable AI plugin restructure PRD](../.github/projects/active/portable-ai-plugin-restructure/portable-ai-plugin-restructure-prd-2026-05-14.md)
+- [Portable AI plugin restructure PRD](../.github/projects/archived/portable-ai-plugin-restructure/portable-ai-plugin-restructure-prd-2026-05-14.md)
 - [instructions.instructions.md](instructions.instructions.md)
 - [readme.instructions.md](readme.instructions.md)
 - [reporting.instructions.md](reporting.instructions.md)

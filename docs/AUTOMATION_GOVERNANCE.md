@@ -13,7 +13,7 @@ All automation in this repository is implemented and governed according to the f
 - **Agent-Driven:** Each workflow is powered by a corresponding agent, documented in [../instructions/automation.instructions.md](../instructions/automation.instructions.md).
 - **Dynamic Indexing:** Agents and workflows are discoverable and versioned via dynamic index files. These files are the single source of truth for automation and should be referenced for all changes or onboarding.
 - **Reciprocal Specification:** Every workflow must reference its agent; every agent must have a reciprocal specification file and reference its workflow(s).
-- **Evolving Standards:** All automation governance, standards, and best practices are maintained in the `instructions/` folder and updated as the organization evolves.
+- **Evolving Standards:** Follow the canonical instruction reference policy in [instructions/file-organisation.instructions.md](../instructions/file-organisation.instructions.md#canonical-instruction-reference-policy): use `.github/instructions/` for repo-local maintenance instructions and `instructions/` for portable standards.
 
 ---
 
