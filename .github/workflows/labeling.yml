@@ -76,6 +76,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ github.event_name == 'pull_request' && 'true' || inputs.dry_run || 'false' }}
+          LABEL_SYNC_REPORT_PATH: .github/reports/labeling/label-sync-${{ github.run_id }}.md
         run: |
           node scripts/agents/includes/label-sync.js
         shell: bash
@@ -105,7 +106,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: labeling-report-${{ github.run_id }}
-          path: .github/reports/labeling/${{ github.run_id }}.md
+          path: |
+            .github/reports/labeling/${{ github.run_id }}.md
+            .github/reports/labeling/label-sync-${{ github.run_id }}.md
 
       - name: Optionally commit report
         if: ${{ inputs.report_commit == 'true' }}

@@ -27,9 +27,9 @@ running create/update sync against GitHub, found:
 
 | Metric | Count |
 | --- | ---: |
-| Repository labels on GitHub | 179 |
+| Repository labels on GitHub | 180 |
 | Canonical labels in `.github/labels.yml` | 149 |
-| Repository labels missing from canonical config | 30 |
+| Repository labels missing from canonical config | 31 |
 | Canonical labels missing from the repository | 0 |
 
 ## Canonical Labels Created In GitHub
@@ -83,6 +83,7 @@ change historical issue and pull request metadata.
 - `bats`
 - `blocker`
 - `bug`
+- `codex`
 - `checklist`
 - `ci`
 - `comp:help-tabs`
@@ -158,6 +159,6 @@ be treated as historical-only until maintainers approve deletion or archival.
 
 - This report does not delete labels.
 - The issue title says 96 orphan labels and the body says 97; the current live
-  orphan count is 30 after canonical sync and clear active migrations.
+  orphan count is 31 after canonical sync and clear active migrations.
 - The existing automation and documentation should refer to `.github/labels.yml`
   as the canonical config path.
