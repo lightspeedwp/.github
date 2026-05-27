@@ -143,6 +143,7 @@ Include:
   - [ ] ARIA used only where needed
   - [ ] Contrast and non-colour cues reviewed (WCAG 2.2 AA)
 - [ ] Docs/readme/changelog updated (if user-facing)
+- [ ] I have reviewed and applied the downstream override policy (or linked an approved exception)
 - [ ] Security checklist completed (where relevant):
   - [ ] Untrusted input validated and sanitised
   - [ ] Output escaped for its rendering context
