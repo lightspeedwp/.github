@@ -1,0 +1,13 @@
+# Label governance policy for canonical seeding and orphan-label cleanup.
+# Destructive cleanup is gated and must remain disabled until issue #95
+# decisions are approved and reflected in this file.
+
+version: 1
+last_updated: "2026-05-27"
+
+destructive_cleanup:
+  enabled: false
+  gated_by_issue: 95
+  approved_orphan_labels: []
+  never_delete_labels:
+    - codex

@@ -11,13 +11,26 @@ Execute the canonical label policy and seed workflow updates tracked in #66, bas
 
 ## Implementation Checklist
 
-- [ ] Align canonical label definitions and docs.
-- [ ] Update seeding workflow for deterministic sync behaviour.
-- [ ] Add guardrails for missing or deprecated labels.
-- [ ] Validate workflow and docs commands locally.
+- [x] Align canonical label definitions and docs.
+- [x] Update seeding workflow for deterministic sync behaviour.
+- [x] Add guardrails for missing or deprecated labels.
+- [x] Validate workflow and docs commands locally.
 
 ## Acceptance Criteria
 
-- [ ] #66 reflects final canonical label contract.
-- [ ] Seeding workflow applies canonical set consistently.
-- [ ] Validation commands pass with no schema or lint regressions.
+- [x] #66 reflects final canonical label contract.
+- [x] Seeding workflow applies canonical set consistently.
+- [x] Validation commands pass with no schema or lint regressions.
+
+## Implementation Notes (2026-05-27)
+
+- Added `.github/label-governance-policy.yml` as the policy gate for destructive cleanup.
+- Hardened `scripts/agents/includes/label-sync.js` with a real CLI runtime used by workflow execution.
+- Enforced non-destructive default behaviour for orphan labels with explicit deferred-delete reporting.
+- Gated deletions behind both policy enablement and approved per-label allowlist entries.
+- Updated `scripts/validation/validate-labeling-configs.cjs` to validate the governance policy schema and canonical label prefix contract.
+- Updated `.github/workflows/labeling.yml` to pass `GITHUB_TOKEN` to label sync and publish the label-sync report artifact.
+
+## Remaining Gate
+
+- Keep destructive orphan deletion disabled until #95 decisions are approved and encoded in `.github/label-governance-policy.yml`.

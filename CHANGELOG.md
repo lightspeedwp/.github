@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   iteration policy) with stricter validation.
 - Clarified adoption workstream tracker links and historical issue references
   in the active adoption pack documentation.
+- Hardened canonical label seeding with policy-gated orphan cleanup, added
+  label-governance policy config, and documented #95 decision gating for
+  destructive cleanup.
 
 ## [0.4.0] - 2026-05-27
 

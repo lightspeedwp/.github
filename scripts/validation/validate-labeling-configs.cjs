@@ -18,6 +18,23 @@ function loadYaml(filePath) {
 }
 
 function assertLabelConfig(labels) {
+  const allowedPrefixes = [
+    "status:",
+    "priority:",
+    "type:",
+    "area:",
+    "comp:",
+    "lang:",
+    "env:",
+    "compat:",
+    "cpt:",
+    "ai-ops:",
+    "contrib:",
+    "discussion:",
+    "release:",
+    "meta:",
+  ];
+
   if (!Array.isArray(labels)) {
     fail(".github/labels.yml must be an array");
   }
@@ -25,6 +42,14 @@ function assertLabelConfig(labels) {
     if (typeof item === "string") return;
     if (!item || typeof item !== "object" || typeof item.name !== "string") {
       fail(`Invalid labels.yml entry at index ${index}`);
+    }
+    const hasAllowedPrefix = allowedPrefixes.some((prefix) =>
+      item.name.startsWith(prefix),
+    );
+    if (!hasAllowedPrefix) {
+      fail(
+        `Label '${item.name}' must use a canonical family prefix (${allowedPrefixes.join(", ")})`,
+      );
     }
   });
 }
@@ -70,13 +95,48 @@ function assertLabelerConfig(labeler) {
   }
 }
 
+function assertGovernancePolicy(policy) {
+  if (!policy || typeof policy !== "object" || Array.isArray(policy)) {
+    fail(".github/label-governance-policy.yml must be an object");
+  }
+
+  const cleanup = policy.destructive_cleanup;
+  if (!cleanup || typeof cleanup !== "object" || Array.isArray(cleanup)) {
+    fail(
+      ".github/label-governance-policy.yml must include destructive_cleanup object",
+    );
+  }
+
+  if (typeof cleanup.enabled !== "boolean") {
+    fail("destructive_cleanup.enabled must be a boolean");
+  }
+
+  if (
+    cleanup.approved_orphan_labels !== undefined &&
+    !Array.isArray(cleanup.approved_orphan_labels)
+  ) {
+    fail("destructive_cleanup.approved_orphan_labels must be an array");
+  }
+
+  if (
+    cleanup.never_delete_labels !== undefined &&
+    !Array.isArray(cleanup.never_delete_labels)
+  ) {
+    fail("destructive_cleanup.never_delete_labels must be an array");
+  }
+}
+
 const root = process.cwd();
 const labels = loadYaml(path.join(root, ".github/labels.yml"));
 const issueTypes = loadYaml(path.join(root, ".github/issue-types.yml"));
 const labeler = loadYaml(path.join(root, ".github/labeler.yml"));
+const governancePolicy = loadYaml(
+  path.join(root, ".github/label-governance-policy.yml"),
+);
 
 assertLabelConfig(labels);
 assertIssueTypeConfig(issueTypes);
 assertLabelerConfig(labeler);
+assertGovernancePolicy(governancePolicy);
 
 console.log("[validate-labeling-configs] OK");

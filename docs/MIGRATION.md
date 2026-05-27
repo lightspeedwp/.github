@@ -1,7 +1,7 @@
 ---
 title: "Migration Notes"
 description: "Central migration map and contributor guidance for repository-wide naming, label, and configuration changes."
-version: "v0.2.0"
+version: "v0.2.1"
 last_updated: "2026-05-27"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
@@ -61,6 +61,7 @@ maintainer approves the intended mapping.
 | --- | --- |
 | `bats` | Decide whether this should become a tooling/testing sub-area or remain historical only. |
 | `checklist` | Decide whether this should map to documentation/process context or be archived. |
+| `codex` | Decide whether this should remain as a repo-specific governance label or be archived. |
 | `comp:help-tabs` | Decide whether this component label is still needed for WordPress admin work. |
 | `configuration` | Decide whether this maps to `area:core`, `area:automation`, or a new config family. |
 | `cross-reference` | Decide whether this should map to documentation context or a docs-specific family. |
@@ -86,6 +87,19 @@ maintainer approves the intended mapping.
   deletion or archival.
 - If a legacy label is still actively used and the mapping is ambiguous, document
   the decision here before changing live GitHub labels.
+
+### Seeding and Cleanup Gate (Issue #66)
+
+Canonical seeding now runs in non-destructive mode by default. The sync runtime
+may create and update canonical labels, but orphan-label deletion is deferred
+until both conditions are true:
+
+1. `.github/label-governance-policy.yml` sets
+   `destructive_cleanup.enabled: true`.
+2. The label name is listed in
+   `destructive_cleanup.approved_orphan_labels`.
+
+This keeps cleanup reversible while #95 decisions are still being finalised.
 
 ## Workflow Migration Notes
 
