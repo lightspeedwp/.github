@@ -3,10 +3,10 @@
  * @see ../mode-thinking.agent.js
  */
 // Basic smoke test for mode-thinking.agent.js
-const agent = require('../mode-thinking.agent');
+const agent = require("../mode-thinking.agent");
 
-describe('mode-thinking.agent', () => {
-  it('should be defined', () => {
+describe("mode-thinking.agent", () => {
+  it("should be defined", () => {
     expect(agent).toBeDefined();
   });
 });
