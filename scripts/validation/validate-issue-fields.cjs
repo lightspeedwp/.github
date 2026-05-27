@@ -46,10 +46,21 @@ function main() {
   const cfg = parseYaml(cfgRaw);
   if (!cfg) return;
 
-  const requiredTopLevel = ['version', 'defaults', 'project_field_mappings', 'profiles'];
+  const requiredTopLevel = [
+    'version',
+    'description',
+    'organization',
+    'defaults',
+    'project_field_mappings',
+    'organization_issue_fields',
+    'project_fields',
+    'profiles',
+  ];
   for (const key of requiredTopLevel) {
     if (!(key in cfg)) fail(`Missing top-level key in issue-fields config: ${key}`);
   }
+
+  if (cfg.version !== 2) fail(`Expected issue-fields version 2, found: ${cfg.version}`);
 
   const issueDefaults = cfg.defaults?.issue || {};
   const prDefaults = cfg.defaults?.pull_request || {};
@@ -70,12 +81,107 @@ function main() {
     }
   }
 
+  const orgFields = cfg.organization_issue_fields || {};
+  if (!Array.isArray(orgFields.enabled_issue_types) || orgFields.enabled_issue_types.length === 0) {
+    fail('organization_issue_fields.enabled_issue_types must be a non-empty array');
+  }
+  if (!Array.isArray(orgFields.pinned_per_issue_type) || orgFields.pinned_per_issue_type.length === 0) {
+    fail('organization_issue_fields.pinned_per_issue_type must be a non-empty array');
+  }
+  if (orgFields.pinned_per_issue_type.length > 10) {
+    fail('organization_issue_fields.pinned_per_issue_type exceeds GitHub limit (10)');
+  }
+
+  const policy = orgFields.policy || {};
+  if (policy.max_pinned_fields_per_issue_type !== 10) {
+    fail('organization_issue_fields.policy.max_pinned_fields_per_issue_type must be 10');
+  }
+  if (policy.max_issue_fields_per_org !== 25) {
+    fail('organization_issue_fields.policy.max_issue_fields_per_org must be 25');
+  }
+  if (policy.single_select_max_options !== 50) {
+    fail('organization_issue_fields.policy.single_select_max_options must be 50');
+  }
+  if (policy.project_total_field_limit !== 50) {
+    fail('organization_issue_fields.policy.project_total_field_limit must be 50');
+  }
+
+  const customFields = orgFields.custom_fields;
+  if (!Array.isArray(customFields) || customFields.length === 0) {
+    fail('organization_issue_fields.custom_fields must be a non-empty array');
+  } else {
+    const requiredCustomKeys = [
+      'Domain',
+      'Delivery Track',
+      'Team',
+      'Effort',
+      'Start date',
+      'Target date',
+      'Risk',
+      'Customer Impact',
+      'Technical Impact',
+      'Spec Link',
+    ];
+    const keySet = new Set(customFields.map((f) => f.key));
+    for (const key of requiredCustomKeys) {
+      if (!keySet.has(key)) fail(`Missing required custom field definition: ${key}`);
+    }
+
+    const validTypes = new Set(['single_select', 'number', 'date', 'text']);
+    for (const field of customFields) {
+      if (!field.key || typeof field.key !== 'string') fail('Each custom field requires a string key');
+      if (!field.type || !validTypes.has(field.type)) {
+        fail(`Custom field "${field.key || 'unknown'}" has invalid type "${field.type}"`);
+      }
+      if (field.type === 'single_select') {
+        if (!Array.isArray(field.options) || field.options.length === 0) {
+          fail(`Single select custom field "${field.key}" must include options`);
+        }
+        if (field.options.length > 50) {
+          fail(`Single select custom field "${field.key}" exceeds 50 options`);
+        }
+      }
+    }
+  }
+
+  const projectFields = cfg.project_fields || {};
+  const hiddenIssues = projectFields.hidden_fields_to_enable?.issues || [];
+  for (const requiredHidden of [
+    'Parent issue',
+    'Sub-issue progress',
+    'Linked pull requests',
+    'Reviewers',
+    'Type',
+  ]) {
+    if (!hiddenIssues.includes(requiredHidden)) {
+      fail(`project_fields.hidden_fields_to_enable.issues missing "${requiredHidden}"`);
+    }
+  }
+
+  const iteration = projectFields.iteration_field || {};
+  if (iteration.key !== 'Sprint') fail('project_fields.iteration_field.key must be "Sprint"');
+  if (iteration.type !== 'iteration') fail('project_fields.iteration_field.type must be "iteration"');
+  if (iteration.duration_weeks !== 2) fail('project_fields.iteration_field.duration_weeks must be 2');
+  if (iteration.auto_create_new_iterations !== true) {
+    fail('project_fields.iteration_field.auto_create_new_iterations must be true');
+  }
+
   const docMustContain = [
     '.github/issue-fields.yml',
     '.github/workflows/project-meta-sync.yml',
     'dotgithub',
     'wordpress_block_theme',
     'wordpress_block_plugin',
+    'Parent issue',
+    'Sub-issue progress',
+    'Linked pull requests',
+    'Reviewers',
+    'Type',
+    'Sprint',
+    'single_select',
+    'number',
+    'date',
+    'text',
   ];
 
   for (const needle of docMustContain) {
@@ -96,9 +202,13 @@ function main() {
     prDefaults.type_label,
     ...collectKeys(fieldMappings.Status),
     ...collectKeys(fieldMappings.Priority),
+    ...collectKeys(fieldMappings.Type).slice(0, 5),
     'Status',
     'Priority',
     'Type',
+    '25',
+    '50',
+    '10',
   ];
 
   const missingLabelMentions = canonicalDocAnchors.filter((label) => !docRaw.includes(label));

@@ -1,5 +1,13 @@
-version: 1
-description: Canonical issue and PR field values for LightSpeed GitHub governance and WordPress delivery work.
+version: 2
+description: Canonical LightSpeedWP organization issue/project field model for governance and WordPress delivery.
+docs_reference: docs/ISSUE-FIELDS.md
+
+organization:
+  owner: lightspeedwp
+  repository: .github
+  notes:
+    - Issue fields are organization-level metadata.
+    - Issue fields are in public preview and may change.
 
 defaults:
   issue:
@@ -57,6 +65,122 @@ project_field_mappings:
     type:story: Task
     type:improve: Task
     type:review: Task
+
+organization_issue_fields:
+  enabled_issue_types:
+    - Bug
+    - Feature
+    - Task
+    - Epic
+    - Maintenance
+    - Chore
+    - Research
+    - Support
+    - Documentation
+    - Release
+  pinned_per_issue_type:
+    - Priority
+    - Effort
+    - Start date
+    - Target date
+    - Domain
+    - Delivery Track
+    - Team
+    - Risk
+    - Customer Impact
+    - Technical Impact
+  policy:
+    max_pinned_fields_per_issue_type: 10
+    max_issue_fields_per_org: 25
+    single_select_max_options: 50
+    project_total_field_limit: 50
+  custom_fields:
+    - key: Domain
+      type: single_select
+      description: Primary business/technical domain for routing.
+      options:
+        - Dotgithub Governance
+        - WordPress Block Theme
+        - WordPress Block Plugin
+        - WooCommerce
+        - Platform/CI
+      default: Dotgithub Governance
+    - key: Delivery Track
+      type: single_select
+      description: Workstream lane used for roadmap and reporting views.
+      options:
+        - Governance
+        - Product
+        - Infrastructure
+        - Release
+        - Support
+      default: Governance
+    - key: Team
+      type: single_select
+      description: Owning team for delivery and review.
+      options:
+        - Core
+        - AI Ops
+        - Theme
+        - Plugin
+        - QA
+      default: AI Ops
+    - key: Effort
+      type: number
+      description: Relative effort estimate in points.
+      default: 3
+    - key: Start date
+      type: date
+      description: Planned start date.
+    - key: Target date
+      type: date
+      description: Planned completion date.
+    - key: Risk
+      type: single_select
+      description: Delivery risk level.
+      options:
+        - Low
+        - Medium
+        - High
+      default: Medium
+    - key: Customer Impact
+      type: single_select
+      description: End-user/commercial impact.
+      options:
+        - Low
+        - Medium
+        - High
+      default: Medium
+    - key: Technical Impact
+      type: single_select
+      description: Engineering/system impact.
+      options:
+        - Low
+        - Medium
+        - High
+      default: Medium
+    - key: Spec Link
+      type: text
+      description: Link to PRD/spec/adoption doc.
+
+project_fields:
+  hidden_fields_to_enable:
+    issues:
+      - Parent issue
+      - Sub-issue progress
+      - Linked pull requests
+      - Reviewers
+      - Type
+  iteration_field:
+    key: Sprint
+    type: iteration
+    duration_weeks: 2
+    auto_create_new_iterations: true
+    allow_breaks_between_iterations: true
+  operational_guidance:
+    - Keep issue and project fields aligned; labels remain automation fallback.
+    - Renaming custom fields is allowed; update this YAML + docs + validators in same PR.
+    - Deleting custom fields requires migration of existing data and view updates first.
 
 profiles:
   dotgithub:
