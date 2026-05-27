@@ -1,9 +1,9 @@
 ---
 title: "LightSpeed Community Health & Automation Repository"
 description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
-version: "2.0"
+version: "2.1"
 created_date: "2025-01-10"
-last_updated: "2026-05-18"
+last_updated: "2026-05-27"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -23,8 +23,8 @@ references:
 
 # 🏠 LightSpeed Community Health & Automation Repository
 
-[![Test Coverage](https://img.shields.io/badge/coverage-auto-blue)](./tests/TEST_COVERAGE_SUMMARY.md)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Test Coverage](https://img.shields.io/badge/coverage-auto-blue)](./tests/README.md)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/lightspeedwp/.github/actions)
 [![Documentation](https://img.shields.io/badge/docs-comprehensive-informational)](./docs/README.md)
 [![AI Integration](https://img.shields.io/badge/AI-enhanced-purple)](./AGENTS.md)
@@ -452,7 +452,7 @@ All code quality, formatting, and automation standards are documented and enforc
 
 - [LINTING.md](./docs/LINTING.md) — Main linting strategy, tool configuration, and automation
 - [HUSKY_PRECOMMITS.md](./docs/HUSKY_PRECOMMITS.md) — Pre-commit hook and automation details
-- [docs/config/](./docs/config/) — All configuration file documentation (ESLint, Prettier, Stylelint, Playwright, Jest, npm scripts, etc.)
+- [docs/CONFIGS.md](./docs/CONFIGS.md) — Configuration file documentation (ESLint, Prettier, Stylelint, Playwright, Jest, npm scripts, etc.)
 
 ### Local Linting & Formatting
 
@@ -522,8 +522,8 @@ flowchart LR
 
 ### Troubleshooting & Updates
 
-- For troubleshooting, see [docs/LINTING.md](./docs/LINTING.md) and [docs/config/](./docs/config/).
-- To update rules, edit the relevant config in `docs/config/` and update npm scripts as needed.
+- For troubleshooting, see [docs/LINTING.md](./docs/LINTING.md) and [docs/CONFIGS.md](./docs/CONFIGS.md).
+- To update rules, edit the relevant configuration file and update npm scripts as needed.
 
 ---
 
@@ -553,22 +553,22 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 
 - [labels.yml](./.github/labels.yml) – **Canonical label definitions** for all issues and PRs.
 - [labeler.yml](./.github/labeler.yml) – Automated file/branch-based label application.
-- [ISSUE_LABELS.md](./.docs/ISSUE_LABELS.md) – Issue label documentation.
-- [PR_LABELS.md](./.docs/PR_LABELS.md) – PR label documentation.
+- [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md) – Issue label documentation.
+- [PR_LABELS.md](./docs/PR_LABELS.md) – PR label documentation.
 
 ### Issue Types & Templates
 
 - [issue-types.yml](./.github/issue-types.yml) – **Canonical issue types** for automation and triage.
 - [ISSUE_TYPES.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/ISSUE_TYPES.md) – Issue type documentation.
 - [Saved replies for issues](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/README.md)
-- [Bug report saved reply](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/bug-reports.md)
-- [Issue templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/ISSUE_TEMPLATES)
+- [Bug report saved reply](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/issues/bug-reports.md)
+- [Issue templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/ISSUE_TEMPLATE)
 
 ### Pull Request Templates
 
-- [PR templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATES)
+- [PR templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATE)
 - [PR_LABELS.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/PR_LABELS.md)
-- [Pull Request Template (main)](./.github/PULL_REQUEST_TEMPLATE.md)
+- [Pull Request Template (main)](./.github/pull_request_template.md)
 
 ### Workflows & Automation
 
@@ -600,7 +600,7 @@ This repository will include and orchestrate org-wide agents for managing issue 
 
 - **Agents:** Configurations, prompts, and agent instructions live here.
 - **Integration:** All project boards and workflows reference canonical files here for automated syncing and status tracking.
-- **Governance:** [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/.github/AUTOMATION_GOVERNANCE.md) details how agents and workflows are managed, updated, and rolled out org-wide.
+- **Governance:** [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) details how agents and workflows are managed, updated, and rolled out org-wide.
 
 ---
 

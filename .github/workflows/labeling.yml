@@ -69,6 +69,9 @@ jobs:
       - name: Validate labeling config schema
         run: node scripts/validation/validate-labeling-configs.cjs
 
+      - name: Validate canonical issue fields and docs
+        run: node scripts/validation/validate-issue-fields.cjs
+
       - name: Sync labels with canonical set
         run: |
           node scripts/agents/includes/label-sync.js
