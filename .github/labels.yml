@@ -225,7 +225,7 @@
   description: "Content Modelling"
 
 - name: type:question
-  color: AB7DF8
+  color: "5319E7"
   description: "Question or request for clarification"
   aliases:
     - question

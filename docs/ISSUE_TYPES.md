@@ -90,7 +90,7 @@ See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-rea
 | ✅ **Code Review**       | `type:review`            | Blue `#4393f8`   | Peer review/QA/validation           | normal             | `status:needs-review`, `meta:has-pr`           |
 | 🤖 **AI Ops**            | `type:ai-ops`            | Blue `#4393f8`   | AI agents/prompts/datasets          | normal             | `ai-ops:*`, `lang:md\|json\|yaml`              |
 | 🗂️ **Content Modelling** | `type:content-modelling` | Purple `#ab7df8` | CPT/taxonomies/field mapping        | important          | `cpt:*`, `comp:*`, `env:staging`               |
-| ❓ **Question**           | `type:question`          | Purple `#ab7df8` | Clarification request/open question | normal             | `status:needs-more-info`, `area:*`             |
+| ❓ **Question**           | `type:question`          | Purple `#5319e7` | Clarification request/open question | normal             | `status:needs-more-info`, `area:*`             |
 | 🛟 **Support**           | `type:support`           | Green `#0e8a16`  | Support or troubleshooting request  | normal/important   | `status:needs-triage`, `area:*`                |
 
 ---

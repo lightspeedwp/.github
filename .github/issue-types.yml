@@ -78,7 +78,7 @@ issue_types:
     color: AB7DF8
     label: type:content-modelling
   - name: Question
-    color: AB7DF8
+    color: "5319E7"
     label: type:question
   - name: Support
     color: 0E8A16
