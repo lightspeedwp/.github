@@ -13,6 +13,11 @@
 // TODO: Align this helper with the latest automation spec updates.
 
 import { findStandardLabel } from "./label-lookup.js";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import yaml from "js-yaml";
+import github from "@actions/github";
 
 /**
  * Sync repository labels with canonical set.
@@ -435,3 +440,96 @@ export {
   standardizeLabelsOnRepo,
   generateSyncReport,
 };
+
+/**
+ * Load canonical label definitions from configured labels.yml file.
+ * @param {string} labelsPath - Path to labels.yml
+ * @returns {Promise<Array>} Canonical labels array
+ */
+async function loadCanonicalLabels(labelsPath) {
+  const raw = await fs.readFile(labelsPath, "utf8");
+  const parsed = yaml.load(raw);
+  if (!Array.isArray(parsed)) {
+    throw new Error(`${labelsPath} must be an array of labels`);
+  }
+  return parsed;
+}
+
+/**
+ * Parse a string env value to boolean.
+ * @param {string|undefined} value - Env value
+ * @returns {boolean} Parsed boolean
+ */
+function asBoolean(value) {
+  if (!value) return false;
+  return ["1", "true", "yes", "on"].includes(String(value).toLowerCase());
+}
+
+/**
+ * CLI runner for repository label sync.
+ * Reads context from GitHub Actions env and syncs labels against canonical config.
+ * Exits non-zero when sync/validation fails.
+ */
+async function runCli() {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) {
+    throw new Error("GITHUB_TOKEN is required to run label sync");
+  }
+
+  const labelsPath = process.env.LABELS_CONFIG || ".github/labels.yml";
+  const dryRun = asBoolean(process.env.DRY_RUN);
+
+  const owner =
+    process.env.GITHUB_REPOSITORY_OWNER || github.context.repo.owner;
+  const repo =
+    process.env.GITHUB_REPOSITORY?.split("/")[1] || github.context.repo.repo;
+
+  if (!owner || !repo) {
+    throw new Error("Unable to resolve repository owner/name from environment");
+  }
+
+  const canonicalLabels = await loadCanonicalLabels(labelsPath);
+  const octokit = github.getOctokit(token);
+
+  const syncReport = await syncLabelsWithCanonical(
+    octokit,
+    owner,
+    repo,
+    canonicalLabels,
+    dryRun,
+  );
+  const validationReport = await validateRepoLabels(
+    octokit,
+    owner,
+    repo,
+    canonicalLabels,
+  );
+
+  const markdown = generateSyncReport(syncReport, validationReport, null);
+  process.stdout.write(`${markdown}\n`);
+
+  if (!validationReport.valid && dryRun) {
+    console.warn(
+      `[label-sync] Dry-run detected label drift (missing=${validationReport.summary.missingCount}, extra=${validationReport.summary.extraCount}, nonCompliant=${validationReport.summary.nonCompliantCount})`,
+    );
+    return;
+  }
+
+  if (!validationReport.valid) {
+    throw new Error(
+      `Label validation failed (missing=${validationReport.summary.missingCount}, extra=${validationReport.summary.extraCount}, nonCompliant=${validationReport.summary.nonCompliantCount})`,
+    );
+  }
+}
+
+const isDirectRun =
+  process.argv[1] &&
+  path.resolve(fileURLToPath(import.meta.url)) ===
+    path.resolve(process.argv[1]);
+
+if (isDirectRun) {
+  runCli().catch((error) => {
+    console.error(`[label-sync] ${error.message}`);
+    process.exit(1);
+  });
+}

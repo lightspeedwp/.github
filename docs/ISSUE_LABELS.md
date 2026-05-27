@@ -72,6 +72,9 @@ Colors are assigned by family and purpose; see `../.github/labels.yml` for mappi
 ## Automation
 
 - **Labeling, status, type, and standardization** are all handled by the **unified agent and workflow** ([labeling.agent.js](../scripts/agents/labeling.agent.js), [labeling.yml](../.github/workflows/labeling.yml)).
+- The label sync step (`scripts/agents/includes/label-sync.js`) now runs as an executable CLI in CI.
+  - On `pull_request` events it runs in dry-run mode.
+  - On other labeling workflow events it enforces canonical sync against `.github/labels.yml`.
 - **Default labels** are applied and enforced on all issues.
 - **Label conflicts and non-canonical labels** are removed or migrated automatically.
 

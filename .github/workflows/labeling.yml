@@ -73,6 +73,9 @@ jobs:
         run: node scripts/validation/validate-issue-fields.cjs
 
       - name: Sync labels with canonical set
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ github.event_name == 'pull_request' && 'true' || inputs.dry_run || 'false' }}
         run: |
           node scripts/agents/includes/label-sync.js
         shell: bash
