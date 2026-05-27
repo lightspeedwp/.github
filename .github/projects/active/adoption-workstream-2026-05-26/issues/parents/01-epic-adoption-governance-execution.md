@@ -11,7 +11,7 @@ threads and one delivery PR.
 
 Primary tracker: #416
 
-## Historical child issue mapping (closed)
+## Historical child issue mapping
 
 - #326 Audit reusable `.github` assets
 - #327 Define adoption policy

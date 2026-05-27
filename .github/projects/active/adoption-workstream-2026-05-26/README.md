@@ -23,7 +23,7 @@ asset audit findings into a practical policy, usage guide, and decision record.
 
 - [#416](https://github.com/lightspeedwp/.github/issues/416)
 
-## Historical references (closed)
+## Historical references
 
 - [#326](https://github.com/lightspeedwp/.github/issues/326)
 - [#327](https://github.com/lightspeedwp/.github/issues/327)
