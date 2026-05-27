@@ -220,7 +220,7 @@ Opt-outs: use `<!-- meta: off -->` (legacy `<!-- branding: off -->`) for body-le
 ### 6.1 Changelog Enforcement & Compilation
 
 - **Every PR must add an entry** under **Unreleased** in `CHANGELOG.md`, following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
-- PR template must include a `## Changelog` section ([PR Template](https://github.com/lightspeedwp/.github/blob/main/.github/PULL_REQUEST_TEMPLATE.md)).
+- PR template must include a `## Changelog` section ([PR Template](https://github.com/lightspeedwp/.github/blob/main/.github/pull_request_template.md)).
 - **Automated Enforcement:** The release agent and related workflows enforce the presence and validity of changelog entries. PRs without valid changelogs will fail CI.
 
 **Changelog Format:**

@@ -23,8 +23,8 @@ references:
 
 # 🏠 LightSpeed Community Health & Automation Repository
 
-[![Test Coverage](https://img.shields.io/badge/coverage-auto-blue)](./tests/TEST_COVERAGE_SUMMARY.md)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Test Coverage](https://img.shields.io/badge/coverage-auto-blue)](./tests/README.md)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/lightspeedwp/.github/actions)
 [![Documentation](https://img.shields.io/badge/docs-comprehensive-informational)](./docs/README.md)
 [![AI Integration](https://img.shields.io/badge/AI-enhanced-purple)](./AGENTS.md)
@@ -561,14 +561,14 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 - [issue-types.yml](./.github/issue-types.yml) – **Canonical issue types** for automation and triage.
 - [ISSUE_TYPES.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/ISSUE_TYPES.md) – Issue type documentation.
 - [Saved replies for issues](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/README.md)
-- [Bug report saved reply](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/bug-reports.md)
-- [Issue templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/ISSUE_TEMPLATES)
+- [Bug report saved reply](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/issues/bug-reports.md)
+- [Issue templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/ISSUE_TEMPLATE)
 
 ### Pull Request Templates
 
-- [PR templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATES)
+- [PR templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATE)
 - [PR_LABELS.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/PR_LABELS.md)
-- [Pull Request Template (main)](./.github/PULL_REQUEST_TEMPLATE.md)
+- [Pull Request Template (main)](./.github/pull_request_template.md)
 
 ### Workflows & Automation
 
@@ -600,7 +600,7 @@ This repository will include and orchestrate org-wide agents for managing issue 
 
 - **Agents:** Configurations, prompts, and agent instructions live here.
 - **Integration:** All project boards and workflows reference canonical files here for automated syncing and status tracking.
-- **Governance:** [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/.github/AUTOMATION_GOVERNANCE.md) details how agents and workflows are managed, updated, and rolled out org-wide.
+- **Governance:** [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) details how agents and workflows are managed, updated, and rolled out org-wide.
 
 ---
 
