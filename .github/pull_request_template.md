@@ -143,6 +143,7 @@ Include:
   - [ ] ARIA used only where needed
   - [ ] Contrast and non-colour cues reviewed (WCAG 2.2 AA)
 - [ ] Docs/readme/changelog updated (if user-facing)
+- [ ] Frontmatter updated where applicable (`last_updated` and `version`)
 - [ ] Security checklist completed (where relevant):
   - [ ] Untrusted input validated and sanitised
   - [ ] Output escaped for its rendering context

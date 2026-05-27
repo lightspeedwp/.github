@@ -2,8 +2,8 @@
 file_type: "instructions"
 title: "Documentation Formats Standards"
 description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams across all GitHub community health documentation"
-version: "v1.0"
-last_updated: "2025-12-07"
+version: "v1.1"
+last_updated: "2026-05-27"
 owners: ["GitHub Community Health Team"]
 tags:
   ["markdown", "frontmatter", "mermaid", "documentation", "diagrams", "yaml"]
@@ -243,6 +243,23 @@ status: "active"
 > The `references` frontmatter field is retired; cite supporting resources inline or via approved footers instead.
 
 **Legend:** ✅ Required | 📋 Recommended
+
+### Frontmatter update policy
+
+When editing any file with YAML frontmatter:
+
+- Update `last_updated` on every content change.
+- Set `last_updated` to today's date in ISO format (`YYYY-MM-DD`).
+- Bump `version` on every content change using this baseline:
+  - Patch (`vX.Y.Z`): wording fixes, typo fixes, non-behavioural clarification.
+  - Minor (`vX.Y` or `vX.Y.Z`): added sections, expanded guidance, or new rules.
+  - Major (`vX.0` or `vX.0.0`): breaking governance/process changes.
+- Keep version format consistent within the file (do not switch style unless intentionally migrating that file).
+
+Validation and helper commands:
+
+- CI gate: `npm run validate:frontmatter:changed -- --base <base_sha> --head <head_sha>`
+- Local helper: `npm run docs:frontmatter:sync` (updates `last_updated` for staged markdown files).
 
 ### File Type Examples
 
