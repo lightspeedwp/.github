@@ -118,7 +118,10 @@ function main() {
     if (hasDateField) {
       const prevLastUpdated = String(previous.data.last_updated || "");
       const currLastUpdated = String(current.data.last_updated || "");
-      if (prevLastUpdated === currLastUpdated) {
+      const unchangedButToday =
+        prevLastUpdated === currLastUpdated && currLastUpdated === TODAY_UTC;
+
+      if (prevLastUpdated === currLastUpdated && !unchangedButToday) {
         errors.push(
           `${relPath}: body changed but last_updated was not updated (${currLastUpdated}).`,
         );
