@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a downstream override policy document for org defaults and linked it
   from contribution and docs index pages to support repository-level adoption
   decisions.
+- Added canonical issue-field governance documentation and automation, including
+  `.github/issue-fields.yml`, `docs/ISSUE-FIELDS.md`, and workflow validation
+  support for metadata consistency across issues and PRs.
 
 ## [0.3.0] - 2025-12-18
 
