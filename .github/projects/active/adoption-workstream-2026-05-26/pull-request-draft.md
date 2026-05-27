@@ -8,7 +8,7 @@ last_updated: "2026-05-27"
 - Scaffolded the next workstream execution pack under
   `.github/projects/active/adoption-workstream-2026-05-26/`.
 - Linked the pack to the live adoption tracker (`#416`) and marked
-  `#326-#330` as historical closed references.
+  `#326-#330` as historical references.
 - Added ready-to-run scope, acceptance criteria, and rollout sequence.
 
 ## Files added
