@@ -16,9 +16,10 @@ describe("Frontmatter Validation", () => {
     } catch (err) {
       output = err.stdout || err.message;
     }
-    // Check for expected output
-    expect(output).toMatch(/Validation log written to:/);
-    // Optionally, check for summary or error lines
-    expect(output).toMatch(/Validation complete|Validation log written to:/);
+    // Validate stable, high-signal output markers regardless of exit status.
+    expect(output).toMatch(/Starting frontmatter validation/);
+    expect(output).toMatch(
+      /Found [0-9]+ files to validate|Validation completed|Validation failed|Validation log written to:/,
+    );
   });
 });

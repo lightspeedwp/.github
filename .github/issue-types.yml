@@ -77,3 +77,9 @@ issue_types:
   - name: Content Modelling
     color: AB7DF8
     label: type:content-modelling
+  - name: Question
+    color: "5319E7"
+    label: type:question
+  - name: Support
+    color: 0E8A16
+    label: type:support

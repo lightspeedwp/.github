@@ -146,7 +146,11 @@ class FrontmatterValidator {
   constructor(schemaPath, logger) {
     this.logger = logger;
     this.schema = this.loadSchema(schemaPath);
-    this.ajv = new Ajv({ allErrors: true, verbose: true });
+    this.ajv = new Ajv({
+      allErrors: true,
+      verbose: true,
+      strict: false,
+    });
     addFormats(this.ajv);
     this.validate = this.ajv.compile(this.schema);
     this.stats = {
@@ -398,7 +402,7 @@ function runAltValidation() {
 }
 
 // Main validation function
-async function validateFrontmatter() {
+async function validateFrontmatter(targetFiles = []) {
   const logger = new Logger(CONFIG.outputFile);
 
   logger.info("Starting frontmatter validation", null, {
@@ -412,12 +416,19 @@ async function validateFrontmatter() {
     // Initialize validator
     const validator = new FrontmatterValidator(CONFIG.schemaPath, logger);
 
-    // Discover files
-    const files = FileDiscovery.findFiles(
-      CONFIG.patterns,
-      CONFIG.excludePatterns,
-      CONFIG.rootDir,
-    );
+    // Discover files (or use explicit file targets when provided)
+    let files = targetFiles;
+    if (!files.length) {
+      files = FileDiscovery.findFiles(
+        CONFIG.patterns,
+        CONFIG.excludePatterns,
+        CONFIG.rootDir,
+      );
+    } else {
+      files = files
+        .map((file) => path.resolve(file))
+        .filter((file) => fs.existsSync(file));
+    }
 
     logger.info(`Found ${files.length} files to validate`);
 
@@ -485,10 +496,22 @@ Examples:
     CONFIG.outputFile = path.resolve(args[outputIndex + 1]);
   }
 
+  const optionFlagsWithValue = new Set(["--schema", "--root", "--output"]);
+  const positionalFiles = [];
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (optionFlagsWithValue.has(arg)) {
+      i++;
+      continue;
+    }
+    if (arg.startsWith("--")) continue;
+    positionalFiles.push(arg);
+  }
+
   if (altMode) {
     runAltValidation();
   } else {
-    validateFrontmatter();
+    validateFrontmatter(positionalFiles);
   }
 }
 

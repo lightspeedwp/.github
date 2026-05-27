@@ -65,19 +65,25 @@ function validateStructure(root) {
     }
 
     if (!hasIndexFile(root, folder)) {
-      errors.push(`Missing README.md or index.md in required directory: ${folder}`);
+      errors.push(
+        `Missing README.md or index.md in required directory: ${folder}`,
+      );
     }
   }
 
   const pilotPlugin = path.join(root, "plugins", "lightspeed-github-ops");
   if (fs.existsSync(pilotPlugin)) {
     if (!fs.statSync(pilotPlugin).isDirectory()) {
-      errors.push("Pilot plugin path exists but is not a directory: plugins/lightspeed-github-ops");
+      errors.push(
+        "Pilot plugin path exists but is not a directory: plugins/lightspeed-github-ops",
+      );
     } else {
       for (const fileName of ["README.md"]) {
         const filePath = path.join(pilotPlugin, fileName);
         if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
-          errors.push(`Missing pilot plugin file: plugins/lightspeed-github-ops/${fileName}`);
+          errors.push(
+            `Missing pilot plugin file: plugins/lightspeed-github-ops/${fileName}`,
+          );
         }
       }
     }
