@@ -508,6 +508,13 @@ async function runCli() {
   const markdown = generateSyncReport(syncReport, validationReport, null);
   process.stdout.write(`${markdown}\n`);
 
+  if (!validationReport.valid && dryRun) {
+    console.warn(
+      `[label-sync] Dry-run detected label drift (missing=${validationReport.summary.missingCount}, extra=${validationReport.summary.extraCount}, nonCompliant=${validationReport.summary.nonCompliantCount})`,
+    );
+    return;
+  }
+
   if (!validationReport.valid) {
     throw new Error(
       `Label validation failed (missing=${validationReport.summary.missingCount}, extra=${validationReport.summary.extraCount}, nonCompliant=${validationReport.summary.nonCompliantCount})`,
