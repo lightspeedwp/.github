@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed Global AI Rules"
 description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
-version: "v1.1"
-last_updated: "2025-12-07"
+version: "v1.2"
+last_updated: "2026-05-27"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -30,6 +30,9 @@ references:
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
 - When unsure, propose safe defaults and ask **one** focused question to clarify requirements.
 - Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `MIGRATION_GUIDE.md`).
+- Canonical instruction reference policy: use `.github/instructions/` for
+  repo-local maintenance guidance and `instructions/` for portable standards;
+  see `instructions/file-organisation.instructions.md#canonical-instruction-reference-policy`.
 
 ## Agent Directory
 
