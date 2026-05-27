@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added canonical issue-field governance documentation and automation, including
   `.github/issue-fields.yml`, `docs/ISSUE-FIELDS.md`, and workflow validation
   support for metadata consistency across issues and PRs.
+- Expanded issue field governance to an organization-level v2 model aligned to
+  GitHub field capabilities (typed custom fields, hidden/system fields, and
+  iteration policy) with stricter validation.
 
 ## [0.3.0] - 2025-12-18
 
