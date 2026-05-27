@@ -110,8 +110,23 @@ jobs:
             exit 0
           fi
 
-          FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | tr '\n' ' ')
-          echo "files=${FILES}" >> "$GITHUB_OUTPUT"
+          CHANGED_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx')
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "files=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          LINK_FILES=""
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            if grep -Eq 'https?://|www\.|mailto:|^\[[^]]+\]:\s*https?://' "$file"; then
+              LINK_FILES="${LINK_FILES}${file} "
+            fi
+          done <<EOF
+          $CHANGED_FILES
+          EOF
+
+          echo "files=${LINK_FILES}" >> "$GITHUB_OUTPUT"
 
       - name: Check Links
         if: steps.link_targets.outputs.files != ''
