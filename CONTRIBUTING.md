@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Contributing Guidelines"
 description: "Comprehensive contribution guidelines for LightSpeed community health repository including setup, standards, and workflow"
-version: "1.0"
-last_updated: "2025-12-04"
+version: "1.1"
+last_updated: "2026-05-27"
 owners: ["LightSpeed Team"]
 tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
 references:
@@ -11,7 +11,7 @@ references:
     description: "Coding standards"
   - path: "docs/LINTING.md"
     description: "Linting standards"
-  - path: "DOCS.md"
+  - path: "docs/README.md"
     description: "Documentation index"
 ---
 
@@ -67,7 +67,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
   - For features/enhancements: describe the problem/opportunity, proposed solution, mockups/designs, and acceptance criteria.
   - For other types: explain context, goals, action items, and impact.
 - **Reference relevant docs or standards:**
-  See [Coding Standards](instructions/coding-standards.instructions.md), [Documentation Formats](instructions/documentation-formats.instructions.md), and [Languages & Linting](instructions/languages.instructions.md).
+  See [Coding Standards](instructions/coding-standards.instructions.md), [Documentation Formats](instructions/documentation-formats.instructions.md), [Languages & Linting](instructions/languages.instructions.md), and [Community Standards](instructions/community-standards.instructions.md).
 - **Outline your planned approach for complex issues** and request feedback before implementation.
 - **Automation:** Well-formed issues using the right template are automatically labeled, routed, and prioritized.
 
@@ -142,10 +142,11 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 - [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, label, and release strategy.
 - [override-policy.md](./docs/override-policy.md): Mandatory versus optional org defaults, exception handling, and promotion model.
 - [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md): Issue type mapping and usage.
-- [ISSUE_LABELS.md](./docs//ISSUE_LABELS.md): Label families, triage, and workflow.
-- [PR_LABELS.md](./docs//PR_LABELS.md): PR labeling, templates, and automation.
+- [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md): Label families, triage, and workflow.
+- [PR_LABELS.md](./docs/PR_LABELS.md): PR labeling, templates, and automation.
 - [Coding Standards](instructions/coding-standards.instructions.md)
 - [Documentation Formats](instructions/documentation-formats.instructions.md)
+- [Community Standards](instructions/community-standards.instructions.md)
 - [Languages & Linting](instructions/languages.instructions.md)
 
 ---

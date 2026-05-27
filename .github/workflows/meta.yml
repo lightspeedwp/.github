@@ -39,12 +39,14 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Validate Front Matter
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate frontmatter freshness
         run: |
-          npm i -g ajv-cli
           if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            BASE_REF="${{ github.base_ref }}"
-            HEAD_REF="${{ github.sha }}"
+            BASE_REF="${{ github.event.pull_request.base.sha }}"
+            HEAD_REF="${{ github.event.pull_request.head.sha }}"
           elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
             BASE_REF="${{ github.event.before }}"
             HEAD_REF="${{ github.sha }}"
@@ -52,11 +54,7 @@ jobs:
             BASE_REF="HEAD~1"
             HEAD_REF="${{ github.sha }}"
           fi
-          npm install --prefix scripts js-yaml ajv
-          FILES=$(git diff --name-only ${{ github.sha }} ${{ github.base_ref || 'HEAD~1' }} | grep -E '\.md$' || true)
-          for f in $FILES; do
-            node scripts/validate-frontmatter.js "$f"
-          done
+          npm run validate:frontmatter:changed -- --base "$BASE_REF" --head "$HEAD_REF"
 
   lint-and-links:
     runs-on: ubuntu-latest

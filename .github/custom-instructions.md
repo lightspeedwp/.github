@@ -121,6 +121,6 @@ scope. The target direction is:
 
 ## Related Project Documents
 
-- [Portable AI plugin restructure PRD](./projects/active/portable-ai-plugin-restructure/portable-ai-plugin-restructure-prd-2026-05-14.md)
-- [Issue #291 draft](./projects/active/portable-ai-plugin-restructure/issues/children/batch-01-skeleton-boundary/01-03-refactor-file-organisation-boundary.md)
-- [Issue #292 draft](./projects/active/portable-ai-plugin-restructure/issues/children/batch-01-skeleton-boundary/01-04-refactor-repo-local-copilot-instructions.md)
+- [Agent skill memory platform PRD](./projects/active/agent-skill-memory-platform/agent-skill-memory-platform-prd-2026-05-26.md)
+- [Agent skill memory platform inventory](./projects/active/agent-skill-memory-platform/agent-skill-memory-platform-inventory-2026-05-26.md)
+- [Agent skill memory platform parent issues](./projects/active/agent-skill-memory-platform/issues/parents/)
