@@ -1,18 +1,18 @@
 ---
 title: "Label Governance Stabilisation Issue Drafts"
 description: "Parent and child issue drafts for orphan-label remediation and policy hardening."
-version: "v0.1.0"
-last_updated: "2026-05-27"
+version: "v0.1.1"
+last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["issues", "labels", "governance"]
 domain: "governance"
-stability: "active"
+stability: "archived"
 ---
 
-# Label Governance Stabilisation Issue Drafts
+## Label Governance Stabilisation Issue Drafts
 
 ## Parent
 
@@ -24,3 +24,6 @@ stability: "active"
 - `children/batch-01-execution/01-01-task-canonical-labels-and-seeding-issue-66.md`
 - `children/batch-01-execution/01-02-task-readme-regeneration-scope-and-concurrency-issue-67.md`
 - `children/batch-01-execution/01-03-task-review-order-enforcement-issue-69.md`
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
