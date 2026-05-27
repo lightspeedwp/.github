@@ -19,7 +19,7 @@ describe("Frontmatter Validation", () => {
     // Validate stable, high-signal output markers regardless of exit status.
     expect(output).toMatch(/Starting frontmatter validation/);
     expect(output).toMatch(
-      /Validation completed|Validation failed|Validation log written to:/,
+      /Found [0-9]+ files to validate|Validation completed|Validation failed|Validation log written to:/,
     );
   });
 });
