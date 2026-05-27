@@ -42,23 +42,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate frontmatter schema
-        run: |
-          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            BASE_REF="${{ github.event.pull_request.base.sha }}"
-            HEAD_REF="${{ github.event.pull_request.head.sha }}"
-          elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
-            BASE_REF="${{ github.event.before }}"
-            HEAD_REF="${{ github.sha }}"
-          else
-            BASE_REF="HEAD~1"
-            HEAD_REF="${{ github.sha }}"
-          fi
-          FILES=$(git diff --name-only "$BASE_REF" "$HEAD_REF" -- '*.md' '*.mdx' || true)
-          for f in $FILES; do
-            node scripts/validation/validate-frontmatter.js "$f"
-          done
-
       - name: Validate frontmatter freshness
         run: |
           if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then

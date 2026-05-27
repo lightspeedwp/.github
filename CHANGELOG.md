@@ -13,16 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   optional, and repo-local-only classifications, plus update and validation
   workflows for consuming repositories.
 
-### Changed
-
-- Enforced frontmatter freshness for changed Markdown files in CI:
-  `last_updated` and `version` must change when body content changes (for files
-  that use those fields).
-- Added a local helper command (`npm run docs:frontmatter:sync`) to update
-  `last_updated` for staged Markdown files.
-- Updated frontmatter policy guidance and PR checklist to require frontmatter
-  update confirmation where applicable.
-
 ## [0.3.0] - 2025-12-18
 
 ### Maintenance
