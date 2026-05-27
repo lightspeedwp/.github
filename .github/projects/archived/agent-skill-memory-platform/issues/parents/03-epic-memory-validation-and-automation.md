@@ -22,10 +22,10 @@ Integrate memory validation into the existing quality pipeline with dedicated co
 
 ## Acceptance Criteria
 
-- [ ] validate-memory command implemented and tested.
-- [ ] validate:all includes memory validation.
-- [ ] Profile drift checks fail loudly on missing coverage.
-- [ ] Example packs are validated alongside snapshots.
+- [x] validate-memory command implemented and tested.
+- [x] validate:all includes memory validation.
+- [x] Profile drift checks fail loudly on missing coverage.
+- [x] Example packs are validated alongside snapshots.
 
 ## Dependencies / Blockers
 
@@ -38,16 +38,16 @@ This epic is part of the active project at `.github/projects/active/agent-skill-
 
 ## Definition of Ready (DoR)
 
-- [ ] Epic goal and scope defined.
-- [ ] Linked stories/tasks listed.
-- [ ] Milestones and timeline mapped.
-- [ ] Dependencies/blockers identified.
-- [ ] Estimate added.
-- [ ] Stakeholders/approvers listed.
+- [x] Epic goal and scope defined.
+- [x] Linked stories/tasks listed.
+- [x] Milestones and timeline mapped.
+- [x] Dependencies/blockers identified.
+- [x] Estimate added.
+- [x] Stakeholders/approvers listed.
 
 ## Definition of Done (DoD)
 
-- [ ] All linked stories/tasks completed and closed.
-- [ ] Documentation/changelog updated.
-- [ ] QA and testing complete.
-- [ ] Milestone closed and release notes prepared.
+- [x] All linked stories/tasks completed and closed.
+- [x] Documentation/changelog updated.
+- [x] QA and testing complete.
+- [x] Milestone closed and release notes prepared.

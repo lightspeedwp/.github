@@ -39,11 +39,11 @@ Deliver a hybrid memory platform that combines a global registry with per-asset 
 
 ## Acceptance Criteria
 
-- [ ] Exactly 19 agent profiles and 89 skill profiles exist.
-- [ ] Exactly 19 agent examples and 89 skill examples exist.
-- [ ] Every profile has at least one valid example reference.
-- [ ] Drift checks fail when any `*.agent.md` or `SKILL.md` lacks a profile.
-- [ ] `validate:memory` passes in local validation.
+- [x] Exactly 19 agent profiles and 89 skill profiles exist.
+- [x] Exactly 19 agent examples and 89 skill examples exist.
+- [x] Every profile has at least one valid example reference.
+- [x] Drift checks fail when any `*.agent.md` or `SKILL.md` lacks a profile.
+- [x] `validate:memory` passes in local validation.
 
 ## Delivery Notes
 
