@@ -79,9 +79,10 @@ jobs:
         shell: bash
         continue-on-error: false
 
-      # Apply file/branch-based labels using labeler.yml (for PRs)
+      # NOTE: Disabled due to schema incompatibility in labeler.yml with actions/labeler v5.
+      # Unified labeling is handled by scripts/agents/labeling.agent.js below.
       - name: File/branch labeler (actions/labeler)
-        if: github.event_name == 'pull_request'
+        if: ${{ false }}
         uses: actions/labeler@v5
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
