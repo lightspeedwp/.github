@@ -44,6 +44,10 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 
 ### 🤖 AI & Automation
 
+- [ai/agents.md](./ai/agents.md) - Canonical AI agent sources and policy map
+- [ai/Claude.md](./ai/Claude.md) - Canonical Claude reference
+- [ai/Gemini.md](./ai/Gemini.md) - Canonical Gemini reference
+- [ai/RUNNERS.md](./ai/RUNNERS.md) - Runner inventory and telemetry hooks
 - [AGENTS.md](./AGENTS.md) - Global AI rules and agent overview
 - [.github/custom-instructions.md](./.github/custom-instructions.md) - Copilot configuration
 - [agents/agent.md](agents/agent.md) - Agent specifications

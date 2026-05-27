@@ -37,6 +37,8 @@ Use these files as the primary map before editing:
 | File | Purpose |
 | --- | --- |
 | [`../AGENTS.md`](../AGENTS.md) | Global AI rules, tone, security, accessibility, and contribution expectations. |
+| [`../ai/agents.md`](../ai/agents.md) | Canonical AI source-of-truth map for agent docs and model references. |
+| [`../ai/RUNNERS.md`](../ai/RUNNERS.md) | Canonical JS/Bash runner and telemetry inventory. |
 | [`.github/instructions/file-organisation.instructions.md`](./instructions/file-organisation.instructions.md) | Repo-local placement rules for GitHub-native files versus portable AI assets. |
 | [`../instructions/coding-standards.instructions.md`](../instructions/coding-standards.instructions.md) | Coding standards and WordPress-oriented engineering expectations. |
 | [`../instructions/documentation-formats.instructions.md`](../instructions/documentation-formats.instructions.md) | Markdown, frontmatter, and Mermaid standards. |

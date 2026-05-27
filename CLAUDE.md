@@ -11,6 +11,10 @@ maintainer: "LightSpeed Team"
 
 > Full organisation-wide AI rules, coding standards, and contribution guidelines live in [AGENTS.md](./AGENTS.md). Read that file first.
 
+Canonical AI references are maintained under [`ai/`](./ai/), including
+[`ai/Claude.md`](./ai/Claude.md), [`ai/Gemini.md`](./ai/Gemini.md), and
+[`ai/RUNNERS.md`](./ai/RUNNERS.md).
+
 ## What This Repository Is
 
 This is the **LightSpeed organisation `.github` control plane**. It owns:

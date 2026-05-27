@@ -11,6 +11,10 @@ tags: ["agents", "ai", "coding-standards", "governance", "wordpress"]
 domain: "governance"
 stability: "stable"
 references:
+  - path: "ai/agents.md"
+    description: "Canonical AI agents source-of-truth index"
+  - path: "ai/RUNNERS.md"
+    description: "Canonical runner and telemetry inventory"
   - path: "agents/agent.md"
     description: "Main agent implementations index"
   - path: ".github/custom-instructions.md"
@@ -36,6 +40,7 @@ references:
 
 ## Agent Directory
 
+- Canonical AI source map: [ai/agents.md](ai/agents.md)
 - See [Main Agent Index](agents/agent.md) for all agent implementations and specs.
 - Each agent must have both a code file (`.js`, `.py`, etc.) and a spec (`.md`) following the template.
 - All contributors must follow the org [Coding Standards](instructions/coding-standards.instructions.md).
