@@ -9,11 +9,11 @@
 
 All automation in this repository is implemented and governed according to the following standards:
 
-- **Instruction-First:** Each automation workflow is paired with a canonical instruction file in [../instructions/workflows.instructions.md](./instructions/workflows.instructions.md).
-- **Agent-Driven:** Each workflow is powered by a corresponding agent, documented in [../instructions/automation.instructions.md](./instructions/automation.instructions.md).
+- **Instruction-First:** Each automation workflow is paired with a canonical instruction file in [../instructions/workflows.instructions.md](../instructions/workflows.instructions.md).
+- **Agent-Driven:** Each workflow is powered by a corresponding agent, documented in [../instructions/automation.instructions.md](../instructions/automation.instructions.md).
 - **Dynamic Indexing:** Agents and workflows are discoverable and versioned via dynamic index files. These files are the single source of truth for automation and should be referenced for all changes or onboarding.
 - **Reciprocal Specification:** Every workflow must reference its agent; every agent must have a reciprocal specification file and reference its workflow(s).
-- **Evolving Standards:** All automation governance, standards, and best practices are maintained in the `.github/instructions/` folder and updated as the organization evolves.
+- **Evolving Standards:** All automation governance, standards, and best practices are maintained in the `instructions/` folder and updated as the organization evolves.
 
 ---
 
@@ -270,7 +270,7 @@ When `develop` merges to `main` (or on a release PR to main):
 6. **Docs Update:** Update stable tag, README badges, and other documentation as needed.
 7. **Notifications:** Notify maintainers/channels of release outcome.
 
-**Reciprocal Spec:** All release steps are defined in [workflows.instructions.md](./instructions/workflows.instructions.md) and [agent-release.instructions.md](./instructions/agent-release.instructions.md).
+**Reciprocal Spec:** All release steps are defined in [workflows.instructions.md](../instructions/workflows.instructions.md) and [release.agent.md](../agents/release.agent.md).
 
 ### 6.3 Labelling, Project Sync, and Issue/PR Management
 
@@ -286,7 +286,7 @@ When `develop` merges to `main` (or on a release PR to main):
 - On merge, auto-move item to Done and close linked issues.
 - Project meta sync logic is agent-driven and customizable.
 
-**Reciprocal Spec:** See [workflows.instructions.md](./instructions/workflows.instructions.md), [agent-labeling.instructions.md](./instructions/agents/agent-labeling.instructions.md), and [agent-project-meta-sync.instructions.md](./instructions/agent-project-meta-sync.instructions.md).
+**Reciprocal Spec:** See [workflows.instructions.md](../instructions/workflows.instructions.md), [labeling.agent.md](../agents/labeling.agent.md), and [project-meta-sync.agent.md](../agents/project-meta-sync.agent.md).
 
 ### 6.4 Branching Discipline
 
@@ -360,9 +360,9 @@ flowchart LR
 
 **Example configs:**
 
-- [labels-issues-prs.yml](./workflows/labels-issues-prs.yml)
-- [project-meta-sync.yml](./workflows/project-meta-sync.yml)
-- [labeler.yml](./labeler.yml)
+- [issues.yml](../.github/workflows/issues.yml)
+- [project-meta-sync.yml](../.github/workflows/project-meta-sync.yml)
+- [labeler.yml](../.github/labeler.yml)
 
 ---
 
@@ -377,7 +377,7 @@ flowchart LR
 
 ## 12. Maintaining and Auditing Automation
 
-- **Yearly Audit:** Annually, inventory all workflows and ensure every referenced agent has a reciprocal specification file in `.github/instructions/`.
+- **Yearly Audit:** Annually, inventory all workflows and ensure every referenced agent has a reciprocal specification in `agents/` and aligned guidance in `instructions/`.
 - **Change Process:** Any automation or agent update must update both its workflow and agent instruction/specification files.
 - **CI Enforcement:** (Recommended) Use a CI job or script to validate instruction/agent reciprocity and spec compliance.
 
@@ -394,8 +394,8 @@ flowchart LR
 
 ## Reference
 
-- [Workflows Instructions Index](./instructions/workflows.instructions.md)
-- [Automation Instructions](./instructions/automation.instructions.md)
+- [Workflows Instructions Index](../instructions/workflows.instructions.md)
+- [Automation Instructions](../instructions/automation.instructions.md)
 - [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
 - [CHANGELOG.md](../CHANGELOG.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
