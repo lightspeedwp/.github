@@ -21,11 +21,13 @@ on:
 
 permissions:
   contents: read
-  issues: read
-  pull-requests: read
+  issues: write
+  pull-requests: write
 
 env:
   PROJECT_URL: ${{ vars.LS_PROJECT_URL }}
+  SLA_WARN_DAYS: "7"
+  SLA_BREACH_DAYS: "14"
 
 jobs:
   add-and-sync:
@@ -126,3 +128,70 @@ jobs:
           item-id: ${{ steps.addp.outputs.itemId }}
           field-keys: Status,Priority,Type
           field-values: ${{ steps.derive.outputs.status }},${{ steps.derive.outputs.priority }},${{ steps.derive.outputs.type }}
+
+      - name: Add or update aging and SLA annotation
+        if: steps.preflight.outputs.enabled == 'true' && github.event.action != 'closed'
+        uses: actions/github-script@v7
+        env:
+          SLA_WARN_DAYS: ${{ env.SLA_WARN_DAYS }}
+          SLA_BREACH_DAYS: ${{ env.SLA_BREACH_DAYS }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const marker = "<!-- project-meta-sync:sla -->";
+            const isIssue = context.eventName === "issues";
+            const number = isIssue ? context.payload.issue.number : context.payload.pull_request.number;
+            const createdAt = new Date(
+              isIssue ? context.payload.issue.created_at : context.payload.pull_request.created_at,
+            );
+            const now = new Date();
+            const ageDays = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
+            const warnDays = Number(process.env.SLA_WARN_DAYS || "7");
+            const breachDays = Number(process.env.SLA_BREACH_DAYS || "14");
+
+            let slaState = "Within SLA";
+            if (ageDays >= breachDays) slaState = "SLA breached";
+            else if (ageDays >= warnDays) slaState = "SLA risk";
+
+            const body = `${marker}
+            ## ⏱️ Aging and SLA annotation
+            - Age: **${ageDays} day(s)**
+            - SLA state: **${slaState}**
+            - Thresholds: warn at ${warnDays} days, breach at ${breachDays} days
+            - Last updated: ${now.toISOString()}
+
+            _Maintained by project-meta-sync workflow._`;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner,
+              repo,
+              issue_number: number,
+              per_page: 100,
+            });
+
+            const existing = comments.find(
+              (c) =>
+                c.user?.type === "Bot" &&
+                typeof c.body === "string" &&
+                c.body.includes(marker),
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body,
+              });
+              core.info(`Updated SLA annotation on #${number}`);
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: number,
+                body,
+              });
+              core.info(`Created SLA annotation on #${number}`);
+            }
