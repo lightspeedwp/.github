@@ -164,3 +164,5 @@ phase6-planning-suite-consolidation.md
 
 *For questions about project file organisation, see [file-organisation.instructions.md](../instructions/file-organisation.instructions.md)*
 *This directory is managed by automated workflows. Please do not add files manually unless specified by the reporting instructions.*
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
