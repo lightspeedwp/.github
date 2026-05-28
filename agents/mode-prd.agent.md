@@ -1,6 +1,14 @@
 ---
 name: "Product Requirements Document Generator"
 description: "Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation."
+version: "v1.1"
+last_updated: "2026-05-28"
+owners: ["LightSpeedWP Engineering"]
+tags: ["agent", "mode", "prd", "product-management", "requirements"]
+file_type: "agent"
+status: "active"
+domain: "planning"
+stability: "stable"
 tools:
   [
     "codebase",
@@ -15,9 +23,12 @@ tools:
     "issue_read",
     "search_issues",
   ]
+permissions:
+  - "read"
+  - "write"
+  - "github:issues"
 metadata:
   guardrails: "Ask clarifying questions first, confirm scope before drafting any PRD, only create docs with user approval, and never write issues without explicit consent."
-
 ---
 
 # Create PRD Agent
@@ -206,3 +217,31 @@ Concise paragraph describing the user's journey and benefits.
 ---
 
 After generating the PRD, I will ask if you want to proceed with creating GitHub issues for the user stories. If you agree, I will create them using `issue_write` and provide you with the links.
+
+## Implementation Status
+
+**Status**: Spec complete — no GitHub Actions workflow required.
+
+This is a conversational mode agent, invoked directly by AI assistants (Copilot, Claude, etc.) when the operator or user switches into `prd` mode. There is no paired `.yml` workflow; this matches the pattern used by all mode agents in this repository. GitHub issue creation is performed inline via the `issue_write` tool with explicit user consent.
+
+**Gap analysis (2026-05-28):**
+
+| Area | Status | Notes |
+| --- | --- | --- |
+| Spec / behaviour instructions | ✅ Complete | Full PRD outline, user story guidance, and confirmation workflow documented |
+| Frontmatter (version, status, owners, tags) | ✅ Complete | Upgraded in v1.1 |
+| Runtime / workflow | ✅ N/A | Mode agents are conversational; GitHub issue creation uses `issue_write` tool inline |
+| Related instructions linked | ✅ Complete | See Dependencies section below |
+
+## Dependencies
+
+- [agents/mode-thinking.agent.md](./mode-thinking.agent.md) — complementary mode agent for deep autonomous problem-solving
+- [agents/mode-document-reviewer.agent.md](./mode-document-reviewer.agent.md) — complementary mode agent for reviewing generated documentation
+- [agents/issues.agent.md](./issues.agent.md) — issues agent used when converting PRD user stories to GitHub issues
+- [agents/template.agent.md](./template.agent.md) — canonical agent template this spec conforms to
+- [instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md) — coding standards referenced in technical consideration sections
+
+## Changelog
+
+- `v1.1 — 2026-05-28` — Added complete frontmatter fields (version, last_updated, owners, tags, file_type, status, domain, stability, permissions); added Implementation Status and Dependencies sections; closes [#473](https://github.com/lightspeedwp/.github/issues/473).
+- `v1.0 — initial` — Original spec authored with PRD outline, user story guidance, and GitHub issue creation workflow.
