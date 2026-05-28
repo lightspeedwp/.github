@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Replaced deprecated MCP tool references (`create_issue`, `update_issue`, `get_issue`) with current equivalents (`issue_write`, `issue_read`) across agent specs and prompt files. Closes [#52](https://github.com/lightspeedwp/.github/issues/52). ([#455](https://github.com/lightspeedwp/.github/pull/455))
 - Expanded issue template DoD checklists with discrete accessibility (WCAG 2.2 AA), security (OWASP Top 10), and performance items, aligning issue templates with the PR template. Closes [#21](https://github.com/lightspeedwp/.github/issues/21). ([#460](https://github.com/lightspeedwp/.github/pull/460))
+- Updated `.coderabbit.yml`: corrected schema URL to `docs.coderabbit.ai/schema/schema.v2.json`; added `language: en-GB`, `inheritance: true`, `chat.auto_reply: true`; added `reviews.profile: chill` and `reviews.review_details: true`; hardened workflow path instructions with security guidance (least-privilege permissions, secret injection prevention, action pinning); added `instructions/**` and `CHANGELOG.md` path instructions; expanded path filters. Closes [#23](https://github.com/lightspeedwp/.github/issues/23).
 
 ### Documentation
 
