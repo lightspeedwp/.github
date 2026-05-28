@@ -17,3 +17,6 @@ apply_to:
   - "documentation standards"
   - "quality assurance"
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -4,3 +4,6 @@ description: "Working assets for the WordCamp Europe 2026 talk on evolving light
 last_updated: "2026-05-28"
 owners: ["Ash Shaw"]
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

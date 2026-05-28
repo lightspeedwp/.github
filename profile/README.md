@@ -304,3 +304,6 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 **🚀 Together, let's build better WordPress experiences and empower the open-source community!**
 
 ---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

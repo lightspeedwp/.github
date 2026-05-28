@@ -11,3 +11,5 @@ tags: ["issues", "memory", "planning"]
 domain: "governance"
 stability: "active"
 ---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

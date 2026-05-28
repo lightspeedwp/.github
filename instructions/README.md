@@ -11,3 +11,5 @@ tags: ["instructions", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "draft"
 ---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

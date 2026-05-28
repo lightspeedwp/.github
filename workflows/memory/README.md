@@ -7,3 +7,6 @@ last_updated: "2026-05-26"
 owners: ["LightSpeed Team"]
 tags: ["memory", "agents", "skills", "schemas", "validation"]
 ---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -959,3 +959,9 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 [![Work with us at LightSpeed](https://www.lsdev.biz/wp-content/uploads/2020/02/work-with-lightspeed.png)](https://www.lsdev.biz/contact/)
 
 ---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -581,3 +581,6 @@ This repository and all its contents are licensed under the GNU General Public L
 - [🌐 HTML Templates](./instructions/block-theme/html-template.instructions.md) - Semantic markup standards
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -11,3 +11,6 @@ tags: ["issues", "labels", "governance"]
 domain: "governance"
 stability: "archived"
 ---
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

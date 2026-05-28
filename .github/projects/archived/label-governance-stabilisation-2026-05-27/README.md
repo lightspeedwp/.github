@@ -11,3 +11,6 @@ tags: ["governance", "labels", "automation", "issues"]
 domain: "governance"
 stability: "archived"
 ---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

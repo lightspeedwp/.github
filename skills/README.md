@@ -11,3 +11,6 @@ tags: ["skills", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "draft"
 ---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

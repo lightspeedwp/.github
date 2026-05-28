@@ -399,3 +399,6 @@ When contributing new scripts or modifications:
 - [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

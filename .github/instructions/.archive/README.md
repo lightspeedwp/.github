@@ -110,3 +110,6 @@ For current documentation, always reference:
 ---
 
 *This archive was created as part of Phase 5 context reduction efforts (December 2025) to reduce repository token count from ~922K to <500K target.*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

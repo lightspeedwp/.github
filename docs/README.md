@@ -6,3 +6,5 @@ file_type: "index"
 category: "documentation"
 description: "Index and overview of all documentation in the docs/ folder"
 ---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

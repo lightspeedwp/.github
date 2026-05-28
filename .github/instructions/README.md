@@ -16,3 +16,5 @@ references:
   - path: "../projects/active/portable-ai-plugin-restructure/issues/children/batch-02-portable-migration/02-03-refactor-migrate-portable-instructions.md"
     description: "Issue #295 local source draft."
 ---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

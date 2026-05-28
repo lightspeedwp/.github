@@ -11,3 +11,6 @@ tags: ["cookbook", "recipes", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "draft"
 ---
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

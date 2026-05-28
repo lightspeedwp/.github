@@ -4,3 +4,6 @@ description: "Pilot plugin bundle for LightSpeed GitHub governance and AI operat
 version: "v0.1.1"
 last_updated: "2026-05-28"
 ---
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

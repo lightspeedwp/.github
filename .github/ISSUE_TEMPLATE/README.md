@@ -115,3 +115,6 @@ These templates integrate with:
 *This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) for complete automation standards.*
 
 ---
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
