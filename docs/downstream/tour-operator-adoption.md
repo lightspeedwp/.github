@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "Tour Operator Pilot Telemetry And Opt-Out Adoption Guide"
 description: "Baseline checklist, telemetry metrics, opt-out points, and dashboard stub for Tour Operator pilot adoption."
-version: "v0.1.0"
+version: "v0.1.1"
 last_updated: "2026-05-28"
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
@@ -112,3 +112,9 @@ export function aggregateTourOperatorMetrics(events) {
 - [Metrics Policy](../METRICS.md)
 - [Release Process](../RELEASE_PROCESS.md)
 - [Automation Governance](../AUTOMATION_GOVERNANCE.md)
+
+## Pilot Closeout Status
+
+- Issue tracking: [#60](https://github.com/lightspeedwp/.github/issues/60)
+- Initial implementation merged into `develop` via commit `1c63a26`.
+- This document is the canonical pilot reference for telemetry and opt-outs.

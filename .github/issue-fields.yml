@@ -67,6 +67,75 @@ project_field_mappings:
     type:review: Task
 
 organization_issue_fields:
+  universal_issue_fields:
+    applies_to_issue_types:
+      - Unassigned
+      - Task
+      - Bug
+      - Feature
+      - Code Refactor
+      - Build & CI
+      - A11y
+      - Compatibility
+      - Security
+      - Release
+      - Maintenance
+      - Performance
+      - Test Coverage
+      - Epic
+      - Automation
+      - Code Review
+      - Design
+      - Story
+      - Improvement
+      - Documentation
+      - Integration
+      - Research
+      - Chore
+      - Audit
+      - AI Ops
+      - Content Modelling
+  field_usage:
+    Priority:
+      type: single_select
+      values:
+        - Urgent
+        - High
+        - Medium
+        - Low
+      required: false
+      applies_to_all_issue_types: true
+      notes:
+        - Current importance level assigned to this issue.
+    Start date:
+      type: date
+      required: false
+      applies_to_all_issue_types: true
+      organization_only: true
+      notes:
+        - Date when work on issue will begin.
+    Target date:
+      type: date
+      required: false
+      applies_to_all_issue_types: true
+      organization_only: true
+      notes:
+        - Expected completion date for this issue.
+    Effort:
+      type: single_select
+      values:
+        - XS
+        - S
+        - M
+        - L
+        - XL
+        - XXL
+        - XXXL
+      required: false
+      applies_to_all_issue_types: true
+      organization_only: true
+      notes:
+        - Relative sizing estimate for implementation effort.
   enabled_issue_types:
     - Bug
     - Feature
@@ -126,9 +195,17 @@ organization_issue_fields:
         - QA
       default: AI Ops
     - key: Effort
-      type: number
-      description: Relative effort estimate in points.
-      default: 3
+      type: single_select
+      description: Relative sizing estimate for implementation effort.
+      options:
+        - XS
+        - S
+        - M
+        - L
+        - XL
+        - XXL
+        - XXXL
+      default: M
     - key: Start date
       type: date
       description: Planned start date.

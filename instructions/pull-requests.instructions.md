@@ -2,8 +2,8 @@
 file_type: "instructions"
 title: "Pull Request Creation Instructions"
 description: "Canonical instructions for creating, labeling, and submitting Pull Requests in LightSpeedWP projects. Reference for templates, automation, and labeling strategy."
-version: "1.1"
-last_updated: "2025-10-23"
+version: "1.2"
+last_updated: "2026-05-28"
 owners: ["lightspeedwp/maintainers"]
 tags: ["pull requests", "templates", "frontmatter", "automation", "labels", "branching", "checklists"]
 ---
@@ -22,6 +22,9 @@ Applies to all PR templates and submissions. Covers frontmatter, branching, temp
 - Follow branch naming patterns and ensure one-hot label families (`status:*`, `priority:*`, `release:*`, `type:*`).
 - Complete all template fields, checklists, and changelog sections.
 - Keep PRs automation-ready; monitor CI and respond to reviews promptly.
+- Maximise metadata completeness on every PR update. Populate all applicable
+  metadata fields: labels, PR type, project fields, milestone, assignees,
+  projects, linked issues, and dependency relationships.
 
 ## Detailed Guidance
 
@@ -50,7 +53,7 @@ This document defines the standards, steps, and requirements for opening, labeli
   - `.github/PULL_REQUEST_TEMPLATE/*.md` (specific templates: feature, bugfix, chore, docs, release, etc.)
 - **Do NOT use YAML form PR templates.** All automation and labeling requires Markdown-based templates.
 
-See [docs/frontmatter/pr-templates.md](../docs/frontmatter/pr-templates.md) for specifications.
+See [PR Creation Process](../docs/PR_CREATION_PROCESS.md) for specifications.
 
 ---
 
@@ -79,7 +82,7 @@ labels: ["type:feature", "status:needs-review", "area:feature"]
 - `assignees`: Default assignees.
 - `projects`: Default project boards.
 
-See [frontmatter instructions](documentation-formats.instructions.md) and [frontmatter schema](../../schema/frontmatter.schema.json) for validation.
+See [frontmatter instructions](./documentation-formats.instructions.md) and [frontmatter schema](../.schemas/frontmatter.schema.json) for validation.
 
 ---
 
@@ -103,7 +106,7 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
 1. **Update your branch** (rebase/merge latest main or develop).
 2. **Choose the correct PR template** when opening your PR. Templates are:
    - Bugfix, Feature, Chore, Docs, Build/CI, Refactor, Hotfix, Release, General, etc.
-   - For template details, see `.github/PULL_REQUEST_TEMPLATE/*.md` and [docs/frontmatter/pr-templates.md](../docs/frontmatter/pr-templates.md).
+   - For template details, see `.github/PULL_REQUEST_TEMPLATE/*.md` and [PR Creation Process](../docs/PR_CREATION_PROCESS.md).
 3. **Fill out all required fields** in the template:
    - **Linked issues:** Use `Closes #123` or similar.
    - **Description:** Clearly state *what* changed and *why*.
@@ -146,6 +149,18 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
   - Changelog section in PR description required ([changelog-required.md](../.github/SAVED_REPLIES/pull-requests/changelog-required.md))
   - Release workflow ([labeling.yml](../.github/workflows/labeling.yml)) automates changelog, labeling, and review steps.
 
+### Metadata Completeness Default
+
+- Treat metadata completeness as mandatory, not optional, during PR triage and updates.
+- Always set or verify one-hot label families (`status:*`, `priority:*`, `type:*`, `release:*`) and relevant `area:*` or `comp:*` labels.
+- Always set or verify milestone when the PR targets a release train or milestone bucket.
+- Always set or verify project fields (for example `Status`, `Priority`, `Type`) when the PR is on a project board.
+- Always set or verify relationships where applicable:
+  - Linked issues using closing keywords (`Closes #123`) when true
+  - Dependencies (`blocked by`, `depends on`) in PR body or linked issue graph
+  - Parent feature or epic issue references
+- If a metadata value cannot be inferred safely, leave it unchanged and record a short follow-up note describing what is missing.
+
 ---
 
 ## 6. PR Review & Lifecycle
@@ -164,7 +179,7 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
 ## 7. Reference Files and Checklists
 
 - **Templates:**
-  - [PULL_REQUEST_TEMPLATE.md](../.github/PULL_REQUEST_TEMPLATE.md)
+  - [pull_request_template.md](../.github/pull_request_template.md)
   - [All PR templates](../.github/PULL_REQUEST_TEMPLATE/)
 - **Labeling:**
   - [labeler.yml](../.github/labeler.yml)
@@ -233,7 +248,7 @@ For maintainers and reviewers, reference these [Saved Replies](../.github/SAVED_
 - [Branching Strategy](../docs/BRANCHING_STRATEGY.md)
 - [Label Definitions](../.github/labels.yml)
 - [Labeler Automation Rules](../.github/labeler.yml)
-- [PULL_REQUEST_TEMPLATE.md](../.github/PULL_REQUEST_TEMPLATE.md)
+- [pull_request_template.md](../.github/pull_request_template.md)
 - [All PR Templates](../.github/PULL_REQUEST_TEMPLATE/)
 - [Frontmatter Schema](../.schemas/frontmatter.schema.json)
 - [Frontmatter Schema Guide](../docs/FRONTMATTER_SCHEMA.md)

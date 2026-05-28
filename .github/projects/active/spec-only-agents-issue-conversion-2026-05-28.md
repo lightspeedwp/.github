@@ -1,7 +1,7 @@
 ---
 title: "Spec-only Agents Issue Conversion"
 description: "Execution record for converting spec-only agents into tracked issues with template-aligned structure and project sync labels."
-version: "v1.0.0"
+version: "v1.0.1"
 last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
@@ -41,7 +41,7 @@ using the active task template structure and project-sync labels.
 
 ## Label and Field Mapping Strategy
 
-All created issues were labeled with:
+All created issues were labelled with:
 
 - `status:needs-triage`
 - `priority:normal`
@@ -59,6 +59,7 @@ issues.
 
 ## Completion Notes
 
-- Parent tracker: #61
-- Next step after this conversion set: triage and execution sequencing across
-  #464-#490 in the project board.
+- Parent tracker: #61 (closed 2026-05-28)
+- All 19 canonical issues created and labelled.
+- Next step: triage and execution sequencing across #464–#490 in the project board.
+- Confirm all canonical issues are assigned to the active milestone.
