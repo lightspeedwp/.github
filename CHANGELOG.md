@@ -62,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Upgraded `agents/mode-thinking.agent.md` to v2.1: added missing frontmatter fields (`owners`, `tags`, `domain`, `stability`), Implementation Status gap-analysis table, Dependencies section, and Changelog; confirmed no workflow needed (conversational mode agent). Closes [#475](https://github.com/lightspeedwp/.github/issues/475). ([#518](https://github.com/lightspeedwp/.github/pull/518))
 - Upgraded `agents/prompt-engineer.agent.md` to v2.1: added missing frontmatter fields (`domain`, `stability`), Implementation Status gap-analysis table (including prompt-tester handoff gap), Dependencies section, and Changelog. Closes [#478](https://github.com/lightspeedwp/.github/issues/478). ([#519](https://github.com/lightspeedwp/.github/pull/519))
 - Upgraded `agents/task-planner.agent.md` to v3.1: added Implementation Status gap-analysis table confirming spec/workflow parity with `planner.yml`, and Changelog. Closes [#484](https://github.com/lightspeedwp/.github/issues/484). ([#520](https://github.com/lightspeedwp/.github/pull/520))
+- Upgraded `agents/task-researcher.agent.md` to v1.1: added complete frontmatter, full spec body (was an empty stub in v1.0), Implementation Status gap-analysis table, Dependencies section, and Changelog. Closes [#486](https://github.com/lightspeedwp/.github/issues/486). ([#521](https://github.com/lightspeedwp/.github/pull/521))
 
 ## [0.4.0] - 2026-05-27
 
