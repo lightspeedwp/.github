@@ -6,7 +6,7 @@ tools:
     "search/codebase",
     "search",
     "github",
-    "create_issue",
+    "issue_write",
     "search_issues",
     "update_issue",
   ]
@@ -21,7 +21,7 @@ Create GitHub Issues for unimplemented requirements in the specification at `${f
 1. Analyze specification file to extract all requirements
 2. Check codebase implementation status for each requirement
 3. Search existing issues using `search_issues` to avoid duplicates
-4. Create new issue per unimplemented requirement using `create_issue`
+4. Create new issue per unimplemented requirement using `issue_write`
 5. Use `feature_request.yml` template (fallback to default)
 
 ## Requirements
