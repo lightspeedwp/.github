@@ -15,10 +15,10 @@
  * ============================================================================
  */
 
-const fs = require("fs");
-const path = require("path");
+const _fs = require("fs");
+const _path = require("path");
 const {
-  mockOctokit,
+  mockOctokit: _mockOctokit,
   mockContext,
   setTestEnv,
   resetTestEnv,
@@ -135,7 +135,7 @@ describe("Agent Performance Benchmarks", () => {
       const startTime = Date.now();
 
       const mockAgent = {
-        run: jest.fn().mockImplementation(async (context) => {
+        run: jest.fn().mockImplementation(async (_context) => {
           // Simulate async work
           await new Promise((resolve) => setTimeout(resolve, 100));
           return { success: true, id: Math.random() };

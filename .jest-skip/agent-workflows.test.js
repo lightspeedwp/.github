@@ -325,7 +325,7 @@ describe("Agent E2E Workflows", () => {
       const mockPayload = mockPrPayload();
 
       const resilientAgent = {
-        run: jest.fn().mockImplementation(async (ctx) => {
+        run: jest.fn().mockImplementation(async (_ctx) => {
           try {
             // Simulate API call that might fail
             const shouldFail = Math.random() < 0.3; // 30% chance of failure
