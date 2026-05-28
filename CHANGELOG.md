@@ -56,6 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Closed Wave 2A tracking issue `#469` (`metrics.agent`) by confirming
   spec/runtime references, documenting the current runtime placeholder gap, and
   queuing implementation follow-up under the next ready Wave 2A issue.
+- Upgraded `agents/mode-demonstrate-understanding.agent.md` to v1.1: added complete frontmatter fields (`version`, `last_updated`, `owners`, `tags`, `file_type`, `status`, `domain`, `stability`, `permissions`), Implementation Status gap-analysis table, Dependencies section, and Changelog; confirmed no workflow needed (conversational mode agent). Closes [#470](https://github.com/lightspeedwp/.github/issues/470). ([#515](https://github.com/lightspeedwp/.github/pull/515))
 
 ## [0.4.0] - 2026-05-27
 
