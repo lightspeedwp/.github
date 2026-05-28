@@ -4,6 +4,13 @@
  * Advisory implementation for the Issues agent. Provides lightweight
  * recommendations without mutating GitHub state. Extend with API calls when
  * ready to automate labelling and enrichment.
+ *
+ * Wave 2A kickoff (#465):
+ * - canonical spec path confirmed: agents/issues.agent.md
+ * - runtime path confirmed: scripts/agents/issues.agent.js
+ * - current gap: apply-mode mutation is still intentionally deferred
+ * - next concrete action: implement guarded apply mode with canonical config
+ *   validation and test coverage for issue payload handling
  * @module scripts/agents/issues.agent.js
  * @see ../../agents/issues.agent.md
  */
