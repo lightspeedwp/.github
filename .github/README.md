@@ -477,12 +477,20 @@ Have questions, feedback, or want to propose an idea? Visit our [GitHub Discussi
 For all contributors, please reference these key guidelines and indexes:
 
 - [LightSpeed General Copilot Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/custom-instructions.md)
-- [Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/coding-standards.instructions.md)
-- [HTML Templates](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/html-template.instructions.md)
-- [Pattern Development](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/pattern-development.instructions.md)
-- [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/php-block.instructions.md)
-- [Theme JSON](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/theme-json.instructions.md)
-- When generating a summary for pull requests, use this [pull request template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/PULL_REQUEST_TEMPLATE.md).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
@@ -575,10 +583,9 @@ This repository and all its contents are licensed under the GNU General Public L
 
 ## 🔧 Development Standards
 
-- [💻 Coding Standards](./instructions/coding-standards.instructions.md) - Unified development guidelines
-- [🎨 Linting Instructions](./instructions/linting.instructions.md) - Code quality and formatting
-- [🏗️ Pattern Development](./instructions/block-theme/pattern-development.instructions.md) - WordPress block patterns
-- [🌐 HTML Templates](./instructions/block-theme/html-template.instructions.md) - Semantic markup standards
+- [💻 Coding Standards](../instructions/coding-standards.instructions.md) - Unified development guidelines
+- [🎨 Linting Instructions](../instructions/linting.instructions.md) - Code quality and formatting
+- [🏗️ Plugin Structure](../instructions/plugin-structure.instructions.md) - WordPress block plugin development
 
 ---
 
