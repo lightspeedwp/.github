@@ -33,6 +33,16 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
+          if echo "${PR_LABELS}" | grep -q '"meta:needs-changelog"' && echo "${PR_LABELS}" | grep -q '"meta:no-changelog"'; then
+            echo "::error::PR cannot include both meta:needs-changelog and meta:no-changelog."
+            exit 1
+          fi
+
+          if echo "${PR_LABELS}" | grep -q '"meta:no-changelog"' && echo "${PR_LABELS}" | grep -Eq '"type:(feature|bug|performance|security|release|hotfix)"'; then
+            echo "::error::meta:no-changelog is not allowed for type:feature, type:bug, type:performance, type:security, type:release, or type:hotfix."
+            exit 1
+          fi
+
           if git diff --name-only "${BASE_SHA}" "${HEAD_SHA}" | grep -q "^CHANGELOG.md$"; then
             echo "CHANGELOG.md updated in PR diff."
             echo "run_validation=true" >> "$GITHUB_OUTPUT"

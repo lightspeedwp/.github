@@ -244,12 +244,14 @@ Opt-outs: use `<!-- meta: off -->` (legacy `<!-- branding: off -->`) for body-le
 
 - Deprecated or removed features.
 
-<!-- If no changelog entry is needed (internal-only), apply the skip-changelog label. -->
+<!-- If no changelog entry is needed (internal-only), apply meta:no-changelog. -->
 ```
 
 **Guidelines:**
 
 - Changelog entries are for end-users, not just developers.
+- `meta:needs-changelog` and `meta:no-changelog` are mutually exclusive.
+- `meta:no-changelog` is allowed only for internal-only work and must not be used on feature, bugfix, performance, security, release, or hotfix PRs.
 - The release agent extracts changelog notes from PR bodies and labels automatically.
 
 **Release Triggers:**

@@ -80,7 +80,10 @@ Every PR should use a standard branch prefix for correct label and template auto
 
 ## Release & Changelog Process
 
-- All PRs affecting user-facing features/fixes must include a valid changelog label; if missing, the agent will add `meta:needs-changelog`.
+- Changelog labels are mutually exclusive: never apply both `meta:needs-changelog` and `meta:no-changelog`.
+- Use `meta:no-changelog` only for internal-only changes (for example docs, refactor, chore, or test work with no user-facing impact).
+- Do not use `meta:no-changelog` on `type:feature`, `type:bug`, `type:performance`, `type:security`, `type:release`, or `type:hotfix` PRs.
+- PRs affecting user-facing features/fixes must carry changelog content and should not use `meta:no-changelog`.
 - Only one `status:*` and one `release:*` label per PR.
 - See [labels.yml](../.github/labels.yml) for the current canonical options.
 
