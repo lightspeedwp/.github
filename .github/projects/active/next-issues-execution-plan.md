@@ -3,7 +3,7 @@ title: "Next Issues Execution Plan"
 description: "Comprehensive execution plan for all open issues, active projects, and strategic workflows."
 version: "v2.0.0"
 created_date: "2026-05-28"
-last_updated: "2026-05-28T12:00:00Z"
+last_updated: "2026-05-28T17:25:00Z"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
@@ -26,7 +26,12 @@ LightSpeed `.github` repository. It consolidates:
 - Agent ownership and wave assignments
 
 **Live as of 2026-05-28**: Wave 2B (7 agent spec upgrades, PRs #515–#521) and Wave 2D (#23 `.coderabbit.yml`, #31 `markdown.instructions.md`) both merged.
-Current focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`) + Wave 3 (README/Mermaid audit).
+Current focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`) + Wave 3 (README/Mermaid audit) + Wave 4 (Meta branding agent hardening).
+
+Execution policy update:
+
+- Issues `#33`, `#46`, `#48`, and `#49` are **Claude-only**.
+- Copilot must not implement this branding/meta-agent issue set.
 
 ---
 
@@ -192,6 +197,43 @@ README inventory: 44 files identified across the repo structure
 - Future: `readme-audit.yml` — Proposed to validate Mermaid syntax, WCAG compliance, staleness
 - Trigger: Combine manual dispatch + agent integration
 
+### Wave 4 — Meta Branding Agent (Headers/Footers/Badges) 🆕 (CLAUDE-ONLY)
+
+**Objective**: Deliver the universal Meta agent naming model and harden branding output so frontmatter, badges, and category-aware footers are deterministic, validated, and non-duplicative.
+
+**Mandatory ownership rule**:
+
+- `#33`, `#46`, `#48`, `#49` are reserved for **Claude execution only**.
+- Copilot may review context but must not produce implementation PRs for this set.
+
+**Issue chain**:
+
+- `#33` — Parent initiative and orchestration brief
+- `#46` — Template design (header/footer/badge variants)
+- `#48` — Documentation/spec alignment
+- `#49` — Schema/config + validation design
+
+**Implementation constraints for this wave**:
+
+- Meta agent naming must be universal: "Meta agent" can invoke frontmatter and workflow behaviour.
+- YAML-authored config with JSON Schema validation remains the preferred model.
+- Add duplication-safe validation so existing footer blocks are not re-appended.
+- Execute a markdown remediation sweep to remove bad/duplicated footers from affected README and `.md` files.
+
+**Wave 4 phased plan**:
+
+1. **4A — Schema and Contract Finalisation** (Claude, issues `#33` + `#49`)
+   - Define category and path mapping precedence.
+   - Define footer/header template references and constraints.
+   - Define duplicate detection keys and idempotency rules.
+2. **4B — Template and Documentation Consolidation** (Claude, issues `#46` + `#48`)
+   - Finalise category-aware footer variants.
+   - Align docs and examples to Meta naming and schema contract.
+3. **4C — Validation + Remediation Execution** (Claude)
+   - Implement schema validation in automation path.
+   - Add duplicate footer guard in runtime/workflow.
+   - Repair existing markdown files with bad footers and publish audit report.
+
 ---
 
 ## Workflow Automation Patterns
@@ -275,7 +317,7 @@ The **Release Agent** should coordinate the following workflows on demand:
 
 ### Claude
 
-**Waves**: 2B, 2D (parallel standards audits), 3B (repair & update)
+**Waves**: 2B, 2D (parallel standards audits), 3B (repair & update), 4A/4B/4C (Meta branding)
 
 **Issues**:
 
@@ -288,6 +330,43 @@ The **Release Agent** should coordinate the following workflows on demand:
 - Planning agents
 - Documentation and standards reviews
 - README/Mermaid repair and update (Wave 3B)
+- Meta branding agent scope (`#33`, `#46`, `#48`, `#49`) and footer remediation
+
+### Claude-Only Guardrail (Meta Branding)
+
+- Locked to Claude: `#33`, `#46`, `#48`, `#49`
+- Enforcement rule: no Copilot implementation PRs for these issues
+- Review gate: any PR touching this scope must reference this guardrail
+
+---
+
+## Open Issue Allocation (Claude vs Copilot)
+
+Use this as the current ownership map for all open issues (excluding open PRs).
+
+| Issue | Title | Allocation |
+| --- | --- | --- |
+| `#529` | [WCEU 2026] Audit talk assets and harden NotebookLM source prompts with develop URLs | Copilot |
+| `#514` | Wave 3C: README Workflow & Agent Coordination Setup | Copilot |
+| `#513` | Wave 3B: README & Mermaid Diagram Repair & Update | Claude |
+| `#512` | Wave 3A: README & Mermaid Diagram Discovery & Audit | Copilot |
+| `#490` | [Task] Track spec-only agent: testing.agent | Copilot |
+| `#488` | [Task] Track spec-only agent: template.agent | Copilot |
+| `#482` | [Task] Track spec-only agent: reporting.agent | Copilot |
+| `#480` | [Task] Track spec-only agent: release.agent | Copilot |
+| `#476` | [Task] Track spec-only agent: project-meta-sync.agent | Copilot |
+| `#49` | [AI Ops] Schema update for unified branding agent (category, tags, badges) | Claude |
+| `#48` | [AI Ops] Update documentation/spec for unified branding agent | Claude |
+| `#47` | [AI Ops] Refactor agents into unified branding.agent.js (header, footer, badge logic) | Claude |
+| `#46` | [AI Ops] Design footer/header/badge templates for unified branding agent | Claude |
+| `#35` | [AI Ops] Audit and patch instruction files for overlaps, scope, and cross-linking | Claude |
+| `#33` | [AI Ops] Spec and implementation plan for unified branding agent (headers, footers, badges) | Claude |
+| `#22` | Update references in all docs to key standards | Copilot |
+| `#21` | [Task] Add accessibility and security checklists to PR templates and docs | Copilot |
+| `#19` | [Documentation] Maintain docs index and quickstart guides | Copilot |
+| `#18` | [Audit] Review CONTRIBUTING.md quick start and contributor flow clarity | Copilot |
+| `#16` | [Build/CI] Review the CI commands in the wp-docs repo and import usefull commands / scripts | Copilot |
+| `#13` | [Build/CI] Migrate CI scripts from bash to JavaScript with specific, testable improvements | Copilot |
 
 ---
 
@@ -317,6 +396,20 @@ The **Release Agent** should coordinate the following workflows on demand:
 2. **Wave 3B (Claude)**: Repair & update (runs in parallel during 3A discovery)
 3. **Wave 3C (Codex)**: Workflow setup + agent coordination
 4. **Dependency**: 3B and 3C can start after 3A audit is underway
+
+### Phase 5: Wave 4 — Meta Branding Agent (Claude-Only)
+
+1. Execute `#49` schema/config contract and validation strategy
+2. Execute `#46` template design finalisation with category matrix
+3. Execute `#48` documentation/spec consolidation with Meta naming
+4. Reconcile parent `#33` and publish implementation checklist for remediation
+5. Run markdown remediation for duplicate/bad footers and publish report under `.github/reports/`
+
+### Phase 6: WCEU Talk Preparation Track (Copilot)
+
+1. Execute `#529` folder audit for `wceu-2026/`
+2. Harden NotebookLM prompt/checklist files with explicit `develop` URLs
+3. Publish prioritised recommendations and ingest-order checklist
 
 ---
 
