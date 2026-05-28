@@ -98,7 +98,9 @@ Use correct branch prefix (fix/) for any related PR.
 - [ ] Documentation updated (if needed)
 - [ ] Changelog entry prepared for PR (CHANGELOG.md)
 - [ ] QA performed
-- [ ] No adverse impact on performance or security
+- [ ] Accessibility: no WCAG 2.2 AA regressions (semantic HTML, keyboard support, colour contrast)
+- [ ] Security: no XSS, SQL injection, or other [OWASP Top 10](https://owasp.org/www-project-top-ten/) vulnerabilities introduced
+- [ ] Performance: no adverse impact introduced
 - [ ] Linked issue closed
 
 ---
