@@ -21,6 +21,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Wave 3C: README and Mermaid Maintenance Workflow** — New `.github/workflows/readme-update.yml` workflow automates README and Mermaid diagram maintenance with:
+  - Mermaid accessibility updates (adds `accTitle` and `accDescr` attributes per WCAG 2.2 AA)
+  - Stale frontmatter date updates (6+ month threshold)
+  - Support for manual dispatch (`workflow_dispatch`) and Release Agent orchestration (`workflow_call`)
+  - Dry-run mode for safe preview before applying changes
+  - Audit reporting at `.github/reports/mermaid-audit/update-report.md`
+  - Integrated into Release Agent post-release phase ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
+- **Wave 4 Specification** — Added `.github/projects/active/wave-4-continuous-monitoring.md` comprehensive specification for continuous README and Mermaid diagram monitoring:
+  - Scheduled weekly audit workflows
+  - Drift detection on push events
+  - Monthly freshness notifications
+  - Quarterly health reports with recommendations
+  - CI/CD integration patterns and metric collection
+  - Foundation for long-term automation roadmap (Waves 5-7) ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
+### Changed
+
+- **Release Agent Integration** — Updated `agents/release.agent.md` (v2.2 → v2.3) with post-release `readme-update.yml` invocation:
+  - Documented workflow contract with inputs, outputs, and failure handling
+  - Added to orchestration algorithm as non-blocking post-release action
+  - Conditional execution based on README maintenance requirements ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
+- **Workflow Coordination Documentation** — Updated `.github/docs/workflow-coordination.md` (v1.0.0 → v1.1.0):
+  - Documented `readme-update.yml` in Agent-Triggered Workflow Registry
+  - Added comprehensive specification with inputs, outputs, and integration points
+  - Clarified Release Agent orchestration pattern for post-release actions ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
+- **Plugin Structure Migration** — Migrated `instructions/plugin-structure.instructions.md` from `.github/instructions/` to top-level `instructions/` folder:
+  - Follows CLAUDE.md guidelines for portable reusable assets
+  - Updated references across `.github/README.md` and `CLAUDE.md`
+  - Clarified repository structure: GitHub-native files in `.github/`, portable assets in top-level folders ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
 ### Documentation
 
 - Added comprehensive template design specification for unified branding agent (Issue #46): `.github/projects/active/ISSUE_46_TEMPLATE_DESIGN.md` (950+ lines). Specification defines header templates for all 16 document categories, footer variants (5 each for 6 key categories: Docs, Agents, Instructions, Schemas, Prompts, Governance; 1 each for 10 other categories), badge templates (Status, Category, Version, Review Status), accessibility constraints (WCAG AA compliance, contrast ratios, alt text), readability guidelines (line length, nesting, bullet lists), and YAML configuration structure for `config/templates.config.yaml`. Unblocks schema/config implementation (Issue #49) and current-state audit (Issue #48). Depends on Issue #33 parent specification. ([#538](https://github.com/lightspeedwp/.github/pull/538))
