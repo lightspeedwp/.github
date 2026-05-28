@@ -26,9 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   emission example, and dashboard-consumption stub for `#60`.
 - Added spec-only agent issue conversion tracking under `#61`, including
   canonical issue mapping and duplicate cleanup notes.
-- Added Husky pre-push contributor guidance and aligned local development docs
-  with enforced pre-push test hooks (`npm run test:js`, `npm run test:bash`).
-- Expanded issue field governance to an organization-level v2 model aligned to
+- Added Husky pre-push hook (`.husky/pre-push`) and updated `DEVELOPMENT.md` to document the enforced pre-push test gate (`npm run test:js`, `npm run test:bash`). Closes [#62](https://github.com/lightspeedwp/.github/issues/62). ([#458](https://github.com/lightspeedwp/.github/pull/458))
+- Expanded issue field governance to an organisation-level v2 model aligned to
   GitHub field capabilities (typed custom fields, hidden/system fields, and
   iteration policy) with stricter validation.
 - Clarified adoption workstream tracker links and historical issue references
@@ -75,10 +74,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated all README files with emoji-enhanced headings for better visual hierarchy
 - Migrated frontmatter across core documentation to unified `frontmatter.schema.json` standard
-- Reorganized `.github/agents/` structure with shared utilities in `includes/` subdirectory
+- Reorganised `.github/agents/` structure with shared utilities in `includes/` subdirectory
 - Consolidated badge management under meta agent (deprecated `badges.agent.js`)
 - Unified header/footer handling under meta agent (deprecated `header-footer.agent.js`)
-- Standardized YAML frontmatter metadata across all documentation files
+- Standardised YAML frontmatter metadata across all documentation files
 - Enhanced README file templates with proper frontmatter structure
 - Updated version numbers for all core README files to reflect latest changes
 
@@ -108,7 +107,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Performance
 
-- Optimized README file updates with batch multi-replace operations
+- Optimised README file updates with batch multi-replace operations
 - Improved footer selection performance with deterministic seeding
 - Enhanced memory efficiency in meta agent for large file batches
 
@@ -116,8 +115,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release of LightSpeed WordPress organization community health files
-- GitHub Copilot custom instructions and organization-wide guidelines
+- Initial release of LightSpeed WordPress organisation community health files
+- GitHub Copilot custom instructions and organisation-wide guidelines
 - Comprehensive instruction files for WordPress development:
   - `coding-standards.instructions.md` - WordPress coding standards for PHP, JS, CSS
   - `html-template.instructions.md` - Block template and template part guidelines
@@ -135,7 +134,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Performance issues, UX feedback, integration issues
   - Code refactoring, task management, custom instructions proposals
 - Pull request templates with WordPress-specific checklists
-- VS Code configuration optimized for WordPress development:
+- VS Code configuration optimised for WordPress development:
   - MCP (Model Context Protocol) auto-start configuration
   - WordPress-specific extensions and settings
   - GitHub Copilot integration with custom instructions
@@ -144,7 +143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive documentation and README files
 - GitHub Actions workflows for issue metrics and labeling
 - Saved replies for common support scenarios
-- Organization profile README showcasing LightSpeed projects
+- Organisation profile README showcasing LightSpeed projects
 
 ### Deprecated
 
@@ -152,7 +151,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Standardized YAML frontmatter across all instruction files
+- Standardised YAML frontmatter across all instruction files
 - Corrected indentation and formatting inconsistencies
 - Aligned VS Code settings with repository structure
 - Removed non-standard configuration keys for better compatibility
@@ -160,7 +159,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated author attribution to "LightSpeedWP Team" for consistency
-- Standardized related_links format as simple URL lists
+- Standardised related_links format as simple URL lists
 - Enhanced MCP configuration for WordPress development context
 - Improved file associations and discovery paths for AI tools
 
@@ -181,7 +180,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- Implemented proper input sanitization and output escaping in examples
+- Implemented proper input sanitisation and output escaping in examples
 - Added security guidelines in coding standards
 - Established secure development practices in instruction files
 
@@ -190,7 +189,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Branching Strategy](docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
 - [CONTRIBUTING.md](./CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
-- [AUTOMATION_GOVERNANCE.md](docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labeling, and release strategy.
+- [AUTOMATION_GOVERNANCE.md](docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labelling, and release strategy.
 - [Org-wide Issue Labels](docs/ISSUE_LABELS.md): Default labels and usage guidance.
 - [Pull Request Labels](docs/PR_LABELS.md): PR classification and automation standards.
 - [Issue Types Guide](docs/ISSUE_TYPES.md): Classification and usage of issue types.
