@@ -25,9 +25,8 @@ LightSpeed `.github` repository. It consolidates:
 - Strategic initiatives including comprehensive README/Mermaid audits
 - Agent ownership and wave assignments
 
-**Live as of 2026-05-28**: Previous label governance sequence (`#66`, `#67`, `#69`, `#95`, `#449`) is
-closed. Wave 2B (7 mode/planning agent spec upgrades) merged 2026-05-28.
-Current focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`) + Wave 2D now unblocked (`#31`, `#23`).
+**Live as of 2026-05-28**: Wave 2B (7 agent spec upgrades, PRs #515–#521) and Wave 2D (#23 `.coderabbit.yml`, #31 `markdown.instructions.md`) both merged.
+Current focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`) + Wave 3 (README/Mermaid audit).
 
 ---
 
@@ -124,14 +123,12 @@ Issues:
 - `#488` — [Queued]
 - `#490` — [Queued]
 
-#### **Wave 2D: Documentation & Standards Audits** (Parallel Track)
+#### **Wave 2D: Documentation & Standards Audits** (Parallel Track) ✅ COMPLETE
 
-Issues:
+Both issues merged 2026-05-28:
 
-- `#31` — Canonical Markdown Instructions Audit & Upgrade ([lightspeedwp/.github#31](https://github.com/lightspeedwp/.github/issues/31))
-- `#23` — Expand `.coderabbit.yml` with WP-docs improvements ([lightspeedwp/.github#23](https://github.com/lightspeedwp/.github/issues/23))
-
-Defer until Wave 2A/2B merged to avoid context thrash.
+- `#31` ✅ merged via PR `#523` — `markdown.instructions.md` upgraded to v1.1
+- `#23` ✅ merged via PR `#522` — `.coderabbit.yml` hardened and schema-aligned
 
 ---
 
@@ -372,7 +369,7 @@ Use this sequence for all active implementation work:
 - [ ] Wave 2A merged (target: 3 issues)
 - [x] Wave 2B merged (target: 7 issues) — completed 2026-05-28 via PRs #515–#521
 - [ ] Wave 2C merged (target: 2 issues)
-- [ ] Wave 2D audit documents released (target: 2 audit reports)
+- [x] Wave 2D audit documents released (target: 2 audit reports) — completed 2026-05-28 via PRs #522–#523
 - [ ] Wave 3A audit report published (target: `.github/reports/mermaid-audit/`)
 - [ ] Wave 3B fixes merged (target: 0 failing Mermaid diagrams)
 - [ ] Wave 3C workflows active (target: `readme-audit` + `release` coordination)
