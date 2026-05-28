@@ -1,7 +1,7 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Prioritised execution plan for the next open issues after label-governance stabilisation closeout."
-version: "v1.0.2"
+version: "v1.0.3"
 last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
@@ -20,41 +20,27 @@ This plan prioritises the next open `lightspeedwp/.github` issues that are
 ready and high-leverage after closing the label governance sequence (`#66`,
 `#67`, `#69`, `#95`, `#449`).
 
-Live checks on 2026-05-28: issue `#65` is closed (merged via PR `#452` on
-2026-05-27), and issue `#63` is now also closed (merged via PR `#454` on
-2026-05-27). Wave 1 now starts at `#62`.
+Live checks on 2026-05-28: issues `#65`, `#63`, `#62`, and `#64` are closed
+(merged via PRs `#452`, `#454`, `#458`, and `#460`). The next open sequence
+now starts at `#61`.
 
 ## Prioritised backlog
 
-### Wave 1 - CI and governance reliability (start here)
+### Wave 1 - Documentation and workflow execution (start here)
 
-1. `#62` [Workflows] Add Husky pre-commit/pre-push with lint-staged +
-   jest/bats  
-   Link: [#62](https://github.com/lightspeedwp/.github/issues/62)
-
-Why this wave first:
-
-- reduces CI regressions and workflow drift
-- strengthens pre-merge quality gates
-- supports safer rollout of later AI/docs refactors
-
-### Wave 2 - AI ops source-of-truth cleanup
-
-1. `#64` [Agents/Docs] Consolidate AI files; create authoritative ai/* sources  
-   Link: [#64](https://github.com/lightspeedwp/.github/issues/64)
-2. `#61` [Docs/Workflows] Convert spec-only agents into Issues with templates
+1. `#61` [Docs/Workflows] Convert spec-only agents into Issues with templates
    and project mapping  
    Link: [#61](https://github.com/lightspeedwp/.github/issues/61)
-3. `#52` Update references from `create_issue` to `issue_write` and scan
+2. `#52` Update references from `create_issue` to `issue_write` and scan
    outdated MCP tools  
    Link: [#52](https://github.com/lightspeedwp/.github/issues/52)
 
-Why second:
+Why this wave first:
 
-- moves remaining AI docs/spec debt behind stable automation guardrails
-- improves consistency for contributor and agent workflows
+- closes the highest-priority remaining docs and workflow hygiene debt
+- keeps issue templates, project mapping, and tool references consistent
 
-### Wave 3 - standards and documentation debt
+### Wave 2 - standards and documentation debt
 
 1. `#60` [Docs/Workflows] Pilot telemetry for Tour Operator + document
    opt-outs  
@@ -65,11 +51,16 @@ Why second:
    and revalidate  
    Link: [#23](https://github.com/lightspeedwp/.github/issues/23)
 
+Why second:
+
+- preserves momentum after the completed governance and hook hardening work
+- keeps broader audits behind targeted workflow and docs fixes
+
 ## Execution order and dependencies
 
-1. Execute `#64` before `#61` and `#52` to avoid duplicate source-of-truth
-   edits.
-2. Defer broader doc audits (`#31`, `#23`) until Waves 1-2 are merged.
+1. Execute `#61` before `#52` so template and project mapping conventions are
+   set before tool-reference sweeps.
+2. Defer broader doc audits (`#31`, `#23`) until Wave 1 is merged.
 
 ## Definition of done per issue
 
@@ -80,4 +71,4 @@ Why second:
 
 ## Proposed immediate next action
 
-Start with `#62` in a dedicated branch and open the next PR from that issue.
+Start with `#61` in a dedicated branch and open the next PR from that issue.
