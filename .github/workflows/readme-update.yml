@@ -4,33 +4,33 @@ on:
   workflow_dispatch:
     inputs:
       scope:
-        description: 'Update scope (all/mermaid/staleness)'
+        description: "Update scope (all/mermaid/staleness)"
         required: true
-        default: 'all'
+        default: "all"
         type: choice
         options:
           - all
           - mermaid
           - staleness
       dry_run:
-        description: 'Preview changes without committing'
+        description: "Preview changes without committing"
         required: false
-        default: 'false'
+        default: "false"
         type: choice
         options:
-          - 'true'
-          - 'false'
+          - "true"
+          - "false"
   workflow_call:
     inputs:
       scope:
-        description: 'Update scope (all/mermaid/staleness)'
+        description: "Update scope (all/mermaid/staleness)"
         required: false
-        default: 'all'
+        default: "all"
         type: string
       dry_run:
-        description: 'Preview changes without committing'
+        description: "Preview changes without committing"
         required: false
-        default: 'false'
+        default: "false"
         type: string
 
 permissions:
@@ -54,7 +54,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: npm ci
@@ -64,135 +64,12 @@ jobs:
 
       - name: Run Mermaid diagram fixes
         if: ${{ env.UPDATE_SCOPE == 'all' || env.UPDATE_SCOPE == 'mermaid' }}
-        run: |
-          node --eval "
-          const fs = require('fs');
-          const path = require('path');
-
-          function findReadmeFiles(dir = '.') {
-            const files = [];
-            const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-            for (const entry of entries) {
-              if (entry.isDirectory() && !entry.name.startsWith('.')) {
-                files.push(...findReadmeFiles(path.join(dir, entry.name)));
-              } else if (entry.name === 'README.md' && entry.isFile()) {
-                files.push(path.join(dir, entry.name));
-              }
-            }
-            return files;
-          }
-
-          const readmes = findReadmeFiles();
-          const changes = [];
-
-          readmes.forEach(file => {
-            let content = fs.readFileSync(file, 'utf-8');
-            let modified = false;
-
-            // Fix Mermaid diagram formatting and add accessibility
-            content = content.replace(/\`\`\`mermaid([^]*?)\`\`\`/g, (match, diagram) => {
-              // Add accTitle if missing
-              if (!diagram.includes('accTitle:') && diagram.trim()) {
-                const firstLine = diagram.trim().split('\n')[0];
-                if (firstLine && !firstLine.startsWith('--')) {
-                  const diagType = firstLine.toLowerCase();
-                  let title = 'Diagram';
-                  if (diagType.includes('graph')) title = 'Graph Diagram';
-                  if (diagType.includes('flowchart')) title = 'Flowchart';
-                  if (diagType.includes('sequence')) title = 'Sequence Diagram';
-                  if (diagType.includes('gantt')) title = 'Gantt Chart';
-
-                  modified = true;
-                  return \`\`\`mermaid
-accTitle: \${title}
-\${diagram.trim()}
-\`\`\`;
-                }
-              }
-
-              // Add accDescr if missing
-              if (!diagram.includes('accDescr:')) {
-                modified = true;
-                return \`\`\`mermaid
-\${diagram.trim()}
-accDescr: Detailed diagram
-\`\`\`;
-              }
-
-              return match;
-            });
-
-            if (modified) {
-              changes.push({ file, type: 'mermaid-update' });
-              if (process.env.DRY_RUN !== 'true') {
-                fs.writeFileSync(file, content);
-              }
-            }
-          });
-
-          console.log('Mermaid fixes:', changes.length, 'files');
-          console.log(JSON.stringify(changes, null, 2));
-          "
+        run: node .github/scripts/fix-mermaid-diagrams.js
         continue-on-error: true
 
       - name: Run staleness updates
         if: ${{ env.UPDATE_SCOPE == 'all' || env.UPDATE_SCOPE == 'staleness' }}
-        run: |
-          node --eval "
-          const fs = require('fs');
-          const path = require('path');
-
-          const sixMonthsAgo = new Date();
-          sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-
-          function findMarkdownFiles(dir = '.') {
-            const files = [];
-            const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-            for (const entry of entries) {
-              if (entry.isDirectory() && !entry.name.startsWith('.')) {
-                files.push(...findMarkdownFiles(path.join(dir, entry.name)));
-              } else if (entry.name.endsWith('.md') && entry.isFile()) {
-                files.push(path.join(dir, entry.name));
-              }
-            }
-            return files;
-          }
-
-          const files = findMarkdownFiles();
-          const changes = [];
-          const today = new Date().toISOString().split('T')[0];
-
-          files.forEach(file => {
-            let content = fs.readFileSync(file, 'utf-8');
-            const frontmatterMatch = content.match(/^---\n([^]*?)\n---/);
-
-            if (frontmatterMatch) {
-              const frontmatter = frontmatterMatch[1];
-              const lastUpdatedMatch = frontmatter.match(/last_updated:\s*[\"']?([^\"'\n]+)/);
-
-              if (lastUpdatedMatch) {
-                const lastUpdated = new Date(lastUpdatedMatch[1]);
-                if (lastUpdated < sixMonthsAgo) {
-                  const newFrontmatter = frontmatter.replace(
-                    /last_updated:\s*[\"']?[^\"'\n]+/,
-                    \`last_updated: \\\"\${today}\\\"\`
-                  );
-                  const newContent = content.replace(frontmatterMatch[0], \`---\n\${newFrontmatter}\n---\`);
-
-                  changes.push({ file, type: 'staleness-update', lastUpdated });
-                  if (process.env.DRY_RUN !== 'true') {
-                    fs.writeFileSync(file, newContent);
-                  }
-                }
-              }
-            }
-          });
-
-          console.log('Staleness updates:', changes.length, 'files');
-          console.log(JSON.stringify(changes, null, 2));
-          "
+        run: node .github/scripts/fix-staleness-dates.js
         continue-on-error: true
 
       - name: Generate update report
