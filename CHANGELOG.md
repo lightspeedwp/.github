@@ -7,8 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Replaced deprecated MCP tool references (`create_issue`, `update_issue`, `get_issue`) with current equivalents (`issue_write`, `issue_read`) across agent specs and prompt files. Closes [#52](https://github.com/lightspeedwp/.github/issues/52). ([#455](https://github.com/lightspeedwp/.github/pull/455))
+- Expanded issue template DoD checklists with discrete accessibility (WCAG 2.2 AA), security (OWASP Top 10), and performance items, aligning issue templates with the PR template. Closes [#21](https://github.com/lightspeedwp/.github/issues/21). ([#460](https://github.com/lightspeedwp/.github/pull/460))
+
 ### Documentation
 
+- CONTRIBUTING.md: removed forbidden `references` frontmatter field, corrected stale body date, and applied UK English consistency. Closes [#18](https://github.com/lightspeedwp/.github/issues/18). ([#457](https://github.com/lightspeedwp/.github/pull/457))
 - Clarified frontmatter version governance to use SemVer-aligned change
   classification with patch-first progression where appropriate, and aligned
   release instructions to Keep a Changelog 1.1.0 taxonomy.
@@ -18,9 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `docs/downstream/tour-operator-adoption.md` with pilot telemetry
   baseline checklist, target metrics, documented opt-out points, metrics
   emission example, and dashboard-consumption stub for `#60`.
-- Finalised `#60` documentation closeout with patch bump to
-  `docs/downstream/tour-operator-adoption.md` (`v0.1.1`) and explicit pilot
-  closeout status links.
 - Added spec-only agent issue conversion tracking under `#61`, including
   canonical issue mapping and duplicate cleanup notes.
 - Added Husky pre-push contributor guidance and aligned local development docs
