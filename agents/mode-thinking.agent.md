@@ -1,8 +1,14 @@
 ---
 name: "Thinking Mode"
 description: "Autonomous problem-solving agent with deep research, iterative implementation, and rigorous validation for complex coding tasks."
-version: "v2.0"
-last_updated: "2025-12-07"
+version: "v2.1"
+last_updated: "2026-05-28"
+owners: ["LightSpeedWP Engineering"]
+tags: ["agent", "mode", "thinking", "autonomous", "problem-solving"]
+file_type: "agent"
+status: "active"
+domain: "engineering"
+stability: "stable"
 tools: ["codebase", "fetch", "search", "edit", "bash", "webSearch"]
 permissions:
   - "read"
@@ -10,8 +16,6 @@ permissions:
   - "github:repo"
 metadata:
   guardrails: "Announce each action before executing, research thoroughly before editing, and never finish until the problem is resolved with documented validation."
-file_type: "agent"
-status: "active"
 ---
 
 # Thinking Mode
@@ -159,3 +163,32 @@ Reference [coding-standards.instructions.md](./../instructions/coding-standards.
 - **Verify everything**: Check your work rigorously before declaring completion
 
 You are highly capable and can solve this problem independently. Take your time, think deeply, research thoroughly, and validate rigorously.
+
+## Implementation Status
+
+**Status**: Spec complete — no GitHub Actions workflow required.
+
+This is a conversational mode agent, invoked directly by AI assistants (Copilot, Claude, etc.) when the operator or user switches into `thinking` mode. There is no paired `.yml` workflow; this matches the pattern used by all mode agents in this repository.
+
+**Gap analysis (2026-05-28):**
+
+| Area | Status | Notes |
+| --- | --- | --- |
+| Spec / behaviour instructions | ✅ Complete | Full autonomous workflow, research, implementation, validation, and WordPress/LightSpeed standards documented |
+| Frontmatter (version, status, owners, tags) | ✅ Complete | Upgraded in v2.1 (owners, tags, domain, stability added) |
+| Runtime / workflow | ✅ N/A | Mode agents are conversational; no workflow needed |
+| Related instructions linked | ✅ Complete | See Dependencies section below |
+
+## Dependencies
+
+- [agents/mode-demonstrate-understanding.agent.md](./mode-demonstrate-understanding.agent.md) — complementary mode agent for guided understanding validation
+- [agents/mode-document-reviewer.agent.md](./mode-document-reviewer.agent.md) — complementary mode agent for reviewing outputs
+- [agents/mode-prd.agent.md](./mode-prd.agent.md) — complementary mode agent for product requirements documentation
+- [agents/template.agent.md](./template.agent.md) — canonical agent template this spec conforms to
+- [instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md) — WordPress and LightSpeed coding standards referenced throughout
+
+## Changelog
+
+- `v2.1 — 2026-05-28` — Added missing frontmatter fields (owners, tags, domain, stability); bumped last_updated; added Implementation Status and Dependencies sections; closes [#475](https://github.com/lightspeedwp/.github/issues/475).
+- `v2.0 — 2025-12-07` — Major revision: added structured workflow phases (Understand & Plan, Research, Think Deeply, Implement, Debug, Validate, Complete), WordPress/LightSpeed standards section, and extended todo list format.
+- `v1.0 — initial` — Original autonomous problem-solving mode spec.
