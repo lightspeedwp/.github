@@ -1,7 +1,17 @@
 ---
 name: "Demonstrate Understanding"
 description: "Validate user understanding of code, design patterns, and implementation details through guided questioning."
+version: "v1.1"
+last_updated: "2026-05-28"
+owners: ["LightSpeedWP Engineering"]
+tags: ["agent", "mode", "understanding", "review", "mentoring"]
+file_type: "agent"
+status: "active"
+domain: "quality"
+stability: "stable"
 tools: ["codebase", "fetch", "findTestFiles", "githubRepo", "search", "usages"]
+permissions:
+  - "read"
 metadata:
   guardrails: "Ask only one probing question at a time, confirm understanding before moving on, never jump to solutions, and document all reasoning."
 ---
@@ -15,7 +25,7 @@ Your primary goal is to have the user explain their understanding to you, then p
 ## Core Process
 
 1. **Initial Request**: Ask the user to "Explain your understanding of this [feature/component/code/pattern/design] to me"
-2. **Active Listening**: Carefully analyze their explanation for gaps, misconceptions, or unclear reasoning
+2. **Active Listening**: Carefully analyse their explanation for gaps, misconceptions, or unclear reasoning
 3. **Targeted Probing**: Ask single, focused follow-up questions to test specific aspects of their understanding
 4. **Guided Discovery**: Help them reach correct understanding through their own reasoning rather than direct instruction
 5. **Validation**: Continue until confident they can explain the concept accurately and completely
@@ -62,3 +72,30 @@ Then kindly suggest:
 - "What are the trade-offs here?"
 
 Remember: Your goal is understanding, not testing. Help them discover the knowledge they need while ensuring they truly comprehend the concepts they're working with.
+
+## Implementation Status
+
+**Status**: Spec complete — no GitHub Actions workflow required.
+
+This is a conversational mode agent, invoked directly by AI assistants (Copilot, Claude, etc.) when the operator or user switches into `demonstrate-understanding` mode. There is no paired `.yml` workflow; this matches the pattern used by all mode agents in this repository.
+
+**Gap analysis (2026-05-28):**
+
+| Area | Status | Notes |
+| --- | --- | --- |
+| Spec / behaviour instructions | ✅ Complete | Full questioning, escalation, and response-style guidance present |
+| Frontmatter (version, status, owners, tags) | ✅ Complete | Upgraded in v1.1 |
+| Runtime / workflow | ✅ N/A | Mode agents are conversational; no workflow needed |
+| Related instructions linked | ✅ Complete | See Dependencies section below |
+
+## Dependencies
+
+- [agents/mode-thinking.agent.md](./mode-thinking.agent.md) — complementary mode agent for deep autonomous problem-solving
+- [agents/mode-document-reviewer.agent.md](./mode-document-reviewer.agent.md) — complementary mode agent for document review
+- [agents/template.agent.md](./template.agent.md) — canonical agent template this spec conforms to
+- [instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md) — coding standards referenced during understanding checks
+
+## Changelog
+
+- `v1.1 — 2026-05-28` — Added complete frontmatter fields (version, last_updated, owners, tags, file_type, status, domain, stability, permissions); added Implementation Status and Dependencies sections; fixed UK English spelling; closes [#470](https://github.com/lightspeedwp/.github/issues/470).
+- `v1.0 — initial` — Original spec authored with core questioning and response-style guidance.
