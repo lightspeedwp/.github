@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed .github — Claude Instructions"
 description: "Claude-specific project instructions for the LightSpeed .github repository."
-version: "v1.0"
-last_updated: "2026-05-20"
+version: "v1.1"
+last_updated: "2026-05-28"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 ---
@@ -10,6 +10,10 @@ maintainer: "LightSpeed Team"
 # CLAUDE.md — LightSpeed .github
 
 > Full organisation-wide AI rules, coding standards, and contribution guidelines live in [AGENTS.md](./AGENTS.md). Read that file first.
+
+Canonical AI references are maintained under [`ai/`](./ai/), including
+[`ai/Claude.md`](./ai/Claude.md), [`ai/Gemini.md`](./ai/Gemini.md), and
+[`ai/RUNNERS.md`](./ai/RUNNERS.md).
 
 ## What This Repository Is
 
@@ -92,6 +96,6 @@ npm run validate:frontmatter
 
 - [AGENTS.md](./AGENTS.md) — full global AI rules
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
-- [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) — unified coding standards
+- [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
 - [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — canonical file placement rules
 - [.github/instructions/plugin-structure.instructions.md](./.github/instructions/plugin-structure.instructions.md) — WordPress block plugin structure

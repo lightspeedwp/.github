@@ -1,9 +1,9 @@
 ---
 title: "LightSpeed Community Health & Automation Repository"
 description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
-version: "2.1"
+version: "2.2"
 created_date: "2025-01-10"
-last_updated: "2026-05-27"
+last_updated: "2026-05-28"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -44,6 +44,10 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 
 ### 🤖 AI & Automation
 
+- [ai/agents.md](./ai/agents.md) - Canonical AI agent sources and policy map
+- [ai/Claude.md](./ai/Claude.md) - Canonical Claude reference
+- [ai/Gemini.md](./ai/Gemini.md) - Canonical Gemini reference
+- [ai/RUNNERS.md](./ai/RUNNERS.md) - Runner inventory and telemetry hooks
 - [AGENTS.md](./AGENTS.md) - Global AI rules and agent overview
 - [.github/custom-instructions.md](./.github/custom-instructions.md) - Copilot configuration
 - [agents/agent.md](agents/agent.md) - Agent specifications
