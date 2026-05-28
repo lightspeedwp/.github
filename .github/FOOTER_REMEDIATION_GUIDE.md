@@ -40,6 +40,7 @@ The root `README.md` (and likely other files) contains **multiple duplicate foot
 ### Root Cause
 
 Currently, footers are:
+
 - **Manually added** to each document
 - **Copy-pasted** between files (risk of duplicates)
 - **Not validated** — no schema enforcement
@@ -262,6 +263,7 @@ node .github/scripts/validate-footers.js --fix
 ```
 
 This will:
+
 1. Detect all duplicate/invalid footers
 2. Create `.backup` files for each file modified
 3. Remove duplicate footers

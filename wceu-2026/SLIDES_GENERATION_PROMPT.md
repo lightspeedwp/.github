@@ -25,6 +25,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 ## Design System & Branding
 
 ### Colour Palette
+
 - **Primary**: LightSpeed brand colour (TBD — verify from brand guidelines)
 - **Accent 1**: Automation/AI indication (suggest: electric blue or cyber purple)
 - **Accent 2**: Governance/structure (suggest: deep teal)
@@ -33,11 +34,13 @@ This prompt guides the creation of **20 professional presentation slides** for a
 - **High Contrast**: Ensure WCAG AA compliance for all text
 
 ### Typography
+
 - **Headlines**: Bold, sans-serif (suggest: Inter Bold, Poppins Bold)
 - **Body**: Regular sans-serif, 14–18pt minimum for legibility
 - **Code/Schema**: Monospace, clearly distinguishable
 
 ### Visual Elements
+
 - LightSpeed brand logo (top-left or consistent position)
 - WordCamp Europe 2026 footer on all slides
 - Slide numbers bottom-right
@@ -45,6 +48,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 - Subtle animated transitions (if tool supports)
 
 ### Imagery & Icons
+
 - Use icons to represent: hooks 🪝, agents 🤖, workflows ⚙️, governance 📋, plugins 🔌
 - Repository structure diagrams (Mermaid or hand-drawn)
 - Before/after visual comparisons
@@ -58,16 +62,18 @@ This prompt guides the creation of **20 professional presentation slides** for a
 
 **Objective**: Hook the audience; establish the core problem.
 
-**Key Message**: 
+**Key Message**:
 > "GitHub governance is critical for teams at scale, but centralised `.github` repos create silos and make it hard for different tools to use the same rules."
 
 **Layout**:
+
 - Large, bold title: `"From Governance Silo to Installable Plugins: How LightSpeed Automated GitHub"`
 - Subtitle: `WordCamp Europe 2026 · Scaling AI + Automation Across Teams`
 - Background: Subtle gradient or image suggesting connection/network
 - Speaker name & contact (optional)
 
 **Design Notes**:
+
 - Minimalist, high-impact design
 - Use colour to separate title from subtitle
 - Ensure text is readable from 50ft away
@@ -84,6 +90,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Teams need shared governance rules (labels, workflows, issue templates) but also flexibility. A monolithic `.github` repo creates bottlenecks."
 
 **Content**:
+
 - **Left side (Problem)**: Image or diagram showing:
   - Single `.github` repo as bottleneck
   - Multiple teams/tools trying to use the same rules
@@ -96,6 +103,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - ❌ Maintenance burden concentrated on one team
 
 **Design Notes**:
+
 - Use a flow diagram: `.github` → Tool 1, Tool 2, Tool 3 (all conflicted)
 - Red/warning colour for the "pain" section
 - Contrast with next slide (the solution)
@@ -112,6 +120,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "GitHub's `.github/` inheritance only works within a single repository. Plugin repos can't automatically inherit governance rules. We needed a new model."
 
 **Content**:
+
 - **Diagram** showing:
   - Repository A with `.github/` (centrally managed)
   - Repository B (plugin) — cannot inherit from Repo A
@@ -124,6 +133,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   4. No source of truth for distributed rules
 
 **Design Notes**:
+
 - Use clear, geometric diagram
 - Show the "boundary" with a red dashed line
 - Use icons to distinguish between central repo and plugins
@@ -141,6 +151,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "We built a control plane: a central `.github` that's not just documentation — it's a source of truth for governance rules, asset definitions, and plugin metadata."
 
 **Content**:
+
 - **Central box**: `.github` repository
   - Contains: governance rules, issue/PR templates, labels, workflows
   - Contains: plugin manifest and metadata
@@ -152,12 +163,14 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - Not locked to one version
 
 **Diagram Style**:
+
 - Hub-and-spoke model
 - Central `.github` as hub
 - Plugin repos as spokes
 - Arrows showing "imports from" / "uses rules from"
 
 **Design Notes**:
+
 - Use Mermaid diagram or hand-drawn equivalent
 - Colour `.github` differently to emphasise control-plane role
 - Show asset flow with arrows/icons
@@ -174,7 +187,9 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "The control plane contains canonical, reusable assets: labels, issue templates, workflows, instructions, agent specs, schemas. These are the source of truth."
 
 **Content**:
+
 - **Asset inventory** (table or grid):
+
   | Asset | Purpose | Used By |
   | --- | --- | --- |
   | `.github/labels.yml` | Consistent issue/PR labeling | All repos |
@@ -186,6 +201,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   | `hooks/` | Pre-commit, post-commit hooks | Plugin installations |
 
 **Design Notes**:
+
 - Use icons to represent each asset type
 - Show asset relationships with subtle connecting lines
 - Emphasise that these are **reusable**, not copied
@@ -202,6 +218,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Governance is powerful, but it's too much for one repo. We pivoted to installable plugin packs: each plugin is a focused set of rules + assets for a specific team or tool."
 
 **Content**:
+
 - **Old Model** (left):
   - One monolithic `.github`
   - Everything in one place
@@ -217,6 +234,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 **Transition Indicator**: Arrow from "Old" to "New" with "Pivot" label
 
 **Design Notes**:
+
 - Use contrasting layouts: blocky/monolithic on left, modular/distributed on right
 - Visual metaphor: single box → multiple, interconnected boxes
 - Colour the new model more vibrant/optimistic
@@ -233,7 +251,9 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Each plugin pack is a reusable, installable bundle: metadata + assets + hooks. Install it, and your repo inherits governance rules automatically."
 
 **Content**:
+
 - **Plugin Structure**:
+
   ```
   lightspeed-github-ops/
   ├── PLUGIN_MANIFEST.json     (metadata, version, dependencies)
@@ -252,11 +272,13 @@ This prompt guides the creation of **20 professional presentation slides** for a
   4. Repo can customize via config (frontmatter, env vars, etc.)
 
 **Diagram Style**:
+
 - Folder tree on left
 - Installation flow on right
 - Arrows showing "copy to repo" or "activate"
 
 **Design Notes**:
+
 - Show the manifest as a key artifact (highlight in colour)
 - Use icons for each folder type
 - Emphasise that installation is automated, not manual
@@ -273,6 +295,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Hooks are the enforcement layer. Pre-commit hooks validate code, linting, commit messages. Post-push hooks trigger workflows. Rules are checked early and often."
 
 **Content**:
+
 - **Hook Categories**:
   1. **Pre-commit**: Lint code, validate frontmatter, check secrets
   2. **Commit-msg**: Validate commit message format (conventional commits)
@@ -280,17 +303,20 @@ This prompt guides the creation of **20 professional presentation slides** for a
   4. **Post-push**: Trigger CI/CD pipelines on remote
 
 - **Example flow**:
+
   ```
   Developer commits → Pre-commit hooks run → ✅ Pass → Push to GitHub
                                       ❌ Fail → Fix locally, retry
   ```
 
 **Diagram Style**:
+
 - Linear flow showing hook stages
 - Check marks for pass, X marks for fail
 - Colour-coded by hook type (pre-commit = one colour, post-push = another)
 
 **Design Notes**:
+
 - Emphasise that hooks fail **early**, saving CI time
 - Show the developer feedback loop (fail → fix → retry)
 - Use icons for each hook type
@@ -307,12 +333,14 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Workflows are the automation layer. They run on every push, PR, or manually. They validate, test, build, release, and coordinate with agents."
 
 **Content**:
+
 - **Workflow types**:
   1. **Always-run** (automatic on push/PR): linting, testing, changelog validation
   2. **Agent-triggered**: release agent, planning agent, metrics agent
   3. **Manual dispatch**: for on-demand operations
 
 - **Workflow orchestration**:
+
   ```
   Push → Linting & Tests → ✅ Pass → Merge-ready
           Release Agent → Tag/Release (on demand)
@@ -320,6 +348,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   ```
 
 **Design Notes**:
+
 - Show workflow stages as a pipeline
 - Use different colours for always-run vs. agent-triggered
 - Emphasise coordination between workflows
@@ -336,6 +365,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Issue and PR templates ensure consistent metadata: labels, assignees, descriptions. This makes automation and reporting easier."
 
 **Content**:
+
 - **Issue Template Structure**:
   - Frontmatter (YAML): title, type, category, status, tags
   - Body: problem, acceptance criteria, context
@@ -351,6 +381,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - ✅ Agents can understand and act on metadata
 
 **Design Notes**:
+
 - Show template snippets (code blocks)
 - Highlight the frontmatter section (it's the structured data)
 - Show how frontmatter feeds into automation
@@ -367,6 +398,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "We learned the hard way: centralised governance is powerful, but fragmented rules, hard-coded logic, and poor documentation create more problems than they solve."
 
 **Content**:
+
 - **Lessons learned**:
   1. ✅ **Do**: Make rules explicit and config-driven (not hard-coded)
   2. ✅ **Do**: Document governance decisions and trade-offs
@@ -381,6 +413,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   5. ❌ Neglecting documentation and maintainability
 
 **Design Notes**:
+
 - Use green checkmarks for lessons, red Xs for anti-patterns
 - Keep text concise (bullets, not paragraphs)
 - Use visual contrast to separate dos from don'ts
@@ -397,6 +430,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Adoption is a journey, not a sprint. We built a playbook: assess → plan → install → customize → scale."
 
 **Content**:
+
 - **Phase 1: Assess**
   - What governance rules do you have?
   - What's working, what's broken?
@@ -424,6 +458,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 **Timeline**: 2–4 weeks for a team of 3–5
 
 **Design Notes**:
+
 - Show phases as a stepped timeline or circular flow
 - Use icons for each phase
 - Include estimated time/effort
@@ -440,6 +475,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Agents are autonomous decision-makers. They monitor repo health, coordinate workflows, handle escalations, and report back to humans."
 
 **Content**:
+
 - **Agent types**:
   1. **Release Agent**: Tags, creates releases, coordinates release workflows
   2. **Labeling Agent**: Auto-applies labels based on content
@@ -448,6 +484,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   5. **Review Agent**: Provides AI-powered code review feedback
 
 - **Agent orchestration**:
+
   ```
   Issue created → Labeling agent applies labels
   → Planning agent generates plan (if needed)
@@ -456,6 +493,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   ```
 
 **Design Notes**:
+
 - Show agents as autonomous entities (use robot/AI icons)
 - Show communication paths between agents and workflows
 - Emphasise that agents follow governance rules
@@ -472,7 +510,9 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Frontmatter (YAML metadata in issues/PRs/docs) is the interface between humans and automation. It drives agent decisions, template selection, and reporting."
 
 **Content**:
+
 - **Examples**:
+
   ```yaml
   ---
   title: "[AI Ops] Implement branding agent"
@@ -492,6 +532,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - Release agent → reads `related_issues` → chains releases if needed
 
 **Design Notes**:
+
 - Show YAML block prominently (use monospace font)
 - Show arrow from metadata to agent decisions
 - Use colour to highlight key fields
@@ -508,6 +549,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Schema validates data structure and content. It's strict enough to prevent errors but flexible enough to allow innovation."
 
 **Content**:
+
 - **What schema validates**:
   1. Frontmatter field presence and types
   2. Allowed values (controlled vocabularies)
@@ -515,6 +557,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   4. Custom field definitions per project
 
 - **Example constraint**:
+
   ```json
   {
     "title": "type must be one of: feature, bug, refactor, docs",
@@ -528,6 +571,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - 🔄 Missing field → agent uses default or asks for clarification
 
 **Design Notes**:
+
 - Show schema constraints as a guard/shield (protects data integrity)
 - Show validation flow: input → schema check → pass/fail
 - Emphasise that schema is **progressive** (strict where needed, flexible elsewhere)
@@ -544,6 +588,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Automation is great, but it must remain readable and accessible. Every rule, header, footer, and workflow should be understandable by a human."
 
 **Content**:
+
 - **Principles**:
   1. **Semantic HTML**: Use proper heading levels, lists, emphasis
   2. **Colour contrast**: WCAG AA minimum for all text
@@ -552,6 +597,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   5. **Footers & headers**: Decorative but informative (not cluttered)
 
 - **Example**:
+
   ```markdown
   ✅ GOOD:
   # Configuration Schema
@@ -563,6 +609,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   ```
 
 **Design Notes**:
+
 - Show before/after examples of readable vs. cluttered content
 - Use accessibility checklist icons
 - Emphasise that automation **serves humans**, not vice versa
@@ -579,6 +626,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "We're building a branding meta agent that automatically manages headers, footers, and badges based on category and metadata. No more manual branding inconsistencies."
 
 **Content**:
+
 - **What it does**:
   1. Reads frontmatter (category, tags)
   2. Looks up template rules in config
@@ -593,6 +641,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - Easy to update templates (config, not code)
 
 **Design Notes**:
+
 - Show agent as a "coordinator" or "orchestrator"
 - Show inputs (frontmatter) → agent logic → outputs (branded docs)
 - Emphasise automation reduces manual maintenance burden
@@ -609,6 +658,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Successful governance is invisible to users. It works reliably in the background while teams focus on shipping code and features."
 
 **Content**:
+
 - **Metrics that matter**:
   1. **Consistency**: % of repos with compliant metadata (target: >95%)
   2. **Automation success rate**: % of workflows completing successfully (target: >99%)
@@ -622,6 +672,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - Action items when metrics dip below threshold
 
 **Design Notes**:
+
 - Use gauge charts or simple progress bars
 - Show metrics trending positively
 - Emphasise that good governance is **measured**, not just assumed
@@ -638,6 +689,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "AI tools like Copilot and agents are powerful, but they need governance. Instructions, prompts, schemas, and hooks guide AI behaviour without constraining innovation."
 
 **Content**:
+
 - **AI Governance Layers**:
   1. **Instructions** (text): Guidance for AI tools (e.g., "always use UK English")
   2. **Prompts** (templates): Reusable prompts for agents
@@ -652,6 +704,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - Agent approves or escalates to human
 
 **Design Notes**:
+
 - Show AI tools (Copilot, agents) at the top
 - Show governance layers beneath, guiding them
 - Emphasise that governance **enables** innovation, not prevents it
@@ -668,6 +721,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 > "Governance is not a one-time setup — it's an ongoing practice. Start with the plugin packs, measure success, iterate, and build a governance culture."
 
 **Content**:
+
 - **For agencies**:
   1. Assess your governance gaps
   2. Install relevant plugin packs
@@ -695,6 +749,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - Join the community
 
 **Design Notes**:
+
 - Use inspiring, forward-looking imagery
 - Include LightSpeed branding prominently
 - Provide clear contact/resource links
@@ -724,18 +779,21 @@ Use this checklist when designing each slide:
 ## Tools & Recommendations
 
 ### Suggested Design Tools
+
 1. **Figma**: Best for collaborative design, prototyping
 2. **Canva**: Fastest for drag-and-drop slide creation
 3. **PowerPoint**: Good for presenters familiar with Office
 4. **reveal.js**: For web-native, code-friendly presentations
 
 ### Recommended Assets
+
 - Brand guidelines: Verify LightSpeed brand colours, logo usage
 - Icons: Use consistent icon set (e.g., Font Awesome, Feather Icons)
 - Diagrams: Use Mermaid for auto-generated flowcharts
 - Code snippets: Syntax-highlighted, monospace font
 
 ### Accessibility Tools
+
 - **Colour contrast**: WebAIM contrast checker
 - **WCAG compliance**: axe DevTools browser extension
 - **Readability**: Hemingway App for plain language

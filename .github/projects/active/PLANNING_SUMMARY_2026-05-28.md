@@ -21,9 +21,11 @@ This document summarizes the **planning work completed** on 2026-05-28 for:
 ## 1. Branding Meta Agent Initiative
 
 ### Status
+
 **Planning Phase Complete** — Specification work ready to begin
 
 ### Issues
+
 - **#33** — Parent specification: category taxonomy, footer/header requirements, scope
 - **#46** — Template design: 5 footer variants per category, template rules
 - **#48** — Documentation & agent spec: complete agent specification
@@ -32,6 +34,7 @@ This document summarizes the **planning work completed** on 2026-05-28 for:
 ### Key Documents Created
 
 #### `branding-meta-agent-planning-2026-05-28.md`
+
 A comprehensive planning document covering:
 
 1. **Problem Statement**
@@ -90,25 +93,29 @@ A comprehensive planning document covering:
 ## 2. WCEU 2026 Talk Planning
 
 ### Status
+
 **Assets Hardened** — Ready for slide generation
 
 ### Key Files Updated
 
 #### `wceu-2026/notebooklm/deep-research-prompt.md`
+
 - Added explicit **develop-branch URLs** for all core sources
 - Organized sources in 4 phases (Foundation → Architecture → Plugin Packs → Talk Assets)
 - Removed ambiguity about allowed sources (repo-only, no external web links)
 - Now ready for NotebookLM ingestion with pinned, permanent URLs
 
 **Core sources included**:
-- https://github.com/lightspeedwp/.github/blob/develop/README.md
-- https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md
-- https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md
-- https://github.com/lightspeedwp/.github/blob/develop/docs/PLUGIN_PACK_ROADMAP.md
-- https://github.com/lightspeedwp/.github/blob/develop/plugins/README.md
+
+- <https://github.com/lightspeedwp/.github/blob/develop/README.md>
+- <https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md>
+- <https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md>
+- <https://github.com/lightspeedwp/.github/blob/develop/docs/PLUGIN_PACK_ROADMAP.md>
+- <https://github.com/lightspeedwp/.github/blob/develop/plugins/README.md>
 - And 10+ additional governance, architecture, and plugin docs
 
 #### `wceu-2026/notebooklm/source-ingestion-checklist.md`
+
 - Reorganized into **5-phase ingestion order**:
   1. **Foundation Sources** (repo README, talk outline, repo index)
   2. **Architecture & Governance** (automation governance, workflows, labels)
@@ -120,9 +127,11 @@ A comprehensive planning document covering:
 - **Safety**: Explicit develop-branch URLs prevent stale or external sources
 
 #### `wceu-2026/SLIDES_GENERATION_PROMPT.md` (NEW)
+
 A **comprehensive, 20-slide generation prompt** covering:
 
 **Design System**:
+
 - Colour palette (primary, accent 1/2/3, neutral, high-contrast)
 - Typography (headlines, body, code/schema)
 - Visual elements (icons, diagrams, imagery)
@@ -153,6 +162,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 | 20 | Call to Action | Next steps for agencies and teams | `PLUGIN_PACK_ROADMAP.md` |
 
 **Each slide includes**:
+
 - Objective and key message
 - Content outline with specific talking points
 - Design notes and visual guidance
@@ -183,11 +193,13 @@ A **comprehensive, 20-slide generation prompt** covering:
 ## 3. Execution Plan Updates
 
 ### Status
+
 **Next-Issues-Execution-Plan Updated** with Wave 4 and Wave 3D
 
 ### Changes Made
 
 #### Added Wave 4: Branding Meta Agent (Claude Exclusive)
+
 - **Assignment**: Claude ONLY (Copilot excluded from this work)
 - **Issues**: #33, #46, #48, #49
 - **Phases**:
@@ -201,12 +213,14 @@ A **comprehensive, 20-slide generation prompt** covering:
 - **Timeline**: ~3–4 weeks
 
 **Why Claude Exclusive?**
+
 - Requires coherent planning across specification → implementation → validation
 - Ensures unified branding agent architecture (not fragmented logic)
 - Prevents schema drift between documentation and code
 - Keeps category taxonomy and template rules consistent
 
 #### Added Wave 3D: WCEU 2026 Talk Planning (Claude)
+
 - **Assignment**: Claude (AI Team - Review & UX)
 - **Issue**: #529
 - **Scope**: Audit talk assets, harden NotebookLM prompts, produce improvements plan
@@ -214,6 +228,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 - **Status**: Ready for execution
 
 #### Updated Agent Ownership
+
 - **Claude**: Waves 2B, 2D, 3B, **Wave 4 (exclusive)**, Wave 3D
 - **Codex**: Waves 2A, 2C, 3A, 3C
 - **Key addition**: Branding meta agent is **Claude exclusive** to ensure coherence
@@ -223,9 +238,10 @@ A **comprehensive, 20-slide generation prompt** covering:
 ## 4. Files Created & Updated
 
 ### New Files Created
+
 1. `.github/projects/active/branding-meta-agent-planning-2026-05-28.md` (2,100 lines)
    - Comprehensive planning for branding meta agent initiative
-   
+
 2. `wceu-2026/SLIDES_GENERATION_PROMPT.md` (789 lines)
    - Complete 20-slide generation prompt with design guidance
 
@@ -233,6 +249,7 @@ A **comprehensive, 20-slide generation prompt** covering:
    - Summary of all planning work completed
 
 ### Files Updated
+
 1. `.github/projects/active/next-issues-execution-plan.md`
    - Added Wave 4 (Branding Meta Agent)
    - Added Wave 3D (WCEU 2026 talk planning)
@@ -268,6 +285,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 ## 6. Risk Mitigation
 
 ### Branding Meta Agent Risks
+
 | Risk | Mitigation |
 | --- | --- |
 | Schema too rigid | Gather feedback in #49; design for extensibility |
@@ -276,6 +294,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 | Inconsistent remediation | Automated script + CI validation prevents drift |
 
 ### WCEU Talk Risks
+
 | Risk | Mitigation |
 | --- | --- |
 | Stale sources | Pinned develop-branch URLs + phase-based ingestion |
@@ -288,6 +307,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 ## 7. Success Criteria
 
 ### Branding Meta Agent
+
 - [ ] All 4 specification issues (#33, #46, #48, #49) merged with maintainer approval
 - [ ] Category taxonomy locked and documented
 - [ ] Schema/config model approved and ready for implementation
@@ -297,6 +317,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 - [ ] CI validation rules active
 
 ### WCEU 2026 Talk
+
 - [ ] 20 slides generated and reviewed
 - [ ] All content backed by repository evidence
 - [ ] Speaker notes complete
@@ -308,18 +329,21 @@ A **comprehensive, 20-slide generation prompt** covering:
 ## 8. Next Actions (Immediate)
 
 ### This Week
+
 1. ✅ **Planning complete** — Review documents above
 2. ⬜ **Share with maintainer(s)** — Get feedback on branding agent plan
 3. ⬜ **Lock category taxonomy** — Confirm #33 scope with stakeholders
 4. ⬜ **Start slide generation** — Use `SLIDES_GENERATION_PROMPT.md` with chosen tool
 
 ### Next Week
+
 1. ⬜ **Complete specification issues** (#33, #46, #49, #48)
 2. ⬜ **Current-state audit** — Scan all `.md` files for footers
 3. ⬜ **Generate NotebookLM research** — Use hardened prompts
 4. ⬜ **Finalize slide deck** — Add speaker notes and practice delivery
 
 ### Week 3+
+
 1. ⬜ **Implement schema & config**
 2. ⬜ **Merge/refactor agent**
 3. ⬜ **Remediate all footers**
@@ -330,15 +354,17 @@ A **comprehensive, 20-slide generation prompt** covering:
 ## 9. References
 
 ### Branding Meta Agent
-- Issue #33: https://github.com/lightspeedwp/.github/issues/33
-- Issue #46: https://github.com/lightspeedwp/.github/issues/46
-- Issue #48: https://github.com/lightspeedwp/.github/issues/48
-- Issue #49: https://github.com/lightspeedwp/.github/issues/49
+
+- Issue #33: <https://github.com/lightspeedwp/.github/issues/33>
+- Issue #46: <https://github.com/lightspeedwp/.github/issues/46>
+- Issue #48: <https://github.com/lightspeedwp/.github/issues/48>
+- Issue #49: <https://github.com/lightspeedwp/.github/issues/49>
 - Planning doc: `.github/projects/active/branding-meta-agent-planning-2026-05-28.md`
 - Execution plan: `.github/projects/active/next-issues-execution-plan.md`
 
 ### WCEU 2026 Talk
-- Issue #529: https://github.com/lightspeedwp/.github/issues/529
+
+- Issue #529: <https://github.com/lightspeedwp/.github/issues/529>
 - Slides prompt: `wceu-2026/SLIDES_GENERATION_PROMPT.md`
 - Deep research prompt: `wceu-2026/notebooklm/deep-research-prompt.md`
 - Source checklist: `wceu-2026/notebooklm/source-ingestion-checklist.md`
