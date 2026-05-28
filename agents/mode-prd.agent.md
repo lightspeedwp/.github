@@ -11,9 +11,9 @@ tools:
     "githubRepo",
     "search",
     "add_issue_comment",
-    "create_issue",
+    "issue_write",
     "update_issue",
-    "get_issue",
+    "issue_read",
     "search_issues",
   ]
 metadata:

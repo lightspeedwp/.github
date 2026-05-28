@@ -1,7 +1,7 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Prioritised execution plan for the next open issues after label-governance stabilisation closeout."
-version: "v1.0.3"
+version: "v1.1.0"
 last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
@@ -12,7 +12,7 @@ domain: "governance"
 stability: "active"
 ---
 
-## Next Issues Execution Plan (2026-05-27)
+## Next Issues Execution Plan (2026-05-28)
 
 ## Scope
 
@@ -20,27 +20,25 @@ This plan prioritises the next open `lightspeedwp/.github` issues that are
 ready and high-leverage after closing the label governance sequence (`#66`,
 `#67`, `#69`, `#95`, `#449`).
 
-Live checks on 2026-05-28: issues `#65`, `#63`, `#62`, and `#64` are closed
-(merged via PRs `#452`, `#454`, `#458`, and `#460`). The next open sequence
-now starts at `#61`.
+Live checks on 2026-05-28: issues `#65`, `#63`, `#62`, `#64`, and `#61` are
+closed (merged via PRs `#452`, `#454`, `#458`, `#461`, and `#493`). Follow-up
+policy hardening is merged via PR `#463`.
 
 ## Prioritised backlog
 
-### Wave 1 - Documentation and workflow execution (start here)
+### Wave 1 - immediate execution (in progress)
 
-1. `#61` [Docs/Workflows] Convert spec-only agents into Issues with templates
-   and project mapping  
-   Link: [#61](https://github.com/lightspeedwp/.github/issues/61)
-2. `#52` Update references from `create_issue` to `issue_write` and scan
+1. `#52` Update references from `create_issue` to `issue_write` and scan
    outdated MCP tools  
    Link: [#52](https://github.com/lightspeedwp/.github/issues/52)
+2. PR closeout + merge confirmation + issue closure for `#52`.
 
 Why this wave first:
 
-- closes the highest-priority remaining docs and workflow hygiene debt
-- keeps issue templates, project mapping, and tool references consistent
+- clears remaining tooling-reference drift before larger docs and agent waves
+- ensures active prompts and specs match current MCP tool naming
 
-### Wave 2 - standards and documentation debt
+### Wave 2 - reprioritised backlog (post-#52)
 
 1. `#60` [Docs/Workflows] Pilot telemetry for Tour Operator + document
    opt-outs  
@@ -53,14 +51,42 @@ Why this wave first:
 
 Why second:
 
-- preserves momentum after the completed governance and hook hardening work
-- keeps broader audits behind targeted workflow and docs fixes
+- preserves momentum after #52 tooling alignment
+- keeps broader audits ordered behind explicit agent burn-down batches
+
+### Wave 2A - core runtime agent burn-down batch
+
+Issues: `#464`, `#465`, `#466`, `#467`, `#468`, `#469`, `#476`, `#480`,
+`#482`.
+
+Focus:
+
+- core runtime agent specs with highest operational leverage
+- consistency checks for tool declarations, acceptance criteria, and ownership
+
+### Wave 2B - mode and planning agent batch
+
+Issues: `#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486`.
+
+Focus:
+
+- mode/planning behaviour specs and orchestration quality
+- remove overlap and tighten spec boundaries before implementation work
+
+### Wave 2C - scaffolds and completion batch
+
+Issues: `#488`, `#490`.
+
+Focus:
+
+- template and test scaffolding completion
+- final pass on mapping, labels, and closure evidence
 
 ## Execution order and dependencies
 
-1. Execute `#61` before `#52` so template and project mapping conventions are
-   set before tool-reference sweeps.
-2. Defer broader doc audits (`#31`, `#23`) until Wave 1 is merged.
+1. Execute and merge `#52` before Wave 2 batch starts.
+2. Run Wave 2A -> Wave 2B -> Wave 2C in order.
+3. Defer broader doc audits (`#31`, `#23`) until Wave 2A is merged.
 
 ## Definition of done per issue
 
@@ -71,4 +97,6 @@ Why second:
 
 ## Proposed immediate next action
 
-Start with `#61` in a dedicated branch and open the next PR from that issue.
+Continue with `#52` merge and issue closure, then open Wave 2A branch for the
+core runtime batch (`#464`, `#465`, `#466`, `#467`, `#468`, `#469`, `#476`,
+`#480`, `#482`).

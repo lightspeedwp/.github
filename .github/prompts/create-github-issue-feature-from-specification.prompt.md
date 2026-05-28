@@ -6,7 +6,7 @@ tools:
     "search/codebase",
     "search",
     "github",
-    "create_issue",
+    "issue_write",
     "search_issues",
     "update_issue",
   ]
@@ -20,7 +20,7 @@ Create GitHub Issue for the specification at `${file}`.
 
 1. Analyze specification file to extract requirements
 2. Check existing issues using `search_issues`
-3. Create new issue using `create_issue` or update existing with `update_issue`
+3. Create new issue using `issue_write` or update existing with `update_issue`
 4. Use `feature_request.yml` template (fallback to default)
 
 ## Requirements
