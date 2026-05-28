@@ -2,9 +2,9 @@
 name: "Planner"
 description: "Multi-mode planning agent: strategic architecture planning, implementation plan generation, and task planning with research validation. Comprehensive planning-first approach for complex development work."
 file_type: "agent"
-version: "v3.0"
+version: "v3.1"
 created_date: "2025-11-20"
-last_updated: "2025-12-07"
+last_updated: "2026-05-28"
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
@@ -309,3 +309,25 @@ Comprehensive planning agent supporting three complementary modes:
 - [Architecture Guide](../../docs/ARCHITECTURE.md)
 - [Contributing Guidelines](../../CONTRIBUTING.md)
 - [Coding Standards](../instructions/coding-standards.instructions.md)
+
+## Implementation Status
+
+**Status**: Spec complete — paired runtime workflow exists.
+
+This agent has a corresponding GitHub Actions workflow at `.github/workflows/planner.yml` (triggered via `workflow_dispatch`). The spec and workflow are in sync.
+
+**Gap analysis (2026-05-28):**
+
+| Area | Status | Notes |
+| --- | --- | --- |
+| Spec / behaviour instructions | ✅ Complete | Three operating modes, planning methodology, and interaction style fully documented |
+| Frontmatter | ✅ Complete | All required fields present (no upgrade needed) |
+| Runtime / workflow | ✅ Active | `.github/workflows/planner.yml` — `workflow_dispatch` trigger |
+| Related agents and instructions linked | ✅ Complete | See Related Agents and Reference Documentation sections above |
+
+## Changelog
+
+- `v3.1 — 2026-05-28` — Added Implementation Status gap-analysis table and Changelog; confirms spec/workflow parity; closes [#484](https://github.com/lightspeedwp/.github/issues/484).
+- `v3.0 — 2025-12-07` — Major revision: unified three planning modes (Strategic, Implementation Plan Generation, Task Planning with Research Validation) into a single agent spec.
+- `v2.0 — earlier` — Added implementation plan generation mode and artifact organisation in `.copilot-tracking/`.
+- `v1.0 — 2025-11-20` — Initial spec: strategic planning and architecture mode.
