@@ -1,7 +1,7 @@
 ---
 title: "LightSpeed Metrics Directory"
 version: "v1.0"
-last_updated: "2025-12-04"
+last_updated: "2026-05-28"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity."
@@ -11,7 +11,6 @@ owners: ["LightSpeed Team"]
 domain: "governance"
 stability: "stable"
 status: "active"
-last_updated: "2026-05-28"
 ---
 
 # LightSpeed Metrics Directory

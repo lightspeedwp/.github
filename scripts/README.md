@@ -373,7 +373,7 @@ When contributing new scripts or modifications:
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../.schemas/)
-- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
+- [Test Coverage Reports](../tests/README.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References
