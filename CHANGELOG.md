@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- Added spec-only agent issue conversion tracking under `#61`, including
+  canonical issue mapping and duplicate cleanup notes.
 - Added Husky pre-push contributor guidance and aligned local development docs
   with enforced pre-push test hooks (`npm run test:js`, `npm run test:bash`).
 - Expanded issue field governance to an organization-level v2 model aligned to
