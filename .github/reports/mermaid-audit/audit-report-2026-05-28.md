@@ -2,7 +2,7 @@
 title: "Wave 3A: README & Mermaid Diagram Audit Report"
 description: "Comprehensive audit of all Mermaid diagrams embedded in README files across the LightSpeed .github repository, including accessibility compliance findings and repair recommendations."
 category: "Documentation"
-file_type: "documentation"
+file_type: "report"
 version: "1.0"
 created_date: "2026-05-28"
 last_updated: "2026-05-28"

@@ -2,7 +2,7 @@
 title: "Wave 3A: Detailed Audit Log"
 description: "Line-by-line audit log with per-file findings, specific recommendations, and repair estimates for all README files with Mermaid diagrams."
 category: "Documentation"
-file_type: "documentation"
+file_type: "report"
 version: "1.0"
 created_date: "2026-05-28"
 last_updated: "2026-05-28"
