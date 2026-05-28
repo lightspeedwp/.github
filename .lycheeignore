@@ -14,3 +14,6 @@ https://www.lsdev.biz
 
 # Auto-generated readme-regen footer — points to a private/inaccessible repo
 https://github.com/lightspeedwp/lsx-demo-theme
+
+# External licence URL occasionally times out in CI link checks
+https://www.gnu.org/licenses/gpl-3.0
