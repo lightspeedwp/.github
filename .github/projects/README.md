@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Reports Directory"
 description: "An overview of the reports directory, detailing the purpose of each subfolder for storing generated artifacts."
-version: "1.0"
-last_updated: "2025-12-08"
+version: "1.1"
+last_updated: "2026-05-28"
 owners: ["LightSpeed Engineering"]
 tags: ["reports", "documentation", "governance"]
 ---

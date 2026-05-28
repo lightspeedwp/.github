@@ -2,9 +2,9 @@
 file_type: "documentation"
 title: "Issue Templates Directory"
 description: "Standardized issue templates for the LightSpeedWP organization"
-version: "v1.1"
+version: "v1.2"
 created_date: "2025-10-20"
-last_updated: "2025-12-04"
+last_updated: "2026-05-28"
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
@@ -41,7 +41,7 @@ Get started with LightSpeedWP issue templates in three steps:
    - Select the appropriate template for your issue type (bug, feature, documentation, etc.)
    - Follow the instructions in the template to submit your issue
 
-For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) and individual template specs for configuration and automation options.
+For advanced usage, see the [Issue Template Index](./README.md) and individual template specs for configuration and automation options.
 
 ## 🗂️ Issue Template Workflow
 
@@ -84,10 +84,10 @@ The issue templates in this directory are automatically synchronized across all 
 
 These templates integrate with:
 
-- **[Issue Types](../ISSUE_TYPES.md)** - Canonical issue type definitions
-- **[Issue Labels](../ISSUE_LABELS.md)** - Automated labeling system
-- **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Agent-driven workflows
-- **[Branching Strategy](../BRANCHING_STRATEGY.md)** - Branch naming conventions
+- **[Issue Types](../../docs/ISSUE_TYPES.md)** - Canonical issue type definitions
+- **[Issue Labels](../../docs/ISSUE_LABELS.md)** - Automated labeling system
+- **[Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md)** - Agent-driven workflows
+- **[Branching Strategy](../../docs/BRANCHING_STRATEGY.md)** - Branch naming conventions
 
 ## 🤖 Automation Features
 

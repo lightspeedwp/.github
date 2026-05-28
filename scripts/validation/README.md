@@ -2,8 +2,8 @@
 file_type: "documentation"
 name: "Frontmatter Validation"
 description: "Comprehensive frontmatter validation scripts for LightSpeedWP .github repository ensuring schema compliance and consistency"
-version: "1.0.0"
-last_updated: "2025-12-04"
+version: "1.1.0"
+last_updated: "2026-05-28"
 owners:
   - "LightSpeedWP Team"
 tags:
@@ -196,10 +196,10 @@ All validation scripts provide robust error handling and log errors to the conso
 
 - [Frontmatter Schema](../../.schemas/frontmatter.schema.json)
 - [CodeRabbit Schema](../../.schemas/coderabbit-overrides.v2.json)
-- [Tagging Conventions](../../.github/instructions/tagging-and-frontmatter-conventions.instructions.md)
-- [Mermaid Diagrams](../../.github/instructions/mermaid-diagrams.instructions.md)
-- [YAML Documentation](../../docs/YAML.md)
-- [Test Coverage Reports](../../coverage/README.md)
+- [Documentation Formats](../../instructions/documentation-formats.instructions.md)
+- [Languages & Linting](../../instructions/languages.instructions.md)
+- [Configuration Docs](../../docs/CONFIGS.md)
+- [Testing Framework Overview](../../tests/README.md)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

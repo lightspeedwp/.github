@@ -1,8 +1,8 @@
 ---
 title: "VS Code Workspace Configuration"
 description: "Visual Studio Code workspace settings, tasks, extensions, and AI integration for LightSpeedWP development environment"
-version: "v1.0"
-last_updated: "2025-12-04"
+version: "v1.1"
+last_updated: "2026-05-28"
 maintainer: "LightSpeed Engineering"
 tags: ["vscode", "configuration", "extensions", "tasks", "ai", "development"]
 file_type: "configuration"
@@ -108,20 +108,20 @@ flowchart TD
 
 ### 📚 Development Standards
 
-- [Coding Standards](../.github/instructions/coding-standards.instructions.md) - Unified development guidelines
-- [Linting Instructions](../.github/instructions/linting.instructions.md) - Code quality standards
+- [Coding Standards](../instructions/coding-standards.instructions.md) - Unified development guidelines
+- [Linting Instructions](../instructions/linting.instructions.md) - Code quality standards
 - [Contributing Guidelines](../CONTRIBUTING.md) - How to contribute to LightSpeed projects
 
 ### 🤖 AI & Automation
 
 - [Custom Instructions](../.github/custom-instructions.md) - Organization-wide Copilot settings
-- [Agents Documentation](../.github/agents/agent.md) - Automation agents and workflows
+- [Agents Documentation](../agents/agent.md) - Automation agents and workflows
 - [Scripts Directory](../scripts/README.md) - Utility scripts and automation tools
 
 ### 🧪 Testing & Quality
 
 - [Testing Framework](../tests/README.md) - Test suites and coverage documentation
-- [JSON Schemas](../schemas/README.md) - Schema validation and IDE integration
+- [JSON Schemas](../.schemas/README.md) - Schema validation and IDE integration
 - [Main Repository](../README.md) - LightSpeed community health repository
 
 ---
