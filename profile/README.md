@@ -283,7 +283,7 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 ### 📱 Social Media
 
 - **🐦 Twitter**: [@lightspeedwp](https://twitter.com/lightspeedwp) - Latest updates and news
-- **💼 LinkedIn**: [LightSpeed WP](https://github.com/lightspeedwp) - Professional network
+- **💼 GitHub**: [LightSpeed WP](https://github.com/lightspeedwp) - Open-source profile
 - **📧 Email**: [hello@lightspeedwp.agency](mailto:hello@lightspeedwp.agency) - Direct contact
 
 ### 🆘 Support Resources

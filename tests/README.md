@@ -25,7 +25,7 @@
 | Version        | 2.2.0                                                                                                                                                                                                                                                                                                                                      |
 | Last Updated   | 2025-10-25                                                                                                                                                                                                                                                                                                                                 |
 | Owners         | Ash Shaw; LightSpeedWP QA                                                                                                                                                                                                                                                                                                                  |
-| Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md), [`test-helper.bash`](./test-helper.bash), [`coverage/README.md`](../coverage/README.md), [`scripts/README.md`](../scripts/README.md), [`../.schemas/README.md`](../.schemas/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
+| Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`coverage/README.md`](../coverage/README.md), [`test-helper.bash`](./test-helper.bash), [`scripts/README.md`](../scripts/README.md), [`../.schemas/README.md`](../.schemas/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
 ![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
@@ -109,7 +109,7 @@ Each subfolder includes comprehensive documentation and specialized test coverag
 
 - **`test-helper.bash`** — Shared Bats test helpers for setup/teardown and environment isolation
 - **`tests-run-all-tests.bats`** — Bats test for the test runner script
-- **[`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md)** — Detailed documentation of test coverage, structure, and best practices
+- **[`coverage/README.md`](../coverage/README.md)** — Detailed documentation of test coverage, structure, and reports
 
 ## Usage & Quickstart
 
@@ -159,7 +159,7 @@ Add new tests by placing `.bats` or `.test.js` files following existing naming p
 2. Isolation: Use `test-helper.bash` for environment setup/teardown—avoid mutating global state.
 3. Determinism: Mock network/filesystem where possible; prefer fixtures over ad-hoc inline data.
 4. Coverage Improvement: Focus on untested branches before adding new features.
-5. Documentation: When adding complex test helpers, update this README or `TEST_COVERAGE_SUMMARY.md`.
+5. Documentation: When adding complex test helpers, update this README or `../coverage/README.md`.
 6. Fast Feedback: Keep critical path tests lean (< 2s) to optimize pre-commit runs.
 
 ## 🔄 Test Execution Workflow
@@ -224,7 +224,7 @@ flowchart TD
     style Q fill:#ffcdd2
 ```
 
-See `TEST_COVERAGE_SUMMARY.md` for full coverage details and examples.
+See `../coverage/README.md` for full coverage details and examples.
 
 ---
 
@@ -286,7 +286,7 @@ npm ci
 
 #### Core Testing Documentation
 
-- [Test Coverage Summary](./TEST_COVERAGE_SUMMARY.md) — Comprehensive coverage analysis and test details
+- [Coverage Reports Overview](../coverage/README.md) — Comprehensive coverage analysis and report references
 - [Jest Configuration](../jest.config.js) — JavaScript testing framework configuration
 - [Test Runner Script](../run-all-tests.sh) — Automated test execution script
 - [Quality Assurance](../instructions/quality-assurance.instructions.md) — Testing standards and best practices

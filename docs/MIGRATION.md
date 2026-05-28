@@ -132,7 +132,7 @@ This keeps cleanup reversible while #95 decisions are still being finalised.
 Historical Codex work restructured reusable AI-operations assets out of the
 `.github/` subtree and into named top-level source folders. Assets under
 `.github/` are GitHub-native governance files; portable AI assets must live at
-the repo root so they are consumable outside this repository.
+the repo root, so they are consumable outside this repository.
 
 ### Completed Migrations
 
