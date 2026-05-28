@@ -46,7 +46,7 @@ Closes #
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+User-facing notes only. Internal-only PRs (rare) may use the `meta:no-changelog` label.
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
@@ -77,7 +77,7 @@ Example:
 -->
 
 <!--
-If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+If no user-facing changelog entry is needed, apply the `meta:no-changelog` label to this PR.
 -->
 
 ---

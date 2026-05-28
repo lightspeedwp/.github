@@ -4,6 +4,8 @@
 
 # LightSpeed GitHub Labelling Strategy
 
+Primary operations reference: [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md)
+
 This document describes how LightSpeed uses GitHub labels to power automation, search, workflow routing, and community management across all repositories—including issues, pull requests (PRs), and discussions.
 
 ---
@@ -145,7 +147,7 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 - Use the most specific `area:*` or `comp:*` for filtering.
 - Update labels as work progresses or scope changes.
 - Review and clean up labels quarterly; remove unused or redundant entries.
-- Reference [labeling.agent.md](./agents/labeling.agent.md) for agent logic details.
+- Reference [labeling.agent.md](../agents/labeling.agent.md) for agent logic details.
 - See `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml` for configs.
 
 ---
@@ -162,7 +164,7 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 ## 8. References
 
-- [Automation Governance](./AUTOMATION_GOVERNANCE.md)
+- [Project Operations Spec](./GITHUB_PROJECT_OPERATIONS_SPEC.md)
 - [Issue Labels Guide](./ISSUE_LABELS.md)
 - [Canonical Labels & Colours](../.github/labels.yml)
 - [Labeler rules](../.github/labeler.yml)
