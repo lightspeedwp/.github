@@ -1,7 +1,7 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Prioritised execution plan for the next open issues after label-governance stabilisation closeout."
-version: "v1.1.0"
+version: "v1.1.1"
 last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
@@ -26,19 +26,17 @@ policy hardening is merged via PR `#463`.
 
 ## Prioritised backlog
 
-### Wave 1 - immediate execution (in progress)
+### Wave 1 - immediate execution (completed)
 
 1. `#52` Update references from `create_issue` to `issue_write` and scan
-   outdated MCP tools  
-   Link: [#52](https://github.com/lightspeedwp/.github/issues/52)
-2. PR closeout + merge confirmation + issue closure for `#52`.
+   outdated MCP tools - completed and merged via PR `#494`.
 
 Why this wave first:
 
 - clears remaining tooling-reference drift before larger docs and agent waves
 - ensures active prompts and specs match current MCP tool naming
 
-### Wave 2 - reprioritised backlog (post-#52)
+### Wave 2 - reprioritised backlog (active)
 
 1. `#60` [Docs/Workflows] Pilot telemetry for Tour Operator + document
    opt-outs  
@@ -84,8 +82,8 @@ Focus:
 
 ## Execution order and dependencies
 
-1. Execute and merge `#52` before Wave 2 batch starts.
-2. Run Wave 2A -> Wave 2B -> Wave 2C in order.
+1. Start with `#464` and run Wave 2A -> Wave 2B -> Wave 2C in order.
+2. Keep each issue in a small mergeable slice with issue comments per step.
 3. Defer broader doc audits (`#31`, `#23`) until Wave 2A is merged.
 
 ## Definition of done per issue
@@ -97,6 +95,5 @@ Focus:
 
 ## Proposed immediate next action
 
-Continue with `#52` merge and issue closure, then open Wave 2A branch for the
-core runtime batch (`#464`, `#465`, `#466`, `#467`, `#468`, `#469`, `#476`,
-`#480`, `#482`).
+Execute `#464` as Wave 2A kickoff, document spec/runtime gaps, and open the
+first Wave 2A PR.
