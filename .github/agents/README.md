@@ -49,3 +49,6 @@ Reusable agent specifications live in [`../../agents/`](../../agents/).
 
 - [Portable agent library](../../agents/)
 - [Portable AI plugin restructure PRD](../projects/active/portable-ai-plugin-restructure/portable-ai-plugin-restructure-prd-2026-05-14.md)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

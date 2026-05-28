@@ -559,3 +559,6 @@ This repository and all its contents are licensed under the GNU General Public L
 **❓ Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new), start a [Discussion](https://github.com/orgs/lightspeedwp/discussions), or contact [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

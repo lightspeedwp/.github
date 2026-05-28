@@ -48,3 +48,6 @@ This folder owns portable schema files for AI assets, plugin metadata, and share
 
 - [Issue #290 draft](../.github/projects/archived/portable-ai-plugin-restructure/issues/children/batch-01-skeleton-boundary/01-02-document-folder-ownership-indexes.md)
 - [Migration decision map](../.github/projects/archived/portable-ai-plugin-restructure/portable-ai-plugin-restructure-migration-map-2026-05-15.csv)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

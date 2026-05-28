@@ -957,3 +957,9 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 **🏠 This repository is managed by the LightSpeed team. All organizational automation, policy, and documentation updates are maintained here.**
 
 **📧 Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new) or [start a discussion](https://github.com/lightspeedwp/.github/discussions/new)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

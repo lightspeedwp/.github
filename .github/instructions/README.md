@@ -50,3 +50,5 @@ Reusable LightSpeed instruction files live in
 
 - [Portable instruction library](../../instructions/)
 - [Portable AI plugin restructure PRD](../projects/active/portable-ai-plugin-restructure/portable-ai-plugin-restructure-prd-2026-05-14.md)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
