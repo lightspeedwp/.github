@@ -1,0 +1,15 @@
+{
+  "name": "lightspeed-github-ops",
+  "version": "0.1.0",
+  "description": "Pilot LightSpeed governance plugin for Gemini.",
+  "manifest_version": 1,
+  "skills": [
+    "skills/lightspeed-frontmatter-audit/SKILL.md",
+    "skills/lightspeed-pr-review/SKILL.md",
+    "skills/lightspeed-label-governance/SKILL.md",
+    "skills/lightspeed-issue-triage-automation/SKILL.md",
+    "skills/lightspeed-pr-template-compliance/SKILL.md",
+    "skills/lightspeed-issue-template-compliance/SKILL.md"
+  ],
+  "agents": ["agents/reviewer.agent.md"]
+}

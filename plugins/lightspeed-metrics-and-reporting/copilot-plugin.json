@@ -1,0 +1,17 @@
+{
+  "name": "lightspeed-metrics-and-reporting",
+  "displayName": "LightSpeed Metrics and Reporting",
+  "version": "0.1.0",
+  "description": "Metrics and reporting plugin for Copilot.",
+  "includes": {
+    "agents": ["agents/metrics-reporting-orchestrator.agent.md"],
+    "skills": [
+      "skills/lightspeed-metrics-reporting/SKILL.md",
+      "skills/lightspeed-repository-health-summary/SKILL.md",
+      "skills/lightspeed-labeling-metrics-report/SKILL.md",
+      "skills/lightspeed-pr-cycle-time-report/SKILL.md",
+      "skills/lightspeed-issue-response-time-report/SKILL.md",
+      "skills/lightspeed-review-latency-report/SKILL.md"
+    ]
+  }
+}

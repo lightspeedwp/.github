@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Flaky Test Triage
+  short_description: identify flaky test patterns and prioritise stabilisation actions.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - gemini
+  allow_implicit_invocation: true
+  compatibility_mode: experimental
