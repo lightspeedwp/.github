@@ -1,6 +1,10 @@
 ---
 name: "👀 Code Review"
 about: "Request or conduct code review, peer validation, or QA."
+file_type: "issue-template"
+description: "Issue template for requesting code review, peer validation, and QA checks."
+owners: ["LightSpeed Team"]
+tags: ["issue-template", "code-review", "qa"]
 title: "[Review] <Brief summary>"
 labels: [status:needs-review, area:core]
 ---
