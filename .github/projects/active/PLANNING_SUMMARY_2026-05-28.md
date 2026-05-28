@@ -3,7 +3,9 @@ title: "Planning Summary — Branding Meta Agent & WCEU 2026 Talk"
 description: "Summary of planning work completed 2026-05-28 for issues #33, #46, #48, #49, and WCEU 2026 talk assets"
 date: "2026-05-28"
 version: "v1.0.0"
-file_type: "summary"
+file_type: "documentation"
+owners: ["Ash Shaw"]
+tags: ["planning", "branding", "wceu"]
 ---
 
 # Planning Summary — May 28, 2026

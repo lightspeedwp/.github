@@ -4,9 +4,8 @@ description: "Comprehensive prompt for generating 20 presentation slides for Wor
 created_date: "2026-05-28"
 last_updated: "2026-05-28T12:00:00Z"
 version: "v1.0.0"
-file_type: "talk-asset"
-format: "presentation"
-tools: ["Figma", "Canva", "PowerPoint", "reveal.js"]
+file_type: "prompt"
+owners: ["Ash Shaw"]
 tags: ["presentation", "slides", "wordcamp", "automation", "governance"]
 ---
 
