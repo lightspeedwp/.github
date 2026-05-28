@@ -2,24 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
 ### Documentation
 
-- Completed issue `#52` via PR `#494` (stale MCP issue tool references aligned
-  to `issue_write`/`issue_read`) and refreshed the active Wave 2 execution
-  plan.
-- Moved Wave 2 execution into active state with `#464` kickoff as the first
-  core runtime batch item.
-- Closed issue `#64` with merged PR `#461` (canonical `ai/*` source
-  consolidation) and follow-up governance hardening merged via PR `#463`
-  (`meta:no-changelog` policy and validation guardrails).
-- Updated active next-issues execution planning with a formal Wave 2
-  reprioritisation and explicit burn-down batches for spec-only agent tasks
-  `#464`-`#490`.
+- Clarified frontmatter version governance to use SemVer-aligned change
+  classification with patch-first progression where appropriate, and aligned
+  release instructions to Keep a Changelog 1.1.0 taxonomy.
+- Updated the active next-issues execution plan with current closure state
+  (`#61` merged via `#493`), explicit Codex/Claude ownership split, and next
+  actionable focus on `#60` while `#52` remains in-flight.
 - Added spec-only agent issue conversion tracking under `#61`, including
   canonical issue mapping and duplicate cleanup notes.
 - Added Husky pre-push contributor guidance and aligned local development docs
@@ -32,12 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hardened canonical label seeding with policy-gated orphan cleanup, added
   label-governance policy config, and documented #95 decision gating for
   destructive cleanup.
-
-### Changed
-
-- Replaced stale MCP tool references for issue creation and lookup across
-  agent/prompt specs (`create_issue` -> `issue_write`, `get_issue` ->
-  `issue_read`) as part of issue `#52` alignment.
 
 ## [0.4.0] - 2026-05-27
 

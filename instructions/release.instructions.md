@@ -2,8 +2,8 @@
 file_type: "instructions"
 title: "Release Management Instructions"
 description: "Comprehensive standards for release preparation, validation, automation, semantic versioning, changelog management, and GitHub Release publication"
-version: "v2.0"
-last_updated: "2025-12-15"
+version: "v2.0.1"
+last_updated: "2026-05-28"
 owners: ["LightSpeed Engineering"]
 tags: ["release", "semantic-versioning", "changelog", "automation", "github", "governance"]
 applyTo: ["../agents/release.agent.md", "scripts/agents/release.agent.js", ".github/workflows/release.yml", ".github/workflows/changelog.yml", "docs/RELEASE_PROCESS.md"]
@@ -28,8 +28,9 @@ Applies to all release preparation, validation, and publication workflows. Cover
 - Support dry-run mode for all operations
 - Log all actions for audit trails
 - Default to read-only analysis unless user explicitly requests changes
-- Follow semantic versioning strictly (MAJOR.MINOR.PATCH)
+- Follow Semantic Versioning 2.0.0 strictly (`MAJOR.MINOR.PATCH`)
 - Enforce changelog compliance via schema validation
+- Enforce Keep a Changelog 1.1.0 section taxonomy (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
 
 ## Detailed Guidance
 
@@ -72,5 +73,5 @@ For complete detailed standards, see [automation.instructions.md](./automation.i
 - [release.agent.md](../agents/release.agent.md) — Release agent specification
 - [changelog.schema.json](../.schemas/changelog.schema.json) — Changelog validation schema
 - [docs/RELEASE_PROCESS.md](../docs/RELEASE_PROCESS.md) — Detailed release process
-- [Semantic Versioning](https://semver.org/)
-- [Keep a Changelog](https://keepachangelog.com/)
+- [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html)
+- [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)

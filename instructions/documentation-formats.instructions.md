@@ -2,8 +2,8 @@
 file_type: "instructions"
 title: "Documentation Formats Standards"
 description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams across all GitHub community health documentation"
-version: "v1.1"
-last_updated: "2026-05-27"
+version: "v1.1.1"
+last_updated: "2026-05-28"
 owners: ["GitHub Community Health Team"]
 tags:
   ["markdown", "frontmatter", "mermaid", "documentation", "diagrams", "yaml"]
@@ -227,7 +227,7 @@ status: "active"
 | `file_type`    | string       | ✅       | Document classification (see types below) |
 | `title`        | string       | ✅       | Human-readable title                      |
 | `description`  | string       | ✅       | Single-sentence summary (≤ 120 chars)     |
-| `version`      | string       | ✅       | Semantic version (e.g., `v1.0`)           |
+| `version`      | string       | ✅       | Semantic Versioning 2.0.0 (e.g., `v1.0.0`) |
 | `last_updated` | string       | ✅       | ISO date (YYYY-MM-DD)                     |
 | `author`       | string       | ✅       | Original author                           |
 | `maintainer`   | string       | ✅       | Current maintainer                        |
@@ -250,11 +250,18 @@ When editing any file with YAML frontmatter:
 
 - Update `last_updated` on every content change.
 - Set `last_updated` to today's date in ISO format (`YYYY-MM-DD`).
-- Bump `version` on every content change using this baseline:
-  - Patch (`vX.Y.Z`): wording fixes, typo fixes, non-behavioural clarification.
-  - Minor (`vX.Y` or `vX.Y.Z`): added sections, expanded guidance, or new rules.
-  - Major (`vX.0` or `vX.0.0`): breaking governance/process changes.
-- Keep version format consistent within the file (do not switch style unless intentionally migrating that file).
+- Bump `version` on every content change using strict SemVer (`vMAJOR.MINOR.PATCH`).
+- Apply the same change classification principles used in changelog governance:
+  - Patch (`vX.Y.Z`): typo fixes, copy edits, clarifications, and non-behavioural tidy-ups.
+  - Minor (`vX.Y.0`): backward-compatible additions, expansions, or new guidance sections.
+  - Major (`vX.0.0`): breaking governance/process changes, removals, or incompatible restructures.
+- Keep file-level version format consistent after migration to SemVer (`vX.Y.Z` only).
+- Document meaningful changes under the appropriate Keep a Changelog section (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`).
+
+Governance references:
+
+- SemVer policy: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html)
+- Changelog policy: [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)
 
 Validation and helper commands:
 

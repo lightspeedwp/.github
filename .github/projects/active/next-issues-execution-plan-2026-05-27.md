@@ -1,7 +1,7 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Prioritised execution plan for the next open issues after label-governance stabilisation closeout."
-version: "v1.1.1"
+version: "v1.0.4"
 last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
@@ -12,7 +12,7 @@ domain: "governance"
 stability: "active"
 ---
 
-## Next Issues Execution Plan (2026-05-28)
+## Next Issues Execution Plan (2026-05-27)
 
 ## Scope
 
@@ -21,70 +21,56 @@ ready and high-leverage after closing the label governance sequence (`#66`,
 `#67`, `#69`, `#95`, `#449`).
 
 Live checks on 2026-05-28: issues `#65`, `#63`, `#62`, `#64`, and `#61` are
-closed (merged via PRs `#452`, `#454`, `#458`, `#461`, and `#493`). Follow-up
-policy hardening is merged via PR `#463`.
+closed (merged via PRs `#452`, `#454`, `#458`, `#460`, and `#493`).
 
 ## Prioritised backlog
 
-### Wave 1 - immediate execution (completed)
+### Wave 1 - Documentation and workflow execution (start here)
 
 1. `#52` Update references from `create_issue` to `issue_write` and scan
-   outdated MCP tools - completed and merged via PR `#494`.
+   outdated MCP tools  
+   Link: [#52](https://github.com/lightspeedwp/.github/issues/52)
+2. `#60` [Docs/Workflows] Pilot telemetry for Tour Operator + document
+   opt-outs  
+   Link: [#60](https://github.com/lightspeedwp/.github/issues/60)
 
 Why this wave first:
 
-- clears remaining tooling-reference drift before larger docs and agent waves
-- ensures active prompts and specs match current MCP tool naming
+- closes the highest-priority remaining docs and workflow hygiene debt
+- keeps issue templates, project mapping, and tool references consistent
 
-### Wave 2 - reprioritised backlog (active)
+### Wave 2 - standards and documentation debt
 
-1. `#60` [Docs/Workflows] Pilot telemetry for Tour Operator + document
-   opt-outs  
-   Link: [#60](https://github.com/lightspeedwp/.github/issues/60)
-2. `#31` [AI Ops] Canonical Markdown Instructions Audit & Upgrade  
+1. `#31` [AI Ops] Canonical Markdown Instructions Audit & Upgrade  
    Link: [#31](https://github.com/lightspeedwp/.github/issues/31)
-3. `#23` [Documentation] Expand `.coderabbit.yml` with WP-docs improvements
+2. `#23` [Documentation] Expand `.coderabbit.yml` with WP-docs improvements
    and revalidate  
    Link: [#23](https://github.com/lightspeedwp/.github/issues/23)
 
 Why second:
 
-- preserves momentum after #52 tooling alignment
-- keeps broader audits ordered behind explicit agent burn-down batches
-
-### Wave 2A - core runtime agent burn-down batch
-
-Issues: `#464`, `#465`, `#466`, `#467`, `#468`, `#469`, `#476`, `#480`,
-`#482`.
-
-Focus:
-
-- core runtime agent specs with highest operational leverage
-- consistency checks for tool declarations, acceptance criteria, and ownership
-
-### Wave 2B - mode and planning agent batch
-
-Issues: `#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486`.
-
-Focus:
-
-- mode/planning behaviour specs and orchestration quality
-- remove overlap and tighten spec boundaries before implementation work
-
-### Wave 2C - scaffolds and completion batch
-
-Issues: `#488`, `#490`.
-
-Focus:
-
-- template and test scaffolding completion
-- final pass on mapping, labels, and closure evidence
+- preserves momentum after the completed governance and hook hardening work
+- keeps broader audits behind targeted workflow and docs fixes
 
 ## Execution order and dependencies
 
-1. Start with `#464` and run Wave 2A -> Wave 2B -> Wave 2C in order.
-2. Keep each issue in a small mergeable slice with issue comments per step.
-3. Defer broader doc audits (`#31`, `#23`) until Wave 2A is merged.
+1. Complete and merge `#52` before broader doc audits.
+2. Run `#60` in parallel with `#52` only if ownership is split across agents.
+3. Defer broader doc audits (`#31`, `#23`) until Wave 1 is merged.
+
+## Agent ownership split (live as of 2026-05-28)
+
+- `#52`: Codex-active. Linked to open PRs `#494` and `#455` (ongoing updates).
+- `#60`: Codex-next actionable task (unblocked, ready).
+- Claude status: no active `claude/*` branch or open PR signal found in the
+  repository at this check; treat Claude ownership as unconfirmed until a
+  live branch/PR/issue update appears.
+
+Logical split policy:
+
+- Codex handles workflow and docs execution (`#52`, `#60`) in sequence.
+- Claude, when active, should take a parallel standards audit track (`#31` or
+  `#23`) to avoid overlap with active Codex workflow changes.
 
 ## Definition of done per issue
 
@@ -95,5 +81,5 @@ Focus:
 
 ## Proposed immediate next action
 
-Execute `#464` as Wave 2A kickoff, document spec/runtime gaps, and open the
-first Wave 2A PR.
+Proceed with `#60` as the next unclaimed actionable task while `#52` remains
+in active PR/check cycle.
