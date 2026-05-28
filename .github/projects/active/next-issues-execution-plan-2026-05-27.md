@@ -1,7 +1,7 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Prioritised execution plan for the next open issues after label-governance stabilisation closeout."
-version: "v1.0.5"
+version: "v1.1.3"
 last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
@@ -12,7 +12,7 @@ domain: "governance"
 stability: "active"
 ---
 
-## Next Issues Execution Plan (2026-05-27)
+## Next Issues Execution Plan (2026-05-28)
 
 ## Scope
 
@@ -21,76 +21,77 @@ ready and high-leverage after closing the label governance sequence (`#66`,
 `#67`, `#69`, `#95`, `#449`).
 
 Live checks on 2026-05-28: issues `#65`, `#63`, `#62`, `#64`, `#61`, `#52`,
-`#18`, and `#21` are closed (merged via PRs `#452`, `#454`, `#458`, `#493`,
-`#455`, `#457`, and `#460` on 2026-05-28).
+and `#464` are closed (merged via PRs `#452`, `#454`, `#458`, `#461`, `#493`,
+`#494`, and `#495`). Follow-up policy hardening is merged via PR `#463`.
 
 ## Prioritised backlog
 
-### Wave 1 — Documentation and workflow execution ✅ COMPLETE
+### Wave 1 - immediate execution (completed)
 
-1. ~~`#52` Update references from `create_issue` to `issue_write` and scan
-   outdated MCP tools~~  
-   ✅ **Closed** — merged via [#455](https://github.com/lightspeedwp/.github/pull/455) on 2026-05-28.
-
-2. `#60` [Docs/Workflows] Pilot telemetry for Tour Operator + document
-   opt-outs  
-   Link: [#60](https://github.com/lightspeedwp/.github/issues/60)  
-   **Status: ACTIVE — next task.**
+1. `#52` Update references from `create_issue` to `issue_write` and scan
+   outdated MCP tools - completed and merged via PR `#494`.
 
 Why this wave first:
 
-- closes the highest-priority remaining docs and workflow hygiene debt
-- keeps issue templates, project mapping, and tool references consistent
+- clears tooling-reference drift before larger docs and agent waves
+- ensures active prompts and specs match current MCP tool naming
 
-### Wave 2 — standards and documentation debt
+### Wave 2 - reprioritised backlog (active)
 
-1. `#31` [AI Ops] Canonical Markdown Instructions Audit & Upgrade  
+1. `#60` [Docs/Workflows] Pilot telemetry for Tour Operator + document
+   opt-outs  
+   Link: [#60](https://github.com/lightspeedwp/.github/issues/60)
+2. `#31` [AI Ops] Canonical Markdown Instructions Audit & Upgrade  
    Link: [#31](https://github.com/lightspeedwp/.github/issues/31)
-2. `#23` [Documentation] Expand `.coderabbit.yml` with WP-docs improvements
+3. `#23` [Documentation] Expand `.coderabbit.yml` with WP-docs improvements
    and revalidate  
    Link: [#23](https://github.com/lightspeedwp/.github/issues/23)
 
 Why second:
 
-- preserves momentum after the completed governance and hook hardening work
-- keeps broader audits behind targeted workflow and docs fixes
+- preserves momentum after #52 tooling alignment
+- keeps broader audits ordered behind explicit agent burn-down batches
+
+### Wave 2A - core runtime agent burn-down batch
+
+Issues: `#465`, `#466`, `#467`, `#468`, `#469`, `#476`, `#480`, `#482`.
+
+Owner: `Codex`
+
+### Wave 2B - mode and planning agent batch
+
+Issues: `#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486`.
+
+Owner: `Claude`
+
+### Wave 2C - scaffolds and completion batch
+
+Issues: `#488`, `#490`.
+
+Owner: `Codex`
 
 ## Execution order and dependencies
 
-1. ~~Complete and merge `#52` before broader doc audits.~~ ✅ Done.
-2. `#60` is the active Wave 1 task — unblocked, ready.
-3. Defer broader doc audits (`#31`, `#23`) until Wave 1 is fully merged.
+1. Start with `#465` and run Wave 2A -> Wave 2B -> Wave 2C in order.
+2. Keep each issue in a small mergeable slice with issue comments per step.
+3. Defer broader doc audits (`#31`, `#23`) until Wave 2A is merged.
 
 ## Agent ownership split (live as of 2026-05-28)
 
-- `#52`: ✅ **Closed** — merged via #455 by Claude on 2026-05-28.
-- `#18`: ✅ **Closed** — merged via #457 by Claude on 2026-05-28 (CONTRIBUTING.md clarity).
-- `#21`: ✅ **Closed** — merged via #460 by Claude on 2026-05-28 (issue template DoD expansion).
-- `#60`: **Next actionable task** — unblocked and ready. Assign to Codex or Claude.
-- `#31`, `#23`: Wave 2 — defer until `#60` is merged.
-
-Logical split policy:
-
-- Codex handles workflow and docs execution (`#60`) in sequence.
-- Claude, when active, should take a parallel standards audit track (`#31` or
-  `#23`) to avoid overlap with active Codex workflow changes.
-
-**Important — PR branching rule:** All feature/fix/docs PRs must target the
-`develop` branch (the default integration branch). Only `release/vX.Y.Z`
-branches target `main`. See [RELEASE_PROCESS.md](../../docs/RELEASE_PROCESS.md)
-and [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
-
-**Milestone note:** Confirm that issues `#60`, `#31`, and `#23` are assigned
-to the active milestone in the GitHub project board before starting work.
+- `Codex`: Wave 2A + Wave 2C (`#465`, `#466`, `#467`, `#468`, `#469`, `#476`,
+  `#480`, `#482`, `#488`, `#490`) plus cross-wave merge/release hygiene.
+- `Claude`: Wave 2B mode/planning batch (`#470`, `#471`, `#473`, `#475`,
+  `#478`, `#484`, `#486`) and parallel standards audit track (`#31` or `#23`)
+  when active.
 
 ## Definition of done per issue
 
-- PR opened targeting `develop` with issue link and acceptance criteria mapping.
+- PR opened with issue link and acceptance criteria mapping.
 - CI checks green on PR before merge.
 - Issue updated with completion note and merged PR link.
 - Any affected epic/tracker issue updated with status.
 
 ## Proposed immediate next action
 
-Proceed with `#60` as the next unclaimed actionable task (Wave 1 is complete;
-`#52`, `#18`, and `#21` are all merged).
+Execute `#465` as the next actionable Codex task, then continue Wave 2A in
+order.
