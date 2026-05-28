@@ -22,6 +22,9 @@ Applies to all issue templates and issue creation workflows. Covers frontmatter,
 - Include required frontmatter fields and one-hot `status:*`, `priority:*`, `type:*` labels.
 - Choose the correct template and complete all required sections/checklists.
 - Keep issues automation-friendly with links, acceptance criteria, and references.
+- Maximise metadata completeness on every issue update. Populate all applicable
+  metadata fields: labels, issue type, project fields, milestone, assignees,
+  projects, and parent-child or blocked-by relationships.
 
 ## Detailed Guidance
 
@@ -110,6 +113,23 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 - **One** `type:*` (e.g., `type:bug`, `type:feature`, etc.) — matches org-wide [issue types](../docs/ISSUE_TYPES.md).
 - **One** `priority:*` (e.g., `priority:normal`) — urgency for scheduling and board mapping.
 - At least one `area:*` or `comp:*` if possible — for routing and discoverability.
+
+### Metadata Completeness Default
+
+- Treat metadata completeness as mandatory, not optional, during issue triage and updates.
+- Always set or verify issue type using canonical issue types and matching `type:*` label.
+- Always set or verify milestone when a release window, batch, or roadmap bucket is known.
+- Always set or verify project fields (for example `Status`, `Priority`, `Type`) when the issue is on a project board.
+- Always set or verify canonical issue fields from [docs/ISSUE-FIELDS.md](../docs/ISSUE-FIELDS.md):
+  - `Priority`: `Urgent`, `High`, `Medium`, `Low`
+  - `Start date`: date field (organization-only)
+  - `Target date`: date field (organization-only)
+  - `Effort`: `XS`, `S`, `M`, `L`, `XL`, `XXL`, `XXXL` (organization-only)
+- Always set or verify relationships where applicable:
+  - Parent issue or epic link
+  - Blocked-by or blocks dependencies
+  - Linked pull requests and related issues
+- If a metadata value cannot be inferred safely, leave it unchanged and record a short follow-up note describing what is missing.
 
 ### Label Families
 

@@ -117,6 +117,7 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           EVENT_ACTION: ${{ github.event.action }}
           PR_MERGED: ${{ github.event.pull_request.merged }}
+          ITEM_CREATED_AT: ${{ github.event.issue.created_at || github.event.pull_request.created_at }}
           ISSUE_FIELDS_CONFIG: .github/issue-fields.yml
 
       - name: Update project fields
@@ -126,8 +127,8 @@ jobs:
           project-url: ${{ env.PROJECT_URL }}
           github-token: ${{ steps.app-token.outputs.token }}
           item-id: ${{ steps.addp.outputs.itemId }}
-          field-keys: Status,Priority,Type
-          field-values: ${{ steps.derive.outputs.status }},${{ steps.derive.outputs.priority }},${{ steps.derive.outputs.type }}
+          field-keys: Status,Priority,Type,Effort,Start date
+          field-values: ${{ steps.derive.outputs.status }},${{ steps.derive.outputs.priority }},${{ steps.derive.outputs.type }},${{ steps.derive.outputs.effort }},${{ steps.derive.outputs.start_date }}
 
       - name: Add or update aging and SLA annotation
         if: steps.preflight.outputs.enabled == 'true' && github.event.action != 'closed'

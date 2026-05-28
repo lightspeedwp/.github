@@ -22,6 +22,9 @@ Applies to all PR templates and submissions. Covers frontmatter, branching, temp
 - Follow branch naming patterns and ensure one-hot label families (`status:*`, `priority:*`, `release:*`, `type:*`).
 - Complete all template fields, checklists, and changelog sections.
 - Keep PRs automation-ready; monitor CI and respond to reviews promptly.
+- Maximise metadata completeness on every PR update. Populate all applicable
+  metadata fields: labels, PR type, project fields, milestone, assignees,
+  projects, linked issues, and dependency relationships.
 
 ## Detailed Guidance
 
@@ -145,6 +148,18 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
   - PRs grouped and versioned based on `release:*` label ([release-label-guidance.md](../.github/SAVED_REPLIES/pull-requests/release-label-guidance.md))
   - Changelog section in PR description required ([changelog-required.md](../.github/SAVED_REPLIES/pull-requests/changelog-required.md))
   - Release workflow ([labeling.yml](../.github/workflows/labeling.yml)) automates changelog, labeling, and review steps.
+
+### Metadata Completeness Default
+
+- Treat metadata completeness as mandatory, not optional, during PR triage and updates.
+- Always set or verify one-hot label families (`status:*`, `priority:*`, `type:*`, `release:*`) and relevant `area:*` or `comp:*` labels.
+- Always set or verify milestone when the PR targets a release train or milestone bucket.
+- Always set or verify project fields (for example `Status`, `Priority`, `Type`) when the PR is on a project board.
+- Always set or verify relationships where applicable:
+  - Linked issues using closing keywords (`Closes #123`) when true
+  - Dependencies (`blocked by`, `depends on`) in PR body or linked issue graph
+  - Parent feature or epic issue references
+- If a metadata value cannot be inferred safely, leave it unchanged and record a short follow-up note describing what is missing.
 
 ---
 
