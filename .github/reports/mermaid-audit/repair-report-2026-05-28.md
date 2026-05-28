@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Wave 3B: Mermaid Diagram Repair Report"
 description: "Line-by-line record of all Mermaid accessibility repairs applied during Wave 3B."
 version: "v1.0"
@@ -9,7 +9,6 @@ owners: ["LightSpeed Team"]
 tags: ["mermaid", "accessibility", "wcag", "repair", "wave-3b"]
 status: "active"
 stability: "stable"
-domain: "governance"
 ---
 
 # Wave 3B: Mermaid Diagram Repair Report
