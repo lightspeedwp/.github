@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 category: "Governance"
-version: "1.0.0"
+version: "1.0.1"
 last_updated: "2026-05-28"
 owners: ["Engineering Team"]
 tags: ["changelog", "versioning", "releases", "governance"]
@@ -38,6 +38,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Quarterly health reports with recommendations
   - CI/CD integration patterns and metric collection
   - Foundation for long-term automation roadmap (Waves 5-7) ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
+### Fixed
+
+- **Plugin Structure Instructions Frontmatter** — Added missing `title` and `category` fields to `instructions/plugin-structure.instructions.md` to meet frontmatter schema requirements ([#535](https://github.com/lightspeedwp/.github/pull/547))
 
 ### Changed
 
