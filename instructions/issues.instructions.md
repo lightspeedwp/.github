@@ -2,8 +2,8 @@
 file_type: "instructions"
 title: "Issue Creation Instructions"
 description: "Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy."
-version: "1.1"
-last_updated: "2025-12-04"
+version: "1.2"
+last_updated: "2026-05-28"
 owners: ["lightspeedwp/maintainers"]
 tags: ["issues", "templates", "frontmatter", "automation", "labels", "issue types", "triage", "branching"]
 ---
@@ -54,7 +54,7 @@ It covers templates, issue types, labels, frontmatter, and workflows, referencin
 - Templates are located in:  
   `.github/ISSUE_TEMPLATE/*.md`
 - **Do NOT use YAML Issue Forms**. All automation, labeling, and triage depend on Markdown-based templates.
-- See: [docs/frontmatter/issue-templates.md](../docs/frontmatter/issue-templates.md)
+- See: [Issue Creation Guide](../docs/ISSUE_CREATION_GUIDE.md)
 
 ---
 
@@ -196,7 +196,7 @@ labels: ["type:bug", "status:needs-triage", "priority:normal"]
 - `assignees`: Array of default assignees.
 - `projects`: Array of projects to auto-add the issue to.
 
-See [docs/frontmatter/issue-templates.md](../docs/frontmatter/issue-templates.md) for details.
+See [Issue Creation Guide](../docs/ISSUE_CREATION_GUIDE.md) for details.
 
 ---
 

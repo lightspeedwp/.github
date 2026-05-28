@@ -2,8 +2,8 @@
 file_type: "instructions"
 title: "Pull Request Creation Instructions"
 description: "Canonical instructions for creating, labeling, and submitting Pull Requests in LightSpeedWP projects. Reference for templates, automation, and labeling strategy."
-version: "1.1"
-last_updated: "2025-10-23"
+version: "1.2"
+last_updated: "2026-05-28"
 owners: ["lightspeedwp/maintainers"]
 tags: ["pull requests", "templates", "frontmatter", "automation", "labels", "branching", "checklists"]
 ---
@@ -53,7 +53,7 @@ This document defines the standards, steps, and requirements for opening, labeli
   - `.github/PULL_REQUEST_TEMPLATE/*.md` (specific templates: feature, bugfix, chore, docs, release, etc.)
 - **Do NOT use YAML form PR templates.** All automation and labeling requires Markdown-based templates.
 
-See [docs/frontmatter/pr-templates.md](../docs/frontmatter/pr-templates.md) for specifications.
+See [PR Creation Process](../docs/PR_CREATION_PROCESS.md) for specifications.
 
 ---
 
@@ -82,7 +82,7 @@ labels: ["type:feature", "status:needs-review", "area:feature"]
 - `assignees`: Default assignees.
 - `projects`: Default project boards.
 
-See [frontmatter instructions](documentation-formats.instructions.md) and [frontmatter schema](../../schema/frontmatter.schema.json) for validation.
+See [frontmatter instructions](./documentation-formats.instructions.md) and [frontmatter schema](../.schemas/frontmatter.schema.json) for validation.
 
 ---
 
@@ -106,7 +106,7 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
 1. **Update your branch** (rebase/merge latest main or develop).
 2. **Choose the correct PR template** when opening your PR. Templates are:
    - Bugfix, Feature, Chore, Docs, Build/CI, Refactor, Hotfix, Release, General, etc.
-   - For template details, see `.github/PULL_REQUEST_TEMPLATE/*.md` and [docs/frontmatter/pr-templates.md](../docs/frontmatter/pr-templates.md).
+   - For template details, see `.github/PULL_REQUEST_TEMPLATE/*.md` and [PR Creation Process](../docs/PR_CREATION_PROCESS.md).
 3. **Fill out all required fields** in the template:
    - **Linked issues:** Use `Closes #123` or similar.
    - **Description:** Clearly state *what* changed and *why*.
