@@ -127,7 +127,7 @@ function main() {
       if (!keySet.has(key)) fail(`Missing required custom field definition: ${key}`);
     }
 
-    const validTypes = new Set(['single_select', 'number', 'date', 'text']);
+    const validTypes = new Set(['single_select', 'date', 'text']);
     for (const field of customFields) {
       if (!field.key || typeof field.key !== 'string') fail('Each custom field requires a string key');
       if (!field.type || !validTypes.has(field.type)) {
@@ -179,10 +179,32 @@ function main() {
     'Type',
     'Sprint',
     'single_select',
-    'number',
     'date',
     'text',
   ];
+
+  const effortField = customFields.find((field) => field.key === 'Effort');
+  if (!effortField) {
+    fail('Missing required custom field definition: Effort');
+  } else {
+    if (effortField.type !== 'single_select') {
+      fail('Effort custom field must use type "single_select"');
+    }
+    const expectedEffort = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+    const gotEffort = Array.isArray(effortField.options) ? effortField.options : [];
+    for (const option of expectedEffort) {
+      if (!gotEffort.includes(option)) {
+        fail(`Effort custom field missing expected option: ${option}`);
+      }
+    }
+  }
+
+  const fieldUsage = orgFields.field_usage || {};
+  for (const key of ['Priority', 'Start date', 'Target date', 'Effort']) {
+    if (!fieldUsage[key]) {
+      fail(`organization_issue_fields.field_usage missing key: ${key}`);
+    }
+  }
 
   for (const needle of docMustContain) {
     if (!docRaw.includes(needle)) {
