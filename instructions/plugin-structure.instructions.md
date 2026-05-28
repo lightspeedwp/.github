@@ -4,8 +4,8 @@ description: "WordPress block plugin structure conventions for all LightSpeed pl
 category: "Documentation"
 applyTo: "**"
 file_type: "instructions"
-version: "v1.0"
-last_updated: "2026-05-20"
+version: "v1.1"
+last_updated: "2026-05-28"
 owners: ["LightSpeed Team"]
 tags: ["wordpress", "plugin", "blocks", "block-json", "structure", "php", "i18n"]
 domain: "plugin-hardening"
