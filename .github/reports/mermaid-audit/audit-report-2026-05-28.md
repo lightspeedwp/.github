@@ -2,15 +2,14 @@
 title: "Wave 3A: README & Mermaid Diagram Audit Report"
 description: "Comprehensive audit of all Mermaid diagrams embedded in README files across the LightSpeed .github repository, including accessibility compliance findings and repair recommendations."
 category: "Documentation"
-file_type: "report"
+file_type: "documentation"
 version: "1.0"
 created_date: "2026-05-28"
 last_updated: "2026-05-28"
 owners: ["Codex"]
 tags: ["audit", "mermaid", "accessibility", "readme", "wcag", "wave-3a"]
-status: "completed"
+status: "active"
 stability: "stable"
-domain: "documentation-audit"
 ---
 
 # Wave 3A: README & Mermaid Diagram Audit Report
@@ -186,7 +185,7 @@ All Mermaid diagrams should comply with:
 
 ## Related Documentation
 
-- **Reference:** [mermaid.instructions.md](../../instructions/mermaid.instructions.md) — Mermaid diagram standards and guidelines
+- **Reference:** [mermaid.instructions.md](../../../instructions/mermaid.instructions.md) — Mermaid diagram standards and guidelines
 - **WCAG Standards:** <https://www.w3.org/WAI/WCAG22/quickref/> (Level AA checklist)
 - **Mermaid Accessibility:** <https://mermaid.js.org/ecosystem/integrations.html>
 
