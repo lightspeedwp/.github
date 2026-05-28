@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "LightSpeed .github Community Health Repository"
 description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
-version: "3.2"
+version: "3.3"
 created_date: "2025-01-15"
 last_updated: "2026-05-28"
 authors: ["LightSpeed Team"]
@@ -583,9 +583,3 @@ This repository and all its contents are licensed under the GNU General Public L
 **❓ Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new), start a [Discussion](https://github.com/orgs/lightspeedwp/discussions), or contact [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-<<<<<<< HEAD
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-=======
->>>>>>> 01433ff0 (fix(ci): fix broken links and add .lycheeignore for crawler-blocked URLs)

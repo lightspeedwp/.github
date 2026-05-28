@@ -1,20 +1,21 @@
 # URLs excluded from lychee link checking
 
 # Social platforms that block automated HTTP clients
-https://twitter.com/
-https://x.com/
-https://www.linkedin.com/
+<https://twitter.com/>
+<https://x.com/>
+<https://www.linkedin.com/>
 
 # LightSpeed organisation websites — external, may have transient availability
+
 # issues or redirect chains that lychee cannot follow in CI
-https://lightspeedwp.agency/
-https://lsx.design
-https://lightspeedwp.github.io/
-https://www.lsdev.biz/
+<https://lightspeedwp.agency/>
+<https://lsx.design>
+<https://lightspeedwp.github.io/>
+<https://www.lsdev.biz/>
 
 # Auto-generated readme-regen footer — points to a private/inaccessible repo
-https://github.com/lightspeedwp/lsx-demo-theme
+<https://github.com/lightspeedwp/lsx-demo-theme>
 
 # External licence URL occasionally times out in CI link checks
-https://www.gnu.org/licenses/gpl-3.0
-https://www.gnu.org/licenses/gpl-3.0/
+<https://www.gnu.org/licenses/gpl-3.0>
+<https://www.gnu.org/licenses/gpl-3.0/>

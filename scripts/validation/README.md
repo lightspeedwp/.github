@@ -2,8 +2,8 @@
 file_type: "documentation"
 name: "Frontmatter Validation"
 description: "Comprehensive frontmatter validation scripts for LightSpeedWP .github repository ensuring schema compliance and consistency"
-version: "1.0.0"
-last_updated: "2025-12-04"
+version: "1.0.1"
+last_updated: "2026-05-28"
 owners:
   - "LightSpeedWP Team"
 tags:

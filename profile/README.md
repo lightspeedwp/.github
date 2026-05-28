@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "LightSpeed WordPress Development Agency - GitHub Profile"
 description: "Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003"
-version: "2.2"
+version: "2.3"
 created_date: "2025-10-20"
 last_updated: "2026-05-28"
 author: "LightSpeed Team"

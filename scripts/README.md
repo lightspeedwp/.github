@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
-version: "2.6"
+version: "2.7"
 last_updated: "2026-05-28"
 owners:
   - LightSpeed Team
@@ -89,18 +89,18 @@ sequenceDiagram
 
 ## Directory Structure
 
-- **awesome-copilot/** — Utilities for prompt/collection management and validation.  
+- **awesome-copilot/** — Utilities for prompt/collection management and validation.
   *See:* `awesome-copilot/README.md`
-- **includes/** — Shared Bash helpers and test utilities.  
+- **includes/** — Shared Bash helpers and test utilities.
   *See:* `includes/README.md`
-- **json-validation/** — Node.js/YAML validation scripts and tests.  
+- **json-validation/** — Node.js/YAML validation scripts and tests.
   *See:* `json-validation/README.md`
 - **logs/** — Log output for script runs.
-- **maintenance/** — Scripts for repo maintenance, documentation, and label automation.  
+- **maintenance/** — Scripts for repo maintenance, documentation, and label automation.
   *See:* `maintenance/README.md`
-- **projects/** — GitHub Projects management and automation scripts.  
+- **projects/** — GitHub Projects management and automation scripts.
   *See:* `projects/README.md`
-- **utility/** — General-purpose shell and Node.js utilities for label management, logging, and validation.  
+- **utility/** — General-purpose shell and Node.js utilities for label management, logging, and validation.
   *See:* `utility/README.md`
 
 ## Core Components
@@ -265,14 +265,14 @@ markdownlint scripts/**/*.md  # README / docs lint
 
 ## Change Log / History
 
-Version: 2.5 (increment when public script interfaces or includes contracts change).  
+Version: 2.5 (increment when public script interfaces or includes contracts change).
 Refer to `../CHANGELOG.md` for release context and automation evolution.
 
 ## FAQ / Troubleshooting
 
-**Collection validation failed?** Ensure `collection.schema.json` is up to date and YAML frontmatter paths are correct.  
-**Scripts sourcing wrong path?** Use `$(dirname "$0")` patterns and avoid relative assumptions.  
-**Permission denied running script?** Add executable bit: `chmod +x <script>`.  
+**Collection validation failed?** Ensure `collection.schema.json` is up to date and YAML frontmatter paths are correct.
+**Scripts sourcing wrong path?** Use `$(dirname "$0")` patterns and avoid relative assumptions.
+**Permission denied running script?** Add executable bit: `chmod +x <script>`.
 **Bats tests not found?** Verify test file naming pattern `test-*.bats` and correct path in run script.
 
 ## Limitations & Notes

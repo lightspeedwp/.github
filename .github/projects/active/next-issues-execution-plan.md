@@ -1,9 +1,9 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Comprehensive execution plan for all open issues, active projects, and strategic workflows."
-version: "v2.0.0"
+version: "v2.0.1"
 created_date: "2026-05-28"
-last_updated: "2026-05-28T17:25:00Z"
+last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
