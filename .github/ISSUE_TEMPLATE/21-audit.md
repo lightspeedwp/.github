@@ -1,6 +1,10 @@
 ---
 name: "🛡️ Audit"
 about: "Propose, conduct, or document a security, accessibility, code, or process audit."
+file_type: "issue-template"
+description: "Issue template for requesting or documenting security, accessibility, code, or process audits."
+owners: ["LightSpeed Team"]
+tags: ["issue-template", "audit", "governance"]
 title: "[Audit] <Brief summary>"
 labels: [status:needs-audit, priority:normal, area:security]
 ---
