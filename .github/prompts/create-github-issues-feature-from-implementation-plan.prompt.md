@@ -6,9 +6,8 @@ tools:
     "search/codebase",
     "search",
     "github",
-    "create_issue",
+    "issue_write",
     "search_issues",
-    "update_issue",
   ]
 ---
 
@@ -18,9 +17,9 @@ Create GitHub Issues for the implementation plan at `${file}`.
 
 ## Process
 
-1. Analyze plan file to identify phases
+1. Analyse plan file to identify phases
 2. Check existing issues using `search_issues`
-3. Create new issue per phase using `create_issue` or update existing with `update_issue`
+3. Create or update one issue per phase using `issue_write`
 4. Use `feature_request.yml` or `chore_request.yml` templates (fallback to default)
 
 ## Requirements
