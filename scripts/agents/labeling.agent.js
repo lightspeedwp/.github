@@ -5,6 +5,13 @@
  * Uses canonical config from .github/labels.yml, .github/labeler.yml, .github/issue-types.yml.
  * Replaces all prior split agents.
  *
+ * Wave 2A kickoff (#466):
+ * - canonical spec path confirmed: agents/labeling.agent.md
+ * - runtime path confirmed: scripts/agents/labeling.agent.js
+ * - implementation status: active and production-wired
+ * - next concrete action: extend targeted tests for one-hot enforcement and
+ *   alias migration edge cases
+ *
  * @module scripts/agents/labeling.agent.js
  * @see ../../agents/labeling.agent.md
  * @version 2.0.0
