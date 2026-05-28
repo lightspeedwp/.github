@@ -22,3 +22,6 @@ The talk starts with a central `.github` repository pattern, then explains the p
 ## Acknowledgements
 
 This work is inspired by the open sharing in `github/awesome-copilot`, which has been incredibly useful for agent, instruction, and skill design patterns.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
