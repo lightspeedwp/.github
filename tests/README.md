@@ -25,7 +25,7 @@
 | Version        | 2.2.0                                                                                                                                                                                                                                                                                                                                      |
 | Last Updated   | 2025-10-25                                                                                                                                                                                                                                                                                                                                 |
 | Owners         | Ash Shaw; LightSpeedWP QA                                                                                                                                                                                                                                                                                                                  |
-| Key References | [`scripts/README.md`](../scripts/README.md), [`coverage/`](../coverage/), [`test-helpers.js`](./test-helpers.js), [`test-template-labels.js`](./test-template-labels.js), [`../.schemas/README.md`](../.schemas/README.md), [`testing workflow`](../.github/workflows/testing.yml) |
+| Key References | [`scripts/README.md`](../scripts/README.md), [`docs/TESTING.md`](../docs/TESTING.md), [`test-helpers.js`](./test-helpers.js), [`test-template-labels.js`](./test-template-labels.js), [`../.schemas/README.md`](../.schemas/README.md), [`testing workflow`](../.github/workflows/testing.yml) |
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
 ![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
@@ -77,39 +77,18 @@ graph TB
 
 ### 📁 Test Directory Organization
 
-Each subfolder includes comprehensive documentation and specialized test coverage:
+Current test assets in this folder:
 
-- **[`awesome-copilot/`](./awesome-copilot/README.md)** — Jest tests for awesome-copilot automation scripts
-  - Tests for `update-readme.js`, `validate-collections.js`, and `yaml-parser.js`
-  - Validates script loading and basic functionality
-
-- **[`includes/`](./includes/README.md)** — Shared test helpers and utilities with specialized subfolders:
-  - **[`cli/`](./includes/cli/README.md)** — CLI utility testing helpers and shared functions
-  - **[`core/`](./includes/core/README.md)** — Core testing functionality including colors, logging, and validation
-  - **[`deployment/`](./includes/deployment/README.md)** — Deployment testing helpers and environment setup
-  - **[`filesystem/`](./includes/filesystem/README.md)** — File system operation helpers and utilities
-
-- **[`maintenance/`](./maintenance/README.md)** — Comprehensive tests for maintenance and automation scripts
-  - Tests for README generation, label management, badge updates, and changelog automation
-  - Covers dry-run modes, CI/CD integration, and edge case handling
-
-- **[`projects/`](./projects/README.md)** — Project management and GitHub integration tests
-  - **[`fixtures/`](./projects/fixtures/README.md)** — Test fixtures and sample data for project tests
-  - Tests for client delivery projects, product development workflows, and project automation
-
-- **[`pytests/`](./pytests/README.md)** — Python-based tests for documentation validation
-  - Tests for changelog validation, documentation links, markdown structure, and PR templates
-  - Includes utility functions for changed file detection
-
-- **[`utility/`](./utility/README.md)** — Comprehensive Bats and Jest tests for all utility scripts
-  - `.bats` files: Shell/CLI tests for Node.js and shell scripts
-  - `.test.js` files: Jest unit tests for Node.js modules and agent logic
+- **[`bash/`](./bash/)** — Bats shell test suites
+- **[`js/`](./js/)** — Jest test suites
+- **[`test-helpers.js`](./test-helpers.js)** — Shared JS test helpers
+- **[`test-template-labels.js`](./test-template-labels.js)** — Label-template test utility
 
 ### 📄 Core Test Files
 
-- **`test-helper.bash`** — Shared Bats test helpers for setup/teardown and environment isolation
-- **`tests-run-all-tests.bats`** — Bats test for the test runner script
-- **[`coverage/README.md`](../coverage/README.md)** — Detailed documentation of test coverage, structure, and reports
+- **[`bash/`](./bash/)** — Bats tests for shell-based workflows
+- **[`js/`](./js/)** — Jest tests for Node and automation logic
+- **[`../docs/TESTING.md`](../docs/TESTING.md)** — Coverage and testing guidance
 
 ## Usage & Quickstart
 
@@ -121,7 +100,7 @@ Typical commands:
 - Run Bats only: `bats tests/` (or `bats tests/utility` for a subset)
 - Run Jest unit tests: `npm test` (alias for `npx jest`)
 - Run Python doc/schema validations: `pytest tests/pytests`
-- Show coverage summary (after Jest): `npx jest --coverage` or view `coverage/README.md`
+- Show coverage summary (after Jest): `npx jest --coverage` and review the generated terminal report
 
 Minimal smoke check (fast):
 
@@ -159,7 +138,7 @@ Add new tests by placing `.bats` or `.test.js` files following existing naming p
 2. Isolation: Use `test-helper.bash` for environment setup/teardown—avoid mutating global state.
 3. Determinism: Mock network/filesystem where possible; prefer fixtures over ad-hoc inline data.
 4. Coverage Improvement: Focus on untested branches before adding new features.
-5. Documentation: When adding complex test helpers, update this README or `../coverage/README.md`.
+5. Documentation: When adding complex test helpers, update this README or `../docs/TESTING.md`.
 6. Fast Feedback: Keep critical path tests lean (< 2s) to optimize pre-commit runs.
 
 ## 🔄 Test Execution Workflow
@@ -224,7 +203,7 @@ flowchart TD
     style Q fill:#ffcdd2
 ```
 
-See `../coverage/README.md` for full coverage details and examples.
+See `../docs/TESTING.md` for coverage details and examples.
 
 ---
 
@@ -286,7 +265,7 @@ npm ci
 
 #### Core Testing Documentation
 
-- [Coverage Reports Overview](../coverage/) — Comprehensive coverage analysis and report references
+- [Testing Guide](../docs/TESTING.md) — Testing and coverage guidance
 - [Jest Configuration](../.jest.config.cjs) — JavaScript testing framework configuration
 - [Testing Workflow](../.github/workflows/testing.yml) — Automated test workflow
 - [Quality Assurance](../instructions/quality-assurance.instructions.md) — Testing standards and best practices
@@ -311,8 +290,7 @@ npm ci
 
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
 - [Schema Validation](../.schemas/README.md) — JSON schema validation and configuration
-- [Coverage Directory](../coverage/) — Test coverage outputs and reports
-- [HTML Coverage Reports](../coverage/lcov-report/) — Interactive coverage visualisation
+- [Testing Documentation](../docs/TESTING.md) — Test coverage reporting and analysis guidance
 
 #### 🎯 AI & Automation
 
