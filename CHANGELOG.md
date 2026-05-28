@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- Completed issue `#52` via PR `#494` (stale MCP issue tool references aligned
+  to `issue_write`/`issue_read`) and refreshed the active Wave 2 execution
+  plan.
+- Moved Wave 2 execution into active state with `#464` kickoff as the first
+  core runtime batch item.
 - Closed issue `#64` with merged PR `#461` (canonical `ai/*` source
   consolidation) and follow-up governance hardening merged via PR `#463`
   (`meta:no-changelog` policy and validation guardrails).
