@@ -11,9 +11,38 @@ Copy and paste the prompt below into NotebookLM after adding only allowed source
 
 ## Allowed sources
 
-Use only files from this repository (`lightspeedwp/.github`) plus files under `wceu-2026/`.
+Use **only** files from this repository (`lightspeedwp/.github`) develop branch plus files under `wceu-2026/`.
 
-Do not use web links, external repos, or prior memory.
+**Do not use**:
+- External websites or web links
+- Files from other repositories
+- Prior knowledge or training data
+- Speculation without repository evidence
+
+### Core sources to ingest (in this order)
+
+1. **Foundation documents** (develop branch):
+   - https://github.com/lightspeedwp/.github/blob/develop/README.md
+   - https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md
+   - https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md
+
+2. **Architecture & governance docs** (develop branch):
+   - https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md
+   - https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml
+   - https://github.com/lightspeedwp/.github/blob/develop/.github/issue-types.yml
+   - https://github.com/lightspeedwp/.github/blob/develop/docs/WORKFLOWS.md
+
+3. **Plugin pack documentation** (develop branch):
+   - https://github.com/lightspeedwp/.github/blob/develop/docs/PLUGIN_PACK_ROADMAP.md
+   - https://github.com/lightspeedwp/.github/blob/develop/docs/PLUGIN_INSTALLATION_GUIDE.md
+   - https://github.com/lightspeedwp/.github/blob/develop/plugins/README.md
+   - https://github.com/lightspeedwp/.github/blob/develop/plugins/lightspeed-github-ops/README.md
+
+4. **Talk-specific assets** (all from wceu-2026/ folder):
+   - wceu-2026/talk-outline-25min.md
+   - wceu-2026/references/repo-source-index.md
+   - wceu-2026/references/slide-to-source-mapping.md
+   - All files under wceu-2026/slides/ (slide-01 through slide-19)
 
 ## Prompt
 

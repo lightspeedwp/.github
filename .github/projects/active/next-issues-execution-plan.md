@@ -236,6 +236,89 @@ README inventory: 44 files identified across the repo structure
 
 ---
 
+## Wave 4 — Branding Meta Agent & Schema-Driven Footers 🆕 (CLAUDE EXCLUSIVE)
+
+**Objective**: Implement a unified branding agent that automates category-aware Markdown headers, footers, and badges across the repository using schema-driven configuration.
+
+**Status**: Planning phase — Issues #33, #46, #48, #49 created and ready for sequencing
+
+**Scope**:
+
+| Phase | Issues | Owner | Purpose |
+| --- | --- | --- | --- |
+| **4A: Planning & Specification** | #33 (parent), #46 (templates), #49 (schema) | Claude | Define category taxonomy, template rules, and schema/config model |
+| **4B: Documentation & Governance** | #48 (documentation) | Claude | Update docs and define agent spec |
+| **4C: Current-State Audit** | TBD | Claude | Audit existing footers, identify duplicates, validate against schema |
+| **4D: Schema & Config Implementation** | TBD | Claude | Build `agent-config.schema.json`, YAML validation rules |
+| **4E: Agent Merge/Refactor** | TBD | Claude | Consolidate header/footer/badge logic into unified branding agent |
+| **4F: Remediation & Validation** | TBD | Claude | Fix bad footers across README.md files, validate schema compliance |
+
+**Key Deliverables**:
+
+1. Issue #33: Parent specification with category taxonomy and requirements
+2. Issue #46: Template design rules and 5 footer variants per category
+3. Issue #49: Schema/config structure with JSON Schema validation
+4. Issue #48: Complete agent spec and documentation
+5. Current-state audit report identifying duplicate footers
+6. Updated `agent-config.schema.json` with category, tags, badges fields
+7. All `.md` files with bad footers fixed and validated
+
+**Dependencies**:
+
+- All issues in this wave depend on #33 parent specification being complete
+- Schema work (#49) and template work (#46) can proceed in parallel
+- Audit and remediation phases depend on prior phases completing
+
+**Why Claude Exclusive?**:
+
+This initiative requires coherent planning, architectural decisions, and schema-driven thinking to avoid:
+- Hard-coded branding logic
+- Duplicated footer enforcement across separate agents
+- Schema drift between documentation and implementation
+- Confusion about category taxonomy and template selection rules
+
+Keeping this workstream under Claude ensures the entire system (planning → specification → implementation → validation) follows one coherent brief.
+
+**Status Tracking**:
+
+- [ ] Issue #33 (parent spec) completed and merged
+- [ ] Issue #46 (template design) completed and merged
+- [ ] Issue #49 (schema/config) completed and merged
+- [ ] Issue #48 (documentation) completed and merged
+- [ ] Current-state audit report published
+- [ ] Schema/config implementation merged
+- [ ] All duplicate footers fixed
+- [ ] Validation passing across repository
+
+---
+
+## Wave 3D — WCEU 2026 Talk Planning 🆕 (CLAUDE)
+
+**Objective**: Audit talk assets and harden NotebookLM source prompts for the WordCamp Europe 2026 conference presentation.
+
+**Status**: Issue #529 created; ready for execution by Claude
+
+**Scope**:
+
+- Audit `wceu-2026/` folder structure and content readiness
+- Harden NotebookLM source prompts with explicit develop-branch URLs
+- Produce improvements plan with priority and effort estimates
+- Update `deep-research-prompt.md` and `source-ingestion-checklist.md` with canonical sources
+
+**Expected Deliverables**:
+
+1. Folder audit report (strengths, risks, missing artifacts, recommendations)
+2. Updated `deep-research-prompt.md` with explicit develop URLs
+3. Updated `source-ingestion-checklist.md` with explicit develop URLs
+4. Canonical source set ingestion order (foundation → governance → plugin-packs → talk assets)
+5. Acceptance checklist for NotebookLM source verification
+
+**Owner**: Claude (AI Team - Review & UX)
+
+**Dependencies**: None — can execute immediately
+
+---
+
 ## Workflow Automation Patterns
 
 ### 1. Always-Run Workflows (Automatic on Push/PR)
@@ -317,12 +400,14 @@ The **Release Agent** should coordinate the following workflows on demand:
 
 ### Claude
 
-**Waves**: 2B, 2D (parallel standards audits), 3B (repair & update), 4A/4B/4C (Meta branding)
+**Waves**: 2B, 2D (parallel standards audits), 3B (repair & update), 4A/4B/4C (Meta branding — **EXCLUSIVE**), 3D (WCEU talk planning)
 
 **Issues**:
 
 - `#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486` (2B)
 - `#31`, `#23` (2D — when 2A merges)
+- `#33`, `#46`, `#48`, `#49` (Branding Meta Agent — **CLAUDE ONLY, NO COPILOT**)
+- `#529` (Wave 3D — WCEU 2026 talk planning audit)
 
 **Responsibilities**:
 
@@ -330,13 +415,12 @@ The **Release Agent** should coordinate the following workflows on demand:
 - Planning agents
 - Documentation and standards reviews
 - README/Mermaid repair and update (Wave 3B)
-- Meta branding agent scope (`#33`, `#46`, `#48`, `#49`) and footer remediation
+- **Branding meta agent initiative** (unified headers, footers, badges, schema validation)
+- WCEU 2026 talk planning and NotebookLM prompt hardening
 
-### Claude-Only Guardrail (Meta Branding)
+### ⚠️ IMPORTANT: Branding Meta Agent Assignment
 
-- Locked to Claude: `#33`, `#46`, `#48`, `#49`
-- Enforcement rule: no Copilot implementation PRs for these issues
-- Review gate: any PR touching this scope must reference this guardrail
+**Issues #33, #46, #48, #49 are EXCLUSIVELY assigned to Claude.** Copilot is excluded from this work stream to ensure coherent planning and implementation of the schema-driven branding system and meta agent architecture.
 
 ---
 
@@ -346,7 +430,7 @@ Use this as the current ownership map for all open issues (excluding open PRs).
 
 | Issue | Title | Allocation |
 | --- | --- | --- |
-| `#529` | [WCEU 2026] Audit talk assets and harden NotebookLM source prompts with develop URLs | Copilot |
+| `#529` | [WCEU 2026] Audit talk assets and harden NotebookLM source prompts with develop URLs | Claude |
 | `#514` | Wave 3C: README Workflow & Agent Coordination Setup | Copilot |
 | `#513` | Wave 3B: README & Mermaid Diagram Repair & Update | Claude |
 | `#512` | Wave 3A: README & Mermaid Diagram Discovery & Audit | Copilot |
