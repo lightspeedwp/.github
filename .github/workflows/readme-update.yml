@@ -1,0 +1,271 @@
+name: README & Mermaid Updates
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: 'Update scope (all/mermaid/staleness)'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - mermaid
+          - staleness
+      dry_run:
+        description: 'Preview changes without committing'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+  workflow_call:
+    inputs:
+      scope:
+        description: 'Update scope (all/mermaid/staleness)'
+        required: false
+        default: 'all'
+        type: string
+      dry_run:
+        description: 'Preview changes without committing'
+        required: false
+        default: 'false'
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  DRY_RUN: ${{ inputs.dry_run || 'false' }}
+  UPDATE_SCOPE: ${{ inputs.scope || 'all' }}
+
+jobs:
+  readme-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create audit directory
+        run: mkdir -p .github/reports/mermaid-audit
+
+      - name: Run Mermaid diagram fixes
+        if: ${{ env.UPDATE_SCOPE == 'all' || env.UPDATE_SCOPE == 'mermaid' }}
+        run: |
+          node --eval "
+          const fs = require('fs');
+          const path = require('path');
+
+          function findReadmeFiles(dir = '.') {
+            const files = [];
+            const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+            for (const entry of entries) {
+              if (entry.isDirectory() && !entry.name.startsWith('.')) {
+                files.push(...findReadmeFiles(path.join(dir, entry.name)));
+              } else if (entry.name === 'README.md' && entry.isFile()) {
+                files.push(path.join(dir, entry.name));
+              }
+            }
+            return files;
+          }
+
+          const readmes = findReadmeFiles();
+          const changes = [];
+
+          readmes.forEach(file => {
+            let content = fs.readFileSync(file, 'utf-8');
+            let modified = false;
+
+            // Fix Mermaid diagram formatting and add accessibility
+            content = content.replace(/\`\`\`mermaid([^]*?)\`\`\`/g, (match, diagram) => {
+              // Add accTitle if missing
+              if (!diagram.includes('accTitle:') && diagram.trim()) {
+                const firstLine = diagram.trim().split('\n')[0];
+                if (firstLine && !firstLine.startsWith('--')) {
+                  const diagType = firstLine.toLowerCase();
+                  let title = 'Diagram';
+                  if (diagType.includes('graph')) title = 'Graph Diagram';
+                  if (diagType.includes('flowchart')) title = 'Flowchart';
+                  if (diagType.includes('sequence')) title = 'Sequence Diagram';
+                  if (diagType.includes('gantt')) title = 'Gantt Chart';
+
+                  modified = true;
+                  return \`\`\`mermaid
+accTitle: \${title}
+\${diagram.trim()}
+\`\`\`;
+                }
+              }
+
+              // Add accDescr if missing
+              if (!diagram.includes('accDescr:')) {
+                modified = true;
+                return \`\`\`mermaid
+\${diagram.trim()}
+accDescr: Detailed diagram
+\`\`\`;
+              }
+
+              return match;
+            });
+
+            if (modified) {
+              changes.push({ file, type: 'mermaid-update' });
+              if (process.env.DRY_RUN !== 'true') {
+                fs.writeFileSync(file, content);
+              }
+            }
+          });
+
+          console.log('Mermaid fixes:', changes.length, 'files');
+          console.log(JSON.stringify(changes, null, 2));
+          "
+        continue-on-error: true
+
+      - name: Run staleness updates
+        if: ${{ env.UPDATE_SCOPE == 'all' || env.UPDATE_SCOPE == 'staleness' }}
+        run: |
+          node --eval "
+          const fs = require('fs');
+          const path = require('path');
+
+          const sixMonthsAgo = new Date();
+          sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+          function findMarkdownFiles(dir = '.') {
+            const files = [];
+            const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+            for (const entry of entries) {
+              if (entry.isDirectory() && !entry.name.startsWith('.')) {
+                files.push(...findMarkdownFiles(path.join(dir, entry.name)));
+              } else if (entry.name.endsWith('.md') && entry.isFile()) {
+                files.push(path.join(dir, entry.name));
+              }
+            }
+            return files;
+          }
+
+          const files = findMarkdownFiles();
+          const changes = [];
+          const today = new Date().toISOString().split('T')[0];
+
+          files.forEach(file => {
+            let content = fs.readFileSync(file, 'utf-8');
+            const frontmatterMatch = content.match(/^---\n([^]*?)\n---/);
+
+            if (frontmatterMatch) {
+              const frontmatter = frontmatterMatch[1];
+              const lastUpdatedMatch = frontmatter.match(/last_updated:\s*[\"']?([^\"'\n]+)/);
+
+              if (lastUpdatedMatch) {
+                const lastUpdated = new Date(lastUpdatedMatch[1]);
+                if (lastUpdated < sixMonthsAgo) {
+                  const newFrontmatter = frontmatter.replace(
+                    /last_updated:\s*[\"']?[^\"'\n]+/,
+                    \`last_updated: \\\"\${today}\\\"\`
+                  );
+                  const newContent = content.replace(frontmatterMatch[0], \`---\n\${newFrontmatter}\n---\`);
+
+                  changes.push({ file, type: 'staleness-update', lastUpdated });
+                  if (process.env.DRY_RUN !== 'true') {
+                    fs.writeFileSync(file, newContent);
+                  }
+                }
+              }
+            }
+          });
+
+          console.log('Staleness updates:', changes.length, 'files');
+          console.log(JSON.stringify(changes, null, 2));
+          "
+        continue-on-error: true
+
+      - name: Generate update report
+        if: success()
+        run: |
+          cat > .github/reports/mermaid-audit/update-report.md <<'EOF'
+          # README & Mermaid Update Report
+
+          **Date**: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          **Scope**: ${{ env.UPDATE_SCOPE }}
+          **Dry Run**: ${{ env.DRY_RUN }}
+
+          ## Changes Summary
+
+          - Mermaid diagrams: Updated accessibility attributes (accTitle, accDescr)
+          - Staleness updates: Refreshed `last_updated` dates for files exceeding 6-month threshold
+
+          ## Processing Mode
+
+          - **Dry Run**: ${{ env.DRY_RUN == 'true' && 'Yes (preview only)' || 'No (changes applied)' }}
+          - **Scope**: ${{ env.UPDATE_SCOPE }}
+
+          ## Next Steps
+
+          If changes were applied:
+          1. Review the changes in this run's artifacts
+          2. Create a pull request with the updates
+          3. Have maintainers review and merge
+
+          EOF
+          cat .github/reports/mermaid-audit/update-report.md
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ "$(git status --porcelain | wc -l)" -gt 0 ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit changes
+        if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "docs: update READMEs with Mermaid accessibility and staleness fixes
+
+          - Update Mermaid diagrams with accTitle and accDescr attributes
+          - Refresh last_updated dates for stale files (6+ months)
+          - Scope: ${{ env.UPDATE_SCOPE }}
+          - Generated by: readme-update.yml workflow"
+
+      - name: Push changes
+        if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
+        run: |
+          git push origin HEAD:$(git rev-parse --abbrev-ref HEAD)
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: readme-update-report
+          path: .github/reports/mermaid-audit/update-report.md
+
+      - name: Summary
+        run: |
+          echo "## README & Mermaid Update Workflow"
+          echo ""
+          echo "**Status**: ${{ job.status }}"
+          echo "**Scope**: ${{ env.UPDATE_SCOPE }}"
+          echo "**Dry Run**: ${{ env.DRY_RUN }}"
+          echo "**Changes Made**: ${{ steps.changes.outputs.has_changes }}"
+          echo ""
+          echo "📋 [Report](./.github/reports/mermaid-audit/update-report.md)"

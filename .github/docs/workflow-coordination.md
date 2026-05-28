@@ -80,7 +80,7 @@ Agent-triggered workflows are invoked **on demand** via `workflow_dispatch` or c
 
 ### Agent-Triggered Workflow Registry
 
-| Workflow | Primary Trigger | Agent | Purpose |
+| Workflow | Primary Trigger | Agent/Caller | Purpose |
 | --- | --- | --- | --- |
 | `release.yml` | workflow_dispatch + workflow_call | Release Agent | Orchestrate semantic versioning, tag, publish |
 | `planner.yml` | workflow_dispatch | Planner Agent | Generate implementation plans |
@@ -88,6 +88,7 @@ Agent-triggered workflows are invoked **on demand** via `workflow_dispatch` or c
 | `reviewer.yml` | workflow_dispatch (manual) | Reviewer Agent | Post PR review summaries |
 | `metrics.yml` | workflow_dispatch ± scheduled | Metrics Agent | Collect repo health metrics |
 | `project-meta-sync.yml` | workflow_dispatch | Project Meta Sync Agent | Sync GitHub Project board fields |
+| `readme-update.yml` | workflow_dispatch + workflow_call | Release Agent (post-release) | Apply README & Mermaid diagram fixes |
 
 ### When to Use
 
@@ -139,37 +140,49 @@ Release Agent (Orchestrator)
 
 ---
 
-## Proposed New Workflows (Wave 3C)
+## Implemented Workflows (Wave 3C & Beyond)
 
-Wave 3C (Workflow & Agent Coordination Setup) will introduce two new agent-triggered workflows for README audits:
-
-### `readme-audit.yml`
-
-**Trigger**: `workflow_dispatch` (via README Review Agent)
-
-**Purpose**: Run Mermaid diagram syntax validation, WCAG compliance checks, and staleness detection
-
-**Calls**:
-
-- Mermaid validator (external or custom)
-- WCAG contrast checker
-- Staleness detector (compare `last_updated` to current date)
-
-**Output**: `.github/reports/mermaid-audit/audit-results.json`
+Wave 3C (Workflow & Agent Coordination Setup) introduces new agent-triggered workflows for README management:
 
 ### `readme-update.yml`
 
-**Trigger**: `workflow_dispatch` (via README Review Agent)
+**Trigger**: `workflow_dispatch` (manual) or `workflow_call` (from Release Agent)
 
-**Purpose**: Apply fixes to README files and embedded Mermaid diagrams
+**Purpose**: Apply automated fixes to README files and embedded Mermaid diagrams
 
-**Calls**:
+**Capabilities**:
 
-- Mermaid formatter (auto-fix syntax)
-- Accessibility enhancer (add `accTitle`, `accDescr`)
-- Link validator and updater
+- Fix Mermaid diagram formatting and add accessibility attributes (`accTitle`, `accDescr`)
+- Update stale frontmatter dates for files exceeding 6-month threshold
+- Support selective scope: `all` (default), `mermaid` (diagrams only), or `staleness` (dates only)
+- Dry-run mode for safe preview before applying changes
+- Generate audit report with change summary
 
-**Output**: PR with fixes grouped by category
+**Input Parameters**:
+- `scope`: "all" | "mermaid" | "staleness" (default: "all")
+- `dry_run`: "true" | "false" (default: "false" — applies changes)
+
+**Output**: 
+- Updated README files (if not dry-run)
+- Report: `.github/reports/mermaid-audit/update-report.md`
+- Artifact: `readme-update-report` (always)
+
+**Integration Points**:
+- Called by Release Agent in post-release phase
+- Can be manually triggered via GitHub UI for ad-hoc updates
+- Non-blocking: failures do not prevent release completion
+
+**Example Release Agent Invocation**:
+```yaml
+- name: Apply README updates
+  uses: actions/workflow_dispatch@v4
+  with:
+    workflow: readme-update.yml
+    ref: main
+    inputs:
+      scope: all
+      dry_run: 'false'
+```
 
 ---
 
