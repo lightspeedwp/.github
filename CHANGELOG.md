@@ -38,6 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Started Wave 2A execution for `#466` (`labeling.agent`) by confirming
   spec/runtime parity, recording implemented status, and capturing the next
   hardening step for edge-case test coverage.
+- Started Wave 2A execution for `#467` (`linting.agent`) by confirming
+  spec/runtime paths, documenting the stub implementation gap, and recording
+  the next step for structured lint orchestration and test coverage.
 
 ## [0.4.0] - 2026-05-27
 
