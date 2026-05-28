@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
-version: "2.7"
+version: "2.6"
 last_updated: "2026-05-28"
 owners:
   - LightSpeed Team
@@ -25,12 +25,6 @@ This directory contains all automation, utility, and maintenance scripts for the
 
 ```mermaid
 graph TB
-    accTitle: "Scripts Architecture"
-    accDescr {
-        Tree diagram showing the scripts directory organised into subdirectories:
-        awesome-copilot, includes (core utilities, test helpers, CLI support),
-        json-validation, maintenance, projects, utility, and validation.
-    }
     A[Scripts Directory] --> B[awesome-copilot/]
     A --> C[includes/]
     A --> D[json-validation/]
@@ -64,12 +58,6 @@ graph TB
 
 ```mermaid
 sequenceDiagram
-    accTitle: "Automation Workflow"
-    accDescr {
-        Sequence diagram showing a developer executing a script, which loads utilities,
-        validates inputs, performs operations, runs tests, and then either triggers CI/CD
-        on success or reports errors for remediation.
-    }
     participant Dev as Developer
     participant Scripts as Scripts System
     participant Tests as Test Suite
@@ -89,18 +77,18 @@ sequenceDiagram
 
 ## Directory Structure
 
-- **awesome-copilot/** — Utilities for prompt/collection management and validation.
+- **awesome-copilot/** — Utilities for prompt/collection management and validation.  
   *See:* `awesome-copilot/README.md`
-- **includes/** — Shared Bash helpers and test utilities.
+- **includes/** — Shared Bash helpers and test utilities.  
   *See:* `includes/README.md`
-- **json-validation/** — Node.js/YAML validation scripts and tests.
+- **json-validation/** — Node.js/YAML validation scripts and tests.  
   *See:* `json-validation/README.md`
 - **logs/** — Log output for script runs.
-- **maintenance/** — Scripts for repo maintenance, documentation, and label automation.
+- **maintenance/** — Scripts for repo maintenance, documentation, and label automation.  
   *See:* `maintenance/README.md`
-- **projects/** — GitHub Projects management and automation scripts.
+- **projects/** — GitHub Projects management and automation scripts.  
   *See:* `projects/README.md`
-- **utility/** — General-purpose shell and Node.js utilities for label management, logging, and validation.
+- **utility/** — General-purpose shell and Node.js utilities for label management, logging, and validation.  
   *See:* `utility/README.md`
 
 ## Core Components
@@ -265,14 +253,14 @@ markdownlint scripts/**/*.md  # README / docs lint
 
 ## Change Log / History
 
-Version: 2.5 (increment when public script interfaces or includes contracts change).
+Version: 2.5 (increment when public script interfaces or includes contracts change).  
 Refer to `../CHANGELOG.md` for release context and automation evolution.
 
 ## FAQ / Troubleshooting
 
-**Collection validation failed?** Ensure `collection.schema.json` is up to date and YAML frontmatter paths are correct.
-**Scripts sourcing wrong path?** Use `$(dirname "$0")` patterns and avoid relative assumptions.
-**Permission denied running script?** Add executable bit: `chmod +x <script>`.
+**Collection validation failed?** Ensure `collection.schema.json` is up to date and YAML frontmatter paths are correct.  
+**Scripts sourcing wrong path?** Use `$(dirname "$0")` patterns and avoid relative assumptions.  
+**Permission denied running script?** Add executable bit: `chmod +x <script>`.  
 **Bats tests not found?** Verify test file naming pattern `test-*.bats` and correct path in run script.
 
 ## Limitations & Notes
@@ -337,12 +325,6 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 
 ```mermaid
 flowchart TD
-    accTitle: "Script Execution Flow"
-    accDescr {
-        Decision flowchart for script execution: checks dependencies (installing if
-        missing), loads includes, parses CLI arguments, validates inputs, executes main
-        logic, runs tests, and exits with a success or failure status code.
-    }
     A[Script Execution] --> B{Check Dependencies}
     B -->|Missing| C[Install Dependencies]
     B -->|Available| D[Load Includes]

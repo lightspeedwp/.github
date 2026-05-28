@@ -1,9 +1,9 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Comprehensive execution plan for all open issues, active projects, and strategic workflows."
-version: "v2.0.1"
+version: "v2.0.0"
 created_date: "2026-05-28"
-last_updated: "2026-05-28"
+last_updated: "2026-05-28T17:25:00Z"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
@@ -173,11 +173,11 @@ README inventory: 44 files identified across the repo structure
    - Effort: 2-3 hours
    - Owner: Codex (Developer)
 
-2. **Wave 3B: Repair & Update** 🟡 IN PROGRESS (Claude)
+2. **Wave 3B: Repair & Update** ✅ ISSUE CREATED: #513 (Claude)
    - GitHub Issue: [#513 — Wave 3B: README & Mermaid Diagram Repair & Update](https://github.com/lightspeedwp/.github/issues/513)
-   - Status: PR open — `accTitle`/`accDescr` added to all 15 Mermaid diagrams across 8 README files; audit report, findings.csv, and repair-report published to `.github/reports/mermaid-audit/`
+   - Status: Issue created; ready for execution
    - Scope: Fix Mermaid syntax, add accessibility attributes, update stale content
-   - Deliverables: 8 README files updated, audit-report-2026-05-28.md, findings.csv, repair-report-2026-05-28.md ✅
+   - Deliverables: Updated 44 README files, repair-report.md, accessibility-audit.md
    - Effort: 4-6 hours
    - Owner: Claude (AI Team - Review & UX)
    - Dependencies: Awaits Wave 3A audit report

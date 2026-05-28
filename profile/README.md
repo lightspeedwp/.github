@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "LightSpeed WordPress Development Agency - GitHub Profile"
 description: "Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003"
-version: "2.3"
+version: "2.2"
 created_date: "2025-10-20"
 last_updated: "2026-05-28"
 author: "LightSpeed Team"
@@ -42,13 +42,6 @@ We're a **WordPress design and development agency** with a focus on creating pow
 
 ```mermaid
 flowchart LR
-    accTitle: "LightSpeed Organisation Overview"
-    accDescr {
-        Left-to-right flowchart showing LightSpeed Agency — established 2003, WordPress
-        experts with global impact — connected to core products (LSX Design Theme, Tour
-        Operator Plugin, WooCommerce Solutions, Custom Development) and their community
-        and client outcomes.
-    }
     subgraph "🏢 LightSpeed Agency"
         A[👥 Team Since 2003]
         B[🎯 WordPress Experts]
@@ -108,12 +101,6 @@ We believe in the power of community and open-source collaboration! If you're pa
 
 ```mermaid
 flowchart TD
-    accTitle: "Contribution Process Flow"
-    accDescr {
-        Decision flowchart for contributors: starting point branches into four paths —
-        reporting a bug, submitting a feature request, making a code contribution, or
-        improving documentation — each leading through review and merging stages.
-    }
     A[🚀 Start Here] --> B{What do you want to do?}
 
     B -->|🐛 Report Issue| C[📝 Submit Issue]
@@ -164,13 +151,6 @@ At LightSpeed, we believe in the power of open-source software. We contribute to
 
 ```mermaid
 graph TB
-    accTitle: "Project Architecture and Integration"
-    accDescr {
-        Hierarchical diagram grouping LightSpeed products into frontend solutions
-        (LSX Design Theme, block patterns, custom blocks), backend functionality
-        (Tour Operator Plugin, WooCommerce extensions), developer tools (build tools,
-        testing, CI/CD), documentation, and community layers.
-    }
     subgraph "🎨 Frontend Solutions"
         A[LSX Design Theme]
         B[Block Patterns]
@@ -246,12 +226,6 @@ We welcome contributions from the community! If you're interested in collaborati
 
 ```mermaid
 stateDiagram-v2
-    accTitle: "Community Engagement Lifecycle"
-    accDescr {
-        State diagram showing a contributor's lifecycle through seven stages: Discover,
-        Explore, Engage, Contribute, Collaborate, Lead, and Mentor — with Mentor looping
-        back to Engage to sustain community growth.
-    }
     [*] --> Discover
     Discover --> Explore
     Explore --> Engage

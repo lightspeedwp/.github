@@ -1,7 +1,7 @@
 ---
 title: "LightSpeed Community Health & Automation Repository"
 description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
-version: "2.7"
+version: "2.6"
 created_date: "2025-01-10"
 last_updated: "2026-05-28"
 file_type: "documentation"
@@ -963,3 +963,6 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

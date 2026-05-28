@@ -2,8 +2,8 @@
 file_type: "documentation"
 name: "Frontmatter Validation"
 description: "Comprehensive frontmatter validation scripts for LightSpeedWP .github repository ensuring schema compliance and consistency"
-version: "1.0.1"
-last_updated: "2026-05-28"
+version: "1.0.0"
+last_updated: "2025-12-04"
 owners:
   - "LightSpeedWP Team"
 tags:
@@ -35,13 +35,6 @@ All schema files are stored in `../../.schemas/`.
 
 ```mermaid
 graph TD
-    accTitle: "Validation Pipeline"
-    accDescr {
-        Pipeline diagram showing six sequential steps: file discovery (driven by
-        configuration and file patterns), frontmatter extraction, schema validation
-        (using a schema file), LightSpeed rules check, reference validation, and
-        report generation with log output.
-    }
     A[File Discovery] --> B[Frontmatter Extraction]
     B --> C[Schema Validation]
     C --> D[LightSpeed Rules Check]

@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "LightSpeed .github Community Health Repository"
 description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
-version: "3.3"
+version: "3.2"
 created_date: "2025-01-15"
 last_updated: "2026-05-28"
 authors: ["LightSpeed Team"]
@@ -61,12 +61,6 @@ This repository's `.github` folder serves as the **single source of truth** for 
 
 ```mermaid
 flowchart TB
-    accTitle: "GitHub Template Ecosystem Architecture"
-    accDescr {
-        Flowchart showing the .github repository hub providing issue templates, PR
-        templates, AI instructions, and automation rules to consuming repositories,
-        with labeling and project-sync automation flowing back to contributors.
-    }
     subgraph "🏛️ .github Repository Hub"
         A[🏠 Community Health Files]
         B[📝 Issue Templates]
@@ -205,12 +199,6 @@ This repository is the **canonical, organisation-wide source** for:
 
 ```mermaid
 sequenceDiagram
-    accTitle: "GitHub Automation Workflow Process"
-    accDescr {
-        Sequence diagram showing a developer creating an issue or PR in a member
-        repository, which fetches templates from the .github hub, then triggers
-        automated labeling and project-manager sync notifications.
-    }
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Member Repo
     participant Hub as 🏛️ .github Hub
@@ -253,12 +241,6 @@ The `.github` folder is organised for maximum clarity and modularity, grouping r
 
 ```mermaid
 graph TB
-    accTitle: "Repository Structure Visualisation"
-    accDescr {
-        Tree diagram showing the .github directory structure, including instructions,
-        prompts, agents, workflows, issue templates, PR templates, saved replies, and
-        automation subdirectories, with their relationships and contents.
-    }
     subgraph "📁 .github/ Directory Structure"
         A[📋 instructions/]
         B[🎯 prompts/]
@@ -392,12 +374,6 @@ This diagram illustrates how all components work together to create a seamless d
 
 ```mermaid
 flowchart LR
-    accTitle: "Complete Integration Flow"
-    accDescr {
-        Left-to-right flowchart showing a contributor's end-to-end journey from issue
-        creation through PR submission and code review, supported by .github hub resources
-        including instructions, templates, AI prompts, and automation processes.
-    }
     subgraph "👨‍💻 Developer Experience"
         A[New Contributor]
         B[Issue Creation]
@@ -583,3 +559,6 @@ This repository and all its contents are licensed under the GNU General Public L
 **❓ Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new), start a [Discussion](https://github.com/orgs/lightspeedwp/discussions), or contact [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

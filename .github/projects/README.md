@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Reports Directory"
 description: "An overview of the reports directory, detailing the purpose of each subfolder for storing generated artifacts."
-version: "1.1"
-last_updated: "2026-05-28"
+version: "1.0"
+last_updated: "2025-12-08"
 owners: ["LightSpeed Engineering"]
 tags: ["reports", "documentation", "governance"]
 ---
@@ -40,13 +40,6 @@ The following diagram and table provide an overview of the available report cate
 
 ```mermaid
 graph TD
-    accTitle: "Reports Directory Structure"
-    accDescr {
-        Tree diagram showing the .github/reports directory branching into sixteen
-        subdirectories: agents, analysis, audits, coverage, frontmatter, implementation,
-        issue metrics, labeling, linting, meta, metrics, migration, optimisation,
-        tech-debt, and validation.
-    }
     A[📂 .github/reports] --> B[🤖 Agents]
     A --> C[🔬 Analysis]
     A --> D[🛡️ Audits]
