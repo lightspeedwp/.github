@@ -4,6 +4,8 @@
 
 # LightSpeed GitHub Labelling Strategy
 
+Primary operations reference: [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md)
+
 This document describes how LightSpeed uses GitHub labels to power automation, search, workflow routing, and community management across all repositories—including issues, pull requests (PRs), and discussions.
 
 ---

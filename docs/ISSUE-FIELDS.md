@@ -1,5 +1,7 @@
 # Canonical Issue Fields
 
+Primary operations reference: [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md)
+
 This document explains how LightSpeedWP defines and operates canonical GitHub issue/project fields.
 
 Source of truth:

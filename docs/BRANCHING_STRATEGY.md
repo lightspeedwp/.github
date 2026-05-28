@@ -1,5 +1,7 @@
 # Org-wide Git Branching Strategy
 
+Primary operations reference: [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md)
+
 <!-- BADGES-START -->
 
 [![changelog](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml)
@@ -56,7 +58,7 @@ Enable squash merge only; disable merge commits and rebase merges.
 `{type}/{scope}-{short-title}`  
 Use lower-case, kebab-case, and keep it short.
 
-### 3.1 Shared Core Prefixes
+### 3.1 Required Core Prefixes
 
 For all repos (client, product, infra, etc.), use:
 
@@ -81,7 +83,7 @@ For all repos (client, product, infra, etc.), use:
 - `i18n/` — internationalization
 - `ops/` — operations
 
-### 3.2 Product-specific Prefixes (optional)
+### 3.2 Optional Product Profile Prefixes
 
 - `proto/` — prototypes/experiments
 - `ds/` — design system
@@ -89,7 +91,7 @@ For all repos (client, product, infra, etc.), use:
 - `schema/` — DB/schema changes
 - `telemetry/` — analytics/metrics
 
-### 3.3 Client-specific Prefixes (optional)
+### 3.3 Optional Client Profile Prefixes
 
 - `content/` — content edits, redirects, IA
 - `seo/` — SEO, metadata, schema, sitemap, robots
