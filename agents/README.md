@@ -33,3 +33,6 @@ LightSpeed AI plugins or installed into other repositories.
 | `agents/agent.md` | Portable agent specification index. |
 | `agents/<agent-id>/` | Future home for a larger portable agent package, if needed. |
 | `agents/README.md` | This ownership index. |
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
