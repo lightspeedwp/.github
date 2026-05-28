@@ -1,6 +1,6 @@
 ---
 title: "LightSpeed Metrics Directory"
-version: "v1.0"
+version: "v1.1"
 last_updated: "2026-05-28"
 author: "LightSpeed"
 maintainer: "Ash Shaw"

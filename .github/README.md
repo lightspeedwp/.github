@@ -2,9 +2,9 @@
 file_type: "documentation"
 title: "LightSpeed .github Community Health Repository"
 description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
-version: "3.1"
+version: "3.2"
 created_date: "2025-01-15"
-last_updated: "2025-12-04"
+last_updated: "2026-05-28"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
 license: "GPL-3.0"
@@ -449,10 +449,12 @@ Have questions, feedback, or want to propose an idea? Visit our [GitHub Discussi
 For all contributors, please reference these key guidelines and indexes:
 
 - [LightSpeed General Copilot Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/custom-instructions.md)
-- [Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/coding-standards.instructions.md)
-- [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/php-block.instructions.md)
-- [Theme JSON](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/theme-json.instructions.md)
-- When generating a summary for pull requests, use this [pull request template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/PULL_REQUEST_TEMPLATE.md).
+- [Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/instructions/coding-standards.instructions.md)
+- [HTML Templates](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/plugin-structure.instructions.md)
+- [Pattern Development](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/plugin-structure.instructions.md)
+- [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/plugin-structure.instructions.md)
+- [Theme JSON](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/plugin-structure.instructions.md)
+- When generating a summary for pull requests, use this [pull request template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/pull_request_template.md).
 
 ---
 
@@ -547,6 +549,8 @@ This repository and all its contents are licensed under the GNU General Public L
 
 - [💻 Coding Standards](../instructions/coding-standards.instructions.md) - Unified development guidelines
 - [🎨 Linting Instructions](../instructions/linting.instructions.md) - Code quality and formatting
+- [🏗️ Pattern Development](./instructions/plugin-structure.instructions.md) - WordPress block patterns
+- [🌐 HTML Templates](./instructions/plugin-structure.instructions.md) - Semantic markup standards
 
 ---
 

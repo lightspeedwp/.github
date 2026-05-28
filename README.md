@@ -1,7 +1,7 @@
 ---
 title: "LightSpeed Community Health & Automation Repository"
 description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
-version: "2.5"
+version: "2.6"
 created_date: "2025-01-10"
 last_updated: "2026-05-28"
 file_type: "documentation"
@@ -731,7 +731,7 @@ Use the canonical PR template with risk assessment and testing prompts:
 
 ```bash
 # Copy PR template
-cp .github/PULL_REQUEST_TEMPLATE.md /path/to/your/repo/.github/
+cp .github/pull_request_template.md /path/to/your/repo/.github/
 
 # Or reference it directly in your repository's settings
 # GitHub → Settings → Pull Requests → Template repository: lightspeedwp/.github
@@ -865,7 +865,7 @@ mkdir -p "$REPO_PATH/.github/workflows"
 cp -r .github/ISSUE_TEMPLATE "$REPO_PATH/.github/"
 
 # Copy PR template
-cp .github/PULL_REQUEST_TEMPLATE.md "$REPO_PATH/.github/"
+cp .github/pull_request_template.md "$REPO_PATH/.github/"
 
 # Copy labeler configuration
 cp .github/labeler.yml "$REPO_PATH/.github/"

@@ -2,8 +2,8 @@
 file_type: "index"
 title: ".github Agents Boundary"
 description: "Repo-local index for agent assets that remain under the .github control-plane boundary."
-version: "v0.2.0"
-last_updated: "2026-05-20"
+version: "v0.2.1"
+last_updated: "2026-05-28"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
 license: "GPL-3.0"
