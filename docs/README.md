@@ -18,3 +18,5 @@ Central index for all documentation in the LightSpeed .github repository.
 - [Downstream Override Policy](./override-policy.md)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

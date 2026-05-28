@@ -99,10 +99,13 @@ scope. The target direction is:
 1. Read the relevant issue draft or GitHub issue before editing.
 2. Check file placement with
    [`file-organisation.instructions.md`](./instructions/file-organisation.instructions.md).
-3. Keep changes scoped to the issue; do not move production assets in policy
+3. Maximise metadata completeness for issue and PR operations:
+   apply all applicable labels, type, milestone, project fields, assignees,
+   project assignment, and relationship links (parent-child, blocking, related).
+4. Keep changes scoped to the issue; do not move production assets in policy
    update tasks.
-4. Run targeted validation that does not mutate unrelated files.
-5. Use `git status --short` before finishing and call out unrelated changes.
+5. Run targeted validation that does not mutate unrelated files.
+6. Use `git status --short` before finishing and call out unrelated changes.
 
 ## Validation Notes
 

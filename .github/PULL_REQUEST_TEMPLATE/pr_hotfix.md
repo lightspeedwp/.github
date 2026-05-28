@@ -9,7 +9,7 @@ labels:
 # Hotfix Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.  
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for contributor rules.
+> See the organisation-wide [Project Operations Spec](../../docs/GITHUB_PROJECT_OPERATIONS_SPEC.md) for contributor rules.
 
 ## Linked issues
 
@@ -31,7 +31,7 @@ Summarise the incident or bug and the root cause (add links if needed).
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+User-facing notes only. Internal-only PRs (rare) may use the `meta:no-changelog` label.
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
@@ -62,7 +62,7 @@ Example:
 -->
 
 <!--
-If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+If no user-facing changelog entry is needed, apply the `meta:no-changelog` label to this PR.
 -->
 
 ---

@@ -1,5 +1,7 @@
 # Canonical Issue Fields
 
+Primary operations reference: [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md)
+
 This document explains how LightSpeedWP defines and operates canonical GitHub issue/project fields.
 
 Source of truth:
@@ -90,13 +92,61 @@ The org model includes:
 - `Domain` (`single_select`)
 - `Delivery Track` (`single_select`)
 - `Team` (`single_select`)
-- `Effort` (`number`)
+- `Effort` (`single_select`)
 - `Start date` (`date`)
 - `Target date` (`date`)
 - `Risk` (`single_select`)
 - `Customer Impact` (`single_select`)
 - `Technical Impact` (`single_select`)
 - `Spec Link` (`text`)
+
+## Canonical Universal Fields (Apply To All Issue Types)
+
+These fields are pinned for all issue types, including issues with no assigned type.
+
+Issue types covered:
+
+- Unassigned (no issue type)
+- Task, Bug, Feature, Code Refactor, Build & CI, A11y, Compatibility, Security, Release
+- Maintenance, Performance, Test Coverage, Epic, Automation, Code Review, Design, Story
+- Improvement, Documentation, Integration, Research, Chore, Audit, AI Ops, Content Modelling
+
+### 1) Priority
+
+- Purpose: Current importance level assigned to the issue.
+- Type: `single_select`
+- Allowed values: `Urgent`, `High`, `Medium`, `Low`
+- Scope: Applies to all issue types.
+
+### 2) Start date
+
+- Purpose: Date when work on the issue will begin.
+- Type: `date`
+- Scope: Applies to all issue types.
+- Constraint: Organization-only issue field.
+
+### 3) Target date
+
+- Purpose: Expected completion date for the issue.
+- Type: `date`
+- Scope: Applies to all issue types.
+- Constraint: Organization-only issue field.
+
+### 4) Effort
+
+- Purpose: Relative sizing estimate for implementation effort.
+- Type: `single_select`
+- Allowed values: `XS`, `S`, `M`, `L`, `XL`, `XXL`, `XXXL`
+- Scope: Applies to all issue types.
+- Constraint: Organization-only issue field.
+
+## How To Use These Fields During Triage
+
+- Set `Priority` on creation or first triage for every issue.
+- Set `Start date` when work is scheduled to begin.
+- Set `Target date` when there is a delivery expectation.
+- Set `Effort` as a T-shirt size estimate before planning or assignment.
+- Keep these issue fields aligned with labels and project fields during updates.
 
 ## Project Fields (Hidden/System + Iteration)
 
