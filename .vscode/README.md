@@ -22,6 +22,13 @@ It ensures a consistent, automated, and standards-driven development experience 
 
 ```mermaid
 flowchart TD
+    accTitle: "VS Code Configuration Architecture"
+    accDescr {
+        Flowchart showing VS Code workspace configuration split into three branches:
+        extensions (AI agents, linting, testing), tasks (build, run), and settings
+        (EditorConfig, keybindings) — with each branch expanding into specific tools
+        such as Copilot, ESLint, Stylelint, Markdownlint, and Jest.
+    }
     A[VS Code Workspace] --> B[Extensions]
     A --> C[Tasks]
     A --> D[Settings]

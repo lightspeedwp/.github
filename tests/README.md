@@ -43,6 +43,12 @@ Comprehensive automated tests for the LightSpeedWP automation project. Suites sp
 
 ```mermaid
 graph TB
+    accTitle: "Testing Architecture"
+    accDescr {
+        Tree diagram showing the testing framework split into four branches: Bats
+        (shell script tests, CLI interface tests, integration tests), Jest (JavaScript
+        unit tests, agent module tests), coverage reporting, and test helpers.
+    }
     A[Testing Framework] --> B[Bats Testing]
     A --> C[Jest Testing]
     A --> D[Coverage Reporting]
@@ -146,6 +152,13 @@ Add new tests by placing `.bats` or `.test.js` files following existing naming p
 
 ```mermaid
 sequenceDiagram
+    accTitle: "Test Execution Workflow"
+    accDescr {
+        Sequence diagram showing a developer running run-all-tests.sh, which invokes
+        Bats for shell tests and Jest for JavaScript tests in sequence, then passes
+        results to a coverage reporter and finally to the CI/CD pipeline, which
+        notifies the developer with test results and coverage data.
+    }
     participant Dev as Developer
     participant Runner as Test Runner
     participant Bats as Bats Framework
@@ -171,6 +184,13 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
+    accTitle: "Test Coverage Flow"
+    accDescr {
+        Decision flowchart splitting test execution into two paths by type: shell
+        scripts (Bats — CLI, integration, and shell function tests) and JavaScript
+        (Jest — unit, module, and agent tests). Both paths feed into a shared coverage
+        collection stage.
+    }
     A[Test Execution] --> B{Test Type}
     B -->|Shell Scripts| C[Bats Testing]
     B -->|JavaScript| D[Jest Testing]

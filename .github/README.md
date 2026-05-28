@@ -61,6 +61,12 @@ This repository's `.github` folder serves as the **single source of truth** for 
 
 ```mermaid
 flowchart TB
+    accTitle: "GitHub Template Ecosystem Architecture"
+    accDescr {
+        Flowchart showing the .github repository hub providing issue templates, PR
+        templates, AI instructions, and automation rules to consuming repositories,
+        with labeling and project-sync automation flowing back to contributors.
+    }
     subgraph "🏛️ .github Repository Hub"
         A[🏠 Community Health Files]
         B[📝 Issue Templates]
@@ -199,6 +205,12 @@ This repository is the **canonical, organisation-wide source** for:
 
 ```mermaid
 sequenceDiagram
+    accTitle: "GitHub Automation Workflow Process"
+    accDescr {
+        Sequence diagram showing a developer creating an issue or PR in a member
+        repository, which fetches templates from the .github hub, then triggers
+        automated labeling and project-manager sync notifications.
+    }
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Member Repo
     participant Hub as 🏛️ .github Hub
@@ -241,6 +253,12 @@ The `.github` folder is organised for maximum clarity and modularity, grouping r
 
 ```mermaid
 graph TB
+    accTitle: "Repository Structure Visualisation"
+    accDescr {
+        Tree diagram showing the .github directory structure, including instructions,
+        prompts, agents, workflows, issue templates, PR templates, saved replies, and
+        automation subdirectories, with their relationships and contents.
+    }
     subgraph "📁 .github/ Directory Structure"
         A[📋 instructions/]
         B[🎯 prompts/]
@@ -374,6 +392,12 @@ This diagram illustrates how all components work together to create a seamless d
 
 ```mermaid
 flowchart LR
+    accTitle: "Complete Integration Flow"
+    accDescr {
+        Left-to-right flowchart showing a contributor's end-to-end journey from issue
+        creation through PR submission and code review, supported by .github hub resources
+        including instructions, templates, AI prompts, and automation processes.
+    }
     subgraph "👨‍💻 Developer Experience"
         A[New Contributor]
         B[Issue Creation]

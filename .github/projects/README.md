@@ -40,6 +40,13 @@ The following diagram and table provide an overview of the available report cate
 
 ```mermaid
 graph TD
+    accTitle: "Reports Directory Structure"
+    accDescr {
+        Tree diagram showing the .github/reports directory branching into sixteen
+        subdirectories: agents, analysis, audits, coverage, frontmatter, implementation,
+        issue metrics, labeling, linting, meta, metrics, migration, optimisation,
+        tech-debt, and validation.
+    }
     A[📂 .github/reports] --> B[🤖 Agents]
     A --> C[🔬 Analysis]
     A --> D[🛡️ Audits]

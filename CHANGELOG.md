@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added plugin-pack specialised skill rollout updates across active packs with per-platform manifest parity, expanded `SKILL_REGISTRY` scope coverage (`batch6PlatformYamlScope`), and refreshed rollout task tracking documentation. Closes [#524](https://github.com/lightspeedwp/.github/issues/524). ([#525](https://github.com/lightspeedwp/.github/pull/525))
 
+- Added `accTitle` and `accDescr` accessibility attributes to all 15 Mermaid diagrams across 8 README files (`.github/README.md`, `profile/README.md`, `scripts/README.md`, `scripts/validation/README.md`, `.github/ISSUE_TEMPLATE/README.md`, `.github/projects/README.md`, `.vscode/README.md`, `tests/README.md`), bringing WCAG 2.2 AA compliance to 100%. Added Wave 3A/3B audit report, findings CSV, and repair log to `.github/reports/mermaid-audit/`. Closes [#513](https://github.com/lightspeedwp/.github/issues/513).
 - Upgraded `.github/instructions/markdown.instructions.md` to v1.1: added canonical scope and precedence statement, related-files summary table, expanded WCAG 2.2 AA accessibility section with required checks, expanded examples (tables, images, links, frontmatter), contribution/review process, and branded footer. Closes [#31](https://github.com/lightspeedwp/.github/issues/31).
 - Added universal issue-field governance for `Priority`, `Start date`,
   `Target date`, and `Effort`; aligned canonical config and instructions; and

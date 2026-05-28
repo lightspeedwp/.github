@@ -47,6 +47,13 @@ For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) a
 
 ```mermaid
 flowchart TD
+    accTitle: "Issue Template Workflow"
+    accDescr {
+        Decision flowchart showing a user selecting an issue template (bug report,
+        feature request, documentation, or blank), which auto-populates fields, triggers
+        agent processing for auto-labeling and issue type assignment, and routes to the
+        appropriate project board.
+    }
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]
     B -->|Feature Request| D[Feature Template]
