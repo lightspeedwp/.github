@@ -3,7 +3,7 @@ title: "Next Issues Execution Plan"
 description: "Comprehensive execution plan for all open issues, active projects, and strategic workflows."
 version: "v2.0.0"
 created_date: "2026-05-28"
-last_updated: "2026-05-28"
+last_updated: "2026-05-28T12:00:00Z"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
@@ -26,7 +26,8 @@ LightSpeed `.github` repository. It consolidates:
 - Agent ownership and wave assignments
 
 **Live as of 2026-05-28**: Previous label governance sequence (`#66`, `#67`, `#69`, `#95`, `#449`) is
-closed. Current focus: Wave 2A agent burn-down + new Wave 3 (README/Mermaid review).
+closed. Wave 2B (7 mode/planning agent spec upgrades) merged 2026-05-28.
+Current focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`) + Wave 2D now unblocked (`#31`, `#23`).
 
 ---
 
@@ -102,17 +103,19 @@ Recently completed:
 - `#467` (PR `#500`)
 - `#466`, `#468`, `#469`
 
-#### **Wave 2B: Mode & Planning Agent Batch** (Claude)
+#### **Wave 2B: Mode & Planning Agent Batch** (Claude) ✅ COMPLETE
 
-Issues:
+All 7 issues merged 2026-05-28:
 
-- `#470` — [Next Ready]
-- `#471` — [Queued]
-- `#473` — [Queued]
-- `#475` — [Queued]
-- `#478` — [Queued]
-- `#484` — [Queued]
-- `#486` — [Queued]
+- `#470` ✅ merged via PR `#515`
+- `#471` ✅ merged via PR `#516`
+- `#473` ✅ merged via PR `#517`
+- `#475` ✅ merged via PR `#518`
+- `#478` ✅ merged via PR `#519`
+- `#484` ✅ merged via PR `#520`
+- `#486` ✅ merged via PR `#521`
+
+Wave 2D is now unblocked.
 
 #### **Wave 2C: Scaffolds & Completion Batch** (Codex)
 
@@ -367,7 +370,7 @@ Use this sequence for all active implementation work:
 
 - [x] Wave 1 completed
 - [ ] Wave 2A merged (target: 3 issues)
-- [ ] Wave 2B merged (target: 7 issues)
+- [x] Wave 2B merged (target: 7 issues) — completed 2026-05-28 via PRs #515–#521
 - [ ] Wave 2C merged (target: 2 issues)
 - [ ] Wave 2D audit documents released (target: 2 audit reports)
 - [ ] Wave 3A audit report published (target: `.github/reports/mermaid-audit/`)
