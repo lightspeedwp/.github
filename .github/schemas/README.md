@@ -8,13 +8,10 @@ maintainer: "LightSpeed Team"
 authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["schemas", "github-boundary", "ai-ops"]
+owners: ["LightSpeed Team"]
 domain: "governance"
 stability: "draft"
-references:
-  - path: "../../.schemas/README.md"
-    description: "Portable schema library index."
-  - path: "../projects/active/portable-ai-plugin-restructure/issues/children/batch-02-portable-migration/02-05-refactor-move-active-schemas-to-root-schemas.md"
-    description: "Issue #297 local source draft."
+status: "active"
 ---
 
 # .github Schemas Boundary

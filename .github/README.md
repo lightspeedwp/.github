@@ -10,6 +10,7 @@ maintainer: "LightSpeed Team"
 license: "GPL-3.0"
 domain: "governance"
 stability: "stable"
+status: "active"
 owners:
   - LightSpeed Team
 tags:
@@ -20,35 +21,6 @@ tags:
   - workflows
   - labeling
   - ai
-references:
-  - path: ./custom-instructions.md
-    description: Custom instructions for AI agents
-  - path: ./agents/agent.md
-    description: Main agents index
-  - path: ./prompts/prompts.md
-    description: Prompts index
-  - path: ../AGENTS.md
-    description: Organization-wide agents documentation
-  - path: ../docs/AUTOMATION_GOVERNANCE.md
-    description: Automation governance policies
-  - path: ./labels.yml
-    description: Label definitions
-  - path: ./labeler.yml
-    description: Labeler configuration
-  - path: ./issue-types.yml
-    description: Issue type definitions
-  - path: ./instructions/coding-standards.instructions.md
-    description: Coding standards instructions
-  - path: ./instructions/linting.instructions.md
-    description: Linting standards index
-  - path: ./instructions/tests.instructions.md
-    description: Testing standards index
-  - path: ./workflows/README.md
-    description: Workflows directory index
-  - path: ../CONTRIBUTING.md
-    description: Contribution guidelines
-  - path: ../docs/README.md
-    description: Documentation hub
 ---
 
 # 🏛️ LightSpeed Organisation .github Community Health Repository

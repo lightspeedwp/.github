@@ -11,6 +11,7 @@ owners: ["lightspeedwp/maintainers"]
 license: "GPL-3.0"
 domain: "community"
 stability: "stable"
+status: "active"
 tags:
   [
     "wordpress",
@@ -22,13 +23,6 @@ tags:
     "tour-operator",
     "community",
   ]
-references:
-  - path: "../.github/custom-instructions.md"
-    description: "AI custom instructions"
-  - path: "../CONTRIBUTING.md"
-    description: "Contribution guidelines"
-  - path: "../SUPPORT.md"
-    description: "Support resources"
 ---
 
 # 🚀 LightSpeed WordPress Development Agency
