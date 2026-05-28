@@ -55,6 +55,7 @@ The goal is to build a **unified, schema-driven branding agent** that automates 
 ### Opportunity
 
 Build one **unified branding meta agent** that:
+
 - Centralises branding logic in schema/config
 - Makes category and template selection explicit and testable
 - Supports deterministic, reproducible output
@@ -68,16 +69,19 @@ Build one **unified branding meta agent** that:
 ### Phase 1: Define the System (Parallel Work)
 
 **Issues to complete**:
+
 - **#33**: Parent specification defining category taxonomy, footer/header requirements, scope
 - **#46**: Template design rules and 5 footer variants per category
 - **#49**: Schema/config model with JSON Schema validation
 
 **Approach**:
+
 - #33 and #46 can proceed in parallel; both inform #49
 - #49 synthesis happens after #33 scope is locked and #46 templates are drafted
 - All three issues remain focused on **specification only** — no implementation
 
 **Key decisions to lock down**:
+
 1. Category list (issue, pull-request, docs, ai-ops, agents, instructions, prompts, schema, readme, test, utility, awesome-copilot, research, audit, workflow, governance)
 2. Frontmatter fields (category, tags, and what else?)
 3. Path-based defaults (docs/** → docs category, etc.)
@@ -92,6 +96,7 @@ Build one **unified branding meta agent** that:
 **Objective**: Understand what exists before implementation.
 
 **Tasks**:
+
 1. Scan all `.md` files for existing footers
 2. Categorise by pattern (Maintained with ❤️, Built by 🧱, etc.)
 3. Identify duplicates and conflicts
@@ -99,6 +104,7 @@ Build one **unified branding meta agent** that:
 5. Build audit report with recommendations
 
 **Deliverables**:
+
 - Audit report (strengths, gaps, duplicates, risks)
 - Remediation checklist (files to fix, priority, effort)
 - Decision log for conflicts (e.g., "file X has 3 footers; which is canonical?")
@@ -110,6 +116,7 @@ Build one **unified branding meta agent** that:
 **Objective**: Translate specification into working schema/config.
 
 **Tasks**:
+
 1. Define `agent-config.schema.json` structure
    - Category definitions
    - Frontmatter field contracts
@@ -129,6 +136,7 @@ Build one **unified branding meta agent** that:
    - Safe failure modes (don't corrupt files on invalid config)
 
 **Deliverables**:
+
 - Updated/created `agent-config.schema.json`
 - Base `agent-config.yaml` with all categories and templates
 - Validation rules documentation
@@ -141,6 +149,7 @@ Build one **unified branding meta agent** that:
 **Objective**: Consolidate branding logic into unified agent.
 
 **Tasks**:
+
 1. Review existing agents:
    - `header-footer.agent.md`
    - `badges.agent.md`
@@ -164,6 +173,7 @@ Build one **unified branding meta agent** that:
    - Error handling: what happens on validation failure?
 
 **Deliverables**:
+
 - Unified branding agent specification (responsibilities, inputs, outputs)
 - Merge/refactor plan with step-by-step implementation sequence
 - Helper function library (category lookup, template selection, rendering)
@@ -175,6 +185,7 @@ Build one **unified branding meta agent** that:
 **Objective**: Build agent and fix all existing footers.
 
 **Tasks**:
+
 1. Implement agent logic (following Phase 4 architecture)
 2. Implement validation (config validation, frontmatter validation)
 3. Create remediation script or manual process
@@ -195,6 +206,7 @@ Build one **unified branding meta agent** that:
    - Prevent bad footers from merging
 
 **Deliverables**:
+
 - Fully implemented branding agent
 - All `.md` files with correct headers/footers
 - CI validation rules
@@ -207,6 +219,7 @@ Build one **unified branding meta agent** that:
 **Objective**: Ensure maintainers understand the system.
 
 **Tasks**:
+
 1. Update/create documentation:
    - How to add a new category
    - How to customize templates
@@ -229,6 +242,7 @@ Build one **unified branding meta agent** that:
    - How to add new badges
 
 **Deliverables**:
+
 - Complete documentation set
 - Reviewer/maintainer guidance
 - Maintenance runbook
@@ -378,23 +392,27 @@ Build one **unified branding meta agent** that:
 ## Success Criteria
 
 ### Specification Phase (#33, #46, #49, #48)
+
 - [ ] Category taxonomy locked and documented
 - [ ] Template design finalized with 5+ variants per category
 - [ ] Schema/config model approved by maintainer(s)
 - [ ] Agent specification clear and unambiguous
 
 ### Audit Phase
+
 - [ ] Current-state audit report published
 - [ ] All duplicate footers documented
 - [ ] Remediation priority and effort estimated
 
 ### Implementation Phase
+
 - [ ] Schema/config merged and validated
 - [ ] Branding agent implemented and tested
 - [ ] All `.md` files remediated with new footers
 - [ ] CI validation passing on all files
 
 ### Rollout Phase
+
 - [ ] Documentation complete and reviewed
 - [ ] Maintainer/reviewer guidance approved
 - [ ] Final audit confirming no orphaned or malformed footers
@@ -440,9 +458,3 @@ This matrix will be finalized in #46 with full template variants.
 | `governance` | Policies, decision records, rules | All contributors | governance, policy | Policy name | Approval chain |
 
 ---
-
-## Document History
-
-| Version | Date | Author | Change |
-| --- | --- | --- | --- |
-| v1.0.0 | 2026-05-28 | Claude | Initial planning document |

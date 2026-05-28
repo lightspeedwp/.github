@@ -79,8 +79,3 @@ These templates integrate with:
 *This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) for complete automation standards.*
 
 ---
-
-<!-- RANDOM FOOTER: 🔀 Streamlined PRs, seamless integration! -->
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

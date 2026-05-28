@@ -51,7 +51,6 @@ This document is the single source of truth for all coding standards in LightSpe
 - [Formatting & Automation](#formatting--automation)
 - [Documentation Standards](#documentation-standards)
 - [AI & Copilot Instructions](#ai--copilot-instructions)
-- [References](#references)
 
 ---
 
@@ -105,16 +104,3 @@ All documentation links to files within the same repository should use `/blob/HE
 - See [LightSpeed Copilot Prompts Index](../.github/prompts/prompts.md) for reusable prompts.
 
 ---
-
-## References
-
-- [linting.instructions.md](linting.instructions.md)
-- [documentation-formats.instructions.md](documentation-formats.instructions.md)
-- [languages.instructions.md](languages.instructions.md)
-- [a11y.instructions.md](a11y.instructions.md)
-- [workflows.instructions.md](workflows.instructions.md)
-- [instructions.instructions.md](instructions.instructions.md)
-- [LightSpeed Custom Instructions](../.github/custom-instructions.md)
-- [LightSpeed Copilot Prompts Index](../.github/prompts/prompts.md)
-- [LightSpeed Agents Index](../agents/agent.md)
-- [LightSpeed GitHub Workflow Governance](../docs/WORKFLOWS.md)

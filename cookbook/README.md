@@ -11,16 +11,3 @@ tags: ["cookbook", "recipes", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "draft"
 ---
-
-# AI Cookbook
-
-This folder owns durable recipes, examples, playbooks, and implementation
-guides that are useful across projects but are not strict installable skills.
-
-## Structure
-
-| Path | Purpose |
-| --- | --- |
-| `cookbook/<recipe-id>.md` | A single reusable recipe or playbook. |
-| `cookbook/<topic>/README.md` | Topic index for a larger recipe group. |
-| `cookbook/README.md` | This ownership index. |

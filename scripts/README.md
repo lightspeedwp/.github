@@ -1,15 +1,30 @@
 ---
-file_type: "documentation"
-title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
-version: "2.6"
-last_updated: "2026-05-28"
+version: "2.5"
+last_updated: "2025-12-04"
 owners:
-  - LightSpeed Team
-tags: ["scripts", "automation", "utilities", "maintenance"]
-domain: "governance"
-stability: "stable"
-status: "active"
+  - LightSpeedWP Team
+references:
+  - path: ../instructions/coding-standards.instructions.md
+    description: Coding standards for all scripts
+  - path: ../instructions/documentation-formats.instructions.md
+    description: Frontmatter and documentation format standards
+  - path: ../.schemas/frontmatter.schema.json
+    description: Frontmatter schema
+  - path: ../.schemas/collection.schema.json
+    description: Collection schema
+  - path: ../tests/README.md
+    description: Testing framework
+  - path: ../docs/WORKFLOWS.md
+    description: Workflow documentation
+  - path: ../CHANGELOG.md
+    description: Project changelog
+  - path: ../docs/TESTING.md
+    description: Testing standards
+  - path: ../docs/LINTING.md
+    description: Linting standards
+---
+
 ---
 
 # LightSpeedWP Scripts & Automation
@@ -77,18 +92,18 @@ sequenceDiagram
 
 ## Directory Structure
 
-- **awesome-copilot/** — Utilities for prompt/collection management and validation.
+- **awesome-copilot/** — Utilities for prompt/collection management and validation.  
   *See:* `awesome-copilot/README.md`
-- **includes/** — Shared Bash helpers and test utilities.
+- **includes/** — Shared Bash helpers and test utilities.  
   *See:* `includes/README.md`
-- **json-validation/** — Node.js/YAML validation scripts and tests.
+- **json-validation/** — Node.js/YAML validation scripts and tests.  
   *See:* `json-validation/README.md`
 - **logs/** — Log output for script runs.
-- **maintenance/** — Scripts for repo maintenance, documentation, and label automation.
+- **maintenance/** — Scripts for repo maintenance, documentation, and label automation.  
   *See:* `maintenance/README.md`
-- **projects/** — GitHub Projects management and automation scripts.
+- **projects/** — GitHub Projects management and automation scripts.  
   *See:* `projects/README.md`
-- **utility/** — General-purpose shell and Node.js utilities for label management, logging, and validation.
+- **utility/** — General-purpose shell and Node.js utilities for label management, logging, and validation.  
   *See:* `utility/README.md`
 
 ## Core Components
@@ -253,14 +268,14 @@ markdownlint scripts/**/*.md  # README / docs lint
 
 ## Change Log / History
 
-Version: 2.5 (increment when public script interfaces or includes contracts change).
+Version: 2.5 (increment when public script interfaces or includes contracts change).  
 Refer to `../CHANGELOG.md` for release context and automation evolution.
 
 ## FAQ / Troubleshooting
 
-**Collection validation failed?** Ensure `collection.schema.json` is up to date and YAML frontmatter paths are correct.
-**Scripts sourcing wrong path?** Use `$(dirname "$0")` patterns and avoid relative assumptions.
-**Permission denied running script?** Add executable bit: `chmod +x <script>`.
+**Collection validation failed?** Ensure `collection.schema.json` is up to date and YAML frontmatter paths are correct.  
+**Scripts sourcing wrong path?** Use `$(dirname "$0")` patterns and avoid relative assumptions.  
+**Permission denied running script?** Add executable bit: `chmod +x <script>`.  
 **Bats tests not found?** Verify test file naming pattern `test-*.bats` and correct path in run script.
 
 ## Limitations & Notes
@@ -373,7 +388,7 @@ When contributing new scripts or modifications:
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../.schemas/)
-- [Test Coverage Reports](../tests/README.md)
+- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References
@@ -384,16 +399,3 @@ When contributing new scripts or modifications:
 - [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
 
 ---
-
-*⚡ Empowering WordPress development through intelligent automation and shared utilities.*
-
-<!-- RANDOM FOOTER: ⚡ Magic Automation Unicorns at work! -->
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

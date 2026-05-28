@@ -143,10 +143,3 @@ Quick map:
   - `common.md` - common pitfalls and fixes
 
 ---
-
-## Final deliverable expectations
-
-- No clipped text, overlaps, black squares, or broken glyphs in rendered PNGs.
-- Verify in at least **one** renderer (`pdfium` or `pdftoppm`). For tricky forms, verify in **two**.
-- Remove intermediate artifacts from the deliverable folder (keep only final PDF(s)).
-- Avoid Unicode dashes that some renderers mishandle; prefer ASCII `-`.

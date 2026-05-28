@@ -56,7 +56,6 @@ Applies to testing and QA across code, automation, and workflows. Covers strateg
 - [End-to-End Testing](#end-to-end-testing)
 - [CI/CD Integration](#cicd-integration)
 - [Quality Gates](#quality-gates)
-- [References](#references)
 
 ---
 
@@ -552,21 +551,3 @@ tests/
 *This document consolidates quality assurance standards for GitHub community health repositories. All code must be tested and validated before merge.*
 
 ---
-
-## References
-
-- [instructions.instructions.md](./instructions.instructions.md)
-- [instructions.instructions.md](instructions.instructions.md)
-- [instructions.instructions.md](instructions.instructions.md)
-- [coding-standards.instructions.md](coding-standards.instructions.md)
-- [linting.instructions.md](linting.instructions.md)
-- [workflows.instructions.md](workflows.instructions.md)
-- [languages.instructions.md](languages.instructions.md)
-- [test workflows](../.github/workflows/test*.yml)
-- [Jest Documentation](https://jestjs.io/)
-- [Jest Best Practices](https://jestjs.io/docs/best-practices)
-- [Testing Library](https://testing-library.com/)
-- [Test Pyramid](https://martinfowler.com/articles/practical-test-pyramid.html)
-- [AAA Pattern](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/)
-- [Istanbul Coverage](https://istanbul.js.org/)
-- [Codecov](https://about.codecov.io/)

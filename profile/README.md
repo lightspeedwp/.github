@@ -2,16 +2,15 @@
 file_type: "documentation"
 title: "LightSpeed WordPress Development Agency - GitHub Profile"
 description: "Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003"
-version: "2.2"
+version: "2.1"
 created_date: "2025-10-20"
-last_updated: "2026-05-28"
+last_updated: "2025-12-04"
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp/maintainers"]
 license: "GPL-3.0"
 domain: "community"
 stability: "stable"
-status: "active"
 tags:
   [
     "wordpress",
@@ -23,6 +22,13 @@ tags:
     "tour-operator",
     "community",
   ]
+references:
+  - path: "../.github/custom-instructions.md"
+    description: "AI custom instructions"
+  - path: "../CONTRIBUTING.md"
+    description: "Contribution guidelines"
+  - path: "../SUPPORT.md"
+    description: "Support resources"
 ---
 
 # 🚀 LightSpeed WordPress Development Agency
@@ -32,7 +38,7 @@ tags:
 [![Since 2003](https://img.shields.io/badge/Since-2003-blue)](https://lightspeedwp.agency/about)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Community](https://img.shields.io/badge/Community-Driven-success)](https://github.com/orgs/lightspeedwp/discussions)
-[![AI Enhanced](https://img.shields.io/badge/AI-Enhanced-purple)](../.github/custom-instructions.md)
+[![AI Enhanced](https://img.shields.io/badge/AI-Enhanced-purple)](./.github/custom-instructions.md)
 
 ## 👋 Welcome to LightSpeed's GitHub Organization
 
@@ -283,7 +289,7 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 ### 📱 Social Media
 
 - **🐦 Twitter**: [@lightspeedwp](https://twitter.com/lightspeedwp) - Latest updates and news
-- **💼 GitHub**: [LightSpeed WP](https://github.com/lightspeedwp) - Open-source profile
+- **💼 LinkedIn**: [LightSpeed WP](https://www.linkedin.com/company/lightspeed-wp/) - Professional network
 - **📧 Email**: [hello@lightspeedwp.agency](mailto:hello@lightspeedwp.agency) - Direct contact
 
 ### 🆘 Support Resources
@@ -298,13 +304,3 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 **🚀 Together, let's build better WordPress experiences and empower the open-source community!**
 
 ---
-
-*This profile is part of our commitment to transparency, community engagement, and open-source collaboration. All our projects follow the [LightSpeed development standards](../instructions/coding-standards.instructions.md) and are enhanced with AI-powered development tools.*
-
-<!-- RANDOM FOOTER: ✨ Maintained with ❤️ by LightSpeedWP Automation Team -->
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

@@ -185,24 +185,3 @@ Linting instructions should evolve with our standards and requirements. When upd
 4. Document significant changes in the commit message.
 
 ---
-
-## Related Guidance
-
-- [Coding Standards Instructions](./coding-standards.instructions.md)
-- [Custom Instructions (Org-wide)](../.github/custom-instructions.md)
-- [Workflows Instructions](./workflows.instructions.md)
-- [Global AI Rules (AGENTS.md)](../AGENTS.md)
-- [Instructions Directory](../instructions/)
-
-## License
-
-These linting instructions are part of the LightSpeed organization's community health files, licensed under the GNU General Public License v3.0.
-
-## References
-
-- [instructions.instructions.md](./instructions.instructions.md)
-- [coding-standards.instructions.md](./coding-standards.instructions.md)
-- [languages.instructions.md](./languages.instructions.md)
-- [workflows.instructions.md](./workflows.instructions.md)
-- [Linting Agent Spec](../agents/linting.agent.md)
-- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)

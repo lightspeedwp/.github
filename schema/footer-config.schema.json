@@ -1,11 +1,3 @@
----
-title: "Footer Schema & Configuration"
-description: "JSON Schema and YAML configuration for predefined, validated footers by document category"
-version: "v1.0.0"
-created_date: "2026-05-28"
-file_type: "schema"
----
-
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Footer Configuration Schema",

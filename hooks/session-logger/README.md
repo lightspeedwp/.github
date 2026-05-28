@@ -6,19 +6,3 @@ version: "v0.1.0"
 last_updated: "2026-05-28"
 owners: ["LightSpeedWP Team"]
 ---
-
-# session-logger hook
-
-## Purpose
-
-Emit structured activity records for key agent actions.
-
-## Inputs
-
-- Event type
-- Actor
-- Target path
-
-## Outputs
-
-- Structured log entry

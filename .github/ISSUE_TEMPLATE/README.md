@@ -2,9 +2,9 @@
 file_type: "documentation"
 title: "Issue Templates Directory"
 description: "Standardized issue templates for the LightSpeedWP organization"
-version: "v1.2"
+version: "v1.1"
 created_date: "2025-10-20"
-last_updated: "2026-05-28"
+last_updated: "2025-12-04"
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
@@ -41,7 +41,7 @@ Get started with LightSpeedWP issue templates in three steps:
    - Select the appropriate template for your issue type (bug, feature, documentation, etc.)
    - Follow the instructions in the template to submit your issue
 
-For advanced usage, see the [Issue Template Index](./README.md) and individual template specs for configuration and automation options.
+For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) and individual template specs for configuration and automation options.
 
 ## 🗂️ Issue Template Workflow
 
@@ -84,10 +84,10 @@ The issue templates in this directory are automatically synchronized across all 
 
 These templates integrate with:
 
-- **[Issue Types](../../docs/ISSUE_TYPES.md)** - Canonical issue type definitions
-- **[Issue Labels](../../docs/ISSUE_LABELS.md)** - Automated labeling system
-- **[Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md)** - Agent-driven workflows
-- **[Branching Strategy](../../docs/BRANCHING_STRATEGY.md)** - Branch naming conventions
+- **[Issue Types](../ISSUE_TYPES.md)** - Canonical issue type definitions
+- **[Issue Labels](../ISSUE_LABELS.md)** - Automated labeling system
+- **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Agent-driven workflows
+- **[Branching Strategy](../BRANCHING_STRATEGY.md)** - Branch naming conventions
 
 ## 🤖 Automation Features
 
@@ -115,11 +115,3 @@ These templates integrate with:
 *This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) for complete automation standards.*
 
 ---
-
-<!-- RANDOM FOOTER: 🚀 Consistent templates, efficient workflows! -->
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
