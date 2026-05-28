@@ -39,7 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hardened canonical label seeding with policy-gated orphan cleanup, added
   label-governance policy config, and documented #95 decision gating for
   destructive cleanup.
-<<<<<<< HEAD
 - Started Wave 2A execution for `#465` (`issues.agent`) by validating canonical
   spec/runtime paths, documenting current apply-mode gap, and recording the
   next implementation step for guarded mutation support.
@@ -53,6 +52,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   spec/runtime parity, recording active workflow-integrated status, and
   capturing hardening follow-ups for header cleanup and opt-out edge-case
   tests.
+
+- Closed Wave 2A tracking issue `#469` (`metrics.agent`) by confirming
+  spec/runtime references, documenting the current runtime placeholder gap, and
+  queuing implementation follow-up under the next ready Wave 2A issue.
 
 ## [0.4.0] - 2026-05-27
 
