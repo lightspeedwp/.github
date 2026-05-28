@@ -1,11 +1,15 @@
 ---
+file_type: "documentation"
+title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
 version: "2.6"
 last_updated: "2026-05-28"
 owners:
-  - LightSpeedWP Team
----
-
+  - LightSpeed Team
+tags: ["scripts", "automation", "utilities", "maintenance"]
+domain: "governance"
+stability: "stable"
+status: "active"
 ---
 
 # LightSpeedWP Scripts & Automation
@@ -384,6 +388,9 @@ When contributing new scripts or modifications:
 *⚡ Empowering WordPress development through intelligent automation and shared utilities.*
 
 <!-- RANDOM FOOTER: ⚡ Magic Automation Unicorns at work! -->
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

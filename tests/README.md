@@ -1,8 +1,8 @@
 # 🧪 LightSpeedWP Testing Framework
 
 <!-- BADGES-START -->
-
-[![changelog](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml)
+[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
+[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
 [![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
 [![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
 [![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
@@ -10,11 +10,12 @@
 [![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
 [![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
 [![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
+[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
+[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
 [![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
 [![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
 [![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
 [![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-
 <!-- BADGES-END -->
 
 ## Metadata
@@ -25,7 +26,7 @@
 | Version        | 2.2.0                                                                                                                                                                                                                                                                                                                                      |
 | Last Updated   | 2025-10-25                                                                                                                                                                                                                                                                                                                                 |
 | Owners         | Ash Shaw; LightSpeedWP QA                                                                                                                                                                                                                                                                                                                  |
-| Key References | [`scripts/README.md`](../scripts/README.md), [`coverage/`](../coverage/), [`test-helpers.js`](./test-helpers.js), [`test-template-labels.js`](./test-template-labels.js), [`../.schemas/README.md`](../.schemas/README.md), [`testing workflow`](../.github/workflows/testing.yml) |
+| Key References | [`scripts/README.md`](../scripts/README.md), [`docs/TESTING.md`](../docs/TESTING.md), [`test-helpers.js`](./test-helpers.js), [`test-template-labels.js`](./test-template-labels.js), [`../.schemas/README.md`](../.schemas/README.md), [`testing workflow`](../.github/workflows/testing.yml) |
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
 ![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
@@ -88,7 +89,7 @@ Current test assets in this folder:
 
 - **[`bash/`](./bash/)** — Bats tests for shell-based workflows
 - **[`js/`](./js/)** — Jest tests for Node and automation logic
-- **[`../coverage/`](../coverage/)** — Generated coverage artefacts
+- **[`../docs/TESTING.md`](../docs/TESTING.md)** — Coverage and testing guidance
 
 ## Usage & Quickstart
 
@@ -100,7 +101,7 @@ Typical commands:
 - Run Bats only: `bats tests/` (or `bats tests/utility` for a subset)
 - Run Jest unit tests: `npm test` (alias for `npx jest`)
 - Run Python doc/schema validations: `pytest tests/pytests`
-- Show coverage summary (after Jest): `npx jest --coverage` or view `coverage/README.md`
+- Show coverage summary (after Jest): `npx jest --coverage` and review the generated terminal report
 
 Minimal smoke check (fast):
 
@@ -138,7 +139,7 @@ Add new tests by placing `.bats` or `.test.js` files following existing naming p
 2. Isolation: Use `test-helper.bash` for environment setup/teardown—avoid mutating global state.
 3. Determinism: Mock network/filesystem where possible; prefer fixtures over ad-hoc inline data.
 4. Coverage Improvement: Focus on untested branches before adding new features.
-5. Documentation: When adding complex test helpers, update this README or `TEST_COVERAGE_SUMMARY.md`.
+5. Documentation: When adding complex test helpers, update this README or `../docs/TESTING.md`.
 6. Fast Feedback: Keep critical path tests lean (< 2s) to optimize pre-commit runs.
 
 ## 🔄 Test Execution Workflow
@@ -203,7 +204,7 @@ flowchart TD
     style Q fill:#ffcdd2
 ```
 
-See `TEST_COVERAGE_SUMMARY.md` for full coverage details and examples.
+See `../docs/TESTING.md` for coverage details and examples.
 
 ---
 
@@ -265,7 +266,7 @@ npm ci
 
 #### Core Testing Documentation
 
-- [Coverage Artefacts](../coverage/) — Coverage output generated by Jest
+- [Testing Guide](../docs/TESTING.md) — Testing and coverage guidance
 - [Jest Configuration](../.jest.config.cjs) — JavaScript testing framework configuration
 - [Testing Workflow](../.github/workflows/testing.yml) — Automated test workflow
 - [Quality Assurance](../instructions/quality-assurance.instructions.md) — Testing standards and best practices
@@ -283,14 +284,14 @@ npm ci
 
 - [Bats Testing Framework](https://github.com/bats-core/bats-core) — Bash Automated Testing System
 - [Jest Testing Documentation](https://jestjs.io/docs/getting-started) — JavaScript testing framework
+- [Shared Test Helpers](./test-helpers.js) — Common testing utilities
 - [GitHub Actions Testing Workflow](../.github/workflows/testing.yml) — CI/CD testing automation
 
 #### Related Project Documentation
 
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
 - [Schema Validation](../.schemas/README.md) — JSON schema validation and configuration
-- [Coverage Directory](../coverage/) — Test coverage outputs and reports
-- [HTML Coverage Reports](../coverage/lcov-report/) — Interactive coverage visualisation
+- [Testing Documentation](../docs/TESTING.md) — Test coverage reporting and analysis guidance
 
 #### 🎯 AI & Automation
 
@@ -305,6 +306,9 @@ npm ci
 *🧪 Ensuring quality through comprehensive testing and continuous coverage validation.*
 
 <!-- RANDOM FOOTER: 🧪 Docs signed by Copilot for LightSpeedWP -->
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -11,6 +11,7 @@ owners: ["lightspeedwp/maintainers"]
 license: "GPL-3.0"
 domain: "community"
 stability: "stable"
+status: "active"
 tags:
   [
     "wordpress",
@@ -22,13 +23,6 @@ tags:
     "tour-operator",
     "community",
   ]
-references:
-  - path: "../.github/custom-instructions.md"
-    description: "AI custom instructions"
-  - path: "../CONTRIBUTING.md"
-    description: "Contribution guidelines"
-  - path: "../SUPPORT.md"
-    description: "Support resources"
 ---
 
 # 🚀 LightSpeed WordPress Development Agency
@@ -289,7 +283,7 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 ### 📱 Social Media
 
 - **🐦 Twitter**: [@lightspeedwp](https://twitter.com/lightspeedwp) - Latest updates and news
-- **💼 LinkedIn**: [LightSpeed WP](https://www.linkedin.com/company/lightspeed-wp/) - Professional network
+- **💼 GitHub**: [LightSpeed WP](https://github.com/lightspeedwp) - Open-source profile
 - **📧 Email**: [hello@lightspeedwp.agency](mailto:hello@lightspeedwp.agency) - Direct contact
 
 ### 🆘 Support Resources
@@ -308,6 +302,9 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 *This profile is part of our commitment to transparency, community engagement, and open-source collaboration. All our projects follow the [LightSpeed development standards](../instructions/coding-standards.instructions.md) and are enhanced with AI-powered development tools.*
 
 <!-- RANDOM FOOTER: ✨ Maintained with ❤️ by LightSpeedWP Automation Team -->
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)

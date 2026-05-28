@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+
+- Added WCAG 2.2 AA accessibility attributes (`accTitle` and `accDescr`) to all Mermaid diagrams across `profile/README.md`, `scripts/README.md`, `.github/README.md`, and supporting files. Closes [#513](https://github.com/lightspeedwp/.github/issues/513). ([#526](https://github.com/lightspeedwp/.github/pull/526))
+
 ### Fixed
 
+- Removed prohibited `references:` frontmatter field from 9 README files (`README.md`, `.github/README.md`, `.github/agents/README.md`, `.github/instructions/README.md`, `.github/metrics/README.md`, `.github/schemas/README.md`, `.schemas/README.md`, `profile/README.md`, `scripts/README.md`) per CLAUDE.md governance rule. Added missing required frontmatter fields (`owners`, `status`, `stability`, `domain`) to affected files. Removed 13 duplicate footer blocks from root `README.md`. Added `.lycheeignore` excluding social-platform and LightSpeed external domains from CI link checking. Added `docs/MIGRATION.md` portable AI plugin restructure migration maps (completed and pending migrations, file placement quick-reference). Related to [#18](https://github.com/lightspeedwp/.github/issues/18). ([#527](https://github.com/lightspeedwp/.github/pull/527))
 - Replaced deprecated MCP tool references (`create_issue`, `update_issue`, `get_issue`) with current equivalents (`issue_write`, `issue_read`) across agent specs and prompt files. Closes [#52](https://github.com/lightspeedwp/.github/issues/52). ([#455](https://github.com/lightspeedwp/.github/pull/455))
 - Expanded issue template DoD checklists with discrete accessibility (WCAG 2.2 AA), security (OWASP Top 10), and performance items, aligning issue templates with the PR template. Closes [#21](https://github.com/lightspeedwp/.github/issues/21). ([#460](https://github.com/lightspeedwp/.github/pull/460))
 - Updated `.coderabbit.yml`: corrected schema URL to `docs.coderabbit.ai/schema/schema.v2.json`; added `language: en-GB`, `inheritance: true`, `chat.auto_reply: true`; added `reviews.profile: chill` and `reviews.review_details: true`; hardened workflow path instructions with security guidance (least-privilege permissions, secret injection prevention, action pinning); added `instructions/**` and `CHANGELOG.md` path instructions; expanded path filters. Closes [#23](https://github.com/lightspeedwp/.github/issues/23).
@@ -17,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added plugin-pack specialised skill rollout updates across active packs with per-platform manifest parity, expanded `SKILL_REGISTRY` scope coverage (`batch6PlatformYamlScope`), and refreshed rollout task tracking documentation. Closes [#524](https://github.com/lightspeedwp/.github/issues/524). ([#525](https://github.com/lightspeedwp/.github/pull/525))
 
+- Added `accTitle` and `accDescr` accessibility attributes to all 15 Mermaid diagrams across 8 README files (`.github/README.md`, `profile/README.md`, `scripts/README.md`, `scripts/validation/README.md`, `.github/ISSUE_TEMPLATE/README.md`, `.github/projects/README.md`, `.vscode/README.md`, `tests/README.md`), bringing WCAG 2.2 AA compliance to 100%. Added Wave 3A/3B audit report, findings CSV, and repair log to `.github/reports/mermaid-audit/`. Closes [#513](https://github.com/lightspeedwp/.github/issues/513).
 - Upgraded `.github/instructions/markdown.instructions.md` to v1.1: added canonical scope and precedence statement, related-files summary table, expanded WCAG 2.2 AA accessibility section with required checks, expanded examples (tables, images, links, frontmatter), contribution/review process, and branded footer. Closes [#31](https://github.com/lightspeedwp/.github/issues/31).
 - Added universal issue-field governance for `Priority`, `Start date`,
   `Target date`, and `Effort`; aligned canonical config and instructions; and
