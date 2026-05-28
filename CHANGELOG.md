@@ -1,3 +1,17 @@
+---
+title: "Changelog"
+description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
+file_type: "documentation"
+category: "Governance"
+version: "1.0.0"
+last_updated: "2026-05-28"
+owners: ["Engineering Team"]
+tags: ["changelog", "versioning", "releases", "governance"]
+status: "active"
+stability: "stable"
+domain: "governance"
+---
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -9,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- Added comprehensive template design specification for unified branding agent (Issue #46): `.github/projects/active/ISSUE_46_TEMPLATE_DESIGN.md` (950+ lines). Specification defines header templates for all 16 document categories, footer variants (5 each for 6 key categories: Docs, Agents, Instructions, Schemas, Prompts, Governance; 1 each for 10 other categories), badge templates (Status, Category, Version, Review Status), accessibility constraints (WCAG AA compliance, contrast ratios, alt text), readability guidelines (line length, nesting, bullet lists), and YAML configuration structure for `config/templates.config.yaml`. Unblocks schema/config implementation (Issue #49) and current-state audit (Issue #48). Depends on Issue #33 parent specification. ([#538](https://github.com/lightspeedwp/.github/pull/538))
 - Added comprehensive parent specification for unified branding agent (Issue #33): `.github/projects/active/ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` (1,100+ lines). Specification locks down category taxonomy (16 document categories), header/footer requirements with 5 variants each for 6 key categories, badge system, schema/config model (YAML + JSON Schema), frontmatter standards, and 4-phase delivery roadmap. Unblocks child issues #46 (template design), #49 (schema implementation), and #48 (agent development). ([#537](https://github.com/lightspeedwp/.github/pull/537))
 - Added WCAG 2.2 AA accessibility attributes (`accTitle` and `accDescr`) to all Mermaid diagrams across `profile/README.md`, `scripts/README.md`, `.github/README.md`, and supporting files. Closes [#513](https://github.com/lightspeedwp/.github/issues/513). ([#526](https://github.com/lightspeedwp/.github/pull/526))
 
