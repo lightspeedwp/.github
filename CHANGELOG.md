@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 category: "Governance"
-version: "1.0.0"
+version: "1.0.1"
 last_updated: "2026-05-28"
 owners: ["Engineering Team"]
 tags: ["changelog", "versioning", "releases", "governance"]
@@ -39,6 +39,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - CI/CD integration patterns and metric collection
   - Foundation for long-term automation roadmap (Waves 5-7) ([#536](https://github.com/lightspeedwp/.github/pull/536))
 
+### Fixed
+
+- **Plugin Structure Instructions Frontmatter** — Added missing `title` and `category` fields to `instructions/plugin-structure.instructions.md` to meet frontmatter schema requirements ([#535](https://github.com/lightspeedwp/.github/pull/547))
+
 ### Changed
 
 - **Release Agent Integration** — Updated `agents/release.agent.md` (v2.2 → v2.3) with post-release `readme-update.yml` invocation:
@@ -58,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- Added comprehensive WCEU 2026 talk asset pack audit and NotebookLM hardening plan (Issue #529): `.github/wceu-2026/WCEU_2026_AUDIT_AND_READINESS_PLAN.md` (500+ lines). Audits folder structure, identifies critical gaps in NotebookLM prompts, provides hardening roadmap with explicit develop-branch URLs. Hardened `wceu-2026/notebooklm/deep-research-prompt.md` (450+ lines) with 14 canonical approved sources, source ingestion order, analysis objectives, and constraints. Created comprehensive `wceu-2026/notebooklm/source-ingestion-checklist.md` (350+ lines) with repo-only source policy, validation checklist, prohibited sources list, and enforcement rules. Ensures NotebookLM analysis is grounded in authoritative internal sources only. ([#543](https://github.com/lightspeedwp/.github/pull/543))
 - Clarified mandatory execution ownership in `.github/projects/active/next-issues-execution-plan.md` (v2.1.1), explicitly splitting task streams between **GitHub Copilot** and **Claude Code** with a dedicated ownership matrix, updated wave labels, and explicit no-cross-execution policy language for exclusive workstreams.
 - Updated `.github/projects/active/next-issues-execution-plan.md` to v2.1.0 and synchronised the Active Project Files Inventory with all current artefacts in `.github/projects/active/`, including Wave 3B/3C specs, Wave 4 branding specifications (`ISSUE_33`, `ISSUE_46`, `ISSUE_48`, `ISSUE_49`), planning summaries, plugin-pack wave task lists, and continuous monitoring planning assets.
 - Added comprehensive current-state audit specification for unified branding agent (Issue #48): `.github/projects/active/ISSUE_48_CURRENT_STATE_AUDIT.md` (489 lines). Audits existing branding implementations against new schema/config standards, inventories frontmatter completeness (90.6% compliant, 70 files missing required fields), category mapping accuracy (98%+ correct), header/footer patterns (84.5% missing footers), badge usage (1.9% adoption), and WCAG AA accessibility (95%+ compliance). Documents gap analysis, remediation priorities with effort estimates (16–23 hours), remediation scripts needed, risk assessment, and success criteria. Provides baseline for planning agent rollout and documentation updates. ([#541](https://github.com/lightspeedwp/.github/pull/541))
