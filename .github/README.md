@@ -477,27 +477,6 @@ Have questions, feedback, or want to propose an idea? Visit our [GitHub Discussi
 For all contributors, please reference these key guidelines and indexes:
 
 - [LightSpeed General Copilot Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/custom-instructions.md)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-## For Contributors & Maintainers
-
-- **Always start here** when onboarding, contributing, or reviewing.
-- Reference **instructions** for standards, **templates** for issues/PRs, and **automation** docs for workflows and governance.
 - Use **saved replies** for common support scenarios; update them as needed.
 - For agent/Copilot questions, see the agent guides and custom instructions.
 - Update this folder when org-wide standards, workflows, or automation rules change.
