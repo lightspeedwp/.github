@@ -278,16 +278,16 @@ Issue Types and Project fields carry the semantic meaning.
 - [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](../CHANGELOG.md): Changelog format, release notes, and versioning.
 - [CONTRIBUTING.md](../CONTRIBUTING.md): Contribution guidelines, templates, and coding standards.
-- [AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md): Org-wide automation, labeling, and release strategy.
+- [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md): Org-wide project operations, labeling, and release guidance.
 - [ISSUE_TYPES.md](./ISSUE_TYPES.md): Issue type mapping and usage.
 - [ISSUE_LABELS.md](./ISSUE_LABELS.md): Label families, triage, and workflow.
 - [PR_LABELS.md](./PR_LABELS.md): PR labeling, templates, and automation.
-- [custom-instructions.md](./custom-instructions.md): Copilot and agent instructions.
-- [instructions/linting.instructions.md](./instructions/linting.instructions.md): Linting index and tool guidance.
-- [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md): Coding standards index.
-- [instructions/documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md): Frontmatter schema and conventions.
+- [.github/custom-instructions.md](../.github/custom-instructions.md): Copilot and agent instructions.
+- [instructions/linting.instructions.md](../instructions/linting.instructions.md): Linting index and tool guidance.
+- [instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md): Coding standards index.
+- [instructions/documentation-formats.instructions.md](../instructions/documentation-formats.instructions.md): Frontmatter schema and conventions.
 - [GitHub Custom Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/custom-instructions.md): Org-wide guidance and AI agent usage.
-- [Pull Request Template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/PULL_REQUEST_TEMPLATE.md): PR summary and best practices.
+- [Pull Request Template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/pull_request_template.md): PR summary and best practices.
 
 ---
 
