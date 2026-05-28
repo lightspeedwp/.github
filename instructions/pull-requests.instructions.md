@@ -179,7 +179,7 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
 ## 7. Reference Files and Checklists
 
 - **Templates:**
-  - [PULL_REQUEST_TEMPLATE.md](../.github/PULL_REQUEST_TEMPLATE.md)
+  - [pull_request_template.md](../.github/pull_request_template.md)
   - [All PR templates](../.github/PULL_REQUEST_TEMPLATE/)
 - **Labeling:**
   - [labeler.yml](../.github/labeler.yml)
@@ -248,7 +248,7 @@ For maintainers and reviewers, reference these [Saved Replies](../.github/SAVED_
 - [Branching Strategy](../docs/BRANCHING_STRATEGY.md)
 - [Label Definitions](../.github/labels.yml)
 - [Labeler Automation Rules](../.github/labeler.yml)
-- [PULL_REQUEST_TEMPLATE.md](../.github/PULL_REQUEST_TEMPLATE.md)
+- [pull_request_template.md](../.github/pull_request_template.md)
 - [All PR Templates](../.github/PULL_REQUEST_TEMPLATE/)
 - [Frontmatter Schema](../.schemas/frontmatter.schema.json)
 - [Frontmatter Schema Guide](../docs/FRONTMATTER_SCHEMA.md)
