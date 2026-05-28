@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 category: "Governance"
-version: "1.0.1"
+version: "1.0.2"
 last_updated: "2026-05-28"
 owners: ["Engineering Team"]
 tags: ["changelog", "versioning", "releases", "governance"]
@@ -22,6 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- **Consolidated Branding Agent Module** — Unified `scripts/agents/branding.agent.js` consolidates header, footer, and badge logic from previously scattered modules:
+  - Merged header-footer.js, badges.js, footerUtils.js, and badgeUtils.js into single ES Module
+  - Maintains all public API functions for footer selection, insertion, removal, and badge generation
+  - Supports configuration-driven footer phrases and badge schema mapping
+  - Provides unified import path for all branding utilities in meta agent workflows ([#47](https://github.com/lightspeedwp/.github/pull/PENDING))
 
 - **Wave 3C: README and Mermaid Maintenance Workflow** — New `.github/workflows/readme-update.yml` workflow automates README and Mermaid diagram maintenance with:
   - Mermaid accessibility updates (adds `accTitle` and `accDescr` attributes per WCAG 2.2 AA)
