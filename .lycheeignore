@@ -1,0 +1,6 @@
+# URLs excluded from lychee link checking
+# Twitter/X blocks automated HTTP clients with 401 responses
+https://twitter.com/
+https://x.com/
+# LinkedIn requires authentication for profile/company pages
+https://www.linkedin.com/
