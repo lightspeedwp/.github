@@ -23,6 +23,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Comprehensive 25-Slide Deck Prompt Suite** — Added `.github/agent-slide-decks/` directory with 25 NotebookLM and Figma-ready presentation prompts covering the complete .github automation ecosystem:
+  - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, and Planner agents with capabilities, integration points, and use cases
+  - **3 Infrastructure Prompts**: Plugin/Agents/Skills/Hooks integration, Scripts & Automation orchestration, and Workflows architecture
+  - **8 Process & Lifecycle Prompts**: PR lifecycle, issue triage, release process, documentation standards, repository metrics, QA/testing, plugin deep-dive, and observability/logging
+  - **2 Governance & Standards Prompts**: WordPress-specific requirements and contributing guidelines
+  - **5 Developer Experience & Strategy Prompts**: Getting started, best practices, troubleshooting/debugging, roadmap/vision, and case studies/success stories
+  - Each prompt includes system overview, key components, integration points, 3+ use cases, 12-15 slide structure, evidence anchors linking to repository files, design notes for visual consistency, and quality bars for validation. Enables presentation creation with NotebookLM, Figma, and other design tools. ([#549](https://github.com/lightspeedwp/.github/pull/549))
+
 - **Consolidated Branding Agent Module** — Unified `scripts/agents/branding.agent.js` consolidates header, footer, and badge logic from previously scattered modules:
   - Merged header-footer.js, badges.js, footerUtils.js, and badgeUtils.js into single ES Module
   - Maintains all public API functions for footer selection, insertion, removal, and badge generation
