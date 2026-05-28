@@ -1,8 +1,8 @@
 ---
 title: "Migration Notes"
 description: "Central migration map and contributor guidance for repository-wide naming, label, and configuration changes."
-version: "v0.2.2"
-last_updated: "2026-05-27"
+version: "v0.2.3"
+last_updated: "2026-05-28"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
@@ -126,3 +126,60 @@ This keeps cleanup reversible while #95 decisions are still being finalised.
   `.github/labeler.yml`.
 - A fail-fast schema gate now validates those three config files before label
   execution in CI.
+
+## Portable AI Plugin Restructure Migrations
+
+Historical Codex work restructured reusable AI-operations assets out of the
+`.github/` subtree and into named top-level source folders. Assets under
+`.github/` are GitHub-native governance files; portable AI assets must live at
+the repo root so they are consumable outside this repository.
+
+### Completed Migrations
+
+| Source path (old) | Destination path (new) | Notes |
+| --------------------------------- | ---------------------- | -------------------------------------------------------- |
+| `.github/instructions/` | `instructions/` | Portable instruction files (no `.github/` assumptions). |
+| `.github/agents/` | `agents/` | Portable agent specifications. |
+| `.github/schemas/` | `.schemas/` | JSON/YAML validation schemas. |
+
+All cross-file links that previously pointed to `.github/instructions/`,
+`.github/agents/`, or `.github/schemas/` must be updated to target the new
+root-level paths. READMEs and workflow files that reference the old paths are
+treated as broken-link violations during CI.
+
+### Pending Migrations
+
+These files still sit at legacy paths and must be migrated in a tracked issue
+before being linked to from portable contexts. Do **not** move them without
+opening a migration issue that records source path, target path, and validation
+plan (see `CLAUDE.md` — "What Not to Do").
+
+| File | Current (legacy) path | Target path | Tracking |
+| --------------------------------- | ---------------------------------------------------- | ---------------------------------------------- | -------- |
+| `plugin-structure.instructions.md`| `.github/instructions/plugin-structure.instructions.md` | `instructions/plugin-structure.instructions.md` | Pending issue |
+
+### File Placement Rules (Summary)
+
+The full canonical rules live in
+[`CLAUDE.md`](../CLAUDE.md) and
+[`.github/instructions/file-organisation.instructions.md`](../.github/instructions/file-organisation.instructions.md).
+The table below is a quick-reference for the most common placement decisions:
+
+| Asset type | Belongs in |
+| ------------------------------------------------ | ------------------------------------ |
+| GitHub-native governance (templates, labels, workflows) | `.github/` |
+| Repo-local Copilot / agent instructions | `.github/instructions/` or `.github/custom-instructions.md` |
+| Portable reusable instruction files | `instructions/` |
+| Portable agent specifications | `agents/` |
+| Portable skills with `SKILL.md` entrypoints | `skills/` |
+| Portable agentic workflows | `workflows/` |
+| Portable plugin bundles | `plugins/` |
+| JSON/YAML validation schemas | `.schemas/` |
+| Reports, audits, metrics outputs | `.github/reports/{category}/` |
+| Active project artefacts | `.github/projects/active/{slug}/` |
+| Permanent human documentation | `docs/` |
+| Temporary scratch files | `.github/tmp/` (clean up before PR) |
+
+When a README or issue mentions a "migration rule", add the durable mapping to
+this file and link back here so contributors have a single authoritative
+reference.
