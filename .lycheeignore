@@ -1,6 +1,13 @@
 # URLs excluded from lychee link checking
-# Twitter/X blocks automated HTTP clients with 401 responses
+
+# Social platforms that block automated HTTP clients
 https://twitter.com/
 https://x.com/
-# LinkedIn requires authentication for profile/company pages
 https://www.linkedin.com/
+
+# LightSpeed organisation websites — external, may have transient availability
+# issues or redirect chains that lychee cannot follow in CI
+https://lightspeedwp.agency/
+https://lsx.design
+https://lightspeedwp.github.io/
+https://www.lsdev.biz/
