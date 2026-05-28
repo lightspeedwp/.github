@@ -39,6 +39,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hardened canonical label seeding with policy-gated orphan cleanup, added
   label-governance policy config, and documented #95 decision gating for
   destructive cleanup.
+<<<<<<< HEAD
+- Started Wave 2A execution for `#465` (`issues.agent`) by validating canonical
+  spec/runtime paths, documenting current apply-mode gap, and recording the
+  next implementation step for guarded mutation support.
 - Started Wave 2A execution for `#466` (`labeling.agent`) by confirming
   spec/runtime parity, recording implemented status, and capturing the next
   hardening step for edge-case test coverage.
