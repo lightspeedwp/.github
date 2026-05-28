@@ -11,16 +11,3 @@ tags: ["workflows", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "draft"
 ---
-
-# Agentic Workflows
-
-This folder owns portable agentic workflows: human-readable procedures,
-orchestration patterns, and reusable runbooks for AI-assisted work.
-
-## Structure
-
-| Path | Purpose |
-| --- | --- |
-| `workflows/<workflow-id>.md` | Portable agentic workflow or runbook. |
-| `workflows/<workflow-id>/README.md` | Optional index for a larger workflow package. |
-| `workflows/README.md` | This ownership index. |

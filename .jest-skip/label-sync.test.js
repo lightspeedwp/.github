@@ -992,7 +992,7 @@ describe("label-sync", () => {
         { name: "bug", color: "ff0000", description: "" },
       ];
 
-      const _result = await syncLabelsWithCanonical(
+      await syncLabelsWithCanonical(
         mockOctokit,
         "owner",
         "repo",
@@ -1017,7 +1017,7 @@ describe("label-sync", () => {
         { name: "bug", description: "Bug reports" }, // Missing color
       ];
 
-      const _result = await syncLabelsWithCanonical(
+      await syncLabelsWithCanonical(
         mockOctokit,
         "owner",
         "repo",
@@ -1046,7 +1046,7 @@ describe("label-sync", () => {
         },
       ];
 
-      const _result = await syncLabelsWithCanonical(
+      await syncLabelsWithCanonical(
         mockOctokit,
         "owner",
         "repo",

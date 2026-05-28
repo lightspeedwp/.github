@@ -356,10 +356,3 @@ All agent tests run automatically on:
 View CI status in GitHub Actions: `.github/workflows/jest-test-audit.yml`
 
 ---
-
-**Maintained by**: LightSpeed Automation Team  
-**Last Updated**: 2025-11-24  
-**Version**: v1.0
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

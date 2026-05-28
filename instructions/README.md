@@ -11,18 +11,3 @@ tags: ["instructions", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "draft"
 ---
-
-# Portable Instructions
-
-This folder owns reusable instruction files for LightSpeed AI work that should
-apply across projects and plugins, not only inside this `.github` repository.
-
-## Structure
-
-| Path | Purpose |
-| --- | --- |
-| `instructions/<topic>.instructions.md` | Portable instruction file for one topic. |
-| `instructions/<topic>/README.md` | Optional index for a larger instruction group. |
-| `instructions/README.md` | This ownership index. |
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

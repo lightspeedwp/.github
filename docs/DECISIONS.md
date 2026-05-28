@@ -237,9 +237,3 @@ All architectural decisions should follow this format:
 - All team members can propose new decisions
 
 ---
-
-*Last reviewed: 2025-12-04*
-*Next review scheduled: 2025-12-31*
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

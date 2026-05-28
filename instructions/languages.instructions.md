@@ -59,7 +59,6 @@ Applies to JS/TS, JSON, and YAML across automation, workflows, and configs. Cove
   - [Linting](#yaml-linting)
   - [GitHub Actions](#yaml-github-actions)
 - [CI/CD Integration](#cicd-integration)
-- [References](#references)
 
 ---
 
@@ -425,22 +424,3 @@ jobs:
 ```
 
 ---
-
-## References
-
-- [instructions.instructions.md](instructions.instructions.md)
-- [linting.instructions.md](linting.instructions.md)
-- [coding-standards.instructions.md](coding-standards.instructions.md)
-- [documentation-formats.instructions.md](documentation-formats.instructions.md)
-- [workflows.instructions.md](workflows.instructions.md)
-- [ESLint Documentation](https://eslint.org/)
-- [Prettier Documentation](https://prettier.io/)
-- [TypeScript Documentation](https://www.typescriptlang.org/)
-- [JSDoc Documentation](https://jsdoc.app/)
-- [JSON Schema Specification](https://json-schema.org/draft/2020-12/schema)
-- [AJV Documentation](https://ajv.js.org/)
-- [Prettier JSON Support](https://prettier.io/docs/en/options.html)
-- [YAML Specification](https://yaml.org/spec/)
-- [yamllint Documentation](https://yamllint.readthedocs.io/)
-- [Spectral Documentation](https://github.com/stoplightio/spectral)
-- [actionlint Documentation](https://github.com/rhysd/actionlint)

@@ -40,15 +40,3 @@ permissions:
 metadata:
   guardrails: "Reference canonical config files only (.eslintrc.json, stylelint.json, etc). Never bypass failing linting checks. Log all linting actions and results. Provide clear, actionable error messages."
 ---
-
-# Linting Agent
-
-**Responsibilities**:
-
-- Validate and enforce linting standards for JS/TS (ESLint/Prettier), Shell scripts (ShellCheck), Markdown (markdownlint), YAML (yamllint), and others per repo standards.
-- Ensure all changed files pass linting checks before merge.
-- Report on lint errors, warnings, and auto-fixable issues.
-- Reference [LightSpeed Coding Standards](https://github.com/lightspeedwp/.github/blob/master/.github/instructions/coding-standards.instructions.md) for rule configuration and exceptions.
-
-**Instructions**:
-When activated, analyze code changes for lint errors/warnings, summarize findings, and recommend fixes. Output a checklist for remediation and highlight any blocking issues for CI/CD.

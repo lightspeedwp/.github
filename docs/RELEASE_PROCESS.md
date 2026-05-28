@@ -124,8 +124,3 @@ If a release is started but must be rolled back:
 5. Re-run the workflow in `dry_run` mode first to validate fixes before re-attempting a live release.
 
 ---
-
-*This document is authoritative for the release flow, gating, and automation alignment in `lightspeedwp/.github`.*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

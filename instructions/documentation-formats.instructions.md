@@ -61,7 +61,6 @@ Applies to Markdown files across the repository. Covers formatting rules, frontm
   - [Best Practices](#mermaid-best-practices)
   - [Accessibility](#diagram-accessibility)
 - [CI/CD Integration](#cicd-integration)
-- [References](#references)
 
 ---
 
@@ -602,22 +601,3 @@ jobs:
 - All checks required before merge
 
 ---
-
-## References
-
-- [instructions.instructions.md](instructions.instructions.md)
-- [readme.instructions.md](readme.instructions.md)
-- [a11y.instructions.md](a11y.instructions.md)
-- [languages.instructions.md](languages.instructions.md)
-- [linting.instructions.md](linting.instructions.md)
-- [markdownlint Documentation](https://github.com/DavidAnson/markdownlint)
-- [Prettier Markdown Support](https://prettier.io/docs/en/options.html#prose-wrap)
-- [GitHub Flavored Markdown](https://github.github.com/gfm/)
-- [CommonMark Specification](https://commonmark.org/)
-- [YAML Specification](https://yaml.org/spec/)
-- [JSON Schema](https://json-schema.org/)
-- [GitHub Issue Templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests)
-- [Mermaid Documentation](https://mermaid.js.org/)
-- [GitHub Mermaid Support](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/)
-- [Mermaid Live Editor](https://mermaid.live)
-- [W3C Complex Images](https://www.w3.org/WAI/tutorials/images/complex/)

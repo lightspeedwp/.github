@@ -1,0 +1,321 @@
+---
+# Footer Configuration for LightSpeed .github Repository
+# This file defines all predefined, validated footer templates by document category
+# Schema: schema/footer-config.schema.json
+
+version: "1.0.0"
+created_date: "2026-05-28"
+updated_date: "2026-05-28"
+
+# ============================================================================
+# DOCUMENT CATEGORIES
+# ============================================================================
+# Each category maps to allowed footer types and a default footer
+
+categories:
+  readme:
+    name: "README & Overview"
+    description: "Project overviews, feature lists, getting started guides"
+    allowed_footers:
+      - "lightspeed-standard"
+      - "lightspeed-brief"
+    default_footer: "lightspeed-standard"
+
+  docs:
+    name: "Documentation"
+    description: "User guides, API docs, architecture docs, tutorials"
+    allowed_footers:
+      - "lightspeed-standard"
+      - "lightspeed-brief"
+      - "docs-with-edit-link"
+    default_footer: "lightspeed-standard"
+
+  ai-ops:
+    name: "AI Operations"
+    description: "Agent specs, automation governance, AI tools guidance"
+    allowed_footers:
+      - "ai-ops-standard"
+      - "lightspeed-standard"
+    default_footer: "ai-ops-standard"
+
+  agents:
+    name: "Agent Specifications"
+    description: "Agent specs, behaviour guidance, integration examples"
+    allowed_footers:
+      - "ai-ops-standard"
+      - "agent-with-examples"
+    default_footer: "ai-ops-standard"
+
+  instructions:
+    name: "Instructions & Standards"
+    description: "Coding standards, guidelines, best practices, templates"
+    allowed_footers:
+      - "standards-footer"
+      - "lightspeed-standard"
+    default_footer: "standards-footer"
+
+  prompts:
+    name: "Prompts & Examples"
+    description: "AI prompts, prompt engineering guides, examples"
+    allowed_footers:
+      - "ai-ops-standard"
+      - "lightspeed-standard"
+    default_footer: "ai-ops-standard"
+
+  schema:
+    name: "Schema & Validation"
+    description: "Data schemas, type definitions, validation rules"
+    allowed_footers:
+      - "schema-footer"
+      - "lightspeed-standard"
+    default_footer: "schema-footer"
+
+  audit:
+    name: "Audit & Reports"
+    description: "Audit reports, findings, assessments, metrics"
+    allowed_footers:
+      - "audit-footer"
+      - "lightspeed-standard"
+    default_footer: "audit-footer"
+
+  research:
+    name: "Research & Analysis"
+    description: "Research findings, analysis, studies, deep dives"
+    allowed_footers:
+      - "research-footer"
+      - "lightspeed-standard"
+    default_footer: "research-footer"
+
+  workflow:
+    name: "Workflows & Automation"
+    description: "GitHub Actions workflows, CI/CD automation, pipeline docs"
+    allowed_footers:
+      - "ai-ops-standard"
+      - "lightspeed-standard"
+    default_footer: "ai-ops-standard"
+
+  issue:
+    name: "Issue Content"
+    description: "Issue bodies, issue templates, discussion starters"
+    allowed_footers:
+      - "issue-footer"
+      - "lightspeed-brief"
+    default_footer: "issue-footer"
+
+  pull-request:
+    name: "Pull Request Content"
+    description: "PR descriptions, PR templates, merge guidelines"
+    allowed_footers:
+      - "pr-footer"
+      - "lightspeed-brief"
+    default_footer: "pr-footer"
+
+  test:
+    name: "Test Documentation"
+    description: "Test guides, test examples, testing standards"
+    allowed_footers:
+      - "lightspeed-standard"
+      - "lightspeed-brief"
+    default_footer: "lightspeed-standard"
+
+  awesome-copilot:
+    name: "Awesome Copilot Collections"
+    description: "Copilot tips, curated resources, best practices"
+    allowed_footers:
+      - "copilot-footer"
+      - "lightspeed-standard"
+    default_footer: "copilot-footer"
+
+  governance:
+    name: "Governance & Policy"
+    description: "Policies, decision records, governance rules"
+    allowed_footers:
+      - "governance-footer"
+      - "lightspeed-standard"
+    default_footer: "governance-footer"
+
+# ============================================================================
+# PREDEFINED FOOTER TEMPLATES
+# ============================================================================
+# Each footer is a markdown template that can be used across documents
+# Variables are substituted based on document context
+
+footers:
+  # --- STANDARD LIGHTSPEED FOOTERS ---
+
+  lightspeed-standard:
+    id: "lightspeed-standard"
+    name: "LightSpeed Standard Footer"
+    template: |
+      ---
+
+      *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+      [🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+    emoji_only: false
+    accessibility_notes: "Uses emoji for visual interest but includes alt text via link labels. Suitable for public-facing docs."
+
+  lightspeed-brief:
+    id: "lightspeed-brief"
+    name: "LightSpeed Brief Footer"
+    template: |
+      ---
+
+      Made with 💚 by [LightSpeedWP](https://lightspeedwp.agency)
+    emoji_only: false
+    accessibility_notes: "Minimal footer for concise documents. Single line with essential link."
+
+  # --- CATEGORY-SPECIFIC FOOTERS ---
+
+  ai-ops-standard:
+    id: "ai-ops-standard"
+    name: "AI Ops Standard Footer"
+    template: |
+      ---
+
+      *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+      [📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+    emoji_only: false
+    accessibility_notes: "Links to automation governance and agent specs. Suitable for AI operations docs."
+
+  standards-footer:
+    id: "standards-footer"
+    name: "Standards & Guidelines Footer"
+    template: |
+      ---
+
+      📐 *Schema validated by LightSpeedWP — always compliant.*
+
+      [📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+    emoji_only: false
+    accessibility_notes: "References coding standards and instruction files."
+
+  schema-footer:
+    id: "schema-footer"
+    name: "Schema & Validation Footer"
+    template: |
+      ---
+
+      *Schema validation provided by LightSpeedWP*
+
+      [📊 Schema Registry](https://github.com/lightspeedwp/.github/tree/develop/schema) · [✅ Validation Rules](https://github.com/lightspeedwp/.github/blob/develop/schema/footer-config.schema.json)
+    emoji_only: false
+    accessibility_notes: "Links to schema definitions and validation guidance."
+
+  audit-footer:
+    id: "audit-footer"
+    name: "Audit Report Footer"
+    template: |
+      ---
+
+      🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+      [📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+    variables:
+      audit_date: "Date the audit was performed (YYYY-MM-DD)"
+    emoji_only: false
+    accessibility_notes: "Includes audit date variable and link to reports index."
+
+  research-footer:
+    id: "research-footer"
+    name: "Research & Analysis Footer"
+    template: |
+      ---
+
+      📚 *Research conducted {research_date} · Evidence-based analysis by LightSpeedWP*
+
+      [🔗 Sources](https://github.com/lightspeedwp/.github/tree/develop) · [💬 Discuss](https://github.com/lightspeedwp/.github/discussions)
+    variables:
+      research_date: "Date the research was completed (YYYY-MM-DD)"
+    emoji_only: false
+    accessibility_notes: "Includes research date and links to sources and discussions."
+
+  copilot-footer:
+    id: "copilot-footer"
+    name: "Copilot Collections Footer"
+    template: |
+      ---
+
+      ✨ *Curated for GitHub Copilot · Maintained by LightSpeedWP*
+
+      [🦄 Awesome Copilot](https://github.com/lightspeedwp/.github/tree/develop/awesome-copilot) · [📖 Guide](https://github.com/lightspeedwp/.github/blob/develop/.github/custom-instructions.md)
+    emoji_only: false
+    accessibility_notes: "Specific to Copilot-related content collections."
+
+  governance-footer:
+    id: "governance-footer"
+    name: "Governance & Policy Footer"
+    template: |
+      ---
+
+      ⚖️ *Governance policy maintained by LightSpeedWP*
+
+      [📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)
+    emoji_only: false
+    accessibility_notes: "Links to comprehensive governance and security policies."
+
+  # --- MINIMAL FOOTERS ---
+
+  issue-footer:
+    id: "issue-footer"
+    name: "Issue Footer"
+    template: |
+      ---
+
+      Related issues: {related_issues}
+    variables:
+      related_issues: "Links to related issues (e.g., #123, #456)"
+    emoji_only: false
+    accessibility_notes: "Minimal footer for GitHub issues. Variables should be populated by automation."
+
+  pr-footer:
+    id: "pr-footer"
+    name: "Pull Request Footer"
+    template: |
+      ---
+
+      Closes: {closes_issues}
+    variables:
+      closes_issues: "Issue numbers this PR closes (e.g., closes #123)"
+    emoji_only: false
+    accessibility_notes: "Minimal footer for GitHub PRs. Enables GitHub's auto-linking."
+
+  agent-with-examples:
+    id: "agent-with-examples"
+    name: "Agent Footer with Examples"
+    template: |
+      ---
+
+      **Example Usage**:
+      ```
+      # See examples in the agent specification or related workflows
+      ```
+
+      [🤖 Agent Specs](https://github.com/lightspeedwp/.github/tree/develop/agents) · [📋 Workflows](https://github.com/lightspeedwp/.github/tree/develop/.github/workflows)
+    emoji_only: false
+    accessibility_notes: "Includes code block for examples. Links to agent specs and workflows."
+
+  docs-with-edit-link:
+    id: "docs-with-edit-link"
+    name: "Documentation with Edit Link"
+    template: |
+      ---
+
+      [✏️ Edit this page](https://github.com/lightspeedwp/.github/edit/develop/{file_path})
+
+      Built by [LightSpeedWP](https://lightspeedwp.agency) · [📞 Contact](https://lightspeedwp.agency/contact)
+    variables:
+      file_path: "Relative path to this file in the repo (e.g., docs/guide.md)"
+    emoji_only: false
+    accessibility_notes: "Includes edit link for collaborative documentation. Variable must be populated by automation."
+
+# ============================================================================
+# VALIDATION RULES
+# ============================================================================
+
+validation_rules:
+  max_footer_lines: 5
+  max_duplicates_allowed: 0  # Zero duplicates allowed
+  require_category_in_frontmatter: true
+  allow_multiple_footers_per_document: false  # ONE footer per document maximum

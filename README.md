@@ -1,7 +1,8 @@
 ---
 title: "LightSpeed Community Health & Automation Repository"
 description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
-version: "2.6"
+category: "readme"
+version: "2.5"
 created_date: "2025-01-10"
 last_updated: "2026-05-28"
 file_type: "documentation"
@@ -10,10 +11,15 @@ authors: ["LightSpeed Team"]
 license: "GPL-3.0"
 tags:
   ["community-health", "automation", "governance", "labels", "workflows", "ai"]
-owners: ["LightSpeed Team"]
 domain: "governance"
 stability: "stable"
-status: "active"
+references:
+  - path: ".github/custom-instructions.md"
+    description: "Custom instructions for GitHub Copilot"
+  - path: "instructions/coding-standards.instructions.md"
+    description: "Unified coding standards"
+  - path: "instructions/automation.instructions.md"
+    description: "Automation and agent standards"
 ---
 
 # 🏠 LightSpeed Community Health & Automation Repository
@@ -731,7 +737,7 @@ Use the canonical PR template with risk assessment and testing prompts:
 
 ```bash
 # Copy PR template
-cp .github/pull_request_template.md /path/to/your/repo/.github/
+cp .github/PULL_REQUEST_TEMPLATE.md /path/to/your/repo/.github/
 
 # Or reference it directly in your repository's settings
 # GitHub → Settings → Pull Requests → Template repository: lightspeedwp/.github
@@ -865,7 +871,7 @@ mkdir -p "$REPO_PATH/.github/workflows"
 cp -r .github/ISSUE_TEMPLATE "$REPO_PATH/.github/"
 
 # Copy PR template
-cp .github/pull_request_template.md "$REPO_PATH/.github/"
+cp .github/PULL_REQUEST_TEMPLATE.md "$REPO_PATH/.github/"
 
 # Copy labeler configuration
 cp .github/labeler.yml "$REPO_PATH/.github/"
@@ -953,31 +959,3 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 [![Work with us at LightSpeed](https://www.lsdev.biz/wp-content/uploads/2020/02/work-with-lightspeed.png)](https://www.lsdev.biz/contact/)
 
 ---
-
-**🏠 This repository is managed by the LightSpeed team. All organizational automation, policy, and documentation updates are maintained here.**
-
-**📧 Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new) or [start a discussion](https://github.com/lightspeedwp/.github/discussions/new)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -50,7 +50,6 @@ Ensure consistent, reliable, and maintainable automation across GitHub repositor
 - [Planning Automation](#planning-automation)
 - [CI/CD Integration](#cicd-integration)
 - [Best Practices](#best-practices)
-- [References](#references)
 
 ## Examples
 
@@ -765,18 +764,3 @@ echo $?
 - Test with dry-run mode
 
 ---
-
-## References
-
-- [instructions.instructions.md](instructions.instructions.md)
-- [workflows.instructions.md](workflows.instructions.md)
-- [labeling.instructions.md](labeling.instructions.md)
-- [pull-requests.instructions.md](pull-requests.instructions.md)
-- [issues.instructions.md](issues.instructions.md)
-- [quality-assurance.instructions.md](quality-assurance.instructions.md)
-- [file-organisation.instructions.md](file-organisation.instructions.md)
-- [agent.md](../agents/agent.md)
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [GitHub API](https://docs.github.com/en/rest)
-- [Semantic Versioning](https://semver.org/)
-- [Keep a Changelog](https://keepachangelog.com/)
