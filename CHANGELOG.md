@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- Added universal issue-field governance for `Priority`, `Start date`,
+  `Target date`, and `Effort`; aligned canonical config and instructions; and
+  automated project sync updates for `Effort` and `Start date`. ([#501](https://github.com/lightspeedwp/.github/pull/501))
+
 - CONTRIBUTING.md: removed forbidden `references` frontmatter field, corrected stale body date, and applied UK English consistency. Closes [#18](https://github.com/lightspeedwp/.github/issues/18). ([#457](https://github.com/lightspeedwp/.github/pull/457))
 - Clarified frontmatter version governance to use SemVer-aligned change
   classification with patch-first progression where appropriate, and aligned
