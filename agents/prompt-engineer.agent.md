@@ -7,12 +7,14 @@ handoffs:
     agent: "prompt-tester"
     prompt: "Execute and validate the improved prompt with realistic test scenarios."
     send: false
-version: "v2.0"
-last_updated: "2025-12-07"
+version: "v2.1"
+last_updated: "2026-05-28"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 file_type: "agent"
 category: "development"
+domain: "engineering"
+stability: "stable"
 status: "active"
 visibility: "public"
 tags: ["prompts", "engineering", "validation", "analysis", "improvement"]
@@ -96,3 +98,31 @@ The final prompt you output should adhere to the following structure below. Do n
 
 [optional: edge cases, details, and an area to call or repeat out specific important considerations]
 [NOTE: you must start with a `<reasoning>` section. the immediate next token you produce should be `<reasoning>`]
+
+## Implementation Status
+
+**Status**: Spec complete — no GitHub Actions workflow required.
+
+This is a standalone conversational agent invoked directly by AI assistants (Copilot, Claude, etc.). There is no paired `.yml` workflow. The `handoffs` field defines a logical handoff to a `prompt-tester` agent (not yet implemented) for validation after prompt improvement.
+
+**Gap analysis (2026-05-28):**
+
+| Area | Status | Notes |
+| --- | --- | --- |
+| Spec / behaviour instructions | ✅ Complete | Full reasoning framework, guidelines, output format, examples, and notes structure documented |
+| Frontmatter (version, status, owners, tags) | ✅ Complete | Upgraded in v2.1 (domain, stability added) |
+| Runtime / workflow | ✅ N/A | Conversational agent; no workflow needed |
+| Handoff to `prompt-tester` agent | ⚠️ Deferred | `prompt-tester` agent not yet implemented; handoff is defined but non-functional |
+| Related instructions linked | ✅ Complete | See Dependencies section below |
+
+## Dependencies
+
+- [agents/template.agent.md](./template.agent.md) — canonical agent template this spec conforms to
+- [agents/mode-thinking.agent.md](./mode-thinking.agent.md) — complementary mode agent for deep problem-solving contexts where prompt engineering is needed
+- [instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md) — coding standards applied when engineering prompts for code-related tasks
+
+## Changelog
+
+- `v2.1 — 2026-05-28` — Added missing frontmatter fields (domain, stability); bumped last_updated; added Implementation Status (including prompt-tester handoff gap note), Dependencies section, and Changelog; closes [#478](https://github.com/lightspeedwp/.github/issues/478).
+- `v2.0 — 2025-12-07` — Major revision: added structured reasoning framework with `<reasoning>` tags, systematic analysis criteria, and comprehensive output format guidelines.
+- `v1.0 — initial` — Original prompt engineering and validation spec.
