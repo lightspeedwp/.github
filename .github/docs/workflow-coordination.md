@@ -3,7 +3,7 @@ title: "Workflow Coordination Patterns"
 description: "Canonical reference for GitHub Actions workflow patterns: always-run vs. agent-triggered, coordination between agents and workflows, and orchestration strategies."
 created_date: "2026-05-28"
 last_updated: "2026-05-28"
-version: "v1.0.0"
+version: "v1.1.0"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 tags: ["workflows", "automation", "agents", "coordination", "ci-cd"]
@@ -159,20 +159,24 @@ Wave 3C (Workflow & Agent Coordination Setup) introduces new agent-triggered wor
 - Generate audit report with change summary
 
 **Input Parameters**:
+
 - `scope`: "all" | "mermaid" | "staleness" (default: "all")
 - `dry_run`: "true" | "false" (default: "false" — applies changes)
 
-**Output**: 
+**Output**:
+
 - Updated README files (if not dry-run)
 - Report: `.github/reports/mermaid-audit/update-report.md`
 - Artifact: `readme-update-report` (always)
 
 **Integration Points**:
+
 - Called by Release Agent in post-release phase
 - Can be manually triggered via GitHub UI for ad-hoc updates
 - Non-blocking: failures do not prevent release completion
 
 **Example Release Agent Invocation**:
+
 ```yaml
 - name: Apply README updates
   uses: actions/workflow_dispatch@v4
