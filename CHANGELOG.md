@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated the active next-issues execution plan with current closure state
   (`#61` merged via `#493`), explicit Codex/Claude ownership split, and next
   actionable focus on `#60` while `#52` remains in-flight.
+- Added `docs/downstream/tour-operator-adoption.md` with pilot telemetry
+  baseline checklist, target metrics, documented opt-out points, metrics
+  emission example, and dashboard-consumption stub for `#60`.
 - Added spec-only agent issue conversion tracking under `#61`, including
   canonical issue mapping and duplicate cleanup notes.
 - Added Husky pre-push contributor guidance and aligned local development docs
