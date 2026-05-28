@@ -1,9 +1,9 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Comprehensive execution plan for all open issues, active projects, and strategic workflows."
-version: "v2.0.0"
+version: "v2.1.1"
 created_date: "2026-05-28"
-last_updated: "2026-05-28T12:00:00Z"
+last_updated: "2026-05-28T19:10:00Z"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
@@ -28,48 +28,41 @@ LightSpeed `.github` repository. It consolidates:
 **Live as of 2026-05-28**: Wave 2B (7 agent spec upgrades, PRs #515–#521) and Wave 2D (#23 `.coderabbit.yml`, #31 `markdown.instructions.md`) both merged.
 Current focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`) + Wave 3 (README/Mermaid audit).
 
+## Mandatory Agent Execution Split
+
+This section is authoritative for who must execute each task stream.
+
+- **GitHub Copilot must do**: Wave 2A (`#476`, `#480`, `#482`), Wave 2C (`#488`, `#490`), Wave 3A (`#512`), Wave 3C (`#514`), and plugin-pack execution task lists.
+- **Claude Code must do**: Wave 2B (`#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486`), Wave 2D (`#31`, `#23`), Wave 3B (`#513`), Wave 3D (`#529`), and Wave 4 branding/meta work (`#33`, `#46`, `#48`, `#49`).
+- **No cross-execution**: Copilot must not execute Claude Code exclusive tasks, and Claude Code must not take over Copilot execution queues unless this file is explicitly revised.
+
 ---
 
 ## Active Project Files Inventory
 
 ### Currently Active Projects
 
-1. **github-workflow-consolidation-2026-05-28/** ✅ ACTIVE
-   - Status: In flight, tracking consolidated workflow governance
-   - Owner: Codex
-   - Action: Maintain active until merged
-
-2. **launch-agents-checklist.md** 🟡 IN PROGRESS
-   - Status: Partial test infrastructure fixes applied 2026-05-28
-   - Owner: LightSpeed Team
-   - Priority: Critical (pre-v1.0.0 release)
-   - Action: Complete remaining validation phases
-
-3. **spec-only-agents-issue-conversion-2026-05-28.md** ✅ ACTIVE
-   - Status: Tracks conversion of spec-only agents to GitHub issues
-   - Recent completions: `#465` (PR `#497`), `#467` (PR `#500`), `#466`, `#468`, `#469`
-   - Owner: Codex
-   - Action: Maintain; reference in Wave 2A documentation
-
-4. **next-issues-execution-plan.md** (THIS FILE) 📋 LIVING DOCUMENT
-   - Status: Active roadmap, updated continuously
-   - Owner: Codex + Claude (shared ownership)
-   - Action: Update after each Wave completion
-
-5. **context-reduction-tasks.md** ⏳ REQUIRES REVIEW
-   - Status: Needs triage — review for completion or archival
-   - Owner: TBD
-   - Action: Audit and decide archival vs. continuation
-
-6. **test-coverage-implementation.md** ⏳ REQUIRES REVIEW
-   - Status: Needs triage — review for completion or archival
-   - Owner: TBD
-   - Action: Audit and decide archival vs. continuation
-
-7. **2025-12-11-wordpress-standards-compliance-comprehensive-review.md** ⏳ REQUIRES REVIEW
-   - Status: Date-stamped, needs review for completion or archival
-   - Owner: TBD
-   - Action: Audit and decide archival vs. continuation
+| Project File | Status | Owner | Action |
+| --- | --- | --- | --- |
+| `github-workflow-consolidation-2026-05-28/` | ✅ ACTIVE - In flight, tracking consolidated workflow governance | GitHub Copilot | Maintain active until merged |
+| `launch-agents-checklist.md` | 🟡 IN PROGRESS - Partial test infrastructure fixes applied 2026-05-28 | LightSpeed Team | Complete remaining validation phases (critical pre-v1.0.0 release) |
+| `spec-only-agents-issue-conversion-2026-05-28.md` | ✅ ACTIVE - Tracks conversion of spec-only agents to GitHub issues (`#465`, `#467`, `#466`, `#468`, `#469`) | GitHub Copilot | Maintain and reference in Wave 2A documentation |
+| `next-issues-execution-plan.md` | 📋 LIVING DOCUMENT - Active roadmap, updated continuously | GitHub Copilot + Claude Code | Update after each Wave completion |
+| `ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` | ✅ ACTIVE - Parent specification drafted for Wave 4A | Claude Code | Keep aligned with child issues `#46`, `#48`, `#49` |
+| `ISSUE_46_TEMPLATE_DESIGN.md` | ✅ ACTIVE - Template design specification drafted for Wave 4A | Claude Code | Track implementation readiness and schema dependency linkage |
+| `ISSUE_48_CURRENT_STATE_AUDIT.md` | ✅ ACTIVE - Current-state audit specification drafted for Wave 4B | Claude Code | Use as baseline for remediation sequencing |
+| `ISSUE_49_SCHEMA_CONFIG_IMPLEMENTATION.md` | ✅ ACTIVE - Schema/config implementation specification drafted for Wave 4A/4D | Claude Code | Keep aligned with template and taxonomy changes |
+| `branding-meta-agent-planning-2026-05-28.md` | ✅ ACTIVE - Comprehensive Wave 4 planning artefact | Claude Code | Maintain as the strategic source document |
+| `PLANNING_SUMMARY_2026-05-28.md` | ✅ ACTIVE - Executive planning summary for branding initiative | Claude Code | Keep synchronised with parent plan and issue status |
+| `plugin-pack-next-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (next wave) | GitHub Copilot | Execute and update per task completion |
+| `plugin-pack-second-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (second wave) | GitHub Copilot | Track sequencing and dependencies across packs |
+| `plugin-pack-third-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (third wave) | GitHub Copilot | Maintain as queued backlog for post-second-wave execution |
+| `wave-3b-issue-spec.md` | ✅ ACTIVE - Wave 3B repair/update issue specification | Claude Code | Keep linked to issue `#513` implementation evidence |
+| `wave-3c-issue-spec.md` | ✅ ACTIVE - Wave 3C workflow coordination issue specification | GitHub Copilot | Keep linked to issue `#514` implementation evidence |
+| `wave-4-continuous-monitoring.md` | ✅ ACTIVE - Wave 4 continuous monitoring design specification | Claude Code | Use for Wave 5-7 roadmap handoff and automation design |
+| `context-reduction-tasks.md` | ⏳ REQUIRES REVIEW - Needs triage for completion/archival | TBD | Audit and decide archival vs continuation |
+| `test-coverage-implementation.md` | ⏳ REQUIRES REVIEW - Needs triage for completion/archival | TBD | Audit and decide archival vs continuation |
+| `2025-12-11-wordpress-standards-compliance-comprehensive-review.md` | ⏳ REQUIRES REVIEW - Date-stamped, requires completion/archival review | TBD | Audit and decide archival vs continuation |
 
 ### Projects Eligible for Archival (Review First)
 
@@ -88,7 +81,7 @@ Current focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#4
 
 ### Wave 2 — In Progress 🟡
 
-#### **Wave 2A: Core Runtime Agent Burn-Down** (Codex)
+#### **Wave 2A: Core Runtime Agent Burn-Down** (GitHub Copilot)
 
 Open issues:
 
@@ -102,7 +95,7 @@ Recently completed:
 - `#467` (PR `#500`)
 - `#466`, `#468`, `#469`
 
-#### **Wave 2B: Mode & Planning Agent Batch** (Claude) ✅ COMPLETE
+#### **Wave 2B: Mode & Planning Agent Batch** (Claude Code) ✅ COMPLETE
 
 All 7 issues merged 2026-05-28:
 
@@ -116,7 +109,7 @@ All 7 issues merged 2026-05-28:
 
 Wave 2D is now unblocked.
 
-#### **Wave 2C: Scaffolds & Completion Batch** (Codex)
+#### **Wave 2C: Scaffolds & Completion Batch** (GitHub Copilot)
 
 Issues:
 
@@ -159,31 +152,31 @@ README inventory: 44 files identified across the repo structure
 
 **Completed & Proposed Sub-Waves**:
 
-1. **Wave 3A: Discovery & Audit** ✅ CREATED (Codex)
+1. **Wave 3A: Discovery & Audit** ✅ CREATED (GitHub Copilot)
    - GitHub Issue: [#512 — Wave 3A: README & Mermaid Diagram Discovery & Audit](https://github.com/lightspeedwp/.github/issues/512)
    - Status: Ready for execution
    - Workflow: [`.github/workflows/readme-audit.yml`](./.github/workflows/readme-audit.yml) created
    - Deliverables: Audit report, findings.csv, audit-log.md
    - Scope: Scan all 44 README files, extract Mermaid diagrams, categorize issues
    - Effort: 2-3 hours
-   - Owner: Codex (Developer)
+   - Owner: GitHub Copilot (Developer)
 
-2. **Wave 3B: Repair & Update** ✅ ISSUE CREATED: #513 (Claude)
+2. **Wave 3B: Repair & Update** ✅ ISSUE CREATED: #513 (Claude Code)
    - GitHub Issue: [#513 — Wave 3B: README & Mermaid Diagram Repair & Update](https://github.com/lightspeedwp/.github/issues/513)
    - Status: Issue created; ready for execution
    - Scope: Fix Mermaid syntax, add accessibility attributes, update stale content
    - Deliverables: Updated 44 README files, repair-report.md, accessibility-audit.md
    - Effort: 4-6 hours
-   - Owner: Claude (AI Team - Review & UX)
+   - Owner: Claude Code (AI Team - Review & UX)
    - Dependencies: Awaits Wave 3A audit report
 
-3. **Wave 3C: Workflow & Agent Coordination** ✅ ISSUE CREATED: #514 (Codex)
+3. **Wave 3C: Workflow & Agent Coordination** ✅ ISSUE CREATED: #514 (GitHub Copilot)
    - GitHub Issue: [#514 — Wave 3C: README Workflow & Agent Coordination Setup](https://github.com/lightspeedwp/.github/issues/514)
    - Status: Issue created; ready for execution
    - Scope: Create readme-update.yml workflow, integrate with Release Agent
    - Deliverables: readme-update.yml workflow, Release Agent integration, workflow-coordination.md updates
    - Effort: 1-2 hours
-   - Owner: Codex (Developer)
+   - Owner: GitHub Copilot (Developer)
    - Dependencies: Awaits Wave 3A/3B completion
 
 **Related Workflows**:
@@ -194,7 +187,7 @@ README inventory: 44 files identified across the repo structure
 
 ---
 
-## Wave 4 — Branding Meta Agent & Schema-Driven Footers 🆕 (CLAUDE EXCLUSIVE)
+## Wave 4 — Branding Meta Agent & Schema-Driven Footers 🆕 (CLAUDE CODE EXCLUSIVE)
 
 **Objective**: Implement a unified branding agent that automates category-aware Markdown headers, footers, and badges across the repository using schema-driven configuration.
 
@@ -204,12 +197,12 @@ README inventory: 44 files identified across the repo structure
 
 | Phase | Issues | Owner | Purpose |
 | --- | --- | --- | --- |
-| **4A: Planning & Specification** | #33 (parent), #46 (templates), #49 (schema) | Claude | Define category taxonomy, template rules, and schema/config model |
-| **4B: Documentation & Governance** | #48 (documentation) | Claude | Update docs and define agent spec |
-| **4C: Current-State Audit** | TBD | Claude | Audit existing footers, identify duplicates, validate against schema |
-| **4D: Schema & Config Implementation** | TBD | Claude | Build `agent-config.schema.json`, YAML validation rules |
-| **4E: Agent Merge/Refactor** | TBD | Claude | Consolidate header/footer/badge logic into unified branding agent |
-| **4F: Remediation & Validation** | TBD | Claude | Fix bad footers across README.md files, validate schema compliance |
+| **4A: Planning & Specification** | #33 (parent), #46 (templates), #49 (schema) | Claude Code | Define category taxonomy, template rules, and schema/config model |
+| **4B: Documentation & Governance** | #48 (documentation) | Claude Code | Update docs and define agent spec |
+| **4C: Current-State Audit** | TBD | Claude Code | Audit existing footers, identify duplicates, validate against schema |
+| **4D: Schema & Config Implementation** | TBD | Claude Code | Build `agent-config.schema.json`, YAML validation rules |
+| **4E: Agent Merge/Refactor** | TBD | Claude Code | Consolidate header/footer/badge logic into unified branding agent |
+| **4F: Remediation & Validation** | TBD | Claude Code | Fix bad footers across README.md files, validate schema compliance |
 
 **Key Deliverables**:
 
@@ -227,7 +220,7 @@ README inventory: 44 files identified across the repo structure
 - Schema work (#49) and template work (#46) can proceed in parallel
 - Audit and remediation phases depend on prior phases completing
 
-**Why Claude Exclusive?**:
+**Why Claude Code Exclusive?**:
 
 This initiative requires coherent planning, architectural decisions, and schema-driven thinking to avoid:
 
@@ -251,7 +244,7 @@ Keeping this workstream under Claude ensures the entire system (planning → spe
 
 ---
 
-## Wave 3D — WCEU 2026 Talk Planning 🆕 (CLAUDE)
+## Wave 3D — WCEU 2026 Talk Planning 🆕 (CLAUDE CODE)
 
 **Objective**: Audit talk assets and harden NotebookLM source prompts for the WordCamp Europe 2026 conference presentation.
 
@@ -272,7 +265,7 @@ Keeping this workstream under Claude ensures the entire system (planning → spe
 4. Canonical source set ingestion order (foundation → governance → plugin-packs → talk assets)
 5. Acceptance checklist for NotebookLM source verification
 
-**Owner**: Claude (AI Team - Review & UX)
+**Owner**: Claude Code (AI Team - Review & UX)
 
 **Dependencies**: None — can execute immediately
 
@@ -340,7 +333,7 @@ The **Release Agent** should coordinate the following workflows on demand:
 
 ## Agent Ownership & Wave Assignments
 
-### Codex
+### GitHub Copilot
 
 **Waves**: 2A, 2C, 3A (audit), 3C (workflow setup)
 
@@ -357,15 +350,15 @@ The **Release Agent** should coordinate the following workflows on demand:
 - README/Mermaid audit discovery
 - Workflow/agent coordination setup
 
-### Claude
+### Claude Code
 
 **Waves**: 2B, 2D (parallel standards audits), 3B (repair & update), **Branding Meta Agent** (EXCLUSIVE), Wave 3D (WCEU talk planning)
 
-**Issues**:
+**Issues (must execute)**:
 
 - `#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486` (2B)
 - `#31`, `#23` (2D — when 2A merges)
-- `#33`, `#46`, `#48`, `#49` (Branding Meta Agent — **CLAUDE ONLY, NO COPILOT**)
+- `#33`, `#46`, `#48`, `#49` (Branding Meta Agent — **CLAUDE CODE ONLY, NO GITHUB COPILOT**)
 - `#529` (Wave 3D — WCEU 2026 talk planning audit)
 
 **Responsibilities**:
@@ -379,35 +372,35 @@ The **Release Agent** should coordinate the following workflows on demand:
 
 ### ⚠️ IMPORTANT: Branding Meta Agent Assignment
 
-**Issues #33, #46, #48, #49 are EXCLUSIVELY assigned to Claude.** Copilot is excluded from this work stream to ensure coherent planning and implementation of the schema-driven branding system and meta agent architecture.
+**Issues #33, #46, #48, #49 are EXCLUSIVELY assigned to Claude Code.** GitHub Copilot is excluded from this work stream to ensure coherent planning and implementation of the schema-driven branding system and meta agent architecture.
 
 ---
 
 ## Execution Order & Dependencies
 
-### Phase 1: Finish Wave 2A (Codex)
+### Phase 1: Finish Wave 2A (GitHub Copilot)
 
 1. Execute `#476` → complete & merge
 2. Execute `#480` → complete & merge
 3. Execute `#482` → complete & merge
 4. **Dependency**: All must merge before Wave 2B starts
 
-### Phase 2: Execute Wave 2B (Claude) + Wave 2D in Parallel
+### Phase 2: Execute Wave 2B (Claude Code) + Wave 2D in Parallel
 
 - **Wave 2B**: `#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486`
 - **Wave 2D** (when 2A merges): `#31`, `#23`
 - **Dependency**: 2A must merge before 2D starts; 2B can start immediately after last 2A merge
 
-### Phase 3: Execute Wave 2C (Codex)
+### Phase 3: Execute Wave 2C (GitHub Copilot)
 
 - `#488`, `#490`
 - **Dependency**: 2A + 2B should be merged
 
 ### Phase 4: Wave 3 — README & Mermaid Audit (Parallel)
 
-1. **Wave 3A (Codex)**: Discover + audit all 44 READMEs
-2. **Wave 3B (Claude)**: Repair & update (runs in parallel during 3A discovery)
-3. **Wave 3C (Codex)**: Workflow setup + agent coordination
+1. **Wave 3A (GitHub Copilot)**: Discover + audit all 44 READMEs
+2. **Wave 3B (Claude Code)**: Repair & update (runs in parallel during 3A discovery)
+3. **Wave 3C (GitHub Copilot)**: Workflow setup + agent coordination
 4. **Dependency**: 3B and 3C can start after 3A audit is underway
 
 ---
