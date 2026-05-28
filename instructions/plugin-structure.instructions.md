@@ -1,5 +1,7 @@
 ---
+title: "WordPress Plugin Structure"
 description: "WordPress block plugin structure conventions for all LightSpeed plugins: directory layout, block.json, asset enqueueing, security, and i18n."
+category: "Documentation"
 applyTo: "**"
 file_type: "instructions"
 version: "v1.0"
