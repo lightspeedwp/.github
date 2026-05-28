@@ -31,19 +31,14 @@ const FOOTER_CONFIG_PATH = path.join(
   __dirname,
   "../../config/footers.config.yaml",
 );
-const SCHEMA_PATH = path.join(
-  __dirname,
-  "../../schema/footer-config.schema.json",
-);
 
-// Load configuration and schema
-let footerConfig, footerSchema;
+// Load configuration
+let footerConfig;
 
 try {
   const configContent = fs.readFileSync(FOOTER_CONFIG_PATH, "utf8");
   footerConfig = yaml.load(configContent);
-  footerSchema = JSON.parse(fs.readFileSync(SCHEMA_PATH, "utf8"));
-  console.log("✅ Loaded footer configuration and schema");
+  console.log("✅ Loaded footer configuration");
 } catch (err) {
   console.error("❌ Failed to load configuration:", err.message);
   process.exit(1);
