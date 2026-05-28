@@ -5,8 +5,10 @@ created_date: "2026-05-28"
 last_updated: "2026-05-28"
 version: "v1.0.0-draft"
 authors: ["LightSpeed Team"]
-status: "planned"
-phase: "wave-4"
+status: "draft"
+tags: ["wave-4", "monitoring", "automation", "readme", "mermaid"]
+file_type: "project-specification"
+maintainer: "LightSpeed Team"
 ---
 
 # Wave 4: Continuous README & Mermaid Monitoring
