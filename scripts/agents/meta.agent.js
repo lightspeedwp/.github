@@ -1,6 +1,13 @@
 /**
  * Meta agent that applies metadata, badges, and category-specific footers to Markdown files.
  * Meta agent that applies metadata, badges, and category-specific footers to Markdown files.
+ *
+ * Wave 2A kickoff (#468):
+ * - canonical spec path confirmed: agents/meta.agent.md
+ * - runtime path confirmed: scripts/agents/meta.agent.js
+ * - implementation status: active and workflow-integrated
+ * - next concrete action: deduplicate module header text and add focused tests
+ *   for skip-marker/front-matter opt-out edge cases
  * @module scripts/agents/meta.agent.js
  */
 
