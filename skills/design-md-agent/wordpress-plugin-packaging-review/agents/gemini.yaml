@@ -1,0 +1,10 @@
+interface:
+  display_name: WordPress Plugin Packaging Review
+  short_description: Reviews plugin packaging structure, metadata, and distribution readiness.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - gemini
+  allow_implicit_invocation: true
+  compatibility_mode: experimental

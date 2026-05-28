@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Review Latency Report
+  short_description: generate pull request review-latency reporting with trend interpretation and action cues.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - gemini
+  allow_implicit_invocation: true
+  compatibility_mode: experimental

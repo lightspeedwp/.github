@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed PR Cycle Time Report
+  short_description: generate pull request cycle-time reporting with trend and bottleneck summaries.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - gemini
+  allow_implicit_invocation: true
+  compatibility_mode: experimental

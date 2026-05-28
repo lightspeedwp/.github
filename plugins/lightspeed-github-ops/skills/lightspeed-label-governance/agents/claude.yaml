@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Label Governance
+  short_description: Apply canonical label rules and enforce one-hot families.
+  icon: tag
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - claude
+  allow_implicit_invocation: true
+  compatibility_mode: standard

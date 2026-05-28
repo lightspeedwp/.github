@@ -1,0 +1,22 @@
+name: lightspeed-wordpress-milestone-planner
+version: v0.1.0
+description: convert approved WordPress plans into milestone-aligned delivery checkpoints.
+owners:
+  - LightSpeedWP Team
+platforms:
+  claude:
+    supported: true
+    mode: first-class
+    config: agents/claude.yaml
+  copilot:
+    supported: true
+    mode: first-class
+    config: agents/copilot.yaml
+  gemini:
+    supported: true
+    mode: experimental
+    config: agents/gemini.yaml
+  codex:
+    supported: true
+    mode: legacy-compatible
+    config: agents/codex.yaml

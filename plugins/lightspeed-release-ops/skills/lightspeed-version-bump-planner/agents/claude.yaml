@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Version Bump Planner
+  short_description: plan semantic version bump recommendations from change scope and release policy signals.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - claude
+  allow_implicit_invocation: true
+  compatibility_mode: standard

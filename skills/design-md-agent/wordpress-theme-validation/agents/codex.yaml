@@ -1,0 +1,10 @@
+interface:
+  display_name: WordPress Theme Validation
+  short_description: Validates WordPress theme structure, quality gates, and release readiness checks.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - codex
+  allow_implicit_invocation: true
+  compatibility_mode: legacy-compatible
