@@ -96,6 +96,6 @@ npm run validate:frontmatter
 
 - [AGENTS.md](./AGENTS.md) — full global AI rules
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
-- [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) — unified coding standards
+- [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
 - [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — canonical file placement rules
 - [.github/instructions/plugin-structure.instructions.md](./.github/instructions/plugin-structure.instructions.md) — WordPress block plugin structure
