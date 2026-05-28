@@ -4,10 +4,9 @@ description: "Automated continuous monitoring, scheduled audits, and proactive m
 created_date: "2026-05-28"
 last_updated: "2026-05-28"
 version: "v1.0.0-draft"
-authors: ["LightSpeed Team"]
 status: "draft"
 tags: ["wave-4", "monitoring", "automation", "readme", "mermaid"]
-file_type: "project-specification"
+file_type: "documentation"
 maintainer: "LightSpeed Team"
 ---
 
@@ -43,13 +42,15 @@ Wave 4 establishes continuous, automated monitoring of README files and Mermaid 
 **Purpose**: Run comprehensive audit of all README files and Mermaid diagrams
 
 **Steps**:
+
 - Scan all README files for syntax errors, accessibility issues, and staleness
 - Run Mermaid diagram validation (syntax + rendering)
 - Check WCAG 2.2 AA compliance
 - Compare `last_updated` dates against freshness thresholds
 - Generate audit report with findings by severity
 
-**Output**: 
+**Output**:
+
 - `.github/reports/mermaid-audit/scheduled-audit-{YYYY-MM-DD}.md`
 - CSV inventory of findings for tracking
 - GitHub Issue (if critical issues found)
@@ -61,13 +62,15 @@ Wave 4 establishes continuous, automated monitoring of README files and Mermaid 
 **Purpose**: Detect when README content diverges from current system state
 
 **Detection Strategies**:
+
 - **Version Mismatch**: Readme mentions version X but VERSION file has Y
 - **Broken Links**: Internal links point to deleted or renamed files
 - **Outdated Architecture**: Diagrams show deprecated workflows or patterns
 - **Missing Updates**: Feature added to codebase but not documented in README
 - **Stale Timestamps**: `last_updated` dates exceed 6 months
 
-**Output**: 
+**Output**:
+
 - GitHub check result (pass/warn/fail)
 - Comments on PR if drift detected
 - Suggestion to run `readme-update.yml` if fixes available
@@ -79,11 +82,13 @@ Wave 4 establishes continuous, automated monitoring of README files and Mermaid 
 **Purpose**: Notify maintainers of README files needing refresh
 
 **Notifications**:
+
 - Email/Slack: "The following READMEs haven't been updated in 6+ months: [list]"
 - GitHub Issue: Auto-file issue with checklist of stale files
 - Dashboard: Update README health dashboard with freshness metrics
 
-**Output**: 
+**Output**:
+
 - Notifications sent to maintainers/team
 - GitHub Issue filed with action items
 - Metrics dashboard updated
@@ -95,6 +100,7 @@ Wave 4 establishes continuous, automated monitoring of README files and Mermaid 
 **Purpose**: Comprehensive README & Mermaid health report
 
 **Metrics Tracked**:
+
 - Total README files scanned
 - Accessibility compliance rate (% with accTitle + accDescr)
 - Syntax error rate (% with rendering issues)
@@ -103,7 +109,8 @@ Wave 4 establishes continuous, automated monitoring of README files and Mermaid 
 - Average age of README files
 - Trend analysis (improvement/degradation vs. previous quarter)
 
-**Output**: 
+**Output**:
+
 - `.github/reports/readme-health/quarterly-report-{YYYY}-Q{N}.md`
 - GitHub Release with health summary
 - Dashboard update
@@ -111,23 +118,27 @@ Wave 4 establishes continuous, automated monitoring of README files and Mermaid 
 ### 5. CI/CD Integration Points
 
 **Continuous Checks on Every Commit**:
+
 - Pre-commit hook: Warn if README with Mermaid diagram missing accTitle/accDescr
 - CI check: Fail if new README lacks frontmatter or has syntax errors
 - Pre-merge gate: README drift detection (warn but don't block)
 
 **Release Agent Integration**:
+
 - Wave 3C `readme-update.yml` is called automatically post-release
 - Wave 4 checks provide input to Release Agent decision logic
 
 ### 6. Documentation & Process Updates
 
 **Update Following Documents**:
+
 - `.github/docs/workflow-coordination.md` — add Wave 4 scheduled workflows
 - `instructions/documentation-formats.instructions.md` — add continuous monitoring guidance
 - `CONTRIBUTING.md` — add README freshness requirements
 - Project board: Create Wave 4 checklist
 
 **Process Changes**:
+
 - README updates now trigger CI checks (stricter validation)
 - Maintainers receive monthly freshness alerts
 - Quarterly health reviews inform documentation strategy
@@ -194,21 +205,25 @@ Wave 4 establishes continuous, automated monitoring of README files and Mermaid 
 ## Timeline & Phases
 
 ### Phase 1: Planning & Design (1 week)
+
 - Finalize Wave 4 specification
 - Design metrics dashboard
 - Plan notification strategy
 
 ### Phase 2: Implementation (2 weeks)
+
 - Implement scheduled workflows
 - Build CI integration
 - Set up notifications
 
 ### Phase 3: Testing & Launch (1 week)
+
 - Test all workflows in dry-run mode
 - Team training
 - Go-live with monitoring
 
 ### Phase 4: Stabilization (2 weeks)
+
 - Monitor workflow reliability
 - Adjust thresholds based on team feedback
 - Document lessons learned
@@ -242,9 +257,6 @@ Beyond Wave 4, consider:
 
 ## References
 
-- [Wave 3A: README & Mermaid Discovery & Audit](#wave-3a) — parent wave
-- [Wave 3B: README & Mermaid Repair & Update](#wave-3b) — parent wave
-- [Wave 3C: Workflow & Agent Coordination Setup](#wave-3c) — parent wave
-- [workflow-coordination.md](./workflow-coordination.md) — orchestration patterns
+- [workflow-coordination.md](./../docs/workflow-coordination.md) — orchestration patterns
 - [documentation-formats.instructions.md](../instructions/documentation-formats.instructions.md) — README standards
 - [mermaid.instructions.md](../instructions/mermaid.instructions.md) — Mermaid guidelines
