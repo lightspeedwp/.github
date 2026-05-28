@@ -15,15 +15,10 @@
  * ============================================================================
  */
 
-const _fs = require("fs");
-const _path = require("path");
 const {
-  mockOctokit: _mockOctokit,
   mockContext,
   setTestEnv,
   resetTestEnv,
-  mockPrPayload: _mockPrPayload,
-  expectCommentPosted: _expectCommentPosted,
 } = require("../../tests/test-helpers");
 
 describe("Agent Performance Benchmarks", () => {
