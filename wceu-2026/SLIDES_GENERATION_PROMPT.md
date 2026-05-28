@@ -2,7 +2,7 @@
 title: "WCEU 2026 Slides Generation Prompt"
 description: "Comprehensive prompt for generating 20 presentation slides for WordCamp Europe 2026 talk on LightSpeed GitHub automation evolution"
 created_date: "2026-05-28"
-last_updated: "2026-05-28T12:00:00Z"
+last_updated: "2026-05-28"
 version: "v1.0.0"
 file_type: "prompt"
 owners: ["Ash Shaw"]
