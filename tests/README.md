@@ -97,7 +97,7 @@ Run the entire test stack locally (shell + JS + Python) or target specific layer
 
 Typical commands:
 
-- Run all tests (orchestrated shell + jest): `./run-all-tests.sh`
+- Run all tests (Jest): `npm run test`
 - Run Bats only: `bats tests/` (or `bats tests/utility` for a subset)
 - Run Jest unit tests: `npm test` (alias for `npx jest`)
 - Run Python doc/schema validations: `pytest tests/pytests`

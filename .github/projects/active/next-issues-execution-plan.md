@@ -1,9 +1,9 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Comprehensive execution plan for all open issues, active projects, and strategic workflows."
-version: "v2.0.0"
+version: "v2.1.0"
 created_date: "2026-05-28"
-last_updated: "2026-05-28T17:25:00Z"
+last_updated: "2026-05-28"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
@@ -167,7 +167,7 @@ README inventory: 44 files identified across the repo structure
 1. **Wave 3A: Discovery & Audit** ✅ CREATED (Codex)
    - GitHub Issue: [#512 — Wave 3A: README & Mermaid Diagram Discovery & Audit](https://github.com/lightspeedwp/.github/issues/512)
    - Status: Ready for execution
-   - Workflow: [`.github/workflows/readme-audit.yml`](./.github/workflows/readme-audit.yml) created
+   - Workflow: [`.github/workflows/readme-audit.yml`](../../workflows/readme-audit.yml) created
    - Deliverables: Audit report, findings.csv, audit-log.md
    - Scope: Scan all 44 README files, extract Mermaid diagrams, categorize issues
    - Effort: 2-3 hours
@@ -495,5 +495,5 @@ Archival checklist per file:
 - [Agent Launch Checklist](launch-agents-checklist.md)
 - [Spec-Only Agent Conversion](spec-only-agents-issue-conversion-2026-05-28.md)
 - [File Organisation Instructions](../../instructions/file-organisation.instructions.md)
-- [Workflow Instructions](../../instructions/workflows.instructions.md)
-- [Mermaid Instructions](../../instructions/mermaid.instructions.md)
+- [Workflow Instructions](../../../instructions/workflows.instructions.md)
+- [Mermaid Instructions](../../../instructions/mermaid.instructions.md)
