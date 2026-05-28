@@ -62,7 +62,7 @@ tags: ["testing", "coverage", "v1.0.0", "quality", "implementation"]
 - [ ] Navigate to project root:
 
   ```bash
-  cd /Users/ash/Studio/.github
+  cd /Users/ash/.codex/worktrees/epic-449-label-governance
   ```
 
 - [ ] Run coverage with source file collection:
@@ -149,7 +149,7 @@ tags: ["testing", "coverage", "v1.0.0", "quality", "implementation"]
 
 ## Files with 0% Coverage
 
-- script/agents/metrics.agent.js
+- scripts/agents/metrics.agent.js
 - scripts/agents/linting.agent.js
 
 ## Critical Gaps
@@ -1820,7 +1820,7 @@ jest.mock("child_process", () => ({
 ## See Also
 
 - [Test Coverage Expansion Plan](../../reports/analysis/test-coverage-expansion-plan.md)
-- [Release Readiness Tasks](v1.0.0-release-readiness-tasks.md)
+- [Release Readiness Tasks](launch-agents-checklist.md)
 - [Testing Standards](../../../docs/TESTING.md)
 
 ---

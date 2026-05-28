@@ -11,14 +11,14 @@
 
 ---
 
-## Phase 1: Delete Meta-Files (Immediate) ✅
+## Phase 1: Delete Meta-Files (Immediate) ⏳
 
 ### 1.1 Model-Specific Configuration Files
 
-- [x] ✅ Delete `DOCS.md` - Master index causing circular references
-- [x] ✅ Delete `GEMINI.md` - Model-specific config causing duplication
-- [x] ✅ Delete `CLAUDE.md` - Model-specific config causing duplication
-- [x] ✅ Delete `GPT.md` - Model-specific config causing duplication
+- [ ] ⏳ Delete `DOCS.md` - Master index causing circular references
+- [ ] ⏳ Delete `GEMINI.md` - Model-specific config causing duplication
+- [ ] ⏳ Delete `CLAUDE.md` - Model-specific config causing duplication
+- [ ] ⏳ Delete `GPT.md` - Model-specific config causing duplication
 
 **Rationale:** These files duplicate content from `custom-instructions.md` and create circular reference chains.
 
@@ -50,7 +50,7 @@
   - release.agent.md
   - project-meta-sync.agent.md
   - status.agent.md
-- [ ] ⏳ Replace glob pattern with note: "See `.github/agents/*.agent.md` for full list"
+- [ ] ⏳ Replace glob pattern with note: "See `agents/*.agent.md` for full list"
 - [ ] ⏳ Remove redundant "Purpose" section
 - [ ] ⏳ Keep only essential discoverability table
 
@@ -272,7 +272,7 @@
 
 ### Decision Log
 
-- **2025-12-08:** Deleted DOCS.md, GEMINI.md, CLAUDE.md, GPT.md (circular references)
+- **2025-12-08:** Planned deletion of DOCS.md, GEMINI.md, CLAUDE.md, GPT.md for circular-reference reduction; revalidation required against current repo state.
 - **2025-12-08:** Created this task list for tracking
 
 ### Open Questions
@@ -292,11 +292,11 @@
 
 ## Progress Tracking
 
-**Overall Progress:** 5% (Phase 1 complete)
+**Overall Progress:** 0% (Phase 1 pending revalidation)
 
 **Phase Status:**
 
-- Phase 1: ✅ 100%
+- Phase 1: ⏳ 0%
 - Phase 2: ⏳ 0%
 - Phase 3: ⏳ 0%
 - Phase 4: ⏳ 0%
@@ -381,7 +381,7 @@
   - status.agent.md
   - (2-5 others based on usage frequency)
 - [ ] Replace detailed glob pattern references with single line:
-  - "See `.github/agents/*.agent.md` for full list of all agents"
+  - "See `agents/*.agent.md` for full list of all agents"
 - [ ] Remove redundant "Purpose" section
 - [ ] Keep only essential "Discoverability & Workflow Integration" table
 - [ ] Update frontmatter to remove unnecessary references

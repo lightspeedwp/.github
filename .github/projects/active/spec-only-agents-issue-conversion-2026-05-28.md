@@ -61,5 +61,6 @@ issues.
 
 - Parent tracker: #61 (closed 2026-05-28)
 - All 19 canonical issues created and labelled.
-- Next step: triage and execution sequencing across #464–#490 in the project board.
+- Live status snapshot (2026-05-28): closed `#464`, `#465`, `#466`, `#467`, `#468`, `#469`, `#474`; open `#470`, `#471`, `#473`, `#475`, `#476`, `#478`, `#480`, `#482`, `#484`, `#486`, `#488`, `#490`.
+- Next step: continue execution sequencing for the 12 open canonical issues in the project board.
 - Confirm all canonical issues are assigned to the active milestone.

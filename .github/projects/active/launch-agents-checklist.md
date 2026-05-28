@@ -43,7 +43,7 @@ node scripts/validation/validate-agents.js --verbose
 - [ ] Run validator and capture output
 - [ ] Fix any missing frontmatter fields
 - [ ] Fix broken workflow path references
-- [ ] Verify all agent specs in `.github/agents/*.agent.md`
+- [ ] Verify all agent specs in `agents/*.agent.md`
 - [ ] Ensure reciprocal workflow references exist
 
 **Success Criteria**: `node scripts/validation/validate-agents.js` → 0 errors, 0 warnings
@@ -261,7 +261,7 @@ node scripts/agents/release.agent.js --scope=patch --dry-run
 **Files to Update**:
 
 - [ ] `AGENTS.md` - Main agent index
-- [ ] `.github/agents/agent.md` - Agent directory index
+- [ ] `agents/agent.md` - Agent directory index
 - [ ] Cross-references between agent specs
 
 **Tasks**:
@@ -272,7 +272,7 @@ node scripts/agents/release.agent.js --scope=patch --dry-run
 - [ ] Remove outdated references
 - [ ] Keep only essential documentation
 
-**Note**: Full documentation cleanup deferred to Phase 2 (see `.github/projects/context-reduction-tasks.md`)
+**Note**: Full documentation cleanup deferred to Phase 2 (see `.github/projects/active/context-reduction-tasks.md`)
 
 ---
 
@@ -382,10 +382,10 @@ Once all criteria are met:
 
 See also:
 
-- [RELEASE_PROCESS.md](../../docs/RELEASE_PROCESS.md): Authoritative develop→main release flow
-- [Test Coverage Expansion Plan](.github/reports/analysis/test-coverage-expansion-plan.md)
-- [Technical Debt Report](.github/reports/tech-debt/v1.0.0-pre-launch-debt.md)
-- [Pre-Release Audit](.github/reports/analysis/pre-release-audit-v1.0.0.md)
+- [RELEASE_PROCESS.md](../../../docs/RELEASE_PROCESS.md): Authoritative develop→main release flow
+- [Test Coverage Expansion Plan](../../reports/analysis/test-coverage-expansion-plan.md)
+- [Technical Debt Report](../../reports/tech-debt/v1.0.0-pre-launch-debt.md)
+- [Pre-Release Audit](../../reports/analysis/pre-release-audit-v1.0.0.md)
 
 ---
 
@@ -397,7 +397,7 @@ See also:
 - **Label Sync**: `scripts/agents/includes/label-sync.js`
 - **Workflows**: `.github/workflows/`
 - **Release Process**: `docs/RELEASE_PROCESS.md`
-- **Agent Specs**: `.github/agents/*.agent.md`
+- **Agent Specs**: `agents/*.agent.md`
 
 ---
 

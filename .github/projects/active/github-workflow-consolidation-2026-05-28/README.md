@@ -57,4 +57,4 @@ This pack tracks:
 - Validation evidence from markdown, labels, fields, and workflow checks.
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
