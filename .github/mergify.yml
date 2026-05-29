@@ -4,9 +4,9 @@ pull_request_rules:
       - author~=^(dependabot\[bot\]|app/dependabot)$
       - base=develop
       - label=area:dependencies
-      - check-success=CI / check
-      - check-success=CI / lint
-      - check-success=changelog-validate / validate
+      - check-success=check
+      - check-success=lint
+      - check-success=validate
       - -draft
       - -conflict
     actions:
@@ -19,9 +19,9 @@ pull_request_rules:
       - base=develop
       - label=area:dependencies
       - label=meta:dependabot-security
-      - check-success=CI / check
-      - check-success=CI / lint
-      - check-success=changelog-validate / validate
+      - check-success=check
+      - check-success=lint
+      - check-success=validate
       - -draft
       - -conflict
     actions:
