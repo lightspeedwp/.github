@@ -3,7 +3,7 @@ title: "Branding Agent Current-State Audit — Issue #48"
 description: "Current-state audit and remediation planning for unified branding agent implementation across repository"
 file_type: "documentation"
 category: "governance"
-version: "v1.0.0"
+version: "1.0.0"
 last_updated: "2026-05-29"
 owners: ["ashleyshaw"]
 tags: ["branding", "audit", "remediation", "inventory", "governance"]
