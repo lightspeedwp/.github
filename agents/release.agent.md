@@ -12,7 +12,7 @@ handoffs:
     prompt: "Prepare the repository for the next release version."
     send: false
 version: "v2.3"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 file_type: "agent"

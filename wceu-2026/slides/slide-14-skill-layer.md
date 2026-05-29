@@ -1,6 +1,8 @@
 ---
 title: "Slide 14 - Skill Layer"
 description: "Explain reusable skills as practical capability units."
-last_updated: "2026-05-28"
-owners: ["Ash Shaw"]
+created_date: "2026-05-28"
+file_type: documentation
 ---
+
+

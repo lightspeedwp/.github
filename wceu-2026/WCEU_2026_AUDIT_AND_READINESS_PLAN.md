@@ -1,15 +1,8 @@
 ---
 title: "WCEU 2026 Talk Asset Pack Audit & Readiness Plan"
 description: "Comprehensive audit of wceu-2026 folder structure, content readiness, and NotebookLM hardening plan for WordCamp Europe 2026 talk preparation"
-file_type: "audit"
-category: "Documentation"
-version: "1.0.0"
-last_updated: "2026-05-28"
-owners: ["Engineering Team"]
-tags: ["wceu-2026", "talk-preparation", "audit", "notebooklm", "documentation"]
-status: "active"
-stability: "stable"
-domain: "documentation"
+created_date: "2026-05-28"
+file_type: documentation
 ---
 
 # WCEU 2026 Talk Asset Pack Audit & Readiness Plan

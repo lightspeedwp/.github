@@ -4,7 +4,7 @@ title: "Agent Launch Checklist"
 description: "Final pre-launch validation checklist for all automation agents before v1.0.0 release"
 version: "1.1"
 created_date: "2025-12-10"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]

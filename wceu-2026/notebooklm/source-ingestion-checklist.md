@@ -1,15 +1,8 @@
 ---
 title: "NotebookLM Source Ingestion Checklist"
 description: "Comprehensive source validation and approval policy for NotebookLM analysis. Ensures only approved internal sources (develop-branch) are used for WCEU 2026 talk research."
-file_type: "checklist"
-category: "Documentation"
-version: "1.0.0"
-last_updated: "2026-05-28"
-owners: ["Engineering Team"]
-tags: ["wceu-2026", "notebooklm", "source-validation", "policy"]
-status: "active"
-stability: "stable"
-domain: "documentation"
+created_date: "2026-05-28"
+file_type: documentation
 ---
 
 # NotebookLM Source Ingestion Checklist
