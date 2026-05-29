@@ -40,6 +40,8 @@ This directory contains all automation, utility, and maintenance scripts for the
 
 ```mermaid
 graph TB
+accTitle: "Scripts and automation directory architecture"
+accDescr: "Shows the hierarchical structure of scripts directory including awesome-copilot, includes, validation, maintenance, and projects folders with their core utilities, test helpers, and integrations with GitHub Actions and CI/CD pipeline."
     A[Scripts Directory] --> B[awesome-copilot/]
     A --> C[includes/]
     A --> D[json-validation/]
@@ -73,6 +75,8 @@ graph TB
 
 ```mermaid
 sequenceDiagram
+accTitle: "Scripts and automation workflow sequence"
+accDescr: "Sequential flow showing developer executing scripts, loading utilities, validating inputs, performing operations, running tests, triggering CI/CD workflows, and deployment with completion notification."
     participant Dev as Developer
     participant Scripts as Scripts System
     participant Tests as Test Suite
@@ -340,6 +344,8 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 
 ```mermaid
 flowchart TD
+accTitle: "Script execution flow and lifecycle"
+accDescr: "Detailed flowchart showing script execution lifecycle from dependency checking, includes loading, CLI argument parsing, input validation, main logic execution, test running, and exit handling with error and success paths."
     A[Script Execution] --> B{Check Dependencies}
     B -->|Missing| C[Install Dependencies]
     B -->|Available| D[Load Includes]
