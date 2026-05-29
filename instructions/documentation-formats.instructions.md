@@ -2,6 +2,7 @@
 file_type: "instructions"
 title: "Documentation Formats Standards"
 description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams across all GitHub community health documentation"
+scope: "organization-wide"
 version: "v1.1.1"
 last_updated: "2026-05-28"
 owners: ["GitHub Community Health Team"]
@@ -599,5 +600,14 @@ jobs:
 - Internal links must be valid
 - Mermaid diagrams must render
 - All checks required before merge
+
+---
+
+## Related Files
+
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in documentation
+- **[issues.instructions.md](./issues.instructions.md)** — Issue documentation and templates
+- **[pull-requests.instructions.md](./pull-requests.instructions.md)** — PR documentation and templates
+- **[community-standards.instructions.md](./community-standards.instructions.md)** — Community health documentation standards
 
 ---

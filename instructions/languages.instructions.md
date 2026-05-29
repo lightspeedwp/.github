@@ -2,6 +2,7 @@
 file_type: "instructions"
 title: "Programming Languages Standards"
 description: "Unified linting, formatting, and documentation standards for JavaScript, TypeScript, JSON, and YAML across all GitHub repositories"
+scope: "organization-wide"
 version: "v1.0"
 last_updated: "2025-12-07"
 owners: ["GitHub Community Health Team"]
@@ -422,5 +423,13 @@ jobs:
       - run: npm run lint:yaml
       - run: npm run lint:workflows
 ```
+
+---
+
+## Related Files
+
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — General coding standards applicable across all languages
+- **[linting.instructions.md](./linting.instructions.md)** — Tool-specific linting configurations and rules
+- **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing and code quality standards
 
 ---

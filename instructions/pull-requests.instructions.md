@@ -2,6 +2,7 @@
 file_type: "instructions"
 title: "Pull Request Creation Instructions"
 description: "Canonical instructions for creating, labeling, and submitting Pull Requests in LightSpeedWP projects. Reference for templates, automation, and labeling strategy."
+scope: "organization-wide"
 version: "1.2"
 last_updated: "2026-05-28"
 owners: ["lightspeedwp/maintainers"]
@@ -227,5 +228,13 @@ For maintainers and reviewers, reference these [Saved Replies](../.github/SAVED_
 - [AI Assist](../.github/SAVED_REPLIES/pull-requests/ai-assist.md)
 - [Closing Inactive PRs](../.github/SAVED_REPLIES/pull-requests/closing-inactive.md)
 - ...and more.
+
+---
+
+## Related Files
+
+- **[issues.instructions.md](./issues.instructions.md)** — Companion guide for issue creation and labeling; mirrors PR workflow patterns
+- **[labeling.instructions.md](./labeling.instructions.md)** — Detailed label naming conventions and one-hot rules
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in PR templates
 
 ---

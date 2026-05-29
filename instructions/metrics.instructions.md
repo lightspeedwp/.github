@@ -1,5 +1,6 @@
 ---
 file_type: "instructions"
+scope: "repo-local"
 title: "Metrics Collection & Reporting Instructions"
 description: "Standards and guidelines for collecting, aggregating, and reporting repository health metrics including issue/PR activity, response times, and project health indicators"
 version: "v1.0"

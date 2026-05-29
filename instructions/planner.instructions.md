@@ -1,5 +1,6 @@
 ---
 file_type: "instructions"
+scope: "repo-local"
 title: "PR Planning & Checklist Instructions"
 description: "Standards for automated PR checklist generation, merge readiness validation, and planning automation"
 version: "v1.0"

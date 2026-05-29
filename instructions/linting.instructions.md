@@ -1,6 +1,8 @@
 ---
 file_type: "instructions"
+title: "Linting Instructions"
 description: "Master index for all linting instructions in the LightSpeed organisation. Lists and cross-references all linting instructions, config, and coding standards."
+scope: "organization-wide"
 applyTo: "**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}"
 version: "v2.0"
 last_updated: "2025-11-27"
@@ -183,5 +185,13 @@ Linting instructions should evolve with our standards and requirements. When upd
 2. Test the updated instruction with CI, pre-commit, and Copilot before committing.
 3. Consider backward compatibility with existing code.
 4. Document significant changes in the commit message.
+
+---
+
+## Related Files
+
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — General coding standards that linting tools enforce
+- **[languages.instructions.md](./languages.instructions.md)** — Language-specific linting configurations and rules
+- **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing standards that complement linting
 
 ---

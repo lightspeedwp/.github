@@ -1,5 +1,6 @@
 ---
 file_type: "instructions"
+scope: "repo-local"
 title: Reporting Instructions
 description: Guidelines for generating and storing reports in this repository.
 version: "1.1"

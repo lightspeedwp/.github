@@ -1,8 +1,11 @@
 ---
+file_type: "instructions"
+title: "Instructions"
 description: "Guidelines for writing Copilot instruction files in the LightSpeed .github community health repository"
+scope: "repo-local"
+version: "v1.0"
+last_updated: "2025-12-11"
 applyTo: "**/.github/instructions/*.instructions.md"
-version: 1.0
-lastUpdated: 2025-12-11
 ---
 
 # LightSpeed Organisation GitHub Instruction Authoring

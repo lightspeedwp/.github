@@ -1,11 +1,14 @@
 ---
 file_type: "instructions"
+title: "Coding Standards"
 description: "Unified coding standards for all LightSpeedWP projects: applies to all code, documentation, automation, and AI contributions."
+scope: "organization-wide"
 applyTo: "**"
 version: "v2.1"
 last_updated: "2025-12-04"
 owners: ["LightSpeedWP Team"]
 tags: ["coding-standards", "governance", "automation", "docs", "lint", "ai"]
+status: "active"
 ---
 
 # LightSpeedWP Coding Standards — Canonical Reference
@@ -102,5 +105,13 @@ All documentation links to files within the same repository should use `/blob/HE
 - All AI-generated code and docs must reference and follow these standards.
 - Use path-specific instructions files and main [custom instructions](../.github/custom-instructions.md) for Copilot.
 - See [LightSpeed Copilot Prompts Index](../.github/prompts/prompts.md) for reusable prompts.
+
+---
+
+## Related Files
+
+- **[linting.instructions.md](./linting.instructions.md)** — Tool-specific linting rules and configurations
+- **[languages.instructions.md](./languages.instructions.md)** — Language-specific coding standards and formatting
+- **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing and QA standards
 
 ---
