@@ -1,0 +1,369 @@
+---
+# Agent Configuration for LightSpeed .github Unified Branding
+# This YAML file populates the JSON Schema with category definitions,
+# footer templates, and badge schemas for the unified branding agent.
+
+version: "1.0"
+
+categories:
+  root:
+    path_pattern: "^[^/]+\\.md$"
+    description: "Root-level GitHub configuration files (README, CONTRIBUTING, etc.)"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    default_fields:
+      file_type: "documentation"
+      stability: "stable"
+
+  github-config:
+    path_pattern: "^\\.github/[^/]+\\.(md|yml|yaml)$"
+    description: ".github/ directory configuration files (templates, config, settings)"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    default_fields:
+      file_type: "configuration"
+      category: "github-config"
+
+  workflows:
+    path_pattern: "^\\.github/workflows/[^/]+\\.ya?ml$"
+    description: "GitHub Actions workflow files"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: false
+    default_fields:
+      file_type: "workflow"
+      category: "workflows"
+
+  wceu-talk:
+    path_pattern: "^wceu-talk/.*\\.md$"
+    description: "WordCamp Europe talk materials and slides"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    default_fields:
+      file_type: "documentation"
+      category: "wceu-talk"
+      stability: "stable"
+
+  tests:
+    path_pattern: "^.*\\.(test|spec)\\.(js|ts)$"
+    description: "Test files (Jest, unit tests, integration tests)"
+    footer_required: false
+    badge_support: false
+    frontmatter_required: false
+    default_fields:
+      file_type: "test"
+
+  skills:
+    path_pattern: "^skills/.*/(SKILL\\.md|.*\\.md)$"
+    description: "Portable skill definitions (highest priority for remediation)"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    priority: "high"
+    default_fields:
+      file_type: "skill"
+      category: "skills"
+      stability: "stable"
+      tags: ["portable", "reusable"]
+
+  scripts:
+    path_pattern: "^scripts/.*\\.(js|ts|sh)$"
+    description: "Utility and automation scripts"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: false
+    default_fields:
+      file_type: "script"
+      category: "scripts"
+
+  plugins:
+    path_pattern: "^plugins/.*\\.md$"
+    description: "Plugin definitions and packages"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    default_fields:
+      file_type: "plugin"
+      category: "plugins"
+      stability: "stable"
+
+  instructions:
+    path_pattern: "^instructions/.*\\.instructions\\.md$"
+    description: "Portable instruction files (no .github assumptions)"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    priority: "high"
+    default_fields:
+      file_type: "instruction"
+      category: "instructions"
+      stability: "stable"
+
+  hooks:
+    path_pattern: "^hooks/.*\\.(js|sh)$"
+    description: "Portable hooks and guardrails"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: false
+    default_fields:
+      file_type: "hook"
+      category: "hooks"
+
+  documentation:
+    path_pattern: "^(docs|documentation)/.*\\.md$"
+    description: "Documentation and guides"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    default_fields:
+      file_type: "documentation"
+      category: "documentation"
+      stability: "stable"
+
+  cookbook:
+    path_pattern: "^cookbook/.*\\.md$"
+    description: "Recipes, playbooks, and implementation guides"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    default_fields:
+      file_type: "guide"
+      category: "cookbook"
+      stability: "stable"
+
+  ai-configs:
+    path_pattern: "^ai/.*\\.md$"
+    description: "AI model configurations and instructions"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    default_fields:
+      file_type: "configuration"
+      category: "ai-configs"
+      stability: "stable"
+
+  agent-specs:
+    path_pattern: "^agents/.*\\.md$"
+    description: "Agent specification files"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    default_fields:
+      file_type: "agent"
+      category: "agent-specs"
+      stability: "stable"
+
+  slides:
+    path_pattern: "^slides/.*\\.md$"
+    description: "Presentation slides and visual content"
+    footer_required: true
+    badge_support: true
+    frontmatter_required: true
+    default_fields:
+      file_type: "presentation"
+      category: "slides"
+
+frontmatter_rules:
+  required_fields:
+    file_type:
+      description: "Type of file (report, documentation, instruction, agent, skill, etc.)"
+      required: true
+    title:
+      description: "Human-readable title of the document"
+      required: true
+    last_updated:
+      description: "ISO 8601 datetime of last update (must be current for changed content)"
+      required: true
+      format: "date-time"
+
+  optional_fields:
+    description:
+      description: "Brief description of document purpose"
+      type: "string"
+    version:
+      description: "Semantic version string (e.g., 1.0 or 1.2.3)"
+      pattern: "^\\d+\\.\\d+(\\.\\d+)?$"
+    created_date:
+      description: "ISO date when file was created"
+      format: "date"
+    owners:
+      description: "List of file owners/maintainers"
+      type: "array"
+    tags:
+      description: "Keywords for discoverability (max 8 tags)"
+      type: "array"
+      maxItems: 8
+    category:
+      description: "Document category for footer/badge selection"
+      enum:
+        [
+          "root",
+          "github-config",
+          "workflows",
+          "wceu-talk",
+          "tests",
+          "skills",
+          "scripts",
+          "plugins",
+          "instructions",
+          "hooks",
+          "documentation",
+          "cookbook",
+          "ai-configs",
+          "agent-specs",
+          "slides",
+        ]
+    domain:
+      description: "Domain or functional area"
+      type: "string"
+    stability:
+      description: "Maturity level of the content"
+      enum: ["stable", "experimental", "incubating", "deprecated"]
+    maintainer:
+      description: "Primary maintainer or team responsible for updates"
+      type: "string"
+    license:
+      description: "License identifier (e.g., GPL-3.0, MIT)"
+      type: "string"
+
+footer_templates:
+  root:
+    category: "root"
+    footer_format: "---\n_Last updated: {last_updated} • Category: {category}_"
+    variations:
+      - "---\n_Maintained by {maintainer} • Version {version}_"
+      - "---\n_⚖️ {license} • Last updated {last_updated}_"
+
+  github-config:
+    category: "github-config"
+    footer_format: "---\n_⚙️ Configuration • Last updated: {last_updated}_"
+    variations:
+      - "---\n_GitHub Config • Maintained by {maintainer}_"
+
+  workflows:
+    category: "workflows"
+    footer_format: "---\n_🔄 GitHub Actions Workflow • Last updated: {last_updated}_"
+    variations:
+      - "---\n_Workflow {version} • Status: {stability}_"
+
+  skills:
+    category: "skills"
+    footer_format: "---\n_🎯 Skill • Version {version} • Last updated: {last_updated}_"
+    variations:
+      - "---\n_Portable Skill • Stability: {stability}_"
+      - "---\n_Maintained by {maintainer} • Tags: {tags}_"
+
+  instructions:
+    category: "instructions"
+    footer_format: "---\n_📖 Instruction • Version {version} • Last updated: {last_updated}_"
+    variations:
+      - "---\n_Portable Instruction • Stability: {stability}_"
+
+  documentation:
+    category: "documentation"
+    footer_format: "---\n_📚 Documentation • Last updated: {last_updated}_"
+    variations:
+      - "---\n_Domain: {domain} • Maintained by {maintainer}_"
+      - "---\n_Version {version} • Status: {stability}_"
+
+  cookbook:
+    category: "cookbook"
+    footer_format: "---\n_📖 Cookbook • Last updated: {last_updated}_"
+    variations:
+      - "---\n_Guide • Stability: {stability}_"
+
+  ai-configs:
+    category: "ai-configs"
+    footer_format: "---\n_🤖 AI Configuration • Version {version} • Last updated: {last_updated}_"
+    variations:
+      - "---\n_AI Config • Status: {stability}_"
+
+  agent-specs:
+    category: "agent-specs"
+    footer_format: "---\n_🤖 Agent Specification • Version {version} • Last updated: {last_updated}_"
+    variations:
+      - "---\n_Agent • Stability: {stability}_"
+
+  plugins:
+    category: "plugins"
+    footer_format: "---\n_🔌 Plugin • Version {version} • Last updated: {last_updated}_"
+    variations:
+      - "---\n_Plugin • Maintained by {maintainer}_"
+
+  slides:
+    category: "slides"
+    footer_format: "---\n_🎬 Presentation • Last updated: {last_updated}_"
+    variations:
+      - "---\n_Slides • Version {version}_"
+
+badge_schemas:
+  status:
+    type: "status"
+    placement: "header"
+    categories: ["skills", "instructions", "agent-specs"]
+    template: "![Status: {stability}](https://img.shields.io/badge/status-{stability}-{color})"
+    variations:
+      - "![{stability}](https://img.shields.io/badge/-{stability}-{color}?style=flat-square)"
+
+  category:
+    type: "category"
+    placement: "footer"
+    categories: ["all"]
+    template: "![Category: {category}](https://img.shields.io/badge/category-{category}-blue)"
+
+  version:
+    type: "version"
+    placement: "header"
+    categories: ["skills", "instructions", "agent-specs", "plugins"]
+    template: "![Version {version}](https://img.shields.io/badge/version-{version}-green)"
+
+  stability:
+    type: "status"
+    placement: "inline"
+    categories: ["skills", "instructions", "agent-specs"]
+    variations:
+      - "💚 Stable"
+      - "🟡 Experimental"
+      - "🟠 Incubating"
+      - "⚠️ Deprecated"
+
+  maintenance:
+    type: "maintenance"
+    placement: "footer"
+    categories: ["all"]
+    template: "![Maintained by {maintainer}](https://img.shields.io/badge/maintained%20by-{maintainer}-important)"
+
+validation_rules:
+  skills:
+    - "require: file_type = 'skill'"
+    - "require: category = 'skills'"
+    - "require: version matches semantic versioning"
+    - "require: stability in ['stable', 'experimental', 'incubating', 'deprecated']"
+    - "require: tags provided (max 8)"
+
+  instructions:
+    - "require: file_type = 'instruction'"
+    - "require: category = 'instructions'"
+    - "require: version matches semantic versioning"
+    - "require: stability in ['stable', 'experimental', 'incubating', 'deprecated']"
+
+  documentation:
+    - "require: file_type = 'documentation'"
+    - "require: category in ['documentation', 'cookbook', 'slides']"
+    - "optional: version if version field exists"
+    - "optional: tags for discoverability"
+
+  agent-specs:
+    - "require: file_type = 'agent'"
+    - "require: category = 'agent-specs'"
+    - "require: version matches semantic versioning"
+    - "require: description provided"
+
+  plugins:
+    - "require: file_type = 'plugin'"
+    - "require: category = 'plugins'"
+    - "require: version matches semantic versioning"
+    - "optional: maintainer contact"
