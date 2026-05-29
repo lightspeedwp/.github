@@ -1,5 +1,5 @@
 ---
-file_type: "index"
+file_type: "documentation"
 title: "Agentic Workflows"
 description: "Ownership index for portable agentic workflows, distinct from GitHub Actions."
 version: "v0.2.0"

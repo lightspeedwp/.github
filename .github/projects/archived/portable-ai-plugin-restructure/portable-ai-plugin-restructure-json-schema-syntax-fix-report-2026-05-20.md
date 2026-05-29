@@ -10,6 +10,4 @@ license: "GPL-3.0"
 tags: ["maintenance", "json-schema", "validation", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-    description: "Baseline report documenting the original schema syntax failure."
-    description: "GitHub issue #311 local source draft."
 ---

@@ -10,7 +10,4 @@ license: "GPL-3.0"
 tags: ["audit", "migration-map", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-    description: "Active PRD defining the phased restructure."
-    description: "GitHub issue #286 local source draft."
-    description: "Machine-readable migration decision map."
 ---

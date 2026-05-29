@@ -10,7 +10,4 @@ license: "GPL-3.0"
 tags: ["portable-ai-plugin-restructure", "workflows", "migration", "issue-298"]
 domain: "ai-ops"
 stability: "experimental"
-    description: "Issue #298 local source draft."
-    description: "Portable workflow ownership index."
-    description: "Example portable agentic workflow spec."
 ---

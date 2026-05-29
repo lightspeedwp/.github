@@ -10,7 +10,4 @@ license: "GPL-3.0"
 tags: ["audit", "github-native", "migration-map", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-    description: "Active PRD defining the target portable AI operations structure."
-    description: "Canonical migration decision map updated by this audit."
-    description: "GitHub issue #293 local source draft."
 ---

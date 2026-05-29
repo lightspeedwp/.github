@@ -16,8 +16,4 @@ tags:
   - "governance"
 domain: "governance"
 stability: "experimental"
-    description: "Current file placement rules used for this PRD."
-    description: "Current repo-level Copilot and agent instructions."
-    description: "Current agent index and implementation map."
-    description: "Current validation, linting, and test command surface."
 ---

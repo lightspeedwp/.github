@@ -282,7 +282,6 @@ body:
     id: "contact"
     attributes:
       label: "Contact Details"
-      description: "How can the team reach you for more info?"
       placeholder: "e.g. email@example.com"
     validations:
       required: false
@@ -291,7 +290,6 @@ body:
     id: "steps"
     attributes:
       label: "Steps to Reproduce"
-      description: "Provide step-by-step instructions to reproduce the issue."
       placeholder: |
         1. Step one...
         2. Step two...
@@ -303,7 +301,6 @@ body:
     id: "browser"
     attributes:
       label: "Affected Browser(s)"
-      description: "Which web browsers show the issue?"
       options:
         - "Firefox"
         - "Chrome"
@@ -317,7 +314,6 @@ body:
     id: "agree"
     attributes:
       label: "Code of Conduct Agreement"
-      description: "Please confirm:"
       options:
         - label: "I have searched for duplicate issues"
           required: true

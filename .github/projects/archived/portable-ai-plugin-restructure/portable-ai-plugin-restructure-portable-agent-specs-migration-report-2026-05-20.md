@@ -10,6 +10,4 @@ license: "GPL-3.0"
 tags: ["portable-ai-plugin-restructure", "agents", "migration", "issue-296"]
 domain: "ai-ops"
 stability: "experimental"
-    description: "Issue #296 local source draft."
-    description: "Canonical migration decision map."
 ---

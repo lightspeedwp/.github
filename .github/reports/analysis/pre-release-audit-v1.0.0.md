@@ -8,8 +8,6 @@ last_updated: "2025-12-10"
 version: "1.0.0"
 author: "Release Engineering"
 tags: ["release", "audit", "quality", "v1.0.0", "readiness"]
-    description: "Test coverage strategy"
-    description: "Release readiness tasks"
 ---
 
 # Pre-Release Audit Report - v1.0.0

@@ -10,6 +10,4 @@ license: "GPL-3.0"
 tags: ["task", "folder-skeleton", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-    description: "Active PRD defining the target portable AI operations structure."
-    description: "GitHub issue #289 local source draft."
 ---

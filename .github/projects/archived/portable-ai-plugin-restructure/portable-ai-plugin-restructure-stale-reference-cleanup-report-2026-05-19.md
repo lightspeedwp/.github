@@ -10,7 +10,4 @@ license: "GPL-3.0"
 tags: ["maintenance", "stale-links", "cleanup", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-    description: "Active PRD appendix listing known stale references."
-    description: "Canonical migration decision map updated by this cleanup."
-    description: "GitHub issue #294 local source draft."
 ---

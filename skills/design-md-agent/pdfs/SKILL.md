@@ -1,6 +1,7 @@
 ---
-name: pdfs
-description: Reliable, workflow-driven PDF processing: render → verify → operate → re-render/verify, covering reading, inspection, extraction, editing, forms, OCR, redaction, conversion, and diffing. Prefer authoring in DOCX or PPTX (then converting to PDF) for text-heavy docs or slide-like layouts; use ReportLab here for programmatic PDF generation.
+file_type: "documentation"
+name: "pdfs"
+description: "Reliable, workflow-driven PDF processing: render → verify → operate → re-render/verify, covering reading, inspection, extraction, editing, forms, OCR, redaction, conversion, and diffing. Prefer authoring in DOCX or PPTX (then converting to PDF) for text-heavy docs or slide-like layouts; use ReportLab here for programmatic PDF generation."
 ---
 
 # PDF Skill (Read • Inspect • Extract • Edit • Render • Forms • OCR • Redact • Convert • Diff)

@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: Markdown Issues
 status: review
 type: guide

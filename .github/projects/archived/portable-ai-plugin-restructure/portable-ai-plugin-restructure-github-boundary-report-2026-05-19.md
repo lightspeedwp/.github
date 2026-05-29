@@ -10,7 +10,4 @@ license: "GPL-3.0"
 tags: ["refactor", "github-boundary", "file-organisation", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-    description: "Active PRD defining the target portable AI operations structure."
-    description: "GitHub issue #291 local source draft."
-    description: "GitHub issue #292 local source draft."
 ---

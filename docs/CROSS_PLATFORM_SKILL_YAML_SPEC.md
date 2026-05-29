@@ -33,7 +33,6 @@ platform: ["github", "vscode", "figma"]
 # Capabilities
 capabilities:
   - name: "capability-name"
-    description: "What this capability does"
     trigger: "command" | "webhook" | "event"
 
 # Dependencies
@@ -57,7 +56,6 @@ permissions:
 # Examples
 examples:
   - title: "Example 1"
-    description: "How to use it"
     code: "..."
 ---
 ```
@@ -129,7 +127,6 @@ platform: ["github"]
 
 capabilities:
   - name: "analyze-diff"
-    description: "Analyzes PR diff for issues"
     trigger: "webhook"
     inputs:
       - name: "prNumber"

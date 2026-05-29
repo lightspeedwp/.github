@@ -9,9 +9,6 @@ author: "GitHub Copilot"
 maintainer: "LightSpeed Team"
 category: "mermaid"
 tags: ["mermaid", "validation", "accessibility", "documentation", "diagrams"]
-    description: "Mermaid diagram standards and accessibility guidelines"
-    description: "README diagram requirements"
-    description: "Documentation format standards"
 ---
 
 # Mermaid Diagram Validation Report

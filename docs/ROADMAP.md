@@ -8,11 +8,8 @@ owners: ["LightSpeed Team"]
 tags: ["roadmap", "planning", "phases", "timeline", "deliverables"]
 references:
   - path: "ARCHITECTURE.md"
-    description: "Architecture and system design"
   - path: "DECISIONS.md"
-    description: "Architectural decisions driving roadmap"
   - path: "../CONTRIBUTING.md"
-    description: "How to contribute to the roadmap"
 ---
 
 # Development Roadmap

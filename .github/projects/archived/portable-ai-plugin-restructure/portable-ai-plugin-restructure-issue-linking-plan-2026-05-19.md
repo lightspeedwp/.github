@@ -10,7 +10,4 @@ license: "GPL-3.0"
 tags: ["task", "issues", "milestones", "labels", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-    description: "Active PRD defining the target portable AI operations structure."
-    description: "Local index of posted parent and child GitHub issue drafts."
-    description: "GitHub issue #288 local source draft."
 ---

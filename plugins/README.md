@@ -1,5 +1,5 @@
 ---
-file_type: "index"
+file_type: "documentation"
 title: "Plugin Bundles"
 description: "Ownership index for installable LightSpeed AI plugin bundles and plugin-family strategy."
 version: "v0.2.0"

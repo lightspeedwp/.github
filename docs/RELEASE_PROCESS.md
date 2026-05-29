@@ -7,19 +7,12 @@ category: "release-management"
 description: "Authoritative release process for lightspeedwp/.github: develop → main flow, gating, changelog validation, release PRs, tags, and GitHub Releases."
 references:
   - path: "../agents/release.agent.md"
-    description: "Release agent specification"
   - path: "../scripts/agents/release.agent.js"
-    description: "Release automation implementation"
   - path: "../.github/workflows/release.yml"
-    description: "Release workflow (develop → main)"
   - path: "../.github/workflows/changelog.yml"
-    description: "Changelog validation on every PR"
   - path: "../.schemas/changelog.schema.json"
-    description: "Keep a Changelog schema"
   - path: "../scripts/validation/validate-changelog.cjs"
-    description: "Schema validation script"
   - path: "../CHANGELOG.md"
-    description: "Keep a Changelog source of truth"
 ---
 
 # Release Process (develop → main)

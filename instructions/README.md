@@ -1,5 +1,5 @@
 ---
-file_type: "index"
+file_type: "documentation"
 title: "Portable Instructions"
 description: "Ownership index for portable LightSpeed instruction files."
 version: "v0.2.0"

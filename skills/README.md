@@ -1,5 +1,5 @@
 ---
-file_type: "index"
+file_type: "documentation"
 title: "Portable Skills"
 description: "Ownership index for self-contained LightSpeed AI skills."
 version: "v0.2.0"

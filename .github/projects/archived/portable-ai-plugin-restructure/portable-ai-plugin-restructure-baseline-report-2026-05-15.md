@@ -10,7 +10,4 @@ license: "GPL-3.0"
 tags: ["audit", "baseline", "validation", "dependencies", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-    description: "Active PRD defining the phased restructure."
-    description: "GitHub issue #287 local source draft."
-    description: "Raw command output captured during baseline checks."
 ---

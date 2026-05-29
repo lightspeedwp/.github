@@ -1,5 +1,5 @@
 ---
-file_type: "index"
+file_type: "documentation"
 title: "AI Cookbook"
 description: "Ownership index for reusable recipes, examples, playbooks, and implementation guides."
 version: "v0.2.0"

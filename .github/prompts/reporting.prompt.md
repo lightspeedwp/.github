@@ -12,7 +12,4 @@ tools: ["read", "edit", "search"]
 tags: ["reporting", "documentation", "automation", "metrics"]
 domain: "governance"
 stability: "stable"
-    description: "Reporting standards and conventions"
-    description: "Reports directory index"
-    description: "Reporting agent specification"
 ---

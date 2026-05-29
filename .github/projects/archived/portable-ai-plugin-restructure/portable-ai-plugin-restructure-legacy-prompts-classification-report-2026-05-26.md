@@ -10,7 +10,4 @@ license: "GPL-3.0"
 tags: ["audit", "prompts", "skills", "cookbook", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-    description: "GitHub issue #299 local source draft."
-    description: "Canonical migration decision map."
-    description: "Project orchestration prompt and dependency order."
 ---

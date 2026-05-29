@@ -10,6 +10,4 @@ license: "GPL-3.0"
 tags: ["build", "ci", "validation", "structure", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-    description: "Active PRD requirement FR-302 for validate:structure."
-    description: "GitHub issue #313 local source draft."
 ---

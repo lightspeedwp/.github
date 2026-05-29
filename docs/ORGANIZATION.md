@@ -8,9 +8,7 @@ owners: ["LightSpeed Team"]
 tags: ["documentation", "organization", "structure", "navigation"]
 references:
   - path: VERSIONING.md
-    description: "Versioning conventions"
   - path: FRONTMATTER_SCHEMA.md
-    description: "Frontmatter schema reference"
 ---
 
 # Documentation Organization
