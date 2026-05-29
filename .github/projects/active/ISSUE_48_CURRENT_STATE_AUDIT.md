@@ -4,9 +4,8 @@ description: "Current-state audit and remediation planning for unified branding 
 file_type: "documentation"
 category: "governance"
 version: "v1.0.0"
-created_date: "2026-05-28"
 last_updated: "2026-05-29"
-owners: ["Ash Shaw"]
+owners: ["ashleyshaw"]
 tags: ["branding", "audit", "remediation", "inventory", "governance"]
 status: "active"
 stability: "stable"
