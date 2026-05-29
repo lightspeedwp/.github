@@ -1,5 +1,5 @@
 ---
-file_type: "index"
+file_type: "agent-index"
 title: ".github Agents Boundary"
 description: "Repo-local index for agent assets that remain under the .github control-plane boundary."
 version: "v0.2.0"

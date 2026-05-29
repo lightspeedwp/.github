@@ -10,7 +10,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["planning", "issues", "execution", "governance", "roadmap"]
 domain: "governance"
-stability: "active"
+stability: "stable"
 status: "active"
 ---
 

@@ -7,5 +7,5 @@ file_type: "audit-report"
 owners: ["LightSpeed Team"]
 tags: ["governance", "audit", "change-management", "documentation"]
 domain: "governance"
-stability: "active"
+stability: "stable"
 ---

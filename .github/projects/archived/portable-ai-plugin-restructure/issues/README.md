@@ -9,7 +9,7 @@ authors: ["LightSpeed Team", "Codex"]
 license: "GPL-3.0"
 tags: ["issues", "planning", "ai-ops", "plugin", "restructure"]
 domain: "governance"
-stability: "active"
+stability: "stable"
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

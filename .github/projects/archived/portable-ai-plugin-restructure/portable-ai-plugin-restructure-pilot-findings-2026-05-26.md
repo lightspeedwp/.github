@@ -9,5 +9,5 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["pilot", "findings", "plugin", "skills", "restructure"]
 domain: "governance"
-stability: "active"
+stability: "stable"
 ---

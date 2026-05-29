@@ -9,5 +9,5 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["projects", "archive", "governance", "triage"]
 domain: "governance"
-stability: "archived"
+stability: "stable"
 ---

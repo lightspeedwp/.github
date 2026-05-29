@@ -9,5 +9,5 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["memory", "closeout", "archive", "governance"]
 domain: "governance"
-stability: "completed"
+stability: "stable"
 ---

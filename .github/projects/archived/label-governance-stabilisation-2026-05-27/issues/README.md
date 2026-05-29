@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["issues", "labels", "governance"]
 domain: "governance"
-stability: "archived"
+stability: "stable"
 ---
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*

@@ -9,5 +9,5 @@ authors: ["LightSpeed Team", "Codex"]
 license: "GPL-3.0"
 tags: ["status", "issues", "governance", "plugin", "restructure"]
 domain: "governance"
-stability: "active"
+stability: "stable"
 ---

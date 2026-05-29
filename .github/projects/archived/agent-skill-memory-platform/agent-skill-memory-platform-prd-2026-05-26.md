@@ -9,5 +9,5 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["memory", "agents", "skills", "schemas", "validation", "governance"]
 domain: "governance"
-stability: "active"
+stability: "stable"
 ---

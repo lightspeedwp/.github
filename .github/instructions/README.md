@@ -1,5 +1,5 @@
 ---
-file_type: "index"
+file_type: "instructions"
 title: ".github Instructions Boundary"
 description: "Repo-local index for instructions that remain under the .github control-plane boundary."
 version: "v0.2.0"

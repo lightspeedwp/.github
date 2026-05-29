@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["issues", "memory", "planning"]
 domain: "governance"
-stability: "active"
+stability: "stable"
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

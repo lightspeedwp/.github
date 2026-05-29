@@ -9,5 +9,5 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["release", "checklist", "plugin", "restructure"]
 domain: "governance"
-stability: "active"
+stability: "stable"
 ---

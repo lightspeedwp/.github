@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["adoption", "governance", "documentation", "planning"]
 domain: "governance"
-stability: "archived"
+stability: "stable"
 ---
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*

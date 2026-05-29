@@ -10,7 +10,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["workflows", "consolidation", "governance", "automation"]
 domain: "governance"
-stability: "archived"
+stability: "stable"
 status: "completed"
 ---
 

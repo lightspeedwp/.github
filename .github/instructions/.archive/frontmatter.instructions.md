@@ -252,7 +252,7 @@ description: "Generate performance remediation checklist for a WordPress site"
 mode: ask
 model: gpt-4o
 domain: perf
-stability: stable
+stability: "stable"
 tags: ["audit", "wp-core", "optimization"]
 tools: ["terminal", "browser"]
 ---

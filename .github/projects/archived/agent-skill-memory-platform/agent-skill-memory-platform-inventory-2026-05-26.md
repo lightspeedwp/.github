@@ -9,5 +9,5 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["inventory", "memory", "agents", "skills", "baseline"]
 domain: "governance"
-stability: "active"
+stability: "stable"
 ---

@@ -9,5 +9,5 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["agents", "issues", "project-mapping", "automation"]
 domain: "governance"
-stability: "active"
+stability: "stable"
 ---
