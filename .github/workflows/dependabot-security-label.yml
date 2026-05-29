@@ -1,0 +1,75 @@
+name: dependabot-security-label
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+    branches: [develop]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label-security-updates:
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Detect security-related Dependabot updates
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.payload.pull_request.number;
+            const labelName = 'dependabot:security';
+
+            const title = context.payload.pull_request.title || '';
+            const body = context.payload.pull_request.body || '';
+            const text = `${title}\n${body}`;
+
+            // Keep this strict to avoid matching boilerplate text present in most Dependabot PRs.
+            const securityPatterns = [
+              /\bto fix\b/i,
+              /\bvulnerabilit(?:y|ies)\b/i,
+              /\bcve-\d{4}-\d+\b/i,
+              /\bghsa-[a-z0-9-]+\b/i,
+              /\bsecurity\s+fix\b/i,
+            ];
+
+            const isSecurityRelated = securityPatterns.some((pattern) => pattern.test(text));
+
+            try {
+              await github.rest.issues.getLabel({ owner, repo, name: labelName });
+            } catch (error) {
+              if (error.status === 404) {
+                await github.rest.issues.createLabel({
+                  owner,
+                  repo,
+                  name: labelName,
+                  color: 'B60205',
+                  description: 'Dependabot update appears security-related and eligible for guarded automation',
+                });
+              } else {
+                throw error;
+              }
+            }
+
+            const existing = await github.rest.issues.listLabelsOnIssue({ owner, repo, issue_number });
+            const hasLabel = existing.data.some((label) => label.name === labelName);
+
+            if (isSecurityRelated && !hasLabel) {
+              await github.rest.issues.addLabels({ owner, repo, issue_number, labels: [labelName] });
+              core.notice(`Added '${labelName}' to PR #${issue_number}.`);
+              return;
+            }
+
+            if (!isSecurityRelated && hasLabel) {
+              await github.rest.issues.removeLabel({ owner, repo, issue_number, name: labelName });
+              core.notice(`Removed '${labelName}' from PR #${issue_number}.`);
+              return;
+            }
+
+            core.notice(
+              `No label change needed for PR #${issue_number}; security-related=${isSecurityRelated}, hasLabel=${hasLabel}.`,
+            );

@@ -410,6 +410,10 @@
   aliases:
     - dependencies
 
+- name: dependabot:security
+  color: B60205
+  description: "Dependabot update appears security-related and eligible for guarded automation"
+
 - name: area:integration
   color: D93F0B
   description: "3rd-party integrations / ecosystem"

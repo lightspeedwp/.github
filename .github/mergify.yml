@@ -1,0 +1,13 @@
+pull_request_rules:
+  - name: Auto-merge Dependabot security updates on develop
+    conditions:
+      - author=dependabot[bot]
+      - base=develop
+      - label=dependencies
+      - label=dependabot:security
+      - -draft
+      - -conflict
+    actions:
+      merge:
+        method: squash
+        strict: smart
