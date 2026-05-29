@@ -3,9 +3,8 @@ file_type: agent-index
 title: Scripts and Automation
 description: Automation, utility, and maintenance scripts for the LightSpeedWP project
 last_updated: '2026-05-29'
-version: '2.7'
+version: '2.8'
 ---
-
 # LightSpeedWP Scripts & Automation
 
 ![Scripts Badge](https://img.shields.io/badge/scripts-active-brightgreen?style=flat-square)
@@ -373,7 +372,7 @@ When contributing new scripts or modifications:
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../.schemas/)
-- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
+- [Test Coverage Reports](../tests/README.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References
