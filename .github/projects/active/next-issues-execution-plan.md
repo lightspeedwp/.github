@@ -1,9 +1,9 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Comprehensive execution plan for all open issues, active projects, and strategic workflows."
-version: "v2.1.1"
+version: "v2.1.2"
 created_date: "2026-05-28"
-last_updated: "2026-05-28T19:10:00Z"
+last_updated: "2026-05-29T09:15:00Z"
 file_type: "project"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
@@ -25,8 +25,8 @@ LightSpeed `.github` repository. It consolidates:
 - Strategic initiatives including comprehensive README/Mermaid audits
 - Agent ownership and wave assignments
 
-**Live as of 2026-05-28**: Wave 2B (7 agent spec upgrades, PRs #515–#521) and Wave 2D (#23 `.coderabbit.yml`, #31 `markdown.instructions.md`) both merged.
-Current focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`) + Wave 3 (README/Mermaid audit).
+**Live as of 2026-05-29**: Wave 2B (7 agent spec upgrades, PRs #515–#521) and Wave 2D (#23 `.coderabbit.yml`, #31 `markdown.instructions.md`) both merged.
+Current GitHub Copilot focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`), proceeding continuously until each issue is implemented, validated, and packaged into a PR ready to merge back into `develop`.
 
 ## Mandatory Agent Execution Split
 
@@ -35,6 +35,15 @@ This section is authoritative for who must execute each task stream.
 - **GitHub Copilot must do**: Wave 2A (`#476`, `#480`, `#482`), Wave 2C (`#488`, `#490`), Wave 3A (`#512`), Wave 3C (`#514`), and plugin-pack execution task lists.
 - **Claude Code must do**: Wave 2B (`#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486`), Wave 2D (`#31`, `#23`), Wave 3B (`#513`), Wave 3D (`#529`), and Wave 4 branding/meta work (`#33`, `#46`, `#48`, `#49`).
 - **No cross-execution**: Copilot must not execute Claude Code exclusive tasks, and Claude Code must not take over Copilot execution queues unless this file is explicitly revised.
+
+## GitHub Copilot Continuation Mandate
+
+GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queue without handoff:
+
+- **Wave 2A**: `#476`, `#480`, `#482`
+- **Wave 2C**: `#488`, `#490`
+- **Execution expectation**: proceed issue-by-issue from the current queue, complete scoped implementation and validation, and stop only when the work is packaged into PR-ready changes for merge back into `develop`.
+- **Readiness bar**: acceptance criteria met, local validation completed, changelog/documentation updated where needed, and branch state suitable for opening a merge-ready PR.
 
 ---
 
@@ -380,6 +389,8 @@ The **Release Agent** should coordinate the following workflows on demand:
 
 ### Phase 1: Finish Wave 2A (GitHub Copilot)
 
+GitHub Copilot must continue this phase through PR-ready state for `develop`.
+
 1. Execute `#476` → complete & merge
 2. Execute `#480` → complete & merge
 3. Execute `#482` → complete & merge
@@ -392,6 +403,8 @@ The **Release Agent** should coordinate the following workflows on demand:
 - **Dependency**: 2A must merge before 2D starts; 2B can start immediately after last 2A merge
 
 ### Phase 3: Execute Wave 2C (GitHub Copilot)
+
+GitHub Copilot must continue this phase through PR-ready state for `develop`.
 
 - `#488`, `#490`
 - **Dependency**: 2A + 2B should be merged
