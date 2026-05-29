@@ -14,7 +14,7 @@ tags:
 - integration
 - automation
 title: Plugin Bundles & Integration Strategy
-version: v0.3.0
+version: v0.3.1
 ---
 
 # Plugin Bundles & Integration Strategy
@@ -46,7 +46,7 @@ Bundles are defined in `PLUGIN_MANIFEST.json` and include:
 
 ## Installation Guide
 
-For comprehensive installation instructions, see [PLUGIN_INSTALLATION_GUIDE.md](../../docs/PLUGIN_INSTALLATION_GUIDE.md).
+For comprehensive installation instructions, see [PLUGIN_INSTALLATION_GUIDE.md](../docs/PLUGIN_INSTALLATION_GUIDE.md).
 
 ### Quick Start
 
@@ -121,7 +121,7 @@ To create a new plugin bundle:
 
 ## Plugin Roadmap
 
-See [PLUGIN_PACK_ROADMAP.md](../../docs/PLUGIN_PACK_ROADMAP.md) for:
+See [PLUGIN_PACK_ROADMAP.md](../docs/PLUGIN_PACK_ROADMAP.md) for:
 
 - Planned plugin bundles
 - Timeline for releases
@@ -138,9 +138,9 @@ See [PLUGIN_PACK_ROADMAP.md](../../docs/PLUGIN_PACK_ROADMAP.md) for:
 
 ## Related Documentation
 
-- [PLUGIN_PACK_ROADMAP.md](../../docs/PLUGIN_PACK_ROADMAP.md) – Plugin development roadmap
-- [PLUGIN_INSTALLATION_GUIDE.md](../../docs/PLUGIN_INSTALLATION_GUIDE.md) – Installation and configuration
-- [AGENTS.md](../../AGENTS.md) – Global AI rules for plugins
+- [PLUGIN_PACK_ROADMAP.md](../docs/PLUGIN_PACK_ROADMAP.md) – Plugin development roadmap
+- [PLUGIN_INSTALLATION_GUIDE.md](../docs/PLUGIN_INSTALLATION_GUIDE.md) – Installation and configuration
+- [AGENTS.md](../AGENTS.md) – Global AI rules for plugins
 - [agents/](../agents/README.md) – Available agents
 - [skills/](../skills/README.md) – Available skills
 

@@ -14,7 +14,7 @@ tags:
 - documentation
 - governance
 title: Portable Instructions & Standards
-version: v0.3.0
+version: v0.3.1
 ---
 
 # Portable Instructions & Standards
@@ -178,14 +178,14 @@ When moving instructions between locations:
 
 ## Related Documentation
 
-- [CLAUDE.md](../../CLAUDE.md) – Repo-local project instructions
-- [AGENTS.md](../../AGENTS.md) – Global AI rules
-- [.github/instructions/](../../.github/instructions/) – Repo-specific instruction overrides
-- [.github/custom-instructions.md](../../.github/custom-instructions.md) – Copilot configuration
+- [CLAUDE.md](../CLAUDE.md) – Repo-local project instructions
+- [AGENTS.md](../AGENTS.md) – Global AI rules
+- [.github/instructions/](../.github/instructions/) – Repo-specific instruction overrides
+- [.github/custom-instructions.md](../.github/custom-instructions.md) – Copilot configuration
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines. Key points:
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines. Key points:
 
 - Use UK English throughout
 - Follow the instruction format strictly

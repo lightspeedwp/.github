@@ -14,7 +14,7 @@ tags:
 - automation
 - cross-platform
 title: Portable AI Skills
-version: v0.3.0
+version: v0.3.1
 ---
 
 # Portable AI Skills
@@ -170,9 +170,9 @@ Skills can declare support for multiple platforms in their `spec.json`:
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for full contribution guidelines. Key points:
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for full contribution guidelines. Key points:
 
-- Follow [Coding Standards](../../instructions/coding-standards.instructions.md)
+- Follow [Coding Standards](../instructions/coding-standards.instructions.md)
 - Include comprehensive tests
 - Document thoroughly in `SKILL.md`
 - Get peer review before merging
@@ -180,9 +180,9 @@ See [CONTRIBUTING.md](../../CONTRIBUTING.md) for full contribution guidelines. K
 
 ## Related Documentation
 
-- [Cross-Platform Skill YAML Spec](../../docs/CROSS_PLATFORM_SKILL_YAML_SPEC.md) – Technical specification for skill YAML
-- [Automation Documentation](../../instructions/automation.instructions.md) – Automation standards
-- [AGENTS.md](../../AGENTS.md) – Global AI rules
+- [Cross-Platform Skill YAML Spec](../docs/CROSS_PLATFORM_SKILL_YAML_SPEC.md) – Technical specification for skill YAML
+- [Automation Documentation](../instructions/automation.instructions.md) – Automation standards
+- [AGENTS.md](../AGENTS.md) – Global AI rules
 
 ---
 

@@ -14,7 +14,7 @@ tags:
 - ai-ops
 - orchestration
 title: Portable Agentic Workflows
-version: v0.3.0
+version: v0.3.1
 ---
 
 # Portable Agentic Workflows
@@ -197,11 +197,11 @@ Workflows use semantic versioning:
 
 ## Related Documentation
 
-- [WORKFLOW.md](../../docs/WORKFLOWS.md) – Workflow architecture documentation
+- [WORKFLOW.md](../docs/WORKFLOWS.md) – Workflow architecture documentation
 - [agents/](../agents/README.md) – Available agents
 - [skills/](../skills/README.md) – Available skills
-- [AGENTS.md](../../AGENTS.md) – Global AI rules
-- [CONTRIBUTING.md](../../CONTRIBUTING.md) – Contribution guidelines
+- [AGENTS.md](../AGENTS.md) – Global AI rules
+- [CONTRIBUTING.md](../CONTRIBUTING.md) – Contribution guidelines
 
 ## Best Practices
 

@@ -3,7 +3,7 @@ file_type: documentation
 name: Portable Agents
 title: Portable AI Agents
 description: Ownership index and specifications for reusable LightSpeed AI agent implementations across platforms.
-version: v0.3.0
+version: v0.3.1
 last_updated: '2026-05-29'
 maintainer: LightSpeed Team
 authors:
@@ -129,7 +129,7 @@ To create a new agent:
 5. Add agent metadata to `SKILL_REGISTRY.json`
 6. Submit a PR for review
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
 
 ## Agent Stability
 
@@ -139,8 +139,8 @@ See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
 
 ## Related Documentation
 
-- [AGENTS.md](../../AGENTS.md) – Global AI rules and agent policy
-- [ai/agents.md](../../ai/agents.md) – Canonical AI source map
+- [AGENTS.md](../AGENTS.md) – Global AI rules and agent policy
+- [ai/agents.md](../ai/agents.md) – Canonical AI source map
 - [agents/agent.md](./agent.md) – Agent implementations index
 
 ---

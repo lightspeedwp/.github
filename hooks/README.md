@@ -15,7 +15,7 @@ tags:
 - automation
 - security
 title: Portable Hooks & Guardrails
-version: v0.3.0
+version: v0.3.1
 ---
 
 # Portable Hooks & Guardrails
@@ -89,7 +89,7 @@ To add a new hook:
 4. Add tests in the hook's directory
 5. Submit a PR for review
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for full contribution guidelines.
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for full contribution guidelines.
 
 ---
 

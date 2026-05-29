@@ -15,7 +15,7 @@ tags:
 - ai-ops
 - automation
 title: AI Cookbook & Implementation Guides
-version: v0.3.0
+version: v0.3.1
 ---
 
 # AI Cookbook & Implementation Guides
@@ -70,7 +70,7 @@ To add a new recipe or playbook:
 5. Add to this README's inventory
 6. Submit a PR for review
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for contribution guidelines and standards.
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution guidelines and standards.
 
 ## Cookbook YAML Configuration
 
