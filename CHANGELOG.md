@@ -4,7 +4,7 @@ description: "All notable changes to this project, formatted per Keep a Changelo
 file_type: "documentation"
 category: "Governance"
 version: "1.0.3"
-last_updated: "2026-05-29T12:20:00Z"
+last_updated: "2026-05-29"
 owners: ["Engineering Team"]
 tags: ["changelog", "versioning", "releases", "governance"]
 status: "active"
