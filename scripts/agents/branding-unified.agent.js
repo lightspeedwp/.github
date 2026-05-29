@@ -23,8 +23,15 @@ import { fileURLToPath } from "url";
 import yaml from "js-yaml";
 import minimist from "minimist";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PROJECT_ROOT = path.resolve(__dirname, "../..");
+let _projectRoot = null;
+
+function getProjectRoot() {
+  if (!_projectRoot) {
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    _projectRoot = path.resolve(__dirname, "../..");
+  }
+  return _projectRoot;
+}
 
 // ============================================================================
 // CONFIGURATION LOADING
@@ -34,7 +41,8 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
  * Load branding configuration from YAML
  */
 function loadBrandingConfig() {
-  const configPath = path.join(PROJECT_ROOT, "config/footers.config.yaml");
+  const projectRoot = getProjectRoot();
+  const configPath = path.join(projectRoot, "config/footers.config.yaml");
   if (!fs.existsSync(configPath)) {
     throw new Error(`Branding config not found: ${configPath}`);
   }
@@ -51,9 +59,10 @@ function loadBrandingConfig() {
  * Load frontmatter schema
  */
 function loadFrontmatterSchema() {
+  const projectRoot = getProjectRoot();
   const schemaPath = path.join(
-    PROJECT_ROOT,
-    ".schemas/frontmatter.schema.json"
+    projectRoot,
+    ".schemas/frontmatter.schema.json",
   );
   if (!fs.existsSync(schemaPath)) {
     console.warn(`Frontmatter schema not found: ${schemaPath}`);
@@ -129,19 +138,19 @@ function validateFrontmatter(frontmatter, category, config) {
   // Check field types
   if (frontmatter.created_date && !isValidDate(frontmatter.created_date)) {
     errors.push(
-      `Invalid created_date format (expected YYYY-MM-DD): ${frontmatter.created_date}`
+      `Invalid created_date format (expected YYYY-MM-DD): ${frontmatter.created_date}`,
     );
   }
 
   if (frontmatter.last_updated && !isValidDate(frontmatter.last_updated)) {
     errors.push(
-      `Invalid last_updated format (expected YYYY-MM-DD): ${frontmatter.last_updated}`
+      `Invalid last_updated format (expected YYYY-MM-DD): ${frontmatter.last_updated}`,
     );
   }
 
   if (frontmatter.version && !isValidVersion(frontmatter.version)) {
     errors.push(
-      `Invalid version format (expected semantic versioning): ${frontmatter.version}`
+      `Invalid version format (expected semantic versioning): ${frontmatter.version}`,
     );
   }
 
@@ -198,7 +207,10 @@ function inferCategory(filePath, frontmatter, config) {
     // Agent and instruction files
     { pattern: /^agents\/.*\.(?:md|agent\.md)$/i, category: "agents" },
     { pattern: /awesome-copilot\/.*\.md$/i, category: "awesome-copilot" },
-    { pattern: /^instructions\/.*\.md$|.*\.instructions\.md$/i, category: "instructions" },
+    {
+      pattern: /^instructions\/.*\.md$|.*\.instructions\.md$/i,
+      category: "instructions",
+    },
 
     // Prompts and prompts
     {
@@ -276,7 +288,8 @@ function generateHeader(frontmatter, category, config) {
   // Check if headers are required/optional for this category
   if (
     categoryConfig.header_behavior === "omitted" ||
-    (categoryConfig.header_behavior === "optional" && !frontmatter.include_header)
+    (categoryConfig.header_behavior === "optional" &&
+      !frontmatter.include_header)
   ) {
     return null;
   }
@@ -379,12 +392,14 @@ function getFooter(category, frontmatter, config) {
 
   // Determine which footer to use
   let footerId =
-    frontmatter.footer_id || categoryConfig.default_footer || "lightspeed-standard";
+    frontmatter.footer_id ||
+    categoryConfig.default_footer ||
+    "lightspeed-standard";
 
   // Validate footer exists
   if (!config.footers[footerId]) {
     console.warn(
-      `Footer '${footerId}' not found for category '${category}', using default`
+      `Footer '${footerId}' not found for category '${category}', using default`,
     );
     footerId = "lightspeed-standard";
   }
@@ -660,9 +675,13 @@ export {
 };
 
 // Run CLI if this is the main module
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main().catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+try {
+  if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    main().catch((error) => {
+      console.error(error);
+      process.exit(1);
+    });
+  }
+} catch {
+  // import.meta not available (running in test/require context)
 }

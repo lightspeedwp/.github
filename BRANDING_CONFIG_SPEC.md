@@ -64,6 +64,7 @@ The system is **config-driven** and **automation-friendly**, allowing the unifie
 All documents must include these four fields in frontmatter:
 
 #### `title` (string)
+
 - **Description**: Human-readable title of the document
 - **Type**: String
 - **Constraints**: 1–200 characters, non-empty
@@ -71,6 +72,7 @@ All documents must include these four fields in frontmatter:
 - **Used by**: Header generation, document indexing, category inference
 
 #### `description` (string)
+
 - **Description**: Brief description of the document's purpose
 - **Type**: String
 - **Constraints**: 10–500 characters
@@ -78,6 +80,7 @@ All documents must include these four fields in frontmatter:
 - **Used by**: Search indexes, document summaries, agent context
 
 #### `file_type` (string)
+
 - **Description**: Type of file (from standard enum)
 - **Type**: String
 - **Allowed Values**: `documentation`, `instructions`, `agent`, `prompt`, `report`, `guide`, `template`, `specification`, `issue-template`, `pr-template`
@@ -85,6 +88,7 @@ All documents must include these four fields in frontmatter:
 - **Used by**: Schema validation, template selection, category inference
 
 #### `category` (string)
+
 - **Description**: Document category for branding and organization
 - **Type**: String
 - **Allowed Values**: One of the 16 categories above (e.g., `docs`, `agents`, `instructions`)
@@ -96,6 +100,7 @@ All documents must include these four fields in frontmatter:
 Recommended but not required:
 
 #### `version` (string)
+
 - **Description**: Document version (semantic versioning)
 - **Type**: String
 - **Pattern**: `^v?\d+\.\d+\.\d+(?:-[a-zA-Z0-9]+)?$`
@@ -103,6 +108,7 @@ Recommended but not required:
 - **Used by**: Version badges, change tracking, API documentation
 
 #### `created_date` (date)
+
 - **Description**: ISO date when document was created
 - **Type**: String (ISO 8601 date format)
 - **Format**: `YYYY-MM-DD`
@@ -110,6 +116,7 @@ Recommended but not required:
 - **Used by**: Document history, audit trails, age calculations
 
 #### `last_updated` (date)
+
 - **Description**: ISO date when document was last modified
 - **Type**: String (ISO 8601 date format)
 - **Format**: `YYYY-MM-DD`
@@ -117,6 +124,7 @@ Recommended but not required:
 - **Used by**: Freshness indicators, footer timestamps, change detection
 
 #### `owners` (array of strings)
+
 - **Description**: List of owners or maintainers responsible for this document
 - **Type**: Array of strings (GitHub usernames or email addresses)
 - **Constraints**: 1–10 items
@@ -124,6 +132,7 @@ Recommended but not required:
 - **Used by**: Attribution, responsibility assignment, notification routing
 
 #### `tags` (array of strings)
+
 - **Description**: Keywords for discovery and filtering
 - **Type**: Array of strings
 - **Constraints**: 1–8 tags, lowercase with hyphens
@@ -131,6 +140,7 @@ Recommended but not required:
 - **Used by**: Search indexing, categorization, cross-references
 
 #### `status` (string)
+
 - **Description**: Current document status
 - **Type**: String
 - **Allowed Values**: `active`, `deprecated`, `draft`, `experimental`
@@ -138,6 +148,7 @@ Recommended but not required:
 - **Used by**: Status badges, deprecation warnings, visibility filtering
 
 #### `stability` (string)
+
 - **Description**: API or feature maturity level
 - **Type**: String
 - **Allowed Values**: `stable`, `experimental`, `incubating`
@@ -277,6 +288,7 @@ Footer templates may contain variables that are substituted at render time:
 Badges are used to visually mark documents with category and status information. They appear in headers and footers.
 
 #### Category Badges
+
 - `[docs]` — Documentation
 - `[ai-ops]` — AI Operations
 - `[agents]` — Agent Specifications
@@ -292,12 +304,14 @@ Badges are used to visually mark documents with category and status information.
 - `[utility]` — Utility Script
 
 #### Status Badges
+
 - `[Active]` — Current and maintained
 - `[Draft]` — Work in progress
 - `[Deprecated]` — No longer recommended
 - `[Experimental]` — Testing phase
 
 #### Quality Badges (Optional)
+
 - `[✅ Reviewed]` — Peer reviewed and approved
 - `[🔍 Audited]` — Compliance checked
 - `[🤖 Automated]` — Generated or maintained by automation
@@ -335,6 +349,7 @@ Each category may define additional validation rules:
 **File**: `config/footers.config.yaml`
 
 Defines:
+
 - All 16 document categories with metadata
 - Allowed footers per category
 - Default footers per category
@@ -348,6 +363,7 @@ Defines:
 **File**: `.schemas/branding-schema.json`
 
 Comprehensive JSON Schema defining:
+
 - Complete category structure
 - Frontmatter field definitions
 - Category inference rules
@@ -391,6 +407,7 @@ validateDocument(content, category);
 ### 9.2 For CI/CD Validation
 
 The configuration is used in:
+
 - Pre-commit hooks (`.husky/pre-push`)
 - GitHub Actions workflows
 - CodeRabbit configuration
@@ -399,6 +416,7 @@ The configuration is used in:
 ### 9.3 For Documentation Generation
 
 Category-aware tools use configuration to:
+
 - Generate category-specific README.md
 - Build documentation indexes
 - Create cross-references
@@ -427,6 +445,7 @@ Category-aware tools use configuration to:
 ### 10.3 Schema Updates
 
 When updating schema:
+
 1. Increment `version` in both `config/footers.config.yaml` and `.schemas/branding-schema.json`
 2. Update `last_updated` timestamp
 3. Document changes in this specification
@@ -468,6 +487,7 @@ file_type: "documentation"
 ```
 
 **Inference Process**:
+
 1. Check frontmatter → no `category` field
 2. Check path patterns → matches `docs/**/*governance*.md`
 3. **Inferred category**: `governance`

@@ -11,7 +11,7 @@
  * - Error handling
  */
 
-import { describe, it, expect, beforeEach } from "@jest/globals";
+import { describe, it, expect } from "@jest/globals";
 import {
   parseFrontmatter,
   validateFrontmatter,
@@ -75,7 +75,8 @@ const mockConfig = {
     "lightspeed-brief": {
       id: "lightspeed-brief",
       name: "Brief Footer",
-      template: "---\n\nMade with 💚 by [LightSpeedWP](https://lightspeedwp.agency)",
+      template:
+        "---\n\nMade with 💚 by [LightSpeedWP](https://lightspeedwp.agency)",
     },
     "ai-ops-standard": {
       id: "ai-ops-standard",
@@ -213,7 +214,7 @@ describe("validateFrontmatter", () => {
     const errorsValid = validateFrontmatter(
       frontmatterValid,
       "docs",
-      mockConfig
+      mockConfig,
     );
     const versionErrors = errorsValid.filter((e) => e.includes("version"));
     expect(versionErrors).toHaveLength(0);
@@ -226,7 +227,7 @@ describe("validateFrontmatter", () => {
     const errorsInvalid = validateFrontmatter(
       frontmatterInvalid,
       "docs",
-      mockConfig
+      mockConfig,
     );
     expect(errorsInvalid.some((e) => e.includes("version"))).toBe(true);
   });
@@ -246,7 +247,11 @@ describe("inferCategory", () => {
 
     it("should prioritize frontmatter over path inference", () => {
       const frontmatter = { category: "readme" };
-      const category = inferCategory("agents/my-agent.md", frontmatter, mockConfig);
+      const category = inferCategory(
+        "agents/my-agent.md",
+        frontmatter,
+        mockConfig,
+      );
       expect(category).toBe("readme");
     });
   });
@@ -260,7 +265,11 @@ describe("inferCategory", () => {
 
     it("should infer agents category from agents/ path", () => {
       const frontmatter = {};
-      const category = inferCategory("agents/my-agent.md", frontmatter, mockConfig);
+      const category = inferCategory(
+        "agents/my-agent.md",
+        frontmatter,
+        mockConfig,
+      );
       expect(category).toBe("agents");
     });
 
@@ -269,7 +278,7 @@ describe("inferCategory", () => {
       const category = inferCategory(
         ".github/ISSUE_TEMPLATE/bug.md",
         frontmatter,
-        mockConfig
+        mockConfig,
       );
       expect(category).toBe("issue-template");
     });
@@ -291,7 +300,7 @@ describe("inferCategory", () => {
       const category = inferCategory(
         "agents\\my-agent.md",
         frontmatter,
-        mockConfig
+        mockConfig,
       );
       expect(category).toBe("agents");
     });
@@ -303,7 +312,7 @@ describe("inferCategory", () => {
       const category = inferCategory(
         "some/unknown/path/file.md",
         frontmatter,
-        mockConfig
+        mockConfig,
       );
       expect(category).toBe("docs");
     });
@@ -473,7 +482,11 @@ version: 2.0.0
 API documentation here`;
 
     const { frontmatter, body } = parseFrontmatter(content);
-    const category = inferCategory("docs/api-guide.md", frontmatter, mockConfig);
+    const category = inferCategory(
+      "docs/api-guide.md",
+      frontmatter,
+      mockConfig,
+    );
     const errors = validateFrontmatter(frontmatter, category, mockConfig);
 
     expect(category).toBe("docs");

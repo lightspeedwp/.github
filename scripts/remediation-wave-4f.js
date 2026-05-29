@@ -113,20 +113,26 @@ function generateRemediationReport(results, config) {
 
   report.push("---");
   report.push('title: "Wave 4F: Remediation Report"');
-  report.push('description: "Summary of branding remediation applied to all markdown files"');
+  report.push(
+    'description: "Summary of branding remediation applied to all markdown files"',
+  );
   report.push('file_type: "report"');
   report.push('version: "1.0.0"');
   report.push(`created_date: "${timestamp.split("T")[0]}"`);
   report.push(`last_updated: "${timestamp.split("T")[0]}"`);
   report.push('category: "audit"');
-  report.push('---');
+  report.push("---");
   report.push("");
   report.push("# Wave 4F: Remediation Report");
   report.push("");
   report.push(`**Generated**: ${timestamp}`);
   report.push(`**Total Files Processed**: ${results.length}`);
-  report.push(`**Files with Changes**: ${results.filter((r) => r.changes.length > 0).length}`);
-  report.push(`**Files with Errors**: ${results.filter((r) => !r.success).length}`);
+  report.push(
+    `**Files with Changes**: ${results.filter((r) => r.changes.length > 0).length}`,
+  );
+  report.push(
+    `**Files with Errors**: ${results.filter((r) => !r.success).length}`,
+  );
   report.push("");
 
   // Summary statistics
@@ -144,9 +150,13 @@ function generateRemediationReport(results, config) {
   });
 
   report.push(`- **Total Files**: ${results.length}`);
-  report.push(`- **Modified**: ${changedFiles.length} (${((changedFiles.length / results.length) * 100).toFixed(1)}%)`);
+  report.push(
+    `- **Modified**: ${changedFiles.length} (${((changedFiles.length / results.length) * 100).toFixed(1)}%)`,
+  );
   report.push(`- **Errors**: ${errorsCount}`);
-  report.push(`- **Unchanged**: ${results.length - changedFiles.length - errorsCount}`);
+  report.push(
+    `- **Unchanged**: ${results.length - changedFiles.length - errorsCount}`,
+  );
   report.push("");
 
   // Changes breakdown
@@ -177,7 +187,9 @@ function generateRemediationReport(results, config) {
   Object.entries(categorizedFiles)
     .sort((a, b) => b[1] - a[1])
     .forEach(([category, count]) => {
-      const modified = changedFiles.filter((r) => r.category === category).length;
+      const modified = changedFiles.filter(
+        (r) => r.category === category,
+      ).length;
       categoryTable.push(`| ${category} | ${count} | ${modified} |`);
     });
 
@@ -222,7 +234,9 @@ function generateRemediationReport(results, config) {
   // Validation notes
   report.push("## Validation Notes");
   report.push("");
-  report.push("All files have been processed using the unified branding agent from Wave 4E.");
+  report.push(
+    "All files have been processed using the unified branding agent from Wave 4E.",
+  );
   report.push("The agent:");
   report.push("- Inferred document category from frontmatter or file path");
   report.push("- Validated frontmatter against required fields");
@@ -235,7 +249,9 @@ function generateRemediationReport(results, config) {
   report.push("## Next Steps");
   report.push("");
   report.push("1. **Review** — Review the list of changed files above");
-  report.push("2. **Verify** — Run tests to ensure changes don't break anything");
+  report.push(
+    "2. **Verify** — Run tests to ensure changes don't break anything",
+  );
   report.push("3. **Commit** — Commit changes with descriptive message");
   report.push("4. **Validate** — Run schema validation to ensure compliance");
   report.push("");
@@ -252,13 +268,15 @@ function generateValidationReport(results) {
 
   report.push("---");
   report.push('title: "Wave 4F: Validation Report"');
-  report.push('description: "Schema compliance validation results for all markdown files"');
+  report.push(
+    'description: "Schema compliance validation results for all markdown files"',
+  );
   report.push('file_type: "report"');
   report.push('version: "1.0.0"');
   report.push(`created_date: "${timestamp.split("T")[0]}"`);
   report.push(`last_updated: "${timestamp.split("T")[0]}"`);
   report.push('category: "audit"');
-  report.push('---');
+  report.push("---");
   report.push("");
   report.push("# Wave 4F: Validation Report");
   report.push("");
@@ -266,7 +284,9 @@ function generateValidationReport(results) {
   report.push("");
 
   // Overall status
-  const filesWithErrors = results.filter((r) => r.errors && r.errors.length > 0);
+  const filesWithErrors = results.filter(
+    (r) => r.errors && r.errors.length > 0,
+  );
   const validationPassed = filesWithErrors.length === 0;
 
   report.push("## Overall Status");
@@ -274,7 +294,7 @@ function generateValidationReport(results) {
   report.push(
     validationPassed
       ? "✅ **PASSED** — All files meet schema requirements"
-      : `❌ **FAILED** — ${filesWithErrors.length} files have validation errors`
+      : `❌ **FAILED** — ${filesWithErrors.length} files have validation errors`,
   );
   report.push("");
 
@@ -307,7 +327,7 @@ function generateValidationReport(results) {
       const invalid = stats.total - stats.valid;
       const status = invalid === 0 ? "✅" : "❌";
       categoryTable.push(
-        `| ${category} | ${stats.total} | ${stats.valid} | ${invalid} ${status} |`
+        `| ${category} | ${stats.total} | ${stats.valid} | ${invalid} ${status} |`,
       );
     });
 
@@ -347,9 +367,15 @@ function generateValidationReport(results) {
   } else {
     report.push("Address the following issues:");
     report.push("");
-    report.push("1. **Missing Required Fields** — Add `title`, `description`, `file_type`, `category` to frontmatter");
-    report.push("2. **Invalid Dates** — Use YYYY-MM-DD format for `created_date` and `last_updated`");
-    report.push("3. **Invalid Category** — Use one of the 16 defined categories");
+    report.push(
+      "1. **Missing Required Fields** — Add `title`, `description`, `file_type`, `category` to frontmatter",
+    );
+    report.push(
+      "2. **Invalid Dates** — Use YYYY-MM-DD format for `created_date` and `last_updated`",
+    );
+    report.push(
+      "3. **Invalid Category** — Use one of the 16 defined categories",
+    );
     report.push("4. **Malformed YAML** — Validate frontmatter syntax");
     report.push("");
     report.push("Run the remediation script again after fixing these issues:");
@@ -428,7 +454,9 @@ async function runRemediation(options = {}) {
       result_obj.category = categoryMatch[1];
     }
 
-    const changesMatch = result.output.match(/✅ Changes:([\s\S]*?)(?:⚠️|❌|$)/);
+    const changesMatch = result.output.match(
+      /✅ Changes:([\s\S]*?)(?:⚠️|❌|$)/,
+    );
     if (changesMatch) {
       const changeLines = changesMatch[1].split("\n").filter((l) => l.trim());
       result_obj.changes = changeLines.map((l) => l.replace(/^\s*-\s*/, ""));
@@ -459,11 +487,11 @@ async function runRemediation(options = {}) {
 
   const remediationReportPath = path.join(
     reportsDir,
-    "wave-4f-remediation-report.md"
+    "wave-4f-remediation-report.md",
   );
   const validationReportPath = path.join(
     reportsDir,
-    "wave-4f-validation-report.md"
+    "wave-4f-validation-report.md",
   );
 
   fs.writeFileSync(remediationReportPath, remediationReport, "utf-8");
@@ -552,4 +580,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   });
 }
 
-export { findMarkdownFiles, generateRemediationReport, generateValidationReport };
+export {
+  findMarkdownFiles,
+  generateRemediationReport,
+  generateValidationReport,
+};

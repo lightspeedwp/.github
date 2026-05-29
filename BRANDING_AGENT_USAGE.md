@@ -350,6 +350,7 @@ node scripts/agents/branding-unified.agent.js docs/getting-started.md --apply
 **Result**:
 
 The agent:
+
 1. ✅ Infers category: `docs` (already in frontmatter)
 2. ✅ Validates frontmatter: All required fields present
 3. ✅ Generates header with metadata badges
@@ -406,6 +407,7 @@ node scripts/agents/branding-unified.agent.js agents/my-agent.md --apply --infer
 **Result**:
 
 The agent:
+
 1. ✅ Infers category: `agents` (from path pattern)
 2. ⚠️  Validates frontmatter: Missing required fields
 3. ✅ Infers metadata: title, category, file_type, last_updated
@@ -488,7 +490,7 @@ done
 ❌ Error: Failed to parse frontmatter: mapping values are not allowed here...
 ```
 
-**Solution**: Check YAML syntax. Use a YAML validator: https://www.yamllint.com/
+**Solution**: Check YAML syntax. Use a YAML validator: <https://www.yamllint.com/>
 
 #### Invalid Category
 
@@ -694,7 +696,7 @@ For issues, questions, or feature requests:
 
 1. Check this documentation
 2. Review [BRANDING_CONFIG_SPEC.md](./BRANDING_CONFIG_SPEC.md)
-3. Open an issue on GitHub: https://github.com/lightspeedwp/.github/issues
+3. Open an issue on GitHub: <https://github.com/lightspeedwp/.github/issues>
 
 ---
 
