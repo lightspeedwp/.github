@@ -4,7 +4,7 @@ title: "LightSpeed .github Community Health Repository"
 description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
 version: "3.2"
 created_date: "2025-01-15"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
 license: "GPL-3.0"
@@ -20,35 +20,6 @@ tags:
   - workflows
   - labeling
   - ai
-references:
-  - path: ./custom-instructions.md
-    description: Custom instructions for AI agents
-  - path: ./agents/agent.md
-    description: Main agents index
-  - path: ./prompts/prompts.md
-    description: Prompts index
-  - path: ../AGENTS.md
-    description: Organization-wide agents documentation
-  - path: ../docs/AUTOMATION_GOVERNANCE.md
-    description: Automation governance policies
-  - path: ./labels.yml
-    description: Label definitions
-  - path: ./labeler.yml
-    description: Labeler configuration
-  - path: ./issue-types.yml
-    description: Issue type definitions
-  - path: ./instructions/coding-standards.instructions.md
-    description: Coding standards instructions
-  - path: ./instructions/linting.instructions.md
-    description: Linting standards index
-  - path: ./instructions/tests.instructions.md
-    description: Testing standards index
-  - path: ./workflows/README.md
-    description: Workflows directory index
-  - path: ../CONTRIBUTING.md
-    description: Contribution guidelines
-  - path: ../docs/README.md
-    description: Documentation hub
 ---
 
 # 🏛️ LightSpeed Organisation .github Community Health Repository
