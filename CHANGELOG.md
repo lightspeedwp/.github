@@ -2,14 +2,7 @@
 title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
-category: "Governance"
-version: "1.0.3"
-last_updated: "2026-05-29"
-owners: ["Engineering Team"]
-tags: ["changelog", "versioning", "releases", "governance"]
-status: "active"
-stability: "stable"
-domain: "governance"
+created_date: "2025-09-20"
 ---
 
 # Changelog
