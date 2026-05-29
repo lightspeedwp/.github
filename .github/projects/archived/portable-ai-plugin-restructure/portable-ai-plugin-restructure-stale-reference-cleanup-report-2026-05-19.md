@@ -10,11 +10,7 @@ license: "GPL-3.0"
 tags: ["maintenance", "stale-links", "cleanup", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-references:
-  - path: "portable-ai-plugin-restructure-prd-2026-05-14.md"
     description: "Active PRD appendix listing known stale references."
-  - path: "portable-ai-plugin-restructure-migration-map-2026-05-15.csv"
     description: "Canonical migration decision map updated by this cleanup."
-  - path: "issues/children/batch-02-portable-migration/02-02-maintenance-clean-stale-path-references.md"
     description: "GitHub issue #294 local source draft."
 ---

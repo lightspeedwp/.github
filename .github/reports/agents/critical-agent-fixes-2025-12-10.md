@@ -6,8 +6,6 @@ category: "implementation"
 created_date: "2025-12-10"
 author: "Claude Code"
 tags: ["agents", "fixes", "critical", "infrastructure"]
-references:
-  - path: "../audits/agent-infrastructure-audit-2025-12-10.md"
     description: "Original audit report"
 ---
 

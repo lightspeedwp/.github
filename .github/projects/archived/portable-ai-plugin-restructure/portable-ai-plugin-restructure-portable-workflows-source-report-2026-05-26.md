@@ -10,11 +10,7 @@ license: "GPL-3.0"
 tags: ["portable-ai-plugin-restructure", "workflows", "migration", "issue-298"]
 domain: "ai-ops"
 stability: "experimental"
-references:
-  - path: "issues/children/batch-02-portable-migration/02-06-feature-define-portable-workflows-source.md"
     description: "Issue #298 local source draft."
-  - path: "../../../../workflows/README.md"
     description: "Portable workflow ownership index."
-  - path: "../../../../workflows/portable-ai-plugin-restructure.md"
     description: "Example portable agentic workflow spec."
 ---

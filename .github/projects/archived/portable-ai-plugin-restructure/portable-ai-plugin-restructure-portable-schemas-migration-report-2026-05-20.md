@@ -10,9 +10,6 @@ license: "GPL-3.0"
 tags: ["portable-ai-plugin-restructure", "schemas", "migration", "issue-297"]
 domain: "ai-ops"
 stability: "experimental"
-references:
-  - path: "issues/children/batch-02-portable-migration/02-05-refactor-move-active-schemas-to-root-schemas.md"
     description: "Issue #297 local source draft."
-  - path: "portable-ai-plugin-restructure-migration-map-2026-05-15.csv"
     description: "Canonical migration decision map."
 ---

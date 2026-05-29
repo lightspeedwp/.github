@@ -10,11 +10,7 @@ license: "GPL-3.0"
 tags: ["audit", "migration-map", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "experimental"
-references:
-  - path: "portable-ai-plugin-restructure-prd-2026-05-14.md"
     description: "Active PRD defining the phased restructure."
-  - path: "issues/children/batch-00-planning-control/00-01-audit-current-asset-inventory-and-migration-map.md"
     description: "GitHub issue #286 local source draft."
-  - path: "portable-ai-plugin-restructure-migration-map-2026-05-15.csv"
     description: "Machine-readable migration decision map."
 ---

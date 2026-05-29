@@ -12,11 +12,7 @@ tools: ["read", "edit", "search"]
 tags: ["reporting", "documentation", "automation", "metrics"]
 domain: "governance"
 stability: "stable"
-references:
-  - path: ".github/instructions/reporting.instructions.md"
     description: "Reporting standards and conventions"
-  - path: ".github/reports/README.md"
     description: "Reports directory index"
-  - path: ".github/agents/reporting.agent.md"
     description: "Reporting agent specification"
 ---

@@ -16,13 +16,8 @@ tags:
   - "governance"
 domain: "governance"
 stability: "experimental"
-references:
-  - path: "../../../instructions/file-organisation.instructions.md"
     description: "Current file placement rules used for this PRD."
-  - path: "../../../custom-instructions.md"
     description: "Current repo-level Copilot and agent instructions."
-  - path: "../../../agents/agent.md"
     description: "Current agent index and implementation map."
-  - path: "../../../../package.json"
     description: "Current validation, linting, and test command surface."
 ---

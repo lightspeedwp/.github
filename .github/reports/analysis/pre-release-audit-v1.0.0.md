@@ -8,10 +8,7 @@ last_updated: "2025-12-10"
 version: "1.0.0"
 author: "Release Engineering"
 tags: ["release", "audit", "quality", "v1.0.0", "readiness"]
-references:
-  - path: "test-coverage-expansion-plan.md"
     description: "Test coverage strategy"
-  - path: "../../projects/active/v1.0.0-release-readiness-tasks.md"
     description: "Release readiness tasks"
 ---
 
