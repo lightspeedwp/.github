@@ -1,7 +1,7 @@
 ---
 title: "Next Issues Execution Plan"
 description: "Comprehensive execution plan for all open issues, active projects, and strategic workflows."
-version: "v2.1.2"
+version: "v2.2.2"
 created_date: "2026-05-28"
 last_updated: "2026-05-29T09:15:00Z"
 file_type: "project"
@@ -25,8 +25,8 @@ LightSpeed `.github` repository. It consolidates:
 - Strategic initiatives including comprehensive README/Mermaid audits
 - Agent ownership and wave assignments
 
-**Live as of 2026-05-29**: Wave 2B (7 agent spec upgrades, PRs #515–#521) and Wave 2D (#23 `.coderabbit.yml`, #31 `markdown.instructions.md`) both merged.
-Current GitHub Copilot focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`), proceeding continuously until each issue is implemented, validated, and packaged into a PR ready to merge back into `develop`.
+**Live as of 2026-05-28**: Wave 2B (7 agent spec upgrades, PRs #515–#521) and Wave 2D (#23 `.coderabbit.yml`, #31 `markdown.instructions.md`) both merged.
+Current focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`) + Wave 3 (README/Mermaid audit).
 
 ## Mandatory Agent Execution Split
 
@@ -53,25 +53,25 @@ GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queu
 
 | Project File | Status | Owner | Action |
 | --- | --- | --- | --- |
-| `github-workflow-consolidation-2026-05-28/` | ✅ ACTIVE - In flight, tracking consolidated workflow governance | GitHub Copilot | Maintain active until merged |
+| `github-workflow-consolidation-2026-05-28/` | ✅ COMPLETED - Epic #503 closed, planning docs ready for archive | GitHub Copilot | Archive to `completed/` folder after final review |
 | `launch-agents-checklist.md` | 🟡 IN PROGRESS - Partial test infrastructure fixes applied 2026-05-28 | LightSpeed Team | Complete remaining validation phases (critical pre-v1.0.0 release) |
-| `spec-only-agents-issue-conversion-2026-05-28.md` | ✅ ACTIVE - Tracks conversion of spec-only agents to GitHub issues (`#465`, `#467`, `#466`, `#468`, `#469`) | GitHub Copilot | Maintain and reference in Wave 2A documentation |
-| `next-issues-execution-plan.md` | 📋 LIVING DOCUMENT - Active roadmap, updated continuously | GitHub Copilot + Claude Code | Update after each Wave completion |
-| `ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` | ✅ ACTIVE - Parent specification drafted for Wave 4A | Claude Code | Keep aligned with child issues `#46`, `#48`, `#49` |
-| `ISSUE_46_TEMPLATE_DESIGN.md` | ✅ ACTIVE - Template design specification drafted for Wave 4A | Claude Code | Track implementation readiness and schema dependency linkage |
-| `ISSUE_48_CURRENT_STATE_AUDIT.md` | ✅ ACTIVE - Current-state audit specification drafted for Wave 4B | Claude Code | Use as baseline for remediation sequencing |
-| `ISSUE_49_SCHEMA_CONFIG_IMPLEMENTATION.md` | ✅ ACTIVE - Schema/config implementation specification drafted for Wave 4A/4D | Claude Code | Keep aligned with template and taxonomy changes |
-| `branding-meta-agent-planning-2026-05-28.md` | ✅ ACTIVE - Comprehensive Wave 4 planning artefact | Claude Code | Maintain as the strategic source document |
-| `PLANNING_SUMMARY_2026-05-28.md` | ✅ ACTIVE - Executive planning summary for branding initiative | Claude Code | Keep synchronised with parent plan and issue status |
+| `spec-only-agents-issue-conversion-2026-05-28.md` | ✅ COMPLETED - All spec-only agents converted to issues (#465, #467, #466, #468, #469) | GitHub Copilot | Archive to `completed/` folder |
+| `next-issues-execution-plan.md` | 📋 LIVING DOCUMENT - Updated 2026-05-29 with completion status and Wave 4C–4F allocation | Claude Code | Maintain and update continuously |
+| `ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` | ✅ COMPLETED - Issue #33 merged (planning phase) | Claude Code | Archive to `completed/` folder |
+| `ISSUE_46_TEMPLATE_DESIGN.md` | ✅ COMPLETED - Issue #46 merged (planning phase) | Claude Code | Archive to `completed/` folder |
+| `ISSUE_48_CURRENT_STATE_AUDIT.md` | ✅ COMPLETED - Issue #48 merged (planning phase) | Claude Code | Archive to `completed/` folder |
+| `ISSUE_49_SCHEMA_CONFIG_IMPLEMENTATION.md` | ✅ COMPLETED - Issue #49 merged (planning phase) | Claude Code | Archive to `completed/` folder |
+| `branding-meta-agent-planning-2026-05-28.md` | ✅ COMPLETED - Comprehensive Wave 4 planning (issues #33–#49 closed) | Claude Code | Archive to `completed/` folder |
+| `PLANNING_SUMMARY_2026-05-28.md` | ✅ COMPLETED - Planning summary for completed branding/WCEU initiatives | Claude Code | Archive to `completed/` folder |
+| `wave-3b-issue-spec.md` | ✅ COMPLETED - Issue #513 closed, remediation work ready for Wave 4C | Claude Code | Archive to `completed/` folder |
+| `wave-4-continuous-monitoring.md` | ✅ COMPLETED - Design spec ready for Wave 4C–4F implementation | Claude Code | Archive to `completed/` folder; reference in Wave 4C–4F tasks |
+| `wave-3c-issue-spec.md` | ✅ ACTIVE - Awaiting GitHub Copilot execution on issue #514 | GitHub Copilot | Maintain and track to completion |
 | `plugin-pack-next-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (next wave) | GitHub Copilot | Execute and update per task completion |
 | `plugin-pack-second-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (second wave) | GitHub Copilot | Track sequencing and dependencies across packs |
 | `plugin-pack-third-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (third wave) | GitHub Copilot | Maintain as queued backlog for post-second-wave execution |
-| `wave-3b-issue-spec.md` | ✅ ACTIVE - Wave 3B repair/update issue specification | Claude Code | Keep linked to issue `#513` implementation evidence |
-| `wave-3c-issue-spec.md` | ✅ ACTIVE - Wave 3C workflow coordination issue specification | GitHub Copilot | Keep linked to issue `#514` implementation evidence |
-| `wave-4-continuous-monitoring.md` | ✅ ACTIVE - Wave 4 continuous monitoring design specification | Claude Code | Use for Wave 5-7 roadmap handoff and automation design |
-| `context-reduction-tasks.md` | ⏳ REQUIRES REVIEW - Needs triage for completion/archival | TBD | Audit and decide archival vs continuation |
-| `test-coverage-implementation.md` | ⏳ REQUIRES REVIEW - Needs triage for completion/archival | TBD | Audit and decide archival vs continuation |
-| `2025-12-11-wordpress-standards-compliance-comprehensive-review.md` | ⏳ REQUIRES REVIEW - Date-stamped, requires completion/archival review | TBD | Audit and decide archival vs continuation |
+| `context-reduction-tasks.md` | ⏳ REQUIRES REVIEW - Needs audit for completion/archival status | TBD | Review and decide: archive or continue |
+| `test-coverage-implementation.md` | ⏳ REQUIRES REVIEW - Needs audit for completion/archival status | TBD | Review and decide: archive or continue |
+| `2025-12-11-wordpress-standards-compliance-comprehensive-review.md` | ⏳ REQUIRES REVIEW - Date-stamped archive candidate | TBD | Review and archive if complete |
 
 ### Projects Eligible for Archival (Review First)
 
@@ -196,38 +196,34 @@ README inventory: 44 files identified across the repo structure
 
 ---
 
-## Wave 4 — Branding Meta Agent & Schema-Driven Footers 🆕 (CLAUDE CODE EXCLUSIVE)
+## Wave 4 — Branding Meta Agent & Schema-Driven Footers (CLAUDE CODE EXCLUSIVE)
 
 **Objective**: Implement a unified branding agent that automates category-aware Markdown headers, footers, and badges across the repository using schema-driven configuration.
 
-**Status**: Planning phase — Issues #33, #46, #48, #49 created and ready for sequencing
+**Status**: Planning phase ✅ COMPLETE (2026-05-28). Implementation phases (4C–4F) ready to allocate.
 
-**Scope**:
+### Completed Sub-Waves
 
-| Phase | Issues | Owner | Purpose |
-| --- | --- | --- | --- |
-| **4A: Planning & Specification** | #33 (parent), #46 (templates), #49 (schema) | Claude Code | Define category taxonomy, template rules, and schema/config model |
-| **4B: Documentation & Governance** | #48 (documentation) | Claude Code | Update docs and define agent spec |
-| **4C: Current-State Audit** | TBD | Claude Code | Audit existing footers, identify duplicates, validate against schema |
-| **4D: Schema & Config Implementation** | TBD | Claude Code | Build `agent-config.schema.json`, YAML validation rules |
-| **4E: Agent Merge/Refactor** | TBD | Claude Code | Consolidate header/footer/badge logic into unified branding agent |
-| **4F: Remediation & Validation** | TBD | Claude Code | Fix bad footers across README.md files, validate schema compliance |
+| Phase | Issues | Owner | Status | Completed |
+| --- | --- | --- | --- | --- |
+| **4A: Planning & Specification** | #33 (parent), #46 (templates), #49 (schema) | Claude Code | ✅ MERGED | 2026-05-28 |
+| **4B: Documentation & Governance** | #48 (documentation) | Claude Code | ✅ MERGED | 2026-05-28 |
 
-**Key Deliverables**:
+### Next Implementation Phases (Claude Code Allocation)
 
-1. Issue #33: Parent specification with category taxonomy and requirements
-2. Issue #46: Template design rules and 5 footer variants per category
-3. Issue #49: Schema/config structure with JSON Schema validation
-4. Issue #48: Complete agent spec and documentation
-5. Current-state audit report identifying duplicate footers
-6. Updated `agent-config.schema.json` with category, tags, badges fields
-7. All `.md` files with bad footers fixed and validated
+| Phase | Issues | Owner | Purpose | Dependencies |
+| --- | --- | --- | --- | --- |
+| **4C: Current-State Audit** | #553 | Claude Code | Audit existing footers, identify duplicates, validate against category schema | Awaits: #33, #46, #48, #49 merged ✅ |
+| **4D: Schema & Config Implementation** | #554 | Claude Code | Build `agent-config.schema.json`, YAML validation rules, category definitions | Awaits: #553 audit report |
+| **4E: Agent Merge/Refactor** | #555 | Claude Code | Consolidate header/footer/badge logic into unified branding agent | Awaits: #554 schema merged |
+| **4F: Remediation & Validation** | #556 | Claude Code | Fix bad footers across README.md files, validate schema compliance | Awaits: #555 agent merged |
 
-**Dependencies**:
+**Key Implementation Deliverables**:
 
-- All issues in this wave depend on #33 parent specification being complete
-- Schema work (#49) and template work (#46) can proceed in parallel
-- Audit and remediation phases depend on prior phases completing
+1. **4C Audit Report**: Current-state inventory of all `.md` files with footer/header/badge patterns
+2. **4D Implementation**: Updated `agent-config.schema.json` + category YAML configuration
+3. **4E Agent Code**: Unified branding agent with consolidated logic (replaces separate header/footer/badge concerns)
+4. **4F Validation**: All `.md` files remediated + passing schema compliance checks
 
 **Why Claude Code Exclusive?**:
 
@@ -240,43 +236,48 @@ This initiative requires coherent planning, architectural decisions, and schema-
 
 Keeping this workstream under Claude ensures the entire system (planning → specification → implementation → validation) follows one coherent brief.
 
-**Status Tracking**:
+**Status Tracking (Planning)**:
 
-- [ ] Issue #33 (parent spec) completed and merged
-- [ ] Issue #46 (template design) completed and merged
-- [ ] Issue #49 (schema/config) completed and merged
-- [ ] Issue #48 (documentation) completed and merged
-- [ ] Current-state audit report published
-- [ ] Schema/config implementation merged
-- [ ] All duplicate footers fixed
-- [ ] Validation passing across repository
+- [x] Issue #33 (parent spec) completed and merged
+- [x] Issue #46 (template design) completed and merged
+- [x] Issue #49 (schema/config spec) completed and merged
+- [x] Issue #48 (documentation) completed and merged
+
+**Next Steps (Implementation — Claude Code)**:
+
+- [x] Create Wave 4C issue (#553 current-state audit)
+- [x] Create Wave 4D issue (#554 schema/config implementation)
+- [x] Create Wave 4E issue (#555 agent merge/refactor)
+- [x] Create Wave 4F issue (#556 remediation & validation)
+- [ ] Execute #553–#556 in sequence (ready to start)
 
 ---
 
-## Wave 3D — WCEU 2026 Talk Planning 🆕 (CLAUDE CODE)
+## Wave 3D — WCEU 2026 Talk Planning ✅ COMPLETE
 
 **Objective**: Audit talk assets and harden NotebookLM source prompts for the WordCamp Europe 2026 conference presentation.
 
-**Status**: Issue #529 created; ready for execution by Claude
+**Status**: ✅ MERGED (2026-05-28, Issue #529 closed)
 
-**Scope**:
+**Scope Completed**:
 
-- Audit `wceu-2026/` folder structure and content readiness
-- Harden NotebookLM source prompts with explicit develop-branch URLs
-- Produce improvements plan with priority and effort estimates
-- Update `deep-research-prompt.md` and `source-ingestion-checklist.md` with canonical sources
+- ✅ Audited `wceu-2026/` folder structure and content readiness
+- ✅ Hardened NotebookLM source prompts with explicit develop-branch URLs
+- ✅ Produced improvements plan with priority and effort estimates
+- ✅ Updated `deep-research-prompt.md` with canonical sources and develop URLs
+- ✅ Updated `source-ingestion-checklist.md` with canonical sources and develop URLs
 
-**Expected Deliverables**:
+**Deliverables Completed**:
 
-1. Folder audit report (strengths, risks, missing artifacts, recommendations)
-2. Updated `deep-research-prompt.md` with explicit develop URLs
-3. Updated `source-ingestion-checklist.md` with explicit develop URLs
-4. Canonical source set ingestion order (foundation → governance → plugin-packs → talk assets)
-5. Acceptance checklist for NotebookLM source verification
+1. ✅ Folder audit report (strengths, risks, artifacts, recommendations)
+2. ✅ Updated `deep-research-prompt.md` with explicit develop URLs
+3. ✅ Updated `source-ingestion-checklist.md` with explicit develop URLs
+4. ✅ Canonical source set ingestion order (foundation → governance → plugin-packs → talk assets)
+5. ✅ Acceptance checklist for NotebookLM source verification
 
 **Owner**: Claude Code (AI Team - Review & UX)
 
-**Dependencies**: None — can execute immediately
+**Completed**: Issue #529 closed 2026-05-28 20:38:14Z
 
 ---
 

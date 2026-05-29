@@ -1,4 +1,4 @@
-# GitHub Workflow Consolidation (2026-05-28)
+# Issue Pack README
 
 <!-- BADGES-START -->
 [![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
@@ -10,51 +10,36 @@
 [![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
 [![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
 [![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
+[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
 [![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
+[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
 [![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
 [![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
 [![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
 [![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
 <!-- BADGES-END -->
 
-## Scope
+This folder contains issue-ready markdown for the GitHub workflow consolidation workstream.
 
-Consolidate GitHub workflow governance into one lean, current spec that reflects live automation.
+## Structure
 
-This pack tracks:
+- `parents/`: parent epic issue.
+- `children/`: executable child issues linked to the parent.
 
-- Unified GitHub Project template guidance with profile presets.
-- Branching strategy slimdown and alignment to current `labeler.yml` automation.
-- Issue/PR metadata automation contract aligned to current workflows.
-- Targeted template/doc drift fixes only.
+## Posting Workflow
 
-## Goals
+1. Create the parent epic issue first.
+2. Create child issues in numeric order.
+3. Link each child to the parent (`github_parent`) and add child links back into the parent file.
+4. Keep canonical labels only (`status:*`, `priority:*`, `type:*`, optional `area:*`).
 
-- Reduce documentation bloat and legacy duplication.
-- Keep `labels -> project fields` behaviour explicit and current.
-- Keep automation compatibility intact with no structural workflow refactors.
+## Validation Before Posting
 
-## Sequencing
+- `node scripts/agents/includes/check-template-labels.js`
+- `node scripts/validation/validate-labeling-configs.cjs`
+- `node scripts/validation/validate-issue-fields.cjs`
+- `npm run validate:workflows`
 
-1. Publish canonical operations spec.
-2. Align existing docs to canonical spec.
-3. Apply targeted PR template wording fix for changelog skip label.
-4. Run validations and publish drift report.
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-## Canonical References
-
-- `docs/GITHUB_PROJECT_OPERATIONS_SPEC.md`
-- `.github/issue-fields.yml`
-- `.github/labels.yml`
-- `.github/labeler.yml`
-- `.github/workflows/labeling.yml`
-- `.github/workflows/project-meta-sync.yml`
-
-## Deliverables
-
-- Parent epic issue and six child issue specs under `issues/`.
-- Updated docs and PR templates.
-- Validation evidence from markdown, labels, fields, and workflow checks.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

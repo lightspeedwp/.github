@@ -4,7 +4,7 @@ description: "All notable changes to this project, formatted per Keep a Changelo
 file_type: "documentation"
 category: "Governance"
 version: "1.0.2"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29T05:30:00Z"
 owners: ["Engineering Team"]
 tags: ["changelog", "versioning", "releases", "governance"]
 status: "active"
@@ -52,6 +52,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Quarterly health reports with recommendations
   - CI/CD integration patterns and metric collection
   - Foundation for long-term automation roadmap (Waves 5-7) ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
+- **Comprehensive Documentation Index** — Created `docs/README.md` with complete documentation hub and navigation guide:
+  - Quick-start sections for First-Time Contributors, Maintainers, and Workflow & Automation teams
+  - 9 logical documentation categories with 36+ indexed files (Architecture & Strategy, Workflows & Processes, Labeling & Project Management, Configuration & Setup, Development & Standards, Governance & Decisions, Monitoring & Metrics, Adoption & Integration)
+  - Role-based navigation table (Developer, Reviewer, Maintainer, Automation/DevOps, Organisation Lead)
+  - Task-based quick-reference table (8 common tasks with relevant documentation links)
+  - Documentation standards reference (UK English, Markdown with YAML frontmatter, relative links, WCAG 2.2 AA compliance)
+  - Related resources and help section for discoverability
+  - Updated Mermaid diagrams with WCAG 2.2 AA accessibility attributes (`accTitle`, `accDescr`)
+  - Removed prohibited `references` fields from README files per CLAUDE.md governance rules
+  - Closes Issue [#19](https://github.com/lightspeedwp/.github/issues/19) ([#552](https://github.com/lightspeedwp/.github/pull/552))
+
+- **Wave 4C: Current-State Audit & Remediation Plan** — Completed comprehensive audit of 932 markdown files with detailed remediation strategy:
+  - `scripts/audit-branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
+  - Category-based analysis: 31.7% footer coverage, 1.5% badge coverage, 8.7% frontmatter compliance (critical 851-file gap)
+  - `.github/reports/wave-4c-audit-report.md`: Current-state findings with category-specific breakdown and recommendations
+  - `.github/reports/wave-4c-remediation-plan.md`: Phased remediation roadmap (Phase 1-3 over 9-12 hours, Waves 4D-4F)
+  - High-priority focus: Skills category (696 files, 18.1% footer coverage) and frontmatter schema compliance
+  - Risk assessment, success criteria, and dependency analysis for phased execution
+  - Unblocks Wave 4D (Issue #554) schema implementation, Wave 4E (Issue #555) agent merge, and Wave 4F (Issue #556) bulk remediation
+  - Closes Issue [#553](https://github.com/lightspeedwp/.github/issues/553) ([#558](https://github.com/lightspeedwp/.github/pull/558))
 
 ### Fixed
 
