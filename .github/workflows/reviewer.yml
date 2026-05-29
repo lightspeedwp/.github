@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   coderabbit-gate:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]' && github.event.pull_request.user.login != 'app/dependabot'
     runs-on: ubuntu-latest
     steps:
       - name: Require CodeRabbit success before reviewer
