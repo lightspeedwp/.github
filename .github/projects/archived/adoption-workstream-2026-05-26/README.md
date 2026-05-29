@@ -3,7 +3,7 @@ title: "Adoption Workstream Pack"
 description: "Archived execution pack for governance adoption workstream closeout."
 version: "v1.0.0"
 last_updated: "2026-05-27"
-file_type: "project"
+file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
 license: "GPL-3.0"

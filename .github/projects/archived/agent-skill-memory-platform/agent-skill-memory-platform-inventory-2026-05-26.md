@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Agent And Skill Memory Platform Inventory"
 description: "Baseline inventory snapshot used for memory profile and example coverage enforcement."
 version: "v1.0.0"

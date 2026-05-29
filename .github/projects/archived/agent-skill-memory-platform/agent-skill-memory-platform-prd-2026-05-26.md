@@ -1,5 +1,5 @@
 ---
-file_type: "project"
+file_type: "documentation"
 title: "Agent And Skill Memory Platform PRD"
 description: "Product requirements for an expansive hybrid memory platform spanning all current agents and skills."
 version: "v1.0.0"

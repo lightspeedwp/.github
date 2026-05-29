@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Portable Agent Specs Migration Report"
 description: "Issue #296 evidence for moving reusable agent specifications from .github/agents into /agents."
 version: "v0.1.0"

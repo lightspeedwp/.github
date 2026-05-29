@@ -6,7 +6,7 @@ labels: [status:needs-triage, priority:important, area:core]
 assignees: []
 projects: []
 milestone: ""
-file_type: task
+file_type: "documentation"
 github_issue: "https://github.com/lightspeedwp/.github/issues/289"
 github_parent: "https://github.com/lightspeedwp/.github/issues/282"
 ---

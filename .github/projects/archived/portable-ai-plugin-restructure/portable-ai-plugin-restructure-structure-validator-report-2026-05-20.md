@@ -3,7 +3,7 @@ title: "Portable AI Plugin Restructure Structure Validator Report"
 description: "Issue #313 report for adding a read-only validate:structure command."
 version: "v0.1.0"
 last_updated: "2026-05-20"
-file_type: "project-report"
+file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
 license: "GPL-3.0"

@@ -4,7 +4,7 @@ description: "Comprehensive execution plan for all open issues, active projects,
 version: "v2.2.1"
 created_date: "2026-05-28"
 last_updated: "2026-05-29T07:30:00Z"
-file_type: "project"
+file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
 license: "GPL-3.0"

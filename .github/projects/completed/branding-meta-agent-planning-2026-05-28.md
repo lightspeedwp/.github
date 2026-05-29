@@ -6,7 +6,7 @@ updated_date: "2026-05-28T12:00:00Z"
 version: "v1.0.0"
 owners: ["Claude"]
 assignment: "Claude EXCLUSIVE — Copilot excluded from this workstream"
-file_type: "project"
+file_type: "documentation"
 tags: ["branding", "meta-agent", "schema", "governance", "footers", "headers", "badges"]
 status: "planning"
 ---

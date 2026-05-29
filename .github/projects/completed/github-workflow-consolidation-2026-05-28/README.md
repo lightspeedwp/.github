@@ -4,7 +4,7 @@ description: "Consolidate GitHub workflow governance into one lean, current spec
 version: "v1.0.0"
 created_date: "2026-05-28"
 last_updated: "2026-05-28T19:10:00Z"
-file_type: "project"
+file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["Codex"]
 license: "GPL-3.0"

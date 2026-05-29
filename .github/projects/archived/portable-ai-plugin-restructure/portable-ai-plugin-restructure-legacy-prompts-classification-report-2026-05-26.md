@@ -1,5 +1,5 @@
 ---
-file_type: "project-audit"
+file_type: "documentation"
 title: "Portable AI Plugin Restructure Legacy Prompts Classification Report"
 description: "Issue #299 audit output classifying legacy prompts as skill or cookbook conversion targets, with frontmatter and P0 notes."
 version: "v0.1.0"

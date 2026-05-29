@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Portable Workflows Source Report"
 description: "Issue #298 evidence for defining /workflows as the portable agentic workflow source."
 version: "v0.1.0"

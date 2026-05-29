@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Portable Instructions Migration Report"
 description: "Issue #295 evidence for moving reusable instruction files from .github/instructions into /instructions."
 version: "v0.1.0"

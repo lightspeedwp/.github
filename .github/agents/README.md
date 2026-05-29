@@ -10,12 +10,12 @@ license: "GPL-3.0"
 tags: ["agents", "github-boundary", "ai-ops"]
 domain: "governance"
 stability: "draft"
-references:
-  - path: "../../agents/README.md"
-    description: "Portable agent specification library index."
-  - path: "../projects/active/portable-ai-plugin-restructure/issues/children/batch-02-portable-migration/02-04-refactor-migrate-portable-agent-specs.md"
-    description: "Issue #296 local source draft."
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+## Related Resources
+
+- [Portable agent specification library index](../../agents/README.md)
+- [Issue #296 local source draft](../projects/active/portable-ai-plugin-restructure/issues/children/batch-02-portable-migration/02-04-refactor-migrate-portable-agent-specs.md)

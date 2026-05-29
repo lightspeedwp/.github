@@ -1,5 +1,5 @@
 ---
-file_type: "project"
+file_type: "documentation"
 title: "Agent Skill Memory Platform Completion Summary"
 description: "Strict closeout record for the memory platform rollout."
 version: "v1.0.0"
