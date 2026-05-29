@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Audit"
 name: "Audit"
 about: "Propose, conduct, or document a security, accessibility, code, or process audit."
 title: "[Audit] Inventory AI assets and create the migration decision map"

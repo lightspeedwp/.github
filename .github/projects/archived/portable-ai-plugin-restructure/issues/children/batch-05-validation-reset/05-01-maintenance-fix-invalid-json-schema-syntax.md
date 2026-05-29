@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Maintenance"
 name: "Maintenance"
 about: "Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks"
 title: "[Maintenance] Fix invalid JSON schema syntax before validator reset"

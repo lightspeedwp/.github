@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Documentation"
 name: "Documentation"
 title: "[Documentation] Define adoption policy"
 labels: [status:needs-triage, priority:important, area:documentation]

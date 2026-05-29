@@ -1,12 +1,10 @@
 ---
-name: "📖 Content Modelling"
-about: "Propose, update, or discuss content structure, CPTs, or taxonomy."
 file_type: "issue-template"
-description: "Issue template for proposing or updating content models, CPTs, and taxonomies."
-owners: ["LightSpeed Team"]
-tags: ["issue-template", "content", "taxonomy"]
-title: "[Content Modelling] <Brief summary>"
-labels: [status:needs-triage, area:content]
+name: "📖 Content Modelling"
+description: "Propose, update, or discuss content structure, CPTs, or taxonomy."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 ## Content Modelling Summary

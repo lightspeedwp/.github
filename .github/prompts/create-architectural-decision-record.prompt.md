@@ -55,7 +55,7 @@ The documentation file must follow the template below, ensuring that all section
 ```md
 ---
 title: "ADR-NNNN: [Decision Title]"
-status: "Proposed"
+status: "draft"
 date: "YYYY-MM-DD"
 authors: "[Stakeholder Names/Roles]"
 tags: ["architecture", "decision"]

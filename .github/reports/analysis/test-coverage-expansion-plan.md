@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Test Coverage Expansion Plan"
 description: "Comprehensive strategy for achieving 80%+ test coverage across all agents and utilities before v1.0.0 release"
 category: "analysis"
@@ -8,13 +8,6 @@ last_updated: "2025-12-10"
 version: "1.0.0"
 author: "Release Engineering"
 tags: ["testing", "coverage", "quality", "v1.0.0", "agents"]
-references:
-  - path: "../../projects/active/test-coverage-implementation.md"
-    description: "Implementation tasks for test coverage"
-  - path: "../../../docs/TESTING.md"
-    description: "Testing standards and guidelines"
-  - path: "pre-release-audit-v1.0.0.md"
-    description: "Pre-release audit report"
 ---
 
 # Test Coverage Expansion Plan

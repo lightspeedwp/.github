@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Documentation"
 name: "Documentation"
 title: "[Documentation] Write adoption guide"
 labels: [status:needs-triage, priority:important, area:documentation]

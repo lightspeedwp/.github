@@ -1,32 +1,10 @@
 ---
-description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
-version: "2.5"
-last_updated: "2025-12-04"
-owners:
-  - LightSpeedWP Team
-references:
-  - path: ../instructions/coding-standards.instructions.md
-    description: Coding standards for all scripts
-  - path: ../instructions/documentation-formats.instructions.md
-    description: Frontmatter and documentation format standards
-  - path: ../.schemas/frontmatter.schema.json
-    description: Frontmatter schema
-  - path: ../.schemas/collection.schema.json
-    description: Collection schema
-  - path: ../tests/README.md
-    description: Testing framework
-  - path: ../docs/WORKFLOWS.md
-    description: Workflow documentation
-  - path: ../CHANGELOG.md
-    description: Project changelog
-  - path: ../docs/TESTING.md
-    description: Testing standards
-  - path: ../docs/LINTING.md
-    description: Linting standards
+file_type: agent-index
+title: Scripts and Automation
+description: Automation, utility, and maintenance scripts for the LightSpeedWP project
+last_updated: '2026-05-29'
+version: '2.8'
 ---
-
----
-
 # LightSpeedWP Scripts & Automation
 
 ![Scripts Badge](https://img.shields.io/badge/scripts-active-brightgreen?style=flat-square)
@@ -394,7 +372,7 @@ When contributing new scripts or modifications:
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../.schemas/)
-- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
+- [Test Coverage Reports](../tests/README.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References
@@ -405,9 +383,6 @@ When contributing new scripts or modifications:
 - [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
 
 ---
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

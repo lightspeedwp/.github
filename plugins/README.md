@@ -1,15 +1,20 @@
 ---
-file_type: "index"
-title: "Plugin Bundles"
-description: "Ownership index for installable LightSpeed AI plugin bundles and plugin-family strategy."
-version: "v0.2.0"
-last_updated: "2026-05-26"
-maintainer: "LightSpeed Team"
-authors: ["Codex"]
-license: "GPL-3.0"
-tags: ["plugins", "ai-ops", "plugin-restructure"]
-domain: "governance"
-stability: "draft"
+authors:
+- Codex
+description: Ownership index for installable LightSpeed AI plugin bundles and plugin-family
+  strategy.
+domain: governance
+file_type: agent-index
+last_updated: '2026-05-26'
+license: GPL-3.0
+maintainer: LightSpeed Team
+stability: experimental
+tags:
+- plugins
+- ai-ops
+- plugin-restructure
+title: Plugin Bundles
+version: v0.2.0
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

@@ -1,7 +1,7 @@
 pull_request_rules:
   - name: Auto-merge Dependabot dependency updates on develop
     conditions:
-      - author=app/dependabot
+      - author=dependabot
       - base=develop
       - label=area:dependencies
       - check-success=check
@@ -14,7 +14,7 @@ pull_request_rules:
 
   - name: Auto-merge Dependabot security updates on develop
     conditions:
-      - author=app/dependabot
+      - author=dependabot
       - base=develop
       - label=area:dependencies
       - label=meta:dependabot-security

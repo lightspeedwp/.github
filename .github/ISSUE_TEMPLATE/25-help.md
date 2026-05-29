@@ -1,12 +1,10 @@
 ---
-name: "❓ Help / Support"
-about: "Submit your WordPress-related questions or support requests."
 file_type: "issue-template"
-description: "Issue template for general support requests and user help questions."
-owners: ["LightSpeed Team"]
-tags: ["issue-template", "support", "help"]
-title: "[Help] <Short summary>"
-labels: [type:question, type:support, status:needs-triage]
+name: "❓ Help / Support"
+description: "Submit your WordPress-related questions or support requests."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 <!--

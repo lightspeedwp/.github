@@ -1,8 +1,10 @@
 ---
+file_type: "issue-template"
 name: "🤖 Automation"
-about: "Propose, fix, or improve automation (actions, scripts, bots)."
-title: "[Automation] <Short summary>"
-labels: [status:needs-triage, area:automation]
+description: "Propose, fix, or improve automation (actions, scripts, bots)."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 ## Automation Summary

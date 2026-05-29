@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 category: "validation"
 title: "Pre-Launch Validation Report"
 description: "Validation results from pre-launch testing of automation agents, linting, and configurations"

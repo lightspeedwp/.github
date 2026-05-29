@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Weekly Reports Summary - Week 03"
 description: "Automated weekly summary of all reports in the repository"
 category: "summary"

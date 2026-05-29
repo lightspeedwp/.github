@@ -1,8 +1,10 @@
 ---
-name: "Dependencies/Maintenance PR"
-about: "Routine upkeep: dependency bumps, lint/format, low-risk hygiene"
-title: "chore(deps): {packages}"
-labels: ["status:needs-review", "area:dependencies"]
+file_type: "pr-template"
+title: "PR Template - DEP_UPDATE"
+description: "Pull request template for DEP_UPDATE changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Dependencies / Maintenance Pull Request
