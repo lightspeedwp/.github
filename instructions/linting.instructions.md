@@ -1,6 +1,8 @@
 ---
 file_type: "instructions"
+title: "Linting Instructions"
 description: "Master index for all linting instructions in the LightSpeed organisation. Lists and cross-references all linting instructions, config, and coding standards."
+scope: "organization-wide"
 applyTo: "**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}"
 version: "v2.0"
 last_updated: "2025-11-27"
@@ -186,23 +188,10 @@ Linting instructions should evolve with our standards and requirements. When upd
 
 ---
 
-## Related Guidance
+## Related Files
 
-- [Coding Standards Instructions](./coding-standards.instructions.md)
-- [Custom Instructions (Org-wide)](../.github/custom-instructions.md)
-- [Workflows Instructions](./workflows.instructions.md)
-- [Global AI Rules (AGENTS.md)](../AGENTS.md)
-- [Instructions Directory](../instructions/)
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — General coding standards that linting tools enforce
+- **[languages.instructions.md](./languages.instructions.md)** — Language-specific linting configurations and rules
+- **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing standards that complement linting
 
-## License
-
-These linting instructions are part of the LightSpeed organization's community health files, licensed under the GNU General Public License v3.0.
-
-## References
-
-- [instructions.instructions.md](./instructions.instructions.md)
-- [coding-standards.instructions.md](./coding-standards.instructions.md)
-- [languages.instructions.md](./languages.instructions.md)
-- [workflows.instructions.md](./workflows.instructions.md)
-- [Linting Agent Spec](../agents/linting.agent.md)
-- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
+---

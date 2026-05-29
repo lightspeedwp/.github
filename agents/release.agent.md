@@ -11,8 +11,8 @@ handoffs:
     agent: "release"
     prompt: "Prepare the repository for the next release version."
     send: false
-version: "v2.2"
-last_updated: "2025-12-08"
+version: "v2.3"
+last_updated: "2026-05-29"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 file_type: "agent"
@@ -202,14 +202,22 @@ The Release Agent acts as an **orchestrator** that calls multiple workflows in a
 
 **Invoked After Successful Release**:
 
-1. **`readme-regen.yml`** via `workflow_call` (conditional)
+1. **`readme-update.yml`** via `workflow_call` (conditional)
+   - **Purpose**: Apply automated fixes to README files and Mermaid diagrams (accessibility, staleness)
+   - **Condition**: Only if README files need updates (post-release audit)
+   - **Input**: `scope: "all"` (applies Mermaid accessibility + staleness fixes)
+   - **Expected Output**: Updated README files with fixes committed; report in `.github/reports/mermaid-audit/update-report.md`
+   - **Failure Handling**: Warn but continue (not blocking release)
+   - **Used For**: Maintenance: ensures READMEs stay current post-release
+
+2. **`readme-regen.yml`** via `workflow_call` (conditional)
    - **Purpose**: Regenerate README indices if version bumps README content
    - **Condition**: Only if release version appears in README.md
    - **Expected Output**: Updated README artifacts
    - **Failure Handling**: Warn but continue (not blocking)
    - **Used For**: Sync: ensures version references are current
 
-2. **`reporting.yml`** via `workflow_call` (optional)
+3. **`reporting.yml`** via `workflow_call` (optional)
    - **Purpose**: Generate post-release report (release summary, contributor list)
    - **Input**: `event_type: "release"`, `version: "X.Y.Z"`
    - **Expected Output**: Release report in `.github/reports/releases/`
@@ -242,6 +250,10 @@ Release Agent Orchestration:
    └─ Validate tag was created
 
 4. Post-Release Actions (Optional, Non-Blocking)
+   ├─ Call readme-update.yml (scope: "all")
+   │  ├─ Apply Mermaid accessibility fixes
+   │  ├─ Update stale frontmatter dates
+   │  └─ If fails: warn
    ├─ Call readme-regen.yml (if README mentions version)
    │  └─ If fails: warn
    ├─ Call reporting.yml (if user requests)

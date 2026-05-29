@@ -91,25 +91,3 @@ shape.fill = { "type": "proto", "proto": existing_fill_proto }
 ```
 
 ---
-
-## Stroke / line styling
-
-Shapes and many chart parts expose a `line`/`stroke` object:
-
-```python
-shape.line.width = 1.5      # px
-shape.line.style = "dashed" # "solid" | "dashed" | "dotted" | "dash-dot" | "dash-dot-dot"
-shape.line.fill = "accent3"
-```
-
-When creating a shape, you can pass a `line` config:
-
-```python
-rect = slide.shapes.add({
-  "geometry": "rect",
-  "position": { "left": 40, "top": 60, "width": 320, "height": 180 },
-  "fill": "accent1",
-  "line": { "style": "solid", "fill": "accent5" },
-})
-rect.line.width = 0.5
-```

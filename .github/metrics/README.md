@@ -1,7 +1,7 @@
 ---
 title: "LightSpeed Metrics Directory"
 version: "v1.1"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity."
@@ -380,6 +380,21 @@ To contribute new metrics or improvements:
 ---
 
 Made with ❤️ by the LightSpeed team.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)

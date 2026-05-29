@@ -12,28 +12,6 @@ domain: "governance"
 stability: "draft"
 ---
 
-# Portable Agents
-
-This folder owns reusable agent specifications that can be packaged into
-LightSpeed AI plugins or installed into other repositories.
-
-## Ownership
-
-- Owns portable agent specs that avoid `.github`-relative assumptions.
-- Does not own repo-maintenance agents that only operate on this `.github`
-  repository.
-- Keeps runtime code out of this folder until a later migration issue defines
-  the implementation model.
-
-## Structure
-
-| Path | Purpose |
-| --- | --- |
-| `agents/<agent-id>.agent.md` | Portable agent specification. |
-| `agents/agent.md` | Portable agent specification index. |
-| `agents/<agent-id>/` | Future home for a larger portable agent package, if needed. |
-| `agents/README.md` | This ownership index. |
-
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 

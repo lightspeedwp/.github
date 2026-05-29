@@ -112,6 +112,8 @@ module.exports = {
     "docs/api/**/*.md",
     "*.draft.md",
     "README.template.md",
+    "wceu-2026/**/*.md",
+    ".github/projects/**/*.md",
   ],
 
   /**

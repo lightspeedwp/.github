@@ -1,15 +1,30 @@
 ---
-file_type: "documentation"
-title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
-version: "2.6"
-last_updated: "2026-05-28"
+version: "2.5"
+last_updated: "2025-12-04"
 owners:
-  - LightSpeed Team
-tags: ["scripts", "automation", "utilities", "maintenance"]
-domain: "governance"
-stability: "stable"
-status: "active"
+  - LightSpeedWP Team
+references:
+  - path: ../instructions/coding-standards.instructions.md
+    description: Coding standards for all scripts
+  - path: ../instructions/documentation-formats.instructions.md
+    description: Frontmatter and documentation format standards
+  - path: ../.schemas/frontmatter.schema.json
+    description: Frontmatter schema
+  - path: ../.schemas/collection.schema.json
+    description: Collection schema
+  - path: ../tests/README.md
+    description: Testing framework
+  - path: ../docs/WORKFLOWS.md
+    description: Workflow documentation
+  - path: ../CHANGELOG.md
+    description: Project changelog
+  - path: ../docs/TESTING.md
+    description: Testing standards
+  - path: ../docs/LINTING.md
+    description: Linting standards
+---
+
 ---
 
 # LightSpeedWP Scripts & Automation
@@ -25,6 +40,8 @@ This directory contains all automation, utility, and maintenance scripts for the
 
 ```mermaid
 graph TB
+accTitle: "Scripts and automation directory architecture"
+accDescr: "Shows the hierarchical structure of scripts directory including awesome-copilot, includes, validation, maintenance, and projects folders with their core utilities, test helpers, and integrations with GitHub Actions and CI/CD pipeline."
     A[Scripts Directory] --> B[awesome-copilot/]
     A --> C[includes/]
     A --> D[json-validation/]
@@ -58,6 +75,8 @@ graph TB
 
 ```mermaid
 sequenceDiagram
+accTitle: "Scripts and automation workflow sequence"
+accDescr: "Sequential flow showing developer executing scripts, loading utilities, validating inputs, performing operations, running tests, triggering CI/CD workflows, and deployment with completion notification."
     participant Dev as Developer
     participant Scripts as Scripts System
     participant Tests as Test Suite
@@ -325,6 +344,8 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 
 ```mermaid
 flowchart TD
+accTitle: "Script execution flow and lifecycle"
+accDescr: "Detailed flowchart showing script execution lifecycle from dependency checking, includes loading, CLI argument parsing, input validation, main logic execution, test running, and exit handling with error and success paths."
     A[Script Execution] --> B{Check Dependencies}
     B -->|Missing| C[Install Dependencies]
     B -->|Available| D[Load Includes]
@@ -373,7 +394,7 @@ When contributing new scripts or modifications:
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../.schemas/)
-- [Test Coverage Reports](../tests/README.md)
+- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References
@@ -384,10 +405,6 @@ When contributing new scripts or modifications:
 - [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
 
 ---
-
-*⚡ Empowering WordPress development through intelligent automation and shared utilities.*
-
-<!-- RANDOM FOOTER: ⚡ Magic Automation Unicorns at work! -->
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

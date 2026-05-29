@@ -4,7 +4,3 @@ description: "Coordinates validation plans, quality gates, and regression checks
 version: "v0.1.0"
 last_updated: "2026-05-28"
 ---
-
-# QA Orchestrator
-
-Coordinates quality assurance workflows and validation checkpoints.

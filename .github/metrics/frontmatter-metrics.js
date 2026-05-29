@@ -11,7 +11,6 @@ import Ajv from "ajv";
 import addFormats from "ajv-formats";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 async function readJSON(p) {
   return JSON.parse(await fs.readFile(p, "utf8"));

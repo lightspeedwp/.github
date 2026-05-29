@@ -2,8 +2,9 @@
 file_type: "instructions"
 title: "Pull Request Creation Instructions"
 description: "Canonical instructions for creating, labeling, and submitting Pull Requests in LightSpeedWP projects. Reference for templates, automation, and labeling strategy."
+scope: "organization-wide"
 version: "1.2"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 owners: ["lightspeedwp/maintainers"]
 tags: ["pull requests", "templates", "frontmatter", "automation", "labels", "branching", "checklists"]
 ---
@@ -230,26 +231,10 @@ For maintainers and reviewers, reference these [Saved Replies](../.github/SAVED_
 
 ---
 
-**For questions or clarifications:**
+## Related Files
 
-- Start with [CONTRIBUTING.md](../CONTRIBUTING.md)
-- Ask in [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions)
-- Contact a maintainer.
+- **[issues.instructions.md](./issues.instructions.md)** — Companion guide for issue creation and labeling; mirrors PR workflow patterns
+- **[labeling.instructions.md](./labeling.instructions.md)** — Detailed label naming conventions and one-hot rules
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in PR templates
 
-## References
-
-- [instructions.instructions.md](./instructions.instructions.md)
-- [issues.instructions.md](./issues.instructions.md)
-- [labeling.instructions.md](./labeling.instructions.md)
-- [file-organisation.instructions.md](./file-organisation.instructions.md)
-- [PR Creation Process Guide](../docs/PR_CREATION_PROCESS.md)
-- [Label Strategy](../docs/LABEL_STRATEGY.md)
-- [PR Labels](../docs/PR_LABELS.md)
-- [Branching Strategy](../docs/BRANCHING_STRATEGY.md)
-- [Label Definitions](../.github/labels.yml)
-- [Labeler Automation Rules](../.github/labeler.yml)
-- [pull_request_template.md](../.github/pull_request_template.md)
-- [All PR Templates](../.github/PULL_REQUEST_TEMPLATE/)
-- [Frontmatter Schema](../.schemas/frontmatter.schema.json)
-- [Frontmatter Schema Guide](../docs/FRONTMATTER_SCHEMA.md)
-- [Saved Replies](../.github/SAVED_REPLIES/pull-requests/)
+---

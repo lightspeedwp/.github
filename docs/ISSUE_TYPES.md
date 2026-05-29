@@ -168,7 +168,3 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 - [ ] Reviews approved; CI green; linked issues closed
 
 ---
-
-*Type assignment is fully automated and standardized by the unified agent and workflow. All changes are canonical and traceable.*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -355,14 +355,3 @@ Collections already use `tags:`. Add optional `stability:` and `domain:` keys al
 - [ ] Plans removal after one release cycle
 
 ---
-
-## References
-
-- **Schema**: [frontmatter.schema.json](../../schemas/frontmatter.schema.json)
-- **Documentation**: [FRONTMATTER-SCHEMA.md](../../docs/FRONTMATTER-SCHEMA.md)
-- **Instructions**: [frontmatter.instructions.md](frontmatter.instructions.md)
-- **YAML Guides**: [YAML.md](../../docs/YAML.md), [YAML-Frontmatter.md](../../docs/YAML-Frontmatter.md)
-- **Validation**: [validate-frontmatter.js](../../scripts/json-validation/validate-frontmatter.js)
-- **Awesome-Copilot**: Original conventions preserved and extended
-
-*Produced with accessibility and inclusivity in mind. This document follows LightSpeed governance v2.0 and awesome-copilot integration standards.*

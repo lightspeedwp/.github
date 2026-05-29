@@ -2,8 +2,9 @@
 file_type: "instructions"
 title: "Issue Creation Instructions"
 description: "Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy."
+scope: "organization-wide"
 version: "1.2"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 owners: ["lightspeedwp/maintainers"]
 tags: ["issues", "templates", "frontmatter", "automation", "labels", "issue types", "triage", "branching"]
 ---
@@ -236,22 +237,10 @@ See [Issue Creation Guide](../docs/ISSUE_CREATION_GUIDE.md) for details.
 
 ---
 
-## 7. Frontmatter and Template Validation
+## Related Files
 
-- All templates and issues must validate against the [frontmatter.schema.json](../.schemas/frontmatter.schema.json).
-- Use [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) for full schema details.
+- **[pull-requests.instructions.md](./pull-requests.instructions.md)** — Companion guide for PR creation and labeling; mirrors issue workflow patterns
+- **[labeling.instructions.md](./labeling.instructions.md)** — Detailed label naming conventions and one-hot rules
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in issue templates
 
-**For questions or clarifications, see the project’s [CONTRIBUTING.md](../CONTRIBUTING.md) or open a GitHub Discussion.**
-
-## References
-
-- [instructions.instructions.md](instructions.instructions.md)
-- [file-organisation.instructions.md](file-organisation.instructions.md)
-- [labeling.instructions.md](labeling.instructions.md)
-- [pull-requests.instructions.md](pull-requests.instructions.md)
-- [Label Strategy](../docs/LABEL_STRATEGY.md)
-- [Canonical Labels](../.github/labels.yml)
-- [Labeler Rules](../.github/labeler.yml)
-- [Issue Types](../.github/issue-types.yml)
-- [Workflows](../docs/WORKFLOWS.md)
-- [Automated Labeling](../scripts/agents/labeling.agent.js)
+---

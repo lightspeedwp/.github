@@ -4,13 +4,12 @@ title: "LightSpeed .github Community Health Repository"
 description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
 version: "3.2"
 created_date: "2025-01-15"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
 license: "GPL-3.0"
 domain: "governance"
 stability: "stable"
-status: "active"
 owners:
   - LightSpeed Team
 tags:
@@ -449,19 +448,6 @@ Have questions, feedback, or want to propose an idea? Visit our [GitHub Discussi
 For all contributors, please reference these key guidelines and indexes:
 
 - [LightSpeed General Copilot Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/custom-instructions.md)
-- [Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/instructions/coding-standards.instructions.md)
-- [HTML Templates](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/plugin-structure.instructions.md)
-- [Pattern Development](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/plugin-structure.instructions.md)
-- [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/plugin-structure.instructions.md)
-- [Theme JSON](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/plugin-structure.instructions.md)
-- When generating a summary for pull requests, use this [pull request template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/pull_request_template.md).
-
----
-
-## For Contributors & Maintainers
-
-- **Always start here** when onboarding, contributing, or reviewing.
-- Reference **instructions** for standards, **templates** for issues/PRs, and **automation** docs for workflows and governance.
 - Use **saved replies** for common support scenarios; update them as needed.
 - For agent/Copilot questions, see the agent guides and custom instructions.
 - Update this folder when org-wide standards, workflows, or automation rules change.
@@ -549,16 +535,9 @@ This repository and all its contents are licensed under the GNU General Public L
 
 - [💻 Coding Standards](../instructions/coding-standards.instructions.md) - Unified development guidelines
 - [🎨 Linting Instructions](../instructions/linting.instructions.md) - Code quality and formatting
-- [🏗️ Pattern Development](./instructions/plugin-structure.instructions.md) - WordPress block patterns
-- [🌐 HTML Templates](./instructions/plugin-structure.instructions.md) - Semantic markup standards
+- [🏗️ Plugin Structure](../instructions/plugin-structure.instructions.md) - WordPress block plugin development
 
 ---
-
-**🏛️ This directory is managed by the LightSpeed team. All organizational GitHub templates, automation, and AI resources are maintained here.**
-
-**❓ Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new), start a [Discussion](https://github.com/orgs/lightspeedwp/discussions), or contact [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

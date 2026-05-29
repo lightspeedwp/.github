@@ -9,3 +9,5 @@ Auto-generated documentation stub by folder-and-file-readmes.sh on Thu Nov 27 15
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
