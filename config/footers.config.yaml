@@ -94,16 +94,16 @@ categories:
       - "lightspeed-standard"
     default_footer: "ai-ops-standard"
 
-  issue:
-    name: "Issue Content"
+  issue-template:
+    name: "Issue Templates"
     description: "Issue bodies, issue templates, discussion starters"
     allowed_footers:
       - "issue-footer"
       - "lightspeed-brief"
     default_footer: "issue-footer"
 
-  pull-request:
-    name: "Pull Request Content"
+  pull-request-template:
+    name: "Pull Request Templates"
     description: "PR descriptions, PR templates, merge guidelines"
     allowed_footers:
       - "pr-footer"
@@ -117,6 +117,14 @@ categories:
       - "lightspeed-standard"
       - "lightspeed-brief"
     default_footer: "lightspeed-standard"
+
+  utility:
+    name: "Utility Documentation"
+    description: "Utility scripts, helper tools, automation utilities"
+    allowed_footers:
+      - "utility-footer"
+      - "lightspeed-standard"
+    default_footer: "utility-footer"
 
   awesome-copilot:
     name: "Awesome Copilot Collections"
@@ -309,6 +317,18 @@ footers:
       file_path: "Relative path to this file in the repo (e.g., docs/guide.md)"
     emoji_only: false
     accessibility_notes: "Includes edit link for collaborative documentation. Variable must be populated by automation."
+
+  utility-footer:
+    id: "utility-footer"
+    name: "Utility Script Footer"
+    template: |
+      ---
+
+      🔧 *Utility maintained by LightSpeedWP*
+
+      [📂 Scripts](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📖 Usage](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📞 Support](https://lightspeedwp.agency/contact)
+    emoji_only: false
+    accessibility_notes: "Footer for utility scripts and automation helpers. Links to scripts directory."
 
 # ============================================================================
 # VALIDATION RULES
