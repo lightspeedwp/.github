@@ -29,10 +29,17 @@ jobs:
       - name: Require changelog update or skip label
         id: changelog_gate
         env:
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           PR_LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
+          if [ "${PR_AUTHOR}" = "dependabot[bot]" ] || [ "${PR_AUTHOR}" = "app/dependabot" ]; then
+            echo "Skipping changelog requirement for Dependabot pull requests."
+            echo "run_validation=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           if echo "${PR_LABELS}" | grep -q '"meta:needs-changelog"' && echo "${PR_LABELS}" | grep -q '"meta:no-changelog"'; then
             echo "::error::PR cannot include both meta:needs-changelog and meta:no-changelog."
             exit 1
