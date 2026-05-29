@@ -16,6 +16,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **WCEU 2026 Validation Scripts (Bash-to-JavaScript Migration)** — Completed migration of WCEU validation scripts from Bash to JavaScript with improvements:
+  - `scripts/verify-wceu-readiness.js` — Automated Phase 1 validation for schema migration, agent slides reorganization, and content file completeness
+  - `scripts/validate-phase2-completion.js` — Interactive Phase 2 validation for NotebookLM output, Google Slides foundation, and design system documentation
+  - Benefits: ES module compatibility, robust error handling, cross-platform support (no sed/awk/grep dependencies), comprehensive logging
+  - Added npm scripts: `validate:wceu:phase1` and `validate:wceu:phase2` for CLI integration
+  - Comprehensive unit tests in `scripts/__tests__/wceu-validation-scripts.test.js` validating script structure, syntax, and completeness
+  - Updated `scripts/README.md` with usage examples and feature documentation ([#13](https://github.com/lightspeedwp/.github/issues/13), [#16](https://github.com/lightspeedwp/.github/issues/16))
+
 - **Comprehensive 25-Slide Deck Prompt Suite** — Added `.github/wceu-2026/agent-slides/` directory with 25 NotebookLM and Figma-ready presentation prompts covering the complete .github automation ecosystem:
   - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, and Planner agents with capabilities, integration points, and use cases
   - **3 Infrastructure Prompts**: Plugin/Agents/Skills/Hooks integration, Scripts & Automation orchestration, and Workflows architecture
