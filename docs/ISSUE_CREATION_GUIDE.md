@@ -158,7 +158,3 @@ Any implementation notes, design decisions, or technical context.
 ```
 
 ---
-
-*Use this guide to create clear, automated, and contributor-friendly issues in all LightSpeed projects. If you’re not sure where your request fits, start with [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) or ask a maintainer!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

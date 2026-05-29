@@ -6,8 +6,7 @@ updates:
       interval: weekly
     open-pull-requests-limit: 10
     labels:
-      - dependencies
-      - security
+      - area:dependencies
 
   - package-ecosystem: github-actions
     directory: "/"
@@ -15,5 +14,5 @@ updates:
       interval: weekly
     open-pull-requests-limit: 10
     labels:
-      - dependencies
+      - area:dependencies
       - github-actions

@@ -2,6 +2,7 @@
 file_type: "instructions"
 title: "Community Standards"
 description: "Community health standards: naming conventions, README expectations, saved replies, and shared assets. File placement lives in file-organisation.instructions.md."
+scope: "organization-wide"
 version: "v1.0"
 last_updated: "2025-12-07"
 owners: ["GitHub Community Health Team"]
@@ -46,7 +47,6 @@ Ensure repositories are well-organized, easily navigable, and welcoming to contr
   - [Usage Guidelines](#usage-guidelines)
   - [Creating Replies](#creating-replies)
 - [Best Practices](#best-practices-1)
-- [References](#references)
 
 ---
 
@@ -686,20 +686,3 @@ coverage/
 *This document consolidates community health standards for GitHub repositories. All files and documentation must follow these standards for consistency and professionalism.*
 
 ---
-
-## References
-
-- [instructions.instructions.md](instructions.instructions.md)
-- [file-organisation.instructions.md](file-organisation.instructions.md)
-- [documentation-formats.instructions.md](documentation-formats.instructions.md)
-- [readme.instructions.md](readme.instructions.md)
-- [automation.instructions.md](automation.instructions.md)
-- [workflows.instructions.md](workflows.instructions.md)
-- [issues.instructions.md](issues.instructions.md)
-- [pull-requests.instructions.md](pull-requests.instructions.md)
-- [Community Health Files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions)
-- [About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
-- [Saved Replies](https://docs.github.com/en/get-started/writing-on-github/working-with-saved-replies/using-saved-replies)
-- [README Best Practices](https://www.makeareadme.com/)
-- [Open Source Guides](https://opensource.guide/)
-- [Conventional Commits](https://www.conventionalcommits.org/)

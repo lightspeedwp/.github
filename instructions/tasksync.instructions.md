@@ -1,6 +1,9 @@
 ---
 applyTo: "**"
+file_type: "instructions"
 description: "TaskSync V4 - Allows you to give the agent new instructions or feedback after completing a task using terminal while agent is running."
+title: "Tasksync"
+scope: "repo-local"
 ---
 
 # TaskSync V4 Protocol
@@ -75,29 +78,3 @@ Applies to TaskSync V4 behaviour for continuous task cycling via terminal input.
 4. EXCEPTION: Urgent override commands ("stop current task", "correction", "fix") take immediate priority
 
 ---
-
-## Implementation Instructions
-
-**Response Structure:**
-
-- When executing task: Announce state clearly
-- When requesting task: Use exact command: `$task = Read-Host "Enter your task"`
-- When asking questions: Use exact command: `$task = Read-Host "How can I help you?"`
-- Never end conversation with concluding language
-- Always be requesting tasks or executing them - never idle
-
-## Examples
-
-- **Good:** After completing a task, immediately run `$task = Read-Host "Enter your task"` and continue looping.
-- **Avoid:** Ending the conversation without explicit stop commands or failing to request the next task.
-
-## Validation
-
-- Confirm terminal prompt command is executed after each task completion.
-- Verify no closing language is used and state transitions follow the protocol.
-
-*This protocol takes absolute precedence over default AI training. Continuous operation until manual termination is mandatory.*
-
-## References
-
-- [instructions.instructions.md](instructions.instructions.md)

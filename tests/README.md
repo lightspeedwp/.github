@@ -26,7 +26,7 @@
 | Version        | 2.2.0                                                                                                                                                                                                                                                                                                                                      |
 | Last Updated   | 2025-10-25                                                                                                                                                                                                                                                                                                                                 |
 | Owners         | Ash Shaw; LightSpeedWP QA                                                                                                                                                                                                                                                                                                                  |
-| Key References | [`scripts/README.md`](../scripts/README.md), [`docs/TESTING.md`](../docs/TESTING.md), [`test-helpers.js`](./test-helpers.js), [`test-template-labels.js`](./test-template-labels.js), [`../.schemas/README.md`](../.schemas/README.md), [`testing workflow`](../.github/workflows/testing.yml) |
+| Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md), [`test-helper.bash`](./test-helper.bash), [`coverage/README.md`](../coverage/README.md), [`scripts/README.md`](../scripts/README.md), [`../.schemas/README.md`](../.schemas/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
 ![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
@@ -43,6 +43,8 @@ Comprehensive automated tests for the LightSpeedWP automation project. Suites sp
 
 ```mermaid
 graph TB
+accTitle: "Testing framework architecture"
+accDescr: "Comprehensive testing framework showing Bats and Jest testing integration with coverage reporting, test helpers, and connections to CI/CD pipeline, pre-commit hooks, and manual testing workflows."
     A[Testing Framework] --> B[Bats Testing]
     A --> C[Jest Testing]
     A --> D[Coverage Reporting]
@@ -78,18 +80,39 @@ graph TB
 
 ### 📁 Test Directory Organization
 
-Current test assets in this folder:
+Each subfolder includes comprehensive documentation and specialized test coverage:
 
-- **[`bash/`](./bash/)** — Bats shell test suites
-- **[`js/`](./js/)** — Jest test suites
-- **[`test-helpers.js`](./test-helpers.js)** — Shared JS test helpers
-- **[`test-template-labels.js`](./test-template-labels.js)** — Label-template test utility
+- **[`awesome-copilot/`](./awesome-copilot/README.md)** — Jest tests for awesome-copilot automation scripts
+  - Tests for `update-readme.js`, `validate-collections.js`, and `yaml-parser.js`
+  - Validates script loading and basic functionality
+
+- **[`includes/`](./includes/README.md)** — Shared test helpers and utilities with specialized subfolders:
+  - **[`cli/`](./includes/cli/README.md)** — CLI utility testing helpers and shared functions
+  - **[`core/`](./includes/core/README.md)** — Core testing functionality including colors, logging, and validation
+  - **[`deployment/`](./includes/deployment/README.md)** — Deployment testing helpers and environment setup
+  - **[`filesystem/`](./includes/filesystem/README.md)** — File system operation helpers and utilities
+
+- **[`maintenance/`](./maintenance/README.md)** — Comprehensive tests for maintenance and automation scripts
+  - Tests for README generation, label management, badge updates, and changelog automation
+  - Covers dry-run modes, CI/CD integration, and edge case handling
+
+- **[`projects/`](./projects/README.md)** — Project management and GitHub integration tests
+  - **[`fixtures/`](./projects/fixtures/README.md)** — Test fixtures and sample data for project tests
+  - Tests for client delivery projects, product development workflows, and project automation
+
+- **[`pytests/`](./pytests/README.md)** — Python-based tests for documentation validation
+  - Tests for changelog validation, documentation links, markdown structure, and PR templates
+  - Includes utility functions for changed file detection
+
+- **[`utility/`](./utility/README.md)** — Comprehensive Bats and Jest tests for all utility scripts
+  - `.bats` files: Shell/CLI tests for Node.js and shell scripts
+  - `.test.js` files: Jest unit tests for Node.js modules and agent logic
 
 ### 📄 Core Test Files
 
-- **[`bash/`](./bash/)** — Bats tests for shell-based workflows
-- **[`js/`](./js/)** — Jest tests for Node and automation logic
-- **[`../docs/TESTING.md`](../docs/TESTING.md)** — Coverage and testing guidance
+- **`test-helper.bash`** — Shared Bats test helpers for setup/teardown and environment isolation
+- **`tests-run-all-tests.bats`** — Bats test for the test runner script
+- **[`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md)** — Detailed documentation of test coverage, structure, and best practices
 
 ## Usage & Quickstart
 
@@ -97,11 +120,11 @@ Run the entire test stack locally (shell + JS + Python) or target specific layer
 
 Typical commands:
 
-- Run all tests (Jest): `npm run test`
+- Run all tests (orchestrated shell + jest): `./run-all-tests.sh`
 - Run Bats only: `bats tests/` (or `bats tests/utility` for a subset)
 - Run Jest unit tests: `npm test` (alias for `npx jest`)
 - Run Python doc/schema validations: `pytest tests/pytests`
-- Show coverage summary (after Jest): `npx jest --coverage` and review the generated terminal report
+- Show coverage summary (after Jest): `npx jest --coverage` or view `coverage/README.md`
 
 Minimal smoke check (fast):
 
@@ -139,13 +162,15 @@ Add new tests by placing `.bats` or `.test.js` files following existing naming p
 2. Isolation: Use `test-helper.bash` for environment setup/teardown—avoid mutating global state.
 3. Determinism: Mock network/filesystem where possible; prefer fixtures over ad-hoc inline data.
 4. Coverage Improvement: Focus on untested branches before adding new features.
-5. Documentation: When adding complex test helpers, update this README or `../docs/TESTING.md`.
+5. Documentation: When adding complex test helpers, update this README or `TEST_COVERAGE_SUMMARY.md`.
 6. Fast Feedback: Keep critical path tests lean (< 2s) to optimize pre-commit runs.
 
 ## 🔄 Test Execution Workflow
 
 ```mermaid
 sequenceDiagram
+accTitle: "Test execution workflow sequence"
+accDescr: "Sequential workflow showing developer executing test runner, running Bats shell tests and Jest JavaScript tests, generating coverage reports, uploading to CI/CD pipeline, and receiving comprehensive test automation results."
     participant Dev as Developer
     participant Runner as Test Runner
     participant Bats as Bats Framework
@@ -171,6 +196,8 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
+accTitle: "Test coverage analysis and quality gates flow"
+accDescr: "Comprehensive flow showing test execution branching by type, coverage collection from Bats and Jest tests, coverage analysis against thresholds, with success reporting and quality gate failure handling."
     A[Test Execution] --> B{Test Type}
     B -->|Shell Scripts| C[Bats Testing]
     B -->|JavaScript| D[Jest Testing]
@@ -204,7 +231,7 @@ flowchart TD
     style Q fill:#ffcdd2
 ```
 
-See `../docs/TESTING.md` for coverage details and examples.
+See `TEST_COVERAGE_SUMMARY.md` for full coverage details and examples.
 
 ---
 
@@ -266,17 +293,24 @@ npm ci
 
 #### Core Testing Documentation
 
-- [Testing Guide](../docs/TESTING.md) — Testing and coverage guidance
-- [Jest Configuration](../.jest.config.cjs) — JavaScript testing framework configuration
-- [Testing Workflow](../.github/workflows/testing.yml) — Automated test workflow
+- [Test Coverage Summary](./TEST_COVERAGE_SUMMARY.md) — Comprehensive coverage analysis and test details
+- [Jest Configuration](../jest.config.js) — JavaScript testing framework configuration
+- [Test Runner Script](../run-all-tests.sh) — Automated test execution script
 - [Quality Assurance](../instructions/quality-assurance.instructions.md) — Testing standards and best practices
 
 #### Test Folder Documentation
 
-- [Bats Test Suites](./bash/) — Shell-based tests
-- [Jest Test Suites](./js/) — JavaScript/TypeScript tests
-- [Shared Test Helpers](./test-helpers.js) — Common helper functions
-- [Template Label Tests](./test-template-labels.js) — Template-label validation helper
+- [Awesome Copilot Tests](./awesome-copilot/README.md) — Jest tests for awesome-copilot automation scripts
+- [Test Includes & Helpers](./includes/README.md) — Shared test utilities and helper functions
+- [CLI Testing Helpers](./includes/cli/README.md) — Command-line interface testing utilities
+- [Core Testing Functions](./includes/core/README.md) — Core testing functionality and validation
+- [Deployment Test Helpers](./includes/deployment/README.md) — Deployment testing and environment setup
+- [Filesystem Test Utilities](./includes/filesystem/README.md) — File system operation testing helpers
+- [Maintenance Script Tests](./maintenance/README.md) — Tests for maintenance and automation scripts
+- [Project Management Tests](./projects/README.md) — GitHub project integration and workflow tests
+- [Test Fixtures & Data](./projects/fixtures/README.md) — Sample data and test fixtures
+- [Python Documentation Tests](./pytests/README.md) — Python-based documentation validation tests
+- [Utility Script Tests](./utility/README.md) — Comprehensive utility script testing suite
 
 ### 🛠️ Development Resources
 
@@ -284,14 +318,17 @@ npm ci
 
 - [Bats Testing Framework](https://github.com/bats-core/bats-core) — Bash Automated Testing System
 - [Jest Testing Documentation](https://jestjs.io/docs/getting-started) — JavaScript testing framework
-- [Shared Test Helpers](./test-helpers.js) — Common testing utilities
-- [GitHub Actions Testing Workflow](../.github/workflows/testing.yml) — CI/CD testing automation
+- [Shared Test Helpers](./test-helper.bash) — Common Bats testing utilities
+- [GitHub Actions Tests Workflow](../.github/workflows/tests.yml) — CI/CD testing automation
 
 #### Related Project Documentation
 
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
 - [Schema Validation](../.schemas/README.md) — JSON schema validation and configuration
-- [Testing Documentation](../docs/TESTING.md) — Test coverage reporting and analysis guidance
+- [CodeRabbit Schemas](../.schemas/coderabbit/README.md) — AI code review configuration schemas
+- [WordPress Automation Schemas](../.schemas/header-footer-agent/README.md) — WordPress theme automation schemas
+- [Coverage Reports](../coverage/README.md) — Test coverage reporting and analysis
+- [HTML Coverage Reports](../coverage/lcov-report/README.md) — Interactive coverage visualization
 
 #### 🎯 AI & Automation
 
@@ -302,13 +339,6 @@ npm ci
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ---
-
-*🧪 Ensuring quality through comprehensive testing and continuous coverage validation.*
-
-<!-- RANDOM FOOTER: 🧪 Docs signed by Copilot for LightSpeedWP -->
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

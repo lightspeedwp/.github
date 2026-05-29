@@ -12,15 +12,4 @@ domain: "governance"
 stability: "draft"
 ---
 
-# Portable Hooks
-
-This folder owns portable hooks, guardrails, and adapters that help AI tools
-run safer checks before or after agent actions.
-
-## Structure
-
-| Path | Purpose |
-| --- | --- |
-| `hooks/<hook-id>/README.md` | Hook purpose, inputs, outputs, and safety behaviour. |
-| `hooks/<hook-id>/` | Hook implementation, tests, fixtures, and adapter files. |
-| `hooks/README.md` | This ownership index. |
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

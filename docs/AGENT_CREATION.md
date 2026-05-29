@@ -551,8 +551,3 @@ Then follow the governance checklist on this page.
 **📧 Questions?** Contact the LightSpeed team or [open an issue](https://github.com/lightspeedwp/.github/issues/new)
 
 ---
-
-<!-- RANDOM FOOTER: 📝 Clear specs, reliable agents! -->
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

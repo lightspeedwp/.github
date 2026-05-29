@@ -518,17 +518,3 @@ Files referenced during grounding: <count>
 - AskUserQuestion: "Done, or tweak? [Done / Tweak]." Tweak = targeted fix script on user's request, not regeneration.
 
 ---
-
-## Operational rules
-
-- ≤10 logical operations per `use_figma` call.
-- Always return `createdNodeIds` / `mutatedNodeIds` from every write script.
-- Use `hex/255` notation for all palette colors (see `foundation/palette.md`).
-- **STRICT: section backgrounds use the `ARCH_PALE` palette, NOT the FigJam standard SECTION palette.** ARCH_PALE colors (`#EBFFEE`, `#F8F5FF`, `#F5FBFF`, `#FFF7F0`, etc.) visually pair with the architecture-diagram subgraph wrappers that `generate_diagram` produces. The FigJam SECTION palette (`#CDF4D3`, `#C2E5FF`, `#DCCCFF`, `#FFE0C2`) is too saturated and causes visible color clash next to diagrams. See `foundation/palette.md`.
-- **STRICT: `section.name = ""` on every project-plan section (left-column, right-column, and nested children).** The user-facing title is rendered as the H2 text node *inside* the section, NOT via FigJam's section title-bar label. The reference board uses empty section names; setting a non-empty `name` produces a duplicate label that visually clutters the board.
-- Read, edit, or cancel at every Confirm/Write checkpoint — never write past an unanswered AskUserQuestion.
-- If a `use_figma` script errors: atomic — no changes made. Read the error, fix, retry.
-
-## Trigger phrases
-
-"/generate-project-plan", "interactive project plan", "project plan", "make a FigJam project plan", "PRD to FigJam".

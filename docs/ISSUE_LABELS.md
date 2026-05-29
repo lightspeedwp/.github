@@ -112,8 +112,3 @@ labels:
 - For a full list of canonical labels and colors, see [labels.yml](../.github/labels.yml).
 
 ---
-
-*The labeling agent is the single source of truth for all issue labeling, status, type, and standardization. All guidance here is directly reflected in labels.yml and enforced via automation.*
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -137,10 +137,3 @@ python /home/oai/skills/pdfs/scripts/pdf_edit.py optimize input.pdf -o optimized
 ```
 
 ---
-
-## Form filling
-
-If you *must* fill AcroForm fields and have them look correct across viewers:
-
-- Prefer **pdf-lib fill + flatten** (see `tasks/forms_annotations.md`).
-- `pdf_edit.py fill-form` exists for quick debugging, but is not as reliable.

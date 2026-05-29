@@ -2,16 +2,15 @@
 file_type: "documentation"
 title: "LightSpeed WordPress Development Agency - GitHub Profile"
 description: "Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003"
-version: "2.2"
+version: "2.1"
 created_date: "2025-10-20"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp/maintainers"]
 license: "GPL-3.0"
 domain: "community"
 stability: "stable"
-status: "active"
 tags:
   [
     "wordpress",
@@ -32,7 +31,7 @@ tags:
 [![Since 2003](https://img.shields.io/badge/Since-2003-blue)](https://lightspeedwp.agency/about)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Community](https://img.shields.io/badge/Community-Driven-success)](https://github.com/orgs/lightspeedwp/discussions)
-[![AI Enhanced](https://img.shields.io/badge/AI-Enhanced-purple)](../.github/custom-instructions.md)
+[![AI Enhanced](https://img.shields.io/badge/AI-Enhanced-purple)](./.github/custom-instructions.md)
 
 ## 👋 Welcome to LightSpeed's GitHub Organization
 
@@ -42,6 +41,8 @@ We're a **WordPress design and development agency** with a focus on creating pow
 
 ```mermaid
 flowchart LR
+accTitle: "LightSpeed organization structure and products"
+accDescr: "Organization overview showing LightSpeed agency team, core products including LSX Design theme and Tour Operator plugin, and open source commitment with community support and documentation."
     subgraph "🏢 LightSpeed Agency"
         A[👥 Team Since 2003]
         B[🎯 WordPress Experts]
@@ -101,6 +102,8 @@ We believe in the power of community and open-source collaboration! If you're pa
 
 ```mermaid
 flowchart TD
+accTitle: "LightSpeed community contribution process"
+accDescr: "Complete contribution workflow from starting point through issue submission, feature requests, code contributions, documentation improvements, team triage, code review, merge and deployment, with feedback loop for requested changes."
     A[🚀 Start Here] --> B{What do you want to do?}
 
     B -->|🐛 Report Issue| C[📝 Submit Issue]
@@ -151,6 +154,8 @@ At LightSpeed, we believe in the power of open-source software. We contribute to
 
 ```mermaid
 graph TB
+accTitle: "LightSpeed project architecture and ecosystem"
+accDescr: "Comprehensive architecture showing frontend solutions with LSX Design and custom blocks, backend functionality including Tour Operator plugin and WooCommerce extensions, developer tools with CI/CD workflows, documentation and community support forums."
     subgraph "🎨 Frontend Solutions"
         A[LSX Design Theme]
         B[Block Patterns]
@@ -226,6 +231,8 @@ We welcome contributions from the community! If you're interested in collaborati
 
 ```mermaid
 stateDiagram-v2
+accTitle: "Community engagement and contribution lifecycle"
+accDescr: "State machine showing the journey from discovering projects through exploration, engagement, contributions, collaboration, leadership, and mentorship with feedback loops for continuous community participation."
     [*] --> Discover
     Discover --> Explore
     Explore --> Engage
@@ -283,7 +290,7 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 ### 📱 Social Media
 
 - **🐦 Twitter**: [@lightspeedwp](https://twitter.com/lightspeedwp) - Latest updates and news
-- **💼 GitHub**: [LightSpeed WP](https://github.com/lightspeedwp) - Open-source profile
+- **💼 LinkedIn**: [LightSpeed WP](https://www.linkedin.com/company/lightspeed-wp/) - Professional network
 - **📧 Email**: [hello@lightspeedwp.agency](mailto:hello@lightspeedwp.agency) - Direct contact
 
 ### 🆘 Support Resources
@@ -298,13 +305,6 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 **🚀 Together, let's build better WordPress experiences and empower the open-source community!**
 
 ---
-
-*This profile is part of our commitment to transparency, community engagement, and open-source collaboration. All our projects follow the [LightSpeed development standards](../instructions/coding-standards.instructions.md) and are enhanced with AI-powered development tools.*
-
-<!-- RANDOM FOOTER: ✨ Maintained with ❤️ by LightSpeedWP Automation Team -->
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)

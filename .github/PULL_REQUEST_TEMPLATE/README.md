@@ -2,9 +2,9 @@
 file_type: "documentation"
 title: "Pull Request Templates Directory"
 description: "Standardized pull request templates for the LightSpeedWP organization"
-version: "v1.1"
+version: "v1.2"
 created_date: "2025-10-20"
-last_updated: "2025-11-25"
+last_updated: "2026-05-29"
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
@@ -80,7 +80,8 @@ These templates integrate with:
 
 ---
 
-<!-- RANDOM FOOTER: 🔀 Streamlined PRs, seamless integration! -->
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

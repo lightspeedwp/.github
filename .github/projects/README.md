@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Reports Directory"
 description: "An overview of the reports directory, detailing the purpose of each subfolder for storing generated artifacts."
 version: "1.1"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 owners: ["LightSpeed Engineering"]
 tags: ["reports", "documentation", "governance"]
 ---
@@ -164,3 +164,7 @@ phase6-planning-suite-consolidation.md
 
 *For questions about project file organisation, see [file-organisation.instructions.md](../instructions/file-organisation.instructions.md)*
 *This directory is managed by automated workflows. Please do not add files manually unless specified by the reporting instructions.*
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

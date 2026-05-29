@@ -317,8 +317,3 @@ Issue Types and Project fields carry the semantic meaning.
 - Add cheat sheets and workflow diagrams to internal wiki.
 
 ---
-
-> For questions or improvements, open an issue or PR in the `.github` repo.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

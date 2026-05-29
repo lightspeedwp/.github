@@ -1,3 +1,17 @@
+---
+title: "Changelog"
+description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
+file_type: "documentation"
+category: "governance"
+version: "1.0.3"
+last_updated: "2026-05-29"
+owners: ["ashleyshaw"]
+tags: ["changelog", "versioning", "releases", "governance"]
+status: "active"
+stability: "stable"
+domain: "governance"
+---
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -7,12 +21,111 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Wave 4C: Branding Agent Current-State Audit** — Added `.github/projects/active/ISSUE_48_CURRENT_STATE_AUDIT.md` comprehensive audit specification ([#48](https://github.com/lightspeedwp/.github/issues/48), [#562](https://github.com/lightspeedwp/.github/pull/562)):
+  - Current-state inventory catalogs ~750 Markdown files with branding implementations
+  - Frontmatter compliance analysis (90.6% compliant, 70 files with missing required fields)
+  - Category mapping accuracy audit (98%+ correct, specific gaps identified)
+  - Header and footer pattern analysis (84.5% coverage gap identified)
+  - Badge usage assessment (1.9% adoption, 40% non-standard values)
+  - WCAG AA accessibility audit (95%+ compliance with specific improvement areas)
+  - Detailed gap analysis against new schema/config standards
+  - Prioritized remediation roadmap with effort estimates (16–23 hours across 5 phases)
+  - Automated remediation scripts scoped and designed
+  - Risk assessment with comprehensive mitigation strategies
+  - Success criteria and measurable outcomes for agent rollout
+  - Unblocks Wave 4E (Agent merge/refactor) and Wave 4F (Bulk remediation & validation)
+
+- **Comprehensive 25-Slide Deck Prompt Suite** — Added `.github/agent-slide-decks/` directory with 25 NotebookLM and Figma-ready presentation prompts covering the complete .github automation ecosystem:
+  - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, and Planner agents with capabilities, integration points, and use cases
+  - **3 Infrastructure Prompts**: Plugin/Agents/Skills/Hooks integration, Scripts & Automation orchestration, and Workflows architecture
+  - **8 Process & Lifecycle Prompts**: PR lifecycle, issue triage, release process, documentation standards, repository metrics, QA/testing, plugin deep-dive, and observability/logging
+  - **2 Governance & Standards Prompts**: WordPress-specific requirements and contributing guidelines
+  - **5 Developer Experience & Strategy Prompts**: Getting started, best practices, troubleshooting/debugging, roadmap/vision, and case studies/success stories
+  - Each prompt includes system overview, key components, integration points, 3+ use cases, 12-15 slide structure, evidence anchors linking to repository files, design notes for visual consistency, and quality bars for validation. Enables presentation creation with NotebookLM, Figma, and other design tools. ([#549](https://github.com/lightspeedwp/.github/pull/549))
+
+- **Consolidated Branding Agent Module** — Unified `scripts/agents/branding.agent.js` consolidates header, footer, and badge logic from previously scattered modules:
+  - Merged header-footer.js, badges.js, footerUtils.js, and badgeUtils.js into single ES Module
+  - Maintains all public API functions for footer selection, insertion, removal, and badge generation
+  - Supports configuration-driven footer phrases and badge schema mapping
+  - Provides unified import path for all branding utilities in meta agent workflows ([#47](https://github.com/lightspeedwp/.github/issues/47))
+
+- **Wave 3C: README and Mermaid Maintenance Workflow** — New `.github/workflows/readme-update.yml` workflow automates README and Mermaid diagram maintenance with:
+  - Mermaid accessibility updates (adds `accTitle` and `accDescr` attributes per WCAG 2.2 AA)
+  - Stale frontmatter date updates (6+ month threshold)
+  - Support for manual dispatch (`workflow_dispatch`) and Release Agent orchestration (`workflow_call`)
+  - Dry-run mode for safe preview before applying changes
+  - Audit reporting at `.github/reports/mermaid-audit/update-report.md`
+  - Integrated into Release Agent post-release phase ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
+- **Wave 4 Specification** — Added `.github/projects/active/wave-4-continuous-monitoring.md` comprehensive specification for continuous README and Mermaid diagram monitoring:
+  - Scheduled weekly audit workflows
+  - Drift detection on push events
+  - Monthly freshness notifications
+  - Quarterly health reports with recommendations
+  - CI/CD integration patterns and metric collection
+  - Foundation for long-term automation roadmap (Waves 5-7) ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
+- **Comprehensive Documentation Index** — Created `docs/README.md` with complete documentation hub and navigation guide:
+  - Quick-start sections for First-Time Contributors, Maintainers, and Workflow & Automation teams
+  - 9 logical documentation categories with 36+ indexed files (Architecture & Strategy, Workflows & Processes, Labeling & Project Management, Configuration & Setup, Development & Standards, Governance & Decisions, Monitoring & Metrics, Adoption & Integration)
+  - Role-based navigation table (Developer, Reviewer, Maintainer, Automation/DevOps, Organisation Lead)
+  - Task-based quick-reference table (8 common tasks with relevant documentation links)
+  - Documentation standards reference (UK English, Markdown with YAML frontmatter, relative links, WCAG 2.2 AA compliance)
+  - Related resources and help section for discoverability
+  - Updated Mermaid diagrams with WCAG 2.2 AA accessibility attributes (`accTitle`, `accDescr`)
+  - Removed prohibited `references` fields from README files per CLAUDE.md governance rules
+  - Closes Issue [#19](https://github.com/lightspeedwp/.github/issues/19) ([#552](https://github.com/lightspeedwp/.github/pull/552))
+
+- **Wave 4C: Current-State Audit & Remediation Plan** — Completed comprehensive audit of 932 markdown files with detailed remediation strategy:
+  - `scripts/audit-branding-patterns.js`: New ES Module audit script detecting footers, badges, and frontmatter compliance across repository
+  - Category-based analysis: 31.7% footer coverage, 1.5% badge coverage, 8.7% frontmatter compliance (critical 851-file gap)
+  - `.github/reports/wave-4c-audit-report.md`: Current-state findings with category-specific breakdown and recommendations
+  - `.github/reports/wave-4c-remediation-plan.md`: Phased remediation roadmap (Phase 1-3 over 9-12 hours, Waves 4D-4F)
+  - High-priority focus: Skills category (696 files, 18.1% footer coverage) and frontmatter schema compliance
+  - Risk assessment, success criteria, and dependency analysis for phased execution
+  - Unblocks Wave 4D (Issue #554) schema implementation, Wave 4E (Issue #555) agent merge, and Wave 4F (Issue #556) bulk remediation
+  - Closes Issue [#553](https://github.com/lightspeedwp/.github/issues/553) ([#558](https://github.com/lightspeedwp/.github/pull/558))
+
+### Fixed
+
+- **Plugin Structure Instructions Frontmatter** — Added missing `title` and `category` fields to `instructions/plugin-structure.instructions.md` to meet frontmatter schema requirements ([#535](https://github.com/lightspeedwp/.github/pull/547))
+
+### Changed
+
+- Added guarded Dependabot security auto-merge automation for `develop` by introducing Mergify conditions tied to Dependabot author, dependency/security labels, conflict/draft guards, and successful required checks. Added and wired a Dependabot security labelling workflow and aligned labels to canonical naming (`meta:dependabot-security`) to satisfy label governance and enable controlled auto-merge behaviour. ([#563](https://github.com/lightspeedwp/.github/pull/563))
+
+- **Release Agent Integration** — Updated `agents/release.agent.md` (v2.2 → v2.3) with post-release `readme-update.yml` invocation:
+  - Documented workflow contract with inputs, outputs, and failure handling
+  - Added to orchestration algorithm as non-blocking post-release action
+  - Conditional execution based on README maintenance requirements ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
+- **Workflow Coordination Documentation** — Updated `.github/docs/workflow-coordination.md` (v1.0.0 → v1.1.0):
+  - Documented `readme-update.yml` in Agent-Triggered Workflow Registry
+  - Added comprehensive specification with inputs, outputs, and integration points
+  - Clarified Release Agent orchestration pattern for post-release actions ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
+- **Plugin Structure Migration** — Migrated `instructions/plugin-structure.instructions.md` from `.github/instructions/` to top-level `instructions/` folder:
+  - Follows CLAUDE.md guidelines for portable reusable assets
+  - Updated references across `.github/README.md` and `CLAUDE.md`
+  - Clarified repository structure: GitHub-native files in `.github/`, portable assets in top-level folders ([#536](https://github.com/lightspeedwp/.github/pull/536))
+
 ### Documentation
 
+- Confirmed GitHub Copilot continuation in `.github/projects/active/next-issues-execution-plan.md` (v2.1.2) for the remaining Wave 2A issues (`#476`, `#480`, `#482`) and Wave 2C issues (`#488`, `#490`), explicitly requiring execution to continue until implementation, validation, and PR-ready merge state for `develop` are reached.
+- Added comprehensive WCEU 2026 talk asset pack audit and NotebookLM hardening plan (Issue #529): `.github/wceu-2026/WCEU_2026_AUDIT_AND_READINESS_PLAN.md` (500+ lines). Audits folder structure, identifies critical gaps in NotebookLM prompts, provides hardening roadmap with explicit develop-branch URLs. Hardened `wceu-2026/notebooklm/deep-research-prompt.md` (450+ lines) with 14 canonical approved sources, source ingestion order, analysis objectives, and constraints. Created comprehensive `wceu-2026/notebooklm/source-ingestion-checklist.md` (350+ lines) with repo-only source policy, validation checklist, prohibited sources list, and enforcement rules. Ensures NotebookLM analysis is grounded in authoritative internal sources only. ([#543](https://github.com/lightspeedwp/.github/pull/543))
+- Clarified mandatory execution ownership in `.github/projects/active/next-issues-execution-plan.md` (v2.1.1), explicitly splitting task streams between **GitHub Copilot** and **Claude Code** with a dedicated ownership matrix, updated wave labels, and explicit no-cross-execution policy language for exclusive workstreams.
+- Updated `.github/projects/active/next-issues-execution-plan.md` to v2.1.0 and synchronised the Active Project Files Inventory with all current artefacts in `.github/projects/active/`, including Wave 3B/3C specs, Wave 4 branding specifications (`ISSUE_33`, `ISSUE_46`, `ISSUE_48`, `ISSUE_49`), planning summaries, plugin-pack wave task lists, and continuous monitoring planning assets.
+- Added comprehensive current-state audit specification for unified branding agent (Issue #48): `.github/projects/active/ISSUE_48_CURRENT_STATE_AUDIT.md` (489 lines). Audits existing branding implementations against new schema/config standards, inventories frontmatter completeness (90.6% compliant, 70 files missing required fields), category mapping accuracy (98%+ correct), header/footer patterns (84.5% missing footers), badge usage (1.9% adoption), and WCAG AA accessibility (95%+ compliance). Documents gap analysis, remediation priorities with effort estimates (16–23 hours), remediation scripts needed, risk assessment, and success criteria. Provides baseline for planning agent rollout and documentation updates. ([#541](https://github.com/lightspeedwp/.github/pull/541))
+- Added comprehensive schema and config implementation specification for unified branding agent (Issue #49): `.github/projects/active/ISSUE_49_SCHEMA_CONFIG_IMPLEMENTATION.md` (800+ lines). Specification defines YAML + JSON Schema approach for configuration, documents all 16 document categories with metadata, specifies 4 required and 7 optional frontmatter fields, details path-based category inference with priority rules, documents badge types and category-specific placement rules, defines header/footer template reference structure, specifies validation rules and safe failure behavior, includes complete example configuration, and establishes dependency relationships with Issues #33 and #46. Unblocks current-state audit (Issue #48) and agent implementation. ([#539](https://github.com/lightspeedwp/.github/pull/539))
+- Added comprehensive template design specification for unified branding agent (Issue #46): `.github/projects/active/ISSUE_46_TEMPLATE_DESIGN.md` (950+ lines). Specification defines header templates for all 16 document categories, footer variants (5 each for 6 key categories: Docs, Agents, Instructions, Schemas, Prompts, Governance; 1 each for 10 other categories), badge templates (Status, Category, Version, Review Status), accessibility constraints (WCAG AA compliance, contrast ratios, alt text), readability guidelines (line length, nesting, bullet lists), and YAML configuration structure for `config/templates.config.yaml`. Unblocks schema/config implementation (Issue #49) and current-state audit (Issue #48). Depends on Issue #33 parent specification. ([#538](https://github.com/lightspeedwp/.github/pull/538))
+- Added comprehensive parent specification for unified branding agent (Issue #33): `.github/projects/active/ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` (1,100+ lines). Specification locks down category taxonomy (16 document categories), header/footer requirements with 5 variants each for 6 key categories, badge system, schema/config model (YAML + JSON Schema), frontmatter standards, and 4-phase delivery roadmap. Unblocks child issues #46 (template design), #49 (schema implementation), and #48 (agent development). ([#537](https://github.com/lightspeedwp/.github/pull/537))
 - Added WCAG 2.2 AA accessibility attributes (`accTitle` and `accDescr`) to all Mermaid diagrams across `profile/README.md`, `scripts/README.md`, `.github/README.md`, and supporting files. Closes [#513](https://github.com/lightspeedwp/.github/issues/513). ([#526](https://github.com/lightspeedwp/.github/pull/526))
 
 ### Fixed
 
+- Remediated duplicate and multiple footer blocks across 664 Markdown files using schema-driven validation. Created footer configuration schema (`schema/footer-config.schema.json`), centralized footer library with 15 document categories (`config/footers.config.yaml`), and automated validation/remediation script (`.github/scripts/validate-footers.js`). Violations fixed: 51 duplicate footer files → 0, 613 multiple-footer files → 0. Published remediation guide (`.github/FOOTER_REMEDIATION_GUIDE.md`). Related to branding meta agent planning (#33, #46, #48, #49). ([#534](https://github.com/lightspeedwp/.github/pull/534))
 - Removed prohibited `references:` frontmatter field from 9 README files (`README.md`, `.github/README.md`, `.github/agents/README.md`, `.github/instructions/README.md`, `.github/metrics/README.md`, `.github/schemas/README.md`, `.schemas/README.md`, `profile/README.md`, `scripts/README.md`) per CLAUDE.md governance rule. Added missing required frontmatter fields (`owners`, `status`, `stability`, `domain`) to affected files. Removed 13 duplicate footer blocks from root `README.md`. Added `.lycheeignore` excluding social-platform and LightSpeed external domains from CI link checking. Added `docs/MIGRATION.md` portable AI plugin restructure migration maps (completed and pending migrations, file placement quick-reference). Related to [#18](https://github.com/lightspeedwp/.github/issues/18). ([#527](https://github.com/lightspeedwp/.github/pull/527))
 - Replaced deprecated MCP tool references (`create_issue`, `update_issue`, `get_issue`) with current equivalents (`issue_write`, `issue_read`) across agent specs and prompt files. Closes [#52](https://github.com/lightspeedwp/.github/issues/52). ([#455](https://github.com/lightspeedwp/.github/pull/455))
 - Expanded issue template DoD checklists with discrete accessibility (WCAG 2.2 AA), security (OWASP Top 10), and performance items, aligning issue templates with the PR template. Closes [#21](https://github.com/lightspeedwp/.github/issues/21). ([#460](https://github.com/lightspeedwp/.github/pull/460))
@@ -20,6 +133,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- **Comprehensive 25-Slide-Deck Prompt Suite** — Complete NotebookLM and design-tool integration documentation with 25 production-ready slide deck prompts:
+  - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, Planner agents
+  - **3 Infrastructure Prompts**: Plugin/agents/skills/hooks ecosystem, scripts and automation, GitHub Actions workflows
+  - **15 Ecosystem Prompts**: Pull request lifecycle, issue triage, release process, documentation standards, repository metrics/KPIs, QA/testing, plugin architecture, observability/logging, WordPress governance, contributing guidelines, onboarding, developer experience, troubleshooting, roadmap/vision, case studies
+  - **Navigation**: Updated `.github/agent-slide-decks/README.md` with comprehensive index across all 25 prompts
+  - **Structure**: Each prompt includes overview, capabilities, integration points, use cases, slide structure, evidence anchors, design notes, quality bar
+  - Enables complete NotebookLM knowledge base generation and design system documentation ([#539](https://github.com/lightspeedwp/.github/pull/539))
+
+- Added comprehensive branding meta agent planning documentation: `branding-meta-agent-planning-2026-05-28.md` (2,100 lines with 6-phase implementation roadmap), `PLANNING_SUMMARY_2026-05-28.md` (359 lines executive summary), and `SLIDES_GENERATION_PROMPT.md` (789 lines for WCEU 2026 20-slide generation). Updated `next-issues-execution-plan.md` with Wave 4 (branding meta agent, Claude-exclusive) and Wave 3D (WCEU 2026 talk planning). Hardened NotebookLM source prompts with explicit develop-branch URLs. Related to issues #33, #46, #48, #49, #529. ([#534](https://github.com/lightspeedwp/.github/pull/534))
 - Added plugin-pack specialised skill rollout updates across active packs with per-platform manifest parity, expanded `SKILL_REGISTRY` scope coverage (`batch6PlatformYamlScope`), and refreshed rollout task tracking documentation. Closes [#524](https://github.com/lightspeedwp/.github/issues/524). ([#525](https://github.com/lightspeedwp/.github/pull/525))
 
 - Added `accTitle` and `accDescr` accessibility attributes to all 15 Mermaid diagrams across 8 README files (`.github/README.md`, `profile/README.md`, `scripts/README.md`, `scripts/validation/README.md`, `.github/ISSUE_TEMPLATE/README.md`, `.github/projects/README.md`, `.vscode/README.md`, `tests/README.md`), bringing WCAG 2.2 AA compliance to 100%. Added Wave 3A/3B audit report, findings CSV, and repair log to `.github/reports/mermaid-audit/`. Closes [#513](https://github.com/lightspeedwp/.github/issues/513).
