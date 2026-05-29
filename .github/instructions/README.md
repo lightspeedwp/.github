@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["instructions", "github-boundary", "ai-ops"]
 domain: "governance"
-stability: "draft"
+stability: "experimental"
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["maintenance", "json-schema", "validation", "ai-ops", "plugin-restructure"]
 domain: "governance"
-stability: "draft"
+stability: "experimental"
 references:
   - path: "portable-ai-plugin-restructure-baseline-report-2026-05-15.md"
     description: "Baseline report documenting the original schema syntax failure."

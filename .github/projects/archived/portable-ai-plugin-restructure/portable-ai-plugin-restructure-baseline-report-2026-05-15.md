@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["audit", "baseline", "validation", "dependencies", "plugin-restructure"]
 domain: "governance"
-stability: "draft"
+stability: "experimental"
 references:
   - path: "portable-ai-plugin-restructure-prd-2026-05-14.md"
     description: "Active PRD defining the phased restructure."

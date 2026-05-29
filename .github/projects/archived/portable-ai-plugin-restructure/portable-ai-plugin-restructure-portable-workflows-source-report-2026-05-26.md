@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["portable-ai-plugin-restructure", "workflows", "migration", "issue-298"]
 domain: "ai-ops"
-stability: "draft"
+stability: "experimental"
 references:
   - path: "issues/children/batch-02-portable-migration/02-06-feature-define-portable-workflows-source.md"
     description: "Issue #298 local source draft."

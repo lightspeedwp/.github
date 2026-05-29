@@ -9,5 +9,5 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["issues", "planning", "labels"]
 domain: "governance"
-stability: "draft"
+stability: "experimental"
 ---

@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["portable-ai-plugin-restructure", "agents", "migration", "issue-296"]
 domain: "ai-ops"
-stability: "draft"
+stability: "experimental"
 references:
   - path: "issues/children/batch-02-portable-migration/02-04-refactor-migrate-portable-agent-specs.md"
     description: "Issue #296 local source draft."

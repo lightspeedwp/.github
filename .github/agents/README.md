@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["agents", "github-boundary", "ai-ops"]
 domain: "governance"
-stability: "draft"
+stability: "experimental"
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

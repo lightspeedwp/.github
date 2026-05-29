@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["build", "ci", "validation", "structure", "ai-ops", "plugin-restructure"]
 domain: "governance"
-stability: "draft"
+stability: "experimental"
 references:
   - path: "portable-ai-plugin-restructure-prd-2026-05-14.md"
     description: "Active PRD requirement FR-302 for validate:structure."

@@ -9,6 +9,6 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["labels", "audit", "governance", "automation"]
 domain: "governance"
-stability: "draft"
+stability: "experimental"
 issue: "https://github.com/lightspeedwp/.github/issues/95"
 ---

@@ -9,7 +9,7 @@ authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["schemas", "github-boundary", "ai-ops"]
 domain: "governance"
-stability: "draft"
+stability: "experimental"
 references:
   - path: "../../.schemas/README.md"
     description: "Portable schema library index."

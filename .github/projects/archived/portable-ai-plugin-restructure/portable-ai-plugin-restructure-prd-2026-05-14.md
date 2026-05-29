@@ -15,7 +15,7 @@ tags:
   - "awesome-copilot"
   - "governance"
 domain: "governance"
-stability: "draft"
+stability: "experimental"
 references:
   - path: "../../../instructions/file-organisation.instructions.md"
     description: "Current file placement rules used for this PRD."
