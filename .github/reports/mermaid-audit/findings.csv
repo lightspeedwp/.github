@@ -1,26 +1,5 @@
-file_path,diagram_count,diagram_type,syntax_errors,missing_accTitle,missing_accDescr,wcag_compliant_after,priority,notes
-README.md,4,"flowchart TB; flowchart LR; flowchart LR; graph TD",N,N,N,Pass,Low,Already compliant — no action taken
-.github/README.md,4,"flowchart TB; sequenceDiagram; graph TB; flowchart LR",N,Y,Y,Pass,High,4 diagrams repaired — accTitle and accDescr added to all
-profile/README.md,4,"flowchart LR; flowchart TD; graph TB; stateDiagram-v2",N,Y,Y,Pass,High,4 diagrams repaired — accTitle and accDescr added to all
-scripts/README.md,3,"graph TB; sequenceDiagram; flowchart TD",N,Y,Y,Pass,High,3 diagrams repaired — accTitle and accDescr added to all
-scripts/validation/README.md,1,graph TD,N,Y,Y,Pass,Medium,1 diagram repaired — accTitle and accDescr added
-.github/ISSUE_TEMPLATE/README.md,1,flowchart TD,N,Y,Y,Pass,Medium,1 diagram repaired — accTitle and accDescr added
-.github/projects/README.md,1,graph TD,N,Y,Y,Pass,Medium,1 diagram repaired — accTitle and accDescr added
-.vscode/README.md,1,flowchart TD,N,Y,Y,Pass,Medium,1 diagram repaired — accTitle and accDescr added
-tests/README.md,3,"graph TB; sequenceDiagram; flowchart TD",N,Y,Y,Pass,High,3 diagrams repaired — accTitle and accDescr added to all
-.github/DISCUSSION_TEMPLATE/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-.github/PULL_REQUEST_TEMPLATE/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-.github/SAVED_REPLIES/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-.github/agents/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-.github/instructions/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-.github/metrics/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-.github/prompts/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-.github/reports/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-.github/schemas/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-.github/workflows/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-agents/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-cookbook/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-docs/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-hooks/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-instructions/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
-.schemas/README.md,0,N/A,N/A,N/A,N/A,N/A,Low,No Mermaid diagrams present
+File Path,Diagram Count,Diagram Types,Missing accTitle,Missing accDescr,Last Updated,Priority,Notes
+README.md,7,graph/flowchart, sequence, state,3,3,2026-05-28,High,"Missing accTitle in 3 diagram(s); Missing accDescr in 3 diagram(s)"
+profile/README.md,4,graph/flowchart, state,4,4,2026-05-28,High,"Missing accTitle in 4 diagram(s); Missing accDescr in 4 diagram(s)"
+scripts/README.md,3,graph/flowchart, sequence,3,3,2026-05-28,High,"Missing accTitle in 3 diagram(s); Missing accDescr in 3 diagram(s)"
+tests/README.md,3,graph/flowchart, sequence,3,3,2026-05-28,High,"Missing accTitle in 3 diagram(s); Missing accDescr in 3 diagram(s)"
