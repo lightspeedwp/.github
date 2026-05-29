@@ -174,9 +174,7 @@ Output:
 
 ## Related Agents
 
-- [Test Fixer Agent](./test-fixer.agent.md) – Fixes identified test failures
 - [Release Agent](./release.agent.md) – Ensures tests pass before release
-- [CI/CD Integration](../workflows/ci.md) – Runs tests automatically on PR
 
 ## See Also
 

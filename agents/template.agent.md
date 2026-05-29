@@ -120,5 +120,5 @@ Define guardrails and constraints that protect against misuse. Include specific 
 ## See Also
 
 - [Agents Directory](./README.md) – Directory of all agent specifications
-- [Agent Development Guide](../docs/agent-development.md) – Building and testing new agents
+- [Agent Creation Guide](../docs/AGENT_CREATION.md) – Building and testing new agents
 - [AGENTS.md](../AGENTS.md) – Organization-wide agent guidelines

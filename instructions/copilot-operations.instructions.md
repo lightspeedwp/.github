@@ -50,7 +50,7 @@ Defines operational standards for AI-driven work in LightSpeedWP repositories. C
 
 ### Session Start Protocol
 
-1. **Load context:** Read CLAUDE.md, AGENTS.md, .github/instructions/coding-standards.instructions.md
+1. **Load context:** Read CLAUDE.md, AGENTS.md, instructions/coding-standards.instructions.md
 2. **Identify scope:** Determine which files, directories, and changes are in scope
 3. **Declare assumptions:** State what you're assuming about project structure, conventions, and permissions
 4. **Ask for clarification:** If any instruction is ambiguous, use AskUserQuestion before proceeding
