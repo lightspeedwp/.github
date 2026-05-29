@@ -109,3 +109,6 @@ Each prompt is designed to be:
 - **WCEU 2026 Talk**: [wceu-2026/](../wceu-2026/) - 25-minute presentation on the complete agent ecosystem
 - **Agent Registry**: [AGENTS.md](../AGENTS.md) - Complete agent specifications and responsibility matrix
 - **Skills & Hooks**: [skills/](../skills/) and [hooks/](../hooks/) - Agent capabilities and enforcement mechanisms
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
