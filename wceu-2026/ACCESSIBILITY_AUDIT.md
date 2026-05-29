@@ -2,6 +2,7 @@
 title: "Accessibility Audit Checklist — WCEU 2026 Slides"
 description: "WCAG AA/AAA compliance verification for presentation"
 created_date: "2026-05-30"
+file_type: documentation
 ---
 
 # Accessibility Audit Checklist
@@ -47,7 +48,7 @@ Using the dark-mode palette:
 
 For any custom colours (not in the palette above):
 
-1. **Open WebAIM Contrast Checker**: https://webaim.org/resources/contrastchecker/
+1. **Open WebAIM Contrast Checker**: <https://webaim.org/resources/contrastchecker/>
 2. **Enter foreground colour** (text): Hex code, e.g., #00d4ff
 3. **Enter background colour**: Hex code, e.g., #1a1a1a
 4. **Check ratio**: Must be ≥ 4.5:1 for AA, ≥ 7:1 for AAA
@@ -56,6 +57,7 @@ For any custom colours (not in the palette above):
 ### Slides with Visual Elements
 
 If any slides have:
+
 - Images with text overlay → verify contrast of overlay text
 - Diagrams with labels → verify label colours meet ratio
 - Charts/graphs → verify all text and lines meet ratio
@@ -80,6 +82,7 @@ If any slides have:
 4. **Repeat for 3–5 representative slides** (cover, middle, closing)
 
 If any slide fails:
+
 - Increase font size
 - Increase contrast
 - Reduce text density (fewer bullets)
@@ -99,6 +102,7 @@ The dark-mode palette should be distinguishable for colour-blind viewers:
 ### Test Tool
 
 Use [Colorblind Simulator](https://www.color-blindness.com/coblis-color-blindness-simulator/) to preview slides:
+
 1. Screenshot each slide
 2. Upload to simulator
 3. Check deuteranopia, protanopia, tritanopia views
@@ -131,6 +135,7 @@ Use [Colorblind Simulator](https://www.color-blindness.com/coblis-color-blindnes
 ### Example of Good vs. Poor Hierarchy
 
 **Good**:
+
 ```
 TITLE IN 48PT BOLD
 [2 lines white space]
@@ -141,6 +146,7 @@ TITLE IN 48PT BOLD
 ```
 
 **Poor**:
+
 ```
 Title in 28pt
 • point1 • point2 • point3 • point4 • point5 • point6
@@ -199,12 +205,14 @@ Notes: [Any issues found and fixed]
 ### Browser Tools
 
 **Chrome DevTools**:
+
 1. Open Chrome Developer Tools (F12)
 2. Go to **Lighthouse** tab
 3. Run accessibility audit
 4. Check for colour contrast issues
 
 **WAVE Browser Extension** (for web-based presentations):
+
 1. Install WAVE from [webaim.org](https://webaim.org)
 2. Run on presentation page
 3. Review errors and contrast warnings
@@ -213,8 +221,8 @@ Notes: [Any issues found and fixed]
 
 If you want to test with a screen reader:
 
-- **NVDA** (Windows, free): https://www.nvaccess.org/
-- **JAWS** (Windows, paid): https://www.freedomscientific.com/
+- **NVDA** (Windows, free): <https://www.nvaccess.org/>
+- **JAWS** (Windows, paid): <https://www.freedomscientific.com/>
 - **VoiceOver** (Mac, built-in): System Preferences > Accessibility > VoiceOver
 
 1. Open presentation
@@ -272,14 +280,13 @@ If you want to test with a screen reader:
 
 ## Resources
 
-- **WebAIM Contrast Checker**: https://webaim.org/resources/contrastchecker/
-- **Colour Blindness Simulator**: https://www.color-blindness.com/coblis-color-blindness-simulator/
-- **WCAG 2.2 Guidelines**: https://www.w3.org/WAI/WCAG22/quickref/
-- **Google Slides Accessibility Help**: https://support.google.com/docs/answer/6199477
+- **WebAIM Contrast Checker**: <https://webaim.org/resources/contrastchecker/>
+- **Colour Blindness Simulator**: <https://www.color-blindness.com/coblis-color-blindness-simulator/>
+- **WCAG 2.2 Guidelines**: <https://www.w3.org/WAI/WCAG22/quickref/>
+- **Google Slides Accessibility Help**: <https://support.google.com/docs/answer/6199477>
 
 ---
 
 **Audit Template Version**: 1.0  
 **Created**: 2026-05-30  
 **Last Updated**: [May 31 after verification]
-

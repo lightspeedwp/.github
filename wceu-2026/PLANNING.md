@@ -4,7 +4,7 @@ description: "Simplified 48-hour action plan to finalize slide deck for June 5-6
 created_date: "2026-05-29"
 last_updated: "2026-05-29"
 version: "v2.0.0"
-file_type: "planning"
+file_type: documentation
 owners: ["Ash Shaw"]
 tags: ["wceu-2026", "talk-preparation", "planning", "critical-path"]
 ---
@@ -20,12 +20,14 @@ tags: ["wceu-2026", "talk-preparation", "planning", "critical-path"]
 
 ## Executive Summary
 
-**Current State**: 
+**Current State**:
+
 - ✅ Foundational assets exist (SLIDES_GENERATION_PROMPT, talk outline stub, 20 slide files)
 - ⚠️ Missing: Final slide content (all 20 slides), cover/intro/contact/thank-you slides, NotebookLM sources index
 - ⏰ **Critical constraint**: 48 hours to finalize
 
-**Strategy**: 
+**Strategy**:
+
 - Use existing slide structure + NotebookLM to generate content
 - Commit your profile photo to assets
 - Create 4 new slides (cover, intro, contact, thank-you)
@@ -33,6 +35,7 @@ tags: ["wceu-2026", "talk-preparation", "planning", "critical-path"]
 - Defer non-blocking work (agents, website, detailed WordPress integration) to post-WCEU
 
 **Timeline**:
+
 - **Today (May 29)**: Planning approved, sources indexed, GitHub issues created
 - **Tomorrow (May 30)**: Content generation via NotebookLM, photo committed, slide structure finalized
 - **May 31**: Google Slides design pass, speaker notes added, final review
@@ -44,22 +47,27 @@ tags: ["wceu-2026", "talk-preparation", "planning", "critical-path"]
 ## Immediate Deliverables (Next 48 Hours)
 
 ### 1. Profile Photo Asset
+
 **Owner**: Ash Shaw  
 **Status**: Pending  
 **Action**:
+
 - [ ] Commit `wceu-2026/assets/ash-shaw-profile.jpg` to repo
 - [ ] Reference in NotebookLM sources (for slide 2: "Meet the Speaker")
 
 ### 2. NotebookLM Sources Index
+
 **Owner**: Claude  
 **Status**: To be created  
 **Deliverable**: `wceu-2026/notebooklm/sources-index.md`
 **Contents**:
+
 - All develop-branch URLs (one per line, 400+ max)
 - Organized by category: Foundation, Architecture, Plugins, Talk-Specific, WordPress Integration
 - Ready to paste into NotebookLM session
 
 **Categories & Sources**:
+
 ```
 # FOUNDATION & GOVERNANCE
 https://github.com/lightspeedwp/.github/blob/develop/README.md
@@ -90,6 +98,7 @@ https://github.com/WordPress/agent-skills (external reference for roadmap docs)
 ```
 
 ### 3. Four New Slides (Cover, Intro, Contact, Thank-You)
+
 **Owner**: Claude (using NotebookLM) + Ash Shaw (design in Google Slides)  
 **Status**: To be generated  
 **Slides**:
@@ -102,9 +111,11 @@ https://github.com/WordPress/agent-skills (external reference for roadmap docs)
 | 24 | **Thank You** | Simple closing slide | Standard template |
 
 ### 4. Slide Content Generation (20 slides)
+
 **Owner**: NotebookLM → Claude → Ash Shaw  
 **Status**: Pending  
 **Process**:
+
 1. Claude creates NotebookLM session with sources index
 2. Claude provides NotebookLM-generated slide briefs (key points, talking points, diagram suggestions)
 3. Ash Shaw transfers content to Google Slides + applies dark-mode design
@@ -166,12 +177,14 @@ wceu-2026/
 ## GitHub Issues (Parent + Child)
 
 ### Parent Issue: "WCEU 2026 Talk Preparation"
+
 **Status**: Active  
 **Priority**: Critical  
 **Due**: May 31, 2026  
 **Description**: Centralized tracking for finalizing the WordCamp Europe 2026 talk (25-minute presentation, 24 slides, dark-mode Google Slides)
 
 **Acceptance Criteria**:
+
 - ✅ Slide deck finalized in Google Slides (24 slides, dark mode, speaker notes)
 - ✅ Profile photo committed to assets
 - ✅ NotebookLM sources index created
@@ -185,10 +198,12 @@ wceu-2026/
 ### Child Issues (Prioritized)
 
 #### NOW (Next 6 hours)
+
 - **[WCEU-01]** Create NotebookLM sources index (`notebooklm/sources-index.md`)
 - **[WCEU-02]** Commit profile photo to assets
 
 #### ASAP (Next 24 hours)
+
 - **[WCEU-03]** Run NotebookLM session: Generate slide briefs for all 24 slides
 - **[WCEU-04]** Create glossary (`references/glossary.md`): LightSpeed terms, GitHub basics, AI-ops concepts
 - **[WCEU-05]** Create cover slide content (slide 1)
@@ -197,6 +212,7 @@ wceu-2026/
 - **[WCEU-08]** Create thank-you slide (slide 24)
 
 #### URGENT (24–48 hours)
+
 - **[WCEU-09]** Finalize all 20 content slides (3–22) using NotebookLM briefs
 - **[WCEU-10]** Add speaker notes to all 24 slides (timing, key points, transitions)
 - **[WCEU-11]** Apply dark-mode design system to all slides (verify WCAG AA/AAA contrast)
@@ -208,6 +224,7 @@ wceu-2026/
 ## What's Deferred (Post-WCEU)
 
 **Not blocking the talk**:
+
 - ❌ 7 agent slide decks (separate from main presentation)
 - ❌ Website (awesome-copilot style, ongoing resource)
 - ❌ Detailed WordPress integration work (detailed roadmap created now, work happens later)

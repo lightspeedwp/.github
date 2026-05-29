@@ -2,6 +2,7 @@
 title: "WordPress Integration Slide Template — Slide 20"
 description: "Template for roadmap slide with WordPress agent-skills reference"
 created_date: "2026-05-30"
+file_type: documentation
 ---
 
 # WordPress Integration Slide Template
@@ -16,6 +17,7 @@ created_date: "2026-05-30"
 ## Slide 20 Content & Speaker Notes
 
 ### Slide Title
+
 **"The Roadmap Ahead"** (or "Year 1 Vision")
 
 ### Visual Design
@@ -39,6 +41,7 @@ WCEU 2026      AUDIT & MAPPING      DISTRIBUTION      MAINTENANCE
 **Main message**: "We're not stopping here. WordPress integration is the next chapter."
 
 **Option 1: Timeline Format**
+
 - 🎯 **May 2026**: WCEU talk (governance foundations)
 - 🔍 **Jun–Aug 2026**: WordPress agent-skills audit + mapping
 - 🔗 **Sep–Dec 2026**: Integration design + GPL 3.0 alignment
@@ -46,12 +49,14 @@ WCEU 2026      AUDIT & MAPPING      DISTRIBUTION      MAINTENANCE
 - 🚀 **Year 2+**: Ecosystem expansion + cross-org integrations
 
 **Option 2: Phased Roadmap**
+
 - **Phase 1 (Now)**: Foundations (this talk, .github repo)
 - **Phase 2 (Year 1)**: WordPress integration (audit, mapping, adaptation)
 - **Phase 3 (Year 2)**: Distribution (plugin pack available)
 - **Phase 4 (Year 3+)**: Ecosystem (agents, skills, open-source community)
 
 **Option 3: Key Initiatives**
+
 - 🌐 **WordPress Agent-Skills** — Integrate existing ecosystem
 - 📋 **License Alignment** — GPL 3.0 for open-source compatibility
 - 🤝 **Community Collaboration** — WordPress Foundation partnership
@@ -98,6 +103,7 @@ Our Year 1 vision is to audit WordPress agent-skills, understand how it aligns w
 The WordPress Foundation released [WordPress agent-skills](https://github.com/WordPress/agent-skills) as a community project to enable AI-driven automation in WordPress governance.
 
 **Key Points to Know**:
+
 - **Scope**: Reusable skills for WordPress governance automation
 - **License**: GPL 3.0 (same as WordPress core)
 - **Maturity**: Early, community-driven
@@ -127,16 +133,19 @@ The WordPress Foundation released [WordPress agent-skills](https://github.com/Wo
 ### Visual Options
 
 **Option A: Linear Timeline**
+
 ```
 [Timeline arrow with 4 phases, milestones, and icons]
 ```
 
 **Option B: Circular Roadmap**
+
 ```
 [Circle with 4 quadrants: Now, Year 1, Year 2, Year 3+]
 ```
 
 **Option C: Phased Pyramid**
+
 ```
 [Layered pyramid: Phase 1 (base) → 2 → 3 → 4 (top)]
 ```
@@ -244,4 +253,3 @@ You can mention: "We've published a detailed roadmap on GitHub if you want to di
 **Created**: 2026-05-30  
 **Status**: Ready for integration into Google Slides  
 **Reference**: `/wceu-2026/WORDPRESS_INTEGRATION_ROADMAP.md`
-

@@ -3,6 +3,7 @@ title: "Phase 3 Execution Guide — Content Transfer + Design Polish"
 description: "May 31 final push: slides 3–22, speaker notes, design system, accessibility"
 created_date: "2026-05-30"
 last_updated: "2026-05-30"
+file_type: documentation
 ---
 
 # Phase 3 Execution Guide
@@ -75,16 +76,19 @@ For each of slides 3–22:
 ### Slide 3–5: Problem Section (3 slides)
 
 **Slide 3: The Challenge**
+
 - Message: Current state is fragmented, inconsistent, manual
 - Visual: Before diagram (scattered repos, no alignment)
 - Bullets: Inconsistency, manual burden, scalability limits
 
 **Slide 4: Pain Points**
+
 - Message: Agencies & teams struggle with governance at scale
 - Visual: Timeline or flowchart showing bottlenecks
 - Bullets: Labeling delays, inconsistent processes, reviewer overhead
 
 **Slide 5: Why It Matters**
+
 - Message: Inconsistency costs time and trust
 - Visual: Metric infographic (80% labeling time savings, 100% consistency)
 - Bullets: Productivity, quality, team morale
@@ -92,36 +96,43 @@ For each of slides 3–22:
 ### Slide 6–12: Solution Section (7 slides)
 
 **Slide 6: The Solution — One .github Repo**
+
 - Message: Centralised governance = consistency at scale
 - Visual: Hub-and-spoke diagram (.github as hub, repos as spokes)
 - Bullets: Single source of truth, inheritance, consistency
 
 **Slide 7: The Plugin Pack System**
+
 - Message: Portable, installable governance plugins
 - Visual: Diagram showing plugin → hook → workflow flow
 - Bullets: Modularity, reusability, adoption flexibility
 
 **Slide 8: Hooks Layer**
+
 - Message: Semantic abstraction over GitHub Actions
 - Visual: Layer diagram (hooks → workflows)
 - Bullets: What (hook) vs. how (workflow), decoupling, flexibility
 
 **Slide 9: Workflow Layer**
+
 - Message: Where the magic happens (CI/CD automation)
 - Visual: Sample workflow diagram (trigger → jobs → completion)
 - Bullets: Actions, labeling, release notes, validation
 
 **Slide 10: Template System**
+
 - Message: Consistent templates reduce friction
 - Visual: Template evolution (blank → template → populated)
 - Bullets: Issue templates, PR templates, documentation
 
 **Slide 11: Automation Examples**
+
 - Message: Real examples from LightSpeed
 - Visual: 3-panel comparison (old vs. new)
 - Bullets: Labeling, release notes, accessibility checks
 
 **Slide 12: The Agent Layer**
+
 - Message: AI agents amplify human decisions
 - Visual: Agent feedback loop (human → agent → automation)
 - Bullets: Labeling agents, release agents, consistency
@@ -129,31 +140,37 @@ For each of slides 3–22:
 ### Slide 13–18: Implementation Section (6 slides)
 
 **Slide 13: Plugin Manifest**
+
 - Message: Declarative plugin definition
 - Visual: Sample manifest structure (simplified JSON/YAML)
 - Bullets: Version, dependencies, hooks, metadata
 
 **Slide 14: Repository Inheritance**
+
 - Message: Child repos inherit from .github automatically
 - Visual: Inheritance diagram (parent → child repos)
 - Bullets: Consistency enforcement, optional overrides
 
 **Slide 15: Distribution & Installation**
+
 - Message: Plugins are versioned, installable, updatable
 - Visual: Installation flow (discover → fork → enable → use)
 - Bullets: Git-based delivery, semantic versioning, rollback
 
 **Slide 16: Adoption Path**
+
 - Message: Start small, scale gradually
 - Visual: Adoption curve (phase 1 → 2 → 3)
 - Bullets: Pilot repos, feedback loop, org-wide rollout
 
 **Slide 17: Governance at Scale**
+
 - Message: Enforce standards without micromanagement
 - Visual: Governance model (policy → automation → consistency)
 - Bullets: Standards enforcement, audit trails, transparency
 
 **Slide 18: Real-World Impact**
+
 - Message: Proof from LightSpeed deployments
 - Visual: Metrics dashboard (time saved, consistency %, adoption %)
 - Bullets: 80% labeling time savings, 100% consistency, 2 pilot repos
@@ -161,21 +178,25 @@ For each of slides 3–22:
 ### Slide 19–22: Adoption & Future Section (4 slides)
 
 **Slide 19: Getting Started**
+
 - Message: Fork, read, participate
 - Visual: Step-by-step diagram (fork → read → join → share)
 - Bullets: Fork the repo, explore examples, join community
 
 **Slide 20: The Roadmap Ahead**
+
 - Message: WordPress integration + ecosystem expansion
 - Visual: Timeline (Year 1: audit & mapping, Year 2: distribution, Year 3+: automation)
 - Bullets: WordPress agent-skills integration, open-source licensing, broader adoption
 
 **Slide 21: Call to Action**
+
 - Message: Join the community, share your innovations
 - Visual: Community engagement diagram or social proof quotes
 - Bullets: Contribute, share use cases, collaborate
 
 **Slide 22: Closing Thought**
+
 - Message: One .github repo is the foundation for scalable governance
 - Visual: Final visual (optional, can be logo or simple graphic)
 - Bullets: Consistency, scalability, community
@@ -329,6 +350,7 @@ Link directly to: `wceu-2026/WORDPRESS_INTEGRATION_ROADMAP.md`
 ## Part 6: Final Review Checklist
 
 ### Content Completeness
+
 - [ ] All 24 slides present
 - [ ] Slides 3–22 have NotebookLM-based content
 - [ ] No placeholder text remaining
@@ -336,6 +358,7 @@ Link directly to: `wceu-2026/WORDPRESS_INTEGRATION_ROADMAP.md`
 - [ ] WordPress integration visible on roadmap slide
 
 ### Design & Accessibility
+
 - [ ] Dark mode applied to all slides
 - [ ] Colour scheme consistent
 - [ ] Contrast verified (WCAG AA minimum)
@@ -345,6 +368,7 @@ Link directly to: `wceu-2026/WORDPRESS_INTEGRATION_ROADMAP.md`
 - [ ] Footer present on all slides except cover and closing
 
 ### Speaker Notes
+
 - [ ] All 24 slides have speaker notes
 - [ ] Timing estimates on each slide
 - [ ] Key talking points documented
@@ -353,6 +377,7 @@ Link directly to: `wceu-2026/WORDPRESS_INTEGRATION_ROADMAP.md`
 - [ ] Total timing ≈ 25 minutes
 
 ### Polish
+
 - [ ] No typos or grammatical errors
 - [ ] Consistent abbreviations (e.g., "AI-ops" vs. "AI Ops")
 - [ ] Links correct and functional (if embedded)
@@ -360,6 +385,7 @@ Link directly to: `wceu-2026/WORDPRESS_INTEGRATION_ROADMAP.md`
 - [ ] Slide numbers in footer correct
 
 ### Delivery Readiness
+
 - [ ] Deck opens without errors
 - [ ] Slides transition smoothly
 - [ ] Speaker notes visible in presenter view
@@ -424,4 +450,3 @@ Post-May 31 (Weekend)
 ---
 
 **Ready**: By end of Phase 3, deck is presentation-ready for rehearsal.
-

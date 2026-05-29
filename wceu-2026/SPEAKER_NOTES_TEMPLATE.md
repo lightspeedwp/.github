@@ -2,6 +2,7 @@
 title: "Speaker Notes Template — All 24 Slides"
 description: "Pre-structured speaker notes for WCEU 2026 talk (to fill in after NotebookLM)"
 created_date: "2026-05-30"
+file_type: documentation
 ---
 
 # Speaker Notes Template — 25-Minute Talk
@@ -717,6 +718,7 @@ SPEAKER NOTES:
 ### Handling Interruptions
 
 If someone asks a question during the talk:
+
 - Answer briefly (30 seconds max)
 - Offer deeper discussion at the end: "Great question. Let's dive into that after the talk."
 
@@ -734,4 +736,3 @@ If someone asks a question during the talk:
 **Created**: 2026-05-30  
 **Updated**: [After NotebookLM briefs generated]  
 **Finalised**: May 31 EOD
-
