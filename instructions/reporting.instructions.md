@@ -1,12 +1,17 @@
 ---
-file_type: "instructions"
-scope: "repo-local"
+file_type: instructions
+scope: repo-local
 title: Reporting Instructions
 description: Guidelines for generating and storing reports in this repository.
-version: "1.1"
-last_updated: "2025-12-08"
-owners: ["LightSpeed Engineering"]
-tags: ["reporting", "automation", "governance", "standards"]
+version: '1.2'
+last_updated: '2026-05-29'
+owners:
+- LightSpeed Engineering
+tags:
+- reporting
+- automation
+- governance
+- standards
 ---
 
 # Reporting Instructions

@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Research"
 name: "Research"
 about: "Propose or document technical research, investigation, or exploratory work."
 title: "[Research] Create future plugin pack backlogs"

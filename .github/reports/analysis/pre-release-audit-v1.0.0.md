@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Pre-Release Audit Report - v1.0.0"
 description: "Comprehensive audit of repository readiness for v1.0.0 release including quality gates, blockers, and recommendations"
 category: "analysis"
@@ -8,11 +8,6 @@ last_updated: "2025-12-10"
 version: "1.0.0"
 author: "Release Engineering"
 tags: ["release", "audit", "quality", "v1.0.0", "readiness"]
-references:
-  - path: "test-coverage-expansion-plan.md"
-    description: "Test coverage strategy"
-  - path: "../../projects/active/v1.0.0-release-readiness-tasks.md"
-    description: "Release readiness tasks"
 ---
 
 # Pre-Release Audit Report - v1.0.0

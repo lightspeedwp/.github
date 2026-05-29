@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Task"
 name: "Task"
 about: "Request or propose focused implementation work"
 title: "[Task] Document current-state project-meta-sync contract"

@@ -1,6 +1,10 @@
 ---
-*Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
+file_type: "documentation"
+title: "Label Strategy"
+description: "Strategy and conventions for labeling issues and pull requests in the LightSpeed organization."
 ---
+
+*Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
 
 # LightSpeed GitHub Labelling Strategy
 

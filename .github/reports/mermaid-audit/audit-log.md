@@ -1,15 +1,21 @@
 ---
-title: "Wave 3A: Detailed Audit Log"
-description: "Line-by-line audit log with per-file findings, specific recommendations, and repair estimates for all README files with Mermaid diagrams."
-category: "Documentation"
-file_type: "documentation"
-version: "1.0"
-created_date: "2026-05-28"
-last_updated: "2026-05-28"
-owners: ["Codex"]
-tags: ["audit", "mermaid", "detailed-log", "accessibility"]
-status: "active"
-stability: "stable"
+title: 'Wave 3A: Detailed Audit Log'
+description: Line-by-line audit log with per-file findings, specific recommendations,
+  and repair estimates for all README files with Mermaid diagrams.
+category: Documentation
+file_type: documentation
+version: '1.0'
+created_date: '2026-05-28'
+last_updated: '2026-05-28'
+owners:
+- Codex
+tags:
+- audit
+- mermaid
+- detailed-log
+- accessibility
+status: active
+stability: stable
 ---
 
 # Wave 3A: Detailed Audit Log

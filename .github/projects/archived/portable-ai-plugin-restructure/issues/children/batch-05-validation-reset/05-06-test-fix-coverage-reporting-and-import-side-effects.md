@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Test Coverage"
 name: "Test Coverage"
 about: "Propose, add, or expand tests (unit, integration, E2E)."
 title: "[Test Coverage] Fix misleading coverage reporting and noisy import side effects"

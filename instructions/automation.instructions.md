@@ -1,17 +1,27 @@
 ---
-file_type: "instructions"
-title: "Automation Standards"
-description: "Comprehensive standards for GitHub automation agents, workflows, and repository health management"
-scope: "repo-local"
-version: "v1.0"
-last_updated: "2025-12-07"
-owners: ["GitHub Community Health Team"]
+file_type: instructions
+title: Automation Standards
+description: Comprehensive standards for GitHub automation agents, workflows, and
+  repository health management
+scope: repo-local
+version: v1.1
+last_updated: '2026-05-29'
+owners:
+- GitHub Community Health Team
 tags:
-  ["automation", "agents", "workflows", "github-actions", "release", "labeling"]
-applyTo: ["agents/**/*", "scripts/agents/**/*", ".github/workflows/**/*"]
-status: "active"
-stability: "stable"
-domain: "generic"
+- automation
+- agents
+- workflows
+- github-actions
+- release
+- labeling
+applyTo:
+- agents/**/*
+- scripts/agents/**/*
+- .github/workflows/**/*
+status: active
+stability: stable
+domain: generic
 ---
 
 # Automation Standards

@@ -1,13 +1,18 @@
 ---
-file_type: "documentation"
-title: "Agent Configuration Example - Unified Branding"
-description: "Example frontmatter and configuration patterns for the unified branding agent"
-category: "documentation"
-version: "1.0"
-created_date: "2026-05-29"
-last_updated: "2026-05-29T05:40:00Z"
-tags: ["schema", "configuration", "example", "branding"]
-stability: "stable"
+file_type: documentation
+title: Agent Configuration Example - Unified Branding
+description: Example frontmatter and configuration patterns for the unified branding
+  agent
+category: documentation
+version: '1.0'
+created_date: '2026-05-29'
+last_updated: '2026-05-29T05:40:00Z'
+tags:
+- schema
+- configuration
+- example
+- branding
+stability: stable
 ---
 
 # Agent Configuration Examples

@@ -1,16 +1,23 @@
 ---
-title: "Branding Agent Schema and Config Implementation — Issue #49"
-description: "Schema and configuration model specification for unified branding agent supporting category-aware Markdown headers, footers, and badges"
-file_type: "documentation"
-category: "Governance"
-version: "v1.0.0"
-created_date: "2026-05-28"
-last_updated: "2026-05-28"
-owners: ["Ash Shaw"]
-tags: ["branding", "schema", "configuration", "governance", "validation"]
-status: "active"
-stability: "stable"
-domain: "governance"
+title: 'Branding Agent Schema and Config Implementation — Issue #49'
+description: Schema and configuration model specification for unified branding agent
+  supporting category-aware Markdown headers, footers, and badges
+file_type: documentation
+category: Governance
+version: v1.0.0
+created_date: '2026-05-28'
+last_updated: '2026-05-28'
+owners:
+- Ash Shaw
+tags:
+- branding
+- schema
+- configuration
+- governance
+- validation
+status: active
+stability: stable
+domain: governance
 ---
 
 # Branding Agent Schema and Config Implementation (Issue #49)

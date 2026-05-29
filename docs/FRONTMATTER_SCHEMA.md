@@ -1,24 +1,23 @@
 ---
-file_type: "documentation"
-title: "Frontmatter Schema Documentation"
-version: "v2.0"
-last_updated: "2025-12-04"
-author: "LightSpeedWP"
-maintainer: "Ash Shaw"
-description: "Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter schema, including GitHub templates, AI configurations, and validation guidelines."
+file_type: documentation
+title: Frontmatter Schema Documentation
+version: v2.1
+last_updated: '2026-05-29'
+author: LightSpeedWP
+maintainer: Ash Shaw
+description: Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter
+  schema, including GitHub templates, AI configurations, and validation guidelines.
 tags:
-  [
-    "lightspeed",
-    "schema",
-    "frontmatter",
-    "governance",
-    "github",
-    "copilot",
-    "claude",
-    "gemini",
-  ]
-stability: "stable"
-domain: "governance"
+- lightspeed
+- schema
+- frontmatter
+- governance
+- github
+- copilot
+- claude
+- gemini
+stability: stable
+domain: governance
 ---
 
 ## Frontmatter Schema Specification
@@ -282,7 +281,6 @@ body:
     id: "contact"
     attributes:
       label: "Contact Details"
-      description: "How can the team reach you for more info?"
       placeholder: "e.g. email@example.com"
     validations:
       required: false
@@ -291,7 +289,6 @@ body:
     id: "steps"
     attributes:
       label: "Steps to Reproduce"
-      description: "Provide step-by-step instructions to reproduce the issue."
       placeholder: |
         1. Step one...
         2. Step two...
@@ -303,7 +300,6 @@ body:
     id: "browser"
     attributes:
       label: "Affected Browser(s)"
-      description: "Which web browsers show the issue?"
       options:
         - "Firefox"
         - "Chrome"
@@ -317,7 +313,6 @@ body:
     id: "agree"
     attributes:
       label: "Code of Conduct Agreement"
-      description: "Please confirm:"
       options:
         - label: "I have searched for duplicate issues"
           required: true

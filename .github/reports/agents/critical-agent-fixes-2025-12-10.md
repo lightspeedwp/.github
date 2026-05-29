@@ -1,14 +1,11 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Critical Agent Infrastructure Fixes"
 description: "Implementation report for fixing critical issues identified in agent infrastructure audit"
 category: "implementation"
 created_date: "2025-12-10"
 author: "Claude Code"
 tags: ["agents", "fixes", "critical", "infrastructure"]
-references:
-  - path: "../audits/agent-infrastructure-audit-2025-12-10.md"
-    description: "Original audit report"
 ---
 
 # Critical Agent Infrastructure Fixes
@@ -69,11 +66,8 @@ jobs:
    ```yaml
    references:
      - path: ".github/workflows/testing.yml"
-       description: "GitHub Actions testing workflow (uses npm scripts)"
      - path: "package.json"
-       description: "Test scripts configuration (npm run check, npm run test, npm run lint:all)"
      - path: ".github/instructions/coding-standards.instructions.md"
-       description: "Unified coding standards"
    ```
 
 2. **Added Implementation Note** (lines 49-50):

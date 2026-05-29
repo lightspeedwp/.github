@@ -1,5 +1,5 @@
 ---
-file_type: "project"
+file_type: "documentation"
 title: "Agent Launch Checklist"
 description: "Final pre-launch validation checklist for all automation agents before v1.0.0 release"
 version: "1.1"

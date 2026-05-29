@@ -1,15 +1,27 @@
 pull_request_rules:
+  - name: Auto-merge Dependabot dependency updates on develop
+    conditions:
+      - author=dependabot
+      - base=develop
+      - label=area:dependencies
+      - check-success=check
+      - check-success=lint
+      - check-success=validate
+      - -draft
+    actions:
+      merge:
+        method: squash
+
   - name: Auto-merge Dependabot security updates on develop
     conditions:
-      - author=dependabot[bot]
+      - author=dependabot
       - base=develop
-      - label=dependencies
+      - label=area:dependencies
       - label=meta:dependabot-security
-      - check-success=CI / check
-      - check-success=lint / lint
-      - check-success=reviewer / coderabbit-gate
+      - check-success=check
+      - check-success=lint
+      - check-success=validate
       - -draft
-      - -conflict
     actions:
       merge:
         method: squash

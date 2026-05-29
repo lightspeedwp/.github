@@ -1,11 +1,17 @@
 ---
-file_type: "documentation"
-title: "Security Policy"
-description: "Security vulnerability reporting and responsible disclosure policy for LightSpeed projects"
-version: "1.0"
-last_updated: "2025-12-04"
-owners: ["LightSpeed Security Team"]
-tags: ["security", "vulnerability", "disclosure", "reporting"]
+file_type: documentation
+title: Security Policy
+description: Security vulnerability reporting and responsible disclosure policy for
+  LightSpeed projects
+version: '1.1'
+last_updated: '2026-05-29'
+owners:
+- LightSpeed Security Team
+tags:
+- security
+- vulnerability
+- disclosure
+- reporting
 ---
 
 # Security Policy

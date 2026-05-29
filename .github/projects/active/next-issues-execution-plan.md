@@ -1,17 +1,24 @@
 ---
-title: "Next Issues Execution Plan"
-description: "Comprehensive execution plan for all open issues, active projects, and strategic workflows."
-version: "v2.2.1"
-created_date: "2026-05-28"
-last_updated: "2026-05-29T07:30:00Z"
-file_type: "project"
-maintainer: "LightSpeed Team"
-authors: ["Codex"]
-license: "GPL-3.0"
-tags: ["planning", "issues", "execution", "governance", "roadmap"]
-domain: "governance"
-stability: "active"
-status: "active"
+title: Next Issues Execution Plan
+description: Comprehensive execution plan for all open issues, active projects, and
+  strategic workflows.
+version: v2.2.1
+created_date: '2026-05-28'
+last_updated: '2026-05-29'
+file_type: documentation
+maintainer: LightSpeed Team
+authors:
+- Codex
+license: GPL-3.0
+tags:
+- planning
+- issues
+- execution
+- governance
+- roadmap
+domain: governance
+stability: stable
+status: active
 ---
 
 ## Executive Summary

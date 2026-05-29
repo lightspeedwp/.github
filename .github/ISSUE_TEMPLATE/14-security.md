@@ -1,8 +1,10 @@
 ---
+file_type: "issue-template"
 name: "🔐 Security"
-about: "Report vulnerabilities, security improvements, or compliance requirements."
-title: "[Security] <Brief summary>"
-labels: [status:needs-triage, priority:critical, area:security]
+description: "Report vulnerabilities, security improvements, or compliance requirements."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 <!--

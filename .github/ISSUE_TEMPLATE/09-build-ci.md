@@ -1,8 +1,10 @@
 ---
+file_type: "issue-template"
 name: "⚙️ Build & CI"
-about: "Propose changes, fixes, or improvements to build tools, CI/CD pipelines, or automation."
-title: "[Build/CI] <Short summary>"
-labels: [status:needs-triage, area:ci]
+description: "Propose changes, fixes, or improvements to build tools, CI/CD pipelines, or automation."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 ## Build/CI Summary

@@ -1,23 +1,30 @@
 ---
-title: "GitHub Workflow Consolidation (2026-05-28)"
-description: "Consolidate GitHub workflow governance into one lean, current spec that reflects live automation."
-version: "v1.0.0"
-created_date: "2026-05-28"
-last_updated: "2026-05-28T19:10:00Z"
-file_type: "project"
-maintainer: "LightSpeed Team"
-authors: ["Codex"]
-license: "GPL-3.0"
-tags: ["workflows", "consolidation", "governance", "automation"]
-domain: "governance"
-stability: "archived"
-status: "completed"
+title: GitHub Workflow Consolidation (2026-05-28)
+description: Consolidate GitHub workflow governance into one lean, current spec that
+  reflects live automation.
+version: v1.0.0
+created_date: '2026-05-28'
+last_updated: '2026-05-28'
+file_type: documentation
+maintainer: LightSpeed Team
+authors:
+- Codex
+license: GPL-3.0
+tags:
+- workflows
+- consolidation
+- governance
+- automation
+domain: governance
+stability: stable
+status: draft
 ---
 
 # GitHub Workflow Consolidation (2026-05-28)
 
 <!-- BADGES-START -->
 [![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
+[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
 [![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
 [![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
 [![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
@@ -76,6 +83,9 @@ This pack tracks:
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

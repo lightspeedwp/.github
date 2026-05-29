@@ -11,7 +11,8 @@ domain: "quality"
 stability: "stable"
 tools: ["codebase", "fetch", "findTestFiles", "githubRepo", "search", "usages"]
 permissions:
-  - "read"
+- read
 metadata:
-  guardrails: "Ask only one probing question at a time, confirm understanding before moving on, never jump to solutions, and document all reasoning."
+  guardrails: Ask only one probing question at a time, confirm understanding before
+    moving on, never jump to solutions, and document all reasoning.
 ---

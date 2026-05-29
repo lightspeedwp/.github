@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Audit"
 name: "Audit"
 title: "[Audit] Reusable .github assets quality gate"
 labels: [status:needs-audit, priority:important, type:documentation]

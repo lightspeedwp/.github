@@ -1,8 +1,10 @@
 ---
-name: "Build/CI PR"
-about: "Pipelines, linting, packaging, or release automation"
-title: "build(ci): {short summary}"
-labels: ["status:needs-review", "area:ci"]
+file_type: "pr-template"
+title: "PR Template - CI"
+description: "Pull request template for CI changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Build/CI Pull Request
