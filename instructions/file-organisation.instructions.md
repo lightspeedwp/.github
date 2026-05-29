@@ -4,7 +4,6 @@ title: File Organisation
 description: File placement rules and directory structure conventions for organizing code, documentation, tests, and automation across LightSpeedWP repositories.
 scope: organization-wide
 applyTo: '**'
-<<<<<<< HEAD
 version: v1.1
 last_updated: '2026-05-29'
 owners:
