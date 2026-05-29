@@ -2,7 +2,7 @@
 title: "Branding Agent Current-State Audit — Issue #48"
 description: "Current-state audit and remediation planning for unified branding agent implementation across repository"
 file_type: "documentation"
-category: "Governance"
+category: "governance"
 version: "v1.0.0"
 created_date: "2026-05-28"
 last_updated: "2026-05-28"
@@ -397,13 +397,14 @@ npm run generate:badges
 
 ### 7.1 New Documents
 
-- `branding-compliance-guide.md`: Contributor guide for branding requirements
-- `category-mapping-reference.md`: Quick reference for path-to-category inference
-- `footer-variant-selection-guide.md`: How to choose footer templates
-- `badge-usage-rules.md`: When and how to use each badge type
+- `BRANDING_COMPLIANCE_GUIDE.md`: Contributor guide for branding requirements
+- `CATEGORY_MAPPING_REFERENCE.md`: Quick reference for path-to-category inference
+- `FOOTER_VARIANT_SELECTION_GUIDE.md`: How to choose footer templates
+- `BADGE_USAGE_RULES.md`: When and how to use each badge type
 
 ### 7.2 Updated Documents
 
+- `/docs/MIGRATION.md`: Document badge migration maps and remediation notes (new)
 - `CONTRIBUTING.md`: Add branding compliance section
 - `.github/DEVELOPMENT.md`: Add pre-commit validation instructions
 - `.github/instructions/markdown.instructions.md`: Update with new standards
