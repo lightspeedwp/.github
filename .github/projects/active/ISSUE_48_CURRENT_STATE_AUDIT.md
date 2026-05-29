@@ -462,7 +462,7 @@ Once this specification is approved:
 2. **Code Review**: Address feedback on audit findings
 3. **Merge**: Integrate audit results into develop branch
 4. **Implementation**: Begin remediation execution using scripts and roadmap
-5. **Agent Development**: Proceed with Issue #? (agent implementation)
+5. **Agent Development**: Proceed with Issue #555 (agent merge/refactor)
 
 ---
 
@@ -487,4 +487,4 @@ Once this specification is approved:
 - Issue #33: Branding agent parent specification
 - Issue #46: Template design
 - Issue #49: Schema/config model
-- WCAG 2.2 AA: <https://www.w3.org/WAI/WCAG22/quickref/>
+- [WCAG 2.2 AA quick reference](https://www.w3.org/WAI/WCAG22/quickref/)
