@@ -1,11 +1,8 @@
 ---
 title: "[WCEU-01] Create NotebookLM sources index"
-type: "child-issue"
-priority: "critical"
-status: "todo"
-due_date: "2026-05-29"
-assignee: "Claude"
-parent_issue: "WCEU 2026 Talk Preparation"
+description: "Create NotebookLM sources index for WCEU 2026 talk"
+created_date: "2026-05-29"
+file_type: documentation
 ---
 
 # [WCEU-01] Create NotebookLM sources index
@@ -29,7 +26,8 @@ Create a comprehensive index of all develop-branch URLs to be used with Notebook
 
 **File**: `wceu-2026/notebooklm/sources-index.md`
 
-**Format**: 
+**Format**:
+
 ```
 # NotebookLM Sources Index for WCEU 2026 Talk
 
@@ -53,6 +51,7 @@ https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md
 ```
 
 **Key Requirements**:
+
 - [ ] All URLs must use `https://github.com/lightspeedwp/.github/blob/develop/` (develop branch only)
 - [ ] One URL per line (NotebookLM format)
 - [ ] Organized by category (Foundation, Architecture, Plugins, Talk-Specific)
@@ -65,6 +64,7 @@ https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md
 ## Sources to Include
 
 ### Foundation & Governance (5-8 URLs)
+
 - `README.md`
 - `AGENTS.md`
 - `CLAUDE.md`
@@ -73,6 +73,7 @@ https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md
 - `instructions/` folder
 
 ### Architecture & Design (5-8 URLs)
+
 - `docs/ARCHITECTURE.md` (if exists)
 - `docs/AUTOMATION_GOVERNANCE.md` (if exists)
 - `docs/PLUGIN_PACK_ROADMAP.md` (if exists)
@@ -80,6 +81,7 @@ https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md
 - Agent specifications (if separate files)
 
 ### Plugin Pack & Adoption (8-12 URLs)
+
 - `plugins/README.md`
 - `plugins/PLUGIN_MANIFEST.json` (or similar)
 - `docs/PLUGIN_INSTALLATION_GUIDE.md` (if exists)
@@ -89,6 +91,7 @@ https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md
 - Instruction file examples
 
 ### AI-Ops & Agents (8-10 URLs)
+
 - Release agent spec/instructions
 - Branding agent spec/instructions
 - Meta agent spec/instructions
@@ -98,6 +101,7 @@ https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md
 - Planner agent spec/instructions
 
 ### Talk-Specific Assets (4-6 URLs)
+
 - `wceu-2026/talk-outline-25min.md`
 - `wceu-2026/SLIDES_GENERATION_PROMPT.md`
 - `wceu-2026/references/` (if exists)
@@ -105,6 +109,7 @@ https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md
 - `wceu-2026/WORDPRESS_INTEGRATION_ROADMAP.md`
 
 ### WordPress Integration (1-2 URLs)
+
 - Reference to WordPress repo (external, for context)
 - Integration roadmap
 
@@ -125,6 +130,7 @@ https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md
 ## Usage
 
 Once complete, this file will be used in [WCEU-03]:
+
 1. Copy all URLs from this file
 2. Paste into new NotebookLM session
 3. Add the `SLIDES_GENERATION_PROMPT.md` as the main brief

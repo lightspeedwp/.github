@@ -1,15 +1,8 @@
 ---
 title: "NotebookLM Deep Research Prompt"
 description: "Comprehensive prompt for NotebookLM to analyse the WCEU 2026 talk direction using only approved internal sources from lightspeedwp/.github repository with explicit develop-branch URLs"
-file_type: "prompt"
-category: "Documentation"
-version: "1.0.0"
-last_updated: "2026-05-28"
-owners: ["Engineering Team"]
-tags: ["wceu-2026", "notebooklm", "talk-research", "analysis"]
-status: "active"
-stability: "stable"
-domain: "documentation"
+created_date: "2026-05-28"
+file_type: documentation
 ---
 
 # NotebookLM Deep Research Prompt: WCEU 2026 Talk Analysis

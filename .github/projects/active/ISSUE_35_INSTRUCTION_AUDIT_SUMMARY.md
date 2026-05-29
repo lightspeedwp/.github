@@ -1,12 +1,8 @@
 ---
 title: "Issue #35: Instruction File Audit & Scope Clarification — Summary"
 description: "Audit findings for instruction files: organization-wide vs repo-local scope, overlapping guidance, and cross-linking improvements."
-version: "v1.0"
-last_updated: "2026-05-29"
-created: "2026-05-29"
-file_type: "report"
-owners: ["LightSpeed Team"]
-related_issue: "#35"
+created_date: "2026-05-29"
+file_type: documentation
 ---
 
 # Issue #35: Instruction File Audit & Scope Clarification — Summary

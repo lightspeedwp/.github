@@ -1,11 +1,8 @@
 ---
 title: "WCEU 2026 Talk Preparation"
-type: "issue"
-priority: "critical"
-status: "active"
-due_date: "2026-05-31"
-labels: ["wceu-2026", "talk-preparation", "critical-path"]
-assignee: "Ash Shaw"
+description: "Parent issue tracking WCEU 2026 talk preparation work"
+created_date: "2026-05-29"
+file_type: documentation
 ---
 
 # WCEU 2026 Talk Preparation — Parent Issue
@@ -26,6 +23,7 @@ assignee: "Ash Shaw"
 Centralized tracking for finalizing the WordCamp Europe 2026 presentation on "One .github repo to rule them all: From central governance to installable AI-Ops plugins".
 
 **Talk Format**:
+
 - Duration: 25 minutes
 - Audience: 200–500 people (WordPress agencies, product teams, engineers)
 - Slides: 24 (dark mode, Google Slides, static)
@@ -33,6 +31,7 @@ Centralized tracking for finalizing the WordCamp Europe 2026 presentation on "On
 - Recording: VideoPress (available within weeks post-WCEU)
 
 **Current State**:
+
 - ✅ Foundational assets exist (SLIDES_GENERATION_PROMPT, talk outline, 20 slide files)
 - ⚠️ Missing: Final slide content (all 24 slides), NotebookLM sources index, profile photo
 - ⏰ **Critical constraint**: 48 hours to finalize
@@ -44,6 +43,7 @@ Centralized tracking for finalizing the WordCamp Europe 2026 presentation on "On
 All items must be complete by **May 31, 2026 EOD** for the talk to proceed successfully.
 
 ### Slide Deck
+
 - [ ] 24-slide deck finalized in Google Slides (dark mode)
 - [ ] All slides follow WCAG AA/AAA contrast requirements
 - [ ] Cover slide (slide 1): Title, subtitle, speaker attribution
@@ -54,6 +54,7 @@ All items must be complete by **May 31, 2026 EOD** for the talk to proceed succe
 - [ ] All slides include footer (slide number + "WordCamp Europe 2026")
 
 ### Content & Messaging
+
 - [ ] All 24 slides have speaker notes (timing, key points, transitions)
 - [ ] Glossary document created (`references/glossary.md`) covering:
   - LightSpeed-specific terms (plugins, manifest, hooks layer, etc.)
@@ -65,12 +66,14 @@ All items must be complete by **May 31, 2026 EOD** for the talk to proceed succe
 - [ ] Call-to-action clear (read repo → fork → join community → share)
 
 ### Assets & Metadata
+
 - [ ] Profile photo committed to `wceu-2026/assets/ash-shaw-profile.jpg`
 - [ ] NotebookLM sources index created (`notebooklm/sources-index.md`)
 - [ ] WordPress Integration Roadmap created (`WORDPRESS_INTEGRATION_ROADMAP.md`)
 - [ ] All source files reference correct GitHub develop-branch URLs
 
 ### Design & Accessibility
+
 - [ ] Dark mode applied consistently
 - [ ] LightSpeed branding colors used appropriately
 - [ ] All text meets WCAG AA contrast ratio (4.5:1 minimum)
@@ -79,6 +82,7 @@ All items must be complete by **May 31, 2026 EOD** for the talk to proceed succe
 - [ ] Static slides only (no animations)
 
 ### Documentation
+
 - [ ] `PLANNING.md` finalized (streamlined 48-hour plan)
 - [ ] `WORDPRESS_INTEGRATION_ROADMAP.md` finalized (post-WCEU roadmap)
 - [ ] All GitHub issues created and linked
@@ -104,10 +108,12 @@ All items must be complete by **May 31, 2026 EOD** for the talk to proceed succe
 ## Child Issues
 
 **NOW (Next 6 hours)**:
+
 - [ ] [WCEU-01] Create NotebookLM sources index
 - [ ] [WCEU-02] Commit profile photo to assets
 
 **ASAP (Next 24 hours)**:
+
 - [ ] [WCEU-03] Run NotebookLM session — Generate slide briefs for all 24 slides
 - [ ] [WCEU-04] Create glossary document
 - [ ] [WCEU-05] Create cover slide (slide 1)
@@ -116,6 +122,7 @@ All items must be complete by **May 31, 2026 EOD** for the talk to proceed succe
 - [ ] [WCEU-08] Create thank-you slide (slide 24)
 
 **URGENT (24–48 hours)**:
+
 - [ ] [WCEU-09] Finalize all content slides (slides 3–22)
 - [ ] [WCEU-10] Add speaker notes to all 24 slides
 - [ ] [WCEU-11] Apply dark-mode design system + verify contrast
@@ -157,6 +164,7 @@ From the Q&A with Ash Shaw (May 29):
 ## What's NOT Blocking This Issue
 
 **Post-WCEU deliverables** (don't block the talk):
+
 - ❌ 7 agent slide decks (separate resource)
 - ❌ Website (awesome-copilot style, ongoing resource)
 - ❌ Detailed WordPress integration work (roadmap created now, work begins later)
@@ -258,9 +266,11 @@ By **May 31, 2026 EOD**:
 ---
 
 ## Labels
+
 `wceu-2026` `talk-preparation` `critical-path` `epic` `presentation` `25min-talk`
 
 ## Linked Issues
+
 - [WCEU-01] Create NotebookLM sources index
 - [WCEU-02] Commit profile photo to assets
 - [WCEU-03] Run NotebookLM session

@@ -1,11 +1,8 @@
 ---
 title: "[WCEU-02] Commit profile photo to assets"
-type: "child-issue"
-priority: "critical"
-status: "todo"
-due_date: "2026-05-29"
-assignee: "Claude"
-parent_issue: "WCEU 2026 Talk Preparation"
+description: "Commit profile photo to WCEU 2026 assets"
+created_date: "2026-05-29"
+file_type: documentation
 ---
 
 # [WCEU-02] Commit profile photo to assets
@@ -30,6 +27,7 @@ Commit Ash Shaw's profile photo to the repository assets folder. This photo will
 **File**: `wceu-2026/assets/ash-shaw-profile.jpg`
 
 **Photo Requirements**:
+
 - Format: JPG (optimized for web)
 - Dimensions: ~400x500px (portrait orientation)
 - Quality: High-resolution headshot

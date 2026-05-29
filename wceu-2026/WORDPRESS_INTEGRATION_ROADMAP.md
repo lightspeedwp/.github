@@ -2,13 +2,7 @@
 title: "WordPress Agent-Skills Integration Roadmap"
 description: "Post-WCEU plan for integrating WordPress agent-skills into LightSpeed's plugin system"
 created_date: "2026-05-29"
-last_updated: "2026-05-29"
-version: "v1.0.0"
 file_type: documentation
-category: "strategy"
-owners: ["Ash Shaw", "Engineering Team"]
-tags: ["wordpress-integration", "agent-skills", "roadmap", "post-wceu", "gpl-3.0"]
-status: "planning"
 ---
 
 # WordPress Agent-Skills Integration Roadmap
