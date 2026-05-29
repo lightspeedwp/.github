@@ -1,3 +1,19 @@
+---
+title: "GitHub Workflow Consolidation (2026-05-28)"
+description: "Consolidate GitHub workflow governance into one lean, current spec that reflects live automation."
+version: "v1.0.0"
+created_date: "2026-05-28"
+last_updated: "2026-05-28T19:10:00Z"
+file_type: "project"
+maintainer: "LightSpeed Team"
+authors: ["Codex"]
+license: "GPL-3.0"
+tags: ["workflows", "consolidation", "governance", "automation"]
+domain: "governance"
+stability: "archived"
+status: "completed"
+---
+
 # GitHub Workflow Consolidation (2026-05-28)
 
 <!-- BADGES-START -->
