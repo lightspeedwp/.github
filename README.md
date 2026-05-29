@@ -4,7 +4,7 @@ description: "Central hub for LightSpeed organization's community health files, 
 category: "readme"
 version: "2.5"
 created_date: "2025-01-10"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -13,13 +13,6 @@ tags:
   ["community-health", "automation", "governance", "labels", "workflows", "ai"]
 domain: "governance"
 stability: "stable"
-references:
-  - path: ".github/custom-instructions.md"
-    description: "Custom instructions for GitHub Copilot"
-  - path: "instructions/coding-standards.instructions.md"
-    description: "Unified coding standards"
-  - path: "instructions/automation.instructions.md"
-    description: "Automation and agent standards"
 ---
 
 # 🏠 LightSpeed Community Health & Automation Repository

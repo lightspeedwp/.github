@@ -4,7 +4,7 @@ title: "LightSpeed WordPress Development Agency - GitHub Profile"
 description: "Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003"
 version: "2.1"
 created_date: "2025-10-20"
-last_updated: "2025-12-04"
+last_updated: "2026-05-29"
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp/maintainers"]
@@ -22,13 +22,6 @@ tags:
     "tour-operator",
     "community",
   ]
-references:
-  - path: "../.github/custom-instructions.md"
-    description: "AI custom instructions"
-  - path: "../CONTRIBUTING.md"
-    description: "Contribution guidelines"
-  - path: "../SUPPORT.md"
-    description: "Support resources"
 ---
 
 # 🚀 LightSpeed WordPress Development Agency
