@@ -1,6 +1,7 @@
 ---
 version: "v0.1.0"
 last_updated: "2025-12-04"
+title: "Architecture Guide"
 owners: ["lightspeedwp"]
 file_type: "architecture-guide"
 category: "documentation"

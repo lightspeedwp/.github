@@ -1,6 +1,7 @@
 ---
 version: "v0.1.1"
 last_updated: "2026-05-27"
+title: "Documentation Index"
 owners: ["lightspeedwp"]
 file_type: "index"
 category: "documentation"

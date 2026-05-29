@@ -1,6 +1,7 @@
 ---
 version: "v2.2.0"
 last_updated: "2026-05-29"
+title: "Release Process"
 owners: ["lightspeedwp"]
 file_type: "process-guide"
 category: "release-management"
