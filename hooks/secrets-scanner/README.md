@@ -1,5 +1,5 @@
 ---
-file_type: "hook"
+file_type: "documentation"
 title: "secrets-scanner hook"
 description: "Scans changed files for likely secrets before commit or release workflows."
 version: "v0.1.0"
