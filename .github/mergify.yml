@@ -8,7 +8,6 @@ pull_request_rules:
       - check-success=lint
       - check-success=validate
       - -draft
-      - -conflict
     actions:
       merge:
         method: squash
@@ -23,7 +22,6 @@ pull_request_rules:
       - check-success=lint
       - check-success=validate
       - -draft
-      - -conflict
     actions:
       merge:
         method: squash
