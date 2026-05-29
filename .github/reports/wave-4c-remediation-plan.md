@@ -4,7 +4,7 @@ description: "Detailed remediation recommendations with effort estimates and pri
 file_type: "documentation"
 version: "1.1"
 created_date: "2026-05-29"
-last_updated: "2026-05-29T05:34:00Z"
+last_updated: "2026-05-29"
 category: "governance"
 ---
 

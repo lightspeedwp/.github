@@ -1,5 +1,5 @@
 ---
-file_type: "migration-guide"
+file_type: "documentation"
 title: "Instruction Consolidation Migration Guide"
 description: "Guide mapping old instruction files to their new locations in consolidated files"
 version: "v1.0"

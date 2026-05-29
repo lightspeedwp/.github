@@ -1,5 +1,5 @@
 ---
-file_type: "index"
+file_type: "documentation"
 title: ".github Schemas Boundary"
 description: "Repo-local index for schemas that remain under the .github control-plane boundary."
 version: "v0.2.0"
