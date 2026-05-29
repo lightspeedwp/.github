@@ -83,7 +83,7 @@ labels: ["type:feature", "status:needs-review", "area:feature"]
 - `assignees`: Default assignees.
 - `projects`: Default project boards.
 
-See [frontmatter instructions](./documentation-formats.instructions.md) and [frontmatter schema](../.schemas/frontmatter.schema.json) for validation.
+See [frontmatter instructions](./documentation-formats.instructions.md) and [frontmatter schema](../schema/frontmatter.schema.json) for validation.
 
 ---
 
@@ -192,7 +192,7 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
   - [Pull Request Saved Replies](../.github/SAVED_REPLIES/pull-requests/)
 - **Frontmatter:**
   - [Frontmatter Schema Guide](../docs/FRONTMATTER_SCHEMA.md)
-  - [Frontmatter Schema](../.schemas/frontmatter.schema.json)
+  - [Frontmatter Schema](../schema/frontmatter.schema.json)
 
 ---
 

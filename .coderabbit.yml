@@ -37,7 +37,7 @@ reviews:
     - "!assets/css/*.map"
     - "!logs/**"
     - "!docs/drafts/**"
-    - "!.schemas/**"
+    - "!schema/**"
     - "!coverage/**"
     - "!.jest-skip/**"
 

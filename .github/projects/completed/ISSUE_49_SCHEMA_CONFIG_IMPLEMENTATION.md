@@ -71,7 +71,7 @@ The branding agent supports 16 document categories as defined in Issue #33:
 | `documentation` | Documentation | General documentation, guides, tutorials | `docs/`, `README.md` |
 | `agents` | AI Agents | Agent specifications and behavior definitions | `.github/agents/`, agent specs |
 | `instructions` | Instructions | Procedural documentation, workflow steps | `.github/instructions/` |
-| `schemas` | Schemas | JSON Schema, data model definitions | `schema/`, `.schemas/` |
+| `schemas` | Schemas | JSON Schema, data model definitions | `schema/`, `schema/` |
 | `prompts` | Prompts | AI/ML prompts, templates, examples | `prompts/`, agent prompts |
 | `governance` | Governance | Policies, standards, guidelines | `CLAUDE.md`, `.coderabbit.yaml` |
 | `issue-template` | Issue Templates | GitHub issue templates | `.github/ISSUE_TEMPLATE/` |
@@ -566,7 +566,7 @@ path_mappings:
   ".github/instructions/**": "instructions"
   "instructions/**": "instructions"
   "schema/**": "schemas"
-  ".schemas/**": "schemas"
+  "schema/**": "schemas"
   "prompts/**": "prompts"
   ".github/workflows/**": "workflow"
   ".github/ISSUE_TEMPLATE/**": "issue-template"

@@ -124,7 +124,7 @@ npm run validate:frontmatter
 # Locally: inspect changed files manually or use markdown-link-check
 ```
 
-Frontmatter validation uses the canonical schema at `.schemas/frontmatter.schema.json`.
+Frontmatter validation uses the canonical schema at `schema/frontmatter.schema.json`.
 
 ## Examples
 

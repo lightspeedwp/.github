@@ -9,9 +9,9 @@ references:
     description: Coding standards for all scripts
   - path: ../instructions/documentation-formats.instructions.md
     description: Frontmatter and documentation format standards
-  - path: ../.schemas/frontmatter.schema.json
+  - path: ../schema/frontmatter.schema.json
     description: Frontmatter schema
-  - path: ../.schemas/collection.schema.json
+  - path: ../schema/collection.schema.json
     description: Collection schema
   - path: ../tests/README.md
     description: Testing framework
@@ -197,7 +197,7 @@ Scripts integrate with GitHub Actions workflows:
 Scripts work with various configuration files:
 
 - `.coderabbit.yml` — CodeRabbit configuration
-- `../.schemas/` — JSON/YAML validation schemas
+- `../schema/` — JSON/YAML validation schemas
 - `.github/workflows/` — GitHub Actions definitions
 - `fixtures/` — Test data and templates
 
@@ -305,7 +305,7 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 - [Coding Standards](../instructions/coding-standards.instructions.md)
 - [Quality Assurance](../instructions/quality-assurance.instructions.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
-- [Schema Definitions](../.schemas/)
+- [Schema Definitions](../schema/)
 
 ## External Dependencies
 
@@ -393,7 +393,7 @@ When contributing new scripts or modifications:
 ## Development Resources
 
 - [GitHub Actions Workflows](../.github/workflows/)
-- [Schema Definitions](../.schemas/)
+- [Schema Definitions](../schema/)
 - [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 

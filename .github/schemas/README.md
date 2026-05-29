@@ -11,7 +11,7 @@ tags: ["schemas", "github-boundary", "ai-ops"]
 domain: "governance"
 stability: "draft"
 references:
-  - path: "../../.schemas/README.md"
+  - path: "../../schema/README.md"
     description: "Portable schema library index."
   - path: "../projects/active/portable-ai-plugin-restructure/issues/children/batch-02-portable-migration/02-05-refactor-move-active-schemas-to-root-schemas.md"
     description: "Issue #297 local source draft."
