@@ -4,7 +4,6 @@ description: "Standard reply when a PR moves from draft to ready, outlining expe
 category: "Pull Request"
 labels:
   - status:needs-review
-references:
   - "../../CONTRIBUTING.md"
   - "../../PULL_REQUEST_TEMPLATE.md"
 ---

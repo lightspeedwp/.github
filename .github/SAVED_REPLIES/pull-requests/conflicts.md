@@ -4,7 +4,6 @@ description: "Guidance for resolving merge conflicts in PRs, with next steps for
 category: "Pull Request"
 labels:
   - status:blocked
-references:
   - "../../CONTRIBUTING.md"
   - "../../BRANCHING_STRATEGY.md"
 ---

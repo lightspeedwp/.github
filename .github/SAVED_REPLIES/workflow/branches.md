@@ -5,7 +5,6 @@ category: "Workflow"
 labels:
   - area:branching
   - status:needs-triage
-references:
   - "../../BRANCHING_STRATEGY.md"
   - "../../CONTRIBUTING.md"
 ---

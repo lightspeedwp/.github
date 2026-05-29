@@ -4,7 +4,6 @@ description: "General support responses and guidance for common questions. Refer
 category: "Issue Management"
 labels:
   - status:needs-triage
-references:
   - "../../SUPPORT.md"
   - "../../CONTRIBUTING.md"
   - "../../README.md"

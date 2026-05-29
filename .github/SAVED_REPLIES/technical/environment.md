@@ -5,7 +5,6 @@ category: "Technical Support"
 labels:
   - area:environment
   - status:needs-triage
-references:
   - "../../instructions/environment.md"
   - "../../CONTRIBUTING.md"
 ---

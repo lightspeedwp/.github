@@ -4,6 +4,5 @@ description: "Reply when a PR is ready for or requires quality assurance review 
 category: "Pull Request"
 labels:
   - status:needs-qa
-references:
   - "../../CONTRIBUTING.md"
 ---

@@ -4,7 +4,6 @@ description: "Standard responses for new issues in triage, requesting clarificat
 category: "Issue Management"
 labels:
   - status:needs-triage
-references:
   - "../ISSUE_LABELS.md"
   - "../../CONTRIBUTING.md"
 ---

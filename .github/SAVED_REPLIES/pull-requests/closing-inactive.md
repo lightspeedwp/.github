@@ -4,6 +4,5 @@ description: "Standard polite message for closing PRs due to inactivity or lack 
 category: "Pull Request"
 labels:
   - status:closed
-references:
   - "../../CONTRIBUTING.md"
 ---

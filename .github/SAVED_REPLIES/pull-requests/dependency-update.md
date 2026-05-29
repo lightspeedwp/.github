@@ -5,7 +5,6 @@ category: "Pull Request"
 labels:
   - area:dependencies
   - status:needs-review
-references:
   - "../instructions/dependencies.md"
   - "../instructions/automation.md"
 ---

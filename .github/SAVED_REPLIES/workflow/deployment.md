@@ -5,7 +5,6 @@ category: "Workflow"
 labels:
   - area:deployment
   - status:needs-triage
-references:
   - "../../instructions/automation.md"
   - "../../CONTRIBUTING.md"
 ---

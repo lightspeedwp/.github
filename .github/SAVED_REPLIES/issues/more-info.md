@@ -4,6 +4,5 @@ description: "Requests for additional detail when an issue is blocked by missing
 category: "Issue Management"
 labels:
   - status:needs-more-info
-references:
   - "../ISSUE_LABELS.md"
 ---

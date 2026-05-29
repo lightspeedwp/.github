@@ -4,7 +4,6 @@ description: "Standard response for accessibility-related issues, confirming rou
 category: "Issue Management"
 labels:
   - status:needs-design
-references:
   - "../ISSUE_LABELS.md"
   - "../ISSUE_TYPES.md"
 ---

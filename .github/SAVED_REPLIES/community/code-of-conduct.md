@@ -5,6 +5,5 @@ category: "Community"
 labels:
   - area:community
   - status:needs-triage
-references:
   - "../../CODE_OF_CONDUCT.md"
 ---

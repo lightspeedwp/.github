@@ -4,7 +4,6 @@ description: "Standard reply when PRs are missing required status, priority, or 
 category: "Pull Request"
 labels:
   - status:needs-triage
-references:
   - "../../PR_LABELS.md"
   - "../../CONTRIBUTING.md"
 ---

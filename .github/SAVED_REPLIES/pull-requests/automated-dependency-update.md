@@ -5,7 +5,6 @@ category: "Pull Request"
 labels:
   - area:dependencies
   - status:needs-review
-references:
   - "../../CONTRIBUTING.md"
   - "../../PR_LABELS.md"
 ---

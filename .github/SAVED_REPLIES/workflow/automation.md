@@ -6,7 +6,6 @@ labels:
   - area:automation
   - area:workflow
   - status:needs-triage
-references:
   - "../../AUTOMATION_GOVERNANCE.md"
   - "../../instructions/ci-cd-troubleshooting.md"
   - "https://docs.github.com/en/actions"

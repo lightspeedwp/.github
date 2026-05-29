@@ -4,7 +4,6 @@ description: "Standard responses for issues identified as epics, providing guida
 category: "Issue Management"
 labels:
   - status:in-progress
-references:
   - "../ISSUE_TYPES.md"
   - "../../CONTRIBUTING.md"
 ---

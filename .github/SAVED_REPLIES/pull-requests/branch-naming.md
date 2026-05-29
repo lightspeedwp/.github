@@ -4,7 +4,6 @@ description: "Standard response for PRs not following the branch naming conventi
 category: "Pull Request"
 labels:
   - status:needs-review
-references:
   - "../../BRANCHING_STRATEGY.md"
   - "../../CONTRIBUTING.md"
 ---

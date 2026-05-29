@@ -4,6 +4,5 @@ description: "Standard reply when a PR is awaiting feedback or changes from the 
 category: "Pull Request"
 labels:
   - status:needs-author-feedback
-references:
   - "../../CONTRIBUTING.md"
 ---

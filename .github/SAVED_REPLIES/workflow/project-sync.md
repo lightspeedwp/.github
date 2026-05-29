@@ -6,7 +6,6 @@ labels:
   - area:automation
   - area:project
   - status:needs-triage
-references:
   - "../../AUTOMATION_GOVERNANCE.md"
   - "../../CONTRIBUTING.md"
   - "https://docs.github.com/en/issues/organizing-your-work-with-projects"

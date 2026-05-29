@@ -4,7 +4,6 @@ description: "Standard reply for draft pull requests, encouraging early feedback
 category: "Pull Request"
 labels:
   - status:in-progress
-references:
   - "../../CONTRIBUTING.md"
   - "../../PULL_REQUEST_TEMPLATE.md"
 ---

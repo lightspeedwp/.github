@@ -4,7 +4,6 @@ description: "Prompt contributors to add a changelog entry to their PR, as requi
 category: "Pull Request"
 labels:
   - meta:needs-changelog
-references:
   - "../../AUTOMATION_GOVERNANCE.md"
   - "../../CONTRIBUTING.md"
   - "../../PULL_REQUEST_TEMPLATE.md"

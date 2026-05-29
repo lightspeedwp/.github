@@ -4,7 +4,6 @@ description: "Reply to clarify area/component label assignment for PR routing an
 category: "Pull Request"
 labels:
   - status:needs-triage
-references:
   - "../../labels.yml"
   - "../../PR_LABELS.md"
 ---

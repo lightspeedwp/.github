@@ -4,7 +4,6 @@ description: "Professional responses for duplicate issue management and consolid
 category: "Issue Management"
 labels:
   - status:duplicate
-references:
   - "../ISSUE_LABELS.md"
   - "../../CONTRIBUTING.md"
 ---

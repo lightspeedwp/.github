@@ -5,7 +5,6 @@ category: "Technical Support"
 labels:
   - area:dependencies
   - status:needs-triage
-references:
   - "../../instructions/dependencies.md"
   - "../../CONTRIBUTING.md"
 ---

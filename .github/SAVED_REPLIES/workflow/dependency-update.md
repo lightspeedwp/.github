@@ -6,7 +6,6 @@ labels:
   - area:dependencies
   - area:automation
   - status:needs-triage
-references:
   - "../../instructions/dependencies.md"
   - "../../CONTRIBUTING.md"
 ---

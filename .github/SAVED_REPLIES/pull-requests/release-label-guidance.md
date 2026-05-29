@@ -4,7 +4,6 @@ description: "Guidance for selecting the correct release label (patch, minor, ma
 category: "Pull Request"
 labels:
   - status:needs-review
-references:
   - "../../AUTOMATION_GOVERNANCE.md"
   - "../../PR_LABELS.md"
 ---

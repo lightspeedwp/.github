@@ -4,7 +4,6 @@ description: "Reply when a PR is re-labeled or routed to a specific area/compone
 category: "Pull Request"
 labels:
   - status:needs-review
-references:
   - "../../PR_LABELS.md"
   - "../../labels.yml"
 ---

@@ -4,7 +4,6 @@ description: "Use when a reported issue or feature request is not planned or is 
 category: "Issue Management"
 labels:
   - status:wontfix
-references:
   - "../ISSUE_LABELS.md"
   - "../../CONTRIBUTING.md"
 ---

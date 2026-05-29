@@ -4,6 +4,5 @@ description: "Explains why specific labels were applied, changed, or removed, an
 category: "Issue Management"
 labels:
   - status:needs-triage
-references:
   - "../ISSUE_LABELS.md"
 ---

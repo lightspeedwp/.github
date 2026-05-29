@@ -5,6 +5,5 @@ category: "Issue Management"
 labels:
   - meta:stale
   - status:on-hold
-references:
   - "../ISSUE_LABELS.md"
 ---

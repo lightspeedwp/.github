@@ -4,6 +4,5 @@ description: "Use when routing or re-labeling an issue to the appropriate area o
 category: "Issue Management"
 labels:
   - status:needs-triage
-references:
   - "../ISSUE_LABELS.md"
 ---

@@ -4,7 +4,6 @@ description: "For confidential or sensitive security reports, guiding users to p
 category: "Issue Management"
 labels:
   - status:needs-triage
-references:
   - "../ISSUE_TYPES.md"
   - "../../CONTRIBUTING.md"
 ---

@@ -6,7 +6,6 @@ labels:
   - area:automation
   - area:labeling
   - status:needs-triage
-references:
   - "../../.github/labeler.yml"
   - "../../ISSUE_LABELS.md"
   - "../../CONTRIBUTING.md"

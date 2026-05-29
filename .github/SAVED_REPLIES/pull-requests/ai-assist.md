@@ -4,7 +4,6 @@ description: "Guidance on using Copilot, CodeRabbit, or other AI tools when draf
 category: "Pull Request"
 labels:
   - status:needs-review
-references:
   - "../../custom-instructions.md"
   - "../../PULL_REQUEST_TEMPLATE.md"
 ---

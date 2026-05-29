@@ -5,7 +5,6 @@ category: "Workflow"
 labels:
   - area:release
   - status:needs-triage
-references:
   - "../../AUTOMATION_GOVERNANCE.md"
   - "../../CONTRIBUTING.md"
 ---
