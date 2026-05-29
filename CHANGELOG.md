@@ -24,6 +24,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Comprehensive unit tests in `scripts/__tests__/wceu-validation-scripts.test.js` validating script structure, syntax, and completeness
   - Updated `scripts/README.md` with usage examples and feature documentation ([#13](https://github.com/lightspeedwp/.github/issues/13), [#16](https://github.com/lightspeedwp/.github/issues/16))
 
+- **Complete Agent Specifications & Documentation Audit** — Completed specification documentation for tracking agents and audited documentation cross-references:
+  - Completed `agents/template.agent.md` with canonical agent specification template, usage guidelines, structure documentation, and best practices ([#488](https://github.com/lightspeedwp/.github/issues/488))
+  - Enhanced `agents/testing.agent.md` with comprehensive role/responsibilities, capabilities, configuration, examples, and related agent references ([#490](https://github.com/lightspeedwp/.github/issues/490))
+  - Audited documentation cross-references to CONTRIBUTING.md, GOVERNANCE.md, coding standards, and linting instructions ([#22](https://github.com/lightspeedwp/.github/issues/22))
+  - Verified CONTRIBUTING.md has adequate Quick Start section and workflow diagram ([#18](https://github.com/lightspeedwp/.github/issues/18))
+  - Verified PR template includes comprehensive accessibility and security checklists ([#21](https://github.com/lightspeedwp/.github/issues/21))
+
+- **Wave 4C: Branding Agent Current-State Audit** — Added `.github/projects/active/ISSUE_48_CURRENT_STATE_AUDIT.md` comprehensive audit specification ([#48](https://github.com/lightspeedwp/.github/issues/48), [#562](https://github.com/lightspeedwp/.github/pull/562)):
+  - Current-state inventory catalogs ~750 Markdown files with branding implementations
+  - Frontmatter compliance analysis (90.6% compliant, 70 files with missing required fields)
+  - Category mapping accuracy audit (98%+ correct, specific gaps identified)
+  - Header and footer pattern analysis (84.5% coverage gap identified)
+  - Badge usage assessment (1.9% adoption, 40% non-standard values)
+  - WCAG AA accessibility audit (95%+ compliance with specific improvement areas)
+  - Detailed gap analysis against new schema/config standards
+  - Prioritized remediation roadmap with effort estimates (16–23 hours across 5 phases)
+  - Automated remediation scripts scoped and designed
+  - Risk assessment with comprehensive mitigation strategies
+  - Success criteria and measurable outcomes for agent rollout
+  - Unblocks Wave 4E (Agent merge/refactor) and Wave 4F (Bulk remediation & validation)
+
 - **Comprehensive 25-Slide Deck Prompt Suite** — Added `.github/wceu-2026/agent-slides/` directory with 25 NotebookLM and Figma-ready presentation prompts covering the complete .github automation ecosystem:
   - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, and Planner agents with capabilities, integration points, and use cases
   - **3 Infrastructure Prompts**: Plugin/Agents/Skills/Hooks integration, Scripts & Automation orchestration, and Workflows architecture
