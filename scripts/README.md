@@ -1,10 +1,9 @@
 ---
-description: "Linting standards"
-file_type: "documentation"
-last_updated: "2025-12-04"
-owners: ""
-references: ""
-version: "2.5"
+file_type: agent-index
+title: Scripts and Automation
+description: Automation, utility, and maintenance scripts for the LightSpeedWP project
+last_updated: '2025-12-04'
+version: '2.5'
 ---
 
 ---

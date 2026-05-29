@@ -1,10 +1,11 @@
 ---
-version: "v0.1.0"
-last_updated: "2026-05-29"
-title: "Cross-Platform Skill YAML Spec"
-owners: ["lightspeedwp"]
-file_type: "specification"
-description: "YAML specification for cross-platform skill manifests"
+version: v0.1.0
+last_updated: '2026-05-29'
+title: Cross-Platform Skill YAML Spec
+owners:
+- lightspeedwp
+file_type: documentation
+description: YAML specification for cross-platform skill manifests
 ---
 
 # Cross-Platform Skill YAML Specification

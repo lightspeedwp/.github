@@ -1,15 +1,22 @@
 ---
-file_type: "instructions"
-title: "Markdown Instructions (Repo-local)"
-description: "Canonical Markdown authoring rules for the LightSpeed .github control-plane repository."
-version: "v1.1"
-last_updated: "2026-05-28"
-owners: ["LightSpeed Team"]
-tags: ["markdown", "documentation", "a11y", "governance"]
-applyTo: ["**/*.md"]
-status: "active"
-stability: "stable"
-domain: "governance"
+file_type: instructions
+title: Markdown Instructions (Repo-local)
+description: Canonical Markdown authoring rules for the LightSpeed .github control-plane
+  repository.
+version: v1.1
+last_updated: '2026-05-28'
+owners:
+- LightSpeed Team
+tags:
+- markdown
+- documentation
+- a11y
+- governance
+applyTo:
+- '**/*.md'
+status: active
+stability: stable
+domain: governance
 ---
 
 # Markdown Instructions (Repo-local)

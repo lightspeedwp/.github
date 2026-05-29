@@ -1,25 +1,37 @@
 ---
-name: "Task Researcher Agent"
-title: "Task Researcher Agent"
-description: "Agent for conducting in-depth research on specified tasks, gathering relevant information, and providing comprehensive insights to inform decision-making and planning."
-version: "v1.1"
-last_updated: "2026-05-29"
-author: "LightSpeed"
-owners: ["lightspeedwp/maintainers"]
-tags: ["agent", "research", "planning", "task-management", "information-gathering"]
-file_type: "agent"
-status: "active"
-domain: "governance"
-stability: "stable"
-target: "github-copilot"
-tools: ["read", "search", "fetch"]
+name: Task Researcher Agent
+title: Task Researcher Agent
+description: Agent for conducting in-depth research on specified tasks, gathering
+  relevant information, and providing comprehensive insights to inform decision-making
+  and planning.
+version: v1.1
+last_updated: '2026-05-29'
+author: LightSpeed
+owners:
+- lightspeedwp/maintainers
+tags:
+- agent
+- research
+- planning
+- task-management
+- information-gathering
+file_type: agent
+status: active
+domain: governance
+stability: stable
+target: github-copilot
+tools:
+- read
+- search
+- fetch
 handoffs:
-  - label: "Task Planner"
-    agent: "task-planner"
-    prompt: "Provide the researched information to the Task Planner for further action."
-    send: false
+- label: Task Planner
+  agent: task-planner
+  prompt: Provide the researched information to the Task Planner for further action.
+  send: false
 permissions:
-  - "read"
+- read
 metadata:
-  guardrails: "Gather verifiable references, do not act until research is complete, and document every source and assumption before handing off."
+  guardrails: Gather verifiable references, do not act until research is complete,
+    and document every source and assumption before handing off.
 ---

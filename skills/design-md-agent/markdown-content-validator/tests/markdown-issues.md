@@ -1,7 +1,8 @@
 ---
-file_type: "documentation"
+file_type: documentation
 title: Markdown Issues
-status: review
+status: draft
 type: guide
-version: "1.0.0"
+version: 1.0.0
+description: Test fixture for markdown-issues.md
 ---

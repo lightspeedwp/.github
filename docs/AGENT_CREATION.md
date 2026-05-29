@@ -1,21 +1,22 @@
 ---
-file_type: "documentation"
-title: "Agent Specification Authoring Guide"
-description: "Comprehensive guide for creating, documenting, and maintaining agent specification files following LightSpeed standards"
-version: "v1.0"
-created_date: "2025-01-15"
-last_updated: "2025-01-15"
-author: "LightSpeed Team"
-maintainer: "LightSpeed Team"
-license: "GPL-3.0"
-domain: "governance"
-stability: "stable"
+file_type: documentation
+title: Agent Specification Authoring Guide
+description: Comprehensive guide for creating, documenting, and maintaining agent
+  specification files following LightSpeed standards
+version: v1.0
+created_date: '2025-01-15'
+last_updated: '2025-01-15'
+author: LightSpeed Team
+maintainer: LightSpeed Team
+license: GPL-3.0
+domain: governance
+stability: stable
 tags:
-  - agents
-  - documentation
-  - standards
-  - automation
-  - specifications
+- agents
+- documentation
+- standards
+- automation
+- specifications
 ---
 
 # 📝 Agent Specification Authoring Guide

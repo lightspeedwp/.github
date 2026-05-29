@@ -1,15 +1,21 @@
 ---
-title: "Changelog"
-description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
-file_type: "documentation"
-category: "governance"
-version: "1.0.3"
-last_updated: "2026-05-29"
-owners: ["ashleyshaw"]
-tags: ["changelog", "versioning", "releases", "governance"]
-status: "active"
-stability: "stable"
-domain: "governance"
+title: Changelog
+description: All notable changes to this project, formatted per Keep a Changelog 1.1.0
+  and Semantic Versioning
+file_type: documentation
+category: governance
+version: 1.0.3
+last_updated: '2026-05-29'
+owners:
+- ashleyshaw
+tags:
+- changelog
+- versioning
+- releases
+- governance
+status: active
+stability: stable
+domain: governance
 ---
 
 # Changelog

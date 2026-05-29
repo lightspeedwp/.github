@@ -1,19 +1,12 @@
 ---
-version: "v2.2.0"
-last_updated: "2026-05-29"
-title: "Release Process"
-owners: ["lightspeedwp"]
-file_type: "process-guide"
-category: "release-management"
-description: "Authoritative release process for lightspeedwp/.github: develop → main flow, gating, changelog validation, release PRs, tags, and GitHub Releases."
-references:
-  - path: "../agents/release.agent.md"
-  - path: "../scripts/agents/release.agent.js"
-  - path: "../.github/workflows/release.yml"
-  - path: "../.github/workflows/changelog.yml"
-  - path: "../.schemas/changelog.schema.json"
-  - path: "../scripts/validation/validate-changelog.cjs"
-  - path: "../CHANGELOG.md"
+version: v2.2.0
+last_updated: '2026-05-29'
+title: Release Process
+owners:
+- lightspeedwp
+file_type: documentation
+description: 'Authoritative release process for lightspeedwp/.github: develop → main
+  flow, gating, changelog validation, release PRs, tags, and GitHub Releases.'
 ---
 
 # Release Process (develop → main)

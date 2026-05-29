@@ -1,12 +1,18 @@
 ---
-description: "Development roadmap and phased delivery plan for the LightSpeedWP .github community health repository"
-file_type: "documentation"
-last_updated: "2025-12-04"
-owners: "["LightSpeed Team"]"
-references: ""
-tags: "["roadmap", "planning", "phases", "timeline", "deliverables"]"
-title: "Development Roadmap"
-version: "1.0"
+description: Development roadmap and phased delivery plan for the LightSpeedWP .github
+  community health repository
+file_type: documentation
+last_updated: '2025-12-04'
+owners:
+- LightSpeed Team
+tags:
+- roadmap
+- planning
+- phases
+- timeline
+- deliverables
+title: Development Roadmap
+version: '1.0'
 ---
 
 # Development Roadmap

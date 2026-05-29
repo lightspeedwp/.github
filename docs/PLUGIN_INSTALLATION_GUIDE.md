@@ -1,10 +1,11 @@
 ---
-version: "v0.1.0"
-last_updated: "2026-05-29"
-title: "Plugin Installation Guide"
-owners: ["lightspeedwp"]
-file_type: "guide"
-description: "Guide for installing and configuring LightSpeed plugins"
+version: v0.1.0
+last_updated: '2026-05-29'
+title: Plugin Installation Guide
+owners:
+- lightspeedwp
+file_type: documentation
+description: Guide for installing and configuring LightSpeed plugins
 ---
 
 # Plugin Installation Guide

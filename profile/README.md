@@ -1,17 +1,20 @@
 ---
-author: "LightSpeed Team"
-created_date: "2025-10-20"
-description: "Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003"
-domain: "community"
-file_type: "documentation"
-last_updated: "2026-05-29"
-license: "GPL-3.0"
-maintainer: "LightSpeed Team"
-owners: "["lightspeedwp/maintainers"]"
-stability: "stable"
-tags: ""
-title: "LightSpeed WordPress Development Agency - GitHub Profile"
-version: "2.1"
+author: LightSpeed Team
+created_date: '2025-10-20'
+description: Welcome to LightSpeed's GitHub Organization - WordPress design and development
+  agency creating powerful, open-source solutions for the WordPress ecosystem since
+  2003
+domain: governance
+file_type: documentation
+last_updated: '2026-05-29'
+license: GPL-3.0
+maintainer: LightSpeed Team
+owners:
+- lightspeedwp/maintainers
+stability: stable
+tags: []
+title: LightSpeed WordPress Development Agency - GitHub Profile
+version: '2.1'
 ---
 
 # 🚀 LightSpeed WordPress Development Agency

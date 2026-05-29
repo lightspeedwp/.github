@@ -1,15 +1,20 @@
 ---
-file_type: "instructions"
-title: ".github Instructions Boundary"
-description: "Repo-local index for instructions that remain under the .github control-plane boundary."
-version: "v0.2.0"
-last_updated: "2026-05-20"
-maintainer: "LightSpeed Team"
-authors: ["Codex"]
-license: "GPL-3.0"
-tags: ["instructions", "github-boundary", "ai-ops"]
-domain: "governance"
-stability: "experimental"
+file_type: instructions
+title: .github Instructions Boundary
+description: Repo-local index for instructions that remain under the .github control-plane
+  boundary.
+version: v0.2.0
+last_updated: '2026-05-20'
+maintainer: LightSpeed Team
+authors:
+- Codex
+license: GPL-3.0
+tags:
+- instructions
+- github-boundary
+- ai-ops
+domain: governance
+stability: experimental
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
