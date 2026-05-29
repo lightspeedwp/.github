@@ -60,10 +60,7 @@ function loadBrandingConfig() {
  */
 function loadFrontmatterSchema() {
   const projectRoot = getProjectRoot();
-  const schemaPath = path.join(
-    projectRoot,
-    ".schemas/frontmatter.schema.json",
-  );
+  const schemaPath = path.join(projectRoot, ".schemas/frontmatter.schema.json");
   if (!fs.existsSync(schemaPath)) {
     console.warn(`Frontmatter schema not found: ${schemaPath}`);
     return null;
@@ -480,7 +477,8 @@ function processBrandingDocument(filePath, options = {}) {
 
   try {
     // Load file
-    const fullPath = path.join(PROJECT_ROOT, filePath);
+    const projectRoot = getProjectRoot();
+    const fullPath = path.join(projectRoot, filePath);
     if (!fs.existsSync(fullPath)) {
       throw new Error(`File not found: ${filePath}`);
     }
