@@ -107,3 +107,11 @@ All documentation links to files within the same repository should use `/blob/HE
 - See [LightSpeed Copilot Prompts Index](../.github/prompts/prompts.md) for reusable prompts.
 
 ---
+
+## Related Files
+
+- **[linting.instructions.md](./linting.instructions.md)** — Tool-specific linting rules and configurations
+- **[languages.instructions.md](./languages.instructions.md)** — Language-specific coding standards and formatting
+- **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing and QA standards
+
+---

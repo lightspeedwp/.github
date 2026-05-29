@@ -187,3 +187,11 @@ Linting instructions should evolve with our standards and requirements. When upd
 4. Document significant changes in the commit message.
 
 ---
+
+## Related Files
+
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — General coding standards that linting tools enforce
+- **[languages.instructions.md](./languages.instructions.md)** — Language-specific linting configurations and rules
+- **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing standards that complement linting
+
+---

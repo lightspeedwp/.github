@@ -602,3 +602,12 @@ jobs:
 - All checks required before merge
 
 ---
+
+## Related Files
+
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in documentation
+- **[issues.instructions.md](./issues.instructions.md)** — Issue documentation and templates
+- **[pull-requests.instructions.md](./pull-requests.instructions.md)** — PR documentation and templates
+- **[community-standards.instructions.md](./community-standards.instructions.md)** — Community health documentation standards
+
+---

@@ -236,3 +236,11 @@ See [Issue Creation Guide](../docs/ISSUE_CREATION_GUIDE.md) for details.
 - Use the correct template and title prefix (`bug:`, `feature:`, etc.) to ensure type detection and correct automation.
 
 ---
+
+## Related Files
+
+- **[pull-requests.instructions.md](./pull-requests.instructions.md)** — Companion guide for PR creation and labeling; mirrors issue workflow patterns
+- **[labeling.instructions.md](./labeling.instructions.md)** — Detailed label naming conventions and one-hot rules
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in issue templates
+
+---
