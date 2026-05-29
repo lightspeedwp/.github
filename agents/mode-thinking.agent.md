@@ -8,7 +8,7 @@ owners: ["LightSpeedWP Engineering"]
 tags: ["agent", "mode", "thinking", "autonomous", "problem-solving"]
 file_type: "agent"
 status: "active"
-domain: "engineering"
+domain: "governance"
 stability: "stable"
 tools: ["codebase", "fetch", "search", "edit", "bash", "webSearch"]
 permissions:

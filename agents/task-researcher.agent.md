@@ -9,7 +9,7 @@ owners: ["lightspeedwp/maintainers"]
 tags: ["agent", "research", "planning", "task-management", "information-gathering"]
 file_type: "agent"
 status: "active"
-domain: "planning"
+domain: "governance"
 stability: "stable"
 target: "github-copilot"
 tools: ["read", "search", "fetch"]

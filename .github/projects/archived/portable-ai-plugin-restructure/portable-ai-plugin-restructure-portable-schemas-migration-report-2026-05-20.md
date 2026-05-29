@@ -8,6 +8,6 @@ maintainer: "LightSpeed Team"
 authors: ["Codex"]
 license: "GPL-3.0"
 tags: ["portable-ai-plugin-restructure", "schemas", "migration", "issue-297"]
-domain: "ai-ops"
+domain: "governance"
 stability: "experimental"
 ---

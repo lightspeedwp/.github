@@ -8,7 +8,7 @@ owners: ["LightSpeedWP Engineering"]
 tags: ["agent", "mode", "understanding", "review", "mentoring"]
 file_type: "agent"
 status: "active"
-domain: "quality"
+domain: "governance"
 stability: "stable"
 tools: ["codebase", "fetch", "findTestFiles", "githubRepo", "search", "usages"]
 permissions:

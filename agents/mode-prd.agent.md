@@ -8,7 +8,7 @@ owners: ["LightSpeedWP Engineering"]
 tags: ["agent", "mode", "prd", "product-management", "requirements"]
 file_type: "agent"
 status: "active"
-domain: "planning"
+domain: "governance"
 stability: "stable"
 tools:
   [

@@ -8,7 +8,7 @@ owners: ["LightSpeedWP Engineering"]
 tags: ["agent", "mode", "document-review", "editorial", "quality", "education"]
 file_type: "agent"
 status: "active"
-domain: "quality"
+domain: "governance"
 stability: "stable"
 model: "Claude Sonnet 4.5 (copilot)"
 tools:
