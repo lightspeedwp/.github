@@ -91,7 +91,7 @@ Require a specification for:
 
 - **New features or APIs:** Any public interface or significant user-facing change
 - **Database schema changes:** Document the migration strategy, impact on existing data
-- **Breaking changes:** Explicitly document what's changing and migration path
+- **Breaking changes:** Explicitly document what's changing and migration path (migration maps and notes must be documented in the central `/docs/MIGRATION.md` file)
 - **Performance optimisations:** Specify the performance targets, current vs target metrics
 - **Security changes:** Document threats, mitigations, and validation approach
 

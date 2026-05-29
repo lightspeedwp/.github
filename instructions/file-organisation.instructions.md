@@ -67,7 +67,7 @@ project-root/
 ├── skills/                          # Self-contained skills with SKILL.md entrypoints
 ├── workflows/                       # Portable agentic workflows
 │
-├── docs/                            # Human-facing documentation
+├── docs/                            # Human-facing documentation (e.g., MIGRATION.md)
 ├── src/                             # Source code (language-specific structure)
 ├── tests/                           # Test files (mirror src/ structure)
 ├── scripts/                         # Utility and automation scripts
@@ -95,13 +95,13 @@ project-root/
 | Skills | `skills/{skill-name}/` | `SKILL.md` at root + implementation |
 | Source code | `src/` (or language-specific like `lib/`, `app/`) | Follow language conventions |
 | Tests | `tests/` | Mirror `src/` structure |
-| Documentation | `docs/` | Hierarchical by topic |
+| Documentation | `docs/` | Hierarchical by topic (e.g., /docs/MIGRATION.md for migration maps) |
 | Automation scripts | `scripts/` | Group by purpose (`/maintenance`, `/validation`, etc.) |
 
 ### Naming Conventions
 
 - **Directories:** Lowercase, hyphens for separation (`my-feature`, not `MyFeature` or `my_feature`)
-- **Markdown files:** Lowercase with hyphens (`coding-standards.md`, not `CodingStandards.md`)
+- **Markdown files:** Lowercase with hyphens (`coding-standards.md`, not `CodingStandards.md`), except for documentation and governance files in the `docs/` directory, which must use UPPERCASE naming with underscores (e.g., `MIGRATION.md`, `GOVERNANCE_REVISION_LOG.md`)
 - **Scripts:** Lowercase with hyphens, explicit extensions (`validate-config.sh`, `build-artifacts.js`)
 - **No spaces:** Never use spaces in filenames or directory names
 
