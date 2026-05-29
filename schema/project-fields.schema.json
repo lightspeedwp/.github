@@ -25,7 +25,16 @@
                 "properties": {
                   "key": { "type": "string" },
                   "slug": { "type": "string" },
-                  "type": { "type": "string", "enum": ["single_select", "text", "number", "date", "iteration"] },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "single_select",
+                      "text",
+                      "number",
+                      "date",
+                      "iteration"
+                    ]
+                  },
                   "description": { "type": "string" },
                   "options": {
                     "type": "array",

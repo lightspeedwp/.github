@@ -38,7 +38,7 @@ Use this guide when drafting or updating `.agent.md` files in `agents/`, or repo
 - Prefer minimal, modular behaviour; justify complex automation with clear value and maintainability.
 - Use UK English, concise bullets, and the provided template; include realistic test tasks drawn from LightSpeed workflows.
 
-> **Schema authority:** Always edit `../.schemas/frontmatter.schema.json` for schema updates; remove or ignore legacy copies elsewhere to keep the validator deterministic.
+> **Schema authority:** Always edit `../schema/frontmatter.schema.json` for schema updates; remove or ignore legacy copies elsewhere to keep the validator deterministic.
 
 ## Detailed Guidance
 
@@ -52,7 +52,7 @@ Use this guide when drafting or updating `.agent.md` files in `agents/`, or repo
 ### Permissions vocabulary
 
 - Permissions describe the operational scopes the agent truly needs—complimenting tools without inflating capability. Declare them as `permissions: ["read", "github:repo"]` in the frontmatter.
-- Use the approved enum from `../.schemas/frontmatter.schema.json` (currently: `read`, `write`, `execute`, `shell`, `filesystem`, `network`, `github:repo`, `github:issues`, `github:pulls`, `github:workflows`, `github:checks`, `github:actions`).
+- Use the approved enum from `../schema/frontmatter.schema.json` (currently: `read`, `write`, `execute`, `shell`, `filesystem`, `network`, `github:repo`, `github:issues`, `github:pulls`, `github:workflows`, `github:checks`, `github:actions`).
 - Before introducing additional strings, extend the schema and update this instruction section at the same time so documentation, linting, and validation stay aligned.
 
 ### Role and Scope

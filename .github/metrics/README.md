@@ -1,23 +1,16 @@
 ---
-title: LightSpeed Metrics Directory
-version: v1.1
-last_updated: '2026-05-29'
-author: LightSpeed
-maintainer: Ash Shaw
-description: Metrics collection scripts, configuration, and automation for tracking
-  repository health, documentation quality, and project activity.
-tags:
-- metrics
-- analytics
-- automation
-- monitoring
-- quality
-file_type: documentation
-owners:
-- LightSpeed Team
-domain: governance
-stability: stable
-status: active
+title: "LightSpeed Metrics Directory"
+version: "v1.1"
+last_updated: "2026-05-29"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
+description: "Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity."
+tags: ["metrics", "analytics", "automation", "monitoring", "quality"]
+file_type: "documentation"
+owners: ["LightSpeed Team"]
+domain: "governance"
+stability: "stable"
+status: "active"
 ---
 
 # LightSpeed Metrics Directory

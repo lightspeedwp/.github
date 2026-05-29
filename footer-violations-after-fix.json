@@ -1424,7 +1424,7 @@
       "message": "Document missing \"category\" field in frontmatter"
     },
     {
-      "file": ".schemas/README.md",
+      "file": "schema/README.md",
       "type": "missingCategory",
       "message": "Document missing \"category\" field in frontmatter"
     },

@@ -336,6 +336,6 @@ footers:
 
 validation_rules:
   max_footer_lines: 5
-  max_duplicates_allowed: 0  # Zero duplicates allowed
+  max_duplicates_allowed: 0 # Zero duplicates allowed
   require_category_in_frontmatter: true
-  allow_multiple_footers_per_document: false  # ONE footer per document maximum
+  allow_multiple_footers_per_document: false # ONE footer per document maximum

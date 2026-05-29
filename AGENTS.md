@@ -1,22 +1,26 @@
 ---
-title: LightSpeed Global AI Rules
-description: Organisation-wide AI agent rules, coding standards, and contribution
-  guidelines for all LightSpeed WordPress projects.
-version: v1.4
-last_updated: '2026-05-29'
-file_type: agents-index
-maintainer: LightSpeed Team
-authors:
-- LightSpeed Team
-license: GPL-3.0
-tags:
-- agents
-- ai
-- coding-standards
-- governance
-- wordpress
-domain: governance
-stability: stable
+title: "LightSpeed Global AI Rules"
+description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
+version: "v1.4"
+last_updated: "2026-05-29"
+file_type: "agents-index"
+maintainer: "LightSpeed Team"
+authors: ["LightSpeed Team"]
+license: "GPL-3.0"
+tags: ["agents", "ai", "coding-standards", "governance", "wordpress"]
+domain: "governance"
+stability: "stable"
+references:
+  - path: "ai/agents.md"
+    description: "Canonical AI agents source-of-truth index"
+  - path: "ai/RUNNERS.md"
+    description: "Canonical runner and telemetry inventory"
+  - path: "agents/agent.md"
+    description: "Main agent implementations index"
+  - path: ".github/custom-instructions.md"
+    description: "Repo-local Copilot and agent instructions"
+  - path: ".github/prompts/prompts.md"
+    description: "Prompts index"
 ---
 
 # LightSpeed – Global AI Rules (AGENTS.md)
@@ -107,7 +111,7 @@ Start here for all key standards:
 
 - [Contributing Guidelines](CONTRIBUTING.md) - For human contributors
 - [Main Documentation](README.md) - Project overview
-- [Frontmatter Schema](.schemas/frontmatter.schema.json) - Schema validation
+- [Frontmatter Schema](schema/frontmatter.schema.json) - Schema validation
 
 *This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards.*

@@ -4,5 +4,5 @@
   "pluginRoot": "plugins",
   "skillsRoot": "skills",
   "instructionsRoot": "instructions",
-  "schemaRoot": ".schemas"
+  "schemaRoot": "schema"
 }

@@ -1,13 +1,11 @@
 ---
-file_type: instructions
-title: Documentation Formats Standards
-description: Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams
-  across all GitHub community health documentation
-scope: organization-wide
-version: v1.1.1
-last_updated: '2026-05-29'
-owners:
-- GitHub Community Health Team
+file_type: "instructions"
+title: "Documentation Formats Standards"
+description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams across all GitHub community health documentation"
+scope: "organization-wide"
+version: "v1.1.1"
+last_updated: "2026-05-29"
+owners: ["GitHub Community Health Team"]
 tags:
 - markdown
 - frontmatter

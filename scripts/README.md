@@ -1,9 +1,28 @@
 ---
-file_type: agent-index
-title: Scripts and Automation
-description: Automation, utility, and maintenance scripts for the LightSpeedWP project
-last_updated: '2026-05-29'
-version: '2.8'
+description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
+version: "2.5"
+last_updated: "2025-12-04"
+owners:
+  - LightSpeedWP Team
+references:
+  - path: ../instructions/coding-standards.instructions.md
+    description: Coding standards for all scripts
+  - path: ../instructions/documentation-formats.instructions.md
+    description: Frontmatter and documentation format standards
+  - path: ../schema/frontmatter.schema.json
+    description: Frontmatter schema
+  - path: ../schema/collection.schema.json
+    description: Collection schema
+  - path: ../tests/README.md
+    description: Testing framework
+  - path: ../docs/WORKFLOWS.md
+    description: Workflow documentation
+  - path: ../CHANGELOG.md
+    description: Project changelog
+  - path: ../docs/TESTING.md
+    description: Testing standards
+  - path: ../docs/LINTING.md
+    description: Linting standards
 ---
 # LightSpeedWP Scripts & Automation
 
@@ -175,7 +194,7 @@ Scripts integrate with GitHub Actions workflows:
 Scripts work with various configuration files:
 
 - `.coderabbit.yml` — CodeRabbit configuration
-- `../.schemas/` — JSON/YAML validation schemas
+- `../schema/` — JSON/YAML validation schemas
 - `.github/workflows/` — GitHub Actions definitions
 - `fixtures/` — Test data and templates
 
@@ -283,7 +302,7 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 - [Coding Standards](../instructions/coding-standards.instructions.md)
 - [Quality Assurance](../instructions/quality-assurance.instructions.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
-- [Schema Definitions](../.schemas/)
+- [Schema Definitions](../schema/)
 
 ## External Dependencies
 
@@ -371,8 +390,8 @@ When contributing new scripts or modifications:
 ## Development Resources
 
 - [GitHub Actions Workflows](../.github/workflows/)
-- [Schema Definitions](../.schemas/)
-- [Test Coverage Reports](../tests/README.md)
+- [Schema Definitions](../schema/)
+- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References

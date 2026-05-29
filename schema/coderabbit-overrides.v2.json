@@ -16,13 +16,8 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "path_filters",
-        "auto_review"
-      ]
+      "required": ["path_filters", "auto_review"]
     }
   },
-  "required": [
-    "reviews"
-  ]
+  "required": ["reviews"]
 }

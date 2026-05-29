@@ -1,16 +1,13 @@
 ---
-name: Planner
-description: 'Multi-mode planning agent: strategic architecture planning, implementation
-  plan generation, and task planning with research validation. Comprehensive planning-first
-  approach for complex development work.'
-file_type: agent
-version: v3.1
-created_date: '2025-11-20'
-last_updated: '2026-05-29'
-author: LightSpeed Team
-maintainer: Ash Shaw
-owners:
-- lightspeedwp/maintainers
+name: "Planner"
+description: "Multi-mode planning agent: strategic architecture planning, implementation plan generation, and task planning with research validation. Comprehensive planning-first approach for complex development work."
+file_type: "agent"
+version: "v3.1"
+created_date: "2025-11-20"
+last_updated: "2026-05-29"
+author: "LightSpeed Team"
+maintainer: "Ash Shaw"
+owners: ["lightspeedwp/maintainers"]
 tags:
 - planning
 - architecture

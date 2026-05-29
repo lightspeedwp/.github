@@ -1,21 +1,8 @@
 ---
-title: Changelog
-description: All notable changes to this project, formatted per Keep a Changelog 1.1.0
-  and Semantic Versioning
-file_type: documentation
-category: governance
-version: 1.0.3
-last_updated: '2026-05-29'
-owners:
-- ashleyshaw
-tags:
-- changelog
-- versioning
-- releases
-- governance
-status: active
-stability: stable
-domain: governance
+title: "Changelog"
+description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
+file_type: "documentation"
+created_date: "2025-09-20"
 ---
 
 # Changelog
@@ -29,21 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Wave 4C: Branding Agent Current-State Audit** — Added `.github/projects/active/ISSUE_48_CURRENT_STATE_AUDIT.md` comprehensive audit specification ([#48](https://github.com/lightspeedwp/.github/issues/48), [#562](https://github.com/lightspeedwp/.github/pull/562)):
-  - Current-state inventory catalogs ~750 Markdown files with branding implementations
-  - Frontmatter compliance analysis (90.6% compliant, 70 files with missing required fields)
-  - Category mapping accuracy audit (98%+ correct, specific gaps identified)
-  - Header and footer pattern analysis (84.5% coverage gap identified)
-  - Badge usage assessment (1.9% adoption, 40% non-standard values)
-  - WCAG AA accessibility audit (95%+ compliance with specific improvement areas)
-  - Detailed gap analysis against new schema/config standards
-  - Prioritized remediation roadmap with effort estimates (16–23 hours across 5 phases)
-  - Automated remediation scripts scoped and designed
-  - Risk assessment with comprehensive mitigation strategies
-  - Success criteria and measurable outcomes for agent rollout
-  - Unblocks Wave 4E (Agent merge/refactor) and Wave 4F (Bulk remediation & validation)
-
-- **Comprehensive 25-Slide Deck Prompt Suite** — Added `.github/agent-slide-decks/` directory with 25 NotebookLM and Figma-ready presentation prompts covering the complete .github automation ecosystem:
+- **Comprehensive 25-Slide Deck Prompt Suite** — Added `.github/wceu-2026/agent-slides/` directory with 25 NotebookLM and Figma-ready presentation prompts covering the complete .github automation ecosystem:
   - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, and Planner agents with capabilities, integration points, and use cases
   - **3 Infrastructure Prompts**: Plugin/Agents/Skills/Hooks integration, Scripts & Automation orchestration, and Workflows architecture
   - **8 Process & Lifecycle Prompts**: PR lifecycle, issue triage, release process, documentation standards, repository metrics, QA/testing, plugin deep-dive, and observability/logging
@@ -132,7 +105,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Remediated duplicate and multiple footer blocks across 664 Markdown files using schema-driven validation. Created footer configuration schema (`schema/footer-config.schema.json`), centralized footer library with 15 document categories (`config/footers.config.yaml`), and automated validation/remediation script (`.github/scripts/validate-footers.js`). Violations fixed: 51 duplicate footer files → 0, 613 multiple-footer files → 0. Published remediation guide (`.github/FOOTER_REMEDIATION_GUIDE.md`). Related to branding meta agent planning (#33, #46, #48, #49). ([#534](https://github.com/lightspeedwp/.github/pull/534))
-- Removed prohibited `references:` frontmatter field from 9 README files (`README.md`, `.github/README.md`, `.github/agents/README.md`, `.github/instructions/README.md`, `.github/metrics/README.md`, `.github/schemas/README.md`, `.schemas/README.md`, `profile/README.md`, `scripts/README.md`) per CLAUDE.md governance rule. Added missing required frontmatter fields (`owners`, `status`, `stability`, `domain`) to affected files. Removed 13 duplicate footer blocks from root `README.md`. Added `.lycheeignore` excluding social-platform and LightSpeed external domains from CI link checking. Added `docs/MIGRATION.md` portable AI plugin restructure migration maps (completed and pending migrations, file placement quick-reference). Related to [#18](https://github.com/lightspeedwp/.github/issues/18). ([#527](https://github.com/lightspeedwp/.github/pull/527))
+- Removed prohibited `references:` frontmatter field from 9 README files (`README.md`, `.github/README.md`, `.github/agents/README.md`, `.github/instructions/README.md`, `.github/metrics/README.md`, `.github/schemas/README.md`, `schema/README.md`, `profile/README.md`, `scripts/README.md`) per CLAUDE.md governance rule. Added missing required frontmatter fields (`owners`, `status`, `stability`, `domain`) to affected files. Removed 13 duplicate footer blocks from root `README.md`. Added `.lycheeignore` excluding social-platform and LightSpeed external domains from CI link checking. Added `docs/MIGRATION.md` portable AI plugin restructure migration maps (completed and pending migrations, file placement quick-reference). Related to [#18](https://github.com/lightspeedwp/.github/issues/18). ([#527](https://github.com/lightspeedwp/.github/pull/527))
 - Replaced deprecated MCP tool references (`create_issue`, `update_issue`, `get_issue`) with current equivalents (`issue_write`, `issue_read`) across agent specs and prompt files. Closes [#52](https://github.com/lightspeedwp/.github/issues/52). ([#455](https://github.com/lightspeedwp/.github/pull/455))
 - Expanded issue template DoD checklists with discrete accessibility (WCAG 2.2 AA), security (OWASP Top 10), and performance items, aligning issue templates with the PR template. Closes [#21](https://github.com/lightspeedwp/.github/issues/21). ([#460](https://github.com/lightspeedwp/.github/pull/460))
 - Updated `.coderabbit.yml`: corrected schema URL to `docs.coderabbit.ai/schema/schema.v2.json`; added `language: en-GB`, `inheritance: true`, `chat.auto_reply: true`; added `reviews.profile: chill` and `reviews.review_details: true`; hardened workflow path instructions with security guidance (least-privilege permissions, secret injection prevention, action pinning); added `instructions/**` and `CHANGELOG.md` path instructions; expanded path filters. Closes [#23](https://github.com/lightspeedwp/.github/issues/23).
@@ -143,7 +116,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, Planner agents
   - **3 Infrastructure Prompts**: Plugin/agents/skills/hooks ecosystem, scripts and automation, GitHub Actions workflows
   - **15 Ecosystem Prompts**: Pull request lifecycle, issue triage, release process, documentation standards, repository metrics/KPIs, QA/testing, plugin architecture, observability/logging, WordPress governance, contributing guidelines, onboarding, developer experience, troubleshooting, roadmap/vision, case studies
-  - **Navigation**: Updated `.github/agent-slide-decks/README.md` with comprehensive index across all 25 prompts
+  - **Navigation**: Updated `.github/wceu-2026/agent-slides/README.md` with comprehensive index across all 25 prompts
   - **Structure**: Each prompt includes overview, capabilities, integration points, use cases, slide structure, evidence anchors, design notes, quality bar
   - Enables complete NotebookLM knowledge base generation and design system documentation ([#539](https://github.com/lightspeedwp/.github/pull/539))
 

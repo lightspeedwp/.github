@@ -23,13 +23,13 @@ describe("structure validation", () => {
         encoding: "utf8",
         stdio: "pipe",
       });
-    }).toThrow(/Missing required directory: \.schemas/);
+    }).toThrow(/Missing required directory: \schema/);
   });
 
   it("passes when required portable folders and README files exist", () => {
     const root = makeTempRoot();
     for (const folder of [
-      ".schemas",
+      "schema",
       "agents",
       "cookbook",
       "hooks",

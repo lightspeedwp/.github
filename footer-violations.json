@@ -2079,7 +2079,7 @@
       "count": 10
     },
     {
-      "file": ".schemas/README.md",
+      "file": "schema/README.md",
       "type": "multipleFootersPerDoc",
       "message": "Document has 12 footers; only 1 allowed",
       "count": 12
@@ -5410,7 +5410,7 @@
       "message": "Document missing \"category\" field in frontmatter"
     },
     {
-      "file": ".schemas/README.md",
+      "file": "schema/README.md",
       "type": "missingCategory",
       "message": "Document missing \"category\" field in frontmatter"
     },

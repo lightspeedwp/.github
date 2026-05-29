@@ -1,12 +1,25 @@
 ---
-version: v2.2.0
-last_updated: '2026-05-29'
-title: Release Process
-owners:
-- lightspeedwp
-file_type: documentation
-description: 'Authoritative release process for lightspeedwp/.github: develop → main
-  flow, gating, changelog validation, release PRs, tags, and GitHub Releases.'
+version: "v2.2.0"
+last_updated: "2026-05-29"
+owners: ["lightspeedwp"]
+file_type: "process-guide"
+category: "release-management"
+description: "Authoritative release process for lightspeedwp/.github: develop → main flow, gating, changelog validation, release PRs, tags, and GitHub Releases."
+references:
+  - path: "../agents/release.agent.md"
+    description: "Release agent specification"
+  - path: "../scripts/agents/release.agent.js"
+    description: "Release automation implementation"
+  - path: "../.github/workflows/release.yml"
+    description: "Release workflow (develop → main)"
+  - path: "../.github/workflows/changelog.yml"
+    description: "Changelog validation on every PR"
+  - path: "../schema/changelog.schema.json"
+    description: "Keep a Changelog schema"
+  - path: "../scripts/validation/validate-changelog.cjs"
+    description: "Schema validation script"
+  - path: "../CHANGELOG.md"
+    description: "Keep a Changelog source of truth"
 ---
 
 # Release Process (develop → main)
@@ -73,7 +86,7 @@ node scripts/agents/release.agent.js --scope=minor --dry-run
 ## Changelog governance
 
 - Format: Keep a Changelog.
-- Schema: `../.schemas/changelog.schema.json` enforced by:
+- Schema: `../schema/changelog.schema.json` enforced by:
   - `scripts/validation/validate-changelog.cjs`
   - `scripts/agents/includes/changelogUtils.cjs --validate/--unreleased`
 - Requirements:
