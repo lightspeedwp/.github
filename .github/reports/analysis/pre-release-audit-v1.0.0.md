@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Pre-Release Audit Report - v1.0.0"
 description: "Comprehensive audit of repository readiness for v1.0.0 release including quality gates, blockers, and recommendations"
 category: "analysis"

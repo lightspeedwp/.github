@@ -1,7 +1,7 @@
 ---
 title: "Wave 4C: Remediation Plan & Priority Matrix"
 description: "Detailed remediation recommendations with effort estimates and priority levels"
-file_type: "report"
+file_type: "documentation"
 version: "1.1"
 created_date: "2026-05-29"
 last_updated: "2026-05-29T05:34:00Z"

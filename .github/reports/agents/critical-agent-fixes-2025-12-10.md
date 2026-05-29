@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Critical Agent Infrastructure Fixes"
 description: "Implementation report for fixing critical issues identified in agent infrastructure audit"
 category: "implementation"

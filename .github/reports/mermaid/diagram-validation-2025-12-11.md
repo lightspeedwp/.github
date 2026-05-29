@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Mermaid Diagram Validation Report"
 description: "Comprehensive validation of all Mermaid diagrams across top-level folders with WCAG AA accessibility and structural checks"
 version: "1.0"

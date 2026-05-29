@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["workflows", "consolidation", "governance", "automation"]
 domain: "governance"
 stability: "stable"
-status: "completed"
+status: "draft"
 ---
 
 # GitHub Workflow Consolidation (2026-05-28)

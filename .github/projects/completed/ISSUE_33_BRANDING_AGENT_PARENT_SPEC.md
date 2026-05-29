@@ -891,7 +891,7 @@ file_type: "documentation"  # or "agent", "instruction", "prompt", etc.
 category: "docs"  # Optional; inferred from path if omitted
 owners: ["@maintainer1", "@maintainer2"]
 version: "v1.0.0"  # Optional
-status: "Active"  # Optional; default: "Active"
+status: "active"
 last_updated: "2026-05-28"
 tags: ["governance", "automation"]  # Optional; max 8
 ---

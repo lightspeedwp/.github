@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Test Coverage Expansion Plan"
 description: "Comprehensive strategy for achieving 80%+ test coverage across all agents and utilities before v1.0.0 release"
 category: "analysis"

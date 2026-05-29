@@ -91,6 +91,6 @@ version: [Optional: e.g., 1.0, Date]
 date_created: [YYYY-MM-DD]
 last_updated: [Optional: YYYY-MM-DD]
 owner: [Optional: Team/Individual responsible for this spec]
-status: 'Completed'|'In progress'|'Planned'|'Deprecated'|'On Hold'
+status: "draft"
 tags: [Optional: List of relevant tags or categories, e.g., `feature`, `upgrade`, `chore`, `architecture`, `migration`, `bug` etc]
 ---
