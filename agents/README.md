@@ -1,5 +1,6 @@
 ---
-file_type: "documentation"
+file_type: "agent-index"
+name: "Portable Agents"
 title: "Portable Agents"
 description: "Ownership index for portable LightSpeed AI agent specifications."
 version: "v0.2.0"

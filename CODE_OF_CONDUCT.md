@@ -6,7 +6,4 @@ version: "1.0"
 last_updated: "2025-12-04"
 owners: ["LightSpeed Community Team"]
 tags: ["code-of-conduct", "community", "standards", "behavior", "wordpress"]
-references:
-  - path: "https://make.wordpress.org/community/handbook/code-of-conduct/"
-    description: "WordPress Community Code of Conduct"
 ---

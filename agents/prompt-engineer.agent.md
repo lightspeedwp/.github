@@ -1,5 +1,6 @@
 ---
 name: "Prompt Engineer"
+title: "Prompt Engineer"
 description: "Expert prompt engineering and validation system for creating, analyzing, and improving high-quality prompts. Combines systematic analysis framework with comprehensive research, validation, and iteration capabilities."
 target: "github-copilot"
 handoffs:

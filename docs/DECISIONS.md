@@ -6,10 +6,6 @@ version: "1.0"
 last_updated: "2025-12-04"
 owners: ["LightSpeed Engineering"]
 tags: ["architecture", "decisions", "adr", "governance", "technical-decisions"]
-references:
-  - path: "ARCHITECTURE.md"
-  - path: "ADR/"
-  - path: "../docs/ADR"
 ---
 
 # Architectural Decisions

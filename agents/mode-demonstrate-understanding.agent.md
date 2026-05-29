@@ -1,5 +1,6 @@
 ---
 name: "Demonstrate Understanding"
+title: "Demonstrate Understanding"
 description: "Validate user understanding of code, design patterns, and implementation details through guided questioning."
 version: "v1.1"
 last_updated: "2026-05-29"

@@ -6,9 +6,6 @@ version: "1.0"
 last_updated: "2025-12-04"
 owners: ["LightSpeed Team"]
 tags: ["documentation", "organization", "structure", "navigation"]
-references:
-  - path: VERSIONING.md
-  - path: FRONTMATTER_SCHEMA.md
 ---
 
 # Documentation Organization
