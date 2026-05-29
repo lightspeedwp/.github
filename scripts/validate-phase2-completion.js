@@ -10,9 +10,9 @@
  * @version 1.0.0
  */
 
-const fs = require("fs");
-const { execSync } = require("child_process");
-const readline = require("readline");
+import fs from "fs";
+import { execSync } from "child_process";
+import readline from "readline";
 
 const COLORS = {
   RED: "\x1b[31m",
