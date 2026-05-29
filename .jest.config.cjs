@@ -11,6 +11,7 @@ module.exports = {
     // Switch to jsdom to provide window/localStorage, mitigating the SecurityError seen under node.
     testEnvironment: process.env.JEST_ENVIRONMENT || 'jsdom',
     // Provide a setup file that polyfills localStorage (defensive if environment overridden).
+    // NOTE: Temporarily disabled due to jest config resolution issue
     // setupFilesAfterEnv: [
     //     '<rootDir>/tests/jest.setup.localstorage.js',
     // ],
