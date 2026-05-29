@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "🐛 Bug report"
+name: "🐛 Bug report"
 description: "Report a bug to help us improve this WordPress project"
 version: "1.0.0"
 last_updated: "2026-05-29"

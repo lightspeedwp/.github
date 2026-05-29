@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "🚀 Release"
+name: "🚀 Release"
 description: "Propose or track release management, versioning, or deployment tasks."
 version: "1.0.0"
 last_updated: "2026-05-29"

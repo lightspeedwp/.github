@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "🧪 Test Coverage"
+name: "🧪 Test Coverage"
 description: "Propose, add, or expand tests (unit, integration, E2E)."
 version: "1.0.0"
 last_updated: "2026-05-29"

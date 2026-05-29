@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "📑 Story"
+name: "📑 Story"
 description: "Propose a user-centric story as part of an Epic or milestone."
 version: "1.0.0"
 last_updated: "2026-05-29"

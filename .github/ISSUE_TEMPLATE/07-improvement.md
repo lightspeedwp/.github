@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "🔧 Improvement"
+name: "🔧 Improvement"
 description: "Propose enhancements, polish, or usability improvements."
 version: "1.0.0"
 last_updated: "2026-05-29"

@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "❓ Help / Support"
+name: "❓ Help / Support"
 description: "Submit your WordPress-related questions or support requests."
 version: "1.0.0"
 last_updated: "2026-05-29"

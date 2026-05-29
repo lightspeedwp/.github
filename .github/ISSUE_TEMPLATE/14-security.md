@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "🔐 Security"
+name: "🔐 Security"
 description: "Report vulnerabilities, security improvements, or compliance requirements."
 version: "1.0.0"
 last_updated: "2026-05-29"

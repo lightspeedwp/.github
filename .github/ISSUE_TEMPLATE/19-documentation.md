@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "📚 Documentation"
+name: "📚 Documentation"
 description: "Request new documentation or propose updates/clarifications to existing docs."
 version: "1.0.0"
 last_updated: "2026-05-29"

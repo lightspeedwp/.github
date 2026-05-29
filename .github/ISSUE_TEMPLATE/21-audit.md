@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "🛡️ Audit"
+name: "🛡️ Audit"
 description: "Propose, conduct, or document a security, accessibility, code, or process audit."
 version: "1.0.0"
 last_updated: "2026-05-29"

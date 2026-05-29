@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "🚀 Feature"
+name: "🚀 Feature"
 description: "Propose a net-new capability, enhancement, or workflow improvement."
 version: "1.0.0"
 last_updated: "2026-05-29"

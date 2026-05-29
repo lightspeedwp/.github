@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "💡 User Experience Feedback"
+name: "💡 User Experience Feedback"
 description: "Share feedback on the usability and interface design of this WordPress project"
 version: "1.0.0"
 last_updated: "2026-05-29"

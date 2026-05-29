@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "📝 Task"
+name: "📝 Task"
 description: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
 version: "1.0.0"
 last_updated: "2026-05-29"

@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "🧩 Compatibility"
+name: "🧩 Compatibility"
 description: "Track browser/device/WordPress/plugin compatibility issues."
 version: "1.0.0"
 last_updated: "2026-05-29"

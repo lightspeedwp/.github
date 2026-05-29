@@ -1,6 +1,6 @@
 ---
 file_type: "issue-template"
-title: "🔍 Research"
+name: "🔍 Research"
 description: "Propose or document technical research, investigation, or exploratory work."
 version: "1.0.0"
 last_updated: "2026-05-29"
