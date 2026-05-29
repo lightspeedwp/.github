@@ -4,7 +4,7 @@ description: Central hub for LightSpeed organization's community health files, a
   standards, label management, governance documentation, and org-wide resources for
   GitHub usage and contribution.
 category: readme
-version: '2.5'
+version: '2.6'
 created_date: '2025-01-10'
 last_updated: '2026-05-29'
 file_type: documentation
