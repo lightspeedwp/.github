@@ -22,7 +22,7 @@ This is the **LightSpeed organisation `.github` control plane**. It owns:
 - GitHub community-health files (issue templates, PR templates, discussion templates, saved replies, code of conduct, security policy).
 - Organisation-wide labels, labeler rules, and issue types.
 - GitHub Actions workflows for labeling, metrics, releases, and validation.
-- Repo-local Copilot and agent instructions (`.github/instructions/`, `.github/custom-instructions.md`).
+- Repo-local Copilot and agent instructions (`.github/instructions/` for control-plane-specific, `.github/custom-instructions.md`).
 - Reports, project artefacts, and active planning documents.
 
 It also hosts **portable AI operations assets** in top-level source folders that are intended to be reusable outside this repository:
@@ -94,8 +94,18 @@ npm run validate:frontmatter
 
 ## Related Files
 
-- [AGENTS.md](./AGENTS.md) — full global AI rules
-- [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
+**Organization-wide instructions** (reusable across all LightSpeedWP repos):
+
 - [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
-- [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — canonical file placement rules
+- [instructions/a11y.instructions.md](./instructions/a11y.instructions.md) — WCAG 2.2 AA accessibility standards
+- [instructions/documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md) — Markdown, YAML, Mermaid standards
+- [instructions/issues.instructions.md](./instructions/issues.instructions.md) — issue creation & labeling standards
+- [instructions/pull-requests.instructions.md](./instructions/pull-requests.instructions.md) — PR creation & labeling standards
+- [instructions/community-standards.instructions.md](./instructions/community-standards.instructions.md) — community health standards
+
+**Repo-local instructions** (specific to this .github control plane):
+
+- [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
+- [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — this repo's file placement rules
+- [AGENTS.md](./AGENTS.md) — full global AI rules
 - [instructions/plugin-structure.instructions.md](./instructions/plugin-structure.instructions.md) — WordPress block plugin structure
