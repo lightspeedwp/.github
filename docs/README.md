@@ -164,3 +164,5 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for documentation contribution guideli
 
 *Last updated: 2026-05-29*  
 *Maintained by: LightSpeed Team*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
