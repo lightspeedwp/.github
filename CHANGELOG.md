@@ -3,8 +3,8 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 category: "Governance"
-version: "1.0.2"
-last_updated: "2026-05-29T05:30:00Z"
+version: "1.0.3"
+last_updated: "2026-05-29"
 owners: ["Engineering Team"]
 tags: ["changelog", "versioning", "releases", "governance"]
 status: "active"
@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Merged header-footer.js, badges.js, footerUtils.js, and badgeUtils.js into single ES Module
   - Maintains all public API functions for footer selection, insertion, removal, and badge generation
   - Supports configuration-driven footer phrases and badge schema mapping
-  - Provides unified import path for all branding utilities in meta agent workflows ([#47](https://github.com/lightspeedwp/.github/pull/PENDING))
+  - Provides unified import path for all branding utilities in meta agent workflows ([#47](https://github.com/lightspeedwp/.github/issues/47))
 
 - **Wave 3C: README and Mermaid Maintenance Workflow** — New `.github/workflows/readme-update.yml` workflow automates README and Mermaid diagram maintenance with:
   - Mermaid accessibility updates (adds `accTitle` and `accDescr` attributes per WCAG 2.2 AA)
@@ -79,6 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Plugin Structure Instructions Frontmatter** — Added missing `title` and `category` fields to `instructions/plugin-structure.instructions.md` to meet frontmatter schema requirements ([#535](https://github.com/lightspeedwp/.github/pull/547))
 
 ### Changed
+
+- Added guarded Dependabot security auto-merge automation for `develop` by introducing Mergify conditions tied to Dependabot author, dependency/security labels, conflict/draft guards, and successful required checks. Added and wired a Dependabot security labelling workflow and aligned labels to canonical naming (`meta:dependabot-security`) to satisfy label governance and enable controlled auto-merge behaviour. ([#563](https://github.com/lightspeedwp/.github/pull/563))
 
 - **Release Agent Integration** — Updated `agents/release.agent.md` (v2.2 → v2.3) with post-release `readme-update.yml` invocation:
   - Documented workflow contract with inputs, outputs, and failure handling
