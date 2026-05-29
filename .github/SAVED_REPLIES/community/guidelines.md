@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Contribution Guidelines Saved Reply"
 description: "Directing contributors to proper procedures and standards."
 category: "Community"

@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Welcome Message Saved Reply"
 description: "Welcoming new contributors with guidance and resources."
 category: "Community"

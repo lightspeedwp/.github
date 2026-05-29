@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Dependency Problem Saved Reply"
 description: "Package, library, and dependency-related issue responses."
 category: "Technical Support"

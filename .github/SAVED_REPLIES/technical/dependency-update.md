@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Dependency Update Automation Saved Reply"
 description: "Guidance for troubleshooting automated dependency update failures or merge conflicts (Renovate, Dependabot, etc)."
 category: "Technical Support"

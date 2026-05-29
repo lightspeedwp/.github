@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Code of Conduct Saved Reply"
 description: "Professional response to conduct-related issues."
 category: "Community"

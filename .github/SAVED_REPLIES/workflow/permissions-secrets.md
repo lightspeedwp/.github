@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Permissions/Secrets Issues Saved Reply"
 description: "Replies for problems accessing required secrets, tokens, or permissions during workflow runs."
 category: "Workflow"

@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Branch Management Saved Reply"
 description: "Branch naming, merging, and management standard responses."
 category: "Workflow"

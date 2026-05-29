@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Labeling Automation Saved Reply"
 description: "Guidance and troubleshooting for automated labeler issues and workflow errors."
 category: "Workflow"

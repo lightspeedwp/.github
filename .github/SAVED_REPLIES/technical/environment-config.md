@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Environment Configuration Issues Saved Reply"
 description: "Support reply for development, testing, or deployment environment setup/configuration issues."
 category: "Technical Support"

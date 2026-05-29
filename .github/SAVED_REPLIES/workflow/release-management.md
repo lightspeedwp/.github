@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Release Management Saved Reply"
 description: "Release-related communications and process guidance."
 category: "Workflow"
