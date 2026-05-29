@@ -24,3 +24,6 @@ stability: experimental
 
 - [Portable agent specification library index](../../agents/README.md)
 - [Issue #296 local source draft](../projects/active/portable-ai-plugin-restructure/issues/children/batch-02-portable-migration/02-04-refactor-migrate-portable-agent-specs.md)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
