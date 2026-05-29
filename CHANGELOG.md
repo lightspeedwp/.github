@@ -80,6 +80,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Added guarded Dependabot security auto-merge automation for `develop` by introducing Mergify conditions tied to Dependabot author, dependency/security labels, conflict/draft guards, and successful required checks. Added and wired a Dependabot security labelling workflow and aligned labels to canonical naming (`meta:dependabot-security`) to satisfy label governance and enable controlled auto-merge behaviour. ([#563](https://github.com/lightspeedwp/.github/pull/563))
+
 - **Release Agent Integration** — Updated `agents/release.agent.md` (v2.2 → v2.3) with post-release `readme-update.yml` invocation:
   - Documented workflow contract with inputs, outputs, and failure handling
   - Added to orchestration algorithm as non-blocking post-release action
