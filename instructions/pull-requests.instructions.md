@@ -2,6 +2,7 @@
 file_type: "instructions"
 title: "Pull Request Creation Instructions"
 description: "Canonical instructions for creating, labeling, and submitting Pull Requests in LightSpeedWP projects. Reference for templates, automation, and labeling strategy."
+scope: "organization-wide"
 version: "1.2"
 last_updated: "2026-05-28"
 owners: ["lightspeedwp/maintainers"]

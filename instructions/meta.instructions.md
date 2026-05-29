@@ -1,5 +1,6 @@
 ---
 file_type: "instructions"
+scope: "repo-local"
 title: "Meta Data Automation Instructions"
 description: "How to use the Meta Agent to apply front matter, badges, and category-specific quirky footers to Markdown docs."
 version: "v1.1"

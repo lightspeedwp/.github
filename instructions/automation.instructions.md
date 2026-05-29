@@ -2,6 +2,7 @@
 file_type: "instructions"
 title: "Automation Standards"
 description: "Comprehensive standards for GitHub automation agents, workflows, and repository health management"
+scope: "repo-local"
 version: "v1.0"
 last_updated: "2025-12-07"
 owners: ["GitHub Community Health Team"]

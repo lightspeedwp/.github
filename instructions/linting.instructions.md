@@ -1,6 +1,8 @@
 ---
 file_type: "instructions"
+title: "Linting Instructions"
 description: "Master index for all linting instructions in the LightSpeed organisation. Lists and cross-references all linting instructions, config, and coding standards."
+scope: "organization-wide"
 applyTo: "**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}"
 version: "v2.0"
 last_updated: "2025-11-27"

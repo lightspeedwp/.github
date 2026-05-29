@@ -1,6 +1,9 @@
 ---
 applyTo: "**"
+file_type: "instructions"
 description: "TaskSync V4 - Allows you to give the agent new instructions or feedback after completing a task using terminal while agent is running."
+title: "Tasksync"
+scope: "repo-local"
 ---
 
 # TaskSync V4 Protocol

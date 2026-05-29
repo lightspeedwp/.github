@@ -1,5 +1,6 @@
 ---
 file_type: "instructions"
+scope: "repo-local"
 title: "Mermaid Diagram Guide"
 description: "How to design, style, and validate Mermaid diagrams. For README-specific inclusion rules, see readme.instructions.md."
 applyTo: "**/*.md"

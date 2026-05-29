@@ -1,5 +1,6 @@
 ---
 file_type: "instructions"
+scope: "repo-local"
 title: "Template: Instructions"
 description: "Generic instruction file skeleton for LightSpeedWP documentation and automation."
 version: "v1.0"

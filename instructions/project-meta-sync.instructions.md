@@ -1,5 +1,6 @@
 ---
 file_type: "instructions"
+scope: "repo-local"
 title: "Project Meta Sync Instructions"
 description: "Standards for syncing GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names"
 version: "v1.0"

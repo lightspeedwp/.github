@@ -1,5 +1,6 @@
 ---
 file_type: "instructions"
+scope: "repo-local"
 title: "README Standards"
 description: "Standards for creating and maintaining README files, including required sections, Mermaid usage rules, and consistency expectations."
 applyTo: "README.md"

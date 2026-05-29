@@ -2,6 +2,7 @@
 file_type: "instructions"
 title: "Documentation Instructions"
 description: "Universal documentation standards for Markdown files in this repository unless overridden by more specific guidance."
+scope: "repo-local"
 applyTo: "**/*.md"
 ---
 
