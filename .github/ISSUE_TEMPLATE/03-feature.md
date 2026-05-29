@@ -1,8 +1,10 @@
 ---
-name: "🚀 Feature"
-about: "Propose a net-new capability, enhancement, or workflow improvement."
-title: "[Feature] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
+file_type: "issue-template"
+title: "🚀 Feature"
+description: "Propose a net-new capability, enhancement, or workflow improvement."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 <!--

@@ -1,17 +1,10 @@
 ---
-name: "🔧 Improvement"
-about: "Propose enhancements, polish, or usability improvements."
-title: "[Improvement] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
-assignees: []
-projects: []
-milestone: ""
-file_type: improve
-references:
-  - ../../CONTRIBUTING.md
-  - .github/labeler.yml
-  - .github/labels.yml
-  - .github/issue-types.yml
+file_type: "issue-template"
+title: "🔧 Improvement"
+description: "Propose enhancements, polish, or usability improvements."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 <!--

@@ -1,8 +1,10 @@
 ---
-name: "♻️ Code Refactor"
-about: "Request or propose a code refactoring or review to improve code quality, maintainability, and consistency."
-title: "[Refactor] <Short summary>"
-labels: [status:needs-review, priority:normal, area:core]
+file_type: "issue-template"
+title: "♻️ Code Refactor"
+description: "Request or propose a code refactoring or review to improve code quality, maintainability, and consistency."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 <!--

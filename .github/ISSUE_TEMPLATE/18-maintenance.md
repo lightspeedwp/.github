@@ -1,8 +1,10 @@
 ---
-name: "🧹 Maintenance"
-about: "Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks"
-title: "[Maintenance] <Brief summary of the maintenance or chore>"
-labels: [status:needs-triage, area:maintenance]
+file_type: "issue-template"
+title: "🧹 Maintenance"
+description: "Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 ## Maintenance / Chore Summary

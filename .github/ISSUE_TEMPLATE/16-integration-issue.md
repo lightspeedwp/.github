@@ -1,8 +1,10 @@
 ---
-name: "🔗 Integration"
-about: "Report or propose integration with external plugins, services, or APIs."
-title: "[Integration] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:integration]
+file_type: "issue-template"
+title: "🔗 Integration"
+description: "Report or propose integration with external plugins, services, or APIs."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 <!--

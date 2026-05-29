@@ -1,8 +1,10 @@
 ---
-name: "🚀 Release"
-about: "Propose or track release management, versioning, or deployment tasks."
-title: "[Release] <Brief summary>"
-labels: [status:needs-triage, area:release]
+file_type: "issue-template"
+title: "🚀 Release"
+description: "Propose or track release management, versioning, or deployment tasks."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 ## Release Summary
