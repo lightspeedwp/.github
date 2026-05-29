@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Audit"
 name: "Audit"
 title: "[Audit] Assess minimal automation for adoption flow"
 labels: [status:needs-audit, priority:normal, type:automation]

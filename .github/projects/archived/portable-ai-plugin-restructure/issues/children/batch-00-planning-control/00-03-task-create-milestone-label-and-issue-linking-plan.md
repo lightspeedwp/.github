@@ -7,6 +7,7 @@ assignees: []
 projects: []
 milestone: ""
 file_type: "documentation"
+description: "Task"
 github_issue: "https://github.com/lightspeedwp/.github/issues/288"
 github_parent: "https://github.com/lightspeedwp/.github/issues/282"
 ---

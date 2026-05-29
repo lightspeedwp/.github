@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Feature"
 name: "Feature"
 about: "Propose a net-new capability, enhancement, or workflow improvement."
 title: "[Feature] Create `plugins/lightspeed-github-ops` pilot plugin skeleton"

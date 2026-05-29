@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Pull Request"
 name: "Pull Request"
 about: "General changes, refactors, and maintenance"
 title: "PR: {short summary}"

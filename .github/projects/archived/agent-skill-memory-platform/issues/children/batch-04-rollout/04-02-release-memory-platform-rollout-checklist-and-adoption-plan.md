@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Release"
 name: "Release"
 about: "Local issue draft for memory platform rollout"
 title: "[Release] Create memory platform rollout checklist and adoption plan"
