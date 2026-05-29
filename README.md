@@ -4,7 +4,7 @@ description: "Central hub for LightSpeed organization's community health files, 
 category: "readme"
 version: "2.5"
 created_date: "2025-01-10"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -13,13 +13,6 @@ tags:
   ["community-health", "automation", "governance", "labels", "workflows", "ai"]
 domain: "governance"
 stability: "stable"
-references:
-  - path: ".github/custom-instructions.md"
-    description: "Custom instructions for GitHub Copilot"
-  - path: "instructions/coding-standards.instructions.md"
-    description: "Unified coding standards"
-  - path: "instructions/automation.instructions.md"
-    description: "Automation and agent standards"
 ---
 
 # 🏠 LightSpeed Community Health & Automation Repository
@@ -360,6 +353,8 @@ This comprehensive workflow diagram illustrates the complete ecosystem of the Li
 
 ```mermaid
 flowchart TB
+accTitle: "Repository ecosystem overview"
+accDescr: "Comprehensive view of the .github repository ecosystem, showing core structure, automation pipelines, quality gates, and organization-wide impact across all component areas."
     subgraph "📁 Core Repository Structure"
         A[🏠 .github Repository]
         B[📋 Community Health Files]
@@ -428,6 +423,8 @@ flowchart TB
 
 ```mermaid
 stateDiagram-v2
+accTitle: "Repository maintenance and update state machine"
+accDescr: "State diagram showing the content update lifecycle from initial content updates through validation, testing, quality checks, review, approval, and deployment with org-wide synchronization."
     [*] --> ContentUpdate
     ContentUpdate --> ValidationPending
     ValidationPending --> TestsRunning
@@ -474,6 +471,8 @@ All code quality, formatting, and automation standards are documented and enforc
 
 ```mermaid
 flowchart LR
+accTitle: "Testing architecture and quality gates"
+accDescr: "Testing architecture showing test types, tools, and quality gates with relationships between unit tests, integration tests, end-to-end tests, and coverage reporting through Jest, Playwright, Bats, and coverage tools."
     subgraph "🧪 Test Types"
         A[Unit Tests]
         B[Integration Tests]
