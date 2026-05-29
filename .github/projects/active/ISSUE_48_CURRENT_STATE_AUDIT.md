@@ -406,7 +406,7 @@ npm run generate:badges
 
 - `/docs/MIGRATION.md`: Document badge migration maps and remediation notes (new)
 - `CONTRIBUTING.md`: Add branding compliance section
-- `.github/DEVELOPMENT.md`: Add pre-commit validation instructions
+- `DEVELOPMENT.md`: Add pre-commit validation instructions
 - `.github/instructions/markdown.instructions.md`: Update with new standards
 - `README.md` (root): Add branding agent overview
 
@@ -478,8 +478,8 @@ Once this specification is approved:
 
 - `BRANDING_AUDIT_RESULTS.md` — Detailed audit metrics
 - `BRANDING_REMEDIATION_LOG.md` — Progress tracking
-- `branding-compliance-guide.md` — Contributor guidance
-- `category-mapping-reference.md` — Quick reference guide
+- `BRANDING_COMPLIANCE_GUIDE.md` — Contributor guidance
+- `CATEGORY_MAPPING_REFERENCE.md` — Quick reference guide
 - `.github/scripts/remediate-*.js` — Remediation scripts
 
 **Standards and References**:
