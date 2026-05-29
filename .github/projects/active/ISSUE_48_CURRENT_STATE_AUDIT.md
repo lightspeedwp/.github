@@ -5,7 +5,7 @@ file_type: "documentation"
 category: "governance"
 version: "v1.0.0"
 created_date: "2026-05-28"
-last_updated: "2026-05-29T00:00:00Z"
+last_updated: "2026-05-29"
 owners: ["Ash Shaw"]
 tags: ["branding", "audit", "remediation", "inventory", "governance"]
 status: "active"
