@@ -1,13 +1,13 @@
 ---
-title: "AI Runner Inventory"
+authors: "["LightSpeed Team"]"
 description: "Canonical inventory of JavaScript and Bash runners plus telemetry hooks used in this repository."
-version: "v1.0.0"
-last_updated: "2026-05-28"
-file_type: "documentation"
-maintainer: "LightSpeed Team"
-authors: ["LightSpeed Team"]
-license: "GPL-3.0"
-tags: ["ai", "runners", "javascript", "bash", "telemetry"]
 domain: "governance"
+file_type: "documentation"
+last_updated: "2026-05-28"
+license: "GPL-3.0"
+maintainer: "LightSpeed Team"
 stability: "active"
+tags: "["ai", "runners", "javascript", "bash", "telemetry"]"
+title: "AI Runner Inventory"
+version: "v1.0.0"
 ---

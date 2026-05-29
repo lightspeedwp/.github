@@ -1,15 +1,15 @@
 ---
-file_type: "documentation"
-title: "Portable Skills"
+authors: "["Codex"]"
 description: "Ownership index for self-contained LightSpeed AI skills."
-version: "v0.2.0"
-last_updated: "2026-05-26"
-maintainer: "LightSpeed Team"
-authors: ["Codex"]
-license: "GPL-3.0"
-tags: ["skills", "ai-ops", "plugin-restructure"]
 domain: "governance"
+file_type: "documentation"
+last_updated: "2026-05-26"
+license: "GPL-3.0"
+maintainer: "LightSpeed Team"
 stability: "draft"
+tags: "["skills", "ai-ops", "plugin-restructure"]"
+title: "Portable Skills"
+version: "v0.2.0"
 ---
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -1,15 +1,15 @@
 ---
-file_type: "documentation"
-title: "Portable Instructions"
+authors: "["Codex"]"
 description: "Ownership index for portable LightSpeed instruction files."
-version: "v0.2.0"
-last_updated: "2026-05-26"
-maintainer: "LightSpeed Team"
-authors: ["Codex"]
-license: "GPL-3.0"
-tags: ["instructions", "ai-ops", "plugin-restructure"]
 domain: "governance"
+file_type: "documentation"
+last_updated: "2026-05-26"
+license: "GPL-3.0"
+maintainer: "LightSpeed Team"
 stability: "draft"
+tags: "["instructions", "ai-ops", "plugin-restructure"]"
+title: "Portable Instructions"
+version: "v0.2.0"
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
