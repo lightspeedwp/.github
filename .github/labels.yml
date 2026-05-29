@@ -410,7 +410,7 @@
   aliases:
     - dependencies
 
-- name: dependabot:security
+- name: meta:dependabot-security
   color: B60205
   description: "Dependabot update appears security-related and eligible for guarded automation"
 

@@ -4,7 +4,7 @@ pull_request_rules:
       - author=dependabot[bot]
       - base=develop
       - label=dependencies
-      - label=dependabot:security
+      - label=meta:dependabot-security
       - check-success=CI / check
       - check-success=lint / lint
       - check-success=reviewer / coderabbit-gate

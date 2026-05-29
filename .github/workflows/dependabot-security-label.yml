@@ -22,7 +22,7 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const issue_number = context.payload.pull_request.number;
-            const labelName = 'dependabot:security';
+            const labelName = 'meta:dependabot-security';
 
             const title = context.payload.pull_request.title || '';
             const body = context.payload.pull_request.body || '';
