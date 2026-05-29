@@ -4,8 +4,8 @@ title: Quality Assurance Standards
 description: Comprehensive testing, validation, and quality assurance standards for
   all GitHub repository code and automation
 scope: organization-wide
-version: v1.0
-last_updated: '2025-12-07'
+version: v1.1
+last_updated: '2026-05-29'
 owners:
 - GitHub Community Health Team
 tags:

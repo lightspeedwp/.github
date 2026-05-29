@@ -4,8 +4,8 @@ title: Community Standards
 description: 'Community health standards: naming conventions, README expectations,
   saved replies, and shared assets. File placement lives in file-organisation.instructions.md.'
 scope: organization-wide
-version: v1.0
-last_updated: '2025-12-07'
+version: v1.1
+last_updated: '2026-05-29'
 owners:
 - GitHub Community Health Team
 tags:

@@ -1,10 +1,13 @@
 ---
-file_type: "documentation"
-title: "Weekly Reports Summary - Week 19"
-description: "Automated weekly summary of all reports in the repository"
-category: "summary"
-created_date: "2026-05-04"
-last_updated: "2026-05-04"
-author: "automation"
-tags: ["weekly", "summary", "automated"]
+file_type: documentation
+title: Weekly Reports Summary - Week 19
+description: Automated weekly summary of all reports in the repository
+category: summary
+created_date: '2026-05-04'
+last_updated: '2026-05-29'
+author: automation
+tags:
+- weekly
+- summary
+- automated
 ---

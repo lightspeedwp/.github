@@ -1,8 +1,8 @@
 ---
 file_type: documentation
 title: Frontmatter Schema Documentation
-version: v2.0
-last_updated: '2025-12-04'
+version: v2.1
+last_updated: '2026-05-29'
 author: LightSpeedWP
 maintainer: Ash Shaw
 description: Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter

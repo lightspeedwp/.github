@@ -1,11 +1,18 @@
 ---
-file_type: "documentation"
-title: "Architectural Decisions"
-description: "Architectural Decision Records (ADR) and rationale for major technical decisions in the LightSpeedWP .github repository"
-version: "1.0"
-last_updated: "2025-12-04"
-owners: ["LightSpeed Engineering"]
-tags: ["architecture", "decisions", "adr", "governance", "technical-decisions"]
+file_type: documentation
+title: Architectural Decisions
+description: Architectural Decision Records (ADR) and rationale for major technical
+  decisions in the LightSpeedWP .github repository
+version: '1.1'
+last_updated: '2026-05-29'
+owners:
+- LightSpeed Engineering
+tags:
+- architecture
+- decisions
+- adr
+- governance
+- technical-decisions
 ---
 
 # Architectural Decisions

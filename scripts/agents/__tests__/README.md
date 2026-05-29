@@ -1,9 +1,9 @@
 ---
-title: "Agent Test Suite"
-description: "Comprehensive Jest tests for all LightSpeed agents"
-version: "v1.0"
-last_updated: "2025-11-24"
-file_type: "documentation"
+title: Agent Test Suite
+description: Comprehensive Jest tests for all LightSpeed agents
+version: v1.1
+last_updated: '2026-05-29'
+file_type: documentation
 ---
 
 # 🧪 Agent Test Suite

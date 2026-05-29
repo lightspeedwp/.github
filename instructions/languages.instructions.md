@@ -4,8 +4,8 @@ title: Programming Languages Standards
 description: Unified linting, formatting, and documentation standards for JavaScript,
   TypeScript, JSON, and YAML across all GitHub repositories
 scope: organization-wide
-version: v1.0
-last_updated: '2025-12-07'
+version: v1.1
+last_updated: '2026-05-29'
 owners:
 - GitHub Community Health Team
 tags:

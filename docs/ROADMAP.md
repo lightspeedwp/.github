@@ -2,7 +2,7 @@
 description: Development roadmap and phased delivery plan for the LightSpeedWP .github
   community health repository
 file_type: documentation
-last_updated: '2025-12-04'
+last_updated: '2026-05-29'
 owners:
 - LightSpeed Team
 tags:
@@ -12,7 +12,7 @@ tags:
 - timeline
 - deliverables
 title: Development Roadmap
-version: '1.0'
+version: '1.1'
 ---
 
 # Development Roadmap

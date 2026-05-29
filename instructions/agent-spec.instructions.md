@@ -4,8 +4,8 @@ title: Agent Specification Instructions
 description: How to design, write, and review LightSpeed Copilot agent specification
   files.
 scope: repo-local
-version: v1.0
-last_updated: '2025-12-11'
+version: v1.1
+last_updated: '2026-05-29'
 owners:
 - GitHub Community Health Team
 tags:
