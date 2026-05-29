@@ -4,7 +4,7 @@ title: Specification-Driven Development Workflow
 description: Guidelines for defining specifications before implementation, using specs to drive design decisions, and maintaining living specs as requirements evolve.
 scope: organization-wide
 applyTo: '**'
-version: v1.0
+version: v1.1
 last_updated: '2026-05-29'
 owners:
 - LightSpeedWP Team
