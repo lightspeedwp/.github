@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Mergify Dependabot Auto-merge Rules** — Corrected Mergify configuration to automatically merge Dependabot PRs by fixing the author condition from `author=dependabot` to `author=dependabot[bot]` to match GitHub's actual Dependabot bot account name ([#573](https://github.com/lightspeedwp/.github/issues/573))
+
 ### Added
 
 - **WCEU 2026 Validation Scripts (Bash-to-JavaScript Migration)** — Completed migration of WCEU validation scripts from Bash to JavaScript with improvements:
