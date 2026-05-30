@@ -3,7 +3,7 @@ title: "WCEU 2026 Presentation Materials"
 description: "Complete Phase 1, 2, and 3 materials for WCEU 2026 talk: 'One .github repo to rule them all'"
 created_date: "2026-05-28"
 file_type: documentation
-last_updated: "2026-05-29"
+last_updated: "2026-05-30"
 ---
 
 # WCEU 2026 Presentation Materials
