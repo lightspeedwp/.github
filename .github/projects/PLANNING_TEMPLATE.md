@@ -1,9 +1,13 @@
 ---
 title: "Project Planning Template"
 description: "Use this template to document planning before creating related issues"
-file_type: "planning"
+file_type: "documentation"
 created_date: "YYYY-MM-DD"
-status: "active"
+version: "1.0.0"
+author: "LightSpeed Team"
+maintainer: "LightSpeed Team"
+owners: ["lightspeedwp/maintainers"]
+tags: ["planning", "template", "process"]
 ---
 
 # Project Planning: [Project Name]

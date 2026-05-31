@@ -1,5 +1,5 @@
 ---
-name: Project Meta Sync
+title: Project Meta Sync
 description: Syncs GitHub Project board meta fields (Status, Priority, Type) from
   issue/PR labels and branch names, automating project management and triage workflows.
 target: github-copilot

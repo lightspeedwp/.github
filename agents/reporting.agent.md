@@ -1,5 +1,5 @@
 ---
-name: Reporting
+title: Reporting
 description: Interactive agent for creating, organising, and maintaining reports and
   progress updates following LightSpeed standards. Guides users through report creation
   with proper structure and categorisation.
