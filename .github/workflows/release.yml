@@ -54,15 +54,18 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       unauthorized_attempts: ${{ steps.telemetry.outputs.unauthorized_attempts }}
+      is_authorized: ${{ steps.telemetry.outputs.is_authorized }}
     steps:
       - id: telemetry
-        name: Record trigger telemetry
+        name: Validate trigger authorization
         env:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/workflows/release/trigger-telemetry.cjs
       - name: Upload telemetry artefact
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: trigger-telemetry
           path: trigger-telemetry.json
