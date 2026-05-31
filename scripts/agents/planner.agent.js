@@ -12,6 +12,9 @@ import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 import * as core from "@actions/core";
 import * as github from "@actions/github";
+import { Logger } from "../utils/logger.js";
+
+const logger = new Logger(process.env.LOG_LEVEL || "info");
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -190,6 +193,7 @@ function generatePlan(context) {
 }
 
 async function run(context = github.context, options = {}) {
+  const startTime = Date.now();
   try {
     const token = core.getInput("github-token") || process.env.GITHUB_TOKEN;
     if (!token) {
@@ -197,6 +201,13 @@ async function run(context = github.context, options = {}) {
         "Missing GITHUB_TOKEN: provide via 'github-token' input or GITHUB_TOKEN env var",
       );
     }
+
+    logger.info("Planner agent started", {
+      event: "start",
+      issueNumber:
+        context.payload.issue?.number || context.payload.pull_request?.number,
+      repo: context.repo.repo,
+    });
 
     const dryRun =
       options.dryRun !== undefined
@@ -219,8 +230,15 @@ async function run(context = github.context, options = {}) {
     const analysisContext = await analyzeContext(octokit, context);
     const plan = generatePlan(analysisContext);
 
+    logger.info("Plan generated", {
+      event: "plan-generated",
+      planType: analysisContext.type,
+      issueNumber: analysisContext.number,
+    });
+
     if (dryRun) {
       core.info(`DRY-RUN: Would post plan:\n${plan}`);
+      logger.info("Dry-run mode: plan not posted", { event: "dry-run" });
     } else {
       try {
         const prComments = await octokit.rest.issues.listComments({
@@ -241,6 +259,11 @@ async function run(context = github.context, options = {}) {
             body: plan,
           });
           core.info("Planner comment updated.");
+          logger.info("Comment updated successfully", {
+            event: "comment-updated",
+            issueNumber: issue.number,
+            commentId: existingComment.id,
+          });
         } else {
           await octokit.rest.issues.createComment({
             owner: context.repo.owner,
@@ -249,6 +272,10 @@ async function run(context = github.context, options = {}) {
             body: plan,
           });
           core.info("Planner comment posted.");
+          logger.info("Comment posted successfully", {
+            event: "comment-created",
+            issueNumber: issue.number,
+          });
         }
       } catch (error) {
         throw new Error(
@@ -256,8 +283,17 @@ async function run(context = github.context, options = {}) {
         );
       }
     }
+    logger.info("Planner agent completed successfully", {
+      event: "complete",
+      duration: Date.now() - startTime,
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
+    logger.error("Planner agent failed", {
+      event: "error",
+      error: message,
+      duration: Date.now() - startTime,
+    });
     core.setFailed(message);
     process.exit(1);
   }
