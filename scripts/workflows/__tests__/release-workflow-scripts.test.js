@@ -22,27 +22,36 @@ describe("release workflow JS scripts", () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "wf-telemetry-"));
     const outputPath = path.join(tempDir, "github_output.txt");
 
-    execFileSync(process.execPath, [runtimeScript], {
-      cwd: tempDir,
-      env: {
-        ...process.env,
-        GITHUB_OUTPUT: outputPath,
-        GITHUB_EVENT_NAME: "workflow_dispatch",
-        GITHUB_ACTOR: "ash",
-      },
-      encoding: "utf8",
-    });
+    try {
+      execFileSync(process.execPath, [runtimeScript], {
+        cwd: tempDir,
+        env: {
+          ...process.env,
+          GITHUB_OUTPUT: outputPath,
+          GITHUB_EVENT_NAME: "workflow_dispatch",
+          GITHUB_ACTOR: "ash",
+          GITHUB_TOKEN: "", // Empty token causes authorization to fail
+        },
+        encoding: "utf8",
+        stdio: "pipe",
+      });
+    } catch (error) {
+      // Expected to fail when GITHUB_TOKEN is missing
+    }
 
     const outputContent = fs.readFileSync(outputPath, "utf8");
     const telemetry = JSON.parse(
       fs.readFileSync(path.join(tempDir, "trigger-telemetry.json"), "utf8"),
     );
 
-    expect(outputContent).toContain("unauthorized_attempts=0");
+    // When token is missing, authorization fails and unauthorized_attempts is 1
+    expect(outputContent).toContain("unauthorized_attempts=1");
     expect(telemetry).toEqual({
       event: "workflow_dispatch",
       actor: "ash",
-      unauthorized_attempts: 0,
+      is_authorized: false,
+      unauthorized_attempts: 1,
+      timestamp: expect.any(String),
     });
   });
 

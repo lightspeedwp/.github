@@ -103,6 +103,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Comprehensive unit tests in `scripts/__tests__/wceu-validation-scripts.test.js` validating script structure, syntax, and completeness
   - Updated `scripts/README.md` with usage examples and feature documentation ([#13](https://github.com/lightspeedwp/.github/issues/13), [#16](https://github.com/lightspeedwp/.github/issues/16))
 
+- **Release Automation Framework Phase 2: Semantic Versioning & Release Notes Generation** — Implemented core semantic versioning detection and release notes formatting modules enabling automated version bumping and changelog generation ([#598](https://github.com/lightspeedwp/.github/pull/598)):
+  - `scripts/agents/includes/versionDetector.js` — Semantic version bump detection from changelog entries with Conventional Commits integration. Analyzes breaking changes, feature additions, deprecations, and removals to determine patch/minor/major version bumps per Semantic Versioning 2.0.0. Functions: parseVersion, formatVersion, compareVersions, determineBumpType, calculateNextVersion, detectBump, suggestNextVersion
+  - `scripts/agents/includes/releaseNotesFormatter.js` — Release notes generation from changelog entries with Markdown formatting and metadata support (scope, commit hash, PR number, author). Configurable section ordering (security → removed → deprecated → added → changed → fixed → documentation → performance) and summary text generation. Functions: formatSectionTitle, formatEntry, buildReleaseNotes, generateReleaseNotes, extractSummary, generateSummaryText
+  - `scripts/agents/includes/duplicateDetector.js` — Enhanced duplicate detection using fuzzy matching with Levenshtein distance algorithm and semantic analysis via key-term overlap. Configurable similarity threshold (default 0.85). Functions: normalize, levenshteinDistance, calculateSimilarity, isFuzzyDuplicate, hasSemanticDuplicate, findBestMatch, deduplicateEntries, groupDuplicates
+  - Comprehensive test coverage: 99 Jest tests across all three modules (32 versionDetector tests, 27 releaseNotesFormatter tests, 40 duplicateDetector tests) with >90% code coverage
+  - Integration tests validate semantic versioning logic, Markdown formatting, fuzzy matching algorithms, and edge case handling
+
 - **Complete Agent Specifications & Documentation Audit** — Completed specification documentation for tracking agents and audited documentation cross-references:
   - Completed `agents/template.agent.md` with canonical agent specification template, usage guidelines, structure documentation, and best practices ([#488](https://github.com/lightspeedwp/.github/issues/488))
   - Enhanced `agents/testing.agent.md` with comprehensive role/responsibilities, capabilities, configuration, examples, and related agent references ([#490](https://github.com/lightspeedwp/.github/issues/490))
@@ -131,6 +138,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **2 Governance & Standards Prompts**: WordPress-specific requirements and contributing guidelines
   - **5 Developer Experience & Strategy Prompts**: Getting started, best practices, troubleshooting/debugging, roadmap/vision, and case studies/success stories
   - Each prompt includes system overview, key components, integration points, 3+ use cases, 12-15 slide structure, evidence anchors linking to repository files, design notes for visual consistency, and quality bars for validation. Enables presentation creation with NotebookLM, Figma, and other design tools. ([#549](https://github.com/lightspeedwp/.github/pull/549))
+
+- **Design Markdown Agent: P3 Shell Script Modernization** — Completed migration of PDF tooling dependency installation from Bash to JavaScript:
+  - `skills/design-md-agent/pdfs/js/installDeps.js` — New JavaScript module replacing `install_deps.sh` shell script with async/await pattern
+  - `skills/design-md-agent/pdfs/js/__tests__/installDeps.test.js` — Comprehensive test suite with 11 tests covering node_modules fast-path, package.json validation, error handling, npm install execution, and console logging
+  - Performance improvement: promisified `exec()` replaces blocking subprocess; non-blocking async operation for CI/CD pipelines
+  - Code review refinements: proper error wrapping, fast-path optimization, comprehensive mock-based testing, silent npm install flag validation
+  - Returns structured result object with success/installed/directory properties for programmatic integration ([#616](https://github.com/lightspeedwp/.github/issues/616), [#639](https://github.com/lightspeedwp/.github/pull/639))
 
 - **Consolidated Branding Agent Module** — Unified `scripts/agents/branding.agent.js` consolidates header, footer, and badge logic from previously scattered modules:
   - Merged header-footer.js, badges.js, footerUtils.js, and badgeUtils.js into single ES Module
