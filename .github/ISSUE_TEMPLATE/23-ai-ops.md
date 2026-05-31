@@ -1,12 +1,10 @@
 ---
-name: "🧠 AI Ops"
-about: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
 file_type: "issue-template"
-description: "Issue template for AI/ML operations, workflows, and automation improvements."
-owners: ["LightSpeed Team"]
-tags: ["issue-template", "ai", "automation"]
-title: "[AI Ops] <Brief summary>"
-labels: [status:needs-triage, area:ai]
+name: "🧠 AI Ops"
+description: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 ## AI Ops Summary

@@ -1,8 +1,9 @@
 ---
-version: "v0.1.1"
-last_updated: "2026-05-27"
-owners: ["lightspeedwp"]
-file_type: "index"
-category: "documentation"
-description: "Canonical index entrypoint for docs, forwarding to docs/README.md."
+version: v0.1.1
+last_updated: '2026-05-27'
+title: Documentation Index
+owners:
+- lightspeedwp
+file_type: documentation
+description: Canonical index entrypoint for docs, forwarding to docs/README.md.
 ---

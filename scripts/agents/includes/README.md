@@ -1,9 +1,9 @@
 ---
-title: "Agent Includes Directory"
-description: "Shared utility modules for LightSpeedWP automation agents"
-version: "1.0"
-last_updated: "2025-11-20"
-file_type: "documentation"
+title: Agent Includes Directory
+description: Shared utility modules for LightSpeedWP automation agents
+version: '1.1'
+last_updated: '2026-05-29'
+file_type: documentation
 ---
 
 # Agent Includes Directory
@@ -112,6 +112,9 @@ includes/
 - [Automation Governance](../../automation/AUTOMATION_GOVERNANCE.md)
 
 ---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

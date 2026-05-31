@@ -1,8 +1,10 @@
 ---
+file_type: "issue-template"
 name: "💡 User Experience Feedback"
-about: Share feedback on the usability and interface design of this WordPress project
-title: "[UX] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
+description: "Share feedback on the usability and interface design of this WordPress project"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 ## Describe your experience

@@ -1,8 +1,10 @@
 ---
+file_type: "issue-template"
 name: "🔍 Research"
-about: "Propose or document technical research, investigation, or exploratory work."
-title: "[Research] <Brief summary>"
-labels: [status:needs-review, priority:minor, area:core]
+description: "Propose or document technical research, investigation, or exploratory work."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 ## Research Goal

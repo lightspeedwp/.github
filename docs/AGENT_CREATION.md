@@ -1,15 +1,16 @@
 ---
-file_type: "documentation"
-title: "Agent Specification Authoring Guide"
-description: "Comprehensive guide for creating, documenting, and maintaining agent specification files following LightSpeed standards"
-version: "v1.0"
-created_date: "2025-01-15"
-last_updated: "2025-01-15"
-author: "LightSpeed Team"
-maintainer: "LightSpeed Team"
-license: "GPL-3.0"
-domain: "governance"
-stability: "stable"
+file_type: documentation
+title: Agent Specification Authoring Guide
+description: Comprehensive guide for creating, documenting, and maintaining agent
+  specification files following LightSpeed standards
+version: v1.1
+created_date: '2025-01-15'
+last_updated: '2026-05-29'
+author: LightSpeed Team
+maintainer: LightSpeed Team
+license: GPL-3.0
+domain: governance
+stability: stable
 tags:
   - agents
   - documentation
@@ -23,7 +24,7 @@ references:
     description: "Main agent index"
   - path: "../agents/template.agent.md"
     description: "Agent specification template"
-  - path: "../.schemas/frontmatter.schema.json"
+  - path: "../schema/frontmatter.schema.json"
     description: "Frontmatter validation schema"
   - path: "../instructions/automation.instructions.md"
     description: "Agent development instructions"
@@ -33,7 +34,7 @@ references:
 
 [![Documentation](https://img.shields.io/badge/docs-comprehensive-blue)](../docs/)
 [![Standards](https://img.shields.io/badge/standards-enforced-success)](../.github/instructions/)
-[![Validation](https://img.shields.io/badge/validation-automated-informational)](../.schemas/)
+[![Validation](https://img.shields.io/badge/validation-automated-informational)](../schema/)
 
 > **Complete guide** for authoring agent specification files that follow LightSpeed organizational standards, including frontmatter requirements, documentation structure, implementation patterns, and validation processes.
 
@@ -543,7 +544,7 @@ Then follow the governance checklist on this page.
 
 - Organisation-wide agent index (`../agents/agent.md`)
 - Agent Specification Authoring Guide
-- Frontmatter schema (`../.schemas/frontmatter.schema.json`)
+- Frontmatter schema (`../schema/frontmatter.schema.json`)
 - Agent instructions (`agent-spec.instructions.md`)
 
 ---

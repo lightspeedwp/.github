@@ -1,8 +1,10 @@
 ---
-name: "Feature PR"
-about: "New features or enhancements"
-title: "feat: {short summary}"
-labels: ["status:needs-review", "area:feature"]
+file_type: "pr-template"
+title: "PR Template - FEATURE"
+description: "Pull request template for FEATURE changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Feature Pull Request

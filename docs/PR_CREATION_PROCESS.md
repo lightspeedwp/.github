@@ -1,6 +1,10 @@
 ---
-*Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
+file_type: "documentation"
+title: "Pull Request Creation Process"
+description: "Process and best practices for creating pull requests in the LightSpeed organization."
 ---
+
+*Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
 
 # LightSpeed Pull Request (PR) Creation Guide
 

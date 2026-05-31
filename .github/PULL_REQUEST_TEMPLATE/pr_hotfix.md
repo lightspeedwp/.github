@@ -1,9 +1,10 @@
 ---
-name: "Hotfix PR"
-about: "Critical fixes for production issues"
-title: "fix: {short summary}"
-labels:
-  ["status:needs-review", "area:hotfix", "priority:critical", "release:hotfix"]
+file_type: "pr-template"
+title: "PR Template - HOTFIX"
+description: "Pull request template for HOTFIX changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Hotfix Pull Request

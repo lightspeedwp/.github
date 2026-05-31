@@ -3,7 +3,12 @@
   "title": "LightSpeed Unified Branding Schema",
   "description": "Comprehensive schema for category-aware branding, frontmatter validation, header/footer management, and badge conventions for all document types in the LightSpeed .github repository",
   "type": "object",
-  "required": ["version", "categories", "frontmatter_fields", "category_inference_rules"],
+  "required": [
+    "version",
+    "categories",
+    "frontmatter_fields",
+    "category_inference_rules"
+  ],
   "properties": {
     "version": {
       "type": "string",
@@ -25,7 +30,13 @@
       "description": "Complete definition of all 16 document categories with metadata, templates, and rules",
       "additionalProperties": {
         "type": "object",
-        "required": ["name", "description", "file_patterns", "frontmatter_required", "header_behavior"],
+        "required": [
+          "name",
+          "description",
+          "file_patterns",
+          "frontmatter_required",
+          "header_behavior"
+        ],
         "properties": {
           "name": {
             "type": "string",

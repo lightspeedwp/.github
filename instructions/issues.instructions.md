@@ -83,7 +83,7 @@ labels: ["type:bug", "status:needs-triage", "priority:normal"]
 
 - `assignees`, `projects`, `milestone`, `type`, `references`
 
-See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.schema.json](../.schemas/frontmatter.schema.json) for validation details.
+See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.schema.json](../schema/frontmatter.schema.json) for validation details.
 
 ---
 

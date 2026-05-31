@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Task"
 name: "Task"
 about: "Request or propose focused implementation work"
 title: "[Task] Slim down branching strategy and align with live labeler rules"

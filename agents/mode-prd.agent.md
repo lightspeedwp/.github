@@ -10,25 +10,24 @@ status: "active"
 domain: "planning"
 stability: "stable"
 tools:
-  [
-    "codebase",
-    "edit/editFiles",
-    "fetch",
-    "findTestFiles",
-    "list_issues",
-    "githubRepo",
-    "search",
-    "add_issue_comment",
-    "issue_write",
-    "issue_read",
-    "search_issues",
-  ]
+- codebase
+- edit/editFiles
+- fetch
+- findTestFiles
+- list_issues
+- githubRepo
+- search
+- add_issue_comment
+- issue_write
+- issue_read
+- search_issues
 permissions:
-  - "read"
-  - "write"
-  - "github:issues"
+- read
+- write
+- github:issues
 metadata:
-  guardrails: "Ask clarifying questions first, confirm scope before drafting any PRD, only create docs with user approval, and never write issues without explicit consent."
+  guardrails: Ask clarifying questions first, confirm scope before drafting any PRD,
+    only create docs with user approval, and never write issues without explicit consent.
 ---
 
 # Create PRD Agent

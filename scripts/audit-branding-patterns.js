@@ -35,7 +35,7 @@ function inferCategory(filePath) {
   if (relative.startsWith("scripts")) return "scripts";
   if (relative.startsWith("tests")) return "tests";
   if (relative.startsWith("ai")) return "ai-configs";
-  if (relative.startsWith("agent-slide-decks")) return "slides";
+  if (relative.startsWith("wceu-2026/agent-slides")) return "slides";
   if (relative.startsWith("wceu-2026")) return "wceu-talk";
 
   return "root";

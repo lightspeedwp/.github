@@ -1,11 +1,13 @@
 ---
-title: "Instruction Consolidation Migration Guide (v2.0)"
-description: "Migration guide for 22 instruction files → 5 consolidated instruction files. Maps old files to new sections."
-version: "1.0"
-created_date: "2025-12-07"
-last_updated: "2025-12-07"
-authors: ["LightSpeed Team"]
-status: "active"
+title: Instruction Consolidation Migration Guide (v2.0)
+description: Migration guide for 22 instruction files → 5 consolidated instruction
+  files. Maps old files to new sections.
+version: '1.1'
+created_date: '2025-12-07'
+last_updated: '2026-05-29'
+authors:
+- LightSpeed Team
+status: active
 ---
 
 # Instruction Consolidation Migration Guide
