@@ -73,35 +73,42 @@ GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queu
 
 ## Active Project Files Inventory
 
-### Currently Active Projects
+### Currently Active Projects (in `/active/` folder)
 
 | Project File | Status | Owner | Action |
 | --- | --- | --- | --- |
-| `github-workflow-consolidation-2026-05-28/` | ✅ COMPLETED - Epic #503 closed, planning docs ready for archive | GitHub Copilot | Archive to `completed/` folder after final review |
+| `next-issues-execution-plan.md` | 📋 LIVING DOCUMENT - Updated 2026-05-31 with current status and archival tracking | Claude Code | Maintain and update continuously |
+| `ISSUE_48_CURRENT_STATE_AUDIT.md` | ✅ COMPLETED - Issue #48 merged (planning phase, 2026-05-28) | Claude Code | ✅ Archived to `completed/ISSUE_48_CURRENT_STATE_AUDIT.md` |
+| `wave-3c-issue-spec.md` | 🟡 ACTIVE - Awaiting GitHub Copilot execution on issue #514 | GitHub Copilot | Maintain and track to completion |
+| `plugin-pack-next-wave-task-list-2026-05-28.md` | 🟡 ACTIVE - Plugin-pack rollout task queue (next wave) | GitHub Copilot | Execute and update per task completion |
+| `plugin-pack-second-wave-task-list-2026-05-28.md` | 🟡 ACTIVE - Plugin-pack rollout task queue (second wave) | GitHub Copilot | Track sequencing and dependencies across packs |
+| `plugin-pack-third-wave-task-list-2026-05-28.md` | 🟡 ACTIVE - Plugin-pack rollout task queue (third wave) | GitHub Copilot | Maintain as queued backlog for post-second-wave execution |
+| `wave-5-documentation-audit/` | 🟡 ACTIVE - Comprehensive documentation audit with 25+ child issues (#649–#673) | Multiple | Execute audit phases; reference index at `wave-5-documentation-audit/INDEX.md` |
+| `wceu-2026/` | 🟡 ACTIVE - WCEU 2026 conference talk assets and planning | Claude Code | Maintain and update as talk preparation continues |
 | `launch-agents-checklist.md` | 🟡 IN PROGRESS - Partial test infrastructure fixes applied 2026-05-28 | LightSpeed Team | Complete remaining validation phases (critical pre-v1.0.0 release) |
-| `spec-only-agents-issue-conversion-2026-05-28.md` | ✅ COMPLETED - All spec-only agents converted to issues (#465, #467, #466, #468, #469) | GitHub Copilot | Archive to `completed/` folder |
-| `next-issues-execution-plan.md` | 📋 LIVING DOCUMENT - Updated 2026-05-29 with completion status and Wave 4C–4F allocation | Claude Code | Maintain and update continuously |
-| `ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` | ✅ COMPLETED - Issue #33 merged (planning phase) | Claude Code | Archive to `completed/` folder |
-| `ISSUE_46_TEMPLATE_DESIGN.md` | ✅ COMPLETED - Issue #46 merged (planning phase) | Claude Code | Archive to `completed/` folder |
-| `ISSUE_48_CURRENT_STATE_AUDIT.md` | ✅ COMPLETED - Issue #48 merged (planning phase) | Claude Code | Archive to `completed/` folder |
-| `ISSUE_49_SCHEMA_CONFIG_IMPLEMENTATION.md` | ✅ COMPLETED - Issue #49 merged (planning phase) | Claude Code | Archive to `completed/` folder |
-| `branding-meta-agent-planning-2026-05-28.md` | ✅ COMPLETED - Comprehensive Wave 4 planning (issues #33–#49 closed) | Claude Code | Archive to `completed/` folder |
-| `PLANNING_SUMMARY_2026-05-28.md` | ✅ COMPLETED - Planning summary for completed branding/WCEU initiatives | Claude Code | Archive to `completed/` folder |
-| `wave-3b-issue-spec.md` | ✅ COMPLETED - Issue #513 closed, remediation work ready for Wave 4C | Claude Code | Archive to `completed/` folder |
-| `wave-4-continuous-monitoring.md` | ✅ COMPLETED - Design spec ready for Wave 4C–4F implementation | Claude Code | Archive to `completed/` folder; reference in Wave 4C–4F tasks |
-| `wave-3c-issue-spec.md` | ✅ ACTIVE - Awaiting GitHub Copilot execution on issue #514 | GitHub Copilot | Maintain and track to completion |
-| `plugin-pack-next-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (next wave) | GitHub Copilot | Execute and update per task completion |
-| `plugin-pack-second-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (second wave) | GitHub Copilot | Track sequencing and dependencies across packs |
-| `plugin-pack-third-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (third wave) | GitHub Copilot | Maintain as queued backlog for post-second-wave execution |
-| `context-reduction-tasks.md` | ⏳ REQUIRES REVIEW - Needs audit for completion/archival status | TBD | Review and decide: archive or continue |
-| `test-coverage-implementation.md` | ⏳ REQUIRES REVIEW - Needs audit for completion/archival status | TBD | Review and decide: archive or continue |
-| `2025-12-11-wordpress-standards-compliance-comprehensive-review.md` | ⏳ REQUIRES REVIEW - Date-stamped archive candidate | TBD | Review and archive if complete |
+| `context-reduction-tasks.md` | ⏳ BLOCKED - Phase 1 (delete meta-files) pending decision on CLAUDE.md/AGENTS.md deprecation | TBD | Review decision and proceed with phases |
+| `test-coverage-implementation.md` | ⏳ BLOCKED - Phase 1 (baseline) pending; 0/62 tasks (0% complete) | TBD | Define baseline methodology and proceed |
+| `2025-12-11-wordpress-standards-compliance-comprehensive-review.md` | ⏳ BLOCKED - Phase 0 (documentation) pending; awaits superpowers:executing-plans execution | TBD | Allocate resources or defer to post-release |
 
-### Projects Eligible for Archival (Review First)
+### Completed Projects (in `/completed/` folder) ✅ ARCHIVED 2026-05-30/31
 
-- `context-reduction-tasks.md` — verify completion status before archiving
-- `test-coverage-implementation.md` — verify completion status before archiving
-- `2025-12-11-wordpress-standards-compliance-comprehensive-review.md` — verify completion status before archiving
+| Project File | Completed | GitHub Issue |
+| --- | --- | --- |
+| `ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` | 2026-05-28 | #33 |
+| `ISSUE_46_TEMPLATE_DESIGN.md` | 2026-05-28 | #46 |
+| `ISSUE_49_SCHEMA_CONFIG_IMPLEMENTATION.md` | 2026-05-31 | #49 |
+| `branding-meta-agent-planning-2026-05-28.md` | 2026-05-28 | Wave 4 planning |
+| `PLANNING_SUMMARY_2026-05-28.md` | 2026-05-28 | Branding audit planning |
+| `spec-only-agents-issue-conversion-2026-05-28.md` | 2026-05-28 | #465, #467, #466, #468, #469 |
+| `wave-3b-issue-spec.md` | 2026-05-28 | #513 |
+| `wave-4-continuous-monitoring.md` | 2026-05-28 | Wave 4 planning |
+| `github-workflow-consolidation-2026-05-28/` | 2026-05-28 | #503 epic |
+
+### Projects Requiring Decision
+
+- **context-reduction-tasks.md** — Decision needed: Should CLAUDE.md, AGENTS.md, DOCS.md be deprecated in favour of custom-instructions.md? Blocks Phase 1.
+- **test-coverage-implementation.md** — Decision needed: Is 80% coverage still required before v1.0.0 release? Define baseline methodology.
+- **2025-12-11-wordpress-standards-compliance-comprehensive-review.md** — Decision needed: Is this still required or can be deferred to post-v1.0.0 release?
 
 ---
 
@@ -592,23 +599,27 @@ Archival checklist per file:
 
 **Status**: Proposed — audit prompt created, ready for GitHub issue creation
 
-**Scope**: 
+**Scope**:
+
 - 5 parent audit issues
 - ~25 child audit issues
 - Covers: templates, canonical configs, documentation, README files, file organization
 
 **Execution Plan**:
+
 - Use prompt document: `.github/projects/active/DOCUMENTATION_AUDIT_PROMPT_COMPREHENSIVE.md`
 - Create all issues from prompt
 - Track progress in active projects folder
 - Consolidate findings into implementation wave
 
 **Why This Matters**:
+
 - Issue labeling automation isn't working (PR labeling works fine)
 - Root cause likely in how templates/configs relate or how AI agents create issues
 - Clear documentation will guide all future automation fixes
 
 **Key Deliverables**:
+
 1. Issue template audit & standardization recommendations
 2. Canonical config validation (labels, issue-types, issue-fields)
 3. Documentation consolidation & deduplication plan
@@ -619,7 +630,8 @@ Archival checklist per file:
 
 **Owner**: Claude Code (investigation phase), then implementation team
 
-**Next Action**: 
+**Next Action**:
+
 1. Review `DOCUMENTATION_AUDIT_PROMPT_COMPREHENSIVE.md`
 2. Create GitHub issues from prompt structure
 3. Assign to team members
@@ -627,4 +639,3 @@ Archival checklist per file:
 5. Consolidate recommendations into implementation plan
 
 ---
-
