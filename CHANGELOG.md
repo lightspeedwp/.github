@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Wave 5 Audit #654: Template Inventory & Standardisation Findings** — Completed comprehensive audit of 26 issue templates in `.github/ISSUE_TEMPLATE/` documenting 100% frontmatter compliance, identifying 1 critical duplicate numbering issue (07-improvement + 07-user-experience-feedback), 2 type mapping gaps (Chore, User Experience Feedback, Help/Support), and providing recommendations for Phase 1 (numbering fixes), Phase 2 (type clarification), and Phase 3 (documentation updates). Created audit findings document at `.github/projects/active/wave-5-documentation-audit/findings/654-template-inventory-findings.md` with complete inventory metrics, critical/medium/low issue analysis, and phased remediation roadmap ([#654](https://github.com/lightspeedwp/.github/issues/654))
+- **Wave 5 Audit [#654](https://github.com/lightspeedwp/.github/issues/654) / [#694](https://github.com/lightspeedwp/.github/pull/694)**: Template Inventory & Standardisation Findings — Completed comprehensive audit of 26 issue templates in `.github/ISSUE_TEMPLATE/` documenting 100% frontmatter compliance, identifying 1 critical duplicate numbering issue (07-improvement + 07-user-experience-feedback), 2 type mapping gaps (Chore, User Experience Feedback, Help/Support), and providing recommendations for Phase 1 (numbering fixes), Phase 2 (type clarification), and Phase 3 (documentation updates). Created audit findings document at `.github/projects/active/wave-5-documentation-audit/findings/654-template-inventory-findings.md` with complete inventory metrics, critical/medium/low issue analysis, and phased remediation roadmap
 
 - **WCEU 2026 Phase 2 Refinement: Complete Speaker Notes and Visual Design Specifications** — Finalised all speaker notes and visual design guidance for 25-minute WordCamp Europe 2026 presentation on ".github repository automation":
   - `wceu-2026/SPEAKER_NOTES_FINAL.md` — Complete speaker notes for all 24 slides including key messages, talking points, timing (25:10 total), transitions, and emergency cut list; pacing checkpoints at 12:30, 18:00, 23:00
@@ -458,7 +458,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Branching Strategy](docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
 - [CONTRIBUTING.md](./CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
-- [AUTOMATION_GOVERNANCE.md](docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labelling, and release strategy.
-- [Org-wide Issue Labels](docs/ISSUE_LABELS.md): Default labels and usage guidance.
-- [Pull Request Labels](docs/PR_LABELS.md): PR classification and automation standards.
+- [AUTOMATION.md](./docs/AUTOMATION.md): Org-wide automation, branching, labelling, and release strategy.
+- [Labeling Strategy](./docs/LABELING.md): Label taxonomy, automation rules, and governance.
+- [Issue Types Guide](./docs/ISSUE_TYPES.md): Issue type classification and usage standards.
 - [Issue Types Guide](docs/ISSUE_TYPES.md): Classification and usage of issue types.
