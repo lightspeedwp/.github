@@ -35,9 +35,9 @@ This folder contains scripts and templates for automation, including:
 
 ## Related Resources
 
-- [Agents Directory](.././agents/README.md) — Agent specifications and implementations
-- [Instructions Directory](.././instructions/README.md) — Comprehensive instruction sets
-- [Automation Governance](.././AUTOMATION_GOVERNANCE.md) — Governance policies for automation
+- [Agents Directory](../agents/README.md) — Agent specifications and implementations
+- [Instructions Directory](../instructions/README.md) — Comprehensive instruction sets
+- [Automation Governance](../AUTOMATION_GOVERNANCE.md) — Governance policies for automation
 
 ---
 
