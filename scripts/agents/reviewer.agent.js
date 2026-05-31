@@ -23,6 +23,35 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import { pathToFileURL } from "url";
 
+function categorizeFile(filename) {
+  const lower = filename.toLowerCase();
+
+  if (/\.github\/workflows/.test(lower)) {
+    return { category: "Workflows", riskLevel: "CRITICAL" };
+  }
+  if (/\.github|secrets|api[_-]?key|password|token/.test(lower)) {
+    return { category: "Configuration", riskLevel: "HIGH" };
+  }
+  if (
+    /package[.-]?lock|composer\.lock|yarn\.lock|requirements\.txt/.test(lower)
+  ) {
+    return { category: "Dependencies", riskLevel: "HIGH" };
+  }
+  if (/migration|schema|database/.test(lower)) {
+    return { category: "Database", riskLevel: "HIGH" };
+  }
+  if (/security|license|codeofconduct/.test(lower)) {
+    return { category: "Security", riskLevel: "HIGH" };
+  }
+  if (/src\/|test\/|spec\/|\.test\.|\.spec\./.test(lower)) {
+    return { category: "Code", riskLevel: "MEDIUM" };
+  }
+  if (/readme|docs\/|documentation/.test(lower)) {
+    return { category: "Documentation", riskLevel: "LOW" };
+  }
+  return { category: "Other", riskLevel: "LOW" };
+}
+
 /**
  * Main orchestrator for Reviewer Agent.
  * Posts a summary comment on PRs with CI status and file analysis.
@@ -96,15 +125,32 @@ async function run(context = github.context, options = {}) {
     const hasChangelog = changed.some(
       (f) => f.toLowerCase() === "changelog.md",
     );
+    const categorized = changed.map((f) => categorizeFile(f));
+    const riskCounts = {
+      CRITICAL: 0,
+      HIGH: 0,
+      MEDIUM: 0,
+      LOW: 0,
+    };
+    categorized.forEach((c) => {
+      riskCounts[c.riskLevel]++;
+    });
+
     const blockers = [];
     if (state !== "success") blockers.push("CI checks not green");
     if (requireChangelog && srcTouched && !hasChangelog)
       blockers.push("CHANGELOG.md missing for code change");
+    if (riskCounts.CRITICAL > 0)
+      blockers.push(
+        `⚠️ ${riskCounts.CRITICAL} critical-risk file(s) modified (workflows, secrets)`,
+      );
 
     const emoji = blockers.length ? "❌" : state === "success" ? "✅" : "⚠️";
+    const riskSummary = `**Risk Distribution:** ${riskCounts.CRITICAL} critical, ${riskCounts.HIGH} high, ${riskCounts.MEDIUM} medium, ${riskCounts.LOW} low`;
     const summary = `## 🔍 Reviewer Summary for PR #${pr.number}
 **CI Status:** ${emoji} \`${state}\`
 **Files changed:** ${files.length}
+${riskSummary}
 
 ### Recommendations
 ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proceed pending human review"}
