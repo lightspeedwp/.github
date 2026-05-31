@@ -496,21 +496,57 @@ function updateChangelog(newVersion, options = {}) {
   const content = fs.readFileSync(changelogPath, "utf8");
   const today = new Date().toISOString().split("T")[0];
 
+  const unreleasedTemplate = `## [Unreleased]
+
+### Added
+
+### Changed
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
+### Security
+
+### Documentation
+
+### Performance
+
+`;
+
   // Replace [Unreleased] - DD-MM-YYYY with [newVersion] - YYYY-MM-DD
-  const updatedContent = content.replace(
+  let updatedContent = content.replace(
     /^## \[Unreleased\] - (?:DD-MM-YYYY|YYYY-MM-DD|\d{4}-\d{2}-\d{2})$/m,
     `## [${newVersion}] - ${today}`,
   );
 
+  // Inject new Unreleased section at the top (after any frontmatter)
+  const frontmatterMatch = updatedContent.match(/^---\n[\s\S]*?\n---\n/);
+  if (frontmatterMatch) {
+    const endOfFrontmatter = frontmatterMatch[0].length;
+    updatedContent =
+      updatedContent.slice(0, endOfFrontmatter) +
+      unreleasedTemplate +
+      updatedContent.slice(endOfFrontmatter);
+  } else {
+    updatedContent = unreleasedTemplate + updatedContent;
+  }
+
   if (dryRun) {
     console.log(
       `[DRY-RUN] Would update CHANGELOG.md Unreleased section to [${newVersion}] - ${today}`,
+    );
+    console.log(
+      `[DRY-RUN] Would inject new [Unreleased] section for next cycle`,
     );
     return;
   }
 
   fs.writeFileSync(changelogPath, updatedContent, "utf8");
   console.log(`✓ CHANGELOG updated with version ${newVersion}`);
+  console.log(`✓ New [Unreleased] section injected for next cycle`);
 }
 
 /**

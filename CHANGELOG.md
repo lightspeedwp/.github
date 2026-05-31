@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Release Agent: Branch Push Upstream Tracking** — Fixed release agent to use `git push -u origin` when pushing release branches, ensuring proper upstream tracking for subsequent PR creation ([#585](https://github.com/lightspeedwp/.github/issues/585))
+- **Release Agent: [Unreleased] Section Recreation** — Fixed release agent to inject new `[Unreleased]` section after rolling version, ensuring changelog is ready for next contribution cycle ([#586](https://github.com/lightspeedwp/.github/issues/586))
 - **Mergify Dependabot Auto-merge Rules** — Corrected Mergify configuration to automatically merge Dependabot PRs by fixing the author condition from `author=dependabot` to `author=dependabot[bot]` to match GitHub's actual Dependabot bot account name ([#573](https://github.com/lightspeedwp/.github/issues/573))
 - **WCEU 2026 Branch Name References** — Updated references in `FINAL_REVIEW_CHECKLIST.md` and `PHASE1_COMPLETION_REPORT.md` from old branch name `claude/charming-goldberg-Pqc69` to correct branch `claude/affectionate-bohr-AX2jS`
 
