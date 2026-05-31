@@ -8,9 +8,11 @@
  * @see agents/task-planner.agent.md
  */
 
-const path = require("path");
-const __filename = __filename || process.argv[1];
-const __dirname = __dirname || path.dirname(__filename);
+import path from "path";
+import { fileURLToPath, pathToFileURL } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function log(message) {
   const timestamp = new Date().toISOString();
@@ -33,11 +35,12 @@ async function runPlanner(options = {}) {
   log("Planner agent finished without errors.");
 }
 
-module.exports = {
-  runPlanner,
-};
+export { runPlanner };
 
-if (require.main === module) {
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
   const dryRun = !process.argv.includes("--apply");
   runPlanner({ dryRun }).catch((error) => {
     console.error("[planner] fatal error", error);
