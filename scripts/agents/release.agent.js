@@ -694,17 +694,11 @@ function createReleasePR(version, branch, options = {}) {
     return;
   }
 
-  try {
-    exec(
-      `gh pr create --base main --head ${branch} --title "${title}" --body "${body}"`,
-      dryRun,
-    );
-    console.log("✓ Release PR created");
-  } catch (error) {
-    console.warn(
-      `⚠️  Failed to auto-create release PR. Please create manually from ${branch} to main. (${error.message})`,
-    );
-  }
+  const prUrl = exec(
+    `gh pr create --base main --head ${branch} --title "${title}" --body "${body}"`,
+    dryRun,
+  );
+  console.log(`✓ Release PR created: ${prUrl.trim()}`);
 }
 
 /**
