@@ -72,7 +72,9 @@ function validateDiagramSyntax(content) {
   if (!hasValidType) {
     errors.push(`Unknown diagram type: ${firstLine}`);
   } else {
-    const directionMatch = firstLine.match(/^\s*(graph|flowchart)\s+([A-Za-z]{2})\b/);
+    const directionMatch = firstLine.match(
+      /^\s*(graph|flowchart)\s+([A-Za-z]{2})\b/,
+    );
     if (directionMatch) {
       const direction = directionMatch[2].toUpperCase();
       const validDirections = new Set(["TD", "TB", "BT", "LR", "RL"]);
@@ -116,7 +118,9 @@ function validateDiagramSyntax(content) {
     errors.push(`Mismatched braces: ${openBraces} open, ${closeBraces} close`);
   }
 
-  const openBrackets = (cleanContent.match(/\s*\[/g) || []).length ? (cleanContent.match(/\[/g) || []).length : 0;
+  const openBrackets = (cleanContent.match(/\s*\[/g) || []).length
+    ? (cleanContent.match(/\[/g) || []).length
+    : 0;
   const closeBrackets = (cleanContent.match(/]/g) || []).length;
   if (openBrackets !== closeBrackets) {
     errors.push(
@@ -190,9 +194,7 @@ async function main() {
       ? 100
       : (report.validDiagrams / report.totalDiagrams) * 100;
 
-  console.log(
-    `Success rate:    ${successRate.toFixed(1)}%`,
-  );
+  console.log(`Success rate:    ${successRate.toFixed(1)}%`);
 
   if (report.errorDiagrams > 0) {
     console.log("\n❌ ERRORS FOUND:");
