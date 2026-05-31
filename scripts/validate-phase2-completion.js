@@ -138,7 +138,7 @@ async function main() {
   if (fs.existsSync("wceu-2026/notebooklm/sources-index.md")) {
     const sourceUrls = countMatches(
       "wceu-2026/notebooklm/sources-index.md",
-      "^https://",
+      "<https://",
     );
     if (sourceUrls >= 50) {
       passCheck(`notebooklm/sources-index.md has ${sourceUrls} URLs`);
