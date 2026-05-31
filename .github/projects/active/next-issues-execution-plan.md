@@ -2,7 +2,7 @@
 title: Next Issues Execution Plan
 description: Comprehensive execution plan for all open issues, active projects, and
   strategic workflows.
-version: v2.2.2
+version: v2.2.3
 created_date: '2026-05-28'
 last_updated: '2026-05-31'
 file_type: documentation
@@ -32,25 +32,26 @@ LightSpeed `.github` repository. It consolidates:
 - Strategic initiatives including comprehensive README/Mermaid audits
 - Agent ownership and wave assignments
 
-**Live as of 2026-05-31**: Wave 5 Canonical Config Files Audit completed and merged.
+**Live as of 2026-05-31**: All prior waves complete. Wave 5 Documentation Audit initiative created and ready for execution.
 
 **Completed Waves**:
 
+- ✅ Wave 1: API reference updates (PR #494)
 - ✅ Wave 2B: 7 agent spec upgrades (PRs #515–#521)
 - ✅ Wave 2D: `.coderabbit.yml` (#23) + `markdown.instructions.md` (#31)
 - ✅ Wave 3B: README & Mermaid diagram repairs (#513)
 - ✅ Wave 3D: WCEU 2026 talk assets audit (#529)
 - ✅ Wave 4A/4B/4D: Branding agent specs (#33, #46, #48, #49)
+- ✅ Wave 4C: Branding agent current-state audit (#553)
+- ✅ Wave 4D: Branding agent schema & config implementation (#554)
+- ✅ Wave 4E: Branding agent consolidation (#555)
+- ✅ Wave 4F: Branding agent remediation & validation (#556)
 - ✅ Workflow Consolidation Epic (#503)
-- ✅ Issue #19: Documentation Index & Quickstart Guide (PR #552, merged 2026-05-29)
-- ✅ Wave 5.2: Canonical Config Files Audit (PR #680, merged 2026-05-31)
 
 **Current Focus**:
 
-- GitHub Copilot: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`) + Wave 3A audit (#512) + Wave 3C coordination (#514)
-- Claude Code Next: ✅ Issue #19 (Documentation Index) completed and merged PR #552; Now executing Wave 4C–4F (Issue #553: current-state audit, #554: schema implementation, #555: agent merge, #556: remediation & validation)
-**Live as of 2026-05-29**: Wave 2B (7 agent spec upgrades, PRs #515–#521) and Wave 2D (#23 `.coderabbit.yml`, #31 `markdown.instructions.md`) both merged.
-Current GitHub Copilot focus: Wave 2A remaining (`#476`, `#480`, `#482`) + Wave 2C (`#488`, `#490`), proceeding continuously until each issue is implemented, validated, and packaged into a PR ready to merge back into `develop`.
+- **Claude Code**: Executing Wave 5 Documentation Audit (5 parent + 24 child issues created #649–#673). Proceeding with first actionable audit task.
+- GitHub Copilot: Previous Wave 2A/2C/3A/3C tasks available if capacity allows; defer to current priorities.
 
 ## Mandatory Agent Execution Split
 
@@ -96,6 +97,7 @@ GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queu
 | `context-reduction-tasks.md` | ⏳ REQUIRES REVIEW - Needs audit for completion/archival status | TBD | Review and decide: archive or continue |
 | `test-coverage-implementation.md` | ⏳ REQUIRES REVIEW - Needs audit for completion/archival status | TBD | Review and decide: archive or continue |
 | `2025-12-11-wordpress-standards-compliance-comprehensive-review.md` | ⏳ REQUIRES REVIEW - Date-stamped archive candidate | TBD | Review and archive if complete |
+| `wave-5-documentation-audit/` | 🆕 ACTIVE - 5 parent + 24 child audits created (#649–#673) | Claude Code | Execute audits in priority order; consolidate findings into implementation issues |
 
 ### Projects Eligible for Archival (Review First)
 
@@ -305,66 +307,43 @@ Keeping this workstream under Claude ensures the entire system (planning → spe
 
 ---
 
-## Wave 5 — Canonical Config Files Audit (COMPLETED) ✅
+## Wave 5 — Documentation & Governance Audit Initiative 🆕 ACTIVE
 
-**Objective**: Comprehensive audit of canonical GitHub configuration files (labels, issue types, issue fields) to identify structural gaps, missing mappings, and naming inconsistencies.
+**Objective**: Comprehensive audit of documentation, file organization, issue templates, labeling, and governance alignment across the repository.
 
-**Status**: ✅ COMPLETED and MERGED (2026-05-31, Issue #650 closed via PR #680)
+**Status**: 🟡 ACTIVE (29 issues created 2026-05-31, parent + child tracking structure ready)
 
-### Completed Sub-Waves
+**Parent Issues (5 total)**:
 
-| Phase | Issues | Owner | Status | Completed |
-| --- | --- | --- | --- | --- |
-| **5.2: Canonical Config Files Audit** | #650 (parent) | Claude Code | ✅ MERGED | 2026-05-31 |
+| Issue | Title | Status | Owner |
+| --- | --- | --- | --- |
+| #649 | Issue Templates, Automation, & AI Agent Integration | 🔴 Ready | Claude Code |
+| #650 | Canonical Config Files (labels, issue-types, issue-fields) | 🔴 Ready | Claude Code |
+| #651 | Documentation Consolidation - Reduce Duplication | 🔴 Ready | Claude Code |
+| #652 | 44 README Files - Mermaid Diagrams & Accessibility | 🟡 Follow-on (Wave 3B insights) | Claude Code |
+| #653 | File Organization - Align with CLAUDE.md Boundaries | 🔴 Ready | Claude Code |
 
-### Wave 5.2 Audit Findings
+**Scope**:
 
-**Deliverables Completed**:
+Wave 5 consolidates five parallel audit streams, each with 4-6 child issues:
 
-1. ✅ Comprehensive audit report: `.github/reports/canonical-config-audit-2026-05-31.md`
-2. ✅ Identified 5 prioritized recommendations:
-   - Color Strategy Specification (high impact, medium effort)
-   - Issue-Fields Type Mapping Reconciliation (medium impact, low effort)
-   - Issue-Type Naming Standardization (low impact, low effort)
-   - Supporting Documentation Updates (low impact, medium effort)
-   - Future Migration Path Planning (low impact, high effort)
+- Issue template standardization and automation mapping (4 children)
+- Canonical config files audit (4 children)
+- Documentation consolidation and deduplication (5 children)
+- README/Mermaid maintenance (4 children) — leverages Wave 3B audit report
+- File organization alignment (3 children)
 
-**Key Findings**:
+**Expected Deliverables**:
 
-- 150 labels with 31 unique colors across 6 categories
-- 25 issue types with 2 unmapped types (type:refactor, type:build)
-- 7 issue fields with complete type mapping
-- 7 language labels with full color definitions
-- Field mapping system working as designed
-
-**Owner**: Claude Code (AI Team - Review & UX)
-
-### Wave 5.2 Child Implementation Issues
-
-Four implementation issues created to address findings:
-
-| Issue | Title | Effort | Priority | Owner |
-| --- | --- | --- | --- | --- |
-| #682 | Wave 5.2.1 - Implement Color Strategy Specification | 2 hrs | High | Claude Code |
-| #683 | Wave 5.2.2 - Reconcile Issue-Fields Type Mapping | 1-2 hrs | Medium | Claude Code |
-| #684 | Wave 5.2.3 - Standardize Issue-Type Naming | 1 hr | Low | Claude Code |
-| #685 | Wave 5.2.4 - Update Supporting Documentation | 3 hrs | Medium | Claude Code |
-
-**Total Effort**: 7-8 hours across 4 implementation tasks
+1. Audit reports for each domain (templates, config, docs, README, files)
+2. Consolidation recommendations with prioritisation
+3. Implementation issues for high-priority findings
+4. Updated governance and automation documentation
 
 **Dependencies**:
 
-- #682 (Color Strategy) is foundational for other improvements
-- #683 (Type Mapping) can be executed in parallel with #682
-- #684 (Naming) depends on #682 completion
-- #685 (Documentation) can be executed in parallel with implementation phases
-
-**Next Steps**:
-
-- [ ] Execute #682–#685 in recommended sequence
-- [ ] Validate canonical config files against schema after each implementation
-- [ ] Update governance documentation with finalized standards
-- [ ] Close all child issues as completed
+- Wave 5 audit findings → Wave 6 implementation issues
+- Wave 3B README audit report already available for #652
 
 ---
 
@@ -561,9 +540,6 @@ Use this sequence for all active implementation work:
 - [ ] Wave 3C workflows active (target: `readme-audit` + `release` coordination)
 - [ ] All 44 READMEs passing Mermaid + WCAG AA validation
 - [ ] Release agent orchestrating workflows on demand
-- [x] Wave 5.2 audit completed (target: canonical config files report) — completed 2026-05-31 via PR #680
-- [ ] Wave 5.2 implementation merged (target: 4 child issues #682–#685, estimated 7-8 hours)
-- [ ] All canonical config files validated against schema
 
 ---
 
@@ -583,48 +559,3 @@ Archival checklist per file:
 4. Update this roadmap file with archival record
 
 ---
-
----
-
-## Wave 5 — Documentation & Automation Audit (🆕 PROPOSED)
-
-**Objective**: Systematically audit all documentation, templates, and canonical configurations to identify gaps in the issue automation system and consolidate duplicated documentation.
-
-**Status**: Proposed — audit prompt created, ready for GitHub issue creation
-
-**Scope**: 
-- 5 parent audit issues
-- ~25 child audit issues
-- Covers: templates, canonical configs, documentation, README files, file organization
-
-**Execution Plan**:
-- Use prompt document: `.github/projects/active/DOCUMENTATION_AUDIT_PROMPT_COMPREHENSIVE.md`
-- Create all issues from prompt
-- Track progress in active projects folder
-- Consolidate findings into implementation wave
-
-**Why This Matters**:
-- Issue labeling automation isn't working (PR labeling works fine)
-- Root cause likely in how templates/configs relate or how AI agents create issues
-- Clear documentation will guide all future automation fixes
-
-**Key Deliverables**:
-1. Issue template audit & standardization recommendations
-2. Canonical config validation (labels, issue-types, issue-fields)
-3. Documentation consolidation & deduplication plan
-4. README & Mermaid diagram accessibility audit + fixes
-5. File organization alignment with CLAUDE.md
-
-**Estimated Effort**: 15-20 hours of investigation + implementation
-
-**Owner**: Claude Code (investigation phase), then implementation team
-
-**Next Action**: 
-1. Review `DOCUMENTATION_AUDIT_PROMPT_COMPREHENSIVE.md`
-2. Create GitHub issues from prompt structure
-3. Assign to team members
-4. Execute audits and gather findings
-5. Consolidate recommendations into implementation plan
-
----
-
