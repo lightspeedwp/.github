@@ -22,11 +22,11 @@ stability: stable
 
 ## Executive Summary
 
-This audit discovered **52 README.md files** across the LightSpeed `.github` repository. Of these:
+This audit discovered **57 README.md files** across the LightSpeed `.github` repository. Of these:
 
 - **24 Mermaid diagrams** embedded in 8 README files
 - **8 files** containing Mermaid content requiring validation
-- **44 files** with no Mermaid diagrams (documentation only)
+- **49 files** with no Mermaid diagrams (documentation only)
 
 **Key Finding**: All Mermaid diagrams are concentrated in 8 high-priority files. These require syntax validation and accessibility attribute checks.
 
@@ -91,6 +91,20 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 | LightSpeed WordPress Governance | `plugins/lightspeed-wordpress-governance/README.md` | ✅ No diagrams |
 | LightSpeed WordPress Planning | `plugins/lightspeed-wordpress-planning/README.md` | ✅ No diagrams |
 
+### Hooks Sub-folders (3 files)
+
+| File | Path | Status |
+| --- | --- | --- |
+| Secrets Scanner | `hooks/secrets-scanner/README.md` | ✅ No diagrams |
+| Session Logger | `hooks/session-logger/README.md` | ✅ No diagrams |
+| Tool Guardian | `hooks/tool-guardian/README.md` | ✅ No diagrams |
+
+### Workflow Sub-folders (1 file)
+
+| File | Path | Status |
+| --- | --- | --- |
+| Memory Workflow | `workflows/memory/README.md` | ✅ No diagrams |
+
 ### Template & Workflow Documentation (5 files)
 
 | File | Path | Status |
@@ -127,7 +141,7 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 | Skill: Design MD Agent | `skills/design-md-agent/markdown-content-validator/README.md` | ✅ No diagrams |
 | Skill: Artifact Tool | `skills/design-md-agent/slides/artifact_tool/README.md` | ✅ No diagrams |
 
-### Archive & Completed Projects (6 files)
+### Archive & Completed Projects (7 files)
 
 | File | Path | Status |
 | --- | --- | --- |
@@ -137,6 +151,7 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 | Label Governance (issues) | `.github/projects/archived/label-governance-stabilisation-2026-05-27/issues/README.md` | ✅ No diagrams |
 | Portable AI Plugin | `.github/projects/archived/portable-ai-plugin-restructure/issues/README.md` | ✅ No diagrams |
 | Workflow Consolidation | `.github/projects/completed/github-workflow-consolidation-2026-05-28/README.md` | ✅ No diagrams |
+| Workflow Consolidation (issues) | `.github/projects/completed/github-workflow-consolidation-2026-05-28/issues/README.md` | ✅ No diagrams |
 
 ### Special Folders (4 files)
 
@@ -164,14 +179,16 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 | Root & Core | 6 | 4 | 2 |
 | Feature Folders | 12 | 2 | 10 |
 | Plugin Sub-folders | 7 | 0 | 7 |
+| Hooks Sub-folders | 3 | 0 | 3 |
+| Workflow Sub-folders | 1 | 0 | 1 |
 | Templates & Workflows | 5 | 1 | 4 |
 | Schema & Config | 3 | 0 | 3 |
 | Scripts & Validation | 5 | 1 | 4 |
 | Tools & Infrastructure | 3 | 0 | 3 |
-| Archive & Completed | 6 | 0 | 6 |
+| Archive & Completed | 7 | 0 | 7 |
 | Special Folders | 4 | 0 | 4 |
 | Instructions & Archive | 1 | 0 | 1 |
-| **TOTAL** | **52** | **8** | **44** |
+| **TOTAL** | **57** | **8** | **49** |
 
 ### By Status
 
@@ -274,7 +291,7 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 
 ## Conclusion
 
-The discovery phase is **complete**. All 52 README files have been inventoried, and 24 Mermaid diagrams requiring validation have been identified across 8 files.
+The discovery phase is **complete**. All 57 README files have been inventoried, and 24 Mermaid diagrams requiring validation have been identified across 8 files.
 
 **Ready to proceed** with issue #668 (Mermaid syntax validation) and #669 (accessibility compliance audit).
 
