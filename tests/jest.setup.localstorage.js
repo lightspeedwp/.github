@@ -1,8 +1,8 @@
 /**
- * Jest Setup: Node.js built-ins polyfill
- * Provides polyfills for Node.js built-ins in jsdom test environment
+ * Jest Setup: Node.js built-ins and localStorage polyfill
+ * Provides polyfills for Node.js built-ins and localStorage in jsdom test environment
  *
- * @fileoverview Built-ins polyfills for jest/jsdom tests
+ * @fileoverview Built-ins and localStorage polyfills for jest/jsdom tests
  * @author LightSpeedWP Team
  * @version 1.1.0
  */
@@ -16,11 +16,24 @@ if (typeof global.TextDecoder === "undefined") {
 
 // Polyfill localStorage for jsdom environment
 if (typeof global.localStorage === "undefined") {
+  const store = new Map();
   const localStorageMock = {
-    getItem: jest.fn(),
-    setItem: jest.fn(),
-    removeItem: jest.fn(),
-    clear: jest.fn(),
+    getItem: jest.fn((key) =>
+      store.has(String(key)) ? store.get(String(key)) : null,
+    ),
+    setItem: jest.fn((key, value) => {
+      store.set(String(key), String(value));
+    }),
+    removeItem: jest.fn((key) => {
+      store.delete(String(key));
+    }),
+    clear: jest.fn(() => {
+      store.clear();
+    }),
+    key: jest.fn((index) => Array.from(store.keys())[index] || null),
+    get length() {
+      return store.size;
+    },
   };
   global.localStorage = localStorageMock;
 }

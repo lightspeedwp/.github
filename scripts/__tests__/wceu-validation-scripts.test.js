@@ -116,7 +116,7 @@ describe("WCEU Validation Scripts", () => {
 
     test("script implements validation counters", () => {
       const content = fs.readFileSync(scriptPath, "utf8");
-      expect(content).toContain("checksPasssed");
+      expect(content).toContain("checksPassed");
       expect(content).toContain("checksFailed");
     });
   });

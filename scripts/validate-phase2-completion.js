@@ -22,7 +22,7 @@ const COLORS = {
   RESET: "\x1b[0m",
 };
 
-let checksPasssed = 0;
+let checksPassed = 0;
 let checksFailed = 0;
 
 const rl = readline.createInterface({
@@ -40,7 +40,7 @@ function question(query) {
 
 function passCheck(msg) {
   console.log(`${COLORS.GREEN}✓${COLORS.RESET} ${msg}`);
-  checksPasssed++;
+  checksPassed++;
 }
 
 function failCheck(msg) {
@@ -292,7 +292,7 @@ async function main() {
   console.log("");
   console.log("==========================================");
   console.log(
-    `Results: ${COLORS.GREEN}${checksPasssed} passed${COLORS.RESET}, ${COLORS.RED}${checksFailed} failed${COLORS.RESET}`,
+    `Results: ${COLORS.GREEN}${checksPassed} passed${COLORS.RESET}, ${COLORS.RED}${checksFailed} failed${COLORS.RESET}`,
   );
   console.log("==========================================");
   console.log("");
