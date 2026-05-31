@@ -1,33 +1,23 @@
 ---
 name: "Product Requirements Document Generator"
 description: "Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation."
-version: "v1.1"
-last_updated: "2026-05-29"
-owners: ["LightSpeedWP Engineering"]
-tags: ["agent", "mode", "prd", "product-management", "requirements"]
-file_type: "agent"
-status: "active"
-domain: "planning"
-stability: "stable"
 tools:
-- codebase
-- edit/editFiles
-- fetch
-- findTestFiles
-- list_issues
-- githubRepo
-- search
-- add_issue_comment
-- issue_write
-- issue_read
-- search_issues
-permissions:
-- read
-- write
-- github:issues
+  [
+    "codebase",
+    "edit/editFiles",
+    "fetch",
+    "findTestFiles",
+    "list_issues",
+    "githubRepo",
+    "search",
+    "add_issue_comment",
+    "issue_write",
+    "issue_read",
+    "search_issues",
+  ]
 metadata:
-  guardrails: Ask clarifying questions first, confirm scope before drafting any PRD,
-    only create docs with user approval, and never write issues without explicit consent.
+  guardrails: "Ask clarifying questions first, confirm scope before drafting any PRD, only create docs with user approval, and never write issues without explicit consent."
+
 ---
 
 # Create PRD Agent
@@ -214,3 +204,5 @@ Concise paragraph describing the user's journey and benefits.
   - Bullet list of criteria.
 
 ---
+
+After generating the PRD, I will ask if you want to proceed with creating GitHub issues for the user stories. If you agree, I will create them using `issue_write` and provide you with the links.
