@@ -28,17 +28,6 @@ if (typeof global.localStorage === "undefined") {
       store.delete(String(key));
     }),
     clear: jest.fn(() => {
-if (typeof global.localStorage === "undefined") {
-  const store = new Map();
-  const localStorageMock = {
-    getItem: jest.fn((key) => (store.has(String(key)) ? store.get(String(key)) : null)),
-    setItem: jest.fn((key, value) => {
-      store.set(String(key), String(value));
-    }),
-    removeItem: jest.fn((key) => {
-      store.delete(String(key));
-    }),
-    clear: jest.fn(() => {
       store.clear();
     }),
     key: jest.fn((index) => Array.from(store.keys())[index] || null),
