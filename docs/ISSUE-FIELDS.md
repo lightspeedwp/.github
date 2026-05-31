@@ -107,8 +107,8 @@ These fields are pinned for all issue types, including issues with no assigned t
 Issue types covered:
 
 - Unassigned (no issue type)
-- Task, Bug, Feature, Code Refactor, Build & CI, A11y, Compatibility, Security, Release
-- Maintenance, Performance, Test Coverage, Epic, Automation, Code Review, Design, Story
+- Task, Bug, Feature, Refactor, Build, Accessibility, Compatibility, Security, Release
+- Maintenance, Performance, Testing, Epic, Automation, Review, Design, Story
 - Improvement, Documentation, Integration, Research, Chore, Audit, AI Ops, Content Modelling
 
 ### 1) Priority
