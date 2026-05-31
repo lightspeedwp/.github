@@ -322,13 +322,17 @@ async function run(context = github.context, options = {}) {
       }
     } else {
       try {
-        const prComments = await octokit.rest.issues.listComments({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          issue_number: issue.number,
-        });
+        const prComments = await octokit.paginate(
+          octokit.rest.issues.listComments,
+          {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: issue.number,
+            per_page: 100,
+          },
+        );
 
-        const existingComment = prComments.data.find((c) =>
+        const existingComment = prComments.find((c) =>
           c.body?.includes("<!-- planner-agent-summary -->"),
         );
 

@@ -58,10 +58,12 @@ function categorizeFile(filename) {
 }
 
 function hasSecurityFileChange(files) {
-  return files.some((f) =>
-    /security|license|codeofconduct|\.github\/workflows/.test(
-      f.filename.toLowerCase(),
-    ),
+  return files.some(
+    (f) =>
+      f.filename &&
+      /security|license|codeofconduct|\.github\/workflows/.test(
+        f.filename.toLowerCase(),
+      ),
   );
 }
 
@@ -71,15 +73,18 @@ function hasLargeDeletion(files) {
 }
 
 function hasMigrationWithoutRollback(files) {
-  const hasMigration = files.some((f) =>
-    /migration|schema.*change/.test(f.filename.toLowerCase()),
+  const hasMigration = files.some(
+    (f) =>
+      f.filename && /migration|schema.*change/.test(f.filename.toLowerCase()),
   );
   if (!hasMigration) return false;
 
-  const hasRollbackDoc = files.some((f) =>
-    /rollback|revert|downgrade|(?:\b|[._-])down(?:\b|[._-])/.test(
-      f.filename.toLowerCase(),
-    ),
+  const hasRollbackDoc = files.some(
+    (f) =>
+      f.filename &&
+      /rollback|revert|downgrade|(?:\b|[._-])down(?:\b|[._-])/.test(
+        f.filename.toLowerCase(),
+      ),
   );
   return !hasRollbackDoc;
 }
@@ -227,13 +232,17 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
       logger.info("Dry-run mode: comment not posted", { event: "dry-run" });
     } else {
       try {
-        const prComments = await octokit.rest.issues.listComments({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          issue_number: pr.number,
-        });
+        const prComments = await octokit.paginate(
+          octokit.rest.issues.listComments,
+          {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: pr.number,
+            per_page: 100,
+          },
+        );
 
-        const existingComment = prComments.data.find((c) =>
+        const existingComment = prComments.find((c) =>
           c.body?.includes("<!-- reviewer-agent-summary -->"),
         );
 
