@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Presentation Artifact Tool Documentation"
 description: "Documentation for presentation artifact generation tool within the design Markdown agent"
 version: "1.0"

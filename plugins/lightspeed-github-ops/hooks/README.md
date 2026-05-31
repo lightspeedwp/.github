@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: "Plugin Hooks"
 description: "Optional plugin-local hooks for lightspeed-github-ops"
 version: "1.0"

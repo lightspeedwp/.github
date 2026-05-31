@@ -1,4 +1,5 @@
 ---
+file_type: "documentation"
 title: Utility Module Test Suite
 description: Comprehensive Jest tests for labelling agent utility modules
 version: "1.0"
