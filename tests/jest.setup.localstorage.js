@@ -18,7 +18,9 @@ if (typeof global.TextDecoder === "undefined") {
 if (typeof global.localStorage === "undefined") {
   const store = new Map();
   const localStorageMock = {
-    getItem: jest.fn((key) => (store.has(String(key)) ? store.get(String(key)) : null)),
+    getItem: jest.fn((key) =>
+      store.has(String(key)) ? store.get(String(key)) : null,
+    ),
     setItem: jest.fn((key, value) => {
       store.set(String(key), String(value));
     }),
