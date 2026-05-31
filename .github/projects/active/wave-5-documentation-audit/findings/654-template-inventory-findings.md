@@ -66,16 +66,20 @@ Full audit details are documented in **[GitHub Issue #654](https://github.com/li
 ## Recommendations
 
 ### Phase 1: Fix Numbering (Blocking)
+
 Address the duplicate `07` prefix:
+
 - Rename `07-user-experience-feedback.md` → `08-user-experience-feedback.md`
 - Cascade all subsequent files +1 (08→09, 09→10, ... 25→26)
 
 ### Phase 2: Clarify Type Mappings
+
 - Add `issue_type` frontmatter field to ambiguous templates
 - Document intended use for User Experience Feedback
 - Decide: Chore template or consolidate with Maintenance?
 
 ### Phase 3: Update Documentation
+
 - Update `config.yml` with comments linking to canonical docs
 - Update AI instructions to reference standardised templates
 - Add template usage guide to `.github/ISSUE_TEMPLATE/README.md`
