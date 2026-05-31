@@ -1,13 +1,17 @@
 ---
+file_type: rollout_plan
 title: 60-Day LightSpeed .github Governance Rollout Plan
 description: Comprehensive rollout strategy for deploying LightSpeed .github governance ecosystem to WordPress projects
 version: v1.0.0
 last_updated: '2026-05-31'
-authors:
+owners:
   - Ash Shaw
   - LightSpeedWP Team
 status: active
-duration: 8 weeks
+tags:
+  - governance
+  - rollout
+  - wceu-2026
 ---
 
 # 60-Day LightSpeed .github Governance Rollout Plan
@@ -17,6 +21,7 @@ duration: 8 weeks
 This document outlines a comprehensive 60-day (8-week) plan to roll out the LightSpeed .github governance ecosystem to WordPress projects. The rollout is phased to manage risk, build team confidence, and iterate on learnings before scaling to full deployment.
 
 **Key Success Metrics:**
+
 - 5–7 pilot projects successfully onboarded by Week 6
 - 100% core team trained and certified by Week 7
 - 4 additional projects onboarded by Week 8
@@ -29,7 +34,9 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 ## Team Structure & Responsibilities
 
 ### Program Lead
+
 **Ash Shaw** (40 hours/week, Weeks 1–8)
+
 - Overall rollout strategy and timeline
 - Stakeholder communication and escalation
 - Pilot selection and project owner alignment
@@ -37,7 +44,9 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - Status reporting to leadership
 
 ### DevOps Lead
+
 **[TBD – Identify internal DevOps/Infra owner]** (35 hours/week, Weeks 1–8)
+
 - GitHub Actions workflow implementation and CI/CD setup
 - Repository automation configuration
 - Dependency and security scanning integration
@@ -45,7 +54,9 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - Infrastructure readiness and scaling
 
 ### Quality Lead
+
 **[TBD – Identify QA/Testing owner]** (30 hours/week, Weeks 1–8)
+
 - Testing standards and coverage targets
 - Code coverage monitoring and reporting
 - Accessibility and performance auditing
@@ -53,7 +64,9 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - Feedback collection from pilots
 
 ### Developer Advocate / Community Lead
+
 **[TBD – Identify Developer Relations/Enablement owner]** (25 hours/week, Weeks 1–8)
+
 - Training material creation and delivery
 - Developer onboarding support
 - Documentation and how-tos
@@ -61,7 +74,9 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - Feedback synthesis and process improvements
 
 ### Project Owners (Pilots)
+
 **[5–7 selected project leads]** (10–15 hours/week during their onboarding phase)
+
 - Run onboarding process within their projects
 - Execute checklists and integration steps
 - Report blockers and feedback
@@ -76,6 +91,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 #### Week 1: Internal Alignment & Preparation
 
 **Deliverables:**
+
 - [ ] Program kickoff meeting with core team (1 hour)
 - [ ] Review and finalize rollout plan (2 hours)
 - [ ] Identify and confirm DevOps Lead, Quality Lead, Developer Advocate roles
@@ -86,6 +102,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Ensure .github repo passes all validation checks
 
 **Success Criteria:**
+
 - All team roles confirmed
 - Training deck drafted and reviewed
 - Pilot selection scorecard finalized
@@ -94,6 +111,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 #### Week 2: Pilot Selection & Preparation
 
 **Deliverables:**
+
 - [ ] Identify 5–7 pilot project candidates (criteria: active projects, engaged teams, diverse use cases)
 - [ ] Conduct pilot kickoff calls (45 min each, 1 call/day)
   - Overview of governance rollout
@@ -107,6 +125,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Set up GitHub Teams and visibility for pilot projects
 
 **Success Criteria:**
+
 - 5–7 pilots confirmed and scheduled
 - All pilots have access to documentation and training materials
 - Onboarding playbooks tailored for each pilot's context
@@ -121,6 +140,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 **Onboarding Steps (per pilot project):**
 
 **Day 1–2: Repository Setup**
+
 - [ ] Create/fork `.github` template into pilot repository
 - [ ] Configure GitHub branch protection rules
 - [ ] Enable required status checks (linting, testing, security)
@@ -130,6 +150,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Configure repository visibility and team access
 
 **Day 3–4: Governance Baseline**
+
 - [ ] Copy `.github/custom-instructions.md` to pilot repo
 - [ ] Copy `.github/workflows/` templates (labeler, linter, release, etc.)
 - [ ] Create `CLAUDE.md` project rules file (customize for pilot)
@@ -137,17 +158,20 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Add repo to governance tracking dashboard
 
 **Day 5: Validation & Troubleshooting**
+
 - [ ] Run Phase 1 validation script on pilot repo
 - [ ] Debugging and support calls for blockers
 - [ ] Ensure all Phase 1 checks pass
 - [ ] Document lessons learned for Week 4 pilots
 
 **Support Schedule:**
+
 - Daily standup (15 min, 9:00 AM)
 - Office hours (2 hours, 2:00–4:00 PM)
 - Slack channel for real-time support
 
 **Success Criteria:**
+
 - All 5–7 pilots pass Phase 1 validation
 - CODEOWNERS and branch rules in place
 - CI/CD baseline established
@@ -158,6 +182,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 **Onboarding Steps (per pilot project):**
 
 **Day 1–2: CI/CD & Testing**
+
 - [ ] Configure test framework (Jest, PHPUnit, Cypress, etc.)
 - [ ] Setup code coverage reporting and thresholds (target: ≥80%)
 - [ ] Integrate security scanning (Dependabot, CodeQL, SAST)
@@ -165,6 +190,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Add pre-commit hooks (via husky or similar)
 
 **Day 3–4: Documentation & Accessibility**
+
 - [ ] Create README.md with setup and contribution instructions
 - [ ] Create CONTRIBUTING.md aligned with .github standards
 - [ ] Create DEVELOPMENT.md with local dev environment setup
@@ -172,6 +198,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Document API standards (if applicable)
 
 **Day 5: Standards Training & Alignment**
+
 - [ ] 1-hour live training session for pilot team on LightSpeed standards
   - Code style and best practices
   - Testing expectations
@@ -181,11 +208,13 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Record session for async viewing
 
 **Support Schedule:**
+
 - Daily standup (15 min)
 - Office hours (2 hours)
 - Ad-hoc pairing sessions for code reviews
 
 **Success Criteria:**
+
 - All 5–7 pilots pass Phase 2 validation
 - CI/CD pipeline green and automated
 - Test coverage ≥80% (or roadmap to achieve)
@@ -199,6 +228,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 #### Week 5: Sprint Execution & Feedback Collection
 
 **Deliverables:**
+
 - [ ] Pilots execute first full sprint with governance in place
 - [ ] Weekly sync calls with all pilots (1 hour, Wednesdays)
 - [ ] Feedback survey (Google Form, 5 questions, 2 min)
@@ -208,6 +238,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Review CI/CD metrics (success rate, average duration, failure patterns)
 
 **Feedback Questions:**
+
 1. How smooth was the onboarding process? (1–5 scale)
 2. What's one thing that's working well?
 3. What's one thing that's frustrating or unclear?
@@ -215,6 +246,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 5. Would you recommend this to another team? (yes/no)
 
 **Success Criteria:**
+
 - Pilots executing sprints smoothly
 - No critical blockers (1–2 minor issues acceptable)
 - Feedback average ≥3.5/5
@@ -223,6 +255,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 #### Week 6: Iteration & Process Refinement
 
 **Deliverables:**
+
 - [ ] Synthesize pilot feedback and identify patterns
 - [ ] Create "Top 10 FAQ" document based on pilot questions
 - [ ] Implement 3–5 quick-win improvements to governance process
@@ -232,12 +265,14 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Update rollout plan based on learnings
 
 **Iteration Examples:**
+
 - If many teams struggled with CI/CD setup, create a troubleshooting guide
 - If tests are slow, document performance optimization strategies
 - If documentation was confusing, restructure or add examples
 - If labeler rules conflicted with existing processes, adjust rules
 
 **Success Criteria:**
+
 - Feedback survey average ≥4/5 in Week 6
 - "Top 10 FAQ" document published and used
 - 3–5 improvements implemented and validated
@@ -250,6 +285,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 #### Week 7: Formal Training & Certification
 
 **Deliverables:**
+
 - [ ] Conduct formal "LightSpeed Governance" training (2-hour workshop)
   - Overview of .github ecosystem
   - Repository setup and configuration
@@ -263,6 +299,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Prepare "rollout playbook" template for scaled onboarding
 
 **Training Agenda:**
+
 1. Why governance matters (15 min)
 2. .github folder structure and purpose (20 min)
 3. Setting up a new repository (20 min)
@@ -272,6 +309,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 7. Q&A and troubleshooting (10 min)
 
 **Success Criteria:**
+
 - ≥90% of core team certified
 - Knowledge base live and searchable
 - Training recorded and available on-demand
@@ -280,6 +318,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 #### Week 8: Scaled Rollout – 4 Additional Projects
 
 **Parallel Onboarding:**
+
 - [ ] Run Phase 1–2 onboarding for 4 new projects simultaneously
   - Use refined playbooks from pilot learnings
   - Assign one Governance Champion as buddy for each new project
@@ -288,6 +327,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Conduct mid-week sync to surface blockers and ensure forward momentum
 
 **Deliverables:**
+
 - [ ] 4 new projects pass Phase 1 validation (by mid-week)
 - [ ] 4 new projects pass Phase 2 validation (by end of week)
 - [ ] Feedback from new projects collected
@@ -295,6 +335,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 - [ ] Leadership briefing: "Rollout Progress & Success Stories" (30 min, Friday)
 
 **Success Criteria:**
+
 - 9–11 total projects onboarded successfully (5–7 pilots + 4 new)
 - New project teams report satisfaction ≥3.5/5 (first week)
 - No critical blockers outstanding
@@ -437,6 +478,7 @@ Submitted by: [Program Lead]
 ## Definition of Done (per Phase)
 
 ### Phase 1: Repository & Governance Setup
+
 - [ ] Branch protection rules configured
 - [ ] CODEOWNERS and team access in place
 - [ ] `.github/` folder populated (templates, workflows, instructions)
@@ -445,6 +487,7 @@ Submitted by: [Program Lead]
 - [ ] Validation script passes with no errors
 
 ### Phase 2: Quality Standards & Documentation
+
 - [ ] Test framework configured (Jest/PHPUnit/Cypress)
 - [ ] Code coverage reporting ≥80% (or documented roadmap)
 - [ ] Security scanning enabled (Dependabot, CodeQL)
@@ -454,6 +497,7 @@ Submitted by: [Program Lead]
 - [ ] Validation script passes; team trained
 
 ### Rollout Completion
+
 - [ ] 9–11 projects onboarded (Phases 1–2 complete)
 - [ ] ≥90% of core team certified
 - [ ] Team satisfaction survey ≥4.0/5
@@ -466,16 +510,19 @@ Submitted by: [Program Lead]
 ## Post-Rollout: Months 3–6 Roadmap
 
 ### Month 3: Consolidation & Optimization
+
 - **Week 10–12:** Monthly governance audits (all 9–11 projects)
 - **Week 11:** Governance automation improvements (e.g., auto-fix linting, auto-label PRs)
 - **Week 13–14:** Performance optimization (CI/CD speed, test parallelization)
 
 ### Month 4: Feature Expansion
+
 - **New Workflows:** Agent-driven PR reviews, automated changelog generation
 - **Design System:** Figma Code Connect integration for projects using design tokens
 - **Analytics:** Governance health dashboard (one-page status of all projects)
 
 ### Month 5–6: Scale & Sustainability
+
 - **Self-Service Onboarding:** Teams can onboard without DevOps support
 - **Internal Community:** Governance champions group (monthly sync)
 - **Templates:** Industry-specific onboarding playbooks (WordPress, React, Ruby, etc.)
@@ -507,12 +554,14 @@ Recognize and celebrate wins to maintain team morale:
 ### Appendix C: Phase 2 Enhancement Roadmap (Post-Rollout)
 
 **New Portable Workflows (Weeks 11–16):**
+
 1. **Agent-Driven Code Review** – AI-powered PR review agent (identify patterns, suggest improvements)
 2. **WordPress Release Automation** – Automated version bumps, changelog generation, release PRs
 3. **Design-to-Code Sync** – Figma Code Connect sync with component libraries
 4. **Accessibility Audit Workflow** – Automated WCAG 2.2 AA checks in CI
 
 **Governance Enhancements (Weeks 17–20):**
+
 1. **Governance Health Dashboard** – One-page view of all projects' governance compliance
 2. **Automated Remediation** – Bot fixes for common issues (formatting, missing docs, etc.)
 3. **Governance Chatbot** – Slack bot answering FAQs and guiding setup
@@ -525,6 +574,7 @@ Recognize and celebrate wins to maintain team morale:
 This 60-day rollout plan provides a structured, risk-managed path to deploy the LightSpeed .github governance ecosystem across WordPress projects. By focusing on a small cohort of pilots, gathering feedback, and iterating quickly, we'll build team confidence and create a repeatable playbook for scaling to all projects.
 
 **Next Steps:**
+
 1. Confirm team roles (DevOps Lead, Quality Lead, Developer Advocate)
 2. Schedule Week 1 kickoff meeting
 3. Begin pilot selection process
