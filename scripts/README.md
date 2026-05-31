@@ -214,7 +214,67 @@ scripts/utility/label-sync.js --dry-run
 
 # Validate configuration
 node scripts/validation/validate-coderabbit-yml.cjs
+
+# Validate WCEU 2026 Phase 1 (Schema migration, slides, etc.)
+npm run validate:wceu:phase1
+
+# Validate WCEU 2026 Phase 2 (NotebookLM output, design system, etc.)
+npm run validate:wceu:phase2
 ```
+
+## WCEU 2026 Validation Scripts
+
+Two JavaScript-based validation scripts have been created to replace legacy bash scripts:
+
+### `validate-phase2-completion.js`
+
+Validates Phase 2 WCEU 2026 deliverables including:
+
+- NotebookLM output files and content quality
+- Supporting documentation (prompts, checklists, sources index)
+- Google Slides foundation (interactive verification)
+- Frontmatter and Markdown validation
+- Content quality checks (timing, examples, visuals)
+
+**Usage:**
+
+```bash
+npm run validate:wceu:phase2
+# or
+node scripts/validate-phase2-completion.js
+```
+
+**Features:**
+
+- Interactive input for manual verification steps (Google Slides check)
+- Color-coded output for pass/fail/warning indicators
+- Detailed logging of validation results
+- Cross-platform compatible (uses Node.js built-ins)
+
+### `verify-wceu-readiness.js`
+
+Validates Phase 1 WCEU 2026 completion including:
+
+- Schema migration (.schemas directory removed, new schema structure)
+- Agent slides reorganization
+- Content file completeness
+- Frontmatter and Markdown validation
+- File reference integrity
+
+**Usage:**
+
+```bash
+npm run validate:wceu:phase1
+# or
+node scripts/verify-wceu-readiness.js
+```
+
+**Features:**
+
+- Non-interactive, fully automated validation
+- Comprehensive file existence and structure checks
+- Integration with `npm run validate:frontmatter` and `npm run lint:md`
+- Cross-platform compatible
 
 ## Running Test Suites
 
@@ -402,9 +462,6 @@ When contributing new scripts or modifications:
 - [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
 
 ---
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

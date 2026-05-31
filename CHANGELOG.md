@@ -14,7 +14,109 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Planner & Reviewer Agents: Code Review Fixes** — Fixed six critical issues from CodeRabbit review: dryRun option precedence, CLI entry point execution, null-safe comment body checks, extended dependency file detection (package.json, composer.json), improved rollback migration detection (.down.sql), and prevented crashes from null comment bodies ([#603](https://github.com/lightspeedwp/.github/issues/603), [#604](https://github.com/lightspeedwp/.github/issues/604), [#605](https://github.com/lightspeedwp/.github/issues/605), [#606](https://github.com/lightspeedwp/.github/issues/606), [#607](https://github.com/lightspeedwp/.github/issues/607))
+- **Reviewer Agent: File Pagination** — Implemented proper pagination using `octokit.paginate()` for PR file analysis to ensure all files are analyzed even when a PR has >100 changed files; prevents missing high-risk files on subsequent pages
+- **Release Agent: Branch Push Upstream Tracking** — Fixed release agent to use `git push -u origin` when pushing release branches, ensuring proper upstream tracking for subsequent PR creation ([#585](https://github.com/lightspeedwp/.github/issues/585))
+- **Release Agent: [Unreleased] Section Recreation** — Fixed release agent to inject new `[Unreleased]` section after rolling version, ensuring changelog is ready for next contribution cycle ([#586](https://github.com/lightspeedwp/.github/issues/586))
+- **Release Agent: Sandboxed Dry-Run Mode** — Implemented proper dry-run mode that creates temporary git branch, validates file changes, runs linting, and tests git operations before cleanup—enabling safe end-to-end release testing ([#587](https://github.com/lightspeedwp/.github/issues/587))
+- **Release Workflow: Enforce Authorization Gate** — Fixed release workflow authorization check to actually block unauthorized trigger attempts. Modified `trigger-telemetry.cjs` to validate actor membership in `lightspeedwp/maintainers` team via GitHub API; workflow now exits with error if actor is not authorized. Updated `.github/workflows/release.yml` to pass `GITHUB_TOKEN` for authorization validation and report `is_authorized` status ([#588](https://github.com/lightspeedwp/.github/issues/588))
+- **Release Workflow: Tests as Hard Gate** — Added test job to release workflow as mandatory pre-release gate. New `test` job runs full test suite (`npm test`) and must pass before release proceeds. Updated `release` job to depend on both `lint` and `test`, ensuring untested code cannot be released ([#589](https://github.com/lightspeedwp/.github/issues/589))
+- **Release Agent: PR Creation Failures Block Release** — Fixed release agent to treat PR creation failures as fatal errors, stopping the entire release process. Removed silent error catch block in `createReleasePR()` to propagate exceptions to outer error handler, preventing release tag/GitHub release publication when PR creation fails ([#590](https://github.com/lightspeedwp/.github/issues/590))
+- **Release Agent: Version Override Scope Alignment** — Added validation to ensure explicit version overrides (`--version=X.Y.Z`) align with the specified scope. Version mismatches now throw an error unless `RELEASE_FORCE_VERSION=1` environment variable is set. Includes clear warning when override is forced ([#591](https://github.com/lightspeedwp/.github/issues/591))
+- **Mergify Dependabot Auto-merge Rules** — Corrected Mergify configuration to automatically merge Dependabot PRs by fixing the author condition from `author=dependabot` to `author=dependabot[bot]` to match GitHub's actual Dependabot bot account name ([#573](https://github.com/lightspeedwp/.github/issues/573))
+- **WCEU 2026 Branch Name References** — Updated references in `FINAL_REVIEW_CHECKLIST.md` and `PHASE1_COMPLETION_REPORT.md` from old branch name `claude/charming-goldberg-Pqc69` to correct branch `claude/affectionate-bohr-AX2jS`
+
 ### Added
+
+- **Workflow Standards Comprehensive Audit & Improvement Plan** — Completed systematic audit of linting, meta, branding, and CI/CD workflows with detailed improvement roadmap:
+  - `.github/reports/audits/workflow-standards-audit-2026-05-31.md` — Full audit identifying 6 priority improvements with effort estimates (23 hours total, 5–8 day timeline)
+  - Identified critical gap: no changelog auto-sync on PR merge to develop
+  - High priorities: automated project archival, planner agent implementation, workflow consolidation
+  - Created 6 GitHub issues (#618–#623) tracking each improvement with acceptance criteria
+  - Success criteria defined for changelog, projects, CI/CD, and documentation ([#618](https://github.com/lightspeedwp/.github/issues/618), [#619](https://github.com/lightspeedwp/.github/issues/619), [#620](https://github.com/lightspeedwp/.github/issues/620), [#621](https://github.com/lightspeedwp/.github/issues/621), [#622](https://github.com/lightspeedwp/.github/issues/622), [#623](https://github.com/lightspeedwp/.github/issues/623))
+
+- **Changelog Auto-Sync Workflow** — Implemented `.github/workflows/changelog-auto-update.yml` to automatically synchronise changelog entries when PRs merge to develop:
+  - Triggers on PR merge with CHANGELOG.md changes
+  - Extracts entries from merged PR using `extract-pr-entries.cjs`
+  - Merges entries into main CHANGELOG.md [Unreleased] section
+  - Deduplicates entries to prevent duplicates
+  - Validates schema before committing changes
+  - Uses `[skip ci]` flag to prevent workflow loops ([#618](https://github.com/lightspeedwp/.github/issues/618))
+
+- **Automated Project Archival Workflow** — Implemented `.github/workflows/project-archival.yml` to detect and archive completed projects:
+  - Triggers on-demand (workflow_dispatch) or weekly (Sunday 02:00 UTC)
+  - Scans active projects for completion markers (status: completed)
+  - Moves completed projects to `.github/projects/archived/{YYYY-MM-DD}-{name}/`
+  - Creates archival summary with metrics and completion date
+  - Dry-run mode for safe preview before archiving
+  - Generates audit trail and report for archival actions ([#619](https://github.com/lightspeedwp/.github/issues/619))
+
+- **Planner Agent Implementation** — Enhanced and enabled `scripts/agents/planner.agent.js` with project detection logic:
+  - Detects active projects from `.github/projects/active/` directory
+  - Supports dry-run mode (default) for safe analysis
+  - Ready for GitHub API integration to auto-assign issues to projects
+  - Logs proposed project assignments with reasoning
+  - Enabled planner workflow in `.github/workflows/planner.yml` (removed if: false condition) ([#620](https://github.com/lightspeedwp/.github/issues/620))
+
+- **Standardised Project Planning Template** — Created `.github/projects/PLANNING_TEMPLATE.md` to structure issue planning before creation:
+  - Comprehensive template with 9 sections: overview, scope, timeline, architecture, risks, testing, documentation, references, sign-off
+  - Includes planning checklist before creating related GitHub issues
+  - Standardises documentation of goals, success criteria, milestones, and dependencies
+  - Helps ensure planning decisions are captured and shared with team ([#621](https://github.com/lightspeedwp/.github/issues/621))
+
+- **Unified Checks Workflow** — Created `.github/workflows/checks.yml` to consolidate pre-merge validation:
+  - Consolidates linting, testing, and validation into single workflow
+  - Uses concurrency groups to prevent redundant runs
+  - Clear trigger: pull_request and push (develop branch)
+  - Composite status job ensures all checks pass before merge
+  - Separate meta.yml workflow maintains different cadence (post-push)
+  - Recommended replacement for scattered linting.yml and testing.yml ([#622](https://github.com/lightspeedwp/.github/issues/622))
+
+- **Weekly Metrics Summary Workflow** — Implemented `.github/workflows/metrics-summary.yml` for scheduled reporting:
+  - Triggers weekly (Monday 09:00 UTC) or on-demand via workflow_dispatch
+  - Aggregates metrics from meta.json, git activity, and changelogs
+  - Generates human-readable markdown summary report
+  - Archives weekly reports in `.github/reports/metrics/weekly/`
+  - Posts report to GitHub discussions (configurable)
+  - Provides visibility into repository health, activity, and automation effectiveness ([#623](https://github.com/lightspeedwp/.github/issues/623))
+
+- **WCEU 2026 Comprehensive Audit and Execution Plan** — Completed systematic audit and documentation update for May 30–31 Phase 2–3 execution:
+  - `wceu-2026/FILE_UPDATE_AUDIT.md` — Comprehensive audit of 17 primary + 8 supporting files with critical issue identification and update recommendations
+  - `wceu-2026/EXECUTION_PLAN.md` — Master execution plan consolidating Phase 1 validation results (16/18 passing), Phase 2 content generation workflow (4–6 hours), Phase 3 finalization timeline (6–8 hours), success criteria, risk mitigation, and open questions
+  - Updated `wceu-2026/README.md` to reflect Phase 2 in-progress status with detailed checklist tracking
+  - Fixed branch name references in `FINAL_REVIEW_CHECKLIST.md` and `PHASE1_COMPLETION_REPORT.md`
+  - All wceu-2026 documentation validated and consistent; ready for Phase 2–3 execution ([#564](https://github.com/lightspeedwp/.github/issues/564), [#567](https://github.com/lightspeedwp/.github/issues/567), [#573](https://github.com/lightspeedwp/.github/issues/573))
+
+- **WCEU 2026 Validation Scripts (Bash-to-JavaScript Migration)** — Completed migration of WCEU validation scripts from Bash to JavaScript with improvements:
+  - `scripts/verify-wceu-readiness.js` — Automated Phase 1 validation for schema migration, agent slides reorganization, and content file completeness
+  - `scripts/validate-phase2-completion.js` — Interactive Phase 2 validation for NotebookLM output, Google Slides foundation, and design system documentation
+  - Benefits: ES module compatibility, robust error handling, cross-platform support (no sed/awk/grep dependencies), comprehensive logging
+  - Added npm scripts: `validate:wceu:phase1` and `validate:wceu:phase2` for CLI integration
+  - Comprehensive unit tests in `scripts/__tests__/wceu-validation-scripts.test.js` validating script structure, syntax, and completeness
+  - Updated `scripts/README.md` with usage examples and feature documentation ([#13](https://github.com/lightspeedwp/.github/issues/13), [#16](https://github.com/lightspeedwp/.github/issues/16))
+
+- **Complete Agent Specifications & Documentation Audit** — Completed specification documentation for tracking agents and audited documentation cross-references:
+  - Completed `agents/template.agent.md` with canonical agent specification template, usage guidelines, structure documentation, and best practices ([#488](https://github.com/lightspeedwp/.github/issues/488))
+  - Enhanced `agents/testing.agent.md` with comprehensive role/responsibilities, capabilities, configuration, examples, and related agent references ([#490](https://github.com/lightspeedwp/.github/issues/490))
+  - Audited documentation cross-references to CONTRIBUTING.md, GOVERNANCE.md, coding standards, and linting instructions ([#22](https://github.com/lightspeedwp/.github/issues/22))
+  - Verified CONTRIBUTING.md has adequate Quick Start section and workflow diagram ([#18](https://github.com/lightspeedwp/.github/issues/18))
+  - Verified PR template includes comprehensive accessibility and security checklists ([#21](https://github.com/lightspeedwp/.github/issues/21))
+
+- **Wave 4C: Branding Agent Current-State Audit** — Added `.github/projects/active/ISSUE_48_CURRENT_STATE_AUDIT.md` comprehensive audit specification ([#48](https://github.com/lightspeedwp/.github/issues/48), [#562](https://github.com/lightspeedwp/.github/pull/562)):
+  - Current-state inventory catalogs ~750 Markdown files with branding implementations
+  - Frontmatter compliance analysis (90.6% compliant, 70 files with missing required fields)
+  - Category mapping accuracy audit (98%+ correct, specific gaps identified)
+  - Header and footer pattern analysis (84.5% coverage gap identified)
+  - Badge usage assessment (1.9% adoption, 40% non-standard values)
+  - WCAG AA accessibility audit (95%+ compliance with specific improvement areas)
+  - Detailed gap analysis against new schema/config standards
+  - Prioritized remediation roadmap with effort estimates (16–23 hours across 5 phases)
+  - Automated remediation scripts scoped and designed
+  - Risk assessment with comprehensive mitigation strategies
+  - Success criteria and measurable outcomes for agent rollout
+  - Unblocks Wave 4E (Agent merge/refactor) and Wave 4F (Bulk remediation & validation)
 
 - **Comprehensive 25-Slide Deck Prompt Suite** — Added `.github/wceu-2026/agent-slides/` directory with 25 NotebookLM and Figma-ready presentation prompts covering the complete .github automation ecosystem:
   - **7 Agent Prompts**: Release, Branding, Meta, Reviewer, Linting, Labelling, and Planner agents with capabilities, integration points, and use cases
