@@ -126,8 +126,14 @@ function isValidGitRef(ref) {
   if (!ref || typeof ref !== "string") {
     return false;
   }
-  const refPattern = /^([0-9a-f]{7,40}|refs\/[\w/.@-]+|v?\d+\.\d+\.\d+)$/i;
-  return refPattern.test(ref.trim());
+  const trimmed = ref.trim();
+  // Reject dangerous patterns: whitespace, leading -, git rev-spec operators (^, ~, @, etc)
+  if (/[\s]|^-|[\^~@*?:]/.test(trimmed)) {
+    return false;
+  }
+  // Allow: SHAs, tags (v1.2.3), branch names (develop, main, release/*)
+  // Roughly matches git refspec constraints
+  return /^[a-zA-Z0-9_./:-]+$/.test(trimmed);
 }
 
 function getMergedPRs(fromTag, toTag = "HEAD") {
@@ -507,9 +513,29 @@ function updateChangelog(newVersion, options = {}) {
   const today = new Date().toISOString().split("T")[0];
 
   // Replace [Unreleased] (with or without date) with new [Unreleased] section + released version
+  const unreleasedTemplate = `## [Unreleased]
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+### Documentation
+
+### Performance
+
+## [${newVersion}] - ${today}`;
+
   const updatedContent = content.replace(
     /^## \[Unreleased\](?:\s*-\s*(?:DD-MM-YYYY|YYYY-MM-DD|\d{4}-\d{2}-\d{2}))?$/m,
-    `## [Unreleased]\n\n## [${newVersion}] - ${today}`,
+    unreleasedTemplate,
   );
 
   if (dryRun) {
@@ -614,6 +640,12 @@ function validatePostReleaseChangelog(
 ) {
   console.log(`\n=== Validating Post-Release CHANGELOG ===`);
 
+  if (!nextVersion || typeof nextVersion !== "string") {
+    throw new Error(
+      `Invalid nextVersion parameter: "${nextVersion}" (expected semver string)`,
+    );
+  }
+
   if (!fs.existsSync(changelogPath)) {
     throw new Error(`CHANGELOG not found: ${changelogPath}`);
   }
@@ -671,17 +703,11 @@ function createReleasePR(version, branch, options = {}) {
     return;
   }
 
-  try {
-    exec(
-      `gh pr create --base main --head ${branch} --title "${title}" --body "${body}"`,
-      dryRun,
-    );
-    console.log("✓ Release PR created");
-  } catch (error) {
-    console.warn(
-      `⚠️  Failed to auto-create release PR. Please create manually from ${branch} to main. (${error.message})`,
-    );
-  }
+  exec(
+    `gh pr create --base main --head ${branch} --title "${title}" --body "${body}"`,
+    dryRun,
+  );
+  console.log("✓ Release PR created");
 }
 
 /**
