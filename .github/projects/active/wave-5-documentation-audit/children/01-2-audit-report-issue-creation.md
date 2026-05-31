@@ -253,7 +253,7 @@ Instead of creating a new file, update all broken references to `ISSUE_LABELS.md
 
 **Content:** What labels are required, label families, one-hot rules
 
-**Consolidation:** Create `docs/ISSUE_LABELS.md` and reference it everywhere
+**Consolidation:** Redirect references to `docs/LABELING.md#issue-labelling` and do not recreate the deprecated file
 
 ---
 
@@ -317,7 +317,7 @@ Instead of creating a new file, update all broken references to `ISSUE_LABELS.md
 ### Phase 2: Align & Link (Wave 5.3 or 5.4)
 
 1. **Update cross-references**
-   - Ensure all files link to `docs/ISSUE_LABELS.md` (once created)
+   - Ensure all files link to `docs/LABELING.md#issue-labelling`
    - Verify no broken references
    - Use consistent link patterns
 
@@ -358,7 +358,7 @@ Instead of creating a new file, update all broken references to `ISSUE_LABELS.md
 
 1. **Phase 1 (Immediate):**
    - [ ] Fix `instructions/issues.instructions.md` duplication
-   - [ ] Create `docs/ISSUE_LABELS.md` with full label reference
+   - [ ] Update all broken references to point to `docs/LABELING.md#issue-labelling`
    - [ ] Update `docs/index.md` with proper index
 
 2. **Phase 2 (Follow-up):**
