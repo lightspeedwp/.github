@@ -1,9 +1,12 @@
 ---
+file_type: "documentation"
 title: "Audit Summary: Planner & Reviewer Agents"
 description: "Executive summary of audit findings, issues created, and autonomous workflow"
 version: "v1.0"
-date: "2026-05-31"
+last_updated: "2026-05-31"
 author: "Claude Code"
+owners: ["lightspeedwp/maintainers"]
+tags: ["audit", "agents", "planning", "improvement"]
 ---
 
 # Audit Summary: Planner & Reviewer Agents
@@ -11,6 +14,7 @@ author: "Claude Code"
 ## Overview
 
 Complete audit of planner and reviewer agents identified **11 improvement issues** across three priority phases:
+
 - **Phase 1 (Critical)**: 4 issues - Fix module system, error handling, tests
 - **Phase 2 (Medium)**: 5 issues - Core features, enhancements  
 - **Phase 3 (Low)**: 2 issues - Polish, documentation
@@ -99,10 +103,12 @@ Can run in parallel with Phase 2 or after.
 ## Audit Scope
 
 ### Agents Audited
+
 - **Planner Agent** (`agents/task-planner.agent.md` + `scripts/agents/planner.agent.js`)
 - **Reviewer Agent** (`agents/reviewer.agent.md` + `scripts/agents/reviewer.agent.js`)
 
 ### Areas Analyzed
+
 1. **Specification Completeness** - Do agent specs match implementation?
 2. **Implementation Correctness** - Are agents feature-complete and robust?
 3. **Test Coverage** - What's tested vs. untested?
@@ -110,6 +116,7 @@ Can run in parallel with Phase 2 or after.
 5. **Operational Readiness** - Can operators deploy, debug, troubleshoot?
 
 ### Not Included (Out of Scope)
+
 - Performance optimization
 - Integration with other agents
 - Full redesign of agent architecture
@@ -122,14 +129,17 @@ Can run in parallel with Phase 2 or after.
 To complete all improvements autonomously:
 
 ### Step 1: Review & Understand
+
 1. Read the audit prompt: [`ai/audit-planner-reviewer-agents.md`](./audit-planner-reviewer-agents.md)
 2. Review the improvement plan: [`ai/improvement-plan-planner-reviewer.md`](./improvement-plan-planner-reviewer.md)
 3. Understanding scope and rationale for each change
 
 ### Step 2: Execute Phase 1 (Critical)
+
 Work through issues #599-602 in order:
 
 For each issue:
+
 1. Read issue description and acceptance criteria
 2. Create feature branch: `git checkout -b fix/issue-title`
 3. Implement changes per acceptance criteria
@@ -141,9 +151,11 @@ For each issue:
 9. Monitor for feedback and merge when ready
 
 ### Step 3: Execute Phase 2 (Medium)
+
 Once Phase 1 is complete, work through issues #603-607:
 
 Follow same workflow as Phase 2:
+
 - Create branch per issue
 - Implement per acceptance criteria
 - Add comprehensive tests
@@ -151,15 +163,19 @@ Follow same workflow as Phase 2:
 - Create PR and merge
 
 ### Step 4: Execute Phase 3 (Polish)
+
 Once Phase 2 is complete, work through issues #608-609:
 
 Same workflow, with emphasis on:
+
 - Code quality
 - Documentation clarity
 - Example walkthrough
 
 ### Step 5: Final Validation
+
 Once all issues complete:
+
 1. Run full test suite: `npm test`
 2. Check coverage: `npm test -- --coverage scripts/agents`
 3. Re-enable planner workflow: Remove `if: false` from `.github/workflows/planner.yml`
@@ -171,24 +187,28 @@ Once all issues complete:
 ## Success Criteria
 
 ### Phase 1 Complete When
+
 - ✅ All 4 issues merged to `develop`
 - ✅ Test suite passes with ≥80% coverage
 - ✅ No linting errors
 - ✅ Both agents use same module system
 
 ### Phase 2 Complete When
+
 - ✅ All 5 issues merged to `develop`
 - ✅ Planner agent functional and tested
 - ✅ Reviewer enhancements in place
 - ✅ >90% test coverage achieved
 
 ### Phase 3 Complete When
+
 - ✅ All 2 issues merged to `develop`
 - ✅ Documentation complete and clear
 - ✅ Metrics and logging in place
 - ✅ Ready for production use
 
 ### Full Audit Complete When
+
 - ✅ All 11 issues resolved and merged
 - ✅ Workflow re-enabled (planner no longer disabled)
 - ✅ Both agents production-ready
@@ -211,23 +231,28 @@ Once all issues complete:
 ## How to Use These Documents
 
 ### For Initial Understanding
+
 1. Start with this summary (overview)
 2. Read the audit prompt (diagnostic questions)
 3. Read the improvement plan (detailed roadmap)
 
 ### For Implementation
+
 1. Open each GitHub issue (numbered #599-609)
 2. Follow the acceptance criteria
 3. Implement per the test plan
 4. Reference coding standards if needed
 
 ### For Progress Tracking
+
 Use the issue checklist above to mark completion:
+
 - 🟡 Ready = Created, waiting for implementation
 - 🟠 In Progress = Being worked on
 - ✅ Complete = Merged to develop
 
 ### For Troubleshooting
+
 1. Check the audit prompt Section 5 (Operational Readiness)
 2. Review the improvement plan test section for the issue
 3. Check runbooks (once #609 is complete)
@@ -237,6 +262,7 @@ Use the issue checklist above to mark completion:
 ## Dependencies & Sequencing
 
 ### Critical Path (Must do in order)
+
 ```
 #599 (module) → #600 (dry-run) → #601 (errors) → #602 (tests)
                                                       ↓
@@ -248,6 +274,7 @@ Use the issue checklist above to mark completion:
 ```
 
 ### Can Run in Parallel
+
 - Phase 2 issues (#604-607): Independent improvements to reviewer
 - Phase 3 issues (#608-609): Polish/documentation
 - Reviewer improvements (#604-607) and Planner work (#603)
@@ -257,20 +284,24 @@ Use the issue checklist above to mark completion:
 ## Related Files & Standards
 
 ### Code Standards
+
 - **Coding Standards**: `instructions/coding-standards.instructions.md`
 - **Quality Assurance**: `instructions/quality-assurance.instructions.md`
 - **Languages/Linting**: `instructions/languages.instructions.md`
 
 ### Agent Specifications
+
 - **Planner Spec**: `agents/task-planner.agent.md`
 - **Reviewer Spec**: `agents/reviewer.agent.md`
 - **Agent Index**: `agents/agent.md`
 
 ### Global Rules
+
 - **AGENTS.md**: `AGENTS.md`
 - **Contribution Guide**: `CLAUDE.md`
 
 ### Workflows
+
 - **Planner Workflow**: `.github/workflows/planner.yml`
 - **Reviewer Workflow**: `.github/workflows/reviewer.yml`
 
@@ -279,21 +310,27 @@ Use the issue checklist above to mark completion:
 ## FAQ
 
 ### Q: What if I finish an issue early?
+
 A: Move to the next issue in the same phase. Don't skip phases.
 
 ### Q: What if tests fail after implementation?
+
 A: Don't commit. Debug using audit prompt (Section 4) and test plan in issue description. Add more test cases if needed.
 
 ### Q: Should I re-enable planner workflow immediately?
+
 A: No. Wait until issue #603 is complete and tests pass. Re-enable in final validation step.
 
 ### Q: What if I find a bug in the spec?
+
 A: Update the relevant issue description with findings. Document in PR description.
 
 ### Q: Can I work on multiple issues in parallel?
+
 A: Yes, but Phase 1 must complete first (it blocks everything). Phase 2 and 3 can overlap.
 
 ### Q: How do I handle merge conflicts?
+
 A: Rebase your branch: `git rebase develop`. Resolve conflicts. Push with `git push -f`.
 
 ---

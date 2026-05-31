@@ -1,9 +1,12 @@
 ---
+file_type: "documentation"
 title: "Improvement Plan: Planner & Reviewer Agents"
 description: "Structured roadmap with prioritized issues, acceptance criteria, and implementation guidelines"
 version: "v1.0"
-date: "2026-05-31"
+last_updated: "2026-05-31"
 author: "Claude Code"
+owners: ["lightspeedwp/maintainers"]
+tags: ["improvement-plan", "agents", "roadmap", "implementation"]
 ---
 
 # Improvement Plan: Planner & Reviewer Agents
@@ -17,6 +20,7 @@ This document outlines a structured, autonomous improvement workflow:
 3. **Phase 3 (Low)**: Polish, observability, and documentation
 
 Each issue below includes:
+
 - **Title & Description**: What needs to be done
 - **Acceptance Criteria**: How to know it's complete
 - **Test Plan**: How to verify the fix
@@ -29,24 +33,30 @@ Each issue below includes:
 
 ### Issue 1.1: Fix Module System Inconsistency
 
-**Problem**: Planner uses CommonJS, Reviewer uses ES6 modules. Causes maintenance burden and inconsistent dev experience.
+**Problem**: Planner uses CommonJS, Reviewer uses ES6 modules. Repository configured with `"type": "module"`, so both should use ES6.
 
 **Acceptance Criteria**:
-- [ ] Both `planner.agent.js` and `reviewer.agent.js` use the same module system
-- [ ] `package.json` specifies correct `"type"` field (either `"commonjs"` or `"module"`)
+
+- [ ] Both `planner.agent.js` and `reviewer.agent.js` use ES6 modules
+- [ ] `package.json` is confirmed as `"type": "module"` (current state)
 - [ ] All imports/exports are consistent across both files
 - [ ] No mixed module syntax (no both `require()` and `import` in same file)
+- [ ] `__dirname` and `__filename` replaced with `import.meta.url` utilities
 
 **Implementation**:
-- [ ] Check `package.json` `"type"` field
-- [ ] Convert reviewer.agent.js from ES6 to CommonJS (if package.json is `"commonjs"`)
-  - Change `import * as core from "@actions/core"` → `const core = require("@actions/core")`
-  - Change `import * as github from "@actions/github"` → `const github = require("@actions/github")`
-  - Change `export { run }` → `module.exports = { run }`
-  - Update `if (process.argv[1]...)` condition to work with CommonJS
+
+- [ ] Check current `package.json` `"type"` field (confirmed as `"module"`)
+- [ ] Convert planner.agent.js from CommonJS to ES6 modules:
+  - Change `const path = require("path")` → `import path from "path"`
+  - Change `const __filename = __filename || process.argv[1]` → use `import.meta.url`
+  - Change `const __dirname = __dirname || path.dirname(__filename)` → derive from `import.meta.url`
+  - Import `fileURLToPath` from `url` module to convert `import.meta.url` to file path
+  - Change `module.exports = { runPlanner }` → `export { runPlanner }`
+  - Update ES6 module check condition for main module execution
 - [ ] Update workflow scripts to use consistent invocation pattern
 
 **Test Plan**:
+
 ```bash
 # Verify module syntax
 node -c scripts/agents/planner.agent.js
@@ -66,17 +76,22 @@ node -e "const { run } = require('./scripts/agents/reviewer.agent.js'); console.
 **Problem**: Reviewer agent always posts comments; no way to test safely in production.
 
 **Acceptance Criteria**:
+
 - [ ] Reviewer accepts `--dry-run` flag or environment variable
 - [ ] In dry-run mode: logs comment that would be posted but doesn't create it
 - [ ] Workflow accepts `dry-run` input parameter (default: `false`)
 - [ ] Comment clearly indicates dry-run status
 
 **Implementation**:
+
 1. [ ] Add dry-run flag parsing to reviewer.agent.js:
+
    ```javascript
    const dryRun = process.argv.includes("--dry-run") || process.env.DRY_RUN === "true";
    ```
+
 2. [ ] Before posting comment (line 84), check dry-run:
+
    ```javascript
    if (dryRun) {
      core.info("DRY-RUN: Would post comment: " + summary);
@@ -84,9 +99,11 @@ node -e "const { run } = require('./scripts/agents/reviewer.agent.js'); console.
      await octokit.rest.issues.createComment({...});
    }
    ```
+
 3. [ ] Update workflow to accept input and pass to script
 
 **Test Plan**:
+
 ```bash
 # Test dry-run mode
 DRY_RUN=true node scripts/agents/reviewer.agent.js
@@ -106,6 +123,7 @@ node scripts/agents/reviewer.agent.js
 **Problem**: Silent failures; missing API error handling; no graceful degradation.
 
 **Acceptance Criteria**:
+
 - [ ] All API calls wrapped in try-catch
 - [ ] Network errors logged with context
 - [ ] Missing tokens detected early and reported
@@ -115,17 +133,20 @@ node scripts/agents/reviewer.agent.js
 **Implementation**:
 
 **Planner**:
+
 1. [ ] Wrap GitHub API calls in try-catch
 2. [ ] Add token validation at start
 3. [ ] Return structured error object on failure
 
 **Reviewer**:
+
 1. [ ] Catch error in getCombinedStatusForRef() and log properly (not just "Could not fetch")
 2. [ ] Catch error in listFiles() and report which PR failed
 3. [ ] Catch error in createComment() and notify via core.setFailed()
 4. [ ] Add early token validation
 
 **Test Plan**:
+
 ```bash
 # Test missing token
 GITHUB_TOKEN="" node scripts/agents/reviewer.agent.js
@@ -145,6 +166,7 @@ node scripts/agents/reviewer.agent.js --no-pr
 **Problem**: Tests disabled; gaps in coverage; critical branches untested.
 
 **Acceptance Criteria**:
+
 - [ ] Test files moved from `.jest-skip/` to proper location (e.g., `scripts/agents/__tests__/`)
 - [ ] Tests pass in CI
 - [ ] Coverage ≥ 80% for both agents
@@ -154,6 +176,7 @@ node scripts/agents/reviewer.agent.js --no-pr
 **Implementation**:
 
 **Planner Tests**:
+
 1. [ ] Move `.jest-skip/planner.agent.test.js` → `scripts/agents/__tests__/planner.agent.test.js`
 2. [ ] Add tests for:
    - [ ] Missing GITHUB_TOKEN
@@ -162,6 +185,7 @@ node scripts/agents/reviewer.agent.js --no-pr
    - [ ] Successful plan generation (once implemented)
 
 **Reviewer Tests**:
+
 1. [ ] Move `.jest-skip/reviewer.agent.test.js` → `scripts/agents/__tests__/reviewer.agent.test.js`
 2. [ ] Add tests for:
    - [ ] Missing GITHUB_TOKEN
@@ -174,6 +198,7 @@ node scripts/agents/reviewer.agent.js --no-pr
    - [ ] Comment posting failure
 
 **Test Plan**:
+
 ```bash
 npm test -- scripts/agents/__tests__/planner.agent.test.js
 npm test -- scripts/agents/__tests__/reviewer.agent.test.js
@@ -195,6 +220,7 @@ npm test -- --coverage scripts/agents
 **Problem**: Planner is a stub; needs core implementation (context analysis, plan generation, checklist posting).
 
 **Acceptance Criteria**:
+
 - [ ] Agent accepts structured input (issue/PR number, type of plan needed)
 - [ ] Analyzes PR/issue context (title, description, labels, linked issues)
 - [ ] Generates structured plan (checklist format)
@@ -204,6 +230,7 @@ npm test -- --coverage scripts/agents
 **Implementation**:
 
 1. [ ] Define module interface:
+
    ```javascript
    async function run(context = github.context, options = {})
    ```
@@ -226,6 +253,7 @@ npm test -- --coverage scripts/agents
    - [ ] Return comment URL
 
 **Test Plan**:
+
 ```bash
 npm test -- scripts/agents/__tests__/planner.agent.test.js
 
@@ -245,6 +273,7 @@ node scripts/agents/planner.agent.js --apply --pr 123
 **Problem**: Only detects src/ and code files; misses high-risk changes (config, workflows, security).
 
 **Acceptance Criteria**:
+
 - [ ] Categorizes files by risk level (critical, high, medium, low)
 - [ ] Flags high-risk categories:
   - [ ] Configuration: `.github/`, `package*.json`, `composer.json`, `.env*`, `config/`
@@ -257,6 +286,7 @@ node scripts/agents/planner.agent.js --apply --pr 123
 **Implementation**:
 
 1. [ ] Add file categorizer function:
+
    ```javascript
    function categorizeFile(filename) {
      // Returns: { category, riskLevel }
@@ -272,6 +302,7 @@ node scripts/agents/planner.agent.js --apply --pr 123
 3. [ ] Update summary comment to include category breakdown
 
 **Test Plan**:
+
 ```bash
 npm test -- scripts/agents/__tests__/reviewer.agent.test.js
 
@@ -289,6 +320,7 @@ npm test -- scripts/agents/__tests__/reviewer.agent.test.js
 **Problem**: Fragile detection; only looks for lowercase `changelog.md`.
 
 **Acceptance Criteria**:
+
 - [ ] Case-insensitive detection
 - [ ] Supports multiple names: CHANGELOG.md, CHANGELOG.txt, HISTORY.md, NEWS.md, RELEASES.md
 - [ ] Detects in root or `/docs` directory
@@ -297,17 +329,20 @@ npm test -- scripts/agents/__tests__/reviewer.agent.test.js
 **Implementation**:
 
 ```javascript
-function hasChangelogEntry(files) {
+function hasChangelogEntry(filenames) {
   const changelogNames = [
     'changelog.md', 'changelog.txt', 'history.md', 'news.md', 'releases.md'
   ];
-  return files.some(f => 
+  return filenames.some(f => 
     changelogNames.includes(f.toLowerCase().split('/').pop())
   );
 }
 ```
 
+Note: `filenames` is an array of strings (from the GitHub API's `changed` array), not file objects.
+
 **Test Plan**:
+
 ```bash
 # Test cases
 const files = [
@@ -328,6 +363,7 @@ const files = [
 **Problem**: Only checks CI + changelog; misses breaking changes, security issues, incomplete changes.
 
 **Acceptance Criteria**:
+
 - [ ] Detects breaking changes (major version bump, API changes)
 - [ ] Flags security-sensitive file modifications
 - [ ] Warns on large deletions (>500 lines removed)
@@ -344,7 +380,7 @@ function detectBlockers(files, stats, state, requireChangelog) {
   if (state !== "success") blockers.push("CI checks not green");
   
   // Changelog blocker
-  if (requireChangelog && hasCodeChange(files) && !hasChangelog(files)) {
+  if (requireChangelog && hasCodeChange(files) && !hasChangelogEntry(files)) {
     blockers.push("CHANGELOG.md missing");
   }
   
@@ -363,6 +399,7 @@ function detectBlockers(files, stats, state, requireChangelog) {
 ```
 
 **Test Plan**:
+
 ```bash
 # Test various scenarios
 npm test -- --testNamePattern="blocker detection"
@@ -379,6 +416,7 @@ npm test -- --testNamePattern="blocker detection"
 **Problem**: Posts new comment on every sync; accumulates clutter in long review threads.
 
 **Acceptance Criteria**:
+
 - [ ] Checks for existing reviewer comment (by bot name/marker)
 - [ ] Updates existing comment instead of creating new one
 - [ ] Marks comment with unique identifier to find it later
@@ -387,11 +425,13 @@ npm test -- --testNamePattern="blocker detection"
 **Implementation**:
 
 1. [ ] Add marker to reviewer comment:
+
    ```markdown
    <!-- reviewer-agent-summary -->
    ```
 
 2. [ ] Search for existing comment:
+
    ```javascript
    const existingComment = prComments.find(c => 
      c.body.includes('<!-- reviewer-agent-summary -->')
@@ -399,6 +439,7 @@ npm test -- --testNamePattern="blocker detection"
    ```
 
 3. [ ] Update instead of create:
+
    ```javascript
    if (existingComment) {
      await octokit.rest.issues.updateComment({
@@ -411,6 +452,7 @@ npm test -- --testNamePattern="blocker detection"
    ```
 
 **Test Plan**:
+
 ```bash
 npm test -- --testNamePattern="comment deduplication"
 
@@ -431,12 +473,14 @@ npm test -- --testNamePattern="comment deduplication"
 **Problem**: Minimal logging; hard to debug; no metrics for monitoring.
 
 **Acceptance Criteria**:
+
 - [ ] Structured JSON logging (not just console.log)
 - [ ] Metrics: execution time, items processed, errors
 - [ ] Configurable log level (info, debug, error)
 - [ ] Machine-parseable error messages
 
 **Implementation**:
+
 - [ ] Create logging utility: `scripts/utils/logger.js`
 - [ ] Use in both agents
 - [ ] Output JSON to stdout, errors to stderr
@@ -450,12 +494,14 @@ npm test -- --testNamePattern="comment deduplication"
 **Problem**: No operational documentation; unclear how to deploy, debug, or troubleshoot.
 
 **Acceptance Criteria**:
+
 - [ ] Deployment checklist (when to enable planner, rollout steps)
 - [ ] Debugging guide (what to check when agent fails)
 - [ ] Configuration reference (all available inputs/env vars)
 - [ ] Troubleshooting FAQ
 
 **Implementation**:
+
 - [ ] Create `docs/agents/PLANNER-RUNBOOK.md`
 - [ ] Create `docs/agents/REVIEWER-RUNBOOK.md`
 
@@ -468,11 +514,13 @@ npm test -- --testNamePattern="comment deduplication"
 To work through these issues autonomously:
 
 ### Step 1: Create Issues in GitHub
+
 ```bash
 # See next section for GitHub issue creation
 ```
 
 ### Step 2: For Each Issue (in order)
+
 1. Check out a feature branch: `git checkout -b fix/issue-title`
 2. Read the issue description and acceptance criteria
 3. Implement changes
@@ -483,6 +531,7 @@ To work through these issues autonomously:
 8. Address feedback and merge when approved
 
 ### Step 3: Verify Completion
+
 - [ ] All acceptance criteria met
 - [ ] Tests pass (coverage ≥ 80%)
 - [ ] No linting errors
@@ -494,12 +543,14 @@ To work through these issues autonomously:
 ## Timeline & Sequencing
 
 **Phase 1 (Critical - Must Complete First)**:
+
 - Issue 1.1: Module consistency (blocks everything)
 - Issue 1.3: Error handling (needed for stability)
 - Issue 1.2: Dry-run mode (needed for safety)
 - Issue 1.4: Tests (enables CI validation)
 
 **Phase 2 (Medium Priority - After Phase 1)**:
+
 - Issue 2.1: Planner implementation
 - Issue 2.2: File analysis
 - Issue 2.3: Changelog detection
@@ -507,6 +558,7 @@ To work through these issues autonomously:
 - Issue 2.5: Comment deduplication
 
 **Phase 3 (Polish - Last)**:
+
 - Issue 3.1: Observability
 - Issue 3.2: Documentation
 
