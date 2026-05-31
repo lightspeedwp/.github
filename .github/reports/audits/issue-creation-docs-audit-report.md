@@ -1,5 +1,5 @@
 ---
-file_type: "audit-report"
+file_type: "documentation"
 title: "Issue Creation Documentation Audit Report"
 description: "Comprehensive audit of 6 overlapping issue creation documentation files. Identifies duplication, overlap, and proposes consolidation strategy."
 audit_date: "2026-05-31"
@@ -367,8 +367,8 @@ docs/index.md (stub; use redirect or remove)
 
 1. **TEMPLATE/README.md (line 36):** References `./ISSUE_TEMPLATE/README.md` (circular reference)
 2. **TEMPLATE/README.md (line 79):** References `../ISSUE_LABELS.md` (does not exist; should be `docs/ISSUE_LABELS.md` or link moved)
-3. **instructions/issues.instructions.md (line 58):** References `../docs/ISSUE_CREATION_GUIDE.md` (relative path from .github/instructions, should work)
-4. **instructions/issues.instructions.md (lines 137-138):** References `../docs/LABEL_STRATEGY.md` (need to verify file exists)
+3. **.github/instructions/issues.instructions.md (line 58):** References `../docs/ISSUE_CREATION_GUIDE.md` (relative path is broken; should be `../../docs/ISSUE_CREATION_GUIDE.md`)
+4. **.github/instructions/issues.instructions.md (lines 137-138):** References `../docs/LABEL_STRATEGY.md` (relative path is broken; should be `../../docs/LABEL_STRATEGY.md`)
 
 ### Navigation Gaps
 
