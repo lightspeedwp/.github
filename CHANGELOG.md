@@ -30,6 +30,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **WCEU 2026 Phase 2 Refinement: Complete Speaker Notes and Visual Design Specifications** — Finalised all speaker notes and visual design guidance for 25-minute WordCamp Europe 2026 presentation on ".github repository automation":
+  - `wceu-2026/SPEAKER_NOTES_FINAL.md` — Complete speaker notes for all 24 slides including key messages, talking points, timing (25:10 total), transitions, and emergency cut list; pacing checkpoints at 12:30, 18:00, 23:00
+  - `wceu-2026/VISUAL_DESIGN_SPECIFICATIONS.md` — Full design system guide (dark mode, 8-colour palette with WCAG AA+ contrast, typography 44–56pt titles/18–24pt body, layout specs, accessibility checklist)
+  - `wceu-2026/SLIDES_INDEX.md` — Quick-reference index of all 24 slides organised by section (Hook/Architecture/Implementation/Adoption) with layout, timing, key message, accent colour assignments, and build checklist
+  - All three files validated for WCAG 2.2 AA accessibility compliance and ready for Phase 3 Google Slides implementation ([#640](https://github.com/lightspeedwp/.github/pull/640))
+
 - **Workflow Standards Comprehensive Audit & Improvement Plan** — Completed systematic audit of linting, meta, branding, and CI/CD workflows with detailed improvement roadmap:
   - `.github/reports/audits/workflow-standards-audit-2026-05-31.md` — Full audit identifying 6 priority improvements with effort estimates (23 hours total, 5–8 day timeline)
   - Identified critical gap: no changelog auto-sync on PR merge to develop

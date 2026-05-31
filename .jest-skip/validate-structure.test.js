@@ -23,7 +23,7 @@ describe("structure validation", () => {
         encoding: "utf8",
         stdio: "pipe",
       });
-    }).toThrow(/Missing required directory: \schema/);
+    }).toThrow(/Missing required directory: schema/);
   });
 
   it("passes when required portable folders and README files exist", () => {

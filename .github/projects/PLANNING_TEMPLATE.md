@@ -205,6 +205,7 @@ Before creating related GitHub issues, confirm:
 - [ ] Approval chain is complete
 
 Once this planning document is approved, you're ready to:
+
 1. Create GitHub issues for each task/deliverable
 2. Link issues back to this planning document in their description
 3. Add issues to the appropriate GitHub project
