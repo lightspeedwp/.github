@@ -180,7 +180,7 @@ This is problematic because:
    - Explain why issue-fields.yml collapses 25 types to 4 project values
    - Document when/where type granularity is lost
    - Clarify field application rules (which issue types get which fields)
-   - Deliverable: Updated `docs/ISSUE-FIELDS.md` with rationale
+   - Deliverable: Updated `docs/ISSUE_FIELDS.md` with rationale
 
 3. **Update Issue-Types Documentation** (Effort: 1 hour)
    - Align docs with actual type definitions
@@ -266,7 +266,7 @@ Good separation by language family.
 - [ ] Issue-type naming standardized and aligned with labels
 - [ ] Label inventory documented with family grouping
 - [ ] Field mapping rationale documented
-- [ ] All documentation files updated (LABEL_STRATEGY.md, ISSUE-FIELDS.md, ISSUE_TYPES.md)
+- [ ] All documentation files updated (LABEL_STRATEGY.md, ISSUE_FIELDS.md, ISSUE_TYPES.md)
 - [ ] Pre-implementation child issues created:
   - Child 5.2.1: Implement color strategy specification
   - Child 5.2.2: Reconcile issue-fields type mapping
@@ -292,7 +292,7 @@ Good separation by language family.
 - `docs/LABEL_STRATEGY.md` — Label strategy documentation (incomplete)
 - `docs/ISSUE_LABELS.md` — Label usage guide
 - `docs/ISSUE_TYPES.md` — Issue type documentation
-- `docs/ISSUE-FIELDS.md` — Issue field reference
+- `docs/ISSUE_FIELDS.md` — Issue field reference
 
 ---
 
