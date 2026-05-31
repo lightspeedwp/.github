@@ -138,7 +138,7 @@ references:
   - "../workflows/labeling.yml"
   - "../prompts/label-issues.prompt.md"
   - "../instructions/automation.instructions.md"
-  - "../instructions/labeling.instructions.md"
+  - "./LABELING.md"
   - "./ISSUE_LABELS.md"
   - "./PR_LABELS.md"
 ---

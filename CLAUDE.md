@@ -107,6 +107,6 @@ npm run validate:frontmatter
 **Repo-local instructions** (specific to this .github control plane):
 
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
-- [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — this repo's file placement rules
+- [instructions/file-organisation.instructions.md](./instructions/file-organisation.instructions.md) — this repo's file placement rules
 - [AGENTS.md](./AGENTS.md) — full global AI rules
 - [instructions/plugin-structure.instructions.md](./instructions/plugin-structure.instructions.md) — WordPress block plugin structure
