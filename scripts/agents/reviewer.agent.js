@@ -52,6 +52,31 @@ function categorizeFile(filename) {
   return { category: "Other", riskLevel: "LOW" };
 }
 
+function hasSecurityFileChange(files) {
+  return files.some((f) =>
+    /security|license|codeofconduct|\.github\/workflows/.test(
+      f.filename.toLowerCase(),
+    ),
+  );
+}
+
+function hasLargeDeletion(files) {
+  const totalDeletions = files.reduce((sum, f) => sum + (f.deletions || 0), 0);
+  return totalDeletions > 500;
+}
+
+function hasMigrationWithoutRollback(files) {
+  const hasMigration = files.some((f) =>
+    /migration|schema.*change/.test(f.filename.toLowerCase()),
+  );
+  if (!hasMigration) return false;
+
+  const hasRollbackDoc = files.some((f) =>
+    /rollback|revert|downgrade/.test(f.filename.toLowerCase()),
+  );
+  return !hasRollbackDoc;
+}
+
 /**
  * Main orchestrator for Reviewer Agent.
  * Posts a summary comment on PRs with CI status and file analysis.
@@ -154,6 +179,12 @@ async function run(context = github.context, options = {}) {
       blockers.push(
         `⚠️ ${riskCounts.CRITICAL} critical-risk file(s) modified (workflows, secrets)`,
       );
+    if (hasSecurityFileChange(files))
+      blockers.push("⚠️ Security-sensitive files modified (review carefully)");
+    if (hasLargeDeletion(files))
+      blockers.push("⚠️ Large deletion detected (>500 lines removed)");
+    if (hasMigrationWithoutRollback(files))
+      blockers.push("⚠️ Database migration without rollback plan documented");
 
     const emoji = blockers.length ? "❌" : state === "success" ? "✅" : "⚠️";
     const riskSummary = `**Risk Distribution:** ${riskCounts.CRITICAL} critical, ${riskCounts.HIGH} high, ${riskCounts.MEDIUM} medium, ${riskCounts.LOW} low`;
