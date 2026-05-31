@@ -6,8 +6,7 @@ description: "Code refactoring, optimisation, and modernisation workflows"
 
 # Refactoring Prompt Template
 
-Use this prompt when planning code refactoring, optimization, or modernisation.
-
+Use this prompt when planning code refactoring, optimisation, or modernisation.
 ## Context
 
 **Project:** [Project Name]
@@ -45,7 +44,7 @@ Use this prompt when planning code refactoring, optimization, or modernisation.
 ### Specific Improvements
 
 1. **Code Quality:** [What quality issues to address]
-2. **Performance:** [What optimizations to pursue]
+2. **Performance:** [What optimisations to pursue]
 3. **Maintainability:** [How to make code easier to understand/modify]
 4. **Testing:** [Increase test coverage or improve test quality]
 

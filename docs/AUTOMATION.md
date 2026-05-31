@@ -64,7 +64,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | Workflow | Branch | Purpose | Agent |
 | --- | --- | --- | --- |
 | **labeling.yml** | develop | Unified labeling, status/priority, and type automation | labeling.agent.js |
-| **labeling-validate.yml** | develop | Enforce changelog requirements and PR labeling standards | changelog validation |
+| **changelog-validate.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
 | **project-meta-sync.yml** | develop | Sync project board with PR/issue status | project-meta-sync.agent.js |
@@ -87,13 +87,13 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 **Requirements:**
 
 1. **Justification:** Document why the label is needed
-2. **Category:** Assign to appropriate family (status, priority, type, area, meta, etc.)
 3. **Naming Convention:** Follow `family:name` format (e.g., `status:in-progress`, `area:ci`)
-4. **Color Coding:** Use category-appropriate colors:
+4. **Colour Coding:** Use category-appropriate colours:
    - Status: Blue tones
    - Priority: Red/Orange gradient
    - Type: Green (features), Red (bugs), Purple (docs)
    - Area/Component: Light blue
+   - Meta: Grey
    - Meta: Grey
 5. **Description:** Provide clear, concise purpose
 6. **Documentation:** Update [Labeling Guide](./LABELING.md) with new label details

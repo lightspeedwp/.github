@@ -51,7 +51,6 @@ The following files were moved or renamed to correct structural issues and enfor
 | Previous Path | New Path | Change Reason |
 | --- | --- | --- |
 | `.github/.github/docs/workflow-coordination.md` | `docs/WORKFLOW_COORDINATION.md` | Nested `.github` directory removed; renamed to uppercase per `docs/` naming convention |
-
 ---
 
 ## Migration Steps

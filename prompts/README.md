@@ -1,12 +1,14 @@
 ---
 file_type: "prompt"
-title: "Standardized Prompts Directory"
+---
+file_type: "prompt"
+title: "Standardised Prompts Directory"
 description: "Reusable prompt templates for agents and AI scenarios across LightSpeed projects"
 ---
 
-# Standardized Prompts
+# Standardised Prompts
 
-This directory contains reusable prompt templates for agents and AI scenarios across LightSpeed projects. Use these prompts as starting points for common tasks—customize as needed for your specific context.
+This directory contains reusable prompt templates for agents and AI scenarios across LightSpeed projects. Use these prompts as starting points for common tasks—customise as needed for your specific context.
 
 ## Prompt Templates
 
@@ -14,17 +16,11 @@ This directory contains reusable prompt templates for agents and AI scenarios ac
 - **[code-generation.prompt](./code-generation.prompt)** — Code implementation, scaffolding, and generation
 - **[documentation.prompt](./documentation.prompt)** — Documentation creation, updates, and refinement
 - **[testing.prompt](./testing.prompt)** — Test suite creation, debugging, and coverage improvements
-- **[code-review.prompt](./code-review.prompt)** — Code review, quality feedback, and standards enforcement
-- **[debugging.prompt](./debugging.prompt)** — Problem diagnosis, root cause analysis, and resolution
-- **[refactoring.prompt](./refactoring.prompt)** — Code refactoring, optimization, and modernization
-
+- **[refactoring.prompt](./refactoring.prompt)** — Code refactoring, optimisation, and modernisation
 ## Usage
 
 Each prompt is designed to be:
-
-- **Modular:** Can be used independently or combined with others
-- **Customizable:** Adapt sections to your project context
-- **Reusable:** Works across different agents and scenarios
+- **Customisable:** Adapt sections to your project context
 - **Focused:** Addresses a specific task or workflow stage
 
 ### Example: Code Generation

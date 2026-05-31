@@ -24,7 +24,6 @@ The following files have been consolidated into [`docs/LABELING.md`](../docs/LAB
 | `docs/LABEL_STRATEGY.md` | `docs/LABELING.md` | Duplicated content and strategy; merged into single comprehensive guide |
 | `docs/ISSUE_LABELS.md` | `docs/LABELING.md` | Issue-specific labeling now in main guide under "Issue Labeling" section |
 | `docs/PR_LABELS.md` | `docs/LABELING.md` | PR-specific labeling now in main guide under "Pull Request Labeling" section |
-
 **Portable Instructions Retained:**
 
 - `instructions/labeling.instructions.md` — Portable labeling instructions (cross-repo reusable)
@@ -39,7 +38,6 @@ The following files have been consolidated into [`docs/AUTOMATION.md`](../docs/A
 | --- | --- | --- |
 | `docs/AUTOMATION_GOVERNANCE.md` | `docs/AUTOMATION.md` | Governance, policies, and workflow standards merged into single guide |
 | `docs/WORKFLOWS.md` | `docs/AUTOMATION.md` | Workflow overview and individual workflow details now in main automation guide |
-
 **Portable Instructions Retained:**
 
 - `instructions/automation.instructions.md` — Portable automation and workflow instructions (cross-repo reusable)
@@ -53,7 +51,6 @@ The following files were moved to correct nested path issues:
 | Previous Path | New Path | Change Reason |
 | --- | --- | --- |
 | `.github/.github/docs/workflow-coordination.md` | `docs/WORKFLOW_COORDINATION.md` | Nested `.github` directory removed; renamed to uppercase per `docs/` naming convention |
-
 ---
 
 ## Migration Guide
