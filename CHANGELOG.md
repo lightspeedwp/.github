@@ -37,6 +37,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `wceu-2026/SLIDES_INDEX.md` — Quick-reference index of all 24 slides organised by section (Hook/Architecture/Implementation/Adoption) with layout, timing, key message, accent colour assignments, and build checklist
   - All three files validated for WCAG 2.2 AA accessibility compliance and ready for Phase 3 Google Slides implementation ([#640](https://github.com/lightspeedwp/.github/pull/640))
 
+- **Documentation Consolidation & Repository Structure Refinement** — Streamlined documentation by consolidating redundant files and clarifying scope boundaries:
+  - Consolidated labelling documentation: merged `docs/LABEL_STRATEGY.md`, `docs/ISSUE_LABELS.md`, `docs/PR_LABELS.md` into single comprehensive `docs/LABELING.md` (covers strategy, issue/PR/discussion labelling, agent integration, and best practices)
+  - Consolidated automation documentation: merged `docs/AUTOMATION_GOVERNANCE.md`, `docs/WORKFLOWS.md` into single `docs/AUTOMATION.md` (covers strategy, governance, workflow registry, and configuration management)
+  - Corrected nested file path: moved `.github/.github/docs/workflow-coordination.md` to `docs/WORKFLOW_COORDINATION.md`
+  - Updated `instructions/DEPRECATED.md` with deprecation index and migration guide for consolidated files
+  - Maintained portable instructions (`instructions/labeling.instructions.md`, `instructions/automation.instructions.md`) for cross-repository reusability
+  - Result: Eliminated 5 redundant documentation files; improved discoverability and maintainability ([#636](https://github.com/lightspeedwp/.github/issues/636))
+
+- **Standardised Prompts Directory** — Created `/prompts` directory at repository root with 7 reusable prompt templates for agents and AI scenarios:
+  - `agent-setup.prompt` — Initial agent context, instructions, and operational guidelines
+  - `code-generation.prompt` — Code implementation, scaffolding, and generation scenarios
+  - `documentation.prompt` — Documentation creation, updates, and refinement workflows
+  - `testing.prompt` — Test suite creation, coverage improvement, and test debugging
+  - `code-review.prompt` — Code review, quality feedback, and standards enforcement
+  - `debugging.prompt` — Problem diagnosis, root cause analysis, and resolution procedures
+  - `refactoring.prompt` — Code refactoring, optimisation, and modernisation workflows
+  - Each prompt follows consistent structure (Context, Task, Constraints, Acceptance Criteria, References) for reusability across agents and projects
+  - Added `prompts/README.md` with usage guide and contribution guidelines ([#636](https://github.com/lightspeedwp/.github/issues/636))
+
 - **Workflow Standards Comprehensive Audit & Improvement Plan** — Completed systematic audit of linting, meta, branding, and CI/CD workflows with detailed improvement roadmap:
   - `.github/reports/audits/workflow-standards-audit-2026-05-31.md` — Full audit identifying 6 priority improvements with effort estimates (23 hours total, 5–8 day timeline)
   - Identified critical gap: no changelog auto-sync on PR merge to develop

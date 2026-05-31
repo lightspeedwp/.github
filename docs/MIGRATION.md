@@ -1,88 +1,114 @@
 ---
-title: Migration Notes & Guides
-description: Central migration map, version guides, and contributor guidance for repository-wide changes including naming, labels, file relocations, and breaking changes.
-version: v0.3.0
-last_updated: '2026-05-29'
-file_type: documentation
-maintainer: LightSpeed Team
-authors:
-- LightSpeed Team
-license: GPL-3.0
-tags:
-- migration
-- versioning
-- labels
-- governance
-domain: governance
-stability: stable
+file_type: "documentation"
+title: "Documentation Migration Guide"
+description: "Migration path for consolidated documentation files and updated references."
+version: "v1.0.0"
+last_updated: "2026-05-31"
+owners: ["LightSpeedWP Team"]
+tags: ["migration", "documentation", "consolidation"]
+status: "active"
+stability: "stable"
+domain: "documentation"
 ---
 
-# Migration Notes & Guides
+# Documentation Migration Guide
 
-This document centralises migration guides, version updates, and breaking changes across the LightSpeed ecosystem. Refer to this guide when upgrading components, moving files, or implementing breaking changes.
-
-## Instructions Migration
-
-When moving instructions between locations:
-
-1. **Create migration issue** documenting source and target paths
-2. **Update all references** in the repository
-3. **Leave a redirect** or archive note in the old location
-4. **Verify all links** still work
-5. **Test with consumers** of the instruction
-
-For portable instruction files, see [instructions/README.md](../instructions/README.md#migrating-instructions) for detailed migration procedures.
-
-## Hooks & Tools Migration
-
-When updating hooks or tool adapters:
-
-1. **Version carefully** using semantic versioning
-2. **Document breaking changes** in release notes
-3. **Provide migration path** for users
-4. **Maintain backward compatibility** where possible
-5. **Update registry** with new version metadata
-
-For version migration guides, refer to individual hook documentation in [hooks/README.md](../hooks/README.md).
-
-## Skills & Workflows Migration
-
-When restructuring skills or workflows:
-
-1. **Announce deprecation** well in advance
-2. **Provide replacement** or upgrade path
-3. **Maintain both versions** during transition period
-4. **Update documentation** to point to new location
-5. **Remove old version** after deprecation period
-
-## Version Numbering
-
-All components use semantic versioning:
-
-- **Major** (v1 → v2) – Breaking changes to inputs or outputs
-- **Minor** (v1.0 → v1.1) – New optional features
-- **Patch** (v1.0.0 → v1.0.1) – Bug fixes and clarifications
-
-## Breaking Changes Policy
-
-Breaking changes require:
-
-1. **Advance notice** (at least 2 releases or 1 month notice)
-2. **Deprecation warnings** in documentation
-3. **Migration guide** in this file
-4. **Major version bump** when released
-5. **Clear communication** to all stakeholders
-
-## Related Resources
-
-- [CONTRIBUTING.md](../CONTRIBUTING.md) – Contribution guidelines
-- [instructions/README.md](../instructions/README.md) – Instruction standards
-- [hooks/README.md](../hooks/README.md) – Hook stability and versioning
-- [skills/README.md](../skills/README.md) – Skill development
-- [workflows/README.md](../workflows/README.md) – Workflow management
-- [VERSIONING.md](./VERSIONING.md) – Version management strategy
+This guide provides migration paths for documentation files that have been consolidated or relocated.
 
 ---
 
-*Made with 💚 by LightSpeedWP – keep things smooth during transitions!*
-[Migrations](https://github.com/lightspeedwp/.github/blob/develop/docs/MIGRATION.md)
+## Consolidated Documentation Files
+
+The following documentation files have been consolidated into comprehensive guides to improve maintainability and reduce duplication.
+
+### Labelling Documentation (Consolidated)
+
+The following files have been consolidated into [`docs/LABELING.md`](./LABELING.md):
+
+| Deprecated File | Consolidated Into | Reason |
+| --- | --- | --- |
+| `docs/LABEL_STRATEGY.md` | `docs/LABELING.md` | Duplicated content and strategy; merged into single comprehensive guide |
+| `docs/ISSUE_LABELS.md` | `docs/LABELING.md` | Issue-specific labeling now in main guide under "Issue Labeling" section |
+| `docs/PR_LABELS.md` | `docs/LABELING.md` | PR-specific labeling now in main guide under "Pull Request Labeling" section |
+
+**Portable Instructions Retained:**
+
+- `instructions/labeling.instructions.md` — Portable labeling instructions (cross-repo reusable)
+
+### Automation & Workflows Documentation (Consolidated)
+
+The following files have been consolidated into [`docs/AUTOMATION.md`](./AUTOMATION.md):
+
+| Deprecated File | Consolidated Into | Reason |
+| --- | --- | --- |
+| `docs/AUTOMATION_GOVERNANCE.md` | `docs/AUTOMATION.md` | Governance, policies, and workflow standards merged into single guide |
+| `docs/WORKFLOWS.md` | `docs/AUTOMATION.md` | Workflow overview and individual workflow details now in main automation guide |
+
+**Portable Instructions Retained:**
+
+- `instructions/automation.instructions.md` — Portable automation and workflow instructions (cross-repo reusable)
+
+### File Path Corrections & Renames
+
+The following files were moved or renamed to correct structural issues and enforce naming conventions:
+
+| Previous Path | New Path | Change Reason |
+| --- | --- | --- |
+| `.github/docs/workflow-coordination.md` | `docs/WORKFLOW_COORDINATION.md` | Moved to top-level `docs/`; renamed to uppercase per naming convention |
+
+---
+
+## Migration Steps
+
+### If You Have Links to Deprecated Files
+
+Update all references across your documentation and codebase:
+
+#### Labelling Documentation
+
+- Any link to `docs/LABEL_STRATEGY.md` → change to `docs/LABELING.md`
+- Any link to `docs/ISSUE_LABELS.md` → change to `docs/LABELING.md`
+- Any link to `docs/PR_LABELS.md` → change to `docs/LABELING.md`
+
+#### Automation & Workflows Documentation
+
+- Any link to `docs/AUTOMATION_GOVERNANCE.md` → change to `docs/AUTOMATION.md`
+- Any link to `docs/WORKFLOWS.md` → change to `docs/AUTOMATION.md`
+
+#### Workflow Coordination Documentation
+
+- Any link to `.github/docs/workflow-coordination.md` → change to `docs/WORKFLOW_COORDINATION.md`
+
+### For Portable Instructions
+
+If you're building reusable agents or instructions across repositories:
+
+- Refer to `instructions/labeling.instructions.md` (portable, cross-repo)
+- Refer to `instructions/automation.instructions.md` (portable, cross-repo)
+- These files contain the same high-level patterns in a reusable format
+
+---
+
+## Rationale
+
+Documentation consolidation improves:
+
+- **Discoverability:** Single, canonical source of truth instead of scattered files
+- **Maintainability:** One file to update instead of multiple duplicates
+- **Clarity:** Clear scope boundaries between documentation (`docs/`) and portable instructions (`instructions/`)
+- **Navigation:** Comprehensive guides instead of fragmented references
+- **Naming Consistency:** Uppercase naming convention enforced across `docs/` directory
+
+---
+
+## References
+
+- [Consolidation Index](../instructions/DEPRECATED.md) — Full index of all consolidated files
+- [Labeling Guide](./LABELING.md) — Consolidated labeling strategy and automation
+- [Automation Guide](./AUTOMATION.md) — Consolidated automation governance and workflows
+- [Workflow Coordination](./WORKFLOW_COORDINATION.md) — Workflow pattern documentation
+- [Repository Boundaries](../CLAUDE.md#repository-boundaries) — File organisation conventions
+
+---
+
+*Last updated: 2026-05-31*
