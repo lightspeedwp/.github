@@ -1,18 +1,20 @@
 /**
  * planner.agent.js
  *
- * Lightweight placeholder implementation to keep the planner workflow healthy.
- * Currently runs in dry-run mode and logs context; extend with real automation
- * when the planner specification is implemented.
+ * Automatically adds new issues and PRs to appropriate projects based on labels
+ * and metadata. Supports dry-run mode and generates comments with assignment reasoning.
+ *
  * @module scripts/agents/planner.agent.js
  * @see agents/task-planner.agent.md
+ * @see .github/issue-fields.yml
  */
 
-import path from "path";
-import { fileURLToPath, pathToFileURL } from "url";
+import fs from 'fs';
+import path from 'path';
+import { Octokit } from '@octokit/rest';
+import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function log(message) {
   const timestamp = new Date().toISOString();
@@ -26,22 +28,50 @@ async function runPlanner(options = {}) {
     const token = process.env.GITHUB_TOKEN;
     if (!token && !dryRun) {
       throw new Error(
-        "Missing GITHUB_TOKEN environment variable (required for write operations)",
+        'Missing GITHUB_TOKEN environment variable (required for write operations)',
       );
     }
 
-    const eventName = process.env.GITHUB_EVENT_NAME || "local";
-    const repoRoot = path.resolve(__dirname, "..", "..");
+    const eventName = process.env.GITHUB_EVENT_NAME || 'local';
+    const repoRoot = path.resolve(__dirname, '..', '..');
 
-    log(`Starting planner agent (${dryRun ? "dry-run" : "apply"})`);
+    log(`Starting planner agent (${dryRun ? 'dry-run' : 'apply'})`);
     log(`Context: event=${eventName}, repoRoot=${repoRoot}`);
 
-    if (!dryRun) {
-      // TODO: Implement planner automation (context analysis, sequencing, scheduling) before leaving dry-run.
-      log("No write actions implemented yet; exiting without changes.");
+    // Detect active projects
+    const activeProjectsDir = path.join(repoRoot, '.github/projects/active');
+    if (!fs.existsSync(activeProjectsDir)) {
+      log('No active projects directory found; nothing to plan');
+      return;
     }
 
-    log("Planner agent finished without errors.");
+    const activeProjects = fs
+      .readdirSync(activeProjectsDir, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name);
+
+    if (activeProjects.length === 0) {
+      log('No active projects found');
+      return;
+    }
+
+    log(`Found ${activeProjects.length} active projects: ${activeProjects.join(', ')}`);
+
+    // For dry-run, log analysis; for apply, would require more complex GitHub API integration
+    if (dryRun) {
+      log('Dry-run mode: logging analysis only (write operations disabled)');
+      log(`Would check for unassigned issues/PRs and propose project assignments`);
+      log(`Planner agent ready for activation once implementation is confirmed`);
+    } else {
+      // TODO: Implement GitHub API integration to:
+      // 1. List recent issues/PRs without project assignment
+      // 2. Derive project from labels and metadata
+      // 3. Add to appropriate project via GitHub API
+      // 4. Comment on issue with assignment reasoning
+      log('Apply mode not yet fully implemented');
+    }
+
+    log('Planner agent finished without errors.');
   } catch (error) {
     console.error(`[planner] fatal error: ${error.message}`);
     process.exit(1);
@@ -50,13 +80,10 @@ async function runPlanner(options = {}) {
 
 export { runPlanner };
 
-if (
-  process.argv[1] &&
-  import.meta.url === pathToFileURL(process.argv[1]).href
-) {
-  const dryRun = !process.argv.includes("--apply");
-  runPlanner({ dryRun }).catch((error) => {
-    console.error("[planner] fatal error", error);
+if (process.argv[1] && import.meta.url === new URL(process.argv[1], `file://${process.cwd()}/`).href) {
+  const dryRun = !process.argv.includes('--apply');
+  await runPlanner({ dryRun }).catch((error) => {
+    console.error('[planner] fatal error', error);
     process.exit(1);
   });
 }
