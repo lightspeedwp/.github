@@ -1,7 +1,7 @@
 ---
 title: Wave 5.4 Discovery Audit — README & Mermaid Diagram Inventory
 description: Comprehensive inventory of all README.md files and Mermaid diagrams discovered in the repository
-version: 1.0.0
+version: 1.0.1
 created_date: "2026-05-31"
 last_updated: "2026-05-31"
 file_type: documentation
