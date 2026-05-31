@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 function validateSkillStructure(skillDir, options = {}) {
-  const { checkPlaceholders = true } = options;
+  const { checkPlaceholders = true, checkPackageNoise = true } = options;
 
   if (!fs.existsSync(skillDir)) {
     throw new Error("Skill directory not found");
@@ -58,11 +58,12 @@ function validateSkillStructure(skillDir, options = {}) {
       const entryName = entry.name;
 
       if (
-        entryName === "__MACOSX" ||
-        entryName === ".DS_Store" ||
-        entryName === "__pycache__" ||
-        entryName === "node_modules" ||
-        entryName.endsWith(".pyc")
+        checkPackageNoise &&
+        (entryName === "__MACOSX" ||
+          entryName === ".DS_Store" ||
+          entryName === "__pycache__" ||
+          entryName === "node_modules" ||
+          entryName.endsWith(".pyc"))
       ) {
         throw new Error("package noise found");
       }
