@@ -1,8 +1,12 @@
 ---
-issue_number: null
+issue_number: 652
+file_type: "project"
+description: "Comprehensive audit of README files, Mermaid diagrams, and accessibility compliance"
 title: "[Audit] 44 README Files - Mermaid Diagrams & Accessibility Review"
 type: "type:audit"
-area: "area:documentation, area:a11y"
+area:
+  - "area:documentation"
+  - "area:a11y"
 priority: "priority:normal"
 status: "status:needs-triage"
 effort: "XL"
@@ -28,6 +32,7 @@ Comprehensive audit of 44 README.md files across the repository to verify Mermai
 ## Areas to Audit
 
 See child issues for detailed audits of:
+
 - Root & core README files (6 files)
 - Feature folder README files (12 files)
 - Sub-folder README files (20 files)

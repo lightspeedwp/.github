@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "1"
-title: "[Child of #] Implement: Clear AI Agent Instructions for Issue Creation"
+issue_number: 657
+file_type: "task"
+description: "Create clear instructions for AI agents on issue creation"
+parent_issue: 649
+title: "[Child of #649] Implement: Clear AI Agent Instructions for Issue Creation"
 type: "type:task"
 area: "area:automation"
 priority: "priority:important"

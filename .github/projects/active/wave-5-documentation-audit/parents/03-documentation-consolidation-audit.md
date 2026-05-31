@@ -1,5 +1,7 @@
 ---
-issue_number: null
+issue_number: 651
+file_type: "project"
+description: "Comprehensive audit and consolidation of documentation to reduce duplication and improve clarity"
 title: "[Audit] Documentation Consolidation - Reduce Duplication Across Docs"
 type: "type:audit"
 area: "area:documentation"
@@ -29,6 +31,7 @@ Audit of 40+ documentation files across `docs/` to identify duplication, overlap
 ## Areas to Audit
 
 See child issues for detailed audits of:
+
 - Issue creation documentation (4+ files involved)
 - PR creation documentation (3+ files involved)
 - Labeling documentation (3+ files involved)

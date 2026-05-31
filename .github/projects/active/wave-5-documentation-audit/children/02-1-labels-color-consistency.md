@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "2"
-title: "[Child of #] Audit: labels.yml Color Consistency & Strategy Alignment"
+issue_number: 658
+file_type: "task"
+description: "Verify label colors follow the documented strategy"
+parent_issue: 650
+title: "[Child of #650] Audit: labels.yml Color Consistency & Strategy Alignment"
 type: "type:audit"
 area: "area:labels"
 priority: "priority:important"

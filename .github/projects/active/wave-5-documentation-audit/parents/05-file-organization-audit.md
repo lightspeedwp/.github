@@ -1,5 +1,7 @@
 ---
-issue_number: null
+issue_number: 653
+file_type: "project"
+description: "Comprehensive audit of file organization and alignment with CLAUDE.md repository structure"
 title: "[Audit] File Organization - Align with CLAUDE.md Repository Boundaries"
 type: "type:audit"
 area: "area:core"
@@ -27,6 +29,7 @@ Audit current file organization against the planned structure defined in CLAUDE.
 ## Areas to Audit
 
 See child issues for detailed audits of:
+
 - `.github/` contents vs. root-level portable assets
 - Agent file locations and migration status
 - Script file locations and migration status

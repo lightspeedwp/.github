@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "3"
-title: "[Child of #] Audit: Documentation Folder Structure vs. CLAUDE.md Boundaries"
+issue_number: 665
+file_type: "task"
+description: "Audit documentation folder structure vs. CLAUDE.md"
+parent_issue: 651
+title: "[Child of #651] Audit: Documentation Folder Structure vs. CLAUDE.md Boundaries"
 type: "type:audit"
 area: "area:core"
 priority: "priority:normal"

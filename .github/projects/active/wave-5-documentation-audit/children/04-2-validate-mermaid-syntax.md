@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "4"
-title: "[Child of #] Audit: Validate Mermaid Syntax in All Diagrams"
+issue_number: 668
+file_type: "task"
+description: "Validate Mermaid diagram syntax in all files"
+parent_issue: 652
+title: "[Child of #652] Audit: Validate Mermaid Syntax in All Diagrams"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:normal"

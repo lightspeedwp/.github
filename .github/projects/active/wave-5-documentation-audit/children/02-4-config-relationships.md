@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "2"
-title: "[Child of #] Document: Canonical Config File Interdependencies"
+issue_number: 661
+file_type: "task"
+description: "Document relationships between canonical config files"
+parent_issue: 650
+title: "[Child of #650] Document: Canonical Config File Interdependencies"
 type: "type:task"
 area: "area:labels"
 priority: "priority:important"

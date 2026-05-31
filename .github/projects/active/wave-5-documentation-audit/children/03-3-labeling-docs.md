@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "3"
-title: "[Child of #] Audit: Labeling Docs - Consolidate Overlapping Files"
+issue_number: 664
+file_type: "task"
+description: "Audit and consolidate labeling documentation"
+parent_issue: 651
+title: "[Child of #651] Audit: Labeling Docs - Consolidate Overlapping Files"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:important"
@@ -16,6 +18,7 @@ Audit all documentation related to labeling to identify duplication, consolidate
 ## Scope
 
 Review all labeling related files:
+
 - `docs/LABEL_STRATEGY.md`
 - `docs/LABELING.md`
 - `docs/ISSUE_LABELS.md`

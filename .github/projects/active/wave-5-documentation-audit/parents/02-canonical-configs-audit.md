@@ -1,8 +1,12 @@
 ---
-issue_number: null
+issue_number: 650
+file_type: "project"
+description: "Comprehensive audit of canonical configuration files and their relationships"
 title: "[Audit] Canonical Config Files (labels, issue-types, issue-fields)"
 type: "type:audit"
-area: "area:labels, area:automation"
+area:
+  - "area:labels"
+  - "area:automation"
 priority: "priority:important"
 status: "status:needs-triage"
 effort: "L"
@@ -28,6 +32,7 @@ Comprehensive audit of canonical configuration files that define labels, issue t
 ## Areas to Audit
 
 See child issues for detailed audits of:
+
 - Label color consistency and family grouping
 - Issue type mapping and template correlation
 - Issue fields configuration and GitHub API alignment

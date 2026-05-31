@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "5"
-title: "[Child of #] Plan: File Organization Refactoring - Migration & Validation"
+issue_number: 673
+file_type: "task"
+description: "Create detailed migration plan for file reorganization"
+parent_issue: 653
+title: "[Child of #653] Plan: File Organization Refactoring - Migration & Validation"
 type: "type:task"
 area: "area:core"
 priority: "priority:normal"

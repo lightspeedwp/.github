@@ -1,8 +1,12 @@
 ---
-issue_number: null
+issue_number: 649
+file_type: "project"
+description: "Comprehensive audit of issue templates, automation integration, and AI agent instructions"
 title: "[Audit] Issue Templates, Automation, & AI Agent Integration"
 type: "type:audit"
-area: "area:automation, area:labels"
+area:
+  - "area:automation"
+  - "area:labels"
 priority: "priority:important"
 status: "status:needs-triage"
 effort: "M"
@@ -27,6 +31,7 @@ Comprehensive audit of issue templates, their relationship to the automated labe
 ## Areas to Audit
 
 See child issues for detailed audits of:
+
 - Issue template inventory and standardization
 - Mapping between templates and automation triggers
 - Missing automation rules in labeler.yml for issue types

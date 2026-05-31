@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "1"
-title: "[Child of #] Audit: Issue Template Inventory & Standardization"
+issue_number: 654
+file_type: "task"
+description: "Inventory and audit of issue templates for standardization"
+parent_issue: 649
+title: "[Child of #649] Audit: Issue Template Inventory & Standardization"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:normal"

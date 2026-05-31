@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "5"
-title: "[Child of #] Audit: Current File Organization vs. CLAUDE.md Boundaries"
+issue_number: 671
+file_type: "task"
+description: "Audit current file organization vs. CLAUDE.md"
+parent_issue: 653
+title: "[Child of #653] Audit: Current File Organization vs. CLAUDE.md Boundaries"
 type: "type:audit"
 area: "area:core"
 priority: "priority:normal"

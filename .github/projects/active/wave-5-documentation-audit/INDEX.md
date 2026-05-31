@@ -8,14 +8,14 @@ status: "ready-for-review"
 
 # Wave 5 Documentation Audit — Issue Index
 
-This directory contains all parent and child issues for the comprehensive documentation audit initiative. **This is the staging area before issues are created in GitHub.**
+This directory contains all parent and child issues for the comprehensive documentation audit initiative. **GitHub issues have been created (#649–#673) and are ready for execution.**
 
 ## 📋 How to Use This Directory
 
-1. **Review all issues** in this folder to verify content and links
-2. **Check that all reference links** are correct and preserved
-3. **Once approved:** Create issues in GitHub using the markdown files as templates
-4. **Track progress:** Update this index as issues are created
+1. **Review issue files** to understand the scope and requirements for each audit
+2. **Check reference links** to navigate to related documentation and configuration files
+3. **Track progress** by updating issue status in GitHub and referencing these files
+4. **Access full details** by opening the corresponding GitHub issue (links in table below)
 
 ---
 
@@ -61,51 +61,57 @@ wave-5-documentation-audit/
 
 ### Parent Issues (5 total)
 
-| # | Title | Type | Area | Effort | Status |
-|---|-------|------|------|--------|--------|
-| 1 | Issue Templates, Automation, & AI Agent Integration | Audit | automation, labels | M | needs-triage |
-| 2 | Canonical Config Files (labels, issue-types, issue-fields) | Audit | labels, automation | L | needs-triage |
-| 3 | Documentation Consolidation - Reduce Duplication | Audit | documentation | XL | needs-triage |
-| 4 | 44 README Files - Mermaid Diagrams & Accessibility | Audit | documentation, a11y | XL | needs-triage |
-| 5 | File Organization - Align with CLAUDE.md Boundaries | Audit | core | L | needs-triage |
+| Issue | Title | Type | Area | Effort | Status |
+|-------|-------|------|------|--------|--------|
+| [#649](https://github.com/lightspeedwp/.github/issues/649) | Issue Templates, Automation, & AI Agent Integration | Audit | automation, labels | M | open |
+| [#650](https://github.com/lightspeedwp/.github/issues/650) | Canonical Config Files (labels, issue-types, issue-fields) | Audit | labels, automation | L | open |
+| [#651](https://github.com/lightspeedwp/.github/issues/651) | Documentation Consolidation - Reduce Duplication | Audit | documentation | XL | open |
+| [#652](https://github.com/lightspeedwp/.github/issues/652) | 44 README Files - Mermaid Diagrams & Accessibility | Audit | documentation, a11y | XL | open |
+| [#653](https://github.com/lightspeedwp/.github/issues/653) | File Organization - Align with CLAUDE.md Boundaries | Audit | core | L | open |
 
 ### Child Issues by Parent
 
-#### Parent 1: Issue Templates & Automation (4 children)
-- 1.1: Issue Template Inventory & Standardization (Audit, S)
-- 1.2: Issue Template → Automation Trigger Mapping (Audit, M)
-- 1.3: Issue Labeling Rules in labeler.yml (Audit, M)
-- 1.4: Clear AI Agent Instructions for Issue Creation (Task, M)
+#### Parent #649: Issue Templates & Automation (4 children)
 
-#### Parent 2: Canonical Configs (4 children)
-- 2.1: labels.yml Color Consistency & Strategy (Audit, M)
-- 2.2: Issue Types Alignment with Templates & Labels (Audit, M)
-- 2.3: Issue Fields Configuration vs. GitHub API (Audit, M)
-- 2.4: Canonical Config File Interdependencies (Task, L)
+- [#654](https://github.com/lightspeedwp/.github/issues/654): Issue Template Inventory & Standardization (Audit, S)
+- [#655](https://github.com/lightspeedwp/.github/issues/655): Issue Template → Automation Trigger Mapping (Audit, M)
+- [#656](https://github.com/lightspeedwp/.github/issues/656): Issue Labeling Rules in labeler.yml (Audit, M)
+- [#657](https://github.com/lightspeedwp/.github/issues/657): Clear AI Agent Instructions for Issue Creation (Task, M)
 
-#### Parent 3: Documentation Consolidation (5 children)
-- 3.1: Issue Creation Docs - Consolidate (Audit, M)
-- 3.2: PR Creation Docs - Consolidate (Audit, M)
-- 3.3: Labeling Docs - Consolidate (Audit, M)
-- 3.4: File Organization vs. CLAUDE.md (Audit, M)
-- 3.5: Update Documentation Index (Task, M)
+#### Parent #650: Canonical Configs (4 children)
 
-#### Parent 4: README & Mermaid Audit (4 children)
-- 4.1: Discover All 44 README Files (Audit, M)
-- 4.2: Validate Mermaid Diagram Syntax (Audit, L)
-- 4.3: Mermaid Accessibility Compliance (Audit, L)
-- 4.4: Fix & Refresh 44 README Files (Task, XL)
+- [#658](https://github.com/lightspeedwp/.github/issues/658): labels.yml Color Consistency & Strategy (Audit, M)
+- [#659](https://github.com/lightspeedwp/.github/issues/659): Issue Types Alignment with Templates & Labels (Audit, M)
+- [#660](https://github.com/lightspeedwp/.github/issues/660): Issue Fields Configuration vs. GitHub API (Audit, M)
+- [#661](https://github.com/lightspeedwp/.github/issues/661): Canonical Config File Interdependencies (Task, L)
 
-#### Parent 5: File Organization (3 children)
-- 5.1: Current vs. Planned File Organization (Audit, M)
-- 5.2: Agent & Script Files - Migration Status (Audit, M)
-- 5.3: File Organization Refactoring Plan (Task, L)
+#### Parent #651: Documentation Consolidation (5 children)
+
+- [#662](https://github.com/lightspeedwp/.github/issues/662): Issue Creation Docs - Consolidate (Audit, M)
+- [#663](https://github.com/lightspeedwp/.github/issues/663): PR Creation Docs - Consolidate (Audit, M)
+- [#664](https://github.com/lightspeedwp/.github/issues/664): Labeling Docs - Consolidate (Audit, M)
+- [#665](https://github.com/lightspeedwp/.github/issues/665): File Organization vs. CLAUDE.md (Audit, M)
+- [#666](https://github.com/lightspeedwp/.github/issues/666): Update Documentation Index (Task, M)
+
+#### Parent #652: README & Mermaid Audit (4 children)
+
+- [#667](https://github.com/lightspeedwp/.github/issues/667): Discover All 44 README Files (Audit, M)
+- [#668](https://github.com/lightspeedwp/.github/issues/668): Validate Mermaid Diagram Syntax (Audit, L)
+- [#669](https://github.com/lightspeedwp/.github/issues/669): Mermaid Accessibility Compliance (Audit, L)
+- [#670](https://github.com/lightspeedwp/.github/issues/670): Fix & Refresh 44 README Files (Task, XL)
+
+#### Parent #653: File Organization (3 children)
+
+- [#671](https://github.com/lightspeedwp/.github/issues/671): Current vs. Planned File Organization (Audit, M)
+- [#672](https://github.com/lightspeedwp/.github/issues/672): Agent & Script Files - Migration Status (Audit, M)
+- [#673](https://github.com/lightspeedwp/.github/issues/673): File Organization Refactoring Plan (Task, L)
 
 ---
 
 ## 🔗 Reference Links Preserved
 
 All issues include links to:
+
 - **Configuration files:** `.github/labels.yml`, `issue-types.yml`, `labeler.yml`, `issue-fields.yml`
 - **Documentation files:** All files in `docs/` with full GitHub URLs
 - **Templates:** Issue, PR, and Discussion templates
@@ -135,49 +141,47 @@ Before creating issues in GitHub, verify:
 ## 📊 Statistics
 
 - **Total Issues:** 25 (5 parents + 20 children)
-- **Total Effort:** ~90-100 hours (if executed sequentially)
+- **Total Effort:** ~85-95 hours (if executed sequentially)
 - **Expected Timeline:** 5-6 weeks (depending on team capacity)
 
 **Effort Breakdown:**
+
 - Audits: ~50-60 hours
-- Implementation/fixes: ~30-40 hours
+- Implementation/fixes: ~25-35 hours
 
 ---
 
 ## 🚀 Next Steps
 
-1. **Review Phase** (Current)
-   - Read through all issue files
+1. **Triage Phase** (Current)
+   - Review all issue files in this directory
+   - Prioritize which audits to execute first
+   - Assign team members to issues
    - Verify reference links are correct
-   - Check for any missing information
-   - Approve for GitHub creation
 
-2. **Creation Phase**
-   - Create all issues in GitHub
-   - Link parent ↔ child relationships
-   - Assign to team members
-
-3. **Execution Phase**
+2. **Execution Phase**
    - Execute audits in parallel (can run simultaneously)
-   - Consolidate findings
-   - Create implementation issues based on findings
+   - Document findings in GitHub issue comments
+   - Consolidate findings across related audits
 
-4. **Implementation Phase** (Follows completion of audits)
+3. **Implementation Phase** (Follows completion of audits)
+   - Create implementation issues based on audit findings
    - Fix issues identified in audits
-   - Update documentation and configs
-   - Verify automated labeling works correctly
+   - Update documentation and configuration files
+   - Verify changes work correctly (test automated labeling, etc.)
 
 ---
 
-## 📝 Files Ready for Review
+## 📝 GitHub Issues Created
 
-✅ All parent and child issue files created and ready
-✅ All reference links included
-✅ All GitHub URLs to documentation files preserved
+✅ All 5 parent issues created (#649–#653)
+✅ All 20 child issues created (#654–#673)
+✅ Parent-child relationships established in GitHub
+✅ All reference links included and preserved
 ✅ All effort estimates provided
 ✅ All acceptance criteria specified
 
-**Status:** Ready for your review before GitHub issue creation
+**Status:** Issues ready for execution — see GitHub links in tables above
 
 ---
 

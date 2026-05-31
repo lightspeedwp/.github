@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "4"
-title: "[Child of #] Audit: Discover All 44 README.md Files - Inventory"
+issue_number: 667
+file_type: "task"
+description: "Discover and inventory all README.md files"
+parent_issue: 652
+title: "[Child of #652] Audit: Discover All 44 README.md Files - Inventory"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:normal"

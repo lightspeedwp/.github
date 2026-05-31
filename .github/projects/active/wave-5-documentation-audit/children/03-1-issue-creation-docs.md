@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "3"
-title: "[Child of #] Audit: Issue Creation Docs - Consolidate Overlapping Files"
+issue_number: 662
+file_type: "task"
+description: "Audit and consolidate issue creation documentation"
+parent_issue: 651
+title: "[Child of #651] Audit: Issue Creation Docs - Consolidate Overlapping Files"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:important"
@@ -16,6 +18,7 @@ Audit all documentation related to issue creation to identify duplication and ov
 ## Scope
 
 Review all issue creation related files:
+
 - `docs/ISSUE_CREATION_GUIDE.md`
 - `docs/ISSUE_LABELS.md`
 - `docs/ISSUE_TYPES.md`

@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "3"
-title: "[Child of #] Update: Documentation Index (docs/index.md) - Complete & Current"
+issue_number: 666
+file_type: "task"
+description: "Update documentation index with complete inventory"
+parent_issue: 651
+title: "[Child of #651] Update: Documentation Index (docs/index.md) - Complete & Current"
 type: "type:task"
 area: "area:documentation"
 priority: "priority:normal"

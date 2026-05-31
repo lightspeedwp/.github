@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "5"
-title: "[Child of #] Audit: Agent & Script Files - Migration Status"
+issue_number: 672
+file_type: "task"
+description: "Audit agent and script file migration status"
+parent_issue: 653
+title: "[Child of #653] Audit: Agent & Script Files - Migration Status"
 type: "type:audit"
 area: "area:core"
 priority: "priority:normal"

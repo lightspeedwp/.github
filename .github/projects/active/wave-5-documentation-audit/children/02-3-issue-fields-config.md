@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "2"
-title: "[Child of #] Audit: Issue Fields Configuration vs. GitHub API"
+issue_number: 660
+file_type: "task"
+description: "Validate issue fields configuration against GitHub API"
+parent_issue: 650
+title: "[Child of #650] Audit: Issue Fields Configuration vs. GitHub API"
 type: "type:audit"
 area: "area:labels"
 priority: "priority:normal"

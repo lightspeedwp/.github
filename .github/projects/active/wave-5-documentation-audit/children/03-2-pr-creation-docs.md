@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "3"
-title: "[Child of #] Audit: PR Creation Docs - Consolidate Overlapping Files"
+issue_number: 663
+file_type: "task"
+description: "Audit and consolidate PR creation documentation"
+parent_issue: 651
+title: "[Child of #651] Audit: PR Creation Docs - Consolidate Overlapping Files"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:important"
@@ -16,6 +18,7 @@ Audit all documentation related to PR creation to identify duplication and overl
 ## Scope
 
 Review all PR creation related files:
+
 - `docs/PR_CREATION_PROCESS.md`
 - `docs/PR_LABELS.md`
 - `.github/PULL_REQUEST_TEMPLATE/README.md`

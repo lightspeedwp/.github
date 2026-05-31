@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "2"
-title: "[Child of #] Audit: Issue Types Alignment with Templates & Labels"
+issue_number: 659
+file_type: "task"
+description: "Verify issue types align with templates and labels"
+parent_issue: 650
+title: "[Child of #650] Audit: Issue Types Alignment with Templates & Labels"
 type: "type:audit"
 area: "area:labels"
 priority: "priority:important"

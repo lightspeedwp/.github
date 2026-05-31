@@ -1,7 +1,9 @@
 ---
-issue_number: null
-parent_issue: "4"
-title: "[Child of #] Update: Fix & Refresh 44 README Files with Current Information"
+issue_number: 670
+file_type: "task"
+description: "Fix and refresh README files with current information"
+parent_issue: 652
+title: "[Child of #652] Update: Fix & Refresh 44 README Files with Current Information"
 type: "type:task"
 area: "area:documentation"
 priority: "priority:normal"
@@ -16,6 +18,7 @@ Implementation phase: Update all 44 README files with current information, fix s
 ## Scope
 
 This is the implementation phase following audits from child issues 4.1-4.3:
+
 - Update outdated content based on audit findings
 - Fix broken links identified in audits
 - Add/update Mermaid diagrams with proper accessibility attributes
