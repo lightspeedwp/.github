@@ -43,15 +43,39 @@ function extractMermaidDiagrams(content) {
 }
 
 function getDiagramType(content) {
-  for (const [type, pattern] of Object.entries(DIAGRAM_TYPES)) {
-    if (pattern.test(content)) {
-      return type;
+  const types = [
+    "graph",
+    "flowchart",
+    "sequenceDiagram",
+    "stateDiagram",
+    "erDiagram",
+    "gantt",
+    "pie",
+  ];
+  const lines = content.split("\n");
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    if (trimmed === "" || trimmed.startsWith("%%")) {
+      continue;
     }
+
+    for (const type of types) {
+      if (new RegExp(`^${type}\\b`).test(trimmed)) {
+        return type;
+      }
+    }
+
+    if (/^stateDiagram-v2\b/.test(trimmed)) {
+      return "stateDiagram";
+    }
+
+    const match = trimmed.match(/^(\w+)/);
+    return match ? match[1] : "unknown";
   }
-  // Try to extract type from first line
-  const firstLine = content.split("\n")[0].trim();
-  const match = firstLine.match(/^(\w+)/);
-  return match ? match[1] : "unknown";
+
+  return "unknown";
 }
 
 function validateDiagramSyntax(content) {
@@ -97,7 +121,7 @@ function validateDiagramSyntax(content) {
       inAccDescrBlock = true;
     }
 
-    if (inAccDescrBlock && line.includes("}")) {
+    if (inAccDescrBlock && line === "}") {
       inAccDescrBlock = false;
     }
   }
@@ -125,6 +149,14 @@ function validateDiagramSyntax(content) {
   if (openBrackets !== closeBrackets) {
     errors.push(
       `Mismatched brackets: ${openBrackets} open, ${closeBrackets} close`,
+    );
+  }
+
+  const openParens = (cleanContent.match(/\(/g) || []).length;
+  const closeParens = (cleanContent.match(/\)/g) || []).length;
+  if (openParens !== closeParens) {
+    errors.push(
+      `Mismatched parentheses: ${openParens} open, ${closeParens} close`,
     );
   }
 

@@ -1,4 +1,11 @@
 README,Diagram Number,Diagram Type,Has accTitle,Has accDescr,Missing Attributes,Compliance Status
+.github/ISSUE_TEMPLATE/README.md,1,flowchart,Yes,Yes,"—",✅ Accessible
+.github/README.md,1,flowchart,Yes,Yes,"—",✅ Accessible
+.github/README.md,2,sequenceDiagram,Yes,Yes,"—",✅ Accessible
+.github/README.md,3,graph,Yes,Yes,"—",✅ Accessible
+.github/README.md,4,flowchart,Yes,Yes,"—",✅ Accessible
+.github/projects/README.md,1,graph,Yes,Yes,"—",✅ Accessible
+.vscode/README.md,1,flowchart,Yes,Yes,"—",✅ Accessible
 README.md,1,graph,Yes,Yes,"—",✅ Accessible
 README.md,2,flowchart,Yes,Yes,"—",✅ Accessible
 README.md,3,flowchart,Yes,Yes,"—",✅ Accessible
@@ -16,10 +23,3 @@ scripts/README.md,3,flowchart,Yes,Yes,"—",✅ Accessible
 tests/README.md,1,graph,Yes,Yes,"—",✅ Accessible
 tests/README.md,2,sequenceDiagram,Yes,Yes,"—",✅ Accessible
 tests/README.md,3,flowchart,Yes,Yes,"—",✅ Accessible
-.github/README.md,1,flowchart,No,No,"Missing accTitle attribute; Missing accDescr attribute",⚠️ Non-Compliant
-.github/README.md,2,sequenceDiagram,No,No,"Missing accTitle attribute; Missing accDescr attribute",⚠️ Non-Compliant
-.github/README.md,3,graph,No,No,"Missing accTitle attribute; Missing accDescr attribute",⚠️ Non-Compliant
-.github/README.md,4,flowchart,No,No,"Missing accTitle attribute; Missing accDescr attribute",⚠️ Non-Compliant
-.github/ISSUE_TEMPLATE/README.md,1,flowchart,No,No,"Missing accTitle attribute; Missing accDescr attribute",⚠️ Non-Compliant
-.github/projects/README.md,1,graph,No,No,"Missing accTitle attribute; Missing accDescr attribute",⚠️ Non-Compliant
-.vscode/README.md,1,flowchart,No,No,"Missing accTitle attribute; Missing accDescr attribute",⚠️ Non-Compliant

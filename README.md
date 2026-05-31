@@ -126,10 +126,8 @@ The diagram below highlights how the key .github directories (community health, 
 
 ```mermaid
 graph TD
-accTitle: "Repository architecture overview"
-accDescr {
-  High-level view of the .github repository structure, showing community health files, automation workflows, canonical labels, AI/collaboration resources, supporting documentation, and testing artefacts.
-}
+accTitle: Repository architecture overview
+accDescr: High-level view of the .github repository structure, showing community health files, automation workflows, canonical labels, AI/collaboration resources, supporting documentation, and testing artefacts.
     A[🏠 LightSpeed .github Repository] --> B[📁 Community Health Files]
     A --> C[🤖 Automation & Workflows]
     A --> D[🏷️ Labels & Issue Types]
@@ -227,10 +225,8 @@ The next diagram tracks how repository inheritance feeds automation and AI integ
 
 ```mermaid
 flowchart LR
-accTitle: "Inheritance and automation flow"
-accDescr {
-  Shows how canonical community health files propagate through automation workflows and AI integration to enforce labels, standards, and governance.
-}
+accTitle: Inheritance and automation flow
+accDescr: Shows how canonical community health files propagate through automation workflows and AI integration to enforce labels, standards, and governance.
   subgraph "Repository Inheritance"
     A[LightSpeed Repo] --> B[Inherits Health Files]
     B --> C[Applies Labels & Types]
@@ -281,10 +277,8 @@ This flowchart walks through the development workflow (lint, test, coverage, dep
 
 ```mermaid
 flowchart TD
-accTitle: "Development workflow process"
-accDescr {
-  The diagram shows code changes entering pre-commit hooks, passing lint/test stages, generating coverage, and finally pushing through CI/CD and deployment.
-}
+accTitle: Development workflow process
+accDescr: The diagram shows code changes entering pre-commit hooks, passing lint/test stages, generating coverage, and finally pushing through CI/CD and deployment.
     A[📝 Code Change] --> B[🔍 Pre-commit Hooks]
     B --> C{🎯 Linting Pass?}
     C -->|❌ No| D[🛠️ Fix Issues]
@@ -327,10 +321,8 @@ The sequence diagram below traces how a developer push triggers AI agents, workf
 
 ```mermaid
 sequenceDiagram
-accTitle: "AI and automation integration pipeline"
-accDescr {
-  Visualizes how developer pushes trigger AI automation, workflow execution, validation checks, and status updates back to the repository.
-}
+accTitle: AI and automation integration pipeline
+accDescr: Visualizes how developer pushes trigger AI automation, workflow execution, validation checks, and status updates back to the repository.
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Repository
     participant AI as 🤖 AI Agent

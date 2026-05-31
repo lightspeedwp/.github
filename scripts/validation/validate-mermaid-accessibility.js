@@ -25,7 +25,7 @@ const README_FILES = [
 
 function extractMermaidDiagrams(content) {
   const diagrams = [];
-  const regex = /```mermaid\n([\s\S]*?)```/g;
+  const regex = /```mermaid\r?\n([\s\S]*?)```/g;
   let match;
 
   while ((match = regex.exec(content)) !== null) {
@@ -37,25 +37,39 @@ function extractMermaidDiagrams(content) {
 }
 
 function getDiagramType(content) {
-  const types = {
-    graph: /^\s*graph\b/m,
-    flowchart: /^\s*flowchart\b/m,
-    sequenceDiagram: /^\s*sequenceDiagram\b/m,
-    stateDiagram: /^\s*(stateDiagram|stateDiagram-v2)\b/m,
-    erDiagram: /^\s*erDiagram\b/m,
-    gantt: /^\s*gantt\b/m,
-    pie: /^\s*pie\b/m,
-  };
+  const types = [
+    "graph",
+    "flowchart",
+    "sequenceDiagram",
+    "stateDiagram",
+    "erDiagram",
+    "gantt",
+    "pie",
+  ];
+  const lines = content.split("\n");
 
-  for (const [type, pattern] of Object.entries(types)) {
-    if (pattern.test(content)) {
-      return type;
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    if (trimmed === "" || trimmed.startsWith("%%")) {
+      continue;
     }
+
+    for (const type of types) {
+      if (new RegExp(`^${type}\\b`).test(trimmed)) {
+        return type;
+      }
+    }
+
+    if (/^stateDiagram-v2\b/.test(trimmed)) {
+      return "stateDiagram";
+    }
+
+    const match = trimmed.match(/^(\w+)/);
+    return match ? match[1] : "unknown";
   }
 
-  const firstLine = content.split("\n")[0].trim();
-  const match = firstLine.match(/^(\w+)/);
-  return match ? match[1] : "unknown";
+  return "unknown";
 }
 
 function validateAccessibility(content) {
@@ -87,7 +101,7 @@ function validateAccessibility(content) {
       inAccDescrBlock = true;
     }
 
-    if (inAccDescrBlock && line.includes("}")) {
+    if (inAccDescrBlock && line === "}") {
       inAccDescrBlock = false;
     }
   }
