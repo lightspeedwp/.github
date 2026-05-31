@@ -35,7 +35,7 @@ Create a detailed migration plan for reorganizing files to align with CLAUDE.md 
 
 ## Deliverables
 
-- Detailed migration plan document
+- Detailed migration plan documented in the central /docs/MIGRATION.md file
 - Dependency graph (what must happen first)
 - Impact assessment for each major move
 - Validation checklist for each step

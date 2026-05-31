@@ -37,7 +37,7 @@ Audit current documentation folder organization against the planned structure in
 - Current state documentation inventory
 - Mapping table: File | Current Location | Expected Location (per CLAUDE.md) | Action
 - Reorganization proposal with rationale
-- Migration plan with step-by-step instructions
+- Migration plan with step-by-step instructions documented in the central /docs/MIGRATION.md file
 - Impact assessment (what breaks if we move X?)
 
 ## Related Files

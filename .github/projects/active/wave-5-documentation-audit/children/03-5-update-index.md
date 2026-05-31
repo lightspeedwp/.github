@@ -11,11 +11,11 @@ effort: "M"
 
 ## Overview
 
-Create or update the documentation index in `docs/index.md` to provide a complete, current, and organized guide to all documentation in the repository.
+Create or update the documentation index in `docs/INDEX.md` to provide a complete, current, and organized guide to all documentation in the repository.
 
 ## Scope
 
-- Review current `docs/index.md`
+- Review current `docs/INDEX.md`
 - Add/update all documentation files across the repo
 - Organize by topic (issue creation, PR creation, labeling, automation, etc.)
 - Add brief description for each file
@@ -36,7 +36,7 @@ Create or update the documentation index in `docs/index.md` to provide a complet
 
 ## Deliverables
 
-- Updated `docs/index.md` with complete inventory
+- Updated `docs/INDEX.md` with complete inventory
 - Organized by topic with descriptions
 - Cross-references and links verified
 - (Optional) Table of contents or visual site map
@@ -44,13 +44,13 @@ Create or update the documentation index in `docs/index.md` to provide a complet
 
 ## Related Files
 
-- `docs/index.md` (main target)
+- `docs/INDEX.md` (main target)
 - All files in `docs/`
 - Key files in `.github/`
 - Key files in `instructions/`
 
 ## Related Documentation
 
-- [Current Documentation Index](https://github.com/lightspeedwp/.github/blob/develop/docs/index.md)
+- [Current Documentation Index](https://github.com/lightspeedwp/.github/blob/develop/docs/INDEX.md)
 - [Root README](https://github.com/lightspeedwp/.github/blob/develop/README.md)
 - [CLAUDE.md](https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md)
