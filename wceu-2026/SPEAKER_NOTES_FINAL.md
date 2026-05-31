@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: WCEU 2026 Main Talk — Complete Speaker Notes (24 Slides)
 date: 2026-05-31
 description: Full speaker notes for the 25-minute WordCamp Europe 2026 presentation on .github repository automation and governance

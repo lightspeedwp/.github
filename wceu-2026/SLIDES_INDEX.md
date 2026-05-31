@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: WCEU 2026 Main Talk — Slide Index (24 Slides)
 date: 2026-05-31
 description: Quick-reference index of all 24 slides with layout, timing, key message, and colour scheme
