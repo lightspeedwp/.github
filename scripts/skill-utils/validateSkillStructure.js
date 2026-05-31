@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
 
 function validateSkillStructure(skillDir, options = {}) {
   const { checkPlaceholders = true } = options;
@@ -19,7 +18,7 @@ function validateSkillStructure(skillDir, options = {}) {
     throw new Error("agents/openai.yaml not found");
   }
 
-  const skillContent = fs.readFileSync(skillMd, "utf8");
+  const skillContent = fs.readFileSync(skillMd, "utf8").replace(/\r\n/g, "\n");
   const firstLine = skillContent.split("\n")[0];
   if (firstLine !== "---") {
     throw new Error("SKILL.md must start with YAML frontmatter");
@@ -45,57 +44,72 @@ function validateSkillStructure(skillDir, options = {}) {
     throw new Error("frontmatter name must match folder name");
   }
 
-  const noisePatterns = [
-    "__MACOSX",
-    ".DS_Store",
-    "*.pyc",
-    "__pycache__",
-    "node_modules",
+  const warnings = [];
+  const excludePatterns = [
+    "quick_check_skill.sh",
+    "validateSkillStructure.js",
+    "packageSkillZip.js",
   ];
 
-  for (const pattern of noisePatterns) {
-    try {
-      const cmd = `find "${skillDir}" -name "${pattern}" 2>/dev/null | head -1`;
-      const result = execSync(cmd, { encoding: "utf8", stdio: "pipe" }).trim();
-      if (result) {
+  function traverse(dir) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      const entryName = entry.name;
+
+      if (
+        entryName === "__MACOSX" ||
+        entryName === ".DS_Store" ||
+        entryName === "__pycache__" ||
+        entryName === "node_modules" ||
+        entryName.endsWith(".pyc")
+      ) {
         throw new Error("package noise found");
       }
-    } catch (error) {
-      if (error.message === "package noise found") {
-        throw error;
+
+      if (entry.isDirectory()) {
+        traverse(fullPath);
+      } else if (entry.isFile()) {
+        if (excludePatterns.includes(entryName)) {
+          continue;
+        }
+        if (checkPlaceholders) {
+          try {
+            const content = fs.readFileSync(fullPath, "utf8");
+            const lines = content.split(/\r?\n/);
+            for (let i = 0; i < lines.length; i++) {
+              const line = lines[i];
+              if (
+                line.includes("TODO") ||
+                line.includes("placeholder") ||
+                line.includes("Replace with")
+              ) {
+                warnings.push(fullPath + ":" + line.trim());
+              }
+            }
+          } catch {
+            // Ignore binary files or read errors
+          }
+        }
       }
     }
   }
 
-  const warnings = [];
-  if (checkPlaceholders) {
-    const excludePatterns = [
-      "quick_check_skill.sh",
-      "validateSkillStructure.js",
-    ];
-    try {
-      const excludeArgs = excludePatterns
-        .map((p) => `--exclude="${p}"`)
-        .join(" ");
-      const cmd = `grep -r "TODO\\|placeholder\\|Replace with" "${skillDir}" ${excludeArgs} 2>/dev/null || true`;
-      const hits = execSync(cmd, {
-        encoding: "utf8",
-        shell: "/bin/bash",
-      }).trim();
-      if (hits) {
-        const lines = hits.split("\n").slice(0, 20);
-        warnings.push("possible placeholder text found:\n" + lines.join("\n"));
-      }
-    } catch {
-      // Ignore grep errors
-    }
+  traverse(skillDir);
+
+  const formattedWarnings = [];
+  if (warnings.length > 0) {
+    const lines = warnings.slice(0, 20);
+    formattedWarnings.push(
+      "possible placeholder text found:\n" + lines.join("\n"),
+    );
   }
 
   return {
     valid: true,
     name,
     folderName,
-    warnings,
+    warnings: formattedWarnings,
   };
 }
 
