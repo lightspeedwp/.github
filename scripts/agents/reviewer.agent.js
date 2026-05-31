@@ -134,13 +134,12 @@ async function run(context = github.context, options = {}) {
 
     let files;
     try {
-      const response = await octokit.rest.pulls.listFiles({
+      files = await octokit.paginate(octokit.rest.pulls.listFiles, {
         owner: context.repo.owner,
         repo: context.repo.repo,
         pull_number: pr.number,
         per_page: 100,
       });
-      files = response.data;
     } catch (error) {
       throw new Error(
         `Failed to fetch files for PR #${pr.number}: ${error.message}`,
