@@ -181,6 +181,18 @@ describe("duplicateDetector", () => {
       expect(result).toBeNull();
     });
 
+    test("should return match when similarity equals threshold", () => {
+      const desc = "Fixed bug";
+      const existing = ["Fixed bug"];
+
+      const result = findBestMatch(desc, existing, 1.0);
+
+      expect(result).not.toBeNull();
+      expect(result.matched).toBe(true);
+      expect(result.matchedEntry).toBe("Fixed bug");
+      expect(result.similarity).toBe(1);
+    });
+
     test("should handle empty existing list", () => {
       const result = findBestMatch("Test", []);
       expect(result).toBeNull();

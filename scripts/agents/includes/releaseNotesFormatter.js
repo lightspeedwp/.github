@@ -25,6 +25,13 @@ function formatSectionTitle(section) {
   return section.charAt(0).toUpperCase() + section.slice(1);
 }
 
+function escapeMarkdownInline(value) {
+  return String(value)
+    .replace(/[\r\n]+/g, " ")
+    .replace(/([\\`*_{}[\]()#+\-.!|>])/g, "\\$1")
+    .trim();
+}
+
 /**
  * Format a single release note entry
  * @param {Object} entry - Entry with description, commit, author, pr, scope
@@ -35,11 +42,13 @@ function formatEntry(entry) {
     return null;
   }
 
-  let line = `- ${entry.description}`;
+  const description = escapeMarkdownInline(entry.description);
+  let line = `- ${description}`;
 
   // Add scope if present
   if (entry.scope) {
-    line = `- **${entry.scope}:** ${entry.description}`;
+    const scope = escapeMarkdownInline(entry.scope);
+    line = `- **${scope}:** ${description}`;
   }
 
   // Add commit reference if present
@@ -55,7 +64,7 @@ function formatEntry(entry) {
 
   // Add author if present
   if (entry.author) {
-    line += ` @${entry.author}`;
+    line += ` @${escapeMarkdownInline(entry.author)}`;
   }
 
   return line;
@@ -266,6 +275,7 @@ function generateSummaryText(entries) {
 }
 
 module.exports = {
+  escapeMarkdownInline,
   formatSectionTitle,
   formatEntry,
   buildReleaseNotes,

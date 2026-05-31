@@ -26,6 +26,11 @@ describe("versionDetector", () => {
       expect(parseVersion(null)).toBeNull();
       expect(parseVersion("")).toBeNull();
     });
+
+    test("should reject version substrings and pre-release strings", () => {
+      expect(parseVersion("release-1.2.3")).toBeNull();
+      expect(parseVersion("1.2.3-beta")).toBeNull();
+    });
   });
 
   describe("formatVersion", () => {

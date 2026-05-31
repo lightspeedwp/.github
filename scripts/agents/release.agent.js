@@ -37,12 +37,9 @@ const validateVersionPath = path.join(
   "../validation/validate-version.cjs",
 );
 
-const {
-  parseChangelog,
-  validateChangelog,
-  getUnreleasedChanges,
-  hasUnreleasedChanges,
-} = require(changelogUtilsPath);
+const { parseChangelog, validateChangelog, hasUnreleasedChanges } = require(
+  changelogUtilsPath,
+);
 const { validateVersion, parseVersion } = require(validateVersionPath);
 
 /**
@@ -125,10 +122,24 @@ function compareVersions(leftVersion, rightVersion) {
 /**
  * Fetch merged PRs between two tags (inclusive of toTag)
  */
+function isValidGitRef(ref) {
+  if (!ref || typeof ref !== "string") {
+    return false;
+  }
+  const refPattern = /^([0-9a-f]{7,40}|refs\/[\w/.@-]+|v?\d+\.\d+\.\d+)$/i;
+  return refPattern.test(ref.trim());
+}
+
 function getMergedPRs(fromTag, toTag = "HEAD") {
   console.log(
     `Fetching merged PRs from ${fromTag || "start"} to ${toTag || "HEAD"}...`,
   );
+
+  if (fromTag && !isValidGitRef(fromTag)) {
+    throw new Error(
+      `Invalid git ref for notes-from: "${fromTag}". Must be a commit SHA (7-40 hex), version tag, or ref path.`,
+    );
+  }
 
   let gitLog = "";
   if (fromTag) {
@@ -414,7 +425,6 @@ async function validateRelease(options = {}) {
         );
 
         // Check for unreleased changes
-        const unreleased = getUnreleasedChanges(changelogData);
         if (hasUnreleasedChanges(changelogData)) {
           console.log("   ✓ Unreleased changes found");
         } else {
@@ -506,12 +516,13 @@ function updateChangelog(newVersion, options = {}) {
     console.log(
       `[DRY-RUN] Would update CHANGELOG.md: [Unreleased] → [Unreleased] + [${newVersion}] - ${today}`,
     );
-    return;
+    return updatedContent;
   }
 
   fs.writeFileSync(changelogPath, updatedContent, "utf8");
   console.log(`✓ CHANGELOG updated with version ${newVersion}`);
   console.log(`✓ New [Unreleased] section injected for next cycle`);
+  return updatedContent;
 }
 
 /**
@@ -753,10 +764,23 @@ async function run() {
     bumpVersion(nextVersion, { dryRun });
 
     // Step 4: Update changelog
-    updateChangelog(nextVersion, { dryRun });
+    const updatedChangelogContent = updateChangelog(nextVersion, { dryRun });
 
-    // Step 4b: Validate post-release changelog (if not dry-run)
-    if (!dryRun) {
+    // Step 4b: Validate post-release changelog (runs in both dry-run and live)
+    if (dryRun && updatedChangelogContent) {
+      try {
+        // In dry-run, write to temp file and validate
+        const tempPath = ".CHANGELOG.tmp";
+        fs.writeFileSync(tempPath, updatedChangelogContent, "utf8");
+        validatePostReleaseChangelog(tempPath, nextVersion);
+        fs.unlinkSync(tempPath);
+      } catch (error) {
+        console.error(
+          `❌ Post-release changelog validation failed: ${error.message}`,
+        );
+        throw error;
+      }
+    } else if (!dryRun) {
       try {
         validatePostReleaseChangelog("CHANGELOG.md", nextVersion);
       } catch (error) {
@@ -769,12 +793,12 @@ async function run() {
 
     // Step 5: Stage all changes and run Husky pre-commit hooks, then commit
     if (!dryRun) {
-      exec("git add .");
+      exec("git add VERSION CHANGELOG.md");
       exec("npx husky run pre-commit");
       exec(`git commit -m "chore(release): bump version to ${nextVersion}"`);
     } else {
       console.log(
-        `\n[DRY-RUN] Would stage all changes, run Husky pre-commit hooks, and commit with message: "chore(release): bump version to ${nextVersion}"`,
+        `\n[DRY-RUN] Would stage VERSION and CHANGELOG.md, run Husky pre-commit hooks, and commit with message: "chore(release): bump version to ${nextVersion}"`,
       );
     }
 

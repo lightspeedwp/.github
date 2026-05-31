@@ -168,8 +168,13 @@ function validateChangelog(changelogData) {
       if (!release.date) {
         errors.push(`Release ${index + 1}: Missing date`);
       } else {
-        const datePattern = /^(\d{4}-\d{2}-\d{2}|DD-MM-YYYY|YYYY-MM-DD)$/;
-        if (!datePattern.test(release.date)) {
+        const datePattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+        const isIsoLike = datePattern.test(release.date);
+        const parsed = new Date(`${release.date}T00:00:00Z`);
+        const isRealDate =
+          !Number.isNaN(parsed.getTime()) &&
+          parsed.toISOString().slice(0, 10) === release.date;
+        if (!isIsoLike || !isRealDate) {
           errors.push(
             `Release ${index + 1}: Invalid date format "${release.date}" (expected YYYY-MM-DD)`,
           );

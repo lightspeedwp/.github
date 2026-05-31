@@ -211,7 +211,7 @@ function findBestMatch(
     const normExisting = normalize(existing);
     const similarity = calculateSimilarity(normDesc, normExisting);
 
-    if (similarity > highestSimilarity) {
+    if (similarity >= highestSimilarity) {
       highestSimilarity = similarity;
       bestMatch = existing;
     }

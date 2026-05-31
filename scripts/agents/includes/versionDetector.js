@@ -23,7 +23,7 @@ function parseVersion(versionString) {
     return null;
   }
 
-  const match = versionString.match(/v?(\d+)\.(\d+)\.(\d+)/);
+  const match = versionString.trim().match(/^v?(\d+)\.(\d+)\.(\d+)$/);
   if (!match) {
     return null;
   }
