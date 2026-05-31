@@ -1,11 +1,11 @@
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
+const { execFileSync } = require("child_process");
 const { validateSkillStructure } = require("./validateSkillStructure");
 
 const SIZE_LIMIT = 15728640; // 15 MB in bytes
 
-function packageSkillZip(skillDir, outputDir = null) {
+async function packageSkillZip(skillDir, outputDir = null) {
   try {
     // Validate skill structure first (skip package noise check since we exclude those in zip)
     validateSkillStructure(skillDir, {
@@ -33,32 +33,31 @@ function packageSkillZip(skillDir, outputDir = null) {
     const parentDir = path.dirname(resolvedDir);
     const folderName = path.basename(resolvedDir);
 
-    // Build zip command with exclusions
-    const zipCmd = [
-      "zip",
+    // Build zip arguments array (safe from command injection)
+    const zipArgs = [
       "-qr",
-      `"${outputFile}"`,
-      `"${folderName}"`,
+      outputFile,
+      folderName,
       "-x",
-      "'*/__MACOSX/*'",
+      "*/__MACOSX/*",
       "-x",
-      "'*/.DS_Store'",
+      "*/.DS_Store",
       "-x",
-      "'*/__pycache__/*'",
+      "*/__pycache__/*",
       "-x",
-      "'*.pyc'",
+      "*.pyc",
       "-x",
-      "'*/node_modules/*'",
+      "*/node_modules/*",
       "-x",
-      `"${folderName}/evals/*"`,
+      `${folderName}/evals/*`,
       "-x",
-      "'*/Icon'",
+      "*/Icon",
       "-x",
-      "'*/Icon?'",
-    ].join(" ");
+      "*/Icon?",
+    ];
 
-    // Execute zip command from parent directory
-    execSync(zipCmd, {
+    // Execute zip command from parent directory (no shell expansion)
+    execFileSync("zip", zipArgs, {
       cwd: parentDir,
       stdio: "pipe",
     });
@@ -73,11 +72,9 @@ function packageSkillZip(skillDir, outputDir = null) {
 
     console.log(`OK: packaged ${outputFile} (${bytes} bytes)`);
 
-    return Promise.resolve({ success: true, path: outputFile, bytes });
+    return { success: true, path: outputFile, bytes };
   } catch (error) {
-    return Promise.reject(
-      new Error(`Failed to create zip file: ${error.message}`),
-    );
+    throw new Error(`Failed to create zip file: ${error.message}`);
   }
 }
 
