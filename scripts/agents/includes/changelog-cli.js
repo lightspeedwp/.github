@@ -47,19 +47,13 @@ function parseArgs(args) {
  * @returns {Object} Entries organized by section
  */
 function generateEntriesFromCommits(since = "origin/develop..HEAD") {
+  if (since && !/^[a-zA-Z0-9_./~^@:-]+$/.test(since)) {
+    throw new Error("Invalid git reference format");
+  }
   try {
-    // Validate git reference to prevent command injection
-    if (!/^[a-zA-Z0-9_./~^@:-]+$/.test(since)) {
-      throw new Error(`Invalid git reference: ${since}`);
-    }
-function generateEntriesFromCommits(since = 'origin/develop..HEAD') {
-	if (since && !/^[a-zA-Z0-9_./~^@:-]+$/.test(since)) {
-		throw new Error('Invalid git reference format');
-	}
-	try {
-		const format = '%H%n%an%n%ae%n%s%n%b%n---END-COMMIT---%n';
-		const cmd = 'git log --format="' + format + '" ' + since;
-		const output = execSync(cmd, { encoding: 'utf8', stdio: 'pipe' });
+    const format = "%H%n%an%n%ae%n%s%n%b%n---END-COMMIT---%n";
+    const cmd = 'git log --format="' + format + '" ' + since;
+    const output = execSync(cmd, { encoding: "utf8", stdio: "pipe" });
     const commits = [];
     const commitStrings = output
       .split("---END-COMMIT---\n")

@@ -22,6 +22,9 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import { pathToFileURL } from "url";
+import { Logger } from "../utils/logger.js";
+
+const logger = new Logger(process.env.LOG_LEVEL || "info");
 
 function categorizeFile(filename) {
   const lower = filename.toLowerCase();
@@ -55,10 +58,12 @@ function categorizeFile(filename) {
 }
 
 function hasSecurityFileChange(files) {
-  return files.some((f) =>
-    /security|license|codeofconduct|\.github\/workflows/.test(
-      f.filename.toLowerCase(),
-    ),
+  return files.some(
+    (f) =>
+      f.filename &&
+      /security|license|codeofconduct|\.github\/workflows/.test(
+        f.filename.toLowerCase(),
+      ),
   );
 }
 
@@ -68,15 +73,18 @@ function hasLargeDeletion(files) {
 }
 
 function hasMigrationWithoutRollback(files) {
-  const hasMigration = files.some((f) =>
-    /migration|schema.*change/.test(f.filename.toLowerCase()),
+  const hasMigration = files.some(
+    (f) =>
+      f.filename && /migration|schema.*change/.test(f.filename.toLowerCase()),
   );
   if (!hasMigration) return false;
 
-  const hasRollbackDoc = files.some((f) =>
-    /rollback|revert|downgrade|(?:\b|[._-])down(?:\b|[._-])/.test(
-      f.filename.toLowerCase(),
-    ),
+  const hasRollbackDoc = files.some(
+    (f) =>
+      f.filename &&
+      /rollback|revert|downgrade|(?:\b|[._-])down(?:\b|[._-])/.test(
+        f.filename.toLowerCase(),
+      ),
   );
   return !hasRollbackDoc;
 }
@@ -90,6 +98,7 @@ function hasMigrationWithoutRollback(files) {
  * @returns {Promise<void>}
  */
 async function run(context = github.context, options = {}) {
+  const startTime = Date.now();
   try {
     const token = core.getInput("github-token") || process.env.GITHUB_TOKEN;
     if (!token) {
@@ -97,6 +106,12 @@ async function run(context = github.context, options = {}) {
         "Missing GITHUB_TOKEN: provide via 'github-token' input or GITHUB_TOKEN env var",
       );
     }
+
+    logger.info("Reviewer agent started", {
+      event: "start",
+      prNumber: context.payload.pull_request?.number,
+      repo: context.repo.repo,
+    });
 
     const requireChangelog =
       (core.getInput("require-changelog") || "false") === "true";
@@ -202,17 +217,32 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
 ---
 <!-- reviewer-agent-summary -->`;
 
+    logger.info("Review analysis complete", {
+      event: "analysis",
+      filesChanged: files.length,
+      criticalRisk: riskCounts.CRITICAL,
+      highRisk: riskCounts.HIGH,
+      mediumRisk: riskCounts.MEDIUM,
+      lowRisk: riskCounts.LOW,
+      blockers: blockers.length,
+    });
+
     if (dryRun) {
       core.info(`DRY-RUN: Would post comment:\n${summary}`);
+      logger.info("Dry-run mode: comment not posted", { event: "dry-run" });
     } else {
       try {
-        const prComments = await octokit.rest.issues.listComments({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          issue_number: pr.number,
-        });
+        const prComments = await octokit.paginate(
+          octokit.rest.issues.listComments,
+          {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: pr.number,
+            per_page: 100,
+          },
+        );
 
-        const existingComment = prComments.data.find((c) =>
+        const existingComment = prComments.find((c) =>
           c.body?.includes("<!-- reviewer-agent-summary -->"),
         );
 
@@ -224,6 +254,10 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
             body: summary,
           });
           core.info("Reviewer comment updated.");
+          logger.info("Comment updated successfully", {
+            event: "comment-updated",
+            commentId: existingComment.id,
+          });
         } else {
           await octokit.rest.issues.createComment({
             owner: context.repo.owner,
@@ -232,6 +266,10 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
             body: summary,
           });
           core.info("Reviewer comment posted.");
+          logger.info("Comment posted successfully", {
+            event: "comment-created",
+            prNumber: pr.number,
+          });
         }
       } catch (error) {
         throw new Error(
@@ -239,8 +277,18 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
         );
       }
     }
+
+    logger.info("Reviewer agent completed successfully", {
+      event: "complete",
+      duration: Date.now() - startTime,
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
+    logger.error("Reviewer agent failed", {
+      event: "error",
+      error: message,
+      duration: Date.now() - startTime,
+    });
     core.setFailed(message);
     process.exit(1);
   }

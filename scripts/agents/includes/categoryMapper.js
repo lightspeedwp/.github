@@ -80,20 +80,19 @@ function mapLabelToSection(label) {
  * @returns {string|null} Changelog section name
  */
 function determineSection(type, labels = []) {
-function determineSection(type, labels = []) {
-	// Check labels first (higher priority)
-	const safeLabels = Array.isArray(labels) ? labels : [];
-	for (const label of safeLabels) {
-		const section = mapLabelToSection(label);
-		if (section) return section;
-	}
+  // Check labels first (higher priority)
+  const safeLabels = Array.isArray(labels) ? labels : [];
+  for (const label of safeLabels) {
+    const section = mapLabelToSection(label);
+    if (section) return section;
+  }
 
-	// Fall back to commit type
-	if (type) {
-		return mapCommitTypeToSection(type);
-	}
+  // Fall back to commit type
+  if (type) {
+    return mapCommitTypeToSection(type);
+  }
 
-	return null;
+  return null;
 }
 
 /**
