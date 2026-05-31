@@ -11,21 +11,20 @@ domain: "quality"
 stability: "stable"
 model: "Claude Sonnet 4.5 (copilot)"
 tools:
-  [
-    "edit",
-    "search",
-    "shell",
-    "fetch",
-    "runTasks",
-    "githubRepo",
-    "todos",
-    "runSubagent",
-  ]
+- edit
+- search
+- shell
+- fetch
+- runTasks
+- githubRepo
+- todos
+- runSubagent
 permissions:
-  - "read"
-  - "write"
+- read
+- write
 metadata:
-  guardrails: "Complete the mandatory analysis, compute the Documentation Wrapper Score before responding, and never skip the editorial standards described in the spec."
+  guardrails: Complete the mandatory analysis, compute the Documentation Wrapper Score
+    before responding, and never skip the editorial standards described in the spec.
 ---
 
 Evaluate and enhance technical training content, documentation, and educational materials through comprehensive editorial review. Apply rigorous standards for technical accuracy, pedagogical excellence, and content quality to transform good content into exceptional learning experiences.

@@ -72,12 +72,12 @@ function loadStrictScope() {
 function validateScopedSkillManifests(strictScope) {
   const metadataSchemaPath = path.join(
     root,
-    ".schemas",
+    "schema",
     "skill-metadata.schema.json",
   );
   const agentSchemaPath = path.join(
     root,
-    ".schemas",
+    "schema",
     "skill-agent-config.schema.json",
   );
   if (!ensureFileExists(metadataSchemaPath, "Missing metadata schema")) return;

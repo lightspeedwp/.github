@@ -1,13 +1,20 @@
 ---
-file_type: "instructions"
-title: "Linting Instructions"
-description: "Master index for all linting instructions in the LightSpeed organisation. Lists and cross-references all linting instructions, config, and coding standards."
-scope: "organization-wide"
-applyTo: "**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}"
-version: "v2.0"
-last_updated: "2025-11-27"
-owners: ["LightSpeedWP Team"]
-tags: ["linting", "standards", "eslint", "prettier", "automation"]
+file_type: instructions
+title: Linting Instructions
+description: Master index for all linting instructions in the LightSpeed organisation.
+  Lists and cross-references all linting instructions, config, and coding standards.
+scope: organization-wide
+applyTo: '**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}'
+version: v2.1
+last_updated: '2026-05-29'
+owners:
+- LightSpeedWP Team
+tags:
+- linting
+- standards
+- eslint
+- prettier
+- automation
 ---
 
 # 🔍 LightSpeed Linting Instructions Library

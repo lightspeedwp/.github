@@ -1,25 +1,28 @@
 ---
-file_type: "documentation"
-title: "LightSpeed .github Community Health Repository"
-description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
-version: "3.2"
-created_date: "2025-01-15"
-last_updated: "2026-05-29"
-authors: ["LightSpeed Team"]
-maintainer: "LightSpeed Team"
-license: "GPL-3.0"
-domain: "governance"
-stability: "stable"
+file_type: documentation
+title: LightSpeed .github Community Health Repository
+description: Central hub for all shared GitHub templates, Copilot instructions, workflow
+  automation, labeling systems, and community health files across the LightSpeed WordPress
+  organisation
+version: '3.2'
+created_date: '2025-01-15'
+last_updated: '2026-05-29'
+authors:
+- LightSpeed Team
+maintainer: LightSpeed Team
+license: GPL-3.0
+domain: governance
+stability: stable
 owners:
-  - LightSpeed Team
+- LightSpeed Team
 tags:
-  - github-templates
-  - community-health
-  - automation
-  - copilot
-  - workflows
-  - labeling
-  - ai
+- github-templates
+- community-health
+- automation
+- copilot
+- workflows
+- labeling
+- ai
 ---
 
 # 🏛️ LightSpeed Organisation .github Community Health Repository
@@ -538,6 +541,9 @@ This repository and all its contents are licensed under the GNU General Public L
 - [🏗️ Plugin Structure](../instructions/plugin-structure.instructions.md) - WordPress block plugin development
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

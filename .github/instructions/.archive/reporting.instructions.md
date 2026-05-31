@@ -1,31 +1,37 @@
 ---
-file_type: "instructions"
-title: "Reporting Instructions"
-description: "Standards for creating, organising, and maintaining reports in the LightSpeedWP .github repository."
-version: "v1.1"
-last_updated: "2025-12-04"
-applyTo: ".github/reports/**/*"
-owners: ["LightSpeedWP Team"]
-tags: ["reporting", "documentation", "automation", "governance"]
-domain: "governance"
-stability: "stable"
+file_type: instructions
+title: Reporting Instructions
+description: Standards for creating, organising, and maintaining reports in the LightSpeedWP
+  .github repository.
+version: v1.1
+last_updated: '2025-12-04'
+applyTo: .github/reports/**/*
+owners:
+- LightSpeedWP Team
+tags:
+- reporting
+- documentation
+- automation
+- governance
+domain: governance
+stability: stable
 references:
-  - path: ".github/reports/README.md"
-    description: "Reports directory index and usage guide"
-  - path: ".github/agents/reporting.agent.md"
-    description: "Reporting agent specification"
-  - path: ".github/agents/reporting.agent.js"
-    description: "Reporting agent implementation"
-  - path: ".github/workflows/reporting.yml"
-    description: "Reporting automation workflow"
-  - path: ".github/prompts/reporting.prompt.md"
-    description: "Reporting prompt template"
-  - path: ".github/chatmodes/reporting.chatmode.md"
-    description: "Reporting chatmode for interactive assistance"
-  - path: ".github/instructions/file-management-guidelines.instructions.md"
-    description: "General file management guidelines"
-  - path: ".github/instructions/naming-conventions.instructions.md"
-    description: "Naming conventions for all files"
+- path: .github/reports/README.md
+  description: Reports directory index and usage guide
+- path: .github/agents/reporting.agent.md
+  description: Reporting agent specification
+- path: .github/agents/reporting.agent.js
+  description: Reporting agent implementation
+- path: .github/workflows/reporting.yml
+  description: Reporting automation workflow
+- path: .github/prompts/reporting.prompt.md
+  description: Reporting prompt template
+- path: .github/chatmodes/reporting.chatmode.md
+  description: Reporting chatmode for interactive assistance
+- path: .github/instructions/file-management-guidelines.instructions.md
+  description: General file management guidelines
+- path: .github/instructions/naming-conventions.instructions.md
+  description: Naming conventions for all files
 ---
 
 # Reporting Instructions

@@ -1,5 +1,5 @@
 ---
-file_type: "project"
+file_type: "documentation"
 title: "Test Coverage Implementation - v1.0.0"
 description: "Actionable tasks for implementing test coverage expansion to achieve 80%+ coverage before release"
 created_date: "2025-12-10"

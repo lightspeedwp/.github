@@ -14,7 +14,7 @@ references:
     description: "Release workflow (develop → main)"
   - path: "../.github/workflows/changelog.yml"
     description: "Changelog validation on every PR"
-  - path: "../.schemas/changelog.schema.json"
+  - path: "../schema/changelog.schema.json"
     description: "Keep a Changelog schema"
   - path: "../scripts/validation/validate-changelog.cjs"
     description: "Schema validation script"
@@ -86,7 +86,7 @@ node scripts/agents/release.agent.js --scope=minor --dry-run
 ## Changelog governance
 
 - Format: Keep a Changelog.
-- Schema: `../.schemas/changelog.schema.json` enforced by:
+- Schema: `../schema/changelog.schema.json` enforced by:
   - `scripts/validation/validate-changelog.cjs`
   - `scripts/agents/includes/changelogUtils.cjs --validate/--unreleased`
 - Requirements:

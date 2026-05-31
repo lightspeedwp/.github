@@ -1,14 +1,16 @@
 ---
-file_type: "documentation"
-title: "LightSpeed .github Documentation Index"
-description: "Comprehensive index and quickstart guide for all documentation in the .github repository"
-version: "1.0"
-last_updated: "2026-05-29"
-created_date: "2026-05-29"
-authors: ["LightSpeed Team"]
-category: "documentation"
-maintainer: "LightSpeed Team"
-stability: "stable"
+file_type: documentation
+title: LightSpeed .github Documentation Index
+description: Comprehensive index and quickstart guide for all documentation in the
+  .github repository
+version: '1.0'
+last_updated: '2026-05-29'
+created_date: '2026-05-29'
+authors:
+- LightSpeed Team
+category: documentation
+maintainer: LightSpeed Team
+stability: stable
 ---
 
 # 📚 LightSpeed .github Documentation
@@ -164,6 +166,8 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for documentation contribution guideli
 
 *Last updated: 2026-05-29*  
 *Maintained by: LightSpeed Team*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 

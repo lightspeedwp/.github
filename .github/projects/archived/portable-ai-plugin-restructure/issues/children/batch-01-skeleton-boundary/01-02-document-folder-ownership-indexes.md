@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Documentation"
 name: "Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 title: "[Documentation] Add ownership indexes for new top-level folders"

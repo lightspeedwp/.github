@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Epic"
 name: "Epic"
 about: "Propose/manage a large, multi-part initiative or project grouping stories/features/tasks"
 title: "[Epic] Portable AI plugin restructure: core plugin and compatibility"

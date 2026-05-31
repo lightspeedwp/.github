@@ -23,19 +23,95 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import { pathToFileURL } from "url";
 
+function categorizeFile(filename) {
+  const lower = filename.toLowerCase();
+
+  if (/\.github\/workflows/.test(lower)) {
+    return { category: "Workflows", riskLevel: "CRITICAL" };
+  }
+  if (/\.github|secrets|api[_-]?key|password|token/.test(lower)) {
+    return { category: "Configuration", riskLevel: "HIGH" };
+  }
+  if (
+    /package\.(json|[-.]?lock)|composer\.(json|lock)|yarn\.lock|pnpm-lock\.yaml|requirements\.txt/.test(
+      lower,
+    )
+  ) {
+    return { category: "Dependencies", riskLevel: "HIGH" };
+  }
+  if (/migration|schema|database/.test(lower)) {
+    return { category: "Database", riskLevel: "HIGH" };
+  }
+  if (/security|license|codeofconduct/.test(lower)) {
+    return { category: "Security", riskLevel: "HIGH" };
+  }
+  if (/src\/|test\/|spec\/|\.test\.|\.spec\./.test(lower)) {
+    return { category: "Code", riskLevel: "MEDIUM" };
+  }
+  if (/readme|docs\/|documentation/.test(lower)) {
+    return { category: "Documentation", riskLevel: "LOW" };
+  }
+  return { category: "Other", riskLevel: "LOW" };
+}
+
+function hasSecurityFileChange(files) {
+  return files.some((f) =>
+    /security|license|codeofconduct|\.github\/workflows/.test(
+      f.filename.toLowerCase(),
+    ),
+  );
+}
+
+function hasLargeDeletion(files) {
+  const totalDeletions = files.reduce((sum, f) => sum + (f.deletions || 0), 0);
+  return totalDeletions > 500;
+}
+
+function hasMigrationWithoutRollback(files) {
+  const hasMigration = files.some((f) =>
+    /migration|schema.*change/.test(f.filename.toLowerCase()),
+  );
+  if (!hasMigration) return false;
+
+  const hasRollbackDoc = files.some((f) =>
+    /rollback|revert|downgrade|(?:\b|[._-])down(?:\b|[._-])/.test(
+      f.filename.toLowerCase(),
+    ),
+  );
+  return !hasRollbackDoc;
+}
+
 /**
  * Main orchestrator for Reviewer Agent.
  * Posts a summary comment on PRs with CI status and file analysis.
  * @param {Object} context - GitHub Actions context object.
+ * @param {Object} options - Configuration options.
+ * @param {boolean} options.dryRun - If true, logs comment instead of posting.
  * @returns {Promise<void>}
  */
-async function run(context = github.context) {
+async function run(context = github.context, options = {}) {
   try {
     const token = core.getInput("github-token") || process.env.GITHUB_TOKEN;
-    if (!token) throw new Error("Missing token");
+    if (!token) {
+      throw new Error(
+        "Missing GITHUB_TOKEN: provide via 'github-token' input or GITHUB_TOKEN env var",
+      );
+    }
+
     const requireChangelog =
       (core.getInput("require-changelog") || "false") === "true";
-    const octokit = github.getOctokit(token);
+    const dryRun =
+      options.dryRun ||
+      process.argv.includes("--dry-run") ||
+      process.env.DRY_RUN === "true";
+
+    let octokit;
+    try {
+      octokit = github.getOctokit(token);
+    } catch (error) {
+      throw new Error(`Failed to initialize GitHub client: ${error.message}`);
+    }
+
     const pr = context.payload.pull_request;
     if (!pr) {
       core.info("No PR in context; exiting.");
@@ -50,46 +126,123 @@ async function run(context = github.context) {
         ref: pr.head.sha,
       });
       state = data.state;
-    } catch (e) {
-      core.info("Could not fetch CI status.");
+    } catch (error) {
+      core.warning(
+        `Could not fetch CI status for ref ${pr.head.sha}: ${error.message}`,
+      );
     }
-    const { data: files } = await octokit.rest.pulls.listFiles({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      pull_number: pr.number,
-      per_page: 100,
-    });
+
+    let files;
+    try {
+      files = await octokit.paginate(octokit.rest.pulls.listFiles, {
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        pull_number: pr.number,
+        per_page: 100,
+      });
+    } catch (error) {
+      throw new Error(
+        `Failed to fetch files for PR #${pr.number}: ${error.message}`,
+      );
+    }
     const changed = files.map((f) => f.filename);
 
     const srcTouched = changed.some(
       (f) => f.startsWith("src/") || /\.(js|ts|php|py)$/i.test(f),
     );
+
+    const changelogNames = [
+      "changelog.md",
+      "changelog.txt",
+      "history.md",
+      "news.md",
+      "releases.md",
+    ];
     const hasChangelog = changed.some(
-      (f) => f.toLowerCase() === "changelog.md",
+      (f) =>
+        changelogNames.includes(f.toLowerCase().split("/").pop()) ||
+        f.toLowerCase().includes("docs/changelog"),
     );
+    const categorized = changed.map((f) => categorizeFile(f));
+    const riskCounts = {
+      CRITICAL: 0,
+      HIGH: 0,
+      MEDIUM: 0,
+      LOW: 0,
+    };
+    categorized.forEach((c) => {
+      riskCounts[c.riskLevel]++;
+    });
+
     const blockers = [];
     if (state !== "success") blockers.push("CI checks not green");
     if (requireChangelog && srcTouched && !hasChangelog)
       blockers.push("CHANGELOG.md missing for code change");
+    if (riskCounts.CRITICAL > 0)
+      blockers.push(
+        `⚠️ ${riskCounts.CRITICAL} critical-risk file(s) modified (workflows, secrets)`,
+      );
+    if (hasSecurityFileChange(files))
+      blockers.push("⚠️ Security-sensitive files modified (review carefully)");
+    if (hasLargeDeletion(files))
+      blockers.push("⚠️ Large deletion detected (>500 lines removed)");
+    if (hasMigrationWithoutRollback(files))
+      blockers.push("⚠️ Database migration without rollback plan documented");
 
     const emoji = blockers.length ? "❌" : state === "success" ? "✅" : "⚠️";
+    const riskSummary = `**Risk Distribution:** ${riskCounts.CRITICAL} critical, ${riskCounts.HIGH} high, ${riskCounts.MEDIUM} medium, ${riskCounts.LOW} low`;
     const summary = `## 🔍 Reviewer Summary for PR #${pr.number}
 **CI Status:** ${emoji} \`${state}\`
 **Files changed:** ${files.length}
+${riskSummary}
 
 ### Recommendations
 ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proceed pending human review"}
-`;
 
-    await octokit.rest.issues.createComment({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: pr.number,
-      body: summary,
-    });
-    core.info("Reviewer comment posted.");
-  } catch (e) {
-    core.setFailed(e.message);
+---
+<!-- reviewer-agent-summary -->`;
+
+    if (dryRun) {
+      core.info(`DRY-RUN: Would post comment:\n${summary}`);
+    } else {
+      try {
+        const prComments = await octokit.rest.issues.listComments({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: pr.number,
+        });
+
+        const existingComment = prComments.data.find((c) =>
+          c.body?.includes("<!-- reviewer-agent-summary -->"),
+        );
+
+        if (existingComment) {
+          await octokit.rest.issues.updateComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            comment_id: existingComment.id,
+            body: summary,
+          });
+          core.info("Reviewer comment updated.");
+        } else {
+          await octokit.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: pr.number,
+            body: summary,
+          });
+          core.info("Reviewer comment posted.");
+        }
+      } catch (error) {
+        throw new Error(
+          `Failed to post comment on PR #${pr.number}: ${error.message}`,
+        );
+      }
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    core.setFailed(message);
+    process.exit(1);
   }
 }
 

@@ -11,9 +11,10 @@ domain: "engineering"
 stability: "stable"
 tools: ["codebase", "fetch", "search", "edit", "bash", "webSearch"]
 permissions:
-  - "read"
-  - "write"
-  - "github:repo"
+- read
+- write
+- github:repo
 metadata:
-  guardrails: "Announce each action before executing, research thoroughly before editing, and never finish until the problem is resolved with documented validation."
+  guardrails: Announce each action before executing, research thoroughly before editing,
+    and never finish until the problem is resolved with documented validation.
 ---

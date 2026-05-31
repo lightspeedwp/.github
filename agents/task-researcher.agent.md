@@ -13,12 +13,13 @@ stability: "stable"
 target: "github-copilot"
 tools: ["read", "search", "fetch"]
 handoffs:
-  - label: "Task Planner"
-    agent: "task-planner"
-    prompt: "Provide the researched information to the Task Planner for further action."
-    send: false
+- label: Task Planner
+  agent: task-planner
+  prompt: Provide the researched information to the Task Planner for further action.
+  send: false
 permissions:
-  - "read"
+- read
 metadata:
-  guardrails: "Gather verifiable references, do not act until research is complete, and document every source and assumption before handing off."
+  guardrails: Gather verifiable references, do not act until research is complete,
+    and document every source and assumption before handing off.
 ---

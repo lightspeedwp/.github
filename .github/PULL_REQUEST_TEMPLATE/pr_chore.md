@@ -1,8 +1,10 @@
 ---
-name: "Chore PR"
-about: "Repo hygiene: configs, scripts, formatting — no behaviour change"
-title: "chore: {scope}"
-labels: ["status:needs-review", "priority:normal"]
+file_type: "pr-template"
+title: "PR Template - CHORE"
+description: "Pull request template for CHORE changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Chore Pull Request

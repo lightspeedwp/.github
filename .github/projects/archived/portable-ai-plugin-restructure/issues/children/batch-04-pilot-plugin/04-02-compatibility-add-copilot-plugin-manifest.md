@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Compatibility"
 name: "Compatibility"
 about: "Track browser/device/WordPress/plugin compatibility issues."
 title: "[Compatibility] Add VS Code and GitHub Copilot plugin manifest metadata"
