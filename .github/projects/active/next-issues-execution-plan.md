@@ -2,9 +2,9 @@
 title: Next Issues Execution Plan
 description: Comprehensive execution plan for all open issues, active projects, and
   strategic workflows.
-version: v2.2.1
+version: v2.2.2
 created_date: '2026-05-28'
-last_updated: '2026-05-29'
+last_updated: '2026-05-31'
 file_type: documentation
 maintainer: LightSpeed Team
 authors:
@@ -32,7 +32,7 @@ LightSpeed `.github` repository. It consolidates:
 - Strategic initiatives including comprehensive README/Mermaid audits
 - Agent ownership and wave assignments
 
-**Live as of 2026-05-29**: All Claude Code exclusive work completed and merged.
+**Live as of 2026-05-31**: Wave 5 Canonical Config Files Audit completed and merged.
 
 **Completed Waves**:
 
@@ -43,6 +43,7 @@ LightSpeed `.github` repository. It consolidates:
 - ✅ Wave 4A/4B/4D: Branding agent specs (#33, #46, #48, #49)
 - ✅ Workflow Consolidation Epic (#503)
 - ✅ Issue #19: Documentation Index & Quickstart Guide (PR #552, merged 2026-05-29)
+- ✅ Wave 5.2: Canonical Config Files Audit (PR #680, merged 2026-05-31)
 
 **Current Focus**:
 
@@ -304,6 +305,69 @@ Keeping this workstream under Claude ensures the entire system (planning → spe
 
 ---
 
+## Wave 5 — Canonical Config Files Audit (COMPLETED) ✅
+
+**Objective**: Comprehensive audit of canonical GitHub configuration files (labels, issue types, issue fields) to identify structural gaps, missing mappings, and naming inconsistencies.
+
+**Status**: ✅ COMPLETED and MERGED (2026-05-31, Issue #650 closed via PR #680)
+
+### Completed Sub-Waves
+
+| Phase | Issues | Owner | Status | Completed |
+| --- | --- | --- | --- | --- |
+| **5.2: Canonical Config Files Audit** | #650 (parent) | Claude Code | ✅ MERGED | 2026-05-31 |
+
+### Wave 5.2 Audit Findings
+
+**Deliverables Completed**:
+
+1. ✅ Comprehensive audit report: `.github/reports/canonical-config-audit-2026-05-31.md`
+2. ✅ Identified 5 prioritized recommendations:
+   - Color Strategy Specification (high impact, medium effort)
+   - Issue-Fields Type Mapping Reconciliation (medium impact, low effort)
+   - Issue-Type Naming Standardization (low impact, low effort)
+   - Supporting Documentation Updates (low impact, medium effort)
+   - Future Migration Path Planning (low impact, high effort)
+
+**Key Findings**:
+
+- 150 labels with 31 unique colors across 6 categories
+- 25 issue types with 2 unmapped types (type:refactor, type:build)
+- 7 issue fields with complete type mapping
+- 7 language labels with full color definitions
+- Field mapping system working as designed
+
+**Owner**: Claude Code (AI Team - Review & UX)
+
+### Wave 5.2 Child Implementation Issues
+
+Four implementation issues created to address findings:
+
+| Issue | Title | Effort | Priority | Owner |
+| --- | --- | --- | --- | --- |
+| #682 | Wave 5.2.1 - Implement Color Strategy Specification | 2 hrs | High | Claude Code |
+| #683 | Wave 5.2.2 - Reconcile Issue-Fields Type Mapping | 1-2 hrs | Medium | Claude Code |
+| #684 | Wave 5.2.3 - Standardize Issue-Type Naming | 1 hr | Low | Claude Code |
+| #685 | Wave 5.2.4 - Update Supporting Documentation | 3 hrs | Medium | Claude Code |
+
+**Total Effort**: 7-8 hours across 4 implementation tasks
+
+**Dependencies**:
+
+- #682 (Color Strategy) is foundational for other improvements
+- #683 (Type Mapping) can be executed in parallel with #682
+- #684 (Naming) depends on #682 completion
+- #685 (Documentation) can be executed in parallel with implementation phases
+
+**Next Steps**:
+
+- [ ] Execute #682–#685 in recommended sequence
+- [ ] Validate canonical config files against schema after each implementation
+- [ ] Update governance documentation with finalized standards
+- [ ] Close all child issues as completed
+
+---
+
 ## Workflow Automation Patterns
 
 ### 1. Always-Run Workflows (Automatic on Push/PR)
@@ -497,6 +561,9 @@ Use this sequence for all active implementation work:
 - [ ] Wave 3C workflows active (target: `readme-audit` + `release` coordination)
 - [ ] All 44 READMEs passing Mermaid + WCAG AA validation
 - [ ] Release agent orchestrating workflows on demand
+- [x] Wave 5.2 audit completed (target: canonical config files report) — completed 2026-05-31 via PR #680
+- [ ] Wave 5.2 implementation merged (target: 4 child issues #682–#685, estimated 7-8 hours)
+- [ ] All canonical config files validated against schema
 
 ---
 

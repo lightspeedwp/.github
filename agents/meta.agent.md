@@ -1,5 +1,5 @@
 ---
-name: Meta
+title: Meta
 description: 'Agent for applying documentation metadata in Markdown files: front matter
   validation/enrichment, badges, and category-specific footers.'
 target: github-copilot

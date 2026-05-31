@@ -1,5 +1,5 @@
 ---
-name: "Product Requirements Document Generator"
+title: "Product Requirements Document Generator"
 description: "Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation."
 tools:
   [

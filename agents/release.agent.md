@@ -1,5 +1,5 @@
 ---
-name: "Release Manager"
+title: "Release Manager"
 description: "Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes."
 target: "github-copilot"
 handoffs:
