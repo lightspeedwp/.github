@@ -67,6 +67,7 @@ module.exports = {
         '<rootDir>/.vercel/',
         '<rootDir>/.netlify/',
         '<rootDir>/.storybook/',
+        '<rootDir>/.jest-skip/',
         '<rootDir>/docs/mustache-repo-templates/',
     ],
 };
