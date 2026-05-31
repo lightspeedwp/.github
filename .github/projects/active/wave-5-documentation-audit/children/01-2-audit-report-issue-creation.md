@@ -8,7 +8,7 @@ last_updated: "2026-05-31"
 author: "Claude Code"
 maintainer: "LightSpeedWP Team"
 tags: ["documentation", "audit", "consolidation", "wave-5"]
-status: "complete"
+status: "active"
 stability: "stable"
 domain: "governance"
 ---
@@ -25,6 +25,7 @@ domain: "governance"
 ## Executive Summary
 
 Audited 6 documentation files related to issue creation. Found:
+
 - **Significant overlap** between `instructions/issues.instructions.md` and `docs/ISSUE_CREATION_GUIDE.md`
 - **Internal duplication** within `instructions/issues.instructions.md` itself (content repeats)
 - **Missing file** (`docs/ISSUE_LABELS.md` referenced in audit scope but does not exist)
@@ -57,6 +58,7 @@ Audited 6 documentation files related to issue creation. Found:
 **Quality:** Well-structured, clear formatting  
 
 **Scope Covered:**
+
 - Search for duplicates before creating
 - Choose correct issue template
 - Fill out template thoroughly
@@ -70,6 +72,7 @@ Audited 6 documentation files related to issue creation. Found:
 - Sample issue template markdown
 
 **Issues:**
+
 - Repeats information already in `instructions/issues.instructions.md`
 - References multiple external files (`.github/issue-types.yml`, `VERSIONING.md`, `FRONTMATTER_SCHEMA.md`)
 - Label guidance is sparse—refers to section 4 but skimpy on actual label strategy
@@ -81,11 +84,13 @@ Audited 6 documentation files related to issue creation. Found:
 **Status:** ❌ **DOES NOT EXIST**
 
 Referenced in audit scope (#662) but file is missing. This is a critical gap:
+
 - No canonical source for label names, colors, or strategies
 - Label guidance split across multiple files
 - Could cause contributor confusion
 
 **Should be created to consolidate:**
+
 - Label families (status, priority, type, area, comp, meta, contrib, context)
 - One-hot rules
 - Color palette
@@ -102,6 +107,7 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 **Quality:** Comprehensive, well-maintained (last updated 2026-05-29)  
 
 **Scope Covered:**
+
 - Purpose and use cases
 - Quick reference of all 27 types
 - Detailed comparison table (color, priority, key labels)
@@ -112,6 +118,7 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 - PR template guidance
 
 **Issues:**
+
 - Tightly scoped to types only—does not cover broader label strategy
 - Detailed but dense—might be intimidating for new contributors
 - No consolidated label reference (would reference that missing `ISSUE_LABELS.md`)
@@ -126,6 +133,7 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 **Quality:** Clear, includes workflow diagram, good use of badges  
 
 **Scope Covered:**
+
 - Quick start (clone, install, usage)
 - Issue template workflow (visual Mermaid diagram)
 - Template directory structure
@@ -136,6 +144,7 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 - Maintained by automation team
 
 **Issues:**
+
 - Audience-focused (template users only) but references broader governance
 - Diagram is helpful but static—doesn't link to actual template files
 - Says "Available Templates" section but no actual list of templates
@@ -150,6 +159,7 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 **Quality:** Authoritative but with duplication issues  
 
 **Critical Issues Found:**
+
 1. **INTERNAL DUPLICATION:** Content duplicates within the file:
    - Section 1–2 covers Markdown templates with YAML frontmatter (**TWICE**: lines 52-60 and lines 168-171)
    - Section 2 defines required frontmatter (**TWICE**: lines 64-86 and lines 175-200)
@@ -168,6 +178,7 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
    - No authoritative label reference in this file
 
 **Scope Covered (Despite Duplication):**
+
 - Markdown templates with YAML frontmatter (required)
 - Required frontmatter fields
 - Template selection
@@ -205,20 +216,25 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 ## Key Overlaps Identified
 
 ### Overlap 1: Template & Frontmatter Guidance
-**Files involved:** 
+
+**Files involved:**
+
 - `docs/ISSUE_CREATION_GUIDE.md` (sections 2–3)
 - `instructions/issues.instructions.md` (sections 1–2, duplicated twice)
 
 **Content:** How to use Markdown templates with YAML frontmatter, required fields
 
 **Consolidation:** Keep in both but clarify roles:
+
 - **Guide:** User-friendly "why and how to fill out frontmatter"
 - **Instructions:** Authoritative specification for agents/maintainers
 
 ---
 
 ### Overlap 2: Issue Lifecycle & Status
+
 **Files involved:**
+
 - `docs/ISSUE_CREATION_GUIDE.md` (section 8)
 - `instructions/issues.instructions.md` (section 5, labeled "Issue Lifecycle and Automation")
 
@@ -229,7 +245,9 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 ---
 
 ### Overlap 3: Label Requirements & Strategy
+
 **Files involved:**
+
 - `docs/ISSUE_CREATION_GUIDE.md` (section 4, sparse)
 - `instructions/issues.instructions.md` (section 4–5, references missing files)
 - `docs/ISSUE_TYPES.md` (type-focused, doesn't cover label families)
@@ -242,7 +260,9 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 ---
 
 ### Overlap 4: Issue Template Selection
+
 **Files involved:**
+
 - `docs/ISSUE_CREATION_GUIDE.md` (section 2)
 - `instructions/issues.instructions.md` (section 3)
 - `.github/ISSUE_TEMPLATE/README.md` (general info)
@@ -300,24 +320,24 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 
 ### Phase 2: Align & Link (Wave 5.3 or 5.4)
 
-4. **Update cross-references**
+1. **Update cross-references**
    - Ensure all files link to `docs/ISSUE_LABELS.md` (once created)
    - Verify no broken references
    - Use consistent link patterns
 
-5. **Consolidate GitHub Template Directory**
+2. **Consolidate GitHub Template Directory**
    - Decide: keep `.github/ISSUE_TEMPLATE/README.md` or move to inline comments
    - Consider archiving if content can live elsewhere
    - Ensure templates themselves are well-documented
 
-6. **Create label & type quick reference** (optional)
+3. **Create label & type quick reference** (optional)
    - Single-page cheat sheet linking to detailed guides
    - Could live in `docs/QUICK_REFERENCE.md`
    - Useful for new contributors
 
 ### Phase 3: Update Automation (Post Wave 5)
 
-7. **Wire automation to consolidated docs**
+1. **Wire automation to consolidated docs**
    - Ensure labeling agents reference correct canonical files
    - Update `labeler.yml` documentation
    - Confirm issue templates reference correct guides
