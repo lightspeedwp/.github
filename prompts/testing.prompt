@@ -1,0 +1,122 @@
+# Testing Prompt Template
+
+Use this prompt when creating tests, improving test coverage, or debugging failing tests.
+
+## Context
+
+**Project:** [Project Name]
+**Test Framework:** [Jest, Mocha, Pytest, etc.]
+**Code Under Test:** [Module/file path]
+**Test Directory:** [tests/, __tests__/, spec/, etc.]
+
+### Current Test Status
+
+- **Existing Tests:** [Link to related test files]
+- **Coverage:** [Current coverage percentage and target]
+- **Known Issues:** [Failing tests or gaps in coverage]
+
+### Testing Standards
+
+- Follow [Test Pattern Reference]
+- Use fixtures from [Location of test fixtures]
+- Mock dependencies as shown in [Example test file]
+
+---
+
+## Task
+
+**Testing Objective:**
+[What code needs testing? What behaviors should tests verify?]
+
+**Test Scenarios to Cover:**
+
+1. **Happy Path:** [Normal use case with valid input]
+2. **Edge Cases:** [Boundary conditions, empty inputs, etc.]
+3. **Error Cases:** [Invalid input, exceptions, etc.]
+4. **Integration:** [How this code interacts with other modules]
+
+**Coverage Requirements:**
+
+- Minimum coverage: [X%]
+- Must cover: [Critical functions/paths]
+- Nice-to-have: [Non-critical paths]
+
+---
+
+## Test Specifications
+
+### Test Structure
+
+```
+describe('[Module Name]', () => {
+  describe('[Function/Feature Name]', () => {
+    it('should [expected behavior]', () => {
+      // Test implementation
+    });
+  });
+});
+```
+
+### Test Setup
+
+- **Fixtures:** [Location and format of test data]
+- **Mocks:** [Dependencies to mock and how]
+- **Setup/Teardown:** [Database, filesystem, or API resets needed]
+
+### Assertions
+
+- Assert [specific output/behavior for test 1]
+- Assert [specific output/behavior for test 2]
+- Verify [side effects, state changes, calls]
+
+---
+
+## Constraints
+
+- **Performance:** Tests should complete in [max time per test]
+- **Isolation:** Each test must be independent; no shared state
+- **Determinism:** Tests must pass consistently; no flaky tests
+- **Documentation:** Each test should have clear description
+- **Coverage Target:** [X]% minimum line/branch/statement coverage
+
+---
+
+## Acceptance Criteria
+
+Tests are ready when:
+
+- [ ] All scenarios from list above are covered
+- [ ] Coverage target of [X]% is met
+- [ ] All tests pass locally and in CI
+- [ ] Test code follows project standards
+- [ ] Passing tests are documented (why they test what they test)
+- [ ] PR approved by [code reviewer]
+
+---
+
+## Debugging Guide
+
+If tests fail:
+
+1. Check error message: [What the test expected vs actual]
+2. Review test setup: [Are fixtures/mocks configured correctly?]
+3. Verify code changes: [Did the code under test change?]
+4. Check environment: [Are environment variables set correctly?]
+5. Run in isolation: `npm test -- [test-file.test.js]`
+
+---
+
+## References
+
+- **Test Examples:** [Link to similar passing tests]
+- **Testing Standards:** [Link to project testing guide]
+- **Framework Docs:** [Link to Jest/Mocha/etc. documentation]
+- **Code Under Test:** [Link to file/module being tested]
+
+---
+
+## Additional Notes
+
+- [Common test pitfalls to avoid]
+- [How to handle async code / promises]
+- [Expected test execution time or special setup]
