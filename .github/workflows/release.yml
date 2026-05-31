@@ -85,8 +85,23 @@ jobs:
       - name: Lint
         run: npm run lint
 
+  test:
+    needs: [trigger-telemetry]
+    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - name: Install
+        run: npm ci
+      - name: Run tests
+        run: npm test
+
   release:
-    needs: [lint]
+    needs: [lint, test]
     runs-on: ubuntu-latest
     permissions:
       contents: write
