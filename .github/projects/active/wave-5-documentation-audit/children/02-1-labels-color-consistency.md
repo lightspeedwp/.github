@@ -1,0 +1,51 @@
+---
+issue_number: null
+parent_issue: "2"
+title: "[Child of #] Audit: labels.yml Color Consistency & Strategy Alignment"
+type: "type:audit"
+area: "area:labels"
+priority: "priority:important"
+status: "status:needs-triage"
+effort: "M"
+---
+
+## Overview
+
+Verify that all 200+ labels in `labels.yml` follow the documented color strategy and that colors are consistent within label families.
+
+## Scope
+
+- Review all labels in `.github/labels.yml`
+- Check if each label's color matches the documented strategy
+- Identify grey labels that should have family colors
+- Verify color hex codes are valid
+- Document color family assignments (status, priority, type, area, etc.)
+
+## Audit Checklist
+
+- [ ] Extract all labels and their colors
+- [ ] Review documented color strategy in `LABEL_STRATEGY.md`
+- [ ] Check each label family color consistency
+- [ ] Identify grey labels (`E1E4E8`, `9198A1`, etc.) and verify intentionality
+- [ ] Verify all hex codes are valid CSS colors
+- [ ] Document any color inconsistencies
+- [ ] Verify color families align with label function
+
+## Deliverables
+
+- Color consistency audit report
+- Spreadsheet: Label Name | Current Color | Expected Color | Family | Status | Recommendation
+- List of labels requiring color updates
+- Updated color strategy documentation (if needed)
+
+## Related Files
+
+- `.github/labels.yml`
+- `docs/LABEL_STRATEGY.md`
+- `docs/ISSUE_LABELS.md`
+
+## Related Documentation
+
+- [Label Strategy](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md)
+- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_LABELS.md)
+- [Canonical Labels File](https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml)
