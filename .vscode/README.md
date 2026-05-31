@@ -52,7 +52,6 @@ flowchart TD
     O --> Z[CSS]
     P --> AA[Markdown]
     Q --> AB[Coverage]
-    R --> AC[Reports]
     S --> AD[Summary]
     T --> AE[Results]
 
@@ -131,9 +130,6 @@ flowchart TD
 ---
 
 *Maintained by the LightSpeedWP team for a seamless contributor experience.*
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
