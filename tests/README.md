@@ -1,3 +1,25 @@
+---
+title: "LightSpeedWP Testing Framework"
+description: "Unified testing framework for LightSpeedWP automation: shell (Bats), JavaScript (Jest), Python validation, and coverage quality gates."
+file_type: documentation
+version: 2.2.0
+last_updated: "2026-05-31"
+created_date: "2025-10-25"
+owners:
+  - Ash Shaw
+  - LightSpeedWP QA
+maintainer: LightSpeed Team
+license: GPL-3.0
+tags:
+  - testing
+  - bats
+  - jest
+  - quality-assurance
+  - automation
+domain: testing
+stability: stable
+---
+
 # 🧪 LightSpeedWP Testing Framework
 
 <!-- BADGES-START -->
@@ -88,29 +110,29 @@ accDescr: "Comprehensive testing framework showing Bats and Jest testing integra
 
 Each subfolder includes comprehensive documentation and specialized test coverage:
 
-- **[`awesome-copilot/`](./awesome-copilot/README.md)** — Jest tests for awesome-copilot automation scripts
+- **`awesome-copilot/`** — Jest tests for awesome-copilot automation scripts
   - Tests for `update-readme.js`, `validate-collections.js`, and `yaml-parser.js`
   - Validates script loading and basic functionality
 
-- **[`includes/`](./includes/README.md)** — Shared test helpers and utilities with specialized subfolders:
-  - **[`cli/`](./includes/cli/README.md)** — CLI utility testing helpers and shared functions
-  - **[`core/`](./includes/core/README.md)** — Core testing functionality including colors, logging, and validation
-  - **[`deployment/`](./includes/deployment/README.md)** — Deployment testing helpers and environment setup
-  - **[`filesystem/`](./includes/filesystem/README.md)** — File system operation helpers and utilities
+- **`includes/`** — Shared test helpers and utilities with specialized subfolders:
+  - **`cli/`** — CLI utility testing helpers and shared functions
+  - **`core/`** — Core testing functionality including colors, logging, and validation
+  - **`deployment/`** — Deployment testing helpers and environment setup
+  - **`filesystem/`** — File system operation helpers and utilities
 
-- **[`maintenance/`](./maintenance/README.md)** — Comprehensive tests for maintenance and automation scripts
+- **`maintenance/`** — Comprehensive tests for maintenance and automation scripts
   - Tests for README generation, label management, badge updates, and changelog automation
   - Covers dry-run modes, CI/CD integration, and edge case handling
 
-- **[`projects/`](./projects/README.md)** — Project management and GitHub integration tests
-  - **[`fixtures/`](./projects/fixtures/README.md)** — Test fixtures and sample data for project tests
+- **`projects/`** — Project management and GitHub integration tests
+  - **`fixtures/`** — Test fixtures and sample data for project tests
   - Tests for client delivery projects, product development workflows, and project automation
 
-- **[`pytests/`](./pytests/README.md)** — Python-based tests for documentation validation
+- **`pytests/`** — Python-based tests for documentation validation
   - Tests for changelog validation, documentation links, markdown structure, and PR templates
   - Includes utility functions for changed file detection
 
-- **[`utility/`](./utility/README.md)** — Comprehensive Bats and Jest tests for all utility scripts
+- **`utility/`** — Comprehensive Bats and Jest tests for all utility scripts
   - `.bats` files: Shell/CLI tests for Node.js and shell scripts
   - `.test.js` files: Jest unit tests for Node.js modules and agent logic
 
@@ -306,17 +328,17 @@ npm ci
 
 #### Test Folder Documentation
 
-- [Awesome Copilot Tests](./awesome-copilot/README.md) — Jest tests for awesome-copilot automation scripts
-- [Test Includes & Helpers](./includes/README.md) — Shared test utilities and helper functions
-- [CLI Testing Helpers](./includes/cli/README.md) — Command-line interface testing utilities
-- [Core Testing Functions](./includes/core/README.md) — Core testing functionality and validation
-- [Deployment Test Helpers](./includes/deployment/README.md) — Deployment testing and environment setup
-- [Filesystem Test Utilities](./includes/filesystem/README.md) — File system operation testing helpers
-- [Maintenance Script Tests](./maintenance/README.md) — Tests for maintenance and automation scripts
-- [Project Management Tests](./projects/README.md) — GitHub project integration and workflow tests
-- [Test Fixtures & Data](./projects/fixtures/README.md) — Sample data and test fixtures
-- [Python Documentation Tests](./pytests/README.md) — Python-based documentation validation tests
-- [Utility Script Tests](./utility/README.md) — Comprehensive utility script testing suite
+- **Awesome Copilot Tests** (`./awesome-copilot/`) — Jest tests for awesome-copilot automation scripts
+- **Test Includes & Helpers** (`./includes/`) — Shared test utilities and helper functions
+- **CLI Testing Helpers** (`./includes/cli/`) — Command-line interface testing utilities
+- **Core Testing Functions** (`./includes/core/`) — Core testing functionality and validation
+- **Deployment Test Helpers** (`./includes/deployment/`) — Deployment testing and environment setup
+- **Filesystem Test Utilities** (`./includes/filesystem/`) — File system operation testing helpers
+- **Maintenance Script Tests** (`./maintenance/`) — Tests for maintenance and automation scripts
+- **Project Management Tests** (`./projects/`) — GitHub project integration and workflow tests
+- **Test Fixtures & Data** (`./projects/fixtures/`) — Sample data and test fixtures
+- **Python Documentation Tests** (`./pytests/`) — Python-based documentation validation tests
+- **Utility Script Tests** (`./utility/`) — Comprehensive utility script testing suite
 
 ### 🛠️ Development Resources
 
@@ -331,7 +353,7 @@ npm ci
 
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
 - [Schema Validation](../schema/README.md) — JSON schema validation and configuration
-- [CodeRabbit Schemas](../schema/coderabbit/README.md) — AI code review configuration schemas
+- [CodeRabbit Configuration](.coderabbit.yml) — AI code review configuration
 - [WordPress Automation Schemas](../schema/header-footer-agent/README.md) — WordPress theme automation schemas
 - [Coverage Reports](../coverage/README.md) — Test coverage reporting and analysis
 - [HTML Coverage Reports](../coverage/lcov-report/README.md) — Interactive coverage visualization
