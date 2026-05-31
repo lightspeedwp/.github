@@ -58,13 +58,6 @@ function validateCommit(message) {
  * @returns {Object[]} Array of commit objects
  */
 function getGitLog(since, limit = 50) {
-  try {
-    // Validate git reference to prevent command injection
-    if (since && !/^[a-zA-Z0-9_./~^@:-]+$/.test(since)) {
-      throw new Error(`Invalid git reference: ${since}`);
-    }
-
-function getGitLog(since, limit = 50) {
 	if (since && !/^[a-zA-Z0-9_./~^@:-]+$/.test(since)) {
 		throw new Error('Invalid git reference format');
 	}
@@ -77,6 +70,7 @@ function getGitLog(since, limit = 50) {
 		}
 
 		const output = execSync(cmd, { encoding: 'utf8', stdio: 'pipe' });
+		const commitStrings = output
       .split("---END-COMMIT---\n")
       .filter((s) => s.trim());
 
