@@ -1,6 +1,6 @@
 version: 2
 description: Canonical LightSpeedWP organization issue/project field model for governance and WordPress delivery.
-docs_reference: docs/ISSUE-FIELDS.md
+docs_reference: docs/ISSUE_FIELDS.md
 
 organization:
   owner: lightspeedwp
@@ -39,31 +39,53 @@ project_field_mappings:
     priority:normal: Normal
     priority:minor: Minor
   Type:
+    # Critical Types (No Collapsing)
     type:bug: Bug
     type:feature: Feature
     type:documentation: Documentation
     type:task: Task
-    type:chore: Task
-    type:test: Task
-    type:maintenance: Task
+    type:release: Release
+
+    # Feature Delivery Group
+    type:improve: Feature
+    type:enhancement: Feature
+
+    # Design & UX Group
+    type:design: Design
+    type:ui: Design
+    type:a11y: Design
+
+    # Quality & Maintenance Group
+    type:chore: Chore
+    type:refactor: Chore
+    type:maintenance: Chore
+
+    # Automation & Infrastructure Group
+    type:automation: Automation
+    type:test: Automation
+    type:ai-ops: Automation
+    type:ci: Automation
+    type:build: Automation
+
+    # Integration & Dependencies Group
+    type:integration: Integration
+    type:dependency: Integration
+    type:compatibility: Integration
+
+    # Analysis & Exploration Group
+    type:research: Research
+    type:investigation: Research
+
+    # Mapped to Task (security tracked via labels)
     type:security: Task
     type:performance: Task
-    type:a11y: Task
-    type:design: Task
-    type:integration: Task
-    type:release: Task
-    type:automation: Task
     type:qa: Task
-    type:ai-ops: Task
     type:audit: Task
-    type:research: Task
-    type:compatibility: Task
     type:epic: Task
     type:question: Task
     type:support: Task
     type:content-modelling: Task
     type:story: Task
-    type:improve: Task
     type:review: Task
 
 organization_issue_fields:
