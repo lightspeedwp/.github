@@ -231,16 +231,19 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 ## 5. Next Steps (Issues #668–#670)
 
 ### #668: Validate Mermaid Diagram Syntax
+
 - **Scope**: Check all 24 diagrams for syntax errors
 - **Deliverable**: List of diagrams with syntax issues
 - **Effort**: L (Low)
 
 ### #669: Mermaid Accessibility Compliance
+
 - **Scope**: Verify all diagrams have `accTitle` and `accDescr` attributes
 - **Deliverable**: Accessibility audit report with missing attributes list
 - **Effort**: L (Low)
 
 ### #670: Fix & Refresh 44 README Files
+
 - **Scope**: Apply fixes from #668 and #669, update stale content
 - **Deliverable**: Updated README files, validation report
 - **Effort**: XL (Extra Large)
