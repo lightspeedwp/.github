@@ -7,6 +7,7 @@ description: "Code refactoring, optimisation, and modernisation workflows"
 # Refactoring Prompt Template
 
 Use this prompt when planning code refactoring, optimisation, or modernisation.
+
 ## Context
 
 **Project:** [Project Name]
@@ -63,7 +64,7 @@ Use this prompt when planning code refactoring, optimisation, or modernisation.
 ### In Scope
 
 - [Files/modules to refactor]
-- [Patterns/approaches to modernize]
+- [Patterns/approaches to modernise]
 - [Tests to rewrite or improve]
 
 ### Out of Scope

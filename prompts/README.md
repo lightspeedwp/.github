@@ -1,7 +1,5 @@
 ---
 file_type: "prompt"
----
-file_type: "prompt"
 title: "Standardised Prompts Directory"
 description: "Reusable prompt templates for agents and AI scenarios across LightSpeed projects"
 ---
@@ -17,9 +15,11 @@ This directory contains reusable prompt templates for agents and AI scenarios ac
 - **[documentation.prompt](./documentation.prompt)** — Documentation creation, updates, and refinement
 - **[testing.prompt](./testing.prompt)** — Test suite creation, debugging, and coverage improvements
 - **[refactoring.prompt](./refactoring.prompt)** — Code refactoring, optimisation, and modernisation
+
 ## Usage
 
 Each prompt is designed to be:
+
 - **Customisable:** Adapt sections to your project context
 - **Focused:** Addresses a specific task or workflow stage
 

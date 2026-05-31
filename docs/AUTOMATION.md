@@ -87,16 +87,15 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 **Requirements:**
 
 1. **Justification:** Document why the label is needed
-3. **Naming Convention:** Follow `family:name` format (e.g., `status:in-progress`, `area:ci`)
-4. **Colour Coding:** Use category-appropriate colours:
+2. **Naming Convention:** Follow `family:name` format (e.g., `status:in-progress`, `area:ci`)
+3. **Colour Coding:** Use category-appropriate colours:
    - Status: Blue tones
    - Priority: Red/Orange gradient
    - Type: Green (features), Red (bugs), Purple (docs)
    - Area/Component: Light blue
    - Meta: Grey
-   - Meta: Grey
-5. **Description:** Provide clear, concise purpose
-6. **Documentation:** Update [Labeling Guide](./LABELING.md) with new label details
+4. **Description:** Provide clear, concise purpose
+5. **Documentation:** Update [Labeling Guide](./LABELING.md) with new label details
 
 **Approval Process:**
 

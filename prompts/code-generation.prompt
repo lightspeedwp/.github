@@ -41,9 +41,9 @@ Use this prompt when requesting code implementation, scaffolding, or generation 
 
 **Functional Scope:**
 
-- [ ] [Feature/behavior 1]
-- [ ] [Feature/behavior 2]
-- [ ] [Feature/behavior 3]
+- [ ] [Feature/behaviour 1]
+- [ ] [Feature/behaviour 2]
+- [ ] [Feature/behaviour 3]
 
 ---
 
@@ -60,13 +60,13 @@ Use this prompt when requesting code implementation, scaffolding, or generation 
 ## Input & Output
 
 **Input:**
-```
+```text
 [Example of function signature or parameters]
 ```
 
 **Expected Output:**
-```
-[Example of expected return value or behavior]
+```text
+[Example of expected return value or behaviour]
 ```
 
 **Edge Cases:**

@@ -32,7 +32,7 @@ Use this prompt when creating tests, improving test coverage, or debugging faili
 ## Task
 
 **Testing Objective:**
-[What code needs testing? What behaviors should tests verify?]
+[What code needs testing? What behaviours should tests verify?]
 
 **Test Scenarios to Cover:**
 
@@ -53,10 +53,10 @@ Use this prompt when creating tests, improving test coverage, or debugging faili
 
 ### Test Structure
 
-```
+```javascript
 describe('[Module Name]', () => {
   describe('[Function/Feature Name]', () => {
-    it('should [expected behavior]', () => {
+    it('should [expected behaviour]', () => {
       // Test implementation
     });
   });
@@ -71,8 +71,8 @@ describe('[Module Name]', () => {
 
 ### Assertions
 
-- Assert [specific output/behavior for test 1]
-- Assert [specific output/behavior for test 2]
+- Assert [specific output/behaviour for test 1]
+- Assert [specific output/behaviour for test 2]
 - Verify [side effects, state changes, calls]
 
 ---

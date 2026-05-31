@@ -35,7 +35,7 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 ## Label Categories & Families
 
-All canonical labels use a family prefix. The organisation recognizes the following label families:
+All canonical labels use a family prefix. The organisation recognises the following label families:
 
 ### Status Labels (`status:*`)
 
@@ -72,14 +72,14 @@ Classify the nature of the work:
 - `type:chore` — Maintenance, cleanup, tooling, or refactoring
 - `type:docs` — Documentation improvements
 - `type:test` — Test suite additions or fixes
-- `type:refactor` — Code quality improvements, no behavior change
+- `type:refactor` — Code quality improvements, no behaviour change
 - `type:performance` — Performance optimisation
 - `type:security` — Security-related changes
 - `type:a11y` — Accessibility improvements
 - `type:design` — Design-related work
 - `type:release` — Release-related tasks
 
-**Rule:** Each issue and PR has exactly one `type:*` label (automatically assigned from branch prefix).
+**Rule:** Each issue and PR has exactly one `type:*` label. For PRs, it's automatically assigned from the branch prefix; for issues, it's assigned from issue templates or manually.
 
 ### Area & Component Labels
 
@@ -291,7 +291,7 @@ The agent orchestrates reusable utility modules in `scripts/agents/includes/`:
 
 ### Configuration Files
 
-- `.github/labels.yml` — Canonical label definitions, colors, and aliases
+- `.github/labels.yml` — Canonical label definitions, colours, and aliases
 - `.github/labeler.yml` — File/branch-based label rules
 - `.github/issue-types.yml` — Canonical issue type definitions
 
