@@ -132,6 +132,11 @@ jobs:
           INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
           INPUT_DRY_RUN: ${{ inputs.dry_run }}
         run: node scripts/workflows/release/run-release-agent.cjs | tee release-agent.log
+      - name: Validate changelog post-release
+        if: inputs.dry_run == false
+        run: |
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          echo "✓ Post-release changelog validation passed"
       - name: Build dry-run release notes preview
         if: inputs.dry_run == true
         env:

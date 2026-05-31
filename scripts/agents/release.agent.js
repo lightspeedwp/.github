@@ -37,29 +37,23 @@ const validateVersionPath = path.join(
   "../validation/validate-version.cjs",
 );
 
-const {
-  parseChangelog,
-  validateChangelog,
-  getUnreleasedChanges,
-  hasUnreleasedChanges,
-} = require(changelogUtilsPath);
+const { parseChangelog, validateChangelog, hasUnreleasedChanges } = require(
+  changelogUtilsPath,
+);
 const { validateVersion, parseVersion } = require(validateVersionPath);
 
 /**
- * Execute shell command (with optional sandboxing for dry-run)
+ * Execute shell command
  * @param {string} cmd - Command to execute
- * @param {boolean} dryRun - Dry run mode (logging-only unless sandbox=true)
+ * @param {boolean} dryRun - Dry run mode
  * @param {boolean} allowError - Swallow errors and return empty string
- * @param {boolean} sandbox - Actual execution in sandbox (for dry-run validation)
  * @returns {string} Command output
  */
-function exec(cmd, dryRun = false, allowError = false, sandbox = false) {
-  if (dryRun && !sandbox) {
-    // Logging-only mode (for informational steps)
+function exec(cmd, dryRun = false, allowError = false) {
+  if (dryRun) {
     console.log(`[DRY-RUN] Would execute: ${cmd}`);
     return "";
   }
-
   try {
     return execSync(cmd, { encoding: "utf8" });
   } catch (error) {
@@ -68,56 +62,6 @@ function exec(cmd, dryRun = false, allowError = false, sandbox = false) {
       return "";
     }
     throw new Error(`Command failed: ${cmd}\n${error.message}`);
-  }
-}
-
-/**
- * Create a temporary sandbox branch for dry-run validation
- * @param {boolean} dryRun - Only create if in dry-run mode
- * @param {string} scope - Release scope for branch naming
- * @param {string} nextVersion - Next version for branch naming
- * @returns {Object|null} Sandbox info { branch, originalBranch } or null
- */
-function createSandbox(dryRun, scope, nextVersion) {
-  if (!dryRun) return null;
-
-  const sandboxBranch = `release-sandbox-${Date.now()}`;
-  const originalBranch = exec(
-    "git rev-parse --abbrev-ref HEAD",
-    false,
-    true,
-  ).trim();
-
-  console.log(
-    `\n[SANDBOX] Creating temporary validation branch: ${sandboxBranch}`,
-  );
-
-  try {
-    exec(`git checkout -b ${sandboxBranch}`, false);
-    return { branch: sandboxBranch, originalBranch };
-  } catch (error) {
-    console.warn(`[SANDBOX] Failed to create sandbox: ${error.message}`);
-    return null;
-  }
-}
-
-/**
- * Clean up sandbox branch
- * @param {boolean} dryRun - Only cleanup if was in dry-run mode
- * @param {Object} sandbox - Sandbox info from createSandbox
- */
-function cleanupSandbox(dryRun, sandbox) {
-  if (!dryRun || !sandbox) return;
-
-  console.log(`\n[SANDBOX] Cleaning up temporary branch: ${sandbox.branch}`);
-  try {
-    // Switch back to original branch
-    exec(`git checkout ${sandbox.originalBranch}`, false, true);
-    // Delete sandbox branch
-    exec(`git branch -D ${sandbox.branch}`, false, true);
-    console.log(`[SANDBOX] Sandbox cleaned up successfully`);
-  } catch (error) {
-    console.warn(`[SANDBOX] Cleanup warning: ${error.message}`);
   }
 }
 
@@ -178,10 +122,30 @@ function compareVersions(leftVersion, rightVersion) {
 /**
  * Fetch merged PRs between two tags (inclusive of toTag)
  */
+function isValidGitRef(ref) {
+  if (!ref || typeof ref !== "string") {
+    return false;
+  }
+  const trimmed = ref.trim();
+  // Reject dangerous patterns: whitespace, leading -, git rev-spec operators (^, ~, @, etc)
+  if (/[\s]|^-|[\^~@*?:]/.test(trimmed)) {
+    return false;
+  }
+  // Allow: SHAs, tags (v1.2.3), branch names (develop, main, release/*)
+  // Roughly matches git refspec constraints
+  return /^[a-zA-Z0-9_./:-]+$/.test(trimmed);
+}
+
 function getMergedPRs(fromTag, toTag = "HEAD") {
   console.log(
     `Fetching merged PRs from ${fromTag || "start"} to ${toTag || "HEAD"}...`,
   );
+
+  if (fromTag && !isValidGitRef(fromTag)) {
+    throw new Error(
+      `Invalid git ref for notes-from: "${fromTag}". Must be a commit SHA (7-40 hex), version tag, or ref path.`,
+    );
+  }
 
   let gitLog = "";
   if (fromTag) {
@@ -467,7 +431,6 @@ async function validateRelease(options = {}) {
         );
 
         // Check for unreleased changes
-        const unreleased = getUnreleasedChanges(changelogData);
         if (hasUnreleasedChanges(changelogData)) {
           console.log("   ✓ Unreleased changes found");
         } else {
@@ -549,17 +512,18 @@ function updateChangelog(newVersion, options = {}) {
   const content = fs.readFileSync(changelogPath, "utf8");
   const today = new Date().toISOString().split("T")[0];
 
+  // Replace [Unreleased] (with or without date) with new [Unreleased] section + released version
   const unreleasedTemplate = `## [Unreleased]
 
 ### Added
 
 ### Changed
 
-### Fixed
-
 ### Deprecated
 
 ### Removed
+
+### Fixed
 
 ### Security
 
@@ -567,39 +531,24 @@ function updateChangelog(newVersion, options = {}) {
 
 ### Performance
 
-`;
+## [${newVersion}] - ${today}`;
 
-  // Replace [Unreleased] - DD-MM-YYYY with [newVersion] - YYYY-MM-DD
-  let updatedContent = content.replace(
-    /^## \[Unreleased\] - (?:DD-MM-YYYY|YYYY-MM-DD|\d{4}-\d{2}-\d{2})$/m,
-    `## [${newVersion}] - ${today}`,
+  const updatedContent = content.replace(
+    /^## \[Unreleased\](?:\s*-\s*(?:DD-MM-YYYY|YYYY-MM-DD|\d{4}-\d{2}-\d{2}))?$/m,
+    unreleasedTemplate,
   );
-
-  // Inject new Unreleased section at the top (after any frontmatter)
-  const frontmatterMatch = updatedContent.match(/^---\n[\s\S]*?\n---\n/);
-  if (frontmatterMatch) {
-    const endOfFrontmatter = frontmatterMatch[0].length;
-    updatedContent =
-      updatedContent.slice(0, endOfFrontmatter) +
-      unreleasedTemplate +
-      updatedContent.slice(endOfFrontmatter);
-  } else {
-    updatedContent = unreleasedTemplate + updatedContent;
-  }
 
   if (dryRun) {
     console.log(
-      `[DRY-RUN] Would update CHANGELOG.md Unreleased section to [${newVersion}] - ${today}`,
+      `[DRY-RUN] Would update CHANGELOG.md: [Unreleased] → [Unreleased] + [${newVersion}] - ${today}`,
     );
-    console.log(
-      `[DRY-RUN] Would inject new [Unreleased] section for next cycle`,
-    );
-    return;
+    return updatedContent;
   }
 
   fs.writeFileSync(changelogPath, updatedContent, "utf8");
   console.log(`✓ CHANGELOG updated with version ${newVersion}`);
   console.log(`✓ New [Unreleased] section injected for next cycle`);
+  return updatedContent;
 }
 
 /**
@@ -679,6 +628,66 @@ function createRelease(version, options = {}) {
 }
 
 /**
+ * Validate changelog structure after release update
+ * Ensures the new [Unreleased] section conforms to schema
+ * @param {string} changelogPath - Path to CHANGELOG.md
+ * @param {string} nextVersion - Version that was just released
+ * @throws {Error} If validation fails
+ */
+function validatePostReleaseChangelog(
+  changelogPath = "CHANGELOG.md",
+  nextVersion,
+) {
+  console.log(`\n=== Validating Post-Release CHANGELOG ===`);
+
+  if (!nextVersion || typeof nextVersion !== "string") {
+    throw new Error(
+      `Invalid nextVersion parameter: "${nextVersion}" (expected semver string)`,
+    );
+  }
+
+  if (!fs.existsSync(changelogPath)) {
+    throw new Error(`CHANGELOG not found: ${changelogPath}`);
+  }
+
+  const content = fs.readFileSync(changelogPath, "utf8");
+
+  // Validate [Unreleased] section exists
+  if (!content.includes("## [Unreleased]")) {
+    throw new Error(
+      "New [Unreleased] section missing from CHANGELOG after update",
+    );
+  }
+
+  // Validate new version section exists
+  if (!content.includes(`## [${nextVersion}]`)) {
+    throw new Error(
+      `Release section [${nextVersion}] missing from CHANGELOG after update`,
+    );
+  }
+
+  // Validate schema via parseChangelog and validateChangelog
+  try {
+    const changelogData = parseChangelog(changelogPath);
+    const changelogResult = validateChangelog(changelogData);
+
+    if (!changelogResult.valid) {
+      throw new Error(
+        `CHANGELOG schema validation failed: ${changelogResult.errors.join(", ")}`,
+      );
+    }
+
+    console.log(`✓ [Unreleased] section is properly formatted`);
+    console.log(`✓ [${nextVersion}] section is properly formatted`);
+    console.log(`✓ CHANGELOG schema validation passed`);
+  } catch (error) {
+    throw new Error(
+      `Post-release CHANGELOG validation failed: ${error.message}`,
+    );
+  }
+}
+
+/**
  * Create release PR from release branch to main
  */
 function createReleasePR(version, branch, options = {}) {
@@ -694,11 +703,11 @@ function createReleasePR(version, branch, options = {}) {
     return;
   }
 
-  const prUrl = exec(
+  exec(
     `gh pr create --base main --head ${branch} --title "${title}" --body "${body}"`,
     dryRun,
   );
-  console.log(`✓ Release PR created: ${prUrl.trim()}`);
+  console.log("✓ Release PR created");
 }
 
 /**
@@ -729,190 +738,120 @@ async function run() {
     if (notesFrom) {
       console.log(`Release Notes Start: ${notesFrom}`);
     }
-    if (dryRun) {
-      console.log("🔬 DRY-RUN MODE: Will validate release in isolated sandbox");
-      console.log("   - Create temporary branch");
-      console.log("   - Write VERSION and CHANGELOG changes");
-      console.log("   - Validate schema and formatting");
-      console.log("   - Clean up (no side effects)\n");
-    }
+    // TODO (d): Clarify dry-run vs apply controls (additional flags or safeguards) so we can safely exercise the workflow end-to-end.
     console.log("");
 
-    // Create sandbox for dry-run validation
-    const currentVersion = fs.readFileSync("VERSION", "utf8").trim();
-    let sandbox = null;
-    let nextVersion = "";
+    // Step 1: Validate release readiness
+    const validation = await validateRelease({ dryRun });
 
-    // Determine next version early (needed for sandbox branch name)
-    try {
-      nextVersion = determineNextVersion(currentVersion, scope);
-      if (explicitVersion) {
-        const versionResult = validateVersion(explicitVersion);
-        if (!versionResult.valid) {
-          throw new Error(
-            `Invalid explicit version "${explicitVersion}": ${versionResult.error}`,
-          );
-        }
-        if (compareVersions(explicitVersion, currentVersion) <= 0) {
-          throw new Error(
-            `Explicit version ${explicitVersion} must be greater than current version ${currentVersion}`,
-          );
-        }
-
-        // Validate that explicit version aligns with scope
-        const expectedVersion = determineNextVersion(currentVersion, scope);
-        if (explicitVersion !== expectedVersion) {
-          const forceOverride =
-            process.env.RELEASE_FORCE_VERSION === "1" ||
-            process.env.RELEASE_FORCE_VERSION === "true";
-          if (!forceOverride) {
-            throw new Error(
-              `Version mismatch: explicit version ${explicitVersion} does not match scope ${scope} (expected ${expectedVersion}). ` +
-                `Set RELEASE_FORCE_VERSION=1 environment variable to force override.`,
-            );
-          }
-          console.warn(
-            `⚠️  Forced version override: expected ${expectedVersion} (scope: ${scope}) → using ${explicitVersion}`,
-          );
-        }
-
-        nextVersion = explicitVersion;
-      }
-    } catch (error) {
-      console.error(`❌ Version determination failed: ${error.message}`);
+    if (!validation.valid) {
+      console.error("\n❌ Release validation failed:");
+      validation.errors.forEach((err) => console.error(`  - ${err}`));
       process.exit(1);
     }
 
-    sandbox = createSandbox(dryRun, scope, nextVersion);
+    if (validation.warnings.length > 0) {
+      console.warn("\n⚠️  Warnings:");
+      validation.warnings.forEach((warn) => console.warn(`  - ${warn}`));
+    }
 
-    try {
-      // Step 1: Validate release readiness
-      const validation = await validateRelease({ dryRun });
+    console.log("\n✅ All validations passed");
 
-      if (!validation.valid) {
-        console.error("\n❌ Release validation failed:");
-        validation.errors.forEach((err) => console.error(`  - ${err}`));
-        process.exit(1);
-      }
-
-      if (validation.warnings.length > 0) {
-        console.warn("\n⚠️  Warnings:");
-        validation.warnings.forEach((warn) => console.warn(`  - ${warn}`));
-      }
-
-      console.log("\n✅ All validations passed");
-
-      const releaseBranch = `release/v${nextVersion}`;
-
-      console.log(`\nVersion bump: ${currentVersion} → ${nextVersion}`);
-      // TODO (b): Strengthen the version bump + validation steps to lock changelog sections, dependencies, and metadata before mutating files.
-
-      // Step 2b: Create release branch
-      if (!dryRun) {
-        exec(`git checkout -b ${releaseBranch}`);
-      } else {
-        console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
-      }
-
-      // Step 3: Bump version (in sandbox if dry-run)
-      if (sandbox) {
-        console.log(`\n[SANDBOX] Testing version bump in ${sandbox.branch}...`);
-        bumpVersion(nextVersion, { dryRun: false }); // Actually write to sandbox
-        // Validate VERSION file
-        try {
-          const versionContent = fs.readFileSync("VERSION", "utf8").trim();
-          console.log(`✓ VERSION file written: ${versionContent}`);
-        } catch (error) {
-          console.error(`✗ VERSION file write failed: ${error.message}`);
-          throw error;
-        }
-      } else {
-        bumpVersion(nextVersion, { dryRun });
-      }
-
-      // Step 4: Update changelog (in sandbox if dry-run)
-      if (sandbox) {
-        console.log(
-          `\n[SANDBOX] Testing changelog update in ${sandbox.branch}...`,
-        );
-        updateChangelog(nextVersion, { dryRun: false }); // Actually write to sandbox
-        // Validate CHANGELOG.md formatting
-        try {
-          const changelogContent = fs.readFileSync("CHANGELOG.md", "utf8");
-          if (changelogContent.includes("[Unreleased]")) {
-            console.log(`✓ CHANGELOG.md has [Unreleased] section`);
-          }
-          if (changelogContent.includes(`[${nextVersion}]`)) {
-            console.log(`✓ CHANGELOG.md has [${nextVersion}] section`);
-          }
-        } catch (error) {
-          console.error(`✗ CHANGELOG.md validation failed: ${error.message}`);
-          throw error;
-        }
-      } else {
-        updateChangelog(nextVersion, { dryRun });
-      }
-
-      // Step 5: Stage all changes and run Husky pre-commit hooks, then commit
-      if (!dryRun) {
-        exec("git add .");
-        exec("npx husky run pre-commit");
-        exec(`git commit -m "chore(release): bump version to ${nextVersion}"`);
-      } else if (sandbox) {
-        console.log(
-          `\n[SANDBOX] Testing git staging and linting in ${sandbox.branch}...`,
-        );
-        exec("git add .");
-        try {
-          exec("npx husky run pre-commit");
-          console.log(`✓ Pre-commit hooks passed`);
-        } catch (error) {
-          console.error(`✗ Pre-commit hooks failed: ${error.message}`);
-          throw error;
-        }
-        exec(`git commit -m "chore(release): bump version to ${nextVersion}"`);
-        console.log(`✓ Git commit successful`);
-      } else {
-        console.log(
-          `\n[DRY-RUN] Would stage all changes, run Husky pre-commit hooks, and commit with message: "chore(release): bump version to ${nextVersion}"`,
+    // Step 2: Determine next version
+    const currentVersion = fs.readFileSync("VERSION", "utf8").trim();
+    let nextVersion = determineNextVersion(currentVersion, scope);
+    if (explicitVersion) {
+      const versionResult = validateVersion(explicitVersion);
+      if (!versionResult.valid) {
+        throw new Error(
+          `Invalid explicit version "${explicitVersion}": ${versionResult.error}`,
         );
       }
-
-      // Step 6: Create tag
-      createTag(nextVersion, { dryRun });
-
-      // Step 7: Push changes
-      pushChanges({ dryRun, branch: releaseBranch });
-
-      // Step 7b: Open release PR (develop -> main via release branch)
-      createReleasePR(nextVersion, releaseBranch, { dryRun });
-
-      // Step 8: Create GitHub Release
-      createRelease(nextVersion, { dryRun, notesFrom });
-
-      console.log("\n");
-      console.log("╔════════════════════════════════════════╗");
-      console.log("║   ✅ Release completed successfully!   ║");
-      console.log("╚════════════════════════════════════════╝");
-      console.log(`\nVersion: ${nextVersion}`);
-      console.log(`Tag: v${nextVersion}`);
-
-      if (dryRun) {
-        console.log(
-          "\n⚠️  This was a DRY-RUN in sandbox. No permanent changes were made.",
+      if (compareVersions(explicitVersion, currentVersion) <= 0) {
+        throw new Error(
+          `Explicit version ${explicitVersion} must be greater than current version ${currentVersion}`,
         );
       }
-    } catch (error) {
-      console.error("\n❌ Release failed:", error.message);
-      if (error.stack) {
-        console.error(error.stack);
+      nextVersion = explicitVersion;
+    }
+    const releaseBranch = `release/v${nextVersion}`;
+
+    console.log(`\nVersion bump: ${currentVersion} → ${nextVersion}`);
+    // TODO (b): Strengthen the version bump + validation steps to lock changelog sections, dependencies, and metadata before mutating files.
+
+    // Step 2b: Create release branch
+    if (!dryRun) {
+      exec(`git checkout -b ${releaseBranch}`);
+    } else {
+      console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
+    }
+
+    // Step 3: Bump version
+    bumpVersion(nextVersion, { dryRun });
+
+    // Step 4: Update changelog
+    const updatedChangelogContent = updateChangelog(nextVersion, { dryRun });
+
+    // Step 4b: Validate post-release changelog (runs in both dry-run and live)
+    if (dryRun && updatedChangelogContent) {
+      try {
+        // In dry-run, write to temp file and validate
+        const tempPath = ".CHANGELOG.tmp";
+        fs.writeFileSync(tempPath, updatedChangelogContent, "utf8");
+        validatePostReleaseChangelog(tempPath, nextVersion);
+        fs.unlinkSync(tempPath);
+      } catch (error) {
+        console.error(
+          `❌ Post-release changelog validation failed: ${error.message}`,
+        );
+        throw error;
       }
-      process.exit(1);
-    } finally {
-      cleanupSandbox(dryRun, sandbox);
+    } else if (!dryRun) {
+      try {
+        validatePostReleaseChangelog("CHANGELOG.md", nextVersion);
+      } catch (error) {
+        console.error(
+          `❌ Post-release changelog validation failed: ${error.message}`,
+        );
+        throw error;
+      }
+    }
+
+    // Step 5: Stage all changes and run Husky pre-commit hooks, then commit
+    if (!dryRun) {
+      exec("git add VERSION CHANGELOG.md");
+      exec("npx husky run pre-commit");
+      exec(`git commit -m "chore(release): bump version to ${nextVersion}"`);
+    } else {
+      console.log(
+        `\n[DRY-RUN] Would stage VERSION and CHANGELOG.md, run Husky pre-commit hooks, and commit with message: "chore(release): bump version to ${nextVersion}"`,
+      );
+    }
+
+    // Step 6: Create tag
+    createTag(nextVersion, { dryRun });
+
+    // Step 7: Push changes
+    pushChanges({ dryRun, branch: releaseBranch });
+
+    // Step 7b: Open release PR (develop -> main via release branch)
+    createReleasePR(nextVersion, releaseBranch, { dryRun });
+
+    // Step 8: Create GitHub Release
+    createRelease(nextVersion, { dryRun, notesFrom });
+
+    console.log("\n");
+    console.log("╔════════════════════════════════════════╗");
+    console.log("║   ✅ Release completed successfully!   ║");
+    console.log("╚════════════════════════════════════════╝");
+    console.log(`\nVersion: ${nextVersion}`);
+    console.log(`Tag: v${nextVersion}`);
+
+    if (dryRun) {
+      console.log("\n⚠️  This was a DRY-RUN. No changes were made.");
     }
   } catch (error) {
-    console.error("\n❌ Fatal error:", error.message);
+    console.error("\n❌ Release failed:", error.message);
     if (error.stack) {
       console.error(error.stack);
     }
@@ -930,6 +869,7 @@ export {
   validateRelease,
   bumpVersion,
   updateChangelog,
+  validatePostReleaseChangelog,
   createTag,
   pushChanges,
   createRelease,
