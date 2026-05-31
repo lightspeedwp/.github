@@ -52,11 +52,14 @@ function generateEntriesFromCommits(since = "origin/develop..HEAD") {
     if (!/^[a-zA-Z0-9_./~^@:-]+$/.test(since)) {
       throw new Error(`Invalid git reference: ${since}`);
     }
-
-    const format = "%H%n%an%n%ae%n%s%n%b%n---END-COMMIT---%n";
-    const cmd = `git log --format="${format}" ${since}`;
-    const output = execSync(cmd, { encoding: "utf8", stdio: "pipe" });
-
+function generateEntriesFromCommits(since = 'origin/develop..HEAD') {
+	if (since && !/^[a-zA-Z0-9_./~^@:-]+$/.test(since)) {
+		throw new Error('Invalid git reference format');
+	}
+	try {
+		const format = '%H%n%an%n%ae%n%s%n%b%n---END-COMMIT---%n';
+		const cmd = 'git log --format="' + format + '" ' + since;
+		const output = execSync(cmd, { encoding: 'utf8', stdio: 'pipe' });
     const commits = [];
     const commitStrings = output
       .split("---END-COMMIT---\n")
