@@ -1,8 +1,6 @@
 ---
-title: Reviewer Agent Runbook
+file_type: documentation
 description: Operational guide for deploying, configuring, and troubleshooting the Reviewer Agent
-version: "1.0"
-last_updated: "2026-05-31"
 ---
 
 # Reviewer Agent Runbook
