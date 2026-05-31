@@ -20,25 +20,25 @@ issue_types:
   - name: Story
     color: 4393F8
     label: type:story
-  - name: Improvement
+  - name: Improve
     color: 9198A1
     label: type:improve
-  - name: Code Refactor
+  - name: Refactor
     color: 9198A1
     label: type:refactor
-  - name: Build & CI
+  - name: Build
     color: 4393F8
     label: type:build
   - name: Automation
     color: 4393F8
     label: type:automation
-  - name: Test Coverage
+  - name: Testing
     color: D29922
     label: type:test
   - name: Performance
     color: D29922
     label: type:performance
-  - name: A11y
+  - name: Accessibility
     color: DB61A2
     label: type:a11y
   - name: Security
@@ -68,7 +68,7 @@ issue_types:
   - name: Audit
     color: 9198A1
     label: type:audit
-  - name: Code Review
+  - name: Review
     color: 4393F8
     label: type:review
   - name: AI Ops
