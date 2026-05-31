@@ -1,8 +1,14 @@
 ---
+file_type: "documentation"
+title: "Wave 5 Audit #654 Findings"
+description: "Template Inventory and Standardization Audit findings"
 issue_number: 654
 audit_type: "Template Inventory & Standardization"
 completion_date: "2026-05-31"
 status: "complete"
+created_date: "2026-05-31"
+last_updated: "2026-05-31"
+category: "audit-findings"
 ---
 
 # Issue #654 Audit Findings: Template Inventory & Standardization
