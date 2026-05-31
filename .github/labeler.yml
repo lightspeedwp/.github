@@ -11,6 +11,8 @@
     - "^feat/.*"
     - "^fix/.*"
     - "^docs?/.*"
+    - "^ai/.*"
+    - "^automation/.*"
     - "^(chore|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry)/.*"
 
 # Type mapping (by branch)

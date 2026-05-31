@@ -94,17 +94,16 @@ The 150 canonical labels are organized into 7 primary families:
 **Levels** (in descending urgency):
 
 - `priority:critical` — Breaking issue, production down, release blocker
-- `priority:high` — Important feature or significant bug; impacts many users
-- `priority:medium` — Normal feature; moderate impact; scheduled work
-- `priority:normal` — Default; no special urgency
-- `priority:low` — Nice-to-have enhancement; can be deferred
+- `priority:important` — Important feature or significant bug; impacts many users
+- `priority:normal` — Default; no special urgency; normal feature, moderate impact
+- `priority:minor` — Nice-to-have enhancement; can be deferred; backlog items
 
 **Assignment Rules**:
 
 - Assign one priority label per issue (default: `priority:normal`)
 - `priority:critical` reserved for production incidents only
-- Use `priority:high` for planned quarterly work
-- Use `priority:low` for backlog items without committed timeline
+- Use `priority:important` for planned quarterly work
+- Use `priority:minor` for backlog items without committed timeline
 
 ### 2.3 Type Labels (25 Labels)
 
