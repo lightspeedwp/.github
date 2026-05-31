@@ -1,7 +1,9 @@
 ---
+file_type: "documentation"
+title: "Saved Replies Directory"
 description: "Organized saved replies for consistent GitHub interactions across LightSpeedWP"
 version: "v1.0"
-last_updated: "2025-10-24"
+last_updated: "2026-05-31"
 maintainer: "LightSpeed Engineering"
 tags: ["saved-replies", "communication", "automation", "community"]
 ---

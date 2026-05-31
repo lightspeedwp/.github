@@ -1,7 +1,9 @@
 ---
+file_type: "documentation"
 title: "Agent Slide Deck Prompts"
 description: "NotebookLM and design-ready prompts for creating agent-specific slide presentations"
-last_updated: "2026-05-28"
+version: "v1.0"
+last_updated: "2026-05-31"
 owners: ["Ash Shaw"]
 ---
 
@@ -111,4 +113,4 @@ Each prompt is designed to be:
 - **Skills & Hooks**: [skills/](../skills/) and [hooks/](../hooks/) - Agent capabilities and enforcement mechanisms
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

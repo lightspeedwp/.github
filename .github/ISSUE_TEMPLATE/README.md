@@ -66,6 +66,9 @@ flowchart TD
     style A fill:#e1f5fe
     style I fill:#f3e5f5
     style N fill:#e8f5e8
+---
+accTitle: Issue Template Workflow
+accDescr: Flowchart showing the complete issue template workflow from user creation through automation agents, with template selection branching to Bug, Feature, Documentation, or Custom templates, all leading to auto-populated fields, issue creation, and agent processing including labeling, type assignment, project board assignment, and notification routing
 ```
 
 ## 📁 Available Templates
@@ -107,9 +110,6 @@ These templates integrate with:
 *This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) for complete automation standards.*
 
 ---
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
