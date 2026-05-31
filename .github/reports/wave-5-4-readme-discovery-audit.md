@@ -4,9 +4,10 @@ description: "Comprehensive inventory of all README.md files and Mermaid diagram
 version: "1.0.0"
 created_date: "2026-05-31"
 last_updated: "2026-05-31"
-file_type: "audit-report"
+file_type: "documentation"
+mode: "information"
 maintainer: "Claude Code"
-authors:
+owners:
   - "Claude Code"
 license: "GPL-3.0"
 tags:
@@ -16,8 +17,8 @@ tags:
   - "mermaid"
   - "wave-5"
 domain: "governance"
-status: "complete"
-issue_link: "https://github.com/lightspeedwp/.github/issues/667"
+status: "active"
+stability: "stable"
 ---
 
 ## Executive Summary
@@ -279,4 +280,4 @@ The discovery phase is **complete**. All 52 README files have been inventoried, 
 
 **Audit Conducted By**: Claude Code  
 **Date**: 2026-05-31  
-**Related Issue**: [#667 — Discover All 44 README Files](https://github.com/lightspeedwp/.github/issues/667)
+**Related**: [#667 — Discover All 44 README Files](https://github.com/lightspeedwp/.github/issues/667)
