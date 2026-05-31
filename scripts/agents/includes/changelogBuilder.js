@@ -113,7 +113,8 @@ function insertEntries(changelogPath, entriesBySection) {
 
   if (unreleasedIndex === -1) {
     // Add Unreleased section at the beginning
-    const insertionPoint = lines.findIndex((line) => line.match(/^## \[/)) || 2;
+    const foundIndex = lines.findIndex((line) => line.match(/^## \[/));
+    const insertionPoint = foundIndex !== -1 ? foundIndex : 2;
     lines.splice(insertionPoint, 0, "## [Unreleased]\n");
     unreleasedIndex = insertionPoint;
   }

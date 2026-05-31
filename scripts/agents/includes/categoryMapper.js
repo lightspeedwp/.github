@@ -81,7 +81,8 @@ function mapLabelToSection(label) {
  */
 function determineSection(type, labels = []) {
   // Check labels first (higher priority)
-  for (const label of labels) {
+  const safeLabels = Array.isArray(labels) ? labels : [];
+  for (const label of safeLabels) {
     const section = mapLabelToSection(label);
     if (section) return section;
   }

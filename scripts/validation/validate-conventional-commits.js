@@ -59,6 +59,11 @@ function validateCommit(message) {
  */
 function getGitLog(since, limit = 50) {
   try {
+    // Validate git reference to prevent command injection
+    if (since && !/^[a-zA-Z0-9_./~^@:-]+$/.test(since)) {
+      throw new Error(`Invalid git reference: ${since}`);
+    }
+
     const format = "%H%n%an%n%ae%n%s%n%b%n---END-COMMIT---%n";
     let cmd = `git log --format="${format}" -n ${limit}`;
 

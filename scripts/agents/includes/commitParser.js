@@ -23,7 +23,7 @@ function parseConventionalCommit(message) {
   const headerLine = lines[0];
 
   // Parse header: type(scope)!?: description (! indicates breaking change)
-  const headerRegex = /^(\w+)(?:\(([^)]*)\))?!?\s*:\s*(.+)$/;
+  const headerRegex = /^(\w+)(?:\(([^)]*)\))?(!)?\s*:\s*(.+)$/;
   const headerMatch = headerRegex.exec(headerLine);
 
   if (!headerMatch) {
@@ -40,13 +40,14 @@ function parseConventionalCommit(message) {
 
   const type = headerMatch[1];
   const scope = headerMatch[2] || null;
-  const description = headerMatch[3];
+  const hasBreakingBang = !!headerMatch[3];
+  const description = headerMatch[4];
 
   // Separate body and footers
   let body = "";
   const footers = {};
   // Check if breaking change is indicated in header with !
-  let isBreaking = headerLine.includes("!:");
+  let isBreaking = hasBreakingBang;
 
   // Find blank line separating header from body
   let bodyStartIndex = 1;
