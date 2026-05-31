@@ -51,13 +51,13 @@ See child issues for detailed audits of:
 - `docs/LABEL_STRATEGY.md`
 - `docs/ISSUE_LABELS.md`
 - `docs/ISSUE_TYPES.md`
-- `docs/ISSUE_FIELDS.md`
+- `docs/ISSUE-FIELDS.md`
 
 ## Related Documentation
 
 - [Label Strategy](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md)
 - [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_LABELS.md)
 - [Issue Types Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_TYPES.md)
-- [Issue Fields Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_FIELDS.md)
+- [Issue Fields Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE-FIELDS.md)
 - [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md)
 - [Canonical Labels File](https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml)
