@@ -1,9 +1,16 @@
 ---
-title: "Wave 5.3 Child #662 - Audit Report: Issue Creation Documentation Consolidation"
+file_type: "documentation"
+title: "Issue Creation Documentation Consolidation Audit"
+description: "Complete audit of issue creation documentation identifying consolidation opportunities and duplicated content"
+version: "v1.0"
 created_date: "2026-05-31"
-report_date: "2026-05-31"
-audit_type: "documentation-consolidation"
+last_updated: "2026-05-31"
+author: "Claude Code"
+maintainer: "LightSpeedWP Team"
+tags: ["documentation", "audit", "consolidation", "wave-5"]
 status: "complete"
+stability: "stable"
+domain: "governance"
 ---
 
 # Issue Creation Documentation Audit Report
