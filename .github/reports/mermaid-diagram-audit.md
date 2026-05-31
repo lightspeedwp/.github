@@ -4,7 +4,7 @@ description: Complete inventory and validation results of all 24 Mermaid diagram
 version: 1.0.0
 created_date: "2026-05-31"
 last_updated: "2026-05-31"
-file_type: audit
+file_type: documentation
 maintainer: Claude Code
 owners:
   - Claude Code
