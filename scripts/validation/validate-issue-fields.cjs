@@ -6,7 +6,7 @@ const yaml = require('js-yaml');
 
 const ROOT = process.cwd();
 const CONFIG_PATH = path.join(ROOT, '.github/issue-fields.yml');
-const DOC_PATH = path.join(ROOT, 'docs/ISSUE-FIELDS.md');
+const DOC_PATH = path.join(ROOT, 'docs/ISSUE_FIELDS.md');
 
 function fail(msg) {
   console.error(`❌ ${msg}`);
@@ -208,7 +208,7 @@ function main() {
 
   for (const needle of docMustContain) {
     if (!docRaw.includes(needle)) {
-      fail(`docs/ISSUE-FIELDS.md missing required reference: ${needle}`);
+      fail(`docs/ISSUE_FIELDS.md missing required reference: ${needle}`);
     }
   }
 
@@ -236,13 +236,13 @@ function main() {
   const missingLabelMentions = canonicalDocAnchors.filter((label) => !docRaw.includes(label));
   if (missingLabelMentions.length > 0) {
     fail(
-      `docs/ISSUE-FIELDS.md is missing canonical label references (${missingLabelMentions.length}): ${missingLabelMentions.slice(0, 12).join(', ')}${missingLabelMentions.length > 12 ? ', ...' : ''}`,
+      `docs/ISSUE_FIELDS.md is missing canonical label references (${missingLabelMentions.length}): ${missingLabelMentions.slice(0, 12).join(', ')}${missingLabelMentions.length > 12 ? ', ...' : ''}`,
     );
   }
 
   if (!process.exitCode) {
     ok('Issue-fields config YAML parsed and required structure is valid');
-    ok('docs/ISSUE-FIELDS.md references canonical mappings and profile keys');
+    ok('docs/ISSUE_FIELDS.md references canonical mappings and profile keys');
   }
 }
 
