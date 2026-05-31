@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Planner & Reviewer Agents: Code Review Fixes** — Fixed six critical issues from CodeRabbit review: dryRun option precedence, CLI entry point execution, null-safe comment body checks, extended dependency file detection (package.json, composer.json), improved rollback migration detection (.down.sql), and prevented crashes from null comment bodies ([#603](https://github.com/lightspeedwp/.github/issues/603), [#604](https://github.com/lightspeedwp/.github/issues/604), [#605](https://github.com/lightspeedwp/.github/issues/605), [#606](https://github.com/lightspeedwp/.github/issues/606), [#607](https://github.com/lightspeedwp/.github/issues/607))
+- **Reviewer Agent: File Pagination** — Implemented proper pagination using `octokit.paginate()` for PR file analysis to ensure all files are analyzed even when a PR has >100 changed files; prevents missing high-risk files on subsequent pages
 - **Release Agent: Branch Push Upstream Tracking** — Fixed release agent to use `git push -u origin` when pushing release branches, ensuring proper upstream tracking for subsequent PR creation ([#585](https://github.com/lightspeedwp/.github/issues/585))
 - **Release Agent: [Unreleased] Section Recreation** — Fixed release agent to inject new `[Unreleased]` section after rolling version, ensuring changelog is ready for next contribution cycle ([#586](https://github.com/lightspeedwp/.github/issues/586))
 - **Release Agent: Sandboxed Dry-Run Mode** — Implemented proper dry-run mode that creates temporary git branch, validates file changes, runs linting, and tests git operations before cleanup—enabling safe end-to-end release testing ([#587](https://github.com/lightspeedwp/.github/issues/587))
@@ -27,6 +29,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **WCEU 2026 Branch Name References** — Updated references in `FINAL_REVIEW_CHECKLIST.md` and `PHASE1_COMPLETION_REPORT.md` from old branch name `claude/charming-goldberg-Pqc69` to correct branch `claude/affectionate-bohr-AX2jS`
 
 ### Added
+
+- **Workflow Standards Comprehensive Audit & Improvement Plan** — Completed systematic audit of linting, meta, branding, and CI/CD workflows with detailed improvement roadmap:
+  - `.github/reports/audits/workflow-standards-audit-2026-05-31.md` — Full audit identifying 6 priority improvements with effort estimates (23 hours total, 5–8 day timeline)
+  - Identified critical gap: no changelog auto-sync on PR merge to develop
+  - High priorities: automated project archival, planner agent implementation, workflow consolidation
+  - Created 6 GitHub issues (#618–#623) tracking each improvement with acceptance criteria
+  - Success criteria defined for changelog, projects, CI/CD, and documentation ([#618](https://github.com/lightspeedwp/.github/issues/618), [#619](https://github.com/lightspeedwp/.github/issues/619), [#620](https://github.com/lightspeedwp/.github/issues/620), [#621](https://github.com/lightspeedwp/.github/issues/621), [#622](https://github.com/lightspeedwp/.github/issues/622), [#623](https://github.com/lightspeedwp/.github/issues/623))
+
+- **Changelog Auto-Sync Workflow** — Implemented `.github/workflows/changelog-auto-update.yml` to automatically synchronise changelog entries when PRs merge to develop:
+  - Triggers on PR merge with CHANGELOG.md changes
+  - Extracts entries from merged PR using `extract-pr-entries.cjs`
+  - Merges entries into main CHANGELOG.md [Unreleased] section
+  - Deduplicates entries to prevent duplicates
+  - Validates schema before committing changes
+  - Uses `[skip ci]` flag to prevent workflow loops ([#618](https://github.com/lightspeedwp/.github/issues/618))
+
+- **Automated Project Archival Workflow** — Implemented `.github/workflows/project-archival.yml` to detect and archive completed projects:
+  - Triggers on-demand (workflow_dispatch) or weekly (Sunday 02:00 UTC)
+  - Scans active projects for completion markers (status: completed)
+  - Moves completed projects to `.github/projects/archived/{YYYY-MM-DD}-{name}/`
+  - Creates archival summary with metrics and completion date
+  - Dry-run mode for safe preview before archiving
+  - Generates audit trail and report for archival actions ([#619](https://github.com/lightspeedwp/.github/issues/619))
+
+- **Planner Agent Implementation** — Enhanced and enabled `scripts/agents/planner.agent.js` with project detection logic:
+  - Detects active projects from `.github/projects/active/` directory
+  - Supports dry-run mode (default) for safe analysis
+  - Ready for GitHub API integration to auto-assign issues to projects
+  - Logs proposed project assignments with reasoning
+  - Enabled planner workflow in `.github/workflows/planner.yml` (removed if: false condition) ([#620](https://github.com/lightspeedwp/.github/issues/620))
+
+- **Standardised Project Planning Template** — Created `.github/projects/PLANNING_TEMPLATE.md` to structure issue planning before creation:
+  - Comprehensive template with 9 sections: overview, scope, timeline, architecture, risks, testing, documentation, references, sign-off
+  - Includes planning checklist before creating related GitHub issues
+  - Standardises documentation of goals, success criteria, milestones, and dependencies
+  - Helps ensure planning decisions are captured and shared with team ([#621](https://github.com/lightspeedwp/.github/issues/621))
+
+- **Unified Checks Workflow** — Created `.github/workflows/checks.yml` to consolidate pre-merge validation:
+  - Consolidates linting, testing, and validation into single workflow
+  - Uses concurrency groups to prevent redundant runs
+  - Clear trigger: pull_request and push (develop branch)
+  - Composite status job ensures all checks pass before merge
+  - Separate meta.yml workflow maintains different cadence (post-push)
+  - Recommended replacement for scattered linting.yml and testing.yml ([#622](https://github.com/lightspeedwp/.github/issues/622))
+
+- **Weekly Metrics Summary Workflow** — Implemented `.github/workflows/metrics-summary.yml` for scheduled reporting:
+  - Triggers weekly (Monday 09:00 UTC) or on-demand via workflow_dispatch
+  - Aggregates metrics from meta.json, git activity, and changelogs
+  - Generates human-readable markdown summary report
+  - Archives weekly reports in `.github/reports/metrics/weekly/`
+  - Posts report to GitHub discussions (configurable)
+  - Provides visibility into repository health, activity, and automation effectiveness ([#623](https://github.com/lightspeedwp/.github/issues/623))
 
 - **WCEU 2026 Comprehensive Audit and Execution Plan** — Completed systematic audit and documentation update for May 30–31 Phase 2–3 execution:
   - `wceu-2026/FILE_UPDATE_AUDIT.md` — Comprehensive audit of 17 primary + 8 supporting files with critical issue identification and update recommendations
