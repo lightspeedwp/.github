@@ -34,14 +34,26 @@ import { pathToFileURL } from "url";
 async function run(context = github.context, options = {}) {
   try {
     const token = core.getInput("github-token") || process.env.GITHUB_TOKEN;
-    if (!token) throw new Error("Missing token");
+    if (!token) {
+      throw new Error(
+        "Missing GITHUB_TOKEN: provide via 'github-token' input or GITHUB_TOKEN env var",
+      );
+    }
+
     const requireChangelog =
       (core.getInput("require-changelog") || "false") === "true";
     const dryRun =
       options.dryRun ||
       process.argv.includes("--dry-run") ||
       process.env.DRY_RUN === "true";
-    const octokit = github.getOctokit(token);
+
+    let octokit;
+    try {
+      octokit = github.getOctokit(token);
+    } catch (error) {
+      throw new Error(`Failed to initialize GitHub client: ${error.message}`);
+    }
+
     const pr = context.payload.pull_request;
     if (!pr) {
       core.info("No PR in context; exiting.");
@@ -56,15 +68,26 @@ async function run(context = github.context, options = {}) {
         ref: pr.head.sha,
       });
       state = data.state;
-    } catch (e) {
-      core.info("Could not fetch CI status.");
+    } catch (error) {
+      core.warning(
+        `Could not fetch CI status for ref ${pr.head.sha}: ${error.message}`,
+      );
     }
-    const { data: files } = await octokit.rest.pulls.listFiles({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      pull_number: pr.number,
-      per_page: 100,
-    });
+
+    let files;
+    try {
+      const response = await octokit.rest.pulls.listFiles({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        pull_number: pr.number,
+        per_page: 100,
+      });
+      files = response.data;
+    } catch (error) {
+      throw new Error(
+        `Failed to fetch files for PR #${pr.number}: ${error.message}`,
+      );
+    }
     const changed = files.map((f) => f.filename);
 
     const srcTouched = changed.some(
@@ -90,16 +113,24 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
     if (dryRun) {
       core.info(`DRY-RUN: Would post comment:\n${summary}`);
     } else {
-      await octokit.rest.issues.createComment({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: pr.number,
-        body: summary,
-      });
-      core.info("Reviewer comment posted.");
+      try {
+        await octokit.rest.issues.createComment({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: pr.number,
+          body: summary,
+        });
+        core.info("Reviewer comment posted.");
+      } catch (error) {
+        throw new Error(
+          `Failed to post comment on PR #${pr.number}: ${error.message}`,
+        );
+      }
     }
-  } catch (e) {
-    core.setFailed(e.message);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    core.setFailed(message);
+    process.exit(1);
   }
 }
 

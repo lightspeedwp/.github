@@ -21,18 +21,31 @@ function log(message) {
 
 async function runPlanner(options = {}) {
   const { dryRun = true } = options;
-  const eventName = process.env.GITHUB_EVENT_NAME || "local";
-  const repoRoot = path.resolve(__dirname, "..", "..");
 
-  log(`Starting planner agent (${dryRun ? "dry-run" : "apply"})`);
-  log(`Context: event=${eventName}, repoRoot=${repoRoot}`);
+  try {
+    const token = process.env.GITHUB_TOKEN;
+    if (!token && !dryRun) {
+      throw new Error(
+        "Missing GITHUB_TOKEN environment variable (required for write operations)",
+      );
+    }
 
-  if (!dryRun) {
-    // TODO: Implement planner automation (context analysis, sequencing, scheduling) before leaving dry-run.
-    log("No write actions implemented yet; exiting without changes.");
+    const eventName = process.env.GITHUB_EVENT_NAME || "local";
+    const repoRoot = path.resolve(__dirname, "..", "..");
+
+    log(`Starting planner agent (${dryRun ? "dry-run" : "apply"})`);
+    log(`Context: event=${eventName}, repoRoot=${repoRoot}`);
+
+    if (!dryRun) {
+      // TODO: Implement planner automation (context analysis, sequencing, scheduling) before leaving dry-run.
+      log("No write actions implemented yet; exiting without changes.");
+    }
+
+    log("Planner agent finished without errors.");
+  } catch (error) {
+    console.error(`[planner] fatal error: ${error.message}`);
+    process.exit(1);
   }
-
-  log("Planner agent finished without errors.");
 }
 
 export { runPlanner };
