@@ -22,8 +22,8 @@ function parseConventionalCommit(message) {
   const lines = message.split("\n");
   const headerLine = lines[0];
 
-  // Parse header: type(scope): description
-  const headerRegex = /^(\w+)(?:\(([^)]*)\))?\s*:\s*(.+)$/;
+  // Parse header: type(scope)!?: description (! indicates breaking change)
+  const headerRegex = /^(\w+)(?:\(([^)]*)\))?!?\s*:\s*(.+)$/;
   const headerMatch = headerRegex.exec(headerLine);
 
   if (!headerMatch) {
@@ -45,7 +45,8 @@ function parseConventionalCommit(message) {
   // Separate body and footers
   let body = "";
   const footers = {};
-  let isBreaking = false;
+  // Check if breaking change is indicated in header with !
+  let isBreaking = headerLine.includes("!:");
 
   // Find blank line separating header from body
   let bodyStartIndex = 1;
@@ -54,27 +55,38 @@ function parseConventionalCommit(message) {
   }
 
   if (bodyStartIndex < lines.length) {
-    // Find blank line separating body from footers
-    let footerStartIndex = bodyStartIndex;
-    while (
-      footerStartIndex < lines.length &&
-      lines[footerStartIndex].trim() !== ""
-    ) {
-      footerStartIndex++;
-    }
+    // Look for footer patterns: "Token: value" or "Closes #123" style
+    const footerRegex = /^([A-Z][a-zA-Z0-9\-]*(?:\s+[A-Z][a-zA-Z0-9\-]*)*)(?::\s*|[\s#]+)([\w\s\-#.@:,]*?)$/;
+    let firstFooterIndex = lines.length;
 
-    body = lines.slice(bodyStartIndex, footerStartIndex).join("\n").trim();
-
-    // Parse footers
-    for (let i = footerStartIndex + 1; i < lines.length; i++) {
+    for (let i = bodyStartIndex; i < lines.length; i++) {
       const line = lines[i].trim();
       if (!line) continue;
 
-      const footerRegex = /^([^\s:]+)(?:\s+#)?:\s*(.+)$/;
-      const footerMatch = footerRegex.exec(line);
+      // Check for either "Token: value" or "Token #number" format
+      if (
+        /^([^:]+):\s*(.+)$/.test(line) || // "Token: value"
+        /^(Closes|Fixes|Fixes|Resolves|Refs|Related-To|See-Also|Acked-By|Reviewed-By|Tested-By|Signed-Off-By)\s+/.test(
+          line
+        ) // "Token #123" style
+      ) {
+        firstFooterIndex = i;
+        break;
+      }
+    }
 
+    // Extract body (everything before first footer)
+    body = lines.slice(bodyStartIndex, firstFooterIndex).join("\n").trim();
+
+    // Parse footers (from first footer onwards, skipping blank lines)
+    for (let i = firstFooterIndex; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+
+      // Try "Token: value" format first
+      let footerMatch = /^([^:]+):\s*(.+)$/.exec(line);
       if (footerMatch) {
-        const token = footerMatch[1];
+        const token = footerMatch[1].trim();
         const value = footerMatch[2];
         footers[token] = value;
 
@@ -83,11 +95,6 @@ function parseConventionalCommit(message) {
         }
       }
     }
-  }
-
-  // Check for breaking change indicator in description
-  if (description.includes("!:") || headerLine.includes("!:")) {
-    isBreaking = true;
   }
 
   // Validate type is conventional commit type
