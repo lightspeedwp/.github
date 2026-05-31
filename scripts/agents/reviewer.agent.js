@@ -33,7 +33,9 @@ function categorizeFile(filename) {
     return { category: "Configuration", riskLevel: "HIGH" };
   }
   if (
-    /package[.-]?lock|composer\.lock|yarn\.lock|requirements\.txt/.test(lower)
+    /package\.(json|[-.]?lock)|composer\.(json|lock)|yarn\.lock|pnpm-lock\.yaml|requirements\.txt/.test(
+      lower,
+    )
   ) {
     return { category: "Dependencies", riskLevel: "HIGH" };
   }
@@ -72,7 +74,9 @@ function hasMigrationWithoutRollback(files) {
   if (!hasMigration) return false;
 
   const hasRollbackDoc = files.some((f) =>
-    /rollback|revert|downgrade/.test(f.filename.toLowerCase()),
+    /rollback|revert|downgrade|(?:\b|[._-])down(?:\b|[._-])/.test(
+      f.filename.toLowerCase(),
+    ),
   );
   return !hasRollbackDoc;
 }
@@ -210,7 +214,7 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
         });
 
         const existingComment = prComments.data.find((c) =>
-          c.body.includes("<!-- reviewer-agent-summary -->"),
+          c.body?.includes("<!-- reviewer-agent-summary -->"),
         );
 
         if (existingComment) {

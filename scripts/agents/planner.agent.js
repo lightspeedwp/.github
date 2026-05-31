@@ -199,9 +199,9 @@ async function run(context = github.context, options = {}) {
     }
 
     const dryRun =
-      options.dryRun ||
-      process.argv.includes("--dry-run") ||
-      process.env.DRY_RUN === "true";
+      options.dryRun !== undefined
+        ? options.dryRun
+        : process.argv.includes("--dry-run") || process.env.DRY_RUN === "true";
 
     let octokit;
     try {
@@ -230,7 +230,7 @@ async function run(context = github.context, options = {}) {
         });
 
         const existingComment = prComments.data.find((c) =>
-          c.body.includes("<!-- planner-agent-summary -->"),
+          c.body?.includes("<!-- planner-agent-summary -->"),
         );
 
         if (existingComment) {
@@ -298,7 +298,7 @@ if (
   import.meta.url === pathToFileURL(process.argv[1]).href
 ) {
   const dryRun = !process.argv.includes("--apply");
-  runPlanner({ dryRun }).catch((error) => {
+  run(github.context, { dryRun }).catch((error) => {
     console.error("[planner] fatal error", error);
     process.exit(1);
   });
