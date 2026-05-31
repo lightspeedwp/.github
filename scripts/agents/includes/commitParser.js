@@ -55,9 +55,6 @@ function parseConventionalCommit(message) {
   }
 
   if (bodyStartIndex < lines.length) {
-    // Look for footer patterns: "Token: value" or "Closes #123" style
-    const footerRegex =
-      /^([A-Z][a-zA-Z0-9-]*(?:\s+[A-Z][a-zA-Z0-9-]*)*)(?::\s*|[\s#]+)([\w\s-#.@:,]*?)$/;
     let firstFooterIndex = lines.length;
 
     for (let i = bodyStartIndex; i < lines.length; i++) {
