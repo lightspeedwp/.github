@@ -1,3 +1,13 @@
+---
+file_type: "documentation"
+title: "Markdown Content Validator"
+description: "Validates markdown-oriented content files for structure, YAML frontmatter, version fields, and formatting quality"
+version: "1.0"
+last_updated: "2026-05-31"
+maintainer: "LightSpeed Engineering"
+tags: ["markdown", "validation", "yaml", "frontmatter", "tools"]
+---
+
 # Markdown Content Validator
 
 <!-- BADGES-START -->
