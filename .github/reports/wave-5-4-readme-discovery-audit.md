@@ -109,7 +109,7 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 | Schemas (top-level) | `schema/README.md` | ✅ No diagrams |
 | Prompts (.github) | `.github/prompts/README.md` | ✅ No diagrams |
 
-### Scripts & Validation (4 files)
+### Scripts & Validation (5 files)
 
 | File | Path | Status |
 | --- | --- | --- |
@@ -138,7 +138,7 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 | Portable AI Plugin | `.github/projects/archived/portable-ai-plugin-restructure/issues/README.md` | ✅ No diagrams |
 | Workflow Consolidation | `.github/projects/completed/github-workflow-consolidation-2026-05-28/README.md` | ✅ No diagrams |
 
-### Special Folders (3 files)
+### Special Folders (4 files)
 
 | File | Path | Status |
 | --- | --- | --- |
@@ -147,7 +147,7 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 | WCEU 2026 | `wceu-2026/README.md` | ✅ No diagrams |
 | WCEU 2026 Agent Slides | `wceu-2026/agent-slides/README.md` | ✅ No diagrams |
 
-### Instructions & Archive (2 files)
+### Instructions & Archive (1 file)
 
 | File | Path | Status |
 | --- | --- | --- |
@@ -175,9 +175,9 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 
 ### By Status
 
-- 🔴 **HIGH PRIORITY** (Root/critical path): 4 files with 12 diagrams
-- 🟡 **MEDIUM PRIORITY** (Feature folders): 4 files with 10 diagrams
-- 🟢 **LOW PRIORITY** (Archive/test): 0 files with 2 diagrams
+- 🔴 **HIGH PRIORITY** (Root/critical path): 1 file with 7 diagrams
+- 🟡 **MEDIUM PRIORITY** (Feature folders): 4 files with 14 diagrams
+- 🟢 **LOW PRIORITY** (Archive/test): 3 files with 3 diagrams
 - ✅ **NO ACTION NEEDED** (No diagrams): 44 files
 
 ---
@@ -255,9 +255,9 @@ This audit discovered **52 README.md files** across the LightSpeed `.github` rep
 | README files with Mermaid | 8 | ✅ Identified |
 | Total Mermaid diagrams | 24 | ✅ Counted |
 | Diagram distribution | 8 files | ✅ Catalogued |
-| High-priority files | 4 | ✅ Flagged |
+| High-priority files | 1 | ✅ Flagged |
 | Medium-priority files | 4 | ✅ Flagged |
-| Low-priority files | 0 | ✅ Catalogued |
+| Low-priority files | 3 | ✅ Catalogued |
 
 ---
 
