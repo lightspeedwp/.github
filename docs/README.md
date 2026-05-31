@@ -57,7 +57,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 
 ### 🔄 Workflows & Processes
 
-- **[WORKFLOWS.md](./WORKFLOWS.md)** — GitHub Actions workflows documentation
+- **[AUTOMATION.md](./AUTOMATION.md)** — GitHub Actions workflows and automation documentation
 - **[PR_CREATION_PROCESS.md](./PR_CREATION_PROCESS.md)** — Pull request workflow
 - **[ISSUE_CREATION_GUIDE.md](./ISSUE_CREATION_GUIDE.md)** — Issue creation standards
 - **[RELEASE_PROCESS.md](./RELEASE_PROCESS.md)** — Release procedures
@@ -92,7 +92,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 
 ### 📋 Governance & Decisions
 
-- **[AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md)** — Automation policies
+- **[AUTOMATION.md](./AUTOMATION.md)** — Automation and governance policies
 - **[GOVERNANCE_REVISION_LOG.md](./GOVERNANCE_REVISION_LOG.md)** — Governance change history
 - **[DECISIONS.md](./DECISIONS.md)** — Architecture Decision Records (ADRs)
 - **[DISCUSSIONS.md](./DISCUSSIONS.md)** — Discussion category guidelines
@@ -119,7 +119,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 | **Developer** | [CONTRIBUTING.md](../CONTRIBUTING.md), [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md), [TESTING.md](./TESTING.md), [LINTING.md](./LINTING.md) |
 | **Reviewer** | [PR_CREATION_PROCESS.md](./PR_CREATION_PROCESS.md), [LABELING.md](./LABELING.md), [ISSUE_TYPES.md](./ISSUE_TYPES.md) |
 | **Maintainer** | [AUTOMATION.md](./AUTOMATION.md), [RELEASE_PROCESS.md](./RELEASE_PROCESS.md), [LABELING.md](./LABELING.md) |
-| **Automation/DevOps** | [WORKFLOWS.md](./WORKFLOWS.md), [AGENT_CREATION.md](./AGENT_CREATION.md), [CONFIGS.md](./CONFIGS.md) |
+| **Automation/DevOps** | [AUTOMATION.md](./AUTOMATION.md), [AGENT_CREATION.md](./AGENT_CREATION.md), [CONFIGS.md](./CONFIGS.md) |
 | **Organisation Lead** | [ROADMAP.md](./ROADMAP.md), [GOVERNANCE_REVISION_LOG.md](./GOVERNANCE_REVISION_LOG.md), [DECISIONS.md](./DECISIONS.md) |
 
 ### By Task

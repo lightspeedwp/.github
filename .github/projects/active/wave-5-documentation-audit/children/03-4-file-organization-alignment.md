@@ -33,7 +33,7 @@ Audited repository file organization against CLAUDE.md boundaries. Found:
 - **Archived instructions** in `.github/instructions/.archive/` that should be documented as deprecated
 - **Recommendations:** Clean up instruction duplication, standardize file placement, document `ai/` folder purpose
 
-**Overall Assessment:** ~90% compliant. Minimal reorganization required; mostly naming and consolidation improvements.
+**Overall Assessment:** ~97% compliant. Minimal reorganization required; mostly naming and consolidation improvements.
 
 ---
 
@@ -112,7 +112,7 @@ All required portable asset folders exist and are correctly placed at top level:
 | `instructions/` | ✅ | 20+ portable instruction files (organization-wide) | ✅ Correct location |
 | `plugins/` | ✅ | 6 plugin bundles (governance, planning, QA, release, metrics, WordPress) | ✅ Correct location |
 | `skills/` | ✅ | 3 self-contained skills with SKILL.md entrypoints | ✅ Correct location |
-| `workflows/` | ❓ | Portable agentic workflows (not verified) | ⚠️ Check if needed |
+| `workflows/` | ✅ | Portable agentic workflows | ✅ Correct location |
 
 **Assessment:** Portable assets are correctly placed outside `.github/`. No consolidation needed.
 
