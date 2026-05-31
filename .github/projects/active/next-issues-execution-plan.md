@@ -597,7 +597,7 @@ Archival checklist per file:
 
 **Objective**: Systematically audit all documentation, templates, and canonical configurations to identify gaps in the issue automation system and consolidate duplicated documentation.
 
-**Status**: Proposed — audit prompt created, ready for GitHub issue creation
+**Status**: 🟡 ACTIVE — 25+ child audit issues created (#649–#673); currently executing audit phases with findings consolidated at `wave-5-documentation-audit/findings/654-template-inventory-findings.md`
 
 **Scope**:
 
