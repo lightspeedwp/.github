@@ -50,31 +50,19 @@ The following files have been consolidated into [`docs/AUTOMATION.md`](../docs/A
 
 The following files were moved to correct nested path issues:
 
-| Previous Path | New Path | Issue |
+| Previous Path | New Path | Change Reason |
 | --- | --- | --- |
-| `.github/.github/docs/workflow-coordination.md` | `.github/docs/workflow-coordination.md` | Nested `.github` directory removed |
+| `.github/.github/docs/workflow-coordination.md` | `docs/WORKFLOW_COORDINATION.md` | Nested `.github` directory removed; renamed to uppercase per `docs/` naming convention |
 
 ---
 
 ## Migration Guide
 
-### If You Have Links to Deprecated Files
+See [`docs/MIGRATION.md`](../docs/MIGRATION.md) for the complete migration guide, including:
 
-Update references as follows:
-
-- Any link to `docs/LABEL_STRATEGY.md` → change to `docs/LABELING.md`
-- Any link to `docs/ISSUE_LABELS.md` → change to `docs/LABELING.md`
-- Any link to `docs/PR_LABELS.md` → change to `docs/LABELING.md`
-- Any link to `docs/AUTOMATION_GOVERNANCE.md` → change to `docs/AUTOMATION.md`
-- Any link to `docs/WORKFLOWS.md` → change to `docs/AUTOMATION.md`
-
-### For Portable Instructions
-
-If you're building reusable agents or instructions:
-
-- Refer to `instructions/labeling.instructions.md` (portable, cross-repo)
-- Refer to `instructions/automation.instructions.md` (portable, cross-repo)
-- These files contain the same high-level patterns in a reusable format
+- Links and references to update
+- Migration steps by documentation type
+- Rationale for consolidation
 
 ---
 

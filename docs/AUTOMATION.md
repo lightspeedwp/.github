@@ -241,7 +241,7 @@ All configuration files are validated:
 - [Labeler Rules](../.github/labeler.yml)
 - [Issue Types Config](../.github/issue-types.yml)
 - [Portable Automation Instructions](../instructions/automation.instructions.md)
-- [Workflow Specifications](./.github/workflows/)
-- [Agent Specifications](./.github/agents/)
+- [Workflow Specifications](../.github/workflows/)
+- [Agent Specifications](../.github/agents/)
 
 ---
