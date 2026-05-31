@@ -16,9 +16,6 @@ status: active
 stability: stable
 domain: governance
 language: en
-- ai
-domain: governance
-stability: stable
 ---
 
 # 🏠 LightSpeed Community Health & Automation Repository
