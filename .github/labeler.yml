@@ -40,6 +40,10 @@
   head-branch: ["^question/.*"]
 "type:support":
   head-branch: ["^support/.*"]
+"type:ai-ops":
+  head-branch: ["^ai/.*"]
+"type:automation":
+  head-branch: ["^automation/.*"]
 
 # Priority mapping (by branch)
 "priority:critical":

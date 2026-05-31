@@ -162,13 +162,13 @@ organization_issue_fields:
     - Bug
     - Feature
     - Task
-    - Epic
-    - Maintenance
-    - Chore
-    - Research
-    - Support
-    - Documentation
     - Release
+    - Design
+    - Chore
+    - Automation
+    - Integration
+    - Research
+    - Documentation
   pinned_per_issue_type:
     - Priority
     - Effort

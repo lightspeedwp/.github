@@ -103,4 +103,4 @@ Examples:
 
 *For questions about project file organisation, see [file-organisation.instructions.md](../instructions/file-organisation.instructions.md)*
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
