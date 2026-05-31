@@ -195,19 +195,41 @@ ${riskSummary}
 
 ### Recommendations
 ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proceed pending human review"}
-`;
+
+---
+<!-- reviewer-agent-summary -->`;
 
     if (dryRun) {
       core.info(`DRY-RUN: Would post comment:\n${summary}`);
     } else {
       try {
-        await octokit.rest.issues.createComment({
+        const prComments = await octokit.rest.issues.listComments({
           owner: context.repo.owner,
           repo: context.repo.repo,
           issue_number: pr.number,
-          body: summary,
         });
-        core.info("Reviewer comment posted.");
+
+        const existingComment = prComments.data.find((c) =>
+          c.body.includes("<!-- reviewer-agent-summary -->"),
+        );
+
+        if (existingComment) {
+          await octokit.rest.issues.updateComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            comment_id: existingComment.id,
+            body: summary,
+          });
+          core.info("Reviewer comment updated.");
+        } else {
+          await octokit.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: pr.number,
+            body: summary,
+          });
+          core.info("Reviewer comment posted.");
+        }
       } catch (error) {
         throw new Error(
           `Failed to post comment on PR #${pr.number}: ${error.message}`,
