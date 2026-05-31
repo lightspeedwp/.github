@@ -85,7 +85,7 @@ Each prompt includes:
 
 ## Related Resources
 
-- [Automation Governance](../automation/AUTOMATION_GOVERNANCE.md) - Prompt usage policies
+- [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) - Prompt usage policies
 - [Agents Directory](../agents/README.md) - Agent specifications using these prompts
 - [Instructions](../instructions/README.md) - Development standards referenced by prompts
 - [Custom Instructions](../custom-instructions.md) - Organization-wide Copilot settings

@@ -204,6 +204,10 @@ This repository is the **canonical, organisation-wide source** for:
 ## GitHub Automation Workflow Process
 
 ```mermaid
+---
+accTitle: GitHub Automation Workflow Process
+accDescr: Sequence diagram showing the interaction between a developer, member repository, .github hub, automation system, and project manager during the issue or PR creation process, demonstrating how templates are checked, labels are applied, and projects are synchronized
+---
 sequenceDiagram
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Member Repo
@@ -220,9 +224,6 @@ sequenceDiagram
     Auto->>Repo: Apply labels
     Auto->>PM: Sync to projects
     PM-->>Dev: Notify assignment
----
-accTitle: GitHub Automation Workflow Process
-accDescr: Sequence diagram showing the interaction between a developer, member repository, .github hub, automation system, and project manager during the issue or PR creation process, demonstrating how templates are checked, labels are applied, and projects are synchronized
 ```
 
 **How it works:**

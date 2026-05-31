@@ -1,3 +1,15 @@
+---
+file_type: "documentation"
+title: "README & Mermaid Diagram Extended Audit Report (Phase 2)"
+description: "Comprehensive audit report for nested directory README files and Mermaid diagrams"
+version: "v1.0"
+last_updated: "2026-05-31"
+author: "Claude"
+maintainer: "LightSpeed Team"
+tags: ["audit", "readme", "mermaid", "accessibility", "report"]
+status: "active"
+---
+
 # README & Mermaid Diagram Extended Audit Report (Phase 2)
 
 **Date:** 2026-05-31
