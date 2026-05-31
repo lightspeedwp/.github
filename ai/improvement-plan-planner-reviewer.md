@@ -167,22 +167,26 @@ node scripts/agents/reviewer.agent.js --no-pr
 
 **Acceptance Criteria**:
 
-- [ ] Test files moved from `.jest-skip/` to proper location (e.g., `scripts/agents/__tests__/`)
+- [ ] Reviewer test files moved from `.jest-skip/` to proper location
+- [ ] Planner tests rewritten to test stub behavior before moving (see note below)
 - [ ] Tests pass in CI
-- [ ] Coverage ≥ 80% for both agents
+- [ ] Coverage ≥ 80% for reviewer agent
 - [ ] All error branches tested (missing token, API failure, etc.)
 - [ ] Blocker detection tested thoroughly
+
+**Important Note**: Planner tests currently expect `run()` export and comment posting (Issue 2.1 functionality). Convert planner test to use `runPlanner()` export and test the current stub behavior (logging context, dry-run mode) instead.
 
 **Implementation**:
 
 **Planner Tests**:
 
-1. [ ] Move `.jest-skip/planner.agent.test.js` → `scripts/agents/__tests__/planner.agent.test.js`
-2. [ ] Add tests for:
-   - [ ] Missing GITHUB_TOKEN
-   - [ ] Invalid context (no PR payload)
-   - [ ] Dry-run mode
-   - [ ] Successful plan generation (once implemented)
+1. [ ] Rewrite `.jest-skip/planner.agent.test.js` to test current stub:
+   - [ ] Change import from `{ run }` to `{ runPlanner }`
+   - [ ] Test logs context (event, repo root)
+   - [ ] Test dry-run mode (accepts `{ dryRun: false }` option)
+   - [ ] Test exits without errors
+   - [ ] Test missing token handling
+2. [ ] Move rewritten test to `scripts/agents/__tests__/planner.agent.test.js`
 
 **Reviewer Tests**:
 
