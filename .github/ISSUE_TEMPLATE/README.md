@@ -38,6 +38,10 @@ For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) a
 ## 🗂️ Issue Template Workflow
 
 ```mermaid
+---
+accTitle: Issue Template Workflow
+accDescr: Flowchart showing the complete issue template workflow from user creation through automation agents, with template selection branching to Bug, Feature, Documentation, or Custom templates, all leading to auto-populated fields, issue creation, and agent processing including labeling, type assignment, project board assignment, and notification routing
+---
 flowchart TD
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]
@@ -66,9 +70,6 @@ flowchart TD
     style A fill:#e1f5fe
     style I fill:#f3e5f5
     style N fill:#e8f5e8
----
-accTitle: Issue Template Workflow
-accDescr: Flowchart showing the complete issue template workflow from user creation through automation agents, with template selection branching to Bug, Feature, Documentation, or Custom templates, all leading to auto-populated fields, issue creation, and agent processing including labeling, type assignment, project board assignment, and notification routing
 ```
 
 ## 📁 Available Templates
