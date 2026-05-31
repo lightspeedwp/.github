@@ -20,7 +20,7 @@ issue_types:
   - name: Story
     color: 4393F8
     label: type:story
-  - name: Improve
+  - name: Improvement
     color: 9198A1
     label: type:improve
   - name: Refactor
