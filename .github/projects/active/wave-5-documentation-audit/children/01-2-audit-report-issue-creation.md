@@ -81,21 +81,19 @@ Audited 6 documentation files related to issue creation. Found:
 
 ### 2. **`docs/ISSUE_LABELS.md`**
 
-**Status:** ❌ **DOES NOT EXIST**
+**Status:** ❌ **DEPRECATED & CONSOLIDATED**
 
-Referenced in audit scope (#662) but file is missing. This is a critical gap:
+Referenced in audit scope but this file was consolidated into `docs/LABELING.md` (see `instructions/DEPRECATED.md`).
 
-- No canonical source for label names, colors, or strategies
-- Label guidance split across multiple files
-- Could cause contributor confusion
+**Key Finding:**
 
-**Should be created to consolidate:**
+- `docs/LABELING.md` already contains the comprehensive labelling guide
+- Includes "Issue Labelling" section (section 3) with all required information
+- Label families, colors, automation rules already documented there
+- References to the old `ISSUE_LABELS.md` should be updated to point to `LABELING.md`
 
-- Label families (status, priority, type, area, comp, meta, contrib, context)
-- One-hot rules
-- Color palette
-- Label assignment automation rules
-- Examples per label family
+**Recommendation:**
+Instead of creating a new file, update all broken references to `ISSUE_LABELS.md` to point to `docs/LABELING.md#issue-labelling` instead.
 
 ---
 
@@ -205,7 +203,7 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 | Current File | Content | Proposed Location | Action | Rationale |
 |--------------|---------|-------------------|--------|-----------|
 | `docs/ISSUE_CREATION_GUIDE.md` | Practical how-to guide | Keep (docs/) | Preserve | Good audience fit, clear structure |
-| `docs/ISSUE_LABELS.md` | Missing label reference | Create (docs/) | Create | Critical gap; consolidate label strategy |
+| `docs/ISSUE_LABELS.md` | Deprecated; consolidated into LABELING.md | Update references | Fix broken links | Already exists at `docs/LABELING.md#issue-labelling`; redirect references there |
 | `docs/ISSUE_TYPES.md` | Type definitions & reference | Keep (docs/) | Preserve | Comprehensive, well-maintained |
 | `.github/ISSUE_TEMPLATE/README.md` | Template directory guide | Migrate to inline comments | Archive or migrate | Mostly metadata; can live in directory |
 | `instructions/issues.instructions.md` | Official instructions | Refactor | Consolidate & fix | Remove internal duplication; keep authoritative core |
@@ -277,23 +275,22 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 
 ### Critical Gaps
 
-1. **`docs/ISSUE_LABELS.md`** (Missing)
-   - Should cover all label families
-   - Should list all labels with colors
-   - Should explain one-hot rules
-   - Should reference `labels.yml` and `labeler.yml`
-   - Impact: High — referenced but doesn't exist
+1. **Broken references to `docs/ISSUE_LABELS.md`**
+   - `instructions/issues.instructions.md` section 4 references deprecated file
+   - File was consolidated into `docs/LABELING.md` (per `instructions/DEPRECATED.md`)
+   - References should point to `docs/LABELING.md#issue-labelling` instead
+   - Impact: High — broken links to deprecated location
 
 2. **`docs/index.md`** (Empty)
    - Should be actual index with links
    - Currently just placeholder
    - Impact: Medium — documentation discoverability
 
-3. **docs/ISSUE_LABELS.md references in instructions**
-   - `instructions/issues.instructions.md` section 4 references this
-   - File does not exist
-   - Creates broken reference chains
-   - Impact: High — broken links
+3. **Clarify labeling documentation location**
+   - All label families, colors, and automation rules are in `docs/LABELING.md`
+   - Not in a separate ISSUE_LABELS.md (which was deprecated)
+   - Update cross-references to point to consolidated guide
+   - Impact: High — reducing confusion around document organization
 
 ---
 
@@ -306,16 +303,15 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
    - Keep authoritative version only
    - Preserve formatting and structure
 
-2. **Create `docs/ISSUE_LABELS.md`** (new file)
-   - List all label families and allowed values
-   - Reference `labels.yml` and `labeler.yml`
-   - Explain one-hot rules
-   - Provide color palette
-   - Include examples per family
+2. **Update broken references to ISSUE_LABELS.md**
+   - Locate all references to the deprecated `docs/ISSUE_LABELS.md`
+   - Redirect them to `docs/LABELING.md#issue-labelling` instead
+   - Note: The file was consolidated into `docs/LABELING.md` (see `instructions/DEPRECATED.md`)
+   - Do NOT recreate the deprecated file
 
 3. **Update `docs/index.md`**
    - Create actual documentation index
-   - Link to all issue-related files
+   - Link to all issue-related files (including `LABELING.md`)
    - Add brief descriptions and use cases
 
 ### Phase 2: Align & Link (Wave 5.3 or 5.4)
