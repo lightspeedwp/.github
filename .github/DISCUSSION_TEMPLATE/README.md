@@ -1,7 +1,9 @@
 ---
+file_type: "discussion-template"
+name: "Discussion Templates Directory"
 description: "Standardized discussion templates for community engagement in LightSpeedWP"
 version: "v1.0"
-last_updated: "2025-10-24"
+last_updated: "2026-05-31"
 maintainer: "LightSpeed Engineering"
 tags: ["templates", "discussions", "community", "engagement"]
 ---
