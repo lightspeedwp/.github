@@ -758,6 +758,24 @@ async function run() {
             `Explicit version ${explicitVersion} must be greater than current version ${currentVersion}`,
           );
         }
+
+        // Validate that explicit version aligns with scope
+        const expectedVersion = determineNextVersion(currentVersion, scope);
+        if (explicitVersion !== expectedVersion) {
+          const forceOverride =
+            process.env.RELEASE_FORCE_VERSION === "1" ||
+            process.env.RELEASE_FORCE_VERSION === "true";
+          if (!forceOverride) {
+            throw new Error(
+              `Version mismatch: explicit version ${explicitVersion} does not match scope ${scope} (expected ${expectedVersion}). ` +
+                `Set RELEASE_FORCE_VERSION=1 environment variable to force override.`,
+            );
+          }
+          console.warn(
+            `⚠️  Forced version override: expected ${expectedVersion} (scope: ${scope}) → using ${explicitVersion}`,
+          );
+        }
+
         nextVersion = explicitVersion;
       }
     } catch (error) {
