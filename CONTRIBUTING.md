@@ -13,7 +13,7 @@ tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
 ## 🚀 Quick Start (TL;DR)
 
 1. **Fork & Clone:** Fork this repo and clone it locally.
-2. **Install dependencies:** `npm ci` (runs `prepare` and installs Husky hooks)
+2. **Install dependencies:** `npm ci`
 3. **Create a branch:** Use the correct prefix (e.g. `feat/`, `fix/`, `docs/`).
 4. **Write code & tests:** Follow [Coding Standards](instructions/coding-standards.instructions.md) and add/expand tests.
 5. **Lint & test:** Run `npm run lint:all` and `npm test` before committing. On
@@ -149,3 +149,12 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 - [Languages & Linting](instructions/languages.instructions.md)
 
 ---
+
+## Licence
+
+By contributing to this project, you agree that your contributions will be licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
+
+Thank you for helping us make LightSpeed better!
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
