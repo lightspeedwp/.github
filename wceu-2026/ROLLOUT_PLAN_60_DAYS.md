@@ -357,6 +357,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 | Office Hours | 1:1 and team support | Daily 2–4 PM (Weeks 3–8) | DevOps + Quality Leads |
 | Pilot Standups | Per-project sync and blockers | Daily 9:00 AM (Weeks 3–8) | Project Owners + support |
 | Bi-weekly Blog | Learnings, tips, announcements | Weeks 2, 4, 6, 8 | Developer Advocate |
+
 ### External Stakeholders
 
 | Stakeholder | Update | Frequency |
@@ -415,6 +416,7 @@ Submitted by: [Program Lead]
 | **Governance Drift** | <5% by month 2 review | Audit of governance adherence |
 | **CI/CD Success Rate** | ≥95% across pilots | GitHub Actions metrics |
 | **Code Coverage (Pilots)** | ≥80% or on roadmap | Coverage reporting tool |
+
 ### Secondary Success Metrics
 
 | Metric | Target | Measurement |
@@ -424,6 +426,7 @@ Submitted by: [Program Lead]
 | Time-to-compliance (Phase 2 completion) | 10 days average | Project timeline log |
 | Training certification pass rate | ≥90% first attempt | Quiz data |
 | Documentation usage (page views) | >1000 by Week 6 | Analytics |
+
 ---
 
 ## Risk Register
@@ -436,6 +439,7 @@ Submitted by: [Program Lead]
 | **Pilot projects hit blockers** | High | Medium | Daily standups, office hours, pairing sessions; escalation path to DevOps Lead |
 | **CI/CD setup delays** | Medium | High | Pre-validate CI/CD templates in Week 1; have DevOps Lead available for pairing |
 | **Governance fatigue** | Medium | Medium | Celebrate wins weekly; gather feedback and iterate quickly; emphasize "boring" (good) governance |
+
 ### Medium-Risk Items
 
 | Risk | Probability | Impact | Mitigation |
@@ -443,6 +447,7 @@ Submitted by: [Program Lead]
 | **Documentation gaps** | Medium | Low | Assign Developer Advocate to "FAQ synthesis" role; iterate docs weekly based on feedback |
 | **Training ineffective** | Low | Medium | Pilot training in Week 3–4 with pilots; refine for Week 7 formal training |
 | **Governance drift post-rollout** | Medium | Low | Monthly audits starting Week 12; lightweight governance chatbot/automation to catch drift |
+
 ---
 
 ## Budget & Resource Allocation
@@ -459,6 +464,7 @@ Submitted by: [Program Lead]
 | Project Owners (Pilots) | 12 avg | 6 (onboarding) | ~360 (shared across 5–7) |
 | Project Owners (New Wave) | 12 avg | 2 (Week 8) | ~96 (shared across 4) |
 | **Grand Total** | — | — | **~1,496 hours** |
+
 ### Tools & Infrastructure
 
 | Item | Cost | Notes |
@@ -468,6 +474,7 @@ Submitted by: [Program Lead]
 | Survey tool (Google Forms, Typeform) | Free | Use free tier |
 | Video recording/hosting (Loom, YouTube) | Free/minimal | Use existing infrastructure |
 | Slack channels and bots | Free/existing | No incremental cost |
+
 ---
 
 ## Definition of Done (per Phase)
@@ -536,6 +543,7 @@ Submitted by: [Program Lead]
 | **Existing CI/CD** | Some baseline infrastructure; reduces setup complexity |
 | **Willing to give feedback** | Engaged pilots = better learnings for rollout |
 | **Mix of sizes** | 1–2 small, 2–3 medium, 1–2 large teams |
+
 ### Appendix B: Celebration Plan
 
 Recognize and celebrate wins to maintain team morale:
