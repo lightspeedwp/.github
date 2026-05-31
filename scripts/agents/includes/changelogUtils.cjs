@@ -31,8 +31,8 @@ function parseChangelog(changelogPath) {
     const content = fs.readFileSync(changelogPath, 'utf8');
     const releases = [];
 
-    // Match release headers: ## [version] - date
-    const releaseRegex = /^##\s+\[([^\]]+)\]\s*-\s*(.+)$/gm;
+    // Match release headers: ## [version] - date (date optional for [Unreleased])
+    const releaseRegex = /^##\s+\[([^\]]+)\](?:\s*-\s*(.+))?$/gm;
     const sectionRegex = /^###\s+(.+)$/gm;
 
     let match;
