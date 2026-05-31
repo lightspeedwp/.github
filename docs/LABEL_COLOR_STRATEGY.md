@@ -357,18 +357,18 @@ All colors in this strategy meet **WCAG AA contrast requirements** (minimum 4.5:
 
 **Contrast Verification** (vs. white #FFFFFF):
 
-| Color | Hex | Contrast Ratio | WCAG Level |
-| --- | --- | --- | --- |
-| `#0DBA3D` (Green primary) | #0DBA3D | 6.8:1 | ✅ AAA |
-| `#0969DA` (Blue primary) | #0969DA | 8.3:1 | ✅ AAA |
-| `#D29922` (Yellow primary) | #D29922 | 5.2:1 | ✅ AAA |
-| `#EF3B39` (Red primary) | #EF3B39 | 5.1:1 | ✅ AAA |
-| `#FB8500` (Orange primary) | #FB8500 | 5.5:1 | ✅ AAA |
-| `#8957E5` (Purple primary) | #8957E5 | 4.8:1 | ✅ AAA |
-| `#57606A` (Gray primary) | #57606A | 6.9:1 | ✅ AAA |
-| `#2DA39D` (Teal primary) | #2DA39D | 5.8:1 | ✅ AAA |
+| Color | Hex | Contrast Ratio | WCAG Level | Status |
+| --- | --- | --- | --- | --- |
+| `#0DBA3D` (Green primary) | #0DBA3D | ~2.6:1 | ❌ Fails AA | ⚠️ Needs review |
+| `#0969DA` (Blue primary) | #0969DA | ~5.2:1 | ✅ AA | ❌ Fails AAA |
+| `#D29922` (Yellow primary) | #D29922 | ~4.8:1 | ✅ AA | ❌ Fails AAA |
+| `#EF3B39` (Red primary) | #EF3B39 | ~3.9:1 | ❌ Fails AA | ⚠️ Needs review |
+| `#FB8500` (Orange primary) | #FB8500 | ~2.8:1 | ❌ Fails AA | ⚠️ Needs review |
+| `#8957E5` (Purple primary) | #8957E5 | ~4.6:1 | ✅ AA | ❌ Fails AAA |
+| `#57606A` (Gray primary) | #57606A | ~7.1:1 | ✅ AAA | ✅ Compliant |
+| `#2DA39D` (Teal primary) | #2DA39D | ~3.1:1 | ❌ Fails AA | ⚠️ Needs review |
 
-All secondary and tertiary colors maintain minimum **WCAG AA ratio (4.5:1)**.
+**⚠️ Accessibility Notice**: Several primary colors do not meet WCAG AA contrast standards against white backgrounds. Secondary and tertiary colors also require verification. This specification needs a colour accessibility audit and potential colour adjustments to ensure full WCAG AA compliance. See Issue #686 (Wave 5.2 Canonical Config Files Audit) for remediation tracking.
 
 ---
 
