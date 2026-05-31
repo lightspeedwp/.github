@@ -1,5 +1,5 @@
 ---
-file_type: rollout_plan
+file_type: documentation
 title: 60-Day LightSpeed .github Governance Rollout Plan
 description: Comprehensive rollout strategy for deploying LightSpeed .github governance ecosystem to WordPress projects
 version: v1.0.0
@@ -8,6 +8,8 @@ owners:
   - Ash Shaw
   - LightSpeedWP Team
 status: active
+stability: stable
+domain: governance
 tags:
   - governance
   - rollout
@@ -93,7 +95,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 **Deliverables:**
 
 - [ ] Program kickoff meeting with core team (1 hour)
-- [ ] Review and finalize rollout plan (2 hours)
+- [ ] Review and finalise rollout plan (2 hours)
 - [ ] Identify and confirm DevOps Lead, Quality Lead, Developer Advocate roles
 - [ ] Create internal governance-rollout Slack channel + communication cadence
 - [ ] Draft "Governance Baseline 101" training deck (30 slides, 2 hours)
@@ -119,7 +121,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
   - Timeline and support
   - Q&A
 - [ ] Collect project context for each pilot (team size, current stack, CI/CD status, pain points)
-- [ ] Create pilot-specific onboarding playbooks (reference template + customizations)
+- [ ] Create pilot-specific onboarding playbooks (reference template + customisations)
 - [ ] Prepare Week 3 onboarding session agenda
 - [ ] Publish internal "What is .github?" blog post or video (10 min)
 - [ ] Set up GitHub Teams and visibility for pilot projects
@@ -153,7 +155,7 @@ This document outlines a comprehensive 60-day (8-week) plan to roll out the Ligh
 
 - [ ] Copy `.github/custom-instructions.md` to pilot repo
 - [ ] Copy `.github/workflows/` templates (labeler, linter, release, etc.)
-- [ ] Create `CLAUDE.md` project rules file (customize for pilot)
+- [ ] Create `CLAUDE.md` project rules file (customise for pilot)
 - [ ] Setup `.editorconfig`, `.gitignore`, `.npmrc` (or `composer.json`)
 - [ ] Add repo to governance tracking dashboard
 
