@@ -69,8 +69,7 @@ function getGitLog(since, limit = 50) {
       cmd += " " + since + "..HEAD";
     }
 
-    const output = execSync(cmd, { encoding: "utf8", stdio: "pipe" });
-    const commitStrings = output
+    const commitStrings = execSync(cmd, { encoding: "utf8", stdio: "pipe" })
       .split("---END-COMMIT---\n")
       .filter((s) => s.trim());
 
