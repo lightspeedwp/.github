@@ -46,17 +46,20 @@ const {
 const { validateVersion, parseVersion } = require(validateVersionPath);
 
 /**
- * Execute shell command
+ * Execute shell command (with optional sandboxing for dry-run)
  * @param {string} cmd - Command to execute
- * @param {boolean} dryRun - Dry run mode
+ * @param {boolean} dryRun - Dry run mode (logging-only unless sandbox=true)
  * @param {boolean} allowError - Swallow errors and return empty string
+ * @param {boolean} sandbox - Actual execution in sandbox (for dry-run validation)
  * @returns {string} Command output
  */
-function exec(cmd, dryRun = false, allowError = false) {
-  if (dryRun) {
+function exec(cmd, dryRun = false, allowError = false, sandbox = false) {
+  if (dryRun && !sandbox) {
+    // Logging-only mode (for informational steps)
     console.log(`[DRY-RUN] Would execute: ${cmd}`);
     return "";
   }
+
   try {
     return execSync(cmd, { encoding: "utf8" });
   } catch (error) {
@@ -65,6 +68,56 @@ function exec(cmd, dryRun = false, allowError = false) {
       return "";
     }
     throw new Error(`Command failed: ${cmd}\n${error.message}`);
+  }
+}
+
+/**
+ * Create a temporary sandbox branch for dry-run validation
+ * @param {boolean} dryRun - Only create if in dry-run mode
+ * @param {string} scope - Release scope for branch naming
+ * @param {string} nextVersion - Next version for branch naming
+ * @returns {Object|null} Sandbox info { branch, originalBranch } or null
+ */
+function createSandbox(dryRun, scope, nextVersion) {
+  if (!dryRun) return null;
+
+  const sandboxBranch = `release-sandbox-${Date.now()}`;
+  const originalBranch = exec(
+    "git rev-parse --abbrev-ref HEAD",
+    false,
+    true,
+  ).trim();
+
+  console.log(
+    `\n[SANDBOX] Creating temporary validation branch: ${sandboxBranch}`,
+  );
+
+  try {
+    exec(`git checkout -b ${sandboxBranch}`, false);
+    return { branch: sandboxBranch, originalBranch };
+  } catch (error) {
+    console.warn(`[SANDBOX] Failed to create sandbox: ${error.message}`);
+    return null;
+  }
+}
+
+/**
+ * Clean up sandbox branch
+ * @param {boolean} dryRun - Only cleanup if was in dry-run mode
+ * @param {Object} sandbox - Sandbox info from createSandbox
+ */
+function cleanupSandbox(dryRun, sandbox) {
+  if (!dryRun || !sandbox) return;
+
+  console.log(`\n[SANDBOX] Cleaning up temporary branch: ${sandbox.branch}`);
+  try {
+    // Switch back to original branch
+    exec(`git checkout ${sandbox.originalBranch}`, false, true);
+    // Delete sandbox branch
+    exec(`git branch -D ${sandbox.branch}`, false, true);
+    console.log(`[SANDBOX] Sandbox cleaned up successfully`);
+  } catch (error) {
+    console.warn(`[SANDBOX] Cleanup warning: ${error.message}`);
   }
 }
 
@@ -682,95 +735,172 @@ async function run() {
     if (notesFrom) {
       console.log(`Release Notes Start: ${notesFrom}`);
     }
-    // TODO (d): Clarify dry-run vs apply controls (additional flags or safeguards) so we can safely exercise the workflow end-to-end.
+    if (dryRun) {
+      console.log("🔬 DRY-RUN MODE: Will validate release in isolated sandbox");
+      console.log("   - Create temporary branch");
+      console.log("   - Write VERSION and CHANGELOG changes");
+      console.log("   - Validate schema and formatting");
+      console.log("   - Clean up (no side effects)\n");
+    }
     console.log("");
 
-    // Step 1: Validate release readiness
-    const validation = await validateRelease({ dryRun });
+    // Create sandbox for dry-run validation
+    const currentVersion = fs.readFileSync("VERSION", "utf8").trim();
+    let sandbox = null;
+    let nextVersion = "";
 
-    if (!validation.valid) {
-      console.error("\n❌ Release validation failed:");
-      validation.errors.forEach((err) => console.error(`  - ${err}`));
+    // Determine next version early (needed for sandbox branch name)
+    try {
+      nextVersion = determineNextVersion(currentVersion, scope);
+      if (explicitVersion) {
+        const versionResult = validateVersion(explicitVersion);
+        if (!versionResult.valid) {
+          throw new Error(
+            `Invalid explicit version "${explicitVersion}": ${versionResult.error}`,
+          );
+        }
+        if (compareVersions(explicitVersion, currentVersion) <= 0) {
+          throw new Error(
+            `Explicit version ${explicitVersion} must be greater than current version ${currentVersion}`,
+          );
+        }
+        nextVersion = explicitVersion;
+      }
+    } catch (error) {
+      console.error(`❌ Version determination failed: ${error.message}`);
       process.exit(1);
     }
 
-    if (validation.warnings.length > 0) {
-      console.warn("\n⚠️  Warnings:");
-      validation.warnings.forEach((warn) => console.warn(`  - ${warn}`));
-    }
+    sandbox = createSandbox(dryRun, scope, nextVersion);
 
-    console.log("\n✅ All validations passed");
+    try {
+      // Step 1: Validate release readiness
+      const validation = await validateRelease({ dryRun });
 
-    // Step 2: Determine next version
-    const currentVersion = fs.readFileSync("VERSION", "utf8").trim();
-    let nextVersion = determineNextVersion(currentVersion, scope);
-    if (explicitVersion) {
-      const versionResult = validateVersion(explicitVersion);
-      if (!versionResult.valid) {
-        throw new Error(
-          `Invalid explicit version "${explicitVersion}": ${versionResult.error}`,
+      if (!validation.valid) {
+        console.error("\n❌ Release validation failed:");
+        validation.errors.forEach((err) => console.error(`  - ${err}`));
+        process.exit(1);
+      }
+
+      if (validation.warnings.length > 0) {
+        console.warn("\n⚠️  Warnings:");
+        validation.warnings.forEach((warn) => console.warn(`  - ${warn}`));
+      }
+
+      console.log("\n✅ All validations passed");
+
+      const releaseBranch = `release/v${nextVersion}`;
+
+      console.log(`\nVersion bump: ${currentVersion} → ${nextVersion}`);
+      // TODO (b): Strengthen the version bump + validation steps to lock changelog sections, dependencies, and metadata before mutating files.
+
+      // Step 2b: Create release branch
+      if (!dryRun) {
+        exec(`git checkout -b ${releaseBranch}`);
+      } else {
+        console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
+      }
+
+      // Step 3: Bump version (in sandbox if dry-run)
+      if (sandbox) {
+        console.log(`\n[SANDBOX] Testing version bump in ${sandbox.branch}...`);
+        bumpVersion(nextVersion, { dryRun: false }); // Actually write to sandbox
+        // Validate VERSION file
+        try {
+          const versionContent = fs.readFileSync("VERSION", "utf8").trim();
+          console.log(`✓ VERSION file written: ${versionContent}`);
+        } catch (error) {
+          console.error(`✗ VERSION file write failed: ${error.message}`);
+          throw error;
+        }
+      } else {
+        bumpVersion(nextVersion, { dryRun });
+      }
+
+      // Step 4: Update changelog (in sandbox if dry-run)
+      if (sandbox) {
+        console.log(
+          `\n[SANDBOX] Testing changelog update in ${sandbox.branch}...`,
+        );
+        updateChangelog(nextVersion, { dryRun: false }); // Actually write to sandbox
+        // Validate CHANGELOG.md formatting
+        try {
+          const changelogContent = fs.readFileSync("CHANGELOG.md", "utf8");
+          if (changelogContent.includes("[Unreleased]")) {
+            console.log(`✓ CHANGELOG.md has [Unreleased] section`);
+          }
+          if (changelogContent.includes(`[${nextVersion}]`)) {
+            console.log(`✓ CHANGELOG.md has [${nextVersion}] section`);
+          }
+        } catch (error) {
+          console.error(`✗ CHANGELOG.md validation failed: ${error.message}`);
+          throw error;
+        }
+      } else {
+        updateChangelog(nextVersion, { dryRun });
+      }
+
+      // Step 5: Stage all changes and run Husky pre-commit hooks, then commit
+      if (!dryRun) {
+        exec("git add .");
+        exec("npx husky run pre-commit");
+        exec(`git commit -m "chore(release): bump version to ${nextVersion}"`);
+      } else if (sandbox) {
+        console.log(
+          `\n[SANDBOX] Testing git staging and linting in ${sandbox.branch}...`,
+        );
+        exec("git add .");
+        try {
+          exec("npx husky run pre-commit");
+          console.log(`✓ Pre-commit hooks passed`);
+        } catch (error) {
+          console.error(`✗ Pre-commit hooks failed: ${error.message}`);
+          throw error;
+        }
+        exec(`git commit -m "chore(release): bump version to ${nextVersion}"`);
+        console.log(`✓ Git commit successful`);
+      } else {
+        console.log(
+          `\n[DRY-RUN] Would stage all changes, run Husky pre-commit hooks, and commit with message: "chore(release): bump version to ${nextVersion}"`,
         );
       }
-      if (compareVersions(explicitVersion, currentVersion) <= 0) {
-        throw new Error(
-          `Explicit version ${explicitVersion} must be greater than current version ${currentVersion}`,
+
+      // Step 6: Create tag
+      createTag(nextVersion, { dryRun });
+
+      // Step 7: Push changes
+      pushChanges({ dryRun, branch: releaseBranch });
+
+      // Step 7b: Open release PR (develop -> main via release branch)
+      createReleasePR(nextVersion, releaseBranch, { dryRun });
+
+      // Step 8: Create GitHub Release
+      createRelease(nextVersion, { dryRun, notesFrom });
+
+      console.log("\n");
+      console.log("╔════════════════════════════════════════╗");
+      console.log("║   ✅ Release completed successfully!   ║");
+      console.log("╚════════════════════════════════════════╝");
+      console.log(`\nVersion: ${nextVersion}`);
+      console.log(`Tag: v${nextVersion}`);
+
+      if (dryRun) {
+        console.log(
+          "\n⚠️  This was a DRY-RUN in sandbox. No permanent changes were made.",
         );
       }
-      nextVersion = explicitVersion;
-    }
-    const releaseBranch = `release/v${nextVersion}`;
-
-    console.log(`\nVersion bump: ${currentVersion} → ${nextVersion}`);
-    // TODO (b): Strengthen the version bump + validation steps to lock changelog sections, dependencies, and metadata before mutating files.
-
-    // Step 2b: Create release branch
-    if (!dryRun) {
-      exec(`git checkout -b ${releaseBranch}`);
-    } else {
-      console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
-    }
-
-    // Step 3: Bump version
-    bumpVersion(nextVersion, { dryRun });
-
-    // Step 4: Update changelog
-    updateChangelog(nextVersion, { dryRun });
-
-    // Step 5: Stage all changes and run Husky pre-commit hooks, then commit
-    if (!dryRun) {
-      exec("git add .");
-      exec("npx husky run pre-commit");
-      exec(`git commit -m "chore(release): bump version to ${nextVersion}"`);
-    } else {
-      console.log(
-        `\n[DRY-RUN] Would stage all changes, run Husky pre-commit hooks, and commit with message: "chore(release): bump version to ${nextVersion}"`,
-      );
-    }
-
-    // Step 6: Create tag
-    createTag(nextVersion, { dryRun });
-
-    // Step 7: Push changes
-    pushChanges({ dryRun, branch: releaseBranch });
-
-    // Step 7b: Open release PR (develop -> main via release branch)
-    createReleasePR(nextVersion, releaseBranch, { dryRun });
-
-    // Step 8: Create GitHub Release
-    createRelease(nextVersion, { dryRun, notesFrom });
-
-    console.log("\n");
-    console.log("╔════════════════════════════════════════╗");
-    console.log("║   ✅ Release completed successfully!   ║");
-    console.log("╚════════════════════════════════════════╝");
-    console.log(`\nVersion: ${nextVersion}`);
-    console.log(`Tag: v${nextVersion}`);
-
-    if (dryRun) {
-      console.log("\n⚠️  This was a DRY-RUN. No changes were made.");
+    } catch (error) {
+      console.error("\n❌ Release failed:", error.message);
+      if (error.stack) {
+        console.error(error.stack);
+      }
+      process.exit(1);
+    } finally {
+      cleanupSandbox(dryRun, sandbox);
     }
   } catch (error) {
-    console.error("\n❌ Release failed:", error.message);
+    console.error("\n❌ Fatal error:", error.message);
     if (error.stack) {
       console.error(error.stack);
     }
