@@ -15,7 +15,7 @@ tags:
   - validation
   - diagrams
   - wave-5
-domain: documentation
+domain: generic
 status: active
 stability: stable
 ---

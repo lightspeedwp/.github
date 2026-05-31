@@ -8,20 +8,15 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { globSync } from "glob";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "../../");
 
-const README_FILES = [
-  "README.md",
-  "profile/README.md",
-  "scripts/README.md",
-  "tests/README.md",
-  ".github/README.md",
-  ".github/ISSUE_TEMPLATE/README.md",
-  ".github/projects/README.md",
-  ".vscode/README.md",
-];
+const README_FILES = globSync("**/README.md", {
+  cwd: ROOT,
+  ignore: ["**/node_modules/**", "**/.git/**", "**/coverage/**", "**/logs/**"],
+}).sort();
 
 // Mermaid syntax validation patterns
 const DIAGRAM_TYPES = {
@@ -36,7 +31,7 @@ const DIAGRAM_TYPES = {
 
 function extractMermaidDiagrams(content) {
   const diagrams = [];
-  const regex = /```mermaid\n([\s\S]*?)```/g;
+  const regex = /```mermaid\r?\n([\s\S]*?)```/g;
   let match;
 
   while ((match = regex.exec(content)) !== null) {
@@ -76,6 +71,17 @@ function validateDiagramSyntax(content) {
 
   if (!hasValidType) {
     errors.push(`Unknown diagram type: ${firstLine}`);
+  } else {
+    const directionMatch = firstLine.match(/^\s*(graph|flowchart)\s+([A-Za-z]{2})\b/);
+    if (directionMatch) {
+      const direction = directionMatch[2].toUpperCase();
+      const validDirections = new Set(["TD", "TB", "BT", "LR", "RL"]);
+      if (!validDirections.has(direction)) {
+        errors.push(`Invalid direction for ${directionMatch[1]}: ${direction}`);
+      }
+    } else if (/^\s*(graph|flowchart)\b/.test(firstLine)) {
+      errors.push(`Missing direction for ${firstLine.split(/\s+/)[0]}`);
+    }
   }
 
   // Check for accTitle/accDescr format
@@ -100,6 +106,8 @@ function validateDiagramSyntax(content) {
 
   // Basic syntax checks for common issues
   // Strip double-quoted string literals to avoid false positives in brace/bracket matching
+  // Basic syntax checks for common issues
+  // Strip double-quoted string literals to avoid false positives in brace/bracket matching
   const cleanContent = content.replace(/"[^"\\]*(?:\\.[^"\\]*)*"/g, "");
 
   const openBraces = (cleanContent.match(/{/g) || []).length;
@@ -108,7 +116,7 @@ function validateDiagramSyntax(content) {
     errors.push(`Mismatched braces: ${openBraces} open, ${closeBraces} close`);
   }
 
-  const openBrackets = (cleanContent.match(/\[/g) || []).length;
+  const openBrackets = (cleanContent.match(/\s*\[/g) || []).length ? (cleanContent.match(/\[/g) || []).length : 0;
   const closeBrackets = (cleanContent.match(/]/g) || []).length;
   if (openBrackets !== closeBrackets) {
     errors.push(
@@ -177,8 +185,13 @@ async function main() {
   console.log(`Total diagrams:  ${report.totalDiagrams}`);
   console.log(`Valid diagrams:  ${report.validDiagrams}`);
   console.log(`Error diagrams:  ${report.errorDiagrams}`);
+  const successRate =
+    report.totalDiagrams === 0
+      ? 100
+      : (report.validDiagrams / report.totalDiagrams) * 100;
+
   console.log(
-    `Success rate:    ${((report.validDiagrams / report.totalDiagrams) * 100).toFixed(1)}%`,
+    `Success rate:    ${successRate.toFixed(1)}%`,
   );
 
   if (report.errorDiagrams > 0) {
@@ -191,7 +204,20 @@ async function main() {
   }
 
   // Create audit report file
-  const reportContent = `# Mermaid Diagram Syntax Validation Report
+  const reportContent = `---
+title: Mermaid Diagram Syntax Validation Report
+description: Mermaid diagram syntax validation results for repository README files
+version: "1.0.0"
+created_date: "${new Date().toISOString().slice(0, 10)}"
+last_updated: "${new Date().toISOString().slice(0, 10)}"
+file_type: documentation
+tags: ["mermaid", "validation", "diagrams"]
+domain: generic
+status: active
+stability: stable
+---
+
+# Mermaid Diagram Syntax Validation Report
 
 **Generated**: ${new Date().toISOString()}
 
@@ -200,8 +226,7 @@ async function main() {
 - **Total diagrams**: ${report.totalDiagrams}
 - **Valid diagrams**: ${report.validDiagrams}
 - **Error diagrams**: ${report.errorDiagrams}
-- **Success rate**: ${((report.validDiagrams / report.totalDiagrams) * 100).toFixed(1)}%
-
+- **Success rate**: ${(report.totalDiagrams === 0 ? 100 : (report.validDiagrams / report.totalDiagrams) * 100).toFixed(1)}%
 ## Files Analyzed
 
 ${README_FILES.map((f) => `- ${f}`).join("\n")}
