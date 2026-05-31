@@ -2,6 +2,13 @@
 file_type: "prompt"
 title: "Documentation Prompt Template"
 description: "Documentation creation, updates, and refinement workflows"
+version: "1.0.0"
+last_updated: "2026-05-31"
+owners: ["ashley@lightspeedwp.agency"]
+tags: ["documentation", "content", "prompts"]
+status: "active"
+stability: "stable"
+domain: "tooling"
 ---
 
 # Documentation Prompt Template
@@ -73,7 +80,13 @@ Use this prompt when creating, updating, or refining documentation.
 title: [Document Title]
 description: [One-sentence summary]
 file_type: [documentation/instructions/guide]
+version: [e.g., 1.0.0]
+last_updated: [YYYY-MM-DD]
+owners: [e.g., ["@username"]]
+tags: [e.g., ["documentation", "guide"]]
 status: [active/draft/deprecated]
+stability: [stable/experimental/deprecated]
+domain: [e.g., automation/governance/tooling]
 ---
 ```
 

@@ -5,6 +5,10 @@ description: "Migration path for consolidated documentation files and updated re
 version: "v1.0.0"
 last_updated: "2026-05-31"
 owners: ["LightSpeedWP Team"]
+tags: ["migration", "documentation", "consolidation"]
+status: "active"
+stability: "stable"
+domain: "documentation"
 ---
 
 # Documentation Migration Guide
@@ -17,7 +21,7 @@ This guide provides migration paths for documentation files that have been conso
 
 The following documentation files have been consolidated into comprehensive guides to improve maintainability and reduce duplication.
 
-### Labeling Documentation (Consolidated)
+### Labelling Documentation (Consolidated)
 
 The following files have been consolidated into [`docs/LABELING.md`](./LABELING.md):
 
@@ -60,7 +64,7 @@ The following files were moved or renamed to correct structural issues and enfor
 
 Update all references across your documentation and codebase:
 
-#### Labeling Documentation
+#### Labelling Documentation
 
 - Any link to `docs/LABEL_STRATEGY.md` → change to `docs/LABELING.md`
 - Any link to `docs/ISSUE_LABELS.md` → change to `docs/LABELING.md`

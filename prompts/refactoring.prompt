@@ -2,6 +2,13 @@
 file_type: "prompt"
 title: "Refactoring Prompt Template"
 description: "Code refactoring, optimisation, and modernisation workflows"
+version: "1.0.0"
+last_updated: "2026-05-31"
+owners: ["ashley@lightspeedwp.agency"]
+tags: ["refactoring", "optimization", "prompts"]
+status: "active"
+stability: "stable"
+domain: "tooling"
 ---
 
 # Refactoring Prompt Template

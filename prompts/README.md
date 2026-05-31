@@ -2,6 +2,13 @@
 file_type: "prompt"
 title: "Standardised Prompts Directory"
 description: "Reusable prompt templates for agents and AI scenarios across LightSpeed projects"
+version: "1.0.0"
+last_updated: "2026-05-31"
+owners: ["ashley@lightspeedwp.agency"]
+tags: ["prompts", "ai", "templates", "agents"]
+status: "active"
+stability: "stable"
+domain: "tooling"
 ---
 
 # Standardised Prompts
@@ -12,6 +19,8 @@ This directory contains reusable prompt templates for agents and AI scenarios ac
 
 - **[agent-setup.prompt](./agent-setup.prompt)** — Initial agent context, instructions, and configuration
 - **[code-generation.prompt](./code-generation.prompt)** — Code implementation, scaffolding, and generation
+- **[code-review.prompt](./code-review.prompt)** — Code review, quality feedback, and standards enforcement
+- **[debugging.prompt](./debugging.prompt)** — Problem diagnosis, root cause analysis, and resolution
 - **[documentation.prompt](./documentation.prompt)** — Documentation creation, updates, and refinement
 - **[testing.prompt](./testing.prompt)** — Test suite creation, debugging, and coverage improvements
 - **[refactoring.prompt](./refactoring.prompt)** — Code refactoring, optimisation, and modernisation

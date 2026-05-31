@@ -2,6 +2,13 @@
 file_type: "documentation"
 title: "Automation & Workflows"
 description: "Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories."
+version: "v1.0.0"
+last_updated: "2026-05-31"
+owners: ["LightSpeedWP Team"]
+tags: ["automation", "workflows", "governance", "agents"]
+status: "active"
+stability: "stable"
+domain: "automation"
 ---
 
 # Automation & Workflows
@@ -43,7 +50,7 @@ LightSpeedWP follows a **develop → main** branching model:
 - All active development, features, and bug fixes
 - All validation, CI, test, lint, label, and automation workflows run here
 - Every PR and push targeting `develop` is fully validated before integration
-- Workflows: Labeling, Testing, Linting, Planner, Reviewer, Project Sync
+- Workflows: Labelling, Testing, Linting, Planner, Reviewer, Project Sync
 
 ### main Branch
 
@@ -63,7 +70,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 
 | Workflow | Branch | Purpose | Agent |
 | --- | --- | --- | --- |
-| **labeling.yml** | develop | Unified labeling, status/priority, and type automation | labeling.agent.js |
+| **labeling.yml** | develop | Unified labelling, status/priority, and type automation | labeling.agent.js |
 | **changelog-validate.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
@@ -80,7 +87,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 
 **Ownership:** Platform/Governance Team  
 **Location:** `.github/labels.yml`  
-**Documentation:** [Labeling Guide](./LABELING.md)
+**Documentation:** [Labelling Guide](./LABELING.md)
 
 #### Adding New Labels
 
@@ -95,7 +102,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
    - Area/Component: Light blue
    - Meta: Grey
 4. **Description:** Provide clear, concise purpose
-5. **Documentation:** Update [Labeling Guide](./LABELING.md) with new label details
+5. **Documentation:** Update [Labelling Guide](./LABELING.md) with new label details
 
 **Approval Process:**
 
@@ -128,15 +135,15 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 
 ### Label Enforcement
 
-- **Single-select:** Exactly one `status:*`, one `priority:*`, one `type:*` per issue/PR (enforced by labeling agent)
-- **Minimum requirements:** See [Labeling Guide](./LABELING.md) for per-issue and per-PR requirements
+- **Single-select:** Exactly one `status:*`, one `priority:*`, one `type:*` per issue/PR (enforced by labelling agent)
+- **Minimum requirements:** See [Labelling Guide](./LABELING.md) for per-issue and per-PR requirements
 - **Canonical mapping:** All labels must match canonical definitions in `.github/labels.yml`
-- **Automated standardisation:** The labeling agent removes non-canonical labels and migrates legacy aliases
+- **Automated standardisation:** The labelling agent removes non-canonical labels and migrates legacy aliases
 
 ### Issue Type Policy
 
 - **Canonical definitions:** `.github/issue-types.yml`
-- **Automation:** The labeling agent applies `type:*` labels based on issue type field and title/body heuristics
+- **Automation:** The labelling agent applies `type:*` labels based on issue type field and title/body heuristics
 - **One type per issue:** Enforced via one-hot principle
 - **Integration:** Issue type field mirrors `type:*` label for consistency
 
@@ -150,7 +157,7 @@ All workflows must:
 
 1. **Include skip condition:** Support `[skip workflow-name]` in commit messages
 2. **Have concurrency control:** Prevent overlapping runs where appropriate
-3. **Use semantic names:** Clear, descriptive names (e.g., `Labeling • Issues & PRs`)
+3. **Use semantic names:** Clear, descriptive names (e.g., `Labelling • Issues & PRs`)
 4. **Set appropriate permissions:** Minimal required permissions only
 5. **Include failure handling:** Appropriate `continue-on-error` or `if: failure()`
 6. **Generate summaries:** Use `$GITHUB_STEP_SUMMARY` for output
@@ -160,7 +167,7 @@ All workflows must:
 
 **Standard Workflows (require 2 Platform Team approvals):**
 
-- Labeling and label sync workflows
+- Labelling and label sync workflows
 - Security scanning and dependency management
 - Release automation and versioning
 
@@ -221,7 +228,7 @@ All workflows must:
 All configuration files are validated:
 
 - **Pre-commit:** Local linting via Node scripts
-- **Workflow:** `validate-labeling-configs.cjs` runs on all labeling PRs
+- **Workflow:** `validate-labeling-configs.cjs` runs on all labelling PRs
 - **Deployment:** Configuration is loaded and validated by agents at runtime
 
 **Common validation checks:**
@@ -235,7 +242,7 @@ All configuration files are validated:
 
 ## References
 
-- [Labeling Guide](./LABELING.md) — Complete labeling strategy and label families
+- [Labelling Guide](./LABELING.md) — Complete labelling strategy and label families
 - [Canonical Labels](../.github/labels.yml)
 - [Labeler Rules](../.github/labeler.yml)
 - [Issue Types Config](../.github/issue-types.yml)

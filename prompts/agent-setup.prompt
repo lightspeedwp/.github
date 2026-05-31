@@ -2,6 +2,13 @@
 file_type: "prompt"
 title: "Agent Setup Prompt Template"
 description: "Initial agent context, instructions, and operational guidelines"
+version: "1.0.0"
+last_updated: "2026-05-31"
+owners: ["ashley@lightspeedwp.agency"]
+tags: ["agents", "setup", "prompts"]
+status: "active"
+stability: "stable"
+domain: "tooling"
 ---
 
 # Agent Setup Prompt Template

@@ -2,6 +2,13 @@
 file_type: "prompt"
 title: "Debugging Prompt Template"
 description: "Problem diagnosis, root cause analysis, and resolution procedures"
+version: "1.0.0"
+last_updated: "2026-05-31"
+owners: ["ashley@lightspeedwp.agency"]
+tags: ["debugging", "diagnosis", "prompts"]
+status: "active"
+stability: "stable"
+domain: "tooling"
 ---
 
 # Debugging Prompt Template

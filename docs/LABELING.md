@@ -1,10 +1,17 @@
 ---
 file_type: "documentation"
-title: "GitHub Labeling & Automation"
-description: "Comprehensive guide to LightSpeed's labeling strategy, automation, and integration with GitHub workflows."
+title: "GitHub Labelling & Automation"
+description: "Comprehensive guide to LightSpeed's labelling strategy, automation, and integration with GitHub workflows."
+version: "v1.0.0"
+last_updated: "2026-05-31"
+owners: ["LightSpeedWP Team"]
+tags: ["labeling", "automation", "labels", "workflows"]
+status: "active"
+stability: "stable"
+domain: "automation"
 ---
 
-# GitHub Labeling & Automation
+# GitHub Labelling & Automation
 
 This document describes how LightSpeed uses GitHub labels to power automation, search, workflow routing, and community management across all repositories—including issues, pull requests (PRs), and discussions.
 
@@ -14,9 +21,9 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 1. [Purpose & Principles](#purpose--principles)
 2. [Label Categories & Families](#label-categories--families)
-3. [Issue Labeling](#issue-labeling)
-4. [Pull Request Labeling](#pull-request-labeling)
-5. [Discussion Labeling](#discussion-labeling)
+3. [Issue Labelling](#issue-labelling)
+4. [Pull Request Labelling](#pull-request-labelling)
+5. [Discussion Labelling](#discussion-labelling)
 6. [Automation & Agent Integration](#automation--agent-integration)
 7. [Best Practices](#best-practices)
 8. [Troubleshooting](#troubleshooting)
@@ -151,7 +158,7 @@ For release hygiene and workflow signals:
 
 ---
 
-## Issue Labeling
+## Issue Labelling
 
 ### Required Labels per Issue
 
@@ -178,7 +185,7 @@ Every issue must have:
 
 ---
 
-## Pull Request Labeling
+## Pull Request Labelling
 
 ### Required Labels per PR
 
@@ -231,7 +238,7 @@ PR branch names automatically assign `type:*` labels:
 
 ---
 
-## Discussion Labeling
+## Discussion Labelling
 
 ### Purpose
 
@@ -258,9 +265,9 @@ Discussion labels organize community conversations by topic, making it easy for 
 
 ## Automation & Agent Integration
 
-### Unified Labeling Agent
+### Unified Labelling Agent
 
-All labeling, status enforcement, type assignment, and standardisation are handled by the **unified labeling agent** (`scripts/agents/labeling.agent.js`) and **labeling workflow** (`.github/workflows/labeling.yml`).
+All labelling, status enforcement, type assignment, and standardisation are handled by the **unified labelling agent** (`scripts/agents/labeling.agent.js`) and **labelling workflow** (`.github/workflows/labeling.yml`).
 
 **How it works:**
 
@@ -285,7 +292,7 @@ The agent orchestrates reusable utility modules in `scripts/agents/includes/`:
 | `labeler-utils.js` | Apply labeler rules based on file/branch patterns |
 | `label-sync.js` | Sync repository labels with canonical configuration |
 | `status-enforcer.js` | Enforce one-hot status, priority, type labels |
-| `label-reporting.js` | Build labeling and standardisation reports |
+| `label-reporting.js` | Build labelling and standardisation reports |
 | `type-lookup.js` | Load issue types and find matches from titles/bodies |
 | `label-heuristics.js` | Suggest labels from issue/PR content |
 
@@ -304,7 +311,7 @@ All automation reads from these files; there is no hardcoded label logic in agen
 1. **Keep exactly one `status:*` and `priority:*`** on every issue/PR.
 2. **Use the most specific `area:*` or `comp:*`** for filtering and reporting.
 3. **Update labels as work progresses** or if scope changes.
-4. **Trust automation:** Let the labeling agent handle most label application; only manually adjust when needed.
+4. **Trust automation:** Let the labelling agent handle most label application; only manually adjust when needed.
 5. **Refer to `.github/labels.yml`** as the source of truth for canonical labels.
 6. **Use discussion labels** to keep conversations organised and welcoming.
 7. **Review and clean up labels quarterly,** removing unused or redundant entries.
@@ -323,8 +330,8 @@ All automation reads from these files; there is no hardcoded label logic in agen
 **Label not applied as expected?**
 
 - Review labeler workflow logs in the PR/issue activity
-- Check if the labeling workflow is enabled and up-to-date
-- Verify the labeling agent has access to read/write labels
+- Check if the labelling workflow is enabled and up-to-date
+- Verify the labelling agent has access to read/write labels
 
 **Want to add a new label or modify rules?**
 
@@ -335,7 +342,7 @@ All automation reads from these files; there is no hardcoded label logic in agen
 
 **Non-canonical labels appearing?**
 
-- The labeling agent automatically migrates old labels to canonical equivalents
+- The labelling agent automatically migrates old labels to canonical equivalents
 - If a label persists, check `.github/label-governance-policy.yml` for exceptions
 - Open an issue if a label should be migrated or removed
 
@@ -346,9 +353,9 @@ All automation reads from these files; there is no hardcoded label logic in agen
 - [Canonical Labels Config](../.github/labels.yml)
 - [Labeler Rules](../.github/labeler.yml)
 - [Issue Types Config](../.github/issue-types.yml)
-- [Labeling Workflow](../.github/workflows/labeling.yml)
-- [Labeling Agent](../scripts/agents/labeling.agent.js)
-- [Portable Labeling Instructions](../instructions/labeling.instructions.md)
+- [Labelling Workflow](../.github/workflows/labeling.yml)
+- [Labelling Agent](../scripts/agents/labeling.agent.js)
+- [Portable Labelling Instructions](../instructions/labeling.instructions.md)
 - [Issue Creation Standards](../instructions/issues.instructions.md)
 - [PR Creation Standards](../instructions/pull-requests.instructions.md)
 

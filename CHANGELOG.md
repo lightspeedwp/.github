@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - All three files validated for WCAG 2.2 AA accessibility compliance and ready for Phase 3 Google Slides implementation ([#640](https://github.com/lightspeedwp/.github/pull/640))
 
 - **Documentation Consolidation & Repository Structure Refinement** — Streamlined documentation by consolidating redundant files and clarifying scope boundaries:
-  - Consolidated labeling documentation: merged `docs/LABEL_STRATEGY.md`, `docs/ISSUE_LABELS.md`, `docs/PR_LABELS.md` into single comprehensive `docs/LABELING.md` (covers strategy, issue/PR/discussion labelling, agent integration, and best practices)
+  - Consolidated labelling documentation: merged `docs/LABEL_STRATEGY.md`, `docs/ISSUE_LABELS.md`, `docs/PR_LABELS.md` into single comprehensive `docs/LABELING.md` (covers strategy, issue/PR/discussion labelling, agent integration, and best practices)
   - Consolidated automation documentation: merged `docs/AUTOMATION_GOVERNANCE.md`, `docs/WORKFLOWS.md` into single `docs/AUTOMATION.md` (covers strategy, governance, workflow registry, and configuration management)
   - Corrected nested file path: moved `.github/.github/docs/workflow-coordination.md` to `docs/WORKFLOW_COORDINATION.md`
   - Updated `instructions/DEPRECATED.md` with deprecation index and migration guide for consolidated files

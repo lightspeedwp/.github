@@ -2,6 +2,13 @@
 file_type: "prompt"
 title: "Code Review Prompt Template"
 description: "Code review, quality feedback, and standards enforcement"
+version: "1.0.0"
+last_updated: "2026-05-31"
+owners: ["ashley@lightspeedwp.agency"]
+tags: ["code-review", "quality", "prompts"]
+status: "active"
+stability: "stable"
+domain: "tooling"
 ---
 
 # Code Review Prompt Template

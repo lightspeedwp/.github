@@ -2,6 +2,13 @@
 file_type: "prompt"
 title: "Testing Prompt Template"
 description: "Test suite creation, coverage improvement, and test debugging"
+version: "1.0.0"
+last_updated: "2026-05-31"
+owners: ["ashley@lightspeedwp.agency"]
+tags: ["testing", "quality-assurance", "prompts"]
+status: "active"
+stability: "stable"
+domain: "tooling"
 ---
 
 # Testing Prompt Template
