@@ -1,9 +1,9 @@
 ---
 file_type: "documentation"
 title: "Wave 5 Audit #654 Findings"
-description: "Template Inventory and Standardization Audit findings"
+description: "Template Inventory and Standardisation Audit findings"
 issue_number: 654
-audit_type: "Template Inventory & Standardization"
+audit_type: "Template Inventory & Standardisation"
 completion_date: "2026-05-31"
 status: "complete"
 created_date: "2026-05-31"
@@ -11,7 +11,7 @@ last_updated: "2026-05-31"
 category: "audit-findings"
 ---
 
-# Issue #654 Audit Findings: Template Inventory & Standardization
+# Issue #654 Audit Findings: Template Inventory & Standardisation
 
 ## Quick Summary
 
@@ -76,7 +76,7 @@ Address the duplicate `07` prefix:
 
 ### Phase 3: Update Documentation
 - Update `config.yml` with comments linking to canonical docs
-- Update AI instructions to reference standardized templates
+- Update AI instructions to reference standardised templates
 - Add template usage guide to `.github/ISSUE_TEMPLATE/README.md`
 
 ---
