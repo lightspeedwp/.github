@@ -20,7 +20,7 @@ issue_number: 654
 audit_type: "Template Inventory & Standardisation"
 audit_status: "complete"
 completion_date: "2026-05-31"
-category: "audit-findings"
+category: "audit"
 ---
 
 # Issue #654 Audit Findings: Template Inventory & Standardisation
