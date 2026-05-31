@@ -1,3 +1,9 @@
+---
+file_type: "prompt"
+title: "Debugging Prompt Template"
+description: "Problem diagnosis, root cause analysis, and resolution procedures"
+---
+
 # Debugging Prompt Template
 
 Use this prompt when diagnosing problems, analyzing root causes, or resolving issues.

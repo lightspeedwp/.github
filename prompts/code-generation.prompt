@@ -1,3 +1,9 @@
+---
+file_type: "prompt"
+title: "Code Generation Prompt Template"
+description: "Code implementation, scaffolding, and generation scenarios"
+---
+
 # Code Generation Prompt Template
 
 Use this prompt when requesting code implementation, scaffolding, or generation of new functionality.

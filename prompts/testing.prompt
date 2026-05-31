@@ -1,3 +1,9 @@
+---
+file_type: "prompt"
+title: "Testing Prompt Template"
+description: "Test suite creation, coverage improvement, and test debugging"
+---
+
 # Testing Prompt Template
 
 Use this prompt when creating tests, improving test coverage, or debugging failing tests.

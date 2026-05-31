@@ -1,3 +1,9 @@
+---
+file_type: "prompt"
+title: "Agent Setup Prompt Template"
+description: "Initial agent context, instructions, and operational guidelines"
+---
+
 # Agent Setup Prompt Template
 
 Use this prompt to configure a new agent or AI system with necessary context, constraints, and operational guidelines.

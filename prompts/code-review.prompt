@@ -1,3 +1,9 @@
+---
+file_type: "prompt"
+title: "Code Review Prompt Template"
+description: "Code review, quality feedback, and standards enforcement"
+---
+
 # Code Review Prompt Template
 
 Use this prompt when requesting code review, quality feedback, or standards enforcement.

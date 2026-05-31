@@ -1,3 +1,9 @@
+---
+file_type: "prompt"
+title: "Standardized Prompts Directory"
+description: "Reusable prompt templates for agents and AI scenarios across LightSpeed projects"
+---
+
 # Standardized Prompts
 
 This directory contains reusable prompt templates for agents and AI scenarios across LightSpeed projects. Use these prompts as starting points for common tasks—customize as needed for your specific context.
