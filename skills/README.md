@@ -14,7 +14,7 @@ tags:
 - automation
 - cross-platform
 title: Portable AI Skills
-version: v0.3.1
+version: v0.3.2
 ---
 
 # Portable AI Skills

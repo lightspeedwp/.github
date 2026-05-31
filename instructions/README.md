@@ -14,7 +14,7 @@ tags:
 - documentation
 - governance
 title: Portable Instructions & Standards
-version: v0.3.1
+version: v0.3.2
 ---
 
 # Portable Instructions & Standards
