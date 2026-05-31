@@ -25,13 +25,13 @@ const README_FILES = [
 
 // Mermaid syntax validation patterns
 const DIAGRAM_TYPES = {
-  graph: /^(graph|flowchart)\s+(TD|BT|LR|RL|TB)/m,
-  flowchart: /^(flowchart|graph)\s+(TD|BT|LR|RL|TB)/m,
-  sequenceDiagram: /^sequenceDiagram/m,
-  stateDiagram: /^(stateDiagram|stateDiagram-v2)/m,
-  erDiagram: /^erDiagram/m,
-  gantt: /^gantt/m,
-  pie: /^pie\s+title/m,
+  graph: /^\s*graph\b/m,
+  flowchart: /^\s*flowchart\b/m,
+  sequenceDiagram: /^\s*sequenceDiagram\b/m,
+  stateDiagram: /^\s*(stateDiagram|stateDiagram-v2)\b/m,
+  erDiagram: /^\s*erDiagram\b/m,
+  gantt: /^\s*gantt\b/m,
+  pie: /^\s*pie\b/m,
 };
 
 function extractMermaidDiagrams(content) {
@@ -81,8 +81,9 @@ function validateDiagramSyntax(content) {
   // Check for accTitle/accDescr format
   // Both single-line (accDescr: "text") and block (accDescr { ... }) formats are valid
   let inAccDescrBlock = false;
-  for (let i = 0; i < content.split("\n").length; i++) {
-    const line = content.split("\n")[i].trim();
+  const lines = content.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
 
     if (line.startsWith("accDescr {")) {
       inAccDescrBlock = true;
@@ -98,15 +99,17 @@ function validateDiagramSyntax(content) {
   }
 
   // Basic syntax checks for common issues
-  // Only check braces outside of string literals
-  const openBraces = (content.match(/{/g) || []).length;
-  const closeBraces = (content.match(/}/g) || []).length;
+  // Strip double-quoted string literals to avoid false positives in brace/bracket matching
+  const cleanContent = content.replace(/"[^"\\]*(?:\\.[^"\\]*)*"/g, "");
+
+  const openBraces = (cleanContent.match(/{/g) || []).length;
+  const closeBraces = (cleanContent.match(/}/g) || []).length;
   if (openBraces !== closeBraces) {
     errors.push(`Mismatched braces: ${openBraces} open, ${closeBraces} close`);
   }
 
-  const openBrackets = (content.match(/\[/g) || []).length;
-  const closeBrackets = (content.match(/]/g) || []).length;
+  const openBrackets = (cleanContent.match(/\[/g) || []).length;
+  const closeBrackets = (cleanContent.match(/]/g) || []).length;
   if (openBrackets !== closeBrackets) {
     errors.push(
       `Mismatched brackets: ${openBrackets} open, ${closeBrackets} close`,
