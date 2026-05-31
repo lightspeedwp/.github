@@ -79,8 +79,17 @@ info_check "  - Slide 2: Speaker intro (photo, bio, credentials, footer)"
 info_check "  - Slide 23: Contact details (email, website, GitHub, LinkedIn, footer)"
 info_check "  - Slide 24: Thank you (minimal, elegant)"
 echo ""
-echo -n "Are all 4 foundation slides created and accessible? (y/n): "
-read -r SLIDES_COMPLETE
+
+# Check for TTY to allow CI/CD to skip interactive prompts
+if [ -t 0 ]; then
+  echo -n "Are all 4 foundation slides created and accessible? (y/n): "
+  read -r SLIDES_COMPLETE
+else
+  # In CI/CD, use environment variable or default to 'n'
+  SLIDES_COMPLETE="${SLIDES_COMPLETE:-n}"
+  info_check "Non-interactive mode: SLIDES_COMPLETE=${SLIDES_COMPLETE}"
+fi
+
 if [ "$SLIDES_COMPLETE" = "y" ]; then
   pass_check "Foundation slides created"
 else
@@ -88,8 +97,15 @@ else
 fi
 
 echo ""
-echo -n "Google Slides URL (paste here, then press Enter): "
-read -r SLIDES_URL
+if [ -t 0 ]; then
+  echo -n "Google Slides URL (paste here, then press Enter): "
+  read -r SLIDES_URL
+else
+  # In CI/CD, use environment variable or default to empty
+  SLIDES_URL="${SLIDES_URL:-}"
+  [ -z "$SLIDES_URL" ] && info_check "Non-interactive mode: SLIDES_URL not set"
+fi
+
 if [ -n "$SLIDES_URL" ]; then
   info_check "Google Slides URL saved: $SLIDES_URL"
   echo "$SLIDES_URL" > wceu-2026/.phase2-slides-url.txt

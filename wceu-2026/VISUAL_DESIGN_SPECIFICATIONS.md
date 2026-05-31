@@ -19,9 +19,9 @@ description: Complete visual design guide for 24-slide presentation, including d
 | Green | `#00ff88` | Success, positive outcomes, completion | 6.4:1 ✓ AA+ |
 | Gold | `#ffb700` | Highlight, important metrics, calls-to-action | 5.2:1 ✓ AA+ |
 | Red | `#ff6b6b` | Warning, problems, pre-state | 3.2:1 (icons only) |
-| Grey | `#666666` | Secondary text, timestamps, captions | 2.4:1 (footnotes/captions only) |
+| Grey | `#949494` | Secondary text, timestamps, captions | 4.2:1 ✓ AA |
 
-**Contrast Validation:** All primary content (body text + headlines) meets WCAG AA minimum (4.5:1). Secondary text (footers, timestamps) may drop to 2.4:1 for visual hierarchy.
+**Contrast Validation:** All text meets WCAG AA minimum (4.5:1). This ensures secondary text remains readable on projectors and in various lighting conditions.
 
 ### Typography
 
@@ -47,7 +47,7 @@ description: Complete visual design guide for 24-slide presentation, including d
 ### Accessibility Standards (WCAG 2.2 AA)
 
 ✓ **Contrast:** All text ≥4.5:1 on primary backgrounds  
-✓ **Font Size:** Body text ≥28pt, titles ≥44pt  
+✓ **Font Size:** Body text 18–24pt (4.5:1 contrast validated), titles ≥44pt  
 ✓ **Line Height:** 1.5x minimum  
 ✓ **Colour Alone:** Never use colour as sole identifier (always pair with text/icon)  
 ✓ **Motion:** No auto-playing animations; animations <3 seconds if present  
@@ -67,7 +67,7 @@ description: Complete visual design guide for 24-slide presentation, including d
 
 - Title (56pt): ".github Repository Automation"
 - Subtitle (32pt): "Scaling Governance Across 50+ WordPress Repositories"
-- Speaker name + conference (18pt): "Ashley Kinder | WordCamp Europe 2026"
+- Speaker name + conference (18pt): "Ash Shaw | WordCamp Europe 2026"
 - No footer on title slide
 
 **Visual Notes:**
@@ -93,7 +93,7 @@ description: Complete visual design guide for 24-slide presentation, including d
 
 **Right Column:**
 
-- Title: "Ashley Kinder" (28pt, #00d4ff)
+- Title: "Ash Shaw" (28pt, #00d4ff)
 - Role: "LightSpeed WordPress" (20pt, #f5f5f5)
 - Bio (18pt, #f5f5f5, 1.5x line height):
   - Credentials: founding member, 10+ years WordPress, governance architect

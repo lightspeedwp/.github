@@ -124,22 +124,22 @@ description: Quick-reference index of all 24 slides with layout, timing, key mes
 
 ## Timing Distribution
 
-**Total: 25 minutes**
+**Total: 22 minutes** (+ 3 min Q&A buffer = 25 min slot)
 
 | Section | Slides | Duration | Comments |
 |---------|--------|----------|----------|
-| Hook | 1–6 | 5:50 | 58 sec average per slide |
-| Architecture | 7–12 | 6:35 | ~65 sec average (more complex concepts) |
-| Implementation | 13–18 | 6:25 | ~64 sec average (narrative flow) |
-| Adoption & Impact | 19–24 | 6:20 | ~63 sec average (conclusion-focused) |
-| **Total** | **24** | **25:10** | **~63 sec average** |
+| Hook | 1–6 | 5:00 | 50 sec average per slide |
+| Architecture | 7–12 | 6:00 | ~60 sec average (more complex concepts) |
+| Implementation | 13–18 | 5:30 | ~55 sec average (narrative flow) |
+| Adoption & Impact | 19–24 | 5:30 | ~55 sec average (conclusion-focused) |
+| **Total** | **24** | **22:00** | **~55 sec average** |
 
 **Pacing Notes:**
 
-- At 12:30: should be at slide 13 (Implementation)
-- At 18:00: should be at slide 19 (Sustainability)
-- At 23:00: should be at slide 24 (Core Principle)
-- Allow 2–3 min buffer for Q&A
+- At 11:00: should be at slide 13 (Implementation)
+- At 17:00: should be at slide 19 (Sustainability)
+- At 21:00: should be at slide 24 (Core Principle)
+- Allow 3 min buffer for Q&A (total 25 min slot)
 
 ---
 
