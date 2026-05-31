@@ -74,8 +74,8 @@ This audit reviews canonical configuration files (labels.yml, issue-types.yml, i
 | Priority | 5 | 4 colors | OK; clear ordering (red→orange→blue) |
 | Type | 25 | 11 colors | Good coverage; some duplicates (4393F8 used 6x) |
 | Area | 20+ | 8+ colors | Inconsistent; some greys, some bright |
-| Language | 6 | 3 colors | Clear; one color per language group |
-| Discussion | 7 | 0 colors | Unused; empty automation rules |
+| Language | 7 | 3 colors | Clear; one color per language group |
+| Discussion | 7 | 7 colors | All defined; good semantic color coverage |
 
 ---
 
@@ -104,8 +104,8 @@ This audit reviews canonical configuration files (labels.yml, issue-types.yml, i
 **Gap Analysis**:
 
 - 25 types defined in issue-types.yml
-- But issue-fields.yml only maps ~15 types to project "Type" field
-- Remaining 10 types (Improvement, Compatibility, Integration, Release, Question, Support, Review, Story, Epic, Content Modelling) missing from project field mapping
+- Issue-fields.yml maps 23 types to project "Type" field
+- Unmapped types: `type:refactor` and `type:build` only
 
 ---
 
