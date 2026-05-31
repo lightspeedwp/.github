@@ -516,3 +516,48 @@ Archival checklist per file:
 4. Update this roadmap file with archival record
 
 ---
+
+---
+
+## Wave 5 — Documentation & Automation Audit (🆕 PROPOSED)
+
+**Objective**: Systematically audit all documentation, templates, and canonical configurations to identify gaps in the issue automation system and consolidate duplicated documentation.
+
+**Status**: Proposed — audit prompt created, ready for GitHub issue creation
+
+**Scope**: 
+- 5 parent audit issues
+- ~25 child audit issues
+- Covers: templates, canonical configs, documentation, README files, file organization
+
+**Execution Plan**:
+- Use prompt document: `.github/projects/active/DOCUMENTATION_AUDIT_PROMPT_COMPREHENSIVE.md`
+- Create all issues from prompt
+- Track progress in active projects folder
+- Consolidate findings into implementation wave
+
+**Why This Matters**:
+- Issue labeling automation isn't working (PR labeling works fine)
+- Root cause likely in how templates/configs relate or how AI agents create issues
+- Clear documentation will guide all future automation fixes
+
+**Key Deliverables**:
+1. Issue template audit & standardization recommendations
+2. Canonical config validation (labels, issue-types, issue-fields)
+3. Documentation consolidation & deduplication plan
+4. README & Mermaid diagram accessibility audit + fixes
+5. File organization alignment with CLAUDE.md
+
+**Estimated Effort**: 15-20 hours of investigation + implementation
+
+**Owner**: Claude Code (investigation phase), then implementation team
+
+**Next Action**: 
+1. Review `DOCUMENTATION_AUDIT_PROMPT_COMPREHENSIVE.md`
+2. Create GitHub issues from prompt structure
+3. Assign to team members
+4. Execute audits and gather findings
+5. Consolidate recommendations into implementation plan
+
+---
+
