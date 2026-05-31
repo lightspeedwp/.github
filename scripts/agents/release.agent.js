@@ -597,7 +597,10 @@ function createRelease(version, options = {}) {
  * @param {string} nextVersion - Version that was just released
  * @throws {Error} If validation fails
  */
-function validatePostReleaseChangelog(changelogPath = "CHANGELOG.md", nextVersion) {
+function validatePostReleaseChangelog(
+  changelogPath = "CHANGELOG.md",
+  nextVersion,
+) {
   console.log(`\n=== Validating Post-Release CHANGELOG ===`);
 
   if (!fs.existsSync(changelogPath)) {
@@ -635,7 +638,9 @@ function validatePostReleaseChangelog(changelogPath = "CHANGELOG.md", nextVersio
     console.log(`✓ [${nextVersion}] section is properly formatted`);
     console.log(`✓ CHANGELOG schema validation passed`);
   } catch (error) {
-    throw new Error(`Post-release CHANGELOG validation failed: ${error.message}`);
+    throw new Error(
+      `Post-release CHANGELOG validation failed: ${error.message}`,
+    );
   }
 }
 
@@ -755,7 +760,9 @@ async function run() {
       try {
         validatePostReleaseChangelog("CHANGELOG.md", nextVersion);
       } catch (error) {
-        console.error(`❌ Post-release changelog validation failed: ${error.message}`);
+        console.error(
+          `❌ Post-release changelog validation failed: ${error.message}`,
+        );
         throw error;
       }
     }
