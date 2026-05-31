@@ -283,6 +283,6 @@ A: Yes, edit the `generateArchitecturePlan()`, `generateImplementationPlan()`, a
 
 ## Related Documentation
 
-- [Agent Architecture](./AGENT-ARCHITECTURE.md) — Module structure and interfaces
-- [Reviewer Agent Runbook](./REVIEWER-RUNBOOK.md) — Companion reviewer agent
+- [Agent Architecture](./AGENT_ARCHITECTURE.md) — Module structure and interfaces
+- [Reviewer Agent Runbook](./REVIEWER_RUNBOOK.md) — Companion reviewer agent
 - [Improvement Plan](../ai/improvement-plan-planner-reviewer.md) — Development roadmap

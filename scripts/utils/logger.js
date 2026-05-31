@@ -15,13 +15,14 @@
 
 class Logger {
   constructor(level = "info") {
-    this.level = level;
     this.levelMap = { debug: 0, info: 1, warn: 2, error: 3 };
-    if (!this.levelMap[level]) {
+    const normalizedLevel = level.toLowerCase();
+    if (this.levelMap[normalizedLevel] === undefined) {
       throw new Error(
         `Invalid log level: ${level}. Use: debug, info, warn, error`,
       );
     }
+    this.level = normalizedLevel;
   }
 
   log(level, message, data = {}) {
@@ -30,10 +31,10 @@ class Logger {
     }
 
     const output = {
+      ...data,
       timestamp: new Date().toISOString(),
       level,
       message,
-      ...data,
     };
 
     const stream = level === "error" ? process.stderr : process.stdout;

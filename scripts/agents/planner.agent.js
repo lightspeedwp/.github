@@ -205,8 +205,8 @@ async function run(context = github.context, options = {}) {
     logger.info("Planner agent started", {
       event: "start",
       issueNumber:
-        context.payload.issue?.number || context.payload.pull_request?.number,
-      repo: context.repo.repo,
+        context.payload?.issue?.number || context.payload?.pull_request?.number,
+      repo: context.repo?.repo,
     });
 
     const dryRun =

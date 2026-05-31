@@ -359,6 +359,6 @@ A: Modify the blocker detection logic in `run()` function. For example, to alway
 
 ## Related Documentation
 
-- [Agent Architecture](./AGENT-ARCHITECTURE.md) — Module structure and logging format
-- [Planner Agent Runbook](./PLANNER-RUNBOOK.md) — Companion planner agent
+- [Agent Architecture](./AGENT_ARCHITECTURE.md) — Module structure and logging format
+- [Planner Agent Runbook](./PLANNER_RUNBOOK.md) — Companion planner agent
 - [Improvement Plan](../ai/improvement-plan-planner-reviewer.md) — Development roadmap

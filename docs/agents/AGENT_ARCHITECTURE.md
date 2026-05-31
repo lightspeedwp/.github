@@ -453,4 +453,4 @@ Typical execution: 500-2000ms (depends on API latency)
 - Source: `scripts/agents/reviewer.agent.js`
 - Logger: `scripts/utils/logger.js`
 - Tests: `scripts/agents/__tests__/`
-- Runbooks: `docs/agents/PLANNER-RUNBOOK.md`, `REVIEWER-RUNBOOK.md`
+- Runbooks: `docs/agents/PLANNER_RUNBOOK.md`, `REVIEWER_RUNBOOK.md`
