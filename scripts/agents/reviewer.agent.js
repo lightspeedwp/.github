@@ -27,14 +27,20 @@ import { pathToFileURL } from "url";
  * Main orchestrator for Reviewer Agent.
  * Posts a summary comment on PRs with CI status and file analysis.
  * @param {Object} context - GitHub Actions context object.
+ * @param {Object} options - Configuration options.
+ * @param {boolean} options.dryRun - If true, logs comment instead of posting.
  * @returns {Promise<void>}
  */
-async function run(context = github.context) {
+async function run(context = github.context, options = {}) {
   try {
     const token = core.getInput("github-token") || process.env.GITHUB_TOKEN;
     if (!token) throw new Error("Missing token");
     const requireChangelog =
       (core.getInput("require-changelog") || "false") === "true";
+    const dryRun =
+      options.dryRun ||
+      process.argv.includes("--dry-run") ||
+      process.env.DRY_RUN === "true";
     const octokit = github.getOctokit(token);
     const pr = context.payload.pull_request;
     if (!pr) {
@@ -81,13 +87,17 @@ async function run(context = github.context) {
 ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proceed pending human review"}
 `;
 
-    await octokit.rest.issues.createComment({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: pr.number,
-      body: summary,
-    });
-    core.info("Reviewer comment posted.");
+    if (dryRun) {
+      core.info(`DRY-RUN: Would post comment:\n${summary}`);
+    } else {
+      await octokit.rest.issues.createComment({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        issue_number: pr.number,
+        body: summary,
+      });
+      core.info("Reviewer comment posted.");
+    }
   } catch (e) {
     core.setFailed(e.message);
   }
