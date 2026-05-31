@@ -42,7 +42,7 @@ function parseChangelog(changelogPath) {
     while ((match = releaseRegex.exec(content)) !== null) {
         releasePositions.push({
             version: match[1].trim(),
-            date: match[2].trim(),
+            date: match[2] ? match[2].trim() : undefined,
             startPos: match.index,
             endPos: -1
         });
@@ -155,13 +155,15 @@ function validateChangelog(changelogData) {
             }
         }
 
-        // Check date format
-        if (!release.date) {
-            errors.push(`Release ${index + 1}: Missing date`);
-        } else {
-            const datePattern = /^(\d{4}-\d{2}-\d{2}|DD-MM-YYYY|YYYY-MM-DD)$/;
-            if (!datePattern.test(release.date)) {
-                errors.push(`Release ${index + 1}: Invalid date format "${release.date}" (expected YYYY-MM-DD)`);
+        // Check date format (skip for [Unreleased])
+        if (release.version !== 'Unreleased') {
+            if (!release.date) {
+                errors.push(`Release ${index + 1}: Missing date`);
+            } else {
+                const datePattern = /^(\d{4}-\d{2}-\d{2}|DD-MM-YYYY|YYYY-MM-DD)$/;
+                if (!datePattern.test(release.date)) {
+                    errors.push(`Release ${index + 1}: Invalid date format "${release.date}" (expected YYYY-MM-DD)`);
+                }
             }
         }
 
