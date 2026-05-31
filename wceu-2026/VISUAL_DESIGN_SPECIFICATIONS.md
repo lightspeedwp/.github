@@ -3,6 +3,14 @@ file_type: documentation
 title: WCEU 2026 Main Talk — Visual Design Specifications
 date: 2026-05-31
 description: Complete visual design guide for 24-slide presentation, including design system, layout specifications, accessibility compliance, and implementation notes
+version: "1.0"
+last_updated: "2026-05-31"
+owners: ["Ashley Shaw"]
+tags: ["wceu-2026", "design", "visual-system", "accessibility"]
+status: "published"
+stability: "stable"
+domain: "presentation"
+language: "en"
 ---
 
 # Visual Design Specifications — WCEU 2026 WordCamp Talk
@@ -22,7 +30,7 @@ description: Complete visual design guide for 24-slide presentation, including d
 | Red | `#ff6b6b` | Warning, problems, pre-state | 3.2:1 (icons only) |
 | Grey | `#949494` | Secondary text, timestamps, captions | 4.2:1 ✓ AA |
 
-**Contrast Validation:** All text meets WCAG AA minimum (4.5:1). This ensures secondary text remains readable on projectors and in various lighting conditions.
+**Contrast Validation:** All text meets WCAG AA minimum (≥4.5:1 for most text; grey secondary text at 4.2:1 meets AA for large text). This ensures secondary text remains readable on projectors and in various lighting conditions.
 
 ### Typography
 
@@ -300,7 +308,7 @@ Use simple, consistent icons for:
 6. **Footer:**
    - Insert as text box on master
    - Format: "Slide {number} | WordCamp Europe 2026 | {topic}"
-   - Font: 28pt #666666
+   - Font: 28pt `#949494`
 
 ---
 

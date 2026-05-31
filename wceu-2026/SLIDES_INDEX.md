@@ -3,6 +3,14 @@ file_type: documentation
 title: WCEU 2026 Main Talk — Slide Index (24 Slides)
 date: 2026-05-31
 description: Quick-reference index of all 24 slides with layout, timing, key message, and colour scheme
+version: "1.0"
+last_updated: "2026-05-31"
+owners: ["Ashley Shaw"]
+tags: ["wceu-2026", "slides", "presentation", "reference"]
+status: "published"
+stability: "stable"
+domain: "presentation"
+language: "en"
 ---
 
 # Slide Index — 24-Slide WCEU 2026 Presentation
@@ -91,7 +99,7 @@ description: Quick-reference index of all 24 slides with layout, timing, key mes
 - [ ] **Bullets:** Max 5 per slide
 - [ ] **Metrics:** 40–48pt bold, colour-coded accent, label below
 - [ ] **Icons:** Monoline, 2px stroke, colour-matched to accent
-- [ ] **Accessibility:** All text ≥4.5:1 contrast, fonts ≥28pt body / ≥44pt titles, no motion auto-play
+- [ ] **Accessibility:** All text ≥4.5:1 contrast, fonts 18–24pt body / 44–56pt titles, no motion auto-play
 
 ---
 
@@ -162,7 +170,7 @@ description: Quick-reference index of all 24 slides with layout, timing, key mes
 
 ## Speaker Notes Reference
 
-Full speaker notes available in: `SPEAKER_NOTES_FINAL.md`
+Full speaker notes available in: [SPEAKER_NOTES_FINAL.md](./SPEAKER_NOTES_FINAL.md)
 
 Each slide includes:
 

@@ -5,6 +5,14 @@ date: 2026-05-31
 description: Full speaker notes for the 25-minute WordCamp Europe 2026 presentation on .github repository automation and governance
 duration: 25 minutes
 format: Speaker reference with timing, key messages, talking points, and transitions
+version: "1.0"
+last_updated: "2026-05-31"
+owners: ["Ashley Shaw"]
+tags: ["wceu-2026", "speaker-notes", "presentation", "timing"]
+status: "published"
+stability: "stable"
+domain: "presentation"
+language: "en"
 ---
 
 # Speaker Notes: ".github Repository Automation" — 25-Minute Talk
@@ -194,10 +202,10 @@ format: Speaker reference with timing, key messages, talking points, and transit
 
 - "Let's ground this in a real example: labeling. Before our architecture, each repository maintained its own label set. Some called it 'type:feature', others called it 'feature-request', others 'feature'. Total chaos."
 - "We spent 30-40% of developer time manually enforcing consistency. Adding a label to one repo, then manually adding it to 50 others. Checking for drift every few weeks. It was exhausting."
-- "With our hub-and-spoke architecture, we centralized labeling. One canonical label set lives in the .github hub. All 50+ repos import it via plugin. When we update a label, it propagates to all spokes automatically."
+- "With our hub-and-spoke architecture, we centralised labeling. One canonical label set lives in the .github hub. All 50+ repos import it via plugin. When we update a label, it propagates to all spokes automatically."
 - "The result? 100% consistency across all repos. Zero drift. And developer overhead dropped from 30-40% to 5-8%. That's an 80% reduction."
 - "But here's the deeper impact: correct labeling enables all downstream automation. With consistent labels, our automations know exactly what they're looking at. They can route PRs correctly, prioritize issues, enforce security gates. Bad labeling breaks all of this."
-- "So labeling is the gateway. Get that right—centralize it—and the entire ecosystem becomes more efficient. This is why we started here."
+- "So labeling is the gateway. Get that right—centralise it—and the entire ecosystem becomes more efficient. This is why we started here."
 
 **Timing:** 1 min 15 sec
 
@@ -207,12 +215,12 @@ format: Speaker reference with timing, key messages, talking points, and transit
 
 ## Slide 12: Workflow Standards and Security Gates
 
-**Key Message:** Workflow standards and security gates are centralized in the hub and automatically enforced across all spokes, ensuring no PR merges without passing required checks and security validation.
+**Key Message:** Workflow standards and security gates are centralised in the hub and automatically enforced across all spokes, ensuring no PR merges without passing required checks and security validation.
 
 **Talking Points:**
 
 - "Workflow standards are the rules that govern PR merging. Before our architecture, each repo had different requirements: some required 2 approvals, others required 1. Some ran CI checks, others didn't. Inconsistent and risky."
-- "We centralized these standards. Every repo now requires: 2 code review approvals, all CI checks passing, security scanning clean, and PR labels applied. Non-negotiable. Enforced automatically."
+- "We centralised these standards. Every repo now requires: 2 code review approvals, all CI checks passing, security scanning clean, and PR labels applied. Non-negotiable. Enforced automatically."
 - "Security gates are the backstop. We have three layers: secrets detection (GitGuardian + custom patterns looking for AWS keys, GitHub tokens, etc.), dependency validation (making sure composer.lock and package-lock.json are legitimate), and code quality baseline enforcement."
 - "Here's what's powerful: 80% of security issues are caught by automated gates before any human even sees the PR. The remaining 20%—the tricky ones—get human review with full context."
 - "Developers don't experience this as friction. They push code, gates run automatically, and they get instant feedback. No waiting for a security team to manually review thousands of lines. Automation first, human review second."
@@ -251,7 +259,7 @@ format: Speaker reference with timing, key messages, talking points, and transit
 - "Key metrics we tracked: deployment success, no regressions, team velocity unchanged. Once we had good data from 5 repos, we validated the approach and moved to Phase 2."
 - "Phase 2: Rollout and Adoption. Weeks 3-6, we migrated the next 30 repositories. Not all at once—gradually, with support. We provided documentation, answered questions, iterated on the plugins based on feedback. Some teams hit edge cases we didn't anticipate. We fixed them quickly."
 - "Same validation: no regressions, teams stay productive, governance rules are being enforced correctly. By the end of Phase 2, we had 35 repos adopted and strong adoption momentum."
-- "Phase 3: Scale and Optimize. Weeks 7-12, we migrated the remaining repos. Built automated validation tooling to detect conflicts and drift. Optimized plugin loading times. All 50+ repositories now unified under one governance system."
+- "Phase 3: Scale and Optimise. Weeks 7-12, we migrated the remaining repos. Built automated validation tooling to detect conflicts and drift. Optimised plugin loading times. All 50+ repositories now unified under one governance system."
 - "Here's what's crucial: we had decision gates at each phase. We could have stopped. If Phase 1 had shown problems, we would have fixed them before rolling out to 35 more teams. Risk management through staged rollout."
 
 **Timing:** 1 min 20 sec
@@ -281,7 +289,7 @@ format: Speaker reference with timing, key messages, talking points, and transit
 
 ## Slide 16: Current State — Ecosystem Metrics
 
-**Key Message:** The current ecosystem demonstrates the power of centralized governance at scale: 50+ unified repositories, zero drift, 80% reduction in governance overhead, and a community that actively improves the system.
+**Key Message:** The current ecosystem demonstrates the power of centralised governance at scale: 50+ unified repositories, zero drift, 80% reduction in governance overhead, and a community that actively improves the system.
 
 **Talking Points:**
 
@@ -315,13 +323,13 @@ format: Speaker reference with timing, key messages, talking points, and transit
 
 **Timing:** 1 min 25 sec
 
-**Transition:** "The developer experience is great, but let's zoom out. What does this mean for the organization as a whole? What happens when you scale this approach?..."
+**Transition:** "The developer experience is great, but let's zoom out. What does this mean for the organisation as a whole? What happens when you scale this approach?..."
 
 ---
 
-## Slide 18: Organizational Adoption — Culture Shift
+## Slide 18: Organisational Adoption — Culture Shift
 
-**Key Message:** The hub-and-spoke architecture catalyzed a culture shift from governance-as-burden to governance-as-enablement, transforming how teams across the organization approach standards and collaboration.
+**Key Message:** The hub-and-spoke architecture catalyzed a culture shift from governance-as-burden to governance-as-enablement, transforming how teams across the organisation approach standards and collaboration.
 
 **Talking Points:**
 
@@ -329,7 +337,7 @@ format: Speaker reference with timing, key messages, talking points, and transit
 - "But something shifts when governance becomes automated. When it's no longer a person telling you what to do, but a system that prevents mistakes before they happen, the culture transforms."
 - "Before our architecture: governance was reactive and manual. A security issue would occur. Manual review would happen. We'd fix it. Then we'd add a rule to prevent it next time. Slow cycle."
 - "After: governance is proactive and automated. We codify the rule in the hub. It propagates to all spokes automatically. Issues are prevented before they occur. Developers never even encounter the problem."
-- "Second shift: before, governance was centralized. One team decided the rules. Everyone else had to comply. It felt top-down."
+- "Second shift: before, governance was centralised. One team decided the rules. Everyone else had to comply. It felt top-down."
 - "Now: governance rules are standardized in the hub, but teams can extend them for local needs. They're also creating new plugins, contributing improvements to existing ones. They've moved from consumers to creators."
 - "Third shift: before, governance was seen as something that slows shipping. 'We want to move fast, but governance gets in the way.'"
 - "Now: governance accelerates shipping because it provides confidence. Developers ship faster knowing the system has their back. Every PR has been validated. Security is automatic. It's empowering."
@@ -354,7 +362,7 @@ format: Speaker reference with timing, key messages, talking points, and transit
 - "Pillar 4: documentation and training. The system is self-service. Teams can onboard themselves. We have learning resources, automated guides, and regular training updates."
 - "Looking forward, our evolution roadmap has three phases. Phase A—the next 6 months—focuses on expansion: multi-language support, AI-assisted governance rule generation, integration with compliance frameworks like GDPR, more agentic workflow templates."
 - "Phase B, 6-12 months out: intelligence. Predictive drift detection using ML to spot problems before they happen. Anomaly detection to identify unusual governance patterns. Automated policy recommendations based on what the ecosystem is doing. AI-driven code review."
-- "Phase C, 12+ months: ecosystem. We want to open-source this architecture. Create a community plugins marketplace. Allow organizations outside our own to federate governance across their repositories. Establish industry standards and certifications."
+- "Phase C, 12+ months: ecosystem. We want to open-source this architecture. Create a community plugins marketplace. Allow organisations outside our own to federate governance across their repositories. Establish industry standards and certifications."
 
 **Timing:** 1 min 25 sec
 
@@ -362,13 +370,13 @@ format: Speaker reference with timing, key messages, talking points, and transit
 
 ---
 
-## Slide 20: Customization & Flexibility — Respecting Diversity
+## Slide 20: Customisation & Flexibility — Respecting Diversity
 
 **Key Message:** The hub-and-spoke architecture enforces non-negotiable security and governance standards at the baseline, while allowing teams full flexibility to customize and extend within those constraints.
 
 **Talking Points:**
 
-- "A question we get: doesn't centralized governance eliminate flexibility? Doesn't it force one-size-fits-all rules?"
+- "A question we get: doesn't centralised governance eliminate flexibility? Doesn't it force one-size-fits-all rules?"
 - "The answer is no. We're opinionated about baseline standards—security, code quality, naming conventions, review requirements. Those apply everywhere. No exceptions. We can't have a 'security-optional' repository."
 - "But within those constraints, teams have enormous flexibility. They can add custom labels for their workflow. They can create specialized issue templates. They can build additional validation gates. They can create team-specific plugins."
 - "Examples: our security team uses the baseline standards plus enhanced secrets detection and a compliance gate for regulated repositories. The performance team adds a benchmarking gate and a performance-metrics tracking plugin. Plugin developers add a plugin-submission workflow and compatibility validation."
@@ -428,12 +436,12 @@ format: Speaker reference with timing, key messages, talking points, and transit
 
 **Talking Points:**
 
-- "What we've built is not unique to our organization. It's an architecture and a set of principles that could benefit the entire WordPress ecosystem."
+- "What we've built is not unique to our organisation. It's an architecture and a set of principles that could benefit the entire WordPress ecosystem."
 - "Imagine if multiple WordPress communities—WordPress.org, WordPress Enterprise, agency networks, corporate WordPress teams—all adopted similar governance patterns. Different implementations, same philosophy. Unified security baselines, shared plugins, interoperable governance standards."
 - "This could unlock a community plugin marketplace. Governance plugins built and maintained by the community. Plugins could be certified based on security and quality gates. Smaller teams could adopt battle-tested governance plugins instead of building from scratch."
-- "Beyond individual organizations, imagine industry standards. We could evolve WordPress Coding Standards to include governance-as-code patterns. Create a v2 that addresses both code-level and ecosystem-level concerns. Enable smaller teams and agencies to adopt best practices without the 2.5-month development investment."
+- "Beyond individual organisations, imagine industry standards. We could evolve WordPress Coding Standards to include governance-as-code patterns. Create a v2 that addresses both code-level and ecosystem-level concerns. Enable smaller teams and agencies to adopt best practices without the 2.5-month development investment."
 - "This is the bigger picture. We're not here to say 'this is the one true governance system.' We're here to show a pattern that works, share it, and help the ecosystem build on it."
-- "For you, here's what's next: you can adopt this pattern in your own ecosystem. Start with 5-10 repositories. We've open-sourced the architecture and the tools. You can contribute plugins back. You can advocate for governance-as-code thinking in your organization and beyond."
+- "For you, here's what's next: you can adopt this pattern in your own ecosystem. Start with 5-10 repositories. We've open-sourced the architecture and the tools. You can contribute plugins back. You can advocate for governance-as-code thinking in your organisation and beyond."
 - "Governance is stronger when we solve problems together. When we share solutions, when we build on each other's work. That's what this is about."
 
 **Timing:** 1 min 25 sec
@@ -454,8 +462,8 @@ format: Speaker reference with timing, key messages, talking points, and transit
 - "That created a fear-based culture. Developers worried: 'Am I doing this right? Will this pass review? Is this secure?' They moved slowly, carefully, always second-guessing."
 - "Automated governance inverts that. Rules are clear and executable. Enforcement is automatic. Standards are unified. Feedback is instant. You get visibility into the entire ecosystem."
 - "That creates an empowerment-based culture. Developers know the rules. They get instant feedback. They move fast with confidence because the system has their back. Automated gates catch errors before they reach production."
-- "Technically, we achieved this through the hub-and-spoke architecture. Culturally, we shifted the mindset from 'governance as burden' to 'governance as enablement.' Organizationally, we scaled 50+ repositories while maintaining consistency, security, and team satisfaction."
-- "So as you leave this talk and think about governance in your own ecosystem, remember this: governance, done right, accelerates innovation. Don't ask whether your organization can afford good governance. Ask whether your organization can afford bad governance. The answer drives everything."
+- "Technically, we achieved this through the hub-and-spoke architecture. Culturally, we shifted the mindset from 'governance as burden' to 'governance as enablement.' Organisationally, we scaled 50+ repositories while maintaining consistency, security, and team satisfaction."
+- "So as you leave this talk and think about governance in your own ecosystem, remember this: governance, done right, accelerates innovation. Don't ask whether your organisation can afford good governance. Ask whether your organisation can afford bad governance. The answer drives everything."
 
 **Timing:** 1 min 20 sec
 
