@@ -1,9 +1,16 @@
 ---
-file_type: "issue-template"
-name: "Issue Templates Directory"
-description: "Standardized issue templates for consistent issue creation"
-version: '1.0.1'
-last_updated: '2026-06-01'
+title: "Issue Templates Directory"
+description: "Standardized issue templates for the LightSpeedWP organization. Templates for bugs, features, documentation, and custom issues with automation integration."
+file_type: documentation
+version: v1.2
+last_updated: "2026-05-31"
+created_date: "2025-10-20"
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+tags: ["templates", "issues", "governance", "automation"]
+domain: "governance"
+stability: "stable"
 ---
 
 # 📋 Issue Templates Directory
@@ -38,10 +45,6 @@ For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) a
 ## 🗂️ Issue Template Workflow
 
 ```mermaid
----
-accTitle: Issue Template Workflow
-accDescr: Flowchart showing the complete issue template workflow from user creation through automation agents, with template selection branching to Bug, Feature, Documentation, or Custom templates, all leading to auto-populated fields, issue creation, and agent processing including labeling, type assignment, project board assignment, and notification routing
----
 flowchart TD
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]
@@ -112,5 +115,4 @@ These templates integrate with:
 
 ---
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+<!-- RANDOM FOOTER: 🚀 Consistent templates, efficient workflows! -->
