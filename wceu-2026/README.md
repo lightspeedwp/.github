@@ -3,7 +3,7 @@ title: "WCEU 2026 Presentation Materials"
 description: "Complete Phase 1, 2, and 3 materials for WCEU 2026 talk: 'One .github repo to rule them all'"
 created_date: "2026-05-28"
 file_type: documentation
-last_updated: "2026-05-29"
+last_updated: "2026-05-30"
 ---
 
 # WCEU 2026 Presentation Materials
@@ -69,12 +69,14 @@ wceu-2026/
 
 ### Phase 2: Content Generation (May 30) ⏳
 
-**Timeline**: May 30 (Ash's work)  
+**Timeline**: May 30 (IN PROGRESS)  
 **Duration**: 4–6 hours
 
-- [ ] Run NotebookLM session
-- [ ] Generate speaker notes
-- [ ] Create foundation slides
+- [x] NotebookLM sources index ready (`notebooklm/sources-index.md`, ~60 URLs)
+- [x] SLIDES_GENERATION_PROMPT.md available
+- [ ] Run NotebookLM session (awaiting execution)
+- [ ] Generate speaker notes (awaiting execution)
+- [ ] Create foundation slides (awaiting execution)
 
 **Guide**: See `PHASE2_EXECUTION.md`
 
@@ -111,4 +113,4 @@ wceu-2026/
 
 ---
 
-**Last Updated**: May 29, 2026 (Phase 1 Completion)
+**Last Updated**: May 30, 2026 (Phase 2 In Progress)

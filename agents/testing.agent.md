@@ -3,12 +3,6 @@ name: Testing
 title: 'Testing Agent: Test Execution and Coverage Analysis'
 description: Comprehensive test execution agent for running unit tests, integration
   tests, and generating coverage reports across all supported testing frameworks.
-target: vscode
-handoffs:
-- label: Fix Test Failures
-  agent: test-fixer
-  prompt: Now fix all the failing tests identified in the analysis above.
-  send: false
 version: v0.1.1
 last_updated: '2026-05-29'
 author: LightSpeed
@@ -86,7 +80,7 @@ The Testing Agent is responsible for:
 - Running unit, integration, and end-to-end tests across all supported frameworks
 - Generating and analysing test coverage reports
 - Identifying test failures and root causes
-- Recommending fixes for failing tests (via handoff to test-fixer agent)
+- Recommending fixes for failing tests
 - Ensuring minimum coverage thresholds are met before merge
 
 ## Capabilities
@@ -135,6 +129,42 @@ The Testing Agent is responsible for:
 - **Respect thresholds:** Block merge if coverage falls below configured minimum
 - **No destructive actions:** Do not delete test files or modify source code without explicit approval
 
+## Failure & Rollback
+
+- **Test execution failure:** Log error details, preserve test artifacts, provide recovery guidance
+- **Coverage threshold failure:** Block merge with specific coverage gaps and remediation steps
+- **Flaky test detection:** Highlight tests with inconsistent results for investigation
+- **Partial failures:** Report per-framework status and accumulated impact on merge readiness
+
+## Observability & Logging
+
+- **Test execution logs:** Full output from each framework including STDOUT/STDERR
+- **Coverage traceability:** Link coverage gaps to specific files and test cases
+- **Performance metrics:** Test execution time, coverage calculation time, resource usage
+- **Audit trail:** Timestamp, framework version, configuration used for each run
+
+## Validation & Testing
+
+### Normal Case
+
+- All tests pass with coverage ≥ threshold
+- Consistent results across multiple runs
+- Performance metrics within expected ranges
+
+### Edge Cases
+
+- Large test suites (100+ tests) execute without timeout
+- Multiple frameworks in same project run without conflicts
+- Coverage calculation accuracy with complex code structures
+- Framework version compatibility
+
+### Failure Cases
+
+- Framework initialization failure (missing dependencies, bad config)
+- Partial test suite failures (some tests pass, some fail)
+- Timeout handling (tests exceeding configured duration)
+- Resource exhaustion (memory/CPU limits)
+
 ## Configuration
 
 ### Environment Variables
@@ -154,7 +184,7 @@ The Testing Agent is responsible for:
 
 ### Example 1: Run all tests and generate coverage
 
-```
+```text
 Agent: Run all tests in this project and generate a coverage report.
 Output: 
 - Jest: 125 tests pass, 2 fail (coverage: 82%)
@@ -164,12 +194,12 @@ Output:
 
 ### Example 2: Identify and fix failing test
 
-```
-Agent: Fix the failing test in /src/components/Button.test.js
+```text
+Agent: Identify and recommend fixes for failing tests in /src/components/Button.test.js
 Output:
 - Identified: Missing mock for localStorage API
 - Recommended fix: Mock window.localStorage before test
-- Handoff: Passed to test-fixer agent
+- Additional issues: 3 more tests failing due to async timeout issues
 ```
 
 ## Related Agents

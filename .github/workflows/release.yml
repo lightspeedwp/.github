@@ -54,15 +54,18 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       unauthorized_attempts: ${{ steps.telemetry.outputs.unauthorized_attempts }}
+      is_authorized: ${{ steps.telemetry.outputs.is_authorized }}
     steps:
       - id: telemetry
-        name: Record trigger telemetry
+        name: Validate trigger authorization
         env:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/workflows/release/trigger-telemetry.cjs
       - name: Upload telemetry artefact
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: trigger-telemetry
           path: trigger-telemetry.json
@@ -82,8 +85,23 @@ jobs:
       - name: Lint
         run: npm run lint
 
+  test:
+    needs: [trigger-telemetry]
+    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - name: Install
+        run: npm ci
+      - name: Run tests
+        run: npm test
+
   release:
-    needs: [lint]
+    needs: [lint, test]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -114,6 +132,11 @@ jobs:
           INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
           INPUT_DRY_RUN: ${{ inputs.dry_run }}
         run: node scripts/workflows/release/run-release-agent.cjs | tee release-agent.log
+      - name: Validate changelog post-release
+        if: inputs.dry_run == false
+        run: |
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          echo "✓ Post-release changelog validation passed"
       - name: Build dry-run release notes preview
         if: inputs.dry_run == true
         env:

@@ -85,7 +85,7 @@ file_type: documentation
 After Phase 2, run:
 
 ```bash
-npm run scripts/validate-phase2-completion.sh
+bash scripts/validate-phase2-completion.sh
 ```
 
 This checks:

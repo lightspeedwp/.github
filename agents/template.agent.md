@@ -6,7 +6,7 @@ description: 'Standard specification for defining a LightSpeed Copilot Agent: ro
   behaviours, tooling, schemas, and safety constraints.'
 version: v1.2
 last_updated: '2026-05-29'
-status: active
+status: draft
 tags:
 - agent
 - spec
@@ -37,8 +37,14 @@ last_updated: 'YYYY-MM-DD'
 status: [draft|active|deprecated]
 tags:
 - [category tags]
-authors:
+owners:
 - [team or person]
+apply_to:
+- [applicable domains/tools]
+tools:
+- [required tools/permissions]
+examples:
+- [usage scenarios]
 ---
 
 # [Agent Name]
@@ -71,6 +77,34 @@ Brief summary of what this agent does and when it should be invoked.
 - Guardrails and limits
 - What the agent must NOT do
 - Error handling approach
+
+## Failure & Rollback
+
+- How the agent handles failures
+- Rollback procedures and recovery steps
+- Partial failure scenarios and mitigation
+
+## Observability & Logging
+
+- Logging strategy and levels
+- Traceability requirements
+- Metrics and monitoring points
+
+## Validation & Testing
+
+### Normal Case
+- Expected behaviour with valid inputs
+- Success criteria and assertions
+
+### Edge Cases
+- Boundary conditions and limits
+- Non-standard but valid inputs
+- Resource constraints
+
+### Failure Cases
+- Invalid input handling
+- Service dependency failures
+- Recovery and retry logic
 
 ## Configuration
 
@@ -119,6 +153,6 @@ Define guardrails and constraints that protect against misuse. Include specific 
 
 ## See Also
 
-- [Agents Directory](./README.md) – Directory of all agent specifications
+- [Agents Directory](./agent.md) – Directory of all agent specifications
 - [Agent Creation Guide](../docs/AGENT_CREATION.md) – Building and testing new agents
 - [AGENTS.md](../AGENTS.md) – Organization-wide agent guidelines

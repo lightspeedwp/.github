@@ -93,10 +93,11 @@ function grepCount(filePath, pattern, excludePattern = null) {
     const content = fs.readFileSync(filePath, "utf8");
     const lines = content.split("\n");
     const regex = new RegExp(pattern);
+    const excludeRegex = excludePattern ? new RegExp(excludePattern) : null;
     let matches = 0;
     for (const line of lines) {
       if (regex.test(line)) {
-        if (!excludePattern || !new RegExp(excludePattern).test(line)) {
+        if (!excludeRegex || !excludeRegex.test(line)) {
           matches++;
         }
       }
@@ -119,32 +120,42 @@ function getLineCount(filePath) {
 
 function grepRecursive(dirPath, pattern, options = {}) {
   const { exclude = [] } = options;
+  const defaultExcludes = [".git", "node_modules"];
+  const allExcludes = [...defaultExcludes, ...exclude];
   let matches = 0;
-  try {
-    const walk = (dir) => {
-      const entries = fs.readdirSync(dir, { withFileTypes: true });
-      for (const entry of entries) {
-        const fullPath = path.join(dir, entry.name);
+  const regex = new RegExp(pattern);
 
-        // Skip excluded paths
-        if (exclude.some((ex) => fullPath.includes(ex))) {
-          continue;
-        }
+  const walk = (dir) => {
+    let entries;
+    try {
+      entries = fs.readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return; // Skip unreadable directories
+    }
 
-        if (entry.isDirectory()) {
-          walk(fullPath);
-        } else if (entry.isFile()) {
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+
+      // Skip excluded paths
+      if (allExcludes.some((ex) => fullPath.includes(ex))) {
+        continue;
+      }
+
+      if (entry.isDirectory()) {
+        walk(fullPath);
+      } else if (entry.isFile()) {
+        try {
           const content = fs.readFileSync(fullPath, "utf8");
           const lines = content.split("\n");
-          const regex = new RegExp(pattern);
           matches += lines.filter((l) => regex.test(l)).length;
+        } catch {
+          // Skip unreadable files
         }
       }
-    };
-    walk(dirPath);
-  } catch {
-    // Ignore errors
-  }
+    }
+  };
+
+  walk(dirPath);
   return matches;
 }
 
