@@ -13,7 +13,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
 
 const ACTIVE_DIR = process.env.ACTIVE_PROJECTS_DIR || '.github/projects/active';
 const PROJECT_FILTER = process.env.PROJECT_FILTER || '';

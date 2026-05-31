@@ -88,7 +88,11 @@ try {
  * Returns only new entries not already in the main changelog
  */
 function deduplicateEntries(prEntries, existingContent) {
-  const existingText = existingContent.join('\n');
+  const normalizedExisting = new Set(
+    existingContent
+      .map(line => normalizeEntryForComparison(line))
+      .filter(Boolean)
+  );
   const newEntries = [];
 
   for (const entry of prEntries) {
@@ -97,9 +101,9 @@ function deduplicateEntries(prEntries, existingContent) {
       continue;
     }
 
-    // Check if entry already exists (compare content, not formatting)
+    // Check if entry already exists (compare normalized content)
     const entryKey = normalizeEntryForComparison(entry);
-    if (entryKey && !existingText.includes(entryKey)) {
+    if (entryKey && !normalizedExisting.has(entryKey)) {
       newEntries.push(entry);
     }
   }
@@ -117,7 +121,7 @@ function normalizeEntryForComparison(entry) {
   const match = entry.match(/^-\s+\*\*(.*?)\*\*\s+—\s+(.*)/);
   if (match) {
     const title = match[1];
-    const description = match[2].split('\s+\(#\d+\)')[0]; // remove issue refs
+    const description = match[2].split(/\s+\(#\d+\)/)[0]; // remove issue refs
     return `${title}|${description}`.toLowerCase();
   }
 

@@ -14,6 +14,7 @@ created_date: "2026-05-31"
 ## Executive Summary
 
 Current workflow infrastructure is functional but lacks critical automation for:
+
 - **Changelog synchronisation on PR merge** (critical gap)
 - **Automated project archival** (missing)
 - **Planner agent** (disabled, unimplemented)
@@ -61,6 +62,7 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 **Solution:** New `changelog-auto-update.yml` workflow
 
 **Implementation:**
+
 - Trigger: PR merge to `develop` with `CHANGELOG.md` modified
 - Action: Extract changelog entries from merged PR
 - Append to main CHANGELOG.md under `[Unreleased]` section
@@ -78,6 +80,7 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 **Solution:** New `project-archival.yml` workflow + project schema validation
 
 **Implementation:**
+
 - Trigger: On-demand or scheduled (weekly)
 - Scan active projects for completion markers (status: completed, all issues closed, etc.)
 - Move to `.github/projects/archived/{date}-{project-name}/`
@@ -95,6 +98,7 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 **Solution:** Implement `scripts/agents/planner.agent.js`
 
 **Implementation:**
+
 - Detect new issues/PRs lacking project assignment
 - Derive project from labels, issue type, area
 - Add to appropriate project (or queue for manual review)
@@ -111,6 +115,7 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 **Solution:** Pre-issue planning template + checklist in issue-opener guide
 
 **Implementation:**
+
 - Create `.github/projects/active/{project}/PLANNING.md` template
 - Update CONTRIBUTING.md to reference planning checklist
 - Add workflow check: if issue references project, verify planning exists
@@ -127,6 +132,7 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 **Solution:** Unified pre-merge check workflow + documentation
 
 **Implementation:**
+
 - Consolidate into `checks.yml` (lint + test + validate)
 - Trigger on: pull_request (branches: develop), push (branches: develop)
 - Document concurrency groups to prevent overlaps
@@ -143,6 +149,7 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 **Solution:** Add scheduled reporting workflow
 
 **Implementation:**
+
 - New `weekly-metrics-summary.yml` (trigger: weekly, Mon 09:00 UTC)
 - Aggregate metrics from `.github/metrics/`
 - Generate summary markdown → GitHub discussion or wiki
@@ -183,21 +190,25 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 ## Success Criteria
 
 ✅ **Changelog:**
+
 - [ ] New entries from PRs auto-merged into CHANGELOG.md on PR merge
 - [ ] Unreleased section remains consistent; schema always valid
 - [ ] Release workflow can read changelog without manual update
 
 ✅ **Projects:**
+
 - [ ] Completed projects auto-archived within 1 week of closure
 - [ ] All active projects have PLANNING.md documentation
 - [ ] New issues auto-added to appropriate project
 
 ✅ **CI/CD:**
+
 - [ ] Planner agent enabled; at least 80% of issues auto-assigned to project
 - [ ] Workflow concurrency clear; no redundant runs
 - [ ] All workflows documented in `.github/workflows/README.md`
 
 ✅ **Documentation:**
+
 - [ ] CONTRIBUTING.md updated with planning requirements
 - [ ] Workflow topology diagram in `.github/README.md`
 - [ ] Runbooks for manual operations (changelog, archival, project management)

@@ -39,9 +39,13 @@ try {
   console.log(`   Date: ${REPORT_DATE}`);
   console.log(`   Size: ${report.length} characters`);
 
-  // Also write timestamped version for archive
-  const timestamp = Date.now();
-  const archiveFile = path.join(REPORTS_DIR, `weekly-summary-${timestamp}.md`);
+  // Also write versioned report for archive
+  const week = getWeekNumber(new Date(REPORT_DATE));
+  const archiveDir = path.join(REPORTS_DIR, 'weekly');
+  if (!fs.existsSync(archiveDir)) {
+    fs.mkdirSync(archiveDir, { recursive: true });
+  }
+  const archiveFile = path.join(archiveDir, `weekly-summary-${week}.md`);
   fs.writeFileSync(archiveFile, report, 'utf8');
 } catch (err) {
   console.error(`❌ Error generating report: ${err.message}`);

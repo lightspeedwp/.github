@@ -13,7 +13,6 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const PR_BASE_SHA = process.env.PR_BASE_SHA;
 const PR_HEAD_SHA = process.env.PR_HEAD_SHA;
 const PR_NUMBER = process.env.PR_NUMBER;
 const CHANGELOG_PATH = process.env.CHANGELOG_PATH || 'CHANGELOG.md';
