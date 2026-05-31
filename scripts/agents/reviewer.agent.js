@@ -122,8 +122,18 @@ async function run(context = github.context, options = {}) {
     const srcTouched = changed.some(
       (f) => f.startsWith("src/") || /\.(js|ts|php|py)$/i.test(f),
     );
+
+    const changelogNames = [
+      "changelog.md",
+      "changelog.txt",
+      "history.md",
+      "news.md",
+      "releases.md",
+    ];
     const hasChangelog = changed.some(
-      (f) => f.toLowerCase() === "changelog.md",
+      (f) =>
+        changelogNames.includes(f.toLowerCase().split("/").pop()) ||
+        f.toLowerCase().includes("docs/changelog"),
     );
     const categorized = changed.map((f) => categorizeFile(f));
     const riskCounts = {
