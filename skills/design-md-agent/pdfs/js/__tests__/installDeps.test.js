@@ -1,6 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
+const cp = require("child_process");
+
+jest.mock("child_process", () => ({
+  exec: jest.fn(),
+}));
+
 const { installDeps } = require("../installDeps");
 
 describe("installDeps", () => {
@@ -12,7 +18,6 @@ describe("installDeps", () => {
     projectDir = path.join(tempDir, "test-project");
     fs.mkdirSync(projectDir, { recursive: true });
 
-    // Create a minimal package.json
     fs.writeFileSync(
       path.join(projectDir, "package.json"),
       JSON.stringify({
@@ -21,6 +26,9 @@ describe("installDeps", () => {
         dependencies: {},
       }),
     );
+
+    cp.exec.mockReset();
+    cp.exec.mockImplementation((cmd, opts, cb) => cb(null, ""));
   });
 
   afterEach(() => {
@@ -30,7 +38,6 @@ describe("installDeps", () => {
   });
 
   it("should return installed: false if node_modules already exists", async () => {
-    // Create existing node_modules
     fs.mkdirSync(path.join(projectDir, "node_modules"), { recursive: true });
     fs.writeFileSync(path.join(projectDir, "node_modules", ".gitkeep"), "");
 
@@ -39,6 +46,7 @@ describe("installDeps", () => {
     expect(result.success).toBe(true);
     expect(result.installed).toBe(false);
     expect(result.directory).toBe(projectDir);
+    expect(cp.exec).not.toHaveBeenCalled();
   });
 
   it("should throw error if package.json is missing", async () => {
@@ -62,14 +70,10 @@ describe("installDeps", () => {
   });
 
   it("should resolve directory path correctly", async () => {
-    // Test with relative path
     const originalCwd = process.cwd();
     try {
       process.chdir(tempDir);
       const relativePath = "test-project";
-
-      // Need to skip this since we don't have dependencies to install
-      // Just verify the directory resolution would work
       const resolvedDir = path.resolve(relativePath);
       expect(resolvedDir).toBe(projectDir);
     } finally {
@@ -105,7 +109,6 @@ describe("installDeps", () => {
   it("should log appropriate messages", async () => {
     const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
 
-    // Create node_modules to avoid npm install
     fs.mkdirSync(path.join(projectDir, "node_modules"), { recursive: true });
 
     await installDeps(projectDir);
@@ -122,21 +125,25 @@ describe("installDeps", () => {
 
     try {
       await installDeps(projectDir);
-    } catch {
-      // Expected to fail during npm install
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "[INFO] Installing JS deps (pdf-lib, pdfjs-dist)...",
+      );
+    } finally {
+      consoleSpy.mockRestore();
     }
-
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "[INFO] Installing JS deps (pdf-lib, pdfjs-dist)...",
-    );
-
-    consoleSpy.mockRestore();
   });
 
   it("should wrap npm errors with descriptive message", async () => {
     const invalidDir = path.join(tempDir, "invalid");
     fs.mkdirSync(invalidDir);
-    // No package.json, so npm install will fail
+    fs.writeFileSync(
+      path.join(invalidDir, "package.json"),
+      JSON.stringify({ name: "invalid" }),
+    );
+
+    cp.exec.mockImplementation((cmd, opts, cb) => {
+      cb(new Error("Command failed"));
+    });
 
     await expect(installDeps(invalidDir)).rejects.toThrow(
       "Failed to install dependencies",
@@ -144,18 +151,17 @@ describe("installDeps", () => {
   });
 
   it("should use silent npm install flag", async () => {
-    const consolidatedSpy = jest
-      .spyOn(console, "log")
-      .mockImplementation(() => {});
+    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
 
     try {
-      // The silent flag is verified by the absence of npm output in console
-      // When not silent, npm would produce verbose output
       await installDeps(projectDir);
-    } catch {
-      // Expected behavior
+      expect(cp.exec).toHaveBeenCalledWith(
+        "npm install --silent",
+        expect.any(Object),
+        expect.any(Function),
+      );
+    } finally {
+      consoleSpy.mockRestore();
     }
-
-    consolidatedSpy.mockRestore();
   });
 });

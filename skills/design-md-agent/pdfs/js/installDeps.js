@@ -1,6 +1,9 @@
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
+const { exec } = require("child_process");
+const util = require("util");
+
+const execAsync = util.promisify(exec);
 
 async function installDeps(scriptDir = __dirname) {
   try {
@@ -12,10 +15,14 @@ async function installDeps(scriptDir = __dirname) {
       return { success: true, installed: false, directory: resolvedDir };
     }
 
+    const packageJsonPath = path.join(resolvedDir, "package.json");
+    if (!fs.existsSync(packageJsonPath)) {
+      throw new Error("package.json not found");
+    }
+
     console.log("[INFO] Installing JS deps (pdf-lib, pdfjs-dist)...");
-    execSync("npm install --silent", {
+    await execAsync("npm install --silent", {
       cwd: resolvedDir,
-      stdio: "pipe",
     });
     console.log("[OK] Installed JS deps");
 
