@@ -215,7 +215,9 @@ function generateSummaryText(entries) {
   const parts = [];
 
   if (summary.added > 0) {
-    parts.push(`${summary.added} feature${summary.added !== 1 ? "s" : ""} added`);
+    parts.push(
+      `${summary.added} feature${summary.added !== 1 ? "s" : ""} added`,
+    );
   }
 
   if (summary.fixed > 0) {
@@ -229,7 +231,9 @@ function generateSummaryText(entries) {
   }
 
   if (summary.removed > 0) {
-    parts.push(`${summary.removed} item${summary.removed !== 1 ? "s" : ""} removed`);
+    parts.push(
+      `${summary.removed} item${summary.removed !== 1 ? "s" : ""} removed`,
+    );
   }
 
   if (summary.security > 0) {

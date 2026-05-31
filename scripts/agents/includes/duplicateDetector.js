@@ -76,7 +76,7 @@ function levenshteinDistance(str1, str2) {
  */
 function calculateSimilarity(str1, str2) {
   if (!str1 || !str2) {
-    return (str1 === str2) ? 1 : 0;
+    return str1 === str2 ? 1 : 0;
   }
 
   const maxLength = Math.max(str1.length, str2.length);
@@ -96,7 +96,12 @@ function calculateSimilarity(str1, str2) {
  * @returns {boolean} True if likely duplicates
  */
 function isFuzzyDuplicate(desc1, desc2, threshold = 0.85) {
-  if (!desc1 || !desc2 || typeof desc1 !== "string" || typeof desc2 !== "string") {
+  if (
+    !desc1 ||
+    !desc2 ||
+    typeof desc1 !== "string" ||
+    typeof desc2 !== "string"
+  ) {
     return false;
   }
 
@@ -162,8 +167,11 @@ function hasSemanticDuplicate(desc, existingDescriptions = []) {
   // Check if any existing description shares key terms
   return safeExisting.some((existing) => {
     const existingTerms = extractKeyTerms(existing);
-    const commonTerms = descTerms.filter((term) => existingTerms.includes(term));
-    const overlap = commonTerms.length / Math.min(descTerms.length, existingTerms.length);
+    const commonTerms = descTerms.filter((term) =>
+      existingTerms.includes(term),
+    );
+    const overlap =
+      commonTerms.length / Math.min(descTerms.length, existingTerms.length);
 
     // If 60% or more terms overlap, likely a duplicate
     return overlap >= 0.6;
@@ -177,7 +185,11 @@ function hasSemanticDuplicate(desc, existingDescriptions = []) {
  * @param {number} threshold - Similarity threshold (default 0.85)
  * @returns {Object} Match result {matched, matchedEntry, similarity} or null if no match
  */
-function findBestMatch(description, existingDescriptions = [], threshold = 0.85) {
+function findBestMatch(
+  description,
+  existingDescriptions = [],
+  threshold = 0.85,
+) {
   if (!description || typeof description !== "string") {
     return null;
   }

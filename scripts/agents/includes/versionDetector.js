@@ -102,12 +102,20 @@ function determineBumpType(entries, breakingChanges = []) {
     return "major";
   }
 
-  if (entries.removed && Array.isArray(entries.removed) && entries.removed.length > 0) {
+  if (
+    entries.removed &&
+    Array.isArray(entries.removed) &&
+    entries.removed.length > 0
+  ) {
     return "major";
   }
 
   // Minor bump: added features or deprecated items
-  if (entries.added && Array.isArray(entries.added) && entries.added.length > 0) {
+  if (
+    entries.added &&
+    Array.isArray(entries.added) &&
+    entries.added.length > 0
+  ) {
     return "minor";
   }
 
@@ -121,11 +129,21 @@ function determineBumpType(entries, breakingChanges = []) {
 
   // Patch bump: fixed, security, or other changes
   if (
-    (entries.fixed && Array.isArray(entries.fixed) && entries.fixed.length > 0) ||
-    (entries.security && Array.isArray(entries.security) && entries.security.length > 0) ||
-    (entries.changed && Array.isArray(entries.changed) && entries.changed.length > 0) ||
-    (entries.documentation && Array.isArray(entries.documentation) && entries.documentation.length > 0) ||
-    (entries.performance && Array.isArray(entries.performance) && entries.performance.length > 0)
+    (entries.fixed &&
+      Array.isArray(entries.fixed) &&
+      entries.fixed.length > 0) ||
+    (entries.security &&
+      Array.isArray(entries.security) &&
+      entries.security.length > 0) ||
+    (entries.changed &&
+      Array.isArray(entries.changed) &&
+      entries.changed.length > 0) ||
+    (entries.documentation &&
+      Array.isArray(entries.documentation) &&
+      entries.documentation.length > 0) ||
+    (entries.performance &&
+      Array.isArray(entries.performance) &&
+      entries.performance.length > 0)
   ) {
     return "patch";
   }
@@ -186,13 +204,13 @@ function detectBump(entries, breakingChanges = []) {
     bumpType,
     hasBreakingChanges: safeBreakingChanges.length > 0,
     hasFeaturesOrDeprecations:
-      (entries?.added?.length > 0) || (entries?.deprecated?.length > 0),
+      entries?.added?.length > 0 || entries?.deprecated?.length > 0,
     hasModifications:
-      (entries?.fixed?.length > 0) ||
-      (entries?.security?.length > 0) ||
-      (entries?.changed?.length > 0) ||
-      (entries?.documentation?.length > 0) ||
-      (entries?.performance?.length > 0),
+      entries?.fixed?.length > 0 ||
+      entries?.security?.length > 0 ||
+      entries?.changed?.length > 0 ||
+      entries?.documentation?.length > 0 ||
+      entries?.performance?.length > 0,
   };
 }
 
@@ -211,7 +229,9 @@ function suggestNextVersion(currentVersion, versionHistory = []) {
   const safeHistory = Array.isArray(versionHistory) ? versionHistory : [];
 
   // Check if we're skipping patch versions (common when jumping minor/major)
-  const allVersions = [currentVersion, ...safeHistory].map(parseVersion).filter(Boolean);
+  const allVersions = [currentVersion, ...safeHistory]
+    .map(parseVersion)
+    .filter(Boolean);
 
   if (allVersions.length === 0) {
     return null;

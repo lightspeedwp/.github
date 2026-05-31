@@ -85,7 +85,9 @@ describe("duplicateDetector", () => {
     });
 
     test("should detect similar strings above threshold", () => {
-      expect(isFuzzyDuplicate("Fixed bug in parser", "Fixed bug in parser")).toBe(true);
+      expect(
+        isFuzzyDuplicate("Fixed bug in parser", "Fixed bug in parser"),
+      ).toBe(true);
     });
 
     test("should detect slight variations", () => {
@@ -157,7 +159,11 @@ describe("duplicateDetector", () => {
 
     test("should find best fuzzy match", () => {
       const desc = "Fixed parser bug";
-      const existing = ["Fixed parser bug in core", "Added feature", "Updated docs"];
+      const existing = [
+        "Fixed parser bug in core",
+        "Added feature",
+        "Updated docs",
+      ];
 
       const result = findBestMatch(desc, existing, 0.65);
 
