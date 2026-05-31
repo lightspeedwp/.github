@@ -43,11 +43,11 @@ Validate that `issue-fields.yml` configuration is complete, correct, and aligns 
 ## Related Files
 
 - `.github/issue-fields.yml`
-- `docs/ISSUE-FIELDS.md`
-- `docs/ISSUE_TYPES.md`
+- docs/ISSUE_FIELDS.md
+- docs/ISSUE_TYPES.md
 
 ## Related Documentation
 
-- [Issue Fields Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE-FIELDS.md)
+- [Issue Fields Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_FIELDS.md)
 - [GitHub API - Issue Fields](https://docs.github.com/en/rest/reference/issues)
 - [Canonical Issue Fields](https://github.com/lightspeedwp/.github/blob/develop/.github/issue-fields.yml)
