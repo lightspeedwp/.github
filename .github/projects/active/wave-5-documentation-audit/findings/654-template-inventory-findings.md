@@ -3,12 +3,22 @@ file_type: "documentation"
 title: "Wave 5 Audit #654 Findings"
 description: "Template Inventory and Standardisation Audit findings"
 version: "1.1.0"
-issue_number: 654
-audit_type: "Template Inventory & Standardisation"
-completion_date: "2026-05-31"
-status: "complete"
 created_date: "2026-05-31"
 last_updated: "2026-05-31"
+status: "active"
+stability: "stable"
+domain: "governance"
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - audit
+  - templates
+  - documentation
+  - wave-5
+issue_number: 654
+audit_type: "Template Inventory & Standardisation"
+audit_status: "complete"
+completion_date: "2026-05-31"
 category: "audit-findings"
 ---
 
