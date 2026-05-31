@@ -3,20 +3,7 @@ const path = require("path");
 const { execSync } = require("child_process");
 const { validateDesignMd, findDesignMdCliCmd } = require("./validateDesignMd");
 
-const DEFAULT_DESIGN_FILE =
-  process.env.DESIGN_MD_FILE || path.join(process.cwd(), "DESIGN.md");
-const DEFAULT_REPORT =
-  process.env.DESIGN_MD_REPORT ||
-  path.join(process.cwd(), "design-md-validation-report.md");
-const DEFAULT_JSON_FILE =
-  process.env.DESIGN_MD_JSON_REPORT ||
-  path.join(process.cwd(), "designmd-lint.json");
-const DEFAULT_COMMENT_FILE =
-  process.env.DESIGN_MD_PR_COMMENT ||
-  path.join(process.cwd(), "design-md-pr-comment.md");
-
 function runLintWithAvailableCli(designFile, jsonFile) {
-  const designDir = path.dirname(path.resolve(designFile));
   const { cmd: cliCmd, cwd: cliCwd = "." } = findDesignMdCliCmd(null);
 
   if (!cliCmd) {
@@ -29,13 +16,13 @@ function runLintWithAvailableCli(designFile, jsonFile) {
     fs.writeFileSync(jsonFile, output);
     return true;
   } catch (error) {
-    try {
-      const stderr = error.stderr || error.stdout || "";
-      if (stderr) {
-        fs.writeFileSync(jsonFile, stderr);
+    if (error.stdout) {
+      try {
+        fs.writeFileSync(jsonFile, error.stdout);
+        return true;
+      } catch {
+        // Ignore write errors
       }
-    } catch {
-      // Ignore write errors
     }
     return false;
   }
@@ -122,7 +109,7 @@ function ciDesignMdCheck(repoRoot = process.cwd()) {
       "No runnable DESIGN.md CLI was found after validation. Report written to",
       reportFile,
     );
-    process.exit(0);
+    process.exit(1);
   }
 
   const { errors, warnings, infos } = parseJsonReport(jsonFile);

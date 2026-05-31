@@ -1,11 +1,20 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
+const { execSync } = require("child_process");
 const {
   ciDesignMdCheck,
   generatePrComment,
   parseJsonReport,
+  runLintWithAvailableCli,
 } = require("../ciDesignMdCheck");
+
+jest.mock("../validateDesignMd", () => ({
+  validateDesignMd: jest.fn(),
+  findDesignMdCliCmd: jest.fn(),
+}));
+
+const { validateDesignMd, findDesignMdCliCmd } = require("../validateDesignMd");
 
 describe("ciDesignMdCheck", () => {
   let tempDir;
@@ -226,6 +235,196 @@ describe("ciDesignMdCheck", () => {
       expect(comment).toContain("**ERROR**");
       expect(comment).toContain("**WARNING**");
       expect(comment).toContain("**INFO**");
+    });
+  });
+
+  describe("runLintWithAvailableCli", () => {
+    it("should return false if no CLI command found", () => {
+      findDesignMdCliCmd.mockReturnValue({
+        cmd: null,
+        source: "not available",
+      });
+
+      const designFile = path.join(tempDir, "DESIGN.md");
+      const jsonFile = path.join(tempDir, "report.json");
+      fs.writeFileSync(designFile, "# Test");
+
+      const result = runLintWithAvailableCli(designFile, jsonFile);
+      expect(result).toBe(false);
+    });
+
+    it("should return true when CLI successfully generates JSON report", () => {
+      findDesignMdCliCmd.mockReturnValue({ cmd: "echo", cwd: "." });
+
+      const designFile = path.join(tempDir, "DESIGN.md");
+      const jsonFile = path.join(tempDir, "report.json");
+      const mockOutput = JSON.stringify({ summary: { errors: 0 } });
+
+      fs.writeFileSync(designFile, "# Test");
+
+      // Mock the child_process module's execSync to return valid JSON
+      const childProcess = require("child_process");
+      const originalExecSync = childProcess.execSync;
+      childProcess.execSync = jest.fn().mockReturnValue(mockOutput);
+
+      const result = runLintWithAvailableCli(designFile, jsonFile);
+      expect(result).toBe(true);
+      expect(fs.existsSync(jsonFile)).toBe(true);
+
+      childProcess.execSync = originalExecSync;
+    });
+
+    it("should return false when error has no stdout", () => {
+      findDesignMdCliCmd.mockReturnValue({ cmd: "test-cmd", cwd: "." });
+
+      const designFile = path.join(tempDir, "DESIGN.md");
+      const jsonFile = path.join(tempDir, "report.json");
+
+      fs.writeFileSync(designFile, "# Test");
+
+      const error = new Error("Command failed");
+      error.stderr = "Some stderr output";
+
+      // Mock the child_process module's execSync to throw without stdout
+      const childProcess = require("child_process");
+      const originalExecSync = childProcess.execSync;
+      childProcess.execSync = jest.fn().mockImplementation(() => {
+        throw error;
+      });
+
+      const result = runLintWithAvailableCli(designFile, jsonFile);
+      expect(result).toBe(false);
+
+      childProcess.execSync = originalExecSync;
+    });
+  });
+
+  describe("ciDesignMdCheck", () => {
+    it("should exit with error if DESIGN.md not found", () => {
+      const exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {});
+      const errorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      ciDesignMdCheck(tempDir);
+
+      expect(errorSpy).toHaveBeenCalledWith(
+        expect.stringContaining("DESIGN.md not found"),
+      );
+      expect(exitSpy).toHaveBeenCalledWith(1);
+
+      exitSpy.mockRestore();
+      errorSpy.mockRestore();
+    });
+
+    it("should exit with error if validation fails", () => {
+      const designFile = path.join(tempDir, "DESIGN.md");
+      fs.writeFileSync(designFile, "# Invalid");
+
+      validateDesignMd.mockImplementation(() => {
+        throw new Error("Validation failed");
+      });
+
+      const exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {});
+      const errorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      ciDesignMdCheck(tempDir);
+
+      expect(errorSpy).toHaveBeenCalledWith("Validation failed");
+      expect(exitSpy).toHaveBeenCalledWith(1);
+
+      exitSpy.mockRestore();
+      errorSpy.mockRestore();
+    });
+
+    it("should exit with error if CLI not found", () => {
+      const designFile = path.join(tempDir, "DESIGN.md");
+      fs.writeFileSync(designFile, "# Test");
+
+      validateDesignMd.mockImplementation(() => {});
+      findDesignMdCliCmd.mockReturnValue({ cmd: null });
+
+      const exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {});
+      const errorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      ciDesignMdCheck(tempDir);
+
+      expect(errorSpy).toHaveBeenCalled();
+      const firstCall = errorSpy.mock.calls[0];
+      expect(firstCall[0]).toContain("No runnable DESIGN.md CLI");
+      expect(exitSpy).toHaveBeenCalledWith(1);
+
+      exitSpy.mockRestore();
+      errorSpy.mockRestore();
+    });
+
+    it("should exit with error if lint finds errors", () => {
+      const designFile = path.join(tempDir, "DESIGN.md");
+      const jsonFile = path.join(tempDir, "designmd-lint.json");
+      fs.writeFileSync(designFile, "# Test");
+
+      const report = {
+        summary: { errors: 3, warnings: 0, infos: 0 },
+        findings: [{ severity: "error", message: "Test error" }],
+      };
+      fs.writeFileSync(jsonFile, JSON.stringify(report));
+
+      validateDesignMd.mockImplementation(() => {});
+      findDesignMdCliCmd.mockReturnValue({ cmd: "test-cmd", cwd: "." });
+
+      const exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {});
+      const errorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      ciDesignMdCheck(tempDir);
+
+      expect(errorSpy).toHaveBeenCalled();
+      const lastCall = errorSpy.mock.calls[errorSpy.mock.calls.length - 1];
+      expect(lastCall[0]).toContain("lint failed with 3 error");
+      expect(exitSpy).toHaveBeenCalledWith(1);
+
+      exitSpy.mockRestore();
+      errorSpy.mockRestore();
+    });
+
+    it("should exit with success if validation and lint pass", () => {
+      const designFile = path.join(tempDir, "DESIGN.md");
+      const jsonFile = path.join(tempDir, "designmd-lint.json");
+      fs.writeFileSync(designFile, "# Test");
+
+      const report = {
+        summary: { errors: 0, warnings: 0, infos: 0 },
+        findings: [],
+      };
+
+      validateDesignMd.mockImplementation(() => {});
+      findDesignMdCliCmd.mockReturnValue({ cmd: "test-cmd", cwd: "." });
+
+      const childProcess = require("child_process");
+      const originalExecSync = childProcess.execSync;
+      childProcess.execSync = jest.fn().mockImplementation(() => {
+        fs.writeFileSync(jsonFile, JSON.stringify(report));
+        return JSON.stringify(report);
+      });
+
+      const exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {});
+      const logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+
+      ciDesignMdCheck(tempDir);
+
+      expect(logSpy).toHaveBeenCalled();
+      const lastCall = logSpy.mock.calls[logSpy.mock.calls.length - 1];
+      expect(lastCall[0]).toContain("validation completed");
+      expect(exitSpy).toHaveBeenCalledWith(0);
+
+      exitSpy.mockRestore();
+      logSpy.mockRestore();
+      childProcess.execSync = originalExecSync;
     });
   });
 });
