@@ -455,10 +455,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Reference
 
-- [Branching Strategy](docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
+- [Branching Strategy](./docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
 - [CONTRIBUTING.md](./CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
 - [AUTOMATION.md](./docs/AUTOMATION.md): Org-wide automation, branching, labelling, and release strategy.
 - [Labeling Strategy](./docs/LABELING.md): Label taxonomy, automation rules, and governance.
 - [Issue Types Guide](./docs/ISSUE_TYPES.md): Issue type classification and usage standards.
-- [Issue Types Guide](docs/ISSUE_TYPES.md): Classification and usage of issue types.
