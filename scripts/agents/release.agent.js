@@ -537,7 +537,7 @@ function pushChanges(options = {}) {
 
   console.log("\n=== Pushing Changes ===");
 
-  exec(`git push origin ${branch}`, dryRun);
+  exec(`git push -u origin ${branch}`, dryRun);
   exec("git push --tags", dryRun);
 
   console.log("✓ Changes and tags pushed");
