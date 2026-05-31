@@ -42,7 +42,7 @@ See child issues for detailed audits of:
 
 - [ ] Current state mapped against CLAUDE.md
 - [ ] All misalignments documented
-- [ ] Migration plan documented in the central /docs/MIGRATION.md file
+- [ ] Migration plan with impact assessment and rollback procedures documented in `/docs/MIGRATION.md`
 - [ ] Impact assessment completed
 
 ## Related Files

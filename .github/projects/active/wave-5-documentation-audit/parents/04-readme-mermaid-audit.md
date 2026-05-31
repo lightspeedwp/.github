@@ -19,7 +19,7 @@ children:
 
 ## Overview
 
-Comprehensive audit of 44 README.md files across the repository to verify Mermaid diagram syntax, accessibility compliance, and content freshness.
+Comprehensive audit of README.md files across the repository (~30–40) to verify Mermaid diagram syntax, accessibility compliance, and content freshness.
 
 ## Current Problems
 
@@ -33,17 +33,17 @@ Comprehensive audit of 44 README.md files across the repository to verify Mermai
 
 See child issues for detailed audits of:
 
-- Root & core README files (6 files)
-- Feature folder README files (12 files)
-- Sub-folder README files (20 files)
-- Test/config README files (6 files)
+- Root & core README files
+- Feature folder README files
+- Sub-folder README files
+- Test/config README files
 - Mermaid diagram syntax validation
 - Accessibility compliance (WCAG AA)
 - Light/dark mode rendering
 
 ## Acceptance Criteria
 
-- [ ] All 44 README files inventoried
+- [ ] All README files inventoried (actual count per audit report)
 - [ ] Mermaid diagram syntax validated
 - [ ] Accessibility attributes added where needed
 - [ ] Content freshness verified and updated
