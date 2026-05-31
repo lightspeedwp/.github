@@ -1,12 +1,14 @@
 ---
 file_type: documentation
 title: Issue Creation Documentation Audit Report
-description: Comprehensive audit of 6 overlapping issue creation documentation files. Identifies duplication, overlap, and proposes consolidation strategy.
+description: Comprehensive audit of 6 overlapping issue creation documentation files.
+  Identifies duplication, overlap, and proposes consolidation strategy.
 created_date: '2026-05-31'
 last_updated: '2026-05-31'
 author: Claude
-status: complete
-version: 1.0
+maintainer: Claude
+owners:
+  - lightspeedwp/maintainers
 tags:
   - documentation
   - audit
@@ -14,6 +16,8 @@ tags:
   - consolidation
   - reference
 category: governance
+status: complete
+version: v1.0
 stability: stable
 ---
 
