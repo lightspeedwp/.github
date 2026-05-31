@@ -28,6 +28,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Wave 5.1: Issue Template Audit, Automation Recommendations & AI Agent Integration Guide** — Completed comprehensive audit of all 25 GitHub issue templates with documentation, automation gap analysis, and contributor guidance:
+  - `.github/reports/issue-template-audit-2026-05-31.md` — Complete audit report cataloguing all 25 templates, documenting current state analysis (strengths/gaps), identifying critical automation gap in labeler.yml, and providing 6 prioritised recommendations with effort/impact estimates
+  - `docs/ISSUE_CREATION_GUIDE.md` — Comprehensive guide for contributors and AI agents with quick-reference template selection table, step-by-step issue creation instructions, clear distinction between current (manual) vs planned (Wave 5.1.2) automation, label selection logic for agents
+  - `.github/labeler.yml` — Cleaned up configuration by removing unsupported issue-body/issue-labels rules pending infrastructure upgrade, maintained stable PR/branch rules, added documentation comments for Wave 5.1.2 planned work
+  - `.github/projects/active/next-issues-execution-plan.md` — Updated execution plan documenting Wave 5 structure and sequence for remaining audits (5.2–5.5)
+  - All deliverables validated and ready for next phase implementation ([#649](https://github.com/lightspeedwp/.github/issues/649))
+- **Wave 5 Audit #654: Template Inventory & Standardisation Findings** — Completed comprehensive audit of 26 issue templates in `.github/ISSUE_TEMPLATE/` documenting 100% frontmatter compliance, identifying 1 critical duplicate numbering issue (07-improvement + 07-user-experience-feedback), 2 type mapping gaps (Chore, User Experience Feedback, Help/Support), and providing recommendations for Phase 1 (numbering fixes), Phase 2 (type clarification), and Phase 3 (documentation updates). Created audit findings document at `.github/projects/active/wave-5-documentation-audit/findings/654-template-inventory-findings.md` with complete inventory metrics, critical/medium/low issue analysis, and phased remediation roadmap ([#654](https://github.com/lightspeedwp/.github/issues/654))
 - **WCEU 2026 Documentation: Merge Conflict Resolution and Frontmatter Corrections** — Resolved merge conflict marker in CHANGELOG.md, corrected `file_type: documentation` in ROLLOUT_PLAN_60_DAYS.md (was `rollout_plan`), added missing frontmatter fields (`stability: stable`, `domain: governance`), and fixed UK English spelling (`finalize`→`finalise`, `customize`→`customise`, `customizations`→`customisations`) ([#676](https://github.com/lightspeedwp/.github/pull/676))
 - **Planner & Reviewer Agents: Code Review Fixes** — Fixed six critical issues from CodeRabbit review: dryRun option precedence, CLI entry point execution, null-safe comment body checks, extended dependency file detection (package.json, composer.json), improved rollback migration detection (.down.sql), and prevented crashes from null comment bodies ([#603](https://github.com/lightspeedwp/.github/issues/603), [#604](https://github.com/lightspeedwp/.github/issues/604), [#605](https://github.com/lightspeedwp/.github/issues/605), [#606](https://github.com/lightspeedwp/.github/issues/606), [#607](https://github.com/lightspeedwp/.github/issues/607))
 - **Reviewer Agent: File Pagination** — Implemented proper pagination using `octokit.paginate()` for PR file analysis to ensure all files are analyzed even when a PR has >100 changed files; prevents missing high-risk files on subsequent pages
@@ -42,8 +49,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **WCEU 2026 Branch Name References** — Updated references in `FINAL_REVIEW_CHECKLIST.md` and `PHASE1_COMPLETION_REPORT.md` from old branch name `claude/charming-goldberg-Pqc69` to correct branch `claude/affectionate-bohr-AX2jS`
 
 ### Added
-
-- **Wave 5 Audit [#654](https://github.com/lightspeedwp/.github/issues/654) / [#694](https://github.com/lightspeedwp/.github/pull/694)**: Template Inventory & Standardisation Findings — Completed comprehensive audit of 26 issue templates in `.github/ISSUE_TEMPLATE/` documenting 100% frontmatter compliance, identifying 1 critical duplicate numbering issue (07-improvement + 07-user-experience-feedback), 2 type mapping gaps (Chore, User Experience Feedback, Help/Support), and providing recommendations for Phase 1 (numbering fixes), Phase 2 (type clarification), and Phase 3 (documentation updates). Created audit findings document at `.github/projects/active/wave-5-documentation-audit/findings/654-template-inventory-findings.md` with complete inventory metrics, critical/medium/low issue analysis, and phased remediation roadmap
 
 - **WCEU 2026 Phase 2 Refinement: Complete Speaker Notes and Visual Design Specifications** — Finalised all speaker notes and visual design guidance for 25-minute WordCamp Europe 2026 presentation on ".github repository automation":
   - `wceu-2026/SPEAKER_NOTES_FINAL.md` — Complete speaker notes for all 24 slides including key messages, talking points, timing (25:10 total), transitions, and emergency cut list; pacing checkpoints at 12:30, 18:00, 23:00
@@ -467,9 +472,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Reference
 
-- [Branching Strategy](./docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
+- [Branching Strategy](docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
 - [CONTRIBUTING.md](./CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
-- [AUTOMATION.md](./docs/AUTOMATION.md): Org-wide automation, branching, labelling, and release strategy.
-- [Labeling Strategy](./docs/LABELING.md): Label taxonomy, automation rules, and governance.
-- [Issue Types Guide](./docs/ISSUE_TYPES.md): Issue type classification and usage standards.
+- [AUTOMATION_GOVERNANCE.md](docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labelling, and release strategy.
+- [Org-wide Issue Labels](docs/ISSUE_LABELS.md): Default labels and usage guidance.
+- [Pull Request Labels](docs/PR_LABELS.md): PR classification and automation standards.
+- [Issue Types Guide](docs/ISSUE_TYPES.md): Classification and usage of issue types.
