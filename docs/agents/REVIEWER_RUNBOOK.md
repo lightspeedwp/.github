@@ -1,5 +1,6 @@
 ---
-file_type: documentation
+file_type: agent
+name: Reviewer Agent Runbook
 description: Operational guide for deploying, configuring, and troubleshooting the Reviewer Agent
 ---
 

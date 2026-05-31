@@ -1,5 +1,6 @@
 ---
-file_type: documentation
+file_type: agent
+name: Agent Architecture
 description: Technical documentation of planner and reviewer agent structure, interfaces, and logging
 ---
 

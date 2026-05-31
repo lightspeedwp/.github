@@ -1,5 +1,6 @@
 ---
-file_type: documentation
+file_type: agent
+name: Planner Agent Runbook
 description: Operational guide for deploying, configuring, and troubleshooting the Planner Agent
 ---
 
