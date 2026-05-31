@@ -126,6 +126,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **5 Developer Experience & Strategy Prompts**: Getting started, best practices, troubleshooting/debugging, roadmap/vision, and case studies/success stories
   - Each prompt includes system overview, key components, integration points, 3+ use cases, 12-15 slide structure, evidence anchors linking to repository files, design notes for visual consistency, and quality bars for validation. Enables presentation creation with NotebookLM, Figma, and other design tools. ([#549](https://github.com/lightspeedwp/.github/pull/549))
 
+- **Design Markdown Agent: P3 Shell Script Modernization** — Completed migration of PDF tooling dependency installation from Bash to JavaScript:
+  - `skills/design-md-agent/pdfs/js/installDeps.js` — New JavaScript module replacing `install_deps.sh` shell script with async/await pattern
+  - `skills/design-md-agent/pdfs/js/__tests__/installDeps.test.js` — Comprehensive test suite with 11 tests covering node_modules fast-path, package.json validation, error handling, npm install execution, and console logging
+  - Performance improvement: promisified `exec()` replaces blocking subprocess; non-blocking async operation for CI/CD pipelines
+  - Code review refinements: proper error wrapping, fast-path optimization, comprehensive mock-based testing, silent npm install flag validation
+  - Returns structured result object with success/installed/directory properties for programmatic integration ([#616](https://github.com/lightspeedwp/.github/issues/616), [#639](https://github.com/lightspeedwp/.github/pull/639))
+
 - **Consolidated Branding Agent Module** — Unified `scripts/agents/branding.agent.js` consolidates header, footer, and badge logic from previously scattered modules:
   - Merged header-footer.js, badges.js, footerUtils.js, and badgeUtils.js into single ES Module
   - Maintains all public API functions for footer selection, insertion, removal, and badge generation
