@@ -88,10 +88,11 @@ function countFiles(dirPath, pattern = null) {
 }
 
 function grepCount(filePath, pattern, excludePattern = null) {
+function grepCount(filePath, pattern, excludePattern = null) {
   try {
     if (!fs.existsSync(filePath)) return 0;
     const content = fs.readFileSync(filePath, "utf8");
-    const lines = content.split("\n");
+    const lines = content.split("\\n");
     const regex = new RegExp(pattern);
     const excludeRegex = excludePattern ? new RegExp(excludePattern) : null;
     let matches = 0;
