@@ -29,6 +29,7 @@ It also hosts **portable AI operations assets** in top-level source folders that
 
 | Folder | Purpose |
 | --- | --- |
+| `ai/` | Canonical AI agent references (Claude, Gemini, RUNNERS configurations) |
 | `agents/` | Portable agent specifications |
 | `cookbook/` | Recipes, playbooks, and implementation guides |
 | `hooks/` | Portable hooks and guardrails |
