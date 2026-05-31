@@ -1,3 +1,15 @@
+---
+file_type: "documentation"
+title: "Reports Directory"
+description: "Central repository for generated reports, analysis outputs, audit files, and agent execution summaries"
+version: "v1.0"
+created_date: "2026-01-01"
+last_updated: "2026-05-31"
+maintainer: "LightSpeed Team"
+tags: ["reports", "audits", "metrics", "analysis"]
+status: "active"
+---
+
 # Reports Directory
 
 <!-- BADGES-START -->
@@ -252,9 +264,6 @@ progress/weekly-summary-2025-w50.md
 ---
 
 *For questions about report organisation, see [file-organisation.instructions.md](../instructions/file-organisation.instructions.md)*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
