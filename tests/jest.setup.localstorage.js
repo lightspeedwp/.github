@@ -25,9 +25,16 @@ if (typeof global.localStorage === "undefined") {
   global.localStorage = localStorageMock;
 }
 
-// Polyfill TextDecoder for ESM modules using @actions/core
-if (typeof global.TextDecoder === "undefined") {
+// Polyfill TextDecoder and TextEncoder for ESM modules using @actions/core
+if (
+  typeof global.TextDecoder === "undefined" ||
+  typeof global.TextEncoder === "undefined"
+) {
   const { TextDecoder, TextEncoder } = require("util");
-  global.TextDecoder = TextDecoder;
-  global.TextEncoder = TextEncoder;
+  if (typeof global.TextDecoder === "undefined") {
+    global.TextDecoder = TextDecoder;
+  }
+  if (typeof global.TextEncoder === "undefined") {
+    global.TextEncoder = TextEncoder;
+  }
 }
