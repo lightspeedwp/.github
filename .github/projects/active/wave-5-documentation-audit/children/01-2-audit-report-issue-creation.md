@@ -153,7 +153,7 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 1. **INTERNAL DUPLICATION:** Content duplicates within the file:
    - Section 1–2 covers Markdown templates with YAML frontmatter (**TWICE**: lines 52-60 and lines 168-171)
    - Section 2 defines required frontmatter (**TWICE**: lines 64-86 and lines 175-200)
-   - Section 3 covers template choice (**TWICE**: lines 90-95 and lines 203 implied)
+   - Section 3 of the first half covers template choice (lines 90-95); Section 3 of the second half (line 204) duplicates Section 4's "Filling Out Issue Templates" (lines 99-106)
    - Entire "Issue Creation Instructions" header repeats (lines 161-166)
 
 2. **Overlap with `docs/ISSUE_CREATION_GUIDE.md`:**
@@ -244,7 +244,7 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
 ### Overlap 4: Issue Template Selection
 **Files involved:**
 - `docs/ISSUE_CREATION_GUIDE.md` (section 2)
-- `instructions/issues.instructions.md` (section 3, duplicated)
+- `instructions/issues.instructions.md` (section 3)
 - `.github/ISSUE_TEMPLATE/README.md` (general info)
 
 **Content:** How to choose the right template
@@ -269,7 +269,7 @@ Referenced in audit scope (#662) but file is missing. This is a critical gap:
    - Currently just placeholder
    - Impact: Medium — documentation discoverability
 
-3. **`docs/ISSUE_LABELS.md` references in instructions**
+3. **docs/ISSUE_LABELS.md references in instructions**
    - `instructions/issues.instructions.md` section 4 references this
    - File does not exist
    - Creates broken reference chains
