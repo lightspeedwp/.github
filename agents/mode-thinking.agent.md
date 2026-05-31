@@ -1,5 +1,5 @@
 ---
-name: "Thinking Mode"
+title: "Thinking Mode"
 description: "Autonomous problem-solving agent with deep research, iterative implementation, and rigorous validation for complex coding tasks."
 version: "v2.1"
 last_updated: "2026-05-29"

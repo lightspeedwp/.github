@@ -1,5 +1,5 @@
 ---
-name: Issues
+title: Issues
 description: 'Comprehensive agent for issue management: type assignment, triage, refinement,
   and enrichment with acceptance criteria and technical details.'
 file_type: agent

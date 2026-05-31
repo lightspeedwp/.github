@@ -17,17 +17,6 @@ tags:
   - standards
   - automation
   - specifications
-references:
-  - path: "../agents/README.md"
-    description: "Agents directory overview"
-  - path: "../agents/agent.md"
-    description: "Main agent index"
-  - path: "../agents/template.agent.md"
-    description: "Agent specification template"
-  - path: "../schema/frontmatter.schema.json"
-    description: "Frontmatter validation schema"
-  - path: "../instructions/automation.instructions.md"
-    description: "Agent development instructions"
 ---
 
 # 📝 Agent Specification Authoring Guide

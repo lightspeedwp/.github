@@ -10,17 +10,6 @@ license: "GPL-3.0"
 tags: ["agents", "ai", "coding-standards", "governance", "wordpress"]
 domain: "governance"
 stability: "stable"
-references:
-  - path: "ai/agents.md"
-    description: "Canonical AI agents source-of-truth index"
-  - path: "ai/RUNNERS.md"
-    description: "Canonical runner and telemetry inventory"
-  - path: "agents/agent.md"
-    description: "Main agent implementations index"
-  - path: ".github/custom-instructions.md"
-    description: "Repo-local Copilot and agent instructions"
-  - path: ".github/prompts/prompts.md"
-    description: "Prompts index"
 ---
 
 # LightSpeed – Global AI Rules (AGENTS.md)

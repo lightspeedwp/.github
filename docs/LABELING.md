@@ -1,14 +1,12 @@
 ---
+title: "Labeling Strategy & Governance"
+description: "Label taxonomy, automation rules, and governance for LightSpeed repositories."
 file_type: "documentation"
-title: "GitHub Labelling & Automation"
-description: "Comprehensive guide to LightSpeed's labelling strategy, automation, and integration with GitHub workflows."
 version: "v1.0.0"
-last_updated: "2026-05-31"
-owners: ["LightSpeedWP Team"]
-tags: ["labeling", "automation", "labels", "workflows"]
-status: "active"
-stability: "stable"
-domain: "automation"
+author: "LightSpeed Team"
+maintainer: "LightSpeed Team"
+owners: ["lightspeedwp"]
+tags: ["labels", "automation", "governance"]
 ---
 
 # GitHub Labelling & Automation

@@ -1,5 +1,5 @@
 ---
-name: Labeling
+title: Labeling
 description: Unified agent for dynamic, canonical, and automated labeling of issues
   and PRs. Handles status, type, priority, and project-field enforcement, label standardization,
   and migration based on .github/labels.yml.
