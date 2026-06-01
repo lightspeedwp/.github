@@ -169,6 +169,8 @@ With 10 project field values, we maintain meaningful distinctions without fragme
 
 ### 3.1 Universal Project Fields
 
+GitHub supports a maximum of 25 project fields per organization (`max_issue_fields_per_org: 25`). Our current configuration uses 15 fields (5 universal + 10 specialized domain fields), leaving room for future expansion.
+
 All organization issues support these fields:
 
 | Field | Type | Values | Required | Notes |
