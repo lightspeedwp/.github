@@ -83,9 +83,9 @@ issue_types:
   - name: Support
     color: 0E8A16
     label: type:support
-  - name: Help
-    color: 0E8A16
-    label: type:help
   - name: User Experience Feedback
     color: "5319E7"
     label: type:ux-feedback
+  - name: Help
+    color: 0E8A16
+    label: type:help

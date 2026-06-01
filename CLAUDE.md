@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed .github — Claude Instructions"
 description: "Claude-specific project instructions for the LightSpeed .github repository."
-version: 'v1.2'
-last_updated: '2026-06-01'
+version: "v1.2"
+last_updated: "2026-06-01"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 ---
@@ -39,6 +39,54 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | `workflows/` | Portable agentic workflows |
 
 Do **not** place reusable assets under `.github/`—use the matching top-level folder instead.
+
+## Git & Branching Strategy
+
+> **CRITICAL:** This repository follows a strict branching discipline. Read [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) before opening any PR.
+
+### Protected Branches
+
+- `main` is **always production-ready**. Never push to `main` unless performing a **release cycle**.
+- `develop` (if used) is an integration branch. Never push to `develop` outside release/hotfix workflows.
+- All other work goes to feature/fix/chore branches.
+
+### Branch Naming Convention
+
+Use the format: `{type}/{scope}-{short-title}` (lowercase, kebab-case)
+
+**Common prefixes:**
+
+- `feat/` — new feature or capability
+- `fix/` — bug fix
+- `hotfix/` — urgent production fix (branches from `main`)
+- `chore/` — maintenance, refactoring, dependency updates
+- `docs/` — documentation changes
+- `ci/` — CI/CD workflow changes
+- `test/` — test-only changes
+- `refactor/` — code restructure
+- `security/` — security fixes
+
+**Examples:**
+
+```
+chore/readme-frontmatter-standardization
+fix/invalid-branch-name-validation
+docs/update-contributing-guide
+release/v1.2.0
+```
+
+**Branch protection enforcement:**
+
+- All PRs require branch names matching the regex pattern
+- CI will block misnamed branches from merging
+- Rename with `git branch -m <old> <new>` if needed
+
+### Before Every Push
+
+1. Verify the current branch: `git branch -v`
+2. Confirm it is NOT `main` or `develop` (unless in a release cycle)
+3. Ensure the branch name follows the `{type}/{scope}-{short-title}` pattern
+4. Use: `git push -u origin <branch-name>`
 
 ## Development Commands
 
