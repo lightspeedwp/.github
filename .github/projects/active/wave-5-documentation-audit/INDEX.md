@@ -1,9 +1,10 @@
 ---
+file_type: documentation
 title: "Wave 5 Documentation Audit - Issue Index"
 description: "Complete index of all parent and child issues for the Documentation Audit project"
 version: "1.0.0"
 created_date: "2026-05-31"
-status: "ready-for-review"
+status: active
 ---
 
 # Wave 5 Documentation Audit — Issue Index
