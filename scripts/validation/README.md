@@ -12,9 +12,13 @@ license: 'GPL-3.0'
 stability: 'stable'
 domain: 'governance'
 tags: []
-owners: ''
+owners:
+  - LightSpeedWP Team
 name: 'Frontmatter Validation'
-apply_to: ''
+apply_to:
+  - repository maintenance
+  - documentation standards
+  - quality assurance
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

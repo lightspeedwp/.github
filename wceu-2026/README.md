@@ -1,7 +1,7 @@
 ---
 file_type: 'documentation'
 title: 'WCEU 2026 Presentation Materials'
-description: 'Complete Phase 1, 2, and 3 materials for WCEU 2026 talk: 'One .github repo to rule them all''
+description: "Complete Phase 1, 2, and 3 materials for WCEU 2026 talk: 'One .github repo to rule them all'"
 created_date: '2026-05-28'
 last_updated: '2026-05-30'
 maintainer: 'LightSpeed Team'

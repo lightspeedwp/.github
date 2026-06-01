@@ -11,9 +11,12 @@ authors:
 license: 'GPL-3.0'
 stability: 'stable'
 domain: 'governance'
-tags: []
+tags:
+  - agents
+  - ai-ops
+  - automation
+  - specifications
 name: 'Portable Agents'
----
 
 # Portable AI Agents
 

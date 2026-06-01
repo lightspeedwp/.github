@@ -9,7 +9,8 @@ maintainer: LightSpeed Team
 authors:
   - LightSpeed Team
 license: GPL-3.0
-stability: draft
+stability: experimental
+status: draft
 domain: governance
 tags:
   - schemas

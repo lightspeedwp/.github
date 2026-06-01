@@ -11,7 +11,12 @@ authors:
 license: 'GPL-3.0'
 stability: 'stable'
 domain: 'governance'
-tags: []
+tags:
+  - cookbook
+  - recipes
+  - playbooks
+  - ai-ops
+  - automation
 ---
 
 # AI Cookbook & Implementation Guides

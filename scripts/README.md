@@ -11,8 +11,8 @@ license: 'GPL-3.0'
 stability: 'stable'
 domain: 'governance'
 tags: []
-owners: '- LightSpeedWP Team'
-references: '- path: ../instructions/coding-standards.instructions.md
+owners:
+  - LightSpeedWP Team
     description: Coding standards for all scripts
   - path: ../instructions/documentation-formats.instructions.md
     description: Frontmatter and documentation format standards

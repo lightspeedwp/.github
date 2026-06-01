@@ -12,7 +12,10 @@ authors:
 license: 'GPL-3.0'
 stability: 'experimental'
 domain: 'governance'
-tags: []
+tags:
+  - instructions
+  - github-boundary
+  - ai-ops
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

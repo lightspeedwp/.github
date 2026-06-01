@@ -9,9 +9,9 @@ maintainer: 'LightSpeed Team'
 authors:
   - LightSpeed Team
 license: 'GPL-3.0'
+license: 'GPL-3.0'
 stability: 'stable'
-domain: 'tooling'
-tags:
+domain: 'awesome-copilot'
   - prompts
   - ai
   - templates

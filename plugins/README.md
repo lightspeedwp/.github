@@ -11,7 +11,11 @@ authors:
 license: 'GPL-3.0'
 stability: 'stable'
 domain: 'governance'
-tags: []
+tags:
+  - plugins
+  - ai-ops
+  - integration
+  - automation
 ---
 
 # Plugin Bundles & Integration Strategy

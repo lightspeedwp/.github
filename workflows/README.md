@@ -11,7 +11,11 @@ authors:
 license: 'GPL-3.0'
 stability: 'stable'
 domain: 'governance'
-tags: []
+tags:
+  - workflows
+  - agentic
+  - ai-ops
+  - orchestration
 ---
 
 # Portable Agentic Workflows

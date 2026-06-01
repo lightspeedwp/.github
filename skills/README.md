@@ -11,7 +11,11 @@ authors:
 license: 'GPL-3.0'
 stability: 'stable'
 domain: 'governance'
-tags: []
+tags:
+  - skills
+  - ai-ops
+  - automation
+  - cross-platform
 ---
 
 # Portable AI Skills

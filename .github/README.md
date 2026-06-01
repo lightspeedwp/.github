@@ -13,8 +13,16 @@ authors:
 license: 'GPL-3.0'
 stability: 'stable'
 domain: 'governance'
-tags: []
-owners: ''
+tags:
+  - github-templates
+  - community-health
+  - automation
+  - copilot
+  - workflows
+  - labeling
+  - ai
+owners:
+  - LightSpeed Team
 ---
 
 # 🏛️ LightSpeed Organisation .github Community Health Repository

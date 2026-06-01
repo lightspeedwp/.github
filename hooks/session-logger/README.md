@@ -12,7 +12,8 @@ license: 'GPL-3.0'
 stability: 'stable'
 domain: 'governance'
 tags: []
-owners: ''
+owners:
+  - LightSpeedWP Team
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
