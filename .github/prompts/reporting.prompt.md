@@ -22,3 +22,10 @@ tags:
 domain: governance
 stability: stable
 ---
+
+## Deprecation Notice
+
+- Status: Deprecated in `.github/prompts/` and migrated to ``prompts/reporting.prompt``.
+- Action: Use ``prompts/reporting.prompt`` as the canonical organisation-wide prompt path.
+- Effective date: 2026-06-01.
+- Migration reference: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.

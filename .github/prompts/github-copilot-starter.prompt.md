@@ -14,6 +14,13 @@ tools:
 description: "Set up complete GitHub Copilot configuration for a new project based on technology stack"
 ---
 
+## Deprecation Notice
+
+- Status: Deprecated in `.github/prompts/`.
+- Action: Use successor prompt(s): `prompts/prompt-builder.prompt`.
+- Effective date: 2026-06-01.
+- Migration reference: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.
+
 You are a GitHub Copilot setup specialist. Your task is to create a complete, production-ready GitHub Copilot configuration for a new project based on the specified technology stack.
 
 ## Project Information Required

@@ -93,6 +93,7 @@ Classify the nature of the work:
 - `area:ci` — CI/CD pipelines and automation
 - `area:dependencies` — Package and dependency management
 - `area:documentation` — Docs, guides, examples
+- `area:quality` — Quality validation and QA controls
 - `area:a11y` — Accessibility standards
 - `area:performance` — Performance optimisation
 - Other areas as needed

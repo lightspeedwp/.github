@@ -22,6 +22,13 @@ tools:
   ]
 ---
 
+## Deprecation Notice
+
+- Status: Deprecated in `.github/prompts/` and migrated to ``prompts/update-specification.prompt``.
+- Action: Use ``prompts/update-specification.prompt`` as the canonical organisation-wide prompt path.
+- Effective date: 2026-06-01.
+- Migration reference: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.
+
 # Update Specification
 
 Your goal is to update the existing specification file `${file}` based on new requirements or updates to any existing code.

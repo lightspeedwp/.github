@@ -4,6 +4,13 @@ tools: ["search/codebase", "edit/editFiles", "search"]
 description: "Guide users through creating high-quality GitHub Copilot prompts with proper structure, tools, and best practices."
 ---
 
+## Deprecation Notice
+
+- Status: Deprecated in `.github/prompts/` and migrated to ``prompts/prompt-builder.prompt``.
+- Action: Use ``prompts/prompt-builder.prompt`` as the canonical organisation-wide prompt path.
+- Effective date: 2026-06-01.
+- Migration reference: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.
+
 # Professional Prompt Builder
 
 You are an expert prompt engineer specializing in GitHub Copilot prompt development with deep knowledge of:

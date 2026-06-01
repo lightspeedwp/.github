@@ -2,7 +2,7 @@
 file_type: "prompt"
 title: "Standardised Prompts Directory"
 description: "Reusable prompt templates for agents and AI scenarios across LightSpeed projects"
-version: "1.0.1"
+version: "1.1.0"
 last_updated: "2026-06-01"
 owners: ["ashley@lightspeedwp.agency"]
 tags: ["prompts", "ai", "templates", "agents"]
@@ -14,6 +14,18 @@ domain: generic
 # Standardised Prompts
 
 This directory contains reusable prompt templates for agents and AI scenarios across LightSpeed projects. Use these prompts as starting points for common tasks—customise as needed for your specific context.
+
+## Canonical Boundary
+
+- `prompts/` is the canonical location for organisation-wide reusable prompts.
+- `.github/prompts/` is reserved for `.github` control-plane and repository-governance prompts.
+- Migration authority: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.
+
+## Migration Status
+
+- `38` prompts have been migrated/refactored from `.github/prompts/` to root `prompts/`.
+- `8` legacy prompts in `.github/prompts/` are merge/deprecate candidates and now include successor guidance.
+- Legacy `.github/prompts/` moved files contain deprecation notices with canonical target paths.
 
 ## Prompt Templates
 

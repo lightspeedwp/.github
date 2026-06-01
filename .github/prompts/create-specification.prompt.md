@@ -22,6 +22,13 @@ tools:
   ]
 ---
 
+## Deprecation Notice
+
+- Status: Deprecated in `.github/prompts/` and migrated to ``prompts/create-specification.prompt``.
+- Action: Use ``prompts/create-specification.prompt`` as the canonical organisation-wide prompt path.
+- Effective date: 2026-06-01.
+- Migration reference: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.
+
 # Create Specification
 
 Your goal is to create a new specification file for `${input:SpecPurpose}`.

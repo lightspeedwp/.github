@@ -22,6 +22,13 @@ tools:
   ]
 ---
 
+## Deprecation Notice
+
+- Status: Deprecated in `.github/prompts/` and migrated to ``prompts/update-implementation-plan.prompt``.
+- Action: Use ``prompts/update-implementation-plan.prompt`` as the canonical organisation-wide prompt path.
+- Effective date: 2026-06-01.
+- Migration reference: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.
+
 # Update Implementation Plan
 
 ## Primary Directive
