@@ -1,11 +1,26 @@
 ---
-file_type: "documentation"
-title: "Issue Creation Documentation Audit Report"
-description: "Comprehensive audit of 6 overlapping issue creation documentation files. Identifies duplication, overlap, and proposes consolidation strategy."
-version: "1.0"
-last_updated: "2026-05-31"
-owners: ["LightSpeed Maintainers"]
-tags: ["audit", "documentation", "issue-creation", "consolidation", "reference"]
+file_type: documentation
+title: Issue Creation Documentation Audit Report
+description: Comprehensive audit of 6 overlapping issue creation documentation files. Identifies duplication, overlap, and proposes consolidation strategy.
+version: v1.0.0
+created_date: '2026-05-31'
+last_updated: '2026-05-31'
+authors:
+  - Claude Code
+  - LightSpeed Team
+maintainer: LightSpeed Team
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - audit
+  - documentation
+  - issue-creation
+  - consolidation
+  - reference
+domain: governance
+status: active
+language: en
+stability: stable
 ---
 
 # Issue Creation Documentation Audit Report
