@@ -11,8 +11,8 @@ owners: ["LightSpeedWP Automation Team"]
 
 # Branding Configuration Specification
 
-**Document Version**: 1.0.0  
-**Last Updated**: 2026-05-29  
+**Document Version**: 1.0.0
+**Last Updated**: 2026-05-29
 **Related Issues**: #33 (Parent Spec), #554 (Schema Implementation), #555 (Agent Implementation), #556 (Remediation)
 
 ---
@@ -228,11 +228,11 @@ When headers are required or included:
 
 # Document Title
 
-**Category**: [`category-badge`]  
-**Status**: Active | Draft | Deprecated  
-**Version**: vX.Y.Z  
-**Owners**: @owner1, @owner2  
-**Last Updated**: YYYY-MM-DD  
+**Category**: [`category-badge`]
+**Status**: Active | Draft | Deprecated
+**Version**: vX.Y.Z
+**Owners**: @owner1, @owner2
+**Last Updated**: YYYY-MM-DD
 
 ---
 
@@ -523,8 +523,8 @@ governance-footer:
 
 ---
 
-**Last Reviewed**: 2026-05-29  
-**Next Review**: 2026-06-29  
+**Last Reviewed**: 2026-05-29
+**Next Review**: 2026-06-29
 **Maintained by**: LightSpeedWP Automation Team
 
 ---

@@ -11,11 +11,11 @@ tags: ["branding", "templates", "headers", "footers", "badges", "design"]
 
 # Branding Agent Template Design (Issue #46)
 
-**Parent Issue**: #33 (Parent Specification)  
-**Related Issues**: #49 (Schema/Config), #48 (Agent Implementation)  
-**Status**: Template Design Phase  
-**Effort**: 8–10 hours (design and documentation)  
-**Timeline**: Week 2 implementation  
+**Parent Issue**: #33 (Parent Specification)
+**Related Issues**: #49 (Schema/Config), #48 (Agent Implementation)
+**Status**: Template Design Phase
+**Effort**: 8–10 hours (design and documentation)
+**Timeline**: Week 2 implementation
 
 ---
 
@@ -191,15 +191,15 @@ Headers appear at the top of the frontmatter and provide document metadata to re
 
 ### 3.7–3.16 Other Categories
 
-**Guides**: Similar to Docs, with "Quick Start" section  
-**README**: Structured with "Contents", "Quick Links", project overview  
-**Standards**: Include "Standard Version" and "Adoption Timeline"  
-**Tools**: Include "Installation" and "Quick Start" sections  
-**Workflows**: Include "Trigger Events" and "Outputs" sections  
-**Checklists**: Include "Scope" and "Success Criteria" sections  
-**Examples**: Include "Language/Framework" and "Complexity Level"  
-**Proposals**: Include "Decision" and "Impact" sections  
-**Archives**: Include "Archive Date" and "Replacement Link" (if applicable)  
+**Guides**: Similar to Docs, with "Quick Start" section
+**README**: Structured with "Contents", "Quick Links", project overview
+**Standards**: Include "Standard Version" and "Adoption Timeline"
+**Tools**: Include "Installation" and "Quick Start" sections
+**Workflows**: Include "Trigger Events" and "Outputs" sections
+**Checklists**: Include "Scope" and "Success Criteria" sections
+**Examples**: Include "Language/Framework" and "Complexity Level"
+**Proposals**: Include "Decision" and "Impact" sections
+**Archives**: Include "Archive Date" and "Replacement Link" (if applicable)
 **Metadata**: Minimal header (often just title and description)
 
 ---
@@ -222,8 +222,8 @@ Footers appear at the end of documents. Each category has 5 variants:
 
 ---
 
-**Last Updated**: [Date from frontmatter]  
-**Owner**: [From frontmatter]  
+**Last Updated**: [Date from frontmatter]
+**Owner**: [From frontmatter]
 **Status**: [From frontmatter]
 ```
 
@@ -288,7 +288,7 @@ Footers appear at the end of documents. Each category has 5 variants:
 ```markdown
 ---
 
-**Last Updated**: [Date]  
+**Last Updated**: [Date]
 [Related link]
 ```
 
@@ -313,7 +313,7 @@ Footers appear at the end of documents. Each category has 5 variants:
 
 ---
 
-**Owner**: [From frontmatter]  
+**Owner**: [From frontmatter]
 **Status**: [From frontmatter]
 ```
 
@@ -373,7 +373,7 @@ See [Related Agents](link) for similar specs.
 ```markdown
 ---
 
-**Owner**: [From frontmatter]  
+**Owner**: [From frontmatter]
 [Parent spec or related link]
 ```
 
@@ -457,7 +457,7 @@ Last Updated: [Date]
 ```markdown
 ---
 
-**Owner**: [From frontmatter]  
+**Owner**: [From frontmatter]
 See also: [Related instruction](link)
 ```
 
@@ -482,7 +482,7 @@ See [Examples](link) for more.
 
 ---
 
-**Version**: [Version]  
+**Version**: [Version]
 **Owner**: [From frontmatter]
 
 ```
@@ -526,7 +526,7 @@ See [Examples](link) for more.
 ```markdown
 ---
 
-**Version**: [Version]  
+**Version**: [Version]
 [Related schema](link)
 ```
 
@@ -619,7 +619,7 @@ Related: [Related prompt](link)
 ```markdown
 ---
 
-**Owner**: [From frontmatter]  
+**Owner**: [From frontmatter]
 Model: [Model name]
 ```
 
@@ -680,7 +680,7 @@ Related policies: [Links]
 ```markdown
 ---
 
-**Effective Date**: [Date]  
+**Effective Date**: [Date]
 **Owner**: [From frontmatter]
 ```
 
@@ -803,8 +803,8 @@ This guide explains how to authenticate and make your first API call. It takes a
 
 ---
 
-**Last Updated**: 2026-05-28  
-**Owner**: API Team  
+**Last Updated**: 2026-05-28
+**Owner**: API Team
 **Status**: Active
 ```
 
@@ -849,7 +849,7 @@ owners: ["AI Ops"]
 
 ---
 
-**Owner**: AI Ops  
+**Owner**: AI Ops
 **Status**: Active
 ```
 
@@ -889,7 +889,7 @@ templates:
     agents: |
       ## Agent Specification
       ...
-  
+
   footers:
     docs:
       variant_1: |
@@ -900,7 +900,7 @@ templates:
         ---
         ## Version & Status
         ...
-  
+
   badges:
     status:
       active: "![Status: Active](https://...)"

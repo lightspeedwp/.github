@@ -16,7 +16,7 @@ labels:
 ```markdown
 Hi @username,
 
-Thank you for opening a draft PR!  
+Thank you for opening a draft PR!
 Drafts are great for early feedback. Please keep your description and checklist updated as you work.
 
 When ready for full review, mark the PR as “Ready for review” and ensure all CI checks pass.

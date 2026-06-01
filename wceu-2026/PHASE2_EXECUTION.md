@@ -7,9 +7,9 @@ file_type: documentation
 
 # Phase 2 Execution Guide
 
-**Timeline**: May 30 (ASAP)  
-**Deliverables**: NotebookLM briefs + Glossary ✅ + Foundation slides (4)  
-**Owner**: Ash Shaw (content transfer to Slides)  
+**Timeline**: May 30 (ASAP)
+**Deliverables**: NotebookLM briefs + Glossary ✅ + Foundation slides (4)
+**Owner**: Ash Shaw (content transfer to Slides)
 **Effort**: 4–6 hours total
 
 ---
@@ -24,7 +24,7 @@ file_type: documentation
 
 ## Step 1: Run NotebookLM Session (You)
 
-**Time**: 30 mins setup + 30–60 mins content generation  
+**Time**: 30 mins setup + 30–60 mins content generation
 **Tool**: <https://www.notebooklm.google.com>
 
 ### Prepare
@@ -72,7 +72,7 @@ Use these prompts in sequence (NotebookLM chat):
 
 ## Step 2: Create 4 Foundation Slides in Google Slides (You)
 
-**Time**: 1–2 hours  
+**Time**: 1–2 hours
 **Tool**: Google Slides (or your preferred presentation tool)
 
 ### Create New Presentation

@@ -20,7 +20,7 @@ This directory contains comprehensive Jest tests for all LightSpeed agents, ensu
 
 ## Validation Status
 
-**Last Updated**: 2025-11-25  
+**Last Updated**: 2025-11-25
 **Status**: ✅ All agent files validated
 
 ### Validation Results

@@ -398,8 +398,8 @@ PASS scripts/agents/includes/__tests__/badgeUtils.test.js
     ✓ generateWorkflowBadges returns badge markdown (4 ms)
     ✓ updateReadmeBadges inserts badge block (3 ms)
 
-Warning: Using local schema due to fetch error: 
-Warning: Using local schema due to fetch error: 
+Warning: Using local schema due to fetch error:
+Warning: Using local schema due to fetch error:
 [31mError: Missing required top-level field: reviews[0m
 PASS scripts/validation/__tests__/validate-coderabbit-yml.test.js
   Coderabbit YML Validation
@@ -581,9 +581,9 @@ PASS scripts/agents/__tests__/adr.agent.test.js
     ✓ should be defined (4 ms)
 
 ----------|---------|----------|---------|---------|-------------------
-File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 ----------|---------|----------|---------|---------|-------------------
-All files |       0 |        0 |       0 |       0 |                   
+All files |       0 |        0 |       0 |       0 |
 ----------|---------|----------|---------|---------|-------------------
 Test Suites: 41 passed, 41 total
 Tests:       181 passed, 181 total

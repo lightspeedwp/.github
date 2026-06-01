@@ -70,7 +70,7 @@ Create the following **parent issues** in GitHub. Each parent issue will have mu
 ```markdown
 ## Overview
 
-Comprehensive audit of issue templates, their relationship to the automated labeling system, 
+Comprehensive audit of issue templates, their relationship to the automated labeling system,
 and how AI agents should create issues to trigger proper automation.
 
 ## Current Problems
@@ -122,7 +122,7 @@ See child issues for detailed audits of:
 ```markdown
 ## Overview
 
-Comprehensive audit of canonical configuration files that define labels, issue types, 
+Comprehensive audit of canonical configuration files that define labels, issue types,
 issue fields, and how they relate to each other.
 
 ## Current Problems
@@ -178,7 +178,7 @@ See child issues for detailed audits of:
 ```markdown
 ## Overview
 
-Audit of 40+ documentation files across `docs/` to identify duplication, 
+Audit of 40+ documentation files across `docs/` to identify duplication,
 overlap, and opportunities for consolidation.
 
 ## Current Problems
@@ -231,7 +231,7 @@ See child issues for detailed audits of:
 ```markdown
 ## Overview
 
-Comprehensive audit of 44 README.md files across the repository to verify 
+Comprehensive audit of 44 README.md files across the repository to verify
 Mermaid diagram syntax, accessibility compliance, and content freshness.
 
 ## Current Problems
@@ -287,7 +287,7 @@ All README.md files across the repository (see audit report for inventory)
 ```markdown
 ## Overview
 
-Audit current file organization against the planned structure defined in CLAUDE.md 
+Audit current file organization against the planned structure defined in CLAUDE.md
 and identify misalignments requiring refactoring.
 
 ## Current Problems

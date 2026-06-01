@@ -43,8 +43,8 @@ Applies to all issue templates and issue creation workflows. Covers frontmatter,
 - Verify labels meet one-hot rules and align with `labels.yml`/`labeler.yml`.
 - Confirm templates live under `.github/ISSUE_TEMPLATE/*.md`.
 
-This document defines how to create, label, and manage Issues in LightSpeedWP repositories.  
-It covers templates, issue types, labels, frontmatter, and workflows, referencing all canonical guides, configs, and automation logic.  
+This document defines how to create, label, and manage Issues in LightSpeedWP repositories.
+It covers templates, issue types, labels, frontmatter, and workflows, referencing all canonical guides, configs, and automation logic.
 **All contributors, maintainers, and bots must follow these instructions for consistency, automation, and project health.**
 
 ---
@@ -52,7 +52,7 @@ It covers templates, issue types, labels, frontmatter, and workflows, referencin
 ## 1. Use Markdown Issue Templates with YAML Frontmatter
 
 - All issue templates are Markdown (`.md`) files with a YAML frontmatter block.
-- Templates are located in:  
+- Templates are located in:
   `.github/ISSUE_TEMPLATE/*.md`
 - **Do NOT use YAML Issue Forms**. All automation, labeling, and triage depend on Markdown-based templates.
 - See: [Issue Creation Guide](../docs/ISSUE_CREATION_GUIDE.md)

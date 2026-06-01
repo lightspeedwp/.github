@@ -24,9 +24,9 @@ stability: stable
 
 # Label Strategy & Governance
 
-**Version**: v1.0.0  
-**Created**: 2026-05-31  
-**Owner**: LightSpeed Team  
+**Version**: v1.0.0
+**Created**: 2026-05-31
+**Owner**: LightSpeed Team
 **Reference Config**: `.github/labels.yml`, `.github/labeler.yml`
 
 ---

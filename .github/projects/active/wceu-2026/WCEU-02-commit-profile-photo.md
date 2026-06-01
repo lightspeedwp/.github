@@ -7,11 +7,11 @@ file_type: documentation
 
 # [WCEU-02] Commit profile photo to assets
 
-**Title**: Commit profile photo to `wceu-2026/assets/ash-shaw-profile.jpg`  
-**Priority**: Critical (NOW — next 6 hours)  
-**Status**: TODO  
-**Due**: May 29, 2026 (today, ASAP)  
-**Assignee**: Claude  
+**Title**: Commit profile photo to `wceu-2026/assets/ash-shaw-profile.jpg`
+**Priority**: Critical (NOW — next 6 hours)
+**Status**: TODO
+**Due**: May 29, 2026 (today, ASAP)
+**Assignee**: Claude
 **Parent**: WCEU 2026 Talk Preparation
 
 ---
@@ -81,6 +81,6 @@ Related: WCEU 2026 Talk Preparation (#parent-issue)
 
 ---
 
-**Status**: TODO  
-**Effort**: 15 minutes  
+**Status**: TODO
+**Effort**: 15 minutes
 **Created**: 2026-05-29

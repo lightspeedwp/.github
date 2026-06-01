@@ -11,11 +11,11 @@ tags: ["branding", "governance", "automation", "specification"]
 
 # Unified Branding Agent — Parent Specification
 
-**Issue**: #33  
-**Related Issues**: #46 (template design), #49 (schema/config), #48 (agent implementation)  
-**Status**: Specification Phase  
-**Effort**: 12–16 hours (planning complete)  
-**Timeline**: Week 1–2 implementation  
+**Issue**: #33
+**Related Issues**: #46 (template design), #49 (schema/config), #48 (agent implementation)
+**Status**: Specification Phase
+**Effort**: 12–16 hours (planning complete)
+**Timeline**: Week 1–2 implementation
 
 ---
 
@@ -70,209 +70,209 @@ The branding agent supports **16 document categories**, each with distinct purpo
 
 #### Category: `issue-template`
 
-**Purpose**: GitHub issue template files  
-**Audience**: Repository contributors opening issues  
-**File Patterns**: `.github/ISSUE_TEMPLATE/*.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "issue-template"`  
-**Header Behavior**: Optional (most templates omit headers)  
-**Footer Behavior**: Minimal or omitted; if present, link to contributing guide  
-**Badge Conventions**: `[issue-template]` label only  
-**Fallback Rules**: No footer if frontmatter missing; use default category badge  
+**Purpose**: GitHub issue template files
+**Audience**: Repository contributors opening issues
+**File Patterns**: `.github/ISSUE_TEMPLATE/*.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "issue-template"`
+**Header Behavior**: Optional (most templates omit headers)
+**Footer Behavior**: Minimal or omitted; if present, link to contributing guide
+**Badge Conventions**: `[issue-template]` label only
+**Fallback Rules**: No footer if frontmatter missing; use default category badge
 
 ---
 
 #### Category: `pull-request-template`
 
-**Purpose**: GitHub pull request template files  
-**Audience**: Repository contributors opening pull requests  
-**File Patterns**: `.github/PULL_REQUEST_TEMPLATE/*.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "pr-template"`  
-**Header Behavior**: Optional  
-**Footer Behavior**: Link to CI/CD status, review guide, or merge criteria  
-**Badge Conventions**: `[pull-request]` label; automation status badges if applicable  
-**Fallback Rules**: Use default footer if frontmatter missing  
+**Purpose**: GitHub pull request template files
+**Audience**: Repository contributors opening pull requests
+**File Patterns**: `.github/PULL_REQUEST_TEMPLATE/*.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "pr-template"`
+**Header Behavior**: Optional
+**Footer Behavior**: Link to CI/CD status, review guide, or merge criteria
+**Badge Conventions**: `[pull-request]` label; automation status badges if applicable
+**Fallback Rules**: Use default footer if frontmatter missing
 
 ---
 
 #### Category: `docs`
 
-**Purpose**: Repository documentation and guides  
-**Audience**: End users, maintainers, integrators  
-**File Patterns**: `docs/**/*.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `owners: [...]`  
-**Header Behavior**: Required; includes category badge, version, status  
-**Footer Behavior**: Attribution footer with maintainer info, last-updated date, link to GitHub edit  
-**Badge Conventions**: `[docs]`, `[status]`, `[version]`, `[owners]`  
-**Fallback Rules**: Use README-style defaults if category not specified; infer from filename  
+**Purpose**: Repository documentation and guides
+**Audience**: End users, maintainers, integrators
+**File Patterns**: `docs/**/*.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `owners: [...]`
+**Header Behavior**: Required; includes category badge, version, status
+**Footer Behavior**: Attribution footer with maintainer info, last-updated date, link to GitHub edit
+**Badge Conventions**: `[docs]`, `[status]`, `[version]`, `[owners]`
+**Fallback Rules**: Use README-style defaults if category not specified; infer from filename
 
 ---
 
 #### Category: `ai-ops`
 
-**Purpose**: AI operations, automation, and governance documentation  
-**Audience**: Maintainers, automation engineers, governance stakeholders  
-**File Patterns**: `docs/**/*governance*.md`, `docs/**/*automation*.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "ai-ops"`  
-**Header Behavior**: Required; includes AI Ops badge, governance level, decision status  
-**Footer Behavior**: Links to related governance docs, approval chain, review status  
-**Badge Conventions**: `[AI Ops]`, `[governance]`, `[automation]`, `[decision]`  
-**Fallback Rules**: Infer from path if `category` not in frontmatter  
+**Purpose**: AI operations, automation, and governance documentation
+**Audience**: Maintainers, automation engineers, governance stakeholders
+**File Patterns**: `docs/**/*governance*.md`, `docs/**/*automation*.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "ai-ops"`
+**Header Behavior**: Required; includes AI Ops badge, governance level, decision status
+**Footer Behavior**: Links to related governance docs, approval chain, review status
+**Badge Conventions**: `[AI Ops]`, `[governance]`, `[automation]`, `[decision]`
+**Fallback Rules**: Infer from path if `category` not in frontmatter
 
 ---
 
 #### Category: `agents`
 
-**Purpose**: Agent specifications, behavior definitions, and documentation  
-**Audience**: Developers integrating agents, framework maintainers  
-**File Patterns**: `agents/**/*.md`, `agents/**/*.agent.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "agent"`, `owners: [...]`  
-**Header Behavior**: Required; includes agent name, capabilities badge, status  
-**Footer Behavior**: Signature footer with agent identity, version, last-updated, links to implementation  
-**Badge Conventions**: `[agent]`, `[capabilities]`, `[status]`, `[version]`  
-**Fallback Rules**: Default to agent category if not specified  
+**Purpose**: Agent specifications, behavior definitions, and documentation
+**Audience**: Developers integrating agents, framework maintainers
+**File Patterns**: `agents/**/*.md`, `agents/**/*.agent.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "agent"`, `owners: [...]`
+**Header Behavior**: Required; includes agent name, capabilities badge, status
+**Footer Behavior**: Signature footer with agent identity, version, last-updated, links to implementation
+**Badge Conventions**: `[agent]`, `[capabilities]`, `[status]`, `[version]`
+**Fallback Rules**: Default to agent category if not specified
 
 ---
 
 #### Category: `instructions`
 
-**Purpose**: Coding standards, guidelines, and best practices  
-**Audience**: Developers, code reviewers, automation systems  
-**File Patterns**: `instructions/**/*.md`, `*.instructions.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "instructions"`, `owners: [...]`  
-**Header Behavior**: Required; includes compliance level, applicability scope  
-**Footer Behavior**: Links to enforcement mechanisms, related guidelines, approval status  
-**Badge Conventions**: `[instructions]`, `[compliance-level]`, `[scope]`  
-**Fallback Rules**: Use default instructions footer if not specified  
+**Purpose**: Coding standards, guidelines, and best practices
+**Audience**: Developers, code reviewers, automation systems
+**File Patterns**: `instructions/**/*.md`, `*.instructions.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "instructions"`, `owners: [...]`
+**Header Behavior**: Required; includes compliance level, applicability scope
+**Footer Behavior**: Links to enforcement mechanisms, related guidelines, approval status
+**Badge Conventions**: `[instructions]`, `[compliance-level]`, `[scope]`
+**Fallback Rules**: Use default instructions footer if not specified
 
 ---
 
 #### Category: `prompts`
 
-**Purpose**: Prompt templates for AI tools, ChatMode, and automation  
-**Audience**: Prompt engineers, AI tool integrators, LLM users  
-**File Patterns**: `prompts/**/*.md`, `*.prompt.md`, `wceu-2026/**/*.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "prompt"`, `owners: [...]`  
-**Header Behavior**: Optional; may include version and tool compatibility  
-**Footer Behavior**: Tool compatibility footer, version info, last-updated, prompt engineering notes  
-**Badge Conventions**: `[prompt]`, `[tools]`, `[version]`, `[ai-model]`  
-**Fallback Rules**: Generic prompt footer if not specified  
+**Purpose**: Prompt templates for AI tools, ChatMode, and automation
+**Audience**: Prompt engineers, AI tool integrators, LLM users
+**File Patterns**: `prompts/**/*.md`, `*.prompt.md`, `wceu-2026/**/*.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "prompt"`, `owners: [...]`
+**Header Behavior**: Optional; may include version and tool compatibility
+**Footer Behavior**: Tool compatibility footer, version info, last-updated, prompt engineering notes
+**Badge Conventions**: `[prompt]`, `[tools]`, `[version]`, `[ai-model]`
+**Fallback Rules**: Generic prompt footer if not specified
 
 ---
 
 #### Category: `schema`
 
-**Purpose**: Data schema definitions, validation rules, and format specifications  
-**Audience**: Developers consuming schema, API users, automation engineers  
-**File Patterns**: `schema/**/*.md`, `schemas/**/*.md`, `*.schema.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "schema"`  
-**Header Behavior**: Required; includes schema version, validation tool, status  
-**Footer Behavior**: Links to schema implementation, validation results, related schemas  
-**Badge Conventions**: `[schema]`, `[version]`, `[validation]`, `[status]`  
-**Fallback Rules**: Default to docs category if not specified  
+**Purpose**: Data schema definitions, validation rules, and format specifications
+**Audience**: Developers consuming schema, API users, automation engineers
+**File Patterns**: `schema/**/*.md`, `schemas/**/*.md`, `*.schema.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "schema"`
+**Header Behavior**: Required; includes schema version, validation tool, status
+**Footer Behavior**: Links to schema implementation, validation results, related schemas
+**Badge Conventions**: `[schema]`, `[version]`, `[validation]`, `[status]`
+**Fallback Rules**: Default to docs category if not specified
 
 ---
 
 #### Category: `readme`
 
-**Purpose**: Repository, project, or module overview documents  
-**Audience**: New contributors, integrators, project stakeholders  
-**File Patterns**: `README.md`, `*/README.md`, `plugins/*/README.md`  
-**Frontmatter Required**: Optional; if present, include `title`, `description`, `file_type: "documentation"`  
-**Header Behavior**: Usually omitted (file name is self-documenting)  
-**Footer Behavior**: Standard footer with repository info, contribution guide link, license  
-**Badge Conventions**: `[repository]`, `[license]`, `[contributors]`  
-**Fallback Rules**: Use standard repository footer if no frontmatter  
+**Purpose**: Repository, project, or module overview documents
+**Audience**: New contributors, integrators, project stakeholders
+**File Patterns**: `README.md`, `*/README.md`, `plugins/*/README.md`
+**Frontmatter Required**: Optional; if present, include `title`, `description`, `file_type: "documentation"`
+**Header Behavior**: Usually omitted (file name is self-documenting)
+**Footer Behavior**: Standard footer with repository info, contribution guide link, license
+**Badge Conventions**: `[repository]`, `[license]`, `[contributors]`
+**Fallback Rules**: Use standard repository footer if no frontmatter
 
 ---
 
 #### Category: `test`
 
-**Purpose**: Test documentation, testing guidelines, and test specifications  
-**Audience**: QA engineers, developers, CI/CD automation  
-**File Patterns**: `test/**/*.md`, `*test*.md`, `**/*-test.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "test"`  
-**Header Behavior**: Optional; may include test coverage status  
-**Footer Behavior**: Links to test results, CI/CD status, related test docs  
-**Badge Conventions**: `[test]`, `[coverage]`, `[status]`  
-**Fallback Rules**: Generic documentation footer  
+**Purpose**: Test documentation, testing guidelines, and test specifications
+**Audience**: QA engineers, developers, CI/CD automation
+**File Patterns**: `test/**/*.md`, `*test*.md`, `**/*-test.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "test"`
+**Header Behavior**: Optional; may include test coverage status
+**Footer Behavior**: Links to test results, CI/CD status, related test docs
+**Badge Conventions**: `[test]`, `[coverage]`, `[status]`
+**Fallback Rules**: Generic documentation footer
 
 ---
 
 #### Category: `utility`
 
-**Purpose**: Utility scripts, helper tools, and automation utilities  
-**Audience**: Developers, DevOps, automation engineers  
-**File Patterns**: `scripts/**/*.md`, `utils/**/*.md`, `*.utility.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "utility"`  
-**Header Behavior**: Optional; may include usage/requirements  
-**Footer Behavior**: Links to source code, usage examples, maintenance info  
-**Badge Conventions**: `[utility]`, `[language]`, `[status]`  
-**Fallback Rules**: Generic utility footer  
+**Purpose**: Utility scripts, helper tools, and automation utilities
+**Audience**: Developers, DevOps, automation engineers
+**File Patterns**: `scripts/**/*.md`, `utils/**/*.md`, `*.utility.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "utility"`
+**Header Behavior**: Optional; may include usage/requirements
+**Footer Behavior**: Links to source code, usage examples, maintenance info
+**Badge Conventions**: `[utility]`, `[language]`, `[status]`
+**Fallback Rules**: Generic utility footer
 
 ---
 
 #### Category: `awesome-copilot`
 
-**Purpose**: Awesome Copilot resources, extensions, and integrations  
-**Audience**: Copilot users, extension developers, integration teams  
-**File Patterns**: `awesome-copilot/**/*.md`, `**/*awesome*.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "awesome-copilot"`  
-**Header Behavior**: Required; includes resource type, compatibility badges  
-**Footer Behavior**: Links to Copilot docs, integration guides, related resources  
-**Badge Conventions**: `[awesome-copilot]`, `[copilot-version]`, `[type]`  
-**Fallback Rules**: Generic awesome-copilot footer  
+**Purpose**: Awesome Copilot resources, extensions, and integrations
+**Audience**: Copilot users, extension developers, integration teams
+**File Patterns**: `awesome-copilot/**/*.md`, `**/*awesome*.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "awesome-copilot"`
+**Header Behavior**: Required; includes resource type, compatibility badges
+**Footer Behavior**: Links to Copilot docs, integration guides, related resources
+**Badge Conventions**: `[awesome-copilot]`, `[copilot-version]`, `[type]`
+**Fallback Rules**: Generic awesome-copilot footer
 
 ---
 
 #### Category: `research`
 
-**Purpose**: Research documents, findings, and investigation results  
-**Audience**: Decision makers, researchers, stakeholders  
-**File Patterns**: `research/**/*.md`, `*research*.md`, `*.research.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `owners: [...]`  
-**Header Behavior**: Required; includes research scope, methodology, date  
-**Footer Behavior**: Attribution, sources, related research, update status  
-**Badge Conventions**: `[research]`, `[status]`, `[date]`  
-**Fallback Rules**: Default research footer  
+**Purpose**: Research documents, findings, and investigation results
+**Audience**: Decision makers, researchers, stakeholders
+**File Patterns**: `research/**/*.md`, `*research*.md`, `*.research.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `owners: [...]`
+**Header Behavior**: Required; includes research scope, methodology, date
+**Footer Behavior**: Attribution, sources, related research, update status
+**Badge Conventions**: `[research]`, `[status]`, `[date]`
+**Fallback Rules**: Default research footer
 
 ---
 
 #### Category: `audit`
 
-**Purpose**: Audit reports, compliance documentation, and assessment results  
-**Audience**: Compliance officers, auditors, decision makers  
-**File Patterns**: `audit/**/*.md`, `*audit*.md`, `*.audit.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `owners: [...]`  
-**Header Behavior**: Required; includes audit type, scope, date, findings summary  
-**Footer Behavior**: Audit authority, remediation status, next review date  
-**Badge Conventions**: `[audit]`, `[compliance]`, `[status]`, `[date]`  
-**Fallback Rules**: Default audit footer  
+**Purpose**: Audit reports, compliance documentation, and assessment results
+**Audience**: Compliance officers, auditors, decision makers
+**File Patterns**: `audit/**/*.md`, `*audit*.md`, `*.audit.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `owners: [...]`
+**Header Behavior**: Required; includes audit type, scope, date, findings summary
+**Footer Behavior**: Audit authority, remediation status, next review date
+**Badge Conventions**: `[audit]`, `[compliance]`, `[status]`, `[date]`
+**Fallback Rules**: Default audit footer
 
 ---
 
 #### Category: `workflow`
 
-**Purpose**: Workflow definitions, CI/CD documentation, and automation rules  
-**Audience**: DevOps engineers, CI/CD maintainers, automation engineers  
-**File Patterns**: `.github/workflows/**/*.md`, `docs/**/*workflow*.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "workflow"`  
-**Header Behavior**: Required; includes trigger events, execution context  
-**Footer Behavior**: Links to workflow implementation, status page, related workflows  
-**Badge Conventions**: `[workflow]`, `[trigger]`, `[status]`  
-**Fallback Rules**: Default workflow footer  
+**Purpose**: Workflow definitions, CI/CD documentation, and automation rules
+**Audience**: DevOps engineers, CI/CD maintainers, automation engineers
+**File Patterns**: `.github/workflows/**/*.md`, `docs/**/*workflow*.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "workflow"`
+**Header Behavior**: Required; includes trigger events, execution context
+**Footer Behavior**: Links to workflow implementation, status page, related workflows
+**Badge Conventions**: `[workflow]`, `[trigger]`, `[status]`
+**Fallback Rules**: Default workflow footer
 
 ---
 
 #### Category: `governance`
 
-**Purpose**: Governance policies, decision records, and organizational rules  
-**Audience**: Maintainers, decision makers, governance stakeholders  
-**File Patterns**: `docs/**/*governance*.md`, `governance/**/*.md`  
-**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "governance"`, `owners: [...]`  
-**Header Behavior**: Required; includes policy scope, decision status, approval chain  
-**Footer Behavior**: Policy authority, review cycle, effective date, next review date  
-**Badge Conventions**: `[governance]`, `[decision]`, `[approval]`, `[effective]`  
-**Fallback Rules**: Default governance footer  
+**Purpose**: Governance policies, decision records, and organizational rules
+**Audience**: Maintainers, decision makers, governance stakeholders
+**File Patterns**: `docs/**/*governance*.md`, `governance/**/*.md`
+**Frontmatter Required**: `title`, `description`, `file_type: "documentation"`, `category: "governance"`, `owners: [...]`
+**Header Behavior**: Required; includes policy scope, decision status, approval chain
+**Footer Behavior**: Policy authority, review cycle, effective date, next review date
+**Badge Conventions**: `[governance]`, `[decision]`, `[approval]`, `[effective]`
+**Fallback Rules**: Default governance footer
 
 ---
 
@@ -310,11 +310,11 @@ Headers provide context and metadata at the top of documents. The branding agent
 
 # Document Title
 
-**Category**: [`category-badge`]  
-**Status**: Active | Draft | Deprecated  
-**Version**: vX.Y.Z  
-**Owners**: [@owner1, @owner2]  
-**Last Updated**: YYYY-MM-DD  
+**Category**: [`category-badge`]
+**Status**: Active | Draft | Deprecated
+**Version**: vX.Y.Z
+**Owners**: [@owner1, @owner2]
+**Last Updated**: YYYY-MM-DD
 
 ---
 
@@ -346,8 +346,8 @@ Footers provide attribution, maintenance status, and relevant links.
 
 ```
 ---
-**Documentation maintained by the LightSpeed team.**  
-[Edit this doc](https://github.com/lightspeedwp/.github/edit/develop/docs/FILENAME.md) | 
+**Documentation maintained by the LightSpeed team.**
+[Edit this doc](https://github.com/lightspeedwp/.github/edit/develop/docs/FILENAME.md) |
 [Report issue](https://github.com/lightspeedwp/.github/issues/new)
 ```
 
@@ -355,8 +355,8 @@ Footers provide attribution, maintenance status, and relevant links.
 
 ```
 ---
-**Status**: Active | **Version**: v2.1.0  
-**Last Updated**: 2026-05-28 by @maintainer  
+**Status**: Active | **Version**: v2.1.0
+**Last Updated**: 2026-05-28 by @maintainer
 [Edit](https://github.com/lightspeedwp/.github/edit/develop/docs/FILENAME.md)
 ```
 
@@ -364,7 +364,7 @@ Footers provide attribution, maintenance status, and relevant links.
 
 ```
 ---
-📚 **Related**: [AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md) | [PLUGIN_PACK_ROADMAP.md](./PLUGIN_PACK_ROADMAP.md)  
+📚 **Related**: [AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md) | [PLUGIN_PACK_ROADMAP.md](./PLUGIN_PACK_ROADMAP.md)
 Maintained with ❤️ by the LightSpeed automation team.
 ```
 
@@ -372,8 +372,8 @@ Maintained with ❤️ by the LightSpeed automation team.
 
 ```
 ---
-✅ **Reviewed & Approved** | Last approved: 2026-05-01  
-[Suggest changes](https://github.com/lightspeedwp/.github/pulls/new) | 
+✅ **Reviewed & Approved** | Last approved: 2026-05-01
+[Suggest changes](https://github.com/lightspeedwp/.github/pulls/new) |
 [View history](https://github.com/lightspeedwp/.github/commits/develop/docs/FILENAME.md)
 ```
 
@@ -381,7 +381,7 @@ Maintained with ❤️ by the LightSpeed automation team.
 
 ```
 ---
-Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!  
+Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!
 [Learn more](https://lightspeedwp.agency)
 ```
 
@@ -393,8 +393,8 @@ Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!
 
 ```
 ---
-🤖 **Agent**: Unified Labeling Agent  
-**Version**: v1.2.3 | **Status**: Active  
+🤖 **Agent**: Unified Labeling Agent
+**Version**: v1.2.3 | **Status**: Active
 [Implementation](./agent.js) | [Edit spec](https://github.com/lightspeedwp/.github/edit/develop/agents/AGENT_NAME.agent.md)
 ```
 
@@ -402,8 +402,8 @@ Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!
 
 ```
 ---
-**Capabilities**: Labeling, Issue Triage, PR Analysis  
-**Maintained by**: @automation-team  
+**Capabilities**: Labeling, Issue Triage, PR Analysis
+**Maintained by**: @automation-team
 [View capabilities](./capabilities.md) | [Report issue](https://github.com/lightspeedwp/.github/issues/new?labels=agent)
 ```
 
@@ -411,7 +411,7 @@ Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!
 
 ```
 ---
-🤖 **Copilot for LightSpeedWP** — Always fresh, always compliant!  
+🤖 **Copilot for LightSpeedWP** — Always fresh, always compliant!
 **Integration Guide**: [Setup](./INTEGRATION.md) | **Docs**: [Agent Spec](./AGENT_SPEC.md)
 ```
 
@@ -419,8 +419,8 @@ Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!
 
 ```
 ---
-**Last Updated**: 2026-05-28 | **Maintained by**: @automation-team  
-[Current Issues](https://github.com/lightspeedwp/.github/issues?q=label:agent) | 
+**Last Updated**: 2026-05-28 | **Maintained by**: @automation-team
+[Current Issues](https://github.com/lightspeedwp/.github/issues?q=label:agent) |
 [Changelog](https://github.com/lightspeedwp/.github/blob/develop/CHANGELOG.md)
 ```
 
@@ -428,7 +428,7 @@ Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!
 
 ```
 ---
-**🤖 Agent Spec** | Part of LightSpeed automation infrastructure  
+**🤖 Agent Spec** | Part of LightSpeed automation infrastructure
 [Learn more about agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md)
 ```
 
@@ -440,7 +440,7 @@ Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!
 
 ```
 ---
-**Compliance Level**: Required | **Scope**: All repositories  
+**Compliance Level**: Required | **Scope**: All repositories
 [Enforcement](./ENFORCEMENT.md) | [Exceptions](./EXCEPTIONS.md) | [Report violation](https://github.com/lightspeedwp/.github/issues/new?labels=compliance)
 ```
 
@@ -448,7 +448,7 @@ Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!
 
 ```
 ---
-✅ **Approved** by @architecture-team on 2026-05-01  
+✅ **Approved** by @architecture-team on 2026-05-01
 [View approvals](./APPROVALS.md) | [Suggest update](https://github.com/lightspeedwp/.github/pulls/new)
 ```
 
@@ -456,7 +456,7 @@ Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!
 
 ```
 ---
-📋 **Part of Coding Standards** — [Main Guidelines](./CODING_STANDARDS.md)  
+📋 **Part of Coding Standards** — [Main Guidelines](./CODING_STANDARDS.md)
 Related: [PHP Standards](./PHP_STANDARDS.md) | [JS Standards](./JS_STANDARDS.md)
 ```
 
@@ -464,8 +464,8 @@ Related: [PHP Standards](./PHP_STANDARDS.md) | [JS Standards](./JS_STANDARDS.md)
 
 ```
 ---
-**Enforcement**: Automated by GitHub Actions  
-**Status**: Active | **Last Review**: 2026-05-15  
+**Enforcement**: Automated by GitHub Actions
+**Status**: Active | **Last Review**: 2026-05-15
 [Automation Details](./ENFORCEMENT.md)
 ```
 
@@ -473,7 +473,7 @@ Related: [PHP Standards](./PHP_STANDARDS.md) | [JS Standards](./JS_STANDARDS.md)
 
 ```
 ---
-🎯 **Required Coding Standards**  
+🎯 **Required Coding Standards**
 [Contribute](https://github.com/lightspeedwp/.github/blob/develop/CONTRIBUTING.md)
 ```
 
@@ -485,7 +485,7 @@ Related: [PHP Standards](./PHP_STANDARDS.md) | [JS Standards](./JS_STANDARDS.md)
 
 ```
 ---
-**Schema Version**: v2.0 | **Validation Tool**: JSON Schema v7  
+**Schema Version**: v2.0 | **Validation Tool**: JSON Schema v7
 [JSON File](./../schemas/SCHEMA_NAME.schema.json) | [Edit spec](https://github.com/lightspeedwp/.github/edit/develop/schema/SCHEMA_NAME.schema.md)
 ```
 
@@ -493,7 +493,7 @@ Related: [PHP Standards](./PHP_STANDARDS.md) | [JS Standards](./JS_STANDARDS.md)
 
 ```
 ---
-✅ **Validation**: All tests passing | **Coverage**: 100%  
+✅ **Validation**: All tests passing | **Coverage**: 100%
 [Test results](./TEST_RESULTS.md) | [Validate](./VALIDATE.md)
 ```
 
@@ -501,7 +501,7 @@ Related: [PHP Standards](./PHP_STANDARDS.md) | [JS Standards](./JS_STANDARDS.md)
 
 ```
 ---
-📐 **Schema validated by LightSpeedWP** — Always compliant!  
+📐 **Schema validated by LightSpeedWP** — Always compliant!
 **Version**: 2.1.0 | [Changelog](./CHANGELOG.md) | [Breaking Changes](./BREAKING_CHANGES.md)
 ```
 
@@ -509,7 +509,7 @@ Related: [PHP Standards](./PHP_STANDARDS.md) | [JS Standards](./JS_STANDARDS.md)
 
 ```
 ---
-JSON Schema v7 | **Version**: v2.0  
+JSON Schema v7 | **Version**: v2.0
 [Learn more](https://json-schema.org)
 ```
 
@@ -517,7 +517,7 @@ JSON Schema v7 | **Version**: v2.0
 
 ```
 ---
-**Part of**: [Unified Frontmatter Schema](./frontmatter.schema.md)  
+**Part of**: [Unified Frontmatter Schema](./frontmatter.schema.md)
 **Related**: [Footer Config](./footer-config.schema.md) | [Label Schema](./labels.schema.md)
 ```
 
@@ -529,8 +529,8 @@ JSON Schema v7 | **Version**: v2.0
 
 ```
 ---
-**Tools**: Figma, Canva, PowerPoint, reveal.js  
-**Version**: v1.0 | **Last Updated**: 2026-05-28  
+**Tools**: Figma, Canva, PowerPoint, reveal.js
+**Version**: v1.0 | **Last Updated**: 2026-05-28
 [Generate slides](https://figma.com/...) | [Edit prompt](https://github.com/lightspeedwp/.github/edit/develop/wceu-2026/SLIDES_GENERATION_PROMPT.md)
 ```
 
@@ -538,8 +538,8 @@ JSON Schema v7 | **Version**: v2.0
 
 ```
 ---
-💬 **Prompt Engineering Notes**: Best with GPT-4, Claude Opus  
-**Format**: Markdown | **Length**: ~2,000 tokens  
+💬 **Prompt Engineering Notes**: Best with GPT-4, Claude Opus
+**Format**: Markdown | **Length**: ~2,000 tokens
 [Template](./TEMPLATE.md) | [Examples](./EXAMPLES.md)
 ```
 
@@ -547,7 +547,7 @@ JSON Schema v7 | **Version**: v2.0
 
 ```
 ---
-✨ **Prompt magic by 🦄 LightSpeedWP Automation Unicorns.**  
+✨ **Prompt magic by 🦄 LightSpeedWP Automation Unicorns.**
 [Adobe Firefly](./ADOBE_VERSION.md) | [Midjourney](./MIDJOURNEY_VERSION.md) | [DALL-E](./DALLE_VERSION.md)
 ```
 
@@ -555,8 +555,8 @@ JSON Schema v7 | **Version**: v2.0
 
 ```
 ---
-**Status**: Production | **Version**: v1.2.3  
-**Maintained by**: @prompt-engineering-team  
+**Status**: Production | **Version**: v1.2.3
+**Maintained by**: @prompt-engineering-team
 [Issues](https://github.com/lightspeedwp/.github/issues?labels=prompt) | [Suggestions](https://github.com/lightspeedwp/.github/discussions)
 ```
 
@@ -575,8 +575,8 @@ JSON Schema v7 | **Version**: v2.0
 
 ```
 ---
-**Policy Authority**: @architecture-team | **Effective**: 2026-05-01  
-**Next Review**: 2026-08-01 | **Status**: Active  
+**Policy Authority**: @architecture-team | **Effective**: 2026-05-01
+**Next Review**: 2026-08-01 | **Status**: Active
 [Decision Record](./DECISION_RECORD.md) | [Report exception](https://github.com/lightspeedwp/.github/issues/new?labels=governance)
 ```
 
@@ -584,9 +584,9 @@ JSON Schema v7 | **Version**: v2.0
 
 ```
 ---
-✅ **Approved by**:  
-- @architecture-team (2026-05-01)  
-- @security-team (2026-05-02)  
+✅ **Approved by**:
+- @architecture-team (2026-05-01)
+- @security-team (2026-05-02)
 
 [Approval Details](./APPROVALS.md)
 ```
@@ -595,8 +595,8 @@ JSON Schema v7 | **Version**: v2.0
 
 ```
 ---
-📋 **Governance Decision** — [Full Record](./ADR_0042.md)  
-**Scope**: All repositories | **Owner**: @governance-lead  
+📋 **Governance Decision** — [Full Record](./ADR_0042.md)
+**Scope**: All repositories | **Owner**: @governance-lead
 [Effective Date](./TIMELINE.md) | [Transition Plan](./TRANSITION.md)
 ```
 
@@ -604,7 +604,7 @@ JSON Schema v7 | **Version**: v2.0
 
 ```
 ---
-🎯 **Policy Effective**: 2026-05-01  
+🎯 **Policy Effective**: 2026-05-01
 [Decisions](./DECISIONS.md) | [History](https://github.com/lightspeedwp/.github/commits/develop/docs/GOVERNANCE.md)
 ```
 
@@ -612,8 +612,8 @@ JSON Schema v7 | **Version**: v2.0
 
 ```
 ---
-**Compliance Checklist**: [Requirements](./CHECKLIST.md)  
-**Status**: All org repos ✅ | **Non-compliance**: 0  
+**Compliance Checklist**: [Requirements](./CHECKLIST.md)
+**Status**: All org repos ✅ | **Non-compliance**: 0
 [Audit Results](./AUDIT.md) | [Next Review](./REVIEW_SCHEDULE.md)
 ```
 
@@ -648,10 +648,10 @@ Badges provide quick visual identification and status indicators.
 **[badge-type]**: value
 
 # Examples:
-**[status]**: Active  
-**[version]**: v2.1.0  
-**[category]**: [agents]  
-**[compliance]**: Required  
+**[status]**: Active
+**[version]**: v2.1.0
+**[category]**: [agents]
+**[compliance]**: Required
 **[tools]**: Figma, Canva
 ```
 
@@ -747,7 +747,7 @@ templates:
       default: "default"
       template: |
         ---
-        **Documentation maintained by the LightSpeed team.**  
+        **Documentation maintained by the LightSpeed team.**
         [Edit this doc](${edit_link}) | [Report issue](${issue_link})
       variables:
         - edit_link (auto-generated from file path)
@@ -756,8 +756,8 @@ templates:
     docs-with-version:
       template: |
         ---
-        **Status**: ${status} | **Version**: ${version}  
-        **Last Updated**: ${last_updated} by ${updated_by}  
+        **Status**: ${status} | **Version**: ${version}
+        **Last Updated**: ${last_updated} by ${updated_by}
         [Edit](${edit_link})
       variables:
         - status (from frontmatter)
@@ -951,8 +951,8 @@ Footers should feel like metadata, not content. Example of high-noise:
 
 ```markdown
 ---
-📚 **Welcome to our comprehensive documentation library!** We're constantly 
-updating this to serve you better. If you have questions, suggestions, or would 
+📚 **Welcome to our comprehensive documentation library!** We're constantly
+updating this to serve you better. If you have questions, suggestions, or would
 like to contribute, please don't hesitate to reach out! [Contact us](...)
 ```
 
@@ -960,7 +960,7 @@ Example of appropriate-noise:
 
 ```markdown
 ---
-**Documentation maintained by the LightSpeed team.**  
+**Documentation maintained by the LightSpeed team.**
 [Edit](url) | [Report issue](url)
 ```
 
@@ -970,7 +970,7 @@ Example of appropriate-noise:
 
 ### Issue #46 — Template Design
 
-**Scope**: Define implementation-ready footer, header, and badge templates  
+**Scope**: Define implementation-ready footer, header, and badge templates
 **Deliverables**:
 
 - 5 footer variants per key category (6 categories minimum)
@@ -979,12 +979,12 @@ Example of appropriate-noise:
 - Frontmatter-to-template mapping rules
 - Fallback template behavior
 
-**Dependencies**: Issue #33 (this spec)  
+**Dependencies**: Issue #33 (this spec)
 **Unblocks**: Issue #48 (agent implementation)
 
 ### Issue #49 — Schema/Config Model
 
-**Scope**: Define JSON Schema validation and YAML config structure  
+**Scope**: Define JSON Schema validation and YAML config structure
 **Deliverables**:
 
 - `schemas/branding-config.schema.json` (JSON Schema v7)
@@ -994,12 +994,12 @@ Example of appropriate-noise:
 - Validation rules and error messages
 - Maintainer guidance for extending config
 
-**Dependencies**: Issues #33 (this spec), #46 (template designs)  
+**Dependencies**: Issues #33 (this spec), #46 (template designs)
 **Unblocks**: Issue #48 (agent implementation)
 
 ### Issue #48 — Agent Implementation & Documentation
 
-**Scope**: Implement branding agent using config from #49 and templates from #46  
+**Scope**: Implement branding agent using config from #49 and templates from #46
 **Deliverables**:
 
 - `.github/agents/branding.agent.md` — Agent specification
@@ -1008,7 +1008,7 @@ Example of appropriate-noise:
 - Remediation script for existing files
 - CI integration for ongoing validation
 
-**Dependencies**: Issues #33 (spec), #46 (templates), #49 (config)  
+**Dependencies**: Issues #33 (spec), #46 (templates), #49 (config)
 **Blocks**: Remediation and validation phase
 
 ---
@@ -1097,7 +1097,7 @@ Example of appropriate-noise:
 
 ---
 
-**Created**: 2026-05-28  
-**By**: Claude  
-**For**: LightSpeed Team  
+**Created**: 2026-05-28
+**By**: Claude
+**For**: LightSpeed Team
 **Related Work**: Issues #33, #46, #48, #49

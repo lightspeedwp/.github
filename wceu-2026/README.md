@@ -13,9 +13,9 @@ tags: ["wceu-2026", "presentation", "documentation"]
 
 Complete preparation, execution, and delivery materials for the **WordCamp Europe 2026** 25-minute talk on **"One .github repo to rule them all: From central governance to installable AI-Ops plugins"** by **Ash Shaw** (LightSpeed).
 
-**Event**: WordCamp Europe 2026 (June 5–6, 2026)  
-**Talk Duration**: 25 minutes  
-**Target Audience**: WordPress agency owners, product teams, senior engineers  
+**Event**: WordCamp Europe 2026 (June 5–6, 2026)
+**Talk Duration**: 25 minutes
+**Target Audience**: WordPress agency owners, product teams, senior engineers
 **Key Topic**: GitHub governance automation and AI-driven plugin systems
 
 ---
@@ -72,7 +72,7 @@ wceu-2026/
 
 ### Phase 2: Content Generation (May 30) ⏳
 
-**Timeline**: May 30 (IN PROGRESS)  
+**Timeline**: May 30 (IN PROGRESS)
 **Duration**: 4–6 hours
 
 - [x] NotebookLM sources index ready (`notebooklm/sources-index.md`, ~60 URLs)
@@ -85,7 +85,7 @@ wceu-2026/
 
 ### Phase 3: Design & Finalization (May 31) ⏳
 
-**Timeline**: May 31 (Ash's work)  
+**Timeline**: May 31 (Ash's work)
 **Duration**: 6–8 hours
 
 - [ ] Transfer content to Google Slides

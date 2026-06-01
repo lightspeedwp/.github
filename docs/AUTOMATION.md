@@ -85,8 +85,8 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 
 ### Canonical Label Definitions
 
-**Ownership:** Platform/Governance Team  
-**Location:** `.github/labels.yml`  
+**Ownership:** Platform/Governance Team
+**Location:** `.github/labels.yml`
 **Full Documentation:** [Labelling Guide](./LABELING.md) — comprehensive reference for label families, usage, and automation
 
 For complete label definitions, categories, naming conventions, and per-issue/PR labelling requirements, see [LABELING.md](./LABELING.md).

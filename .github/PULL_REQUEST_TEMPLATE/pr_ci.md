@@ -9,10 +9,10 @@ category: "github-templates"
 
 # Build/CI Pull Request
 
-This PR updates the build or CI configuration for Pipelines, linting, packaging, or release automation.  
+This PR updates the build or CI configuration for Pipelines, linting, packaging, or release automation.
 Please review the summary, baseline/target, and changelog below.
 
-> This PR Template enforces pipelines, linting, changelog, release, and label automation for all PRs and issues.  
+> This PR Template enforces pipelines, linting, changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues

@@ -20,13 +20,13 @@ Batch 4: Adoption, Outcomes & Closing (Slides 19–24)
 
 
 
-I Would you like you to audit the repository and review my talk's Google Slides. You need to 
+I Would you like you to audit the repository and review my talk's Google Slides. You need to
 
 
 --------
 
 
-Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem (Slides 1–6)**, strictly adhering to your dark-mode design system, typography minimums, accessibility guidelines, and final speaker notes structure. 
+Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem (Slides 1–6)**, strictly adhering to your dark-mode design system, typography minimums, accessibility guidelines, and final speaker notes structure.
 
 
 
@@ -40,7 +40,7 @@ Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem
 
 *   **Primary Text**: Off-white (`#f5f5f5`)
 
-*   **Line Height & Hierarchy**: 1.5x minimum line height, max 5 bullets per slide. 
+*   **Line Height & Hierarchy**: 1.5x minimum line height, max 5 bullets per slide.
 
 *   **Color Blindness standard**: Never use color alone; always pair with an icon (e.g., "✅ Success" instead of just green text).
 
@@ -60,7 +60,7 @@ Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem
 
 *   **Subtitle (≥ 28pt, `#f5f5f5`)**: From central governance to installable AI-Ops plugins
 
-*   **Attribution (≥ 24pt, `#00bfa5` teal)**: By Ash Shaw 
+*   **Attribution (≥ 24pt, `#00bfa5` teal)**: By Ash Shaw
 
 
 
@@ -88,13 +88,13 @@ Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem
 
 ### Slide 2: Speaker Intro
 
-**Visual & Layout Rules:** 2-column layout (40% photo left, 60% text right). 1-inch margins. 
+**Visual & Layout Rules:** 2-column layout (40% photo left, 60% text right). 1-inch margins.
 
 **On-Slide Content:**
 
 *   **Left Column**: Profile photo (`ash-shaw-profile.jpg`, 400x500px) with a 2px Electric Blue border (`#00d4ff`).
 
-*   **Right Column Headline (≥ 44pt, `#00d4ff`)**: **Ash Shaw** 
+*   **Right Column Headline (≥ 44pt, `#00d4ff`)**: **Ash Shaw**
 
 *   **Right Column Body (≥ 28pt, `#f5f5f5`)**:
 
@@ -134,7 +134,7 @@ Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem
 
 ### Slide 3: The Problem — Governance Boundaries
 
-**Visual & Layout Rules:** 2-column (diagram left, text right). 
+**Visual & Layout Rules:** 2-column (diagram left, text right).
 
 **On-Slide Content:**
 
@@ -184,13 +184,13 @@ Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem
 
 ### Slide 4: The Solution — Hub-and-Spoke Architecture
 
-**Visual & Layout Rules:** Centered diagram with an emphasis box in the top-right. 
+**Visual & Layout Rules:** Centered diagram with an emphasis box in the top-right.
 
 **On-Slide Content:**
 
 *   **Headline (≥ 44pt, `#00d4ff`)**: **The Hub-and-Spoke Model**
 
-*   **Center Diagram**: 
+*   **Center Diagram**:
 
     *   **Hub**: Central circle labeled ".github" with a 3px `#00d4ff` (Electric blue) border.
 
@@ -334,11 +334,11 @@ Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem
 
 
 
-Here is the detailed content, visual layout, and speaker notes for **Batch 2: The Architecture Solution (Slides 7–12)**. 
+Here is the detailed content, visual layout, and speaker notes for **Batch 2: The Architecture Solution (Slides 7–12)**.
 
 
 
-I have strictly applied your dark-mode design system, typography constraints, visual hierarchy rules (max 5 bullets), and accessibility guidelines (color + icon pairing) to each slide. 
+I have strictly applied your dark-mode design system, typography constraints, visual hierarchy rules (max 5 bullets), and accessibility guidelines (color + icon pairing) to each slide.
 
 
 
@@ -354,7 +354,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 *   **Architecture Palette**: Primary emphasis in Electric Blue (`#00d4ff`), highlights in Bright Green (`#00ff88`), and secondary emphasis in Soft Gold (`#ffb700`).
 
-*   **Line Height**: 1.5x minimum. 
+*   **Line Height**: 1.5x minimum.
 
 *   **Footer (All Slides)**: "Slide [X] | WordCamp Europe 2026 | Architecture" (≥ 16pt, Soft Gold `#ffb700`).
 
@@ -398,13 +398,13 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 *   **Talking Points:**
 
-    *   WordPress has had Coding Standards for over a decade. Every developer knows to prefix functions and escape output. 
+    *   WordPress has had Coding Standards for over a decade. Every developer knows to prefix functions and escape output.
 
     *   We realized GitHub governance could follow the same model. Instead of a static `CODING_STANDARDS.md` file, we make our standards executable.
 
-    *   When a PR comes in, automation checks the labels, workflows, and templates. 
+    *   When a PR comes in, automation checks the labels, workflows, and templates.
 
-    *   You get the same rigor you expect in code, applied to repository governance. 
+    *   You get the same rigor you expect in code, applied to repository governance.
 
 *   **Timing**: 1 min 10 sec
 
@@ -418,7 +418,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 ### Slide 8: Hub-and-Spoke in Practice
 
-**Visual & Layout Rules:** Center linear timeline (4 steps flowing left to right). 
+**Visual & Layout Rules:** Center linear timeline (4 steps flowing left to right).
 
 **On-Slide Content:**
 
@@ -428,7 +428,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
     1.  **Day 1 (Create)**: Spin up new repository.
 
-    2.  **Import**: Add `.github` plugin configuration. 
+    2.  **Import**: Add `.github` plugin configuration.
 
     3.  **Automate**: Inherit PR checks, security gates, and labels instantly.
 
@@ -448,7 +448,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
     *   Next, you import the hub plugins with a simple config file: labeler, validation, Copilot sync.
 
-    *   Every incoming PR gets validated against our canonical rules automatically. 
+    *   Every incoming PR gets validated against our canonical rules automatically.
 
     *   If we update the hub rules on Day 100, your repo gets the update without manual syncing or drift.
 
@@ -464,17 +464,17 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 ### Slide 9: Portable Agentic Workflows
 
-**Visual & Layout Rules:** 2-column layout (Comparison + Examples). 
+**Visual & Layout Rules:** 2-column layout (Comparison + Examples).
 
 **On-Slide Content:**
 
 *   **Headline (≥ 44pt, `#00d4ff`)**: **Beyond Standard GitHub Actions**
 
-*   **Left Column (≥ 28pt, `#f5f5f5`)**: 
+*   **Left Column (≥ 28pt, `#f5f5f5`)**:
 
     *   Actions: Linear, event-triggered (e.g., run build on PR).
 
-    *   Agentic Workflows: Multi-step, AI-driven choreography. 
+    *   Agentic Workflows: Multi-step, AI-driven choreography.
 
     *   Features: Branching logic, error recovery, decision-making.
 
@@ -482,7 +482,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
     *   **Project Onboarding**: 2–3 hours automated setup.
 
-    *   **Spec-to-Code**: 4–8 hours from PRD to working code. 
+    *   **Spec-to-Code**: 4–8 hours from PRD to working code.
 
 
 
@@ -498,7 +498,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
     *   Example: Our WordPress Project Onboarding workflow creates a repo, imports governance plugins, configures CI/CD, and sets up Copilot instructions automatically.
 
-    *   They live outside repos and orchestrate at a much higher level. 
+    *   They live outside repos and orchestrate at a much higher level.
 
 *   **Timing**: 1 min 20 sec
 
@@ -512,7 +512,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 ### Slide 10: Multi-Platform Parity
 
-**Visual & Layout Rules:** Layered horizontal diagram (Unified rules → Platform outputs). 
+**Visual & Layout Rules:** Layered horizontal diagram (Unified rules → Platform outputs).
 
 **On-Slide Content:**
 
@@ -524,7 +524,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
     *   *Middle Layer*: Abstraction Engine (Hooks, Schemas, Instructions).
 
-    *   *Bottom Layer (3 branching boxes)*: 
+    *   *Bottom Layer (3 branching boxes)*:
 
         1. 🤖 GitHub Copilot (Editor)
 
@@ -544,11 +544,11 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
     *   Governance rules shouldn't be platform-specific. They shouldn't be written explicitly for GitHub Actions, Copilot, or the CLI.
 
-    *   We have a unified layer that interprets the same rules for multiple platforms. 
+    *   We have a unified layer that interprets the same rules for multiple platforms.
 
     *   In their editor, a developer sees Copilot suggestions guided by our rules. In a PR, CI/CD enforces those same rules. Locally, the CLI validates them.
 
-    *   This is incredibly important for scale. You don't maintain three versions of your governance rules. You maintain one. 
+    *   This is incredibly important for scale. You don't maintain three versions of your governance rules. You maintain one.
 
 *   **Timing**: 1 min 10 sec
 
@@ -568,13 +568,13 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 *   **Headline (≥ 44pt, `#00d4ff`)**: **Labeling is the Gateway to Automation**
 
-*   **Before (≥ 28pt, `#f5f5f5`)**: 
+*   **Before (≥ 28pt, `#f5f5f5`)**:
 
     *   ⚠️ Manual triage takes hours.
 
     *   ⚠️ Misaligned priorities.
 
-*   **After (≥ 28pt, Bright Green `#00ff88` text with icon)**: 
+*   **After (≥ 28pt, Bright Green `#00ff88` text with icon)**:
 
     *   ✅ AI-driven content analysis.
 
@@ -594,7 +594,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
     *   Before this architecture, developers manually applied labels, leading to a 30% error rate.
 
-    *   Now, an agent evaluates the PR content, code changes, and metadata, assigning canonical labels automatically. 
+    *   Now, an agent evaluates the PR content, code changes, and metadata, assigning canonical labels automatically.
 
     *   By fixing labeling, we unlocked an 80% reduction in governance overhead across our teams.
 
@@ -644,7 +644,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
     *   Security gates act as our backstop: checking for leaked secrets, validating dependencies, and enforcing code quality baselines.
 
-    *   80% of security issues are caught by automated gates before any human even sees the PR. 
+    *   80% of security issues are caught by automated gates before any human even sees the PR.
 
     *   Developers don't experience this as friction. They push code, gates run automatically, and they get instant feedback. Automation first, human review second.
 
@@ -662,7 +662,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 
 
-Here is the detailed content, visual layout, and speaker notes for **Batch 3: Real-World Implementation (Slides 13–18)**. 
+Here is the detailed content, visual layout, and speaker notes for **Batch 3: Real-World Implementation (Slides 13–18)**.
 
 
 
@@ -682,7 +682,7 @@ I have strictly adhered to your dark-mode design system, typography minimums, vi
 
 *   **Implementation Palette**: Primary emphasis in Electric Blue (`#00d4ff`), callouts in Teal (`#00bfa5`), highlights in Bright Green (`#00ff88`), and warnings/challenges in Soft Gold (`#ffb700`). *(Note: Red has been explicitly avoided for color-blind safety).*
 
-*   **Line Height**: 1.5x minimum line height. 
+*   **Line Height**: 1.5x minimum line height.
 
 *   **Footer (All Slides)**: "Slide [X] | WordCamp Europe 2026 | Implementation" (≥ 16pt, Soft Gold `#ffb700`).
 
@@ -694,13 +694,13 @@ I have strictly adhered to your dark-mode design system, typography minimums, vi
 
 ### Slide 13: Real-World Implementation — The Challenge
 
-**Visual & Layout Rules:** 1-inch margins. 3-item list on the left with a prominent constraint box on the right. 
+**Visual & Layout Rules:** 1-inch margins. 3-item list on the left with a prominent constraint box on the right.
 
 **On-Slide Content:**
 
 *   **Headline (≥ 44pt, `#00d4ff`)**: **Migrating 50+ Repositories**
 
-*   **Left Column (≥ 28pt, `#f5f5f5`)**: 
+*   **Left Column (≥ 28pt, `#f5f5f5`)**:
 
     *   ⚠ **Adoption without disruption:** Teams are actively shipping.
 
@@ -708,7 +708,7 @@ I have strictly adhered to your dark-mode design system, typography minimums, vi
 
     *   ⚠ **Validation at scale:** Detecting conflicts accurately.
 
-*   **Right Constraint Box (≥ 28pt, Soft Gold `#ffb700` text with 2px border)**: 
+*   **Right Constraint Box (≥ 28pt, Soft Gold `#ffb700` text with 2px border)**:
 
     *   "⚙️ **The Meta-Constraint:** Migrate 50 active repositories with zero downtime."
 
@@ -740,7 +740,7 @@ I have strictly adhered to your dark-mode design system, typography minimums, vi
 
 ### Slide 14: Implementation Strategy — Phased Migration
 
-**Visual & Layout Rules:** 3-phase horizontal timeline diagram with decision gates between each phase. 
+**Visual & Layout Rules:** 3-phase horizontal timeline diagram with decision gates between each phase.
 
 **On-Slide Content:**
 
@@ -784,13 +784,13 @@ I have strictly adhered to your dark-mode design system, typography minimums, vi
 
 ### Slide 15: Migration Tooling — Automation & Visibility
 
-**Visual & Layout Rules:** 2-column layout (tools on the left, outcomes on the right). 
+**Visual & Layout Rules:** 2-column layout (tools on the left, outcomes on the right).
 
 **On-Slide Content:**
 
 *   **Headline (≥ 44pt, `#00d4ff`)**: **Tooling for Scale**
 
-*   **Left Column: The Tools (≥ 28pt, `#f5f5f5`)**: 
+*   **Left Column: The Tools (≥ 28pt, `#f5f5f5`)**:
 
     *   🔍 **Repository Scanner:** Catalogs existing rules.
 
@@ -834,7 +834,7 @@ I have strictly adhered to your dark-mode design system, typography minimums, vi
 
 ### Slide 16: Current State — Ecosystem Metrics
 
-**Visual & Layout Rules:** 2x2 Dashboard grid for metrics. Maximize whitespace. 
+**Visual & Layout Rules:** 2x2 Dashboard grid for metrics. Maximize whitespace.
 
 **On-Slide Content:**
 
@@ -930,7 +930,7 @@ I have strictly adhered to your dark-mode design system, typography minimums, vi
 
 *   **Headline (≥ 44pt, `#00d4ff`)**: **The Culture Shift**
 
-*   **Left Column (≥ 28pt, Soft Gold `#ffb700`)**: 
+*   **Left Column (≥ 28pt, Soft Gold `#ffb700`)**:
 
     *   ⚠️ **Governance as a Burden**
 
@@ -974,15 +974,15 @@ I have strictly adhered to your dark-mode design system, typography minimums, vi
 
 
 
---- 
+---
 
 
 
-Here is the detailed content, visual layout, and speaker notes for your final set, **Batch 4: Adoption, Outcomes & Closing (Slides 19–24)**. 
+Here is the detailed content, visual layout, and speaker notes for your final set, **Batch 4: Adoption, Outcomes & Closing (Slides 19–24)**.
 
 
 
-I have strictly applied your dark-mode design system, typography constraints, visual hierarchy rules (maximum 5 bullets), and WCAG accessibility guidelines (pairing colors with icons and avoiding red) to each slide. 
+I have strictly applied your dark-mode design system, typography constraints, visual hierarchy rules (maximum 5 bullets), and WCAG accessibility guidelines (pairing colors with icons and avoiding red) to each slide.
 
 
 
@@ -996,9 +996,9 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 *   **Primary Text**: Off-white (`#f5f5f5`).
 
-*   **Section Palette**: Primary emphasis in Electric Blue (`#00d4ff`), callouts in Teal (`#00bfa5`), highlights in Bright Green (`#00ff88`), and growth/vision metrics in Soft Gold (`#ffb700`). 
+*   **Section Palette**: Primary emphasis in Electric Blue (`#00d4ff`), callouts in Teal (`#00bfa5`), highlights in Bright Green (`#00ff88`), and growth/vision metrics in Soft Gold (`#ffb700`).
 
-*   **Line Height**: 1.5x minimum line height. 
+*   **Line Height**: 1.5x minimum line height.
 
 *   **Footer (Slides 19–23)**: "Slide [X] | WordCamp Europe 2026 | Adoption & Impact" (≥ 16pt, Soft Gold `#ffb700`). *Note: No footer on Slide 24.*
 
@@ -1010,13 +1010,13 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 ### Slide 19: Sustainability & Evolution
 
-**Visual & Layout Rules:** 2-column layout (Pillars left, Roadmap right) with 1-inch margins. 
+**Visual & Layout Rules:** 2-column layout (Pillars left, Roadmap right) with 1-inch margins.
 
 **On-Slide Content:**
 
 *   **Headline (≥ 44pt, `#00d4ff`)**: **Long-Term Sustainability**
 
-*   **Left Column: 4 Pillars (≥ 28pt, `#f5f5f5`)**: 
+*   **Left Column: 4 Pillars (≥ 28pt, `#f5f5f5`)**:
 
     *   🔍 Continuous health monitoring
 
@@ -1096,7 +1096,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
     *   We cannot force 50 different projects into an identical, rigid box. Teams need flexibility.
 
-    *   We enforce the absolute baseline: security scanning, dependency checks, and core workflow triggers are non-negotiable. 
+    *   We enforce the absolute baseline: security scanning, dependency checks, and core workflow triggers are non-negotiable.
 
     *   Everything else is flexible. Teams can extend the label taxonomy for their specific needs, add custom AI instructions for Copilot, or opt-in to advanced plugins.
 
@@ -1120,7 +1120,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 *   **Headline (≥ 44pt, `#00d4ff`)**: **Extending WordPress Standards**
 
-*   **Diagram (Teal `#00bfa5` arrows)**: 
+*   **Diagram (Teal `#00bfa5` arrows)**:
 
     *   *Step 1:* Code-Level → WordPress Coding Standards (WPCS).
 
@@ -1146,9 +1146,9 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 *   **Talking Points**:
 
-    *   WordPress Coding Standards (WPCS) revolutionized our community. It gave us a shared language and baseline for code quality. 
+    *   WordPress Coding Standards (WPCS) revolutionized our community. It gave us a shared language and baseline for code quality.
 
-    *   GitHub Governance Standards are the exact same philosophy applied to repository operations. 
+    *   GitHub Governance Standards are the exact same philosophy applied to repository operations.
 
     *   Instead of just telling developers how to format PHP, we are standardizing how issues are triaged, how security is tested, and how releases are cut.
 
@@ -1196,11 +1196,11 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
     *   Velocity: We saw a +35% average development velocity increase across all 50+ repos. Faster PRs, fewer rework cycles.
 
-    *   Security: 82% of security issues are now caught automatically before a human code review even begins. 
+    *   Security: 82% of security issues are now caught automatically before a human code review even begins.
 
     *   Team satisfaction is at 94%. Teams aren't fighting the system—they're using it and extending it.
 
-    *   By eliminating ~2 hours of governance overhead per repo, per month, across 50 repos and 30 developers... the financial ROI breaks even in the very first month of operation. 
+    *   By eliminating ~2 hours of governance overhead per repo, per month, across 50 repos and 30 developers... the financial ROI breaks even in the very first month of operation.
 
 *   **Timing**: 1 min 20 sec
 
@@ -1240,9 +1240,9 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 *   **Talking Points**:
 
-    *   What we've built is a philosophy and a pattern that can benefit the entire open web. 
+    *   What we've built is a philosophy and a pattern that can benefit the entire open web.
 
-    *   Imagine if agency networks, enterprise teams, and core contributors all adopted interoperable governance standards. 
+    *   Imagine if agency networks, enterprise teams, and core contributors all adopted interoperable governance standards.
 
     *   Smaller teams could simply adopt battle-tested community plugins instead of building their CI/CD and automation infrastructure from scratch.
 
@@ -1276,7 +1276,7 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 *   **Highlight (≥ 32pt, Soft Gold `#ffb700` text)**: "💡 Good governance doesn't slow you down. It sets you free."
 
-*   **Contact Info (≥ 28pt, bottom center, `#00d4ff`)**: 
+*   **Contact Info (≥ 28pt, bottom center, `#00d4ff`)**:
 
     *   Thank You! | WordCamp Europe 2026
 
@@ -1290,11 +1290,11 @@ I have strictly applied your dark-mode design system, typography constraints, vi
 
 *   **Talking Points**:
 
-    *   Let me leave you with the core principle that makes everything we've discussed work. 
+    *   Let me leave you with the core principle that makes everything we've discussed work.
 
     *   Good governance doesn't slow you down. It sets you free.
 
-    *   Before automated governance, developers operated in a fear-based culture: "Will this pass review? Am I doing this right?" They moved slowly and second-guessed themselves. 
+    *   Before automated governance, developers operated in a fear-based culture: "Will this pass review? Am I doing this right?" They moved slowly and second-guessed themselves.
 
     *   Automated governance creates an empowerment-based culture. Developers know the rules, get instant feedback from AI agents, and move fast with absolute confidence because the system has their back.
 

@@ -13,9 +13,9 @@ tags: ["planning", "template", "process"]
 
 # Project Planning: [Project Name]
 
-**Created:** YYYY-MM-DD  
-**Status:** Planning / In Progress / Completed  
-**Owner:** @username  
+**Created:** YYYY-MM-DD
+**Status:** Planning / In Progress / Completed
+**Owner:** @username
 **Repository:** lightspeedwp/.github
 
 ---
@@ -226,6 +226,6 @@ Once this planning document is approved, you're ready to:
 
 ---
 
-**Template Version:** 1.0  
-**Last Updated:** 2026-05-31  
+**Template Version:** 1.0
+**Last Updated:** 2026-05-31
 **See also:** [CONTRIBUTING.md](../../../CONTRIBUTING.md), [Issue Triage Guide](../../../docs/issue-triage-guide.md)

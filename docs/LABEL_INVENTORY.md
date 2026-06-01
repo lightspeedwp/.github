@@ -24,9 +24,9 @@ stability: stable
 
 # Label Inventory — Complete Reference
 
-**Version**: v1.1.0  
-**Created**: 2026-05-31  
-**Last Updated**: 2026-06-01  
+**Version**: v1.1.0
+**Created**: 2026-05-31
+**Last Updated**: 2026-06-01
 **Total Labels**: 150+
 
 This document provides a complete inventory of all canonical labels organized by semantic family. Use this as a reference when:

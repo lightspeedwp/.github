@@ -212,6 +212,6 @@ Web Content Accessibility Guidelines. AA = baseline accessibility (4.5:1 contras
 
 ---
 
-**Created**: 2026-05-30  
-**Total entries**: 45+  
+**Created**: 2026-05-30
+**Total entries**: 45+
 **Purpose**: Speaker reference for WCEU 2026 talk

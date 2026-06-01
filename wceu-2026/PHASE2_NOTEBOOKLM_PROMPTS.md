@@ -130,7 +130,7 @@ Format as:
 ---
 ## Narrative Assessment
 **Gaps Identified**: [e.g., "Gap between Slide 6 and Slide 7; need stronger pivot language"]
-**Suggested Transitions**: 
+**Suggested Transitions**:
 - Slide 6→7: [Bridge text]
 - [Other transitions as needed]
 **Pacing Feedback**: [Overall timing and flow observations]

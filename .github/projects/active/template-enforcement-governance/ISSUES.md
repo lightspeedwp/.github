@@ -19,8 +19,8 @@ This project coordinates the implementation of organization-wide template enforc
 
 ## Status: In Planning
 
-**Total Issues:** 13  
-**Priority:** High  
+**Total Issues:** 13
+**Priority:** High
 **Timeline:** 2-3 weeks
 
 ---
@@ -31,12 +31,12 @@ This project coordinates the implementation of organization-wide template enforc
 
 #### 1️⃣ [FOUNDATION] Add 2 missing issue types to GitHub organization settings
 
-**Issue Type:** Task  
-**Priority:** Critical  
-**Depends on:** None  
+**Issue Type:** Task
+**Priority:** Critical
+**Depends on:** None
 **Effort:** 30min
 
-**Summary:**  
+**Summary:**
 Add "Help" and "User Experience Feedback" issue types to the organization's GitHub settings.
 
 **Details:**
@@ -60,12 +60,12 @@ Add "Help" and "User Experience Feedback" issue types to the organization's GitH
 
 #### 2️⃣ [FOUNDATION] Create PULL_REQUEST_TEMPLATE/config.yml with routing rules
 
-**Issue Type:** Task  
-**Priority:** High  
-**Depends on:** #1  
+**Issue Type:** Task
+**Priority:** High
+**Depends on:** #1
 **Effort:** 1h
 
-**Summary:**  
+**Summary:**
 Create configuration file documenting PR template routing rules (which template to use for each branch type).
 
 **Details:**
@@ -107,12 +107,12 @@ research/ → pr_research.md (if exists) or pr_feature.md
 
 #### 3️⃣ [FOUNDATION] Update ISSUE_TEMPLATE/config.yml with enhanced metadata
 
-**Issue Type:** Task  
-**Priority:** High  
-**Depends on:** #1  
+**Issue Type:** Task
+**Priority:** High
+**Depends on:** #1
 **Effort:** 30min
 
-**Summary:**  
+**Summary:**
 Enhance ISSUE_TEMPLATE/config.yml to include metadata about template routing and automation.
 
 **Details:**
@@ -135,12 +135,12 @@ Enhance ISSUE_TEMPLATE/config.yml to include metadata about template routing and
 
 #### 4️⃣ [DOCS] Create PR template router at /pull_request_template.md
 
-**Issue Type:** Task  
-**Priority:** High  
-**Depends on:** #2  
+**Issue Type:** Task
+**Priority:** High
+**Depends on:** #2
 **Effort:** 1h
 
-**Summary:**  
+**Summary:**
 Replace generic `pull_request_template.md` with smart routing guide that directs users to correct template based on branch type.
 
 **Details:**
@@ -170,12 +170,12 @@ Replace generic `pull_request_template.md` with smart routing guide that directs
 
 #### 5️⃣ [DOCS] Create instructions/pr-templates.instructions.md
 
-**Issue Type:** Task  
-**Priority:** High  
-**Depends on:** #2, #4  
+**Issue Type:** Task
+**Priority:** High
+**Depends on:** #2, #4
 **Effort:** 1.5h
 
-**Summary:**  
+**Summary:**
 Create portable, detailed instruction file for PR template usage across all repositories.
 
 **Details:**
@@ -210,12 +210,12 @@ Create portable, detailed instruction file for PR template usage across all repo
 
 #### 6️⃣ [DOCS] Create instructions/issue-templates.instructions.md
 
-**Issue Type:** Task  
-**Priority:** High  
-**Depends on:** #1  
+**Issue Type:** Task
+**Priority:** High
+**Depends on:** #1
 **Effort:** 1.5h
 
-**Summary:**  
+**Summary:**
 Create portable instruction file for issue template usage across all repositories.
 
 **Details:**
@@ -249,12 +249,12 @@ Create portable instruction file for issue template usage across all repositorie
 
 #### 7️⃣ [DOCS] Update AGENT.md with canonical template rules
 
-**Issue Type:** Task  
-**Priority:** High  
-**Depends on:** #2, #4, #5, #6  
+**Issue Type:** Task
+**Priority:** High
+**Depends on:** #2, #4, #5, #6
 **Effort:** 2h
 
-**Summary:**  
+**Summary:**
 Add comprehensive "Template & Issue Type Governance" section to AGENT.md as single source of truth.
 
 **Details:**
@@ -287,12 +287,12 @@ Add comprehensive "Template & Issue Type Governance" section to AGENT.md as sing
 
 #### 8️⃣ [DOCS] Update CLAUDE.md with template routing guide
 
-**Issue Type:** Task  
-**Priority:** High  
-**Depends on:** #7  
+**Issue Type:** Task
+**Priority:** High
+**Depends on:** #7
 **Effort:** 1h
 
-**Summary:**  
+**Summary:**
 Add "PR & Issue Template Selection" section to CLAUDE.md with quick reference for Claude agents.
 
 **Details:**
@@ -324,12 +324,12 @@ Add "PR & Issue Template Selection" section to CLAUDE.md with quick reference fo
 
 #### 9️⃣ [WORKFLOW] Create PR template validation workflow
 
-**Issue Type:** Task  
-**Priority:** High  
-**Depends on:** #2, #4  
+**Issue Type:** Task
+**Priority:** High
+**Depends on:** #2, #4
 **Effort:** 2h
 
-**Summary:**  
+**Summary:**
 Create GitHub Actions workflow that validates PR template compliance.
 
 **Details:**
@@ -370,12 +370,12 @@ Create GitHub Actions workflow that validates PR template compliance.
 
 #### 🔟 [AGENT] Create PR template enforcement agent
 
-**Issue Type:** Task  
-**Priority:** Medium  
-**Depends on:** #9  
+**Issue Type:** Task
+**Priority:** Medium
+**Depends on:** #9
 **Effort:** 2h
 
-**Summary:**  
+**Summary:**
 Create `.github/agents/pr-template-enforcement.md` agent specification for intelligent template validation.
 
 **Details:**
@@ -419,12 +419,12 @@ Create `.github/agents/pr-template-enforcement.md` agent specification for intel
 
 #### 1️⃣1️⃣ [INTEGRATION] Integrate template validation into GitHub branch protection
 
-**Issue Type:** Task  
-**Priority:** Medium  
-**Depends on:** #9  
+**Issue Type:** Task
+**Priority:** Medium
+**Depends on:** #9
 **Effort:** 1h
 
-**Summary:**  
+**Summary:**
 Configure GitHub branch protection to require PR template validation status check.
 
 **Details:**
@@ -445,12 +445,12 @@ Configure GitHub branch protection to require PR template validation status chec
 
 #### 1️⃣2️⃣ [TESTING] Create test fixtures for PR template validation
 
-**Issue Type:** Task  
-**Priority:** Medium  
-**Depends on:** #9, #10  
+**Issue Type:** Task
+**Priority:** Medium
+**Depends on:** #9, #10
 **Effort:** 1h
 
-**Summary:**  
+**Summary:**
 Create test fixtures and examples for PR template validation workflow and agent.
 
 **Details:**
@@ -480,12 +480,12 @@ Create test fixtures and examples for PR template validation workflow and agent.
 
 #### 1️⃣3️⃣ [DOCS] Update BRANCHING_STRATEGY.md with template mappings
 
-**Issue Type:** Task  
-**Priority:** Medium  
-**Depends on:** #2, #7  
+**Issue Type:** Task
+**Priority:** Medium
+**Depends on:** #2, #7
 **Effort:** 1h
 
-**Summary:**  
+**Summary:**
 Update BRANCHING_STRATEGY.md with PR template mapping table and governance notes.
 
 **Details:**

@@ -9,9 +9,9 @@ file_type: documentation
 
 **Vision**: Build on WordPress open-source foundations by integrating WordPress agent-skills into LightSpeed's plugin system, providing a unified knowledge base for AI coding assistants across themes, plugins, and WordPress best practices.
 
-**Timeline**: Post-WCEU (June 2026 onwards)  
-**Scope**: Phased integration of WordPress agent-skills into LightSpeed's AI-ops infrastructure  
-**Licensing**: GPL 3.0 (compatible with WordPress)  
+**Timeline**: Post-WCEU (June 2026 onwards)
+**Scope**: Phased integration of WordPress agent-skills into LightSpeed's AI-ops infrastructure
+**Licensing**: GPL 3.0 (compatible with WordPress)
 **Status**: Planning phase (detailed roadmap, work begins post-WCEU)
 
 ---
@@ -46,8 +46,8 @@ Integrating expert-level WordPress knowledge from [WordPress/agent-skills](https
 
 ### WordPress Agent-Skills Repository
 
-**URL**: [https://github.com/WordPress/agent-skills](https://github.com/WordPress/agent-skills)  
-**Structure**: Single monorepo with multiple agent skill definitions  
+**URL**: [https://github.com/WordPress/agent-skills](https://github.com/WordPress/agent-skills)
+**Structure**: Single monorepo with multiple agent skill definitions
 **Content**: Expert-level knowledge for:
 
 - WordPress block development
@@ -58,8 +58,8 @@ Integrating expert-level WordPress knowledge from [WordPress/agent-skills](https
 - Accessibility & WCAG compliance
 - Core WordPress patterns
 
-**Stability**: Evolving (not yet fully stable, but comprehensive)  
-**Versioning**: Not yet versioned; requires monitoring for breaking changes  
+**Stability**: Evolving (not yet fully stable, but comprehensive)
+**Versioning**: Not yet versioned; requires monitoring for breaking changes
 **License**: GPL 3.0 (compatible with LightSpeed's license)
 
 ### LightSpeed Current State
@@ -87,8 +87,8 @@ Integrating expert-level WordPress knowledge from [WordPress/agent-skills](https
 
 #### 1.1 WordPress Agent-Skills Audit
 
-**Owner**: Engineering team  
-**Effort**: 8–12 hours  
+**Owner**: Engineering team
+**Effort**: 8–12 hours
 **Deliverable**: `wceu-2026/wordpress-audit.md`
 
 **Audit checklist**:
@@ -111,8 +111,8 @@ Integrating expert-level WordPress knowledge from [WordPress/agent-skills](https
 
 #### 1.2 Licensing & Attribution Compliance
 
-**Owner**: Ash Shaw + Legal/Compliance  
-**Effort**: 4–6 hours  
+**Owner**: Ash Shaw + Legal/Compliance
+**Effort**: 4–6 hours
 **Deliverable**: `wceu-2026/LICENSE-and-ATTRIBUTION.md`
 
 **Checklist**:
@@ -134,8 +134,8 @@ Integrating expert-level WordPress knowledge from [WordPress/agent-skills](https
 
 #### 1.3 Integration Approach Decision
 
-**Owner**: Engineering team  
-**Effort**: 4–6 hours  
+**Owner**: Engineering team
+**Effort**: 4–6 hours
 **Deliverable**: Decision document + implementation plan
 
 **Approach options** (ranked by feasibility for LightSpeed):
@@ -156,8 +156,8 @@ Integrating expert-level WordPress knowledge from [WordPress/agent-skills](https
 
 #### 1.4 Set Up Initial Import
 
-**Owner**: Claude (automation) + Ash Shaw (review)  
-**Effort**: 6–8 hours  
+**Owner**: Claude (automation) + Ash Shaw (review)
+**Effort**: 6–8 hours
 **Deliverable**: Initial copy of WordPress agent-skills into `plugins/wordpress-agent-skills/`
 
 **Folder structure**:
@@ -214,8 +214,8 @@ See wceu-2026/WORDPRESS_INTEGRATION_ROADMAP.md for details.
 
 #### 2.1 Create Mapping Document
 
-**Owner**: Engineering team  
-**Effort**: 12–16 hours  
+**Owner**: Engineering team
+**Effort**: 12–16 hours
 **Deliverable**: `wceu-2026/WORDPRESS-TO-LIGHTSPEED-MAPPING.md`
 
 **Mapping structure**:
@@ -257,8 +257,8 @@ See wceu-2026/WORDPRESS_INTEGRATION_ROADMAP.md for details.
 
 #### 2.2 Adapt WordPress Skills to LightSpeed Patterns
 
-**Owner**: Engineering team  
-**Effort**: 16–24 hours  
+**Owner**: Engineering team
+**Effort**: 16–24 hours
 **Deliverable**: Adapted skill files in `plugins/wordpress-agent-skills-adapted/`
 
 **Adaptation process**:
@@ -288,8 +288,8 @@ Document changes in `CHANGELOG.md`.
 
 #### 2.3 Identify Gaps & Plan New Skills
 
-**Owner**: Engineering team  
-**Effort**: 8–12 hours  
+**Owner**: Engineering team
+**Effort**: 8–12 hours
 **Deliverable**: `wceu-2026/NEW-LIGHTSPEED-SKILLS-PLAN.md`
 
 **Process**:
@@ -320,8 +320,8 @@ Document changes in `CHANGELOG.md`.
 
 #### 3.1 Create Distribution Packages
 
-**Owner**: DevOps team  
-**Effort**: 8–12 hours  
+**Owner**: DevOps team
+**Effort**: 8–12 hours
 **Deliverable**: Published npm/composer packages, GitHub releases
 
 **Packages to create**:
@@ -348,8 +348,8 @@ Document changes in `CHANGELOG.md`.
 
 #### 3.2 Community Documentation
 
-**Owner**: Ash Shaw + Technical Writer  
-**Effort**: 8–10 hours  
+**Owner**: Ash Shaw + Technical Writer
+**Effort**: 8–10 hours
 **Deliverable**: `docs/WORDPRESS-INTEGRATION-GUIDE.md`
 
 **Sections**:
@@ -363,8 +363,8 @@ Document changes in `CHANGELOG.md`.
 
 #### 3.3 Gather Community Feedback
 
-**Owner**: Ash Shaw (facilitation) + Engineering team (review)  
-**Effort**: 4–6 hours (initial setup)  
+**Owner**: Ash Shaw (facilitation) + Engineering team (review)
+**Effort**: 4–6 hours (initial setup)
 **Deliverable**: GitHub Discussions thread, feedback summary
 
 **Process**:
@@ -394,8 +394,8 @@ Document changes in `CHANGELOG.md`.
 
 #### 4.1 Automate Sync with WordPress Repo
 
-**Owner**: DevOps team  
-**Effort**: 6–8 hours  
+**Owner**: DevOps team
+**Effort**: 6–8 hours
 **Deliverable**: GitHub Actions workflow, sync documentation
 
 **Workflow**:
@@ -431,8 +431,8 @@ jobs:
 
 #### 4.2 Versioning & Deprecation Policy
 
-**Owner**: Ash Shaw + Engineering team  
-**Effort**: 4–6 hours  
+**Owner**: Ash Shaw + Engineering team
+**Effort**: 4–6 hours
 **Deliverable**: `docs/WORDPRESS-SKILLS-VERSIONING-POLICY.md`
 
 **Policy covers**:
@@ -462,8 +462,8 @@ jobs:
 
 #### 4.3 Agent-Level Integration
 
-**Owner**: Engineering team  
-**Effort**: 16–24 hours (ongoing)  
+**Owner**: Engineering team
+**Effort**: 16–24 hours (ongoing)
 **Deliverable**: Updated agent prompts, integration tests
 
 **Work**:
@@ -476,8 +476,8 @@ jobs:
 
 #### 4.4 Ongoing Maintenance
 
-**Owner**: TBD (rotating team responsibility)  
-**Effort**: 4–8 hours/month  
+**Owner**: TBD (rotating team responsibility)
+**Effort**: 4–8 hours/month
 **Cadence**: Monthly review, weekly automated sync
 
 **Maintenance tasks**:
@@ -532,21 +532,21 @@ jobs:
 gantt
     title WordPress Agent-Skills Integration Timeline
     dateFormat YYYY-MM-DD
-    
+
     section Phase 1
     Audit & License        :p1a, 2026-06-15, 14d
     Initial Import         :p1b, after p1a, 10d
-    
+
     section Phase 2
     Mapping Document       :p2a, 2026-07-15, 16d
     Adaptation Work        :p2b, after p2a, 16d
     Gap Analysis           :p2c, after p2b, 8d
-    
+
     section Phase 3
     Distribution Setup     :p3a, 2026-08-20, 12d
     Community Docs         :p3b, after p3a, 10d
     Feedback Collection    :p3c, after p3b, 20d
-    
+
     section Phase 4
     Automation Setup       :p4a, 2026-09-20, 8d
     Policy Documentation   :p4b, after p4a, 6d
@@ -597,9 +597,9 @@ gantt
 
 ## Attribution & Licensing
 
-**Source**: [WordPress/agent-skills](https://github.com/WordPress/agent-skills)  
-**License**: GPL 3.0  
-**Attribution**: This work is based on WordPress agent-skills, a project of the WordPress community.  
+**Source**: [WordPress/agent-skills](https://github.com/WordPress/agent-skills)
+**License**: GPL 3.0
+**Attribution**: This work is based on WordPress agent-skills, a project of the WordPress community.
 **Contributors**: [To be completed after audit]
 
 **License Headers** (to be added to copied files):
@@ -634,8 +634,8 @@ Adapted by: LightSpeed (lightspeedwp/.github)
 
 ---
 
-**Status**: Planning (awaiting Phase 1 kickoff)  
-**Last Updated**: 2026-05-29  
-**Next Review**: 2026-06-15 (Post-WCEU phase kickoff)  
-**Responsible Team**: Engineering + DevOps  
+**Status**: Planning (awaiting Phase 1 kickoff)
+**Last Updated**: 2026-05-29
+**Next Review**: 2026-06-15 (Post-WCEU phase kickoff)
+**Responsible Team**: Engineering + DevOps
 **Contact**: [TBD — assign after WCEU]

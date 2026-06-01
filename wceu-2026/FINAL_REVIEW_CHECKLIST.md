@@ -7,8 +7,8 @@ file_type: documentation
 
 # Final Review Checklist
 
-**Deadline**: May 31, 2026 EOD  
-**Reviewer**: Ash Shaw (primary) + optional peer review  
+**Deadline**: May 31, 2026 EOD
+**Reviewer**: Ash Shaw (primary) + optional peer review
 **Status**: **[TBD — to be updated May 31]**
 
 ---
@@ -312,9 +312,9 @@ Once all checkboxes are ✅:
 
 ---
 
-**Checklist Version**: 1.0  
-**Created**: 2026-05-30  
-**Target Completion**: May 31, 2026 EOD  
+**Checklist Version**: 1.0
+**Created**: 2026-05-30
+**Target Completion**: May 31, 2026 EOD
 **Status**: Ready for use
 
 ## Phase 1 Completion Verification (May 29, 2026)

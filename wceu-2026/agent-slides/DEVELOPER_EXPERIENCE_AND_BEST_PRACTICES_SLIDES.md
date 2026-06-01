@@ -72,7 +72,7 @@ Developer's PR has failing test; needs to understand why.
    ❌ Test failed in labeling.agent.test.js
    Expected: ["feature", "needs-review"]
    Received: ["feature"]
-   
+
    Root cause: Label condition not met
    Fix: Check test fixture PR data
    Docs: See CONTRIBUTING.md section "Testing"
@@ -181,7 +181,7 @@ Great work on the refactoring! One small suggestion:
 This loop could be more efficient with Array.map():
   // Instead of this:
   for (let i = 0; i < items.length; i++)
-  
+
   // Consider this:
   items.map(item => processItem(item))
 

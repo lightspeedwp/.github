@@ -586,5 +586,5 @@ This 60-day rollout plan provides a structured, risk-managed path to deploy the 
 
 ---
 
-*Created by: Ash Shaw & LightSpeedWP Team*  
+*Created by: Ash Shaw & LightSpeedWP Team*
 *Last Updated: 2026-05-31*

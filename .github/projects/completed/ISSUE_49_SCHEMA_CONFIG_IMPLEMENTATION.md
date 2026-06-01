@@ -22,11 +22,11 @@ domain: governance
 
 # Branding Agent Schema and Config Implementation (Issue #49)
 
-**Parent Issue**: #33 (Parent Specification)  
-**Related Issues**: #46 (Template Design), #48 (Current-state audit)  
-**Status**: Schema/Config Design Phase  
-**Effort**: 10–12 hours (schema design, validation, documentation)  
-**Timeline**: Week 2 implementation  
+**Parent Issue**: #33 (Parent Specification)
+**Related Issues**: #46 (Template Design), #48 (Current-state audit)
+**Status**: Schema/Config Design Phase
+**Effort**: 10–12 hours (schema design, validation, documentation)
+**Timeline**: Week 2 implementation
 
 ---
 
@@ -49,8 +49,8 @@ The recommended approach is **YAML authoring with JSON Schema validation**, whic
 
 ### 2.1 Recommended Approach: YAML + JSON Schema
 
-**Format**: YAML (human-friendly authoring)  
-**Validation**: JSON Schema v7  
+**Format**: YAML (human-friendly authoring)
+**Validation**: JSON Schema v7
 **Storage**: `config/branding.config.yaml` (main config) and `schema/branding.schema.json` (validation schema)
 
 **Rationale**:
@@ -321,33 +321,33 @@ badge_rules:
     allowed: ["status", "version", "category", "audience"]
     recommended: ["status"]
     max_count: 4
-  
+
   agents:
     allowed: ["status", "version", "category", "stability"]
     recommended: ["status", "stability"]
     max_count: 4
-  
+
   schemas:
     allowed: ["status", "version", "category", "stability"]
     recommended: ["version", "stability"]
     max_count: 4
-  
+
   prompts:
     allowed: ["status", "version", "category", "stability", "audience"]
     recommended: ["status", "stability"]
     max_count: 4
-  
+
   governance:
     allowed: ["status", "category"]
     recommended: ["status"]
     max_count: 2
-  
+
   # Simpler rules for other categories
   utility:
     allowed: ["status", "category"]
     recommended: ["status"]
     max_count: 2
-  
+
   workflow:
     allowed: ["status", "category"]
     recommended: ["status"]
@@ -370,21 +370,21 @@ template_references:
       default: "docs-variant-1"
       variants: ["docs-variant-1", "docs-variant-2", "docs-variant-3", "docs-variant-4", "docs-variant-5"]
       selection_rule: "use-default"
-  
+
   agents:
     header: "agents-spec"
     footer:
       default: "agents-variant-1"
       variants: ["agents-variant-1", "agents-variant-2", "agents-variant-3", "agents-variant-4", "agents-variant-5"]
       selection_rule: "use-default"
-  
+
   schemas:
     header: "schema-definition"
     footer:
       default: "schema-variant-1"
       variants: ["schema-variant-1", "schema-variant-2", "schema-variant-3", "schema-variant-4", "schema-variant-5"]
       selection_rule: "use-default"
-  
+
   # Simpler templates for other categories
   readme:
     header: "readme-standard"
@@ -392,7 +392,7 @@ template_references:
       default: "readme-simple"
       variants: ["readme-simple"]
       selection_rule: "use-default"
-  
+
   utility:
     header: "utility-standard"
     footer:
@@ -595,25 +595,25 @@ badges:
     allowed_values: ["active", "deprecated", "draft", "under-review", "on-hold"]
     default: "active"
     source: "frontmatter.status"
-    
+
   version:
     label: "Version"
     type: "semver"
     source: "frontmatter.version"
     optional: true
-    
+
   category:
     label: "Category"
     type: "enum"
     source: "inferred_category"
-    
+
   stability:
     label: "Stability"
     type: "enum"
     allowed_values: ["stable", "beta", "experimental", "deprecated"]
     default: "stable"
     source: "frontmatter.stability"
-    
+
   audience:
     label: "Audience"
     type: "enum"
@@ -629,53 +629,53 @@ frontmatter_fields:
     type: "string"
     required: true
     description: "Document title"
-    
+
   category:
     type: "string"
     required: true
     enum: ["documentation", "agents", "instructions", "schemas", "prompts", "governance", "issue-template", "pr-template", "workflow", "research", "audit", "awesome-list", "readme", "test", "utility", "ai-ops"]
     description: "Document category"
-    
+
   last_updated:
     type: "date"
     format: "YYYY-MM-DD"
     required: true
     description: "Last update date"
-    
+
   owners:
     type: "array[string]"
     required: true
     minItems: 1
     description: "GitHub username or email, at least one"
-    
+
   # Optional fields
   tags:
     type: "array[string]"
     required: false
     description: "Tag-driven metadata"
-    
+
   status:
     type: "string"
     enum: ["active", "deprecated", "draft", "under-review", "on-hold"]
     default: "active"
     description: "Document lifecycle stage"
-    
+
   stability:
     type: "string"
     enum: ["stable", "beta", "experimental", "deprecated"]
     default: "stable"
     description: "API/content stability level"
-    
+
   domain:
     type: "string"
     description: "Semantic domain grouping"
-    
+
   audience:
     type: "string"
     enum: ["internal", "public", "community"]
     default: "internal"
     description: "Intended audience"
-    
+
   version:
     type: "string"
     format: "semver"
@@ -696,10 +696,10 @@ validation:
 accessibility:
   # All badges must include alt text
   require_badge_alt_text: true
-  
+
   # Contrast ratio requirements (WCAG AA)
   min_contrast_ratio: 4.5
-  
+
   # Link guidance
   require_descriptive_links: true
   avoid_bare_urls: true

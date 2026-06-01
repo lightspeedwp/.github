@@ -9,8 +9,8 @@ file_type: documentation
 
 **Purpose**: One-stop reference for all Phase 2 & Phase 3 materials. Use this to navigate the 48-hour final push.
 
-**Status**: All materials created, ready for May 30-31 execution  
-**Deadline**: May 31, 2026 EOD  
+**Status**: All materials created, ready for May 30-31 execution
+**Deadline**: May 31, 2026 EOD
 **Owner**: Ash Shaw (with Claude support)
 
 ---
@@ -58,8 +58,8 @@ file_type: documentation
 
 ### **Start Here**: Phase 2 Execution Guide
 
-**File**: `PHASE2_EXECUTION.md`  
-**What it is**: Step-by-step walkthrough for May 30  
+**File**: `PHASE2_EXECUTION.md`
+**What it is**: Step-by-step walkthrough for May 30
 **Key sections**:
 
 - NotebookLM workflow (load sources, inject brief, generate content)
@@ -94,8 +94,8 @@ file_type: documentation
 
 ### **Main Guide**: Phase 3 Execution Guide
 
-**File**: `PHASE3_EXECUTION.md`  
-**What it is**: Detailed instructions for May 31 final push  
+**File**: `PHASE3_EXECUTION.md`
+**What it is**: Detailed instructions for May 31 final push
 **Key sections**:
 
 - Content transfer workflow (slides 3–22 from NotebookLM briefs)
@@ -109,8 +109,8 @@ file_type: documentation
 
 ### **Speaker Notes**: Complete Template
 
-**File**: `SPEAKER_NOTES_TEMPLATE.md`  
-**What it is**: Pre-structured speaker notes for all 24 slides  
+**File**: `SPEAKER_NOTES_TEMPLATE.md`
+**What it is**: Pre-structured speaker notes for all 24 slides
 **Key sections**:
 
 - Timing for each slide
@@ -129,8 +129,8 @@ file_type: documentation
 
 ### **Accessibility**: Comprehensive Audit
 
-**File**: `ACCESSIBILITY_AUDIT.md`  
-**What it is**: WCAG AA/AAA compliance verification  
+**File**: `ACCESSIBILITY_AUDIT.md`
+**What it is**: WCAG AA/AAA compliance verification
 **Key sections**:
 
 - Text contrast verification (pre-calculated for dark-mode palette)
@@ -151,8 +151,8 @@ file_type: documentation
 
 ### **WordPress Integration**: Slide 20 Template
 
-**File**: `WORDPRESS_INTEGRATION_SLIDE.md`  
-**What it is**: Detailed template for Slide 20 (Roadmap)  
+**File**: `WORDPRESS_INTEGRATION_SLIDE.md`
+**What it is**: Detailed template for Slide 20 (Roadmap)
 **Key sections**:
 
 - Visual design options (timeline, circular, pyramid)
@@ -171,8 +171,8 @@ file_type: documentation
 
 ### **Final Review**: Sign-Off Checklist
 
-**File**: `FINAL_REVIEW_CHECKLIST.md`  
-**What it is**: ~150-point verification checklist for May 31 EOD  
+**File**: `FINAL_REVIEW_CHECKLIST.md`
+**What it is**: ~150-point verification checklist for May 31 EOD
 **Key sections**:
 
 - Slide completeness (all 24 present, no placeholders)
@@ -295,38 +295,38 @@ Throughout execution, confirm these metrics are in place:
 
 ## Questions? Use This Index
 
-**Q: How do I run NotebookLM?**  
+**Q: How do I run NotebookLM?**
 A: See `PHASE2_EXECUTION.md` → "Step 1: Run NotebookLM Session"
 
-**Q: What should speaker notes include?**  
+**Q: What should speaker notes include?**
 A: See `SPEAKER_NOTES_TEMPLATE.md` → full structure for all 24 slides
 
-**Q: How do I verify accessibility?**  
+**Q: How do I verify accessibility?**
 A: See `ACCESSIBILITY_AUDIT.md` → 8-part audit process
 
-**Q: What's the final checklist?**  
+**Q: What's the final checklist?**
 A: See `FINAL_REVIEW_CHECKLIST.md` → ~150 boxes to verify May 31
 
-**Q: How do I design Slide 20?**  
+**Q: How do I design Slide 20?**
 A: See `WORDPRESS_INTEGRATION_SLIDE.md` → detailed template + speaker notes
 
-**Q: What's the dark-mode colour palette?**  
+**Q: What's the dark-mode colour palette?**
 A: See `PHASE3_EXECUTION.md` → "Part 3: Design System Application"
 
-**Q: Do I need to memorise all speaker notes?**  
+**Q: Do I need to memorise all speaker notes?**
 A: No. Use `SPEAKER_NOTES_TEMPLATE.md` to prepare notes, then rehearse June 1–4.
 
 ---
 
 ## Success Criteria (May 31 EOD)
 
-✅ **Complete**: All 24 slides in Google Slides deck  
-✅ **Content**: Speaker notes on every slide (timing + talking points)  
-✅ **Design**: Dark mode applied, consistent typography, visuals present  
-✅ **Accessible**: WCAG AA verified, contrast checked, no flashing  
-✅ **Polish**: No typos, metrics accurate, footer on all slides  
-✅ **Delivery-Ready**: Deck ready for June 1–4 rehearsal  
-✅ **Backup**: PDF exported and stored  
+✅ **Complete**: All 24 slides in Google Slides deck
+✅ **Content**: Speaker notes on every slide (timing + talking points)
+✅ **Design**: Dark mode applied, consistent typography, visuals present
+✅ **Accessible**: WCAG AA verified, contrast checked, no flashing
+✅ **Polish**: No typos, metrics accurate, footer on all slides
+✅ **Delivery-Ready**: Deck ready for June 1–4 rehearsal
+✅ **Backup**: PDF exported and stored
 
 ---
 
@@ -367,9 +367,9 @@ If something isn't clear:
 
 ---
 
-**Index Version**: 1.0  
-**Created**: 2026-05-30  
-**Last Updated**: 2026-05-30  
+**Index Version**: 1.0
+**Created**: 2026-05-30
+**Last Updated**: 2026-05-30
 **Status**: Ready for May 30-31 execution
 
 ---
@@ -378,9 +378,9 @@ If something isn't clear:
 
 You have everything you need. All documentation is written, all materials are prepared. The next 48 hours are about execution, not planning.
 
-**May 30**: Run NotebookLM, create 4 foundation slides, set structure.  
-**May 31**: Transfer content, add notes, design, verify, polish.  
-**June 1-4**: Rehearse, refine, build confidence.  
+**May 30**: Run NotebookLM, create 4 foundation slides, set structure.
+**May 31**: Transfer content, add notes, design, verify, polish.
+**June 1-4**: Rehearse, refine, build confidence.
 **June 5-6**: Deliver the talk at WCEU.
 
 **You've got this. 🚀**

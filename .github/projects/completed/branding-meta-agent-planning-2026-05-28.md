@@ -260,7 +260,7 @@ Build one **unified branding meta agent** that:
 | #49 | Schema/config model: category fields, validation, examples | 3-4h | #33, #46 (input) | Claude |
 | #48 | Documentation & agent spec | 2-3h | #33, #46, #49 (input) | Claude |
 
-**Total Effort**: ~12-16 hours  
+**Total Effort**: ~12-16 hours
 **Parallelism**: #46 and #49 can start after #33 scope is confirmed
 
 ---

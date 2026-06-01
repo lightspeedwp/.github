@@ -337,7 +337,7 @@ function hasChangelogEntry(filenames) {
   const changelogNames = [
     'changelog.md', 'changelog.txt', 'history.md', 'news.md', 'releases.md'
   ];
-  return filenames.some(f => 
+  return filenames.some(f =>
     changelogNames.includes(f.toLowerCase().split('/').pop())
   );
 }
@@ -379,25 +379,25 @@ const files = [
 ```javascript
 function detectBlockers(files, stats, state, requireChangelog) {
   const blockers = [];
-  
+
   // CI blocker
   if (state !== "success") blockers.push("CI checks not green");
-  
+
   // Changelog blocker
   if (requireChangelog && hasCodeChange(files) && !hasChangelogEntry(files)) {
     blockers.push("CHANGELOG.md missing");
   }
-  
+
   // Security blocker
   if (hasSecurityFileChange(files)) {
     blockers.push("⚠️ Security-sensitive files modified (review carefully)");
   }
-  
+
   // Large deletion blocker
   if (stats.deletions > 500) {
     blockers.push("⚠️ Large deletion detected (>500 lines)");
   }
-  
+
   return blockers;
 }
 ```
@@ -437,7 +437,7 @@ npm test -- --testNamePattern="blocker detection"
 2. [ ] Search for existing comment:
 
    ```javascript
-   const existingComment = prComments.find(c => 
+   const existingComment = prComments.find(c =>
      c.body.includes('<!-- reviewer-agent-summary -->')
    );
    ```

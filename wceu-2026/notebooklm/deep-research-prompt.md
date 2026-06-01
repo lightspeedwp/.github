@@ -32,10 +32,10 @@ NotebookLM should synthesize insights across the following research questions:
 
 ### 🔒 Source Approval Policy
 
-**Approved sources** are **internal files from `develop` branch only**.  
+**Approved sources** are **internal files from `develop` branch only**.
 **Prohibited sources** include external blogs, archived wikis, social media, or unverified tools.
 
-All URLs below use the canonical develop-branch format:  
+All URLs below use the canonical develop-branch format:
 `https://github.com/lightspeedwp/.github/blob/develop/<path>`
 
 ### Foundation & Governance

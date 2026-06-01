@@ -7,8 +7,8 @@ file_type: documentation
 
 # Phase 2 Quick Start — May 30, 2026
 
-**Goal**: Generate NotebookLM speaker briefs + create 4 Google Slides foundation slides  
-**Duration**: 2.5–3 hours  
+**Goal**: Generate NotebookLM speaker briefs + create 4 Google Slides foundation slides
+**Duration**: 2.5–3 hours
 **Status**: Ready to start
 
 ---
@@ -170,5 +170,5 @@ Phase 2 is complete when:
 
 ---
 
-**Phase 2 Start Time**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
+**Phase 2 Start Time**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 **Ready?** ✓ Let's go!

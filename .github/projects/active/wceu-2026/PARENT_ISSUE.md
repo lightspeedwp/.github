@@ -7,13 +7,13 @@ file_type: documentation
 
 # WCEU 2026 Talk Preparation — Parent Issue
 
-**Title**: WCEU 2026 Talk Preparation — Finalize 25-Minute Presentation  
-**Type**: Epic/Parent Issue  
-**Priority**: Critical  
-**Status**: Active  
-**Due Date**: May 31, 2026 (48 hours)  
-**Talk Date**: June 5–6, 2026  
-**Assignee**: Ash Shaw  
+**Title**: WCEU 2026 Talk Preparation — Finalize 25-Minute Presentation
+**Type**: Epic/Parent Issue
+**Priority**: Critical
+**Status**: Active
+**Due Date**: May 31, 2026 (48 hours)
+**Talk Date**: June 5–6, 2026
+**Assignee**: Ash Shaw
 **Labels**: `wceu-2026`, `talk-preparation`, `critical-path`
 
 ---
@@ -205,11 +205,11 @@ Jun 5–6: WCEU presentation
 
 By **May 31, 2026 EOD**:
 
-✅ **Deliverable**: Google Slides deck with 24 slides (dark mode, speaker notes)  
-✅ **Quality**: All slides follow WCAG AA/AAA contrast, use consistent design  
-✅ **Completeness**: All speaker notes, timing, talking points included  
-✅ **Readiness**: Deck ready for rehearsal (June 1–4)  
-✅ **Documentation**: Planning, roadmap, glossary, and issues all complete  
+✅ **Deliverable**: Google Slides deck with 24 slides (dark mode, speaker notes)
+✅ **Quality**: All slides follow WCAG AA/AAA contrast, use consistent design
+✅ **Completeness**: All speaker notes, timing, talking points included
+✅ **Readiness**: Deck ready for rehearsal (June 1–4)
+✅ **Documentation**: Planning, roadmap, glossary, and issues all complete
 
 ---
 
@@ -287,7 +287,7 @@ By **May 31, 2026 EOD**:
 
 ---
 
-**Created**: 2026-05-29  
-**Updated**: 2026-05-29  
-**Sprint**: WCEU 2026 Critical Path  
+**Created**: 2026-05-29
+**Updated**: 2026-05-29
+**Sprint**: WCEU 2026 Critical Path
 **Epic**: WordCamp Europe 2026 Talk

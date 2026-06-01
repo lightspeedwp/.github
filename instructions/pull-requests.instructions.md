@@ -89,7 +89,7 @@ See [frontmatter instructions](./documentation-formats.instructions.md) and [fro
 
 ## 3. Branch Naming Requirements
 
-- **Follow the canonical branch naming pattern:**  
+- **Follow the canonical branch naming pattern:**
   `{type}/{scope}-{short-title}`
   - Examples: `feat/block-editor-colors`, `fix/theme-json-colors`, `docs/readme-update`
 - **Allowed prefixes** map directly to PR type and automation:
@@ -114,7 +114,7 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
    - **Changelog section:** [Required for release automation.]
    - **Checklist:** Complete all items, including explicit accessibility and security checks.
 
-4. **Write a clear title**  
+4. **Write a clear title**
    Format: `[Type] Area/Component: Brief summary (Closes #issue)`
    Example: `[Feature] Block Patterns: Add new testimonial pattern (Closes #201)`
 

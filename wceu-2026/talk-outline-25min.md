@@ -8,10 +8,10 @@ last_updated: "2026-05-29"
 
 # WCEU 2026: Talk Outline (25 Minutes)
 
-**Title**: "One .github repo to rule them all: From central governance to installable AI-Ops plugins"  
-**Speaker**: Ash Shaw (LightSpeed)  
-**Audience**: WordPress agency owners, product teams, senior engineers  
-**Duration**: 25 minutes (20 slides content + 3-4 min Q&A buffer)  
+**Title**: "One .github repo to rule them all: From central governance to installable AI-Ops plugins"
+**Speaker**: Ash Shaw (LightSpeed)
+**Audience**: WordPress agency owners, product teams, senior engineers
+**Duration**: 25 minutes (20 slides content + 3-4 min Q&A buffer)
 **Key Story**: Problem → Architecture Solution → Pivot to Plugins → Real Outcomes → Adoption Path
 
 ---

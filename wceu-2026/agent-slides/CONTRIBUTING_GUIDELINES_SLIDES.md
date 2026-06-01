@@ -52,10 +52,10 @@ Developer finds bug, fixes it, follows contribution standards.
 
    ```
    fix: apply labels to all issue types
-   
+
    Previously, labels were only applied to certain issue types.
    Now all issue types get labeled correctly.
-   
+
    Fixes: #1234
    ```
 
@@ -182,10 +182,10 @@ Reviewer reviewing contribution; applies standards constructively.
 
   ```
   feat(release): add pre-release validation
-  
+
   Validates that pre-releases follow semantic versioning.
   Prevents accidental pre-release publishing.
-  
+
   Fixes: #5678
   ```
 
