@@ -2,9 +2,9 @@
 title: Label Inventory — Complete Reference
 description: Complete inventory of all 150+ canonical labels organized by semantic family, with color codes, descriptions, and usage guidance
 file_type: documentation
-version: v1.0.0
+version: v1.1.0
 created_date: '2026-05-31'
-last_updated: '2026-05-31'
+last_updated: '2026-06-01'
 authors:
   - Claude Code
   - LightSpeed Team
@@ -24,9 +24,9 @@ stability: stable
 
 # Label Inventory — Complete Reference
 
-**Version**: v1.0.0  
+**Version**: v1.1.0  
 **Created**: 2026-05-31  
-**Last Updated**: 2026-05-31  
+**Last Updated**: 2026-06-01  
 **Total Labels**: 150+
 
 This document provides a complete inventory of all canonical labels organized by semantic family. Use this as a reference when:
@@ -94,8 +94,8 @@ Labels classifying the type of work. Assign exactly one per issue.
 | `type:ui` | ![Lavender label](https://via.placeholder.com/20/AB7DF8?text=+) AB7DF8 | UI implementation | Design | UI consistency, implementation |
 | `type:epic` | ![Lavender label](https://via.placeholder.com/20/AB7DF8?text=+) AB7DF8 | Large multi-scope initiative | Task | Parent issue for stories/tasks |
 | `type:story` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | User story | Task | User-centred vertical slice |
-| `type:improve` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Improvement to existing behaviour/UX | Task | Enhance existing feature |
-| `type:refactor` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Refactor or internal change | Task | Internal restructure; no UX change |
+| `type:improve` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Improvement to existing behaviour/UX | Feature | Enhance existing feature |
+| `type:refactor` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Refactor or internal change | Chore | Internal restructure; no UX change |
 | `type:build` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | Build & CI | Task | Build pipelines, tooling |
 | `type:ci` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | CI/CD pipelines | Automation | CI/CD infrastructure |
 | `type:automation` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | Automation | Automation | Bots, actions, scripts |

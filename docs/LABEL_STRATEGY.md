@@ -2,9 +2,9 @@
 title: Label Strategy & Governance
 description: Comprehensive label strategy defining the taxonomy, color families, assignment rules, and maintenance processes for 150 canonical labels
 file_type: documentation
-version: v1.0.0
+version: v1.0.1
 created_date: '2026-05-31'
-last_updated: '2026-05-31'
+last_updated: '2026-06-01'
 authors:
   - Claude Code
   - LightSpeed Team
