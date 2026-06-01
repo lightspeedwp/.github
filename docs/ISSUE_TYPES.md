@@ -17,8 +17,9 @@ tags:
 - issue-types
 - automation
 - triage
-category: governance
+domain: governance
 status: active
+language: en
 stability: stable
 ---
 
@@ -49,7 +50,7 @@ This guide is for choosing a type, understanding type automation, and aligning w
 
 ---
 
-## Quick Reference (All 27 Types)
+## Quick Reference (All 32 Types)
 
 - **Task** — Small, well-scoped unit of work (e.g., config update, copy edit). *Label:* `type:task`
 - **Bug** — Broken/incorrect behaviour (e.g., error, regression, failed test). *Label:* `type:bug`
@@ -108,7 +109,7 @@ All 27 issue types map to 10 project field values for organization and automatio
 
 Use this flowchart to choose the correct issue type:
 
-```
+```text
 START: What's the nature of the work?
 
 ├─ Is it BROKEN or INCORRECT?

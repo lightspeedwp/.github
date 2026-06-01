@@ -18,6 +18,8 @@ tags:
   - project-automation
   - governance
 domain: governance
+status: stable
+language: en
 stability: stable
 ---
 
@@ -140,7 +142,7 @@ Security (1 type)
 
 ### 2.1 Why NOT Collapse to 4 Values?
 
-The previous mapping (Bug, Feature, Documentation, Task) collapsed 25 types to 4 values:
+The previous mapping (Bug, Feature, Documentation, Task) collapsed all types to 4 values:
 
 **Problems with collapse**:
 
@@ -149,7 +151,7 @@ The previous mapping (Bug, Feature, Documentation, Task) collapsed 25 types to 4
 - **Poor reporting** — No visibility into which types consume effort (e.g., are we spending too much on research?)
 - **Missed optimization** — Can't identify bottlenecks by type (e.g., feature slow? bug backlog growing?)
 
-### 2.2 Why 10 Values (Instead of 25)?
+### 2.2 Why 10 Values (Instead of 32)?
 
 With 10 project field values, we maintain meaningful distinctions without fragmenting project views:
 
@@ -173,7 +175,7 @@ All organization issues support these fields:
 | --- | --- | --- | --- | --- |
 | **Priority** | single_select | Urgent, High, Medium, Low | No | Current importance level |
 | **Effort** | single_select | XS, S, M, L, XL, XXL, XXXL | No | Relative sizing estimate |
-| **Type** | single_select | Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task | No | **Expanded mapping** — all 25 types covered |
+| **Type** | single_select | Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task | No | **Expanded mapping** — all 32 types covered |
 | **Start date** | date | YYYY-MM-DD | No | Planned start date |
 | **Target date** | date | YYYY-MM-DD | No | Expected completion date |
 
@@ -274,12 +276,12 @@ All LightSpeed custom types (type:design, type:automation, etc.) are mapped to t
 ### Phase 1: Configuration Update (Current)
 
 - ✅ Document expanded mapping (this file)
-- ✅ Update `.github/issue-fields.yml` with all 25 type mappings
-- ✅ Verify no unmapped types (type:refactor, type:build now mapped)
+- ✅ Update `.github/issue-fields.yml` with all 32 type mappings
+- ✅ Verify no unmapped types (all 32 types now mapped)
 
 ### Phase 2: Validation (Issue #684 - Type Naming)
 
-- Verify all 25 types are correctly used in existing issues
+- Verify all 32 types are correctly used in existing issues
 - Update type naming consistency across the repository
 - Document any type aliases or deprecated types
 
@@ -398,7 +400,7 @@ Why both exist:
 
 | Date | Change | Author |
 | --- | --- | --- |
-| 2026-05-31 | Initial specification v1.0.0 — 25 type → 10 project field mapping | Claude Code |
+| 2026-05-31 | Initial specification v1.0.0 — 32 type → 10 project field mapping | Claude Code |
 
 ---
 
