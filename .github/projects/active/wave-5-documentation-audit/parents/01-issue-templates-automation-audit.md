@@ -15,6 +15,7 @@ children:
   - "1.2-template-automation-mapping"
   - "1.3-labeler-rules-audit"
   - "1.4-ai-instructions"
+last_updated: '2026-06-01'
 ---
 
 ## Overview

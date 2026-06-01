@@ -89,7 +89,7 @@ The 150 canonical labels are organized into 7 primary families:
 - Use `status:blocked` when external factors prevent progress
 - Use `status:needs-*` to indicate next required input
 
-### 2.2 Priority Labels (5 Labels)
+### 2.2 Priority Labels (4 Labels)
 
 **Purpose**: Signal urgency and business impact
 

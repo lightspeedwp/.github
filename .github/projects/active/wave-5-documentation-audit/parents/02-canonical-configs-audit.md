@@ -15,6 +15,7 @@ children:
   - "2.2-issue-types-mapping"
   - "2.3-issue-fields-config"
   - "2.4-config-relationships"
+last_updated: '2026-06-01'
 ---
 
 ## Overview

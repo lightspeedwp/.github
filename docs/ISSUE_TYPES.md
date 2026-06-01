@@ -86,7 +86,7 @@ See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-rea
 
 ## Type-to-Project-Field Mapping
 
-All 27 issue types map to 10 project field values for organization and automation. This mapping preserves semantic distinctions whilst grouping related workflows.
+All 32 issue types map to 10 project field values for organization and automation. This mapping preserves semantic distinctions whilst grouping related workflows.
 
 | Project Field | Issue Types | When to Use |
 | --- | --- | --- |
@@ -101,7 +101,7 @@ All 27 issue types map to 10 project field values for organization and automatio
 | **Release** | type:release | Release management, deployment, version coordination |
 | **Task** | type:task, type:epic, type:story, type:review, type:audit, type:question, type:support, type:content-modelling, type:performance, type:security | Catch-all for unspecified work, narratives, audits, and specialized domains |
 
-**Mapping Rationale**: See [ISSUE_FIELDS.md](./ISSUE_FIELDS.md#2-mapping-rationale) for detailed reasoning on why these 27 types are grouped into 10 project field values instead of collapsing to 4 generic options.
+**Mapping Rationale**: See [ISSUE_FIELDS.md](./ISSUE_FIELDS.md#2-mapping-rationale) for detailed reasoning on why these 32 types are grouped into 10 project field values instead of collapsing to 4 generic options.
 
 ---
 
