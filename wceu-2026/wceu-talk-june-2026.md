@@ -1,22 +1,8 @@
-I am creating my final wordcamp europe presentation slide deck for my 2026 Talk called "One .github repo to rule them all"
-
-I created the slides in in batches based on your talk's narrative arc:
-
-Batch 1: Hook & The Problem (Slides 1–6)
-
-Batch 2: The Architecture Solution (Slides 7–12)
-
-Batch 3: Real-World Implementation (Slides 13–18)
-
-Batch 4: Adoption, Outcomes & Closing (Slides 19–24)
-
-I Would you like you to audit the repository and review my talk's Google Slides. You need to
-
---------
-
+# WordCamp 
 Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem (Slides 1–6)**, strictly adhering to your dark-mode design system, typography minimums, accessibility guidelines, and final speaker notes structure.
 
 --------
+## Design & Accessibility
 
 ### 🖼️ Design System Baseline (Apply to all slides)
 
@@ -28,7 +14,50 @@ Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem
 
 * **Color Blindness standard**: Never use color alone; always pair with an icon (e.g., "✅ Success" instead of just green text).
 
+Optimized tool selectionI’ll convert your content into clean, copy-ready Markdown while preserving all accessibility requirements and tightening the wording slightly for clarity.
+
+To ensure your slides pass the WCAG AA accessibility audit, follow the WCEU 2026 Accessibility Audit Checklist criteria below.
+
+### Strictly Follow Dark-Mode Contrast Ratios
+
+Use the pre-approved dark-mode colour palette against the dark charcoal background (#1a1a1a). These colours already pass the WCAG AA minimum contrast ratio of 4.5:1:
+
+- Off-white (#f5f5f5) for primary text
+- Electric blue (#00d4ff) for emphasis
+- Bright green (#00ff88) for highlights
+- Teal (#00bfa5) for callouts
+- Gold (#ffb700) for footers
+
+If you use any custom colours, verify them with the WebAIM Contrast Checker.
+
+### Enforce Minimum Font Sizes
+
+Do not use any text smaller than 16pt, including fine print. Apply these minimum sizes:
+
+- Titles: 44pt or larger
+- Body text: 28-32pt or larger
+- Captions: 20-24pt or larger
+- Footers: 16-18pt or larger
+
+Verify sizing with the Squint Test: stand 10-15 feet away from the screen, squint, and ensure all text remains readable.
+
+### Design for Colour Blindness
+
+Never rely on colour alone to convey meaning. Always pair colour with text or icons (for example, ✅ Success with green, rather than green alone).
+
+Avoid using red and green together, as this can be confusing for colour-blind viewers.
+
+### Maintain Visual Hierarchy and Whitespace
+
+Prevent visual crowding by using a maximum of 5 bullets per slide.
+
+Ensure your text uses 1.5x line height and consistent margins:
+
+- Top and bottom: 1 inch
+- Left and right: 1.25 inches
+
 --------
+## Slide Deck Outline
 
 ### Slide 1: Title Slide (Hook)
 
