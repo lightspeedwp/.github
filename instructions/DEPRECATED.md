@@ -8,7 +8,7 @@ owners: ["LightSpeedWP Team"]
 tags: ["deprecation", "migration", "documentation"]
 status: "active"
 stability: "stable"
-domain: "documentation"
+domain: governance
 ---
 
 # Deprecated Instructions & Documentation

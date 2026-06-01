@@ -4,7 +4,7 @@ title: "Canonical AI Operations Assets"
 description: "Central repository for canonical AI agent references and organization-wide AI configuration"
 status: "active"
 last_updated: "2026-05-31"
-domain: "ai-operations"
+domain: governance
 ---
 
 # Canonical AI Operations Assets

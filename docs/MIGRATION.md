@@ -8,7 +8,7 @@ owners: ["LightSpeedWP Team"]
 tags: ["migration", "documentation", "consolidation"]
 status: "active"
 stability: "stable"
-domain: "documentation"
+domain: governance
 ---
 
 # Documentation Migration Guide

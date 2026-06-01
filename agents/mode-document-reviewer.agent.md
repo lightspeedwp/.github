@@ -1,5 +1,6 @@
 ---
 title: "Technical Content Evaluator"
+name: "Technical Content Evaluator"
 description: "Elite technical content editor and curriculum architect for evaluating technical training materials, documentation, and educational content. Reviews for technical accuracy, pedagogical excellence, content flow, code validation, and ensures A-grade quality standards."
 version: "v1.1"
 last_updated: "2026-05-29"
@@ -7,7 +8,7 @@ owners: ["LightSpeedWP Engineering"]
 tags: ["agent", "mode", "document-review", "editorial", "quality", "education"]
 file_type: "agent"
 status: "active"
-domain: "quality"
+domain: generic
 stability: "stable"
 model: "Claude Sonnet 4.5 (copilot)"
 tools:

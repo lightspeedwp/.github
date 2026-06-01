@@ -8,7 +8,7 @@ owners: ["LightSpeedWP Team"]
 tags: ["automation", "workflows", "governance", "agents"]
 status: "active"
 stability: "stable"
-domain: "automation"
+domain: governance
 ---
 
 # Automation & Workflows

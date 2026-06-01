@@ -16,7 +16,7 @@ author: "LightSpeed"
 maintainer: "Ash Shaw"
 file_type: "agent"
 category: "development"
-domain: "engineering"
+domain: generic
 stability: "stable"
 status: "active"
 visibility: "public"

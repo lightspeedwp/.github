@@ -8,7 +8,7 @@ owners: ["ashley@lightspeedwp.agency"]
 tags: ["prompts", "ai", "templates", "agents"]
 status: "active"
 stability: "stable"
-domain: "tooling"
+domain: generic
 ---
 
 # Standardised Prompts

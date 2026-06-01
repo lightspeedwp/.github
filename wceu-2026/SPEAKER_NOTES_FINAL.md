@@ -9,9 +9,9 @@ version: "1.0"
 last_updated: "2026-05-31"
 owners: ["Ashley Shaw"]
 tags: ["wceu-2026", "speaker-notes", "presentation", "timing"]
-status: "published"
+status: active
 stability: "stable"
-domain: "presentation"
+domain: generic
 language: "en"
 ---
 

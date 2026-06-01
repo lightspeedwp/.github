@@ -6,7 +6,8 @@ description: Example frontmatter and configuration patterns for the unified bran
 category: documentation
 version: '1.0'
 created_date: '2026-05-29'
-last_updated: '2026-05-29T05:40:00Z'
+last_updated: '2026-05-29'
+owners: ["LightSpeedWP Team"]
 tags:
 - schema
 - configuration
