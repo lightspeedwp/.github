@@ -1,13 +1,13 @@
 ---
 issue_number: 667
-file_type: "task"
+file_type: documentation
 description: "Discover and inventory all README.md files"
 parent_issue: 652
 title: "[Child of #652] Audit: Discover All 44 README.md Files - Inventory"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 ---
 

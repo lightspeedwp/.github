@@ -1,13 +1,13 @@
 ---
 issue_number: 659
-file_type: "task"
+file_type: documentation
 description: "Verify issue types align with templates and labels"
 parent_issue: 650
 title: "[Child of #650] Audit: Issue Types Alignment with Templates & Labels"
 type: "type:audit"
 area: "area:labels"
 priority: "priority:important"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 ---
 
@@ -51,5 +51,5 @@ Verify that all issue types in `issue-types.yml` have matching templates and lab
 ## Related Documentation
 
 - [Issue Types Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_TYPES.md)
-- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_LABELS.md)
+- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md)
 - [Issue Templates](https://github.com/lightspeedwp/.github/blob/develop/.github/ISSUE_TEMPLATE/README.md)

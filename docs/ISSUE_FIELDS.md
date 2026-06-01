@@ -2,7 +2,7 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.1
+version: v1.0.2
 created_date: '2026-05-31'
 last_updated: '2026-06-01'
 authors:
@@ -18,8 +18,7 @@ tags:
   - project-automation
   - governance
 domain: governance
-status: stable
-language: en
+status: active
 stability: stable
 ---
 
@@ -168,6 +167,8 @@ With 10 project field values, we maintain meaningful distinctions without fragme
 ## 3. Project Field Configuration
 
 ### 3.1 Universal Project Fields
+
+GitHub supports a maximum of 25 project fields per organisation (`max_issue_fields_per_org: 25`). Our current configuration uses 15 fields (5 universal + 10 specialised domain fields), leaving room for future expansion.
 
 All organization issues support these fields:
 

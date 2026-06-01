@@ -1,13 +1,13 @@
 ---
 issue_number: 673
-file_type: "task"
+file_type: documentation
 description: "Create detailed migration plan for file reorganization"
 parent_issue: 653
 title: "[Child of #653] Plan: File Organization Refactoring - Migration & Validation"
 type: "type:task"
 area: "area:core"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "L"
 ---
 

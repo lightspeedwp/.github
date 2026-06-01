@@ -2,7 +2,7 @@
 title: "Labeling Strategy & Governance"
 description: "Label taxonomy, automation rules, and governance for LightSpeed repositories."
 file_type: "documentation"
-version: "v1.0.0"
+version: 'v1.0.1'
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp"]

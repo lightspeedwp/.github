@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Audit Prompt: Planner & Reviewer Agents"
 description: "Comprehensive audit framework for assessing completeness, correctness, and quality of planner and reviewer agents"
 version: "v1.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 author: "Claude Code"
 owners: ["lightspeedwp/maintainers"]
 tags: ["audit", "agents", "quality", "diagnostic"]

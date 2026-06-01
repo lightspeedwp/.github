@@ -1,13 +1,13 @@
 ---
 issue_number: 661
-file_type: "task"
+file_type: documentation
 description: "Document relationships between canonical config files"
 parent_issue: 650
 title: "[Child of #650] Document: Canonical Config File Interdependencies"
 type: "type:task"
 area: "area:labels"
 priority: "priority:important"
-status: "status:needs-triage"
+status: draft
 effort: "L"
 ---
 
@@ -53,5 +53,5 @@ Create comprehensive documentation of how canonical config files (labels.yml, is
 ## Related Documentation
 
 - [Label Strategy](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md)
-- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)
 - [Issue Types Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_TYPES.md)

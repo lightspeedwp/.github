@@ -3,7 +3,7 @@ file_type: documentation
 title: 60-Day LightSpeed .github Governance Rollout Plan
 description: Comprehensive rollout strategy for deploying LightSpeed .github governance ecosystem to WordPress projects
 version: v1.0.0
-last_updated: '2026-05-31'
+last_updated: '2026-06-01'
 owners:
   - Ash Shaw
   - LightSpeedWP Team

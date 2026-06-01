@@ -1,17 +1,18 @@
 ---
 issue_number: 653
-file_type: "project"
+file_type: documentation
 description: "Comprehensive audit of file organization and alignment with CLAUDE.md repository structure"
 title: "[Audit] File Organization - Align with CLAUDE.md Repository Boundaries"
 type: "type:audit"
 area: "area:core"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "L"
 children:
   - "5.1-current-vs-planned"
   - "5.2-agent-script-locations"
   - "5.3-migration-plan"
+last_updated: '2026-06-01'
 ---
 
 ## Overview

@@ -1,10 +1,10 @@
 ---
-file_type: "documentation"
+file_type: documentation
 title: "File Organization Alignment Audit"
 description: "Complete audit of documentation folder structure vs. CLAUDE.md boundaries identifying misplacements and reorganization needs"
-version: "v1.0"
+version: "v1.0.1"
 created_date: "2026-05-31"
-last_updated: "2026-05-31"
+last_updated: "2026-06-01"
 author: "Claude Code"
 maintainer: "LightSpeedWP Team"
 tags: ["documentation", "audit", "file-organization", "wave-5"]

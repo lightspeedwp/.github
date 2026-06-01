@@ -5,7 +5,7 @@ description: Current-state audit and remediation planning for unified branding a
 file_type: documentation
 category: governance
 version: 1.0.0
-last_updated: '2026-05-29'
+last_updated: '2026-06-01'
 owners:
 - ashleyshaw
 tags:

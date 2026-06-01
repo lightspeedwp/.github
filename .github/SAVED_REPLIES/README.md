@@ -1,11 +1,16 @@
 ---
-file_type: "documentation"
 title: "Saved Replies Directory"
-description: "Organized saved replies for consistent GitHub interactions across LightSpeedWP"
-version: "v1.0"
+description: "Organized saved replies for consistent GitHub interactions across LightSpeedWP. Community, issue, and pull request response templates."
+file_type: documentation
+version: v1.1
 last_updated: "2026-05-31"
-maintainer: "LightSpeed Engineering"
+created_date: "2025-10-24"
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
 tags: ["saved-replies", "communication", "automation", "community"]
+domain: "governance"
+stability: "stable"
 ---
 
 # 💬 Saved Replies Directory

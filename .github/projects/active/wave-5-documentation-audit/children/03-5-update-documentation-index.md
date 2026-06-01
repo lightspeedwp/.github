@@ -1,13 +1,13 @@
 ---
 issue_number: 666
-file_type: "task"
+file_type: documentation
 description: "Update docs/README.md and docs/index.md to reflect consolidation changes and remove broken references"
 parent_issue: 651
 title: "[Child of #651] Update: Documentation Index & Broken References"
 type: "type:docs"
 area: "area:documentation"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "S"
 ---
 
@@ -28,14 +28,14 @@ Update documentation index files (`docs/README.md` and `docs/index.md`) to refle
 
 ### From Issue #662 (Issue Creation Docs)
 
-- `docs/ISSUE_LABELS.md` was consolidated into `docs/LABELING.md#issue-labelling`
+- `docs/LABELING.md` was consolidated into `docs/LABELING.md#issue-labelling`
 - References should point to `docs/LABELING.md#issue-labelling` not ISSUE_LABELS.md
 
 ### From Issue #663 (PR Creation Docs)
 
-- `docs/PR_LABELS.md` doesn't exist (needs investigation)
-- `docs/ISSUE_LABELS.md` reference should redirect to LABELING.md
-- `docs/AUTOMATION_GOVERNANCE.md` doesn't exist (file is actually `docs/AUTOMATION.md`)
+- `docs/LABELING.md` doesn't exist (needs investigation)
+- `docs/LABELING.md` reference should redirect to LABELING.md
+- `docs/AUTOMATION.md` doesn't exist (file is actually `docs/AUTOMATION.md`)
 
 ### From Issue #664 (Labeling Docs)
 

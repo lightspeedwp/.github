@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Agent Slide Deck Prompts"
 description: "NotebookLM and design-ready prompts for creating agent-specific slide presentations"
 version: "v1.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 owners: ["Ash Shaw"]
 ---
 

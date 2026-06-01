@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Presentation Artifact Tool Documentation"
 description: "Documentation for presentation artifact generation tool within the design Markdown agent"
 version: "1.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 maintainer: "LightSpeed Engineering"
 tags: ["artifacts", "presentations", "slides", "documentation"]
 ---

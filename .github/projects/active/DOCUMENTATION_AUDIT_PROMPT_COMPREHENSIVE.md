@@ -1,12 +1,13 @@
 ---
-file_type: "planning-document"
+file_type: documentation
 title: "Comprehensive Documentation & Automation Audit Prompt"
 description: "Detailed step-by-step prompt for creating GitHub issues to audit and fix documentation, templates, labeling, and automation systems"
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-05-31"
-last_updated: "2026-05-31"
-status: "ready-for-execution"
-owner: "LightSpeed Team"
+last_updated: "2026-06-01"
+status: active
+owners:
+  - lightspeedwp/maintainers
 ---
 
 # Comprehensive Documentation & Automation Audit Prompt
@@ -22,6 +23,7 @@ owner: "LightSpeed Team"
 ## Part 1: Overview & Problem Statement
 
 ### Current State
+
 - **Issue labeling system:** Broken or inconsistent (PR labeling works fine)
 - **Documentation:** Scattered across 40+ files with duplication and overlap
 - **Templates:** Issue, PR, and Discussion templates exist but AI agents don't consistently use them
@@ -30,6 +32,7 @@ owner: "LightSpeed Team"
 - **Canonical configs:** `labels.yml`, `labeler.yml`, `issue-types.yml`, `issue-fields.yml` exist but may be incomplete/inconsistent
 
 ### Root Causes
+
 1. Templates are not well-documented in relation to how they trigger automation
 2. Labeling rules in `labeler.yml` don't cover issue scenarios (only PR/branch scenarios)
 3. Documentation doesn't clearly explain HOW an AI agent should structure an issue to trigger proper automation
@@ -37,7 +40,9 @@ owner: "LightSpeed Team"
 5. README files are outdated and lack Mermaid diagrams for accessibility
 
 ### Expected Outcome
+
 Once these audits are complete:
+
 - Documentation will clearly explain the entire issue/PR/automation flow
 - Templates will be consolidated and deduplicated
 - Canonical configs will be verified and updated for consistency
@@ -52,6 +57,7 @@ Once these audits are complete:
 Create the following **parent issues** in GitHub. Each parent issue will have multiple child issues attached.
 
 ### Parent Issue 1: Issue Templates & Automation Integration Audit
+
 **Title:** `[Audit] Issue Templates, Automation, & AI Agent Integration`
 **Type:** `type:audit`
 **Area:** `area:automation`, `area:labels`
@@ -60,6 +66,7 @@ Create the following **parent issues** in GitHub. Each parent issue will have mu
 **Effort:** `M` (Medium)
 
 **Description:**
+
 ```markdown
 ## Overview
 
@@ -102,6 +109,7 @@ See child issues for detailed audits of:
 ---
 
 ### Parent Issue 2: Canonical Configuration Files Audit & Standardization
+
 **Title:** `[Audit] Canonical Config Files (labels, issue-types, issue-fields)`
 **Type:** `type:audit`
 **Area:** `area:labels`, `area:automation`
@@ -110,6 +118,7 @@ See child issues for detailed audits of:
 **Effort:** `L` (Large)
 
 **Description:**
+
 ```markdown
 ## Overview
 
@@ -148,7 +157,7 @@ See child issues for detailed audits of:
 - `.github/issue-types.yml`
 - `.github/issue-fields.yml`
 - `docs/LABEL_STRATEGY.md`
-- `docs/ISSUE_LABELS.md`
+- `docs/LABELING.md`
 - `docs/ISSUE_TYPES.md`
 - `docs/ISSUE-FIELDS.md`
 ```
@@ -156,6 +165,7 @@ See child issues for detailed audits of:
 ---
 
 ### Parent Issue 3: Documentation Consolidation & Deduplication
+
 **Title:** `[Audit] Documentation Consolidation - Reduce Duplication Across Docs`
 **Type:** `type:audit`
 **Area:** `area:documentation`
@@ -164,6 +174,7 @@ See child issues for detailed audits of:
 **Effort:** `XL` (Extra Large)
 
 **Description:**
+
 ```markdown
 ## Overview
 
@@ -207,6 +218,7 @@ See child issues for detailed audits of:
 ---
 
 ### Parent Issue 4: README & Mermaid Diagram Audit (Accessibility & Freshness)
+
 **Title:** `[Audit] 44 README Files - Mermaid Diagrams & Accessibility Review`
 **Type:** `type:audit`
 **Area:** `area:documentation`, `area:a11y`
@@ -215,6 +227,7 @@ See child issues for detailed audits of:
 **Effort:** `XL` (Extra Large)
 
 **Description:**
+
 ```markdown
 ## Overview
 
@@ -261,6 +274,7 @@ All README.md files across the repository (see audit report for inventory)
 ---
 
 ### Parent Issue 5: File Organization & Structure Alignment with CLAUDE.md
+
 **Title:** `[Audit] File Organization - Align with CLAUDE.md Repository Boundaries`
 **Type:** `type:audit`
 **Area:** `area:core`
@@ -269,6 +283,7 @@ All README.md files across the repository (see audit report for inventory)
 **Effort:** `L` (Large)
 
 **Description:**
+
 ```markdown
 ## Overview
 
@@ -329,6 +344,7 @@ For each parent issue above, create the following child issues using this templa
 **Parent Issue:** `#PARENT`
 
 **Description:**
+
 ```markdown
 ## Overview
 
@@ -369,6 +385,7 @@ For each parent issue above, create the following child issues using this templa
 ### Under Parent Issue 1: Issue Templates & Automation
 
 #### Child 1.1: Audit Issue Template Inventory
+
 **Title:** `[Child of #] Audit: Issue Template Inventory & Standardization`
 
 - Inventory all `.md` files in `.github/ISSUE_TEMPLATE/`
@@ -382,6 +399,7 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 1.2: Audit Issue Template to Automation Trigger Mapping
+
 **Title:** `[Child of #] Audit: Issue Template → Automation Trigger Mapping`
 
 - For each issue template, document what automation should trigger
@@ -395,6 +413,7 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 1.3: Audit Issue Labeling Rules in labeler.yml
+
 **Title:** `[Child of #] Audit: Issue Labeling Rules in labeler.yml`
 
 - Review `.github/labeler.yml` for issue-specific rules
@@ -408,6 +427,7 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 1.4: Create AI Agent Instructions for Issue Creation
+
 **Title:** `[Child of #] Implement: Clear AI Agent Instructions for Issue Creation`
 
 - Write clear, step-by-step instructions for how AI agents should create issues
@@ -423,6 +443,7 @@ For each parent issue above, create the following child issues using this templa
 ### Under Parent Issue 2: Canonical Configuration Files
 
 #### Child 2.1: Audit labels.yml Color Consistency
+
 **Title:** `[Child of #] Audit: labels.yml Color Consistency & Strategy Alignment`
 
 - Review all 200+ labels in `labels.yml`
@@ -436,6 +457,7 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 2.2: Audit Issue Types Mapping
+
 **Title:** `[Child of #] Audit: Issue Types Alignment with Templates & Labels`
 
 - Review all issue types in `issue-types.yml`
@@ -449,6 +471,7 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 2.3: Audit Issue Fields Configuration
+
 **Title:** `[Child of #] Audit: Issue Fields Configuration vs. GitHub API`
 
 - Review `issue-fields.yml` configuration
@@ -462,6 +485,7 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 2.4: Document Config File Relationships
+
 **Title:** `[Child of #] Document: Canonical Config File Interdependencies`
 
 - Create comprehensive diagram showing how labels.yml, issue-types.yml, labeler.yml, and issue-fields.yml relate
@@ -476,11 +500,12 @@ For each parent issue above, create the following child issues using this templa
 ### Under Parent Issue 3: Documentation Consolidation
 
 #### Child 3.1: Audit Issue Creation Documentation
+
 **Title:** `[Child of #] Audit: Issue Creation Docs - Consolidate Overlapping Files`
 
 - Review all files related to issue creation:
   - `docs/ISSUE_CREATION_GUIDE.md`
-  - `docs/ISSUE_LABELS.md`
+  - `docs/LABELING.md`
   - `docs/ISSUE_TYPES.md`
   - `.github/ISSUE_TEMPLATE/README.md`
   - `docs/index.md` (if references issues)
@@ -494,11 +519,12 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 3.2: Audit PR Creation Documentation
+
 **Title:** `[Child of #] Audit: PR Creation Docs - Consolidate Overlapping Files`
 
 - Review all files related to PR creation:
   - `docs/PR_CREATION_PROCESS.md`
-  - `docs/PR_LABELS.md`
+  - `docs/LABELING.md`
   - `.github/PULL_REQUEST_TEMPLATE/README.md`
   - `instructions/pull-requests.instructions.md`
   - `docs/BRANCHING_STRATEGY.md`
@@ -510,14 +536,15 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 3.3: Audit Labeling Documentation
+
 **Title:** `[Child of #] Audit: Labeling Docs - Consolidate Overlapping Files`
 
 - Review all files related to labeling:
   - `docs/LABEL_STRATEGY.md`
   - `docs/LABELING.md`
-  - `docs/ISSUE_LABELS.md`
-  - `docs/PR_LABELS.md`
-  - `docs/AUTOMATION_GOVERNANCE.md` (label section)
+  - `docs/LABELING.md`
+  - `docs/LABELING.md`
+  - `docs/AUTOMATION.md` (label section)
   - Agent specs for labeling
 - Identify duplication and overlap
 - Propose single source of truth for labeling
@@ -527,6 +554,7 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 3.4: Audit File Organization Alignment
+
 **Title:** `[Child of #] Audit: Documentation Folder Structure vs. CLAUDE.md Boundaries`
 
 - Review `.github/`, `docs/`, `instructions/` folder structure
@@ -539,6 +567,7 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 3.5: Update Documentation Index
+
 **Title:** `[Child of #] Update: Documentation Index (docs/index.md) - Complete & Current`
 
 - Review current `docs/index.md`
@@ -554,6 +583,7 @@ For each parent issue above, create the following child issues using this templa
 ### Under Parent Issue 4: README & Mermaid Diagrams
 
 #### Child 4.1: Discover & Audit All README Files
+
 **Title:** `[Child of #] Audit: Discover All 44 README.md Files - Inventory`
 
 - Use script or manual inspection to find all README.md files
@@ -567,6 +597,7 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 4.2: Validate Mermaid Diagram Syntax
+
 **Title:** `[Child of #] Audit: Validate Mermaid Syntax in All Diagrams`
 
 - For each README with Mermaid diagrams, validate syntax
@@ -580,6 +611,7 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 4.3: Audit Mermaid Accessibility Compliance
+
 **Title:** `[Child of #] Audit: Mermaid Diagram Accessibility (WCAG AA, Light/Dark Mode)`
 
 - For each Mermaid diagram, check for accessibility attributes:
@@ -594,9 +626,11 @@ For each parent issue above, create the following child issues using this templa
 ---
 
 #### Child 4.4: Update README Content & Diagrams
+
 **Title:** `[Child of #] Update: Fix & Refresh 44 README Files with Current Information`
 
 This is the implementation phase following audits:
+
 - Update outdated content
 - Fix broken links
 - Add/update Mermaid diagrams with proper accessibility
@@ -610,6 +644,7 @@ This is the implementation phase following audits:
 ### Under Parent Issue 5: File Organization Alignment
 
 #### Child 5.1: Audit Current vs. Planned File Organization
+
 **Title:** `[Child of #] Audit: Current File Organization vs. CLAUDE.md Boundaries`
 
 - Map current structure of `.github/`, root folders, etc.
@@ -622,6 +657,7 @@ This is the implementation phase following audits:
 ---
 
 #### Child 5.2: Audit Agent & Script File Locations
+
 **Title:** `[Child of #] Audit: Agent & Script Files - Migration Status`
 
 - Check if `.github/agents/` still exists (should have moved to `/agents`)
@@ -634,6 +670,7 @@ This is the implementation phase following audits:
 ---
 
 #### Child 5.3: Create File Organization & Migration Plan
+
 **Title:** `[Child of #] Plan: File Organization Refactoring - Migration & Validation`
 
 - Create detailed plan for reorganizing files to match CLAUDE.md
@@ -701,6 +738,7 @@ gh issue create \
 ## Part 6: Success Criteria & Next Steps
 
 ### Success Criteria for This Audit Phase
+
 - [ ] All 5 parent issues created in GitHub
 - [ ] All ~25 child issues created in GitHub
 - [ ] All parent/child relationships linked
@@ -708,6 +746,7 @@ gh issue create \
 - [ ] Active projects file updated with issue references
 
 ### Next Steps (After Audits Complete)
+
 1. Review audit findings and consolidate into implementation plan
 2. Create implementation issues based on audit recommendations
 3. Execute implementations in waves (following existing pattern)
@@ -720,18 +759,21 @@ gh issue create \
 ## Part 7: Related Context
 
 ### Existing Related Issues
+
 - #512 — Wave 3A: README & Mermaid Diagram Discovery & Audit
 - #513 — Wave 3B: README & Mermaid Diagram Repair & Update
 - #519 — Documentation Index & Quickstart Guide (merged)
 
 ### Existing Active Project Files
+
 - `next-issues-execution-plan.md` (update with new audit issues)
 - `launch-agents-checklist.md` (track testing of new automation)
 
 ### Key Documentation Files (Source of Truth)
+
 - `CLAUDE.md` — Repository boundaries and structure
 - `docs/LABEL_STRATEGY.md` — Label philosophy and strategy
-- `docs/AUTOMATION_GOVERNANCE.md` — Automation standards
+- `docs/AUTOMATION.md` — Automation standards
 - `.github/labels.yml` — Canonical label definitions
 - `.github/issue-types.yml` — Canonical issue type definitions
 
@@ -740,12 +782,14 @@ gh issue create \
 ## Part 8: Execution Timeline
 
 ### Proposed Wave Timeline
+
 - **Week 1:** Create all audit issues (parent + child)
 - **Week 2-3:** Execute audits (investigations, gather findings)
 - **Week 4:** Review audit findings, consolidate recommendations
 - **Week 5+:** Execute implementations based on audit outcomes
 
 ### Checkpoints
+
 - After issue creation: Verify all issues linked correctly
 - After each audit: Review findings and document in issue comments
 - Before implementation: Consolidate all findings into implementation plan

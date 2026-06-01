@@ -208,10 +208,6 @@
   aliases:
     - audit
 
-- name: type:qa
-  color: D29922
-  description: "Quality assurance"
-
 - name: type:review
   color: 4393F8
   description: "Code or design review task"
@@ -235,6 +231,19 @@
   description: "Support request"
   aliases:
     - support
+
+- name: type:help
+  color: 0E8A16
+  description: "Help request"
+  aliases:
+    - help
+
+- name: type:ux-feedback
+  color: "5319E7"
+  description: "User experience feedback"
+  aliases:
+    - ux-feedback
+    - user-experience-feedback
 
 # --- Meta / housekeeping ---
 

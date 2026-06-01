@@ -2,7 +2,7 @@
 title: "Workflow Coordination Patterns"
 description: "Canonical reference for GitHub Actions workflow patterns: always-run vs. agent-triggered, coordination between agents and workflows, and orchestration strategies."
 created_date: "2026-05-28"
-last_updated: "2026-05-28"
+last_updated: '2026-06-01'
 version: "v1.1.0"
 file_type: "documentation"
 maintainer: "LightSpeed Team"

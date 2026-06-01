@@ -4,7 +4,7 @@ description: Comprehensive color strategy for the 150 canonical labels based on 
 file_type: documentation
 version: v1.0.0
 created_date: '2026-05-31'
-last_updated: '2026-05-31'
+last_updated: '2026-06-01'
 authors:
   - Claude Code
   - LightSpeed Team

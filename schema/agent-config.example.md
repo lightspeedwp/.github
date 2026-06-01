@@ -4,9 +4,10 @@ title: Agent Configuration Example - Unified Branding
 description: Example frontmatter and configuration patterns for the unified branding
   agent
 category: documentation
-version: '1.0'
+version: "1.0.1"
 created_date: '2026-05-29'
-last_updated: '2026-05-29T05:40:00Z'
+last_updated: "2026-06-01"
+owners: ["LightSpeedWP Team"]
 tags:
 - schema
 - configuration
@@ -26,7 +27,7 @@ This document demonstrates the configuration patterns and frontmatter requiremen
 ```yaml
 file_type: "documentation"     # Type of document
 title: "Document Title"         # Human-readable title
-last_updated: "2026-05-29T..."  # ISO 8601 datetime (must match today if content changed)
+last_updated: "2026-06-01"
 ```
 
 ### Recommended by Category
@@ -37,8 +38,8 @@ last_updated: "2026-05-29T..."  # ISO 8601 datetime (must match today if content
 file_type: "skill"
 title: "Skill Name"
 category: "skills"
-version: "1.0"                  # Semantic version required if present
-last_updated: "2026-05-29T..."
+version: "1.0.1"
+last_updated: "2026-06-01"
 stability: "stable"             # Must be: stable, experimental, incubating, deprecated
 tags: ["portable", "reusable"]  # Up to 8 tags
 owners: ["user1", "user2"]      # File maintainers
@@ -57,8 +58,8 @@ owners: ["user1", "user2"]      # File maintainers
 file_type: "instruction"
 title: "Instruction Title"
 category: "instructions"
-version: "1.0"
-last_updated: "2026-05-29T..."
+version: "1.0.1"
+last_updated: "2026-06-01"
 stability: "stable"
 maintainer: "ashley@lightspeedwp.agency"
 ```
@@ -77,8 +78,8 @@ file_type: "agent"
 title: "Agent Name"
 category: "agent-specs"
 description: "What this agent does and when to use it"
-version: "1.0"
-last_updated: "2026-05-29T..."
+version: "1.0.1"
+last_updated: "2026-06-01"
 stability: "stable"
 tags: ["agent", "automation"]
 ```
@@ -97,7 +98,7 @@ file_type: "documentation"
 title: "Documentation Title"
 category: "documentation"
 description: "Overview of this documentation"
-last_updated: "2026-05-29T..."
+last_updated: "2026-06-01"
 domain: "platform"              # Functional area
 stability: "stable"
 maintainer: "ashley@lightspeedwp.agency"
@@ -116,8 +117,8 @@ maintainer: "ashley@lightspeedwp.agency"
 file_type: "plugin"
 title: "Plugin Name"
 category: "plugins"
-version: "1.0"
-last_updated: "2026-05-29T..."
+version: "1.0.1"
+last_updated: "2026-06-01"
 maintainer: "ashley@lightspeedwp.agency"
 license: "GPL-3.0"
 ```
@@ -135,7 +136,7 @@ license: "GPL-3.0"
 file_type: "workflow"
 title: "Workflow Name"
 category: "workflows"
-last_updated: "2026-05-29T..."
+last_updated: "2026-06-01"
 description: "What this workflow automates"
 ```
 
@@ -153,7 +154,7 @@ file_type: "guide"
 title: "Recipe/Playbook Title"
 category: "cookbook"
 description: "Step-by-step implementation guide"
-last_updated: "2026-05-29T..."
+last_updated: "2026-06-01"
 stability: "stable"
 tags: ["implementation", "guide"]
 ```
@@ -171,7 +172,7 @@ tags: ["implementation", "guide"]
 file_type: "documentation"
 title: "README / Contributing Guide"
 category: "root"
-last_updated: "2026-05-29T..."
+last_updated: "2026-06-01"
 description: "Community guidelines and contribution process"
 ```
 

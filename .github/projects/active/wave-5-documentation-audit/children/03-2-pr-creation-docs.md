@@ -1,10 +1,10 @@
 ---
-file_type: "documentation"
+file_type: documentation
 title: "PR Creation Documentation Consolidation Audit"
 description: "Complete audit of PR creation documentation identifying consolidation opportunities and duplicated content"
-version: "v1.0"
+version: "v1.0.1"
 created_date: "2026-05-31"
-last_updated: "2026-05-31"
+last_updated: "2026-06-01"
 author: "Claude Code"
 maintainer: "LightSpeedWP Team"
 tags: ["documentation", "audit", "consolidation", "wave-5"]
@@ -27,7 +27,7 @@ domain: "governance"
 Audited 5 documentation files related to PR creation. Found:
 
 - **Significant overlap** between `docs/PR_CREATION_PROCESS.md` and `instructions/pull-requests.instructions.md`
-- **Missing file** (`docs/PR_LABELS.md` referenced by 3 files but does not exist)
+- **Missing file** (`docs/LABELING.md` referenced by 3 files but does not exist)
 - **Duplicate content** within `.github/PULL_REQUEST_TEMPLATE/README.md` (footer repeats 3x)
 - **Fragmented responsibility** across 4 active files covering similar ground
 - **Broken cross-references** to non-existent `PR_LABELS.md` (similar pattern to ISSUE_LABELS.md consolidation)
@@ -41,7 +41,7 @@ Audited 5 documentation files related to PR creation. Found:
 | File | Path | Exists | Status | Role |
 |------|------|--------|--------|------|
 | PR Creation Guide | `docs/PR_CREATION_PROCESS.md` | ✅ | Active | High-level how-to |
-| PR Labels Guide | `docs/PR_LABELS.md` | ❌ | Missing | Supposed label reference |
+| PR Labels Guide | `docs/LABELING.md` | ❌ | Missing | Supposed label reference |
 | PR Templates README | `.github/PULL_REQUEST_TEMPLATE/README.md` | ✅ | Active | Template directory guide |
 | PR Instructions | `instructions/pull-requests.instructions.md` | ✅ | Active | Official instructions (AI/agents) |
 | Branching Strategy | `docs/BRANCHING_STRATEGY.md` | ✅ | Active | Git workflow & branch naming |
@@ -74,13 +74,13 @@ Audited 5 documentation files related to PR creation. Found:
 **Issues:**
 
 - Repeats information already in `instructions/pull-requests.instructions.md`
-- References non-existent `docs/PR_LABELS.md` (line 163)
+- References non-existent `docs/LABELING.md` (line 163)
 - Label guidance is present but refers to missing reference file
 - Template mapping table (lines 64-74) is identical to content in PULL_REQUEST_TEMPLATE/README.md (lines 26-36)
 
 ---
 
-### 2. **`docs/PR_LABELS.md`**
+### 2. **`docs/LABELING.md`**
 
 **Status:** ❌ **MISSING**
 
@@ -88,12 +88,12 @@ Referenced in audit scope but this file does not exist.
 
 **Key Finding:**
 
-- `docs/PR_LABELS.md` is referenced by 3 active files:
+- `docs/LABELING.md` is referenced by 3 active files:
   - `docs/PR_CREATION_PROCESS.md` (line 163)
   - `.github/PULL_REQUEST_TEMPLATE/README.md` (line 42)
   - `docs/BRANCHING_STRATEGY.md` (line 284)
 - No consolidated labeling guide exists for PR-specific labels
-- Likely pattern: Similar to `docs/ISSUE_LABELS.md` which was consolidated into `docs/LABELING.md`
+- Likely pattern: Similar to `docs/LABELING.md` which was consolidated into `docs/LABELING.md`
 
 **Recommendation:**
 
@@ -124,7 +124,7 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
 
 - **CRITICAL DUPLICATION:** Footer repeats 3 times (lines 83-90)
   - "Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team" appears 3 consecutive times
-- References non-existent `docs/PR_LABELS.md` (line 42)
+- References non-existent `docs/LABELING.md` (line 42)
 - References potentially incorrect path: `../AUTOMATION_GOVERNANCE.md` (unclear if this file exists)
 - Template mapping table content overlaps with `docs/PR_CREATION_PROCESS.md` (lines 26-36)
 
@@ -162,7 +162,7 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
 - Overlap with `docs/PR_CREATION_PROCESS.md`:
   - Both cover branch naming, template selection, PR titles, labels, review lifecycle
   - Instructions are more authoritative; guide is more user-friendly
-- References `docs/PR_LABELS.md` (line 129) which doesn't exist
+- References `docs/LABELING.md` (line 129) which doesn't exist
 - References `instructions/labeling.instructions.md` (not mentioned in audit scope—verify if it exists)
 
 ---
@@ -190,8 +190,8 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
 
 **Issues:**
 
-- References non-existent `docs/PR_LABELS.md` (line 284)
-- References `docs/ISSUE_LABELS.md` (line 283) which is consolidated into `docs/LABELING.md`
+- References non-existent `docs/LABELING.md` (line 284)
+- References `docs/LABELING.md` (line 283) which is consolidated into `docs/LABELING.md`
 - Significant overlap with branch naming section in `docs/PR_CREATION_PROCESS.md` (section 2)
 - Very detailed and dense—might be overwhelming for new contributors who just want to create a PR
 
@@ -207,7 +207,7 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
 | Current File | Content | Proposed Location | Action | Rationale |
 |--------------|---------|-------------------|--------|-----------|
 | `docs/PR_CREATION_PROCESS.md` | Practical PR how-to guide | Keep (docs/) | Preserve | Good audience fit (all contributors), clear structure |
-| `docs/PR_LABELS.md` | Missing; supposed label reference | Create or redirect | Investigate | Determine if consolidate into LABELING.md or create new file; fix 3 broken references |
+| `docs/LABELING.md` | Missing; supposed label reference | Create or redirect | Investigate | Determine if consolidate into LABELING.md or create new file; fix 3 broken references |
 | `.github/PULL_REQUEST_TEMPLATE/README.md` | Template directory guide | Keep (with fixes) | Fix duplication | Remove 3x repeated footer; fix PR_LABELS.md reference |
 | `instructions/pull-requests.instructions.md` | Official instructions | Keep (instructions/) | Preserve | Authoritative, comprehensive, no duplication |
 | `docs/BRANCHING_STRATEGY.md` | Comprehensive branching strategy | Keep (docs/) | Minor fix | Update broken references to PR_LABELS.md and ISSUE_LABELS.md |
@@ -263,17 +263,17 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
 - `docs/PR_CREATION_PROCESS.md` (section 6, lines 101-110)
 - `instructions/pull-requests.instructions.md` (section 5, lines 137-163)
 - `docs/BRANCHING_STRATEGY.md` (section 5.1, lines 163-203, and section 5.2, lines 210-226)
-- Missing: `docs/PR_LABELS.md`
+- Missing: `docs/LABELING.md`
 
 **Content:** What labels are required, label families, one-hot rules, automation
 
 **Issue:**
 
 - Three files provide different levels of detail about labeling
-- All reference non-existent `docs/PR_LABELS.md`
+- All reference non-existent `docs/LABELING.md`
 - No consolidated PR label reference (unlike existing label strategy documents)
 
-**Consolidation:** Create or investigate consolidation of `docs/PR_LABELS.md`:
+**Consolidation:** Create or investigate consolidation of `docs/LABELING.md`:
 
 - Determine if labels should consolidate into `docs/LABELING.md` (check if it covers both)
 - If creating new file: include label families, color scheme, automation rules, one-hot enforcement
@@ -306,7 +306,7 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
    - Keep single footer at lines 83-84
 
 2. **Update broken references**
-   - Find all references to `docs/PR_LABELS.md`:
+   - Find all references to `docs/LABELING.md`:
      - `docs/PR_CREATION_PROCESS.md` (line 163)
      - `.github/PULL_REQUEST_TEMPLATE/README.md` (line 42)
      - `docs/BRANCHING_STRATEGY.md` (line 284)
@@ -315,8 +315,8 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
    - If creating: populate with full PR label reference based on existing guidance
 
 3. **Update `docs/BRANCHING_STRATEGY.md`**
-   - Fix reference to `docs/ISSUE_LABELS.md` (line 283) → redirect to `docs/LABELING.md#issue-labelling`
-   - Verify and update reference to `docs/PR_LABELS.md` (line 284) once consolidated
+   - Fix reference to `docs/LABELING.md` (line 283) → redirect to `docs/LABELING.md#issue-labelling`
+   - Verify and update reference to `docs/LABELING.md` (line 284) once consolidated
 
 ### Phase 2: Consolidate & Link (Wave 5.3 or 5.4)
 
@@ -332,7 +332,7 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
    - Remove duplication from guide
 
 3. **Create or consolidate PR labels reference**
-   - Option A: Create `docs/PR_LABELS.md` with comprehensive PR label guidance
+   - Option A: Create `docs/LABELING.md` with comprehensive PR label guidance
      - Include: label families, colors, automation rules, one-hot enforcement, examples
      - Base on existing guidance scattered across multiple files
    - Option B: Consolidate into `docs/LABELING.md` if it already covers PR labels
@@ -361,7 +361,7 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
 |--------|-------|
 | Files audited | 5 |
 | Files with duplicates | 2 (PULL_REQUEST_TEMPLATE/README.md footer 3x, PR_CREATION_PROCESS.md template table) |
-| Missing files | 1 (`docs/PR_LABELS.md`) |
+| Missing files | 1 (`docs/LABELING.md`) |
 | Broken references | 4 (3 to missing PR_LABELS.md, 1 to consolidated ISSUE_LABELS.md) |
 | Overlapping content areas | 4 (branch naming, template selection, labels, review lifecycle) |
 | Total lines across all files | ~822 |
@@ -373,7 +373,7 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
 
 1. **Phase 1 (Immediate - Wave 5.3):**
    - [ ] Fix `.github/PULL_REQUEST_TEMPLATE/README.md` duplicate footer
-   - [ ] Decide: create `docs/PR_LABELS.md` OR consolidate into `docs/LABELING.md`
+   - [ ] Decide: create `docs/LABELING.md` OR consolidate into `docs/LABELING.md`
    - [ ] Update all broken references to PR_LABELS.md
    - [ ] Update reference to ISSUE_LABELS.md → LABELING.md
 

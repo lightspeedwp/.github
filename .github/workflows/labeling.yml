@@ -50,7 +50,7 @@ jobs:
   labeling:
     name: Unified Labeling, Status, and Type Assignment
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[skip labeling]')"
+    if: "(github.event.pull_request.draft == false || github.event_name != 'pull_request') && !contains(github.event.head_commit.message, '[skip labeling]')"
 
     steps:
       - name: Checkout code

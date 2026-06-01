@@ -2,9 +2,9 @@
 title: Label Inventory — Complete Reference
 description: Complete inventory of all 150+ canonical labels organized by semantic family, with color codes, descriptions, and usage guidance
 file_type: documentation
-version: v1.0.0
+version: v1.1.0
 created_date: '2026-05-31'
-last_updated: '2026-05-31'
+last_updated: '2026-06-01'
 authors:
   - Claude Code
   - LightSpeed Team
@@ -18,16 +18,15 @@ tags:
   - reference
   - canonical-config
 domain: governance
-status: stable
-language: en
+status: active
 stability: stable
 ---
 
 # Label Inventory — Complete Reference
 
-**Version**: v1.0.0  
+**Version**: v1.1.0  
 **Created**: 2026-05-31  
-**Last Updated**: 2026-05-31  
+**Last Updated**: 2026-06-01  
 **Total Labels**: 150+
 
 This document provides a complete inventory of all canonical labels organized by semantic family. Use this as a reference when:
@@ -90,12 +89,15 @@ Labels classifying the type of work. Assign exactly one per issue.
 | `type:task` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | Task or to-do | Task | Default for untyped work |
 | `type:bug` | ![Red label](https://via.placeholder.com/20/9F3734?text=+) 9F3734 | Bug or defect | Bug | Broken/incorrect behaviour |
 | `type:feature` | ![Medium green label](https://via.placeholder.com/20/3FB950?text=+) 3FB950 | Feature or enhancement | Feature | New capability |
+| `type:enhancement` | ![Medium green label](https://via.placeholder.com/20/3FB950?text=+) 3FB950 | Enhancement/alias for improve | Feature | Alias for improve; enhancement to existing feature |
 | `type:design` | ![Lavender label](https://via.placeholder.com/20/AB7DF8?text=+) AB7DF8 | Design work | Design | Design artefacts/decisions |
+| `type:ui` | ![Lavender label](https://via.placeholder.com/20/AB7DF8?text=+) AB7DF8 | UI implementation | Design | UI consistency, implementation |
 | `type:epic` | ![Lavender label](https://via.placeholder.com/20/AB7DF8?text=+) AB7DF8 | Large multi-scope initiative | Task | Parent issue for stories/tasks |
 | `type:story` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | User story | Task | User-centred vertical slice |
-| `type:improve` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Improvement to existing behaviour/UX | Task | Enhance existing feature |
-| `type:refactor` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Refactor or internal change | Task | Internal restructure; no UX change |
+| `type:improve` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Improvement to existing behaviour/UX | Feature | Enhance existing feature |
+| `type:refactor` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Refactor or internal change | Chore | Internal restructure; no UX change |
 | `type:build` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | Build & CI | Task | Build pipelines, tooling |
+| `type:ci` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | CI/CD pipelines | Automation | CI/CD infrastructure |
 | `type:automation` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | Automation | Automation | Bots, actions, scripts |
 | `type:test` | ![Orange label](https://via.placeholder.com/20/D29922?text=+) D29922 | Testing/coverage | Automation | Testing, test coverage |
 | `type:performance` | ![Orange label](https://via.placeholder.com/20/D29922?text=+) D29922 | Performance improvement | Task | Speed, efficiency optimisation |
@@ -103,10 +105,12 @@ Labels classifying the type of work. Assign exactly one per issue.
 | `type:security` | ![Red label](https://via.placeholder.com/20/9F3734?text=+) 9F3734 | Security issue | Bug | Security concern/hardening |
 | `type:compatibility` | ![Brown label](https://via.placeholder.com/20/8D4821?text=+) 8D4821 | Compatibility | Task | Browser/device/plugin compatibility |
 | `type:integration` | ![Brown label](https://via.placeholder.com/20/8D4821?text=+) 8D4821 | Integration | Task | External system integration |
+| `type:dependency` | ![Brown label](https://via.placeholder.com/20/8D4821?text=+) 8D4821 | Dependency update | Integration | Dependency updates, version management |
 | `type:release` | ![Medium green label](https://via.placeholder.com/20/3FB950?text=+) 3FB950 | Release | Release | Release planning/management |
 | `type:maintenance` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Maintenance | Task | Routine maintenance, updates |
 | `type:documentation` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Documentation | Documentation | Docs, guides, specifications |
 | `type:research` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Research / investigation | Task | Investigation, POC, spike |
+| `type:investigation` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Investigation | Research | Issue diagnosis, root cause analysis |
 | `type:chore` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Chore / small hygiene change | Task | Hygiene change, typos, config |
 | `type:audit` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Audit | Task | Security/code/process audit |
 | `type:qa` | ![Orange label](https://via.placeholder.com/20/D29922?text=+) D29922 | Quality assurance | Automation | QA/testing work |
