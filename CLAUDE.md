@@ -46,8 +46,8 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
 
 ### Protected Branches
 
-- `main` is **always production-ready**. Never push to `main` unless performing a **release cycle**.
-- `develop` (if used) is an integration branch. Never push to `develop` outside release/hotfix workflows.
+- `main` is **always production-ready**. Never push directly to `main` unless performing a **release cycle**.
+- `develop` (if used) is an integration branch. Never push directly to `develop` outside release/hotfix workflows.
 - All other work goes to feature/fix/chore branches.
 
 ### Branch Naming Convention
