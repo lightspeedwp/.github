@@ -1,20 +1,27 @@
 # 🧪 LightSpeedWP Testing Framework
 
 <!-- BADGES-START -->
-
-[![changelog](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml)
+[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
+[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
+[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
+[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
+[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
 [![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
 [![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
 [![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
 [![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
+[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
 [![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
 [![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
+[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
 [![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
+[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
+[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
+[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
 [![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
 [![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
 [![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
 [![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-
 <!-- BADGES-END -->
 
 ## Metadata
@@ -25,7 +32,7 @@
 | Version        | 2.2.0                                                                                                                                                                                                                                                                                                                                      |
 | Last Updated   | 2025-10-25                                                                                                                                                                                                                                                                                                                                 |
 | Owners         | Ash Shaw; LightSpeedWP QA                                                                                                                                                                                                                                                                                                                  |
-| Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md), [`test-helper.bash`](./test-helper.bash), [`coverage/README.md`](../coverage/README.md), [`scripts/README.md`](../scripts/README.md), [`../.schemas/README.md`](../.schemas/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
+| Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md), [`test-helper.bash`](./test-helper.bash), [`coverage/README.md`](../coverage/README.md), [`scripts/README.md`](../scripts/README.md), [`../schema/README.md`](../schema/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
 ![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
@@ -42,6 +49,8 @@ Comprehensive automated tests for the LightSpeedWP automation project. Suites sp
 
 ```mermaid
 graph TB
+accTitle: "Testing framework architecture"
+accDescr: "Comprehensive testing framework showing Bats and Jest testing integration with coverage reporting, test helpers, and connections to CI/CD pipeline, pre-commit hooks, and manual testing workflows."
     A[Testing Framework] --> B[Bats Testing]
     A --> C[Jest Testing]
     A --> D[Coverage Reporting]
@@ -166,6 +175,8 @@ Add new tests by placing `.bats` or `.test.js` files following existing naming p
 
 ```mermaid
 sequenceDiagram
+accTitle: "Test execution workflow sequence"
+accDescr: "Sequential workflow showing developer executing test runner, running Bats shell tests and Jest JavaScript tests, generating coverage reports, uploading to CI/CD pipeline, and receiving comprehensive test automation results."
     participant Dev as Developer
     participant Runner as Test Runner
     participant Bats as Bats Framework
@@ -191,6 +202,8 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
+accTitle: "Test coverage analysis and quality gates flow"
+accDescr: "Comprehensive flow showing test execution branching by type, coverage collection from Bats and Jest tests, coverage analysis against thresholds, with success reporting and quality gate failure handling."
     A[Test Execution] --> B{Test Type}
     B -->|Shell Scripts| C[Bats Testing]
     B -->|JavaScript| D[Jest Testing]
@@ -317,9 +330,9 @@ npm ci
 #### Related Project Documentation
 
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
-- [Schema Validation](../.schemas/README.md) — JSON schema validation and configuration
-- [CodeRabbit Schemas](../.schemas/coderabbit/README.md) — AI code review configuration schemas
-- [WordPress Automation Schemas](../.schemas/header-footer-agent/README.md) — WordPress theme automation schemas
+- [Schema Validation](../schema/README.md) — JSON schema validation and configuration
+- [CodeRabbit Schemas](../schema/coderabbit/README.md) — AI code review configuration schemas
+- [WordPress Automation Schemas](../schema/header-footer-agent/README.md) — WordPress theme automation schemas
 - [Coverage Reports](../coverage/README.md) — Test coverage reporting and analysis
 - [HTML Coverage Reports](../coverage/lcov-report/README.md) — Interactive coverage visualization
 
@@ -333,9 +346,11 @@ npm ci
 
 ---
 
-*🧪 Ensuring quality through comprehensive testing and continuous coverage validation.*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-<!-- RANDOM FOOTER: 🧪 Docs signed by Copilot for LightSpeedWP -->
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

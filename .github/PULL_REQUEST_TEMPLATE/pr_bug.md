@@ -1,8 +1,10 @@
 ---
-name: "Bugfix PR"
-about: "Fix a defect/regression with clear repro, fix, and verification"
-title: "fix: {short summary}"
-labels: ["status:needs-review", "priority:normal"]
+file_type: "pr-template"
+title: "PR Template - BUG"
+description: "Pull request template for BUG changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Bugfix Pull Request
@@ -53,7 +55,7 @@ Fixes #
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+User-facing notes only. Internal-only PRs (rare) may use the `meta:no-changelog` label.
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
@@ -84,7 +86,7 @@ Example:
 -->
 
 <!--
-If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+If no user-facing changelog entry is needed, apply the `meta:no-changelog` label to this PR.
 -->
 
 ---

@@ -1,11 +1,13 @@
 ---
-title: "Instruction Consolidation Migration Guide (v2.0)"
-description: "Migration guide for 22 instruction files → 5 consolidated instruction files. Maps old files to new sections."
-version: "1.0"
-created_date: "2025-12-07"
-last_updated: "2025-12-07"
-authors: ["LightSpeed Team"]
-status: "active"
+title: Instruction Consolidation Migration Guide (v2.0)
+description: Migration guide for 22 instruction files → 5 consolidated instruction
+  files. Maps old files to new sections.
+version: '1.1'
+created_date: '2025-12-07'
+last_updated: '2026-05-29'
+authors:
+- LightSpeed Team
+status: active
 ---
 
 # Instruction Consolidation Migration Guide
@@ -326,8 +328,3 @@ cp -r .github/instructions/.archive/* .github/instructions/
 | 2025-12-07 | Initial migration guide created. 22 files consolidated into 5. |
 
 ---
-
-*This migration improves maintainability by consolidating related topics. All content is preserved; only organization has changed.*
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

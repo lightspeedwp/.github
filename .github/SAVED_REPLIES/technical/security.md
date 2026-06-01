@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Security Saved Reply"
 description: "Response for security concerns, vulnerabilities, or sensitive data."
 category: "Technical"

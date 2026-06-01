@@ -1,13 +1,16 @@
 ---
 title: "Archive Directory"
-description: "Contains outdated or superseded documentation files preserved for historical reference"
-version: "1.0"
+description: "Contains outdated or superseded documentation files preserved for historical reference. Archives deprecated instruction files, migration guides, and backup files."
+file_type: documentation
+version: v1.1
+last_updated: "2026-06-01"
 created_date: "2025-12-08"
-last_updated: "2025-12-08"
 authors: ["LightSpeed Team"]
-file_type: "documentation"
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+tags: ["archive", "documentation", "historical"]
 domain: "governance"
-status: "archived"
+stability: "incubating"
 ---
 
 # Archive Directory

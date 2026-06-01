@@ -1,30 +1,27 @@
 ---
-title: "LightSpeed Community Health & Automation Repository"
-description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
-version: "2.0"
-created_date: "2025-01-10"
-last_updated: "2026-05-18"
-file_type: "documentation"
-maintainer: "LightSpeed Team"
-authors: ["LightSpeed Team"]
-license: "GPL-3.0"
+file_type: documentation
+title: LightSpeed Community Health & Automation Repository
+description: Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution.
+version: '2.7'
+last_updated: '2026-06-01'
+owners:
+  - LightSpeed Team
 tags:
-  ["community-health", "automation", "governance", "labels", "workflows", "ai"]
-domain: "governance"
-stability: "stable"
-references:
-  - path: ".github/custom-instructions.md"
-    description: "Custom instructions for GitHub Copilot"
-  - path: "instructions/coding-standards.instructions.md"
-    description: "Unified coding standards"
-  - path: "instructions/automation.instructions.md"
-    description: "Automation and agent standards"
+  - community-health
+  - automation
+  - governance
+  - labels
+  - workflows
+status: active
+stability: stable
+domain: governance
+language: en
 ---
 
 # 🏠 LightSpeed Community Health & Automation Repository
 
-[![Test Coverage](https://img.shields.io/badge/coverage-auto-blue)](./tests/TEST_COVERAGE_SUMMARY.md)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Test Coverage](https://img.shields.io/badge/coverage-auto-blue)](./tests/README.md)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](./LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/lightspeedwp/.github/actions)
 [![Documentation](https://img.shields.io/badge/docs-comprehensive-informational)](./docs/README.md)
 [![AI Integration](https://img.shields.io/badge/AI-enhanced-purple)](./AGENTS.md)
@@ -44,6 +41,10 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 
 ### 🤖 AI & Automation
 
+- [ai/agents.md](./ai/agents.md) - Canonical AI agent sources and policy map
+- [ai/Claude.md](./ai/Claude.md) - Canonical Claude reference
+- [ai/Gemini.md](./ai/Gemini.md) - Canonical Gemini reference
+- [ai/RUNNERS.md](./ai/RUNNERS.md) - Runner inventory and telemetry hooks
 - [AGENTS.md](./AGENTS.md) - Global AI rules and agent overview
 - [.github/custom-instructions.md](./.github/custom-instructions.md) - Copilot configuration
 - [agents/agent.md](agents/agent.md) - Agent specifications
@@ -51,7 +52,7 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 
 ### Portable AI Source Folders
 
-- [.schemas/README.md](./.schemas/README.md) - Portable schema ownership
+- [schema/README.md](./schema/README.md) - Portable schema ownership
 - [agents/README.md](./agents/README.md) - Portable agent specs
 - [cookbook/README.md](./cookbook/README.md) - Recipes and examples
 - [hooks/README.md](./hooks/README.md) - Hooks and guardrails
@@ -355,6 +356,8 @@ This comprehensive workflow diagram illustrates the complete ecosystem of the Li
 
 ```mermaid
 flowchart TB
+accTitle: "Repository ecosystem overview"
+accDescr: "Comprehensive view of the .github repository ecosystem, showing core structure, automation pipelines, quality gates, and organization-wide impact across all component areas."
     subgraph "📁 Core Repository Structure"
         A[🏠 .github Repository]
         B[📋 Community Health Files]
@@ -423,6 +426,8 @@ flowchart TB
 
 ```mermaid
 stateDiagram-v2
+accTitle: "Repository maintenance and update state machine"
+accDescr: "State diagram showing the content update lifecycle from initial content updates through validation, testing, quality checks, review, approval, and deployment with org-wide synchronization."
     [*] --> ContentUpdate
     ContentUpdate --> ValidationPending
     ValidationPending --> TestsRunning
@@ -452,7 +457,7 @@ All code quality, formatting, and automation standards are documented and enforc
 
 - [LINTING.md](./docs/LINTING.md) — Main linting strategy, tool configuration, and automation
 - [HUSKY_PRECOMMITS.md](./docs/HUSKY_PRECOMMITS.md) — Pre-commit hook and automation details
-- [docs/config/](./docs/config/) — All configuration file documentation (ESLint, Prettier, Stylelint, Playwright, Jest, npm scripts, etc.)
+- [docs/CONFIGS.md](./docs/CONFIGS.md) — Configuration file documentation (ESLint, Prettier, Stylelint, Playwright, Jest, npm scripts, etc.)
 
 ### Local Linting & Formatting
 
@@ -469,6 +474,8 @@ All code quality, formatting, and automation standards are documented and enforc
 
 ```mermaid
 flowchart LR
+accTitle: "Testing architecture and quality gates"
+accDescr: "Testing architecture showing test types, tools, and quality gates with relationships between unit tests, integration tests, end-to-end tests, and coverage reporting through Jest, Playwright, Bats, and coverage tools."
     subgraph "🧪 Test Types"
         A[Unit Tests]
         B[Integration Tests]
@@ -522,8 +529,8 @@ flowchart LR
 
 ### Troubleshooting & Updates
 
-- For troubleshooting, see [docs/LINTING.md](./docs/LINTING.md) and [docs/config/](./docs/config/).
-- To update rules, edit the relevant config in `docs/config/` and update npm scripts as needed.
+- For troubleshooting, see [docs/LINTING.md](./docs/LINTING.md) and [docs/CONFIGS.md](./docs/CONFIGS.md).
+- To update rules, edit the relevant configuration file and update npm scripts as needed.
 
 ---
 
@@ -553,22 +560,22 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 
 - [labels.yml](./.github/labels.yml) – **Canonical label definitions** for all issues and PRs.
 - [labeler.yml](./.github/labeler.yml) – Automated file/branch-based label application.
-- [ISSUE_LABELS.md](./.docs/ISSUE_LABELS.md) – Issue label documentation.
-- [PR_LABELS.md](./.docs/PR_LABELS.md) – PR label documentation.
+- [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md) – Issue label documentation.
+- [PR_LABELS.md](./docs/PR_LABELS.md) – PR label documentation.
 
 ### Issue Types & Templates
 
 - [issue-types.yml](./.github/issue-types.yml) – **Canonical issue types** for automation and triage.
 - [ISSUE_TYPES.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/ISSUE_TYPES.md) – Issue type documentation.
 - [Saved replies for issues](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/README.md)
-- [Bug report saved reply](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/bug-reports.md)
-- [Issue templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/ISSUE_TEMPLATES)
+- [Bug report saved reply](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/issues/bug-reports.md)
+- [Issue templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/ISSUE_TEMPLATE)
 
 ### Pull Request Templates
 
-- [PR templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATES)
+- [PR templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATE)
 - [PR_LABELS.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/PR_LABELS.md)
-- [Pull Request Template (main)](./.github/PULL_REQUEST_TEMPLATE.md)
+- [Pull Request Template (main)](./.github/pull_request_template.md)
 
 ### Workflows & Automation
 
@@ -600,7 +607,7 @@ This repository will include and orchestrate org-wide agents for managing issue 
 
 - **Agents:** Configurations, prompts, and agent instructions live here.
 - **Integration:** All project boards and workflows reference canonical files here for automated syncing and status tracking.
-- **Governance:** [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/.github/AUTOMATION_GOVERNANCE.md) details how agents and workflows are managed, updated, and rolled out org-wide.
+- **Governance:** [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) details how agents and workflows are managed, updated, and rolled out org-wide.
 
 ---
 
@@ -629,6 +636,9 @@ All LightSpeed repositories should:
 ## Consumer Guide: Reusing Workflows and Syncing Labels
 
 This section provides practical examples for consuming repositories to adopt LightSpeed organization standards.
+
+For the canonical adoption policy and end-to-end checklist, use
+[`docs/SHARED_GITHUB_ADOPTION_GUIDE.md`](./docs/SHARED_GITHUB_ADOPTION_GUIDE.md).
 
 ### 1. Syncing Labels from Canonical Source
 
@@ -952,14 +962,17 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 ---
 
-**🏠 This repository is managed by the LightSpeed team. All organizational automation, policy, and documentation updates are maintained here.**
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
 
-**📧 Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new) or [start a discussion](https://github.com/lightspeedwp/.github/discussions/new)
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
 
-<!-- RANDOM FOOTER: 🚀 Built by LightSpeedWP with ☕, 🚀, and open-source spirit! -->
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

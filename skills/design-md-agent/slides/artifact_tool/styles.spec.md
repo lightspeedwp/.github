@@ -92,23 +92,3 @@ subtitle.style = "heading2"
 ```
 
 ---
-
-### Style semantics (important)
-
-- **Paragraph scope**: assigning `range.style = "heading1"` applies to the whole paragraph containing that range.
-- **Resetting**: setting a style clears existing inline overrides inside that paragraph (bold/color/etc).
-- **Overrides after style**: inline formatting applied *after* the style assignment overrides the style defaults locally.
-
-Example from tests:
-
-```python
-shape.text = "Quarterly Business Review"
-
-# Apply heading style to a sub-range (paragraph becomes heading1).
-shape.text.get("Business").style = "heading1"
-
-# Inline override after the style:
-review = shape.text.get("Review")
-review.bold = True
-review.color = "accent2"
-```

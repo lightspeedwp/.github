@@ -1,5 +1,5 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Agent Infrastructure Audit Report"
 description: "Comprehensive audit of .github repository structure: agents, instructions, workflows, and scripts mapping"
 category: "audits"

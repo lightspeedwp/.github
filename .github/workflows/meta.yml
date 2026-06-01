@@ -31,18 +31,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Validate Front Matter
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate frontmatter freshness
         run: |
-          npm i -g ajv-cli
           if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            BASE_REF="${{ github.base_ref }}"
-            HEAD_REF="${{ github.sha }}"
+            BASE_REF="${{ github.event.pull_request.base.sha }}"
+            HEAD_REF="${{ github.event.pull_request.head.sha }}"
           elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
             BASE_REF="${{ github.event.before }}"
             HEAD_REF="${{ github.sha }}"
@@ -50,16 +54,14 @@ jobs:
             BASE_REF="HEAD~1"
             HEAD_REF="${{ github.sha }}"
           fi
-          npm install --prefix scripts js-yaml ajv
-          FILES=$(git diff --name-only ${{ github.sha }} ${{ github.base_ref || 'HEAD~1' }} | grep -E '\.md$' || true)
-          for f in $FILES; do
-            node scripts/validate-frontmatter.js "$f"
-          done
+          npm run validate:frontmatter:changed -- --base "$BASE_REF" --head "$HEAD_REF"
 
   lint-and-links:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -91,10 +93,44 @@ jobs:
 
           npx markdownlint-cli2 $FILES
 
+      - name: Collect Link Targets
+        id: link_targets
+        run: |
+          set -euo pipefail
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          elif [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            BASE_SHA="${{ github.event.before }}"
+            HEAD_SHA="${{ github.sha }}"
+          else
+            echo "files=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          CHANGED_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx')
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "files=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          LINK_FILES=""
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            if grep -Eq 'https?://|www\.|mailto:|^\[[^]]+\]:\s*https?://' "$file"; then
+              LINK_FILES="${LINK_FILES}${file} "
+            fi
+          done <<EOF
+          $CHANGED_FILES
+          EOF
+
+          echo "files=${LINK_FILES}" >> "$GITHUB_OUTPUT"
+
       - name: Check Links
+        if: steps.link_targets.outputs.files != ''
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --verbose --exclude-mail ${{ github.workspace }}/README.md
+          args: --no-progress --verbose ${{ steps.link_targets.outputs.files }}
 
   apply-meta:
     if: ${{ github.event_name != 'pull_request' }}
@@ -109,6 +145,8 @@ jobs:
           node-version: "20"
 
       - name: Run Meta Agent
+        env:
+          META_SKIP_README: "true"
         run: |
           node scripts/agents/meta.agent.js
 

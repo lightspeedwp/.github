@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed WordPress Governance Checks
+  short_description: Run governance checks for WordPress repositories covering standards, labeling, and release hygiene.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - codex
+  allow_implicit_invocation: true
+  compatibility_mode: legacy-compatible

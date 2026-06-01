@@ -88,11 +88,3 @@ If you ever need to convert image pixel coordinates (top-left origin) to PDF pt 
 `box_picker_html.py` performs this conversion automatically.
 
 ---
-
-## Correctness checklist
-
-- [ ] Preview overlay aligns with the intended boxes
-- [ ] Text is not clipped (try slightly smaller font or `fit: "shrink_to_fit"`)
-- [ ] Checkmarks align with squares
-- [ ] Re-rendered final output matches the preview
-- [ ] If the PDF uses CropBox trim, confirm you're targeting the correct box (see `tasks/coords.md`)

@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Implementation Plan Generator
+  short_description: Generates implementation plans aligned with approved requirements and design outputs.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - copilot
+  allow_implicit_invocation: true
+  compatibility_mode: standard

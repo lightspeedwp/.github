@@ -148,15 +148,3 @@ shape.text = block
 ```
 
 ---
-
-### Manual run selection (for scripts / tool calls)
-
-You can select explicit run ranges when you already know indices:
-
-```python
-selection = shape.text.select_run_ranges([
-  { "paragraph_index": 0, "run_index": 0, "start": 0, "end": 5 },
-])
-selection.bold = True
-selection.color = "#FF6600"
-```

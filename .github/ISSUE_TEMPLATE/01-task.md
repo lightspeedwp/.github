@@ -1,12 +1,10 @@
 ---
+file_type: "issue-template"
 name: "📝 Task"
-about: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
-title: "[Task] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
-assignees: []
-projects: []
-milestone: ""
-file_type: task
+description: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 ## Task Summary

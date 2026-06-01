@@ -1,0 +1,143 @@
+# Shared .github Adoption Guide
+
+## Purpose
+
+This guide explains how consuming repositories should adopt shared `.github` defaults from `lightspeedwp/.github` without copying repo-local control-plane files.
+
+It is designed to answer four questions quickly:
+
+1. What should I adopt?
+2. What should I leave in the control-plane repo?
+3. Where do files go?
+4. How do I update safely later?
+
+## Audience
+
+Use this guide if you maintain a LightSpeed repository that needs consistent issue templates, pull request templates, labels, and governance defaults.
+
+Do not use this guide to move or copy portable AI source assets (agents, instructions, skills, hooks, schemas, workflows) from this repository. Those belong in top-level source folders and should be consumed through their own distribution path.
+
+## Scope And Boundaries
+
+Boundary decisions in this guide follow:
+
+- `AGENTS.md`
+- `.github/custom-instructions.md`
+- `instructions/file-organisation.instructions.md`
+
+Default rule:
+
+- If an asset is GitHub-native governance or community-health, it is usually adoptable.
+- If an asset is repo control-plane, reports, active project planning, or repo-local instruction content, it stays in `lightspeedwp/.github`.
+
+## Adoption Policy
+
+### Required
+
+| Asset group | Source path in `lightspeedwp/.github` | Destination in consuming repo | Why required |
+| --- | --- | --- | --- |
+| Issue templates | `.github/ISSUE_TEMPLATE/` | `.github/ISSUE_TEMPLATE/` | Standardises issue capture and triage fields. |
+| Pull request template | `.github/PULL_REQUEST_TEMPLATE.md` and optional `.github/PULL_REQUEST_TEMPLATE/` | `.github/` and `.github/PULL_REQUEST_TEMPLATE/` | Keeps review and risk checks consistent. |
+| Community files | `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`, `SUPPORT.md` | repo root | Sets contributor and support expectations. |
+
+### Recommended
+
+| Asset group | Source path in `lightspeedwp/.github` | Destination in consuming repo | Why recommended |
+| --- | --- | --- | --- |
+| Labels baseline | `.github/labels.yml` | `.github/labels.yml` | Keeps taxonomy aligned for triage and automation. |
+| Labeler rules | `.github/labeler.yml` | `.github/labeler.yml` | Enables path-based label automation. |
+| Issue type mapping | `.github/issue-types.yml` | `.github/issue-types.yml` | Aligns issue-type governance with templates. |
+| Label sync workflow caller | `workflows` guidance only | `.github/workflows/label-sync.yml` | Gives repeatable updates for labels with low effort. |
+
+### Optional
+
+| Asset group | Source path in `lightspeedwp/.github` | Destination in consuming repo | Why optional |
+| --- | --- | --- | --- |
+| Saved replies | `.github/SAVED_REPLIES/` | `.github/SAVED_REPLIES/` | Useful for triage speed, but repo teams may prefer local tone. |
+| Additional docs references | `docs/` selected files | `docs/` or links only | Helpful for onboarding, not mandatory for operation. |
+
+### Repo-local only (do not copy)
+
+| Asset group | Source path in `lightspeedwp/.github` | Rule |
+| --- | --- | --- |
+| GitHub control-plane workflows | `.github/workflows/` (except explicitly reusable caller files) | Keep local to control-plane unless workflow is explicitly designed for cross-repo use. |
+| Active project planning | `.github/projects/` | Control-plane planning artefacts only. |
+| Reports and audits | `.github/reports/` | Local evidence and governance history. |
+| Repo-local instructions and prompts | `.github/instructions/`, `.github/prompts/` | Maintain only in control-plane unless separately productised. |
+| Temporary and scratch output | `.github/tmp/` | Never copy. |
+
+## New Repository Adoption Workflow
+
+1. Create `.github/` in the target repository if missing.
+2. Copy required asset groups first.
+3. Copy recommended assets if the repository uses label automation and issue type governance.
+4. Add optional assets only where the repo owner confirms local value.
+5. Commit with a message such as `chore: adopt shared .github defaults`.
+6. Run the validation checklist in this guide.
+
+## Existing Repository Adoption Workflow
+
+1. Create a branch and inventory existing `.github` files.
+2. Diff each candidate source file against local target before copying.
+3. For templates and community files, merge local custom sections rather than blind overwrite.
+4. For labels and labeler config, review custom labels and mapping exceptions before sync.
+5. Apply required assets first, then recommended, then optional.
+6. Keep a short migration note in the PR describing local overrides retained.
+
+## Safe Update Workflow For Previously Adopted Files
+
+1. Pull latest changes from `lightspeedwp/.github`.
+2. Compare source and local files with `git diff --no-index` or equivalent diff tooling.
+3. Apply updates file-by-file, never as a bulk overwrite.
+4. Preserve repository-specific customisations in a clearly marked local section.
+5. Re-run validation checks and open a PR showing each changed file group.
+
+Suggested guardrail:
+
+- Treat copied files as local assets after adoption; they do not auto-sync.
+
+## Maintenance Ownership Model
+
+- Control-plane owners (`lightspeedwp/.github`) own the shared baseline and update intent.
+- Each consuming repository owns its adopted copy and any local override.
+- Consuming repository maintainers decide when to adopt upstream changes.
+- Consuming repository maintainers are responsible for validating templates, labels, and workflows after update.
+
+## Minimal Automation Decision
+
+Recommended approach: checklist plus one minimal helper for validation only.
+
+- Keep adoption itself documentation-first.
+- Allow one narrow validation helper in consuming repos to confirm required paths exist and known repo-local-only paths were not copied.
+- Avoid bootstrap or force-sync automation that can overwrite local customisations.
+
+Deferred ideas (not approved in this guide):
+
+- Full auto-copy bootstrap scripts.
+- Any sync automation that writes without a review diff.
+
+## Validation Checklist
+
+- Required assets are present at the correct destination paths.
+- Recommended assets are present where automation is expected.
+- Repo-local-only control-plane paths were not copied.
+- Existing local customisations remain intact.
+- Issue templates and pull request templates render correctly in GitHub UI.
+- Labels and issue type config pass repository checks.
+- Workflow references and permissions are valid for the consuming repository.
+
+## Rollback And Recovery
+
+If adoption causes problems:
+
+1. Revert the adoption commit in the consuming repository.
+2. Re-apply only required assets.
+3. Reintroduce recommended or optional groups one at a time.
+4. Document the incompatible file or rule as a follow-up issue.
+
+## Related References
+
+- `AGENTS.md`
+- `.github/custom-instructions.md`
+- `instructions/file-organisation.instructions.md`
+- `README.md` (consumer examples)

@@ -10,9 +10,9 @@ require('dotenv').config();
 module.exports = {
     // Switch to jsdom to provide window/localStorage, mitigating the SecurityError seen under node.
     testEnvironment: process.env.JEST_ENVIRONMENT || 'jsdom',
-    // Provide a setup file that polyfills localStorage (defensive if environment overridden).
+    // Provide setup files for global polyfills (TextDecoder, localStorage)
     setupFilesAfterEnv: [
-        '<rootDir>/.github/tests/jest.setup.localstorage.js',
+        '<rootDir>/tests/jest.setup.globals.js',
     ],
     globals: {
         'babel-jest': {
@@ -66,6 +66,7 @@ module.exports = {
         '<rootDir>/.vercel/',
         '<rootDir>/.netlify/',
         '<rootDir>/.storybook/',
+        '<rootDir>/.jest-skip/',
         '<rootDir>/docs/mustache-repo-templates/',
     ],
 };

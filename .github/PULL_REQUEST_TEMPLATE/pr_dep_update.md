@@ -1,8 +1,10 @@
 ---
-name: "Dependencies/Maintenance PR"
-about: "Routine upkeep: dependency bumps, lint/format, low-risk hygiene"
-title: "chore(deps): {packages}"
-labels: ["status:needs-review", "area:dependencies"]
+file_type: "pr-template"
+title: "PR Template - DEP_UPDATE"
+description: "Pull request template for DEP_UPDATE changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Dependencies / Maintenance Pull Request
@@ -43,7 +45,7 @@ Relates to #
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+User-facing notes only. Internal-only PRs (rare) may use the `meta:no-changelog` label.
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
@@ -74,7 +76,7 @@ Example:
 -->
 
 <!--
-If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+If no user-facing changelog entry is needed, apply the `meta:no-changelog` label to this PR.
 -->
 
 ---

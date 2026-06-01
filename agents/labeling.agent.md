@@ -1,38 +1,71 @@
 ---
-name: "Labeling"
-description: "Unified agent for dynamic, canonical, and automated labeling of issues and PRs. Handles status, type, priority, and project-field enforcement, label standardization, and migration based on .github/labels.yml."
-target: "github-copilot"
+title: Labeling
+description: Unified agent for dynamic, canonical, and automated labeling of issues
+  and PRs. Handles status, type, priority, and project-field enforcement, label standardization,
+  and migration based on .github/labels.yml.
+target: github-copilot
 handoffs:
-  - label: "Start Implementation"
-    agent: "implementation"
-    prompt: "Now implement the labeling changes outlined above."
-    send: false
-version: "v2.0"
-last_updated: "2025-11-20"
-author: "LightSpeedWP"
-maintainer: "Ash Shaw"
-file_type: "agent"
-category: "automation"
-status: "active"
-visibility: "public"
-tools:  ["file_system", "markdown_generator", "input_collector", "adr_naming_helper", "quality_checker", "template_filler", "context_analyzer", "decision_rationale_extractor", "alternative_evaluator", "consequence_analyzer", "implementation_planner", "reference_manager", "date_manager", "stakeholder_identifier", "status_manager", "tag_manager", "supersession_tracker", "yaml_front_matter_generator", "markdown_saver", "language_enforcer", "structure_enforcer", "completeness_verifier", "clarity_checker", "consistency_checker", "timeliness_checker", "connection_checker", "contextual_accuracy_checker", "github/*", "read", "search", "edit"]
+- label: Start Implementation
+  agent: implementation
+  prompt: Now implement the labeling changes outlined above.
+  send: false
+version: 'v2.2'
+last_updated: '2026-06-01'
+author: LightSpeedWP
+maintainer: Ash Shaw
+file_type: agent
+category: automation
+status: active
+visibility: public
+tools:
+- file_system
+- markdown_generator
+- input_collector
+- adr_naming_helper
+- quality_checker
+- template_filler
+- context_analyzer
+- decision_rationale_extractor
+- alternative_evaluator
+- consequence_analyzer
+- implementation_planner
+- reference_manager
+- date_manager
+- stakeholder_identifier
+- status_manager
+- tag_manager
+- supersession_tracker
+- yaml_front_matter_generator
+- markdown_saver
+- language_enforcer
+- structure_enforcer
+- completeness_verifier
+- clarity_checker
+- consistency_checker
+- timeliness_checker
+- connection_checker
+- contextual_accuracy_checker
+- github/*
+- read
+- search
+- edit
 permissions:
-  - "read"
-  - "write"
-  - "github:repo"
-  - "github:issues"
+- read
+- write
+- github:repo
+- github:issues
 tags:
-  [
-    "lightspeed",
-    "labeling",
-    "automation",
-    "canonical-labels",
-    "agents",
-    "github",
-  ]
-owners: ["lightspeedwp/maintainers"]
+- lightspeed
+- labeling
+- automation
+- canonical-labels
+- agents
+- github
+owners:
+- lightspeedwp/maintainers
 metadata:
-  guardrails: "Only apply types/labels from canonical configs, never overwrite without warning, validate content before labeling, and log every action."
+  guardrails: Only apply types/labels from canonical configs, never overwrite without
+    warning, validate content before labeling, and log every action.
 ---
 
 # LightSpeed Unified Labeling Agent
@@ -202,14 +235,3 @@ Maps issue template types to labels:
 ```
 
 ---
-
-## References
-
-- [labels.yml](../.github/labels.yml) - Canonical label definitions
-- [labeler.yml](../.github/labeler.yml) - Pattern-to-label rules
-- [issue-types.yml](../.github/issue-types.yml) - Template type mappings
-- [labeling.yml](../.github/workflows/labeling.yml) - GitHub Actions workflow
-- [labeling.agent.js](../../scripts/agents/labeling.agent.js) - Main implementation
-- [Labeling Documentation](../../docs/LABELING.md) - Complete labeling system docs
-- [Label Strategy](../../docs/LABEL_STRATEGY.md) - Label philosophy and best practices
-- [Coding Standards](../instructions/coding-standards.instructions.md) - Development guidelines

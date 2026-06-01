@@ -1,4 +1,6 @@
 ---
+file_type: "documentation"
+description: "Pull Request"
 name: "Pull Request"
 about: "General changes, refactors, and maintenance"
 title: "PR: {short summary}"
@@ -24,7 +26,7 @@ Closes #
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
+User-facing notes only. Internal-only PRs (rare) may use `meta:no-changelog`.
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
@@ -55,7 +57,8 @@ Example:
 -->
 
 <!--
-If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
+If no user-facing changelog entry is needed, apply `meta:no-changelog` to this PR.
+Do not apply `meta:no-changelog` to `type:feature`, `type:bug`, `type:performance`, `type:security`, `type:release`, or `type:hotfix`.
 -->
 
 ---
@@ -143,6 +146,8 @@ Include:
   - [ ] ARIA used only where needed
   - [ ] Contrast and non-colour cues reviewed (WCAG 2.2 AA)
 - [ ] Docs/readme/changelog updated (if user-facing)
+- [ ] Frontmatter updated where applicable (`last_updated` and `version`)
+- [ ] I have reviewed and applied the downstream override policy (or linked an approved exception)
 - [ ] Security checklist completed (where relevant):
   - [ ] Untrusted input validated and sanitised
   - [ ] Output escaped for its rendering context
@@ -161,7 +166,7 @@ Include:
 - [Branching Strategy](../docs/BRANCHING_STRATEGY.md)
 - [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
 - [PR Labels](../docs/PR_LABELS.md)
-- [Saved Replies](./SAVED_REPLIES.md)
+- [Saved Replies](./SAVED_REPLIES/README.md)
 - [Labeler Config](./labeler.yml)
 - [Labels](./labels.yml)
 - [Issue Types](./issue-types.yml)
