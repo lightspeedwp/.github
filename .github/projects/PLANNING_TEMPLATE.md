@@ -1,9 +1,10 @@
 ---
+file_type: documentation
 title: "Project Planning Template"
 description: "Use this template to document planning before creating related issues"
-file_type: "documentation"
-created_date: "YYYY-MM-DD"
-version: '1.0.1'
+created_date: "2026-05-31"
+last_updated: "2026-06-01"
+version: "1.0.1"
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp/maintainers"]
@@ -174,9 +175,9 @@ Brief 2-3 sentence summary of the project's purpose, scope, and business/technic
 
 **GitHub issues, PRs, discussions, or external links**
 
-- Related issue: [#123 - Issue title](https://github.com/lightspeedwp/.github/issues/123)
-- Blocking issue: [#124 - Issue title](https://github.com/lightspeedwp/.github/issues/124)
-- Blocked by: [#125 - Issue title](https://github.com/lightspeedwp/.github/issues/125)
+- Related issue: #XXX - [Issue title]
+- Blocking issue: #XXX - [Issue title]
+- Blocked by: #XXX - [Issue title]
 - Reference: [Link to spec, design doc, or external resource]
 
 ---

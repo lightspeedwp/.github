@@ -1,6 +1,6 @@
 ---
 issue_number: 652
-file_type: "project"
+file_type: documentation
 description: "Comprehensive audit of README files, Mermaid diagrams, and accessibility compliance"
 title: "[Audit] 44 README Files - Mermaid Diagrams & Accessibility Review"
 type: "type:audit"
@@ -8,7 +8,7 @@ area:
   - "area:documentation"
   - "area:a11y"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "XL"
 children:
   - "4.1-discover-audit-readmes"

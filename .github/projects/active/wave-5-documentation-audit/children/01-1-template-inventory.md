@@ -1,13 +1,13 @@
 ---
 issue_number: 654
-file_type: "task"
+file_type: documentation
 description: "Inventory and audit of issue templates for standardization"
 parent_issue: 649
 title: "[Child of #649] Audit: Issue Template Inventory & Standardization"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "S"
 ---
 

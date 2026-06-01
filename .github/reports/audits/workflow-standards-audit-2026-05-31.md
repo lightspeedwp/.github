@@ -1,7 +1,7 @@
 ---
 title: "Workflow Standards Audit & Improvement Plan"
 description: "Comprehensive audit of linting, meta, branding, and CI/CD workflows with improvement plan"
-file_type: "audit"
+file_type: documentation
 created_date: "2026-05-31"
 ---
 

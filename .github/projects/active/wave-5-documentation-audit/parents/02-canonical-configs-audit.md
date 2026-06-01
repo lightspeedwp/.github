@@ -1,6 +1,6 @@
 ---
 issue_number: 650
-file_type: "project"
+file_type: documentation
 description: "Comprehensive audit of canonical configuration files and their relationships"
 title: "[Audit] Canonical Config Files (labels, issue-types, issue-fields)"
 type: "type:audit"
@@ -8,7 +8,7 @@ area:
   - "area:labels"
   - "area:automation"
 priority: "priority:important"
-status: "status:needs-triage"
+status: draft
 effort: "L"
 children:
   - "2.1-labels-color-consistency"
@@ -54,15 +54,15 @@ See child issues for detailed audits of:
 - `.github/issue-types.yml`
 - `.github/issue-fields.yml`
 - `docs/LABEL_STRATEGY.md`
-- `docs/ISSUE_LABELS.md`
+- `docs/LABELING.md`
 - `docs/ISSUE_TYPES.md`
 - `docs/ISSUE-FIELDS.md`
 
 ## Related Documentation
 
 - [Label Strategy](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md)
-- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_LABELS.md)
+- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md)
 - [Issue Types Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_TYPES.md)
 - [Issue Fields Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE-FIELDS.md)
-- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)
 - [Canonical Labels File](https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml)

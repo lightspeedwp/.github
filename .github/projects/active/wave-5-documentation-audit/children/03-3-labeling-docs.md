@@ -1,10 +1,10 @@
 ---
-file_type: "documentation"
+file_type: documentation
 title: "Labeling Documentation Consolidation Audit"
 description: "Complete audit of labeling documentation identifying consolidation opportunities and distributed responsibility"
-version: "v1.0"
+version: "v1.0.1"
 created_date: "2026-05-31"
-last_updated: '2026-06-01'
+last_updated: "2026-06-01"
 author: "Claude Code"
 maintainer: "LightSpeedWP Team"
 tags: ["documentation", "audit", "consolidation", "wave-5", "labeling"]
@@ -27,7 +27,7 @@ domain: "governance"
 Audited 4 labeling-related documentation files. Found:
 
 - **Distributed responsibility** across 4 files with overlapping coverage
-- **Missing files** (`docs/LABEL_STRATEGY.md`, `docs/PR_LABELS.md`, `docs/AUTOMATION_GOVERNANCE.md` referenced or expected but don't exist)
+- **Missing files** (`docs/LABEL_STRATEGY.md`, `docs/LABELING.md`, `docs/AUTOMATION.md` referenced or expected but don't exist)
 - **Significant duplication** between `docs/LABELING.md` and `instructions/labeling.instructions.md`
 - **Cross-references between files** create maintenance burden and inconsistency risk
 - **Fragmented guidance** on label application between LABELING.md and AUTOMATION.md
@@ -50,9 +50,9 @@ Audited 4 labeling-related documentation files. Found:
 | File | Status | Impact |
 |------|--------|--------|
 | `docs/LABEL_STRATEGY.md` | ❌ Missing | No separate strategy doc (covered in LABELING.md) |
-| `docs/ISSUE_LABELS.md` | ❌ Deprecated | Consolidated into LABELING.md#issue-labelling (per Issue #662) |
-| `docs/PR_LABELS.md` | ❌ Missing | No separate PR labels doc (covered in LABELING.md#pull-request-labelling) |
-| `docs/AUTOMATION_GOVERNANCE.md` | ❌ Missing | Replaced by AUTOMATION.md (different name) |
+| `docs/LABELING.md` | ❌ Deprecated | Consolidated into LABELING.md#issue-labelling (per Issue #662) |
+| `docs/LABELING.md` | ❌ Missing | No separate PR labels doc (covered in LABELING.md#pull-request-labelling) |
+| `docs/AUTOMATION.md` | ❌ Missing | Replaced by AUTOMATION.md (different name) |
 
 ---
 
@@ -275,12 +275,12 @@ Audited 4 labeling-related documentation files. Found:
 
 ### Critical Gaps
 
-1. **No separate `docs/ISSUE_LABELS.md`**
+1. **No separate `docs/LABELING.md`**
    - Consolidated into `docs/LABELING.md#issue-labelling`
    - Any broken references should point to LABELING.md#issue-labelling
    - Similar pattern to Issue #662 finding
 
-2. **No separate `docs/PR_LABELS.md`**
+2. **No separate `docs/LABELING.md`**
    - Consolidated into `docs/LABELING.md#pull-request-labelling`
    - Found in Issue #663 audit as missing/needed
    - Recommendation: Consolidate PR labels into LABELING.md (already done) and update references
@@ -290,7 +290,7 @@ Audited 4 labeling-related documentation files. Found:
    - Content covered by LABELING.md (strategy, principles, families)
    - No action needed; file wasn't required
 
-4. **No `docs/AUTOMATION_GOVERNANCE.md`**
+4. **No `docs/AUTOMATION.md`**
    - Scope mentions this; actually called `docs/AUTOMATION.md`
    - Naming inconsistency but file exists
 
@@ -326,7 +326,7 @@ Audited 4 labeling-related documentation files. Found:
    - Example: "See LABELING.md#Issue_Labelling for detailed requirements"
 
 3. **Verify all references to missing files**
-   - Check for broken references to `docs/ISSUE_LABELS.md`, `docs/PR_LABELS.md`
+   - Check for broken references to `docs/LABELING.md`, `docs/LABELING.md`
    - Update any found to point to `docs/LABELING.md#issue-labelling` or `#pull-request-labelling`
    - Mark in DEPRECATED.md if these were ever separate files
 

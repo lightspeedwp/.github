@@ -1,13 +1,13 @@
 ---
 issue_number: 672
-file_type: "task"
+file_type: documentation
 description: "Audit agent and script file migration status"
 parent_issue: 653
 title: "[Child of #653] Audit: Agent & Script Files - Migration Status"
 type: "type:audit"
 area: "area:core"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 ---
 

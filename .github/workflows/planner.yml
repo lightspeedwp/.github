@@ -4,6 +4,7 @@ on:
   push:
     branches: [develop]
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     branches: [develop]
 
 permissions:
@@ -14,6 +15,7 @@ permissions:
 jobs:
   planner:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false || github.event_name == 'push'
     steps:
       - uses: actions/checkout@v4
 
