@@ -3,8 +3,8 @@ file_type: instructions
 title: .github Instructions Boundary
 description: Repo-local index for instructions that remain under the .github control-plane
   boundary.
-version: v0.2.0
-last_updated: '2026-05-31'
+version: 'v0.2.1'
+last_updated: '2026-06-01'
 maintainer: LightSpeed Team
 authors:
 - Codex

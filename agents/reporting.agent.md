@@ -4,9 +4,9 @@ description: Interactive agent for creating, organising, and maintaining reports
   progress updates following LightSpeed standards. Guides users through report creation
   with proper structure and categorisation.
 file_type: agent
-version: v1.2
+version: 'v1.3'
 created_date: '2025-11-26'
-last_updated: '2026-05-29'
+last_updated: '2026-06-01'
 author: LightSpeed Team
 mode: conversation
 model: claude-sonnet

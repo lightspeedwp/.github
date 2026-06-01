@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Portable Schemas"
 description: "Ownership index for portable schemas used by LightSpeed AI assets and plugin metadata."
-version: "v0.1.1"
-last_updated: "2026-05-31"
+version: 'v0.1.2'
+last_updated: '2026-06-01'
 maintainer: LightSpeed Team
 authors:
 - Codex

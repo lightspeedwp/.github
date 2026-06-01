@@ -2,7 +2,7 @@
 title: "WCEU 2026 Files Audit & Update Prompt"
 description: "Comprehensive audit of all files + recommended updates + systematic updating prompt"
 created_date: "2026-05-30"
-last_updated: "2026-05-30"
+last_updated: '2026-06-01'
 file_type: documentation
 owners: ["Ash Shaw"]
 tags: ["wceu-2026", "audit", "documentation"]

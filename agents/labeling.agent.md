@@ -9,8 +9,8 @@ handoffs:
   agent: implementation
   prompt: Now implement the labeling changes outlined above.
   send: false
-version: v2.1
-last_updated: '2026-05-29'
+version: 'v2.2'
+last_updated: '2026-06-01'
 author: LightSpeedWP
 maintainer: Ash Shaw
 file_type: agent

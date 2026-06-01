@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Canonical AI Operations Assets"
 description: "Central repository for canonical AI agent references and organization-wide AI configuration"
 status: "active"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 domain: "ai-operations"
 ---
 

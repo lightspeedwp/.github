@@ -3,7 +3,7 @@ file_type: "documentation"
 title: ".github Prompts Directory"
 description: "AI prompt templates and guidelines for automation, code review, and documentation generation"
 version: "v1.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 maintainer: "LightSpeed Team"
 tags: ["prompts", "ai", "automation", "templates"]
 ---

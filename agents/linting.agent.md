@@ -10,7 +10,7 @@ handoffs:
   prompt: Now fix all the lint issues identified in the analysis above.
   send: false
 version: v0.1.1
-last_updated: '2026-05-29'
+last_updated: '2026-06-01'
 author: LightSpeed
 maintainer: Ash Shaw
 file_type: agent

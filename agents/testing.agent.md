@@ -3,8 +3,8 @@ name: Testing
 title: 'Testing Agent: Test Execution and Coverage Analysis'
 description: Comprehensive test execution agent for running unit tests, integration
   tests, and generating coverage reports across all supported testing frameworks.
-version: v0.1.1
-last_updated: '2026-05-29'
+version: 'v0.1.2'
+last_updated: '2026-06-01'
 author: LightSpeed
 maintainer: Ash Shaw
 file_type: agent

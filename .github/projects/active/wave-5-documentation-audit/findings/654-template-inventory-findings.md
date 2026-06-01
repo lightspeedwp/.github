@@ -4,7 +4,7 @@ title: "Wave 5 Audit #654 Findings"
 description: "Template Inventory and Standardisation Audit findings"
 version: "1.2.1"
 created_date: "2026-05-31"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 language: "en-GB"
 status: "active"
 stability: "stable"
