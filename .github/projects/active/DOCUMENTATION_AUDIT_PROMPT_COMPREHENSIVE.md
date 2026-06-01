@@ -2,9 +2,9 @@
 file_type: documentation
 title: "Comprehensive Documentation & Automation Audit Prompt"
 description: "Detailed step-by-step prompt for creating GitHub issues to audit and fix documentation, templates, labeling, and automation systems"
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-05-31"
-last_updated: "2026-05-31"
+last_updated: "2026-06-01"
 status: active
 owners:
   - lightspeedwp/maintainers

@@ -3,7 +3,8 @@ file_type: documentation
 title: "Project Planning Template"
 description: "Use this template to document planning before creating related issues"
 created_date: "2026-05-31"
-version: "1.0.0"
+last_updated: "2026-06-01"
+version: "1.0.1"
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp/maintainers"]
