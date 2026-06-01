@@ -88,7 +88,7 @@ test/ → pr_test.md
 perf/ → pr_perf.md
 ci/ → pr_ci.md
 build/ → pr_ci.md
-deps/ → pr_deps.md (if exists) or pr_chore.md
+deps/ → pr_dep_update.md
 security/ → pr_security.md (if exists) or pr_chore.md
 design/ → pr_design.md (if exists) or pr_feature.md
 a11y/ → pr_a11y.md (if exists) or pr_improve.md
