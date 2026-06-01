@@ -1,6 +1,6 @@
 ---
-file_type: documentation
-name: Frontmatter Validation
+file_type: readme
+title: Frontmatter Validation
 description: Comprehensive frontmatter validation scripts for LightSpeedWP .github
   repository ensuring schema compliance and consistency
 version: 1.0.1
