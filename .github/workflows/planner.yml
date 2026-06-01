@@ -14,6 +14,7 @@ permissions:
 jobs:
   planner:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false || github.event_name == 'push'
     steps:
       - uses: actions/checkout@v4
 
