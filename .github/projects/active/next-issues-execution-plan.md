@@ -21,6 +21,23 @@ stability: stable
 status: active
 ---
 
+## 2026-06-01 Audit Update (Canonical)
+
+- Parent/child issue hierarchy repaired for open titled-child issues:
+  - `#654 #655 #656 #657` -> parent `#649`
+  - `#660 #661` -> parent `#650`
+  - `#664 #665` -> parent `#651`
+  - `#671 #672 #673` -> parent `#653`
+- Corrected status truth:
+  - `#514` (Wave 3C) is **closed**.
+  - `#670` (README refresh child) is **closed**.
+  - `#35` (instruction audit) is **closed**.
+- Active-project restructure completed:
+  - `test-coverage-implementation.md` moved to `test-coverage-implementation/README.md`.
+  - `issue-670-readme-refresh-tasks.md` moved to `issue-670-readme-refresh/README.md`.
+  - `ISSUE_35_INSTRUCTION_AUDIT_SUMMARY.md` moved to `issue-35-instruction-audit/README.md`.
+- Plugin-pack wave task list files currently have frontmatter stubs only and no matching open issues by title; issue creation/spec conversion required before execution.
+
 ## Executive Summary
 
 This document serves as the **canonical execution roadmap** for all active work in the
@@ -559,3 +576,12 @@ Archival checklist per file:
 4. Update this roadmap file with archival record
 
 ---
+
+## Plugin-Pack Waves (2026-06-01 Activation)
+
+- Parent issue: #732
+- Child issues:
+  - #733 (Second Wave)
+  - #734 (Third Wave)
+  - #735 (Next-Wave Backlog)
+- Spec location: `.github/projects/active/plugin-pack-waves/`

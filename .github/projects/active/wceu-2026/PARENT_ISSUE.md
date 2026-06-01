@@ -7,13 +7,13 @@ file_type: documentation
 
 # WCEU 2026 Talk Preparation — Parent Issue
 
-**Title**: WCEU 2026 Talk Preparation — Finalize 25-Minute Presentation
-**Type**: Epic/Parent Issue
-**Priority**: Critical
-**Status**: Active
-**Due Date**: May 31, 2026 (48 hours)
-**Talk Date**: June 5–6, 2026
-**Assignee**: Ash Shaw
+**Title**: WCEU 2026 Talk Preparation — Finalize 25-Minute Presentation  
+**Type**: Epic/Parent Issue  
+**Priority**: Critical  
+**Status**: Closed (issue #564 closed; doc retained for historical trace)  
+**Due Date**: May 31, 2026 (48 hours)  
+**Talk Date**: June 5–6, 2026  
+**Assignee**: Ash Shaw  
 **Labels**: `wceu-2026`, `talk-preparation`, `critical-path`
 
 ---

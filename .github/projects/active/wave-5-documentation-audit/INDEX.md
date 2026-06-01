@@ -10,7 +10,15 @@ status: active
 
 # Wave 5 Documentation Audit — Issue Index
 
-This directory contains all parent and child issues for the comprehensive documentation audit initiative. **GitHub issues have been created (#649–#673) and are ready for execution.**
+This directory contains all parent and child issues for the comprehensive documentation audit initiative. **GitHub issues have been created (#649–#673); execution status now varies by issue state.**
+
+## Archive Note (2026-06-01)
+
+Documentation-complete specs linked to closed issues were archived to:
+
+- `.github/projects/completed/wave-5-documentation-audit-closed-2026-06-01/`
+
+This active folder now tracks only open-issue execution paths and shared context.
 
 ## 📋 How to Use This Directory
 
@@ -65,10 +73,10 @@ wave-5-documentation-audit/
 
 | Issue | Title | Type | Area | Effort | Status |
 |-------|-------|------|------|--------|--------|
-| [#649](https://github.com/lightspeedwp/.github/issues/649) | Issue Templates, Automation, & AI Agent Integration | Audit | automation, labels | M | open |
-| [#650](https://github.com/lightspeedwp/.github/issues/650) | Canonical Config Files (labels, issue-types, issue-fields) | Audit | labels, automation | L | open |
+| [#649](https://github.com/lightspeedwp/.github/issues/649) | Issue Templates, Automation, & AI Agent Integration | Audit | automation, labels | M | closed |
+| [#650](https://github.com/lightspeedwp/.github/issues/650) | Canonical Config Files (labels, issue-types, issue-fields) | Audit | labels, automation | L | closed |
 | [#651](https://github.com/lightspeedwp/.github/issues/651) | Documentation Consolidation - Reduce Duplication | Audit | documentation | XL | open |
-| [#652](https://github.com/lightspeedwp/.github/issues/652) | 44 README Files - Mermaid Diagrams & Accessibility | Audit | documentation, a11y | XL | open |
+| [#652](https://github.com/lightspeedwp/.github/issues/652) | 44 README Files - Mermaid Diagrams & Accessibility | Audit | documentation, a11y | XL | closed |
 | [#653](https://github.com/lightspeedwp/.github/issues/653) | File Organization - Align with CLAUDE.md Boundaries | Audit | core | L | open |
 
 ### Child Issues by Parent
