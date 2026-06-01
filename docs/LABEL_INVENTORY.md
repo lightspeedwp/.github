@@ -151,7 +151,7 @@ Labels categorising release impact.
 
 ---
 
-## Area Labels (32)
+## Area Labels (33)
 
 Labels identifying component, module, or domain. Multiple allowed per issue.
 
@@ -164,6 +164,7 @@ Labels identifying component, module, or domain. Multiple allowed per issue.
 | `area:documentation` | ![Pale blue label](https://via.placeholder.com/20/C5DEF5?text=+) C5DEF5 | Docs & guides |
 | `area:tests` | ![Light purple label](https://via.placeholder.com/20/D4C5F9?text=+) D4C5F9 | Test suites & harnesses |
 | `area:testing` | ![Light purple label](https://via.placeholder.com/20/D4C5F9?text=+) D4C5F9 | Testing and QA |
+| `area:quality` | ![Light purple label](https://via.placeholder.com/20/D4C5F9?text=+) D4C5F9 | Quality validation and QA controls |
 | `area:scripts` | ![Pale blue label](https://via.placeholder.com/20/C5DEF5?text=+) C5DEF5 | Scripts & tooling |
 | `area:assets` | ![Pale blue label](https://via.placeholder.com/20/C5DEF5?text=+) C5DEF5 | Assets (images, fonts, static files) |
 | `area:woocommerce` | ![Light purple label](https://via.placeholder.com/20/D4C5F9?text=+) D4C5F9 | WooCommerce |
@@ -330,7 +331,7 @@ Labels for GitHub Discussions categorisation (not for issues/PRs).
 | Type | 32 |
 | Meta/Housekeeping | 8 |
 | Release Scope | 4 |
-| Area | 32 |
+| Area | 33 |
 | Component | 20 |
 | Language | 7 |
 | Environment | 3 |

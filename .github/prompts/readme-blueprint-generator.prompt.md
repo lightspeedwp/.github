@@ -3,3 +3,10 @@ description: "Intelligent README.md generation prompt that analyzes project docu
 
 mode: "agent"
 ---
+
+## Deprecation Notice
+
+- Status: Deprecated in `.github/prompts/` and migrated to ``prompts/readme-blueprint.prompt``.
+- Action: Use ``prompts/readme-blueprint.prompt`` as the canonical organisation-wide prompt path.
+- Effective date: 2026-06-01.
+- Migration reference: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.

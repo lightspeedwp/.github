@@ -144,7 +144,7 @@ The 150 canonical labels are organized into 7 primary families:
 
 - Code domains: `area:block-editor`, `area:theme`, `area:woocommerce`
 - Infrastructure: `area:ci`, `area:security`, `area:dependencies`, `area:labels`
-- Horizontal concerns: `area:a11y`, `area:documentation`, `area:tests`, `area:scripts`
+- Horizontal concerns: `area:a11y`, `area:documentation`, `area:quality`, `area:tests`, `area:scripts`
 
 **Assignment Rules**:
 

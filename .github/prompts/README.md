@@ -2,8 +2,8 @@
 title: "Prompts Directory"
 description: "Reusable AI prompts and templates for LightSpeed automation, agents, and governance workflows. Includes system prompts, context builders, and instruction templates."
 file_type: documentation
-version: v0.1.0
-last_updated: "2026-05-31"
+version: v0.2.0
+last_updated: "2026-06-01"
 created_date: "2025-11-27"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -16,6 +16,21 @@ stability: "experimental"
 # Prompts Directory
 
 This directory contains reusable AI prompts, system instructions, and context builders for LightSpeed automation workflows and agents.
+
+## Repository Scope
+
+This directory is now for `.github` repository control-plane prompts only.
+
+- Keep prompts here when they depend on GitHub issue/PR/workflow automation or repo-local governance files.
+- Use root `prompts/` for organisation-wide reusable prompts.
+
+## Migration Notice
+
+- Prompt migration and classification is tracked in:
+  - `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`
+- Moved or merged prompts in this directory include per-file deprecation notices with successor paths.
+- Canonical org-wide prompt library:
+  - `../prompts/README.md`
 
 ## Purpose
 

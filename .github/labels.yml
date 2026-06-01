@@ -319,6 +319,10 @@
   color: D4C5F9
   description: "Testing and QA"
 
+- name: area:quality
+  color: D4C5F9
+  description: "Quality validation and QA controls"
+
 - name: area:scripts
   color: C5DEF5
   description: "Scripts & tooling"
