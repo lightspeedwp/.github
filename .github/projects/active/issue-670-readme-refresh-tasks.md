@@ -1,16 +1,21 @@
 ---
-title: Issue #670 — Update & Refresh README Files
-description: Systematic refresh of all 57 README.md files with current information, broken link fixes, and consistent formatting
+file_type: "documentation"
+title: "Issue #670 — Update & Refresh README Files"
+description: "Systematic refresh of all 57 README.md files with current information, broken link fixes, and consistent formatting"
+version: "1.0.0"
 created_date: "2026-05-31"
 last_updated: "2026-05-31"
-status: "in-progress"
+author: "Claude Code"
+owners:
+  - Claude Code
+tags: ["readme", "documentation", "maintenance", "issue-670"]
+category: "project"
+status: "active"
 priority: "high"
 related_issues:
   - "#668"
   - "#669"
   - "#667"
-owners:
-  - Claude Code
 ---
 
 # Issue #670: Update & Refresh README Files
@@ -48,7 +53,7 @@ Priority: **🔴 HIGH**
 
 4. **`docs/README.md`** (Documentation index)
    - [ ] Verify all doc links
-   - [ ] Check organization of documentation
+   - [ ] Check organisation of documentation
 
 5. **`.github/projects/README.md`** (Project templates)
    - [ ] Update project structure docs

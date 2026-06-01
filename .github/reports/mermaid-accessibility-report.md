@@ -77,9 +77,9 @@ stability: stable
 - prompts/README.md
 - schema/README.md
 - scripts/README.md
-- scripts/agents/**tests**/README.md
+- `scripts/agents/__tests__/README.md`
 - scripts/agents/includes/README.md
-- scripts/agents/includes/**tests**/README.md
+- `scripts/agents/includes/__tests__/README.md`
 - scripts/validation/README.md
 - skills/README.md
 - skills/design-md-agent/markdown-content-validator/README.md

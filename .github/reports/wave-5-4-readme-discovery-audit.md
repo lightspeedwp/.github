@@ -271,7 +271,7 @@ This audit discovered **57 README.md files** across the LightSpeed `.github` rep
 
 | Metric | Value | Status |
 | --- | --- | --- |
-| Total README files | 52 | ✅ Complete inventory |
+| Total README files | 57 | ✅ Complete inventory |
 | README files with Mermaid | 8 | ✅ Identified |
 | Total Mermaid diagrams | 24 | ✅ Counted |
 | Diagram distribution | 8 files | ✅ Catalogued |

@@ -39,8 +39,8 @@ function discoverReadmeFiles() {
 
 function extractLinks(content, filePath) {
   const links = [];
-  const fileDir = path.dirname(filePath);
 
+  // Markdown links: [text](url)
   // Markdown links: [text](url)
   const mdLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
   let match;
@@ -85,11 +85,15 @@ function validateLink(url, filePath, type) {
   const fileDir = path.dirname(filePath);
   let targetPath;
 
+  const fileDir = path.dirname(filePath);
+  let targetPath;
+
+  // Remove anchors for file validation
+  const cleanUrl = url.split("#")[0];
+
   if (type === "absolute") {
-    targetPath = path.join(ROOT, url);
+    targetPath = path.join(ROOT, cleanUrl.replace(/^\/+/u, ""));
   } else {
-    // Remove anchors for file validation
-    const cleanUrl = url.split("#")[0];
     targetPath = path.resolve(fileDir, cleanUrl);
   }
 
