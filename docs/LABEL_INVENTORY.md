@@ -18,8 +18,7 @@ tags:
   - reference
   - canonical-config
 domain: governance
-status: stable
-language: en
+status: active
 stability: stable
 ---
 

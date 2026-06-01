@@ -261,6 +261,8 @@ class FrontmatterValidator {
       return "discussion_template";
     if (filePath.includes("/SAVED_REPLIES/")) return "saved_reply";
     if (filePath.endsWith("README.md")) return "readme";
+    if (filePath.includes("/docs/") && filePath.endsWith(".md"))
+      return "documentation";
     if (filePath.includes("/.github/") && filePath.endsWith(".md"))
       return "documentation";
     return "unknown";

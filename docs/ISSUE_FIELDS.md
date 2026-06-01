@@ -18,8 +18,7 @@ tags:
   - project-automation
   - governance
 domain: governance
-status: stable
-language: en
+status: active
 stability: stable
 ---
 
