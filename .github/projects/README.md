@@ -72,9 +72,9 @@ Examples:
 
 - Create all project tracking files in this directory
 - Use descriptive project names
-- Include frontmatter for metadata (created_date, status, owner, etc.)
+- Include frontmatter for metadata (created_date, status, owners, etc.)
 - Update files as work progresses
-- Start new projects at root level
+- Start new projects at the root level of `.github/projects/`
 - Move to `active/` when work begins
 - Move completed projects to `completed/` when finished
 - Add completion date to frontmatter when archiving
