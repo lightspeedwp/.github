@@ -10,7 +10,7 @@ maintainer: "LightSpeed Team"
 license: "GPL-3.0"
 tags: ["archive", "documentation", "historical"]
 domain: "governance"
-stability: "archived"
+stability: "incubating"
 ---
 
 # Archive Directory

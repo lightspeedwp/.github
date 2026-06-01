@@ -28,10 +28,8 @@ This directory contains all task tracking files, project planning documents, imp
 
 ```
 .github/projects/
-├── active/          # Current active projects and sprints
-├── completed/       # Finished project archives
-├── planning/        # Planning and scoping documents
-└── archived/        # Older inactive projects (optional)
+├── active/          # Current active projects and work-in-progress
+└── archived/        # Completed and inactive projects
 ```
 
 ## Subdirectory Purposes
@@ -46,24 +44,15 @@ This directory contains all task tracking files, project planning documents, imp
 - Files actively being updated and referenced
 - **When to move here:** When a project moves from planning to active development
 
-### completed/
+### archived/
 
-**Finished Project Archives**
+**Finished and Inactive Projects**
 
 - Completed project documentation for reference
 - Archived task lists from finished initiatives
 - Historical planning documents
 - Successfully implemented project records
 - **When to move here:** When all tasks are done, PRs merged, and objectives achieved
-
-### planning/
-
-**Planning and Scoping Documents**
-
-- Project proposals and PRDs
-- Scope documents and requirement specifications
-- Roadmaps and timeline plans
-- Risk assessments and mitigation strategies
 
 ## File Naming Convention
 
@@ -87,9 +76,8 @@ phase6-planning-suite-consolidation.md
 - Use descriptive project names
 - Include frontmatter for metadata (created_date, status, owner, etc.)
 - Update files as work progresses
-- Start new projects in `planning/`
-- Move to `active/` when work begins
-- Move completed projects to `completed/` subdirectory
+- Create new projects directly in `active/` subdirectory
+- Move completed projects to `archived/` subdirectory
 - Add completion date to frontmatter when archiving
 
 ❌ **DON'T:**
@@ -98,11 +86,6 @@ phase6-planning-suite-consolidation.md
 - Create project files in `docs/` folder
 - Create project files in `.github/agents/` or `.github/instructions/`
 - Use generic names like `tasks.md` or `todo.md`
-
-## Current Projects
-
-- [context-reduction-tasks.md](./active/context-reduction-tasks.md) — Token optimization task tracking
-- [instruction-consolidation-guide.md](./active/instruction-consolidation-guide.md) — File consolidation migration guide
 
 ## Related Documentation
 

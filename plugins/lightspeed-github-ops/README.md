@@ -10,7 +10,7 @@ maintainer: "LightSpeed Team"
 license: "GPL-3.0"
 tags: ["plugin", "governance", "operations", "AI", "workflows"]
 domain: "governance"
-stability: "beta"
+stability: "experimental"
 ---
 
 # lightspeed-github-ops

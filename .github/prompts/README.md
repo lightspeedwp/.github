@@ -10,7 +10,7 @@ maintainer: "LightSpeed Team"
 license: "GPL-3.0"
 tags: ["prompts", "automation", "AI", "templates"]
 domain: "governance"
-stability: "beta"
+stability: "experimental"
 ---
 
 # Prompts Directory
@@ -37,7 +37,7 @@ This folder contains scripts and templates for automation, including:
 
 - [Agents Directory](../agents/README.md) — Agent specifications and implementations
 - [Instructions Directory](../instructions/README.md) — Comprehensive instruction sets
-- [Automation Governance](../AUTOMATION_GOVERNANCE.md) — Governance policies for automation
+- [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) — Governance policies for automation
 
 ---
 

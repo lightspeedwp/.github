@@ -10,7 +10,7 @@ maintainer: "LightSpeed Team"
 license: "GPL-3.0"
 tags: ["hooks", "plugin", "guardrails", "validation"]
 domain: "governance"
-stability: "beta"
+stability: "experimental"
 ---
 
 # Plugin Hooks
