@@ -1,7 +1,7 @@
 ---
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
-version: "2.5"
-last_updated: "2025-12-04"
+version: "2.5.1"
+last_updated: "2026-06-01"
 owners:
   - LightSpeedWP Team
 ---

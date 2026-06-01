@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Documentation Migration Guide"
 description: "Migration path for consolidated documentation files and updated references."
-version: "v1.0.0"
-last_updated: "2026-05-31"
+version: "v1.0.1"
+last_updated: "2026-06-01"
 owners: ["LightSpeedWP Team"]
 tags: ["migration", "documentation", "consolidation"]
 status: "active"
