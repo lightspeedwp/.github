@@ -6,10 +6,7 @@
   "skills": [
     "skills/lightspeed-frontmatter-audit/SKILL.md",
     "skills/lightspeed-pr-review/SKILL.md",
-    "skills/lightspeed-label-governance/SKILL.md",
-    "skills/lightspeed-issue-triage-automation/SKILL.md",
-    "skills/lightspeed-pr-template-compliance/SKILL.md",
-    "skills/lightspeed-issue-template-compliance/SKILL.md"
+    "skills/lightspeed-label-governance/SKILL.md"
   ],
   "agents": ["agents/reviewer.agent.md"]
 }

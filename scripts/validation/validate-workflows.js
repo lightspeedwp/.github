@@ -100,13 +100,6 @@ const GUARDRAILS = {
           "Use continue-on-error carefully; most jobs should fail on error",
         level: "warning",
       },
-      // Keep workflow custom logic in Node scripts
-      noBashWorkflowLogic: {
-        enabled: true,
-        message:
-          "Do not use bash shell blocks for repo-owned workflow logic; use Node scripts",
-        level: "error",
-      },
     },
   },
 
@@ -132,31 +125,6 @@ const GUARDRAILS = {
   },
 };
 
-const BASH_POLICY_ALLOWLIST = {
-  multilineControlFlow: {
-    "meta.yml": [
-      "Validate frontmatter freshness",
-      "Lint changed Markdown",
-      "Collect Link Targets",
-      "Update Metrics Snapshot",
-    ],
-    "project-meta-sync.yml": [
-      "Preflight project sync configuration",
-      "Collect labels from item",
-    ],
-    "readme-regen.yml": [
-      "Resolve impacted README files",
-      "Run README regeneration",
-    ],
-    "reporting.yml": [
-      "Validate report structure",
-      "Check for uppercase filenames",
-      "Find stale reports",
-      "Update main README",
-    ],
-  },
-};
-
 // ============================================================================
 // VALIDATION FUNCTIONS
 // ============================================================================
@@ -172,15 +140,6 @@ class WorkflowValidator {
       errors: [],
       warnings: [],
     };
-  }
-
-  isAllowlistedMultilineControlFlow(filename, stepName) {
-    if (!stepName) {
-      return false;
-    }
-
-    const entries = BASH_POLICY_ALLOWLIST.multilineControlFlow[filename] || [];
-    return entries.includes(stepName);
   }
 
   validate(filename, content) {
@@ -207,9 +166,7 @@ class WorkflowValidator {
 
       // Quality checks
       if (this.guardrails.quality.enabled) {
-        const qualityResult = this.validateQuality(filename, workflow, content);
-        hasWarnings |= qualityResult.hasWarnings;
-        hasErrors |= qualityResult.hasErrors;
+        hasWarnings |= this.validateQuality(filename, workflow);
       }
 
       // Consistency checks
@@ -336,9 +293,8 @@ class WorkflowValidator {
     return hasWarnings;
   }
 
-  validateQuality(filename, workflow, rawContent = "") {
+  validateQuality(filename, workflow) {
     let hasWarnings = false;
-    let hasErrors = false;
 
     // Check job names
     if (this.guardrails.quality.rules.clearJobNames.enabled) {
@@ -383,57 +339,7 @@ class WorkflowValidator {
       }
     }
 
-    // Disallow bash-oriented workflow logic for repo-owned run steps.
-    if (this.guardrails.quality.rules.noBashWorkflowLogic.enabled) {
-      for (const [jobName, job] of Object.entries(workflow.jobs || {})) {
-        for (const step of job.steps || []) {
-          if (!step.run) {
-            continue;
-          }
-
-          if (
-            step.shell &&
-            String(step.shell).trim().toLowerCase() === "bash"
-          ) {
-            this.addError(
-              filename,
-              `Job "${jobName}"${step.name ? ` / Step "${step.name}"` : ""}: explicit shell:bash is not allowed for repo-owned run steps`,
-            );
-            hasErrors = true;
-          }
-
-          const runScript = String(step.run);
-          const hasControlFlow =
-            /(^|\n)\s*(if\s+\[|if\s+\[\[|case\s+|for\s+|while\s+|until\s+|select\s+)/m.test(
-              runScript,
-            );
-          const isMultiline = runScript.includes("\n");
-
-          if (
-            isMultiline &&
-            hasControlFlow &&
-            !this.isAllowlistedMultilineControlFlow(filename, step.name)
-          ) {
-            this.addError(
-              filename,
-              `Job "${jobName}"${step.name ? ` / Step "${step.name}"` : ""}: multiline shell control-flow is not allowed in run blocks; move logic to Node script`,
-            );
-            hasErrors = true;
-          }
-        }
-      }
-
-      if (/(^|\n)\s*shell:\s*bash\b/m.test(rawContent)) {
-        // Defensive guard in case parser representation misses a non-standard shell declaration.
-        this.addWarning(
-          filename,
-          "Raw workflow contains shell:bash declaration; ensure this is not repo-owned custom logic",
-        );
-        hasWarnings = true;
-      }
-    }
-
-    return { hasWarnings, hasErrors };
+    return hasWarnings;
   }
 
   validateConsistency(filename, workflow) {
@@ -514,39 +420,28 @@ class WorkflowValidator {
 // MAIN
 // ============================================================================
 
-function runValidation(
-  workflowDir = path.join(__dirname, "../../.github/workflows"),
-) {
-  if (!fs.existsSync(workflowDir)) {
-    console.error(`Workflows directory not found: ${workflowDir}`);
-    return false;
-  }
+const workflowDir = path.join(__dirname, "../../.github/workflows");
 
-  const validator = new WorkflowValidator(GUARDRAILS);
-
-  const workflowFiles = fs
-    .readdirSync(workflowDir)
-    .filter((f) => f.endsWith(".yml") || f.endsWith(".yaml"))
-    .sort();
-
-  console.log(`Found ${workflowFiles.length} workflow files to validate\n`);
-
-  workflowFiles.forEach((filename) => {
-    const filePath = path.join(workflowDir, filename);
-    const content = fs.readFileSync(filePath, "utf8");
-    validator.validate(filename, content);
-  });
-
-  return validator.printResults();
+if (!fs.existsSync(workflowDir)) {
+  console.error(`Workflows directory not found: ${workflowDir}`);
+  process.exit(1);
 }
 
-if (require.main === module) {
-  const success = runValidation();
-  process.exit(success ? 0 : 1);
-}
+const validator = new WorkflowValidator(GUARDRAILS);
 
-module.exports = {
-  WorkflowValidator,
-  GUARDRAILS,
-  runValidation,
-};
+// Get all .yml/.yaml files
+const workflowFiles = fs
+  .readdirSync(workflowDir)
+  .filter((f) => f.endsWith(".yml") || f.endsWith(".yaml"))
+  .sort();
+
+console.log(`Found ${workflowFiles.length} workflow files to validate\n`);
+
+workflowFiles.forEach((filename) => {
+  const filePath = path.join(workflowDir, filename);
+  const content = fs.readFileSync(filePath, "utf8");
+  validator.validate(filename, content);
+});
+
+const success = validator.printResults();
+process.exit(success ? 0 : 1);

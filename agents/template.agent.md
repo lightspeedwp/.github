@@ -1,158 +1,96 @@
 ---
-file_type: agent
-name: template
-title: 'Template: Agent Specification'
-description: 'Standard specification for defining a LightSpeed Copilot Agent: role,
-  behaviours, tooling, schemas, and safety constraints.'
-version: 'v1.3'
-last_updated: '2026-06-01'
-status: draft
-tags:
-- agent
-- spec
-- template
-- copilot
-owners:
-- LightSpeedWP Engineering
----
-
-# Agent Specification Template
-
-This document provides the canonical template for defining LightSpeed Copilot agents. Use this specification to document agent role, responsibilities, capabilities, tooling, and safety constraints.
-
-## Usage
-
-Copy this template when creating a new agent specification. Replace placeholder sections with concrete details specific to your agent.
-
-## Structure
-
-```markdown
----
-file_type: agent
-name: [unique agent identifier]
-title: [human-readable agent name]
-description: [one-sentence purpose]
-version: v1.0
-last_updated: 'YYYY-MM-DD'
-status: [draft|active|deprecated]
-tags:
-- [category tags]
-owners:
-- [team or person]
-apply_to:
-- [applicable domains/tools]
-tools:
-- [required tools/permissions]
+title: "Template: Agent Specification"
+description: "Standard specification for defining a LightSpeed Copilot Agent: role, behaviours, tooling, schemas, and safety constraints."
+version: "v1.1"
+last_updated: "2025-12-11"
+owners: ["LightSpeedWP Engineering"]
+tags: ["agent", "spec", "template", "copilot"]
+status: "draft"
+apply_to: ["agents/*.agent.md"]
+file_type: "template"
+tools: ["Copilot Agents"]
 examples:
-- [usage scenarios]
+  - "agents/adr.agent.md"
+metadata:
+  guardrails: "Agents must never perform destructive or irreversible actions without explicit confirmation."
 ---
 
-# [Agent Name]
+# 1. Role & Scope
 
-## Role & Responsibilities
+Describe:
 
-Brief summary of what this agent does and when it should be invoked.
+- The agent's purpose and boundaries.
+- The persona or operating context (if relevant).
+- The primary systems, workflows, or teams it supports.
 
-## Capabilities
+# 2. Responsibilities & Capabilities
 
-- **Primary:** List primary capabilities
-- **Secondary:** List secondary capabilities
+List what the agent can do and where it must stop:
 
-## Required Inputs
+- Core functions (for example CI checks, content linting, documentation support).
+- Allowed transformations or automation rules.
+- Explicit limitations (for example read-only, cannot deploy, no billing actions).
 
-- Input format and constraints
+# 3. Allowed Tools & Integrations
 
-## Expected Outputs
+Enumerate all approved tools:
 
-- Output format and examples
+- GitHub APIs and scopes.
+- Third-party connectors (for example Drive, Sheets, internal APIs).
+- Command-line interfaces or scripts the agent may call.
+- Required environment variables (never list real values).
 
-## Tools & Permissions
+# 4. Input Specification
 
-- Required GitHub tools
-- File system access
-- External API integrations
+Define all accepted inputs:
 
-## Safety Constraints
+- Natural-language prompts or commands.
+- Structured inputs (JSON, YAML, forms) with examples.
+- JSON Schema when structure needs enforcement.
 
-- Guardrails and limits
-- What the agent must NOT do
-- Error handling approach
+# 5. Output Specification
 
-## Failure & Rollback
+Describe the required response format:
 
-- How the agent handles failures
-- Rollback procedures and recovery steps
-- Partial failure scenarios and mitigation
+- Success, warning, and error shapes (fields such as status, summary, actions, logs).
+- Formatting rules (for example Markdown with code blocks, JSON blocks, or tables).
+- Deterministic fields needed for automation or parsing.
 
-## Observability & Logging
+# 6. Safety Guardrails
 
-- Logging strategy and levels
-- Traceability requirements
-- Metrics and monitoring points
+Set non-negotiable safety rules:
 
-## Validation & Testing
+- Never expose, request, or infer secrets or customer data.
+- Do not destroy or mutate production data without explicit human confirmation.
+- Stay within scope; refuse tasks that breach boundaries.
+- Define escalation paths (for example flag to human review) and rate/moderation limits.
 
-### Normal Case
-- Expected behaviour with valid inputs
-- Success criteria and assertions
+# 7. Failure & Rollback Strategy
 
-### Edge Cases
-- Boundary conditions and limits
-- Non-standard but valid inputs
-- Resource constraints
+Explain how the agent handles issues:
 
-### Failure Cases
-- Invalid input handling
-- Service dependency failures
-- Recovery and retry logic
+- Invalid inputs and missing context.
+- External tool/API failures.
+- Partial successes and rollback expectations or limits.
 
-## Configuration
+# 8. Test Tasks (for Validation)
 
-- Required environment variables
-- Optional settings with defaults
-- Performance tuning parameters
+Provide validation tasks with expected behaviours:
 
-## Examples
+- A typical task the agent should complete.
+- An edge case the agent should handle safely.
+- A failure scenario with the expected error response.
 
-### Example 1: [Scenario]
+# 9. Observability & Logging
 
-Input → Agent Action → Output
+Specify observability expectations:
 
-## Related Agents
+- What to log (timestamps, tool calls, external interactions).
+- How to report metrics and surface audit trails.
+- Privacy considerations for any captured data.
 
-- Links to related agent specifications
-- Handoff patterns if applicable
-```
+# 10. Changelog
 
-## Key Sections Explained
+Maintain a simple audit trail of spec changes:
 
-### Role & Responsibilities
-
-Clearly state what this agent is responsible for. Include the primary use cases and scenarios where the agent should be invoked.
-
-### Capabilities
-
-List both primary and secondary capabilities. Be specific about what the agent can and cannot do.
-
-### Tools & Permissions
-
-Document all tools the agent needs access to. Include GitHub tools, file system permissions, and any external APIs.
-
-### Safety Constraints
-
-Define guardrails and constraints that protect against misuse. Include specific prohibitions and error handling behaviour.
-
-## Best Practices
-
-1. **Be Specific:** Avoid vague descriptions; include concrete examples
-2. **Document Constraints:** Explicitly state what the agent will NOT do
-3. **Define Inputs/Outputs:** Be precise about expected formats and constraints
-4. **Include Examples:** Show realistic usage scenarios
-5. **Keep Updated:** Review and update specs as agent capabilities evolve
-6. **Link Related:** Cross-reference related agents and workflows
-
-## See Also
-
-- [Agents Directory](./agent.md) – Directory of all agent specifications
-- [Agent Creation Guide](../docs/AGENT_CREATION.md) – Building and testing new agents
-- [AGENTS.md](../AGENTS.md) – Organization-wide agent guidelines
+- Version, date, and a short note (for example `v1.1 - Updated guardrails; clarified rollback behaviour`).

@@ -1,5 +1,4 @@
 ---
-file_type: saved-reply
 title: "Inactive Issue Saved Reply"
 description: "Message for closing an issue due to inactivity."
 category: "Issue"

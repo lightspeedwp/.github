@@ -2,7 +2,6 @@
 file_type: "instructions"
 title: "Documentation Instructions"
 description: "Universal documentation standards for Markdown files in this repository unless overridden by more specific guidance."
-scope: "repo-local"
 applyTo: "**/*.md"
 ---
 
@@ -120,3 +119,38 @@ Every documentation file should start with YAML frontmatter including:
 - Add a consistent footer with contact info and license; the `references` block is retired.
 
 ---
+
+## Examples
+
+- **Good:** A `docs/guide.md` with frontmatter, single H1, short overview, TOC for long content, `/blob/HEAD/` links, alt text on images, and linted with markdownlint/Prettier.
+- **Avoid:** Missing frontmatter, multiple H1s, relative links that omit `/blob/HEAD/`, or images without alt text.
+
+## Validation
+
+- Run `npm run lint:md` (markdownlint) and Prettier on docs.
+- Validate links (the `references` frontmatter field is retired) after edits.
+- Use accessibility checks for headings, contrast (if styled), and alt text.
+
+### Documentation Checklist
+
+- [ ] YAML frontmatter is present and complete
+- [ ] Overview or Purpose section is clear
+- [ ] Table of Contents included for long files
+- [ ] Headings are hierarchical and logical
+- [ ] All links use `/blob/HEAD/` for repo-local files
+- [ ] All inline links are respected and validated
+- [ ] Formatting is clear and accessible
+- [ ] Diagrams and images have alt text
+- [ ] Examples and usage are provided where relevant
+- [ ] Validation/testing instructions included
+- [ ] Change log/version history present if needed
+- [ ] Contribution and review process described
+- [ ] Compliance/security info present if needed
+- [ ] Footer is present and complete
+
+## References
+
+- [instructions.instructions.md](./instructions.instructions.md)
+- [readme.instructions.md](./readme.instructions.md)
+- [a11y.instructions.md](./a11y.instructions.md)
+- [documentation-formats.instructions.md](./documentation-formats.instructions.md)

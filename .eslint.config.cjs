@@ -122,60 +122,6 @@ module.exports = [
       "no-console": "off",
     },
   },
-  // Standard JavaScript files and test utilities (.js)
-  {
-    files: ["**/*.js"],
-    ignores: [
-      "**/*.mjs",
-      "scripts/**/*.js",
-      ".github/agents/**/*.js",
-      ".github/metrics/**/*.js",
-      ".github/scripts/**/*.js",
-      "docs/ai/**/*.js",
-    ],
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: 2024,
-        sourceType: "commonjs",
-      },
-      globals: {
-        // Node.js globals
-        Buffer: "readonly",
-        __dirname: "readonly",
-        __filename: "readonly",
-        clearImmediate: "readonly",
-        clearInterval: "readonly",
-        clearTimeout: "readonly",
-        global: "readonly",
-        process: "readonly",
-        require: "readonly",
-        module: "readonly",
-        exports: "readonly",
-        setImmediate: "readonly",
-        setInterval: "readonly",
-        setTimeout: "readonly",
-        console: "readonly",
-        // Jest test environment globals
-        describe: "readonly",
-        it: "readonly",
-        test: "readonly",
-        expect: "readonly",
-        beforeAll: "readonly",
-        afterAll: "readonly",
-        beforeEach: "readonly",
-        afterEach: "readonly",
-        jest: "readonly",
-        TextDecoder: "readonly",
-        TextEncoder: "readonly",
-      },
-    },
-    plugins: { prettier },
-    rules: {
-      "prettier/prettier": "warn",
-      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-      "no-console": "off",
-    },
-  },
   // ES Modules (.mjs and scripts that use import/export)
   {
     files: [
@@ -201,6 +147,52 @@ module.exports = [
         clearTimeout: "readonly",
         global: "readonly",
         process: "readonly",
+        setImmediate: "readonly",
+        setInterval: "readonly",
+        setTimeout: "readonly",
+        console: "readonly",
+        // Jest test environment globals
+        describe: "readonly",
+        it: "readonly",
+        test: "readonly",
+        expect: "readonly",
+        beforeAll: "readonly",
+        afterAll: "readonly",
+        beforeEach: "readonly",
+        afterEach: "readonly",
+        jest: "readonly",
+        TextDecoder: "readonly",
+        TextEncoder: "readonly",
+      },
+    },
+    plugins: { prettier },
+    rules: {
+      "prettier/prettier": "warn",
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "no-console": "off",
+    },
+  },
+  // Standard JavaScript files and test utilities (.js)
+  {
+    files: ["**/*.js"],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 2024,
+        sourceType: "commonjs",
+      },
+      globals: {
+        // Node.js globals
+        Buffer: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        clearImmediate: "readonly",
+        clearInterval: "readonly",
+        clearTimeout: "readonly",
+        global: "readonly",
+        process: "readonly",
+        require: "readonly",
+        module: "readonly",
+        exports: "readonly",
         setImmediate: "readonly",
         setInterval: "readonly",
         setTimeout: "readonly",

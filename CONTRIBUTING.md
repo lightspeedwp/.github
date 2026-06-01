@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Contributing Guidelines"
 description: "Comprehensive contribution guidelines for LightSpeed community health repository including setup, standards, and workflow"
-version: '1.4'
-last_updated: '2026-06-01'
+version: "1.2"
+last_updated: "2026-05-27"
 owners: ["LightSpeed Team"]
 tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
 ---
@@ -16,11 +16,7 @@ tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
 2. **Install dependencies:** `npm ci`
 3. **Create a branch:** Use the correct prefix (e.g. `feat/`, `fix/`, `docs/`).
 4. **Write code & tests:** Follow [Coding Standards](instructions/coding-standards.instructions.md) and add/expand tests.
-5. **Lint & test:** Run `npm run lint:all` and `npm test` before committing. On
-   push, Husky `pre-push` also runs `npm run test:js` and `npm run test:bash`.
-   If you need to update or add new linting rules, or troubleshoot lint
-   failures, see the [Updating Linting Rules & Troubleshooting](./docs/LINTING.md)
-   section in the README for step-by-step guidance.
+5. **Lint & test:** Run `npm run lint:all` and `npm test` before committing. If you need to update or add new linting rules, or troubleshoot lint failures, see the [Updating Linting Rules & Troubleshooting](./docs/LINTING.md) section in the README for step-by-step guidance.
 6. **Commit & push:** Use clear commit messages and push your branch.
 7. **Open a PR:** Use the correct PR template and link to the related issue.
 8. **Respond to feedback:** Make changes as requested by reviewers or Copilot.

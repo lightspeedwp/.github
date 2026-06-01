@@ -420,3 +420,35 @@ slide.placeholders.get_item("body").text = "- Story A\n- Story B\n- Story C"
 ```
 
 ---
+
+## Cookbook: text-range edits (`textrange`)
+
+If you want a text edit that uses a `TextRange` handle, add `textrange` to `kind`.
+TextRange replacements only work when the range stays within a single paragraph.
+For multi-paragraph updates, edit the whole text (`presentation.resolve("sh/...").text = "..."`)
+or find a smaller range with `presentation.resolve("sh/...").text.get("...")`.
+
+```python
+snap = presentation.inspect({
+    "kind": "slide,textbox,textrange",
+    "search": "Market Overview",
+})
+print(snap.ndjson)
+```
+
+In the inspect JSONL you’ll see a `tr/...` record. Copy it and replace:
+
+```python
+text_range_id = "tr/..."
+presentation.resolve(text_range_id).replace("Market update")
+```
+
+Then re-run inspect to confirm:
+
+```python
+presentation.inspect({
+    "target": { "id": "sl/..." },
+    "kind": "slide,textbox,shape,textrange",
+    "search": "Market update",
+})
+```

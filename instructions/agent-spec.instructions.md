@@ -1,25 +1,15 @@
 ---
-file_type: instructions
-title: Agent Specification Instructions
-description: How to design, write, and review LightSpeed Copilot agent specification
-  files.
-scope: repo-local
-version: v1.1
-last_updated: '2026-05-29'
-owners:
-- GitHub Community Health Team
-tags:
-- agents
-- specs
-- templates
-- copilot
-- governance
-applyTo:
-- agents/*.agent.md
-- .github/agents/*.agent.md
-status: active
-stability: stable
-domain: governance
+file_type: "instructions"
+title: "Agent Specification Instructions"
+description: "How to design, write, and review LightSpeed Copilot agent specification files."
+version: "v1.0"
+last_updated: "2025-12-11"
+owners: ["GitHub Community Health Team"]
+tags: ["agents", "specs", "templates", "copilot", "governance"]
+applyTo: ["agents/*.agent.md", ".github/agents/*.agent.md"]
+status: "active"
+stability: "stable"
+domain: "governance"
 ---
 
 # Agent Specification Instructions
@@ -38,7 +28,7 @@ Use this guide when drafting or updating `.agent.md` files in `agents/`, or repo
 - Prefer minimal, modular behaviour; justify complex automation with clear value and maintainability.
 - Use UK English, concise bullets, and the provided template; include realistic test tasks drawn from LightSpeed workflows.
 
-> **Schema authority:** Always edit `../schema/frontmatter.schema.json` for schema updates; remove or ignore legacy copies elsewhere to keep the validator deterministic.
+> **Schema authority:** Always edit `../.schemas/frontmatter.schema.json` for schema updates; remove or ignore legacy copies elsewhere to keep the validator deterministic.
 
 ## Detailed Guidance
 
@@ -52,7 +42,7 @@ Use this guide when drafting or updating `.agent.md` files in `agents/`, or repo
 ### Permissions vocabulary
 
 - Permissions describe the operational scopes the agent truly needs—complimenting tools without inflating capability. Declare them as `permissions: ["read", "github:repo"]` in the frontmatter.
-- Use the approved enum from `../schema/frontmatter.schema.json` (currently: `read`, `write`, `execute`, `shell`, `filesystem`, `network`, `github:repo`, `github:issues`, `github:pulls`, `github:workflows`, `github:checks`, `github:actions`).
+- Use the approved enum from `../.schemas/frontmatter.schema.json` (currently: `read`, `write`, `execute`, `shell`, `filesystem`, `network`, `github:repo`, `github:issues`, `github:pulls`, `github:workflows`, `github:checks`, `github:actions`).
 - Before introducing additional strings, extend the schema and update this instruction section at the same time so documentation, linting, and validation stay aligned.
 
 ### Role and Scope
@@ -130,3 +120,30 @@ tools: ["GitHub API", "Release workflows"]
 metadata:
   guardrails: "Never publish or tag without human confirmation."
 ---
+
+# 1. Role & Scope
+- Guides release PR readiness; read-only on release workflows; refuses production deploys.
+
+# 2. Responsibilities & Capabilities
+- Surface release checklist status; summarise blocking issues; prepare tag notes.
+
+# 3. Allowed Tools & Integrations
+- GitHub API (read issues/PRs, read workflow runs); no write actions.
+```
+
+## Validation
+
+- Run `npm run lint:md` for formatting and linting.
+- Validate agent frontmatter with `npm run validate:agents`.
+- Confirm the retired `references` frontmatter field is absent and convert supporting links to inline references or footer copy.
+- Cross-check guardrails against `SECURITY.md` and automation constraints in `automation.instructions.md`.
+
+## References
+
+- [AGENTS.md](../AGENTS.md)
+- [template.agent.md](../agents/template.agent.md)
+- [instructions.instructions.md](instructions.instructions.md)
+- [automation.instructions.md](automation.instructions.md)
+- [documentation-formats.instructions.md](documentation-formats.instructions.md)
+- [quality-assurance.instructions.md](quality-assurance.instructions.md)
+- [SECURITY.md](../SECURITY.md)

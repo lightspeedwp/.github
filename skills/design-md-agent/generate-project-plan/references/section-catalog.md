@@ -186,3 +186,24 @@ Use these as **defaults** — the user can pick alternative shapes during Step 4
 **Gap questions:** for each flow — name + short description + trigger + actors.
 
 ---
+
+## Suggestion rules (Step 2 use)
+
+1. **Always-suggest**: `goals`, `risks`, `targetState`.
+2. **Suggest if content exists**:
+   - `motivation` if PRD problem statement ≥ 3 sentences OR has resources beyond itself.
+   - `context` if PRD has a separate background section (not already in motivation).
+   - `approach` if PRD has a chosen solution.
+   - `designDecisions` if ≥ 2 decisions with alternatives.
+   - `alternatives` if alternatives not already inside `designDecisions`.
+   - `dependencies` if tech-context `services` or `external_deps` is non-empty OR PRD lists any.
+   - `implementation` if PRD has any phasing, or if the user mentions timeline.
+   - `milestones` if PRD has explicit dates or week-numbered deliverables.
+   - `rollout` if PRD mentions flags, canary, validation, QA strategy.
+   - `currentState` if tech-context has ≥ 1 existing service.
+   - `keyFlow` (N) if user explicitly names flows.
+3. **Skip**:
+   - Anything with no content (padding sections are worse than missing sections).
+   - `alternatives` when `designDecisions` was selected — they'd duplicate.
+
+When suggesting a section in the Step 2 cards, include **which PRD facts or tech-context items** justify it (e.g. "suggesting `dependencies` because tech-context has services: a, b, c").

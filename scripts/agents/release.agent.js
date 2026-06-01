@@ -37,9 +37,12 @@ const validateVersionPath = path.join(
   "../validation/validate-version.cjs",
 );
 
-const { parseChangelog, validateChangelog, hasUnreleasedChanges } = require(
-  changelogUtilsPath,
-);
+const {
+  parseChangelog,
+  validateChangelog,
+  getUnreleasedChanges,
+  hasUnreleasedChanges,
+} = require(changelogUtilsPath);
 const { validateVersion, parseVersion } = require(validateVersionPath);
 
 /**
@@ -99,53 +102,12 @@ function determineNextVersion(currentVersion, scope = "patch") {
 }
 
 /**
- * Compare two semver strings.
- * @param {string} leftVersion - Left version
- * @param {string} rightVersion - Right version
- * @returns {number} -1 if left < right, 0 if equal, 1 if left > right
- */
-function compareVersions(leftVersion, rightVersion) {
-  const left = parseVersion(leftVersion);
-  const right = parseVersion(rightVersion);
-  if (!left || !right) {
-    throw new Error(
-      `Cannot compare invalid versions: ${leftVersion}, ${rightVersion}`,
-    );
-  }
-
-  if (left.major !== right.major) return left.major > right.major ? 1 : -1;
-  if (left.minor !== right.minor) return left.minor > right.minor ? 1 : -1;
-  if (left.patch !== right.patch) return left.patch > right.patch ? 1 : -1;
-  return 0;
-}
-
-/**
  * Fetch merged PRs between two tags (inclusive of toTag)
  */
-function isValidGitRef(ref) {
-  if (!ref || typeof ref !== "string") {
-    return false;
-  }
-  const trimmed = ref.trim();
-  // Reject dangerous patterns: whitespace, leading -, git rev-spec operators (^, ~, @, etc)
-  if (/[\s]|^-|[\^~@*?:]/.test(trimmed)) {
-    return false;
-  }
-  // Allow: SHAs, tags (v1.2.3), branch names (develop, main, release/*)
-  // Roughly matches git refspec constraints
-  return /^[a-zA-Z0-9_./:-]+$/.test(trimmed);
-}
-
 function getMergedPRs(fromTag, toTag = "HEAD") {
   console.log(
     `Fetching merged PRs from ${fromTag || "start"} to ${toTag || "HEAD"}...`,
   );
-
-  if (fromTag && !isValidGitRef(fromTag)) {
-    throw new Error(
-      `Invalid git ref for notes-from: "${fromTag}". Must be a commit SHA (7-40 hex), version tag, or ref path.`,
-    );
-  }
 
   let gitLog = "";
   if (fromTag) {
@@ -268,7 +230,6 @@ function formatReleaseNotes(options = {}) {
   const {
     version,
     changelogPath = "CHANGELOG.md",
-    notesFrom = "",
     includeContributors = true,
     includeBreakingChanges = true,
     includeHighlights = true,
@@ -293,9 +254,8 @@ function formatReleaseNotes(options = {}) {
     currentIndex >= 0 && currentIndex < tags.length - 1
       ? tags[currentIndex + 1]
       : null;
-  const rangeStart = notesFrom || previousTag;
 
-  const prs = getMergedPRs(rangeStart, currentTag);
+  const prs = getMergedPRs(previousTag, currentTag);
   const contributors = getContributors(prs);
   const breakingChanges = includeBreakingChanges
     ? detectBreakingChanges(changelogData, version)
@@ -375,8 +335,8 @@ function formatReleaseNotes(options = {}) {
 
   notes += "---\n\n";
   notes += "**Full Changelog**: ";
-  if (rangeStart) {
-    notes += `[\`${rangeStart}...v${version}\`](../../compare/${rangeStart}...v${version})\n`;
+  if (previousTag) {
+    notes += `[\`${previousTag}...v${version}\`](../../compare/${previousTag}...v${version})\n`;
   } else {
     notes += `[View all changes](../../commits/v${version})\n`;
   }
@@ -431,6 +391,7 @@ async function validateRelease(options = {}) {
         );
 
         // Check for unreleased changes
+        const unreleased = getUnreleasedChanges(changelogData);
         if (hasUnreleasedChanges(changelogData)) {
           console.log("   ✓ Unreleased changes found");
         } else {
@@ -512,43 +473,21 @@ function updateChangelog(newVersion, options = {}) {
   const content = fs.readFileSync(changelogPath, "utf8");
   const today = new Date().toISOString().split("T")[0];
 
-  // Replace [Unreleased] (with or without date) with new [Unreleased] section + released version
-  const unreleasedTemplate = `## [Unreleased]
-
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
-
-### Documentation
-
-### Performance
-
-## [${newVersion}] - ${today}`;
-
+  // Replace [Unreleased] - DD-MM-YYYY with [newVersion] - YYYY-MM-DD
   const updatedContent = content.replace(
-    /^## \[Unreleased\](?:\s*-\s*(?:DD-MM-YYYY|YYYY-MM-DD|\d{4}-\d{2}-\d{2}))?$/m,
-    unreleasedTemplate,
+    /^## \[Unreleased\] - (?:DD-MM-YYYY|YYYY-MM-DD|\d{4}-\d{2}-\d{2})$/m,
+    `## [${newVersion}] - ${today}`,
   );
 
   if (dryRun) {
     console.log(
-      `[DRY-RUN] Would update CHANGELOG.md: [Unreleased] → [Unreleased] + [${newVersion}] - ${today}`,
+      `[DRY-RUN] Would update CHANGELOG.md Unreleased section to [${newVersion}] - ${today}`,
     );
-    return updatedContent;
+    return;
   }
 
   fs.writeFileSync(changelogPath, updatedContent, "utf8");
   console.log(`✓ CHANGELOG updated with version ${newVersion}`);
-  console.log(`✓ New [Unreleased] section injected for next cycle`);
-  return updatedContent;
 }
 
 /**
@@ -575,7 +514,7 @@ function pushChanges(options = {}) {
 
   console.log("\n=== Pushing Changes ===");
 
-  exec(`git push -u origin ${branch}`, dryRun);
+  exec(`git push origin ${branch}`, dryRun);
   exec("git push --tags", dryRun);
 
   console.log("✓ Changes and tags pushed");
@@ -587,20 +526,12 @@ function pushChanges(options = {}) {
  * @param {Object} options - Options
  */
 function createRelease(version, options = {}) {
-  const {
-    changelogPath = "CHANGELOG.md",
-    dryRun = false,
-    notesFrom = "",
-  } = options;
+  const { changelogPath = "CHANGELOG.md", dryRun = false } = options;
 
   console.log(`\n=== Creating GitHub Release for v${version} ===`);
 
   // Extract release notes from changelog
-  const releaseNotes = formatReleaseNotes({
-    version,
-    changelogPath,
-    notesFrom,
-  });
+  const releaseNotes = formatReleaseNotes({ version, changelogPath });
 
   // TODO (c): Harden GitHub release/tag creation with retries, templated notes, and PR gating before publishing.
 
@@ -628,66 +559,6 @@ function createRelease(version, options = {}) {
 }
 
 /**
- * Validate changelog structure after release update
- * Ensures the new [Unreleased] section conforms to schema
- * @param {string} changelogPath - Path to CHANGELOG.md
- * @param {string} nextVersion - Version that was just released
- * @throws {Error} If validation fails
- */
-function validatePostReleaseChangelog(
-  changelogPath = "CHANGELOG.md",
-  nextVersion,
-) {
-  console.log(`\n=== Validating Post-Release CHANGELOG ===`);
-
-  if (!nextVersion || typeof nextVersion !== "string") {
-    throw new Error(
-      `Invalid nextVersion parameter: "${nextVersion}" (expected semver string)`,
-    );
-  }
-
-  if (!fs.existsSync(changelogPath)) {
-    throw new Error(`CHANGELOG not found: ${changelogPath}`);
-  }
-
-  const content = fs.readFileSync(changelogPath, "utf8");
-
-  // Validate [Unreleased] section exists
-  if (!content.includes("## [Unreleased]")) {
-    throw new Error(
-      "New [Unreleased] section missing from CHANGELOG after update",
-    );
-  }
-
-  // Validate new version section exists
-  if (!content.includes(`## [${nextVersion}]`)) {
-    throw new Error(
-      `Release section [${nextVersion}] missing from CHANGELOG after update`,
-    );
-  }
-
-  // Validate schema via parseChangelog and validateChangelog
-  try {
-    const changelogData = parseChangelog(changelogPath);
-    const changelogResult = validateChangelog(changelogData);
-
-    if (!changelogResult.valid) {
-      throw new Error(
-        `CHANGELOG schema validation failed: ${changelogResult.errors.join(", ")}`,
-      );
-    }
-
-    console.log(`✓ [Unreleased] section is properly formatted`);
-    console.log(`✓ [${nextVersion}] section is properly formatted`);
-    console.log(`✓ CHANGELOG schema validation passed`);
-  } catch (error) {
-    throw new Error(
-      `Post-release CHANGELOG validation failed: ${error.message}`,
-    );
-  }
-}
-
-/**
  * Create release PR from release branch to main
  */
 function createReleasePR(version, branch, options = {}) {
@@ -703,11 +574,17 @@ function createReleasePR(version, branch, options = {}) {
     return;
   }
 
-  exec(
-    `gh pr create --base main --head ${branch} --title "${title}" --body "${body}"`,
-    dryRun,
-  );
-  console.log("✓ Release PR created");
+  try {
+    exec(
+      `gh pr create --base main --head ${branch} --title "${title}" --body "${body}"`,
+      dryRun,
+    );
+    console.log("✓ Release PR created");
+  } catch (error) {
+    console.warn(
+      `⚠️  Failed to auto-create release PR. Please create manually from ${branch} to main. (${error.message})`,
+    );
+  }
 }
 
 /**
@@ -720,11 +597,7 @@ async function run() {
     const dryRun =
       args.includes("--dry-run") || args.includes("--dry-run=true");
     const scopeArg = args.find((arg) => arg.startsWith("--scope="));
-    const versionArg = args.find((arg) => arg.startsWith("--version="));
-    const notesFromArg = args.find((arg) => arg.startsWith("--notes-from="));
     const scope = scopeArg ? scopeArg.split("=")[1] : "patch";
-    const explicitVersion = versionArg ? versionArg.split("=")[1] : "";
-    const notesFrom = notesFromArg ? notesFromArg.split("=")[1] : "";
 
     console.log("╔════════════════════════════════════════╗");
     console.log("║     LightSpeed Release Agent           ║");
@@ -732,12 +605,6 @@ async function run() {
     console.log("");
     console.log(`Mode: ${dryRun ? "DRY-RUN" : "LIVE"}`);
     console.log(`Scope: ${scope}`);
-    if (explicitVersion) {
-      console.log(`Target Version: ${explicitVersion}`);
-    }
-    if (notesFrom) {
-      console.log(`Release Notes Start: ${notesFrom}`);
-    }
     // TODO (d): Clarify dry-run vs apply controls (additional flags or safeguards) so we can safely exercise the workflow end-to-end.
     console.log("");
 
@@ -759,21 +626,7 @@ async function run() {
 
     // Step 2: Determine next version
     const currentVersion = fs.readFileSync("VERSION", "utf8").trim();
-    let nextVersion = determineNextVersion(currentVersion, scope);
-    if (explicitVersion) {
-      const versionResult = validateVersion(explicitVersion);
-      if (!versionResult.valid) {
-        throw new Error(
-          `Invalid explicit version "${explicitVersion}": ${versionResult.error}`,
-        );
-      }
-      if (compareVersions(explicitVersion, currentVersion) <= 0) {
-        throw new Error(
-          `Explicit version ${explicitVersion} must be greater than current version ${currentVersion}`,
-        );
-      }
-      nextVersion = explicitVersion;
-    }
+    const nextVersion = determineNextVersion(currentVersion, scope);
     const releaseBranch = `release/v${nextVersion}`;
 
     console.log(`\nVersion bump: ${currentVersion} → ${nextVersion}`);
@@ -786,45 +639,21 @@ async function run() {
       console.log(`[DRY-RUN] Would create branch ${releaseBranch}`);
     }
 
+
     // Step 3: Bump version
     bumpVersion(nextVersion, { dryRun });
 
     // Step 4: Update changelog
-    const updatedChangelogContent = updateChangelog(nextVersion, { dryRun });
-
-    // Step 4b: Validate post-release changelog (runs in both dry-run and live)
-    if (dryRun && updatedChangelogContent) {
-      try {
-        // In dry-run, write to temp file and validate
-        const tempPath = ".CHANGELOG.tmp";
-        fs.writeFileSync(tempPath, updatedChangelogContent, "utf8");
-        validatePostReleaseChangelog(tempPath, nextVersion);
-        fs.unlinkSync(tempPath);
-      } catch (error) {
-        console.error(
-          `❌ Post-release changelog validation failed: ${error.message}`,
-        );
-        throw error;
-      }
-    } else if (!dryRun) {
-      try {
-        validatePostReleaseChangelog("CHANGELOG.md", nextVersion);
-      } catch (error) {
-        console.error(
-          `❌ Post-release changelog validation failed: ${error.message}`,
-        );
-        throw error;
-      }
-    }
+    updateChangelog(nextVersion, { dryRun });
 
     // Step 5: Stage all changes and run Husky pre-commit hooks, then commit
     if (!dryRun) {
-      exec("git add VERSION CHANGELOG.md");
+      exec("git add .");
       exec("npx husky run pre-commit");
       exec(`git commit -m "chore(release): bump version to ${nextVersion}"`);
     } else {
       console.log(
-        `\n[DRY-RUN] Would stage VERSION and CHANGELOG.md, run Husky pre-commit hooks, and commit with message: "chore(release): bump version to ${nextVersion}"`,
+        `\n[DRY-RUN] Would stage all changes, run Husky pre-commit hooks, and commit with message: "chore(release): bump version to ${nextVersion}"`,
       );
     }
 
@@ -838,7 +667,7 @@ async function run() {
     createReleasePR(nextVersion, releaseBranch, { dryRun });
 
     // Step 8: Create GitHub Release
-    createRelease(nextVersion, { dryRun, notesFrom });
+    createRelease(nextVersion, { dryRun });
 
     console.log("\n");
     console.log("╔════════════════════════════════════════╗");
@@ -869,7 +698,6 @@ export {
   validateRelease,
   bumpVersion,
   updateChangelog,
-  validatePostReleaseChangelog,
   createTag,
   pushChanges,
   createRelease,

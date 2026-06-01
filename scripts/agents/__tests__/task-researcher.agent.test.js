@@ -3,10 +3,10 @@
  * @see ../task-researcher.agent.js
  */
 // Basic smoke test for task-researcher.agent.js
-const agent = require("../task-researcher.agent");
+const agent = require('../task-researcher.agent');
 
-describe("task-researcher.agent", () => {
-  it("should be defined", () => {
+describe('task-researcher.agent', () => {
+  it('should be defined', () => {
     expect(agent).toBeDefined();
   });
 });

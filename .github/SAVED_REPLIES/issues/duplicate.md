@@ -1,5 +1,4 @@
 ---
-file_type: saved-reply
 title: "Duplicate Issue Saved Reply"
 description: "Response for duplicate issues."
 category: "Issue"

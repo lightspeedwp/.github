@@ -215,3 +215,15 @@ Before finalizing the ADR, verify:
   repository state as the source of truth.
 
 ---
+
+## Agent Success Criteria
+
+Your work is complete when:
+
+1. ADR file is created in `/docs/adr/` with correct naming
+2. All required sections are filled with meaningful content
+3. Consequences realistically reflect the decision's impact
+4. Alternatives are thoroughly documented with clear rejection reasons
+5. Implementation notes provide actionable guidance
+6. Document follows all formatting standards
+7. Quality checklist items are satisfied

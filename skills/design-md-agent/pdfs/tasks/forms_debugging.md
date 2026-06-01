@@ -53,3 +53,14 @@ Fix:
 - set the value exactly (case-sensitive)
 
 ---
+
+## Viewer verification
+
+At minimum, render with one engine. For tricky docs, compare engines:
+
+```bash
+python /home/oai/skills/pdfs/scripts/render_pdf.py filled.pdf --engine pdftoppm --out_dir /mnt/data/_r1
+python /home/oai/skills/pdfs/scripts/render_pdf.py filled.pdf --engine pdfium  --out_dir /mnt/data/_r2
+```
+
+If it looks different, prefer flattening.

@@ -439,3 +439,11 @@ The root cause is a mismatch between where workflows expect scripts (`.github/ag
 **Recommendation**: Prioritize fixing the path issues in Priority 1 workflows before the next release cycle to prevent workflow failures.
 
 ---
+
+## References
+
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+- [Security Hardening](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)
+- [ORGANIZATION.md](../../docs/ORGANIZATION.md)
+- [WORKFLOWS.md](../../docs/WORKFLOWS.md)

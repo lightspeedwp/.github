@@ -140,3 +140,20 @@ chart.display_blanks_as = "gap"
 ```
 
 ---
+
+### Per-point data label overrides
+
+```python
+chart.data_labels.show_value = True
+chart.data_labels.position = "inEnd"
+
+idx = chart.categories.index("Milky Way")
+override = chart.series[0].data_label_overrides.add(idx)
+override.idx = idx
+override.text = "Home Galaxy"
+override.position = "outEnd"
+override.text_style.bold = True
+override.text_style.fill = "accent4"
+override.fill = "background1"
+override.stroke = { "width": 0.5, "style": "solid", "fill": "accent4" }
+```

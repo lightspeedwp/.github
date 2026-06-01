@@ -1,13 +1,25 @@
 ---
-title: "Release Process"
-description: "Authoritative release process for lightspeedwp/.github: develop → main flow, gating, changelog validation, release PRs, tags, and GitHub Releases."
-file_type: "documentation"
-version: 'v2.2.1'
-last_updated: '2026-06-01'
-author: "LightSpeed Team"
-maintainer: "LightSpeed Team"
+version: "v2.1.0"
+last_updated: "2025-12-08"
 owners: ["lightspeedwp"]
-tags: ["release", "process", "automation"]
+file_type: "process-guide"
+category: "release-management"
+description: "Authoritative release process for lightspeedwp/.github: develop → main flow, gating, changelog validation, release PRs, tags, and GitHub Releases."
+references:
+  - path: "../agents/release.agent.md"
+    description: "Release agent specification"
+  - path: "../scripts/agents/release.agent.js"
+    description: "Release automation implementation"
+  - path: "../.github/workflows/release.yml"
+    description: "Release workflow (develop → main)"
+  - path: "../.github/workflows/changelog.yml"
+    description: "Changelog validation on every PR"
+  - path: "../.schemas/changelog.schema.json"
+    description: "Keep a Changelog schema"
+  - path: "../scripts/validation/validate-changelog.cjs"
+    description: "Schema validation script"
+  - path: "../CHANGELOG.md"
+    description: "Keep a Changelog source of truth"
 ---
 
 # Release Process (develop → main)
@@ -29,13 +41,10 @@ tags: ["release", "process", "automation"]
     - `CHANGELOG.md` conforms to `changelog.schema.json`.
     - Unreleased section exists and is populated.
 - **Release workflow (`.github/workflows/release.yml`)**
-  - Manual `workflow_dispatch` and reusable `workflow_call`.
-  - Typed inputs: `version`, `notes_from`, `scope`, `dry_run`.
+  - Manual `workflow_dispatch` (scope input, default patch).
   - Hard gate on lint (`linting.yml` reuse).
   - Runs schema + unreleased validation before invoking `release.agent.js`.
   - Uses `release.agent.js` (ESM) to create release branch, PR → `main`, tag, and GitHub Release with compiled notes.
-  - Dry-run mode publishes review artefacts (`release-agent.log`, `release-notes-preview.md`) without creating commits/tags/releases.
-  - Trigger telemetry records unauthorised trigger attempts (expected `0`).
 - **Required checks before merging release PR**
   - Lint/test green.
   - Changelog validation green.
@@ -74,7 +83,7 @@ node scripts/agents/release.agent.js --scope=minor --dry-run
 ## Changelog governance
 
 - Format: Keep a Changelog.
-- Schema: `../schema/changelog.schema.json` enforced by:
+- Schema: `../.schemas/changelog.schema.json` enforced by:
   - `scripts/validation/validate-changelog.cjs`
   - `scripts/agents/includes/changelogUtils.cjs --validate/--unreleased`
 - Requirements:
@@ -98,17 +107,9 @@ node scripts/agents/release.agent.js --scope=minor --dry-run
 - **PR not created:** ensure `gh` CLI and `GITHUB_TOKEN` available; otherwise create PR from `release/vX.Y.Z` → `main` manually.
 - **Tag conflicts:** delete or move existing tag before rerunning; ensure working tree clean.
 
-## Rollback notes
-
-If a release is started but must be rolled back:
-
-1. Delete the release branch (`release/vX.Y.Z`) if it should not proceed.
-2. Delete the tag locally and remotely:
-   - `git tag -d vX.Y.Z`
-   - `git push origin :refs/tags/vX.Y.Z`
-3. If a GitHub Release was created, remove it:
-   - `gh release delete vX.Y.Z --yes`
-4. Restore `VERSION` and `CHANGELOG.md` to the last known good commit on `develop`.
-5. Re-run the workflow in `dry_run` mode first to validate fixes before re-attempting a live release.
-
 ---
+
+*This document is authoritative for the release flow, gating, and automation alignment in `lightspeedwp/.github`.*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

@@ -41,3 +41,12 @@ Rule of thumb:
 - For *document size* (page numbering/overlays), MediaBox is fine.
 
 ---
+
+## Recommended practice
+
+1) Render the page you care about.
+2) Use `box_picker_html.py` to define rects.
+3) Use `place_text_by_boxes.py --preview_pdf ...` to validate.
+4) Re-render final output.
+
+This keeps the coordinate systems aligned with what a human sees.

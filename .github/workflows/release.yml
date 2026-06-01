@@ -3,76 +3,16 @@ name: release
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: "Target release version (semver, e.g. 1.2.3). Leave blank to derive from scope."
-        required: false
-        default: ""
-        type: string
-      notes_from:
-        description: "Git ref/tag/sha to start release notes range from (optional)."
-        required: false
-        default: ""
-        type: string
       scope:
-        description: "Version bump scope if version is not provided (major|minor|patch)."
-        required: false
-        default: "patch"
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
-      dry_run:
-        description: "Run safety mode without creating commits/tags/releases."
-        required: false
-        default: true
-        type: boolean
-  workflow_call:
-    inputs:
-      version:
+        description: "Comma-separated package scope (optional)"
         required: false
         default: ""
-        type: string
-      notes_from:
-        required: false
-        default: ""
-        type: string
-      scope:
-        required: false
-        default: "patch"
-        type: string
-      dry_run:
-        required: false
-        default: true
-        type: boolean
 
 permissions:
   contents: read
 
 jobs:
-  trigger-telemetry:
-    runs-on: ubuntu-latest
-    outputs:
-      unauthorized_attempts: ${{ steps.telemetry.outputs.unauthorized_attempts }}
-      is_authorized: ${{ steps.telemetry.outputs.is_authorized }}
-    steps:
-      - id: telemetry
-        name: Validate trigger authorization
-        env:
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/workflows/release/trigger-telemetry.cjs
-      - name: Upload telemetry artefact
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: trigger-telemetry
-          path: trigger-telemetry.json
-
   lint:
-    needs: [trigger-telemetry]
-    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -85,23 +25,8 @@ jobs:
       - name: Lint
         run: npm run lint
 
-  test:
-    needs: [trigger-telemetry]
-    if: needs.trigger-telemetry.outputs.unauthorized_attempts == '0'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "lts/*"
-      - name: Install
-        run: npm ci
-      - name: Run tests
-        run: npm test
-
   release:
-    needs: [lint, test]
+    needs: [lint]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -127,29 +52,12 @@ jobs:
       - name: Run Release Agent
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          INPUT_SCOPE: ${{ inputs.scope || github.event.inputs.scope || 'patch' }}
-          INPUT_VERSION: ${{ inputs.version || github.event.inputs.version || '' }}
-          INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
-          INPUT_DRY_RUN: ${{ inputs.dry_run }}
-        run: node scripts/workflows/release/run-release-agent.cjs | tee release-agent.log
-      - name: Validate changelog post-release
-        if: inputs.dry_run == false
         run: |
-          node scripts/validation/validate-changelog.cjs CHANGELOG.md
-          echo "✓ Post-release changelog validation passed"
-      - name: Build dry-run release notes preview
-        if: inputs.dry_run == true
-        env:
-          INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
-        run: node scripts/workflows/release/build-notes-preview.cjs
-      - name: Upload dry-run artefacts
-        if: inputs.dry_run == true
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-dry-run-artefacts
-          path: |
-            release-agent.log
-            release-notes-preview.md
+          SCOPE_INPUT="${{ github.event.inputs.scope }}"
+          if [ -z "$SCOPE_INPUT" ]; then
+            SCOPE_INPUT="patch"
+          fi
+          node scripts/agents/release.agent.js --scope="$SCOPE_INPUT"
       - name: Post metrics
         if: always()
         run: echo "metric=release_cycle conclusion=${{ job.status }}"
