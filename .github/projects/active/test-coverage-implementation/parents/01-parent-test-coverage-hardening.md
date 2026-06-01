@@ -1,6 +1,7 @@
 ---
 issue_number: 602
 title: "[PHASE 1] Move Tests Out of .jest-skip/ and Add Missing Coverage"
+description: "OPSX parent spec for restoring reliable coverage and reducing skipped-test debt"
 status: active
 priority: critical
 last_updated: '2026-06-01'
