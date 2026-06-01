@@ -12,6 +12,7 @@ children:
   - "5.1-current-vs-planned"
   - "5.2-agent-script-locations"
   - "5.3-migration-plan"
+last_updated: '2026-06-01'
 ---
 
 ## Overview

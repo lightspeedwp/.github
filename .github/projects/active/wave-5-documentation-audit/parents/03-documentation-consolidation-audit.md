@@ -14,6 +14,7 @@ children:
   - "3.3-labeling-docs"
   - "3.4-file-organization-alignment"
   - "3.5-update-index"
+last_updated: '2026-06-01'
 ---
 
 ## Overview

@@ -4,7 +4,7 @@ description: Canonical guide for org-wide issue type definitions, assignment, an
   automation. Covers all type categories, labels, and how the labeling agent assigns
   types.
 file_type: documentation
-version: v2.3
+version: v2.4
 created_date: '2025-10-20'
 last_updated: '2026-06-01'
 author: LightSpeed Team
@@ -55,12 +55,15 @@ This guide is for choosing a type, understanding type automation, and aligning w
 - **Task** — Small, well-scoped unit of work (e.g., config update, copy edit). *Label:* `type:task`
 - **Bug** — Broken/incorrect behaviour (e.g., error, regression, failed test). *Label:* `type:bug`
 - **Feature** — Net-new capability or enhancement (e.g., new block, API). *Label:* `type:feature`
+- **Enhancement** — Enhancement to existing feature or behaviour. *Label:* `type:enhancement`
 - **Design** — Design artefacts/decisions (e.g., Figma, specs, a11y checks). *Label:* `type:design`
+- **UI** — UI implementation and consistency. *Label:* `type:ui`
 - **Epic** — Parent issue grouping stories/tasks for a larger outcome. *Label:* `type:epic`
 - **Story** — User-centred vertical slice within an Epic. *Label:* `type:story`
 - **Improvement** — Enhance existing behaviour or UX. *Label:* `type:improve`
 - **Refactor** — Internal restructure for maintainability, no behaviour change. *Label:* `type:refactor`
 - **Build** — Tooling, pipelines, packaging, releases, deploys. *Label:* `type:build`
+- **CI** — CI/CD pipelines and infrastructure. *Label:* `type:ci`
 - **Automation** — Bots/actions/scripts that reduce toil. *Label:* `type:automation`
 - **Testing** — Add or expand tests (unit, integration, E2E). *Label:* `type:test`
 - **Performance** — Improve speed/efficiency. *Label:* `type:performance`
@@ -68,10 +71,12 @@ This guide is for choosing a type, understanding type automation, and aligning w
 - **Security** — Security issues or improvements. *Label:* `type:security`
 - **Compatibility** — Browser/device/plugin compatibility. *Label:* `type:compatibility`
 - **Integration** — Integration with external systems/services. *Label:* `type:integration`
+- **Dependency** — Dependency updates and version management. *Label:* `type:dependency`
 - **Release** — Release management and deployment. *Label:* `type:release`
 - **Maintenance** — Routine maintenance, updates, or audits. *Label:* `type:maintenance`
 - **Documentation** — Docs, guides, onboarding, or knowledge base. *Label:* `type:documentation`
 - **Research** — Discovery, investigation, or technical spikes. *Label:* `type:research`
+- **Investigation** — Issue diagnosis and root cause analysis. *Label:* `type:investigation`
 - **Chore** — Small hygiene change (typo, config, rename). *Label:* `type:chore`
 - **Audit** — Security, code, or process audits. *Label:* `type:audit`
 - **Review** — Peer review, QA, or validation. *Label:* `type:review`
@@ -86,7 +91,7 @@ See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-rea
 
 ## Type-to-Project-Field Mapping
 
-All 27 issue types map to 10 project field values for organization and automation. This mapping preserves semantic distinctions whilst grouping related workflows.
+All 32 issue types map to 10 project field values for organization and automation. This mapping preserves semantic distinctions whilst grouping related workflows.
 
 | Project Field | Issue Types | When to Use |
 | --- | --- | --- |
@@ -101,7 +106,7 @@ All 27 issue types map to 10 project field values for organization and automatio
 | **Release** | type:release | Release management, deployment, version coordination |
 | **Task** | type:task, type:epic, type:story, type:review, type:audit, type:question, type:support, type:content-modelling, type:performance, type:security | Catch-all for unspecified work, narratives, audits, and specialized domains |
 
-**Mapping Rationale**: See [ISSUE_FIELDS.md](./ISSUE_FIELDS.md#2-mapping-rationale) for detailed reasoning on why these 27 types are grouped into 10 project field values instead of collapsing to 4 generic options.
+**Mapping Rationale**: See [ISSUE_FIELDS.md](./ISSUE_FIELDS.md#2-mapping-rationale) for detailed reasoning on why these 32 types are grouped into 10 project field values instead of collapsing to 4 generic options.
 
 ---
 

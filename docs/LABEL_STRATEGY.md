@@ -2,9 +2,9 @@
 title: Label Strategy & Governance
 description: Comprehensive label strategy defining the taxonomy, color families, assignment rules, and maintenance processes for 150 canonical labels
 file_type: documentation
-version: v1.0.0
+version: v1.0.1
 created_date: '2026-05-31'
-last_updated: '2026-05-31'
+last_updated: '2026-06-01'
 authors:
   - Claude Code
   - LightSpeed Team
@@ -18,8 +18,7 @@ tags:
   - governance
   - canonical-config
 domain: governance
-status: stable
-language: en
+status: active
 stability: stable
 ---
 
@@ -89,7 +88,7 @@ The 150 canonical labels are organized into 7 primary families:
 - Use `status:blocked` when external factors prevent progress
 - Use `status:needs-*` to indicate next required input
 
-### 2.2 Priority Labels (5 Labels)
+### 2.2 Priority Labels (4 Labels)
 
 **Purpose**: Signal urgency and business impact
 
