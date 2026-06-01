@@ -1,15 +1,20 @@
 ---
-file_type: "index"
-title: ".github Schemas Boundary"
-description: "Repo-local index for schemas that remain under the .github control-plane boundary."
-version: "v0.2.0"
-last_updated: "2026-05-20"
-maintainer: "LightSpeed Team"
-authors: ["Codex"]
-license: "GPL-3.0"
-tags: ["schemas", "github-boundary", "ai-ops"]
-domain: "governance"
-stability: "draft"
+file_type: documentation
+title: .github Schemas Boundary
+description: Repo-local index for schemas that remain under the .github control-plane boundary.
+version: v0.2.0
+created_date: '2026-05-20'
+last_updated: '2026-05-20'
+maintainer: LightSpeed Team
+authors:
+  - LightSpeed Team
+license: GPL-3.0
+stability: draft
+domain: governance
+tags:
+  - schemas
+  - github-boundary
+  - ai-ops
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*

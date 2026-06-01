@@ -1,11 +1,23 @@
 ---
-title: "VS Code Workspace Configuration"
-description: "Visual Studio Code workspace settings, tasks, extensions, and AI integration for LightSpeedWP development environment"
-version: "v1.2"
-last_updated: "2026-05-31"
-maintainer: "LightSpeed Engineering"
-tags: ["vscode", "configuration", "extensions", "tasks", "ai", "development"]
-file_type: "configuration"
+file_type: documentation
+title: VS Code Workspace Configuration
+description: Visual Studio Code workspace settings, tasks, extensions, and AI integration for LightSpeedWP development environment
+version: v1.2
+created_date: '2026-05-26'
+last_updated: '2026-05-31'
+maintainer: LightSpeed Engineering
+authors:
+  - LightSpeed Team
+license: GPL-3.0
+stability: stable
+domain: governance
+tags:
+  - vscode
+  - configuration
+  - extensions
+  - tasks
+  - ai
+  - development
 ---
 
 ## VS Code Workspace Configuration (`.vscode`)
