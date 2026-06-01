@@ -4,9 +4,9 @@ description: Canonical guide for org-wide issue type definitions, assignment, an
   automation. Covers all type categories, labels, and how the labeling agent assigns
   types.
 file_type: documentation
-version: v2.2
+version: v2.3
 created_date: '2025-10-20'
-last_updated: '2026-05-31'
+last_updated: '2026-06-01'
 author: LightSpeed Team
 maintainer: Ash Shaw
 owners:
