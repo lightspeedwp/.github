@@ -188,9 +188,11 @@ async function main() {
   console.log(`Total diagrams:       ${report.totalDiagrams}`);
   console.log(`Accessible diagrams:  ${report.accessibleDiagrams}`);
   console.log(`Non-compliant:        ${report.inaccessibleDiagrams}`);
-  console.log(
-    `Compliance rate:      ${((report.accessibleDiagrams / report.totalDiagrams) * 100).toFixed(1)}%`,
-  );
+  const complianceRate =
+    report.totalDiagrams === 0
+      ? 100
+      : (report.accessibleDiagrams / report.totalDiagrams) * 100;
+  console.log(`Compliance rate:      ${complianceRate.toFixed(1)}%`);
 
   if (report.inaccessibleDiagrams > 0) {
     console.log("\n⚠️  ACCESSIBILITY ISSUES FOUND:");
@@ -236,7 +238,7 @@ stability: stable
 - **Total diagrams**: ${report.totalDiagrams}
 - **Accessible diagrams**: ${report.accessibleDiagrams}
 - **Non-compliant diagrams**: ${report.inaccessibleDiagrams}
-- **Compliance rate**: ${((report.accessibleDiagrams / report.totalDiagrams) * 100).toFixed(1)}%
+- **Compliance rate**: ${report.totalDiagrams === 0 ? "100.0" : ((report.accessibleDiagrams / report.totalDiagrams) * 100).toFixed(1)}%
 
 ## Files Analyzed
 
