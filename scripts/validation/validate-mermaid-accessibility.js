@@ -207,13 +207,32 @@ async function main() {
     }
   }
 
+  const reportPath = path.join(
+    ROOT,
+    ".github/reports/mermaid-accessibility-report.md",
+  );
+  const existingReport = fs.existsSync(reportPath)
+    ? fs.readFileSync(reportPath, "utf-8")
+    : "";
+  const fallbackGeneratedAt = new Date().toISOString();
+  const fallbackDate = fallbackGeneratedAt.split("T")[0];
+  const createdDate =
+    existingReport.match(/^created_date:\s*"([^"]+)"/m)?.[1] ?? fallbackDate;
+  const lastUpdated =
+    existingReport.match(/^last_updated:\s*"([^"]+)"/m)?.[1] ?? fallbackDate;
+  const generatedAt =
+    existingReport.match(/^\*\*Generated\*\*:\s*(.+)$/m)?.[1] ??
+    fallbackGeneratedAt;
+  const auditDate =
+    existingReport.match(/^\*\*Date\*\*:\s*(.+)$/m)?.[1] ?? fallbackDate;
+
   // Create accessibility audit report
   const reportContent = `---
 title: Mermaid Diagram Accessibility Compliance Report — Issue #669
 description: Accessibility compliance audit of all 24 Mermaid diagrams for accTitle and accDescr attributes
 version: 1.0.0
-created_date: "${new Date().toISOString().split("T")[0]}"
-last_updated: "${new Date().toISOString().split("T")[0]}"
+created_date: "${createdDate}"
+last_updated: "${lastUpdated}"
 file_type: documentation
 maintainer: Claude Code
 owners:
@@ -233,7 +252,7 @@ stability: stable
 
 # Mermaid Diagram Accessibility Compliance Report
 
-**Generated**: ${new Date().toISOString()}
+**Generated**: ${generatedAt}
 
 ## Summary
 
@@ -288,14 +307,11 @@ ${
 ---
 
 **Audit Conducted By**: Claude Code
-**Date**: ${new Date().toISOString().split("T")[0]}
+**Date**: ${auditDate}
 **Related Issues**: #667, #668, #669, #670
 `;
 
-  fs.writeFileSync(
-    path.join(ROOT, ".github/reports/mermaid-accessibility-report.md"),
-    reportContent,
-  );
+  fs.writeFileSync(reportPath, reportContent);
   console.log(
     "\n✅ Accessibility report saved to .github/reports/mermaid-accessibility-report.md",
   );
