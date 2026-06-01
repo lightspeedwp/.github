@@ -175,9 +175,9 @@ Brief 2-3 sentence summary of the project's purpose, scope, and business/technic
 
 **GitHub issues, PRs, discussions, or external links**
 
-- Related issue: [#123 - Issue title](https://github.com/lightspeedwp/.github/issues/123)
-- Blocking issue: [#124 - Issue title](https://github.com/lightspeedwp/.github/issues/124)
-- Blocked by: [#125 - Issue title](https://github.com/lightspeedwp/.github/issues/125)
+- Related issue: #XXX - [Issue title]
+- Blocking issue: #XXX - [Issue title]
+- Blocked by: #XXX - [Issue title]
 - Reference: [Link to spec, design doc, or external resource]
 
 ---
