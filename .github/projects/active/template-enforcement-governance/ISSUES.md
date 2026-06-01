@@ -88,7 +88,7 @@ test/ → pr_test.md
 perf/ → pr_perf.md
 ci/ → pr_ci.md
 build/ → pr_ci.md
-deps/ → pr_deps.md (if exists) or pr_chore.md
+deps/ → pr_dep_update.md
 security/ → pr_security.md (if exists) or pr_chore.md
 design/ → pr_design.md (if exists) or pr_feature.md
 a11y/ → pr_a11y.md (if exists) or pr_improve.md
@@ -539,13 +539,13 @@ Update BRANCHING_STRATEGY.md with PR template mapping table and governance notes
 
 ## Related Documents
 
-- [AGENT.md](../AGENT.md) — Canonical governance rules (once updated)
-- [CLAUDE.md](../CLAUDE.md) — Claude-specific guidance (once updated)
-- [docs/BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) — Branch naming (once updated)
-- [instructions/pr-templates.instructions.md](../instructions/pr-templates.instructions.md) — Full PR template guide (once created)
-- [instructions/issue-templates.instructions.md](../instructions/issue-templates.instructions.md) — Full issue template guide (once created)
-- [.github/issue-types.yml](./.github/issue-types.yml) — Canonical issue type definitions
-- [.github/PULL_REQUEST_TEMPLATE/config.yml](./.github/PULL_REQUEST_TEMPLATE/config.yml) — PR template routing (once created)
+- [AGENTS.md](../../../../AGENTS.md) — Canonical governance rules (once updated)
+- [CLAUDE.md](../../../../CLAUDE.md) — Claude-specific guidance (once updated)
+- [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md) — Branch naming (once updated)
+- [instructions/pr-templates.instructions.md](../../../../instructions/pr-templates.instructions.md) — Full PR template guide (once created)
+- [instructions/issue-templates.instructions.md](../../../../instructions/issue-templates.instructions.md) — Full issue template guide (once created)
+- [.github/issue-types.yml](../../../issue-types.yml) — Canonical issue type definitions
+- [.github/PULL_REQUEST_TEMPLATE/config.yml](../../../PULL_REQUEST_TEMPLATE/config.yml) — PR template routing (once created)
 
 ---
 
