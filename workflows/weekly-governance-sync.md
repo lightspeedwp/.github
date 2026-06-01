@@ -17,8 +17,8 @@ This workflow ensures consistent application of standards, labels, and release p
 
 ## Weekly Review Schedule
 
-**Timing**: Every Monday at 9:00 AM UTC  
-**Duration**: 30-45 minutes  
+**Timing**: Every Monday at 9:00 AM UTC
+**Duration**: 30-45 minutes
 **Participants**: Release Manager, Dev Lead, Governance Team
 
 ## Checklist Items
@@ -132,9 +132,9 @@ This workflow ensures consistent application of standards, labels, and release p
 
 ## Follow-Up Actions
 
-**Daily**: Monitor new PRs and issues for label compliance  
-**Weekly**: Review metrics and trends  
-**Monthly**: Review effectiveness of governance process  
+**Daily**: Monitor new PRs and issues for label compliance
+**Weekly**: Review metrics and trends
+**Monthly**: Review effectiveness of governance process
 **Quarterly**: Update governance standards based on learnings
 
 ## Escalation Path

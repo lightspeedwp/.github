@@ -16,7 +16,7 @@ labels:
 ```markdown
 Hi @username,
 
-Thank you for your submission!  
+Thank you for your submission!
 Please ensure you have benchmarked any new code for performance and resource usage.
 
 - Benchmark critical paths before/after changes

@@ -11,9 +11,9 @@ tags: ["wceu-2026", "talk-preparation", "planning", "critical-path"]
 
 # WCEU 2026 Talk Preparation — Streamlined Planning
 
-**Talk Date**: June 5–6, 2026 (7 days away)  
-**Slide Deck Due**: May 31, 2026 (48 hours)  
-**Presentation Format**: 25-minute presentation (24 slides, Google Slides, dark mode)  
+**Talk Date**: June 5–6, 2026 (7 days away)
+**Slide Deck Due**: May 31, 2026 (48 hours)
+**Presentation Format**: 25-minute presentation (24 slides, Google Slides, dark mode)
 **Audience**: 200–500 people, theater-style, Q&A at end + Happiness Bar follow-up
 
 ---
@@ -48,8 +48,8 @@ tags: ["wceu-2026", "talk-preparation", "planning", "critical-path"]
 
 ### 1. Profile Photo Asset
 
-**Owner**: Ash Shaw  
-**Status**: Pending  
+**Owner**: Ash Shaw
+**Status**: Pending
 **Action**:
 
 - [ ] Commit `wceu-2026/assets/ash-shaw-profile.jpg` to repo
@@ -57,8 +57,8 @@ tags: ["wceu-2026", "talk-preparation", "planning", "critical-path"]
 
 ### 2. NotebookLM Sources Index
 
-**Owner**: Claude  
-**Status**: To be created  
+**Owner**: Claude
+**Status**: To be created
 **Deliverable**: `wceu-2026/notebooklm/sources-index.md`
 **Contents**:
 
@@ -99,8 +99,8 @@ https://github.com/WordPress/agent-skills (external reference for roadmap docs)
 
 ### 3. Four New Slides (Cover, Intro, Contact, Thank-You)
 
-**Owner**: Claude (using NotebookLM) + Ash Shaw (design in Google Slides)  
-**Status**: To be generated  
+**Owner**: Claude (using NotebookLM) + Ash Shaw (design in Google Slides)
+**Status**: To be generated
 **Slides**:
 
 | Slide | Title | Content Brief | Source |
@@ -112,8 +112,8 @@ https://github.com/WordPress/agent-skills (external reference for roadmap docs)
 
 ### 4. Slide Content Generation (20 slides)
 
-**Owner**: NotebookLM → Claude → Ash Shaw  
-**Status**: Pending  
+**Owner**: NotebookLM → Claude → Ash Shaw
+**Status**: Pending
 **Process**:
 
 1. Claude creates NotebookLM session with sources index
@@ -178,9 +178,9 @@ wceu-2026/
 
 ### Parent Issue: "WCEU 2026 Talk Preparation"
 
-**Status**: Active  
-**Priority**: Critical  
-**Due**: May 31, 2026  
+**Status**: Active
+**Priority**: Critical
+**Due**: May 31, 2026
 **Description**: Centralized tracking for finalizing the WordCamp Europe 2026 talk (25-minute presentation, 24 slides, dark-mode Google Slides)
 
 **Acceptance Criteria**:
@@ -239,14 +239,14 @@ wceu-2026/
 
 By **May 31, 2026 EOD**:
 
-✅ Google Slides deck with 24 slides (dark mode, speaker notes)  
-✅ All slides follow WCAG AA/AAA contrast requirements  
-✅ Profile photo committed to `wceu-2026/assets/`  
-✅ Glossary document created  
-✅ NotebookLM sources index created  
-✅ WordPress integration referenced in roadmap slide  
-✅ All speaker notes include timing, talking points, transitions  
-✅ Ready for final rehearsal (June 1–4)  
+✅ Google Slides deck with 24 slides (dark mode, speaker notes)
+✅ All slides follow WCAG AA/AAA contrast requirements
+✅ Profile photo committed to `wceu-2026/assets/`
+✅ Glossary document created
+✅ NotebookLM sources index created
+✅ WordPress integration referenced in roadmap slide
+✅ All speaker notes include timing, talking points, transitions
+✅ Ready for final rehearsal (June 1–4)
 
 ---
 
@@ -305,6 +305,6 @@ By **May 31, 2026 EOD**:
 
 ---
 
-**Status**: Active  
-**Last Updated**: 2026-05-29  
+**Status**: Active
+**Last Updated**: 2026-05-29
 **Next Review**: 2026-05-30 (12-hour check-in)

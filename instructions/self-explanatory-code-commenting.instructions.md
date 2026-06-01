@@ -139,7 +139,7 @@ function processUserRegistration($email, $password) {
   $this->validateEmailFormat($email);
   $this->checkEmailUniqueness($email);
   $this->enforcePasswordStrength($password);
-  
+
   return $this->createUser($email, $password);
 }
 ```

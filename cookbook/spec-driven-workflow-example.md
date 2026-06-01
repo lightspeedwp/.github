@@ -23,7 +23,7 @@ This example demonstrates the complete spec-driven workflow for implementing a f
 
 ### Step 1: Write the Specification
 
-**Feature**: Post Comment Count Display  
+**Feature**: Post Comment Count Display
 **User Story**: As a reader, I want to see the number of comments on a post directly on the post card so I can identify popular discussions without clicking through.
 
 **Acceptance Criteria**:

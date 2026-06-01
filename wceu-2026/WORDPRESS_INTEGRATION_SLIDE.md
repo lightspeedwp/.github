@@ -7,10 +7,10 @@ file_type: documentation
 
 # WordPress Integration Slide Template
 
-**Slide Number**: 20  
-**Title**: "The Roadmap Ahead"  
-**Timing**: 1–2 minutes  
-**Visual Focus**: Timeline or phased roadmap  
+**Slide Number**: 20
+**Title**: "The Roadmap Ahead"
+**Timing**: 1–2 minutes
+**Visual Focus**: Timeline or phased roadmap
 
 ---
 
@@ -249,7 +249,7 @@ You can mention: "We've published a detailed roadmap on GitHub if you want to di
 
 ---
 
-**Slide 20 Template Version**: 1.0  
-**Created**: 2026-05-30  
-**Status**: Ready for integration into Google Slides  
+**Slide 20 Template Version**: 1.0
+**Created**: 2026-05-30
+**Status**: Ready for integration into Google Slides
 **Reference**: `/wceu-2026/WORDPRESS_INTEGRATION_ROADMAP.md`

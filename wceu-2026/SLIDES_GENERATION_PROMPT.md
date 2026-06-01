@@ -15,8 +15,8 @@ tags: ["presentation", "slides", "wordcamp", "automation", "governance"]
 
 This prompt guides the creation of **20 professional presentation slides** for a 25-minute talk on how LightSpeed evolved the `.github` repository from a central governance hub into **installable plugin packs for AI coding tools**.
 
-**Talk Duration**: 25 minutes (3–4 slides per minute)  
-**Audience**: WordPress agency owners, product teams, senior engineers  
+**Talk Duration**: 25 minutes (3–4 slides per minute)
+**Audience**: WordPress agency owners, product teams, senior engineers
 **Key Story Arc**: Problem → Architecture → Pivot → Plugin Model → Outcomes → Adoption Path
 
 ---
@@ -94,7 +94,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - Single `.github` repo as bottleneck
   - Multiple teams/tools trying to use the same rules
   - Conflicts: standards vs. flexibility
-  
+
 - **Right side (Pain)**: Bullet points:
   - ❌ Hard to customize for different projects
   - ❌ Rules are centrally controlled, not adaptable
@@ -124,7 +124,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - Repository A with `.github/` (centrally managed)
   - Repository B (plugin) — cannot inherit from Repo A
   - Gap/boundary between them (highlighted in red)
-  
+
 - **Key constraints**:
   1. `.github/` inheritance works within one repo only
   2. Plugin repos are separate repositories
@@ -155,7 +155,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - Contains: governance rules, issue/PR templates, labels, workflows
   - Contains: plugin manifest and metadata
   - Contains: reusable assets (hooks, instructions, schemas)
-  
+
 - **Surrounding**: Plugin repositories (agents/, skills/, plugins/)
   - Each imports needed rules and assets from control plane
   - Can customize while inheriting standards
@@ -223,7 +223,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
   - Everything in one place
   - Hard to pick and choose
   - High barrier to entry
-  
+
 - **New Model** (right):
   - Multiple focused plugins (e.g., `lightspeed-github-ops`, `lightspeed-automation-rules`)
   - Each plugin is installable and independent
@@ -368,7 +368,7 @@ This prompt guides the creation of **20 professional presentation slides** for a
 - **Issue Template Structure**:
   - Frontmatter (YAML): title, type, category, status, tags
   - Body: problem, acceptance criteria, context
-  
+
 - **PR Template Structure**:
   - Frontmatter: related issue, type, reviewers, checklist
   - Body: summary, test plan, breaking changes, linked issues
@@ -600,9 +600,9 @@ This prompt guides the creation of **20 professional presentation slides** for a
   ```markdown
   ✅ GOOD:
   # Configuration Schema
-  
+
   Each rule must validate against the following schema...
-  
+
   ❌ BAD:
   cfg_schema_val_rules
   ```
@@ -840,7 +840,7 @@ All claims in these slides are backed by repository files:
 
 ---
 
-**Created**: 2026-05-28  
-**For**: WordCamp Europe 2026 (25-minute presentation)  
-**By**: LightSpeed Automation Team  
+**Created**: 2026-05-28
+**For**: WordCamp Europe 2026 (25-minute presentation)
+**By**: LightSpeed Automation Team
 **Backed by**: Repository evidence from `lightspeedwp/.github/develop`

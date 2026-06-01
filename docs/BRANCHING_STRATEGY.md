@@ -54,8 +54,8 @@ Enable squash merge only; disable merge commits and rebase merges.
 
 ## 3. Branch Naming
 
-**Format:**  
-`{type}/{scope}-{short-title}`  
+**Format:**
+`{type}/{scope}-{short-title}`
 Use lower-case, kebab-case, and keep it short.
 
 ### 3.1 Required Core Prefixes
@@ -220,8 +220,8 @@ Extend your project sync workflow so branch prefixes set the Project **Type** fi
 - `proto/`, `api/`, `schema/`, `telemetry/`, `ds/` → Feature/Task
 - `release/` → Release PR
 
-**Principle:**  
-Labels remain **routing signals** (status, priority, area/component).  
+**Principle:**
+Labels remain **routing signals** (status, priority, area/component).
 Issue Types and Project fields carry the semantic meaning.
 
 ---

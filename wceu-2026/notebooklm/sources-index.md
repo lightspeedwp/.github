@@ -143,7 +143,7 @@ file_type: documentation
 
 ---
 
-**Created**: 2026-05-29  
-**Total URLs**: ~60  
-**Status**: Ready for NotebookLM  
+**Created**: 2026-05-29
+**Total URLs**: ~60
+**Status**: Ready for NotebookLM
 **Related Task**: [WCEU-03] Run NotebookLM session

@@ -67,6 +67,6 @@ The canonical AI references in this folder are used by:
 
 ---
 
-**Directory Status:** Active  
-**Last Updated:** 2026-05-31  
+**Directory Status:** Active
+**Last Updated:** 2026-05-31
 **Curator:** LightSpeedWP Platform Team

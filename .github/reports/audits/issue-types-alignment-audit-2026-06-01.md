@@ -199,6 +199,6 @@ Create template files for the 3 types without templates:
 
 ---
 
-**Generated:** 2026-06-01  
-**Audit Scope:** `.github/issue-types.yml` (29 types), `.github/ISSUE_TEMPLATE/` (26 templates), `.github/labels.yml` (29+ labels)  
+**Generated:** 2026-06-01
+**Audit Scope:** `.github/issue-types.yml` (29 types), `.github/ISSUE_TEMPLATE/` (26 templates), `.github/labels.yml` (29+ labels)
 **Status:** Complete with phase-by-phase remediation plan

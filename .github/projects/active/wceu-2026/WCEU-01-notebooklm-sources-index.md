@@ -7,11 +7,11 @@ file_type: documentation
 
 # [WCEU-01] Create NotebookLM sources index
 
-**Title**: Create NotebookLM sources index (`notebooklm/sources-index.md`)  
-**Priority**: Critical (NOW — next 6 hours)  
-**Status**: TODO  
-**Due**: May 29, 2026 (today, ASAP)  
-**Assignee**: Claude  
+**Title**: Create NotebookLM sources index (`notebooklm/sources-index.md`)
+**Priority**: Critical (NOW — next 6 hours)
+**Status**: TODO
+**Due**: May 29, 2026 (today, ASAP)
+**Assignee**: Claude
 **Parent**: WCEU 2026 Talk Preparation
 
 ---
@@ -146,6 +146,6 @@ Once complete, this file will be used in [WCEU-03]:
 
 ---
 
-**Status**: TODO  
-**Effort**: 2 hours  
+**Status**: TODO
+**Effort**: 2 hours
 **Created**: 2026-05-29

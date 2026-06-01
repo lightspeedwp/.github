@@ -320,6 +320,6 @@ Phases:
 
 ---
 
-*Report generated: 2026-05-29*  
-*Wave 4C: Current-State Audit*  
+*Report generated: 2026-05-29*
+*Wave 4C: Current-State Audit*
 *Related: Issue #553, #554, #555, #556*

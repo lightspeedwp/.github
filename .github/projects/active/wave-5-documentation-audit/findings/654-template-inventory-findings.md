@@ -105,6 +105,6 @@ Address the duplicate `07` prefix:
 
 ---
 
-**Audit Date:** 2026-05-31  
-**Audit Status:** ✅ Complete  
+**Audit Date:** 2026-05-31
+**Audit Status:** ✅ Complete
 **Full Details:** [GitHub Issue #654](https://github.com/lightspeedwp/.github/issues/654#issuecomment-4587414901)

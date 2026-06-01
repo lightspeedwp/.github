@@ -187,6 +187,6 @@ Before creating issues in GitHub, verify:
 
 ---
 
-**Last Updated:** 2026-05-31  
-**Created By:** Claude Code  
+**Last Updated:** 2026-05-31
+**Created By:** Claude Code
 **For:** LightSpeed Team

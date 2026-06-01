@@ -7,9 +7,9 @@ file_type: documentation
 
 # Phase 2 Execution Checklist — May 30, 2026
 
-**Objective**: Generate speaker notes (NotebookLM) + create 4 foundation slides (Google Slides)  
-**Duration**: 2.5–3 hours total  
-**Owner**: Ash Shaw  
+**Objective**: Generate speaker notes (NotebookLM) + create 4 foundation slides (Google Slides)
+**Duration**: 2.5–3 hours total
+**Owner**: Ash Shaw
 
 ---
 
@@ -242,8 +242,8 @@ See `PHASE3_EXECUTION.md` for full Phase 3 guide.
 
 ---
 
-**Phase 2 Start Time**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
-**Phase 2 End Time**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
-**Total Duration**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
+**Phase 2 Start Time**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+**Phase 2 End Time**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+**Total Duration**: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 **Status**: ☐ In Progress / ☐ Complete

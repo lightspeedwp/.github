@@ -9,7 +9,7 @@ category: "github-templates"
 
 # Hotfix Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Project Operations Spec](../../docs/GITHUB_PROJECT_OPERATIONS_SPEC.md) for contributor rules.
 
 ## Linked issues

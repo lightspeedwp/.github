@@ -75,7 +75,7 @@ describe("installDeps", () => {
       process.chdir(tempDir);
       const relativePath = "test-project";
       const resolvedDir = path.resolve(relativePath);
-      expect(resolvedDir).toBe(projectDir);
+      expect(fs.realpathSync(resolvedDir)).toBe(fs.realpathSync(projectDir));
     } finally {
       process.chdir(originalCwd);
     }

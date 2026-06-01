@@ -55,14 +55,14 @@ language: "en"
 
 ### Accessibility Standards (WCAG 2.2 AA)
 
-✓ **Contrast:** All text ≥4.5:1 on primary backgrounds  
-✓ **Font Size:** Body text 18–24pt (4.5:1 contrast validated), titles ≥44pt  
-✓ **Line Height:** 1.5x minimum  
-✓ **Colour Alone:** Never use colour as sole identifier (always pair with text/icon)  
-✓ **Motion:** No auto-playing animations; animations <3 seconds if present  
-✓ **Keyboard Navigation:** All interactive elements keyboard-accessible  
-✓ **Alt Text:** All images have descriptive alt text  
-✓ **Captions:** Video/audio content captioned (if used)  
+✓ **Contrast:** All text ≥4.5:1 on primary backgrounds
+✓ **Font Size:** Body text 18–24pt (4.5:1 contrast validated), titles ≥44pt
+✓ **Line Height:** 1.5x minimum
+✓ **Colour Alone:** Never use colour as sole identifier (always pair with text/icon)
+✓ **Motion:** No auto-playing animations; animations <3 seconds if present
+✓ **Keyboard Navigation:** All interactive elements keyboard-accessible
+✓ **Alt Text:** All images have descriptive alt text
+✓ **Captions:** Video/audio content captioned (if used)
 
 ---
 

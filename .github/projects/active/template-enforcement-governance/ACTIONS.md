@@ -11,9 +11,9 @@ maintainer: "LightSpeed Team"
 
 # Template Enforcement & Governance — Action Plan
 
-**Project Status:** Backlog Published  
-**Total Issues:** 13 (all created and ready for assignment)  
-**Timeline:** 2–3 weeks  
+**Project Status:** Backlog Published
+**Total Issues:** 13 (all created and ready for assignment)
+**Timeline:** 2–3 weeks
 **Effort:** ~11.5 hours
 
 ---
@@ -22,7 +22,7 @@ maintainer: "LightSpeed Team"
 
 ### Step 1: Assign Phase 1 Issues (Critical Path)
 
-**Deadline:** Tomorrow  
+**Deadline:** Tomorrow
 **Owner:** Project Lead
 
 | Issue | Title | Assigned To | Status |
@@ -37,8 +37,8 @@ maintainer: "LightSpeed Team"
 
 ### Step 2: Manually Add Issue Types to GitHub Org Settings
 
-**Deadline:** Tomorrow  
-**Owner:** Organization Admin  
+**Deadline:** Tomorrow
+**Owner:** Organization Admin
 **Issue:** #709
 
 **Steps:**
@@ -55,8 +55,8 @@ maintainer: "LightSpeed Team"
 
 ### Step 3: Create Phase 1 Config Files
 
-**Deadline:** End of Week 1  
-**Owner:** TBD (2 developers, ~1.5h each)  
+**Deadline:** End of Week 1
+**Owner:** TBD (2 developers, ~1.5h each)
 **Issues:** #710, #711
 
 **Deliverables:**

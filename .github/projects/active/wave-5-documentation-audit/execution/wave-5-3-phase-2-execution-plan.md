@@ -15,10 +15,10 @@ domain: "governance"
 
 # Wave 5.3 Phase 2 Execution Plan
 
-**Parent Issue:** #651 (Documentation Consolidation)  
-**Audit Phase Completed:** 2026-05-31  
-**Execution Phase Started:** 2026-05-31  
-**Executor:** Claude Code  
+**Parent Issue:** #651 (Documentation Consolidation)
+**Audit Phase Completed:** 2026-05-31
+**Execution Phase Started:** 2026-05-31
+**Executor:** Claude Code
 
 ---
 
@@ -231,6 +231,6 @@ These are larger reorganization efforts recommended for Phase 2 but deferred to 
 
 ---
 
-**Status:** Ready to execute  
-**Estimated Duration:** 3-4 hours total  
+**Status:** Ready to execute
+**Estimated Duration:** 3-4 hours total
 **Next Phase:** Wave 5.4 (README discovery and updates)

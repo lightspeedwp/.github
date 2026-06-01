@@ -21,11 +21,11 @@ domain: governance
 
 # Branding Agent Current-State Audit (Issue #48)
 
-**Parent Issue**: #33 (Parent Specification)  
-**Related Issues**: #46 (Template Design), #49 (Schema/Config)  
-**Status**: Current-State Audit Phase  
-**Effort**: 12–14 hours (audit, analysis, remediation planning, documentation)  
-**Timeline**: Week 2–3 implementation  
+**Parent Issue**: #33 (Parent Specification)
+**Related Issues**: #46 (Template Design), #49 (Schema/Config)
+**Status**: Current-State Audit Phase
+**Effort**: 12–14 hours (audit, analysis, remediation planning, documentation)
+**Timeline**: Week 2–3 implementation
 
 ---
 

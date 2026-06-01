@@ -16,7 +16,7 @@ labels:
 ```markdown
 Hi @username,
 
-This issue has been closed due to inactivity.  
+This issue has been closed due to inactivity.
 If you’re still experiencing this problem, please reply with the requested information or open a new issue.
 
 Thank you for your contribution!

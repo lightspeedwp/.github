@@ -381,7 +381,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 
 ---
 
-**Created**: 2026-05-28  
-**By**: Claude  
-**For**: LightSpeed Team  
+**Created**: 2026-05-28
+**By**: Claude
+**For**: LightSpeed Team
 **Related work**: Issues #33, #46, #48, #49, #529

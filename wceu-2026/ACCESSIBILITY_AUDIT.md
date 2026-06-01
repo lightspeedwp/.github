@@ -7,9 +7,9 @@ file_type: documentation
 
 # Accessibility Audit Checklist
 
-**Standard**: WCAG 2.2 AA (minimum), AAA (preferred)  
-**Deadline**: May 31 EOD (must verify before rehearsal)  
-**Tool**: [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)  
+**Standard**: WCAG 2.2 AA (minimum), AAA (preferred)
+**Deadline**: May 31 EOD (must verify before rehearsal)
+**Tool**: [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
 **Reviewer**: Ash Shaw (or accessibility-focused peer)
 
 ---
@@ -287,6 +287,6 @@ If you want to test with a screen reader:
 
 ---
 
-**Audit Template Version**: 1.0  
-**Created**: 2026-05-30  
+**Audit Template Version**: 1.0
+**Created**: 2026-05-30
 **Last Updated**: [May 31 after verification]

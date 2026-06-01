@@ -7,8 +7,8 @@ created_date: "2026-05-31"
 
 # Workflow Standards Audit & Improvement Plan
 
-**Date:** 31 May 2026  
-**Audit Scope:** Linting, metadata, branding, CI/CD workflows, and automation  
+**Date:** 31 May 2026
+**Audit Scope:** Linting, metadata, branding, CI/CD workflows, and automation
 **Status:** Active (Implementation in Progress)
 
 ## Executive Summary
@@ -57,8 +57,8 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 
 ### 1. **Changelog Auto-Sync on Develop Merge** (CRITICAL)
 
-**Current State:** Changelog validated on PR; not updated on merge  
-**Gap:** No mechanism to append merged PR changelog entries to main CHANGELOG.md  
+**Current State:** Changelog validated on PR; not updated on merge
+**Gap:** No mechanism to append merged PR changelog entries to main CHANGELOG.md
 **Solution:** New `changelog-auto-update.yml` workflow
 
 **Implementation:**
@@ -75,8 +75,8 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 
 ### 2. **Automated Project Archival** (HIGH)
 
-**Current State:** Projects in active folder; archival is manual  
-**Gap:** No workflow to detect completion and move to archived  
+**Current State:** Projects in active folder; archival is manual
+**Gap:** No workflow to detect completion and move to archived
 **Solution:** New `project-archival.yml` workflow + project schema validation
 
 **Implementation:**
@@ -93,8 +93,8 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 
 ### 3. **Planner Agent Implementation** (HIGH)
 
-**Current State:** Disabled (`if: false`); script not implemented  
-**Gap:** Issues not automatically added to project on creation  
+**Current State:** Disabled (`if: false`); script not implemented
+**Gap:** Issues not automatically added to project on creation
 **Solution:** Implement `scripts/agents/planner.agent.js`
 
 **Implementation:**
@@ -110,8 +110,8 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 
 ### 4. **Issue Planning Documentation** (MEDIUM)
 
-**Current State:** Issues created ad-hoc; planning not centralised  
-**Gap:** No standardised location for planning docs before issues  
+**Current State:** Issues created ad-hoc; planning not centralised
+**Gap:** No standardised location for planning docs before issues
 **Solution:** Pre-issue planning template + checklist in issue-opener guide
 
 **Implementation:**
@@ -127,8 +127,8 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 
 ### 5. **Workflow Consolidation & Clarity** (MEDIUM)
 
-**Current State:** Linting split across `linting.yml`, `meta.yml`, `testing.yml`  
-**Gap:** Unclear triggers; potential for redundant/competing runs  
+**Current State:** Linting split across `linting.yml`, `meta.yml`, `testing.yml`
+**Gap:** Unclear triggers; potential for redundant/competing runs
 **Solution:** Unified pre-merge check workflow + documentation
 
 **Implementation:**
@@ -144,8 +144,8 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 
 ### 6. **Scheduled Metrics & Reporting** (LOW)
 
-**Current State:** Metrics collected ad-hoc; no scheduled summary  
-**Gap:** Metrics available but not surfaced to team  
+**Current State:** Metrics collected ad-hoc; no scheduled summary
+**Gap:** Metrics available but not surfaced to team
 **Solution:** Add scheduled reporting workflow
 
 **Implementation:**

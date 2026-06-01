@@ -186,7 +186,7 @@ The Testing Agent is responsible for:
 
 ```text
 Agent: Run all tests in this project and generate a coverage report.
-Output: 
+Output:
 - Jest: 125 tests pass, 2 fail (coverage: 82%)
 - Playwright: 8 tests pass, 0 fail
 - Overall: 96% of tests passing, coverage above threshold

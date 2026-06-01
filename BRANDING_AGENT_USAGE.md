@@ -11,8 +11,8 @@ owners: ["LightSpeedWP Automation Team"]
 
 # Unified Branding Agent — Usage Guide
 
-**Document Version**: 1.0.0  
-**Last Updated**: 2026-05-29  
+**Document Version**: 1.0.0
+**Last Updated**: 2026-05-29
 **Related Issues**: #555 (Wave 4E Implementation)
 
 ---
@@ -209,7 +209,7 @@ last_updated: "2026-05-29"
 
 # API Documentation
 
-**Category**: [docs] · **Status**: Active · **Version**: 2.0.0  
+**Category**: [docs] · **Status**: Active · **Version**: 2.0.0
 **Owners**: @ashshaw, team@lightspeedwp.agency · **Last Updated**: 2026-05-29
 
 ---
@@ -372,7 +372,7 @@ last_updated: "2026-05-29"
 
 # Getting Started
 
-**Category**: [docs] · **Status**: Active · **Version**: 1.0.0  
+**Category**: [docs] · **Status**: Active · **Version**: 1.0.0
 **Owners**: @ashshaw · **Last Updated**: 2026-05-29
 
 ---
@@ -655,21 +655,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Apply branding to changed files
         run: |
           git diff --name-only HEAD~1 | grep '\.md$' | while read file; do
             node scripts/agents/branding-unified.agent.js "$file" --apply
           done
-      
+
       - name: Commit changes
         if: success()
         run: |

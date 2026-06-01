@@ -12,7 +12,7 @@ file_type: "instructions"
 
 # Saved Replies Usage Instructions
 
-Saved replies are reusable, pre-written responses for common GitHub interactions.  
+Saved replies are reusable, pre-written responses for common GitHub interactions.
 LightSpeedWP maintains a comprehensive library of saved replies for issues, pull requests, triage, and review, kept in the `.github/SAVED_REPLIES/` directory.
 
 ---
@@ -76,7 +76,7 @@ LightSpeedWP maintains a comprehensive library of saved replies for issues, pull
 ```markdown
 Hi @username,
 
-This PR is missing one or more required labels for automation and release.  
+This PR is missing one or more required labels for automation and release.
 See our [PR Label Reference](../../PR_LABELS.md) for label meanings.
 ```
 

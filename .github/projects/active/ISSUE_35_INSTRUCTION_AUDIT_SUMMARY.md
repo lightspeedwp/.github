@@ -11,7 +11,7 @@ file_type: documentation
 
 This document summarizes the audit of instruction files across the LightSpeed `.github` repository (issue #35). The audit identified 36 instruction files, classified them by scope, and documented overlapping guidance and cross-linking opportunities.
 
-**Status:** In Progress  
+**Status:** In Progress
 **Branch:** `ai/audit-instruction-files-35`
 
 ---
@@ -20,7 +20,7 @@ This document summarizes the audit of instruction files across the LightSpeed `.
 
 ### File Inventory
 
-**Total instruction files:** 36  
+**Total instruction files:** 36
 **Location:** `instructions/` (repository root level)
 
 ### Scope Classification
@@ -79,10 +79,10 @@ These files are specific to this `.github` control-plane repository:
 
 ## Completed Work
 
-✅ **Expanded a11y.instructions.md** with comprehensive WCAG 2.2 AA guidance  
-✅ **Updated CLAUDE.md** with clarity on organization-wide vs repo-local files  
-✅ **Classified all 36 files** by scope and reusability  
-✅ **Created index/README** for instructions/ folder  
+✅ **Expanded a11y.instructions.md** with comprehensive WCAG 2.2 AA guidance
+✅ **Updated CLAUDE.md** with clarity on organization-wide vs repo-local files
+✅ **Classified all 36 files** by scope and reusability
+✅ **Created index/README** for instructions/ folder
 ✅ **Expanded stub files:** copilot-operations.instructions.md, file-organisation.instructions.md
 
 ---
@@ -175,5 +175,5 @@ The following changes were made to `CLAUDE.md`:
 
 ---
 
-*Audit completed: 2026-05-29*  
+*Audit completed: 2026-05-29*
 *Branch: ai/audit-instruction-files-35*

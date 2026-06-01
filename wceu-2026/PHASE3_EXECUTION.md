@@ -8,9 +8,9 @@ file_type: documentation
 
 # Phase 3 Execution Guide
 
-**Timeline**: May 31 (URGENT — entire day)  
-**Deliverable**: 24-slide Google Slides deck with speaker notes, dark-mode design, accessibility verified  
-**Owner**: Ash Shaw (design + content transfer) + Claude (automation + checklists)  
+**Timeline**: May 31 (URGENT — entire day)
+**Deliverable**: 24-slide Google Slides deck with speaker notes, dark-mode design, accessibility verified
+**Owner**: Ash Shaw (design + content transfer) + Claude (automation + checklists)
 **Effort**: 6–8 hours
 
 ---
@@ -214,7 +214,7 @@ SPEAKER NOTES TEMPLATE:
 
 **Timing**: [X minutes / Y total minutes]
 
-**Key Message**: 
+**Key Message**:
 [One sentence summary]
 
 **Talking Points**:
@@ -230,7 +230,7 @@ SPEAKER NOTES TEMPLATE:
 - Likely question: [Q]
 - Answer: [A]
 
-**Emphasis**: 
+**Emphasis**:
 - Pause here for effect
 - Repeat this metric
 - Use story/example if time allows

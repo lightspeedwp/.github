@@ -16,7 +16,7 @@ labels:
 ```markdown
 Hi @username,
 
-Thank you for your contribution!  
+Thank you for your contribution!
 Please update your code to match our [coding standards](../../instructions/coding-standards.instructions.md):
 
 - Consistent indentation and spacing

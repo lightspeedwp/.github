@@ -58,10 +58,10 @@ Currently, footers are:
 
 ### Key Principles
 
-✅ **One footer per document** — Validation enforces this  
-✅ **Predefined templates** — Choose from validated, category-specific footers  
-✅ **Schema validation** — Prevent duplicates and invalid footers  
-✅ **Automation-ready** — Footer insertion can be automated via agent  
+✅ **One footer per document** — Validation enforces this
+✅ **Predefined templates** — Choose from validated, category-specific footers
+✅ **Schema validation** — Prevent duplicates and invalid footers
+✅ **Automation-ready** — Footer insertion can be automated via agent
 
 ---
 
@@ -101,7 +101,7 @@ The configuration defines **15 document categories** with appropriate footers:
 [🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
 ```
 
-**Use for**: README files, general documentation  
+**Use for**: README files, general documentation
 **Lines**: 3 lines (title + blank + content)
 
 ### `ai-ops-standard`
@@ -114,7 +114,7 @@ The configuration defines **15 document categories** with appropriate footers:
 [📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
 ```
 
-**Use for**: AI ops, agent specs, automation docs  
+**Use for**: AI ops, agent specs, automation docs
 **Lines**: 3 lines
 
 ### `standards-footer`
@@ -127,7 +127,7 @@ The configuration defines **15 document categories** with appropriate footers:
 [📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
 ```
 
-**Use for**: Instructions, coding standards, guidelines  
+**Use for**: Instructions, coding standards, guidelines
 **Lines**: 3 lines
 
 ### All Other Templates
@@ -457,6 +457,6 @@ Action: Replace and note in commit
 
 ---
 
-**Created**: 2026-05-28  
-**Status**: Active guidance for footer remediation  
+**Created**: 2026-05-28
+**Status**: Active guidance for footer remediation
 **Related issues**: #33 (branding meta agent), #46 (templates), #49 (schema)

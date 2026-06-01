@@ -16,7 +16,7 @@ labels:
 ```markdown
 Hi @username,
 
-This issue appears to be a duplicate of #X.  
+This issue appears to be a duplicate of #X.
 To keep things organized, we’re closing this as a duplicate.
 
 Please follow updates on #X and add any further information there. Thank you!

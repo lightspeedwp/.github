@@ -15,10 +15,10 @@ domain: "governance"
 
 # File Organization Alignment Audit Report
 
-**Parent Issue:** #651 (Documentation Consolidation)  
-**Child Issue:** #665 (File Organization Alignment)  
-**Audited:** 2026-05-31  
-**Auditor:** Claude Code  
+**Parent Issue:** #651 (Documentation Consolidation)
+**Child Issue:** #665 (File Organization Alignment)
+**Audited:** 2026-05-31
+**Auditor:** Claude Code
 
 ---
 
@@ -248,9 +248,9 @@ All required portable asset folders exist and are correctly placed at top level:
 
 ### Issue 1: Duplicate Instruction File (`.github/instructions/`)
 
-**File:** `.github/instructions/file-organisation.instructions.md`  
-**Current state:** Duplicate of `instructions/file-organisation.instructions.md`  
-**Problem:** Two sources of truth violate CLAUDE.md principle of single source of truth  
+**File:** `.github/instructions/file-organisation.instructions.md`
+**Current state:** Duplicate of `instructions/file-organisation.instructions.md`
+**Problem:** Two sources of truth violate CLAUDE.md principle of single source of truth
 **Solution:** Remove `.github/instructions/` copy; use top-level version. If repo-local override needed, document difference.
 
 **Priority:** Medium
@@ -259,7 +259,7 @@ All required portable asset folders exist and are correctly placed at top level:
 
 ### Issue 2: Archived Instructions Not Documented
 
-**Files:** `.github/instructions/.archive/` (18 deprecated files)  
+**Files:** `.github/instructions/.archive/` (18 deprecated files)
 **Problem:**
 
 - Not listed in `instructions/DEPRECATED.md`
@@ -274,9 +274,9 @@ All required portable asset folders exist and are correctly placed at top level:
 
 ### Issue 3: Undocumented `ai/` Folder
 
-**Current state:** CLAUDE.md references `ai/Claude.md`, `ai/Gemini.md`, `ai/RUNNERS.md` but doesn't document folder purpose  
-**Problem:** New contributors may not know what `ai/` folder is for  
-**Solution:** Add to CLAUDE.md's "Portable AI Operations Assets" section or document separately  
+**Current state:** CLAUDE.md references `ai/Claude.md`, `ai/Gemini.md`, `ai/RUNNERS.md` but doesn't document folder purpose
+**Problem:** New contributors may not know what `ai/` folder is for
+**Solution:** Add to CLAUDE.md's "Portable AI Operations Assets" section or document separately
 **Purpose:** Likely "Canonical AI agent references and rules"
 
 **Priority:** Low (already referenced, just needs documentation)
@@ -285,14 +285,14 @@ All required portable asset folders exist and are correctly placed at top level:
 
 ### Issue 4: Root-Level Documentation Files
 
-**Files:** BRANDING_AGENT_USAGE.md, BRANDING_CONFIG_SPEC.md, DEVELOPMENT.md, GOVERNANCE.md, SUPPORT.md, MIGRATION_GUIDE.md  
+**Files:** BRANDING_AGENT_USAGE.md, BRANDING_CONFIG_SPEC.md, DEVELOPMENT.md, GOVERNANCE.md, SUPPORT.md, MIGRATION_GUIDE.md
 **Problem:**
 
 - Makes root directory cluttered
 - Some duplicate existing `docs/` files (e.g., MIGRATION_GUIDE.md vs. docs/MIGRATION.md)
 - Not aligned with "permanent human documentation → docs/" guideline
 
-**Solution:** Consolidate with `docs/` directory (move or merge)  
+**Solution:** Consolidate with `docs/` directory (move or merge)
 **Decision required:** Which files to keep at root for visibility vs. move to docs/
 
 **Priority:** Low (organizational improvement, not compliance issue)
@@ -387,7 +387,7 @@ All required portable asset folders exist and are correctly placed at top level:
 
 ---
 
-**Audit Completed:** 2026-05-31  
-**Auditor:** Claude Code  
-**Status:** Ready for implementation  
+**Audit Completed:** 2026-05-31
+**Auditor:** Claude Code
+**Status:** Ready for implementation
 **Compliance Level:** 97% (largely correct with minor improvements)

@@ -12,10 +12,10 @@ maintainer: "LightSpeed Team"
 
 # Wave 4: Continuous README & Mermaid Monitoring
 
-**Phase**: Post-Wave 3C Implementation  
-**Owner**: TBD (Codex or Claude, to be assigned)  
-**Estimated Start**: Post-Wave 3C completion  
-**Effort Estimate**: 2-3 weeks  
+**Phase**: Post-Wave 3C Implementation
+**Owner**: TBD (Codex or Claude, to be assigned)
+**Estimated Start**: Post-Wave 3C completion
+**Effort Estimate**: 2-3 weeks
 **Status**: Specification Draft (Ready for Review)
 
 ---

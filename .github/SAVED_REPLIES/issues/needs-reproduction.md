@@ -16,7 +16,7 @@ labels:
 ```markdown
 Hi @username,
 
-To help us investigate, could you please provide a minimal, complete, and reproducible example?  
+To help us investigate, could you please provide a minimal, complete, and reproducible example?
 If possible, include:
 
 - Exact steps (with URLs/screens)
