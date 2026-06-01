@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Mermaid Accessibility Compliance (Issue #669)** — Added missing `accTitle` and `accDescr` accessibility attributes to 7 non-compliant Mermaid diagrams across `.github/`, `.vscode/`, and root-level README files. All 24 diagrams now achieve 100% WCAG 2.2 AA compliance. Also improved validation scripts with cross-platform line ending support and enhanced diagram type detection ([#696](https://github.com/lightspeedwp/.github/pull/696))
 - **Wave 5.1: Issue Template Audit, Automation Recommendations & AI Agent Integration Guide** — Completed comprehensive audit of all 25 GitHub issue templates with documentation, automation gap analysis, and contributor guidance:
   - `.github/reports/issue-template-audit-2026-05-31.md` — Complete audit report cataloguing all 25 templates, documenting current state analysis (strengths/gaps), identifying critical automation gap in labeler.yml, and providing 6 prioritised recommendations with effort/impact estimates
   - `docs/ISSUE_CREATION_GUIDE.md` — Comprehensive guide for contributors and AI agents with quick-reference template selection table, step-by-step issue creation instructions, clear distinction between current (manual) vs planned (Wave 5.1.2) automation, label selection logic for agents
