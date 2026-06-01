@@ -66,7 +66,7 @@ Labels tracking the workflow state and lifecycle of work items.
 
 ---
 
-## Priority Labels (5)
+## Priority Labels (4)
 
 Labels signalling urgency and business impact.
 
@@ -79,7 +79,7 @@ Labels signalling urgency and business impact.
 
 ---
 
-## Type Labels (27)
+## Type Labels (32)
 
 Labels classifying the type of work. Assign exactly one per issue.
 
@@ -145,7 +145,7 @@ Labels categorising release impact.
 
 ---
 
-## Area Labels (25)
+## Area Labels (32)
 
 Labels identifying component, module, or domain. Multiple allowed per issue.
 
@@ -371,4 +371,4 @@ Labels with minimal usage should be periodically reviewed for retirement:
 - [`docs/LABEL_COLOR_STRATEGY.md`](./LABEL_COLOR_STRATEGY.md) — Detailed colour specifications
 - [`docs/ISSUE_TYPES.md`](./ISSUE_TYPES.md) — Type definitions and decision tree
 - [`docs/ISSUE_FIELDS.md`](./ISSUE_FIELDS.md) — Project field mappings
-- [`.github/labels.yml`](./.github/labels.yml) — Canonical label definitions
+- [`.github/labels.yml`](../.github/labels.yml) — Canonical label definitions

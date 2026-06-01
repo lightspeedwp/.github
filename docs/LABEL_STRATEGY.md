@@ -53,8 +53,8 @@ The 150 canonical labels are organized into 7 primary families:
 | Family | Count | Purpose | Key Labels |
 | --- | --- | --- | --- |
 | **Status** | 20 | Workflow state and blockers | needs-planning, ready, in-progress, needs-review, blocked |
-| **Priority** | 5 | Urgency and impact | critical, high, medium, low, normal |
-| **Type** | 25 | Work category/classification | bug, feature, documentation, task, design, chore |
+| **Priority** | 4 | Urgency and impact | critical, important, normal, minor |
+| **Type** | 32 | Work category/classification | bug, feature, documentation, task, design, chore, and 26 more |
 | **Area** | 20+ | Component or domain | block-editor, theme, ci, labels, security, tests |
 | **Language** | 7 | Programming/markup language | js, php, css, json, yaml, html, md |
 | **Discussion** | 7 | Discussion/meta categories | announcement, showcase, community, feedback, support |
@@ -105,7 +105,7 @@ The 150 canonical labels are organized into 7 primary families:
 - Use `priority:important` for planned quarterly work
 - Use `priority:minor` for backlog items without committed timeline
 
-### 2.3 Type Labels (25 Labels)
+### 2.3 Type Labels (32 Labels)
 
 **Purpose**: Classify work by type and enable project automation
 
@@ -125,8 +125,8 @@ The 150 canonical labels are organized into 7 primary families:
 
 - `type:epic`, `type:story` — Narrative/planning
 - `type:audit`, `type:research`, `type:review` — Investigation/validation
-- `type:security`, `type:accessibility`, `type:performance`, `type:compatibility` — Quality attributes
-- `type:integration`, `type:ai-ops`, `type:maintenance`, `type:improvement` — Domain-specific
+- `type:security`, `type:a11y`, `type:performance`, `type:compatibility` — Quality attributes
+- `type:integration`, `type:ai-ops`, `type:maintenance`, `type:improve` — Domain-specific
 - `type:question`, `type:support`, `type:content-modelling` — Special workflows
 
 **Assignment Rules**:
@@ -286,8 +286,8 @@ All labels meet WCAG 2.2 AA contrast requirements:
 - [`docs/LABEL_INVENTORY.md`](./LABEL_INVENTORY.md) — Complete inventory of all 150 labels by family
 - [`docs/ISSUE_TYPES.md`](./ISSUE_TYPES.md) — Type definitions and decision tree
 - [`docs/ISSUE_FIELDS.md`](./ISSUE_FIELDS.md) — Project field mappings and rationale
-- [`.github/labels.yml`](./.github/labels.yml) — Canonical label definitions
-- [`.github/labeler.yml`](./.github/labeler.yml) — Automated labeling rules
+- [`.github/labels.yml`](../.github/labels.yml) — Canonical label definitions
+- [`.github/labeler.yml`](../.github/labeler.yml) — Automated labeling rules
 - [`docs/LABELING.md`](./LABELING.md) — General labeling guide and best practices
 
 ---
@@ -296,5 +296,5 @@ All labels meet WCAG 2.2 AA contrast requirements:
 
 - [GitHub Labels Documentation](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
 - [WCAG 2.2 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum)
-- [LightSpeed Coding Standards](./instructions/coding-standards.instructions.md)
-- [LightSpeed Accessibility Standards](./instructions/a11y.instructions.md)
+- [LightSpeed Coding Standards](../instructions/coding-standards.instructions.md)
+- [LightSpeed Accessibility Standards](../instructions/a11y.instructions.md)

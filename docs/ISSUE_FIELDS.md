@@ -36,7 +36,7 @@ This document specifies the organization-level issue fields, type mappings, and 
 
 **Key Outcomes**:
 
-- All 25 issue types mapped to 10 project field values (preserves domain context)
+- All 32 issue types mapped to 10 project field values (preserves domain context)
 - Eliminates collapse of domain-specific types to generic "Task"
 - Enables project automation based on type for better reporting and workflow
 - Maintains GitHub API compatibility with existing project views
@@ -45,7 +45,7 @@ This document specifies the organization-level issue fields, type mappings, and 
 
 ## 1. Issue Type Taxonomy & Project Field Mapping
 
-### 1.1 Complete Type Mapping (27 Types → 10 Project Fields)
+### 1.1 Complete Type Mapping (32 Types → 10 Project Fields)
 
 | Issue Type | Project Field | Rationale |
 | --- | --- | --- |
