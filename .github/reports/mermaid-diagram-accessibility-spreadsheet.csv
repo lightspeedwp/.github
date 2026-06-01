@@ -1,0 +1,25 @@
+README,Diagram Number,Diagram Type,Has accTitle,Has accDescr,Missing Attributes,Compliance Status
+.github/ISSUE_TEMPLATE/README.md,1,flowchart,Yes,Yes,"—",✅ Accessible
+.github/README.md,1,flowchart,Yes,Yes,"—",✅ Accessible
+.github/README.md,2,sequenceDiagram,Yes,Yes,"—",✅ Accessible
+.github/README.md,3,graph,Yes,Yes,"—",✅ Accessible
+.github/README.md,4,flowchart,Yes,Yes,"—",✅ Accessible
+.github/projects/README.md,1,graph,Yes,Yes,"—",✅ Accessible
+.vscode/README.md,1,flowchart,Yes,Yes,"—",✅ Accessible
+README.md,1,graph,Yes,Yes,"—",✅ Accessible
+README.md,2,flowchart,Yes,Yes,"—",✅ Accessible
+README.md,3,flowchart,Yes,Yes,"—",✅ Accessible
+README.md,4,sequenceDiagram,Yes,Yes,"—",✅ Accessible
+README.md,5,flowchart,Yes,Yes,"—",✅ Accessible
+README.md,6,stateDiagram,Yes,Yes,"—",✅ Accessible
+README.md,7,flowchart,Yes,Yes,"—",✅ Accessible
+profile/README.md,1,flowchart,Yes,Yes,"—",✅ Accessible
+profile/README.md,2,flowchart,Yes,Yes,"—",✅ Accessible
+profile/README.md,3,graph,Yes,Yes,"—",✅ Accessible
+profile/README.md,4,stateDiagram,Yes,Yes,"—",✅ Accessible
+scripts/README.md,1,graph,Yes,Yes,"—",✅ Accessible
+scripts/README.md,2,sequenceDiagram,Yes,Yes,"—",✅ Accessible
+scripts/README.md,3,flowchart,Yes,Yes,"—",✅ Accessible
+tests/README.md,1,graph,Yes,Yes,"—",✅ Accessible
+tests/README.md,2,sequenceDiagram,Yes,Yes,"—",✅ Accessible
+tests/README.md,3,flowchart,Yes,Yes,"—",✅ Accessible

@@ -1,9 +1,21 @@
 ---
+title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
-version: "2.5.1"
+file_type: documentation
+version: "2.6"
 last_updated: "2026-06-01"
+created_date: "2025-12-04"
 owners:
   - LightSpeedWP Team
+maintainer: LightSpeed Team
+license: GPL-3.0
+tags:
+  - scripts
+  - automation
+  - utilities
+  - testing
+domain: lightspeed
+stability: stable
 ---
 # LightSpeedWP Scripts & Automation
 
@@ -440,7 +452,10 @@ When contributing new scripts or modifications:
 - [Custom Instructions](../.github/custom-instructions.md)
 - [Agents Documentation](../agents/agent.md)
 - [Prompts Library](../.github/prompts/prompts.md)
-- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
+- [Automation & Workflows](../docs/AUTOMATION.md)
+- [Workflow Coordination](../docs/WORKFLOW_COORDINATION.md)
+- [Testing Standards](../docs/TESTING.md)
+- [Linting Standards](../docs/LINTING.md)
 
 ---
 

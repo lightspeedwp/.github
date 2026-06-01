@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Mermaid Accessibility Compliance (Issue #669)** — Added missing `accTitle` and `accDescr` accessibility attributes to 7 non-compliant Mermaid diagrams across `.github/`, `.vscode/`, and root-level README files. All 24 diagrams now achieve 100% WCAG 2.2 AA compliance. Also improved validation scripts with cross-platform line ending support and enhanced diagram type detection ([#696](https://github.com/lightspeedwp/.github/pull/696))
 - **Wave 5: Label Color Consistency Audit** — Comprehensive audit of all 160 canonical labels in `.github/labels.yml` against documented 8-family colour strategy with findings, recommendations, and migration roadmap:
   - `.github/reports/audits/label-color-consistency-audit-2026-06-01.md` — Executive summary identifying 96 aligned labels (60%), 64 misaligned labels (40%), critical semantic mismatches in 5+ families, and detailed family-by-family analysis with root cause analysis and prioritised Phase 1–3 recommendations
   - `.github/reports/audits/label-color-audit-spreadsheet-2026-06-01.csv` — Complete label-by-label audit data (160+ labels) with current vs. recommended colours, family assignments, alignment status, and prioritised migration levels

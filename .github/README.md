@@ -67,6 +67,10 @@ accTitle: GitHub Template Ecosystem Architecture
 accDescr: Flowchart showing the .github repository hub at the center containing community health files, issue templates, PR templates, AI instructions, automation rules, and workflows, flowing to template categories including bug reports, feature requests, documentation, architecture, security, and testing, then to AI and automation systems including auto-labeling, project sync, quality gates, deployment, and analytics, finally connecting to organization repositories
 ---
 flowchart TB
+accTitle: GitHub template ecosystem architecture
+accDescr {
+  The .github repository hub at the center distributes six key asset categories (Community Health Files, Issue Templates, PR Templates, AI Instructions, Automation Rules, Workflows) to six template categories (Bug Reports, Feature Requests, Documentation, Architecture, Security, Testing), which feed into three automation components (Auto-Labeling, Project Sync, Quality Gates) that synchronise to member repositories across the organization.
+}
     subgraph "🏛️ .github Repository Hub"
         A[🏠 Community Health Files]
         B[📝 Issue Templates]
@@ -209,6 +213,10 @@ accTitle: GitHub Automation Workflow Process
 accDescr: Sequence diagram showing the interaction between a developer, member repository, .github hub, automation system, and project manager during the issue or PR creation process, demonstrating how templates are checked, labels are applied, and projects are synchronized
 ---
 sequenceDiagram
+accTitle: GitHub automation workflow sequence
+accDescr {
+  When a developer creates an issue or PR in a member repository, the system checks for templates from the .github hub, retrieves label rules through the automation layer, applies the configured labels, and syncs the issue to project boards, notifying the project manager to complete the assignment workflow.
+}
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Member Repo
     participant Hub as 🏛️ .github Hub
@@ -255,6 +263,10 @@ accTitle: Repository Structure Visualization
 accDescr: Graph showing the .github directory structure including instructions, prompts, agents, workflows, issue templates, pull request templates, saved replies, and automation subdirectories, with connections to their respective ecosystems including coding standards, linting, accessibility instructions, prompts, and automation core configuration
 ---
 graph TB
+accTitle: Repository structure visualization
+accDescr {
+  The .github directory structure contains eight main subdirectories (instructions, prompts, agents, workflows, ISSUE_TEMPLATE, PULL_REQUEST_TEMPLATE, SAVED_REPLIES, automation) that connect to three ecosystem layers: Instructions Ecosystem with coding standards, linting, accessibility, and security guides; AI Integration Hub with accessibility review, code review, and pattern generation prompts; and Automation Core with labels, labeler rules, issue types, and automation governance files.
+}
     subgraph "📁 .github/ Directory Structure"
         A[📋 instructions/]
         B[🎯 prompts/]
@@ -392,6 +404,10 @@ accTitle: Complete Integration Flow
 accDescr: Flowchart showing the developer experience (new contributor, issue creation, PR submission, code review) connecting to .github hub resources (instructions, templates, AI prompts, chat modes, automation), leading to automated processes (auto-labeling, project sync, quality gates, analytics), resulting in quality outcomes (consistent standards, faster onboarding, better tracking, security compliance)
 ---
 flowchart LR
+accTitle: Complete integration flow for development and governance
+accDescr {
+  The workflow integrates four layers: Developer Experience (New Contributor, Issue Creation, PR Submission, Code Review) connects to .github Hub Resources (Instructions, Templates, AI Prompts, Chat Modes, Automation), which feeds Automated Processes (Auto-Labeling, Project Sync, Quality Gates, Analytics), ultimately delivering Quality Outcomes (Consistent Standards, Faster Onboarding, Better Tracking, Security Compliance).
+}
     subgraph "👨‍💻 Developer Experience"
         A[New Contributor]
         B[Issue Creation]
