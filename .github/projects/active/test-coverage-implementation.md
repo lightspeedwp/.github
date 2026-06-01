@@ -1,14 +1,21 @@
 ---
-file_type: "documentation"
+file_type: "project"
 title: "Test Coverage Implementation - v1.0.0"
 description: "Actionable tasks for implementing test coverage expansion to achieve 80%+ coverage before release"
 created_date: "2025-12-10"
-last_updated: "2026-05-29"
+last_updated: "2025-12-10"
 version: "1.0.0"
 status: "active"
 priority: "critical"
 owners: ["LightSpeed Team"]
 tags: ["testing", "coverage", "v1.0.0", "quality", "implementation"]
+references:
+  - path: "../../reports/analysis/test-coverage-expansion-plan.md"
+    description: "Comprehensive coverage expansion strategy"
+  - path: "v1.0.0-release-readiness-tasks.md"
+    description: "Overall release readiness tasks"
+  - path: "../../../docs/TESTING.md"
+    description: "Testing standards"
 ---
 
 # Test Coverage Implementation Tasks - v1.0.0
@@ -19,14 +26,6 @@ tags: ["testing", "coverage", "v1.0.0", "quality", "implementation"]
 **Current**: Unknown (needs baseline)
 **Estimated Effort**: 12-16 hours
 **Target Completion**: Within 2-3 days
-
----
-
-## Progress Notes (updated 2026-05-28)
-
-- `project-meta-sync.agent.js`: `require.main === module` guard added; test no longer calls `run()` at module load time. See [PR #455](https://github.com/lightspeedwp/.github/pull/455).
-- `reviewer.agent.test.js`: already uses `fs.existsSync` pattern (no `require()` of ESM module). Test passes.
-- Remaining phases below are unchanged and still pending.
 
 ---
 
@@ -62,7 +61,7 @@ tags: ["testing", "coverage", "v1.0.0", "quality", "implementation"]
 - [ ] Navigate to project root:
 
   ```bash
-  cd /Users/ash/.codex/worktrees/epic-449-label-governance
+  cd /Users/ash/Studio/.github
   ```
 
 - [ ] Run coverage with source file collection:
@@ -149,7 +148,7 @@ tags: ["testing", "coverage", "v1.0.0", "quality", "implementation"]
 
 ## Files with 0% Coverage
 
-- scripts/agents/metrics.agent.js
+- script/agents/metrics.agent.js
 - scripts/agents/linting.agent.js
 
 ## Critical Gaps
@@ -835,7 +834,7 @@ jest.mock("fs", () => ({
 
 - [ ] Should format errors as markdown
 - [ ] Should group errors by file
-- [ ] Should prioritise by severity
+- [ ] Should prioritize by severity
 - [ ] Should include error codes
 - [ ] Should include fix suggestions
 - [ ] Should generate summary
@@ -1282,7 +1281,7 @@ jest.mock("child_process", () => ({
 - [ ] Review coverage per utility
 - [ ] Identify utilities below 80%
 - [ ] List missing edge cases
-- [ ] Prioritise by importance
+- [ ] Prioritize by importance
 
 **Acceptance Criteria**:
 
@@ -1737,7 +1736,7 @@ jest.mock("child_process", () => ({
 
 **Time Constraints**
 
-- **Mitigation**: Prioritise critical path tests
+- **Mitigation**: Prioritize critical path tests
 - **Fallback**: Document gaps, create issues
 
 **Complex Mocking**
@@ -1817,11 +1816,13 @@ jest.mock("child_process", () => ({
 
 ---
 
-## See Also
+## References
 
-- [Test Coverage Expansion Plan](../../reports/analysis/test-coverage-expansion-plan.md)
-- [Release Readiness Tasks](launch-agents-checklist.md)
-- [Testing Standards](../../../docs/TESTING.md)
+- Test Coverage Expansion Plan
+- Release Readiness Tasks
+- Testing Standards
+- Agent Specifications
+- Test Helpers Documentation
 
 ---
 

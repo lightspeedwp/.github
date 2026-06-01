@@ -83,3 +83,17 @@ title.text = "Kickoff"
 ```
 
 ---
+
+### Applying a layout to a slide
+
+```python
+slide.set_layout(layout)
+slide.use_layout_id  # layout id applied to this slide
+```
+
+Then access resolved placeholders:
+
+```python
+slide.placeholders.summary()
+slide.placeholders.get_item("subtitle").text = "Enterprise Vision"
+```

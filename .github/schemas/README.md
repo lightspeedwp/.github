@@ -1,16 +1,20 @@
 ---
+file_type: "index"
 title: ".github Schemas Boundary"
-description: "Repo-local index for schemas that remain under the .github control-plane boundary. Separates portable schemas in .schemas/ from repo-local schema assets."
-file_type: documentation
-version: v0.3.0
-last_updated: "2026-05-31"
-created_date: "2026-05-20"
-authors: ["LightSpeed Team"]
+description: "Repo-local index for schemas that remain under the .github control-plane boundary."
+version: "v0.2.0"
+last_updated: "2026-05-20"
 maintainer: "LightSpeed Team"
+authors: ["Codex"]
 license: "GPL-3.0"
-tags: ["schemas", "github-boundary", "ai-ops", "governance"]
+tags: ["schemas", "github-boundary", "ai-ops"]
 domain: "governance"
-stability: "stable"
+stability: "draft"
+references:
+  - path: "../../.schemas/README.md"
+    description: "Portable schema library index."
+  - path: "../projects/active/portable-ai-plugin-restructure/issues/children/batch-02-portable-migration/02-05-refactor-move-active-schemas-to-root-schemas.md"
+    description: "Issue #297 local source draft."
 ---
 
 # .github Schemas Boundary

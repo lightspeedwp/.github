@@ -1,7 +1,7 @@
 ---
 title: "Main Agent Index"
-version: 'v2.1'
-last_updated: '2026-06-01'
+version: "v2.0"
+last_updated: "2025-12-07"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 description: "Directory index referencing all agents, instructions, PR templates, and cross-references."
@@ -56,7 +56,7 @@ The following instruction files provide detailed standards for agent development
 | Instruction File | Purpose | Agent(s) |
 |-----------------|---------|----------|
 | [automation.instructions.md](../instructions/automation.instructions.md) | Comprehensive automation standards for agents, workflows, and repository health | All agents |
-| [LABELING.md](../docs/LABELING.md) | Comprehensive labeling documentation and automation rules | labeling.agent.md |
+| [labeling.instructions.md](../instructions/labeling.instructions.md) | Unified labelling automation system (config-driven) | labeling.agent.md |
 | [metrics.instructions.md](../instructions/metrics.instructions.md) | Metrics collection, aggregation, and reporting standards | metrics.agent.md |
 | [planner.instructions.md](../instructions/planner.instructions.md) | PR planning, checklist generation, and merge readiness validation | planner.agent.md (to be created) |
 | [project-meta-sync.instructions.md](../instructions/project-meta-sync.instructions.md) | GitHub Project board field synchronisation from labels | project-meta-sync.agent.md |

@@ -14,7 +14,7 @@ const explicitFiles = [
   "plugins/README.md",
   "skills/README.md",
   "workflows/README.md",
-  "schema/README.md",
+  ".schemas/README.md",
 ];
 
 const explicitDirs = [

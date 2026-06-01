@@ -1,5 +1,4 @@
 ---
-file_type: saved-reply
 title: "Missing Information Saved Reply"
 description: "Prompt for missing reproduction steps, environment details, or screenshots."
 category: "Issue"

@@ -2,7 +2,7 @@
 /**
  * Validates agent specification frontmatter against the canonical schema.
  * @module scripts/validation/validate-agent-frontmatter
- * @see schema/frontmatter.schema.json
+ * @see .schemas/frontmatter.schema.json
  */
 
 const fs = require("fs");
@@ -16,7 +16,10 @@ const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
 
 // Load the unified frontmatter schema
-const schemaPath = path.join(__dirname, "../../schema/frontmatter.schema.json");
+const schemaPath = path.join(
+  __dirname,
+  "../../.schemas/frontmatter.schema.json",
+);
 const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
 
 // Compile the schema

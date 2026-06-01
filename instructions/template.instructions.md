@@ -1,80 +1,128 @@
 ---
 file_type: "instructions"
-title: "Instruction File Template"
-description: "Generic instruction file skeleton and best practices for creating LightSpeedWP instruction files"
-scope: "repo-local"
+title: "Template: Instructions"
+description: "Generic instruction file skeleton for LightSpeedWP documentation and automation."
 version: "v1.0"
-last_updated: "2026-05-29"
-owners: ["LightSpeed Team"]
-tags: ["template", "instructions", "copilot", "guidance", "authoring"]
-applyTo: ["instructions/*.instructions.md"]
-status: "active"
+last_updated: "2025-10-23"
+owners: ["LightSpeedWP Engineering"]
+tags: ["template", "instructions", "copilot", "guidance"]
+status: "draft"
+applyTo: ["**/*.instructions.md"]
+examples:
+  - "coding-standards.instructions.md"
 ---
 
-# Instruction File Template
+# Template: Instructions
 
-Use this template when creating new instruction files. Instruction files guide AI assistants and developers on LightSpeed standards and workflows.
+You are an instruction template authoring assistant. Follow our instruction-authoring framework to scaffold new `.instructions.md` files. Avoid shipping placeholder content or project-specific rules; keep the template focused on reusable structure.
 
-## When to Create an Instruction File
+## Overview
 
-Create an instruction file when you need to:
+Use this template to create new `.instructions.md` files that comply with LightSpeed authoring standards. Applies to organisation-wide or project-level instruction files. Excludes implementation details for specific technologies.
 
-- Document repeatable guidance or standards
-- Provide context-specific rules for AI assistants
-- Establish governance or best practices
-- Create organization-wide or repo-local standards
+## General Rules
 
-## Frontmatter Requirements
+- Include frontmatter with `description` and `applyTo` (plus version/owners when useful).
+- Add a role declaration after the H1 using the required pattern.
+- Structure content with Overview, General Rules, Detailed Guidance, Examples, Validation, and References.
+- Keep placeholders until tailored; remove template notes before publishing.
+- Do not add a `references` front matter field; the schema no longer supports it—use inline links or footer guidance instead.
 
-All instruction files must include:
+## Detailed Guidance
 
-```yaml
----
-file_type: "instructions"
-title: "Descriptive Title"
-description: "One-sentence summary"
-scope: "organization-wide" or "repo-local"
-version: "v1.0"
-last_updated: "YYYY-MM-DD"
-owners: ["Team Name"]
-tags: ["keyword1", "keyword2"]
-applyTo: ["path/pattern/**"]
-status: "active" or "draft"
----
-```
+Fill in each section below with concrete, scoped guidance and checklists tailored to the instruction’s domain.
 
-## File Structure
+## Role (required)
 
-1. **Title** (H1) — Same as frontmatter title
-2. **Introductory sentence** — What this file teaches
-3. **Overview** — High-level context and scope
-4. **General Rules** — Foundational principles
-5. **Detailed Guidance** — Section-by-section instructions
-6. **Examples** — Realistic examples
-7. **Related Files** — Cross-links to other instruction files
-8. **Changelog** (Optional) — Version history for major files
+You are a [role]. Follow our [framework/patterns] to [type of task]. Avoid [practices or tools] unless specified.
 
-## Writing Guidelines
+## Style (required)
 
-- Use UK English spelling (organisation, optimise, colour)
-- Write in active voice
-- Keep sentences concise
-- Use bullet points for lists
-- Include examples and counter-examples
-- Link to related files and standards
-- Avoid assumptions about reader knowledge
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
 
-## Scope Classification
+## Purpose (required)
 
-- **organization-wide**: Applicable to all LightSpeedWP projects; portable across repos
-- **repo-local**: Specific to this `.github` control plane or single repository
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
 
----
+## Type of Task (required)
 
-## Related Files
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
 
-- [instructions.instructions.md](./instructions.instructions.md) — Detailed authoring guidance
-- [documentation-formats.instructions.md](./documentation-formats.instructions.md) — Markdown and frontmatter standards
-- [coding-standards.instructions.md](./coding-standards.instructions.md) — Code examples and conventions
+## How to ask for help (required)
 
----
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## Conventions (optional)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## Process (required)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## Examples (optional)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## Important notes (optional)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## Constraints (required)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## What to do (required)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## What not do (required)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## Best Practices (required)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## Guardrails (required)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## Checklist relevant to instructions (required)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## Outputs (required)
+
+- Guidance: Replace with concrete, scoped bullets tailored to this Space.
+- Checklist: List explicit items that must be provided or validated.
+
+## Examples
+
+- **Good:** Completed instruction file with frontmatter, role line, required sections populated, and references to related docs.
+- **Avoid:** Shipping placeholder text, missing frontmatter fields, or omitting the role declaration.
+
+## Validation
+
+- Confirm required frontmatter fields exist and match the target glob.
+- Ensure role declaration uses the prescribed pattern.
+- Verify all required sections are present and populated.
+
+## References
+
+- [instructions.instructions.md](instructions.instructions.md)
+- [file-organisation.instructions.md](file-organisation.instructions.md)

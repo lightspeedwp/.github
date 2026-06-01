@@ -6,7 +6,7 @@
  *
  * @module scripts/validation/validate-frontmatter
  * @fileoverview Comprehensive frontmatter validation for LightSpeedWP .github repository
- * @see schema/frontmatter.schema.json
+ * @see .schemas/frontmatter.schema.json
  * @author LightSpeedWP Team
  * @version 1.0.0
  */
@@ -20,7 +20,7 @@ const glob = require("glob");
 
 // Configuration
 const CONFIG = {
-  schemaPath: path.join(__dirname, "../../schema/frontmatter.schema.json"),
+  schemaPath: path.join(__dirname, "../../.schemas/frontmatter.schema.json"),
   rootDir: path.join(__dirname, "../.."),
   logDir: path.join(__dirname, "../../logs/validation"),
   outputFile: path.join(
@@ -146,11 +146,7 @@ class FrontmatterValidator {
   constructor(schemaPath, logger) {
     this.logger = logger;
     this.schema = this.loadSchema(schemaPath);
-    this.ajv = new Ajv({
-      allErrors: true,
-      verbose: true,
-      strict: false,
-    });
+    this.ajv = new Ajv({ allErrors: true, verbose: true });
     addFormats(this.ajv);
     this.validate = this.ajv.compile(this.schema);
     this.stats = {
@@ -261,8 +257,6 @@ class FrontmatterValidator {
       return "discussion_template";
     if (filePath.includes("/SAVED_REPLIES/")) return "saved_reply";
     if (filePath.endsWith("README.md")) return "readme";
-    if (filePath.includes("/docs/") && filePath.endsWith(".md"))
-      return "documentation";
     if (filePath.includes("/.github/") && filePath.endsWith(".md"))
       return "documentation";
     return "unknown";
@@ -404,7 +398,7 @@ function runAltValidation() {
 }
 
 // Main validation function
-async function validateFrontmatter(targetFiles = []) {
+async function validateFrontmatter() {
   const logger = new Logger(CONFIG.outputFile);
 
   logger.info("Starting frontmatter validation", null, {
@@ -418,19 +412,12 @@ async function validateFrontmatter(targetFiles = []) {
     // Initialize validator
     const validator = new FrontmatterValidator(CONFIG.schemaPath, logger);
 
-    // Discover files (or use explicit file targets when provided)
-    let files = targetFiles;
-    if (!files.length) {
-      files = FileDiscovery.findFiles(
-        CONFIG.patterns,
-        CONFIG.excludePatterns,
-        CONFIG.rootDir,
-      );
-    } else {
-      files = files
-        .map((file) => path.resolve(file))
-        .filter((file) => fs.existsSync(file));
-    }
+    // Discover files
+    const files = FileDiscovery.findFiles(
+      CONFIG.patterns,
+      CONFIG.excludePatterns,
+      CONFIG.rootDir,
+    );
 
     logger.info(`Found ${files.length} files to validate`);
 
@@ -498,22 +485,10 @@ Examples:
     CONFIG.outputFile = path.resolve(args[outputIndex + 1]);
   }
 
-  const optionFlagsWithValue = new Set(["--schema", "--root", "--output"]);
-  const positionalFiles = [];
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
-    if (optionFlagsWithValue.has(arg)) {
-      i++;
-      continue;
-    }
-    if (arg.startsWith("--")) continue;
-    positionalFiles.push(arg);
-  }
-
   if (altMode) {
     runAltValidation();
   } else {
-    validateFrontmatter(positionalFiles);
+    validateFrontmatter();
   }
 }
 

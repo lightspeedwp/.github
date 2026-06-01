@@ -1,10 +1,8 @@
 ---
-file_type: "pr-template"
-title: "PR Template - FEATURE"
-description: "Pull request template for FEATURE changes"
-version: "1.0.0"
-last_updated: "2026-05-29"
-category: "github-templates"
+name: "Feature PR"
+about: "New features or enhancements"
+title: "feat: {short summary}"
+labels: ["status:needs-review", "area:feature"]
 ---
 
 # Feature Pull Request
@@ -26,7 +24,7 @@ Closes #
 Required for release automation.
 Format: Keep a Changelog.
 Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use the `meta:no-changelog` label.
+User-facing notes only. Internal-only PRs (rare) may use the skip-changelog label.
 Example:
 ### Changed
 - Switched to action/cache@v3 for build speedup. (Relates to #789)
@@ -57,7 +55,7 @@ Example:
 -->
 
 <!--
-If no user-facing changelog entry is needed, apply the `meta:no-changelog` label to this PR.
+If no user-facing changelog entry is needed, apply the skip-changelog label to this PR.
 -->
 
 ---

@@ -3,10 +3,10 @@
  * @see ../mode-prd.agent.js
  */
 // Basic smoke test for mode-prd.agent.js
-const agent = require("../mode-prd.agent");
+const agent = require('../mode-prd.agent');
 
-describe("mode-prd.agent", () => {
-  it("should be defined", () => {
+describe('mode-prd.agent', () => {
+  it('should be defined', () => {
     expect(agent).toBeDefined();
   });
 });

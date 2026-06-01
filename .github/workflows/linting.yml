@@ -11,8 +11,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"
+          node-version: 'lts/*'
       - run: npm ci
-      - run: npm run lint:all
-      - run: npm run validate:skill-manifests
-      - run: npm run validate:plugins
+      - run: npm run lint

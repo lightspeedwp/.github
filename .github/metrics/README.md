@@ -1,16 +1,24 @@
 ---
 title: "LightSpeed Metrics Directory"
-description: "Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity across the LightSpeed organization."
-file_type: documentation
-version: v1.1
-last_updated: "2026-05-31"
-created_date: "2025-12-04"
-authors: ["LightSpeed Team"]
-maintainer: "LightSpeed Team"
-license: "GPL-3.0"
+version: "v1.0"
+last_updated: "2025-12-04"
+author: "LightSpeed"
+maintainer: "Ash Shaw"
+description: "Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity."
 tags: ["metrics", "analytics", "automation", "monitoring", "quality"]
-domain: "governance"
-stability: "stable"
+file_type: "documentation"
+category: "infrastructure"
+references:
+  - path: "../reports/README.md"
+    description: "Reporting documentation"
+  - path: "../agents/metrics.agent.md"
+    description: "Metrics agent configuration"
+  - path: "../../docs/BRANDING.md"
+    description: "Branding guidelines"
+  - path: "../workflows/branding.yml"
+    description: "Branding workflow"
+  - path: "../workflows/metrics.yml"
+    description: "Issue metrics workflow"
 ---
 
 # LightSpeed Metrics Directory

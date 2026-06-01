@@ -2,22 +2,15 @@
 file_type: "instructions"
 title: "Documentation Formats Standards"
 description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams across all GitHub community health documentation"
-scope: "organization-wide"
-version: "v1.1.1"
-last_updated: "2026-05-29"
+version: "v1.0"
+last_updated: "2025-12-07"
 owners: ["GitHub Community Health Team"]
 tags:
-- markdown
-- frontmatter
-- mermaid
-- documentation
-- diagrams
-- yaml
-applyTo:
-- '**/*.md'
-status: active
-stability: stable
-domain: generic
+  ["markdown", "frontmatter", "mermaid", "documentation", "diagrams", "yaml"]
+applyTo: ["**/*.md"]
+status: "active"
+stability: "stable"
+domain: "generic"
 ---
 
 # Documentation Formats Standards
@@ -68,6 +61,7 @@ Applies to Markdown files across the repository. Covers formatting rules, frontm
   - [Best Practices](#mermaid-best-practices)
   - [Accessibility](#diagram-accessibility)
 - [CI/CD Integration](#cicd-integration)
+- [References](#references)
 
 ---
 
@@ -165,9 +159,9 @@ function greet(name) {
 
 **Configuration Files:**
 
-- Config: [`.markdownlint.config.cjs`](../.markdownlint.config.cjs)
-- CLI config: [`.markdownlint-cli2.config.cjs`](../.markdownlint-cli2.config.cjs)
-- Prettier: [`.prettier.config.cjs`](../.prettier.config.cjs)
+- Config: [`.markdownlint.json`](../.markdownlint.json)
+- Ignore: [`.markdownlintignore`](../.markdownlintignore)
+- Prettier: [`prettier.config.js`](../prettier.config.js)
 - Editor: [`.editorconfig`](../.editorconfig)
 
 **NPM Scripts:**
@@ -233,7 +227,7 @@ status: "active"
 | `file_type`    | string       | ✅       | Document classification (see types below) |
 | `title`        | string       | ✅       | Human-readable title                      |
 | `description`  | string       | ✅       | Single-sentence summary (≤ 120 chars)     |
-| `version`      | string       | ✅       | Semantic Versioning 2.0.0 (e.g., `v1.0.0`) |
+| `version`      | string       | ✅       | Semantic version (e.g., `v1.0`)           |
 | `last_updated` | string       | ✅       | ISO date (YYYY-MM-DD)                     |
 | `author`       | string       | ✅       | Original author                           |
 | `maintainer`   | string       | ✅       | Current maintainer                        |
@@ -249,30 +243,6 @@ status: "active"
 > The `references` frontmatter field is retired; cite supporting resources inline or via approved footers instead.
 
 **Legend:** ✅ Required | 📋 Recommended
-
-### Frontmatter update policy
-
-When editing any file with YAML frontmatter:
-
-- Update `last_updated` on every content change.
-- Set `last_updated` to today's date in ISO format (`YYYY-MM-DD`).
-- Bump `version` on every content change using strict SemVer (`vMAJOR.MINOR.PATCH`).
-- Apply the same change classification principles used in changelog governance:
-  - Patch (`vX.Y.Z`): typo fixes, copy edits, clarifications, and non-behavioural tidy-ups.
-  - Minor (`vX.Y.0`): backward-compatible additions, expansions, or new guidance sections.
-  - Major (`vX.0.0`): breaking governance/process changes, removals, or incompatible restructures.
-- Keep file-level version format consistent after migration to SemVer (`vX.Y.Z` only).
-- Document meaningful changes under the appropriate Keep a Changelog section (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`).
-
-Governance references:
-
-- SemVer policy: [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html)
-- Changelog policy: [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)
-
-Validation and helper commands:
-
-- CI gate: `npm run validate:frontmatter:changed -- --base <base_sha> --head <head_sha>`
-- Local helper: `npm run docs:frontmatter:sync` (updates `last_updated` for staged markdown files).
 
 ### File Type Examples
 
@@ -609,11 +579,21 @@ jobs:
 
 ---
 
-## Related Files
+## References
 
-- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in documentation
-- **[issues.instructions.md](./issues.instructions.md)** — Issue documentation and templates
-- **[pull-requests.instructions.md](./pull-requests.instructions.md)** — PR documentation and templates
-- **[community-standards.instructions.md](./community-standards.instructions.md)** — Community health documentation standards
-
----
+- [instructions.instructions.md](instructions.instructions.md)
+- [readme.instructions.md](readme.instructions.md)
+- [a11y.instructions.md](a11y.instructions.md)
+- [languages.instructions.md](languages.instructions.md)
+- [linting.instructions.md](linting.instructions.md)
+- [markdownlint Documentation](https://github.com/DavidAnson/markdownlint)
+- [Prettier Markdown Support](https://prettier.io/docs/en/options.html#prose-wrap)
+- [GitHub Flavored Markdown](https://github.github.com/gfm/)
+- [CommonMark Specification](https://commonmark.org/)
+- [YAML Specification](https://yaml.org/spec/)
+- [JSON Schema](https://json-schema.org/)
+- [GitHub Issue Templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests)
+- [Mermaid Documentation](https://mermaid.js.org/)
+- [GitHub Mermaid Support](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/)
+- [Mermaid Live Editor](https://mermaid.live)
+- [W3C Complex Images](https://www.w3.org/WAI/tutorials/images/complex/)

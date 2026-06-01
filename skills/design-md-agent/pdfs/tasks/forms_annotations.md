@@ -108,3 +108,9 @@ python /home/oai/skills/pdfs/scripts/pdf_extract.py forms filled.pdf --out /mnt/
 - [ ] Output is flattened when the downstream consumer requires it
 
 ---
+
+## When it is *not* a fillable form
+
+If `pdf_extract.py forms` returns `{}` or only weird/incomplete fields, treat it as **non-fillable** and use:
+
+- `tasks/forms_nonfillable.md` (box picking -> overlay -> verify)

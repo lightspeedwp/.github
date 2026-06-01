@@ -5,13 +5,6 @@
  * Uses canonical config from .github/labels.yml, .github/labeler.yml, .github/issue-types.yml.
  * Replaces all prior split agents.
  *
- * Wave 2A kickoff (#466):
- * - canonical spec path confirmed: agents/labeling.agent.md
- * - runtime path confirmed: scripts/agents/labeling.agent.js
- * - implementation status: active and production-wired
- * - next concrete action: extend targeted tests for one-hot enforcement and
- *   alias migration edge cases
- *
  * @module scripts/agents/labeling.agent.js
  * @see ../../agents/labeling.agent.md
  * @version 2.0.0
@@ -90,9 +83,9 @@ const KEYWORD_TYPE_MAP = {
   ci: "type:ci",
   "continuous integration": "type:ci",
   workflow: "type:ci",
-  a11y: "type:a11y",
-  accessibility: "type:a11y",
-  wcag: "type:a11y",
+  a11y: "type:accessibility",
+  accessibility: "type:accessibility",
+  wcag: "type:accessibility",
 };
 
 // Branch prefix to type mapping for PRs
@@ -112,7 +105,7 @@ const BRANCH_PREFIX_TYPE_MAP = {
   "ci/": "type:ci",
   "deps/": "type:dependencies",
   "security/": "type:security",
-  "a11y/": "type:a11y",
+  "a11y/": "type:accessibility",
 };
 
 function readYamlArrayFile(path, purpose) {
@@ -383,11 +376,7 @@ async function runLabelingAgent(opts = {}) {
       try {
         const branchName = context.payload.pull_request.head.ref;
         const branchType = detectTypeFromBranch(branchName);
-        if (
-          branchType &&
-          canonicalSet.has(branchType) &&
-          !currentLabels.includes(branchType)
-        ) {
+        if (branchType && !currentLabels.includes(branchType)) {
           if (!dryRun) {
             await octokit.rest.issues.addLabels({
               owner,
@@ -398,10 +387,6 @@ async function runLabelingAgent(opts = {}) {
           }
           report.added.push(branchType);
           report.rulesApplied.push(`Branch prefix detection: ${branchType}`);
-        } else if (branchType && !canonicalSet.has(branchType)) {
-          core.warning(
-            `[labeling.agent] Branch-derived type is non-canonical and will be skipped: ${branchType}`,
-          );
         }
       } catch (error) {
         core.warning(
@@ -483,7 +468,7 @@ async function runLabelingAgent(opts = {}) {
           : context.payload.pull_request.body;
         const detectedType = detectIssueTypeFromContent(title, body);
 
-        if (detectedType && canonicalSet.has(detectedType)) {
+        if (detectedType) {
           if (!dryRun) {
             await octokit.rest.issues.addLabels({
               owner,
@@ -495,10 +480,6 @@ async function runLabelingAgent(opts = {}) {
           report.added.push(detectedType);
           report.rulesApplied.push(
             `Content-based type detection: ${detectedType}`,
-          );
-        } else if (detectedType && !canonicalSet.has(detectedType)) {
-          core.warning(
-            `[labeling.agent] Content-derived type is non-canonical and will be skipped: ${detectedType}`,
           );
         }
       } catch (error) {

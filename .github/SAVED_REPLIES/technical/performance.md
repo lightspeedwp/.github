@@ -1,5 +1,4 @@
 ---
-file_type: saved-reply
 title: "Performance Technical Saved Reply"
 description: "Notice and suggestions for PRs/issues with performance impact."
 category: "Technical"

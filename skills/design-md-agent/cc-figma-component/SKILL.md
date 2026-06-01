@@ -436,3 +436,36 @@ If there are no notes, create the frame anyway with the text "No issues — all 
   ```
 
 ---
+
+## 8. Known Constraints
+
+- **Frame sizing defaults to FIXED at 100px** — Figma sets new frames to `FIXED` sizing at 100px height. You must set both lines explicitly on every frame, every variant duplicate, and the Generation Notes frame:
+
+  ```js
+  node.layoutSizingHorizontal = 'HUG';
+  node.layoutSizingVertical   = 'HUG';
+  ```
+
+  Setting only horizontal and omitting vertical is the most common cause of portrait-aspect buttons. There is no shorthand — both lines are always required.
+
+- **Letter-spacing** — cannot be bound to a variable (em units incompatible with Figma FLOAT). Set as a fixed pixel value derived from the token's raw value.
+
+- **combineAsVariants** does not auto-layout — variants stack at (0,0). Always manually grid-layout immediately after. Always resize the component set to actual content bounds using `Math.max` over all variant positions + sizes + padding. Never guess the resize dimensions.
+
+- **`layoutSizingHorizontal/Vertical = 'FILL'`** must be set AFTER `parent.appendChild(child)` — setting before throws.
+
+- **Ghost mode** — always call `setExplicitVariableModeForCollection` after every binding operation, on the node AND all children recursively. Skipping this causes variables to appear unresolved.
+
+- **Variant count cap** — if Size × State > 30 variants per component set, raise this with the user before creating. Consider splitting into sub-components.
+
+- **Focus ring color conflict** — the skill does NOT make judgment calls about focus ring color. Read the contract's `color.focus.*` tokens and use whatever Semantic variable is defined there for ALL variants. If `focus/default` is the same color as a variant's fill, flag this in the Generation Notes frame and suggest the user define a `focus/onBrand` Semantic token. Do not substitute `neutral/0` or any other color on the skill's own initiative.
+
+- **`fullWidth` and `iconOnly` cannot drive layout automatically** — the Figma Plugin API's `componentPropertyReferences` only supports `visible`, `characters`, and `mainComponent`. It does not support linking a boolean to `layoutSizingHorizontal` or toggling between icon-only and full layouts. These props are defined for spec/Code Connect purposes. Document this limitation for consumers — layout changes require manual variant creation or a follow-up plugin.
+
+- **Figma plugin sandbox — `atob` is undefined** — the plugin runtime has no native base64 decoding. Do not use `atob` or `btoa` in plugin scripts. If a script exceeds the 20k character limit and must be chunked, use a base64 polyfill or split the logic into multiple sequential `use_figma` calls instead.
+
+- **Rotation values are always in degrees, never radians** — the Figma Plugin API's `node.rotation` property accepts degrees. Always pass degree values directly from the contract (e.g. `-90`). Never convert to radians (`-Math.PI/2`). Passing radians produces values like `-1.57°` in Figma's UI which looks wrong even though the visual result is correct. The contract's `expandedRotation` and `defaultRotation` fields are always in degrees.
+
+- **Figma plugin sandbox — `eval` is blocked** — use `new Function(code)()` as the workaround when dynamic code execution is required. This is the only reliable pattern for assembling and running chunked plugin scripts in the Figma environment.
+
+- **Icon slot visibility** — the icon placeholder frame must be hidden by default (`visible: false`) and wired to a BOOLEAN component property (`iconStart`) via `componentPropertyReferences` with type `visible`. Never leave the icon slot always-visible — it will appear as an empty box on every variant that doesn't use an icon.

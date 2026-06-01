@@ -1,5 +1,5 @@
 ---
-file_type: "documentation"
+file_type: "report"
 title: "Mermaid Diagram Validation Report"
 description: "Comprehensive validation of all Mermaid diagrams across top-level folders with WCAG AA accessibility and structural checks"
 version: "1.0"
@@ -9,6 +9,13 @@ author: "GitHub Copilot"
 maintainer: "LightSpeed Team"
 category: "mermaid"
 tags: ["mermaid", "validation", "accessibility", "documentation", "diagrams"]
+references:
+  - path: "../../instructions/mermaid.instructions.md"
+    description: "Mermaid diagram standards and accessibility guidelines"
+  - path: "../../instructions/readme.instructions.md"
+    description: "README diagram requirements"
+  - path: "../../instructions/documentation-formats.instructions.md"
+    description: "Documentation format standards"
 ---
 
 # Mermaid Diagram Validation Report

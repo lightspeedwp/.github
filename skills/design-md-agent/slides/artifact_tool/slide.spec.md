@@ -131,3 +131,78 @@ slide.background.fill = FillConfig(
 ```
 
 ---
+
+### Element sub-collections
+
+`Slide` re-exports element collections for ergonomics:
+
+```python
+# Shapes
+slide.shapes.add(
+    PresetShapeGeometryConfig(
+        geometry="rect",
+        position=ShapePositionConfig(left=50, top=50, width=300, height=120),
+        fill: "accent1",
+    )
+)
+
+# Images
+slide.images.add({"uri": "https://example.com/banner.png", "alt": "Banner"});
+
+# Tables
+slide.tables.add([
+    ["Product", "North", "EMEA"],
+    ["ChatGPT", 120, 94],
+])
+
+# Charts
+slide.charts.add({"type": "line", "data": { "series": [...], "categories": [...]}});
+```
+
+Notes:
+
+- These are façades over the underlying `elements` list and maintain a clean boundary.
+
+### exports a slide preview
+
+**Summary**
+Exports a slide preview.
+
+**Key APIs**
+
+- `Presentation.create()` — Instantiates a new presentation artifact facade.
+- `presentation.slides.add()` — Appends a slide to the deck and returns a mutable `Slide` facade.
+
+**How to use it**
+
+- Start by calling `Presentation.create()` to obtain an authoring surface detached from any proto instance.
+- Use `presentation.slides.add()` to materialize a slide facade where you can place content.
+
+```python
+presentation = Presentation.create()
+slide = presentation.slides.add()
+```
+
+## Examples
+
+### Duplicates and reorders slides
+
+**Summary**
+Duplicates and reorders slides.
+
+**Key APIs**
+
+- `Presentation.create()` — Instantiates a new presentation artifact facade.
+- `presentation.slides.add()` — Appends a slide to the deck and returns a mutable `Slide` facade.
+
+**How to use it**
+
+- Start by calling `Presentation.create()` to obtain an authoring surface detached from any proto instance.
+- Use `presentation.slides.add()` to materialize a slide facade where you can place content.
+
+```python
+presentation = Presentation.create()
+original = presentation.slides.add()
+duplicate = original.duplicate()
+duplicate.move_to(1)
+```

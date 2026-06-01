@@ -15,10 +15,15 @@
  * ============================================================================
  */
 
+const fs = require("fs");
+const path = require("path");
 const {
+  mockOctokit,
   mockContext,
   setTestEnv,
   resetTestEnv,
+  mockPrPayload: _mockPrPayload,
+  expectCommentPosted: _expectCommentPosted,
 } = require("../../tests/test-helpers");
 
 describe("Agent Performance Benchmarks", () => {
@@ -130,7 +135,7 @@ describe("Agent Performance Benchmarks", () => {
       const startTime = Date.now();
 
       const mockAgent = {
-        run: jest.fn().mockImplementation(async (_context) => {
+        run: jest.fn().mockImplementation(async (context) => {
           // Simulate async work
           await new Promise((resolve) => setTimeout(resolve, 100));
           return { success: true, id: Math.random() };

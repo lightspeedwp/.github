@@ -1,29 +1,39 @@
 ---
-file_type: documentation
-title: Agent Specification Authoring Guide
-description: Comprehensive guide for creating, documenting, and maintaining agent
-  specification files following LightSpeed standards
-version: 'v1.2'
-created_date: '2025-01-15'
-last_updated: '2026-06-01'
-author: LightSpeed Team
-maintainer: LightSpeed Team
-license: GPL-3.0
-domain: governance
-stability: stable
+file_type: "documentation"
+title: "Agent Specification Authoring Guide"
+description: "Comprehensive guide for creating, documenting, and maintaining agent specification files following LightSpeed standards"
+version: "v1.0"
+created_date: "2025-01-15"
+last_updated: "2025-01-15"
+author: "LightSpeed Team"
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+domain: "governance"
+stability: "stable"
 tags:
   - agents
   - documentation
   - standards
   - automation
   - specifications
+references:
+  - path: "../agents/README.md"
+    description: "Agents directory overview"
+  - path: "../agents/agent.md"
+    description: "Main agent index"
+  - path: "../agents/template.agent.md"
+    description: "Agent specification template"
+  - path: "../.schemas/frontmatter.schema.json"
+    description: "Frontmatter validation schema"
+  - path: "../instructions/automation.instructions.md"
+    description: "Agent development instructions"
 ---
 
 # 📝 Agent Specification Authoring Guide
 
 [![Documentation](https://img.shields.io/badge/docs-comprehensive-blue)](../docs/)
 [![Standards](https://img.shields.io/badge/standards-enforced-success)](../.github/instructions/)
-[![Validation](https://img.shields.io/badge/validation-automated-informational)](../schema/)
+[![Validation](https://img.shields.io/badge/validation-automated-informational)](../.schemas/)
 
 > **Complete guide** for authoring agent specification files that follow LightSpeed organizational standards, including frontmatter requirements, documentation structure, implementation patterns, and validation processes.
 
@@ -533,7 +543,7 @@ Then follow the governance checklist on this page.
 
 - Organisation-wide agent index (`../agents/agent.md`)
 - Agent Specification Authoring Guide
-- Frontmatter schema (`../schema/frontmatter.schema.json`)
+- Frontmatter schema (`../.schemas/frontmatter.schema.json`)
 - Agent instructions (`agent-spec.instructions.md`)
 
 ---
@@ -541,3 +551,8 @@ Then follow the governance checklist on this page.
 **📧 Questions?** Contact the LightSpeed team or [open an issue](https://github.com/lightspeedwp/.github/issues/new)
 
 ---
+
+<!-- RANDOM FOOTER: 📝 Clear specs, reliable agents! -->
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

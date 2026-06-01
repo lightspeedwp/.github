@@ -462,7 +462,7 @@ git commit -m "docs: update docs index to reflect current documentation structur
 
 **Files:**
 
-- Modify: `instructions/languages.instructions.md`
+- Modify: `.github/instructions/wpcs-php.instructions.md`
 - Reference: <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/>
 
 **Step 1: Fetch WordPress PHP coding standards**
@@ -472,7 +472,7 @@ Read the complete WordPress PHP coding standards documentation.
 **Step 2: Review current instruction file**
 
 ```bash
-cat instructions/languages.instructions.md
+cat .github/instructions/wpcs-php.instructions.md
 ```
 
 **Step 3: Update with comprehensive standards**
@@ -714,7 +714,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 **Step 5: Commit**
 
 ```bash
-git add instructions/languages.instructions.md
+git add .github/instructions/wpcs-php.instructions.md
 git commit -m "docs: update PHP coding standards with complete WordPress guidelines"
 ```
 
@@ -724,7 +724,7 @@ git commit -m "docs: update PHP coding standards with complete WordPress guideli
 
 **Files:**
 
-- Modify: `instructions/languages.instructions.md`
+- Modify: `.github/instructions/wpcs-javascript.instructions.md`
 - Reference: <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/>
 
 **Step 1: Fetch WordPress JavaScript coding standards**
@@ -998,7 +998,7 @@ registerBlockType( '{{slug}}/{{cpt_slug}}-card', {
 **Step 4: Commit**
 
 ```bash
-git add instructions/languages.instructions.md
+git add .github/instructions/wpcs-javascript.instructions.md
 git commit -m "docs: update JavaScript coding standards with WordPress and block editor guidelines"
 ```
 
@@ -1008,7 +1008,7 @@ git commit -m "docs: update JavaScript coding standards with WordPress and block
 
 **Files:**
 
-- Modify: `instructions/languages.instructions.md`
+- Modify: `.github/instructions/wpcs-css.instructions.md`
 - Reference: <https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/>
 
 **Step 1: Update with comprehensive CSS standards**
@@ -1410,8 +1410,22 @@ div.container section.content div.card h2.card-title {}
 **Step 2: Commit**
 
 ```bash
-git add instructions/languages.instructions.md
+git add .github/instructions/wpcs-css.instructions.md
 git commit -m "docs: update CSS coding standards with comprehensive WordPress guidelines"
 ```
 
 ---
+
+Due to length constraints, I'll continue this plan in the next section. The plan continues with:
+
+- Task 1.4: HTML Coding Standards
+- Task 1.5: PHPDoc Standards
+- Task 1.6: JSDoc Standards
+- Task 1.7: Accessibility Standards
+- PHASE 2: Plugin Basics & Core Files Review
+- PHASE 3: Custom Post Types, Taxonomies, and Fields
+- PHASE 4: Blocks, Patterns, and Templates
+- PHASE 5: Instruction Files Review and Update
+- PHASE 6: Final Validation and Testing
+
+Would you like me to continue writing the complete plan?

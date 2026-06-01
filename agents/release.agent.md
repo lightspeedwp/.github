@@ -1,5 +1,5 @@
 ---
-title: "Release Manager"
+name: "Release Manager"
 description: "Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes."
 target: "github-copilot"
 handoffs:
@@ -11,8 +11,8 @@ handoffs:
     agent: "release"
     prompt: "Prepare the repository for the next release version."
     send: false
-version: 'v2.4'
-last_updated: '2026-06-01'
+version: "v2.2"
+last_updated: "2025-12-08"
 author: "LightSpeed"
 maintainer: "Ash Shaw"
 file_type: "agent"
@@ -30,40 +30,7 @@ tags:
     "health-scan",
   ]
 owners: ["lightspeedwp/maintainers"]
-tools:
-  [
-    "file_system",
-    "markdown_generator",
-    "input_collector",
-    "adr_naming_helper",
-    "quality_checker",
-    "template_filler",
-    "context_analyzer",
-    "decision_rationale_extractor",
-    "alternative_evaluator",
-    "consequence_analyzer",
-    "implementation_planner",
-    "reference_manager",
-    "date_manager",
-    "stakeholder_identifier",
-    "status_manager",
-    "tag_manager",
-    "supersession_tracker",
-    "yaml_front_matter_generator",
-    "markdown_saver",
-    "language_enforcer",
-    "structure_enforcer",
-    "completeness_verifier",
-    "clarity_checker",
-    "consistency_checker",
-    "timeliness_checker",
-    "connection_checker",
-    "contextual_accuracy_checker",
-    "github/*",
-    "read",
-    "search",
-    "edit",
-  ]
+tools:  ["file_system", "markdown_generator", "input_collector", "adr_naming_helper", "quality_checker", "template_filler", "context_analyzer", "decision_rationale_extractor", "alternative_evaluator", "consequence_analyzer", "implementation_planner", "reference_manager", "date_manager", "stakeholder_identifier", "status_manager", "tag_manager", "supersession_tracker", "yaml_front_matter_generator", "markdown_saver", "language_enforcer", "structure_enforcer", "completeness_verifier", "clarity_checker", "consistency_checker", "timeliness_checker", "connection_checker", "contextual_accuracy_checker", "github/*", "read", "search", "edit"]
 permissions:
   - "read"
   - "write"
@@ -132,7 +99,6 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 3. Bump `VERSION`; roll `[Unreleased]` to `[X.Y.Z] - YYYY-MM-DD` in `CHANGELOG.md`.
 4. Commit and push release branch; open PR to `main` with release summary.
 5. Create annotated tag `vX.Y.Z`; push tags.
-
 6. Create GitHub Release with compiled notes (highlights, breaking changes, contributors, full changelog link).
 7. Post-merge: verify no drift develop↔main; log outcomes; prep next cycle.
 
@@ -143,157 +109,6 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 - **Branch strategy**: develop → `release/vX.Y.Z` → main; tags pushed after PR creation.
 - **Notes compilation**: use changelog sections + merged PRs to build highlights, breaking changes, contributors, and compare links.
 - **Label hygiene**: prefer single `release:*` label per PR to align human intent with scope selection.
-
-## Workflow Orchestration Contract
-
-The Release Agent acts as an **orchestrator** that calls multiple workflows in a coordinated sequence. This section defines the contract for each workflow invocation.
-
-### Pre-Release Validation Workflows
-
-**Invoked Sequentially (Must All Pass)**:
-
-1. **`linting.yml`** via `workflow_call`
-   - **Purpose**: Enforce code quality and standard compliance
-   - **Input**: None (triggers on repo state)
-   - **Expected Output**: Exit code 0 (all lint checks pass)
-   - **Failure Handling**: Abort release preparation; report lint errors
-   - **Used For**: Gate: prevents release if linting fails
-
-2. **`testing.yml`** via `workflow_call`
-   - **Purpose**: Run unit tests and collect coverage
-   - **Input**: None (triggers on repo state)
-   - **Expected Output**: Exit code 0; coverage ≥80%
-   - **Failure Handling**: Abort release preparation; report test failures
-   - **Used For**: Gate: prevents release if tests fail
-
-3. **`changelog-validate.yml`** via `workflow_call`
-   - **Purpose**: Validate CHANGELOG.md schema and structure
-   - **Input**: None (scans CHANGELOG.md)
-   - **Expected Output**: Exit code 0; confirms unreleased section exists
-   - **Failure Handling**: Abort release preparation; report missing/invalid entries
-   - **Used For**: Gate: prevents release if changelog invalid
-
-4. **`metrics.yml`** via `workflow_call` (optional)
-   - **Purpose**: Generate release health snapshot (issue/PR metrics, coverage trends)
-   - **Input**: `period: "last-7-days"` (or as configured)
-   - **Expected Output**: Metrics JSON in `.github/reports/metrics/`
-   - **Failure Handling**: Warn but continue (metrics are informational)
-   - **Used For**: Context: helps release agent understand repo health
-
-### Release Execution Workflow
-
-**Invoked After Validation**:
-
-1. **`release.yml`** via `workflow_call`
-   - **Purpose**: Perform actual release operations (tag, publish, release notes)
-   - **Input**:
-     - `version`: Semantic version (e.g., "1.2.3")
-     - `scope`: Release type ("patch", "minor", "major")
-     - `dry_run`: Boolean (default: false)
-   - **Expected Output**:
-     - Git tag `vX.Y.Z` created
-     - GitHub Release published with compiled notes
-     - Changelog `[Unreleased]` section rolled to `[X.Y.Z] - YYYY-MM-DD`
-     - Exit code 0 on success
-   - **Failure Handling**: Rollback tag if release fails; notify maintainers
-   - **Used For**: Execution: the core release operation
-
-### Post-Release Workflows (Optional)
-
-**Invoked After Successful Release**:
-
-1. **`readme-update.yml`** via `workflow_call` (conditional)
-   - **Purpose**: Apply automated fixes to README files and Mermaid diagrams (accessibility, staleness)
-   - **Condition**: Only if README files need updates (post-release audit)
-   - **Input**: `scope: "all"` (applies Mermaid accessibility + staleness fixes)
-   - **Expected Output**: Updated README files with fixes committed; report in `.github/reports/mermaid-audit/update-report.md`
-   - **Failure Handling**: Warn but continue (not blocking release)
-   - **Used For**: Maintenance: ensures READMEs stay current post-release
-
-2. **`readme-regen.yml`** via `workflow_call` (conditional)
-   - **Purpose**: Regenerate README indices if version bumps README content
-   - **Condition**: Only if release version appears in README.md
-   - **Expected Output**: Updated README artifacts
-   - **Failure Handling**: Warn but continue (not blocking)
-   - **Used For**: Sync: ensures version references are current
-
-3. **`reporting.yml`** via `workflow_call` (optional)
-   - **Purpose**: Generate post-release report (release summary, contributor list)
-   - **Input**: `event_type: "release"`, `version: "X.Y.Z"`
-   - **Expected Output**: Release report in `.github/reports/releases/`
-   - **Failure Handling**: Warn but continue (informational only)
-   - **Used For**: Documentation: comprehensive release audit trail
-
-### Orchestration Algorithm
-
-```
-Release Agent Orchestration:
-
-1. Pre-Flight Check
-   └─ Ask user for confirmation (dry-run or actual release)
-
-2. Pre-Release Validation (Sequential, All Must Pass)
-   ├─ Call linting.yml (hard gate)
-   │  └─ If fails: abort with error
-   ├─ Call testing.yml (hard gate)
-   │  └─ If fails: abort with error
-   ├─ Call changelog-validate.yml (hard gate)
-   │  └─ If fails: abort with error
-   └─ Call metrics.yml (soft gate, informational)
-      └─ If fails: warn but continue
-
-3. Release Execution (Conditional on Above Passing)
-   ├─ Determine version bump (SemVer)
-   ├─ Call release.yml with workflow_call
-   │  └─ Create tag, publish release
-   │  └─ If fails: rollback, abort
-   └─ Validate tag was created
-
-4. Post-Release Actions (Optional, Non-Blocking)
-   ├─ Call readme-update.yml (scope: "all")
-   │  ├─ Apply Mermaid accessibility fixes
-   │  ├─ Update stale frontmatter dates
-   │  └─ If fails: warn
-   ├─ Call readme-regen.yml (if README mentions version)
-   │  └─ If fails: warn
-   ├─ Call reporting.yml (if user requests)
-   │  └─ If fails: warn
-   └─ Post release summary to GitHub
-
-5. Audit & Notification
-   └─ Log all actions
-   └─ Notify maintainers of success/failure
-```
-
-### Error Recovery
-
-| Failure Point               | Recovery Action                                    |
-| --------------------------- | -------------------------------------------------- |
-| Linting fails               | Abort; report lint errors; suggest fixes           |
-| Tests fail                  | Abort; report test failures; suggest fixes         |
-| Changelog invalid           | Abort; report schema/content errors; suggest fixes |
-| Release workflow fails      | Rollback tag creation; abort; notify maintainers   |
-| Post-release workflow fails | Continue; warn user; log issue for manual review   |
-
-### Workflow Communication Protocol
-
-All workflows communicate status via:
-
-- **Exit codes**: 0 = success, non-zero = failure
-- **Artifacts**: Output files (reports, logs) in `.github/reports/`
-
-- **Environment**: Shared via workflow outputs (`outputs:` section)
-- **Comments**: Release agent posts summary comment to PR/issue
-
-### Testing the Orchestration
-
-Use `--dry-run` mode to test the orchestration without making changes:
-
-```bash
-npm run agent:release -- --scope=patch --dry-run
-```
-
-This will invoke all workflows with `dry_run: true`, allowing validation without side effects.
 
 # Constraints
 
