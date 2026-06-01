@@ -293,7 +293,7 @@ D93F0B (Orange-Red - NOT in strategy)          5 labels
 
 1. **Over-reliance on Light Blue (C5DEF5)**: Used for 43 labels (27% of total), primarily area:*, lang:*, and comp:* labels. Lacks semantic distinction.
 
-2. **Gray color fragmentation**: Uses a gray not in strategy (9198A1) instead of consistent family.
+2. **Gray color fragmentation**: Heavy use of 9198A1 (medium gray, not in strategy) instead of E1E4E8 (light gray from strategy).
 
 3. **Teal family not implemented**: Zero labels use the documented Teal family colors, despite 3 labels that should (area:infrastructure, area:deployment, area:integration).
 
