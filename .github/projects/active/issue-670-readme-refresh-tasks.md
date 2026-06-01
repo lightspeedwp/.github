@@ -1,7 +1,6 @@
 ---
 file_type: "documentation"
 title: "Issue #670 — Update & Refresh README Files"
-file_type: documentation
 description: "Systematic refresh of all 57 README.md files with current information, broken link fixes, and consistent formatting"
 version: "1.0.0"
 status: "draft"
@@ -11,8 +10,12 @@ owners:
   - Claude Code
 tags: ["readme", "documentation", "maintenance", "issue-670"]
 category: "project"
-status: "active"
 priority: "high"
+related_issues:
+  - "#667"
+  - "#668"
+  - "#669"
+---
 related_issues:
   - "#668"
   - "#669"

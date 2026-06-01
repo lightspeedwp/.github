@@ -1,16 +1,10 @@
 ---
-title: Wave 5 Documentation Audit — Completion Summary
-description: Final status report for Issues #667–#670 comprehensive documentation audit and refresh
-version: 1.0.0
-created_date: "2026-05-31"
-last_updated: "2026-05-31"
----
-title: Wave 5 Documentation Audit — Completion Summary
-description: Final status report for Issues #667–#670 comprehensive documentation audit and refresh
-version: 1.0.0
-created_date: "2026-05-31"
-last_updated: "2026-05-31"
 file_type: documentation
+title: Wave 5 Documentation Audit — Completion Summary
+description: Final status report for Issues #667–#670 comprehensive documentation audit and refresh
+version: 1.0.0
+created_date: "2026-05-31"
+last_updated: "2026-05-31"
 status: "draft"
 ---
 
