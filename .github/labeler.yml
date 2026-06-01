@@ -11,6 +11,8 @@
     - "^feat/.*"
     - "^fix/.*"
     - "^docs?/.*"
+    - "^ai/.*"
+    - "^automation/.*"
     - "^(chore|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry)/.*"
 
 # Type mapping (by branch)
@@ -40,6 +42,10 @@
   head-branch: ["^question/.*"]
 "type:support":
   head-branch: ["^support/.*"]
+"type:ai-ops":
+  head-branch: ["^ai/.*"]
+"type:automation":
+  head-branch: ["^automation/.*"]
 
 # Priority mapping (by branch)
 "priority:critical":

@@ -5,7 +5,7 @@ description: 'Comprehensive agent for issue management: type assignment, triage,
 file_type: agent
 version: v2.1
 created_date: '2025-11-25'
-last_updated: '2026-05-29'
+last_updated: '2026-06-01'
 author: LightSpeed Team
 maintainer: Ash Shaw
 owners:

@@ -4,7 +4,7 @@ description: "Multi-mode planning agent: strategic architecture planning, implem
 file_type: "agent"
 version: "v3.1"
 created_date: "2025-11-20"
-last_updated: "2026-05-29"
+last_updated: '2026-06-01'
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]

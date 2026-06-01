@@ -2,8 +2,8 @@
 title: "Release Process"
 description: "Authoritative release process for lightspeedwp/.github: develop → main flow, gating, changelog validation, release PRs, tags, and GitHub Releases."
 file_type: "documentation"
-version: "v2.2.0"
-last_updated: "2026-05-29"
+version: 'v2.2.1'
+last_updated: '2026-06-01'
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp"]

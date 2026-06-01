@@ -1,7 +1,7 @@
 ---
 title: "Documentation Audit Prompt - Quick Start"
 description: "How to use the Comprehensive Documentation Audit Prompt to create GitHub issues"
-version: "1.0.0"
+version: '1.0.1'
 created_date: "2026-05-31"
 ---
 
@@ -24,6 +24,7 @@ A detailed, structured prompt document designed to help you create GitHub issues
 **Location:** `.github/projects/active/DOCUMENTATION_AUDIT_PROMPT_COMPREHENSIVE.md`
 
 **Contains:**
+
 - Problem statement and root causes
 - 5 parent issues (full descriptions ready to copy)
 - ~25 child issues (templates for customization)
@@ -84,6 +85,7 @@ Each child issue references its parent. Parent issue tracks all children.
 ### Child Issues (Detailed Investigations)
 
 Each parent has 4-5 child issues that:
+
 - Focus on a specific component or area
 - Provide detailed audit checklists
 - Specify deliverables (reports, recommendations)
@@ -132,6 +134,7 @@ While creating and executing audits, reference these source documents:
 ## Questions or Issues?
 
 If while creating issues you realize something needs adjustment:
+
 - Add notes to the issue being created
 - Update this README with clarifications
 - Check `next-issues-execution-plan.md` for related context

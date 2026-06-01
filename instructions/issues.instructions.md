@@ -3,8 +3,8 @@ file_type: "instructions"
 title: "Issue Creation Instructions"
 description: "Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy."
 scope: "organization-wide"
-version: "1.2"
-last_updated: "2026-05-29"
+version: '1.3'
+last_updated: '2026-06-01'
 owners: ["lightspeedwp/maintainers"]
 tags: ["issues", "templates", "frontmatter", "automation", "labels", "issue types", "triage", "branching"]
 ---

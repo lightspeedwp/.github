@@ -2,9 +2,9 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.0
+version: v1.0.1
 created_date: '2026-05-31'
-last_updated: '2026-05-31'
+last_updated: '2026-06-01'
 authors:
   - Claude Code
   - LightSpeed Team
@@ -18,6 +18,8 @@ tags:
   - project-automation
   - governance
 domain: governance
+status: stable
+language: en
 stability: stable
 ---
 
@@ -36,7 +38,7 @@ This document specifies the organization-level issue fields, type mappings, and 
 
 **Key Outcomes**:
 
-- All 25 issue types mapped to 10 project field values (preserves domain context)
+- All 32 issue types mapped to 10 project field values (preserves domain context)
 - Eliminates collapse of domain-specific types to generic "Task"
 - Enables project automation based on type for better reporting and workflow
 - Maintains GitHub API compatibility with existing project views
@@ -45,22 +47,44 @@ This document specifies the organization-level issue fields, type mappings, and 
 
 ## 1. Issue Type Taxonomy & Project Field Mapping
 
-### 1.1 Complete Type Mapping (25 Types → 10 Project Fields)
+### 1.1 Complete Type Mapping (32 Types → 10 Project Fields)
 
-| Issue Type | Project Field | Rationale | Count |
-| --- | --- | --- | --- |
-| **Bug** | Bug | Critical issues requiring fix | type:bug |
-| **Feature** | Feature | New functionality/enhancements | type:feature, type:improve, type:enhancement |
-| **Documentation** | Documentation | Docs, guides, specifications | type:documentation |
-| **Task** | Task | Work items without type specificity | type:task |
-| **Design** | Design | Design/UX/accessibility work | type:design, type:ui, type:a11y |
-| **Chore** | Chore | Maintenance, refactoring, code quality | type:chore, type:refactor, type:maintenance |
-| **Release** | Release | Release planning and management | type:release |
-| **Research** | Research | Investigation, analysis, POCs | type:research |
-| **Automation** | Automation | Workflow automation, CI/CD, tooling | type:automation, type:test, type:ai-ops, type:ci |
-| **Integration** | Integration | External system integrations, dependencies | type:integration, type:dependency |
+| Issue Type | Project Field | Rationale |
+| --- | --- | --- |
+| `type:bug` | Bug | Critical issues requiring fix |
+| `type:feature` | Feature | New functionality/capabilities |
+| `type:improve` | Feature | Enhancement to existing feature |
+| `type:enhancement` | Feature | Enhancement (alias for improve) |
+| `type:documentation` | Documentation | Docs, guides, specifications |
+| `type:task` | Task | Generic work without specific type |
+| `type:design` | Design | Design artefacts/decisions |
+| `type:ui` | Design | UI implementation/consistency |
+| `type:a11y` | Design | Accessibility improvements |
+| `type:chore` | Chore | General maintenance tasks |
+| `type:refactor` | Chore | Code quality improvements |
+| `type:maintenance` | Chore | System upkeep/updates |
+| `type:release` | Release | Release management/deployment |
+| `type:research` | Research | Investigation/discovery/POCs |
+| `type:investigation` | Research | Issue diagnosis/root cause analysis |
+| `type:automation` | Automation | Workflow automation/task automation |
+| `type:test` | Automation | Test coverage/infrastructure |
+| `type:ai-ops` | Automation | AI operations/agents/tooling |
+| `type:ci` | Automation | CI/CD pipelines |
+| `type:build` | Automation | Build system improvements |
+| `type:integration` | Integration | External system integrations |
+| `type:dependency` | Integration | Dependency updates/management |
+| `type:compatibility` | Integration | Cross-platform compatibility |
+| `type:epic` | Task | Parent issue grouping stories |
+| `type:story` | Task | User-centred vertical slice |
+| `type:review` | Task | Peer review/QA/validation |
+| `type:audit` | Task | Security/code/process audits |
+| `type:question` | Task | Clarification request/open question |
+| `type:support` | Task | Support request/troubleshooting |
+| `type:content-modelling` | Task | Content structure/CPTs/taxonomy |
+| `type:performance` | Task | Performance optimization work |
+| `type:security` | Task | Security issues/improvements |
 
-**Total Coverage**: All 25 types mapped; 0 unmapped types
+**Total Coverage**: All 32 canonical types mapped to 10 project field values; 0 unmapped types
 
 ### 1.2 Type Category Groups
 
@@ -118,7 +142,7 @@ Security (1 type)
 
 ### 2.1 Why NOT Collapse to 4 Values?
 
-The previous mapping (Bug, Feature, Documentation, Task) collapsed 25 types to 4 values:
+The previous mapping (Bug, Feature, Documentation, Task) collapsed all types to 4 values:
 
 **Problems with collapse**:
 
@@ -127,7 +151,7 @@ The previous mapping (Bug, Feature, Documentation, Task) collapsed 25 types to 4
 - **Poor reporting** — No visibility into which types consume effort (e.g., are we spending too much on research?)
 - **Missed optimization** — Can't identify bottlenecks by type (e.g., feature slow? bug backlog growing?)
 
-### 2.2 Why 10 Values (Instead of 25)?
+### 2.2 Why 10 Values (Instead of 32)?
 
 With 10 project field values, we maintain meaningful distinctions without fragmenting project views:
 
@@ -151,7 +175,7 @@ All organization issues support these fields:
 | --- | --- | --- | --- | --- |
 | **Priority** | single_select | Urgent, High, Medium, Low | No | Current importance level |
 | **Effort** | single_select | XS, S, M, L, XL, XXL, XXXL | No | Relative sizing estimate |
-| **Type** | single_select | Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task | No | **Expanded mapping** — all 25 types covered |
+| **Type** | single_select | Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task | No | **Expanded mapping** — all 32 types covered |
 | **Start date** | date | YYYY-MM-DD | No | Planned start date |
 | **Target date** | date | YYYY-MM-DD | No | Expected completion date |
 
@@ -252,12 +276,12 @@ All LightSpeed custom types (type:design, type:automation, etc.) are mapped to t
 ### Phase 1: Configuration Update (Current)
 
 - ✅ Document expanded mapping (this file)
-- ✅ Update `.github/issue-fields.yml` with all 25 type mappings
-- ✅ Verify no unmapped types (type:refactor, type:build now mapped)
+- ✅ Update `.github/issue-fields.yml` with all 32 type mappings
+- ✅ Verify no unmapped types (all 32 types now mapped)
 
 ### Phase 2: Validation (Issue #684 - Type Naming)
 
-- Verify all 25 types are correctly used in existing issues
+- Verify all 32 types are correctly used in existing issues
 - Update type naming consistency across the repository
 - Document any type aliases or deprecated types
 
@@ -376,7 +400,7 @@ Why both exist:
 
 | Date | Change | Author |
 | --- | --- | --- |
-| 2026-05-31 | Initial specification v1.0.0 — 25 type → 10 project field mapping | Claude Code |
+| 2026-05-31 | Initial specification v1.0.0 — 32 type → 10 project field mapping | Claude Code |
 
 ---
 

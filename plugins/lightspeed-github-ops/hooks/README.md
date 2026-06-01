@@ -1,13 +1,13 @@
 ---
-file_type: "documentation"
+file_type: readme
 title: "Plugin Hooks"
 description: "Optional plugin-local hooks for lightspeed-github-ops"
 version: "1.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 maintainer: "LightSpeed Engineering"
 tags: ["hooks", "plugins", "github-ops"]
 ---
 
-# hooks
+# Plugin Hooks
 
 Optional plugin-local hooks live here.

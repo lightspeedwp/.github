@@ -10,7 +10,7 @@ handoffs:
     correctly applied to the documentation.
   send: false
 version: v1.2
-last_updated: '2026-05-29'
+last_updated: '2026-06-01'
 author: LightSpeed
 maintainer: Ash Shaw
 file_type: agent
