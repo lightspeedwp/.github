@@ -1,21 +1,22 @@
 ---
-authors:
-- LightSpeed Team
-description: Ownership index for safe portable hooks, guardrails, and tool adapters for Claude Code, GitHub, and automation platforms.
-domain: governance
 file_type: documentation
-last_updated: '2026-05-29'
-license: GPL-3.0
-maintainer: LightSpeed Team
-stability: stable
-tags:
-- hooks
-- guardrails
-- ai-ops
-- automation
-- security
 title: Portable Hooks & Guardrails
+description: Ownership index for safe portable hooks, guardrails, and tool adapters for Claude Code, GitHub, and automation platforms.
 version: v0.3.1
+created_date: '2026-05-26'
+last_updated: '2026-05-29'
+maintainer: LightSpeed Team
+authors:
+  - LightSpeed Team
+license: GPL-3.0
+stability: stable
+domain: governance
+tags:
+  - hooks
+  - guardrails
+  - ai-ops
+  - automation
+  - security
 ---
 
 # Portable Hooks & Guardrails

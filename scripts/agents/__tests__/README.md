@@ -1,9 +1,17 @@
 ---
-title: Agent Test Suite
-description: Comprehensive Jest tests for all LightSpeed agents
-version: v1.1
+file_type: 'documentation'
+title: 'Agent Test Suite'
+description: 'Comprehensive Jest tests for all LightSpeed agents'
+version: 'v1.1'
+created_date: '2026-05-29'
 last_updated: '2026-05-29'
-file_type: documentation
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
 ---
 
 # 🧪 Agent Test Suite

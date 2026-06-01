@@ -1,21 +1,22 @@
 ---
-authors:
-- LightSpeed Team
-description: Ownership index for reusable recipes, examples, playbooks, and implementation guides for common AI and automation tasks.
-domain: governance
-file_type: documentation
+file_type: 'documentation'
+title: 'AI Cookbook & Implementation Guides'
+description: 'Ownership index for reusable recipes, examples, playbooks, and implementation guides for common AI and automation tasks.'
+version: 'v0.3.1'
+created_date: '2026-05-29'
 last_updated: '2026-05-29'
-license: GPL-3.0
-maintainer: LightSpeed Team
-stability: stable
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
 tags:
-- cookbook
-- recipes
-- playbooks
-- ai-ops
-- automation
-title: AI Cookbook & Implementation Guides
-version: v0.3.1
+  - cookbook
+  - recipes
+  - playbooks
+  - ai-ops
+  - automation
 ---
 
 # AI Cookbook & Implementation Guides

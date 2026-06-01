@@ -1,22 +1,22 @@
 ---
-file_type: documentation
-name: Portable Agents
-title: Portable AI Agents
-description: Ownership index and specifications for reusable LightSpeed AI agent implementations across platforms.
-version: v0.3.1
+file_type: 'documentation'
+title: 'Portable AI Agents'
+description: 'Ownership index and specifications for reusable LightSpeed AI agent implementations across platforms.'
+version: 'v0.3.1'
+created_date: '2026-05-29'
 last_updated: '2026-05-29'
-maintainer: LightSpeed Team
+maintainer: 'LightSpeed Team'
 authors:
-- LightSpeed Team
-license: GPL-3.0
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
 tags:
-- agents
-- ai-ops
-- automation
-- specifications
-domain: governance
-stability: stable
----
+  - agents
+  - ai-ops
+  - automation
+  - specifications
+name: 'Portable Agents'
 
 # Portable AI Agents
 
