@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "Wave 5 Audit #654 Findings"
 description: "Template Inventory and Standardisation Audit findings"
-version: "1.2.0"
+version: "1.2.1"
 created_date: "2026-05-31"
 last_updated: "2026-05-31"
 language: "en-GB"
@@ -20,7 +20,7 @@ issue_number: 654
 audit_type: "Template Inventory & Standardisation"
 audit_status: "complete"
 completion_date: "2026-05-31"
-category: "audit-findings"
+category: "audit"
 ---
 
 # Issue #654 Audit Findings: Template Inventory & Standardisation

@@ -1,20 +1,15 @@
 ---
-authors:
-- LightSpeed Team
-description: Ownership index for portable instruction files covering standards, best practices, and governance across LightSpeed projects.
-domain: governance
-file_type: documentation
-last_updated: '2026-05-29'
-license: GPL-3.0
-maintainer: LightSpeed Team
-stability: stable
-tags:
-- instructions
-- standards
-- documentation
-- governance
-title: Portable Instructions & Standards
-version: v0.3.1
+file_type: "documentation"
+title: "Portable Instructions & Standards"
+description: "Ownership index for portable instruction files covering standards, best practices, and governance across LightSpeed projects."
+version: "v0.3.2"
+last_updated: "2026-05-31"
+maintainer: "LightSpeed Team"
+authors: ["LightSpeed Team"]
+tags: ["instructions", "standards", "documentation", "governance"]
+domain: "governance"
+stability: "stable"
+license: "GPL-3.0"
 ---
 
 # Portable Instructions & Standards
@@ -80,7 +75,7 @@ Reference in `.github/custom-instructions.md`:
 ```markdown
 # Coding Standards
 
-See [Portable Coding Standards](../../instructions/coding-standards.instructions.md) for complete guidelines.
+See [Portable Coding Standards](../instructions/coding-standards.instructions.md) for complete guidelines.
 
 ## Key Points
 

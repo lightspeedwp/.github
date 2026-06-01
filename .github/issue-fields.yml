@@ -95,18 +95,18 @@ organization_issue_fields:
       - Task
       - Bug
       - Feature
-      - Code Refactor
-      - Build & CI
-      - A11y
+      - Refactor
+      - Build
+      - Accessibility
       - Compatibility
       - Security
       - Release
       - Maintenance
       - Performance
-      - Test Coverage
+      - Testing
       - Epic
       - Automation
-      - Code Review
+      - Review
       - Design
       - Story
       - Improvement

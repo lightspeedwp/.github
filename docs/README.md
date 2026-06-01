@@ -1,16 +1,19 @@
 ---
 file_type: documentation
 title: LightSpeed .github Documentation Index
-description: Comprehensive index and quickstart guide for all documentation in the
-  .github repository
-version: '1.0'
-last_updated: '2026-05-29'
-created_date: '2026-05-29'
-authors:
-- LightSpeed Team
-category: documentation
-maintainer: LightSpeed Team
+description: Comprehensive index and quickstart guide for all documentation in the .github repository
+version: '1.1'
+last_updated: '2026-05-31'
+owners:
+  - LightSpeed Team
+tags:
+  - documentation
+  - governance
+  - community-health
+status: active
 stability: stable
+domain: governance
+language: en
 ---
 
 # 📚 LightSpeed .github Documentation
@@ -28,16 +31,16 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 
 ### For Maintainers
 
-1. **Understand** [AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md) — automation policies
+1. **Understand** [AUTOMATION.md](./AUTOMATION.md) — automation policies and governance
 2. **Learn** [LABELING.md](./LABELING.md) — label strategy and management
 3. **Review** [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) — release procedures
 4. **Check** [GOVERNANCE_REVISION_LOG.md](./GOVERNANCE_REVISION_LOG.md) — recent policy changes
 
 ### For Workflow & Automation Work
 
-1. **Start** [WORKFLOWS.md](./WORKFLOWS.md) — GitHub Actions workflows overview
+1. **Start** [AUTOMATION.md](./AUTOMATION.md) — GitHub Actions workflows and automation overview
 2. **Review** [AGENT_CREATION.md](./AGENT_CREATION.md) — creating new agents/automation
-3. **Understand** [AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md) — governance framework
+3. **Understand** [AUTOMATION.md](./AUTOMATION.md) — governance framework and policies
 4. **Explore** [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md) — project operations
 
 ---
@@ -54,7 +57,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 
 ### 🔄 Workflows & Processes
 
-- **[WORKFLOWS.md](./WORKFLOWS.md)** — GitHub Actions workflows documentation
+- **[AUTOMATION.md](./AUTOMATION.md)** — GitHub Actions workflows and automation documentation
 - **[PR_CREATION_PROCESS.md](./PR_CREATION_PROCESS.md)** — Pull request workflow
 - **[ISSUE_CREATION_GUIDE.md](./ISSUE_CREATION_GUIDE.md)** — Issue creation standards
 - **[RELEASE_PROCESS.md](./RELEASE_PROCESS.md)** — Release procedures
@@ -62,12 +65,14 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 
 ### 🏷️ Labeling & Project Management
 
-- **[LABELING.md](./LABELING.md)** — Labeling guidelines and best practices
-- **[ISSUE_LABELS.md](./ISSUE_LABELS.md)** — Complete issue label reference
-- **[PR_LABELS.md](./PR_LABELS.md)** — Pull request label reference
-- **[LABEL_STRATEGY.md](./LABEL_STRATEGY.md)** — Strategic approach to labeling
+- **[LABELING.md](./LABELING.md)** — Comprehensive labeling guide covering:
+  - Label families and categories (status, priority, type, area, context, meta, contributor)
+  - [Issue labelling requirements and automation](./LABELING.md#issue-labelling)
+  - [Pull request labelling and branch mapping](./LABELING.md#pull-request-labelling)
+  - [Discussion labelling guidelines](./LABELING.md#discussion-labelling)
 - **[ISSUE_TYPES.md](./ISSUE_TYPES.md)** — Issue type definitions and usage
 - **[ISSUE-FIELDS.md](./ISSUE-FIELDS.md)** — Issue field definitions
+- **[AUTOMATION.md](./AUTOMATION.md)** — Label governance and automation policies
 - **[GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md)** — Project board operations
 
 ### ⚙️ Configuration & Setup
@@ -87,7 +92,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 
 ### 📋 Governance & Decisions
 
-- **[AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md)** — Automation policies
+- **[AUTOMATION.md](./AUTOMATION.md)** — Automation and governance policies
 - **[GOVERNANCE_REVISION_LOG.md](./GOVERNANCE_REVISION_LOG.md)** — Governance change history
 - **[DECISIONS.md](./DECISIONS.md)** — Architecture Decision Records (ADRs)
 - **[DISCUSSIONS.md](./DISCUSSIONS.md)** — Discussion category guidelines
@@ -112,9 +117,9 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 | Role | Key Documents |
 |------|---|
 | **Developer** | [CONTRIBUTING.md](../CONTRIBUTING.md), [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md), [TESTING.md](./TESTING.md), [LINTING.md](./LINTING.md) |
-| **Reviewer** | [PR_CREATION_PROCESS.md](./PR_CREATION_PROCESS.md), [ISSUE_LABELS.md](./ISSUE_LABELS.md), [PR_LABELS.md](./PR_LABELS.md) |
-| **Maintainer** | [AUTOMATION_GOVERNANCE.md](./AUTOMATION_GOVERNANCE.md), [RELEASE_PROCESS.md](./RELEASE_PROCESS.md), [LABELING.md](./LABELING.md) |
-| **Automation/DevOps** | [WORKFLOWS.md](./WORKFLOWS.md), [AGENT_CREATION.md](./AGENT_CREATION.md), [CONFIGS.md](./CONFIGS.md) |
+| **Reviewer** | [PR_CREATION_PROCESS.md](./PR_CREATION_PROCESS.md), [LABELING.md](./LABELING.md), [ISSUE_TYPES.md](./ISSUE_TYPES.md) |
+| **Maintainer** | [AUTOMATION.md](./AUTOMATION.md), [RELEASE_PROCESS.md](./RELEASE_PROCESS.md), [LABELING.md](./LABELING.md) |
+| **Automation/DevOps** | [AUTOMATION.md](./AUTOMATION.md), [AGENT_CREATION.md](./AGENT_CREATION.md), [CONFIGS.md](./CONFIGS.md) |
 | **Organisation Lead** | [ROADMAP.md](./ROADMAP.md), [GOVERNANCE_REVISION_LOG.md](./GOVERNANCE_REVISION_LOG.md), [DECISIONS.md](./DECISIONS.md) |
 
 ### By Task
@@ -164,13 +169,7 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for documentation contribution guideli
 
 ---
 
-*Last updated: 2026-05-29*  
+*Last updated: 2026-05-31*  
 *Maintained by: LightSpeed Team*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

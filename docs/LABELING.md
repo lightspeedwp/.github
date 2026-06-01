@@ -353,7 +353,6 @@ All automation reads from these files; there is no hardcoded label logic in agen
 - [Issue Types Config](../.github/issue-types.yml)
 - [Labelling Workflow](../.github/workflows/labeling.yml)
 - [Labelling Agent](../scripts/agents/labeling.agent.js)
-- [Portable Labelling Instructions](../instructions/labeling.instructions.md)
 - [Issue Creation Standards](../instructions/issues.instructions.md)
 - [PR Creation Standards](../instructions/pull-requests.instructions.md)
 

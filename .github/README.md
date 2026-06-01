@@ -62,6 +62,10 @@ This repository's `.github` folder serves as the **single source of truth** for 
 ## GitHub Template Ecosystem Architecture
 
 ```mermaid
+---
+accTitle: GitHub Template Ecosystem Architecture
+accDescr: Flowchart showing the .github repository hub at the center containing community health files, issue templates, PR templates, AI instructions, automation rules, and workflows, flowing to template categories including bug reports, feature requests, documentation, architecture, security, and testing, then to AI and automation systems including auto-labeling, project sync, quality gates, deployment, and analytics, finally connecting to organization repositories
+---
 flowchart TB
     subgraph "🏛️ .github Repository Hub"
         A[🏠 Community Health Files]
@@ -200,6 +204,10 @@ This repository is the **canonical, organisation-wide source** for:
 ## GitHub Automation Workflow Process
 
 ```mermaid
+---
+accTitle: GitHub Automation Workflow Process
+accDescr: Sequence diagram showing the interaction between a developer, member repository, .github hub, automation system, and project manager during the issue or PR creation process, demonstrating how templates are checked, labels are applied, and projects are synchronized
+---
 sequenceDiagram
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Member Repo
@@ -242,6 +250,10 @@ The `.github` folder is organised for maximum clarity and modularity, grouping r
 ## Repository Structure Visualization
 
 ```mermaid
+---
+accTitle: Repository Structure Visualization
+accDescr: Graph showing the .github directory structure including instructions, prompts, agents, workflows, issue templates, pull request templates, saved replies, and automation subdirectories, with connections to their respective ecosystems including coding standards, linting, accessibility instructions, prompts, and automation core configuration
+---
 graph TB
     subgraph "📁 .github/ Directory Structure"
         A[📋 instructions/]
@@ -375,6 +387,10 @@ This diagram illustrates how all components work together to create a seamless d
 ## Complete Integration Flow
 
 ```mermaid
+---
+accTitle: Complete Integration Flow
+accDescr: Flowchart showing the developer experience (new contributor, issue creation, PR submission, code review) connecting to .github hub resources (instructions, templates, AI prompts, chat modes, automation), leading to automated processes (auto-labeling, project sync, quality gates, analytics), resulting in quality outcomes (consistent standards, faster onboarding, better tracking, security compliance)
+---
 flowchart LR
     subgraph "👨‍💻 Developer Experience"
         A[New Contributor]
@@ -541,9 +557,6 @@ This repository and all its contents are licensed under the GNU General Public L
 - [🏗️ Plugin Structure](../instructions/plugin-structure.instructions.md) - WordPress block plugin development
 
 ---
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
