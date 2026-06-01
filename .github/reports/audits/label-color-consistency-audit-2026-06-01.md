@@ -40,7 +40,7 @@ Analysis of all 160 labels in `.github/labels.yml` reveals **significant deviati
 - **Colors in use**: 52 unique hex codes (vs. 24 hex codes defined in strategy)
 - **Main issues**:
   - Status labels use non-standard shades (0E8A16, 1D76DB, E99695, FEF2C0)
-  - Area labels heavily use C5DEF5 (172 instances) without semantic distinction
+  - Area labels heavily use C5DEF5 (43 instances) without semantic distinction
   - Compatibility labels (compat:*) use D93F0B (not in Orange family)
   - Design-related labels scattered across multiple colors
 
@@ -161,7 +161,6 @@ Analysis of all 160 labels in `.github/labels.yml` reveals **significant deviati
 | compat:multisite | F9D0C4 | ✓ | Matches strategy |
 | area:dependencies | F9D0C4 | ✓ | Matches strategy |
 | discussion:sponsorship | f9d0c4 | ✓ | Matches strategy (lowercase) |
-| release:hotfix | D29922 | ❌ | Yellow, not Orange |
 | priority:minor | C2E0C6 | ❌ | Light green, not Orange |
 | contrib:help-wanted | C2E0C6 | ❌ | Light green, not Orange |
 | contrib:discussion | C2E0C6 | ❌ | Light green, not Orange |
@@ -294,7 +293,7 @@ D93F0B (Orange-Red - NOT in strategy)          5 labels
 
 1. **Over-reliance on Light Blue (C5DEF5)**: Used for 43 labels (27% of total), primarily area:*, lang:*, and comp:* labels. Lacks semantic distinction.
 
-2. **Gray color fragmentation**: Uses two grays not in strategy (9198A1, E1E4E8) instead of consistent family.
+2. **Gray color fragmentation**: Uses a gray not in strategy (9198A1) instead of consistent family.
 
 3. **Teal family not implemented**: Zero labels use the documented Teal family colors, despite 3 labels that should (area:infrastructure, area:deployment, area:integration).
 
@@ -398,7 +397,7 @@ D93F0B (Orange-Red - NOT in strategy)          5 labels
 - [ ] Update `.github/labels.yml` with corrected colors
 - [ ] Create spreadsheet with label-by-label mapping
 - [ ] Update `docs/LABEL_COLOR_STRATEGY.md` with updated color family assignment rules
-- [ ] Create migration guide for label color transitions
+- [ ] Create migration guide for label color transitions in central `/docs/MIGRATION.md`
 
 ---
 
