@@ -74,9 +74,4 @@ jobs:
           fi
 
       - name: Report action
-        run: |
-          if [ "${{ steps.extract.outputs.has_entries }}" = "true" ]; then
-            echo "✅ Changelog entries merged from PR #${{ github.event.pull_request.number }}"
-          else
-            echo "ℹ️  No changelog entries to merge from PR #${{ github.event.pull_request.number }}"
-          fi
+        run: test "${{ steps.extract.outputs.has_entries }}" = "true" && echo "✅ Changelog entries merged from PR #${{ github.event.pull_request.number }}" || echo "ℹ️  No changelog entries to merge from PR #${{ github.event.pull_request.number }}"

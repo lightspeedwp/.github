@@ -104,12 +104,7 @@ jobs:
 
       - name: Check for changes
         id: changes
-        run: |
-          if [ "$(git status --porcelain | wc -l)" -gt 0 ]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          fi
+        run: test "$(git status --porcelain | wc -l)" -gt 0 && echo "has_changes=true" >> "$GITHUB_OUTPUT" || echo "has_changes=false" >> "$GITHUB_OUTPUT"
 
       - name: Commit changes
         if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}

@@ -104,7 +104,4 @@ jobs:
 
       - name: Report summary
         if: always()
-        run: |
-          if [ -f ".github/reports/projects/archival-summary.txt" ]; then
-            cat ".github/reports/projects/archival-summary.txt"
-          fi
+        run: test -f ".github/reports/projects/archival-summary.txt" && cat ".github/reports/projects/archival-summary.txt" || true

@@ -28,42 +28,57 @@ jobs:
 
       - name: Require changelog update or skip label
         id: changelog_gate
-        env:
-          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-          PR_LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          if [ "${PR_AUTHOR}" = "dependabot[bot]" ] || [ "${PR_AUTHOR}" = "app/dependabot" ]; then
-            echo "Skipping changelog requirement for Dependabot pull requests."
-            echo "run_validation=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const cp = require("node:child_process");
+            const author = context.payload.pull_request?.user?.login || "";
+            const labels = (context.payload.pull_request?.labels || []).map((l) => l.name);
+            const has = (name) => labels.includes(name);
 
-          if echo "${PR_LABELS}" | grep -q '"meta:needs-changelog"' && echo "${PR_LABELS}" | grep -q '"meta:no-changelog"'; then
-            echo "::error::PR cannot include both meta:needs-changelog and meta:no-changelog."
-            exit 1
-          fi
+            if (author === "dependabot[bot]" || author === "app/dependabot") {
+              core.info("Skipping changelog requirement for Dependabot pull requests.");
+              core.setOutput("run_validation", "false");
+              return;
+            }
 
-          if echo "${PR_LABELS}" | grep -q '"meta:no-changelog"' && echo "${PR_LABELS}" | grep -Eq '"type:(feature|bug|performance|security|release|hotfix)"'; then
-            echo "::error::meta:no-changelog is not allowed for type:feature, type:bug, type:performance, type:security, type:release, or type:hotfix."
-            exit 1
-          fi
+            if (has("meta:needs-changelog") && has("meta:no-changelog")) {
+              core.setFailed("PR cannot include both meta:needs-changelog and meta:no-changelog.");
+              return;
+            }
 
-          if git diff --name-only "${BASE_SHA}" "${HEAD_SHA}" | grep -q "^CHANGELOG.md$"; then
-            echo "CHANGELOG.md updated in PR diff."
-            echo "run_validation=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+            const restrictedTypes = new Set([
+              "type:feature",
+              "type:bug",
+              "type:performance",
+              "type:security",
+              "type:release",
+              "type:hotfix",
+            ]);
+            if (has("meta:no-changelog") && labels.some((label) => restrictedTypes.has(label))) {
+              core.setFailed("meta:no-changelog is not allowed for high-impact release-related change types.");
+              return;
+            }
 
-          if echo "${PR_LABELS}" | grep -q '"meta:no-changelog"'; then
-            echo "Skipping changelog requirement due to meta:no-changelog label."
-            echo "run_validation=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+            const baseSha = context.payload.pull_request?.base?.sha;
+            const headSha = context.payload.pull_request?.head?.sha;
+            const changed = cp
+              .execSync(`git diff --name-only ${baseSha} ${headSha}`, { encoding: "utf8" })
+              .split("\n")
+              .filter(Boolean);
+            if (changed.includes("CHANGELOG.md")) {
+              core.info("CHANGELOG.md updated in PR diff.");
+              core.setOutput("run_validation", "true");
+              return;
+            }
 
-          echo "::error::PR requires a CHANGELOG.md update or the meta:no-changelog label."
-          exit 1
+            if (has("meta:no-changelog")) {
+              core.info("Skipping changelog requirement due to meta:no-changelog label.");
+              core.setOutput("run_validation", "false");
+              return;
+            }
+
+            core.setFailed("PR requires a CHANGELOG.md update or the meta:no-changelog label.");
 
       - name: Setup Node
         uses: actions/setup-node@v4

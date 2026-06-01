@@ -88,13 +88,8 @@ jobs:
 
       - name: Output report summary
         if: always()
-        run: |
-          if [ -f "${{ env.REPORTS_DIR }}/weekly-summary-latest.md" ]; then
-            echo "## Weekly Metrics Summary"
-            head -30 "${{ env.REPORTS_DIR }}/weekly-summary-latest.md"
-            echo ""
-            echo "Full report: ${{ env.REPORTS_DIR }}/weekly-summary-latest.md"
-          fi
+        run: >-
+          node -e "const fs=require('fs');const p='${{ env.REPORTS_DIR }}/weekly-summary-latest.md';if(fs.existsSync(p)){console.log('## Weekly Metrics Summary');console.log(fs.readFileSync(p,'utf8').split('\n').slice(0,30).join('\n'));console.log('');console.log('Full report: '+p);}"
 
   post-to-discussions:
     name: Post report to discussions
@@ -114,19 +109,7 @@ jobs:
 
       - name: Read report
         id: read_report
-        run: |
-          set -euo pipefail
-          REPORT_FILE="${{ env.REPORTS_DIR }}/weekly-summary-latest.md"
-          if [ -f "$REPORT_FILE" ]; then
-            {
-              echo "content<<EOF"
-              cat "$REPORT_FILE"
-              echo "EOF"
-            } >> "$GITHUB_OUTPUT"
-          else
-            echo "⚠️ Report file not found"
-            exit 1
-          fi
+        run: node -e "const fs=require('fs');const p='${{ env.REPORTS_DIR }}/weekly-summary-latest.md';if(!fs.existsSync(p)){console.error('Report file not found');process.exit(1);}const out=process.env.GITHUB_OUTPUT;fs.appendFileSync(out,`content<<EOF\\n${fs.readFileSync(p,'utf8')}\\nEOF\\n`);"
 
       - name: Post to discussions
         if: steps.read_report.outputs.content != ''

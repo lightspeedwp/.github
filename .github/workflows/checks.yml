@@ -61,9 +61,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Evaluate check results
-        run: |
-          if [[ "${{ needs.lint.result }}" == "failure" || "${{ needs.test.result }}" == "failure" || "${{ needs.validate.result }}" == "failure" ]]; then
-            echo "❌ One or more checks failed"
-            exit 1
-          fi
-          echo "✅ All checks passed"
+        run: test "${{ needs.lint.result }}" != "failure" -a "${{ needs.test.result }}" != "failure" -a "${{ needs.validate.result }}" != "failure" && echo "✅ All checks passed" || (echo "❌ One or more checks failed" && exit 1)
