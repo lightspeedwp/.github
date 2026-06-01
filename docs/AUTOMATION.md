@@ -83,42 +83,40 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 
 ## Label & Issue Type Policy
 
-### Canonical Label Set
+### Canonical Label Definitions
 
 **Ownership:** Platform/Governance Team  
 **Location:** `.github/labels.yml`  
-**Documentation:** [Labelling Guide](./LABELING.md)
+**Full Documentation:** [Labelling Guide](./LABELING.md) — comprehensive reference for label families, usage, and automation
 
-#### Adding New Labels
+For complete label definitions, categories, naming conventions, and per-issue/PR labelling requirements, see [LABELING.md](./LABELING.md).
+
+### Adding New Labels
 
 **Requirements:**
 
 1. **Justification:** Document why the label is needed
-2. **Naming Convention:** Follow `family:name` format (e.g., `status:in-progress`, `area:ci`)
-3. **Colour Coding:** Use category-appropriate colours:
-   - Status: Blue tones
-   - Priority: Red/Orange gradient
-   - Type: Green (features), Red (bugs), Purple (docs)
-   - Area/Component: Light blue
-   - Meta: Grey
-4. **Description:** Provide clear, concise purpose
-5. **Documentation:** Update [Labelling Guide](./LABELING.md) with new label details
+2. **Check existing labels:** Review [LABELING.md](./LABELING.md) to avoid duplicates
+3. **Approval Process:** Require 2 governance team approvals before creation
+4. **Update documentation:** Add to `.github/labels.yml` and update [LABELING.md](./LABELING.md)
 
 **Approval Process:**
 
 1. Create PR with label addition to `.github/labels.yml`
-2. Document use case in PR description
+2. Document use case and justify against existing labels
 3. Require approval from 2 governance team members
-4. Label takes effect on next label-sync workflow run
+4. Update [LABELING.md](./LABELING.md) with label definition
+5. Label takes effect on next label-sync workflow run
 
-#### Deprecating Labels
+### Deprecating Labels
 
 1. Add label to deprecation list with replacement (if any)
 2. Add alias mapping old → new in `.github/labels.yml`
 3. Run migration script to update existing issues/PRs
 4. After 30-day grace period, remove deprecated label
+5. Remove from [LABELING.md](./LABELING.md) and document in CHANGELOG
 
-#### Repository-Specific Labels
+### Repository-Specific Labels
 
 **Allowed:**
 
@@ -131,21 +129,27 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 - Alternative status/priority/type labels
 - Labels conflicting with canonical naming
 
-**Documentation:** Must be documented in repository README.
+**Documentation:** Must be documented in repository README and linked from [LABELING.md](./LABELING.md).
 
 ### Label Enforcement
 
-- **Single-select:** Exactly one `status:*`, one `priority:*`, one `type:*` per issue/PR (enforced by labelling agent)
-- **Minimum requirements:** See [Labelling Guide](./LABELING.md) for per-issue and per-PR requirements
-- **Canonical mapping:** All labels must match canonical definitions in `.github/labels.yml`
-- **Automated standardisation:** The labelling agent removes non-canonical labels and migrates legacy aliases
+The labelling agent enforces canonical label usage:
+
+- **Single-select:** Exactly one `status:*`, one `priority:*`, one `type:*` per issue/PR
+- **Canonical mapping:** All labels must match definitions in `.github/labels.yml`
+- **Automated standardisation:** Removes non-canonical labels and migrates legacy aliases
+- **Detailed requirements:** See [LABELING.md](./LABELING.md) for per-issue and per-PR requirements
 
 ### Issue Type Policy
 
-- **Canonical definitions:** `.github/issue-types.yml`
-- **Automation:** The labelling agent applies `type:*` labels based on issue type field and title/body heuristics
-- **One type per issue:** Enforced via one-hot principle
-- **Integration:** Issue type field mirrors `type:*` label for consistency
+**Canonical definitions:** `.github/issue-types.yml`
+
+Issue types are defined once in `.github/issue-types.yml` and used by both:
+
+- **Issue templates:** Pre-populate the `type` field (maps to `type:*` labels)
+- **Labelling agent:** Auto-applies `type:*` labels based on issue type field and content heuristics
+
+**Enforcement:** One type per issue (one-hot principle); issue type field mirrors `type:*` label for consistency.
 
 ---
 
