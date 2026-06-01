@@ -1,13 +1,13 @@
 ---
 issue_number: 668
-file_type: "task"
+file_type: documentation
 description: "Validate Mermaid diagram syntax in all files"
 parent_issue: 652
 title: "[Child of #652] Audit: Validate Mermaid Syntax in All Diagrams"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "L"
 ---
 

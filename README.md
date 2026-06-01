@@ -1,26 +1,21 @@
 ---
-file_type: 'documentation'
-title: 'LightSpeed Community Health & Automation Repository'
-description: 'Central hub for LightSpeed organization's community health files, automation
-  standards, label management, governance documentation, and org-wide resources for
-  GitHub usage and contribution.'
-version: 'v2.6'
-created_date: '2025-01-10'
-last_updated: '2026-05-29'
-maintainer: 'LightSpeed Team'
-authors:
+file_type: documentation
+title: LightSpeed Community Health & Automation Repository
+description: Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution.
+version: '2.7'
+last_updated: '2026-06-01'
+owners:
   - LightSpeed Team
-license: 'GPL-3.0'
-stability: 'stable'
-domain: 'governance'
 tags:
   - community-health
   - automation
   - governance
   - labels
   - workflows
-  - ai
-category: 'readme'
+status: active
+stability: stable
+domain: governance
+language: en
 ---
 
 # 🏠 LightSpeed Community Health & Automation Repository
@@ -978,15 +973,6 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

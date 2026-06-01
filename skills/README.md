@@ -1,21 +1,20 @@
 ---
-file_type: 'documentation'
-title: 'Portable AI Skills'
-description: 'Ownership index for self-contained LightSpeed AI skills with SKILL.md entrypoints and cross-platform support.'
-version: 'v0.3.1'
-created_date: '2026-05-29'
-last_updated: '2026-05-29'
-maintainer: 'LightSpeed Team'
 authors:
-  - LightSpeed Team
-license: 'GPL-3.0'
-stability: 'stable'
-domain: 'governance'
+- LightSpeed Team
+description: Ownership index for self-contained LightSpeed AI skills with SKILL.md entrypoints and cross-platform support.
+domain: governance
+file_type: documentation
+last_updated: '2026-06-01'
+license: GPL-3.0
+maintainer: LightSpeed Team
+stability: stable
 tags:
-  - skills
-  - ai-ops
-  - automation
-  - cross-platform
+- skills
+- ai-ops
+- automation
+- cross-platform
+title: Portable AI Skills
+version: v0.3.2
 ---
 
 # Portable AI Skills
@@ -36,7 +35,7 @@ Portable skills are focused, single-purpose tools that:
 
 | Skill | Status | Purpose |
 |-------|--------|---------|
-| [design-md-agent](./design-md-agent/SKILL.md) | stable | Generate design system documentation from Markdown |
+| [design-md-agent](./design-md-agent/) | stable | Generate design system documentation from Markdown |
 | [lightspeed-frontmatter-audit](./lightspeed-frontmatter-audit/SKILL.md) | stable | Audit and validate YAML frontmatter in documentation |
 | [lightspeed-label-governance](./lightspeed-label-governance/SKILL.md) | stable | Manage and enforce label governance rules |
 | [lightspeed-pr-review](./lightspeed-pr-review/SKILL.md) | stable | Automated PR review and feedback |
@@ -132,7 +131,7 @@ Every skill's `SKILL.md` should include:
 - **Limitations** – What the skill cannot do
 - **Testing** – How to validate the skill works
 
-See [design-md-agent/SKILL.md](./design-md-agent/SKILL.md) for a complete example.
+See [design-md-agent](./design-md-agent/) for a complete example.
 
 ## Skill Registry Format
 

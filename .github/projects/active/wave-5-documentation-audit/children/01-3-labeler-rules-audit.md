@@ -1,13 +1,13 @@
 ---
 issue_number: 656
-file_type: "task"
+file_type: documentation
 description: "Audit labeling rules for issue-specific automation"
 parent_issue: 649
 title: "[Child of #649] Audit: Issue Labeling Rules in labeler.yml"
 type: "type:audit"
 area: "area:labels"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 ---
 
@@ -50,4 +50,4 @@ Comprehensive audit of labeling rules in `.github/labeler.yml` to identify issue
 
 - [Label Strategy](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md)
 - [Labeler Configuration](https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml)
-- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)

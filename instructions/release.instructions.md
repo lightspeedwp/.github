@@ -10,5 +10,5 @@ tags: ["release", "semantic-versioning", "changelog", "automation", "github", "g
 applyTo: ["../agents/release.agent.md", "scripts/agents/release.agent.js", ".github/workflows/release.yml", ".github/workflows/changelog.yml", "docs/RELEASE_PROCESS.md"]
 status: "active"
 stability: "stable"
-domain: "release-management"
+domain: governance
 ---

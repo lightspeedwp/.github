@@ -1,8 +1,8 @@
 ---
 file_type: documentation
 title: Frontmatter Schema Documentation
-version: v2.1
-last_updated: '2026-05-29'
+version: 'v2.2'
+last_updated: '2026-06-01'
 author: LightSpeedWP
 maintainer: Ash Shaw
 description: Comprehensive documentation for the LightSpeedWP Markdown/JSON frontmatter
@@ -138,7 +138,7 @@ references:
   - "../workflows/labeling.yml"
   - "../prompts/label-issues.prompt.md"
   - "../instructions/automation.instructions.md"
-  - "../instructions/labeling.instructions.md"
+  - "./LABELING.md"
   - "./ISSUE_LABELS.md"
   - "./PR_LABELS.md"
 ---

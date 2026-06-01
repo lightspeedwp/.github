@@ -1,23 +1,16 @@
 ---
+title: "Pull Request Templates Directory"
+description: "Standardized pull request templates for the LightSpeedWP organization. Templates for bugs, features, chores, documentation, releases, and refactoring with automation integration."
 file_type: documentation
-title: Pull Request Templates Directory
-description: Standardized pull request templates for the LightSpeedWP organization
 version: v1.2
-created_date: '2025-10-20'
-last_updated: '2026-05-29'
-maintainer: Ash Shaw
-authors:
-  - LightSpeed Team
-license: GPL-3.0
-stability: stable
-domain: governance
-tags:
-  - templates
-  - pull-requests
-  - governance
-  - automation
-owners:
-  - lightspeedwp/maintainers
+last_updated: "2026-05-31"
+created_date: "2025-10-20"
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+tags: ["templates", "pull-requests", "governance", "automation"]
+domain: "governance"
+stability: "stable"
 ---
 
 # 🔀 Pull Request Templates Directory
@@ -86,11 +79,4 @@ These templates integrate with:
 
 ---
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+<!-- RANDOM FOOTER: 🔀 Streamlined PRs, seamless integration! -->

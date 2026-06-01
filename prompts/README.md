@@ -1,24 +1,14 @@
 ---
-file_type: 'prompt'
-title: 'Standardised Prompts Directory'
-description: 'Reusable prompt templates for agents and AI scenarios across LightSpeed projects'
-version: 'v1.0.0'
-created_date: '2026-05-31'
-last_updated: '2026-05-31'
-maintainer: 'LightSpeed Team'
-authors:
-  - LightSpeed Team
-license: 'GPL-3.0'
-license: 'GPL-3.0'
-stability: 'stable'
-domain: 'awesome-copilot'
-  - prompts
-  - ai
-  - templates
-  - agents
-owners:
-  - ashley@lightspeedwp.agency
-status: 'active'
+file_type: "prompt"
+title: "Standardised Prompts Directory"
+description: "Reusable prompt templates for agents and AI scenarios across LightSpeed projects"
+version: "1.0.1"
+last_updated: "2026-06-01"
+owners: ["ashley@lightspeedwp.agency"]
+tags: ["prompts", "ai", "templates", "agents"]
+status: "active"
+stability: "stable"
+domain: generic
 ---
 
 # Standardised Prompts

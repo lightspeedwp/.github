@@ -1,13 +1,14 @@
 ---
 title: "Technical Content Evaluator"
+name: "Technical Content Evaluator"
 description: "Elite technical content editor and curriculum architect for evaluating technical training materials, documentation, and educational content. Reviews for technical accuracy, pedagogical excellence, content flow, code validation, and ensures A-grade quality standards."
-version: "v1.1"
-last_updated: "2026-05-29"
+version: "v1.1.1"
+last_updated: "2026-06-01"
 owners: ["LightSpeedWP Engineering"]
 tags: ["agent", "mode", "document-review", "editorial", "quality", "education"]
 file_type: "agent"
 status: "active"
-domain: "quality"
+domain: generic
 stability: "stable"
 model: "Claude Sonnet 4.5 (copilot)"
 tools:
@@ -229,7 +230,7 @@ Before grading, verify ALL external links in tables/lists:
 - > 5 duplicates: -25 points (F grade ceiling)
 
 **Required Evidence:**
-"Table 'Featured AI Templates' has 9 entries, 8 point to identical URL (<https://github.com/Azure-Samples/get-started-with-ai-chat>) = CRITICAL FAILURE"
+`"Table 'Featured AI Templates' has 9 entries, 8 point to identical URL (https://github.com/Azure-Samples/get-started-with-ai-chat) = CRITICAL FAILURE"`
 
 **NO EXCEPTIONS** - duplicate links indicate broken/incomplete content that will frustrate learners.
 

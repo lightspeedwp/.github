@@ -2,13 +2,13 @@
 file_type: "documentation"
 title: "Documentation Migration Guide"
 description: "Migration path for consolidated documentation files and updated references."
-version: "v1.0.0"
-last_updated: "2026-05-31"
+version: "v1.0.1"
+last_updated: "2026-06-01"
 owners: ["LightSpeedWP Team"]
 tags: ["migration", "documentation", "consolidation"]
 status: "active"
 stability: "stable"
-domain: "documentation"
+domain: governance
 ---
 
 # Documentation Migration Guide
@@ -31,9 +31,9 @@ The following files have been consolidated into [`docs/LABELING.md`](./LABELING.
 | `docs/ISSUE_LABELS.md` | `docs/LABELING.md` | Issue-specific labeling now in main guide under "Issue Labeling" section |
 | `docs/PR_LABELS.md` | `docs/LABELING.md` | PR-specific labeling now in main guide under "Pull Request Labeling" section |
 
-**Portable Instructions Retained:**
+**Portable Instructions Consolidated:**
 
-- `instructions/labeling.instructions.md` — Portable labeling instructions (cross-repo reusable)
+- `instructions/labeling.instructions.md` — Consolidated into `docs/LABELING.md` (comprehensive labeling guide for all audiences)
 
 ### Automation & Workflows Documentation (Consolidated)
 
@@ -83,7 +83,7 @@ Update all references across your documentation and codebase:
 
 If you're building reusable agents or instructions across repositories:
 
-- Refer to `instructions/labeling.instructions.md` (portable, cross-repo)
+- Refer to `docs/LABELING.md` for comprehensive labeling guidance (consolidated from portable instructions)
 - Refer to `instructions/automation.instructions.md` (portable, cross-repo)
 - These files contain the same high-level patterns in a reusable format
 

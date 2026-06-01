@@ -1,22 +1,11 @@
 ---
-file_type: 'documentation'
-title: 'Markdown Content Validator'
-description: 'Validates markdown-oriented content files for structure, YAML frontmatter, version fields, and formatting quality'
-version: 'v1.0'
-created_date: '2026-05-31'
-last_updated: '2026-05-31'
-maintainer: 'LightSpeed Engineering'
-authors:
-  - LightSpeed Team
-license: 'GPL-3.0'
-stability: 'stable'
-domain: 'governance'
-tags:
-  - markdown
-  - validation
-  - yaml
-  - frontmatter
-  - tools
+file_type: "documentation"
+title: "Markdown Content Validator"
+description: "Validates markdown-oriented content files for structure, YAML frontmatter, version fields, and formatting quality"
+version: "1.0"
+last_updated: '2026-06-01'
+maintainer: "LightSpeed Engineering"
+tags: ["markdown", "validation", "yaml", "frontmatter", "tools"]
 ---
 
 # Markdown Content Validator

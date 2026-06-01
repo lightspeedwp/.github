@@ -1,13 +1,13 @@
 ---
 issue_number: 662
-file_type: "task"
+file_type: documentation
 description: "Audit and consolidate issue creation documentation"
 parent_issue: 651
 title: "[Child of #651] Audit: Issue Creation Docs - Consolidate Overlapping Files"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:important"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 ---
 
@@ -20,7 +20,7 @@ Audit all documentation related to issue creation to identify duplication and ov
 Review all issue creation related files:
 
 - `docs/ISSUE_CREATION_GUIDE.md`
-- `docs/ISSUE_LABELS.md`
+- `docs/LABELING.md`
 - `docs/ISSUE_TYPES.md`
 - `.github/ISSUE_TEMPLATE/README.md`
 - `docs/index.md` (if references issues)
@@ -46,7 +46,7 @@ Review all issue creation related files:
 ## Related Files
 
 - `docs/ISSUE_CREATION_GUIDE.md`
-- `docs/ISSUE_LABELS.md`
+- `docs/LABELING.md`
 - `docs/ISSUE_TYPES.md`
 - `.github/ISSUE_TEMPLATE/README.md`
 - `instructions/issues.instructions.md`
@@ -55,7 +55,7 @@ Review all issue creation related files:
 ## Related Documentation
 
 - [Issue Creation Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_CREATION_GUIDE.md)
-- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_LABELS.md)
+- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md)
 - [Issue Types Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_TYPES.md)
 - [Issue Templates README](https://github.com/lightspeedwp/.github/blob/develop/.github/ISSUE_TEMPLATE/README.md)
 - [Issue Instructions](https://github.com/lightspeedwp/.github/blob/develop/instructions/issues.instructions.md)

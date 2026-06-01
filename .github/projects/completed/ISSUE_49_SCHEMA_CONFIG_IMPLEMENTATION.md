@@ -4,9 +4,9 @@ description: Schema and configuration model specification for unified branding a
   supporting category-aware Markdown headers, footers, and badges
 file_type: documentation
 category: Governance
-version: v1.0.0
+version: 'v1.0.1'
 created_date: '2026-05-28'
-last_updated: '2026-05-28'
+last_updated: '2026-06-01'
 owners:
 - Ash Shaw
 tags:

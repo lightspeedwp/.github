@@ -1,22 +1,18 @@
 ---
-file_type: 'documentation'
-title: 'Plugin Hooks'
-description: 'Optional plugin-local hooks for lightspeed-github-ops'
-version: 'v1.0'
-created_date: '2026-05-31'
-last_updated: '2026-05-31'
-maintainer: 'LightSpeed Engineering'
-authors:
-  - LightSpeed Team
-license: 'GPL-3.0'
-stability: 'stable'
-domain: 'governance'
-tags:
-  - hooks
-  - plugins
-  - github-ops
+title: "Plugin Hooks"
+description: "Optional plugin-local hooks for the lightspeed-github-ops plugin. Defines guardrails and validation hooks for governance workflows."
+file_type: documentation
+version: v0.1.0
+last_updated: "2026-05-31"
+created_date: "2026-01-15"
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+tags: ["hooks", "plugin", "guardrails", "validation"]
+domain: "governance"
+stability: "experimental"
 ---
 
-# hooks
+# Plugin Hooks
 
 Optional plugin-local hooks live here.

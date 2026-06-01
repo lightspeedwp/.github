@@ -1,21 +1,20 @@
 ---
-file_type: 'documentation'
-title: 'Portable Agentic Workflows'
-description: 'Ownership index for portable agentic workflows, distinct from GitHub Actions, for AI-driven task orchestration.'
-version: 'v0.3.1'
-created_date: '2026-05-29'
-last_updated: '2026-05-29'
-maintainer: 'LightSpeed Team'
 authors:
-  - LightSpeed Team
-license: 'GPL-3.0'
-stability: 'stable'
-domain: 'governance'
+- LightSpeed Team
+description: Ownership index for portable agentic workflows, distinct from GitHub Actions, for AI-driven task orchestration.
+domain: governance
+file_type: documentation
+last_updated: '2026-06-01'
+license: GPL-3.0
+maintainer: LightSpeed Team
+stability: stable
 tags:
-  - workflows
-  - agentic
-  - ai-ops
-  - orchestration
+- workflows
+- agentic
+- ai-ops
+- orchestration
+title: Portable Agentic Workflows
+version: v0.3.2
 ---
 
 # Portable Agentic Workflows
@@ -45,7 +44,7 @@ Each workflow is documented with:
 
 | Workflow | Purpose | Duration |
 |----------|---------|----------|
-| [WordPress Project Onboarding](./wordpress-project-onboarding.md) | Set up a new WordPress project with all LightSpeed standards | 2-3 hours |
+| [WordPress Project Onboarding](../docs/WORKFLOW_COORDINATION.md) | Set up a new WordPress project with all LightSpeed standards | 2-3 hours |
 | [WordPress Spec to Implementation](./wordpress-spec-to-implementation.md) | Convert WordPress PRD into working code with testing | 4-8 hours |
 | [Portable AI Plugin Restructure](./portable-ai-plugin-restructure.md) | Reorganise and port AI plugins to new structure | 6-10 hours |
 | [Release Readiness Validation](./release-readiness-validation.md) | Validate a project is ready for release | 1-2 hours |
@@ -198,7 +197,7 @@ Workflows use semantic versioning:
 
 ## Related Documentation
 
-- [WORKFLOW.md](../docs/WORKFLOWS.md) – Workflow architecture documentation
+- [WORKFLOW_COORDINATION.md](../docs/WORKFLOW_COORDINATION.md) – Workflow architecture documentation
 - [agents/](../agents/README.md) – Available agents
 - [skills/](../skills/README.md) – Available skills
 - [AGENTS.md](../AGENTS.md) – Global AI rules

@@ -108,7 +108,18 @@ accDescr: Flowchart showing the VS Code configuration hierarchy with three main 
 ---
 flowchart TD
     A[VS Code Workspace] --> B[Extensions]
-    ...
+    A --> C[Tasks]
+    A --> D[Settings]
+    B --> E[AI Agents]
+    C --> F[Build Automation]
+    D --> G[Linting Tools]
+    D --> H[Testing]
+    D --> I[EditorConfig]
+    D --> J[Keybindings]
+    G --> K[ESLint]
+    G --> L[Stylelint]
+    G --> M[Markdownlint]
+    H --> N[Jest]
 ```
 
 **Verification:** Accessibility attributes now present; compliant with WCAG 2.2 Level AA - 1.1.1 Non-text Content.

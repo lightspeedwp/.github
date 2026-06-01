@@ -1,18 +1,16 @@
 ---
-file_type: 'documentation'
-title: 'Archive Directory'
-description: 'Contains outdated or superseded documentation files preserved for historical reference'
-version: 'v1.0'
-created_date: '2025-12-08'
-last_updated: '2025-12-08'
-maintainer: 'LightSpeed Team'
-authors:
-  - LightSpeed Team
-license: 'GPL-3.0'
-stability: 'stable'
-domain: 'governance'
-tags: []
-status: 'archived'
+title: "Archive Directory"
+description: "Contains outdated or superseded documentation files preserved for historical reference. Archives deprecated instruction files, migration guides, and backup files."
+file_type: documentation
+version: v1.1
+last_updated: "2026-06-01"
+created_date: "2025-12-08"
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+tags: ["archive", "documentation", "historical"]
+domain: "governance"
+stability: "incubating"
 ---
 
 # Archive Directory
@@ -115,9 +113,3 @@ For current documentation, always reference:
 ---
 
 *This archive was created as part of Phase 5 context reduction efforts (December 2025) to reduce repository token count from ~922K to <500K target.*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

@@ -1,35 +1,9 @@
 ---
-file_type: 'documentation'
-description: 'Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing.'
-version: 'v2.5'
-created_date: '2025-12-04'
-last_updated: '2025-12-04'
-maintainer: 'LightSpeed Team'
-authors:
-  - LightSpeed Team
-license: 'GPL-3.0'
-stability: 'stable'
-domain: 'governance'
-tags: []
+description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
+version: "2.5.1"
+last_updated: "2026-06-01"
 owners:
   - LightSpeedWP Team
-    description: Coding standards for all scripts
-  - path: ../instructions/documentation-formats.instructions.md
-    description: Frontmatter and documentation format standards
-  - path: ../schema/frontmatter.schema.json
-    description: Frontmatter schema
-  - path: ../schema/collection.schema.json
-    description: Collection schema
-  - path: ../tests/README.md
-    description: Testing framework
-  - path: ../docs/WORKFLOWS.md
-    description: Workflow documentation
-  - path: ../CHANGELOG.md
-    description: Project changelog
-  - path: ../docs/TESTING.md
-    description: Testing standards
-  - path: ../docs/LINTING.md
-    description: Linting standards'
 ---
 # LightSpeedWP Scripts & Automation
 

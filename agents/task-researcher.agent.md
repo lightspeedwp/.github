@@ -1,14 +1,15 @@
 ---
 title: "Task Researcher Agent"
+name: "Task Researcher Agent"
 description: "Agent for conducting in-depth research on specified tasks, gathering relevant information, and providing comprehensive insights to inform decision-making and planning."
 version: "v1.1"
-last_updated: "2026-05-29"
+last_updated: '2026-06-01'
 author: "LightSpeed"
 owners: ["lightspeedwp/maintainers"]
 tags: ["agent", "research", "planning", "task-management", "information-gathering"]
 file_type: "agent"
 status: "active"
-domain: "planning"
+domain: generic
 stability: "stable"
 target: "github-copilot"
 tools: ["read", "search", "fetch"]

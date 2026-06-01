@@ -1,17 +1,17 @@
 ---
-file_type: 'issue-template'
-description: 'Standardized issue templates for consistent issue creation'
-version: 'v1.0.0'
-created_date: '2026-05-29'
-last_updated: '2026-05-29'
-maintainer: 'LightSpeed Team'
-authors:
-  - LightSpeed Team
-license: 'GPL-3.0'
-stability: 'stable'
-domain: 'governance'
-tags: []
-name: 'Issue Templates Directory'
+title: "Issue Templates Directory"
+description: "Standardized issue templates for the LightSpeedWP organization. Templates for bugs, features, documentation, and custom issues with automation integration."
+name: "Issue Templates"
+file_type: documentation
+version: v1.2
+last_updated: "2026-05-31"
+created_date: "2025-10-20"
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+tags: ["templates", "issues", "governance", "automation"]
+domain: "governance"
+stability: "stable"
 ---
 
 # 📋 Issue Templates Directory
@@ -116,8 +116,4 @@ These templates integrate with:
 
 ---
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+<!-- RANDOM FOOTER: 🚀 Consistent templates, efficient workflows! -->

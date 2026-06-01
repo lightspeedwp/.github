@@ -1,164 +1,174 @@
 ---
-file_type: "documentation"
-title: "Issue Creation Guide"
-description: "Guide for creating GitHub issues following LightSpeed standards."
+title: GitHub Issue Creation Guide
+description: How to create well-formed issues, select templates, and trigger automation
+file_type: documentation
+version: "1.0.0"
+created_date: "2026-05-31"
+last_updated: '2026-06-01'
+author: Claude Code
+maintainer: Ash Shaw
+owners:
+  - lightspeedwp/maintainers
+tags:
+  - github
+  - issues
+  - templates
+  - automation
+category: github
 ---
 
-*Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
-
-# LightSpeed Issue Creation Guide
-
-This guide describes how to create actionable, well-labeled issues in LightSpeed projects, ensuring clarity, automation, and traceability. Following these steps helps the team triage, prioritize, and address work efficiently.
-
----
-
-## 1. **Before Creating an Issue**
-
-- **Search existing issues** to avoid duplicates.
-- **Decide on the right issue type:** Is this a bug, feature, task, doc update, design, or something else?
-- **Is your question general or exploratory?**
-  For open-ended questions, proposals, or feedback, use [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions).
-
----
-
-## 2. **Choose the Correct Issue Template**
-
-Visit the repository’s [Issues page](https://github.com/lightspeedwp/.github/issues/new/choose) and select the template that matches your intent:
-
-- **Bug Report:** Broken features, regressions, or unexpected behavior.
-- **Feature Request:** Proposing new capabilities or enhancements.
-- **Task:** Small, well-scoped units of work.
-- **Documentation:** Docs, onboarding guides, or knowledge base updates.
-- **Design:** Design artifacts, specs, a11y checks.
-- **Epic/Story:** For grouping related work or user stories.
-- **Other templates:** (Performance, QA, Security, Integration, etc., if available.)
-
-Each template is pre-filled with required fields and checklists.
-
----
-
-## 3. **Fill Out the Template Thoroughly**
-
-Be specific and complete. Most templates include:
-
-- **Overview:** What needs to be done and why?
-- **Context:** Phase, dependencies, and related issues.
-- **Acceptance Criteria:** Measurable outcomes, tests, documentation updates.
-- **Technical Details:** Implementation notes, design decisions, or constraints.
-- **Effort Estimate:** Small, Medium, or Large.
-
-> **Tip:** Link related issues with `#issue-number` and reference relevant docs or standards.
-
----
-
-## 4. **Set the Correct Issue Type and Labels**
-
-- Pick **one** [issue type](../.github/ISSUE_TYPES.md) (e.g., `type:bug`, `type:feature`, `type:task`, etc.).
-- **Branch prefixes** (`feat/`, `fix/`, etc.) and issue type drive automation and label application.
-- Add companion labels to improve search and automation:
-  - **Priority:** `priority:critical`, `priority:normal`, `priority:minor`
-  - **Status:** Start with `status:needs-triage`
-  - **Area/Component:** `area:ci`, `comp:block-editor`, etc.
-  - **Context:** `phase:6`, `env:staging`, etc.
-  - **Meta:** `contrib:good-first-issue`, `meta:needs-changelog`
-  - **Effort:** `easy`, `medium`, `hard`
-
-Labels are managed automatically, but review and adjust as needed.
-
----
-
-## 5. **Write a Clear and Consistent Title**
-
-Format:
-`[Phase X.Y] Area/Component: Brief description`
-
-Examples:
-
-- `[Phase 6] GC: Implement reference counting for ObjectRef`
-- `[Phase 5.5] CI: Set up branch protection rules`
-- `[Docs] README: Add benchmark examples`
-
----
-
-## 6. **Reference Issues, Milestones, and Projects**
-
-- Link related issues using `#issue-number`.
-- Assign to the relevant **milestone** (e.g., "Phase 6 - GC & Production").
-- Add to the correct **project board** if applicable.
-
----
-
-## 7. **Submit and Monitor**
-
-- Submit your issue.
-- Automation adds default labels (e.g., `status:needs-triage`, `priority:normal` if not set).
-- A maintainer or triager will review, update status, and assign as needed.
-
----
-
-## 8. **Issue Lifecycle**
-
-1. **Created:** Labeled `status:needs-triage`
-2. **Triaged:** Maintainer reviews and updates to `status:ready`
-3. **In Progress:** Assigned and moved to `status:in-progress`
-4. **Review/QA:** Status updated as needed (`status:needs-review`, `status:needs-qa`, etc.)
-5. **Closed/Merged:** Linked PR auto-closes the issue
-
----
-
-## 9. **Bulk Issue Creation (Advanced)**
-
-For larger roadmap phases or sprints, you may create issues in batch with the GitHub CLI:
-
-```bash
-gh issue create \
-  --title "[Phase 6] GC: Implement reference counting" \
-  --body-file issue-body.md \
-  --label "type:task,priority:high,phase:6,area:object-store"
-```
-
----
-
-## 10. **Tips for Excellent Issues**
-
-- **Keep issues focused:** One clear outcome per issue.
-- **Be specific:** Use concrete acceptance criteria.
-- **Include context:** For future contributors and reviewers.
-- **Estimate effort honestly:** Mark as easy, medium, or hard.
-- **Cross-reference:** Link PRs and related issues.
-- **Update the issue title/labels if scope changes.**
-
----
-
-## 11. **Sample Issue Template (Markdown)**
-
-```markdown
 ## Overview
 
-Brief description of what needs to be done and why.
+This guide helps contributors, team members, and AI agents create high-quality GitHub issues that trigger proper automation, get triaged efficiently, and align with project workflows.
 
-## Context
+**Key Principles**:
 
-- Which phase this belongs to
-- Dependencies on other work
-- Related issues: #xxx, #yyy
+- ✅ Choose the correct template based on issue type
+- ✅ Fill in all required sections clearly
+- ⚠️ Add labels manually for now (issue automation planned for Wave 5.1.2)
+- ✅ Include effort estimates and success criteria
+- ✅ Link related issues and blockers
 
-## Acceptance Criteria
+---
 
-- [ ] Specific measurable outcome 1
-- [ ] Specific measurable outcome 2
-- [ ] Tests added/updated
-- [ ] Documentation updated
+## Quick Reference: Template Selection
 
-## Technical Details
+### Pick Your Issue Type
 
-Any implementation notes, design decisions, or technical context.
+| I want to... | Template | Type Label |
+| --- | --- | --- |
+| Report a **defect or bug** | 🐛 Bug | `type:bug` |
+| Request a **new feature** | 🚀 Feature | `type:feature` |
+| Propose a **small, focused change** | 📝 Task | `type:task` |
+| Request **design/UX work** | 🎨 Design | `type:design` |
+| Create a **large, multi-part project** | 📦 Epic | `type:epic` |
+| Write a **user-centric story** (Agile) | 📑 Story | `type:story` |
+| Suggest **improvements** | 🔧 Improvement | `type:improvement` |
+| Share **user feedback** | 💡 User Experience | `type:feedback` |
+| Request **code cleanup** | ♻️ Code Refactor | `type:refactor` |
+| Discuss **build/CI/CD** | ⚙️ Build & CI | `type:build` |
+| Propose **automation** | 🤖 Automation | `type:automation` |
+| Request **tests** | 🧪 Test Coverage | `type:test` |
+| Report **performance** | ⚡ Performance | `type:performance` |
+| Report **accessibility** | ♿ Accessibility | `type:a11y` |
+| Report **security** | 🔐 Security | `type:security` |
 
-## Effort Estimate
+---
 
-- [ ] Small (< 1 day)
-- [ ] Medium (1-3 days)
-- [ ] Large (3+ days)
+## Creating an Issue: Step-by-Step
+
+### 1. Click "New Issue" on the Repository
+
+Go to **Issues** tab → **New Issue** button.
+
+### 2. Select the Appropriate Template
+
+**Select the template that best matches your issue type** (see Quick Reference above).
+
+### 3. Fill in All Sections
+
+Each template includes standard sections:
+
+#### Definition of Ready (DoR)
+
+Before you submit, ensure:
+
+- [ ] Issue is clearly described
+- [ ] Steps to reproduce (or acceptance criteria) provided
+- [ ] Any screenshots, logs, or examples attached
+- [ ] Related issues or PRs linked
+- [ ] Effort estimate added (if applicable)
+
+#### Issue Details
+
+Fill in the primary sections for your template with structured information.
+
+#### Definition of Done (DoD)
+
+Review these checkboxes to ensure they align with your scope.
+
+### 4. Add Labels
+
+**Currently**, you must add labels manually:
+
+- Add the appropriate `type:*` label (e.g., `type:bug`, `type:feature`)
+- Add `area:*` labels if relevant (e.g., `area:ci`, `area:documentation`)
+- Add `priority:*` if critical (e.g., `priority:critical` for security issues)
+
+> **Note**: Issue-based automation is planned for Wave 5.1.2. Once implemented, labels will apply automatically based on template selection.
+
+### 5. Submit
+
+Click **Submit new issue**. Your issue is now visible to the team and ready for triage.
+
+---
+
+## Automation: Current State & Future Work
+
+### ✅ Currently Implemented
+
+- PR/branch-based labeling: branch prefix (e.g., `fix/`, `feat/`) triggers automatic type labels on pull requests
+- Markdown linting and frontmatter validation
+
+### 🔄 Planned (Wave 5.1.2)
+
+**Issue-based template automation** will enable:
+
+- Template selection → automatic `type:*` label (e.g., 🐛 Bug → `type:bug`)
+- Content keyword matching → area labels (e.g., ".github/workflows" → `area:ci`)
+- Priority inference from security/accessibility keywords
+- Automatic triage routing and status application
+
+**See** [Issue Template Audit Report](../.github/reports/issue-template-audit-2026-05-31.md) for the complete automation specification.
+
+---
+
+## Good Example: Bug Report
+
 ```
+**Describe the bug**
+The form fails to submit on Safari 16.x when autofill is enabled.
+
+**To Reproduce**
+1. Open page on Safari 16.x
+2. Enable autofill
+3. Fill form with autofill
+4. Click Submit
+→ See error: "TypeError: Cannot read property 'dataset'"
+
+**Expected behavior**
+Form submits successfully.
+
+**Environment**
+- WordPress: 6.4
+- PHP: 8.2
+- Browser: Safari 16.6
+```
+
+**Labels to Add**: `type:bug`, `area:ui` (manually, as of 2026-05-31)
+
+---
+
+## For AI Agents: Template Selection Logic
+
+When creating an issue:
+
+1. **Classify the request** into one of 25 types (see Quick Reference above)
+2. **Select the matching template** from the quick reference table
+3. **Fill all required sections** with structured information and examples
+4. **Add labels manually**:
+   - Primary `type:*` label matching the template
+   - Any relevant `area:*` labels based on content
+   - `priority:critical` or `priority:high` if security/accessibility/blocking
+5. **Link related issues** using `#issue-number` references
+6. **Submit and notify** relevant team (until automated routing is implemented)
+
+---
+
+## Related Documentation
+
+- [Labeling Strategy](./LABELING.md)
+- [Automation Governance](./AUTOMATION.md)
+- [Issue Templates README](../.github/ISSUE_TEMPLATE/README.md)
 
 ---

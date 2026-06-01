@@ -1,25 +1,16 @@
 ---
-file_type: 'documentation'
-title: 'LightSpeed Metrics Directory'
-description: 'Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity.'
-version: 'v1.1'
-created_date: '2026-05-29'
-last_updated: '2026-05-29'
-maintainer: 'Ash Shaw'
-authors:
-  - LightSpeed
-license: 'GPL-3.0'
-stability: 'stable'
-domain: 'governance'
-tags:
-  - metrics
-  - analytics
-  - automation
-  - monitoring
-  - quality
-owners:
-  - LightSpeed Team
-status: 'active'
+title: "LightSpeed Metrics Directory"
+description: "Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity across the LightSpeed organization."
+file_type: documentation
+version: v1.1
+last_updated: "2026-05-31"
+created_date: "2025-12-04"
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
+license: "GPL-3.0"
+tags: ["metrics", "analytics", "automation", "monitoring", "quality"]
+domain: "governance"
+stability: "stable"
 ---
 
 # LightSpeed Metrics Directory
@@ -389,24 +380,3 @@ To contribute new metrics or improvements:
 ---
 
 Made with ❤️ by the LightSpeed team.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
