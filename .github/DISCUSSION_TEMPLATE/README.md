@@ -1,9 +1,20 @@
 ---
-description: "Standardized discussion templates for community engagement in LightSpeedWP"
-version: "v1.0"
-last_updated: "2025-10-24"
-maintainer: "LightSpeed Engineering"
-tags: ["templates", "discussions", "community", "engagement"]
+file_type: 'documentation'
+description: 'Standardized discussion templates for community engagement in LightSpeedWP'
+version: 'v1.0'
+created_date: '2025-10-24'
+last_updated: '2025-10-24'
+maintainer: 'LightSpeed Engineering'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags:
+  - templates
+  - discussions
+  - community
+  - engagement
 ---
 
 # 💭 Discussion Templates Directory

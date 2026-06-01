@@ -1,9 +1,17 @@
 ---
-title: Agent Includes Directory
-description: Shared utility modules for LightSpeedWP automation agents
-version: '1.1'
+file_type: 'documentation'
+title: 'Agent Includes Directory'
+description: 'Shared utility modules for LightSpeedWP automation agents'
+version: 'v1.1'
+created_date: '2026-05-29'
 last_updated: '2026-05-29'
-file_type: documentation
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
 ---
 
 # Agent Includes Directory

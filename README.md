@@ -1,26 +1,20 @@
 ---
-title: LightSpeed Community Health & Automation Repository
-description: Central hub for LightSpeed organization's community health files, automation
+file_type: 'documentation'
+title: 'LightSpeed Community Health & Automation Repository'
+description: 'Central hub for LightSpeed organization's community health files, automation
   standards, label management, governance documentation, and org-wide resources for
-  GitHub usage and contribution.
-category: readme
-version: '2.6'
+  GitHub usage and contribution.'
+version: 'v2.6'
 created_date: '2025-01-10'
 last_updated: '2026-05-29'
-file_type: documentation
-maintainer: LightSpeed Team
+maintainer: 'LightSpeed Team'
 authors:
-- LightSpeed Team
-license: GPL-3.0
-tags:
-- community-health
-- automation
-- governance
-- labels
-- workflows
-- ai
-domain: governance
-stability: stable
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
+category: 'readme'
 ---
 
 # 🏠 LightSpeed Community Health & Automation Repository

@@ -1,16 +1,19 @@
 ---
-file_type: documentation
-title: LightSpeed .github Documentation Index
-description: Comprehensive index and quickstart guide for all documentation in the
-  .github repository
-version: '1.0'
-last_updated: '2026-05-29'
+file_type: 'documentation'
+title: 'LightSpeed .github Documentation Index'
+description: 'Comprehensive index and quickstart guide for all documentation in the
+  .github repository'
+version: 'v1.0'
 created_date: '2026-05-29'
+last_updated: '2026-05-29'
+maintainer: 'LightSpeed Team'
 authors:
-- LightSpeed Team
-category: documentation
-maintainer: LightSpeed Team
-stability: stable
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
+category: 'documentation'
 ---
 
 # 📚 LightSpeed .github Documentation

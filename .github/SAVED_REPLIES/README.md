@@ -1,9 +1,20 @@
 ---
-description: "Organized saved replies for consistent GitHub interactions across LightSpeedWP"
-version: "v1.0"
-last_updated: "2025-10-24"
-maintainer: "LightSpeed Engineering"
-tags: ["saved-replies", "communication", "automation", "community"]
+file_type: 'documentation'
+description: 'Organized saved replies for consistent GitHub interactions across LightSpeedWP'
+version: 'v1.0'
+created_date: '2025-10-24'
+last_updated: '2025-10-24'
+maintainer: 'LightSpeed Engineering'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags:
+  - saved-replies
+  - communication
+  - automation
+  - community
 ---
 
 # 💬 Saved Replies Directory

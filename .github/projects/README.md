@@ -1,11 +1,22 @@
 ---
-file_type: "documentation"
-title: "Reports Directory"
-description: "An overview of the reports directory, detailing the purpose of each subfolder for storing generated artifacts."
-version: "1.1"
-last_updated: "2026-05-29"
-owners: ["LightSpeed Engineering"]
-tags: ["reports", "documentation", "governance"]
+file_type: 'documentation'
+title: 'Reports Directory'
+description: 'An overview of the reports directory, detailing the purpose of each subfolder for storing generated artifacts.'
+version: 'v1.1'
+created_date: '2026-05-29'
+last_updated: '2026-05-29'
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags:
+  - reports
+  - documentation
+  - governance
+owners:
+  - LightSpeed Engineering
 ---
 # Projects Directory
 

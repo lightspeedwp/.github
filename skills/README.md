@@ -1,20 +1,17 @@
 ---
-authors:
-- LightSpeed Team
-description: Ownership index for self-contained LightSpeed AI skills with SKILL.md entrypoints and cross-platform support.
-domain: governance
-file_type: documentation
+file_type: 'documentation'
+title: 'Portable AI Skills'
+description: 'Ownership index for self-contained LightSpeed AI skills with SKILL.md entrypoints and cross-platform support.'
+version: 'v0.3.1'
+created_date: '2026-05-29'
 last_updated: '2026-05-29'
-license: GPL-3.0
-maintainer: LightSpeed Team
-stability: stable
-tags:
-- skills
-- ai-ops
-- automation
-- cross-platform
-title: Portable AI Skills
-version: v0.3.1
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
 ---
 
 # Portable AI Skills

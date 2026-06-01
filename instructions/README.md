@@ -1,20 +1,17 @@
 ---
-authors:
-- LightSpeed Team
-description: Ownership index for portable instruction files covering standards, best practices, and governance across LightSpeed projects.
-domain: governance
-file_type: documentation
+file_type: 'documentation'
+title: 'Portable Instructions & Standards'
+description: 'Ownership index for portable instruction files covering standards, best practices, and governance across LightSpeed projects.'
+version: 'v0.3.1'
+created_date: '2026-05-29'
 last_updated: '2026-05-29'
-license: GPL-3.0
-maintainer: LightSpeed Team
-stability: stable
-tags:
-- instructions
-- standards
-- documentation
-- governance
-title: Portable Instructions & Standards
-version: v0.3.1
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
 ---
 
 # Portable Instructions & Standards

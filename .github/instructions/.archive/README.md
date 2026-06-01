@@ -1,13 +1,18 @@
 ---
-title: "Archive Directory"
-description: "Contains outdated or superseded documentation files preserved for historical reference"
-version: "1.0"
-created_date: "2025-12-08"
-last_updated: "2025-12-08"
-authors: ["LightSpeed Team"]
-file_type: "documentation"
-domain: "governance"
-status: "archived"
+file_type: 'documentation'
+title: 'Archive Directory'
+description: 'Contains outdated or superseded documentation files preserved for historical reference'
+version: 'v1.0'
+created_date: '2025-12-08'
+last_updated: '2025-12-08'
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
+status: 'archived'
 ---
 
 # Archive Directory

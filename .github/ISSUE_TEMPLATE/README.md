@@ -1,9 +1,17 @@
 ---
-file_type: "issue-template"
-name: "Issue Templates Directory"
-description: "Standardized issue templates for consistent issue creation"
-version: "1.0.0"
-last_updated: "2026-05-29"
+file_type: 'issue-template'
+description: 'Standardized issue templates for consistent issue creation'
+version: 'v1.0.0'
+created_date: '2026-05-29'
+last_updated: '2026-05-29'
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
+name: 'Issue Templates Directory'
 ---
 
 # 📋 Issue Templates Directory

@@ -1,20 +1,17 @@
 ---
-authors:
-- LightSpeed Team
-description: Ownership index for installable LightSpeed AI plugin bundles, plugin-family strategy, and integration guidelines.
-domain: governance
-file_type: documentation
+file_type: 'documentation'
+title: 'Plugin Bundles & Integration Strategy'
+description: 'Ownership index for installable LightSpeed AI plugin bundles, plugin-family strategy, and integration guidelines.'
+version: 'v0.3.1'
+created_date: '2026-05-29'
 last_updated: '2026-05-29'
-license: GPL-3.0
-maintainer: LightSpeed Team
-stability: stable
-tags:
-- plugins
-- ai-ops
-- integration
-- automation
-title: Plugin Bundles & Integration Strategy
-version: v0.3.1
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
 ---
 
 # Plugin Bundles & Integration Strategy

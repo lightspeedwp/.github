@@ -1,20 +1,17 @@
 ---
-authors:
-- LightSpeed Team
-description: Ownership index for portable agentic workflows, distinct from GitHub Actions, for AI-driven task orchestration.
-domain: governance
-file_type: documentation
+file_type: 'documentation'
+title: 'Portable Agentic Workflows'
+description: 'Ownership index for portable agentic workflows, distinct from GitHub Actions, for AI-driven task orchestration.'
+version: 'v0.3.1'
+created_date: '2026-05-29'
 last_updated: '2026-05-29'
-license: GPL-3.0
-maintainer: LightSpeed Team
-stability: stable
-tags:
-- workflows
-- agentic
-- ai-ops
-- orchestration
-title: Portable Agentic Workflows
-version: v0.3.1
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
 ---
 
 # Portable Agentic Workflows

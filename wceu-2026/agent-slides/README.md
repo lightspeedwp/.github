@@ -1,8 +1,18 @@
 ---
-title: "Agent Slide Deck Prompts"
-description: "NotebookLM and design-ready prompts for creating agent-specific slide presentations"
-last_updated: "2026-05-28"
-owners: ["Ash Shaw"]
+file_type: 'documentation'
+title: 'Agent Slide Deck Prompts'
+description: 'NotebookLM and design-ready prompts for creating agent-specific slide presentations'
+created_date: '2026-05-28'
+last_updated: '2026-05-28'
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
+owners:
+  - Ash Shaw
 ---
 
 # Agent Slide Deck Prompts
