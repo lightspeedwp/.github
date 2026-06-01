@@ -1,3 +1,12 @@
+---
+title: "WordPress Standards Compliance & Comprehensive Codebase Review"
+description: "Legacy compliance plan queued for WP 7.0 and WordPress agent-skills refresh"
+file_type: documentation
+status: active
+issue_number: 745
+last_updated: "2026-06-01"
+---
+
 # WordPress Standards Compliance & Comprehensive Codebase Review
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.

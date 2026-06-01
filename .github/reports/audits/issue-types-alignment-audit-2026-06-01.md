@@ -1,11 +1,12 @@
 ---
-file_type: audit-report
+file_type: documentation
 title: Issue Types Alignment Audit
 description: Three-way mapping audit of all 29 issue types, 26 templates, and corresponding labels
-created_date: 2026-06-01
-last_updated: 2026-06-01
-version: 1.0.0
-domain: governance
+created_date: "2026-06-01"
+last_updated: "2026-06-01"
+version: "1.0.0"
+domain: "governance"
+status: "active"
 tags: [audit, labels, issue-types, templates]
 ---
 

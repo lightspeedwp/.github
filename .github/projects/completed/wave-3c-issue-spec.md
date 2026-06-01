@@ -5,7 +5,7 @@ created_date: "2026-05-28"
 last_updated: "2026-06-01"
 file_type: "documentation"
 version: "v1.0"
-status: "completed"
+status: "deprecated"
 ---
 
 # Wave 3C Status Audit

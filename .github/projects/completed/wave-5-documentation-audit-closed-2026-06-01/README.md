@@ -5,7 +5,7 @@ created_date: "2026-06-01"
 last_updated: "2026-06-01"
 file_type: "documentation"
 version: "v1.0.0"
-status: "completed"
+status: "deprecated"
 ---
 
 # Archived Closed Specs

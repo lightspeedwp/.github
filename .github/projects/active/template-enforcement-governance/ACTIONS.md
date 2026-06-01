@@ -1,12 +1,13 @@
 ---
 title: "Template Enforcement & Governance — Action Plan"
 description: "Immediate next steps, timeline, and ownership for the 4-phase implementation"
-file_type: "action-plan"
+file_type: "documentation"
 version: "1.0.0"
 last_updated: "2026-06-01"
 created_date: "2026-06-01"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
+status: "active"
 ---
 
 # Template Enforcement & Governance — Action Plan

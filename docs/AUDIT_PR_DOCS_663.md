@@ -1,11 +1,13 @@
 ---
-file_type: "audit-report"
+file_type: "documentation"
 title: "Wave 5.3 Phase 3: PR Documentation Audit Report"
 description: "Consolidation audit of PR-related documentation files identifying overlaps, gaps, and consolidation strategy"
 issue: "#663"
 wave: "5.3"
 phase: "3"
-completed_date: "2026-06-01"
+created_date: "2026-06-01"
+last_updated: "2026-06-01"
+status: "active"
 ---
 
 # PR Documentation Audit Report (Issue #663)

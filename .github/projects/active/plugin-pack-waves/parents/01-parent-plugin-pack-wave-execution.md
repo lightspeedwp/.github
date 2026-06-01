@@ -1,6 +1,7 @@
 ---
 issue_number: 732
 title: "[Plugin Pack] Wave Execution Parent"
+description: "OPSX parent spec governing second, third, and next plugin-pack execution waves"
 status: active
 priority: high
 last_updated: '2026-06-01'

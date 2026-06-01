@@ -1,3 +1,13 @@
+---
+title: "Context Reduction Task List"
+description: "High-risk context reduction planning that requires evidence-gated execution controls"
+file_type: documentation
+status: active
+issue_number: 744
+parent_issue: 573
+last_updated: "2026-06-01"
+---
+
 # Context Reduction Task List
 
 **Goal:** Reduce context bloat in `.github` repository from ~922K tokens to <500K tokens while maintaining essential functionality.

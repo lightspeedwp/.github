@@ -1,6 +1,9 @@
 ---
 issue_number: 735
 parent_issue: 732
+file_type: documentation
+title: "[Plugin Pack Child] Next Wave Backlog Spec & Sequencing"
+description: "OPSX child spec for next-wave plugin pack backlog sequencing and readiness"
 spec_type: child
 status: active
 last_updated: '2026-06-01'

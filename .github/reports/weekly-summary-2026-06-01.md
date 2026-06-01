@@ -1,11 +1,13 @@
 ---
-file_type: "report"
+file_type: "documentation"
 title: "Weekly Reports Summary - Week 23"
 description: "Automated weekly summary of all reports in the repository"
+status: "active"
 category: "summary"
 created_date: "2026-06-01"
 last_updated: "2026-06-01"
-author: "automation"
+authors:
+  - automation
 tags: ["weekly", "summary", "automated"]
 ---
 

@@ -1,6 +1,9 @@
 ---
 issue_number: 733
 parent_issue: 732
+file_type: documentation
+title: "[Plugin Pack Child] Second Wave Execution Spec & Delivery"
+description: "OPSX child spec for second-wave plugin pack execution and validation"
 spec_type: child
 status: active
 last_updated: '2026-06-01'

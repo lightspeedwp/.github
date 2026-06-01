@@ -1,6 +1,9 @@
 ---
 issue_number: 734
 parent_issue: 732
+file_type: documentation
+title: "[Plugin Pack Child] Third Wave Execution Spec & Delivery"
+description: "OPSX child spec for third-wave plugin pack execution and validation"
 spec_type: child
 status: active
 last_updated: '2026-06-01'
