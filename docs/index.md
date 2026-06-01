@@ -120,7 +120,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 |----------|---------|
 | **[DISCUSSIONS.md](./DISCUSSIONS.md)** | Guidelines for GitHub Discussions categories, labeling, and community engagement |
 | **[GOVERNANCE_REVISION_LOG.md](./GOVERNANCE_REVISION_LOG.md)** | History of governance changes, policy updates, and decision timeline |
-| **[override-policy.md](./override-policy.md)** | Override policies, exceptions, and procedures for breaking rules when justified |
+| **[OVERRIDE_POLICY.md](./OVERRIDE_POLICY.md)** | Override policies, exceptions, and procedures for breaking rules when justified |
 
 ---
 
@@ -205,7 +205,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 | [TESTING.md](./TESTING.md) | Guide | Testing standards and frameworks |
 | [VERSIONING.md](./VERSIONING.md) | Policy | Semantic versioning strategy |
 | [WORKFLOW_COORDINATION.md](./WORKFLOW_COORDINATION.md) | Guide | Cross-repo workflow coordination |
-| [override-policy.md](./override-policy.md) | Policy | Override and exception procedures |
+| [OVERRIDE_POLICY.md](./OVERRIDE_POLICY.md) | Policy | Override and exception procedures |
 
 ### Key Configuration & Template Files
 

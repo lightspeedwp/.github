@@ -419,7 +419,7 @@ This audit examined 5 PR-related documentation files in scope. The analysis reve
    - `./VERSIONING.md` ✅
    - `./FRONTMATTER_SCHEMA.md` ✅
    - `TESTING.md` — should be `./TESTING.md` ⚠️
-   - `../CONTRIBUTING.md` ❌ (should be `../CONTRIBUTING.md` if it exists)
+   - `../CONTRIBUTING.md` ✅
    - Line 152: `../CHANGELOG.md` ❌
    - Line 160: Link to `.github/PULL_REQUEST_TEMPLATE.md` (should be specific template or directory)
    - Line 161: `../.github/PULL_REQUEST_TEMPLATES/` ✅
