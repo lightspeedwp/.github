@@ -1,13 +1,16 @@
 ---
-file_type: audit
+file_type: documentation
 title: Label Color Consistency Audit (2026-06-01)
 description: Comprehensive analysis of all 160 canonical labels against documented 8-family color strategy
 created_date: '2026-06-01'
 last_updated: '2026-06-01'
+version: v1.0.0
 status: complete
 audit_scope: .github/labels.yml (complete canonical label set)
 related_document: docs/LABEL_COLOR_STRATEGY.md
 maintainer: LightSpeed Team
+owners:
+  - lightspeedwp/maintainers
 tags:
   - labels
   - color-strategy
