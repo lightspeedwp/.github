@@ -3,7 +3,7 @@ title: "Archive Directory"
 description: "Contains outdated or superseded documentation files preserved for historical reference. Archives deprecated instruction files, migration guides, and backup files."
 file_type: documentation
 version: v1.1
-last_updated: "2026-05-31"
+last_updated: "2026-06-01"
 created_date: "2025-12-08"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
