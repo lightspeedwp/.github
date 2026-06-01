@@ -4,9 +4,9 @@ description: Canonical guide for org-wide issue type definitions, assignment, an
   automation. Covers all type categories, labels, and how the labeling agent assigns
   types.
 file_type: documentation
-version: v2.2
+version: v2.3
 created_date: '2025-10-20'
-last_updated: '2026-05-31'
+last_updated: '2026-06-01'
 author: LightSpeed Team
 maintainer: Ash Shaw
 owners:
@@ -17,8 +17,9 @@ tags:
 - issue-types
 - automation
 - triage
-category: governance
+domain: governance
 status: active
+language: en
 stability: stable
 ---
 
@@ -49,7 +50,7 @@ This guide is for choosing a type, understanding type automation, and aligning w
 
 ---
 
-## Quick Reference (All 27 Types)
+## Quick Reference (All 32 Types)
 
 - **Task** — Small, well-scoped unit of work (e.g., config update, copy edit). *Label:* `type:task`
 - **Bug** — Broken/incorrect behaviour (e.g., error, regression, failed test). *Label:* `type:bug`
@@ -80,6 +81,109 @@ This guide is for choosing a type, understanding type automation, and aligning w
 - **Support** — Support request or troubleshooting help. *Label:* `type:support`
 
 See [../.github/issue-types.yml](../.github/issue-types.yml) for the machine-readable mapping.
+
+---
+
+## Type-to-Project-Field Mapping
+
+All 27 issue types map to 10 project field values for organization and automation. This mapping preserves semantic distinctions whilst grouping related workflows.
+
+| Project Field | Issue Types | When to Use |
+| --- | --- | --- |
+| **Bug** | type:bug | Broken/incorrect behaviour, errors, regressions |
+| **Feature** | type:feature, type:improve, type:enhancement | Net-new capabilities or enhancements to existing features |
+| **Design** | type:design, type:a11y, type:ui | Design artefacts, specifications, accessibility work |
+| **Documentation** | type:documentation | Docs, guides, knowledge base, onboarding materials |
+| **Chore** | type:chore, type:refactor, type:maintenance | Maintenance, code quality, housekeeping, updates |
+| **Automation** | type:automation, type:test, type:build, type:ai-ops, type:ci | Workflow automation, testing, CI/CD, tooling, agents |
+| **Research** | type:research, type:investigation | Discovery, investigation, proof-of-concepts, spikes |
+| **Integration** | type:integration, type:dependency, type:compatibility | External systems, dependencies, cross-platform work |
+| **Release** | type:release | Release management, deployment, version coordination |
+| **Task** | type:task, type:epic, type:story, type:review, type:audit, type:question, type:support, type:content-modelling, type:performance, type:security | Catch-all for unspecified work, narratives, audits, and specialized domains |
+
+**Mapping Rationale**: See [ISSUE_FIELDS.md](./ISSUE_FIELDS.md#2-mapping-rationale) for detailed reasoning on why these 27 types are grouped into 10 project field values instead of collapsing to 4 generic options.
+
+---
+
+## Type Selection Decision Tree
+
+Use this flowchart to choose the correct issue type:
+
+```text
+START: What's the nature of the work?
+
+├─ Is it BROKEN or INCORRECT?
+│  └─ YES → type:bug
+│  └─ NO → Continue
+│
+├─ Is it NET-NEW capability or ENHANCEMENT to existing feature?
+│  └─ YES (new) → type:feature
+│  └─ YES (enhance) → type:improve
+│  └─ NO → Continue
+│
+├─ Is it DESIGN, FIGMA, SPECS, or ACCESSIBILITY?
+│  └─ YES → type:design (or type:a11y for accessibility-focused)
+│  └─ NO → Continue
+│
+├─ Is it DOCUMENTATION, GUIDES, or KNOWLEDGE BASE?
+│  └─ YES → type:documentation
+│  └─ NO → Continue
+│
+├─ Is it MAINTENANCE, CODE QUALITY, REFACTORING, or HYGIENE?
+│  └─ YES (refactor) → type:refactor
+│  └─ YES (maintenance) → type:maintenance
+│  └─ YES (hygiene) → type:chore
+│  └─ NO → Continue
+│
+├─ Is it TESTING, CI/CD, AUTOMATION, TOOLING, or AGENTS?
+│  ├─ Tests → type:test
+│  ├─ CI/CD or pipelines → type:build
+│  ├─ Bots or workflow automation → type:automation
+│  ├─ AI agents or operations → type:ai-ops
+│  └─ NO → Continue
+│
+├─ Is it RELEASE, VERSION, or DEPLOYMENT work?
+│  └─ YES → type:release
+│  └─ NO → Continue
+│
+├─ Is it RESEARCH, INVESTIGATION, or POC?
+│  └─ YES → type:research
+│  └─ NO → Continue
+│
+├─ Is it EXTERNAL SYSTEM, DEPENDENCY, or COMPATIBILITY?
+│  ├─ Integration → type:integration
+│  ├─ Dependencies → type:dependency
+│  ├─ Compatibility → type:compatibility
+│  └─ NO → Continue
+│
+├─ Is it NARRATIVE work (Epic, Story, Review)?
+│  ├─ Parent epic → type:epic
+│  ├─ User story within epic → type:story
+│  ├─ Code review or validation → type:review
+│  └─ NO → Continue
+│
+├─ Is it INVESTIGATION, AUDIT, or PERFORMANCE?
+│  ├─ Audit → type:audit
+│  ├─ Performance optimization → type:performance
+│  ├─ Security audit or fix → type:security
+│  ├─ CPT/taxonomy/content structure → type:content-modelling
+│  └─ NO → Continue
+│
+├─ Is it QUESTION, SUPPORT, or CLARIFICATION?
+│  ├─ Question → type:question
+│  ├─ Support request → type:support
+│  └─ NO → Continue
+│
+└─ DEFAULT → type:task (generic work without specific type)
+```
+
+**How to Use This Tree**:
+
+1. Start at the top and follow each question
+2. Answer YES/NO to determine the matching type
+3. If none match, fall back to `type:task`
+4. Assign exactly ONE type per issue
+5. Combine with other labels (priority, status, area) for full context
 
 ---
 
