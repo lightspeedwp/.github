@@ -96,3 +96,5 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for full contribution guidelines.
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
