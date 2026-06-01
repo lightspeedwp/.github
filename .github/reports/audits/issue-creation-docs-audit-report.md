@@ -4,7 +4,7 @@ title: "Issue Creation Documentation Audit Report"
 description: "Comprehensive audit of 6 overlapping issue creation documentation files. Identifies duplication, overlap, and proposes consolidation strategy."
 version: "1.0"
 last_updated: "2026-05-31"
-owners: ["lightspeedwp/maintainers"]
+owners: ["LightSpeed Maintainers"]
 tags: ["audit", "documentation", "issue-creation", "consolidation", "reference"]
 ---
 
