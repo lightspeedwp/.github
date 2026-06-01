@@ -1,5 +1,5 @@
 ---
-file_type: documentation
+file_type: readme
 title: tool-guardian hook
 description: Prevents unsafe or disallowed tool operations based on configured guardrails.
 version: v0.1.0

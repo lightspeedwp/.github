@@ -1,5 +1,5 @@
 ---
-file_type: documentation
+file_type: readme
 title: session-logger hook
 description: Captures structured session activity events for audit and troubleshooting.
 version: v0.1.0

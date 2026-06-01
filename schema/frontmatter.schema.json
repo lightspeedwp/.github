@@ -721,6 +721,64 @@
       },
       "required": ["file_type", "description"],
       "additionalProperties": true
+    },
+    {
+      "title": "README Files (README.md)",
+      "description": "Module and project README documentation files.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonFields"
+        }
+      ],
+      "properties": {
+        "file_type": {
+          "const": "readme"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "last_updated": {
+          "type": "string"
+        },
+        "maintainer": {
+          "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "license": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "domain": {
+          "$ref": "#/definitions/commonFields/properties/domain"
+        },
+        "stability": {
+          "$ref": "#/definitions/commonFields/properties/stability"
+        },
+        "deprecated": {
+          "$ref": "#/definitions/commonFields/properties/deprecated"
+        },
+        "replacement": {
+          "$ref": "#/definitions/commonFields/properties/replacement"
+        }
+      },
+      "required": ["file_type", "title", "description"],
+      "additionalProperties": true
     }
   ],
   "examples": [
