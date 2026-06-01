@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Improvement Plan: Planner & Reviewer Agents"
 description: "Structured roadmap with prioritized issues, acceptance criteria, and implementation guidelines"
 version: "v1.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 author: "Claude Code"
 owners: ["lightspeedwp/maintainers"]
 tags: ["improvement-plan", "agents", "roadmap", "implementation"]

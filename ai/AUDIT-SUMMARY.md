@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Audit Summary: Planner & Reviewer Agents"
 description: "Executive summary of audit findings, issues created, and autonomous workflow"
 version: "v1.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 author: "Claude Code"
 owners: ["lightspeedwp/maintainers"]
 tags: ["audit", "agents", "planning", "improvement"]

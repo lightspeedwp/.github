@@ -10,7 +10,7 @@ handoffs:
   prompt: Generate a comprehensive metrics report based on the collected data.
   send: false
 version: v1.1
-last_updated: '2026-05-29'
+last_updated: '2026-06-01'
 author: LightSpeed
 maintainer: Ash Shaw
 file_type: agent

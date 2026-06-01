@@ -3,8 +3,8 @@ file_type: readme
 title: Frontmatter Validation
 description: Comprehensive frontmatter validation scripts for LightSpeedWP .github
   repository ensuring schema compliance and consistency
-version: 1.0.1
-last_updated: '2026-05-29'
+version: '1.0.2'
+last_updated: '2026-06-01'
 owners:
 - LightSpeedWP Team
 tags:

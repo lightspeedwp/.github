@@ -4,7 +4,7 @@ description: "All notable changes to this project, formatted per Keep a Changelo
 file_type: "documentation"
 version: "1.0.0"
 created_date: "2025-09-20"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 owners:
   - LightSpeed Team
 tags:

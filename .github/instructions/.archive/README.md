@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Archived Instructions"
 description: "Deprecated and archived instruction files from consolidation efforts"
 status: "archived"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 domain: "governance"
 ---
 

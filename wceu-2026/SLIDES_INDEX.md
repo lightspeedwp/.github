@@ -4,7 +4,7 @@ title: WCEU 2026 Main Talk — Slide Index (24 Slides)
 date: 2026-05-31
 description: Quick-reference index of all 24 slides with layout, timing, key message, and colour scheme
 version: "1.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 owners: ["Ashley Shaw"]
 tags: ["wceu-2026", "slides", "presentation", "reference"]
 status: "published"

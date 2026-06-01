@@ -4,7 +4,7 @@ description: Comprehensive audit of labels.yml, issue-types.yml, and issue-field
 file_type: documentation
 version: "1.0.0"
 created_date: "2026-05-31"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 author: Claude Code
 maintainer: Ash Shaw
 owners:

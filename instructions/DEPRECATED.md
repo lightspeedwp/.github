@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Instructions Deprecation Index"
 description: "Tracks deprecated documentation files and consolidated replacements."
 version: "v1.0.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 owners: ["LightSpeedWP Team"]
 tags: ["deprecation", "migration", "documentation"]
 status: "active"

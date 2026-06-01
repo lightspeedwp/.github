@@ -6,7 +6,7 @@ description: Full speaker notes for the 25-minute WordCamp Europe 2026 presentat
 duration: 25 minutes
 format: Speaker reference with timing, key messages, talking points, and transitions
 version: "1.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 owners: ["Ashley Shaw"]
 tags: ["wceu-2026", "speaker-notes", "presentation", "timing"]
 status: "published"

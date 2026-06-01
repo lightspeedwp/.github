@@ -4,7 +4,7 @@ title: WCEU 2026 Main Talk — Visual Design Specifications
 date: 2026-05-31
 description: Complete visual design guide for 24-slide presentation, including design system, layout specifications, accessibility compliance, and implementation notes
 version: "1.0"
-last_updated: "2026-05-31"
+last_updated: '2026-06-01'
 owners: ["Ashley Shaw"]
 tags: ["wceu-2026", "design", "visual-system", "accessibility"]
 status: "published"

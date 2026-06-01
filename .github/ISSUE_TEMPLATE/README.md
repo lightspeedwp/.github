@@ -2,8 +2,8 @@
 file_type: "issue-template"
 name: "Issue Templates Directory"
 description: "Standardized issue templates for consistent issue creation"
-version: "1.0.0"
-last_updated: "2026-05-29"
+version: '1.0.1'
+last_updated: '2026-06-01'
 ---
 
 # 📋 Issue Templates Directory
