@@ -51,7 +51,7 @@ This audit identified **significant duplication and overlap** across 6 issue cre
 | `docs/ISSUE_CREATION_GUIDE.md` | Practical step-by-step guide | Guidance | 5.3 KB |
 | `docs/ISSUE_TYPES.md` | Canonical reference of 27 issue types | Reference | 11.9 KB |
 | `.github/ISSUE_TEMPLATE/README.md` | Template directory overview | Navigation | 2.8 KB |
-| `.github/instructions/issues.instructions.md` | Rules and automation standards | Instruction | 7.2 KB |
+| `instructions/issues.instructions.md` | Rules and automation standards | Instruction | 7.2 KB |
 | `docs/README.md` | Documentation index | Navigation | 5.5 KB |
 | `docs/index.md` | Redirect stub | Navigation | 0.3 KB |
 
@@ -101,11 +101,11 @@ This audit identified **significant duplication and overlap** across 6 issue cre
 - Referenced by: None directly in audit scope
 - Quality: Good cross-references but some incorrect paths
 
-**.github/instructions/issues.instructions.md:**
+**instructions/issues.instructions.md:**
 
-- References: `../docs/ISSUE_CREATION_GUIDE.md`, `../docs/ISSUE_TYPES.md`, `../docs/LABEL_STRATEGY.md`, `../pull-requests.instructions.md`
+- References: `docs/ISSUE_CREATION_GUIDE.md`, `docs/ISSUE_TYPES.md`, `docs/LABEL_STRATEGY.md`, `pull-requests.instructions.md`
 - Referenced by: None directly in audit scope
-- Quality: Extensive cross-references, some file path inconsistencies
+- Quality: Extensive cross-references, well-organised
 
 **docs/README.md:**
 
@@ -173,7 +173,7 @@ The issue templates in this directory are automatically synchronized...
 **ISSUE_TYPES.md (Entire document, 11.9 KB):**
 
 - Comprehensive reference of all 27 types
-- Detailed comparison table with colors, use cases, priority
+- Detailed comparison table with colours, use cases, priority
 - Best practices and automation guidelines
 - 300+ lines dedicated to type reference
 
@@ -311,7 +311,7 @@ The labeling.yml workflow, powered by labeling.agent.js, enforces label hygiene.
 | `docs/ISSUE_CREATION_GUIDE.md` | **Keep (Revise)** | Most user-friendly; expand with missing metadata requirements |
 | `docs/ISSUE_TYPES.md` | **Keep (Unmodified)** | Comprehensive type reference; no duplication; appropriate scope |
 | `.github/ISSUE_TEMPLATE/README.md` | **Merge into Guide** | Template directory overview; short; can become section in Guide |
-| `.github/instructions/issues.instructions.md` | **Keep (Revise)** | Canonical instructions for agents/automation; needs clarity on scope |
+| `instructions/issues.instructions.md` | **Keep (Revise)** | Canonical instructions for agents/automation; needs clarity on scope |
 | `docs/README.md` | **Keep (Unmodified)** | Serves different purpose (documentation index); no consolidation needed |
 | `docs/index.md` | **Delete** | Stub file; no content; redirect logic can be handled in README |
 
@@ -378,8 +378,8 @@ docs/index.md (stub; use redirect or remove)
 
 1. **TEMPLATE/README.md (line 36):** References `./ISSUE_TEMPLATE/README.md` (circular reference)
 2. **TEMPLATE/README.md (line 79):** References `../ISSUE_LABELS.md` (does not exist; should be `docs/ISSUE_LABELS.md` or link moved)
-3. **.github/instructions/issues.instructions.md (line 58):** References `../docs/ISSUE_CREATION_GUIDE.md` (relative path is broken; should be `../../docs/ISSUE_CREATION_GUIDE.md`)
-4. **.github/instructions/issues.instructions.md (lines 137-138):** References `../docs/LABEL_STRATEGY.md` (relative path is broken; should be `../../docs/LABEL_STRATEGY.md`)
+3. **instructions/issues.instructions.md (line 58):** References `../docs/ISSUE_CREATION_GUIDE.md` (correct relative path from root-level instructions/)
+4. **instructions/issues.instructions.md (lines 137-138):** References `../docs/LABEL_STRATEGY.md` (correct relative path from root-level instructions/)
 
 ### Navigation Gaps
 
@@ -404,10 +404,10 @@ docs/index.md (stub; use redirect or remove)
 2. **docs/ISSUE_TYPES.md** — *Reference Document*
    - Who: Anyone needing to understand issue types
    - Purpose: Comprehensive reference of 27 types with decision tree
-   - Include: All types, use cases, automation behaviors, best practices
+   - Include: All types, use cases, automation behaviours, best practices
    - Exclude: Step-by-step creation (refer to guide)
 
-3. **.github/instructions/issues.instructions.md** — *For Agents & Automation*
+3. **instructions/issues.instructions.md** — *For Agents & Automation*
    - Who: AI agents, workflows, maintainers writing automation
    - Purpose: Rules, validation, automation standards
    - Include: Template schema, frontmatter validation, label enforcement, one-hot rules
@@ -437,7 +437,7 @@ docs/index.md (stub; use redirect or remove)
    - Move TEMPLATE/README.md content into "Template Selection & Location" section
    - Keep references to ISSUE_TYPES.md, instructions/issues.instructions.md
 
-2. **Revise .github/instructions/issues.instructions.md** (reduce to ~6 KB)
+2. **Revise instructions/issues.instructions.md** (reduce to ~6 KB)
    - Move frontmatter examples → keep only validation rules
    - Move label requirements → replace with "See docs/ISSUE_CREATION_GUIDE.md for user guidance"
    - Expand automation sections: label enforcement, one-hot rules, agent integration
@@ -507,7 +507,7 @@ After implementing consolidations, validate:
    - Priority: LOW
    - Action: Move content, update links
 
-4. **.github/instructions/issues.instructions.md** (7.2 KB)
+4. **instructions/issues.instructions.md** (7.2 KB)
    - Status: Keep (revise)
    - Priority: HIGH
    - Action: Clarify agent-focused scope, move user guidance to guide
@@ -515,7 +515,7 @@ After implementing consolidations, validate:
 5. **docs/README.md** (5.5 KB)
    - Status: Keep (unmodified)
    - Priority: MEDIUM
-   - Action: Update index if guide/instructions reorganized
+   - Action: Update index if guide/instructions reorganised
 
 6. **docs/index.md** (0.3 KB)
    - Status: Delete
