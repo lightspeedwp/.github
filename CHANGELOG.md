@@ -2,7 +2,7 @@
 title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2025-09-20"
 last_updated: "2026-06-01"
 owners:
