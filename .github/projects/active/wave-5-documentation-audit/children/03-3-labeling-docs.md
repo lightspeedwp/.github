@@ -1,5 +1,5 @@
 ---
-file_type: "documentation"
+file_type: documentation
 title: "Labeling Documentation Consolidation Audit"
 description: "Complete audit of labeling documentation identifying consolidation opportunities and distributed responsibility"
 version: "v1.0"

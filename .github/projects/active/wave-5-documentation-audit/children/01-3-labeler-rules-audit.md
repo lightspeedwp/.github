@@ -1,13 +1,13 @@
 ---
 issue_number: 656
-file_type: "task"
+file_type: documentation
 description: "Audit labeling rules for issue-specific automation"
 parent_issue: 649
 title: "[Child of #649] Audit: Issue Labeling Rules in labeler.yml"
 type: "type:audit"
 area: "area:labels"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 ---
 

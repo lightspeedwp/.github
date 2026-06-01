@@ -1,5 +1,5 @@
 ---
-file_type: "documentation"
+file_type: documentation
 title: "Wave 5 Audit #654 Findings"
 description: "Template Inventory and Standardisation Audit findings"
 version: "1.2.1"

@@ -5,7 +5,7 @@ description: Comprehensive audit of issue types, templates, and labels alignment
 created_date: '2026-06-01'
 last_updated: '2026-06-01'
 version: v1.0.0
-status: complete
+status: active
 audit_scope: .github/issue-types.yml, .github/ISSUE_TEMPLATE/, .github/labels.yml
 maintainer: LightSpeed Team
 owners:

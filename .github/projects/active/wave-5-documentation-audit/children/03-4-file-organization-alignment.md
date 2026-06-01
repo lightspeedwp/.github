@@ -1,5 +1,5 @@
 ---
-file_type: "documentation"
+file_type: documentation
 title: "File Organization Alignment Audit"
 description: "Complete audit of documentation folder structure vs. CLAUDE.md boundaries identifying misplacements and reorganization needs"
 version: "v1.0"

@@ -1,5 +1,5 @@
 ---
-file_type: "documentation"
+file_type: documentation
 title: "PR Creation Documentation Consolidation Audit"
 description: "Complete audit of PR creation documentation identifying consolidation opportunities and duplicated content"
 version: "v1.0"

@@ -1,5 +1,5 @@
 ---
-file_type: "documentation"
+file_type: documentation
 title: "Wave 5.3 Phase 2 Execution Plan"
 description: "Implementation of consolidation recommendations from Wave 5.3 audits"
 version: "v1.0"

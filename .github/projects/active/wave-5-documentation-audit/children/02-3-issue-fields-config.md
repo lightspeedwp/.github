@@ -1,13 +1,13 @@
 ---
 issue_number: 660
-file_type: "task"
+file_type: documentation
 description: "Validate issue fields configuration against GitHub API"
 parent_issue: 650
 title: "[Child of #650] Audit: Issue Fields Configuration vs. GitHub API"
 type: "type:audit"
 area: "area:labels"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 ---
 

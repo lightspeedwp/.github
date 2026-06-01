@@ -1,13 +1,13 @@
 ---
 issue_number: 662
-file_type: "task"
+file_type: documentation
 description: "Audit and consolidate issue creation documentation"
 parent_issue: 651
 title: "[Child of #651] Audit: Issue Creation Docs - Consolidate Overlapping Files"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:important"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 ---
 

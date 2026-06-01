@@ -1,13 +1,13 @@
 ---
 issue_number: 655
-file_type: "task"
+file_type: documentation
 description: "Map issue templates to their automation triggers"
 parent_issue: 649
 title: "[Child of #649] Audit: Issue Template → Automation Trigger Mapping"
 type: "type:audit"
 area: "area:automation"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 ---
 

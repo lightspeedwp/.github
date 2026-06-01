@@ -1,6 +1,6 @@
 ---
 issue_number: 650
-file_type: "project"
+file_type: documentation
 description: "Comprehensive audit of canonical configuration files and their relationships"
 title: "[Audit] Canonical Config Files (labels, issue-types, issue-fields)"
 type: "type:audit"
@@ -8,7 +8,7 @@ area:
   - "area:labels"
   - "area:automation"
 priority: "priority:important"
-status: "status:needs-triage"
+status: draft
 effort: "L"
 children:
   - "2.1-labels-color-consistency"

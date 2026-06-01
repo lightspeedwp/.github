@@ -1,13 +1,13 @@
 ---
 issue_number: 658
-file_type: "task"
+file_type: documentation
 description: "Verify label colors follow the documented strategy"
 parent_issue: 650
 title: "[Child of #650] Audit: labels.yml Color Consistency & Strategy Alignment"
 type: "type:audit"
 area: "area:labels"
 priority: "priority:important"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 ---
 

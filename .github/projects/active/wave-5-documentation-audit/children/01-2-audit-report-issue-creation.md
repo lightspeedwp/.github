@@ -1,5 +1,5 @@
 ---
-file_type: "documentation"
+file_type: documentation
 title: "Issue Creation Documentation Consolidation Audit"
 description: "Complete audit of issue creation documentation identifying consolidation opportunities and duplicated content"
 version: "v1.0"

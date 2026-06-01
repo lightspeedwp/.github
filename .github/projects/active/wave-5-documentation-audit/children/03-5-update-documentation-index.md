@@ -1,13 +1,13 @@
 ---
 issue_number: 666
-file_type: "task"
+file_type: documentation
 description: "Update docs/README.md and docs/index.md to reflect consolidation changes and remove broken references"
 parent_issue: 651
 title: "[Child of #651] Update: Documentation Index & Broken References"
 type: "type:docs"
 area: "area:documentation"
 priority: "priority:normal"
-status: "status:needs-triage"
+status: draft
 effort: "S"
 ---
 

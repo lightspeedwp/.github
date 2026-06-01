@@ -1,12 +1,12 @@
 ---
 issue_number: 651
-file_type: "project"
+file_type: documentation
 description: "Comprehensive audit and consolidation of documentation to reduce duplication and improve clarity"
 title: "[Audit] Documentation Consolidation - Reduce Duplication Across Docs"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:important"
-status: "status:needs-triage"
+status: draft
 effort: "XL"
 children:
   - "3.1-issue-creation-docs"

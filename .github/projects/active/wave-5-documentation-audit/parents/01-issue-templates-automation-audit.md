@@ -1,6 +1,6 @@
 ---
 issue_number: 649
-file_type: "project"
+file_type: documentation
 description: "Comprehensive audit of issue templates, automation integration, and AI agent instructions"
 title: "[Audit] Issue Templates, Automation, & AI Agent Integration"
 type: "type:audit"
@@ -8,7 +8,7 @@ area:
   - "area:automation"
   - "area:labels"
 priority: "priority:important"
-status: "status:needs-triage"
+status: draft
 effort: "M"
 children:
   - "1.1-template-inventory"
