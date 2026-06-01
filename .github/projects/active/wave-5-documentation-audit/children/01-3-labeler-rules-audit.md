@@ -50,4 +50,4 @@ Comprehensive audit of labeling rules in `.github/labeler.yml` to identify issue
 
 - [Label Strategy](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md)
 - [Labeler Configuration](https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml)
-- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)

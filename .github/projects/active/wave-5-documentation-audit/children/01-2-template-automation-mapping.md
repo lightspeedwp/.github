@@ -48,5 +48,5 @@ Map each issue template to the automation it should trigger and identify gaps be
 ## Related Documentation
 
 - [Label Strategy](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md)
-- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)
 - [Labeling Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md)

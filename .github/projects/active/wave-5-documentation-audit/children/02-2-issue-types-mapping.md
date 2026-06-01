@@ -51,5 +51,5 @@ Verify that all issue types in `issue-types.yml` have matching templates and lab
 ## Related Documentation
 
 - [Issue Types Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_TYPES.md)
-- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_LABELS.md)
+- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md)
 - [Issue Templates](https://github.com/lightspeedwp/.github/blob/develop/.github/ISSUE_TEMPLATE/README.md)

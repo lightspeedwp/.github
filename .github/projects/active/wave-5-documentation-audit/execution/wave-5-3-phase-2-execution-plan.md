@@ -64,8 +64,8 @@ These are high-impact fixes with low risk of breaking changes.
 
 - **File:** `docs/BRANCHING_STRATEGY.md`
 - **Issues:**
-  - Line 283: `docs/ISSUE_LABELS.md` → `docs/LABELING.md#issue-labelling`
-  - Line 284: `docs/PR_LABELS.md` → decision pending
+  - Line 283: `docs/LABELING.md` → `docs/LABELING.md#issue-labelling`
+  - Line 284: `docs/LABELING.md` → decision pending
 - **Action:** Fix ISSUE_LABELS reference, add note about PR_LABELS consolidation
 - **Risk:** None (fixing broken references)
 - **Status:** 🟡 Ready to implement

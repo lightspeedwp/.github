@@ -157,7 +157,7 @@ See child issues for detailed audits of:
 - `.github/issue-types.yml`
 - `.github/issue-fields.yml`
 - `docs/LABEL_STRATEGY.md`
-- `docs/ISSUE_LABELS.md`
+- `docs/LABELING.md`
 - `docs/ISSUE_TYPES.md`
 - `docs/ISSUE-FIELDS.md`
 ```
@@ -505,7 +505,7 @@ For each parent issue above, create the following child issues using this templa
 
 - Review all files related to issue creation:
   - `docs/ISSUE_CREATION_GUIDE.md`
-  - `docs/ISSUE_LABELS.md`
+  - `docs/LABELING.md`
   - `docs/ISSUE_TYPES.md`
   - `.github/ISSUE_TEMPLATE/README.md`
   - `docs/index.md` (if references issues)
@@ -524,7 +524,7 @@ For each parent issue above, create the following child issues using this templa
 
 - Review all files related to PR creation:
   - `docs/PR_CREATION_PROCESS.md`
-  - `docs/PR_LABELS.md`
+  - `docs/LABELING.md`
   - `.github/PULL_REQUEST_TEMPLATE/README.md`
   - `instructions/pull-requests.instructions.md`
   - `docs/BRANCHING_STRATEGY.md`
@@ -542,9 +542,9 @@ For each parent issue above, create the following child issues using this templa
 - Review all files related to labeling:
   - `docs/LABEL_STRATEGY.md`
   - `docs/LABELING.md`
-  - `docs/ISSUE_LABELS.md`
-  - `docs/PR_LABELS.md`
-  - `docs/AUTOMATION_GOVERNANCE.md` (label section)
+  - `docs/LABELING.md`
+  - `docs/LABELING.md`
+  - `docs/AUTOMATION.md` (label section)
   - Agent specs for labeling
 - Identify duplication and overlap
 - Propose single source of truth for labeling
@@ -773,7 +773,7 @@ gh issue create \
 
 - `CLAUDE.md` — Repository boundaries and structure
 - `docs/LABEL_STRATEGY.md` — Label philosophy and strategy
-- `docs/AUTOMATION_GOVERNANCE.md` — Automation standards
+- `docs/AUTOMATION.md` — Automation standards
 - `.github/labels.yml` — Canonical label definitions
 - `.github/issue-types.yml` — Canonical issue type definitions
 

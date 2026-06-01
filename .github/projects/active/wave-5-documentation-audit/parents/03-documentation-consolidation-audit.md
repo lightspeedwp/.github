@@ -62,6 +62,6 @@ See child issues for detailed audits of:
 - [Issue Creation Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_CREATION_GUIDE.md)
 - [PR Creation Process](https://github.com/lightspeedwp/.github/blob/develop/docs/PR_CREATION_PROCESS.md)
 - [Label Strategy](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md)
-- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md)
+- [Automation Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION.md)
 - [Root README](https://github.com/lightspeedwp/.github/blob/develop/README.md)
 - [.github README](https://github.com/lightspeedwp/.github/blob/develop/.github/README.md)

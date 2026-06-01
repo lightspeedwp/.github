@@ -44,10 +44,10 @@ Verify that all 200+ labels in `labels.yml` follow the documented color strategy
 
 - `.github/labels.yml`
 - `docs/LABEL_STRATEGY.md`
-- `docs/ISSUE_LABELS.md`
+- `docs/LABELING.md`
 
 ## Related Documentation
 
 - [Label Strategy](https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL_STRATEGY.md)
-- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_LABELS.md)
+- [Issue Labels Guide](https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md)
 - [Canonical Labels File](https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml)

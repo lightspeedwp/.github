@@ -28,7 +28,7 @@ Audited 6 documentation files related to issue creation. Found:
 
 - **Significant overlap** between `instructions/issues.instructions.md` and `docs/ISSUE_CREATION_GUIDE.md`
 - **Internal duplication** within `instructions/issues.instructions.md` itself (content repeats)
-- **Missing file** (`docs/ISSUE_LABELS.md` referenced in audit scope but does not exist)
+- **Missing file** (`docs/LABELING.md` referenced in audit scope but does not exist)
 - **Fragmented responsibility** across 4 active files covering similar ground
 
 **Recommendation:** Consolidate into 2 canonical files (instructions + guide) and create a single reference for labels.
@@ -40,7 +40,7 @@ Audited 6 documentation files related to issue creation. Found:
 | File | Path | Exists | Status | Role |
 |------|------|--------|--------|------|
 | Issue Creation Guide | `docs/ISSUE_CREATION_GUIDE.md` | ✅ | Active | High-level how-to |
-| Issue Labels Guide | `docs/ISSUE_LABELS.md` | ❌ | Missing | Supposed label reference |
+| Issue Labels Guide | `docs/LABELING.md` | ❌ | Missing | Supposed label reference |
 | Issue Types Reference | `docs/ISSUE_TYPES.md` | ✅ | Active | Canonical type definitions |
 | Issue Templates README | `.github/ISSUE_TEMPLATE/README.md` | ✅ | Active | Template directory guide |
 | Issue Instructions | `instructions/issues.instructions.md` | ✅ | Active | Official instructions (AI/agents) |
@@ -79,7 +79,7 @@ Audited 6 documentation files related to issue creation. Found:
 
 ---
 
-### 2. **`docs/ISSUE_LABELS.md`**
+### 2. **`docs/LABELING.md`**
 
 **Status:** ❌ **DEPRECATED & CONSOLIDATED**
 
@@ -203,7 +203,7 @@ Instead of creating a new file, update all broken references to `ISSUE_LABELS.md
 | Current File | Content | Proposed Location | Action | Rationale |
 |--------------|---------|-------------------|--------|-----------|
 | `docs/ISSUE_CREATION_GUIDE.md` | Practical how-to guide | Keep (docs/) | Preserve | Good audience fit, clear structure |
-| `docs/ISSUE_LABELS.md` | Deprecated; consolidated into LABELING.md | Update references | Fix broken links | Already exists at `docs/LABELING.md#issue-labelling`; redirect references there |
+| `docs/LABELING.md` | Deprecated; consolidated into LABELING.md | Update references | Fix broken links | Already exists at `docs/LABELING.md#issue-labelling`; redirect references there |
 | `docs/ISSUE_TYPES.md` | Type definitions & reference | Keep (docs/) | Preserve | Comprehensive, well-maintained |
 | `.github/ISSUE_TEMPLATE/README.md` | Template directory guide | Migrate to inline comments | Archive or migrate | Mostly metadata; can live in directory |
 | `instructions/issues.instructions.md` | Official instructions | Refactor | Consolidate & fix | Remove internal duplication; keep authoritative core |
@@ -249,7 +249,7 @@ Instead of creating a new file, update all broken references to `ISSUE_LABELS.md
 - `docs/ISSUE_CREATION_GUIDE.md` (section 4, sparse)
 - `instructions/issues.instructions.md` (section 4–5, references missing files)
 - `docs/ISSUE_TYPES.md` (type-focused, doesn't cover label families)
-- Missing: `docs/ISSUE_LABELS.md` (should exist but doesn't)
+- Missing: `docs/LABELING.md` (should exist but doesn't)
 
 **Content:** What labels are required, label families, one-hot rules
 
@@ -275,7 +275,7 @@ Instead of creating a new file, update all broken references to `ISSUE_LABELS.md
 
 ### Critical Gaps
 
-1. **Broken references to `docs/ISSUE_LABELS.md`**
+1. **Broken references to `docs/LABELING.md`**
    - `instructions/issues.instructions.md` section 4 references deprecated file
    - File was consolidated into `docs/LABELING.md` (per `instructions/DEPRECATED.md`)
    - References should point to `docs/LABELING.md#issue-labelling` instead
@@ -304,7 +304,7 @@ Instead of creating a new file, update all broken references to `ISSUE_LABELS.md
    - Preserve formatting and structure
 
 2. **Update broken references to ISSUE_LABELS.md**
-   - Locate all references to the deprecated `docs/ISSUE_LABELS.md`
+   - Locate all references to the deprecated `docs/LABELING.md`
    - Redirect them to `docs/LABELING.md#issue-labelling` instead
    - Note: The file was consolidated into `docs/LABELING.md` (see `instructions/DEPRECATED.md`)
    - Do NOT recreate the deprecated file
@@ -346,7 +346,7 @@ Instead of creating a new file, update all broken references to `ISSUE_LABELS.md
 |--------|-------|
 | Files audited | 6 |
 | Files with duplicates | 1 (`instructions/issues.instructions.md`) |
-| Missing files | 1 (`docs/ISSUE_LABELS.md`) |
+| Missing files | 1 (`docs/LABELING.md`) |
 | Empty files | 1 (`docs/index.md`) |
 | Overlapping content areas | 4 |
 | Total lines across all files | ~717 |
