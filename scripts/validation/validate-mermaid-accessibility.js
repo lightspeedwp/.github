@@ -8,20 +8,16 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { globSync } from "glob";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "../../");
 
-const README_FILES = [
-  "README.md",
-  "profile/README.md",
-  "scripts/README.md",
-  "tests/README.md",
-  ".github/README.md",
-  ".github/ISSUE_TEMPLATE/README.md",
-  ".github/projects/README.md",
-  ".vscode/README.md",
-];
+const README_FILES = globSync("**/README.md", {
+  cwd: ROOT,
+  ignore: ["**/node_modules/**", "**/.git/**", "**/coverage/**", "**/logs/**"],
+  dot: true,
+}).sort();
 
 function extractMermaidDiagrams(content) {
   const diagrams = [];
@@ -51,7 +47,13 @@ function getDiagramType(content) {
   for (const line of lines) {
     const trimmed = line.trim();
 
-    if (trimmed === "" || trimmed.startsWith("%%")) {
+    if (
+      trimmed === "" ||
+      trimmed.startsWith("%%") ||
+      trimmed === "---" ||
+      trimmed.startsWith("accTitle") ||
+      trimmed.startsWith("accDescr")
+    ) {
       continue;
     }
 
@@ -224,7 +226,7 @@ tags:
   - a11y
   - diagrams
   - wave-5
-domain: documentation
+domain: a11y
 status: active
 stability: stable
 ---

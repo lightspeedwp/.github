@@ -16,7 +16,7 @@ tags:
   - jest
   - quality-assurance
   - automation
-domain: testing
+domain: lightspeed
 stability: stable
 ---
 
@@ -353,7 +353,7 @@ npm ci
 
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
 - [Schema Validation](../schema/README.md) — JSON schema validation and configuration
-- [CodeRabbit Configuration](.coderabbit.yml) — AI code review configuration
+- [CodeRabbit Configuration](../.coderabbit.yml) — AI code review configuration
 - [WordPress Automation Schemas](../schema/header-footer-agent/README.md) — WordPress theme automation schemas
 - [Coverage Reports](../coverage/README.md) — Test coverage reporting and analysis
 - [HTML Coverage Reports](../coverage/lcov-report/README.md) — Interactive coverage visualization

@@ -14,7 +14,7 @@ tags:
   - automation
   - utilities
   - testing
-domain: infrastructure
+domain: lightspeed
 stability: stable
 ---
 # LightSpeedWP Scripts & Automation

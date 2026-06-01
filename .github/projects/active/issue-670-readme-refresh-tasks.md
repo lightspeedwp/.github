@@ -1,9 +1,10 @@
 ---
 file_type: "documentation"
 title: "Issue #670 — Update & Refresh README Files"
+file_type: documentation
 description: "Systematic refresh of all 57 README.md files with current information, broken link fixes, and consistent formatting"
 version: "1.0.0"
-created_date: "2026-05-31"
+status: "draft"
 last_updated: "2026-05-31"
 author: "Claude Code"
 owners:

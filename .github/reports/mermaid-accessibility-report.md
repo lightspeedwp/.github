@@ -16,7 +16,7 @@ tags:
   - a11y
   - diagrams
   - wave-5
-domain: documentation
+domain: a11y
 status: active
 stability: stable
 ---
