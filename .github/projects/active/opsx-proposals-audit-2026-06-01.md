@@ -22,48 +22,40 @@ Completed: explicit titled child issues now linked as true GitHub sub-issues.
 ## 2) Per-File/Folder Audit and OPSX Direction
 
 ### `next-issues-execution-plan.md`
-
 - Status: active, but had stale states.
 - OPSX action: keep as canonical control file; include this audit and only reference verified issue states.
 
 ### `test-coverage-implementation.md`
-
 - Status: active, large body.
 - OPSX action: moved to `test-coverage-implementation/README.md` with parent/child spec skeletons.
 - Live issue anchors: #602 (open), plus #599/#600/#601 (open).
 
 ### `wave-3c-issue-spec.md`
-
 - Status: should be completed.
 - Verified issue: #514 closed.
 - OPSX action: mark completed and archive next cleanup wave.
 
 ### `plugin-pack-{second,third,next}-wave-task-list-2026-05-28.md`
-
 - Status: frontmatter-only stubs.
 - Issue state: no matching open issues found by title/topic.
 - OPSX action: create parent + children before any execution claims.
 
 ### `launch-agents-checklist.md`
-
 - Status: active and substantial.
 - OPSX action: create parent issue + children for test infra, release gate validation, and rollback readiness.
 - Current linked blocker issues: #642 #643 #644 #706.
 
 ### `issue-670-readme-refresh-tasks.md`
-
 - Status: moved to `issue-670-readme-refresh/README.md`.
 - Verified issue: #670 closed.
 - OPSX action: keep only drift-check follow-up under active docs waves.
 
 ### `ISSUE_35_INSTRUCTION_AUDIT_SUMMARY.md`
-
 - Status: moved to `issue-35-instruction-audit/README.md`.
 - Verified issue: #35 closed.
 - OPSX action: reopen only if new drift found.
 
 ### `context-reduction-tasks.md` (Dangerous)
-
 - Risk: includes destructive deletions (`CLAUDE.md`, instruction/config artifacts) that can break governance and agent routing.
 - Safe OPSX action:
   1. Freeze deletes.
@@ -73,17 +65,14 @@ Completed: explicit titled child issues now linked as true GitHub sub-issues.
   5. Delete only files with zero hard references and approved replacement.
 
 ### `DOCUMENTATION_AUDIT_PROMPT_COMPREHENSIVE.md`
-
 - Status: active and broadly aligned to wave-5 issue set.
 - OPSX action: trim stale “open” references for already closed parents (#649/#650/#652).
 
 ### `AUDIT_PROMPT_README.md`
-
 - Status: useful as quick entrypoint if comprehensive prompt retained.
 - OPSX action: keep, but add pointer to canonical wave-5 index and closure notes.
 
 ### `2025-12-11-wordpress-standards-compliance-comprehensive-review.md`
-
 - Status: stale assumptions.
 - External verification:
   - WordPress 7.0 released May 20, 2026.
@@ -92,17 +81,14 @@ Completed: explicit titled child issues now linked as true GitHub sub-issues.
 - OPSX action: split into modernized spec focused on WP 7.0+ compatibility and agent-skills integration path.
 
 ### `wceu-2026/`
-
 - Status: parent issue doc shows active language, but corresponding main issue #564 is closed.
 - OPSX action: archive stale planning docs or rewrite as retrospective/output index.
 
 ### `wave-5-documentation-audit/`
-
 - Status: mixed; index still says parent issues open.
 - OPSX action: update parent-state truth table (closed: #649 #650 #652, open: #651 #653), keep execution files for open work.
 
 ### `template-enforcement-governance/`
-
 - Status: active and relevant; maps to newly opened #709-#721 chain.
 - OPSX action: continue as current implementation queue; explicitly track #709 manual org-setting dependency.
 
