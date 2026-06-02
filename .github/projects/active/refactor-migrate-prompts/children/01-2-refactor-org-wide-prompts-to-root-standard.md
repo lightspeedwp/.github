@@ -1,13 +1,9 @@
 ---
 file_type: documentation
 title: "[Child 01-2] Refactor Org-Wide Prompts to Root Standard"
-parent: "01-prompt-scope-classification-and-target-architecture"
-type: "type:task"
-area: "area:documentation"
-priority: "priority:important"
-status: complete
-effort: "L"
+description: "Child task artefact for refactoring prompt files to root standard."
 last_updated: "2026-06-01"
+status: active
 ---
 
 ## Objective

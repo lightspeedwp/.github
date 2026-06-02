@@ -1,8 +1,11 @@
 ---
-name: "🛡️ Audit"
-about: "Propose, conduct, or document a security, accessibility, code, or process audit."
-labels: [status:needs-review, priority:important, type:audit, area:documentation]
+file_type: documentation
+title: "[Task] Inventory and classify .github prompt assets with final target mapping"
+description: "OpenSpec strict planning artefact"
+last_updated: "2026-06-01"
+status: draft
 ---
+
 
 # [Task] Inventory and classify .github prompt assets with final target mapping
 

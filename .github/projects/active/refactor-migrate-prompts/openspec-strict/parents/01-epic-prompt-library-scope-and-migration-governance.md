@@ -1,8 +1,11 @@
 ---
-name: "📦 Epic"
-about: "Propose/manage a large, multi-part initiative or project grouping stories/features/tasks"
-labels: [status:needs-planning, priority:important, type:task, area:documentation, area:automation]
+file_type: documentation
+title: "[Epic] Prompt library scope classification and migration governance"
+description: "OpenSpec strict planning artefact"
+last_updated: "2026-06-01"
+status: draft
 ---
+
 
 # [Epic] Prompt library scope classification and migration governance
 

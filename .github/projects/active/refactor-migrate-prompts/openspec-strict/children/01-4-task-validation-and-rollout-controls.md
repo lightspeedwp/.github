@@ -1,8 +1,11 @@
 ---
-name: "🧪 Test Coverage"
-about: "Propose, add, or expand tests (unit, integration, E2E)."
-labels: [status:needs-review, priority:normal, type:task, area:quality, area:documentation]
+file_type: documentation
+title: "[Task] Validate migrated prompt library and define rollout controls"
+description: "OpenSpec strict planning artefact"
+last_updated: "2026-06-01"
+status: draft
 ---
+
 
 # [Task] Validate migrated prompt library and define rollout controls
 

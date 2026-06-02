@@ -22,6 +22,14 @@ on:
           - patch
           - minor
           - major
+      provider:
+        description: "Release publication provider (shell or mcp)."
+        required: false
+        default: "shell"
+        type: choice
+        options:
+          - shell
+          - mcp
       dry_run:
         description: "Run safety mode without creating commits/tags/releases."
         required: false
@@ -40,6 +48,10 @@ on:
       scope:
         required: false
         default: "patch"
+        type: string
+      provider:
+        required: false
+        default: "shell"
         type: string
       dry_run:
         required: false
@@ -128,6 +140,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_SCOPE: ${{ inputs.scope || github.event.inputs.scope || 'patch' }}
+          INPUT_PROVIDER: ${{ inputs.provider || github.event.inputs.provider || 'shell' }}
           INPUT_VERSION: ${{ inputs.version || github.event.inputs.version || '' }}
           INPUT_NOTES_FROM: ${{ inputs.notes_from || github.event.inputs.notes_from || '' }}
           INPUT_DRY_RUN: ${{ inputs.dry_run }}
@@ -136,6 +149,8 @@ jobs:
         if: inputs.dry_run == false
         run: |
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
           echo "✓ Post-release changelog validation passed"
       - name: Build dry-run release notes preview
         if: inputs.dry_run == true

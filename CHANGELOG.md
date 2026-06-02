@@ -28,6 +28,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **v0.5.0 Readiness: Coverage and Reliability Gate Execution (`#746`, `#602`, `#599`, `#600`, `#601`)** — Re-activated planner/reviewer test coverage from skipped state into active Jest suites, added module-system consistency guards, and improved reviewer workflow dry-run support for safe validation:
+  - Added `scripts/agents/__tests__/planner.agent.test.js` and `scripts/agents/__tests__/reviewer.agent.test.js` with expanded fatal-path, dry-run, blocker-detection, and API-failure coverage.
+  - Added `scripts/agents/__tests__/module-system-consistency.test.js` to enforce ESM consistency across planner/reviewer and `package.json` module type.
+  - Removed obsolete skipped test files `.jest-skip/planner.agent.test.js` and `.jest-skip/reviewer.agent.test.js` after active coverage migration.
+  - Updated `.github/workflows/reviewer.yml` to support `workflow_dispatch` and `workflow_call` dry-run inputs via `DRY_RUN` environment pass-through.
+  - Updated planner/reviewer CLI guard logic to remove `import.meta` runtime coupling in test execution paths.
+  - Validation evidence: focused reliability suite `20/20` passing; focused statement coverage `planner.agent.js 82.20%` and `reviewer.agent.js 91.34%`; release gates (`validate:frontmatter`, `validate:workflows`, `validate:agents`, `validate:skill-manifests`, `validate:plugins`, `npm test`) passing.
+
+- **v0.5.0 Readiness: Release Completeness Execution (`#594`, `#592`, `#591`, `#595`, `#593`)** — Completed release safety/governance hardening and removed legacy duplication:
+  - Added `scripts/workflows/release/rollback.cjs` for failed-release recovery (`--version`, `--force`, `--dry-run`).
+  - Strengthened `.github/workflows/release.yml` post-release changelog validation with schema + utility checks.
+  - Enforced explicit version/scope alignment guard in `scripts/agents/release.agent.js` with controlled `RELEASE_FORCE_VERSION=1` bypass.
+  - Removed obsolete `scripts/create-release-pr.cjs` duplicate flow.
+  - Completed `instructions/release.instructions.md` with full phase/gate/rollback governance content.
+
+- **v0.5.0 Readiness: Launch-Gate and Scope Closeout (`#729`, `#730`, `#731`, `#728`, `#614`, `#615`, `#616`, `#627`, `#628`, `#629`, `#632`, `#747`)** — Closed launch child/parent gate issues after blocker completion, then performed release-scope triage for non-blocking enhancement/debt items and closed them as `not planned` for the milestone, followed by final meta-tracker closure.
+
+- **v0.5.0 Readiness: CI gate verification and frontmatter blocker remediation** — Verified CI hard-blocker chain (`#642`, `#643`, `#644`) against live `develop` with passing `npm test`, `npm run validate:agents`, and `npm run validate:workflows`. Resolved release-gate regression in `validate:frontmatter` by fixing invalid frontmatter in 13 active prompt-migration artefacts under `.github/projects/active/refactor-migrate-prompts/`, restoring `npm run validate:frontmatter` to zero errors.
 - **Mermaid Accessibility Compliance (Issue #669)** — Added missing `accTitle` and `accDescr` accessibility attributes to 7 non-compliant Mermaid diagrams across `.github/`, `.vscode/`, and root-level README files. All 24 diagrams now achieve 100% WCAG 2.2 AA compliance. Also improved validation scripts with cross-platform line ending support and enhanced diagram type detection ([#696](https://github.com/lightspeedwp/.github/pull/696))
 - **Wave 5: Label Color Consistency Audit** — Comprehensive audit of all 160 canonical labels in `.github/labels.yml` against documented 8-family colour strategy with findings, recommendations, and migration roadmap:
   - `.github/reports/audits/label-color-consistency-audit-2026-06-01.md` — Executive summary identifying 96 aligned labels (60%), 64 misaligned labels (40%), critical semantic mismatches in 5+ families, and detailed family-by-family analysis with root cause analysis and prioritised Phase 1–3 recommendations

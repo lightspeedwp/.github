@@ -1,8 +1,11 @@
 ---
-name: "📝 Task"
-about: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
-labels: [status:needs-review, priority:normal, type:task, area:documentation, area:automation]
+file_type: documentation
+title: "[Task] Migrate files, update prompt references, and add deprecation paths"
+description: "OpenSpec strict planning artefact"
+last_updated: "2026-06-01"
+status: draft
 ---
+
 
 # [Task] Migrate files, update prompt references, and add deprecation paths
 

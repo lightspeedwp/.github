@@ -21,6 +21,72 @@ stability: stable
 status: active
 ---
 
+## 2026-06-01 v0.5.0 Readiness Execution Update (Block 1)
+
+- `npm test` passed (`56/56` suites, `452/452` tests).
+- `npm run validate:agents` passed.
+- Additional blocker surfaced and fixed during gate verification:
+  - `npm run validate:frontmatter` failed on 13 files in `.github/projects/active/refactor-migrate-prompts/*`.
+  - Remediated invalid frontmatter schema usage (status enum and missing required metadata).
+- Next in strict order: critical release safety bugs `#587`, `#589`, `#590`, `#588`.
+
+## 2026-06-01 v0.5.0 Readiness Execution Update (Block 2)
+
+- Scope executed: `#746` then `#602` with `#599`, `#600`, `#601` (coverage/reliability gate).
+- Implemented test/reactivation work:
+  - Added active planner/reviewer reliability suites:
+    - `scripts/agents/__tests__/planner.agent.test.js`
+    - `scripts/agents/__tests__/reviewer.agent.test.js`
+  - Added module consistency guard:
+    - `scripts/agents/__tests__/module-system-consistency.test.js`
+  - Removed obsolete skipped test files:
+    - `.jest-skip/planner.agent.test.js`
+    - `.jest-skip/reviewer.agent.test.js`
+- Implemented dry-run workflow support for reviewer execution:
+  - `.github/workflows/reviewer.yml` now supports `workflow_dispatch` and `workflow_call` `dry-run` input and passes `DRY_RUN` env.
+- Hardened agent runtime compatibility and testability:
+  - Removed `import.meta`-based CLI entry guards in planner/reviewer agents in favour of script-path checks.
+- Validation evidence:
+  - Focused reliability suite: `20/20` tests passed.
+  - Focused coverage: `planner.agent.js 82.20%`, `reviewer.agent.js 91.34%` statements.
+  - Full readiness gates re-run: `validate:frontmatter`, `validate:workflows`, `validate:agents`, `validate:skill-manifests`, `validate:plugins`, and `npm test` all passing.
+- Next in strict order: release completeness chain `#594`, `#592`, `#591`, `#595`, `#593`.
+
+## 2026-06-01 v0.5.0 Readiness Execution Update (Block 3)
+
+- Scope executed: release completeness chain `#594`, `#592`, `#591`, `#595`, `#593`.
+- Implemented release safety/completeness work:
+  - Added rollback automation utility:
+    - `scripts/workflows/release/rollback.cjs` (`--version`, `--force`, `--dry-run`)
+  - Strengthened release workflow post-release changelog validation:
+    - `.github/workflows/release.yml` now runs `validate-changelog.cjs`, `changelogUtils --validate`, and `changelogUtils --unreleased` after release mutation.
+  - Enforced explicit version/scope alignment in release agent with guarded override path:
+    - `scripts/agents/release.agent.js` (`RELEASE_FORCE_VERSION=1` required for mismatch bypass).
+  - Removed superseded duplicate release PR script:
+    - `scripts/create-release-pr.cjs`
+  - Completed release governance instructions body:
+    - `instructions/release.instructions.md`
+- Issue state updates completed:
+  - Closed: `#594`, `#592`, `#591`, `#595`, `#593`.
+- Next in strict order: launch-gate chain `#729`, `#730`, `#731`, then `#728`.
+
+## 2026-06-01 v0.5.0 Readiness Execution Update (Block 4)
+
+- Scope executed: launch-gate chain `#729`, `#730`, `#731`, then parent `#728`.
+- Closure status:
+  - Closed: `#729`, `#730`, `#731`, `#728`.
+- Evidence basis:
+  - Prior blocker chains (`#746`, `#602`, `#599`, `#600`, `#601`, `#594`, `#592`, `#591`, `#595`, `#593`) closed.
+  - Required validation gates remained passing for release readiness.
+
+## 2026-06-01 v0.5.0 Readiness Execution Update (Block 5)
+
+- Scope evaluation completed for `#614`, `#615`, `#616`, `#627`, `#628`, `#629`, `#632`.
+- Decision:
+  - Closed as `not planned` for this milestone (post-release enhancement/debt scope; not blocking safe `v0.5.0` tagging).
+- Meta tracker closeout:
+  - Closed final tracker `#747` after all ordered chains and scope evaluations were completed.
+
 ## 2026-06-01 Audit Update (Canonical)
 
 - Parent/child issue hierarchy repaired for open titled-child issues:

@@ -71,6 +71,7 @@ describe("release workflow JS scripts", () => {
       env: {
         ...process.env,
         INPUT_SCOPE: "minor",
+        INPUT_PROVIDER: "shell",
         INPUT_VERSION: "1.2.3",
         INPUT_NOTES_FROM: "v1.2.2",
         INPUT_DRY_RUN: "true",
@@ -82,6 +83,7 @@ describe("release workflow JS scripts", () => {
     const args = JSON.parse(fs.readFileSync(captureFile, "utf8"));
     expect(args).toEqual([
       "--scope=minor",
+      "--provider=shell",
       "--version=1.2.3",
       "--notes-from=v1.2.2",
       "--dry-run",
@@ -97,6 +99,18 @@ describe("release workflow JS scripts", () => {
         encoding: "utf8",
       }),
     ).toThrow(/Invalid release scope/);
+
+    expect(() =>
+      execFileSync(process.execPath, [releaseAgentScript], {
+        cwd: repoRoot,
+        env: {
+          ...process.env,
+          INPUT_SCOPE: "patch",
+          INPUT_PROVIDER: "invalid",
+        },
+        encoding: "utf8",
+      }),
+    ).toThrow(/Invalid release provider/);
   });
 
   test("build-notes-preview writes markdown file", () => {

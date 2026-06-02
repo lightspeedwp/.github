@@ -30,10 +30,13 @@ tags: ["release", "process", "automation"]
     - Unreleased section exists and is populated.
 - **Release workflow (`.github/workflows/release.yml`)**
   - Manual `workflow_dispatch` and reusable `workflow_call`.
-  - Typed inputs: `version`, `notes_from`, `scope`, `dry_run`.
+  - Typed inputs: `version`, `notes_from`, `scope`, `provider`, `dry_run`.
   - Hard gate on lint (`linting.yml` reuse).
   - Runs schema + unreleased validation before invoking `release.agent.js`.
-  - Uses `release.agent.js` (ESM) to create release branch, PR → `main`, tag, and GitHub Release with compiled notes.
+  - Uses `release.agent.js` (ESM) to create release branch, PR -> `main`, tag, and GitHub Release with compiled notes.
+  - Provider mode:
+    - `shell` (default): gh/git-backed publication.
+    - `mcp`: GitHub API-backed publication for tag ref, PR, and release.
   - Dry-run mode publishes review artefacts (`release-agent.log`, `release-notes-preview.md`) without creating commits/tags/releases.
   - Trigger telemetry records unauthorised trigger attempts (expected `0`).
 - **Required checks before merging release PR**
@@ -50,7 +53,17 @@ tags: ["release", "process", "automation"]
 ```bash
 node scripts/agents/release.agent.js --scope=patch
 node scripts/agents/release.agent.js --scope=minor --dry-run
+node scripts/agents/release.agent.js --scope=minor --provider=mcp --dry-run
 ```
+
+## MCP provider runtime settings
+
+- `GITHUB_REPOSITORY` or `RELEASE_REPO_OWNER` + `RELEASE_REPO_NAME` must identify the target repository.
+- `GITHUB_TOKEN` is required for MCP provider mutation operations.
+- Retry/backoff tuning for MCP API calls:
+  - `RELEASE_MCP_RETRIES` (default `3`)
+  - `RELEASE_MCP_BACKOFF_MS` (default `250`)
+  - `RELEASE_MCP_BACKOFF_FACTOR` (default `2`)
 
 ## Pre-release checklist (run on develop)
 
@@ -110,5 +123,12 @@ If a release is started but must be rolled back:
    - `gh release delete vX.Y.Z --yes`
 4. Restore `VERSION` and `CHANGELOG.md` to the last known good commit on `develop`.
 5. Re-run the workflow in `dry_run` mode first to validate fixes before re-attempting a live release.
+
+Rollback utility supports provider-aware cleanup:
+
+```bash
+node scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=shell
+node scripts/workflows/release/rollback.cjs --version=X.Y.Z --provider=mcp --dry-run
+```
 
 ---

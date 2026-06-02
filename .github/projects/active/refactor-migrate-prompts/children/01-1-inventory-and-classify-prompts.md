@@ -1,13 +1,9 @@
 ---
 file_type: documentation
 title: "[Child 01-1] Inventory and Classify Prompt Assets"
-parent: "01-prompt-scope-classification-and-target-architecture"
-type: "type:audit"
-area: "area:documentation"
-priority: "priority:important"
-status: draft
-effort: "M"
+description: "Child task artefact for prompt inventory and classification."
 last_updated: "2026-06-01"
+status: draft
 ---
 
 ## Objective

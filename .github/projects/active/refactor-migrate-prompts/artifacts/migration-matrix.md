@@ -4,7 +4,7 @@ title: "Prompt Migration Matrix (.github/prompts -> prompts/)"
 description: "Final approved classification of prompt assets with explicit target paths and rename mapping"
 version: "1.0.0"
 last_updated: "2026-06-01"
-status: approved
+status: active
 ---
 
 # Prompt Migration Matrix

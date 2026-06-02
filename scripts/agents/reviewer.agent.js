@@ -21,7 +21,6 @@
 
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import { pathToFileURL } from "url";
 import { Logger } from "../utils/logger.js";
 
 const logger = new Logger(process.env.LOG_LEVEL || "info");
@@ -294,10 +293,7 @@ ${blockers.length ? blockers.map((b) => `- ${b}`).join("\n") : "- Ready to proce
   }
 }
 
-if (
-  process.argv[1] &&
-  import.meta.url === pathToFileURL(process.argv[1]).href
-) {
+if (process.argv[1] && /reviewer\.agent\.js$/.test(process.argv[1])) {
   run();
 }
 

@@ -1,13 +1,9 @@
 ---
 file_type: documentation
 title: "[Child 01-4] Validation and Rollout Controls"
-parent: "01-prompt-scope-classification-and-target-architecture"
-type: "type:task"
-area: "area:quality"
-priority: "priority:normal"
-status: complete
-effort: "M"
+description: "Child task artefact for validation and rollout controls."
 last_updated: "2026-06-01"
+status: active
 ---
 
 ## Objective

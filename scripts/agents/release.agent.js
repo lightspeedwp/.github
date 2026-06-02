@@ -41,6 +41,7 @@ const { parseChangelog, validateChangelog, hasUnreleasedChanges } = require(
   changelogUtilsPath,
 );
 const { validateVersion, parseVersion } = require(validateVersionPath);
+const VALID_PROVIDERS = new Set(["shell", "mcp"]);
 
 /**
  * Execute shell command
@@ -63,6 +64,130 @@ function exec(cmd, dryRun = false, allowError = false) {
     }
     throw new Error(`Command failed: ${cmd}\n${error.message}`);
   }
+}
+
+/**
+ * Resolve repository owner/name from environment.
+ * @returns {{owner: string, repo: string}}
+ */
+function getRepositoryContext() {
+  const fromPair = process.env.GITHUB_REPOSITORY || "";
+  if (fromPair.includes("/")) {
+    const [owner, repo] = fromPair.split("/");
+    if (owner && repo) {
+      return { owner, repo };
+    }
+  }
+
+  const owner = process.env.RELEASE_REPO_OWNER || "";
+  const repo = process.env.RELEASE_REPO_NAME || "";
+  if (owner && repo) {
+    return { owner, repo };
+  }
+
+  throw new Error(
+    "Repository context missing. Set GITHUB_REPOSITORY or RELEASE_REPO_OWNER and RELEASE_REPO_NAME.",
+  );
+}
+
+/**
+ * Execute a GitHub API request for release provider operations.
+ * @param {string} endpoint - API endpoint beginning with '/'
+ * @param {Object} options - Request options
+ * @returns {Promise<any>} Parsed response body
+ */
+async function githubApiRequest(endpoint, options = {}) {
+  const {
+    method = "GET",
+    body,
+    allowNotFound = false,
+    token = process.env.GITHUB_TOKEN,
+    retries = Number.parseInt(process.env.RELEASE_MCP_RETRIES || "3", 10),
+    initialBackoffMs = Number.parseInt(
+      process.env.RELEASE_MCP_BACKOFF_MS || "250",
+      10,
+    ),
+    backoffFactor = Number.parseFloat(
+      process.env.RELEASE_MCP_BACKOFF_FACTOR || "2",
+    ),
+  } = options;
+
+  if (!token) {
+    throw new Error(
+      "GITHUB_TOKEN is required for MCP release provider operations.",
+    );
+  }
+
+  const url = `https://api.github.com${endpoint}`;
+  const fetchFn = globalThis.fetch;
+  if (typeof fetchFn !== "function") {
+    throw new Error(
+      "Fetch API is unavailable in this runtime. Use Node.js 18+ for MCP release provider operations.",
+    );
+  }
+
+  let attempt = 0;
+  let delayMs = Number.isNaN(initialBackoffMs) ? 250 : initialBackoffMs;
+  const maxRetries = Number.isNaN(retries) ? 3 : Math.max(retries, 0);
+  const growth = Number.isNaN(backoffFactor) ? 2 : Math.max(backoffFactor, 1);
+
+  while (attempt <= maxRetries) {
+    let response;
+    try {
+      response = await fetchFn(url, {
+        method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+          "Content-Type": "application/json",
+        },
+        body: body ? JSON.stringify(body) : undefined,
+      });
+    } catch (error) {
+      if (attempt >= maxRetries) {
+        throw new Error(
+          `GitHub API ${method} ${endpoint} request failed after ${attempt + 1} attempt(s): ${error.message}`,
+        );
+      }
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, delayMs);
+      });
+      delayMs = Math.max(Math.ceil(delayMs * growth), delayMs);
+      attempt += 1;
+      continue;
+    }
+
+    if (allowNotFound && response.status === 404) {
+      return null;
+    }
+
+    const text = await response.text();
+    const parsed = text ? JSON.parse(text) : null;
+
+    if (response.ok) {
+      return parsed;
+    }
+
+    const shouldRetry = response.status === 429 || response.status >= 500;
+    const details = parsed?.message || text || response.statusText;
+    if (!shouldRetry || attempt >= maxRetries) {
+      throw new Error(
+        `GitHub API ${method} ${endpoint} failed (${response.status}): ${details}`,
+      );
+    }
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, delayMs);
+    });
+    delayMs = Math.max(Math.ceil(delayMs * growth), delayMs);
+    attempt += 1;
+  }
+
+  throw new Error(
+    `GitHub API ${method} ${endpoint} failed unexpectedly after retries.`,
+  );
 }
 
 /**
@@ -711,6 +836,192 @@ function createReleasePR(version, branch, options = {}) {
 }
 
 /**
+ * Create shell-backed release provider.
+ * @returns {{name: string, preflight: Function, createTag: Function, pushChanges: Function, createReleasePR: Function, createRelease: Function}}
+ */
+function createShellReleaseProvider() {
+  return {
+    name: "shell",
+    async preflight(version, options = {}) {
+      const { dryRun = false } = options;
+      const tagName = `v${version}`;
+      const remoteTag = exec(
+        `git ls-remote --tags origin refs/tags/${tagName}`,
+        dryRun,
+        true,
+      );
+
+      if (!dryRun && remoteTag && remoteTag.trim().length > 0) {
+        throw new Error(`Remote tag ${tagName} already exists.`);
+      }
+
+      if (dryRun) {
+        console.log(
+          `[DRY-RUN] [SHELL] Preflight check completed for ${tagName}`,
+        );
+      } else {
+        console.log(`✓ [SHELL] Preflight passed for ${tagName}`);
+      }
+    },
+    createTag,
+    pushChanges,
+    createReleasePR,
+    createRelease,
+  };
+}
+
+/**
+ * Create MCP-backed release provider using GitHub API operations.
+ * @returns {{name: string, preflight: Function, createTag: Function, pushChanges: Function, createReleasePR: Function, createRelease: Function}}
+ */
+function createMcpReleaseProvider() {
+  const getTagRefEndpoint = (owner, repo, tagName) =>
+    `/repos/${owner}/${repo}/git/ref/tags/${tagName}`;
+  const getReleaseByTagEndpoint = (owner, repo, tagName) =>
+    `/repos/${owner}/${repo}/releases/tags/${tagName}`;
+  const createTagRefEndpoint = (owner, repo) =>
+    `/repos/${owner}/${repo}/git/refs`;
+  const createPrEndpoint = (owner, repo) => `/repos/${owner}/${repo}/pulls`;
+  const createReleaseEndpoint = (owner, repo) =>
+    `/repos/${owner}/${repo}/releases`;
+
+  return {
+    name: "mcp",
+    async preflight(version, options = {}) {
+      const { dryRun = false } = options;
+      const { owner, repo } = getRepositoryContext();
+      const tagName = `v${version}`;
+
+      const existingTag = await githubApiRequest(
+        getTagRefEndpoint(owner, repo, tagName),
+        {
+          allowNotFound: true,
+        },
+      );
+      if (existingTag) {
+        throw new Error(
+          `Remote tag ${tagName} already exists in ${owner}/${repo}.`,
+        );
+      }
+
+      const existingRelease = await githubApiRequest(
+        getReleaseByTagEndpoint(owner, repo, tagName),
+        {
+          allowNotFound: true,
+        },
+      );
+      if (existingRelease) {
+        throw new Error(
+          `GitHub release ${tagName} already exists in ${owner}/${repo}.`,
+        );
+      }
+
+      if (dryRun) {
+        console.log(`[DRY-RUN] [MCP] Preflight passed for ${tagName}`);
+      } else {
+        console.log(`✓ [MCP] Preflight passed for ${tagName}`);
+      }
+    },
+    async createTag(version, options = {}) {
+      const { dryRun = false } = options;
+      const { owner, repo } = getRepositoryContext();
+      const tagName = `v${version}`;
+      if (dryRun) {
+        console.log(`[DRY-RUN] [MCP] Would create tag ref ${tagName}`);
+        return;
+      }
+
+      const sha = exec("git rev-parse HEAD").trim();
+      await githubApiRequest(createTagRefEndpoint(owner, repo), {
+        method: "POST",
+        body: {
+          ref: `refs/tags/${tagName}`,
+          sha,
+        },
+      });
+      console.log(`✓ [MCP] Tag ${tagName} created`);
+    },
+    pushChanges(options = {}) {
+      const { dryRun = false, branch = "develop" } = options;
+      console.log("\n=== Pushing Changes ===");
+      exec(`git push -u origin ${branch}`, dryRun);
+      console.log("✓ Changes pushed");
+    },
+    async createReleasePR(version, branch, options = {}) {
+      const { dryRun = false } = options;
+      const { owner, repo } = getRepositoryContext();
+      const title = `chore(release): v${version}`;
+      const body =
+        "Automated release PR generated by release.agent.js via MCP provider. Includes version bump, changelog update, and tag creation.";
+
+      if (dryRun) {
+        console.log(
+          `[DRY-RUN] [MCP] Would create release PR from ${branch} to main for v${version}`,
+        );
+        return;
+      }
+
+      await githubApiRequest(createPrEndpoint(owner, repo), {
+        method: "POST",
+        body: {
+          title,
+          head: branch,
+          base: "main",
+          body,
+        },
+      });
+      console.log("✓ [MCP] Release PR created");
+    },
+    async createRelease(version, options = {}) {
+      const { dryRun = false } = options;
+      const { owner, repo } = getRepositoryContext();
+      const releaseNotes = formatReleaseNotes({
+        version,
+        changelogPath: options.changelogPath,
+        notesFrom: options.notesFrom,
+      });
+
+      if (dryRun) {
+        console.log(`[DRY-RUN] [MCP] Would publish release v${version}`);
+        return;
+      }
+
+      await githubApiRequest(createReleaseEndpoint(owner, repo), {
+        method: "POST",
+        body: {
+          tag_name: `v${version}`,
+          target_commitish: "main",
+          name: `Release v${version}`,
+          body: releaseNotes,
+          draft: false,
+          prerelease: false,
+        },
+      });
+      console.log(`✓ [MCP] GitHub Release v${version} created`);
+    },
+  };
+}
+
+/**
+ * Resolve release provider from runtime config.
+ * @param {string} providerName - Provider identifier
+ * @returns {{name: string, preflight: Function, createTag: Function, pushChanges: Function, createReleasePR: Function, createRelease: Function}}
+ */
+function getReleaseProvider(providerName = "shell") {
+  if (!VALID_PROVIDERS.has(providerName)) {
+    throw new Error(
+      `Invalid release provider "${providerName}". Use one of: ${Array.from(VALID_PROVIDERS).join(", ")}.`,
+    );
+  }
+
+  if (providerName === "mcp") {
+    return createMcpReleaseProvider();
+  }
+
+  return createShellReleaseProvider();
+}
+
+/**
  * Main release orchestrator
  */
 async function run() {
@@ -722,9 +1033,18 @@ async function run() {
     const scopeArg = args.find((arg) => arg.startsWith("--scope="));
     const versionArg = args.find((arg) => arg.startsWith("--version="));
     const notesFromArg = args.find((arg) => arg.startsWith("--notes-from="));
+    const providerArg = args.find((arg) => arg.startsWith("--provider="));
     const scope = scopeArg ? scopeArg.split("=")[1] : "patch";
     const explicitVersion = versionArg ? versionArg.split("=")[1] : "";
     const notesFrom = notesFromArg ? notesFromArg.split("=")[1] : "";
+    const providerName =
+      (providerArg
+        ? providerArg.split("=")[1]
+        : process.env.RELEASE_PROVIDER || "shell"
+      )
+        .toLowerCase()
+        .trim() || "shell";
+    const provider = getReleaseProvider(providerName);
 
     console.log("╔════════════════════════════════════════╗");
     console.log("║     LightSpeed Release Agent           ║");
@@ -732,6 +1052,7 @@ async function run() {
     console.log("");
     console.log(`Mode: ${dryRun ? "DRY-RUN" : "LIVE"}`);
     console.log(`Scope: ${scope}`);
+    console.log(`Provider: ${provider.name}`);
     if (explicitVersion) {
       console.log(`Target Version: ${explicitVersion}`);
     }
@@ -759,7 +1080,8 @@ async function run() {
 
     // Step 2: Determine next version
     const currentVersion = fs.readFileSync("VERSION", "utf8").trim();
-    let nextVersion = determineNextVersion(currentVersion, scope);
+    const expectedVersion = determineNextVersion(currentVersion, scope);
+    let nextVersion = expectedVersion;
     if (explicitVersion) {
       const versionResult = validateVersion(explicitVersion);
       if (!versionResult.valid) {
@@ -772,6 +1094,19 @@ async function run() {
           `Explicit version ${explicitVersion} must be greater than current version ${currentVersion}`,
         );
       }
+
+      if (explicitVersion !== expectedVersion) {
+        const forced = process.env.RELEASE_FORCE_VERSION === "1";
+        if (!forced) {
+          throw new Error(
+            `Explicit version ${explicitVersion} does not match scope ${scope} (expected ${expectedVersion}). Set RELEASE_FORCE_VERSION=1 to override.`,
+          );
+        }
+        console.warn(
+          `⚠️  Forced version override enabled: ${expectedVersion} → ${explicitVersion}`,
+        );
+      }
+
       nextVersion = explicitVersion;
     }
     const releaseBranch = `release/v${nextVersion}`;
@@ -779,7 +1114,10 @@ async function run() {
     console.log(`\nVersion bump: ${currentVersion} → ${nextVersion}`);
     // TODO (b): Strengthen the version bump + validation steps to lock changelog sections, dependencies, and metadata before mutating files.
 
-    // Step 2b: Create release branch
+    // Step 2b: Preflight remote collision checks
+    await provider.preflight(nextVersion, { dryRun });
+
+    // Step 2c: Create release branch
     if (!dryRun) {
       exec(`git checkout -b ${releaseBranch}`);
     } else {
@@ -829,16 +1167,16 @@ async function run() {
     }
 
     // Step 6: Create tag
-    createTag(nextVersion, { dryRun });
+    provider.createTag(nextVersion, { dryRun });
 
     // Step 7: Push changes
-    pushChanges({ dryRun, branch: releaseBranch });
+    provider.pushChanges({ dryRun, branch: releaseBranch });
 
     // Step 7b: Open release PR (develop -> main via release branch)
-    createReleasePR(nextVersion, releaseBranch, { dryRun });
+    provider.createReleasePR(nextVersion, releaseBranch, { dryRun });
 
     // Step 8: Create GitHub Release
-    createRelease(nextVersion, { dryRun, notesFrom });
+    provider.createRelease(nextVersion, { dryRun, notesFrom });
 
     console.log("\n");
     console.log("╔════════════════════════════════════════╗");
@@ -852,6 +1190,15 @@ async function run() {
     }
   } catch (error) {
     console.error("\n❌ Release failed:", error.message);
+    if (/release\//.test(error.message) || /version/i.test(error.message)) {
+      const failedVersion =
+        process.argv
+          .find((arg) => arg.startsWith("--version="))
+          ?.split("=")[1] || "<target-version>";
+      console.error(
+        `Recovery hint: node scripts/workflows/release/rollback.cjs --version=${failedVersion}`,
+      );
+    }
     if (error.stack) {
       console.error(error.stack);
     }
@@ -876,4 +1223,8 @@ export {
   determineNextVersion,
   formatReleaseNotes,
   createReleasePR,
+  createShellReleaseProvider,
+  createMcpReleaseProvider,
+  getReleaseProvider,
+  githubApiRequest,
 };

@@ -9,15 +9,11 @@
  */
 
 import path from "path";
-import { fileURLToPath, pathToFileURL } from "url";
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import { Logger } from "../utils/logger.js";
 
 const logger = new Logger(process.env.LOG_LEVEL || "info");
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 function log(message) {
   const timestamp = new Date().toISOString();
@@ -409,7 +405,7 @@ async function runPlanner(options = {}) {
     }
 
     const eventName = process.env.GITHUB_EVENT_NAME || "local";
-    const repoRoot = path.resolve(__dirname, "..", "..");
+    const repoRoot = path.resolve(process.cwd());
 
     log(`Starting planner agent (${dryRun ? "dry-run" : "apply"})`);
     log(`Context: event=${eventName}, repoRoot=${repoRoot}`);
@@ -427,10 +423,7 @@ async function runPlanner(options = {}) {
 
 export { run, runPlanner };
 
-if (
-  process.argv[1] &&
-  import.meta.url === pathToFileURL(process.argv[1]).href
-) {
+if (process.argv[1] && /planner\.agent\.js$/.test(process.argv[1])) {
   const dryRun = !process.argv.includes("--apply");
   run(github.context, { dryRun }).catch((error) => {
     console.error("[planner] fatal error", error);
