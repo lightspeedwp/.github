@@ -26,7 +26,6 @@ For each `/opsx:propose` execution, append one entry using the template below.
 ## Entries
 
 ### 2026-06-01 19:10 Europe/Berlin - setup
-
 - command: `n/a`
 - expected-template: `n/a`
 - result: `success`
@@ -35,7 +34,6 @@ For each `/opsx:propose` execution, append one entry using the template below.
 - notes: `Run log initialized. Ready for /opsx:propose execution.`
 
 ### 2026-06-01 19:22 Europe/Berlin - EPIC-01
-
 - command: `/opsx:propose .github/projects/active/refactor-migrate-prompts/openspec-strict/parents/01-epic-prompt-library-scope-and-migration-governance.md`
 - expected-template: `.github/ISSUE_TEMPLATE/05-epic.md`
 - result: `success`
@@ -44,7 +42,6 @@ For each `/opsx:propose` execution, append one entry using the template below.
 - notes: `Issue created and parent child section added.`
 
 ### 2026-06-01 19:23 Europe/Berlin - CHILD-01-1
-
 - command: `/opsx:propose .github/projects/active/refactor-migrate-prompts/openspec-strict/children/01-1-task-inventory-and-classify-prompts.md`
 - expected-template: `.github/ISSUE_TEMPLATE/22-audit.md`
 - result: `success`
@@ -53,7 +50,6 @@ For each `/opsx:propose` execution, append one entry using the template below.
 - notes: `Parent backlink added.`
 
 ### 2026-06-01 19:23 Europe/Berlin - CHILD-01-2
-
 - command: `/opsx:propose .github/projects/active/refactor-migrate-prompts/openspec-strict/children/01-2-task-refactor-org-wide-prompts-to-root-standard.md`
 - expected-template: `.github/ISSUE_TEMPLATE/20-documentation.md`
 - result: `success`
@@ -62,7 +58,6 @@ For each `/opsx:propose` execution, append one entry using the template below.
 - notes: `Parent backlink added.`
 
 ### 2026-06-01 19:24 Europe/Berlin - CHILD-01-3
-
 - command: `/opsx:propose .github/projects/active/refactor-migrate-prompts/openspec-strict/children/01-3-task-migrate-files-update-references-and-deprecations.md`
 - expected-template: `.github/ISSUE_TEMPLATE/01-task.md`
 - result: `success`
@@ -71,7 +66,6 @@ For each `/opsx:propose` execution, append one entry using the template below.
 - notes: `Parent backlink added.`
 
 ### 2026-06-01 19:27 Europe/Berlin - CHILD-01-4
-
 - command: `/opsx:propose .github/projects/active/refactor-migrate-prompts/openspec-strict/children/01-4-task-validation-and-rollout-controls.md`
 - expected-template: `.github/ISSUE_TEMPLATE/12-testing-coverage.md`
 - result: `partial`
@@ -80,7 +74,6 @@ For each `/opsx:propose` execution, append one entry using the template below.
 - notes: `Original label area:quality does not exist in repository; normalized to area:testing. Parent backlink added.`
 
 ### 2026-06-01 19:41 Europe/Berlin - label taxonomy sync
-
 - command: `manual label sync + issue label correction`
 - expected-template: `n/a`
 - result: `success`

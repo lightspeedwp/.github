@@ -17,11 +17,9 @@ related_issues:
   - "#669"
 ---
 related_issues:
-
-- "#668"
-- "#669"
-- "#667"
-
+  - "#668"
+  - "#669"
+  - "#667"
 ---
 
 # Issue #670: Update & Refresh README Files
