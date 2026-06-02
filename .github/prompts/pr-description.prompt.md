@@ -5,6 +5,7 @@
 - Action: Use successor prompt(s): `.github/prompts/generate-pr-description.prompt.md`.
 - Effective date: 2026-06-01.
 - Migration reference: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.
+
 # Prompt: PR Description (WP/Woo)
 
 Draft a concise PR description including:
