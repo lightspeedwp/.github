@@ -40,7 +40,8 @@ module.exports = {
         '<rootDir>/scripts/agents/includes/sync-version.js',
     ],
     moduleNameMapper: {
-        '^(\.{1,2}/.*)\.js$': '$1',
+        // Only strip the explicit ".js" extension from relative ESM imports.
+        '^(\\.{1,2}/.*)\\.js$': '$1',
     },
     moduleFileExtensions: ['js', 'ts', 'jsx', 'tsx', 'json'],
     coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
