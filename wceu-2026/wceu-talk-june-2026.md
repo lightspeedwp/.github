@@ -1,7 +1,9 @@
-# WordCamp 
+# WordCamp
+
 Here is the detailed content and speaker notes for **Batch 1: Hook & The Problem (Slides 1–6)**, strictly adhering to your dark-mode design system, typography minimums, accessibility guidelines, and final speaker notes structure.
 
 --------
+
 ## Design & Accessibility
 
 ### 🖼️ Design System Baseline (Apply to all slides)
@@ -22,11 +24,11 @@ To ensure your slides pass the WCAG AA accessibility audit, follow the WCEU 2026
 
 Use the pre-approved dark-mode colour palette against the dark charcoal background (#1a1a1a). These colours already pass the WCAG AA minimum contrast ratio of 4.5:1:
 
-- Off-white (#f5f5f5) for primary text
-- Electric blue (#00d4ff) for emphasis
-- Bright green (#00ff88) for highlights
-- Teal (#00bfa5) for callouts
-- Gold (#ffb700) for footers
+* Off-white (#f5f5f5) for primary text
+* Electric blue (#00d4ff) for emphasis
+* Bright green (#00ff88) for highlights
+* Teal (#00bfa5) for callouts
+* Gold (#ffb700) for footers
 
 If you use any custom colours, verify them with the WebAIM Contrast Checker.
 
@@ -34,10 +36,10 @@ If you use any custom colours, verify them with the WebAIM Contrast Checker.
 
 Do not use any text smaller than 16pt, including fine print. Apply these minimum sizes:
 
-- Titles: 44pt or larger
-- Body text: 28-32pt or larger
-- Captions: 20-24pt or larger
-- Footers: 16-18pt or larger
+* Titles: 44pt or larger
+* Body text: 28-32pt or larger
+* Captions: 20-24pt or larger
+* Footers: 16-18pt or larger
 
 Verify sizing with the Squint Test: stand 10-15 feet away from the screen, squint, and ensure all text remains readable.
 
@@ -53,10 +55,11 @@ Prevent visual crowding by using a maximum of 5 bullets per slide.
 
 Ensure your text uses 1.5x line height and consistent margins:
 
-- Top and bottom: 1 inch
-- Left and right: 1.25 inches
+* Top and bottom: 1 inch
+* Left and right: 1.25 inches
 
 --------
+
 ## Slide Deck Outline
 
 ### Slide 1: Title Slide (Hook)
