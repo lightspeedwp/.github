@@ -1,8 +1,7 @@
 ---
 title: "NotebookLM Source Ingestion Checklist"
 description: "Checklist to ensure NotebookLM only ingests approved repository sources for this talk."
-last_updated: "2026-05-28"
-owners: ["Ash Shaw"]
+last_updated: "2026-06-02"owners: ["Ash Shaw"]
 ---
 
 # NotebookLM Source Ingestion Checklist

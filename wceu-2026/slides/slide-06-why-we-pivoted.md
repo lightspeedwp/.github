@@ -1,8 +1,7 @@
 ---
 title: "Slide 06 - Why We Pivoted"
 description: "Explain why centralisation alone was insufficient and why a plugin model emerged."
-last_updated: "2026-05-28"
-owners: ["Ash Shaw"]
+last_updated: "2026-06-02"owners: ["Ash Shaw"]
 ---
 
 # Slide 06 - Why We Pivoted

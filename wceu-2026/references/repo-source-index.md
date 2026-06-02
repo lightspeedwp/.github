@@ -1,8 +1,7 @@
 ---
 title: "Repo Source Index"
 description: "Curated source index for talk claims. Only references files inside lightspeedwp/.github."
-last_updated: "2026-05-28"
-owners: ["Ash Shaw"]
+last_updated: "2026-06-02"owners: ["Ash Shaw"]
 ---
 
 # Repo Source Index

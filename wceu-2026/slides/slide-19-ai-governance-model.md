@@ -1,8 +1,7 @@
 ---
 title: "Slide 19 - AI Governance Model"
 description: "Explain policy, instruction hierarchy, and guardrails for AI-assisted delivery."
-last_updated: "2026-05-28"
-owners: ["Ash Shaw"]
+last_updated: "2026-06-02"owners: ["Ash Shaw"]
 ---
 
 # Slide 19 - AI Governance Model
