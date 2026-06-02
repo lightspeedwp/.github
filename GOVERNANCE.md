@@ -193,7 +193,7 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 - [Contribution Guidelines](./CONTRIBUTING.md)
 - [Branching Strategy](./docs/BRANCHING_STRATEGY.md)
 - [Automation Governance](./docs/AUTOMATION_GOVERNANCE.md)
-- [Issue & PR Labels](./docs/ISSUE_LABELS.md), [../PR_LABELS.md](./docs/PR_LABELS.md), [../labels.yml](./.github/labels.yml), [../labeler.yml](./.githublabeler.yml)
+- [Issue & PR Labels](./docs/ISSUE_LABELS.md), [PR_LABELS.md](./docs/PR_LABELS.md), [labels.yml](./.github/labels.yml), [labeler.yml](./.github/labeler.yml)
 - [Issue Types YAML](./.github/issue-types.yml)
 - [Pull Request Template](./.github/PULL_REQUEST_TEMPLATE.md)
 - [CHANGELOG](./CHANGELOG.md)

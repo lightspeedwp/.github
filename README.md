@@ -529,7 +529,7 @@ flowchart LR
 
 GitHub supports [organization-wide community health files](https://github.blog/changelog/2019-02-21-organization-wide-community-health-files/) in a specially named `.github` repository to serve as organization-wide defaults for all repositories within their organization. Where sensible, custom community health files should be created for our repos, but that's not always necessary or practical.
 
-The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TEMPLATES`, and `PULL_REQUEST_TEMPLATE.md` files for LightSpeed repositories that do not have custom ones themselves. Note that these default files won’t appear in the file browser or Git history for each repository, but they will be surfaced throughout developers’ workflows, such as when opening a new issue or when viewing the Community Profile, just as if it were committed to the repository directly.
+The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TEMPLATE`, and `PULL_REQUEST_TEMPLATE.md` files for LightSpeed repositories that do not have custom ones themselves. Note that these default files won’t appear in the file browser or Git history for each repository, but they will be surfaced throughout developers’ workflows, such as when opening a new issue or when viewing the Community Profile, just as if it were committed to the repository directly.
 
 ## Purpose & Role
 
@@ -553,8 +553,8 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 
 - [labels.yml](./.github/labels.yml) – **Canonical label definitions** for all issues and PRs.
 - [labeler.yml](./.github/labeler.yml) – Automated file/branch-based label application.
-- [ISSUE_LABELS.md](./.docs/ISSUE_LABELS.md) – Issue label documentation.
-- [PR_LABELS.md](./.docs/PR_LABELS.md) – PR label documentation.
+- [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md) – Issue label documentation.
+- [PR_LABELS.md](./docs/PR_LABELS.md) – PR label documentation.
 
 ### Issue Types & Templates
 
@@ -562,11 +562,11 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 - [ISSUE_TYPES.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/ISSUE_TYPES.md) – Issue type documentation.
 - [Saved replies for issues](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/README.md)
 - [Bug report saved reply](https://github.com/lightspeedwp/.github/blob/HEAD/.github/SAVED_REPLIES/bug-reports.md)
-- [Issue templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/ISSUE_TEMPLATES)
+- [Issue templates directory](https://github.com/lightspeedwp/.github/tree/HEAD/.github/ISSUE_TEMPLATE)
 
 ### Pull Request Templates
 
-- [PR templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATES)
+- [PR templates directory](https://github.com/lightspeedwp/.github/tree/HEAD/.github/PULL_REQUEST_TEMPLATE)
 - [PR_LABELS.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/PR_LABELS.md)
 - [Pull Request Template (main)](./.github/PULL_REQUEST_TEMPLATE.md)
 
@@ -600,7 +600,7 @@ This repository will include and orchestrate org-wide agents for managing issue 
 
 - **Agents:** Configurations, prompts, and agent instructions live here.
 - **Integration:** All project boards and workflows reference canonical files here for automated syncing and status tracking.
-- **Governance:** [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/.github/AUTOMATION_GOVERNANCE.md) details how agents and workflows are managed, updated, and rolled out org-wide.
+- **Governance:** [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) details how agents and workflows are managed, updated, and rolled out org-wide.
 
 ---
 

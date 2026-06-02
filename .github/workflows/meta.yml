@@ -7,13 +7,17 @@ on:
     branches: [develop]
     paths:
       - "**/*.md"
-      - ".github/automation/**"
+      - ".github/labels.yml"
+      - ".github/labeler.yml"
+      - ".github/issue-types.yml"
       - ".github/agents/**"
   push:
     branches: [develop]
     paths:
       - "**/*.md"
-      - ".github/automation/**"
+      - ".github/labels.yml"
+      - ".github/labeler.yml"
+      - ".github/issue-types.yml"
       - ".github/agents/**"
   schedule:
     - cron: "0 3 * * 1" # weekly metrics roll-up (Mon 03:00 UTC)
