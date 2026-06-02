@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Normalised changelog section naming to use supported Keep a Changelog headings for validation compatibility.
+
 ## [0.3.0] - 2025-12-18
 
 ### Changed
