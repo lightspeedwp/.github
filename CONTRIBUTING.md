@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Contributing Guidelines"
 description: "Comprehensive contribution guidelines for LightSpeed community health repository including setup, standards, and workflow"
-version: "1.3"
-last_updated: "2026-05-28"
+version: '1.4'
+last_updated: '2026-06-01'
 owners: ["LightSpeed Team"]
 tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
 ---
@@ -13,7 +13,7 @@ tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
 ## 🚀 Quick Start (TL;DR)
 
 1. **Fork & Clone:** Fork this repo and clone it locally.
-2. **Install dependencies:** `npm ci` (runs `prepare` and installs Husky hooks)
+2. **Install dependencies:** `npm ci`
 3. **Create a branch:** Use the correct prefix (e.g. `feat/`, `fix/`, `docs/`).
 4. **Write code & tests:** Follow [Coding Standards](instructions/coding-standards.instructions.md) and add/expand tests.
 5. **Lint & test:** Run `npm run lint:all` and `npm test` before committing. On

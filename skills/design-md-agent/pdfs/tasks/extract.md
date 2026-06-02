@@ -133,17 +133,3 @@ python /home/oai/skills/pdfs/scripts/pdf_extract.py annotations input.pdf --out 
 ```
 
 ---
-
-## Forms
-
-List fields:
-
-```bash
-python /home/oai/skills/pdfs/scripts/pdf_extract.py forms input.pdf
-python /home/oai/skills/pdfs/scripts/pdf_extract.py forms input.pdf --include_widgets --out /mnt/data/fields.json
-```
-
-Fill fields:
-
-- robust fill + flatten: `tasks/forms_annotations.md` (pdf-lib)
-- debugging/introspection: `tasks/forms_debugging.md`

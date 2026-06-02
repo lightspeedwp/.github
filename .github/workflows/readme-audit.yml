@@ -54,15 +54,8 @@ jobs:
 
       - name: Generate audit report
         if: always()
-        run: |
-          echo "## README & Mermaid Audit Report" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Scope**: ${{ inputs.scope }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Format**: ${{ inputs.output_format }}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -f .github/reports/mermaid-audit/summary.md ]; then
-            cat .github/reports/mermaid-audit/summary.md >> $GITHUB_STEP_SUMMARY
-          fi
+        run: >-
+          node -e "const fs=require('fs');const sum=process.env.GITHUB_STEP_SUMMARY;const scope='${{ inputs.scope }}';const format='${{ inputs.output_format }}';let out='## README & Mermaid Audit Report\\n\\n';out+='**Scope**: '+scope+'\\n';out+='**Format**: '+format+'\\n\\n';const p='.github/reports/mermaid-audit/summary.md';if(fs.existsSync(p)){out+=fs.readFileSync(p,'utf8');}fs.appendFileSync(sum,out);"
 
       - name: Upload audit artifacts
         if: always()

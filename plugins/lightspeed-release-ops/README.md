@@ -1,29 +1,23 @@
 ---
-title: "lightspeed-release-ops"
-description: "Installable plugin pack for release automation and handoff governance."
-version: "v0.1.0"
-last_updated: "2026-05-28"
-owners: ["LightSpeedWP Team"]
+file_type: 'documentation'
+title: 'lightspeed-release-ops'
+description: 'Installable plugin pack for release automation and handoff governance.'
+version: 'v0.1.0'
+created_date: '2026-05-28'
+last_updated: '2026-05-28'
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
+owners:
+  - LightSpeedWP Team
 ---
 
-# lightspeed-release-ops
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
-Portable plugin pack for release readiness checks, changelog validation, and handoff workflows.
-
-## Includes
-
-- `agents/release-ops-orchestrator.agent.md`
-- `skills/lightspeed-release-readiness/SKILL.md`
-- `skills/lightspeed-changelog-compliance/SKILL.md`
-- `skills/lightspeed-release-notes-generator/SKILL.md`
-- `skills/lightspeed-version-bump-planner/SKILL.md`
-- `skills/lightspeed-release-rollout-checklist/SKILL.md`
-- `skills/lightspeed-release-risk-assessment/SKILL.md`
-- Platform manifests for Copilot, Claude, Codex (legacy-compatible), and Gemini.
-
-## Compatibility
-
-- GitHub Copilot: supported
-- Claude Code: supported
-- Codex: legacy-compatible
-- Gemini: supported
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

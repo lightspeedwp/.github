@@ -1,24 +1,21 @@
 ---
-title: "LightSpeed Community Health & Automation Repository"
-description: "Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution."
-version: "2.5"
-created_date: "2025-01-10"
-last_updated: "2026-05-28"
-file_type: "documentation"
-maintainer: "LightSpeed Team"
-authors: ["LightSpeed Team"]
-license: "GPL-3.0"
+file_type: documentation
+title: LightSpeed Community Health & Automation Repository
+description: Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution.
+version: '2.8'
+last_updated: '2026-06-01'
+owners:
+  - LightSpeed Team
 tags:
-  ["community-health", "automation", "governance", "labels", "workflows", "ai"]
-domain: "governance"
-stability: "stable"
-references:
-  - path: ".github/custom-instructions.md"
-    description: "Custom instructions for GitHub Copilot"
-  - path: "instructions/coding-standards.instructions.md"
-    description: "Unified coding standards"
-  - path: "instructions/automation.instructions.md"
-    description: "Automation and agent standards"
+  - community-health
+  - automation
+  - governance
+  - labels
+  - workflows
+status: active
+stability: stable
+domain: governance
+language: en
 ---
 
 # 🏠 LightSpeed Community Health & Automation Repository
@@ -55,7 +52,7 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 
 ### Portable AI Source Folders
 
-- [.schemas/README.md](./.schemas/README.md) - Portable schema ownership
+- [schema/README.md](./schema/README.md) - Portable schema ownership
 - [agents/README.md](./agents/README.md) - Portable agent specs
 - [cookbook/README.md](./cookbook/README.md) - Recipes and examples
 - [hooks/README.md](./hooks/README.md) - Hooks and guardrails
@@ -129,10 +126,8 @@ The diagram below highlights how the key .github directories (community health, 
 
 ```mermaid
 graph TD
-accTitle: "Repository architecture overview"
-accDescr {
-  High-level view of the .github repository structure, showing community health files, automation workflows, canonical labels, AI/collaboration resources, supporting documentation, and testing artefacts.
-}
+accTitle: Repository architecture overview
+accDescr: High-level view of the .github repository structure, showing community health files, automation workflows, canonical labels, AI/collaboration resources, supporting documentation, and testing artefacts.
     A[🏠 LightSpeed .github Repository] --> B[📁 Community Health Files]
     A --> C[🤖 Automation & Workflows]
     A --> D[🏷️ Labels & Issue Types]
@@ -230,10 +225,8 @@ The next diagram tracks how repository inheritance feeds automation and AI integ
 
 ```mermaid
 flowchart LR
-accTitle: "Inheritance and automation flow"
-accDescr {
-  Shows how canonical community health files propagate through automation workflows and AI integration to enforce labels, standards, and governance.
-}
+accTitle: Inheritance and automation flow
+accDescr: Shows how canonical community health files propagate through automation workflows and AI integration to enforce labels, standards, and governance.
   subgraph "Repository Inheritance"
     A[LightSpeed Repo] --> B[Inherits Health Files]
     B --> C[Applies Labels & Types]
@@ -284,10 +277,8 @@ This flowchart walks through the development workflow (lint, test, coverage, dep
 
 ```mermaid
 flowchart TD
-accTitle: "Development workflow process"
-accDescr {
-  The diagram shows code changes entering pre-commit hooks, passing lint/test stages, generating coverage, and finally pushing through CI/CD and deployment.
-}
+accTitle: Development workflow process
+accDescr: The diagram shows code changes entering pre-commit hooks, passing lint/test stages, generating coverage, and finally pushing through CI/CD and deployment.
     A[📝 Code Change] --> B[🔍 Pre-commit Hooks]
     B --> C{🎯 Linting Pass?}
     C -->|❌ No| D[🛠️ Fix Issues]
@@ -330,10 +321,8 @@ The sequence diagram below traces how a developer push triggers AI agents, workf
 
 ```mermaid
 sequenceDiagram
-accTitle: "AI and automation integration pipeline"
-accDescr {
-  Visualizes how developer pushes trigger AI automation, workflow execution, validation checks, and status updates back to the repository.
-}
+accTitle: AI and automation integration pipeline
+accDescr: Visualizes how developer pushes trigger AI automation, workflow execution, validation checks, and status updates back to the repository.
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Repository
     participant AI as 🤖 AI Agent
@@ -359,6 +348,8 @@ This comprehensive workflow diagram illustrates the complete ecosystem of the Li
 
 ```mermaid
 flowchart TB
+accTitle: "Repository ecosystem overview"
+accDescr: "Comprehensive view of the .github repository ecosystem, showing core structure, automation pipelines, quality gates, and organization-wide impact across all component areas."
     subgraph "📁 Core Repository Structure"
         A[🏠 .github Repository]
         B[📋 Community Health Files]
@@ -427,6 +418,8 @@ flowchart TB
 
 ```mermaid
 stateDiagram-v2
+accTitle: "Repository maintenance and update state machine"
+accDescr: "State diagram showing the content update lifecycle from initial content updates through validation, testing, quality checks, review, approval, and deployment with org-wide synchronization."
     [*] --> ContentUpdate
     ContentUpdate --> ValidationPending
     ValidationPending --> TestsRunning
@@ -473,6 +466,8 @@ All code quality, formatting, and automation standards are documented and enforc
 
 ```mermaid
 flowchart LR
+accTitle: "Testing architecture and quality gates"
+accDescr: "Testing architecture showing test types, tools, and quality gates with relationships between unit tests, integration tests, end-to-end tests, and coverage reporting through Jest, Playwright, Bats, and coverage tools."
     subgraph "🧪 Test Types"
         A[Unit Tests]
         B[Integration Tests]
@@ -959,26 +954,8 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 ---
 
-**🏠 This repository is managed by the LightSpeed team. All organizational automation, policy, and documentation updates are maintained here.**
-
-**📧 Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new) or [start a discussion](https://github.com/lightspeedwp/.github/discussions/new)
-
-<!-- RANDOM FOOTER: 🚀 Built by LightSpeedWP with ☕, 🚀, and open-source spirit! -->
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
@@ -988,93 +965,6 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

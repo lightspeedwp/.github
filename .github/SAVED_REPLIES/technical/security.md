@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Security Saved Reply"
 description: "Response for security concerns, vulnerabilities, or sensitive data."
 category: "Technical"
@@ -15,7 +16,7 @@ labels:
 ```markdown
 Hi @username,
 
-Thank you for your security report or concern.  
+Thank you for your security report or concern.
 For the protection of all users, **please do not disclose security vulnerabilities publicly**.
 
 Email us at [security@lightspeedwp.com](mailto:security@lightspeedwp.com) or use our [security disclosure form](https://github.com/lightspeedwp/.github/security/policy).

@@ -208,10 +208,6 @@
   aliases:
     - audit
 
-- name: type:qa
-  color: D29922
-  description: "Quality assurance"
-
 - name: type:review
   color: 4393F8
   description: "Code or design review task"
@@ -235,6 +231,19 @@
   description: "Support request"
   aliases:
     - support
+
+- name: type:help
+  color: 0E8A16
+  description: "Help request"
+  aliases:
+    - help
+
+- name: type:ux-feedback
+  color: "5319E7"
+  description: "User experience feedback"
+  aliases:
+    - ux-feedback
+    - user-experience-feedback
 
 # --- Meta / housekeeping ---
 
@@ -309,6 +318,10 @@
 - name: area:testing
   color: D4C5F9
   description: "Testing and QA"
+
+- name: area:quality
+  color: D4C5F9
+  description: "Quality validation and QA controls"
 
 - name: area:scripts
   color: C5DEF5
@@ -409,6 +422,10 @@
   description: "Composer/npm dependency work"
   aliases:
     - dependencies
+
+- name: meta:dependabot-security
+  color: B60205
+  description: "Dependabot update appears security-related and eligible for guarded automation"
 
 - name: area:integration
   color: D93F0B

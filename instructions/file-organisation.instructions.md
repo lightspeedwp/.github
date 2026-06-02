@@ -1,211 +1,133 @@
 ---
-applyTo: "**"
-description: "Portable file organisation rules for GitHub-native governance files, portable AI assets, project artefacts, reports, and temporary outputs."
-status: "active"
+file_type: instructions
+title: File Organisation
+description: File placement rules and directory structure conventions for organizing code, documentation, tests, and automation across LightSpeedWP repositories.
+scope: organization-wide
+applyTo: '**'
+version: v1.1
+last_updated: '2026-05-29'
+owners:
+- LightSpeedWP Team
+tags:
+- file-organisation
+- repository-structure
+- governance
+status: active
 ---
 
-# Portable File And Folder Organisation Instructions (UK)
+# LightSpeedWP File Organisation Standards
 
-You are a repository layout steward. Place files by ownership and reuse intent:
-GitHub-native governance assets stay under `.github`, portable AI assets live
-in the top-level source folders, and temporary work is cleaned up or promoted.
+You are a LightSpeedWP repository architect. Follow our file organisation conventions to maintain consistent, navigable, and maintainable repository structure across all projects. Avoid placing files in ad-hoc locations or creating new directory hierarchies without approval.
 
 ## Overview
 
-These instructions apply to Copilot, Codex, and agent-generated files in
-LightSpeed repositories that use this portable source model. They define where
-to create reports, project artefacts, repo-local instructions, portable AI
-assets, and temporary outputs during or after the portable AI plugin
-restructure.
+Defines consistent directory structure and file placement conventions for all LightSpeedWP repositories. Ensures developers and automation tools can reliably locate files, understand boundaries, and discover related resources. Applies to all code, documentation, tests, configuration, and automation artefacts.
 
-Use this rule first:
+**What this covers:**
 
-```text
-GitHub-native or repo-governance asset -> .github/
-Portable AI source asset              -> top-level source folder
-Permanent human documentation          -> docs/
-Short-lived scratch output             -> .github/tmp/
+- Standard directory structure for all repository types
+- File placement rules for code, docs, tests, automation
+- Naming conventions for directories and files
+- Special directories (tmp, build, dist, etc.)
+- Boundary markers (`.github/`, top-level source folders)
+
+**What this does not cover:**
+
+- Language-specific code organisation (class hierarchies, module structure)
+- Project-specific subdirectories (those belong in project README)
+
+## General Rules
+
+- **Predictable placement:** Every file type has a standard home; developers should be able to locate or place files without guessing
+- **Shallow hierarchies:** Avoid deeply nested directories; prefer 2-3 levels maximum for source code
+- **Clear boundaries:** Use `.github/` for repo metadata and workflows; use project-specific folders (agents/, cookbook/, plugins/, etc.) for portable assets
+- **Consistent naming:** Use lowercase, hyphens for multi-word names (never spaces or underscores in directory names)
+- **No ad-hoc directories:** Do not create new root-level directories without documenting in CLAUDE.md or README
+
+## Detailed Guidance
+
+### Standard Repository Structure
+
+```
+project-root/
+├── .github/                          # GitHub-native files (workflows, templates, actions)
+│   ├── workflows/                    # CI/CD and automation workflows
+│   ├── instructions/                 # Repo-local Copilot instructions
+│   ├── custom-instructions.md        # Copilot instructions for this repo
+│   ├── CONTRIBUTING.md               # Contribution guidelines
+│   ├── CODE_OF_CONDUCT.md           # Community standards
+│   ├── SECURITY.md                   # Security policy
+│   └── [other community health files]
+│
+├── agents/                           # Portable agent specifications
+├── cookbook/                         # Recipes, playbooks, implementation guides
+├── hooks/                           # Portable hooks and guardrails
+├── instructions/                    # Portable instruction files (no .github assumptions)
+├── plugins/                         # Installable plugin bundles
+├── skills/                          # Self-contained skills with SKILL.md entrypoints
+├── workflows/                       # Portable agentic workflows
+│
+├── docs/                            # Human-facing documentation (e.g., MIGRATION.md)
+├── src/                             # Source code (language-specific structure)
+├── tests/                           # Test files (mirror src/ structure)
+├── scripts/                         # Utility and automation scripts
+│
+├── .gitignore
+├── CLAUDE.md                        # Project instructions and context
+├── AGENTS.md                        # AI agent guidelines (org-wide or project-local)
+├── README.md                        # Project overview
+├── CHANGELOG.md                     # Release history
+└── package.json / composer.json     # Project metadata
 ```
 
-## Core Principles
+### File Placement Rules
 
-- Keep `.github` as the control plane for this repository's GitHub governance,
-  community-health files, repo-local automation, reports, and active projects.
-- Use top-level source folders for portable AI assets that should be installable
-  or reusable outside this `.github` repository.
-- Keep permanent human-facing architecture, policy, setup, and reference
-  documentation in `docs/`.
-- Use `.github/tmp/` only for short-lived working files; promote useful outputs
-  to the correct folder or delete them before finishing.
-- Do not move production assets as part of documentation-only issues.
-- Record source and target paths in the migration map before moving existing
-  agents, instructions, prompts, schemas, or runner scripts.
+| Content Type | Location | Convention |
+|---|---|---|
+| CI/CD workflows | `.github/workflows/` | `{purpose}.yml` |
+| GitHub templates | `.github/{issue,pull_request,discussion}_template/` | Standard GitHub structure |
+| Repo-local instructions | `.github/instructions/` | `{topic}.instructions.md` |
+| Portable instructions | `instructions/` | `{topic}.instructions.md` |
+| Portable agents | `agents/` | `{name}.agent.md` |
+| Portable workflows | `workflows/` | `{name}.md` |
+| Recipes/playbooks | `cookbook/` | `{topic}.md` |
+| Plugins | `plugins/` | One folder per plugin |
+| Skills | `skills/{skill-name}/` | `SKILL.md` at root + implementation |
+| Source code | `src/` (or language-specific like `lib/`, `app/`) | Follow language conventions |
+| Tests | `tests/` | Mirror `src/` structure |
+| Documentation | `docs/` | Hierarchical by topic (e.g., /docs/MIGRATION.md for migration maps) |
+| Automation scripts | `scripts/` | Group by purpose (`/maintenance`, `/validation`, etc.) |
 
-## Decision Tree
+### Naming Conventions
 
-1. Is the file GitHub-native, community-health, or repo governance content?
-   Place it under `.github/`.
-2. Is the file a report, audit, baseline, metrics output, or project tracker for
-   this repository?
-   Place it under `.github/reports/` or `.github/projects/`.
-3. Is the file a reusable AI asset intended for installation or cross-tool use?
-   Place it in the matching top-level source folder.
-4. Is the file durable documentation for humans rather than a report or task?
-   Place it under `docs/`.
-5. Is the file temporary scratch output?
-   Place it under `.github/tmp/`, then clean it up before finishing.
+- **Directories:** Lowercase, hyphens for separation (`my-feature`, not `MyFeature` or `my_feature`)
+- **Markdown files:** Lowercase with hyphens (`coding-standards.md`, not `CodingStandards.md`), except for documentation and governance files in the `docs/` directory, which must use UPPERCASE naming with underscores (e.g., `MIGRATION.md`, `GOVERNANCE_REVISION_LOG.md`)
+- **Scripts:** Lowercase with hyphens, explicit extensions (`validate-config.sh`, `build-artifacts.js`)
+- **No spaces:** Never use spaces in filenames or directory names
 
-## GitHub-Native Repo Assets
+### Special Directories
 
-Use `.github/` for assets that only make sense in this repository's GitHub
-control-plane role.
-
-| Path | Use For | Notes |
-| --- | --- | --- |
-| `.github/ISSUE_TEMPLATE/` | Issue templates surfaced by GitHub. | Keep GitHub-native. |
-| `.github/PULL_REQUEST_TEMPLATE.md` and `.github/PULL_REQUEST_TEMPLATE/` | Pull request templates. | Keep GitHub-native. |
-| `.github/DISCUSSION_TEMPLATE/` | Discussion templates. | Keep GitHub-native. |
-| `.github/SAVED_REPLIES/` | Maintainer replies and triage guidance. | Keep unless converted into cookbook examples. |
-| `.github/workflows/` | GitHub Actions workflows for this repo or reusable Actions. | Do not confuse with top-level `/workflows`. |
-| `.github/labels.yml`, `.github/labeler.yml`, `.github/issue-types.yml` | Label, labeler, and issue type governance. | Repo-scoped control-plane files. |
-| `.github/agents/` | Repo-only agent specs and legacy agent files. | Move reusable specs to `/agents` only through migration issues. |
-| `.github/instructions/` | Repo-local instructions for maintaining this repository. | Portable instructions belong in `/instructions`. |
-| `.github/prompts/` | Legacy prompt library during migration. | Convert durable workflows to `/skills` or `/cookbook`; do not add new permanent prompts by default. |
-| `../.schemas/` | Repo-governance schemas during migration. | Portable schemas belong in `/.schemas` once validators consume them. |
-| `.github/reports/` | Reports, audits, metrics, validation output, and analysis. | Never place reports in repo root. |
-| `.github/projects/` | Project plans, issue drafts, ADRs, and active project artefacts. | Keep in-flight work under `active/`. |
-
-## Portable AI Source Folders
-
-Use these top-level folders for assets that should travel across tools,
-projects, or plugin bundles.
-
-| Path | Use For | Notes |
-| --- | --- | --- |
-| `.schemas/` | Portable JSON, YAML, and frontmatter schemas. | Start small; include only schemas actively validated. |
-| `agents/` | Portable agent specifications. | Specs only until runtime code is deliberately rewritten. |
-| `cookbook/` | Recipes, examples, playbooks, and implementation guides. | Use for teaching material that is not a skill. |
-| `hooks/` | Portable hooks, guardrails, and adapters. | Prefer dry-run behaviour and tool-neutral contracts. |
-| `instructions/` | Portable instruction files. | Remove `.github` assumptions before migration. |
-| `plugins/` | Installable plugin bundles. | Each plugin owns its README and manifest. |
-| `skills/` | Self-contained skills. | Each skill uses `SKILL.md`; assets stay inside the skill folder. |
-| `workflows/` | Portable agentic workflows. | GitHub Actions stay in `.github/workflows/`. |
-
-## File Type Mapping
-
-| File Type | Canonical Location | Rule |
-| --- | --- | --- |
-| Repo GitHub workflow | `.github/workflows/` | Keep executable GitHub Actions here. |
-| Portable agentic workflow | `workflows/` | Use for tool-neutral AI processes. |
-| Repo community-health file | `.github/` | Keep issue, PR, support, security, and governance files in place. |
-| Repo-only agent spec | `.github/agents/` | Use only for maintaining this repo. |
-| Portable agent spec | `agents/` | Move after frontmatter and references are updated. |
-| Repo-local instruction | `.github/instructions/` | Use for maintaining this repository. |
-| Portable instruction | `instructions/` | Use for reusable domains and remove `.github` assumptions. |
-| Legacy prompt | `.github/prompts/` during migration | Convert, archive, or delete through migration issues. |
-| Repeatable prompt workflow | `skills/<skill-id>/SKILL.md` | Convert when it has clear steps, inputs, and outputs. |
-| Prompt example or playbook | `cookbook/` | Use when it teaches a pattern but is not a skill. |
-| Repo schema | `../.schemas/` | Keep while used by existing repo validators. |
-| Portable schema | `.schemas/` | Use only when active portable validators consume it. |
-| Agent runner script | Existing legacy path until rewritten | Do not bulk move; rewrite as hook, workflow, or skill-local script. |
-| Audit or validation report | `.github/reports/{category}/` | Keep reports out of root and `docs/`. |
-| Active project artefact | `.github/projects/active/{project-slug}/` | Archive completed work under `.github/projects/completed/`. |
-| Permanent human documentation | `docs/` | Use for stable architecture, policy, setup, and reference docs. |
-| Temporary scratch output | `.github/tmp/` | Delete or promote before finishing. |
-
-## Canonical Instruction Reference Policy
-
-Use this rule for links and references in governance documentation:
-
-- Reference `.github/instructions/` only for repo-local instructions used to
-  maintain this `.github` control-plane repository.
-- Reference `instructions/` for portable instruction guidance intended to be
-  reused across repositories, agents, or plugin bundles.
-- If a document mixes repo-local and portable concerns, cite both paths and
-  label each reference explicitly to avoid ambiguity.
-
-Examples:
-
-- **Repo-local maintenance guidance:** link
-  `.github/instructions/file-organisation.instructions.md`.
-- **Portable standards guidance:** link
-  `instructions/{coding-standards,languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md`.
-- **Do not** point to archived or removed instruction paths when an active
-  canonical target exists.
-
-## Reports And Analysis Outputs
-
-- **Location:** `.github/reports/{category}/`
-- **Naming:** `{type}-{subject}-{date-or-run-id}.{ext}`
-- **Categories:** `analysis`, `audits`, `implementation`, `migration`,
-  `validation`, `agents`, `coverage`, `frontmatter`, `issue-metrics`,
-  `labeling`, `linting`, `meta`, `metrics`, `optimisation`, `tech-debt`
-- **Rule:** Reports, logs, and metrics belong under `.github/reports/`, never in
-  repo root or `docs/`.
-
-## Active Project Work
-
-- **Location:** `.github/projects/active/{project-slug}/`
-- **Use for:** issue drafts, project plans, task lists, ADRs, context packs,
-  baseline reports, migration maps, and project-only working documents.
-- **Naming:** `{project-slug}-{purpose}-{date}.{ext}` where dates help
-  traceability.
-- **Completion:** move finished project artefacts to
-  `.github/projects/completed/` only after acceptance criteria are met and any
-  durable summaries have been promoted to `.github/reports/` or `docs/`.
-
-## Permanent Documentation
-
-Use `docs/` for stable human-facing documentation such as architecture,
-governance, setup, plugin authoring, migration guides, policies, and reference
-material. Do not put reports, task trackers, or transient project artefacts in
-`docs/`.
+- **`.github/tmp/`** – Temporary files created during CI/CD; clean up before committing
+- **`build/`, `dist/`, `out/`** – Generated artefacts; add to `.gitignore`
+- **`node_modules/`, `vendor/`, `.venv/`** – Dependencies; add to `.gitignore`
+- **`.github/projects/`** – Active and archived project artefacts; documented in project README
 
 ## Examples
 
-- **Good:** Create a restructure audit at
-  `.github/reports/migration/portable-ai-asset-audit-2026-05-19.md`.
-- **Good:** Create a portable review skill at
-  `skills/lightspeed-pr-review/SKILL.md`.
-- **Good:** Keep a GitHub Actions workflow at `.github/workflows/labeling.yml`.
-- **Good:** Document a portable agentic release process at
-  `workflows/release-prep/README.md`.
-- **Avoid:** Adding new reusable WordPress project instructions under
-  `.github/instructions/`.
-- **Avoid:** Moving `.github/prompts/` wholesale without classification.
-- **Avoid:** Leaving scratch logs or generated inventories in the repo root.
+**Good:** A new agent placed in `agents/my-agent.agent.md` with clear naming, stored in the portable location, and referenced in project documentation.
+
+**Avoid:** Creating a new root-level folder like `ai-stuff/` or `tmp-work/` without documenting it; placing code in random subdirectories; using CamelCase or underscores in filenames.
 
 ## Validation
 
-- Check new paths against this mapping before creating or moving files.
-- Run targeted Markdown linting for changed docs.
-- Avoid known mutating validation commands when the task is documentation-only.
-- Confirm `.github/tmp/` does not retain scratch files after the final output is
-  promoted.
-- Use `git status --short` before finishing to spot unrelated or accidental
-  changes.
-
-## Decision Checklist
-
-- [ ] Identify whether the file is GitHub-native, portable AI source,
-      permanent documentation, project work, report output, or temporary output.
-- [ ] Place it in the canonical folder above.
-- [ ] Use kebab-case names and dates where they improve traceability.
-- [ ] Add frontmatter where required.
-- [ ] Update related README or index files when the asset is permanent.
-- [ ] Record source and target paths before moving existing assets.
-- [ ] For README content, follow `readme.instructions.md`; for diagrams, follow
-      `mermaid.instructions.md`.
-
-## Deprecated Path
-
-`file-output-organization.instructions.md` is superseded by this file. Update
-references to use the UK English spelling:
-`file-organisation.instructions.md`.
+- ✅ All files are in their standard locations (can be found by pattern and convention)
+- ✅ Directory names are lowercase with hyphens
+- ✅ No ad-hoc root-level directories without documentation
+- ✅ No spaces or special characters in filenames
+- ✅ Temporary files are cleaned up before commit
 
 ## References
 
-- [Portable AI plugin restructure PRD](../.github/projects/archived/portable-ai-plugin-restructure/portable-ai-plugin-restructure-prd-2026-05-14.md)
-- [instructions.instructions.md](instructions.instructions.md)
-- [readme.instructions.md](readme.instructions.md)
-- [reporting.instructions.md](reporting.instructions.md)
+- [CLAUDE.md](../CLAUDE.md) — Project-specific instructions and file boundaries
+- [Coding Standards](./coding-standards.instructions.md)
+- [Documentation Formats](./documentation-formats.instructions.md)

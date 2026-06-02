@@ -1,14 +1,15 @@
 ---
-name: "Hotfix PR"
-about: "Critical fixes for production issues"
-title: "fix: {short summary}"
-labels:
-  ["status:needs-review", "area:hotfix", "priority:critical", "release:hotfix"]
+file_type: "pr-template"
+title: "PR Template - HOTFIX"
+description: "Pull request template for HOTFIX changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Hotfix Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Project Operations Spec](../../docs/GITHUB_PROJECT_OPERATIONS_SPEC.md) for contributor rules.
 
 ## Linked issues

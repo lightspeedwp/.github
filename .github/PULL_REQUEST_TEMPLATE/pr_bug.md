@@ -1,13 +1,15 @@
 ---
-name: "Bugfix PR"
-about: "Fix a defect/regression with clear repro, fix, and verification"
-title: "fix: {short summary}"
-labels: ["status:needs-review", "priority:normal"]
+file_type: "pr-template"
+title: "PR Template - BUG"
+description: "Pull request template for BUG changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Bugfix Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues

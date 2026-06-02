@@ -1,27 +1,23 @@
 ---
-title: "lightspeed-wordpress-planning"
-description: "Installable plugin pack for WordPress project planning and spec-driven delivery workflows."
-version: "v0.1.0"
-last_updated: "2026-05-28"
-owners: ["LightSpeedWP Team"]
+file_type: 'documentation'
+title: 'lightspeed-wordpress-planning'
+description: 'Installable plugin pack for WordPress project planning and spec-driven delivery workflows.'
+version: 'v0.1.0'
+created_date: '2026-05-28'
+last_updated: '2026-05-28'
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
+owners:
+  - LightSpeedWP Team
 ---
 
-# lightspeed-wordpress-planning
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-Portable plugin pack for planning WordPress delivery work with PRD-first and spec-driven workflows.
-
-## Includes
-
-- `agents/project-spec-orchestrator.agent.md`
-- `skills/lightspeed-wordpress-spec-planning/SKILL.md`
-- `skills/lightspeed-wordpress-sprint-roadmap/SKILL.md`
-- `skills/lightspeed-wordpress-milestone-planner/SKILL.md`
-- `skills/lightspeed-wordpress-capacity-planner/SKILL.md`
-- Platform manifests for Copilot, Claude, Codex (legacy-compatible), and Gemini.
-
-## Compatibility
-
-- GitHub Copilot: supported
-- Claude Code: supported
-- Codex: legacy-compatible
-- Gemini: supported
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

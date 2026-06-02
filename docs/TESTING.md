@@ -1,6 +1,10 @@
 ---
-*Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
+file_type: "documentation"
+title: "Testing Guide"
+description: "Testing standards, practices, and conventions for the LightSpeed organization."
 ---
+
+*Note: This file follows LightSpeedWP governance, frontmatter, naming, and versioning conventions as described in [VERSIONING.md](./VERSIONING.md) and [FRONTMATTER_SCHEMA.md](./FRONTMATTER_SCHEMA.md).*
 
 # Testing Guide
 
@@ -222,8 +226,3 @@ See `.github/workflows/` for workflow definitions.
 - Tag a maintainer, or open a support issue if you are stuck.
 
 ---
-
-*Keep this document up to date as our testing process evolves. PRs are welcome!*
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

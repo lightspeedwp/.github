@@ -1,35 +1,94 @@
 ---
-file_type: "documentation"
-title: "Plugin Pack Roadmap"
-description: "Roadmap for phased delivery of LightSpeed portable plugin packs."
 version: "v0.1.0"
-last_updated: "2026-05-28"
-owners: ["LightSpeedWP Team"]
+last_updated: "2026-05-29"
+owners: ["lightspeedwp"]
+file_type: "documentation"
+description: "Roadmap for plugin pack development and releases"
 ---
 
 # Plugin Pack Roadmap
 
-## Delivered now
+## Current Release (v1.0.0)
 
-- `lightspeed-wordpress-planning`
-- `lightspeed-wordpress-governance`
-- `lightspeed-release-ops`
-- `lightspeed-quality-assurance`
-- `lightspeed-metrics-and-reporting`
+### Features
 
-## Current status
+- Core plugin infrastructure
+- Block registration system
+- Settings management
+- Hook system integration
 
-- Six active plugin packs are scaffolded and available in registry.
-- Next-wave specialization is in progress with one additional skill added per active pack.
-- A second specialization wave is in progress with a further additional skill added per active pack.
-- A third specialization wave is in progress with one additional skill added per active pack.
-- All active packs maintain platform manifest parity for Copilot, Claude, Codex, and Gemini.
+### Timeline
 
-## Delivery model
+- Alpha: Q2 2026
+- Beta: Q3 2026
+- Release: Q4 2026
 
-- Phase 1: minimum viable plugin manifests and seed skills
-- Phase 2: expanded skill coverage and platform YAML parity (in progress)
-- Phase 3: validation hardening and release automation
-- Phase 4: cross-pack specialized skill rollout and docs alignment (in progress)
-- Phase 5: second-wave specialized skill rollout and staged registry expansion (in progress)
-- Phase 6: third-wave specialized skill rollout and staged registry expansion (in progress)
+## Planned Releases
+
+### v1.1.0 (Q1 2027)
+
+- Advanced styling options
+- Performance optimizations
+- Extended block library
+- Enhanced documentation
+
+### v1.2.0 (Q2 2027)
+
+- Multilingual support
+- Custom block templates
+- Advanced configuration
+- Developer tools
+
+### v2.0.0 (Q4 2027)
+
+- Architecture redesign
+- New block system
+- Breaking changes (documented)
+- Major feature set
+
+## Feature Backlog
+
+### High Priority
+
+- [ ] Accessibility improvements
+- [ ] Performance enhancements
+- [ ] Security updates
+- [ ] Developer tools
+
+### Medium Priority
+
+- [ ] New block types
+- [ ] Template library expansion
+- [ ] Integration improvements
+- [ ] Documentation expansion
+
+### Low Priority
+
+- [ ] Nice-to-have features
+- [ ] Research and exploration
+- [ ] Future consideration items
+
+## Release Process
+
+1. Feature development in branches
+2. Beta release for testing
+3. Community feedback integration
+4. Release candidate testing
+5. Final release and documentation
+
+## Support Timeline
+
+- v0.x: Maintenance only
+- v1.0-1.x: Active support (24 months)
+- v2.0+: Active support (24 months from release)
+
+## Dependencies
+
+- WordPress 6.0+
+- PHP 8.0+
+- Node.js 16+
+- NPM 8+
+
+## Contact
+
+For questions or suggestions about the roadmap, open an issue in the GitHub repository.

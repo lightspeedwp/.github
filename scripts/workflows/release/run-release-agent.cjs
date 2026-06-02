@@ -13,9 +13,12 @@ const {
 } = require("../shared/runtime.cjs");
 
 const VALID_SCOPES = new Set(["major", "minor", "patch"]);
+const VALID_PROVIDERS = new Set(["shell", "mcp"]);
 
 function buildArgs(options) {
   const args = [`--scope=${options.scope}`];
+
+  args.push(`--provider=${options.provider}`);
 
   if (options.version) {
     args.push(`--version=${options.version}`);
@@ -34,6 +37,11 @@ function buildArgs(options) {
 
 async function main() {
   const scope = readEnv("INPUT_SCOPE", { defaultValue: "patch" }).toLowerCase();
+  const provider = readEnv("INPUT_PROVIDER", {
+    defaultValue: readEnv("RELEASE_PROVIDER", { defaultValue: "shell" }),
+  })
+    .toLowerCase()
+    .trim();
   const version = readEnv("INPUT_VERSION", { defaultValue: "" }).trim();
   const notesFrom = readEnv("INPUT_NOTES_FROM", { defaultValue: "" }).trim();
   const dryRun = normalizeBoolean(
@@ -47,6 +55,12 @@ async function main() {
     );
   }
 
+  if (!VALID_PROVIDERS.has(provider)) {
+    throw new Error(
+      `Invalid release provider "${provider}". Use one of: shell, mcp.`,
+    );
+  }
+
   const agentPath = path.resolve(
     process.cwd(),
     readEnv("RELEASE_AGENT_PATH", {
@@ -54,9 +68,10 @@ async function main() {
     }),
   );
 
-  const args = buildArgs({ scope, version, notesFrom, dryRun });
+  const args = buildArgs({ scope, provider, version, notesFrom, dryRun });
   log("info", "Running release agent", {
     scope,
+    provider,
     version,
     notesFrom,
     dryRun,

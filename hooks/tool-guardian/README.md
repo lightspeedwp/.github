@@ -1,26 +1,14 @@
 ---
-file_type: "hook"
-title: "tool-guardian hook"
+file_type: "documentation"
+title: "tool-guardian Hook"
 description: "Prevents unsafe or disallowed tool operations based on configured guardrails."
-version: "v0.1.0"
-last_updated: "2026-05-28"
+version: 'v0.1.1'
+last_updated: '2026-06-01'
 owners: ["LightSpeedWP Team"]
 ---
 
-# tool-guardian hook
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
-## Purpose
-
-Validate planned tool operations against repository guardrails before execution.
-
-## Inputs
-
-- Tool action metadata
-- Path scope
-- Operation type
-
-## Outputs
-
-- allow
-- warn
-- block
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

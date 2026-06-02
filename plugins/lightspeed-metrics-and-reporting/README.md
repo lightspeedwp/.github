@@ -1,29 +1,23 @@
 ---
-title: "lightspeed-metrics-and-reporting"
-description: "Installable plugin pack for metrics collection, reporting workflows, and governance insight."
-version: "v0.1.0"
-last_updated: "2026-05-28"
-owners: ["LightSpeedWP Team"]
+file_type: 'documentation'
+title: 'lightspeed-metrics-and-reporting'
+description: 'Installable plugin pack for metrics collection, reporting workflows, and governance insight.'
+version: 'v0.1.0'
+created_date: '2026-05-28'
+last_updated: '2026-05-28'
+maintainer: 'LightSpeed Team'
+authors:
+  - LightSpeed Team
+license: 'GPL-3.0'
+stability: 'stable'
+domain: 'governance'
+tags: []
+owners:
+  - LightSpeedWP Team
 ---
 
-# lightspeed-metrics-and-reporting
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
-Portable plugin pack for metrics instrumentation, trend reporting, and governance visibility.
-
-## Includes
-
-- `agents/metrics-reporting-orchestrator.agent.md`
-- `skills/lightspeed-metrics-reporting/SKILL.md`
-- `skills/lightspeed-repository-health-summary/SKILL.md`
-- `skills/lightspeed-labeling-metrics-report/SKILL.md`
-- `skills/lightspeed-pr-cycle-time-report/SKILL.md`
-- `skills/lightspeed-issue-response-time-report/SKILL.md`
-- `skills/lightspeed-review-latency-report/SKILL.md`
-- Platform manifests for Copilot, Claude, Codex (legacy-compatible), and Gemini.
-
-## Compatibility
-
-- GitHub Copilot: supported
-- Claude Code: supported
-- Codex: legacy-compatible
-- Gemini: supported
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

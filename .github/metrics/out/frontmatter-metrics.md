@@ -1,8 +1,8 @@
 # Weekly Frontmatter Metrics
 
-**Coverage:** 94% (141/150)  
-**Unknown keys:** 0  
-**Broken references:** 2  
+**Coverage:** 94% (141/150)
+**Unknown keys:** 0
+**Broken references:** 2
 **Version skews:** 1
 
 ## Broken references

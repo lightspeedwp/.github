@@ -1,54 +1,28 @@
 ---
-file_type: "documentation"
-title: "LightSpeed .github Community Health Repository"
-description: "Central hub for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation"
-version: "3.1"
-created_date: "2025-01-15"
-last_updated: "2025-12-04"
-authors: ["LightSpeed Team"]
-maintainer: "LightSpeed Team"
-license: "GPL-3.0"
-domain: "governance"
-stability: "stable"
+file_type: documentation
+title: LightSpeed .github Community Health Repository
+description: Central hub for all shared GitHub templates, Copilot instructions, workflow
+  automation, labeling systems, and community health files across the LightSpeed WordPress
+  organisation
+version: '3.3'
+created_date: '2025-01-15'
+last_updated: '2026-06-01'
+authors:
+- LightSpeed Team
+maintainer: LightSpeed Team
+license: GPL-3.0
+domain: governance
+stability: stable
 owners:
-  - LightSpeed Team
+- LightSpeed Team
 tags:
-  - github-templates
-  - community-health
-  - automation
-  - copilot
-  - workflows
-  - labeling
-  - ai
-references:
-  - path: ./custom-instructions.md
-    description: Custom instructions for AI agents
-  - path: ./agents/agent.md
-    description: Main agents index
-  - path: ./prompts/prompts.md
-    description: Prompts index
-  - path: ../AGENTS.md
-    description: Organization-wide agents documentation
-  - path: ../docs/AUTOMATION_GOVERNANCE.md
-    description: Automation governance policies
-  - path: ./labels.yml
-    description: Label definitions
-  - path: ./labeler.yml
-    description: Labeler configuration
-  - path: ./issue-types.yml
-    description: Issue type definitions
-  - path: ./instructions/coding-standards.instructions.md
-    description: Coding standards instructions
-  - path: ./instructions/linting.instructions.md
-    description: Linting standards index
-  - path: ./instructions/tests.instructions.md
-    description: Testing standards index
-  - path: ./workflows/README.md
-    description: Workflows directory index
-  - path: ../CONTRIBUTING.md
-    description: Contribution guidelines
-  - path: ../docs/README.md
-    description: Documentation hub
+- github-templates
+- community-health
+- automation
+- copilot
+- workflows
+- labeling
+- ai
 ---
 
 # 🏛️ LightSpeed Organisation .github Community Health Repository
@@ -88,7 +62,15 @@ This repository's `.github` folder serves as the **single source of truth** for 
 ## GitHub Template Ecosystem Architecture
 
 ```mermaid
+---
+accTitle: GitHub Template Ecosystem Architecture
+accDescr: Flowchart showing the .github repository hub at the center containing community health files, issue templates, PR templates, AI instructions, automation rules, and workflows, flowing to template categories including bug reports, feature requests, documentation, architecture, security, and testing, then to AI and automation systems including auto-labeling, project sync, quality gates, deployment, and analytics, finally connecting to organization repositories
+---
 flowchart TB
+accTitle: GitHub template ecosystem architecture
+accDescr {
+  The .github repository hub at the center distributes six key asset categories (Community Health Files, Issue Templates, PR Templates, AI Instructions, Automation Rules, Workflows) to six template categories (Bug Reports, Feature Requests, Documentation, Architecture, Security, Testing), which feed into three automation components (Auto-Labeling, Project Sync, Quality Gates) that synchronise to member repositories across the organization.
+}
     subgraph "🏛️ .github Repository Hub"
         A[🏠 Community Health Files]
         B[📝 Issue Templates]
@@ -226,7 +208,15 @@ This repository is the **canonical, organisation-wide source** for:
 ## GitHub Automation Workflow Process
 
 ```mermaid
+---
+accTitle: GitHub Automation Workflow Process
+accDescr: Sequence diagram showing the interaction between a developer, member repository, .github hub, automation system, and project manager during the issue or PR creation process, demonstrating how templates are checked, labels are applied, and projects are synchronized
+---
 sequenceDiagram
+accTitle: GitHub automation workflow sequence
+accDescr {
+  When a developer creates an issue or PR in a member repository, the system checks for templates from the .github hub, retrieves label rules through the automation layer, applies the configured labels, and syncs the issue to project boards, notifying the project manager to complete the assignment workflow.
+}
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Member Repo
     participant Hub as 🏛️ .github Hub
@@ -268,7 +258,15 @@ The `.github` folder is organised for maximum clarity and modularity, grouping r
 ## Repository Structure Visualization
 
 ```mermaid
+---
+accTitle: Repository Structure Visualization
+accDescr: Graph showing the .github directory structure including instructions, prompts, agents, workflows, issue templates, pull request templates, saved replies, and automation subdirectories, with connections to their respective ecosystems including coding standards, linting, accessibility instructions, prompts, and automation core configuration
+---
 graph TB
+accTitle: Repository structure visualization
+accDescr {
+  The .github directory structure contains eight main subdirectories (instructions, prompts, agents, workflows, ISSUE_TEMPLATE, PULL_REQUEST_TEMPLATE, SAVED_REPLIES, automation) that connect to three ecosystem layers: Instructions Ecosystem with coding standards, linting, accessibility, and security guides; AI Integration Hub with accessibility review, code review, and pattern generation prompts; and Automation Core with labels, labeler rules, issue types, and automation governance files.
+}
     subgraph "📁 .github/ Directory Structure"
         A[📋 instructions/]
         B[🎯 prompts/]
@@ -401,7 +399,15 @@ This diagram illustrates how all components work together to create a seamless d
 ## Complete Integration Flow
 
 ```mermaid
+---
+accTitle: Complete Integration Flow
+accDescr: Flowchart showing the developer experience (new contributor, issue creation, PR submission, code review) connecting to .github hub resources (instructions, templates, AI prompts, chat modes, automation), leading to automated processes (auto-labeling, project sync, quality gates, analytics), resulting in quality outcomes (consistent standards, faster onboarding, better tracking, security compliance)
+---
 flowchart LR
+accTitle: Complete integration flow for development and governance
+accDescr {
+  The workflow integrates four layers: Developer Experience (New Contributor, Issue Creation, PR Submission, Code Review) connects to .github Hub Resources (Instructions, Templates, AI Prompts, Chat Modes, Automation), which feeds Automated Processes (Auto-Labeling, Project Sync, Quality Gates, Analytics), ultimately delivering Quality Outcomes (Consistent Standards, Faster Onboarding, Better Tracking, Security Compliance).
+}
     subgraph "👨‍💻 Developer Experience"
         A[New Contributor]
         B[Issue Creation]
@@ -477,19 +483,6 @@ Have questions, feedback, or want to propose an idea? Visit our [GitHub Discussi
 For all contributors, please reference these key guidelines and indexes:
 
 - [LightSpeed General Copilot Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/custom-instructions.md)
-- [Coding Standards](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/coding-standards.instructions.md)
-- [HTML Templates](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/html-template.instructions.md)
-- [Pattern Development](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/pattern-development.instructions.md)
-- [PHP Block Instructions](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/php-block.instructions.md)
-- [Theme JSON](https://github.com/lightspeedwp/.github/blob/HEAD/.github/instructions/block-theme/theme-json.instructions.md)
-- When generating a summary for pull requests, use this [pull request template](https://github.com/lightspeedwp/.github/blob/HEAD/.github/PULL_REQUEST_TEMPLATE.md).
-
----
-
-## For Contributors & Maintainers
-
-- **Always start here** when onboarding, contributing, or reviewing.
-- Reference **instructions** for standards, **templates** for issues/PRs, and **automation** docs for workflows and governance.
 - Use **saved replies** for common support scenarios; update them as needed.
 - For agent/Copilot questions, see the agent guides and custom instructions.
 - Update this folder when org-wide standards, workflows, or automation rules change.
@@ -575,19 +568,11 @@ This repository and all its contents are licensed under the GNU General Public L
 
 ## 🔧 Development Standards
 
-- [💻 Coding Standards](./instructions/coding-standards.instructions.md) - Unified development guidelines
-- [🎨 Linting Instructions](./instructions/linting.instructions.md) - Code quality and formatting
-- [🏗️ Pattern Development](./instructions/block-theme/pattern-development.instructions.md) - WordPress block patterns
-- [🌐 HTML Templates](./instructions/block-theme/html-template.instructions.md) - Semantic markup standards
+- [💻 Coding Standards](../instructions/coding-standards.instructions.md) - Unified development guidelines
+- [🎨 Linting Instructions](../instructions/linting.instructions.md) - Code quality and formatting
+- [🏗️ Plugin Structure](../instructions/plugin-structure.instructions.md) - WordPress block plugin development
 
 ---
-
-**🏛️ This directory is managed by the LightSpeed team. All organizational GitHub templates, automation, and AI resources are maintained here.**
-
-**❓ Questions?** [Open an issue](https://github.com/lightspeedwp/.github/issues/new), start a [Discussion](https://github.com/orgs/lightspeedwp/discussions), or contact [support@lightspeedwp.agency](mailto:support@lightspeedwp.agency)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

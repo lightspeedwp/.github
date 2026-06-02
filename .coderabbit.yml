@@ -22,14 +22,6 @@ reviews:
   collapse_walkthrough: true
   poem: false
 
-  # === Auto Review Settings ===
-  auto_review:
-    enabled: true
-    drafts: false
-    base_branches:
-      - "main"
-      - "develop"
-
   # === Path Filters (Exclude from Review) ===
   path_filters:
     - "!build/**"
@@ -37,7 +29,7 @@ reviews:
     - "!assets/css/*.map"
     - "!logs/**"
     - "!docs/drafts/**"
-    - "!.schemas/**"
+    - "!schema/**"
     - "!coverage/**"
     - "!.jest-skip/**"
 

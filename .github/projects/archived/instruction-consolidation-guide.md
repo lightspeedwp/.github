@@ -1,5 +1,5 @@
 ---
-file_type: "reference"
+file_type: "documentation"
 title: "Instruction File Consolidation Guide"
 description: "Migration guide for instruction file consolidation from 22 files to 5 consolidated files (December 2025)"
 version: "v1.0"

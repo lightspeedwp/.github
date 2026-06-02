@@ -1,16 +1,18 @@
 ---
-name: "Dependencies/Maintenance PR"
-about: "Routine upkeep: dependency bumps, lint/format, low-risk hygiene"
-title: "chore(deps): {packages}"
-labels: ["status:needs-review", "area:dependencies"]
+file_type: "pr-template"
+title: "PR Template - DEP_UPDATE"
+description: "Pull request template for DEP_UPDATE changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Dependencies / Maintenance Pull Request
 
-This PR updates dependencies or performs routine maintenance (lint, formatting, hygiene).  
+This PR updates dependencies or performs routine maintenance (lint, formatting, hygiene).
 Please review the summary, impact, and changelog below.
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues

@@ -54,8 +54,8 @@ Enable squash merge only; disable merge commits and rebase merges.
 
 ## 3. Branch Naming
 
-**Format:**  
-`{type}/{scope}-{short-title}`  
+**Format:**
+`{type}/{scope}-{short-title}`
 Use lower-case, kebab-case, and keep it short.
 
 ### 3.1 Required Core Prefixes
@@ -220,8 +220,8 @@ Extend your project sync workflow so branch prefixes set the Project **Type** fi
 - `proto/`, `api/`, `schema/`, `telemetry/`, `ds/` → Feature/Task
 - `release/` → Release PR
 
-**Principle:**  
-Labels remain **routing signals** (status, priority, area/component).  
+**Principle:**
+Labels remain **routing signals** (status, priority, area/component).
 Issue Types and Project fields carry the semantic meaning.
 
 ---
@@ -280,8 +280,9 @@ Issue Types and Project fields carry the semantic meaning.
 - [CONTRIBUTING.md](../CONTRIBUTING.md): Contribution guidelines, templates, and coding standards.
 - [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md): Org-wide project operations, labeling, and release guidance.
 - [ISSUE_TYPES.md](./ISSUE_TYPES.md): Issue type mapping and usage.
-- [ISSUE_LABELS.md](./ISSUE_LABELS.md): Label families, triage, and workflow.
-- [PR_LABELS.md](./PR_LABELS.md): PR labeling, templates, and automation.
+- [LABELING.md](./LABELING.md): Consolidated label documentation (issue, PR, and discussion labeling).
+  - [Issue labelling](./LABELING.md#issue-labelling): Issue label requirements and automation.
+  - [Pull request labelling](./LABELING.md#pull-request-labelling): PR label requirements and automation.
 - [.github/custom-instructions.md](../.github/custom-instructions.md): Copilot and agent instructions.
 - [instructions/linting.instructions.md](../instructions/linting.instructions.md): Linting index and tool guidance.
 - [instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md): Coding standards index.
@@ -317,8 +318,3 @@ Issue Types and Project fields carry the semantic meaning.
 - Add cheat sheets and workflow diagrams to internal wiki.
 
 ---
-
-> For questions or improvements, open an issue or PR in the `.github` repo.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

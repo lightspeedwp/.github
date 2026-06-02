@@ -1,13 +1,15 @@
 ---
-name: "Docs-only PR"
-about: "Documentation updates: READMEs, guides, contributor docs"
-title: "docs: {short summary}"
-labels: ["status:needs-review", "lang:md", "area:documentation"]
+file_type: "pr-template"
+title: "PR Template - DOCS"
+description: "Pull request template for DOCS changes"
+version: "1.0.0"
+last_updated: "2026-05-29"
+category: "github-templates"
 ---
 
 # Documentation Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues

@@ -4,7 +4,3 @@ description: "Coordinates repository metrics collection, aggregation, and report
 version: "v0.1.0"
 last_updated: "2026-05-28"
 ---
-
-# Metrics Reporting Orchestrator
-
-Coordinates metrics and reporting operations for repository governance.

@@ -1,31 +1,31 @@
 ---
+title: "Technical Content Evaluator"
 name: "Technical Content Evaluator"
 description: "Elite technical content editor and curriculum architect for evaluating technical training materials, documentation, and educational content. Reviews for technical accuracy, pedagogical excellence, content flow, code validation, and ensures A-grade quality standards."
-version: "v1.1"
-last_updated: "2026-05-28"
+version: "v1.1.1"
+last_updated: "2026-06-01"
 owners: ["LightSpeedWP Engineering"]
 tags: ["agent", "mode", "document-review", "editorial", "quality", "education"]
 file_type: "agent"
 status: "active"
-domain: "quality"
+domain: generic
 stability: "stable"
 model: "Claude Sonnet 4.5 (copilot)"
 tools:
-  [
-    "edit",
-    "search",
-    "shell",
-    "fetch",
-    "runTasks",
-    "githubRepo",
-    "todos",
-    "runSubagent",
-  ]
+- edit
+- search
+- shell
+- fetch
+- runTasks
+- githubRepo
+- todos
+- runSubagent
 permissions:
-  - "read"
-  - "write"
+- read
+- write
 metadata:
-  guardrails: "Complete the mandatory analysis, compute the Documentation Wrapper Score before responding, and never skip the editorial standards described in the spec."
+  guardrails: Complete the mandatory analysis, compute the Documentation Wrapper Score
+    before responding, and never skip the editorial standards described in the spec.
 ---
 
 Evaluate and enhance technical training content, documentation, and educational materials through comprehensive editorial review. Apply rigorous standards for technical accuracy, pedagogical excellence, and content quality to transform good content into exceptional learning experiences.
@@ -230,7 +230,7 @@ Before grading, verify ALL external links in tables/lists:
 - > 5 duplicates: -25 points (F grade ceiling)
 
 **Required Evidence:**
-"Table 'Featured AI Templates' has 9 entries, 8 point to identical URL (<https://github.com/Azure-Samples/get-started-with-ai-chat>) = CRITICAL FAILURE"
+`"Table 'Featured AI Templates' has 9 entries, 8 point to identical URL (https://github.com/Azure-Samples/get-started-with-ai-chat) = CRITICAL FAILURE"`
 
 **NO EXCEPTIONS** - duplicate links indicate broken/incomplete content that will frustrate learners.
 
@@ -647,33 +647,3 @@ After identifying problems, always provide clear paths forward:
 **Remember:** Being honest about failures helps authors create genuinely valuable educational content. Sugar-coating serves no one.
 
 ---
-
-**You are the final quality gate before content reaches learners. Your standards are uncompromising because education deserves nothing less than excellence. Be honest about what content actually IS, not what it claims to be.**
-
-## Implementation Status
-
-**Status**: Spec complete — no GitHub Actions workflow required.
-
-This is a conversational mode agent, invoked directly by AI assistants (Copilot, Claude, etc.) when the operator or user switches into `document-reviewer` mode. There is no paired `.yml` workflow; this matches the pattern used by all mode agents in this repository (`mode-thinking`, `mode-demonstrate-understanding`, `mode-prd`).
-
-**Gap analysis (2026-05-28):**
-
-| Area | Status | Notes |
-| --- | --- | --- |
-| Spec / behaviour instructions | ✅ Complete | Comprehensive editorial standards, grading rubric, output format, and engagement style documented |
-| Frontmatter (version, status, owners, tags) | ✅ Complete | Upgraded in v1.1 |
-| Runtime / workflow | ✅ N/A | Mode agents are conversational; no workflow needed |
-| Related instructions linked | ✅ Complete | See Dependencies section below |
-
-## Dependencies
-
-- [agents/mode-thinking.agent.md](./mode-thinking.agent.md) — complementary mode agent for deep autonomous problem-solving
-- [agents/mode-demonstrate-understanding.agent.md](./mode-demonstrate-understanding.agent.md) — complementary mode agent for guided understanding validation
-- [agents/mode-prd.agent.md](./mode-prd.agent.md) — complementary mode agent for product requirements documentation
-- [agents/template.agent.md](./template.agent.md) — canonical agent template this spec conforms to
-- [instructions/coding-standards.instructions.md](../instructions/coding-standards.instructions.md) — coding standards applied during technical content review
-
-## Changelog
-
-- `v1.1 — 2026-05-28` — Added complete frontmatter fields (version, last_updated, owners, tags, file_type, status, domain, stability, permissions); added Implementation Status and Dependencies sections; closes [#471](https://github.com/lightspeedwp/.github/issues/471).
-- `v1.0 — initial` — Original spec authored with comprehensive editorial standards, grading rubric, and engagement style guidelines.

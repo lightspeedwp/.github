@@ -1,38 +1,113 @@
 ---
-file_type: "documentation"
-title: "Plugin Installation Guide"
-description: "Guide for installing LightSpeed portable plugin packs across Claude, Codex, Copilot, and Gemini."
-version: "v0.1.0"
-last_updated: "2026-05-28"
-owners: ["LightSpeedWP Team"]
+version: v0.1.0
+last_updated: '2026-05-29'
+title: Plugin Installation Guide
+owners:
+- lightspeedwp
+file_type: documentation
+description: Guide for installing and configuring LightSpeed plugins
 ---
 
 # Plugin Installation Guide
 
-## Supported packs
+## Installation Methods
 
-- `plugins/lightspeed-github-ops`
-- `plugins/lightspeed-wordpress-planning`
-- `plugins/lightspeed-wordpress-governance`
-- `plugins/lightspeed-release-ops`
-- `plugins/lightspeed-quality-assurance`
-- `plugins/lightspeed-metrics-and-reporting`
+### NPM Installation
 
-## Generic install flow
+```bash
+npm install @lightspeedwp/plugin-name
+```
 
-1. Select plugin folder.
-2. Load platform manifest for your tool.
-3. Confirm referenced files exist under plugin root.
-4. Run validation scripts before rollout.
+Then import in your project:
 
-## Validation commands
+```javascript
+import { PluginName } from '@lightspeedwp/plugin-name';
+```
 
-- `npm run validate:plugins`
-- `npm run validate:skill-manifests`
-- `npm run lint:yaml`
-- `npm run lint:md`
+### Composer Installation (PHP)
 
-## Current rollout note
+```bash
+composer require lightspeedwp/plugin-name
+```
 
-- All active packs now include specialized skills with strict per-platform manifest parity.
-- Use `skills/SKILL_REGISTRY.json` scopes (`phase1PlatformYamlScope`, `batch2PlatformYamlScope`, `batch3PlatformYamlScope`, `batch4PlatformYamlScope`, `batch5PlatformYamlScope`, `batch6PlatformYamlScope`) for staged validation and rollout.
+Then include in your code:
+
+```php
+require_once 'vendor/autoload.php';
+use LightSpeed\Plugin;
+```
+
+### Manual Installation
+
+1. Download from GitHub releases
+2. Extract to appropriate directory
+3. Follow plugin-specific setup instructions
+
+## Configuration
+
+### Environment Variables
+
+Create `.env` file with required variables:
+
+```env
+LIGHTSPEED_API_KEY=your_key_here
+PLUGIN_DEBUG=false
+PLUGIN_LOG_LEVEL=info
+```
+
+### Configuration File
+
+Some plugins use a config file:
+
+```json
+{
+  "plugin": {
+    "enabled": true,
+    "debug": false,
+    "settings": {}
+  }
+}
+```
+
+## Verification
+
+After installation, verify:
+
+1. Plugin loads without errors
+2. Configuration is accessible
+3. Permissions are correct
+4. Dependencies are installed
+
+```bash
+npm run verify:plugins
+```
+
+## Troubleshooting
+
+### Plugin Not Loading
+
+- Check permissions on plugin directory
+- Verify all dependencies installed
+- Check configuration file format
+- Review error logs
+
+### Configuration Issues
+
+- Verify all required env vars set
+- Check JSON syntax in config files
+- Ensure permissions for config directory
+
+## Updating Plugins
+
+```bash
+npm update @lightspeedwp/plugin-name
+```
+
+Review changelog for breaking changes.
+
+## Security Considerations
+
+- Keep plugins updated
+- Review plugins before installation
+- Use minimal permissions
+- Monitor security advisories

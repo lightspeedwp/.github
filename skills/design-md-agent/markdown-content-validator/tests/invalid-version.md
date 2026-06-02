@@ -1,12 +1,8 @@
 ---
+file_type: documentation
 title: Invalid Version
-status: draft
 type: guide
-version: "1.0"
+version: '1.0'
+stability: experimental
+description: Test fixture for invalid-version.md
 ---
-
-# Invalid Version
-
-## Overview
-
-This file should fail because the version is not valid SemVer.

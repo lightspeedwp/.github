@@ -2,15 +2,22 @@
 file_type: "instructions"
 title: "Documentation Formats Standards"
 description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams across all GitHub community health documentation"
+scope: "organization-wide"
 version: "v1.1.1"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 owners: ["GitHub Community Health Team"]
 tags:
-  ["markdown", "frontmatter", "mermaid", "documentation", "diagrams", "yaml"]
-applyTo: ["**/*.md"]
-status: "active"
-stability: "stable"
-domain: "generic"
+- markdown
+- frontmatter
+- mermaid
+- documentation
+- diagrams
+- yaml
+applyTo:
+- '**/*.md'
+status: active
+stability: stable
+domain: generic
 ---
 
 # Documentation Formats Standards
@@ -61,7 +68,6 @@ Applies to Markdown files across the repository. Covers formatting rules, frontm
   - [Best Practices](#mermaid-best-practices)
   - [Accessibility](#diagram-accessibility)
 - [CI/CD Integration](#cicd-integration)
-- [References](#references)
 
 ---
 
@@ -603,21 +609,11 @@ jobs:
 
 ---
 
-## References
+## Related Files
 
-- [instructions.instructions.md](instructions.instructions.md)
-- [readme.instructions.md](readme.instructions.md)
-- [a11y.instructions.md](a11y.instructions.md)
-- [languages.instructions.md](languages.instructions.md)
-- [linting.instructions.md](linting.instructions.md)
-- [markdownlint Documentation](https://github.com/DavidAnson/markdownlint)
-- [Prettier Markdown Support](https://prettier.io/docs/en/options.html#prose-wrap)
-- [GitHub Flavored Markdown](https://github.github.com/gfm/)
-- [CommonMark Specification](https://commonmark.org/)
-- [YAML Specification](https://yaml.org/spec/)
-- [JSON Schema](https://json-schema.org/)
-- [GitHub Issue Templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests)
-- [Mermaid Documentation](https://mermaid.js.org/)
-- [GitHub Mermaid Support](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/)
-- [Mermaid Live Editor](https://mermaid.live)
-- [W3C Complex Images](https://www.w3.org/WAI/tutorials/images/complex/)
+- **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in documentation
+- **[issues.instructions.md](./issues.instructions.md)** — Issue documentation and templates
+- **[pull-requests.instructions.md](./pull-requests.instructions.md)** — PR documentation and templates
+- **[community-standards.instructions.md](./community-standards.instructions.md)** — Community health documentation standards
+
+---

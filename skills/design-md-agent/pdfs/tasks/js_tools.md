@@ -47,11 +47,3 @@ node /home/oai/skills/pdfs/js/extract_form_fields.mjs --input in.pdf
 ```
 
 ---
-
-## Extract text (pdfjs)
-
-```bash
-node /home/oai/skills/pdfs/js/extract_text_pdfjs.mjs --input in.pdf > text.txt
-```
-
-Tip: prefer Python-based extraction for coordinates/layout (`pdf_extract.py text --layout_json ...`) and use pdfjs text as a cross-check.

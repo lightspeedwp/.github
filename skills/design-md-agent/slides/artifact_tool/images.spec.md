@@ -109,21 +109,3 @@ covered.width = frame["width"] * 2
 ```
 
 ---
-
-### Prompt-only placeholder images
-
-Create a placeholder with a prompt, then resolve it later:
-
-```python
-placeholder = slide.images.add({
-  "prompt": "Hero image showing a diverse team collaborating around a laptop",
-  "alt": "Hero image (to be generated)",
-})
-
-placeholder.frame = { "left": 60, "top": 120, "width": 640, "height": 360 }
-placeholder.is_placeholder  # True
-
-# Later: attach real content
-placeholder.replace({ "blob": resolved_blob, "alt": "Final hero image" })
-placeholder.is_placeholder  # False
-```

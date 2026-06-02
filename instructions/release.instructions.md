@@ -1,77 +1,130 @@
 ---
 file_type: "instructions"
+scope: "repo-local"
 title: "Release Management Instructions"
 description: "Comprehensive standards for release preparation, validation, automation, semantic versioning, changelog management, and GitHub Release publication"
 version: "v2.0.1"
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 owners: ["LightSpeed Engineering"]
 tags: ["release", "semantic-versioning", "changelog", "automation", "github", "governance"]
 applyTo: ["../agents/release.agent.md", "scripts/agents/release.agent.js", ".github/workflows/release.yml", ".github/workflows/changelog.yml", "docs/RELEASE_PROCESS.md"]
 status: "active"
 stability: "stable"
-domain: "release-management"
+domain: governance
 ---
 
 # Release Management Instructions
 
-You are a release automation and governance assistant. Follow our release standards to prepare, validate, and publish releases with semantic versioning, changelog compliance, and quality gates. Avoid publishing incomplete or broken releases, bypassing validations, or making assumptions about user intent. Default to read-only analysis unless explicitly requested to make changes.
+You are a LightSpeed release steward. Execute releases with strong validation gates, deterministic versioning, and auditable change logs. Prefer safe defaults (`patch`, dry-run enabled) unless maintainers explicitly choose otherwise.
 
 ## Overview
 
-Applies to all release preparation, validation, and publication workflows. Covers pre-release health scans, changelog enforcement, semantic versioning, branch strategy, tagging, and GitHub Release creation. Excludes deployment and post-release monitoring (separate process).
+This file defines how release preparation, execution, and recovery must run in this repository. It aligns:
 
-## General Rules
+- Release workflow: `.github/workflows/release.yml`
+- Agent logic: `scripts/agents/release.agent.js`
+- Process documentation: `docs/RELEASE_PROCESS.md`
+- Changelog validation tooling: `scripts/validation/validate-changelog.cjs`, `scripts/agents/includes/changelogUtils.cjs`
 
-- Always lint and test before release
-- Never publish incomplete or broken releases
-- Abort and notify if any validation fails
-- Support dry-run mode for all operations
-- Log all actions for audit trails
-- Default to read-only analysis unless user explicitly requests changes
-- Follow Semantic Versioning 2.0.0 strictly (`MAJOR.MINOR.PATCH`)
-- Enforce changelog compliance via schema validation
-- Enforce Keep a Changelog 1.1.0 section taxonomy (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
+## Release Phases
 
-## Detailed Guidance
+### Phase 1: Pre-release Readiness (develop)
 
-This document defines the complete release process from preparation through publication, including health checks, validation gates, version bumping, and release notes compilation.
+- Ensure all release blockers in the target milestone are closed.
+- Run mandatory gates:
+  - `npm run validate:frontmatter`
+  - `npm run validate:workflows`
+  - `npm run validate:agents`
+  - `npm run validate:skill-manifests`
+  - `npm run validate:plugins`
+  - `npm test`
+- Confirm `CHANGELOG.md` has a valid `[Unreleased]` section.
 
-## Examples
+### Phase 2: Release Execution (release/vX.Y.Z -> main)
 
-- **Good:** Release v1.2.3 with validated changelog, passing tests, semantic version bump, annotated git tag, and compiled release notes
-- **Avoid:** Releasing v1.2.3 without changelog update, with failing tests, or skipping pre-release health scan
+- Determine target version from scope (`patch|minor|major`) unless an explicit version is provided.
+- If explicit version is used, enforce scope alignment unless `RELEASE_FORCE_VERSION=1` is intentionally set.
+- Create `release/vX.Y.Z`, bump `VERSION`, roll changelog section, validate post-change structure, then open release PR.
+- Only after successful validation/PR creation proceed to tag and GitHub Release publication.
 
-## Validation
+### Phase 3: Post-release Verification
 
-- Validate `CHANGELOG.md` against JSON schema before every release
-- Run full test suite and ensure all tests pass
-- Check linting passes (ESLint, Prettier, YAML lint)
-- Verify no merge conflicts on release branch
-- Confirm all required documentation is up-to-date
-- Test dry-run mode before production release
+- Re-validate changelog structure after release mutation in workflow.
+- Verify release tag and GitHub Release metadata.
+- Record release outcomes in changelog/issue tracking.
 
-## Purpose
+## Changelog Governance
 
-Automate and standardise the release process to ensure consistent release quality, reduce manual effort, enforce standards, provide comprehensive validation, generate professional releases, maintain audit trails, and enable safe, repeatable workflows.
+- `CHANGELOG.md` must follow Keep a Changelog structure.
+- `[Unreleased]` must always exist after release completion.
+- Post-release validation in workflow must include:
+  - `validate-changelog.cjs`
+  - `changelogUtils.cjs --validate`
+  - `changelogUtils.cjs --unreleased`
 
-For complete detailed standards, see [automation.instructions.md](./automation.instructions.md#release-management) which contains comprehensive release management standards including:
+## Semantic Versioning Rules
 
-- Two-phase release approach (Preparation + Execution)
-- Semantic versioning rules and version bumping
-- Changelog management (Keep a Changelog format, schema validation)
-- Pre-release preparation (Health scan, Alignment validation, Blocking issues)
-- Release execution (Readiness validation, Branch strategy, Version bump, Release PR, Tagging, GitHub Release)
-- Post-merge verification
-- Release labels strategy
-- Configuration and workflow setup
-- Best practices and guardrails
-- Rollback strategy
+- `patch`: fixes, docs corrections, low-risk maintenance.
+- `minor`: backward-compatible features or capability additions.
+- `major`: breaking changes or compatibility resets.
+- Explicit `--version=X.Y.Z` overrides must match computed scope output unless `RELEASE_FORCE_VERSION=1` is set.
+
+## MCP Provider Authentication and Permissions
+
+When using `--provider=mcp` (or workflow input `provider: mcp`), release automation uses GitHub API calls for preflight/tag/PR/release steps.
+
+Required authentication:
+
+- `GITHUB_TOKEN` must be present in the runtime environment.
+- Repository context must resolve via `GITHUB_REPOSITORY=owner/repo` or `RELEASE_REPO_OWNER` + `RELEASE_REPO_NAME`.
+
+Required token capabilities:
+
+- `contents: write` (tag refs and release publication)
+- `pull-requests: write` (release PR creation)
+
+Workflow permission alignment (`.github/workflows/release.yml`):
+
+- `permissions.contents: write`
+- `permissions.pull-requests: write`
+
+Dry-run expectation:
+
+- MCP dry-run still performs remote preflight checks for tag/release collisions.
+- Tag/PR/release mutation calls must not execute in dry-run mode.
+
+## Failure and Rollback
+
+- If release execution fails after partial mutation, run:
+
+```bash
+node scripts/workflows/release/rollback.cjs --version=X.Y.Z
+```
+
+- For best-effort cleanup when one step fails:
+
+```bash
+node scripts/workflows/release/rollback.cjs --version=X.Y.Z --force
+```
+
+- Optional preview mode:
+
+```bash
+node scripts/workflows/release/rollback.cjs --version=X.Y.Z --dry-run
+```
+
+## Validation Checklist
+
+- [ ] Required pre-release gates pass
+- [ ] Changelog unreleased section present and valid
+- [ ] Version bump aligns with release scope
+- [ ] Release PR created successfully before release publication
+- [ ] Tag/release creation succeeds
+- [ ] Rollback procedure available and tested in dry-run mode
 
 ## References
 
-- [automation.instructions.md](./automation.instructions.md) — Complete release standards
-- [release.agent.md](../agents/release.agent.md) — Release agent specification
-- [changelog.schema.json](../.schemas/changelog.schema.json) — Changelog validation schema
-- [docs/RELEASE_PROCESS.md](../docs/RELEASE_PROCESS.md) — Detailed release process
-- [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html)
-- [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)
+- `docs/RELEASE_PROCESS.md`
+- `.github/workflows/release.yml`
+- `scripts/agents/release.agent.js`
+- `scripts/workflows/release/rollback.cjs`

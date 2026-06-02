@@ -1,3 +1,12 @@
+---
+title: "WordPress Standards Compliance & Comprehensive Codebase Review"
+description: "Legacy compliance plan queued for WP 7.0 and WordPress agent-skills refresh"
+file_type: documentation
+status: active
+issue_number: 745
+last_updated: "2026-06-01"
+---
+
 # WordPress Standards Compliance & Comprehensive Codebase Review
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
@@ -1415,17 +1424,3 @@ git commit -m "docs: update CSS coding standards with comprehensive WordPress gu
 ```
 
 ---
-
-Due to length constraints, I'll continue this plan in the next section. The plan continues with:
-
-- Task 1.4: HTML Coding Standards
-- Task 1.5: PHPDoc Standards
-- Task 1.6: JSDoc Standards
-- Task 1.7: Accessibility Standards
-- PHASE 2: Plugin Basics & Core Files Review
-- PHASE 3: Custom Post Types, Taxonomies, and Fields
-- PHASE 4: Blocks, Patterns, and Templates
-- PHASE 5: Instruction Files Review and Update
-- PHASE 6: Final Validation and Testing
-
-Would you like me to continue writing the complete plan?
