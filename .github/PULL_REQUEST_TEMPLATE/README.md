@@ -1,17 +1,16 @@
 ---
-file_type: "documentation"
 title: "Pull Request Templates Directory"
-description: "Standardized pull request templates for the LightSpeedWP organization"
-version: "v1.1"
+description: "Standardized pull request templates for the LightSpeedWP organization. Templates for bugs, features, chores, documentation, releases, and refactoring with automation integration."
+file_type: documentation
+version: v1.2
+last_updated: "2026-05-31"
 created_date: "2025-10-20"
-last_updated: "2025-11-25"
-author: "LightSpeed Team"
-maintainer: "Ash Shaw"
-owners: ["lightspeedwp/maintainers"]
+authors: ["LightSpeed Team"]
+maintainer: "LightSpeed Team"
 license: "GPL-3.0"
+tags: ["templates", "pull-requests", "governance", "automation"]
 domain: "governance"
 stability: "stable"
-tags: ["templates", "pull-requests", "governance", "automation"]
 ---
 
 # 🔀 Pull Request Templates Directory

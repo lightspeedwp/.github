@@ -109,14 +109,3 @@ Related: use the dedicated skills when creating the source file:
 - `/home/oai/skills/slides` for PPTX
 
 ---
-
-## Quality loop
-
-No matter the pipeline:
-
-1) generate PDF
-2) render to PNGs
-3) inspect for clipping/overlaps/fonts
-4) iterate
-
-Finally, delete intermediate artifacts under `/mnt/data/_tmp` and `/mnt/data/_renders`.

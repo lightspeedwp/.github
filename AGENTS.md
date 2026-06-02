@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed Global AI Rules"
 description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
-version: "v1.1"
-last_updated: "2025-12-07"
+version: 'v1.5'
+last_updated: '2026-06-01'
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -10,13 +10,6 @@ license: "GPL-3.0"
 tags: ["agents", "ai", "coding-standards", "governance", "wordpress"]
 domain: "governance"
 stability: "stable"
-references:
-  - path: "agents/agent.md"
-    description: "Main agent implementations index"
-  - path: ".github/custom-instructions.md"
-    description: "Repo-local Copilot and agent instructions"
-  - path: ".github/prompts/prompts.md"
-    description: "Prompts index"
 ---
 
 # LightSpeed – Global AI Rules (AGENTS.md)
@@ -30,9 +23,13 @@ references:
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
 - When unsure, propose safe defaults and ask **one** focused question to clarify requirements.
 - Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `MIGRATION_GUIDE.md`).
+- Canonical instruction reference policy: use `.github/instructions/` for
+  repo-local maintenance guidance and `instructions/` for portable standards;
+  see `instructions/file-organisation.instructions.md#canonical-instruction-reference-policy`.
 
 ## Agent Directory
 
+- Canonical AI source map: [ai/agents.md](ai/agents.md)
 - See [Main Agent Index](agents/agent.md) for all agent implementations and specs.
 - Each agent must have both a code file (`.js`, `.py`, etc.) and a spec (`.md`) following the template.
 - All contributors must follow the org [Coding Standards](instructions/coding-standards.instructions.md).
@@ -71,7 +68,7 @@ references:
 
 ## PR Templates
 
-- Use the default PR template: [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)
+- Use the default PR template: [.github/pull_request_template.md](.github/pull_request_template.md)
 - Additional PR templates are available in: [.github/PULL_REQUEST_TEMPLATE/](.github/PULL_REQUEST_TEMPLATE/)
   - Use the template most relevant to your change (e.g. feature, fix, documentation, etc.)
 
@@ -103,7 +100,7 @@ Start here for all key standards:
 
 - [Contributing Guidelines](CONTRIBUTING.md) - For human contributors
 - [Main Documentation](README.md) - Project overview
-- [Frontmatter Schema](.schemas/frontmatter.schema.json) - Schema validation
+- [Frontmatter Schema](schema/frontmatter.schema.json) - Schema validation
 
 *This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards.*

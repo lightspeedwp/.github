@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Issue Template Compliance
+  short_description: verify issue content against required template sections and governance checks.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - claude
+  allow_implicit_invocation: true
+  compatibility_mode: standard

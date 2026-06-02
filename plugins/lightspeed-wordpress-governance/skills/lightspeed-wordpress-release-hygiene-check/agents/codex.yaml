@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed WordPress Release Hygiene Check
+  short_description: run release hygiene checks for WordPress repositories before final cutover.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - codex
+  allow_implicit_invocation: true
+  compatibility_mode: legacy-compatible

@@ -7,7 +7,3 @@ owners: ["lightspeedwp/maintainers"]
 category: "governance"
 status: "archived"
 ---
-
-# Archived: Naming Conventions
-
-Use `community-standards.instructions.md#naming-conventions` for the current rules (lowercase-hyphenated names, agent specs/code, prompts, chatmodes, saved replies, and required `file_type` frontmatter). This archived file is retained for traceability only.

@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed WordPress Milestone Planner
+  short_description: convert approved WordPress plans into milestone-aligned delivery checkpoints.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - copilot
+  allow_implicit_invocation: true
+  compatibility_mode: standard

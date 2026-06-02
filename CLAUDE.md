@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed .github — Claude Instructions"
 description: "Claude-specific project instructions for the LightSpeed .github repository."
-version: "v1.0"
-last_updated: "2026-05-20"
+version: "v1.2"
+last_updated: "2026-06-01"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 ---
@@ -11,6 +11,10 @@ maintainer: "LightSpeed Team"
 
 > Full organisation-wide AI rules, coding standards, and contribution guidelines live in [AGENTS.md](./AGENTS.md). Read that file first.
 
+Canonical AI references are maintained under [`ai/`](./ai/), including
+[`ai/Claude.md`](./ai/Claude.md), [`ai/Gemini.md`](./ai/Gemini.md), and
+[`ai/RUNNERS.md`](./ai/RUNNERS.md).
+
 ## What This Repository Is
 
 This is the **LightSpeed organisation `.github` control plane**. It owns:
@@ -18,13 +22,14 @@ This is the **LightSpeed organisation `.github` control plane**. It owns:
 - GitHub community-health files (issue templates, PR templates, discussion templates, saved replies, code of conduct, security policy).
 - Organisation-wide labels, labeler rules, and issue types.
 - GitHub Actions workflows for labeling, metrics, releases, and validation.
-- Repo-local Copilot and agent instructions (`.github/instructions/`, `.github/custom-instructions.md`).
+- Repo-local Copilot and agent instructions (`.github/instructions/` for control-plane-specific, `.github/custom-instructions.md`).
 - Reports, project artefacts, and active planning documents.
 
 It also hosts **portable AI operations assets** in top-level source folders that are intended to be reusable outside this repository:
 
 | Folder | Purpose |
 | --- | --- |
+| `ai/` | Canonical AI agent references (Claude, Gemini, RUNNERS configurations) |
 | `agents/` | Portable agent specifications |
 | `cookbook/` | Recipes, playbooks, and implementation guides |
 | `hooks/` | Portable hooks and guardrails |
@@ -34,6 +39,54 @@ It also hosts **portable AI operations assets** in top-level source folders that
 | `workflows/` | Portable agentic workflows |
 
 Do **not** place reusable assets under `.github/`—use the matching top-level folder instead.
+
+## Git & Branching Strategy
+
+> **CRITICAL:** This repository follows a strict branching discipline. Read [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) before opening any PR.
+
+### Protected Branches
+
+- `main` is **always production-ready**. Never push directly to `main` unless performing a **release cycle**.
+- `develop` (if used) is an integration branch. Never push directly to `develop` outside release/hotfix workflows.
+- All other work goes to feature/fix/chore branches.
+
+### Branch Naming Convention
+
+Use the format: `{type}/{scope}-{short-title}` (lowercase, kebab-case)
+
+**Common prefixes:**
+
+- `feat/` — new feature or capability
+- `fix/` — bug fix
+- `hotfix/` — urgent production fix (branches from `main`)
+- `chore/` — maintenance, refactoring, dependency updates
+- `docs/` — documentation changes
+- `ci/` — CI/CD workflow changes
+- `test/` — test-only changes
+- `refactor/` — code restructure
+- `security/` — security fixes
+
+**Examples:**
+
+```
+chore/readme-frontmatter-standardization
+fix/invalid-branch-name-validation
+docs/update-contributing-guide
+release/v1.2.0
+```
+
+**Branch protection enforcement:**
+
+- All PRs require branch names matching the regex pattern
+- CI will block misnamed branches from merging
+- Rename with `git branch -m <old> <new>` if needed
+
+### Before Every Push
+
+1. Verify the current branch: `git branch -v`
+2. Confirm it is NOT `main` or `develop` (unless in a release cycle)
+3. Ensure the branch name follows the `{type}/{scope}-{short-title}` pattern
+4. Use: `git push -u origin <branch-name>`
 
 ## Development Commands
 
@@ -90,8 +143,18 @@ npm run validate:frontmatter
 
 ## Related Files
 
-- [AGENTS.md](./AGENTS.md) — full global AI rules
+**Organization-wide instructions** (reusable across all LightSpeedWP repos):
+
+- [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
+- [instructions/a11y.instructions.md](./instructions/a11y.instructions.md) — WCAG 2.2 AA accessibility standards
+- [instructions/documentation-formats.instructions.md](./instructions/documentation-formats.instructions.md) — Markdown, YAML, Mermaid standards
+- [instructions/issues.instructions.md](./instructions/issues.instructions.md) — issue creation & labeling standards
+- [instructions/pull-requests.instructions.md](./instructions/pull-requests.instructions.md) — PR creation & labeling standards
+- [instructions/community-standards.instructions.md](./instructions/community-standards.instructions.md) — community health standards
+
+**Repo-local instructions** (specific to this .github control plane):
+
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
-- [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) — unified coding standards
-- [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — canonical file placement rules
-- [.github/instructions/plugin-structure.instructions.md](./.github/instructions/plugin-structure.instructions.md) — WordPress block plugin structure
+- [instructions/file-organisation.instructions.md](./instructions/file-organisation.instructions.md) — this repo's file placement rules
+- [AGENTS.md](./AGENTS.md) — full global AI rules
+- [instructions/plugin-structure.instructions.md](./instructions/plugin-structure.instructions.md) — WordPress block plugin structure

@@ -1,179 +1,360 @@
-# LightSpeedWP Labeling Agent: Usage & Integration Guide
+---
+title: "Labeling Strategy & Governance"
+description: "Label taxonomy, automation rules, and governance for LightSpeed repositories."
+file_type: "documentation"
+version: 'v1.0.1'
+author: "LightSpeed Team"
+maintainer: "LightSpeed Team"
+owners: ["lightspeedwp"]
+tags: ["labels", "automation", "governance"]
+---
 
-<!-- BADGES-START -->
+# GitHub Labelling & Automation
 
-[![changelog](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog.yml)
-[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
-[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
-[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
-[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
-[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
-[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
-[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
-[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
-[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
-[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
-[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-
-<!-- BADGES-END -->
-
-This document provides detailed instructions for using the unified labeling agent (`labeling.agent.js`) in your GitHub workflows. It covers configuration, modular utilities, agent orchestration, and best practices for automation across issues and PRs.
+This document describes how LightSpeed uses GitHub labels to power automation, search, workflow routing, and community management across all repositories—including issues, pull requests (PRs), and discussions.
 
 ---
 
-## 1. **Purpose**
+## Table of Contents
 
-The labeling agent automates all aspects of labeling, status/priority enforcement, issue type assignment, and label standardization for issues and pull requests. It replaces multiple legacy agents and workflows with a single, unified logic and configuration set.
-
----
-
-## 2. How It Works
-
-- **Entry Point:**
-  The agent is triggered via the `labeling.yml` workflow on issue and PR events.
-- **Config-Driven:**
-  It uses `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml` for all canonical label/type logic.
-- **Modular Utilities:**
-  The agent orchestrates core logic by calling a suite of shared utility modules in `scripts/agent/includes/`, each responsible for one aspect (label lookup, type assignment, file/branch rules, reporting, etc.).
+1. [Purpose & Principles](#purpose--principles)
+2. [Label Categories & Families](#label-categories--families)
+3. [Issue Labelling](#issue-labelling)
+4. [Pull Request Labelling](#pull-request-labelling)
+5. [Discussion Labelling](#discussion-labelling)
+6. [Automation & Agent Integration](#automation--agent-integration)
+7. [Best Practices](#best-practices)
+8. [Troubleshooting](#troubleshooting)
 
 ---
 
-## 3. Utility Modules (Modularization)
+## Purpose & Principles
 
-**Utilities are located in `scripts/agents/includes/` and imported as needed:**
-
-| Utility File          | Core Functions (examples)                                                  | Used by                       |
-| --------------------- | -------------------------------------------------------------------------- | ----------------------------- |
-| `label-lookup.js`     | `fetchCanonicalLabels`, `buildLabelAliasMap`, `findStandardLabel`          | labeling.agent.js, others     |
-| `labeler-utils.js`    | `fetchLabelerRules`, `applyLabelerRules`                                   | labeling.agent.js             |
-| `label-sync.js`       | `syncLabelsWithCanonical`, `validateRepoLabels`, `standardizeLabelsOnRepo` | labeling.agent.js, scripts    |
-| `status-enforcer.js`  | `enforceOneHotStatus`, `applyDefaultStatus`, `applyDefaultPriority`        | labeling.agent.js             |
-| `label-reporting.js`  | `buildLabelingReport`, `buildStandardizationReport`                        | labeling.agent.js, reporting  |
-| `type-lookup.js`      | `loadIssueTypes`, `findIssueTypeByNameOrAlias`                             | labeling.agent.js, issue-type |
-| `label-heuristics.js` | `suggestLabelsFromContent`                                                 | labeling.agent.js, automation |
+- **Clarity & Automation:** Labels provide high-signal metadata for automation, project boards, and contributors.
+- **Consistency:** All repositories follow a shared, canonical taxonomy (see `.github/labels.yml`).
+- **Discoverability:** Labels make it easy to filter, search, and report on work across code, docs, and community.
+- **Community Engagement:** Dedicated labels for discussions and non-code topics ensure inclusive collaboration.
+- **One-hot principle:** Only one value per label group (e.g., one `priority:*`, one `status:*`).
 
 ---
 
-## 4. Agent Usage: Example Orchestration
+## Label Categories & Families
 
-```javascript
-// Import utilities in labeling.agent.js
-const {
-  fetchCanonicalLabels,
-  buildLabelAliasMap,
-  findStandardLabel,
-} = require("../../scripts/agents/includes/label-lookup");
-const {
-  fetchLabelerRules,
-  applyLabelerRules,
-} = require("../../scripts/agents/includes/labeler-utils");
-const {
-  syncLabelsWithCanonical,
-  standardizeLabelsOnRepo,
-} = require("../../scripts/agents/includes/label-sync");
-const {
-  enforceOneHotStatus,
-  applyDefaultStatus,
-  applyDefaultPriority,
-} = require("../../scripts/agents/includes/status-enforcer");
-const {
-  buildLabelingReport,
-} = require("../../scripts/agents/includes/label-reporting");
-const {
-  loadIssueTypes,
-  findIssueTypeByNameOrAlias,
-} = require("../../scripts/agents/includes/type-lookup");
-const {
-  suggestLabelsFromContent,
-} = require("../../scripts/agents/includes/label-heuristics");
+All canonical labels use a family prefix. The organisation recognises the following label families:
 
-// Example usage in agent's main function:
-async function runLabelingAgent(context, configs, dryRun = false) {
-  const canonicalLabels = fetchCanonicalLabels();
-  const labelerRules = fetchLabelerRules();
-  const issueTypes = loadIssueTypes();
+### Status Labels (`status:*`)
 
-  // 1. File/branch-based labeling using labeler rules
-  await applyLabelerRules(context, labelerRules, dryRun);
+Indicate the current progress or state of an issue or PR:
 
-  // 2. One-hot status enforcement
-  await enforceOneHotStatus(context, canonicalLabels, dryRun);
+- `status:needs-triage` — New, not yet reviewed
+- `status:ready` — Clear requirements, ready to work
+- `status:in-progress` — Someone is actively working
+- `status:needs-review` — Waiting for review/approval
+- `status:blocked` — Blocked by another issue or dependency
+- `status:done` — Completed and closed
+- `status:wontfix` — Intentionally closed as not actionable
 
-  // 3. Default priority/status for issues/PRs
-  await applyDefaultStatus(context, canonicalLabels, dryRun);
-  await applyDefaultPriority(context, canonicalLabels, dryRun);
+**Rule:** Each issue and PR has exactly one `status:*` label.
 
-  // 4. Issue type assignment from title/body
-  const typeLabel = findIssueTypeByNameOrAlias(
-    context.payload.issue?.title,
-    issueTypes,
-  );
-  if (typeLabel) {
-    // ...add type label if missing
-  }
+### Priority Labels (`priority:*`)
 
-  // 5. Standardize/migrate labels
-  await standardizeLabelsOnRepo(context, canonicalLabels, dryRun);
+Indicate urgency and scheduling priority:
 
-  // 6. (Optional) Reporting
-  const report = buildLabelingReport(/* ... */);
-  // ...post report as comment or log
+- `priority:urgent` — Security issue, critical bug, or blocker
+- `priority:high` — High-impact, affecting multiple users
+- `priority:normal` — Standard feature or improvement (default)
+- `priority:low` — Nice-to-have, deferred work
 
-  // 7. (Optional) Suggest labels from content heuristics
-  const suggestions = suggestLabelsFromContent(context.payload.issue?.body);
-  // ...log or post suggestions
-}
-```
+**Rule:** Each issue and PR has exactly one `priority:*` label.
+
+### Type Labels (`type:*`)
+
+Classify the nature of the work:
+
+- `type:bug` — Unexpected behavior or error
+- `type:feature` — New functionality
+- `type:improvement` — Enhancement to existing functionality
+- `type:chore` — Maintenance, cleanup, tooling, or refactoring
+- `type:docs` — Documentation improvements
+- `type:test` — Test suite additions or fixes
+- `type:refactor` — Code quality improvements, no behaviour change
+- `type:performance` — Performance optimisation
+- `type:security` — Security-related changes
+- `type:a11y` — Accessibility improvements
+- `type:design` — Design-related work
+- `type:release` — Release-related tasks
+
+**Rule:** Each issue and PR has exactly one `type:*` label. For PRs, it's automatically assigned from the branch prefix; for issues, it's assigned from issue templates or manually.
+
+### Area & Component Labels
+
+**Area labels (`area:*`):** Indicate the high-level system or domain:
+
+- `area:ci` — CI/CD pipelines and automation
+- `area:dependencies` — Package and dependency management
+- `area:documentation` — Docs, guides, examples
+- `area:quality` — Quality validation and QA controls
+- `area:a11y` — Accessibility standards
+- `area:performance` — Performance optimisation
+- Other areas as needed
+
+**Component labels (`comp:*`):** For WordPress-specific or product areas:
+
+- `comp:block-editor` — Gutenberg editor integration
+- `comp:block-json` — Block JSON schema
+- `comp:theme-json` — Theme JSON features
+- `comp:templates` — Template system
+- `comp:patterns` — Block pattern library
+- Others as relevant to your projects
+
+**Rule:** At least one `area:*` or `comp:*` label per issue/PR.
+
+### Context Labels
+
+Provide additional context:
+
+- **Environment:** `env:production`, `env:staging`, `env:development`
+- **Compatibility:** `compat:php7`, `compat:wp6.0`, `compat:js-es6`
+- **Phase:** `phase:1`, `phase:2`, etc. (for multi-phase projects)
+- **Device/Platform:** `device:mobile`, `device:desktop`
+- **Language/Locale:** `lang:en`, `lang:de`, etc.
+- Others as defined per project
+
+### Meta & Release Labels (`meta:*`, `release:*`)
+
+For release hygiene and workflow signals:
+
+- `meta:needs-changelog` — Requires a CHANGELOG.md entry (enforced on PRs)
+- `meta:no-changelog` — Explicitly no changelog needed (internal-only changes)
+- `meta:has-pr` — Issue has a linked PR
+- `meta:no-issue-activity` — No activity for 30+ days
+- `meta:stale` — Marked for cleanup/archival
+- `meta:dependabot-security` — Security update from Dependabot
+- `release:patch` — Patch version bump required
+- `release:minor` — Minor version bump required
+- `release:major` — Major version bump required
+- `release:hotfix` — Hotfix release required
+
+**Rule:** Never apply both `meta:needs-changelog` and `meta:no-changelog` on the same PR.
+
+### Contributor & Community Labels
+
+**Contributor labels (`contrib:*`):**
+
+- `contrib:good-first-issue` — Suitable for new contributors
+- `contrib:help-wanted` — Needs community input or volunteers
+- `contrib:discussion` — Topic for community discussion
+
+**Discussion labels (`discussion:*`):**
+
+- `discussion:community` — Social, networking, or open-ended topics
+- `discussion:showcase` — User projects, demos, "Show & Tell"
+- `discussion:announcement` — Official news and team updates
+- `discussion:feedback` — Suggestions, UX feedback, ideas
+- `discussion:support` — Help requests, troubleshooting (non-bug)
+- `discussion:sponsorship` — Funding, GitHub Sponsors
+- `discussion:partnership` — Collaboration, business, outreach
 
 ---
 
-## 5. **Configuration & Files**
+## Issue Labelling
 
-- `.github/labels.yml`: Canonical label definitions (names, colors, aliases)
-- `.github/labeler.yml`: File/branch-based label rules
-- `.github/issue-types.yml`: Canonical issue type definitions
-- `.github/includes/`: Shared JS helpers for all agents/scripts
+### Required Labels per Issue
 
----
+Every issue must have:
 
-## 6. **Best Practices**
+- **One** `status:*` (e.g., `status:needs-triage`, then progressing to `status:ready`, `status:in-progress`, etc.)
+- **One** `priority:*` (e.g., `priority:normal`)
+- **One** `type:*` (e.g., `type:bug`, `type:feature`)
+- **At least one** `area:*` or `comp:*` (e.g., `area:ci`, `comp:block-editor`)
+- **Contextual labels** as needed (`phase:6`, `meta:needs-changelog`, `contrib:good-first-issue`)
 
-- **Agents orchestrate, utilities do the work:**
-  Keep agent files lean—just call helpers, passing context and config.
-- **Always use canonical config:**
-  Never hardcode label/type lists; always read from YAML.
-- **Write utility tests:**
-  Each utility in `scripts/agents/includes/` should have a test in `scripts/agents/includes/__tests__/`.
-- **Keep logic DRY:**
-  Avoid duplicate logic for label lookup, migration, or reporting.
-- **Document all new utility functions:**
-  Use JSDoc or comment blocks so team members can easily extend.
+### Application Methods
 
----
+- **Automated:** Issue templates auto-assign initial labels (`type:*`, `priority:*`, `status:needs-triage`)
+- **Manual curation:** Triage and maintainers adjust labels as issue status changes or scope evolves
+- **Labeler rules:** `.github/labeler.yml` can auto-apply labels based on file paths, branch prefixes
 
-## 7. Troubleshooting & Extension
+### Automation & Enforcement
 
-- **Missing labels or types?**
-  Check `.github/labels.yml` and `.github/issue-types.yml` for missing/typo entries.
-- **Label not applied as expected?**
-  Debug with utility tests in `scripts/agents/includes/__tests__/`.
-- **Want to add a new heuristic or report?**
-  Add it as a new utility in `scripts/agents/includes/`, write a test in `__tests__/`, and import it in the agent.
+- The unified labeling agent enforces one-hot rules (exactly one status, one priority, one type)
+- The agent removes non-canonical labels or migrates them to canonical equivalents
+- Project board auto-triage uses status labels to organize work
+- Changelog and release labels (`meta:needs-changelog`, `release:*`) drive release automation
 
 ---
 
-## 8. **References**
+## Pull Request Labelling
 
-- [labels.yml](../.github/labels.yml)
-- [labeler.yml](../.github/labeler.yml)
-- [issue-types.yml](../.github/issue-types.yml)
-- [Coding Standards](../instructions/coding-standards.instructions.md)
-- [Custom Instructions](../.github/custom-instructions.md)
-- [Main Agent Spec](../agents/labeling.agent.md)
+### Required Labels per PR
+
+Every PR must have:
+
+- **One** `status:*` (automatically set to `status:needs-review` on open)
+- **One** `type:*` (automatically matched from branch prefix: `feat/` → `type:feature`, `fix/` → `type:bug`, etc.)
+- **One** `priority:*` (derived from branch prefix or set manually; defaults to `priority:normal`)
+- **At least one** `area:*` or `comp:*`
+- **Release label:** `release:patch`, `release:minor`, or `release:major` (required for shipping PRs)
+- **Meta labels:** `meta:needs-changelog` or `meta:no-changelog` (enforced; cannot have both)
+
+### Branch Prefix Mapping
+
+PR branch names automatically assign `type:*` labels:
+
+**Core prefixes:**
+
+- `feat/` → `type:feature`
+- `fix/` → `type:bug`
+- `hotfix/` → `type:bug` + `release:hotfix`
+- `refactor/` → `type:refactor`
+- `perf/` → `type:performance`
+- `docs/` → `type:docs`
+- `test/` → `type:test`
+- `chore/` → `type:chore`
+- `ci/` → `type:chore` + `area:ci`
+- `deps/` → `type:chore` + `area:dependencies`
+- `security/` → `type:security`
+- `a11y/` → `type:a11y`
+- `build/` → `type:chore`
+
+**Optional prefixes** (as needed for your projects):
+
+- `proto/`, `ds/`, `api/`, `schema/` — Product/design system
+- `content/`, `seo/`, `config/`, `migrate/` — Client/project specific
+
+### Changelog Policy
+
+- **User-facing changes** must have `meta:needs-changelog` (a CHANGELOG.md entry is required for merge)
+- **Internal-only changes** (refactoring, testing, CI) can use `meta:no-changelog` to skip changelog requirement
+- **Never apply both** `meta:needs-changelog` and `meta:no-changelog` on the same PR
+
+### Automation & Enforcement
+
+- Labeler automatically applies labels based on branch name and file changes
+- Changelog validation blocks merges if a user-facing PR lacks a changelog entry or required label
+- Status transitions follow one-hot rules (only one status at a time)
+- Release labels guide automated changelog compilation and semantic versioning
 
 ---
 
-**With this modular approach, the labeling agent is robust, easy to test, and simple to extend—making automation scalable for all LightSpeedWP projects.**
+## Discussion Labelling
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+### Purpose
+
+Discussion labels organize community conversations by topic, making it easy for users to find relevant threads and for moderators to filter and prioritize.
+
+### Available Labels
+
+- `discussion:community` — Social, networking, or open-ended topics
+- `discussion:showcase` — User projects, demos, "Show & Tell"
+- `discussion:announcement` — Official news and team updates
+- `discussion:feedback` — Suggestions, UX feedback, general ideas
+- `discussion:support` — "How do I…" setup, troubleshooting, help requests (non-bug)
+- `discussion:sponsorship` — Funding, GitHub Sponsors, financial topics
+- `discussion:partnership` — Collaboration, business, outreach
+
+### Best Practices
+
+- Encourage users to select a label when starting a new discussion
+- Apply or update labels when moderating to keep threads organized
+- Use labels to filter discussions when reviewing or responding
+- A discussion can have multiple labels if it spans categories
+
+---
+
+## Automation & Agent Integration
+
+### Unified Labelling Agent
+
+All labelling, status enforcement, type assignment, and standardisation are handled by the **unified labelling agent** (`scripts/agents/labeling.agent.js`) and **labelling workflow** (`.github/workflows/labeling.yml`).
+
+**How it works:**
+
+1. Triggered on issue/PR creation, edits, and label changes
+2. Reads canonical configuration from `.github/labels.yml`, `.github/labeler.yml`, and `.github/issue-types.yml`
+3. Applies automatic labels based on:
+   - Branch prefixes (PRs only)
+   - File path changes
+   - PR body front matter
+   - Content heuristics
+4. Enforces one-hot rules (exactly one status, priority, type)
+5. Removes non-canonical labels and migrates legacy labels
+6. Generates reports for monitoring and debugging
+
+### Agent Utilities
+
+The agent orchestrates reusable utility modules in `scripts/agents/includes/`:
+
+| Utility | Responsibility |
+| --- | --- |
+| `label-lookup.js` | Fetch canonical labels, build alias maps, find standard labels |
+| `labeler-utils.js` | Apply labeler rules based on file/branch patterns |
+| `label-sync.js` | Sync repository labels with canonical configuration |
+| `status-enforcer.js` | Enforce one-hot status, priority, type labels |
+| `label-reporting.js` | Build labelling and standardisation reports |
+| `type-lookup.js` | Load issue types and find matches from titles/bodies |
+| `label-heuristics.js` | Suggest labels from issue/PR content |
+
+### Configuration Files
+
+- `.github/labels.yml` — Canonical label definitions, colours, and aliases
+- `.github/labeler.yml` — File/branch-based label rules
+- `.github/issue-types.yml` — Canonical issue type definitions
+
+All automation reads from these files; there is no hardcoded label logic in agents or workflows.
+
+---
+
+## Best Practices
+
+1. **Keep exactly one `status:*` and `priority:*`** on every issue/PR.
+2. **Use the most specific `area:*` or `comp:*`** for filtering and reporting.
+3. **Update labels as work progresses** or if scope changes.
+4. **Trust automation:** Let the labelling agent handle most label application; only manually adjust when needed.
+5. **Refer to `.github/labels.yml`** as the source of truth for canonical labels.
+6. **Use discussion labels** to keep conversations organised and welcoming.
+7. **Review and clean up labels quarterly,** removing unused or redundant entries.
+8. **Always provide `meta:needs-changelog` or `meta:no-changelog`** on PRs before merging.
+
+---
+
+## Troubleshooting
+
+**Missing or incorrect labels?**
+
+- Check `.github/labels.yml` for missing/typo entries
+- Verify branch prefix or file pattern matches in `.github/labeler.yml`
+- Run `node scripts/agents/includes/check-template-labels.js` to validate issue/PR templates
+
+**Label not applied as expected?**
+
+- Review labeler workflow logs in the PR/issue activity
+- Check if the labelling workflow is enabled and up-to-date
+- Verify the labelling agent has access to read/write labels
+
+**Want to add a new label or modify rules?**
+
+1. Update `.github/labels.yml` with the new canonical definition
+2. Update `.github/labeler.yml` if you need automatic application rules
+3. Update this documentation to describe the new label
+4. Create a PR and reference this issue #636
+
+**Non-canonical labels appearing?**
+
+- The labelling agent automatically migrates old labels to canonical equivalents
+- If a label persists, check `.github/label-governance-policy.yml` for exceptions
+- Open an issue if a label should be migrated or removed
+
+---
+
+## References
+
+- [Canonical Labels Config](../.github/labels.yml)
+- [Labeler Rules](../.github/labeler.yml)
+- [Issue Types Config](../.github/issue-types.yml)
+- [Labelling Workflow](../.github/workflows/labeling.yml)
+- [Labelling Agent](../scripts/agents/labeling.agent.js)
+- [Issue Creation Standards](../instructions/issues.instructions.md)
+- [PR Creation Standards](../instructions/pull-requests.instructions.md)
+
+---

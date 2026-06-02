@@ -44,20 +44,3 @@ color_map = presentation.theme.hex_color_map
 ```
 
 ---
-
-### Using theme colors in authoring
-
-Once a theme is set, you can style content via theme color names:
-
-```python
-slide = presentation.slides.add()
-shape = slide.shapes.add({
-  "geometry": "rect",
-  "position": { "left": 80, "top": 80, "width": 420, "height": 200 },
-})
-
-shape.fill = "accent2"
-shape.line.style = "solid"
-shape.line.width = 1
-shape.line.fill = "tx1"
-```

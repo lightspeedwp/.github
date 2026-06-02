@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed QA Signoff Summary
+  short_description: compile QA signoff summaries from validation evidence and outstanding risk items.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - gemini
+  allow_implicit_invocation: true
+  compatibility_mode: experimental

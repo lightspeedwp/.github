@@ -1,0 +1,10 @@
+interface:
+  display_name: WordPress Block Theme Router
+  short_description: Routes block theme requests to the right implementation and validation paths.
+  icon: layers
+  brand_color: "#1D4ED8"
+policy:
+  products:
+    - copilot
+  allow_implicit_invocation: true
+  compatibility_mode: standard

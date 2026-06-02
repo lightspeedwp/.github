@@ -14,6 +14,13 @@ tools:
 description: "Set up complete GitHub Copilot configuration for a new project based on technology stack"
 ---
 
+## Deprecation Notice
+
+- Status: Deprecated in `.github/prompts/`.
+- Action: Use successor prompt(s): `prompts/prompt-builder.prompt`.
+- Effective date: 2026-06-01.
+- Migration reference: `.github/projects/active/refactor-migrate-prompts/artifacts/migration-matrix.md`.
+
 You are a GitHub Copilot setup specialist. Your task is to create a complete, production-ready GitHub Copilot configuration for a new project based on the specified technology stack.
 
 ## Project Information Required
@@ -280,139 +287,3 @@ description: Generate an implementation plan for new features or refactoring exi
 tools: ['codebase', 'fetch', 'findTestFiles', 'githubRepo', 'search', 'usages']
 model: Claude Sonnet 4
 ---
-# Planning mode instructions
-You are in planning mode. Your task is to generate an implementation plan for a new feature or for refactoring existing code.
-Don't make any code edits, just generate a plan.
-
-The plan consists of a Markdown document that describes the implementation plan, including the following sections:
-
-* Overview: A brief description of the feature or refactoring task.
-* Requirements: A list of requirements for the feature or refactoring task.
-* Implementation Steps: A detailed list of steps to implement the feature or refactoring task.
-* Testing: A list of tests that need to be implemented to verify the feature or refactoring task.
-
-```
-
-## Execution Steps
-
-1. **Analyze the provided technology stack**
-2. **Create the directory structure**
-3. **Generate main copilot-instructions.md with project-wide standards**
-4. **Create language-specific instruction files using awesome-copilot references**
-5. **Generate reusable prompts for common development tasks**
-6. **Set up specialized chat modes for different development scenarios**
-7. **Create the GitHub Actions workflow for Coding Agent** (`copilot-setup-steps.yml`)
-8. **Validate all files follow proper formatting and include necessary frontmatter**
-
-## Post-Setup Instructions
-
-After creating all files, provide the user with:
-
-1. **VS Code setup instructions** - How to enable and configure the files
-2. **Usage examples** - How to use each prompt and chat mode
-3. **Customization tips** - How to modify files for their specific needs
-4. **Testing recommendations** - How to verify the setup works correctly
-
-## Quality Checklist
-
-Before completing, verify:
-
-- [ ] All files have proper YAML frontmatter
-- [ ] Language-specific best practices are included
-- [ ] Files reference each other appropriately using Markdown links
-- [ ] Prompts include relevant tools and variables
-- [ ] Instructions are comprehensive but not overwhelming
-- [ ] Security and performance considerations are addressed
-- [ ] Testing guidelines are included
-- [ ] Documentation standards are clear
-- [ ] Code review standards are defined
-
-## Workflow Template Structure
-
-The `copilot-setup-steps.yml` workflow MUST follow this exact format and KEEP IT SIMPLE:
-
-```yaml
-name: "Copilot Setup Steps"
-on:
-  workflow_dispatch:
-  push:
-    paths:
-      - .github/workflows/copilot-setup-steps.yml
-  pull_request:
-    paths:
-      - .github/workflows/copilot-setup-steps.yml
-jobs:
-  # The job MUST be called `copilot-setup-steps` or it will not be picked up by Copilot.
-  copilot-setup-steps:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-      # Add ONLY basic technology-specific setup steps here
-```
-
-**KEEP WORKFLOWS SIMPLE** - Only include essential steps:
-
-**Node.js/JavaScript:**
-
-```yaml
-- name: Set up Node.js
-  uses: actions/setup-node@v4
-  with:
-    node-version: "20"
-    cache: "npm"
-- name: Install dependencies
-  run: npm ci
-- name: Run linter
-  run: npm run lint
-- name: Run tests
-  run: npm test
-```
-
-**Python:**
-
-```yaml
-- name: Set up Python
-  uses: actions/setup-python@v4
-  with:
-    python-version: "3.11"
-- name: Install dependencies
-  run: pip install -r requirements.txt
-- name: Run linter
-  run: flake8 .
-- name: Run tests
-  run: pytest
-```
-
-**Java:**
-
-```yaml
-- name: Set up JDK
-  uses: actions/setup-java@v4
-  with:
-    java-version: "17"
-    distribution: "temurin"
-- name: Build with Maven
-  run: mvn compile
-- name: Run tests
-  run: mvn test
-```
-
-**AVOID in workflows:**
-
-- ❌ Complex configuration setups
-- ❌ Multiple environment configurations
-- ❌ Advanced tooling setup
-- ❌ Custom scripts or complex logic
-- ❌ Multiple package managers
-- ❌ Database setup or external services
-
-**INCLUDE only:**
-
-- ✅ Language/runtime setup
-- ✅ Basic dependency installation
-- ✅ Simple linting (if standard)
-- ✅ Basic test running
-- ✅ Standard build commands

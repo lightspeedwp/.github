@@ -1,4 +1,5 @@
 ---
+file_type: saved-reply
 title: "Performance Technical Saved Reply"
 description: "Notice and suggestions for PRs/issues with performance impact."
 category: "Technical"
@@ -15,7 +16,7 @@ labels:
 ```markdown
 Hi @username,
 
-Thank you for your submission!  
+Thank you for your submission!
 Please ensure you have benchmarked any new code for performance and resource usage.
 
 - Benchmark critical paths before/after changes

@@ -1,0 +1,21 @@
+name: design-md-agent-catalogue
+version: v0.1.0
+description: Grouped catalogue for design-md-agent skills.
+owners:
+  - LightSpeedWP Team
+platforms:
+  claude:
+    supported: true
+    mode: first-class
+  copilot:
+    supported: true
+    mode: first-class
+  gemini:
+    supported: true
+    mode: experimental
+  codex:
+    supported: true
+    mode: legacy-compatible
+notes: >-
+  This metadata describes the catalogue boundary only. Individual sub-skills
+  may have different platform compatibility.

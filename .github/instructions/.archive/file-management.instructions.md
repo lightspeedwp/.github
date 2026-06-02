@@ -10,7 +10,3 @@ tags:
 applyTo: "**"
 status: "archived"
 ---
-
-# Archived: File Management Guidelines
-
-Superseded by `file-output-organization.instructions.md`, which now covers permanent locations, temporary working files (`.github/tmp/`), promotion, and cleanup rules. Do not use this archived file for new work.

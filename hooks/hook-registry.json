@@ -1,0 +1,21 @@
+{
+  "version": "v0.1.0",
+  "last_updated": "2026-05-28",
+  "hooks": [
+    {
+      "id": "tool-guardian",
+      "path": "hooks/tool-guardian/README.md",
+      "status": "active"
+    },
+    {
+      "id": "secrets-scanner",
+      "path": "hooks/secrets-scanner/README.md",
+      "status": "active"
+    },
+    {
+      "id": "session-logger",
+      "path": "hooks/session-logger/README.md",
+      "status": "active"
+    }
+  ]
+}

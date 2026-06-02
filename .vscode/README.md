@@ -1,8 +1,8 @@
 ---
 title: "VS Code Workspace Configuration"
 description: "Visual Studio Code workspace settings, tasks, extensions, and AI integration for LightSpeedWP development environment"
-version: "v1.0"
-last_updated: "2025-12-04"
+version: "v1.2"
+last_updated: '2026-06-01'
 maintainer: "LightSpeed Engineering"
 tags: ["vscode", "configuration", "extensions", "tasks", "ai", "development"]
 file_type: "configuration"
@@ -21,6 +21,10 @@ It ensures a consistent, automated, and standards-driven development experience 
 ## 📊 VS Code Configuration Architecture
 
 ```mermaid
+---
+accTitle: VS Code Workspace Configuration Architecture
+accDescr: Flowchart showing the VS Code workspace hierarchy with three main branches (Extensions, Tasks, Settings) that lead to development tools including AI Agents, Linting tools (ESLint, Stylelint, Markdownlint), Testing (Jest), Build automation, EditorConfig, and Keybindings configuration
+---
 flowchart TD
     A[VS Code Workspace] --> B[Extensions]
     A --> C[Tasks]
@@ -48,7 +52,6 @@ flowchart TD
     O --> Z[CSS]
     P --> AA[Markdown]
     Q --> AB[Coverage]
-    R --> AC[Reports]
     S --> AD[Summary]
     T --> AE[Results]
 
@@ -108,22 +111,25 @@ flowchart TD
 
 ### 📚 Development Standards
 
-- [Coding Standards](../.github/instructions/coding-standards.instructions.md) - Unified development guidelines
-- [Linting Instructions](../.github/instructions/linting.instructions.md) - Code quality standards
+- [Coding Standards](../instructions/coding-standards.instructions.md) - Unified development guidelines
+- [Linting Instructions](../instructions/linting.instructions.md) - Code quality standards
 - [Contributing Guidelines](../CONTRIBUTING.md) - How to contribute to LightSpeed projects
 
 ### 🤖 AI & Automation
 
 - [Custom Instructions](../.github/custom-instructions.md) - Organization-wide Copilot settings
-- [Agents Documentation](../.github/agents/agent.md) - Automation agents and workflows
+- [Agents Documentation](../agents/agent.md) - Automation agents and workflows
 - [Scripts Directory](../scripts/README.md) - Utility scripts and automation tools
 
 ### 🧪 Testing & Quality
 
 - [Testing Framework](../tests/README.md) - Test suites and coverage documentation
-- [JSON Schemas](../schemas/README.md) - Schema validation and IDE integration
+- [JSON Schemas](../schema/README.md) - Schema validation and IDE integration
 - [Main Repository](../README.md) - LightSpeed community health repository
 
 ---
 
 *Maintained by the LightSpeedWP team for a seamless contributor experience.*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

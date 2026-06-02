@@ -1,0 +1,13 @@
+{
+  "name": "lightspeed-wordpress-governance",
+  "version": "0.1.0",
+  "description": "WordPress governance plugin for Gemini.",
+  "manifest_version": 1,
+  "agents": ["agents/wordpress-governance-reviewer.agent.md"],
+  "skills": [
+    "skills/lightspeed-wordpress-governance-checks/SKILL.md",
+    "skills/lightspeed-wordpress-release-hygiene-check/SKILL.md",
+    "skills/lightspeed-wordpress-accessibility-governance/SKILL.md",
+    "skills/lightspeed-wordpress-security-governance/SKILL.md"
+  ]
+}
