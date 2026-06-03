@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getWceuSlides } from "../lib/wceuSlides";
 
 const base = import.meta.env.BASE_URL;
+const slideCount = getWceuSlides().length;
 ---
 
 <BaseLayout
@@ -24,12 +26,12 @@ const base = import.meta.env.BASE_URL;
     <div class="kicker">What is live now</div>
     <div class="stat-list">
       <div class="stat">
-        <strong>4 pages</strong>
-        Home, WCEU 2026 talk, why this exists, and references.
+        <strong>{slideCount + 6} pages</strong>
+        Home, WCEU 2026 talk, slide index, {slideCount} slide pages, why this exists, and references.
       </div>
       <div class="stat">
         <strong>Source-backed</strong>
-        Copy shaped by the talk slides, planning briefs, and reference site.
+        Copy shaped by the talk slides, planning briefs, reference files, and audit notes.
       </div>
       <div class="stat">
         <strong>Conference-ready</strong>
@@ -47,7 +49,7 @@ const base = import.meta.env.BASE_URL;
       </article>
       <article class="card">
         <h3>WCEU 2026 talk</h3>
-        <p>The public entry point for the conference talk, its outline, and the slide source tree.</p>
+        <p>The public entry point for the conference talk, its outline, slide index, and slide-by-slide pages.</p>
       </article>
       <article class="card">
         <h3>Why this exists</h3>

@@ -12,6 +12,13 @@ const navSections = [
         href: `${base}wceu-2026/`,
         path: "/wceu-2026/",
         label: "Talk",
+        exact: true,
+      },
+      {
+        href: `${base}wceu-2026/slides/`,
+        path: "/wceu-2026/slides/",
+        label: "Slides",
+        exact: false,
       },
     ],
   },
@@ -22,16 +29,19 @@ const navSections = [
         href: base,
         path: "/",
         label: "Home",
+        exact: true,
       },
       {
         href: `${base}why-this-exists/`,
         path: "/why-this-exists/",
         label: "Why this exists",
+        exact: true,
       },
       {
         href: `${base}references/`,
         path: "/references/",
         label: "References",
+        exact: true,
       },
     ],
   },
@@ -41,6 +51,61 @@ const {
   title = "Awesome GitHub",
   description = "A conference-ready website for the Awesome GitHub project.",
 } = Astro.props;
+
+const themeInitScript = `
+  (() => {
+    const storageKey = "awesome-github-theme";
+    const root = document.documentElement;
+    const media = window.matchMedia("(prefers-color-scheme: light)");
+    let saved = null;
+
+    try {
+      saved = localStorage.getItem(storageKey);
+    } catch (_) {
+      saved = null;
+    }
+
+    const theme = saved === "light" || saved === "dark" ? saved : media.matches ? "light" : "dark";
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+  })();
+`;
+
+const themeToggleScript = `
+  (() => {
+    const storageKey = "awesome-github-theme";
+    const root = document.documentElement;
+    const button = document.querySelector("[data-theme-toggle]");
+    const label = document.querySelector("[data-theme-label]");
+
+    if (!button || !label) {
+      return;
+    }
+
+    const apply = (theme) => {
+      root.dataset.theme = theme;
+      root.style.colorScheme = theme;
+      button.setAttribute("aria-pressed", String(theme === "light"));
+      label.textContent = theme === "light" ? "Light mode" : "Dark mode";
+    };
+
+    const current = root.dataset.theme === "light" || root.dataset.theme === "dark"
+      ? root.dataset.theme
+      : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+
+    apply(current);
+
+    button.addEventListener("click", () => {
+      const next = root.dataset.theme === "light" ? "dark" : "light";
+      try {
+        localStorage.setItem(storageKey, next);
+      } catch (_) {
+        /* ignore storage errors */
+      }
+      apply(next);
+    });
+  })();
+`;
 ---
 
 <!doctype html>
@@ -51,6 +116,7 @@ const {
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <script is:inline set:html={themeInitScript}></script>
   </head>
   <body>
     <div class="shell">
@@ -68,7 +134,18 @@ const {
               <span class="nav-group-label">{section.label}</span>
               <nav class="nav-links">
                 {section.links.map((link) => (
-                  <a href={link.href} aria-current={pathname === link.path ? "page" : undefined}>
+                  <a
+                    href={link.href}
+                    aria-current={
+                      link.exact
+                        ? pathname === link.path
+                          ? "page"
+                          : undefined
+                        : pathname.startsWith(link.path)
+                          ? "page"
+                          : undefined
+                    }
+                  >
                     {link.label}
                   </a>
                 ))}
@@ -76,6 +153,15 @@ const {
             </section>
           ))}
         </div>
+        <button
+          class="theme-toggle"
+          type="button"
+          data-theme-toggle
+          aria-pressed="false"
+          aria-label="Toggle light and dark mode"
+        >
+          <span class="theme-toggle-label" data-theme-label>Dark mode</span>
+        </button>
       </header>
       <main>
         <slot />
@@ -92,5 +178,6 @@ const {
         </div>
       </footer>
     </div>
+    <script is:inline set:html={themeToggleScript}></script>
   </body>
 </html>
