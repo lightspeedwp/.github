@@ -650,7 +650,7 @@ footer {
 
 :root[data-theme="light"] .pillar-links a {
   --accent-rgb: 184, 56, 31;
-  --link-hover-color: var(--accent);
+  --link-hover-color: var(--accent-bright);
 }
 
 @media (max-width: 860px) {
