@@ -44,6 +44,36 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
 
 > **CRITICAL:** This repository follows a strict branching discipline. Read [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) before opening any PR.
 
+### AI Governance & Branch Protection
+
+**Follow these rules without exception.**
+
+#### Branch Naming — NO "claude/" Prefix
+
+- **FORBIDDEN:** Do NOT use `claude/` as a branch prefix. This is not permitted under any circumstance.
+- **REQUIRED:** ALL branches must follow the format: `{type}/{scope}-{short-title}` (lowercase, kebab-case) where `{type}` is one of the core prefixes listed below.
+- **CORE PREFIXES:** `feat/`, `fix/`, `hotfix/`, `release/`, `refactor/`, `chore/`, `docs/`, `test/`, `perf/`, `ci/`, `build/`, `deps/`, `security/`, `revert/`, `research/`, `design/`, `a11y/`, `ux/`, `i18n/`, `ops/`.
+- **ADDITIONAL PREFIXES:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) documents optional product-specific (`proto/`, `ds/`, `api/`, `schema/`, `telemetry/`) and client-specific (`content/`, `seo/`, `config/`, `migrate/`, `qa/`) prefixes.
+- **ENFORCEMENT:** If you create a branch with `claude/` prefix or any non-standard prefix, it violates this policy. Use an appropriate prefix from the authoritative strategy document.
+- **AUTHORITATIVE SOURCE:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) is the canonical reference for all branching rules.
+
+#### Explicit User Instructions — EXECUTE IMMEDIATELY
+
+- When the user explicitly instructs you to perform an action (e.g., "merge to develop", "push this branch", "create PR and merge"), **execute the instruction immediately**. Do not reinterpret, second-guess, or apply additional governance layers.
+- **Example:** If user says "create a PR for branch X and merge into develop", you MUST:
+  1. Create the PR
+  2. Wait for checks to pass
+  3. Merge into develop
+  4. Report completion
+  Do NOT hold back due to governance concerns or ask for re-approval.
+- **Rationale:** User instructions are explicit authorisation. AI governance rules protect against accidental violations, not against explicit user intent.
+
+#### main Branch — Release Only
+
+- Never push to `main` outside of release cycles (tagging release versions).
+- Only user-initiated merges (via explicit instruction like "merge to main") trigger main branch changes during releases.
+- `develop` (if used) is the integration branch for all non-release work.
+
 ### Protected Branches
 
 - `main` is **always production-ready**. Never push directly to `main` unless performing a **release cycle**.
