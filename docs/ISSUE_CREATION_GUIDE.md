@@ -170,11 +170,7 @@ When creating an issue:
 1. **Classify the request** into canonical issue types (see Quick Reference above)
 2. **Select the matching template** from the quick reference table
 3. **Fill all required sections** with structured information and examples
-4. **Add labels explicitly**:
-   - Primary `type:*` label matching the template
-  - One `status:*` label
-  - One `priority:*` label
-  - Any relevant `area:*` labels based on content
+4. **Add labels explicitly** using one primary `type:*` label, one `status:*` label, one `priority:*` label, and any relevant `area:*` labels based on content.
 5. **Link related issues** using `#issue-number` references
 6. **Submit and verify** labeling workflow outcome
 

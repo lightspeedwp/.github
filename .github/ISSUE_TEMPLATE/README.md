@@ -85,8 +85,8 @@ The issue templates in this directory are automatically synchronized across all 
 These templates integrate with:
 
 - **[Issue Types](../ISSUE_TYPES.md)** - Canonical issue type definitions
-- **[Issue Labels](../ISSUE_LABELS.md)** - Automated labeling system
-- **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Agent-driven workflows
+- **[Issue Labels](../../docs/LABELING.md#issue-labelling)** - Automated labeling system
+- **[Automation Governance](../../docs/AUTOMATION.md)** - Agent-driven workflows
 - **[Branching Strategy](../BRANCHING_STRATEGY.md)** - Branch naming conventions
 
 ## 🤖 Automation Features
@@ -112,7 +112,7 @@ These templates integrate with:
 
 ---
 
-*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) for complete automation standards.*
+*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION.md) for complete automation standards.*
 
 ---
 

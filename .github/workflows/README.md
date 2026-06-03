@@ -62,7 +62,7 @@ Workflow behavior is configured via:
 
 ## Related Documentation
 
-- [Automation Governance](../automation/AUTOMATION_GOVERNANCE.md) - Workflow standards and oversight
+- [Automation Governance](../../docs/AUTOMATION.md) - Workflow standards and oversight
 - [Labeling System](./labels.yml) - Label definitions and rules
 - [Metrics Directory](../metrics/README.md) - Metrics collection and reporting
 

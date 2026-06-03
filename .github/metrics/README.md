@@ -355,7 +355,7 @@ npx ajv validate -s schemas/frontmatter.schema.json -d path/to/file.md
 | **Metrics Agent Spec**    | Future automated metrics agent    | [.github/agents/metrics.agent.md](../agents/metrics.agent.md)                         |
 | **Branding Workflow**     | Branding metrics automation       | [.github/workflows/branding.yml](../workflows/branding.yml)                           |
 | **Frontmatter Schema**    | Validation schema for frontmatter | [schemas/frontmatter.schema.json](../../schemas/frontmatter.schema.json)              |
-| **Automation Governance** | Metrics and reporting policies    | [.github/automation/AUTOMATION_GOVERNANCE.md](../automation/AUTOMATION_GOVERNANCE.md) |
+| **Automation Governance** | Metrics and reporting policies    | [docs/AUTOMATION.md](../../docs/AUTOMATION.md) |
 
 ## Future Enhancements
 

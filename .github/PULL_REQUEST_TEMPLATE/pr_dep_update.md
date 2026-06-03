@@ -13,7 +13,7 @@ This PR updates dependencies or performs routine maintenance (lint, formatting, 
 Please review the summary, impact, and changelog below.
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for required rules.
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) for required rules.
 
 ## Linked issues
 

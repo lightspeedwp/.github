@@ -139,8 +139,8 @@ references:
   - "../prompts/label-issues.prompt.md"
   - "../instructions/automation.instructions.md"
   - "./LABELING.md"
-  - "./ISSUE_LABELS.md"
-  - "./PR_LABELS.md"
+  - "./LABELING.md#issue-labelling"
+  - "./LABELING.md#pull-request-labelling"
 ---
 
 # 🏷️ Labeling Agent Specification
@@ -150,8 +150,8 @@ references:
 ## 🔗 Related Documentation
 
 - **[Labeling Workflow](../.github/workflows/labeling.yml)** - GitHub Actions implementation
-- **[Issue Labels](./ISSUE_LABELS.md)** - Complete labeling taxonomy
-- **[PR Labels](./PR_LABELS.md)** - Pull request labeling standards
+- **[Issue Labels](./LABELING.md#issue-labelling)** - Complete labeling taxonomy
+- **[PR Labels](./LABELING.md#pull-request-labelling)** - Pull request labeling standards
 
 ---
 
@@ -185,7 +185,7 @@ references:
   - "../workflows/agent-name.yml"
   - "../prompts/agent-prompt.prompt.md"
   - "./agents.instructions.md"
-  - "../ISSUE_LABELS.md"
+  - "./LABELING.md#issue-labelling"
 ```
 
 #### Instruction Files (`.instructions.md`)
@@ -213,7 +213,7 @@ references:
 references:
   - "../agents/agent-name.agent.md"
   - "../instructions/workflows.instructions.md"
-  - "../AUTOMATION_GOVERNANCE.md"
+  - "./AUTOMATION.md"
 ```
 
 ### 👥 Human Reference Patterns
@@ -225,7 +225,7 @@ Use descriptive markdown links that help humans understand context:
 
 ### 📚 Core Resources
 
-- **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Organization automation policies
+- **[Automation Governance](./AUTOMATION.md)** - Organization automation policies
 - **[Coding Standards](./instructions/coding-standards.instructions.md)** - Development guidelines
 
 ### ⚙️ Implementation Details

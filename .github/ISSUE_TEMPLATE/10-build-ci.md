@@ -37,9 +37,9 @@ category: "github-templates"
 
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [ISSUE_TYPES.md](../ISSUE_TYPES.md)
-- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
-- [PR_LABELS.md](../PR_LABELS.md)
-- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
+- [LABELING.md#issue-labelling](../../docs/LABELING.md#issue-labelling)
+- [LABELING.md#pull-request-labelling](../../docs/LABELING.md#pull-request-labelling)
+- [AUTOMATION.md](../../docs/AUTOMATION.md)
 - [LightSpeed General Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
 - [Coding Standards](../instructions/coding-standards.instructions.md)
 
