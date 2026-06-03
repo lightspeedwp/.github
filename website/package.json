@@ -20,7 +20,7 @@
     "format": "npm run format --prefix .."
   },
   "dependencies": {
-    "astro": "^5.11.0",
+    "astro": "^6.1.10",
     "gray-matter": "^4.0.3"
   }
 }
