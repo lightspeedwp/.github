@@ -58,7 +58,8 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
 #### Explicit User Instructions — EXECUTE IMMEDIATELY
 
 - When the user explicitly instructs you to perform an action (e.g., "merge to develop", "push this branch", "create PR and merge"), **execute the instruction immediately**. Do not reinterpret, second-guess, or apply additional governance layers.
-- **Rationale:** User instructions are explicit authorisation. AI governance rules protect against accidental violations, not against explicit user intent.
+- **Important:** Governance checks (branch naming, target branch verification, validation errors) still apply. If a check fails, report the error to the user immediately rather than attempting to bypass it.
+- **Rationale:** User instructions are explicit authorisation. AI governance rules protect against accidental violations, not against explicit user intent. Automated safety checks remain in force.
 
 #### PR Merge & Cleanup Protocol — STRICT ENFORCEMENT
 
