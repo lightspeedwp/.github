@@ -2,8 +2,8 @@
 title: "Prompts Directory"
 description: "Reusable AI prompts and templates for LightSpeed automation, agents, and governance workflows. Includes system prompts, context builders, and instruction templates."
 file_type: documentation
-version: v0.2.0
-last_updated: "2026-06-01"
+version: v0.2.1
+last_updated: "2026-06-03"
 created_date: "2025-11-27"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -52,7 +52,7 @@ This folder contains scripts and templates for automation, including:
 
 - [Agents Directory](../agents/README.md) — Agent specifications and implementations
 - [Instructions Directory](../instructions/README.md) — Comprehensive instruction sets
-- [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) — Governance policies for automation
+- [Automation Governance](../../docs/AUTOMATION.md) — Governance policies for automation
 
 ---
 
