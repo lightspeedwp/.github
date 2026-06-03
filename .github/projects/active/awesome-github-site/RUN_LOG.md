@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Run Log - Awesome GitHub Site"
 description: "Execution log for planning and proposal runs related to the Awesome GitHub website."
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active

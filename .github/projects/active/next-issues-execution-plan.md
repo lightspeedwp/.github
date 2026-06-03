@@ -2,7 +2,7 @@
 title: Next Issues Execution Plan
 description: Comprehensive execution plan for all open issues, active projects, and
   strategic workflows.
-version: v2.2.4
+version: v2.2.5
 created_date: '2026-05-28'
 last_updated: '2026-06-03'
 file_type: documentation

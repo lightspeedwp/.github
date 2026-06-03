@@ -1,8 +1,16 @@
 {
-  "name": "awesome-github-site",
+  "name": "@lightspeedwp/awesome-github-site",
   "private": true,
-  "type": "module",
   "version": "0.1.0",
+  "description": "Astro implementation of the Awesome GitHub phase 1 website.",
+  "license": "GPL-3.0-or-later",
+  "author": {
+    "name": "LightSpeedWP Team",
+    "email": "support@lightspeedwp.agency",
+    "url": "https://lightspeedwp.agency"
+  },
+  "repository": "https://github.com/lightspeedwp/.github.git",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

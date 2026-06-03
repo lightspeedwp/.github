@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Issue Register - Awesome GitHub Site"
 description: "Canonical register for the GitHub issues that drive the Awesome GitHub site launch and expansion."
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active

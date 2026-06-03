@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Awesome GitHub Site - Phase 1"
 description: "Phase 1 plan for the initial launchable version of the Awesome GitHub website."
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active

@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Awesome GitHub Site - Phase 2"
 description: "Phase 2 plan for expanding the Awesome GitHub website into the full resource-style site."
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active

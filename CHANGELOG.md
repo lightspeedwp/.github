@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Awesome GitHub Site Planning Pack** — Created a new active project under `.github/projects/active/awesome-github-site/` with phase 1 and phase 2 planning docs, normalised briefing copies, and an updated execution tracker for the new GitHub-led website programme.
+- **Awesome GitHub Site GitHub Pages Implementation** — Added the Astro phase 1 site scaffold, GitHub Pages deployment workflow, custom `404` page, canonical `github.lightspeedwp.agency` domain support, and review-driven fixes for frontmatter, motion, and package metadata.
 
 ### Fixed
 
