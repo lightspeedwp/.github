@@ -3,8 +3,8 @@ title: "Issue Templates Directory"
 description: "Standardized issue templates for the LightSpeedWP organization. Templates for bugs, features, documentation, and custom issues with automation integration."
 name: "Issue Templates"
 file_type: documentation
-version: v1.2
-last_updated: "2026-05-31"
+version: v1.3
+last_updated: "2026-06-03"
 created_date: "2025-10-20"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -41,7 +41,7 @@ Get started with LightSpeedWP issue templates in three steps:
    - Select the appropriate template for your issue type (bug, feature, documentation, etc.)
    - Follow the instructions in the template to submit your issue
 
-For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) and individual template specs for configuration and automation options.
+For advanced usage, see the [Issue Template Index](./README.md) and individual template specs for configuration and automation options.
 
 ## 🗂️ Issue Template Workflow
 
@@ -84,10 +84,10 @@ The issue templates in this directory are automatically synchronized across all 
 
 These templates integrate with:
 
-- **[Issue Types](../ISSUE_TYPES.md)** - Canonical issue type definitions
-- **[Issue Labels](../ISSUE_LABELS.md)** - Automated labeling system
-- **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Agent-driven workflows
-- **[Branching Strategy](../BRANCHING_STRATEGY.md)** - Branch naming conventions
+- **[Issue Types](../../docs/ISSUE_TYPES.md)** - Canonical issue type definitions
+- **[Issue Labels](../../docs/LABELING.md#issue-labelling)** - Automated labeling system
+- **[Automation Governance](../../docs/AUTOMATION.md)** - Agent-driven workflows
+- **[Branching Strategy](../../docs/BRANCHING_STRATEGY.md)** - Branch naming conventions
 
 ## 🤖 Automation Features
 
@@ -98,8 +98,8 @@ These templates integrate with:
 
 ## 📚 Related Documentation
 
-- [**Instructions Index**](../instructions/README.md) - All instruction files
-- [**Agents Directory**](../agents/README.md) - Automation agents
+- [**Instructions Index**](../../instructions/README.md) - All instruction files
+- [**Agents Directory**](../../agents/README.md) - Automation agents
 - [**Saved Replies**](../SAVED_REPLIES/README.md) - Response templates
 - [**Workflows**](../workflows/README.md) - GitHub Actions automation
 
@@ -112,7 +112,7 @@ These templates integrate with:
 
 ---
 
-*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION_GOVERNANCE.md) for complete automation standards.*
+*This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION.md) for complete automation standards.*
 
 ---
 
