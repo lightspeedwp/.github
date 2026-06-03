@@ -5,6 +5,7 @@ description: "Phase 1 implementation for the Awesome GitHub website."
 version: "0.1.0"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
+language: "en-GB"
 status: active
 stability: stable
 domain: website

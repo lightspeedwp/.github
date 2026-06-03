@@ -1,6 +1,21 @@
 name: Awesome GitHub Site
 
 on:
+  workflow_dispatch:
+    inputs:
+      requested_by:
+        description: "Who requested the manual run"
+        required: true
+        type: string
+      reason:
+        description: "Why the manual run is being triggered"
+        required: true
+        type: string
+      run_ci:
+        description: "Whether to run the build job"
+        required: true
+        default: true
+        type: boolean
   pull_request:
     paths:
       - "website/**"
@@ -39,10 +54,19 @@ jobs:
           cache: npm
           cache-dependency-path: website/package-lock.json
 
+      - name: Log manual dispatch context
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "requested_by=${{ inputs.requested_by }}"
+          echo "reason=${{ inputs.reason }}"
+          echo "run_ci=${{ inputs.run_ci }}"
+
       - name: Install dependencies
+        if: github.event_name != 'workflow_dispatch' || inputs.run_ci
         run: npm ci
 
       - name: Build site
+        if: github.event_name != 'workflow_dispatch' || inputs.run_ci
         run: npm run build
 
       - name: Upload Pages artifact

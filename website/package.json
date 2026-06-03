@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "lint": "npm run lint --prefix ..",
+    "test": "npm run test --prefix ..",
+    "format": "npm run format --prefix .."
   },
   "dependencies": {
     "astro": "^5.11.0"
