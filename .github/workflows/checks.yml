@@ -50,6 +50,10 @@ jobs:
         with:
           node-version: "20"
       - run: npm ci
+      - name: Validate branch name
+        env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref || github.ref_name }}
+        run: npm run validate:branch-name
       - run: npm run validate:json
       - run: npm run validate:frontmatter:changed -- --base ${{ github.event.pull_request.base.sha || github.event.before }} --head ${{ github.event.pull_request.head.sha || github.sha }}
 
