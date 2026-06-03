@@ -240,14 +240,14 @@ accDescr {
 - If a repository does not have its own label or labeler config, the defaults from this repo apply.
 - **Automated labelling** ensures consistent triage, prioritisation, and project management across the organisation.
 - Maintainers should update labels and labeler rules *here* to synchronise org-wide conventions.
-- For more detail, see [AUTOMATION_GOVERNANCE.md](../docs/AUTOMATION_GOVERNANCE.md) and [ISSUE_LABELS.md](../docs/ISSUE_LABELS.md).
+- For more detail, see [AUTOMATION.md](../docs/AUTOMATION.md) and [LABELING.md](../docs/LABELING.md#issue-labelling).
 
 **Quick links:**
 
 - [Label Definitions](./labels.yml)
 - [Labeler Rules](./labeler.yml)
 - [Issue Types](./issue-types.yml)
-- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
+- [Automation & Workflows](../docs/AUTOMATION.md)
 
 ---
 
@@ -296,7 +296,7 @@ accDescr {
         H1[labels.yml]
         H2[labeler.yml]
         H3[issue-types.yml]
-        H4[AUTOMATION_GOVERNANCE.md]
+        H4[AUTOMATION.md]
         D1[labeling.yml]
     end
 
@@ -564,7 +564,7 @@ This repository and all its contents are licensed under the GNU General Public L
 - [🏷️ Label Definitions](./labels.yml) - Canonical organization labels
 - [🔧 Labeler Configuration](./labeler.yml) - Automated labeling rules
 - [📋 Issue Types](./issue-types.yml) - Standardized issue categorization
-- [⚖️ Automation Governance](../docs/AUTOMATION_GOVERNANCE.md) - Automation standards and oversight
+- [⚖️ Automation & Workflows](../docs/AUTOMATION.md) - Automation standards and oversight
 
 ## 🔧 Development Standards
 

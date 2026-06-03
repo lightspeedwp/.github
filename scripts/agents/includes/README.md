@@ -109,7 +109,7 @@ includes/
 - [Agent Directory](../agent.md) - Main agent index
 - [Coding Standards](../../instructions/coding-standards.instructions.md)
 - [Quality Assurance](../../instructions/quality-assurance.instructions.md)
-- [Automation Governance](../../automation/AUTOMATION_GOVERNANCE.md)
+- [Automation & Workflows](../../../docs/AUTOMATION.md)
 
 ---
 
