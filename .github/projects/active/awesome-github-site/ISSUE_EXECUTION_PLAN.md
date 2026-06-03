@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Issue Execution Plan - Awesome GitHub Site"
 description: "Ordered issue plan for the Awesome GitHub website, covering the phase 1 MVP and the phase 2 expansion."
-version: "1.0.3"
+version: "1.0.4"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active
@@ -39,11 +39,34 @@ tags:
 
 ### Phase 2
 
-1. Full information architecture and content model
-2. Resource catalogue and category browsing
-3. Search, discovery, and navigation refinement
-4. Accessibility, content, and metadata expansion
-5. Visual polish and full launch validation
+#### Phase 2a: Homepage & Navigation Redesign (Weeks 1–2)
+
+1. Fix cluttered header navigation
+2. Redesign homepage structure (hero → value → sections → CTA)
+3. Audit and resolve all 404 errors and broken links
+4. Strengthen logo and visual identity
+5. Fix padding, spacing, and design inconsistencies
+
+#### Phase 2b: Core Resource Catalogues (Weeks 3–4)
+
+1. Create `/agents/`, `/instructions/`, `/skills/`, `/hooks/` section pages
+2. Implement consistent card-based hub layouts
+3. Add filtering and tagging support
+4. Build detail page patterns for each resource type
+
+#### Phase 2c: Extended Catalogues (Weeks 5–6)
+
+1. Create `/plugins/`, `/workflows/`, `/tools/`, `/learning-hub/`, `/getting-started/`
+2. Ensure metadata consistency across all 9 sections
+3. Implement discovery flows (filtering, search-like browsing)
+4. Complete content population for all sections
+
+#### Phase 2d: Validation & Launch (Week 7)
+
+1. Full WCAG AA accessibility audit across all pages
+2. Document content governance model and maintenance rules
+3. Mobile responsiveness and performance validation
+4. Final launch readiness review and sign-off
 
 ## Suggested Issue Structure
 
