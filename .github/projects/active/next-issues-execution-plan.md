@@ -4,7 +4,7 @@ description: Comprehensive execution plan for all open issues, active projects, 
   strategic workflows.
 version: v2.2.3
 created_date: '2026-05-28'
-last_updated: '2026-06-01'
+last_updated: '2026-06-03'
 file_type: documentation
 maintainer: LightSpeed Team
 authors:
@@ -20,6 +20,14 @@ domain: governance
 stability: stable
 status: active
 ---
+
+## 2026-06-03 Awesome GitHub Site Planning Kickoff
+
+- New active project folder created: `.github/projects/active/awesome-github-site/`
+- Delivery is split into two phases:
+  - Phase 1: 1-3 page launchable MVP
+  - Phase 2: full resource-style site expansion
+- Source briefs were normalised into the project folder so the phase split can be planned without leaking talk-specific copy into the site plan.
 
 ## 2026-06-01 v0.5.0 Readiness Execution Update (Block 1)
 
@@ -163,6 +171,7 @@ GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queu
 | --- | --- | --- | --- |
 | `github-workflow-consolidation-2026-05-28/` | ✅ COMPLETED - Epic #503 closed, planning docs ready for archive | GitHub Copilot | Archive to `completed/` folder after final review |
 | `launch-agents-checklist.md` | 🟡 IN PROGRESS - Partial test infrastructure fixes applied 2026-05-28 | LightSpeed Team | Complete remaining validation phases (critical pre-v1.0.0 release) |
+| `awesome-github-site/` | 🆕 NEW - Two-phase GitHub site programme with a launchable MVP first | Ash Shaw | Plan phase 1 and phase 2 issue chains; keep MVP small and source-backed |
 | `spec-only-agents-issue-conversion-2026-05-28.md` | ✅ COMPLETED - All spec-only agents converted to issues (#465, #467, #466, #468, #469) | GitHub Copilot | Archive to `completed/` folder |
 | `next-issues-execution-plan.md` | 📋 LIVING DOCUMENT - Updated 2026-05-29 with completion status and Wave 4C–4F allocation | Claude Code | Maintain and update continuously |
 | `ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` | ✅ COMPLETED - Issue #33 merged (planning phase) | Claude Code | Archive to `completed/` folder |
