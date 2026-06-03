@@ -1,5 +1,5 @@
 :root {
-  color-scheme: dark light;
+  color-scheme: dark;
   --bg: #08111f;
   --bg-elevated: rgba(12, 20, 35, 0.82);
   --bg-soft: rgba(255, 255, 255, 0.05);
@@ -18,20 +18,22 @@
   --sans: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color-scheme: light dark;
-    --bg: #f8fafc;
-    --bg-elevated: rgba(255, 255, 255, 0.92);
-    --bg-soft: rgba(15, 23, 42, 0.04);
-    --border: rgba(15, 23, 42, 0.12);
-    --text: #0f172a;
-    --muted: rgba(15, 23, 42, 0.72);
-    --accent: #ea580c;
-    --accent-2: #be123c;
-    --accent-3: #15803d;
-    --shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
-  }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f8fafc;
+  --bg-elevated: rgba(255, 255, 255, 0.92);
+  --bg-soft: rgba(15, 23, 42, 0.04);
+  --border: rgba(15, 23, 42, 0.12);
+  --text: #0f172a;
+  --muted: rgba(15, 23, 42, 0.72);
+  --accent: #ea580c;
+  --accent-2: #be123c;
+  --accent-3: #15803d;
+  --shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
 }
 
 *,
@@ -113,6 +115,7 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .brand {
@@ -130,6 +133,67 @@ main {
   border-radius: 10px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   box-shadow: 0 10px 30px rgba(249, 115, 22, 0.35);
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.brand-name {
+  font-size: 1rem;
+}
+
+.brand-subtitle {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.nav-menus {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.theme-toggle {
+  align-self: center;
+  min-height: 2.8rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.theme-toggle:hover {
+  border-color: rgba(249, 115, 22, 0.55);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.nav-group-label {
+  padding-left: 0.15rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .nav-links {
@@ -260,6 +324,21 @@ h1 {
   margin-bottom: 0.9rem;
 }
 
+.section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-intro {
+  margin: 0.35rem 0 0;
+  max-width: 60ch;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -285,6 +364,22 @@ h1 {
   margin: 0.75rem 0 0;
 }
 
+.card .inline-link {
+  display: inline-flex;
+  margin-top: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.card .inline-link:hover {
+  text-decoration: underline;
+}
+
+.slide-grid .card {
+  min-height: 14rem;
+}
+
 .kicker {
   margin-top: 1rem;
   color: var(--accent);
@@ -296,7 +391,7 @@ h1 {
 
 .stat-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -335,10 +430,16 @@ h1 {
 }
 
 .ref {
+  display: block;
   padding: 1rem 1.1rem;
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.04);
+}
+
+.ref strong {
+  display: block;
+  word-break: break-word;
 }
 
 .ref span {
@@ -351,13 +452,102 @@ h1 {
 footer {
   width: min(var(--max-width), calc(100vw - 2rem));
   margin: 1rem auto 2rem;
-  padding: 1rem 0 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--border);
   color: var(--muted);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 1rem;
   font-size: 0.95rem;
+}
+
+.footer-copy {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.footer-copy strong {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  justify-content: flex-end;
+}
+
+.footer-links a {
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.footer-links a:hover {
+  border-color: rgba(249, 115, 22, 0.55);
+}
+
+:root[data-theme="light"] body {
+  background:
+    radial-gradient(circle at top left, rgba(249, 115, 22, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(225, 29, 72, 0.1), transparent 24%),
+    radial-gradient(circle at 50% 0, rgba(34, 197, 94, 0.08), transparent 20%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2ff 45%, #e2e8f0 100%);
+}
+
+:root[data-theme="light"] .shell::before {
+  background:
+    linear-gradient(120deg, rgba(15, 23, 42, 0.03), transparent 35%),
+    radial-gradient(circle at 30% 20%, rgba(249, 115, 22, 0.06), transparent 24%);
+}
+
+:root[data-theme="light"] .nav {
+  background: rgba(255, 255, 255, 0.84);
+}
+
+:root[data-theme="light"] .hero {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.64)),
+    var(--bg-elevated);
+}
+
+:root[data-theme="light"] .hero::after {
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.16), transparent 65%);
+}
+
+:root[data-theme="light"] .eyebrow {
+  background: rgba(15, 23, 42, 0.04);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+:root[data-theme="light"] .button.secondary {
+  background: rgba(15, 23, 42, 0.04);
+}
+
+:root[data-theme="light"] .section,
+:root[data-theme="light"] .card,
+:root[data-theme="light"] .stat,
+:root[data-theme="light"] .ref {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+:root[data-theme="light"] .nav-links a[aria-current="page"],
+:root[data-theme="light"] .nav-links a:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+:root[data-theme="light"] .footer-links a {
+  background: rgba(255, 255, 255, 0.68);
+}
+
+:root[data-theme="light"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 860px) {
@@ -371,5 +561,10 @@ footer {
     border-radius: var(--radius-lg);
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .nav-menus,
+  .footer-links {
+    justify-content: flex-start;
   }
 }

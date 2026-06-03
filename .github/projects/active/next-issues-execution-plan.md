@@ -2,7 +2,7 @@
 title: Next Issues Execution Plan
 description: Comprehensive execution plan for all open issues, active projects, and
   strategic workflows.
-version: v2.2.5
+version: v2.2.6
 created_date: '2026-05-28'
 last_updated: '2026-06-03'
 file_type: documentation
@@ -32,6 +32,17 @@ status: active
 - GitHub Pages target: custom subdomain `github.lightspeedwp.agency` with `lightspeedwp.github.io` as the Pages CNAME target.
 - Source briefs were normalised into the project folder so the phase split can be planned without leaking talk-specific copy into the site plan.
 - Created GitHub issues `#756` through `#766` for the phase 1 and phase 2 chains; next step is to keep the project register and launch docs aligned as implementation progresses.
+
+## 2026-06-03 Awesome GitHub WCEU Expansion Update
+
+- The WCEU 2026 folder was scanned end-to-end, including slides, references, notebook prompts, audit material, and readiness checklists.
+- The public site now exposes the full conference slice:
+  - WCEU talk page
+  - slide index
+  - one public page per slide
+- Each slide page carries its own references and source markdown link, so the visible content stays traceable back to the repository.
+- A light/dark mode switcher is now part of the shared shell and should remain in the launch checklist alongside accessibility and reference validation.
+- Next step: keep the expanded WCEU pages aligned with the source tree, update the issue register if new public subpages are added, and prepare the next content page only after the current set is polished.
 
 ## 2026-06-01 v0.5.0 Readiness Execution Update (Block 1)
 
@@ -175,7 +186,7 @@ GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queu
 | --- | --- | --- | --- |
 | `github-workflow-consolidation-2026-05-28/` | ✅ COMPLETED - Epic #503 closed, planning docs ready for archive | GitHub Copilot | Archive to `completed/` folder after final review |
 | `launch-agents-checklist.md` | 🟡 IN PROGRESS - Partial test infrastructure fixes applied 2026-05-28 | LightSpeed Team | Complete remaining validation phases (critical pre-v1.0.0 release) |
-| `awesome-github-site/` | 🆕 NEW - Two-phase GitHub site programme with a launchable MVP first | Ash Shaw | Plan phase 1 and phase 2 issue chains; keep MVP small and source-backed |
+| `awesome-github-site/` | 🟢 ACTIVE - Conference-ready WCEU site with slide subpages and theme switcher | Ash Shaw | Keep slide references, accessibility notes, and nav links aligned as the site expands |
 | `spec-only-agents-issue-conversion-2026-05-28.md` | ✅ COMPLETED - All spec-only agents converted to issues (#465, #467, #466, #468, #469) | GitHub Copilot | Archive to `completed/` folder |
 | `next-issues-execution-plan.md` | 📋 LIVING DOCUMENT - Updated 2026-05-29 with completion status and Wave 4C–4F allocation | Claude Code | Maintain and update continuously |
 | `ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` | ✅ COMPLETED - Issue #33 merged (planning phase) | Claude Code | Archive to `completed/` folder |

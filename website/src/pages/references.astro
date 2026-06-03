@@ -11,14 +11,49 @@ const base = import.meta.env.BASE_URL;
     <div class="eyebrow">Sources</div>
     <h1>References</h1>
     <p class="lede">
-      The MVP keeps the citation trail short and explicit so the site stays trustworthy
-      and easy to extend.
+      The site keeps the citation trail short and explicit so the public material stays
+      trustworthy and easy to extend.
     </p>
   </section>
 
   <section class="section">
     <h2>Primary sources</h2>
     <div class="refs">
+      <a class="ref" href={`${base}wceu-2026/`}>
+        WCEU 2026 talk page
+        <span>The public entry point for the conference talk and supporting material.</span>
+      </a>
+      <a class="ref" href={`${base}wceu-2026/slides/`}>
+        WCEU 2026 slides index
+        <span>Browsable list of every slide page in the talk deck.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/ACCESSIBILITY_AUDIT.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Accessibility audit
+        <span>WCAG checks, contrast guidance, keyboard behaviour, and delivery notes.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/VISUAL_DESIGN_SPECIFICATIONS.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Visual design specifications
+        <span>Dark-mode palette, typography, spacing, and slide layout guidance.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/SPEAKER_NOTES_FINAL.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Speaker notes
+        <span>Final talk narrative aligned to the slide sequence.</span>
+      </a>
       <a class="ref" href="https://awesome-copilot.github.com/" target="_blank" rel="noreferrer">
         Awesome GitHub Copilot site
         <span>Live reference for the browse-first structure and content hierarchy.</span>
@@ -34,7 +69,58 @@ const base = import.meta.env.BASE_URL;
       </a>
       <a class="ref" href={`${base}llms.txt`}>
         llms.txt
-        <span>Machine-readable index for the phase 1 site.</span>
+        <span>Machine-readable index for the public site.</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>WCEU source pack</h2>
+    <div class="refs">
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/references/slide-to-source-mapping.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Slide-to-source mapping
+        <span>Reference map for the talk slide set and supporting repo files.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/SLIDES_INDEX.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Slide index
+        <span>Inventory of the full slide set and its talking points.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/ACCESSIBILITY_AUDIT.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Accessibility audit checklist
+        <span>Slide-level accessibility guidance and verification steps.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/FINAL_REVIEW_CHECKLIST.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Final review checklist
+        <span>Launch readiness checks for the conference deck.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/WCEU_2026_AUDIT_AND_READINESS_PLAN.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Audit and readiness plan
+        <span>Broader planning path that informed the talk structure and content.</span>
       </a>
     </div>
   </section>
@@ -43,8 +129,9 @@ const base = import.meta.env.BASE_URL;
     <h2>Planning inputs</h2>
     <div class="page-copy">
       <p>
-        The phase 1 copy was normalised from the planning briefs in
-        <code>wceu-2026/website/</code> and then trimmed to a small public site.
+        The public copy was shaped from the planning briefs in <code>wceu-2026/website/</code>,
+        the talk slides in <code>wceu-2026/slides/</code>, and the full audit and reference
+        tree in <code>wceu-2026/</code>, then tightened for the live site.
       </p>
     </div>
   </section>

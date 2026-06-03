@@ -4,10 +4,108 @@ import "../styles/global.css";
 const base = import.meta.env.BASE_URL;
 const pathname = Astro.url.pathname.replace(base, "/");
 
+const navSections = [
+  {
+    label: "WCEU 2026",
+    links: [
+      {
+        href: `${base}wceu-2026/`,
+        path: "/wceu-2026/",
+        label: "Talk",
+        exact: true,
+      },
+      {
+        href: `${base}wceu-2026/slides/`,
+        path: "/wceu-2026/slides/",
+        label: "Slides",
+        exact: false,
+      },
+    ],
+  },
+  {
+    label: "Site",
+    links: [
+      {
+        href: base,
+        path: "/",
+        label: "Home",
+        exact: true,
+      },
+      {
+        href: `${base}why-this-exists/`,
+        path: "/why-this-exists/",
+        label: "Why this exists",
+        exact: true,
+      },
+      {
+        href: `${base}references/`,
+        path: "/references/",
+        label: "References",
+        exact: true,
+      },
+    ],
+  },
+];
+
 const {
   title = "Awesome GitHub",
-  description = "A small, launchable website for the Awesome GitHub project.",
+  description = "A conference-ready website for the Awesome GitHub project.",
 } = Astro.props;
+
+const themeInitScript = `
+  (() => {
+    const storageKey = "awesome-github-theme";
+    const root = document.documentElement;
+    const media = window.matchMedia("(prefers-color-scheme: light)");
+    let saved = null;
+
+    try {
+      saved = localStorage.getItem(storageKey);
+    } catch (_) {
+      saved = null;
+    }
+
+    const theme = saved === "light" || saved === "dark" ? saved : media.matches ? "light" : "dark";
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+  })();
+`;
+
+const themeToggleScript = `
+  (() => {
+    const storageKey = "awesome-github-theme";
+    const root = document.documentElement;
+    const button = document.querySelector("[data-theme-toggle]");
+    const label = document.querySelector("[data-theme-label]");
+
+    if (!button || !label) {
+      return;
+    }
+
+    const apply = (theme) => {
+      root.dataset.theme = theme;
+      root.style.colorScheme = theme;
+      button.setAttribute("aria-pressed", String(theme === "light"));
+      label.textContent = theme === "light" ? "Light mode" : "Dark mode";
+    };
+
+    const current = root.dataset.theme === "light" || root.dataset.theme === "dark"
+      ? root.dataset.theme
+      : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+
+    apply(current);
+
+    button.addEventListener("click", () => {
+      const next = root.dataset.theme === "light" ? "dark" : "light";
+      try {
+        localStorage.setItem(storageKey, next);
+      } catch (_) {
+        /* ignore storage errors */
+      }
+      apply(next);
+    });
+  })();
+`;
 ---
 
 <!doctype html>
@@ -18,31 +116,68 @@ const {
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <script is:inline set:html={themeInitScript}></script>
   </head>
   <body>
     <div class="shell">
       <header class="nav" aria-label="Primary">
         <a class="brand" href={base}>
           <span class="brand-mark" aria-hidden="true"></span>
-          <span>Awesome GitHub</span>
+          <span class="brand-copy">
+            <span class="brand-name">Awesome GitHub</span>
+            <span class="brand-subtitle">Conference site on GitHub Pages</span>
+          </span>
         </a>
-        <nav class="nav-links">
-          <a href={base} aria-current={pathname === "/" ? "page" : undefined}>Home</a>
-          <a href={`${base}why-this-exists/`} aria-current={pathname === "/why-this-exists/" ? "page" : undefined}
-            >Why this exists</a
-          >
-          <a href={`${base}references/`} aria-current={pathname === "/references/" ? "page" : undefined}
-            >References</a
-          >
-        </nav>
+        <div class="nav-menus">
+          {navSections.map((section) => (
+            <section class="nav-group">
+              <span class="nav-group-label">{section.label}</span>
+              <nav class="nav-links" aria-label={section.label}>
+                {section.links.map((link) => (
+                  <a
+                    href={link.href}
+                    aria-current={
+                      link.exact
+                        ? pathname === link.path
+                          ? "page"
+                          : undefined
+                        : pathname.startsWith(link.path)
+                          ? "page"
+                          : undefined
+                    }
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </section>
+          ))}
+        </div>
+        <button
+          class="theme-toggle"
+          type="button"
+          data-theme-toggle
+          aria-pressed="false"
+          aria-label="Toggle light and dark mode"
+        >
+          <span class="theme-toggle-label" data-theme-label>Dark mode</span>
+        </button>
       </header>
       <main>
         <slot />
       </main>
       <footer>
-        <span>Phase 1 MVP for the Awesome GitHub site.</span>
-        <span>Built for GitHub Pages compatibility and later expansion.</span>
+        <div class="footer-copy">
+          <strong>Awesome GitHub</strong>
+          <span>Conference site and reference index for the WCEU 2026 talk.</span>
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href={base}>Home</a>
+          <a href={`${base}wceu-2026/`}>WCEU 2026 talk</a>
+          <a href={`${base}references/`}>References</a>
+        </nav>
       </footer>
     </div>
+    <script is:inline set:html={themeToggleScript}></script>
   </body>
 </html>
