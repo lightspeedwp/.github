@@ -1,7 +1,8 @@
 ---
 title: "Slide 13 - Agent Layer"
 description: "Explain how agent specifications structure operational automation."
-last_updated: "2026-06-02"owners: ["Ash Shaw"]
+last_updated: "2026-06-02"
+owners: ["Ash Shaw"]
 ---
 
 # Slide 13 - Agent Layer

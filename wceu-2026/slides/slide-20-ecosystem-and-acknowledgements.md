@@ -1,7 +1,8 @@
 ---
 title: "Slide 20 - Ecosystem and Acknowledgements"
 description: "Close with adoption next steps and acknowledgement of open-source inspiration."
-last_updated: "2026-06-02"owners: ["Ash Shaw"]
+last_updated: "2026-06-02"
+owners: ["Ash Shaw"]
 ---
 
 # Slide 20 - Ecosystem and Acknowledgements

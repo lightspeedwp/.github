@@ -31,7 +31,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Awesome GitHub Site Planning Pack** — Created a new active project under `.github/projects/active/awesome-github-site/` with phase 1 and phase 2 planning docs, normalised briefing copies, and an updated execution tracker for the new GitHub-led website programme.
 - **Awesome GitHub Site GitHub Pages Implementation** — Added the Astro phase 1 site scaffold, GitHub Pages deployment workflow, custom `404` page, canonical `github.lightspeedwp.agency` domain support, and review-driven fixes for frontmatter, motion, and package metadata.
 
+## [0.5.0] - 2026-06-03
+
 ### Fixed
+
+- **v0.5.0 Readiness: Frontmatter schema cleanup for release docs and site-planning briefs** — Normalised invalid frontmatter values across the Awesome GitHub Site planning tree and related website docs so the repo’s frontmatter validator no longer trips on release-blocking schema errors:
+  - Replaced unsupported `domain: website` and `domain: opsx` values with schema-valid `domain: governance`.
+  - Updated draft-only site brief metadata to use supported `stability: experimental`.
+  - Converted the stray `report` frontmatter type in the agent permissions audit to `documentation`.
 
 - **v0.5.0 Readiness: Coverage and Reliability Gate Execution (`#746`, `#602`, `#599`, `#600`, `#601`)** — Re-activated planner/reviewer test coverage from skipped state into active Jest suites, added module-system consistency guards, and improved reviewer workflow dry-run support for safe validation:
   - Added `scripts/agents/__tests__/planner.agent.test.js` and `scripts/agents/__tests__/reviewer.agent.test.js` with expanded fatal-path, dry-run, blocker-detection, and API-failure coverage.
