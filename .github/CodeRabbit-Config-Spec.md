@@ -28,17 +28,22 @@ This document specifies the CodeRabbit v2 schema configuration for the `lightspe
 
 ✅ **Validated**: 2026-06-03 against CodeRabbit v2 schema
 
-### Previously Reported Issues (Resolved)
+### Previously Reported Issues (FIXED)
 
-The following unrecognized properties were reported but are **not present** in the current configuration:
-- ~~`auto_labels`~~ (not in current .coderabbit.yml)
-- ~~`auto_assign`~~ (not in current .coderabbit.yml)
-- ~~`auto_review`~~ (not in current .coderabbit.yml)
+The following unrecognized properties were reported and have been **identified and fixed**:
+- ~~`auto_labels`~~ (removed from schema overrides)
+- ~~`auto_assign`~~ (removed from schema overrides)
+- ~~`auto_review`~~ (removed from schema overrides)
 
-**Resolution**: These properties were either:
-1. Never added to the actual configuration file
-2. Removed in a prior cleanup
-3. Reported due to a schema validation delay on CodeRabbit's infrastructure
+**Root Cause**: These properties were defined in:
+1. `/schema/coderabbit-overrides.v2.json` - invalid schema override requiring non-existent property
+2. `/scripts/validation/__fixtures__/valid-coderabbit.yml` - test fixture using invalid property
+
+**Resolution Applied**:
+1. ✅ Removed `auto_review` from schema override required fields
+2. ✅ Updated test fixture to use valid CodeRabbit v2 properties
+3. ✅ Kept `path_filters` as only required override property
+4. ✅ Validated fixture against corrected schema
 
 ## Core Configuration
 
