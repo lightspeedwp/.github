@@ -22,7 +22,7 @@ This document specifies the CodeRabbit v2 schema configuration for the `lightspe
 
 **File**: `/.coderabbit.yml`
 
-**Schema**: CodeRabbit v2 (https://coderabbit.ai/integrations/schema.v2.json)
+**Schema**: [CodeRabbit v2](https://coderabbit.ai/integrations/schema.v2.json)
 
 ## Validation Status
 
@@ -31,15 +31,18 @@ This document specifies the CodeRabbit v2 schema configuration for the `lightspe
 ### Previously Reported Issues (FIXED)
 
 The following unrecognized properties were reported and have been **identified and fixed**:
+
 - ~~`auto_labels`~~ (removed from schema overrides)
 - ~~`auto_assign`~~ (removed from schema overrides)
 - ~~`auto_review`~~ (removed from schema overrides)
 
 **Root Cause**: These properties were defined in:
-1. `/schema/coderabbit-overrides.v2.json` - invalid schema override requiring non-existent property
+
+1. `/.schemas/coderabbit-overrides.v2.json` - invalid schema override requiring non-existent property
 2. `/scripts/validation/__fixtures__/valid-coderabbit.yml` - test fixture using invalid property
 
 **Resolution Applied**:
+
 1. ✅ Removed `auto_review` from schema override required fields
 2. ✅ Updated test fixture to use valid CodeRabbit v2 properties
 3. ✅ Kept `path_filters` as only required override property
@@ -80,6 +83,7 @@ reviews:
 ```
 
 **Review Behavior**:
+
 - **Profile**: `chill` — Reduce noise; prefer high-signal comments only
 - **Workflow Integration**: Request changes when appropriate
 - **Summary**: Generate high-level summaries of changes
@@ -98,7 +102,7 @@ path_filters:
   - "!assets/css/*.map"   # Source maps
   - "!logs/**"            # Runtime logs
   - "!docs/drafts/**"     # Draft documentation
-  - "!schema/**"          # Schema definitions
+  - "!.schemas/**"        # Schema definitions
   - "!coverage/**"        # Test coverage reports
   - "!.jest-skip/**"      # Skipped test artifacts
 ```
@@ -114,6 +118,7 @@ The configuration includes 10 specialized review rules optimized for different f
 **Focus**: Concise, actionable reviews respecting documented style.
 
 **Key Points**:
+
 - Prefer clear, modular prompt design
 - Link suggested fixes
 - Maintain consistency with prompt conventions
@@ -123,6 +128,7 @@ The configuration includes 10 specialized review rules optimized for different f
 **Focus**: Correctness, completeness, and implementation status.
 
 **Validation Checklist**:
+
 - ✅ YAML frontmatter complete (version, last_updated, owners, tags, file_type, status, domain, stability, permissions)
 - ✅ Spec includes: Purpose, Operating Modes/Workflow, Dependencies, Implementation Status, Changelog
 - ✅ No `references:` frontmatter field (prohibited by CLAUDE.md)
@@ -133,6 +139,7 @@ The configuration includes 10 specialized review rules optimized for different f
 **Focus**: Navigability, accuracy, and cross-referencing.
 
 **Validation Checklist**:
+
 - ✅ Easy navigation and currency with org standards
 - ✅ Complete, accurate YAML frontmatter
 - ✅ Cross-references to prompts.md, agent.md, AGENTS.md, instruction files
@@ -143,6 +150,7 @@ The configuration includes 10 specialized review rules optimized for different f
 **Focus**: Discoverability and dynamic indexing.
 
 **Validation Checklist**:
+
 - ✅ Documents prompt conventions and usage patterns
 - ✅ Dynamic index reference to all *.prompt.md files
 - ✅ Valid YAML frontmatter with updated date/version
@@ -153,6 +161,7 @@ The configuration includes 10 specialized review rules optimized for different f
 **Focus**: Clarity, structure, and completeness.
 
 **Validation Checklist**:
+
 - ✅ Clear instructions, examples, and checklist sections
 - ✅ Correct YAML frontmatter
 - ✅ Referenced in prompts index
@@ -163,6 +172,7 @@ The configuration includes 10 specialized review rules optimized for different f
 **Focus**: Standards compliance and portability.
 
 **Validation Checklist**:
+
 - ✅ Frontmatter follows canonical pattern
 - ✅ No `references:` field (prohibited)
 - ✅ Includes: Overview, General Rules, Detailed Guidance, Examples, Validation, Cross-References
@@ -173,12 +183,14 @@ The configuration includes 10 specialized review rules optimized for different f
 **Focus**: Security, dependency management, and standards.
 
 **Package.json Checks**:
+
 - ✅ Security vulnerabilities identified
 - ✅ Scripts documented with clear names
 - ✅ Semantic versioning validation
 - ✅ DevDependencies vs dependencies separation
 
 **Composer.json Checks**:
+
 - ✅ WordPress compatibility
 - ✅ Security best practices
 - ✅ PSR-4 autoloading compliance
@@ -187,12 +199,14 @@ The configuration includes 10 specialized review rules optimized for different f
 ### 8. Source Code - `**/*.{js,ts}`, `**/scripts/**/*.sh`
 
 **JavaScript/TypeScript**:
+
 - ✅ Linting compliance
 - ✅ Dead code and unused variables
 - ✅ Accessibility and performance
 - ✅ Test isolation and naming clarity
 
 **Shell Scripts**:
+
 - ✅ POSIX compliance
 - ✅ Error handling and exit codes
 - ✅ `set -euo pipefail` and shebang present
@@ -203,6 +217,7 @@ The configuration includes 10 specialized review rules optimized for different f
 **Focus**: Security, best practices, and maintainability.
 
 **Security Checks**:
+
 - ✅ Least-privilege permissions at job level
 - ✅ Secrets passed via env vars, not interpolated
 - ✅ Action pinning (SHA preferred over tags)
@@ -210,6 +225,7 @@ The configuration includes 10 specialized review rules optimized for different f
 - ✅ No unmasked sensitive outputs
 
 **Quality Checks**:
+
 - ✅ Reusable workflow patterns
 - ✅ Branch/path filters on triggers
 - ✅ DRY code with matrix strategies
@@ -218,22 +234,26 @@ The configuration includes 10 specialized review rules optimized for different f
 ### 10. Templates & Documentation - Various Paths
 
 **Issue Templates** (`.github/ISSUE_TEMPLATE/*.md`):
+
 - ✅ Valid markdown syntax and clear instructions
 - ✅ YAML frontmatter with required fields
 - ✅ Accessibility considerations
 - ✅ References to related documentation
 
 **PR Templates** (`.github/PULL_REQUEST_TEMPLATE/*.md`):
+
 - ✅ Clear contributor instructions
 - ✅ Valid YAML frontmatter
 - ✅ Current with latest process
 
 **Saved Replies** (`.github/SAVED_REPLIES/**/*.md`):
+
 - ✅ Valid, actionable markdown
 - ✅ YAML frontmatter with dates
 - ✅ Referenced from index
 
 **Documentation** (`**/docs/**/*.md`):
+
 - ✅ Markdown linting compliance
 - ✅ Logical folder structure
 - ✅ Up-to-date accuracy
@@ -265,8 +285,8 @@ The configuration includes 10 specialized review rules optimized for different f
 
 ## References
 
-- **CodeRabbit Documentation**: https://docs.coderabbit.ai/guides/configure-coderabbit
-- **Schema Validator**: https://docs.coderabbit.ai/configuration/yaml-validator
+- **CodeRabbit Documentation**: [https://docs.coderabbit.ai/guides/configure-coderabbit](https://docs.coderabbit.ai/guides/configure-coderabbit)
+- **Schema Validator**: [https://docs.coderabbit.ai/configuration/yaml-validator](https://docs.coderabbit.ai/configuration/yaml-validator)
 - **Configuration File**: `/.coderabbit.yml`
 - **Repository Issue**: #783
 
