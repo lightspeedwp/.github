@@ -36,7 +36,7 @@ Generate Markdown issue drafts for manual review before creating issues.
 
 - type:feature
 - type:bug
-- type:qa
+- type:test
 - type:content
 - type:design-system
 - type:block-theme
@@ -48,3 +48,5 @@ Generate Markdown issue drafts for manual review before creating issues.
 - priority:high
 - priority:medium
 - priority:low
+
+Branch mapping note: QA and test branches both map to type:test in .github/labeler.yml via head-branch ["^test/.*", "^qa/.*"].
