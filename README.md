@@ -2,8 +2,8 @@
 file_type: documentation
 title: LightSpeed Community Health & Automation Repository
 description: Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution.
-version: '2.8'
-last_updated: '2026-06-01'
+version: '2.9'
+last_updated: '2026-06-03'
 owners:
   - LightSpeed Team
 tags:
@@ -72,7 +72,7 @@ For comprehensive documentation, see the [docs/](./docs/) folder and [.github/RE
 - [.github/labels.yml](./.github/labels.yml) - Canonical label definitions
 - [.github/labeler.yml](./.github/labeler.yml) - Labeler automation rules
 - [.github/issue-types.yml](./.github/issue-types.yml) - Issue type definitions
-- [docs/AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md) - Automation governance
+- [docs/AUTOMATION.md](./docs/AUTOMATION.md) - Automation governance
 
 ### 📋 Issue & PR Templates
 
@@ -116,7 +116,7 @@ tests/ # Test suites
 1. **New Contributor?** Start with [CONTRIBUTING.md](./CONTRIBUTING.md)
 2. **Setting up development?** See [DEVELOPMENT.md](./DEVELOPMENT.md)
 3. **Need coding standards?** Check [instructions/coding-standards.instructions.md](instructions/coding-standards.instructions.md)
-4. **Automation questions?** Read [docs/AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md)
+4. **Automation questions?** Read [docs/AUTOMATION.md](./docs/AUTOMATION.md)
 
 ---
 
@@ -157,7 +157,7 @@ accDescr: High-level view of the .github repository structure, showing community
     F --> H[LINTING.md]
     F --> I[HUSKY_PRECOMMITS.md]
     F --> J[docs/config/]
-    F --> K[AUTOMATION_GOVERNANCE.md]
+    F --> K[AUTOMATION.md]
     F --> L[LABEL_STRATEGY.md]
     F --> M[LABELING.md]
     F --> N[README Sections]
@@ -552,8 +552,8 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 
 - [labels.yml](./.github/labels.yml) – **Canonical label definitions** for all issues and PRs.
 - [labeler.yml](./.github/labeler.yml) – Automated file/branch-based label application.
-- [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md) – Issue label documentation.
-- [PR_LABELS.md](./docs/PR_LABELS.md) – PR label documentation.
+- [LABELING.md (Issue Labelling)](./docs/LABELING.md#issue-labelling) – Issue label documentation.
+- [LABELING.md (Pull Request Labelling)](./docs/LABELING.md#pull-request-labelling) – PR label documentation.
 
 ### Issue Types & Templates
 
@@ -566,19 +566,19 @@ The following are the default `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `ISSUE_TE
 ### Pull Request Templates
 
 - [PR templates directory](https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATE)
-- [PR_LABELS.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/PR_LABELS.md)
+- [LABELING.md (Pull Request Labelling)](https://github.com/lightspeedwp/.github/blob/HEAD/docs/LABELING.md#pull-request-labelling)
 - [Pull Request Template (main)](./.github/pull_request_template.md)
 
 ### Workflows & Automation
 
 - `.github/workflows/labeling.yml` – Automated labeling for issues/PRs.
 - `.github/workflows/project-meta-sync.yml` – Syncs issues/PRs with Projects (Beta) and fields.
-- [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) – Orchestrates how automation is governed org-wide.
+- [AUTOMATION.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) – Orchestrates how automation is governed org-wide.
 
 ### Governance Documentation
 
 - [BRANCHING_STRATEGY.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/BRANCHING_STRATEGY.md) – Defines branch protection and workflow.
-- [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) – Automation standards and governance.
+- [AUTOMATION.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) – Automation standards and governance.
 
 ### Org-wide Instructions & AI Files
 
@@ -599,7 +599,7 @@ This repository will include and orchestrate org-wide agents for managing issue 
 
 - **Agents:** Configurations, prompts, and agent instructions live here.
 - **Integration:** All project boards and workflows reference canonical files here for automated syncing and status tracking.
-- **Governance:** [AUTOMATION_GOVERNANCE.md](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) details how agents and workflows are managed, updated, and rolled out org-wide.
+- **Governance:** [AUTOMATION.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) details how agents and workflows are managed, updated, and rolled out org-wide.
 
 ---
 
@@ -939,7 +939,7 @@ Set up monitoring to ensure standards remain in sync:
 
 - **Labels/Types not applied:** Confirm your repo references `./.github/labels.yml` and `./.github/issue-types.yml` from this repository.
 - **Templates missing:** Ensure your repo points to `.github` for templates, or copies them from this repo.
-- **Automation issues:** Reference [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md) for setup and troubleshooting.
+- **Automation issues:** Reference [AUTOMATION.md](./docs/AUTOMATION.md) for setup and troubleshooting.
 - For any org-wide questions, open an issue or discussion in this repository.
 
 ---

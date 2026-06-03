@@ -2,7 +2,6 @@
 title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
-version: "1.0.4"
 created_date: "2025-09-20"
 last_updated: "2026-06-03"
 owners:
@@ -28,9 +27,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Awesome GitHub Site Phase 2a: Three-Pillar Governance Framework** — Integrated PR #809's three-pillar design approach on top of Phase 2a's dynamic foundation by adding comprehensive CSS styling for the pillar section (`.pillar-grid`, `.pillar`, `.pillar-links`). Features 3-column responsive grid layout with hover effects, accent color styling, light/dark theme variants, and mobile collapse to single column. Completes visual integration of Automation, Governance, and AI Integration framework while preserving dynamic catalogue loading and conference messaging.
+- **Awesome GitHub Site Phase 2a: Homepage & Navigation Redesign** — Initiated Phase 2a execution by restructuring header navigation to support Phase 2 catalogues, redesigning homepage with "One .GitHub to Rule Them All" positioning, and establishing foundation for Phase 2b–2c expansion:
+  - Reorganized nav sections (Conference → Catalogues → About) with dedicated catalogue dropdown showing all 8 Phase 2 resources (agents, instructions, skills, hooks, plugins, workflows, tools, learning-hub).
+  - Redesigned homepage hero and value proposition to position site as unified discovery platform for AI operations ecosystem.
+  - Added 8-catalogue card grid with direct links to Phase 2 resources on homepage.
+  - Reorganized Phase 1 conference content into dedicated "Phase 1" section.
+  - Created Phase 2a implementation roadmap (`.github/projects/active/awesome-github-site/phase-2a/IMPLEMENTATION_ROADMAP.md`) documenting remaining Phase 2a tasks, success criteria, and Phase 2 gate requirements.
+  - Website builds successfully with 62 pages and no errors; foundation ready for Phase 2b catalogue population.
+- **AI Governance: Workflow Enforcement Clarity & PR Merge Protocol** — Enhanced `CLAUDE.md` governance documentation to precisely align with `main-branch-guard.yml` workflow enforcement. Added comprehensive PR Merge & Cleanup Protocol with strict enforcement requirements (branch verification, merge execution, automatic cleanup). Clarified that only `release/*` and `hotfix/*` branches are permitted to merge to main, enforced automatically by `.github/workflows/main-branch-guard.yml` and `scripts/workflows/branch-policy/validate-main-branch-pr.cjs`. Emphasizes "NO EXCEPTIONS" in AI Governance header and removes ambiguity about enforcement mechanisms.
+- **AI Governance & Branch Protection Enforcement** — Added comprehensive AI governance rules to `CLAUDE.md` with explicit branch naming enforcement (`{type}/{scope}-{short-title}` format, no `claude/` prefixes), clarification that explicit user instructions must be executed immediately without reinterpretation, and main branch protection policies for release cycles only.
 - **Awesome GitHub Site Planning Pack** — Created a new active project under `.github/projects/active/awesome-github-site/` with phase 1 and phase 2 planning docs, normalised briefing copies, and an updated execution tracker for the new GitHub-led website programme.
 - **Awesome GitHub Site GitHub Pages Implementation** — Added the Astro phase 1 site scaffold, GitHub Pages deployment workflow, custom `404` page, canonical `github.lightspeedwp.agency` domain support, and review-driven fixes for frontmatter, motion, and package metadata.
 - **WCEU 2026 Conference Site Expansion** — Expanded the public site into a conference-ready talk hub with per-slide pages, updated navigation and footer elements, a light/dark mode switcher, and GitHub Pages-safe slide parsing dependencies for CI builds.
+- **Fullscreen Slideshow Component for WCEU 2026 Talk** — Implemented a production-ready Svelte slideshow viewer with keyboard navigation (arrow keys, space, N for notes, R for references, F for fullscreen), speaker notes and references overlays, slide indicator grid, responsive design, and light/dark mode support. Component integrates with 20 pre-built slide pages and is optimized for conference presentation delivery.
+
+### Fixed
+
+- **Awesome GitHub Site: Duplicate Route Collision Fix** — Removed duplicate `/references` route caused by `website/src/pages/references.astro` conflicting with `website/src/pages/references/index.astro`. The build now generates 62 pages with no route collision warnings. Workflow updated with `--legacy-peer-deps` flag for `npm ci` to resolve `@astrojs/svelte` compatibility with Astro 5.18.2.
 
 ## [0.5.0] - 2026-06-03
 

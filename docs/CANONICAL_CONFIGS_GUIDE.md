@@ -2,7 +2,7 @@
 file_type: documentation
 title: Canonical Config File Interdependencies Guide
 description: Canonical reference for how labels.yml, issue-types.yml, labeler.yml, and issue-fields.yml interact from issue creation through automation completion.
-version: v1.0.0
+version: v1.0.1
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 authors:
@@ -97,12 +97,12 @@ sequenceDiagram
 ## Current Risks Observed (Wave 5 Phase 1)
 
 - Cross-file Type parity is now validator-enforced, but downstream documentation can still drift if canonical types are added without doc updates.
-- Several legacy documentation references still target deprecated docs (`ISSUE_LABELS.md`, `PR_LABELS.md`, `AUTOMATION_GOVERNANCE.md`), increasing operator confusion.
+- Several legacy documentation references still need to be redirected to the canonical docs, increasing operator confusion when the cleanup is incomplete.
 
 ## Recommended Validation Hooks
 
 - `scripts/validation/validate-issue-fields.cjs` now includes strict cross-file parity checks for `Status`, `Priority`, and `Type` mappings.
-- Add a dedicated validator for `labeler.yml` output labels against `.github/labels.yml`.
+- `scripts/validation/validate-labeling-configs.cjs` now fails when `.github/labeler.yml` emits labels not defined in `.github/labels.yml`.
 - Run parity checks in CI on every PR touching any canonical config file.
 
 ## Related Documentation

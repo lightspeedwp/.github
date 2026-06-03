@@ -63,7 +63,7 @@ jobs:
 
       - name: Install dependencies
         if: github.event_name != 'workflow_dispatch' || inputs.run_ci
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Build site
         if: github.event_name != 'workflow_dispatch' || inputs.run_ci
@@ -71,7 +71,7 @@ jobs:
 
       - name: Upload Pages artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: website/dist
 
@@ -86,4 +86,4 @@ jobs:
     steps:
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

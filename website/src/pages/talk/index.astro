@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getWceuSlides } from "../../lib/wceuSlides";
+
+const slides = getWceuSlides();
+const totalSlides = slides.length;
+---
+
+<BaseLayout
+  title="The Evolution of .github — WCEU 2026 Talk"
+  description="Start the talk presentation or explore individual slides from the WCEU 2026 Awesome GitHub talk on building an AI-ops governance hub."
+>
+  <section class="hero">
+    <div class="eyebrow">WCEU 2026 Keynote</div>
+    <h1>The Evolution of <code>.github</code></h1>
+    <p class="lede">
+      Building an AI-ops governance hub that scales. Learn how to centralise standards,
+      automate governance, and keep teams shipping reliably across many repositories.
+    </p>
+    <div class="hero-actions">
+      <a class="button primary" href="/talk/slideshow/">
+        Start the Presentation
+      </a>
+      <a class="button secondary" href="/talk/slides/">Browse Slides</a>
+      <a class="button secondary" href="/agents/">Explore Agents</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Talk Overview</h2>
+    <div class="page-copy">
+      <p>
+        In this 25-minute talk, you'll see why governance and automation fragmentation
+        slow teams down—and how one `.github` control plane, paired with distributable
+        plugin packs and AI-assisted operations, unlocks reliable flow across the
+        organisation.
+      </p>
+      <p>
+        We'll walk through a practical architecture that separates policy from execution,
+        centralises standards, and deploys them consistently across multiple AI coding
+        toolchains.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>What You'll Learn</h2>
+        <p class="section-intro">
+          Four key areas: governance challenges, architectural patterns, technical layers,
+          and adoption playbooks.
+        </p>
+      </div>
+    </div>
+    <div class="card-grid">
+      <article class="card">
+        <h3>The Problem</h3>
+        <p>
+          Why teams struggle with fragmented standards, inconsistent automation, and
+          delivery drift across many repositories.
+        </p>
+      </article>
+      <article class="card">
+        <h3>The Architecture</h3>
+        <p>
+          How a `.github` control plane centralises governance, reusable workflows,
+          instructions, and AI operations.
+        </p>
+      </article>
+      <article class="card">
+        <h3>The Product Model</h3>
+        <p>
+          Why plugin packs, multi-platform parity, and quality gates make governance
+          distributable and low-friction.
+        </p>
+      </article>
+      <article class="card">
+        <h3>The Technical Layers</h3>
+        <p>
+          Agents, skills, hooks, and workflows—how each layer contributes to governance
+          and safety.
+        </p>
+      </article>
+      <article class="card">
+        <h3>AI Governance</h3>
+        <p>
+          How AI operations are versioned, instructed, and governed alongside traditional
+          workflow management.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Adoption Playbook</h3>
+        <p>
+          A practical 30/60/90 roadmap other teams can follow to implement the model in
+          their own organisations.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>All {totalSlides} Slides</h2>
+        <p class="section-intro">
+          Each slide has its own page with speaker notes, references, and links to related
+          agents and resources.
+        </p>
+      </div>
+      <a class="button secondary" href="/talk/slides/">View All Slides</a>
+    </div>
+    <div class="card-grid">
+      {slides.slice(0, 6).map((slide) => (
+        <article class="card">
+          <div class="eyebrow">Slide {slide.number.toString().padStart(2, "0")}</div>
+          <h3>{slide.title.replace(/^Slide \d+ - /, "")}</h3>
+          <p>{slide.description}</p>
+          <a class="inline-link" href={`/talk/slides/${slide.slug}/`}>
+            Read slide →
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Quick Links</h2>
+    <div class="page-copy">
+      <ul>
+        <li>
+          <a href="/agents/">Agent Guides</a> — Learn about the 7 core agents from the talk
+        </li>
+        <li>
+          <a href="/getting-started/why-github-matters/">Why .github Matters</a> — Understand
+          the motivation
+        </li>
+        <li>
+          <a href="/getting-started/implementation-roadmap/">Implementation Roadmap</a> — 30/60/90
+          adoption plan
+        </li>
+        <li>
+          <a href="/references/glossary/">Glossary</a> — Key terminology and definitions
+        </li>
+        <li>
+          <a href="/references/sources/">Sources</a> — Evidence and reference materials
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

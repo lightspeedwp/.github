@@ -23,6 +23,13 @@ status: active
 
 # Next Issues Execution Plan
 
+## 2026-06-03 Branch Governance Hardening Kickoff
+
+- New active project folder created: `.github/projects/active/branch-governance-hardening/`
+- Focus: convert the branch strategy docs into enforceable rulesets, workflow checks, and AI branch-selection guardrails.
+- The intent is to stop new work batches from being started on reused branches and to make the repo reject invalid branch state before mutation steps run.
+- Next step: create and propose the strict issue chain in the new project pack, then implement the controls issue-by-issue.
+
 ## 2026-06-03 Awesome GitHub Site Planning Kickoff
 
 - New active project folder created: `.github/projects/active/awesome-github-site/`
@@ -185,6 +192,7 @@ GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queu
 | Project File | Status | Owner | Action |
 | --- | --- | --- | --- |
 | `github-workflow-consolidation-2026-05-28/` | ✅ COMPLETED - Epic #503 closed, planning docs ready for archive | GitHub Copilot | Archive to `completed/` folder after final review |
+| `branch-governance-hardening/` | 🆕 ACTIVE - Branch rulesets, workflow validation, and AI branch-selection guardrails | GitHub Copilot | Keep the issue pack, live issues, and rollout controls aligned |
 | `launch-agents-checklist.md` | 🟡 IN PROGRESS - Partial test infrastructure fixes applied 2026-05-28 | LightSpeed Team | Complete remaining validation phases (critical pre-v1.0.0 release) |
 | `awesome-github-site/` | 🟢 ACTIVE - Conference-ready WCEU site with slide subpages and theme switcher | Ash Shaw | Keep slide references, accessibility notes, and nav links aligned as the site expands |
 | `spec-only-agents-issue-conversion-2026-05-28.md` | ✅ COMPLETED - All spec-only agents converted to issues (#465, #467, #466, #468, #469) | GitHub Copilot | Archive to `completed/` folder |

@@ -2,9 +2,9 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.2
+version: v1.0.3
 created_date: '2026-05-31'
-last_updated: '2026-06-01'
+last_updated: '2026-06-03'
 authors:
   - Claude Code
   - LightSpeed Team
@@ -24,7 +24,7 @@ stability: stable
 
 # Issue Fields Specification
 
-**Version**: v1.0.0
+**Version**: v1.0.3
 **Created**: 2026-05-31
 **Owner**: LightSpeed Team
 **Reference Config**: `.github/issue-fields.yml`

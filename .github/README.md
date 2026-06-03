@@ -4,9 +4,9 @@ title: LightSpeed .github Community Health Repository
 description: Central hub for all shared GitHub templates, Copilot instructions, workflow
   automation, labeling systems, and community health files across the LightSpeed WordPress
   organisation
-version: '3.3'
+version: '3.4'
 created_date: '2025-01-15'
-last_updated: '2026-06-01'
+last_updated: '2026-06-03'
 authors:
 - LightSpeed Team
 maintainer: LightSpeed Team
@@ -32,7 +32,7 @@ tags:
 [![AI Integration](https://img.shields.io/badge/AI-enhanced-purple)](./custom-instructions.md)
 [![Workflows](https://img.shields.io/badge/workflows-reusable-informational)](./workflows/)
 [![Instructions](https://img.shields.io/badge/instructions-standardized-orange)](./instructions/)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](../LICENSE)
 
 > **Central hub** for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation.
 
@@ -240,14 +240,14 @@ accDescr {
 - If a repository does not have its own label or labeler config, the defaults from this repo apply.
 - **Automated labelling** ensures consistent triage, prioritisation, and project management across the organisation.
 - Maintainers should update labels and labeler rules *here* to synchronise org-wide conventions.
-- For more detail, see [AUTOMATION_GOVERNANCE.md](../docs/AUTOMATION_GOVERNANCE.md) and [ISSUE_LABELS.md](../docs/ISSUE_LABELS.md).
+- For more detail, see [AUTOMATION.md](../docs/AUTOMATION.md) and [LABELING.md](../docs/LABELING.md#issue-labelling).
 
 **Quick links:**
 
 - [Label Definitions](./labels.yml)
 - [Labeler Rules](./labeler.yml)
 - [Issue Types](./issue-types.yml)
-- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
+- [Automation & Workflows](../docs/AUTOMATION.md)
 
 ---
 
@@ -296,7 +296,7 @@ accDescr {
         H1[labels.yml]
         H2[labeler.yml]
         H3[issue-types.yml]
-        H4[AUTOMATION_GOVERNANCE.md]
+        H4[AUTOMATION.md]
         D1[labeling.yml]
     end
 
@@ -388,7 +388,7 @@ We've consolidated related instruction files for better maintainability:
 - **automation.instructions.md** - Agents, labeling, release, metrics (8 files)
 - **community-standards.instructions.md** - File org, naming, README, replies (4 files)
 
-📖 **[View Migration Guide](../MIGRATION_GUIDE.md)** - Complete mapping of old → new locations
+📖 **[View Migration Guide](../docs/MIGRATION.md)** - Complete mapping of old → new locations
 
 ---
 
@@ -564,7 +564,7 @@ This repository and all its contents are licensed under the GNU General Public L
 - [🏷️ Label Definitions](./labels.yml) - Canonical organization labels
 - [🔧 Labeler Configuration](./labeler.yml) - Automated labeling rules
 - [📋 Issue Types](./issue-types.yml) - Standardized issue categorization
-- [⚖️ Automation Governance](../docs/AUTOMATION_GOVERNANCE.md) - Automation standards and oversight
+- [⚖️ Automation & Workflows](../docs/AUTOMATION.md) - Automation standards and oversight
 
 ## 🔧 Development Standards
 
