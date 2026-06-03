@@ -1,7 +1,7 @@
 ---
 title: "LightSpeed .github — Claude Instructions"
 description: "Claude-specific project instructions for the LightSpeed .github repository."
-version: "v1.4"
+version: "v1.5"
 last_updated: "2026-06-03"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
@@ -65,10 +65,12 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
 **CRITICAL:** Every PR merge must follow this protocol. This prevents branch orphans and ensures a clean repository state.
 
 **Before Creating a PR:**
+
 - ✅ Verify the branch is named correctly: `{type}/{scope}-{short-title}` format
 - ✅ Confirm the PR will target `develop` (NOT `main` unless it is an explicit release cycle with user authorisation)
 
 **During Merge:**
+
 1. **Verify Base Branch** — Double-check PR base is `develop` (not `main`)
    - If base is `main`: STOP. Ask user if this is a release cycle. Do NOT merge without explicit instruction.
    - If base is correct: Proceed to merge.
