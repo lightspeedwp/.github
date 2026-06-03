@@ -76,16 +76,16 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
    - If base is correct: Proceed to merge.
 2. **Merge Execution** — Use squash merge and wait for success confirmation
 3. **Branch Cleanup** — Immediately after successful merge:
-   - Attempt to delete the branch via `git push origin --delete <branch-name>`
+   - Attempt to delete the remote branch via `git push origin --delete <branch-name>`
    - If branch already auto-deleted by GitHub (typical): Expected behaviour, report as success
-   - If branch still exists: Delete it
+   - Delete the local branch via `git branch -d <branch-name>` (or `-D` if not fully merged locally)
    - Report status to user
 
 #### main Branch — LOCKED (Release Only)
 
 **ABSOLUTE RULE:** `main` is for releases only. All other work merges to `develop`.
 
-**Workflow Enforcement:** The `.github/workflows/main-branch-guard.yml` workflow automatically validates all PRs targeting `main`. PRs are rejected unless they originate from branches named `release/vX.Y.Z` or `hotfix/<slug>` (enforced by `scripts/workflows/branch-policy/validate-main-branch-pr.cjs`).
+**Workflow Enforcement:** The `.github/workflows/main-branch-guard.yml` workflow automatically validates all PRs targeting `main`. PRs are rejected unless they originate from branches starting with `release/` or `hotfix/` (enforced by `scripts/workflows/branch-policy/validate-main-branch-pr.cjs`; branches should follow the `release/vX.Y.Z` or `hotfix/<slug>` naming convention).
 
 - **ALLOWED BRANCHES:** Only `release/*` and `hotfix/*` branches may merge to `main`
   - Example: `release/v1.5.0`, `hotfix/critical-security-patch`
