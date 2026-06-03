@@ -15,17 +15,6 @@ reviews:
     - "!logs/**"
     - "!docs/drafts/**"
 
-  # === Auto Review Settings ===
-  auto_review:
-    enabled: true
-    drafts: false
-    base_branches:
-      - "main"
-      - "develop"
-      - "feature/*"
-      - "fix/*"
-      - "update/*"
-
   # === Path-Specific Review Instructions ===
   path_instructions:
     # 0. AI Assets (General)
@@ -283,22 +272,3 @@ reviews:
           - Ensure accessibility (e.g., heading hierarchy, alt text for images, no ambiguous language).
 
 early_access: true
-auto_labels:
-  enabled: true
-    - A canonical list of org wide default labels exists in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labels.yml" https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml
-    - A set of labeler rules exist in this file "https://github.com/lightspeedwp/.github/blob/develop/.github/labeler.yml"
-auto_assign:
-  enabled: true
-  reviewers:
-    - "ashleyshaw"
-auto_review:
-  enabled: true
-  ignore_title_keywords:
-    - "WIP"
-    - "DO NOT MERGE"
-    - "DRAFT"
-  drafts: false
-  base_branches:
-    - "main"
-    - "develop"
-    - "feature/*"
