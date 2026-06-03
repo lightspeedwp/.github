@@ -2,9 +2,9 @@
 title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
-version: "1.0.1"
+version: "1.0.2"
 created_date: "2025-09-20"
-last_updated: "2026-06-01"
+last_updated: "2026-06-03"
 owners:
   - LightSpeed Team
 tags:
@@ -25,6 +25,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Added
+
+- **Awesome GitHub Site Planning Pack** — Created a new active project under `.github/projects/active/awesome-github-site/` with phase 1 and phase 2 planning docs, normalised briefing copies, and an updated execution tracker for the new GitHub-led website programme.
 
 ### Fixed
 
@@ -498,7 +502,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Branching Strategy](docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
 - [CONTRIBUTING.md](./CONTRIBUTING.md): Contribution guidelines, templates, coding standards.
-- [AUTOMATION_GOVERNANCE.md](docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, labelling, and release strategy.
-- [Org-wide Issue Labels](docs/ISSUE_LABELS.md): Default labels and usage guidance.
-- [Pull Request Labels](docs/PR_LABELS.md): PR classification and automation standards.
+- [AUTOMATION.md](docs/AUTOMATION.md): Org-wide automation, branching, labelling, and release strategy.
+- [LABELING.md](docs/LABELING.md): Default issue, PR, and discussion label guidance.
 - [Issue Types Guide](docs/ISSUE_TYPES.md): Classification and usage of issue types.
