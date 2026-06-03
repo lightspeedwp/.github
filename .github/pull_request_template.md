@@ -10,7 +10,7 @@ labels: ["status:needs-review"]
 # General Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for contributor rules.
+> See the organisation-wide [Automation & Workflows](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) for contributor rules.
 
 ## Linked issues
 
@@ -164,8 +164,8 @@ Include:
 
 - [Contribution Guidelines](../CONTRIBUTING.md)
 - [Branching Strategy](../docs/BRANCHING_STRATEGY.md)
-- [Automation Governance](../docs/AUTOMATION_GOVERNANCE.md)
-- [PR Labels](../docs/PR_LABELS.md)
+- [Automation & Workflows](../docs/AUTOMATION.md)
+- [Pull Request Labelling](../docs/LABELING.md#pull-request-labelling)
 - [Saved Replies](./SAVED_REPLIES/README.md)
 - [Labeler Config](./labeler.yml)
 - [Labels](./labels.yml)

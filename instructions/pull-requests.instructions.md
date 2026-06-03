@@ -3,8 +3,8 @@ file_type: "instructions"
 title: "Pull Request Creation Instructions"
 description: "Canonical instructions for creating, labeling, and submitting Pull Requests in LightSpeedWP projects. Reference for templates, automation, and labeling strategy."
 scope: "organization-wide"
-version: "1.2"
-last_updated: "2026-05-29"
+version: "1.3"
+last_updated: "2026-06-03"
 owners: ["lightspeedwp/maintainers"]
 tags: ["pull requests", "templates", "frontmatter", "automation", "labels", "branching", "checklists"]
 ---
@@ -126,11 +126,12 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
      - One `priority:*` (e.g. `priority:normal`)
      - At least one `area:*` or `comp:*` if possible
      - One `release:*` (e.g. `release:patch`, `release:minor`, `release:major`)
-   - See [LABEL_STRATEGY.md](../docs/LABEL_STRATEGY.md) and [PR_LABELS.md](../docs/PR_LABELS.md).
 
-6. **Assign milestones/projects** if applicable.
+- See [LABEL_STRATEGY.md](../docs/LABEL_STRATEGY.md) and [LABELING.md#pull-request-labelling](../docs/LABELING.md#pull-request-labelling).
 
-7. **Open the PR** and monitor CI, review, and status checks.
+1. **Assign milestones/projects** if applicable.
+
+2. **Open the PR** and monitor CI, review, and status checks.
 
 ---
 
@@ -185,7 +186,7 @@ See [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) for full details and 
 - **Labeling:**
   - [labeler.yml](../.github/labeler.yml)
   - [labels.yml](../.github/labels.yml)
-  - [PR_LABELS.md](../docs/PR_LABELS.md)
+  - [LABELING.md#pull-request-labelling](../docs/LABELING.md#pull-request-labelling)
 - **Branching:**
   - [BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md)
 - **Saved Replies:**
