@@ -6,37 +6,9 @@ const pathname = Astro.url.pathname.replace(base, "/");
 
 const navSections = [
   {
-    label: "Talk",
+    label: "Docs",
+    isDropdown: true,
     links: [
-      {
-        href: `${base}talk/`,
-        path: "/talk/",
-        label: "Overview",
-        exact: true,
-      },
-      {
-        href: `${base}talk/slideshow/`,
-        path: "/talk/slideshow/",
-        label: "Presentation",
-        exact: true,
-      },
-      {
-        href: `${base}talk/slides/`,
-        path: "/talk/slides/",
-        label: "All Slides",
-        exact: false,
-      },
-    ],
-  },
-  {
-    label: "Resources",
-    links: [
-      {
-        href: `${base}agents/`,
-        path: "/agents/",
-        label: "Agent Guides",
-        exact: false,
-      },
       {
         href: `${base}getting-started/`,
         path: "/getting-started/",
@@ -44,27 +16,69 @@ const navSections = [
         exact: false,
       },
       {
-        href: `${base}references/`,
-        path: "/references/",
-        label: "References",
+        href: `${base}introduction/`,
+        path: "/introduction/",
+        label: "Introduction",
+        exact: false,
+      },
+      {
+        href: `${base}agents/`,
+        path: "/agents/",
+        label: "Agents",
+        exact: false,
+      },
+      {
+        href: `${base}instructions/`,
+        path: "/instructions/",
+        label: "Instructions",
+        exact: false,
+      },
+      {
+        href: `${base}skills/`,
+        path: "/skills/",
+        label: "Skills",
+        exact: false,
+      },
+      {
+        href: `${base}hooks/`,
+        path: "/hooks/",
+        label: "Hooks",
+        exact: false,
+      },
+      {
+        href: `${base}plugins/`,
+        path: "/plugins/",
+        label: "Plugins",
+        exact: false,
+      },
+      {
+        href: `${base}workflows/`,
+        path: "/workflows/",
+        label: "Workflows",
+        exact: false,
+      },
+      {
+        href: `${base}tools/`,
+        path: "/tools/",
+        label: "Tools",
+        exact: false,
+      },
+      {
+        href: `${base}learning-hub/`,
+        path: "/learning-hub/",
+        label: "Learning Hub",
         exact: false,
       },
     ],
   },
   {
-    label: "Site",
+    label: "Talk",
     links: [
       {
-        href: base,
-        path: "/",
-        label: "Home",
-        exact: true,
-      },
-      {
-        href: `${base}why-this-exists/`,
-        path: "/why-this-exists/",
-        label: "About",
-        exact: true,
+        href: `${base}talk/`,
+        path: "/talk/",
+        label: "WCEU 2026",
+        exact: false,
       },
     ],
   },

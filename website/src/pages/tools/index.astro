@@ -1,0 +1,204 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const tools = [
+  {
+    name: "GitHub CLI",
+    purpose: "Command-line interface for GitHub",
+    language: "Go",
+    usage: "gh pr create, gh issue list, gh release create",
+  },
+  {
+    name: "Act",
+    purpose: "Run GitHub Actions locally for testing",
+    language: "Go",
+    usage: "act -l, act push, act -j test",
+  },
+  {
+    name: "Husky",
+    purpose: "Git hooks for Node.js projects",
+    language: "JavaScript",
+    usage: "npx husky install, npx husky add .husky/pre-commit",
+  },
+  {
+    name: "Commitlint",
+    purpose: "Validate conventional commit messages",
+    language: "JavaScript",
+    usage: "commitlint -e, commitlint --from HEAD~1",
+  },
+  {
+    name: "Semantic Release",
+    purpose: "Automated semantic versioning and releases",
+    language: "JavaScript",
+    usage: "semantic-release, semantic-release --dry-run",
+  },
+  {
+    name: "ESLint",
+    purpose: "JavaScript linter and code quality tool",
+    language: "JavaScript",
+    usage: "eslint ., eslint --fix src/",
+  },
+];
+---
+
+<BaseLayout
+  title="Tools - Awesome GitHub"
+  description="Standalone utilities and CLI tools for GitHub automation."
+>
+  <section class="hero">
+    <h1>Tools & Utilities</h1>
+    <p class="lede">
+      Standalone tools and utilities that complement Awesome GitHub.
+      These are battle-tested, production-ready tools for automation, validation, and management.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>CLI tools</h2>
+    <div class="tool-grid">
+      {tools.map((tool) => (
+        <article class="tool-card">
+          <h3>{tool.name}</h3>
+          <p class="purpose">{tool.purpose}</p>
+          <div class="metadata">
+            <div class="lang">
+              <strong>Language:</strong>
+              <span>{tool.language}</span>
+            </div>
+            <div class="usage">
+              <strong>Usage:</strong>
+              <code>{tool.usage}</code>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Installation</h2>
+    <div class="page-copy">
+      <p>
+        Most tools can be installed via npm, brew, or from source:
+      </p>
+      <pre><code>npm install --save-dev @commitlint/cli
+brew install gh
+npm install semantic-release --save-dev</code></pre>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Common recipes</h2>
+    <div class="page-copy">
+      <p>
+        <strong>Validate commits locally before pushing:</strong>
+      </p>
+      <pre><code>npx husky install
+npx husky add .husky/commit-msg 'npx commitlint --edit "$1"'</code></pre>
+
+      <p>
+        <strong>Test a workflow locally:</strong>
+      </p>
+      <pre><code>act -l                    # List available workflows
+act push                  # Simulate push event
+act -j build             # Run specific job</code></pre>
+
+      <p>
+        <strong>Automate releases:</strong>
+      </p>
+      <pre><code>npm install semantic-release
+semantic-release</code></pre>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Learning more</h2>
+    <div class="page-copy">
+      <ul>
+        <li><a href="https://cli.github.com/" target="_blank" rel="noreferrer">GitHub CLI docs</a></li>
+        <li><a href="https://github.com/nektos/act" target="_blank" rel="noreferrer">Act project</a></li>
+        <li><a href="https://typicode.github.io/husky/" target="_blank" rel="noreferrer">Husky documentation</a></li>
+        <li><a href="https://www.conventionalcommits.org/" target="_blank" rel="noreferrer">Conventional Commits</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tool-card {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .tool-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .purpose {
+    margin: 0.5rem 0 1rem;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  .metadata {
+    font-size: 0.85rem;
+  }
+
+  .lang,
+  .usage {
+    margin-bottom: 0.75rem;
+  }
+
+  .lang strong,
+  .usage strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+  }
+
+  .lang span {
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  .usage code {
+    display: block;
+    background: var(--color-bg-hover, #eaeef2);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+    word-break: break-all;
+  }
+
+  pre {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.8rem;
+  }
+
+  code {
+    font-family: "Courier New", monospace;
+  }
+
+  a {
+    color: var(--color-primary, #0969da);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

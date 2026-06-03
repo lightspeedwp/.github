@@ -1,0 +1,189 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const plugins = [
+  {
+    name: "Figma Plugin",
+    version: "1.0.0",
+    description: "Design-to-code integration with Figma",
+    features: ["Component mapping", "Code Connect", "Design exports"],
+  },
+  {
+    name: "VS Code Extension",
+    version: "1.0.0",
+    description: "IDE integration for Claude Code",
+    features: ["Inline editing", "Terminal integration", "Live preview"],
+  },
+  {
+    name: "GitHub App",
+    version: "1.0.0",
+    description: "Direct GitHub integration for automation",
+    features: ["PR automation", "Issue management", "Workflow triggers"],
+  },
+];
+---
+
+<BaseLayout
+  title="Plugins - Awesome GitHub"
+  description="Extensible plugins that add functionality to Awesome GitHub."
+>
+  <section class="hero">
+    <h1>Plugins</h1>
+    <p class="lede">
+      Plugins extend Awesome GitHub with additional capabilities and integrations.
+      They're installed as packages and configured per-repository.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>What are plugins?</h2>
+    <div class="page-copy">
+      <p>
+        Plugins are installable packages that add functionality to your repositories.
+        They integrate with existing workflows and agents to provide:
+      </p>
+      <ul>
+        <li>Design-to-code integration</li>
+        <li>IDE extensions and tooling</li>
+        <li>Third-party service integrations</li>
+        <li>Additional automation capabilities</li>
+        <li>Custom reporting and analytics</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Available plugins</h2>
+    <div class="plugin-grid">
+      {plugins.map((plugin) => (
+        <article class="plugin-card">
+          <h3>{plugin.name}</h3>
+          <p class="version">v{plugin.version}</p>
+          <p class="description">{plugin.description}</p>
+          <div class="features">
+            <strong>Features:</strong>
+            <ul>
+              {plugin.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="install">
+            <code>npm install {plugin.name.toLowerCase().replace(/ /g, "-")}</code>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Installing plugins</h2>
+    <div class="page-copy">
+      <p>
+        Install plugins using npm or your package manager:
+      </p>
+      <pre><code>npm install @awesome-github/plugin-name</code></pre>
+      <p>
+        Then configure in your <code>.github/config.json</code> or per-repository settings.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Building custom plugins</h2>
+    <div class="page-copy">
+      <p>
+        You can build custom plugins to extend Awesome GitHub for your organisation.
+        Plugins follow a standard structure:
+      </p>
+      <ul>
+        <li>Entry point: <code>index.js</code> or <code>index.ts</code></li>
+        <li>Configuration: <code>plugin.config.js</code></li>
+        <li>Package metadata: <code>package.json</code></li>
+        <li>Documentation: <code>README.md</code></li>
+      </ul>
+      <p>
+        See the <a href={`${base}instructions/`}>Instructions</a> for plugin development standards.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .plugin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .plugin-card {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .plugin-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .version {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary, #57606a);
+    margin-bottom: 0.5rem;
+  }
+
+  .description {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  .features {
+    margin-bottom: 1rem;
+  }
+
+  .features strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .features ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .features li {
+    margin-bottom: 0.25rem;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  .install {
+    background: var(--color-bg-hover, #eaeef2);
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .install code {
+    font-family: "Courier New", monospace;
+    word-break: break-all;
+  }
+
+  pre {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+  }
+
+  code {
+    font-family: "Courier New", monospace;
+  }
+</style>

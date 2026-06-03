@@ -1,75 +1,331 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getWceuSlides } from "../lib/wceuSlides";
 
 const base = import.meta.env.BASE_URL;
-const slideCount = getWceuSlides().length;
 ---
 
 <BaseLayout
-  title="Awesome GitHub"
-  description="A conference-ready GitHub-led site for the WCEU 2026 talk, governance notes, and references."
+  title="Awesome GitHub — One .github to rule them all"
+  description="Learn how to use the .github repository as a practical control plane for governance, automation, and AI-assisted workflows."
 >
   <section class="hero">
-    <div class="eyebrow">Conference site</div>
-    <h1>Awesome GitHub</h1>
-    <p class="lede">
-      A conference-ready GitHub-led website that explains how LightSpeed uses the
-      <code>.github</code> repository as a practical control plane for planning,
-      governance, and AI-assisted workflows.
-    </p>
-    <div class="hero-actions">
-      <a class="button primary" href={`${base}wceu-2026/`}>WCEU 2026 talk</a>
-      <a class="button secondary" href={`${base}why-this-exists/`}>Why this exists</a>
-      <a class="button secondary" href={`${base}references/`}>Browse references</a>
-    </div>
-    <div class="kicker">What is live now</div>
-    <div class="stat-list">
-      <div class="stat">
-        <strong>{slideCount + 6} pages</strong>
-        Home, WCEU 2026 talk, slide index, {slideCount} slide pages, why this exists, and references.
-      </div>
-      <div class="stat">
-        <strong>Source-backed</strong>
-        Copy shaped by the talk slides, planning briefs, reference files, and audit notes.
-      </div>
-      <div class="stat">
-        <strong>Conference-ready</strong>
-        Designed to keep the public site clear, fast, and easy to extend.
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Site sections</h2>
-    <div class="card-grid">
-      <article class="card">
-        <h3>Home</h3>
-        <p>Clear positioning, a short value statement, and direct paths into the rest of the site.</p>
-      </article>
-      <article class="card">
-        <h3>WCEU 2026 talk</h3>
-        <p>The public entry point for the conference talk, its outline, slide index, and slide-by-slide pages.</p>
-      </article>
-      <article class="card">
-        <h3>Why this exists</h3>
-        <p>A concise explanation of the repository-as-control-plane model and the reason for the site.</p>
-      </article>
-      <article class="card">
-        <h3>References</h3>
-        <p>Primary links to the source repo, the live reference site, and the planning inputs.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>How the site grows</h2>
-    <div class="page-copy">
-      <p>
-        Additional pages can be added one at a time without resetting the header, footer,
-        or tone. The shared shell is already set up to handle a growing conference pack,
-        more reference material, and future resource pages.
+    <div class="hero-content">
+      <h1>One <code>.github</code> to rule them all</h1>
+      <p class="lede">
+        A comprehensive guide to standardising GitHub automation, governance, and AI agent integration
+        across your organisation. Learn from LightSpeed's approach to managing workflows, instructions,
+        and intelligent agents in a single control plane.
       </p>
+      <div class="hero-actions">
+        <a class="button primary" href={`${base}getting-started/`}>Get Started</a>
+        <a class="button secondary" href={`${base}introduction/`}>Learn More</a>
+        <a class="button secondary" href={`${base}talk/`}>Watch Talk</a>
+        <a class="button secondary" href={`${base}agents/`}>Browse Agents</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pillars">
+    <h2>Three pillars of .github governance</h2>
+    <div class="pillar-grid">
+      <article class="pillar">
+        <h3>🔧 Automation</h3>
+        <p>
+          Workflows, actions, and CI/CD governance. Automate releases, testing, labelling, and
+          metrics collection across your repositories.
+        </p>
+        <div class="pillar-links">
+          <a href={`${base}workflows/`}>Workflows</a>
+          <a href={`${base}hooks/`}>Git Hooks</a>
+          <a href={`${base}tools/`}>Tools</a>
+        </div>
+      </article>
+
+      <article class="pillar">
+        <h3>🛡️ Governance</h3>
+        <p>
+          Branch rules, labelling, and AI ethics. Maintain consistency, enforce standards,
+          and guide intelligent agents with clear instructions.
+        </p>
+        <div class="pillar-links">
+          <a href={`${base}instructions/`}>Instructions</a>
+          <a href={`${base}agents/`}>Agents</a>
+          <a href={`${base}introduction/`}>Philosophy</a>
+        </div>
+      </article>
+
+      <article class="pillar">
+        <h3>🤖 AI Integration</h3>
+        <p>
+          Agents, skills, and plugins. Extend your workflows with intelligent automation
+          and reusable capabilities.
+        </p>
+        <div class="pillar-links">
+          <a href={`${base}agents/`}>Agents</a>
+          <a href={`${base}skills/`}>Skills</a>
+          <a href={`${base}plugins/`}>Plugins</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section features">
+    <h2>What you'll find here</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <strong>Getting Started</strong>
+        <p>5-minute quickstart to set up and run your first workflow.</p>
+      </div>
+      <div class="feature">
+        <strong>Agent Guides</strong>
+        <p>Documentation for planning, release, review, and labelling agents.</p>
+      </div>
+      <div class="feature">
+        <strong>Instructions</strong>
+        <p>Comprehensive instruction files that guide agent behaviour.</p>
+      </div>
+      <div class="feature">
+        <strong>Skills & Hooks</strong>
+        <p>Reusable capabilities and local validation hooks.</p>
+      </div>
+      <div class="feature">
+        <strong>Workflows</strong>
+        <p>GitHub Actions workflows for CI/CD, validation, and automation.</p>
+      </div>
+      <div class="feature">
+        <strong>Learning Hub</strong>
+        <p>Guided paths, FAQs, and comprehensive onboarding resources.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta-section">
+    <div class="cta-box">
+      <h2>Ready to get started?</h2>
+      <p>Choose your path:</p>
+      <div class="cta-grid">
+        <a href={`${base}getting-started/`} class="cta-card">
+          <strong>New to this?</strong>
+          <span>Start with Getting Started →</span>
+        </a>
+        <a href={`${base}learning-hub/`} class="cta-card">
+          <strong>Want to learn?</strong>
+          <span>Explore the Learning Hub →</span>
+        </a>
+        <a href={`${base}agents/`} class="cta-card">
+          <strong>Need agents?</strong>
+          <span>Browse All Agents →</span>
+        </a>
+        <a href={`${base}talk/`} class="cta-card">
+          <strong>Want context?</strong>
+          <span>Watch the Talk →</span>
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .hero {
+    padding: 6rem 1.5rem;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+  }
+
+  .lede {
+    font-size: 1.1rem;
+    max-width: 50rem;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .button.primary {
+    background: var(--color-primary, #0969da);
+    color: white;
+  }
+
+  .button.primary:hover {
+    background: var(--color-primary-hover, #0860ca);
+  }
+
+  .button.secondary {
+    background: var(--color-bg-secondary, #f6f8fa);
+    color: var(--color-text, #24292f);
+    border: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .button.secondary:hover {
+    background: var(--color-bg-hover, #eaeef2);
+  }
+
+  .pillars {
+    background: var(--color-bg-secondary, #f6f8fa);
+  }
+
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .pillar {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .pillar h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .pillar p {
+    margin-bottom: 1.5rem;
+    color: var(--color-text-secondary, #57606a);
+    line-height: 1.6;
+  }
+
+  .pillar-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .pillar-links a {
+    padding: 0.5rem 1rem;
+    background: var(--color-bg-secondary, #f6f8fa);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+
+  .pillar-links a:hover {
+    background: var(--color-bg-hover, #eaeef2);
+  }
+
+  .features {
+    padding: 3rem 1.5rem;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature {
+    padding: 1.5rem;
+    border-left: 4px solid var(--color-primary, #0969da);
+  }
+
+  .feature strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .feature p {
+    margin: 0;
+    color: var(--color-text-secondary, #57606a);
+    font-size: 0.95rem;
+  }
+
+  .cta-section {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 3rem 1.5rem;
+  }
+
+  .cta-box {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta-box h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-box > p {
+    margin-bottom: 2rem;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  .cta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .cta-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border, #d0d7de);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cta-card:hover {
+    border-color: var(--color-primary, #0969da);
+    box-shadow: 0 3px 12px rgba(9, 105, 218, 0.1);
+  }
+
+  .cta-card strong {
+    color: var(--color-primary, #0969da);
+  }
+
+  .cta-card span {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 3rem 1rem;
+    }
+
+    .hero-content h1 {
+      font-size: 1.8rem;
+    }
+
+    .lede {
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      gap: 0.75rem;
+    }
+
+    .button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>

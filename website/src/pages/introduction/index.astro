@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Introduction - Awesome GitHub"
+  description="Learn how the .github repository serves as a practical control plane for governance, automation, and AI-assisted workflows."
+>
+  <section class="hero">
+    <h1>Introduction to Awesome GitHub</h1>
+    <p class="lede">
+      The <code>.github</code> repository is more than a collection of templates and workflows.
+      It's a control plane—a central point of governance and automation that keeps your entire organisation aligned.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>What is the <code>.github</code> repository?</h2>
+    <div class="page-copy">
+      <p>
+        Every GitHub organisation has a special <code>.github</code> repository. It contains community health files,
+        issue templates, pull request templates, discussion templates, a code of conduct, and a security policy.
+        But that's just the start.
+      </p>
+      <p>
+        Awesome GitHub extends this concept into a <strong>comprehensive governance and automation platform</strong> that includes:
+      </p>
+      <ul>
+        <li><strong>Workflows</strong> — Automated CI/CD, releases, validation, and labelling</li>
+        <li><strong>Agents</strong> — AI-powered tools for planning, reviewing, and releasing</li>
+        <li><strong>Instructions</strong> — Guidance files that direct agent behaviour</li>
+        <li><strong>Skills</strong> — Reusable capabilities for agents and workflows</li>
+        <li><strong>Hooks</strong> — Local validation and pre-commit guardrails</li>
+        <li><strong>Plugins</strong> — Extensible packages that add functionality</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Why it matters</h2>
+    <div class="page-copy">
+      <p>
+        Without clear governance, repositories become inconsistent. Code styles drift,
+        contributions go unmeasured, releases are manual, and AI assistance becomes unreliable.
+      </p>
+      <p>
+        Awesome GitHub solves this by giving you:
+      </p>
+      <ul>
+        <li><strong>Consistency</strong> — Standardised workflows, instructions, and naming conventions across all repositories</li>
+        <li><strong>Automation</strong> — Eliminate manual steps for releases, testing, labelling, and metrics</li>
+        <li><strong>Intelligent Assistance</strong> — AI agents that understand your standards and enforce them automatically</li>
+        <li><strong>Scalability</strong> — Add new repositories without resetting governance or losing knowledge</li>
+        <li><strong>Transparency</strong> — Clear visibility into what's automated, why, and how it works</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>The three pillars</h2>
+    <div class="page-copy">
+      <p>
+        Awesome GitHub is organised around three interconnected pillars:
+      </p>
+    </div>
+    <div class="pillar-grid">
+      <article class="pillar">
+        <h3>🔧 Automation</h3>
+        <p>
+          Workflows, GitHub Actions, and CI/CD governance. Automate everything from releases to metrics collection.
+          Validate code, run tests, build artifacts, and deploy—all without manual intervention.
+        </p>
+      </article>
+      <article class="pillar">
+        <h3>🛡️ Governance</h3>
+        <p>
+          Standards, branch rules, and ethical guidelines. Define how code gets written, reviewed, and merged.
+          Guide your team and AI agents toward consistent, maintainable practices.
+        </p>
+      </article>
+      <article class="pillar">
+        <h3>🤖 AI Integration</h3>
+        <p>
+          Agents, instructions, and skills that make intelligent automation reliable and predictable.
+          Train your AI assistants to understand and enforce your standards.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>How to get started</h2>
+    <div class="page-copy">
+      <p>
+        Start with <a href={`${base}getting-started/`}>Getting Started</a> for a 5-minute quickstart,
+        then explore the <a href={`${base}learning-hub/`}>Learning Hub</a> for guided paths based on your goals.
+      </p>
+      <p>
+        Next, browse the <a href={`${base}agents/`}>Agents</a>, <a href={`${base}instructions/`}>Instructions</a>,
+        and <a href={`${base}workflows/`}>Workflows</a> sections to understand what's available and how to configure them for your needs.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .pillar {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .pillar h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .pillar p {
+    margin: 0;
+    color: var(--color-text-secondary, #57606a);
+    line-height: 1.6;
+  }
+</style>

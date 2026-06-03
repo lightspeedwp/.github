@@ -1,0 +1,277 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const paths = [
+  {
+    name: "New to Awesome GitHub?",
+    emoji: "🚀",
+    description: "Start here if you're just getting started",
+    steps: [
+      { name: "Getting Started", link: `${base}getting-started/` },
+      { name: "Introduction", link: `${base}introduction/` },
+      { name: "Browse Agents", link: `${base}agents/` },
+      { name: "Explore Instructions", link: `${base}instructions/` },
+    ],
+  },
+  {
+    name: "Want to extend it?",
+    emoji: "🔧",
+    description: "Learn how to build custom agents and workflows",
+    steps: [
+      { name: "Instructions", link: `${base}instructions/` },
+      { name: "Skills", link: `${base}skills/` },
+      { name: "Plugins", link: `${base}plugins/` },
+      { name: "Workflows", link: `${base}workflows/` },
+    ],
+  },
+  {
+    name: "Want to automate your repos?",
+    emoji: "🤖",
+    description: "Set up automation for your organisation",
+    steps: [
+      { name: "Workflows", link: `${base}workflows/` },
+      { name: "Git Hooks", link: `${base}hooks/` },
+      { name: "Tools", link: `${base}tools/` },
+      { name: "Getting Started", link: `${base}getting-started/` },
+    ],
+  },
+  {
+    name: "Want to understand the philosophy?",
+    emoji: "💡",
+    description: "Learn the principles behind Awesome GitHub",
+    steps: [
+      { name: "Introduction", link: `${base}introduction/` },
+      { name: "Watch the Talk", link: `${base}talk/` },
+      { name: "Browse Instructions", link: `${base}instructions/` },
+      { name: "Explore Agents", link: `${base}agents/` },
+    ],
+  },
+];
+
+const faqs = [
+  {
+    q: "What problem does Awesome GitHub solve?",
+    a: "It provides a unified control plane for governance, automation, and AI-assisted workflows. Instead of scattered scripts and ad-hoc solutions, you get consistent standards enforced across all repositories.",
+  },
+  {
+    q: "How is it different from [tool X]?",
+    a: "Awesome GitHub is specifically designed for organisation-wide governance using the .github repository. It combines workflows, AI agents, instructions, and hooks into a cohesive system.",
+  },
+  {
+    q: "Can I use this in my own .github?",
+    a: "Yes! This is designed to be portable. You can copy agents, instructions, workflows, and hooks into your organisation's .github repository and customise them.",
+  },
+  {
+    q: "How do I contribute?",
+    a: "Contributions are welcome. Fork the repository, create a feature branch, and submit a pull request. See CONTRIBUTING.md for guidelines.",
+  },
+  {
+    q: "Is there a way to test locally?",
+    a: "Yes. Use `act` to run GitHub Actions workflows locally, and set up git hooks with `husky` for pre-commit validation.",
+  },
+  {
+    q: "How do I update instructions for my team?",
+    a: "Instructions are markdown files in the instructions/ directory. Edit them and commit to your .github repository. All references will automatically use the updated versions.",
+  },
+];
+
+const glossary = [
+  { term: "Agent", definition: "An AI-powered tool that performs automated tasks like planning, reviewing, or releasing" },
+  { term: "Instruction", definition: "A markdown file that defines standards, conventions, and guidance for agents and team members" },
+  { term: "Skill", definition: "A reusable capability that agents and workflows can invoke" },
+  { term: "Hook", definition: "A git script that runs automatically at key points in the Git workflow" },
+  { term: "Workflow", definition: "A GitHub Actions automation that runs on events like push, pull request, or schedule" },
+  { term: "Plugin", definition: "An installable package that extends Awesome GitHub functionality" },
+  { term: ".github Repository", definition: "A special repository that contains organisation-wide templates, workflows, and governance files" },
+];
+---
+
+<BaseLayout
+  title="Learning Hub - Awesome GitHub"
+  description="Guided onboarding paths, FAQ, and glossary for Awesome GitHub."
+>
+  <section class="hero">
+    <h1>Learning Hub</h1>
+    <p class="lede">
+      Choose your learning path based on your goals. This hub guides you through Awesome GitHub
+      with curated resources, FAQs, and a comprehensive glossary.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Choose your path</h2>
+    <div class="paths-grid">
+      {paths.map((path) => (
+        <div class="path-card">
+          <h3>
+            <span class="emoji">{path.emoji}</span>
+            {path.name}
+          </h3>
+          <p class="description">{path.description}</p>
+          <div class="steps">
+            <ol>
+              {path.steps.map((step, index) => (
+                <li>
+                  <a href={step.link}>{step.name}</a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-list">
+      {faqs.map((faq) => (
+        <div class="faq-item">
+          <h3>{faq.q}</h3>
+          <p>{faq.a}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Glossary</h2>
+    <div class="glossary-grid">
+      {glossary.map((item) => (
+        <div class="glossary-item">
+          <strong>{item.term}</strong>
+          <p>{item.definition}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Still have questions?</h2>
+    <div class="page-copy">
+      <p>
+        <a href="https://github.com/lightspeedwp/.github/discussions" target="_blank" rel="noreferrer">
+          Start a discussion on GitHub
+        </a>
+        or <a href="https://github.com/lightspeedwp/.github/issues" target="_blank" rel="noreferrer">
+          open an issue
+        </a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .paths-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .path-card {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .path-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .emoji {
+    font-size: 1.5rem;
+  }
+
+  .description {
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  .steps ol {
+    list-style: decimal inside;
+    padding: 0;
+    margin: 0;
+  }
+
+  .steps li {
+    margin-bottom: 0.5rem;
+  }
+
+  .steps a {
+    color: var(--color-primary, #0969da);
+    text-decoration: none;
+  }
+
+  .steps a:hover {
+    text-decoration: underline;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .faq-item {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-item h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text, #24292f);
+  }
+
+  .faq-item p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary, #57606a);
+    line-height: 1.6;
+  }
+
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .glossary-item {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--color-primary, #0969da);
+  }
+
+  .glossary-item strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .glossary-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary, #57606a);
+    line-height: 1.5;
+  }
+
+  a {
+    color: var(--color-primary, #0969da);
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

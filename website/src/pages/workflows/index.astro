@@ -1,0 +1,185 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const workflowCategories = [
+  {
+    name: "Release Workflows",
+    description: "Automated versioning, tagging, and releases",
+    workflows: [
+      { name: "Version & Release", description: "Create releases with automatic versioning" },
+      { name: "Tag Management", description: "Manage semantic versioning tags" },
+      { name: "Changelog Generation", description: "Generate changelogs from commits" },
+    ],
+  },
+  {
+    name: "Validation Workflows",
+    description: "Code quality, linting, and testing",
+    workflows: [
+      { name: "Lint & Format", description: "Run linters and formatters on code" },
+      { name: "Tests", description: "Execute test suites and report coverage" },
+      { name: "Security Scan", description: "Scan for vulnerabilities and secrets" },
+      { name: "Frontmatter Validation", description: "Validate YAML/Markdown frontmatter" },
+    ],
+  },
+  {
+    name: "Automation Workflows",
+    description: "Labelling, metrics, and smart actions",
+    workflows: [
+      { name: "Auto-Labelling", description: "Automatically label issues and PRs" },
+      { name: "Metrics Collection", description: "Collect and report project metrics" },
+      { name: "Dependency Updates", description: "Automate dependency management" },
+    ],
+  },
+  {
+    name: "Deployment Workflows",
+    description: "Build, deploy, and publish",
+    workflows: [
+      { name: "Pages Deploy", description: "Deploy to GitHub Pages" },
+      { name: "Package Publish", description: "Publish packages to npm/registries" },
+      { name: "Container Build", description: "Build and push Docker images" },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Workflows - Awesome GitHub"
+  description="GitHub Actions workflows for CI/CD, validation, and governance automation."
+>
+  <section class="hero">
+    <h1>Workflows</h1>
+    <p class="lede">
+      GitHub Actions workflows automate everything from testing and validation to releases and deployments.
+      They run on every push, pull request, and schedule, keeping your repositories consistent and reliable.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>What are workflows?</h2>
+    <div class="page-copy">
+      <p>
+        Workflows are YAML-defined GitHub Actions that run automatically. They can be triggered by:
+      </p>
+      <ul>
+        <li><code>push</code> — Code pushed to a branch</li>
+        <li><code>pull_request</code> — A PR is opened or updated</li>
+        <li><code>schedule</code> — On a cron schedule</li>
+        <li><code>workflow_dispatch</code> — Manually triggered</li>
+        <li><code>issue</code> — Issue events (opened, labeled, etc.)</li>
+      </ul>
+      <p>
+        Each workflow contains <strong>jobs</strong> (which run in parallel by default) and <strong>steps</strong> (which run sequentially).
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Available workflows</h2>
+    {workflowCategories.map((category) => (
+      <div class="workflow-category">
+        <h3>{category.name}</h3>
+        <p style="color: var(--color-text-secondary, #57606a); margin-bottom: 1rem;">
+          {category.description}
+        </p>
+        <div class="workflow-list">
+          {category.workflows.map((w) => (
+            <div class="workflow-item">
+              <strong>{w.name}</strong>
+              <p>{w.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="section">
+    <h2>Creating workflows</h2>
+    <div class="page-copy">
+      <p>
+        Workflows live in <code>.github/workflows/</code> and are YAML files. Basic structure:
+      </p>
+      <pre><code>name: My Workflow
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm test</code></pre>
+      <p>
+        See the <a href={`${base}instructions/`}>Instructions</a> for best practices.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Troubleshooting</h2>
+    <div class="page-copy">
+      <ul>
+        <li><strong>Workflow didn't run:</strong> Check trigger conditions and branch protection rules</li>
+        <li><strong>Job failed:</strong> Review logs in the Actions tab for error messages</li>
+        <li><strong>Permissions error:</strong> Ensure runner has required permissions</li>
+        <li><strong>Timeout:</strong> Increase timeout or optimise job steps</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .workflow-category {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .workflow-category:last-child {
+    border-bottom: none;
+  }
+
+  .workflow-category h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .workflow-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .workflow-item {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--color-primary, #0969da);
+  }
+
+  .workflow-item strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .workflow-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  pre {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.8rem;
+  }
+
+  code {
+    font-family: "Courier New", monospace;
+  }
+</style>

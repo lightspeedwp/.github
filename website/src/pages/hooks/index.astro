@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const hooks = [
+  {
+    name: "Pre-commit",
+    purpose: "Validate code before committing",
+    trigger: "Before git commit",
+    examples: ["Linting", "Code formatting", "Secret scanning"],
+  },
+  {
+    name: "Prepare-commit-msg",
+    purpose: "Modify commit messages",
+    trigger: "Before commit message is finalised",
+    examples: ["Adding issue references", "Enforcing format"],
+  },
+  {
+    name: "Commit-msg",
+    purpose: "Validate commit message format",
+    trigger: "After editing commit message",
+    examples: ["Checking message length", "Enforcing conventions"],
+  },
+  {
+    name: "Push",
+    purpose: "Validate before pushing to remote",
+    trigger: "Before git push",
+    examples: ["Running tests", "Checking branch names", "Verifying tags"],
+  },
+];
+---
+
+<BaseLayout
+  title="Hooks - Awesome GitHub"
+  description="Git hooks for local validation and pre-commit guardrails."
+>
+  <section class="hero">
+    <h1>Git Hooks</h1>
+    <p class="lede">
+      Git hooks run automatically on your local machine to validate code, enforce standards,
+      and prevent problematic commits from happening in the first place.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>What are git hooks?</h2>
+    <div class="page-copy">
+      <p>
+        Git hooks are scripts that run automatically at key points in the Git workflow.
+        They can be used to:
+      </p>
+      <ul>
+        <li>Validate code quality before committing</li>
+        <li>Enforce commit message conventions</li>
+        <li>Run linters and formatters</li>
+        <li>Check for secrets or sensitive information</li>
+        <li>Run tests before pushing</li>
+        <li>Validate branch names and tag formats</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Available hooks</h2>
+    <div class="hook-grid">
+      {hooks.map((hook) => (
+        <article class="hook-card">
+          <h3>{hook.name}</h3>
+          <p class="purpose">{hook.purpose}</p>
+          <div class="hook-details">
+            <div class="trigger">
+              <strong>Trigger:</strong>
+              <p>{hook.trigger}</p>
+            </div>
+            <div class="examples">
+              <strong>Common uses:</strong>
+              <ul>
+                {hook.examples.map((ex) => (
+                  <li>{ex}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Installation</h2>
+    <div class="page-copy">
+      <p>
+        Git hooks are managed by <code>husky</code>. Install with:
+      </p>
+      <pre><code>npm install
+npx husky install</code></pre>
+      <p>
+        This sets up all configured hooks in your <code>.husky/</code> directory.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Bypassing hooks</h2>
+    <div class="page-copy">
+      <p>
+        To bypass hooks in exceptional circumstances:
+      </p>
+      <pre><code>git commit --no-verify
+git push --no-verify</code></pre>
+      <p>
+        <strong>Note:</strong> Use with caution. Bypassing hooks can allow problematic code to be committed.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hook-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .hook-card {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .hook-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .purpose {
+    margin: 0.5rem 0 1rem;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  .hook-details {
+    font-size: 0.9rem;
+  }
+
+  .trigger,
+  .examples {
+    margin-bottom: 1rem;
+  }
+
+  .trigger strong,
+  .examples strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .trigger p {
+    margin: 0;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  .examples ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.5rem;
+  }
+
+  .examples li {
+    margin-bottom: 0.25rem;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  pre {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+  }
+
+  code {
+    font-family: "Courier New", monospace;
+  }
+</style>

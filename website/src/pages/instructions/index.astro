@@ -1,0 +1,185 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+// Dynamic instruction data
+const instructionCategories = [
+  {
+    name: "Coding Standards",
+    description: "Languages, coding conventions, and quality standards",
+    items: [
+      { title: "Coding Standards", slug: "coding-standards" },
+      { title: "Languages", slug: "languages" },
+      { title: "Linting", slug: "linting" },
+    ],
+  },
+  {
+    name: "Documentation & Formats",
+    description: "How to write and format documentation",
+    items: [
+      { title: "Documentation Formats", slug: "documentation-formats" },
+      { title: "Instructions Format", slug: "instructions" },
+      { title: "Documentation Essentials", slug: "docs" },
+    ],
+  },
+  {
+    name: "Governance & Community",
+    description: "Community standards and governance policies",
+    items: [
+      { title: "Community Standards", slug: "community-standards" },
+      { title: "Issues", slug: "issues" },
+      { title: "Pull Requests", slug: "pull-requests" },
+    ],
+  },
+  {
+    name: "Accessibility & Quality",
+    description: "Accessibility, performance, and quality assurance",
+    items: [
+      { title: "Accessibility (A11Y)", slug: "a11y" },
+    ],
+  },
+  {
+    name: "Automation & Operations",
+    description: "Automation workflows and operational guidelines",
+    items: [
+      { title: "Automation", slug: "automation" },
+      { title: "File Organisation", slug: "file-organisation" },
+      { title: "Copilot Operations", slug: "copilot-operations" },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Instructions - Awesome GitHub"
+  description="Comprehensive instruction files that guide agent behaviour and enforce standards across your organisation."
+>
+  <section class="hero">
+    <h1>Instruction Files</h1>
+    <p class="lede">
+      Instruction files are the foundation of consistent governance. They guide agents, document standards,
+      and ensure your entire organisation follows the same practices.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>What are instructions?</h2>
+    <div class="page-copy">
+      <p>
+        Instructions are markdown files that define:
+      </p>
+      <ul>
+        <li>Coding standards and conventions</li>
+        <li>Documentation formats and templates</li>
+        <li>Community and governance policies</li>
+        <li>How agents should behave in your organisation</li>
+        <li>Quality, accessibility, and performance standards</li>
+      </ul>
+      <p>
+        Instructions are stored in the <code>instructions/</code> directory and are referenced by agents,
+        workflows, and other automation tools.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Browse by category</h2>
+    {instructionCategories.map((category) => (
+      <div class="category">
+        <h3>{category.name}</h3>
+        <p style="color: var(--color-text-secondary, #57606a); margin-bottom: 1rem;">
+          {category.description}
+        </p>
+        <div class="item-grid">
+          {category.items.map((item) => (
+            <div class="instruction-card">
+              <strong>{item.title}</strong>
+              <p>Learn about {item.title.toLowerCase()}</p>
+              <a href={`${base}instructions/#${item.slug}`} class="link">View →</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="section">
+    <h2>Getting started with instructions</h2>
+    <div class="page-copy">
+      <p>
+        Each instruction file includes:
+      </p>
+      <ul>
+        <li><strong>Overview</strong> — What the standard covers and why it matters</li>
+        <li><strong>Rules</strong> — Core principles and requirements</li>
+        <li><strong>Examples</strong> — Code samples and best practices</li>
+        <li><strong>Validation</strong> — How to verify compliance</li>
+        <li><strong>References</strong> — Links to related standards and tools</li>
+      </ul>
+      <p>
+        Use instructions to:
+      </p>
+      <ul>
+        <li>Train new team members on your standards</li>
+        <li>Guide AI agents to understand your practices</li>
+        <li>Document governance decisions</li>
+        <li>Create consistent code and documentation across repositories</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .category {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .category:last-child {
+    border-bottom: none;
+  }
+
+  .category h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .instruction-card {
+    background: var(--color-bg-secondary, #f6f8fa);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border, #d0d7de);
+  }
+
+  .instruction-card strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .instruction-card p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary, #57606a);
+  }
+
+  .link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    color: var(--color-primary, #0969da);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .link:hover {
+    text-decoration: underline;
+  }
+</style>
