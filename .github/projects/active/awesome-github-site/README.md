@@ -22,7 +22,7 @@ tags:
 
 ## 3-Bullet Summary
 
-- **Value:** Phase 1 (WCEU conference site) ✓ complete and live. Phase 2 transforms it into a team onboarding and resource discovery platform with 9 catalogues (agents, instructions, skills, hooks, plugins, workflows, tools, learning, getting-started).
+- **Value:** Phase 1 (WCEU conference site) ✓ complete and live. Phase 2 transforms it into a team onboarding and resource discovery platform with 9 catalogues (agents, instructions, skills, hooks, plugins, workflows, tools, learning-hub, getting-started).
 - **Risks:** Inheriting Phase 1 design debt (cluttered navigation, 404s, weak logo); content governance missing until Phase 2d; large scope requires strict sub-phase sequencing.
 - **Next step:** Execute Phase 2a (homepage/navigation redesign and debt fixes), validate before proceeding to Phase 2b–2c (catalogue sections).
 
@@ -86,7 +86,7 @@ Build the conference-facing version of the site:
 
 Transform the site into a comprehensive team onboarding and resource discovery platform:
 
-#### Phase 2a: Redesign & Navigation (Weeks 1–2)
+#### Phase 2a: Homepage & Navigation Redesign (Weeks 1–2)
 
 - Redesign homepage (hero → value → sections → CTA)
 - Fix cluttered header navigation with section dropdown menu
@@ -94,7 +94,7 @@ Transform the site into a comprehensive team onboarding and resource discovery p
 - Strengthen logo with appropriate iconography
 - Fix padding, spacing, and visual inconsistencies
 
-#### Phase 2b: Core Catalogues (Weeks 3–4)
+#### Phase 2b: Core Resource Catalogues (Weeks 3–4)
 
 - `/agents/` — AI agents and capabilities
 - `/instructions/` — Role and behaviour documents
