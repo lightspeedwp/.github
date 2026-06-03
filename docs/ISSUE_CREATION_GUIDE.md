@@ -4,7 +4,7 @@ description: How to create well-formed issues, select templates, and trigger aut
 file_type: documentation
 version: "1.0.0"
 created_date: "2026-05-31"
-last_updated: '2026-06-01'
+last_updated: '2026-06-03'
 author: Claude Code
 maintainer: Ash Shaw
 owners:
@@ -23,19 +23,19 @@ This guide helps contributors, team members, and AI agents create high-quality G
 
 **Key Principles**:
 
-- ✅ Choose the correct template based on issue type
+- ✅ Choose the correct template based on issue intent and canonical type
 - ✅ Fill in all required sections clearly
-- ⚠️ Add labels manually for now (issue automation planned for Wave 5.1.2)
+- ✅ Add canonical labels explicitly (type/status/priority/area)
 - ✅ Include effort estimates and success criteria
 - ✅ Link related issues and blockers
 
 ---
 
-## Quick Reference: Template Selection
+## Quick Reference: Intent -> Template -> Canonical Type
 
 ### Pick Your Issue Type
 
-| I want to... | Template | Type Label |
+| I want to... | Template | Canonical Type Label |
 | --- | --- | --- |
 | Report a **defect or bug** | 🐛 Bug | `type:bug` |
 | Request a **new feature** | 🚀 Feature | `type:feature` |
@@ -43,8 +43,8 @@ This guide helps contributors, team members, and AI agents create high-quality G
 | Request **design/UX work** | 🎨 Design | `type:design` |
 | Create a **large, multi-part project** | 📦 Epic | `type:epic` |
 | Write a **user-centric story** (Agile) | 📑 Story | `type:story` |
-| Suggest **improvements** | 🔧 Improvement | `type:improvement` |
-| Share **user feedback** | 💡 User Experience | `type:feedback` |
+| Suggest **improvements** | 🔧 Improvement | `type:improve` |
+| Share **user feedback** | 💡 User Experience | `type:ux-feedback` |
 | Request **code cleanup** | ♻️ Code Refactor | `type:refactor` |
 | Discuss **build/CI/CD** | ⚙️ Build & CI | `type:build` |
 | Propose **automation** | 🤖 Automation | `type:automation` |
@@ -52,6 +52,14 @@ This guide helps contributors, team members, and AI agents create high-quality G
 | Report **performance** | ⚡ Performance | `type:performance` |
 | Report **accessibility** | ♿ Accessibility | `type:a11y` |
 | Report **security** | 🔐 Security | `type:security` |
+
+### Current Template Parity Note
+
+- Numbered issue templates available: 26 (`01`-`26`)
+- Canonical issue types available: 29
+- Types currently without dedicated templates: `type:chore`, `type:question`, `type:support`
+
+For these three, use the nearest template and state the intended canonical type in the issue body.
 
 ---
 
@@ -87,15 +95,16 @@ Fill in the primary sections for your template with structured information.
 
 Review these checkboxes to ensure they align with your scope.
 
-### 4. Add Labels
+### 4. Add Labels and Metadata
 
-**Currently**, you must add labels manually:
+Issue templates currently do not pre-populate labels. Add labels manually:
 
 - Add the appropriate `type:*` label (e.g., `type:bug`, `type:feature`)
+- Add exactly one `status:*` label
+- Add exactly one `priority:*` label
 - Add `area:*` labels if relevant (e.g., `area:ci`, `area:documentation`)
-- Add `priority:*` if critical (e.g., `priority:critical` for security issues)
 
-> **Note**: Issue-based automation is planned for Wave 5.1.2. Once implemented, labels will apply automatically based on template selection.
+Use canonical labels from `.github/labels.yml` and canonical types from `.github/issue-types.yml`.
 
 ### 5. Submit
 
@@ -103,23 +112,28 @@ Click **Submit new issue**. Your issue is now visible to the team and ready for 
 
 ---
 
-## Automation: Current State & Future Work
+## Automation: Current State
 
-### ✅ Currently Implemented
+### ✅ Current Behaviour
 
-- PR/branch-based labeling: branch prefix (e.g., `fix/`, `feat/`) triggers automatic type labels on pull requests
-- Markdown linting and frontmatter validation
+- `labeling.yml` runs on issue events (`opened`, `edited`, `reopened`, `labeled`, `unlabeled`, `transferred`)
+- Unified labeling agent applies canonicalization, one-hot enforcement, defaults, and content-based type detection
+- PR automation remains stronger due to branch/file signals available in PR context
 
-### 🔄 Planned (Wave 5.1.2)
+### ⚠️ Practical Implication
 
-**Issue-based template automation** will enable:
+- Issue outcomes are not yet fully deterministic from template choice alone.
+- Include clear issue text and apply canonical labels explicitly for reliable triage.
 
-- Template selection → automatic `type:*` label (e.g., 🐛 Bug → `type:bug`)
-- Content keyword matching → area labels (e.g., ".github/workflows" → `area:ci`)
-- Priority inference from security/accessibility keywords
-- Automatic triage routing and status application
+## End-to-End Flow (Intent -> Template -> Automation -> Result)
 
-**See** [Issue Template Audit Report](../.github/reports/issue-template-audit-2026-05-31.md) for the complete automation specification.
+1. Determine intent and canonical type label.
+2. Choose the closest numbered template.
+3. Complete all required sections.
+4. Add canonical labels (`type`, `status`, `priority`, optional `area`).
+5. Submit issue.
+6. Labeling workflow runs and normalises/augments labels.
+7. Issue enters triage with predictable metadata.
 
 ---
 
@@ -149,19 +163,38 @@ Form submits successfully.
 
 ---
 
-## For AI Agents: Template Selection Logic
+## For AI Agents: Operational Logic
 
 When creating an issue:
 
-1. **Classify the request** into one of 25 types (see Quick Reference above)
+1. **Classify the request** into canonical issue types (see Quick Reference above)
 2. **Select the matching template** from the quick reference table
 3. **Fill all required sections** with structured information and examples
-4. **Add labels manually**:
+4. **Add labels explicitly**:
    - Primary `type:*` label matching the template
-   - Any relevant `area:*` labels based on content
-   - `priority:critical` or `priority:high` if security/accessibility/blocking
+  - One `status:*` label
+  - One `priority:*` label
+  - Any relevant `area:*` labels based on content
 5. **Link related issues** using `#issue-number` references
-6. **Submit and notify** relevant team (until automated routing is implemented)
+6. **Submit and verify** labeling workflow outcome
+
+## Troubleshooting
+
+### Wrong or missing labels after submit
+
+- Check labels against `.github/labels.yml`.
+- Ensure one-hot families (`type`, `status`, `priority`) contain exactly one label each.
+- Edit/reopen issue to trigger workflow again if required.
+
+### Chosen template does not exist for intended type
+
+- Use nearest available numbered template.
+- Add `Intended canonical type: type:<value>` near the top of the issue body.
+
+### Automation does not match expected outcome
+
+- Confirm the issue event is covered by `.github/workflows/labeling.yml`.
+- Remember `.github/labeler.yml` is PR-signal heavy; issue automation relies more on content + canonical enforcement.
 
 ---
 
@@ -170,5 +203,6 @@ When creating an issue:
 - [Labeling Strategy](./LABELING.md)
 - [Automation Governance](./AUTOMATION.md)
 - [Issue Templates README](../.github/ISSUE_TEMPLATE/README.md)
+- [Issue Types](./ISSUE_TYPES.md)
 
 ---
