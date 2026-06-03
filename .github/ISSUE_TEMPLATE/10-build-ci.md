@@ -2,8 +2,8 @@
 file_type: "issue-template"
 name: "⚙️ Build & CI"
 description: "Propose changes, fixes, or improvements to build tools, CI/CD pipelines, or automation."
-version: "1.0.0"
-last_updated: "2026-05-29"
+version: "1.0.1"
+last_updated: "2026-06-03"
 category: "github-templates"
 ---
 
@@ -35,13 +35,13 @@ category: "github-templates"
 
 ## References
 
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
-- [ISSUE_LABELS.md](../ISSUE_LABELS.md)
-- [PR_LABELS.md](../PR_LABELS.md)
-- [AUTOMATION_GOVERNANCE.md](../AUTOMATION_GOVERNANCE.md)
+- [CONTRIBUTING.md](../../CONTRIBUTING.md)
+- [ISSUE_TYPES.md](../../docs/ISSUE_TYPES.md)
+- [LABELING.md#issue-labelling](../../docs/LABELING.md#issue-labelling)
+- [LABELING.md#pull-request-labelling](../../docs/LABELING.md#pull-request-labelling)
+- [AUTOMATION.md](../../docs/AUTOMATION.md)
 - [LightSpeed General Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-- [Coding Standards](../instructions/coding-standards.instructions.md)
+- [Coding Standards](../../instructions/coding-standards.instructions.md)
 
 ---
 

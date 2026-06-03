@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: ".github Workflows Directory"
 description: "Reusable GitHub Actions workflows and automation for the LightSpeed .github control plane"
-version: "v1.0"
-last_updated: '2026-06-01'
+version: "v1.1"
+last_updated: '2026-06-03'
 maintainer: "LightSpeed Team"
 tags: ["workflows", "github-actions", "automation", "ci-cd"]
 ---
@@ -63,8 +63,8 @@ Workflow behavior is configured via:
 
 ## Related Documentation
 
-- [Automation Governance](../automation/AUTOMATION_GOVERNANCE.md) - Workflow standards and oversight
-- [Labeling System](./labels.yml) - Label definitions and rules
+- [Automation Governance](../../docs/AUTOMATION.md) - Workflow standards and oversight
+- [Labeling System](../labels.yml) - Label definitions and rules
 - [Metrics Directory](../metrics/README.md) - Metrics collection and reporting
 
 ---
