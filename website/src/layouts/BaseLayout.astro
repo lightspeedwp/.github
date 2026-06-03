@@ -6,53 +6,77 @@ const pathname = Astro.url.pathname.replace(base, "/");
 
 const navSections = [
   {
-    label: "Talk",
+    label: "Conference",
     links: [
       {
-        href: `${base}talk/`,
-        path: "/talk/",
-        label: "Overview",
+        href: `${base}wceu-2026/`,
+        path: "/wceu-2026/",
+        label: "WCEU 2026",
         exact: true,
       },
       {
-        href: `${base}talk/slideshow/`,
-        path: "/talk/slideshow/",
-        label: "Presentation",
-        exact: true,
-      },
-      {
-        href: `${base}talk/slides/`,
-        path: "/talk/slides/",
-        label: "All Slides",
+        href: `${base}wceu-2026/slides/`,
+        path: "/wceu-2026/slides/",
+        label: "Slides",
         exact: false,
       },
     ],
   },
   {
-    label: "Resources",
+    label: "Catalogues",
     links: [
       {
         href: `${base}agents/`,
         path: "/agents/",
-        label: "Agent Guides",
+        label: "Agents",
         exact: false,
       },
       {
-        href: `${base}getting-started/`,
-        path: "/getting-started/",
-        label: "Getting Started",
+        href: `${base}instructions/`,
+        path: "/instructions/",
+        label: "Instructions",
         exact: false,
       },
       {
-        href: `${base}references/`,
-        path: "/references/",
-        label: "References",
+        href: `${base}skills/`,
+        path: "/skills/",
+        label: "Skills",
+        exact: false,
+      },
+      {
+        href: `${base}hooks/`,
+        path: "/hooks/",
+        label: "Hooks",
+        exact: false,
+      },
+      {
+        href: `${base}plugins/`,
+        path: "/plugins/",
+        label: "Plugins",
+        exact: false,
+      },
+      {
+        href: `${base}workflows/`,
+        path: "/workflows/",
+        label: "Workflows",
+        exact: false,
+      },
+      {
+        href: `${base}tools/`,
+        path: "/tools/",
+        label: "Tools",
+        exact: false,
+      },
+      {
+        href: `${base}learning-hub/`,
+        path: "/learning-hub/",
+        label: "Learning",
         exact: false,
       },
     ],
   },
   {
-    label: "Site",
+    label: "About",
     links: [
       {
         href: base,
@@ -63,8 +87,20 @@ const navSections = [
       {
         href: `${base}why-this-exists/`,
         path: "/why-this-exists/",
-        label: "About",
+        label: "Why This Exists",
         exact: true,
+      },
+      {
+        href: `${base}references/`,
+        path: "/references/",
+        label: "References",
+        exact: false,
+      },
+      {
+        href: `${base}getting-started/`,
+        path: "/getting-started/",
+        label: "Getting Started",
+        exact: false,
       },
     ],
   },

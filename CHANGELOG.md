@@ -2,7 +2,7 @@
 title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
-version: "1.0.7"
+version: "1.0.8"
 created_date: "2025-09-20"
 last_updated: "2026-06-03"
 owners:
@@ -32,6 +32,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Awesome GitHub Site Phase 2a: Homepage & Navigation Redesign** — Initiated Phase 2a execution by restructuring header navigation to support Phase 2 catalogues, redesigning homepage with "One .GitHub to Rule Them All" positioning, and establishing foundation for Phase 2b–2c expansion:
+  - Reorganized nav sections (Conference → Catalogues → About) with dedicated catalogue dropdown showing all 8 Phase 2 resources (agents, instructions, skills, hooks, plugins, workflows, tools, learning-hub).
+  - Redesigned homepage hero and value proposition to position site as unified discovery platform for AI operations ecosystem.
+  - Added 8-catalogue card grid with direct links to Phase 2 resources on homepage.
+  - Reorganized Phase 1 conference content into dedicated "Phase 1" section.
+  - Created Phase 2a implementation roadmap (`.github/projects/active/awesome-github-site/phase-2a/IMPLEMENTATION_ROADMAP.md`) documenting remaining Phase 2a tasks, success criteria, and Phase 2 gate requirements.
+  - Website builds successfully with 62 pages and no errors; foundation ready for Phase 2b catalogue population.
 - **AI Governance & Branch Protection Enforcement** — Added comprehensive AI governance rules to `CLAUDE.md` with explicit branch naming enforcement (`{type}/{scope}-{short-title}` format, no `claude/` prefixes), clarification that explicit user instructions must be executed immediately without reinterpretation, and main branch protection policies for release cycles only.
 - **Awesome GitHub Site Planning Pack** — Created a new active project under `.github/projects/active/awesome-github-site/` with phase 1 and phase 2 planning docs, normalised briefing copies, and an updated execution tracker for the new GitHub-led website programme.
 - **Awesome GitHub Site GitHub Pages Implementation** — Added the Astro phase 1 site scaffold, GitHub Pages deployment workflow, custom `404` page, canonical `github.lightspeedwp.agency` domain support, and review-driven fixes for frontmatter, motion, and package metadata.
