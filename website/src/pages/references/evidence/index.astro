@@ -1,0 +1,512 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Evidence Mapping — Awesome GitHub"
+  description="How each talk slide maps to source files and references. Enables fact-checking and deep dives."
+>
+  <section class="hero">
+    <div class="eyebrow">References</div>
+    <h1>Evidence Mapping</h1>
+    <p class="lede">
+      Transparency through traceability. This page shows how each slide in the WCEU 2026 talk connects to specific repository files and external sources. Use this to fact-check claims, explore sources, or dig deeper into any topic.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>How to Use This Page</h2>
+    <div class="page-copy">
+      <p>
+        Each slide below lists:
+      </p>
+      <ul>
+        <li><strong>Slide title and topic</strong> — The main idea presented</li>
+        <li><strong>Primary files</strong> — Repository files that support this slide</li>
+        <li><strong>Related agents</strong> — Which agents implement this concept</li>
+        <li><strong>Learn more</strong> — Links to deeper documentation</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Complete Slide-to-Source Mapping</h2>
+    <div class="evidence-items">
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 1</div>
+        <h3>Hook and Stakes</h3>
+        <p>Why teams struggle with fragmented governance and delivery drift.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>README.md</code> — Repository positioning</li>
+            <li><code>docs/AUTOMATION_GOVERNANCE.md</code> — Governance philosophy</li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/1/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 2</div>
+        <h3>Why a .github Control Plane</h3>
+        <p>The control plane as a centralized source of truth for governance.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>README.md</code></li>
+            <li><code>.github/labels.yml</code> — Label taxonomy</li>
+            <li><code>.github/issue-types.yml</code> — Issue types</li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/2/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 3</div>
+        <h3>Inheritance Boundaries</h3>
+        <p>What can and cannot be enforced by a central .github repository.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>docs/SHARED_GITHUB_ADOPTION_GUIDE.md</code></li>
+            <li><code>instructions/labeling.instructions.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/3/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 4</div>
+        <h3>Control-Plane Architecture</h3>
+        <p>The complete architecture: governance files, workflows, agents, and skills.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>README.md</code></li>
+            <li><code>AGENTS.md</code> — AI governance rules</li>
+            <li><code>instructions/file-organisation.instructions.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/4/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 5</div>
+        <h3>Canonical Governance Assets</h3>
+        <p>Labels, templates, standards, and documentation as canonical assets.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>.github/labels.yml</code></li>
+            <li><code>docs/LABEL_STRATEGY.md</code></li>
+            <li><code>instructions/coding-standards.instructions.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/5/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 6</div>
+        <h3>Why We Pivoted</h3>
+        <p>Evolution from governance files to plugin packs for portability and distribution.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>docs/MIGRATION.md</code></li>
+            <li><code>docs/PLUGIN_PACK_ROADMAP.md</code></li>
+            <li><code>plugins/README.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/6/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 7</div>
+        <h3>Plugin-Pack Architecture</h3>
+        <p>How plugin packs bundle governance, automation, and AI-ops.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>plugins/lightspeed-github-ops/README.md</code></li>
+            <li><code>plugins/PLUGIN_MANIFEST.json</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/7/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 8</div>
+        <h3>Multi-Platform Parity</h3>
+        <p>Consistent governance across GitHub Copilot, Claude Code, and Gemini.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>plugins/lightspeed-github-ops/</code></li>
+            <li><code>skills/SKILL_REGISTRY.json</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/8/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 9</div>
+        <h3>Quality and Release Gates</h3>
+        <p>Automated quality gates and release validation workflows.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>docs/RELEASE_PROCESS.md</code></li>
+            <li><code>docs/TESTING.md</code></li>
+            <li><code>.github/workflows/</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/9/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 10</div>
+        <h3>Metrics and Governance Outcomes</h3>
+        <p>How to measure governance health and adoption progress.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>docs/METRICS.md</code></li>
+            <li><code>docs/GOVERNANCE_REVISION_LOG.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/10/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 11</div>
+        <h3>Lessons and Anti-Patterns</h3>
+        <p>Hard-won lessons: what works, what doesn't, and pitfalls to avoid.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>docs/override-policy.md</code></li>
+            <li><code>instructions/spec-driven-workflow.instructions.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/11/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 12</div>
+        <h3>Adoption Playbook</h3>
+        <p>Practical 30/60/90 day implementation sequence.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>docs/SHARED_GITHUB_ADOPTION_GUIDE.md</code></li>
+            <li><code>plugins/PLUGIN_MANIFEST.json</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/12/">View Slide →</a>
+          <a href="/getting-started/implementation-roadmap/">Roadmap →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 13</div>
+        <h3>Agent Layer</h3>
+        <p>The 7 core agents: Release, Branding, Meta, Reviewer, Linting, Labelling, Planner.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>agents/agent.md</code></li>
+            <li><code>agents/labeling.agent.md</code></li>
+            <li><code>ai/agents.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/13/">View Slide →</a>
+          <a href="/agents/">All Agents →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 14</div>
+        <h3>Skill Layer</h3>
+        <p>How agents use reusable skills to perform automation.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>skills/SKILL_REGISTRY.json</code></li>
+            <li><code>skills/README.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/14/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 15</div>
+        <h3>Hook Layer</h3>
+        <p>Semantic hooks for declaring automation independent of implementation.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>hooks/README.md</code></li>
+            <li><code>hooks/hook-registry.json</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/15/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 16</div>
+        <h3>Workflow Layer</h3>
+        <p>GitHub Actions as the execution layer for hooks.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>.github/workflows/labeling.yml</code></li>
+            <li><code>.github/workflows/release.yml</code></li>
+            <li><code>docs/WORKFLOWS.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/16/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 17</div>
+        <h3>Issue Template System</h3>
+        <p>Structured issue intake using templates and frontmatter.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>.github/ISSUE_TEMPLATE/config.yml</code></li>
+            <li><code>.github/ISSUE_TEMPLATE/23-ai-ops.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/17/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 18</div>
+        <h3>PR Template System</h3>
+        <p>Structured PR process with templates for different change types.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>.github/PULL_REQUEST_TEMPLATE/</code></li>
+            <li><code>.github/PULL_REQUEST_TEMPLATE/pr_feature.md</code></li>
+            <li><code>.github/PULL_REQUEST_TEMPLATE/pr_release.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/18/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 19</div>
+        <h3>AI Governance Model</h3>
+        <p>Policy hierarchy and guardrails for AI-assisted development.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>AGENTS.md</code></li>
+            <li><code>ai/RUNNERS.md</code></li>
+            <li><code>docs/AUTOMATION_GOVERNANCE.md</code></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/19/">View Slide →</a>
+        </div>
+      </div>
+
+      <div class="evidence-item">
+        <div class="slide-marker">Slide 20</div>
+        <h3>Ecosystem and Acknowledgements</h3>
+        <p>Future vision and thanks to inspiring projects like awesome-copilot.</p>
+        <div class="evidence-section">
+          <strong>Primary Sources:</strong>
+          <ul>
+            <li><code>plugins/README.md</code></li>
+            <li><code>docs/ROADMAP.md</code></li>
+            <li><a href="https://github.com/github/awesome-copilot" target="_blank">github/awesome-copilot</a></li>
+          </ul>
+        </div>
+        <div class="evidence-links">
+          <a href="/talk/slides/20/">View Slide →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Next Steps</h2>
+    <div class="page-copy">
+      <ul>
+        <li>
+          <a href="/talk/">Start the Presentation</a> — Experience the full talk with speaker notes
+        </li>
+        <li>
+          <a href="/talk/slides/">Browse All Slides</a> — Explore individual slides at your own pace
+        </li>
+        <li>
+          <a href="/references/glossary/">Glossary</a> — Define any unfamiliar terminology
+        </li>
+        <li>
+          <a href="/references/sources/">Sources & Tools</a> — Discover external resources and standards
+        </li>
+        <li>
+          <a href="/agents/">Agent Guides</a> — Learn how each agent implements the architecture
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .evidence-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  .evidence-item {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slide-marker {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    width: fit-content;
+  }
+
+  .evidence-item h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.125rem;
+    color: var(--text);
+  }
+
+  .evidence-item > p {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .evidence-section {
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+
+  .evidence-section strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text);
+  }
+
+  .evidence-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .evidence-section li {
+    padding-left: 1.25rem;
+    position: relative;
+    color: var(--muted);
+  }
+
+  .evidence-section li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .evidence-section code {
+    background: var(--bg-soft);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-family: monospace;
+    font-size: 0.8em;
+    color: var(--accent);
+  }
+
+  .evidence-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .evidence-links a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease-out;
+  }
+
+  .evidence-links a:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+
+  @media (max-width: 860px) {
+    .evidence-items {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

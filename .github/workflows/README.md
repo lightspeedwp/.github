@@ -19,6 +19,7 @@ This directory contains reusable GitHub Actions workflows used for automation, C
 - **checks.yml** - Unified linting, testing, and validation workflow
 - **validate.yml** - Frontmatter, JSON schema, and configuration validation
 - **lint-and-links.yml** - Markdown linting and link validation
+- **main-branch-guard.yml** - PR branch-name guard for `main`
 
 ### Automation & Labeling
 
