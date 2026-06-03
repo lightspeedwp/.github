@@ -20,7 +20,7 @@ Applies to all issue templates and issue creation workflows. Covers frontmatter,
 ## General Rules
 
 - Use Markdown templates with YAML frontmatter; do not use YAML Issue Forms.
-- Include required frontmatter fields and one-hot `status:*`, `priority:*`, `type:*` labels.
+- Include required template frontmatter fields and apply one-hot `status:*`, `priority:*`, `type:*` labels on created issues.
 - Choose the correct template and complete all required sections/checklists.
 - Keep issues automation-friendly with links, acceptance criteria, and references.
 - Maximise metadata completeness on every issue update. Populate all applicable
@@ -65,23 +65,24 @@ Every issue template **must** begin with a YAML frontmatter block, for example:
 
 ```yaml
 ---
-name: "🐛 Bug report"
-about: "Report a reproducible bug"
-title: "[Bug] <Short description>"
-labels: ["type:bug", "status:needs-triage", "priority:normal"]
+file_type: "issue-template"
+name: "🐛 Bug"
+description: "Report a reproducible defect"
+version: "1.0.0"
+last_updated: "YYYY-MM-DD"
+category: "github-templates"
 ---
 ```
 
 **Required fields:**
 
 - `name`: Visible in template selector
-- `about`: Description for the template chooser
-- `title`: Default issue title (use placeholders where appropriate)
-- `labels`: Array of default labels for new issues
+- `description`: Description for the template chooser
+- `file_type`, `version`, `last_updated`, `category`: template governance metadata
 
 **Optional fields:**
 
-- `assignees`, `projects`, `milestone`, `type`, `references`
+- `title`, `labels`, `assignees`, `projects`, `milestone`, `type`
 
 See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.schema.json](../schema/frontmatter.schema.json) for validation details.
 
@@ -141,7 +142,7 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 ### Label Assignment
 
 - Labels are assigned via:
-  - Template frontmatter (default set)
+  - Manual triage during issue creation/edit
   - `.github/labeler.yml` (file paths, branch prefixes, automation)
   - Labeling workflows/agents ([labeling.agent.js](../scripts/agents/labeling.agent.js))
 - Manual label curation is allowed for triage and clarification.
