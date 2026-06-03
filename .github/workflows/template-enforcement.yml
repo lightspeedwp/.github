@@ -110,8 +110,8 @@ jobs:
             const body = (pr.body || '').trim();
 
             const required = [
-              { name: 'Linked issues', regex: /^##\s+Linked issues/i },
-              { name: 'Changelog', regex: /^##\s+Changelog/i },
+              { name: 'Linked issues', regex: /^##\s+Linked issues/im },
+              { name: 'Changelog', regex: /^##\s+Changelog/im },
               { name: 'Global DoD checklist', regex: /^###\s+Checklist\s+\(Global DoD\s*\/\s*PR\)/im }
             ];
 
