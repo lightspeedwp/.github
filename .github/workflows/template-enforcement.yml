@@ -111,9 +111,10 @@ jobs:
             const pr = context.payload.pull_request;
             const author = pr.user?.login || '';
             const isDependabot = author === 'dependabot[bot]' || author === 'app/dependabot';
+            const isImgbot = author === 'imgbot[bot]' || author === 'app/imgbot';
 
-            if (isDependabot) {
-              core.info(`Skipping PR template validation for Dependabot author ${author}.`);
+            if (isDependabot || isImgbot) {
+              core.info(`Skipping PR template validation for bot author ${author}.`);
               return;
             }
 
