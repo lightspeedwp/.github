@@ -44,14 +44,14 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
 
 > **CRITICAL:** This repository follows a strict branching discipline. Read [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) before opening any PR.
 
-### AI Governance & Branch Protection (LASTING FIX)
+### AI Governance & Branch Protection
 
-**This section exists to prevent future violations. Follow these rules without exception.**
+**Follow these rules without exception.**
 
 #### Branch Naming — NO "claude/" Prefix
 
 - **FORBIDDEN:** Do NOT use `claude/` as a branch prefix. This is not permitted under any circumstance.
-- **REQUIRED:** ALL branches must follow the format: `{type}/{scope}-{short-title}` where `{type}` is one of: `feat/`, `fix/`, `hotfix/`, `chore/`, `docs/`, `ci/`, `test/`, `refactor/`, `security/`.
+- **REQUIRED:** ALL branches must follow the format: `{type}/{scope}-{short-title}` where `{type}` is one of: `feat/`, `fix/`, `hotfix/`, `chore/`, `docs/`, `ci/`, `test/`, `refactor/`, `security/`, `release/`.
 - **ENFORCEMENT:** If you create a branch with `claude/` prefix, it violates this policy. Use the correct prefix instead.
 - **AUTHORITATIVE SOURCE:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) is the canonical reference for all branching rules.
 
@@ -70,7 +70,7 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
 
 - Never push to `main` outside of release cycles (tagging release versions).
 - Only user-initiated merges (via explicit instruction like "merge to main") trigger main branch changes during releases.
-- `develop` is the integration branch for all non-release work.
+- `develop` (if used) is the integration branch for all non-release work.
 
 ### Protected Branches
 
