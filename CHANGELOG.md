@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Awesome GitHub Site Planning Pack** — Created a new active project under `.github/projects/active/awesome-github-site/` with phase 1 and phase 2 planning docs, normalised briefing copies, and an updated execution tracker for the new GitHub-led website programme.
+
 ### Fixed
 
 - **v0.5.0 Readiness: Coverage and Reliability Gate Execution (`#746`, `#602`, `#599`, `#600`, `#601`)** — Re-activated planner/reviewer test coverage from skipped state into active Jest suites, added module-system consistency guards, and improved reviewer workflow dry-run support for safe validation:
