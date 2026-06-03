@@ -43,7 +43,7 @@ Use concise labels:
 - type:feature
 - type:bug
 - type:test
-- type:docs
+- type:documentation
 - area:theme
 - area:plugin
 - area:figma
