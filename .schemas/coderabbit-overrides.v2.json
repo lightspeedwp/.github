@@ -11,10 +11,18 @@
           "items": {
             "type": "string"
           }
+        },
+        "auto_review": {
+          "type": "boolean"
         }
       },
-      "required": ["path_filters"]
+      "required": [
+        "path_filters",
+        "auto_review"
+      ]
     }
   },
-  "required": ["reviews"]
+  "required": [
+    "reviews"
+  ]
 }
