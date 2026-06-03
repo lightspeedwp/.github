@@ -133,7 +133,7 @@
     <div class="slideshow-main">
       <div class="slide-display">
         <div class="slide-header">
-          <div class="slide-number">
+        <div class="slide-number">
             {currentSlide().number.toString().padStart(2, "0")} / {slides.length
               .toString()
               .padStart(2, "0")}
@@ -219,12 +219,7 @@
             {/each}
           </div>
 
-          <button
-            on:click={nextSlide}
-            disabled={isLast()}
-            aria-label="Next slide"
-            class="nav-button"
-          >
+          <button on:click={nextSlide} disabled={isLast()} aria-label="Next slide" class="nav-button">
             Next →
           </button>
         </div>
