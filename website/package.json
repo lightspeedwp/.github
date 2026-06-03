@@ -20,7 +20,7 @@
     "format": "npm run format --prefix .."
   },
   "dependencies": {
-    "@astrojs/svelte": "^5.0.0",
+    "@astrojs/svelte": "^8.1.2",
     "astro": "^5.11.0",
     "gray-matter": "^4.0.3",
     "svelte": "^5.0.0"
