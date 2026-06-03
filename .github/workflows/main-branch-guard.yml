@@ -45,8 +45,8 @@ jobs:
             const missingSections = (body, sections) =>
               sections.filter((entry) => !entry.regex.test(String(body || ''))).map((entry) => entry.name);
 
-            if (context.eventName !== 'pull_request') {
-              fail('This guard only runs on pull_request events.');
+            if (!['pull_request', 'pull_request_target'].includes(context.eventName)) {
+              fail(`This guard only runs on pull_request or pull_request_target events (received '${context.eventName}').`);
               return;
             }
 
