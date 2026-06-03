@@ -1,7 +1,7 @@
 {
   "name": "@lightspeedwp/awesome-github-site",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Astro implementation of the Awesome GitHub conference site.",
   "license": "GPL-3.0-or-later",
   "author": {

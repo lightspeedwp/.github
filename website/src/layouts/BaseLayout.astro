@@ -130,9 +130,9 @@ const themeToggleScript = `
         </a>
         <div class="nav-menus">
           {navSections.map((section) => (
-            <section class="nav-group" aria-label={section.label}>
+            <section class="nav-group">
               <span class="nav-group-label">{section.label}</span>
-              <nav class="nav-links">
+              <nav class="nav-links" aria-label={section.label}>
                 {section.links.map((link) => (
                   <a
                     href={link.href}
@@ -171,11 +171,11 @@ const themeToggleScript = `
           <strong>Awesome GitHub</strong>
           <span>Conference site and reference index for the WCEU 2026 talk.</span>
         </div>
-        <div class="footer-links" aria-label="Footer links">
+        <nav class="footer-links" aria-label="Footer links">
           <a href={base}>Home</a>
           <a href={`${base}wceu-2026/`}>WCEU 2026 talk</a>
           <a href={`${base}references/`}>References</a>
-        </div>
+        </nav>
       </footer>
     </div>
     <script is:inline set:html={themeToggleScript}></script>
