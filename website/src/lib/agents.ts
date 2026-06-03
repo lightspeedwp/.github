@@ -15,8 +15,10 @@ export const agents: Agent[] = [
   {
     slug: "release",
     name: "Release Agent",
-    description: "Automates versioning, changelog generation, and release workflows with semantic versioning discipline.",
-    overview: "The Release Agent orchestrates versioning, changelog management, and release pipeline management across the repository ecosystem. It enforces semantic versioning, maintains documentation, and manages multi-platform artifact generation.",
+    description:
+      "Automates versioning, changelog generation, and release workflows with semantic versioning discipline.",
+    overview:
+      "The Release Agent orchestrates versioning, changelog management, and release pipeline management across the repository ecosystem. It enforces semantic versioning, maintains documentation, and manages multi-platform artifact generation.",
     capabilities: [
       "Semantic Versioning (SemVer patch/minor/major)",
       "Changelog Automation (Keep-a-Changelog format)",
@@ -39,8 +41,10 @@ export const agents: Agent[] = [
   {
     slug: "branding",
     name: "Branding Agent",
-    description: "Manages brand identity, messaging consistency, and communication standards across repositories.",
-    overview: "The Branding Agent ensures consistent voice, tone, and messaging across all repositories and communications. It validates brand compliance in documentation, release notes, and public-facing content.",
+    description:
+      "Manages brand identity, messaging consistency, and communication standards across repositories.",
+    overview:
+      "The Branding Agent ensures consistent voice, tone, and messaging across all repositories and communications. It validates brand compliance in documentation, release notes, and public-facing content.",
     capabilities: [
       "Brand Voice Enforcement (tone, terminology, style guide)",
       "Messaging Template Management",
@@ -63,8 +67,10 @@ export const agents: Agent[] = [
   {
     slug: "meta",
     name: "Meta Agent",
-    description: "Coordinates repository metadata, governance tracking, and system observability across the ecosystem.",
-    overview: "The Meta Agent manages repository metadata, tracks governance metrics, and coordinates observability across the entire system. It maintains the source of truth for repository ownership, status, and compliance.",
+    description:
+      "Coordinates repository metadata, governance tracking, and system observability across the ecosystem.",
+    overview:
+      "The Meta Agent manages repository metadata, tracks governance metrics, and coordinates observability across the entire system. It maintains the source of truth for repository ownership, status, and compliance.",
     capabilities: [
       "Repository Metadata Management",
       "Ownership Tracking and Escalation",
@@ -87,8 +93,10 @@ export const agents: Agent[] = [
   {
     slug: "linting",
     name: "Linting Agent",
-    description: "Enforces code quality standards, runs linting checks, and automates code formatting across the organization.",
-    overview: "The Linting Agent ensures code quality through automated linting, formatting, and style validation. It runs checks on every PR and enforces organization-wide coding standards.",
+    description:
+      "Enforces code quality standards, runs linting checks, and automates code formatting across the organization.",
+    overview:
+      "The Linting Agent ensures code quality through automated linting, formatting, and style validation. It runs checks on every PR and enforces organization-wide coding standards.",
     capabilities: [
       "Multi-language Linting (JavaScript, TypeScript, Python, etc.)",
       "Automated Code Formatting",
@@ -111,8 +119,10 @@ export const agents: Agent[] = [
   {
     slug: "labeling",
     name: "Labelling Agent",
-    description: "Automates issue and PR labeling using AI-driven categorization and governance rules.",
-    overview: "The Labelling Agent intelligently categorizes issues and PRs using AI analysis and governance rules. It reduces manual labeling overhead and improves routing, triage, and metrics accuracy.",
+    description:
+      "Automates issue and PR labeling using AI-driven categorization and governance rules.",
+    overview:
+      "The Labelling Agent intelligently categorizes issues and PRs using AI analysis and governance rules. It reduces manual labeling overhead and improves routing, triage, and metrics accuracy.",
     capabilities: [
       "AI-Driven Auto-Labeling",
       "Governance Rule Enforcement",
@@ -135,8 +145,10 @@ export const agents: Agent[] = [
   {
     slug: "planner",
     name: "Planner Agent",
-    description: "Manages project planning, milestone coordination, and release roadmap across teams and repositories.",
-    overview: "The Planner Agent coordinates project planning, milestone definitions, and release roadmaps across the organization. It tracks dependencies, prioritizes work, and maintains visibility into project progress.",
+    description:
+      "Manages project planning, milestone coordination, and release roadmap across teams and repositories.",
+    overview:
+      "The Planner Agent coordinates project planning, milestone definitions, and release roadmaps across the organization. It tracks dependencies, prioritizes work, and maintains visibility into project progress.",
     capabilities: [
       "Milestone Planning & Coordination",
       "Roadmap Management",
