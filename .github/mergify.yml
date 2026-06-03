@@ -1,13 +1,22 @@
 pull_request_rules:
+  - name: Keep Dependabot dependency updates on develop current
+    conditions:
+      - author~=^(dependabot\[bot\]|app/dependabot)$
+      - base=develop
+      - label=area:dependencies
+      - -draft
+      - -conflict
+      - "#commits-behind > 0"
+    actions:
+      update:
+
   - name: Auto-merge Dependabot dependency updates on develop
     conditions:
       - author~=^(dependabot\[bot\]|app/dependabot)$
       - base=develop
       - label=area:dependencies
       - -label=meta:dependabot-security
-      - check-success=CI / check
-      - check-success=CI / lint
-      - check-success=changelog-validate / validate
+      - check-success=All Checks Passed
       - -draft
       - -conflict
     actions:
@@ -20,9 +29,7 @@ pull_request_rules:
       - base=develop
       - label=area:dependencies
       - label=meta:dependabot-security
-      - check-success=CI / check
-      - check-success=CI / lint
-      - check-success=changelog-validate / validate
+      - check-success=All Checks Passed
       - -draft
       - -conflict
     actions:
