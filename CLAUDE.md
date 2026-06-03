@@ -51,8 +51,10 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
 #### Branch Naming — NO "claude/" Prefix
 
 - **FORBIDDEN:** Do NOT use `claude/` as a branch prefix. This is not permitted under any circumstance.
-- **REQUIRED:** ALL branches must follow the format: `{type}/{scope}-{short-title}` where `{type}` is one of: `feat/`, `fix/`, `hotfix/`, `chore/`, `docs/`, `ci/`, `test/`, `refactor/`, `security/`, `release/`.
-- **ENFORCEMENT:** If you create a branch with `claude/` prefix, it violates this policy. Use the correct prefix instead.
+- **REQUIRED:** ALL branches must follow the format: `{type}/{scope}-{short-title}` (lowercase, kebab-case) where `{type}` is one of the core prefixes listed below.
+- **CORE PREFIXES:** `feat/`, `fix/`, `hotfix/`, `release/`, `refactor/`, `chore/`, `docs/`, `test/`, `perf/`, `ci/`, `build/`, `deps/`, `security/`, `revert/`, `research/`, `design/`, `a11y/`, `ux/`, `i18n/`, `ops/`.
+- **ADDITIONAL PREFIXES:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) documents optional product-specific (`proto/`, `ds/`, `api/`, `schema/`, `telemetry/`) and client-specific (`content/`, `seo/`, `config/`, `migrate/`, `qa/`) prefixes.
+- **ENFORCEMENT:** If you create a branch with `claude/` prefix or any non-standard prefix, it violates this policy. Use an appropriate prefix from the authoritative strategy document.
 - **AUTHORITATIVE SOURCE:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) is the canonical reference for all branching rules.
 
 #### Explicit User Instructions — EXECUTE IMMEDIATELY
