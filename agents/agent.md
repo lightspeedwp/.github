@@ -36,6 +36,7 @@ This document serves as the master index for all agent specifications, templates
 All agent specs are in the `.github/agents/` directory:
 
 - [`*.agent.md`](./) — All Markdown files ending with `.agent.md` are considered reusable agents for Copilot Chat, GitHub Actions, and agent workflows.
+- [`pagespeed-audit.agent.md`](./pagespeed-audit.agent.md) — Runs PageSpeed desktop/mobile audits, stores JSON evidence, and assembles Google Doc reports.
 
 ## Discoverability & Workflow Integration
 
