@@ -2,15 +2,15 @@
 file_type: "pr-template"
 title: "PR Template - FEATURE"
 description: "Pull request template for FEATURE changes"
-version: "1.0.0"
-last_updated: "2026-05-29"
+version: "1.0.1"
+last_updated: "2026-06-03"
 category: "github-templates"
 ---
 
 # Feature Pull Request
 
 > This repository enforces changelog, release, and label automation for all PRs and issues.
-> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for contributor rules.
+> See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) for contributor rules.
 
 ## Linked issues
 

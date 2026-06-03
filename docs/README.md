@@ -2,8 +2,8 @@
 file_type: documentation
 title: LightSpeed .github Documentation Index
 description: Comprehensive index and quickstart guide for all documentation in the .github repository
-version: '1.1'
-last_updated: '2026-06-01'
+version: '1.2'
+last_updated: '2026-06-03'
 owners:
   - LightSpeed Team
 tags:
@@ -71,7 +71,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
   - [Pull request labelling and branch mapping](./LABELING.md#pull-request-labelling)
   - [Discussion labelling guidelines](./LABELING.md#discussion-labelling)
 - **[ISSUE_TYPES.md](./ISSUE_TYPES.md)** — Issue type definitions and usage
-- **[ISSUE-FIELDS.md](./ISSUE-FIELDS.md)** — Issue field definitions
+- **[ISSUE_FIELDS.md](./ISSUE_FIELDS.md)** — Issue field definitions
 - **[AUTOMATION.md](./AUTOMATION.md)** — Label governance and automation policies
 - **[GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md)** — Project board operations
 
