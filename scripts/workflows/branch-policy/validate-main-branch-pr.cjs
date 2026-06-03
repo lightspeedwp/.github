@@ -147,11 +147,11 @@ function validatePullRequestMetadata(pullRequest, branchName) {
 
 function main() {
   const payload = getEventPayload();
-  const pullRequest = payload.pull_request || {};
+  const pullRequest = payload.pull_request || null;
   const headRef =
-    pullRequest.head?.ref || process.env.GITHUB_HEAD_REF || process.env.HEAD_REF || "";
+    pullRequest?.head?.ref || process.env.GITHUB_HEAD_REF || process.env.HEAD_REF || "";
   const baseRef =
-    pullRequest.base?.ref || process.env.GITHUB_BASE_REF || process.env.BASE_REF || "";
+    pullRequest?.base?.ref || process.env.GITHUB_BASE_REF || process.env.BASE_REF || "";
   const eventName = process.env.GITHUB_EVENT_NAME || "";
 
   if (eventName !== "pull_request") {
