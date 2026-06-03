@@ -390,7 +390,7 @@ We've consolidated related instruction files for better maintainability:
 - **automation.instructions.md** - Agents, labeling, release, metrics (8 files)
 - **community-standards.instructions.md** - File org, naming, README, replies (4 files)
 
-📖 **[View Migration Guide](/docs/MIGRATION.md)** - Complete mapping of old → new locations
+📖 **[View Migration Guide](../MIGRATION_GUIDE.md)** - Complete mapping of old → new locations
 
 ---
 

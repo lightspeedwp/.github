@@ -22,7 +22,7 @@ stability: "stable"
 - Accessibility and performance are non‑negotiable; highlight potential issues during reviews.
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
 - When unsure, propose safe defaults and ask **one** focused question to clarify requirements.
-- Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `/docs/MIGRATION.md`).
+- Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `MIGRATION_GUIDE.md`).
 - Canonical instruction reference policy: use `.github/instructions/` for
   repo-local maintenance guidance and `instructions/` for portable standards;
   see `instructions/file-organisation.instructions.md#canonical-instruction-reference-policy`.
@@ -92,7 +92,7 @@ Start here for all key standards:
 | **Claude Instructions**   | [CLAUDE.md](CLAUDE.md)                                           | Claude-specific project instructions; companion to this file       |
 | **Main Agent Index**      | [agents/agent.md](agents/agent.md)                               | Directory of agent specs, stubs, usage, implementation             |
 | **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Legacy prompt index pending skills/cookbook migration              |
-| **Instruction Migration** | [/docs/MIGRATION.md](/docs/MIGRATION.md)                         | Mapping from legacy instruction files to the 5 consolidated guides |
+| **Instruction Migration** | [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)                         | Mapping from legacy instruction files to the 5 consolidated guides |
 
 ---
 
@@ -100,7 +100,7 @@ Start here for all key standards:
 
 - [Contributing Guidelines](CONTRIBUTING.md) - For human contributors
 - [Main Documentation](README.md) - Project overview
-- [Frontmatter Schema](schema/frontmatter.schema.json) - Schema validation
+- [Frontmatter Schema](.schemas/frontmatter.schema.json) - Schema validation
 
 *This file is the canonical reference for all AI agent rules and coding standards in LightSpeedWP projects.
 All contributors, agents, and AI assistants must comply with these standards.*
