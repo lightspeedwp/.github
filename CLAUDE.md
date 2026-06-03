@@ -63,7 +63,7 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
 
 #### PR Merge & Cleanup Protocol — STRICT ENFORCEMENT
 
-**CRITICAL:** Every PR merge must follow this protocol. This prevents branch orphans and ensures a clean repository state.
+**CRITICAL:** Every PR merge must follow this protocol. This prevents branch orphans and ensures a clean repository state. (This protocol applies to repository maintainers performing merges, not to contributors working with forks.)
 
 **Before Creating a PR:**
 
