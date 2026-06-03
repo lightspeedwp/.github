@@ -2,7 +2,7 @@
 title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
-version: "1.1.0"
+version: "1.1.1"
 created_date: "2025-09-20"
 last_updated: "2026-06-03"
 owners:
@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+
+- **Frontmatter validation hardening for docs and templates** — Replaced retired documentation links with canonical targets and updated frontmatter freshness metadata (`version`/`last_updated`) across affected templates and guides so repository validation pipelines pass consistently.
 
 - **Awesome GitHub Site: Duplicate Route Collision Fix** — Removed duplicate `/references` route caused by `website/src/pages/references.astro` conflicting with `website/src/pages/references/index.astro`. The build now generates 62 pages with no route collision warnings. Workflow updated with `--legacy-peer-deps` flag for `npm ci` to resolve `@astrojs/svelte` compatibility with Astro 5.18.2.
 
