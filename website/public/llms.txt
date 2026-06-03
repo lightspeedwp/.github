@@ -1,0 +1,21 @@
+# Awesome GitHub
+
+Machine-readable index for the phase 1 site.
+
+## Pages
+
+- `/` - Home
+- `/why-this-exists/` - Why this exists
+- `/references/` - References
+
+## Source references
+
+- `github/awesome-copilot` repository
+- `awesome-copilot.github.com` reference site
+- `wceu-2026/website/mini-site-plan.md`
+- `wceu-2026/website/page-copy-starter.md`
+
+## Notes
+
+- Phase 1 keeps the site deliberately small.
+- Phase 2 will add the richer catalogue and browsing model.

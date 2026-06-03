@@ -1,0 +1,48 @@
+---
+import "../styles/global.css";
+
+const base = import.meta.env.BASE_URL;
+const pathname = Astro.url.pathname.replace(base, "/");
+
+const {
+  title = "Awesome GitHub",
+  description = "A small, launchable website for the Awesome GitHub project.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="nav" aria-label="Primary">
+        <a class="brand" href={base}>
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Awesome GitHub</span>
+        </a>
+        <nav class="nav-links">
+          <a href={base} aria-current={pathname === "/" ? "page" : undefined}>Home</a>
+          <a href={`${base}why-this-exists/`} aria-current={pathname === "/why-this-exists/" ? "page" : undefined}
+            >Why this exists</a
+          >
+          <a href={`${base}references/`} aria-current={pathname === "/references/" ? "page" : undefined}
+            >References</a
+          >
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer>
+        <span>Phase 1 MVP for the Awesome GitHub site.</span>
+        <span>Built for GitHub Pages compatibility and later expansion.</span>
+      </footer>
+    </div>
+  </body>
+</html>
