@@ -95,7 +95,7 @@ const skills = [
               <strong>Related:</strong>
               <div class="links">
                 {skill.related.map((r) => (
-                  <a href={`${base}${r.toLowerCase()}/`}>{r}</a>
+                  <a href={`${base}${r.toLowerCase().replace(/\s+/g, "-")}/`}>{r}</a>
                 ))}
               </div>
             </div>

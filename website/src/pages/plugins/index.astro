@@ -71,7 +71,7 @@ const plugins = [
             </ul>
           </div>
           <div class="install">
-            <code>npm install {plugin.name.toLowerCase().replace(/ /g, "-")}</code>
+            <code>npm install @awesome-github/{plugin.name.toLowerCase().replace(/ /g, "-")}</code>
           </div>
         </article>
       ))}
@@ -119,10 +119,10 @@ const plugins = [
   }
 
   .plugin-card {
-    background: var(--color-bg-secondary, #f6f8fa);
+    background: var(--bg-soft);
     padding: 1.5rem;
     border-radius: 0.5rem;
-    border: 1px solid var(--color-border, #d0d7de);
+    border: 1px solid var(--border);
   }
 
   .plugin-card h3 {
@@ -132,14 +132,14 @@ const plugins = [
 
   .version {
     font-size: 0.85rem;
-    color: var(--color-text-secondary, #57606a);
+    color: var(--muted);
     margin-bottom: 0.5rem;
   }
 
   .description {
     margin-bottom: 1rem;
     font-size: 0.95rem;
-    color: var(--color-text-secondary, #57606a);
+    color: var(--muted);
   }
 
   .features {
@@ -160,11 +160,11 @@ const plugins = [
 
   .features li {
     margin-bottom: 0.25rem;
-    color: var(--color-text-secondary, #57606a);
+    color: var(--muted);
   }
 
   .install {
-    background: var(--color-bg-hover, #eaeef2);
+    background: var(--bg-hover, var(--bg-soft));
     padding: 0.75rem;
     border-radius: 0.25rem;
     font-size: 0.8rem;
@@ -176,7 +176,7 @@ const plugins = [
   }
 
   pre {
-    background: var(--color-bg-secondary, #f6f8fa);
+    background: var(--bg-soft);
     padding: 1rem;
     border-radius: 0.5rem;
     overflow-x: auto;

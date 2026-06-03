@@ -93,7 +93,7 @@ const instructionCategories = [
         </p>
         <div class="item-grid">
           {category.items.map((item) => (
-            <div class="instruction-card">
+            <div class="instruction-card" id={item.slug}>
               <strong>{item.title}</strong>
               <p>Learn about {item.title.toLowerCase()}</p>
               <a href={`${base}instructions/#${item.slug}`} class="link">View →</a>
