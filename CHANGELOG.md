@@ -2,7 +2,7 @@
 title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
-version: "1.0.4"
+version: "1.0.5"
 created_date: "2025-09-20"
 last_updated: "2026-06-03"
 owners:
@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **AI Governance & Branch Protection Enforcement** — Added comprehensive AI governance rules to `CLAUDE.md` with explicit branch naming enforcement (`{type}/{scope}-{short-title}` format, no `claude/` prefixes), clarification that explicit user instructions must be executed immediately without reinterpretation, and main branch protection policies for release cycles only.
 - **Awesome GitHub Site Planning Pack** — Created a new active project under `.github/projects/active/awesome-github-site/` with phase 1 and phase 2 planning docs, normalised briefing copies, and an updated execution tracker for the new GitHub-led website programme.
 - **Awesome GitHub Site GitHub Pages Implementation** — Added the Astro phase 1 site scaffold, GitHub Pages deployment workflow, custom `404` page, canonical `github.lightspeedwp.agency` domain support, and review-driven fixes for frontmatter, motion, and package metadata.
 - **WCEU 2026 Conference Site Expansion** — Expanded the public site into a conference-ready talk hub with per-slide pages, updated navigation and footer elements, a light/dark mode switcher, and GitHub Pages-safe slide parsing dependencies for CI builds.
