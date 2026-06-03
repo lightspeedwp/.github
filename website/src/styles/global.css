@@ -611,20 +611,22 @@ footer {
 }
 
 .pillar-links a {
+  --accent-rgb: 255, 159, 74;
+  --link-hover-color: var(--accent-bright);
   padding: 0.6rem 0.8rem;
   border-radius: var(--radius-sm);
   color: var(--accent);
   text-decoration: none;
-  background: rgba(255, 159, 74, 0.08);
-  border: 1px solid rgba(255, 159, 74, 0.2);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
   font-weight: 600;
   transition: all 0.2s ease-out;
 }
 
 .pillar-links a:hover {
-  background: rgba(255, 159, 74, 0.15);
+  background: rgba(var(--accent-rgb), 0.15);
   border-color: var(--accent);
-  color: var(--accent-bright);
+  color: var(--link-hover-color);
 }
 
 :root[data-theme="light"] .pillar {
@@ -637,13 +639,8 @@ footer {
 }
 
 :root[data-theme="light"] .pillar-links a {
-  background: rgba(184, 56, 31, 0.08);
-  border-color: rgba(184, 56, 31, 0.2);
-}
-
-:root[data-theme="light"] .pillar-links a:hover {
-  background: rgba(184, 56, 31, 0.15);
-  border-color: var(--accent);
+  --accent-rgb: 184, 56, 31;
+  --link-hover-color: var(--accent);
 }
 
 @media (max-width: 860px) {
