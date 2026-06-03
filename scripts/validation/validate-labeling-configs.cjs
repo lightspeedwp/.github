@@ -17,6 +17,17 @@ function loadYaml(filePath) {
   }
 }
 
+function collectLabelNames(labels) {
+  return new Set(
+    labels
+      .filter(
+        (item) =>
+          item && typeof item === "object" && typeof item.name === "string",
+      )
+      .map((item) => item.name),
+  );
+}
+
 function assertLabelConfig(labels) {
   const allowedPrefixes = [
     "status:",
@@ -95,6 +106,17 @@ function assertLabelerConfig(labeler) {
   }
 }
 
+function assertLabelerParity(labeler, labelNames) {
+  const emittedLabels = Object.keys(labeler || {});
+  const missingLabels = emittedLabels.filter((label) => !labelNames.has(label));
+
+  if (missingLabels.length > 0) {
+    fail(
+      `.github/labeler.yml emits labels not defined in .github/labels.yml (${missingLabels.length}): ${missingLabels.join(", ")}`,
+    );
+  }
+}
+
 function assertGovernancePolicy(policy) {
   if (!policy || typeof policy !== "object" || Array.isArray(policy)) {
     fail(".github/label-governance-policy.yml must be an object");
@@ -137,6 +159,7 @@ const governancePolicy = loadYaml(
 assertLabelConfig(labels);
 assertIssueTypeConfig(issueTypes);
 assertLabelerConfig(labeler);
+assertLabelerParity(labeler, collectLabelNames(labels));
 assertGovernancePolicy(governancePolicy);
 
 console.log("[validate-labeling-configs] OK");
