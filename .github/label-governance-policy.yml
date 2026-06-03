@@ -30,7 +30,6 @@ destructive_cleanup:
     - type:investigation
     - type:security
     - type:performance
-    - type:qa
     - type:audit
     - type:epic
     - type:question

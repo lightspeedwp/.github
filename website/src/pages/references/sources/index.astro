@@ -1,0 +1,351 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Sources & Tools — Awesome GitHub"
+  description="Curated resources, tools, and references for .github governance and AI-ops implementation."
+>
+  <section class="hero">
+    <div class="eyebrow">References</div>
+    <h1>Sources & Tools</h1>
+    <p class="lede">
+      Curated resources and references used in the WCEU 2026 talk. Includes repository files, external tools, standards, and integration points for building your `.github` control plane.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Core Repository Files</h2>
+    <p class="section-intro">Essential files in the LightSpeed `.github` control plane that form the foundation of governance:</p>
+
+    <div class="resource-grid">
+      <div class="resource-card">
+        <h3>README.md</h3>
+        <p>Repository purpose, architecture overview, and control-plane framing. Entry point for understanding the structure.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>AGENTS.md</h3>
+        <p>Global AI rules and operating standards. Defines how agents behave across all repositories.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>CLAUDE.md</h3>
+        <p>Repository boundaries and practical conventions. Clarifies what belongs where in the `.github` structure.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>.github/labels.yml</h3>
+        <p>Canonical label taxonomy. Defines the one-hot labeling scheme used across all repositories.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>.github/issue-types.yml</h3>
+        <p>Issue type definitions and routing. Structures how different issue categories are handled.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>.github/ISSUE_TEMPLATE/</h3>
+        <p>Issue template system. Guides contributors through structured issue intake and context gathering.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>.github/PULL_REQUEST_TEMPLATE/</h3>
+        <p>PR template system. Ensures consistent PR process and quality gates.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>.github/workflows/</h3>
+        <p>GitHub Actions automation. Implements CI/CD, labeling, release, and governance workflows.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Documentation</h2>
+    <p class="section-intro">Core documentation files in the LightSpeed repository:</p>
+
+    <div class="resource-grid">
+      <div class="resource-card">
+        <h3>docs/AUTOMATION_GOVERNANCE.md</h3>
+        <p>How automation enforces standards without human intervention. Core to AI-ops philosophy.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>docs/LABEL_STRATEGY.md</h3>
+        <p>Rationale and usage guide for the label taxonomy. Why each label exists.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>docs/RELEASE_PROCESS.md</h3>
+        <p>Semantic versioning and release automation. Explains Release Agent workflow.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>docs/METRICS.md</h3>
+        <p>Governance health metrics. How to measure adoption, quality, and compliance.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>docs/WORKFLOWS.md</h3>
+        <p>Complete workflow reference. What each GitHub Actions workflow does.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>docs/SHARED_GITHUB_ADOPTION_GUIDE.md</h3>
+        <p>How to adopt .github standards across teams. Implementation sequence and dependencies.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>docs/PLUGIN_PACK_ROADMAP.md</h3>
+        <p>Evolution from governance files to plugin packs. Why and how the architecture pivoted.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>docs/PLUGIN_INSTALLATION_GUIDE.md</h3>
+        <p>How to install and configure the plugin pack. Step-by-step setup.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Instructions & Standards</h2>
+    <p class="section-intro">Reusable instruction files for teams and AI agents:</p>
+
+    <div class="resource-grid">
+      <div class="resource-card">
+        <h3>instructions/coding-standards.instructions.md</h3>
+        <p>Language-specific coding standards (JS/TS, PHP, Python). Enforced by linting agents.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>instructions/file-organisation.instructions.md</h3>
+        <p>Repository structure and file placement. Where each asset belongs.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>instructions/labeling.instructions.md</h3>
+        <p>How to apply labels correctly. Ensures consistency across teams.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>instructions/spec-driven-workflow.instructions.md</h3>
+        <p>Spec-driven development patterns. How to work with schemas and frontmatter.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>ai/agents.md</h3>
+        <p>Canonical agent definitions. How agents are configured and deployed.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>ai/RUNNERS.md</h3>
+        <p>AI runner configurations. How agents integrate with GitHub, Claude, Copilot, Gemini.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>AI Assets & Skills</h2>
+    <p class="section-intro">Reusable AI capabilities and agent definitions:</p>
+
+    <div class="resource-grid">
+      <div class="resource-card">
+        <h3>skills/SKILL_REGISTRY.json</h3>
+        <p>Catalogue of all available skills. Defines capabilities agents can perform.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>plugins/PLUGIN_MANIFEST.json</h3>
+        <p>Plugin pack manifest. Declares contents, dependencies, and configuration.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>plugins/lightspeed-github-ops/</h3>
+        <p>Main plugin pack. Contains governance, automation, and AI-ops capabilities.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>agents/agent.md</h3>
+        <p>Agent specification template. How to define new agents.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Standards & Guidelines</h2>
+    <p class="section-intro">External standards and best practices referenced in the talk:</p>
+
+    <div class="resource-list">
+      <div class="resource-item">
+        <strong><a href="https://www.w3.org/WAI/WCAG22/quickref/" target="_blank">WCAG 2.2 Guidelines</a></strong>
+        <p>Web Content Accessibility Guidelines. AA level (4.5:1 contrast) is the baseline for all governance interfaces.</p>
+      </div>
+
+      <div class="resource-item">
+        <strong><a href="https://semver.org/" target="_blank">Semantic Versioning</a></strong>
+        <p>MAJOR.MINOR.PATCH versioning scheme. Used for releases, plugins, and schemas.</p>
+      </div>
+
+      <div class="resource-item">
+        <strong><a href="https://developer.wordpress.org/coding-standards/" target="_blank">WordPress Coding Standards</a></strong>
+        <p>Unified style guide for WordPress projects. Foundation for LightSpeed standards.</p>
+      </div>
+
+      <div class="resource-item">
+        <strong><a href="https://github.com/github/awesome-copilot" target="_blank">GitHub Awesome Copilot</a></strong>
+        <p>Inspiration for skills, agents, and workflow patterns. Acknowledge this repo in all derivative work.</p>
+      </div>
+
+      <div class="resource-item">
+        <strong><a href="https://docs.github.com/en/actions" target="_blank">GitHub Actions Documentation</a></strong>
+        <p>Official GitHub Actions reference. Essential for workflow design and debugging.</p>
+      </div>
+
+      <div class="resource-item">
+        <strong><a href="https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/about-community-health-files" target="_blank">GitHub Community Health Files</a></strong>
+        <p>Standard issue/PR templates, code of conduct, security policy. Core to .github structure.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>External Tools & Platforms</h2>
+    <p class="section-intro">Tools and platforms used to extend .github governance:</p>
+
+    <div class="resource-list">
+      <div class="resource-item">
+        <strong><a href="https://github.com/features/copilot" target="_blank">GitHub Copilot</a></strong>
+        <p>AI-powered code generation and automation. Integrated into workflows and custom instructions.</p>
+      </div>
+
+      <div class="resource-item">
+        <strong><a href="https://claude.ai" target="_blank">Claude (Anthropic)</a></strong>
+        <p>Large language model for agents and automation. Multi-platform support with consistent governance.</p>
+      </div>
+
+      <div class="resource-item">
+        <strong><a href="https://google.com/gemini" target="_blank">Google Gemini</a></strong>
+        <p>Alternative AI platform for multi-platform governance parity. Enables agent portability.</p>
+      </div>
+
+      <div class="resource-item">
+        <strong><a href="https://wordpress.org/" target="_blank">WordPress</a></strong>
+        <p>Open-source CMS ecosystem. LightSpeed builds governance for WordPress agencies and teams.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Acknowledgements</h2>
+    <div class="page-copy">
+      <p>
+        This site and the WCEU 2026 talk draw inspiration from <a href="https://github.com/github/awesome-copilot" target="_blank">github/awesome-copilot</a>. We acknowledge their foundational work on skills, agents, and workflow patterns.
+      </p>
+      <p>
+        Built for the WordPress ecosystem by <a href="https://lightspeedwp.agency/" target="_blank">LightSpeed</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Next Steps</h2>
+    <div class="page-copy">
+      <ul>
+        <li>
+          <a href="/references/glossary/">Glossary</a> — Key terminology for .github and AI-ops
+        </li>
+        <li>
+          <a href="/references/evidence/">Evidence Mapping</a> — How talk claims map to sources
+        </li>
+        <li>
+          <a href="/getting-started/implementation-roadmap/">Implementation Roadmap</a> — Start adopting .github governance
+        </li>
+        <li>
+          <a href="/agents/">Agent Guides</a> — Explore the 7 core agents
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-intro {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0 0 1.5rem;
+    line-height: 1.6;
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 0 0 2rem;
+  }
+
+  .resource-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+  }
+
+  .resource-card h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    color: var(--text);
+    font-family: monospace;
+    font-weight: 600;
+  }
+
+  .resource-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .resource-item {
+    padding: 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .resource-item strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .resource-item strong a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s ease-out;
+  }
+
+  .resource-item strong a:hover {
+    color: var(--accent-bright);
+    text-decoration: underline;
+  }
+
+  .resource-item p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 860px) {
+    .resource-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

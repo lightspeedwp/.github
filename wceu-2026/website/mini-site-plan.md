@@ -3,15 +3,15 @@ title: "Mini Website Plan"
 description: "Information architecture and content requirements for a mini website explaining the WCEU 2026 talk."
 last_updated: "2026-06-02"
 owners: ["Ash Shaw"]
-file_type: plan
+file_type: documentation
 version: "1.0.0"
 tags:
   - planning
   - website
   - wceu-2026
 status: draft
-stability: draft
-domain: website
+stability: experimental
+domain: governance
 ---
 
 # Mini Website Plan

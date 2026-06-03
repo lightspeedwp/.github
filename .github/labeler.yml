@@ -29,15 +29,13 @@
 "type:refactor":
   head-branch: ["^refactor/.*"]
 "type:test":
-  head-branch: ["^test/.*"]
+  head-branch: ["^test/.*", "^qa/.*"]
 "type:performance":
   head-branch: ["^perf/.*"]
 "type:design":
   head-branch: ["^design/.*"]
 "type:a11y":
   head-branch: ["^a11y/.*"]
-"type:qa":
-  head-branch: ["^qa/.*"]
 "type:question":
   head-branch: ["^question/.*"]
 "type:support":

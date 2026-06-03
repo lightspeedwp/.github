@@ -1,7 +1,8 @@
 ---
 title: "Slide 15 - Hook Layer"
 description: "Show hook-based guardrails and execution safety checks."
-last_updated: "2026-06-02"owners: ["Ash Shaw"]
+last_updated: "2026-06-02"
+owners: ["Ash Shaw"]
 ---
 
 # Slide 15 - Hook Layer

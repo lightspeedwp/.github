@@ -1,0 +1,228 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Getting Started — Awesome GitHub"
+  description="Learn why .github matters, how to implement it, and the accessibility guidelines."
+>
+  <section class="hero">
+    <div class="eyebrow">Getting Started</div>
+    <h1>Build Your .github Control Plane</h1>
+    <p class="lede">
+      Everything you need to understand, implement, and onboard your team to a .github-based governance system.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Learning Path</h2>
+    <div class="learning-path">
+      <article class="path-card">
+        <div class="step-number">1</div>
+        <h3>Why .github Matters</h3>
+        <p>
+          Understand the problem: Why teams struggle with fragmented governance, inconsistent
+          automation, and delivery drift.
+        </p>
+        <a href="/getting-started/why-github-matters/" class="path-link">
+          Learn →
+        </a>
+      </article>
+
+      <article class="path-card">
+        <div class="step-number">2</div>
+        <h3>Watch the Talk</h3>
+        <p>
+          See the full architecture, technical layers, and adoption playbook in the 25-minute WCEU 2026
+          presentation.
+        </p>
+        <a href="/talk/slideshow/" class="path-link">
+          Watch Presentation →
+        </a>
+      </article>
+
+      <article class="path-card">
+        <div class="step-number">3</div>
+        <h3>Explore Agent Guides</h3>
+        <p>
+          Meet the 6 core agents: Release, Branding, Meta, Linting, Labelling, and Planner. Learn their
+          roles and how they integrate.
+        </p>
+        <a href="/agents/" class="path-link">
+          Explore Agents →
+        </a>
+      </article>
+
+      <article class="path-card">
+        <div class="step-number">4</div>
+        <h3>Implementation Roadmap</h3>
+        <p>
+          Follow the 30/60/90 day adoption plan. Know which agents to adopt first, dependencies, and
+          effort estimates.
+        </p>
+        <a href="/getting-started/implementation-roadmap/" class="path-link">
+          View Roadmap →
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Key Topics</h2>
+    <div class="topic-grid">
+      <article class="topic-card">
+        <h3>Architecture</h3>
+        <p>
+          Learn about the control plane architecture: how governance files, reusable workflows, agents,
+          skills, and hooks fit together.
+        </p>
+        <a href="/talk/slides/4/" class="inline-link">View in Slide 4 →</a>
+      </article>
+
+      <article class="topic-card">
+        <h3>Governance Model</h3>
+        <p>
+          Understand the policy and instruction hierarchy that governs AI operations and ensures
+          accountability.
+        </p>
+        <a href="/talk/slides/19/" class="inline-link">View in Slide 19 →</a>
+      </article>
+
+      <article class="topic-card">
+        <h3>Lessons & Patterns</h3>
+        <p>
+          Learn from hard-won experience: what works, what doesn't, and common pitfalls to avoid.
+        </p>
+        <a href="/talk/slides/11/" class="inline-link">View in Slide 11 →</a>
+      </article>
+
+      <article class="topic-card">
+        <h3>Adoption Playbook</h3>
+        <p>
+          Get a practical implementation sequence your teams can follow. Start with one outcome, roll
+          out gradually.
+        </p>
+        <a href="/talk/slides/12/" class="inline-link">View in Slide 12 →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Quick Reference</h2>
+    <div class="page-copy">
+      <ul>
+        <li>
+          <a href="/talk/">Talk Overview</a> — 25-minute presentation on .github governance
+        </li>
+        <li>
+          <a href="/talk/slides/">All Slides</a> — Browse the 20 slides individually
+        </li>
+        <li>
+          <a href="/agents/">Agent Guides</a> — Explore each of the 6 core agents
+        </li>
+        <li>
+          <a href="/references/glossary/">Glossary</a> — Key terminology and definitions
+        </li>
+        <li>
+          <a href="/references/sources/">Sources & Tools</a> — Evidence and reference materials
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .learning-path {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  .path-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .path-card h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.125rem;
+  }
+
+  .path-card p {
+    flex: 1;
+    margin-bottom: 1.5rem;
+    color: var(--muted);
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+
+  .path-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease-out;
+  }
+
+  .path-link:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .topic-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+  }
+
+  .topic-card h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.125rem;
+  }
+
+  .topic-card p {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 860px) {
+    .learning-path,
+    .topic-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
