@@ -23,6 +23,7 @@ tags:
 Phase 2a transforms the MVP conference site into a discoverable platform foundation by fixing design debt and establishing clean navigation patterns for Phase 2b–2c catalogue expansion.
 
 ## Timeline
+
 - **Week 1–2:** Navigation overhaul, homepage redesign, 404 fixes
 - **Deliverable:** Stable, discoverable homepage with working navigation
 
@@ -33,12 +34,14 @@ Phase 2a transforms the MVP conference site into a discoverable platform foundat
 **Current state:** 3 sections (Talk, Resources, Site) with 8 total links. Basic dropdown structure.
 
 **Issues identified:**
+
 - Navigation lacks clear hierarchy for Phase 2 catalogue sections
 - No dropdown for "Resources" section
 - Subtitle positioning unclear in responsive view
 - No breadcrumb support infrastructure
 
 **Tasks:**
+
 - [ ] Audit current nav sections against Phase 2 catalogue structure
 - [ ] Design dropdown menu for Resources/Catalogues sections
 - [ ] Implement responsive mobile menu toggle
@@ -49,6 +52,7 @@ Phase 2a transforms the MVP conference site into a discoverable platform foundat
 ### 2. Homepage Redesign
 
 **Current structure:**
+
 - Hero section with eyebrow, title, lede
 - CTA buttons (3x)
 - Stats section (3 metrics)
@@ -56,12 +60,14 @@ Phase 2a transforms the MVP conference site into a discoverable platform foundat
 - "How the site grows" explainer
 
 **Phase 2a goals:**
+
 - Clarify the dual-purpose positioning (conference + platform)
 - Introduce Phase 2 catalogues in the value statement
 - Update stats to reflect Phase 2 growth
 - Restructure cards to show both Phase 1 and Phase 2 content
 
 **Tasks:**
+
 - [ ] Update hero section with Phase 2 positioning
 - [ ] Revise CTA buttons to include catalogue entry points
 - [ ] Update stats block with Phase 2 scope
@@ -72,11 +78,13 @@ Phase 2a transforms the MVP conference site into a discoverable platform foundat
 ### 3. 404 Error & Broken Links Audit
 
 **Current known issues:**
+
 - `/wceu-2026/` exists but may have stale references
 - Missing catalogue routes (`/agents/`, `/instructions/`, `/skills/`, etc.) will 404
 - Slide reference links may be broken
 
 **Tasks:**
+
 - [ ] Generate 404 audit report with `npm run build`
 - [ ] Fix all broken internal links in pages
 - [ ] Create placeholder pages for Phase 2 catalogue routes
@@ -88,11 +96,13 @@ Phase 2a transforms the MVP conference site into a discoverable platform foundat
 **Current state:** Brand mark + text logo in header
 
 **Phase 2a goals:**
+
 - Strengthen brand mark design (if needed)
 - Improve logo spacing and sizing in header
 - Ensure consistent branding across all pages
 
 **Tasks:**
+
 - [ ] Review current logo against modern design standards
 - [ ] Refine logo mark (visual refinement)
 - [ ] Update CSS sizing and spacing
@@ -102,12 +112,14 @@ Phase 2a transforms the MVP conference site into a discoverable platform foundat
 ### 5. Padding, Spacing & Layout Fixes
 
 **Issues to address:**
+
 - Inconsistent section padding across pages
 - Card grid spacing alignment
 - Hero section padding in mobile view
 - Footer spacing and alignment
 
 **Tasks:**
+
 - [ ] Audit global spacing scale (define if missing)
 - [ ] Create consistent spacing tokens (if not present)
 - [ ] Fix section padding (hero, footer, main sections)
@@ -144,6 +156,7 @@ Phase 2a transforms the MVP conference site into a discoverable platform foundat
 ## Next Phase Gate
 
 Before proceeding to Phase 2b (Core Catalogues), ensure:
+
 - [ ] Phase 2a branch is reviewed and merged to develop
 - [ ] Website builds cleanly with no errors
 - [ ] All pages are accessible (WCAG AA)
