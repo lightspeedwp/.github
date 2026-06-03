@@ -1,0 +1,25 @@
+{
+  "name": "@lightspeedwp/awesome-github-site",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Astro implementation of the Awesome GitHub phase 1 website.",
+  "license": "GPL-3.0-or-later",
+  "author": {
+    "name": "LightSpeedWP Team",
+    "email": "support@lightspeedwp.agency",
+    "url": "https://lightspeedwp.agency"
+  },
+  "repository": "https://github.com/lightspeedwp/.github.git",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "npm run lint --prefix ..",
+    "test": "npm run test --prefix ..",
+    "format": "npm run format --prefix .."
+  },
+  "dependencies": {
+    "astro": "^5.11.0"
+  }
+}

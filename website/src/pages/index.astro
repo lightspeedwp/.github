@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Awesome GitHub"
+  description="A compact GitHub-led site for planning, governance, and AI-assisted workflows."
+>
+  <section class="hero">
+    <div class="eyebrow">Phase 1 MVP</div>
+    <h1>Awesome GitHub</h1>
+    <p class="lede">
+      A compact GitHub-led website that explains how LightSpeed uses the `.github`
+      repository as a practical control plane for planning, governance, and AI-assisted
+      workflows.
+    </p>
+    <div class="hero-actions">
+      <a class="button primary" href={`${base}why-this-exists/`}>Why this exists</a>
+      <a class="button secondary" href={`${base}references/`}>Browse references</a>
+    </div>
+    <div class="kicker">What ships first</div>
+    <div class="stat-list">
+      <div class="stat">
+        <strong>3 pages</strong>
+        Home, why this exists, and references.
+      </div>
+      <div class="stat">
+        <strong>Source-backed</strong>
+        Copy normalised from the planning briefs and reference site.
+      </div>
+      <div class="stat">
+        <strong>Phase-ready</strong>
+        Designed so phase 2 can grow into a fuller resource catalogue.
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Browse the MVP</h2>
+    <div class="card-grid">
+      <article class="card">
+        <h3>Home</h3>
+        <p>Clear positioning, a short value statement, and direct paths into the rest of the site.</p>
+      </article>
+      <article class="card">
+        <h3>Why this exists</h3>
+        <p>A concise explanation of the repository-as-control-plane model and the reason for the site.</p>
+      </article>
+      <article class="card">
+        <h3>References</h3>
+        <p>Primary links to the source repo, the live reference site, and the planning inputs.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Phase 2 direction</h2>
+    <div class="page-copy">
+      <p>
+        The next phase will expand this into a fuller resource site with categories,
+        browsing paths, and richer content models. Phase 1 keeps the surface area small
+        so the site can be launched and iterated on quickly.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

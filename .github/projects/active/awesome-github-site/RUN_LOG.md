@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Run Log - Awesome GitHub Site"
 description: "Execution log for planning and proposal runs related to the Awesome GitHub website."
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active
@@ -43,3 +43,12 @@ For each `/opsx:propose` run or planning pass, append a short entry using the pa
 - github-issue-url: `n/a`
 - labels-applied: `[]`
 - notes: `Project plan initialised. Phase 1 and phase 2 paths are now separated and ready for issue drafting.`
+
+### 2026-06-03 00:00 Europe/Warsaw - github-pages-issues-created
+
+- command: `gh issue create` x11
+- expected-template: `05-epic.md`, `21-research.md`, `20-documentation.md`, `10-build-ci.md`, `01-task.md`, `12-testing-coverage.md`, `05-epic.md`, `03-feature.md`, `07-improvement.md`, `20-documentation.md`, `14-a11y.md`
+- result: `success`
+- github-issue-url: `https://github.com/lightspeedwp/.github/issues/756` through `https://github.com/lightspeedwp/.github/issues/766`
+- labels-applied: `[]`
+- notes: `Created the phase 1 and phase 2 parent/child issue chain for Awesome GitHub, covering GitHub Pages setup, Astro publishing, custom domain DNS, 404 handling, and launch validation.`
