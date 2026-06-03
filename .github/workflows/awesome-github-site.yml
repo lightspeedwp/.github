@@ -63,7 +63,7 @@ jobs:
 
       - name: Install dependencies
         if: github.event_name != 'workflow_dispatch' || inputs.run_ci
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Build site
         if: github.event_name != 'workflow_dispatch' || inputs.run_ci
