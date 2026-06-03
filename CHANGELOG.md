@@ -2,7 +2,7 @@
 title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
-version: "1.0.8"
+version: "1.0.9"
 created_date: "2025-09-20"
 last_updated: "2026-06-03"
 owners:
@@ -26,11 +26,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Awesome GitHub Site Phase 2a: Three-Pillar Governance Framework** — Integrated PR #809's three-pillar design approach on top of Phase 2a's dynamic foundation by adding comprehensive CSS styling for the pillar section (`.pillar-grid`, `.pillar`, `.pillar-links`). Features 3-column responsive grid layout with hover effects, accent color styling, light/dark theme variants, and mobile collapse to single column. Completes visual integration of Automation, Governance, and AI Integration framework while preserving dynamic catalogue loading and conference messaging.
+
 ### Fixed
 
 - **Awesome GitHub Site: Duplicate Route Collision Fix** — Removed duplicate `/references` route caused by `website/src/pages/references.astro` conflicting with `website/src/pages/references/index.astro`. The build now generates 62 pages with no route collision warnings. Workflow updated with `--legacy-peer-deps` flag for `npm ci` to resolve `@astrojs/svelte` compatibility with Astro 5.18.2.
 
-### Added
+### Added (Phase 2a)
 
 - **Awesome GitHub Site Phase 2a: Homepage & Navigation Redesign** — Initiated Phase 2a execution by restructuring header navigation to support Phase 2 catalogues, redesigning homepage with "One .GitHub to Rule Them All" positioning, and establishing foundation for Phase 2b–2c expansion:
   - Reorganized nav sections (Conference → Catalogues → About) with dedicated catalogue dropdown showing all 8 Phase 2 resources (agents, instructions, skills, hooks, plugins, workflows, tools, learning-hub).
