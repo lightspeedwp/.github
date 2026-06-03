@@ -102,7 +102,7 @@ sequenceDiagram
 ## Recommended Validation Hooks
 
 - `scripts/validation/validate-issue-fields.cjs` now includes strict cross-file parity checks for `Status`, `Priority`, and `Type` mappings.
-- Add a dedicated validator for `labeler.yml` output labels against `.github/labels.yml`.
+- `scripts/validation/validate-labeling-configs.cjs` now fails when `.github/labeler.yml` emits labels not defined in `.github/labels.yml`.
 - Run parity checks in CI on every PR touching any canonical config file.
 
 ## Related Documentation
