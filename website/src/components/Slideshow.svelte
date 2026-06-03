@@ -8,12 +8,21 @@
   let showReferences = false;
   let isFullscreen = false;
   let container;
+  const emptySlide = () => ({
+    number: 0,
+    slug: "",
+    title: "",
+    keyPoints: [],
+    speaker: [],
+    evidence: [],
+  });
+  let currentSlide = emptySlide();
 
   $: if (slides.length > 0 && currentIndex >= slides.length) {
     currentIndex = slides.length - 1;
   }
 
-  $: currentSlide = slides[currentIndex] || {};
+  $: currentSlide = slides[currentIndex] || emptySlide();
 
   function goToSlide(index) {
     if (index >= 0 && index < slides.length) {
@@ -115,14 +124,16 @@
 <div class="slideshow-container" bind:this={container}>
   <div class="slideshow-main">
     <div class="slide-content">
-      {#if currentSlide.keyPoints}
+      {#if currentSlide?.keyPoints}
         <div class="slide-title">
-          <div class="slide-number">Slide {currentSlide.number.toString().padStart(2, "0")}</div>
-          <h1>{currentSlide.title.replace(/^Slide \d+ - /, "")}</h1>
+          <div class="slide-number">
+            Slide {(currentSlide?.number ?? 0).toString().padStart(2, "0")}
+          </div>
+          <h1>{(currentSlide?.title ?? "").replace(/^Slide \d+ - /, "")}</h1>
         </div>
 
         <div class="slide-body">
-          {#if currentSlide.keyPoints && currentSlide.keyPoints.length > 0}
+          {#if currentSlide?.keyPoints && currentSlide.keyPoints.length > 0}
             <ul class="key-points">
               {#each currentSlide.keyPoints as point}
                 <li>{point}</li>
@@ -133,11 +144,11 @@
       {/if}
     </div>
 
-    {#if showNotes && currentSlide.speaker}
+    {#if showNotes && currentSlide?.speaker}
       <div class="slide-notes">
         <div class="notes-header">
           <h3>Speaker Notes</h3>
-          <button on:click={toggleNotes} class="close-btn">✕</button>
+      <button on:click={toggleNotes} class="close-btn">✕</button>
         </div>
         <div class="notes-content">
           {#each currentSlide.speaker as note}
@@ -147,7 +158,7 @@
       </div>
     {/if}
 
-    {#if showReferences && currentSlide.evidence}
+    {#if showReferences && currentSlide?.evidence}
       <div class="slide-references">
         <div class="refs-header">
           <h3>Sources & Evidence</h3>
