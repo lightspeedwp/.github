@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Why .github Matters - Awesome GitHub"
+  description="Understand the problem that the .github repository solves for teams and organisations."
+>
+  <section class="hero">
+    <h1>Why .github Matters</h1>
+    <p class="lede">
+      Every organisation faces the same challenge: how to keep governance, automation, and standards consistent
+      across dozens of repositories without constant manual effort.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>The Problem</h2>
+    <div class="page-copy">
+      <p>
+        Without a central governance point, teams experience:
+      </p>
+      <ul>
+        <li><strong>Inconsistent standards</strong> — Each repository has different coding styles, commit conventions, and practices</li>
+        <li><strong>Manual overhead</strong> — Release processes, testing, and validation require constant human intervention</li>
+        <li><strong>Knowledge silos</strong> — Governance decisions and best practices are scattered across wikis, Slack, and individual heads</li>
+        <li><strong>Unreliable automation</strong> — Scripts and workflows are duplicated, making updates hard and bugs common</li>
+        <li><strong>Governance drift</strong> — As teams grow, it becomes impossible to enforce standards consistently</li>
+        <li><strong>AI assistance challenges</strong> — Without clear instructions, AI agents can't be trusted to work autonomously</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>The Solution: .github as Control Plane</h2>
+    <div class="page-copy">
+      <p>
+        The <code>.github</code> repository is a special repository in GitHub organisations that can contain
+        community health files, issue templates, and workflows. Awesome GitHub extends this into a comprehensive
+        control plane that includes:
+      </p>
+      <ul>
+        <li><strong>Reusable Workflows</strong> — Once written, shared across all repositories</li>
+        <li><strong>Instructions</strong> — Central governance that guides agents and team members</li>
+        <li><strong>Agents</strong> — AI-powered assistants that understand your standards</li>
+        <li><strong>Skills & Hooks</strong> — Reusable capabilities and local validation</li>
+      </ul>
+      <p>
+        This creates a single source of truth for how your organisation works.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Next Steps</h2>
+    <div class="page-copy">
+      <ul>
+        <li><a href={`${base}introduction/`}>Read the Introduction</a> to understand the three pillars</li>
+        <li><a href={`${base}agents/`}>Explore Agents</a> to see what's possible</li>
+        <li><a href={`${base}getting-started/implementation-roadmap/`}>Follow the Implementation Roadmap</a> for a 30/60/90 plan</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
