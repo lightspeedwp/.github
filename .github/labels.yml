@@ -122,6 +122,10 @@
   color: AB7DF8
   description: "Design work"
 
+- name: type:ui
+  color: AB7DF8
+  description: "UI implementation and consistency"
+
 - name: type:epic
   color: AB7DF8
   description: "Large multi-scope initiative"
@@ -134,6 +138,10 @@
   color: 9198A1
   description: "Improvement to existing behaviour/UX"
 
+- name: type:enhancement
+  color: 9198A1
+  description: "Enhancement to existing capability"
+
 - name: type:refactor
   color: 9198A1
   description: "Refactor or internal change"
@@ -141,6 +149,10 @@
 - name: type:build
   color: 4393F8
   description: "Build & CI"
+
+- name: type:ci
+  color: 4393F8
+  description: "CI/CD pipeline work"
 
 - name: type:automation
   color: 4393F8
@@ -153,6 +165,10 @@
   description: "Testing/coverage"
   aliases:
     - test
+
+- name: type:qa
+  color: D29922
+  description: "Quality assurance work"
 
 - name: type:performance
   color: D29922
@@ -173,6 +189,10 @@
 - name: type:compatibility
   color: 8D4821
   description: "Compatibility"
+
+- name: type:dependency
+  color: 8D4821
+  description: "Dependency management and updates"
 
 - name: type:integration
   color: 8D4821
@@ -197,6 +217,10 @@
 - name: type:research
   color: 9198A1
   description: "Research / investigation"
+
+- name: type:investigation
+  color: 9198A1
+  description: "Investigation and root-cause analysis"
 
 - name: type:chore
   color: 9198A1
