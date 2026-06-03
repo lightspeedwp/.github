@@ -7,8 +7,13 @@
   let showNotes = false;
   let showReferences = false;
   let isFullscreen = false;
+  let container;
 
-  const currentSlide = slides[currentIndex] || {};
+  $: if (slides.length > 0 && currentIndex >= slides.length) {
+    currentIndex = slides.length - 1;
+  }
+
+  $: currentSlide = slides[currentIndex] || {};
 
   function goToSlide(index) {
     if (index >= 0 && index < slides.length) {
@@ -34,6 +39,14 @@
     showReferences = !showReferences;
   }
 
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      container?.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
   function updateUrl() {
     if (typeof window !== "undefined") {
       const url = new URL(window.location);
@@ -43,9 +56,30 @@
   }
 
   function handleKeydown(e) {
-    if (e.key === "ArrowRight") nextSlide();
-    if (e.key === "ArrowLeft") prevSlide();
+    const target = e.target;
+
+    // Ignore shortcuts if focusing form inputs
+    if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "SELECT" || target.isContentEditable)) {
+      return;
+    }
+
+    // Prevent space/arrows from navigating slides if focusing buttons/links
+    if (target && (target.tagName === "BUTTON" || target.tagName === "A")) {
+      if (e.key === " " || e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === "Enter") {
+        return;
+      }
+    }
+
+    if (e.key === "ArrowRight" || e.key === " ") {
+      e.preventDefault();
+      nextSlide();
+    }
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      prevSlide();
+    }
     if (e.key === "s" || e.key === "S") toggleNotes();
+    if (e.key === "f" || e.key === "F") toggleFullscreen();
     if (e.key === "Escape") {
       showNotes = false;
       showReferences = false;
@@ -63,12 +97,22 @@
     // Restore notes preference
     const savedNotes = localStorage.getItem("slideshow-notes");
     if (savedNotes === "true") showNotes = true;
+
+    const handleFullscreenChange = () => {
+      isFullscreen = !!document.fullscreenElement;
+    };
+
+    window.addEventListener("keydown", handleKeydown);
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
   });
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
-
-<div class="slideshow-container">
+<div class="slideshow-container" bind:this={container}>
   <div class="slideshow-main">
     <div class="slide-content">
       {#if currentSlide.keyPoints}
@@ -144,6 +188,9 @@
       <button on:click={toggleReferences} class={`option-btn ${showReferences ? "active" : ""}`}>
         {showReferences ? "Hide" : "Show"} Sources
       </button>
+      <button on:click={toggleFullscreen} class="option-btn" title="Toggle fullscreen (F)">
+        {isFullscreen ? "Exit" : "Enter"} Fullscreen
+      </button>
       <a href={`/talk/slides/${currentSlide.slug}/`} class="option-btn">
         Full Page →
       </a>
@@ -153,6 +200,7 @@
       <p>
         <kbd>←</kbd> <kbd>→</kbd> Navigate •
         <kbd>S</kbd> Toggle notes •
+        <kbd>F</kbd> Fullscreen •
         <kbd>Esc</kbd> Close overlays
       </p>
     </div>
