@@ -282,7 +282,7 @@ README inventory: 44 files identified across the repo structure
 1. **Wave 3A: Discovery & Audit** ✅ CREATED (GitHub Copilot)
    - GitHub Issue: [#512 — Wave 3A: README & Mermaid Diagram Discovery & Audit](https://github.com/lightspeedwp/.github/issues/512)
    - Status: Ready for execution
-   - Workflow: [`.github/workflows/readme-audit.yml`](./.github/workflows/readme-audit.yml) created
+   - Workflow: [`.github/workflows/readme-audit.yml`](../../workflows/readme-audit.yml) created
    - Deliverables: Audit report, findings.csv, audit-log.md
    - Scope: Scan all 44 README files, extract Mermaid diagrams, categorize issues
    - Effort: 2-3 hours
