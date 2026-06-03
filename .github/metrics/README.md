@@ -2,8 +2,8 @@
 title: "LightSpeed Metrics Directory"
 description: "Metrics collection scripts, configuration, and automation for tracking repository health, documentation quality, and project activity across the LightSpeed organization."
 file_type: documentation
-version: v1.1
-last_updated: "2026-05-31"
+version: v1.2
+last_updated: "2026-06-03"
 created_date: "2025-12-04"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"

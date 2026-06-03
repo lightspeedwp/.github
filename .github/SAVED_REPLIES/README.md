@@ -2,8 +2,8 @@
 title: "Saved Replies Directory"
 description: "Organized saved replies for consistent GitHub interactions across LightSpeedWP. Community, issue, and pull request response templates."
 file_type: documentation
-version: v1.1
-last_updated: "2026-05-31"
+version: v1.2
+last_updated: "2026-06-03"
 created_date: "2025-10-24"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"

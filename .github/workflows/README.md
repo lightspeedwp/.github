@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: ".github Workflows Directory"
 description: "Reusable GitHub Actions workflows and automation for the LightSpeed .github control plane"
-version: "v1.0"
-last_updated: '2026-06-01'
+version: "v1.1"
+last_updated: '2026-06-03'
 maintainer: "LightSpeed Team"
 tags: ["workflows", "github-actions", "automation", "ci-cd"]
 ---

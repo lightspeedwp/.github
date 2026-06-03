@@ -2,8 +2,8 @@
 title: "Pull Request Templates Directory"
 description: "Standardized pull request templates for the LightSpeedWP organization. Templates for bugs, features, chores, documentation, releases, and refactoring with automation integration."
 file_type: documentation
-version: v1.2
-last_updated: "2026-05-31"
+version: v1.3
+last_updated: "2026-06-03"
 created_date: "2025-10-20"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
