@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed .github — Claude Instructions"
 description: "Claude-specific project instructions for the LightSpeed .github repository."
-version: "v1.2"
-last_updated: "2026-06-01"
+version: "v1.5"
+last_updated: "2026-06-03"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 ---
@@ -43,6 +43,56 @@ Do **not** place reusable assets under `.github/`—use the matching top-level f
 ## Git & Branching Strategy
 
 > **CRITICAL:** This repository follows a strict branching discipline. Read [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) before opening any PR.
+
+### AI Governance & Branch Protection — NO EXCEPTIONS
+
+**Follow these rules without exception.**
+
+#### Branch Naming — NO "claude/" Prefix
+
+- **FORBIDDEN:** Do NOT use `claude/` as a branch prefix. This is not permitted under any circumstance.
+- **REQUIRED:** ALL branches must follow the format: `{type}/{scope}-{short-title}` (lowercase, kebab-case) where `{type}` is one of the core prefixes listed below.
+- **CORE PREFIXES:** `feat/`, `fix/`, `hotfix/`, `release/`, `refactor/`, `chore/`, `docs/`, `test/`, `perf/`, `ci/`, `build/`, `deps/`, `security/`, `revert/`, `research/`, `design/`, `a11y/`, `ux/`, `i18n/`, `ops/`.
+- **AUTHORITATIVE SOURCE:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) is the canonical reference for all branching rules.
+
+#### Explicit User Instructions — EXECUTE IMMEDIATELY
+
+- When the user explicitly instructs you to perform an action (e.g., "merge to develop", "push this branch", "create PR and merge"), **execute the instruction immediately**. Do not reinterpret, second-guess, or apply additional governance layers.
+- **Important:** Governance checks (branch naming, target branch verification, validation errors) still apply. If a check fails, report the error to the user immediately rather than attempting to bypass it.
+- **Rationale:** User instructions are explicit authorisation. AI governance rules protect against accidental violations, not against explicit user intent. Automated safety checks remain in force.
+
+#### PR Merge & Cleanup Protocol — STRICT ENFORCEMENT
+
+**CRITICAL:** Every PR merge must follow this protocol. This prevents branch orphans and ensures a clean repository state. (This protocol applies to repository maintainers performing merges, not to contributors working with forks.)
+
+**Before Creating a PR:**
+
+- ✅ Verify the branch is named correctly: `{type}/{scope}-{short-title}` format
+- ✅ Confirm the PR will target `develop` (NOT `main` unless it is an explicit release cycle with user authorisation)
+
+**During Merge:**
+
+1. **Verify Base Branch** — Double-check PR base is `develop` (not `main`)
+   - If base is `main`: STOP. Ask user if this is a release cycle. Do NOT merge without explicit instruction.
+   - If base is correct: Proceed to merge.
+2. **Merge Execution** — Use squash merge and wait for success confirmation
+3. **Branch Cleanup** — Immediately after successful merge:
+   - Attempt to delete the remote branch via `git push origin --delete {branch-name}`
+   - If branch already auto-deleted by GitHub (typical): Expected behaviour, report as success
+   - Delete the local branch via `git branch -d {branch-name}` (or `-D` if not fully merged locally)
+   - Report status to user
+
+#### main Branch — LOCKED (Release Only)
+
+**Workflow Enforcement:** The `.github/workflows/main-branch-guard.yml` workflow automatically validates all PRs targeting `main`. PRs are rejected unless they originate from branches starting with `release/` or `hotfix/` (enforced by `scripts/workflows/branch-policy/validate-main-branch-pr.cjs`; branches should follow the `release/vX.Y.Z` or `hotfix/<slug>` naming convention).
+
+- **ALLOWED BRANCHES:** Only `release/*` and `hotfix/*` branches may merge to `main`
+  - Example: `release/v1.5.0`, `hotfix/critical-security-patch`
+  - The workflow checks the branch name prefix automatically
+- **ALL OTHER BRANCHES:** Rejected by the main-branch-guard workflow (no exceptions)
+  - Feature branches, fix branches, chore branches, etc. must target `develop`
+  - The workflow returns an error if the branch prefix is not `release/` or `hotfix/`
+- **DEVELOP IS DEFAULT:** All feature/fix/chore/docs/etc. branches merge to `develop` only
 
 ### Protected Branches
 

@@ -1,8 +1,8 @@
 {
   "name": "@lightspeedwp/awesome-github-site",
   "private": true,
-  "version": "0.1.0",
-  "description": "Astro implementation of the Awesome GitHub phase 1 website.",
+  "version": "0.1.4",
+  "description": "Astro implementation of the Awesome GitHub conference site.",
   "license": "GPL-3.0-or-later",
   "author": {
     "name": "LightSpeedWP Team",
@@ -20,6 +20,9 @@
     "format": "npm run format --prefix .."
   },
   "dependencies": {
-    "astro": "^5.11.0"
+    "@astrojs/svelte": "^5.7.3",
+    "astro": "^5.11.0",
+    "gray-matter": "^4.0.3",
+    "svelte": "^5.0.0"
   }
 }

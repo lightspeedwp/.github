@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getWceuSlides } from "../../../lib/wceuSlides";
+
+const slides = getWceuSlides();
+---
+
+<BaseLayout
+  title="All Slides — WCEU 2026 Talk"
+  description="Browse all 20 slides from the WCEU 2026 Awesome GitHub talk."
+>
+  <section class="hero">
+    <div class="eyebrow">WCEU 2026 Talk</div>
+    <h1>All {slides.length} Slides</h1>
+    <p class="lede">
+      Each slide has its own page with speaker notes, references, and links to related agent guides.
+    </p>
+    <div class="hero-actions">
+      <a class="button primary" href="/talk/slideshow/">
+        Start Presentation
+      </a>
+      <a class="button secondary" href="/talk/">Back to Talk Home</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="slide-grid">
+      {slides.map((slide) => (
+        <article class="slide-card">
+          <div class="slide-number">{slide.number.toString().padStart(2, "0")}</div>
+          <h3>{slide.title.replace(/^Slide \d+ - /, "")}</h3>
+          <p>{slide.description}</p>
+          <div class="slide-actions">
+            <a href={`/talk/slides/${slide.slug}/`} class="slide-link">
+              Read page
+            </a>
+            <a href={`/talk/slideshow/?slide=${slide.number}`} class="slide-link secondary">
+              In presentation
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Talk Navigation</h2>
+    <div class="page-copy">
+      <ul>
+        <li>
+          <a href="/talk/">Talk overview</a> — Context and learning outcomes
+        </li>
+        <li>
+          <a href="/talk/slideshow/">Fullscreen presentation</a> — View the slides with speaker notes
+        </li>
+        <li>
+          <a href="/agents/">Agent guides</a> — Learn about the 7 core agents
+        </li>
+        <li>
+          <a href="/getting-started/implementation-roadmap/">Implementation roadmap</a> — 30/60/90 adoption plan
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .slide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .slide-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease-out;
+  }
+
+  .slide-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+  }
+
+  .slide-number {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .slide-card h3 {
+    margin: 0.5rem 0 1rem;
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+
+  .slide-card p {
+    flex: 1;
+    margin-bottom: 1.5rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .slide-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .slide-link {
+    padding: 0.5rem 1rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease-out;
+    flex: 1;
+    text-align: center;
+    min-width: 120px;
+  }
+
+  .slide-link:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+
+  .slide-link.secondary {
+    flex: 0 1 auto;
+    background: var(--bg);
+    color: var(--accent);
+  }
+
+  .slide-link.secondary:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  @media (max-width: 860px) {
+    .slide-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .slide-link {
+      flex: 0 1 auto;
+    }
+  }
+</style>

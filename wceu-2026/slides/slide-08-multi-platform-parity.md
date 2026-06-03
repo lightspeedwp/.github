@@ -1,7 +1,8 @@
 ---
 title: "Slide 08 - Multi-Platform Parity"
 description: "Explain manifest parity across Copilot, Claude Code, Codex, and Gemini."
-last_updated: "2026-06-02"owners: ["Ash Shaw"]
+last_updated: "2026-06-02"
+owners: ["Ash Shaw"]
 ---
 
 # Slide 08 - Multi-Platform Parity

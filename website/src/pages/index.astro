@@ -6,62 +6,159 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout
   title="Awesome GitHub"
-  description="A compact GitHub-led site for planning, governance, and AI-assisted workflows."
+  description="A conference-ready GitHub-led site for the WCEU 2026 talk, governance notes, and references."
 >
   <section class="hero">
-    <div class="eyebrow">Phase 1 MVP</div>
+    <div class="eyebrow">One .GitHub to Rule Them All</div>
     <h1>Awesome GitHub</h1>
     <p class="lede">
-      A compact GitHub-led website that explains how LightSpeed uses the `.github`
-      repository as a practical control plane for planning, governance, and AI-assisted
-      workflows.
+      A GitHub-led discovery platform for LightSpeed's AI operations ecosystem. Learn how we use the
+      <code>.github</code> repository as a control plane, or explore our catalogue of agents,
+      instructions, skills, hooks, workflows, tools, and learning resources.
     </p>
     <div class="hero-actions">
-      <a class="button primary" href={`${base}why-this-exists/`}>Why this exists</a>
-      <a class="button secondary" href={`${base}references/`}>Browse references</a>
+      <a class="button primary" href="#catalogues">Explore catalogues</a>
+      <a class="button secondary" href={`${base}slideshow/`}>Watch slideshow</a>
+      <a class="button secondary" href={`${base}wceu-2026/`}>WCEU 2026 talk</a>
+      <a class="button secondary" href={`${base}why-this-exists/`}>About this site</a>
     </div>
-    <div class="kicker">What ships first</div>
+    <div class="kicker">Phase 1: Conference site — Phase 2: Full platform (in progress)</div>
     <div class="stat-list">
       <div class="stat">
-        <strong>3 pages</strong>
-        Home, why this exists, and references.
+        <strong>8 catalogues</strong>
+        Agents, instructions, skills, hooks, plugins, workflows, tools, and learning resources.
       </div>
       <div class="stat">
-        <strong>Source-backed</strong>
-        Copy normalised from the planning briefs and reference site.
+        <strong>One control plane</strong>
+        Centralised discovery hub for team onboarding and resource discovery across the entire ecosystem.
       </div>
       <div class="stat">
-        <strong>Phase-ready</strong>
-        Designed so phase 2 can grow into a fuller resource catalogue.
+        <strong>Growing together</strong>
+        Conference-ready foundation with expanding catalogue sections and governance model.
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <h2>Browse the MVP</h2>
+  <section class="section pillars">
+    <h2>Three pillars of .github governance</h2>
+    <div class="pillar-grid">
+      <article class="pillar">
+        <h3><span aria-hidden="true">🔧</span> Automation</h3>
+        <p>
+          Workflows, actions, and CI/CD governance. Automate releases, testing, labelling, and
+          metrics collection across your repositories.
+        </p>
+        <div class="pillar-links">
+          <a href={`${base}workflows/`}>Workflows</a>
+          <a href={`${base}hooks/`}>Git Hooks</a>
+          <a href={`${base}tools/`}>Tools</a>
+        </div>
+      </article>
+
+      <article class="pillar">
+        <h3><span aria-hidden="true">🛡️</span> Governance</h3>
+        <p>
+          Branch rules, labelling, and AI ethics. Maintain consistency, enforce standards,
+          and guide intelligent agents with clear instructions.
+        </p>
+        <div class="pillar-links">
+          <a href={`${base}instructions/`}>Instructions</a>
+          <a href={`${base}agents/`}>Agents</a>
+          <a href={`${base}why-this-exists/`}>Philosophy</a>
+        </div>
+      </article>
+
+      <article class="pillar">
+        <h3><span aria-hidden="true">🤖</span> AI Integration</h3>
+        <p>
+          Agents, skills, and plugins. Extend your workflows with intelligent automation
+          and reusable capabilities.
+        </p>
+        <div class="pillar-links">
+          <a href={`${base}agents/`}>Agents</a>
+          <a href={`${base}skills/`}>Skills</a>
+          <a href={`${base}plugins/`}>Plugins</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="catalogues" class="section">
+    <h2>Phase 2 catalogues</h2>
+    <p>Resource discovery hubs for the LightSpeed AI operations ecosystem.</p>
     <div class="card-grid">
       <article class="card">
-        <h3>Home</h3>
-        <p>Clear positioning, a short value statement, and direct paths into the rest of the site.</p>
+        <h3><a href={`${base}agents/`}>Agents</a></h3>
+        <p>AI agents and their capabilities, guides, and integration patterns.</p>
       </article>
       <article class="card">
-        <h3>Why this exists</h3>
-        <p>A concise explanation of the repository-as-control-plane model and the reason for the site.</p>
+        <h3><a href={`${base}instructions/`}>Instructions</a></h3>
+        <p>Comprehensive role and behaviour documents for consistent AI operations.</p>
       </article>
       <article class="card">
-        <h3>References</h3>
-        <p>Primary links to the source repo, the live reference site, and the planning inputs.</p>
+        <h3><a href={`${base}skills/`}>Skills</a></h3>
+        <p>Reusable automation tasks and workflows built on portable skill patterns.</p>
+      </article>
+      <article class="card">
+        <h3><a href={`${base}hooks/`}>Hooks</a></h3>
+        <p>Pre-commit and workflow guardrails for quality and compliance.</p>
+      </article>
+      <article class="card">
+        <h3><a href={`${base}plugins/`}>Plugins</a></h3>
+        <p>WordPress and development plugins for extending our ecosystem.</p>
+      </article>
+      <article class="card">
+        <h3><a href={`${base}workflows/`}>Workflows</a></h3>
+        <p>Portable agentic workflows for common AI operations patterns.</p>
+      </article>
+      <article class="card">
+        <h3><a href={`${base}tools/`}>Tools</a></h3>
+        <p>Supporting utilities and helpers for the ecosystem.</p>
+      </article>
+      <article class="card">
+        <h3><a href={`${base}learning-hub/`}>Learning</a></h3>
+        <p>Educational content and onboarding guides for team members.</p>
       </article>
     </div>
   </section>
 
   <section class="section">
-    <h2>Phase 2 direction</h2>
+    <h2>Phase 1: Conference site</h2>
+    <div class="card-grid">
+      <article class="card">
+        <h3><a href={`${base}wceu-2026/`}>WCEU 2026 talk</a></h3>
+        <p>Conference talk outline, slide index, and per-slide deep-dive pages.</p>
+      </article>
+      <article class="card">
+        <h3><a href={`${base}why-this-exists/`}>Why this exists</a></h3>
+        <p>Explanation of the repository-as-control-plane model and this site's purpose.</p>
+      </article>
+      <article class="card">
+        <h3><a href={`${base}references/`}>References</a></h3>
+        <p>Links to source repository, reference materials, and planning inputs.</p>
+      </article>
+      <article class="card">
+        <h3><a href={`${base}getting-started/`}>Getting started</a></h3>
+        <p>Onboarding guide and implementation roadmap for the .github workflow.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Building Phase 2</h2>
     <div class="page-copy">
       <p>
-        The next phase will expand this into a fuller resource site with categories,
-        browsing paths, and richer content models. Phase 1 keeps the surface area small
-        so the site can be launched and iterated on quickly.
+        <strong>Phase 2a (in progress):</strong> We're redesigning the homepage and navigation to better support
+        the full platform. This includes clearer positioning, improved header navigation, and placeholder routes
+        for all eight catalogues.
+      </p>
+      <p>
+        <strong>Phase 2b & 2c (coming):</strong> We'll populate the catalogues with detailed resource pages,
+        filtering and tagging, and consistent discovery patterns across all sections.
+      </p>
+      <p>
+        <strong>Phase 2d (coming):</strong> Full accessibility audit, content governance documentation, and
+        final launch validation across all new pages and features.
       </p>
     </div>
   </section>

@@ -3,7 +3,7 @@ title: "Page Copy Starter"
 description: "Draft copy scaffolding for mini website pages based on the talk narrative."
 last_updated: "2026-06-02"
 owners: ["Ash Shaw"]
-file_type: page
+file_type: documentation
 version: "1.0.0"
 tags:
   - planning
@@ -11,8 +11,8 @@ tags:
   - website
   - wceu-2026
 status: draft
-stability: draft
-domain: website
+stability: experimental
+domain: governance
 ---
 
 # Page Copy Starter

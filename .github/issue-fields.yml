@@ -48,11 +48,9 @@ project_field_mappings:
 
     # Feature Delivery Group
     type:improve: Feature
-    type:enhancement: Feature
 
     # Design & UX Group
     type:design: Design
-    type:ui: Design
     type:a11y: Design
 
     # Quality & Maintenance Group
@@ -64,26 +62,26 @@ project_field_mappings:
     type:automation: Automation
     type:test: Automation
     type:ai-ops: Automation
-    type:ci: Automation
     type:build: Automation
 
     # Integration & Dependencies Group
     type:integration: Integration
-    type:dependency: Integration
     type:compatibility: Integration
 
     # Analysis & Exploration Group
     type:research: Research
-    type:investigation: Research
 
     # Mapped to Task (security tracked via labels)
     type:security: Task
     type:performance: Task
-    type:qa: Task
     type:audit: Task
     type:epic: Task
     type:question: Task
+    type:ux-feedback: Task
+    type:help: Task
     type:support: Task
+    type:help: Task
+    type:ux-feedback: Task
     type:content-modelling: Task
     type:story: Task
     type:review: Task

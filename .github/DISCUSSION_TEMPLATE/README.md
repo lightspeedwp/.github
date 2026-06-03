@@ -3,8 +3,8 @@ title: "Discussion Templates Directory"
 description: "Standardized discussion templates for community engagement in LightSpeedWP. Templates for ideas, Q&A, announcements, architecture, documentation, feedback, and community discussions."
 name: "Discussion Templates"
 file_type: documentation
-version: v1.1
-last_updated: "2026-05-31"
+version: v1.2
+last_updated: "2026-06-03"
 created_date: "2025-10-24"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -39,9 +39,9 @@ Discussion templates help structure community conversations and ensure important
 
 Discussion templates work with:
 
-- **[Discussion Labels](../DISCUSSION_LABELS.md)** - Automated discussion categorization
+- **[Discussion Labels](../../docs/DISCUSSIONS.md)** - Automated discussion categorization
 - **[Community Guidelines](../SAVED_REPLIES/community/guidelines.md)** - Community interaction standards
-- **[Automation Governance](../AUTOMATION_GOVERNANCE.md)** - Discussion workflow automation
+- **[Automation Governance](../../docs/AUTOMATION.md)** - Discussion workflow automation
 - **[Agents](../agents/README.md)** - AI-assisted discussion moderation and governance support
 
 ## 🤖 Automation Features
@@ -53,10 +53,10 @@ Discussion templates work with:
 
 ## 📚 Related Documentation
 
-- [**Discussion Labels**](../DISCUSSION_LABELS.md) - Complete labeling system for discussions
+- [**Discussion Labels**](../../docs/DISCUSSIONS.md) - Complete labeling system for discussions
 - [**Saved Replies**](../SAVED_REPLIES/README.md) - Response templates for discussions
-- [**Community Guidelines**](../SAVED_REPLIES/community/README.md) - Community interaction standards
-- [**Automation Governance**](../AUTOMATION_GOVERNANCE.md) - Discussion automation policies
+- [**Community Guidelines**](../SAVED_REPLIES/README.md) - Community interaction standards
+- [**Automation Governance**](../../docs/AUTOMATION.md) - Discussion automation policies
 
 ## 💡 Usage Guidelines
 

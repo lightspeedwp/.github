@@ -236,3 +236,4 @@ reviews:
           - Each entry under [Unreleased] must include a PR link and issue link.
           - Verify entries use the correct section headings (Added, Changed, Fixed, Deprecated, Removed, Security, Documentation, Performance).
           - Check UK English spelling throughout.
+early_access: true

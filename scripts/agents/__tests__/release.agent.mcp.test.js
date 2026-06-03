@@ -20,6 +20,12 @@ function runNodeEsm(code) {
 describe("release.agent MCP provider", () => {
   test("full run path in mcp dry-run performs preflight and no live mutations", () => {
     const output = runNodeEsm(`
+      import { createRequire } from 'node:module';
+
+      const require = createRequire(import.meta.url);
+      const fs = require('node:fs');
+      const originalReadFileSync = fs.readFileSync;
+
       process.env.GITHUB_TOKEN = 'token';
       process.env.GITHUB_REPOSITORY = 'lightspeedwp/.github';
       process.env.RELEASE_FORCE_VERSION = '1';
@@ -33,6 +39,12 @@ describe("release.agent MCP provider", () => {
           text: async () => JSON.stringify({ message: 'Not Found' }),
         };
       };
+      fs.readFileSync = (filePath, ...args) => {
+        if (String(filePath).endsWith('VERSION')) {
+          return '0.4.0\\n';
+        }
+        return originalReadFileSync.call(fs, filePath, ...args);
+      };
 
       const { run } = await import('./scripts/agents/release.agent.js');
       const logs = [];
@@ -42,11 +54,12 @@ describe("release.agent MCP provider", () => {
       console.log = (...args) => logs.push(args.join(' '));
       console.warn = (...args) => warnings.push(args.join(' '));
 
-      process.argv = ['node', 'release.agent.js', '--scope=patch', '--version=0.4.0', '--provider=mcp', '--dry-run'];
+      process.argv = ['node', 'release.agent.js', '--scope=patch', '--version=0.5.0', '--provider=mcp', '--dry-run'];
       await run();
 
       console.log = originalLog;
       console.warn = originalWarn;
+      fs.readFileSync = originalReadFileSync;
       console.log(JSON.stringify({ fetchCalls, logs, warnings }));
     `);
 

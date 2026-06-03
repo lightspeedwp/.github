@@ -2,12 +2,12 @@
 file_type: documentation
 title: "Awesome GitHub Site"
 description: "Active project plan for the Awesome GitHub website, split into a launchable phase 1 MVP and a fuller phase 2 site."
-version: "1.0.1"
+version: "1.0.4"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active
 stability: stable
-domain: website
+domain: governance
 owners:
   - Ash Shaw
 tags:
@@ -22,18 +22,18 @@ tags:
 
 ## 3-Bullet Summary
 
-- Value: turns the reference material into a small, shippable GitHub Pages site first, then expands it into the fuller catalogue-style experience.
-- Risks: phase creep, copy that stays too talk-specific, and a phase 2 structure that gets pulled into phase 1 too early.
-- Next step: run the phase 1 issue chain first, using the normalised briefs in `briefs/` and the Pages/DNS plan below as the source of truth.
+- **Value:** Phase 1 (WCEU conference site) ✓ complete and live. Phase 2 transforms it into a team onboarding and resource discovery platform with 9 catalogues (agents, instructions, skills, hooks, plugins, workflows, tools, learning-hub, getting-started).
+- **Risks:** Inheriting Phase 1 design debt (cluttered navigation, 404s, weak logo); content governance missing until Phase 2d; large scope requires strict sub-phase sequencing.
+- **Next step:** Execute Phase 2a (homepage/navigation redesign and debt fixes), validate before proceeding to Phase 2b–2c (catalogue sections).
 
 ## Overview
 
-`Awesome GitHub` is the working name for a GitHub-led website inspired by the structure and content discipline of `awesome-copilot`.
+`Awesome GitHub` is a GitHub-led resource discovery platform inspired by `awesome-copilot`, serving as "One .GitHub to Rule Them All" for LightSpeed's AI operations ecosystem.
 
-The delivery is intentionally split:
+The delivery is split into two phases:
 
-1. Phase 1 ships a compact 1-3 page MVP.
-2. Phase 2 expands that MVP into the full resource-style site.
+1. **Phase 1** ✓ Complete — Conference-facing site with WCEU 2026 talk, slides, references, and GitHub Pages setup.
+2. **Phase 2** (in progress) — Full resource catalogue platform with 9 sections, improved UX, and team onboarding support.
 
 ## Project Inputs
 
@@ -50,6 +50,9 @@ The delivery is intentionally split:
 - Normalised source briefs aligned to repo conventions
 - Execution tracker updates in `next-issues-execution-plan.md`
 - GitHub Pages hosting plan with DNS and HTTPS steps
+- WCEU 2026 talk page, slide index, and per-slide content pages
+- Accessibility guidance derived from the full `wceu-2026` audit and reference material
+- Light/dark mode switcher in the shared shell
 
 ## Hosting Model
 
@@ -64,24 +67,54 @@ The delivery is intentionally split:
 
 ### Phase 1
 
-Build the smallest useful version of the site:
+Build the conference-facing version of the site:
 
 - Home
 - Why this exists
+- WCEU 2026 talk page
+- WCEU 2026 slides index
+- WCEU 2026 slide subpages
+- full `wceu-2026` tree scan for accessibility, references, and slide content
 - References or Sources
 - GitHub Pages setup and DNS verification
 - HTTPS enablement after certificate issuance
 - Custom `404` page for missing routes
+- Light and dark mode switcher in the shared shell
+- Accessibility guidance surfaced from the slide and audit folders
 
 ### Phase 2
 
-Expand the site into the full experience:
+Transform the site into a comprehensive team onboarding and resource discovery platform:
 
-- resource catalogue pages
-- category browsing
-- richer navigation
-- supporting guides and discovery flows
-- accessibility and launch polish for the full site
+#### Phase 2a: Homepage & Navigation Redesign (Weeks 1–2)
+
+- Redesign homepage (hero → value → sections → CTA)
+- Fix cluttered header navigation with section dropdown menu
+- Resolve all 404 errors and broken links
+- Strengthen logo with appropriate iconography
+- Fix padding, spacing, and visual inconsistencies
+
+#### Phase 2b: Core Resource Catalogues (Weeks 3–4)
+
+- `/agents/` — AI agents and capabilities
+- `/instructions/` — Role and behaviour documents
+- `/skills/` — Reusable automation tasks
+- `/hooks/` — Pre-commit and workflow guardrails
+
+#### Phase 2c: Extended Catalogues (Weeks 5–6)
+
+- `/plugins/` — WordPress and development plugins
+- `/workflows/` — Portable agentic workflows
+- `/tools/` — Supporting utilities and helpers
+- `/learning-hub/` — Educational content
+- `/getting-started/` — Team onboarding guide
+
+#### Phase 2d: Validation & Launch (Week 7)
+
+- Full WCAG AA accessibility audit and fixes
+- Content governance documentation and validation
+- Mobile responsiveness testing across all sections
+- Final launch readiness review
 
 ## References
 
