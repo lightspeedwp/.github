@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Issue Execution Plan - Awesome GitHub Site"
 description: "Ordered issue plan for the Awesome GitHub website, covering the phase 1 MVP and the phase 2 expansion."
-version: "1.0.3"
+version: "1.0.4"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active
