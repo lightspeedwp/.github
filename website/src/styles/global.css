@@ -6,13 +6,15 @@
   --border: rgba(255, 255, 255, 0.12);
   --text: #f5f7fb;
   --muted: rgba(245, 247, 251, 0.74);
-  --accent: #f97316;
-  --accent-2: #e11d48;
-  --accent-3: #22c55e;
+  --accent: #ff9f4a;
+  --accent-bright: #ffb366;
+  --accent-2: #ff6b9d;
+  --accent-3: #4ade80;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
   --radius-xl: 28px;
   --radius-lg: 20px;
   --radius-md: 14px;
+  --radius-sm: 8px;
   --max-width: 1120px;
   --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   --sans: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
@@ -30,9 +32,10 @@
   --border: rgba(15, 23, 42, 0.12);
   --text: #0f172a;
   --muted: rgba(15, 23, 42, 0.72);
-  --accent: #ea580c;
-  --accent-2: #be123c;
-  --accent-3: #15803d;
+  --accent: #b8381f;
+  --accent-bright: #d97706;
+  --accent-2: #9d1f42;
+  --accent-3: #1b6e35;
   --shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
 }
 
@@ -66,12 +69,18 @@ body {
 
 a {
   color: inherit;
-  text-decoration-color: rgba(249, 115, 22, 0.5);
+  text-decoration-color: rgba(255, 159, 74, 0.5);
   text-underline-offset: 0.18em;
+  transition: color 0.2s ease-out;
 }
 
 a:hover {
   text-decoration-color: var(--accent);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 img,
@@ -293,11 +302,17 @@ h1 {
   border: 1px solid transparent;
   text-decoration: none;
   font-weight: 700;
+  transition: all 0.2s ease-out;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .button.primary {
-  color: #0a0f18;
-  background: linear-gradient(135deg, #fdba74, #fb7185);
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff9f4a, #ff6b9d);
 }
 
 .button.secondary {
@@ -370,9 +385,11 @@ h1 {
   font-weight: 700;
   color: var(--accent);
   text-decoration: none;
+  transition: color 0.2s ease-out;
 }
 
 .card .inline-link:hover {
+  color: var(--accent-bright);
   text-decoration: underline;
 }
 
@@ -524,6 +541,11 @@ footer {
 :root[data-theme="light"] .eyebrow {
   background: rgba(15, 23, 42, 0.04);
   border-color: rgba(15, 23, 42, 0.08);
+}
+
+:root[data-theme="light"] .button.primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, #b8381f, #9d1f42);
 }
 
 :root[data-theme="light"] .button.secondary {
