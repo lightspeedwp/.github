@@ -23,14 +23,14 @@ This directory contains documentation files that are outdated, superseded, or no
 
 **INSTRUCTION_CONSOLIDATION_MIGRATION.md** (394 lines)
 
-- **Status:** Superseded by `MIGRATION_GUIDE.md`
+- **Status:** Superseded by `/docs/MIGRATION.md`
 - **Purpose:** Documented the December 7, 2025 consolidation of 22 instruction files → 5
 - **Reason for archival:** Duplicate content; canonical version exists at repository root
 - **Estimated token savings:** ~1,970 tokens
 
 **CONSOLIDATION_MIGRATION_GUIDE.md** (387 lines)
 
-- **Status:** Superseded by `MIGRATION_GUIDE.md`
+- **Status:** Superseded by `/docs/MIGRATION.md`
 - **Purpose:** Migration map for instruction file consolidation
 - **Reason for archival:** Duplicate content; canonical version exists at repository root
 - **Estimated token savings:** ~1,935 tokens
@@ -107,7 +107,7 @@ cat FILENAME.md
 
 For current documentation, always reference:
 
-- **Migration Guide:** `MIGRATION_GUIDE.md` (canonical version)
+- **Migration Guide:** `/docs/MIGRATION.md` (canonical version)
 - **All Instructions:** `.github/instructions/*.instructions.md` (consolidated files)
 
 ---
