@@ -582,9 +582,81 @@ footer {
   background: rgba(255, 255, 255, 0.7);
 }
 
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.pillar {
+  padding: 1.4rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  transition: all 0.2s ease-out;
+}
+
+.pillar:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--accent);
+}
+
+.pillar h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.8rem;
+  color: var(--text);
+}
+
+.pillar p {
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0 0 1rem;
+}
+
+.pillar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pillar-links a {
+  --accent-rgb: 255, 159, 74;
+  --link-hover-color: var(--accent-bright);
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  text-decoration: none;
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  font-weight: 600;
+  transition: all 0.2s ease-out;
+}
+
+.pillar-links a:hover {
+  background: rgba(var(--accent-rgb), 0.15);
+  border-color: var(--accent);
+  color: var(--link-hover-color);
+}
+
+:root[data-theme="light"] .pillar {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+:root[data-theme="light"] .pillar:hover {
+  background: rgba(255, 255, 255, 0.84);
+  border-color: var(--accent);
+}
+
+:root[data-theme="light"] .pillar-links a {
+  --accent-rgb: 184, 56, 31;
+  --link-hover-color: var(--accent-bright);
+}
+
 @media (max-width: 860px) {
   .card,
-  .stat-list {
+  .stat-list,
+  .pillar-grid {
     grid-column: span 12;
     grid-template-columns: 1fr;
   }
