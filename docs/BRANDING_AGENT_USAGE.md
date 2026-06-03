@@ -4,7 +4,7 @@ description: "Complete guide for using the unified branding agent to apply categ
 file_type: "documentation"
 version: "1.0.0"
 created_date: "2026-05-29"
-last_updated: "2026-05-29"
+last_updated: "2026-06-03"
 category: "docs"
 owners: ["LightSpeedWP Automation Team"]
 ---

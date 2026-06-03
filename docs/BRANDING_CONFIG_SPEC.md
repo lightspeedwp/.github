@@ -4,7 +4,7 @@ description: "Complete specification for category-aware branding, frontmatter va
 file_type: "documentation"
 version: "1.0.0"
 created_date: "2026-05-29"
-last_updated: "2026-05-29"
+last_updated: "2026-06-03"
 category: "governance"
 owners: ["LightSpeedWP Automation Team"]
 ---
