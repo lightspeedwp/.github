@@ -26,11 +26,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Awesome GitHub Site Phase 2a: Information Architecture & Redesign** — Redesigned homepage with hero section, three-pillar structure (Automation/Governance/AI Integration), CTA grid, and feature highlights. Simplified navigation from 3 sections to unified Docs dropdown with all 9 sections accessible. Created 8 new pages: Introduction, Instructions (with 5 categories), Skills (6 skills documented), Hooks (git hooks guide), Plugins (installation/development guide), Workflows (4 categories, 15+ workflows), Tools (6 CLI tools), and Learning Hub (4 onboarding paths, FAQ, glossary). All pages follow consistent design pattern with hero sections, content grids, code examples, and cross-links. Site builds successfully without errors (npm run build). Mobile-responsive layouts with 8px grid system.
+
 ### Fixed
 
 - **Awesome GitHub Site: Duplicate Route Collision Fix** — Removed duplicate `/references` route caused by `website/src/pages/references.astro` conflicting with `website/src/pages/references/index.astro`. The build now generates 62 pages with no route collision warnings. Workflow updated with `--legacy-peer-deps` flag for `npm ci` to resolve `@astrojs/svelte` compatibility with Astro 5.18.2.
-
-### Added
 
 - **AI Governance & Branch Protection Enforcement** — Added comprehensive AI governance rules to `CLAUDE.md` with explicit branch naming enforcement (`{type}/{scope}-{short-title}` format, no `claude/` prefixes), clarification that explicit user instructions must be executed immediately without reinterpretation, and main branch protection policies for release cycles only.
 - **Awesome GitHub Site Planning Pack** — Created a new active project under `.github/projects/active/awesome-github-site/` with phase 1 and phase 2 planning docs, normalised briefing copies, and an updated execution tracker for the new GitHub-led website programme.
