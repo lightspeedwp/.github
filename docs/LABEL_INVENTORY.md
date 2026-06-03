@@ -99,7 +99,7 @@ Labels classifying the type of work. Assign exactly one per issue.
 | `type:build` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | Build & CI | Task | Build pipelines, tooling |
 | `type:ci` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | CI/CD pipelines | Automation | CI/CD infrastructure |
 | `type:automation` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | Automation | Automation | Bots, actions, scripts |
-| `type:test` | ![Orange label](https://via.placeholder.com/20/D29922?text=+) D29922 | Testing/coverage | Automation | Testing, test coverage |
+| `type:test` | ![Orange label](https://via.placeholder.com/20/D29922?text=+) D29922 | Testing/coverage | Automation | Testing and QA work; branch mapping rule: head-branch ["^test/.*", "^qa/.*"] |
 | `type:performance` | ![Orange label](https://via.placeholder.com/20/D29922?text=+) D29922 | Performance improvement | Task | Speed, efficiency optimisation |
 | `type:a11y` | ![Pink label](https://via.placeholder.com/20/DB61A2?text=+) DB61A2 | Accessibility | Design | Accessibility/WCAG work |
 | `type:security` | ![Red label](https://via.placeholder.com/20/9F3734?text=+) 9F3734 | Security issue | Bug | Security concern/hardening |
@@ -113,7 +113,6 @@ Labels classifying the type of work. Assign exactly one per issue.
 | `type:investigation` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Investigation | Research | Issue diagnosis, root cause analysis |
 | `type:chore` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Chore / small hygiene change | Task | Hygiene change, typos, config |
 | `type:audit` | ![Grey label](https://via.placeholder.com/20/9198A1?text=+) 9198A1 | Audit | Task | Security/code/process audit |
-| `type:qa` | ![Orange label](https://via.placeholder.com/20/D29922?text=+) D29922 | Quality assurance | Automation | QA/testing work |
 | `type:review` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | Code or design review task | Task | Peer review, validation |
 | `type:ai-ops` | ![Blue label](https://via.placeholder.com/20/4393F8?text=+) 4393F8 | AI Ops | Automation | AI, agents, datasets |
 | `type:content-modelling` | ![Lavender label](https://via.placeholder.com/20/AB7DF8?text=+) AB7DF8 | Content Modelling | Design | Content structure, CPTs, taxonomy |

@@ -42,7 +42,7 @@ Use concise labels:
 
 - type:feature
 - type:bug
-- type:qa
+- type:test
 - type:docs
 - area:theme
 - area:plugin
@@ -55,6 +55,8 @@ Use concise labels:
 - priority:medium
 - priority:low
 - blocked
+
+Branch mapping note: QA and test branches both map to type:test in .github/labeler.yml via head-branch ["^test/.*", "^qa/.*"].
 
 ## Issue quality checks
 
