@@ -29,7 +29,9 @@ status: active
 - Delivery is split into two phases:
   - Phase 1: 1-3 page launchable MVP
   - Phase 2: full resource-style site expansion
+- GitHub Pages target: custom subdomain `github.lightspeedwp.agency` with `lightspeedwp.github.io` as the Pages CNAME target.
 - Source briefs were normalised into the project folder so the phase split can be planned without leaking talk-specific copy into the site plan.
+- Created GitHub issues `#756` through `#766` for the phase 1 and phase 2 chains; next step is to keep the project register and launch docs aligned as implementation progresses.
 
 ## 2026-06-01 v0.5.0 Readiness Execution Update (Block 1)
 

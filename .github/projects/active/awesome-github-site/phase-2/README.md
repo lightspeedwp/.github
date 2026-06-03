@@ -23,7 +23,7 @@ tags:
 
 - Value: expands the MVP into the fuller resource-style site inspired by the reference structure.
 - Risks: bolting on category pages without a clean content model, search or discovery added too early, and inconsistent metadata across pages.
-- Next step: keep phase 2 dependent on the phase 1 foundation rather than designing it in isolation.
+- Next step: keep phase 2 dependent on the phase 1 foundation and the live Pages deployment rather than designing it in isolation.
 
 ## Scope
 
@@ -34,6 +34,7 @@ Phase 2 adds the richer site structure:
 - supporting guides and discovery flows
 - stronger metadata and content organisation
 - fuller references and acknowledgements
+- expanded accessibility and performance polish
 
 ## Deliverables
 
@@ -42,6 +43,7 @@ Phase 2 adds the richer site structure:
 - Search or browse-first discovery support
 - More comprehensive content and source coverage
 - Accessibility and visual polish for launch readiness
+- Reuse the same GitHub Pages custom domain and Astro build pipeline from phase 1
 
 ## Acceptance Criteria
 
@@ -49,3 +51,4 @@ Phase 2 adds the richer site structure:
 - Resource pages follow a consistent content model.
 - Navigation supports browsing by category and intent.
 - The site feels complete enough to stand beside the reference model without copying it directly.
+- Phase 2 ships on the same GitHub Pages host and HTTPS configuration already established in phase 1.
