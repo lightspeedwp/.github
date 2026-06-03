@@ -2,8 +2,8 @@
 title: "Saved Replies Directory"
 description: "Organized saved replies for consistent GitHub interactions across LightSpeedWP. Community, issue, and pull request response templates."
 file_type: documentation
-version: v1.1
-last_updated: "2026-05-31"
+version: v1.2
+last_updated: "2026-06-03"
 created_date: "2025-10-24"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -97,16 +97,16 @@ This directory contains standardized saved replies for consistent and profession
 Saved replies integrate with:
 
 - **[Saved Replies Prompt](../prompts/saved-replies.prompt.md)** - AI-powered reply suggestions
-- **[Issue Management Agents](../agents/README.md#issue-management)** - Automated issue responses
-- **[PR Automation](../agents/reviewer.agent.md)** - Automated PR feedback
-- **[Community Management](../AUTOMATION_GOVERNANCE.md)** - Community interaction automation
+- **[Issue Management Agents](../../agents/README.md#issue-management)** - Automated issue responses
+- **[PR Automation](../../agents/reviewer.agent.md)** - Automated PR feedback
+- **[Community Management](../../docs/AUTOMATION.md)** - Community interaction automation
 
 ## 📚 Related Documentation
 
 - [**Saved Replies Index**](./README.md) - Complete saved replies documentation
-- [**Automation Governance**](../AUTOMATION_GOVERNANCE.md) - Communication automation standards
-- [**Issue Labels**](../ISSUE_LABELS.md) - Label-based response triggers
-- [**PR Labels**](../PR_LABELS.md) - PR-based response automation
+- [**Automation Governance**](../../docs/AUTOMATION.md) - Communication automation standards
+- [**Issue Labels**](../../docs/LABELING.md#issue-labelling) - Label-based response triggers
+- [**PR Labels**](../../docs/LABELING.md#pull-request-labelling) - PR-based response automation
 
 ## 💡 Usage Guidelines
 
@@ -124,7 +124,7 @@ Saved replies integrate with:
 
 ---
 
-*This directory ensures consistent, professional communication across the LightSpeedWP organization. See [Communication Standards](../AUTOMATION_GOVERNANCE.md#communication) for complete guidelines.*
+*This directory ensures consistent, professional communication across the LightSpeedWP organization. See [Communication Standards](../../docs/AUTOMATION.md) for complete guidelines.*
 
 ---
 
