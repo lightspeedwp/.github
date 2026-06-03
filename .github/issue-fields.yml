@@ -84,6 +84,8 @@ project_field_mappings:
     type:epic: Task
     type:question: Task
     type:support: Task
+    type:help: Task
+    type:ux-feedback: Task
     type:content-modelling: Task
     type:story: Task
     type:review: Task
