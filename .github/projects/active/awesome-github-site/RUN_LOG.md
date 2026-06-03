@@ -6,6 +6,8 @@ version: "1.0.0"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active
+stability: stable
+domain: opsx
 owners:
   - Ash Shaw
 tags:

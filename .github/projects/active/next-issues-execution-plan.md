@@ -21,6 +21,8 @@ stability: stable
 status: active
 ---
 
+# Next Issues Execution Plan
+
 ## 2026-06-03 Awesome GitHub Site Planning Kickoff
 
 - New active project folder created: `.github/projects/active/awesome-github-site/`

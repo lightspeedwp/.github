@@ -6,6 +6,8 @@ version: "1.0.0"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active
+stability: stable
+domain: opsx
 owners:
   - Ash Shaw
 tags:
@@ -53,4 +55,4 @@ Use it after the planning docs are approved and the phase split is locked.
 
 - Keep phase 1 and phase 2 proposal files separate.
 - Use the normalised briefs as the initial source for `/opsx:propose`.
-- Update `RUN_LOG.md` after each proposal run.
+- Update `./RUN_LOG.md` after each proposal run.
