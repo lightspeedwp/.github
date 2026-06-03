@@ -1,10 +1,15 @@
 :root {
   color-scheme: dark;
   --bg: #08111f;
+  --bg-secondary: #0c1625;
+  --bg-tertiary: #121c2f;
+  --bg-quaternary: #1a2641;
   --bg-elevated: rgba(12, 20, 35, 0.82);
   --bg-soft: rgba(255, 255, 255, 0.05);
   --border: rgba(255, 255, 255, 0.12);
   --text: #f5f7fb;
+  --text-primary: #f5f7fb;
+  --text-secondary: rgba(245, 247, 251, 0.74);
   --muted: rgba(245, 247, 251, 0.74);
   --accent: #f97316;
   --accent-2: #e11d48;
@@ -25,10 +30,15 @@
 :root[data-theme="light"] {
   color-scheme: light;
   --bg: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
+  --bg-quaternary: #cbd5e1;
   --bg-elevated: rgba(255, 255, 255, 0.92);
   --bg-soft: rgba(15, 23, 42, 0.04);
   --border: rgba(15, 23, 42, 0.12);
   --text: #0f172a;
+  --text-primary: #0f172a;
+  --text-secondary: rgba(15, 23, 42, 0.72);
   --muted: rgba(15, 23, 42, 0.72);
   --accent: #ea580c;
   --accent-2: #be123c;
