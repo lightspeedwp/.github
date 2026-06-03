@@ -17,6 +17,7 @@ concurrency:
 jobs:
   lint:
     name: Linting
+    if: github.actor != 'imgbot[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,6 +42,7 @@ jobs:
 
   validate:
     name: Validation
+    if: github.actor != 'imgbot[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

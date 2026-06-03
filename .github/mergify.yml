@@ -35,3 +35,24 @@ pull_request_rules:
     actions:
       merge:
         method: squash
+
+  - name: Keep imgbot image optimizations current on develop
+    conditions:
+      - author=imgbot[bot]
+      - base=develop
+      - -draft
+      - -conflict
+      - "#commits-behind > 0"
+    actions:
+      update:
+
+  - name: Auto-merge imgbot image optimizations on develop
+    conditions:
+      - author=imgbot[bot]
+      - base=develop
+      - check-success=All Checks Passed
+      - -draft
+      - -conflict
+    actions:
+      merge:
+        method: squash
