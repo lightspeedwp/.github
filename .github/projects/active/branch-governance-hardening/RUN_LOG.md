@@ -22,8 +22,10 @@ status: "active"
 - Identified the policy gap: branching docs exist, but enforcement is not yet
   machine-backed by rulesets and workflows.
 - Prepared the strict issue order for the next batch.
+- Added a `main` branch PR guard that only allows `release/*` and
+  `hotfix/*` sources, then wired `main` protection to that status check.
 
 ## Pending
 
 - Create the live GitHub issue chain once the proposal pack is approved.
-- Implement the branch ruleset and workflow guardrails in the next batch.
+- Implement the remaining branch ruleset and workflow guardrails in the next batch.
