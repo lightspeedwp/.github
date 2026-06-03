@@ -2,8 +2,8 @@
 file_type: documentation
 title: LightSpeed .github Documentation Index
 description: Comprehensive index and quickstart guide for all documentation in the .github repository
-version: '1.1'
-last_updated: '2026-06-01'
+version: '1.2'
+last_updated: '2026-06-03'
 owners:
   - LightSpeed Team
 tags:

@@ -39,9 +39,9 @@ This directory contains standardized pull request templates used across all Ligh
 These templates integrate with:
 
 - **[PR Labels](../../docs/LABELING.md#pull-request-labelling)** - Automated PR labeling system
-- **[Branching Strategy](../docs/BRANCHING_STRATEGY.md)** - Branch naming and PR workflow
+- **[Branching Strategy](../../docs/BRANCHING_STRATEGY.md)** - Branch naming and PR workflow
 - **[Automation Governance](../../docs/AUTOMATION.md)** - Agent-driven PR workflows
-- **[Reviewer Agent](../agents/reviewer.agent.md)** - Automated code review
+- **[Reviewer Agent](../../agents/reviewer.agent.md)** - Automated code review
 
 ## 🤖 Automation Features
 
@@ -54,16 +54,16 @@ These templates integrate with:
 
 ## 📚 Related Documentation
 
-- [**Agents Directory**](../agents/agent.md) - PR automation agents
+- [**Agents Directory**](../../agents/agent.md) - PR automation agents
 - [**Workflows**](../workflows/README.md) - GitHub Actions for PRs
 - [**Saved Replies**](../SAVED_REPLIES/README.md) - PR response templates
-- [**Instructions**](../instructions/pull-requests.instructions.md) - PR handling instructions
+- [**Instructions**](../../instructions/pull-requests.instructions.md) - PR handling instructions
 
 ## 💡 Usage Guidelines
 
 1. **Template Selection**: Choose the template that best matches your PR type
 2. **Required Fields**: Complete all required sections in the template
-3. **Branch Naming**: Follow the [branching strategy](../docs/BRANCHING_STRATEGY.md) for automatic detection
+3. **Branch Naming**: Follow the [branching strategy](../../docs/BRANCHING_STRATEGY.md) for automatic detection
 4. **A11y & Security**: Complete the WCAG 2.2 AA and OWASP-aligned checklist items before review
 5. **Automation**: Let the system handle labeling and assignment - avoid manual changes
 

@@ -2,8 +2,8 @@
 file_type: documentation
 title: LightSpeed Community Health & Automation Repository
 description: Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution.
-version: '2.8'
-last_updated: '2026-06-01'
+version: '2.9'
+last_updated: '2026-06-03'
 owners:
   - LightSpeed Team
 tags:

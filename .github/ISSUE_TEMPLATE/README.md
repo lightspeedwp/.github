@@ -41,7 +41,7 @@ Get started with LightSpeedWP issue templates in three steps:
    - Select the appropriate template for your issue type (bug, feature, documentation, etc.)
    - Follow the instructions in the template to submit your issue
 
-For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) and individual template specs for configuration and automation options.
+For advanced usage, see the [Issue Template Index](./README.md) and individual template specs for configuration and automation options.
 
 ## 🗂️ Issue Template Workflow
 
@@ -84,10 +84,10 @@ The issue templates in this directory are automatically synchronized across all 
 
 These templates integrate with:
 
-- **[Issue Types](../ISSUE_TYPES.md)** - Canonical issue type definitions
+- **[Issue Types](../../docs/ISSUE_TYPES.md)** - Canonical issue type definitions
 - **[Issue Labels](../../docs/LABELING.md#issue-labelling)** - Automated labeling system
 - **[Automation Governance](../../docs/AUTOMATION.md)** - Agent-driven workflows
-- **[Branching Strategy](../BRANCHING_STRATEGY.md)** - Branch naming conventions
+- **[Branching Strategy](../../docs/BRANCHING_STRATEGY.md)** - Branch naming conventions
 
 ## 🤖 Automation Features
 
@@ -98,8 +98,8 @@ These templates integrate with:
 
 ## 📚 Related Documentation
 
-- [**Instructions Index**](../instructions/README.md) - All instruction files
-- [**Agents Directory**](../agents/README.md) - Automation agents
+- [**Instructions Index**](../../instructions/README.md) - All instruction files
+- [**Agents Directory**](../../agents/README.md) - Automation agents
 - [**Saved Replies**](../SAVED_REPLIES/README.md) - Response templates
 - [**Workflows**](../workflows/README.md) - GitHub Actions automation
 

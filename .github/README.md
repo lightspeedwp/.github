@@ -4,9 +4,9 @@ title: LightSpeed .github Community Health Repository
 description: Central hub for all shared GitHub templates, Copilot instructions, workflow
   automation, labeling systems, and community health files across the LightSpeed WordPress
   organisation
-version: '3.3'
+version: '3.4'
 created_date: '2025-01-15'
-last_updated: '2026-06-01'
+last_updated: '2026-06-03'
 authors:
 - LightSpeed Team
 maintainer: LightSpeed Team
@@ -32,7 +32,7 @@ tags:
 [![AI Integration](https://img.shields.io/badge/AI-enhanced-purple)](./custom-instructions.md)
 [![Workflows](https://img.shields.io/badge/workflows-reusable-informational)](./workflows/)
 [![Instructions](https://img.shields.io/badge/instructions-standardized-orange)](./instructions/)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](../LICENSE)
 
 > **Central hub** for all shared GitHub templates, Copilot instructions, workflow automation, labeling systems, and community health files across the LightSpeed WordPress organisation.
 
@@ -388,7 +388,7 @@ We've consolidated related instruction files for better maintainability:
 - **automation.instructions.md** - Agents, labeling, release, metrics (8 files)
 - **community-standards.instructions.md** - File org, naming, README, replies (4 files)
 
-📖 **[View Migration Guide](/docs/MIGRATION.md)** - Complete mapping of old → new locations
+📖 **[View Migration Guide](../docs/MIGRATION.md)** - Complete mapping of old → new locations
 
 ---
 

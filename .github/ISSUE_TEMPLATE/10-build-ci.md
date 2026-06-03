@@ -35,13 +35,13 @@ category: "github-templates"
 
 ## References
 
-- [CONTRIBUTING.md](../CONTRIBUTING.md)
-- [ISSUE_TYPES.md](../ISSUE_TYPES.md)
+- [CONTRIBUTING.md](../../CONTRIBUTING.md)
+- [ISSUE_TYPES.md](../../docs/ISSUE_TYPES.md)
 - [LABELING.md#issue-labelling](../../docs/LABELING.md#issue-labelling)
 - [LABELING.md#pull-request-labelling](../../docs/LABELING.md#pull-request-labelling)
 - [AUTOMATION.md](../../docs/AUTOMATION.md)
 - [LightSpeed General Instructions](https://github.com/lightspeedwp/.github/blob/master/.github/custom-instructions.md)
-- [Coding Standards](../instructions/coding-standards.instructions.md)
+- [Coding Standards](../../instructions/coding-standards.instructions.md)
 
 ---
 

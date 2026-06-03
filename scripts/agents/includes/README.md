@@ -1,8 +1,8 @@
 ---
 title: Agent Includes Directory
 description: Shared utility modules for LightSpeedWP automation agents
-version: '1.2'
-last_updated: '2026-06-01'
+version: '1.3'
+last_updated: '2026-06-03'
 file_type: documentation
 ---
 
@@ -106,9 +106,9 @@ includes/
 
 ## References
 
-- [Agent Directory](../agent.md) - Main agent index
-- [Coding Standards](../../instructions/coding-standards.instructions.md)
-- [Quality Assurance](../../instructions/quality-assurance.instructions.md)
+- [Agent Directory](../../../agents/agent.md) - Main agent index
+- [Coding Standards](../../../instructions/coding-standards.instructions.md)
+- [Quality Assurance](../../../instructions/quality-assurance.instructions.md)
 - [Automation & Workflows](../../../docs/AUTOMATION.md)
 
 ---
