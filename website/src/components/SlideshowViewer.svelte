@@ -1,31 +1,33 @@
-<script lang="ts">
+<script>
   import { onMount } from "svelte";
 
-  export let slides: {
-    number: number;
-    slug: string;
-    title: string;
-    description: string;
-    keyPoints: string[];
-    evidence: string[];
-    speaker: string[];
-    accessibility: string[];
-    sourceFile: string;
-    sourceHref: string;
-    pageHref: string;
-  }[] = [];
+  export let slides = [];
 
   let currentIndex = 0;
   let showNotes = false;
   let showReferences = false;
   let isFullscreen = false;
-  let container: HTMLDivElement;
+  let container;
+
+  const emptySlide = () => ({
+    number: 0,
+    slug: "",
+    title: "",
+    description: "",
+    keyPoints: [],
+    evidence: [],
+    speaker: [],
+    accessibility: [],
+    sourceFile: "",
+    sourceHref: "",
+    pageHref: "",
+  });
 
   $: if (slides.length > 0 && currentIndex >= slides.length) {
     currentIndex = slides.length - 1;
   }
 
-  const currentSlide = () => slides[currentIndex];
+  const currentSlide = () => slides[currentIndex] ?? emptySlide();
   const isFirst = () => currentIndex === 0;
   const isLast = () => currentIndex === slides.length - 1;
 
@@ -37,7 +39,7 @@
     if (!isFirst()) currentIndex--;
   };
 
-  const goToSlide = (index: number) => {
+  const goToSlide = (index) => {
     if (index >= 0 && index < slides.length) {
       currentIndex = index;
     }
@@ -60,8 +62,8 @@
   };
 
   onMount(() => {
-    const handleKeydown = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement;
+    const handleKeydown = (e) => {
+      const target = e.target;
 
       // Ignore shortcuts if focusing form inputs
       if (
