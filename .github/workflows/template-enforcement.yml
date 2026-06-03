@@ -97,6 +97,14 @@ jobs:
           script: |
             const marker = '<!-- template-enforcement -->';
             const pr = context.payload.pull_request;
+            const author = pr.user?.login || '';
+            const isDependabot = author === 'dependabot[bot]' || author === 'app/dependabot';
+
+            if (isDependabot) {
+              core.info(`Skipping PR template validation for Dependabot author ${author}.`);
+              return;
+            }
+
             const body = (pr.body || '').trim();
 
             const required = [
