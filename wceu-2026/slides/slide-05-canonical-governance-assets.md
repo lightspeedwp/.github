@@ -1,7 +1,8 @@
 ---
 title: "Slide 05 - Canonical Governance Assets"
 description: "Show the concrete governance assets that made scaling possible."
-last_updated: "2026-06-02"owners: ["Ash Shaw"]
+last_updated: "2026-06-02"
+owners: ["Ash Shaw"]
 ---
 
 # Slide 05 - Canonical Governance Assets

@@ -7,7 +7,7 @@ created_date: "2026-06-03"
 last_updated: "2026-06-03"
 status: active
 stability: stable
-domain: website
+domain: governance
 owners:
   - Ash Shaw
 tags:

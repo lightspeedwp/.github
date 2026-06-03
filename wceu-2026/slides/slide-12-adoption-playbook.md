@@ -1,7 +1,8 @@
 ---
 title: "Slide 12 - Adoption Playbook"
 description: "Close with a practical implementation sequence other teams can follow."
-last_updated: "2026-06-02"owners: ["Ash Shaw"]
+last_updated: "2026-06-02"
+owners: ["Ash Shaw"]
 ---
 
 # Slide 12 - Adoption Playbook
