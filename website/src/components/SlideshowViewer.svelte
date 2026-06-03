@@ -19,6 +19,11 @@
   let showNotes = false;
   let showReferences = false;
   let isFullscreen = false;
+  let container: HTMLDivElement;
+
+  $: if (slides.length > 0 && currentIndex >= slides.length) {
+    currentIndex = slides.length - 1;
+  }
 
   const currentSlide = () => slides[currentIndex];
   const isFirst = () => currentIndex === 0;
@@ -47,18 +52,40 @@
   };
 
   const toggleFullscreen = async () => {
-    const elem = document.querySelector(".slideshow-container");
     if (!document.fullscreenElement) {
-      elem?.requestFullscreen();
-      isFullscreen = true;
+      await container?.requestFullscreen();
     } else {
       await document.exitFullscreen();
-      isFullscreen = false;
     }
   };
 
   onMount(() => {
     const handleKeydown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+
+      // Ignore shortcuts if focusing form inputs
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
+      // Prevent space/arrows from navigating slides if focusing buttons/links
+      if (target && (target.tagName === "BUTTON" || target.tagName === "A")) {
+        if (
+          e.key === " " ||
+          e.key === "ArrowLeft" ||
+          e.key === "ArrowRight" ||
+          e.key === "Enter"
+        ) {
+          return;
+        }
+      }
+
       switch (e.key) {
         case "ArrowRight":
         case " ":
@@ -85,12 +112,21 @@
       }
     };
 
+    const handleFullscreenChange = () => {
+      isFullscreen = !!document.fullscreenElement;
+    };
+
     window.addEventListener("keydown", handleKeydown);
-    return () => window.removeEventListener("keydown", handleKeydown);
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
   });
 </script>
 
-<div class="slideshow-container">
+<div bind:this={container} class="slideshow-container">
   {#if slides.length > 0}
     <div class="slideshow-main">
       <div class="slide-display">
