@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Page not found - Awesome GitHub"
+  description="The requested page could not be found on the Awesome GitHub site."
+>
+  <section class="hero">
+    <div class="eyebrow">404</div>
+    <h1>Page not found</h1>
+    <p class="lede">
+      The page you asked for does not exist on this site. Use the navigation below to
+      return to the launchable phase 1 content.
+    </p>
+    <div class="hero-actions">
+      <a class="button primary" href={base}>Back to home</a>
+      <a class="button secondary" href={`${base}references/`}>Browse references</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Helpful links</h2>
+    <div class="card-grid">
+      <article class="card">
+        <h3>Home</h3>
+        <p>The short overview of the project and what ships in phase 1.</p>
+      </article>
+      <article class="card">
+        <h3>Why this exists</h3>
+        <p>A concise explanation of the repository-as-control-plane model.</p>
+      </article>
+      <article class="card">
+        <h3>References</h3>
+        <p>Source links and the planning inputs behind the launchable site.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
