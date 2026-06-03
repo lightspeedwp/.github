@@ -5,6 +5,8 @@ on:
     types: [opened, edited, reopened]
   pull_request_target:
     types: [opened, edited, reopened, synchronize, ready_for_review]
+  push:
+    branches: [develop]
 
 permissions:
   contents: read
@@ -59,11 +61,11 @@ jobs:
 
             const message = [
               marker,
-              '🚫 This issue does not follow a required issue template.',
+              '🚫 This issue does not follow a required issue template and has been closed automatically.',
               '',
               `Missing required section(s): ${missing.join(', ')}`,
               '',
-              'Please update the issue body using one of the official templates:',
+              'Please reopen with one of the official templates:',
               '- https://github.com/lightspeedwp/.github/issues/new/choose',
               '',
               'If this was opened by automation, update the automation to preserve the template sections.'
@@ -82,6 +84,16 @@ jobs:
                 repo: context.repo.repo,
                 issue_number: issue.number,
                 body: message
+              });
+            }
+
+            if (issue.state !== 'closed') {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed',
+                state_reason: 'not_planned'
               });
             }
 
@@ -105,17 +117,7 @@ jobs:
               return;
             }
 
-            const body = (pr.body || '').trim();
-
-            const required = [
-              { name: 'Linked issues', regex: /^##\s+Linked issues/im },
-              { name: 'Changelog', regex: /^##\s+Changelog/im },
-              { name: 'Global DoD checklist', regex: /^###\s+Checklist\s+\(Global DoD\s*\/\s*PR\)/im }
-            ];
-
-            const missing = required
-              .filter((entry) => !entry.regex.test(body))
-              .map((entry) => entry.name);
+            const validation = validatePullRequestBody(pr.body || '', pr.labels || []);
 
             const comments = await github.paginate(github.rest.issues.listComments, {
               owner: context.repo.owner,
@@ -128,7 +130,7 @@ jobs:
               comment.user?.type === 'Bot' && comment.body?.includes(marker)
             );
 
-            if (missing.length === 0) {
+            if (validation.missing.length === 0) {
               if (previous) {
                 await github.rest.issues.updateComment({
                   owner: context.repo.owner,
@@ -143,15 +145,15 @@ jobs:
 
             const message = [
               marker,
-              '🚫 This PR description is missing required template sections.',
+              '🚫 This PR description is missing required template content.',
               '',
-              `Missing required section(s): ${missing.join(', ')}`,
+              `Missing required section(s): ${validation.missing.join(', ')}`,
               '',
               'Please update the PR body using one of the repository PR templates:',
               '- https://github.com/lightspeedwp/.github/blob/develop/.github/pull_request_template.md',
               '- https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATE',
               '',
-              'This check must pass before merge.'
+              'Empty placeholders, unchecked checklist boxes, and stub issue references do not count.'
             ].join('\n');
 
             if (previous) {
@@ -170,4 +172,192 @@ jobs:
               });
             }
 
-            core.setFailed(`PR #${pr.number} is missing required template sections: ${missing.join(', ')}`);
+            core.setFailed(`PR #${pr.number} is missing required template content: ${validation.missing.join(', ')}`);
+
+            function stripHtmlComments(text) {
+              return (text || '').replace(/<!--[\s\S]*?-->/g, '');
+            }
+
+            function sectionBody(body, headingRegex) {
+              const text = (body || '').replace(/\r\n/g, '\n');
+              const match = text.match(headingRegex);
+              if (!match || match.index === undefined) {
+                return '';
+              }
+
+              const start = match.index + match[0].length;
+              const remainder = text.slice(start);
+              const nextHeading = remainder.match(/^##\s+.+$/m);
+              const end = nextHeading ? start + nextHeading.index : text.length;
+              return text.slice(start, end).trim();
+            }
+
+            function hasIssueReference(sectionText) {
+              const cleaned = stripHtmlComments(sectionText);
+              return /(?:^|\n)\s*(?:[-*]\s*)?(?:(?:closes|fixes|resolves|relates to)\s+)?#\d+\b/i.test(cleaned);
+            }
+
+            function hasChangelogEntry(sectionText) {
+              const cleaned = stripHtmlComments(sectionText);
+              return /(?:^|\n)\s*[-*]\s+(?!\[?\s*placeholder\s*\]?)(?:.+\S)/im.test(cleaned);
+            }
+
+            function hasCompletedChecklist(sectionText) {
+              const cleaned = stripHtmlComments(sectionText);
+              const hasUnchecked = /(?:^|\n)\s*-\s*\[\s\]\s*/.test(cleaned);
+              const hasChecked = /(?:^|\n)\s*-\s*\[[xX]\]\s*/.test(cleaned);
+              return hasChecked && !hasUnchecked;
+            }
+
+            function validatePullRequestBody(body, labels) {
+              const labelNames = new Set((labels || []).map((label) => label.name));
+              const missing = [];
+
+              const linkedIssues = sectionBody(body, /^##\s+Linked issues\s*$/im);
+              if (!hasIssueReference(linkedIssues)) {
+                missing.push('Linked issues');
+              }
+
+              const changelog = sectionBody(body, /^##\s+Changelog\s*$/im);
+              if (!labelNames.has('meta:no-changelog') && !hasChangelogEntry(changelog)) {
+                missing.push('Changelog');
+              }
+
+              const checklist = sectionBody(
+                body,
+                /^###\s+Checklist\s+\(Global DoD\s*\/\s*PR\)\s*$/im
+              );
+              if (!hasCompletedChecklist(checklist)) {
+                missing.push('Global DoD checklist');
+              }
+
+              return { missing };
+            }
+  validate-push-guardrail:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate merged PR body on push to develop
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '<!-- template-enforcement -->';
+            const commitSha = context.payload.after;
+            const prs = await github.paginate(github.rest.repos.listPullRequestsAssociatedWithCommit, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: commitSha,
+              per_page: 100
+            });
+
+            const mergedPr = prs.find((pr) => pr.merged_at && pr.base?.ref === 'develop');
+            if (!mergedPr) {
+              core.info(`No merged pull request associated with ${commitSha}; nothing to validate.`);
+              return;
+            }
+
+            const validation = validatePullRequestBody(mergedPr.body || '', mergedPr.labels || []);
+            if (validation.missing.length === 0) {
+              core.info(`Merged PR #${mergedPr.number} satisfies template enforcement.`);
+              return;
+            }
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: mergedPr.number,
+              per_page: 100
+            });
+
+            const previous = comments.find((comment) =>
+              comment.user?.type === 'Bot' && comment.body?.includes(marker)
+            );
+
+            const message = [
+              marker,
+              '⚠️ A merged PR reached develop without passing the template content guardrail.',
+              '',
+              `Missing required section(s): ${validation.missing.join(', ')}`,
+              '',
+              'This is a post-merge backstop for admin bypasses. Please review branch protection for develop.'
+            ].join('\n');
+
+            if (previous) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: previous.id,
+                body: message
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: mergedPr.number,
+                body: message
+              });
+            }
+
+            core.setFailed(
+              `Merged PR #${mergedPr.number} on develop is missing required template content: ${validation.missing.join(', ')}`
+            );
+
+            function stripHtmlComments(text) {
+              return (text || '').replace(/<!--[\s\S]*?-->/g, '');
+            }
+
+            function sectionBody(body, headingRegex) {
+              const text = (body || '').replace(/\r\n/g, '\n');
+              const match = text.match(headingRegex);
+              if (!match || match.index === undefined) {
+                return '';
+              }
+
+              const start = match.index + match[0].length;
+              const remainder = text.slice(start);
+              const nextHeading = remainder.match(/^##\s+.+$/m);
+              const end = nextHeading ? start + nextHeading.index : text.length;
+              return text.slice(start, end).trim();
+            }
+
+            function hasIssueReference(sectionText) {
+              const cleaned = stripHtmlComments(sectionText);
+              return /(?:^|\n)\s*(?:[-*]\s*)?(?:(?:closes|fixes|resolves|relates to)\s+)?#\d+\b/i.test(cleaned);
+            }
+
+            function hasChangelogEntry(sectionText) {
+              const cleaned = stripHtmlComments(sectionText);
+              return /(?:^|\n)\s*[-*]\s+(?!\[?\s*placeholder\s*\]?)(?:.+\S)/im.test(cleaned);
+            }
+
+            function hasCompletedChecklist(sectionText) {
+              const cleaned = stripHtmlComments(sectionText);
+              const hasUnchecked = /(?:^|\n)\s*-\s*\[\s\]\s*/.test(cleaned);
+              const hasChecked = /(?:^|\n)\s*-\s*\[[xX]\]\s*/.test(cleaned);
+              return hasChecked && !hasUnchecked;
+            }
+
+            function validatePullRequestBody(body, labels) {
+              const labelNames = new Set((labels || []).map((label) => label.name));
+              const missing = [];
+
+              const linkedIssues = sectionBody(body, /^##\s+Linked issues\s*$/im);
+              if (!hasIssueReference(linkedIssues)) {
+                missing.push('Linked issues');
+              }
+
+              const changelog = sectionBody(body, /^##\s+Changelog\s*$/im);
+              if (!labelNames.has('meta:no-changelog') && !hasChangelogEntry(changelog)) {
+                missing.push('Changelog');
+              }
+
+              const checklist = sectionBody(
+                body,
+                /^###\s+Checklist\s+\(Global DoD\s*\/\s*PR\)\s*$/im
+              );
+              if (!hasCompletedChecklist(checklist)) {
+                missing.push('Global DoD checklist');
+              }
+
+              return { missing };
+            }
