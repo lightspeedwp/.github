@@ -40,6 +40,7 @@ tags:
 ### Phase 2
 
 #### Phase 2a: Homepage & Navigation Redesign (Weeks 1–2)
+
 1. Fix cluttered header navigation
 2. Redesign homepage structure (hero → value → sections → CTA)
 3. Audit and resolve all 404 errors and broken links
@@ -47,18 +48,21 @@ tags:
 5. Fix padding, spacing, and design inconsistencies
 
 #### Phase 2b: Core Resource Catalogues (Weeks 3–4)
+
 1. Create `/agents/`, `/instructions/`, `/skills/`, `/hooks/` section pages
 2. Implement consistent card-based hub layouts
 3. Add filtering and tagging support
 4. Build detail page patterns for each resource type
 
 #### Phase 2c: Extended Catalogues (Weeks 5–6)
+
 1. Create `/plugins/`, `/workflows/`, `/tools/`, `/learning-hub/`, `/getting-started/`
 2. Ensure metadata consistency across all 9 sections
 3. Implement discovery flows (filtering, search-like browsing)
 4. Complete content population for all sections
 
 #### Phase 2d: Validation & Launch (Week 7)
+
 1. Full WCAG AA accessibility audit across all pages
 2. Document content governance model and maintenance rules
 3. Mobile responsiveness and performance validation

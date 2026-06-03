@@ -87,6 +87,7 @@ Build the conference-facing version of the site:
 Transform the site into a comprehensive team onboarding and resource discovery platform:
 
 #### Phase 2a: Redesign & Navigation (Weeks 1–2)
+
 - Redesign homepage (hero → value → sections → CTA)
 - Fix cluttered header navigation with section dropdown menu
 - Resolve all 404 errors and broken links
@@ -94,12 +95,14 @@ Transform the site into a comprehensive team onboarding and resource discovery p
 - Fix padding, spacing, and visual inconsistencies
 
 #### Phase 2b: Core Catalogues (Weeks 3–4)
+
 - `/agents/` — AI agents and capabilities
 - `/instructions/` — Role and behaviour documents
 - `/skills/` — Reusable automation tasks
 - `/hooks/` — Pre-commit and workflow guardrails
 
 #### Phase 2c: Extended Catalogues (Weeks 5–6)
+
 - `/plugins/` — WordPress and development plugins
 - `/workflows/` — Portable agentic workflows
 - `/tools/` — Supporting utilities and helpers
@@ -107,6 +110,7 @@ Transform the site into a comprehensive team onboarding and resource discovery p
 - `/getting-started/` — Team onboarding guide
 
 #### Phase 2d: Validation & Launch (Week 7)
+
 - Full WCAG AA accessibility audit and fixes
 - Content governance documentation and validation
 - Mobile responsiveness testing across all sections

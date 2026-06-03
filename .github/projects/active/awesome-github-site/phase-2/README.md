@@ -45,6 +45,7 @@ Phase 2 expands the MVP into a complete resource catalogue site:
 ## Deliverables by Sub-Phase
 
 ### Phase 2a: Homepage & Navigation (Weeks 1–2)
+
 - Homepage redesign (hero → value → sections → CTA)
 - Header navigation overhaul with section dropdown
 - Fix all 404 errors and broken links
@@ -53,6 +54,7 @@ Phase 2 expands the MVP into a complete resource catalogue site:
 - **Output:** Stable, discoverable homepage with working navigation
 
 ### Phase 2b: Core Catalogue Sections (Weeks 3–4)
+
 - Create `/agents/` hub and detail pages
 - Create `/instructions/` hub and detail pages
 - Create `/skills/` hub and detail pages
@@ -61,6 +63,7 @@ Phase 2 expands the MVP into a complete resource catalogue site:
 - **Output:** Four fully functional resource catalogues
 
 ### Phase 2c: Additional Sections (Weeks 5–6)
+
 - Create `/plugins/` hub and detail pages
 - Create `/workflows/` hub and detail pages
 - Create `/tools/` hub and detail pages
@@ -70,6 +73,7 @@ Phase 2 expands the MVP into a complete resource catalogue site:
 - **Output:** Complete catalogue with all nine sections live
 
 ### Phase 2d: Validation & Launch (Week 7)
+
 - Full WCAG AA accessibility audit
 - Content governance documentation
 - Mobile responsiveness testing
