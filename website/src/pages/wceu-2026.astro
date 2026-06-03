@@ -1,0 +1,135 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="WCEU 2026 talk - Awesome GitHub"
+  description="Conference notes and slide source for the WCEU 2026 Awesome GitHub talk."
+>
+  <section class="hero">
+    <div class="eyebrow">WCEU 2026 talk</div>
+    <h1>Governing AI-assisted workflows with a `.github` control plane</h1>
+    <p class="lede">
+      This page collects the public-facing summary for the conference talk and the
+      slide source tree that supports it. The story is practical: keep standards in one
+      place, make them reusable, and let the repo do the operational work.
+    </p>
+    <div class="hero-actions">
+      <a
+        class="button primary"
+        href="https://github.com/lightspeedwp/.github/tree/develop/wceu-2026/slides"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Open slide source
+      </a>
+      <a class="button secondary" href={`${base}references/`}>View references</a>
+    </div>
+    <div class="kicker">Talk focus</div>
+    <div class="stat-list">
+      <div class="stat">
+        <strong>Hook and stakes</strong>
+        Why fragmented governance and automation slow teams down.
+      </div>
+      <div class="stat">
+        <strong>Control plane model</strong>
+        How `.github` becomes the canonical home for shared standards.
+      </div>
+      <div class="stat">
+        <strong>Outcomes</strong>
+        What changes when the repo, workflows, and docs move together.
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Talk outline</h2>
+    <div class="card-grid">
+      <article class="card">
+        <h3>Open with the pressure</h3>
+        <p>
+          Start with the operational pain: many repositories, drifting standards, and
+          too much delivery friction.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Show the architecture</h3>
+        <p>
+          Explain how governance files, reusable workflows, and instruction packs fit
+          together without turning the repo into a document dump.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Close with measurable change</h3>
+        <p>
+          Tie the system back to outcomes, accountability, and the maintenance costs it
+          avoids over time.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Slide spine</h2>
+    <div class="refs">
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/slides/slide-01-hook-and-stakes.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Slide 01 - Hook and stakes
+        <span>Sets up the operational problem and why it matters now.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/slides/slide-02-why-github-control-plane.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Slide 02 - Why a .github control plane
+        <span>Explains why centralising shared defaults reduced chaos.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/slides/slide-04-control-plane-architecture.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Slide 04 - Control plane architecture
+        <span>Shows how the governance and automation layers fit together.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/slides/slide-10-metrics-and-governance-outcomes.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Slide 10 - Metrics and governance outcomes
+        <span>Connects the system design to accountability and operational change.</span>
+      </a>
+      <a
+        class="ref"
+        href="https://github.com/lightspeedwp/.github/blob/develop/wceu-2026/slides/slide-20-ecosystem-and-acknowledgements.md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Slide 20 - Ecosystem and acknowledgements
+        <span>Closes the talk with the broader community and supporting tools.</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Source material</h2>
+    <div class="page-copy">
+      <p>
+        The full slide set lives in the repository under <code>wceu-2026/slides/</code>.
+        The site uses this page as the conference entry point and keeps the rest of the
+        material easy to navigate from the shared header.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

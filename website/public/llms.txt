@@ -1,10 +1,11 @@
 # Awesome GitHub
 
-Machine-readable index for the phase 1 site.
+Machine-readable index for the public site.
 
 ## Pages
 
 - `/` - Home
+- `/wceu-2026/` - WCEU 2026 talk
 - `/why-this-exists/` - Why this exists
 - `/references/` - References
 
@@ -14,8 +15,10 @@ Machine-readable index for the phase 1 site.
 - `awesome-copilot.github.com` reference site
 - `wceu-2026/website/mini-site-plan.md`
 - `wceu-2026/website/page-copy-starter.md`
+- `wceu-2026/slides/`
 
 ## Notes
 
-- Phase 1 keeps the site deliberately small.
-- Phase 2 will add the richer catalogue and browsing model.
+- The public site focuses on the conference talk, the repo-as-control-plane model,
+  and the supporting references.
+- Additional pages can be added without changing the shared shell.

@@ -6,43 +6,48 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout
   title="Awesome GitHub"
-  description="A compact GitHub-led site for planning, governance, and AI-assisted workflows."
+  description="A conference-ready GitHub-led site for the WCEU 2026 talk, governance notes, and references."
 >
   <section class="hero">
-    <div class="eyebrow">Phase 1 MVP</div>
+    <div class="eyebrow">Conference site</div>
     <h1>Awesome GitHub</h1>
     <p class="lede">
-      A compact GitHub-led website that explains how LightSpeed uses the `.github`
-      repository as a practical control plane for planning, governance, and AI-assisted
-      workflows.
+      A conference-ready GitHub-led website that explains how LightSpeed uses the
+      `.github` repository as a practical control plane for planning, governance, and
+      AI-assisted workflows.
     </p>
     <div class="hero-actions">
+      <a class="button primary" href={`${base}wceu-2026/`}>WCEU 2026 talk</a>
       <a class="button primary" href={`${base}why-this-exists/`}>Why this exists</a>
       <a class="button secondary" href={`${base}references/`}>Browse references</a>
     </div>
-    <div class="kicker">What ships first</div>
+    <div class="kicker">What is live now</div>
     <div class="stat-list">
       <div class="stat">
-        <strong>3 pages</strong>
-        Home, why this exists, and references.
+        <strong>4 pages</strong>
+        Home, WCEU 2026 talk, why this exists, and references.
       </div>
       <div class="stat">
         <strong>Source-backed</strong>
-        Copy normalised from the planning briefs and reference site.
+        Copy shaped by the talk slides, planning briefs, and reference site.
       </div>
       <div class="stat">
-        <strong>Phase-ready</strong>
-        Designed so phase 2 can grow into a fuller resource catalogue.
+        <strong>Conference-ready</strong>
+        Designed to keep the public site clear, fast, and easy to extend.
       </div>
     </div>
   </section>
 
   <section class="section">
-    <h2>Browse the MVP</h2>
+    <h2>Site sections</h2>
     <div class="card-grid">
       <article class="card">
         <h3>Home</h3>
         <p>Clear positioning, a short value statement, and direct paths into the rest of the site.</p>
+      </article>
+      <article class="card">
+        <h3>WCEU 2026 talk</h3>
+        <p>The public entry point for the conference talk, its outline, and the slide source tree.</p>
       </article>
       <article class="card">
         <h3>Why this exists</h3>
@@ -56,12 +61,12 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <section class="section">
-    <h2>Phase 2 direction</h2>
+    <h2>How the site grows</h2>
     <div class="page-copy">
       <p>
-        The next phase will expand this into a fuller resource site with categories,
-        browsing paths, and richer content models. Phase 1 keeps the surface area small
-        so the site can be launched and iterated on quickly.
+        Additional pages can be added one at a time without resetting the header, footer,
+        or tone. The shared shell is already set up to handle a growing conference pack,
+        more reference material, and future resource pages.
       </p>
     </div>
   </section>

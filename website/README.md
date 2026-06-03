@@ -1,8 +1,8 @@
 ---
 file_type: documentation
 title: "Awesome GitHub Site"
-description: "Phase 1 implementation for the Awesome GitHub website."
-version: "0.1.1"
+description: "Public website for the Awesome GitHub project and its WCEU 2026 talk."
+version: "0.1.2"
 created_date: "2026-06-03"
 last_updated: "2026-06-03"
 language: "en-GB"
@@ -13,17 +13,18 @@ owners:
   - Ash Shaw
 tags:
   - website
-  - implementation
-  - phase-1
+  - conference
+  - talk
 ---
 
 # Awesome GitHub Site
 
-Phase 1 implementation for the `Awesome GitHub` website.
+Public website for the `Awesome GitHub` project and its WCEU 2026 talk.
 
 ## Scope
 
 - Home
+- WCEU 2026 talk
 - Why this exists
 - References
 
