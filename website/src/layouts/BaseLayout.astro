@@ -6,18 +6,47 @@ const pathname = Astro.url.pathname.replace(base, "/");
 
 const navSections = [
   {
-    label: "WCEU 2026",
+    label: "Talk",
     links: [
       {
-        href: `${base}wceu-2026/`,
-        path: "/wceu-2026/",
-        label: "Talk",
+        href: `${base}talk/`,
+        path: "/talk/",
+        label: "Overview",
         exact: true,
       },
       {
-        href: `${base}wceu-2026/slides/`,
-        path: "/wceu-2026/slides/",
-        label: "Slides",
+        href: `${base}talk/slideshow/`,
+        path: "/talk/slideshow/",
+        label: "Presentation",
+        exact: true,
+      },
+      {
+        href: `${base}talk/slides/`,
+        path: "/talk/slides/",
+        label: "All Slides",
+        exact: false,
+      },
+    ],
+  },
+  {
+    label: "Resources",
+    links: [
+      {
+        href: `${base}agents/`,
+        path: "/agents/",
+        label: "Agent Guides",
+        exact: false,
+      },
+      {
+        href: `${base}getting-started/`,
+        path: "/getting-started/",
+        label: "Getting Started",
+        exact: false,
+      },
+      {
+        href: `${base}references/`,
+        path: "/references/",
+        label: "References",
         exact: false,
       },
     ],
@@ -34,13 +63,7 @@ const navSections = [
       {
         href: `${base}why-this-exists/`,
         path: "/why-this-exists/",
-        label: "Why this exists",
-        exact: true,
-      },
-      {
-        href: `${base}references/`,
-        path: "/references/",
-        label: "References",
+        label: "About",
         exact: true,
       },
     ],
@@ -168,13 +191,13 @@ const themeToggleScript = `
       </main>
       <footer>
         <div class="footer-copy">
-          <strong>Awesome GitHub</strong>
-          <span>Conference site and reference index for the WCEU 2026 talk.</span>
+          <strong>© 2026 LightSpeed</strong>
+          <span>Built for the WordPress ecosystem.</span>
         </div>
         <nav class="footer-links" aria-label="Footer links">
-          <a href={base}>Home</a>
-          <a href={`${base}wceu-2026/`}>WCEU 2026 talk</a>
-          <a href={`${base}references/`}>References</a>
+          <a href="https://lightspeedwp.agency/" target="_blank" rel="noreferrer">LightSpeed Website</a>
+          <a href="https://github.com/lightspeedwp/.github" target="_blank" rel="noreferrer">.github Repository</a>
+          <a href={`${base}talk/`}>WCEU 2026 Talk</a>
         </nav>
       </footer>
     </div>
