@@ -59,11 +59,11 @@ jobs:
 
             const message = [
               marker,
-              '🚫 This issue does not follow a required issue template and has been closed automatically.',
+              '🚫 This issue does not follow a required issue template.',
               '',
               `Missing required section(s): ${missing.join(', ')}`,
               '',
-              'Please reopen with one of the official templates:',
+              'Please update the issue body using one of the official templates:',
               '- https://github.com/lightspeedwp/.github/issues/new/choose',
               '',
               'If this was opened by automation, update the automation to preserve the template sections.'
@@ -82,16 +82,6 @@ jobs:
                 repo: context.repo.repo,
                 issue_number: issue.number,
                 body: message
-              });
-            }
-
-            if (issue.state !== 'closed') {
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issue.number,
-                state: 'closed',
-                state_reason: 'not_planned'
               });
             }
 

@@ -10,6 +10,7 @@ const ACTIVE_PATHS = [
   "docs/README.md",
   "docs/FRONTMATTER_SCHEMA.md",
   "docs/PR_CREATION_PROCESS.md",
+  "docs/CANONICAL_CONFIGS_GUIDE.md",
   "instructions/issues.instructions.md",
   "instructions/pull-requests.instructions.md",
   ".github/README.md",

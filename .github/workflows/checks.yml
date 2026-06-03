@@ -51,6 +51,8 @@ jobs:
           node-version: "20"
       - run: npm ci
       - run: npm run validate:json
+      - run: npm run validate:issue-fields
+      - run: npm run validate:retired-doc-links
       - run: npm run validate:frontmatter:changed -- --base ${{ github.event.pull_request.base.sha || github.event.before }} --head ${{ github.event.pull_request.head.sha || github.sha }}
 
   # Composite status check: ensures all checks pass before merge

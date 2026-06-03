@@ -97,7 +97,7 @@ sequenceDiagram
 ## Current Risks Observed (Wave 5 Phase 1)
 
 - Cross-file Type parity is now validator-enforced, but downstream documentation can still drift if canonical types are added without doc updates.
-- Several legacy documentation references still target deprecated docs (`ISSUE_LABELS.md`, `PR_LABELS.md`, `AUTOMATION_GOVERNANCE.md`), increasing operator confusion.
+- Several legacy documentation references still need to be redirected to the canonical docs, increasing operator confusion when the cleanup is incomplete.
 
 ## Recommended Validation Hooks
 
