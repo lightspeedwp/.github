@@ -231,8 +231,9 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
                     return (
                       <a
                         key={item.id}
+                        href="#"
                         className={"drawer-link" + (isActive ? " active" : "")}
-                        onClick={() => goPage(item.id)}
+                        onClick={(e) => { e.preventDefault(); goPage(item.id); }}
                         role="menuitem"
                         title={`View ${item.label}`}
                         aria-current={isActive ? "page" : undefined}
