@@ -3,11 +3,11 @@ title: "CodeRabbit Configuration Specification"
 description: "Validated CodeRabbit v2 schema configuration for lightspeedwp/.github governance repository"
 version: "1.0"
 last_updated: "2026-06-03"
-file_type: "specification"
+file_type: "documentation"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
 status: "active"
-domain: "automation"
+domain: "governance"
 stability: "stable"
 tags: ["coderabbit", "ci", "automation", "schema-v2"]
 ---

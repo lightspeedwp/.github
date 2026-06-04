@@ -1,0 +1,250 @@
+---
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import AwesomeGithubCard from "../../components/AwesomeGithub/AwesomeGithubCard.astro";
+import AwesomeGithubChip from "../../components/AwesomeGithub/AwesomeGithubChip.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const catalogues = [
+  { name: "Agents", href: `${base}awesome-github/c/agents`, count: 12 },
+  { name: "Instructions", href: `${base}awesome-github/c/instructions`, count: 8 },
+  { name: "Prompts", href: `${base}awesome-github/c/prompts`, count: 24 },
+  { name: "Skills", href: `${base}awesome-github/c/skills`, count: 15 },
+  { name: "Hooks", href: `${base}awesome-github/c/hooks`, count: 6 },
+  { name: "Workflows", href: `${base}awesome-github/c/workflows`, count: 11 },
+  { name: "Plugins", href: `${base}awesome-github/c/plugins`, count: 4 },
+  { name: "Tools", href: `${base}awesome-github/c/tools`, count: 7 },
+];
+
+const stats = [
+  { label: "Resources", value: "87" },
+  { label: "Categories", value: "8" },
+  { label: "Ready to use", value: "100%" },
+];
+---
+
+<AwesomeGithubLayout
+  title="Awesome GitHub — Governance, not opinions"
+  description="A catalogue of AI governance resources and control plane for the LightSpeed WordPress team."
+>
+  <section class="ag-hero">
+    <div class="ag-container">
+      <div class="ag-eyebrow">
+        <span class="ag-eyebrow-dot">●</span>
+        <span>github.com/lightspeedwp/.github</span>
+      </div>
+      <h1 class="ag-h1">
+        <span class="ag-hero-line-1">Install AI governance,</span>
+        <span class="ag-hero-line-2">not opinions.</span>
+      </h1>
+      <p class="ag-lead">
+        Browse curated resources from the LightSpeed control plane. Copy, install, integrate—everything is production-ready.
+      </p>
+      <div class="ag-cta-group">
+        <AwesomeGithubButton variant="primary" href={`${base}awesome-github/getting-started`}>
+          Start here
+        </AwesomeGithubButton>
+        <AwesomeGithubButton variant="secondary" href={`${base}awesome-github/c/agents`}>
+          Browse catalogues
+        </AwesomeGithubButton>
+      </div>
+    </div>
+  </section>
+
+  <section class="ag-stats">
+    <div class="ag-container">
+      <div class="ag-stats-grid">
+        {stats.map((stat) => (
+          <div class="ag-stat-item">
+            <div class="ag-stat-value">{stat.value}</div>
+            <div class="ag-stat-label">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ag-section">
+    <div class="ag-container">
+      <h2 class="ag-h2">Browse by type</h2>
+      <p class="ag-lead">
+        Everything in the control plane is organized by resource type. Pick a category to get started.
+      </p>
+
+      <div class="ag-catalogue-grid">
+        {catalogues.map((cat) => (
+          <AwesomeGithubCard href={cat.href}>
+            <h3 class="ag-h4">{cat.name}</h3>
+            <p class="ag-small">{cat.count} resources</p>
+          </AwesomeGithubCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ag-section ag-section--alt">
+    <div class="ag-container">
+      <h2 class="ag-h2">Getting started</h2>
+      <p class="ag-lead">
+        New to the control plane? Follow our 10-minute onboarding to get up and running.
+      </p>
+      <AwesomeGithubButton href={`${base}awesome-github/getting-started`} variant="primary">
+        Start onboarding
+      </AwesomeGithubButton>
+    </div>
+  </section>
+</AwesomeGithubLayout>
+
+<style>
+  .ag-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .ag-hero {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-40) var(--gutter);
+    margin-bottom: var(--section-y);
+  }
+
+  .ag-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(123, 231, 255, 0.1);
+    border: 1px solid rgba(123, 231, 255, 0.3);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .ag-eyebrow-dot {
+    color: var(--c-light-blue);
+  }
+
+  .ag-hero-line-1 {
+    display: block;
+    color: var(--c-white);
+  }
+
+  .ag-hero-line-2 {
+    display: block;
+    color: var(--c-light-blue);
+  }
+
+  .ag-h1 {
+    font-size: var(--fs-h1);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .ag-lead {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-loose);
+    color: var(--c-slate-300);
+    margin: 0 0 var(--space-8) 0;
+    max-width: 60ch;
+  }
+
+  .ag-cta-group {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .ag-stats {
+    background: var(--bg);
+    padding: var(--space-16) var(--gutter);
+    margin-bottom: var(--section-y);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ag-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .ag-stat-item {
+    text-align: center;
+  }
+
+  .ag-stat-value {
+    font-size: 40px;
+    font-weight: var(--weight-bold);
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .ag-stat-label {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    font-weight: var(--weight-medium);
+  }
+
+  .ag-section {
+    padding: var(--section-y) var(--gutter);
+  }
+
+  .ag-section--alt {
+    background: var(--bg-alt);
+  }
+
+  .ag-h2 {
+    font-size: var(--fs-h2);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .ag-h4 {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .ag-small {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    margin: 0;
+  }
+
+  .ag-catalogue-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  @media (max-width: 768px) {
+    .ag-hero {
+      padding: var(--space-20) var(--gutter);
+      margin-top: 72px;
+    }
+
+    .ag-h1 {
+      font-size: var(--fs-h2);
+    }
+
+    .ag-lead {
+      font-size: var(--fs-body);
+    }
+
+    .ag-cta-group {
+      flex-direction: column;
+    }
+
+    .ag-catalogue-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }
+</style>
