@@ -73,6 +73,7 @@ This is the **LightSpeedWP design system**. Use these exact values.
 `--bg #FFFFFF` · `--bg-alt #F9FAFB` · `--fg #090909` · `--fg-2 #565656` · `--fg-3 #757575` · `--border #E1E1E1` · `--accent #1E6AFF` · `--fg-link #1E6AFF` (use `#1557E0` for links on `#F9FAFB` to keep ≥4.5:1).
 
 ### Semantic — dark mode (`[data-theme="dark"]`)
+
 `--bg #0F1014` · `--fg #FFFFFF` · `--fg-2 #B8B8B8` · `--border rgba(255,255,255,0.08)` · `--accent #7BE7FF` (light‑blue for AAA contrast on dark) · links use light‑blue. The hero and several full‑bleed sections render dark; content sections render light. Theme toggle is in the nav.
 
 ### Typography
