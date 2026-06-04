@@ -39,6 +39,46 @@ function BranchToggle({ compact }) {
 }
 
 const PAGE_IDS = ["onboarding", "why", "getting-started", "glossary", "references", "cookbook", "learn"];
+
+/* Mega menu structure for Browse dropdown */
+const BROWSE_MENU_SECTIONS = [
+  {
+    title: "CATALOGUES",
+    items: [
+      { id: "agents", label: "Agents", icon: "robot", desc: "Specialised AI agents" },
+      { id: "instructions", label: "Instructions", icon: "book", desc: "Canonical standards" },
+      { id: "prompts", label: "Prompts", icon: "chat", desc: "Reusable templates" },
+      { id: "skills", label: "Skills", icon: "sparkles", desc: "Self-contained packages" },
+    ],
+  },
+  {
+    title: "MORE",
+    items: [
+      { id: "hooks", label: "Hooks", icon: "shield", desc: "Quality guardrails" },
+      { id: "workflows", label: "Workflows", icon: "workflow", desc: "Agentic workflows" },
+      { id: "plugins", label: "Plugins", icon: "puzzle", desc: "Plugin packs" },
+      { id: "tools", label: "Tools", icon: "wrench", desc: "Toolchain layer" },
+    ],
+  },
+  {
+    title: "COOK & LEARN",
+    items: [
+      { id: "cookbook", label: "Cookbook", icon: "recipe", desc: "Step-by-step recipes" },
+      { id: "learn", label: "Learning Centre", icon: "grad", desc: "Learning tracks" },
+    ],
+  },
+  {
+    title: "RESOURCES",
+    items: [
+      { id: "onboarding", label: "Onboarding journey", icon: "bolt", desc: "Getting started" },
+      { id: "getting-started", label: "Getting started", icon: "download", desc: "First steps" },
+      { id: "why", label: "Why this exists", icon: "layers", desc: "Learn the vision" },
+      { id: "glossary", label: "Glossary", icon: "book", desc: "Key terms" },
+      { id: "references", label: "References", icon: "github", desc: "Full references" },
+    ],
+  },
+];
+
 const RESOURCE_LINKS = [
   { id: "onboarding", label: "Onboarding journey", icon: "bolt" },
   { id: "getting-started", label: "Getting started", icon: "download" },
@@ -55,7 +95,7 @@ function useClickAway(ref, onAway) {
   }, [onAway]);
 }
 
-function Dropdown({ label, active, children }) {
+function Dropdown({ label, active, children, isMega }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   useClickAway(ref, () => setOpen(false));
@@ -69,7 +109,11 @@ function Dropdown({ label, active, children }) {
       <button className={"nav-btn" + (open ? " open" : "") + (active ? " active" : "")} onClick={() => setOpen((o) => !o)} aria-expanded={open}>
         {label} <Icons.chevron className="chev" size={15} />
       </button>
-      {open && <div onClick={() => setOpen(false)}>{children}</div>}
+      {open && (
+        <div className={isMega ? "dropdown-mega" : ""} onClick={() => setOpen(false)}>
+          {children}
+        </div>
+      )}
     </div>
   );
 }
@@ -96,33 +140,48 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
         </a>
 
         <nav className="nav-primary">
-          <Dropdown label="Browse" active={catActive}>
-            <div className="dropdown dd-cats">
-              {LSDATA.CATEGORIES.map((c) => (
-                <a key={c.id} className="dd-item" onClick={() => nav({ view: "catalogue", cat: c.id })}>
-                  <span className="ddi"><CatIco id={c.id} size={17} /></span>
-                  <span><b>{c.label}</b><span>{c.blurb}</span></span>
-                </a>
+          <Dropdown label="Browse" active={catActive || resActive} isMega={true}>
+            <div className="dd-mega">
+              {BROWSE_MENU_SECTIONS.map((section) => (
+                <div key={section.title} className="dd-section">
+                  <h6 className="dd-section-title">{section.title}</h6>
+                  <div className="dd-section-items">
+                    {section.items.map((item) => {
+                      const Icon = Icons[item.icon] || Icons.layers;
+                      return (
+                        <button
+                          key={item.id}
+                          className="dd-mega-item"
+                          onClick={() => goPage(item.id)}
+                          role="menuitem"
+                          title={`View ${item.label}`}
+                          type="button"
+                        >
+                          <span className="dmi-icon" aria-hidden="true"><Icon size={24} /></span>
+                          <span className="dmi-text">
+                            <b>{item.label}</b>
+                            <span>{item.desc}</span>
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               ))}
-            </div>
-          </Dropdown>
-          <button className={"nav-btn" + (isPage("cookbook") ? " active" : "")} onClick={() => nav({ view: "cookbook" })}>Cookbook</button>
-          <button className={"nav-btn" + (isPage("learn") ? " active" : "")} onClick={() => nav({ view: "learn" })}>Learn</button>
-          <Dropdown label="Resources" active={resActive && !isPage("cookbook") && !isPage("learn")}>
-            <div className="dropdown dd-res">
-              {RESOURCE_LINKS.map((r) => {
-                const Fn = Icons[r.icon] || Icons.layers;
-                return <a key={r.id} className="dd-simple" onClick={() => nav({ view: r.id })}><span className="ddi"><Fn size={16} /></span>{r.label}</a>;
-              })}
             </div>
           </Dropdown>
         </nav>
 
         <div className="nav-actions">
-          <button className="search-trigger" onClick={openSearch} aria-label="Search">
+          <button
+            className="search-trigger"
+            onClick={openSearch}
+            aria-label="Search resources (⌘K)"
+            title="Search resources"
+          >
             <Icons.search size={16} />
             <span className="stxt">Search resources</span>
-            <span className="kbd">⌘K</span>
+            <span className="kbd" aria-hidden="true">⌘K</span>
           </button>
           <div className="nav-extra">
             <BranchToggle />
@@ -152,32 +211,41 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
               <button className="icon-btn" onClick={() => setDrawer(false)} aria-label="Close menu"><Icons.close size={20} /></button>
             </div>
             <div className="drawer-body">
-              <button className="search-trigger" style={{ width: "100%", marginBottom: 4 }} onClick={() => { setDrawer(false); openSearch(); }}>
-                <Icons.search size={16} /> <span className="stxt" style={{ display: "inline" }}>Search resources</span>
+              <button
+                className="search-trigger"
+                style={{ width: "100%", marginBottom: 8 }}
+                onClick={() => { setDrawer(false); openSearch(); }}
+                aria-label="Search resources"
+                title="Search resources"
+              >
+                <Icons.search size={16} />
+                <span className="stxt" style={{ display: "inline" }}>Search resources</span>
               </button>
 
-              <div className="drawer-sec">
-                <h6>Browse</h6>
-                {LSDATA.CATEGORIES.map((c) => (
-                  <a key={c.id} className={"drawer-link" + (isCat(c.id) ? " active" : "")} onClick={() => nav({ view: "catalogue", cat: c.id })}>
-                    <span className="dli"><CatIco id={c.id} size={18} /></span>{c.label}
-                  </a>
-                ))}
-              </div>
-
-              <div className="drawer-sec">
-                <h6>Cook &amp; learn</h6>
-                <a className={"drawer-link" + (isPage("cookbook") ? " active" : "")} onClick={() => nav({ view: "cookbook" })}><span className="dli"><Icons.recipe size={18} /></span>Cookbook</a>
-                <a className={"drawer-link" + (isPage("learn") ? " active" : "")} onClick={() => nav({ view: "learn" })}><span className="dli"><Icons.grad size={18} /></span>Learning Centre</a>
-              </div>
-
-              <div className="drawer-sec">
-                <h6>Resources</h6>
-                {RESOURCE_LINKS.map((r) => {
-                  const Fn = Icons[r.icon] || Icons.layers;
-                  return <a key={r.id} className={"drawer-link" + (isPage(r.id) ? " active" : "")} onClick={() => nav({ view: r.id })}><span className="dli"><Fn size={18} /></span>{r.label}</a>;
-                })}
-              </div>
+              {BROWSE_MENU_SECTIONS.map((section) => (
+                <div key={section.title} className="drawer-sec">
+                  <h6>{section.title}</h6>
+                  {section.items.map((item) => {
+                    const isPageItem = PAGE_IDS.includes(item.id);
+                    const isActive = isPageItem ? isPage(item.id) : isCat(item.id);
+                    const Icon = Icons[item.icon] || Icons.layers;
+                    return (
+                      <button
+                        key={item.id}
+                        className={"drawer-link" + (isActive ? " active" : "")}
+                        onClick={() => goPage(item.id)}
+                        role="menuitem"
+                        title={`View ${item.label}`}
+                        aria-current={isActive ? "page" : undefined}
+                        type="button"
+                      >
+                        <span className="dli" aria-hidden="true"><Icon size={18} /></span>
+                        {item.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
 
               <div className="drawer-sec">
                 <h6>Install source</h6>

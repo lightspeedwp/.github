@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-06-03"
+last_updated: "2026-06-04"
 owners:
   - LightSpeed Team
 tags:
@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Awesome GitHub Navigation Redesign: Mega Menu & Accessibility Enhancements** — Redesigned header navigation with single "Browse" mega menu organizing 22 resources across 4 logical sections (Catalogues, More, Cook & Learn, Resources). Implemented comprehensive accessibility improvements including keyboard navigation (Tab+Enter/Space activation), proper ARIA attributes, semantic button elements replacing non-focusable anchors, centered menu positioning to prevent viewport clipping at 1025-1180px widths, and fixed drawer overflow for smooth scrolling. All changes comply with WCAG 2.2 AA+ contrast ratios in both light and dark modes.
 - **Awesome GitHub Site Phase 2a: Three-Pillar Governance Framework** — Integrated PR #809's three-pillar design approach on top of Phase 2a's dynamic foundation by adding comprehensive CSS styling for the pillar section (`.pillar-grid`, `.pillar`, `.pillar-links`). Features 3-column responsive grid layout with hover effects, accent color styling, light/dark theme variants, and mobile collapse to single column. Completes visual integration of Automation, Governance, and AI Integration framework while preserving dynamic catalogue loading and conference messaging.
 - **Awesome GitHub Site Phase 2a: Homepage & Navigation Redesign** — Initiated Phase 2a execution by restructuring header navigation to support Phase 2 catalogues, redesigning homepage with "One .GitHub to Rule Them All" positioning, and establishing foundation for Phase 2b–2c expansion:
   - Reorganized nav sections (Conference → Catalogues → About) with dedicated catalogue dropdown showing all 8 Phase 2 resources (agents, instructions, skills, hooks, plugins, workflows, tools, learning-hub).
