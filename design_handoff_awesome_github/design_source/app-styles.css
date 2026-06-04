@@ -215,7 +215,7 @@ button { font-family: inherit; }
   display: flex;
   flex-direction: column;
   animation: slidein .24s var(--ease-out);
-  overflow-y: auto;
+  overflow: hidden;
 }
 @keyframes slidein { from { transform: translateX(100%); } }
 .drawer-head {
