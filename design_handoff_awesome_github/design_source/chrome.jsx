@@ -153,8 +153,10 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
                           key={item.id}
                           className="dd-mega-item"
                           onClick={() => goPage(item.id)}
+                          role="menuitem"
+                          title={`View ${item.label}`}
                         >
-                          <span className="dmi-icon"><Icon size={24} /></span>
+                          <span className="dmi-icon" aria-hidden="true"><Icon size={24} /></span>
                           <span className="dmi-text">
                             <b>{item.label}</b>
                             <span>{item.desc}</span>
@@ -170,10 +172,15 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
         </nav>
 
         <div className="nav-actions">
-          <button className="search-trigger" onClick={openSearch} aria-label="Search">
+          <button
+            className="search-trigger"
+            onClick={openSearch}
+            aria-label="Search resources (⌘K)"
+            title="Search resources"
+          >
             <Icons.search size={16} />
             <span className="stxt">Search resources</span>
-            <span className="kbd">⌘K</span>
+            <span className="kbd" aria-hidden="true">⌘K</span>
           </button>
           <div className="nav-extra">
             <BranchToggle />
@@ -203,8 +210,15 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
               <button className="icon-btn" onClick={() => setDrawer(false)} aria-label="Close menu"><Icons.close size={20} /></button>
             </div>
             <div className="drawer-body">
-              <button className="search-trigger" style={{ width: "100%", marginBottom: 4 }} onClick={() => { setDrawer(false); openSearch(); }}>
-                <Icons.search size={16} /> <span className="stxt" style={{ display: "inline" }}>Search resources</span>
+              <button
+                className="search-trigger"
+                style={{ width: "100%", marginBottom: 8 }}
+                onClick={() => { setDrawer(false); openSearch(); }}
+                aria-label="Search resources"
+                title="Search resources"
+              >
+                <Icons.search size={16} />
+                <span className="stxt" style={{ display: "inline" }}>Search resources</span>
               </button>
 
               {BROWSE_MENU_SECTIONS.map((section) => (
@@ -219,8 +233,11 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
                         key={item.id}
                         className={"drawer-link" + (isActive ? " active" : "")}
                         onClick={() => goPage(item.id)}
+                        role="menuitem"
+                        title={`View ${item.label}`}
+                        aria-current={isActive ? "page" : undefined}
                       >
-                        <span className="dli"><Icon size={18} /></span>
+                        <span className="dli" aria-hidden="true"><Icon size={18} /></span>
                         {item.label}
                       </a>
                     );
