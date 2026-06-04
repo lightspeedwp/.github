@@ -1,0 +1,253 @@
+/* Chrome: theme + branch context, responsive nav (dropdowns + burger drawer), footer, toast. */
+const { useState, useEffect, useRef, useCallback, useContext } = React;
+
+/* ── theme ── */
+function useTheme() {
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem("ag-theme");
+    if (saved) return saved;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("ag-theme", theme);
+  }, [theme]);
+  return [theme, setTheme];
+}
+
+/* ── branch context (main = stable, develop = testing) ── */
+const BranchCtx = React.createContext({ branch: "main", setBranch: () => {} });
+window.BranchCtx = BranchCtx;
+function useBranchState() {
+  const [branch, setBranchRaw] = useState(() => localStorage.getItem("ag-branch") || "main");
+  const setBranch = useCallback((b) => { setBranchRaw(b); localStorage.setItem("ag-branch", b); }, []);
+  return { branch, setBranch };
+}
+
+function BranchToggle({ compact }) {
+  const { branch, setBranch } = useContext(BranchCtx);
+  return (
+    <div className="branch" role="group" aria-label="Install source branch">
+      <button className={branch === "main" ? "on" : ""} onClick={() => setBranch("main")} title="Stable branch">
+        <span className="bdot" /> main
+      </button>
+      <button className={branch === "develop" ? "on" : ""} onClick={() => setBranch("develop")} title="Testing branch">
+        <span className="bdot" /> dev
+      </button>
+    </div>
+  );
+}
+
+const PAGE_IDS = ["onboarding", "why", "getting-started", "glossary", "references", "cookbook", "learn"];
+const RESOURCE_LINKS = [
+  { id: "onboarding", label: "Onboarding journey", icon: "bolt" },
+  { id: "getting-started", label: "Getting started", icon: "download" },
+  { id: "why", label: "Why this exists", icon: "layers" },
+  { id: "glossary", label: "Glossary", icon: "book" },
+  { id: "references", label: "References", icon: "github" },
+];
+
+function useClickAway(ref, onAway) {
+  useEffect(() => {
+    const h = (e) => { if (ref.current && !ref.current.contains(e.target)) onAway(); };
+    document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
+  }, [onAway]);
+}
+
+function Dropdown({ label, active, children }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  useClickAway(ref, () => setOpen(false));
+  useEffect(() => {
+    const esc = (e) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", esc);
+    return () => document.removeEventListener("keydown", esc);
+  }, []);
+  return (
+    <div ref={ref} style={{ position: "relative" }}>
+      <button className={"nav-btn" + (open ? " open" : "") + (active ? " active" : "")} onClick={() => setOpen((o) => !o)} aria-expanded={open}>
+        {label} <Icons.chevron className="chev" size={15} />
+      </button>
+      {open && <div onClick={() => setOpen(false)}>{children}</div>}
+    </div>
+  );
+}
+
+function Nav({ route, nav, theme, setTheme, openSearch }) {
+  const [drawer, setDrawer] = useState(false);
+  const isCat = (id) => route.view === "catalogue" && route.cat === id;
+  const isPage = (id) => route.view === id;
+  const catActive = route.view === "catalogue";
+  const resActive = PAGE_IDS.includes(route.view);
+
+  useEffect(() => { setDrawer(false); }, [route]);
+  useEffect(() => { document.body.style.overflow = drawer ? "hidden" : ""; return () => { document.body.style.overflow = ""; }; }, [drawer]);
+
+  const goPage = (id) => nav(PAGE_IDS.includes(id) ? { view: id } : { view: "catalogue", cat: id });
+
+  return (
+    <React.Fragment>
+    <header className="nav">
+      <div className="wrap nav-inner">
+        <a className="nav-brand" onClick={() => nav({ view: "home" })}>
+          <img src={theme === "dark" ? "assets/LS-Agency-Site-Icon-Light-Blue.svg" : "assets/LS-Agency-Site-Icon-Blue.svg"} alt="LightSpeed" />
+          <b>Awesome<span className="tld"> GitHub</span></b>
+        </a>
+
+        <nav className="nav-primary">
+          <Dropdown label="Browse" active={catActive}>
+            <div className="dropdown dd-cats">
+              {LSDATA.CATEGORIES.map((c) => (
+                <a key={c.id} className="dd-item" onClick={() => nav({ view: "catalogue", cat: c.id })}>
+                  <span className="ddi"><CatIco id={c.id} size={17} /></span>
+                  <span><b>{c.label}</b><span>{c.blurb}</span></span>
+                </a>
+              ))}
+            </div>
+          </Dropdown>
+          <button className={"nav-btn" + (isPage("cookbook") ? " active" : "")} onClick={() => nav({ view: "cookbook" })}>Cookbook</button>
+          <button className={"nav-btn" + (isPage("learn") ? " active" : "")} onClick={() => nav({ view: "learn" })}>Learn</button>
+          <Dropdown label="Resources" active={resActive && !isPage("cookbook") && !isPage("learn")}>
+            <div className="dropdown dd-res">
+              {RESOURCE_LINKS.map((r) => {
+                const Fn = Icons[r.icon] || Icons.layers;
+                return <a key={r.id} className="dd-simple" onClick={() => nav({ view: r.id })}><span className="ddi"><Fn size={16} /></span>{r.label}</a>;
+              })}
+            </div>
+          </Dropdown>
+        </nav>
+
+        <div className="nav-actions">
+          <button className="search-trigger" onClick={openSearch} aria-label="Search">
+            <Icons.search size={16} />
+            <span className="stxt">Search resources</span>
+            <span className="kbd">⌘K</span>
+          </button>
+          <div className="nav-extra">
+            <BranchToggle />
+            <button className="icon-btn" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label="Toggle theme">
+              {theme === "dark" ? <Icons.sun size={18} /> : <Icons.moon size={18} />}
+            </button>
+            <a className="icon-btn" href={`https://github.com/${LSDATA.REPO}`} target="_blank" rel="noopener" aria-label="GitHub repository">
+              <Icons.github size={18} />
+            </a>
+          </div>
+          <button className="icon-btn burger" onClick={() => setDrawer(true)} aria-label="Open menu">
+            <Icons.menu size={20} />
+          </button>
+        </div>
+      </div>
+    </header>
+
+      {drawer && (
+        <React.Fragment>
+          <div className="drawer-scrim" onClick={() => setDrawer(false)} />
+          <div className="drawer" role="dialog" aria-label="Menu">
+            <div className="drawer-head">
+              <a className="nav-brand" onClick={() => nav({ view: "home" })}>
+                <img src={theme === "dark" ? "assets/LS-Agency-Site-Icon-Light-Blue.svg" : "assets/LS-Agency-Site-Icon-Blue.svg"} alt="" />
+                <b>Awesome<span className="tld"> GitHub</span></b>
+              </a>
+              <button className="icon-btn" onClick={() => setDrawer(false)} aria-label="Close menu"><Icons.close size={20} /></button>
+            </div>
+            <div className="drawer-body">
+              <button className="search-trigger" style={{ width: "100%", marginBottom: 4 }} onClick={() => { setDrawer(false); openSearch(); }}>
+                <Icons.search size={16} /> <span className="stxt" style={{ display: "inline" }}>Search resources</span>
+              </button>
+
+              <div className="drawer-sec">
+                <h6>Browse</h6>
+                {LSDATA.CATEGORIES.map((c) => (
+                  <a key={c.id} className={"drawer-link" + (isCat(c.id) ? " active" : "")} onClick={() => nav({ view: "catalogue", cat: c.id })}>
+                    <span className="dli"><CatIco id={c.id} size={18} /></span>{c.label}
+                  </a>
+                ))}
+              </div>
+
+              <div className="drawer-sec">
+                <h6>Cook &amp; learn</h6>
+                <a className={"drawer-link" + (isPage("cookbook") ? " active" : "")} onClick={() => nav({ view: "cookbook" })}><span className="dli"><Icons.recipe size={18} /></span>Cookbook</a>
+                <a className={"drawer-link" + (isPage("learn") ? " active" : "")} onClick={() => nav({ view: "learn" })}><span className="dli"><Icons.grad size={18} /></span>Learning Centre</a>
+              </div>
+
+              <div className="drawer-sec">
+                <h6>Resources</h6>
+                {RESOURCE_LINKS.map((r) => {
+                  const Fn = Icons[r.icon] || Icons.layers;
+                  return <a key={r.id} className={"drawer-link" + (isPage(r.id) ? " active" : "")} onClick={() => nav({ view: r.id })}><span className="dli"><Fn size={18} /></span>{r.label}</a>;
+                })}
+              </div>
+
+              <div className="drawer-sec">
+                <h6>Install source</h6>
+                <div className="drawer-row"><span className="rl">Branch</span><BranchToggle /></div>
+                <div className="drawer-row"><span className="rl">Theme</span>
+                  <button className="icon-btn" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label="Toggle theme">
+                    {theme === "dark" ? <Icons.sun size={18} /> : <Icons.moon size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="drawer-sec">
+                <h6>External</h6>
+                <a className="drawer-link" href={`https://github.com/${LSDATA.REPO}`} target="_blank" rel="noopener"><span className="dli"><Icons.github size={18} /></span>.github repository <span className="ext"><Icons.external size={15} /></span></a>
+                <a className="drawer-link" href="https://lightspeedwp.agency/" target="_blank" rel="noopener"><span className="dli"><Icons.bolt size={18} /></span>LightSpeed site <span className="ext"><Icons.external size={15} /></span></a>
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
+      )}
+    </React.Fragment>
+  );
+}
+
+function Footer({ nav }) {
+  return (
+    <footer className="foot">
+      <div className="foot-halo" />
+      <div className="wrap foot-inner">
+        <div className="foot-top">
+          <div className="foot-brand">
+            <img src="assets/LS-Agency-Logo-White.svg" alt="LightSpeed" />
+            <p>Installable AI governance for the LightSpeed WordPress &amp; WooCommerce team.</p>
+          </div>
+          <div className="foot-cols">
+            <div className="foot-col">
+              <h5>Catalogues</h5>
+              {LSDATA.CATEGORIES.slice(0, 4).map((c) => <a key={c.id} onClick={() => nav({ view: "catalogue", cat: c.id })}>{c.label}</a>)}
+            </div>
+            <div className="foot-col">
+              <h5>More</h5>
+              {LSDATA.CATEGORIES.slice(4).map((c) => <a key={c.id} onClick={() => nav({ view: "catalogue", cat: c.id })}>{c.label}</a>)}
+            </div>
+            <div className="foot-col">
+              <h5>Learn</h5>
+              <a onClick={() => nav({ view: "learn" })}>Learning Centre</a>
+              <a onClick={() => nav({ view: "cookbook" })}>Cookbook</a>
+              <a onClick={() => nav({ view: "onboarding" })}>Onboarding journey</a>
+              <a onClick={() => nav({ view: "getting-started" })}>Getting started</a>
+            </div>
+            <div className="foot-col">
+              <h5>Reference</h5>
+              <a onClick={() => nav({ view: "glossary" })}>Glossary</a>
+              <a onClick={() => nav({ view: "references" })}>References</a>
+              <a href="https://lightspeedwp.agency/" target="_blank" rel="noopener">LightSpeed site</a>
+            </div>
+          </div>
+        </div>
+        <div className="foot-bottom">
+          <span>© 2026 LightSpeed · Crafted with care in WordPress.</span>
+          <span>GPL-3.0</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function Toast({ msg }) {
+  if (!msg) return null;
+  return <div className="toast"><Icons.check size={16} style={{ color: "var(--c-brand-green-500)" }} />{msg}</div>;
+}
+
+Object.assign(window, { Nav, Footer, Toast, useTheme, useBranchState, BranchToggle });
