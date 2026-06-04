@@ -12,6 +12,7 @@ maintainer: "LightSpeed AI Operations"
 ## Executive Summary
 
 This document provides a **complete, actionable mapping** between:
+
 1. **Design source** (JSX prototypes, tokens, screenshots in `design_handoff_awesome_github/`)
 2. **Content sources** (existing `.md` files across `ai/`, `instructions/`, `cookbook/`, etc.)
 3. **Astro implementation** (target pages, components, routes in `website/src/`)
@@ -53,6 +54,7 @@ This document provides a **complete, actionable mapping** between:
 ### 1.3 Key Files by Content Type
 
 #### AI Agent & Operations
+
 - `ai/Claude.md` — Claude-specific instructions
 - `ai/Gemini.md` — Gemini agent reference
 - `ai/RUNNERS.md` — Runner configurations
@@ -61,7 +63,9 @@ This document provides a **complete, actionable mapping** between:
 - `ai/AUDIT-SUMMARY.md` — Audit results & findings
 
 #### Instructions/Standards (37 files)
+
 Core categories:
+
 - **Coding & Development:** `coding-standards.instructions.md`, `documentation-formats.instructions.md`, `self-explanatory-code-commenting.instructions.md`
 - **Community & Collaboration:** `community-standards.instructions.md`, `pull-requests.instructions.md`, `issues.instructions.md`
 - **Operations & Infrastructure:** `automation.instructions.md`, `workflows.instructions.md`, `hooks.instructions.md`, `tools.instructions.md`
@@ -69,6 +73,7 @@ Core categories:
 - **Special Topics:** `a11y.instructions.md`, `languages.instructions.md`, `mermaid.instructions.md`, `wordpress-project-planning.instructions.md`
 
 #### Recipes & Playbooks
+
 - `cookbook/project-planning-and-prd-playbook.md`
 - `cookbook/spec-driven-workflow-example.md`
 - `cookbook/wordpress-plugin-checklist.md`
@@ -439,9 +444,9 @@ const agentsCollection = defineCollection({
     description: z.string(),
     category: z.string(),
     tags: z.array(z.string()).optional(),
-    lastUpdated: z.date().optional(),
-    complexity: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
-    estimatedReadTime: z.number().optional(),
+    last_updated: z.date().optional(),
+    difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
+    estimated_read_time: z.number().optional(),
   }),
 });
 
@@ -662,10 +667,10 @@ version: "1.0"
 last_updated: "2026-06-01"
 file_type: "instruction"
 maintainer: "LightSpeed Team"
-category: "Development" # NEW
-difficulty: "Beginner" # NEW
-estimated_read_time: 5 # NEW (minutes)
-tags: ["coding", "standards", "wordpress"] # NEW
+category: "Development"
+difficulty: "Beginner"
+estimated_read_time: 5
+tags: ["coding", "standards", "wordpress"]
 ---
 ```
 
@@ -676,11 +681,11 @@ title: "Claude Agent"
 description: "LightSpeedWP's primary AI agent"
 version: "1.0"
 last_updated: "2026-06-01"
-category: "AI Agent" # NEW
-type: "claude" # NEW
-complexity: "Intermediate" # NEW
-tags: ["ai", "claude", "automation"] # NEW
-actions: ["copy", "download", "github", "vscode"] # NEW
+category: "AI Agent"
+type: "claude"
+difficulty: "Intermediate"
+tags: ["ai", "claude", "automation"]
+actions: ["copy", "download", "github", "vscode"]
 ---
 ```
 
@@ -689,11 +694,12 @@ actions: ["copy", "download", "github", "vscode"] # NEW
 ---
 title: "Code Review Skill"
 description: "Automated code review capability"
-category: "Automation" # NEW
-type: "skill" # NEW
-installation: "vscode" # NEW (direct VS Code extension)
-tags: ["code-review", "automation"] # NEW
-actions: ["copy", "download", "github", "vscode"] # NEW
+category: "Automation"
+type: "skill"
+installation: "vscode"
+difficulty: "Intermediate"
+tags: ["code-review", "automation"]
+actions: ["copy", "download", "github", "vscode"]
 ---
 ```
 
@@ -702,11 +708,11 @@ actions: ["copy", "download", "github", "vscode"] # NEW
 ---
 title: "Project Planning Playbook"
 description: "Step-by-step guide for planning WordPress projects"
-type: "playbook" # NEW
-complexity: "Intermediate" # NEW
-estimated_time: "2 hours" # NEW
-use_case: "Project Setup" # NEW
-tags: ["planning", "wordpress", "process"] # NEW
+type: "playbook"
+difficulty: "Intermediate"
+estimated_read_time: 120
+use_case: "Project Setup"
+tags: ["planning", "wordpress", "process"]
 ---
 ```
 
@@ -745,7 +751,7 @@ Open on GitHub:
 - main: https://github.com/lightspeedwp/.github/blob/main/{path}/{file}
 
 VS Code:
-- vscode://open?url=https://github.com/lightspeedwp/.github/blob/{branch}/{path}/{file}
+- vscode:{route}/install?url=https://raw.githubusercontent.com/lightspeedwp/.github/{branch}/{path}/{file}
 ```
 
 ### 10.3 Copy-to-Clipboard & Toast
