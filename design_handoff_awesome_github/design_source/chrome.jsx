@@ -148,20 +148,21 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
                   <div className="dd-section-items">
                     {section.items.map((item) => {
                       const Icon = Icons[item.icon] || Icons.layers;
-                    {section.items.map((item) => {
-                      const Icon = Icons[item.icon] || Icons.layers;
                       return (
-                        <a
+                        <button
                           key={item.id}
                           className="dd-mega-item"
                           onClick={() => goPage(item.id)}
+                          role="menuitem"
+                          title={`View ${item.label}`}
+                          type="button"
                         >
-                          <span className="dmi-icon"><Icon size={24} /></span>
+                          <span className="dmi-icon" aria-hidden="true"><Icon size={24} /></span>
                           <span className="dmi-text">
                             <b>{item.label}</b>
                             <span>{item.desc}</span>
                           </span>
-                        </a>
+                        </button>
                       );
                     })}
                   </div>
@@ -229,18 +230,18 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
                     const isActive = isPageItem ? isPage(item.id) : isCat(item.id);
                     const Icon = Icons[item.icon] || Icons.layers;
                     return (
-                      <a
+                      <button
                         key={item.id}
-                        href="#"
                         className={"drawer-link" + (isActive ? " active" : "")}
-                        onClick={(e) => { e.preventDefault(); goPage(item.id); }}
+                        onClick={() => goPage(item.id)}
                         role="menuitem"
                         title={`View ${item.label}`}
                         aria-current={isActive ? "page" : undefined}
+                        type="button"
                       >
                         <span className="dli" aria-hidden="true"><Icon size={18} /></span>
                         {item.label}
-                      </a>
+                      </button>
                     );
                   })}
                 </div>

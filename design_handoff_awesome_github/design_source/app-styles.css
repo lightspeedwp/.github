@@ -95,7 +95,7 @@ button { font-family: inherit; }
 .dd-simple:hover .ddi { color: var(--accent); }
 
 /* ── mega menu ── */
-.dropdown-mega { position: absolute; top: calc(100% + 8px); left: 0; z-index: 55; }
+.dropdown-mega { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); z-index: 55; }
 .dd-mega {
   width: min(940px, 96vw);
   display: grid;
@@ -138,6 +138,12 @@ button { font-family: inherit; }
   cursor: pointer;
   transition: background var(--dur) var(--ease-out), transform 120ms var(--ease-out);
   position: relative;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
 }
 .dd-mega-item:hover {
   background: var(--panel-2);
@@ -270,6 +276,10 @@ button { font-family: inherit; }
   font-weight: 500;
   transition: all 120ms var(--ease-out);
   position: relative;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
 }
 .drawer-link:hover {
   background: var(--panel-2);
