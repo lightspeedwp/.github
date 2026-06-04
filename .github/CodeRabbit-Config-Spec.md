@@ -299,6 +299,6 @@ The configuration includes 10 specialized review rules optimized for different f
 
 ---
 
-**Last Validated**: 2026-06-03  
-**Next Validation**: 2026-12-03 (6-month cadence recommended)  
+**Last Validated**: 2026-06-03
+**Next Validation**: 2026-12-03 (6-month cadence recommended)
 **Maintainer**: LightSpeed Team
