@@ -36,7 +36,7 @@ function lessonTitle(l) {
 function NotFound({ nav }) {
   return (
     <main className="wrap notfound">
-      <img src="assets/wapuu-astropuu.png" alt="" />
+      <img src="assets/wapuu-astropuu.png" alt="" aria-hidden="true" />
       <h1>Lost in orbit</h1>
       <p>That page drifted off. Let's get you back to something solid.</p>
       <div className="ob-cta" style={{ justifyContent: "center" }}>
