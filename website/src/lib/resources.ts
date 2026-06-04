@@ -1,214 +1,170 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+// Resource utilities for the Awesome GitHub website
 
-export interface ResourceFrontmatter {
+export const REPO_INFO = {
+  owner: 'lightspeedwp',
+  repo: '.github',
+  branches: {
+    default: 'develop',
+    stable: 'main',
+  },
+};
+
+export type ResourceAction = 'copy' | 'download' | 'github' | 'vscode';
+export type ResourceType = 'agents' | 'instructions' | 'skills' | 'cookbook' | 'learn' | 'hooks' | 'workflows' | 'prompts' | 'tools';
+
+export interface ResourceMetadata {
   title: string;
   description: string;
-  version?: string;
-  last_updated?: string;
-  author?: string;
-  maintainer?: string;
-  file_type: string;
-  category?: string;
-  status?: string;
-  visibility?: string;
+  type: ResourceType;
+  path: string;
+  file: string;
+  actions: ResourceAction[];
   tags?: string[];
-  owners?: string[];
-  tools?: string[];
-  handoffs?: Array<{
-    label: string;
-    agent: string;
-    prompt: string;
-    send: boolean;
-  }>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
-}
-
-export interface Resource {
-  slug: string;
-  title: string;
-  description: string;
-  frontmatter: ResourceFrontmatter;
-  content: string;
-  type: string;
-}
-
-const resourceTypes = [
-  "agents",
-  "instructions",
-  "skills",
-  "hooks",
-  "workflows",
-  "plugins",
-  "tools",
-];
-
-function renderMarkdown(markdown: string): string {
-  let html = markdown;
-
-  html = html.replace(/^### (.*?)$/gm, "<h3>$1</h3>");
-  html = html.replace(/^## (.*?)$/gm, "<h2>$1</h2>");
-  html = html.replace(/^# (.*?)$/gm, "<h1>$1</h1>");
-
-  html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-  html = html.replace(/\*(.*?)\*/g, "<em>$1</em>");
-  html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
-
-  html = html.replace(/^- (.*?)$/gm, "<li>$1</li>");
-  html = html.replace(/(<li>.*<\/li>)/s, "<ul>$1</ul>");
-  html = html.replace(/^> (.*?)$/gm, "<blockquote>$1</blockquote>");
-
-  html = html.replace(/\n\n/g, "</p><p>");
-  html = "<p>" + html + "</p>";
-  html = html.replace(/<p><\/p>/g, "");
-  html = html.replace(/<p>(<h[1-3]>)/g, "$1");
-  html = html.replace(/(<\/h[1-3]>)<\/p>/g, "$1");
-  html = html.replace(/<p>(<ul>)/g, "$1");
-  html = html.replace(/(<\/ul>)<\/p>/g, "$1");
-  html = html.replace(/<p>(<blockquote>)/g, "$1");
-  html = html.replace(/(<\/blockquote>)<\/p>/g, "$1");
-
-  return html;
+  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
+  category?: string;
 }
 
 /**
- * Get the directory path for a resource type
+ * Generate GitHub URLs for a resource with branch switching support
  */
-function getResourceDir(type: string): string {
-  const baseDir = path.join(process.cwd(), "..", type);
-  return baseDir;
-}
+export function generateResourceUrl(
+  resource: ResourceMetadata,
+  action: ResourceAction,
+  branch: 'main' | 'develop' = 'develop'
+): string {
+  const baseUrl = 'https://github.com';
+  const rawUrl = 'https://raw.githubusercontent.com';
+  const repoPath = `${REPO_INFO.owner}/${REPO_INFO.repo}`;
+  const filePath = `${resource.path}/${resource.file}`;
 
-/**
- * Get slug from filename
- */
-function getSlugFromFile(filename: string): string {
-  return filename
-    .replace(/\.(agent|instruction|skill|hook|workflow|plugin|tool)?\.md$/, "")
-    .toLowerCase();
-}
-
-/**
- * Load a single resource by type and slug
- */
-export function getResource(type: string, slug: string): Resource | null {
-  try {
-    const resourceDir = getResourceDir(type);
-    const files = fs.readdirSync(resourceDir);
-
-    // Find matching file (handle different file naming conventions)
-    const file = files.find((f) => {
-      const fileSlug = getSlugFromFile(f);
-      return fileSlug === slug && f.endsWith(".md");
-    });
-
-    if (!file) return null;
-
-    const filePath = path.join(resourceDir, file);
-    const fileContent = fs.readFileSync(filePath, "utf-8");
-    const { data, content } = matter(fileContent);
-
-    return {
-      slug,
-      title: data.title || slug,
-      description: data.description || "",
-      frontmatter: data as ResourceFrontmatter,
-      content: renderMarkdown(content),
-      type,
-    };
-  } catch {
-    // Resource not found, return null
-    return null;
+  switch (action) {
+    case 'github':
+      return `${baseUrl}/${repoPath}/blob/${branch}/${filePath}`;
+    
+    case 'copy':
+      return `${rawUrl}/${repoPath}/${branch}/${filePath}`;
+    
+    case 'download':
+      // Same as copy raw
+      return `${rawUrl}/${repoPath}/${branch}/${filePath}`;
+    
+    case 'vscode':
+      // VS Code custom instructions installer
+      const rawFileUrl = encodeURIComponent(`${rawUrl}/${repoPath}/${branch}/${filePath}`);
+      return `vscode:github/install?url=${rawFileUrl}`;
+    
+    default:
+      return '';
   }
 }
 
 /**
- * Get all resources of a specific type
+ * Get available actions for a resource type
  */
-export function getResourcesByType(type: string): Resource[] {
-  try {
-    const resourceDir = getResourceDir(type);
-
-    if (!fs.existsSync(resourceDir)) {
-      return [];
-    }
-
-    const files = fs.readdirSync(resourceDir).filter((f) => f.endsWith(".md"));
-
-    return files
-      .map((file) => {
-        const slug = getSlugFromFile(file);
-        const filePath = path.join(resourceDir, file);
-        const fileContent = fs.readFileSync(filePath, "utf-8");
-        const { data, content } = matter(fileContent);
-
-        return {
-          slug,
-          title: data.title || slug,
-          description: data.description || "",
-          frontmatter: data as ResourceFrontmatter,
-          content: renderMarkdown(content),
-          type,
-        };
-      })
-      .filter((r) => r.frontmatter.visibility !== "hidden")
-      .sort((a, b) => a.title.localeCompare(b.title));
-  } catch {
-    // Error loading resources, return empty array
-    return [];
-  }
-}
-
-/**
- * Get all available resource types
- */
-export function getAvailableResourceTypes(): Array<{
-  type: string;
-  label: string;
-  icon: string;
-  count: number;
-}> {
-  const typeInfo: Record<string, { label: string; icon: string }> = {
-    agents: { label: "Agents", icon: "🤖" },
-    instructions: { label: "Instructions", icon: "📝" },
-    skills: { label: "Skills", icon: "⚡" },
-    hooks: { label: "Hooks", icon: "🛠️" },
-    workflows: { label: "Workflows", icon: "⚙️" },
-    plugins: { label: "Plugins", icon: "🔌" },
-    tools: { label: "Tools", icon: "🔧" },
+export function getAvailableActions(type: ResourceType): ResourceAction[] {
+  const actionMap: Record<ResourceType, ResourceAction[]> = {
+    agents: ['copy', 'download', 'github', 'vscode'],
+    instructions: ['copy', 'download', 'github'],
+    skills: ['copy', 'download', 'github', 'vscode'],
+    cookbook: ['copy', 'download', 'github'],
+    learn: [],
+    hooks: ['copy', 'download', 'github'],
+    workflows: ['copy', 'github'],
+    prompts: ['copy', 'github'],
+    tools: ['copy', 'download', 'github'],
   };
 
-  return resourceTypes.map((type) => ({
-    type,
-    label: typeInfo[type]?.label || type,
-    icon: typeInfo[type]?.icon || "📦",
-    count: getResourcesByType(type).length,
-  }));
+  return actionMap[type] || [];
 }
 
 /**
- * Search resources across all types
+ * Format difficulty level for display
  */
-export function searchResources(query: string): Resource[] {
-  const lowerQuery = query.toLowerCase();
-  const results: Resource[] = [];
+export function formatDifficulty(difficulty?: string): string {
+  if (!difficulty) return '';
+  const colors: Record<string, string> = {
+    Beginner: 'text-green-600',
+    Intermediate: 'text-yellow-600',
+    Advanced: 'text-red-600',
+  };
+  return colors[difficulty] || '';
+}
 
-  for (const type of resourceTypes) {
-    const resources = getResourcesByType(type);
-    resources.forEach((resource) => {
-      if (
-        resource.title.toLowerCase().includes(lowerQuery) ||
-        resource.description.toLowerCase().includes(lowerQuery) ||
-        resource.frontmatter.tags?.some((tag) =>
-          tag.toLowerCase().includes(lowerQuery),
-        )
-      ) {
-        results.push(resource);
-      }
-    });
-  }
+/**
+ * Format estimated read time
+ */
+export function formatReadTime(minutes?: number): string {
+  if (!minutes) return '';
+  if (minutes < 60) return `${minutes} min`;
+  const hours = Math.ceil(minutes / 60);
+  return `${hours}h`;
+}
 
-  return results;
+/**
+ * Sort resources by a field
+ */
+export function sortResources<T extends { data: any }>(
+  resources: T[],
+  sortBy: 'title' | 'date' | 'difficulty' = 'title'
+): T[] {
+  return [...resources].sort((a, b) => {
+    switch (sortBy) {
+      case 'title':
+        return a.data.title.localeCompare(b.data.title);
+      case 'date':
+        const dateA = new Date(a.data.last_updated || 0).getTime();
+        const dateB = new Date(b.data.last_updated || 0).getTime();
+        return dateB - dateA; // newest first
+      case 'difficulty':
+        const diffOrder = { Beginner: 0, Intermediate: 1, Advanced: 2 };
+        return (diffOrder[a.data.difficulty] ?? 99) - (diffOrder[b.data.difficulty] ?? 99);
+      default:
+        return 0;
+    }
+  });
+}
+
+/**
+ * Filter resources by tags and category
+ */
+export function filterResources<T extends { data: any }>(
+  resources: T[],
+  options: {
+    tags?: string[];
+    category?: string;
+    difficulty?: string;
+    search?: string;
+  } = {}
+): T[] {
+  return resources.filter(resource => {
+    const { tags = [], category, difficulty, search } = options;
+    const data = resource.data;
+
+    // Filter by tags
+    if (tags.length > 0) {
+      const resourceTags = data.tags || [];
+      const hasTag = tags.some(tag => resourceTags.includes(tag));
+      if (!hasTag) return false;
+    }
+
+    // Filter by category
+    if (category && data.category !== category) {
+      return false;
+    }
+
+    // Filter by difficulty
+    if (difficulty && data.difficulty !== difficulty) {
+      return false;
+    }
+
+    // Filter by search term
+    if (search) {
+      const searchLower = search.toLowerCase();
+      const matchesTitle = data.title.toLowerCase().includes(searchLower);
+      const matchesDesc = data.description?.toLowerCase().includes(searchLower);
+      if (!matchesTitle && !matchesDesc) return false;
+    }
+
+    return true;
+  });
 }
