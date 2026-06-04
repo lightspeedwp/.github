@@ -1,21 +1,30 @@
 // Resource utilities for the Awesome GitHub website
 
 export const REPO_INFO = {
-  owner: 'lightspeedwp',
-  repo: '.github',
+  owner: "lightspeedwp",
+  repo: ".github",
   branches: {
-    default: 'develop',
-    stable: 'main',
+    default: "develop",
+    stable: "main",
   },
 };
 
-export type ResourceAction = 'copy' | 'download' | 'github' | 'vscode';
-export type ResourceType = 'agents' | 'instructions' | 'skills' | 'cookbook' | 'learn' | 'hooks' | 'workflows' | 'prompts' | 'tools';
+export type ResourceAction = "copy" | "download" | "github" | "vscode";
+export type ResourceType =
+  | "agents"
+  | "instructions"
+  | "skills"
+  | "cookbook"
+  | "learn"
+  | "hooks"
+  | "workflows"
+  | "prompts"
+  | "tools";
 
 export interface ResourceFrontmatter {
   title: string;
   description: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface Resource {
@@ -36,58 +45,58 @@ export interface ResourceTypeInfo {
 // Available resource types with metadata
 const RESOURCE_TYPES: Record<string, ResourceTypeInfo> = {
   agents: {
-    type: 'agents',
-    label: 'Agents',
-    icon: '🤖',
-    description: 'AI agent specifications and configurations',
+    type: "agents",
+    label: "Agents",
+    icon: "🤖",
+    description: "AI agent specifications and configurations",
   },
   instructions: {
-    type: 'instructions',
-    label: 'Instructions',
-    icon: '📋',
-    description: 'Organization-wide instructions and standards',
+    type: "instructions",
+    label: "Instructions",
+    icon: "📋",
+    description: "Organization-wide instructions and standards",
   },
   skills: {
-    type: 'skills',
-    label: 'Skills',
-    icon: '⚡',
-    description: 'Self-contained reusable skills',
+    type: "skills",
+    label: "Skills",
+    icon: "⚡",
+    description: "Self-contained reusable skills",
   },
   cookbook: {
-    type: 'cookbook',
-    label: 'Cookbook',
-    icon: '👨‍🍳',
-    description: 'Recipes, playbooks, and implementation guides',
+    type: "cookbook",
+    label: "Cookbook",
+    icon: "👨‍🍳",
+    description: "Recipes, playbooks, and implementation guides",
   },
   learn: {
-    type: 'learn',
-    label: 'Learning Centre',
-    icon: '📚',
-    description: 'Learning tracks and courses',
+    type: "learn",
+    label: "Learning Centre",
+    icon: "📚",
+    description: "Learning tracks and courses",
   },
   hooks: {
-    type: 'hooks',
-    label: 'Hooks',
-    icon: '🪝',
-    description: 'Portable hooks and guardrails',
+    type: "hooks",
+    label: "Hooks",
+    icon: "🪝",
+    description: "Portable hooks and guardrails",
   },
   workflows: {
-    type: 'workflows',
-    label: 'Workflows',
-    icon: '⚙️',
-    description: 'Portable agentic workflows',
+    type: "workflows",
+    label: "Workflows",
+    icon: "⚙️",
+    description: "Portable agentic workflows",
   },
   prompts: {
-    type: 'prompts',
-    label: 'Prompts',
-    icon: '💬',
-    description: 'Prompt library and templates',
+    type: "prompts",
+    label: "Prompts",
+    icon: "💬",
+    description: "Prompt library and templates",
   },
   tools: {
-    type: 'tools',
-    label: 'Tools',
-    icon: '🛠️',
-    description: 'Utility scripts and tools',
+    type: "tools",
+    label: "Tools",
+    icon: "🛠️",
+    description: "Utility scripts and tools",
   },
 };
 
@@ -102,7 +111,7 @@ export function getAvailableResourceTypes(): ResourceTypeInfo[] {
  * Get a specific resource by type and slug
  * Note: This is a stub implementation. In production, this would load from content collections.
  */
-export function getResource(type: string, slug: string): Resource | null {
+export function getResource(_type: string, _slug: string): Resource | null {
   // Stub implementation - returns null for now
   // In production, this would load from Astro content collections
   return null;
@@ -112,7 +121,7 @@ export function getResource(type: string, slug: string): Resource | null {
  * Get all resources of a specific type
  * Note: This is a stub implementation. In production, this would load from content collections.
  */
-export function getResourcesByType(type: string): Resource[] {
+export function getResourcesByType(_type: string): Resource[] {
   // Stub implementation - returns empty array for now
   // In production, this would load from Astro content collections
   return [];
@@ -125,29 +134,32 @@ export function generateResourceUrl(
   path: string,
   file: string,
   action: ResourceAction,
-  branch: 'main' | 'develop' = 'develop'
+  branch: "main" | "develop" = "develop",
 ): string {
-  const baseUrl = 'https://github.com';
-  const rawUrl = 'https://raw.githubusercontent.com';
+  const baseUrl = "https://github.com";
+  const rawUrl = "https://raw.githubusercontent.com";
   const repoPath = `${REPO_INFO.owner}/${REPO_INFO.repo}`;
   const filePath = `${path}/${file}`;
 
   switch (action) {
-    case 'github':
+    case "github":
       return `${baseUrl}/${repoPath}/blob/${branch}/${filePath}`;
-    
-    case 'copy':
+
+    case "copy":
       return `${rawUrl}/${repoPath}/${branch}/${filePath}`;
-    
-    case 'download':
+
+    case "download":
       return `${rawUrl}/${repoPath}/${branch}/${filePath}`;
-    
-    case 'vscode':
-      const rawFileUrl = encodeURIComponent(`${rawUrl}/${repoPath}/${branch}/${filePath}`);
+
+    case "vscode": {
+      const rawFileUrl = encodeURIComponent(
+        `${rawUrl}/${repoPath}/${branch}/${filePath}`,
+      );
       return `vscode:github/install?url=${rawFileUrl}`;
-    
+    }
+
     default:
-      return '';
+      return "";
   }
 }
 
@@ -156,15 +168,15 @@ export function generateResourceUrl(
  */
 export function getAvailableActions(type: string): ResourceAction[] {
   const actionMap: Record<string, ResourceAction[]> = {
-    agents: ['copy', 'download', 'github', 'vscode'],
-    instructions: ['copy', 'download', 'github'],
-    skills: ['copy', 'download', 'github', 'vscode'],
-    cookbook: ['copy', 'download', 'github'],
+    agents: ["copy", "download", "github", "vscode"],
+    instructions: ["copy", "download", "github"],
+    skills: ["copy", "download", "github", "vscode"],
+    cookbook: ["copy", "download", "github"],
     learn: [],
-    hooks: ['copy', 'download', 'github'],
-    workflows: ['copy', 'github'],
-    prompts: ['copy', 'github'],
-    tools: ['copy', 'download', 'github'],
+    hooks: ["copy", "download", "github"],
+    workflows: ["copy", "github"],
+    prompts: ["copy", "github"],
+    tools: ["copy", "download", "github"],
   };
 
   return actionMap[type] || [];
@@ -174,20 +186,20 @@ export function getAvailableActions(type: string): ResourceAction[] {
  * Format difficulty level for display
  */
 export function formatDifficulty(difficulty?: string): string {
-  if (!difficulty) return '';
+  if (!difficulty) return "";
   const colors: Record<string, string> = {
-    Beginner: 'text-green-600',
-    Intermediate: 'text-yellow-600',
-    Advanced: 'text-red-600',
+    Beginner: "text-green-600",
+    Intermediate: "text-yellow-600",
+    Advanced: "text-red-600",
   };
-  return colors[difficulty] || '';
+  return colors[difficulty] || "";
 }
 
 /**
  * Format estimated read time
  */
 export function formatReadTime(minutes?: number): string {
-  if (!minutes) return '';
+  if (!minutes) return "";
   if (minutes < 60) return `${minutes} min`;
   const hours = Math.ceil(minutes / 60);
   return `${hours}h`;
@@ -196,24 +208,31 @@ export function formatReadTime(minutes?: number): string {
 /**
  * Sort resources by a field
  */
-export function sortResources<T extends { data?: any; frontmatter?: any }>(
-  resources: T[],
-  sortBy: 'title' | 'date' | 'difficulty' = 'title'
-): T[] {
+export function sortResources<
+  T extends {
+    data?: Record<string, unknown>;
+    frontmatter?: Record<string, unknown>;
+  },
+>(resources: T[], sortBy: "title" | "date" | "difficulty" = "title"): T[] {
   return [...resources].sort((a, b) => {
     const dataA = a.data || a.frontmatter || {};
     const dataB = b.data || b.frontmatter || {};
 
     switch (sortBy) {
-      case 'title':
-        return (dataA.title || '').localeCompare(dataB.title || '');
-      case 'date':
+      case "title":
+        return (dataA.title || "").localeCompare(dataB.title || "");
+      case "date": {
         const dateA = new Date(dataA.last_updated || 0).getTime();
         const dateB = new Date(dataB.last_updated || 0).getTime();
         return dateB - dateA;
-      case 'difficulty':
+      }
+      case "difficulty": {
         const diffOrder = { Beginner: 0, Intermediate: 1, Advanced: 2 };
-        return (diffOrder[dataA.difficulty] ?? 99) - (diffOrder[dataB.difficulty] ?? 99);
+        return (
+          (diffOrder[dataA.difficulty] ?? 99) -
+          (diffOrder[dataB.difficulty] ?? 99)
+        );
+      }
       default:
         return 0;
     }
@@ -223,23 +242,28 @@ export function sortResources<T extends { data?: any; frontmatter?: any }>(
 /**
  * Filter resources by tags and category
  */
-export function filterResources<T extends { data?: any; frontmatter?: any }>(
+export function filterResources<
+  T extends {
+    data?: Record<string, unknown>;
+    frontmatter?: Record<string, unknown>;
+  },
+>(
   resources: T[],
   options: {
     tags?: string[];
     category?: string;
     difficulty?: string;
     search?: string;
-  } = {}
+  } = {},
 ): T[] {
-  return resources.filter(resource => {
+  return resources.filter((resource) => {
     const { tags = [], category, difficulty, search } = options;
     const data = resource.data || resource.frontmatter || {};
 
     // Filter by tags
     if (tags.length > 0) {
       const resourceTags = data.tags || [];
-      const hasTag = tags.some(tag => resourceTags.includes(tag));
+      const hasTag = tags.some((tag) => resourceTags.includes(tag));
       if (!hasTag) return false;
     }
 

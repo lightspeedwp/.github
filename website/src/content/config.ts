@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z } from "astro:content";
 
 // Shared base schema for all resource types
 const baseSchema = z.object({
@@ -15,7 +15,7 @@ const baseSchema = z.object({
 // Instructions collection
 const instructionsCollection = defineCollection({
   schema: baseSchema.extend({
-    difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
+    difficulty: z.enum(["Beginner", "Intermediate", "Advanced"]).optional(),
     estimated_read_time: z.number().optional(),
   }),
 });
@@ -24,26 +24,30 @@ const instructionsCollection = defineCollection({
 const agentsCollection = defineCollection({
   schema: baseSchema.extend({
     type: z.string().optional(),
-    difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
-    actions: z.array(z.enum(['copy', 'download', 'github', 'vscode'])).optional(),
+    difficulty: z.enum(["Beginner", "Intermediate", "Advanced"]).optional(),
+    actions: z
+      .array(z.enum(["copy", "download", "github", "vscode"]))
+      .optional(),
   }),
 });
 
 // Skills collection
 const skillsCollection = defineCollection({
   schema: baseSchema.extend({
-    type: z.literal('skill').optional(),
+    type: z.literal("skill").optional(),
     installation: z.string().optional(),
-    difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
-    actions: z.array(z.enum(['copy', 'download', 'github', 'vscode'])).optional(),
+    difficulty: z.enum(["Beginner", "Intermediate", "Advanced"]).optional(),
+    actions: z
+      .array(z.enum(["copy", "download", "github", "vscode"]))
+      .optional(),
   }),
 });
 
 // Cookbook collection
 const cookbookCollection = defineCollection({
   schema: baseSchema.extend({
-    type: z.enum(['playbook', 'checklist', 'workflow']).optional(),
-    difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
+    type: z.enum(["playbook", "checklist", "workflow"]).optional(),
+    difficulty: z.enum(["Beginner", "Intermediate", "Advanced"]).optional(),
     estimated_read_time: z.number().optional(),
     use_case: z.string().optional(),
   }),
@@ -54,7 +58,7 @@ const learnCollection = defineCollection({
   schema: baseSchema.extend({
     track: z.string().optional(),
     lesson_number: z.number().optional(),
-    difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
+    difficulty: z.enum(["Beginner", "Intermediate", "Advanced"]).optional(),
     estimated_read_time: z.number().optional(),
     completed: z.boolean().optional().default(false),
   }),
