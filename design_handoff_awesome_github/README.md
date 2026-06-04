@@ -23,11 +23,13 @@ The files in `design_source/` are a **design reference built in HTML/React** —
 ---
 
 ## Target codebase
+
 - Repo: `https://github.com/lightspeedwp/.github` (branch `develop`)
 - Astro site lives in `website/`
 - New page route to create: `website/src/pages/awesome-github/index.astro` (plus sub‑routes — see Routing). Confirm the existing `src/layouts`, `src/components`, and global CSS conventions and reuse them.
 
 ## Routing (the prototype is hash‑based; port to Astro file routes)
+
 | Prototype hash | View | Suggested Astro route |
 | --- | --- | --- |
 | `#/` | Home | `/awesome-github/` |
@@ -44,9 +46,11 @@ Data for these lives in the plain JS files (`data.js`, `content-data.js`, `learn
 ---
 
 ## Design tokens (source: `design_source/colors_and_type.css`)
+
 This is the **LightSpeedWP design system**. Use these exact values.
 
 ### Colour — brand & neutrals
+
 - Brand blue (all CTAs): `#1E6AFF` · hover `#1857D6` · press `#1444B0` · soft `rgba(30,106,255,0.10)`
 - Speed highlight (cyan/light‑blue): `#7BE7FF`
 - Ink / near‑black: `#090909` · pure white `#FFFFFF`
@@ -60,6 +64,7 @@ This is the **LightSpeedWP design system**. Use these exact values.
 `--bg #0F1014` · `--fg #FFFFFF` · `--fg-2 #B8B8B8` · `--border rgba(255,255,255,0.08)` · `--accent #7BE7FF` (light‑blue for AAA contrast on dark) · links use light‑blue. The hero and several full‑bleed sections render dark; content sections render light. Theme toggle is in the nav.
 
 ### Typography
+
 - Display/headings: **Inter** (variable, self‑hosted in `design_source/fonts/`), weights 700–800 hero, 700 sections, 600 H4.
 - Body: **Manrope** (variable, self‑hosted), 400/500.
 - Mono (code, file paths, kbd): **IBM Plex Mono** (Google Fonts).
@@ -69,6 +74,7 @@ This is the **LightSpeedWP design system**. Use these exact values.
 - Line‑heights: display 1.18, heading 1.25, body 1.5.
 
 ### Spacing / layout / radii / shadows / motion
+
 - 8‑pt grid: 4/8/12/16/20/24/32/40/48/64/80/96/128/160px.
 - Container max `1280px`, prose max `720px`, gutter `32px`, section padding `96px` Y (hero `160px` Y).
 - Radii: 2/4/8/12/16/24/9999px — `4` buttons, `8` inputs/small cards, `12` content cards, `9999` pills/chips/avatars.
@@ -80,12 +86,14 @@ This is the **LightSpeedWP design system**. Use these exact values.
 ## Screens / views
 
 ### 1. Home (`screenshots/01-home-hero-dark.png`, `02-home-scrolled.png`)
+
 - **Dark hero**, full‑bleed `#0F1014` with faint dot/grid texture. Eyebrow pill `● github.com/ lightspeedwp/.github` (cyan dot). H1 in two lines: line 1 white "Install AI governance,", line 2 light‑blue (`#7BE7FF`) "not opinions." Inter ~700–800.
 - Lead paragraph in `--fg-2`, with an inline mono `.github` chip.
 - CTA pair: **Start here** (solid brand‑blue, white text, arrow icon, radius 4) + **Browse catalogues** (ghost/outline, fills `accent-soft` on hover).
 - Below the fold: catalogue grid, stat strip, editorial blocks (light sections alternating white / `#F9FAFB`).
 
 ### 2. Catalogue (`screenshots/03-catalogue-agents.png`)
+
 - Light page. Breadcrumb (`Home / Agents`). Header row: square icon tile (rounded 12, soft tint bg, brand‑blue Heroicon) + H1 + one‑line blurb.
 - A **type note banner** (tinted strip) explaining the interaction model for this resource type (e.g. "Single‑file" badge + "A single‑file Copilot customisation — copy the raw file or install it straight into VS Code.").
 - Filter input ("Filter 9 agents…") with live count `9 / 9` on the right.
@@ -93,20 +101,24 @@ This is the **LightSpeedWP design system**. Use these exact values.
 - Grid of resource cards: icon, title, badge (e.g. `Single-file`), version + date meta (mono). Cards lift on hover.
 
 ### 3. Resource detail (`#/item/:id`)
+
 - Breadcrumb + title + type badge. Action buttons: Copy raw / Download / Open on GitHub / Install in VS Code (`vscode:` deep link) — which appear depends on the item's **type** (see interaction matrix in `data.js`: `install`, `aiDefault`, `workflow`, `guardrail`, `pack`, `script`, `schema`, `recipe`). Body renders markdown.
 - GitHub URLs are built at render time from a `main`⇄`develop` branch switch (see `urlsFor()` in `data.js`).
 
 ### 4. Learning centre (`screenshots/04-learn-centre.png`)
+
 - Dark hero with eyebrow `LEARNING CENTRE`, two‑line H1 (white + light‑blue), lead, and a **progress bar** ("2 of 10 lessons read") persisted in localStorage. A Wapuu mascot illustration sits right of the hero (asset in `design_source/assets/`).
 - Track cards below ("TRACK 1 / Getting oriented", lesson count badge `1/2`).
 - Lesson reader renders markdown with prev/next + progress tracking.
 
 ### 5. Getting started / onboarding (`screenshots/05-getting-started.png`)
+
 - Light page. Breadcrumb, eyebrow `ONBOARDING`, large H1 "Up and running in ten minutes". Lead with inline `.github` mono chip.
 - A **clone command** block (mono, with a Copy button) inside a hairline card.
 - Numbered steps (circular brand‑blue number badge + step title + body), e.g. "1 Set the org default".
 
 ### Global chrome (all views)
+
 - **Sticky top nav, 72px**, never auto‑hides. Left: LS glyph + "Awesome **GitHub**" wordmark (GitHub in brand‑blue). Right: search button (opens command palette, `Cmd/Ctrl+K`), hamburger/menu, theme toggle. Uses `backdrop-filter: blur(12px)` over translucent bg.
 - **Search palette**: modal command palette, keyboard‑navigable, searches all resources.
 - **Footer**: dark `#090909`, full‑bleed, soft cyan halo around the LS mark. Reassurance line "Crafted with care in WordPress."
@@ -115,6 +127,7 @@ This is the **LightSpeedWP design system**. Use these exact values.
 ---
 
 ## Interactions & behaviour
+
 - Branch switch (`main`⇄`develop`) rewrites every GitHub/raw/`vscode:` URL — keep this; it's central.
 - Copy‑to‑clipboard buttons fire a toast.
 - `Cmd/Ctrl+K` opens search; Esc closes.
@@ -123,21 +136,25 @@ This is the **LightSpeedWP design system**. Use these exact values.
 - Respect `prefers-reduced-motion`.
 
 ## State
+
 - `theme` (light/dark, persisted), `branch` (main/develop, persisted), current route, search‑open, toast message, learn progress (persisted). Port to Astro + minimal client islands (or nanostores) where interactivity is genuinely needed; render everything else statically.
 
 ## Assets (in `design_source/assets/` and `fonts/`)
+
 - Logos/glyphs: `LS-Agency-Logo-{Blue,White}.svg`, `LS-Agency-Site-Icon-{Blue,Light-Blue,White}.svg` — official, do not recolour outside these colourways; preserve clear‑space.
 - Mascots: `wapuu-astropuu.png`, `wapuu-yoduu.png`, `wapuu-rocket.svg`.
 - Fonts: `Inter-VariableFont_opsz_wght.woff2`, `Manrope-VariableFont_wght.woff2` (self‑host these in Astro; IBM Plex Mono + Lora via Google Fonts or self‑host too).
 - Icons: **Heroicons** (outline 24×24, 1.5px stroke). The prototype inlines them in `icons.jsx` — map to your Astro icon approach.
 
 ## Files in `design_source/`
+
 - `Awesome GitHub.html` — entry; shows load order.
 - CSS: `colors_and_type.css` (all tokens — **port first**), `app-styles.css`, `extra-styles.css`, `pages-v2.css`.
 - Data (plain JS, easy to read/port): `data.js` (catalogue + interaction matrix + URL builders), `content-data.js`, `learn-data.js`, `glossary-data.js`.
 - Components (React/JSX — read for structure & copy, re‑author as `.astro`): `app.jsx` (router/mount), `chrome.jsx` (nav/footer/toast/theme), `search.jsx`, `views.jsx` (home/catalogue/detail), `pages.jsx`, `tools.jsx`, `cookbook.jsx`, `learn.jsx`, `onboarding.jsx`, `content-pages.jsx`, `markdown.jsx`, `icons.jsx`.
 
 ## Suggested order of work
+
 1. Port `colors_and_type.css` tokens into the Astro global stylesheet; self‑host the two woff2 fonts.
 2. Build the shared layout: sticky nav + footer + theme toggle.
 3. Build the home page (dark hero + catalogue grid).
