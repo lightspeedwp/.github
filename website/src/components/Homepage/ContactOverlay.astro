@@ -4,7 +4,7 @@
 <div class="hp-contact-overlay" data-contact-overlay>
   <div class="hp-contact-scrim" data-contact-scrim></div>
 
-  <dialog class="hp-contact-dialog" data-contact-dialog>
+  <div class="hp-contact-dialog" data-contact-dialog role="dialog" aria-modal="true">
     <button class="hp-contact-close" data-contact-close aria-label="Close">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -83,17 +83,17 @@
           </svg>
         </button>
 
-        <!-- Success state (hidden by default) -->
-        <div class="hp-contact-success" data-contact-success style="display: none;">
-          <svg viewBox="0 0 24 24" fill="currentColor" style="color: #7be7ff;">
-            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
-          </svg>
-          <h3>Thanks — we'll be in touch.</h3>
-          <p>You'll hear from one of us within a working day.</p>
-        </div>
       </form>
+
+      <!-- Success state (hidden by default) -->
+      <div class="hp-contact-success" data-contact-success style="display: none;">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="color: #7be7ff;">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+        </svg>
+        <h3>Thanks — we'll be in touch.</h3>
+        <p>You'll hear from one of us within a working day.</p>
+      </div>
     </div>
-  </dialog>
 </div>
 
 <style>
@@ -348,7 +348,8 @@
   // Open overlay on anchor links
   if (overlay) {
     document.addEventListener("click", (e) => {
-      const href = e.target.getAttribute("href");
+      const link = (e.target as HTMLElement).closest("a");
+      const href = link?.getAttribute("href");
       if (href === "#contact") {
         e.preventDefault();
         overlay.setAttribute("data-open", "");
