@@ -327,15 +327,11 @@ button { font-family: inherit; }
   .detail { grid-template-columns: 1fr; }
   .aside { position: static; }
   .feat-grid { grid-template-columns: 1fr; }
-  .dd-mega { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px; }
 }
 @media (max-width: 980px) {
   .nav-links { display: none; }
   .search-trigger { min-width: 0; }
   .search-trigger .stxt, .search-trigger .kbd { display: none; }
-}
-@media (max-width: 768px) {
-  .dd-mega { grid-template-columns: 1fr; gap: 16px; padding: 16px; }
 }
 @media (max-width: 720px) {
   .item-grid { grid-template-columns: 1fr; }

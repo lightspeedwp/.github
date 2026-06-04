@@ -141,20 +141,20 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
 
         <nav className="nav-primary">
           <Dropdown label="Browse" active={catActive} isMega={true}>
-            <div className="dropdown dd-mega">
+            <div className="dd-mega">
               {BROWSE_MENU_SECTIONS.map((section) => (
                 <div key={section.title} className="dd-section">
                   <h6 className="dd-section-title">{section.title}</h6>
                   <div className="dd-section-items">
                     {section.items.map((item) => {
-                      const isNav = ["cookbook", "learn"].includes(item.id);
+                      const Icon = Icons[item.icon] || Icons.layers;
                       return (
                         <a
                           key={item.id}
                           className="dd-mega-item"
-                          onClick={() => nav(isNav ? { view: item.id } : { view: "catalogue", cat: item.id })}
+                          onClick={() => goPage(item.id)}
                         >
-                          <span className="dmi-icon">{Icons[item.icon] ? Icons[item.icon]({ size: 24 }) : <Icons.layers size={24} />}</span>
+                          <span className="dmi-icon"><Icon size={24} /></span>
                           <span className="dmi-text">
                             <b>{item.label}</b>
                             <span>{item.desc}</span>
@@ -211,15 +211,16 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
                 <div key={section.title} className="drawer-sec">
                   <h6>{section.title}</h6>
                   {section.items.map((item) => {
-                    const isNav = ["cookbook", "learn"].includes(item.id);
-                    const isActive = isNav ? isPage(item.id) : isCat(item.id);
+                    const isPageItem = PAGE_IDS.includes(item.id);
+                    const isActive = isPageItem ? isPage(item.id) : isCat(item.id);
+                    const Icon = Icons[item.icon] || Icons.layers;
                     return (
                       <a
                         key={item.id}
                         className={"drawer-link" + (isActive ? " active" : "")}
-                        onClick={() => nav(isNav ? { view: item.id } : { view: "catalogue", cat: item.id })}
+                        onClick={() => goPage(item.id)}
                       >
-                        <span className="dli">{Icons[item.icon] ? Icons[item.icon]({ size: 18 }) : <Icons.layers size={18} />}</span>
+                        <span className="dli"><Icon size={18} /></span>
                         {item.label}
                       </a>
                     );
