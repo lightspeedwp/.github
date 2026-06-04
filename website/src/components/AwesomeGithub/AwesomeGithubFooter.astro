@@ -1,0 +1,63 @@
+---
+// Footer component for Awesome GitHub site
+---
+
+<footer class="ag-footer">
+  <div class="ag-footer-container">
+    <div class="ag-footer-mark">
+      <span class="ag-footer-logo">✦</span>
+    </div>
+    <p class="ag-footer-copy">Crafted with care in WordPress.</p>
+  </div>
+</footer>
+
+<style>
+  .ag-footer {
+    background: var(--c-black);
+    color: var(--c-white);
+    padding: var(--space-16) var(--gutter);
+    text-align: center;
+  }
+
+  .ag-footer-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .ag-footer-logo {
+    display: inline-block;
+    font-size: 24px;
+    margin-bottom: var(--space-4);
+    animation: gentle-glow 3s ease-in-out infinite;
+  }
+
+  .ag-footer-copy {
+    margin: 0;
+    font-size: var(--fs-body-sm);
+    color: var(--c-slate-400);
+    font-weight: var(--weight-regular);
+  }
+
+  @keyframes gentle-glow {
+    0%, 100% {
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ag-footer {
+      padding: var(--space-10) var(--gutter);
+    }
+
+    .ag-footer-copy {
+      font-size: var(--fs-body-sm);
+    }
+  }
+</style>

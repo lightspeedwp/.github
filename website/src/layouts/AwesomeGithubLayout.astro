@@ -1,0 +1,108 @@
+---
+import "../styles/global.css";
+import "../styles/awesome-github.css";
+import AwesomeGithubNav from "../components/AwesomeGithub/AwesomeGithubNav.astro";
+import AwesomeGithubFooter from "../components/AwesomeGithub/AwesomeGithubFooter.astro";
+
+const base = import.meta.env.BASE_URL;
+const pathname = Astro.url.pathname.replace(base, "/");
+
+const {
+  title = "Awesome GitHub",
+  description = "Governance, not opinions.",
+} = Astro.props;
+
+const themeInitScript = `
+  (() => {
+    const storageKey = "awesome-github-theme";
+    const root = document.documentElement;
+    const media = window.matchMedia("(prefers-color-scheme: light)");
+    let saved = null;
+
+    try {
+      saved = localStorage.getItem(storageKey);
+    } catch (_) {
+      saved = null;
+    }
+
+    const theme = saved === "light" || saved === "dark" ? saved : media.matches ? "light" : "dark";
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+  })();
+`;
+
+const themeToggleScript = `
+  (() => {
+    const storageKey = "awesome-github-theme";
+    const root = document.documentElement;
+    const button = document.querySelector("[data-awesome-github-theme-toggle]");
+    const label = document.querySelector("[data-awesome-github-theme-label]");
+
+    if (!button || !label) {
+      return;
+    }
+
+    const apply = (theme) => {
+      root.dataset.theme = theme;
+      root.style.colorScheme = theme;
+      button.setAttribute("aria-pressed", String(theme === "light"));
+      label.textContent = theme === "light" ? "Light mode" : "Dark mode";
+    };
+
+    const current = root.dataset.theme === "light" || root.dataset.theme === "dark"
+      ? root.dataset.theme
+      : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+
+    apply(current);
+
+    button.addEventListener("click", () => {
+      const next = root.dataset.theme === "light" ? "dark" : "light";
+      try {
+        localStorage.setItem(storageKey, next);
+      } catch (_) {
+        /* ignore storage errors */
+      }
+      apply(next);
+    });
+  })();
+`;
+---
+
+<!doctype html>
+<html lang="en-GB" class="awesome-github">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <script is:inline set:html={themeInitScript}></script>
+  </head>
+  <body class="awesome-github">
+    <AwesomeGithubNav base={base} pathname={pathname} />
+    <main>
+      <slot />
+    </main>
+    <AwesomeGithubFooter />
+    <script is:inline set:html={themeToggleScript}></script>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+</style>
