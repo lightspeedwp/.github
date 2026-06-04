@@ -1,0 +1,48 @@
+---
+interface Props {
+  class?: string;
+  href?: string;
+  hover?: boolean;
+}
+
+const { class: className = "", href, hover = true } = Astro.props;
+const Element = href ? "a" : "div";
+---
+
+<Element
+  href={href}
+  class={`ag-card ${hover ? "ag-card--hover" : ""} ${className}`}
+>
+  <slot />
+</Element>
+
+<style>
+  .ag-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: all var(--dur) var(--ease-out);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .ag-card--hover:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .ag-card--hover:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .ag-card {
+      padding: var(--space-4);
+    }
+  }
+</style>

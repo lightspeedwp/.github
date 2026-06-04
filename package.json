@@ -75,7 +75,7 @@
     "lint:json": "node scripts/validation/validate-json.js --validate-only --strict --read-only",
     "lint": "npm run lint:js && npm run lint:yaml && npm run lint:pkg-json",
     "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md && npm run lint:json",
-    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
+    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --ignore-pattern 'design_handoff_awesome_github/**' --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\" \"!wceu-2026/**\" \"!.github/projects/**\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\" \"!wceu-2026/**\" \"!.github/projects/**\"",
     "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format",

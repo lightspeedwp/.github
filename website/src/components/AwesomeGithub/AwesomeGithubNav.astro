@@ -1,0 +1,213 @@
+---
+interface Props {
+  base: string;
+  pathname: string;
+}
+
+const { base, pathname } = Astro.props;
+
+const navLinks = [
+  { href: `${base}awesome-github/`, path: "/awesome-github/", label: "Home", exact: true },
+  { href: `${base}awesome-github/c/agents`, path: "/awesome-github/c/", label: "Catalogue", exact: false },
+  { href: `${base}awesome-github/getting-started`, path: "/awesome-github/getting-started", label: "Getting Started", exact: true },
+  { href: `${base}awesome-github/learn`, path: "/awesome-github/learn", label: "Learning", exact: false },
+];
+
+const isActive = (linkPath: string, exact: boolean): boolean => {
+  const normPath = pathname.replace(/\/$/, "");
+  const normLink = linkPath.replace(/\/$/, "");
+  return exact ? normPath === normLink : normPath === normLink || normPath.startsWith(normLink + "/");
+};
+---
+
+<header class="ag-nav">
+  <a href={`${base}awesome-github/`} class="ag-nav-brand">
+    <span class="ag-logo" aria-hidden="true">✦</span>
+    <span class="ag-brand-text">
+      <span class="ag-brand-word">Awesome</span>
+      <span class="ag-brand-emphasis">GitHub</span>
+    </span>
+  </a>
+
+  <nav class="ag-nav-menu" aria-label="Main navigation">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        class="ag-nav-link"
+        aria-current={isActive(link.path, link.exact) ? "page" : undefined}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+
+  <div class="ag-nav-actions">
+    <button
+      class="ag-nav-search"
+      type="button"
+      aria-label="Search"
+      title="Open search (Cmd+K)"
+    >
+      <span aria-hidden="true">⌘K</span>
+    </button>
+    <button
+      class="ag-nav-theme-toggle"
+      type="button"
+      data-awesome-github-theme-toggle
+      aria-pressed="false"
+      aria-label="Toggle light and dark mode"
+    >
+      <span class="theme-icon-light" aria-hidden="true">☀️</span>
+      <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .ag-nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    padding: 0 var(--gutter);
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.6);
+    transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  [data-theme="dark"] .ag-nav {
+    background: rgba(15, 16, 20, 0.8);
+  }
+
+  .ag-nav-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    color: var(--fg-1);
+    font-weight: var(--weight-bold);
+    font-family: var(--font-display);
+    font-size: 16px;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .ag-nav-brand:hover {
+    color: var(--accent);
+  }
+
+  .ag-logo {
+    font-size: 20px;
+  }
+
+  .ag-brand-text {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  .ag-brand-word {
+    color: var(--fg-1);
+  }
+
+  .ag-brand-emphasis {
+    color: var(--accent);
+  }
+
+  .ag-nav-menu {
+    display: flex;
+    gap: var(--space-8);
+    margin: 0;
+    list-style: none;
+  }
+
+  .ag-nav-link {
+    display: inline-block;
+    padding: var(--space-2) 0;
+    font-size: 14px;
+    font-weight: var(--weight-medium);
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .ag-nav-link:hover {
+    color: var(--fg-1);
+    border-bottom-color: var(--accent);
+  }
+
+  .ag-nav-link[aria-current="page"] {
+    color: var(--fg-1);
+    border-bottom-color: var(--accent);
+  }
+
+  .ag-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .ag-nav-search,
+  .ag-nav-theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--fg-2);
+    font-size: 12px;
+    cursor: pointer;
+    transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+  }
+
+  .ag-nav-search:hover,
+  .ag-nav-theme-toggle:hover {
+    color: var(--fg-1);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .ag-nav-search:active,
+  .ag-nav-theme-toggle:active {
+    transform: scale(0.98);
+  }
+
+  .ag-nav-search span {
+    font-weight: var(--weight-medium);
+  }
+
+  .theme-icon-light,
+  .theme-icon-dark {
+    font-size: 16px;
+    line-height: 1;
+    display: inline-block;
+  }
+
+  :global([data-theme="dark"]) .theme-icon-light {
+    display: none;
+  }
+
+  :global([data-theme="light"]) .theme-icon-dark {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .ag-nav-menu {
+      gap: var(--space-4);
+    }
+
+    .ag-nav-link {
+      font-size: 13px;
+    }
+  }
+</style>
