@@ -106,15 +106,18 @@ function Onboarding({ nav, toast }) {
       <div className="progress" style={{ width: progress + "%" }} />
       <section className="ob-hero">
         <div className="hero-grid-bg" />
-        <div className="wrap inner">
-          <span className="eyebrow">Onboarding · The .github control plane</span>
-          <h1>One <code style={{ fontFamily: "var(--font-mono)", fontSize: ".72em", background: "var(--panel-2)", padding: "2px 10px", borderRadius: 8, border: "1px solid var(--hair)", color: "var(--accent)" }}>.github</code> repo<br />to <span className="hl">rule them all</span>.</h1>
-          <p className="lead">From central governance to installable AI-ops plugins — why the repository exists, how it works, and how your team adopts it.</p>
-          <div className="ob-meta">
-            <span className="ob-tag"><Icons.bolt size={15} style={{ color: "var(--accent)" }} /> 6 chapters</span>
-            <span className="ob-tag"><Icons.book size={15} style={{ color: "var(--accent)" }} /> ~10 min read</span>
-            <span className="ob-tag"><Icons.github size={15} /> grounded in lightspeedwp/.github</span>
+        <div className="wrap inner" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32 }}>
+          <div>
+            <span className="eyebrow">Onboarding · The .github control plane</span>
+            <h1>One <code style={{ fontFamily: "var(--font-mono)", fontSize: ".72em", background: "var(--panel-2)", padding: "2px 10px", borderRadius: 8, border: "1px solid var(--hair)", color: "var(--accent)" }}>.github</code> repo<br />to <span className="hl">rule them all</span>.</h1>
+            <p className="lead">From central governance to installable AI-ops plugins — why the repository exists, how it works, and how your team adopts it.</p>
+            <div className="ob-meta">
+              <span className="ob-tag"><Icons.bolt size={15} style={{ color: "var(--accent)" }} /> 6 chapters</span>
+              <span className="ob-tag"><Icons.book size={15} style={{ color: "var(--accent)" }} /> ~10 min read</span>
+              <span className="ob-tag"><Icons.github size={15} /> grounded in lightspeedwp/.github</span>
+            </div>
           </div>
+          <img src="assets/wapuu-yoduu.png" alt="" aria-hidden="true" style={{ height: "clamp(120px, 14vw, 200px)", width: "auto", flex: "none", filter: "drop-shadow(0 12px 28px rgba(9,9,9,.18))" }} />
         </div>
       </section>
 

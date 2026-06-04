@@ -146,13 +146,16 @@ function GettingStarted({ nav, toast }) {
   ];
   return (
     <main className="wrap-prose" style={{ paddingBottom: 64 }}>
-      <div className="cat-hero" style={{ borderBottom: "none", paddingBottom: 0 }}>
-        <div className="crumb" style={{ marginTop: 28 }}><a onClick={() => nav({ view: "home" })}>Home</a> <span>/</span> <span>Getting started</span></div>
-        <span className="eyebrow">Onboarding</span>
-        <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px,5vw,46px)", letterSpacing: "-.02em", margin: "8px 0 0", color: "var(--fg-1)" }}>Up and running in ten minutes</h1>
-        <p style={{ color: "var(--fg-2)", fontSize: 18, lineHeight: 1.6, maxWidth: 620, marginTop: 14 }}>
-          The <code style={{ fontFamily: "var(--font-mono)" }}>.github</code> repository is your AI control plane. Adopt it once and every project inherits the same agents, standards, and guardrails.
-        </p>
+      <div className="cat-hero" style={{ borderBottom: "none", paddingBottom: 0, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32 }}>
+        <div>
+          <div className="crumb" style={{ marginTop: 28 }}><a onClick={() => nav({ view: "home" })}>Home</a> <span>/</span> <span>Getting started</span></div>
+          <span className="eyebrow">Onboarding</span>
+          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px,5vw,46px)", letterSpacing: "-.02em", margin: "8px 0 0", color: "var(--fg-1)" }}>Up and running in ten minutes</h1>
+          <p style={{ color: "var(--fg-2)", fontSize: 18, lineHeight: 1.6, maxWidth: 620, marginTop: 14 }}>
+            The <code style={{ fontFamily: "var(--font-mono)" }}>.github</code> repository is your AI control plane. Adopt it once and every project inherits the same agents, standards, and guardrails.
+          </p>
+        </div>
+        <img src="assets/wapuu-rocket.svg" alt="" aria-hidden="true" style={{ height: "clamp(120px, 14vw, 200px)", width: "auto", flex: "none", filter: "drop-shadow(0 12px 28px rgba(9,9,9,.18))" }} />
       </div>
 
       <div style={{ background: "var(--panel-2)", border: "1px solid var(--hair)", borderRadius: "var(--radius-lg)", padding: "16px 18px", margin: "28px 0", display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
@@ -180,10 +183,13 @@ function GettingStarted({ nav, toast }) {
 function Why({ nav }) {
   return (
     <main className="wrap-prose" style={{ paddingBottom: 64 }}>
-      <div className="cat-hero" style={{ borderBottom: "none", paddingBottom: 0 }}>
-        <div className="crumb" style={{ marginTop: 28 }}><a onClick={() => nav({ view: "home" })}>Home</a> <span>/</span> <span>Why this exists</span></div>
-        <span className="eyebrow">The model</span>
-        <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px,5vw,46px)", letterSpacing: "-.02em", margin: "8px 0 0", color: "var(--fg-1)" }}>One repo to govern them all</h1>
+      <div className="cat-hero" style={{ borderBottom: "none", paddingBottom: 0, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32 }}>
+        <div>
+          <div className="crumb" style={{ marginTop: 28 }}><a onClick={() => nav({ view: "home" })}>Home</a> <span>/</span> <span>Why this exists</span></div>
+          <span className="eyebrow">The model</span>
+          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(32px,5vw,46px)", letterSpacing: "-.02em", margin: "8px 0 0", color: "var(--fg-1)" }}>One repo to govern them all</h1>
+        </div>
+        <img src="assets/wapuu-astropuu.png" alt="" aria-hidden="true" style={{ height: "clamp(120px, 14vw, 200px)", width: "auto", flex: "none", filter: "drop-shadow(0 12px 28px rgba(9,9,9,.18))" }} />
       </div>
       <div className="md" style={{ marginTop: 24, fontSize: 16.5 }}>
         <p>As an agency we run dozens of WordPress and WooCommerce repositories at once. Without a shared baseline, every project drifts: different review standards, different Copilot behaviour, different definitions of "done". AI made that drift faster, not slower.</p>
