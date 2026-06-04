@@ -43,59 +43,60 @@ export interface ResourceTypeInfo {
 }
 
 // Available resource types with metadata
+// Icons are Phosphor icon names (https://github.com/phosphor-icons/web)
 const RESOURCE_TYPES: Record<string, ResourceTypeInfo> = {
   agents: {
     type: "agents",
     label: "Agents",
-    icon: "🤖",
+    icon: "robot",
     description: "AI agent specifications and configurations",
   },
   instructions: {
     type: "instructions",
     label: "Instructions",
-    icon: "📋",
+    icon: "clipboard",
     description: "Organization-wide instructions and standards",
   },
   skills: {
     type: "skills",
     label: "Skills",
-    icon: "⚡",
+    icon: "lightning-bold",
     description: "Self-contained reusable skills",
   },
   cookbook: {
     type: "cookbook",
     label: "Cookbook",
-    icon: "👨‍🍳",
+    icon: "chef-hat",
     description: "Recipes, playbooks, and implementation guides",
   },
   learn: {
     type: "learn",
     label: "Learning Centre",
-    icon: "📚",
+    icon: "book",
     description: "Learning tracks and courses",
   },
   hooks: {
     type: "hooks",
     label: "Hooks",
-    icon: "🪝",
+    icon: "hook",
     description: "Portable hooks and guardrails",
   },
   workflows: {
     type: "workflows",
     label: "Workflows",
-    icon: "⚙️",
+    icon: "gear",
     description: "Portable agentic workflows",
   },
   prompts: {
     type: "prompts",
     label: "Prompts",
-    icon: "💬",
+    icon: "chat-circle",
     description: "Prompt library and templates",
   },
   tools: {
     type: "tools",
     label: "Tools",
-    icon: "🛠️",
+    icon: "wrench",
     description: "Utility scripts and tools",
   },
 };
