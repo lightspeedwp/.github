@@ -1,165 +1,248 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import AwesomeGithubLayout from "../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../components/AwesomeGithub/AwesomeGithubButton.astro";
+import AwesomeGithubCard from "../components/AwesomeGithub/AwesomeGithubCard.astro";
 
 const base = import.meta.env.BASE_URL;
+
+const catalogues = [
+  { name: "Agents", href: `${base}awesome-github/c/agents/`, count: 9, icon: "🤖", description: "Specialised AI agents with defined behaviour, scope, and collaboration rules." },
+  { name: "Instructions", href: `${base}awesome-github/c/instructions/`, count: 17, icon: "📋", description: "Canonical coding, accessibility, and WordPress standards Copilot must follow." },
+  { name: "Skills", href: `${base}awesome-github/c/skills/`, count: 7, icon: "⚡", description: "Portable, self-contained skill packages the team can run on demand." },
+  { name: "Hooks", href: `${base}awesome-github/c/hooks/`, count: 6, icon: "🪝", description: "Pre-commit and lint guardrails that enforce quality before code lands." },
+  { name: "Workflows", href: `${base}awesome-github/c/workflows/`, count: 5, icon: "⚙️", description: "Portable agentic workflow specs, each paired with a runnable GitHub Action." },
+  { name: "Plugins", href: `${base}awesome-github/c/plugins/`, count: 2, icon: "🔌", description: "Installable, versioned plugin packs bundling governance and AI ops." },
+  { name: "Tools", href: `${base}awesome-github/c/tools/`, count: 32, icon: "🔧", description: "The toolchain layer — UI utilities, scripts, schemas, and editor config." },
+];
+
+const stats = [
+  { label: "Catalogues", value: "7" },
+  { label: "Learning tracks", value: "4" },
+  { label: "Learning lessons", value: "18" },
+  { label: "Control plane", value: "1" },
+];
+
+const pillars = [
+  { icon: "🔐", title: "Inherited by every repo", description: "Issue templates, Copilot instructions, and labels defined here are surfaced across every LightSpeed repository automatically—no copy-paste drift." },
+  { icon: "⚡", title: "One-click install", description: "Copy the raw file, or push it straight into VS Code as a Copilot customisation. Every cart carries the same install actions." },
+  { icon: "✓", title: "Governed & versioned", description: "Each resource is frontmatter-validated and versioned. Standards change in one place, and the whole team moves together." },
+];
 ---
 
-<BaseLayout
+<AwesomeGithubLayout
   title="Awesome GitHub"
-  description="A conference-ready GitHub-led site for the WCEU 2026 talk, governance notes, and references."
+  description="A catalogue of AI governance resources and control plane for the LightSpeed WordPress team."
 >
-  <section class="hero">
-    <div class="eyebrow">One .GitHub to Rule Them All</div>
-    <h1>Awesome GitHub</h1>
-    <p class="lede">
-      A GitHub-led discovery platform for LightSpeed's AI operations ecosystem. Learn how we use the
-      <code>.github</code> repository as a control plane, or explore our catalogue of agents,
-      instructions, skills, hooks, workflows, tools, and learning resources.
-    </p>
-    <div class="hero-actions">
-      <a class="button primary" href="#catalogues">Explore catalogues</a>
-      <a class="button secondary" href={`${base}slideshow/`}>Watch slideshow</a>
-      <a class="button secondary" href={`${base}wceu-2026/`}>WCEU 2026 talk</a>
-      <a class="button secondary" href={`${base}why-this-exists/`}>About this site</a>
-    </div>
-    <div class="kicker">Phase 1: Conference site — Phase 2: Full platform (in progress)</div>
-    <div class="stat-list">
-      <div class="stat">
-        <strong>8 catalogues</strong>
-        Agents, instructions, skills, hooks, plugins, workflows, tools, and learning resources.
+  <section class="ag-hero">
+    <div class="ag-container">
+      <div class="ag-eyebrow">
+        <span class="ag-eyebrow-dot">●</span>
+        <span>github.com/ lightspeedwp/.github</span>
       </div>
-      <div class="stat">
-        <strong>One control plane</strong>
-        Centralised discovery hub for team onboarding and resource discovery across the entire ecosystem.
-      </div>
-      <div class="stat">
-        <strong>Growing together</strong>
-        Conference-ready foundation with expanding catalogue sections and governance model.
+      <h1 class="ag-h1">
+        <span class="ag-hero-line-1">Install AI governance,</span>
+        <span class="ag-hero-line-2">not opinions.</span>
+      </h1>
+      <p class="ag-lead">
+        One .github repository governs every LightSpeed repo. Browse and grab the agents, instructions, prompts, skills, and workflows we use to ship WordPress & WooCommerce work—then learn how it all fits together, at your own pace.
+      </p>
+      <div class="ag-cta-group">
+        <AwesomeGithubButton variant="primary" href={`${base}getting-started/`}>
+          Start here
+        </AwesomeGithubButton>
+        <AwesomeGithubButton variant="secondary" href="#browse-resources">
+          Browse catalogues
+        </AwesomeGithubButton>
       </div>
     </div>
   </section>
 
-  <section class="section pillars">
-    <h2>Three pillars of .github governance</h2>
-    <div class="pillar-grid">
-      <article class="pillar">
-        <h3><span aria-hidden="true">🔧</span> Automation</h3>
-        <p>
-          Workflows, actions, and CI/CD governance. Automate releases, testing, labelling, and
-          metrics collection across your repositories.
-        </p>
-        <div class="pillar-links">
-          <a href={`${base}workflows/`}>Workflows</a>
-          <a href={`${base}hooks/`}>Git Hooks</a>
-          <a href={`${base}tools/`}>Tools</a>
+  <section class="ag-stats">
+    <div class="ag-container">
+      <div class="ag-stats-grid">
+        {stats.map((stat) => (
+          <div class="ag-stat-item">
+            <div class="ag-stat-value">{stat.value}</div>
+            <div class="ag-stat-label">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="browse-resources" class="ag-section">
+    <div class="ag-container">
+      <div class="ag-section-header">
+        <h2 class="ag-h2">Browse resources</h2>
+        <p class="ag-lead">Eight catalogues, one source of truth</p>
+        <p class="ag-body-sm">Every resource maps to a real file in the .github repo. Pick a catalogue to filter and install.</p>
+      </div>
+
+      <div class="ag-catalogue-grid-large">
+        {catalogues.map((cat) => (
+          <AwesomeGithubCard href={cat.href} class="ag-catalogue-card">
+            <div class="ag-catalogue-icon">{cat.icon}</div>
+            <h3 class="ag-h4">{cat.name}</h3>
+            <p class="ag-small-muted">{cat.count} resources</p>
+            <p class="ag-body-sm">{cat.description}</p>
+            <div class="ag-card-footer">
+              <a href={cat.href} class="ag-link">Explore →</a>
+            </div>
+          </AwesomeGithubCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ag-section ag-section--alt">
+    <div class="ag-container">
+      <h2 class="ag-h2">Why a control plane</h2>
+      <div class="ag-pillars-grid">
+        {pillars.map((pillar) => (
+          <article class="ag-pillar">
+            <div class="ag-pillar-icon">{pillar.icon}</div>
+            <h3 class="ag-h4">{pillar.title}</h3>
+            <p class="ag-body-sm">{pillar.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ag-section ag-cta-section">
+    <div class="ag-container">
+      <div class="ag-cta-grid">
+        <div class="ag-cta-box">
+          <h3 class="ag-h4">Learning Centre</h3>
+          <p class="ag-body-sm">Short, self-paced tracks built from the real governance docs. Read straight through, or dip into the lesson you need. We keep your place as you go.</p>
+          <AwesomeGithubButton variant="secondary" href={`${base}learning-hub/`}>
+            Open the Learning Centre
+          </AwesomeGithubButton>
         </div>
-      </article>
-
-      <article class="pillar">
-        <h3><span aria-hidden="true">🛡️</span> Governance</h3>
-        <p>
-          Branch rules, labelling, and AI ethics. Maintain consistency, enforce standards,
-          and guide intelligent agents with clear instructions.
-        </p>
-        <div class="pillar-links">
-          <a href={`${base}instructions/`}>Instructions</a>
-          <a href={`${base}agents/`}>Agents</a>
-          <a href={`${base}why-this-exists/`}>Philosophy</a>
+        <div class="ag-cta-box">
+          <h3 class="ag-h4">Cookbook</h3>
+          <p class="ag-body-sm">Battle-tested, step-by-step recipes for planning, spec-driven workflows, and shipping WordPress plugins. Read one start to finish, or copy the steps into your own plan.</p>
+          <AwesomeGithubButton variant="secondary" href={`${base}cookbook/`}>
+            Follow a recipe
+          </AwesomeGithubButton>
         </div>
-      </article>
-
-      <article class="pillar">
-        <h3><span aria-hidden="true">🤖</span> AI Integration</h3>
-        <p>
-          Agents, skills, and plugins. Extend your workflows with intelligent automation
-          and reusable capabilities.
-        </p>
-        <div class="pillar-links">
-          <a href={`${base}agents/`}>Agents</a>
-          <a href={`${base}skills/`}>Skills</a>
-          <a href={`${base}plugins/`}>Plugins</a>
-        </div>
-      </article>
+      </div>
     </div>
   </section>
+</AwesomeGithubLayout>
 
-  <section id="catalogues" class="section">
-    <h2>Phase 2 catalogues</h2>
-    <p>Resource discovery hubs for the LightSpeed AI operations ecosystem.</p>
-    <div class="card-grid">
-      <article class="card">
-        <h3><a href={`${base}agents/`}>Agents</a></h3>
-        <p>AI agents and their capabilities, guides, and integration patterns.</p>
-      </article>
-      <article class="card">
-        <h3><a href={`${base}instructions/`}>Instructions</a></h3>
-        <p>Comprehensive role and behaviour documents for consistent AI operations.</p>
-      </article>
-      <article class="card">
-        <h3><a href={`${base}skills/`}>Skills</a></h3>
-        <p>Reusable automation tasks and workflows built on portable skill patterns.</p>
-      </article>
-      <article class="card">
-        <h3><a href={`${base}hooks/`}>Hooks</a></h3>
-        <p>Pre-commit and workflow guardrails for quality and compliance.</p>
-      </article>
-      <article class="card">
-        <h3><a href={`${base}plugins/`}>Plugins</a></h3>
-        <p>WordPress and development plugins for extending our ecosystem.</p>
-      </article>
-      <article class="card">
-        <h3><a href={`${base}workflows/`}>Workflows</a></h3>
-        <p>Portable agentic workflows for common AI operations patterns.</p>
-      </article>
-      <article class="card">
-        <h3><a href={`${base}tools/`}>Tools</a></h3>
-        <p>Supporting utilities and helpers for the ecosystem.</p>
-      </article>
-      <article class="card">
-        <h3><a href={`${base}learning-hub/`}>Learning</a></h3>
-        <p>Educational content and onboarding guides for team members.</p>
-      </article>
-    </div>
-  </section>
+<style>
+  .ag-section-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
 
-  <section class="section">
-    <h2>Phase 1: Conference site</h2>
-    <div class="card-grid">
-      <article class="card">
-        <h3><a href={`${base}wceu-2026/`}>WCEU 2026 talk</a></h3>
-        <p>Conference talk outline, slide index, and per-slide deep-dive pages.</p>
-      </article>
-      <article class="card">
-        <h3><a href={`${base}why-this-exists/`}>Why this exists</a></h3>
-        <p>Explanation of the repository-as-control-plane model and this site's purpose.</p>
-      </article>
-      <article class="card">
-        <h3><a href={`${base}references/`}>References</a></h3>
-        <p>Links to source repository, reference materials, and planning inputs.</p>
-      </article>
-      <article class="card">
-        <h3><a href={`${base}getting-started/`}>Getting started</a></h3>
-        <p>Onboarding guide and implementation roadmap for the .github workflow.</p>
-      </article>
-    </div>
-  </section>
+  .ag-section-header .ag-lead {
+    margin-bottom: var(--space-2);
+  }
 
-  <section class="section">
-    <h2>Building Phase 2</h2>
-    <div class="page-copy">
-      <p>
-        <strong>Phase 2a (in progress):</strong> We're redesigning the homepage and navigation to better support
-        the full platform. This includes clearer positioning, improved header navigation, and placeholder routes
-        for all eight catalogues.
-      </p>
-      <p>
-        <strong>Phase 2b & 2c (coming):</strong> We'll populate the catalogues with detailed resource pages,
-        filtering and tagging, and consistent discovery patterns across all sections.
-      </p>
-      <p>
-        <strong>Phase 2d (coming):</strong> Full accessibility audit, content governance documentation, and
-        final launch validation across all new pages and features.
-      </p>
-    </div>
-  </section>
-</BaseLayout>
+  .ag-body-sm {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+  }
+
+  .ag-small-muted {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-3);
+    margin: 0;
+  }
+
+  .ag-catalogue-grid-large {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .ag-catalogue-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+  }
+
+  .ag-catalogue-icon {
+    font-size: 32px;
+    margin-bottom: var(--space-4);
+    line-height: 1;
+  }
+
+  .ag-catalogue-card .ag-h4 {
+    margin-bottom: var(--space-2);
+  }
+
+  .ag-card-footer {
+    margin-top: auto;
+    padding-top: var(--space-4);
+  }
+
+  .ag-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: var(--weight-semibold);
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .ag-link:hover {
+    color: var(--accent-strong);
+  }
+
+  .ag-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .ag-pillar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .ag-pillar-icon {
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  .ag-cta-section {
+    background: var(--bg);
+  }
+
+  .ag-cta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .ag-cta-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .ag-cta-box .ag-h4 {
+    margin: 0;
+  }
+
+  .ag-cta-box .ag-body-sm {
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .ag-catalogue-grid-large {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .ag-section-header {
+      margin-bottom: var(--space-8);
+    }
+  }
+</style>

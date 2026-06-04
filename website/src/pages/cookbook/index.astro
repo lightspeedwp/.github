@@ -1,0 +1,303 @@
+---
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const recipes = [
+  {
+    title: "Project planning & PRD playbook",
+    badge: "PLAYBOOK",
+    readTime: "2 min",
+    href: "https://github.com/lightspeedwp/.github/blob/develop/cookbook/project-planning-prd.md",
+  },
+  {
+    title: "Spec-driven workflow example",
+    badge: "EXAMPLE",
+    readTime: "2 min",
+    href: "https://github.com/lightspeedwp/.github/blob/develop/cookbook/spec-driven-workflow.md",
+  },
+  {
+    title: "WordPress plugin checklist",
+    badge: "CHECKLIST",
+    readTime: "3 min",
+    href: "https://github.com/lightspeedwp/.github/blob/develop/cookbook/wordpress-plugin-checklist.md",
+  },
+];
+---
+
+<AwesomeGithubLayout
+  title="Cookbook — Awesome GitHub"
+  description="Battle-tested, step-by-step recipes for common AI-ops and WordPress tasks."
+>
+  <section class="ag-breadcrumb-section">
+    <div class="ag-container">
+      <nav class="ag-breadcrumb" aria-label="Breadcrumb">
+        <a href={base}>Home</a>
+        <span class="ag-breadcrumb-separator">/</span>
+        <span>Cookbook</span>
+      </nav>
+    </div>
+  </section>
+
+  <section class="ag-hero">
+    <div class="ag-container">
+      <div class="ag-section-label">RECIPES & PLAYBOOKS</div>
+      <h1 class="ag-h1">Cookbook</h1>
+      <p class="ag-lead">
+        Battle-tested, step-by-step recipes for planning, spec-driven delivery, and shipping WordPress plugins. Read them straight through, copy the template, or adapt for your workflow.
+      </p>
+    </div>
+  </section>
+
+  <section class="ag-recipes-section">
+    <div class="ag-container">
+      <div class="ag-recipes-grid">
+        {recipes.map((recipe) => (
+          <a href={recipe.href} class="ag-recipe-card">
+            <div class="ag-recipe-header">
+              <span class="ag-recipe-badge">{recipe.badge}</span>
+            </div>
+            <h3 class="ag-recipe-title">{recipe.title}</h3>
+            <p class="ag-recipe-meta">
+              <span class="ag-recipe-time">⏱ {recipe.readTime}</span>
+            </p>
+            <div class="ag-recipe-cta">
+              Read recipe →
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ag-more-recipes">
+    <div class="ag-container">
+      <div class="ag-more-recipes-content">
+        <div class="ag-more-recipes-text">
+          <h2 class="ag-h2">More recipes incoming</h2>
+          <p>
+            Browse the full recipe index on GitHub and contribute your own playbooks, templates, and step-by-step guides.
+          </p>
+          <a href="https://github.com/lightspeedwp/.github/tree/develop/cookbook" class="ag-more-recipes-link">
+            Browse cookbook →
+          </a>
+        </div>
+        <div class="ag-more-recipes-illustration">
+          📚
+        </div>
+      </div>
+    </div>
+  </section>
+</AwesomeGithubLayout>
+
+<style>
+  .ag-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .ag-breadcrumb-section {
+    background: var(--bg);
+    padding: var(--space-4) var(--gutter);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ag-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--fs-body-sm);
+  }
+
+  .ag-breadcrumb a {
+    color: var(--fg-link);
+    text-decoration: none;
+    transition: color 0.2s ease-out;
+  }
+
+  .ag-breadcrumb a:hover {
+    color: var(--fg-link-hover);
+  }
+
+  .ag-breadcrumb-separator {
+    color: var(--fg-2);
+  }
+
+  .ag-hero {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-40) var(--gutter);
+  }
+
+  .ag-section-label {
+    display: inline-block;
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(123, 231, 255, 0.1);
+    border: 1px solid rgba(123, 231, 255, 0.3);
+    border-radius: var(--radius-pill);
+  }
+
+  .ag-h1 {
+    font-size: var(--fs-h1);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .ag-lead {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-loose);
+    color: var(--c-slate-300);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .ag-h2 {
+    font-size: var(--fs-h2);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .ag-recipes-section {
+    padding: var(--space-40) var(--gutter);
+    background: var(--bg);
+  }
+
+  .ag-recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .ag-recipe-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-8);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.2s ease-out;
+  }
+
+  .ag-recipe-card:hover {
+    border-color: var(--c-light-blue);
+    box-shadow: 0 4px 12px rgba(123, 231, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .ag-recipe-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .ag-recipe-badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    background: rgba(123, 231, 255, 0.15);
+    color: var(--c-light-blue);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .ag-recipe-title {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-4) 0;
+    line-height: 1.3;
+  }
+
+  .ag-recipe-meta {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    margin: 0 0 auto 0;
+    margin-bottom: var(--space-6);
+  }
+
+  .ag-recipe-time {
+    display: inline-block;
+  }
+
+  .ag-recipe-cta {
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--c-light-blue);
+    transition: color 0.2s ease-out;
+  }
+
+  .ag-recipe-card:hover .ag-recipe-cta {
+    color: var(--c-cyan);
+  }
+
+  .ag-more-recipes {
+    padding: var(--space-40) var(--gutter);
+    background: var(--bg-alt);
+  }
+
+  .ag-more-recipes-content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .ag-more-recipes-text p {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-loose);
+    color: var(--fg-2);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .ag-more-recipes-link {
+    display: inline-block;
+    padding: var(--space-3) var(--space-6);
+    background: var(--c-brand-blue);
+    color: var(--c-white);
+    border-radius: var(--radius-md);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    transition: background 0.2s ease-out;
+  }
+
+  .ag-more-recipes-link:hover {
+    background: var(--c-brand-blue-hover);
+  }
+
+  .ag-more-recipes-illustration {
+    font-size: 64px;
+  }
+
+  @media (max-width: 768px) {
+    .ag-hero {
+      padding: var(--space-20) var(--gutter);
+    }
+
+    .ag-h1 {
+      font-size: var(--fs-h2);
+    }
+
+    .ag-recipes-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ag-more-recipes-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .ag-more-recipes-illustration {
+      text-align: center;
+    }
+  }
+</style>

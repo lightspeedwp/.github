@@ -1,227 +1,502 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const buildingBlocks = [
+  {
+    icon: "📝",
+    name: "Instructions",
+    description: "Canonical coding standards, accessibility, and documentation formats.",
+  },
+  {
+    icon: "🤖",
+    name: "Agents",
+    description: "Specialized AI agents for code review, release, branding, and planning.",
+  },
+  {
+    icon: "⚡",
+    name: "Skills",
+    description: "Portable, self-contained skill packages with SKILL.md entrypoints.",
+  },
+  {
+    icon: "⚙️",
+    name: "Workflows",
+    description: "Portable agentic workflow spaces, each paired with an integration point.",
+  },
+  {
+    icon: "🛠️",
+    name: "Hooks",
+    description: "Pre-commit and post-commit guardrails that enforce quality before code lands.",
+  },
+  {
+    icon: "🔧",
+    name: "Tools",
+    description: "The tool-chain layer — AI utilities, scripts, schemas, and editor configs.",
+  },
+];
+
+const adoptionSteps = [
+  {
+    number: 1,
+    title: "Set the context",
+    description: "Enable a central repository — ours is .github — as the source of truth for governance.",
+  },
+  {
+    number: 2,
+    title: "Pull in the right assets",
+    description: "Copy .github-native portable assets into your .github/. You control what to install.",
+  },
+  {
+    number: 3,
+    title: "Land Copilot instructions",
+    description: "Teach your Copilot — and your team — the rules by landing instruction files.",
+  },
+  {
+    number: 4,
+    title: "Read and iterate",
+    description: "Review results. Work out what lands well and what doesn't. Rinse and repeat.",
+  },
+];
 ---
 
-<BaseLayout
+<AwesomeGithubLayout
   title="Getting Started — Awesome GitHub"
-  description="Learn why .github matters, how to implement it, and the accessibility guidelines."
+  description="Understand the control plane philosophy and adoption model."
 >
-  <section class="hero">
-    <div class="eyebrow">Getting Started</div>
-    <h1>Build Your .github Control Plane</h1>
-    <p class="lede">
-      Everything you need to understand, implement, and onboard your team to a .github-based governance system.
-    </p>
-  </section>
-
-  <section class="section">
-    <h2>Learning Path</h2>
-    <div class="learning-path">
-      <article class="path-card">
-        <div class="step-number">1</div>
-        <h3>Why .github Matters</h3>
-        <p>
-          Understand the problem: Why teams struggle with fragmented governance, inconsistent
-          automation, and delivery drift.
-        </p>
-        <a href="/getting-started/why-github-matters/" class="path-link">
-          Learn →
-        </a>
-      </article>
-
-      <article class="path-card">
-        <div class="step-number">2</div>
-        <h3>Watch the Talk</h3>
-        <p>
-          See the full architecture, technical layers, and adoption playbook in the 25-minute WCEU 2026
-          presentation.
-        </p>
-        <a href="/talk/slideshow/" class="path-link">
-          Watch Presentation →
-        </a>
-      </article>
-
-      <article class="path-card">
-        <div class="step-number">3</div>
-        <h3>Explore Agent Guides</h3>
-        <p>
-          Meet the 6 core agents: Release, Branding, Meta, Linting, Labelling, and Planner. Learn their
-          roles and how they integrate.
-        </p>
-        <a href="/agents/" class="path-link">
-          Explore Agents →
-        </a>
-      </article>
-
-      <article class="path-card">
-        <div class="step-number">4</div>
-        <h3>Implementation Roadmap</h3>
-        <p>
-          Follow the 30/60/90 day adoption plan. Know which agents to adopt first, dependencies, and
-          effort estimates.
-        </p>
-        <a href="/getting-started/implementation-roadmap/" class="path-link">
-          View Roadmap →
-        </a>
-      </article>
+  <!-- Hero Section -->
+  <section class="ag-hero-large">
+    <div class="ag-container">
+      <h1 class="ag-h1">
+        <span class="ag-hero-line-1">One .github repo</span>
+        <span class="ag-hero-line-2">to rule them all.</span>
+      </h1>
+      <p class="ag-lead">
+        A central control plane owns governance — rules, workflows, instructions, agents. Resources cascade to every repository automatically. No copy-paste drift. No version skew.
+      </p>
     </div>
   </section>
 
-  <section class="section">
-    <h2>Key Topics</h2>
-    <div class="topic-grid">
-      <article class="topic-card">
-        <h3>Architecture</h3>
-        <p>
-          Learn about the control plane architecture: how governance files, reusable workflows, agents,
-          skills, and hooks fit together.
-        </p>
-        <a href="/talk/slides/4/" class="inline-link">View in Slide 4 →</a>
-      </article>
-
-      <article class="topic-card">
-        <h3>Governance Model</h3>
-        <p>
-          Understand the policy and instruction hierarchy that governs AI operations and ensures
-          accountability.
-        </p>
-        <a href="/talk/slides/19/" class="inline-link">View in Slide 19 →</a>
-      </article>
-
-      <article class="topic-card">
-        <h3>Lessons & Patterns</h3>
-        <p>
-          Learn from hard-won experience: what works, what doesn't, and common pitfalls to avoid.
-        </p>
-        <a href="/talk/slides/11/" class="inline-link">View in Slide 11 →</a>
-      </article>
-
-      <article class="topic-card">
-        <h3>Adoption Playbook</h3>
-        <p>
-          Get a practical implementation sequence your teams can follow. Start with one outcome, roll
-          out gradually.
-        </p>
-        <a href="/talk/slides/12/" class="inline-link">View in Slide 12 →</a>
-      </article>
+  <!-- Drift Section -->
+  <section class="ag-section-alt">
+    <div class="ag-container">
+      <div class="ag-content-grid">
+        <div class="ag-content-text">
+          <h2 class="ag-h2">Drift, at agency scale</h2>
+          <p>
+            WordPress teams scaled repositories faster than standards. Triage drifted. Workflows weren't consistent. Release discipline got loose. Operational drag crept in.
+          </p>
+          <p>
+            The deeper problem: governance files lived in every repository. When a standard changed, you edited a hundred copies. When a policy shifted, you re-triage a thousand issues. Culture and coordination exhausted engineering.
+          </p>
+        </div>
+        <div class="ag-content-highlight">
+          <blockquote>
+            "How do you sync governance across 40 repositories when your team is 6 people and you're shipping features?"
+          </blockquote>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section">
-    <h2>Quick Reference</h2>
-    <div class="page-copy">
-      <ul>
-        <li>
-          <a href="/talk/">Talk Overview</a> — 25-minute presentation on .github governance
-        </li>
-        <li>
-          <a href="/talk/slides/">All Slides</a> — Browse the 20 slides individually
-        </li>
-        <li>
-          <a href="/agents/">Agent Guides</a> — Explore each of the 6 core agents
-        </li>
-        <li>
-          <a href="/references/glossary/">Glossary</a> — Key terminology and definitions
-        </li>
-        <li>
-          <a href="/references/sources/">Sources & Tools</a> — Evidence and reference materials
-        </li>
-      </ul>
+  <!-- Control Plane Section -->
+  <section class="ag-section">
+    <div class="ag-container">
+      <div class="ag-content-grid ag-content-grid-reversed">
+        <div class="ag-content-text">
+          <h2 class="ag-h2">A control plane, not a folder</h2>
+          <p>
+            The breakthrough was centralising governance. One .github repository became the source of truth: issue templates, labels, workflows, instructions, agents, hooks, and reusable assets all defined once.
+          </p>
+          <p>
+            But a central repo is only the first step. The real magic happens when you treat it as a <strong>control plane</strong>, not a folder. Each resource type is portable. Labels are importable. Instructions auto-land. Agents run on a schedule. Hooks cascade to every repository automatically.
+          </p>
+          <p>
+            This eliminates the core problem: <strong>no copy-paste, no version skew, no stale governance.</strong>
+          </p>
+        </div>
+        <div class="ag-content-highlight">
+          <code>github.com/lightspeedwp/.github</code>
+          <p>The control plane is the single source of truth for how we code, test, release, and govern.</p>
+        </div>
+      </div>
     </div>
   </section>
-</BaseLayout>
+
+  <!-- Building Blocks Section -->
+  <section class="ag-section-alt">
+    <div class="ag-container">
+      <h2 class="ag-h2">The building blocks</h2>
+      <p class="ag-lead">
+        The control plane is built from six layers. Each is atomic, portable, and independently useful.
+      </p>
+      <div class="ag-blocks-grid">
+        {buildingBlocks.map((block) => (
+          <div class="ag-block-card">
+            <div class="ag-block-icon">{block.icon}</div>
+            <h3 class="ag-block-name">{block.name}</h3>
+            <p class="ag-block-description">{block.description}</p>
+          </div>
+        ))}
+      </div>
+      <div class="ag-blocks-note">
+        <p>
+          The six layers form a coherent whole: instructions teach standards, agents enforce them, hooks guard them, skills extend them, workflows automate them, tools implement them. Together, they comprise the control plane.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- From Governance to Plugin Section -->
+  <section class="ag-section">
+    <div class="ag-container">
+      <div class="ag-content-grid">
+        <div class="ag-content-text">
+          <h2 class="ag-h2">From governance to a plugin you install</h2>
+          <p>
+            Governance alone is not enough. As AI tooling expanded — Copilot, Claude, GitHub Actions, local hooks — we realised that a central repo was the source, but not the execution plane.
+          </p>
+          <p>
+            We pivoted to an <strong>installable model</strong>. The .github repo remains the source of truth. But now, portable plugin packs carry capabilities to Copilot, to Claude Code, to local git hooks, and to CI/CD pipelines.
+          </p>
+          <p>
+            This means: <strong>one source, many execution contexts. Standards, everywhere.</strong>
+          </p>
+        </div>
+        <div class="ag-content-highlight">
+          <p>Install the control plane as a Copilot plugin. As a Claude skill pack. As a git hook. As a reusable workflow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Adoption Section -->
+  <section class="ag-section-alt">
+    <div class="ag-container">
+      <h2 class="ag-h2">Adopt it in four steps</h2>
+      <div class="ag-adoption-grid">
+        {adoptionSteps.map((step) => (
+          <div class="ag-adoption-card">
+            <div class="ag-adoption-number">{step.number}</div>
+            <h3 class="ag-adoption-title">{step.title}</h3>
+            <p class="ag-adoption-description">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Horizon Section -->
+  <section class="ag-section">
+    <div class="ag-container">
+      <h2 class="ag-h2">The horizon</h2>
+      <p class="ag-lead">
+        The control plane is designed to evolve. As standards clarify and tooling matures, we update the source once. Every repository, every tool, every context receives the update automatically.
+      </p>
+      <div class="ag-horizon-content">
+        <p>
+          The goal is not to build a monolithic system, but to establish a <strong>governance layer</strong> that is:
+        </p>
+        <ul>
+          <li><strong>Inherited:</strong> Standards cascade automatically to every repository.</li>
+          <li><strong>Portable:</strong> Capabilities work across any tool — GitHub, Copilot, Claude, local hooks.</li>
+          <li><strong>Versioned:</strong> Changes are explicit, tested, and controlled. Teams opt in to new standards.</li>
+          <li><strong>Human-centred:</strong> Automation amplifies human judgment; it never replaces it.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</AwesomeGithubLayout>
 
 <style>
-  .learning-path {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin: 0;
+  .ag-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
   }
 
-  .path-card {
-    background: var(--bg-elevated);
+  .ag-hero-large {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-40) var(--gutter) var(--space-32);
+  }
+
+  .ag-h1 {
+    font-size: var(--fs-h1);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .ag-hero-line-1 {
+    display: block;
+  }
+
+  .ag-hero-line-2 {
+    display: block;
+    color: var(--c-light-blue);
+  }
+
+  .ag-h2 {
+    font-size: var(--fs-h2);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .ag-lead {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-loose);
+    color: var(--fg-2);
+    margin: 0 0 var(--space-8) 0;
+    max-width: 60ch;
+  }
+
+  .ag-section {
+    padding: var(--space-40) var(--gutter);
+    background: var(--bg);
+  }
+
+  .ag-section-alt {
+    padding: var(--space-40) var(--gutter);
+    background: var(--bg-alt);
+  }
+
+  .ag-hero-large .ag-lead {
+    color: var(--c-slate-300);
+  }
+
+  .ag-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  .ag-content-grid-reversed {
+    direction: rtl;
+  }
+
+  .ag-content-grid-reversed > * {
+    direction: ltr;
+  }
+
+  .ag-content-text {
+    font-size: var(--fs-body);
+    line-height: var(--lh-loose);
+  }
+
+  .ag-content-text p {
+    margin: 0 0 var(--space-6) 0;
+    color: var(--fg-2);
+  }
+
+  .ag-content-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ag-content-text strong {
+    color: var(--fg);
+    font-weight: var(--weight-semibold);
+  }
+
+  .ag-content-highlight {
+    padding: var(--space-6);
+    background: var(--bg-alt);
+    border-left: 4px solid var(--c-light-blue);
+    border-radius: var(--radius-md);
+  }
+
+  .ag-section-alt .ag-content-highlight {
+    background: var(--bg);
+  }
+
+  .ag-content-highlight blockquote {
+    margin: 0;
+    font-size: var(--fs-body);
+    line-height: var(--lh-loose);
+    font-style: italic;
+    color: var(--fg-1);
+  }
+
+  .ag-content-highlight code {
+    display: block;
+    padding: var(--space-4);
+    background: var(--bg-muted);
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono);
+    font-size: var(--fs-body-sm);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-4);
+    overflow-x: auto;
+  }
+
+  .ag-section-alt .ag-content-highlight code {
+    background: rgba(123, 231, 255, 0.1);
+  }
+
+  .ag-content-highlight p {
+    margin: var(--space-4) 0 0 0;
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+  }
+
+  .ag-blocks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-12);
+  }
+
+  .ag-block-card {
+    padding: var(--space-6);
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-
-  .step-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: var(--accent);
-    color: var(--bg);
-    border-radius: 50%;
-    font-weight: 700;
-    font-size: 1.125rem;
-    margin-bottom: 1rem;
-  }
-
-  .path-card h3 {
-    margin: 0 0 0.75rem;
-    font-size: 1.125rem;
-  }
-
-  .path-card p {
-    flex: 1;
-    margin-bottom: 1.5rem;
-    color: var(--muted);
-    line-height: 1.5;
-    font-size: 0.95rem;
-  }
-
-  .path-link {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 500;
+    text-align: center;
     transition: all 0.2s ease-out;
   }
 
-  .path-link:hover {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
+  .ag-section-alt .ag-block-card {
+    background: rgba(255, 255, 255, 0.5);
   }
 
-  .topic-grid {
+  .ag-block-card:hover {
+    border-color: var(--c-light-blue);
+    box-shadow: 0 4px 12px rgba(123, 231, 255, 0.1);
+  }
+
+  .ag-block-icon {
+    font-size: 32px;
+    margin-bottom: var(--space-4);
+  }
+
+  .ag-block-name {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .ag-block-description {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    margin: 0;
+    line-height: var(--lh-snug);
+  }
+
+  .ag-blocks-note {
+    padding: var(--space-6);
+    background: rgba(123, 231, 255, 0.08);
+    border: 1px solid rgba(123, 231, 255, 0.2);
+    border-radius: var(--radius-md);
+  }
+
+  .ag-blocks-note p {
+    margin: 0;
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    line-height: var(--lh-loose);
+  }
+
+  .ag-adoption-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-8);
   }
 
-  .topic-card {
-    background: var(--bg-elevated);
+  .ag-adoption-card {
+    padding: var(--space-8);
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 1.5rem;
   }
 
-  .topic-card h3 {
-    margin: 0 0 0.75rem;
-    font-size: 1.125rem;
+  .ag-section-alt .ag-adoption-card {
+    background: rgba(255, 255, 255, 0.5);
   }
 
-  .topic-card p {
-    margin: 0 0 1rem;
-    color: var(--muted);
-    line-height: 1.5;
-    font-size: 0.95rem;
+  .ag-adoption-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--c-light-blue);
+    color: var(--c-black);
+    font-weight: var(--weight-bold);
+    font-size: var(--fs-h4);
+    margin-bottom: var(--space-6);
   }
 
-  @media (max-width: 860px) {
-    .learning-path,
-    .topic-grid {
+  .ag-adoption-title {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .ag-adoption-description {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    margin: 0;
+    line-height: var(--lh-loose);
+  }
+
+  .ag-horizon-content {
+    max-width: 70ch;
+  }
+
+  .ag-horizon-content p {
+    font-size: var(--fs-body);
+    line-height: var(--lh-loose);
+    color: var(--fg-2);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .ag-horizon-content ul {
+    margin: 0;
+    padding: 0 0 0 var(--space-6);
+    list-style: none;
+  }
+
+  .ag-horizon-content li {
+    font-size: var(--fs-body);
+    line-height: var(--lh-loose);
+    color: var(--fg-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .ag-horizon-content li::before {
+    content: "→ ";
+    color: var(--c-light-blue);
+    font-weight: var(--weight-bold);
+    margin-right: var(--space-2);
+  }
+
+  @media (max-width: 768px) {
+    .ag-hero-large {
+      padding: var(--space-20) var(--gutter) var(--space-16);
+    }
+
+    .ag-h1 {
+      font-size: var(--fs-h2);
+    }
+
+    .ag-section,
+    .ag-section-alt {
+      padding: var(--space-20) var(--gutter);
+    }
+
+    .ag-content-grid,
+    .ag-content-grid-reversed {
+      grid-template-columns: 1fr;
+    }
+
+    .ag-blocks-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ag-adoption-grid {
       grid-template-columns: 1fr;
     }
   }
