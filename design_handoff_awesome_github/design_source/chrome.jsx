@@ -140,7 +140,7 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
         </a>
 
         <nav className="nav-primary">
-          <Dropdown label="Browse" active={catActive} isMega={true}>
+          <Dropdown label="Browse" active={catActive || resActive} isMega={true}>
             <div className="dd-mega">
               {BROWSE_MENU_SECTIONS.map((section) => (
                 <div key={section.title} className="dd-section">
