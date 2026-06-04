@@ -148,15 +148,15 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
                   <div className="dd-section-items">
                     {section.items.map((item) => {
                       const Icon = Icons[item.icon] || Icons.layers;
+                    {section.items.map((item) => {
+                      const Icon = Icons[item.icon] || Icons.layers;
                       return (
                         <a
                           key={item.id}
                           className="dd-mega-item"
                           onClick={() => goPage(item.id)}
-                          role="menuitem"
-                          title={`View ${item.label}`}
                         >
-                          <span className="dmi-icon" aria-hidden="true"><Icon size={24} /></span>
+                          <span className="dmi-icon"><Icon size={24} /></span>
                           <span className="dmi-text">
                             <b>{item.label}</b>
                             <span>{item.desc}</span>
