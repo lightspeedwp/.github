@@ -40,7 +40,7 @@ function Glossary({ nav, term }) {
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4.5vw,44px)", letterSpacing: "-.02em", margin: "8px 0 0", color: "var(--fg-1)" }}>Glossary</h1>
           <p style={{ color: "var(--fg-2)", fontSize: 17, lineHeight: 1.6, maxWidth: 600, marginTop: 12 }}>Plain-language definitions for the control-plane, GitHub, and AI-ops vocabulary used across this site. Every term notes why it matters here.</p>
           <label className="filter-input" style={{ maxWidth: 420, marginTop: 20 }}>
-            <Icons.search size={17} style={{ color: "var(--fg-3)" }} />
+            <SimpleIcon type="search" size={17} style={{ color: "var(--fg-3)" }} />
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Filter terms…" />
           </label>
         </div>
@@ -54,7 +54,7 @@ function Glossary({ nav, term }) {
           ))}
         </nav>
         <div>
-          {shown.length === 0 && <div className="empty"><div className="ico"><Icons.search size={26} /></div><p style={{ color: "var(--fg-2)" }}>No terms match “{q}”.</p></div>}
+          {shown.length === 0 && <div className=”empty”><div className=”ico”><SimpleIcon type=”search” size={26} /></div><p style={{ color: “var(--fg-2)” }}>No terms match “{q}”.</p></div>}
           {shown.map((g) => (
             <section key={g.id} className="gl-group" id={"glg-" + g.id}>
               <h2>{g.label}</h2>
@@ -106,14 +106,14 @@ function References({ nav }) {
               <a key={it.p} className="ref-row" href={LSGLOSSARY.refUrl(it.p, branch, it.tree)} target="_blank" rel="noopener">
                 <span className="path">{it.p}{it.tree ? "/" : ""}</span>
                 <span className="desc">{it.d}</span>
-                <span className="ext"><Icons.external size={16} /></span>
+                <span className="ext"><SimpleIcon type="external" size={16} /></span>
               </a>
             ))}
           </section>
         ))}
         <div className="ob-cta" style={{ marginTop: 28 }}>
-          <a className="btn btn-primary" href={`https://github.com/${LSDATA.REPO}`} target="_blank" rel="noopener"><Icons.github size={16} /> Open the repository</a>
-          <a className="btn btn-ghost" onClick={() => nav({ view: "glossary" })}><Icons.book size={16} /> Glossary</a>
+          <a className="btn btn-primary" href={`https://github.com/${LSDATA.REPO}`} target="_blank" rel="noopener"><SimpleIcon type="github" size={16} /> Open the repository</a>
+          <a className="btn btn-ghost" onClick={() => nav({ view: "glossary" })}><SimpleIcon type="book" size={16} /> Glossary</a>
         </div>
       </div>
     </main>

@@ -6,7 +6,7 @@ function ItemDetail({ id, nav, toast }) {
   if (!item) {
     return (
       <main className="wrap" style={{ padding: "80px 24px" }}>
-        <div className="empty"><div className="ico"><Icons.close size={26} /></div>
+        <div className="empty"><div className="ico"><SimpleIcon type="close" size={26} /></div>
           <p style={{ fontSize: 16, color: "var(--fg-2)" }}>That resource could not be found.</p>
           <button className="btn btn-primary btn-sm" style={{ marginTop: 12 }} onClick={() => nav({ view: "home" })}>Back home</button>
         </div>
@@ -90,15 +90,15 @@ function ItemDetail({ id, nav, toast }) {
             <p className="install-note">{LSDATA.TYPES[item.type] && LSDATA.TYPES[item.type].note}</p>
             <div className="stack">
               <button className="btn btn-primary" onClick={copyRaw}>
-                <Icons.copy size={16} /> {item.type === "script" ? "Copy command" : "Copy"}
+                <SimpleIcon type="copy" size={16} /> {item.type === "script" ? "Copy command" : "Copy"}
               </button>
-              {item.type === "install" && !item.tree && <a className="btn btn-ghost" href={u.vscode}><Icons.vscode size={16} /> Install in VS Code</a>}
-              {item.type === "install" && !item.tree && <a className="btn btn-ghost" href={u.vscode.replace(/^vscode:/, "vscode-insiders:")}><Icons.vscode size={16} /> VS Code Insiders</a>}
-              {item.type === "aiDefault" && <button className="btn btn-ghost" onClick={download}><Icons.download size={16} /> Download</button>}
-              {item.type === "workflow" && item.action && <a className="btn btn-ghost" href={`https://github.com/${LSDATA.REPO}/blob/${branch}/${item.action}`} target="_blank" rel="noopener"><Icons.workflow size={16} /> View runnable Action</a>}
-              <a className="btn btn-ghost" href={u.blob} target="_blank" rel="noopener"><Icons.github size={16} /> {item.tree ? "Open folder on GitHub" : "View on GitHub"}</a>
+              {item.type === "install" && !item.tree && <a className="btn btn-ghost" href={u.vscode}><SimpleIcon type="vscode" size={16} /> Install in VS Code</a>}
+              {item.type === "install" && !item.tree && <a className="btn btn-ghost" href={u.vscode.replace(/^vscode:/, "vscode-insiders:")}><SimpleIcon type="vscode" size={16} /> VS Code Insiders</a>}
+              {item.type === "aiDefault" && <button className="btn btn-ghost" onClick={download}><SimpleIcon type="download" size={16} /> Download</button>}
+              {item.type === "workflow" && item.action && <a className="btn btn-ghost" href={`https://github.com/${LSDATA.REPO}/blob/${branch}/${item.action}`} target="_blank" rel="noopener"><SimpleIcon type="workflow" size={16} /> View runnable Action</a>}
+              <a className="btn btn-ghost" href={u.blob} target="_blank" rel="noopener"><SimpleIcon type="github" size={16} /> {item.tree ? "Open folder on GitHub" : "View on GitHub"}</a>
             </div>
-            {item.type === "aiDefault" && <p className="repo-root-hint"><Icons.layers size={13} /> Drop into your <code>repository root</code></p>}
+            {item.type === "aiDefault" && <p className="repo-root-hint"><SimpleIcon type="layers" size={13} /> Drop into your <code>repository root</code></p>}
             <p style={{ fontSize: 12, color: "var(--fg-3)", margin: "14px 0 0", lineHeight: 1.5 }}>
               From the <code style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--accent)" }}>{branch}</code> branch{branch === "main" ? " (stable)" : " (testing)"}. Switch in the top bar.
             </p>
@@ -159,8 +159,8 @@ function GettingStarted({ nav, toast }) {
       </div>
 
       <div style={{ background: "var(--panel-2)", border: "1px solid var(--hair)", borderRadius: "var(--radius-lg)", padding: "16px 18px", margin: "28px 0", display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-        <span className="path-pill"><Icons.github size={15} /> {clone}</span>
-        <button className="btn btn-soft btn-sm" onClick={() => copy(clone)}><Icons.copy size={14} /> Copy</button>
+        <span className="path-pill"><SimpleIcon type="github" size={15} /> {clone}</span>
+        <button className="btn btn-soft btn-sm" onClick={() => copy(clone)}><SimpleIcon type="copy" size={14} /> Copy</button>
       </div>
 
       <div className="steps">
@@ -173,7 +173,7 @@ function GettingStarted({ nav, toast }) {
       </div>
 
       <div style={{ marginTop: 36, display: "flex", gap: 12, flexWrap: "wrap" }}>
-        <a className="btn btn-primary" onClick={() => nav({ view: "catalogue", cat: "instructions" })}>Browse instructions <Icons.arrow size={16} /></a>
+        <a className="btn btn-primary" onClick={() => nav({ view: "catalogue", cat: "instructions" })}>Browse instructions <SimpleIcon type="arrow" size={16} /></a>
         <a className="btn btn-ghost" onClick={() => nav({ view: "why" })}>Why this exists</a>
       </div>
     </main>
@@ -206,8 +206,8 @@ function Why({ nav }) {
         <p>New repositories inherit the defaults automatically. Existing repositories can override any file locally when they genuinely need to — GitHub always prefers the repo-local version. Standards evolve through pull requests against <code>lightspeedwp/.github</code>, reviewed by the maintainers listed in <code>CODEOWNERS</code>.</p>
       </div>
       <div style={{ marginTop: 32, display: "flex", gap: 12, flexWrap: "wrap" }}>
-        <a className="btn btn-primary" onClick={() => nav({ view: "getting-started" })}>Get started <Icons.arrow size={16} /></a>
-        <a className="btn btn-ghost" href={`https://github.com/${LSDATA.REPO}`} target="_blank" rel="noopener"><Icons.github size={16} /> View the repository</a>
+        <a className="btn btn-primary" onClick={() => nav({ view: "getting-started" })}>Get started <SimpleIcon type="arrow" size={16} /></a>
+        <a className="btn btn-ghost" href={`https://github.com/${LSDATA.REPO}`} target="_blank" rel="noopener"><SimpleIcon type="github" size={16} /> View the repository</a>
       </div>
     </main>
   );

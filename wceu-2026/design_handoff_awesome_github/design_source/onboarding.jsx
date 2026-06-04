@@ -112,9 +112,9 @@ function Onboarding({ nav, toast }) {
             <h1>One <code style={{ fontFamily: "var(--font-mono)", fontSize: ".72em", background: "var(--panel-2)", padding: "2px 10px", borderRadius: 8, border: "1px solid var(--hair)", color: "var(--accent)" }}>.github</code> repo<br />to <span className="hl">rule them all</span>.</h1>
             <p className="lead">From central governance to installable AI-ops plugins — why the repository exists, how it works, and how your team adopts it.</p>
             <div className="ob-meta">
-              <span className="ob-tag"><Icons.bolt size={15} style={{ color: "var(--accent)" }} /> 6 chapters</span>
-              <span className="ob-tag"><Icons.book size={15} style={{ color: "var(--accent)" }} /> ~10 min read</span>
-              <span className="ob-tag"><Icons.github size={15} /> grounded in lightspeedwp/.github</span>
+              <span className="ob-tag"><SimpleIcon type="bolt" size={15} style={{ color: "var(--accent)" }} /> 6 chapters</span>
+              <span className="ob-tag"><SimpleIcon type="book" size={15} style={{ color: "var(--accent)" }} /> ~10 min read</span>
+              <span className="ob-tag"><SimpleIcon type="github" size={15} /> grounded in lightspeedwp/.github</span>
             </div>
           </div>
           <img src="assets/wapuu-yoduu.png" alt="" aria-hidden="true" style={{ height: "clamp(120px, 14vw, 200px)", width: "auto", flex: "none", filter: "drop-shadow(0 12px 28px rgba(9,9,9,.18))" }} />
@@ -166,7 +166,7 @@ function Onboarding({ nav, toast }) {
             <p>Here's the shift that matters most. A control plane that only governs <em>your</em> org is useful. A control plane whose pieces are <Gloss term="portable-assets" nav={nav}>portable</Gloss> — packaged with a <Gloss term="manifest" nav={nav}>manifest</Gloss>, versioned, and <Gloss term="plugin-distribution" nav={nav}>distributable</Gloss> — becomes something else entirely: an <strong>installable AI-ops plugin pack</strong>.</p>
             <div className="pivot">
               <div className="state"><h5>Governance repo</h5><p>Standards that live in one org and are inherited by its repos.</p></div>
-              <div className="arrow"><Icons.arrow size={26} /></div>
+              <div className="arrow"><SimpleIcon type="arrow" size={26} /></div>
               <div className="state to"><h5>Installable plugin pack</h5><p>The same assets, packaged and versioned, ready to drop into any project.</p></div>
             </div>
             <p>Adoption stops requiring a fork or a hand-copy. You install a <Gloss term="plugin-pack" nav={nav}>plugin pack</Gloss> the way you'd install any dependency, and you get the agents, instructions, and guardrails with it.</p>
@@ -177,8 +177,8 @@ function Onboarding({ nav, toast }) {
             <span className="ch-no">05 — Your turn</span>
             <h2>Adopt it in four steps</h2>
             <div style={{ background: "var(--panel-2)", border: "1px solid var(--hair)", borderRadius: "var(--radius-md)", padding: "14px 16px", margin: "0 0 20px", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-              <span className="path-pill"><Icons.github size={15} /> {LSDATA.cloneCmd(branch)}</span>
-              <button className="btn btn-soft btn-sm" onClick={copyClone}><Icons.copy size={14} /> Copy</button>
+              <span className="path-pill"><SimpleIcon type="github" size={15} /> {LSDATA.cloneCmd(branch)}</span>
+              <button className="btn btn-soft btn-sm" onClick={copyClone}><SimpleIcon type="copy" size={14} /> Copy</button>
             </div>
             <div className="steps">
               {[
@@ -191,8 +191,8 @@ function Onboarding({ nav, toast }) {
               ))}
             </div>
             <div className="ob-cta">
-              <a className="btn btn-primary" onClick={() => nav({ view: "catalogue", cat: "instructions" })}>Browse instructions <Icons.arrow size={16} /></a>
-              <a className="btn btn-ghost" href={`https://github.com/${LSDATA.REPO}`} target="_blank" rel="noopener"><Icons.github size={16} /> Open the repository</a>
+              <a className="btn btn-primary" onClick={() => nav({ view: "catalogue", cat: "instructions" })}>Browse instructions <SimpleIcon type="arrow" size={16} /></a>
+              <a className="btn btn-ghost" href={`https://github.com/${LSDATA.REPO}`} target="_blank" rel="noopener"><SimpleIcon type="github" size={16} /> Open the repository</a>
             </div>
           </section>
 
@@ -202,12 +202,12 @@ function Onboarding({ nav, toast }) {
             <h2>The horizon</h2>
             <p>The plugin-pack model points outward. The next step is aligning our skills with <Gloss term="wp-agent-skills" nav={nav}>WordPress Agent-Skills</Gloss> — a community standard for reusable AI capabilities — and keeping everything <Gloss term="gpl" nav={nav}>GPL-3.0</Gloss>, in step with WordPress itself. Governance that started inside one agency becomes something the wider ecosystem can install.</p>
             <div className="ack">
-              <span className="ai"><Icons.sparkles size={20} /></span>
+              <span className="ai"><SimpleIcon type="sparkles" size={20} /></span>
               <p>With thanks to <a href="https://github.com/github/awesome-copilot" target="_blank" rel="noopener">github/awesome-copilot</a> — the catalogue model that inspired the structure of this site. We've reframed it for WordPress agencies and the control-plane idea.</p>
             </div>
             <div className="ob-cta">
-              <a className="btn btn-primary" onClick={() => nav({ view: "home" })}>Explore the catalogues <Icons.arrow size={16} /></a>
-              <a className="btn btn-ghost" onClick={() => nav({ view: "glossary" })}><Icons.book size={16} /> Read the glossary</a>
+              <a className="btn btn-primary" onClick={() => nav({ view: "home" })}>Explore the catalogues <SimpleIcon type="arrow" size={16} /></a>
+              <a className="btn btn-ghost" onClick={() => nav({ view: "glossary" })}><SimpleIcon type="book" size={16} /> Read the glossary</a>
             </div>
           </section>
         </div>

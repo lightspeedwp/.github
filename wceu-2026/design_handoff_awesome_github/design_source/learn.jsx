@@ -40,8 +40,8 @@ function NotFound({ nav }) {
       <h1>Lost in orbit</h1>
       <p>That page drifted off. Let's get you back to something solid.</p>
       <div className="ob-cta" style={{ justifyContent: "center" }}>
-        <a className="btn btn-primary" onClick={() => nav({ view: "home" })}>Back home <Icons.arrow size={16} /></a>
-        <a className="btn btn-ghost" onClick={() => nav({ view: "learn" })}><Icons.grad size={16} /> Learning Centre</a>
+        <a className="btn btn-primary" onClick={() => nav({ view: "home" })}>Back home <SimpleIcon type="arrow" size={16} /></a>
+        <a className="btn btn-ghost" onClick={() => nav({ view: "learn" })}><SimpleIcon type="grad" size={16} /> Learning Centre</a>
       </div>
     </main>
   );
@@ -99,12 +99,11 @@ function LearnHome({ nav }) {
 
       <div className="wrap learn-tracks">
         {tracks.map((t, ti) => {
-          const Fn = Icons[t.icon] || Icons.layers;
           const doneInTrack = t.lessons.filter((l) => read.has(t.id + "/" + l.slug)).length;
           return (
             <section className="track-card" key={t.id}>
               <div className="track-head">
-                <span className="track-ico"><Fn size={20} /></span>
+                <span className="track-ico"><SimpleIcon type={t.icon || "layers"} size={20} /></span>
                 <div>
                   <span className="track-no">Track {ti + 1}</span>
                   <h2>{t.label}</h2>
@@ -119,12 +118,12 @@ function LearnHome({ nav }) {
                   const done = read.has(t.id + "/" + l.slug);
                   return (
                     <li key={l.slug} className={done ? "done" : ""} onClick={() => nav({ view: "learn", track: t.id, lesson: l.slug })}>
-                      <span className="lesson-tick">{done ? <Icons.check2 size={18} /> : <span className="tick-no">{li + 1}</span>}</span>
+                      <span className="lesson-tick">{done ? <SimpleIcon type="check2" size={18} /> : <span className="tick-no">{li + 1}</span>}</span>
                       <span className="lesson-main">
                         <b>{lessonTitle(l)}</b>
                         <small>{l.learn}</small>
                       </span>
-                      <span className="lesson-min"><Icons.clock size={13} /> {mins}m</span>
+                      <span className="lesson-min"><SimpleIcon type="clock" size={13} /> {mins}m</span>
                     </li>
                   );
                 })}
@@ -181,11 +180,11 @@ function LessonReader({ track, lesson, nav, toast }) {
         <h1 className="article-h1">{lessonTitle(cur)}</h1>
         <p className="article-when"><b>What you'll learn</b> — {cur.learn}</p>
         <div className="article-meta">
-          <span><Icons.clock size={14} /> {mins} min read</span>
+          <span><SimpleIcon type="clock" size={14} /> {mins} min read</span>
           <button className={"btn btn-sm " + (isRead ? "btn-soft" : "btn-ghost")} onClick={() => { mark(cur.key, !isRead); toast(isRead ? "Marked unread" : "Marked as read"); }}>
-            <Icons.check2 size={14} /> {isRead ? "Read" : "Mark as read"}
+            <SimpleIcon type="check2" size={14} /> {isRead ? "Read" : "Mark as read"}
           </button>
-          <a className="btn btn-ghost btn-sm" href={blob} target="_blank" rel="noopener"><Icons.github size={14} /> View source</a>
+          <a className="btn btn-ghost btn-sm" href={blob} target="_blank" rel="noopener"><SimpleIcon type="github" size={14} /> View source</a>
         </div>
 
         <div className="article-layout">
@@ -195,16 +194,16 @@ function LessonReader({ track, lesson, nav, toast }) {
 
         <div className="article-foot-src">
           <span>Source — verbatim from <code>{cur.src}</code> on the <code>{branch}</code> branch.</span>
-          <a href={blob} target="_blank" rel="noopener">View on GitHub <Icons.external size={13} /></a>
+          <a href={blob} target="_blank" rel="noopener">View on GitHub <SimpleIcon type="external" size={13} /></a>
         </div>
 
         <div className="article-nav">
           {prev
-            ? <a className="art-nav-btn" onClick={() => nav({ view: "learn", track: prev.track.id, lesson: prev.slug })}><Icons.arrowLeft size={16} /><span><small>{prev.track.label}</small>{lessonTitle(prev)}</span></a>
+            ? <a className="art-nav-btn" onClick={() => nav({ view: "learn", track: prev.track.id, lesson: prev.slug })}><SimpleIcon type="arrowLeft" size={16} /><span><small>{prev.track.label}</small>{lessonTitle(prev)}</span></a>
             : <span />}
           {next
-            ? <a className="art-nav-btn to" onClick={() => nav({ view: "learn", track: next.track.id, lesson: next.slug })}><span><small>{next.track.label}</small>{lessonTitle(next)}</span><Icons.arrow size={16} /></a>
-            : <a className="art-nav-btn to" onClick={() => nav({ view: "learn" })}><span><small>Finished</small>Back to tracks</span><Icons.arrow size={16} /></a>}
+            ? <a className="art-nav-btn to" onClick={() => nav({ view: "learn", track: next.track.id, lesson: next.slug })}><span><small>{next.track.label}</small>{lessonTitle(next)}</span><SimpleIcon type="arrow" size={16} /></a>
+            : <a className="art-nav-btn to" onClick={() => nav({ view: "learn" })}><span><small>Finished</small>Back to tracks</span><SimpleIcon type="arrow" size={16} /></a>}
         </div>
       </div>
     </main>
@@ -217,13 +216,12 @@ function LearnTrack({ track, nav }) {
   const t = LSLEARN.LEARN_TRACKS.find((x) => x.id === track);
   const { branch } = React.useContext(window.BranchCtx);
   if (!t) return <NotFound nav={nav} />;
-  const Fn = Icons[t.icon] || Icons.layers;
   return (
     <main className="wrap-prose" style={{ paddingBottom: 64 }}>
       <div className="cat-hero" style={{ borderBottom: "none", paddingBottom: 8, paddingLeft: 0, paddingRight: 0 }}>
         <div className="crumb" style={{ marginTop: 28 }}><a onClick={() => nav({ view: "learn" })}>Learning Centre</a> <span>/</span> <span>{t.label}</span></div>
         <div className="track-head" style={{ marginTop: 8 }}>
-          <span className="track-ico"><Fn size={22} /></span>
+          <span className="track-ico"><SimpleIcon type={t.icon || "layers"} size={22} /></span>
           <div><span className="track-no">Track</span><h1 className="page-h1" style={{ margin: 0 }}>{t.label}</h1></div>
         </div>
         <p className="page-lead">{t.blurb}</p>
@@ -235,9 +233,9 @@ function LearnTrack({ track, nav }) {
           const done = read.has(t.id + "/" + l.slug);
           return (
             <li key={l.slug} className={done ? "done" : ""} onClick={() => nav({ view: "learn", track: t.id, lesson: l.slug })}>
-              <span className="lesson-tick">{done ? <Icons.check2 size={18} /> : <span className="tick-no">{li + 1}</span>}</span>
+              <span className="lesson-tick">{done ? <SimpleIcon type="check2" size={18} /> : <span className="tick-no">{li + 1}</span>}</span>
               <span className="lesson-main"><b>{lessonTitle(l)}</b><small>{l.learn}</small></span>
-              <span className="lesson-min"><Icons.clock size={13} /> {mins}m</span>
+              <span className="lesson-min"><SimpleIcon type="clock" size={13} /> {mins}m</span>
             </li>
           );
         })}
@@ -250,7 +248,7 @@ function LearnTrack({ track, nav }) {
             <a key={f.p} className="ref-row" href={`https://github.com/${LSDATA.REPO}/blob/${branch}/${f.p}`} target="_blank" rel="noopener">
               <span className="path">{f.p.split("/").pop()}</span>
               <span className="desc">{f.d}</span>
-              <span className="ext"><Icons.external size={16} /></span>
+              <span className="ext"><SimpleIcon type="external" size={16} /></span>
             </a>
           ))}
         </div>
