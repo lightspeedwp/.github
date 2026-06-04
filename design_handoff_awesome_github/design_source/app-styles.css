@@ -202,6 +202,7 @@ button { font-family: inherit; }
   animation: fade .15s var(--ease-out);
 }
 @keyframes fade { from { opacity: 0; } }
+@keyframes pop { from { transform: translateY(-8px) scale(.99); opacity: .6; } }
 .drawer {
   position: fixed;
   top: 0;
