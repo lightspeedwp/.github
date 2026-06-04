@@ -8,19 +8,19 @@ const recipes = [
     title: "Project planning & PRD playbook",
     badge: "PLAYBOOK",
     readTime: "2 min",
-    href: "/cookbook/project-planning-prd/",
+    href: `${base}cookbook/project-planning-prd/`,
   },
   {
     title: "Spec-driven workflow example",
     badge: "EXAMPLE",
     readTime: "2 min",
-    href: "/cookbook/spec-driven-workflow/",
+    href: `${base}cookbook/spec-driven-workflow/`,
   },
   {
     title: "WordPress plugin checklist",
     badge: "CHECKLIST",
     readTime: "3 min",
-    href: "/cookbook/wordpress-plugin-checklist/",
+    href: `${base}cookbook/wordpress-plugin-checklist/`,
   },
 ];
 ---
@@ -32,7 +32,7 @@ const recipes = [
   <section class="ag-breadcrumb-section">
     <div class="ag-container">
       <nav class="ag-breadcrumb" aria-label="Breadcrumb">
-        <a href={`${base}awesome-github`}>Home</a>
+        <a href={base}>Home</a>
         <span class="ag-breadcrumb-separator">/</span>
         <span>Cookbook</span>
       </nav>
