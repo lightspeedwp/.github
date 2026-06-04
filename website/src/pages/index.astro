@@ -6,20 +6,19 @@ import AwesomeGithubCard from "../components/AwesomeGithub/AwesomeGithubCard.ast
 const base = import.meta.env.BASE_URL;
 
 const catalogues = [
-  { name: "Agents", href: `${base}agents/`, count: 9, icon: "🤖", description: "Specialised AI agents with defined behaviour, scope, and collaboration rules." },
-  { name: "Instructions", href: `${base}instructions/`, count: 17, icon: "📋", description: "Canonical coding, accessibility, and WordPress standards Copilot must follow." },
-  { name: "Prompts", href: `${base}awesome-github/c/prompts`, count: 39, icon: "💬", description: "Reusable prompt templates you can grab and run in your reasoning tooling." },
-  { name: "Skills", href: `${base}skills/`, count: 7, icon: "⚡", description: "Portable, self-contained skill packages the team can run on demand." },
-  { name: "Hooks", href: `${base}hooks/`, count: 6, icon: "🪝", description: "Pre-commit and lint guardrails that enforce quality before code lands." },
-  { name: "Workflows", href: `${base}workflows/`, count: 5, icon: "⚙️", description: "Portable agentic workflow specs, each paired with a runnable GitHub Action." },
-  { name: "Plugins", href: `${base}plugins/`, count: 2, icon: "🔌", description: "Installable, versioned plugin packs bundling governance and AI ops." },
-  { name: "Tools", href: `${base}tools/`, count: 32, icon: "🔧", description: "The toolchain layer — UI utilities, scripts, schemas, and editor config." },
+  { name: "Agents", href: `${base}awesome-github/c/agents/`, count: 9, icon: "🤖", description: "Specialised AI agents with defined behaviour, scope, and collaboration rules." },
+  { name: "Instructions", href: `${base}awesome-github/c/instructions/`, count: 17, icon: "📋", description: "Canonical coding, accessibility, and WordPress standards Copilot must follow." },
+  { name: "Skills", href: `${base}awesome-github/c/skills/`, count: 7, icon: "⚡", description: "Portable, self-contained skill packages the team can run on demand." },
+  { name: "Hooks", href: `${base}awesome-github/c/hooks/`, count: 6, icon: "🪝", description: "Pre-commit and lint guardrails that enforce quality before code lands." },
+  { name: "Workflows", href: `${base}awesome-github/c/workflows/`, count: 5, icon: "⚙️", description: "Portable agentic workflow specs, each paired with a runnable GitHub Action." },
+  { name: "Plugins", href: `${base}awesome-github/c/plugins/`, count: 2, icon: "🔌", description: "Installable, versioned plugin packs bundling governance and AI ops." },
+  { name: "Tools", href: `${base}awesome-github/c/tools/`, count: 32, icon: "🔧", description: "The toolchain layer — UI utilities, scripts, schemas, and editor config." },
 ];
 
 const stats = [
-  { label: "Catalogues", value: "8" },
-  { label: "Ready-to-use prompts", value: "39" },
-  { label: "Learning lessons", value: "10" },
+  { label: "Catalogues", value: "7" },
+  { label: "Learning tracks", value: "4" },
+  { label: "Learning lessons", value: "18" },
   { label: "Control plane", value: "1" },
 ];
 
@@ -48,7 +47,7 @@ const pillars = [
         One .github repository governs every LightSpeed repo. Browse and grab the agents, instructions, prompts, skills, and workflows we use to ship WordPress & WooCommerce work—then learn how it all fits together, at your own pace.
       </p>
       <div class="ag-cta-group">
-        <AwesomeGithubButton variant="primary" href={`${base}awesome-github/getting-started`}>
+        <AwesomeGithubButton variant="primary" href={`${base}getting-started/`}>
           Start here
         </AwesomeGithubButton>
         <AwesomeGithubButton variant="secondary" href="#browse-resources">
@@ -123,7 +122,7 @@ const pillars = [
         <div class="ag-cta-box">
           <h3 class="ag-h4">Cookbook</h3>
           <p class="ag-body-sm">Battle-tested, step-by-step recipes for planning, spec-driven workflows, and shipping WordPress plugins. Read one start to finish, or copy the steps into your own plan.</p>
-          <AwesomeGithubButton variant="secondary" href={`${base}awesome-github/c/cookbook`}>
+          <AwesomeGithubButton variant="secondary" href={`${base}cookbook/`}>
             Follow a recipe
           </AwesomeGithubButton>
         </div>

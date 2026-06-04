@@ -45,11 +45,39 @@ const resourceTypes = [
   "tools",
 ];
 
+function renderMarkdown(markdown: string): string {
+  let html = markdown;
+
+  html = html.replace(/^### (.*?)$/gm, "<h3>$1</h3>");
+  html = html.replace(/^## (.*?)$/gm, "<h2>$1</h2>");
+  html = html.replace(/^# (.*?)$/gm, "<h1>$1</h1>");
+
+  html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/\*(.*?)\*/g, "<em>$1</em>");
+  html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+
+  html = html.replace(/^- (.*?)$/gm, "<li>$1</li>");
+  html = html.replace(/(<li>.*<\/li>)/s, "<ul>$1</ul>");
+  html = html.replace(/^> (.*?)$/gm, "<blockquote>$1</blockquote>");
+
+  html = html.replace(/\n\n/g, "</p><p>");
+  html = "<p>" + html + "</p>";
+  html = html.replace(/<p><\/p>/g, "");
+  html = html.replace(/<p>(<h[1-3]>)/g, "$1");
+  html = html.replace(/(<\/h[1-3]>)<\/p>/g, "$1");
+  html = html.replace(/<p>(<ul>)/g, "$1");
+  html = html.replace(/(<\/ul>)<\/p>/g, "$1");
+  html = html.replace(/<p>(<blockquote>)/g, "$1");
+  html = html.replace(/(<\/blockquote>)<\/p>/g, "$1");
+
+  return html;
+}
+
 /**
  * Get the directory path for a resource type
  */
 function getResourceDir(type: string): string {
-  const baseDir = path.join(process.cwd(), "..", "..", type);
+  const baseDir = path.join(process.cwd(), "..", type);
   return baseDir;
 }
 
@@ -87,7 +115,7 @@ export function getResource(type: string, slug: string): Resource | null {
       title: data.title || slug,
       description: data.description || "",
       frontmatter: data as ResourceFrontmatter,
-      content,
+      content: renderMarkdown(content),
       type,
     };
   } catch {
@@ -121,7 +149,7 @@ export function getResourcesByType(type: string): Resource[] {
           title: data.title || slug,
           description: data.description || "",
           frontmatter: data as ResourceFrontmatter,
-          content,
+          content: renderMarkdown(content),
           type,
         };
       })
