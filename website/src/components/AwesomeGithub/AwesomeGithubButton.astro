@@ -8,14 +8,14 @@ interface Props {
 }
 
 const { href, variant = "primary", size = "md", disabled = false, class: className } = Astro.props;
-const Element = href ? "a" : "button";
+const Element = href && !disabled ? "a" : "button";
 ---
 
 <Element
-  href={href}
-  disabled={disabled && !href}
+  href={Element === "a" ? href : undefined}
+  disabled={Element === "button" ? disabled : undefined}
   class={`ag-button ag-button--${variant} ag-button--${size} ${className || ""}`}
-  {...(href ? {} : { type: "button" })}
+  {...(Element === "button" ? { type: "button" } : {})}
 >
   <slot />
 </Element>

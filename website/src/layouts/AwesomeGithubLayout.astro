@@ -31,41 +31,6 @@ const themeInitScript = `
   })();
 `;
 
-const themeToggleScript = `
-  (() => {
-    const storageKey = "awesome-github-theme";
-    const root = document.documentElement;
-    const button = document.querySelector("[data-awesome-github-theme-toggle]");
-    const label = document.querySelector("[data-awesome-github-theme-label]");
-
-    if (!button || !label) {
-      return;
-    }
-
-    const apply = (theme) => {
-      root.dataset.theme = theme;
-      root.style.colorScheme = theme;
-      button.setAttribute("aria-pressed", String(theme === "light"));
-      label.textContent = theme === "light" ? "Light mode" : "Dark mode";
-    };
-
-    const current = root.dataset.theme === "light" || root.dataset.theme === "dark"
-      ? root.dataset.theme
-      : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-
-    apply(current);
-
-    button.addEventListener("click", () => {
-      const next = root.dataset.theme === "light" ? "dark" : "light";
-      try {
-        localStorage.setItem(storageKey, next);
-      } catch (_) {
-        /* ignore storage errors */
-      }
-      apply(next);
-    });
-  })();
-`;
 ---
 
 <!doctype html>
@@ -84,7 +49,25 @@ const themeToggleScript = `
       <slot />
     </main>
     <AwesomeGithubFooter />
-    <script is:inline set:html={themeToggleScript}></script>
+    <script>
+      const storageKey = "awesome-github-theme";
+      const root = document.documentElement;
+      const button = document.querySelector("[data-awesome-github-theme-toggle]");
+
+      if (button) {
+        button.addEventListener("click", () => {
+          const next = root.dataset.theme === "light" ? "dark" : "light";
+          try {
+            localStorage.setItem(storageKey, next);
+          } catch (_) {
+            /* ignore storage errors */
+          }
+          root.dataset.theme = next;
+          root.style.colorScheme = next;
+          button.setAttribute("aria-pressed", String(next === "light"));
+        });
+      }
+    </script>
   </body>
 </html>
 

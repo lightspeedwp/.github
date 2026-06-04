@@ -7,14 +7,14 @@ import AwesomeGithubChip from "../../components/AwesomeGithub/AwesomeGithubChip.
 const base = import.meta.env.BASE_URL;
 
 const catalogues = [
-  { name: "Agents", href: "/awesome-github/c/agents", count: 12 },
-  { name: "Instructions", href: "/awesome-github/c/instructions", count: 8 },
-  { name: "Prompts", href: "/awesome-github/c/prompts", count: 24 },
-  { name: "Skills", href: "/awesome-github/c/skills", count: 15 },
-  { name: "Hooks", href: "/awesome-github/c/hooks", count: 6 },
-  { name: "Workflows", href: "/awesome-github/c/workflows", count: 11 },
-  { name: "Plugins", href: "/awesome-github/c/plugins", count: 4 },
-  { name: "Tools", href: "/awesome-github/c/tools", count: 7 },
+  { name: "Agents", href: `${base}awesome-github/c/agents`, count: 12 },
+  { name: "Instructions", href: `${base}awesome-github/c/instructions`, count: 8 },
+  { name: "Prompts", href: `${base}awesome-github/c/prompts`, count: 24 },
+  { name: "Skills", href: `${base}awesome-github/c/skills`, count: 15 },
+  { name: "Hooks", href: `${base}awesome-github/c/hooks`, count: 6 },
+  { name: "Workflows", href: `${base}awesome-github/c/workflows`, count: 11 },
+  { name: "Plugins", href: `${base}awesome-github/c/plugins`, count: 4 },
+  { name: "Tools", href: `${base}awesome-github/c/tools`, count: 7 },
 ];
 
 const stats = [
@@ -74,7 +74,7 @@ const stats = [
 
       <div class="ag-catalogue-grid">
         {catalogues.map((cat) => (
-          <AwesomeGithubCard href={`${base}awesome-github/c/${cat.name.toLowerCase()}`}>
+          <AwesomeGithubCard href={cat.href}>
             <h3 class="ag-h4">{cat.name}</h3>
             <p class="ag-small">{cat.count} resources</p>
           </AwesomeGithubCard>
@@ -107,7 +107,6 @@ const stats = [
     background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
     color: var(--c-white);
     padding: var(--space-40) var(--gutter);
-    margin-top: 72px;
     margin-bottom: var(--section-y);
   }
 

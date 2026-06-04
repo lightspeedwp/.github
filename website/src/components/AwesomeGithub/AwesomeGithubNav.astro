@@ -12,6 +12,12 @@ const navLinks = [
   { href: `${base}awesome-github/getting-started`, path: "/awesome-github/getting-started", label: "Getting Started", exact: true },
   { href: `${base}awesome-github/learn`, path: "/awesome-github/learn", label: "Learning", exact: false },
 ];
+
+const isActive = (linkPath: string, exact: boolean): boolean => {
+  const normPath = pathname.replace(/\/$/, "");
+  const normLink = linkPath.replace(/\/$/, "");
+  return exact ? normPath === normLink : normPath === normLink || normPath.startsWith(normLink + "/");
+};
 ---
 
 <header class="ag-nav">
@@ -28,7 +34,7 @@ const navLinks = [
       <a
         href={link.href}
         class="ag-nav-link"
-        aria-current={link.exact ? (pathname === link.path ? "page" : undefined) : (pathname.startsWith(link.path) ? "page" : undefined)}
+        aria-current={isActive(link.path, link.exact) ? "page" : undefined}
       >
         {link.label}
       </a>
@@ -51,7 +57,8 @@ const navLinks = [
       aria-pressed="false"
       aria-label="Toggle light and dark mode"
     >
-      <span data-awesome-github-theme-label>Dark mode</span>
+      <span class="theme-icon-light" aria-hidden="true">☀️</span>
+      <span class="theme-icon-dark" aria-hidden="true">🌙</span>
     </button>
   </div>
 </header>
@@ -175,9 +182,23 @@ const navLinks = [
     transform: scale(0.98);
   }
 
-  .ag-nav-search span,
-  .ag-nav-theme-toggle span {
+  .ag-nav-search span {
     font-weight: var(--weight-medium);
+  }
+
+  .theme-icon-light,
+  .theme-icon-dark {
+    font-size: 16px;
+    line-height: 1;
+    display: inline-block;
+  }
+
+  :global([data-theme="dark"]) .theme-icon-light {
+    display: none;
+  }
+
+  :global([data-theme="light"]) .theme-icon-dark {
+    display: none;
   }
 
   @media (max-width: 768px) {
