@@ -15,7 +15,14 @@ You could not fetch the design via URL because that endpoint returns gzip‑comp
 "Awesome GitHub" is a browsable catalogue + learning site for the **`lightspeedwp/.github`** repository — the org‑wide control plane that ships the agents, instructions, prompts, skills, hooks, workflows, plugins, and tools the LightSpeed WordPress/WooCommerce team uses for consistent AI operations. Visitors browse each resource type, read detail pages, copy/install files, follow a getting‑started flow, and work through self‑paced learning tracks.
 
 ## About the design files
+
 The files in `design_source/` are a **design reference built in HTML/React** — a prototype showing intended look and behaviour, **not** production code to paste in. The React+Babel setup exists only so the prototype runs in a single browser tab. Recreate the designs in the Astro codebase's established environment (Astro components, its routing, its CSS approach). Lift exact values — hex codes, spacing, type, copy — from the source and screenshots.
+
+**Implementation notes:** The prototype prioritizes fidelity over production best practices. When porting to Astro:
+- Use standard markdown parsing (`marked` + `DOMPurify`) instead of custom parsers
+- Apply React performance patterns (refs, hooks) as appropriate for Astro islands
+- Ensure all security best practices are followed (no dangerouslySetInnerHTML, sanitize user input, etc.)
+- Follow the repo's coding standards and test coverage requirements
 
 ## Fidelity
 **High‑fidelity.** Final colours, typography, spacing, copy, and interactions are all decided. Recreate pixel‑faithfully using the design tokens below (already in `design_source/colors_and_type.css`).
