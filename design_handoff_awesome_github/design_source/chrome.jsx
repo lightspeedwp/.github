@@ -226,7 +226,6 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
                   })}
                 </div>
               ))}
-            </div>
 
               <div className="drawer-sec">
                 <h6>Install source</h6>
