@@ -12,30 +12,125 @@ export const REPO_INFO = {
 export type ResourceAction = 'copy' | 'download' | 'github' | 'vscode';
 export type ResourceType = 'agents' | 'instructions' | 'skills' | 'cookbook' | 'learn' | 'hooks' | 'workflows' | 'prompts' | 'tools';
 
-export interface ResourceMetadata {
+export interface ResourceFrontmatter {
   title: string;
   description: string;
-  type: ResourceType;
-  path: string;
-  file: string;
-  actions: ResourceAction[];
-  tags?: string[];
-  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
-  category?: string;
+  [key: string]: any;
+}
+
+export interface Resource {
+  slug: string;
+  title: string;
+  description: string;
+  frontmatter: ResourceFrontmatter;
+  content?: string;
+}
+
+export interface ResourceTypeInfo {
+  type: string;
+  label: string;
+  icon: string;
+  description: string;
+}
+
+// Available resource types with metadata
+const RESOURCE_TYPES: Record<string, ResourceTypeInfo> = {
+  agents: {
+    type: 'agents',
+    label: 'Agents',
+    icon: '🤖',
+    description: 'AI agent specifications and configurations',
+  },
+  instructions: {
+    type: 'instructions',
+    label: 'Instructions',
+    icon: '📋',
+    description: 'Organization-wide instructions and standards',
+  },
+  skills: {
+    type: 'skills',
+    label: 'Skills',
+    icon: '⚡',
+    description: 'Self-contained reusable skills',
+  },
+  cookbook: {
+    type: 'cookbook',
+    label: 'Cookbook',
+    icon: '👨‍🍳',
+    description: 'Recipes, playbooks, and implementation guides',
+  },
+  learn: {
+    type: 'learn',
+    label: 'Learning Centre',
+    icon: '📚',
+    description: 'Learning tracks and courses',
+  },
+  hooks: {
+    type: 'hooks',
+    label: 'Hooks',
+    icon: '🪝',
+    description: 'Portable hooks and guardrails',
+  },
+  workflows: {
+    type: 'workflows',
+    label: 'Workflows',
+    icon: '⚙️',
+    description: 'Portable agentic workflows',
+  },
+  prompts: {
+    type: 'prompts',
+    label: 'Prompts',
+    icon: '💬',
+    description: 'Prompt library and templates',
+  },
+  tools: {
+    type: 'tools',
+    label: 'Tools',
+    icon: '🛠️',
+    description: 'Utility scripts and tools',
+  },
+};
+
+/**
+ * Get all available resource types
+ */
+export function getAvailableResourceTypes(): ResourceTypeInfo[] {
+  return Object.values(RESOURCE_TYPES);
+}
+
+/**
+ * Get a specific resource by type and slug
+ * Note: This is a stub implementation. In production, this would load from content collections.
+ */
+export function getResource(type: string, slug: string): Resource | null {
+  // Stub implementation - returns null for now
+  // In production, this would load from Astro content collections
+  return null;
+}
+
+/**
+ * Get all resources of a specific type
+ * Note: This is a stub implementation. In production, this would load from content collections.
+ */
+export function getResourcesByType(type: string): Resource[] {
+  // Stub implementation - returns empty array for now
+  // In production, this would load from Astro content collections
+  return [];
 }
 
 /**
  * Generate GitHub URLs for a resource with branch switching support
  */
 export function generateResourceUrl(
-  resource: ResourceMetadata,
+  path: string,
+  file: string,
   action: ResourceAction,
   branch: 'main' | 'develop' = 'develop'
 ): string {
   const baseUrl = 'https://github.com';
   const rawUrl = 'https://raw.githubusercontent.com';
   const repoPath = `${REPO_INFO.owner}/${REPO_INFO.repo}`;
-  const filePath = `${resource.path}/${resource.file}`;
+  const filePath = `${path}/${file}`;
 
   switch (action) {
     case 'github':
@@ -45,11 +140,9 @@ export function generateResourceUrl(
       return `${rawUrl}/${repoPath}/${branch}/${filePath}`;
     
     case 'download':
-      // Same as copy raw
       return `${rawUrl}/${repoPath}/${branch}/${filePath}`;
     
     case 'vscode':
-      // VS Code custom instructions installer
       const rawFileUrl = encodeURIComponent(`${rawUrl}/${repoPath}/${branch}/${filePath}`);
       return `vscode:github/install?url=${rawFileUrl}`;
     
@@ -61,8 +154,8 @@ export function generateResourceUrl(
 /**
  * Get available actions for a resource type
  */
-export function getAvailableActions(type: ResourceType): ResourceAction[] {
-  const actionMap: Record<ResourceType, ResourceAction[]> = {
+export function getAvailableActions(type: string): ResourceAction[] {
+  const actionMap: Record<string, ResourceAction[]> = {
     agents: ['copy', 'download', 'github', 'vscode'],
     instructions: ['copy', 'download', 'github'],
     skills: ['copy', 'download', 'github', 'vscode'],
@@ -103,21 +196,24 @@ export function formatReadTime(minutes?: number): string {
 /**
  * Sort resources by a field
  */
-export function sortResources<T extends { data: any }>(
+export function sortResources<T extends { data?: any; frontmatter?: any }>(
   resources: T[],
   sortBy: 'title' | 'date' | 'difficulty' = 'title'
 ): T[] {
   return [...resources].sort((a, b) => {
+    const dataA = a.data || a.frontmatter || {};
+    const dataB = b.data || b.frontmatter || {};
+
     switch (sortBy) {
       case 'title':
-        return a.data.title.localeCompare(b.data.title);
+        return (dataA.title || '').localeCompare(dataB.title || '');
       case 'date':
-        const dateA = new Date(a.data.last_updated || 0).getTime();
-        const dateB = new Date(b.data.last_updated || 0).getTime();
-        return dateB - dateA; // newest first
+        const dateA = new Date(dataA.last_updated || 0).getTime();
+        const dateB = new Date(dataB.last_updated || 0).getTime();
+        return dateB - dateA;
       case 'difficulty':
         const diffOrder = { Beginner: 0, Intermediate: 1, Advanced: 2 };
-        return (diffOrder[a.data.difficulty] ?? 99) - (diffOrder[b.data.difficulty] ?? 99);
+        return (diffOrder[dataA.difficulty] ?? 99) - (diffOrder[dataB.difficulty] ?? 99);
       default:
         return 0;
     }
@@ -127,7 +223,7 @@ export function sortResources<T extends { data: any }>(
 /**
  * Filter resources by tags and category
  */
-export function filterResources<T extends { data: any }>(
+export function filterResources<T extends { data?: any; frontmatter?: any }>(
   resources: T[],
   options: {
     tags?: string[];
@@ -138,7 +234,7 @@ export function filterResources<T extends { data: any }>(
 ): T[] {
   return resources.filter(resource => {
     const { tags = [], category, difficulty, search } = options;
-    const data = resource.data;
+    const data = resource.data || resource.frontmatter || {};
 
     // Filter by tags
     if (tags.length > 0) {
@@ -160,7 +256,7 @@ export function filterResources<T extends { data: any }>(
     // Filter by search term
     if (search) {
       const searchLower = search.toLowerCase();
-      const matchesTitle = data.title.toLowerCase().includes(searchLower);
+      const matchesTitle = data.title?.toLowerCase().includes(searchLower);
       const matchesDesc = data.description?.toLowerCase().includes(searchLower);
       if (!matchesTitle && !matchesDesc) return false;
     }
