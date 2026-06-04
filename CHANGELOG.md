@@ -43,6 +43,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **WCEU 2026 Conference Site Expansion** — Expanded the public site into a conference-ready talk hub with per-slide pages, updated navigation and footer elements, a light/dark mode switcher, and GitHub Pages-safe slide parsing dependencies for CI builds.
 - **Fullscreen Slideshow Component for WCEU 2026 Talk** — Implemented a production-ready Svelte slideshow viewer with keyboard navigation (arrow keys, space, N for notes, R for references, F for fullscreen), speaker notes and references overlays, slide indicator grid, responsive design, and light/dark mode support. Component integrates with 20 pre-built slide pages and is optimized for conference presentation delivery.
 
+### Added
+
+- **Awesome GitHub Site: Enhanced Wapuu Character Integration Across Pages** — Added Wapuu SVG graphics to hero sections across five key pages for improved visual engagement and character consistency:
+  - Getting Started page: Wapuu-Rocket for dynamic energy and action orientation
+  - Why This Exists page: Wapuu-Astropuu for big-picture vision and exploration
+  - Onboarding page: Wapuu-Yoduu for wisdom and guidance
+  - Glossary page: Wapuu-Astropuu for reference and learning
+  - References page: Wapuu-Rocket for navigation and discovery
+  All Wapuus feature responsive sizing (clamp 100-200px), drop-shadow filters for visual depth, proper accessibility attributes (aria-hidden), and fluid flexbox layouts for hero sections that adapt across mobile, tablet, and desktop viewports.
+
 ### Fixed
 
 - **Awesome GitHub Site: NotFound Page Accessibility Improvement** — Added `aria-hidden="true"` attribute to decorative Wapuu-Astropuu image in the NotFound component (learn.jsx) to improve WCAG 2.2 AA+ accessibility compliance. Empty alt text combined with aria-hidden ensures screen readers properly skip decorative content.
