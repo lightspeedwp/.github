@@ -89,12 +89,17 @@ jobs:
             exit 0
           fi
 
-          # Get changed markdown files and filter out ignored files
-          FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | \
-                  grep -v -E '^(AWESOME_GITHUB_MAPPING_STRATEGY\.md|docs/MIGRATION\.md)$' | \
-                  tr '\n' ' ')
+          # Get changed markdown files, excluding deferred formatting cleanup files
+          FILES=""
+          while IFS= read -r file; do
+            if [[ ! "$file" =~ ^AWESOME_GITHUB_MAPPING_STRATEGY\.md$ ]] && \
+               [[ ! "$file" =~ ^docs/MIGRATION\.md$ ]]; then
+              FILES="$FILES $file"
+            fi
+          done < <(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx')
+
           if [ -z "$FILES" ]; then
-            echo "No Markdown files changed (or all changes are in ignored files)."
+            echo "No Markdown files to lint (changed files are in ignore list or none exist)."
             exit 0
           fi
 
