@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* ──────────────────────────────────────────────────────────────────
    Learning Centre + Cookbook metadata.
    Lesson/recipe BODIES are the real markdown from the repo (content-data.js,

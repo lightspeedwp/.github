@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* ──────────────────────────────────────────────────────────────────
    Catalogue data — every path is a REAL file/folder in lightspeedwp/.github
    (develop branch). URLs are built at render time so the main ⇄ develop

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Glossary — expanded from wceu-2026/references/glossary.md for a general
    WordCamp audience. Each entry: plain-language definition + why it matters
    here + related terms (slugs) for cross-linking. */
