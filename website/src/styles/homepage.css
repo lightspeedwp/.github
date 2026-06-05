@@ -1,5 +1,20 @@
 /* LightSpeedWP Agency Homepage — Design System */
 
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-VariableFont_opsz_wght.woff2") format("woff2-variations"),
+       url("/fonts/Inter-VariableFont_opsz_wght.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 75% 100%;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/Manrope-VariableFont_wght.woff2") format("woff2-variations"),
+       url("/fonts/Manrope-VariableFont_wght.woff2") format("woff2");
+  font-weight: 200 800;
+}
+
 :root {
   /* Fonts */
   --font-display: "Inter", system-ui, sans-serif;
