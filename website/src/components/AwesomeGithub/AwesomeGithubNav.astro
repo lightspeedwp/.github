@@ -22,8 +22,8 @@ const isActive = (path: string): boolean => {
 
     <!-- Brand / Logo -->
     <a href={base} class="nav-brand" aria-label="Awesome GitHub — home">
-      <img class="brand-icon-light" src="/awesome-github/LS-Agency-Site-Icon-Blue.svg" alt="" width="26" height="26" />
-      <img class="brand-icon-dark" src="/awesome-github/LS-Agency-Site-Icon-Light-Blue.svg" alt="" width="26" height="26" />
+      <img class="brand-icon-light" src={base + "awesome-github/LS-Agency-Site-Icon-Blue.svg"} alt="" width="26" height="26" />
+      <img class="brand-icon-dark" src={base + "awesome-github/LS-Agency-Site-Icon-Light-Blue.svg"} alt="" width="26" height="26" />
       <b>Awesome<span class="tld"> GitHub</span></b>
     </a>
 
@@ -134,8 +134,8 @@ const isActive = (path: string): boolean => {
 <aside class="drawer" id="mobile-drawer" aria-label="Navigation menu" aria-hidden="true" inert>
   <div class="drawer-head">
     <a href={base} class="nav-brand">
-      <img class="brand-icon-light" src="/awesome-github/LS-Agency-Site-Icon-Blue.svg" alt="" width="26" height="26" />
-      <img class="brand-icon-dark" src="/awesome-github/LS-Agency-Site-Icon-Light-Blue.svg" alt="" width="26" height="26" />
+      <img class="brand-icon-light" src={base + "awesome-github/LS-Agency-Site-Icon-Blue.svg"} alt="" width="26" height="26" />
+      <img class="brand-icon-dark" src={base + "awesome-github/LS-Agency-Site-Icon-Light-Blue.svg"} alt="" width="26" height="26" />
       <b>Awesome<span class="tld"> GitHub</span></b>
     </a>
     <button class="icon-btn" type="button" data-drawer-close aria-label="Close menu">
@@ -337,7 +337,7 @@ const isActive = (path: string): boolean => {
   }
 
   // ── Branch toggle ──────────────────────────────────────────────────────
-  const BRANCH_STORAGE_KEY = "ag-branch";
+  const BRANCH_STORAGE_KEY = "github_branch";
   const branchBtns = document.querySelectorAll<HTMLButtonElement>(".branch-btn");
 
   const initBranch = () => {
@@ -355,7 +355,7 @@ const isActive = (path: string): boolean => {
       const branch = btn.getAttribute("data-branch");
       localStorage.setItem(BRANCH_STORAGE_KEY, branch || "main");
       branchBtns.forEach((b) => {
-        b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        b.setAttribute("aria-pressed", b.getAttribute("data-branch") === branch ? "true" : "false");
       });
     });
   });
@@ -367,7 +367,7 @@ const isActive = (path: string): boolean => {
   const drawerClose = drawer?.querySelector<HTMLButtonElement>("[data-drawer-close]");
 
   if (hamburger && drawer && scrim) {
-    const bgEls = Array.from(document.querySelectorAll<HTMLElement>("body > :not(header)"));
+    const bgEls = Array.from(document.querySelectorAll<HTMLElement>("body > :not(header):not(aside):not(.drawer-scrim)"));
 
     const openDrawer = () => {
       hamburger.setAttribute("aria-expanded", "true");
@@ -394,7 +394,7 @@ const isActive = (path: string): boolean => {
     drawerClose?.addEventListener("click", closeDrawer);
     scrim.addEventListener("click", closeDrawer);
 
-    drawer.querySelectorAll("a, button").forEach((link) => {
+    drawer.querySelectorAll("a, [data-search-open]").forEach((link) => {
       link.addEventListener("click", closeDrawer);
     });
 

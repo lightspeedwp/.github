@@ -82,23 +82,37 @@ const icons: Record<string, IconDef> = {
   layers: {
     path: `<path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 16.5l9 5 9-5"/>`,
   },
+
+  // Icon aliases for compatibility with existing catalogues and pages
+  "book-open": {
+    path: `<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM19 3v16"/>`,
+  },
+  "chat-circle": {
+    path: `<path d="M21 12a8 8 0 0 1-8 8H6l-3 2v-5a8 8 0 1 1 18-5z"/><path d="M8 11h8M8 14h5"/>`,
+  },
+  sparkle: {
+    path: `<path d="M12 4l1.6 4.4L18 10l-4.4 1.6L12 16l-1.6-4.4L6 10l4.4-1.6zM18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8z"/>`,
+  },
+  "git-branch": {
+    path: `<path d="M6 3v9a3 3 0 0 0 3 3h6m0 0a3 3 0 0 0 3-3v-9M15 3v3m0 9v3M9 12v3M9 3v3"/>`,
+  },
+  "puzzle-piece": {
+    path: `<path d="M10 4a1.5 1.5 0 0 1 3 0c0 .8.7 1 1.5 1H17v2.5c0 .8.2 1.5 1 1.5a1.5 1.5 0 0 1 0 3c-.8 0-1 .7-1 1.5V17h-2.5c-.8 0-1.5.2-1.5 1a1.5 1.5 0 0 1-3 0c0-.8-.7-1-1.5-1H5v-2.5c0-.8-.2-1.5-1-1.5a1.5 1.5 0 0 1 0-3c.8 0 1-.7 1-1.5V5h2.5C8.3 5 9 4.8 9 4z"/>`,
+  },
+  "cooking-pot": {
+    path: `<path d="M7 4v6a4 4 0 0 0 4 4h2a4 4 0 0 0 4-4V4M9 20h6M8 4h8a2 2 0 0 1 2 2v1H6V6a2 2 0 0 1 2-2z"/>`,
+  },
+  books: {
+    path: `<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20M4 19.5V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6.5M20 10V7a2 2 0 0 0-2-2h-5.5"/>`,
+  },
 };
 
 export function getIconSvg(name: string, size: number = 24): string {
-  const aliases: Record<string, string> = {
-    "book-open": "book",
-    "chat-circle": "chat",
-    "sparkle": "sparkles",
-    "git-branch": "workflow",
-    "puzzle-piece": "puzzle",
-  };
-  const resolvedName = aliases[name] || name;
-  const icon = icons[resolvedName];
+  const icon = icons[name];
   if (!icon) {
-    console.warn("[icons.ts] Missing icon: " + name);
-    return "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"" + size + "\" height=\"" + size + "\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></svg>";
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></svg>`;
   }
 
   const viewBox = icon.viewBox || "0 0 24 24";
-  return "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"" + viewBox + "\" width=\"" + size + "\" height=\"" + size + "\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\">" + icon.path + "</svg>";
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${icon.path}</svg>`;
 }
