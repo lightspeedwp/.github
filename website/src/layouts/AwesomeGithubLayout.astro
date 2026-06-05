@@ -9,7 +9,6 @@ import { ITEMS } from "../lib/catalogue";
 const base = import.meta.env.BASE_URL;
 const pathname = Astro.url.pathname.replace(base, "/");
 
-// Pass minimal search data (no large body content)
 const searchItems = ITEMS.map((i) => ({
   id: i.id,
   slug: i.slug,
@@ -24,25 +23,7 @@ const {
   description = "Governance, not opinions.",
 } = Astro.props;
 
-const themeInitScript = `
-  (() => {
-    const storageKey = "awesome-github-theme";
-    const root = document.documentElement;
-    const media = window.matchMedia("(prefers-color-scheme: light)");
-    let saved = null;
-
-    try {
-      saved = localStorage.getItem(storageKey);
-    } catch (_) {
-      saved = null;
-    }
-
-    const theme = saved === "light" || saved === "dark" ? saved : media.matches ? "light" : "dark";
-    root.dataset.theme = theme;
-    root.style.colorScheme = theme;
-  })();
-`;
-
+const themeInitScript = `(function(){try{var s='awesome-github-theme',t=localStorage.getItem(s),m=window.matchMedia&&matchMedia('(prefers-color-scheme:light)').matches;if(t!=='light'&&t!=='dark')t=m?'light':'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.style.colorScheme=t;}catch(e){}})();`;
 ---
 
 <!doctype html>
@@ -53,7 +34,10 @@ const themeInitScript = `
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <!-- Theme init: runs before stylesheets paint to prevent flash-of-wrong-theme -->
     <script is:inline set:html={themeInitScript}></script>
+    <!-- Phosphor Icons (regular weight) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
   </head>
   <body class="awesome-github">
     <a href="#main-content" class="ag-skip-link">Skip to main content</a>
@@ -64,25 +48,20 @@ const themeInitScript = `
     </main>
     <AwesomeGithubFooter />
     <script>
-      const storageKey = "awesome-github-theme";
+      // Theme toggle — event delegation handles all [data-awesome-github-theme-toggle] buttons
+      const STORAGE_KEY = "awesome-github-theme";
       const root = document.documentElement;
-      const button = document.querySelector("[data-awesome-github-theme-toggle]");
 
-      if (button) {
-        button.addEventListener("click", () => {
+      document.addEventListener("click", (e) => {
+        if (e.target instanceof Element && e.target.closest("[data-awesome-github-theme-toggle]")) {
           const next = root.dataset.theme === "light" ? "dark" : "light";
-          try {
-            localStorage.setItem(storageKey, next);
-          } catch (_) {
-            /* ignore storage errors */
-          }
-          root.dataset.theme = next;
+          try { localStorage.setItem(STORAGE_KEY, next); } catch (_) {}
+          root.setAttribute("data-theme", next);
           root.style.colorScheme = next;
-          button.setAttribute("aria-pressed", String(next === "light"));
-        });
-      }
+        }
+      });
 
-      // Wire nav search button(s) to open search palette via event delegation
+      // Wire search button(s) to open search palette
       document.addEventListener("click", (e) => {
         if (e.target instanceof Element && e.target.closest("[data-search-open]")) {
           document.dispatchEvent(new CustomEvent("search-palette-open"));
@@ -107,7 +86,7 @@ const themeInitScript = `
   main {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: calc(100vh - 72px);
   }
 
   .ag-skip-link {
@@ -115,20 +94,20 @@ const themeInitScript = `
     top: -100%;
     left: var(--gutter, 32px);
     z-index: 9999;
-    padding: var(--space-3, 12px) var(--space-6, 24px);
-    background: var(--accent, #1E6AFF);
-    color: #fff;
+    padding: 12px 24px;
+    background: var(--accent);
+    color: var(--accent-contrast);
     font-size: 14px;
     font-weight: 600;
     font-family: var(--font-body, system-ui, sans-serif);
     text-decoration: none;
-    border-radius: 0 0 var(--radius-md, 8px) var(--radius-md, 8px);
+    border-radius: 0 0 8px 8px;
     transition: top 0.1s;
   }
 
   .ag-skip-link:focus {
     top: 0;
-    outline: 2px solid #fff;
+    outline: 2px solid var(--accent-contrast);
     outline-offset: -3px;
   }
 </style>
