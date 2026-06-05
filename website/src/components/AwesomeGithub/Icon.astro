@@ -17,8 +17,11 @@ try {
     import.meta.resolve(`@phosphor-icons/core/assets/${weight}/${name}.svg`),
   );
   const raw = readFileSync(svgPath, "utf-8");
-  svgContent = raw.replace("<svg ", `<svg width="${size}" height="${size}" `);
-} catch {
+  svgContent = raw
+    .replace(/\bwidth="\d+"/, `width="${size}"`)
+    .replace(/\bheight="\d+"/, `height="${size}"`);
+} catch (err) {
+  console.warn(`[Icon.astro] Missing Phosphor icon: "${weight}/${name}"`, err);
   svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="${size}" height="${size}" fill="currentColor"></svg>`;
 }
 ---
