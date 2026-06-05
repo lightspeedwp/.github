@@ -27,11 +27,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Awesome GitHub Site: Phosphor Icon System** — Replaced all emoji icons (🤖 📖 💬 ✨ 🛡️ ⚙️ 🧩 🔧 🗺️ ✅ 📚 🍳 ☀️ 🌙) with Phosphor SVG icons via a new `Icon.astro` component that reads from `@phosphor-icons/core` at build time — zero runtime JS. Covers catalogue type icons, learning track icons, getting-started cards, cookbook placeholder, and theme toggle buttons. ([#843](https://github.com/lightspeedwp/.github/pull/843))
+- **Awesome GitHub Site: Phosphor Icon System** — Replaced all emoji icons (🤖 📖 💬 ✨ 🛡️ ⚙️ 🧩 🔧 🗺️ ✅ 📚 🍳 ☀️ 🌙) with Phosphor SVG icons via a new `Icon.astro` component that reads from `@phosphor-icons/core` at build time — zero runtime JS. Covers catalogue type icons, learning track icons, getting-started cards, cookbook placeholder, and theme toggle buttons. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
 
 ### Fixed
 
-- **Awesome GitHub Site: Mobile Nav Menu** — Fixed `z-index` on the fixed-position mobile menu so it renders above page content; added body scroll-lock (`overflow: hidden`) while the menu is open to prevent background scroll. ([#843](https://github.com/lightspeedwp/.github/pull/843))
+- **Awesome GitHub Site: Mobile Nav Menu** — Fixed `z-index` on the fixed-position mobile menu so it renders above page content; added body scroll-lock (`overflow: hidden`) while the menu is open to prevent background scroll. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
 
 ---
 
