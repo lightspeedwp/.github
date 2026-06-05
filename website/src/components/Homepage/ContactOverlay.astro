@@ -380,21 +380,23 @@
       };
 
       try {
-        // In a real app, send this to a backend service
-        console.log("Form submitted:", data);
+        // TODO: Connect to real backend service (e.g., Formspree, email.js, or custom API)
+        // For now, this is a demonstration showing form validation works
+        console.log("Form submission (demo):", data);
+        console.log("⚠️ NOTE: Form submission not yet connected to backend. This is a placeholder UI.");
 
-        // Show success state
-        form.style.display = "none";
-        successEl.style.display = "flex";
+        // Show success state only after actual submission is implemented
+        // For now, show a message indicating the feature needs implementation
+        const originalButtonText = submitBtn.textContent;
+        submitBtn.textContent = "Coming soon - backend not configured";
+        submitBtn.style.background = "rgba(30, 106, 255, 0.5)";
 
-        // Reset form
+        // Reset after 2 seconds
         setTimeout(() => {
-          form.reset();
-          form.style.display = "flex";
-          successEl.style.display = "none";
+          submitBtn.textContent = originalButtonText;
+          submitBtn.style.background = "";
           submitBtn.disabled = false;
-          overlay.removeAttribute("data-open");
-        }, 3000);
+        }, 2000);
       } catch (err) {
         console.error("Form submission error:", err);
         submitBtn.disabled = false;
