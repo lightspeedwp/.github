@@ -1,0 +1,43 @@
+---
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
+interface Props {
+  name: string;
+  size?: number;
+  weight?: "regular" | "bold" | "fill" | "light" | "thin";
+  class?: string;
+}
+
+const { name, size = 24, weight = "regular", class: className } = Astro.props;
+
+let svgContent = "";
+try {
+  const svgPath = fileURLToPath(
+    import.meta.resolve(`@phosphor-icons/core/assets/${weight}/${name}.svg`),
+  );
+  const raw = readFileSync(svgPath, "utf-8");
+  svgContent = raw
+    .replace(/\bwidth="\d+"/, `width="${size}"`)
+    .replace(/\bheight="\d+"/, `height="${size}"`);
+} catch (err) {
+  console.warn(`[Icon.astro] Missing Phosphor icon: "${weight}/${name}"`, err);
+  svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="${size}" height="${size}" fill="currentColor"></svg>`;
+}
+---
+
+<span class:list={["ph-icon", className]} aria-hidden="true" set:html={svgContent} />
+
+<style>
+  .ph-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .ph-icon svg {
+    display: block;
+  }
+</style>

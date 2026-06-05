@@ -1,5 +1,6 @@
 ---
 import { CATEGORIES } from "../../lib/catalogue";
+import Icon from "./Icon.astro";
 
 interface Props {
   base: string;
@@ -118,6 +119,43 @@ const isCatActive = (linkPath: string): boolean => {
       </button>
     </div>
 
+        {link.label}
+      </a>
+    ))}
+  </nav>
+
+  <div class="ag-nav-actions">
+    <button
+      class="ag-nav-search"
+      type="button"
+      aria-label="Search (Cmd+K)"
+      title="Open search (Cmd+K)"
+      data-search-open
+    >
+      <span aria-hidden="true">⌘K</span>
+    </button>
+    <button
+      class="ag-nav-theme-toggle"
+      type="button"
+      data-awesome-github-theme-toggle
+      aria-pressed="false"
+      aria-label="Toggle light and dark mode"
+    >
+      <span class="theme-icon-light"><Icon name="sun" size={18} /></span>
+      <span class="theme-icon-dark"><Icon name="moon" size={18} /></span>
+    </button>
+    <button
+      class="ag-nav-hamburger"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="ag-nav-menu"
+      data-nav-hamburger
+    >
+      <span class="hamburger-line" aria-hidden="true"></span>
+      <span class="hamburger-line" aria-hidden="true"></span>
+      <span class="hamburger-line" aria-hidden="true"></span>
+    </button>
   </div>
 </header>
 
@@ -247,18 +285,44 @@ const isCatActive = (linkPath: string): boolean => {
 
     hamburger.addEventListener("click", () => {
       hamburger.getAttribute("aria-expanded") === "true" ? closeDrawer() : openDrawer();
+  if (hamburger && menu) {
+    const closeMenu = () => {
+      hamburger.setAttribute("aria-expanded", "false");
+      hamburger.setAttribute("aria-label", "Open navigation menu");
+      menu.classList.remove("ag-nav-menu--open");
+      document.body.style.overflow = "";
+    };
+    hamburger.addEventListener("click", () => {
+      const isOpen = hamburger.getAttribute("aria-expanded") === "true";
+      if (isOpen) {
+        closeMenu();
+      } else {
+        hamburger.setAttribute("aria-expanded", "true");
+        hamburger.setAttribute("aria-label", "Close navigation menu");
+        menu.classList.add("ag-nav-menu--open");
+        document.body.style.overflow = "hidden";
+      }
     });
     overlay.addEventListener("click", closeDrawer);
 
     drawer.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeDrawer);
+    // Close on link click (mobile)
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => closeMenu());
     });
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && hamburger.getAttribute("aria-expanded") === "true") {
         closeDrawer();
+        closeMenu();
         hamburger.focus();
       }
+    });
+
+    // Clear scroll-lock if the viewport widens past the mobile breakpoint while the menu is open
+    window.matchMedia("(max-width: 768px)").addEventListener("change", (e) => {
+      if (!e.matches) closeMenu();
     });
   }
 </script>
@@ -547,6 +611,11 @@ const isCatActive = (linkPath: string): boolean => {
   .ag-mobile-overlay[aria-hidden="false"] {
     opacity: 1;
     visibility: visible;
+  .theme-icon-light,
+  .theme-icon-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* ── Mobile drawer ──────────────────────────────────────────────── */
@@ -674,5 +743,61 @@ const isCatActive = (linkPath: string): boolean => {
 
   @media (max-width: 480px) {
     .ag-brand-text { display: none; }
+  .ag-nav-hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .ag-nav-hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 768px) {
+    .ag-nav-hamburger {
+      display: flex;
+    }
+
+    .ag-nav-menu {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 99;
+      flex-direction: column;
+      gap: 0;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: var(--space-4) var(--gutter);
+      transform: translateX(-100%);
+      visibility: hidden;
+      transition: transform var(--dur) var(--ease-out), visibility var(--dur) var(--ease-out);
+      overflow-y: auto;
+    }
+
+    [data-theme="dark"] .ag-nav-menu {
+      background: #0F1014;
+    }
+
+    .ag-nav-menu.ag-nav-menu--open {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    .ag-nav-link {
+      font-size: 18px;
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--border);
+      border-bottom-width: 1px;
+      width: 100%;
+    }
+
+    .ag-nav-link[aria-current="page"] {
+      color: var(--accent);
+      border-bottom-color: var(--border);
+    }
+
+    .ag-nav-search {
+      display: none;
+    }
   }
 </style>

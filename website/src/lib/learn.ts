@@ -131,6 +131,13 @@ export function readingTime(body: string | undefined | null): number {
   return Math.max(1, Math.round(words / 200));
 }
 
+export const TRACK_ICONS: Record<string, string> = {
+  oriented: "compass",
+  governance: "shield-star",
+  quality: "check-circle",
+  agents: "robot",
+};
+
 export function getTrack(id: string): LearnTrack | undefined {
   return LEARN_TRACKS.find((t) => t.id === id);
 }

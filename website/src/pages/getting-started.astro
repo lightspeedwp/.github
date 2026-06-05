@@ -1,6 +1,7 @@
 ---
 import AwesomeGithubLayout from "../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../components/AwesomeGithub/AwesomeGithubButton.astro";
+import Icon from "../components/AwesomeGithub/Icon.astro";
 import { cloneCmd } from "../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
@@ -108,22 +109,22 @@ const steps = [
       <p class="gs-lead">Explore the catalogue, follow the learning tracks, or run a cookbook recipe.</p>
       <div class="gs-next-grid">
         <a href={`${base}c/agents/`} class="gs-next-card">
-          <div class="gs-next-icon" aria-hidden="true">🤖</div>
+          <div class="gs-next-icon"><Icon name="robot" size={28} /></div>
           <h3>Browse Agents</h3>
           <p>Specialised AI agents with defined behaviour, scope, and escalation rules.</p>
         </a>
         <a href={`${base}learn/`} class="gs-next-card">
-          <div class="gs-next-icon" aria-hidden="true">📚</div>
+          <div class="gs-next-icon"><Icon name="books" size={28} /></div>
           <h3>Learning Centre</h3>
           <p>Four tracks covering architecture, governance, quality, and agents.</p>
         </a>
         <a href={`${base}cookbook/`} class="gs-next-card">
-          <div class="gs-next-icon" aria-hidden="true">🍳</div>
+          <div class="gs-next-icon"><Icon name="cooking-pot" size={28} /></div>
           <h3>Cookbook</h3>
           <p>Step-by-step playbooks for common engineering scenarios.</p>
         </a>
         <a href={`${base}glossary/`} class="gs-next-card">
-          <div class="gs-next-icon" aria-hidden="true">📖</div>
+          <div class="gs-next-icon"><Icon name="book-open" size={28} /></div>
           <h3>Glossary</h3>
           <p>Plain-language definitions for every term in the control plane.</p>
         </a>
@@ -341,7 +342,8 @@ const steps = [
   }
 
   .gs-next-icon {
-    font-size: 28px;
+    display: flex;
+    color: var(--accent);
   }
 
   .gs-next-card h3 {
