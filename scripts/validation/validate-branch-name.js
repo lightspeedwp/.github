@@ -95,7 +95,7 @@ function isAllowed(branchName) {
 
 function printFailure(branchName) {
   console.error(`Branch '${branchName}' does not follow the required format.`);
-  console.error("Expected: {type}/{scope}-{short-title}");
+  console.error("Expected: {prefix}/{branch-slug} (see docs/BRANCHING_STRATEGY.md)");
   console.error(`Allowed prefixes: ${ALLOWED_PREFIXES.join(", ")}`);
   console.error(
     "Examples: fix/frontmatter-validation, docs/canonical-configs-guide, ops/branch-governance-guardrails",
