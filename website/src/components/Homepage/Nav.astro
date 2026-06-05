@@ -81,7 +81,7 @@ const navLinks = [
 
   <!-- Mobile menu -->
   <div class="hp-nav-mobile" data-nav-mobile>
-    <nav class="hp-nav-mobile-inner">
+    <div class="hp-nav-mobile-inner">
       {navLinks.map((link) => (
         <a href={link.href} class="hp-nav-mobile-link">
           {link.label}
@@ -90,7 +90,7 @@ const navLinks = [
       <a href="#contact" class="hp-nav-mobile-cta">
         Book a consultation
       </a>
-    </nav>
+    </div>
   </div>
 </nav>
 
@@ -310,7 +310,7 @@ const navLinks = [
     backdrop-filter: blur(20px);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding: 12px 0 20px;
-    z-index: -1;
+    z-index: 100;
   }
 
   .hp-nav-mobile[data-open] {
@@ -411,7 +411,11 @@ const navLinks = [
       const current = root.getAttribute("data-theme") || "light";
       const next = current === "light" ? "dark" : "light";
       root.setAttribute("data-theme", next);
-      localStorage.setItem("lightspeed-theme", next);
+      try {
+        localStorage.setItem("lightspeed-theme", next);
+      } catch (e) {
+        // localStorage may be unavailable in private browsing or due to quota
+      }
     });
   }
 </script>

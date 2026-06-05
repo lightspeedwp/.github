@@ -46,13 +46,13 @@ const faqs = [
     <div class="hp-faq-list">
       {faqs.map((faq, idx) => (
         <div class="hp-faq-item" key={idx}>
-          <button class="hp-faq-trigger" aria-expanded="false">
+          <button class="hp-faq-trigger" aria-expanded="false" aria-controls={`faq-panel-${idx}`}>
             <span>{faq.question}</span>
             <svg class="hp-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
-          <div class="hp-faq-panel" hidden>
+          <div class="hp-faq-panel" id={`faq-panel-${idx}`} hidden>
             <p>{faq.answer}</p>
           </div>
         </div>

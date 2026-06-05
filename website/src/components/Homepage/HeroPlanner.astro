@@ -484,45 +484,101 @@ Project: ${text}`
   function displayResult(data) {
     if (!result) return;
 
+    result.innerHTML = "";
     result.style.display = "block";
-    result.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.07);">
-        <div style="font-style: italic; color: rgba(255,255,255,0.35); font-size: 13px;">${data.summary}</div>
-        <button style="background: transparent; border: none; color: rgba(255,255,255,0.3); cursor: pointer; font-size: 16px; padding: 0; width: 24px; height: 24px;" onclick="document.querySelector('[data-planner-result]').style.display='none';">✕</button>
-      </div>
-      <div style="margin-bottom: 12px;">
-        <div style="font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #7be7ff; margin-bottom: 8px;">Planning direction</div>
-        <h3 style="font-family: var(--font-display); font-weight: 800; font-size: 22px; color: #ffffff; margin: 0 0 12px; letter-spacing: -0.015em;">${data.projectType}</h3>
-        <p style="font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,0.6); margin: 0 0 16px;">${data.summary}</p>
-      </div>
-      <div style="margin-bottom: 20px;">
-        ${data.considerations
-          .map(
-            (c) => `
-        <div style="display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;">
-          <div style="width: 18px; height: 18px; border-radius: 50%; background: rgba(30,106,255,0.22); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <svg style="width: 10px; height: 10px; color: #7be7ff;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          </div>
-          <div style="font-family: var(--font-body); font-size: 13.5px; color: rgba(255,255,255,0.65);">${c}</div>
-        </div>
-      `
-          )
-          .join("")}
-      </div>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06);">
-        <div style="padding: 8px 16px; border-radius: 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.45); text-transform: uppercase;">Timeline: ${data.timelineHint}</div>
-        <div style="padding: 8px 16px; border-radius: 6px; background: rgba(30,106,255,0.1); border: 1px solid rgba(30,106,255,0.2); font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: #7be7ff; text-transform: uppercase;">Path: ${data.recommendedPathLabel}</div>
-      </div>
-      <p style="font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,0.38); font-style: italic; margin: 16px 0 20px;">Next: ${data.nextStep}</p>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <a href="#solutions" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: #1e6aff; color: #ffffff; font-family: var(--font-display); font-weight: 700; font-size: 14px; border-radius: 9999px; text-decoration: none; transition: background var(--dur-fast);">
-          Explore ${data.recommendedPathLabel}
-          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </a>
-        <a href="#contact" style="display: inline-flex; align-items: center; padding: 12px 20px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.75); font-family: var(--font-display); font-weight: 600; font-size: 14px; border-radius: 9999px; text-decoration: none; transition: all var(--dur-fast);">
-          Book your consultation
-        </a>
-      </div>
-    `;
+
+    const header = document.createElement("div");
+    header.style.cssText = "display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.07);";
+
+    const summaryDiv = document.createElement("div");
+    summaryDiv.style.cssText = "font-style: italic; color: rgba(255,255,255,0.35); font-size: 13px;";
+    summaryDiv.textContent = data.summary;
+    header.appendChild(summaryDiv);
+
+    const closeBtn = document.createElement("button");
+    closeBtn.style.cssText = "background: transparent; border: none; color: rgba(255,255,255,0.3); cursor: pointer; font-size: 16px; padding: 0; width: 24px; height: 24px;";
+    closeBtn.textContent = "✕";
+    closeBtn.addEventListener("click", () => {
+      result.style.display = "none";
+    });
+    header.appendChild(closeBtn);
+    result.appendChild(header);
+
+    const infoDiv = document.createElement("div");
+    infoDiv.style.marginBottom = "12px";
+
+    const directionLabel = document.createElement("div");
+    directionLabel.style.cssText = "font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #7be7ff; margin-bottom: 8px;";
+    directionLabel.textContent = "Planning direction";
+    infoDiv.appendChild(directionLabel);
+
+    const title = document.createElement("h3");
+    title.style.cssText = "font-family: var(--font-display); font-weight: 800; font-size: 22px; color: #ffffff; margin: 0 0 12px; letter-spacing: -0.015em;";
+    title.textContent = data.projectType;
+    infoDiv.appendChild(title);
+
+    const description = document.createElement("p");
+    description.style.cssText = "font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,0.6); margin: 0 0 16px;";
+    description.textContent = data.summary;
+    infoDiv.appendChild(description);
+    result.appendChild(infoDiv);
+
+    const considDiv = document.createElement("div");
+    considDiv.style.marginBottom = "20px";
+
+    data.considerations.forEach((c) => {
+      const item = document.createElement("div");
+      item.style.cssText = "display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;";
+
+      const iconWrapper = document.createElement("div");
+      iconWrapper.style.cssText = "width: 18px; height: 18px; border-radius: 50%; background: rgba(30,106,255,0.22); display: flex; align-items: center; justify-content: center; flex-shrink: 0;";
+      iconWrapper.innerHTML = '<svg style="width: 10px; height: 10px; color: #7be7ff;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      item.appendChild(iconWrapper);
+
+      const text = document.createElement("div");
+      text.style.cssText = "font-family: var(--font-body); font-size: 13.5px; color: rgba(255,255,255,0.65);";
+      text.textContent = c;
+      item.appendChild(text);
+
+      considDiv.appendChild(item);
+    });
+    result.appendChild(considDiv);
+
+    const tagsDiv = document.createElement("div");
+    tagsDiv.style.cssText = "display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06);";
+
+    const timelineTag = document.createElement("div");
+    timelineTag.style.cssText = "padding: 8px 16px; border-radius: 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.45); text-transform: uppercase;";
+    timelineTag.textContent = "Timeline: " + data.timelineHint;
+    tagsDiv.appendChild(timelineTag);
+
+    const pathTag = document.createElement("div");
+    pathTag.style.cssText = "padding: 8px 16px; border-radius: 6px; background: rgba(30,106,255,0.1); border: 1px solid rgba(30,106,255,0.2); font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: #7be7ff; text-transform: uppercase;";
+    pathTag.textContent = "Path: " + data.recommendedPathLabel;
+    tagsDiv.appendChild(pathTag);
+    result.appendChild(tagsDiv);
+
+    const nextDiv = document.createElement("p");
+    nextDiv.style.cssText = "font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,0.38); font-style: italic; margin: 16px 0 20px;";
+    nextDiv.textContent = "Next: " + data.nextStep;
+    result.appendChild(nextDiv);
+
+    const actionsDiv = document.createElement("div");
+    actionsDiv.style.cssText = "display: flex; gap: 12px; flex-wrap: wrap;";
+
+    const exploreLink = document.createElement("a");
+    exploreLink.href = "#solutions";
+    exploreLink.style.cssText = "display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: #1e6aff; color: #ffffff; font-family: var(--font-display); font-weight: 700; font-size: 14px; border-radius: 9999px; text-decoration: none; transition: background var(--dur-fast);";
+    exploreLink.textContent = "Explore " + data.recommendedPathLabel + " ";
+    exploreLink.innerHTML += '<svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+    actionsDiv.appendChild(exploreLink);
+
+    const consultLink = document.createElement("a");
+    consultLink.href = "#contact";
+    consultLink.style.cssText = "display: inline-flex; align-items: center; padding: 12px 20px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.75); font-family: var(--font-display); font-weight: 600; font-size: 14px; border-radius: 9999px; text-decoration: none; transition: all var(--dur-fast);";
+    consultLink.textContent = "Book your consultation";
+    actionsDiv.appendChild(consultLink);
+
+    result.appendChild(actionsDiv);
   }
 </script>

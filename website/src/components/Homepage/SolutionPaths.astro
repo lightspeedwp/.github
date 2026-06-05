@@ -77,7 +77,7 @@ const solutions = [
             { "hp-solution-card--highlighted": highlightPath === sol.id },
           ]}
         >
-          <div class="hp-solution-icon">{sol.icon}</div>
+          <div class="hp-solution-icon" set:html={sol.icon}></div>
           <span class="hp-solution-eyebrow">{sol.eyebrow}</span>
           <h3 class="hp-h4">{sol.title}</h3>
           <p class="hp-solution-body">{sol.description}</p>

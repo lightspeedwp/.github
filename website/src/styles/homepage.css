@@ -234,7 +234,7 @@ img, svg, video {
 @media print {
   nav,
   footer,
-  .contact-overlay {
+  .hp-contact-overlay {
     display: none;
   }
 }

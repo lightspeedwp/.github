@@ -4,7 +4,7 @@
 <div class="hp-contact-overlay" data-contact-overlay>
   <div class="hp-contact-scrim" data-contact-scrim></div>
 
-  <div class="hp-contact-dialog" data-contact-dialog role="dialog" aria-modal="true">
+  <div class="hp-contact-dialog" data-contact-dialog role="dialog" aria-modal="true" aria-labelledby="hp-contact-h2">
     <button class="hp-contact-close" data-contact-close aria-label="Close">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -14,7 +14,7 @@
 
     <div class="hp-contact-content">
       <span class="hp-eyebrow hp-contact-eyebrow">BOOK A CONSULTATION</span>
-      <h2 class="hp-contact-h2">Tell us about your project</h2>
+      <h2 class="hp-contact-h2" id="hp-contact-h2">Tell us about your project</h2>
       <p class="hp-contact-sub">We reply within a working day. Quick call, no pitch.</p>
 
       <form class="hp-contact-form" data-contact-form>
@@ -348,7 +348,7 @@
   // Open overlay on anchor links
   if (overlay) {
     document.addEventListener("click", (e) => {
-      const link = (e.target as HTMLElement).closest("a");
+      const link = e.target.closest("a");
       const href = link?.getAttribute("href");
       if (href === "#contact") {
         e.preventDefault();
@@ -363,6 +363,13 @@
 
     closeBtn?.addEventListener("click", () => {
       overlay.removeAttribute("data-open");
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && overlay.hasAttribute("data-open")) {
+        overlay.removeAttribute("data-open");
+      }
     });
 
     // Form submit
