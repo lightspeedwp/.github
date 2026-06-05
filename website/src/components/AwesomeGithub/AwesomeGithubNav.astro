@@ -45,7 +45,6 @@ const isCatActive = (linkPath: string): boolean => {
         <button
           class="ag-nav-link ag-browse-trigger"
           aria-expanded="false"
-          aria-haspopup="menu"
           aria-controls="ag-browse-panel"
         >
           Browse
@@ -54,15 +53,12 @@ const isCatActive = (linkPath: string): boolean => {
         <div
           class="ag-browse-panel"
           id="ag-browse-panel"
-          role="menu"
-          aria-label="Browse categories"
         >
           <div class="ag-browse-grid">
             {CATEGORIES.map((cat) => (
               <a
                 href={`${base}c/${cat.id}/`}
                 class="ag-browse-card"
-                role="menuitem"
               >
                 <span class="ag-browse-cat-icon"><Icon name={cat.icon} size={22} /></span>
                 <span class="ag-browse-cat-name">{cat.label}</span>
@@ -100,7 +96,7 @@ const isCatActive = (linkPath: string): boolean => {
         class="ag-icon-btn ag-theme-toggle-btn"
         type="button"
         data-awesome-github-theme-toggle
-        aria-label="Toggle colour theme"
+        aria-pressed="false"
       >
         <span class="ag-icon-sun"><Icon name="sun" size={18} /></span>
         <span class="ag-icon-moon"><Icon name="moon" size={18} /></span>
@@ -136,6 +132,7 @@ const isCatActive = (linkPath: string): boolean => {
   id="ag-mobile-drawer"
   aria-label="Mobile navigation menu"
   aria-hidden="true"
+  inert
 >
   <div class="ag-drawer-content">
 
@@ -167,7 +164,7 @@ const isCatActive = (linkPath: string): boolean => {
         class="ag-drawer-theme-btn"
         type="button"
         data-awesome-github-theme-toggle
-        aria-label="Toggle colour theme"
+        aria-pressed="false"
       >
         <span class="ag-icon-sun"><Icon name="sun" size={20} /></span>
         <span class="ag-icon-moon"><Icon name="moon" size={20} /></span>
@@ -182,7 +179,7 @@ const isCatActive = (linkPath: string): boolean => {
 </aside>
 
 <script>
-  // ── Browse dropdown ─────────────────────────────────────────────
+  // ── Browse dropdown (Disclosure pattern) ────────────────────────
   const browseWrapper = document.querySelector<HTMLElement>("[data-browse-menu]");
   const browseTrigger = browseWrapper?.querySelector<HTMLButtonElement>(".ag-browse-trigger");
   const browsePanel = document.getElementById("ag-browse-panel");
@@ -202,6 +199,13 @@ const isCatActive = (linkPath: string): boolean => {
 
     browseTrigger.addEventListener("click", () => {
       browseWrapper.hasAttribute("data-open") ? closeBrowse() : openBrowse();
+    });
+
+    // Close when focus moves entirely outside the wrapper
+    browseWrapper.addEventListener("focusout", (e) => {
+      const related = (e as FocusEvent).relatedTarget;
+      if (related instanceof Element && browseWrapper.contains(related)) return;
+      closeBrowse();
     });
 
     document.addEventListener("keydown", (e) => {
@@ -230,15 +234,19 @@ const isCatActive = (linkPath: string): boolean => {
   if (hamburger && drawer && overlay) {
     const openDrawer = () => {
       hamburger.setAttribute("aria-expanded", "true");
+      hamburger.setAttribute("aria-label", "Close navigation menu");
       drawer.setAttribute("aria-hidden", "false");
+      drawer.removeAttribute("inert");
       overlay.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
+      document.body.classList.add("ag-drawer-open");
     };
     const closeDrawer = () => {
       hamburger.setAttribute("aria-expanded", "false");
+      hamburger.setAttribute("aria-label", "Open navigation menu");
       drawer.setAttribute("aria-hidden", "true");
+      drawer.setAttribute("inert", "");
       overlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
+      document.body.classList.remove("ag-drawer-open");
     };
 
     hamburger.addEventListener("click", () => {
@@ -261,6 +269,17 @@ const isCatActive = (linkPath: string): boolean => {
       if (e.matches) closeDrawer();
     });
   }
+
+  // ── Sync aria-pressed on all theme toggle buttons ────────────────
+  const syncThemePressed = () => {
+    const isDark = document.documentElement.dataset.theme === "dark";
+    document.querySelectorAll<HTMLElement>("[data-awesome-github-theme-toggle]").forEach((btn) => {
+      btn.setAttribute("aria-pressed", isDark ? "true" : "false");
+    });
+  };
+  // Run once on load, then the layout script handles click updates
+  syncThemePressed();
+  document.addEventListener("theme-changed", syncThemePressed);
 </script>
 
 <style>
@@ -268,7 +287,7 @@ const isCatActive = (linkPath: string): boolean => {
   .ag-nav {
     position: sticky;
     top: 0;
-    z-index: 200;
+    z-index: 300;
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -667,5 +686,9 @@ const isCatActive = (linkPath: string): boolean => {
 
   @media (max-width: 480px) {
     .ag-brand-text { display: none; }
+  }
+
+  @media (max-width: 960px) {
+    :global(body.ag-drawer-open) { overflow: hidden; }
   }
 </style>
