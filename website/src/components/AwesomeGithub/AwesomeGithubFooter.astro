@@ -1,13 +1,73 @@
 ---
-// Footer component for Awesome GitHub site
+const base = import.meta.env.BASE_URL;
 ---
 
 <footer class="ag-footer">
   <div class="ag-footer-container">
-    <div class="ag-footer-mark">
-      <span class="ag-footer-logo">✦</span>
+    <div class="ag-footer-brand">
+      <a href={`${base}awesome-github/`} class="ag-footer-logo-link">
+        <span class="ag-footer-logo" aria-hidden="true">✦</span>
+        <span class="ag-footer-brand-text">
+          <span>Awesome</span><span class="ag-footer-brand-em">GitHub</span>
+        </span>
+      </a>
+      <p class="ag-footer-tagline">Governance, not opinions.</p>
     </div>
-    <p class="ag-footer-copy">Crafted with care in WordPress.</p>
+
+    <nav class="ag-footer-nav" aria-label="Footer navigation">
+      <div class="ag-footer-col">
+        <h3 class="ag-footer-col-title">Explore</h3>
+        <ul class="ag-footer-links">
+          <li><a href={`${base}awesome-github/c/agents/`}>Agents</a></li>
+          <li><a href={`${base}awesome-github/c/instructions/`}>Instructions</a></li>
+          <li><a href={`${base}awesome-github/c/prompts/`}>Prompts</a></li>
+          <li><a href={`${base}awesome-github/c/skills/`}>Skills</a></li>
+          <li><a href={`${base}awesome-github/c/hooks/`}>Hooks</a></li>
+          <li><a href={`${base}awesome-github/c/workflows/`}>Workflows</a></li>
+        </ul>
+      </div>
+
+      <div class="ag-footer-col">
+        <h3 class="ag-footer-col-title">Learn</h3>
+        <ul class="ag-footer-links">
+          <li><a href={`${base}awesome-github/learn/`}>Learning Centre</a></li>
+          <li><a href={`${base}awesome-github/learn/oriented/`}>Getting Oriented</a></li>
+          <li><a href={`${base}awesome-github/learn/governance/`}>Governance</a></li>
+          <li><a href={`${base}awesome-github/learn/quality/`}>Quality</a></li>
+          <li><a href={`${base}awesome-github/cookbook/`}>Cookbook</a></li>
+          <li><a href={`${base}awesome-github/glossary/`}>Glossary</a></li>
+        </ul>
+      </div>
+
+      <div class="ag-footer-col">
+        <h3 class="ag-footer-col-title">About</h3>
+        <ul class="ag-footer-links">
+          <li><a href={`${base}awesome-github/why/`}>Why This Exists</a></li>
+          <li><a href={`${base}awesome-github/getting-started/`}>Getting Started</a></li>
+          <li>
+            <a
+              href="https://github.com/lightspeedwp/.github"
+              target="_blank"
+              rel="noopener noreferrer"
+            >GitHub Repository ↗</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md"
+              target="_blank"
+              rel="noopener noreferrer"
+            >AGENTS.md ↗</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="ag-footer-bottom">
+    <p>
+      Built by <a href="https://lightspeedwp.agency" target="_blank" rel="noopener noreferrer">LightSpeed WP Agency</a>.
+      Open source under the <a href="https://github.com/lightspeedwp/.github/blob/develop/LICENSE" target="_blank" rel="noopener noreferrer">MIT Licence</a>.
+    </p>
   </div>
 </footer>
 
@@ -15,49 +75,129 @@
   .ag-footer {
     background: var(--c-black);
     color: var(--c-white);
-    padding: var(--space-16) var(--gutter);
-    text-align: center;
+    padding: var(--space-16) var(--gutter) 0;
   }
 
   .ag-footer-container {
     max-width: var(--container-max);
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-16);
+    padding-bottom: var(--space-16);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .ag-footer-brand {
     display: flex;
     flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ag-footer-logo-link {
+    display: inline-flex;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-2);
+    text-decoration: none;
+    color: var(--c-white);
   }
 
   .ag-footer-logo {
-    display: inline-block;
-    font-size: 24px;
-    margin-bottom: var(--space-4);
-    animation: gentle-glow 3s ease-in-out infinite;
+    font-size: 20px;
   }
 
-  .ag-footer-copy {
-    margin: 0;
+  .ag-footer-brand-text {
+    font-size: 16px;
+    font-weight: var(--weight-bold);
+    font-family: var(--font-display);
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  .ag-footer-brand-em {
+    color: var(--c-light-blue);
+  }
+
+  .ag-footer-tagline {
     font-size: var(--fs-body-sm);
     color: var(--c-slate-400);
-    font-weight: var(--weight-regular);
+    margin: 0;
+    font-style: italic;
   }
 
-  @keyframes gentle-glow {
-    0%, 100% {
-      opacity: 0.8;
-    }
-    50% {
-      opacity: 1;
+  .ag-footer-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+
+  .ag-footer-col-title {
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+    color: var(--c-slate-300);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .ag-footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ag-footer-links a {
+    font-size: var(--fs-body-sm);
+    color: var(--c-slate-400);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .ag-footer-links a:hover {
+    color: var(--c-white);
+  }
+
+  .ag-footer-bottom {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-6) 0;
+  }
+
+  .ag-footer-bottom p {
+    font-size: var(--fs-body-sm);
+    color: var(--c-slate-500);
+    margin: 0;
+  }
+
+  .ag-footer-bottom a {
+    color: var(--c-slate-400);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .ag-footer-bottom a:hover {
+    color: var(--c-white);
+  }
+
+  @media (max-width: 900px) {
+    .ag-footer-container {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
     }
   }
 
-  @media (max-width: 768px) {
-    .ag-footer {
-      padding: var(--space-10) var(--gutter);
+  @media (max-width: 640px) {
+    .ag-footer-nav {
+      grid-template-columns: repeat(2, 1fr);
     }
+  }
 
-    .ag-footer-copy {
-      font-size: var(--fs-body-sm);
+  @media (max-width: 480px) {
+    .ag-footer-nav {
+      grid-template-columns: 1fr;
     }
   }
 </style>

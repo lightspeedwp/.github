@@ -30,7 +30,7 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
     </span>
   </a>
 
-  <nav class="ag-nav-menu" aria-label="Main navigation">
+  <nav class="ag-nav-menu" id="ag-nav-menu" aria-label="Main navigation">
     {navLinks.map((link) => (
       <a
         href={link.href}
@@ -62,8 +62,53 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
       <span class="theme-icon-light" aria-hidden="true">☀️</span>
       <span class="theme-icon-dark" aria-hidden="true">🌙</span>
     </button>
+    <button
+      class="ag-nav-hamburger"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="ag-nav-menu"
+      data-nav-hamburger
+    >
+      <span class="hamburger-line" aria-hidden="true"></span>
+      <span class="hamburger-line" aria-hidden="true"></span>
+      <span class="hamburger-line" aria-hidden="true"></span>
+    </button>
   </div>
 </header>
+
+<script>
+  const hamburger = document.querySelector<HTMLButtonElement>("[data-nav-hamburger]");
+  const menu = document.getElementById("ag-nav-menu");
+
+  if (hamburger && menu) {
+    hamburger.addEventListener("click", () => {
+      const isOpen = hamburger.getAttribute("aria-expanded") === "true";
+      hamburger.setAttribute("aria-expanded", String(!isOpen));
+      hamburger.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+      menu.classList.toggle("ag-nav-menu--open", !isOpen);
+    });
+
+    // Close on link click (mobile)
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        hamburger.setAttribute("aria-expanded", "false");
+        hamburger.setAttribute("aria-label", "Open navigation menu");
+        menu.classList.remove("ag-nav-menu--open");
+      });
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && hamburger.getAttribute("aria-expanded") === "true") {
+        hamburger.setAttribute("aria-expanded", "false");
+        hamburger.setAttribute("aria-label", "Open navigation menu");
+        menu.classList.remove("ag-nav-menu--open");
+        hamburger.focus();
+      }
+    });
+  }
+</script>
 
 <style>
   .ag-nav {
@@ -98,6 +143,8 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
     font-family: var(--font-display);
     font-size: 16px;
     transition: color var(--dur) var(--ease-out);
+    flex-shrink: 0;
+    z-index: 1;
   }
 
   .ag-nav-brand:hover {
@@ -153,6 +200,7 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
     display: flex;
     align-items: center;
     gap: var(--space-4);
+    z-index: 1;
   }
 
   .ag-nav-search,
@@ -203,13 +251,97 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
     display: none;
   }
 
+  /* Hamburger — hidden on desktop */
+  .ag-nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+  }
+
+  .ag-nav-hamburger:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--fg-2);
+    border-radius: 2px;
+    transition: background var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out);
+  }
+
+  .ag-nav-hamburger:hover .hamburger-line {
+    background: var(--fg-1);
+  }
+
+  /* Animated hamburger → X when open */
+  .ag-nav-hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .ag-nav-hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .ag-nav-hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
   @media (max-width: 768px) {
+    .ag-nav-hamburger {
+      display: flex;
+    }
+
     .ag-nav-menu {
-      gap: var(--space-4);
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      flex-direction: column;
+      gap: 0;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: var(--space-4) var(--gutter);
+      transform: translateX(-100%);
+      transition: transform var(--dur) var(--ease-out);
+      overflow-y: auto;
+    }
+
+    [data-theme="dark"] .ag-nav-menu {
+      background: #0F1014;
+    }
+
+    .ag-nav-menu.ag-nav-menu--open {
+      transform: translateX(0);
     }
 
     .ag-nav-link {
-      font-size: 13px;
+      font-size: 18px;
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--border);
+      border-bottom-width: 1px;
+      width: 100%;
+    }
+
+    .ag-nav-link[aria-current="page"] {
+      color: var(--accent);
+      border-bottom-color: var(--border);
+    }
+
+    .ag-nav-search {
+      display: none;
     }
   }
 </style>
