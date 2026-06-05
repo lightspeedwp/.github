@@ -58,13 +58,15 @@ const canInstall = installable(item);
             <span aria-hidden="true">↓</span> Install in VS Code
           </a>
         )}
-        <button
-          class="ag-action-btn ag-action-btn--secondary"
-          data-copy-url={urls.raw}
-          type="button"
-        >
-          <span aria-hidden="true">📋</span> Copy raw URL
-        </button>
+        {!item.tree && (
+          <button
+            class="ag-action-btn ag-action-btn--secondary"
+            data-copy-url={urls.raw}
+            type="button"
+          >
+            <span aria-hidden="true">📋</span> Copy raw URL
+          </button>
+        )}
         {!item.tree && (
           <button
             class="ag-action-btn ag-action-btn--secondary"
