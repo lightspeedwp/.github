@@ -131,14 +131,24 @@ if (window.claude && window.claude.complete) {
 
 **Audit Status:** ✅ **Safe — fallback handles static deployment**
 
+### Contact Form (ContactOverlay)
+
+The contact form component (`ContactOverlay.astro`) shows a message "Not yet wired to backend" and logs form data to console. On a static site, there's no backend endpoint to send the enquiry. This is acceptable for a demo/landing page, but for production use this should be:
+
+- Connected to a form service (Formspree, Netlify Forms, etc.)
+- Or redirected to an external contact page
+- Or replaced with alternative contact method (email link, phone number)
+
+**Audit Status:** ⚠️ **Contact form is not functional; acceptable for demo, requires wiring for production**
+
 ### Other External Calls
 
-- ✅ No `fetch()` calls to external APIs
+- ✅ No `fetch()` calls to external APIs (except form submission)
 - ✅ No analytics scripts that depend on server endpoints
 - ✅ No calls to `window.netlify`, `window.vercel`, or other platform APIs
-- ✅ All form submissions (ContactOverlay) rely on client-side fallback
+- ⚠️ Contact form submission shows fallback message (not wired)
 
-**Audit Status:** ✅ **All dependencies have static fallbacks**
+**Audit Status:** ✅ **All other dependencies have static fallbacks**
 
 ---
 
