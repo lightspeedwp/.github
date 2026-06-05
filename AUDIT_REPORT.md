@@ -31,6 +31,7 @@ Remote: origin
 | No runtime imports | ✅ Verified | No ESM imports in client code; all resolved at build time |
 
 **Verdict:** Astro build step is **required and expected**. GitHub Pages will serve the pre-built output, not the source files. The conversion requires:
+
 1. Running `npm run build` before deployment
 2. Serving the `website/dist/` directory (Astro's default output)
 3. Ensuring `.nojekyll` prevents Jekyll from stripping underscored files
@@ -44,12 +45,15 @@ Remote: origin
 ### Critical Absolute Paths
 
 **HomepageLayout.astro:34**
+
 ```html
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 ```
-Fix: Change to `href="/public/favicon.svg"` or use Astro's image import.
+
+Status: ✅ Correct — Astro's `public/` folder serves at `/` root. Path is correct for root deployment.
 
 **awesome-github.css (Font declarations)**
+
 ```css
 @font-face {
   font-family: "Inter";
@@ -57,10 +61,12 @@ Fix: Change to `href="/public/favicon.svg"` or use Astro's image import.
        url("/fonts/Inter-VariableFont_opsz_wght.woff2") format("woff2");
 }
 ```
+
 Files affected: 2 × @font-face declarations  
 Fix: Change paths to `./fonts/` or use relative imports.
 
 **Multiple page/component files** (24 files total)
+
 - `website/src/components/Homepage/Nav.astro` — logo image path
 - `website/src/pages/*/*.astro` — various image and link references
 - `website/src/layouts/AwesomeGithubLayout.astro` — layout assets
@@ -68,6 +74,7 @@ Fix: Change paths to `./fonts/` or use relative imports.
 ### Strategy to Fix
 
 Since the site is a **project site** under `/<repo>/`, Astro's `BASE_URL` needs to be leveraged or a `<base href>` tag added. **Recommended approach:**
+
 - Use Astro's `import.meta.env.BASE_URL` for dynamic paths (already used in index.astro)
 - Convert absolute paths to relative: `/fonts/` → `./fonts/`
 - Use `<base href="/github/">` in the HTML `<head>` if serving from a subpath
@@ -135,6 +142,7 @@ if (window.claude && window.claude.complete) {
 **Location:** `website/src/styles/homepage.css:1-96`
 
 The stylesheet declares font families:
+
 ```css
 --font-display: "Inter", system-ui, sans-serif;
 --font-body: "Manrope", system-ui, sans-serif;
@@ -144,6 +152,7 @@ The stylesheet declares font families:
 But **no @font-face declarations exist**. Fonts will not load on static site.
 
 **Resolution:** Compare to `awesome-github.css`, which correctly defines:
+
 ```css
 @font-face {
   font-family: "Inter";
@@ -153,6 +162,7 @@ But **no @font-face declarations exist**. Fonts will not load on static site.
 ```
 
 **Required Files Present:** ✅
+
 - `website/public/fonts/Inter-VariableFont_opsz_wght.woff2` — present
 - `website/public/fonts/Manrope-VariableFont_wght.woff2` — present
 - `website/public/fonts/*.woff2` — all necessary fonts exist
@@ -164,6 +174,7 @@ But **no @font-face declarations exist**. Fonts will not load on static site.
 ### Logos & Images
 
 **Status:** ✅ All referenced logos and images exist in `website/public/`:
+
 - `favicon.svg`
 - `website/src/components/Homepage/Nav.astro` references `/logos/LS-Agency-Site-Icon-Blue.svg`
 
@@ -199,17 +210,20 @@ const themeInitScript = `
 ```
 
 **Behavior:**
+
 - Checks `localStorage` for saved theme preference
 - Falls back to OS preference (`prefers-color-scheme`)
 - Sets `data-theme` attribute on `<html>` root
 - CSS selectors like `[data-theme="dark"]` in `homepage.css` apply theme colors
 
 **CSS Variables Verified:**
+
 - Light theme: lines 27-39 in `homepage.css`
 - Dark theme: lines 99+ in `homepage.css`
 - All selectors use `:root` and `[data-theme="dark"]` / `[data-theme="light"]`
 
 **Test Results:**
+
 - ✅ Theme toggle expected to work (localStorage available on GitHub Pages)
 - ✅ No dependencies on server-side theme state
 - ✅ Graceful fallback to OS preference
@@ -223,6 +237,7 @@ const themeInitScript = `
 **Verification:** Spot-checked definitions and usage across `homepage.css`.
 
 **Sample variables (all defined at :root):**
+
 - `--font-body`, `--font-display`, `--font-mono` — line 5-7
 - `--bg`, `--fg-1`, `--fg-2` — lines 28-33
 - Color tokens (`--c-brand-blue`, `--c-light-blue`, etc.) — lines 14-18
@@ -248,6 +263,7 @@ const themeInitScript = `
 ### astro.config.mjs
 
 Current config:
+
 ```javascript
 export default defineConfig({
   output: "static",

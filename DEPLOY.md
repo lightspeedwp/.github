@@ -1,6 +1,6 @@
 # Deploy — LightSpeedWP Agency site on GitHub Pages
 
-Static site, **no build step**. GitHub Pages serves the files as-is.
+Static site with an Astro build step. GitHub Pages serves the built static files from `website/dist/`.
 
 > Agent: fill in every `<…>` placeholder and tick the checklist. Do NOT change
 > the Pages source branch or push a `gh-pages` branch — that is decided and
