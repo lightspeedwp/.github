@@ -27,6 +27,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Awesome GitHub Site: Phosphor Icon System** — Replaced all emoji icons (🤖 📖 💬 ✨ 🛡️ ⚙️ 🧩 🔧 🗺️ ✅ 📚 🍳 ☀️ 🌙) with Phosphor SVG icons via a new `Icon.astro` component that reads from `@phosphor-icons/core` at build time — zero runtime JS. Covers catalogue type icons, learning track icons, getting-started cards, cookbook placeholder, and theme toggle buttons. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
+
+### Fixed
+
+- **Awesome GitHub Site: Mobile Nav Menu** — Fixed `z-index` on the fixed-position mobile menu so it renders above page content; added body scroll-lock (`overflow: hidden`) while the menu is open to prevent background scroll. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
+
+---
+
 - **Awesome GitHub Site: Complete Astro Rebuild** — Rebuilt the Awesome GitHub site from a React/Babel prototype into a production-ready Astro 5 static site. Includes: a fully-typed TypeScript data layer (`catalogue.ts`, `learn.ts`, `glossary.ts`) porting 110+ catalogue items across 8 categories; Svelte `SearchPalette` component with Cmd/Ctrl+K activation; 252 statically-generated pages (catalogue, learn tracks, glossary, cookbook, getting-started, why); detail pages with Install-in-VS-Code, copy-URL, copy-file, and View-on-GitHub action buttons; mobile hamburger navigation with animated X icon and keyboard Escape support; expanded footer with brand and navigation columns; and a `why.astro` editorial page. ([#841](https://github.com/lightspeedwp/.github/pull/841), [#842](https://github.com/lightspeedwp/.github/issues/842))
 
 - **LightSpeedWP Agency Homepage: Complete Component System** — Built a production-ready homepage for the LightSpeedWP Agency website with 9 modular Astro components (Nav, HeroPlanner, TrustStrip, SolutionPaths, WhyLightSpeed, FAQ, FinalCTA, Footer, ContactOverlay). Features include sticky navigation with scroll detection, mobile drawer with theme toggle, AI project planner with form validation, responsive stats grid, 4 solution path cards with highlighting, single-open accordion FAQ with 7 questions, contact modal with success state, and comprehensive design system with light/dark mode support across 9 responsive breakpoints. All components include WCAG 2.2 AA accessibility attributes, semantic HTML5, and CSS variable theming for consistent branding.

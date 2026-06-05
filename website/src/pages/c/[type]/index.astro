@@ -2,6 +2,7 @@
 import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../../../components/AwesomeGithub/AwesomeGithubButton.astro";
 import AwesomeGithubCard from "../../../components/AwesomeGithub/AwesomeGithubCard.astro";
+import Icon from "../../../components/AwesomeGithub/Icon.astro";
 import { getResourcesByType, getAvailableResourceTypes } from "../../../lib/resources";
 
 const base = import.meta.env.BASE_URL;
@@ -49,7 +50,7 @@ export async function getStaticPaths() {
 
   <section class="ag-hero">
     <div class="ag-container">
-      <div class="ag-section-label">{currentType.icon} {currentType.label.toUpperCase()}</div>
+      <div class="ag-section-label"><Icon name={currentType.icon} size={16} /> {currentType.label.toUpperCase()}</div>
       <h1 class="ag-h1">{currentType.label}</h1>
       <p class="ag-lead">
         Browse all available {currentType.label.toLowerCase()} from the LightSpeed control plane.
@@ -108,7 +109,7 @@ export async function getStaticPaths() {
           .filter(t => t.type !== type)
           .map((t) => (
             <a href={`${base}c/${t.type}/`} class="ag-type-card">
-              <div class="ag-type-icon" aria-hidden="true">{t.icon}</div>
+              <div class="ag-type-icon"><Icon name={t.icon} size={32} /></div>
               <h3 class="ag-type-name">{t.label}</h3>
               <p class="ag-type-count">{t.count} resource{t.count !== 1 ? 's' : ''}</p>
             </a>
@@ -335,7 +336,8 @@ export async function getStaticPaths() {
   }
 
   .ag-type-icon {
-    font-size: 32px;
+    display: flex;
+    color: var(--accent);
   }
 
   .ag-type-name {

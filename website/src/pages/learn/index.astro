@@ -1,16 +1,11 @@
 ---
 import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
-import { LEARN_TRACKS } from "../../lib/learn";
+import Icon from "../../components/AwesomeGithub/Icon.astro";
+import { LEARN_TRACKS, TRACK_ICONS } from "../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
 
-const trackIcons: Record<string, string> = {
-  oriented: "🗺️",
-  governance: "🛡️",
-  quality: "✅",
-  agents: "🤖",
-};
 ---
 
 <AwesomeGithubLayout
@@ -40,7 +35,7 @@ const trackIcons: Record<string, string> = {
         {LEARN_TRACKS.map((track, idx) => (
           <article class="learn-track-card">
             <div class="learn-track-header">
-              <div class="learn-track-icon" aria-hidden="true">{trackIcons[track.id] || "📘"}</div>
+              <div class="learn-track-icon"><Icon name={TRACK_ICONS[track.id] || "book-open"} size={36} /></div>
               <div class="learn-track-meta">
                 <div class="learn-track-number">Track {idx + 1}</div>
                 <h2 class="learn-track-title">{track.label}</h2>
@@ -165,9 +160,9 @@ const trackIcons: Record<string, string> = {
   }
 
   .learn-track-icon {
-    font-size: 36px;
+    display: flex;
     flex-shrink: 0;
-    line-height: 1;
+    color: var(--accent);
   }
 
   .learn-track-number {
