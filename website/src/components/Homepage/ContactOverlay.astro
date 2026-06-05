@@ -356,13 +356,15 @@
       }
     });
 
-    // Close handlers
-    scrim?.addEventListener("click", () => {
+    const closeOverlay = () => {
       overlay.removeAttribute("data-open");
-    });
+    };
 
-    closeBtn?.addEventListener("click", () => {
-      overlay.removeAttribute("data-open");
+    scrim?.addEventListener("click", closeOverlay);
+    closeBtn?.addEventListener("click", closeOverlay);
+
+    document.addEventListener("keydown", (evt) => {
+      if (evt.key === "Escape") closeOverlay();
     });
 
     // Close on Escape key
