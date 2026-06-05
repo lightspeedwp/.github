@@ -1,3 +1,11 @@
+---
+file_type: "documentation"
+description: "Audit report for LightSpeedWP Agency site static GitHub Pages conversion"
+name: "Audit Report"
+version: "1.0.0"
+last_updated: "2026-06-05"
+---
+
 # Audit Report: LightSpeedWP Agency Site → GitHub Pages Static Conversion
 
 **Date:** 2026-06-05  
