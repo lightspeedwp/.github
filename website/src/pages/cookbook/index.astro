@@ -1,157 +1,102 @@
 ---
 import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import { COOKBOOK_RECIPES } from "../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
 
-const recipes = [
-  {
-    title: "Project planning & PRD playbook",
-    badge: "PLAYBOOK",
-    readTime: "2 min",
-    href: "https://github.com/lightspeedwp/.github/blob/develop/cookbook/project-planning-prd.md",
-  },
-  {
-    title: "Spec-driven workflow example",
-    badge: "EXAMPLE",
-    readTime: "2 min",
-    href: "https://github.com/lightspeedwp/.github/blob/develop/cookbook/spec-driven-workflow.md",
-  },
-  {
-    title: "WordPress plugin checklist",
-    badge: "CHECKLIST",
-    readTime: "3 min",
-    href: "https://github.com/lightspeedwp/.github/blob/develop/cookbook/wordpress-plugin-checklist.md",
-  },
-];
+const kindBadgeColours: Record<string, string> = {
+  Playbook: "kind--playbook",
+  Example: "kind--example",
+  Checklist: "kind--checklist",
+};
 ---
 
 <AwesomeGithubLayout
   title="Cookbook — Awesome GitHub"
-  description="Battle-tested, step-by-step recipes for common AI-ops and WordPress tasks."
+  description="Step-by-step playbooks, worked examples, and checklists for common engineering scenarios."
 >
-  <section class="ag-breadcrumb-section">
-    <div class="ag-container">
-      <nav class="ag-breadcrumb" aria-label="Breadcrumb">
-        <a href={base}>Home</a>
-        <span class="ag-breadcrumb-separator">/</span>
-        <span>Cookbook</span>
-      </nav>
-    </div>
-  </section>
-
-  <section class="ag-hero">
-    <div class="ag-container">
-      <div class="ag-section-label">RECIPES & PLAYBOOKS</div>
-      <h1 class="ag-h1">Cookbook</h1>
-      <p class="ag-lead">
-        Battle-tested, step-by-step recipes for planning, spec-driven delivery, and shipping WordPress plugins. Read them straight through, copy the template, or adapt for your workflow.
+  <section class="cookbook-hero">
+    <div class="cookbook-container">
+      <div class="cookbook-eyebrow">Cookbook</div>
+      <h1 class="cookbook-h1">Recipes for real work</h1>
+      <p class="cookbook-lead">
+        Step-by-step playbooks, worked examples, and checklists for the most common engineering scenarios.
+        Pick a recipe, follow it, ship something.
       </p>
     </div>
   </section>
 
-  <section class="ag-recipes-section">
-    <div class="ag-container">
-      <div class="ag-recipes-grid">
-        {recipes.map((recipe) => (
-          <a href={recipe.href} class="ag-recipe-card">
-            <div class="ag-recipe-header">
-              <span class="ag-recipe-badge">{recipe.badge}</span>
+  <section class="cookbook-recipes-section">
+    <div class="cookbook-container">
+      <div class="cookbook-grid">
+        {COOKBOOK_RECIPES.map((recipe) => (
+          <article class="cookbook-card">
+            <div class="cookbook-card-header">
+              <span class={`cookbook-kind ${kindBadgeColours[recipe.kind] || ""}`}>{recipe.kind}</span>
             </div>
-            <h3 class="ag-recipe-title">{recipe.title}</h3>
-            <p class="ag-recipe-meta">
-              <span class="ag-recipe-time">⏱ {recipe.readTime}</span>
-            </p>
-            <div class="ag-recipe-cta">
-              Read recipe →
+            <h2 class="cookbook-card-title">{recipe.title}</h2>
+            <p class="cookbook-card-when">{recipe.when}</p>
+            <div class="cookbook-card-footer">
+              <AwesomeGithubButton
+                href={`${base}cookbook/${recipe.slug}/`}
+                variant="secondary"
+                size="sm"
+              >
+                Read recipe
+              </AwesomeGithubButton>
+              <a
+                href={`https://github.com/lightspeedwp/.github/blob/develop/${recipe.src}`}
+                class="cookbook-source-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source ↗
+              </a>
             </div>
-          </a>
+          </article>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="ag-more-recipes">
-    <div class="ag-container">
-      <div class="ag-more-recipes-content">
-        <div class="ag-more-recipes-text">
-          <h2 class="ag-h2">More recipes incoming</h2>
-          <p>
-            Browse the full recipe index on GitHub and contribute your own playbooks, templates, and step-by-step guides.
-          </p>
-          <a href="https://github.com/lightspeedwp/.github/tree/develop/cookbook" class="ag-more-recipes-link">
-            Browse cookbook →
-          </a>
-        </div>
-        <div class="ag-more-recipes-illustration">
-          📚
-        </div>
       </div>
     </div>
   </section>
 </AwesomeGithubLayout>
 
 <style>
-  .ag-container {
+  .cookbook-container {
     max-width: var(--container-max);
     margin: 0 auto;
     padding: 0 var(--gutter);
   }
 
-  .ag-breadcrumb-section {
-    background: var(--bg);
-    padding: var(--space-4) var(--gutter);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .ag-breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    font-size: var(--fs-body-sm);
-  }
-
-  .ag-breadcrumb a {
-    color: var(--fg-link);
-    text-decoration: none;
-    transition: color 0.2s ease-out;
-  }
-
-  .ag-breadcrumb a:hover {
-    color: var(--fg-link-hover);
-  }
-
-  .ag-breadcrumb-separator {
-    color: var(--fg-2);
-  }
-
-  .ag-hero {
+  .cookbook-hero {
     background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
     color: var(--c-white);
     padding: var(--space-40) var(--gutter);
   }
 
-  .ag-section-label {
-    display: inline-block;
-    font-size: var(--fs-eyebrow);
-    font-weight: var(--weight-semibold);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-eyebrow);
-    color: var(--c-light-blue);
-    margin-bottom: var(--space-6);
+  .cookbook-eyebrow {
+    display: inline-flex;
     padding: var(--space-2) var(--space-4);
     background: rgba(123, 231, 255, 0.1);
     border: 1px solid rgba(123, 231, 255, 0.3);
     border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
   }
 
-  .ag-h1 {
+  .cookbook-h1 {
     font-size: var(--fs-h1);
-    font-weight: var(--weight-bold);
+    font-weight: var(--weight-extrabold);
     line-height: var(--lh-heading);
     margin: 0 0 var(--space-6) 0;
+    color: var(--c-white);
   }
 
-  .ag-lead {
+  .cookbook-lead {
     font-size: var(--fs-lead);
     line-height: var(--lh-loose);
     color: var(--c-slate-300);
@@ -159,145 +104,89 @@ const recipes = [
     max-width: 60ch;
   }
 
-  .ag-h2 {
-    font-size: var(--fs-h2);
-    font-weight: var(--weight-bold);
-    line-height: var(--lh-heading);
-    margin: 0 0 var(--space-4) 0;
-  }
-
-  .ag-recipes-section {
-    padding: var(--space-40) var(--gutter);
+  .cookbook-recipes-section {
+    padding: var(--space-24) var(--gutter);
     background: var(--bg);
   }
 
-  .ag-recipes-grid {
+  .cookbook-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--space-8);
   }
 
-  .ag-recipe-card {
+  .cookbook-card {
     display: flex;
     flex-direction: column;
+    gap: var(--space-4);
     padding: var(--space-8);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
     background: var(--bg);
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.2s ease-out;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    transition: box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
   }
 
-  .ag-recipe-card:hover {
-    border-color: var(--c-light-blue);
-    box-shadow: 0 4px 12px rgba(123, 231, 255, 0.1);
-    transform: translateY(-2px);
+  .cookbook-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-lg);
   }
 
-  .ag-recipe-header {
-    margin-bottom: var(--space-6);
-  }
+  .cookbook-card-header { display: flex; align-items: center; }
 
-  .ag-recipe-badge {
+  .cookbook-kind {
     display: inline-block;
     padding: var(--space-1) var(--space-3);
-    background: rgba(123, 231, 255, 0.15);
-    color: var(--c-light-blue);
-    border-radius: var(--radius-md);
-    font-size: var(--fs-eyebrow);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-body-sm);
     font-weight: var(--weight-semibold);
     text-transform: uppercase;
-    letter-spacing: var(--tracking-eyebrow);
+    letter-spacing: 0.05em;
   }
 
-  .ag-recipe-title {
+  .kind--playbook { background: rgba(30, 106, 255, 0.12); color: var(--c-brand-blue); }
+  .kind--example  { background: rgba(16, 163, 74, 0.12); color: #16a34a; }
+  .kind--checklist { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
+
+  [data-theme="dark"] .kind--playbook { background: rgba(123, 231, 255, 0.12); color: var(--c-light-blue); }
+  [data-theme="dark"] .kind--example  { background: rgba(0, 208, 132, 0.12); color: #00d084; }
+
+  .cookbook-card-title {
     font-size: var(--fs-h4);
     font-weight: var(--weight-bold);
-    margin: 0 0 var(--space-4) 0;
-    line-height: 1.3;
+    margin: 0;
+    color: var(--fg-1);
+    line-height: var(--lh-heading);
   }
 
-  .ag-recipe-meta {
+  .cookbook-card-when {
     font-size: var(--fs-body-sm);
     color: var(--fg-2);
-    margin: 0 0 auto 0;
-    margin-bottom: var(--space-6);
-  }
-
-  .ag-recipe-time {
-    display: inline-block;
-  }
-
-  .ag-recipe-cta {
-    font-size: var(--fs-body-sm);
-    font-weight: var(--weight-semibold);
-    color: var(--c-light-blue);
-    transition: color 0.2s ease-out;
-  }
-
-  .ag-recipe-card:hover .ag-recipe-cta {
-    color: var(--c-cyan);
-  }
-
-  .ag-more-recipes {
-    padding: var(--space-40) var(--gutter);
-    background: var(--bg-alt);
-  }
-
-  .ag-more-recipes-content {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--space-12);
-    align-items: center;
-  }
-
-  .ag-more-recipes-text p {
-    font-size: var(--fs-lead);
+    margin: 0;
     line-height: var(--lh-loose);
-    color: var(--fg-2);
-    margin: 0 0 var(--space-6) 0;
+    flex: 1;
   }
 
-  .ag-more-recipes-link {
-    display: inline-block;
-    padding: var(--space-3) var(--space-6);
-    background: var(--c-brand-blue);
-    color: var(--c-white);
-    border-radius: var(--radius-md);
-    font-weight: var(--weight-semibold);
+  .cookbook-card-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: auto;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+
+  .cookbook-source-link {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-link);
     text-decoration: none;
-    transition: background 0.2s ease-out;
+    font-weight: var(--weight-medium);
   }
 
-  .ag-more-recipes-link:hover {
-    background: var(--c-brand-blue-hover);
-  }
-
-  .ag-more-recipes-illustration {
-    font-size: 64px;
-  }
+  .cookbook-source-link:hover { color: var(--fg-link-hover); }
 
   @media (max-width: 768px) {
-    .ag-hero {
-      padding: var(--space-20) var(--gutter);
-    }
-
-    .ag-h1 {
-      font-size: var(--fs-h2);
-    }
-
-    .ag-recipes-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .ag-more-recipes-content {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
-
-    .ag-more-recipes-illustration {
-      text-align: center;
-    }
+    .cookbook-hero { padding: var(--space-20) var(--gutter); margin-top: 72px; }
+    .cookbook-h1 { font-size: var(--fs-h2); }
+    .cookbook-grid { grid-template-columns: 1fr; }
   }
 </style>

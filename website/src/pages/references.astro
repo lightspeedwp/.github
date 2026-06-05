@@ -1,0 +1,410 @@
+---
+import AwesomeGithubLayout from "../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../components/AwesomeGithub/AwesomeGithubButton.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const externalSources = [
+  {
+    name: "GitHub Docs",
+    url: "https://docs.github.com",
+    description: "Official GitHub documentation — the authoritative reference for all GitHub platform features, APIs, and workflows.",
+  },
+  {
+    name: "GitHub Copilot Extensions",
+    url: "https://docs.github.com/en/copilot/building-copilot-extensions",
+    description: "Copilot agent, agent mode, and extension reference — the basis for agent specs, skill files, and instruction formatting in this control plane.",
+  },
+  {
+    name: "sindresorhus/awesome",
+    url: "https://github.com/sindresorhus/awesome",
+    description: "The original awesome list standard and manifesto; the naming and curation philosophy behind Awesome GitHub.",
+  },
+  {
+    name: "Conventional Commits",
+    url: "https://www.conventionalcommits.org/",
+    description: "The commit message convention used across all LightSpeed repositories and enforced by hooks in this control plane.",
+  },
+  {
+    name: "WordPress Coding Standards",
+    url: "https://developer.wordpress.org/coding-standards/",
+    description: "PHP and JavaScript coding standards applied to all LightSpeed WordPress plugin and theme work, referenced in instructions.",
+  },
+  {
+    name: "WCAG 2.2",
+    url: "https://www.w3.org/TR/WCAG22/",
+    description: "Web Content Accessibility Guidelines — the AA conformance level required by all LightSpeed front-end work and verified by accessibility hooks.",
+  },
+  {
+    name: "OpenAI Model Spec",
+    url: "https://model-spec.openai.com/",
+    description: "Model behaviour specification format that influenced the structure of AGENTS.md and the agent instruction files.",
+  },
+  {
+    name: "Astro",
+    url: "https://astro.build",
+    description: "The static site framework powering this website. Built with Astro 5 and Svelte for interactive components.",
+  },
+];
+---
+
+<AwesomeGithubLayout
+  title="References & Attribution — Awesome GitHub"
+  description="The external sources, acknowledgments, and licences behind the Awesome GitHub control plane."
+>
+  <nav class="ref-breadcrumb" aria-label="Breadcrumb">
+    <div class="ref-container">
+      <a href={`${base}`}>Home</a>
+      <span aria-hidden="true">/</span>
+      <span>References</span>
+    </div>
+  </nav>
+
+  <header class="ref-hero">
+    <div class="ref-container">
+      <div class="ref-eyebrow">Attribution</div>
+      <h1 class="ref-h1">References &amp; Attribution</h1>
+      <p class="ref-lead">
+        The tools, specifications, and communities that shaped this control plane.
+        Everything listed here is either directly referenced in the assets or informed
+        the design of the governance system.
+      </p>
+    </div>
+  </header>
+
+  <section class="ref-section">
+    <div class="ref-container">
+      <h2 class="ref-h2">External sources</h2>
+      <p class="ref-intro">
+        These external resources are cited in instruction files, agent specs, or hooks
+        within the control plane.
+      </p>
+      <div class="ref-grid">
+        {externalSources.map((source) => (
+          <a
+            href={source.url}
+            class="ref-card"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div class="ref-card-name">{source.name} <span class="ref-card-arrow" aria-hidden="true">↗</span></div>
+            <p class="ref-card-desc">{source.description}</p>
+            <code class="ref-card-url">{source.url.replace("https://", "")}</code>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ref-section ref-section--alt">
+    <div class="ref-container">
+      <h2 class="ref-h2">Acknowledgments</h2>
+      <div class="ref-prose">
+        <p>
+          This control plane was designed and built by the
+          <a href="https://lightspeedwp.agency" target="_blank" rel="noopener noreferrer">LightSpeed WP Agency</a> team.
+          Special thanks to the open-source maintainers of every tool and specification
+          cited above — their work makes structured AI governance possible.
+        </p>
+        <p>
+          The <em>Awesome GitHub</em> site you are reading was rebuilt as a production
+          Astro 5 static site from an earlier prototype.
+          All catalogue data, learning tracks, and governance assets live in the
+          <a href="https://github.com/lightspeedwp/.github" target="_blank" rel="noopener noreferrer">lightspeedwp/.github</a>
+          repository on the <code>develop</code> branch and are available for reuse
+          under the terms of the GPL v3 Licence.
+        </p>
+        <p>
+          If you spot an error or would like to contribute a resource, please
+          <a href="https://github.com/lightspeedwp/.github/issues/new/choose" target="_blank" rel="noopener noreferrer">open an issue</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ref-section">
+    <div class="ref-container">
+      <h2 class="ref-h2">Licence</h2>
+      <div class="ref-licence-block">
+        <div class="ref-licence-badge">GPL v3</div>
+        <div class="ref-licence-text">
+          <p>
+            The assets in this repository are open source under the
+            <strong>GNU General Public Licence v3</strong>. You are free to use,
+            copy, modify, and distribute the software, provided any derivative
+            works are also distributed under the same licence.
+          </p>
+          <p>
+            The software is provided "as is", without warranty of any kind. See the
+            full licence text for details.
+          </p>
+          <a
+            href="https://github.com/lightspeedwp/.github/blob/develop/LICENSE"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ref-licence-link"
+          >
+            Read the full GPL v3 Licence ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ref-cta">
+    <div class="ref-container">
+      <h2 class="ref-cta-title">Ready to explore?</h2>
+      <p class="ref-cta-body">Browse the full catalogue or start a learning track.</p>
+      <div class="ref-cta-actions">
+        <AwesomeGithubButton href={`${base}c/agents/`} variant="primary">
+          Browse Catalogue
+        </AwesomeGithubButton>
+        <AwesomeGithubButton href={`${base}learn/`} variant="secondary">
+          Start Learning
+        </AwesomeGithubButton>
+      </div>
+    </div>
+  </section>
+</AwesomeGithubLayout>
+
+<style>
+  .ref-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .ref-breadcrumb {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-3) var(--gutter);
+    font-size: var(--fs-body-sm);
+  }
+
+  .ref-breadcrumb div {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .ref-breadcrumb a { color: var(--fg-link); text-decoration: none; }
+  .ref-breadcrumb a:hover { color: var(--fg-link-hover); }
+  .ref-breadcrumb span:not([aria-hidden]) { color: var(--fg-2); }
+  .ref-breadcrumb [aria-hidden] { color: var(--fg-3); }
+
+  .ref-hero {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-24) var(--gutter);
+  }
+
+  .ref-eyebrow {
+    display: inline-flex;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(123, 231, 255, 0.1);
+    border: 1px solid rgba(123, 231, 255, 0.3);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .ref-h1 {
+    font-size: var(--fs-h2);
+    font-weight: var(--weight-extrabold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+    color: var(--c-white);
+  }
+
+  .ref-lead {
+    font-size: var(--fs-body-lg);
+    color: var(--c-slate-300);
+    max-width: 64ch;
+    margin: 0;
+    line-height: var(--lh-loose);
+  }
+
+  .ref-section {
+    padding: var(--space-16) var(--gutter);
+    background: var(--bg);
+  }
+
+  .ref-section--alt {
+    background: var(--bg-alt);
+  }
+
+  .ref-h2 {
+    font-size: var(--fs-h3);
+    font-weight: var(--weight-bold);
+    color: var(--fg-1);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .ref-intro {
+    font-size: var(--fs-body);
+    color: var(--fg-2);
+    margin: 0 0 var(--space-8) 0;
+    line-height: var(--lh-snug);
+  }
+
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .ref-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+  }
+
+  .ref-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+  }
+
+  .ref-card-name {
+    font-size: var(--fs-body);
+    font-weight: var(--weight-bold);
+    color: var(--fg-1);
+  }
+
+  .ref-card-arrow {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .ref-card-desc {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    margin: 0;
+    line-height: var(--lh-snug);
+    flex: 1;
+  }
+
+  .ref-card-url {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    word-break: break-all;
+  }
+
+  .ref-prose {
+    max-width: 72ch;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .ref-prose p {
+    font-size: var(--fs-body);
+    color: var(--fg-2);
+    margin: 0;
+    line-height: var(--lh-loose);
+  }
+
+  .ref-prose a {
+    color: var(--fg-link);
+    text-decoration: none;
+    font-weight: var(--weight-medium);
+  }
+
+  .ref-prose a:hover { color: var(--fg-link-hover); }
+
+  .ref-prose code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-muted);
+    padding: 2px 5px;
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+  }
+
+  .ref-licence-block {
+    display: flex;
+    gap: var(--space-8);
+    align-items: flex-start;
+    max-width: 72ch;
+  }
+
+  .ref-licence-badge {
+    flex-shrink: 0;
+    padding: var(--space-2) var(--space-4);
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--weight-bold);
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
+  }
+
+  .ref-licence-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ref-licence-text p {
+    font-size: var(--fs-body);
+    color: var(--fg-2);
+    margin: 0;
+    line-height: var(--lh-loose);
+  }
+
+  .ref-licence-link {
+    display: inline-block;
+    color: var(--fg-link);
+    text-decoration: none;
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  .ref-licence-link:hover { color: var(--fg-link-hover); }
+
+  .ref-cta {
+    padding: var(--space-16) var(--gutter);
+    background: var(--bg-alt);
+    text-align: center;
+  }
+
+  .ref-cta-title {
+    font-size: var(--fs-h3);
+    font-weight: var(--weight-bold);
+    color: var(--fg-1);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .ref-cta-body {
+    font-size: var(--fs-body);
+    color: var(--fg-2);
+    margin: 0 0 var(--space-8) 0;
+  }
+
+  .ref-cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .ref-hero { padding: var(--space-16) var(--gutter); margin-top: 72px; }
+    .ref-h1 { font-size: var(--fs-h3); }
+    .ref-grid { grid-template-columns: 1fr; }
+    .ref-licence-block { flex-direction: column; gap: var(--space-4); }
+  }
+</style>

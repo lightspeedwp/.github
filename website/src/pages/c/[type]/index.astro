@@ -1,8 +1,8 @@
 ---
-import AwesomeGithubLayout from "../../../../layouts/AwesomeGithubLayout.astro";
-import AwesomeGithubButton from "../../../../components/AwesomeGithub/AwesomeGithubButton.astro";
-import AwesomeGithubCard from "../../../../components/AwesomeGithub/AwesomeGithubCard.astro";
-import { getResourcesByType, getAvailableResourceTypes } from "../../../../lib/resources";
+import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import AwesomeGithubCard from "../../../components/AwesomeGithub/AwesomeGithubCard.astro";
+import { getResourcesByType, getAvailableResourceTypes } from "../../../lib/resources";
 
 const base = import.meta.env.BASE_URL;
 
@@ -63,7 +63,7 @@ export async function getStaticPaths() {
       {resources.length > 0 ? (
         <div class="ag-resources-grid">
           {resources.map((resource) => (
-            <a href={`${base}awesome-github/c/${type}/${resource.slug}/`} class="ag-resource-card">
+            <a href={`${base}c/${type}/${resource.slug}/`} class="ag-resource-card">
               <div class="ag-resource-header">
                 <h3 class="ag-resource-title">{resource.title}</h3>
               </div>
@@ -107,7 +107,7 @@ export async function getStaticPaths() {
         {allTypes
           .filter(t => t.type !== type)
           .map((t) => (
-            <a href={`${base}awesome-github/c/${t.type}/`} class="ag-type-card">
+            <a href={`${base}c/${t.type}/`} class="ag-type-card">
               <div class="ag-type-icon">{t.icon}</div>
               <h3 class="ag-type-name">{t.label}</h3>
               <p class="ag-type-count">{t.count} resource{t.count !== 1 ? 's' : ''}</p>

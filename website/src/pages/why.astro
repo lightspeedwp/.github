@@ -1,0 +1,256 @@
+---
+import AwesomeGithubLayout from "../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../components/AwesomeGithub/AwesomeGithubButton.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<AwesomeGithubLayout
+  title="Why This Exists — Awesome GitHub"
+  description="The philosophy behind the Awesome GitHub control plane — governance, not opinions."
+>
+  <nav class="why-breadcrumb" aria-label="Breadcrumb">
+    <div class="why-container">
+      <a href={`${base}`}>Home</a>
+      <span aria-hidden="true">/</span>
+      <span>Why This Exists</span>
+    </div>
+  </nav>
+
+  <header class="why-hero">
+    <div class="why-container">
+      <div class="why-eyebrow">Governance, not opinions.</div>
+      <h1 class="why-h1">Why This Exists</h1>
+      <p class="why-lead">
+        AI coding assistants are most useful when they understand your codebase, your team's conventions,
+        and your quality bar — not just the language. This control plane is how we encode that context.
+      </p>
+    </div>
+  </header>
+
+  <section class="why-section">
+    <div class="why-container">
+      <div class="why-prose">
+        <h2>The problem with "just wing it"</h2>
+        <p>
+          Out of the box, every AI assistant starts from scratch on every session. It doesn't know
+          your naming conventions, your accessibility requirements, your branching strategy, or which
+          patterns your team has decided to avoid. So it guesses — and the guesses are sometimes good,
+          often generic, and occasionally harmful.
+        </p>
+        <p>
+          Multiply that across a team of engineers using Copilot, Cursor, Claude Code, or Gemini CLI,
+          and you get a different implicit rulebook for every developer. Code review becomes a game of
+          catching AI-generated patterns that don't match your standards. Onboarding stays slow because
+          the AI doesn't reinforce your conventions — it introduces its own.
+        </p>
+
+        <h2>The fix: explicit, versioned governance</h2>
+        <p>
+          The Awesome GitHub control plane makes AI behaviour predictable by shipping structured
+          governance files alongside your code. Instead of hoping the model infers your standards from
+          examples, you write them down once in machine-readable formats and let every tool consume them.
+        </p>
+        <p>
+          Instructions tell the model what standards to follow. Agents narrow the scope to a specific
+          role. Hooks catch violations before they land in a PR. Workflows orchestrate multi-step tasks
+          that would otherwise require manual coordination. Prompts give the team reusable starting points
+          that skip the "how do I ask for this?" overhead.
+        </p>
+
+        <h2>Why not just use a linter?</h2>
+        <p>
+          Linters are mechanical — they check syntax and pattern matches. AI governance is semantic —
+          it shapes reasoning before code is written. A linter can't tell the model "prefer
+          <code>wp_safe_redirect()</code> over <code>wp_redirect()</code> and always check the return
+          value." An instruction can. They're complementary, not competing.
+        </p>
+        <p>
+          The hooks in this catalogue bridge the two: they use the linter as a guardrail but give the
+          AI enough context to avoid the violation in the first place, rather than just flagging it after
+          the fact.
+        </p>
+
+        <h2>Awesome GitHub vs. awesome lists</h2>
+        <p>
+          The "Awesome" naming is intentional but ironic. Traditional awesome lists are curated links to
+          third-party resources. This project is different: everything here lives in the repository, is
+          versioned with the codebase, and is immediately usable — not a reading list.
+        </p>
+        <p>
+          The catalogue is the repository. The instructions are deployed. The agents are running. The
+          workflows are wired into CI. If it's in this catalogue, it's production.
+        </p>
+
+        <h2>Designed for every AI tool</h2>
+        <p>
+          The assets here are deliberately tool-agnostic. Instructions follow the
+          <code>.github/instructions/</code> convention that GitHub Copilot reads natively.
+          Agents are specified in a portable YAML-like format that Claude Code, Gemini CLI, and
+          custom runners all understand. Skills have <code>SKILL.md</code> entrypoints that any
+          model can follow.
+        </p>
+        <p>
+          We maintain canonical configurations for Claude (<code>ai/Claude.md</code>), Gemini
+          (<code>ai/Gemini.md</code>), and GitHub Actions runners (<code>ai/RUNNERS.md</code>) so
+          you can adopt whichever tool fits the task.
+        </p>
+
+        <h2>A living system</h2>
+        <p>
+          The control plane is not documentation you write once and forget. It evolves with the team.
+          When a new pattern emerges in code review, someone writes an instruction. When a workflow
+          saves three hours of manual work, it goes in the catalogue. When an agent proves its value,
+          it gets a version bump and a changelog entry.
+        </p>
+        <p>
+          The goal is a feedback loop: better governance → better AI output → faster development →
+          time to improve governance. That's the flywheel.
+        </p>
+      </div>
+
+      <div class="why-cta-block">
+        <h2>Ready to explore?</h2>
+        <p>Browse the catalogue or start with the learning tracks to understand the system.</p>
+        <div class="why-cta-buttons">
+          <AwesomeGithubButton href={`${base}c/agents/`} variant="primary">
+            Browse the Catalogue
+          </AwesomeGithubButton>
+          <AwesomeGithubButton href={`${base}learn/`} variant="secondary">
+            Start Learning
+          </AwesomeGithubButton>
+        </div>
+      </div>
+    </div>
+  </section>
+</AwesomeGithubLayout>
+
+<style>
+  .why-container {
+    max-width: var(--container-prose);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .why-breadcrumb {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-3) var(--gutter);
+    font-size: var(--fs-body-sm);
+  }
+
+  .why-breadcrumb div {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .why-breadcrumb a { color: var(--fg-link); text-decoration: none; }
+  .why-breadcrumb a:hover { color: var(--fg-link-hover); }
+  .why-breadcrumb span:not([aria-hidden]) { color: var(--fg-2); }
+  .why-breadcrumb [aria-hidden] { color: var(--fg-3); }
+
+  .why-hero {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-24) var(--gutter);
+  }
+
+  .why-eyebrow {
+    display: inline-flex;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(123, 231, 255, 0.1);
+    border: 1px solid rgba(123, 231, 255, 0.3);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .why-h1 {
+    font-size: var(--fs-h2);
+    font-weight: var(--weight-extrabold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+    color: var(--c-white);
+  }
+
+  .why-lead {
+    font-size: var(--fs-body-lg);
+    color: var(--c-slate-300);
+    margin: 0;
+    line-height: var(--lh-loose);
+    max-width: 60ch;
+  }
+
+  .why-section {
+    padding: var(--space-20) var(--gutter);
+    background: var(--bg);
+  }
+
+  .why-prose {
+    font-size: var(--fs-body);
+    line-height: var(--lh-loose);
+    color: var(--fg-2);
+  }
+
+  .why-prose h2 {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    color: var(--fg-1);
+    margin: var(--space-12) 0 var(--space-4) 0;
+  }
+
+  .why-prose h2:first-child {
+    margin-top: 0;
+  }
+
+  .why-prose p {
+    margin: 0 0 var(--space-4) 0;
+    max-width: 70ch;
+  }
+
+  .why-prose code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+  }
+
+  .why-cta-block {
+    margin-top: var(--space-16);
+    padding-top: var(--space-12);
+    border-top: 1px solid var(--border);
+  }
+
+  .why-cta-block h2 {
+    font-size: var(--fs-h3);
+    font-weight: var(--weight-bold);
+    color: var(--fg-1);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .why-cta-block p {
+    font-size: var(--fs-body);
+    color: var(--fg-2);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .why-cta-buttons {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .why-hero { padding: var(--space-16) var(--gutter); margin-top: 72px; }
+    .why-h1 { font-size: var(--fs-h3); }
+    .why-cta-buttons { flex-direction: column; }
+  }
+</style>

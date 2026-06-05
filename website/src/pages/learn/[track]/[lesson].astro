@@ -1,0 +1,377 @@
+---
+import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import { LEARN_TRACKS, getTrack, getLesson, getAdjacentLessons } from "../../../lib/learn";
+
+const base = import.meta.env.BASE_URL;
+const { track: trackId, lesson: lessonSlug } = Astro.params;
+
+export async function getStaticPaths() {
+  const paths: { params: { track: string; lesson: string } }[] = [];
+  for (const track of LEARN_TRACKS) {
+    for (const lesson of track.lessons) {
+      paths.push({ params: { track: track.id, lesson: lesson.slug } });
+    }
+  }
+  return paths;
+}
+
+const track = getTrack(trackId!);
+const lesson = getLesson(trackId!, lessonSlug!);
+
+if (!track || !lesson) {
+  return Astro.redirect(`${base}learn/`);
+}
+
+const { prev, next } = getAdjacentLessons(trackId!, lessonSlug!);
+const lessonIndex = track.lessons.findIndex((l) => l.slug === lessonSlug) + 1;
+const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${lesson.src}`;
+---
+
+<AwesomeGithubLayout
+  title={`${lesson.slug.replace(/-/g, " ")} — ${track.label} — Learn`}
+  description={lesson.learn}
+>
+  <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
+    <div class="lesson-container lesson-container--wide">
+      <a href={`${base}`}>Home</a>
+      <span aria-hidden="true">/</span>
+      <a href={`${base}learn/`}>Learn</a>
+      <span aria-hidden="true">/</span>
+      <a href={`${base}learn/${track.id}/`}>{track.label}</a>
+      <span aria-hidden="true">/</span>
+      <span>{lesson.slug.replace(/-/g, " ")}</span>
+    </div>
+  </nav>
+
+  <header class="lesson-hero">
+    <div class="lesson-container">
+      <div class="lesson-track-badge">{track.label} · Lesson {lessonIndex} of {track.lessons.length}</div>
+      <h1 class="lesson-h1">{lesson.slug.replace(/-/g, " ")}</h1>
+      <p class="lesson-objective">
+        <strong>What you'll learn:</strong> {lesson.learn}
+      </p>
+      <a href={githubUrl} class="lesson-source-link" target="_blank" rel="noopener noreferrer">
+        View source on GitHub ↗
+      </a>
+    </div>
+  </header>
+
+  <div class="lesson-body">
+    <div class="lesson-container">
+      <div class="lesson-content">
+        <div class="lesson-placeholder">
+          <div class="lesson-placeholder-icon" aria-hidden="true">📄</div>
+          <h2>Read this lesson on GitHub</h2>
+          <p>
+            The full lesson content lives in the control plane repository at
+            <code>{lesson.src}</code>.
+          </p>
+          <p>
+            Click the button below to read it directly on GitHub, where it renders with full Markdown support.
+          </p>
+          <AwesomeGithubButton href={githubUrl} variant="primary">
+            Open on GitHub ↗
+          </AwesomeGithubButton>
+        </div>
+
+        {track.further.length > 0 && (
+          <div class="lesson-further">
+            <h3>Further reading</h3>
+            <ul>
+              {track.further.map((link) => (
+                <li>
+                  <a
+                    href={`https://github.com/lightspeedwp/.github/blob/develop/${link.p}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.d}
+                  </a>
+                  <code class="lesson-further-path">{link.p}</code>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <nav class="lesson-nav-bottom" aria-label="Lesson navigation">
+    <div class="lesson-container lesson-container--wide">
+      <div class="lesson-nav-grid">
+        <div class="lesson-nav-prev">
+          {prev && (
+            <a href={`${base}learn/${track.id}/${prev.slug}/`} class="lesson-nav-link lesson-nav-link--prev">
+              <span class="lesson-nav-label">← Previous</span>
+              <span class="lesson-nav-title">{prev.slug.replace(/-/g, " ")}</span>
+            </a>
+          )}
+        </div>
+        <div class="lesson-nav-center">
+          <a href={`${base}learn/`} class="lesson-nav-home">All tracks</a>
+        </div>
+        <div class="lesson-nav-next">
+          {next && (
+            <a href={`${base}learn/${track.id}/${next.slug}/`} class="lesson-nav-link lesson-nav-link--next">
+              <span class="lesson-nav-label">Next →</span>
+              <span class="lesson-nav-title">{next.slug.replace(/-/g, " ")}</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </nav>
+</AwesomeGithubLayout>
+
+<style>
+  .lesson-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .lesson-container--wide {
+    max-width: var(--container-max);
+  }
+
+  .lesson-breadcrumb {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-3) var(--gutter);
+    font-size: var(--fs-body-sm);
+    display: flex;
+    align-items: center;
+  }
+
+  .lesson-breadcrumb div {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .lesson-breadcrumb a {
+    color: var(--fg-link);
+    text-decoration: none;
+  }
+
+  .lesson-breadcrumb a:hover { color: var(--fg-link-hover); }
+  .lesson-breadcrumb span:not([aria-hidden]) { color: var(--fg-2); }
+  .lesson-breadcrumb [aria-hidden] { color: var(--fg-3); }
+
+  .lesson-hero {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-24) var(--gutter);
+  }
+
+  .lesson-track-badge {
+    display: inline-flex;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(123, 231, 255, 0.1);
+    border: 1px solid rgba(123, 231, 255, 0.3);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .lesson-h1 {
+    font-size: var(--fs-h2);
+    font-weight: var(--weight-extrabold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+    color: var(--c-white);
+    text-transform: capitalize;
+  }
+
+  .lesson-objective {
+    font-size: var(--fs-body-lg);
+    color: var(--c-slate-300);
+    margin: 0 0 var(--space-6) 0;
+    line-height: var(--lh-loose);
+  }
+
+  .lesson-objective strong { color: var(--c-slate-200); }
+
+  .lesson-source-link {
+    display: inline-block;
+    font-size: var(--fs-body-sm);
+    color: var(--c-light-blue);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--dur) var(--ease-out);
+  }
+
+  .lesson-source-link:hover { border-bottom-color: var(--c-light-blue); }
+
+  .lesson-body {
+    padding: var(--space-16) var(--gutter);
+    background: var(--bg);
+    min-height: 400px;
+  }
+
+  .lesson-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .lesson-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-10);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+  }
+
+  .lesson-placeholder-icon { font-size: 40px; }
+
+  .lesson-placeholder h2 {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: 0;
+    color: var(--fg-1);
+  }
+
+  .lesson-placeholder p {
+    font-size: var(--fs-body);
+    color: var(--fg-2);
+    margin: 0;
+    line-height: var(--lh-loose);
+  }
+
+  .lesson-placeholder code {
+    font-family: var(--font-mono);
+    font-size: var(--fs-code);
+    background: var(--bg-muted);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+  }
+
+  .lesson-further {
+    padding: var(--space-6);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .lesson-further h3 {
+    font-size: var(--fs-h5);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-4) 0;
+    color: var(--fg-1);
+  }
+
+  .lesson-further ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .lesson-further li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .lesson-further a {
+    color: var(--fg-link);
+    text-decoration: none;
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  .lesson-further a:hover { color: var(--fg-link-hover); }
+
+  .lesson-further-path {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-3);
+  }
+
+  .lesson-nav-bottom {
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    padding: var(--space-8) var(--gutter);
+  }
+
+  .lesson-nav-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .lesson-nav-prev { text-align: left; }
+  .lesson-nav-next { text-align: right; }
+  .lesson-nav-center { text-align: center; }
+
+  .lesson-nav-link {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    text-decoration: none;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .lesson-nav-label {
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--accent);
+  }
+
+  .lesson-nav-title {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    text-transform: capitalize;
+  }
+
+  .lesson-nav-link:hover .lesson-nav-title { color: var(--fg-1); }
+
+  .lesson-nav-home {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-link);
+    text-decoration: none;
+    font-weight: var(--weight-medium);
+  }
+
+  .lesson-nav-home:hover { color: var(--fg-link-hover); }
+
+  @media (max-width: 768px) {
+    .lesson-nav-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .lesson-nav-center {
+      grid-column: 1 / -1;
+      order: -1;
+      margin-bottom: var(--space-4);
+    }
+  }
+</style>
+
+<script define:vars={{ _trackId: trackId, _lessonSlug: lessonSlug }}>
+  try {
+    const key = "ag_learn_progress";
+    const progress = JSON.parse(localStorage.getItem(key) || "{}");
+    if (!progress[_trackId]) progress[_trackId] = {};
+    progress[_trackId][_lessonSlug] = true;
+    localStorage.setItem(key, JSON.stringify(progress));
+  } catch {
+    // localStorage unavailable
+  }
+</script>

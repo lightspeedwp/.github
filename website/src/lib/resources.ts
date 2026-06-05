@@ -1,4 +1,5 @@
 // Resource utilities for the Awesome GitHub website
+import { getItemsByCategory, getItemBySlug } from "./catalogue";
 
 export const REPO_INFO = {
   owner: "lightspeedwp",
@@ -40,92 +41,60 @@ export interface ResourceTypeInfo {
   label: string;
   icon: string;
   description: string;
+  blurb?: string;
+  count?: number;
 }
 
-// Available resource types with metadata
-// Icons are Phosphor icon names (https://github.com/phosphor-icons/web)
 const RESOURCE_TYPES: Record<string, ResourceTypeInfo> = {
-  agents: {
-    type: "agents",
-    label: "Agents",
-    icon: "robot",
-    description: "AI agent specifications and configurations",
-  },
-  instructions: {
-    type: "instructions",
-    label: "Instructions",
-    icon: "clipboard",
-    description: "Organization-wide instructions and standards",
-  },
-  skills: {
-    type: "skills",
-    label: "Skills",
-    icon: "lightning-bold",
-    description: "Self-contained reusable skills",
-  },
-  cookbook: {
-    type: "cookbook",
-    label: "Cookbook",
-    icon: "chef-hat",
-    description: "Recipes, playbooks, and implementation guides",
-  },
-  learn: {
-    type: "learn",
-    label: "Learning Centre",
-    icon: "book",
-    description: "Learning tracks and courses",
-  },
-  hooks: {
-    type: "hooks",
-    label: "Hooks",
-    icon: "hook",
-    description: "Portable hooks and guardrails",
-  },
-  workflows: {
-    type: "workflows",
-    label: "Workflows",
-    icon: "gear",
-    description: "Portable agentic workflows",
-  },
-  prompts: {
-    type: "prompts",
-    label: "Prompts",
-    icon: "chat-circle",
-    description: "Prompt library and templates",
-  },
-  tools: {
-    type: "tools",
-    label: "Tools",
-    icon: "wrench",
-    description: "Utility scripts and tools",
-  },
+  agents:       { type: "agents",       label: "Agents",          icon: "🤖", description: "AI agent specifications and configurations", blurb: "Specialised AI agents with defined behaviour, scope, and escalation rules." },
+  instructions: { type: "instructions", label: "Instructions",    icon: "📖", description: "Organisation-wide instructions and standards", blurb: "Canonical coding, accessibility, and WordPress standards Copilot must follow." },
+  prompts:      { type: "prompts",      label: "Prompts",         icon: "💬", description: "Prompt library and templates", blurb: "Reusable prompt templates you can grab and run for common engineering tasks." },
+  skills:       { type: "skills",       label: "Skills",          icon: "✨", description: "Self-contained reusable skills", blurb: "Portable, self-contained skill packages the team can run on demand." },
+  hooks:        { type: "hooks",        label: "Hooks",           icon: "🛡️", description: "Portable hooks and guardrails", blurb: "Pre-commit and lint guardrails that enforce quality before code lands." },
+  workflows:    { type: "workflows",    label: "Workflows",       icon: "⚙️", description: "Portable agentic workflows", blurb: "Portable agentic workflow specs, each paired with a runnable GitHub Action." },
+  plugins:      { type: "plugins",      label: "Plugins",         icon: "🧩", description: "Installable plugin packs", blurb: "Installable, versioned plugin packs bundling governance and AI-ops." },
+  tools:        { type: "tools",        label: "Tools",           icon: "🔧", description: "Utility scripts and tools", blurb: "The toolchain layer — AI defaults, scripts, schemas, and editor config." },
 };
 
-/**
- * Get all available resource types
- */
 export function getAvailableResourceTypes(): ResourceTypeInfo[] {
-  return Object.values(RESOURCE_TYPES);
+  return Object.values(RESOURCE_TYPES).map((rt) => ({
+    ...rt,
+    count: getItemsByCategory(rt.type).length,
+  }));
 }
 
-/**
- * Get a specific resource by type and slug
- * Note: This is a stub implementation. In production, this would load from content collections.
- */
-export function getResource(_type: string, _slug: string): Resource | null {
-  // Stub implementation - returns null for now
-  // In production, this would load from Astro content collections
-  return null;
+function catalogueItemToResource(catalogueItem: { id: string; cat: string; slug: string; name: string; description: string; type: string; tags: string[]; version: string; updated: string; applyTo?: string; path?: string; tree: boolean; body?: string | null; run?: string | null; validates?: string | null; dest?: string | null; duration?: string | null; action?: string | null }): Resource {
+  return {
+    slug: catalogueItem.slug,
+    title: catalogueItem.name,
+    description: catalogueItem.description,
+    frontmatter: {
+      title: catalogueItem.name,
+      description: catalogueItem.description,
+      version: catalogueItem.version,
+      tags: catalogueItem.tags,
+      type: catalogueItem.type,
+      applyTo: catalogueItem.applyTo,
+      path: catalogueItem.path,
+      tree: catalogueItem.tree,
+      validates: catalogueItem.validates,
+      dest: catalogueItem.dest,
+      duration: catalogueItem.duration,
+      action: catalogueItem.action,
+      run: catalogueItem.run,
+    },
+    content: catalogueItem.body || undefined,
+  };
 }
 
-/**
- * Get all resources of a specific type
- * Note: This is a stub implementation. In production, this would load from content collections.
- */
-export function getResourcesByType(_type: string): Resource[] {
-  // Stub implementation - returns empty array for now
-  // In production, this would load from Astro content collections
-  return [];
+export function getResource(type: string, slug: string): Resource | null {
+  const item = getItemBySlug(type, slug);
+  if (!item) return null;
+  return catalogueItemToResource(item);
+}
+
+export function getResourcesByType(type: string): Resource[] {
+  return getItemsByCategory(type).map(catalogueItemToResource);
 }
 
 /**

@@ -1,0 +1,255 @@
+---
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import { COOKBOOK_RECIPES, getRecipe } from "../../lib/learn";
+
+const base = import.meta.env.BASE_URL;
+const { slug } = Astro.params;
+
+export async function getStaticPaths() {
+  return COOKBOOK_RECIPES.map((r) => ({ params: { slug: r.slug } }));
+}
+
+const recipe = getRecipe(slug!);
+if (!recipe) return Astro.redirect(`${base}cookbook/`);
+
+const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${recipe.src}`;
+---
+
+<AwesomeGithubLayout
+  title={`${recipe.title} — Cookbook — Awesome GitHub`}
+  description={recipe.when}
+>
+  <nav class="recipe-breadcrumb" aria-label="Breadcrumb">
+    <div class="recipe-container">
+      <a href={`${base}`}>Home</a>
+      <span aria-hidden="true">/</span>
+      <a href={`${base}cookbook/`}>Cookbook</a>
+      <span aria-hidden="true">/</span>
+      <span>{recipe.title}</span>
+    </div>
+  </nav>
+
+  <header class="recipe-hero">
+    <div class="recipe-container recipe-container--narrow">
+      <div class="recipe-kind-badge">{recipe.kind}</div>
+      <h1 class="recipe-h1">{recipe.title}</h1>
+      <p class="recipe-when">{recipe.when}</p>
+      <div class="recipe-actions">
+        <AwesomeGithubButton href={githubUrl} variant="primary">
+          Read on GitHub ↗
+        </AwesomeGithubButton>
+        <a href={`${base}cookbook/`} class="recipe-back">← All recipes</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="recipe-body">
+    <div class="recipe-container recipe-container--narrow">
+      <div class="recipe-placeholder">
+        <div class="recipe-placeholder-icon" aria-hidden="true">🍳</div>
+        <h2>Recipe lives on GitHub</h2>
+        <p>
+          This recipe is maintained as a real Markdown file in the control plane repository at
+          <code>{recipe.src}</code>.
+        </p>
+        <p>Click below to read it on GitHub with full Markdown rendering.</p>
+        <AwesomeGithubButton href={githubUrl} variant="primary">
+          Open recipe on GitHub ↗
+        </AwesomeGithubButton>
+      </div>
+
+      <nav class="recipe-nav" aria-label="Other recipes">
+        <h2 class="recipe-nav-title">Other recipes</h2>
+        <div class="recipe-nav-grid">
+          {COOKBOOK_RECIPES.filter((r) => r.slug !== slug).map((r) => (
+            <a href={`${base}cookbook/${r.slug}/`} class="recipe-nav-card">
+              <span class="recipe-nav-kind">{r.kind}</span>
+              <strong>{r.title}</strong>
+              <p>{r.when}</p>
+            </a>
+          ))}
+        </div>
+      </nav>
+    </div>
+  </div>
+</AwesomeGithubLayout>
+
+<style>
+  .recipe-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .recipe-container--narrow {
+    max-width: 800px;
+  }
+
+  .recipe-breadcrumb {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-3) var(--gutter);
+    font-size: var(--fs-body-sm);
+  }
+
+  .recipe-breadcrumb div {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .recipe-breadcrumb a { color: var(--fg-link); text-decoration: none; }
+  .recipe-breadcrumb a:hover { color: var(--fg-link-hover); }
+  .recipe-breadcrumb span:not([aria-hidden]) { color: var(--fg-2); }
+  .recipe-breadcrumb [aria-hidden] { color: var(--fg-3); }
+
+  .recipe-hero {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-24) var(--gutter);
+  }
+
+  .recipe-kind-badge {
+    display: inline-flex;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(123, 231, 255, 0.1);
+    border: 1px solid rgba(123, 231, 255, 0.3);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .recipe-h1 {
+    font-size: var(--fs-h2);
+    font-weight: var(--weight-extrabold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-4) 0;
+    color: var(--c-white);
+  }
+
+  .recipe-when {
+    font-size: var(--fs-body-lg);
+    color: var(--c-slate-300);
+    margin: 0 0 var(--space-8) 0;
+    line-height: var(--lh-loose);
+  }
+
+  .recipe-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .recipe-back {
+    font-size: var(--fs-body-sm);
+    color: var(--c-slate-300);
+    text-decoration: none;
+    font-weight: var(--weight-medium);
+  }
+
+  .recipe-back:hover { color: var(--c-white); }
+
+  .recipe-body {
+    padding: var(--space-16) var(--gutter);
+    background: var(--bg);
+  }
+
+  .recipe-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-10);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--space-12);
+  }
+
+  .recipe-placeholder-icon { font-size: 40px; }
+
+  .recipe-placeholder h2 {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: 0;
+    color: var(--fg-1);
+  }
+
+  .recipe-placeholder p {
+    font-size: var(--fs-body);
+    color: var(--fg-2);
+    margin: 0;
+    line-height: var(--lh-loose);
+  }
+
+  .recipe-placeholder code {
+    font-family: var(--font-mono);
+    font-size: var(--fs-code);
+    background: var(--bg-muted);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+  }
+
+  .recipe-nav-title {
+    font-size: var(--fs-h5);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-6) 0;
+    color: var(--fg-1);
+  }
+
+  .recipe-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .recipe-nav-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--dur) var(--ease-out);
+  }
+
+  .recipe-nav-card:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+
+  .recipe-nav-kind {
+    font-size: 11px;
+    font-weight: var(--weight-semibold);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .recipe-nav-card strong {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-1);
+    font-weight: var(--weight-semibold);
+  }
+
+  .recipe-nav-card p {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-3);
+    margin: 0;
+    line-height: var(--lh-snug);
+  }
+
+  @media (max-width: 768px) {
+    .recipe-hero { padding: var(--space-16) var(--gutter); margin-top: 72px; }
+    .recipe-actions { flex-direction: column; align-items: flex-start; }
+  }
+</style>
