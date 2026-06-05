@@ -113,6 +113,7 @@
           aria-label="Search catalogue"
           aria-controls="sp-results"
           aria-autocomplete="list"
+          aria-activedescendant={filtered.length > 0 ? "sp-option-" + selected : undefined}
         />
         <button class="sp-close" on:click={closePalette} aria-label="Close search" type="button">
           Esc
@@ -124,6 +125,7 @@
           {#each filtered as item, i}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <li
+              id={"sp-option-" + i}
               role="option"
               aria-selected={i === selected}
               class="sp-result {i === selected ? 'sp-result--selected' : ''}"

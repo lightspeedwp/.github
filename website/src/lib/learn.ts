@@ -144,6 +144,7 @@ export function getAdjacentLessons(trackId: string, lessonSlug: string): { prev?
   const track = getTrack(trackId);
   if (!track) return {};
   const idx = track.lessons.findIndex((l) => l.slug === lessonSlug);
+  if (idx === -1) return {};
   return { prev: idx > 0 ? track.lessons[idx - 1] : undefined, next: idx < track.lessons.length - 1 ? track.lessons[idx + 1] : undefined };
 }
 

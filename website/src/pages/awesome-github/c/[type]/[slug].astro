@@ -193,14 +193,20 @@ const canInstall = installable(item);
   document.querySelectorAll<HTMLButtonElement>("[data-copy-content]").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const url = btn.dataset.copyContent || "";
+      const orig = btn.textContent;
       try {
+        btn.textContent = "⏳ Copying…";
+        btn.disabled = true;
         const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const text = await resp.text();
         await navigator.clipboard.writeText(text);
-        const orig = btn.textContent;
         btn.textContent = "✓ Copied!";
-        setTimeout(() => { btn.textContent = orig; }, 2000);
-      } catch { /* network/clipboard error */ }
+      } catch {
+        btn.textContent = "❌ Failed";
+      } finally {
+        setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
+      }
     });
   });
 </script>

@@ -315,7 +315,8 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
       border-top: 1px solid var(--border);
       padding: var(--space-4) var(--gutter);
       transform: translateX(-100%);
-      transition: transform var(--dur) var(--ease-out);
+      visibility: hidden;
+      transition: transform var(--dur) var(--ease-out), visibility var(--dur) var(--ease-out);
       overflow-y: auto;
     }
 
@@ -325,6 +326,7 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
 
     .ag-nav-menu.ag-nav-menu--open {
       transform: translateX(0);
+      visibility: visible;
     }
 
     .ag-nav-link {
