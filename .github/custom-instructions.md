@@ -7,6 +7,15 @@ version: v1.1
 last_updated: '2026-06-05'
 owners:
   - LightSpeed Team
+tags:
+  - copilot
+  - agent
+  - governance
+  - instructions
+status: active
+stability: stable
+domain: governance
+language: en
 ---
 
 # Repo-local Copilot Instructions
@@ -28,7 +37,7 @@ These instructions apply to work performed inside the LightSpeed `.github` contr
 - Run `npm run validate:branch-name -- --branch <branch>` for local checks.
 - Pull requests targeting `develop` must pass the `Validation` job, which now includes branch-name enforcement.
 
-# LightSpeed .github Custom Instructions
+## LightSpeed .github Custom Instructions
 
 ## Issue Creation Protocol (AI Agents)
 

@@ -104,6 +104,7 @@ sequenceDiagram
 - `scripts/validation/validate-issue-fields.cjs` enforces strict cross-file parity for `Status`, `Priority`, and `Type` mappings.
 - `scripts/validation/validate-labeling-configs.cjs` fails when `.github/labeler.yml` emits labels not defined in `.github/labels.yml`.
 - `scripts/validation/validate-branch-name.js` enforces branch naming discipline for pull requests targeting `develop`.
+- Run parity checks in CI on every PR touching any canonical config file.
 
 ## Related Documentation
 
@@ -112,22 +113,4 @@ sequenceDiagram
 - [docs/LABEL_STRATEGY.md](./LABEL_STRATEGY.md)
 - [docs/LABELING.md](./LABELING.md)
 - [docs/BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
-
-## Current Risks Observed (Wave 5 Phase 1)
-
-- Cross-file Type parity is now validator-enforced, but downstream documentation can still drift if canonical types are added without doc updates.
-- Several legacy documentation references still need to be redirected to the canonical docs, increasing operator confusion when the cleanup is incomplete.
-
-## Recommended Validation Hooks
-
-- `scripts/validation/validate-issue-fields.cjs` now includes strict cross-file parity checks for `Status`, `Priority`, and `Type` mappings.
-- `scripts/validation/validate-labeling-configs.cjs` now fails when `.github/labeler.yml` emits labels not defined in `.github/labels.yml`.
-- Run parity checks in CI on every PR touching any canonical config file.
-
-## Related Documentation
-
-- `docs/ISSUE_FIELDS.md`
-- `docs/ISSUE_TYPES.md`
-- `docs/LABEL_STRATEGY.md`
-- `docs/LABELING.md`
 - `.github/reports/audits/2026-06-03-issue-fields-config-vs-github-api-audit-660.md`

@@ -9,6 +9,12 @@ version: v1.2
 status: active
 stability: stable
 domain: governance
+tags:
+  - branching
+  - git
+  - governance
+  - ci
+language: en
 ---
 
 # Org-wide Git Branching Strategy

@@ -97,6 +97,8 @@ const isCatActive = (linkPath: string): boolean => {
         type="button"
         data-awesome-github-theme-toggle
         aria-pressed="false"
+        aria-label="Switch to dark mode"
+        title="Switch to dark mode"
       >
         <span class="ag-icon-sun"><Icon name="sun" size={18} /></span>
         <span class="ag-icon-moon"><Icon name="moon" size={18} /></span>
@@ -232,6 +234,9 @@ const isCatActive = (linkPath: string): boolean => {
   const overlay = document.getElementById("ag-mobile-overlay");
 
   if (hamburger && drawer && overlay) {
+    // Elements outside the nav that should be hidden from assistive tech when drawer is open
+    const bgEls = Array.from(document.querySelectorAll<HTMLElement>("body > :not(nav)"));
+
     const openDrawer = () => {
       hamburger.setAttribute("aria-expanded", "true");
       hamburger.setAttribute("aria-label", "Close navigation menu");
@@ -239,6 +244,7 @@ const isCatActive = (linkPath: string): boolean => {
       drawer.removeAttribute("inert");
       overlay.setAttribute("aria-hidden", "false");
       document.body.classList.add("ag-drawer-open");
+      bgEls.forEach((el) => el.setAttribute("inert", ""));
     };
     const closeDrawer = () => {
       hamburger.setAttribute("aria-expanded", "false");
@@ -247,6 +253,7 @@ const isCatActive = (linkPath: string): boolean => {
       drawer.setAttribute("inert", "");
       overlay.setAttribute("aria-hidden", "true");
       document.body.classList.remove("ag-drawer-open");
+      bgEls.forEach((el) => el.removeAttribute("inert"));
     };
 
     hamburger.addEventListener("click", () => {
@@ -273,8 +280,14 @@ const isCatActive = (linkPath: string): boolean => {
   // ── Sync aria-pressed on all theme toggle buttons ────────────────
   const syncThemePressed = () => {
     const isDark = document.documentElement.dataset.theme === "dark";
+    const label = isDark ? "Switch to light mode" : "Switch to dark mode";
     document.querySelectorAll<HTMLElement>("[data-awesome-github-theme-toggle]").forEach((btn) => {
       btn.setAttribute("aria-pressed", isDark ? "true" : "false");
+      // Only update aria-label/title on icon-only buttons (drawer button has visible text)
+      if (!btn.querySelector(".ag-drawer-theme-label")) {
+        btn.setAttribute("aria-label", label);
+        btn.setAttribute("title", label);
+      }
     });
   };
   // Run once on load, then the layout script handles click updates
