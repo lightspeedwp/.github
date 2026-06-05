@@ -2,9 +2,9 @@
 file_type: documentation
 title: Canonical Config File Interdependencies Guide
 description: Canonical reference for how labels.yml, issue-types.yml, labeler.yml, and issue-fields.yml interact from issue creation through automation completion.
-version: v1.0.1
+version: v1.0.2
 created_date: "2026-06-03"
-last_updated: "2026-06-03"
+last_updated: "2026-06-05"
 authors:
   - GitHub Copilot
 owners:
@@ -112,8 +112,6 @@ sequenceDiagram
 - [docs/LABEL_STRATEGY.md](./LABEL_STRATEGY.md)
 - [docs/LABELING.md](./LABELING.md)
 - [docs/BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
-3. `labeler.yml` may only emit canonical labels defined in `.github/labels.yml`.
-4. `issue-types.yml` display types should map to canonical `type:*` labels that can be projected into project field Type values.
 
 ## Current Risks Observed (Wave 5 Phase 1)
 
