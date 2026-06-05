@@ -40,7 +40,7 @@ function SearchPalette({ open, onClose, nav }) {
     <div className="palette-scrim" onClick={onClose}>
       <div className="palette" onClick={(e) => e.stopPropagation()}>
         <div className="palette-input">
-          <SimpleIcon type="search" size={20} style={{ color: "var(--fg-3)" }} />
+          <span style={{ color: "var(--fg-3)", display: "flex" }}><SimpleIcon type="search" size={20} /></span>
           <input ref={inputRef} value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={onKey}
                  placeholder="Search agents, instructions, skills…" />
           <span className="kbd">esc</span>

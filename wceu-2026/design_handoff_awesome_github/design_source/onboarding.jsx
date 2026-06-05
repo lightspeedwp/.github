@@ -112,8 +112,8 @@ function Onboarding({ nav, toast }) {
             <h1>One <code style={{ fontFamily: "var(--font-mono)", fontSize: ".72em", background: "var(--panel-2)", padding: "2px 10px", borderRadius: 8, border: "1px solid var(--hair)", color: "var(--accent)" }}>.github</code> repo<br />to <span className="hl">rule them all</span>.</h1>
             <p className="lead">From central governance to installable AI-ops plugins — why the repository exists, how it works, and how your team adopts it.</p>
             <div className="ob-meta">
-              <span className="ob-tag"><SimpleIcon type="bolt" size={15} style={{ color: "var(--accent)" }} /> 6 chapters</span>
-              <span className="ob-tag"><SimpleIcon type="book" size={15} style={{ color: "var(--accent)" }} /> ~10 min read</span>
+              <span className="ob-tag"><span style={{ color: "var(--accent)", display: "flex" }}><SimpleIcon type="bolt" size={15} /></span> 6 chapters</span>
+              <span className="ob-tag"><span style={{ color: "var(--accent)", display: "flex" }}><SimpleIcon type="book" size={15} /></span> ~10 min read</span>
               <span className="ob-tag"><SimpleIcon type="github" size={15} /> grounded in lightspeedwp/.github</span>
             </div>
           </div>

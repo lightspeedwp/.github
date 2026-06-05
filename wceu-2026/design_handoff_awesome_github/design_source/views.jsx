@@ -241,7 +241,7 @@ function Catalogue({ cat, nav, toast }) {
           )}
           <div className="cat-toolbar">
             <label className="filter-input">
-              <SimpleIcon type="search" size={17} style={{ color: "var(--fg-3)" }} />
+              <span style={{ color: "var(--fg-3)", display: "flex" }}><SimpleIcon type="search" size={17} /></span>
               <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={`Filter ${all.length} ${meta.label.toLowerCase()}…`} />
             </label>
             <span style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--fg-3)" }}>{filtered.length} / {all.length}</span>

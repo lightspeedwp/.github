@@ -40,7 +40,7 @@ function Glossary({ nav, term }) {
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(30px,4.5vw,44px)", letterSpacing: "-.02em", margin: "8px 0 0", color: "var(--fg-1)" }}>Glossary</h1>
           <p style={{ color: "var(--fg-2)", fontSize: 17, lineHeight: 1.6, maxWidth: 600, marginTop: 12 }}>Plain-language definitions for the control-plane, GitHub, and AI-ops vocabulary used across this site. Every term notes why it matters here.</p>
           <label className="filter-input" style={{ maxWidth: 420, marginTop: 20 }}>
-            <SimpleIcon type="search" size={17} style={{ color: "var(--fg-3)" }} />
+            <span style={{ color: "var(--fg-3)", display: "flex" }}><SimpleIcon type="search" size={17} /></span>
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Filter terms…" />
           </label>
         </div>

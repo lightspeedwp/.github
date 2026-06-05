@@ -51,9 +51,7 @@ function SimpleIcon({ type, size = 18, theme = "dark" }) {
   const s = size;
   if (type === "search") return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>;
   if (type === "github") return <svg width={s} height={s} viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.6.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>;
-  if (type === "theme") return theme === "dark" ?
-    <svg width={s} height={s} viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> :
-    <svg width={s} height={s} viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
+  if (type === "theme") return <SimpleIcon type={theme === "dark" ? "sun" : "moon"} size={s} />;
   if (type === "close") return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
   if (type === "sun") return <svg width={s} height={s} viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" strokeWidth="2"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" strokeWidth="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" strokeWidth="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" strokeWidth="2"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" strokeWidth="2"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" strokeWidth="2"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" strokeWidth="2"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" strokeWidth="2"/></svg>;
   if (type === "moon") return <svg width={s} height={s} viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
@@ -77,6 +75,8 @@ function SimpleIcon({ type, size = 18, theme = "dark" }) {
   if (type === "workflow") return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg>;
   if (type === "wrench") return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 1 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>;
   if (type === "puzzle") return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 6l-2 2v7c0 1 .8 1.8 1.8 1.8h4.4c1 0 1.8.8 1.8 1.8v1.8c0 1 .8 1.8 1.8 1.8h4c1 0 1.8-.8 1.8-1.8V8c0-.6.4-1 1-1h3"/></svg>;
+  const Fn = window.Icons && window.Icons[type];
+  if (Fn) return Fn({ size: s });
   return null;
 }
 
@@ -99,7 +99,7 @@ function Nav({ route, nav, theme, setTheme, openSearch }) {
         </a>
 
         <nav className="nav-primary">
-          <button className={"nav-btn" + (route.view === "catalogue" ? " active" : "")} onClick={() => nav({ view: "catalogue", cat: "agents" })}>Browse</button>
+          <button className={"nav-btn" + ((drawer || route.view === "catalogue") ? " active" : "")} onClick={() => setDrawer(true)}>Browse</button>
           <button className={"nav-btn" + (isPage("cookbook") ? " active" : "")} onClick={() => nav({ view: "cookbook" })}>Cookbook</button>
           <button className={"nav-btn" + (isPage("learn") ? " active" : "")} onClick={() => nav({ view: "learn" })}>Learn</button>
           <button className={"nav-btn" + (isPage("why") || isPage("getting-started") || isPage("glossary") || isPage("references") ? " active" : "")} onClick={() => nav({ view: "why" })}>Resources</button>
