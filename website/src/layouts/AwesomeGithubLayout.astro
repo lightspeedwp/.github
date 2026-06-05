@@ -3,9 +3,21 @@ import "../styles/global.css";
 import "../styles/awesome-github.css";
 import AwesomeGithubNav from "../components/AwesomeGithub/AwesomeGithubNav.astro";
 import AwesomeGithubFooter from "../components/AwesomeGithub/AwesomeGithubFooter.astro";
+import SearchPalette from "../components/AwesomeGithub/SearchPalette.svelte";
+import { ITEMS } from "../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
 const pathname = Astro.url.pathname.replace(base, "/");
+
+// Pass minimal search data (no large body content)
+const searchItems = ITEMS.map((i) => ({
+  id: i.id,
+  slug: i.slug,
+  cat: i.cat,
+  name: i.name,
+  description: i.description,
+  tags: i.tags,
+}));
 
 const {
   title = "Awesome GitHub",
@@ -45,6 +57,7 @@ const themeInitScript = `
   </head>
   <body class="awesome-github">
     <AwesomeGithubNav base={base} pathname={pathname} />
+    <SearchPalette client:only="svelte" items={searchItems} base={base} />
     <main>
       <slot />
     </main>
@@ -65,6 +78,14 @@ const themeInitScript = `
           root.dataset.theme = next;
           root.style.colorScheme = next;
           button.setAttribute("aria-pressed", String(next === "light"));
+        });
+      }
+
+      // Wire nav search button to open search palette
+      const searchBtn = document.querySelector("[data-search-open]");
+      if (searchBtn) {
+        searchBtn.addEventListener("click", () => {
+          document.dispatchEvent(new CustomEvent("search-palette-open"));
         });
       }
     </script>

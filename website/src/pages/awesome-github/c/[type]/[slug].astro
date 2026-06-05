@@ -1,70 +1,39 @@
 ---
 import AwesomeGithubLayout from "../../../../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../../../../components/AwesomeGithub/AwesomeGithubButton.astro";
-import { getResource, getResourcesByType, getAvailableResourceTypes } from "../../../../lib/resources";
+import { getItemBySlug, getItemsByCategory, getCategoryInfo, urlsFor, installable, TYPES, ITEMS } from "../../../../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
 
-// Get the type and slug from URL params
 const { type, slug } = Astro.params;
 
-if (!type || !slug) {
-  throw new Error('Resource type and slug are required');
-}
-
-// Get the resource
-const resource = getResource(type, slug);
-
-if (!resource) {
-  throw new Error(`Resource not found: ${type}/${slug}`);
-}
-
-// Get resource type info
-const allTypes = getAvailableResourceTypes();
-const resourceTypeInfo = allTypes.find(t => t.type === type);
-
-// Get related resources
-const relatedResources = getResourcesByType(type)
-  .filter(r => r.slug !== slug)
-  .slice(0, 3);
-
-// Generate paths for dynamic routes
 export async function getStaticPaths() {
-  const paths: any[] = [];
-  const types = getAvailableResourceTypes();
-
-  for (const typeInfo of types) {
-    const resources = getResourcesByType(typeInfo.type);
-    resources.forEach(resource => {
-      paths.push({
-        params: { type: typeInfo.type, slug: resource.slug },
-      });
-    });
-  }
-
-  return paths;
+  return ITEMS.map((item) => ({ params: { type: item.cat, slug: item.slug } }));
 }
 
-// Format date
-function formatDate(dateStr: string | undefined): string {
-  if (!dateStr) return '';
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
-}
+const item = getItemBySlug(type!, slug!);
+if (!item) return Astro.redirect(`${base}awesome-github/`);
+
+const category = getCategoryInfo(type!);
+const typeInfo = TYPES[item.type];
+const relatedItems = getItemsByCategory(type!).filter((i) => i.slug !== slug).slice(0, 3);
+
+const urls = urlsFor(item, "main");
+const canInstall = installable(item);
 ---
 
 <AwesomeGithubLayout
-  title={`${resource.title} — Awesome GitHub`}
-  description={resource.description}
+  title={`${item.name} — ${category?.label || type} — Awesome GitHub`}
+  description={item.description}
 >
   <section class="ag-breadcrumb-section">
     <div class="ag-container">
       <nav class="ag-breadcrumb" aria-label="Breadcrumb">
-        <a href={`${base}awesome-github`}>Home</a>
+        <a href={`${base}awesome-github/`}>Home</a>
         <span class="ag-breadcrumb-separator">/</span>
-        <a href={`${base}awesome-github/c/${type}/`}>{resourceTypeInfo?.label}</a>
+        <a href={`${base}awesome-github/c/${type}/`}>{category?.label}</a>
         <span class="ag-breadcrumb-separator">/</span>
-        <span>{resource.title}</span>
+        <span>{item.name}</span>
       </nav>
     </div>
   </section>
@@ -73,43 +42,72 @@ function formatDate(dateStr: string | undefined): string {
     <div class="ag-container">
       <div class="ag-resource-header">
         <div class="ag-resource-meta-header">
-          <span class="ag-resource-type">{resourceTypeInfo?.icon} {resourceTypeInfo?.label}</span>
-          {resource.frontmatter.status && (
-            <span class={`ag-resource-status ag-status-${resource.frontmatter.status}`}>
-              {resource.frontmatter.status}
-            </span>
-          )}
+          <span class="ag-resource-type">{typeInfo?.badge || category?.label}</span>
+          <span class="ag-resource-version">{item.version}</span>
+          <span class="ag-resource-updated">{item.updated}</span>
         </div>
-        <h1 class="ag-h1">{resource.title}</h1>
-        <p class="ag-lead">{resource.description}</p>
+        <h1 class="ag-h1">{item.name}</h1>
+        <p class="ag-lead">{item.description}</p>
+        {typeInfo && <p class="ag-type-note">{typeInfo.note}</p>}
       </div>
 
-      <div class="ag-resource-metadata">
-        {resource.frontmatter.version && (
-          <div class="ag-metadata-item">
-            <span class="ag-metadata-label">Version</span>
-            <span class="ag-metadata-value">{resource.frontmatter.version}</span>
-          </div>
+      <!-- Action buttons -->
+      <div class="ag-actions">
+        {canInstall && (
+          <a href={urls.vscode} class="ag-action-btn ag-action-btn--primary">
+            <span aria-hidden="true">↓</span> Install in VS Code
+          </a>
         )}
-        {resource.frontmatter.last_updated && (
-          <div class="ag-metadata-item">
-            <span class="ag-metadata-label">Last Updated</span>
-            <span class="ag-metadata-value">{formatDate(resource.frontmatter.last_updated)}</span>
-          </div>
+        <button
+          class="ag-action-btn ag-action-btn--secondary"
+          data-copy-url={urls.raw}
+          type="button"
+        >
+          <span aria-hidden="true">📋</span> Copy raw URL
+        </button>
+        {!item.tree && (
+          <button
+            class="ag-action-btn ag-action-btn--secondary"
+            data-copy-content={urls.raw}
+            type="button"
+          >
+            <span aria-hidden="true">⎘</span> Copy file
+          </button>
         )}
-        {resource.frontmatter.author && (
-          <div class="ag-metadata-item">
-            <span class="ag-metadata-label">Author</span>
-            <span class="ag-metadata-value">{resource.frontmatter.author}</span>
-          </div>
-        )}
-        {resource.frontmatter.maintainer && (
-          <div class="ag-metadata-item">
-            <span class="ag-metadata-label">Maintainer</span>
-            <span class="ag-metadata-value">{resource.frontmatter.maintainer}</span>
-          </div>
-        )}
+        <a
+          href={urls.blob}
+          class="ag-action-btn ag-action-btn--ghost"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span aria-hidden="true">↗</span> View on GitHub
+        </a>
       </div>
+
+      {item.applyTo && (
+        <div class="ag-apply-to">
+          <span class="ag-apply-label">Applies to:</span>
+          <code class="ag-apply-value">{item.applyTo}</code>
+        </div>
+      )}
+      {item.run && (
+        <div class="ag-apply-to">
+          <span class="ag-apply-label">Run:</span>
+          <code class="ag-apply-value">{item.run}</code>
+        </div>
+      )}
+      {item.validates && (
+        <div class="ag-apply-to">
+          <span class="ag-apply-label">Validates:</span>
+          <span class="ag-apply-text">{item.validates}</span>
+        </div>
+      )}
+      {item.duration && (
+        <div class="ag-apply-to">
+          <span class="ag-apply-label">Duration:</span>
+          <span class="ag-apply-text">{item.duration}</span>
+        </div>
+      )}
     </div>
   </section>
 
@@ -117,71 +115,55 @@ function formatDate(dateStr: string | undefined): string {
     <div class="ag-content-container">
       <div class="ag-main-content">
         <div class="ag-resource-content">
-          {resource.content ? (
-            <div set:html={resource.content} />
+          {item.body ? (
+            <pre class="ag-body-pre"><code>{item.body}</code></pre>
           ) : (
-            <p>No additional content available for this resource.</p>
+            <div class="ag-no-body">
+              <p>This resource is stored at <code>{item.path}</code> in the repository.</p>
+              <a href={urls.blob} target="_blank" rel="noopener noreferrer" class="ag-gh-link">
+                View on GitHub ↗
+              </a>
+            </div>
           )}
         </div>
       </div>
 
       <aside class="ag-sidebar">
-        {resource.frontmatter.tags && resource.frontmatter.tags.length > 0 && (
+        {item.tags.length > 0 && (
           <div class="ag-sidebar-section">
             <h3>Tags</h3>
             <div class="ag-tags-list">
-              {resource.frontmatter.tags.map((tag) => (
+              {item.tags.map((tag) => (
                 <span class="ag-tag">{tag}</span>
               ))}
             </div>
           </div>
         )}
 
-        {resource.frontmatter.tools && Array.isArray(resource.frontmatter.tools) && resource.frontmatter.tools.length > 0 && (
+        {item.path && (
           <div class="ag-sidebar-section">
-            <h3>Tools</h3>
-            <ul class="ag-tools-list">
-              {resource.frontmatter.tools.slice(0, 10).map((tool: string) => (
-                <li>{tool}</li>
-              ))}
-              {resource.frontmatter.tools.length > 10 && (
-                <li>+{resource.frontmatter.tools.length - 10} more</li>
-              )}
-            </ul>
-          </div>
-        )}
-
-        {resource.frontmatter.handoffs && Array.isArray(resource.frontmatter.handoffs) && resource.frontmatter.handoffs.length > 0 && (
-          <div class="ag-sidebar-section">
-            <h3>Handoffs</h3>
-            <ul class="ag-handoffs-list">
-              {resource.frontmatter.handoffs.map((handoff: any) => (
-                <li>
-                  <strong>{handoff.label}</strong>
-                  <p>{handoff.prompt}</p>
-                </li>
-              ))}
-            </ul>
+            <h3>Path</h3>
+            <code class="ag-path-code">{item.path}</code>
           </div>
         )}
 
         <div class="ag-sidebar-section">
           <a href={`${base}awesome-github/c/${type}/`} class="ag-back-link">
-            ← Back to {resourceTypeInfo?.label}
+            ← Back to {category?.label}
           </a>
         </div>
       </aside>
     </div>
   </section>
 
-  {relatedResources.length > 0 && (
+  {relatedItems.length > 0 && (
     <section class="ag-section-alt">
       <div class="ag-container">
-        <h2 class="ag-h2">Related {resourceTypeInfo?.label}</h2>
+        <h2 class="ag-h2">More {category?.label}</h2>
         <div class="ag-related-grid">
-          {relatedResources.map((rel) => (
+          {relatedItems.map((rel) => (
             <a href={`${base}awesome-github/c/${type}/${rel.slug}/`} class="ag-related-card">
-              <h3 class="ag-related-title">{rel.title}</h3>
+              <h3 class="ag-related-title">{rel.name}</h3>
               <p class="ag-related-description">{rel.description}</p>
             </a>
           ))}
@@ -190,6 +172,38 @@ function formatDate(dateStr: string | undefined): string {
     </section>
   )}
 </AwesomeGithubLayout>
+
+<script>
+  const base = import.meta.env.BASE_URL;
+
+  // Copy raw URL buttons
+  document.querySelectorAll<HTMLButtonElement>("[data-copy-url]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const url = btn.dataset.copyUrl || "";
+      try {
+        await navigator.clipboard.writeText(url);
+        const orig = btn.textContent;
+        btn.textContent = "✓ Copied!";
+        setTimeout(() => { btn.textContent = orig; }, 2000);
+      } catch { /* denied */ }
+    });
+  });
+
+  // Copy file content buttons
+  document.querySelectorAll<HTMLButtonElement>("[data-copy-content]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const url = btn.dataset.copyContent || "";
+      try {
+        const resp = await fetch(url);
+        const text = await resp.text();
+        await navigator.clipboard.writeText(text);
+        const orig = btn.textContent;
+        btn.textContent = "✓ Copied!";
+        setTimeout(() => { btn.textContent = orig; }, 2000);
+      } catch { /* network/clipboard error */ }
+    });
+  });
+</script>
 
 <style>
   .ag-container {
@@ -515,6 +529,176 @@ function formatDate(dateStr: string | undefined): string {
     color: var(--fg-2);
     margin: 0;
     line-height: var(--lh-snug);
+  }
+
+  .ag-resource-version,
+  .ag-resource-updated {
+    font-size: var(--fs-body-sm);
+    color: var(--c-slate-300);
+  }
+
+  .ag-type-note {
+    font-size: var(--fs-body-sm);
+    color: var(--c-slate-400, #94a3b8);
+    margin: var(--space-3) 0 0 0;
+    font-style: italic;
+  }
+
+  /* Action buttons */
+  .ag-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  .ag-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-body);
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out, box-shadow 0.15s ease-out;
+    line-height: 1;
+  }
+
+  .ag-action-btn--primary {
+    background: var(--accent, #1e6aff);
+    color: #fff;
+    border-color: var(--accent, #1e6aff);
+  }
+
+  .ag-action-btn--primary:hover {
+    background: var(--accent-dark, #155de0);
+    border-color: var(--accent-dark, #155de0);
+    box-shadow: 0 4px 12px rgba(30, 106, 255, 0.35);
+  }
+
+  .ag-action-btn--secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--c-white, #fff);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .ag-action-btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .ag-action-btn--ghost {
+    background: transparent;
+    color: var(--c-slate-300, #cbd5e1);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .ag-action-btn--ghost:hover {
+    color: var(--c-white, #fff);
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  /* Metadata rows (applyTo, run, validates, duration) */
+  .ag-apply-to {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    font-size: var(--fs-body-sm);
+  }
+
+  .ag-apply-label {
+    flex-shrink: 0;
+    color: var(--c-slate-300, #cbd5e1);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 11px;
+  }
+
+  .ag-apply-value {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--c-light-blue, #7be7ff);
+    background: rgba(123, 231, 255, 0.08);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+  }
+
+  .ag-apply-text {
+    color: var(--c-slate-200, #e2e8f0);
+  }
+
+  /* Body content */
+  .ag-body-pre {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--fg-2);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .ag-body-pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+  }
+
+  /* No-body fallback */
+  .ag-no-body {
+    padding: var(--space-10);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: var(--fg-2);
+  }
+
+  .ag-no-body p {
+    margin: 0 0 var(--space-4) 0;
+    font-size: var(--fs-body-sm);
+  }
+
+  .ag-gh-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    transition: background 0.15s ease-out;
+  }
+
+  .ag-gh-link:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* Sidebar path */
+  .ag-path-code {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    word-break: break-all;
+    line-height: 1.5;
   }
 
   @media (max-width: 768px) {
