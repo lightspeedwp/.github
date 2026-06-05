@@ -127,7 +127,7 @@
           class="sp-input"
           type="text"
           role="combobox"
-          aria-expanded="true"
+          aria-expanded={filtered.length > 0}
           aria-haspopup="listbox"
           placeholder="Search agents, instructions, prompts…"
           autocomplete="off"

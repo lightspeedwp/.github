@@ -20,6 +20,7 @@ export type ResourceType =
   | "hooks"
   | "workflows"
   | "prompts"
+  | "plugins"
   | "tools";
 
 export interface ResourceFrontmatter {
@@ -146,6 +147,7 @@ export function getAvailableActions(type: string): ResourceAction[] {
     hooks: ["copy", "download", "github"],
     workflows: ["copy", "github"],
     prompts: ["copy", "github"],
+    plugins: ["copy", "download", "github", "vscode"],
     tools: ["copy", "download", "github"],
   };
 

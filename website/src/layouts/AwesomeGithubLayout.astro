@@ -59,7 +59,7 @@ const themeInitScript = `
     <a href="#main-content" class="ag-skip-link">Skip to main content</a>
     <AwesomeGithubNav base={base} pathname={pathname} />
     <SearchPalette client:only="svelte" items={searchItems} base={base} />
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <AwesomeGithubFooter />

@@ -78,14 +78,16 @@ const trackIcons: Record<string, string> = {
         ))}
       </ol>
 
-      <div class="track-start-cta">
-        <AwesomeGithubButton
-          href={`${base}learn/${track.id}/${track.lessons[0].slug}/`}
-          variant="primary"
-        >
-          Start first lesson
-        </AwesomeGithubButton>
-      </div>
+      {track.lessons[0] && (
+        <div class="track-start-cta">
+          <AwesomeGithubButton
+            href={`${base}learn/${track.id}/${track.lessons[0].slug}/`}
+            variant="primary"
+          >
+            Start first lesson
+          </AwesomeGithubButton>
+        </div>
+      )}
     </div>
   </section>
 
@@ -367,7 +369,9 @@ const trackIcons: Record<string, string> = {
       }
 
       completedSlugs.forEach((slug) => {
-        const item = document.querySelector(`[data-lesson-slug="${slug}"]`);
+        const item = Array.from(document.querySelectorAll("[data-lesson-slug]")).find(
+          (el) => el.getAttribute("data-lesson-slug") === slug
+        );
         if (item) item.classList.add("track-lesson--completed");
       });
     }
