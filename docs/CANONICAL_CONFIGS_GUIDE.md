@@ -91,6 +91,27 @@ sequenceDiagram
 
 1. `type:*` labels used in `.github/issue-fields.yml` Type mappings must exist in both `.github/labels.yml` and `.github/issue-types.yml`.
 2. `status:*` and `priority:*` mappings in `.github/issue-fields.yml` must resolve to labels defined in `.github/labels.yml`.
+3. `.github/labeler.yml` may only emit canonical labels defined in `.github/labels.yml`.
+4. `.github/issue-types.yml` display types should map to canonical `type:*` labels that can be projected into project field Type values.
+
+## Current Risks Observed
+
+- Cross-file Type parity is validator-enforced, but downstream documentation can still drift if canonical types are added without matching doc updates.
+- Legacy references to deprecated files can still create operator confusion if docs are updated unevenly.
+
+## Recommended Validation Hooks
+
+- `scripts/validation/validate-issue-fields.cjs` enforces strict cross-file parity for `Status`, `Priority`, and `Type` mappings.
+- `scripts/validation/validate-labeling-configs.cjs` fails when `.github/labeler.yml` emits labels not defined in `.github/labels.yml`.
+- `scripts/validation/validate-branch-name.js` enforces branch naming discipline for pull requests targeting `develop`.
+
+## Related Documentation
+
+- [docs/ISSUE_FIELDS.md](./ISSUE_FIELDS.md)
+- [docs/ISSUE_TYPES.md](./ISSUE_TYPES.md)
+- [docs/LABEL_STRATEGY.md](./LABEL_STRATEGY.md)
+- [docs/LABELING.md](./LABELING.md)
+- [docs/BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
 3. `labeler.yml` may only emit canonical labels defined in `.github/labels.yml`.
 4. `issue-types.yml` display types should map to canonical `type:*` labels that can be projected into project field Type values.
 

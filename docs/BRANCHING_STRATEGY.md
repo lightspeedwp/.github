@@ -1,3 +1,16 @@
+---
+file_type: documentation
+title: Org-wide Git Branching Strategy
+description: Canonical branch naming, protection, merge discipline, and automation rules for LightSpeedWP repositories.
+last_updated: '2026-06-03'
+owners:
+  - LightSpeed Team
+version: v1.1
+status: active
+stability: stable
+domain: governance
+---
+
 # Org-wide Git Branching Strategy
 
 Primary operations reference: [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md)
@@ -122,6 +135,13 @@ hotfix/ga4-purchase-duplicate
 ---
 
 ## 4. Branch Name Enforcement via CI
+
+### 4.1 Human and Agent Branch Discipline
+
+- Validate branch relevance before the first edit.
+- If the current branch belongs to a different issue, PR, or task, create a new branch from `develop` before making changes.
+- Do not reuse in-flight branches for unrelated work, even when the working tree is already open.
+- If unrelated local changes are present, use a clean worktree rather than mixing scopes.
 
 Use a single regex in a workflow to enforce naming discipline:
 
