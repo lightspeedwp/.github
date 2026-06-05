@@ -21,6 +21,7 @@ const themeInitScript = `
 
     const theme = saved === "light" || saved === "dark" ? saved : media.matches ? "light" : "dark";
     root.dataset.theme = theme;
+    root.style.colorScheme = theme;
   })();
 `;
 ---

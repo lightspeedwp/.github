@@ -411,6 +411,7 @@ const navLinks = [
       const current = root.getAttribute("data-theme") || "light";
       const next = current === "light" ? "dark" : "light";
       root.setAttribute("data-theme", next);
+      root.style.colorScheme = next;
       try {
         localStorage.setItem("lightspeed-theme", next);
       } catch (e) {
