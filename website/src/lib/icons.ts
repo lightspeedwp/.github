@@ -85,12 +85,20 @@ const icons: Record<string, IconDef> = {
 };
 
 export function getIconSvg(name: string, size: number = 24): string {
-  const icon = icons[name];
+  const aliases: Record<string, string> = {
+    "book-open": "book",
+    "chat-circle": "chat",
+    "sparkle": "sparkles",
+    "git-branch": "workflow",
+    "puzzle-piece": "puzzle",
+  };
+  const resolvedName = aliases[name] || name;
+  const icon = icons[resolvedName];
   if (!icon) {
-    console.warn(`[icons.ts] Missing icon: "${name}"`);
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></svg>`;
+    console.warn("[icons.ts] Missing icon: " + name);
+    return "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"" + size + "\" height=\"" + size + "\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></svg>";
   }
 
   const viewBox = icon.viewBox || "0 0 24 24";
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${icon.path}</svg>`;
+  return "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"" + viewBox + "\" width=\"" + size + "\" height=\"" + size + "\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\">" + icon.path + "</svg>";
 }
