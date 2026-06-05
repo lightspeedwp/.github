@@ -107,8 +107,8 @@ sequenceDiagram
 
 ## Related Documentation
 
-- [docs/ISSUE_FIELDS.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/ISSUE_FIELDS.md)
-- [docs/ISSUE_TYPES.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/ISSUE_TYPES.md)
-- [docs/LABEL_STRATEGY.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/LABEL_STRATEGY.md)
-- [docs/LABELING.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/LABELING.md)
-- [docs/BRANCHING_STRATEGY.md](https://github.com/lightspeedwp/.github/blob/HEAD/docs/BRANCHING_STRATEGY.md)
+- [docs/ISSUE_FIELDS.md](./ISSUE_FIELDS.md)
+- [docs/ISSUE_TYPES.md](./ISSUE_TYPES.md)
+- [docs/LABEL_STRATEGY.md](./LABEL_STRATEGY.md)
+- [docs/LABELING.md](./LABELING.md)
+- [docs/BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
