@@ -2,13 +2,19 @@
 file_type: documentation
 title: Org-wide Git Branching Strategy
 description: Canonical branch naming, protection, merge discipline, and automation rules for LightSpeedWP repositories.
-last_updated: '2026-06-03'
+last_updated: '2026-06-05'
 owners:
   - LightSpeed Team
-version: v1.1
+version: v1.2
 status: active
 stability: stable
 domain: governance
+tags:
+  - branching
+  - git
+  - governance
+  - ci
+language: en
 ---
 
 # Org-wide Git Branching Strategy
@@ -146,7 +152,7 @@ hotfix/ga4-purchase-duplicate
 Use a single regex in a workflow to enforce naming discipline:
 
 ```regex
-^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-z0-9._-]+$
+^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-zA-Z0-9._-]+$
 ```
 
 Example workflow (`.github/workflows/validate-branch-name.yml`):
@@ -165,7 +171,7 @@ jobs:
           BRANCH="${{ github.head_ref }}"
           # Allow dependabot/renovate
           if [[ "$BRANCH" =~ ^(dependabot|renovate)/ ]]; then exit 0; fi
-          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-z0-9._-]+$ ]]; then
+          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-zA-Z0-9._-]+$ ]]; then
             echo "❌ Branch '$BRANCH' must match the required pattern."
             exit 1
           fi

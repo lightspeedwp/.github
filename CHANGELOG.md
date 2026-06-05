@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Awesome GitHub Site: UI Redesign — Dark Mode, Navigation & Responsive Layout** — Complete navigation and UI overhaul. Added desktop Browse mega-dropdown with 4-column category grid (hover/click open, keyboard Escape dismiss, focus-out close). Added full-height mobile drawer sliding from right with backdrop overlay, scroll-lock, and `inert` guard. Fixed dark-mode nav header (was showing light background). Added fluid responsive CSS tokens for spacing and font sizes across breakpoints. Improved accessibility: Disclosure pattern (`aria-expanded`/`aria-controls`, no `role="menu"`), `aria-pressed` on theme toggle buttons, `inert` on closed drawer, nav z-index raised above drawer so hamburger stays accessible. ([#847](https://github.com/lightspeedwp/.github/issues/847), [#845](https://github.com/lightspeedwp/.github/pull/845))
 - **Awesome GitHub Site: Phosphor Icon System** — Replaced all emoji icons (🤖 📖 💬 ✨ 🛡️ ⚙️ 🧩 🔧 🗺️ ✅ 📚 🍳 ☀️ 🌙) with Phosphor SVG icons via a new `Icon.astro` component that reads from `@phosphor-icons/core` at build time — zero runtime JS. Covers catalogue type icons, learning track icons, getting-started cards, cookbook placeholder, and theme toggle buttons. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
 
 ### Fixed
