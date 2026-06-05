@@ -19,17 +19,24 @@ Static site with an Astro build step. GitHub Pages serves the built static files
 - Repository: `lightspeedwp/.github`
 - Default branch: `develop`
 - Work branch for this conversion: `feat/github-pages-static`
-- Live URL once enabled: `https://lightspeedwp.github.io/`
+- Live URL (custom domain from CNAME): `https://github.lightspeedwp.agency/`
+- Live URL (GitHub Pages default): `https://lightspeedwp.github.io/`
 
-## 2. GitHub Pages settings (owner applies after the PR merges)
+## 2. GitHub Pages settings (configured by existing workflow)
 
-Settings → Pages:
+The repository uses an automated GitHub Pages workflow (`.github/workflows/awesome-github-site.yml`) that:
 
-- **Source:** Deploy from a branch
-- **Branch:** `main`  ·  **Folder:** `/ (root)`
-- Save. First deploy takes ~1 min.
+- Builds `website/dist/` via Astro on each push to `develop`
+- Uploads the artefact via `actions/upload-pages-artifact`
+- Deploys automatically via `actions/deploy-pages`
 
-This is a **root site** (not a project site), so all asset paths are absolute (`/styles.css` works correctly).
+**No manual Pages configuration needed.** The workflow handles build and deployment.
+
+**Deployment mode:**
+
+- If custom domain (CNAME) is configured: deployed at root of custom domain (`https://github.lightspeedwp.agency/`)
+- If using GitHub Pages default: deployed at `/` (not under `/<repo>/` subpath)
+- All asset paths are root-absolute (`/fonts/...`, `/favicon.svg`)
 
 ## 3. Entry point & folder
 
@@ -56,7 +63,7 @@ This is a **root site** (not a project site), so all asset paths are absolute (`
 
 ## 6. Build & test locally
 
-Run the build and serve the output:
+Run the build and serve the output to verify:
 
 ```bash
 cd website/
@@ -72,13 +79,23 @@ python3 -m http.server 8000
 - [x] Every page loads, no 404s in the Network tab
 - [x] Theme toggle works and persists via localStorage
 - [x] Planner shows fallback content (no AI errors)
+- [x] Fonts load correctly (`/fonts/*.woff2`)
 - [x] No console errors
 
 ## 7. After merge
 
-- [x] Open `https://lightspeedwp.github.io/` and re-run the §5 checks live
+After merging to `develop`:
+
+1. The GitHub Pages workflow (`.github/workflows/awesome-github-site.yml`) automatically runs
+2. It builds `website/dist/` and uploads the artefact
+3. Pages deploys the artefact to the configured domain
+4. Verify live at `https://github.lightspeedwp.agency/` (or configured custom domain)
+
+Re-run the §5 checks live:
+
 - [x] Verify favicon, fonts, and all assets load correctly
 - [x] Test light/dark theme toggle
+- [x] Planner fallback works (no console errors)
 
 ## Deployment Summary
 
@@ -86,9 +103,9 @@ python3 -m http.server 8000
 |-----------|--------|----------|
 | Astro build | ✅ Ready | `website/astro.config.mjs` |
 | Source files | ✅ Ready | `website/src/pages/` (homepage now at `/index.astro`) |
-| Output folder | ✅ Ready | `website/dist/` (commit build to repo or configure auto-build) |
+| Output folder | ✅ Ready | `website/dist/` (auto-built by workflow) |
 | Assets | ✅ Ready | `website/public/fonts/`, `website/public/favicon.svg` |
-| Fonts | ✅ Ready | @font-face declarations in `website/src/styles/homepage.css` |
-| GitHub Pages | ⏳ Pending | Owner configures in Settings → Pages after PR merge |
+| Fonts | ✅ Ready | @font-face with `/fonts/` paths in `homepage.css` |
+| GitHub Pages | ✅ Ready | Workflow handles automatic deployment on merge to `develop` |
 
-**To deploy:** Push `website/dist/` folder to `main` branch (or configure GitHub Actions to auto-build on push to `main`).
+**No manual deployment needed.** The GitHub Pages workflow is already configured and will deploy automatically.

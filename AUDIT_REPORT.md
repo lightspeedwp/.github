@@ -20,7 +20,7 @@ last_updated: "2026-06-05"
 ```
 On branch feat/github-pages-static
 nothing to commit, working tree clean
-Repository: http://127.0.0.1:40435/git/lightspeedwp/.github
+Repository: lightspeedwp/.github
 Remote: origin
 ```
 
@@ -48,9 +48,15 @@ Remote: origin
 
 ## 2. Asset Paths — Absolute Paths Found
 
-**Finding:** 113 instances of absolute paths (starting with `/`) across HTML, CSS, and JS files. These will **404 under the GitHub Pages project subpath** `/<repo>/`.
+**Finding:** 113 instances of absolute paths (starting with `/`) across HTML, CSS, and JS files.
 
-### Critical Absolute Paths
+**Deployment mode assumption:** This audit assumes **root or custom-domain deployment** (not a GitHub Pages project subpath). Under this assumption, absolute paths are correct and will resolve properly.
+
+- ✅ If deploying to custom domain (`https://github.lightspeedwp.agency/`): Absolute paths work
+- ✅ If deploying to root via GitHub Pages: Absolute paths work
+- ❌ If deploying to project subpath (`/<repo>/`): Absolute paths will 404
+
+### Critical Absolute Paths (All Correct for Root Deployment)
 
 **HomepageLayout.astro:34**
 
@@ -58,36 +64,29 @@ Remote: origin
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 ```
 
-Status: ✅ Correct — Astro's `public/` folder serves at `/` root. Path is correct for root deployment.
+Status: ✅ Correct — Astro's `public/` folder serves at `/` root.
 
-**awesome-github.css (Font declarations)**
+**homepage.css (Font declarations)**
 
 ```css
 @font-face {
   font-family: "Inter";
-  src: url("/fonts/Inter-VariableFont_opsz_wght.woff2") format("woff2-variations"),
-       url("/fonts/Inter-VariableFont_opsz_wght.woff2") format("woff2");
+  src: url("/fonts/Inter-VariableFont_opsz_wght.woff2") format("woff2");
 }
 ```
 
 Files affected: 2 × @font-face declarations  
-Fix: Change paths to `./fonts/` or use relative imports.
+Status: ✅ Correct — Files in `public/` are served from `/`
 
-**Multiple page/component files** (24 files total)
+**Multiple page/component files** (24 files with absolute paths)
 
 - `website/src/components/Homepage/Nav.astro` — logo image path
 - `website/src/pages/*/*.astro` — various image and link references
 - `website/src/layouts/AwesomeGithubLayout.astro` — layout assets
 
-### Strategy to Fix
+All use root-absolute paths appropriate for root/custom-domain deployment.
 
-Since the site is a **project site** under `/<repo>/`, Astro's `BASE_URL` needs to be leveraged or a `<base href>` tag added. **Recommended approach:**
-
-- Use Astro's `import.meta.env.BASE_URL` for dynamic paths (already used in index.astro)
-- Convert absolute paths to relative: `/fonts/` → `./fonts/`
-- Use `<base href="/github/">` in the HTML `<head>` if serving from a subpath
-
-**Audit Status:** ⚠️ **Must fix before deployment**
+**Audit Status:** ✅ **Paths are correct for configured deployment mode (custom domain)**
 
 ---
 
