@@ -1,5 +1,5 @@
 // Resource utilities for the Awesome GitHub website
-import { getItemsByCategory, getItemBySlug } from "./catalogue";
+import { getItemsByCategory, getItemBySlug, type CatalogueItem } from "./catalogue";
 
 export const REPO_INFO = {
   owner: "lightspeedwp",
@@ -63,7 +63,7 @@ export function getAvailableResourceTypes(): ResourceTypeInfo[] {
   }));
 }
 
-function catalogueItemToResource(catalogueItem: { id: string; cat: string; slug: string; name: string; description: string; type: string; tags: string[]; version: string; updated: string; applyTo?: string; path?: string; tree: boolean; body?: string | null; run?: string | null; validates?: string | null; dest?: string | null; duration?: string | null; action?: string | null }): Resource {
+function catalogueItemToResource(catalogueItem: CatalogueItem): Resource {
   return {
     slug: catalogueItem.slug,
     title: catalogueItem.name,

@@ -249,7 +249,10 @@ const canInstall = installable(item);
     const path = toggle.dataset.path || "";
     const cat = toggle.dataset.cat || "";
     const isTree = toggle.dataset.tree === "true";
-    let branch = localStorage.getItem("github_branch") || "main";
+    let branch = "main";
+    try {
+      branch = localStorage.getItem("github_branch") || "main";
+    } catch { /* localStorage blocked in private browsing */ }
 
     function applyBranch(b: string) {
       const urls = computeUrls(path, cat, isTree, b);
@@ -267,7 +270,9 @@ const canInstall = installable(item);
 
     toggle.addEventListener("click", () => {
       branch = branch === "main" ? "develop" : "main";
-      localStorage.setItem("github_branch", branch);
+      try {
+        localStorage.setItem("github_branch", branch);
+      } catch { /* localStorage blocked in private browsing */ }
       applyBranch(branch);
     });
   })();

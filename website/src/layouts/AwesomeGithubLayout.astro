@@ -82,13 +82,12 @@ const themeInitScript = `
         });
       }
 
-      // Wire nav search button to open search palette
-      const searchBtn = document.querySelector("[data-search-open]");
-      if (searchBtn) {
-        searchBtn.addEventListener("click", () => {
+      // Wire nav search button(s) to open search palette via event delegation
+      document.addEventListener("click", (e) => {
+        if (e.target instanceof Element && e.target.closest("[data-search-open]")) {
           document.dispatchEvent(new CustomEvent("search-palette-open"));
-        });
-      }
+        }
+      });
     </script>
   </body>
 </html>

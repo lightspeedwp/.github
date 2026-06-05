@@ -60,6 +60,20 @@
     if (e.key === "ArrowDown") { e.preventDefault(); selected = Math.min(selected + 1, filtered.length - 1); }
     if (e.key === "ArrowUp") { e.preventDefault(); selected = Math.max(selected - 1, 0); }
     if (e.key === "Enter" && filtered[selected]) navigate(filtered[selected]);
+    if (e.key === "Tab" && dialogEl) {
+      const focusable = dialogEl.querySelectorAll<HTMLElement>('input, button, [tabindex="0"]');
+      if (focusable.length > 0) {
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
   }
 
   function handleBackdropClick(e: MouseEvent) {
