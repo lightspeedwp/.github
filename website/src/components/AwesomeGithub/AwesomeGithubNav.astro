@@ -1,4 +1,5 @@
 ---
+import { CATEGORIES } from "../../lib/catalogue";
 import Icon from "./Icon.astro";
 
 interface Props {
@@ -9,36 +10,115 @@ interface Props {
 const { base, pathname } = Astro.props;
 
 const navLinks = [
-  { href: `${base}`, path: "/", label: "Home", exact: true },
-  { href: `${base}c/agents/`, path: "/c/", label: "Catalogue", exact: false },
-  { href: `${base}learn/`, path: "/learn", label: "Learn", exact: false },
-  { href: `${base}cookbook/`, path: "/cookbook", label: "Cookbook", exact: false },
-  { href: `${base}glossary/`, path: "/glossary", label: "Glossary", exact: false },
+  { href: `${base}getting-started/`, path: "/getting-started", label: "Getting started" },
+  { href: `${base}learn/`, path: "/learn", label: "Learn" },
+  { href: `${base}cookbook/`, path: "/cookbook", label: "Cookbook" },
+  { href: `${base}glossary/`, path: "/glossary", label: "Glossary" },
+  { href: `${base}why/`, path: "/why", label: "Why" },
 ];
 
-const isActive = (linkPath: string, exact: boolean): boolean => {
-  const normPath = pathname.replace(/\/$/, "");
-  const normLink = linkPath.replace(/\/$/, "");
-  return exact ? normPath === normLink : normPath === normLink || normPath.startsWith(normLink + "/");
+const isCatActive = (linkPath: string): boolean => {
+  const norm = pathname.replace(/\/$/, "");
+  const lp = linkPath.replace(/\/$/, "");
+  return norm === lp || norm.startsWith(lp + "/");
 };
 ---
 
-<header class="ag-nav">
-  <a href={`${base}`} class="ag-nav-brand">
-    <span class="ag-logo" aria-hidden="true">✦</span>
-    <span class="ag-brand-text">
-      <span class="ag-brand-word">Awesome</span>
-      <span class="ag-brand-emphasis">GitHub</span>
-    </span>
-  </a>
+<!-- Sticky nav bar -->
+<header class="ag-nav" role="banner">
+  <div class="ag-nav-inner">
 
-  <nav class="ag-nav-menu" id="ag-nav-menu" aria-label="Main navigation">
-    {navLinks.map((link) => (
-      <a
-        href={link.href}
-        class="ag-nav-link"
-        aria-current={isActive(link.path, link.exact) ? "page" : undefined}
+    <!-- Brand / Logo -->
+    <a href={base} class="ag-nav-brand" aria-label="Awesome GitHub — home">
+      <svg class="ag-nav-sparkle" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false">
+        <path d="M14 2 L15.8 11.2 L24 10 L17.2 16 L20 24 L14 19.6 L8 24 L10.8 16 L4 10 L12.2 11.2 Z" fill="currentColor"/>
+      </svg>
+      <span class="ag-brand-text">
+        <span class="ag-brand-word">Awesome</span><span class="ag-brand-em">GitHub</span>
+      </span>
+    </a>
+
+    <!-- Desktop nav (hidden on mobile) -->
+    <nav class="ag-nav-desktop" aria-label="Main navigation">
+      <!-- Browse mega-dropdown -->
+      <div class="ag-browse-wrapper" data-browse-menu>
+        <button
+          class="ag-nav-link ag-browse-trigger"
+          aria-expanded="false"
+          aria-haspopup="menu"
+          aria-controls="ag-browse-panel"
+        >
+          Browse
+          <i class="ph ph-caret-down ag-caret-icon" aria-hidden="true"></i>
+        </button>
+        <div
+          class="ag-browse-panel"
+          id="ag-browse-panel"
+          role="menu"
+          aria-label="Browse categories"
+        >
+          <div class="ag-browse-grid">
+            {CATEGORIES.map((cat) => (
+              <a
+                href={`${base}c/${cat.id}/`}
+                class="ag-browse-card"
+                role="menuitem"
+              >
+                <i class={`ph ph-${cat.icon} ag-browse-cat-icon`} aria-hidden="true"></i>
+                <span class="ag-browse-cat-name">{cat.label}</span>
+                <span class="ag-browse-cat-blurb">{cat.blurb}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Other nav links -->
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="ag-nav-link"
+          aria-current={isCatActive(link.path) ? "page" : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Right-side controls -->
+    <div class="ag-nav-actions">
+      <button
+        class="ag-icon-btn"
+        type="button"
+        aria-label="Search (Ctrl+K)"
+        title="Search (Ctrl+K)"
+        data-search-open
       >
+        <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+      </button>
+      <button
+        class="ag-icon-btn ag-theme-toggle-btn"
+        type="button"
+        data-awesome-github-theme-toggle
+        aria-label="Toggle colour theme"
+      >
+        <i class="ph ph-sun ag-icon-sun" aria-hidden="true"></i>
+        <i class="ph ph-moon ag-icon-moon" aria-hidden="true"></i>
+      </button>
+      <!-- Hamburger — only visible on mobile -->
+      <button
+        class="ag-icon-btn ag-hamburger-btn"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="ag-mobile-drawer"
+        data-nav-hamburger
+      >
+        <i class="ph ph-list ag-icon-menu" aria-hidden="true"></i>
+        <i class="ph ph-x ag-icon-close" aria-hidden="true"></i>
+      </button>
+    </div>
+
         {link.label}
       </a>
     ))}
@@ -79,10 +159,132 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
   </div>
 </header>
 
-<script>
-  const hamburger = document.querySelector<HTMLButtonElement>("[data-nav-hamburger]");
-  const menu = document.getElementById("ag-nav-menu");
+<!-- Mobile backdrop overlay -->
+<div
+  class="ag-mobile-overlay"
+  id="ag-mobile-overlay"
+  aria-hidden="true"
+  data-nav-overlay
+></div>
 
+<!-- Mobile full-screen drawer -->
+<aside
+  class="ag-mobile-drawer"
+  id="ag-mobile-drawer"
+  aria-label="Mobile navigation menu"
+  aria-hidden="true"
+>
+  <div class="ag-drawer-content">
+
+    <div class="ag-drawer-section">
+      <h2 class="ag-drawer-section-title">Browse</h2>
+      <div class="ag-drawer-cat-grid">
+        {CATEGORIES.map((cat) => (
+          <a href={`${base}c/${cat.id}/`} class="ag-drawer-cat-item">
+            <i class={`ph ph-${cat.icon}`} aria-hidden="true"></i>
+            <span>{cat.label}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="ag-drawer-section">
+      <h2 class="ag-drawer-section-title">Explore</h2>
+      <nav aria-label="Mobile navigation links">
+        {navLinks.map((link) => (
+          <a href={link.href} class="ag-drawer-nav-link">
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <div class="ag-drawer-section ag-drawer-section--theme">
+      <button
+        class="ag-drawer-theme-btn"
+        type="button"
+        data-awesome-github-theme-toggle
+        aria-label="Toggle colour theme"
+      >
+        <i class="ph ph-sun ag-icon-sun" aria-hidden="true"></i>
+        <i class="ph ph-moon ag-icon-moon" aria-hidden="true"></i>
+        <span class="ag-drawer-theme-label">
+          <span class="ag-drawer-theme-label--light">Switch to dark mode</span>
+          <span class="ag-drawer-theme-label--dark">Switch to light mode</span>
+        </span>
+      </button>
+    </div>
+
+  </div>
+</aside>
+
+<script>
+  // ── Browse dropdown ─────────────────────────────────────────────
+  const browseWrapper = document.querySelector<HTMLElement>("[data-browse-menu]");
+  const browseTrigger = browseWrapper?.querySelector<HTMLButtonElement>(".ag-browse-trigger");
+  const browsePanel = document.getElementById("ag-browse-panel");
+
+  if (browseWrapper && browseTrigger && browsePanel) {
+    const openBrowse = () => {
+      browseWrapper.dataset.open = "";
+      browseTrigger.setAttribute("aria-expanded", "true");
+    };
+    const closeBrowse = () => {
+      delete browseWrapper.dataset.open;
+      browseTrigger.setAttribute("aria-expanded", "false");
+    };
+
+    // Hover for pointer devices
+    browseWrapper.addEventListener("mouseenter", openBrowse);
+    browseWrapper.addEventListener("mouseleave", closeBrowse);
+
+    // Click toggle for touch/keyboard
+    browseTrigger.addEventListener("click", () => {
+      browseWrapper.hasAttribute("data-open") ? closeBrowse() : openBrowse();
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && browseWrapper.hasAttribute("data-open")) {
+        closeBrowse();
+        browseTrigger.focus();
+      }
+    });
+
+    // Close on outside click
+    document.addEventListener("click", (e) => {
+      if (e.target instanceof Element && !browseWrapper.contains(e.target)) {
+        closeBrowse();
+      }
+    });
+
+    // Close when a category link is clicked
+    browsePanel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeBrowse);
+    });
+  }
+
+  // ── Mobile drawer ───────────────────────────────────────────────
+  const hamburger = document.querySelector<HTMLButtonElement>("[data-nav-hamburger]");
+  const drawer = document.getElementById("ag-mobile-drawer");
+  const overlay = document.getElementById("ag-mobile-overlay");
+
+  if (hamburger && drawer && overlay) {
+    const openDrawer = () => {
+      hamburger.setAttribute("aria-expanded", "true");
+      drawer.setAttribute("aria-hidden", "false");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+    const closeDrawer = () => {
+      hamburger.setAttribute("aria-expanded", "false");
+      drawer.setAttribute("aria-hidden", "true");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    };
+
+    hamburger.addEventListener("click", () => {
+      hamburger.getAttribute("aria-expanded") === "true" ? closeDrawer() : openDrawer();
   if (hamburger && menu) {
     const closeMenu = () => {
       hamburger.setAttribute("aria-expanded", "false");
@@ -101,15 +303,18 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
         document.body.style.overflow = "hidden";
       }
     });
+    overlay.addEventListener("click", closeDrawer);
 
+    drawer.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeDrawer);
     // Close on link click (mobile)
     menu.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => closeMenu());
     });
 
-    // Close on Escape
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && hamburger.getAttribute("aria-expanded") === "true") {
+        closeDrawer();
         closeMenu();
         hamburger.focus();
       }
@@ -123,110 +328,221 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
 </script>
 
 <style>
+  /* ── Nav shell ─────────────────────────────────────────────────── */
   .ag-nav {
     position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 72px;
-    padding: 0 var(--gutter);
-    background: rgba(255, 255, 255, 0.97);
+    z-index: 200;
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 1px 3px rgba(9, 9, 9, 0.06);
-    transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+    /* Light mode */
+    background: rgba(255, 255, 255, 0.88);
+    transition:
+      background var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out);
   }
 
   [data-theme="dark"] .ag-nav {
-    background: rgba(15, 16, 20, 0.97);
+    background: rgba(15, 16, 20, 0.92);
     border-bottom-color: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
+  .ag-nav-inner {
+    display: flex;
+    align-items: center;
+    height: 72px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    gap: var(--space-4);
+  }
+
+  /* ── Brand ──────────────────────────────────────────────────────── */
   .ag-nav-brand {
     display: flex;
     align-items: center;
     gap: var(--space-2);
     text-decoration: none;
     color: var(--fg-1);
-    font-weight: var(--weight-bold);
-    font-family: var(--font-display);
-    font-size: 16px;
-    transition: color var(--dur) var(--ease-out);
     flex-shrink: 0;
-    z-index: 1;
+    transition: color var(--dur) var(--ease-out);
   }
 
-  .ag-nav-brand:hover {
+  .ag-nav-brand:hover { color: var(--accent); }
+  .ag-nav-brand:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .ag-nav-sparkle {
     color: var(--accent);
-  }
-
-  .ag-logo {
-    font-size: 20px;
+    flex-shrink: 0;
+    transition: color var(--dur) var(--ease-out);
   }
 
   .ag-brand-text {
+    font-family: var(--font-display);
+    font-size: clamp(14px, 1.2vw, 16px);
+    font-weight: var(--weight-bold);
     display: flex;
-    gap: var(--space-1);
+    gap: 3px;
+    letter-spacing: -0.01em;
   }
 
-  .ag-brand-word {
-    color: var(--fg-1);
-  }
+  .ag-brand-word { color: var(--fg-1); }
+  .ag-brand-em   { color: var(--accent); font-style: normal; }
 
-  .ag-brand-emphasis {
-    color: var(--accent);
-  }
-
-  .ag-nav-menu {
+  /* ── Desktop nav ────────────────────────────────────────────────── */
+  .ag-nav-desktop {
     display: flex;
-    gap: var(--space-8);
-    margin: 0;
-    list-style: none;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    margin-left: var(--space-4);
   }
 
   .ag-nav-link {
-    display: inline-block;
-    padding: var(--space-2) 0;
-    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    font-family: var(--font-body);
+    font-size: clamp(13px, 1vw, 14px);
     font-weight: var(--weight-medium);
     color: var(--fg-2);
     text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: color var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+    white-space: nowrap;
   }
 
-  /* In light mode, boost contrast from slate-500 (#565656) to slate-700 (#404040) */
-  :global([data-theme="light"]) .ag-nav-link,
-  :root:not([data-theme]) .ag-nav-link {
-    color: var(--c-slate-700, #404040);
-  }
+  /* Light mode nav links: boost contrast */
+  [data-theme="light"] .ag-nav-link,
+  :not([data-theme]) .ag-nav-link { color: var(--c-slate-700, #404040); }
+  [data-theme="dark"] .ag-nav-link  { color: var(--fg-2); }
 
   .ag-nav-link:hover {
     color: var(--fg-1);
-    border-bottom-color: var(--accent);
+    background: var(--bg-alt);
   }
 
   .ag-nav-link[aria-current="page"] {
     color: var(--accent);
-    border-bottom-color: var(--accent);
     font-weight: var(--weight-semibold);
   }
 
+  /* Caret rotation */
+  .ag-caret-icon {
+    font-size: 12px;
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .ag-browse-trigger[aria-expanded="true"] .ag-caret-icon {
+    transform: rotate(-180deg);
+  }
+
+  /* ── Browse dropdown ────────────────────────────────────────────── */
+  .ag-browse-wrapper {
+    position: relative;
+  }
+
+  .ag-browse-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: -24px;
+    z-index: 300;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-6);
+    min-width: min(960px, 92vw);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition:
+      opacity var(--dur) var(--ease-out),
+      visibility var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+  }
+
+  .ag-browse-wrapper[data-open] .ag-browse-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .ag-browse-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+  }
+
+  @media (max-width: 1100px) {
+    .ag-browse-grid { grid-template-columns: repeat(2, 1fr); }
+    .ag-browse-panel { min-width: min(520px, 90vw); }
+  }
+
+  .ag-browse-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--fg-1);
+    transition: background var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+    border: 1px solid transparent;
+  }
+
+  .ag-browse-card:hover {
+    background: var(--bg-alt);
+    border-color: var(--border);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .ag-browse-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
+  }
+
+  .ag-browse-cat-icon {
+    font-size: 22px;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .ag-browse-cat-name {
+    font-size: 14px;
+    font-weight: var(--weight-semibold);
+    color: var(--fg-1);
+    line-height: 1.2;
+  }
+
+  .ag-browse-cat-blurb {
+    font-size: 12px;
+    color: var(--fg-3);
+    line-height: 1.45;
+  }
+
+  /* ── Right-side icon buttons ────────────────────────────────────── */
   .ag-nav-actions {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
-    z-index: 1;
+    gap: var(--space-2);
+    margin-left: auto;
+    flex-shrink: 0;
   }
 
-  .ag-nav-search,
-  .ag-nav-theme-toggle {
+  .ag-icon-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -237,27 +553,64 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     color: var(--fg-2);
-    font-size: 12px;
+    font-size: 18px;
     cursor: pointer;
-    transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+    transition:
+      color var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out),
+      background var(--dur) var(--ease-out);
+    flex-shrink: 0;
   }
 
-  .ag-nav-search:hover,
-  .ag-nav-theme-toggle:hover {
+  .ag-icon-btn:hover {
     color: var(--fg-1);
     border-color: var(--accent);
     background: var(--accent-soft);
   }
 
-  .ag-nav-search:active,
-  .ag-nav-theme-toggle:active {
-    transform: scale(0.98);
+  .ag-icon-btn:active { transform: scale(0.96); }
+
+  .ag-icon-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
-  .ag-nav-search span {
-    font-weight: var(--weight-medium);
+  /* ── Theme toggle icons ─────────────────────────────────────────── */
+  /* Default: show moon (assume light mode = show moon to switch to dark) */
+  .ag-icon-sun  { display: none; }
+  .ag-icon-moon { display: block; }
+
+  /* Dark mode active: show sun to indicate "switch to light" */
+  [data-theme="dark"]  .ag-icon-sun  { display: block; }
+  [data-theme="dark"]  .ag-icon-moon { display: none; }
+  /* Light mode active: show moon to indicate "switch to dark" */
+  [data-theme="light"] .ag-icon-sun  { display: none; }
+  [data-theme="light"] .ag-icon-moon { display: block; }
+
+  /* ── Hamburger ──────────────────────────────────────────────────── */
+  .ag-hamburger-btn { display: none; } /* hidden on desktop */
+
+  /* Show/hide menu/close icons */
+  .ag-icon-close { display: none; }
+  .ag-icon-menu  { display: block; }
+
+  [data-nav-hamburger][aria-expanded="true"] .ag-icon-close { display: block; }
+  [data-nav-hamburger][aria-expanded="true"] .ag-icon-menu  { display: none; }
+
+  /* ── Mobile overlay ─────────────────────────────────────────────── */
+  .ag-mobile-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--dur) var(--ease-out), visibility var(--dur) var(--ease-out);
   }
 
+  .ag-mobile-overlay[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
   .theme-icon-light,
   .theme-icon-dark {
     display: inline-flex;
@@ -265,53 +618,131 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
     justify-content: center;
   }
 
-  :global([data-theme="dark"]) .theme-icon-light {
-    display: none;
-  }
-
-  :global([data-theme="light"]) .theme-icon-dark {
-    display: none;
-  }
-
-  /* Hamburger — hidden on desktop */
-  .ag-nav-hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    width: 40px;
-    height: 40px;
+  /* ── Mobile drawer ──────────────────────────────────────────────── */
+  .ag-mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100dvh;
+    z-index: 200;
+    background: var(--bg);
+    border-left: 1px solid var(--border);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform var(--dur-slow) var(--ease-out);
     padding: 0;
-    background: transparent;
+  }
+
+  .ag-mobile-drawer[aria-hidden="false"] {
+    transform: translateX(0);
+  }
+
+  .ag-drawer-content {
+    display: flex;
+    flex-direction: column;
+    padding: calc(72px + var(--space-6)) var(--gutter) var(--space-10);
+    gap: var(--space-8);
+    min-height: 100%;
+  }
+
+  .ag-drawer-section-title {
+    font-family: var(--font-body);
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+    color: var(--fg-3);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .ag-drawer-cat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .ag-drawer-cat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--fg-1);
+    font-size: 15px;
+    font-weight: var(--weight-medium);
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: border-color var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+    transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
   }
 
-  .ag-nav-hamburger:hover {
+  .ag-drawer-cat-item i {
+    font-size: 18px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .ag-drawer-cat-item:hover {
+    background: var(--bg-alt);
     border-color: var(--accent);
-    background: var(--accent-soft);
   }
 
-  .hamburger-line {
+  .ag-drawer-nav-link {
     display: block;
-    width: 18px;
-    height: 2px;
-    background: var(--fg-2);
-    border-radius: 2px;
-    transition: background var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-1);
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: var(--weight-medium);
+    transition: color var(--dur) var(--ease-out);
   }
 
-  .ag-nav-hamburger:hover .hamburger-line {
-    background: var(--fg-1);
+  .ag-drawer-nav-link:last-child { border-bottom: none; }
+  .ag-drawer-nav-link:hover { color: var(--accent); }
+
+  .ag-drawer-theme-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    padding: var(--space-4) var(--space-4);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--fg-1);
+    font-size: 15px;
+    font-weight: var(--weight-medium);
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
   }
 
-  /* Animated hamburger → X when open */
-  .ag-nav-hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
+  .ag-drawer-theme-btn i { font-size: 20px; color: var(--accent); }
+  .ag-drawer-theme-btn:hover { background: var(--bg-muted); border-color: var(--accent); }
+  .ag-drawer-theme-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .ag-drawer-theme-label { flex: 1; text-align: left; }
+  .ag-drawer-theme-label--light,
+  .ag-drawer-theme-label--dark { display: none; }
+
+  [data-theme="light"] .ag-drawer-theme-label--light { display: block; }
+  [data-theme="dark"]  .ag-drawer-theme-label--dark  { display: block; }
+  :not([data-theme])   .ag-drawer-theme-label--light { display: block; }
+
+  /* ── Responsive breakpoints ─────────────────────────────────────── */
+  @media (max-width: 960px) {
+    .ag-nav-desktop { display: none; }
+    .ag-hamburger-btn { display: flex; }
   }
+
+  @media (min-width: 961px) {
+    .ag-mobile-overlay,
+    .ag-mobile-drawer { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .ag-brand-text { display: none; }
   .ag-nav-hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) {
     opacity: 0;
     transform: scaleX(0);
