@@ -1,0 +1,219 @@
+---
+---
+
+<footer class="hp-footer">
+  <div class="wrap">
+    <!-- Top grid -->
+    <div class="hp-footer-grid">
+      <!-- Brand column -->
+      <div class="hp-footer-brand">
+        <a href="/" class="hp-footer-wordmark">
+          <span class="hp-footer-main">LightSpeed</span>
+          <span class="hp-footer-accent">WP</span>
+        </a>
+        <p class="hp-footer-desc">
+          WordPress engineering partner for teams building commercially important platforms.
+        </p>
+        <p class="hp-footer-tag">CAPE TOWN · REMOTE-FIRST</p>
+      </div>
+
+      <!-- Solutions column -->
+      <div class="hp-footer-col">
+        <h5 class="hp-footer-col-title">Solutions</h5>
+        <ul class="hp-footer-links">
+          <li><a href="#solutions">WordPress Platforms</a></li>
+          <li><a href="#solutions">WooCommerce</a></li>
+          <li><a href="#solutions">Publishing</a></li>
+          <li><a href="#solutions">AI Readiness</a></li>
+        </ul>
+      </div>
+
+      <!-- Services column -->
+      <div class="hp-footer-col">
+        <h5 class="hp-footer-col-title">Services</h5>
+        <ul class="hp-footer-links">
+          <li><a href="#solutions">Discover</a></li>
+          <li><a href="#solutions">Design</a></li>
+          <li><a href="#solutions">Build</a></li>
+          <li><a href="#solutions">Launch</a></li>
+          <li><a href="#solutions">Grow</a></li>
+          <li><a href="#solutions">Evolve</a></li>
+        </ul>
+      </div>
+
+      <!-- Company column -->
+      <div class="hp-footer-col">
+        <h5 class="hp-footer-col-title">Company</h5>
+        <ul class="hp-footer-links">
+          <li><a href="/">About</a></li>
+          <li><a href="/">Work</a></li>
+          <li><a href="/">Insights</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="hp-footer-bottom">
+      <p class="hp-footer-copyright">
+        © 2026 LightSpeedWP Agency Ltd. Crafted with care in WordPress.
+      </p>
+      <div class="hp-footer-legal-links">
+        <span>Privacy Policy</span>
+        <span>Terms</span>
+        <span>Cookies</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .hp-footer {
+    background: #090909;
+    color: #ffffff;
+    padding: 64px 0 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .hp-footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+
+  .hp-footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .hp-footer-wordmark {
+    font-family: var(--font-display);
+    font-weight: var(--weight-extrabold);
+    font-size: 15px;
+    color: #ffffff;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .hp-footer-main {
+    color: #ffffff;
+  }
+
+  .hp-footer-accent {
+    color: #7be7ff;
+  }
+
+  .hp-footer-desc {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.4);
+    max-width: 220px;
+    margin: 0;
+  }
+
+  .hp-footer-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.25);
+    margin: 0;
+  }
+
+  .hp-footer-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hp-footer-col-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    margin: 0 0 16px;
+  }
+
+  .hp-footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hp-footer-links a {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+    display: block;
+  }
+
+  .hp-footer-links a:hover {
+    color: #ffffff;
+  }
+
+  .hp-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .hp-footer-copyright {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.3);
+    margin: 0;
+  }
+
+  .hp-footer-legal-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .hp-footer-legal-links span {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .hp-footer-legal-links span:hover {
+    color: #ffffff;
+  }
+
+  @media (max-width: 880px) {
+    .hp-footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hp-footer-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .hp-footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hp-footer-legal-links {
+      justify-content: center;
+    }
+  }
+</style>
