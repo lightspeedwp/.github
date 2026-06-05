@@ -22,7 +22,8 @@ const isActive = (path: string): boolean => {
 
     <!-- Brand / Logo -->
     <a href={base} class="nav-brand" aria-label="Awesome GitHub — home">
-      <img src="/awesome-github/LS-Agency-Site-Icon-Blue.svg" alt="" width="26" height="26" />
+      <img class="brand-icon-light" src="/awesome-github/LS-Agency-Site-Icon-Blue.svg" alt="" width="26" height="26" />
+      <img class="brand-icon-dark" src="/awesome-github/LS-Agency-Site-Icon-Light-Blue.svg" alt="" width="26" height="26" />
       <b>Awesome<span class="tld"> GitHub</span></b>
     </a>
 
@@ -133,7 +134,8 @@ const isActive = (path: string): boolean => {
 <aside class="drawer" id="mobile-drawer" aria-label="Navigation menu" aria-hidden="true" inert>
   <div class="drawer-head">
     <a href={base} class="nav-brand">
-      <img src="/awesome-github/LS-Agency-Site-Icon-Blue.svg" alt="" width="26" height="26" />
+      <img class="brand-icon-light" src="/awesome-github/LS-Agency-Site-Icon-Blue.svg" alt="" width="26" height="26" />
+      <img class="brand-icon-dark" src="/awesome-github/LS-Agency-Site-Icon-Light-Blue.svg" alt="" width="26" height="26" />
       <b>Awesome<span class="tld"> GitHub</span></b>
     </a>
     <button class="icon-btn" type="button" data-drawer-close aria-label="Close menu">
@@ -456,6 +458,22 @@ const isActive = (path: string): boolean => {
   .nav-brand img {
     height: 26px;
     width: auto;
+  }
+
+  .brand-icon-light {
+    display: inline;
+  }
+
+  .brand-icon-dark {
+    display: none;
+  }
+
+  [data-theme="dark"] .brand-icon-light {
+    display: none;
+  }
+
+  [data-theme="dark"] .brand-icon-dark {
+    display: inline;
   }
 
   .nav-brand b {

@@ -1,204 +1,270 @@
 ---
+import Icon from "./Icon.astro";
+import { CATEGORIES } from "../../lib/catalogue";
+
 const base = import.meta.env.BASE_URL;
+
+// Split categories: first 4 for Browse, remaining for More
+const browseCats = CATEGORIES.slice(0, 4);
+const moreCats = CATEGORIES.slice(4);
 ---
 
-<footer class="ag-footer">
-  <div class="ag-footer-container">
-    <div class="ag-footer-brand">
-      <a href={`${base}`} class="ag-footer-logo-link">
-        <span class="ag-footer-logo" aria-hidden="true">✦</span>
-        <span class="ag-footer-brand-text">
-          <span>Awesome</span><span class="ag-footer-brand-em">GitHub</span>
-        </span>
-      </a>
-      <p class="ag-footer-tagline">Governance, not opinions.</p>
+<footer class="foot">
+  <!-- Cyan halo effect -->
+  <div class="foot-halo" aria-hidden="true"></div>
+
+  <div class="foot-inner">
+    <!-- Top section: brand + 4 columns -->
+    <div class="foot-top">
+      <!-- Brand block (left) -->
+      <div class="foot-brand">
+        <a href={`${base}`} class="foot-logo-link">
+          <img src="/awesome-github/LS-Agency-Logo-White.svg" alt="LightSpeed" />
+        </a>
+        <p>Installable AI governance for the LightSpeed WordPress & WooCommerce team.</p>
+      </div>
+
+      <!-- 4 columns of links -->
+      <div class="foot-cols">
+        <!-- Column 1: Catalogues (Browse categories, first 4) -->
+        <div class="foot-col">
+          <h5>Catalogues</h5>
+          <div class="foot-cat-grid">
+            {browseCats.map((cat) => (
+              <a href={`${base}c/${cat.id}/`}>
+                <Icon name={cat.icon} size={18} />
+                <span>{cat.label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Column 2: More (remaining categories) -->
+        <div class="foot-col">
+          <h5>More</h5>
+          {moreCats.map((cat) => (
+            <a href={`${base}c/${cat.id}/`}>{cat.label}</a>
+          ))}
+        </div>
+
+        <!-- Column 3: Learn -->
+        <div class="foot-col">
+          <h5>Learn</h5>
+          <a href={`${base}learn/`}>Learning Centre</a>
+          <a href={`${base}cookbook/`}>Cookbook</a>
+          <a href={`${base}onboarding/`}>Onboarding journey</a>
+          <a href={`${base}getting-started/`}>Getting started</a>
+        </div>
+
+        <!-- Column 4: Reference -->
+        <div class="foot-col">
+          <h5>Reference</h5>
+          <a href={`${base}glossary/`}>Glossary</a>
+          <a href={`${base}references/`}>References</a>
+          <a href="https://lightspeedwp.agency/" target="_blank" rel="noopener noreferrer">LightSpeed site</a>
+        </div>
+      </div>
     </div>
 
-    <nav class="ag-footer-nav" aria-label="Footer navigation">
-      <div class="ag-footer-col">
-        <h3 class="ag-footer-col-title">Explore</h3>
-        <ul class="ag-footer-links">
-          <li><a href={`${base}c/agents/`}>Agents</a></li>
-          <li><a href={`${base}c/instructions/`}>Instructions</a></li>
-          <li><a href={`${base}c/prompts/`}>Prompts</a></li>
-          <li><a href={`${base}c/skills/`}>Skills</a></li>
-          <li><a href={`${base}c/hooks/`}>Hooks</a></li>
-          <li><a href={`${base}c/workflows/`}>Workflows</a></li>
-        </ul>
-      </div>
-
-      <div class="ag-footer-col">
-        <h3 class="ag-footer-col-title">Learn</h3>
-        <ul class="ag-footer-links">
-          <li><a href={`${base}learn/`}>Learning Centre</a></li>
-          <li><a href={`${base}learn/oriented/`}>Getting Oriented</a></li>
-          <li><a href={`${base}learn/governance/`}>Governance</a></li>
-          <li><a href={`${base}learn/quality/`}>Quality</a></li>
-          <li><a href={`${base}cookbook/`}>Cookbook</a></li>
-          <li><a href={`${base}glossary/`}>Glossary</a></li>
-        </ul>
-      </div>
-
-      <div class="ag-footer-col">
-        <h3 class="ag-footer-col-title">About</h3>
-        <ul class="ag-footer-links">
-          <li><a href={`${base}why/`}>Why This Exists</a></li>
-          <li><a href={`${base}references/`}>References</a></li>
-          <li><a href={`${base}getting-started/`}>Getting Started</a></li>
-          <li>
-            <a
-              href="https://github.com/lightspeedwp/.github"
-              target="_blank"
-              rel="noopener noreferrer"
-            >GitHub Repository ↗</a>
-          </li>
-          <li>
-            <a
-              href="https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md"
-              target="_blank"
-              rel="noopener noreferrer"
-            >AGENTS.md ↗</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-
-  <div class="ag-footer-bottom">
-    <p>
-      Built by <a href="https://lightspeedwp.agency" target="_blank" rel="noopener noreferrer">LightSpeed WP Agency</a>.
-      Open source under the <a href="https://github.com/lightspeedwp/.github/blob/develop/LICENSE" target="_blank" rel="noopener noreferrer">GPL v3 Licence</a>.
-    </p>
+    <!-- Bottom bar -->
+    <div class="foot-bottom">
+      <p>© 2026 LightSpeed · Crafted with care in WordPress.</p>
+      <p>GPL-3.0</p>
+    </div>
   </div>
 </footer>
 
 <style>
-  .ag-footer {
+  /* ── Footer container ────────────────────────────────────────────── */
+  .foot {
     background: var(--c-black);
-    color: var(--c-white);
-    padding: var(--space-16) var(--gutter) 0;
+    color: #fff;
+    padding: 56px 0 36px;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
   }
 
-  .ag-footer-container {
+  /* Cyan halo from top center */
+  .foot-halo {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 460px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(123, 231, 255, 0.18), transparent 70%);
+    pointer-events: none;
+  }
+
+  .foot-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Top section ─────────────────────────────────────────────────── */
+  .foot-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 28px;
     max-width: var(--container-max);
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: var(--space-16);
-    padding-bottom: var(--space-16);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
   }
 
-  .ag-footer-brand {
+  /* ── Brand block ─────────────────────────────────────────────────── */
+  .foot-brand {
+    flex: 0 0 auto;
+  }
+
+  .foot-logo-link {
+    display: block;
+  }
+
+  .foot-brand img {
+    height: 26px;
+    width: auto;
+    margin-bottom: 14px;
+  }
+
+  .foot-brand p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    max-width: 280px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ── Link columns ────────────────────────────────────────────────── */
+  .foot-cols {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+    gap: 56px;
+    flex-wrap: wrap;
   }
 
-  .ag-footer-logo-link {
-    display: inline-flex;
+  .foot-col h5 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0 0 12px;
+    font-weight: 700;
+  }
+
+  .foot-col a {
+    display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    color: var(--c-white);
+    font-size: 14px;
+    padding: 4px 0;
+    cursor: pointer;
+    transition: color var(--dur) var(--ease-out);
   }
 
-  .ag-footer-logo {
-    font-size: 20px;
-  }
-
-  .ag-footer-brand-text {
-    font-size: 16px;
-    font-weight: var(--weight-bold);
-    font-family: var(--font-display);
-    display: flex;
-    gap: var(--space-1);
-  }
-
-  .ag-footer-brand-em {
+  .foot-col a:hover {
     color: var(--c-light-blue);
   }
 
-  .ag-footer-tagline {
-    font-size: var(--fs-body-sm);
-    color: var(--c-slate-400);
-    margin: 0;
-    font-style: italic;
-  }
-
-  .ag-footer-nav {
+  /* Browse categories grid (2 columns within Catalogues column) */
+  .foot-cat-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-8);
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
 
-  .ag-footer-col-title {
-    font-size: var(--fs-eyebrow);
-    font-weight: var(--weight-semibold);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-eyebrow);
-    color: var(--c-slate-300);
-    margin: 0 0 var(--space-4) 0;
+  .foot-cat-grid a {
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
   }
 
-  .ag-footer-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .foot-cat-grid a:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .foot-cat-grid a span {
+    font-size: 13px;
+  }
+
+  /* ── Bottom bar ──────────────────────────────────────────────────── */
+  .foot-bottom {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .ag-footer-links a {
-    font-size: var(--fs-body-sm);
-    color: var(--c-slate-400);
-    text-decoration: none;
-    transition: color var(--dur) var(--ease-out);
-  }
-
-  .ag-footer-links a:hover {
-    color: var(--c-white);
-  }
-
-  .ag-footer-bottom {
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 13px;
     max-width: var(--container-max);
-    margin: 0 auto;
-    padding: var(--space-6) 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
   }
 
-  .ag-footer-bottom p {
-    font-size: var(--fs-body-sm);
-    color: var(--c-slate-500);
+  .foot-bottom p {
     margin: 0;
   }
 
-  .ag-footer-bottom a {
-    color: var(--c-slate-400);
-    text-decoration: none;
-    transition: color var(--dur) var(--ease-out);
-  }
+  /* ── Responsive ──────────────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .foot-top {
+      flex-direction: column;
+    }
 
-  .ag-footer-bottom a:hover {
-    color: var(--c-white);
-  }
+    .foot-cols {
+      width: 100%;
+      gap: 32px;
+    }
 
-  @media (max-width: 900px) {
-    .ag-footer-container {
-      grid-template-columns: 1fr;
-      gap: var(--space-10);
+    .foot-col {
+      flex: 1;
+      min-width: 200px;
     }
   }
 
-  @media (max-width: 640px) {
-    .ag-footer-nav {
-      grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 768px) {
+    .foot-cols {
+      gap: 24px;
+    }
+
+    .foot-col {
+      min-width: 150px;
+    }
+
+    .foot-cat-grid {
+      gap: 4px;
+    }
+
+    .foot-cat-grid a span {
+      font-size: 12px;
     }
   }
 
   @media (max-width: 480px) {
-    .ag-footer-nav {
-      grid-template-columns: 1fr;
+    .foot-top {
+      gap: 24px;
+      padding-bottom: 20px;
+    }
+
+    .foot-cols {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .foot-col {
+      min-width: unset;
+    }
+
+    .foot-bottom {
+      flex-direction: column;
+      gap: 8px;
     }
   }
 </style>
