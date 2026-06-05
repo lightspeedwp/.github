@@ -1,7 +1,7 @@
 ---
-import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
-import AwesomeGithubButton from "../../../components/AwesomeGithub/AwesomeGithubButton.astro";
-import { COOKBOOK_RECIPES, getRecipe } from "../../../lib/learn";
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import { COOKBOOK_RECIPES, getRecipe } from "../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
 const { slug } = Astro.params;
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 }
 
 const recipe = getRecipe(slug!);
-if (!recipe) return Astro.redirect(`${base}awesome-github/cookbook/`);
+if (!recipe) return Astro.redirect(`${base}cookbook/`);
 
 const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${recipe.src}`;
 ---
@@ -22,9 +22,9 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${recipe
 >
   <nav class="recipe-breadcrumb" aria-label="Breadcrumb">
     <div class="recipe-container">
-      <a href={`${base}awesome-github/`}>Home</a>
+      <a href={`${base}`}>Home</a>
       <span aria-hidden="true">/</span>
-      <a href={`${base}awesome-github/cookbook/`}>Cookbook</a>
+      <a href={`${base}cookbook/`}>Cookbook</a>
       <span aria-hidden="true">/</span>
       <span>{recipe.title}</span>
     </div>
@@ -39,7 +39,7 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${recipe
         <AwesomeGithubButton href={githubUrl} variant="primary">
           Read on GitHub ↗
         </AwesomeGithubButton>
-        <a href={`${base}awesome-github/cookbook/`} class="recipe-back">← All recipes</a>
+        <a href={`${base}cookbook/`} class="recipe-back">← All recipes</a>
       </div>
     </div>
   </header>
@@ -63,7 +63,7 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${recipe
         <h2 class="recipe-nav-title">Other recipes</h2>
         <div class="recipe-nav-grid">
           {COOKBOOK_RECIPES.filter((r) => r.slug !== slug).map((r) => (
-            <a href={`${base}awesome-github/cookbook/${r.slug}/`} class="recipe-nav-card">
+            <a href={`${base}cookbook/${r.slug}/`} class="recipe-nav-card">
               <span class="recipe-nav-kind">{r.kind}</span>
               <strong>{r.title}</strong>
               <p>{r.when}</p>

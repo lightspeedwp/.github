@@ -1,6 +1,6 @@
 ---
-import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
-import { GLOSSARY_GROUPS, getAllEntries } from "../../../lib/glossary";
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import { GLOSSARY_GROUPS, getAllEntries } from "../../lib/glossary";
 
 const base = import.meta.env.BASE_URL;
 const allEntries = getAllEntries();
@@ -46,7 +46,7 @@ const allEntries = getAllEntries();
                 {group.entries.map((entry) => (
                   <article class="glossary-entry" id={entry.slug}>
                     <h3 class="glossary-term">
-                      <a href={`${base}awesome-github/glossary/${entry.slug}/`}>{entry.term}</a>
+                      <a href={`${base}glossary/${entry.slug}/`}>{entry.term}</a>
                     </h3>
                     <p class="glossary-def">{entry.def}</p>
                     <p class="glossary-why"><strong>Why it matters:</strong> {entry.why}</p>
@@ -55,7 +55,7 @@ const allEntries = getAllEntries();
                         <span class="glossary-related-label">See also:</span>
                         {entry.related.map((slug, i) => (
                           <span>
-                            <a href={`${base}awesome-github/glossary/${slug}/`} class="glossary-related-link">
+                            <a href={`${base}glossary/${slug}/`} class="glossary-related-link">
                               {slug.replace(/-/g, " ")}
                             </a>
                             {i < entry.related.length - 1 ? ", " : ""}

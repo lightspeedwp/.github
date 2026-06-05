@@ -45,7 +45,7 @@
   }
 
   function navigate(item: typeof items[0]) {
-    window.location.href = `${base}awesome-github/c/${item.cat}/${item.slug}/`;
+    window.location.href = `${base}c/${item.cat}/${item.slug}/`;
     closePalette();
   }
 

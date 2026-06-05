@@ -1,6 +1,6 @@
 ---
-import AwesomeGithubLayout from "../../../../layouts/AwesomeGithubLayout.astro";
-import { getItemBySlug, getItemsByCategory, getCategoryInfo, urlsFor, installable, TYPES, ITEMS } from "../../../../lib/catalogue";
+import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
+import { getItemBySlug, getItemsByCategory, getCategoryInfo, urlsFor, installable, TYPES, ITEMS } from "../../../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
 
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 }
 
 const item = getItemBySlug(type!, slug!);
-if (!item) return Astro.redirect(`${base}awesome-github/`);
+if (!item) return Astro.redirect(`${base}`);
 
 const category = getCategoryInfo(type!);
 const typeInfo = TYPES[item.type];
@@ -28,9 +28,9 @@ const canInstall = installable(item);
   <section class="ag-breadcrumb-section">
     <div class="ag-container">
       <nav class="ag-breadcrumb" aria-label="Breadcrumb">
-        <a href={`${base}awesome-github/`}>Home</a>
+        <a href={`${base}`}>Home</a>
         <span class="ag-breadcrumb-separator">/</span>
-        <a href={`${base}awesome-github/c/${type}/`}>{category?.label}</a>
+        <a href={`${base}c/${type}/`}>{category?.label}</a>
         <span class="ag-breadcrumb-separator">/</span>
         <span>{item.name}</span>
       </nav>
@@ -163,7 +163,7 @@ const canInstall = installable(item);
         )}
 
         <div class="ag-sidebar-section">
-          <a href={`${base}awesome-github/c/${type}/`} class="ag-back-link">
+          <a href={`${base}c/${type}/`} class="ag-back-link">
             ← Back to {category?.label}
           </a>
         </div>
@@ -177,7 +177,7 @@ const canInstall = installable(item);
         <h2 class="ag-h2">More {category?.label}</h2>
         <div class="ag-related-grid">
           {relatedItems.map((rel) => (
-            <a href={`${base}awesome-github/c/${type}/${rel.slug}/`} class="ag-related-card">
+            <a href={`${base}c/${type}/${rel.slug}/`} class="ag-related-card">
               <h3 class="ag-related-title">{rel.name}</h3>
               <p class="ag-related-description">{rel.description}</p>
             </a>

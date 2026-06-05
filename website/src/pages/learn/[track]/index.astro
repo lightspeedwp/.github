@@ -1,7 +1,7 @@
 ---
-import AwesomeGithubLayout from "../../../../layouts/AwesomeGithubLayout.astro";
-import AwesomeGithubButton from "../../../../components/AwesomeGithub/AwesomeGithubButton.astro";
-import { LEARN_TRACKS, getTrack } from "../../../../lib/learn";
+import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import { LEARN_TRACKS, getTrack } from "../../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
 const { track: trackId } = Astro.params;
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 }
 
 const track = getTrack(trackId!);
-if (!track) return Astro.redirect(`${base}awesome-github/learn/`);
+if (!track) return Astro.redirect(`${base}learn/`);
 
 const trackIcons: Record<string, string> = {
   oriented: "🗺️",
@@ -27,9 +27,9 @@ const trackIcons: Record<string, string> = {
 >
   <nav class="track-breadcrumb" aria-label="Breadcrumb">
     <div class="track-container">
-      <a href={`${base}awesome-github/`}>Home</a>
+      <a href={`${base}`}>Home</a>
       <span aria-hidden="true">/</span>
-      <a href={`${base}awesome-github/learn/`}>Learn</a>
+      <a href={`${base}learn/`}>Learn</a>
       <span aria-hidden="true">/</span>
       <span>{track.label}</span>
     </div>
@@ -57,7 +57,7 @@ const trackIcons: Record<string, string> = {
       <ol class="track-lessons-list" aria-label="Track lessons">
         {track.lessons.map((lesson, i) => (
           <li class="track-lesson-item" data-lesson-slug={lesson.slug}>
-            <a href={`${base}awesome-github/learn/${track.id}/${lesson.slug}/`} class="track-lesson-link">
+            <a href={`${base}learn/${track.id}/${lesson.slug}/`} class="track-lesson-link">
               <div class="track-lesson-number">{i + 1}</div>
               <div class="track-lesson-body">
                 <h3 class="track-lesson-title">{lesson.slug.replace(/-/g, " ")}</h3>
@@ -80,7 +80,7 @@ const trackIcons: Record<string, string> = {
 
       <div class="track-start-cta">
         <AwesomeGithubButton
-          href={`${base}awesome-github/learn/${track.id}/${track.lessons[0].slug}/`}
+          href={`${base}learn/${track.id}/${track.lessons[0].slug}/`}
           variant="primary"
         >
           Start first lesson

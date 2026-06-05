@@ -1,6 +1,6 @@
 ---
-import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
-import { GLOSSARY_GROUPS, getEntry, getRelatedEntries, getAllEntries } from "../../../lib/glossary";
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import { GLOSSARY_GROUPS, getEntry, getRelatedEntries, getAllEntries } from "../../lib/glossary";
 
 const base = import.meta.env.BASE_URL;
 const { term: termSlug } = Astro.params;
@@ -10,7 +10,7 @@ export async function getStaticPaths() {
 }
 
 const entry = getEntry(termSlug!);
-if (!entry) return Astro.redirect(`${base}awesome-github/glossary/`);
+if (!entry) return Astro.redirect(`${base}glossary/`);
 
 const related = getRelatedEntries(entry);
 const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry.slug));
@@ -22,9 +22,9 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
 >
   <nav class="term-breadcrumb" aria-label="Breadcrumb">
     <div class="term-container">
-      <a href={`${base}awesome-github/`}>Home</a>
+      <a href={`${base}`}>Home</a>
       <span aria-hidden="true">/</span>
-      <a href={`${base}awesome-github/glossary/`}>Glossary</a>
+      <a href={`${base}glossary/`}>Glossary</a>
       <span aria-hidden="true">/</span>
       <span>{entry.term}</span>
     </div>
@@ -55,7 +55,7 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
               <h2 class="term-section-title">Related terms</h2>
               <div class="term-related-grid">
                 {related.map((rel) => (
-                  <a href={`${base}awesome-github/glossary/${rel.slug}/`} class="term-related-card">
+                  <a href={`${base}glossary/${rel.slug}/`} class="term-related-card">
                     <strong>{rel.term}</strong>
                     <p>{rel.def.slice(0, 120)}{rel.def.length > 120 ? "…" : ""}</p>
                   </a>
@@ -74,7 +74,7 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
               <div class="term-sidebar-entries">
                 {group.entries.map((e) => (
                   <a
-                    href={`${base}awesome-github/glossary/${e.slug}/`}
+                    href={`${base}glossary/${e.slug}/`}
                     class={`term-sidebar-entry ${e.slug === entry.slug ? "term-sidebar-entry--active" : ""}`}
                   >
                     {e.term}
@@ -83,7 +83,7 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
               </div>
             </div>
           )}
-          <a href={`${base}awesome-github/glossary/`} class="term-back-link">← All terms</a>
+          <a href={`${base}glossary/`} class="term-back-link">← All terms</a>
         </aside>
       </div>
     </div>

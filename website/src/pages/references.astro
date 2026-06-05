@@ -1,6 +1,6 @@
 ---
-import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
-import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import AwesomeGithubLayout from "../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../components/AwesomeGithub/AwesomeGithubButton.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -54,7 +54,7 @@ const externalSources = [
 >
   <nav class="ref-breadcrumb" aria-label="Breadcrumb">
     <div class="ref-container">
-      <a href={`${base}awesome-github/`}>Home</a>
+      <a href={`${base}`}>Home</a>
       <span aria-hidden="true">/</span>
       <span>References</span>
     </div>
@@ -156,10 +156,10 @@ const externalSources = [
       <h2 class="ref-cta-title">Ready to explore?</h2>
       <p class="ref-cta-body">Browse the full catalogue or start a learning track.</p>
       <div class="ref-cta-actions">
-        <AwesomeGithubButton href={`${base}awesome-github/c/agents/`} variant="primary">
+        <AwesomeGithubButton href={`${base}c/agents/`} variant="primary">
           Browse Catalogue
         </AwesomeGithubButton>
-        <AwesomeGithubButton href={`${base}awesome-github/learn/`} variant="secondary">
+        <AwesomeGithubButton href={`${base}learn/`} variant="secondary">
           Start Learning
         </AwesomeGithubButton>
       </div>

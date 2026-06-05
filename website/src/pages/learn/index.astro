@@ -1,7 +1,7 @@
 ---
-import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
-import AwesomeGithubButton from "../../../components/AwesomeGithub/AwesomeGithubButton.astro";
-import { LEARN_TRACKS } from "../../../lib/learn";
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import { LEARN_TRACKS } from "../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
 
@@ -50,7 +50,7 @@ const trackIcons: Record<string, string> = {
             <ul class="learn-lessons-list" aria-label={`Lessons in ${track.label}`}>
               {track.lessons.map((lesson, li) => (
                 <li class="learn-lesson-item">
-                  <a href={`${base}awesome-github/learn/${track.id}/${lesson.slug}/`} class="learn-lesson-link">
+                  <a href={`${base}learn/${track.id}/${lesson.slug}/`} class="learn-lesson-link">
                     <span class="learn-lesson-number" aria-hidden="true">{li + 1}</span>
                     <span class="learn-lesson-text">
                       <span class="learn-lesson-slug">{lesson.slug.replace(/-/g, " ")}</span>
@@ -63,7 +63,7 @@ const trackIcons: Record<string, string> = {
             </ul>
             <div class="learn-track-cta">
               <AwesomeGithubButton
-                href={`${base}awesome-github/learn/${track.id}/${track.lessons[0].slug}/`}
+                href={`${base}learn/${track.id}/${track.lessons[0].slug}/`}
                 variant="secondary"
                 size="sm"
               >

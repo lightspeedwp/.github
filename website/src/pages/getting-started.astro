@@ -1,7 +1,7 @@
 ---
-import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
-import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
-import { cloneCmd } from "../../lib/catalogue";
+import AwesomeGithubLayout from "../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../components/AwesomeGithub/AwesomeGithubButton.astro";
+import { cloneCmd } from "../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
 
@@ -17,7 +17,7 @@ const steps = [
     number: "02",
     title: "Browse the catalogue",
     body: "Every resource is catalogued by type — agents, instructions, prompts, skills, hooks, workflows, plugins, and tools. Pick what you need.",
-    cta: { label: "Browse catalogue", href: `${base}awesome-github/c/agents/` },
+    cta: { label: "Browse catalogue", href: `${base}c/agents/` },
   },
   {
     number: "03",
@@ -35,13 +35,13 @@ const steps = [
     number: "05",
     title: "Learn the system",
     body: "The Learning Centre walks you through the architecture, governance model, and agent setup — four short tracks.",
-    cta: { label: "Go to Learning Centre", href: `${base}awesome-github/learn/` },
+    cta: { label: "Go to Learning Centre", href: `${base}learn/` },
   },
   {
     number: "06",
     title: "Run the cookbook",
     body: "Need a walkthrough? The cookbook has step-by-step playbooks for common engineering scenarios.",
-    cta: { label: "Browse recipes", href: `${base}awesome-github/cookbook/` },
+    cta: { label: "Browse recipes", href: `${base}cookbook/` },
   },
 ];
 ---
@@ -107,22 +107,22 @@ const steps = [
       <h2 class="gs-h2">What next?</h2>
       <p class="gs-lead">Explore the catalogue, follow the learning tracks, or run a cookbook recipe.</p>
       <div class="gs-next-grid">
-        <a href={`${base}awesome-github/c/agents/`} class="gs-next-card">
+        <a href={`${base}c/agents/`} class="gs-next-card">
           <div class="gs-next-icon" aria-hidden="true">🤖</div>
           <h3>Browse Agents</h3>
           <p>Specialised AI agents with defined behaviour, scope, and escalation rules.</p>
         </a>
-        <a href={`${base}awesome-github/learn/`} class="gs-next-card">
+        <a href={`${base}learn/`} class="gs-next-card">
           <div class="gs-next-icon" aria-hidden="true">📚</div>
           <h3>Learning Centre</h3>
           <p>Four tracks covering architecture, governance, quality, and agents.</p>
         </a>
-        <a href={`${base}awesome-github/cookbook/`} class="gs-next-card">
+        <a href={`${base}cookbook/`} class="gs-next-card">
           <div class="gs-next-icon" aria-hidden="true">🍳</div>
           <h3>Cookbook</h3>
           <p>Step-by-step playbooks for common engineering scenarios.</p>
         </a>
-        <a href={`${base}awesome-github/glossary/`} class="gs-next-card">
+        <a href={`${base}glossary/`} class="gs-next-card">
           <div class="gs-next-icon" aria-hidden="true">📖</div>
           <h3>Glossary</h3>
           <p>Plain-language definitions for every term in the control plane.</p>

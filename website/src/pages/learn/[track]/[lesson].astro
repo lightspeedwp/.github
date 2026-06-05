@@ -1,7 +1,7 @@
 ---
-import AwesomeGithubLayout from "../../../../layouts/AwesomeGithubLayout.astro";
-import AwesomeGithubButton from "../../../../components/AwesomeGithub/AwesomeGithubButton.astro";
-import { LEARN_TRACKS, getTrack, getLesson, getAdjacentLessons } from "../../../../lib/learn";
+import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import { LEARN_TRACKS, getTrack, getLesson, getAdjacentLessons } from "../../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
 const { track: trackId, lesson: lessonSlug } = Astro.params;
@@ -20,7 +20,7 @@ const track = getTrack(trackId!);
 const lesson = getLesson(trackId!, lessonSlug!);
 
 if (!track || !lesson) {
-  return Astro.redirect(`${base}awesome-github/learn/`);
+  return Astro.redirect(`${base}learn/`);
 }
 
 const { prev, next } = getAdjacentLessons(trackId!, lessonSlug!);
@@ -34,11 +34,11 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${lesson
 >
   <nav class="lesson-breadcrumb" aria-label="Breadcrumb">
     <div class="lesson-container lesson-container--wide">
-      <a href={`${base}awesome-github/`}>Home</a>
+      <a href={`${base}`}>Home</a>
       <span aria-hidden="true">/</span>
-      <a href={`${base}awesome-github/learn/`}>Learn</a>
+      <a href={`${base}learn/`}>Learn</a>
       <span aria-hidden="true">/</span>
-      <a href={`${base}awesome-github/learn/${track.id}/`}>{track.label}</a>
+      <a href={`${base}learn/${track.id}/`}>{track.label}</a>
       <span aria-hidden="true">/</span>
       <span>{lesson.slug.replace(/-/g, " ")}</span>
     </div>
@@ -103,18 +103,18 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${lesson
       <div class="lesson-nav-grid">
         <div class="lesson-nav-prev">
           {prev && (
-            <a href={`${base}awesome-github/learn/${track.id}/${prev.slug}/`} class="lesson-nav-link lesson-nav-link--prev">
+            <a href={`${base}learn/${track.id}/${prev.slug}/`} class="lesson-nav-link lesson-nav-link--prev">
               <span class="lesson-nav-label">← Previous</span>
               <span class="lesson-nav-title">{prev.slug.replace(/-/g, " ")}</span>
             </a>
           )}
         </div>
         <div class="lesson-nav-center">
-          <a href={`${base}awesome-github/learn/`} class="lesson-nav-home">All tracks</a>
+          <a href={`${base}learn/`} class="lesson-nav-home">All tracks</a>
         </div>
         <div class="lesson-nav-next">
           {next && (
-            <a href={`${base}awesome-github/learn/${track.id}/${next.slug}/`} class="lesson-nav-link lesson-nav-link--next">
+            <a href={`${base}learn/${track.id}/${next.slug}/`} class="lesson-nav-link lesson-nav-link--next">
               <span class="lesson-nav-label">Next →</span>
               <span class="lesson-nav-title">{next.slug.replace(/-/g, " ")}</span>
             </a>
