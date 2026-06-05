@@ -6,12 +6,18 @@ const pathname = Astro.url.pathname.replace(base, "/");
 
 const navSections = [
   {
-    label: "WCEU 2026",
+    label: "Conference",
     links: [
+      {
+        href: `${base}slideshow/`,
+        path: "/slideshow/",
+        label: "Slideshow",
+        exact: true,
+      },
       {
         href: `${base}wceu-2026/`,
         path: "/wceu-2026/",
-        label: "Talk",
+        label: "WCEU 2026",
         exact: true,
       },
       {
@@ -23,7 +29,60 @@ const navSections = [
     ],
   },
   {
-    label: "Site",
+    label: "Catalogues",
+    links: [
+      {
+        href: `${base}agents/`,
+        path: "/agents/",
+        label: "Agents",
+        exact: false,
+      },
+      {
+        href: `${base}instructions/`,
+        path: "/instructions/",
+        label: "Instructions",
+        exact: false,
+      },
+      {
+        href: `${base}skills/`,
+        path: "/skills/",
+        label: "Skills",
+        exact: false,
+      },
+      {
+        href: `${base}hooks/`,
+        path: "/hooks/",
+        label: "Hooks",
+        exact: false,
+      },
+      {
+        href: `${base}plugins/`,
+        path: "/plugins/",
+        label: "Plugins",
+        exact: false,
+      },
+      {
+        href: `${base}workflows/`,
+        path: "/workflows/",
+        label: "Workflows",
+        exact: false,
+      },
+      {
+        href: `${base}tools/`,
+        path: "/tools/",
+        label: "Tools",
+        exact: false,
+      },
+      {
+        href: `${base}learning-hub/`,
+        path: "/learning-hub/",
+        label: "Learning",
+        exact: false,
+      },
+    ],
+  },
+  {
+    label: "About",
     links: [
       {
         href: base,
@@ -34,14 +93,20 @@ const navSections = [
       {
         href: `${base}why-this-exists/`,
         path: "/why-this-exists/",
-        label: "Why this exists",
+        label: "Why This Exists",
         exact: true,
       },
       {
         href: `${base}references/`,
         path: "/references/",
         label: "References",
-        exact: true,
+        exact: false,
+      },
+      {
+        href: `${base}getting-started/`,
+        path: "/getting-started/",
+        label: "Getting Started",
+        exact: false,
       },
     ],
   },
@@ -168,13 +233,13 @@ const themeToggleScript = `
       </main>
       <footer>
         <div class="footer-copy">
-          <strong>Awesome GitHub</strong>
-          <span>Conference site and reference index for the WCEU 2026 talk.</span>
+          <strong>© 2026 LightSpeed</strong>
+          <span>Built for the WordPress ecosystem.</span>
         </div>
         <nav class="footer-links" aria-label="Footer links">
-          <a href={base}>Home</a>
-          <a href={`${base}wceu-2026/`}>WCEU 2026 talk</a>
-          <a href={`${base}references/`}>References</a>
+          <a href="https://lightspeedwp.agency/" target="_blank" rel="noreferrer">LightSpeed Website</a>
+          <a href="https://github.com/lightspeedwp/.github" target="_blank" rel="noreferrer">.github Repository</a>
+          <a href={`${base}talk/`}>WCEU 2026 Talk</a>
         </nav>
       </footer>
     </div>

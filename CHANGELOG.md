@@ -2,9 +2,8 @@
 title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
-version: "1.0.4"
 created_date: "2025-09-20"
-last_updated: "2026-06-03"
+last_updated: "2026-06-05"
 owners:
   - LightSpeed Team
 tags:
@@ -28,9 +27,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Awesome GitHub Site: Phosphor Icon System** — Replaced all emoji icons (🤖 📖 💬 ✨ 🛡️ ⚙️ 🧩 🔧 🗺️ ✅ 📚 🍳 ☀️ 🌙) with Phosphor SVG icons via a new `Icon.astro` component that reads from `@phosphor-icons/core` at build time — zero runtime JS. Covers catalogue type icons, learning track icons, getting-started cards, cookbook placeholder, and theme toggle buttons. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
+
+### Fixed
+
+- **Awesome GitHub Site: Mobile Nav Menu** — Fixed `z-index` on the fixed-position mobile menu so it renders above page content; added body scroll-lock (`overflow: hidden`) while the menu is open to prevent background scroll. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
+
+---
+
+- **Awesome GitHub Site: Complete Astro Rebuild** — Rebuilt the Awesome GitHub site from a React/Babel prototype into a production-ready Astro 5 static site. Includes: a fully-typed TypeScript data layer (`catalogue.ts`, `learn.ts`, `glossary.ts`) porting 110+ catalogue items across 8 categories; Svelte `SearchPalette` component with Cmd/Ctrl+K activation; 252 statically-generated pages (catalogue, learn tracks, glossary, cookbook, getting-started, why); detail pages with Install-in-VS-Code, copy-URL, copy-file, and View-on-GitHub action buttons; mobile hamburger navigation with animated X icon and keyboard Escape support; expanded footer with brand and navigation columns; and a `why.astro` editorial page. ([#841](https://github.com/lightspeedwp/.github/pull/841), [#842](https://github.com/lightspeedwp/.github/issues/842))
+
+- **LightSpeedWP Agency Homepage: Complete Component System** — Built a production-ready homepage for the LightSpeedWP Agency website with 9 modular Astro components (Nav, HeroPlanner, TrustStrip, SolutionPaths, WhyLightSpeed, FAQ, FinalCTA, Footer, ContactOverlay). Features include sticky navigation with scroll detection, mobile drawer with theme toggle, AI project planner with form validation, responsive stats grid, 4 solution path cards with highlighting, single-open accordion FAQ with 7 questions, contact modal with success state, and comprehensive design system with light/dark mode support across 9 responsive breakpoints. All components include WCAG 2.2 AA accessibility attributes, semantic HTML5, and CSS variable theming for consistent branding.
+- **Awesome GitHub Navigation Redesign: Mega Menu & Accessibility Enhancements** — Redesigned header navigation with single "Browse" mega menu organizing 22 resources across 4 logical sections (Catalogues, More, Cook & Learn, Resources). Implemented comprehensive accessibility improvements including keyboard navigation (Tab+Enter/Space activation), proper ARIA attributes, semantic button elements replacing non-focusable anchors, centered menu positioning to prevent viewport clipping at 1025-1180px widths, and fixed drawer overflow for smooth scrolling. All changes comply with WCAG 2.2 AA+ contrast ratios in both light and dark modes.
+- **Awesome GitHub Site Phase 2a: Three-Pillar Governance Framework** — Integrated PR #809's three-pillar design approach on top of Phase 2a's dynamic foundation by adding comprehensive CSS styling for the pillar section (`.pillar-grid`, `.pillar`, `.pillar-links`). Features 3-column responsive grid layout with hover effects, accent color styling, light/dark theme variants, and mobile collapse to single column. Completes visual integration of Automation, Governance, and AI Integration framework while preserving dynamic catalogue loading and conference messaging.
+- **Awesome GitHub Site Phase 2a: Homepage & Navigation Redesign** — Initiated Phase 2a execution by restructuring header navigation to support Phase 2 catalogues, redesigning homepage with "One .GitHub to Rule Them All" positioning, and establishing foundation for Phase 2b–2c expansion:
+  - Reorganized nav sections (Conference → Catalogues → About) with dedicated catalogue dropdown showing all 8 Phase 2 resources (agents, instructions, skills, hooks, plugins, workflows, tools, learning-hub).
+  - Redesigned homepage hero and value proposition to position site as unified discovery platform for AI operations ecosystem.
+  - Added 8-catalogue card grid with direct links to Phase 2 resources on homepage.
+  - Reorganized Phase 1 conference content into dedicated "Phase 1" section.
+  - Created Phase 2a implementation roadmap (`.github/projects/active/awesome-github-site/phase-2a/IMPLEMENTATION_ROADMAP.md`) documenting remaining Phase 2a tasks, success criteria, and Phase 2 gate requirements.
+  - Website builds successfully with 62 pages and no errors; foundation ready for Phase 2b catalogue population.
+- **AI Governance: Workflow Enforcement Clarity & PR Merge Protocol** — Enhanced `CLAUDE.md` governance documentation to precisely align with `main-branch-guard.yml` workflow enforcement. Added comprehensive PR Merge & Cleanup Protocol with strict enforcement requirements (branch verification, merge execution, automatic cleanup). Clarified that only `release/*` and `hotfix/*` branches are permitted to merge to main, enforced automatically by `.github/workflows/main-branch-guard.yml` and `scripts/workflows/branch-policy/validate-main-branch-pr.cjs`. Emphasizes "NO EXCEPTIONS" in AI Governance header and removes ambiguity about enforcement mechanisms.
+- **AI Governance & Branch Protection Enforcement** — Added comprehensive AI governance rules to `CLAUDE.md` with explicit branch naming enforcement (`{type}/{scope}-{short-title}` format, no `claude/` prefixes), clarification that explicit user instructions must be executed immediately without reinterpretation, and main branch protection policies for release cycles only.
 - **Awesome GitHub Site Planning Pack** — Created a new active project under `.github/projects/active/awesome-github-site/` with phase 1 and phase 2 planning docs, normalised briefing copies, and an updated execution tracker for the new GitHub-led website programme.
 - **Awesome GitHub Site GitHub Pages Implementation** — Added the Astro phase 1 site scaffold, GitHub Pages deployment workflow, custom `404` page, canonical `github.lightspeedwp.agency` domain support, and review-driven fixes for frontmatter, motion, and package metadata.
 - **WCEU 2026 Conference Site Expansion** — Expanded the public site into a conference-ready talk hub with per-slide pages, updated navigation and footer elements, a light/dark mode switcher, and GitHub Pages-safe slide parsing dependencies for CI builds.
+- **Fullscreen Slideshow Component for WCEU 2026 Talk** — Implemented a production-ready Svelte slideshow viewer with keyboard navigation (arrow keys, space, N for notes, R for references, F for fullscreen), speaker notes and references overlays, slide indicator grid, responsive design, and light/dark mode support. Component integrates with 20 pre-built slide pages and is optimized for conference presentation delivery.
+
+- **Awesome GitHub Site: Enhanced Wapuu Character Integration Across Pages** — Added Wapuu SVG graphics to hero sections across five key pages for improved visual engagement and character consistency:
+  - Getting Started page: Wapuu-Rocket for dynamic energy and action orientation
+  - Why This Exists page: Wapuu-Astropuu for big-picture vision and exploration
+  - Onboarding page: Wapuu-Yoduu for wisdom and guidance
+  - Glossary page: Wapuu-Astropuu for reference and learning
+  - References page: Wapuu-Rocket for navigation and discovery
+  All Wapuus feature responsive sizing (clamp 100-200px), drop-shadow filters for visual depth, proper accessibility attributes (aria-hidden), and fluid flexbox layouts for hero sections that adapt across mobile, tablet, and desktop viewports.
+
+### Fixed
+
+- **Awesome GitHub Site: NotFound Page Accessibility Improvement** — Added `aria-hidden="true"` attribute to decorative Wapuu-Astropuu image in the NotFound component (learn.jsx) to improve WCAG 2.2 AA+ accessibility compliance. Empty alt text combined with aria-hidden ensures screen readers properly skip decorative content.
+- **Awesome GitHub Site: Duplicate Route Collision Fix** — Removed duplicate `/references` route caused by `website/src/pages/references.astro` conflicting with `website/src/pages/references/index.astro`. The build now generates 62 pages with no route collision warnings. Workflow updated with `--legacy-peer-deps` flag for `npm ci` to resolve `@astrojs/svelte` compatibility with Astro 5.18.2.
 
 ## [0.5.0] - 2026-06-03
 

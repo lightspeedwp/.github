@@ -2,9 +2,9 @@
 file_type: documentation
 title: Canonical Config File Interdependencies Guide
 description: Canonical reference for how labels.yml, issue-types.yml, labeler.yml, and issue-fields.yml interact from issue creation through automation completion.
-version: v1.0.0
-created_date: '2026-06-03'
-last_updated: '2026-06-03'
+version: v1.0.1
+created_date: "2026-06-03"
+last_updated: "2026-06-03"
 authors:
   - GitHub Copilot
 owners:
@@ -32,15 +32,15 @@ This guide documents the canonical relationship between:
 - `.github/labeler.yml`
 - `.github/issue-fields.yml`
 
-It also maps end-to-end data flow from issue and pull request creation to automation completion.
+It also maps end-to-end data flow from issue/PR creation to automation completion.
 
 ## Canonical Roles
 
-| File | Canonical role | Primary consumers |
+| File | Canonical Role | Primary Consumers |
 | --- | --- | --- |
-| `.github/labels.yml` | Source of truth for label names, colours, descriptions, and aliases | labeling agent, sync scripts, docs |
+| `.github/labels.yml` | Source of truth for label names, colours, descriptions, aliases | labeling agent, sync scripts, docs |
 | `.github/issue-types.yml` | Source of truth for GitHub Issue Type display names and companion `type:*` label mapping | labeling agent, issue type docs |
-| `.github/labeler.yml` | Rule map for branch and file-pattern-based auto-labelling | GitHub labeler workflow and agent helpers |
+| `.github/labeler.yml` | Rule map for branch/file-pattern-based auto-labelling | GitHub labeler workflow and agent helpers |
 | `.github/issue-fields.yml` | Source of truth for project field mappings and field policy limits | project-meta sync, validation scripts, issue field docs |
 
 ## Interdependency Diagram
@@ -112,3 +112,24 @@ sequenceDiagram
 - [docs/LABEL_STRATEGY.md](./LABEL_STRATEGY.md)
 - [docs/LABELING.md](./LABELING.md)
 - [docs/BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md)
+3. `labeler.yml` may only emit canonical labels defined in `.github/labels.yml`.
+4. `issue-types.yml` display types should map to canonical `type:*` labels that can be projected into project field Type values.
+
+## Current Risks Observed (Wave 5 Phase 1)
+
+- Cross-file Type parity is now validator-enforced, but downstream documentation can still drift if canonical types are added without doc updates.
+- Several legacy documentation references still need to be redirected to the canonical docs, increasing operator confusion when the cleanup is incomplete.
+
+## Recommended Validation Hooks
+
+- `scripts/validation/validate-issue-fields.cjs` now includes strict cross-file parity checks for `Status`, `Priority`, and `Type` mappings.
+- `scripts/validation/validate-labeling-configs.cjs` now fails when `.github/labeler.yml` emits labels not defined in `.github/labels.yml`.
+- Run parity checks in CI on every PR touching any canonical config file.
+
+## Related Documentation
+
+- `docs/ISSUE_FIELDS.md`
+- `docs/ISSUE_TYPES.md`
+- `docs/LABEL_STRATEGY.md`
+- `docs/LABELING.md`
+- `.github/reports/audits/2026-06-03-issue-fields-config-vs-github-api-audit-660.md`

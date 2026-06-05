@@ -1,13 +1,22 @@
 pull_request_rules:
+  - name: Keep Dependabot dependency updates on develop current
+    conditions:
+      - author~=^(dependabot\[bot\]|app/dependabot)$
+      - base=develop
+      - label=area:dependencies
+      - -draft
+      - -conflict
+      - "#commits-behind > 0"
+    actions:
+      update:
+
   - name: Auto-merge Dependabot dependency updates on develop
     conditions:
       - author~=^(dependabot\[bot\]|app/dependabot)$
       - base=develop
       - label=area:dependencies
       - -label=meta:dependabot-security
-      - check-success=CI / check
-      - check-success=CI / lint
-      - check-success=changelog-validate / validate
+      - check-success=All Checks Passed
       - -draft
       - -conflict
     actions:
@@ -20,9 +29,28 @@ pull_request_rules:
       - base=develop
       - label=area:dependencies
       - label=meta:dependabot-security
-      - check-success=CI / check
-      - check-success=CI / lint
-      - check-success=changelog-validate / validate
+      - check-success=All Checks Passed
+      - -draft
+      - -conflict
+    actions:
+      merge:
+        method: squash
+
+  - name: Keep imgbot image optimizations current on develop
+    conditions:
+      - author=imgbot[bot]
+      - base=develop
+      - -draft
+      - -conflict
+      - "#commits-behind > 0"
+    actions:
+      update:
+
+  - name: Auto-merge imgbot image optimizations on develop
+    conditions:
+      - author=imgbot[bot]
+      - base=develop
+      - check-success=All Checks Passed
       - -draft
       - -conflict
     actions:

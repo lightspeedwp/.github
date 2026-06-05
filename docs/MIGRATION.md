@@ -1,114 +1,173 @@
 ---
-file_type: "documentation"
-title: "Documentation Migration Guide"
-description: "Migration path for consolidated documentation files and updated references."
-version: "v1.0.1"
-last_updated: "2026-06-01"
-owners: ["LightSpeedWP Team"]
-tags: ["migration", "documentation", "consolidation"]
-status: "active"
-stability: "stable"
-domain: governance
+title: "Content Migration Strategy"
+description: "Guidelines for migrating content to Astro and Content Collections"
+version: "1.0"
+last_updated: "2026-06-04"
 ---
 
-# Documentation Migration Guide
+# Content Migration to Astro
 
-This guide provides migration paths for documentation files that have been consolidated or relocated.
+This document provides guidelines for migrating existing repository content to the Awesome GitHub Astro website using Astro Content Collections.
 
----
+## Overview
 
-## Consolidated Documentation Files
+Instead of moving or rewriting existing `.md` files, the migration strategy creates Astro collection entries that **reference** the original files in their existing locations. This preserves:
 
-The following documentation files have been consolidated into comprehensive guides to improve maintainability and reduce duplication.
+- Original file structure and organization
+- Historical metadata and version information
+- Existing frontmatter and documentation standards
+- Links and cross-references throughout the codebase
 
-### Labelling Documentation (Consolidated)
+## Approach: Reference, Don't Move
 
-The following files have been consolidated into [`docs/LABELING.md`](./LABELING.md):
+**Do NOT move or rewrite** existing `.md` files. Instead:
 
-| Deprecated File | Consolidated Into | Reason |
-| --- | --- | --- |
-| `docs/LABEL_STRATEGY.md` | `docs/LABELING.md` | Duplicated content and strategy; merged into single comprehensive guide |
-| `docs/ISSUE_LABELS.md` | `docs/LABELING.md` | Issue-specific labeling now in main guide under "Issue Labeling" section |
-| `docs/PR_LABELS.md` | `docs/LABELING.md` | PR-specific labeling now in main guide under "Pull Request Labeling" section |
+1. Create Astro collection entries that import content from the original file paths
+2. Use file path aliases to reference content at build time
+3. Extract and enhance frontmatter as needed
+4. Build collection indexes for search, filtering, and navigation
 
-**Portable Instructions Consolidated:**
+### Example: Instructions Collection
 
-- `instructions/labeling.instructions.md` — Consolidated into `docs/LABELING.md` (comprehensive labeling guide for all audiences)
+**Original file location:**
+```
+instructions/coding-standards.instructions.md
+```
 
-### Automation & Workflows Documentation (Consolidated)
+**Astro collection approach:**
+```
+src/content/instructions/coding-standards.md (new entry, references original)
+```
 
-The following files have been consolidated into [`docs/AUTOMATION.md`](./AUTOMATION.md):
+The new entry:
+- Copies frontmatter from the original file
+- Adds new fields (category, difficulty, estimated_read_time) without breaking existing files
+- Points to the original file via import or alias
+- Provides type-safe schema validation in Astro
 
-| Deprecated File | Consolidated Into | Reason |
-| --- | --- | --- |
-| `docs/AUTOMATION_GOVERNANCE.md` | `docs/AUTOMATION.md` | Governance, policies, and workflow standards merged into single guide |
-| `docs/WORKFLOWS.md` | `docs/AUTOMATION.md` | Workflow overview and individual workflow details now in main automation guide |
+## Content Collection Structure
 
-**Portable Instructions Retained:**
+### File Organization
 
-- `instructions/automation.instructions.md` — Portable automation and workflow instructions (cross-repo reusable)
+```
+src/content/
+├── agents/                    # From agents/ folder
+├── instructions/              # From instructions/ folder  
+├── cookbook/                  # From cookbook/ folder
+├── skills/                    # From skills/ folder (SKILL.md files)
+├── hooks/                     # From hooks/ folder
+├── workflows/                 # From workflows/ folder
+├── prompts/                   # From prompts/ folder
+├── tools/                     # From scripts/ + tools/ documentation
+└── config.ts                  # Unified schema definitions
+```
 
-### File Path Corrections & Renames
+### Frontmatter Standards
 
-The following files were moved or renamed to correct structural issues and enforce naming conventions:
+All resource types should follow a consistent set of fields:
 
-| Previous Path | New Path | Change Reason |
-| --- | --- | --- |
-| `.github/docs/workflow-coordination.md` | `docs/WORKFLOW_COORDINATION.md` | Moved to top-level `docs/`; renamed to uppercase per naming convention |
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `title` | string | ✓ | Display title |
+| `description` | string | ✓ | One-line summary |
+| `category` | string | ✗ | Topic/grouping |
+| `difficulty` | enum | ✗ | Beginner, Intermediate, Advanced |
+| `estimated_read_time` | number | ✗ | Minutes to read |
+| `tags` | array | ✗ | For search/filtering |
+| `last_updated` | date | ✗ | ISO format |
+| `type` | string | ✗ | Resource type (agent, skill, workflow) |
+| `actions` | array | ✗ | Available actions (copy, download, github, vscode) |
+| `version` | string | ✗ | Version number |
 
----
+### Schema Consistency
 
-## Migration Steps
+All collections should use consistent field names:
 
-### If You Have Links to Deprecated Files
+- **Always `difficulty`** (not `complexity`) for skill level
+- **Always `estimated_read_time`** (in minutes) for time estimates
+- **Always `last_updated`** (snake_case, ISO date) for metadata
+- **Always `snake_case`** for all field names (consistency with existing frontmatter)
 
-Update all references across your documentation and codebase:
+## Build-Time Integration
 
-#### Labelling Documentation
+### Content Collection Configuration (collections.config.ts)
 
-- Any link to `docs/LABEL_STRATEGY.md` → change to `docs/LABELING.md`
-- Any link to `docs/ISSUE_LABELS.md` → change to `docs/LABELING.md`
-- Any link to `docs/PR_LABELS.md` → change to `docs/LABELING.md`
+```typescript
+import { defineCollection, z } from 'astro:content';
 
-#### Automation & Workflows Documentation
+// Shared base schema
+const baseSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  category: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  last_updated: z.date().optional(),
+  version: z.string().optional(),
+});
 
-- Any link to `docs/AUTOMATION_GOVERNANCE.md` → change to `docs/AUTOMATION.md`
-- Any link to `docs/WORKFLOWS.md` → change to `docs/AUTOMATION.md`
+// Instructions collection
+const instructionsCollection = defineCollection({
+  schema: baseSchema.extend({
+    file_type: z.literal('instruction'),
+    difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
+    estimated_read_time: z.number().optional(),
+  }),
+});
 
-#### Workflow Coordination Documentation
+// Agents collection
+const agentsCollection = defineCollection({
+  schema: baseSchema.extend({
+    type: z.string(),
+    difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
+    actions: z.array(z.string()).optional(),
+  }),
+});
 
-- Any link to `.github/docs/workflow-coordination.md` → change to `docs/WORKFLOW_COORDINATION.md`
+// Skills collection
+const skillsCollection = defineCollection({
+  schema: baseSchema.extend({
+    type: z.literal('skill'),
+    installation: z.string().optional(),
+    difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
+    actions: z.array(z.string()).optional(),
+  }),
+});
 
-### For Portable Instructions
+export const collections = {
+  instructions: instructionsCollection,
+  agents: agentsCollection,
+  skills: skillsCollection,
+  // ... other collections
+};
+```
 
-If you're building reusable agents or instructions across repositories:
+## Migration Phases
 
-- Refer to `docs/LABELING.md` for comprehensive labeling guidance (consolidated from portable instructions)
-- Refer to `instructions/automation.instructions.md` (portable, cross-repo)
-- These files contain the same high-level patterns in a reusable format
+### Phase 1: Infrastructure Setup
+- [ ] Create `src/content/` directory structure
+- [ ] Define collection schemas in `collections.config.ts`
+- [ ] Create collection helper functions in `src/lib/`
+- [ ] Test collection loading and schema validation
 
----
+### Phase 2: Content Indexing
+- [ ] Index all `instructions/` files as collection entries
+- [ ] Index all `ai/` files as agent collection entries
+- [ ] Index all `skills/` files with SKILL.md extraction
+- [ ] Index other resource types (hooks, workflows, etc.)
 
-## Rationale
+### Phase 3: Frontmatter Enhancement
+- [ ] Add missing frontmatter fields to existing `.md` files
+- [ ] Standardize field names and types
+- [ ] Validate against collection schemas
+- [ ] Fix any schema validation errors
 
-Documentation consolidation improves:
-
-- **Discoverability:** Single, canonical source of truth instead of scattered files
-- **Maintainability:** One file to update instead of multiple duplicates
-- **Clarity:** Clear scope boundaries between documentation (`docs/`) and portable instructions (`instructions/`)
-- **Navigation:** Comprehensive guides instead of fragmented references
-- **Naming Consistency:** Uppercase naming convention enforced across `docs/` directory
-
----
+### Phase 4: Search & Navigation
+- [ ] Build searchable resource index
+- [ ] Implement filtering by type, category, difficulty, tags
+- [ ] Create catalogue pages using collection data
+- [ ] Wire up search palette and navigation
 
 ## References
 
-- [Consolidation Index](../instructions/DEPRECATED.md) — Full index of all consolidated files
-- [Labeling Guide](./LABELING.md) — Consolidated labeling strategy and automation
-- [Automation Guide](./AUTOMATION.md) — Consolidated automation governance and workflows
-- [Workflow Coordination](./WORKFLOW_COORDINATION.md) — Workflow pattern documentation
-- [Repository Boundaries](../CLAUDE.md#repository-boundaries) — File organisation conventions
-
----
-
-*Last updated: 2026-05-31*
+- [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/)
+- [Awesome GitHub Mapping Strategy](../AWESOME_GITHUB_MAPPING_STRATEGY.md)

@@ -1,75 +1,260 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { getWceuSlides } from "../lib/wceuSlides";
+import AwesomeGithubLayout from "../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../components/AwesomeGithub/AwesomeGithubButton.astro";
+import AwesomeGithubCard from "../components/AwesomeGithub/AwesomeGithubCard.astro";
+import { CATEGORIES, ITEMS, getCategoryCounts } from "../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
-const slideCount = getWceuSlides().length;
+
+const counts = getCategoryCounts();
+const catalogues = CATEGORIES.map((cat) => ({
+  id: cat.id,
+  name: cat.label,
+  blurb: cat.blurb,
+  icon: cat.icon,
+  href: `${base}c/${cat.id}/`,
+  count: counts[cat.id] || 0,
+}));
+
+const totalItems = ITEMS.length;
+
+const stats = [
+  { label: "Resources", value: String(totalItems) },
+  { label: "Categories", value: String(CATEGORIES.length) },
+  { label: "Ready to use", value: "100%" },
+];
 ---
 
-<BaseLayout
-  title="Awesome GitHub"
-  description="A conference-ready GitHub-led site for the WCEU 2026 talk, governance notes, and references."
+<AwesomeGithubLayout
+  title="Awesome GitHub — Governance, not opinions"
+  description="A catalogue of AI governance resources and control plane for the LightSpeed WordPress team."
 >
-  <section class="hero">
-    <div class="eyebrow">Conference site</div>
-    <h1>Awesome GitHub</h1>
-    <p class="lede">
-      A conference-ready GitHub-led website that explains how LightSpeed uses the
-      <code>.github</code> repository as a practical control plane for planning,
-      governance, and AI-assisted workflows.
-    </p>
-    <div class="hero-actions">
-      <a class="button primary" href={`${base}wceu-2026/`}>WCEU 2026 talk</a>
-      <a class="button secondary" href={`${base}why-this-exists/`}>Why this exists</a>
-      <a class="button secondary" href={`${base}references/`}>Browse references</a>
-    </div>
-    <div class="kicker">What is live now</div>
-    <div class="stat-list">
-      <div class="stat">
-        <strong>{slideCount + 6} pages</strong>
-        Home, WCEU 2026 talk, slide index, {slideCount} slide pages, why this exists, and references.
+  <section class="ag-hero">
+    <div class="ag-container">
+      <div class="ag-eyebrow">
+        <span class="ag-eyebrow-dot">●</span>
+        <span>github.com/lightspeedwp/.github</span>
       </div>
-      <div class="stat">
-        <strong>Source-backed</strong>
-        Copy shaped by the talk slides, planning briefs, reference files, and audit notes.
-      </div>
-      <div class="stat">
-        <strong>Conference-ready</strong>
-        Designed to keep the public site clear, fast, and easy to extend.
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Site sections</h2>
-    <div class="card-grid">
-      <article class="card">
-        <h3>Home</h3>
-        <p>Clear positioning, a short value statement, and direct paths into the rest of the site.</p>
-      </article>
-      <article class="card">
-        <h3>WCEU 2026 talk</h3>
-        <p>The public entry point for the conference talk, its outline, slide index, and slide-by-slide pages.</p>
-      </article>
-      <article class="card">
-        <h3>Why this exists</h3>
-        <p>A concise explanation of the repository-as-control-plane model and the reason for the site.</p>
-      </article>
-      <article class="card">
-        <h3>References</h3>
-        <p>Primary links to the source repo, the live reference site, and the planning inputs.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>How the site grows</h2>
-    <div class="page-copy">
-      <p>
-        Additional pages can be added one at a time without resetting the header, footer,
-        or tone. The shared shell is already set up to handle a growing conference pack,
-        more reference material, and future resource pages.
+      <h1 class="ag-h1">
+        <span class="ag-hero-line-1">Install AI governance,</span>
+        <span class="ag-hero-line-2">not opinions.</span>
+      </h1>
+      <p class="ag-lead">
+        Browse curated resources from the LightSpeed control plane. Copy, install, integrate—everything is production-ready.
       </p>
+      <div class="ag-cta-group">
+        <AwesomeGithubButton variant="primary" href={`${base}getting-started/`}>
+          Start here
+        </AwesomeGithubButton>
+        <AwesomeGithubButton variant="secondary" href={`${base}c/agents/`}>
+          Browse catalogues
+        </AwesomeGithubButton>
+      </div>
     </div>
   </section>
-</BaseLayout>
+
+  <section class="ag-stats">
+    <div class="ag-container">
+      <div class="ag-stats-grid">
+        {stats.map((stat) => (
+          <div class="ag-stat-item">
+            <div class="ag-stat-value">{stat.value}</div>
+            <div class="ag-stat-label">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ag-section">
+    <div class="ag-container">
+      <h2 class="ag-h2">Browse by type</h2>
+      <p class="ag-lead">
+        Everything in the control plane is organized by resource type. Pick a category to get started.
+      </p>
+
+      <div class="ag-catalogue-grid">
+        {catalogues.map((cat) => (
+          <AwesomeGithubCard href={cat.href}>
+            <h3 class="ag-h4">{cat.name}</h3>
+            <p class="ag-cat-blurb">{cat.blurb}</p>
+            <p class="ag-small">{cat.count} resource{cat.count !== 1 ? 's' : ''}</p>
+          </AwesomeGithubCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ag-section ag-section--alt">
+    <div class="ag-container">
+      <h2 class="ag-h2">Getting started</h2>
+      <p class="ag-lead">
+        New to the control plane? Follow our 10-minute onboarding to get up and running.
+      </p>
+      <AwesomeGithubButton href={`${base}getting-started/`} variant="primary">
+        Start onboarding
+      </AwesomeGithubButton>
+    </div>
+  </section>
+</AwesomeGithubLayout>
+
+<style>
+  .ag-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .ag-hero {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-40) var(--gutter);
+    margin-bottom: var(--section-y);
+  }
+
+  .ag-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(123, 231, 255, 0.1);
+    border: 1px solid rgba(123, 231, 255, 0.3);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .ag-eyebrow-dot {
+    color: var(--c-light-blue);
+  }
+
+  .ag-hero-line-1 {
+    display: block;
+    color: var(--c-white);
+  }
+
+  .ag-hero-line-2 {
+    display: block;
+    color: var(--c-light-blue);
+  }
+
+  .ag-h1 {
+    font-size: var(--fs-h1);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .ag-lead {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-loose);
+    color: var(--c-slate-300);
+    margin: 0 0 var(--space-8) 0;
+    max-width: 60ch;
+  }
+
+  .ag-cta-group {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .ag-stats {
+    background: var(--bg);
+    padding: var(--space-16) var(--gutter);
+    margin-bottom: var(--section-y);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ag-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .ag-stat-item {
+    text-align: center;
+  }
+
+  .ag-stat-value {
+    font-size: 40px;
+    font-weight: var(--weight-bold);
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .ag-stat-label {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    font-weight: var(--weight-medium);
+  }
+
+  .ag-section {
+    padding: var(--section-y) var(--gutter);
+  }
+
+  .ag-section--alt {
+    background: var(--bg-alt);
+  }
+
+  .ag-h2 {
+    font-size: var(--fs-h2);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .ag-h4 {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .ag-cat-blurb {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    margin: 0 0 var(--space-3) 0;
+    line-height: var(--lh-snug);
+    flex: 1;
+  }
+
+  .ag-small {
+    font-size: var(--fs-body-sm);
+    color: var(--accent);
+    margin: 0;
+    font-weight: var(--weight-semibold);
+  }
+
+  .ag-catalogue-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  @media (max-width: 768px) {
+    .ag-hero {
+      padding: var(--space-20) var(--gutter);
+    }
+
+    .ag-h1 {
+      font-size: var(--fs-h2);
+    }
+
+    .ag-lead {
+      font-size: var(--fs-body);
+    }
+
+    .ag-cta-group {
+      flex-direction: column;
+    }
+
+    .ag-catalogue-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }
+</style>

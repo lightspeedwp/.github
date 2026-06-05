@@ -1,0 +1,288 @@
+---
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import Icon from "../../components/AwesomeGithub/Icon.astro";
+import { LEARN_TRACKS, TRACK_ICONS } from "../../lib/learn";
+
+const base = import.meta.env.BASE_URL;
+
+---
+
+<AwesomeGithubLayout
+  title="Learning Centre — Awesome GitHub"
+  description="Four structured tracks to understand the LightSpeed control plane — architecture, governance, quality, and agents."
+>
+  <section class="learn-hero">
+    <div class="learn-container">
+      <div class="learn-eyebrow">Learning Centre</div>
+      <h1 class="learn-h1">Learn how it works</h1>
+      <p class="learn-lead">
+        Four short learning tracks walk you through everything that makes the LightSpeed control plane tick — from architecture to running agents in production.
+      </p>
+      <div class="learn-meta">
+        <span class="learn-stat">{LEARN_TRACKS.length} tracks</span>
+        <span class="learn-stat-sep">·</span>
+        <span class="learn-stat">{LEARN_TRACKS.reduce((n, t) => n + t.lessons.length, 0)} lessons</span>
+        <span class="learn-stat-sep">·</span>
+        <span class="learn-stat">Free</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="learn-tracks-section">
+    <div class="learn-container">
+      <div class="learn-tracks-grid">
+        {LEARN_TRACKS.map((track, idx) => (
+          <article class="learn-track-card">
+            <div class="learn-track-header">
+              <div class="learn-track-icon"><Icon name={TRACK_ICONS[track.id] || "book-open"} size={36} /></div>
+              <div class="learn-track-meta">
+                <div class="learn-track-number">Track {idx + 1}</div>
+                <h2 class="learn-track-title">{track.label}</h2>
+              </div>
+            </div>
+            <p class="learn-track-blurb">{track.blurb}</p>
+            <ul class="learn-lessons-list" aria-label={`Lessons in ${track.label}`}>
+              {track.lessons.map((lesson, li) => (
+                <li class="learn-lesson-item">
+                  <a href={`${base}learn/${track.id}/${lesson.slug}/`} class="learn-lesson-link">
+                    <span class="learn-lesson-number" aria-hidden="true">{li + 1}</span>
+                    <span class="learn-lesson-text">
+                      <span class="learn-lesson-slug">{lesson.slug.replace(/-/g, " ")}</span>
+                      <span class="learn-lesson-learn">{lesson.learn}</span>
+                    </span>
+                    <span class="learn-lesson-arrow" aria-hidden="true">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            {track.lessons[0] && (
+              <div class="learn-track-cta">
+                <AwesomeGithubButton
+                  href={`${base}learn/${track.id}/${track.lessons[0].slug}/`}
+                  variant="secondary"
+                  size="sm"
+                >
+                  Start track
+                </AwesomeGithubButton>
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</AwesomeGithubLayout>
+
+<style>
+  .learn-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .learn-hero {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-40) var(--gutter);
+  }
+
+  .learn-eyebrow {
+    display: inline-flex;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(123, 231, 255, 0.1);
+    border: 1px solid rgba(123, 231, 255, 0.3);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .learn-h1 {
+    font-size: var(--fs-h1);
+    font-weight: var(--weight-extrabold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+    color: var(--c-white);
+  }
+
+  .learn-lead {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-loose);
+    color: var(--c-slate-300);
+    margin: 0 0 var(--space-6) 0;
+    max-width: 60ch;
+  }
+
+  .learn-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--fs-body-sm);
+    color: var(--c-slate-300);
+  }
+
+  .learn-stat-sep { color: var(--c-slate-500); }
+
+  .learn-tracks-section {
+    padding: var(--space-24) var(--gutter);
+    background: var(--bg);
+  }
+
+  .learn-tracks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .learn-track-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-8);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    transition: box-shadow var(--dur) var(--ease-out);
+  }
+
+  .learn-track-card:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .learn-track-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .learn-track-icon {
+    display: flex;
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+
+  .learn-track-number {
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--weight-semibold);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+    margin-bottom: var(--space-2);
+  }
+
+  .learn-track-title {
+    font-size: var(--fs-h4);
+    font-weight: var(--weight-bold);
+    margin: 0;
+    color: var(--fg-1);
+    line-height: var(--lh-heading);
+  }
+
+  .learn-track-blurb {
+    font-size: var(--fs-body);
+    color: var(--fg-2);
+    margin: 0;
+    line-height: var(--lh-loose);
+  }
+
+  .learn-lessons-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .learn-lesson-item {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .learn-lesson-link {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--dur) var(--ease-out);
+    background: var(--bg-alt);
+  }
+
+  .learn-lesson-link:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .learn-lesson-number {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    font-weight: var(--weight-bold);
+    margin-top: 2px;
+  }
+
+  .learn-lesson-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .learn-lesson-slug {
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--fg-1);
+    text-transform: capitalize;
+  }
+
+  .learn-lesson-learn {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-3);
+    line-height: var(--lh-snug);
+  }
+
+  .learn-lesson-arrow {
+    flex-shrink: 0;
+    color: var(--fg-3);
+    font-size: 14px;
+    align-self: center;
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .learn-lesson-link:hover .learn-lesson-arrow {
+    transform: translateX(4px);
+    color: var(--accent);
+  }
+
+  .learn-track-cta {
+    margin-top: auto;
+  }
+
+  @media (max-width: 768px) {
+    .learn-hero {
+      padding: var(--space-20) var(--gutter);
+      
+    }
+
+    .learn-h1 { font-size: var(--fs-h2); }
+
+    .learn-tracks-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

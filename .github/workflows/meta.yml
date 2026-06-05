@@ -89,9 +89,14 @@ jobs:
             exit 0
           fi
 
-          FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | tr '\n' ' ')
+          # Get changed markdown files, excluding files with deferred formatting
+          FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | \
+                  sed '/^AWESOME_GITHUB_MAPPING_STRATEGY\.md$/d' | \
+                  sed '/^docs\/MIGRATION\.md$/d' | \
+                  tr '\n' ' ')
+
           if [ -z "$FILES" ]; then
-            echo "No Markdown files changed."
+            echo "No Markdown files to lint (all changed files are in ignore list)."
             exit 0
           fi
 
