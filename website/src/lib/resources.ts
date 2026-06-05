@@ -47,7 +47,7 @@ export interface ResourceTypeInfo {
 
 const RESOURCE_TYPES: Record<string, ResourceTypeInfo> = {
   agents:       { type: "agents",       label: "Agents",          icon: "🤖", description: "AI agent specifications and configurations", blurb: "Specialised AI agents with defined behaviour, scope, and escalation rules." },
-  instructions: { type: "instructions", label: "Instructions",    icon: "📖", description: "Organization-wide instructions and standards", blurb: "Canonical coding, accessibility, and WordPress standards Copilot must follow." },
+  instructions: { type: "instructions", label: "Instructions",    icon: "📖", description: "Organisation-wide instructions and standards", blurb: "Canonical coding, accessibility, and WordPress standards Copilot must follow." },
   prompts:      { type: "prompts",      label: "Prompts",         icon: "💬", description: "Prompt library and templates", blurb: "Reusable prompt templates you can grab and run for common engineering tasks." },
   skills:       { type: "skills",       label: "Skills",          icon: "✨", description: "Self-contained reusable skills", blurb: "Portable, self-contained skill packages the team can run on demand." },
   hooks:        { type: "hooks",        label: "Hooks",           icon: "🛡️", description: "Portable hooks and guardrails", blurb: "Pre-commit and lint guardrails that enforce quality before code lands." },

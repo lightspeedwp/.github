@@ -100,7 +100,7 @@
     bind:this={dialogEl}
     on:click={handleBackdropClick}
   >
-    <div class="sp-panel" role="combobox" aria-expanded="true" aria-haspopup="listbox">
+    <div class="sp-panel">
       <div class="sp-input-row">
         <span class="sp-search-icon" aria-hidden="true">⌕</span>
         <input
@@ -108,6 +108,9 @@
           bind:value={query}
           class="sp-input"
           type="text"
+          role="combobox"
+          aria-expanded="true"
+          aria-haspopup="listbox"
           placeholder="Search agents, instructions, prompts…"
           autocomplete="off"
           aria-label="Search catalogue"

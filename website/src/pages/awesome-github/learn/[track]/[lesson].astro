@@ -363,3 +363,15 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${lesson
     }
   }
 </style>
+
+<script define:vars={{ _trackId: trackId, _lessonSlug: lessonSlug }}>
+  try {
+    const key = "ag_learn_progress";
+    const progress = JSON.parse(localStorage.getItem(key) || "{}");
+    if (!progress[_trackId]) progress[_trackId] = {};
+    progress[_trackId][_lessonSlug] = true;
+    localStorage.setItem(key, JSON.stringify(progress));
+  } catch {
+    // localStorage unavailable
+  }
+</script>

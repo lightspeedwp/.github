@@ -1,6 +1,5 @@
 ---
 import AwesomeGithubLayout from "../../../../layouts/AwesomeGithubLayout.astro";
-import AwesomeGithubButton from "../../../../components/AwesomeGithub/AwesomeGithubButton.astro";
 import { getItemBySlug, getItemsByCategory, getCategoryInfo, urlsFor, installable, TYPES, ITEMS } from "../../../../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
@@ -54,7 +53,7 @@ const canInstall = installable(item);
       <!-- Action buttons -->
       <div class="ag-actions">
         {canInstall && (
-          <a href={urls.vscode} class="ag-action-btn ag-action-btn--primary">
+          <a href={urls.vscode} class="ag-action-btn ag-action-btn--primary" data-vscode-link>
             <span aria-hidden="true">↓</span> Install in VS Code
           </a>
         )}
@@ -79,11 +78,25 @@ const canInstall = installable(item);
         <a
           href={urls.blob}
           class="ag-action-btn ag-action-btn--ghost"
+          data-gh-link
           target="_blank"
           rel="noopener noreferrer"
         >
           <span aria-hidden="true">↗</span> View on GitHub
         </a>
+        <button
+          class="ag-action-btn ag-action-btn--ghost ag-branch-toggle"
+          type="button"
+          data-branch-toggle
+          data-path={item.path || ""}
+          data-cat={item.cat}
+          data-tree={String(item.tree)}
+          title="Toggle between main and develop branch"
+          aria-label="Switch to develop branch"
+        >
+          <span aria-hidden="true">⎇</span>
+          <span class="ag-branch-label">main</span>
+        </button>
       </div>
 
       {item.applyTo && (
@@ -122,7 +135,7 @@ const canInstall = installable(item);
           ) : (
             <div class="ag-no-body">
               <p>This resource is stored at <code>{item.path}</code> in the repository.</p>
-              <a href={urls.blob} target="_blank" rel="noopener noreferrer" class="ag-gh-link">
+              <a href={urls.blob} target="_blank" rel="noopener noreferrer" class="ag-gh-link" data-gh-link>
                 View on GitHub ↗
               </a>
             </div>
@@ -176,8 +189,6 @@ const canInstall = installable(item);
 </AwesomeGithubLayout>
 
 <script>
-  const base = import.meta.env.BASE_URL;
-
   // Copy raw URL buttons
   document.querySelectorAll<HTMLButtonElement>("[data-copy-url]").forEach((btn) => {
     btn.addEventListener("click", async () => {
@@ -211,6 +222,55 @@ const canInstall = installable(item);
       }
     });
   });
+
+  // Branch toggle
+  (function () {
+    const REPO = "lightspeedwp/.github";
+    const VS_ROUTES: Record<string, string> = {
+      instructions: "chat-instructions",
+      prompts: "chat-prompt",
+      agents: "chat-mode",
+      skills: "chat-prompt",
+    };
+
+    function computeUrls(path: string, cat: string, isTree: boolean, branch: string) {
+      const kind = isTree ? "tree" : "blob";
+      const raw = `https://raw.githubusercontent.com/${REPO}/${branch}/${path}`;
+      return {
+        blob: `https://github.com/${REPO}/${kind}/${branch}/${path}`,
+        raw,
+        vscode: `vscode:${VS_ROUTES[cat] || "chat-instructions"}/install?url=${encodeURIComponent(raw)}`,
+      };
+    }
+
+    const toggle = document.querySelector<HTMLButtonElement>("[data-branch-toggle]");
+    if (!toggle) return;
+
+    const path = toggle.dataset.path || "";
+    const cat = toggle.dataset.cat || "";
+    const isTree = toggle.dataset.tree === "true";
+    let branch = localStorage.getItem("github_branch") || "main";
+
+    function applyBranch(b: string) {
+      const urls = computeUrls(path, cat, isTree, b);
+      document.querySelectorAll<HTMLAnchorElement>("[data-vscode-link]").forEach((el) => { el.href = urls.vscode; });
+      document.querySelectorAll<HTMLButtonElement>("[data-copy-url]").forEach((el) => { el.dataset.copyUrl = urls.raw; });
+      document.querySelectorAll<HTMLButtonElement>("[data-copy-content]").forEach((el) => { el.dataset.copyContent = urls.raw; });
+      document.querySelectorAll<HTMLAnchorElement>("[data-gh-link]").forEach((el) => { el.href = urls.blob; });
+      const label = toggle.querySelector(".ag-branch-label");
+      if (label) label.textContent = b;
+      toggle.setAttribute("aria-label", `Switch to ${b === "main" ? "develop" : "main"} branch`);
+      toggle.title = `Currently on ${b}. Click to switch to ${b === "main" ? "develop" : "main"}.`;
+    }
+
+    applyBranch(branch);
+
+    toggle.addEventListener("click", () => {
+      branch = branch === "main" ? "develop" : "main";
+      localStorage.setItem("github_branch", branch);
+      applyBranch(branch);
+    });
+  })();
 </script>
 
 <style>
@@ -609,6 +669,19 @@ const canInstall = installable(item);
     color: var(--c-white, #fff);
     border-color: rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.07);
+  }
+
+  .ag-branch-toggle {
+    margin-left: auto;
+    opacity: 0.7;
+    font-size: 11px;
+    gap: var(--space-1);
+  }
+
+  .ag-branch-toggle:hover { opacity: 1; }
+
+  .ag-branch-label {
+    font-family: var(--font-mono);
   }
 
   /* Metadata rows (applyTo, run, validates, duration) */

@@ -45,6 +45,8 @@ const trackIcons: Record<string, string> = {
         <span>{track.lessons.length} lesson{track.lessons.length !== 1 ? "s" : ""}</span>
         <span aria-hidden="true">·</span>
         <span>{track.further.length} further reading{track.further.length !== 1 ? "s" : ""}</span>
+        <span aria-hidden="true" id="track-progress-sep" style="display:none">·</span>
+        <span id="track-progress-display" class="track-progress-badge" aria-live="polite"></span>
       </div>
     </div>
   </header>
@@ -54,7 +56,7 @@ const trackIcons: Record<string, string> = {
       <h2 class="track-section-title">Lessons</h2>
       <ol class="track-lessons-list" aria-label="Track lessons">
         {track.lessons.map((lesson, i) => (
-          <li class="track-lesson-item">
+          <li class="track-lesson-item" data-lesson-slug={lesson.slug}>
             <a href={`${base}awesome-github/learn/${track.id}/${lesson.slug}/`} class="track-lesson-link">
               <div class="track-lesson-number">{i + 1}</div>
               <div class="track-lesson-body">
@@ -330,9 +332,46 @@ const trackIcons: Record<string, string> = {
     color: var(--fg-2);
   }
 
+  .track-progress-badge {
+    font-size: var(--fs-body-sm);
+    color: #22c55e;
+    font-weight: var(--weight-semibold);
+  }
+
+  .track-lesson-item.track-lesson--completed .track-lesson-number {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+  }
+
   @media (max-width: 768px) {
     .track-hero { padding: var(--space-16) var(--gutter); margin-top: 72px; }
     .track-h1 { font-size: var(--fs-h3); }
     .track-further-grid { grid-template-columns: 1fr; }
   }
 </style>
+
+<script define:vars={{ _trackId: track.id, _totalLessons: track.lessons.length }}>
+  try {
+    const key = "ag_learn_progress";
+    const progress = JSON.parse(localStorage.getItem(key) || "{}");
+    const trackProgress = progress[_trackId] || {};
+    const completedSlugs = Object.keys(trackProgress).filter((k) => trackProgress[k]);
+    const count = completedSlugs.length;
+
+    if (count > 0) {
+      const display = document.getElementById("track-progress-display");
+      const sep = document.getElementById("track-progress-sep");
+      if (display) {
+        display.textContent = `${count} of ${_totalLessons} completed`;
+        if (sep) sep.style.display = "";
+      }
+
+      completedSlugs.forEach((slug) => {
+        const item = document.querySelector(`[data-lesson-slug="${slug}"]`);
+        if (item) item.classList.add("track-lesson--completed");
+      });
+    }
+  } catch {
+    // localStorage unavailable
+  }
+</script>
