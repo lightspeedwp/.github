@@ -114,6 +114,11 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
         hamburger.focus();
       }
     });
+
+    // Clear scroll-lock if the viewport widens past the mobile breakpoint while the menu is open
+    window.matchMedia("(max-width: 768px)").addEventListener("change", (e) => {
+      if (!e.matches) closeMenu();
+    });
   }
 </script>
 
