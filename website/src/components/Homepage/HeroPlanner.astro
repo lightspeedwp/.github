@@ -400,10 +400,10 @@
 </style>
 
 <script>
-  const input = document.querySelector("[data-planner-input]");
-  const submit = document.querySelector("[data-planner-submit]");
-  const loading = document.querySelector("[data-planner-loading]");
-  const result = document.querySelector("[data-planner-result]");
+  const input = document.querySelector("[data-planner-input]") as HTMLTextAreaElement | null;
+  const submit = document.querySelector("[data-planner-submit]") as HTMLButtonElement | null;
+  const loading = document.querySelector("[data-planner-loading]") as HTMLElement | null;
+  const result = document.querySelector("[data-planner-result]") as HTMLElement | null;
   const chips = document.querySelectorAll(".hp-chip");
 
   if (chips.length) {
@@ -440,7 +440,11 @@
 Project: ${text}`
           );
 
-          const data = JSON.parse(response);
+          let cleanResponse = response.trim();
+          if (cleanResponse.startsWith("```")) {
+            cleanResponse = cleanResponse.replace(/^```(?:json)?\s*/i, "").replace(/```$/, "").trim();
+          }
+          const data = JSON.parse(cleanResponse);
           displayResult(data);
         } else {
           // Fallback for development
@@ -526,7 +530,8 @@ Project: ${text}`
     const considDiv = document.createElement("div");
     considDiv.style.marginBottom = "20px";
 
-    data.considerations.forEach((c) => {
+    const considerations = Array.isArray(data.considerations) ? data.considerations : [];
+    considerations.forEach((c) => {
       const item = document.createElement("div");
       item.style.cssText = "display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;";
 

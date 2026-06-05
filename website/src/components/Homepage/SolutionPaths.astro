@@ -70,9 +70,8 @@ const solutions = [
 
     <div class="hp-solutions-grid">
       {solutions.map((sol) => (
-        <div
-          role="button"
-          tabindex="0"
+        <a
+          href={`#${sol.id}`}
           class:list={[
             "hp-solution-card",
             { "hp-solution-card--highlighted": highlightPath === sol.id },
@@ -83,7 +82,7 @@ const solutions = [
           <h3 class="hp-h4">{sol.title}</h3>
           <p class="hp-solution-body">{sol.description}</p>
           <div class="hp-solution-link">Read about {sol.title.toLowerCase()} solutions</div>
-        </div>
+        </a>
       ))}
     </div>
   </div>

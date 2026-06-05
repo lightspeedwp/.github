@@ -167,7 +167,8 @@ const faqs = [
   triggers.forEach((trigger) => {
     trigger.addEventListener("click", () => {
       const isExpanded = trigger.getAttribute("aria-expanded") === "true";
-      const panel = trigger.nextElementSibling;
+      const panel = trigger.nextElementSibling as HTMLElement | null;
+      if (!panel) return;
 
       if (isExpanded) {
         trigger.setAttribute("aria-expanded", "false");
@@ -177,7 +178,8 @@ const faqs = [
         triggers.forEach((t) => {
           if (t !== trigger) {
             t.setAttribute("aria-expanded", "false");
-            t.nextElementSibling.hidden = true;
+            const p = t.nextElementSibling as HTMLElement | null;
+            if (p) p.hidden = true;
           }
         });
 

@@ -337,18 +337,19 @@
 </style>
 
 <script>
-  const overlay = document.querySelector("[data-contact-overlay]");
-  const scrim = document.querySelector("[data-contact-scrim]");
-  const dialog = document.querySelector("[data-contact-dialog]");
-  const closeBtn = document.querySelector("[data-contact-close]");
-  const form = document.querySelector("[data-contact-form]");
-  const successEl = document.querySelector("[data-contact-success]");
-  const infoChip = document.querySelector("[data-contact-info]");
+  const overlay = document.querySelector("[data-contact-overlay]") as HTMLElement | null;
+  const scrim = document.querySelector("[data-contact-scrim]") as HTMLElement | null;
+  const dialog = document.querySelector("[data-contact-dialog]") as HTMLElement | null;
+  const closeBtn = document.querySelector("[data-contact-close]") as HTMLElement | null;
+  const form = document.querySelector("[data-contact-form]") as HTMLFormElement | null;
+  const successEl = document.querySelector("[data-contact-success]") as HTMLElement | null;
+  const infoChip = document.querySelector("[data-contact-info]") as HTMLElement | null;
 
   // Open overlay on anchor links
   if (overlay) {
     document.addEventListener("click", (e) => {
-      const link = e.target.closest("a");
+      const target = e.target as Element | null;
+      const link = target?.closest("a") as HTMLAnchorElement | null;
       const href = link?.getAttribute("href");
       if (href === "#contact") {
         e.preventDefault();
@@ -375,10 +376,13 @@
     // Form submit
     form?.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const submitBtn = form.querySelector("[type=submit]");
+      const currentForm = e.currentTarget as HTMLFormElement;
+      const submitBtn = currentForm.querySelector("[type=submit]") as HTMLButtonElement | null;
+      if (!submitBtn) return;
+
       submitBtn.disabled = true;
 
-      const formData = new FormData(form);
+      const formData = new FormData(currentForm);
       const data = {
         name: formData.get("name"),
         email: formData.get("email"),
@@ -388,22 +392,18 @@
 
       try {
         // TODO: Connect to real backend service (e.g., Formspree, email.js, or custom API)
-        // For now, this is a demonstration showing form validation works
-        console.log("Form submission (demo):", data);
-        console.log("⚠️ NOTE: Form submission not yet connected to backend. This is a placeholder UI.");
+        console.log("Form submission (placeholder):", data);
 
-        // Show success state only after actual submission is implemented
-        // For now, show a message indicating the feature needs implementation
         const originalButtonText = submitBtn.textContent;
-        submitBtn.textContent = "Coming soon - backend not configured";
+        submitBtn.textContent = "⚠️ Not yet wired to backend";
         submitBtn.style.background = "rgba(30, 106, 255, 0.5)";
 
-        // Reset after 2 seconds
+        // Reset after 3 seconds
         setTimeout(() => {
           submitBtn.textContent = originalButtonText;
           submitBtn.style.background = "";
           submitBtn.disabled = false;
-        }, 2000);
+        }, 3000);
       } catch (err) {
         console.error("Form submission error:", err);
         submitBtn.disabled = false;
