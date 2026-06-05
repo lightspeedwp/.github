@@ -12,7 +12,7 @@ const catalogues = CATEGORIES.map((cat) => ({
   name: cat.label,
   blurb: cat.blurb,
   icon: cat.icon,
-  href: `${base}c/${cat.id}`,
+  href: `${base}c/${cat.id}/`,
   count: counts[cat.id] || 0,
 }));
 
@@ -46,7 +46,7 @@ const stats = [
         <AwesomeGithubButton variant="primary" href={`${base}getting-started/`}>
           Start here
         </AwesomeGithubButton>
-        <AwesomeGithubButton variant="secondary" href={`${base}c/agents`}>
+        <AwesomeGithubButton variant="secondary" href={`${base}c/agents/`}>
           Browse catalogues
         </AwesomeGithubButton>
       </div>

@@ -17,6 +17,7 @@
   let selected = 0;
   let inputEl: HTMLInputElement;
   let dialogEl: HTMLElement;
+  let previousFocus: HTMLElement | null = null;
 
   $: filtered = query.trim().length < 1
     ? items.slice(0, 8)
@@ -33,6 +34,7 @@
   $: if (filtered) selected = 0;
 
   function openPalette() {
+    previousFocus = document.activeElement as HTMLElement;
     open = true;
     query = "";
     selected = 0;
@@ -42,6 +44,8 @@
   function closePalette() {
     open = false;
     query = "";
+    setTimeout(() => previousFocus?.focus(), 50);
+    previousFocus = null;
   }
 
   function navigate(item: typeof items[0]) {
