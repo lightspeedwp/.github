@@ -45,7 +45,7 @@ const ALLOWED_PREFIXES = [
 const BOT_PREFIXES = /^(dependabot|renovate)\//;
 const PROTECTED_BRANCHES = new Set(["main", "develop"]);
 const BRANCH_PATTERN = new RegExp(
-  `^(${ALLOWED_PREFIXES.join("|")})/[a-z0-9._-]+$`,
+  `^(${ALLOWED_PREFIXES.join("|")})/[a-zA-Z0-9._-]+$`,
 );
 
 function getArgValue(flag) {
@@ -95,7 +95,9 @@ function isAllowed(branchName) {
 
 function printFailure(branchName) {
   console.error(`Branch '${branchName}' does not follow the required format.`);
-  console.error("Expected: {prefix}/{branch-slug} (see docs/BRANCHING_STRATEGY.md)");
+  console.error(
+    "Expected: {prefix}/{branch-slug} (see docs/BRANCHING_STRATEGY.md)",
+  );
   console.error(`Allowed prefixes: ${ALLOWED_PREFIXES.join(", ")}`);
   console.error(
     "Examples: fix/frontmatter-validation, docs/canonical-configs-guide, ops/branch-governance-guardrails",
@@ -103,7 +105,10 @@ function printFailure(branchName) {
 }
 
 function main() {
-  if (process.env.GITHUB_REF_TYPE === "tag" || (process.env.GITHUB_REF && process.env.GITHUB_REF.startsWith("refs/tags/"))) {
+  if (
+    process.env.GITHUB_REF_TYPE === "tag" ||
+    (process.env.GITHUB_REF && process.env.GITHUB_REF.startsWith("refs/tags/"))
+  ) {
     console.log("Running on a tag. Skipping branch name validation.");
     process.exit(0);
   }
@@ -112,7 +117,7 @@ function main() {
 
   if (!branchName) {
     console.warn(
-      "No active branch detected (possibly detached HEAD). Skipping branch name validation."
+      "No active branch detected (possibly detached HEAD). Skipping branch name validation.",
     );
     process.exit(0);
   }
