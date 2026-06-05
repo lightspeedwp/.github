@@ -1,5 +1,5 @@
 // Resource utilities for the Awesome GitHub website
-import { ITEMS, CATEGORIES, getItemsByCategory, getItemBySlug } from "./catalogue";
+import { getItemsByCategory, getItemBySlug } from "./catalogue";
 
 export const REPO_INFO = {
   owner: "lightspeedwp",
