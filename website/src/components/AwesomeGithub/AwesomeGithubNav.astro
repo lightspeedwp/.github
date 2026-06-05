@@ -83,14 +83,13 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
   const hamburger = document.querySelector<HTMLButtonElement>("[data-nav-hamburger]");
   const menu = document.getElementById("ag-nav-menu");
 
-  function closeMenu() {
-    hamburger!.setAttribute("aria-expanded", "false");
-    hamburger!.setAttribute("aria-label", "Open navigation menu");
-    menu!.classList.remove("ag-nav-menu--open");
-    document.body.style.overflow = "";
-  }
-
   if (hamburger && menu) {
+    const closeMenu = () => {
+      hamburger.setAttribute("aria-expanded", "false");
+      hamburger.setAttribute("aria-label", "Open navigation menu");
+      menu.classList.remove("ag-nav-menu--open");
+      document.body.style.overflow = "";
+    };
     hamburger.addEventListener("click", () => {
       const isOpen = hamburger.getAttribute("aria-expanded") === "true";
       if (isOpen) {
