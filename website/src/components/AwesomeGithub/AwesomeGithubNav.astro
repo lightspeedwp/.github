@@ -1,6 +1,6 @@
 ---
-import { CATEGORIES } from "../../lib/catalogue";
 import Icon from "./Icon.astro";
+import { CATEGORIES } from "../../lib/catalogue";
 
 interface Props {
   base: string;
@@ -49,7 +49,7 @@ const isCatActive = (linkPath: string): boolean => {
           aria-controls="ag-browse-panel"
         >
           Browse
-          <i class="ph ph-caret-down ag-caret-icon" aria-hidden="true"></i>
+          <span class="ag-caret-icon"><Icon name="caret-down" size={13} /></span>
         </button>
         <div
           class="ag-browse-panel"
@@ -64,7 +64,7 @@ const isCatActive = (linkPath: string): boolean => {
                 class="ag-browse-card"
                 role="menuitem"
               >
-                <i class={`ph ph-${cat.icon} ag-browse-cat-icon`} aria-hidden="true"></i>
+                <span class="ag-browse-cat-icon"><Icon name={cat.icon} size={22} /></span>
                 <span class="ag-browse-cat-name">{cat.label}</span>
                 <span class="ag-browse-cat-blurb">{cat.blurb}</span>
               </a>
@@ -94,7 +94,7 @@ const isCatActive = (linkPath: string): boolean => {
         title="Search (Ctrl+K)"
         data-search-open
       >
-        <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+        <Icon name="magnifying-glass" size={18} />
       </button>
       <button
         class="ag-icon-btn ag-theme-toggle-btn"
@@ -102,8 +102,8 @@ const isCatActive = (linkPath: string): boolean => {
         data-awesome-github-theme-toggle
         aria-label="Toggle colour theme"
       >
-        <i class="ph ph-sun ag-icon-sun" aria-hidden="true"></i>
-        <i class="ph ph-moon ag-icon-moon" aria-hidden="true"></i>
+        <span class="ag-icon-sun"><Icon name="sun" size={18} /></span>
+        <span class="ag-icon-moon"><Icon name="moon" size={18} /></span>
       </button>
       <!-- Hamburger — only visible on mobile -->
       <button
@@ -114,48 +114,11 @@ const isCatActive = (linkPath: string): boolean => {
         aria-controls="ag-mobile-drawer"
         data-nav-hamburger
       >
-        <i class="ph ph-list ag-icon-menu" aria-hidden="true"></i>
-        <i class="ph ph-x ag-icon-close" aria-hidden="true"></i>
+        <span class="ag-icon-menu"><Icon name="list" size={20} /></span>
+        <span class="ag-icon-close"><Icon name="x" size={20} /></span>
       </button>
     </div>
 
-        {link.label}
-      </a>
-    ))}
-  </nav>
-
-  <div class="ag-nav-actions">
-    <button
-      class="ag-nav-search"
-      type="button"
-      aria-label="Search (Cmd+K)"
-      title="Open search (Cmd+K)"
-      data-search-open
-    >
-      <span aria-hidden="true">⌘K</span>
-    </button>
-    <button
-      class="ag-nav-theme-toggle"
-      type="button"
-      data-awesome-github-theme-toggle
-      aria-pressed="false"
-      aria-label="Toggle light and dark mode"
-    >
-      <span class="theme-icon-light"><Icon name="sun" size={18} /></span>
-      <span class="theme-icon-dark"><Icon name="moon" size={18} /></span>
-    </button>
-    <button
-      class="ag-nav-hamburger"
-      type="button"
-      aria-label="Open navigation menu"
-      aria-expanded="false"
-      aria-controls="ag-nav-menu"
-      data-nav-hamburger
-    >
-      <span class="hamburger-line" aria-hidden="true"></span>
-      <span class="hamburger-line" aria-hidden="true"></span>
-      <span class="hamburger-line" aria-hidden="true"></span>
-    </button>
   </div>
 </header>
 
@@ -181,7 +144,7 @@ const isCatActive = (linkPath: string): boolean => {
       <div class="ag-drawer-cat-grid">
         {CATEGORIES.map((cat) => (
           <a href={`${base}c/${cat.id}/`} class="ag-drawer-cat-item">
-            <i class={`ph ph-${cat.icon}`} aria-hidden="true"></i>
+            <span class="ag-drawer-cat-icon"><Icon name={cat.icon} size={18} /></span>
             <span>{cat.label}</span>
           </a>
         ))}
@@ -206,8 +169,8 @@ const isCatActive = (linkPath: string): boolean => {
         data-awesome-github-theme-toggle
         aria-label="Toggle colour theme"
       >
-        <i class="ph ph-sun ag-icon-sun" aria-hidden="true"></i>
-        <i class="ph ph-moon ag-icon-moon" aria-hidden="true"></i>
+        <span class="ag-icon-sun"><Icon name="sun" size={20} /></span>
+        <span class="ag-icon-moon"><Icon name="moon" size={20} /></span>
         <span class="ag-drawer-theme-label">
           <span class="ag-drawer-theme-label--light">Switch to dark mode</span>
           <span class="ag-drawer-theme-label--dark">Switch to light mode</span>
@@ -234,16 +197,13 @@ const isCatActive = (linkPath: string): boolean => {
       browseTrigger.setAttribute("aria-expanded", "false");
     };
 
-    // Hover for pointer devices
     browseWrapper.addEventListener("mouseenter", openBrowse);
     browseWrapper.addEventListener("mouseleave", closeBrowse);
 
-    // Click toggle for touch/keyboard
     browseTrigger.addEventListener("click", () => {
       browseWrapper.hasAttribute("data-open") ? closeBrowse() : openBrowse();
     });
 
-    // Close on Escape
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && browseWrapper.hasAttribute("data-open")) {
         closeBrowse();
@@ -251,14 +211,12 @@ const isCatActive = (linkPath: string): boolean => {
       }
     });
 
-    // Close on outside click
     document.addEventListener("click", (e) => {
       if (e.target instanceof Element && !browseWrapper.contains(e.target)) {
         closeBrowse();
       }
     });
 
-    // Close when a category link is clicked
     browsePanel.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeBrowse);
     });
@@ -285,44 +243,22 @@ const isCatActive = (linkPath: string): boolean => {
 
     hamburger.addEventListener("click", () => {
       hamburger.getAttribute("aria-expanded") === "true" ? closeDrawer() : openDrawer();
-  if (hamburger && menu) {
-    const closeMenu = () => {
-      hamburger.setAttribute("aria-expanded", "false");
-      hamburger.setAttribute("aria-label", "Open navigation menu");
-      menu.classList.remove("ag-nav-menu--open");
-      document.body.style.overflow = "";
-    };
-    hamburger.addEventListener("click", () => {
-      const isOpen = hamburger.getAttribute("aria-expanded") === "true";
-      if (isOpen) {
-        closeMenu();
-      } else {
-        hamburger.setAttribute("aria-expanded", "true");
-        hamburger.setAttribute("aria-label", "Close navigation menu");
-        menu.classList.add("ag-nav-menu--open");
-        document.body.style.overflow = "hidden";
-      }
     });
     overlay.addEventListener("click", closeDrawer);
 
     drawer.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeDrawer);
-    // Close on link click (mobile)
-    menu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => closeMenu());
     });
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && hamburger.getAttribute("aria-expanded") === "true") {
         closeDrawer();
-        closeMenu();
         hamburger.focus();
       }
     });
 
-    // Clear scroll-lock if the viewport widens past the mobile breakpoint while the menu is open
-    window.matchMedia("(max-width: 768px)").addEventListener("change", (e) => {
-      if (!e.matches) closeMenu();
+    window.matchMedia("(min-width: 961px)").addEventListener("change", (e) => {
+      if (e.matches) closeDrawer();
     });
   }
 </script>
@@ -336,7 +272,6 @@ const isCatActive = (linkPath: string): boolean => {
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    /* Light mode */
     background: rgba(255, 255, 255, 0.88);
     transition:
       background var(--dur) var(--ease-out),
@@ -421,10 +356,9 @@ const isCatActive = (linkPath: string): boolean => {
     white-space: nowrap;
   }
 
-  /* Light mode nav links: boost contrast */
   [data-theme="light"] .ag-nav-link,
   :not([data-theme]) .ag-nav-link { color: var(--c-slate-700, #404040); }
-  [data-theme="dark"] .ag-nav-link  { color: var(--fg-2); }
+  [data-theme="dark"]  .ag-nav-link { color: var(--fg-2); }
 
   .ag-nav-link:hover {
     color: var(--fg-1);
@@ -436,9 +370,9 @@ const isCatActive = (linkPath: string): boolean => {
     font-weight: var(--weight-semibold);
   }
 
-  /* Caret rotation */
   .ag-caret-icon {
-    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
     transition: transform var(--dur) var(--ease-out);
   }
   .ag-browse-trigger[aria-expanded="true"] .ag-caret-icon {
@@ -446,9 +380,7 @@ const isCatActive = (linkPath: string): boolean => {
   }
 
   /* ── Browse dropdown ────────────────────────────────────────────── */
-  .ag-browse-wrapper {
-    position: relative;
-  }
+  .ag-browse-wrapper { position: relative; }
 
   .ag-browse-panel {
     position: absolute;
@@ -497,8 +429,12 @@ const isCatActive = (linkPath: string): boolean => {
     border-radius: var(--radius-md);
     text-decoration: none;
     color: var(--fg-1);
-    transition: background var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
     border: 1px solid transparent;
+    transition:
+      background var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out);
   }
 
   .ag-browse-card:hover {
@@ -515,7 +451,7 @@ const isCatActive = (linkPath: string): boolean => {
   }
 
   .ag-browse-cat-icon {
-    font-size: 22px;
+    display: inline-flex;
     color: var(--accent);
     line-height: 1;
   }
@@ -553,7 +489,6 @@ const isCatActive = (linkPath: string): boolean => {
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     color: var(--fg-2);
-    font-size: 18px;
     cursor: pointer;
     transition:
       color var(--dur) var(--ease-out),
@@ -575,26 +510,22 @@ const isCatActive = (linkPath: string): boolean => {
     outline-offset: 2px;
   }
 
-  /* ── Theme toggle icons ─────────────────────────────────────────── */
-  /* Default: show moon (assume light mode = show moon to switch to dark) */
+  /* ── Theme toggle icon visibility ───────────────────────────────── */
   .ag-icon-sun  { display: none; }
-  .ag-icon-moon { display: block; }
+  .ag-icon-moon { display: inline-flex; align-items: center; }
 
-  /* Dark mode active: show sun to indicate "switch to light" */
-  [data-theme="dark"]  .ag-icon-sun  { display: block; }
+  [data-theme="dark"]  .ag-icon-sun  { display: inline-flex; align-items: center; }
   [data-theme="dark"]  .ag-icon-moon { display: none; }
-  /* Light mode active: show moon to indicate "switch to dark" */
   [data-theme="light"] .ag-icon-sun  { display: none; }
-  [data-theme="light"] .ag-icon-moon { display: block; }
+  [data-theme="light"] .ag-icon-moon { display: inline-flex; align-items: center; }
 
   /* ── Hamburger ──────────────────────────────────────────────────── */
-  .ag-hamburger-btn { display: none; } /* hidden on desktop */
+  .ag-hamburger-btn { display: none; }
 
-  /* Show/hide menu/close icons */
   .ag-icon-close { display: none; }
-  .ag-icon-menu  { display: block; }
+  .ag-icon-menu  { display: inline-flex; align-items: center; }
 
-  [data-nav-hamburger][aria-expanded="true"] .ag-icon-close { display: block; }
+  [data-nav-hamburger][aria-expanded="true"] .ag-icon-close { display: inline-flex; align-items: center; }
   [data-nav-hamburger][aria-expanded="true"] .ag-icon-menu  { display: none; }
 
   /* ── Mobile overlay ─────────────────────────────────────────────── */
@@ -611,11 +542,6 @@ const isCatActive = (linkPath: string): boolean => {
   .ag-mobile-overlay[aria-hidden="false"] {
     opacity: 1;
     visibility: visible;
-  .theme-icon-light,
-  .theme-icon-dark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
   }
 
   /* ── Mobile drawer ──────────────────────────────────────────────── */
@@ -631,7 +557,6 @@ const isCatActive = (linkPath: string): boolean => {
     overflow-y: auto;
     transform: translateX(100%);
     transition: transform var(--dur-slow) var(--ease-out);
-    padding: 0;
   }
 
   .ag-mobile-drawer[aria-hidden="false"] {
@@ -676,8 +601,8 @@ const isCatActive = (linkPath: string): boolean => {
     transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
   }
 
-  .ag-drawer-cat-item i {
-    font-size: 18px;
+  .ag-drawer-cat-icon {
+    display: inline-flex;
     color: var(--accent);
     flex-shrink: 0;
   }
@@ -706,7 +631,7 @@ const isCatActive = (linkPath: string): boolean => {
     align-items: center;
     gap: var(--space-3);
     width: 100%;
-    padding: var(--space-4) var(--space-4);
+    padding: var(--space-4);
     background: var(--bg-alt);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
@@ -718,7 +643,6 @@ const isCatActive = (linkPath: string): boolean => {
     transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
   }
 
-  .ag-drawer-theme-btn i { font-size: 20px; color: var(--accent); }
   .ag-drawer-theme-btn:hover { background: var(--bg-muted); border-color: var(--accent); }
   .ag-drawer-theme-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
@@ -743,61 +667,5 @@ const isCatActive = (linkPath: string): boolean => {
 
   @media (max-width: 480px) {
     .ag-brand-text { display: none; }
-  .ag-nav-hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) {
-    opacity: 0;
-    transform: scaleX(0);
-  }
-  .ag-nav-hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
-  @media (max-width: 768px) {
-    .ag-nav-hamburger {
-      display: flex;
-    }
-
-    .ag-nav-menu {
-      position: fixed;
-      top: 72px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 99;
-      flex-direction: column;
-      gap: 0;
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      padding: var(--space-4) var(--gutter);
-      transform: translateX(-100%);
-      visibility: hidden;
-      transition: transform var(--dur) var(--ease-out), visibility var(--dur) var(--ease-out);
-      overflow-y: auto;
-    }
-
-    [data-theme="dark"] .ag-nav-menu {
-      background: #0F1014;
-    }
-
-    .ag-nav-menu.ag-nav-menu--open {
-      transform: translateX(0);
-      visibility: visible;
-    }
-
-    .ag-nav-link {
-      font-size: 18px;
-      padding: var(--space-4) 0;
-      border-bottom: 1px solid var(--border);
-      border-bottom-width: 1px;
-      width: 100%;
-    }
-
-    .ag-nav-link[aria-current="page"] {
-      color: var(--accent);
-      border-bottom-color: var(--border);
-    }
-
-    .ag-nav-search {
-      display: none;
-    }
   }
 </style>
