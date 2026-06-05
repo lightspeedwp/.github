@@ -3,8 +3,7 @@ function catMeta(id) { return LSDATA.CATEGORIES.find((c) => c.id === id) || {}; 
 function itemsIn(id) { return LSDATA.ITEMS.filter((it) => it.cat === id); }
 function CatIco({ id, size }) {
   const m = catMeta(id);
-  const Fn = Icons[m.icon] || Icons.layers;
-  return <Fn size={size} />;
+  return <SimpleIcon type={m.icon || "layers"} size={size} />;
 }
 
 /* Type-aware copy: scripts copy their run command, embedded items copy their
@@ -37,18 +36,18 @@ function ItemActions({ item, toast, compact }) {
   const copyLabel = t === "script" ? "Copy command" : "Copy";
   return (
     <React.Fragment>
-      <button className={"btn btn-soft " + sz} onClick={doCopy}><Icons.copy size={15} /> {copyLabel}</button>
+      <button className={"btn btn-soft " + sz} onClick={doCopy}><SimpleIcon type="copy" size={15} /> {copyLabel}</button>
       {t === "install" && !item.tree && (
-        <a className={"btn btn-ghost " + sz} href={u.vscode} onClick={stop}><Icons.vscode size={15} /> Install</a>
+        <a className={"btn btn-ghost " + sz} href={u.vscode} onClick={stop}><SimpleIcon type="vscode" size={15} /> Install</a>
       )}
       {t === "aiDefault" && (
-        <a className={"btn btn-ghost " + sz} href={u.raw} target="_blank" rel="noopener" onClick={stop}><Icons.download size={15} /> Raw</a>
+        <a className={"btn btn-ghost " + sz} href={u.raw} target="_blank" rel="noopener" onClick={stop}><SimpleIcon type="download" size={15} /> Raw</a>
       )}
       {t === "pack" && (
-        <a className={"btn btn-ghost " + sz} href={u.blob} target="_blank" rel="noopener" onClick={stop}><Icons.puzzle size={15} /> Open pack</a>
+        <a className={"btn btn-ghost " + sz} href={u.blob} target="_blank" rel="noopener" onClick={stop}><SimpleIcon type="puzzle" size={15} /> Open pack</a>
       )}
       {(t === "workflow" || t === "guardrail" || t === "schema" || t === "script") && (
-        <a className={"btn btn-ghost " + sz} href={u.blob} target="_blank" rel="noopener" onClick={stop}><Icons.github size={15} /> View</a>
+        <a className={"btn btn-ghost " + sz} href={u.blob} target="_blank" rel="noopener" onClick={stop}><SimpleIcon type="github" size={15} /> View</a>
       )}
     </React.Fragment>
   );
@@ -70,7 +69,7 @@ function ItemCard({ item, nav, toast }) {
           <h3>{item.name}</h3>
           <div className="meta-row">
             <TypeBadge type={t} />
-            {item.duration && <span className="meta"><Icons.clock size={12} /> {item.duration}</span>}
+            {item.duration && <span className="meta"><SimpleIcon type="clock" size={12} /> {item.duration}</span>}
             {item.validates && <span className="meta">validates {item.validates}</span>}
             {item.dest && <span className="meta">→ {item.dest}</span>}
             {!item.duration && !item.validates && !item.dest && <span className="meta">{item.version} · {item.updated}</span>}
@@ -85,7 +84,7 @@ function ItemCard({ item, nav, toast }) {
       <div className="item-actions">
         <ItemActions item={item} toast={toast} compact />
         <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4, color: "var(--fg-3)", fontSize: 13, fontWeight: 600 }}>
-          Open <Icons.arrow size={15} />
+          Open <SimpleIcon type="arrow" size={15} />
         </span>
       </div>
     </article>
@@ -106,7 +105,7 @@ function Home({ nav }) {
             we use to ship WordPress &amp; WooCommerce work — then learn how it all fits together, at your own pace.
           </p>
           <div className="hero-cta">
-            <a className="btn btn-primary" onClick={() => nav({ view: "onboarding" })}>Start here <Icons.arrow size={16} /></a>
+            <a className="btn btn-primary" onClick={() => nav({ view: "onboarding" })}>Start here <SimpleIcon type="arrow" size={16} /></a>
             <a className="btn btn-ghost" href="#catalogues" onClick={(e) => { e.preventDefault(); const el = document.getElementById("catalogues"); if (el) window.scrollTo({ top: el.offsetTop - 60, behavior: "smooth" }); }}>Browse catalogues</a>
           </div>
           <div className="stats">
@@ -135,7 +134,7 @@ function Home({ nav }) {
                   <span className="cat-ico"><CatIco id={c.id} size={20} /></span>
                   <h3>{c.label}<span className="count">{n}</span></h3>
                   <p>{c.blurb}</p>
-                  <span className="go">Explore <Icons.arrow size={14} /></span>
+                  <span className="go">Explore <SimpleIcon type="arrow" size={14} /></span>
                 </a>
               );
             })}
@@ -153,17 +152,17 @@ function Home({ nav }) {
           </div>
           <div className="feat-grid">
             <div className="feat">
-              <span className="fi"><Icons.layers size={20} /></span>
+              <span className="fi"><SimpleIcon type="layers" size={20} /></span>
               <h4>Inherited by every repo</h4>
               <p>Issue templates, Copilot instructions, and labels defined here are surfaced across every LightSpeed repository automatically — no copy-paste drift.</p>
             </div>
             <div className="feat">
-              <span className="fi"><Icons.bolt size={20} /></span>
+              <span className="fi"><SimpleIcon type="bolt" size={20} /></span>
               <h4>One-click install</h4>
               <p>Copy the raw file, or push it straight into VS Code as a Copilot customisation. Every card carries the same install actions.</p>
             </div>
             <div className="feat">
-              <span className="fi"><Icons.shield size={20} /></span>
+              <span className="fi"><SimpleIcon type="shield" size={20} /></span>
               <h4>Governed &amp; versioned</h4>
               <p>Each resource is frontmatter-validated and versioned. Standards change in one place, and the whole team moves together.</p>
             </div>
@@ -180,7 +179,7 @@ function Home({ nav }) {
                 <span className="eyebrow">Learning Centre</span>
                 <h3>Learn it at your own pace</h3>
                 <p>Short, self-paced tracks built from the real governance docs — read straight through or dip into the lesson you need. We keep your place.</p>
-                <span className="go">Open the Learning Centre <Icons.arrow size={14} /></span>
+                <span className="go">Open the Learning Centre <SimpleIcon type="arrow" size={14} /></span>
               </div>
             </a>
             <a className="cl-card" onClick={() => nav({ view: "cookbook" })}>
@@ -189,7 +188,7 @@ function Home({ nav }) {
                 <span className="eyebrow">Cookbook</span>
                 <h3>Follow a recipe</h3>
                 <p>Battle-tested, step-by-step playbooks for planning, spec-driven delivery, and shipping WordPress plugins. Read and copy.</p>
-                <span className="go">Browse recipes <Icons.arrow size={14} /></span>
+                <span className="go">Browse recipes <SimpleIcon type="arrow" size={14} /></span>
               </div>
             </a>
           </div>
@@ -242,7 +241,7 @@ function Catalogue({ cat, nav, toast }) {
           )}
           <div className="cat-toolbar">
             <label className="filter-input">
-              <Icons.search size={17} style={{ color: "var(--fg-3)" }} />
+              <span style={{ color: "var(--fg-3)", display: "flex" }}><SimpleIcon type="search" size={17} /></span>
               <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={`Filter ${all.length} ${meta.label.toLowerCase()}…`} />
             </label>
             <span style={{ fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--fg-3)" }}>{filtered.length} / {all.length}</span>
@@ -259,7 +258,7 @@ function Catalogue({ cat, nav, toast }) {
       <div className="wrap">
         {filtered.length === 0 ? (
           <div className="empty">
-            <div className="ico"><Icons.search size={26} /></div>
+            <div className="ico"><SimpleIcon type="search" size={26} /></div>
             <p style={{ fontSize: 16, color: "var(--fg-2)", margin: 0 }}>No {meta.label.toLowerCase()} match your filter.</p>
             <button className="btn btn-ghost btn-sm" style={{ marginTop: 16 }} onClick={() => { setQuery(""); setActiveTags([]); }}>Clear filters</button>
           </div>

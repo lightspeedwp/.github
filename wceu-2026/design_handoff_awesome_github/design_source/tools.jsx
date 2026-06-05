@@ -39,7 +39,7 @@ function Tools({ nav, toast }) {
           <div className="crumb"><a onClick={() => nav({ view: "home" })}>Home</a> <span>/</span> <span>Tools</span></div>
           <div className="tools-hero">
             <div>
-              <span className="cat-ico" style={{ width: 52, height: 52 }}><Icons.wrench size={26} /></span>
+              <span className="cat-ico" style={{ width: 52, height: 52 }}><SimpleIcon type="wrench" size={26} /></span>
               <div>
                 <h1>Tools</h1>
                 <p>The toolchain layer behind the catalogues — the AI defaults, scripts, schemas, and editor config that make everything else run. This is a reference, not a one-click install: each group tells you how it's actually used.</p>
@@ -65,7 +65,7 @@ function Tools({ nav, toast }) {
           intro="What's available and how to run it. Scripts are grouped by area; many are paired with a schema that validates their inputs — that pairing is called out on each card.">
           {LSDATA.SCRIPTS.map((g) => (
             <div className="script-group" key={g.area}>
-              <h3 className="script-area"><Icons.terminal size={16} /> {g.area}</h3>
+              <h3 className="script-area"><SimpleIcon type="terminal" size={16} /> {g.area}</h3>
               <div className="item-grid">
                 {g.items.map((it) => <ItemCard key={it.id} item={it} nav={nav} toast={toast} />)}
               </div>

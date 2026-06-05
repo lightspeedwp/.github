@@ -40,7 +40,7 @@ function SearchPalette({ open, onClose, nav }) {
     <div className="palette-scrim" onClick={onClose}>
       <div className="palette" onClick={(e) => e.stopPropagation()}>
         <div className="palette-input">
-          <Icons.search size={20} style={{ color: "var(--fg-3)" }} />
+          <span style={{ color: "var(--fg-3)", display: "flex" }}><SimpleIcon type="search" size={20} /></span>
           <input ref={inputRef} value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={onKey}
                  placeholder="Search agents, instructions, skills…" />
           <span className="kbd">esc</span>
@@ -52,17 +52,20 @@ function SearchPalette({ open, onClose, nav }) {
             </div>
           )}
           {results.length > 0 && <div className="palette-group">{q.trim() ? "Results" : "Popular"}</div>}
-          {results.map((it, idx) => (
+          {results.map((it, idx) => {
+            const catIcon = (LSDATA.CATEGORIES.find((c) => c.id === it.cat) || {}).icon || "layers";
+            return (
             <div key={it.id} className={"palette-item" + (idx === sel ? " sel" : "")}
                  onMouseEnter={() => setSel(idx)} onClick={() => go(it)}>
-              <span className="pi-mark">{Icons[(LSDATA.CATEGORIES.find((c) => c.id === it.cat) || {}).icon] ? Icons[(LSDATA.CATEGORIES.find((c) => c.id === it.cat)).icon]({ size: 16 }) : <Icons.layers size={16} />}</span>
+              <span className="pi-mark"><SimpleIcon type={catIcon} size={16} /></span>
               <div style={{ minWidth: 0 }}>
                 <div className="pi-name">{it.name}</div>
                 <div className="pi-desc" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 380 }}>{it.description}</div>
               </div>
               <span className="pi-cat">{catLabel(it.cat)}</span>
             </div>
-          ))}
+            );
+          })}
         </div>
         <div className="palette-foot">
           <span><span className="kbd">↑↓</span> navigate</span>
