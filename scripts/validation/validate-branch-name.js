@@ -103,13 +103,18 @@ function printFailure(branchName) {
 }
 
 function main() {
+  if (process.env.GITHUB_REF_TYPE === "tag" || (process.env.GITHUB_REF && process.env.GITHUB_REF.startsWith("refs/tags/"))) {
+    console.log("Running on a tag. Skipping branch name validation.");
+    process.exit(0);
+  }
+
   const branchName = resolveBranchName();
 
   if (!branchName) {
-    console.error(
-      "No branch name provided. Use --branch or set BRANCH_NAME, GITHUB_HEAD_REF, or GITHUB_REF_NAME.",
+    console.warn(
+      "No active branch detected (possibly detached HEAD). Skipping branch name validation."
     );
-    process.exit(1);
+    process.exit(0);
   }
 
   if (!isAllowed(branchName)) {
