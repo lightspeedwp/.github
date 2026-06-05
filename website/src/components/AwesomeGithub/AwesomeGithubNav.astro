@@ -8,9 +8,10 @@ const { base, pathname } = Astro.props;
 
 const navLinks = [
   { href: `${base}awesome-github/`, path: "/awesome-github/", label: "Home", exact: true },
-  { href: `${base}awesome-github/c/agents`, path: "/awesome-github/c/", label: "Catalogue", exact: false },
-  { href: `${base}awesome-github/getting-started`, path: "/awesome-github/getting-started", label: "Getting Started", exact: true },
-  { href: `${base}awesome-github/learn`, path: "/awesome-github/learn", label: "Learning", exact: false },
+  { href: `${base}awesome-github/c/agents/`, path: "/awesome-github/c/", label: "Catalogue", exact: false },
+  { href: `${base}awesome-github/learn/`, path: "/awesome-github/learn", label: "Learn", exact: false },
+  { href: `${base}awesome-github/cookbook/`, path: "/awesome-github/cookbook", label: "Cookbook", exact: false },
+  { href: `${base}awesome-github/glossary/`, path: "/awesome-github/glossary", label: "Glossary", exact: false },
 ];
 
 const isActive = (linkPath: string, exact: boolean): boolean => {

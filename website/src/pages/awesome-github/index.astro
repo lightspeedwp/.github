@@ -2,23 +2,24 @@
 import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
 import AwesomeGithubCard from "../../components/AwesomeGithub/AwesomeGithubCard.astro";
-import AwesomeGithubChip from "../../components/AwesomeGithub/AwesomeGithubChip.astro";
+import { CATEGORIES, ITEMS, getCategoryCounts } from "../../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
 
-const catalogues = [
-  { name: "Agents", href: `${base}awesome-github/c/agents`, count: 12 },
-  { name: "Instructions", href: `${base}awesome-github/c/instructions`, count: 8 },
-  { name: "Prompts", href: `${base}awesome-github/c/prompts`, count: 24 },
-  { name: "Skills", href: `${base}awesome-github/c/skills`, count: 15 },
-  { name: "Hooks", href: `${base}awesome-github/c/hooks`, count: 6 },
-  { name: "Workflows", href: `${base}awesome-github/c/workflows`, count: 11 },
-  { name: "Plugins", href: `${base}awesome-github/c/plugins`, count: 4 },
-  { name: "Tools", href: `${base}awesome-github/c/tools`, count: 7 },
-];
+const counts = getCategoryCounts();
+const catalogues = CATEGORIES.map((cat) => ({
+  id: cat.id,
+  name: cat.label,
+  blurb: cat.blurb,
+  icon: cat.icon,
+  href: `${base}awesome-github/c/${cat.id}`,
+  count: counts[cat.id] || 0,
+}));
+
+const totalItems = ITEMS.length;
 
 const stats = [
-  { label: "Resources", value: "87" },
+  { label: "Resources", value: String(totalItems) },
   { label: "Categories", value: "8" },
   { label: "Ready to use", value: "100%" },
 ];
@@ -76,7 +77,8 @@ const stats = [
         {catalogues.map((cat) => (
           <AwesomeGithubCard href={cat.href}>
             <h3 class="ag-h4">{cat.name}</h3>
-            <p class="ag-small">{cat.count} resources</p>
+            <p class="ag-cat-blurb">{cat.blurb}</p>
+            <p class="ag-small">{cat.count} resource{cat.count !== 1 ? 's' : ''}</p>
           </AwesomeGithubCard>
         ))}
       </div>
@@ -212,10 +214,19 @@ const stats = [
     margin: 0 0 var(--space-2) 0;
   }
 
-  .ag-small {
+  .ag-cat-blurb {
     font-size: var(--fs-body-sm);
     color: var(--fg-2);
+    margin: 0 0 var(--space-3) 0;
+    line-height: var(--lh-snug);
+    flex: 1;
+  }
+
+  .ag-small {
+    font-size: var(--fs-body-sm);
+    color: var(--accent);
     margin: 0;
+    font-weight: var(--weight-semibold);
   }
 
   .ag-catalogue-grid {

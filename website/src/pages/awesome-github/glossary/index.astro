@@ -1,0 +1,293 @@
+---
+import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
+import { GLOSSARY_GROUPS, getAllEntries } from "../../../lib/glossary";
+
+const base = import.meta.env.BASE_URL;
+const allEntries = getAllEntries();
+---
+
+<AwesomeGithubLayout
+  title="Glossary — Awesome GitHub"
+  description="Plain-language definitions for every term in the LightSpeed control plane."
+>
+  <section class="glossary-hero">
+    <div class="glossary-container">
+      <div class="glossary-eyebrow">Glossary</div>
+      <h1 class="glossary-h1">Every term, explained</h1>
+      <p class="glossary-lead">
+        {allEntries.length} terms across {GLOSSARY_GROUPS.length} groups. Plain-language definitions with context for why each term matters in the control plane.
+      </p>
+    </div>
+  </section>
+
+  <section class="glossary-body">
+    <div class="glossary-container glossary-container--wide">
+      <div class="glossary-layout">
+        <nav class="glossary-sidebar" aria-label="Glossary groups">
+          <div class="glossary-sidebar-inner">
+            <div class="glossary-sidebar-title">Groups</div>
+            {GLOSSARY_GROUPS.map((group) => (
+              <a href={`#${group.id}`} class="glossary-sidebar-link">
+                {group.label}
+                <span class="glossary-sidebar-count">{group.entries.length}</span>
+              </a>
+            ))}
+          </div>
+        </nav>
+
+        <div class="glossary-content">
+          {GLOSSARY_GROUPS.map((group) => (
+            <section id={group.id} class="glossary-group">
+              <div class="glossary-group-header">
+                <h2 class="glossary-group-title">{group.label}</h2>
+                <p class="glossary-group-blurb">{group.blurb}</p>
+              </div>
+              <div class="glossary-entries">
+                {group.entries.map((entry) => (
+                  <article class="glossary-entry" id={entry.slug}>
+                    <h3 class="glossary-term">
+                      <a href={`${base}awesome-github/glossary/${entry.slug}/`}>{entry.term}</a>
+                    </h3>
+                    <p class="glossary-def">{entry.def}</p>
+                    <p class="glossary-why"><strong>Why it matters:</strong> {entry.why}</p>
+                    {entry.related.length > 0 && (
+                      <div class="glossary-related">
+                        <span class="glossary-related-label">See also:</span>
+                        {entry.related.map((slug, i) => (
+                          <span>
+                            <a href={`${base}awesome-github/glossary/${slug}/`} class="glossary-related-link">
+                              {slug.replace(/-/g, " ")}
+                            </a>
+                            {i < entry.related.length - 1 ? ", " : ""}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</AwesomeGithubLayout>
+
+<style>
+  .glossary-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .glossary-container--wide {
+    max-width: var(--container-max);
+  }
+
+  .glossary-hero {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-40) var(--gutter);
+  }
+
+  .glossary-eyebrow {
+    display: inline-flex;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(123, 231, 255, 0.1);
+    border: 1px solid rgba(123, 231, 255, 0.3);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .glossary-h1 {
+    font-size: var(--fs-h1);
+    font-weight: var(--weight-extrabold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+    color: var(--c-white);
+  }
+
+  .glossary-lead {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-loose);
+    color: var(--c-slate-300);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .glossary-body {
+    padding: var(--space-16) var(--gutter);
+    background: var(--bg);
+  }
+
+  .glossary-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  .glossary-sidebar {
+    position: sticky;
+    top: 88px;
+  }
+
+  .glossary-sidebar-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+
+  .glossary-sidebar-title {
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--weight-semibold);
+    color: var(--fg-3);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+    padding: var(--space-2) var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .glossary-sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    text-decoration: none;
+    transition: all var(--dur) var(--ease-out);
+  }
+
+  .glossary-sidebar-link:hover {
+    color: var(--fg-1);
+    background: var(--bg-muted);
+  }
+
+  .glossary-sidebar-count {
+    font-size: 11px;
+    background: var(--bg-muted);
+    color: var(--fg-3);
+    padding: 1px 6px;
+    border-radius: var(--radius-pill);
+  }
+
+  .glossary-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .glossary-group-header {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 2px solid var(--accent);
+  }
+
+  .glossary-group-title {
+    font-size: var(--fs-h3);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3) 0;
+    color: var(--fg-1);
+  }
+
+  .glossary-group-blurb {
+    font-size: var(--fs-body);
+    color: var(--fg-2);
+    margin: 0;
+  }
+
+  .glossary-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .glossary-entry {
+    padding: var(--space-6) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .glossary-entry:last-child { border-bottom: none; }
+
+  .glossary-term {
+    font-size: var(--fs-h5);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .glossary-term a {
+    color: var(--fg-1);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color var(--dur) var(--ease-out);
+  }
+
+  .glossary-term a:hover { border-bottom-color: var(--accent); }
+
+  .glossary-def {
+    font-size: var(--fs-body);
+    color: var(--fg);
+    margin: 0 0 var(--space-3) 0;
+    line-height: var(--lh-loose);
+    max-width: 65ch;
+  }
+
+  .glossary-why {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    margin: 0 0 var(--space-3) 0;
+    line-height: var(--lh-loose);
+  }
+
+  .glossary-why strong { color: var(--fg-1); }
+
+  .glossary-related {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    font-size: var(--fs-body-sm);
+    color: var(--fg-3);
+  }
+
+  .glossary-related-label { margin-right: var(--space-2); }
+
+  .glossary-related-link {
+    color: var(--fg-link);
+    text-decoration: none;
+    text-transform: capitalize;
+  }
+
+  .glossary-related-link:hover { color: var(--fg-link-hover); }
+
+  @media (max-width: 900px) {
+    .glossary-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .glossary-sidebar {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .glossary-hero {
+      padding: var(--space-20) var(--gutter);
+      margin-top: 72px;
+    }
+
+    .glossary-h1 { font-size: var(--fs-h2); }
+  }
+</style>
