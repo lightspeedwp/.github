@@ -2,7 +2,7 @@
 import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../../../components/AwesomeGithub/AwesomeGithubButton.astro";
 import Icon from "../../../components/AwesomeGithub/Icon.astro";
-import { LEARN_TRACKS, getTrack } from "../../../lib/learn";
+import { LEARN_TRACKS, getTrack, TRACK_ICONS } from "../../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
 const { track: trackId } = Astro.params;
@@ -14,12 +14,6 @@ export async function getStaticPaths() {
 const track = getTrack(trackId!);
 if (!track) return Astro.redirect(`${base}learn/`);
 
-const trackIcons: Record<string, string> = {
-  oriented: "compass",
-  governance: "shield-star",
-  quality: "check-circle",
-  agents: "robot",
-};
 ---
 
 <AwesomeGithubLayout
@@ -38,7 +32,7 @@ const trackIcons: Record<string, string> = {
 
   <header class="track-hero">
     <div class="track-container">
-      <div class="track-icon"><Icon name={trackIcons[track.id] || "book-open"} size={48} /></div>
+      <div class="track-icon"><Icon name={TRACK_ICONS[track.id] || "book-open"} size={48} /></div>
       <div class="track-eyebrow">Learning track</div>
       <h1 class="track-h1">{track.label}</h1>
       <p class="track-blurb">{track.blurb}</p>
