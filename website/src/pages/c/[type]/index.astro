@@ -40,7 +40,7 @@ export async function getStaticPaths() {
   <section class="ag-breadcrumb-section">
     <div class="ag-container">
       <nav class="ag-breadcrumb" aria-label="Breadcrumb">
-        <a href={`${base}awesome-github`}>Home</a>
+        <a href={`${base}`}>Home</a>
         <span class="ag-breadcrumb-separator">/</span>
         <span>{currentType.label}</span>
       </nav>
@@ -108,7 +108,7 @@ export async function getStaticPaths() {
           .filter(t => t.type !== type)
           .map((t) => (
             <a href={`${base}c/${t.type}/`} class="ag-type-card">
-              <div class="ag-type-icon">{t.icon}</div>
+              <div class="ag-type-icon" aria-hidden="true">{t.icon}</div>
               <h3 class="ag-type-name">{t.label}</h3>
               <p class="ag-type-count">{t.count} resource{t.count !== 1 ? 's' : ''}</p>
             </a>
@@ -188,7 +188,7 @@ export async function getStaticPaths() {
   }
 
   .ag-resources-section {
-    padding: var(--space-40) var(--gutter);
+    padding: var(--section-y) var(--gutter);
     background: var(--bg);
   }
 
@@ -246,7 +246,7 @@ export async function getStaticPaths() {
 
   .ag-resource-version {
     font-size: var(--fs-body-sm);
-    color: var(--c-light-blue);
+    color: var(--accent);
     font-weight: var(--weight-semibold);
   }
 
@@ -282,9 +282,10 @@ export async function getStaticPaths() {
   .ag-resource-tag {
     font-size: var(--fs-body-sm);
     padding: var(--space-1) var(--space-2);
-    background: rgba(123, 231, 255, 0.1);
-    color: var(--c-light-blue);
+    background: var(--accent-soft);
+    color: var(--accent);
     border-radius: var(--radius-sm);
+    font-weight: var(--weight-medium);
   }
 
   .ag-empty-state {
@@ -294,7 +295,7 @@ export async function getStaticPaths() {
   }
 
   .ag-section-alt {
-    padding: var(--space-40) var(--gutter);
+    padding: var(--section-y) var(--gutter);
     background: var(--bg-alt);
   }
 

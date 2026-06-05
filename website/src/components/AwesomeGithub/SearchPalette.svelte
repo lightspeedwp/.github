@@ -17,6 +17,7 @@
   let selected = 0;
   let inputEl: HTMLInputElement;
   let dialogEl: HTMLElement;
+  let previousFocus: HTMLElement | null = null;
 
   $: filtered = query.trim().length < 1
     ? items.slice(0, 8)
@@ -33,6 +34,7 @@
   $: if (filtered) selected = 0;
 
   function openPalette() {
+    previousFocus = document.activeElement as HTMLElement;
     open = true;
     query = "";
     selected = 0;
@@ -42,6 +44,8 @@
   function closePalette() {
     open = false;
     query = "";
+    setTimeout(() => previousFocus?.focus(), 50);
+    previousFocus = null;
   }
 
   function navigate(item: typeof items[0]) {
@@ -60,6 +64,20 @@
     if (e.key === "ArrowDown") { e.preventDefault(); selected = Math.min(selected + 1, filtered.length - 1); }
     if (e.key === "ArrowUp") { e.preventDefault(); selected = Math.max(selected - 1, 0); }
     if (e.key === "Enter" && filtered[selected]) navigate(filtered[selected]);
+    if (e.key === "Tab" && dialogEl) {
+      const focusable = dialogEl.querySelectorAll<HTMLElement>('input, button, [tabindex="0"]');
+      if (focusable.length > 0) {
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
   }
 
   function handleBackdropClick(e: MouseEvent) {
@@ -109,7 +127,7 @@
           class="sp-input"
           type="text"
           role="combobox"
-          aria-expanded="true"
+          aria-expanded={filtered.length > 0}
           aria-haspopup="listbox"
           placeholder="Search agents, instructions, prompts…"
           autocomplete="off"

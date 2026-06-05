@@ -361,7 +361,7 @@ const steps = [
   @media (max-width: 768px) {
     .gs-hero {
       padding: var(--space-20) var(--gutter);
-      margin-top: 72px;
+      
     }
 
     .gs-h1 {
@@ -388,9 +388,13 @@ const steps = [
       const text = btn.dataset.copy || "";
       try {
         await navigator.clipboard.writeText(text);
-        const orig = btn.textContent;
+        const orig = btn.textContent || "Copy";
         btn.textContent = "Copied!";
-        setTimeout(() => { btn.textContent = orig; }, 2000);
+        btn.setAttribute("aria-label", "Copied to clipboard");
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.setAttribute("aria-label", "Copy to clipboard");
+        }, 2000);
       } catch {
         /* clipboard access denied */
       }

@@ -140,7 +140,7 @@ export const REFERENCE_GROUPS: ReferenceGroup[] = [
     blurb: "Templates and forms that capture structured data from contributors.",
     items: [
       { p: ".github/ISSUE_TEMPLATE", d: "Issue template directory", tree: true },
-      { p: ".github/PULL_REQUEST_TEMPLATE.md", d: "PR template" },
+      { p: ".github/pull_request_template.md", d: "PR template" },
       { p: ".github/DISCUSSION_TEMPLATE", d: "Discussion templates", tree: true },
     ],
   },

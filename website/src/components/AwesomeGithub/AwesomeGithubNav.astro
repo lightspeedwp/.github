@@ -122,15 +122,18 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
     justify-content: space-between;
     height: 72px;
     padding: 0 var(--gutter);
-    background: var(--bg);
+    background: rgba(255, 255, 255, 0.97);
     border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.6);
-    transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 1px 3px rgba(9, 9, 9, 0.06);
+    transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
   }
 
   [data-theme="dark"] .ag-nav {
-    background: rgba(15, 16, 20, 0.8);
+    background: rgba(15, 16, 20, 0.97);
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .ag-nav-brand {
@@ -186,14 +189,21 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
     transition: color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
   }
 
+  /* In light mode, boost contrast from slate-500 (#565656) to slate-700 (#404040) */
+  :global([data-theme="light"]) .ag-nav-link,
+  :root:not([data-theme]) .ag-nav-link {
+    color: var(--c-slate-700, #404040);
+  }
+
   .ag-nav-link:hover {
     color: var(--fg-1);
     border-bottom-color: var(--accent);
   }
 
   .ag-nav-link[aria-current="page"] {
-    color: var(--fg-1);
+    color: var(--accent);
     border-bottom-color: var(--accent);
+    font-weight: var(--weight-semibold);
   }
 
   .ag-nav-actions {

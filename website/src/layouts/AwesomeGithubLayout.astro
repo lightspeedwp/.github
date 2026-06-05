@@ -56,9 +56,10 @@ const themeInitScript = `
     <script is:inline set:html={themeInitScript}></script>
   </head>
   <body class="awesome-github">
+    <a href="#main-content" class="ag-skip-link">Skip to main content</a>
     <AwesomeGithubNav base={base} pathname={pathname} />
     <SearchPalette client:only="svelte" items={searchItems} base={base} />
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <AwesomeGithubFooter />
@@ -81,13 +82,12 @@ const themeInitScript = `
         });
       }
 
-      // Wire nav search button to open search palette
-      const searchBtn = document.querySelector("[data-search-open]");
-      if (searchBtn) {
-        searchBtn.addEventListener("click", () => {
+      // Wire nav search button(s) to open search palette via event delegation
+      document.addEventListener("click", (e) => {
+        if (e.target instanceof Element && e.target.closest("[data-search-open]")) {
           document.dispatchEvent(new CustomEvent("search-palette-open"));
-        });
-      }
+        }
+      });
     </script>
   </body>
 </html>
@@ -108,5 +108,27 @@ const themeInitScript = `
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+  }
+
+  .ag-skip-link {
+    position: absolute;
+    top: -100%;
+    left: var(--gutter, 32px);
+    z-index: 9999;
+    padding: var(--space-3, 12px) var(--space-6, 24px);
+    background: var(--accent, #1E6AFF);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-body, system-ui, sans-serif);
+    text-decoration: none;
+    border-radius: 0 0 var(--radius-md, 8px) var(--radius-md, 8px);
+    transition: top 0.1s;
+  }
+
+  .ag-skip-link:focus {
+    top: 0;
+    outline: 2px solid #fff;
+    outline-offset: -3px;
   }
 </style>

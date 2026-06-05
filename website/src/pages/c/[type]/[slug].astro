@@ -249,7 +249,11 @@ const canInstall = installable(item);
     const path = toggle.dataset.path || "";
     const cat = toggle.dataset.cat || "";
     const isTree = toggle.dataset.tree === "true";
-    let branch = localStorage.getItem("github_branch") || "main";
+    let branch = "main";
+    try {
+      const saved = localStorage.getItem("github_branch");
+      branch = saved === "main" || saved === "develop" ? saved : "main";
+    } catch { /* localStorage blocked in private browsing */ }
 
     function applyBranch(b: string) {
       const urls = computeUrls(path, cat, isTree, b);
@@ -267,7 +271,9 @@ const canInstall = installable(item);
 
     toggle.addEventListener("click", () => {
       branch = branch === "main" ? "develop" : "main";
-      localStorage.setItem("github_branch", branch);
+      try {
+        localStorage.setItem("github_branch", branch);
+      } catch { /* localStorage blocked in private browsing */ }
       applyBranch(branch);
     });
   })();
@@ -405,7 +411,7 @@ const canInstall = installable(item);
   }
 
   .ag-content-section {
-    padding: var(--space-40) var(--gutter);
+    padding: var(--section-y) var(--gutter);
     background: var(--bg);
   }
 
@@ -500,10 +506,11 @@ const canInstall = installable(item);
   .ag-tag {
     display: inline-block;
     padding: var(--space-2) var(--space-3);
-    background: rgba(123, 231, 255, 0.1);
-    color: var(--c-light-blue);
+    background: var(--accent-soft);
+    color: var(--accent);
     border-radius: var(--radius-md);
     font-size: var(--fs-body-sm);
+    font-weight: var(--weight-medium);
   }
 
   .ag-tools-list,
@@ -553,7 +560,7 @@ const canInstall = installable(item);
   }
 
   .ag-section-alt {
-    padding: var(--space-40) var(--gutter);
+    padding: var(--section-y) var(--gutter);
     background: var(--bg-alt);
   }
 

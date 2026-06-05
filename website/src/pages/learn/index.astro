@@ -61,15 +61,17 @@ const trackIcons: Record<string, string> = {
                 </li>
               ))}
             </ul>
-            <div class="learn-track-cta">
-              <AwesomeGithubButton
-                href={`${base}learn/${track.id}/${track.lessons[0].slug}/`}
-                variant="secondary"
-                size="sm"
-              >
-                Start track
-              </AwesomeGithubButton>
-            </div>
+            {track.lessons[0] && (
+              <div class="learn-track-cta">
+                <AwesomeGithubButton
+                  href={`${base}learn/${track.id}/${track.lessons[0].slug}/`}
+                  variant="secondary"
+                  size="sm"
+                >
+                  Start track
+                </AwesomeGithubButton>
+              </div>
+            )}
           </article>
         ))}
       </div>
@@ -279,7 +281,7 @@ const trackIcons: Record<string, string> = {
   @media (max-width: 768px) {
     .learn-hero {
       padding: var(--space-20) var(--gutter);
-      margin-top: 72px;
+      
     }
 
     .learn-h1 { font-size: var(--fs-h2); }
