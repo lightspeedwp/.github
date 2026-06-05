@@ -1,5 +1,6 @@
 ---
 import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import Icon from "../../components/AwesomeGithub/Icon.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -8,7 +9,7 @@ const tracks = [
     number: 1,
     name: "Goal-oriented",
     description: "Start here. How the control plane is put together and how change flows to stable.",
-    icon: "⚙️",
+    icon: "gear",
     progress: { completed: 1, total: 2 },
     lessons: [
       {
@@ -31,7 +32,7 @@ const tracks = [
     number: 2,
     name: "Governance & labelling",
     description: "The taxonomy and automation that keep work legible across every repository.",
-    icon: "🛡️",
+    icon: "shield-star",
     progress: { completed: 0, total: 3 },
     lessons: [
       {
@@ -61,7 +62,7 @@ const tracks = [
     number: 3,
     name: "Quality & release",
     description: "The gates a change passes through — linting, testing, and the ritual of shipping it.",
-    icon: "✓",
+    icon: "check-circle",
     progress: { completed: 1, total: 3 },
     lessons: [
       {
@@ -91,7 +92,7 @@ const tracks = [
     number: 4,
     name: "Working with agents",
     description: "How the planner and reviewer agents are built, configured, and run in practice.",
-    icon: "🤖",
+    icon: "robot",
     progress: { completed: 0, total: 2 },
     lessons: [
       {
@@ -140,7 +141,7 @@ const tracks = [
         {tracks.map((track) => (
           <div class="ag-track-card">
             <div class="ag-track-header">
-              <div class="ag-track-icon">{track.icon}</div>
+              <div class="ag-track-icon"><Icon name={track.icon} size={32} /></div>
               <div class="ag-track-meta">
                 <div class="ag-track-number">TRACK {track.number}</div>
                 <h2 class="ag-track-name">{track.name}</h2>
@@ -279,8 +280,9 @@ const tracks = [
   }
 
   .ag-track-icon {
-    font-size: 24px;
+    display: flex;
     flex-shrink: 0;
+    color: var(--accent);
   }
 
   .ag-track-meta {

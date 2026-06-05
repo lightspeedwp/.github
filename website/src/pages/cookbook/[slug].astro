@@ -1,6 +1,7 @@
 ---
 import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import Icon from "../../components/AwesomeGithub/Icon.astro";
 import { COOKBOOK_RECIPES, getRecipe } from "../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
@@ -47,7 +48,7 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${recipe
   <div class="recipe-body">
     <div class="recipe-container recipe-container--narrow">
       <div class="recipe-placeholder">
-        <div class="recipe-placeholder-icon" aria-hidden="true">🍳</div>
+        <div class="recipe-placeholder-icon"><Icon name="cooking-pot" size={40} /></div>
         <h2>Recipe lives on GitHub</h2>
         <p>
           This recipe is maintained as a real Markdown file in the control plane repository at
@@ -174,7 +175,7 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${recipe
     margin-bottom: var(--space-12);
   }
 
-  .recipe-placeholder-icon { font-size: 40px; }
+  .recipe-placeholder-icon { display: flex; justify-content: center; color: var(--accent); }
 
   .recipe-placeholder h2 {
     font-size: var(--fs-h4);

@@ -1,4 +1,6 @@
 ---
+import Icon from "./Icon.astro";
+
 interface Props {
   base: string;
   pathname: string;
@@ -59,8 +61,8 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
       aria-pressed="false"
       aria-label="Toggle light and dark mode"
     >
-      <span class="theme-icon-light" aria-hidden="true">☀️</span>
-      <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      <span class="theme-icon-light"><Icon name="sun" size={18} /></span>
+      <span class="theme-icon-dark"><Icon name="moon" size={18} /></span>
     </button>
     <button
       class="ag-nav-hamburger"
@@ -81,29 +83,35 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
   const hamburger = document.querySelector<HTMLButtonElement>("[data-nav-hamburger]");
   const menu = document.getElementById("ag-nav-menu");
 
+  function closeMenu() {
+    hamburger!.setAttribute("aria-expanded", "false");
+    hamburger!.setAttribute("aria-label", "Open navigation menu");
+    menu!.classList.remove("ag-nav-menu--open");
+    document.body.style.overflow = "";
+  }
+
   if (hamburger && menu) {
     hamburger.addEventListener("click", () => {
       const isOpen = hamburger.getAttribute("aria-expanded") === "true";
-      hamburger.setAttribute("aria-expanded", String(!isOpen));
-      hamburger.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
-      menu.classList.toggle("ag-nav-menu--open", !isOpen);
+      if (isOpen) {
+        closeMenu();
+      } else {
+        hamburger.setAttribute("aria-expanded", "true");
+        hamburger.setAttribute("aria-label", "Close navigation menu");
+        menu.classList.add("ag-nav-menu--open");
+        document.body.style.overflow = "hidden";
+      }
     });
 
     // Close on link click (mobile)
     menu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        hamburger.setAttribute("aria-expanded", "false");
-        hamburger.setAttribute("aria-label", "Open navigation menu");
-        menu.classList.remove("ag-nav-menu--open");
-      });
+      link.addEventListener("click", () => closeMenu());
     });
 
     // Close on Escape
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && hamburger.getAttribute("aria-expanded") === "true") {
-        hamburger.setAttribute("aria-expanded", "false");
-        hamburger.setAttribute("aria-label", "Open navigation menu");
-        menu.classList.remove("ag-nav-menu--open");
+        closeMenu();
         hamburger.focus();
       }
     });
@@ -248,9 +256,9 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
 
   .theme-icon-light,
   .theme-icon-dark {
-    font-size: 16px;
-    line-height: 1;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   :global([data-theme="dark"]) .theme-icon-light {
@@ -319,6 +327,7 @@ const isActive = (linkPath: string, exact: boolean): boolean => {
       left: 0;
       right: 0;
       bottom: 0;
+      z-index: 99;
       flex-direction: column;
       gap: 0;
       background: var(--bg);
