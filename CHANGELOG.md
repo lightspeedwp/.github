@@ -285,7 +285,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - High-priority focus: Skills category (696 files, 18.1% footer coverage) and frontmatter schema compliance
   - Risk assessment, success criteria, and dependency analysis for phased execution
   - Unblocks Wave 4D (Issue #554) schema implementation, Wave 4E (Issue #555) agent merge, and Wave 4F (Issue #556) bulk remediation
-  - Closes Issue [#553](https://github.com/lightspeedwp/.github/issues/553) ([#558](https://github.com/lightspeedwp/.github/pull/558))
+  - Closes Issue [#553](https://github.com/lightspeedwp/.github/issues/553) (PR #558)
 
 ### Fixed
 
