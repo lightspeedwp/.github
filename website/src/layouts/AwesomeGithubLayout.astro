@@ -22,7 +22,7 @@ const {
   description = "Governance, not opinions.",
 } = Astro.props;
 
-const themeInitScript = `(function(){try{var s='awesome-github-theme',t=localStorage.getItem(s),m=window.matchMedia&&matchMedia('(prefers-color-scheme:light)').matches;if(t!=='light'&&t!=='dark')t=m?'light':'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.style.colorScheme=t;}catch(e){}})();`;
+const themeInitScript = `(function(){try{var s='ag-theme',t=localStorage.getItem(s),m=window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches;if(t!=='light'&&t!=='dark')t=m?'dark':'light';document.documentElement.setAttribute('data-theme',t);document.documentElement.style.colorScheme=t;}catch(e){}})();`;
 ---
 
 <!doctype html>
@@ -45,7 +45,7 @@ const themeInitScript = `(function(){try{var s='awesome-github-theme',t=localSto
     <AwesomeGithubFooter />
     <script>
       // Theme toggle — event delegation handles all [data-awesome-github-theme-toggle] buttons
-      const STORAGE_KEY = "awesome-github-theme";
+      const STORAGE_KEY = "ag-theme";
       const root = document.documentElement;
 
       document.addEventListener("click", (e) => {
