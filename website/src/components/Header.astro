@@ -130,7 +130,7 @@ const resources = [
       <button class="icon-btn" type="button" id="search-btn-mobile" aria-label="Search">
         <span set:html={svg(icons.search, 20)} />
       </button>
-      <button class="icon-btn burger" type="button" id="burger-btn" aria-label="Open menu">
+      <button class="icon-btn burger" type="button" id="burger-btn" aria-label="Open menu" aria-controls="nav-drawer" aria-expanded="false">
         <span set:html={svg(icons.menu, 20)} />
       </button>
     </div>
@@ -549,7 +549,7 @@ const resources = [
     position: fixed;
     inset: 0;
     z-index: 90;
-    background: rgba(9, 9, 9, 0.5);
+    background: color-mix(in srgb, var(--c-black) 50%, transparent);
     backdrop-filter: blur(3px);
     opacity: 0;
     visibility: hidden;
@@ -569,7 +569,7 @@ const resources = [
     bottom: 0;
     z-index: 91;
     width: min(360px, 87vw);
-    background: var(--bg);
+    background: var(--panel);
     border-left: 1px solid var(--hair);
     box-shadow: var(--shadow-xl);
     display: flex;
@@ -589,7 +589,7 @@ const resources = [
     border-bottom: 1px solid var(--hair);
     position: sticky;
     top: 0;
-    background: var(--bg);
+    background: var(--panel);
     z-index: 1;
   }
 

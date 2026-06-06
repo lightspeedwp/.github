@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Scroll shrink ────────────────────────────── */
   const nav = document.querySelector('.nav');
-  if (nav) {
+  if (nav && 'IntersectionObserver' in window) {
     const sentinel = document.createElement('div');
     sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px;pointer-events:none';
     document.body.prepend(sentinel);
@@ -24,9 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
     trigger.addEventListener('click', e => {
       e.stopPropagation();
       const isOpen = parent.classList.contains('open');
-      document.querySelectorAll('.nav-dropdown-wrap.open').forEach(d =>
-        d.classList.remove('open'));
-      if (!isOpen) parent.classList.add('open');
+
+      document.querySelectorAll('.nav-dropdown-wrap.open').forEach(d => {
+        d.classList.remove('open');
+        d.querySelector('.nav-dropdown-trigger')?.setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        parent.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+      } else {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
     });
 
     trigger.addEventListener('keydown', e => {
@@ -35,8 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener('click', () => {
-    document.querySelectorAll('.nav-dropdown-wrap.open').forEach(d =>
-      d.classList.remove('open'));
+    document.querySelectorAll('.nav-dropdown-wrap.open').forEach(d => {
+      d.classList.remove('open');
+      d.querySelector('.nav-dropdown-trigger')?.setAttribute('aria-expanded', 'false');
+    });
   });
 
   /* ── Burger + Drawer ────────────────────────── */
@@ -47,12 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openDrawer() {
     document.body.classList.add('drawer-open');
+    burger?.setAttribute('aria-expanded', 'true');
+    burger?.setAttribute('aria-label', 'Close menu');
     drawer?.setAttribute('aria-hidden', 'false');
     drawer?.removeAttribute('inert');
     drawerClose?.focus();
   }
   function closeDrawer() {
     document.body.classList.remove('drawer-open');
+    burger?.setAttribute('aria-expanded', 'false');
+    burger?.setAttribute('aria-label', 'Open menu');
     drawer?.setAttribute('aria-hidden', 'true');
     drawer?.setAttribute('inert', '');
     burger?.focus();
@@ -103,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ── Keyboard hint (Mac vs PC) ──────────────── */
-  const isMac = navigator.platform.toUpperCase().includes('MAC');
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPod|iPad/i.test(navigator.userAgent);
   document.querySelectorAll('.search-kbd-hint').forEach(el => {
     el.textContent = isMac ? '⌘K' : 'Ctrl K';
   });
