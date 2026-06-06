@@ -1,6 +1,7 @@
 ---
 import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
+import WapuuHero from "../../components/WapuuHero.astro";
 import { COOKBOOK_RECIPES } from "../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
@@ -18,12 +19,17 @@ const kindBadgeColours: Record<string, string> = {
 >
   <section class="cookbook-hero">
     <div class="cookbook-container">
-      <div class="cookbook-eyebrow">Cookbook</div>
-      <h1 class="cookbook-h1">Recipes for real work</h1>
-      <p class="cookbook-lead">
-        Step-by-step playbooks, worked examples, and checklists for the most common engineering scenarios.
-        Pick a recipe, follow it, ship something.
-      </p>
+      <div class="page-hero-inner">
+        <div class="page-hero-text">
+          <div class="cookbook-eyebrow">Cookbook</div>
+          <h1 class="cookbook-h1">Recipes for real work</h1>
+          <p class="cookbook-lead">
+            Step-by-step playbooks, worked examples, and checklists for the most common engineering scenarios.
+            Pick a recipe, follow it, ship something.
+          </p>
+        </div>
+        <WapuuHero page="cookbook" />
+      </div>
     </div>
   </section>
 

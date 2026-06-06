@@ -3,6 +3,7 @@ import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../../../components/AwesomeGithub/AwesomeGithubButton.astro";
 import AwesomeGithubCard from "../../../components/AwesomeGithub/AwesomeGithubCard.astro";
 import Icon from "../../../components/AwesomeGithub/Icon.astro";
+import WapuuHero from "../../../components/WapuuHero.astro";
 import { getResourcesByType, getAvailableResourceTypes } from "../../../lib/resources";
 
 const base = import.meta.env.BASE_URL;
@@ -50,12 +51,17 @@ export async function getStaticPaths() {
 
   <section class="ag-hero">
     <div class="ag-container">
-      <div class="ag-section-label"><Icon name={currentType.icon} size={16} /> {currentType.label.toUpperCase()}</div>
-      <h1 class="ag-h1">{currentType.label}</h1>
-      <p class="ag-lead">
-        Browse all available {currentType.label.toLowerCase()} from the LightSpeed control plane.
-        {resources.length} resource{resources.length !== 1 ? 's' : ''} available.
-      </p>
+      <div class="page-hero-inner">
+        <div class="page-hero-text">
+          <div class="ag-section-label"><Icon name={currentType.icon} size={16} /> {currentType.label.toUpperCase()}</div>
+          <h1 class="ag-h1">{currentType.label}</h1>
+          <p class="ag-lead">
+            Browse all available {currentType.label.toLowerCase()} from the LightSpeed control plane.
+            {resources.length} resource{resources.length !== 1 ? 's' : ''} available.
+          </p>
+        </div>
+        <WapuuHero page={type} />
+      </div>
     </div>
   </section>
 
