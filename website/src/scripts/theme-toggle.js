@@ -16,36 +16,41 @@ const SVG_SUN = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none"
 </svg>`;
 
 function getTheme() {
-  return document.documentElement.getAttribute('data-theme') || 'light';
+  return document.documentElement.getAttribute("data-theme") || "light";
 }
 
 function updateAllIcons() {
-  const isDark = getTheme() === 'dark';
-  document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+  const isDark = getTheme() === "dark";
+  document.querySelectorAll(".theme-toggle-btn").forEach((btn) => {
     btn.innerHTML = isDark ? SVG_SUN : SVG_MOON;
-    btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-    btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    btn.setAttribute("aria-pressed", isDark ? "true" : "false");
+    btn.setAttribute(
+      "aria-label",
+      isDark ? "Switch to light theme" : "Switch to dark theme",
+    );
   });
-}
 }
 
 function toggleTheme() {
-  const next = getTheme() === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
+  const next = getTheme() === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
   document.documentElement.style.colorScheme = next;
-  try { localStorage.setItem('ag-theme', next); } catch (e) {}
+  try {
+    localStorage.setItem("ag-theme", next);
+  } catch (e) {}
   updateAllIcons();
-  document.dispatchEvent(new CustomEvent('theme-changed'));
+  document.dispatchEvent(new CustomEvent("theme-changed"));
 }
 
 function initThemeToggle() {
   updateAllIcons();
-  document.querySelectorAll('.theme-toggle-btn').forEach(btn =>
-    btn.addEventListener('click', toggleTheme));
+  document
+    .querySelectorAll(".theme-toggle-btn")
+    .forEach((btn) => btn.addEventListener("click", toggleTheme));
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initThemeToggle);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initThemeToggle);
 } else {
   initThemeToggle();
 }
