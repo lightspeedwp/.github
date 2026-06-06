@@ -112,6 +112,51 @@ code, kbd, pre {
   margin-top: 12px;
 }
 
+/* Hero inner — text left, wapuu right */
+.page-hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.page-hero-text {
+  max-width: 680px;
+  flex: 1;
+}
+
+.page-hero-wapuu {
+  height: clamp(140px, 16vw, 230px);
+  width: auto;
+  flex: none;
+  filter: drop-shadow(0 12px 28px rgba(9, 9, 9, 0.18));
+}
+
+/* Tools page has a shorter wapuu */
+.tools-wapuu {
+  height: 116px;
+  width: auto;
+  flex: none;
+  filter: drop-shadow(0 12px 28px rgba(9, 9, 9, 0.18));
+}
+
+@media (max-width: 860px) {
+  .page-hero-wapuu {
+    display: none;
+  }
+
+  .tools-wapuu {
+    height: 90px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page-hero-inner.tools-hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /* Section heading block */
 .section-head {
   display: flex;

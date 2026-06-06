@@ -2,6 +2,7 @@
 import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
 import Icon from "../../components/AwesomeGithub/Icon.astro";
+import WapuuHero from "../../components/WapuuHero.astro";
 import { LEARN_TRACKS, TRACK_ICONS } from "../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
@@ -14,17 +15,22 @@ const base = import.meta.env.BASE_URL;
 >
   <section class="learn-hero">
     <div class="learn-container">
-      <div class="learn-eyebrow">Learning Centre</div>
-      <h1 class="learn-h1">Learn how it works</h1>
-      <p class="learn-lead">
-        Four short learning tracks walk you through everything that makes the LightSpeed control plane tick — from architecture to running agents in production.
-      </p>
-      <div class="learn-meta">
-        <span class="learn-stat">{LEARN_TRACKS.length} tracks</span>
-        <span class="learn-stat-sep">·</span>
-        <span class="learn-stat">{LEARN_TRACKS.reduce((n, t) => n + t.lessons.length, 0)} lessons</span>
-        <span class="learn-stat-sep">·</span>
-        <span class="learn-stat">Free</span>
+      <div class="page-hero-inner">
+        <div class="page-hero-text learn-hero-text">
+          <div class="learn-eyebrow">Learning Centre</div>
+          <h1 class="learn-h1">Learn how it works</h1>
+          <p class="learn-lead">
+            Four short learning tracks walk you through everything that makes the LightSpeed control plane tick — from architecture to running agents in production.
+          </p>
+          <div class="learn-meta">
+            <span class="learn-stat">{LEARN_TRACKS.length} tracks</span>
+            <span class="learn-stat-sep">·</span>
+            <span class="learn-stat">{LEARN_TRACKS.reduce((n, t) => n + t.lessons.length, 0)} lessons</span>
+            <span class="learn-stat-sep">·</span>
+            <span class="learn-stat">Free</span>
+          </div>
+        </div>
+        <WapuuHero page="learn" />
       </div>
     </div>
   </section>
