@@ -103,6 +103,11 @@
   --accent-contrast: var(--c-white);
   --highlight:       var(--c-light-blue);
 
+  /* Surface tokens (flip with theme) */
+  --panel:           #fff;
+  --panel-2:         var(--c-slate-50);
+  --hair:            var(--border);
+
   /* === RADII ================================================== */
   --radius-xs:    2px;
   --radius-sm:    4px;
@@ -225,6 +230,11 @@
   --accent-soft:     rgba(123,231,255,0.18);
   --accent-contrast: var(--c-black);
   --highlight:       var(--c-light-blue);
+
+  /* Surface tokens (dark mode) */
+  --panel:           #16171D;
+  --panel-2:         #1B1C23;
+  --hair:            rgba(255,255,255,.09);
 }
 
 /* ──────────────────────────────────────────────────────────────────

@@ -36,8 +36,6 @@ const themeInitScript = `(function(){try{var s='awesome-github-theme',t=localSto
     <title>{title}</title>
     <!-- Theme init: runs before stylesheets paint to prevent flash-of-wrong-theme -->
     <script is:inline set:html={themeInitScript}></script>
-    <!-- Phosphor Icons (regular weight) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
   </head>
   <body class="awesome-github">
     <a href="#main-content" class="ag-skip-link">Skip to main content</a>
@@ -58,6 +56,7 @@ const themeInitScript = `(function(){try{var s='awesome-github-theme',t=localSto
           try { localStorage.setItem(STORAGE_KEY, next); } catch (_) {}
           root.setAttribute("data-theme", next);
           root.style.colorScheme = next;
+          document.dispatchEvent(new CustomEvent("theme-changed"));
         }
       });
 
@@ -75,6 +74,9 @@ const themeInitScript = `(function(){try{var s='awesome-github-theme',t=localSto
   body {
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-body);
@@ -86,7 +88,7 @@ const themeInitScript = `(function(){try{var s='awesome-github-theme',t=localSto
   main {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 72px);
+    flex: 1;
   }
 
   .ag-skip-link {
