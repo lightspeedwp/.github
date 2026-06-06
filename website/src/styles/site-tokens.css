@@ -55,10 +55,4 @@
   --shadow-xl: 0 24px 64px rgba(0,0,0,.56), 0 4px 16px rgba(0,0,0,.32);
 }
 
-/* Brand colour shortcuts (convenience aliases to design-system vars) */
-:root {
-  --c-brand-blue:       var(--c-brand-blue-600, #1E6AFF);
-  --c-brand-blue-hover: var(--c-brand-blue-700, #1857D6);
-  --c-black:            #090909;
-  --c-light-blue:       #7BE7FF;
-}
+/* Brand colour primitives already come from the design system (colors_and_type.css); avoid redefining them here to prevent token drift. */
