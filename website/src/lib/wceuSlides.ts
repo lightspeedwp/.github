@@ -70,6 +70,11 @@ export function getWceuSlides(): WceuSlide[] {
     return slideCache;
   }
 
+  if (!fs.existsSync(slidesDir)) {
+    slideCache = [];
+    return slideCache;
+  }
+
   const files = fs
     .readdirSync(slidesDir)
     .filter((file) => slideFilePattern.test(file))
