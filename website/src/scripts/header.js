@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     drawer?.setAttribute("aria-hidden", "false");
     drawer?.removeAttribute("inert");
     Array.from(document.body.children).forEach((child) => {
-      if (child !== drawer && child !== drawerScrim) {
+      if (child.id !== "nav-drawer" && child.id !== "drawer-scrim") {
         child.setAttribute("inert", "");
       }
     });
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     drawer?.setAttribute("aria-hidden", "true");
     drawer?.setAttribute("inert", "");
     Array.from(document.body.children).forEach((child) => {
-      if (child !== drawer && child !== drawerScrim) {
+      if (child.id !== "nav-drawer" && child.id !== "drawer-scrim") {
         child.removeAttribute("inert");
       }
     });

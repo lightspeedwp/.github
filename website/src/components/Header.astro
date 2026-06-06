@@ -5,7 +5,9 @@ const base = import.meta.env.BASE_URL;
 const pathname = Astro.url.pathname;
 
 const isActive = (path: string): boolean => {
-  const norm = pathname.replace(/\/$/, '');
+  const baseClean = base.replace(/\/$/, '');
+  const rawNorm = pathname.replace(/\/$/, '');
+  const norm = baseClean && rawNorm.startsWith(baseClean) ? rawNorm.slice(baseClean.length) : rawNorm;
   const p = path.replace(/\/$/, '');
   return norm === p || norm.startsWith(p + '/');
 };
