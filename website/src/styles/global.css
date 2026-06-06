@@ -52,6 +52,7 @@ body {
 
 /* Alternating panel-2 section (Pattern B) */
 .section-alt {
+.section-alt {
   background: var(--panel-2);
   border-top:    1px solid var(--hair);
   border-bottom: 1px solid var(--hair);
