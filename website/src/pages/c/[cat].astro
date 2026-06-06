@@ -178,7 +178,7 @@ function typeBadgeClass(type: string): string {
 
     const updateChipState = () => {
       chips.forEach((chip) => {
-        const tag = chip.dataset.tag || "";
+        const tag = (chip.dataset.tag || "").toLowerCase();
         chip.setAttribute("aria-pressed", activeTags.includes(tag) ? "true" : "false");
         chip.classList.toggle("is-active", activeTags.includes(tag));
       });
@@ -212,7 +212,7 @@ function typeBadgeClass(type: string): string {
 
     chips.forEach((chip) => {
       chip.addEventListener("click", () => {
-        const tag = chip.dataset.tag || "";
+        const tag = (chip.dataset.tag || "").toLowerCase();
         if (!tag) return;
 
         if (activeTags.includes(tag)) {
