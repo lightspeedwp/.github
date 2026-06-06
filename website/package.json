@@ -24,6 +24,6 @@
     "@phosphor-icons/core": "^2.1.1",
     "astro": "^6.4.4",
     "gray-matter": "^4.0.3",
-    "svelte": "^5.0.0"
+    "svelte": "^5.56.2"
   }
 }
