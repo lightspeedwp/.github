@@ -40,6 +40,7 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "docs/mustache-repo-templates/**", // Template files
       "scripts/utility/__tests__/**", // Test files
       "scripts/utility/__fixtures__/**", // Test fixtures
+      "design_handoff_awesome_github/**", // Design prototype (reference, not production code)
     ];
 
 /**

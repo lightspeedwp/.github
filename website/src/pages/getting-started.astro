@@ -1,0 +1,405 @@
+---
+import AwesomeGithubLayout from "../layouts/AwesomeGithubLayout.astro";
+import AwesomeGithubButton from "../components/AwesomeGithub/AwesomeGithubButton.astro";
+import Icon from "../components/AwesomeGithub/Icon.astro";
+import { cloneCmd } from "../lib/catalogue";
+
+const base = import.meta.env.BASE_URL;
+
+const steps = [
+  {
+    number: "01",
+    title: "Clone the repository",
+    body: "Get the control plane on your machine. The develop branch has the latest assets.",
+    code: cloneCmd("develop"),
+    codeLabel: "Clone command",
+  },
+  {
+    number: "02",
+    title: "Browse the catalogue",
+    body: "Every resource is catalogued by type — agents, instructions, prompts, skills, hooks, workflows, plugins, and tools. Pick what you need.",
+    cta: { label: "Browse catalogue", href: `${base}c/agents/` },
+  },
+  {
+    number: "03",
+    title: "Install into VS Code",
+    body: "Instructions and agents can be installed directly into GitHub Copilot with one click — no manual copying.",
+    note: "Look for the \"Install in VS Code\" button on any single-file resource.",
+  },
+  {
+    number: "04",
+    title: "Copy raw files",
+    body: "Need the raw file? Every resource has a raw URL for curl or wget. Paste it straight into your repo.",
+    note: "Switch between main (stable) and develop (latest) using the branch toggle.",
+  },
+  {
+    number: "05",
+    title: "Learn the system",
+    body: "The Learning Centre walks you through the architecture, governance model, and agent setup — four short tracks.",
+    cta: { label: "Go to Learning Centre", href: `${base}learn/` },
+  },
+  {
+    number: "06",
+    title: "Run the cookbook",
+    body: "Need a walkthrough? The cookbook has step-by-step playbooks for common engineering scenarios.",
+    cta: { label: "Browse recipes", href: `${base}cookbook/` },
+  },
+];
+---
+
+<AwesomeGithubLayout
+  title="Getting Started — Awesome GitHub"
+  description="Ten minutes to get the LightSpeed control plane running in your repository."
+>
+  <section class="gs-hero">
+    <div class="gs-container">
+      <div class="gs-eyebrow">Getting Started</div>
+      <h1 class="gs-h1">Up and running in ten minutes</h1>
+      <p class="gs-lead">
+        The LightSpeed control plane delivers agents, instructions, prompts, and guardrails straight into your repository. Here's how to get started.
+      </p>
+    </div>
+  </section>
+
+  <section class="gs-steps-section">
+    <div class="gs-container">
+      <div class="gs-steps">
+        {steps.map((step) => (
+          <div class="gs-step">
+            <div class="gs-step-number" aria-hidden="true">{step.number}</div>
+            <div class="gs-step-content">
+              <h2 class="gs-step-title">{step.title}</h2>
+              <p class="gs-step-body">{step.body}</p>
+              {step.code && (
+                <div class="gs-code-block">
+                  {step.codeLabel && <div class="gs-code-label">{step.codeLabel}</div>}
+                  <div class="gs-code-inner">
+                    <code class="gs-code">{step.code}</code>
+                    <button
+                      class="gs-copy-btn"
+                      data-copy={step.code}
+                      aria-label="Copy to clipboard"
+                      type="button"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                </div>
+              )}
+              {step.note && (
+                <p class="gs-step-note">{step.note}</p>
+              )}
+              {step.cta && (
+                <div class="gs-step-cta">
+                  <AwesomeGithubButton href={step.cta.href} variant="secondary" size="sm">
+                    {step.cta.label}
+                  </AwesomeGithubButton>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="gs-next-section">
+    <div class="gs-container">
+      <h2 class="gs-h2">What next?</h2>
+      <p class="gs-lead">Explore the catalogue, follow the learning tracks, or run a cookbook recipe.</p>
+      <div class="gs-next-grid">
+        <a href={`${base}c/agents/`} class="gs-next-card">
+          <div class="gs-next-icon"><Icon name="robot" size={28} /></div>
+          <h3>Browse Agents</h3>
+          <p>Specialised AI agents with defined behaviour, scope, and escalation rules.</p>
+        </a>
+        <a href={`${base}learn/`} class="gs-next-card">
+          <div class="gs-next-icon"><Icon name="books" size={28} /></div>
+          <h3>Learning Centre</h3>
+          <p>Four tracks covering architecture, governance, quality, and agents.</p>
+        </a>
+        <a href={`${base}cookbook/`} class="gs-next-card">
+          <div class="gs-next-icon"><Icon name="cooking-pot" size={28} /></div>
+          <h3>Cookbook</h3>
+          <p>Step-by-step playbooks for common engineering scenarios.</p>
+        </a>
+        <a href={`${base}glossary/`} class="gs-next-card">
+          <div class="gs-next-icon"><Icon name="book-open" size={28} /></div>
+          <h3>Glossary</h3>
+          <p>Plain-language definitions for every term in the control plane.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</AwesomeGithubLayout>
+
+<style>
+  .gs-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .gs-hero {
+    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    color: var(--c-white);
+    padding: var(--space-40) var(--gutter);
+  }
+
+  .gs-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(123, 231, 255, 0.1);
+    border: 1px solid rgba(123, 231, 255, 0.3);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    color: var(--c-light-blue);
+    margin-bottom: var(--space-6);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+
+  .gs-h1 {
+    font-size: var(--fs-h1);
+    font-weight: var(--weight-extrabold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-6) 0;
+    color: var(--c-white);
+  }
+
+  .gs-lead {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-loose);
+    color: var(--c-slate-300);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .gs-steps-section {
+    padding: var(--space-24) var(--gutter);
+    background: var(--bg);
+  }
+
+  .gs-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .gs-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-8);
+    padding: var(--space-12) 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .gs-step:last-child {
+    border-bottom: none;
+  }
+
+  .gs-step-number {
+    font-family: var(--font-mono);
+    font-size: 48px;
+    font-weight: var(--weight-bold);
+    color: var(--accent);
+    opacity: 0.3;
+    line-height: 1;
+    padding-top: 4px;
+  }
+
+  .gs-step-title {
+    font-size: var(--fs-h3);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-4) 0;
+    color: var(--fg-1);
+    line-height: var(--lh-heading);
+  }
+
+  .gs-step-body {
+    font-size: var(--fs-body-lg);
+    color: var(--fg-2);
+    margin: 0 0 var(--space-6) 0;
+    line-height: var(--lh-loose);
+    max-width: 60ch;
+  }
+
+  .gs-code-block {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-6);
+    max-width: 560px;
+  }
+
+  .gs-code-label {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--fs-body-sm);
+    color: var(--fg-3);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+  }
+
+  .gs-code-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .gs-code {
+    font-family: var(--font-mono);
+    font-size: var(--fs-code);
+    color: var(--c-light-blue);
+    background: none;
+    border: none;
+    padding: 0;
+    word-break: break-all;
+  }
+
+  .gs-copy-btn {
+    flex-shrink: 0;
+    padding: var(--space-2) var(--space-3);
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-body-sm);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    transition: all var(--dur) var(--ease-out);
+    font-family: var(--font-body);
+  }
+
+  .gs-copy-btn:hover {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  .gs-step-note {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-3);
+    margin: 0 0 var(--space-4) 0;
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-alt);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    max-width: 60ch;
+  }
+
+  .gs-step-cta {
+    margin-top: var(--space-4);
+  }
+
+  .gs-h2 {
+    font-size: var(--fs-h2);
+    font-weight: var(--weight-bold);
+    line-height: var(--lh-heading);
+    margin: 0 0 var(--space-4) 0;
+    color: var(--fg-1);
+  }
+
+  .gs-next-section {
+    padding: var(--space-24) var(--gutter);
+    background: var(--bg-alt);
+  }
+
+  .gs-next-section .gs-lead {
+    color: var(--fg-2);
+    margin-bottom: var(--space-10);
+  }
+
+  .gs-next-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .gs-next-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--dur) var(--ease-out);
+  }
+
+  .gs-next-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .gs-next-icon {
+    display: flex;
+    color: var(--accent);
+  }
+
+  .gs-next-card h3 {
+    font-size: var(--fs-h5);
+    font-weight: var(--weight-bold);
+    margin: 0;
+    color: var(--fg-1);
+  }
+
+  .gs-next-card p {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-2);
+    margin: 0;
+    line-height: var(--lh-snug);
+  }
+
+  @media (max-width: 768px) {
+    .gs-hero {
+      padding: var(--space-20) var(--gutter);
+      
+    }
+
+    .gs-h1 {
+      font-size: var(--fs-h2);
+    }
+
+    .gs-step {
+      grid-template-columns: 1fr;
+    }
+
+    .gs-step-number {
+      font-size: 32px;
+    }
+
+    .gs-next-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".gs-copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = btn.dataset.copy || "";
+      try {
+        await navigator.clipboard.writeText(text);
+        const orig = btn.textContent || "Copy";
+        btn.textContent = "Copied!";
+        btn.setAttribute("aria-label", "Copied to clipboard");
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.setAttribute("aria-label", "Copy to clipboard");
+        }, 2000);
+      } catch {
+        /* clipboard access denied */
+      }
+    });
+  });
+</script>

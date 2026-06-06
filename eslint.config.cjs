@@ -105,6 +105,10 @@ module.exports = [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       "prettier/prettier": "warn",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
+      ],
     },
   },
   // CommonJS files (.cjs)
