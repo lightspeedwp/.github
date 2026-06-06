@@ -7,6 +7,8 @@
 /* Light mode (default) */
 :root {
   color-scheme: light;
+:root {
+  color-scheme: light;
 
   /* Surface elevation above --bg */
   --panel:   #FFFFFF;
