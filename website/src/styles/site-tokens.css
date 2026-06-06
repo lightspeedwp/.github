@@ -43,6 +43,7 @@
 
 /* Dark mode overrides */
 [data-theme="dark"] {
+[data-theme="dark"] {
   color-scheme: dark;
   --panel:   #16171D;
   --panel-2: #1B1C23;
