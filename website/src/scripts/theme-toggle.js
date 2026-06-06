@@ -23,7 +23,10 @@ function updateAllIcons() {
   const isDark = getTheme() === 'dark';
   document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
     btn.innerHTML = isDark ? SVG_SUN : SVG_MOON;
+    btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
   });
+}
 }
 
 function toggleTheme() {
@@ -32,16 +35,17 @@ function toggleTheme() {
   document.documentElement.style.colorScheme = next;
   try { localStorage.setItem('ag-theme', next); } catch (e) {}
   updateAllIcons();
+  document.dispatchEvent(new CustomEvent('theme-changed'));
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    updateAllIcons();
-    document.querySelectorAll('.theme-toggle-btn').forEach(btn =>
-      btn.addEventListener('click', toggleTheme));
-  });
-} else {
+function initThemeToggle() {
   updateAllIcons();
   document.querySelectorAll('.theme-toggle-btn').forEach(btn =>
     btn.addEventListener('click', toggleTheme));
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initThemeToggle);
+} else {
+  initThemeToggle();
 }
