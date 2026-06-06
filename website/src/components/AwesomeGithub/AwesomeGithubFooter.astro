@@ -1,11 +1,9 @@
 ---
-import Icon from "./Icon.astro";
 import { CATEGORIES } from "../../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
 
-// Split categories: first 4 for Browse, remaining for More
-const browseCats = CATEGORIES.slice(0, 4);
+const catalogueCats = CATEGORIES.slice(0, 4);
 const moreCats = CATEGORIES.slice(4);
 ---
 
@@ -29,14 +27,9 @@ const moreCats = CATEGORIES.slice(4);
         <!-- Column 1: Catalogues (Browse categories, first 4) -->
         <div class="foot-col">
           <h5>Catalogues</h5>
-          <div class="foot-cat-grid">
-            {browseCats.map((cat) => (
-              <a href={`${base}c/${cat.id}/`}>
-                <Icon name={cat.icon} size={18} />
-                <span>{cat.label}</span>
-              </a>
-            ))}
-          </div>
+          {catalogueCats.map((cat) => (
+            <a href={`${base}c/${cat.id}/`}>{cat.label}</a>
+          ))}
         </div>
 
         <!-- Column 2: More (remaining categories) -->
@@ -156,9 +149,7 @@ const moreCats = CATEGORIES.slice(4);
   }
 
   .foot-col a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: block;
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
     font-size: 14px;
@@ -169,27 +160,6 @@ const moreCats = CATEGORIES.slice(4);
 
   .foot-col a:hover {
     color: var(--c-light-blue);
-  }
-
-  /* Browse categories grid (2 columns within Catalogues column) */
-  .foot-cat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .foot-cat-grid a {
-    padding: 8px;
-    border-radius: var(--radius-sm);
-    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
-  }
-
-  .foot-cat-grid a:hover {
-    background: rgba(255, 255, 255, 0.08);
-  }
-
-  .foot-cat-grid a span {
-    font-size: 13px;
   }
 
   /* ── Bottom bar ──────────────────────────────────────────────────── */
@@ -236,14 +206,6 @@ const moreCats = CATEGORIES.slice(4);
 
     .foot-col {
       min-width: 150px;
-    }
-
-    .foot-cat-grid {
-      gap: 4px;
-    }
-
-    .foot-cat-grid a span {
-      font-size: 12px;
     }
   }
 
