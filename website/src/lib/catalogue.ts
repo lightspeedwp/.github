@@ -128,6 +128,10 @@ export function cloneCmd(branch: string): string {
     : `git clone https://github.com/${REPO}.git`;
 }
 
+export function itemRouteId(item: CatalogueItem): string {
+  return `${item.cat}--${item.slug}`;
+}
+
 /* ── Markdown bodies for representative items ── */
 const MD: Record<string, string> = {};
 

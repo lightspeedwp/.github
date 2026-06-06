@@ -1,6 +1,6 @@
 ---
 import AwesomeGithubLayout from "../../../layouts/AwesomeGithubLayout.astro";
-import { getItemBySlug, getItemsByCategory, getCategoryInfo, urlsFor, installable, TYPES, ITEMS } from "../../../lib/catalogue";
+import { getItemBySlug, getItemsByCategory, getCategoryInfo, urlsFor, installable, TYPES, ITEMS, itemRouteId } from "../../../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
 
@@ -177,7 +177,7 @@ const canInstall = installable(item);
         <h2 class="ag-h2">More {category?.label}</h2>
         <div class="ag-related-grid">
           {relatedItems.map((rel) => (
-            <a href={`${base}c/${type}/${rel.slug}/`} class="ag-related-card">
+            <a href={`${base}item/${itemRouteId(rel)}/`} class="ag-related-card">
               <h3 class="ag-related-title">{rel.name}</h3>
               <p class="ag-related-description">{rel.description}</p>
             </a>
