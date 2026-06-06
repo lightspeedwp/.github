@@ -93,12 +93,12 @@ export const TYPES: Record<string, TypeInfo> = {
 
 export const CATEGORIES: Category[] = [
   { id: "agents", label: "Agents", type: "install", blurb: "Specialised AI agents with defined behaviour, scope, and escalation rules.", icon: "robot" },
-  { id: "instructions", label: "Instructions", type: "install", blurb: "Canonical coding, accessibility, and WordPress standards Copilot must follow.", icon: "book" },
-  { id: "prompts", label: "Prompts", type: "install", blurb: "Reusable prompt templates you can grab and run for common engineering tasks.", icon: "chat" },
-  { id: "skills", label: "Skills", type: "install", blurb: "Portable, self-contained skill packages the team can run on demand.", icon: "sparkles" },
+  { id: "instructions", label: "Instructions", type: "install", blurb: "Canonical coding, accessibility, and WordPress standards Copilot must follow.", icon: "book-open" },
+  { id: "prompts", label: "Prompts", type: "install", blurb: "Reusable prompt templates you can grab and run for common engineering tasks.", icon: "chat-circle" },
+  { id: "skills", label: "Skills", type: "install", blurb: "Portable, self-contained skill packages the team can run on demand.", icon: "sparkle" },
   { id: "hooks", label: "Hooks", type: "guardrail", blurb: "Pre-commit and lint guardrails that enforce quality before code lands.", icon: "shield" },
-  { id: "workflows", label: "Workflows", type: "workflow", blurb: "Portable agentic workflow specs, each paired with a runnable GitHub Action.", icon: "workflow" },
-  { id: "plugins", label: "Plugins", type: "pack", blurb: "Installable, versioned plugin packs bundling governance and AI-ops.", icon: "puzzle" },
+  { id: "workflows", label: "Workflows", type: "workflow", blurb: "Portable agentic workflow specs, each paired with a runnable GitHub Action.", icon: "git-branch" },
+  { id: "plugins", label: "Plugins", type: "pack", blurb: "Installable, versioned plugin packs bundling governance and AI-ops.", icon: "puzzle-piece" },
   { id: "tools", label: "Tools", type: "mixed", blurb: "The toolchain layer — AI defaults, scripts, schemas, and editor config.", icon: "wrench" },
 ];
 
