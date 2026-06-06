@@ -354,6 +354,13 @@ body, .ls-body {
 }
 .ls-link:hover { color: var(--fg-link-hover); border-bottom-color: currentColor; }
 
+/* Dark mode code contrast override */
+[data-theme="dark"] .ls-code,
+[data-theme="dark"] code.ls-code,
+[data-theme="dark"] kbd.ls-code {
+  color: var(--c-light-blue);
+}
+
 /* Cross-browser focus ring (a11y) */
 *:focus-visible {
   outline: 2px solid var(--border-focus);

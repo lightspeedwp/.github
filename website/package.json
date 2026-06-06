@@ -20,11 +20,13 @@
     "format": "npm run format --prefix .."
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.2.2",
     "@astrojs/svelte": "^8.1.2",
     "@phosphor-icons/core": "^2.1.1",
     "astro": "^6.4.4",
     "gray-matter": "^4.0.3",
     "svelte": "^5.56.2"
+  },
+  "devDependencies": {
+    "@astrojs/sitemap": "^3.2.2"
   }
 }
