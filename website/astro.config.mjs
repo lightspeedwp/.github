@@ -1,8 +1,9 @@
-import { defineConfig } from "astro/config";
-import svelte from "@astrojs/svelte";
+import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  output: "static",
-  site: "https://github.lightspeedwp.agency",
-  integrations: [svelte()],
+  site: 'https://github.lightspeedwp.agency',
+  output: 'static',
+  build: {
+    assets: '_assets',
+  },
 });

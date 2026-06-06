@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-06-05"
+last_updated: "2026-06-06"
 owners:
   - LightSpeed Team
 tags:
@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Awesome GitHub Site: Mobile Nav Menu** — Fixed `z-index` on the fixed-position mobile menu so it renders above page content; added body scroll-lock (`overflow: hidden`) while the menu is open to prevent background scroll. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
+- **Awesome GitHub Site: Phase 01 Scaffold Merge Hardening (`#851`)** — Finalised the Phase 01 scaffold branch for merge by replacing stale `/talk/*` links with valid `/wceu-2026/slides/*` routes on agent pages and aligning key CI workflows to Node `22.22.1` so Astro 6/lint-staged engine checks pass in PR validation.
 
 ---
 
@@ -284,7 +285,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - High-priority focus: Skills category (696 files, 18.1% footer coverage) and frontmatter schema compliance
   - Risk assessment, success criteria, and dependency analysis for phased execution
   - Unblocks Wave 4D (Issue #554) schema implementation, Wave 4E (Issue #555) agent merge, and Wave 4F (Issue #556) bulk remediation
-  - Closes Issue [#553](https://github.com/lightspeedwp/.github/issues/553) ([#558](https://github.com/lightspeedwp/.github/pull/558))
+  - Closes Issue [#553](https://github.com/lightspeedwp/.github/issues/553) (PR #558)
 
 ### Fixed
 

@@ -25,5 +25,6 @@
     "astro": "^6.4.4",
     "gray-matter": "^4.0.3",
     "svelte": "^5.56.2"
-  }
+  },
+  "devDependencies": {}
 }

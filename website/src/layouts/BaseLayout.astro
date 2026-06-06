@@ -1,248 +1,50 @@
 ---
-import "../styles/global.css";
+import '../styles/global.css';
+import '../styles/site-tokens.css';
 
-const base = import.meta.env.BASE_URL;
-const pathname = Astro.url.pathname.replace(base, "/");
-
-const navSections = [
-  {
-    label: "Conference",
-    links: [
-      {
-        href: `${base}slideshow/`,
-        path: "/slideshow/",
-        label: "Slideshow",
-        exact: true,
-      },
-      {
-        href: `${base}wceu-2026/`,
-        path: "/wceu-2026/",
-        label: "WCEU 2026",
-        exact: true,
-      },
-      {
-        href: `${base}wceu-2026/slides/`,
-        path: "/wceu-2026/slides/",
-        label: "Slides",
-        exact: false,
-      },
-    ],
-  },
-  {
-    label: "Catalogues",
-    links: [
-      {
-        href: `${base}agents/`,
-        path: "/agents/",
-        label: "Agents",
-        exact: false,
-      },
-      {
-        href: `${base}instructions/`,
-        path: "/instructions/",
-        label: "Instructions",
-        exact: false,
-      },
-      {
-        href: `${base}skills/`,
-        path: "/skills/",
-        label: "Skills",
-        exact: false,
-      },
-      {
-        href: `${base}hooks/`,
-        path: "/hooks/",
-        label: "Hooks",
-        exact: false,
-      },
-      {
-        href: `${base}plugins/`,
-        path: "/plugins/",
-        label: "Plugins",
-        exact: false,
-      },
-      {
-        href: `${base}workflows/`,
-        path: "/workflows/",
-        label: "Workflows",
-        exact: false,
-      },
-      {
-        href: `${base}tools/`,
-        path: "/tools/",
-        label: "Tools",
-        exact: false,
-      },
-      {
-        href: `${base}learning-hub/`,
-        path: "/learning-hub/",
-        label: "Learning",
-        exact: false,
-      },
-    ],
-  },
-  {
-    label: "About",
-    links: [
-      {
-        href: base,
-        path: "/",
-        label: "Home",
-        exact: true,
-      },
-      {
-        href: `${base}why-this-exists/`,
-        path: "/why-this-exists/",
-        label: "Why This Exists",
-        exact: true,
-      },
-      {
-        href: `${base}references/`,
-        path: "/references/",
-        label: "References",
-        exact: false,
-      },
-      {
-        href: `${base}getting-started/`,
-        path: "/getting-started/",
-        label: "Getting Started",
-        exact: false,
-      },
-    ],
-  },
-];
-
+interface Props {
+  title?: string;
+  description?: string;
+}
 const {
-  title = "Awesome GitHub",
-  description = "A conference-ready website for the Awesome GitHub project.",
+  title = 'Awesome GitHub — LightSpeed .github',
+  description = 'Browse the agents, instructions, prompts, skills, and workflows that govern every LightSpeed repository.',
 } = Astro.props;
-
-const themeInitScript = `
-  (() => {
-    const storageKey = "awesome-github-theme";
-    const root = document.documentElement;
-    const media = window.matchMedia("(prefers-color-scheme: light)");
-    let saved = null;
-
-    try {
-      saved = localStorage.getItem(storageKey);
-    } catch (_) {
-      saved = null;
-    }
-
-    const theme = saved === "light" || saved === "dark" ? saved : media.matches ? "light" : "dark";
-    root.dataset.theme = theme;
-    root.style.colorScheme = theme;
-  })();
-`;
-
-const themeToggleScript = `
-  (() => {
-    const storageKey = "awesome-github-theme";
-    const root = document.documentElement;
-    const button = document.querySelector("[data-theme-toggle]");
-    const label = document.querySelector("[data-theme-label]");
-
-    if (!button || !label) {
-      return;
-    }
-
-    const apply = (theme) => {
-      root.dataset.theme = theme;
-      root.style.colorScheme = theme;
-      button.setAttribute("aria-pressed", String(theme === "light"));
-      label.textContent = theme === "light" ? "Light mode" : "Dark mode";
-    };
-
-    const current = root.dataset.theme === "light" || root.dataset.theme === "dark"
-      ? root.dataset.theme
-      : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-
-    apply(current);
-
-    button.addEventListener("click", () => {
-      const next = root.dataset.theme === "light" ? "dark" : "light";
-      try {
-        localStorage.setItem(storageKey, next);
-      } catch (_) {
-        /* ignore storage errors */
-      }
-      apply(next);
-    });
-  })();
-`;
+const base = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
-<html lang="en-GB">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
-    <meta name="description" content={description} />
-    <title>{title}</title>
-    <script is:inline set:html={themeInitScript}></script>
-  </head>
-  <body>
-    <div class="shell">
-      <header class="nav" aria-label="Primary">
-        <a class="brand" href={base}>
-          <span class="brand-mark" aria-hidden="true"></span>
-          <span class="brand-copy">
-            <span class="brand-name">Awesome GitHub</span>
-            <span class="brand-subtitle">Conference site on GitHub Pages</span>
-          </span>
-        </a>
-        <div class="nav-menus">
-          {navSections.map((section) => (
-            <section class="nav-group">
-              <span class="nav-group-label">{section.label}</span>
-              <nav class="nav-links" aria-label={section.label}>
-                {section.links.map((link) => (
-                  <a
-                    href={link.href}
-                    aria-current={
-                      link.exact
-                        ? pathname === link.path
-                          ? "page"
-                          : undefined
-                        : pathname.startsWith(link.path)
-                          ? "page"
-                          : undefined
-                    }
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-            </section>
-          ))}
-        </div>
-        <button
-          class="theme-toggle"
-          type="button"
-          data-theme-toggle
-          aria-pressed="false"
-          aria-label="Toggle light and dark mode"
-        >
-          <span class="theme-toggle-label" data-theme-label>Dark mode</span>
-        </button>
-      </header>
-      <main>
-        <slot />
-      </main>
-      <footer>
-        <div class="footer-copy">
-          <strong>© 2026 LightSpeed</strong>
-          <span>Built for the WordPress ecosystem.</span>
-        </div>
-        <nav class="footer-links" aria-label="Footer links">
-          <a href="https://lightspeedwp.agency/" target="_blank" rel="noreferrer">LightSpeed Website</a>
-          <a href="https://github.com/lightspeedwp/.github" target="_blank" rel="noreferrer">.github Repository</a>
-          <a href={`${base}talk/`}>WCEU 2026 Talk</a>
-        </nav>
-      </footer>
-    </div>
-    <script is:inline set:html={themeToggleScript}></script>
-  </body>
+<html lang="en-GB" data-theme="light">
+<head>
+  <!-- MANDATORY: theme guard MUST be first script, before any stylesheet -->
+  <script is:inline>
+  (function(){
+    try {
+      var t = localStorage.getItem('awesome-github-theme');
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia && matchMedia('(prefers-color-scheme:dark)').matches
+          ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    document.documentElement.style.colorScheme = t;
+    } catch(e) {}
+  })();
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+
+  <!-- Design system tokens -->
+  <link rel="stylesheet" href={`${base}design-system/colors_and_type.css`} />
+  <link rel="stylesheet" href={`${base}design-system/spacing_and_effects.css`} />
+  <link rel="stylesheet" href={`${base}design-system/components.css`} />
+
+  <!-- Favicon -->
+  <link rel="icon" href={`${base}assets/LS-Agency-Site-Icon-Blue.svg`} type="image/svg+xml" />
+</head>
+<body>
+  <slot />
+</body>
 </html>

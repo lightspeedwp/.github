@@ -6,7 +6,7 @@ import matter from "gray-matter";
 
 const repoRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
-  "../../..",
+  "../../../..",
 );
 const slidesDir = path.join(repoRoot, "wceu-2026/slides");
 const slideFilePattern = /^slide-(\d+)-([a-z0-9-]+)\.md$/;
@@ -67,6 +67,11 @@ export function resolveWceuReferenceHref(reference: string) {
 
 export function getWceuSlides(): WceuSlide[] {
   if (slideCache) {
+    return slideCache;
+  }
+
+  if (!fs.existsSync(slidesDir)) {
+    slideCache = [];
     return slideCache;
   }
 

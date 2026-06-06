@@ -1,16 +1,8 @@
-<script lang="ts">
+<script>
   import { onMount, onDestroy } from "svelte";
 
-  export let items: {
-    id: string;
-    slug: string;
-    cat: string;
-    name: string;
-    description: string;
-    tags: string[];
-  }[] = [];
-
-  export let base: string = "/";
+  export let items = [];
+  export let base = "/";
 
   let open = false;
   let query = "";
