@@ -73,15 +73,32 @@ function escapeHtml(text: string): string {
 }
 
 function renderInline(text: string): string {
-  return escapeHtml(text)
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-    .replace(/`([^`]+)`/g, "<code>$1</code>")
+  const codeSpans: string[] = [];
+  const linkSpans: string[] = [];
+
+  let rendered = escapeHtml(text)
+    .replace(/`([^`]+)`/g, (_, code: string) => {
+      const placeholder = `\u0000CODE${codeSpans.length}\u0000`;
+      codeSpans.push(`<code>${code}</code>`);
+      return placeholder;
+    })
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label: string, href: string) => {
+      const placeholder = `\u0000LINK${linkSpans.length}\u0000`;
+      linkSpans.push(`<a href="${href}">${label}</a>`);
+      return placeholder;
+    })
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+
+  rendered = rendered.replace(/\u0000LINK(\d+)\u0000/g, (_, index: string) => linkSpans[Number(index)] ?? "");
+  rendered = rendered.replace(/\u0000CODE(\d+)\u0000/g, (_, index: string) => codeSpans[Number(index)] ?? "");
+
+  return rendered;
 }
 
 function renderMarkdown(markdown: string): string {
-  const lines = markdown.replace(/\r\n/g, "\n").trim().split("\n");
+  const withoutFrontmatter = markdown.replace(/^---\n[\s\S]*?\n---\n?/, "");
+  const lines = withoutFrontmatter.replace(/\r\n/g, "\n").trim().split("\n");
   const blocks: string[] = [];
   let i = 0;
 
@@ -324,7 +341,7 @@ function renderMarkdown(markdown: string): string {
     const computeUrls = (branch: string) => {
       const raw = rawUrl.replace(/\/main\//, `/${branch}/`);
       const blob = blobUrl.replace(/\/main\//, `/${branch}/`);
-      const vscode = vscodeUrl.replace(/url=([^&]+)/, `url=${encodeURIComponent(raw)}`);
+    const vscode = vscodeUrl.replace(/url=([^&]+)/, () => `url=${encodeURIComponent(raw)}`);
 
       return { raw, blob, vscode };
     };
