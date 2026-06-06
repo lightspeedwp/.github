@@ -3,7 +3,6 @@ import "../styles/global.css";
 import "../styles/awesome-github.css";
 import AwesomeGithubNav from "../components/AwesomeGithub/AwesomeGithubNav.astro";
 import AwesomeGithubFooter from "../components/AwesomeGithub/AwesomeGithubFooter.astro";
-import SearchPalette from "../components/AwesomeGithub/SearchPalette.svelte";
 import { ITEMS } from "../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
@@ -40,7 +39,6 @@ const themeInitScript = `(function(){try{var s='awesome-github-theme',t=localSto
   <body class="awesome-github">
     <a href="#main-content" class="ag-skip-link">Skip to main content</a>
     <AwesomeGithubNav base={base} pathname={pathname} />
-    <SearchPalette client:only="svelte" items={searchItems} base={base} />
     <main id="main-content" tabindex="-1">
       <slot />
     </main>
