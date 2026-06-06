@@ -103,7 +103,8 @@ code, kbd, pre {
 }
 
 /* Page lead paragraph */
-.page-lead {
+.page-lead,
+.lede {
   font-size: clamp(16px, 1.2vw, 18px);
   color: var(--fg-2);
   line-height: 1.65;
