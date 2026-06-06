@@ -26,7 +26,5 @@
     "gray-matter": "^4.0.3",
     "svelte": "^5.56.2"
   },
-  "devDependencies": {
-    "@astrojs/sitemap": "^3.2.2"
-  }
+  "devDependencies": {}
 }
