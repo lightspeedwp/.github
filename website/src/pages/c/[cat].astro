@@ -2,7 +2,7 @@
 import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
 import Icon from "../../components/AwesomeGithub/Icon.astro";
 import WapuuHero from "../../components/WapuuHero.astro";
-import { CATEGORIES, ITEMS, TYPES, getCategoryInfo } from "../../lib/catalogue";
+import { CATEGORIES, ITEMS, TYPES, getCategoryInfo, itemRouteId } from "../../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
 const { cat } = Astro.params;
@@ -120,7 +120,7 @@ function typeBadgeClass(type: string): string {
         {items.map((item) => (
           <a
             class="item-card"
-            href={`${base}c/${category.id}/${item.slug}/`}
+            href={`${base}item/${itemRouteId(item)}/`}
             data-name={item.name}
             data-description={item.description}
             data-tags={item.tags.join(" ")}
