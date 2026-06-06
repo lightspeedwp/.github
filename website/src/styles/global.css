@@ -315,7 +315,7 @@ code, kbd, pre {
 }
 .md pre {
   background: #0d1117;   /* intentional hardcode — run-pill dark bg */
-  color: #d7e2f0;
+  color: var(--c-slate-150);
   border-radius: var(--radius-md);
   padding: 16px 20px;
   overflow-x: auto;
