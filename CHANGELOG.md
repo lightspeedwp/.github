@@ -68,6 +68,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Awesome GitHub Site Phase 04: Footer component** — Updated the always-dark footer to use plain link columns that match the spec, while preserving the cyan halo, dark-only background, and LightSpeed branding. ([#859](https://github.com/lightspeedwp/.github/issues/859), [#860](https://github.com/lightspeedwp/.github/pull/860))
+
 - **Awesome GitHub Site: NotFound Page Accessibility Improvement** — Added `aria-hidden="true"` attribute to decorative Wapuu-Astropuu image in the NotFound component (learn.jsx) to improve WCAG 2.2 AA+ accessibility compliance. Empty alt text combined with aria-hidden ensures screen readers properly skip decorative content.
 - **Awesome GitHub Site: Duplicate Route Collision Fix** — Removed duplicate `/references` route caused by `website/src/pages/references.astro` conflicting with `website/src/pages/references/index.astro`. The build now generates 62 pages with no route collision warnings. Workflow updated with `--legacy-peer-deps` flag for `npm ci` to resolve `@astrojs/svelte` compatibility with Astro 5.18.2.
 
