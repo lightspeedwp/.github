@@ -2,6 +2,13 @@
 import { CATEGORIES } from '../lib/catalogue';
 
 const base = import.meta.env.BASE_URL;
+const pathname = Astro.url.pathname;
+
+const isActive = (path: string): boolean => {
+  const norm = pathname.replace(/\/$/, '');
+  const p = path.replace(/\/$/, '');
+  return norm === p || norm.startsWith(p + '/');
+};
 
 /* Icon path data (Heroicons-style, 24×24, 1.6 stroke) */
 const icons = {
@@ -76,8 +83,8 @@ const resources = [
         </div>
       </div>
 
-      <a href={`${base}cookbook/`} class="nav-btn">Cookbook</a>
-      <a href={`${base}learn/`}    class="nav-btn">Learn</a>
+      <a href={`${base}cookbook/`} class="nav-btn" aria-current={isActive('/cookbook') ? 'page' : undefined}>Cookbook</a>
+      <a href={`${base}learn/`}    class="nav-btn" aria-current={isActive('/learn') ? 'page' : undefined}>Learn</a>
 
       <!-- Resources dropdown -->
       <div class="nav-dropdown-wrap">
