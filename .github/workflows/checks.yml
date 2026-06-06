@@ -52,6 +52,10 @@ jobs:
         with:
           node-version: "20"
       - run: npm ci
+      - name: Validate branch name
+        env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref || github.ref_name }}
+        run: npm run validate:branch-name
       - run: npm run validate:json
       - run: npm run validate:issue-fields
       - run: npm run validate:retired-doc-links
