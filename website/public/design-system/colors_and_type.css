@@ -4,6 +4,8 @@
    Supports light + dark modes; brand-blue first; technical, grounded.
    ────────────────────────────────────────────────────────────────── */
 
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
 /* === FONTS =====================================================
    Display + Body: locally-hosted brand variable fonts (uploaded).
    Mono + Quote: Google Fonts (no licensed brand mono/serif on file). */
@@ -23,7 +25,6 @@
   font-style: normal;
   font-display: swap;
 }
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap');
 
 :root {
   /* === BASE SCALE — Primitives =================================== */
@@ -357,5 +358,4 @@ body, .ls-body {
 *:focus-visible {
   outline: 2px solid var(--border-focus);
   outline-offset: 2px;
-  border-radius: 4px;
 }

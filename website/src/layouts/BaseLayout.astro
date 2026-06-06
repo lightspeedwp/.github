@@ -17,10 +17,10 @@ const base = import.meta.env.BASE_URL;
 <html lang="en" data-theme="light">
 <head>
   <!-- MANDATORY: theme guard MUST be first script, before any stylesheet -->
-  <script>
+  <script is:inline>
   (function(){
     try {
-      var t = localStorage.getItem('ag-theme');
+      var t = localStorage.getItem('awesome-github-theme');
       if (t !== 'light' && t !== 'dark') {
         t = window.matchMedia && matchMedia('(prefers-color-scheme:dark)').matches
           ? 'dark' : 'light';
