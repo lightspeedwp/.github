@@ -26,8 +26,8 @@ if (!agent) {
     <p class="lede">{agent.description}</p>
     <div class="hero-actions">
       <a class="button primary" href="/agents/">Back to Agents</a>
-      <a class="button secondary" href={`/talk/slides/13/`}>See in Presentation</a>
-      <a class="button secondary" href="/talk/slides/">All Slides</a>
+      <a class="button secondary" href="#todo-phase-05">See in Presentation</a>
+      <a class="button secondary" href="#todo-phase-05">All Slides</a>
     </div>
   </section>
 
@@ -51,7 +51,7 @@ if (!agent) {
         <strong>Related Slides</strong>
         <div class="related-links">
           {agent.relatedSlides.map((slideNum) => (
-            <a href={`/talk/slides/${slideNum}/`} class="related-slide">
+            <a href="#todo-phase-05" class="related-slide">
               Slide {slideNum.toString().padStart(2, "0")}
             </a>
           ))}
@@ -111,10 +111,10 @@ if (!agent) {
           <a href="/agents/">All Agent Guides</a> — Compare capabilities
         </li>
         <li>
-          <a href="/talk/slides/13/">Slide 13: Agent Layer</a> — Introduction to agents in the talk
+          <a href="#todo-phase-05">Slide 13: Agent Layer</a> — Introduction to agents in the talk
         </li>
         <li>
-          <a href="/talk/slides/14/">Slide 14: Skill Layer</a> — How agents use skills
+          <a href="#todo-phase-05">Slide 14: Skill Layer</a> — How agents use skills
         </li>
         <li>
           <a href="/getting-started/">Implementation Roadmap</a> — Adoption
