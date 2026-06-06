@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Awesome GitHub Site: Mobile Nav Menu** — Fixed `z-index` on the fixed-position mobile menu so it renders above page content; added body scroll-lock (`overflow: hidden`) while the menu is open to prevent background scroll. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
+- **Awesome GitHub Site: Phase 01 Scaffold Merge Hardening (`#851`)** — Finalised the Phase 01 scaffold branch for merge by replacing stale `/talk/*` links with valid `/wceu-2026/slides/*` routes on agent pages and aligning key CI workflows to Node `22.22.1` so Astro 6/lint-staged engine checks pass in PR validation.
 
 ---
 
