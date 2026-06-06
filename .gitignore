@@ -56,3 +56,4 @@ tmp/
 *.zip
 *.tar.gz
 *.tgz
+website/src/env.d.ts
