@@ -10,7 +10,14 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+img, svg { display: block; max-width: 100%; }
 
 body {
   margin: 0;
@@ -48,6 +55,7 @@ body {
   background: var(--panel-2);
   border-top:    1px solid var(--hair);
   border-bottom: 1px solid var(--hair);
+  transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
 }
 
 /* ── Typography ─────────────────────────────────────────────────── */
@@ -150,6 +158,10 @@ code, kbd, pre {
   text-decoration: none;
 }
 .btn-primary:active { transform: none; }
+.btn-primary:focus-visible {
+  outline: 2px solid var(--c-brand-blue);
+  outline-offset: 3px;
+}
 
 /* Ghost */
 .btn-ghost {
@@ -173,6 +185,10 @@ code, kbd, pre {
   box-shadow: var(--shadow-sm);
   text-decoration: none;
 }
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--c-brand-blue);
+  outline-offset: 3px;
+}
 
 /* Soft (accent background) */
 .btn-soft {
@@ -189,9 +205,15 @@ code, kbd, pre {
   border-radius: var(--radius-md);
   cursor: pointer;
   text-decoration: none;
-  transition: all var(--dur) var(--ease-out);
+  transition: filter var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+  border: 1px solid rgba(0, 0, 0, 0.12); /* fallback for color-mix() */
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
 }
 .btn-soft:hover { filter: brightness(1.08); text-decoration: none; }
+.btn-soft:focus-visible {
+  outline: 2px solid var(--c-brand-blue);
+  outline-offset: 3px;
+}
 
 /* Icon button */
 .icon-btn {
@@ -210,6 +232,10 @@ code, kbd, pre {
 .icon-btn:hover {
   background: var(--panel-2);
   color: var(--fg-1);
+}
+.icon-btn:focus-visible {
+  outline: 2px solid var(--c-brand-blue);
+  outline-offset: 2px;
 }
 
 /* ── Breadcrumb ──────────────────────────────────────────────────── */
