@@ -20,7 +20,7 @@
   /* Font stacks — resolved from design system @font-face */
   --font-display: 'Inter', system-ui, sans-serif;
   --font-body:    'Manrope', system-ui, sans-serif;
-  --font-mono:    'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --font-mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', Consolas, monospace;
 
   /* Layout */
   --nav-h: 64px;          /* header height — used for sticky offset */
