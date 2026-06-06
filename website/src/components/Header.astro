@@ -72,9 +72,9 @@ const resources = [
           Browse
           <span class="chev" set:html={svg(icons.chevronDown, 15)} />
         </button>
-        <div class="nav-dropdown dd-cats" id="browse-dropdown" role="menu">
+        <div class="nav-dropdown dd-cats" id="browse-dropdown">
           {CATEGORIES.map(cat => (
-            <a href={`${base}c/${cat.id}/`} class="dd-item" role="menuitem">
+            <a href={`${base}c/${cat.id}/`} class="dd-item">
               <div class="ddi" set:html={svg(catIconMap[cat.id] ?? icons.robot, 16)} />
               <div>
                 <b>{cat.label}</b>
@@ -94,9 +94,9 @@ const resources = [
           Resources
           <span class="chev" set:html={svg(icons.chevronDown, 15)} />
         </button>
-        <div class="nav-dropdown dd-res" id="resources-dropdown" role="menu">
+        <div class="nav-dropdown dd-res" id="resources-dropdown">
           {resources.map(r => (
-            <a href={r.href} class="dd-simple" role="menuitem">
+            <a href={r.href} class="dd-simple">
               <span class="ddi" set:html={svg(r.icon, 16)} />
               {r.label}
             </a>
