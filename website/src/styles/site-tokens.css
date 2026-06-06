@@ -7,8 +7,6 @@
 /* Light mode (default) */
 :root {
   color-scheme: light;
-:root {
-  color-scheme: light;
 
   /* Surface elevation above --bg */
   --panel:   #FFFFFF;
@@ -42,7 +40,6 @@
 }
 
 /* Dark mode overrides */
-[data-theme="dark"] {
 [data-theme="dark"] {
   color-scheme: dark;
   --panel:   #16171D;
