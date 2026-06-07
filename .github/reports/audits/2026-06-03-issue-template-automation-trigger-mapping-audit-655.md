@@ -3,14 +3,28 @@ file_type: documentation
 title: Issue Template to Automation Trigger Mapping Audit
 description: Mapping of issue templates to expected and actual automation triggers, with gap analysis and remediation steps.
 created_date: "2026-06-03"
-last_updated: "2026-06-03"
-version: "1.0.0"
+last_updated: "2026-06-07"
+version: "1.0.1"
 domain: governance
-status: active
+status: deprecated
 tags: [audit, automation, issue-templates, labeling, workflows, wave-5]
 ---
 
 # Issue Template to Automation Trigger Mapping Audit (#655)
+
+## Historical Notice
+
+This report is a historical snapshot from Wave 5 and is no longer the live governance source of truth.
+
+Use these canonical live sources instead:
+
+- `.github/labels.yml`
+- `.github/labeler.yml`
+- `.github/label-governance-policy.yml`
+- `.github/issue-types.yml`
+- `.github/issue-fields.yml`
+- `scripts/validation/validate-labeling-configs.cjs`
+- `scripts/validation/validate-issue-fields.cjs`
 
 ## Executive Summary
 
