@@ -4,8 +4,9 @@ title: Private-Project Issue-Field Write Verification
 description: Verification record for project visibility/write constraints and safe automation boundaries for project-meta-sync.
 created_date: "2026-06-07"
 last_updated: "2026-06-07"
-version: "1.0.0"
+version: "1.0.1"
 domain: governance
+category: audits
 status: active
 stability: stable
 tags: [audit, verification, project-meta-sync, issue-fields, governance]
@@ -26,17 +27,17 @@ Record the current live automation boundary for project field writes and capture
 
 ## Verification Findings
 
-1. Project sync remains credential-gated and safe by default.
+- **1. Project sync remains credential-gated and safe by default.**
 
 - Sync only runs when all preflight requirements are present: `LS_PROJECT_URL`, `LS_APP_ID`, and `LS_APP_PRIVATE_KEY`.
 - If any requirement is missing, the workflow exits that sync path with a notice rather than attempting partial writes.
 
-1. Current live write path is explicit and bounded.
+- **2. Current live write path is explicit and bounded.**
 
 - The workflow writes only these project fields through the update step: `Status`, `Priority`, `Type`, `Effort`, and `Start date`.
 - `Target date` is defined in canonical config but is not currently emitted by `derive-project-fields.cjs` and is not in the workflow field write list.
 
-1. Canonical governance remains config-first and validator-backed.
+- **3. Canonical governance remains config-first and validator-backed.**
 
 - `.github/issue-fields.yml` remains the canonical mapping source.
 - `scripts/validation/validate-issue-fields.cjs` enforces structure and mapping consistency across canonical config files and docs.
