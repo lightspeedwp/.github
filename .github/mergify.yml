@@ -38,7 +38,8 @@ pull_request_rules:
 
   - name: Keep imgbot image optimizations current on develop
     conditions:
-      - author=imgbot[bot]
+      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge.
+      - author~=^(imgbot\[bot\]|app/imgbot)$
       - base=develop
       - -draft
       - -conflict
@@ -48,7 +49,8 @@ pull_request_rules:
 
   - name: Auto-merge imgbot image optimizations on develop
     conditions:
-      - author=imgbot[bot]
+      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge.
+      - author~=^(imgbot\[bot\]|app/imgbot)$
       - base=develop
       - check-success=All Checks Passed
       - -draft

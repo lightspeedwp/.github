@@ -2,9 +2,9 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.3
+version: v1.0.4
 created_date: '2026-05-31'
-last_updated: '2026-06-03'
+last_updated: '2026-06-07'
 authors:
   - Claude Code
   - LightSpeed Team
@@ -24,7 +24,7 @@ stability: stable
 
 # Issue Fields Specification
 
-**Version**: v1.0.3
+**Version**: v1.0.4
 **Created**: 2026-05-31
 **Owner**: LightSpeed Team
 **Reference Config**: `.github/issue-fields.yml`
@@ -436,6 +436,13 @@ The following project field features are enabled across all LightSpeed repositor
 - **single_select** — Domain, Delivery Track, Team, Risk, Customer Impact, Technical Impact
 
 Managed via `.github/workflows/project-meta-sync.yml` automation.
+
+Current live write boundary (verified 2026-06-07):
+
+- Workflow writes `Status`, `Priority`, `Type`, `Effort`, and `Start date`.
+- `Target date` remains part of canonical config and governance but is currently deferred from automated writes.
+
+Verification record: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
 
 Default assignee: ashleyshaw
 

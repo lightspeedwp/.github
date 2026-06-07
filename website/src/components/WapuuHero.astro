@@ -20,6 +20,7 @@ const WAPUU_MAP: Record<string, string> = {
   onboarding: "/assets/wapuus/wapuu-astropuu.png",
   glossary: "/assets/wapuus/wapuu-astropuu.png",
   why: "/assets/wapuus/wapuu-astropuu.png",
+  references: "/assets/wapuus/wapuu-astropuu.png",
   404: "/assets/wapuus/wapuu-astropuu.png",
 };
 
@@ -34,3 +35,17 @@ const src = WAPUU_MAP[page] ?? FALLBACK;
   class:list={["page-hero-wapuu", className]}
 />
 
+<style>
+  .page-hero-wapuu {
+    height: clamp(140px, 16vw, 230px);
+    width: auto;
+    flex: none;
+    filter: drop-shadow(0 12px 28px rgba(9, 9, 9, 0.18));
+  }
+
+  @media (max-width: 860px) {
+    .page-hero-wapuu {
+      display: none;
+    }
+  }
+</style>

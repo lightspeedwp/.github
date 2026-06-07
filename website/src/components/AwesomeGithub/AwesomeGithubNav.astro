@@ -33,7 +33,7 @@ const isActive = (path: string): boolean => {
       <div class="browse-wrapper" data-browse-menu>
         <button class="nav-btn" aria-expanded="false" aria-controls="browse-panel">
           Browse
-          <span class="chev"><Icon name="chevron-down" size={15} /></span>
+          <span class="chev"><Icon name="ph:caret-down" size={15} /></span>
         </button>
         <div class="dropdown dd-cats" id="browse-panel" role="menu">
           {CATEGORIES.map((cat) => (
@@ -60,27 +60,27 @@ const isActive = (path: string): boolean => {
       <div class="resources-wrapper" data-resources-menu>
         <button class="nav-btn" aria-expanded="false" aria-controls="resources-panel">
           Resources
-          <span class="chev"><Icon name="chevron-down" size={15} /></span>
+          <span class="chev"><Icon name="ph:caret-down" size={15} /></span>
         </button>
         <div class="dropdown dd-res" id="resources-panel" role="menu">
           <a href={`${base}onboarding/`} class="dd-simple" role="menuitem">
-            <Icon name="bolt" size={16} class="ddi" />
+            <Icon name="ph:lightning" size={16} class="ddi" />
             Onboarding journey
           </a>
           <a href={`${base}getting-started/`} class="dd-simple" role="menuitem">
-            <Icon name="download" size={16} class="ddi" />
+            <Icon name="ph:download-simple" size={16} class="ddi" />
             Getting started
           </a>
           <a href={`${base}why/`} class="dd-simple" role="menuitem">
-            <Icon name="layers" size={16} class="ddi" />
+            <Icon name="ph:info" size={16} class="ddi" />
             Why this exists
           </a>
           <a href={`${base}glossary/`} class="dd-simple" role="menuitem">
-            <Icon name="book" size={16} class="ddi" />
+            <Icon name="ph:book-open" size={16} class="ddi" />
             Glossary
           </a>
           <a href={`${base}references/`} class="dd-simple" role="menuitem">
-            <Icon name="github" size={16} class="ddi" />
+            <Icon name="ph:github-logo" size={16} class="ddi" />
             References
           </a>
         </div>
@@ -90,7 +90,7 @@ const isActive = (path: string): boolean => {
     <!-- Right-side actions -->
     <div class="nav-actions">
       <button class="search-trigger" type="button" data-search-open aria-label="Search resources (⌘K)">
-        <Icon name="search" size={16} />
+        <Icon name="ph:magnifying-glass" size={16} />
         <span class="stxt">Search resources</span>
         <span class="kbd">⌘K</span>
       </button>
@@ -108,20 +108,20 @@ const isActive = (path: string): boolean => {
 
         <!-- Theme toggle -->
         <button class="icon-btn" type="button" data-awesome-github-theme-toggle aria-pressed="false" aria-label="Switch theme">
-          <Icon name="sun" size={18} class="sun-icon" />
-          <Icon name="moon" size={18} class="moon-icon" />
+          <Icon name="ph:sun" size={18} class="sun-icon" />
+          <Icon name="ph:moon" size={18} class="moon-icon" />
         </button>
 
         <!-- GitHub link -->
         <a href="https://github.com/lightspeedwp/.github" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="GitHub repository">
-          <Icon name="github" size={18} />
+          <Icon name="ph:github-logo" size={18} />
         </a>
       </div>
 
       <!-- Hamburger menu (mobile only) -->
       <button class="burger" type="button" data-nav-hamburger aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open navigation">
-        <Icon name="list" size={20} class="menu-icon" />
-        <Icon name="x" size={20} class="close-icon" />
+        <Icon name="ph:list" size={20} class="menu-icon" />
+        <Icon name="ph:x" size={20} class="close-icon" />
       </button>
     </div>
 
@@ -139,7 +139,7 @@ const isActive = (path: string): boolean => {
       <b>Awesome<span class="tld"> GitHub</span></b>
     </a>
     <button class="icon-btn" type="button" data-drawer-close aria-label="Close menu">
-      <Icon name="x" size={20} />
+      <Icon name="ph:x" size={20} />
     </button>
   </div>
 
@@ -147,7 +147,7 @@ const isActive = (path: string): boolean => {
     <!-- Search -->
     <div class="drawer-sec">
       <button class="search-trigger" type="button" data-search-open style="width: 100%;" aria-label="Search resources">
-        <Icon name="search" size={16} />
+        <Icon name="ph:magnifying-glass" size={16} />
         <span class="stxt" style="flex: 1; text-align: left;">Search resources</span>
       </button>
     </div>
@@ -169,11 +169,11 @@ const isActive = (path: string): boolean => {
     <div class="drawer-sec">
       <h6>COOK & LEARN</h6>
       <a href={`${base}cookbook/`} class="drawer-link">
-        <Icon name="bolt" size={18} class="dli" />
+        <Icon name="ph:cooking-pot" size={18} class="dli" />
         <span>Cookbook</span>
       </a>
       <a href={`${base}learn/`} class="drawer-link">
-        <Icon name="layers" size={18} class="dli" />
+        <Icon name="ph:graduation-cap" size={18} class="dli" />
         <span>Learning Centre</span>
       </a>
     </div>
@@ -182,23 +182,23 @@ const isActive = (path: string): boolean => {
     <div class="drawer-sec">
       <h6>RESOURCES</h6>
       <a href={`${base}onboarding/`} class="drawer-link">
-        <Icon name="bolt" size={18} class="dli" />
+        <Icon name="ph:lightning" size={18} class="dli" />
         <span>Onboarding journey</span>
       </a>
       <a href={`${base}getting-started/`} class="drawer-link">
-        <Icon name="download" size={18} class="dli" />
+        <Icon name="ph:download-simple" size={18} class="dli" />
         <span>Getting started</span>
       </a>
       <a href={`${base}why/`} class="drawer-link">
-        <Icon name="layers" size={18} class="dli" />
+        <Icon name="ph:info" size={18} class="dli" />
         <span>Why this exists</span>
       </a>
       <a href={`${base}glossary/`} class="drawer-link">
-        <Icon name="book" size={18} class="dli" />
+        <Icon name="ph:book-open" size={18} class="dli" />
         <span>Glossary</span>
       </a>
       <a href={`${base}references/`} class="drawer-link">
-        <Icon name="github" size={18} class="dli" />
+        <Icon name="ph:github-logo" size={18} class="dli" />
         <span>References</span>
       </a>
     </div>
@@ -220,8 +220,8 @@ const isActive = (path: string): boolean => {
       <div class="drawer-row">
         <span class="rl">Theme</span>
         <button class="icon-btn" type="button" data-awesome-github-theme-toggle aria-pressed="false">
-          <Icon name="sun" size={18} class="sun-icon" />
-          <Icon name="moon" size={18} class="moon-icon" />
+          <Icon name="ph:sun" size={18} class="sun-icon" />
+          <Icon name="ph:moon" size={18} class="moon-icon" />
         </button>
       </div>
     </div>
@@ -230,14 +230,14 @@ const isActive = (path: string): boolean => {
     <div class="drawer-sec">
       <h6>EXTERNAL</h6>
       <a href="https://github.com/lightspeedwp/.github" target="_blank" rel="noopener noreferrer" class="drawer-link">
-        <Icon name="github" size={18} class="dli" />
+        <Icon name="ph:github-logo" size={18} class="dli" />
         <span>.github repository</span>
-        <Icon name="external" size={14} class="ext" />
+        <Icon name="ph:arrow-square-out" size={14} class="ext" />
       </a>
       <a href="https://lightspeedwp.agency/" target="_blank" rel="noopener noreferrer" class="drawer-link">
-        <Icon name="bolt" size={18} class="dli" />
+        <Icon name="ph:lightning" size={18} class="dli" />
         <span>LightSpeed site</span>
-        <Icon name="external" size={14} class="ext" />
+        <Icon name="ph:arrow-square-out" size={14} class="ext" />
       </a>
     </div>
   </div>
