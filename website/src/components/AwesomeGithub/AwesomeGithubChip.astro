@@ -35,19 +35,19 @@ const { variant = "default", size = "md", class: className = "" } = Astro.props;
   }
 
   .ag-chip--success {
-    background: rgba(22, 163, 74, 0.1);
+    background: color-mix(in srgb, var(--c-status-success) 12%, transparent);
     color: var(--c-status-success);
     border-color: var(--c-status-success);
   }
 
   .ag-chip--warning {
-    background: rgba(245, 158, 11, 0.1);
+    background: color-mix(in srgb, var(--c-status-warning) 12%, transparent);
     color: var(--c-status-warning);
     border-color: var(--c-status-warning);
   }
 
   .ag-chip--error {
-    background: rgba(239, 68, 68, 0.1);
+    background: color-mix(in srgb, var(--c-status-error) 12%, transparent);
     color: var(--c-status-error);
     border-color: var(--c-status-error);
   }
@@ -69,16 +69,4 @@ const { variant = "default", size = "md", class: className = "" } = Astro.props;
     font-size: var(--fs-body-sm);
   }
 
-  /* Dark mode adjustments */
-  [data-theme="dark"] .ag-chip--success {
-    background: rgba(34, 197, 94, 0.15);
-  }
-
-  [data-theme="dark"] .ag-chip--warning {
-    background: rgba(245, 158, 11, 0.15);
-  }
-
-  [data-theme="dark"] .ag-chip--error {
-    background: rgba(239, 68, 68, 0.15);
-  }
 </style>
