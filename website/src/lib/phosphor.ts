@@ -3,7 +3,9 @@
  * All reads happen at SSG build time; zero runtime cost.
  */
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
 
 export type PhosphorWeight = "regular" | "bold" | "fill" | "light" | "duotone" | "thin";
 
@@ -18,7 +20,7 @@ export function getPhosphorSvg(
   if (cache.has(key)) return cache.get(key)!;
 
   try {
-    const file = resolve(`./node_modules/@phosphor-icons/core/assets/${weight}/${name}.svg`);
+    const file = require.resolve(`@phosphor-icons/core/assets/${weight}/${name}.svg`);
     const raw = readFileSync(file, "utf-8");
     // Phosphor SVGs use viewBox="0 0 256 256"; inject width/height
     const result = raw.replace(

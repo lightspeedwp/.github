@@ -78,7 +78,6 @@ function typeBadgeClass(type: string): string {
           alt=""
           aria-hidden="true"
           class="tools-wapuu"
-          loading="lazy"
         />
       </div>
 
@@ -152,8 +151,8 @@ function typeBadgeClass(type: string): string {
       const target = document.getElementById(targetId);
       if (!target) return;
       const navH = parseInt(
-        getComputedStyle(document.documentElement).getPropertyValue("--nav-h") || "64"
-      );
+        getComputedStyle(document.documentElement).getPropertyValue("--nav-h")
+      ) || 64;
       const y = target.getBoundingClientRect().top + window.scrollY - navH - 20;
       window.scrollTo({ top: y, behavior: "smooth" });
     });
