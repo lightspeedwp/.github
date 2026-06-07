@@ -44,6 +44,7 @@ const ALLOWED_PREFIXES = [
 ];
 
 const BOT_PREFIXES = /^(dependabot|renovate)\//;
+const AUDIT_BRANCH_PATTERN = /^pr-\d+-audit$/;
 const PROTECTED_BRANCHES = new Set(["main", "develop"]);
 const BRANCH_PATTERN = new RegExp(
   `^(${ALLOWED_PREFIXES.join("|")})/[a-zA-Z0-9._-]+$`,
@@ -90,6 +91,7 @@ function isAllowed(branchName) {
   return (
     PROTECTED_BRANCHES.has(branchName) ||
     BOT_PREFIXES.test(branchName) ||
+    AUDIT_BRANCH_PATTERN.test(branchName) ||
     BRANCH_PATTERN.test(branchName)
   );
 }
@@ -100,6 +102,7 @@ function printFailure(branchName) {
     "Expected: {prefix}/{branch-slug} (see docs/BRANCHING_STRATEGY.md)",
   );
   console.error(`Allowed prefixes: ${ALLOWED_PREFIXES.join(", ")}`);
+  console.error("Audit replay branches: pr-<number>-audit");
   console.error(
     "Examples: fix/frontmatter-validation, docs/canonical-configs-guide, ops/branch-governance-guardrails",
   );
