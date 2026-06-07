@@ -118,6 +118,7 @@ For all repos (client, product, infra, etc.), use:
 - `migrate/` — data/content migrations
 - `qa/` — test harnesses, UAT scaffolding
 - `uat/` — UAT-only changes or staging toggles
+- `codex/` — Codex-assisted work branches used by the local agent workflow
 
 ### 3.4 Examples
 
@@ -152,7 +153,7 @@ hotfix/ga4-purchase-duplicate
 Use a single regex in a workflow to enforce naming discipline:
 
 ```regex
-^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-zA-Z0-9._-]+$
+^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|codex)/[a-zA-Z0-9._-]+$
 ```
 
 Example workflow (`.github/workflows/validate-branch-name.yml`):
