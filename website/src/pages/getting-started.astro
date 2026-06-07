@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import AwesomeGithubLayout from '../layouts/AwesomeGithubLayout.astro';
 import WapuuHero from '../components/WapuuHero.astro';
 import { cloneCmd } from '../lib/catalogue';
 
@@ -46,12 +46,11 @@ const steps = [
 ];
 ---
 
-<BaseLayout
+<AwesomeGithubLayout
   title="Getting Started — Awesome GitHub"
   description="Get up and running with the LightSpeed .github repository in five minutes."
 >
-  <main>
-    <section class="editorial-hero">
+  <section class="editorial-hero">
       <div class="editorial-hero-inner">
         <div class="editorial-hero-text">
           <span class="eyebrow">Getting Started</span>
@@ -98,16 +97,15 @@ const steps = [
         </div>
       </div>
     </div>
-  </main>
-</BaseLayout>
+</AwesomeGithubLayout>
 
 <style>
   .run-pill {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    background: #0d1117;
-    color: #d7e2f0;
+    background: var(--code-bg, #0d1117);
+    color: var(--code-fg, #d7e2f0);
     border: 1px solid var(--hair);
     border-radius: var(--radius-md);
     padding: 12px 16px;
@@ -118,7 +116,7 @@ const steps = [
 
   .run-label {
     font-size: 11px;
-    color: rgba(215, 226, 240, 0.5);
+    color: color-mix(in srgb, var(--code-fg, #d7e2f0) 50%, transparent);
     text-transform: uppercase;
     letter-spacing: .08em;
   }

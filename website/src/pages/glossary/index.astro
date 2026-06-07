@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import AwesomeGithubLayout from '../../layouts/AwesomeGithubLayout.astro';
 import WapuuHero from '../../components/WapuuHero.astro';
 import { GLOSSARY_GROUPS, getAllEntries } from '../../lib/glossary';
 
@@ -7,12 +7,11 @@ const base = import.meta.env.BASE_URL;
 const allEntries = getAllEntries();
 ---
 
-<BaseLayout
+<AwesomeGithubLayout
   title="Glossary — Awesome GitHub"
   description="Plain-language definitions for every term in the LightSpeed control plane."
 >
-  <main>
-    <section class="editorial-hero">
+  <section class="editorial-hero">
       <div class="editorial-hero-inner">
         <div class="editorial-hero-text">
           <span class="eyebrow">Glossary</span>
@@ -46,8 +45,7 @@ const allEntries = getAllEntries();
         ))}
       </div>
     </div>
-  </main>
-</BaseLayout>
+</AwesomeGithubLayout>
 
 <style>
   .glossary-body {

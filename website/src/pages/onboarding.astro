@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import AwesomeGithubLayout from '../layouts/AwesomeGithubLayout.astro';
 import WapuuHero from '../components/WapuuHero.astro';
 
 const base = import.meta.env.BASE_URL;
@@ -40,12 +40,11 @@ const chapters = [
 ];
 ---
 
-<BaseLayout
+<AwesomeGithubLayout
   title="Onboarding — Awesome GitHub"
   description="The narrative introduction to the LightSpeed .github control plane — the problem, the insight, and how to adopt it."
 >
-  <main>
-    <section class="editorial-hero">
+  <section class="editorial-hero">
       <div class="editorial-hero-inner">
         <div class="editorial-hero-text">
           <span class="eyebrow">Onboarding</span>
@@ -84,8 +83,7 @@ const chapters = [
         </div>
       </div>
     </div>
-  </main>
-</BaseLayout>
+</AwesomeGithubLayout>
 
 <style>
   .ob-cta-link {
