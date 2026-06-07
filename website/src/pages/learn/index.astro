@@ -3,82 +3,223 @@ import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
 import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubButton.astro";
 import Icon from "../../components/AwesomeGithub/Icon.astro";
 import WapuuHero from "../../components/WapuuHero.astro";
-import { LEARN_TRACKS, TRACK_ICONS } from "../../lib/learn";
+import { LEARN_TRACKS, allLessons, TRACK_ICONS } from "../../lib/learn";
 
 const base = import.meta.env.BASE_URL;
-
+const totalLessons = allLessons().length;
 ---
 
 <AwesomeGithubLayout
   title="Learning Centre — Awesome GitHub"
-  description="Four structured tracks to understand the LightSpeed control plane — architecture, governance, quality, and agents."
+  description="Short, self-paced tracks built from the real governance docs."
 >
   <section class="learn-hero">
     <div class="learn-container">
-      <div class="page-hero-inner">
-        <div class="page-hero-text learn-hero-text">
+      <div class="learn-hero-inner">
+        <div class="learn-hero-text">
           <div class="learn-eyebrow">Learning Centre</div>
-          <h1 class="learn-h1">Learn how it works</h1>
+          <h1 class="learn-h1">
+            <span class="learn-h1-line">Learn the control plane,</span>
+            <span class="learn-h1-line learn-h1-line--accent">at your own pace.</span>
+          </h1>
           <p class="learn-lead">
-            Four short learning tracks walk you through everything that makes the LightSpeed control plane tick — from architecture to running agents in production.
+            Short, self-paced tracks built from the real governance docs. Read straight through, or dip into the lesson you need. We keep your place as you go.
           </p>
-          <div class="learn-meta">
-            <span class="learn-stat">{LEARN_TRACKS.length} tracks</span>
-            <span class="learn-stat-sep">·</span>
-            <span class="learn-stat">{LEARN_TRACKS.reduce((n, t) => n + t.lessons.length, 0)} lessons</span>
-            <span class="learn-stat-sep">·</span>
-            <span class="learn-stat">Free</span>
+
+          <div class="learn-progress">
+            <div class="learn-progress-track" aria-hidden="true">
+              <div class="learn-progress-fill" data-hero-progress-fill style="width: 0%"></div>
+            </div>
+            <div class="learn-progress-meta" data-hero-progress-text>0 of {totalLessons} lessons read</div>
           </div>
         </div>
+
         <WapuuHero page="learn" />
       </div>
     </div>
   </section>
 
-  <section class="learn-tracks-section">
+  <section class="learn-section">
     <div class="learn-container">
       <div class="learn-tracks-grid">
-        {LEARN_TRACKS.map((track, idx) => (
-          <article class="learn-track-card">
-            <div class="learn-track-header">
-              <div class="learn-track-icon"><Icon name={TRACK_ICONS[track.id] || "book-open"} size={36} /></div>
-              <div class="learn-track-meta">
-                <div class="learn-track-number">Track {idx + 1}</div>
-                <h2 class="learn-track-title">{track.label}</h2>
+        {LEARN_TRACKS.map((track, trackIndex) => {
+          const trackId = track.id;
+
+          return (
+            <article class="learn-track-card" data-track-card={trackId}>
+              <div class="learn-track-header">
+                <div class="learn-track-icon" aria-hidden="true">
+                  <Icon name={TRACK_ICONS[track.id] || "book-open"} size={36} />
+                </div>
+
+                <div class="learn-track-copy">
+                  <div class="learn-track-number">Track {trackIndex + 1}</div>
+                  <h2 class="learn-track-title">{track.label}</h2>
+                  <p class="learn-track-blurb">{track.blurb}</p>
+                </div>
               </div>
-            </div>
-            <p class="learn-track-blurb">{track.blurb}</p>
-            <ul class="learn-lessons-list" aria-label={`Lessons in ${track.label}`}>
-              {track.lessons.map((lesson, li) => (
-                <li class="learn-lesson-item">
-                  <a href={`${base}learn/${track.id}/${lesson.slug}/`} class="learn-lesson-link">
-                    <span class="learn-lesson-number" aria-hidden="true">{li + 1}</span>
-                    <span class="learn-lesson-text">
-                      <span class="learn-lesson-slug">{lesson.slug.replace(/-/g, " ")}</span>
-                      <span class="learn-lesson-learn">{lesson.learn}</span>
-                    </span>
-                    <span class="learn-lesson-arrow" aria-hidden="true">→</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-            {track.lessons[0] && (
-              <div class="learn-track-cta">
-                <AwesomeGithubButton
-                  href={`${base}learn/${track.id}/${track.lessons[0].slug}/`}
-                  variant="secondary"
-                  size="sm"
-                >
-                  Start track
-                </AwesomeGithubButton>
+
+              <div class="learn-track-progress">
+                <div class="learn-track-progress-bar" aria-hidden="true">
+                  <div class="learn-track-progress-fill" data-track-progress={trackId} style="width: 0%"></div>
+                </div>
+                <div class="learn-track-progress-meta">
+                  <span class="learn-track-progress-count" data-track-count={trackId}>
+                    0 / {track.lessons.length}
+                  </span>
+                </div>
               </div>
-            )}
-          </article>
-        ))}
+
+              <ol class="learn-lesson-list" aria-label={`Lessons in ${track.label}`}>
+                {track.lessons.map((lesson, lessonIndex) => (
+                  <li class="learn-lesson-item">
+                    <span
+                      class="learn-lesson-tick"
+                      data-lesson-id={lesson.id}
+                      aria-hidden="true"
+                    ></span>
+
+                    <a class="learn-lesson-link" href={`${base}learn/${track.id}/${lesson.slug}/`}>
+                      <span class="learn-lesson-number">{String(lessonIndex + 1).padStart(2, "0")}</span>
+                      <span class="learn-lesson-body">
+                        <span class="learn-lesson-title">{lesson.title}</span>
+                        <span class="learn-lesson-learn">{lesson.learn}</span>
+                      </span>
+                      <span class="learn-lesson-meta">{lesson.readTime}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+
+              {track.lessons[0] && (
+                <div class="learn-track-actions">
+                  <AwesomeGithubButton
+                    href={`${base}learn/${track.id}/${track.lessons[0].slug}/`}
+                    variant="secondary"
+                    size="sm"
+                  >
+                    Start track
+                  </AwesomeGithubButton>
+                </div>
+              )}
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
 </AwesomeGithubLayout>
+
+<script>
+  const STORAGE_KEY = "ag-learn";
+  const LEGACY_KEYS = ["ag-learn-read", "ag_learn_progress"];
+
+  const READ_TICK = `
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="7" fill="rgba(0, 208, 132, 0.16)" stroke="currentColor" stroke-width="1.5"></circle>
+      <path d="M4.8 8.1l2 2 4.4-4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  `;
+
+  const UNREAD_TICK = `
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" opacity=".35"></circle>
+    </svg>
+  `;
+
+  function loadReadIds() {
+    try {
+      const sources = [localStorage.getItem(STORAGE_KEY), ...LEGACY_KEYS.map((key) => localStorage.getItem(key))];
+      const ids = new Set();
+
+      for (const raw of sources) {
+        if (!raw) continue;
+
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          parsed.forEach((id) => {
+            if (typeof id === "string") ids.add(id);
+          });
+          continue;
+        }
+
+        if (parsed && typeof parsed === "object") {
+          for (const [trackId, lessons] of Object.entries(parsed)) {
+            if (!lessons || typeof lessons !== "object") continue;
+            for (const [lessonSlug, read] of Object.entries(lessons)) {
+              if (read) ids.add(`${trackId}/${lessonSlug}`);
+            }
+          }
+        }
+      }
+
+      return ids;
+    } catch {
+      return new Set();
+    }
+  }
+
+  function persistReadIds(ids) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...ids]));
+    } catch {
+      // localStorage unavailable
+    }
+  }
+
+  function updateProgress() {
+    const readIds = loadReadIds();
+    const allLessonEls = document.querySelectorAll("[data-lesson-id]");
+    const allTrackCards = document.querySelectorAll("[data-track-card]");
+    const total = allLessonEls.length;
+    let completed = 0;
+
+    allLessonEls.forEach((el) => {
+      const lessonId = el.dataset.lessonId;
+      const isRead = !!lessonId && readIds.has(lessonId);
+      el.innerHTML = isRead ? READ_TICK : UNREAD_TICK;
+      if (isRead) completed += 1;
+    });
+
+    const heroFill = document.querySelector("[data-hero-progress-fill]");
+    const heroText = document.querySelector("[data-hero-progress-text]");
+
+    if (heroFill) {
+      heroFill.style.width = `${total ? Math.round((completed / total) * 100) : 0}%`;
+    }
+
+    if (heroText) {
+      heroText.textContent = `${completed} of ${total} lessons read`;
+    }
+
+    allTrackCards.forEach((card) => {
+      const trackId = card.dataset.trackCard;
+      if (!trackId) return;
+
+      const tickCount = card.querySelectorAll(`[data-lesson-id^="${trackId}/"]`).length;
+      const readCount = Array.from(card.querySelectorAll("[data-lesson-id]")).filter((el) => {
+        const lessonId = el.dataset.lessonId;
+        return !!lessonId && readIds.has(lessonId);
+      }).length;
+
+      const fill = card.querySelector(`[data-track-progress="${trackId}"]`);
+      const count = card.querySelector(`[data-track-count="${trackId}"]`);
+
+      if (fill) {
+        fill.style.width = `${tickCount ? Math.round((readCount / tickCount) * 100) : 0}%`;
+      }
+
+      if (count) {
+        count.textContent = `${readCount} / ${tickCount}`;
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateProgress();
+    window.addEventListener("storage", updateProgress);
+  });
+</script>
 
 <style>
   .learn-container {
@@ -88,9 +229,20 @@ const base = import.meta.env.BASE_URL;
   }
 
   .learn-hero {
-    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
+    background: linear-gradient(135deg, #0f1014 0%, #181820 100%);
     color: var(--c-white);
     padding: var(--space-40) var(--gutter);
+  }
+
+  .learn-hero-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+  }
+
+  .learn-hero-text {
+    max-width: 700px;
   }
 
   .learn-eyebrow {
@@ -108,39 +260,63 @@ const base = import.meta.env.BASE_URL;
   }
 
   .learn-h1 {
+    margin: 0 0 var(--space-6);
     font-size: var(--fs-h1);
     font-weight: var(--weight-extrabold);
     line-height: var(--lh-heading);
-    margin: 0 0 var(--space-6) 0;
+  }
+
+  .learn-h1-line {
+    display: block;
     color: var(--c-white);
   }
 
+  .learn-h1-line--accent {
+    color: var(--c-light-blue);
+  }
+
   .learn-lead {
+    max-width: 64ch;
+    margin: 0;
     font-size: var(--fs-lead);
     line-height: var(--lh-loose);
     color: var(--c-slate-300);
-    margin: 0 0 var(--space-6) 0;
-    max-width: 60ch;
   }
 
-  .learn-meta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
+  .learn-progress {
+    margin-top: var(--space-8);
+    max-width: 480px;
+  }
+
+  .learn-progress-track {
+    height: 8px;
+    overflow: hidden;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .learn-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--c-light-blue);
+    transition: width var(--dur) var(--ease-out);
+  }
+
+  .learn-progress-meta {
+    margin-top: var(--space-3);
     font-size: var(--fs-body-sm);
     color: var(--c-slate-300);
   }
 
-  .learn-stat-sep { color: var(--c-slate-500); }
-
-  .learn-tracks-section {
+  .learn-section {
     padding: var(--space-24) var(--gutter);
     background: var(--bg);
   }
 
   .learn-tracks-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
     gap: var(--space-8);
   }
 
@@ -152,11 +328,12 @@ const base = import.meta.env.BASE_URL;
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
-    transition: box-shadow var(--dur) var(--ease-out);
+    transition: box-shadow var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
   }
 
   .learn-track-card:hover {
     box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
   }
 
   .learn-track-header {
@@ -166,36 +343,66 @@ const base = import.meta.env.BASE_URL;
   }
 
   .learn-track-icon {
-    display: flex;
-    flex-shrink: 0;
+    flex: none;
     color: var(--accent);
+  }
+
+  .learn-track-copy {
+    min-width: 0;
+    flex: 1;
   }
 
   .learn-track-number {
+    margin-bottom: var(--space-2);
     font-size: var(--fs-eyebrow);
     font-weight: var(--weight-semibold);
-    color: var(--accent);
-    text-transform: uppercase;
     letter-spacing: var(--tracking-eyebrow);
-    margin-bottom: var(--space-2);
+    text-transform: uppercase;
+    color: var(--accent);
   }
 
   .learn-track-title {
-    font-size: var(--fs-h4);
-    font-weight: var(--weight-bold);
     margin: 0;
-    color: var(--fg-1);
+    font-size: var(--fs-h4);
     line-height: var(--lh-heading);
+    color: var(--fg-1);
   }
 
   .learn-track-blurb {
+    margin: var(--space-3) 0 0;
     font-size: var(--fs-body);
-    color: var(--fg-2);
-    margin: 0;
     line-height: var(--lh-loose);
+    color: var(--fg-2);
   }
 
-  .learn-lessons-list {
+  .learn-track-progress {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .learn-track-progress-bar {
+    height: 8px;
+    overflow: hidden;
+    border-radius: var(--radius-pill);
+    background: var(--panel-2);
+    border: 1px solid var(--hair);
+  }
+
+  .learn-track-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width var(--dur) var(--ease-out);
+  }
+
+  .learn-track-progress-count {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-3);
+  }
+
+  .learn-lesson-list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -205,87 +412,92 @@ const base = import.meta.env.BASE_URL;
   }
 
   .learn-lesson-item {
-    border-radius: var(--radius-md);
-    overflow: hidden;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3);
+    align-items: start;
+  }
+
+  .learn-lesson-tick {
+    display: inline-flex;
+    margin-top: 11px;
+    color: var(--fg-3);
   }
 
   .learn-lesson-link {
-    display: flex;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
+    align-items: start;
+    padding: var(--space-4);
+    background: var(--bg-alt);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
     text-decoration: none;
     color: inherit;
-    transition: all var(--dur) var(--ease-out);
-    background: var(--bg-alt);
+    transition: transform var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
   }
 
   .learn-lesson-link:hover {
     border-color: var(--accent);
     background: var(--accent-soft);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+    text-decoration: none;
   }
 
   .learn-lesson-number {
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-pill);
     background: var(--accent-soft);
     color: var(--accent);
-    border-radius: var(--radius-pill);
+    font-family: var(--font-mono);
     font-size: 11px;
-    font-weight: var(--weight-bold);
-    margin-top: 2px;
+    font-weight: var(--weight-semibold);
   }
 
-  .learn-lesson-text {
-    flex: 1;
+  .learn-lesson-body {
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--space-1);
   }
 
-  .learn-lesson-slug {
-    font-size: var(--fs-body-sm);
+  .learn-lesson-title {
+    font-size: var(--fs-body);
     font-weight: var(--weight-semibold);
+    line-height: var(--lh-tight);
     color: var(--fg-1);
-    text-transform: capitalize;
   }
 
   .learn-lesson-learn {
     font-size: var(--fs-body-sm);
+    line-height: var(--lh-loose);
+    color: var(--fg-2);
+  }
+
+  .learn-lesson-meta {
+    font-family: var(--font-mono);
+    font-size: 12px;
     color: var(--fg-3);
-    line-height: var(--lh-snug);
+    white-space: nowrap;
   }
 
-  .learn-lesson-arrow {
-    flex-shrink: 0;
-    color: var(--fg-3);
-    font-size: 14px;
-    align-self: center;
-    transition: transform var(--dur) var(--ease-out);
+  .learn-track-actions {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: var(--space-2);
   }
 
-  .learn-lesson-link:hover .learn-lesson-arrow {
-    transform: translateX(4px);
-    color: var(--accent);
-  }
-
-  .learn-track-cta {
-    margin-top: auto;
-  }
-
-  @media (max-width: 768px) {
-    .learn-hero {
-      padding: var(--space-20) var(--gutter);
-      
+  @media (max-width: 860px) {
+    .learn-hero-inner {
+      flex-direction: column;
+      align-items: flex-start;
     }
-
-    .learn-h1 { font-size: var(--fs-h2); }
 
     .learn-tracks-grid {
       grid-template-columns: 1fr;
