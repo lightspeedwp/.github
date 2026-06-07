@@ -8,6 +8,7 @@ import AwesomeGithubButton from "../../components/AwesomeGithub/AwesomeGithubBut
 import { adjacentRecipes, liveRecipes, recipeById } from "../../lib/cookbook-data";
 
 const base = import.meta.env.BASE_URL;
+const siteBase = base.endsWith("/") ? base : `${base}/`;
 const { recipe: recipeId } = Astro.params;
 
 function slugify(value: string): string {
@@ -84,9 +85,9 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${recipe
 >
   <nav class="recipe-breadcrumb" aria-label="Breadcrumb">
     <div class="wrap">
-      <a href={`${base}`}>Home</a>
+      <a href={`${siteBase}`}>Home</a>
       <span aria-hidden="true">/</span>
-      <a href={`${base}cookbook/`}>Cookbook</a>
+      <a href={`${siteBase}cookbook/`}>Cookbook</a>
       <span aria-hidden="true">/</span>
       <span>{recipe.title}</span>
     </div>
@@ -145,7 +146,7 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${recipe
         <div class="article-nav">
           <div class="article-nav-slot article-nav-slot--prev">
             {prev ? (
-              <a class="article-nav-link article-nav-link--prev" href={`${base}cookbook/${prev.id}/`}>
+              <a class="article-nav-link article-nav-link--prev" href={`${siteBase}cookbook/${prev.id}/`}>
                 <span class="article-nav-label">Previous</span>
                 <span class="article-nav-title">{prev.title}</span>
               </a>
@@ -155,14 +156,14 @@ const githubUrl = `https://github.com/lightspeedwp/.github/blob/develop/${recipe
           </div>
 
           <div class="article-nav-slot article-nav-slot--home">
-            <a class="article-nav-home" href={`${base}cookbook/`}>
+            <a class="article-nav-home" href={`${siteBase}cookbook/`}>
               All recipes
             </a>
           </div>
 
           <div class="article-nav-slot article-nav-slot--next">
             {next ? (
-              <a class="article-nav-link article-nav-link--next" href={`${base}cookbook/${next.id}/`}>
+              <a class="article-nav-link article-nav-link--next" href={`${siteBase}cookbook/${next.id}/`}>
                 <span class="article-nav-label">Next</span>
                 <span class="article-nav-title">{next.title}</span>
               </a>

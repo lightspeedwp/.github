@@ -4,6 +4,7 @@ import WapuuHero from "../../components/WapuuHero.astro";
 import { RECIPES, liveRecipes } from "../../lib/cookbook-data";
 
 const base = import.meta.env.BASE_URL;
+const siteBase = base.endsWith("/") ? base : `${base}/`;
 const live = liveRecipes();
 const comingSoon = RECIPES.filter((recipe) => recipe.comingSoon);
 ---
@@ -35,7 +36,7 @@ const comingSoon = RECIPES.filter((recipe) => recipe.comingSoon);
     <div class="wrap">
       <div class="cookbook-grid" aria-label="Cookbook recipes">
         {live.map((recipe) => (
-          <a class="recipe-card" href={`${base}cookbook/${recipe.id}/`}>
+          <a class="recipe-card" href={`${siteBase}cookbook/${recipe.id}/`}>
             <div class="recipe-card-head">
               <span class={`recipe-kind rk-${recipe.kind}`}>{recipe.kind}</span>
               <span class="recipe-duration">{recipe.duration}</span>
