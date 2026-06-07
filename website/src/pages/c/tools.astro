@@ -145,8 +145,11 @@ function typeBadgeClass(type: string): string {
 <script>
   document.querySelectorAll<HTMLAnchorElement>(".secnav-pill").forEach((pill) => {
     pill.addEventListener("click", (e) => {
+      // Let modifier-key clicks (new tab, copy link) fall through to the browser
+      if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
       e.preventDefault();
-      const targetId = pill.getAttribute("href")?.slice(1);
+      const href = pill.getAttribute("href") ?? "";
+      const targetId = href.slice(1);
       if (!targetId) return;
       const target = document.getElementById(targetId);
       if (!target) return;
@@ -155,6 +158,7 @@ function typeBadgeClass(type: string): string {
       ) || 64;
       const y = target.getBoundingClientRect().top + window.scrollY - navH - 20;
       window.scrollTo({ top: y, behavior: "smooth" });
+      history.pushState(null, "", href);
     });
   });
 </script>
