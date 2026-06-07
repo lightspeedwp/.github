@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import AwesomeGithubLayout from '../../layouts/AwesomeGithubLayout.astro';
 import { GLOSSARY_GROUPS, getAllEntries, getEntry, getRelatedEntries } from '../../lib/glossary';
 
 const base = import.meta.env.BASE_URL;
@@ -15,12 +15,11 @@ const related = getRelatedEntries(entry);
 const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry.slug));
 ---
 
-<BaseLayout
+<AwesomeGithubLayout
   title={`${entry.term} — Glossary — Awesome GitHub`}
   description={entry.def}
 >
-  <main>
-    <div class="wrap-prose term-page">
+  <div class="wrap-prose term-page">
       <nav class="crumb">
         <a href={`${base}`}>Home</a>
         <span class="sep" aria-hidden="true">/</span>
@@ -62,9 +61,8 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
       <div class="term-footer">
         <a class="btn-ghost btn-pill" href={`${base}glossary/`}>← Back to Glossary</a>
       </div>
-    </div>
-  </main>
-</BaseLayout>
+  </div>
+</AwesomeGithubLayout>
 
 <style>
   .term-page {

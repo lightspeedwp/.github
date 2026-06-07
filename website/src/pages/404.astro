@@ -1,14 +1,14 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import AwesomeGithubLayout from '../layouts/AwesomeGithubLayout.astro';
 
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout
+<AwesomeGithubLayout
   title="404 — Page not found — Awesome GitHub"
   description="The page you're looking for doesn't exist or has moved."
 >
-  <main class="not-found-main">
+  <div class="not-found-main">
     <img
       src={`${base}assets/wapuus/wapuu-astropuu.png`}
       alt=""
@@ -24,8 +24,8 @@ const base = import.meta.env.BASE_URL;
       </p>
       <a class="btn-primary btn-pill" href={`${base}`}>Back to home →</a>
     </div>
-  </main>
-</BaseLayout>
+  </div>
+</AwesomeGithubLayout>
 
 <style>
   .not-found-main {
