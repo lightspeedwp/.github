@@ -5,11 +5,10 @@ import { GLOSSARY_GROUPS, getAllEntries, getEntry, getRelatedEntries } from '../
 const base = import.meta.env.BASE_URL;
 
 export function getStaticPaths() {
-  return getAllEntries().map((e) => ({ params: { term: e.slug }, props: { termSlug: e.slug } }));
+  return getAllEntries().map((e) => ({ params: { term: e.slug } }));
 }
 
-const { termSlug } = Astro.props;
-const entry = getEntry(termSlug);
+const entry = getEntry(Astro.params.term);
 if (!entry) return Astro.redirect(`${base}glossary/`);
 
 const related = getRelatedEntries(entry);
@@ -21,7 +20,7 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
   description={entry.def}
 >
   <main>
-    <div class="wrap-prose" style="padding-top: clamp(32px, 4vw, 56px); padding-bottom: 80px;">
+    <div class="wrap-prose term-page">
       <nav class="crumb">
         <a href={`${base}`}>Home</a>
         <span class="sep" aria-hidden="true">/</span>
@@ -31,7 +30,7 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
       </nav>
 
       {group && <span class="term-group">{group.label}</span>}
-      <h1 class="page-h1">{entry.term}</h1>
+      <h1 class="page-h1 term-title">{entry.term}</h1>
 
       <div class="md">
         <p>{entry.def}</p>
@@ -39,19 +38,18 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
 
       {entry.why && (
         <div class="term-why">
-          <p class="term-why-label">Why it matters</p>
+          <h2 class="term-why-label">Why it matters</h2>
           <p class="term-why-body">{entry.why}</p>
         </div>
       )}
 
       {related.length > 0 && (
         <div class="term-related">
-          <p class="eyebrow">Related terms</p>
+          <h2 class="eyebrow term-related-heading">Related terms</h2>
           <div class="term-related-chips">
             {related.map((r) => (
               <a
-                class="btn-ghost"
-                style="font-size:13px; padding:6px 14px;"
+                class="btn-ghost btn-pill term-chip"
                 href={`${base}glossary/${r.slug}/`}
               >
                 {r.term}
@@ -62,13 +60,20 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
       )}
 
       <div class="term-footer">
-        <a class="btn-ghost" href={`${base}glossary/`}>← Back to Glossary</a>
+        <a class="btn-ghost btn-pill" href={`${base}glossary/`}>← Back to Glossary</a>
       </div>
     </div>
   </main>
 </BaseLayout>
 
 <style>
+  .term-page {
+    padding-top: clamp(32px, 4vw, 56px);
+    padding-bottom: 80px;
+  }
+
+  .term-title { margin: 8px 0 20px; }
+
   .crumb {
     display: flex;
     align-items: center;
@@ -80,6 +85,7 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
 
   .crumb a { color: var(--fg-3); text-decoration: none; }
   .crumb a:hover { color: var(--accent); }
+  .crumb a:focus-visible { color: var(--accent); outline: 2px solid var(--accent); outline-offset: 2px; }
   .sep { color: var(--fg-3); }
 
   .term-group {
@@ -95,16 +101,6 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
     border-radius: var(--radius-pill);
     padding: 3px 10px;
     margin-bottom: 12px;
-  }
-
-  .page-h1 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(28px, 4vw, 44px);
-    letter-spacing: -.025em;
-    line-height: 1.1;
-    color: var(--fg-1);
-    margin: 8px 0 20px;
   }
 
   .term-why {
@@ -123,6 +119,11 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
     letter-spacing: .1em;
     color: var(--fg-3);
     margin: 0 0 8px;
+    line-height: 1;
+  }
+
+  .term-related-heading {
+    margin: 0 0 10px;
   }
 
   .term-why-body {
@@ -138,20 +139,15 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
     border-top: 1px solid var(--hair);
   }
 
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    color: var(--fg-3);
-    margin: 0 0 10px;
-  }
-
   .term-related-chips {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+  }
+
+  .term-chip {
+    font-size: 13px;
+    padding: 6px 14px;
   }
 
   .term-footer {
@@ -159,19 +155,4 @@ const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry
     padding-top: 24px;
     border-top: 1px solid var(--hair);
   }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid var(--hair);
-    color: var(--fg-2);
-    padding: 8px 16px;
-    border-radius: var(--radius-pill);
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
-  }
-
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 </style>

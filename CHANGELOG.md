@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Awesome GitHub Site Phase 12: Editorial pages** — Rebuilt getting-started, why, onboarding, glossary index, glossary term detail, references, and 404 pages using `BaseLayout` + `WapuuHero` + `.editorial-hero` pattern. Added shared editorial typography (`.eyebrow`, `.page-h1`, `.page-lead`, `.page-lead code`) and `.btn-pill` modifier to `global.css`. Added `.sr-only` accessibility utility. Converted onboarding from a redirect to a full six-chapter narrative. Fixed heading hierarchy (h2 for step and chapter titles). Added `:focus-visible` keyboard indicators and "opens in new tab" cues. Resolved CSS duplication across all editorial pages. ([#881](https://github.com/lightspeedwp/.github/issues/881), [#882](https://github.com/lightspeedwp/.github/pull/882))
+
 - **Awesome GitHub Site Phase 10: Cookbook list and recipe reader** — Added a phase-aligned `/cookbook` index with live recipe cards, a coming-soon delivery placeholder, rocket Wapuu hero treatment, and a Markdown recipe reader with sticky table of contents, prev/next navigation, and local progress tracking in `ag-cookbook`. ([#874](https://github.com/lightspeedwp/.github/issues/874), [#875](https://github.com/lightspeedwp/.github/pull/875))
 
 - **Awesome GitHub Site Phase 08: Resource detail page** — Added the new `/item/[id].astro` route for every catalogue item, with a GitHub-style file viewer, render/raw tabs, install sidebar actions, related items, breadcrumb navigation, and catalogue links updated to the new item route. ([#870](https://github.com/lightspeedwp/.github/issues/870), [#871](https://github.com/lightspeedwp/.github/pull/871))

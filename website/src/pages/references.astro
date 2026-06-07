@@ -22,7 +22,7 @@ const branch = 'develop';
             the <code>{branch}</code> branch on GitHub.
           </p>
         </div>
-        <WapuuHero page="why" />
+        <WapuuHero page="references" />
       </div>
     </section>
 
@@ -42,6 +42,7 @@ const branch = 'develop';
                 <code class="ref-path">{item.p}{item.tree ? '/' : ''}</code>
                 <span class="ref-desc">{item.d}</span>
                 <span class="ref-ext" aria-hidden="true">↗</span>
+                <span class="sr-only"> (opens in new tab)</span>
               </a>
             ))}
           </div>
@@ -50,59 +51,20 @@ const branch = 'develop';
 
       <div class="ref-footer-cta">
         <a
-          class="btn-primary"
-          href={`https://github.com/lightspeedwp/.github`}
+          class="btn-primary btn-pill"
+          href="https://github.com/lightspeedwp/.github"
           target="_blank"
           rel="noopener noreferrer"
         >
           Open the repository ↗
         </a>
-        <a class="btn-ghost" href={`${base}glossary/`}>Glossary</a>
+        <a class="btn-ghost btn-pill" href={`${base}glossary/`}>Glossary</a>
       </div>
     </div>
   </main>
 </BaseLayout>
 
 <style>
-  .eyebrow {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    color: var(--fg-3);
-    margin-bottom: 12px;
-  }
-
-  .page-h1 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(30px, 4vw, 46px);
-    letter-spacing: -.025em;
-    line-height: 1.1;
-    color: var(--fg-1);
-    margin: 0 0 16px;
-  }
-
-  .page-lead {
-    font-size: clamp(16px, 1.2vw, 18px);
-    color: var(--fg-2);
-    line-height: 1.6;
-    max-width: 520px;
-    margin: 0;
-  }
-
-  .page-lead code {
-    font-family: var(--font-mono);
-    font-size: .9em;
-    background: var(--panel-2);
-    border: 1px solid var(--hair);
-    border-radius: 5px;
-    padding: 1px 5px;
-    color: var(--fg-1);
-  }
-
   .ref-group {
     margin-bottom: 40px;
   }
@@ -168,34 +130,4 @@ const branch = 'develop';
     gap: 12px;
     flex-wrap: wrap;
   }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    background: var(--c-brand-blue);
-    color: #fff;
-    padding: 10px 22px;
-    border-radius: var(--radius-pill);
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background var(--dur) var(--ease-out);
-  }
-
-  .btn-primary:hover { background: #1857D6; }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid var(--hair);
-    color: var(--fg-2);
-    padding: 10px 22px;
-    border-radius: var(--radius-pill);
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
-  }
-
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 </style>

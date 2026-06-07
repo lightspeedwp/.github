@@ -4,44 +4,74 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="404 — Page not found — Awesome GitHub">
-  <main style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh; gap:24px; text-align:center; padding: 48px 24px;">
+<BaseLayout
+  title="404 — Page not found — Awesome GitHub"
+  description="The page you're looking for doesn't exist or has moved."
+>
+  <main class="not-found-main">
     <img
       src={`${base}assets/wapuus/wapuu-astropuu.png`}
       alt=""
       aria-hidden="true"
-      style="height:150px; width:auto;"
+      class="not-found-img"
       loading="lazy"
     />
-    <div>
-      <p style="font-family:var(--font-mono); font-size:13px; color:var(--fg-3); margin-bottom:8px; text-transform:uppercase; letter-spacing:.1em;">404</p>
-      <h1 style="font-family:var(--font-display); font-weight:800; font-size:clamp(28px,4vw,44px); color:var(--fg-1); margin-bottom:12px; letter-spacing:-.025em;">Page not found</h1>
-      <p style="font-size:16px; color:var(--fg-2); max-width:400px; margin:0 auto 28px;">
+    <div class="not-found-content">
+      <p class="not-found-code">404</p>
+      <h1 class="not-found-title">Page not found</h1>
+      <p class="not-found-text">
         This resource doesn't exist or has moved. Head back to the catalogue.
       </p>
-      <a
-        class="btn-home"
-        href={`${base}`}
-      >
-        Back to home →
-      </a>
+      <a class="btn-primary btn-pill" href={`${base}`}>Back to home →</a>
     </div>
   </main>
 </BaseLayout>
 
 <style>
-  .btn-home {
-    display: inline-flex;
+  .not-found-main {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    background: var(--c-brand-blue);
-    color: #fff;
-    padding: 12px 28px;
-    border-radius: var(--radius-pill);
-    font-size: 15px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background var(--dur) var(--ease-out);
+    justify-content: center;
+    min-height: 60vh;
+    gap: 24px;
+    text-align: center;
+    padding: 48px 24px;
   }
 
-  .btn-home:hover { background: #1857D6; }
+  .not-found-img {
+    height: 150px;
+    width: auto;
+  }
+
+  .not-found-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .not-found-code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--fg-3);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+
+  .not-found-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(28px, 4vw, 44px);
+    color: var(--fg-1);
+    margin-bottom: 12px;
+    letter-spacing: -.025em;
+  }
+
+  .not-found-text {
+    font-size: 16px;
+    color: var(--fg-2);
+    max-width: 400px;
+    margin: 0 auto 28px;
+  }
 </style>

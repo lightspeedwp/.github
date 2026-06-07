@@ -71,7 +71,7 @@ const steps = [
           <div class="ob-step">
             <div class="ob-step-num">{step.number}</div>
             <div class="ob-step-body">
-              <h3>{step.title}</h3>
+              <h2>{step.title}</h2>
               <p>{step.body}</p>
               {step.code && (
                 <div class="run-pill">
@@ -83,7 +83,7 @@ const steps = [
                 <p class="step-note">{step.note}</p>
               )}
               {step.cta && (
-                <a class="step-cta" href={step.cta.href}>{step.cta.label} →</a>
+                <a class="btn-ghost btn-pill step-cta" href={step.cta.href}>{step.cta.label} →</a>
               )}
             </div>
           </div>
@@ -92,9 +92,9 @@ const steps = [
 
       <div class="gs-cta-block">
         <p>Ready to explore further?</p>
-        <div class="gs-cta-row">
-          <a class="btn-primary" href={`${base}c/agents/`}>Browse the catalogue →</a>
-          <a class="btn-ghost" href={`${base}learn/`}>Start learning</a>
+        <div class="cta-row">
+          <a class="btn-primary btn-pill" href={`${base}c/agents/`}>Browse the catalogue →</a>
+          <a class="btn-ghost btn-pill" href={`${base}learn/`}>Start learning</a>
         </div>
       </div>
     </div>
@@ -102,45 +102,6 @@ const steps = [
 </BaseLayout>
 
 <style>
-  .eyebrow {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    color: var(--fg-3);
-    margin-bottom: 12px;
-  }
-
-  .page-h1 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(30px, 4vw, 46px);
-    letter-spacing: -.025em;
-    line-height: 1.1;
-    color: var(--fg-1);
-    margin: 0 0 16px;
-  }
-
-  .page-lead {
-    font-size: clamp(16px, 1.2vw, 18px);
-    color: var(--fg-2);
-    line-height: 1.6;
-    max-width: 520px;
-    margin: 0;
-  }
-
-  .page-lead code {
-    font-family: var(--font-mono);
-    font-size: .9em;
-    background: var(--panel-2);
-    border: 1px solid var(--hair);
-    border-radius: 5px;
-    padding: 1px 5px;
-    color: var(--fg-1);
-  }
-
   .run-pill {
     display: flex;
     flex-direction: column;
@@ -163,26 +124,19 @@ const steps = [
   }
 
   .step-note {
-    font-size: 13px !important;
-    color: var(--fg-3) !important;
-    margin-top: 10px !important;
+    font-size: 13px;
+    color: var(--fg-3);
+    margin-top: 10px;
     font-style: italic;
   }
 
   .step-cta {
-    display: inline-flex;
     margin-top: 12px;
     font-size: 14px;
-    padding: 7px 16px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--hair);
     color: var(--accent);
-    text-decoration: none;
-    font-weight: 600;
-    transition: border-color var(--dur) var(--ease-out);
   }
 
-  .step-cta:hover { border-color: var(--accent); }
+  .step-cta:hover { color: var(--accent); }
 
   .gs-cta-block {
     margin-top: 48px;
@@ -196,39 +150,9 @@ const steps = [
     margin: 0 0 16px;
   }
 
-  .gs-cta-row {
+  .cta-row {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
   }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    background: var(--c-brand-blue);
-    color: #fff;
-    padding: 10px 22px;
-    border-radius: var(--radius-pill);
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background var(--dur) var(--ease-out);
-  }
-
-  .btn-primary:hover { background: #1857D6; }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid var(--hair);
-    color: var(--fg-2);
-    padding: 10px 22px;
-    border-radius: var(--radius-pill);
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
-  }
-
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 </style>

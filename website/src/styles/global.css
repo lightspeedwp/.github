@@ -225,6 +225,9 @@ code, kbd, pre {
   outline-offset: 3px;
 }
 
+/* Pill radius modifier — combine with .btn-primary, .btn-ghost, .btn-soft */
+.btn-pill { border-radius: var(--radius-pill); }
+
 /* Soft (accent background) */
 .btn-soft {
   display: inline-flex;
@@ -365,6 +368,46 @@ code, kbd, pre {
   margin: 1.2em 0;
 }
 
+/* ── Shared page typography ─────────────────────────────────────── */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--fg-3);
+  margin-bottom: 12px;
+}
+
+.page-h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(30px, 4vw, 46px);
+  letter-spacing: -.025em;
+  line-height: 1.1;
+  color: var(--fg-1);
+  margin: 0 0 16px;
+}
+
+.page-lead {
+  font-size: clamp(16px, 1.2vw, 18px);
+  color: var(--fg-2);
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0;
+}
+
+.page-lead code {
+  font-family: var(--font-mono);
+  font-size: .9em;
+  background: var(--panel-2);
+  border: 1px solid var(--hair);
+  border-radius: 5px;
+  padding: 1px 5px;
+  color: var(--fg-1);
+}
+
 /* ── Editorial page hero ────────────────────────────────────────── */
 .editorial-hero {
   padding: clamp(40px, 5vw, 72px) 0 clamp(24px, 3vw, 40px);
@@ -416,7 +459,7 @@ code, kbd, pre {
   flex: none;
 }
 
-.ob-step-body h3 {
+.ob-step-body h2 {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 18px;
@@ -432,3 +475,16 @@ code, kbd, pre {
 }
 
 .ob-step-body .run-pill { margin-top: 12px; }
+
+/* ── Accessibility utilities ────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
