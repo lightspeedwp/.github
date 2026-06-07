@@ -125,13 +125,6 @@ code, kbd, pre {
   flex: 1;
 }
 
-.page-hero-wapuu {
-  height: clamp(140px, 16vw, 230px);
-  width: auto;
-  flex: none;
-  filter: drop-shadow(0 12px 28px rgba(9, 9, 9, 0.18));
-}
-
 /* Tools page has a shorter wapuu */
 .tools-wapuu {
   height: 116px;
@@ -141,10 +134,6 @@ code, kbd, pre {
 }
 
 @media (max-width: 860px) {
-  .page-hero-wapuu {
-    display: none;
-  }
-
   .tools-wapuu {
     height: 90px;
   }
