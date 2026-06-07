@@ -34,8 +34,8 @@ import WapuuHero from "../../components/WapuuHero.astro";
 
 <style>
   .tools-hero {
-    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
-    color: var(--c-white);
+    background: var(--bg);
+    color: var(--fg-1);
     padding: var(--space-40) 0;
   }
 
@@ -51,7 +51,7 @@ import WapuuHero from "../../components/WapuuHero.astro";
     border-radius: var(--radius-md);
     border: 1px solid var(--border-strong);
     background: transparent;
-    color: var(--c-white);
+    color: var(--fg-1);
     text-decoration: none;
     font-weight: var(--weight-semibold);
     transition: border-color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
@@ -72,11 +72,11 @@ import WapuuHero from "../../components/WapuuHero.astro";
   .tools-hero .eyebrow {
     display: inline-flex;
     padding: var(--space-2) var(--space-4);
-    background: rgba(123, 231, 255, 0.1);
-    border: 1px solid rgba(123, 231, 255, 0.3);
+    background: var(--accent-soft);
+    border: 1px solid var(--hair);
     border-radius: var(--radius-pill);
     font-size: var(--fs-eyebrow);
-    color: var(--c-light-blue);
+    color: var(--accent);
     margin-bottom: var(--space-6);
     font-weight: var(--weight-semibold);
     text-transform: uppercase;
