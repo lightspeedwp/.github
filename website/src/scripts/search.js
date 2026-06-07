@@ -1,3 +1,4 @@
+/* eslint-env browser */
 /* search.js — Search palette controller */
 
 import { rankSearchItems } from "./search-utils.js";

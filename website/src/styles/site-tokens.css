@@ -11,7 +11,6 @@
   /* Surface elevation above --bg */
   --panel:   #FFFFFF;
   --panel-2: #F9FAFB;
-  --overlay-scrim: rgba(9, 9, 9, 0.55);
 
   /* Hairline border — use this, NOT var(--border) */
   --hair: var(--border);
@@ -45,7 +44,6 @@
   color-scheme: dark;
   --panel:   #16171D;
   --panel-2: #1B1C23;
-  --overlay-scrim: rgba(0, 0, 0, 0.65);
   --hair:    rgba(255, 255, 255, 0.09);
 
   --shadow-sm: 0 1px 3px rgba(0,0,0,.28), 0 1px 2px rgba(0,0,0,.18);
