@@ -1,0 +1,565 @@
+---
+import { ITEMS, CATEGORIES } from '../lib/catalogue';
+import { getAllEntries } from '../lib/glossary';
+import { liveRecipes } from '../lib/cookbook-data';
+import { LEARN_TRACKS } from '../lib/learn';
+
+const base = import.meta.env.BASE_URL;
+
+/* ── Build-time search index ─────────────────────────────────────── */
+interface SearchEntry {
+  id:    string;
+  title: string;
+  desc:  string;
+  badge: string;
+  group: string;
+  href:  string;
+}
+
+const catLabelMap: Record<string, string> = Object.fromEntries(
+  CATEGORIES.map(c => [c.id, c.label])
+);
+
+const entries: SearchEntry[] = [
+  /* Catalogue */
+  ...ITEMS.map(item => ({
+    id:    `cat:${item.id}`,
+    title: item.name,
+    desc:  item.description,
+    badge: catLabelMap[item.cat] ?? item.cat,
+    group: 'Catalogue',
+    href:  `${base}item/${item.cat}--${item.slug}/`,
+  })),
+
+  /* Glossary */
+  ...getAllEntries().map(entry => ({
+    id:    `glos:${entry.slug}`,
+    title: entry.term,
+    desc:  entry.def,
+    badge: 'Glossary',
+    group: 'Glossary',
+    href:  `${base}glossary/${entry.slug}/`,
+  })),
+
+  /* Cookbook */
+  ...liveRecipes().map(recipe => ({
+    id:    `cook:${recipe.id}`,
+    title: recipe.title,
+    desc:  recipe.blurb,
+    badge: 'Cookbook',
+    group: 'Cookbook',
+    href:  `${base}cookbook/${recipe.id}/`,
+  })),
+
+  /* Learn tracks */
+  ...LEARN_TRACKS.map(track => ({
+    id:    `learn:${track.id}`,
+    title: track.title,
+    desc:  track.description,
+    badge: 'Learn',
+    group: 'Learn',
+    href:  `${base}learn/${track.id}/`,
+  })),
+];
+
+const indexJson = JSON.stringify(entries);
+---
+
+<!-- Search modal overlay -->
+<div
+  id="search-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Search resources"
+  aria-hidden="true"
+  inert
+>
+  <div class="sm-backdrop" id="sm-backdrop"></div>
+
+  <div class="sm-panel" role="document">
+    <!-- Input row -->
+    <div class="sm-input-row">
+      <svg class="sm-search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none"
+        stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+        aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+      </svg>
+      <input
+        id="sm-input"
+        type="search"
+        class="sm-input"
+        placeholder="Search agents, instructions, skills…"
+        autocomplete="off"
+        autocorrect="off"
+        spellcheck="false"
+        aria-label="Search query"
+        aria-autocomplete="list"
+        aria-controls="sm-results"
+        aria-activedescendant=""
+      />
+      <button class="sm-esc-hint" type="button" id="sm-close" aria-label="Close search">
+        <span>Esc</span>
+      </button>
+    </div>
+
+    <!-- Results list -->
+    <div id="sm-results" role="listbox" aria-label="Search results" class="sm-results">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Footer -->
+    <div class="sm-footer" aria-hidden="true">
+      <span class="sm-key-hint"><kbd>↑↓</kbd> navigate</span>
+      <span class="sm-key-hint"><kbd>↵</kbd> open</span>
+      <span class="sm-key-hint"><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ indexJson }}>
+  /** @type {Array<{id:string,title:string,desc:string,badge:string,group:string,href:string}>} */
+  const INDEX = JSON.parse(indexJson);
+
+  const modal     = document.getElementById('search-modal');
+  const input     = document.getElementById('sm-input');
+  const results   = document.getElementById('sm-results');
+  const backdrop  = document.getElementById('sm-backdrop');
+  const closeBtn  = document.getElementById('sm-close');
+
+  let activeIdx = -1;
+  let currentHits = [];
+
+  /* ── Open / close ─────────────────────────────────────────────── */
+  function open() {
+    modal.removeAttribute('inert');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('search-open');
+    input.value = '';
+    renderResults('');
+    requestAnimationFrame(() => input.focus());
+  }
+
+  function close() {
+    modal.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('inert', '');
+    document.body.classList.remove('search-open');
+    input.setAttribute('aria-activedescendant', '');
+  }
+
+  document.addEventListener('ag:open-search', open);
+  backdrop.addEventListener('click', close);
+  closeBtn.addEventListener('click', close);
+
+  /* ── Keyboard: Escape from anywhere ─────────────────────────── */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+      e.preventDefault();
+      close();
+    }
+  });
+
+  /* ── Search algorithm (simple ranked matching) ──────────────── */
+  function score(entry, q) {
+    const low = q.toLowerCase();
+    const t = entry.title.toLowerCase();
+    const d = entry.desc.toLowerCase();
+    const b = entry.badge.toLowerCase();
+    if (t === low)                  return 100;
+    if (t.startsWith(low))          return 90;
+    if (t.includes(low))            return 80;
+    if (b.includes(low))            return 60;
+    if (d.startsWith(low))          return 50;
+    if (d.includes(low))            return 40;
+    return 0;
+  }
+
+  function search(q) {
+    if (!q.trim()) {
+      /* No query: show top items from each group */
+      const groups = ['Catalogue','Glossary','Cookbook','Learn'];
+      const shown = [];
+      for (const g of groups) {
+        const items = INDEX.filter(e => e.group === g).slice(0, 3);
+        shown.push(...items);
+      }
+      return shown.slice(0, 12);
+    }
+    return INDEX
+      .map(e => ({ entry: e, s: score(e, q) }))
+      .filter(x => x.s > 0)
+      .sort((a, b) => b.s - a.s)
+      .slice(0, 10)
+      .map(x => x.entry);
+  }
+
+  /* ── Render ──────────────────────────────────────────────────── */
+  function highlight(text, q) {
+    if (!q.trim()) return text;
+    const safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(new RegExp(`(${safe})`, 'gi'), '<mark>$1</mark>');
+  }
+
+  function truncate(text, max = 90) {
+    return text.length <= max ? text : text.slice(0, max).trimEnd() + '…';
+  }
+
+  function renderResults(q) {
+    activeIdx = -1;
+    input.setAttribute('aria-activedescendant', '');
+
+    currentHits = search(q);
+
+    if (currentHits.length === 0) {
+      results.innerHTML = `
+        <div class="sm-empty" role="option" aria-selected="false">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor"
+            stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+          <p>No results for <strong>"${q}"</strong></p>
+          <p class="sm-empty-hint">Try a different keyword or browse the catalogue.</p>
+        </div>`;
+      return;
+    }
+
+    /* Group results */
+    const grouped = {};
+    for (const hit of currentHits) {
+      if (!grouped[hit.group]) grouped[hit.group] = [];
+      grouped[hit.group].push(hit);
+    }
+
+    const groupOrder = ['Catalogue','Glossary','Cookbook','Learn'];
+    let html = '';
+    let globalIdx = 0;
+
+    for (const g of groupOrder) {
+      const items = grouped[g];
+      if (!items) continue;
+
+      html += `<div class="sm-group" role="group" aria-label="${g}">`;
+      html += `<div class="sm-group-label" aria-hidden="true">${g}</div>`;
+
+      for (const item of items) {
+        const idx = globalIdx++;
+        const descSnip = truncate(item.desc);
+        html += `
+          <a
+            id="sm-result-${idx}"
+            class="sm-result"
+            role="option"
+            aria-selected="false"
+            href="${item.href}"
+            data-idx="${idx}"
+          >
+            <div class="sm-result-main">
+              <span class="sm-result-title">${highlight(item.title, q)}</span>
+              <span class="sm-result-badge">${item.badge}</span>
+            </div>
+            <p class="sm-result-desc">${highlight(descSnip, q)}</p>
+          </a>`;
+      }
+
+      html += `</div>`;
+    }
+
+    results.innerHTML = html;
+
+    /* Wire click — prevent default on modifier clicks */
+    results.querySelectorAll('.sm-result').forEach(el => {
+      el.addEventListener('click', (e) => {
+        if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+        close();
+      });
+    });
+  }
+
+  /* ── Input handler ───────────────────────────────────────────── */
+  input.addEventListener('input', () => renderResults(input.value));
+
+  /* ── Keyboard navigation inside modal ───────────────────────── */
+  modal.addEventListener('keydown', (e) => {
+    const items = results.querySelectorAll('.sm-result');
+    const n = items.length;
+    if (n === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActive(activeIdx < n - 1 ? activeIdx + 1 : 0, items);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActive(activeIdx > 0 ? activeIdx - 1 : n - 1, items);
+    } else if (e.key === 'Enter' && activeIdx >= 0) {
+      e.preventDefault();
+      const active = items[activeIdx];
+      if (active) {
+        close();
+        window.location.href = active.getAttribute('href');
+      }
+    } else if (e.key === 'Tab') {
+      /* Keep focus inside: cycle between input and first/last result */
+      const focused = document.activeElement;
+      if (e.shiftKey && focused === input) {
+        e.preventDefault();
+        items[n - 1]?.focus();
+      } else if (!e.shiftKey && focused === items[n - 1]) {
+        e.preventDefault();
+        input.focus();
+      }
+    }
+  });
+
+  function setActive(idx, items) {
+    if (activeIdx >= 0 && items[activeIdx]) {
+      items[activeIdx].setAttribute('aria-selected', 'false');
+      items[activeIdx].classList.remove('is-active');
+    }
+    activeIdx = idx;
+    const el = items[idx];
+    if (el) {
+      el.setAttribute('aria-selected', 'true');
+      el.classList.add('is-active');
+      el.scrollIntoView({ block: 'nearest' });
+      input.setAttribute('aria-activedescendant', el.id);
+    }
+  }
+</script>
+
+<style>
+  /* ── Overlay ────────────────────────────────────────────────── */
+  #search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: clamp(60px, 10vh, 120px);
+    padding-inline: 16px;
+    pointer-events: none;
+  }
+
+  #search-modal[aria-hidden="false"] { pointer-events: auto; }
+
+  .sm-backdrop {
+    position: fixed;
+    inset: 0;
+    background: color-mix(in srgb, var(--c-black, #000) 55%, transparent);
+    background: rgba(0, 0, 0, 0.55);
+    background: color-mix(in srgb, var(--c-black, #000) 55%, transparent);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+
+  #search-modal[aria-hidden="false"] .sm-backdrop { opacity: 1; }
+
+  /* ── Panel ──────────────────────────────────────────────────── */
+  .sm-panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 640px;
+    background: var(--panel);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100dvh - clamp(60px, 10vh, 120px) - 32px);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+    transition: opacity 150ms ease, transform 150ms ease;
+  }
+
+  #search-modal[aria-hidden="false"] .sm-panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* ── Input row ──────────────────────────────────────────────── */
+  .sm-input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--hair);
+    flex-shrink: 0;
+  }
+
+  .sm-search-icon {
+    color: var(--fg-3);
+    flex-shrink: 0;
+  }
+
+  .sm-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--fg-1);
+    min-width: 0;
+  }
+
+  .sm-input::placeholder { color: var(--fg-3); }
+
+  /* Hide browser-default search clear button */
+  .sm-input::-webkit-search-cancel-button { display: none; }
+
+  .sm-esc-hint {
+    flex-shrink: 0;
+    background: var(--panel-2);
+    border: 1px solid var(--hair);
+    border-radius: 5px;
+    padding: 3px 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    cursor: pointer;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .sm-esc-hint:hover { color: var(--fg-1); }
+  .sm-esc-hint span { pointer-events: none; }
+
+  /* ── Results ───────────────────────────────────────────────── */
+  .sm-results {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+    scroll-padding-block: 4px;
+  }
+
+  .sm-group { margin-bottom: 4px; }
+
+  .sm-group-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-3);
+    padding: 6px 10px 4px;
+  }
+
+  .sm-result {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--fg-1);
+    transition: background var(--dur) var(--ease-out);
+    outline: none;
+  }
+
+  .sm-result:hover,
+  .sm-result.is-active {
+    background: var(--panel-2);
+  }
+
+  .sm-result:focus-visible {
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+
+  .sm-result-main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sm-result-title {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-display);
+    color: var(--fg-1);
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sm-result-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: var(--radius-pill);
+    padding: 2px 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .sm-result-desc {
+    font-size: 13px;
+    color: var(--fg-3);
+    margin: 0;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Highlight matched text */
+  .sm-result mark {
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── Empty state ────────────────────────────────────────────── */
+  .sm-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 24px;
+    gap: 8px;
+    color: var(--fg-3);
+  }
+
+  .sm-empty p { margin: 0; font-size: 15px; }
+  .sm-empty strong { color: var(--fg-1); }
+  .sm-empty-hint { font-size: 13px !important; }
+
+  /* ── Footer ─────────────────────────────────────────────────── */
+  .sm-footer {
+    display: flex;
+    gap: 16px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--hair);
+    flex-shrink: 0;
+  }
+
+  .sm-key-hint {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--fg-3);
+    font-family: var(--font-body);
+  }
+
+  kbd {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: var(--panel-2);
+    border: 1px solid var(--hair);
+    color: var(--fg-2);
+  }
+
+  /* ── Body scroll lock ────────────────────────────────────────── */
+</style>
+
+<style is:global>
+  body.search-open { overflow: hidden; }
+</style>
