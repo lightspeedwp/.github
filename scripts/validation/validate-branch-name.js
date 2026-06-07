@@ -40,6 +40,7 @@ const ALLOWED_PREFIXES = [
   "migrate",
   "qa",
   "uat",
+  "codex",
 ];
 
 const BOT_PREFIXES = /^(dependabot|renovate)\//;
