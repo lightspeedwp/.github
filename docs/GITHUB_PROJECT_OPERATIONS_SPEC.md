@@ -74,11 +74,19 @@ Template labels must remain canonical and pass:
 
 ## Project Meta Sync Contract (Current State)
 
-`project-meta-sync.yml` currently synchronises project fields from labels for:
+`project-meta-sync.yml` currently synchronises project fields through canonical derivation for:
 
 - `Status`
 - `Priority`
 - `Type`
+- `Effort`
+- `Start date`
+
+Derivation source notes:
+
+- `Status`, `Priority`, and `Type` are mapped from labels via `.github/issue-fields.yml` mappings.
+- `Effort` uses the configured default from canonical issue-fields configuration.
+- `Start date` is derived from item creation date for opened/reopened items that are not done.
 
 Current preflight conditions must be satisfied before sync runs:
 
@@ -86,7 +94,13 @@ Current preflight conditions must be satisfied before sync runs:
 - `LS_APP_ID`
 - `LS_APP_PRIVATE_KEY`
 
-No additional fields are in scope for this spec.
+Safe automation boundary:
+
+- Active write path is limited to the five fields above.
+- `Target date` remains defined in canonical config but is not currently written by the active workflow path.
+- Additional direct issue-field writes are out of scope until a dedicated follow-up verification approves extension.
+
+Verification reference: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
 
 ## Minimum Validation Set
 
