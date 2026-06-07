@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Awesome GitHub Site Phase 10: Cookbook list and recipe reader** — Added a phase-aligned `/cookbook` index with live recipe cards, a coming-soon delivery placeholder, rocket Wapuu hero treatment, and a Markdown recipe reader with sticky table of contents, prev/next navigation, and local progress tracking in `ag-cookbook`. ([#874](https://github.com/lightspeedwp/.github/issues/874))
+- **Awesome GitHub Site Phase 10: Cookbook list and recipe reader** — Added a phase-aligned `/cookbook` index with live recipe cards, a coming-soon delivery placeholder, rocket Wapuu hero treatment, and a Markdown recipe reader with sticky table of contents, prev/next navigation, and local progress tracking in `ag-cookbook`. ([#874](https://github.com/lightspeedwp/.github/issues/874), [#875](https://github.com/lightspeedwp/.github/pull/875))
 
 - **Awesome GitHub Site Phase 08: Resource detail page** — Added the new `/item/[id].astro` route for every catalogue item, with a GitHub-style file viewer, render/raw tabs, install sidebar actions, related items, breadcrumb navigation, and catalogue links updated to the new item route. ([#870](https://github.com/lightspeedwp/.github/issues/870), [#871](https://github.com/lightspeedwp/.github/pull/871))
 
