@@ -2,6 +2,7 @@
 import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
 import Icon from "../../components/AwesomeGithub/Icon.astro";
 import WapuuHero from "../../components/WapuuHero.astro";
+import { CATEGORIES, ITEMS, TYPES, getCategoryInfo } from "../../lib/catalogue";
 import { CATEGORIES, ITEMS, TYPES, getCategoryInfo, itemRouteId } from "../../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
@@ -127,7 +128,7 @@ function typeBadgeClass(type: string): string {
           >
             <div class="item-card-head">
               <span class="item-mark" aria-hidden="true">
-                <Icon name={ITEM_MARKS[item.type] || "layers"} size={18} />
+                <Icon name={ITEM_MARKS[item.type] || "ph:squares-four"} size={18} />
               </span>
               <span class={`type-badge ${typeBadgeClass(item.type)}`}>
                 {TYPES[item.type]?.badge ?? item.type}
@@ -291,7 +292,102 @@ function typeBadgeClass(type: string): string {
     line-height: 1.55;
   }
 
-  /* type-badge + .tb-* rules moved to global.css */
+  .type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--hair);
+    background: var(--panel-2);
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .tb-install {
+    --badge-fg: var(--accent);
+    --badge-bg: var(--accent-soft);
+    --badge-border: color-mix(in srgb, var(--accent) 28%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-aiDefault {
+    --badge-fg: var(--c-cyan-500);
+    --badge-bg: color-mix(in srgb, var(--c-cyan-500) 14%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-cyan-500) 28%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-workflow {
+    --badge-fg: var(--c-status-success);
+    --badge-bg: color-mix(in srgb, var(--c-status-success) 12%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-status-success) 24%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-guardrail {
+    --badge-fg: var(--c-status-warning);
+    --badge-bg: color-mix(in srgb, var(--c-status-warning) 14%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-status-warning) 26%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-pack {
+    --badge-fg: var(--c-light-blue);
+    --badge-bg: color-mix(in srgb, var(--c-light-blue) 12%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-light-blue) 26%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-script {
+    --badge-fg: var(--c-brand-blue-700);
+    --badge-bg: color-mix(in srgb, var(--c-brand-blue-700) 12%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-brand-blue-700) 24%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-schema {
+    --badge-fg: var(--c-brand-blue);
+    --badge-bg: var(--accent-soft);
+    --badge-border: color-mix(in srgb, var(--c-brand-blue) 26%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-recipe {
+    --badge-fg: var(--c-status-info);
+    --badge-bg: color-mix(in srgb, var(--c-status-info) 12%, transparent);
+    --badge-border: color-mix(in srgb, var(--c-status-info) 24%, transparent);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
+
+  .tb-mixed {
+    --badge-fg: var(--fg-2);
+    --badge-bg: var(--panel-2);
+    --badge-border: var(--hair);
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    border-color: var(--badge-border);
+  }
 
   .catalogue-section {
     background: var(--bg);
@@ -402,7 +498,7 @@ function typeBadgeClass(type: string): string {
     color: var(--accent);
   }
 
-  /* item-grid + item-card + item-* rules moved to global.css */
+
 
   .no-results {
     margin-top: 24px;
