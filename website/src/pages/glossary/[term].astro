@@ -1,315 +1,158 @@
 ---
-import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
-import { GLOSSARY_GROUPS, getEntry, getRelatedEntries, getAllEntries } from "../../lib/glossary";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { GLOSSARY_GROUPS, getAllEntries, getEntry, getRelatedEntries } from '../../lib/glossary';
 
 const base = import.meta.env.BASE_URL;
-const { term: termSlug } = Astro.params;
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return getAllEntries().map((e) => ({ params: { term: e.slug } }));
 }
 
-const entry = getEntry(termSlug!);
+const entry = getEntry(Astro.params.term);
 if (!entry) return Astro.redirect(`${base}glossary/`);
 
 const related = getRelatedEntries(entry);
 const group = GLOSSARY_GROUPS.find((g) => g.entries.some((e) => e.slug === entry.slug));
 ---
 
-<AwesomeGithubLayout
+<BaseLayout
   title={`${entry.term} — Glossary — Awesome GitHub`}
   description={entry.def}
 >
-  <nav class="term-breadcrumb" aria-label="Breadcrumb">
-    <div class="term-container">
-      <a href={`${base}`}>Home</a>
-      <span aria-hidden="true">/</span>
-      <a href={`${base}glossary/`}>Glossary</a>
-      <span aria-hidden="true">/</span>
-      <span>{entry.term}</span>
-    </div>
-  </nav>
+  <main>
+    <div class="wrap-prose term-page">
+      <nav class="crumb">
+        <a href={`${base}`}>Home</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a href={`${base}glossary/`}>Glossary</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span>{entry.term}</span>
+      </nav>
 
-  <header class="term-hero">
-    <div class="term-container">
-      {group && <div class="term-group-badge">{group.label}</div>}
-      <h1 class="term-h1">{entry.term}</h1>
-    </div>
-  </header>
+      {group && <span class="term-group">{group.label}</span>}
+      <h1 class="page-h1 term-title">{entry.term}</h1>
 
-  <div class="term-body">
-    <div class="term-container">
-      <div class="term-layout">
-        <main class="term-main">
-          <div class="term-def-block">
-            <p class="term-def">{entry.def}</p>
+      <div class="md">
+        <p>{entry.def}</p>
+      </div>
+
+      {entry.why && (
+        <div class="term-why">
+          <h2 class="term-why-label">Why it matters</h2>
+          <p class="term-why-body">{entry.why}</p>
+        </div>
+      )}
+
+      {related.length > 0 && (
+        <div class="term-related">
+          <h2 class="eyebrow term-related-heading">Related terms</h2>
+          <div class="term-related-chips">
+            {related.map((r) => (
+              <a
+                class="btn-ghost btn-pill term-chip"
+                href={`${base}glossary/${r.slug}/`}
+              >
+                {r.term}
+              </a>
+            ))}
           </div>
+        </div>
+      )}
 
-          <div class="term-why-block">
-            <h2 class="term-section-title">Why it matters</h2>
-            <p class="term-why">{entry.why}</p>
-          </div>
-
-          {related.length > 0 && (
-            <div class="term-related-block">
-              <h2 class="term-section-title">Related terms</h2>
-              <div class="term-related-grid">
-                {related.map((rel) => (
-                  <a href={`${base}glossary/${rel.slug}/`} class="term-related-card">
-                    <strong>{rel.term}</strong>
-                    <p>{rel.def.slice(0, 120)}{rel.def.length > 120 ? "…" : ""}</p>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-        </main>
-
-        <aside class="term-sidebar">
-          {group && (
-            <div class="term-sidebar-card">
-              <div class="term-sidebar-title">This group</div>
-              <div class="term-sidebar-group">{group.label}</div>
-              <p class="term-sidebar-blurb">{group.blurb}</p>
-              <div class="term-sidebar-entries">
-                {group.entries.map((e) => (
-                  <a
-                    href={`${base}glossary/${e.slug}/`}
-                    class={`term-sidebar-entry ${e.slug === entry.slug ? "term-sidebar-entry--active" : ""}`}
-                  >
-                    {e.term}
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-          <a href={`${base}glossary/`} class="term-back-link">← All terms</a>
-        </aside>
+      <div class="term-footer">
+        <a class="btn-ghost btn-pill" href={`${base}glossary/`}>← Back to Glossary</a>
       </div>
     </div>
-  </div>
-</AwesomeGithubLayout>
+  </main>
+</BaseLayout>
 
 <style>
-  .term-container {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--gutter);
+  .term-page {
+    padding-top: clamp(32px, 4vw, 56px);
+    padding-bottom: 80px;
   }
 
-  .term-breadcrumb {
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: var(--space-3) var(--gutter);
-    font-size: var(--fs-body-sm);
-  }
+  .term-title { margin: 8px 0 20px; }
 
-  .term-breadcrumb div {
-    max-width: var(--container-max);
-    margin: 0 auto;
+  .crumb {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
-    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--fg-3);
+    margin-bottom: 24px;
   }
 
-  .term-breadcrumb a { color: var(--fg-link); text-decoration: none; }
-  .term-breadcrumb a:hover { color: var(--fg-link-hover); }
-  .term-breadcrumb span:not([aria-hidden]) { color: var(--fg-2); }
-  .term-breadcrumb [aria-hidden] { color: var(--fg-3); }
+  .crumb a { color: var(--fg-3); text-decoration: none; }
+  .crumb a:hover { color: var(--accent); }
+  .crumb a:focus-visible { color: var(--accent); outline: 2px solid var(--accent); outline-offset: 2px; }
+  .sep { color: var(--fg-3); }
 
-  .term-hero {
-    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
-    color: var(--c-white);
-    padding: var(--space-24) var(--gutter);
-  }
-
-  .term-group-badge {
-    display: inline-flex;
-    padding: var(--space-2) var(--space-4);
-    background: rgba(123, 231, 255, 0.1);
-    border: 1px solid rgba(123, 231, 255, 0.3);
-    border-radius: var(--radius-pill);
-    font-size: var(--fs-eyebrow);
-    color: var(--c-light-blue);
-    margin-bottom: var(--space-6);
-    font-weight: var(--weight-semibold);
+  .term-group {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: var(--tracking-eyebrow);
-  }
-
-  .term-h1 {
-    font-size: var(--fs-h2);
-    font-weight: var(--weight-extrabold);
-    line-height: var(--lh-heading);
-    margin: 0;
-    color: var(--c-white);
-  }
-
-  .term-body {
-    padding: var(--space-16) var(--gutter);
-    background: var(--bg);
-  }
-
-  .term-layout {
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: var(--space-12);
-    align-items: start;
-  }
-
-  .term-main {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-10);
-  }
-
-  .term-def-block {
-    padding: var(--space-8);
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
-    border-radius: var(--radius-lg);
-  }
-
-  .term-def {
-    font-size: var(--fs-body-lg);
-    line-height: var(--lh-loose);
-    color: var(--fg-1);
-    margin: 0;
-  }
-
-  .term-section-title {
-    font-size: var(--fs-h5);
-    font-weight: var(--weight-bold);
-    color: var(--fg-1);
-    margin: 0 0 var(--space-4) 0;
+    letter-spacing: .1em;
+    color: var(--fg-3);
+    background: var(--panel-2);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+    margin-bottom: 12px;
   }
 
   .term-why {
-    font-size: var(--fs-body);
-    color: var(--fg-2);
-    line-height: var(--lh-loose);
-    margin: 0;
-  }
-
-  .term-related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: var(--space-4);
-  }
-
-  .term-related-card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-4);
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
+    margin-top: 28px;
+    padding: 16px 20px;
+    background: var(--panel-2);
+    border: 1px solid var(--hair);
     border-radius: var(--radius-md);
-    text-decoration: none;
-    color: inherit;
-    transition: all var(--dur) var(--ease-out);
   }
 
-  .term-related-card:hover {
-    border-color: var(--accent);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .term-related-card strong {
-    font-size: var(--fs-body-sm);
-    color: var(--fg-1);
-    font-weight: var(--weight-semibold);
-  }
-
-  .term-related-card p {
-    font-size: var(--fs-body-sm);
-    color: var(--fg-3);
-    margin: 0;
-    line-height: var(--lh-snug);
-  }
-
-  .term-sidebar {
-    position: sticky;
-    top: 88px;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .term-sidebar-card {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-5);
-  }
-
-  .term-sidebar-title {
-    font-size: var(--fs-eyebrow);
-    font-weight: var(--weight-semibold);
-    color: var(--fg-3);
+  .term-why-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: var(--tracking-eyebrow);
-    margin-bottom: var(--space-2);
+    letter-spacing: .1em;
+    color: var(--fg-3);
+    margin: 0 0 8px;
+    line-height: 1;
   }
 
-  .term-sidebar-group {
-    font-size: var(--fs-body-sm);
-    font-weight: var(--weight-bold);
-    color: var(--fg-1);
-    margin-bottom: var(--space-2);
+  .term-related-heading {
+    margin: 0 0 10px;
   }
 
-  .term-sidebar-blurb {
-    font-size: var(--fs-body-sm);
+  .term-why-body {
+    font-size: 15px;
     color: var(--fg-2);
-    margin: 0 0 var(--space-4) 0;
-    line-height: var(--lh-snug);
+    line-height: 1.6;
+    margin: 0;
   }
 
-  .term-sidebar-entries {
+  .term-related {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--hair);
+  }
+
+  .term-related-chips {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    border-top: 1px solid var(--border);
-    padding-top: var(--space-4);
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
-  .term-sidebar-entry {
-    display: block;
-    padding: var(--space-2) var(--space-3);
-    font-size: var(--fs-body-sm);
-    color: var(--fg-2);
-    text-decoration: none;
-    border-radius: var(--radius-sm);
-    transition: all var(--dur) var(--ease-out);
+  .term-chip {
+    font-size: 13px;
+    padding: 6px 14px;
   }
 
-  .term-sidebar-entry:hover { color: var(--fg-1); background: var(--bg-muted); }
-  .term-sidebar-entry--active { color: var(--accent); font-weight: var(--weight-semibold); background: var(--accent-soft); }
-
-  .term-back-link {
-    display: inline-block;
-    font-size: var(--fs-body-sm);
-    color: var(--fg-link);
-    text-decoration: none;
-    font-weight: var(--weight-medium);
-    padding: var(--space-3) var(--space-4);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    text-align: center;
-    transition: all var(--dur) var(--ease-out);
-  }
-
-  .term-back-link:hover { border-color: var(--accent); color: var(--accent); }
-
-  @media (max-width: 900px) {
-    .term-layout { grid-template-columns: 1fr; }
-    .term-sidebar { position: static; }
-  }
-
-  @media (max-width: 768px) {
-    .term-hero { padding: var(--space-16) var(--gutter);  }
+  .term-footer {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--hair);
   }
 </style>
