@@ -15,6 +15,9 @@
   /* Hairline border — use this, NOT var(--border) */
   --hair: var(--border);
 
+  /* Subtle hover overlay for items on light surfaces */
+  --overlay-hover: rgba(0, 0, 0, 0.06);
+
   /* Font stacks — resolved from design system @font-face */
   --font-display: 'Inter', system-ui, sans-serif;
   --font-body:    'Manrope', system-ui, sans-serif;
@@ -45,6 +48,7 @@
   --panel:   #16171D;
   --panel-2: #1B1C23;
   --hair:    rgba(255, 255, 255, 0.09);
+  --overlay-hover: rgba(255, 255, 255, 0.06);
 
   --shadow-sm: 0 1px 3px rgba(0,0,0,.28), 0 1px 2px rgba(0,0,0,.18);
   --shadow-md: 0 4px 16px rgba(0,0,0,.36), 0 1px 4px rgba(0,0,0,.20);

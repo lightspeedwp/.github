@@ -84,7 +84,7 @@ const paletteItems = ITEMS.map(item => ({
     background: var(--bg-card, var(--bg));
     border: 1px solid var(--hair);
     border-radius: var(--radius-lg, 12px);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-xl);
     overflow: hidden;
   }
 
@@ -157,12 +157,7 @@ const paletteItems = ITEMS.map(item => ({
 
   .sp-item:hover,
   .sp-item.sel {
-    background: rgba(0, 0, 0, 0.06);
-  }
-
-  [data-theme="dark"] .sp-item:hover,
-  [data-theme="dark"] .sp-item.sel {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--overlay-hover);
   }
 
   .sp-item:focus-visible {
@@ -189,16 +184,12 @@ const paletteItems = ITEMS.map(item => ({
   .sp-item-cat {
     flex-shrink: 0;
     font-size: 11px;
-    background: rgba(0, 0, 0, 0.06);
+    background: var(--overlay-hover);
     color: var(--fg-2);
     border: 1px solid var(--hair);
     border-radius: 4px;
     padding: 2px 6px;
     white-space: nowrap;
-  }
-
-  [data-theme="dark"] .sp-item-cat {
-    background: rgba(255, 255, 255, 0.06);
   }
 
   .sp-empty {
@@ -228,17 +219,13 @@ const paletteItems = ITEMS.map(item => ({
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.06);
+    background: var(--overlay-hover);
     border: 1px solid var(--hair);
     border-radius: 4px;
     font-family: var(--font-mono);
     font-size: 10px;
     padding: 2px 5px;
     line-height: 1.4;
-  }
-
-  [data-theme="dark"] .sp-hint kbd {
-    background: rgba(255, 255, 255, 0.06);
   }
 
   @media (max-width: 600px) {
