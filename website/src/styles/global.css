@@ -509,6 +509,10 @@ code, kbd, pre {
   transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
 }
 
+.item-card[hidden] {
+  display: none;
+}
+
 .item-card:hover {
   transform: translateY(-2px);
   border-color: var(--border-strong);

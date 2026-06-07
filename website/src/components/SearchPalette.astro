@@ -71,7 +71,7 @@ const paletteItems = ITEMS.map(item => ({
   .sp-scrim {
     position: fixed;
     inset: 0;
-    background: rgba(9, 9, 9, 0.55);
+    background: var(--overlay-scrim);
     z-index: 0;
   }
 
@@ -81,10 +81,10 @@ const paletteItems = ITEMS.map(item => ({
     width: 100%;
     max-width: 560px;
     margin: 0 16px;
-    background: var(--bg-card, var(--bg));
+    background: var(--panel);
     border: 1px solid var(--hair);
     border-radius: var(--radius-lg, 12px);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-xl);
     overflow: hidden;
   }
 
@@ -94,6 +94,7 @@ const paletteItems = ITEMS.map(item => ({
     gap: 8px;
     padding: 0 12px;
     border-bottom: 1px solid var(--hair);
+    background: var(--panel-2);
   }
 
   .sp-input {
@@ -114,7 +115,7 @@ const paletteItems = ITEMS.map(item => ({
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
-    background: none;
+    background: var(--panel);
     border: 1px solid var(--hair);
     border-radius: 6px;
     color: var(--fg-3);
@@ -157,12 +158,7 @@ const paletteItems = ITEMS.map(item => ({
 
   .sp-item:hover,
   .sp-item.sel {
-    background: rgba(0, 0, 0, 0.06);
-  }
-
-  [data-theme="dark"] .sp-item:hover,
-  [data-theme="dark"] .sp-item.sel {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--panel-2);
   }
 
   .sp-item:focus-visible {
@@ -189,16 +185,12 @@ const paletteItems = ITEMS.map(item => ({
   .sp-item-cat {
     flex-shrink: 0;
     font-size: 11px;
-    background: rgba(0, 0, 0, 0.06);
+    background: var(--panel-2);
     color: var(--fg-2);
     border: 1px solid var(--hair);
     border-radius: 4px;
     padding: 2px 6px;
     white-space: nowrap;
-  }
-
-  [data-theme="dark"] .sp-item-cat {
-    background: rgba(255, 255, 255, 0.06);
   }
 
   .sp-empty {
@@ -228,17 +220,13 @@ const paletteItems = ITEMS.map(item => ({
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.06);
+    background: var(--panel-2);
     border: 1px solid var(--hair);
     border-radius: 4px;
     font-family: var(--font-mono);
     font-size: 10px;
     padding: 2px 5px;
     line-height: 1.4;
-  }
-
-  [data-theme="dark"] .sp-hint kbd {
-    background: rgba(255, 255, 255, 0.06);
   }
 
   @media (max-width: 600px) {
@@ -252,5 +240,11 @@ const paletteItems = ITEMS.map(item => ({
       max-width: 100%;
       border-radius: var(--radius-lg, 12px) var(--radius-lg, 12px) 0 0;
     }
+  }
+</style>
+
+<style is:global>
+  body.search-open {
+    overflow: hidden;
   }
 </style>

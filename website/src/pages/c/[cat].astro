@@ -2,8 +2,8 @@
 import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
 import Icon from "../../components/AwesomeGithub/Icon.astro";
 import WapuuHero from "../../components/WapuuHero.astro";
-import { CATEGORIES, ITEMS, TYPES, getCategoryInfo } from "../../lib/catalogue";
 import { CATEGORIES, ITEMS, TYPES, getCategoryInfo, itemRouteId } from "../../lib/catalogue";
+import { matchesSearchQuery } from "../../scripts/search-utils";
 
 const base = import.meta.env.BASE_URL;
 const { cat } = Astro.params;
@@ -162,6 +162,8 @@ function typeBadgeClass(type: string): string {
 </AwesomeGithubLayout>
 
 <script>
+  import { matchesSearchQuery } from "../../scripts/search-utils.js";
+
   (() => {
     const root = document.querySelector("[data-catalogue-page]");
     if (!root) return;
@@ -186,17 +188,14 @@ function typeBadgeClass(type: string): string {
     };
 
     const applyFilter = () => {
-      const term = input.value.trim().toLowerCase();
-      const words = term ? term.split(/\s+/).filter(Boolean) : [];
+      const term = input.value.trim();
       let visible = 0;
 
       cards.forEach((card) => {
-        const name = (card.dataset.name || "").toLowerCase();
-        const description = (card.dataset.description || "").toLowerCase();
-        const tags = (card.dataset.tags || "").toLowerCase().split(/\s+/).filter(Boolean);
-        const haystack = `${name} ${description} ${tags.join(" ")}`;
-
-        const textMatch = words.length === 0 || words.every((word) => haystack.includes(word));
+        const name = card.dataset.name || "";
+        const description = card.dataset.description || "";
+        const tags = (card.dataset.tags || "").split(/\s+/).filter(Boolean);
+        const textMatch = matchesSearchQuery([name, description, tags.join(" ")], term);
         const tagMatch = activeTags.length === 0 || activeTags.every((tag) => tags.includes(tag));
         const show = textMatch && tagMatch;
 
@@ -206,7 +205,7 @@ function typeBadgeClass(type: string): string {
 
       countEl.textContent = `${visible} of ${cards.length} shown`;
       noResults.hidden = visible > 0;
-      clearBtn.hidden = words.length === 0 && activeTags.length === 0;
+      clearBtn.hidden = term.length === 0 && activeTags.length === 0;
     };
 
     input.addEventListener("input", applyFilter);
