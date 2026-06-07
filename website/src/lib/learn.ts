@@ -63,7 +63,7 @@ const TRACK_DEFS: Array<{
   {
     id: "oriented",
     label: "Getting oriented",
-    icon: "layers",
+    icon: "ph:stack",
     blurb: "Start here. How the control plane is put together and how change flows to stable.",
     lessons: [
       {
@@ -89,7 +89,7 @@ const TRACK_DEFS: Array<{
   {
     id: "governance",
     label: "Governance & labelling",
-    icon: "shield",
+    icon: "ph:shield-check",
     blurb: "The taxonomy and automation that keep work legible across every repository.",
     lessons: [
       {
@@ -123,7 +123,7 @@ const TRACK_DEFS: Array<{
   {
     id: "quality",
     label: "Quality & release",
-    icon: "check",
+    icon: "ph:check-circle",
     blurb: "The gates a change passes through - linting, testing - and the ritual of shipping it.",
     lessons: [
       {
@@ -154,7 +154,7 @@ const TRACK_DEFS: Array<{
   {
     id: "agents",
     label: "Working with agents",
-    icon: "robot",
+    icon: "ph:robot",
     blurb: "How the planner and reviewer agents are built, configured, and run in practice.",
     lessons: [
       {

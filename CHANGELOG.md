@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-06-06"
+last_updated: "2026-06-07"
 owners:
   - LightSpeed Team
 tags:
@@ -25,13 +25,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
+### Fixed
 
-- **Awesome GitHub Site Phase 08: Resource detail page** — Added the new `/item/[id].astro` route for every catalogue item, with a GitHub-style file viewer, render/raw tabs, install sidebar actions, related items, breadcrumb navigation, and catalogue links updated to the new item route. ([#870](https://github.com/lightspeedwp/.github/issues/870), [#871](https://github.com/lightspeedwp/.github/pull/871))
+- **Awesome GitHub Site Phase 12: Editorial pages missing header/footer** — All 7 Phase 12 editorial pages (`getting-started`, `why`, `onboarding`, `references`, `glossary/index`, `glossary/[term]`, `404`) were using `BaseLayout` (an HTML-only scaffold with no nav or footer). Switched all to `AwesomeGithubLayout` which provides `<Header />`, `<AwesomeGithubFooter />`, skip-to-content link, and theme initialisation. Removed now-redundant inner `<main>` wrappers. Fixed hardcoded hex colours in `getting-started.astro` `.run-pill`. ([#887](https://github.com/lightspeedwp/.github/issues/887), [#888](https://github.com/lightspeedwp/.github/pull/888))
+
+### Added
 
 - **Awesome GitHub Site Phase 06: Wapuu mascot system** — Added a reusable `WapuuHero` Astro component with a canonical page-type mapping, copied the three confirmed Wapuu assets into `website/public/assets/wapuus/`, and wired the learn, cookbook, tools, and catalogue hero sections to render the correct mascot with responsive hiding at ≤860px and decorative accessibility attributes. ([#864](https://github.com/lightspeedwp/.github/issues/864))
 - **Awesome GitHub Site Phase 07: Catalogue list pages with filter bar and Wapuu hero** — Replaced the old catalogue index with a spec-aligned `/c/[cat]` route, added the shared Wapuu hero component, introduced tag-chip filtering with AND logic, and surfaced the category type note and install-action cards for all eight catalogue pages. ([#866](https://github.com/lightspeedwp/.github/issues/866), [#867](https://github.com/lightspeedwp/.github/pull/867))
 - **Awesome GitHub Site Phase 05: Homepage all 5 blocks wired to live data** — Rebuilt the homepage with the spec-aligned hero, live catalogue counts, feature strip, and Cook+Learn cards. Added the typed catalogue exports used by the homepage counts, copied the Wapuu assets into `website/public/assets/wapuus/`, and added an `onboarding/` alias that redirects to `getting-started/` for the primary CTA. ([#861](https://github.com/lightspeedwp/.github/issues/861), [#862](https://github.com/lightspeedwp/.github/pull/862))
+
+- **Awesome GitHub Site Phase 13: Search command palette** — Site-wide ⌘K search palette (`website/src/components/SearchPalette.astro` + `website/src/scripts/search.js`) added to `AwesomeGithubLayout`. Build-time JSON index of all catalogue items serialised into a `data-items` attribute. Empty query shows 7 Popular items; typed query uses multi-word AND substring matching across name, description, tags, and category (capped at 12 results). Keyboard navigation (↑↓ arrow keys, Enter to open result, Escape to close, Tab focus-trap between input, close button, and result items). Fully accessible: `role="dialog"`, `aria-modal`, `aria-selected`, focus returns to trigger on dismiss. ([#764](https://github.com/lightspeedwp/.github/issues/764), [#889](https://github.com/lightspeedwp/.github/pull/889))
+
+- **Awesome GitHub Site Phase 11: Tools page + Phosphor Icons sitewide** — Standalone `/c/tools.astro` with astropuu Wapuu hero, section nav pills (AI Defaults, Scripts, Schemas, Config & Setup), and a build-time Phosphor icon loader (`website/src/lib/phosphor.ts`) using `createRequire` for robust package resolution. Updated `Icon.astro` with `ph:` prefix routing to load any Phosphor icon at SSG time. Migrated item card and type badge styles into `global.css` for reuse across catalogue and tools pages. Updated all category, nav, learn, and home icons to Phosphor equivalents sitewide. ([#885](https://github.com/lightspeedwp/.github/issues/885), [#886](https://github.com/lightspeedwp/.github/pull/886))
 
 - **Awesome GitHub Site Phase 02: CSS Token Layer + Global Styles** — Established the complete CSS foundation for the Awesome GitHub site. Added `website/src/styles/site-tokens.css` with app-specific surface tokens (`--panel`, `--panel-2`, `--hair`), font stacks, radius/shadow/transition scales, and `color-scheme` declarations for both light and dark themes. Added `website/src/styles/global.css` with container system (`.wrap` 1320px, `.wrap-prose` 820px), section rhythm via `clamp()`, button system (`.btn-primary`, `.btn-ghost`, `.btn-soft`, `.icon-btn`) with `:focus-visible` rings and browser-compat fallbacks, breadcrumb, kbd chip, burger breakpoints, `.md` prose styles, and scroll-motion accessibility guard. Fixed `BaseLayout.astro` CSS import order and corrected `localStorage` theme key to `ag-theme`. ([#852](https://github.com/lightspeedwp/.github/issues/852), [#853](https://github.com/lightspeedwp/.github/pull/853))
 
@@ -39,6 +45,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Awesome GitHub Site: Phosphor Icon System** — Replaced all emoji icons (🤖 📖 💬 ✨ 🛡️ ⚙️ 🧩 🔧 🗺️ ✅ 📚 🍳 ☀️ 🌙) with Phosphor SVG icons via a new `Icon.astro` component that reads from `@phosphor-icons/core` at build time — zero runtime JS. Covers catalogue type icons, learning track icons, getting-started cards, cookbook placeholder, and theme toggle buttons. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
 
 ### Fixed
+
+- **Issue-Field Write Boundary Verification Docs (`#879`)** — Clarified the live project-meta-sync write boundary, documented that `Status`/`Priority`/`Type` are label-mapped while `Effort` and `Start date` are derived from canonical defaults/runtime context, and added a dedicated verification audit record for private-project issue-field support decisions. ([#884](https://github.com/lightspeedwp/.github/pull/884))
 
 - **Awesome GitHub Site: Mobile Nav Menu** — Fixed `z-index` on the fixed-position mobile menu so it renders above page content; added body scroll-lock (`overflow: hidden`) while the menu is open to prevent background scroll. ([#844](https://github.com/lightspeedwp/.github/issues/844), [#843](https://github.com/lightspeedwp/.github/pull/843))
 - **Awesome GitHub Site: Phase 01 Scaffold Merge Hardening (`#851`)** — Finalised the Phase 01 scaffold branch for merge by replacing stale `/talk/*` links with valid `/wceu-2026/slides/*` routes on agent pages and aligning key CI workflows to Node `22.22.1` so Astro 6/lint-staged engine checks pass in PR validation.
@@ -73,8 +81,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   All Wapuus feature responsive sizing (clamp 100-200px), drop-shadow filters for visual depth, proper accessibility attributes (aria-hidden), and fluid flexbox layouts for hero sections that adapt across mobile, tablet, and desktop viewports.
 
 ### Fixed
-
-- **Awesome GitHub Site Phase 04: Footer component** — Updated the always-dark footer to use plain link columns that match the spec, while preserving the cyan halo, dark-only background, and LightSpeed branding. ([#859](https://github.com/lightspeedwp/.github/issues/859), [#860](https://github.com/lightspeedwp/.github/pull/860))
 
 - **Awesome GitHub Site: NotFound Page Accessibility Improvement** — Added `aria-hidden="true"` attribute to decorative Wapuu-Astropuu image in the NotFound component (learn.jsx) to improve WCAG 2.2 AA+ accessibility compliance. Empty alt text combined with aria-hidden ensures screen readers properly skip decorative content.
 - **Awesome GitHub Site: Duplicate Route Collision Fix** — Removed duplicate `/references` route caused by `website/src/pages/references.astro` conflicting with `website/src/pages/references/index.astro`. The build now generates 62 pages with no route collision warnings. Workflow updated with `--legacy-peer-deps` flag for `npm ci` to resolve `@astrojs/svelte` compatibility with Astro 5.18.2.
