@@ -60,6 +60,8 @@ This guide helps contributors, team members, and AI agents create high-quality G
 
 For UX feedback or improvement suggestions that do not fit an existing template, use **🔧 Improvement** and apply `type:ux-feedback` in the issue body. For help or support requests, use the **LightSpeedWP Support** contact link in the issue chooser.
 
+Where a template is broader than the request, use the nearest numbered template and state the intended canonical type in the issue body.
+
 ---
 
 ## Creating an Issue: Step-by-Step
