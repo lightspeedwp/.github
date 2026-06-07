@@ -130,7 +130,10 @@ const indexJson = JSON.stringify(entries);
   let currentHits = [];
 
   /* ── Open / close ─────────────────────────────────────────────── */
+  let triggerEl = null;
+
   function open() {
+    triggerEl = document.activeElement;
     modal.removeAttribute('inert');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('search-open');
@@ -144,6 +147,10 @@ const indexJson = JSON.stringify(entries);
     modal.setAttribute('inert', '');
     document.body.classList.remove('search-open');
     input.setAttribute('aria-activedescendant', '');
+    if (triggerEl) {
+      triggerEl.focus();
+      triggerEl = null;
+    }
   }
 
   document.addEventListener('ag:open-search', open);
@@ -160,10 +167,10 @@ const indexJson = JSON.stringify(entries);
 
   /* ── Search algorithm (simple ranked matching) ──────────────── */
   function score(entry, q) {
-    const low = q.toLowerCase();
-    const t = entry.title.toLowerCase();
-    const d = entry.desc.toLowerCase();
-    const b = entry.badge.toLowerCase();
+    const low = (q || '').toLowerCase();
+    const t = (entry.title || '').toLowerCase();
+    const d = (entry.desc || '').toLowerCase();
+    const b = (entry.badge || '').toLowerCase();
     if (t === low)                  return 100;
     if (t.startsWith(low))          return 90;
     if (t.includes(low))            return 80;
@@ -193,10 +200,25 @@ const indexJson = JSON.stringify(entries);
   }
 
   /* ── Render ──────────────────────────────────────────────────── */
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
   function highlight(text, q) {
-    if (!q.trim()) return text;
+    if (!q.trim()) return escapeHtml(text);
+    /* Split on the match (capturing group preserves matched text at odd indices)
+       then escape each part and wrap matches in <mark>. Avoids any risk of
+       HTML entity chars in titles corrupting the mark tags. */
     const safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    return text.replace(new RegExp(`(${safe})`, 'gi'), '<mark>$1</mark>');
+    const parts = text.split(new RegExp(`(${safe})`, 'gi'));
+    return parts
+      .map((p, i) => i % 2 === 1 ? `<mark>${escapeHtml(p)}</mark>` : escapeHtml(p))
+      .join('');
   }
 
   function truncate(text, max = 90) {
@@ -210,13 +232,14 @@ const indexJson = JSON.stringify(entries);
     currentHits = search(q);
 
     if (currentHits.length === 0) {
+      const safeQ = escapeHtml(q);
       results.innerHTML = `
         <div class="sm-empty" role="option" aria-selected="false">
           <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor"
             stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
           </svg>
-          <p>No results for <strong>"${q}"</strong></p>
+          <p>No results for <strong>"${safeQ}"</strong></p>
           <p class="sm-empty-hint">Try a different keyword or browse the catalogue.</p>
         </div>`;
       return;
@@ -281,6 +304,23 @@ const indexJson = JSON.stringify(entries);
   modal.addEventListener('keydown', (e) => {
     const items = results.querySelectorAll('.sm-result');
     const n = items.length;
+
+    if (e.key === 'Tab') {
+      /* Focus-trap: always wrap between input → closeBtn → results → input,
+         even when the results list is empty (e.g. no-match empty state). */
+      const focusables = [input, closeBtn, ...items];
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+      return;
+    }
+
     if (n === 0) return;
 
     if (e.key === 'ArrowDown') {
@@ -295,16 +335,6 @@ const indexJson = JSON.stringify(entries);
       if (active) {
         close();
         window.location.href = active.getAttribute('href');
-      }
-    } else if (e.key === 'Tab') {
-      /* Keep focus inside: cycle between input and first/last result */
-      const focused = document.activeElement;
-      if (e.shiftKey && focused === input) {
-        e.preventDefault();
-        items[n - 1]?.focus();
-      } else if (!e.shiftKey && focused === items[n - 1]) {
-        e.preventDefault();
-        input.focus();
       }
     }
   });
@@ -344,7 +374,6 @@ const indexJson = JSON.stringify(entries);
   .sm-backdrop {
     position: fixed;
     inset: 0;
-    background: color-mix(in srgb, var(--c-black, #000) 55%, transparent);
     background: rgba(0, 0, 0, 0.55);
     background: color-mix(in srgb, var(--c-black, #000) 55%, transparent);
     backdrop-filter: blur(4px);
