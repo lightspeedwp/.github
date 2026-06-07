@@ -74,13 +74,19 @@ Template labels must remain canonical and pass:
 
 ## Project Meta Sync Contract (Current State)
 
-`project-meta-sync.yml` currently synchronises project fields from labels for:
+`project-meta-sync.yml` currently synchronises project fields through canonical derivation for:
 
 - `Status`
 - `Priority`
 - `Type`
 - `Effort`
 - `Start date`
+
+Derivation source notes:
+
+- `Status`, `Priority`, and `Type` are mapped from labels via `.github/issue-fields.yml` mappings.
+- `Effort` uses the configured default from canonical issue-fields configuration.
+- `Start date` is derived from item creation date for opened/reopened items that are not done.
 
 Current preflight conditions must be satisfied before sync runs:
 
