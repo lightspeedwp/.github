@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Awesome GitHub Site Phase 12: Editorial pages missing header/footer** — All 7 Phase 12 editorial pages (`getting-started`, `why`, `onboarding`, `references`, `glossary/index`, `glossary/[term]`, `404`) were using `BaseLayout` (an HTML-only scaffold with no nav or footer). Switched all to `AwesomeGithubLayout` which provides `<Header />`, `<AwesomeGithubFooter />`, skip-to-content link, and theme initialisation. Removed now-redundant inner `<main>` wrappers. Fixed hardcoded hex colours in `getting-started.astro` `.run-pill`. ([#887](https://github.com/lightspeedwp/.github/issues/887), [#888](https://github.com/lightspeedwp/.github/pull/888))
+
 ### Added
 
 - **Awesome GitHub Site Phase 11: Tools page + Phosphor Icons sitewide** — Standalone `/c/tools.astro` with astropuu Wapuu hero, section nav pills (AI Defaults, Scripts, Schemas, Config & Setup), and a build-time Phosphor icon loader (`website/src/lib/phosphor.ts`) using `createRequire` for robust package resolution. Updated `Icon.astro` with `ph:` prefix routing to load any Phosphor icon at SSG time. Migrated item card and type badge styles into `global.css` for reuse across catalogue and tools pages. Updated all category, nav, learn, and home icons to Phosphor equivalents sitewide. ([#885](https://github.com/lightspeedwp/.github/issues/885), [#886](https://github.com/lightspeedwp/.github/pull/886))
