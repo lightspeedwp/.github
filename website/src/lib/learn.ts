@@ -225,13 +225,6 @@ function buildTrack(def: (typeof TRACK_DEFS)[number]): LearnTrack {
 
 export const LEARN_TRACKS: LearnTrack[] = TRACK_DEFS.map(buildTrack);
 
-export const TRACK_ICONS: Record<string, string> = {
-  oriented: "compass",
-  governance: "shield-star",
-  quality: "check-circle",
-  agents: "robot",
-};
-
 export function getTrack(id: string): LearnTrack | undefined {
   return LEARN_TRACKS.find((t) => t.id === id);
 }
