@@ -1,0 +1,238 @@
+---
+import AwesomeGithubLayout from "../../layouts/AwesomeGithubLayout.astro";
+import Icon from "../../components/AwesomeGithub/Icon.astro";
+import { ITEMS, getCategoryInfo, TYPES, itemRouteId } from "../../lib/catalogue";
+
+const base = import.meta.env.BASE_URL;
+const category = getCategoryInfo("tools")!;
+const allTools = ITEMS.filter((i) => i.cat === "tools");
+
+const CONFIG_TAGS = new Set(["vscode", "editorconfig", "env", "labels"]);
+
+const SECTIONS = [
+  {
+    id: "ai-defaults",
+    label: "AI Defaults",
+    icon: "ph:robot",
+    match: (item: (typeof allTools)[0]) => item.type === "aiDefault",
+  },
+  {
+    id: "scripts",
+    label: "Scripts",
+    icon: "ph:terminal-window",
+    match: (item: (typeof allTools)[0]) =>
+      item.type === "script" && !item.tags.some((t) => CONFIG_TAGS.has(t)),
+  },
+  {
+    id: "schemas",
+    label: "Schemas",
+    icon: "ph:brackets-curly",
+    match: (item: (typeof allTools)[0]) => item.type === "schema",
+  },
+  {
+    id: "config",
+    label: "Config & Setup",
+    icon: "ph:gear",
+    match: (item: (typeof allTools)[0]) =>
+      item.type === "script" && item.tags.some((t) => CONFIG_TAGS.has(t)),
+  },
+];
+
+const grouped = SECTIONS.map((s) => ({
+  ...s,
+  items: allTools.filter(s.match),
+})).filter((g) => g.items.length > 0);
+
+const ITEM_MARKS: Record<string, string> = {
+  install:   "ph:download-simple",
+  aiDefault: "ph:robot",
+  workflow:  "ph:git-branch",
+  guardrail: "ph:shield-check",
+  pack:      "ph:package",
+  script:    "ph:terminal-window",
+  schema:    "ph:brackets-curly",
+  recipe:    "ph:cooking-pot",
+};
+
+function typeBadgeClass(type: string): string {
+  return `tb-${type}`;
+}
+---
+
+<AwesomeGithubLayout title="Tools — Awesome GitHub" description={category.blurb}>
+  <section class="tools-hero-section">
+    <div class="wrap">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href={`${base}`}>Home</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span>Tools</span>
+      </nav>
+
+      <div class="page-hero-inner tools-hero-inner">
+        <div class="page-hero-text">
+          <h1 class="page-h1">Tools</h1>
+          <p class="page-lead">{category.blurb}</p>
+        </div>
+        <img
+          src={`${base}assets/wapuus/wapuu-astropuu.png`}
+          alt=""
+          aria-hidden="true"
+          class="tools-wapuu"
+          loading="lazy"
+        />
+      </div>
+
+      <nav class="tool-secnav" aria-label="Jump to section">
+        {grouped.map((g) => (
+          <a class="secnav-pill" href={`#tools-${g.id}`}>
+            <Icon name={g.icon} size={14} />
+            {g.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <div class="section">
+    <div class="wrap tools-body">
+      {grouped.map((group, i) => (
+        <section class="tool-group" id={`tools-${group.id}`}>
+          {i > 0 && <div class="group-divider" aria-hidden="true" />}
+          <div class="group-head-row">
+            <span class="group-head-icon" aria-hidden="true">
+              <Icon name={group.icon} size={20} />
+            </span>
+            <h2 class="group-head">{group.label}</h2>
+          </div>
+          <div class="item-grid">
+            {group.items.map((item) => (
+              <a
+                class="item-card"
+                href={`${base}item/${itemRouteId(item)}/`}
+                data-name={item.name}
+                data-description={item.description}
+                data-tags={item.tags.join(" ")}
+              >
+                <div class="item-card-head">
+                  <span class="item-mark" aria-hidden="true">
+                    <Icon name={ITEM_MARKS[item.type] || "ph:stack"} size={18} />
+                  </span>
+                  <span class={`type-badge ${typeBadgeClass(item.type)}`}>
+                    {TYPES[item.type]?.badge ?? item.type}
+                  </span>
+                </div>
+                <h3 class="item-name">{item.name}</h3>
+                <p class="item-desc">{item.description}</p>
+                <div class="item-tags" aria-label={`${item.name} tags`}>
+                  {item.tags.slice(0, 4).map((tag) => (
+                    <span class="item-tag">{tag}</span>
+                  ))}
+                  {item.tags.length > 4 && (
+                    <span class="item-tag item-tag--more">+{item.tags.length - 4}</span>
+                  )}
+                </div>
+                <div class="item-card-foot">
+                  <span class="item-install-hint">View + install →</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</AwesomeGithubLayout>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>(".secnav-pill").forEach((pill) => {
+    pill.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = pill.getAttribute("href")?.slice(1);
+      if (!targetId) return;
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      const navH = parseInt(
+        getComputedStyle(document.documentElement).getPropertyValue("--nav-h") || "64"
+      );
+      const y = target.getBoundingClientRect().top + window.scrollY - navH - 20;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    });
+  });
+</script>
+
+<style>
+  .tools-hero-section {
+    padding: clamp(28px, 4vw, 48px) 0 0;
+    border-bottom: 1px solid var(--hair);
+    background: var(--bg);
+  }
+
+  /* Section nav pills */
+  .tool-secnav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 18px 0 0;
+  }
+
+  .secnav-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-family: var(--font-mono);
+    color: var(--fg-2);
+    padding: 6px 13px;
+    border: 1px solid var(--hair);
+    border-radius: var(--radius-pill);
+    background: var(--panel);
+    text-decoration: none;
+    transition: border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  }
+
+  .secnav-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* Tool sections */
+  .tools-body {
+    padding-bottom: 64px;
+  }
+
+  .tool-group {
+    padding-top: 8px;
+  }
+
+  .group-divider {
+    border-top: 1px solid var(--hair);
+    margin: 40px 0 32px;
+  }
+
+  .group-head-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .group-head-icon {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background: var(--accent-soft);
+    color: var(--accent);
+    flex: none;
+  }
+
+  .group-head {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--fg-1);
+    margin: 0;
+  }
+</style>

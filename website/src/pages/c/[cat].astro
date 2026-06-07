@@ -28,14 +28,14 @@ const categoryType = TYPES[category.type] ?? {
 };
 
 const ITEM_MARKS: Record<string, string> = {
-  install: "download",
-  aiDefault: "layers",
-  workflow: "git-branch",
-  guardrail: "shield",
-  pack: "puzzle-piece",
-  script: "bolt",
-  schema: "books",
-  recipe: "cooking-pot",
+  install:   "ph:download-simple",
+  aiDefault: "ph:robot",
+  workflow:  "ph:git-branch",
+  guardrail: "ph:shield-check",
+  pack:      "ph:package",
+  script:    "ph:terminal-window",
+  schema:    "ph:brackets-curly",
+  recipe:    "ph:cooking-pot",
 };
 
 function typeBadgeClass(type: string): string {
@@ -81,7 +81,7 @@ function typeBadgeClass(type: string): string {
       <div class="catalogue-toolbar">
         <label class="filter-input" for="catalogue-filter">
           <span class="filter-icon" aria-hidden="true">
-            <Icon name="search" size={16} />
+            <Icon name="ph:magnifying-glass" size={16} />
           </span>
           <input
             id="catalogue-filter"
@@ -291,102 +291,7 @@ function typeBadgeClass(type: string): string {
     line-height: 1.55;
   }
 
-  .type-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 3px 9px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--hair);
-    background: var(--panel-2);
-    color: var(--fg-2);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-  }
-
-  .tb-install {
-    --badge-fg: var(--accent);
-    --badge-bg: var(--accent-soft);
-    --badge-border: color-mix(in srgb, var(--accent) 28%, transparent);
-    color: var(--badge-fg);
-    background: var(--badge-bg);
-    border-color: var(--badge-border);
-  }
-
-  .tb-aiDefault {
-    --badge-fg: var(--c-cyan-500);
-    --badge-bg: color-mix(in srgb, var(--c-cyan-500) 14%, transparent);
-    --badge-border: color-mix(in srgb, var(--c-cyan-500) 28%, transparent);
-    color: var(--badge-fg);
-    background: var(--badge-bg);
-    border-color: var(--badge-border);
-  }
-
-  .tb-workflow {
-    --badge-fg: var(--c-status-success);
-    --badge-bg: color-mix(in srgb, var(--c-status-success) 12%, transparent);
-    --badge-border: color-mix(in srgb, var(--c-status-success) 24%, transparent);
-    color: var(--badge-fg);
-    background: var(--badge-bg);
-    border-color: var(--badge-border);
-  }
-
-  .tb-guardrail {
-    --badge-fg: var(--c-status-warning);
-    --badge-bg: color-mix(in srgb, var(--c-status-warning) 14%, transparent);
-    --badge-border: color-mix(in srgb, var(--c-status-warning) 26%, transparent);
-    color: var(--badge-fg);
-    background: var(--badge-bg);
-    border-color: var(--badge-border);
-  }
-
-  .tb-pack {
-    --badge-fg: var(--c-light-blue);
-    --badge-bg: color-mix(in srgb, var(--c-light-blue) 12%, transparent);
-    --badge-border: color-mix(in srgb, var(--c-light-blue) 26%, transparent);
-    color: var(--badge-fg);
-    background: var(--badge-bg);
-    border-color: var(--badge-border);
-  }
-
-  .tb-script {
-    --badge-fg: var(--c-brand-blue-700);
-    --badge-bg: color-mix(in srgb, var(--c-brand-blue-700) 12%, transparent);
-    --badge-border: color-mix(in srgb, var(--c-brand-blue-700) 24%, transparent);
-    color: var(--badge-fg);
-    background: var(--badge-bg);
-    border-color: var(--badge-border);
-  }
-
-  .tb-schema {
-    --badge-fg: var(--c-brand-blue);
-    --badge-bg: var(--accent-soft);
-    --badge-border: color-mix(in srgb, var(--c-brand-blue) 26%, transparent);
-    color: var(--badge-fg);
-    background: var(--badge-bg);
-    border-color: var(--badge-border);
-  }
-
-  .tb-recipe {
-    --badge-fg: var(--c-status-info);
-    --badge-bg: color-mix(in srgb, var(--c-status-info) 12%, transparent);
-    --badge-border: color-mix(in srgb, var(--c-status-info) 24%, transparent);
-    color: var(--badge-fg);
-    background: var(--badge-bg);
-    border-color: var(--badge-border);
-  }
-
-  .tb-mixed {
-    --badge-fg: var(--fg-2);
-    --badge-bg: var(--panel-2);
-    --badge-border: var(--hair);
-    color: var(--badge-fg);
-    background: var(--badge-bg);
-    border-color: var(--badge-border);
-  }
+  /* type-badge + .tb-* rules moved to global.css */
 
   .catalogue-section {
     background: var(--bg);
@@ -497,98 +402,7 @@ function typeBadgeClass(type: string): string {
     color: var(--accent);
   }
 
-  .item-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-    gap: 16px;
-  }
-
-  .item-card {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 18px;
-    background: var(--panel);
-    border: 1px solid var(--hair);
-    border-radius: var(--radius-xl);
-    color: inherit;
-    text-decoration: none;
-    transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
-  }
-
-  .item-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-strong);
-    box-shadow: var(--shadow-md);
-  }
-
-  .item-card-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .item-mark {
-    width: 40px;
-    height: 40px;
-    display: grid;
-    place-items: center;
-    border-radius: var(--radius-md);
-    background: var(--accent-soft);
-    color: var(--accent);
-    flex: none;
-  }
-
-  .item-name {
-    font-size: 16px;
-    font-weight: 800;
-    line-height: 1.25;
-    color: var(--fg-1);
-  }
-
-  .item-desc {
-    color: var(--fg-2);
-    line-height: 1.55;
-    font-size: 13.5px;
-    min-height: 3.1em;
-  }
-
-  .item-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .item-tag {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 8px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--hair);
-    background: var(--panel-2);
-    color: var(--fg-3);
-    font-family: var(--font-mono);
-    font-size: 11px;
-  }
-
-  .item-tag--more {
-    color: var(--fg-2);
-  }
-
-  .item-card-foot {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-top: 4px;
-    margin-top: auto;
-  }
-
-  .item-install-hint {
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 13px;
-  }
+  /* item-grid + item-card + item-* rules moved to global.css */
 
   .no-results {
     margin-top: 24px;
