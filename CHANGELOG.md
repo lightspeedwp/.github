@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Awesome GitHub Site Phase 10: Cookbook list and recipe reader** — Added a phase-aligned `/cookbook` index with live recipe cards, a coming-soon delivery placeholder, rocket Wapuu hero treatment, and a Markdown recipe reader with sticky table of contents, prev/next navigation, and local progress tracking in `ag-cookbook`. ([#874](https://github.com/lightspeedwp/.github/issues/874))
+
 - **Awesome GitHub Site Phase 08: Resource detail page** — Added the new `/item/[id].astro` route for every catalogue item, with a GitHub-style file viewer, render/raw tabs, install sidebar actions, related items, breadcrumb navigation, and catalogue links updated to the new item route. ([#870](https://github.com/lightspeedwp/.github/issues/870), [#871](https://github.com/lightspeedwp/.github/pull/871))
 
 - **Awesome GitHub Site Phase 06: Wapuu mascot system** — Added a reusable `WapuuHero` Astro component with a canonical page-type mapping, copied the three confirmed Wapuu assets into `website/public/assets/wapuus/`, and wired the learn, cookbook, tools, and catalogue hero sections to render the correct mascot with responsive hiding at ≤860px and decorative accessibility attributes. ([#864](https://github.com/lightspeedwp/.github/issues/864))
