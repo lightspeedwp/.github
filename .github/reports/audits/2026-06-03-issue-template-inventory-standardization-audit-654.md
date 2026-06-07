@@ -3,14 +3,27 @@ file_type: documentation
 title: Issue Template Inventory and Standardization Audit
 description: Inventory and standardization audit of numbered issue templates with issue-type alignment checks.
 created_date: "2026-06-03"
-last_updated: "2026-06-03"
+last_updated: "2026-06-07"
 version: "1.0.0"
 domain: governance
-status: active
+status: deprecated
 tags: [audit, issue-templates, issue-types, standardization, wave-5]
 ---
 
 # Issue Template Inventory and Standardization Audit (#654)
+
+## Historical Notice
+
+This report is a historical snapshot from Wave 5 and is no longer the live governance source of truth.
+
+Use these canonical live sources instead:
+
+- `.github/labels.yml`
+- `.github/labeler.yml`
+- `.github/issue-types.yml`
+- `.github/issue-fields.yml`
+- `scripts/validation/validate-labeling-configs.cjs`
+- `scripts/validation/validate-issue-fields.cjs`
 
 ## Executive Summary
 
