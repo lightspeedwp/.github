@@ -437,6 +437,13 @@ The following project field features are enabled across all LightSpeed repositor
 
 Managed via `.github/workflows/project-meta-sync.yml` automation.
 
+Current live write boundary (verified 2026-06-07):
+
+- Workflow writes `Status`, `Priority`, `Type`, `Effort`, and `Start date`.
+- `Target date` remains part of canonical config and governance but is currently deferred from automated writes.
+
+Verification record: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
+
 Default assignee: ashleyshaw
 
 Status mappings:
