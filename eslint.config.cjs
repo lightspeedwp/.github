@@ -223,4 +223,37 @@ module.exports = [
       "no-console": "off",
     },
   },
+  // Website browser scripts — run in the browser, not Node.js
+  {
+    files: ["website/src/scripts/**/*.js"],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 2024,
+        sourceType: "module",
+      },
+      globals: {
+        // Browser globals
+        document: "readonly",
+        window: "readonly",
+        navigator: "readonly",
+        localStorage: "readonly",
+        sessionStorage: "readonly",
+        CustomEvent: "readonly",
+        Event: "readonly",
+        IntersectionObserver: "readonly",
+        MutationObserver: "readonly",
+        requestAnimationFrame: "readonly",
+        clearTimeout: "readonly",
+        setTimeout: "readonly",
+        console: "readonly",
+      },
+    },
+    plugins: { prettier },
+    rules: {
+      "prettier/prettier": "warn",
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "no-console": "off",
+      "no-empty": ["error", { allowEmptyCatch: true }],
+    },
+  },
 ];

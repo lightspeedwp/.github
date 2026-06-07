@@ -1,36 +1,31 @@
 ---
-import AwesomeGithubLayout from "../layouts/AwesomeGithubLayout.astro";
-import AwesomeGithubButton from "../components/AwesomeGithub/AwesomeGithubButton.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WapuuHero from '../components/WapuuHero.astro';
 
 const base = import.meta.env.BASE_URL;
 ---
 
-<AwesomeGithubLayout
+<BaseLayout
   title="Why This Exists — Awesome GitHub"
   description="The philosophy behind the Awesome GitHub control plane — governance, not opinions."
 >
-  <nav class="why-breadcrumb" aria-label="Breadcrumb">
-    <div class="why-container">
-      <a href={`${base}`}>Home</a>
-      <span aria-hidden="true">/</span>
-      <span>Why This Exists</span>
-    </div>
-  </nav>
+  <main>
+    <section class="editorial-hero">
+      <div class="editorial-hero-inner">
+        <div class="editorial-hero-text">
+          <span class="eyebrow">Philosophy</span>
+          <h1 class="page-h1">Why This Exists</h1>
+          <p class="page-lead">
+            Governance, not opinions. One <code>.github</code> repository encodes your team's
+            standards so every AI assistant starts from the same playbook.
+          </p>
+        </div>
+        <WapuuHero page="why" />
+      </div>
+    </section>
 
-  <header class="why-hero">
-    <div class="why-container">
-      <div class="why-eyebrow">Governance, not opinions.</div>
-      <h1 class="why-h1">Why This Exists</h1>
-      <p class="why-lead">
-        AI coding assistants are most useful when they understand your codebase, your team's conventions,
-        and your quality bar — not just the language. This control plane is how we encode that context.
-      </p>
-    </div>
-  </header>
-
-  <section class="why-section">
-    <div class="why-container">
-      <div class="why-prose">
+    <div class="prose-body">
+      <div class="md">
         <h2>The problem with "just wing it"</h2>
         <p>
           Out of the box, every AI assistant starts from scratch on every session. It doesn't know
@@ -112,145 +107,39 @@ const base = import.meta.env.BASE_URL;
       <div class="why-cta-block">
         <h2>Ready to explore?</h2>
         <p>Browse the catalogue or start with the learning tracks to understand the system.</p>
-        <div class="why-cta-buttons">
-          <AwesomeGithubButton href={`${base}c/agents/`} variant="primary">
-            Browse the Catalogue
-          </AwesomeGithubButton>
-          <AwesomeGithubButton href={`${base}learn/`} variant="secondary">
-            Start Learning
-          </AwesomeGithubButton>
+        <div class="cta-row">
+          <a class="btn-primary btn-pill" href={`${base}c/agents/`}>Browse the catalogue →</a>
+          <a class="btn-ghost btn-pill" href={`${base}learn/`}>Start learning</a>
         </div>
       </div>
     </div>
-  </section>
-</AwesomeGithubLayout>
+  </main>
+</BaseLayout>
 
 <style>
-  .why-container {
-    max-width: var(--container-prose);
-    margin: 0 auto;
-    padding: 0 var(--gutter);
-  }
-
-  .why-breadcrumb {
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: var(--space-3) var(--gutter);
-    font-size: var(--fs-body-sm);
-  }
-
-  .why-breadcrumb div {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  .why-breadcrumb a { color: var(--fg-link); text-decoration: none; }
-  .why-breadcrumb a:hover { color: var(--fg-link-hover); }
-  .why-breadcrumb span:not([aria-hidden]) { color: var(--fg-2); }
-  .why-breadcrumb [aria-hidden] { color: var(--fg-3); }
-
-  .why-hero {
-    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
-    color: var(--c-white);
-    padding: var(--space-24) var(--gutter);
-  }
-
-  .why-eyebrow {
-    display: inline-flex;
-    padding: var(--space-2) var(--space-4);
-    background: rgba(123, 231, 255, 0.1);
-    border: 1px solid rgba(123, 231, 255, 0.3);
-    border-radius: var(--radius-pill);
-    font-size: var(--fs-eyebrow);
-    color: var(--c-light-blue);
-    margin-bottom: var(--space-6);
-    font-weight: var(--weight-semibold);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-eyebrow);
-  }
-
-  .why-h1 {
-    font-size: var(--fs-h2);
-    font-weight: var(--weight-extrabold);
-    line-height: var(--lh-heading);
-    margin: 0 0 var(--space-6) 0;
-    color: var(--c-white);
-  }
-
-  .why-lead {
-    font-size: var(--fs-body-lg);
-    color: var(--c-slate-300);
-    margin: 0;
-    line-height: var(--lh-loose);
-    max-width: 60ch;
-  }
-
-  .why-section {
-    padding: var(--space-20) var(--gutter);
-    background: var(--bg);
-  }
-
-  .why-prose {
-    font-size: var(--fs-body);
-    line-height: var(--lh-loose);
-    color: var(--fg-2);
-  }
-
-  .why-prose h2 {
-    font-size: var(--fs-h4);
-    font-weight: var(--weight-bold);
-    color: var(--fg-1);
-    margin: var(--space-12) 0 var(--space-4) 0;
-  }
-
-  .why-prose h2:first-child {
-    margin-top: 0;
-  }
-
-  .why-prose p {
-    margin: 0 0 var(--space-4) 0;
-    max-width: 70ch;
-  }
-
-  .why-prose code {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    padding: 2px 6px;
-    border-radius: var(--radius-sm);
-    color: var(--accent);
-  }
-
   .why-cta-block {
-    margin-top: var(--space-16);
-    padding-top: var(--space-12);
-    border-top: 1px solid var(--border);
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--hair);
   }
 
   .why-cta-block h2 {
-    font-size: var(--fs-h3);
-    font-weight: var(--weight-bold);
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 700;
     color: var(--fg-1);
-    margin: 0 0 var(--space-3) 0;
+    margin: 0 0 8px;
   }
 
-  .why-cta-block p {
-    font-size: var(--fs-body);
+  .why-cta-block > p {
+    font-size: 16px;
     color: var(--fg-2);
-    margin: 0 0 var(--space-6) 0;
+    margin: 0 0 20px;
   }
 
-  .why-cta-buttons {
+  .cta-row {
     display: flex;
-    gap: var(--space-4);
+    gap: 12px;
     flex-wrap: wrap;
-  }
-
-  @media (max-width: 768px) {
-    .why-hero { padding: var(--space-16) var(--gutter);  }
-    .why-h1 { font-size: var(--fs-h3); }
-    .why-cta-buttons { flex-direction: column; }
   }
 </style>

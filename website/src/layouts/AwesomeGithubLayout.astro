@@ -1,21 +1,10 @@
 ---
 import "../styles/global.css";
 import "../styles/awesome-github.css";
-import AwesomeGithubNav from "../components/AwesomeGithub/AwesomeGithubNav.astro";
+import Header from "../components/Header.astro";
 import AwesomeGithubFooter from "../components/AwesomeGithub/AwesomeGithubFooter.astro";
-import { ITEMS } from "../lib/catalogue";
 
 const base = import.meta.env.BASE_URL;
-const pathname = Astro.url.pathname.replace(base, "/");
-
-const searchItems = ITEMS.map((i) => ({
-  id: i.id,
-  slug: i.slug,
-  cat: i.cat,
-  name: i.name,
-  description: i.description,
-  tags: i.tags,
-}));
 
 const {
   title = "Awesome GitHub",
@@ -38,33 +27,11 @@ const themeInitScript = `(function(){try{var s='ag-theme',t=localStorage.getItem
   </head>
   <body class="awesome-github">
     <a href="#main-content" class="ag-skip-link">Skip to main content</a>
-    <AwesomeGithubNav base={base} pathname={pathname} />
+    <Header />
     <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <AwesomeGithubFooter />
-    <script>
-      // Theme toggle — event delegation handles all [data-awesome-github-theme-toggle] buttons
-      const STORAGE_KEY = "ag-theme";
-      const root = document.documentElement;
-
-      document.addEventListener("click", (e) => {
-        if (e.target instanceof Element && e.target.closest("[data-awesome-github-theme-toggle]")) {
-          const next = root.dataset.theme === "light" ? "dark" : "light";
-          try { localStorage.setItem(STORAGE_KEY, next); } catch (_) {}
-          root.setAttribute("data-theme", next);
-          root.style.colorScheme = next;
-          document.dispatchEvent(new CustomEvent("theme-changed"));
-        }
-      });
-
-      // Wire search button(s) to open search palette
-      document.addEventListener("click", (e) => {
-        if (e.target instanceof Element && e.target.closest("[data-search-open]")) {
-          document.dispatchEvent(new CustomEvent("search-palette-open"));
-        }
-      });
-    </script>
   </body>
 </html>
 
