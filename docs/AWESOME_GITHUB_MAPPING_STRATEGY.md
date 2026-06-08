@@ -97,6 +97,7 @@ Core categories:
 ### 2.2 Catalogue Types & Content Mapping
 
 **Resource Types** (from `design_source/data.js`):
+
 ```
 - Agents         → /agents/ folder + ai/agents.md
 - Instructions   → /instructions/ folder (37 files)
@@ -112,13 +113,16 @@ Core categories:
 **Detailed Type-to-Content Mapping:**
 
 #### 1. Agents Catalogue
+
 **Route:** `/awesome-github/c/agents/` → `/awesome-github/c/agents/[slug]`
 **Content Sources:**
+
 - `agents/` folder (agent spec files)
 - `ai/agents.md` (overview of AI agent ecosystem)
 - `ai/Claude.md`, `ai/Gemini.md`, `ai/RUNNERS.md` (specific agent documentation)
 
 **Catalogue Display Fields (from `data.js`):
+
 - Icon (Heroicons, indexed by type)
 - Title (from filename/frontmatter)
 - Badge (agent type: "Claude", "Gemini", "Custom")
@@ -127,18 +131,22 @@ Core categories:
 - Tags (from frontmatter tags field)
 
 **Detail Page Content:**
+
 - Full markdown body (from agent spec file)
 - Interaction buttons: Copy raw, Open on GitHub, Install in VS Code
 - Branch switch (main ⇄ develop) for URL generation
 - Related agents (via tags/category)
 
 #### 2. Instructions Catalogue
+
 **Route:** `/awesome-github/c/instructions/` → `/awesome-github/c/instructions/[slug]`
 **Content Sources:**
+
 - All 37 files in `instructions/` folder (structured by topic)
 - `instructions/README.md` (folder overview)
 
 **Subdirectories/Categories (from frontmatter):
+
 - **Coding & Standards** — coding-standards, documentation-formats, commenting
 - **Community & Collaboration** — community-standards, pull-requests, issues
 - **AI Operations** — ai-operations, automation, hooks
@@ -148,6 +156,7 @@ Core categories:
 - **Infrastructure** — workflows, tools, automation
 
 **Catalogue Display Fields:**
+
 - Title (from `.instructions.md` filename)
 - Category/Topic (from frontmatter or folder)
 - Last updated (from frontmatter `last_updated`)
@@ -156,18 +165,22 @@ Core categories:
 - Tags (organisations, team, topic area)
 
 **Detail Page Content:**
+
 - Full markdown with all sections
 - Table of contents (auto-generated)
 - Related instructions (via category/tags)
 - "Print" or "PDF export" button
 
 #### 3. Cookbook Catalogue
+
 **Route:** `/awesome-github/cookbook/` → `/awesome-github/cookbook/[slug]`
 **Content Sources:**
+
 - `cookbook/` folder (4 files currently)
 - Each file: playbook, checklist, workflow example
 
 **Catalogue Display:**
+
 - Title + description
 - Type badge (Playbook / Checklist / Workflow)
 - Complexity level
@@ -175,18 +188,22 @@ Core categories:
 - Use case tags
 
 **Detail Page Content:**
+
 - Full markdown
 - Downloadable templates/checklists
 - Step-by-step walkthrough
 - Links to related instructions
 
 #### 4. Skills Catalogue
+
 **Route:** `/awesome-github/c/skills/` → `/awesome-github/c/skills/[slug]`
 **Content Sources:**
+
 - `skills/` folder with `SKILL.md` files in each skill directory
 - Each skill is self-contained
 
 **Catalogue Display:**
+
 - Icon/badge
 - Skill name
 - Category (AI, Automation, Analysis)
@@ -194,94 +211,115 @@ Core categories:
 - Quick description
 
 **Detail Page:**
+
 - SKILL.md content (full skill definition)
 - Installation instructions
 - Usage examples
 - Dependencies
 
 #### 5. Hooks Catalogue
+
 **Route:** `/awesome-github/c/hooks/` → `/awesome-github/c/hooks/[slug]`
 **Content Sources:**
+
 - `hooks/` folder (portable hooks and guardrails)
 
 **Catalogue Display:**
+
 - Hook name
 - Type (guardrail/automation/validation)
 - Trigger point (pre-commit, pre-push, etc.)
 - Safety level
 
 **Detail Page:**
+
 - Hook documentation
 - Code snippet
 - Installation method
 - Test cases
 
 #### 6. Workflows Catalogue
+
 **Route:** `/awesome-github/c/workflows/` → `/awesome-github/c/workflows/[slug]`
 **Content Sources:**
+
 - `workflows/` folder (portable agentic workflows)
 - `.github/workflows/` folder (GitHub Actions workflows)
 
 **Catalogue Display:**
+
 - Workflow name
 - Trigger type (manual/scheduled/event-based)
 - Status (production/beta/experimental)
 - Use case
 
 **Detail Page:**
+
 - Workflow definition
 - Configuration options
 - Trigger conditions
 - Examples
 
 #### 7. Prompts Catalogue
+
 **Route:** `/awesome-github/c/prompts/` → `/awesome-github/c/prompts/[slug]`
 **Content Sources:**
+
 - `prompts/` folder (prompt library)
 
 **Catalogue Display:**
+
 - Prompt name
 - Model compatibility
 - Use case
 - Difficulty level
 
 **Detail Page:**
+
 - Full prompt text (copyable)
 - Variables/placeholders
 - Example usage
 - Related prompts
 
 #### 8. Plugins Catalogue
+
 **Route:** `/awesome-github/c/plugins/` → `/awesome-github/c/plugins/[slug]`
 **Content Sources:**
+
 - `plugins/` folder (installable plugin bundles)
 
 **Catalogue Display:**
+
 - Plugin name
 - Compatibility (WordPress version, PHP version)
 - Feature summary
 - Installation method
 
 **Detail Page:**
+
 - Plugin documentation
 - Feature list
 - Configuration guide
 - Requirements & dependencies
 
 #### 9. Tools/Scripts Catalogue
+
 **Route:** `/awesome-github/c/tools/` → `/awesome-github/c/tools/[slug]`
 **Content Sources:**
+
 - `scripts/` folder (utility scripts documentation)
 - `profile/` folder (profile configurations)
 - `.github/` folder (GitHub-native tools)
 
 **Catalogue Display:**
+
 - Tool name
 - Category (validation/automation/monitoring)
 - Language/platform
 - Quick description
 
 **Detail Page:**
+
 - Full documentation
 - Usage examples
 - Installation/setup
@@ -294,16 +332,19 @@ Core categories:
 ### 3.1 Existing Astro Components (Already in place)
 
 **Navigation & Layout:**
+
 - ✅ `AwesomeGithubLayout.astro` — Main layout wrapper
 - ✅ `AwesomeGithubNav.astro` — Top navigation bar
 - ✅ `AwesomeGithubFooter.astro` — Footer section
 
 **UI Components:**
+
 - ✅ `AwesomeGithubCard.astro` — Resource card component
 - ✅ `AwesomeGithubButton.astro` — CTA button variants
 - ✅ `AwesomeGithubChip.astro` — Tag/filter chip component
 
 **Pages (Partial Implementation):**
+
 - ✅ `src/pages/awesome-github/index.astro` — Home page
 - ✅ `src/pages/awesome-github/c/[type]/index.astro` — Catalogue list
 - ✅ `src/pages/awesome-github/c/[type]/[slug].astro` — Resource detail
@@ -313,12 +354,14 @@ Core categories:
 Based on `design_source/` JSX files:
 
 **Layout & Chrome Components:**
+
 - ☐ `SearchPalette.astro` — Command palette (search modal, Cmd/Ctrl+K)
 - ☐ `ThemeToggle.astro` — Light/dark theme switcher
 - ☐ `Toast.astro` — Transient notification (copy confirm, etc.)
 - ☐ `BranchSwitch.astro` — main ⇄ develop URL switcher
 
 **Page-Specific Components:**
+
 - ☐ `HeroSection.astro` — Dark hero with eyebrow, H1, CTA pair
 - ☐ `CatalogueGrid.astro` — Grid of resource cards with filters
 - ☐ `ResourceDetail.astro` — Resource detail layout + action buttons
@@ -332,6 +375,7 @@ Based on `design_source/` JSX files:
 - ☐ `CopyButton.astro` — Copy-to-clipboard with toast
 
 **Data Helpers:**
+
 - ☐ `generateResourceUrls()` — Build GitHub/raw/vscode: URLs with branch switch
 - ☐ `parseResourceMetadata()` — Extract frontmatter, versions, dates
 - ☐ `buildCatalogueIndex()` — Index resources by type/tags for search/filtering
@@ -342,6 +386,7 @@ Based on `design_source/` JSX files:
 From `design_source/colors_and_type.css`:
 
 **CSS Variables (Light Mode):**
+
 ```css
 --bg: #FFFFFF
 --bg-alt: #F9FAFB
@@ -359,6 +404,7 @@ From `design_source/colors_and_type.css`:
 ```
 
 **CSS Variables (Dark Mode `[data-theme="dark"]`):**
+
 ```css
 --bg: #0F1014
 --fg: #FFFFFF
@@ -368,6 +414,7 @@ From `design_source/colors_and_type.css`:
 ```
 
 **Typography Scale:**
+
 - Display XL: `clamp(48px, 6vw, 80px)`
 - H1: `clamp(40px, 4.5vw, 60px)`
 - H2: `clamp(32px, 3.4vw, 48px)`
@@ -378,34 +425,40 @@ From `design_source/colors_and_type.css`:
 - Code: `13px`
 
 **Font Families:**
+
 - Display/Headings: **Inter** (700–800 weight, variable)
 - Body: **Manrope** (400/500 weight, variable)
 - Mono: **IBM Plex Mono** (code blocks, file paths)
 - Quote: **Lora** italic (pull-quotes, testimonials)
 
 **Spacing System (8pt grid):**
+
 - Base unit: 8px
 - Scale: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160px
 
 **Border Radius:**
+
 - Buttons: `4px`
 - Inputs/cards: `8px`
 - Content cards: `12px`
 - Pills/chips: `9999px`
 
 **Shadows:**
+
 - Rest: `0 6px 16px rgba(9,9,9,.08)`
 - Hover: `0 18px 40px rgba(9,9,9,.12)`
 
 ### 3.4 CSS Files to Port
 
 From `design_source/`:
+
 1. `colors_and_type.css` — **Design tokens + typography** (port first)
 2. `app-styles.css` — **Component styling** (buttons, nav, layout)
 3. `pages-v2.css` — **Page-specific styles**
 4. `extra-styles.css` — **Utilities + helpers**
 
 **Integration Approach:**
+
 - Add tokens to Astro's global stylesheet (`src/styles/global.css` or new `design-tokens.css`)
 - Scope component styles to individual `.astro` files using `<style>` blocks
 - Use global CSS for layout/typography; scoped styles for component-specific rules
@@ -435,6 +488,7 @@ src/content/
 ```
 
 **Schema Example (collections.config.ts):**
+
 ```typescript
 import { defineCollection, z } from 'astro:content';
 
@@ -466,6 +520,7 @@ export const collections = {
 3. Preserve `frontmatter` — add new fields as needed (e.g., `category`, `estimatedReadTime`)
 
 **Example: Symlink or copy with path alias**
+
 ```typescript
 // In build process
 const content = await Astro.glob('../../instructions/*.instructions.md');
@@ -481,10 +536,12 @@ const content = await Astro.glob('../../instructions/*.instructions.md');
 **Route:** `/awesome-github/learn/`
 
 **Data Sources:**
+
 - `learn-data.js` (from design) → convert to `src/content/learn/`
 - Lessons drawn from: `instructions/`, `cookbook/`, `ai/`
 
 **Content Structure:**
+
 ```
 Track 1: Getting Started (2 lessons)
 ├── Lesson 1.1: Setting up the .github repo
@@ -542,6 +599,7 @@ Maps resource **type** to available actions:
 ## Part 7: Implementation Roadmap
 
 ### Phase 1: Foundation (Week 1)
+
 - [ ] Port design tokens to `src/styles/design-tokens.css`
 - [ ] Self-host fonts (Inter, Manrope) in `src/fonts/`
 - [ ] Build shared layout components (Nav, Footer, Theme toggle)
@@ -549,6 +607,7 @@ Maps resource **type** to available actions:
 - [ ] Index existing `.md` files from `instructions/`, `cookbook/`, `ai/`
 
 ### Phase 2: Home Page (Week 1-2)
+
 - [ ] Dark hero section with CTA buttons
 - [ ] Catalogue grid with category previews
 - [ ] Stats/metrics strip
@@ -556,6 +615,7 @@ Maps resource **type** to available actions:
 - [ ] Breadcrumb navigation
 
 ### Phase 3: Catalogue (Week 2-3)
+
 - [ ] Catalogue list page with type-specific layouts
 - [ ] Search/filter input with live count
 - [ ] Tag filter pills
@@ -564,6 +624,7 @@ Maps resource **type** to available actions:
 - [ ] Branch switch (main ⇄ develop) for URL generation
 
 ### Phase 4: Learning Centre (Week 3-4)
+
 - [ ] Learn hub page with track cards
 - [ ] Lesson reader with progress tracking
 - [ ] localStorage persistence
@@ -571,6 +632,7 @@ Maps resource **type** to available actions:
 - [ ] Progress bar & completion badges
 
 ### Phase 5: Getting Started & Extras (Week 4)
+
 - [ ] Getting-started onboarding (10-min flow)
 - [ ] Cookbook page (recipes, playbooks)
 - [ ] Glossary (term definitions)
@@ -578,6 +640,7 @@ Maps resource **type** to available actions:
 - [ ] Search palette (Cmd/Ctrl+K)
 
 ### Phase 6: Polish & Testing (Week 5)
+
 - [ ] Responsive design testing
 - [ ] Accessibility audit (WCAG 2.2 AA)
 - [ ] Performance optimization
@@ -659,6 +722,7 @@ website/
 ### 9.1 Enhanced Frontmatter (Add to Existing .md Files)
 
 **Instruction Files** (already have some fields):
+
 ```yaml
 ---
 title: "Coding Standards"
@@ -675,6 +739,7 @@ tags: ["coding", "standards", "wordpress"]
 ```
 
 **Agent Files:**
+
 ```yaml
 ---
 title: "Claude Agent"
@@ -690,6 +755,7 @@ actions: ["copy", "download", "github", "vscode"]
 ```
 
 **Skill Files:**
+
 ```yaml
 ---
 title: "Code Review Skill"
@@ -704,6 +770,7 @@ actions: ["copy", "download", "github", "vscode"]
 ```
 
 **Cookbook/Recipe Files:**
+
 ```yaml
 ---
 title: "Project Planning Playbook"
@@ -723,6 +790,7 @@ tags: ["planning", "wordpress", "process"]
 ### 10.1 Search Palette (Cmd/Ctrl+K)
 
 **Implementation:** Small React/Astro island
+
 - Index all resources by type/title/description
 - Keyboard navigation (↑↓ arrows, Enter to select, Esc to close)
 - Real-time filtering as user types
@@ -730,17 +798,20 @@ tags: ["planning", "wordpress", "process"]
 - Show keyboard hint in nav
 
 **Data Source:**
+
 - Build index from all content collections at build time
 - Expose via `generateSearchIndex()` utility
 
 ### 10.2 Branch Switch (main ⇄ develop)
 
 **Implementation:** Toggle button in nav
+
 - Stored in localStorage (`branch: 'main'|'develop'`)
 - Affects all GitHub/raw/vscode: URL generation
 - Selector function: `generateResourceUrl(slug, type, action, branch)`
 
 **URL Patterns:**
+
 ```
 Copy raw:
 - develop: https://raw.githubusercontent.com/lightspeedwp/.github/develop/{path}/{file}
@@ -757,6 +828,7 @@ VS Code:
 ### 10.3 Copy-to-Clipboard & Toast
 
 **Implementation:**
+
 ```typescript
 async function copyToClipboard(text: string) {
   try {
@@ -769,6 +841,7 @@ async function copyToClipboard(text: string) {
 ```
 
 **Toast Component:**
+
 - Auto-dismiss after 2.2 seconds
 - Position: bottom-right
 - Style: solid bg, white text, subtle shadow
@@ -776,12 +849,14 @@ async function copyToClipboard(text: string) {
 ### 10.4 Dark Mode Toggle
 
 **Implementation:**
+
 - Button in nav (sun/moon icon)
 - Stored in localStorage
 - CSS class on `<html>` root: `[data-theme="dark"]`
 - CSS variable overrides for dark palette
 
 **Persistence:**
+
 ```javascript
 // On page load
 const theme = localStorage.getItem('theme') || 'light';
@@ -800,6 +875,7 @@ localStorage.setItem('theme', newTheme);
 **Source:** `instructions/coding-standards.instructions.md`
 
 **Frontmatter (enhance existing):**
+
 ```yaml
 ---
 title: "Coding Standards"
@@ -816,6 +892,7 @@ maintainer: "LightSpeed Team"
 ```
 
 **Display in Catalogue:**
+
 - Icon: 📋 (code brackets)
 - Title: "Coding Standards"
 - Category badge: "Development"
@@ -825,6 +902,7 @@ maintainer: "LightSpeed Team"
 - Tags: clickable filter pills
 
 **Detail Page:**
+
 - Full markdown content
 - Table of contents (auto-generated from h2, h3)
 - Copy buttons on code examples
@@ -836,6 +914,7 @@ maintainer: "LightSpeed Team"
 **Source:** `ai/Claude.md`
 
 **Frontmatter (new for webpage):**
+
 ```yaml
 ---
 title: "Claude Agent"
@@ -851,6 +930,7 @@ actions: ["copy", "download", "github", "vscode"]
 ```
 
 **Display:**
+
 - Icon: 🤖 (Claude logo/badge)
 - Title: "Claude Agent"
 - Type badge: "Claude"
@@ -858,6 +938,7 @@ actions: ["copy", "download", "github", "vscode"]
 - Tags
 
 **Detail Page:**
+
 - Full markdown (Claude.md content)
 - Copy raw file button (with toast)
 - Download JSON config button
@@ -918,15 +999,18 @@ actions: ["copy", "download", "github", "vscode"]
 ## Part 14: References & Authoritative Sources
 
 **Design Documentation:**
+
 - `design_handoff_awesome_github/README.md` — Design spec & requirements
 - `design_source/colors_and_type.css` — All design tokens
 
 **Repository Standards:**
+
 - `CLAUDE.md` — Project instructions (this file, high-level)
 - `AGENTS.md` — Global AI rules
 - `docs/BRANCHING_STRATEGY.md` — Git workflow
 
 **Content Sources:**
+
 - `instructions/` — 37 standard guides
 - `ai/` — AI agent references
 - `cookbook/` — Recipes & playbooks
@@ -934,6 +1018,7 @@ actions: ["copy", "download", "github", "vscode"]
 - `hooks/`, `workflows/`, `plugins/` — Portable assets
 
 **Astro Resources:**
+
 - [Astro Docs](https://docs.astro.build) — Framework reference
 - [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/) — Type-safe content
 
