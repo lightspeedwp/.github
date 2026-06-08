@@ -30,7 +30,7 @@ function scoreField(field, token, weight) {
   let score = weight;
   if (field === token) score += weight * 0.75;
   if (field.startsWith(token)) score += weight * 0.5;
-  if (field.includes(` ${token} `)) score += weight * 0.25;
+  if ((" " + field + " ").includes(" " + token + " ")) score += weight * 0.25;
 
   return score;
 }
