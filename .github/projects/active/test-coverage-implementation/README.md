@@ -1829,3 +1829,13 @@ jest.mock("child_process", () => ({
 *Created: 2025-12-10*
 *Target: v1.0.0 Release*
 *Status: ⏳ READY TO START*
+
+---
+
+## Issue Tracking
+
+- [Issue execution plan](ISSUE_EXECUTION_PLAN.md)
+- [Issue register](ISSUE_REGISTER.md)
+- [Run log](RUN_LOG.md)
+- [OpenSpec strict inputs](openspec-strict/README.md)
+- [OpenSpec change stub](../../../openspec/changes/test-coverage-implementation/)

@@ -1,17 +1,17 @@
 ---
-issue_number: 746
-parent_issue: 602
+issue_number: 933
+parent_issue: 932
 file_type: documentation
-title: "[Child of [#602](https://github.com/lightspeedwp/.github/issues/602)] Coverage Baseline and Unskip Execution"
-description: "OPSX child spec to baseline coverage and phase skipped-test reactivation"
+title: "[PHASE 1] Baseline Measurement and Coverage Gap Report"
+description: "OPSX child spec for capturing the coverage baseline and implementation checklist"
 spec_type: child
 status: active
-last_updated: '2026-06-01'
+last_updated: '2026-06-08'
 ---
 
-## OPSX Child Spec: Coverage Baseline and Unskip
+## OPSX Child Spec: Baseline Measurement and Coverage Gap Report
 
 1. Capture current branch + CI coverage baseline.
-2. Inventory all tests under `.jest-skip/` and classify by blocker.
-3. Re-enable safe tests first; isolate flaky/infrastructure-bound tests with explicit tickets.
-4. Validate with `npm test` and coverage report artefacts.
+2. Open and review the HTML coverage report.
+3. Document metrics, uncovered files, and the gap to target.
+4. Build the implementation checklist and execution order.
