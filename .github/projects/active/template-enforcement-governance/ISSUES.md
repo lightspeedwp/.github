@@ -2,8 +2,8 @@
 title: "Template Enforcement & Governance Project"
 description: "Organization-wide issue and PR template enforcement, routing, and governance implementation"
 file_type: "documentation"
-version: "1.0.0"
-last_updated: "2026-06-01"
+version: "1.1.0"
+last_updated: "2026-06-08"
 created_date: "2026-06-01"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -15,9 +15,9 @@ stability: "experimental"
 
 # Template Enforcement & Governance — Issue Backlog
 
-This project coordinates the implementation of organization-wide template enforcement, routing, and governance for issues and pull requests.
+This project coordinates the implementation of organisation-wide template enforcement, routing, and governance for issues and pull requests.
 
-## Status: In Planning
+## Status: Implemented locally; remote/admin follow-up open
 
 **Total Issues:** 13
 **Priority:** High
@@ -25,13 +25,20 @@ This project coordinates the implementation of organization-wide template enforc
 **Current Inventory:** 26 issue templates, 9 PR templates, 35 issue types
 **Notes:** Several governance artefacts already exist in the repo; the remaining work is alignment, routing parity, and enforcement consistency.
 
+## Closeout Summary
+
+The repository-side implementation has been completed and the remaining work is now isolated in [REMOTE_ADMIN_CHECKS.md](./REMOTE_ADMIN_CHECKS.md).
+
+- Implemented locally: PR routing config, root router, portable instruction files, validation workflow, fixtures, and governance guidance updates.
+- Follow-up only: GitHub organisation issue-type verification and branch protection status-check verification.
+
 ---
 
 ## Issues
 
 ### Phase 1: Foundation & Configuration
 
-#### 1️⃣ [FOUNDATION] Add 2 missing issue types to GitHub organization settings
+#### 1️⃣ [FOUNDATION] Add 2 missing issue types to GitHub organisation settings
 
 **Issue Type:** Task
 **Priority:** Critical
@@ -44,13 +51,13 @@ The issue type registry already includes "Help" and "User Experience Feedback"; 
 **Details:**
 
 - Issue types are already defined in `.github/issue-types.yml`
-- Need to manually add in organization settings: Settings → Issue types
+- Need to manually add in organisation settings: Settings → Issue types
 - Help (type:help, color: 4393F8)
 - User Experience Feedback (type:ux-feedback, color: DB61A2)
 
 **Acceptance Criteria:**
 
-- [ ] Both issue types appear in organization settings
+- [ ] Both issue types appear in organisation settings
 - [ ] Issue creation form shows all 35 type entries
 - [ ] Color assignments match issue-types.yml and the live registry
 
@@ -537,35 +544,31 @@ Keep `BRANCHING_STRATEGY.md` in sync with the canonical PR template routing tabl
 
 ## Summary
 
-**Completion Criteria:**
+**Main Workstream Result:**
 
-- [ ] All 13 issues completed
-- [ ] 35 issue types defined and working in GitHub
-- [ ] PR template routing fully documented and enforced
-- [ ] GitHub Actions workflow validates template compliance
-- [ ] Agent provides intelligent enforcement
-- [ ] AGENT.md and CLAUDE.md have clear guidance
-- [ ] Portable instruction files created for reuse
-- [ ] Branch protection enforces template validation
+- [x] Repository-side implementation complete
+- [x] Routing, validation, fixtures, and guidance aligned
+- [x] Closeout docs updated to reflect the implemented scope
+- [ ] Remote/admin verification complete
 
-**Success Metrics:**
+**Follow-Up Success Criteria:**
 
-- 95%+ of new PRs use correct template
-- 90%+ of new issues use correct type
-- 0 unforced template violations merged
-- <5min to select correct template (based on user feedback)
+- [ ] GitHub organisation settings show the expected issue types
+- [ ] Branch protection uses the expected template-validation check
+- [ ] Follow-up task can be archived after admin verification
 
 ---
 
 ## Related Documents
 
-- [AGENTS.md](../../../../AGENTS.md) — Canonical governance rules (once updated)
-- [CLAUDE.md](../../../../CLAUDE.md) — Claude-specific guidance (once updated)
-- [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md) — Branch naming (once updated)
-- [instructions/pr-templates.instructions.md](../../../../instructions/pr-templates.instructions.md) — Full PR template guide (once created)
-- [instructions/issue-templates.instructions.md](../../../../instructions/issue-templates.instructions.md) — Full issue template guide (once created)
+- [AGENTS.md](../../../../AGENTS.md) — Canonical governance rules and template governance guidance
+- [CLAUDE.md](../../../../CLAUDE.md) — Claude-specific guidance and PR template routing quick reference
+- [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md) — Branch naming, project type mapping, and PR template routing
+- [instructions/pr-templates.instructions.md](../../../../instructions/pr-templates.instructions.md) — Full PR template guide
+- [instructions/issue-templates.instructions.md](../../../../instructions/issue-templates.instructions.md) — Full issue template guide
 - [.github/issue-types.yml](../../../issue-types.yml) — Canonical issue type definitions
-- [.github/PULL_REQUEST_TEMPLATE/config.yml](../../../PULL_REQUEST_TEMPLATE/config.yml) — PR template routing (once created)
+- [.github/PULL_REQUEST_TEMPLATE/config.yml](../../../PULL_REQUEST_TEMPLATE/config.yml) — PR template routing map
+- [REMOTE_ADMIN_CHECKS.md](./REMOTE_ADMIN_CHECKS.md) — Smaller follow-up task for admin-only verification
 
 ---
 

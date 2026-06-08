@@ -2,8 +2,8 @@
 title: "Template Enforcement & Governance — Action Plan"
 description: "Immediate next steps, timeline, and ownership for the 4-phase implementation"
 file_type: "documentation"
-version: "1.0.0"
-last_updated: "2026-06-01"
+version: "1.1.0"
+last_updated: "2026-06-08"
 created_date: "2026-06-01"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -12,8 +12,35 @@ status: active
 
 # Template Enforcement & Governance — Action Plan
 
-**Project Status:** Backlog Published
-**Total Issues:** 13 (all created and ready for assignment)
+**Project Status:** Local implementation complete; remote/admin follow-up open
+**Implemented Scope:** Template routing, validation, fixtures, and governance guidance
+**Follow-Up Scope:** GitHub organisation settings and branch-protection verification
+
+---
+
+## Closeout Actions
+
+### Completed
+
+- Added `.github/PULL_REQUEST_TEMPLATE/config.yml` as the canonical routing map.
+- Updated `.github/pull_request_template.md` to act as the root router.
+- Added portable instruction files for PR and issue template usage.
+- Added the template-enforcement workflow and fixture pack.
+- Updated the repo governance docs to match the implemented routing model.
+
+### Remaining
+
+1. Verify the two missing issue types in GitHub organisation settings.
+2. Verify the branch-protection status check name for template enforcement.
+
+### Follow-Up Tracking
+
+- The remote/admin checks are tracked in `REMOTE_ADMIN_CHECKS.md`.
+- Once those checks pass, update the closeout docs and archive the follow-up task.
+
+---
+
+**Total Issues:** 13 (historical backlog; implemented scope now separated from remote checks)
 **Timeline:** 2–3 weeks
 **Effort:** ~11.5 hours
 

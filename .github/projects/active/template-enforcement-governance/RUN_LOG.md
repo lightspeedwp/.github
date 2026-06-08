@@ -2,7 +2,7 @@
 title: "Run Log - /opsx:propose Execution"
 description: "Execution record for template-enforcement-governance OpenSpec propose commands."
 file_type: "documentation"
-version: "1.0.0"
+version: "1.1.0"
 last_updated: "2026-06-08"
 created_date: "2026-06-08"
 authors: ["github-copilot"]
@@ -69,3 +69,8 @@ Use this log to capture each `/opsx:propose` attempt.
 - command: `/opsx:propose .github/projects/active/template-enforcement-governance/openspec-strict/children/02-pr-template-governance-enforcement.md`
 - outcome: blocked
 - notes: `/bin/bash: /opsx:propose: No such file or directory (exit 127)`
+
+- timestamp: 2026-06-08T19:45:00Z
+- command: `closeout-docs`
+- outcome: success
+- notes: `Updated the project docs to reflect the implemented scope and split remote/admin checks into REMOTE_ADMIN_CHECKS.md.`

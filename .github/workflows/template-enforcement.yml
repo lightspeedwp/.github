@@ -188,8 +188,8 @@ jobs:
             core.setFailed(
               `Merged PR #${mergedPr.number} on develop is missing required template content: ${validation.missing.join(', ')}`
             );
-
-
+            // Keep these helpers in sync with .github/workflows/validate-pr-template.yml
+            // until they are extracted into a shared script.
             function stripHtmlComments(text) {
               return (text || '').replace(/<!--[\s\S]*?-->/g, '');
             }

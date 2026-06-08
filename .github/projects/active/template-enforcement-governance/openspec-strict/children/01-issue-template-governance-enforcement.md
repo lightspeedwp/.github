@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Issue Template Governance Enforcement"
 description: "Implement issue template governance, metadata hardening, and instruction alignment."
-version: "1.0.0"
+version: "1.1.0"
 last_updated: "2026-06-08"
 owners: ["LightSpeed Team"]
 tags: ["opsx", "governance", "issue-templates", "automation"]

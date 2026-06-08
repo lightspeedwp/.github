@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed Global AI Rules"
 description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
-version: 'v1.5'
-last_updated: '2026-06-01'
+version: 'v1.6'
+last_updated: '2026-06-08'
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]

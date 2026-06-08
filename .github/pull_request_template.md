@@ -9,9 +9,9 @@ labels: ["status:needs-review"]
 
 # Which PR template should I use?
 
-Use this file as a router. Copy the matching template from
-`.github/PULL_REQUEST_TEMPLATE/` based on your branch prefix, then replace this
-body with that template.
+Use this file as a router. Copy the matching template from the GitHub
+`.github/PULL_REQUEST_TEMPLATE/` folder based on your branch prefix, then
+replace this body with that template.
 
 ## Quick selector
 
@@ -49,7 +49,7 @@ body with that template.
 ## Why this matters
 
 Correct template selection improves label automation, changelog quality, and
-review consistency. Routing rules are defined in
+review consistency. The routing rules are defined in
 `.github/PULL_REQUEST_TEMPLATE/config.yml`.
 
 ## Linked issues

@@ -2,7 +2,7 @@
 file_type: documentation
 title: "PR Template Governance Enforcement"
 description: "Implement PR template routing governance, validation workflow, and branch-protection integration."
-version: "1.0.0"
+version: "1.1.0"
 last_updated: "2026-06-08"
 owners: ["LightSpeed Team"]
 tags: ["opsx", "governance", "pr-templates", "automation"]

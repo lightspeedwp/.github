@@ -1,6 +1,10 @@
 name: Validate PR Template
 
 on:
+  # Safe use of `pull_request_target`:
+  # - the workflow needs write access so it can comment on PRs, including forks
+  # - it only inspects the PR body and labels; it does not check out or execute user code
+  # - any future step that executes repository code must preserve this trust boundary
   pull_request_target:
     types: [opened, edited, reopened, synchronize, ready_for_review]
 
@@ -85,6 +89,8 @@ jobs:
 
             core.setFailed(`PR #${pr.number} is missing required template content: ${validation.missing.join(', ')}`);
 
+            // Keep these helpers in sync with .github/workflows/template-enforcement.yml
+            // until they are extracted into a shared script.
             function stripHtmlComments(text) {
               return (text || '').replace(/<!--[\s\S]*?-->/g, '');
             }
