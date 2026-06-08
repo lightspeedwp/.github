@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: ".github Workflows Directory"
 description: "Reusable GitHub Actions workflows and automation for the LightSpeed .github control plane"
-version: "v1.1"
-last_updated: '2026-06-03'
+version: "v1.2"
+last_updated: "2026-06-08"
 maintainer: "LightSpeed Team"
 tags: ["workflows", "github-actions", "automation", "ci-cd"]
 ---
@@ -26,7 +26,7 @@ This directory contains reusable GitHub Actions workflows used for automation, C
 - **labeling.yml** - Automatic issue and PR labeling based on paths and content
 - **branding.yml** - Branding, frontmatter, and metadata automation
 - **issue-create-from-template.yml** - Canonical issue creation for AI or workflow-driven issue drafting
-- **checklist-finalization.yml** - Final checklist sync for closed issues and merged PRs
+- **checklist-finalisation.yml** - Final checklist sync for closed issues and merged PRs
 
 ### Metrics & Reporting
 
