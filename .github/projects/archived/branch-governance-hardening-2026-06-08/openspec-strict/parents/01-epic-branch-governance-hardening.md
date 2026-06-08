@@ -3,7 +3,7 @@ title: "Branch Governance Hardening Epic"
 description: "Epic proposal for enforcing branch lifecycle rules, GitHub rulesets, and AI branch-selection guardrails."
 file_type: "documentation"
 version: "1.0.0"
-last_updated: "2026-06-03"
+last_updated: "2026-06-08"
 created_date: "2026-06-03"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["epic", "branching", "governance", "rulesets"]
 domain: "governance"
 stability: "experimental"
-status: active
+status: archived
 ---
 
 # Branch Governance Hardening Epic

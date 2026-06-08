@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["branching", "governance", "run-log", "automation"]
 domain: "governance"
 stability: "experimental"
-status: active
+status: archived
 ---
 
 # Branch Governance Hardening - Run Log
@@ -33,3 +33,10 @@ Status is tracked in ISSUE_REGISTER.md. This file is an event log only.
   truth for task status.
 - Added a concise progress matrix and aligned issue-chain states to current
   evidence.
+- Archived the project folder under `.github/projects/archived/` and updated
+  project frontmatter statuses.
+- Mapped the register to the actual closed issue chain: [#897](https://github.com/lightspeedwp/.github/issues/897),
+  [#898](https://github.com/lightspeedwp/.github/issues/898),
+  [#899](https://github.com/lightspeedwp/.github/issues/899),
+  [#900](https://github.com/lightspeedwp/.github/issues/900),
+  [#901](https://github.com/lightspeedwp/.github/issues/901).

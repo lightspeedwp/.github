@@ -3,7 +3,7 @@ title: "AI Branch Selection Guardrails"
 description: "Task proposal for forcing explicit branch intent and aligning AI behaviour with the repo's branch lifecycle policy."
 file_type: "documentation"
 version: "1.0.0"
-last_updated: "2026-06-03"
+last_updated: "2026-06-08"
 created_date: "2026-06-03"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["ai", "branching", "guardrails", "governance"]
 domain: "governance"
 stability: "experimental"
-status: active
+status: archived
 ---
 
 # AI Branch Selection Guardrails

@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["branching", "governance", "rulesets", "permissions", "automation"]
 domain: "governance"
 stability: "experimental"
-status: active
+status: archived
 ---
 
 # Branch Governance Hardening

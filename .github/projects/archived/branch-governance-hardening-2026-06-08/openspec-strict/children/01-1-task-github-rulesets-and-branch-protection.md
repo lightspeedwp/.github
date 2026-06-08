@@ -3,7 +3,7 @@ title: "GitHub Rulesets and Branch Protection"
 description: "Task proposal for defining and enforcing repo branch rulesets, permissions, and protection rules."
 file_type: "documentation"
 version: "1.0.0"
-last_updated: "2026-06-03"
+last_updated: "2026-06-08"
 created_date: "2026-06-03"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["branching", "rulesets", "permissions", "github"]
 domain: "governance"
 stability: "experimental"
-status: active
+status: archived
 ---
 
 # GitHub Rulesets and Branch Protection

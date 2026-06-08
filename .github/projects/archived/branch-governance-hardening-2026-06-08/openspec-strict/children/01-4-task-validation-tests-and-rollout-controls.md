@@ -3,7 +3,7 @@ title: "Validation Tests and Rollout Controls"
 description: "Task proposal for proving branch governance enforcement and documenting rollout/rollback controls."
 file_type: "documentation"
 version: "1.0.0"
-last_updated: "2026-06-03"
+last_updated: "2026-06-08"
 created_date: "2026-06-03"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["testing", "branching", "rollout", "governance"]
 domain: "governance"
 stability: "experimental"
-status: active
+status: archived
 ---
 
 # Validation Tests and Rollout Controls
