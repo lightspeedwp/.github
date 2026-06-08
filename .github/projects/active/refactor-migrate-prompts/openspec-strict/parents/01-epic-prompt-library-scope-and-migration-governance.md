@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Epic] Prompt library scope classification and migration governance"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-01"
-status: active
+status: completed
 ---
 
 
@@ -25,7 +25,7 @@ Define and execute the migration strategy for prompt assets between `.github/pro
 
 ## Acceptance Criteria
 
-- [ ] Final prompt matrix approved.
-- [ ] Approved move set refactored to root standard.
-- [ ] References and discoverability updated in both prompt directories.
-- [ ] Validation completed for formatting, links, and smoke usage paths.
+- [x] Final prompt matrix approved.
+- [x] Approved move set refactored to root standard.
+- [x] References and discoverability updated in both prompt directories.
+- [x] Validation completed for formatting, links, and smoke usage paths.

@@ -7,7 +7,7 @@ area:
   - "area:documentation"
   - "area:automation"
 priority: "priority:important"
-status: active
+status: completed
 effort: "L"
 last_updated: "2026-06-01"
 children:
@@ -47,8 +47,8 @@ Refactor and migrate reusable prompts from `.github/prompts/` into `prompts/` at
 
 ## Acceptance Criteria
 
-- [ ] Migration matrix approved with `move`, `keep`, or `merge/deprecate` for each prompt.
-- [ ] Selected `move` prompts refactored and copied to root `prompts/`.
-- [ ] `.github/prompts/README.md` and `prompts/README.md` updated with canonical guidance.
-- [ ] Backward compatibility plan defined for legacy prompt names/paths.
-- [ ] Validation checklist completed (lint, links, prompt format consistency).
+- [x] Migration matrix approved with `move`, `keep`, or `merge/deprecate` for each prompt.
+- [x] Selected `move` prompts refactored and copied to root `prompts/`.
+- [x] `.github/prompts/README.md` and `prompts/README.md` updated with canonical guidance.
+- [x] Backward compatibility plan defined for legacy prompt names/paths.
+- [x] Validation checklist completed (lint, links, prompt format consistency).

@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Task] Migrate files, update prompt references, and add deprecation paths"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-01"
-status: active
+status: completed
 ---
 
 
@@ -21,7 +21,7 @@ status: active
 
 ## Acceptance Criteria
 
-- [ ] Both prompt READMEs reflect canonical boundaries.
-- [ ] Legacy prompts include clear successor path notes where required.
-- [ ] Link checks pass for prompt indexes and cross-references.
-- [ ] Migration guidance is explicit and reproducible.
+- [x] Both prompt READMEs reflect canonical boundaries.
+- [x] Legacy prompts include clear successor path notes where required.
+- [x] Link checks pass for prompt indexes and cross-references.
+- [x] Migration guidance is explicit and reproducible.

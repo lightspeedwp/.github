@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Task] Validate migrated prompt library and define rollout controls"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-01"
-status: active
+status: completed
 ---
 
 
@@ -21,7 +21,7 @@ status: active
 
 ## Acceptance Criteria
 
-- [ ] Markdown/frontmatter validation passes for migrated files.
-- [ ] Prompt index and cross-reference links resolve correctly.
-- [ ] Representative prompt usage smoke tests are documented.
-- [ ] Rollout notes specify fallback behaviour and sunset timing.
+- [x] Markdown/frontmatter validation passes for migrated files.
+- [x] Prompt index and cross-reference links resolve correctly.
+- [x] Representative prompt usage smoke tests are documented.
+- [x] Rollout notes specify fallback behaviour and sunset timing.

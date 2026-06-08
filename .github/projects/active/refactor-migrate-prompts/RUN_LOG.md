@@ -3,8 +3,8 @@ file_type: documentation
 title: "Run Log - /opsx:propose Execution"
 description: "Execution log for OpenSpec proposal runs and issue creation outcomes"
 version: "1.0.0"
-last_updated: "2026-06-01"
-status: active
+last_updated: "2026-06-08"
+status: completed
 ---
 
 # Run Log
@@ -87,3 +87,12 @@ For each `/opsx:propose` execution, append one entry using the template below.
 - github-issue-url: `https://github.com/lightspeedwp/.github/issues/740`
 - labels-applied: `[status:needs-review, priority:normal, type:task, area:documentation, area:quality]`
 - notes: `Added canonical label area:quality to .github/labels.yml and GitHub repository labels, then switched issue [#740](https://github.com/lightspeedwp/.github/issues/740) from area:testing to area:quality.`
+
+### 2026-06-08 10:00 Europe/Berlin - status-audit-sync
+
+- command: `gh issue view 736..740 + project folder audit sync`
+- expected-template: `n/a`
+- result: `success`
+- github-issue-url: `https://github.com/lightspeedwp/.github/issues/736`
+- labels-applied: `[]`
+- notes: `Verified all tracked issues are closed (736-740), updated local tracker statuses/checklists, and marked project docs as completed.`

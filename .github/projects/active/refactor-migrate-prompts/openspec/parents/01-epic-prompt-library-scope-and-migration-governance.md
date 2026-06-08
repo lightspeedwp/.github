@@ -26,10 +26,10 @@ Define and execute the migration strategy for prompt assets between `.github/pro
 
 ## Acceptance Criteria
 
-- [ ] Final prompt matrix approved (`move`, `keep`, `merge/deprecate`) for all source prompts.
-- [ ] Approved move set refactored to LightSpeed root prompt standard.
-- [ ] References and discoverability updated in both prompt directories.
-- [ ] Validation completed for formatting, links, and smoke usage paths.
+- [x] Final prompt matrix approved (`move`, `keep`, `merge/deprecate`) for all source prompts.
+- [x] Approved move set refactored to LightSpeed root prompt standard.
+- [x] References and discoverability updated in both prompt directories.
+- [x] Validation completed for formatting, links, and smoke usage paths.
 
 ## Child Work Items
 

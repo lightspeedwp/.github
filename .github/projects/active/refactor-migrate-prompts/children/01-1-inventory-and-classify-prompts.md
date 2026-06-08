@@ -2,8 +2,8 @@
 file_type: documentation
 title: "[Child 01-1] Inventory and Classify Prompt Assets"
 description: "Child task artefact for prompt inventory and classification."
-last_updated: "2026-06-01"
-status: active
+last_updated: "2026-06-08"
+status: completed
 ---
 
 ## Objective
@@ -22,8 +22,13 @@ Create a complete inventory of `.github/prompts/*.prompt.md` and classify each a
 
 ## Checklist
 
-- [ ] Enumerate all prompt files in `.github/prompts/`
-- [ ] Assign scope classification (`move`/`keep`/`merge`)
-- [ ] Document rationale and dependency notes
-- [ ] Flag high-risk prompts with path/tool coupling
-- [ ] Freeze matrix for implementation handoff
+- [x] Enumerate all prompt files in `.github/prompts/`
+- [x] Assign scope classification (`move`/`keep`/`merge`)
+- [x] Document rationale and dependency notes
+- [x] Flag high-risk prompts with path/tool coupling
+- [x] Freeze matrix for implementation handoff
+
+## Completion Notes
+
+- Completed on `2026-06-01` with final matrix captured in `artifacts/migration-matrix.md`.
+- Status revalidated on `2026-06-08` during project audit and issue-state sync.

@@ -4,7 +4,7 @@ title: "Issue Drafts - Refactor Migrate Prompts"
 description: "Manual fallback issue drafts aligned to OpenSpec strict proposal files"
 version: "1.0.0"
 last_updated: "2026-06-01"
-status: active
+status: completed
 ---
 
 # Issue Drafts
@@ -27,17 +27,17 @@ Define and execute the migration strategy for prompt assets between `.github/pro
 
 #### Acceptance Criteria
 
-- [ ] Final prompt matrix approved.
-- [ ] Approved move set refactored to root standard.
-- [ ] References and discoverability updated in both prompt directories.
-- [ ] Validation completed for formatting, links, and smoke usage paths.
+- [x] Final prompt matrix approved.
+- [x] Approved move set refactored to root standard.
+- [x] References and discoverability updated in both prompt directories.
+- [x] Validation completed for formatting, links, and smoke usage paths.
 
 #### Child Issue Links
 
-- [ ] Child 01-1 Inventory/classification
-- [ ] Child 01-2 Refactor org-wide prompts
-- [ ] Child 01-3 Migrate references/deprecations
-- [ ] Child 01-4 Validation/rollout controls
+- [x] Child 01-1 Inventory/classification
+- [x] Child 01-2 Refactor org-wide prompts
+- [x] Child 01-3 Migrate references/deprecations
+- [x] Child 01-4 Validation/rollout controls
 
 ## Child Drafts
 
@@ -55,10 +55,10 @@ Deliverables:
 
 Acceptance criteria:
 
-- [ ] Matrix coverage equals source prompt count.
-- [ ] Every `move` has a concrete `prompts/*.prompt` target path.
-- [ ] Every `merge/deprecate` has a named successor prompt.
-- [ ] Action counts are internally consistent with matrix rows.
+- [x] Matrix coverage equals source prompt count.
+- [x] Every `move` has a concrete `prompts/*.prompt` target path.
+- [x] Every `merge/deprecate` has a named successor prompt.
+- [x] Action counts are internally consistent with matrix rows.
 
 ### Child 01-2
 
@@ -74,10 +74,10 @@ Deliverables:
 
 Acceptance criteria:
 
-- [ ] All move targets exist at mapped paths.
-- [ ] Prompt files have consistent frontmatter and structure.
-- [ ] Legacy intent is preserved during transition.
-- [ ] Output evidence file documents completion and counts.
+- [x] All move targets exist at mapped paths.
+- [x] Prompt files have consistent frontmatter and structure.
+- [x] Legacy intent is preserved during transition.
+- [x] Output evidence file documents completion and counts.
 
 ### Child 01-3
 
@@ -93,10 +93,10 @@ Deliverables:
 
 Acceptance criteria:
 
-- [ ] Both prompt READMEs reflect canonical boundaries.
-- [ ] Legacy prompts include clear successor path notes where required.
-- [ ] Link checks pass for prompt indexes and cross-references.
-- [ ] Migration guidance is explicit and reproducible.
+- [x] Both prompt READMEs reflect canonical boundaries.
+- [x] Legacy prompts include clear successor path notes where required.
+- [x] Link checks pass for prompt indexes and cross-references.
+- [x] Migration guidance is explicit and reproducible.
 
 ### Child 01-4
 
@@ -112,7 +112,7 @@ Deliverables:
 
 Acceptance criteria:
 
-- [ ] Markdown/frontmatter validation passes for migrated files.
-- [ ] Prompt index and cross-reference links resolve correctly.
-- [ ] Representative prompt usage smoke tests are documented.
-- [ ] Rollout notes specify fallback behaviour and sunset timing.
+- [x] Markdown/frontmatter validation passes for migrated files.
+- [x] Prompt index and cross-reference links resolve correctly.
+- [x] Representative prompt usage smoke tests are documented.
+- [x] Rollout notes specify fallback behaviour and sunset timing.

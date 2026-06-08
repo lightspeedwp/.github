@@ -19,10 +19,10 @@ Refactor all prompts marked `move` in the matrix to a consistent LightSpeed root
 
 ## Acceptance Criteria
 
-- [ ] All move targets exist at mapped paths.
-- [ ] Prompt files have consistent frontmatter and structure.
-- [ ] Legacy intent is preserved during transition.
-- [ ] Output evidence file documents completion and counts.
+- [x] All move targets exist at mapped paths.
+- [x] Prompt files have consistent frontmatter and structure.
+- [x] Legacy intent is preserved during transition.
+- [x] Output evidence file documents completion and counts.
 
 ## References
 

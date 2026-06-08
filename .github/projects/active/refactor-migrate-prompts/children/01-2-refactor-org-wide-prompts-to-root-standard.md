@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Child 01-2] Refactor Org-Wide Prompts to Root Standard"
 description: "Child task artefact for refactoring prompt files to root standard."
 last_updated: "2026-06-01"
-status: active
+status: completed
 ---
 
 ## Objective

@@ -4,7 +4,7 @@ title: "OpenSpec Proposal Pack - Refactor Migrate Prompts"
 description: "OpenSpec-ready parent and child proposal files generated from active issue specs"
 version: "1.0.0"
 last_updated: "2026-06-01"
-status: active
+status: completed
 ---
 
 # OpenSpec Proposal Pack

@@ -19,10 +19,10 @@ Create a complete inventory of `.github/prompts/*.prompt.md` and classify each a
 
 ## Acceptance Criteria
 
-- [ ] Matrix coverage equals source prompt count.
-- [ ] Every `move` has a concrete `prompts/*.prompt` target path.
-- [ ] Every `merge/deprecate` has a named successor prompt.
-- [ ] Action counts are internally consistent with matrix rows.
+- [x] Matrix coverage equals source prompt count.
+- [x] Every `move` has a concrete `prompts/*.prompt` target path.
+- [x] Every `merge/deprecate` has a named successor prompt.
+- [x] Action counts are internally consistent with matrix rows.
 
 ## References
 

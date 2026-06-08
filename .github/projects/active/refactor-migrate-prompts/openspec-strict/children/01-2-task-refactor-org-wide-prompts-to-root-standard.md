@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Task] Refactor org-wide prompts to root prompts standard"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-01"
-status: active
+status: completed
 ---
 
 
@@ -21,7 +21,7 @@ status: active
 
 ## Acceptance Criteria
 
-- [ ] All move targets exist at mapped paths.
-- [ ] Prompt files have consistent frontmatter and structure.
-- [ ] Legacy intent is preserved during transition.
-- [ ] Output evidence file documents completion and counts.
+- [x] All move targets exist at mapped paths.
+- [x] Prompt files have consistent frontmatter and structure.
+- [x] Legacy intent is preserved during transition.
+- [x] Output evidence file documents completion and counts.

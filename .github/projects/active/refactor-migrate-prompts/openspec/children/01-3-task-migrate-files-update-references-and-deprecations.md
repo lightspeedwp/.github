@@ -19,10 +19,10 @@ Complete migration mechanics: update indexes, adjust internal links, and add dep
 
 ## Acceptance Criteria
 
-- [ ] Both prompt READMEs reflect canonical boundaries.
-- [ ] Legacy prompts include clear successor path notes where required.
-- [ ] Link checks pass for prompt indexes and cross-references.
-- [ ] Migration guidance is explicit and reproducible.
+- [x] Both prompt READMEs reflect canonical boundaries.
+- [x] Legacy prompts include clear successor path notes where required.
+- [x] Link checks pass for prompt indexes and cross-references.
+- [x] Migration guidance is explicit and reproducible.
 
 ## References
 

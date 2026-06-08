@@ -4,8 +4,8 @@ title: "Prompt Library Refactor & Migration - Issue Index"
 description: "Parent and child specs for migrating organisation-wide prompts from .github/prompts to root prompts/"
 version: "1.0.0"
 created_date: "2026-06-01"
-last_updated: "2026-06-01"
-status: active
+last_updated: "2026-06-08"
+status: completed
 ---
 
 # Prompt Library Refactor & Migration — Issue Index
@@ -14,7 +14,7 @@ status: active
 
 - Value: Consolidates reusable prompts into root `prompts/` so teams get one canonical, org-wide library.
 - Risks: Breaking existing `/prompt` references, duplicate prompt intent, and inconsistent LightSpeed standards.
-- Next step: Execute child 01-1 classification and freeze a migration matrix before moving files.
+- Next step: Move this project folder from active to completed when repository housekeeping is run.
 
 ## Scope
 
@@ -60,6 +60,12 @@ refactor-migrate-prompts/
 - Current state: root `prompts/` already exists as canonical org-wide directory (7 stable prompts).
 - Gap: `.github/prompts/` includes a mixed set of repo-local and potentially org-wide prompts.
 - Decision rule: move only prompts that are tool/repo agnostic and useful across projects; keep GitHub control-plane automation prompts local.
+
+## Completion Status
+
+- GitHub issues `#736`, `#737`, `#738`, `#739`, and `#740` are closed.
+- Child task checklists and parent acceptance criteria are fully checked.
+- Migration evidence is recorded in `artifacts/` and linked from `ISSUE_REGISTER.md`.
 
 ## References
 

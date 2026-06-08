@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Child 01-3] Migrate Files, Update References, and Add Deprecations"
 description: "Child task artefact for prompt migration and reference updates."
 last_updated: "2026-06-01"
-status: active
+status: completed
 ---
 
 ## Objective

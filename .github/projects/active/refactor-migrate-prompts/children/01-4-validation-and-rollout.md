@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Child 01-4] Validation and Rollout Controls"
 description: "Child task artefact for validation and rollout controls."
 last_updated: "2026-06-01"
-status: active
+status: completed
 ---
 
 ## Objective

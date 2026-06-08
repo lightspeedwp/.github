@@ -3,8 +3,8 @@ file_type: documentation
 title: "Issue Execution Plan - Refactor Migrate Prompts"
 description: "Operational plan for converting OpenSpec proposals into GitHub issues with template alignment"
 version: "1.0.0"
-last_updated: "2026-06-01"
-status: active
+last_updated: "2026-06-08"
+status: completed
 ---
 
 # Issue Execution Plan
@@ -13,7 +13,7 @@ status: active
 
 - Value: converts the completed spec pack into linked, trackable GitHub issues.
 - Risks: template/label mismatch if `/opsx:propose` ignores `template-map` hints.
-- Next step: run the strict OpenSpec files in order and record resulting issue URLs.
+- Next step: keep register and run-log entries current until folder is moved to completed.
 
 ## Sequence
 
@@ -40,9 +40,9 @@ status: active
 
 ## Post-Proposal Checklist
 
-- [ ] Issue created for parent epic.
-- [ ] Four child issues created.
-- [ ] Parent/child links added in issue bodies.
-- [ ] Labels verified (`status:*`, `priority:*`, `type:*`, `area:*`).
-- [ ] `RUN_LOG.md` updated with result and issue URL.
-- [ ] `ISSUE_REGISTER.md` updated with final IDs and status.
+- [x] Issue created for parent epic.
+- [x] Four child issues created.
+- [x] Parent/child links added in issue bodies.
+- [x] Labels verified (`status:*`, `priority:*`, `type:*`, `area:*`).
+- [x] `RUN_LOG.md` updated with result and issue URL.
+- [x] `ISSUE_REGISTER.md` updated with final IDs and status.
