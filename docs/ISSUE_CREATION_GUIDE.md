@@ -125,6 +125,21 @@ Click **Submit new issue**. Your issue is now visible to the team and ready for 
 - Issue outcomes are not yet fully deterministic from template choice alone.
 - Include clear issue text and apply canonical labels explicitly for reliable triage.
 
+### AI / Automation Issue Creation
+
+For AI-assisted or workflow-driven issue creation, use the canonical template before opening the issue.
+
+1. Select the correct template key from the numbered templates.
+2. Render the full template body first.
+3. Create the issue with the template body already in place.
+4. Only then add any extra context, labels, or metadata.
+
+Recommended workflow:
+
+- `.github/workflows/issue-create-from-template.yml`
+
+This workflow creates the issue from the repository template body instead of opening a blank issue and backfilling content later. That keeps the issue body aligned with the template enforcement rules and avoids `not_planned` closures caused by missing sections.
+
 ## End-to-End Flow (Intent -> Template -> Automation -> Result)
 
 1. Determine intent and canonical type label.

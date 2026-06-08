@@ -77,7 +77,16 @@ Always complete:
 
 Do not submit partially completed issue templates unless the issue is explicitly marked as a draft planning item.
 
-### 4. Set labels and metadata explicitly
+### 4. Use the canonical creation path for automation
+
+When an LLM or workflow is creating an issue, do not call the GitHub issue API with a blank body and patch it later.
+
+- Select the canonical template first.
+- Render the template body before the issue exists.
+- Prefer `.github/workflows/issue-create-from-template.yml` for automation-driven issue creation.
+- If the template has no dedicated type, use the nearest template and state the intended canonical type in the body.
+
+### 5. Set labels and metadata explicitly
 
 Issue template files currently do not pre-populate labels. Add labels manually on creation/edit:
 
@@ -91,7 +100,7 @@ Use canonical values from:
 - `.github/labels.yml`
 - `.github/issue-types.yml`
 
-### 5. Understand automation trigger behaviour
+### 6. Understand automation trigger behaviour
 
 Automation path for issues:
 

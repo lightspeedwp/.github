@@ -25,6 +25,7 @@ This directory contains reusable GitHub Actions workflows used for automation, C
 
 - **labeling.yml** - Automatic issue and PR labeling based on paths and content
 - **branding.yml** - Branding, frontmatter, and metadata automation
+- **issue-create-from-template.yml** - Canonical issue creation for AI or workflow-driven issue drafting
 
 ### Metrics & Reporting
 
