@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Issue Register - Test Coverage Implementation"
 description: "Canonical register for the parent epic and phase issues that drive the test coverage programme."
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-06-08"
 last_updated: "2026-06-08"
 status: active
