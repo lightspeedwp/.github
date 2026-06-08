@@ -1,40 +1,48 @@
+#!/usr/bin/env ruby
+
+require 'date'
 require 'yaml'
-require 'pathname'
 
 def frontmatter(path)
   txt = File.read(path)
   return nil unless txt.start_with?("---\n")
-  parts = txt.split(/^---\s*$/\n?, 3)
+
+  parts = txt.split(/^---\s*$/, 3)
   yaml = parts[1]
   YAML.safe_load(yaml, permitted_classes: [Date, Time], aliases: true)
-rescue => e
-  {"__error"=>e.message}
+rescue StandardError => e
+  { '__error' => e.message }
 end
 
 files = Dir['agents/*.agent.md'].sort
 baseline = frontmatter('agents/release.agent.md') || {}
 base_tools = Array(baseline['tools']).map(&:to_s)
 base_perms = Array(baseline['permissions']).map(&:to_s)
-puts "BASELINE: release.agent.md"
+
+puts 'BASELINE: release.agent.md'
 puts "tools(#{base_tools.size}): #{base_tools.join(', ')}"
 puts "permissions(#{base_perms.size}): #{base_perms.join(', ')}"
 puts "\nAGENT AUDIT"
+
 files.each do |f|
   fm = frontmatter(f)
   if fm.nil?
     puts "\n#{f}: ERROR no frontmatter"
     next
   end
+
   if fm['__error']
     puts "\n#{f}: ERROR parsing frontmatter: #{fm['__error']}"
     next
   end
+
   tools = Array(fm['tools']).map(&:to_s)
   perms = Array(fm['permissions']).map(&:to_s)
   miss_t = base_tools - tools
   miss_p = base_perms - perms
   extra_t = tools - base_tools
   extra_p = perms - base_perms
+
   puts "\n#{f}"
   puts "  tools_present=#{fm.key?('tools')} count=#{tools.size}"
   puts "  permissions_present=#{fm.key?('permissions')} count=#{perms.size}"

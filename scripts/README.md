@@ -33,6 +33,7 @@ graph TB
 accTitle: "Scripts and automation directory architecture"
 accDescr: "Shows the hierarchical structure of scripts directory including awesome-copilot, includes, validation, maintenance, and projects folders with their core utilities, test helpers, and integrations with GitHub Actions and CI/CD pipeline."
     A[Scripts Directory] --> B[awesome-copilot/]
+    A --> V[audit/]
     A --> C[includes/]
     A --> D[json-validation/]
     A --> E[maintenance/]
@@ -46,6 +47,7 @@ accDescr: "Shows the hierarchical structure of scripts directory including aweso
     C --> L[File Operations]
 
     B --> M[Collection Management]
+    V --> W[Agent Frontmatter Audit]
     D --> N[Schema Validation]
     E --> O[Documentation Updates]
     F --> P[GitHub Projects]
@@ -88,6 +90,7 @@ accDescr: "Sequential flow showing developer executing scripts, loading utilitie
 
 - **awesome-copilot/** — Utilities for prompt/collection management and validation.
   *See:* `awesome-copilot/README.md`
+- **audit/** — Point-in-time audit scripts, including agent frontmatter baseline comparison.
 - **includes/** — Shared Bash helpers and test utilities.
   *See:* `includes/README.md`
 - **json-validation/** — Node.js/YAML validation scripts and tests.
@@ -207,6 +210,9 @@ scripts/utility/label-sync.js --dry-run
 
 # Validate configuration
 node scripts/validation/validate-coderabbit-yml.cjs
+
+# Audit agent frontmatter against release baseline
+npm run audit:agents:ruby
 
 # Validate WCEU 2026 Phase 1 (Schema migration, slides, etc.)
 npm run validate:wceu:phase1
