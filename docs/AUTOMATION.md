@@ -75,6 +75,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
 | **project-meta-sync.yml** | develop | Sync project board with PR/issue status | project-meta-sync.agent.js |
+| **checklist-finalization.yml** | issues.closed / pull_request_target.closed | Final checklist sync for completed issues and merged PRs | workflow backstop |
 | **release.yml** | main | Versioning, changelog generation, tagging, and release notes | release.agent.js |
 | **reporting.yml** | develop | Generate metrics and activity reports | reporting.agent.js |
 | **metrics.yml** | develop | Track and report organisation metrics | metrics.agent.js |
