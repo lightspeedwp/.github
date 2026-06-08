@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Test Coverage Implementation Phase 2: Metrics agent coverage** — Added a pure, testable metrics-agent helper module with repository-level aggregation, issue and pull request metric calculations, markdown/CSV report generation, date-range filtering, and multi-repository support. Added a focused Jest suite that covers the collection, aggregation, reporting, and error-handling paths for `scripts/agents/metrics.agent.js`. ([#934](https://github.com/lightspeedwp/.github/issues/934))
+
 - **Plugin Pack Waves: WordPress 10-plugin catalogue and AI readiness assessor planning set** — Expanded `.github/projects/active/plugin-pack-waves/` from legacy wave scaffolding into a complete WordPress-focused planning pack with a ten-plugin catalogue (P01-P10), issue draft files, OpenSpec strict proposal inputs, execution controls (`ISSUE_EXECUTION_PLAN.md`, `ISSUE_REGISTER.md`, `RUN_LOG.md`), and linked GitHub issues [#940](https://github.com/lightspeedwp/.github/issues/940) through [#950](https://github.com/lightspeedwp/.github/issues/950), including the new **WP AI Readiness Assessor** task for WordPress site readiness evaluation. ([#951](https://github.com/lightspeedwp/.github/pull/951))
 
 - **Awesome GitHub Site Phase 06: Wapuu mascot system** — Added a reusable `WapuuHero` Astro component with a canonical page-type mapping, copied the three confirmed Wapuu assets into `website/public/assets/wapuus/`, and wired the learn, cookbook, tools, and catalogue hero sections to render the correct mascot with responsive hiding at ≤860px and decorative accessibility attributes. ([#864](https://github.com/lightspeedwp/.github/issues/864))
