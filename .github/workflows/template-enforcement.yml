@@ -25,6 +25,8 @@ jobs:
             const marker = '<!-- template-enforcement -->';
             const issue = context.payload.issue;
             const body = (issue.body || '').trim();
+            const author = issue.user?.login || '';
+            const isGithubActions = author === 'github-actions[bot]';
 
             const required = [
               { name: 'Definition of Ready (DoR)', regex: /definition of ready \(dor\)/i },
@@ -59,17 +61,27 @@ jobs:
               return;
             }
 
-            const message = [
-              marker,
-              '🚫 This issue does not follow a required issue template and has been closed automatically.',
-              '',
-              `Missing required section(s): ${missing.join(', ')}`,
-              '',
-              'Please reopen with one of the official templates:',
-              '- https://github.com/lightspeedwp/.github/issues/new/choose',
-              '',
-              'If this was opened by automation, update the automation to preserve the template sections.'
-            ].join('\n');
+            const message = isGithubActions
+              ? [
+                  marker,
+                  '🚫 This issue was opened by automation without the required template sections.',
+                  '',
+                  `Missing required section(s): ${missing.join(', ')}`,
+                  '',
+                  'Update the automation to render the canonical template before creating the issue.',
+                  '- Recommended workflow: `.github/workflows/issue-create-from-template.yml`',
+                ].join('\n')
+              : [
+                  marker,
+                  '🚫 This issue does not follow a required issue template and has been closed automatically.',
+                  '',
+                  `Missing required section(s): ${missing.join(', ')}`,
+                  '',
+                  'Please reopen with one of the official templates:',
+                  '- https://github.com/lightspeedwp/.github/issues/new/choose',
+                  '',
+                  'If this was opened by automation, update the automation to preserve the template sections before creating the issue.',
+                ].join('\n');
 
             if (previous) {
               await github.rest.issues.updateComment({
@@ -85,6 +97,13 @@ jobs:
                 issue_number: issue.number,
                 body: message
               });
+            }
+
+            if (isGithubActions) {
+              core.setFailed(
+                `Issue #${issue.number} was opened by github-actions[bot] and is missing required template sections: ${missing.join(', ')}`,
+              );
+              return;
             }
 
             if (issue.state !== 'closed') {
