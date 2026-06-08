@@ -1,8 +1,20 @@
 ---
-name: "Phase 5 - Utility Edge Cases"
+file_type: documentation
+title: "Phase 5 - Utility Edge-Case Coverage"
+description: "Add tests for utility helpers and boundary conditions so the coverage target is not inflated by fragile paths."
+version: "1.0.0"
+last_updated: "2026-06-08"
+owners: ["Ash"]
+tags: ["testing", "coverage", "utilities", "opsx"]
+status: active
+stability: stable
+domain: quality
+name: "Phase 5 - Utility Edge-Case Coverage"
 about: "Cover utility helpers and edge cases so the coverage target is not inflated by fragile paths."
 labels: ["status:needs-review", "priority:normal", "type:task", "area:quality", "area:testing"]
 ---
+
+# Phase 5 - Utility Edge-Case Coverage
 
 ## Summary
 
@@ -38,4 +50,3 @@ Add tests for utility helpers and boundary conditions that commonly escape cover
 ## Additional Context
 
 This phase is the main catch-all for non-agent helper coverage debt.
-

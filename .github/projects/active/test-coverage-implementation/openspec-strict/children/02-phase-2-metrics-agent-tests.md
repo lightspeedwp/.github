@@ -1,8 +1,20 @@
 ---
-name: "Phase 2 - Metrics Agent Tests"
+file_type: documentation
+title: "Phase 2 - Metrics Agent Coverage"
+description: "Add test coverage for the metrics agent, including collection, aggregation, reporting, and error handling."
+version: "1.0.0"
+last_updated: "2026-06-08"
+owners: ["Ash"]
+tags: ["testing", "coverage", "metrics-agent", "opsx"]
+status: active
+stability: stable
+domain: quality
+name: "Phase 2 - Metrics Agent Coverage"
 about: "Add comprehensive tests for the metrics agent, including collection, aggregation, reporting, and error handling."
 labels: ["status:needs-review", "priority:critical", "type:test", "area:quality", "area:testing"]
 ---
+
+# Phase 2 - Metrics Agent Coverage
 
 ## Summary
 
@@ -41,4 +53,3 @@ Add test coverage for the metrics agent so its collection, aggregation, and repo
 ## Additional Context
 
 This phase carries the largest single-file coverage lift in the programme.
-
