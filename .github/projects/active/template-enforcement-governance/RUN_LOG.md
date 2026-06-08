@@ -44,3 +44,28 @@ Use this log to capture each `/opsx:propose` attempt.
 - command: `openspec propose .github/projects/active/template-enforcement-governance/openspec-strict/children/02-pr-template-governance-enforcement.md`
 - outcome: blocked
 - notes: `openspec: command not found (exit 127)`
+
+- timestamp: 2026-06-08T00:15:00Z
+- command: `npx --yes openspec --help`
+- outcome: blocked
+- notes: `npm registry access failed with E403 Forbidden; runtime could not be installed or invoked.`
+
+- timestamp: 2026-06-08T00:15:01Z
+- command: `npx --yes @openspec/cli --help`
+- outcome: blocked
+- notes: `npm registry access failed with E403 Forbidden; package fetch denied.`
+
+- timestamp: 2026-06-08T00:15:02Z
+- command: `npx --yes opsx --help`
+- outcome: blocked
+- notes: `npm registry access failed with E403 Forbidden; package fetch denied.`
+
+- timestamp: 2026-06-08T00:15:03Z
+- command: `/opsx:propose .github/projects/active/template-enforcement-governance/openspec-strict/children/01-issue-template-governance-enforcement.md`
+- outcome: blocked
+- notes: `/bin/bash: /opsx:propose: No such file or directory (exit 127)`
+
+- timestamp: 2026-06-08T00:15:04Z
+- command: `/opsx:propose .github/projects/active/template-enforcement-governance/openspec-strict/children/02-pr-template-governance-enforcement.md`
+- outcome: blocked
+- notes: `/bin/bash: /opsx:propose: No such file or directory (exit 127)`

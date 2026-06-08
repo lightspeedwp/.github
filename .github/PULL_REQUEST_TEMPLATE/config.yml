@@ -1,0 +1,40 @@
+# Pull request template routing map
+#
+# GitHub does not auto-route templates by branch prefix, so this file is the
+# canonical routing contract for docs, automation, and validation logic.
+#
+# Source of truth alignment:
+# - Branch naming: docs/BRANCHING_STRATEGY.md
+# - Root router: .github/pull_request_template.md
+# - Template files: .github/PULL_REQUEST_TEMPLATE/*.md
+
+default_template: pr_feature.md
+
+routes:
+  feat/: pr_feature.md
+  fix/: pr_bug.md
+  hotfix/: pr_hotfix.md
+  refactor/: pr_refactor.md
+  chore/: pr_chore.md
+  docs/: pr_docs.md
+  test/: pr_chore.md
+  perf/: pr_feature.md
+  ci/: pr_ci.md
+  build/: pr_ci.md
+  deps/: pr_dep_update.md
+  security/: pr_bug.md
+  design/: pr_feature.md
+  a11y/: pr_feature.md
+  release/: pr_release.md
+  research/: pr_feature.md
+
+available_templates:
+  - pr_feature.md
+  - pr_bug.md
+  - pr_hotfix.md
+  - pr_refactor.md
+  - pr_chore.md
+  - pr_docs.md
+  - pr_ci.md
+  - pr_dep_update.md
+  - pr_release.md
