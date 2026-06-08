@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Run Log - Test Coverage Implementation"
 description: "Execution log for OpenSpec proposal runs, issue creation, and PR closeout."
-version: "1.0.1"
+version: "1.0.2"
 created_date: "2026-06-08"
 last_updated: "2026-06-08"
 status: active
@@ -61,3 +61,12 @@ For each `/opsx:propose` execution or issue creation pass, append one entry usin
 - github-issue-url: `https://github.com/lightspeedwp/.github/issues/934`
 - labels-applied: `[]`
 - notes: `Added the pure metrics agent helpers and the focused Jest coverage suite for issue #934, then validated the phase against coverage and report-generation paths.`
+
+### 2026-06-08 18:11 Europe/Berlin - phase-3-linting-agent-coverage
+
+- command: `npm test -- scripts/agents/__tests__/linting.agent.test.js --coverage --collectCoverageFrom='scripts/agents/linting.agent.js'`
+- expected-template: `n/a`
+- result: `success`
+- github-issue-url: `https://github.com/lightspeedwp/.github/issues/935`
+- labels-applied: `[]`
+- notes: `Replaced the linting agent stub with a deterministic helper surface, added Jest coverage for parsing, rule selection, reporting, invalid configs, cache boundaries, and async orchestration, then validated the full repository test and lint gates.`
