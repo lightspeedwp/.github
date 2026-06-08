@@ -30,4 +30,3 @@ Establish the initial coverage baseline and turn the current coverage gap into a
 ## Additional Context
 
 This phase blocks every later phase, so it needs to be the first live issue in the chain.
-
