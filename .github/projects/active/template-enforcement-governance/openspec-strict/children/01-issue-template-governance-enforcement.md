@@ -30,7 +30,7 @@ Drive completion of issue-template governance work in this repository so issue i
 ## Acceptance Criteria
 
 - [ ] `ISSUE_TEMPLATE/config.yml` documents governance metadata and keeps blank issues disabled.
-- [ ] 25 issue types are aligned with the maintained issue template set and documentation.
+- [ ] 35 issue types are aligned with the maintained issue template set and documentation.
 - [ ] `instructions/issue-templates.instructions.md` exists and covers template selection logic.
 - [ ] Canonical governance references in AGENTS and CLAUDE are accurate and non-conflicting.
 - [ ] Validation workflow and branch policy dependencies are documented where relevant.

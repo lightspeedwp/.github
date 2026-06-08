@@ -47,14 +47,14 @@ status: active
 1. Go to [GitHub org settings → Issue types](https://github.com/organizations/lightspeedwp/settings/issues)
 2. Add "Help" (color: `#4393F8`, type:help)
 3. Add "User Experience Feedback" (color: `#DB61A2`, type:ux-feedback)
-4. Verify all 25 types appear in issue creation form
+4. Verify all 35 type entries appear in issue creation form
 5. Close [#709](https://github.com/lightspeedwp/.github/issues/709)
 
-**Validation:** All 25 issue types visible in "Create issue" form, colors match `.github/issue-types.yml`
+**Validation:** All 35 issue types visible in "Create issue" form, colors match `.github/issue-types.yml`
 
 ---
 
-### Step 3: Create Phase 1 Config Files
+### Step 3: Align Phase 1 Config Files
 
 **Deadline:** End of Week 1
 **Owner:** TBD (2 developers, ~1.5h each)
@@ -100,7 +100,7 @@ status: active
 ## ✅ Success Criteria (End of Phase)
 
 - [ ] All 13 issues resolved and merged to `develop`
-- [ ] 25 issue types live in GitHub org settings
+- [ ] 35 issue types live in GitHub org settings
 - [ ] Both PR and issue template configs created and documented
 - [ ] AGENT.md is canonical source for all template rules
 - [ ] CLAUDE.md has quick reference for template selection

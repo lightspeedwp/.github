@@ -131,6 +131,59 @@ release/v1.2.0
 - CI will block misnamed branches from merging
 - Rename with `git branch -m <old> <new>` if needed
 
+### Template Routing Quick Reference
+
+Use [.github/PULL_REQUEST_TEMPLATE/config.yml](./.github/PULL_REQUEST_TEMPLATE/config.yml) as the canonical PR route map. Keep it aligned with [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) and [docs/PR_CREATION_PROCESS.md](./docs/PR_CREATION_PROCESS.md).
+
+| Prefix | PR template |
+| --- | --- |
+| `feat/` | `pr_feature.md` |
+| `fix/` | `pr_bug.md` |
+| `hotfix/` | `pr_hotfix.md` |
+| `refactor/` | `pr_refactor.md` |
+| `chore/` | `pr_chore.md` |
+| `docs/` | `pr_docs.md` |
+| `test/` | `pr_chore.md` |
+| `perf/` | `pr_feature.md` |
+| `ci/` | `pr_ci.md` |
+| `build/` | `pr_ci.md` |
+| `deps/` | `pr_dep_update.md` |
+| `security/` | `pr_bug.md` |
+| `design/` | `pr_feature.md` |
+| `a11y/` | `pr_feature.md` |
+| `ux/` | `pr_feature.md` |
+| `release/` | `pr_release.md` |
+| `research/` | `pr_feature.md` |
+| `revert/` | `pr_chore.md` |
+| `i18n/` | `pr_feature.md` |
+| `ops/` | `pr_chore.md` |
+| `proto/` | `pr_feature.md` |
+| `ds/` | `pr_feature.md` |
+| `api/` | `pr_feature.md` |
+| `schema/` | `pr_feature.md` |
+| `telemetry/` | `pr_feature.md` |
+| `content/` | `pr_docs.md` |
+| `seo/` | `pr_docs.md` |
+| `config/` | `pr_chore.md` |
+| `migrate/` | `pr_chore.md` |
+| `qa/` | `pr_chore.md` |
+| `uat/` | `pr_chore.md` |
+
+For issue intake, use [.github/ISSUE_TEMPLATE/config.yml](./.github/ISSUE_TEMPLATE/config.yml) and [.github/issue-types.yml](./.github/issue-types.yml) as the canonical sources.
+
+### Issue Template Quick Reference
+
+- `task` for scoped work, config updates, and small delivery items.
+- `bug` for reproducible defects with environment and reproduction details.
+- `feature` for new capabilities or user-visible enhancements.
+- `design` for UI/UX, token, or accessibility design work.
+- `testing-coverage` for new or refactored automated tests.
+- `performance` for speed, resource, or latency work.
+- `security` for vulnerabilities or security hardening.
+- `documentation` for docs and content updates.
+- `research` and `audit` for exploratory or assessment work.
+- `automation`, `build-ci`, `ai-ops`, and `content-modelling` for specialist workflows.
+
 ### Before Every Push
 
 1. Verify the current branch: `git branch -v`
