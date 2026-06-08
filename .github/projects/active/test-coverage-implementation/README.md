@@ -5,7 +5,7 @@ description: "Actionable tasks for implementing test coverage expansion to achie
 created_date: "2025-12-10"
 last_updated: "2026-05-29"
 version: "1.0.0"
-status: "active"
+status: active
 priority: "critical"
 owners: ["LightSpeed Team"]
 tags: ["testing", "coverage", "v1.0.0", "quality", "implementation"]
@@ -24,7 +24,7 @@ tags: ["testing", "coverage", "v1.0.0", "quality", "implementation"]
 
 ## Progress Notes (updated 2026-05-28)
 
-- `project-meta-sync.agent.js`: `require.main === module` guard added; test no longer calls `run()` at module load time. See [PR #455](https://github.com/lightspeedwp/.github/pull/455).
+- `project-meta-sync.agent.js`: `require.main === module` guard added; test no longer calls `run()` at module load time. See [PR [#455](https://github.com/lightspeedwp/.github/issues/455)](<https://github.com/lightspeedwp/.github/pull/455>).
 - `reviewer.agent.test.js`: already uses `fs.existsSync` pattern (no `require()` of ESM module). Test passes.
 - Remaining phases below are unchanged and still pending.
 

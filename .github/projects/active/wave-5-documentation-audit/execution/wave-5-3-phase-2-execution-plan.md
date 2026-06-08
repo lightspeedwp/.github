@@ -8,14 +8,14 @@ last_updated: "2026-06-01"
 author: "Claude Code"
 maintainer: "LightSpeedWP Team"
 tags: ["documentation", "consolidation", "wave-5", "phase-2", "execution"]
-status: "active"
+status: active
 stability: "stable"
 domain: "governance"
 ---
 
 # Wave 5.3 Phase 2 Execution Plan
 
-**Parent Issue:** #651 (Documentation Consolidation)
+**Parent Issue:** [#651](https://github.com/lightspeedwp/.github/issues/651) (Documentation Consolidation)
 **Audit Phase Completed:** 2026-05-31
 **Execution Phase Started:** 2026-05-31
 **Executor:** Claude Code
@@ -24,7 +24,7 @@ domain: "governance"
 
 ## Overview
 
-Phase 2 execution of Wave 5.3 consolidation recommendations. Implement immediate fixes and consolidations identified in the four audit reports (#662, #663, #664, #665).
+Phase 2 execution of Wave 5.3 consolidation recommendations. Implement immediate fixes and consolidations identified in the four audit reports ([#662](https://github.com/lightspeedwp/.github/issues/662), [#663](https://github.com/lightspeedwp/.github/issues/663), [#664](https://github.com/lightspeedwp/.github/issues/664), [#665](https://github.com/lightspeedwp/.github/issues/665)).
 
 ---
 
@@ -36,7 +36,7 @@ These are high-impact fixes with low risk of breaking changes.
 
 #### Task 1: Fix duplicate footer in PULL_REQUEST_TEMPLATE/README.md
 
-**From Issue #663**
+**From Issue [#663](https://github.com/lightspeedwp/.github/issues/663)**
 
 - **File:** `.github/PULL_REQUEST_TEMPLATE/README.md`
 - **Issue:** Footer repeats 3 times identically (lines 83-90)
@@ -47,7 +47,7 @@ These are high-impact fixes with low risk of breaking changes.
 
 #### Task 2: Remove duplicate instruction file
 
-**From Issue #665**
+**From Issue [#665](https://github.com/lightspeedwp/.github/issues/665)**
 
 - **File:** `.github/instructions/file-organisation.instructions.md` (duplicate)
 - **Action:**
@@ -60,7 +60,7 @@ These are high-impact fixes with low risk of breaking changes.
 
 #### Task 3: Update broken references in BRANCHING_STRATEGY.md
 
-**From Issue #663**
+**From Issue [#663](https://github.com/lightspeedwp/.github/issues/663)**
 
 - **File:** `docs/BRANCHING_STRATEGY.md`
 - **Issues:**
@@ -77,7 +77,7 @@ These are high-impact fixes with low risk of breaking changes.
 
 #### Task 4: Consolidate or remove labeling.instructions.md
 
-**From Issue #664**
+**From Issue [#664](https://github.com/lightspeedwp/.github/issues/664)**
 
 - **File:** `instructions/labeling.instructions.md`
 - **Issues:**
@@ -102,7 +102,7 @@ B) **Convert to quick reference** - 20-30 line cheat sheet with links to LABELIN
 
 #### Task 5: Reduce label duplication in AUTOMATION.md
 
-**From Issue #664**
+**From Issue [#664](https://github.com/lightspeedwp/.github/issues/664)**
 
 - **File:** `docs/AUTOMATION.md`
 - **Issue:** Section 4 duplicates LABELING.md sections on label requirements
@@ -121,7 +121,7 @@ B) **Convert to quick reference** - 20-30 line cheat sheet with links to LABELIN
 
 #### Task 6: Fix internal duplication in instructions/issues.instructions.md
 
-**From Issue #662**
+**From Issue [#662](https://github.com/lightspeedwp/.github/issues/662)**
 
 - **File:** `instructions/issues.instructions.md`
 - **Issues:**
@@ -138,7 +138,7 @@ B) **Convert to quick reference** - 20-30 line cheat sheet with links to LABELIN
 
 #### Task 7: Document archived instructions and ai/ folder
 
-**From Issue #665**
+**From Issue [#665](https://github.com/lightspeedwp/.github/issues/665)**
 
 - **Files:**
   - `.github/instructions/.archive/` (18 deprecated files)
@@ -189,7 +189,7 @@ These are larger reorganization efforts recommended for Phase 2 but deferred to 
 ### Final Steps
 
 - [ ] Create Wave 5.3 Phase 2 execution summary
-- [ ] Update PR #697 with Phase 2 completion status
+- [ ] Update PR [#697](https://github.com/lightspeedwp/.github/issues/697) with Phase 2 completion status
 - [ ] Prepare for Wave 5.4 (README audits)
 
 ---
@@ -212,7 +212,7 @@ These are larger reorganization efforts recommended for Phase 2 but deferred to 
    - Cross-check all cross-references
 
 4. **PR Strategy:**
-   - Update PR #697 to track Phase 2 progress
+   - Update PR [#697](https://github.com/lightspeedwp/.github/issues/697) to track Phase 2 progress
    - Keep all changes on `claude/lucid-feynman-OhK09` branch
    - Ready for merge after all tasks complete
 

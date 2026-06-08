@@ -17,7 +17,7 @@ tags:
 - automation
 domain: governance
 stability: stable
-status: draft
+status: completed
 ---
 
 # GitHub Workflow Consolidation (2026-05-28)

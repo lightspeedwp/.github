@@ -1,6 +1,6 @@
 ---
 title: "Branding Meta Agent Planning Document"
-description: "Comprehensive planning and sequencing for the unified branding agent initiative (#33, #46, #48, #49)"
+description: "Comprehensive planning and sequencing for the unified branding agent initiative ([#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49))"
 created_date: "2026-05-28"
 updated_date: "2026-05-28"
 version: "v1.0.0"
@@ -8,12 +8,12 @@ owners: ["Claude"]
 assignment: "Claude EXCLUSIVE — Copilot excluded from this workstream"
 file_type: "documentation"
 tags: ["branding", "meta-agent", "schema", "governance", "footers", "headers", "badges"]
-status: "draft"
+status: completed
 ---
 
 ## Executive Summary
 
-This document outlines the **complete planning and sequencing** for the Branding Meta Agent initiative (parent issue #33, child issues #46, #48, #49).
+This document outlines the **complete planning and sequencing** for the Branding Meta Agent initiative (parent issue [#33](https://github.com/lightspeedwp/.github/issues/33), child issues [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49)).
 
 The goal is to build a **unified, schema-driven branding agent** that automates category-aware Markdown headers, footers, and badges across the repository. The system must:
 
@@ -70,14 +70,14 @@ Build one **unified branding meta agent** that:
 
 **Issues to complete**:
 
-- **#33**: Parent specification defining category taxonomy, footer/header requirements, scope
-- **#46**: Template design rules and 5 footer variants per category
-- **#49**: Schema/config model with JSON Schema validation
+- **[#33](https://github.com/lightspeedwp/.github/issues/33)**: Parent specification defining category taxonomy, footer/header requirements, scope
+- **[#46](https://github.com/lightspeedwp/.github/issues/46)**: Template design rules and 5 footer variants per category
+- **[#49](https://github.com/lightspeedwp/.github/issues/49)**: Schema/config model with JSON Schema validation
 
 **Approach**:
 
-- #33 and #46 can proceed in parallel; both inform #49
-- #49 synthesis happens after #33 scope is locked and #46 templates are drafted
+- [#33](https://github.com/lightspeedwp/.github/issues/33) and [#46](https://github.com/lightspeedwp/.github/issues/46) can proceed in parallel; both inform [#49](https://github.com/lightspeedwp/.github/issues/49)
+- [#49](https://github.com/lightspeedwp/.github/issues/49) synthesis happens after [#33](https://github.com/lightspeedwp/.github/issues/33) scope is locked and [#46](https://github.com/lightspeedwp/.github/issues/46) templates are drafted
 - All three issues remain focused on **specification only** — no implementation
 
 **Key decisions to lock down**:
@@ -126,7 +126,7 @@ Build one **unified branding meta agent** that:
    - Validation constraints
 
 2. Create base `agent-config.yaml` (or equivalent)
-   - Populate with category definitions from #46, #49
+   - Populate with category definitions from [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49)
    - Include template references (pointing to external files or inline)
    - Define defaults and fallback behaviour
 
@@ -255,13 +255,13 @@ Build one **unified branding meta agent** that:
 
 | Issue | Title | Effort | Dependencies | Owner |
 | --- | --- | --- | --- | --- |
-| #33 | Parent specification: category taxonomy, requirements, scope | 3-4h | None | Claude |
-| #46 | Template design: 5 variants per category, rules | 4-5h | #33 scope locked | Claude |
-| #49 | Schema/config model: category fields, validation, examples | 3-4h | #33, #46 (input) | Claude |
-| #48 | Documentation & agent spec | 2-3h | #33, #46, #49 (input) | Claude |
+| [#33](https://github.com/lightspeedwp/.github/issues/33) | Parent specification: category taxonomy, requirements, scope | 3-4h | None | Claude |
+| [#46](https://github.com/lightspeedwp/.github/issues/46) | Template design: 5 variants per category, rules | 4-5h | [#33](https://github.com/lightspeedwp/.github/issues/33) scope locked | Claude |
+| [#49](https://github.com/lightspeedwp/.github/issues/49) | Schema/config model: category fields, validation, examples | 3-4h | [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46) (input) | Claude |
+| [#48](https://github.com/lightspeedwp/.github/issues/48) | Documentation & agent spec | 2-3h | [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49) (input) | Claude |
 
 **Total Effort**: ~12-16 hours
-**Parallelism**: #46 and #49 can start after #33 scope is confirmed
+**Parallelism**: [#46](https://github.com/lightspeedwp/.github/issues/46) and [#49](https://github.com/lightspeedwp/.github/issues/49) can start after [#33](https://github.com/lightspeedwp/.github/issues/33) scope is confirmed
 
 ---
 
@@ -281,7 +281,7 @@ Build one **unified branding meta agent** that:
 
 | Task | Effort | Dependencies | Owner |
 | --- | --- | --- | --- |
-| Design `agent-config.schema.json` | 2-3h | #49 merged | Claude |
+| Design `agent-config.schema.json` | 2-3h | [#49](https://github.com/lightspeedwp/.github/issues/49) merged | Claude |
 | Create base `agent-config.yaml` | 1-2h | Schema drafted | Claude |
 | Implement validation logic | 2-3h | Config drafted | Claude |
 | Document validation & examples | 1-2h | Validation complete | Claude |
@@ -333,13 +333,13 @@ Build one **unified branding meta agent** that:
 
 ### Recommended Order (Waterfall with Parallelism)
 
-1. **Week 1, Days 1–2**: Complete #33, #46, #49, #48 (specification phase)
-   - #33 and #46 in parallel
-   - #49 depends on both
-   - #48 depends on all three
+1. **Week 1, Days 1–2**: Complete [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49), [#48](https://github.com/lightspeedwp/.github/issues/48) (specification phase)
+   - [#33](https://github.com/lightspeedwp/.github/issues/33) and [#46](https://github.com/lightspeedwp/.github/issues/46) in parallel
+   - [#49](https://github.com/lightspeedwp/.github/issues/49) depends on both
+   - [#48](https://github.com/lightspeedwp/.github/issues/48) depends on all three
 
 2. **Week 1, Days 3–4**: Current-state audit
-   - Start immediately after #33 scope confirmed
+   - Start immediately after [#33](https://github.com/lightspeedwp/.github/issues/33) scope confirmed
    - Document existing footers, duplicates, conflicts
 
 3. **Week 2, Days 1–2**: Schema & config implementation
@@ -369,9 +369,9 @@ Build one **unified branding meta agent** that:
 
 | Decision | Options | Recommendation | Status |
 | --- | --- | --- | --- |
-| **Config Format** | JSON only vs. YAML vs. YAML + JSON Schema | YAML + JSON Schema (human-friendly + strict validation) | **Pending #49** |
-| **Agent Merging** | Keep separate vs. fully merge vs. orchestrator | Depends on scope; likely full merge for coherence | **Pending #33 scope** |
-| **Footer Selection** | Deterministic (category) vs. configurable per file | Deterministic by default; allow frontmatter override | **Pending #46 templates** |
+| **Config Format** | JSON only vs. YAML vs. YAML + JSON Schema | YAML + JSON Schema (human-friendly + strict validation) | **Pending [#49](https://github.com/lightspeedwp/.github/issues/49)** |
+| **Agent Merging** | Keep separate vs. fully merge vs. orchestrator | Depends on scope; likely full merge for coherence | **Pending [#33](https://github.com/lightspeedwp/.github/issues/33) scope** |
+| **Footer Selection** | Deterministic (category) vs. configurable per file | Deterministic by default; allow frontmatter override | **Pending [#46](https://github.com/lightspeedwp/.github/issues/46) templates** |
 | **Remediation Strategy** | Manual vs. automated script vs. agent-driven | Automated script with manual review per category | **Pending audit** |
 | **CI Integration** | Pre-commit vs. PR check vs. both | Both: pre-commit for fast feedback + PR check for compliance | **Pending schema merge** |
 
@@ -381,7 +381,7 @@ Build one **unified branding meta agent** that:
 
 | Risk | Probability | Impact | Mitigation |
 | --- | --- | --- | --- |
-| **Schema too rigid** | Medium | High | Gather maintainer feedback in #49; design for extensibility |
+| **Schema too rigid** | Medium | High | Gather maintainer feedback in [#49](https://github.com/lightspeedwp/.github/issues/49); design for extensibility |
 | **Over-engineering config** | Medium | Medium | Keep Phase 1 focused on current needs; extensibility is secondary |
 | **Duplicate footer conflicts** | High | Low | Audit report will identify conflicts; prioritize by frequency and clarity |
 | **Agent performance** | Low | Medium | Profile config lookups; cache category assignments if needed |
@@ -391,7 +391,7 @@ Build one **unified branding meta agent** that:
 
 ## Success Criteria
 
-### Specification Phase (#33, #46, #49, #48)
+### Specification Phase ([#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49), [#48](https://github.com/lightspeedwp/.github/issues/48))
 
 - [ ] Category taxonomy locked and documented
 - [ ] Template design finalized with 5+ variants per category
@@ -422,8 +422,8 @@ Build one **unified branding meta agent** that:
 
 ## References & Related Issues
 
-- **Parent Issue**: #33 — Unified branding agent parent specification
-- **Child Issues**: #46, #48, #49
+- **Parent Issue**: [#33](https://github.com/lightspeedwp/.github/issues/33) — Unified branding agent parent specification
+- **Child Issues**: [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49)
 - **Related Files**:
   - `footer-header-style.instructions.md`
   - `header-footer.agent.md`
@@ -436,7 +436,7 @@ Build one **unified branding meta agent** that:
 
 ## Appendix: Template Category Matrix (Draft)
 
-This matrix will be finalized in #46 with full template variants.
+This matrix will be finalized in [#46](https://github.com/lightspeedwp/.github/issues/46) with full template variants.
 
 | Category | Purpose | Audience | Required Badges | Header Style | Footer Style |
 | --- | --- | --- | --- | --- | --- |

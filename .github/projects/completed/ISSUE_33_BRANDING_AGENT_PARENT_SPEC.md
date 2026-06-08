@@ -1,5 +1,5 @@
 ---
-title: "Unified Branding Agent — Parent Specification (Issue #33)"
+title: "Unified Branding Agent — Parent Specification (Issue [#33](https://github.com/lightspeedwp/.github/issues/33))"
 description: "Complete parent specification for unified branding agent defining category taxonomy, header/footer requirements, badge system, and schema/config approach"
 file_type: "documentation"
 created_date: "2026-05-28"
@@ -11,8 +11,8 @@ tags: ["branding", "governance", "automation", "specification"]
 
 # Unified Branding Agent — Parent Specification
 
-**Issue**: #33
-**Related Issues**: #46 (template design), #49 (schema/config), #48 (agent implementation)
+**Issue**: [#33](https://github.com/lightspeedwp/.github/issues/33)
+**Related Issues**: [#46](https://github.com/lightspeedwp/.github/issues/46) (template design), [#49](https://github.com/lightspeedwp/.github/issues/49) (schema/config), [#48](https://github.com/lightspeedwp/.github/issues/48) (agent implementation)
 **Status**: Specification Phase
 **Effort**: 12–16 hours (planning complete)
 **Timeline**: Week 1–2 implementation
@@ -968,7 +968,7 @@ Example of appropriate-noise:
 
 ## 9. Implementation Relationship to Child Issues
 
-### Issue #46 — Template Design
+### Issue [#46](https://github.com/lightspeedwp/.github/issues/46) — Template Design
 
 **Scope**: Define implementation-ready footer, header, and badge templates
 **Deliverables**:
@@ -979,10 +979,10 @@ Example of appropriate-noise:
 - Frontmatter-to-template mapping rules
 - Fallback template behavior
 
-**Dependencies**: Issue #33 (this spec)
-**Unblocks**: Issue #48 (agent implementation)
+**Dependencies**: Issue [#33](https://github.com/lightspeedwp/.github/issues/33) (this spec)
+**Unblocks**: Issue [#48](https://github.com/lightspeedwp/.github/issues/48) (agent implementation)
 
-### Issue #49 — Schema/Config Model
+### Issue [#49](https://github.com/lightspeedwp/.github/issues/49) — Schema/Config Model
 
 **Scope**: Define JSON Schema validation and YAML config structure
 **Deliverables**:
@@ -994,12 +994,12 @@ Example of appropriate-noise:
 - Validation rules and error messages
 - Maintainer guidance for extending config
 
-**Dependencies**: Issues #33 (this spec), #46 (template designs)
-**Unblocks**: Issue #48 (agent implementation)
+**Dependencies**: Issues [#33](https://github.com/lightspeedwp/.github/issues/33) (this spec), [#46](https://github.com/lightspeedwp/.github/issues/46) (template designs)
+**Unblocks**: Issue [#48](https://github.com/lightspeedwp/.github/issues/48) (agent implementation)
 
-### Issue #48 — Agent Implementation & Documentation
+### Issue [#48](https://github.com/lightspeedwp/.github/issues/48) — Agent Implementation & Documentation
 
-**Scope**: Implement branding agent using config from #49 and templates from #46
+**Scope**: Implement branding agent using config from [#49](https://github.com/lightspeedwp/.github/issues/49) and templates from [#46](https://github.com/lightspeedwp/.github/issues/46)
 **Deliverables**:
 
 - `.github/agents/branding.agent.md` — Agent specification
@@ -1008,7 +1008,7 @@ Example of appropriate-noise:
 - Remediation script for existing files
 - CI integration for ongoing validation
 
-**Dependencies**: Issues #33 (spec), #46 (templates), #49 (config)
+**Dependencies**: Issues [#33](https://github.com/lightspeedwp/.github/issues/33) (spec), [#46](https://github.com/lightspeedwp/.github/issues/46) (templates), [#49](https://github.com/lightspeedwp/.github/issues/49) (config)
 **Blocks**: Remediation and validation phase
 
 ---
@@ -1019,9 +1019,9 @@ Example of appropriate-noise:
 
 **Week 1**:
 
-- ✅ Complete Issue #33 (parent spec) — *This document*
-- Complete Issue #46 (template design)
-- Complete Issue #49 (schema/config model)
+- ✅ Complete Issue [#33](https://github.com/lightspeedwp/.github/issues/33) (parent spec) — *This document*
+- Complete Issue [#46](https://github.com/lightspeedwp/.github/issues/46) (template design)
+- Complete Issue [#49](https://github.com/lightspeedwp/.github/issues/49) (schema/config model)
 
 **Deliverables**: 3 merged specification issues ready for implementation
 
@@ -1064,7 +1064,7 @@ Example of appropriate-noise:
 - [x] Schema/config approach documented and justified (YAML + JSON Schema recommended)
 - [x] Frontmatter and path-based fallback behavior defined
 - [x] Accessibility and readability constraints documented
-- [x] Clear relationship to child issues #46 and #49
+- [x] Clear relationship to child issues [#46](https://github.com/lightspeedwp/.github/issues/46) and [#49](https://github.com/lightspeedwp/.github/issues/49)
 - [x] Delivery plan with milestones documented
 - [x] Implementation is broken into small, reviewable steps
 
@@ -1074,9 +1074,9 @@ Example of appropriate-noise:
 
 **Related Issues**:
 
-- #46 — Design footer/header/badge templates for unified branding agent
-- #49 — Schema update for unified branding agent (category, tags, badges)
-- #48 — Agent implementation and documentation
+- [#46](https://github.com/lightspeedwp/.github/issues/46) — Design footer/header/badge templates for unified branding agent
+- [#49](https://github.com/lightspeedwp/.github/issues/49) — Schema update for unified branding agent (category, tags, badges)
+- [#48](https://github.com/lightspeedwp/.github/issues/48) — Agent implementation and documentation
 
 **Related Files**:
 
@@ -1100,4 +1100,4 @@ Example of appropriate-noise:
 **Created**: 2026-05-28
 **By**: Claude
 **For**: LightSpeed Team
-**Related Work**: Issues #33, #46, #48, #49
+**Related Work**: Issues [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49)

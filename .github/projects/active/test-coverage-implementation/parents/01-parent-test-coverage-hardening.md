@@ -10,12 +10,12 @@ file_type: documentation
 
 ## OPSX Parent Spec
 
-- Parent issue: #602
+- Parent issue: [#602](https://github.com/lightspeedwp/.github/issues/602)
 - Scope: restore executable test coverage path, remove skipped-test debt, and harden CI reliability for coverage reporting.
 - Required children:
-  - #599 Module system consistency (CJS/ESM)
-  - #600 Reviewer agent dry-run mode
-  - #601 Comprehensive error handling
+  - [#599](https://github.com/lightspeedwp/.github/issues/599) Module system consistency (CJS/ESM)
+  - [#600](https://github.com/lightspeedwp/.github/issues/600) Reviewer agent dry-run mode
+  - [#601](https://github.com/lightspeedwp/.github/issues/601) Comprehensive error handling
 - Exit criteria:
   - Coverage baseline captured and reproducible
   - `.jest-skip/` debt reduced or eliminated with replacements

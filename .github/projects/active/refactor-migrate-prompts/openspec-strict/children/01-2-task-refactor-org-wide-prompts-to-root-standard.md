@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Task] Refactor org-wide prompts to root prompts standard"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-01"
-status: draft
+status: active
 ---
 
 

@@ -5,7 +5,7 @@ created_date: "2026-06-03"
 last_updated: "2026-06-03"
 file_type: "documentation"
 version: "v1.0.0"
-status: "active"
+status: active
 ---
 
 # Root Cleanup and Dependency Audit OPSX

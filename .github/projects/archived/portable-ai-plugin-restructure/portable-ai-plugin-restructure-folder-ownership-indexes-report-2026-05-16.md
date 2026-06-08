@@ -1,6 +1,6 @@
 ---
 title: Portable AI Plugin Restructure Folder Ownership Indexes Report
-description: 'Issue #290 confirmation that new top-level folders now have concise
+description: 'Issue [#290](https://github.com/lightspeedwp/.github/issues/290) confirmation that new top-level folders now have concise
   ownership README files.'
 version: v0.1.0
 last_updated: '2026-05-16'

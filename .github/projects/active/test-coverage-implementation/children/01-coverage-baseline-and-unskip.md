@@ -2,10 +2,10 @@
 issue_number: 746
 parent_issue: 602
 file_type: documentation
-title: "[Child of #602] Coverage Baseline and Unskip Execution"
+title: "[Child of [#602](https://github.com/lightspeedwp/.github/issues/602)] Coverage Baseline and Unskip Execution"
 description: "OPSX child spec to baseline coverage and phase skipped-test reactivation"
 spec_type: child
-status: draft
+status: active
 last_updated: '2026-06-01'
 ---
 

@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Task] Validate migrated prompt library and define rollout controls"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-01"
-status: draft
+status: active
 ---
 
 

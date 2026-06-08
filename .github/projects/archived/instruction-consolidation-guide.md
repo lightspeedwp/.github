@@ -6,7 +6,7 @@ version: "v1.0"
 created_date: "2025-12-07"
 last_updated: "2025-12-07"
 authors: ["LightSpeed Team"]
-status: "active"
+status: archived
 tags: ["consolidation", "migration", "instructions", "reference"]
 ---
 

@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["ai", "branching", "guardrails", "governance"]
 domain: "governance"
 stability: "experimental"
-status: "draft"
+status: active
 ---
 
 # AI Branch Selection Guardrails

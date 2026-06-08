@@ -1,7 +1,7 @@
 ---
 file_type: documentation
 title: Portable Workflows Source Report
-description: 'Issue #298 evidence for defining /workflows as the portable agentic
+description: 'Issue [#298](https://github.com/lightspeedwp/.github/issues/298) evidence for defining /workflows as the portable agentic
   workflow source.'
 version: v0.1.0
 last_updated: '2026-05-26'

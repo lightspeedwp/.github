@@ -8,15 +8,15 @@ last_updated: "2026-06-01"
 author: "Claude Code"
 maintainer: "LightSpeedWP Team"
 tags: ["documentation", "audit", "consolidation", "wave-5", "labeling"]
-status: "active"
+status: active
 stability: "stable"
 domain: "governance"
 ---
 
 # Labeling Documentation Audit Report
 
-**Parent Issue:** #651 (Documentation Consolidation)
-**Child Issue:** #664 (Labeling Docs Consolidation)
+**Parent Issue:** [#651](https://github.com/lightspeedwp/.github/issues/651) (Documentation Consolidation)
+**Child Issue:** [#664](https://github.com/lightspeedwp/.github/issues/664) (Labeling Docs Consolidation)
 **Audited:** 2026-05-31
 **Auditor:** Claude Code
 
@@ -50,7 +50,7 @@ Audited 4 labeling-related documentation files. Found:
 | File | Status | Impact |
 |------|--------|--------|
 | `docs/LABEL_STRATEGY.md` | ❌ Missing | No separate strategy doc (covered in LABELING.md) |
-| `docs/LABELING.md` | ❌ Deprecated | Consolidated into LABELING.md#issue-labelling (per Issue #662) |
+| `docs/LABELING.md` | ❌ Deprecated | Consolidated into LABELING.md#issue-labelling (per Issue [#662](https://github.com/lightspeedwp/.github/issues/662)) |
 | `docs/LABELING.md` | ❌ Missing | No separate PR labels doc (covered in LABELING.md#pull-request-labelling) |
 | `docs/AUTOMATION.md` | ❌ Missing | Replaced by AUTOMATION.md (different name) |
 
@@ -278,11 +278,11 @@ Audited 4 labeling-related documentation files. Found:
 1. **No separate `docs/LABELING.md`**
    - Consolidated into `docs/LABELING.md#issue-labelling`
    - Any broken references should point to LABELING.md#issue-labelling
-   - Similar pattern to Issue #662 finding
+   - Similar pattern to Issue [#662](https://github.com/lightspeedwp/.github/issues/662) finding
 
 2. **No separate `docs/LABELING.md`**
    - Consolidated into `docs/LABELING.md#pull-request-labelling`
-   - Found in Issue #663 audit as missing/needed
+   - Found in Issue [#663](https://github.com/lightspeedwp/.github/issues/663) audit as missing/needed
    - Recommendation: Consolidate PR labels into LABELING.md (already done) and update references
 
 3. **No `docs/LABEL_STRATEGY.md`**
@@ -413,8 +413,8 @@ docs/
    - [ ] Create label quick-reference (optional)
 
 3. **Handoff to Wave 5.3-5.4 execution issues:**
-   - #665 (File organization alignment)
-   - #666 (Update documentation index)
+   - [#665](https://github.com/lightspeedwp/.github/issues/665) (File organization alignment)
+   - [#666](https://github.com/lightspeedwp/.github/issues/666) (Update documentation index)
 
 ---
 

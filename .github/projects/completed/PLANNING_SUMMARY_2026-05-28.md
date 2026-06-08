@@ -1,6 +1,6 @@
 ---
 title: "Planning Summary — Branding Meta Agent & WCEU 2026 Talk"
-description: "Summary of planning work completed 2026-05-28 for issues #33, #46, #48, #49, and WCEU 2026 talk assets"
+description: "Summary of planning work completed 2026-05-28 for issues [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49), and WCEU 2026 talk assets"
 date: "2026-05-28"
 version: "v1.0.0"
 file_type: "documentation"
@@ -14,8 +14,8 @@ tags: ["planning", "branding", "wceu"]
 
 This document summarizes the **planning work completed** on 2026-05-28 for:
 
-1. **Branding Meta Agent Initiative** (issues #33, #46, #48, #49)
-2. **WCEU 2026 Talk Planning** (issue #529 + slides generation)
+1. **Branding Meta Agent Initiative** (issues [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49))
+2. **WCEU 2026 Talk Planning** (issue [#529](https://github.com/lightspeedwp/.github/issues/529) + slides generation)
 3. **Execution Plan Updates** (assignment of work to Claude vs. Copilot)
 
 ---
@@ -28,10 +28,10 @@ This document summarizes the **planning work completed** on 2026-05-28 for:
 
 ### Issues
 
-- **#33** — Parent specification: category taxonomy, footer/header requirements, scope
-- **#46** — Template design: 5 footer variants per category, template rules
-- **#48** — Documentation & agent spec: complete agent specification
-- **#49** — Schema/config model: JSON Schema validation, YAML config structure
+- **[#33](https://github.com/lightspeedwp/.github/issues/33)** — Parent specification: category taxonomy, footer/header requirements, scope
+- **[#46](https://github.com/lightspeedwp/.github/issues/46)** — Template design: 5 footer variants per category, template rules
+- **[#48](https://github.com/lightspeedwp/.github/issues/48)** — Documentation & agent spec: complete agent specification
+- **[#49](https://github.com/lightspeedwp/.github/issues/49)** — Schema/config model: JSON Schema validation, YAML config structure
 
 ### Key Documents Created
 
@@ -46,7 +46,7 @@ A comprehensive planning document covering:
    - Risk of hard-coded logic instead of config-driven rules
 
 2. **Solution Approach** (6 phases)
-   - **Phase 1**: Define the system (issues #33, #46, #49, #48)
+   - **Phase 1**: Define the system (issues [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49), [#48](https://github.com/lightspeedwp/.github/issues/48))
    - **Phase 2**: Current-state audit (scan all `.md` files)
    - **Phase 3**: Schema & config implementation
    - **Phase 4**: Agent merge/refactor
@@ -74,13 +74,13 @@ A comprehensive planning document covering:
 
 1. **Immediately** (this week):
    - Review and approve planning document with maintainer(s)
-   - Lock down category taxonomy in issue #33
+   - Lock down category taxonomy in issue [#33](https://github.com/lightspeedwp/.github/issues/33)
 
 2. **Week 1**:
-   - Complete issue #33 (parent spec)
-   - Complete issue #46 (template design)
-   - Complete issue #49 (schema/config model)
-   - Complete issue #48 (documentation & agent spec)
+   - Complete issue [#33](https://github.com/lightspeedwp/.github/issues/33) (parent spec)
+   - Complete issue [#46](https://github.com/lightspeedwp/.github/issues/46) (template design)
+   - Complete issue [#49](https://github.com/lightspeedwp/.github/issues/49) (schema/config model)
+   - Complete issue [#48](https://github.com/lightspeedwp/.github/issues/48) (documentation & agent spec)
 
 3. **Week 2**:
    - Current-state audit of existing footers
@@ -158,7 +158,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 | 14 | Frontmatter & Metadata | Structured data drives automation | `AUTOMATION_GOVERNANCE.md` |
 | 15 | Schema Validation | Guardrails without heavy-handedness | `AUTOMATION_GOVERNANCE.md` |
 | 16 | Accessibility & Readability | Governance designed for humans | `a11y.instructions.md` |
-| 17 | Branding Meta Agent | Unified header/footer/badge management | Issue #33 |
+| 17 | Branding Meta Agent | Unified header/footer/badge management | Issue [#33](https://github.com/lightspeedwp/.github/issues/33) |
 | 18 | Measuring Success | Metrics that matter for governance | `METRICS.md` |
 | 19 | AI Governance Model | Copilot & agents need governance too | `AGENTS.md` |
 | 20 | Call to Action | Next steps for agencies and teams | `PLUGIN_PACK_ROADMAP.md` |
@@ -203,7 +203,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 #### Added Wave 4: Branding Meta Agent (Claude Exclusive)
 
 - **Assignment**: Claude ONLY (Copilot excluded from this work)
-- **Issues**: #33, #46, #48, #49
+- **Issues**: [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49)
 - **Phases**:
   - 4A: Planning & Specification (12–16h)
   - 4B: Current-State Audit (3–6h)
@@ -224,7 +224,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 #### Added Wave 3D: WCEU 2026 Talk Planning (Claude)
 
 - **Assignment**: Claude (AI Team - Review & UX)
-- **Issue**: #529
+- **Issue**: [#529](https://github.com/lightspeedwp/.github/issues/529)
 - **Scope**: Audit talk assets, harden NotebookLM prompts, produce improvements plan
 - **Deliverables**: Folder audit, updated prompts, source ingestion order, acceptance checklist
 - **Status**: Ready for execution
@@ -290,7 +290,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 
 | Risk | Mitigation |
 | --- | --- |
-| Schema too rigid | Gather feedback in #49; design for extensibility |
+| Schema too rigid | Gather feedback in [#49](https://github.com/lightspeedwp/.github/issues/49); design for extensibility |
 | Over-engineering | Keep Phase 1 focused on current needs |
 | Duplicate footer conflicts | Audit phase will identify; prioritise by frequency |
 | Inconsistent remediation | Automated script + CI validation prevents drift |
@@ -310,7 +310,7 @@ A **comprehensive, 20-slide generation prompt** covering:
 
 ### Branding Meta Agent
 
-- [ ] All 4 specification issues (#33, #46, #48, #49) merged with maintainer approval
+- [ ] All 4 specification issues ([#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49)) merged with maintainer approval
 - [ ] Category taxonomy locked and documented
 - [ ] Schema/config model approved and ready for implementation
 - [ ] Current-state audit identifies all duplicate footers
@@ -334,12 +334,12 @@ A **comprehensive, 20-slide generation prompt** covering:
 
 1. ✅ **Planning complete** — Review documents above
 2. ⬜ **Share with maintainer(s)** — Get feedback on branding agent plan
-3. ⬜ **Lock category taxonomy** — Confirm #33 scope with stakeholders
+3. ⬜ **Lock category taxonomy** — Confirm [#33](https://github.com/lightspeedwp/.github/issues/33) scope with stakeholders
 4. ⬜ **Start slide generation** — Use `SLIDES_GENERATION_PROMPT.md` with chosen tool
 
 ### Next Week
 
-1. ⬜ **Complete specification issues** (#33, #46, #49, #48)
+1. ⬜ **Complete specification issues** ([#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49), [#48](https://github.com/lightspeedwp/.github/issues/48))
 2. ⬜ **Current-state audit** — Scan all `.md` files for footers
 3. ⬜ **Generate NotebookLM research** — Use hardened prompts
 4. ⬜ **Finalize slide deck** — Add speaker notes and practice delivery
@@ -357,16 +357,16 @@ A **comprehensive, 20-slide generation prompt** covering:
 
 ### Branding Meta Agent
 
-- Issue #33: <https://github.com/lightspeedwp/.github/issues/33>
-- Issue #46: <https://github.com/lightspeedwp/.github/issues/46>
-- Issue #48: <https://github.com/lightspeedwp/.github/issues/48>
-- Issue #49: <https://github.com/lightspeedwp/.github/issues/49>
+- Issue [#33](https://github.com/lightspeedwp/.github/issues/33): <https://github.com/lightspeedwp/.github/issues/33>
+- Issue [#46](https://github.com/lightspeedwp/.github/issues/46): <https://github.com/lightspeedwp/.github/issues/46>
+- Issue [#48](https://github.com/lightspeedwp/.github/issues/48): <https://github.com/lightspeedwp/.github/issues/48>
+- Issue [#49](https://github.com/lightspeedwp/.github/issues/49): <https://github.com/lightspeedwp/.github/issues/49>
 - Planning doc: `.github/projects/active/branding-meta-agent-planning-2026-05-28.md`
 - Execution plan: `.github/projects/active/next-issues-execution-plan.md`
 
 ### WCEU 2026 Talk
 
-- Issue #529: <https://github.com/lightspeedwp/.github/issues/529>
+- Issue [#529](https://github.com/lightspeedwp/.github/issues/529): <https://github.com/lightspeedwp/.github/issues/529>
 - Slides prompt: `wceu-2026/SLIDES_GENERATION_PROMPT.md`
 - Deep research prompt: `wceu-2026/notebooklm/deep-research-prompt.md`
 - Source checklist: `wceu-2026/notebooklm/source-ingestion-checklist.md`
@@ -384,4 +384,4 @@ A **comprehensive, 20-slide generation prompt** covering:
 **Created**: 2026-05-28
 **By**: Claude
 **For**: LightSpeed Team
-**Related work**: Issues #33, #46, #48, #49, #529
+**Related work**: Issues [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49), [#529](https://github.com/lightspeedwp/.github/issues/529)

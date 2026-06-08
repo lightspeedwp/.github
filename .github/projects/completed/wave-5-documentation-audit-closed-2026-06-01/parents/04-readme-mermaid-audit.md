@@ -8,7 +8,7 @@ area:
   - "area:documentation"
   - "area:a11y"
 priority: "priority:normal"
-status: draft
+status: completed
 effort: "XL"
 children:
   - "4.1-discover-audit-readmes"

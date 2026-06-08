@@ -1106,7 +1106,7 @@ Group properties logically:
 →   line-height: 1.5;
 →
 →   /* Visual */
-→   color: #333;
+→   color: [#333](https://github.com/lightspeedwp/.github/issues/333);
 →   background: #fff;
 →
 →   /* Other */
@@ -1319,7 +1319,7 @@ Group media queries at bottom of stylesheet, organized by breakpoint.
 ```scss
 // Colors
 $color-primary: #0073aa;
-$color-secondary: #005177;
+$color-secondary: [#005177](https://github.com/lightspeedwp/.github/issues/005177);
 
 // Spacing
 $spacing-small: 1rem;

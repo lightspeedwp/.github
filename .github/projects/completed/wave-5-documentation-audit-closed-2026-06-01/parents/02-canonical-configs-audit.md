@@ -8,7 +8,7 @@ area:
   - "area:labels"
   - "area:automation"
 priority: "priority:important"
-status: draft
+status: completed
 effort: "L"
 children:
   - "2.1-labels-color-consistency"

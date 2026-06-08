@@ -5,7 +5,7 @@ file_type: documentation
 title: "[Task] Triage legacy root files and complete cleanup closeout"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-03"
-status: draft
+status: active
 ---
 
 # [Task] Triage legacy root files and complete cleanup closeout

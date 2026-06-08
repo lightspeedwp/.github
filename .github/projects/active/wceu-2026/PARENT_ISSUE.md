@@ -10,7 +10,7 @@ file_type: documentation
 **Title**: WCEU 2026 Talk Preparation — Finalize 25-Minute Presentation  
 **Type**: Epic/Parent Issue  
 **Priority**: Critical  
-**Status**: Closed (issue #564 closed; doc retained for historical trace)  
+**Status**: Closed (issue [#564](https://github.com/lightspeedwp/.github/issues/564) closed; doc retained for historical trace)  
 **Due Date**: May 31, 2026 (48 hours)  
 **Talk Date**: June 5–6, 2026  
 **Assignee**: Ash Shaw  

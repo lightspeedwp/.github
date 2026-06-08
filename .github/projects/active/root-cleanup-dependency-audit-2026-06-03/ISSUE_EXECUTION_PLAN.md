@@ -3,7 +3,7 @@ file_type: documentation
 title: "Issue Execution Plan - Root Cleanup and Dependency Audit"
 description: "Sequenced /opsx:propose execution plan for dependency and root cleanup"
 last_updated: "2026-06-03"
-status: draft
+status: active
 ---
 
 # Issue Execution Plan

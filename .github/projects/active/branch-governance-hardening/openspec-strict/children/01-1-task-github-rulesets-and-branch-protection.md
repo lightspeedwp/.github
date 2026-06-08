@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["branching", "rulesets", "permissions", "github"]
 domain: "governance"
 stability: "experimental"
-status: "draft"
+status: active
 ---
 
 # GitHub Rulesets and Branch Protection

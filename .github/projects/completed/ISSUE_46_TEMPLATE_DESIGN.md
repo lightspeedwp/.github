@@ -1,5 +1,5 @@
 ---
-title: "Branding Agent Template Design — Issue #46"
+title: "Branding Agent Template Design — Issue [#46](https://github.com/lightspeedwp/.github/issues/46)"
 description: "Comprehensive template design for footer, header, and badge templates for unified branding agent covering all 16 document categories"
 file_type: "documentation"
 created_date: "2026-05-28"
@@ -9,10 +9,10 @@ owners: ["Ash Shaw"]
 tags: ["branding", "templates", "headers", "footers", "badges", "design"]
 ---
 
-# Branding Agent Template Design (Issue #46)
+# Branding Agent Template Design (Issue [#46](https://github.com/lightspeedwp/.github/issues/46))
 
-**Parent Issue**: #33 (Parent Specification)
-**Related Issues**: #49 (Schema/Config), #48 (Agent Implementation)
+**Parent Issue**: [#33](https://github.com/lightspeedwp/.github/issues/33) (Parent Specification)
+**Related Issues**: [#49](https://github.com/lightspeedwp/.github/issues/49) (Schema/Config), [#48](https://github.com/lightspeedwp/.github/issues/48) (Agent Implementation)
 **Status**: Template Design Phase
 **Effort**: 8–10 hours (design and documentation)
 **Timeline**: Week 2 implementation
@@ -29,7 +29,7 @@ This document defines the header, footer, and badge templates for the unified br
 - **Accessible**: WCAG 2.2 AA compliant, low-noise design
 - **Maintainable**: Clear structure for future extensions
 
-This design unblocks Issue #49 (Schema/Config) and Issue #48 (Agent Implementation) by providing the definitive template specifications.
+This design unblocks Issue [#49](https://github.com/lightspeedwp/.github/issues/49) (Schema/Config) and Issue [#48](https://github.com/lightspeedwp/.github/issues/48) (Agent Implementation) by providing the definitive template specifications.
 
 ---
 
@@ -917,9 +917,9 @@ Template selection will use:
 
 ## 9. Implementation Relationship
 
-- **Depends on**: Issue #33 (Parent Specification) ✅
-- **Enables**: Issue #49 (Schema/Config Implementation)
-- **Enables**: Issue #48 (Agent Implementation)
+- **Depends on**: Issue [#33](https://github.com/lightspeedwp/.github/issues/33) (Parent Specification) ✅
+- **Enables**: Issue [#49](https://github.com/lightspeedwp/.github/issues/49) (Schema/Config Implementation)
+- **Enables**: Issue [#48](https://github.com/lightspeedwp/.github/issues/48) (Agent Implementation)
 
 ---
 
@@ -932,9 +932,9 @@ Template selection will use:
 - [x] Accessibility and readability constraints defined
 - [x] Configuration implementation approach documented
 - [x] Template selection logic documented
-- [x] Cross-references to Issue #49 and #48 included
-- [x] Document follows Issue #33 specification exactly
-- [x] Ready for Issue #49 schema design phase
+- [x] Cross-references to Issue [#49](https://github.com/lightspeedwp/.github/issues/49) and [#48](https://github.com/lightspeedwp/.github/issues/48) included
+- [x] Document follows Issue [#33](https://github.com/lightspeedwp/.github/issues/33) specification exactly
+- [x] Ready for Issue [#49](https://github.com/lightspeedwp/.github/issues/49) schema design phase
 
 ---
 
@@ -942,9 +942,9 @@ Template selection will use:
 
 **Related Issues**:
 
-- #33 — Parent specification (unblocking this document)
-- #49 — Schema/Config implementation
-- #48 — Agent implementation
+- [#33](https://github.com/lightspeedwp/.github/issues/33) — Parent specification (unblocking this document)
+- [#49](https://github.com/lightspeedwp/.github/issues/49) — Schema/Config implementation
+- [#48](https://github.com/lightspeedwp/.github/issues/48) — Agent implementation
 
 **Related Files**:
 

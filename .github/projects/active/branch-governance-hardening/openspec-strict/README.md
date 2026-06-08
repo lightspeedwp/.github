@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["openspec", "proposal", "governance", "branches", "automation"]
 domain: "governance"
 stability: "experimental"
-status: "active"
+status: active
 ---
 
 # Branch Governance Hardening - Strict Proposal Pack

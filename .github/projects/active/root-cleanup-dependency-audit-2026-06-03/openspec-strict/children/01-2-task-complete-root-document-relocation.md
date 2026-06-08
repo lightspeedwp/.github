@@ -5,7 +5,7 @@ file_type: documentation
 title: "[Task] Complete root document relocation and reference hygiene"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-03"
-status: draft
+status: active
 ---
 
 # [Task] Complete root document relocation and reference hygiene

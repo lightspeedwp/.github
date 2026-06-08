@@ -1,7 +1,7 @@
 ---
 file_type: documentation
 title: "Portable Schemas Migration Report"
-description: "Issue #297 evidence for moving active portable schemas from .github/schemas into /schema."
+description: "Issue [#297](https://github.com/lightspeedwp/.github/issues/297) evidence for moving active portable schemas from .github/schemas into /schema."
 version: "v0.1.0"
 last_updated: '2026-06-01'
 maintainer: "LightSpeed Team"

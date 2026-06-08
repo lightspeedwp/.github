@@ -3,11 +3,11 @@ issue_number: 659
 file_type: documentation
 description: "Verify issue types align with templates and labels"
 parent_issue: 650
-title: "[Child of #650] Audit: Issue Types Alignment with Templates & Labels"
+title: "[Child of [#650](https://github.com/lightspeedwp/.github/issues/650)] Audit: Issue Types Alignment with Templates & Labels"
 type: "type:audit"
 area: "area:labels"
 priority: "priority:important"
-status: draft
+status: completed
 effort: "M"
 ---
 

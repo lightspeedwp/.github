@@ -1,9 +1,9 @@
 ---
 file_type: "documentation"
-title: "Issue #670 — Update & Refresh README Files"
+title: "Issue [#670](https://github.com/lightspeedwp/.github/issues/670) — Update & Refresh README Files"
 description: "Systematic refresh of all 57 README.md files with current information, broken link fixes, and consistent formatting"
 version: "1.0.0"
-status: "draft"
+status: completed
 last_updated: "2026-05-31"
 author: "Claude Code"
 owners:
@@ -12,17 +12,19 @@ tags: ["readme", "documentation", "maintenance", "issue-670"]
 category: "project"
 priority: "high"
 related_issues:
-  - "#667"
-  - "#668"
-  - "#669"
+  - "[#667](https://github.com/lightspeedwp/.github/issues/667)"
+  - "[#668](https://github.com/lightspeedwp/.github/issues/668)"
+  - "[#669](https://github.com/lightspeedwp/.github/issues/669)"
 ---
 related_issues:
-  - "#668"
-  - "#669"
-  - "#667"
+
+- "[#668](https://github.com/lightspeedwp/.github/issues/668)"
+- "[#669](https://github.com/lightspeedwp/.github/issues/669)"
+- "[#667](https://github.com/lightspeedwp/.github/issues/667)"
+
 ---
 
-# Issue #670: Update & Refresh README Files
+# Issue [#670](https://github.com/lightspeedwp/.github/issues/670): Update & Refresh README Files
 
 ## Overview
 
@@ -163,10 +165,10 @@ For each file updated:
 
 ## Related Issues
 
-- **#667** — Wave 5 README Discovery & Audit
-- **#668** — Mermaid Syntax Validation
-- **#669** — Mermaid Accessibility Compliance (COMPLETED ✅)
-- **#670** — Update & Refresh README Files (THIS ISSUE)
+- **[#667](https://github.com/lightspeedwp/.github/issues/667)** — Wave 5 README Discovery & Audit
+- **[#668](https://github.com/lightspeedwp/.github/issues/668)** — Mermaid Syntax Validation
+- **[#669](https://github.com/lightspeedwp/.github/issues/669)** — Mermaid Accessibility Compliance (COMPLETED ✅)
+- **[#670](https://github.com/lightspeedwp/.github/issues/670)** — Update & Refresh README Files (THIS ISSUE)
 
 ## Success Criteria
 
@@ -174,7 +176,7 @@ For each file updated:
 ✅ No broken links in any file
 ✅ Consistent formatting across all files
 ✅ All frontmatter fields present and valid
-✅ Mermaid diagrams fully validated (Issue #669 compliance)
+✅ Mermaid diagrams fully validated (Issue [#669](https://github.com/lightspeedwp/.github/issues/669) compliance)
 ✅ UK English spelling throughout
 ✅ Accessibility compliance verified
 

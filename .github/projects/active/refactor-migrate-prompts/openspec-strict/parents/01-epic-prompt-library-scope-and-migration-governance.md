@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Epic] Prompt library scope classification and migration governance"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-01"
-status: draft
+status: active
 ---
 
 

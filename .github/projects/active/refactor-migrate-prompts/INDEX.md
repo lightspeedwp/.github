@@ -5,7 +5,7 @@ description: "Parent and child specs for migrating organisation-wide prompts fro
 version: "1.0.0"
 created_date: "2026-06-01"
 last_updated: "2026-06-01"
-status: draft
+status: active
 ---
 
 # Prompt Library Refactor & Migration — Issue Index

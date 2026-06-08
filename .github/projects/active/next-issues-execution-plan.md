@@ -38,7 +38,7 @@ status: active
   - Phase 2: full resource-style site expansion
 - GitHub Pages target: custom subdomain `github.lightspeedwp.agency` with `lightspeedwp.github.io` as the Pages CNAME target.
 - Source briefs were normalised into the project folder so the phase split can be planned without leaking talk-specific copy into the site plan.
-- Created GitHub issues `#756` through `#766` for the phase 1 and phase 2 chains; next step is to keep the project register and launch docs aligned as implementation progresses.
+- Created GitHub issues `[#756](https://github.com/lightspeedwp/.github/issues/756)` through `[#766](https://github.com/lightspeedwp/.github/issues/766)` for the phase 1 and phase 2 chains; next step is to keep the project register and launch docs aligned as implementation progresses.
 
 ## 2026-06-03 Awesome GitHub WCEU Expansion Update
 
@@ -58,11 +58,11 @@ status: active
 - Additional blocker surfaced and fixed during gate verification:
   - `npm run validate:frontmatter` failed on 13 files in `.github/projects/active/refactor-migrate-prompts/*`.
   - Remediated invalid frontmatter schema usage (status enum and missing required metadata).
-- Next in strict order: critical release safety bugs `#587`, `#589`, `#590`, `#588`.
+- Next in strict order: critical release safety bugs `[#587](https://github.com/lightspeedwp/.github/issues/587)`, `[#589](https://github.com/lightspeedwp/.github/issues/589)`, `[#590](https://github.com/lightspeedwp/.github/issues/590)`, `[#588](https://github.com/lightspeedwp/.github/issues/588)`.
 
 ## 2026-06-01 v0.5.0 Readiness Execution Update (Block 2)
 
-- Scope executed: `#746` then `#602` with `#599`, `#600`, `#601` (coverage/reliability gate).
+- Scope executed: `[#746](https://github.com/lightspeedwp/.github/issues/746)` then `[#602](https://github.com/lightspeedwp/.github/issues/602)` with `[#599](https://github.com/lightspeedwp/.github/issues/599)`, `[#600](https://github.com/lightspeedwp/.github/issues/600)`, `[#601](https://github.com/lightspeedwp/.github/issues/601)` (coverage/reliability gate).
 - Implemented test/reactivation work:
   - Added active planner/reviewer reliability suites:
     - `scripts/agents/__tests__/planner.agent.test.js`
@@ -80,11 +80,11 @@ status: active
   - Focused reliability suite: `20/20` tests passed.
   - Focused coverage: `planner.agent.js 82.20%`, `reviewer.agent.js 91.34%` statements.
   - Full readiness gates re-run: `validate:frontmatter`, `validate:workflows`, `validate:agents`, `validate:skill-manifests`, `validate:plugins`, and `npm test` all passing.
-- Next in strict order: release completeness chain `#594`, `#592`, `#591`, `#595`, `#593`.
+- Next in strict order: release completeness chain `[#594](https://github.com/lightspeedwp/.github/issues/594)`, `[#592](https://github.com/lightspeedwp/.github/issues/592)`, `[#591](https://github.com/lightspeedwp/.github/issues/591)`, `[#595](https://github.com/lightspeedwp/.github/issues/595)`, `[#593](https://github.com/lightspeedwp/.github/issues/593)`.
 
 ## 2026-06-01 v0.5.0 Readiness Execution Update (Block 3)
 
-- Scope executed: release completeness chain `#594`, `#592`, `#591`, `#595`, `#593`.
+- Scope executed: release completeness chain `[#594](https://github.com/lightspeedwp/.github/issues/594)`, `[#592](https://github.com/lightspeedwp/.github/issues/592)`, `[#591](https://github.com/lightspeedwp/.github/issues/591)`, `[#595](https://github.com/lightspeedwp/.github/issues/595)`, `[#593](https://github.com/lightspeedwp/.github/issues/593)`.
 - Implemented release safety/completeness work:
   - Added rollback automation utility:
     - `scripts/workflows/release/rollback.cjs` (`--version`, `--force`, `--dry-run`)
@@ -97,37 +97,37 @@ status: active
   - Completed release governance instructions body:
     - `instructions/release.instructions.md`
 - Issue state updates completed:
-  - Closed: `#594`, `#592`, `#591`, `#595`, `#593`.
-- Next in strict order: launch-gate chain `#729`, `#730`, `#731`, then `#728`.
+  - Closed: `[#594](https://github.com/lightspeedwp/.github/issues/594)`, `[#592](https://github.com/lightspeedwp/.github/issues/592)`, `[#591](https://github.com/lightspeedwp/.github/issues/591)`, `[#595](https://github.com/lightspeedwp/.github/issues/595)`, `[#593](https://github.com/lightspeedwp/.github/issues/593)`.
+- Next in strict order: launch-gate chain `[#729](https://github.com/lightspeedwp/.github/issues/729)`, `[#730](https://github.com/lightspeedwp/.github/issues/730)`, `[#731](https://github.com/lightspeedwp/.github/issues/731)`, then `[#728](https://github.com/lightspeedwp/.github/issues/728)`.
 
 ## 2026-06-01 v0.5.0 Readiness Execution Update (Block 4)
 
-- Scope executed: launch-gate chain `#729`, `#730`, `#731`, then parent `#728`.
+- Scope executed: launch-gate chain `[#729](https://github.com/lightspeedwp/.github/issues/729)`, `[#730](https://github.com/lightspeedwp/.github/issues/730)`, `[#731](https://github.com/lightspeedwp/.github/issues/731)`, then parent `[#728](https://github.com/lightspeedwp/.github/issues/728)`.
 - Closure status:
-  - Closed: `#729`, `#730`, `#731`, `#728`.
+  - Closed: `[#729](https://github.com/lightspeedwp/.github/issues/729)`, `[#730](https://github.com/lightspeedwp/.github/issues/730)`, `[#731](https://github.com/lightspeedwp/.github/issues/731)`, `[#728](https://github.com/lightspeedwp/.github/issues/728)`.
 - Evidence basis:
-  - Prior blocker chains (`#746`, `#602`, `#599`, `#600`, `#601`, `#594`, `#592`, `#591`, `#595`, `#593`) closed.
+  - Prior blocker chains (`[#746](https://github.com/lightspeedwp/.github/issues/746)`, `[#602](https://github.com/lightspeedwp/.github/issues/602)`, `[#599](https://github.com/lightspeedwp/.github/issues/599)`, `[#600](https://github.com/lightspeedwp/.github/issues/600)`, `[#601](https://github.com/lightspeedwp/.github/issues/601)`, `[#594](https://github.com/lightspeedwp/.github/issues/594)`, `[#592](https://github.com/lightspeedwp/.github/issues/592)`, `[#591](https://github.com/lightspeedwp/.github/issues/591)`, `[#595](https://github.com/lightspeedwp/.github/issues/595)`, `[#593](https://github.com/lightspeedwp/.github/issues/593)`) closed.
   - Required validation gates remained passing for release readiness.
 
 ## 2026-06-01 v0.5.0 Readiness Execution Update (Block 5)
 
-- Scope evaluation completed for `#614`, `#615`, `#616`, `#627`, `#628`, `#629`, `#632`.
+- Scope evaluation completed for `[#614](https://github.com/lightspeedwp/.github/issues/614)`, `[#615](https://github.com/lightspeedwp/.github/issues/615)`, `[#616](https://github.com/lightspeedwp/.github/issues/616)`, `[#627](https://github.com/lightspeedwp/.github/issues/627)`, `[#628](https://github.com/lightspeedwp/.github/issues/628)`, `[#629](https://github.com/lightspeedwp/.github/issues/629)`, `[#632](https://github.com/lightspeedwp/.github/issues/632)`.
 - Decision:
   - Closed as `not planned` for this milestone (post-release enhancement/debt scope; not blocking safe `v0.5.0` tagging).
 - Meta tracker closeout:
-  - Closed final tracker `#747` after all ordered chains and scope evaluations were completed.
+  - Closed final tracker `[#747](https://github.com/lightspeedwp/.github/issues/747)` after all ordered chains and scope evaluations were completed.
 
 ## 2026-06-01 Audit Update (Canonical)
 
 - Parent/child issue hierarchy repaired for open titled-child issues:
-  - `#654 #655 #656 #657` -> parent `#649`
-  - `#660 #661` -> parent `#650`
-  - `#664 #665` -> parent `#651`
-  - `#671 #672 #673` -> parent `#653`
+  - `[#654](https://github.com/lightspeedwp/.github/issues/654) [#655](https://github.com/lightspeedwp/.github/issues/655) [#656](https://github.com/lightspeedwp/.github/issues/656) [#657](https://github.com/lightspeedwp/.github/issues/657)` -> parent `[#649](https://github.com/lightspeedwp/.github/issues/649)`
+  - `[#660](https://github.com/lightspeedwp/.github/issues/660) [#661](https://github.com/lightspeedwp/.github/issues/661)` -> parent `[#650](https://github.com/lightspeedwp/.github/issues/650)`
+  - `[#664](https://github.com/lightspeedwp/.github/issues/664) [#665](https://github.com/lightspeedwp/.github/issues/665)` -> parent `[#651](https://github.com/lightspeedwp/.github/issues/651)`
+  - `[#671](https://github.com/lightspeedwp/.github/issues/671) [#672](https://github.com/lightspeedwp/.github/issues/672) [#673](https://github.com/lightspeedwp/.github/issues/673)` -> parent `[#653](https://github.com/lightspeedwp/.github/issues/653)`
 - Corrected status truth:
-  - `#514` (Wave 3C) is **closed**.
-  - `#670` (README refresh child) is **closed**.
-  - `#35` (instruction audit) is **closed**.
+  - `[#514](https://github.com/lightspeedwp/.github/issues/514)` (Wave 3C) is **closed**.
+  - `[#670](https://github.com/lightspeedwp/.github/issues/670)` (README refresh child) is **closed**.
+  - `[#35](https://github.com/lightspeedwp/.github/issues/35)` (instruction audit) is **closed**.
 - Active-project restructure completed:
   - `test-coverage-implementation.md` moved to `test-coverage-implementation/README.md`.
   - `issue-670-readme-refresh-tasks.md` moved to `issue-670-readme-refresh/README.md`.
@@ -149,37 +149,37 @@ LightSpeed `.github` repository. It consolidates:
 
 **Completed Waves**:
 
-- ✅ Wave 1: API reference updates (PR #494)
-- ✅ Wave 2B: 7 agent spec upgrades (PRs #515–#521)
-- ✅ Wave 2D: `.coderabbit.yml` (#23) + `markdown.instructions.md` (#31)
-- ✅ Wave 3B: README & Mermaid diagram repairs (#513)
-- ✅ Wave 3D: WCEU 2026 talk assets audit (#529)
-- ✅ Wave 4A/4B/4D: Branding agent specs (#33, #46, #48, #49)
-- ✅ Wave 4C: Branding agent current-state audit (#553)
-- ✅ Wave 4D: Branding agent schema & config implementation (#554)
-- ✅ Wave 4E: Branding agent consolidation (#555)
-- ✅ Wave 4F: Branding agent remediation & validation (#556)
-- ✅ Workflow Consolidation Epic (#503)
+- ✅ Wave 1: API reference updates (PR [#494](https://github.com/lightspeedwp/.github/issues/494))
+- ✅ Wave 2B: 7 agent spec upgrades (PRs [#515](https://github.com/lightspeedwp/.github/issues/515)–[#521](https://github.com/lightspeedwp/.github/issues/521))
+- ✅ Wave 2D: `.coderabbit.yml` ([#23](https://github.com/lightspeedwp/.github/issues/23)) + `markdown.instructions.md` ([#31](https://github.com/lightspeedwp/.github/issues/31))
+- ✅ Wave 3B: README & Mermaid diagram repairs ([#513](https://github.com/lightspeedwp/.github/issues/513))
+- ✅ Wave 3D: WCEU 2026 talk assets audit ([#529](https://github.com/lightspeedwp/.github/issues/529))
+- ✅ Wave 4A/4B/4D: Branding agent specs ([#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49))
+- ✅ Wave 4C: Branding agent current-state audit ([#553](https://github.com/lightspeedwp/.github/issues/553))
+- ✅ Wave 4D: Branding agent schema & config implementation ([#554](https://github.com/lightspeedwp/.github/issues/554))
+- ✅ Wave 4E: Branding agent consolidation ([#555](https://github.com/lightspeedwp/.github/issues/555))
+- ✅ Wave 4F: Branding agent remediation & validation ([#556](https://github.com/lightspeedwp/.github/issues/556))
+- ✅ Workflow Consolidation Epic ([#503](https://github.com/lightspeedwp/.github/issues/503))
 
 **Current Focus**:
 
-- **Claude Code**: Executing Wave 5 Documentation Audit (5 parent + 24 child issues created #649–#673). Proceeding with first actionable audit task.
+- **Claude Code**: Executing Wave 5 Documentation Audit (5 parent + 24 child issues created [#649](https://github.com/lightspeedwp/.github/issues/649)–[#673](https://github.com/lightspeedwp/.github/issues/673)). Proceeding with first actionable audit task.
 - GitHub Copilot: Previous Wave 2A/2C/3A/3C tasks available if capacity allows; defer to current priorities.
 
 ## Mandatory Agent Execution Split
 
 This section is authoritative for who must execute each task stream.
 
-- **GitHub Copilot must do**: Wave 2A (`#476`, `#480`, `#482`), Wave 2C (`#488`, `#490`), Wave 3A (`#512`), Wave 3C (`#514`), and plugin-pack execution task lists.
-- **Claude Code must do**: Wave 2B (`#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486`), Wave 2D (`#31`, `#23`), Wave 3B (`#513`), Wave 3D (`#529`), and Wave 4 branding/meta work (`#33`, `#46`, `#48`, `#49`).
+- **GitHub Copilot must do**: Wave 2A (`[#476](https://github.com/lightspeedwp/.github/issues/476)`, `[#480](https://github.com/lightspeedwp/.github/issues/480)`, `[#482](https://github.com/lightspeedwp/.github/issues/482)`), Wave 2C (`[#488](https://github.com/lightspeedwp/.github/issues/488)`, `[#490](https://github.com/lightspeedwp/.github/issues/490)`), Wave 3A (`[#512](https://github.com/lightspeedwp/.github/issues/512)`), Wave 3C (`[#514](https://github.com/lightspeedwp/.github/issues/514)`), and plugin-pack execution task lists.
+- **Claude Code must do**: Wave 2B (`[#470](https://github.com/lightspeedwp/.github/issues/470)`, `[#471](https://github.com/lightspeedwp/.github/issues/471)`, `[#473](https://github.com/lightspeedwp/.github/issues/473)`, `[#475](https://github.com/lightspeedwp/.github/issues/475)`, `[#478](https://github.com/lightspeedwp/.github/issues/478)`, `[#484](https://github.com/lightspeedwp/.github/issues/484)`, `[#486](https://github.com/lightspeedwp/.github/issues/486)`), Wave 2D (`[#31](https://github.com/lightspeedwp/.github/issues/31)`, `[#23](https://github.com/lightspeedwp/.github/issues/23)`), Wave 3B (`[#513](https://github.com/lightspeedwp/.github/issues/513)`), Wave 3D (`[#529](https://github.com/lightspeedwp/.github/issues/529)`), and Wave 4 branding/meta work (`[#33](https://github.com/lightspeedwp/.github/issues/33)`, `[#46](https://github.com/lightspeedwp/.github/issues/46)`, `[#48](https://github.com/lightspeedwp/.github/issues/48)`, `[#49](https://github.com/lightspeedwp/.github/issues/49)`).
 - **No cross-execution**: Copilot must not execute Claude Code exclusive tasks, and Claude Code must not take over Copilot execution queues unless this file is explicitly revised.
 
 ## GitHub Copilot Continuation Mandate
 
 GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queue without handoff:
 
-- **Wave 2A**: `#476`, `#480`, `#482`
-- **Wave 2C**: `#488`, `#490`
+- **Wave 2A**: `[#476](https://github.com/lightspeedwp/.github/issues/476)`, `[#480](https://github.com/lightspeedwp/.github/issues/480)`, `[#482](https://github.com/lightspeedwp/.github/issues/482)`
+- **Wave 2C**: `[#488](https://github.com/lightspeedwp/.github/issues/488)`, `[#490](https://github.com/lightspeedwp/.github/issues/490)`
 - **Execution expectation**: proceed issue-by-issue from the current queue, complete scoped implementation and validation, and stop only when the work is packaged into PR-ready changes for merge back into `develop`.
 - **Readiness bar**: acceptance criteria met, local validation completed, changelog/documentation updated where needed, and branch state suitable for opening a merge-ready PR.
 
@@ -191,28 +191,28 @@ GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queu
 
 | Project File | Status | Owner | Action |
 | --- | --- | --- | --- |
-| `github-workflow-consolidation-2026-05-28/` | ✅ COMPLETED - Epic #503 closed, planning docs ready for archive | GitHub Copilot | Archive to `completed/` folder after final review |
+| `github-workflow-consolidation-2026-05-28/` | ✅ COMPLETED - Epic [#503](https://github.com/lightspeedwp/.github/issues/503) closed, planning docs ready for archive | GitHub Copilot | Archive to `completed/` folder after final review |
 | `branch-governance-hardening/` | 🆕 ACTIVE - Branch rulesets, workflow validation, and AI branch-selection guardrails | GitHub Copilot | Keep the issue pack, live issues, and rollout controls aligned |
 | `launch-agents-checklist.md` | 🟡 IN PROGRESS - Partial test infrastructure fixes applied 2026-05-28 | LightSpeed Team | Complete remaining validation phases (critical pre-v1.0.0 release) |
 | `awesome-github-site/` | 🟢 ACTIVE - Conference-ready WCEU site with slide subpages and theme switcher | Ash Shaw | Keep slide references, accessibility notes, and nav links aligned as the site expands |
-| `spec-only-agents-issue-conversion-2026-05-28.md` | ✅ COMPLETED - All spec-only agents converted to issues (#465, #467, #466, #468, #469) | GitHub Copilot | Archive to `completed/` folder |
+| `spec-only-agents-issue-conversion-2026-05-28.md` | ✅ COMPLETED - All spec-only agents converted to issues ([#465](https://github.com/lightspeedwp/.github/issues/465), [#467](https://github.com/lightspeedwp/.github/issues/467), [#466](https://github.com/lightspeedwp/.github/issues/466), [#468](https://github.com/lightspeedwp/.github/issues/468), [#469](https://github.com/lightspeedwp/.github/issues/469)) | GitHub Copilot | Archive to `completed/` folder |
 | `next-issues-execution-plan.md` | 📋 LIVING DOCUMENT - Updated 2026-05-29 with completion status and Wave 4C–4F allocation | Claude Code | Maintain and update continuously |
-| `ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` | ✅ COMPLETED - Issue #33 merged (planning phase) | Claude Code | Archive to `completed/` folder |
-| `ISSUE_46_TEMPLATE_DESIGN.md` | ✅ COMPLETED - Issue #46 merged (planning phase) | Claude Code | Archive to `completed/` folder |
-| `ISSUE_48_CURRENT_STATE_AUDIT.md` | ✅ COMPLETED - Issue #48 merged (planning phase) | Claude Code | Archive to `completed/` folder |
-| `ISSUE_49_SCHEMA_CONFIG_IMPLEMENTATION.md` | ✅ COMPLETED - Issue #49 merged (planning phase) | Claude Code | Archive to `completed/` folder |
-| `branding-meta-agent-planning-2026-05-28.md` | ✅ COMPLETED - Comprehensive Wave 4 planning (issues #33–#49 closed) | Claude Code | Archive to `completed/` folder |
+| `ISSUE_33_BRANDING_AGENT_PARENT_SPEC.md` | ✅ COMPLETED - Issue [#33](https://github.com/lightspeedwp/.github/issues/33) merged (planning phase) | Claude Code | Archive to `completed/` folder |
+| `ISSUE_46_TEMPLATE_DESIGN.md` | ✅ COMPLETED - Issue [#46](https://github.com/lightspeedwp/.github/issues/46) merged (planning phase) | Claude Code | Archive to `completed/` folder |
+| `ISSUE_48_CURRENT_STATE_AUDIT.md` | ✅ COMPLETED - Issue [#48](https://github.com/lightspeedwp/.github/issues/48) merged (planning phase) | Claude Code | Archive to `completed/` folder |
+| `ISSUE_49_SCHEMA_CONFIG_IMPLEMENTATION.md` | ✅ COMPLETED - Issue [#49](https://github.com/lightspeedwp/.github/issues/49) merged (planning phase) | Claude Code | Archive to `completed/` folder |
+| `branding-meta-agent-planning-2026-05-28.md` | ✅ COMPLETED - Comprehensive Wave 4 planning (issues [#33](https://github.com/lightspeedwp/.github/issues/33)–[#49](https://github.com/lightspeedwp/.github/issues/49) closed) | Claude Code | Archive to `completed/` folder |
 | `PLANNING_SUMMARY_2026-05-28.md` | ✅ COMPLETED - Planning summary for completed branding/WCEU initiatives | Claude Code | Archive to `completed/` folder |
-| `wave-3b-issue-spec.md` | ✅ COMPLETED - Issue #513 closed, remediation work ready for Wave 4C | Claude Code | Archive to `completed/` folder |
+| `wave-3b-issue-spec.md` | ✅ COMPLETED - Issue [#513](https://github.com/lightspeedwp/.github/issues/513) closed, remediation work ready for Wave 4C | Claude Code | Archive to `completed/` folder |
 | `wave-4-continuous-monitoring.md` | ✅ COMPLETED - Design spec ready for Wave 4C–4F implementation | Claude Code | Archive to `completed/` folder; reference in Wave 4C–4F tasks |
-| `wave-3c-issue-spec.md` | ✅ ACTIVE - Awaiting GitHub Copilot execution on issue #514 | GitHub Copilot | Maintain and track to completion |
+| `wave-3c-issue-spec.md` | ✅ ACTIVE - Awaiting GitHub Copilot execution on issue [#514](https://github.com/lightspeedwp/.github/issues/514) | GitHub Copilot | Maintain and track to completion |
 | `plugin-pack-next-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (next wave) | GitHub Copilot | Execute and update per task completion |
 | `plugin-pack-second-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (second wave) | GitHub Copilot | Track sequencing and dependencies across packs |
 | `plugin-pack-third-wave-task-list-2026-05-28.md` | ✅ ACTIVE - Plugin-pack rollout task queue (third wave) | GitHub Copilot | Maintain as queued backlog for post-second-wave execution |
 | `context-reduction-tasks.md` | ⏳ REQUIRES REVIEW - Needs audit for completion/archival status | TBD | Review and decide: archive or continue |
 | `test-coverage-implementation.md` | ⏳ REQUIRES REVIEW - Needs audit for completion/archival status | TBD | Review and decide: archive or continue |
 | `2025-12-11-wordpress-standards-compliance-comprehensive-review.md` | ⏳ REQUIRES REVIEW - Date-stamped archive candidate | TBD | Review and archive if complete |
-| `wave-5-documentation-audit/` | 🆕 ACTIVE - 5 parent + 24 child audits created (#649–#673) | Claude Code | Execute audits in priority order; consolidate findings into implementation issues |
+| `wave-5-documentation-audit/` | 🆕 ACTIVE - 5 parent + 24 child audits created ([#649](https://github.com/lightspeedwp/.github/issues/649)–[#673](https://github.com/lightspeedwp/.github/issues/673)) | Claude Code | Execute audits in priority order; consolidate findings into implementation issues |
 
 ### Projects Eligible for Archival (Review First)
 
@@ -226,8 +226,8 @@ GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queu
 
 ### Wave 1 — Completed ✅
 
-- `#52`: Update references from `create_issue` to `issue_write`
-- Status: Merged via PR `#494`
+- `[#52](https://github.com/lightspeedwp/.github/issues/52)`: Update references from `create_issue` to `issue_write`
+- Status: Merged via PR `[#494](https://github.com/lightspeedwp/.github/issues/494)`
 
 ### Wave 2 — In Progress 🟡
 
@@ -235,27 +235,27 @@ GitHub Copilot is confirmed to continue the remaining Wave 2 implementation queu
 
 Open issues:
 
-- `#476` — [Next Ready]
-- `#480` — [Queued]
-- `#482` — [Queued]
+- `[#476](https://github.com/lightspeedwp/.github/issues/476)` — [Next Ready]
+- `[#480](https://github.com/lightspeedwp/.github/issues/480)` — [Queued]
+- `[#482](https://github.com/lightspeedwp/.github/issues/482)` — [Queued]
 
 Recently completed:
 
-- `#465` (PR `#497`)
-- `#467` (PR `#500`)
-- `#466`, `#468`, `#469`
+- `[#465](https://github.com/lightspeedwp/.github/issues/465)` (PR `[#497](https://github.com/lightspeedwp/.github/issues/497)`)
+- `[#467](https://github.com/lightspeedwp/.github/issues/467)` (PR `[#500](https://github.com/lightspeedwp/.github/issues/500)`)
+- `[#466](https://github.com/lightspeedwp/.github/issues/466)`, `[#468](https://github.com/lightspeedwp/.github/issues/468)`, `[#469](https://github.com/lightspeedwp/.github/issues/469)`
 
 #### **Wave 2B: Mode & Planning Agent Batch** (Claude Code) ✅ COMPLETE
 
 All 7 issues merged 2026-05-28:
 
-- `#470` ✅ merged via PR `#515`
-- `#471` ✅ merged via PR `#516`
-- `#473` ✅ merged via PR `#517`
-- `#475` ✅ merged via PR `#518`
-- `#478` ✅ merged via PR `#519`
-- `#484` ✅ merged via PR `#520`
-- `#486` ✅ merged via PR `#521`
+- `[#470](https://github.com/lightspeedwp/.github/issues/470)` ✅ merged via PR `[#515](https://github.com/lightspeedwp/.github/issues/515)`
+- `[#471](https://github.com/lightspeedwp/.github/issues/471)` ✅ merged via PR `[#516](https://github.com/lightspeedwp/.github/issues/516)`
+- `[#473](https://github.com/lightspeedwp/.github/issues/473)` ✅ merged via PR `[#517](https://github.com/lightspeedwp/.github/issues/517)`
+- `[#475](https://github.com/lightspeedwp/.github/issues/475)` ✅ merged via PR `[#518](https://github.com/lightspeedwp/.github/issues/518)`
+- `[#478](https://github.com/lightspeedwp/.github/issues/478)` ✅ merged via PR `[#519](https://github.com/lightspeedwp/.github/issues/519)`
+- `[#484](https://github.com/lightspeedwp/.github/issues/484)` ✅ merged via PR `[#520](https://github.com/lightspeedwp/.github/issues/520)`
+- `[#486](https://github.com/lightspeedwp/.github/issues/486)` ✅ merged via PR `[#521](https://github.com/lightspeedwp/.github/issues/521)`
 
 Wave 2D is now unblocked.
 
@@ -263,15 +263,15 @@ Wave 2D is now unblocked.
 
 Issues:
 
-- `#488` — [Queued]
-- `#490` — [Queued]
+- `[#488](https://github.com/lightspeedwp/.github/issues/488)` — [Queued]
+- `[#490](https://github.com/lightspeedwp/.github/issues/490)` — [Queued]
 
 #### **Wave 2D: Documentation & Standards Audits** (Parallel Track) ✅ COMPLETE
 
 Both issues merged 2026-05-28:
 
-- `#31` ✅ merged via PR `#523` — `markdown.instructions.md` upgraded to v1.1
-- `#23` ✅ merged via PR `#522` — `.coderabbit.yml` hardened and schema-aligned
+- `[#31](https://github.com/lightspeedwp/.github/issues/31)` ✅ merged via PR `[#523](https://github.com/lightspeedwp/.github/issues/523)` — `markdown.instructions.md` upgraded to v1.1
+- `[#23](https://github.com/lightspeedwp/.github/issues/23)` ✅ merged via PR `[#522](https://github.com/lightspeedwp/.github/issues/522)` — `.coderabbit.yml` hardened and schema-aligned
 
 ---
 
@@ -311,7 +311,7 @@ README inventory: 44 files identified across the repo structure
    - Effort: 2-3 hours
    - Owner: GitHub Copilot (Developer)
 
-2. **Wave 3B: Repair & Update** ✅ ISSUE CREATED: #513 (Claude Code)
+2. **Wave 3B: Repair & Update** ✅ ISSUE CREATED: [#513](https://github.com/lightspeedwp/.github/issues/513) (Claude Code)
    - GitHub Issue: [#513 — Wave 3B: README & Mermaid Diagram Repair & Update](https://github.com/lightspeedwp/.github/issues/513)
    - Status: Issue created; ready for execution
    - Scope: Fix Mermaid syntax, add accessibility attributes, update stale content
@@ -320,7 +320,7 @@ README inventory: 44 files identified across the repo structure
    - Owner: Claude Code (AI Team - Review & UX)
    - Dependencies: Awaits Wave 3A audit report
 
-3. **Wave 3C: Workflow & Agent Coordination** ✅ ISSUE CREATED: #514 (GitHub Copilot)
+3. **Wave 3C: Workflow & Agent Coordination** ✅ ISSUE CREATED: [#514](https://github.com/lightspeedwp/.github/issues/514) (GitHub Copilot)
    - GitHub Issue: [#514 — Wave 3C: README Workflow & Agent Coordination Setup](https://github.com/lightspeedwp/.github/issues/514)
    - Status: Issue created; ready for execution
    - Scope: Create readme-update.yml workflow, integrate with Release Agent
@@ -347,17 +347,17 @@ README inventory: 44 files identified across the repo structure
 
 | Phase | Issues | Owner | Status | Completed |
 | --- | --- | --- | --- | --- |
-| **4A: Planning & Specification** | #33 (parent), #46 (templates), #49 (schema) | Claude Code | ✅ MERGED | 2026-05-28 |
-| **4B: Documentation & Governance** | #48 (documentation) | Claude Code | ✅ MERGED | 2026-05-28 |
+| **4A: Planning & Specification** | [#33](https://github.com/lightspeedwp/.github/issues/33) (parent), [#46](https://github.com/lightspeedwp/.github/issues/46) (templates), [#49](https://github.com/lightspeedwp/.github/issues/49) (schema) | Claude Code | ✅ MERGED | 2026-05-28 |
+| **4B: Documentation & Governance** | [#48](https://github.com/lightspeedwp/.github/issues/48) (documentation) | Claude Code | ✅ MERGED | 2026-05-28 |
 
 ### Next Implementation Phases (Claude Code Allocation)
 
 | Phase | Issues | Owner | Purpose | Dependencies |
 | --- | --- | --- | --- | --- |
-| **4C: Current-State Audit** | #553 | Claude Code | Audit existing footers, identify duplicates, validate against category schema | Awaits: #33, #46, #48, #49 merged ✅ |
-| **4D: Schema & Config Implementation** | #554 | Claude Code | Build `agent-config.schema.json`, YAML validation rules, category definitions | Awaits: #553 audit report |
-| **4E: Agent Merge/Refactor** | #555 | Claude Code | Consolidate header/footer/badge logic into unified branding agent | Awaits: #554 schema merged |
-| **4F: Remediation & Validation** | #556 | Claude Code | Fix bad footers across README.md files, validate schema compliance | Awaits: #555 agent merged |
+| **4C: Current-State Audit** | [#553](https://github.com/lightspeedwp/.github/issues/553) | Claude Code | Audit existing footers, identify duplicates, validate against category schema | Awaits: [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49) merged ✅ |
+| **4D: Schema & Config Implementation** | [#554](https://github.com/lightspeedwp/.github/issues/554) | Claude Code | Build `agent-config.schema.json`, YAML validation rules, category definitions | Awaits: [#553](https://github.com/lightspeedwp/.github/issues/553) audit report |
+| **4E: Agent Merge/Refactor** | [#555](https://github.com/lightspeedwp/.github/issues/555) | Claude Code | Consolidate header/footer/badge logic into unified branding agent | Awaits: [#554](https://github.com/lightspeedwp/.github/issues/554) schema merged |
+| **4F: Remediation & Validation** | [#556](https://github.com/lightspeedwp/.github/issues/556) | Claude Code | Fix bad footers across README.md files, validate schema compliance | Awaits: [#555](https://github.com/lightspeedwp/.github/issues/555) agent merged |
 
 **Key Implementation Deliverables**:
 
@@ -379,18 +379,18 @@ Keeping this workstream under Claude ensures the entire system (planning → spe
 
 **Status Tracking (Planning)**:
 
-- [x] Issue #33 (parent spec) completed and merged
-- [x] Issue #46 (template design) completed and merged
-- [x] Issue #49 (schema/config spec) completed and merged
-- [x] Issue #48 (documentation) completed and merged
+- [x] Issue [#33](https://github.com/lightspeedwp/.github/issues/33) (parent spec) completed and merged
+- [x] Issue [#46](https://github.com/lightspeedwp/.github/issues/46) (template design) completed and merged
+- [x] Issue [#49](https://github.com/lightspeedwp/.github/issues/49) (schema/config spec) completed and merged
+- [x] Issue [#48](https://github.com/lightspeedwp/.github/issues/48) (documentation) completed and merged
 
 **Next Steps (Implementation — Claude Code)**:
 
-- [x] Create Wave 4C issue (#553 current-state audit)
-- [x] Create Wave 4D issue (#554 schema/config implementation)
-- [x] Create Wave 4E issue (#555 agent merge/refactor)
-- [x] Create Wave 4F issue (#556 remediation & validation)
-- [ ] Execute #553–#556 in sequence (ready to start)
+- [x] Create Wave 4C issue ([#553](https://github.com/lightspeedwp/.github/issues/553) current-state audit)
+- [x] Create Wave 4D issue ([#554](https://github.com/lightspeedwp/.github/issues/554) schema/config implementation)
+- [x] Create Wave 4E issue ([#555](https://github.com/lightspeedwp/.github/issues/555) agent merge/refactor)
+- [x] Create Wave 4F issue ([#556](https://github.com/lightspeedwp/.github/issues/556) remediation & validation)
+- [ ] Execute [#553](https://github.com/lightspeedwp/.github/issues/553)–[#556](https://github.com/lightspeedwp/.github/issues/556) in sequence (ready to start)
 
 ---
 
@@ -398,7 +398,7 @@ Keeping this workstream under Claude ensures the entire system (planning → spe
 
 **Objective**: Audit talk assets and harden NotebookLM source prompts for the WordCamp Europe 2026 conference presentation.
 
-**Status**: ✅ MERGED (2026-05-28, Issue #529 closed)
+**Status**: ✅ MERGED (2026-05-28, Issue [#529](https://github.com/lightspeedwp/.github/issues/529) closed)
 
 **Scope Completed**:
 
@@ -418,7 +418,7 @@ Keeping this workstream under Claude ensures the entire system (planning → spe
 
 **Owner**: Claude Code (AI Team - Review & UX)
 
-**Completed**: Issue #529 closed 2026-05-28 20:38:14Z
+**Completed**: Issue [#529](https://github.com/lightspeedwp/.github/issues/529) closed 2026-05-28 20:38:14Z
 
 ---
 
@@ -432,11 +432,11 @@ Keeping this workstream under Claude ensures the entire system (planning → spe
 
 | Issue | Title | Status | Owner |
 | --- | --- | --- | --- |
-| #649 | Issue Templates, Automation, & AI Agent Integration | 🔴 Ready | Claude Code |
-| #650 | Canonical Config Files (labels, issue-types, issue-fields) | 🔴 Ready | Claude Code |
-| #651 | Documentation Consolidation - Reduce Duplication | 🔴 Ready | Claude Code |
-| #652 | 44 README Files - Mermaid Diagrams & Accessibility | 🟡 Follow-on (Wave 3B insights) | Claude Code |
-| #653 | File Organization - Align with CLAUDE.md Boundaries | 🔴 Ready | Claude Code |
+| [#649](https://github.com/lightspeedwp/.github/issues/649) | Issue Templates, Automation, & AI Agent Integration | 🔴 Ready | Claude Code |
+| [#650](https://github.com/lightspeedwp/.github/issues/650) | Canonical Config Files (labels, issue-types, issue-fields) | 🔴 Ready | Claude Code |
+| [#651](https://github.com/lightspeedwp/.github/issues/651) | Documentation Consolidation - Reduce Duplication | 🔴 Ready | Claude Code |
+| [#652](https://github.com/lightspeedwp/.github/issues/652) | 44 README Files - Mermaid Diagrams & Accessibility | 🟡 Follow-on (Wave 3B insights) | Claude Code |
+| [#653](https://github.com/lightspeedwp/.github/issues/653) | File Organization - Align with CLAUDE.md Boundaries | 🔴 Ready | Claude Code |
 
 **Scope**:
 
@@ -458,7 +458,7 @@ Wave 5 consolidates five parallel audit streams, each with 4-6 child issues:
 **Dependencies**:
 
 - Wave 5 audit findings → Wave 6 implementation issues
-- Wave 3B README audit report already available for #652
+- Wave 3B README audit report already available for [#652](https://github.com/lightspeedwp/.github/issues/652)
 
 ---
 
@@ -530,9 +530,9 @@ The **Release Agent** should coordinate the following workflows on demand:
 
 **Issues**:
 
-- `#466`, `#468`, `#469` ✅
-- `#476`, `#480`, `#482` (2A)
-- `#488`, `#490` (2C)
+- `[#466](https://github.com/lightspeedwp/.github/issues/466)`, `[#468](https://github.com/lightspeedwp/.github/issues/468)`, `[#469](https://github.com/lightspeedwp/.github/issues/469)` ✅
+- `[#476](https://github.com/lightspeedwp/.github/issues/476)`, `[#480](https://github.com/lightspeedwp/.github/issues/480)`, `[#482](https://github.com/lightspeedwp/.github/issues/482)` (2A)
+- `[#488](https://github.com/lightspeedwp/.github/issues/488)`, `[#490](https://github.com/lightspeedwp/.github/issues/490)` (2C)
 
 **Responsibilities**:
 
@@ -547,10 +547,10 @@ The **Release Agent** should coordinate the following workflows on demand:
 
 **Issues (must execute)**:
 
-- `#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486` (2B)
-- `#31`, `#23` (2D — when 2A merges)
-- `#33`, `#46`, `#48`, `#49` (Branding Meta Agent — **CLAUDE CODE ONLY, NO GITHUB COPILOT**)
-- `#529` (Wave 3D — WCEU 2026 talk planning audit)
+- `[#470](https://github.com/lightspeedwp/.github/issues/470)`, `[#471](https://github.com/lightspeedwp/.github/issues/471)`, `[#473](https://github.com/lightspeedwp/.github/issues/473)`, `[#475](https://github.com/lightspeedwp/.github/issues/475)`, `[#478](https://github.com/lightspeedwp/.github/issues/478)`, `[#484](https://github.com/lightspeedwp/.github/issues/484)`, `[#486](https://github.com/lightspeedwp/.github/issues/486)` (2B)
+- `[#31](https://github.com/lightspeedwp/.github/issues/31)`, `[#23](https://github.com/lightspeedwp/.github/issues/23)` (2D — when 2A merges)
+- `[#33](https://github.com/lightspeedwp/.github/issues/33)`, `[#46](https://github.com/lightspeedwp/.github/issues/46)`, `[#48](https://github.com/lightspeedwp/.github/issues/48)`, `[#49](https://github.com/lightspeedwp/.github/issues/49)` (Branding Meta Agent — **CLAUDE CODE ONLY, NO GITHUB COPILOT**)
+- `[#529](https://github.com/lightspeedwp/.github/issues/529)` (Wave 3D — WCEU 2026 talk planning audit)
 
 **Responsibilities**:
 
@@ -563,7 +563,7 @@ The **Release Agent** should coordinate the following workflows on demand:
 
 ### ⚠️ IMPORTANT: Branding Meta Agent Assignment
 
-**Issues #33, #46, #48, #49 are EXCLUSIVELY assigned to Claude Code.** GitHub Copilot is excluded from this work stream to ensure coherent planning and implementation of the schema-driven branding system and meta agent architecture.
+**Issues [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48), [#49](https://github.com/lightspeedwp/.github/issues/49) are EXCLUSIVELY assigned to Claude Code.** GitHub Copilot is excluded from this work stream to ensure coherent planning and implementation of the schema-driven branding system and meta agent architecture.
 
 ---
 
@@ -573,22 +573,22 @@ The **Release Agent** should coordinate the following workflows on demand:
 
 GitHub Copilot must continue this phase through PR-ready state for `develop`.
 
-1. Execute `#476` → complete & merge
-2. Execute `#480` → complete & merge
-3. Execute `#482` → complete & merge
+1. Execute `[#476](https://github.com/lightspeedwp/.github/issues/476)` → complete & merge
+2. Execute `[#480](https://github.com/lightspeedwp/.github/issues/480)` → complete & merge
+3. Execute `[#482](https://github.com/lightspeedwp/.github/issues/482)` → complete & merge
 4. **Dependency**: All must merge before Wave 2B starts
 
 ### Phase 2: Execute Wave 2B (Claude Code) + Wave 2D in Parallel
 
-- **Wave 2B**: `#470`, `#471`, `#473`, `#475`, `#478`, `#484`, `#486`
-- **Wave 2D** (when 2A merges): `#31`, `#23`
+- **Wave 2B**: `[#470](https://github.com/lightspeedwp/.github/issues/470)`, `[#471](https://github.com/lightspeedwp/.github/issues/471)`, `[#473](https://github.com/lightspeedwp/.github/issues/473)`, `[#475](https://github.com/lightspeedwp/.github/issues/475)`, `[#478](https://github.com/lightspeedwp/.github/issues/478)`, `[#484](https://github.com/lightspeedwp/.github/issues/484)`, `[#486](https://github.com/lightspeedwp/.github/issues/486)`
+- **Wave 2D** (when 2A merges): `[#31](https://github.com/lightspeedwp/.github/issues/31)`, `[#23](https://github.com/lightspeedwp/.github/issues/23)`
 - **Dependency**: 2A must merge before 2D starts; 2B can start immediately after last 2A merge
 
 ### Phase 3: Execute Wave 2C (GitHub Copilot)
 
 GitHub Copilot must continue this phase through PR-ready state for `develop`.
 
-- `#488`, `#490`
+- `[#488](https://github.com/lightspeedwp/.github/issues/488)`, `[#490](https://github.com/lightspeedwp/.github/issues/490)`
 - **Dependency**: 2A + 2B should be merged
 
 ### Phase 4: Wave 3 — README & Mermaid Audit (Parallel)
@@ -647,9 +647,9 @@ Use this sequence for all active implementation work:
 
 - [x] Wave 1 completed
 - [ ] Wave 2A merged (target: 3 issues)
-- [x] Wave 2B merged (target: 7 issues) — completed 2026-05-28 via PRs #515–#521
+- [x] Wave 2B merged (target: 7 issues) — completed 2026-05-28 via PRs [#515](https://github.com/lightspeedwp/.github/issues/515)–[#521](https://github.com/lightspeedwp/.github/issues/521)
 - [ ] Wave 2C merged (target: 2 issues)
-- [x] Wave 2D audit documents released (target: 2 audit reports) — completed 2026-05-28 via PRs #522–#523
+- [x] Wave 2D audit documents released (target: 2 audit reports) — completed 2026-05-28 via PRs [#522](https://github.com/lightspeedwp/.github/issues/522)–[#523](https://github.com/lightspeedwp/.github/issues/523)
 - [ ] Wave 3A audit report published (target: `.github/reports/mermaid-audit/`)
 - [ ] Wave 3B fixes merged (target: 0 failing Mermaid diagrams)
 - [ ] Wave 3C workflows active (target: `readme-audit` + `release` coordination)
@@ -677,9 +677,9 @@ Archival checklist per file:
 
 ## Plugin-Pack Waves (2026-06-01 Activation)
 
-- Parent issue: #732
+- Parent issue: [#732](https://github.com/lightspeedwp/.github/issues/732)
 - Child issues:
-  - #733 (Second Wave)
-  - #734 (Third Wave)
-  - #735 (Next-Wave Backlog)
+  - [#733](https://github.com/lightspeedwp/.github/issues/733) (Second Wave)
+  - [#734](https://github.com/lightspeedwp/.github/issues/734) (Third Wave)
+  - [#735](https://github.com/lightspeedwp/.github/issues/735) (Next-Wave Backlog)
 - Spec location: `.github/projects/active/plugin-pack-waves/`

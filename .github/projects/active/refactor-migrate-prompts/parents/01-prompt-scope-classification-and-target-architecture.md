@@ -7,7 +7,7 @@ area:
   - "area:documentation"
   - "area:automation"
 priority: "priority:important"
-status: draft
+status: active
 effort: "L"
 last_updated: "2026-06-01"
 children:

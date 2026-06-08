@@ -2,15 +2,15 @@
 file_type: documentation
 title: "Wave 5 Documentation Audit - Issue Index"
 description: "Complete index of all parent and child issues for the Documentation Audit project"
-version: "1.0.1"
+version: "1.2.0"
 created_date: "2026-05-31"
-last_updated: "2026-06-01"
+last_updated: "2026-06-08"
 status: active
 ---
 
 # Wave 5 Documentation Audit — Issue Index
 
-This directory contains all parent and child issues for the comprehensive documentation audit initiative. **GitHub issues have been created (#649–#673); execution status now varies by issue state.**
+This directory contains all parent and child issues for the comprehensive documentation audit initiative. **A new seeded issue set was created on 2026-06-08 ([#902](https://github.com/lightspeedwp/.github/issues/902)–[#927](https://github.com/lightspeedwp/.github/issues/927), with expected sequence gap at [#915](https://github.com/lightspeedwp/.github/issues/915)).**
 
 ## Archive Note (2026-06-01)
 
@@ -73,48 +73,48 @@ wave-5-documentation-audit/
 
 | Issue | Title | Type | Area | Effort | Status |
 |-------|-------|------|------|--------|--------|
-| [#649](https://github.com/lightspeedwp/.github/issues/649) | Issue Templates, Automation, & AI Agent Integration | Audit | automation, labels | M | closed |
-| [#650](https://github.com/lightspeedwp/.github/issues/650) | Canonical Config Files (labels, issue-types, issue-fields) | Audit | labels, automation | L | closed |
-| [#651](https://github.com/lightspeedwp/.github/issues/651) | Documentation Consolidation - Reduce Duplication | Audit | documentation | XL | open |
-| [#652](https://github.com/lightspeedwp/.github/issues/652) | 44 README Files - Mermaid Diagrams & Accessibility | Audit | documentation, a11y | XL | closed |
-| [#653](https://github.com/lightspeedwp/.github/issues/653) | File Organization - Align with CLAUDE.md Boundaries | Audit | core | L | open |
+| [#902](https://github.com/lightspeedwp/.github/issues/902) | Issue Templates, Automation, & AI Agent Integration | Audit | automation, labels | M | open |
+| [#903](https://github.com/lightspeedwp/.github/issues/903) | Canonical Config Files (labels, issue-types, issue-fields) | Audit | labels, automation | L | open |
+| [#904](https://github.com/lightspeedwp/.github/issues/904) | Documentation Consolidation - Reduce Duplication Across Docs | Audit | documentation | XL | open |
+| [#905](https://github.com/lightspeedwp/.github/issues/905) | README Files - Mermaid Diagrams & Accessibility Review | Audit | documentation, a11y | XL | open |
+| [#906](https://github.com/lightspeedwp/.github/issues/906) | File Organization - Align with CLAUDE.md Repository Boundaries | Audit | core | L | open |
 
 ### Child Issues by Parent
 
-#### Parent #649: Issue Templates & Automation (4 children)
+#### Parent [#902](https://github.com/lightspeedwp/.github/issues/902): Issue Templates & Automation (4 children)
 
-- [#654](https://github.com/lightspeedwp/.github/issues/654): Issue Template Inventory & Standardization (Audit, S)
-- [#655](https://github.com/lightspeedwp/.github/issues/655): Issue Template → Automation Trigger Mapping (Audit, M)
-- [#656](https://github.com/lightspeedwp/.github/issues/656): Issue Labeling Rules in labeler.yml (Audit, M)
-- [#657](https://github.com/lightspeedwp/.github/issues/657): Clear AI Agent Instructions for Issue Creation (Task, M)
+- [#907](https://github.com/lightspeedwp/.github/issues/907): Issue Template Inventory & Standardization (Audit, S)
+- [#908](https://github.com/lightspeedwp/.github/issues/908): Issue Template -> Automation Trigger Mapping (Audit, M)
+- [#909](https://github.com/lightspeedwp/.github/issues/909): Issue Labeling Rules in labeler.yml (Audit, M)
+- [#910](https://github.com/lightspeedwp/.github/issues/910): Clear AI Agent Instructions for Issue Creation (Task, M)
 
-#### Parent #650: Canonical Configs (4 children)
+#### Parent [#903](https://github.com/lightspeedwp/.github/issues/903): Canonical Configs (4 children)
 
-- [#658](https://github.com/lightspeedwp/.github/issues/658): labels.yml Color Consistency & Strategy (Audit, M)
-- [#659](https://github.com/lightspeedwp/.github/issues/659): Issue Types Alignment with Templates & Labels (Audit, M)
-- [#660](https://github.com/lightspeedwp/.github/issues/660): Issue Fields Configuration vs. GitHub API (Audit, M)
-- [#661](https://github.com/lightspeedwp/.github/issues/661): Canonical Config File Interdependencies (Task, L)
+- [#911](https://github.com/lightspeedwp/.github/issues/911): labels.yml Colour Consistency & Strategy Alignment (Audit, M)
+- [#912](https://github.com/lightspeedwp/.github/issues/912): Issue Types Alignment with Templates & Labels (Audit, M)
+- [#913](https://github.com/lightspeedwp/.github/issues/913): Issue Fields Configuration vs GitHub API (Audit, M)
+- [#914](https://github.com/lightspeedwp/.github/issues/914): Canonical Config File Interdependencies (Task, L)
 
-#### Parent #651: Documentation Consolidation (5 children)
+#### Parent [#904](https://github.com/lightspeedwp/.github/issues/904): Documentation Consolidation (5 children)
 
-- [#662](https://github.com/lightspeedwp/.github/issues/662): Issue Creation Docs - Consolidate (Audit, M)
-- [#663](https://github.com/lightspeedwp/.github/issues/663): PR Creation Docs - Consolidate (Audit, M)
-- [#664](https://github.com/lightspeedwp/.github/issues/664): Labeling Docs - Consolidate (Audit, M)
-- [#665](https://github.com/lightspeedwp/.github/issues/665): File Organization vs. CLAUDE.md (Audit, M)
-- [#666](https://github.com/lightspeedwp/.github/issues/666): Update Documentation Index (Task, M)
+- [#916](https://github.com/lightspeedwp/.github/issues/916): Issue Creation Docs - Consolidate Overlapping Files (Audit, M)
+- [#917](https://github.com/lightspeedwp/.github/issues/917): PR Creation Docs - Consolidate Overlapping Files (Audit, M)
+- [#918](https://github.com/lightspeedwp/.github/issues/918): Labeling Docs - Consolidate Overlapping Files (Audit, M)
+- [#919](https://github.com/lightspeedwp/.github/issues/919): Documentation Folder Structure vs CLAUDE.md Boundaries (Audit, M)
+- [#920](https://github.com/lightspeedwp/.github/issues/920): Documentation Index (docs/index.md) - Complete & Current (Task, M)
 
-#### Parent #652: README & Mermaid Audit (4 children)
+#### Parent [#905](https://github.com/lightspeedwp/.github/issues/905): README & Mermaid Audit (4 children)
 
-- [#667](https://github.com/lightspeedwp/.github/issues/667): Discover All 44 README Files (Audit, M)
-- [#668](https://github.com/lightspeedwp/.github/issues/668): Validate Mermaid Diagram Syntax (Audit, L)
-- [#669](https://github.com/lightspeedwp/.github/issues/669): Mermaid Accessibility Compliance (Audit, L)
-- [#670](https://github.com/lightspeedwp/.github/issues/670): Fix & Refresh 44 README Files (Task, XL)
+- [#921](https://github.com/lightspeedwp/.github/issues/921): Discover All README.md Files - Inventory (Audit, M)
+- [#922](https://github.com/lightspeedwp/.github/issues/922): Validate Mermaid Syntax in All Diagrams (Audit, L)
+- [#923](https://github.com/lightspeedwp/.github/issues/923): Mermaid Diagram Accessibility (WCAG AA, Light/Dark) (Audit, L)
+- [#924](https://github.com/lightspeedwp/.github/issues/924): Fix & Refresh README Files with Current Information (Task, XL)
 
-#### Parent #653: File Organization (3 children)
+#### Parent [#906](https://github.com/lightspeedwp/.github/issues/906): File Organization (3 children)
 
-- [#671](https://github.com/lightspeedwp/.github/issues/671): Current vs. Planned File Organization (Audit, M)
-- [#672](https://github.com/lightspeedwp/.github/issues/672): Agent & Script Files - Migration Status (Audit, M)
-- [#673](https://github.com/lightspeedwp/.github/issues/673): File Organization Refactoring Plan (Task, L)
+- [#925](https://github.com/lightspeedwp/.github/issues/925): Current File Organization vs CLAUDE.md Boundaries (Audit, M)
+- [#926](https://github.com/lightspeedwp/.github/issues/926): Agent & Script Files - Migration Status (Audit, M)
+- [#927](https://github.com/lightspeedwp/.github/issues/927): File Organization Refactoring - Migration & Validation (Task, L)
 
 ---
 
@@ -126,7 +126,7 @@ All issues include links to:
 - **Documentation files:** All files in `docs/` with full GitHub URLs
 - **Templates:** Issue, PR, and Discussion templates
 - **Instructions:** All `.instructions.md` files across `instructions/`
-- **Related issues:** #512, #513 (Wave 3 README audit)
+- **Related issues:** [#512](https://github.com/lightspeedwp/.github/issues/512), [#513](https://github.com/lightspeedwp/.github/issues/513) (Wave 3 README audit)
 - **Main reference:** CLAUDE.md
 
 See each issue file for specific links.
@@ -184,8 +184,8 @@ Before creating issues in GitHub, verify:
 
 ## 📝 GitHub Issues Created
 
-✅ All 5 parent issues created (#649–#653)
-✅ All 20 child issues created (#654–#673)
+✅ All 5 parent issues created ([#902](https://github.com/lightspeedwp/.github/issues/902)–[#906](https://github.com/lightspeedwp/.github/issues/906))
+✅ All 20 child issues created ([#907](https://github.com/lightspeedwp/.github/issues/907)–[#927](https://github.com/lightspeedwp/.github/issues/927), excluding expected sequence gap [#915](https://github.com/lightspeedwp/.github/issues/915))
 ✅ Parent-child relationships established in GitHub
 ✅ All reference links included and preserved
 ✅ All effort estimates provided
@@ -195,6 +195,6 @@ Before creating issues in GitHub, verify:
 
 ---
 
-**Last Updated:** 2026-05-31
+**Last Updated:** 2026-06-08
 **Created By:** Claude Code
 **For:** LightSpeed Team

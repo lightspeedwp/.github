@@ -57,7 +57,7 @@ Brief 2-3 sentence summary of the project's purpose, scope, and business/technic
 
 ### Dependencies
 
-- Dependency on [related project/issue] (#123)
+- Dependency on [related project/issue] ([#123](https://github.com/lightspeedwp/.github/issues/123))
 - Dependency on [external system/tool]
 - Dependency on [team/capability]
 

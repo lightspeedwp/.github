@@ -7,7 +7,7 @@ last_updated: "2026-06-01"
 created_date: "2026-06-01"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
-status: "active"
+status: active
 ---
 
 # Template Enforcement & Governance — Action Plan
@@ -28,11 +28,11 @@ status: "active"
 
 | Issue | Title | Assigned To | Status |
 |-------|-------|-------------|--------|
-| #709 | Add 2 missing issue types to org settings | *Unassigned* | Blocked |
-| #710 | Create PULL_REQUEST_TEMPLATE/config.yml | *Unassigned* | Blocked on #709 |
-| #711 | Update ISSUE_TEMPLATE/config.yml | *Unassigned* | Blocked on #709 |
+| [#709](https://github.com/lightspeedwp/.github/issues/709) | Add 2 missing issue types to org settings | *Unassigned* | Blocked |
+| [#710](https://github.com/lightspeedwp/.github/issues/710) | Create PULL_REQUEST_TEMPLATE/config.yml | *Unassigned* | Blocked on [#709](https://github.com/lightspeedwp/.github/issues/709) |
+| [#711](https://github.com/lightspeedwp/.github/issues/711) | Update ISSUE_TEMPLATE/config.yml | *Unassigned* | Blocked on [#709](https://github.com/lightspeedwp/.github/issues/709) |
 
-**Note:** Issue #709 is manual (GitHub UI, not code). It must complete before #710/#711 can start.
+**Note:** Issue [#709](https://github.com/lightspeedwp/.github/issues/709) is manual (GitHub UI, not code). It must complete before [#710](https://github.com/lightspeedwp/.github/issues/710)/[#711](https://github.com/lightspeedwp/.github/issues/711) can start.
 
 ---
 
@@ -40,7 +40,7 @@ status: "active"
 
 **Deadline:** Tomorrow
 **Owner:** Organization Admin
-**Issue:** #709
+**Issue:** [#709](https://github.com/lightspeedwp/.github/issues/709)
 
 **Steps:**
 
@@ -48,7 +48,7 @@ status: "active"
 2. Add "Help" (color: `#4393F8`, type:help)
 3. Add "User Experience Feedback" (color: `#DB61A2`, type:ux-feedback)
 4. Verify all 25 types appear in issue creation form
-5. Close #709
+5. Close [#709](https://github.com/lightspeedwp/.github/issues/709)
 
 **Validation:** All 25 issue types visible in "Create issue" form, colors match `.github/issue-types.yml`
 
@@ -58,14 +58,14 @@ status: "active"
 
 **Deadline:** End of Week 1
 **Owner:** TBD (2 developers, ~1.5h each)
-**Issues:** #710, #711
+**Issues:** [#710](https://github.com/lightspeedwp/.github/issues/710), [#711](https://github.com/lightspeedwp/.github/issues/711)
 
 **Deliverables:**
 
 - `PULL_REQUEST_TEMPLATE/config.yml` — branch prefix → template routing map
 - `ISSUE_TEMPLATE/config.yml` — enhanced metadata with automation notes
 
-**Dependencies:** #709 must be complete first
+**Dependencies:** [#709](https://github.com/lightspeedwp/.github/issues/709) must be complete first
 
 ---
 
@@ -73,15 +73,15 @@ status: "active"
 
 | Phase | Issues | Effort | Timeline | Status |
 |-------|--------|--------|----------|--------|
-| **1: Foundation** | #709–#711 | 2h | Week 1 | Not started |
-| **2: Documentation** | #712–#716 | 5.5h | Week 1–2 | Not started |
-| **3: Automation** | #717–#720 | 3h | Week 2–3 | Not started |
-| **4: Alignment** | #721 | 1h | Week 3 | Not started |
+| **1: Foundation** | [#709](https://github.com/lightspeedwp/.github/issues/709)–[#711](https://github.com/lightspeedwp/.github/issues/711) | 2h | Week 1 | Not started |
+| **2: Documentation** | [#712](https://github.com/lightspeedwp/.github/issues/712)–[#716](https://github.com/lightspeedwp/.github/issues/716) | 5.5h | Week 1–2 | Not started |
+| **3: Automation** | [#717](https://github.com/lightspeedwp/.github/issues/717)–[#720](https://github.com/lightspeedwp/.github/issues/720) | 3h | Week 2–3 | Not started |
+| **4: Alignment** | [#721](https://github.com/lightspeedwp/.github/issues/721) | 1h | Week 3 | Not started |
 
 **Critical Path:**
 
 ```
-#709 (manual) → #710, #711 → #712–#716 → #717–#720 → #721
+[#709](https://github.com/lightspeedwp/.github/issues/709) (manual) → [#710](https://github.com/lightspeedwp/.github/issues/710), [#711](https://github.com/lightspeedwp/.github/issues/711) → [#712](https://github.com/lightspeedwp/.github/issues/712)–[#716](https://github.com/lightspeedwp/.github/issues/716) → [#717](https://github.com/lightspeedwp/.github/issues/717)–[#720](https://github.com/lightspeedwp/.github/issues/720) → [#721](https://github.com/lightspeedwp/.github/issues/721)
 ```
 
 ---
@@ -90,10 +90,10 @@ status: "active"
 
 | Role | Effort | Issues |
 |------|--------|--------|
-| **Org Admin** (1–2h) | Add issue types manually | #709 |
-| **Backend/Automation Dev** (4–5h) | Config files, workflows, agent spec | #710, #711, #717, #718 |
-| **Documentation Lead** (5–6h) | Instruction files, AGENT.md, CLAUDE.md updates | #712–#716, #721 |
-| **QA/Testing** (1h) | Test fixtures, validation | #720 |
+| **Org Admin** (1–2h) | Add issue types manually | [#709](https://github.com/lightspeedwp/.github/issues/709) |
+| **Backend/Automation Dev** (4–5h) | Config files, workflows, agent spec | [#710](https://github.com/lightspeedwp/.github/issues/710), [#711](https://github.com/lightspeedwp/.github/issues/711), [#717](https://github.com/lightspeedwp/.github/issues/717), [#718](https://github.com/lightspeedwp/.github/issues/718) |
+| **Documentation Lead** (5–6h) | Instruction files, AGENT.md, CLAUDE.md updates | [#712](https://github.com/lightspeedwp/.github/issues/712)–[#716](https://github.com/lightspeedwp/.github/issues/716), [#721](https://github.com/lightspeedwp/.github/issues/721) |
+| **QA/Testing** (1h) | Test fixtures, validation | [#720](https://github.com/lightspeedwp/.github/issues/720) |
 
 ---
 
@@ -137,10 +137,10 @@ Each issue has acceptance criteria in the backlog. Before closing:
 
 | Risk | Mitigation |
 |------|-----------|
-| #709 requires manual GitHub UI access | Assign to Org Admin; provide exact steps |
-| Phase 2 docs depend on Phase 1 config | Clear dependency graph; #712–#716 wait for #710 |
-| Workflow/agent coordination (#717/#718) | Agent spec references workflow; both should align |
-| Test fixtures need real PR examples | Use template files as fixtures; document in #720 |
+| [#709](https://github.com/lightspeedwp/.github/issues/709) requires manual GitHub UI access | Assign to Org Admin; provide exact steps |
+| Phase 2 docs depend on Phase 1 config | Clear dependency graph; [#712](https://github.com/lightspeedwp/.github/issues/712)–[#716](https://github.com/lightspeedwp/.github/issues/716) wait for [#710](https://github.com/lightspeedwp/.github/issues/710) |
+| Workflow/agent coordination ([#717](https://github.com/lightspeedwp/.github/issues/717)/[#718](https://github.com/lightspeedwp/.github/issues/718)) | Agent spec references workflow; both should align |
+| Test fixtures need real PR examples | Use template files as fixtures; document in [#720](https://github.com/lightspeedwp/.github/issues/720) |
 
 ---
 
@@ -157,8 +157,8 @@ Each issue has acceptance criteria in the backlog. Before closing:
 
 **Checkpoint:** End of Week 1
 
-- [ ] #709 complete (org settings updated)
-- [ ] #710, #711 in progress or complete
+- [ ] [#709](https://github.com/lightspeedwp/.github/issues/709) complete (org settings updated)
+- [ ] [#710](https://github.com/lightspeedwp/.github/issues/710), [#711](https://github.com/lightspeedwp/.github/issues/711) in progress or complete
 - [ ] Team has started Phase 2 documentation
 - [ ] No blockers from dependency chain
 

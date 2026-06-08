@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["branching", "governance", "rulesets", "automation", "testing"]
 domain: "governance"
 stability: "experimental"
-status: "active"
+status: active
 ---
 
 # Branch Governance Hardening - Execution Plan

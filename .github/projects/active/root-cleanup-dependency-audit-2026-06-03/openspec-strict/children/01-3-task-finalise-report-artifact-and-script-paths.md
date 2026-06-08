@@ -5,7 +5,7 @@ file_type: documentation
 title: "[Task] Finalise report artifact placement and script outputs"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-03"
-status: draft
+status: active
 ---
 
 # [Task] Finalise report artifact placement and script outputs

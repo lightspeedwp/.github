@@ -72,21 +72,21 @@ tags:
 
 ### Phase 1
 
-- Parent: `Awesome GitHub Site - Phase 1 MVP and GitHub Pages Launch` (`#756`)
-- Child 1: `Research GitHub Pages, custom subdomain, and HTTPS setup` (`#757`)
-- Child 2: `Document the GitHub Pages publishing and DNS runbook` (`#758`)
-- Child 3: `Configure Astro GitHub Pages publishing workflow` (`#759`)
-- Child 4: `Build phase 1 pages and custom 404` (`#760`)
-- Child 5: `Validate build, DNS, HTTPS, and routing` (`#761`)
+- Parent: `Awesome GitHub Site - Phase 1 MVP and GitHub Pages Launch` (`[#756](https://github.com/lightspeedwp/.github/issues/756)`)
+- Child 1: `Research GitHub Pages, custom subdomain, and HTTPS setup` (`[#757](https://github.com/lightspeedwp/.github/issues/757)`)
+- Child 2: `Document the GitHub Pages publishing and DNS runbook` (`[#758](https://github.com/lightspeedwp/.github/issues/758)`)
+- Child 3: `Configure Astro GitHub Pages publishing workflow` (`[#759](https://github.com/lightspeedwp/.github/issues/759)`)
+- Child 4: `Build phase 1 pages and custom 404` (`[#760](https://github.com/lightspeedwp/.github/issues/760)`)
+- Child 5: `Validate build, DNS, HTTPS, and routing` (`[#761](https://github.com/lightspeedwp/.github/issues/761)`)
 - Follow-up task: expand the public site with WCEU talk subpages, slide references, and the theme switcher before re-opening phase 2 work.
 
 ### Phase 2
 
-- Parent: `Awesome GitHub Site - Phase 2 Full Website` (`#762`)
-- Child 1: `Add resource catalogue and category browsing` (`#763`)
-- Child 2: `Improve discovery, navigation, and search` (`#764`)
-- Child 3: `Document the full content model and governance` (`#765`)
-- Child 4: `Accessibility and launch validation for the full site` (`#766`)
+- Parent: `Awesome GitHub Site - Phase 2 Full Website` (`[#762](https://github.com/lightspeedwp/.github/issues/762)`)
+- Child 1: `Add resource catalogue and category browsing` (`[#763](https://github.com/lightspeedwp/.github/issues/763)`)
+- Child 2: `Improve discovery, navigation, and search` (`[#764](https://github.com/lightspeedwp/.github/issues/764)`)
+- Child 3: `Document the full content model and governance` (`[#765](https://github.com/lightspeedwp/.github/issues/765)`)
+- Child 4: `Accessibility and launch validation for the full site` (`[#766](https://github.com/lightspeedwp/.github/issues/766)`)
 
 ## OpenSpec Notes
 

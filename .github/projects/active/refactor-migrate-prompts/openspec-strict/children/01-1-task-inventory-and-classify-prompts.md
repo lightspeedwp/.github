@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Task] Inventory and classify .github prompt assets with final target mapping"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-01"
-status: draft
+status: active
 ---
 
 

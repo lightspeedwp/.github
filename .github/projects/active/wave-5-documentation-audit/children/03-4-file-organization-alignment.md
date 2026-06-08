@@ -8,15 +8,15 @@ last_updated: "2026-06-01"
 author: "Claude Code"
 maintainer: "LightSpeedWP Team"
 tags: ["documentation", "audit", "file-organization", "wave-5"]
-status: "active"
+status: active
 stability: "stable"
 domain: "governance"
 ---
 
 # File Organization Alignment Audit Report
 
-**Parent Issue:** #651 (Documentation Consolidation)
-**Child Issue:** #665 (File Organization Alignment)
+**Parent Issue:** [#651](https://github.com/lightspeedwp/.github/issues/651) (Documentation Consolidation)
+**Child Issue:** [#665](https://github.com/lightspeedwp/.github/issues/665) (File Organization Alignment)
 **Audited:** 2026-05-31
 **Auditor:** Claude Code
 
@@ -382,7 +382,7 @@ All required portable asset folders exist and are correctly placed at top level:
    - [ ] Verify workflows/ folder status
 
 3. **Handoff to execution issues:**
-   - #666 (Update documentation index)
+   - [#666](https://github.com/lightspeedwp/.github/issues/666) (Update documentation index)
    - Future improvement issue for root-level consolidation
 
 ---

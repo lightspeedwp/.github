@@ -83,4 +83,4 @@ status: active
 - result: success
 - github-issue-url: <https://github.com/lightspeedwp/.github/issues/770>
 - labels-applied: []
-- notes: Confirmed true GitHub sub-issues relationship: parent #770 with children #771, #772, #773, #774.
+- notes: Confirmed true GitHub sub-issues relationship: parent [#770](https://github.com/lightspeedwp/.github/issues/770) with children [#771](https://github.com/lightspeedwp/.github/issues/771), [#772](https://github.com/lightspeedwp/.github/issues/772), [#773](https://github.com/lightspeedwp/.github/issues/773), [#774](https://github.com/lightspeedwp/.github/issues/774).

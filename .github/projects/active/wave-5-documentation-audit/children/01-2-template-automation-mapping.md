@@ -3,11 +3,11 @@ issue_number: 655
 file_type: documentation
 description: "Map issue templates to their automation triggers"
 parent_issue: 649
-title: "[Child of #649] Audit: Issue Template → Automation Trigger Mapping"
+title: "[Child of [#649](https://github.com/lightspeedwp/.github/issues/649)] Audit: Issue Template → Automation Trigger Mapping"
 type: "type:audit"
 area: "area:automation"
 priority: "priority:normal"
-status: draft
+status: active
 effort: "M"
 ---
 

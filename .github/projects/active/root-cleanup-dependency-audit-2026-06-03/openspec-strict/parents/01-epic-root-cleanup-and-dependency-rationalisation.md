@@ -4,7 +4,7 @@ file_type: documentation
 title: "[Epic] Root cleanup and dependency rationalisation"
 description: "OpenSpec strict planning artefact"
 last_updated: "2026-06-03"
-status: draft
+status: active
 ---
 
 # [Epic] Root cleanup and dependency rationalisation

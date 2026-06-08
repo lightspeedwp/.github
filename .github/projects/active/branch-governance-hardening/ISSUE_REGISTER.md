@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["branching", "issues", "governance", "automation"]
 domain: "governance"
 stability: "experimental"
-status: "active"
+status: active
 ---
 
 # Branch Governance Hardening - Issue Register
@@ -19,10 +19,10 @@ status: "active"
 | Order | Title | Template | Status | Dependency | Live Issue |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Branch Governance Hardening Epic | `05-epic.md` | Planned | None | TBD |
-| 2 | Enforce GitHub rulesets and branch protection | `10-build-ci.md` | Planned | #1 | TBD |
-| 3 | Block reused branches and invalid checkout state | `11-automation.md` | Planned | #2 | TBD |
-| 4 | Align AI branch selection with the branch policy | `24-ai-ops.md` | Planned | #2 | TBD |
-| 5 | Add tests, docs, and rollout controls | `12-testing-coverage.md` | Planned | #2, #3, #4 | TBD |
+| 2 | Enforce GitHub rulesets and branch protection | `10-build-ci.md` | Planned | [#1](https://github.com/lightspeedwp/.github/issues/1) | TBD |
+| 3 | Block reused branches and invalid checkout state | `11-automation.md` | Planned | [#2](https://github.com/lightspeedwp/.github/issues/2) | TBD |
+| 4 | Align AI branch selection with the branch policy | `24-ai-ops.md` | Planned | [#2](https://github.com/lightspeedwp/.github/issues/2) | TBD |
+| 5 | Add tests, docs, and rollout controls | `12-testing-coverage.md` | Planned | [#2](https://github.com/lightspeedwp/.github/issues/2), [#3](https://github.com/lightspeedwp/.github/issues/3), [#4](https://github.com/lightspeedwp/.github/issues/4) | TBD |
 
 ## Notes
 

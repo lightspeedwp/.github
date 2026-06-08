@@ -62,7 +62,7 @@ Add "Help" and "User Experience Feedback" issue types to the organization's GitH
 
 **Issue Type:** Task
 **Priority:** High
-**Depends on:** #1
+**Depends on:** [#1](https://github.com/lightspeedwp/.github/issues/1)
 **Effort:** 1h
 
 **Summary:**
@@ -109,7 +109,7 @@ research/ → pr_research.md (if exists) or pr_feature.md
 
 **Issue Type:** Task
 **Priority:** High
-**Depends on:** #1
+**Depends on:** [#1](https://github.com/lightspeedwp/.github/issues/1)
 **Effort:** 30min
 
 **Summary:**
@@ -137,7 +137,7 @@ Enhance ISSUE_TEMPLATE/config.yml to include metadata about template routing and
 
 **Issue Type:** Task
 **Priority:** High
-**Depends on:** #2
+**Depends on:** [#2](https://github.com/lightspeedwp/.github/issues/2)
 **Effort:** 1h
 
 **Summary:**
@@ -172,7 +172,7 @@ Replace generic `pull_request_template.md` with smart routing guide that directs
 
 **Issue Type:** Task
 **Priority:** High
-**Depends on:** #2, #4
+**Depends on:** [#2](https://github.com/lightspeedwp/.github/issues/2), [#4](https://github.com/lightspeedwp/.github/issues/4)
 **Effort:** 1.5h
 
 **Summary:**
@@ -212,7 +212,7 @@ Create portable, detailed instruction file for PR template usage across all repo
 
 **Issue Type:** Task
 **Priority:** High
-**Depends on:** #1
+**Depends on:** [#1](https://github.com/lightspeedwp/.github/issues/1)
 **Effort:** 1.5h
 
 **Summary:**
@@ -251,7 +251,7 @@ Create portable instruction file for issue template usage across all repositorie
 
 **Issue Type:** Task
 **Priority:** High
-**Depends on:** #2, #4, #5, #6
+**Depends on:** [#2](https://github.com/lightspeedwp/.github/issues/2), [#4](https://github.com/lightspeedwp/.github/issues/4), [#5](https://github.com/lightspeedwp/.github/issues/5), [#6](https://github.com/lightspeedwp/.github/issues/6)
 **Effort:** 2h
 
 **Summary:**
@@ -289,7 +289,7 @@ Add comprehensive "Template & Issue Type Governance" section to AGENT.md as sing
 
 **Issue Type:** Task
 **Priority:** High
-**Depends on:** #7
+**Depends on:** [#7](https://github.com/lightspeedwp/.github/issues/7)
 **Effort:** 1h
 
 **Summary:**
@@ -326,7 +326,7 @@ Add "PR & Issue Template Selection" section to CLAUDE.md with quick reference fo
 
 **Issue Type:** Task
 **Priority:** High
-**Depends on:** #2, #4
+**Depends on:** [#2](https://github.com/lightspeedwp/.github/issues/2), [#4](https://github.com/lightspeedwp/.github/issues/4)
 **Effort:** 2h
 
 **Summary:**
@@ -372,7 +372,7 @@ Create GitHub Actions workflow that validates PR template compliance.
 
 **Issue Type:** Task
 **Priority:** Medium
-**Depends on:** #9
+**Depends on:** [#9](https://github.com/lightspeedwp/.github/issues/9)
 **Effort:** 2h
 
 **Summary:**
@@ -421,7 +421,7 @@ Create `.github/agents/pr-template-enforcement.md` agent specification for intel
 
 **Issue Type:** Task
 **Priority:** Medium
-**Depends on:** #9
+**Depends on:** [#9](https://github.com/lightspeedwp/.github/issues/9)
 **Effort:** 1h
 
 **Summary:**
@@ -429,7 +429,7 @@ Configure GitHub branch protection to require PR template validation status chec
 
 **Details:**
 
-- Status check: "validate-pr-template" (from workflow #9)
+- Status check: "validate-pr-template" (from workflow [#9](https://github.com/lightspeedwp/.github/issues/9))
 - Require this check to pass before merging to `main`, `develop`
 - Make it required but not dismissible
 - Document in BRANCHING_STRATEGY.md
@@ -447,7 +447,7 @@ Configure GitHub branch protection to require PR template validation status chec
 
 **Issue Type:** Task
 **Priority:** Medium
-**Depends on:** #9, #10
+**Depends on:** [#9](https://github.com/lightspeedwp/.github/issues/9), [#10](https://github.com/lightspeedwp/.github/issues/10)
 **Effort:** 1h
 
 **Summary:**
@@ -482,7 +482,7 @@ Create test fixtures and examples for PR template validation workflow and agent.
 
 **Issue Type:** Task
 **Priority:** Medium
-**Depends on:** #2, #7
+**Depends on:** [#2](https://github.com/lightspeedwp/.github/issues/2), [#7](https://github.com/lightspeedwp/.github/issues/7)
 **Effort:** 1h
 
 **Summary:**

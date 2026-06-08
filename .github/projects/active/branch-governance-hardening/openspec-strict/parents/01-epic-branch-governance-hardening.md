@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["epic", "branching", "governance", "rulesets"]
 domain: "governance"
 stability: "experimental"
-status: "draft"
+status: active
 ---
 
 # Branch Governance Hardening Epic

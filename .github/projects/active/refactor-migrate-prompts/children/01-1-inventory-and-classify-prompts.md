@@ -3,7 +3,7 @@ file_type: documentation
 title: "[Child 01-1] Inventory and Classify Prompt Assets"
 description: "Child task artefact for prompt inventory and classification."
 last_updated: "2026-06-01"
-status: draft
+status: active
 ---
 
 ## Objective

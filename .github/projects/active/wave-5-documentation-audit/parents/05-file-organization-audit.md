@@ -6,7 +6,7 @@ title: "[Audit] File Organization - Align with CLAUDE.md Repository Boundaries"
 type: "type:audit"
 area: "area:core"
 priority: "priority:normal"
-status: draft
+status: active
 effort: "L"
 children:
   - "5.1-current-vs-planned"

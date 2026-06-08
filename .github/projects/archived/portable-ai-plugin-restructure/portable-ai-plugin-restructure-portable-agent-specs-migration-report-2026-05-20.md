@@ -1,7 +1,7 @@
 ---
 file_type: documentation
 title: Portable Agent Specs Migration Report
-description: 'Issue #296 evidence for moving reusable agent specifications from .github/agents
+description: 'Issue [#296](https://github.com/lightspeedwp/.github/issues/296) evidence for moving reusable agent specifications from .github/agents
   into /agents.'
 version: v0.1.0
 last_updated: '2026-05-20'

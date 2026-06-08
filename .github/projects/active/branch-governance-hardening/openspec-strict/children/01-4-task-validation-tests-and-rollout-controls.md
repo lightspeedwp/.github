@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["testing", "branching", "rollout", "governance"]
 domain: "governance"
 stability: "experimental"
-status: "draft"
+status: active
 ---
 
 # Validation Tests and Rollout Controls

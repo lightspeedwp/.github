@@ -1,5 +1,5 @@
 ---
-title: 'Branding Agent Current-State Audit — Issue #48'
+title: 'Branding Agent Current-State Audit — Issue [#48](https://github.com/lightspeedwp/.github/issues/48)'
 description: Current-state audit and remediation planning for unified branding agent
   implementation across repository
 file_type: documentation
@@ -14,15 +14,15 @@ tags:
 - remediation
 - inventory
 - governance
-status: active
+status: completed
 stability: stable
 domain: governance
 ---
 
-# Branding Agent Current-State Audit (Issue #48)
+# Branding Agent Current-State Audit (Issue [#48](https://github.com/lightspeedwp/.github/issues/48))
 
-**Parent Issue**: #33 (Parent Specification)
-**Related Issues**: #46 (Template Design), #49 (Schema/Config)
+**Parent Issue**: [#33](https://github.com/lightspeedwp/.github/issues/33) (Parent Specification)
+**Related Issues**: [#46](https://github.com/lightspeedwp/.github/issues/46) (Template Design), [#49](https://github.com/lightspeedwp/.github/issues/49) (Schema/Config)
 **Status**: Current-State Audit Phase
 **Effort**: 12–14 hours (audit, analysis, remediation planning, documentation)
 **Timeline**: Week 2–3 implementation
@@ -31,7 +31,7 @@ domain: governance
 
 ## 1. Executive Summary
 
-This document audits the current state of branding implementations across the LightSpeed `.github` repository against the new unified branding agent specification (Issues #33, #46, #49). The audit identifies:
+This document audits the current state of branding implementations across the LightSpeed `.github` repository against the new unified branding agent specification (Issues [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49)). The audit identifies:
 
 - Existing branding patterns and inconsistencies
 - Compliance gaps with the new schema/config model
@@ -60,7 +60,7 @@ The goal is to establish a baseline understanding of current branding state and 
 
 **Out of Scope**:
 
-- Visual design assessment (covered in Issue #46)
+- Visual design assessment (covered in Issue [#46](https://github.com/lightspeedwp/.github/issues/46))
 - Agent implementation logic (future phase)
 - Unrelated documentation quality issues
 - Repository restructuring or major refactoring
@@ -134,7 +134,7 @@ The audit follows a staged approach:
 
 | Pattern | Count | Category | Compliance | Notes |
 |---|---|---|---|---|
-| Auto-generated headers (Issue #33–#46 specs) | 3 | documentation | ✓ Full | Follows new template standard |
+| Auto-generated headers (Issue [#33](https://github.com/lightspeedwp/.github/issues/33)–[#46](https://github.com/lightspeedwp/.github/issues/46) specs) | 3 | documentation | ✓ Full | Follows new template standard |
 | Standard H1 title only | 245 | Mixed | ⚠ Partial | Basic but no category info |
 | H1 + metadata table | 32 | documentation, agents | ⚠ Partial | Manual, inconsistent format |
 | H1 + issue refs | 18 | ai-ops, governance | ⚠ Partial | Links to GitHub issues |
@@ -142,7 +142,7 @@ The audit follows a staged approach:
 
 **Remediation Needed**:
 
-- Standardize header format per Issue #46 template design
+- Standardize header format per Issue [#46](https://github.com/lightspeedwp/.github/issues/46) template design
 - Add category-aware metadata rows (summary table format)
 - Add issue/PR references for AI Ops and governance docs
 - Establish H1 title as baseline minimum
@@ -163,7 +163,7 @@ The audit follows a staged approach:
 
 - **Footer Coverage Gap**: 84.5% of files have no footer
 - **Inconsistent Format**: No standardized footer template in use
-- **Remediation Priority**: High (footer templates from Issue #46 not yet applied)
+- **Remediation Priority**: High (footer templates from Issue [#46](https://github.com/lightspeedwp/.github/issues/46) not yet applied)
 
 ### 3.5 Badge Usage Audit
 
@@ -182,7 +182,7 @@ The audit follows a staged approach:
 - **Badge Usage Sparse**: Only 14 documents use badges (1.9%)
 - **Non-Standard Values**: 40% of badge uses deviate from schema
 - **Missing Category Badges**: No implementations of category badge yet
-- **Remediation Priority**: Medium (templates from Issue #46 will drive adoption)
+- **Remediation Priority**: Medium (templates from Issue [#46](https://github.com/lightspeedwp/.github/issues/46) will drive adoption)
 
 ### 3.6 Accessibility Compliance Audit
 
@@ -346,7 +346,7 @@ npm run validate:category:mapping
 
 ```bash
 npm run remediate:headers:standardize
-# Applies header template from Issue #46
+# Applies header template from Issue [#46](https://github.com/lightspeedwp/.github/issues/46)
 # Adds metadata summary table below H1
 # Output: Updated files + before/after diff
 ```
@@ -455,7 +455,7 @@ npm run generate:badges
 - [x] Documentation updates planned and prioritized
 - [x] Risk assessment completed
 - [x] Success criteria defined and measurable
-- [x] Relationship to Issues #33, #46, #49 documented
+- [x] Relationship to Issues [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49) documented
 - [x] Ready for implementation phase (remediation execution)
 
 ---
@@ -468,7 +468,7 @@ Once this specification is approved:
 2. **Code Review**: Address feedback on audit findings
 3. **Merge**: Integrate audit results into develop branch
 4. **Implementation**: Begin remediation execution using scripts and roadmap
-5. **Agent Development**: Proceed with Issue #555 (agent merge/refactor)
+5. **Agent Development**: Proceed with Issue [#555](https://github.com/lightspeedwp/.github/issues/555) (agent merge/refactor)
 
 ---
 
@@ -476,9 +476,9 @@ Once this specification is approved:
 
 **Related Issues**:
 
-- #33 — Unified branding agent parent specification
-- #46 — Template design specification
-- #49 — Schema/config implementation specification
+- [#33](https://github.com/lightspeedwp/.github/issues/33) — Unified branding agent parent specification
+- [#46](https://github.com/lightspeedwp/.github/issues/46) — Template design specification
+- [#49](https://github.com/lightspeedwp/.github/issues/49) — Schema/config implementation specification
 
 **Related Files** (will be created/updated):
 
@@ -490,7 +490,7 @@ Once this specification is approved:
 
 **Standards and References**:
 
-- Issue #33: Branding agent parent specification
-- Issue #46: Template design
-- Issue #49: Schema/config model
+- Issue [#33](https://github.com/lightspeedwp/.github/issues/33): Branding agent parent specification
+- Issue [#46](https://github.com/lightspeedwp/.github/issues/46): Template design
+- Issue [#49](https://github.com/lightspeedwp/.github/issues/49): Schema/config model
 - [WCAG 2.2 AA quick reference](https://www.w3.org/WAI/WCAG22/quickref/)

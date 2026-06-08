@@ -11,7 +11,7 @@ license: "GPL-3.0"
 tags: ["workflow", "branching", "validation", "automation"]
 domain: "governance"
 stability: "experimental"
-status: "draft"
+status: active
 ---
 
 # Workflow Branch Validation and Reuse Prevention

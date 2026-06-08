@@ -1,15 +1,15 @@
 ---
-title: "Issue #35: Instruction File Audit & Scope Clarification — Summary"
+title: "Issue [#35](https://github.com/lightspeedwp/.github/issues/35): Instruction File Audit & Scope Clarification — Summary"
 description: "Audit findings for instruction files: organization-wide vs repo-local scope, overlapping guidance, and cross-linking improvements."
 created_date: "2026-05-29"
 file_type: documentation
 ---
 
-# Issue #35: Instruction File Audit & Scope Clarification — Summary
+# Issue [#35](https://github.com/lightspeedwp/.github/issues/35): Instruction File Audit & Scope Clarification — Summary
 
 ## Overview
 
-This document summarizes the audit of instruction files across the LightSpeed `.github` repository (issue #35). The audit identified 36 instruction files, classified them by scope, and documented overlapping guidance and cross-linking opportunities.
+This document summarizes the audit of instruction files across the LightSpeed `.github` repository (issue [#35](https://github.com/lightspeedwp/.github/issues/35)). The audit identified 36 instruction files, classified them by scope, and documented overlapping guidance and cross-linking opportunities.
 
 **Status:** In Progress
 **Branch:** `ai/audit-instruction-files-35`
@@ -169,9 +169,9 @@ The following changes were made to `CLAUDE.md`:
 
 ## Related Issues
 
-- Issue #47 (Meta Agent) — Branding and metadata standardization
-- Issue #33 (Branding Agent) — Unified branding strategy
-- Issue #46 (Template Design) — Template standardization
+- Issue [#47](https://github.com/lightspeedwp/.github/issues/47) (Meta Agent) — Branding and metadata standardization
+- Issue [#33](https://github.com/lightspeedwp/.github/issues/33) (Branding Agent) — Unified branding strategy
+- Issue [#46](https://github.com/lightspeedwp/.github/issues/46) (Template Design) — Template standardization
 
 ---
 
