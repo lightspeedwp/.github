@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-06-07"
+last_updated: "2026-06-08"
 owners:
   - LightSpeed Team
 tags:
@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- **Plugin Pack Waves: WordPress 10-plugin catalogue and AI readiness assessor planning set** — Expanded `.github/projects/active/plugin-pack-waves/` from legacy wave scaffolding into a complete WordPress-focused planning pack with a ten-plugin catalogue (P01-P10), issue draft files, OpenSpec strict proposal inputs, execution controls (`ISSUE_EXECUTION_PLAN.md`, `ISSUE_REGISTER.md`, `RUN_LOG.md`), and linked GitHub issues [#940](https://github.com/lightspeedwp/.github/issues/940) through [#950](https://github.com/lightspeedwp/.github/issues/950), including the new **WP AI Readiness Assessor** task for WordPress site readiness evaluation. ([#951](https://github.com/lightspeedwp/.github/pull/951))
 
 - **Awesome GitHub Site Phase 06: Wapuu mascot system** — Added a reusable `WapuuHero` Astro component with a canonical page-type mapping, copied the three confirmed Wapuu assets into `website/public/assets/wapuus/`, and wired the learn, cookbook, tools, and catalogue hero sections to render the correct mascot with responsive hiding at ≤860px and decorative accessibility attributes. ([#864](https://github.com/lightspeedwp/.github/issues/864))
 - **Awesome GitHub Site Phase 07: Catalogue list pages with filter bar and Wapuu hero** — Replaced the old catalogue index with a spec-aligned `/c/[cat]` route, added the shared Wapuu hero component, introduced tag-chip filtering with AND logic, and surfaced the category type note and install-action cards for all eight catalogue pages. ([#866](https://github.com/lightspeedwp/.github/issues/866), [#867](https://github.com/lightspeedwp/.github/pull/867))
