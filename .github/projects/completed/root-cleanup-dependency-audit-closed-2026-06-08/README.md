@@ -1,11 +1,12 @@
 ---
 title: "Root Cleanup and Dependency Audit OPSX"
-description: "Active project workspace for dependency rationalisation and repository root cleanup"
+description: "Completed project workspace for dependency rationalisation and repository root cleanup"
 created_date: "2026-06-03"
-last_updated: "2026-06-03"
+last_updated: "2026-06-08"
+completed_date: "2026-06-08"
 file_type: "documentation"
 version: "v1.0.0"
-status: active
+status: completed
 ---
 
 # Root Cleanup and Dependency Audit OPSX
