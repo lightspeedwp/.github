@@ -2,8 +2,8 @@
 title: "Branch Governance Hardening - Run Log"
 description: "Execution log for the branch governance and AI branch-selection hardening workstream."
 file_type: "documentation"
-version: "1.0.0"
-last_updated: "2026-06-03"
+version: "1.1.0"
+last_updated: "2026-06-08"
 created_date: "2026-06-03"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -16,6 +16,8 @@ status: active
 
 # Branch Governance Hardening - Run Log
 
+Status is tracked in ISSUE_REGISTER.md. This file is an event log only.
+
 ## 2026-06-03
 
 - Created the branch-governance hardening project pack.
@@ -25,7 +27,9 @@ status: active
 - Added a `main` branch PR guard that only allows `release/*` and
   `hotfix/*` sources, then wired `main` protection to that status check.
 
-## Pending
+## 2026-06-08
 
-- Create the live GitHub issue chain once the proposal pack is approved.
-- Implement the remaining branch ruleset and workflow guardrails in the next batch.
+- Normalised project tracking so ISSUE_REGISTER.md is the single source of
+  truth for task status.
+- Added a concise progress matrix and aligned issue-chain states to current
+  evidence.

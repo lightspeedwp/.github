@@ -2,8 +2,8 @@
 title: "Branch Governance Hardening"
 description: "Active project pack for enforcing branch discipline, GitHub rulesets, and AI branch-selection guardrails."
 file_type: "documentation"
-version: "1.0.0"
-last_updated: "2026-06-03"
+version: "1.1.0"
+last_updated: "2026-06-08"
 created_date: "2026-06-03"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -62,6 +62,13 @@ Execute the items in order:
 3. Workflow enforcement and branch reuse prevention
 4. AI branch-selection guardrails
 5. Validation, tests, and rollout controls
+
+## Status Tracking
+
+- Canonical task status lives in [ISSUE_REGISTER.md](./ISSUE_REGISTER.md).
+- Use the [Progress Matrix](./ISSUE_REGISTER.md#progress-matrix) in that file
+  for the current Planned/In Progress/Done/Blocked view.
+- [RUN_LOG.md](./RUN_LOG.md) is event history only.
 
 ## Current State
 
