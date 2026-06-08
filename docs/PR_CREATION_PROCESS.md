@@ -144,6 +144,7 @@ Each PR template includes a checklist. Ensure you:
   - At least one reviewer approves
   - Changelog/release labels are set and docs/tests are updated
 - PRs linked to issues with `Closes #issue` will auto-close the issue upon merge.
+- After merge, `checklist-finalization.yml` rewrites the PR body checklist section so the merged description reflects the final completed state.
 
 ---
 
