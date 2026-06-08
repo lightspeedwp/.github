@@ -89,6 +89,7 @@ Agent-triggered workflows are invoked **on demand** via `workflow_dispatch` or c
 | `metrics.yml` | workflow_dispatch ± scheduled | Metrics Agent | Collect repo health metrics |
 | `project-meta-sync.yml` | workflow_dispatch | Project Meta Sync Agent | Sync GitHub Project board fields |
 | `readme-update.yml` | workflow_dispatch + workflow_call | Release Agent (post-release) | Apply README & Mermaid diagram fixes |
+| `issue-create-from-template.yml` | workflow_dispatch | Issue Agent / LLM caller | Create issues from canonical templates before the issue exists |
 
 ### When to Use
 
