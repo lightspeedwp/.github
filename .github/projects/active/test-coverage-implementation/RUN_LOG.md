@@ -43,3 +43,21 @@ For each `/opsx:propose` execution or issue creation pass, append one entry usin
 - github-issue-url: `https://github.com/lightspeedwp/.github/issues/932` through `https://github.com/lightspeedwp/.github/issues/938`
 - labels-applied: `[status:needs-planning, status:needs-review, priority:critical, priority:important, priority:normal, type:epic, type:audit, type:test, type:automation, type:task, type:documentation, area:quality, area:testing, area:automation]`
 - notes: `Created the parent epic and six phase issues from the documented issue bodies, with each issue covering its assigned task range from the source README.`
+
+### 2026-06-08 17:18 Europe/Berlin - phase-1-baseline
+
+- command: `npm test -- --coverage --collectCoverageFrom='scripts/**/*.js' --collectCoverageFrom='!scripts/**/__tests__/**'`
+- expected-template: `n/a`
+- result: `success`
+- github-issue-url: `https://github.com/lightspeedwp/.github/issues/933`
+- labels-applied: `[]`
+- notes: `Captured the baseline coverage report and identified the 0% and sub-50% files for the phase-1 report artefact.`
+
+### 2026-06-08 17:28 Europe/Berlin - phase-2-metrics-agent-coverage
+
+- command: `npm test -- scripts/agents/__tests__/metrics.agent.test.js --coverage --collectCoverageFrom='scripts/agents/metrics.agent.js'`
+- expected-template: `n/a`
+- result: `success`
+- github-issue-url: `https://github.com/lightspeedwp/.github/issues/934`
+- labels-applied: `[]`
+- notes: `Added the pure metrics agent helpers and the focused Jest coverage suite for issue #934, then validated the phase against coverage and report-generation paths.`
