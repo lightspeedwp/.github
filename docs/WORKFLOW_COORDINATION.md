@@ -90,7 +90,7 @@ Agent-triggered workflows are invoked **on demand** via `workflow_dispatch` or c
 | `project-meta-sync.yml` | workflow_dispatch | Project Meta Sync Agent | Sync GitHub Project board fields |
 | `readme-update.yml` | workflow_dispatch + workflow_call | Release Agent (post-release) | Apply README & Mermaid diagram fixes |
 | `issue-create-from-template.yml` | workflow_dispatch | Issue Agent / LLM caller | Create issues from canonical templates before the issue exists |
-| `checklist-finalization.yml` | issues.closed / pull_request_target.closed | Workflow backstop | Finalise checklists in closed issues and merged PRs |
+| `checklist-finalisation.yml` | issues.closed / pull_request_target.closed | Workflow backstop | Finalise checklists in closed issues and merged PRs |
 
 ### When to Use
 

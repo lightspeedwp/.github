@@ -13,7 +13,7 @@ status: active
 | Key | OpenSpec File | Template | GitHub Issue URL | Status | Owner | Evidence |
 |---|---|---|---|---|---|---|
 | EPIC-01 | `parents/01-parent-test-coverage-hardening.md` | `05-epic.md` | `https://github.com/lightspeedwp/.github/issues/932` | open | Ash | `Programme parent covering all 6 phases` |
-| PHASE-01 | `children/01-coverage-baseline-and-unskip.md` | `22-audit.md` | `https://github.com/lightspeedwp/.github/issues/933` | open | Ash | `Tasks 1.1-1.4` |
+| PHASE-01 | `children/01-phase-1-baseline-measurement.md` | `22-audit.md` | `https://github.com/lightspeedwp/.github/issues/933` | open | Ash | `Tasks 1.1-1.4` |
 | PHASE-02 | `children/02-phase-2-metrics-agent-tests.md` | `12-testing-coverage.md` | `https://github.com/lightspeedwp/.github/issues/934` | open | Ash | `Tasks 2.1-2.15` |
 | PHASE-03 | `children/03-phase-3-linting-agent-tests.md` | `12-testing-coverage.md` | `https://github.com/lightspeedwp/.github/issues/935` | open | Ash | `Tasks 3.1-3.15` |
 | PHASE-04 | `children/04-phase-4-release-agent-enhancement.md` | `11-automation.md` | `https://github.com/lightspeedwp/.github/issues/936` | open | Ash | `Tasks 4.1-4.10` |
