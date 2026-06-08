@@ -131,6 +131,12 @@ release/v1.2.0
 - CI will block misnamed branches from merging
 - Rename with `git branch -m <old> <new>` if needed
 
+### Branch Reuse Prevention
+
+- **CRITICAL:** Once a branch has been merged (squash-merged into `develop` or `main`), that branch name is permanently retired. Do NOT reuse it for new work.
+- The validation script detects reused branch names by searching Git merge history and `CHANGELOG.md` references.
+- If a branch name is flagged as reused, create a new branch with a unique slug (e.g. append `-v2` or choose a distinct descriptor).
+
 ### Template Routing Quick Reference
 
 Use [.github/PULL_REQUEST_TEMPLATE/config.yml](./.github/PULL_REQUEST_TEMPLATE/config.yml) as the canonical PR route map. Keep it aligned with [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md) and [docs/PR_CREATION_PROCESS.md](./docs/PR_CREATION_PROCESS.md).
@@ -189,7 +195,8 @@ For issue intake, use [.github/ISSUE_TEMPLATE/config.yml](./.github/ISSUE_TEMPLA
 1. Verify the current branch: `git branch -v`
 2. Confirm it is NOT `main` or `develop` (unless in a release cycle)
 3. Ensure the branch name follows the `{type}/{scope}-{short-title}` pattern
-4. Use: `git push -u origin <branch-name>`
+4. Run the local validation check: `npm run validate:branch-name -- --branch $(git branch --show-current)`
+5. Use: `git push -u origin <branch-name>`
 
 ## Development Commands
 

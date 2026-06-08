@@ -44,6 +44,20 @@ stability: "stable"
 
 ---
 
+## Branch Governance
+
+All AI agents **must** follow these branching rules before editing files:
+
+1. **Validate the branch name** — run `npm run validate:branch-name -- --branch <name>` before the first edit. The branch must match `{type}/{scope}-{short-title}` format.
+2. **Check for branch reuse** — the validation script automatically detects branches that have already been merged. If flagged, create a new branch with a distinct name.
+3. **Verify the merge target** — feature/fix/chore branches target `develop`. Only `release/*` and `hotfix/*` may target `main`.
+4. **Never use `claude/` as a branch prefix** — this prefix is explicitly forbidden.
+5. **Delete branches after merge** — remote and local branches must be cleaned up immediately after a successful squash merge.
+
+See [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md) and [CLAUDE.md](CLAUDE.md) for the full policy.
+
+---
+
 ## Contribution Guidelines & Indexes
 
 | Area                      | File Reference                                                                                                                 | Notes / Usage                                                 |

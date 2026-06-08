@@ -7,6 +7,8 @@
  */
 
 const { execSync } = require("child_process");
+const fs = require("fs");
+const path = require("path");
 
 const ALLOWED_PREFIXES = [
   "feat",
@@ -87,6 +89,18 @@ function resolveBranchName() {
   }
 }
 
+function resolveBaseBranch() {
+  const explicitBase = getArgValue("--base");
+
+  if (explicitBase) {
+    return explicitBase;
+  }
+
+  const envBase = process.env.GITHUB_BASE_REF || process.env.BASE_BRANCH || "";
+
+  return envBase.trim();
+}
+
 function isAllowed(branchName) {
   return (
     PROTECTED_BRANCHES.has(branchName) ||
@@ -94,6 +108,81 @@ function isAllowed(branchName) {
     AUDIT_BRANCH_PATTERN.test(branchName) ||
     BRANCH_PATTERN.test(branchName)
   );
+}
+
+function checkBaseBranch(branchName, baseBranch) {
+  if (!baseBranch) {
+    return { valid: true };
+  }
+
+  if (baseBranch === "main") {
+    const isReleaseOrHotfix =
+      branchName.startsWith("release/") ||
+      branchName.startsWith("hotfix/") ||
+      PROTECTED_BRANCHES.has(branchName) ||
+      BOT_PREFIXES.test(branchName);
+
+    if (!isReleaseOrHotfix) {
+      return {
+        valid: false,
+        message: `❌ Policy Violation: Only release/* or hotfix/* branches may merge into main. Received '${branchName}' targeting 'main'.`,
+      };
+    }
+  }
+
+  if (baseBranch === "develop") {
+    if (branchName === "main") {
+      return {
+        valid: false,
+        message: `❌ Policy Violation: Merging the 'main' branch back into 'develop' directly is not allowed. Received '${branchName}' targeting 'develop'.`,
+      };
+    }
+  }
+
+  return { valid: true };
+}
+
+function checkBranchReuse(branchName) {
+  if (PROTECTED_BRANCHES.has(branchName) || BOT_PREFIXES.test(branchName)) {
+    return { reused: false };
+  }
+
+  // 1. Check if the branch has already been merged into develop or main via git log
+  try {
+    // Search for squash merges/merges containing the branch name
+    const gitCmd = `git log --all --grep="from ${branchName}" --grep="${branchName} (#" --oneline`;
+    const output = execSync(gitCmd, {
+      stdio: ["ignore", "pipe", "ignore"],
+      encoding: "utf8",
+    }).trim();
+
+    if (output) {
+      return {
+        reused: true,
+        reason: `Found merge/squash commits for this branch in Git log:\n${output}`,
+      };
+    }
+  } catch {
+    // Log search can fail if git history is not initialized, ignore and continue
+  }
+
+  // 2. Check CHANGELOG.md for the branch name reference
+  try {
+    const changelogPath = path.resolve(__dirname, "../../CHANGELOG.md");
+    if (fs.existsSync(changelogPath)) {
+      const changelog = fs.readFileSync(changelogPath, "utf8");
+      if (changelog.includes(branchName)) {
+        return {
+          reused: true,
+          reason: `Branch name '${branchName}' is already referenced in CHANGELOG.md.`,
+        };
+      }
+    }
+  } catch {
+    // Ignore FS/path resolve errors
+  }
+
+  return { reused: false };
 }
 
 function printFailure(branchName) {
@@ -118,6 +207,7 @@ function main() {
   }
 
   const branchName = resolveBranchName();
+  const baseBranch = resolveBaseBranch();
 
   if (!branchName) {
     console.warn(
@@ -126,8 +216,26 @@ function main() {
     process.exit(0);
   }
 
+  // Check 1: Naming Convention
   if (!isAllowed(branchName)) {
     printFailure(branchName);
+    process.exit(1);
+  }
+
+  // Check 2: Base Branch Rules
+  const baseCheck = checkBaseBranch(branchName, baseBranch);
+  if (!baseCheck.valid) {
+    console.error(baseCheck.message);
+    process.exit(1);
+  }
+
+  // Check 3: Branch Reuse Prevention
+  const reuseCheck = checkBranchReuse(branchName);
+  if (reuseCheck.reused) {
+    console.error(
+      `❌ Policy Violation: Branch '${branchName}' has already been merged or completed and cannot be reused for new work batches.`,
+    );
+    console.error(`Reason: ${reuseCheck.reason}`);
     process.exit(1);
   }
 
@@ -136,4 +244,18 @@ function main() {
   );
 }
 
-main();
+if (require.main === module) {
+  main();
+}
+
+// Export for unit tests
+module.exports = {
+  ALLOWED_PREFIXES,
+  BOT_PREFIXES,
+  PROTECTED_BRANCHES,
+  isAllowed,
+  checkBaseBranch,
+  checkBranchReuse,
+  resolveBranchName,
+  resolveBaseBranch,
+};
