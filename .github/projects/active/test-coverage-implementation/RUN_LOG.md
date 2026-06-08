@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Run Log - Test Coverage Implementation"
 description: "Execution log for OpenSpec proposal runs, issue creation, and PR closeout."
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-06-08"
 last_updated: "2026-06-08"
 status: active
