@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Template Enforcement Governance Closeout** — Added the canonical PR routing map, refreshed the root PR router and governance guidance, updated the template-enforcement workflow and fixtures, and split the remaining organisation-admin checks into `REMOTE_ADMIN_CHECKS.md`. ([#955](https://github.com/lightspeedwp/.github/pull/955))
+
 - **Test Coverage Implementation Phase 3: Linting agent coverage** — Replaced the linting agent stub with a deterministic helper surface for lint target parsing, rule selection, findings grouping, report formatting, config loading, cache isolation, and async orchestration. Added a focused Jest suite that covers parsing, selection ordering, invalid config handling, malformed findings, empty-input handling, and repository-wide lint/test validation. ([#935](https://github.com/lightspeedwp/.github/issues/935))
 
 - **Test Coverage Implementation Phase 2: Metrics agent coverage** — Added a pure, testable metrics-agent helper module with repository-level aggregation, issue and pull request metric calculations, markdown/CSV report generation, date-range filtering, and multi-repository support. Added a focused Jest suite that covers the collection, aggregation, reporting, and error-handling paths for `scripts/agents/metrics.agent.js`. ([#934](https://github.com/lightspeedwp/.github/issues/934))

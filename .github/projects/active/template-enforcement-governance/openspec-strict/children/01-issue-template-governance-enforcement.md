@@ -2,7 +2,7 @@
 file_type: documentation
 title: "Issue Template Governance Enforcement"
 description: "Implement issue template governance, metadata hardening, and instruction alignment."
-version: "1.0.0"
+version: "1.1.0"
 last_updated: "2026-06-08"
 owners: ["LightSpeed Team"]
 tags: ["opsx", "governance", "issue-templates", "automation"]
@@ -30,7 +30,7 @@ Drive completion of issue-template governance work in this repository so issue i
 ## Acceptance Criteria
 
 - [ ] `ISSUE_TEMPLATE/config.yml` documents governance metadata and keeps blank issues disabled.
-- [ ] 25 issue types are aligned with the maintained issue template set and documentation.
+- [ ] 35 issue types are aligned with the maintained issue template set and documentation.
 - [ ] `instructions/issue-templates.instructions.md` exists and covers template selection logic.
 - [ ] Canonical governance references in AGENTS and CLAUDE are accurate and non-conflicting.
 - [ ] Validation workflow and branch policy dependencies are documented where relevant.

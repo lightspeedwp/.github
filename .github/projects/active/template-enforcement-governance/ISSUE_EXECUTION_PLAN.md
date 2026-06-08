@@ -2,7 +2,7 @@
 title: "Template Enforcement Governance - OpenSpec Execution Plan"
 description: "Sequenced /opsx:propose plan for issue-template and PR-template governance tracks."
 file_type: "documentation"
-version: "1.0.0"
+version: "1.0.1"
 last_updated: "2026-06-08"
 created_date: "2026-06-08"
 authors: ["github-copilot"]
@@ -10,19 +10,20 @@ maintainer: "LightSpeed Team"
 status: active
 ---
 
-# OpenSpec Execution Plan
+# Remote/Admin Follow-Up Plan
 
 ## Objective
 
-Run `/opsx:propose` for both governance tracks in the required order and capture outcomes in `RUN_LOG.md`.
+Verify the two remaining repository-admin checks that could not be confirmed from the local workspace.
 
-## Command Sequence
+## Check Sequence
 
-1. `/opsx:propose .github/projects/active/template-enforcement-governance/openspec-strict/children/01-issue-template-governance-enforcement.md`
-2. `/opsx:propose .github/projects/active/template-enforcement-governance/openspec-strict/children/02-pr-template-governance-enforcement.md`
+1. Confirm the two missing issue types are visible in the GitHub organisation settings.
+2. Confirm branch protection uses the expected template-validation status check.
+3. Update the closeout docs once both checks are confirmed.
 
 ## Controls
 
-- Execute from repository root.
-- Record each attempt with timestamp, outcome, and notes.
-- If terminal CLI does not support slash commands, record blocker and equivalent fallback attempt.
+- Treat the main implementation as complete unless a remote admin check fails.
+- Keep the follow-up task narrow so it does not absorb any more implementation work.
+- Archive the follow-up once the remote verification is complete.

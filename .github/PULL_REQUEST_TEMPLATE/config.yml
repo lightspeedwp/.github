@@ -7,6 +7,11 @@
 # - Branch naming: docs/BRANCHING_STRATEGY.md
 # - Root router: .github/pull_request_template.md
 # - Template files: .github/PULL_REQUEST_TEMPLATE/*.md
+# - PR creation guide: docs/PR_CREATION_PROCESS.md
+#
+# The route map below is explicit for all supported branch prefixes. Where the
+# repository does not have a specialised PR template, the closest active
+# template is reused so automation still has a stable, documented contract.
 
 default_template: pr_feature.md
 
@@ -25,8 +30,23 @@ routes:
   security/: pr_bug.md
   design/: pr_feature.md
   a11y/: pr_feature.md
+  ux/: pr_feature.md
   release/: pr_release.md
   research/: pr_feature.md
+  revert/: pr_chore.md
+  i18n/: pr_feature.md
+  ops/: pr_chore.md
+  proto/: pr_feature.md
+  ds/: pr_feature.md
+  api/: pr_feature.md
+  schema/: pr_feature.md
+  telemetry/: pr_feature.md
+  content/: pr_docs.md
+  seo/: pr_docs.md
+  config/: pr_chore.md
+  migrate/: pr_chore.md
+  qa/: pr_chore.md
+  uat/: pr_chore.md
 
 available_templates:
   - pr_feature.md

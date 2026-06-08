@@ -2,10 +2,10 @@
 file_type: documentation
 title: Org-wide Git Branching Strategy
 description: Canonical branch naming, protection, merge discipline, and automation rules for LightSpeedWP repositories.
-last_updated: '2026-06-07'
+last_updated: '2026-06-08'
 owners:
   - LightSpeed Team
-version: v1.3
+version: v1.4
 status: active
 stability: stable
 domain: governance
@@ -250,6 +250,47 @@ Extend your project sync workflow so branch prefixes set the Project **Type** fi
 **Principle:**
 Labels remain **routing signals** (status, priority, area/component).
 Issue Types and Project fields carry the semantic meaning.
+
+### 5.3 PR Template Routing
+
+Use `.github/PULL_REQUEST_TEMPLATE/config.yml` as the canonical machine-readable
+route map, and keep it aligned with the branch names and template files below.
+Where there is no specialised template file, the closest active template is
+reused so automation stays predictable.
+
+| Branch prefix | PR template |
+| --- | --- |
+| `feat/` | `pr_feature.md` |
+| `fix/` | `pr_bug.md` |
+| `hotfix/` | `pr_hotfix.md` |
+| `refactor/` | `pr_refactor.md` |
+| `chore/` | `pr_chore.md` |
+| `docs/` | `pr_docs.md` |
+| `test/` | `pr_chore.md` |
+| `perf/` | `pr_feature.md` |
+| `ci/` | `pr_ci.md` |
+| `build/` | `pr_ci.md` |
+| `deps/` | `pr_dep_update.md` |
+| `security/` | `pr_bug.md` |
+| `design/` | `pr_feature.md` |
+| `a11y/` | `pr_feature.md` |
+| `ux/` | `pr_feature.md` |
+| `release/` | `pr_release.md` |
+| `research/` | `pr_feature.md` |
+| `revert/` | `pr_chore.md` |
+| `i18n/` | `pr_feature.md` |
+| `ops/` | `pr_chore.md` |
+| `proto/` | `pr_feature.md` |
+| `ds/` | `pr_feature.md` |
+| `api/` | `pr_feature.md` |
+| `schema/` | `pr_feature.md` |
+| `telemetry/` | `pr_feature.md` |
+| `content/` | `pr_docs.md` |
+| `seo/` | `pr_docs.md` |
+| `config/` | `pr_chore.md` |
+| `migrate/` | `pr_chore.md` |
+| `qa/` | `pr_chore.md` |
+| `uat/` | `pr_chore.md` |
 
 ---
 

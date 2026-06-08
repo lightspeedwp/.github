@@ -3,8 +3,6 @@ name: Template Enforcement
 on:
   issues:
     types: [opened, edited, reopened]
-  pull_request_target:
-    types: [opened, edited, reopened, synchronize, ready_for_review]
   push:
     branches: [develop]
 
@@ -118,141 +116,6 @@ jobs:
 
             core.setFailed(`Issue #${issue.number} is missing required template sections: ${missing.join(', ')}`);
 
-  validate-pr-template:
-    if: github.event_name == 'pull_request_target'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Validate pull request body against required template sections
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const marker = '<!-- template-enforcement -->';
-            const pr = context.payload.pull_request;
-            const author = pr.user?.login || '';
-            const isDependabot = author === 'dependabot[bot]' || author === 'app/dependabot';
-            const isImgbot = author === 'imgbot[bot]' || author === 'app/imgbot';
-
-            if (isDependabot || isImgbot) {
-              core.info(`Skipping PR template validation for bot author ${author}.`);
-              return;
-            }
-
-            const validation = validatePullRequestBody(pr.body || '', pr.labels || []);
-
-            const comments = await github.paginate(github.rest.issues.listComments, {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pr.number,
-              per_page: 100
-            });
-
-            const previous = comments.find((comment) =>
-              comment.user?.type === 'Bot' && comment.body?.includes(marker)
-            );
-
-            if (validation.missing.length === 0) {
-              if (previous) {
-                await github.rest.issues.updateComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  comment_id: previous.id,
-                  body: `${marker}\n✅ Template check passed after update. Thanks for fixing the PR description.`
-                });
-              }
-
-              return;
-            }
-
-            const message = [
-              marker,
-              '🚫 This PR description is missing required template content.',
-              '',
-              `Missing required section(s): ${validation.missing.join(', ')}`,
-              '',
-              'Please update the PR body using one of the repository PR templates:',
-              '- https://github.com/lightspeedwp/.github/blob/develop/.github/pull_request_template.md',
-              '- https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATE',
-              '',
-              'Empty placeholders, unchecked checklist boxes, and stub issue references do not count.'
-            ].join('\n');
-
-            if (previous) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: previous.id,
-                body: message
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: pr.number,
-                body: message
-              });
-            }
-
-            core.setFailed(`PR #${pr.number} is missing required template content: ${validation.missing.join(', ')}`);
-
-            function stripHtmlComments(text) {
-              return (text || '').replace(/<!--[\s\S]*?-->/g, '');
-            }
-
-            function sectionBody(body, headingRegex) {
-              const text = (body || '').replace(/\r\n/g, '\n');
-              const match = text.match(headingRegex);
-              if (!match || match.index === undefined) {
-                return '';
-              }
-
-              const start = match.index + match[0].length;
-              const remainder = text.slice(start);
-              const nextHeading = remainder.match(/^##\s+.+$/m);
-              const end = nextHeading ? start + nextHeading.index : text.length;
-              return text.slice(start, end).trim();
-            }
-
-            function hasIssueReference(sectionText) {
-              const cleaned = stripHtmlComments(sectionText);
-              return /(?:^|\n)\s*(?:[-*]\s*)?(?:(?:closes|fixes|resolves|relates to)\s+)?#\d+\b/i.test(cleaned);
-            }
-
-            function hasChangelogEntry(sectionText) {
-              const cleaned = stripHtmlComments(sectionText);
-              return /(?:^|\n)\s*[-*]\s+(?!\[?\s*placeholder\s*\]?)(?:.+\S)/im.test(cleaned);
-            }
-
-            function hasCompletedChecklist(sectionText) {
-              const cleaned = stripHtmlComments(sectionText);
-              const hasUnchecked = /(?:^|\n)\s*-\s*\[\s\]\s*/.test(cleaned);
-              const hasChecked = /(?:^|\n)\s*-\s*\[[xX]\]\s*/.test(cleaned);
-              return hasChecked && !hasUnchecked;
-            }
-
-            function validatePullRequestBody(body, labels) {
-              const labelNames = new Set((labels || []).map((label) => label.name));
-              const missing = [];
-
-              const linkedIssues = sectionBody(body, /^##\s+Linked issues\s*$/im);
-              if (!hasIssueReference(linkedIssues)) {
-                missing.push('Linked issues');
-              }
-
-              const changelog = sectionBody(body, /^##\s+Changelog\s*$/im);
-              if (!labelNames.has('meta:no-changelog') && !hasChangelogEntry(changelog)) {
-                missing.push('Changelog');
-              }
-
-              const checklist = sectionBody(
-                body,
-                /^###\s+Checklist\s+\(Global DoD\s*\/\s*PR\)\s*$/im
-              );
-              if (!hasCompletedChecklist(checklist)) {
-                missing.push('Global DoD checklist');
-              }
-
-              return { missing };
-            }
   validate-push-guardrail:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -276,7 +139,11 @@ jobs:
               return;
             }
 
-            const validation = validatePullRequestBody(mergedPr.body || '', mergedPr.labels || []);
+            const validation = validatePullRequestBody(
+              mergedPr.body || '',
+              mergedPr.labels || [],
+              mergedPr.head?.ref || ''
+            );
             if (validation.missing.length === 0) {
               core.info(`Merged PR #${mergedPr.number} satisfies template enforcement.`);
               return;
@@ -321,7 +188,8 @@ jobs:
             core.setFailed(
               `Merged PR #${mergedPr.number} on develop is missing required template content: ${validation.missing.join(', ')}`
             );
-
+            // Keep these helpers in sync with .github/workflows/validate-pr-template.yml
+            // until they are extracted into a shared script.
             function stripHtmlComments(text) {
               return (text || '').replace(/<!--[\s\S]*?-->/g, '');
             }
@@ -357,13 +225,19 @@ jobs:
               return hasChecked && !hasUnchecked;
             }
 
-            function validatePullRequestBody(body, labels) {
+            function validatePullRequestBody(body, labels, headRef) {
               const labelNames = new Set((labels || []).map((label) => label.name));
               const missing = [];
+              const isReleaseBranch = /^release\//i.test(String(headRef || ''));
 
-              const linkedIssues = sectionBody(body, /^##\s+Linked issues\s*$/im);
+              const linkedIssues = sectionBody(
+                body,
+                isReleaseBranch
+                  ? /^##\s+Linked issues\s*&\s*merged PRs\s*$/im
+                  : /^##\s+Linked issues\s*$/im
+              );
               if (!hasIssueReference(linkedIssues)) {
-                missing.push('Linked issues');
+                missing.push(isReleaseBranch ? 'Linked issues & merged PRs' : 'Linked issues');
               }
 
               const changelog = sectionBody(body, /^##\s+Changelog\s*$/im);
