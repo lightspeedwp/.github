@@ -4,10 +4,17 @@ parent_issue: 932
 file_type: documentation
 title: "[PHASE 3] Linting Agent Coverage"
 description: "OPSX child spec for linting-agent test coverage"
+version: "1.0.0"
+last_updated: "2026-06-08"
+owners: ["Ash"]
+tags: ["testing", "coverage", "linting-agent", "opsx"]
 spec_type: child
 status: active
-last_updated: '2026-06-08'
+stability: stable
+domain: quality
 ---
+
+# [PHASE 3] Linting Agent Coverage
 
 ## OPSX Child Spec: Linting Agent Coverage
 
