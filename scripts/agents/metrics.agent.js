@@ -67,6 +67,16 @@ function safeArray(value) {
   return Array.isArray(value) ? value : [];
 }
 
+function average(values) {
+  return values.length === 0
+    ? 0
+    : Number(
+        (values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(
+          2,
+        ),
+      );
+}
+
 function coerceLabelName(label) {
   if (!label) {
     return "";
@@ -163,6 +173,8 @@ function collectIssueMetrics(issues = [], options = {}) {
     closed: statusCounts.closed || 0,
     statusCounts,
     labelCounts,
+    ageDaysSamples: ageDays,
+    firstResponseHoursSamples: firstResponseHours,
     averageAgeDays: average(ageDays),
     averageFirstResponseHours: average(firstResponseHours),
   };
@@ -238,6 +250,8 @@ function collectPullRequestMetrics(pullRequests = [], options = {}) {
     closed: stateCounts.closed || 0,
     mergeRate: total === 0 ? 0 : Number(((merged / total) * 100).toFixed(2)),
     stateCounts,
+    reviewLeadHoursSamples: reviewLeadHours,
+    leadTimeHoursSamples: leadTimeHours,
     averageReviewLeadHours: average(reviewLeadHours),
     averageLeadTimeHours: average(leadTimeHours),
   };
@@ -261,14 +275,14 @@ function normaliseRepositories(repositories = []) {
 function aggregateRepositoryMetrics(repositories = [], options = {}) {
   const repoList = normaliseRepositories(repositories);
   const perRepository = repoList.map((repository) => {
-    const issues = collectIssueMetrics(repository.issues || [], options);
+    const issues = collectIssueMetrics(repository?.issues || [], options);
     const pullRequests = collectPullRequestMetrics(
-      repository.pullRequests || [],
+      repository?.pullRequests || [],
       options,
     );
 
     return {
-      name: repository.name || repository.repository || "unknown",
+      name: repository?.name || repository?.repository || "unknown",
       issues,
       pullRequests,
     };
@@ -278,10 +292,11 @@ function aggregateRepositoryMetrics(repositories = [], options = {}) {
     (sum, repository) => sum + repository.issues.total,
     0,
   );
-  const issueFirstResponseHours = perRepository.flatMap((repository) =>
-    repository.issues.averageFirstResponseHours
-      ? [repository.issues.averageFirstResponseHours]
-      : [],
+  const issueAgeDays = perRepository.flatMap(
+    (repository) => repository.issues.ageDaysSamples,
+  );
+  const issueFirstResponseHours = perRepository.flatMap(
+    (repository) => repository.issues.firstResponseHoursSamples,
   );
   const prTotals = perRepository.reduce(
     (sum, repository) => sum + repository.pullRequests.total,
@@ -291,20 +306,9 @@ function aggregateRepositoryMetrics(repositories = [], options = {}) {
     (sum, repository) => sum + repository.pullRequests.merged,
     0,
   );
-  const prLeadTimes = perRepository.flatMap((repository) =>
-    repository.pullRequests.averageLeadTimeHours
-      ? [repository.pullRequests.averageLeadTimeHours]
-      : [],
+  const prLeadTimes = perRepository.flatMap(
+    (repository) => repository.pullRequests.leadTimeHoursSamples,
   );
-
-  const average = (values) =>
-    values.length === 0
-      ? 0
-      : Number(
-          (
-            values.reduce((sum, value) => sum + value, 0) / values.length
-          ).toFixed(2),
-        );
 
   return {
     repositories: perRepository,
@@ -315,6 +319,7 @@ function aggregateRepositoryMetrics(repositories = [], options = {}) {
       mergedPullRequestCount: prMerged,
       mergeRate:
         prTotals === 0 ? 0 : Number(((prMerged / prTotals) * 100).toFixed(2)),
+      averageIssueAgeDays: average(issueAgeDays),
       averageIssueFirstResponseHours: average(issueFirstResponseHours),
       averagePullRequestLeadTimeHours: average(prLeadTimes),
     },
@@ -334,7 +339,7 @@ function generateMarkdownReport(report) {
           "| --- | ---: | ---: | ---: | ---: | ---: |",
           ...rows.map(
             (repository) =>
-              `| ${repository.name} | ${repository.issues.total} | ${repository.pullRequests.total} | ${repository.pullRequests.merged} | ${repository.pullRequests.mergeRate}% | ${repository.issues.averageFirstResponseHours} |`,
+              `| ${repository?.name || "unknown"} | ${repository?.issues?.total ?? 0} | ${repository?.pullRequests?.total ?? 0} | ${repository?.pullRequests?.merged ?? 0} | ${repository?.pullRequests?.mergeRate ?? 0}% | ${repository?.issues?.averageFirstResponseHours ?? 0} |`,
           ),
         ].join("\n");
 
@@ -360,7 +365,7 @@ ${repositoryTable}
 
 function csvEscape(value) {
   const text = String(value ?? "");
-  if (/[,"\n]/.test(text)) {
+  if (/[,"\r\n]/.test(text)) {
     return `"${text.replace(/"/g, '""')}"`;
   }
   return text;
@@ -385,15 +390,15 @@ function generateCsvReport(report) {
   for (const repository of rows) {
     lines.push(
       [
-        repository.name,
-        repository.issues.total,
-        repository.issues.open,
-        repository.issues.closed,
-        repository.pullRequests.total,
-        repository.pullRequests.merged,
-        repository.pullRequests.mergeRate,
-        repository.issues.averageFirstResponseHours,
-        repository.pullRequests.averageLeadTimeHours,
+        repository?.name || "unknown",
+        repository?.issues?.total ?? 0,
+        repository?.issues?.open ?? 0,
+        repository?.issues?.closed ?? 0,
+        repository?.pullRequests?.total ?? 0,
+        repository?.pullRequests?.merged ?? 0,
+        repository?.pullRequests?.mergeRate ?? 0,
+        repository?.issues?.averageFirstResponseHours ?? 0,
+        repository?.pullRequests?.averageLeadTimeHours ?? 0,
       ]
         .map(csvEscape)
         .join(","),

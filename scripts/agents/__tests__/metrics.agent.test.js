@@ -259,6 +259,67 @@ describe("metrics.agent", () => {
       expect(report.repositories[0]).toMatchObject({ name: "alpha" });
     });
 
+    it("uses raw samples rather than averaging per-repository averages", () => {
+      const report = agent.aggregateRepositoryMetrics(
+        [
+          {
+            name: "small-repo",
+            issues: [
+              {
+                state: "closed",
+                createdAt: "2026-06-01T00:00:00Z",
+                closedAt: "2026-06-02T00:00:00Z",
+                firstResponseAt: "2026-06-01T01:00:00Z",
+              },
+            ],
+            pullRequests: [
+              {
+                state: "closed",
+                createdAt: "2026-06-01T00:00:00Z",
+                closedAt: "2026-06-01T04:00:00Z",
+                reviews: [{ submittedAt: "2026-06-01T01:00:00Z" }],
+              },
+            ],
+          },
+          {
+            name: "large-repo",
+            issues: [
+              {
+                state: "closed",
+                createdAt: "2026-06-01T00:00:00Z",
+                closedAt: "2026-06-02T00:00:00Z",
+                firstResponseAt: "2026-06-01T09:00:00Z",
+              },
+              {
+                state: "closed",
+                createdAt: "2026-06-01T00:00:00Z",
+                closedAt: "2026-06-02T00:00:00Z",
+                firstResponseAt: "2026-06-01T09:00:00Z",
+              },
+            ],
+            pullRequests: [
+              {
+                state: "closed",
+                createdAt: "2026-06-01T00:00:00Z",
+                closedAt: "2026-06-01T10:00:00Z",
+                reviews: [{ submittedAt: "2026-06-01T09:00:00Z" }],
+              },
+              {
+                state: "closed",
+                createdAt: "2026-06-01T00:00:00Z",
+                closedAt: "2026-06-01T10:00:00Z",
+                reviews: [{ submittedAt: "2026-06-01T09:00:00Z" }],
+              },
+            ],
+          },
+        ],
+        { now: "2026-06-08T00:00:00Z" },
+      );
+
+      expect(report.summary.averageIssueFirstResponseHours).toBe(6.33);
+      expect(report.summary.averagePullRequestLeadTimeHours).toBe(8);
+    });
+
     it("accepts repository maps and surfaces zero-data repositories", () => {
       const report = agent.aggregateRepositoryMetrics(
         {
@@ -327,6 +388,30 @@ describe("metrics.agent", () => {
         "repository,issue_count,open_issues,closed_issues,pr_count,merged_prs,merge_rate,issue_first_response_hours,pr_lead_time_hours",
       );
       expect(csv).toContain("alpha,2,1,1,2,1,50");
+    });
+
+    it("escapes carriage returns in CSV values", () => {
+      const csv = agent.generateCsvReport({
+        repositories: [
+          {
+            name: 'alpha,\r"core"',
+            issues: {
+              total: 1,
+              open: 0,
+              closed: 1,
+              averageFirstResponseHours: 2,
+            },
+            pullRequests: {
+              total: 1,
+              merged: 1,
+              mergeRate: 100,
+              averageLeadTimeHours: 4,
+            },
+          },
+        ],
+      });
+
+      expect(csv).toContain('"alpha,\r""core"""');
     });
 
     it("renders the empty repository table branch", () => {
