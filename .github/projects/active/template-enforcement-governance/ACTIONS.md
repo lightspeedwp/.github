@@ -71,7 +71,7 @@ status: active
 
 **Steps:**
 
-1. Go to [GitHub org settings → Issue types](https://github.com/organizations/lightspeedwp/settings/issues)
+1. Go to the GitHub organisation settings page for issue types
 2. Add "Help" (color: `#4393F8`, type:help)
 3. Add "User Experience Feedback" (color: `#DB61A2`, type:ux-feedback)
 4. Verify all 35 type entries appear in issue creation form
@@ -154,9 +154,9 @@ Each issue has acceptance criteria in the backlog. Before closing:
 ## 🔗 Key Documents
 
 - **Backlog:** [ISSUES.md](./ISSUES.md) — full project plan with 13 issues
-- **Governance:** [AGENT.md](../../AGENT.md) — canonical rules (to be updated)
-- **Quick Ref:** [CLAUDE.md](../../CLAUDE.md) — Claude-specific guidance (to be updated)
-- **Strategy:** [docs/BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) — branch naming (to be updated)
+- **Governance:** [AGENTS.md](../../../../AGENTS.md) — canonical rules (to be updated)
+- **Quick Ref:** [CLAUDE.md](../../../../CLAUDE.md) — Claude-specific guidance (to be updated)
+- **Strategy:** [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md) — branch naming (to be updated)
 
 ---
 

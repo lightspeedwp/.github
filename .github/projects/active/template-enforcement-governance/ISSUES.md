@@ -63,7 +63,7 @@ The issue type registry already includes "Help" and "User Experience Feedback"; 
 
 **Links:**
 
-- GitHub org settings: <https://github.com/organizations/lightspeedwp/settings/issues>
+- GitHub org settings page for issue types (manual admin-only step)
 
 ---
 
