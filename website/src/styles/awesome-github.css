@@ -66,6 +66,10 @@
   --c-status-success-2:#22C55E;
   --c-status-info:     #1E6AFF;
 
+  /* Type-badge palette (items without a status-colour equivalent) */
+  --c-type-pack:       #A855F7;
+  --c-type-schema:     #0EA5E9;
+
   /* Surfaces (dark mode) */
   --c-surface-900: #181820;
   --c-surface-800: #202028;

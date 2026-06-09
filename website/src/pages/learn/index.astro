@@ -179,8 +179,8 @@ const totalLessons = allLessons().length;
   }
 
   .learn-hero {
-    background: linear-gradient(135deg, #0f1014 0%, #181820 100%);
-    color: var(--c-white);
+    background: var(--bg);
+    color: var(--fg-1);
     padding: var(--space-40) var(--gutter);
   }
 
@@ -198,11 +198,11 @@ const totalLessons = allLessons().length;
   .learn-eyebrow {
     display: inline-flex;
     padding: var(--space-2) var(--space-4);
-    background: rgba(123, 231, 255, 0.1);
-    border: 1px solid rgba(123, 231, 255, 0.3);
+    background: var(--accent-soft);
+    border: 1px solid var(--hair);
     border-radius: var(--radius-pill);
     font-size: var(--fs-eyebrow);
-    color: var(--c-light-blue);
+    color: var(--accent);
     margin-bottom: var(--space-6);
     font-weight: var(--weight-semibold);
     text-transform: uppercase;
@@ -218,11 +218,11 @@ const totalLessons = allLessons().length;
 
   .learn-h1-line {
     display: block;
-    color: var(--c-white);
+    color: var(--fg-1);
   }
 
   .learn-h1-line--accent {
-    color: var(--c-light-blue);
+    color: var(--accent);
   }
 
   .learn-lead {
@@ -242,14 +242,14 @@ const totalLessons = allLessons().length;
     height: 8px;
     overflow: hidden;
     border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.16);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--panel-2);
+    border: 1px solid var(--hair);
   }
 
   .learn-progress-fill {
     height: 100%;
     width: 0%;
-    background: var(--c-light-blue);
+    background: var(--accent);
     transition: width var(--dur) var(--ease-out);
   }
 

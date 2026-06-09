@@ -315,8 +315,8 @@ const canInstall = installable(item);
   }
 
   .ag-resource-hero {
-    background: linear-gradient(135deg, #0F1014 0%, #181820 100%);
-    color: var(--c-white);
+    background: var(--bg);
+    color: var(--fg-1);
     padding: var(--space-40) var(--gutter);
   }
 
@@ -338,10 +338,10 @@ const canInstall = installable(item);
     font-weight: var(--weight-semibold);
     text-transform: uppercase;
     letter-spacing: var(--tracking-eyebrow);
-    color: var(--c-light-blue);
+    color: var(--accent);
     padding: var(--space-2) var(--space-4);
-    background: rgba(123, 231, 255, 0.1);
-    border: 1px solid rgba(123, 231, 255, 0.3);
+    background: var(--accent-soft);
+    border: 1px solid var(--hair);
     border-radius: var(--radius-pill);
   }
 
@@ -354,18 +354,18 @@ const canInstall = installable(item);
   }
 
   .ag-status-active {
-    background: rgba(34, 197, 94, 0.2);
-    color: #22c55e;
+    background: color-mix(in srgb, var(--c-status-success) 15%, transparent);
+    color: var(--c-status-success);
   }
 
   .ag-status-deprecated {
-    background: rgba(239, 68, 68, 0.2);
-    color: #ef4444;
+    background: color-mix(in srgb, var(--c-status-error) 15%, transparent);
+    color: var(--c-status-error);
   }
 
   .ag-status-beta {
-    background: rgba(245, 158, 11, 0.2);
-    color: #f59e0b;
+    background: color-mix(in srgb, var(--c-status-warning) 15%, transparent);
+    color: var(--c-status-warning);
   }
 
   .ag-h1 {
@@ -388,7 +388,7 @@ const canInstall = installable(item);
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--space-6);
     padding-top: var(--space-6);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--hair);
   }
 
   .ag-metadata-item {
@@ -589,7 +589,7 @@ const canInstall = installable(item);
 
   .ag-related-card:hover {
     border-color: var(--c-light-blue);
-    box-shadow: 0 4px 12px rgba(123, 231, 255, 0.1);
+    box-shadow: var(--shadow-sm);
     transform: translateY(-2px);
   }
 
@@ -644,38 +644,38 @@ const canInstall = installable(item);
   }
 
   .ag-action-btn--primary {
-    background: var(--accent, #1e6aff);
+    background: var(--c-brand-blue);
     color: #fff;
-    border-color: var(--accent, #1e6aff);
+    border-color: var(--c-brand-blue);
   }
 
   .ag-action-btn--primary:hover {
-    background: var(--accent-dark, #155de0);
-    border-color: var(--accent-dark, #155de0);
-    box-shadow: 0 4px 12px rgba(30, 106, 255, 0.35);
+    background: var(--c-brand-blue-hover);
+    border-color: var(--c-brand-blue-hover);
+    box-shadow: var(--shadow-md);
   }
 
   .ag-action-btn--secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--c-white, #fff);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: var(--panel-2);
+    color: var(--fg-1);
+    border-color: var(--hair);
   }
 
   .ag-action-btn--secondary:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: var(--panel);
+    border-color: var(--border-strong);
   }
 
   .ag-action-btn--ghost {
     background: transparent;
-    color: var(--c-slate-300, #cbd5e1);
-    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--fg-2);
+    border-color: var(--hair);
   }
 
   .ag-action-btn--ghost:hover {
-    color: var(--c-white, #fff);
-    border-color: rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.07);
+    color: var(--fg-1);
+    border-color: var(--border-strong);
+    background: var(--panel-2);
   }
 
   .ag-branch-toggle {
@@ -712,8 +712,8 @@ const canInstall = installable(item);
   .ag-apply-value {
     font-family: var(--font-mono);
     font-size: 12px;
-    color: var(--c-light-blue, #7be7ff);
-    background: rgba(123, 231, 255, 0.08);
+    color: var(--accent);
+    background: var(--accent-soft);
     padding: 2px 6px;
     border-radius: var(--radius-sm);
   }
