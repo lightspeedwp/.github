@@ -8,15 +8,15 @@ last_updated: "2026-06-01"
 author: "Claude Code"
 maintainer: "LightSpeedWP Team"
 tags: ["documentation", "audit", "consolidation", "wave-5"]
-status: "active"
+status: completed
 stability: "stable"
 domain: "governance"
 ---
 
 # Issue Creation Documentation Audit Report
 
-**Parent Issue:** #651 (Documentation Consolidation)
-**Child Issue:** #662 (Issue Creation Docs Consolidation)
+**Parent Issue:** [#651](https://github.com/lightspeedwp/.github/issues/651) (Documentation Consolidation)
+**Child Issue:** [#662](https://github.com/lightspeedwp/.github/issues/662) (Issue Creation Docs Consolidation)
 **Audited:** 2026-05-31
 **Auditor:** Claude Code
 
@@ -367,10 +367,10 @@ Instead of creating a new file, update all broken references to `ISSUE_LABELS.md
    - [ ] Align terminology across files
 
 3. **Handoff to Wave 5.3-5.4 execution issues:**
-   - #663 (PR docs consolidation)
-   - #664 (Labeling docs consolidation)
-   - #665 (File organization alignment)
-   - #666 (Update documentation index)
+   - [#663](https://github.com/lightspeedwp/.github/issues/663) (PR docs consolidation)
+   - [#664](https://github.com/lightspeedwp/.github/issues/664) (Labeling docs consolidation)
+   - [#665](https://github.com/lightspeedwp/.github/issues/665) (File organization alignment)
+   - [#666](https://github.com/lightspeedwp/.github/issues/666) (Update documentation index)
 
 ---
 

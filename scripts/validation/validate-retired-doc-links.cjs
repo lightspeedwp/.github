@@ -15,7 +15,7 @@ const ACTIVE_PATHS = [
   "instructions/pull-requests.instructions.md",
   ".github/README.md",
   ".github/pull_request_template.md",
-  ".github/FOOTER_REMEDIATION_GUIDE.md",
+  "docs/FOOTER_REMEDIATION_GUIDE.md",
   ".github/SAVED_REPLIES/README.md",
   ".github/DISCUSSION_TEMPLATE",
   ".github/ISSUE_TEMPLATE",

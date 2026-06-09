@@ -1,5 +1,5 @@
 ---
-title: 'Branding Agent Schema and Config Implementation — Issue #49'
+title: 'Branding Agent Schema and Config Implementation — Issue [#49](https://github.com/lightspeedwp/.github/issues/49)'
 description: Schema and configuration model specification for unified branding agent
   supporting category-aware Markdown headers, footers, and badges
 file_type: documentation
@@ -15,15 +15,15 @@ tags:
 - configuration
 - governance
 - validation
-status: active
+status: completed
 stability: stable
 domain: governance
 ---
 
-# Branding Agent Schema and Config Implementation (Issue #49)
+# Branding Agent Schema and Config Implementation (Issue [#49](https://github.com/lightspeedwp/.github/issues/49))
 
-**Parent Issue**: #33 (Parent Specification)
-**Related Issues**: #46 (Template Design), #48 (Current-state audit)
+**Parent Issue**: [#33](https://github.com/lightspeedwp/.github/issues/33) (Parent Specification)
+**Related Issues**: [#46](https://github.com/lightspeedwp/.github/issues/46) (Template Design), [#48](https://github.com/lightspeedwp/.github/issues/48) (Current-state audit)
 **Status**: Schema/Config Design Phase
 **Effort**: 10–12 hours (schema design, validation, documentation)
 **Timeline**: Week 2 implementation
@@ -71,7 +71,7 @@ The recommended approach is **YAML authoring with JSON Schema validation**, whic
 
 ### 3.1 Supported Document Categories
 
-The branding agent supports 16 document categories as defined in Issue #33:
+The branding agent supports 16 document categories as defined in Issue [#33](https://github.com/lightspeedwp/.github/issues/33):
 
 | Category ID | Category Name | Description | Key Use Case |
 |---|---|---|---|
@@ -500,7 +500,7 @@ Below is a minimal but complete `config/branding.config.yaml` example:
 # Branding Agent Configuration
 # Version: 1.0.0
 # Last Updated: 2026-05-28
-# Source: Issue #49 specification
+# Source: Issue [#49](https://github.com/lightspeedwp/.github/issues/49) specification
 
 version: "1.0.0"
 description: "Unified branding agent configuration for category-aware headers, footers, and badges"
@@ -718,26 +718,26 @@ maintainability:
 
 This schema/config specification is the bridge between:
 
-- **Issue #33** (parent specification): Defines category taxonomy and requirements
-- **Issue #46** (template design): Defines actual header/footer content and examples
-- **Issue #49** (this issue): Defines how templates are referenced and validated
+- **Issue [#33](https://github.com/lightspeedwp/.github/issues/33)** (parent specification): Defines category taxonomy and requirements
+- **Issue [#46](https://github.com/lightspeedwp/.github/issues/46)** (template design): Defines actual header/footer content and examples
+- **Issue [#49](https://github.com/lightspeedwp/.github/issues/49)** (this issue): Defines how templates are referenced and validated
 - **Future Issues** (agent implementation): Uses this schema to drive agent behavior
 
 **Dependency Graph**:
 
 ```
-Issue #33 (Parent Spec)
+Issue [#33](https://github.com/lightspeedwp/.github/issues/33) (Parent Spec)
     ↓
-Issue #46 (Template Design)  Issue #49 (Schema/Config) ← depends on #33, #46
+Issue [#46](https://github.com/lightspeedwp/.github/issues/46) (Template Design)  Issue [#49](https://github.com/lightspeedwp/.github/issues/49) (Schema/Config) ← depends on [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46)
     ↓
-Issue #48 (Current-state Audit) ← enabled by #46, #49
+Issue [#48](https://github.com/lightspeedwp/.github/issues/48) (Current-state Audit) ← enabled by [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49)
     ↓
-Issue #? (Agent Implementation) ← depends on #33, #46, #49
+Issue #? (Agent Implementation) ← depends on [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#49](https://github.com/lightspeedwp/.github/issues/49)
 ```
 
 **Unblocks**:
 
-- Issue #48 (Current-state audit): Can now identify categories and validate against schema
+- Issue [#48](https://github.com/lightspeedwp/.github/issues/48) (Current-state audit): Can now identify categories and validate against schema
 - Future agent implementation: Has clear configuration contract to implement against
 
 ---
@@ -757,7 +757,7 @@ Issue #? (Agent Implementation) ← depends on #33, #46, #49
 - [x] Accessibility constraints documented (alt text, contrast, links)
 - [x] Maintainability guidance provided (footer word limits, nesting)
 - [x] Error reporting format specified
-- [x] Relationship to Issues #33, #46, #48 documented
+- [x] Relationship to Issues [#33](https://github.com/lightspeedwp/.github/issues/33), [#46](https://github.com/lightspeedwp/.github/issues/46), [#48](https://github.com/lightspeedwp/.github/issues/48) documented
 - [x] Clear division of responsibility between specification phases
 - [x] Ready for implementation in next phase (agent development)
 
@@ -770,7 +770,7 @@ Once this specification is approved:
 1. **PR Creation**: Create PR with this schema/config specification
 2. **Code Review**: Address any feedback on structure or clarity
 3. **Merge**: Integrate into develop branch
-4. **Issue #48**: Proceed to current-state audit using this schema
+4. **Issue [#48](https://github.com/lightspeedwp/.github/issues/48)**: Proceed to current-state audit using this schema
 5. **Agent Implementation**: Begin branding agent implementation with validated schema/config contract
 
 ---
@@ -779,9 +779,9 @@ Once this specification is approved:
 
 **Related Issues**:
 
-- #33 — Unified branding agent parent specification
-- #46 — Template design specification for branding agent
-- #48 — Current-state audit and remediation (enabled by this spec)
+- [#33](https://github.com/lightspeedwp/.github/issues/33) — Unified branding agent parent specification
+- [#46](https://github.com/lightspeedwp/.github/issues/46) — Template design specification for branding agent
+- [#48](https://github.com/lightspeedwp/.github/issues/48) — Current-state audit and remediation (enabled by this spec)
 
 **Related Files** (will be created or updated):
 

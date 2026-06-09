@@ -6,7 +6,7 @@ title: "[Audit] Documentation Consolidation - Reduce Duplication Across Docs"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:important"
-status: draft
+status: active
 effort: "XL"
 children:
   - "3.1-issue-creation-docs"

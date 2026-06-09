@@ -3,11 +3,11 @@ issue_number: 673
 file_type: documentation
 description: "Create detailed migration plan for file reorganization"
 parent_issue: 653
-title: "[Child of #653] Plan: File Organization Refactoring - Migration & Validation"
+title: "[Child of [#653](https://github.com/lightspeedwp/.github/issues/653)] Plan: File Organization Refactoring - Migration & Validation"
 type: "type:task"
 area: "area:core"
 priority: "priority:normal"
-status: draft
+status: active
 effort: "L"
 ---
 

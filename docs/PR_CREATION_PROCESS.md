@@ -61,17 +61,44 @@ When you open a PR, GitHub will prompt you to pick a template matching your chan
 
 Every PR should use a standard branch prefix for correct label and template automation:
 
-| Prefix    | Purpose                    | Maps to Type / Label | PR Template                                    |
-| --------- | -------------------------- | -------------------- | ---------------------------------------------- |
-| fix/      | Bugfix or regression       | bug                  | .github/PULL_REQUEST_TEMPLATE/pr_bug.md        |
-| chore/    | Maintenance/hygiene tasks  | chore                | .github/PULL_REQUEST_TEMPLATE/pr_chore.md      |
-| ci/       | CI/CD or workflow changes  | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_ci.md         |
-| ci/       | CI/CD or workflow changes  | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_dep_update.md |
-| docs/     | Documentation changes      | documentation        | .github/PULL_REQUEST_TEMPLATE/pr_docs.md       |
-| hotfix/   | Emergency production fix   | hotfix / bug         | .github/PULL_REQUEST_TEMPLATE/pr_hotfix.md     |
-| feat/     | New feature or enhancement | feature              | .github/PULL_REQUEST_TEMPLATE/pr_feature.md    |
-| refactor/ | Internal code refactoring  | refactor             | .github/PULL_REQUEST_TEMPLATE/pr_refactor.md   |
-| release/  | Release prep/deployment    | release              | .github/PULL_REQUEST_TEMPLATE/pr_release.md    |
+The machine-readable route map lives in
+[`.github/PULL_REQUEST_TEMPLATE/config.yml`](../.github/PULL_REQUEST_TEMPLATE/config.yml).
+The table below mirrors that contract so the guide, routing config, and
+branching policy stay aligned.
+
+| Prefix | Purpose | Maps to Type / Label | PR Template |
+| --- | --- | --- | --- |
+| `feat/` | New feature or enhancement | feature | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `fix/` | Bugfix or regression | bug | `.github/PULL_REQUEST_TEMPLATE/pr_bug.md` |
+| `hotfix/` | Emergency production fix | hotfix / bug | `.github/PULL_REQUEST_TEMPLATE/pr_hotfix.md` |
+| `refactor/` | Internal code refactoring | refactor | `.github/PULL_REQUEST_TEMPLATE/pr_refactor.md` |
+| `chore/` | Maintenance/hygiene tasks | chore | `.github/PULL_REQUEST_TEMPLATE/pr_chore.md` |
+| `docs/` | Documentation changes | documentation | `.github/PULL_REQUEST_TEMPLATE/pr_docs.md` |
+| `test/` | Test-only work | test | `.github/PULL_REQUEST_TEMPLATE/pr_chore.md` |
+| `perf/` | Performance improvements | performance | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `ci/` | CI/CD or workflow changes | ci | `.github/PULL_REQUEST_TEMPLATE/pr_ci.md` |
+| `build/` | Build process changes | build | `.github/PULL_REQUEST_TEMPLATE/pr_ci.md` |
+| `deps/` | Dependency updates | dependency | `.github/PULL_REQUEST_TEMPLATE/pr_dep_update.md` |
+| `security/` | Security-related work | security | `.github/PULL_REQUEST_TEMPLATE/pr_bug.md` |
+| `design/` | Design changes | design | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `a11y/` | Accessibility changes | accessibility | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `ux/` | User experience work | ux | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `release/` | Release prep/deployment | release | `.github/PULL_REQUEST_TEMPLATE/pr_release.md` |
+| `research/` | Research spikes | research | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `revert/` | Revert previous changes | revert | `.github/PULL_REQUEST_TEMPLATE/pr_chore.md` |
+| `i18n/` | Internationalisation work | i18n | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `ops/` | Operations work | ops | `.github/PULL_REQUEST_TEMPLATE/pr_chore.md` |
+| `proto/` | Prototypes / experiments | proto | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `ds/` | Design system work | design system | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `api/` | API surface changes | api | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `schema/` | Schema or database changes | schema | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `telemetry/` | Analytics / metrics work | telemetry | `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` |
+| `content/` | Content / IA changes | content | `.github/PULL_REQUEST_TEMPLATE/pr_docs.md` |
+| `seo/` | SEO / metadata changes | seo | `.github/PULL_REQUEST_TEMPLATE/pr_docs.md` |
+| `config/` | Site or plugin configuration | config | `.github/PULL_REQUEST_TEMPLATE/pr_chore.md` |
+| `migrate/` | Content or data migrations | migrate | `.github/PULL_REQUEST_TEMPLATE/pr_chore.md` |
+| `qa/` | Test harnesses / UAT scaffolding | qa | `.github/PULL_REQUEST_TEMPLATE/pr_chore.md` |
+| `uat/` | UAT-only changes | uat | `.github/PULL_REQUEST_TEMPLATE/pr_chore.md` |
 
 ---
 
@@ -144,6 +171,7 @@ Each PR template includes a checklist. Ensure you:
   - At least one reviewer approves
   - Changelog/release labels are set and docs/tests are updated
 - PRs linked to issues with `Closes #issue` will auto-close the issue upon merge.
+- After merge, `checklist-finalisation.yml` rewrites the PR body checklist section so the merged description reflects the final completed state.
 
 ---
 

@@ -1,21 +1,61 @@
 ---
 file_type: "documentation"
-description: "Pull Request"
-name: "Pull Request"
-about: "General changes, refactors, and maintenance"
+description: "PR template router"
+name: "Which PR template should I use?"
+about: "Branch-to-template routing for consistent PR governance"
 title: "PR: {short summary}"
 labels: ["status:needs-review"]
 ---
 
-# General Pull Request
+# Which PR template should I use?
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.
-> See the organisation-wide [Automation & Workflows](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION.md) for contributor rules.
+Use this file as a router. Copy the matching template from the GitHub
+`.github/PULL_REQUEST_TEMPLATE/` folder based on your branch prefix, then
+replace this body with that template.
+
+## Quick selector
+
+| Branch prefix | Template |
+| --- | --- |
+| `feat/` | `pr_feature.md` |
+| `fix/` | `pr_bug.md` |
+| `hotfix/` | `pr_hotfix.md` |
+| `refactor/` | `pr_refactor.md` |
+| `chore/` | `pr_chore.md` |
+| `docs/` | `pr_docs.md` |
+| `test/` | `pr_chore.md` |
+| `perf/` | `pr_feature.md` |
+| `ci/` | `pr_ci.md` |
+| `build/` | `pr_ci.md` |
+| `deps/` | `pr_dep_update.md` |
+| `security/` | `pr_bug.md` |
+| `design/` | `pr_feature.md` |
+| `a11y/` | `pr_feature.md` |
+| `release/` | `pr_release.md` |
+| `research/` | `pr_feature.md` |
+
+## Template links
+
+- [Feature](./PULL_REQUEST_TEMPLATE/pr_feature.md)
+- [Bug](./PULL_REQUEST_TEMPLATE/pr_bug.md)
+- [Hotfix](./PULL_REQUEST_TEMPLATE/pr_hotfix.md)
+- [Refactor](./PULL_REQUEST_TEMPLATE/pr_refactor.md)
+- [Chore](./PULL_REQUEST_TEMPLATE/pr_chore.md)
+- [Docs](./PULL_REQUEST_TEMPLATE/pr_docs.md)
+- [CI](./PULL_REQUEST_TEMPLATE/pr_ci.md)
+- [Dependency update](./PULL_REQUEST_TEMPLATE/pr_dep_update.md)
+- [Release](./PULL_REQUEST_TEMPLATE/pr_release.md)
+
+## Why this matters
+
+Correct template selection improves label automation, changelog quality, and
+review consistency. The routing rules are defined in
+`.github/PULL_REQUEST_TEMPLATE/config.yml`.
 
 ## Linked issues
 
 <!--
-List any related issues by number (e.g. closes #123, fixes #456, relates to #789).
+List related issues by number (e.g. closes #123, fixes #456, relates to #789).
 -->
 
 Closes #
@@ -24,37 +64,16 @@ Closes #
 
 <!--
 Required for release automation.
-Format: Keep a Changelog.
-Categories: Added, Changed, Fixed, Removed.
-User-facing notes only. Internal-only PRs (rare) may use `meta:no-changelog`.
-Example:
-### Changed
-- Switched to action/cache@v3 for build speedup. (Relates to #789)
+Add at least one bullet under Added, Changed, Fixed, or Removed.
 -->
 
 ### Added
 
-<!--
-- [placeholder]
--->
-
 ### Changed
-
-<!--
-- [placeholder]
--->
 
 ### Fixed
 
-<!--
-- [placeholder]
--->
-
 ### Removed
-
-<!--
-- [placeholder]
--->
 
 <!--
 If no user-facing changelog entry is needed, apply `meta:no-changelog` to this PR.
@@ -140,21 +159,7 @@ Include:
 
 - [ ] All AC met and demonstrated
 - [ ] Tests added/updated (unit/E2E as appropriate)
-- [ ] Accessibility checklist completed (where relevant):
-  - [ ] Semantic HTML and heading order verified
-  - [ ] Keyboard navigation and visible focus states verified
-  - [ ] ARIA used only where needed
-  - [ ] Contrast and non-colour cues reviewed (WCAG 2.2 AA)
 - [ ] Docs/readme/changelog updated (if user-facing)
-- [ ] Frontmatter updated where applicable (`last_updated` and `version`)
-- [ ] I have reviewed and applied the downstream override policy (or linked an approved exception)
-- [ ] Security checklist completed (where relevant):
-  - [ ] Untrusted input validated and sanitised
-  - [ ] Output escaped for its rendering context
-  - [ ] Privileged actions enforce nonce and capability checks
-  - [ ] No secrets/sensitive data introduced; OWASP risks reviewed
-- [ ] Code/design reviews approved
-- [ ] CI green; linked issues closed; release notes prepared (if shipping)
 - [ ] Risk assessment completed above
 - [ ] Testing instructions provided above
 
@@ -165,6 +170,7 @@ Include:
 - [Contribution Guidelines](../CONTRIBUTING.md)
 - [Branching Strategy](../docs/BRANCHING_STRATEGY.md)
 - [Automation & Workflows](../docs/AUTOMATION.md)
+- [PR template routes](./PULL_REQUEST_TEMPLATE/config.yml)
 - [Pull Request Labelling](../docs/LABELING.md#pull-request-labelling)
 - [Saved Replies](./SAVED_REPLIES/README.md)
 - [Labeler Config](./labeler.yml)

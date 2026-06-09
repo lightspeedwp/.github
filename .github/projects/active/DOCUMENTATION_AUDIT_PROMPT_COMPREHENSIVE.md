@@ -2,9 +2,9 @@
 file_type: documentation
 title: "Comprehensive Documentation & Automation Audit Prompt"
 description: "Detailed step-by-step prompt for creating GitHub issues to audit and fix documentation, templates, labeling, and automation systems"
-version: "1.0.1"
+version: "1.1.0"
 created_date: "2026-05-31"
-last_updated: "2026-06-01"
+last_updated: "2026-06-08"
 status: active
 owners:
   - lightspeedwp/maintainers
@@ -18,6 +18,26 @@ owners:
 
 **Status:** Ready for execution. Use this to create parent issues and child issues in GitHub.
 
+## Quick Start (Execution Order)
+
+1. Validate baseline inventory and paths (README count, templates, canonical config files).
+2. Create the 5 parent issues from Part 2.
+3. Create child issues under each parent using Part 3 + Part 4.
+4. Link parent/child relationships and confirm label automation outcomes.
+5. Track progress in the active project file and add audit findings as issue comments.
+
+## Baseline Verification (Run First)
+
+Run these checks before creating issues so counts and paths are current:
+
+```bash
+rg --files -g '**/README.md' | wc -l
+rg --files .github/ISSUE_TEMPLATE
+rg --files .github | rg 'labels\.yml|labeler\.yml|issue-types\.yml|issue-fields\.yml'
+```
+
+Use actual results in issue bodies instead of stale hard-coded counts.
+
 ---
 
 ## Part 1: Overview & Problem Statement
@@ -28,7 +48,7 @@ owners:
 - **Documentation:** Scattered across 40+ files with duplication and overlap
 - **Templates:** Issue, PR, and Discussion templates exist but AI agents don't consistently use them
 - **File organization:** Misalignment between planned structure and current state
-- **README files:** 44 files across the repo with outdated or missing Mermaid diagrams
+- **README files:** Large and growing inventory across the repo with outdated or missing Mermaid diagrams in multiple locations
 - **Canonical configs:** `labels.yml`, `labeler.yml`, `issue-types.yml`, `issue-fields.yml` exist but may be incomplete/inconsistent
 
 ### Root Causes
@@ -159,7 +179,7 @@ See child issues for detailed audits of:
 - `docs/LABEL_STRATEGY.md`
 - `docs/LABELING.md`
 - `docs/ISSUE_TYPES.md`
-- `docs/ISSUE-FIELDS.md`
+- `docs/ISSUE_FIELDS.md`
 ```
 
 ---
@@ -219,7 +239,7 @@ See child issues for detailed audits of:
 
 ### Parent Issue 4: README & Mermaid Diagram Audit (Accessibility & Freshness)
 
-**Title:** `[Audit] 44 README Files - Mermaid Diagrams & Accessibility Review`
+**Title:** `[Audit] README Files - Mermaid Diagrams & Accessibility Review`
 **Type:** `type:audit`
 **Area:** `area:documentation`, `area:a11y`
 **Priority:** `priority:normal`
@@ -231,7 +251,7 @@ See child issues for detailed audits of:
 ```markdown
 ## Overview
 
-Comprehensive audit of 44 README.md files across the repository to verify
+Comprehensive audit of README.md files across the repository to verify
 Mermaid diagram syntax, accessibility compliance, and content freshness.
 
 ## Current Problems
@@ -245,17 +265,17 @@ Mermaid diagram syntax, accessibility compliance, and content freshness.
 ## Areas to Audit
 
 See child issues for detailed audits of:
-- Root & core README files (6 files)
-- Feature folder README files (12 files)
-- Sub-folder README files (20 files)
-- Test/config README files (6 files)
+- Root & core README files
+- Feature folder README files
+- Sub-folder README files
+- Test/config README files
 - Mermaid diagram syntax validation
 - Accessibility compliance (WCAG AA)
 - Light/dark mode rendering
 
 ## Acceptance Criteria
 
-- [ ] All 44 README files inventoried
+- [ ] All README files inventoried using reproducible discovery command
 - [ ] Mermaid diagram syntax validated
 - [ ] Accessibility attributes added where needed
 - [ ] Content freshness verified and updated
@@ -267,8 +287,8 @@ All README.md files across the repository (see audit report for inventory)
 
 ## Related Issues
 
-- #512 (Wave 3A: README & Mermaid Diagram Discovery & Audit)
-- #513 (Wave 3B: README & Mermaid Diagram Repair & Update)
+- [#512](https://github.com/lightspeedwp/.github/issues/512) (Wave 3A: README & Mermaid Diagram Discovery & Audit)
+- [#513](https://github.com/lightspeedwp/.github/issues/513) (Wave 3B: README & Mermaid Diagram Repair & Update)
 ```
 
 ---
@@ -442,9 +462,9 @@ For each parent issue above, create the following child issues using this templa
 
 ### Under Parent Issue 2: Canonical Configuration Files
 
-#### Child 2.1: Audit labels.yml Color Consistency
+#### Child 2.1: Audit labels.yml Colour Consistency
 
-**Title:** `[Child of #] Audit: labels.yml Color Consistency & Strategy Alignment`
+**Title:** `[Child of #] Audit: labels.yml Colour Consistency & Strategy Alignment`
 
 - Review all 200+ labels in `labels.yml`
 - Check if each label's color matches the documented strategy
@@ -542,8 +562,8 @@ For each parent issue above, create the following child issues using this templa
 - Review all files related to labeling:
   - `docs/LABEL_STRATEGY.md`
   - `docs/LABELING.md`
-  - `docs/LABELING.md`
-  - `docs/LABELING.md`
+  - `docs/LABEL_INVENTORY.md`
+  - `docs/LABEL_COLOR_STRATEGY.md`
   - `docs/AUTOMATION.md` (label section)
   - Agent specs for labeling
 - Identify duplication and overlap
@@ -584,15 +604,15 @@ For each parent issue above, create the following child issues using this templa
 
 #### Child 4.1: Discover & Audit All README Files
 
-**Title:** `[Child of #] Audit: Discover All 44 README.md Files - Inventory`
+**Title:** `[Child of #] Audit: Discover All README.md Files - Inventory`
 
-- Use script or manual inspection to find all README.md files
+- Use reproducible discovery command to find all README.md files
 - Create inventory spreadsheet with location, size, last updated, mermaid diagrams present
 - Categorize by: Root/Core, Feature folders, Sub-folders, Test/Config
 - Check each README for broken links, outdated content
 - Identify which ones have Mermaid diagrams
 
-**Deliverable:** Spreadsheet/CSV showing all 44 READMEs with metadata and issues found
+**Deliverable:** Spreadsheet/CSV showing all discovered READMEs with metadata and issues found
 
 ---
 
@@ -627,7 +647,7 @@ For each parent issue above, create the following child issues using this templa
 
 #### Child 4.4: Update README Content & Diagrams
 
-**Title:** `[Child of #] Update: Fix & Refresh 44 README Files with Current Information`
+**Title:** `[Child of #] Update: Fix & Refresh README Files with Current Information`
 
 This is the implementation phase following audits:
 
@@ -637,7 +657,7 @@ This is the implementation phase following audits:
 - Ensure consistent formatting across all READMEs
 - Add brief descriptions of folder/file purpose
 
-**Deliverable:** All 44 READMEs updated with current information and accessible diagrams
+**Deliverable:** All in-scope READMEs updated with current information and accessible diagrams
 
 ---
 
@@ -713,6 +733,14 @@ This is the implementation phase following audits:
    - Track progress by marking issues as "In Progress" → "Complete"
    - Review each audit before moving to implementation
 
+### Required Quality Gates (Per Issue)
+
+- Include an explicit scope boundary (`in-scope` and `out-of-scope`).
+- Include measurable acceptance criteria.
+- Include a deliverable format (`report`, `matrix`, `diagram`, or `patch`).
+- Include exact related file paths (no ambiguous references).
+- Record automation outcome after issue creation (labels/fields applied vs missing).
+
 ### Command-Line Approach (Using GitHub CLI)
 
 If you prefer to create all issues via CLI:
@@ -744,6 +772,7 @@ gh issue create \
 - [ ] All parent/child relationships linked
 - [ ] Audit issues assigned to appropriate team members
 - [ ] Active projects file updated with issue references
+- [ ] Baseline inventory evidence attached (README count + config file discovery output)
 
 ### Next Steps (After Audits Complete)
 
@@ -760,9 +789,40 @@ gh issue create \
 
 ### Existing Related Issues
 
-- #512 — Wave 3A: README & Mermaid Diagram Discovery & Audit
-- #513 — Wave 3B: README & Mermaid Diagram Repair & Update
-- #519 — Documentation Index & Quickstart Guide (merged)
+- [#512](https://github.com/lightspeedwp/.github/issues/512) — Wave 3A: README & Mermaid Diagram Discovery & Audit
+- [#513](https://github.com/lightspeedwp/.github/issues/513) — Wave 3B: README & Mermaid Diagram Repair & Update
+- [#519](https://github.com/lightspeedwp/.github/issues/519) — Documentation Index & Quickstart Guide (merged)
+
+### Created Audit Issue Set (2026-06-08)
+
+- Parent issues: [#902](https://github.com/lightspeedwp/.github/issues/902), [#903](https://github.com/lightspeedwp/.github/issues/903), [#904](https://github.com/lightspeedwp/.github/issues/904), [#905](https://github.com/lightspeedwp/.github/issues/905), [#906](https://github.com/lightspeedwp/.github/issues/906)
+- Child issues: [#907](https://github.com/lightspeedwp/.github/issues/907), [#908](https://github.com/lightspeedwp/.github/issues/908), [#909](https://github.com/lightspeedwp/.github/issues/909), [#910](https://github.com/lightspeedwp/.github/issues/910), [#911](https://github.com/lightspeedwp/.github/issues/911), [#912](https://github.com/lightspeedwp/.github/issues/912), [#913](https://github.com/lightspeedwp/.github/issues/913), [#914](https://github.com/lightspeedwp/.github/issues/914), [#916](https://github.com/lightspeedwp/.github/issues/916), [#917](https://github.com/lightspeedwp/.github/issues/917), [#918](https://github.com/lightspeedwp/.github/issues/918), [#919](https://github.com/lightspeedwp/.github/issues/919), [#920](https://github.com/lightspeedwp/.github/issues/920), [#921](https://github.com/lightspeedwp/.github/issues/921), [#922](https://github.com/lightspeedwp/.github/issues/922), [#923](https://github.com/lightspeedwp/.github/issues/923), [#924](https://github.com/lightspeedwp/.github/issues/924), [#925](https://github.com/lightspeedwp/.github/issues/925), [#926](https://github.com/lightspeedwp/.github/issues/926), [#927](https://github.com/lightspeedwp/.github/issues/927)
+- URL list:
+  - <https://github.com/lightspeedwp/.github/issues/902>
+  - <https://github.com/lightspeedwp/.github/issues/903>
+  - <https://github.com/lightspeedwp/.github/issues/904>
+  - <https://github.com/lightspeedwp/.github/issues/905>
+  - <https://github.com/lightspeedwp/.github/issues/906>
+  - <https://github.com/lightspeedwp/.github/issues/907>
+  - <https://github.com/lightspeedwp/.github/issues/908>
+  - <https://github.com/lightspeedwp/.github/issues/909>
+  - <https://github.com/lightspeedwp/.github/issues/910>
+  - <https://github.com/lightspeedwp/.github/issues/911>
+  - <https://github.com/lightspeedwp/.github/issues/912>
+  - <https://github.com/lightspeedwp/.github/issues/913>
+  - <https://github.com/lightspeedwp/.github/issues/914>
+  - <https://github.com/lightspeedwp/.github/issues/916>
+  - <https://github.com/lightspeedwp/.github/issues/917>
+  - <https://github.com/lightspeedwp/.github/issues/918>
+  - <https://github.com/lightspeedwp/.github/issues/919>
+  - <https://github.com/lightspeedwp/.github/issues/920>
+  - <https://github.com/lightspeedwp/.github/issues/921>
+  - <https://github.com/lightspeedwp/.github/issues/922>
+  - <https://github.com/lightspeedwp/.github/issues/923>
+  - <https://github.com/lightspeedwp/.github/issues/924>
+  - <https://github.com/lightspeedwp/.github/issues/925>
+  - <https://github.com/lightspeedwp/.github/issues/926>
+  - <https://github.com/lightspeedwp/.github/issues/927>
 
 ### Existing Active Project Files
 
@@ -776,6 +836,7 @@ gh issue create \
 - `docs/AUTOMATION.md` — Automation standards
 - `.github/labels.yml` — Canonical label definitions
 - `.github/issue-types.yml` — Canonical issue type definitions
+- `.github/issue-fields.yml` — Canonical issue field definitions
 
 ---
 
@@ -796,6 +857,6 @@ gh issue create \
 
 ---
 
-**Document Status:** ✅ Ready for execution
+**Document Status:** Ready for execution
 
 **Next Action:** Use the structures and templates above to create GitHub issues. Share issue numbers and update this document once created.

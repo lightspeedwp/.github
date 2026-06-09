@@ -1,12 +1,12 @@
 ---
 file_type: documentation
-title: "Wave 5 Audit #654 Findings"
+title: "Wave 5 Audit [#654](https://github.com/lightspeedwp/.github/issues/654) Findings"
 description: "Template Inventory and Standardisation Audit findings"
 version: "1.2.2"
 created_date: "2026-05-31"
 last_updated: "2026-06-01"
 language: "en-GB"
-status: "active"
+status: active
 stability: "stable"
 domain: "governance"
 owners:
@@ -23,7 +23,7 @@ completion_date: "2026-05-31"
 category: "audit"
 ---
 
-# Issue #654 Audit Findings: Template Inventory & Standardisation
+# Issue [#654](https://github.com/lightspeedwp/.github/issues/654) Audit Findings: Template Inventory & Standardisation
 
 ## Quick Summary
 
@@ -36,7 +36,7 @@ category: "audit"
 
 ## Complete Findings
 
-Full audit details are documented in **[GitHub Issue #654](https://github.com/lightspeedwp/.github/issues/654)**.
+Full audit details are documented in **[GitHub Issue [#654](https://github.com/lightspeedwp/.github/issues/654)](<https://github.com/lightspeedwp/.github/issues/654>)**.
 
 ### Key Metrics
 
@@ -99,12 +99,12 @@ Address the duplicate `07` prefix:
 
 ## Related Issues
 
-- **#655:** Template → Automation Trigger Mapping (depends on numbering fixes)
-- **#656:** Issue Labeling Rules in labeler.yml (depends on type clarification)
-- **#657:** Clear AI Agent Instructions for Issue Creation (uses template standards)
+- **[#655](https://github.com/lightspeedwp/.github/issues/655):** Template → Automation Trigger Mapping (depends on numbering fixes)
+- **[#656](https://github.com/lightspeedwp/.github/issues/656):** Issue Labeling Rules in labeler.yml (depends on type clarification)
+- **[#657](https://github.com/lightspeedwp/.github/issues/657):** Clear AI Agent Instructions for Issue Creation (uses template standards)
 
 ---
 
 **Audit Date:** 2026-05-31
 **Audit Status:** ✅ Complete
-**Full Details:** [GitHub Issue #654](https://github.com/lightspeedwp/.github/issues/654#issuecomment-4587414901)
+**Full Details:** [GitHub Issue [#654](https://github.com/lightspeedwp/.github/issues/654)](<https://github.com/lightspeedwp/.github/issues/654#issuecomment-4587414901>)

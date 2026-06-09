@@ -8,7 +8,7 @@ area:
   - "area:automation"
   - "area:labels"
 priority: "priority:important"
-status: draft
+status: completed
 effort: "M"
 children:
   - "1.1-template-inventory"

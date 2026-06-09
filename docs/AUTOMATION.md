@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Automation & Workflows"
 description: "Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories."
-version: "v1.0.1"
-last_updated: "2026-06-01"
+version: "v1.0.2"
+last_updated: "2026-06-08"
 owners: ["LightSpeedWP Team"]
 tags: ["automation", "workflows", "governance", "agents"]
 status: "active"
@@ -75,6 +75,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
 | **project-meta-sync.yml** | develop | Sync project board with PR/issue status | project-meta-sync.agent.js |
+| **checklist-finalisation.yml** | issues.closed / pull_request_target.closed | Final checklist sync for completed issues and merged PRs | workflow backstop |
 | **release.yml** | main | Versioning, changelog generation, tagging, and release notes | release.agent.js |
 | **reporting.yml** | develop | Generate metrics and activity reports | reporting.agent.js |
 | **metrics.yml** | develop | Track and report organisation metrics | metrics.agent.js |

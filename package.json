@@ -92,6 +92,7 @@
     "validate:plugins": "node scripts/validation/validate-plugins.js",
     "validate:links": "node scripts/validation/validate-links.js",
     "validate:agents": "node scripts/validation/validate-agent-frontmatter.js",
+    "audit:agents:ruby": "ruby scripts/audit/agent-frontmatter-audit.rb",
     "validate:frontmatter": "node scripts/validation/validate-frontmatter.js",
     "validate:frontmatter:freshness": "node scripts/validation/validate-frontmatter-freshness.js",
     "validate:frontmatter:changed": "node scripts/validation/validate-frontmatter-freshness.js",

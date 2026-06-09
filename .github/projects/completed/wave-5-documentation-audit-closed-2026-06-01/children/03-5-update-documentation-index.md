@@ -3,11 +3,11 @@ issue_number: 666
 file_type: documentation
 description: "Update docs/README.md and docs/index.md to reflect consolidation changes and remove broken references"
 parent_issue: 651
-title: "[Child of #651] Update: Documentation Index & Broken References"
+title: "[Child of [#651](https://github.com/lightspeedwp/.github/issues/651)] Update: Documentation Index & Broken References"
 type: "type:docs"
 area: "area:documentation"
 priority: "priority:normal"
-status: draft
+status: completed
 effort: "S"
 ---
 
@@ -22,22 +22,22 @@ Update documentation index files (`docs/README.md` and `docs/index.md`) to refle
 - Populate docs/index.md with actual index content (currently just forwards to README)
 - Update last_updated dates
 - Verify all links point to existing files
-- Ensure consistency with consolidation recommendations from #662, #663, #664
+- Ensure consistency with consolidation recommendations from [#662](https://github.com/lightspeedwp/.github/issues/662), [#663](https://github.com/lightspeedwp/.github/issues/663), [#664](https://github.com/lightspeedwp/.github/issues/664)
 
 ## Audit Findings Summary
 
-### From Issue #662 (Issue Creation Docs)
+### From Issue [#662](https://github.com/lightspeedwp/.github/issues/662) (Issue Creation Docs)
 
 - `docs/LABELING.md` was consolidated into `docs/LABELING.md#issue-labelling`
 - References should point to `docs/LABELING.md#issue-labelling` not ISSUE_LABELS.md
 
-### From Issue #663 (PR Creation Docs)
+### From Issue [#663](https://github.com/lightspeedwp/.github/issues/663) (PR Creation Docs)
 
 - `docs/LABELING.md` doesn't exist (needs investigation)
 - `docs/LABELING.md` reference should redirect to LABELING.md
 - `docs/AUTOMATION.md` doesn't exist (file is actually `docs/AUTOMATION.md`)
 
-### From Issue #664 (Labeling Docs)
+### From Issue [#664](https://github.com/lightspeedwp/.github/issues/664) (Labeling Docs)
 
 - LABELING.md is canonical reference for all label documentation
 - PR and issue labeling sections exist within LABELING.md
@@ -67,10 +67,10 @@ Update documentation index files (`docs/README.md` and `docs/index.md`) to refle
 
 ## Related Issues
 
-- #662 (Issue Creation Docs Consolidation) — identified ISSUE_LABELS.md consolidation
-- #663 (PR Creation Docs Consolidation) — identified missing PR_LABELS.md, AUTOMATION_GOVERNANCE.md reference
-- #664 (Labeling Docs Consolidation) — documented LABELING.md as canonical reference
-- #665 (File Organization Alignment) — verified file structure
+- [#662](https://github.com/lightspeedwp/.github/issues/662) (Issue Creation Docs Consolidation) — identified ISSUE_LABELS.md consolidation
+- [#663](https://github.com/lightspeedwp/.github/issues/663) (PR Creation Docs Consolidation) — identified missing PR_LABELS.md, AUTOMATION_GOVERNANCE.md reference
+- [#664](https://github.com/lightspeedwp/.github/issues/664) (Labeling Docs Consolidation) — documented LABELING.md as canonical reference
+- [#665](https://github.com/lightspeedwp/.github/issues/665) (File Organization Alignment) — verified file structure
 
 ## Acceptance Criteria
 

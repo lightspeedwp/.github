@@ -3,11 +3,11 @@ issue_number: 667
 file_type: documentation
 description: "Discover and inventory all README.md files"
 parent_issue: 652
-title: "[Child of #652] Audit: Discover All 44 README.md Files - Inventory"
+title: "[Child of [#652](https://github.com/lightspeedwp/.github/issues/652)] Audit: Discover All 44 README.md Files - Inventory"
 type: "type:audit"
 area: "area:documentation"
 priority: "priority:normal"
-status: draft
+status: completed
 effort: "M"
 ---
 
@@ -51,4 +51,4 @@ Discover, inventory, and audit all README.md files across the repository to crea
 ## Related Documentation
 
 - [Documentation Index](https://github.com/lightspeedwp/.github/blob/develop/docs/index.md)
-- [Related Issues: #512 & #513](https://github.com/lightspeedwp/.github/issues/512)
+- [Related Issues: [#512](https://github.com/lightspeedwp/.github/issues/512) & [#513](https://github.com/lightspeedwp/.github/issues/513)](<https://github.com/lightspeedwp/.github/issues/512>)

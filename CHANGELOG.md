@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-06-07"
+last_updated: "2026-06-08"
 owners:
   - LightSpeed Team
 tags:
@@ -32,6 +32,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Awesome GitHub Site Phase 12: Editorial pages missing header/footer** — All 7 Phase 12 editorial pages (`getting-started`, `why`, `onboarding`, `references`, `glossary/index`, `glossary/[term]`, `404`) were using `BaseLayout` (an HTML-only scaffold with no nav or footer). Switched all to `AwesomeGithubLayout` which provides `<Header />`, `<AwesomeGithubFooter />`, skip-to-content link, and theme initialisation. Removed now-redundant inner `<main>` wrappers. Fixed hardcoded hex colours in `getting-started.astro` `.run-pill`. ([#887](https://github.com/lightspeedwp/.github/issues/887), [#888](https://github.com/lightspeedwp/.github/pull/888))
 
 ### Added
+
+- **Template Enforcement Governance Closeout** — Added the canonical PR routing map, refreshed the root PR router and governance guidance, updated the template-enforcement workflow and fixtures, and split the remaining organisation-admin checks into `REMOTE_ADMIN_CHECKS.md`. ([#955](https://github.com/lightspeedwp/.github/pull/955))
+
+- **Test Coverage Implementation Phase 3: Linting agent coverage** — Replaced the linting agent stub with a deterministic helper surface for lint target parsing, rule selection, findings grouping, report formatting, config loading, cache isolation, and async orchestration. Added a focused Jest suite that covers parsing, selection ordering, invalid config handling, malformed findings, empty-input handling, and repository-wide lint/test validation. ([#935](https://github.com/lightspeedwp/.github/issues/935))
+
+- **Test Coverage Implementation Phase 2: Metrics agent coverage** — Added a pure, testable metrics-agent helper module with repository-level aggregation, issue and pull request metric calculations, markdown/CSV report generation, date-range filtering, and multi-repository support. Added a focused Jest suite that covers the collection, aggregation, reporting, and error-handling paths for `scripts/agents/metrics.agent.js`. ([#934](https://github.com/lightspeedwp/.github/issues/934))
+
+- **Plugin Pack Waves: WordPress 10-plugin catalogue and AI readiness assessor planning set** — Expanded `.github/projects/active/plugin-pack-waves/` from legacy wave scaffolding into a complete WordPress-focused planning pack with a ten-plugin catalogue (P01-P10), issue draft files, OpenSpec strict proposal inputs, execution controls (`ISSUE_EXECUTION_PLAN.md`, `ISSUE_REGISTER.md`, `RUN_LOG.md`), and linked GitHub issues [#940](https://github.com/lightspeedwp/.github/issues/940) through [#950](https://github.com/lightspeedwp/.github/issues/950), including the new **WP AI Readiness Assessor** task for WordPress site readiness evaluation. ([#951](https://github.com/lightspeedwp/.github/pull/951))
 
 - **Awesome GitHub Site Phase 06: Wapuu mascot system** — Added a reusable `WapuuHero` Astro component with a canonical page-type mapping, copied the three confirmed Wapuu assets into `website/public/assets/wapuus/`, and wired the learn, cookbook, tools, and catalogue hero sections to render the correct mascot with responsive hiding at ≤860px and decorative accessibility attributes. ([#864](https://github.com/lightspeedwp/.github/issues/864))
 - **Awesome GitHub Site Phase 07: Catalogue list pages with filter bar and Wapuu hero** — Replaced the old catalogue index with a spec-aligned `/c/[cat]` route, added the shared Wapuu hero component, introduced tag-chip filtering with AND logic, and surfaced the category type note and install-action cards for all eight catalogue pages. ([#866](https://github.com/lightspeedwp/.github/issues/866), [#867](https://github.com/lightspeedwp/.github/pull/867))

@@ -10,7 +10,7 @@ maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
 tags: ["agents", "launch", "validation", "checklist", "release"]
 category: "project"
-status: "active"
+status: active
 priority: "critical"
 ---
 
@@ -24,6 +24,17 @@ priority: "critical"
 ## Overview
 
 This checklist ensures all automation agents are production-ready before the v1.0.0 release. Testing coverage will be addressed in Phase 2 (post-launch).
+
+## Wave 5 Audit Links
+
+- Parent audit issues:
+  - <https://github.com/lightspeedwp/.github/issues/902>
+  - <https://github.com/lightspeedwp/.github/issues/903>
+  - <https://github.com/lightspeedwp/.github/issues/904>
+  - <https://github.com/lightspeedwp/.github/issues/905>
+  - <https://github.com/lightspeedwp/.github/issues/906>
+- Full issue index:
+  - <https://github.com/lightspeedwp/.github/issues?q=is%3Aissue+902..927>
 
 ---
 
