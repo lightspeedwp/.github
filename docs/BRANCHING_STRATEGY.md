@@ -2,10 +2,10 @@
 file_type: documentation
 title: Org-wide Git Branching Strategy
 description: Canonical branch naming, protection, merge discipline, and automation rules for LightSpeedWP repositories.
-last_updated: '2026-06-08'
+last_updated: '2026-06-09'
 owners:
   - LightSpeed Team
-version: v1.4
+version: v1.5
 status: active
 stability: stable
 domain: governance
@@ -149,6 +149,7 @@ hotfix/ga4-purchase-duplicate
 - If the current branch belongs to a different issue, PR, or task, create a new branch from `develop` before making changes.
 - Do not reuse in-flight branches for unrelated work, even when the working tree is already open.
 - If unrelated local changes are present, use a clean worktree rather than mixing scopes.
+- Temporary audit replay branches created for PR merge prep may use the form `pr-<number>-audit` when they need to keep a live PR attached to a historical review branch.
 
 Use a single regex in a workflow to enforce naming discipline:
 
@@ -172,6 +173,8 @@ jobs:
           BRANCH="${{ github.head_ref }}"
           # Allow dependabot/renovate
           if [[ "$BRANCH" =~ ^(dependabot|renovate)/ ]]; then exit 0; fi
+          # Allow temporary audit replay branches used for PR merge prep
+          if [[ "$BRANCH" =~ ^pr-[0-9]+-audit$ ]]; then exit 0; fi
           if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-zA-Z0-9._-]+$ ]]; then
             echo "❌ Branch '$BRANCH' must match the required pattern."
             exit 1
