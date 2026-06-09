@@ -31,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Awesome GitHub Site Phase 12: Editorial pages missing header/footer** — All 7 Phase 12 editorial pages (`getting-started`, `why`, `onboarding`, `references`, `glossary/index`, `glossary/[term]`, `404`) were using `BaseLayout` (an HTML-only scaffold with no nav or footer). Switched all to `AwesomeGithubLayout` which provides `<Header />`, `<AwesomeGithubFooter />`, skip-to-content link, and theme initialisation. Removed now-redundant inner `<main>` wrappers. Fixed hardcoded hex colours in `getting-started.astro` `.run-pill`. ([#887](https://github.com/lightspeedwp/.github/issues/887), [#888](https://github.com/lightspeedwp/.github/pull/888))
 
+### Added
+
 - **Template Enforcement Governance Closeout** — Added the canonical PR routing map, refreshed the root PR router and governance guidance, updated the template-enforcement workflow and fixtures, and split the remaining organisation-admin checks into `REMOTE_ADMIN_CHECKS.md`. ([#955](https://github.com/lightspeedwp/.github/pull/955))
 
 - **Test Coverage Implementation Phase 3: Linting agent coverage** — Replaced the linting agent stub with a deterministic helper surface for lint target parsing, rule selection, findings grouping, report formatting, config loading, cache isolation, and async orchestration. Added a focused Jest suite that covers parsing, selection ordering, invalid config handling, malformed findings, empty-input handling, and repository-wide lint/test validation. ([#935](https://github.com/lightspeedwp/.github/issues/935))
