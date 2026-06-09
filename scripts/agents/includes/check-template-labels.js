@@ -203,7 +203,7 @@ function normaliseTemplateLabels(labelsValue) {
   if (typeof labelsValue === "string") {
     return labelsValue
       .split(",")
-      .map((label) => label.replace(/['"\[\]]/gu, "").trim())
+      .map((label) => label.replace(/['"\][]]/gu, "").trim())
       .filter(Boolean);
   }
 
