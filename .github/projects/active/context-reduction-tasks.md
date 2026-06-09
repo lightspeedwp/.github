@@ -27,7 +27,6 @@ last_updated: "2026-06-01"
 
 - [ ] ⏳ Delete `DOCS.md` - Master index causing circular references
 - [ ] ⏳ Delete `GEMINI.md` - Model-specific config causing duplication
-- [ ] ⏳ Delete `CLAUDE.md` - Model-specific config causing duplication
 - [ ] ⏳ Delete `GPT.md` - Model-specific config causing duplication
 
 **Rationale:** These files duplicate content from `custom-instructions.md` and create circular reference chains.
