@@ -244,8 +244,8 @@ const lessonHtml = renderMarkdown(lesson.body);
   }
 
   .lesson-hero {
-    background: linear-gradient(135deg, #0f1014 0%, #181820 100%);
-    color: var(--c-white);
+    background: var(--bg);
+    color: var(--fg-1);
     padding: var(--space-24) var(--gutter);
   }
 
@@ -253,10 +253,10 @@ const lessonHtml = renderMarkdown(lesson.body);
     display: inline-flex;
     margin-bottom: var(--space-6);
     padding: var(--space-2) var(--space-4);
-    border: 1px solid rgba(123, 231, 255, 0.3);
+    border: 1px solid var(--hair);
     border-radius: var(--radius-pill);
-    background: rgba(123, 231, 255, 0.1);
-    color: var(--c-light-blue);
+    background: var(--accent-soft);
+    color: var(--accent);
     font-size: var(--fs-eyebrow);
     font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-eyebrow);
@@ -268,7 +268,7 @@ const lessonHtml = renderMarkdown(lesson.body);
     font-size: var(--fs-h2);
     font-weight: var(--weight-extrabold);
     line-height: var(--lh-heading);
-    color: var(--c-white);
+    color: var(--fg-1);
   }
 
   .lesson-objective {
