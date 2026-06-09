@@ -1,7 +1,7 @@
 /* eslint-env browser */
 /* search.js — Search palette controller */
 
-import { rankSearchItems } from "./search-utils.js";
+import { rankSearchItems, getSearchTokens } from "./search-utils.js";
 
 const root = document.getElementById("search-palette");
 const input = document.getElementById("sp-input");
