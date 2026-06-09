@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Automation & Workflows"
 description: "Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories."
 version: "v1.0.2"
-last_updated: "2026-06-08"
+last_updated: "2026-06-09"
 owners: ["LightSpeedWP Team"]
 tags: ["automation", "workflows", "governance", "agents"]
 status: "active"
