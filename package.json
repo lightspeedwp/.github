@@ -105,6 +105,8 @@
     "validate:memory:examples": "node scripts/validation/validate-memory.js --examples-only",
     "validate:mermaid-accessibility": "node scripts/validation/validate-mermaid-accessibility.js",
     "validate:mermaid-syntax": "node scripts/validation/validate-mermaid-syntax.js",
+    "validate:mermaid-contrast": "node scripts/validation/validate-mermaid-colour-contrast.js",
+    "validate:mermaid": "npm run validate:mermaid-syntax && npm run validate:mermaid-accessibility && npm run validate:mermaid-contrast",
     "validate:readme-links": "node scripts/validation/validate-readme-links.js",
     "validate:wceu:phase1": "node scripts/verify-wceu-readiness.js",
     "validate:wceu:phase2": "node scripts/validate-phase2-completion.js",
