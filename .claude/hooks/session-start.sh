@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Session-start hook for LightSpeedWP/.github
 # Runs at the start of every Claude Code remote session.
-# - Installs npm dependencies
 # - Renames any auto-generated claude/ branch to a valid chore/session-{hash} branch
+# - Installs npm dependencies
 
 set -euo pipefail
 
@@ -11,13 +11,15 @@ if [ "${CLAUDE_CODE_REMOTE:-}" != "true" ]; then
   exit 0
 fi
 
-# ── 1. Install npm dependencies ──────────────────────────────────────────────
-echo "==> Installing npm dependencies..."
-cd "${CLAUDE_PROJECT_DIR:-.}"
-npm install --prefer-offline --no-fund --no-audit 2>&1
-echo "==> npm install complete."
+# Skip on clear/compact — only needed at startup and resume
+HOOK_INPUT="$(cat)"
+SOURCE="$(printf '%s' "$HOOK_INPUT" | grep -oE '"source"\s*:\s*"[^"]+"' | grep -oE '"[^"]+"$' | tr -d '"' || true)"
+if [[ "$SOURCE" == "clear" || "$SOURCE" == "compact" ]]; then
+  exit 0
+fi
 
-# ── 2. Enforce branch naming — rename claude/ branches ───────────────────────
+# ── 1. Enforce branch naming — rename claude/ branches ───────────────────────
+# Done first so a failing npm install never leaves us on a forbidden branch.
 CURRENT_BRANCH="$(git branch --show-current 2>/dev/null || true)"
 
 if [[ "$CURRENT_BRANCH" == claude/* ]]; then
@@ -57,3 +59,9 @@ if [[ "$CURRENT_BRANCH" == claude/* ]]; then
   echo "==> Branch renamed: ${CURRENT_BRANCH} → ${NEW_BRANCH}"
   echo "==> Please rename '${NEW_BRANCH}' to a meaningful {type}/{scope}-{title} branch before committing."
 fi
+
+# ── 2. Install npm dependencies ──────────────────────────────────────────────
+echo "==> Installing npm dependencies..."
+cd "${CLAUDE_PROJECT_DIR:-.}"
+npm install --prefer-offline --no-fund --no-audit 2>&1
+echo "==> npm install complete."
