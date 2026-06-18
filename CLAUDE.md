@@ -180,7 +180,8 @@ For issue intake, use [.github/ISSUE_TEMPLATE/config.yml](./.github/ISSUE_TEMPLA
 ### Issue Template Quick Reference
 
 - `task` for scoped work, config updates, and small delivery items.
-- `bug` for reproducible defects with environment and reproduction details.
+- task for scoped work, config updates, and small delivery items.
+- bug for reproducible defects with environment and reproduction details.
 - `feature` for new capabilities or user-visible enhancements.
 - `design` for UI/UX, token, or accessibility design work.
 - `epic` for large, multi-part initiatives grouping stories, features, and tasks.
