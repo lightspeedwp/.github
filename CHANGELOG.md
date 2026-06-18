@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Community health audit — PR templates, governance docs, and README alignment** — Completed a comprehensive audit of all community health files: updated WCAG version references from 2.1 to 2.2 AA in `pr_bug.md`, `pr_chore.md`, `pr_ci.md`, and `pr_dep_update.md`; added 15 missing branch-prefix rows to the default `pull_request_template.md` quick-selector table to align with `PULL_REQUEST_TEMPLATE/config.yml`; expanded `AGENTS.md` issue template list from 10 to 23 entries and added Saved Replies section; expanded `CLAUDE.md` issue template list to match; fixed template count, range, and parity note in `.github/custom-instructions.md`; completely rewrote `.github/workflows/README.md` with an accurate inventory of all 27 real workflows (removed 4 phantom workflow references); updated `.github/README.md` version date; added 20 missing files to `.github/SAVED_REPLIES/README.md`; added template index table to `.github/ISSUE_TEMPLATE/README.md`; replaced generic category list with the 9 actual YAML file inventory in `.github/DISCUSSION_TEMPLATE/README.md`; updated `docs/ISSUE_CREATION_GUIDE.md` to 25-template parity and corrected label values. ([#966](https://github.com/lightspeedwp/.github/pull/966))
+
 ### Fixed
 
 - **Issue template alignment: add `about` field, align with 25 org issue types, and polish** — Added the required GitHub `about` frontmatter field to all issue templates, resolving the "About can't be blank" critical error in the new-issue chooser. Replaced the non-standard `User Experience Feedback` template with a `Chore` template to match the organisation's 25 canonical issue types; removed the `Help / Support` template (not an org type). Standardised `about` field punctuation across all templates. Bumped `version` and `last_updated` frontmatter on all changed files per freshness policy. Updated `config.yml` inventory note. ([#965](https://github.com/lightspeedwp/.github/issues/965), [#966](https://github.com/lightspeedwp/.github/pull/966))

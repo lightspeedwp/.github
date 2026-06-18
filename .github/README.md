@@ -6,7 +6,7 @@ description: Central hub for all shared GitHub templates, Copilot instructions, 
   organisation
 version: '3.4'
 created_date: '2025-01-15'
-last_updated: '2026-06-03'
+last_updated: '2026-06-18'
 authors:
 - LightSpeed Team
 maintainer: LightSpeed Team
@@ -172,8 +172,8 @@ node scripts/validation/validate-frontmatter.js .github/
 
 ## Change Log / History
 
-Version: 3.0 (see `version` frontmatter field)
-Last Updated: 2025-10-24
+Version: 3.4 (see `version` frontmatter field)
+Last Updated: 2026-06-18
 Refer to the organisation-wide [CHANGELOG.md](../CHANGELOG.md) for historical changes impacting templates, automation, or agent instructions.
 
 ## FAQ / Troubleshooting

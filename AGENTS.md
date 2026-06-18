@@ -134,12 +134,36 @@ Use [.github/ISSUE_TEMPLATE/config.yml](.github/ISSUE_TEMPLATE/config.yml) and [
 - `bug` for reproducible defects with environment and reproduction details.
 - `feature` for new capabilities or user-visible enhancements.
 - `design` for UI/UX, token, or accessibility design work.
+- `epic` for large, multi-part initiatives grouping stories, features, and tasks.
+- `story` for user-centric narratives with acceptance criteria and business value.
+- `improvement` for suggested enhancements to existing functionality.
+- `chore` for small housekeeping tasks: label hygiene, repo tweaks, file moves.
+- `code-refactor` for structured code cleanup without changing external behaviour.
+- `build-ci` for build system, CI/CD, and pipeline changes.
+- `automation` for workflow automation and tooling.
 - `testing-coverage` for new or refactored automated tests.
 - `performance` for speed, resource, or latency work.
+- `a11y` for accessibility compliance and WCAG 2.2 AA improvements.
 - `security` for vulnerabilities or security hardening.
+- `compatibility` for cross-version, browser, or platform compatibility issues.
+- `integration-issue` for third-party system integration problems.
+- `release` for release planning, coordination, and delivery.
+- `maintenance` for system maintenance, dependency updates, and housekeeping.
 - `documentation` for docs and content updates.
 - `research` and `audit` for exploratory or assessment work.
-- `automation`, `build-ci`, `ai-ops`, and `content-modelling` for their specialist workflows.
+- `code-review` for code quality discussions and review standards.
+- `ai-ops` and `content-modelling` for specialist AI and content workflows.
+
+### Saved Replies
+
+Canonical saved replies for common issue/PR/discussion responses live in `.github/SAVED_REPLIES/`. When drafting a comment or response, check whether a saved reply applies before writing from scratch. Replies are organised by context:
+
+- `issues/` — triage, labels, stale, duplicate, escalation responses
+- `pull-requests/` — review guidance, blocking, merge readiness
+- `technical/` — environment, reproduction, dependency responses
+- `workflow/` — branch, release, CI/CD status updates
+
+Use the saved reply content directly or adapt it to the specific context. Do not acknowledge to the user that you are using a saved reply unless asked.
 
 ---
 

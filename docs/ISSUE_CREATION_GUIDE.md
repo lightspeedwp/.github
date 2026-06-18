@@ -43,22 +43,23 @@ This guide helps contributors, team members, and AI agents create high-quality G
 | Request **design/UX work** | 🎨 Design | `type:design` |
 | Create a **large, multi-part project** | 📦 Epic | `type:epic` |
 | Write a **user-centric story** (Agile) | 📑 Story | `type:story` |
-| Suggest **improvements** | 🔧 Improvement | `type:improve` |
-| Request **code cleanup** | ♻️ Code Refactor | `type:refactor` |
-| Discuss **build/CI/CD** | ⚙️ Build & CI | `type:build` |
+| Suggest **improvements** | 🔧 Improvement | `type:improvement` |
+| Perform **housekeeping tasks** | 🏠 Chore | `type:chore` |
+| Request **code cleanup** | ♻️ Code Refactor | `type:code-refactor` |
+| Discuss **build/CI/CD** | ⚙️ Build & CI | `type:build-ci` |
 | Propose **automation** | 🤖 Automation | `type:automation` |
 | Request **tests** | 🧪 Test Coverage | `type:test` |
 | Report **performance** | ⚡ Performance | `type:performance` |
 | Report **accessibility** | ♿ Accessibility | `type:a11y` |
 | Report **security** | 🔐 Security | `type:security` |
-| Small **housekeeping tasks** | 🏠 Chore | `type:chore` |
 
 ### Current Template Parity Note
 
-- Numbered issue templates available: 25 (`01`-`25`), one per canonical org issue type
-- Label-only types (no dedicated template): `type:ux-feedback`, `type:question`, `type:support`, `type:help`
+- Numbered issue templates available: 25 (`01-task.md` through `25-content-modelling.md`)
+- Canonical issue types: 25 numbered templates plus label-only types
+- Label-only types without dedicated templates: `type:question`, `type:support`
 
-For UX feedback or improvement suggestions that do not fit an existing template, use **🔧 Improvement** and apply `type:ux-feedback` in the issue body. For help or support requests, use the **LightSpeedWP Support** contact link in the issue chooser.
+For label-only types, use the nearest template and state the intended canonical type in the issue body.
 
 Where a template is broader than the request, use the nearest numbered template and state the intended canonical type in the issue body.
 
