@@ -2,8 +2,8 @@
 file_type: documentation
 title: Husky Pre-commit Hooks
 description: Using Husky to enforce quality gates (linting/tests) before commits
-version: 1.0.1
-last_updated: '2026-05-29'
+version: 1.0.2
+last_updated: '2026-06-18'
 owners:
 - LightSpeed DevOps
 tags:

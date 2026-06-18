@@ -2,8 +2,8 @@
 title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
 file_type: documentation
-version: "2.6"
-last_updated: "2026-06-01"
+version: "2.8"
+last_updated: "2026-06-18"
 created_date: "2025-12-04"
 owners:
   - LightSpeedWP Team

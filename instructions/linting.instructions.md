@@ -5,8 +5,8 @@ description: Master index for all linting instructions in the LightSpeed organis
   Lists and cross-references all linting instructions, config, and coding standards.
 scope: organization-wide
 applyTo: '**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}'
-version: v2.1
-last_updated: '2026-05-29'
+version: v2.2
+last_updated: '2026-06-18'
 owners:
 - LightSpeedWP Team
 tags:
