@@ -1,6 +1,7 @@
 ---
 file_type: "issue-template"
 name: "🎨 Design"
+about: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
 description: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
 version: "1.0.0"
 last_updated: "2026-05-29"

@@ -1,6 +1,7 @@
 ---
 file_type: "issue-template"
 name: "🔍 Research"
+about: "Propose or document technical research, investigation, or exploratory work."
 description: "Propose or document technical research, investigation, or exploratory work."
 version: "1.0.0"
 last_updated: "2026-05-29"
@@ -9,7 +10,7 @@ category: "github-templates"
 
 ## Research Goal
 
-<!-- Describe the objective or question you’re investigating. -->
+<!-- Describe the objective or question you're investigating. -->
 
 ## Background / Motivation
 
@@ -17,7 +18,7 @@ category: "github-templates"
 
 ## Approach / Methods
 
-<!-- Describe steps, experiments, or techniques you’ll use. -->
+<!-- Describe steps, experiments, or techniques you'll use. -->
 
 ## Findings / Summary
 

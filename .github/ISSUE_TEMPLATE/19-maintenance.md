@@ -1,6 +1,7 @@
 ---
 file_type: "issue-template"
 name: "🧹 Maintenance"
+about: "Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks"
 description: "Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks"
 version: "1.0.0"
 last_updated: "2026-05-29"

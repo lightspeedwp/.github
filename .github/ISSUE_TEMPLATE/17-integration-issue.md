@@ -1,6 +1,7 @@
 ---
 file_type: "issue-template"
 name: "🔗 Integration"
+about: "Report or propose integration with external plugins, services, or APIs."
 description: "Report or propose integration with external plugins, services, or APIs."
 version: "1.0.0"
 last_updated: "2026-05-29"

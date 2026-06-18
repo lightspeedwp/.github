@@ -1,6 +1,7 @@
 ---
 file_type: "issue-template"
 name: "📦 Epic"
+about: "Propose/manage a large, multi-part initiative or project grouping stories/features/tasks"
 description: "Propose/manage a large, multi-part initiative or project grouping stories/features/tasks"
 version: "1.0.0"
 last_updated: "2026-05-29"

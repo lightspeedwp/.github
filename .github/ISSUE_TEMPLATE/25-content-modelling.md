@@ -1,6 +1,7 @@
 ---
 file_type: "issue-template"
 name: "📖 Content Modelling"
+about: "Propose, update, or discuss content structure, CPTs, or taxonomy."
 description: "Propose, update, or discuss content structure, CPTs, or taxonomy."
 version: "1.0.0"
 last_updated: "2026-05-29"

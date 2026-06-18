@@ -1,6 +1,7 @@
 ---
 file_type: "issue-template"
 name: "♻️ Code Refactor"
+about: "Request or propose a code refactoring or review to improve code quality, maintainability, and consistency."
 description: "Request or propose a code refactoring or review to improve code quality, maintainability, and consistency."
 version: "1.0.0"
 last_updated: "2026-05-29"
