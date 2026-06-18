@@ -2,8 +2,8 @@
 file_type: "pr-template"
 title: "PR Template - DEP_UPDATE"
 description: "Pull request template for DEP_UPDATE changes"
-version: "1.0.1"
-last_updated: "2026-06-03"
+version: "1.0.2"
+last_updated: "2026-06-18"
 category: "github-templates"
 ---
 
@@ -89,7 +89,7 @@ If no user-facing changelog entry is needed, apply the `meta:no-changelog` label
   - [ ] Semantic HTML and heading order verified
   - [ ] Keyboard navigation and visible focus states verified
   - [ ] ARIA used only where needed
-  - [ ] Contrast and non-colour cues reviewed (WCAG 2.1 AA or higher)
+  - [ ] Contrast and non-colour cues reviewed (WCAG 2.2 AA or higher)
 - [ ] Docs/readme/changelog updated (if user-facing)
 - [ ] Security checklist completed (where relevant):
   - [ ] Untrusted input validated and sanitised
