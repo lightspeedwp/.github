@@ -2,7 +2,7 @@
 file_type: documentation
 title: LightSpeed Community Health & Automation Repository
 description: Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution.
-version: '3.0'
+version: '3.1'
 last_updated: '2026-06-18'
 owners:
   - LightSpeed Team
@@ -169,17 +169,17 @@ flowchart TD
     G --> Q[E2E Tests]
     G --> R[Coverage Reports]
 
-    classDef core fill:#e2e8f0,stroke:#0f172a,color:#0f172a
-    classDef docs fill:#d1fae5,stroke:#0f172a,color:#0f172a
-    classDef automation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
-    classDef automation-sub fill:#c7d2fe,stroke:#0f172a,color:#0f172a
-    classDef label fill:#fee2e2,stroke:#0f172a,color:#0f172a
-    classDef label-sub fill:#ffe4e6,stroke:#0f172a,color:#0f172a
-    classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a
-    classDef ai-sub fill:#fef3c7,stroke:#0f172a,color:#0f172a
-    classDef docs-sub fill:#e0f2fe,stroke:#0f172a,color:#0f172a
-    classDef testing fill:#ecfccb,stroke:#0f172a,color:#0f172a
-    classDef testing-sub fill:#bae6fd,stroke:#0f172a,color:#0f172a
+    classDef core fill:#f1f5f9,color:#0f172a,stroke:#334155
+    classDef docs fill:#dcfce7,color:#14532d,stroke:#14532d
+    classDef automation fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    classDef automation-sub fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    classDef label fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+    classDef label-sub fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+    classDef ai fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    classDef ai-sub fill:#fef3c7,color:#4a2c00,stroke:#b45309
+    classDef docs-sub fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    classDef testing fill:#dcfce7,color:#14532d,stroke:#14532d
+    classDef testing-sub fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
 
     class A core
     class B core
@@ -251,11 +251,11 @@ flowchart LR
     M --> N[Quality Assurance]
   end
 
-  classDef repo fill:#e2e8f0,stroke:#0f172a,color:#0f172a
-  classDef automation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
-  classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a
-  classDef development fill:#c7d2fe,stroke:#0f172a,color:#0f172a
-  classDef review fill:#fef3c7,stroke:#0f172a,color:#0f172a
+  classDef repo fill:#f1f5f9,color:#0f172a,stroke:#334155
+  classDef automation fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+  classDef ai fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+  classDef development fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+  classDef review fill:#fef3c7,color:#4a2c00,stroke:#b45309
 
   class A repo
   class B repo
@@ -299,11 +299,11 @@ flowchart TD
     J --> K[🚀 CI/CD Pipeline]
     K --> L[🌐 Deploy/Merge]
 
-    classDef change fill:#e2e8f0,stroke:#0f172a,color:#0f172a
-    classDef hook fill:#d9f2ff,stroke:#0f172a,color:#0f172a
-    classDef test fill:#d1fae5,stroke:#0f172a,color:#0f172a
-    classDef check fill:#c7d2fe,stroke:#0f172a,color:#0f172a
-    classDef deployment fill:#f3e8ff,stroke:#0f172a,color:#0f172a
+    classDef change fill:#f1f5f9,color:#0f172a,stroke:#334155
+    classDef hook fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    classDef test fill:#dcfce7,color:#14532d,stroke:#14532d
+    classDef check fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    classDef deployment fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
 
     class A change
     class B hook

@@ -3,7 +3,7 @@ file_type: documentation
 title: Agent Specification Authoring Guide
 description: Comprehensive guide for creating, documenting, and maintaining agent
   specification files following LightSpeed standards
-version: 'v1.3'
+version: 'v1.4'
 created_date: '2025-01-15'
 last_updated: '2026-06-18'
 author: LightSpeed Team
@@ -108,11 +108,9 @@ agents/{agent-name}.agent.md
 ## Agent Specification Architecture
 
 ```mermaid
----
 accTitle: Agent specification architecture
-accDescr: Shows the three layers of agent specification — the spec document with frontmatter and responsibilities, the implementation layer with code and tests, and the automation layer with workflows and validation.
----
-flowchart TD
+accDescr: Shows the relationship between agent specifications, implementation code, tests, and the surrounding automation layer.
+graph TB
     subgraph "📝 Agent Specification"
         A[YAML Frontmatter]
         B[Purpose & Overview]
@@ -184,10 +182,8 @@ Create a new agent when:
 ### Mermaid: Should You Create a New Agent?
 
 ```mermaid
----
-accTitle: Should you create a new agent decision tree
-accDescr: Decision flowchart for evaluating whether a new agent should be created, checking for determinism, existing coverage, guardrail feasibility, and maintainer commitment before proceeding with a spec draft.
----
+accTitle: New agent decision flow
+accDescr: Shows the decision path for determining whether a new agent should be created, extended, or rejected based on determinism, scope overlap, guardrails, and ownership.
 flowchart TD
     A([New Workflow Identified]) --> B{Is it deterministic?}
     B -->|No| N1[Do NOT create agent]
@@ -219,10 +215,8 @@ Before drafting a spec:
 ### Mermaid: Pre-Creation Review Path
 
 ```mermaid
----
-accTitle: Pre-creation review path for agent specifications
-accDescr: Left-to-right checklist flow showing the pre-creation steps before writing an agent spec — define problem, assess overlap, define tools and permissions, define guardrails, assign owner — before the final decision to proceed or stop.
----
+accTitle: Agent pre-creation review path
+accDescr: Shows the human review path for defining the problem, assessing overlap, documenting permissions, and assigning an owner before drafting the spec.
 flowchart LR
     Start([Start]) --> Check1[Define Problem]
     Check1 --> Check2[Assess Overlap]
@@ -311,10 +305,8 @@ Frontmatter `owners:` must map to a team or individual who is responsible for:
 ### Mermaid: Approval Workflow
 
 ```mermaid
----
-accTitle: Agent specification approval workflow
-accDescr: Approval workflow from spec draft through frontmatter validation, agent index entry, maintainer review, and governance review, with a decision gate that either returns the spec for revision or proceeds to merge and implementation.
----
+accTitle: Agent approval workflow
+accDescr: Shows how a drafted agent spec moves through frontmatter validation, index updates, maintainer review, governance review, and publication.
 flowchart TD
     A([Spec Drafted]) --> B[Frontmatter Validation]
     B --> C[Add to Agent Index]
@@ -358,10 +350,8 @@ Frontmatter is **machine-validated**. Errors break CI.
 ### Mermaid: Frontmatter Scope Map
 
 ```mermaid
----
-accTitle: Agent frontmatter scope map
-accDescr: Mind map of all frontmatter fields grouped into required fields, recommended fields, agent-specific fields, and validation rules for agent specification files.
----
+accTitle: Frontmatter scope map
+accDescr: Shows the frontmatter fields grouped into required, recommended, agent-specific, and validation categories for agent specification files.
 mindmap
   root((Frontmatter))
     Required
@@ -412,10 +402,8 @@ mindmap
 ### Mermaid: Full Publishing Pipeline
 
 ```mermaid
----
-accTitle: Full agent publishing pipeline
-accDescr: Sequence diagram showing the full publishing pipeline from human author drafting the agent spec, running CI validation, committing and submitting a PR, through governance review and final merge with implementation and tests.
----
+accTitle: Agent publishing pipeline
+accDescr: Shows the publishing sequence from drafting the spec through validation, implementation, testing, and readiness to merge.
 sequenceDiagram
     participant H as Human Author
     participant CI as CI Validation
@@ -487,10 +475,8 @@ CI quality gates:
 To avoid premature complexity, agents evolve through stages:
 
 ```mermaid
----
 accTitle: Agent lifecycle maturity model
-accDescr: Simple left-to-right progression showing the five stages of agent maturity — Draft, Prototype, Active, Mature, and Deprecated.
----
+accDescr: Shows the agent lifecycle from draft through prototype, active use, mature stability, and eventual deprecation.
 flowchart LR
     Draft --> Prototype --> Active --> Mature --> Deprecated
 ```
@@ -539,10 +525,8 @@ Example patterns:
 #### Mermaid: Handoff Example
 
 ```mermaid
----
-accTitle: Cross-agent handoff example
-accDescr: Simple flowchart showing a labeling agent evaluating conditions and passing control to a reviewer agent when conditions are met, or ending with no handoff when conditions are not met.
----
+accTitle: Agent handoff example
+accDescr: Shows how the labeling agent evaluates conditions before handing work to the reviewer agent or stopping the transfer.
 flowchart TD
     A[Labeling Agent] --> B{Conditions Met?}
     B -->|Yes| C[Reviewer Agent]

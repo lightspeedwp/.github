@@ -2,13 +2,14 @@
 /**
  * Validate WCAG 2.2 AA colour contrast compliance in Mermaid diagrams.
  *
- * Checks every `style X fill:#colour` declaration and verifies:
+ * Checks every `style X fill:#colour` and `classDef X fill:#colour`
+ * declaration and verifies:
  * 1. An explicit `color` (text colour) is set alongside each `fill`.
- * 2. The fill/color pair meets the WCAG AA minimum contrast ratio of 4.5:1.
+ * 2. The fill / color pair meets the WCAG AA minimum contrast ratio of 4.5:1.
  *
- * Scans all .md files (not just READMEs) to cover instructions, docs, etc.
+ * Scans all markdown files so repository-wide Mermaid diagrams are covered.
  *
- * @module scripts/validation/validate-mermaid-colour-contrast
+ * @module scripts/validation/validate-mermaid-colour-contrast.js
  */
 
 import fs from "fs";
@@ -20,21 +21,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "../../");
 
 const WCAG_AA_NORMAL_TEXT = 4.5;
-const WCAG_AA_LARGE_TEXT = 3.0;
 
-// Mermaid default text colours per theme (approximations).
-// When no explicit `color` is set, the renderer uses these.
-const MERMAID_THEME_TEXT_DEFAULTS = {
-  default: "#333333",
-  base: "#333333",
-  neutral: "#333333",
-  dark: "#ffffff", // dark mode renders white text — this is the failure case
-  forest: "#333333",
-  "high-contrast": "#000000",
-};
-
-const getMarkdownFiles = () => {
-  return globSync("**/*.{md,mdx}", {
+const getMarkdownFiles = () =>
+  globSync("**/*.{md,mdx}", {
     cwd: ROOT,
     ignore: [
       "**/node_modules/**",
@@ -43,18 +32,9 @@ const getMarkdownFiles = () => {
       "**/logs/**",
       "**/.github/projects/**",
     ],
+    dot: true,
   }).sort();
-};
 
-// ---------------------------------------------------------------------------
-// Colour utilities
-// ---------------------------------------------------------------------------
-
-/**
- * Expand 3-digit hex to 6-digit.
- * @param {string} hex
- * @returns {string} 6-digit hex without leading #
- */
 function normaliseHex(hex) {
   const h = hex.replace(/^#/, "");
   if (h.length === 3) {
@@ -66,11 +46,6 @@ function normaliseHex(hex) {
   return h;
 }
 
-/**
- * Convert a hex colour to WCAG relative luminance.
- * @param {string} hex  e.g. "#e1f5fe" or "#fff"
- * @returns {number}
- */
 function relativeLuminance(hex) {
   const h = normaliseHex(hex);
   const r = parseInt(h.slice(0, 2), 16) / 255;
@@ -78,17 +53,11 @@ function relativeLuminance(hex) {
   const b = parseInt(h.slice(4, 6), 16) / 255;
 
   const linearise = (c) =>
-    c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
 
   return 0.2126 * linearise(r) + 0.7152 * linearise(g) + 0.0722 * linearise(b);
 }
 
-/**
- * WCAG contrast ratio between two hex colours.
- * @param {string} hex1
- * @param {string} hex2
- * @returns {number}
- */
 function contrastRatio(hex1, hex2) {
   const l1 = relativeLuminance(hex1);
   const l2 = relativeLuminance(hex2);
@@ -97,12 +66,6 @@ function contrastRatio(hex1, hex2) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-/**
- * Attempt to resolve a named CSS colour to hex. Covers the subset most likely
- * to appear in Mermaid style declarations.
- * @param {string} name
- * @returns {string|null}
- */
 function namedColourToHex(name) {
   const map = {
     black: "#000000",
@@ -136,12 +99,6 @@ function namedColourToHex(name) {
   return map[name.toLowerCase()] ?? null;
 }
 
-/**
- * Parse a colour string (hex or named) to hex.
- * Returns null when the colour cannot be resolved (e.g. CSS vars, gradients).
- * @param {string} colour
- * @returns {string|null}
- */
 function parseColour(colour) {
   if (!colour) return null;
   const trimmed = colour.trim().toLowerCase();
@@ -149,15 +106,6 @@ function parseColour(colour) {
   return namedColourToHex(trimmed);
 }
 
-// ---------------------------------------------------------------------------
-// Diagram extraction & parsing
-// ---------------------------------------------------------------------------
-
-/**
- * Extract raw mermaid diagram blocks from markdown content.
- * @param {string} content
- * @returns {Array<{raw: string, startLine: number}>}
- */
 function extractDiagrams(content) {
   const diagrams = [];
   const lines = content.split("\n");
@@ -183,11 +131,6 @@ function extractDiagrams(content) {
   return diagrams;
 }
 
-/**
- * Detect the active theme from a diagram's %%{init:...}%% block.
- * @param {string} diagramRaw
- * @returns {string}
- */
 function detectTheme(diagramRaw) {
   const match = diagramRaw.match(/%%\{.*?'theme'\s*:\s*'([^']+)'/);
   if (match) return match[1].toLowerCase();
@@ -196,85 +139,60 @@ function detectTheme(diagramRaw) {
   return "default";
 }
 
-/**
- * Parse all style declarations from a diagram.
- * Handles:
- *   style NodeId fill:#colour
- *   style NodeId fill:#colour,color:#colour,stroke:#colour
- *   style NodeId fill:#colour,color:#colour
- *
- * @param {string} diagramRaw
- * @returns {Array<{nodeId: string, fill: string|null, color: string|null, raw: string, line: number}>}
- */
-function parseStyleDeclarations(diagramRaw) {
+function parseDeclarations(diagramRaw) {
   const results = [];
   const lines = diagramRaw.split("\n");
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    // Match `style <NodeId> <properties>`
-    const styleMatch = line.match(/^\s*style\s+(\S+)\s+(.+)/);
-    if (!styleMatch) continue;
+    const match = line.match(/^\s*(style|classDef)\s+(\S+)\s+(.+)/);
+    if (!match) continue;
 
-    const nodeId = styleMatch[1];
-    const props = styleMatch[2];
-
-    // Extract fill colour — negative lookbehind avoids matching stop-fill or similar
+    const kind = match[1];
+    const nodeId = match[2];
+    const props = match[3];
     const fillMatch = props.match(/(?<!-)\bfill\s*:\s*([^,;\s]+)/i);
-    const fill = fillMatch ? fillMatch[1].trim() : null;
-
-    // Extract text colour — negative lookbehind avoids matching stroke-color etc.
     const colorMatch = props.match(/(?<!-)\bcolor\s*:\s*([^,;\s]+)/i);
-    const color = colorMatch ? colorMatch[1].trim() : null;
 
-    results.push({ nodeId, fill, color, raw: line.trim(), line: i });
+    results.push({
+      kind,
+      nodeId,
+      fill: fillMatch ? fillMatch[1].trim() : null,
+      color: colorMatch ? colorMatch[1].trim() : null,
+      raw: line.trim(),
+      line: i,
+    });
   }
 
   return results;
 }
 
-// ---------------------------------------------------------------------------
-// Validation logic
-// ---------------------------------------------------------------------------
-
-/**
- * Validate contrast for a single style declaration.
- * @param {{nodeId: string, fill: string|null, color: string|null, raw: string}} styleDecl
- * @param {string} theme  Detected diagram theme
- * @returns {Array<{level: 'error'|'warning', message: string}>}
- */
-function validateStyleContrast(styleDecl, theme) {
+function validateDeclaration(styleDecl) {
   const issues = [];
-  const { nodeId, fill, color } = styleDecl;
+  const { kind, nodeId, fill, color } = styleDecl;
 
   if (!fill) return issues;
 
   const fillHex = parseColour(fill);
-  if (!fillHex) {
-    // Cannot validate non-hex / CSS variable fills — skip silently
-    return issues;
-  }
+  if (!fillHex) return issues;
 
   if (!color) {
-    // Check both Mermaid light default (#333333) and dark mode (white #ffffff)
     const lightRatio = contrastRatio(fillHex, "#333333");
     const darkRatio = contrastRatio(fillHex, "#ffffff");
     const failsLight = lightRatio < WCAG_AA_NORMAL_TEXT;
     const failsDark = darkRatio < WCAG_AA_NORMAL_TEXT;
 
     if (failsLight || failsDark) {
-      let failMode;
-      if (failsLight && failsDark) {
-        failMode = "both light and dark modes";
-      } else if (failsLight) {
-        failMode = "light mode (dark text)";
-      } else {
-        failMode = "dark mode (white text)";
-      }
+      const failMode =
+        failsLight && failsDark
+          ? "both light and dark modes"
+          : failsLight
+            ? "light mode (dark text)"
+            : "dark mode (white text)";
       issues.push({
         level: "error",
         message:
-          `Node "${nodeId}": fill ${fill} without explicit color FAILS in ${failMode} ` +
+          `${kind} "${nodeId}": fill ${fill} without explicit color FAILS in ${failMode} ` +
           `(light contrast: ${lightRatio.toFixed(2)}:1, dark contrast: ${darkRatio.toFixed(2)}:1). ` +
           `Add an explicit color: to guarantee contrast.`,
       });
@@ -282,7 +200,7 @@ function validateStyleContrast(styleDecl, theme) {
       issues.push({
         level: "warning",
         message:
-          `Node "${nodeId}": fill ${fill} has no explicit color. ` +
+          `${kind} "${nodeId}": fill ${fill} has no explicit color. ` +
           `Passes contrast in both modes (light: ${lightRatio.toFixed(2)}:1, dark: ${darkRatio.toFixed(2)}:1) ` +
           `but adding an explicit color: is strongly recommended.`,
       });
@@ -299,17 +217,13 @@ function validateStyleContrast(styleDecl, theme) {
     issues.push({
       level: "error",
       message:
-        `Node "${nodeId}": fill ${fill} / color ${color} contrast ratio is ${ratio.toFixed(2)}:1 — ` +
+        `${kind} "${nodeId}": fill ${fill} / color ${color} contrast ratio is ${ratio.toFixed(2)}:1 — ` +
         `FAILS WCAG AA 2.2 (${WCAG_AA_NORMAL_TEXT}:1 required for normal text).`,
     });
   }
 
   return issues;
 }
-
-// ---------------------------------------------------------------------------
-// Main
-// ---------------------------------------------------------------------------
 
 async function main() {
   const args = process.argv.slice(2);
@@ -324,7 +238,7 @@ async function main() {
   const report = {
     filesScanned: 0,
     diagramsScanned: 0,
-    stylesChecked: 0,
+    declarationsChecked: 0,
     errors: 0,
     warnings: 0,
     findings: [],
@@ -348,17 +262,17 @@ async function main() {
       report.diagramsScanned++;
 
       const theme = detectTheme(diagram.raw);
-      const styles = parseStyleDeclarations(diagram.raw);
+      const declarations = parseDeclarations(diagram.raw);
 
-      for (const style of styles) {
-        report.stylesChecked++;
-        const issues = validateStyleContrast(style, theme);
+      for (const decl of declarations) {
+        report.declarationsChecked++;
+        const issues = validateDeclaration(decl);
 
         for (const issue of issues) {
           if (issue.level === "error") report.errors++;
           else report.warnings++;
 
-          const fileLine = diagram.startLine + style.line + 1;
+          const fileLine = diagram.startLine + decl.line + 1;
           report.findings.push({
             file: relPath,
             diagramIndex: di + 1,
@@ -366,7 +280,7 @@ async function main() {
             theme,
             level: issue.level,
             message: issue.message,
-            rawStyle: style.raw,
+            rawDeclaration: decl.raw,
           });
 
           if (!fileHasIssues) {
@@ -383,29 +297,27 @@ async function main() {
     }
 
     if (!fileHasIssues && diagrams.length > 0) {
-      console.log(
-        `✅ ${relPath} — ${diagrams.length} diagram(s), all styles pass`,
-      );
+      console.log(`✅ ${relPath} — ${diagrams.length} diagram(s), all styles pass`);
     }
   }
 
   console.log("\n" + "=".repeat(70));
   console.log("🎨 COLOUR CONTRAST SUMMARY");
   console.log("=".repeat(70));
-  console.log(`Files scanned:    ${report.filesScanned}`);
-  console.log(`Diagrams scanned: ${report.diagramsScanned}`);
-  console.log(`Styles checked:   ${report.stylesChecked}`);
-  console.log(`Errors:           ${report.errors}`);
-  console.log(`Warnings:         ${report.warnings}`);
+  console.log(`Files scanned:        ${report.filesScanned}`);
+  console.log(`Diagrams scanned:     ${report.diagramsScanned}`);
+  console.log(`Declarations checked: ${report.declarationsChecked}`);
+  console.log(`Errors:               ${report.errors}`);
+  console.log(`Warnings:             ${report.warnings}`);
 
   if (report.findings.length > 0) {
     console.log("\n📋 FINDINGS:");
-    for (const f of report.findings) {
+    for (const finding of report.findings) {
       console.log(
-        `\n  ${f.level.toUpperCase()} in ${f.file} (Diagram #${f.diagramIndex}, theme: ${f.theme})`,
+        `\n  ${finding.level.toUpperCase()} in ${finding.file} (Diagram #${finding.diagramIndex}, theme: ${finding.theme})`,
       );
-      console.log(`  Style: ${f.rawStyle}`);
-      console.log(`  Issue: ${f.message}`);
+      console.log(`  Declaration: ${finding.rawDeclaration}`);
+      console.log(`  Issue: ${finding.message}`);
     }
   }
 
@@ -418,12 +330,9 @@ async function main() {
       `\n⚠️  ${report.warnings} warning(s). Add explicit color: to every fill: declaration to guarantee contrast in all themes.`,
     );
   } else {
-    console.log(
-      "\n✅ All style declarations meet WCAG 2.2 AA contrast requirements.",
-    );
+    console.log("\n✅ All style declarations meet WCAG 2.2 AA contrast requirements.");
   }
 
-  // Write report
   const reportDir = path.join(ROOT, ".github/reports/mermaid");
   fs.mkdirSync(reportDir, { recursive: true });
   const today = new Date().toISOString().slice(0, 10);
@@ -450,7 +359,7 @@ stability: stable
 |--------|-------|
 | Files scanned | ${report.filesScanned} |
 | Diagrams scanned | ${report.diagramsScanned} |
-| Style declarations checked | ${report.stylesChecked} |
+| Declarations checked | ${report.declarationsChecked} |
 | Errors (contrast failures) | ${report.errors} |
 | Warnings (missing explicit color) | ${report.warnings} |
 
@@ -461,11 +370,11 @@ ${
     ? "✅ All style declarations meet WCAG 2.2 AA requirements."
     : report.findings
         .map(
-          (f) =>
-            `### ${f.level.toUpperCase()}: \`${f.file}\` — Diagram #${f.diagramIndex} (line ${f.line})\n\n` +
-            `- **Theme**: ${f.theme}\n` +
-            `- **Style**: \`${f.rawStyle}\`\n` +
-            `- **Issue**: ${f.message}\n`,
+          (finding) =>
+            `### ${finding.level.toUpperCase()}: \`${finding.file}\` — Diagram #${finding.diagramIndex} (line ${finding.line})\n\n` +
+            `- **Theme**: ${finding.theme}\n` +
+            `- **Declaration**: \`${finding.rawDeclaration}\`\n` +
+            `- **Issue**: ${finding.message}\n`,
         )
         .join("\n")
 }

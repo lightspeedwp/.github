@@ -4,8 +4,8 @@ title: Quality Assurance Standards
 description: Comprehensive testing, validation, and quality assurance standards for
   all GitHub repository code and automation
 scope: organization-wide
-version: v1.1
-last_updated: '2026-05-29'
+version: v1.1.1
+last_updated: '2026-06-18'
 owners:
 - GitHub Community Health Team
 tags:
@@ -74,16 +74,20 @@ Applies to testing and QA across code, automation, and workflows. Covers strateg
 
 ### Testing Pyramid
 
+When you show the pyramid in Mermaid, use the approved Mermaid palette from `instructions/mermaid.instructions.md` and set `fill`, `color`, and `stroke` together in every `classDef`.
+
 ```mermaid
+accTitle: Testing pyramid diagram
+accDescr: Shows the testing pyramid from end-to-end tests through integration and unit tests to static analysis.
 graph TD
     A[E2E Tests<br/>User Workflows] --> B[Integration Tests<br/>Component Interaction]
     B --> C[Unit Tests<br/>Pure Functions & Logic]
     C --> D[Static Analysis<br/>Linting & Type Checking]
 
-    classDef e2e fill:#ffebee
-    classDef integration fill:#fff3e0
-    classDef unit fill:#e8f5e8
-    classDef static fill:#e1f5fe
+    classDef e2e fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+    classDef integration fill:#fef3c7,color:#4a2c00,stroke:#b45309
+    classDef unit fill:#dcfce7,color:#14532d,stroke:#14532d
+    classDef static fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
 
     class A e2e
     class B integration
@@ -117,7 +121,7 @@ graph TD
 
 **Config Files:**
 
-- Main config: [`jest.config.js`](../jest.config.js) or [`jest.config.cjs`](../jest.config.cjs)
+- Main config: `jest.config.js` or `jest.config.cjs`
 - Setup: `jest.setup.js` for global test setup
 - Helpers: `tests/test-helpers.js` for shared utilities
 
@@ -370,6 +374,8 @@ describe("Issue Lifecycle E2E", () => {
 ### Test Execution Flow
 
 ```mermaid
+accTitle: Test execution flow
+accDescr: Shows how a developer runs tests locally, pushes changes, and then CI executes linting, tests, coverage, and quality gate checks.
 sequenceDiagram
     participant Dev as Developer
     participant Local as Local Tests

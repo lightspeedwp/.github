@@ -4,7 +4,7 @@ title: Automation Standards
 description: Comprehensive standards for GitHub automation agents, workflows, and
   repository health management
 scope: repo-local
-version: v1.1.1
+version: v1.1.2
 last_updated: '2026-06-18'
 owners:
 - GitHub Community Health Team
@@ -78,6 +78,8 @@ Ensure consistent, reliable, and maintainable automation across GitHub repositor
 ### System Overview
 
 ```mermaid
+accTitle: Automation architecture overview
+accDescr: Shows how GitHub events trigger workflows, which invoke agents and produce labels, summaries, releases, and metrics.
 graph TB
     subgraph "GitHub Events"
         A[Issue Created]
@@ -666,6 +668,8 @@ jobs:
 ### Automation Pipeline
 
 ```mermaid
+accTitle: Automation pipeline sequence
+accDescr: Shows the end-to-end automation sequence from a GitHub event through workflow execution, agent processing, API updates, and reporting.
 sequenceDiagram
     participant Event as GitHub Event
     participant Workflow as Workflow

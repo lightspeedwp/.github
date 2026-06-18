@@ -1,25 +1,25 @@
 ---
 file_type: "instructions"
 title: "Mermaid Diagram Instructions"
-description: "Design, accessibility, colour contrast, and validation standards for all Mermaid diagrams across LightSpeed repositories"
+description: "Design, accessibility, colour contrast, and validation standards for Mermaid diagrams across the repository"
 scope: "repo-local"
-version: "v2.0"
+version: "v2.1"
 last_updated: "2026-06-18"
 owners: ["LightSpeed Team"]
 tags: ["mermaid", "diagrams", "documentation", "a11y", "wcag", "colour-contrast", "visuals", "architecture"]
-applyTo: ["**/*.md"]
+applyTo: ["**/*.md", "**/*.mdx"]
 status: "active"
 ---
 
 # Mermaid Diagram Instructions
 
-All Mermaid diagrams must be visually clear, accessible (WCAG 2.2 AA), and consistent. Follow every rule in this file. The validation workflow enforces them automatically on every PR.
+All Mermaid diagrams must be clear, accessible, and WCAG 2.2 AA compliant. Follow every rule in this file. The validation workflow enforces the accessibility and syntax rules automatically, and the colour contrast validator enforces the approved palette.
 
 ---
 
 ## When to Include a Diagram
 
-Include at least one Mermaid diagram in any README or documentation file that describes:
+Include a Mermaid diagram when the documentation describes:
 
 - A multi-step process or workflow
 - Component relationships or architecture
@@ -35,7 +35,7 @@ Do **not** force a diagram into a file where a simple list or paragraph is clear
 
 Every Mermaid block **must** include an accessibility header block placed immediately after the opening ` ```mermaid ` fence and before the diagram type declaration:
 
-```text
+````text
 ```mermaid
 ---
 accTitle: Short accessible title (max 80 chars)
@@ -44,12 +44,11 @@ accDescr: Single-sentence description for simple diagrams
 flowchart LR
     ...
 ```
+````
 
-```
+For complex diagrams, use the block form:
 
-For complex diagrams use the block form:
-
-```text
+````text
 ```mermaid
 ---
 accTitle: Complex workflow title
@@ -62,58 +61,57 @@ accDescr {
 flowchart TD
     ...
 ```
-
-```
+````
 
 **Rules:**
-- `accTitle` is mandatory on every diagram — no exceptions.
-- `accDescr` is mandatory on every diagram — no exceptions.
+
+- `accTitle` is mandatory on every diagram.
+- `accDescr` is mandatory on every diagram.
 - Place the `---` header block first, before `flowchart`, `graph`, `sequenceDiagram`, etc.
-- Do not duplicate `accTitle` / `accDescr` as inline attributes after the diagram type line (older style). Use only the header block.
+- Do not duplicate `accTitle` / `accDescr` as inline attributes after the diagram type line.
 
 ---
 
-## Diagram Types — When to Use Each
+## Diagram Types
 
-| Type | Use for | Example |
-|------|---------|---------|
-| `flowchart LR` | Left-to-right pipelines, data flows | CI/CD pipeline, API request flow |
-| `flowchart TD` | Top-down hierarchies, decision trees | Component tree, issue triage |
-| `sequenceDiagram` | System interactions over time | Auth flow, webhook delivery |
-| `stateDiagram-v2` | State machines, lifecycle transitions | Issue status, deployment states |
-| `erDiagram` | Data relationships and schema | Database schema, data models |
-| `gantt` | Timelines, release schedules | Sprint plan, milestone calendar |
-| `pie` | Proportional composition | Label distribution, coverage breakdown |
-| `mindmap` | Topic hierarchies and associations | Feature exploration, knowledge maps |
+| Type | Use for |
+|------|---------|
+| `flowchart LR` | Left-to-right pipelines, data flows, and timelines |
+| `flowchart TD` | Top-down hierarchies, decision trees, and branching flows |
+| `sequenceDiagram` | System interactions over time |
+| `stateDiagram-v2` | State machines and lifecycle transitions |
+| `erDiagram` | Data relationships and schema |
+| `gantt` | Timelines and release schedules |
+| `pie` | Proportional composition |
+| `mindmap` | Topic hierarchies and associations |
 
-**Prefer `flowchart` over `graph`** — `flowchart` is the current Mermaid standard and supports more styling features. Only use `graph` if you need legacy compatibility.
-
-**Always specify direction** — `flowchart LR`, `flowchart TD`, etc. Never leave the direction implicit.
+- Prefer `flowchart` over `graph`.
+- Always specify direction: `flowchart LR`, `flowchart TD`, etc.
 
 ---
 
-## Colour Palette — Approved WCAG AA Pairs
+## Colour Palette
 
-Every `style` declaration **must** set `fill`, `color`, and `stroke` together. Never set `fill` alone — Mermaid's theme may override the text colour to white or another low-contrast value depending on the viewer's GitHub theme (light/dark mode).
+Every `style` or `classDef` declaration that sets `fill:` **must** also set `color:` and `stroke:` together.
 
-All pairs below are pre-verified to meet **WCAG 2.2 AA 4.5:1** normal-text contrast in every GitHub theme:
+The approved palette is:
 
-| Role | `fill` | `color` | `stroke` | Contrast |
-|------|--------|---------|----------|----------|
-| **Information** (primary, entry points) | `#dbeafe` | `#1e3a5f` | `#1e3a5f` | 9.1:1 |
-| **Success** (outputs, completed states) | `#dcfce7` | `#14532d` | `#14532d` | 10.5:1 |
-| **Warning** (external dependencies, caution) | `#fef3c7` | `#4a2c00` | `#b45309` | 8.3:1 |
-| **Error / Alert** (failure states, blockers) | `#fee2e2` | `#7f1d1d` | `#b91c1c` | 8.7:1 |
-| **Documentation** (specs, instructions, AI) | `#f3e8ff` | `#3b0764` | `#7e22ce` | 10.2:1 |
-| **Neutral** (supporting nodes, connectors) | `#f1f5f9` | `#0f172a` | `#334155` | 14.7:1 |
-| **Highlight** (key actions, automation) | `#ecfdf5` | `#064e3b` | `#059669` | 10.8:1 |
+| Role | fill | color | stroke |
+|------|------|-------|--------|
+| Information | `#dbeafe` | `#1e3a5f` | `#1e3a5f` |
+| Success | `#dcfce7` | `#14532d` | `#14532d` |
+| Warning | `#fef3c7` | `#4a2c00` | `#b45309` |
+| Error / Alert | `#fee2e2` | `#7f1d1d` | `#b91c1c` |
+| Documentation | `#f3e8ff` | `#3b0764` | `#7e22ce` |
+| Neutral | `#f1f5f9` | `#0f172a` | `#334155` |
+| Highlight | `#ecfdf5` | `#064e3b` | `#059669` |
 
-**Usage:**
+Example:
 
 ```mermaid
 ---
 accTitle: Example colour usage
-accDescr: Shows the correct way to apply the approved colour palette with explicit fill, color, and stroke.
+accDescr: Shows the approved palette applied with explicit fill, color, and stroke values.
 ---
 flowchart LR
     A[Entry Point] --> B[Automation Step] --> C[Output]
@@ -124,36 +122,33 @@ flowchart LR
 
 **Rules:**
 
-- Only use colours from the approved palette above, or colours you have manually verified using `scripts/validation/validate-mermaid-colour-contrast.js`.
-- Never use `fill:#e1f5fe` without `color:#1e3a5f` (the old single-property pattern fails in dark mode).
-- Never use inline colour strings not from this palette without running the contrast validator first.
-- Do not rely on colour alone to convey meaning — use node shape and label text as the primary communicators.
+- Only use colours from the approved palette above, or colours you have manually verified using the Mermaid contrast validator.
+- Never use `fill:` without an explicit `color:`.
+- Never use theme-specific dark mode values in diagram definitions.
+- Do not rely on colour alone to convey meaning.
 
 ---
 
 ## Theme Initialisation
 
-Include a theme init block only when you have a specific reason. The default theme is correct for nearly all cases:
+Use a theme init block only when there is a specific reason. The default theme is correct for nearly all cases:
 
 ```text
 %%{init: {'theme': 'default'}}%%
 ```
 
-Do **not** use `theme: 'dark'` in diagram definitions — this forces dark mode regardless of the viewer's system preference and creates contrast problems with the approved palette.
-
-For subgraph labels on dark backgrounds, prefer changing the subgraph border and title with inline styles rather than switching the whole theme.
+- Do **not** use `theme: 'dark'`.
+- If a diagram needs extra contrast tuning, keep the approved palette and adjust the node styles, not the viewer theme.
 
 ---
 
 ## Emoji in Node Labels
 
-Phosphor Icons and other SVG icon sets **cannot** be used in GitHub-rendered Mermaid diagrams. GitHub's embedded renderer does not support the Mermaid v11 `@{ icon: }` syntax.
-
-Use the following canonical emoji vocabulary for node types. Apply consistently across all diagrams in the repository:
+Use at most one emoji per node label. Place it at the start of the label, followed by a space.
 
 | Node type | Emoji | Example label |
 |-----------|-------|---------------|
-| Entry / start | (none — use a rounded node shape) | `([Start])` |
+| Entry / start | none | `([Start])` |
 | User / developer | 👤 | `[👤 Developer]` |
 | Repository / storage | 📁 | `[📁 Repository]` |
 | Workflow / automation | ⚙️ | `[⚙️ Automation]` |
@@ -172,25 +167,17 @@ Use the following canonical emoji vocabulary for node types. Apply consistently 
 | Tests | 🧪 | `[🧪 Test Suite]` |
 | Lock / protected | 🔒 | `[🔒 Protected]` |
 
-**Rules:**
-
-- Use at most one emoji per node label.
-- Place the emoji at the start of the label, followed by a space.
-- Never use emoji as the entire label — always include a text description.
-- Do not use emoji in subgraph titles where they are not consistently supported.
+Never use emoji as the entire label. Keep subgraph titles plain text.
 
 ---
 
 ## Layout and Clarity
 
-- **One concept per diagram.** If a diagram needs more than ~12 nodes, split it.
-- **Direction convention:**
-  - Left-to-right (`LR`) for linear pipelines, data flows, and timelines.
-  - Top-down (`TD`) for hierarchies, trees, and decision flows.
-- **Label length:** Keep node labels to 3–5 words maximum.
-- **Subgraph titles:** Use plain text, no emoji, no special characters.
-- **Arrow labels:** Use sparingly — only when the relationship is not obvious from context.
-- **Avoid crossing arrows** — rearrange node order to keep flows readable.
+- Keep one concept per diagram.
+- Split diagrams that grow beyond roughly 12 nodes.
+- Use left-to-right (`LR`) for linear flows and top-down (`TD`) for hierarchies and decisions.
+- Keep node labels short and descriptive.
+- Avoid crossing arrows where possible.
 
 ---
 
@@ -199,57 +186,46 @@ Use the following canonical emoji vocabulary for node types. Apply consistently 
 Run before every commit:
 
 ```bash
-npm run validate:mermaid-syntax        # Validates diagram type, direction, bracket matching
-npm run validate:mermaid-accessibility # Checks for accTitle and accDescr
-npm run validate:mermaid-contrast      # WCAG 2.2 AA colour contrast check (new)
+npm run validate:mermaid-syntax
+npm run validate:mermaid-accessibility
+npm run validate:mermaid-contrast
 ```
-
-The PR validation workflow (`.github/workflows/validate-mermaid-pr.yml`) runs all three checks automatically on every pull request that modifies `.md` files. A failing contrast check **blocks merge**.
 
 To validate only changed files locally:
 
 ```bash
-node scripts/validation/validate-mermaid-colour-contrast.js --changed-files=path/to/file.md
+npm run validate:mermaid-contrast -- --changed-files=path/to/file.md
 ```
 
 ---
 
-## Repository-wide Update Process
+## Repository-Wide Update Process
 
-When diagrams across the repository need to be updated (new palette, new structural requirements):
+When Mermaid diagrams across the repository need a standards refresh:
 
-1. **Open a `chore/` or `docs/` branch** — e.g., `docs/mermaid-colour-standards-v2`.
-2. **Run the fixer script** to apply approved palette colours to all existing style declarations:
+1. Open a `docs/` or `chore/` branch.
+2. Run the fixer script:
 
    ```bash
    node scripts/fix-mermaid-diagrams.js
    ```
 
-3. **Run all three validators** to confirm no regressions:
+3. Run the full Mermaid suite:
 
    ```bash
    npm run validate:mermaid-syntax && npm run validate:mermaid-accessibility && npm run validate:mermaid-contrast
    ```
 
-4. **Open a PR targeting `develop`** with a description that lists all files changed.
-5. The CI workflow will re-validate on the PR — review any residual findings.
-
----
-
-## Testing and Rendering
-
-- Test all diagrams in the [Mermaid Live Editor](https://mermaid.live/) before committing.
-- Check both GitHub light mode and dark mode rendering in the GitHub preview.
-- Confirm mobile rendering is readable (diagrams should not require horizontal scroll on a 375px viewport).
-- Provide a plain-text alternative directly below any diagram that contains more than 7 nodes or represents a critical process.
+4. Review the diff and keep content accurate to the current repository structure.
+5. Open a PR targeting `develop`.
 
 ---
 
 ## Related Files
 
-- [documentation-formats.instructions.md](./documentation-formats.instructions.md) — Markdown and diagram standards
-- [a11y.instructions.md](./a11y.instructions.md) — WCAG 2.2 AA accessibility standards
-- [scripts/validation/validate-mermaid-colour-contrast.js](../scripts/validation/validate-mermaid-colour-contrast.js) — Colour contrast validator
-- [scripts/validation/validate-mermaid-accessibility.js](../scripts/validation/validate-mermaid-accessibility.js) — accTitle/accDescr validator
-- [scripts/validation/validate-mermaid-syntax.js](../scripts/validation/validate-mermaid-syntax.js) — Syntax validator
-- [.github/workflows/validate-mermaid-pr.yml](../.github/workflows/validate-mermaid-pr.yml) — PR validation workflow
+- [documentation-formats.instructions.md](./documentation-formats.instructions.md) - Markdown, frontmatter, and Mermaid standards
+- [a11y.instructions.md](./a11y.instructions.md) - Accessibility standards
+- [scripts/validation/validate-mermaid-accessibility.js](../scripts/validation/validate-mermaid-accessibility.js) - accTitle / accDescr validator
+- [scripts/validation/validate-mermaid-colour-contrast.js](../scripts/validation/validate-mermaid-colour-contrast.js) - Colour contrast validator
+- [.github/workflows/readme-audit.yml](../.github/workflows/readme-audit.yml) - Audit workflow
+- [.github/workflows/readme-update.yml](../.github/workflows/readme-update.yml) - Update workflow

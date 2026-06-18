@@ -4,7 +4,7 @@ title: LightSpeed .github Community Health Repository
 description: Central hub for all shared GitHub templates, Copilot instructions, workflow
   automation, labeling systems, and community health files across the LightSpeed WordPress
   organisation
-version: '3.5'
+version: '3.6'
 created_date: '2025-01-15'
 last_updated: '2026-06-18'
 authors:
@@ -116,10 +116,10 @@ accDescr {
     P --> R
     Q --> S
 
-    style A fill:#e1f5fe
-    style D fill:#fce4ec
-    style M fill:#e8f5e8
-    style R fill:#fff3e0
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style M fill:#dcfce7,color:#14532d,stroke:#14532d
+    style R fill:#fef3c7,color:#4a2c00,stroke:#b45309
 ```
 
 **Key goals:**
@@ -316,10 +316,10 @@ accDescr {
     H --> H4
     D --> D1
 
-    style A fill:#e1f5fe
-    style B fill:#fce4ec
-    style H fill:#e8f5e8
-    style D fill:#fff3e0
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style B fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style H fill:#dcfce7,color:#14532d,stroke:#14532d
+    style D fill:#fef3c7,color:#4a2c00,stroke:#b45309
 ```
 
 ## Directory Structure Details
@@ -454,10 +454,10 @@ accDescr {
     L --> P
     M --> Q
 
-    style A fill:#e1f5fe
-    style E fill:#f3e5f5
-    style J fill:#e8f5e8
-    style N fill:#c8e6c9
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style E fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style J fill:#dcfce7,color:#14532d,stroke:#14532d
+    style N fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ## Component Integration Details

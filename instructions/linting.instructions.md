@@ -5,8 +5,8 @@ description: Master index for all linting instructions in the LightSpeed organis
   Lists and cross-references all linting instructions, config, and coding standards.
 scope: organization-wide
 applyTo: '**/*.{js,ts,php,css,scss,sass,html,json,md,yml,yaml,py,sh}'
-version: v2.1
-last_updated: '2026-05-29'
+version: v2.2
+last_updated: '2026-06-18'
 owners:
 - LightSpeedWP Team
 tags:
@@ -102,6 +102,8 @@ Validate and enforce linting standards for all supported file types (JS, TS, She
 ## 🔄 Linting Process Flow
 
 ```mermaid
+accTitle: Linting process flow
+accDescr: Shows the linting workflow from code change through pre-commit hooks, local linting, CI/CD pipeline checks, and merge approval.
 graph TD
     A[Code Change] --> B[Pre-commit Hooks]
     B --> C[Local Linting]
@@ -127,7 +129,7 @@ graph TD
 
 ### ⚙️ Tool Integration
 
-- **[Lint Workflow](../.github/workflows/lint.yml)** - GitHub Actions linting
+- **[Lint Workflow](../.github/workflows/linting.yml)** - GitHub Actions linting
 - **[Linting Agent](agent-spec.instructions.md)** - Automated code review
 - **Pre-commit Hooks** - Local validation setup
 
@@ -136,6 +138,8 @@ graph TD
 ## 🛠️ Linting Toolchain
 
 ```mermaid
+accTitle: Linting toolchain overview
+accDescr: Shows how source code feeds into ESLint, PHPCS, Prettier, Stylelint, and Markdownlint before reaching the CI/CD pipeline.
 graph LR
     A[Source Code] --> B[ESLint]
     A --> C[PHPCS]

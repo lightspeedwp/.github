@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Contributing Guidelines"
 description: "Comprehensive contribution guidelines for LightSpeed community health repository including setup, standards, and workflow"
-version: '1.4'
-last_updated: '2026-06-01'
+version: '1.5'
+last_updated: '2026-06-18'
 owners: ["LightSpeed Team"]
 tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
 ---
@@ -30,6 +30,8 @@ For details, see the full guidelines below and the [Documentation Index](./docs/
 ---
 
 ```mermaid
+accTitle: Contribution workflow
+accDescr: Shows the end-to-end contribution path from issue discussion through branch creation, implementation, validation, pull request review, and merge.
 flowchart TD
   A[Open Issue or Feature Request] --> B[Discuss & Plan]
   B --> C[Create Branch]
@@ -92,7 +94,7 @@ To maintain a consistent, high-quality codebase and community, please follow the
 - **Select the correct PR template:**
   Bugfix, Feature, Chore, Docs, Build/CI, Dependencies/Maintenance, Hotfix, Release, Refactor, or General PR template.
   - Your branch prefix should match the PR template (e.g., `fix/` → Bugfix PR, `feat/` → Feature PR).
-  - See [PR_LABELS.md](./docs/PR_LABELS.md) for template-to-label mapping and automation.
+  - See [Labeling Strategy & Governance](./docs/LABELING.md) for template-to-label mapping and automation.
 - **Required PR details:**
   - Accurate, up-to-date description.
   - Link to the related GitHub Issue.
@@ -126,9 +128,9 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 
 - **Saved Replies:** Use [SAVED_REPLIES/README.md](.github/SAVED_REPLIES/README.md) for common responses and efficient communication.
 - **Documentation:** Update relevant docs (README, instructions) for any user-facing change.
-- **Automation & Labels:** Ensure your issue/PR complies with [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md), [ISSUE_LABELS.md](docs/ISSUE_LABELS.md), and [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md).
+- **Automation & Labels:** Ensure your issue/PR complies with [Automation & Workflows](./docs/AUTOMATION.md), [Labeling Strategy & Governance](./docs/LABELING.md), and [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md).
 - **Governance process updates:** If your change modifies governance policy or contributor workflow expectations, add an entry to [GOVERNANCE_REVISION_LOG.md](./docs/GOVERNANCE_REVISION_LOG.md).
-- **Downstream overrides:** If you are adopting org defaults in another repository, follow [Downstream Override Policy](./docs/override-policy.md) and link any approved exception.
+- **Downstream overrides:** If you are adopting org defaults in another repository, follow [Downstream Override Policy](./docs/OVERRIDE_POLICY.md) and link any approved exception.
 - **Changelog:** All user-facing changes, fixes, and features must be entered in [CHANGELOG.md](./CHANGELOG.md) in Keep a Changelog format. See example sections in the changelog for proper grouping and linking.
 
 ---
@@ -137,12 +139,11 @@ Refer to `.vscode/extensions.json` and `.vscode/settings.json` for the authorita
 
 - [BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](./CHANGELOG.md): Changelog format, release notes, and versioning.
-- [AUTOMATION_GOVERNANCE.md](./docs/AUTOMATION_GOVERNANCE.md): Org-wide automation, branching, label, and release strategy.
+- [Automation & Workflows](./docs/AUTOMATION.md): Org-wide automation, branching, label, and release strategy.
 - [GOVERNANCE_REVISION_LOG.md](./docs/GOVERNANCE_REVISION_LOG.md): Lightweight audit trail for governance/process changes.
-- [override-policy.md](./docs/override-policy.md): Mandatory versus optional org defaults, exception handling, and promotion model.
+- [Downstream Override Policy](./docs/OVERRIDE_POLICY.md): Mandatory versus optional org defaults, exception handling, and promotion model.
 - [ISSUE_TYPES.md](./docs/ISSUE_TYPES.md): Issue type mapping and usage.
-- [ISSUE_LABELS.md](./docs/ISSUE_LABELS.md): Label families, triage, and workflow.
-- [PR_LABELS.md](./docs/PR_LABELS.md): PR labelling, templates, and automation.
+- [Labeling Strategy & Governance](./docs/LABELING.md): Label families, triage, and workflow.
 - [Coding Standards](instructions/coding-standards.instructions.md)
 - [Documentation Formats](instructions/documentation-formats.instructions.md)
 - [Community Standards](instructions/community-standards.instructions.md)

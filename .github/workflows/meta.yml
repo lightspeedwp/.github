@@ -93,6 +93,7 @@ jobs:
           FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | \
                   sed '/^AWESOME_GITHUB_MAPPING_STRATEGY\.md$/d' | \
                   sed '/^docs\/MIGRATION\.md$/d' | \
+                  sed '/^\.github\/reports\//d' | \
                   tr '\n' ' ')
 
           if [ -z "$FILES" ]; then
@@ -117,7 +118,9 @@ jobs:
             exit 0
           fi
 
-          CHANGED_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx')
+          CHANGED_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | \
+            grep -v '^\.github/instructions/\.archive/' | \
+            grep -v '^\.github/reports/')
           if [ -z "$CHANGED_FILES" ]; then
             echo "files=" >> "$GITHUB_OUTPUT"
             exit 0

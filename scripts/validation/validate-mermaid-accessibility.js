@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Validate Mermaid diagram accessibility compliance in all README files
+ * Validate Mermaid diagram accessibility compliance in all markdown files
  * Checks for presence of accTitle and accDescr attributes
  * @module scripts/validation/validate-mermaid-accessibility.js
  */
@@ -13,9 +13,15 @@ import { globSync } from "glob";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "../../");
 
-const README_FILES = globSync("**/README.md", {
+const MARKDOWN_FILES = globSync("**/*.{md,mdx}", {
   cwd: ROOT,
-  ignore: ["**/node_modules/**", "**/.git/**", "**/coverage/**", "**/logs/**"],
+  ignore: [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/coverage/**",
+    "**/logs/**",
+    "**/.github/projects/**",
+  ],
   dot: true,
 }).sort();
 
@@ -41,6 +47,7 @@ function getDiagramType(content) {
     "erDiagram",
     "gantt",
     "pie",
+    "mindmap",
   ];
   const lines = content.split("\n");
 
@@ -126,10 +133,10 @@ async function main() {
   };
 
   const csvRows = [
-    "README,Diagram Number,Diagram Type,Has accTitle,Has accDescr,Missing Attributes,Compliance Status",
+    "File,Diagram Number,Diagram Type,Has accTitle,Has accDescr,Missing Attributes,Compliance Status",
   ];
 
-  for (const file of README_FILES) {
+  for (const file of MARKDOWN_FILES) {
     const filePath = path.join(ROOT, file);
 
     if (!fs.existsSync(filePath)) {
@@ -263,7 +270,7 @@ stability: stable
 
 ## Files Analyzed
 
-${README_FILES.map((f) => `- ${f}`).join("\n")}
+${MARKDOWN_FILES.map((f) => `- ${f}`).join("\n")}
 
 ## Compliance Criteria
 

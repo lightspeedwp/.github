@@ -1,8 +1,8 @@
 ---
 title: "VS Code Workspace Configuration"
 description: "Visual Studio Code workspace settings, tasks, extensions, and AI integration for LightSpeedWP development environment"
-version: "v1.2"
-last_updated: '2026-06-01'
+version: "v1.3"
+last_updated: '2026-06-18'
 maintainer: "LightSpeed Engineering"
 tags: ["vscode", "configuration", "extensions", "tasks", "ai", "development"]
 file_type: "configuration"
@@ -55,10 +55,10 @@ flowchart TD
     S --> AD[Summary]
     T --> AE[Results]
 
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style C fill:#e8f5e8
-    style D fill:#fff3e0
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style B fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style C fill:#dcfce7,color:#14532d,stroke:#14532d
+    style D fill:#fef3c7,color:#4a2c00,stroke:#b45309
 ```
 
 ---

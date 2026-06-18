@@ -2,7 +2,7 @@
 file_type: documentation
 title: LightSpeed WordPress Development Agency - GitHub Profile
 description: Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003
-version: v2.2
+version: v2.3
 created_date: '2025-10-20'
 last_updated: '2026-06-18'
 maintainer: LightSpeed Team
@@ -32,11 +32,9 @@ We're a **WordPress design and development agency** with a focus on creating pow
 ### 🏛️ Organization Overview
 
 ```mermaid
----
-accTitle: LightSpeed organization structure and products
-accDescr: Organization overview showing LightSpeed agency team, core products including LSX Design theme and Tour Operator plugin, and open source commitment with community support and documentation.
----
 flowchart LR
+accTitle: "LightSpeed organization structure and products"
+accDescr: "Organization overview showing LightSpeed agency team, core products including LSX Design theme and Tour Operator plugin, and open source commitment with community support and documentation."
     subgraph "🏢 LightSpeed Agency"
         A[👥 Team Since 2003]
         B[🎯 WordPress Experts]
@@ -95,11 +93,9 @@ We believe in the power of community and open-source collaboration! If you're pa
 ### 🔄 Contribution Process Flow
 
 ```mermaid
----
-accTitle: LightSpeed community contribution process
-accDescr: Complete contribution workflow from starting point through issue submission, feature requests, code contributions, documentation improvements, team triage, code review, merge and deployment, with feedback loop for requested changes.
----
 flowchart TD
+accTitle: "LightSpeed community contribution process"
+accDescr: "Complete contribution workflow from starting point through issue submission, feature requests, code contributions, documentation improvements, team triage, code review, merge and deployment, with feedback loop for requested changes."
     A[🚀 Start Here] --> B{What do you want to do?}
 
     B -->|🐛 Report Issue| C[📝 Submit Issue]
@@ -149,11 +145,9 @@ At LightSpeed, we believe in the power of open-source software. We contribute to
 ### 🏗️ Project Architecture & Integration
 
 ```mermaid
----
-accTitle: LightSpeed project architecture and ecosystem
-accDescr: Comprehensive architecture showing frontend solutions with LSX Design and custom blocks, backend functionality including Tour Operator plugin and WooCommerce extensions, developer tools with CI/CD workflows, documentation and community support forums.
----
-flowchart TD
+graph TB
+accTitle: "LightSpeed project architecture and ecosystem"
+accDescr: "Comprehensive architecture showing frontend solutions with LSX Design and custom blocks, backend functionality including Tour Operator plugin and WooCommerce extensions, developer tools with CI/CD workflows, documentation and community support forums."
     subgraph "🎨 Frontend Solutions"
         A[LSX Design Theme]
         B[Block Patterns]
@@ -204,7 +198,7 @@ flowchart TD
     style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style G fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style J fill:#dcfce7,color:#14532d,stroke:#14532d
-    style M fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+    style M fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
 ```
 
 ### [LSX Design](https://lsx.design)
@@ -228,11 +222,9 @@ We welcome contributions from the community! If you're interested in collaborati
 ### 🤝 Community Engagement Lifecycle
 
 ```mermaid
----
-accTitle: Community engagement and contribution lifecycle
-accDescr: State machine showing the journey from discovering projects through exploration, engagement, contributions, collaboration, leadership, and mentorship with feedback loops for continuous community participation.
----
 stateDiagram-v2
+accTitle: "Community engagement and contribution lifecycle"
+accDescr: "State machine showing the journey from discovering projects through exploration, engagement, contributions, collaboration, leadership, and mentorship with feedback loops for continuous community participation."
     [*] --> Discover
     Discover --> Explore
     Explore --> Engage

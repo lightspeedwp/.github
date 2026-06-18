@@ -83,6 +83,8 @@ references:
 - VS Code and Copilot validate automatically if configured (see `.vscode/settings.json`).
 
 ```mermaid
+accTitle: Frontmatter validation flow
+accDescr: Shows how a file with frontmatter moves through schema validation and either passes or returns for correction before automation uses it.
 graph TD
     A[File with Frontmatter] --> B[Schema Validation]
     B -->|Valid| C[Accepted]
