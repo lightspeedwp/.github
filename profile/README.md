@@ -23,7 +23,7 @@ owners:
 [![Since 2003](https://img.shields.io/badge/Since-2003-blue)](https://lightspeedwp.agency/about)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Community](https://img.shields.io/badge/Community-Driven-success)](https://github.com/orgs/lightspeedwp/discussions)
-[![AI Enhanced](https://img.shields.io/badge/AI-Enhanced-purple)](./.github/custom-instructions.md)
+[![AI Enhanced](https://img.shields.io/badge/AI-Enhanced-purple)](../.github/custom-instructions.md)
 
 ## 👋 Welcome to LightSpeed's GitHub Organization
 

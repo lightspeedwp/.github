@@ -70,11 +70,9 @@ Comprehensive automated tests for the LightSpeedWP automation project. Suites sp
 ## 📊 Testing Architecture
 
 ```mermaid
----
-accTitle: Testing framework architecture
-accDescr: Comprehensive testing framework showing Bats and Jest testing integration with coverage reporting, test helpers, and connections to CI/CD pipeline, pre-commit hooks, and manual testing workflows.
----
-flowchart TD
+graph TB
+accTitle: "Testing framework architecture"
+accDescr: "Comprehensive testing framework showing Bats and Jest testing integration with coverage reporting, test helpers, and connections to CI/CD pipeline, pre-commit hooks, and manual testing workflows."
     A[Testing Framework] --> B[Bats Testing]
     A --> C[Jest Testing]
     A --> D[Coverage Reporting]
@@ -142,7 +140,7 @@ Each subfolder includes comprehensive documentation and specialized test coverag
 
 - **`test-helper.bash`** — Shared Bats test helpers for setup/teardown and environment isolation
 - **`tests-run-all-tests.bats`** — Bats test for the test runner script
-- `TEST_COVERAGE_SUMMARY.md` — Detailed documentation of test coverage, structure, and best practices
+- **`TEST_COVERAGE_SUMMARY.md`** — Detailed documentation of test coverage, structure, and best practices
 
 ## Usage & Quickstart
 
@@ -198,11 +196,9 @@ Add new tests by placing `.bats` or `.test.js` files following existing naming p
 ## 🔄 Test Execution Workflow
 
 ```mermaid
----
-accTitle: Test execution workflow sequence
-accDescr: Sequential workflow showing developer executing test runner, running Bats shell tests and Jest JavaScript tests, generating coverage reports, uploading to CI/CD pipeline, and receiving comprehensive test automation results.
----
 sequenceDiagram
+accTitle: "Test execution workflow sequence"
+accDescr: "Sequential workflow showing developer executing test runner, running Bats shell tests and Jest JavaScript tests, generating coverage reports, uploading to CI/CD pipeline, and receiving comprehensive test automation results."
     participant Dev as Developer
     participant Runner as Test Runner
     participant Bats as Bats Framework
@@ -227,11 +223,9 @@ sequenceDiagram
 ## 🎯 Test Coverage Flow
 
 ```mermaid
----
-accTitle: Test coverage analysis and quality gates flow
-accDescr: Comprehensive flow showing test execution branching by type, coverage collection from Bats and Jest tests, coverage analysis against thresholds, with success reporting and quality gate failure handling.
----
 flowchart TD
+accTitle: "Test coverage analysis and quality gates flow"
+accDescr: "Comprehensive flow showing test execution branching by type, coverage collection from Bats and Jest tests, coverage analysis against thresholds, with success reporting and quality gate failure handling."
     A[Test Execution] --> B{Test Type}
     B -->|Shell Scripts| C[Bats Testing]
     B -->|JavaScript| D[Jest Testing]
@@ -357,6 +351,7 @@ npm ci
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
 - [Schema Validation](../schema/README.md) — JSON schema validation and configuration
 - [CodeRabbit Configuration](../.coderabbit.yml) — AI code review configuration
+- [Schema Validation](../schema/README.md) — JSON schema validation and configuration
 
 #### 🎯 AI & Automation
 
