@@ -1,4 +1,3 @@
----
 title: Mermaid Diagram Syntax Validation Report
 description: Mermaid diagram syntax validation results for repository README files
 version: "1.1.0"
