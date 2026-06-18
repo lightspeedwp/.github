@@ -3,7 +3,7 @@ file_type: custom-instructions
 title: Repo-local Copilot Instructions
 description: Repo-local Copilot and agent instructions for maintaining the LightSpeed .github control-plane repository.
 mode: agent
-version: v1.3
+version: v1.4
 last_updated: '2026-06-18'
 owners:
   - LightSpeed Team
@@ -52,20 +52,20 @@ Map the request to a canonical issue type before selecting a template.
 - If the request is a defect, use Bug intent.
 - If it is net-new capability, use Feature intent.
 - If it is bounded execution work, use Task intent.
-- If it is UX or design direction, use Design or User Experience Feedback intent.
+- If it is UX or design direction, use Design intent.
 - If none fit exactly, choose the closest available numbered template and state the intended canonical type in the issue body.
 
 ### 2. Select the correct numbered template
 
-Pick from `.github/ISSUE_TEMPLATE/01-*.md` to `.github/ISSUE_TEMPLATE/26-*.md`.
+Pick from `.github/ISSUE_TEMPLATE/01-*.md` to `.github/ISSUE_TEMPLATE/25-*.md`.
 
 Current parity note:
 
-- Canonical issue types = 35 (from `.github/issue-types.yml`).
-- Numbered templates = 26.
-- Several canonical types intentionally share broader templates.
+- Canonical issue types = 25 (aligned with `.github/issue-types.yml`).
+- Numbered templates = 25 (one per canonical type).
+- Label-only types without dedicated templates: `type:question`, `type:support`.
 
-When the selected template is broader than the request, use the nearest numbered template and explicitly state the target canonical type in the opening section.
+For label-only types, use the nearest template (Task or Improvement) and explicitly state the target type in the opening section.
 
 ### 3. Fill structured sections completely
 
