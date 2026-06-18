@@ -1,7 +1,7 @@
 ---
 title: Mermaid Diagram Accessibility Compliance Report — Issue #669
 description: Accessibility compliance audit of all 24 Mermaid diagrams for accTitle and accDescr attributes
-version: 1.1.0
+version: 1.2.0
 created_date: "2026-05-31"
 last_updated: "2026-06-18"
 file_type: documentation

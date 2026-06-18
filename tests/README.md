@@ -2,7 +2,7 @@
 title: "LightSpeedWP Testing Framework"
 description: "Unified testing framework for LightSpeedWP automation: shell (Bats), JavaScript (Jest), Python validation, and coverage quality gates."
 file_type: documentation
-version: 2.3.0
+version: 2.4.0
 last_updated: "2026-06-18"
 created_date: "2025-10-25"
 owners:
