@@ -2,8 +2,8 @@
 file_type: "pr-template"
 title: "PR Template - CHORE"
 description: "Pull request template for CHORE changes"
-version: "1.0.1"
-last_updated: "2026-06-03"
+version: "1.0.2"
+last_updated: "2026-06-18"
 category: "github-templates"
 ---
 
