@@ -33,16 +33,18 @@ const MERMAID_THEME_TEXT_DEFAULTS = {
   "high-contrast": "#000000",
 };
 
-const MD_FILES = globSync("**/*.md", {
-  cwd: ROOT,
-  ignore: [
-    "**/node_modules/**",
-    "**/.git/**",
-    "**/coverage/**",
-    "**/logs/**",
-    "**/.github/projects/**",
-  ],
-}).sort();
+const getMarkdownFiles = () => {
+  return globSync("**/*.md", {
+    cwd: ROOT,
+    ignore: [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/coverage/**",
+      "**/logs/**",
+      "**/.github/projects/**"
+    ]
+  }).sort();
+};
 
 // ---------------------------------------------------------------------------
 // Colour utilities
