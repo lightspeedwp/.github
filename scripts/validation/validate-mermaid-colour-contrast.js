@@ -34,15 +34,15 @@ const MERMAID_THEME_TEXT_DEFAULTS = {
 };
 
 const getMarkdownFiles = () => {
-  return globSync("**/*.md", {
+  return globSync("**/*.{md,mdx}", {
     cwd: ROOT,
     ignore: [
       "**/node_modules/**",
       "**/.git/**",
       "**/coverage/**",
       "**/logs/**",
-      "**/.github/projects/**"
-    ]
+      "**/.github/projects/**",
+    ],
   }).sort();
 };
 
