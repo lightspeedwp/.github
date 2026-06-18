@@ -33,12 +33,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: false
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "20"
           cache: "npm"
 
       - name: Install dependencies
@@ -61,13 +60,7 @@ jobs:
           fi
 
           CHANGED=$(git diff --name-only "$BASE" "$HEAD" -- '*.md' '*.mdx' 2>/dev/null || git diff --name-only HEAD~1 HEAD -- '*.md' '*.mdx')
-
-          # Use heredoc syntax — plain `echo "files=..."` breaks on multi-line values
-          {
-            echo "files<<CHANGED_EOF"
-            echo "$CHANGED"
-            echo "CHANGED_EOF"
-          } >> "$GITHUB_OUTPUT"
+          echo "files=$CHANGED" >> "$GITHUB_OUTPUT"
 
           if [ -z "$CHANGED" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
