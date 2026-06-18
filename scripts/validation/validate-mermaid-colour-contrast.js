@@ -210,8 +210,10 @@ function parseStyleDeclarations(diagramRaw) {
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
+    // Strip inline comments to avoid false positives
+    const cleanLine = line.split("%%")[0];
     // Match `style <NodeId> <properties>`
-    const styleMatch = line.match(/^\s*style\s+(\S+)\s+(.+)/);
+    const styleMatch = cleanLine.match(/^\s*style\s+(\S+)\s+(.+)/);
     if (!styleMatch) continue;
 
     const nodeId = styleMatch[1];
