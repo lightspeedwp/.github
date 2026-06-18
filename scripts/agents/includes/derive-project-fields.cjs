@@ -19,22 +19,15 @@ function firstMatch(labels, mapping) {
   return "";
 }
 
-function main() {
-  const configPath = process.env.ISSUE_FIELDS_CONFIG
-    ? path.resolve(process.env.ISSUE_FIELDS_CONFIG)
-    : path.resolve(".github/issue-fields.yml");
-
-  const cfg = readConfig(configPath);
-  const labels = (process.env.LABELS || "")
-    .split("\n")
-    .map((s) => s.trim())
-    .filter(Boolean);
-
-  const eventName = process.env.EVENT_NAME || "";
-  const eventAction = process.env.EVENT_ACTION || "";
-  const prMerged = (process.env.PR_MERGED || "false").toLowerCase() === "true";
-  const itemCreatedAt = process.env.ITEM_CREATED_AT || "";
-
+function deriveProjectFieldValues({
+  cfg,
+  labels = [],
+  eventName = "",
+  eventAction = "",
+  prMerged = false,
+  itemCreatedAt = "",
+  milestoneDueOn = "",
+} = {}) {
   const mappings = cfg.project_field_mappings || {};
   const orgFields = cfg.organization_issue_fields || {};
   const customFields = Array.isArray(orgFields.custom_fields)
@@ -48,6 +41,10 @@ function main() {
   let type = firstMatch(labels, mappings.Type);
   let effort = effortDefault;
   let startDate = "";
+  let targetDate = "";
+
+  const isKickoff =
+    labels.includes("status:ready") || labels.includes("status:in-progress");
 
   if (eventName === "issues" && eventAction === "closed") {
     status = mappings.Status?.[cfg.defaults?.issue?.status_label_closed] || "Done";
@@ -61,21 +58,53 @@ function main() {
   if (!status) status = mappings.Status?.["status:needs-triage"] || "Triage";
   if (!type) type = "";
 
-  if (
-    itemCreatedAt &&
-    (eventAction === "opened" || eventAction === "reopened") &&
-    status !== "Done"
-  ) {
+  if (itemCreatedAt && isKickoff && status !== "Done") {
     startDate = itemCreatedAt.slice(0, 10);
   }
 
+  if (milestoneDueOn && isKickoff && status !== "Done") {
+    targetDate = milestoneDueOn.slice(0, 10);
+  }
+
+  return {
+    status,
+    priority,
+    type,
+    effort,
+    startDate,
+    targetDate,
+  };
+}
+
+function main() {
+  const configPath = process.env.ISSUE_FIELDS_CONFIG
+    ? path.resolve(process.env.ISSUE_FIELDS_CONFIG)
+    : path.resolve(".github/issue-fields.yml");
+
+  const cfg = readConfig(configPath);
+  const labels = (process.env.LABELS || "")
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  const result = deriveProjectFieldValues({
+    cfg,
+    labels,
+    eventName: process.env.EVENT_NAME || "",
+    eventAction: process.env.EVENT_ACTION || "",
+    prMerged: (process.env.PR_MERGED || "false").toLowerCase() === "true",
+    itemCreatedAt: process.env.ITEM_CREATED_AT || "",
+    milestoneDueOn: process.env.ITEM_MILESTONE_DUE_ON || "",
+  });
+
   const output = process.env.GITHUB_OUTPUT;
   const lines = [
-    `status=${status}`,
-    `priority=${priority || ""}`,
-    `type=${type}`,
-    `effort=${effort || ""}`,
-    `start_date=${startDate}`,
+    `status=${result.status}`,
+    `priority=${result.priority || ""}`,
+    `type=${result.type}`,
+    `effort=${result.effort || ""}`,
+    `start_date=${result.startDate}`,
+    `target_date=${result.targetDate}`,
   ];
 
   if (output) {
@@ -85,4 +114,12 @@ function main() {
   }
 }
 
-main();
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  deriveProjectFieldValues,
+  firstMatch,
+  readConfig,
+};

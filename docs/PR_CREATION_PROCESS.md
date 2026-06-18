@@ -128,13 +128,15 @@ Examples:
 ## 6. **Apply Labels and Milestones**
 
 - Labels are set automatically based on branch prefix and file changes, but review and add as needed:
-  - **Type:** `type:feature`, `type:bug`, `type:docs`, etc.
+- **Type:** `type:feature`, `type:bug`, `type:documentation`, etc.
   - **Area/Component:** `area:ci`, `comp:block-editor`, etc.
   - **Status:** `status:needs-review`, `status:needs-qa`, etc.
   - **Release:** `release:minor`, `release:patch`, `release:major`, etc.
   - **Meta:** `meta:needs-changelog`, `contrib:help-wanted`, etc.
 
 - **Assign to the relevant milestone** (e.g., "Phase 6 - GC & Production") and project board if applicable.
+- **Assignee:** the PR author is auto-assigned unless a stronger repository rule applies.
+- **Linked development:** reference related issues or PRs with `Closes #`, `Fixes #`, or `Related to #` so metadata governance can capture the relation.
 
 ---
 

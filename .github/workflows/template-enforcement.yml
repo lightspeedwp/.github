@@ -56,26 +56,39 @@ jobs:
                 });
               }
 
+              if ((issue.labels || []).some((label) => label.name === 'status:needs-more-info')) {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  name: 'status:needs-more-info',
+                }).catch((error) => {
+                  core.info(`Unable to remove status:needs-more-info from #${issue.number}: ${error.message}`);
+                });
+              }
+
               return;
             }
 
             const message = isGithubActions
               ? [
                   marker,
-                  '🚫 This issue was opened by automation without the required template sections.',
+                  '⚠️ This issue was opened by automation without the required template sections.',
                   '',
                   `Missing required section(s): ${missing.join(', ')}`,
                   '',
+                  'The issue will remain open and flagged until the body is corrected.',
                   'Update the automation to render the canonical template before creating the issue.',
                   '- Recommended workflow: `.github/workflows/issue-create-from-template.yml`',
                 ].join('\n')
               : [
                   marker,
-                  '🚫 This issue does not follow a required issue template and has been closed automatically.',
+                  '⚠️ This issue does not follow a required issue template.',
                   '',
                   `Missing required section(s): ${missing.join(', ')}`,
                   '',
-                  'Please reopen with one of the official templates:',
+                  'The issue will remain open and flagged until the body is corrected.',
+                  'Please update the issue with one of the official templates:',
                   '- https://github.com/lightspeedwp/.github/issues/new/choose',
                   '',
                   'If this was opened by automation, update the automation to preserve the template sections before creating the issue.',
@@ -97,21 +110,42 @@ jobs:
               });
             }
 
+            const labelsToRemove = (issue.labels || [])
+              .map((label) => label.name)
+              .filter((label) => label.startsWith('status:') && label !== 'status:needs-more-info');
+
+            if (labelsToRemove.length > 0) {
+              for (const labelName of labelsToRemove) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    name: labelName,
+                  });
+                } catch (error) {
+                  core.info(`Status label cleanup skipped for ${labelName}: ${error.message}`);
+                }
+              }
+            }
+
+            const labelsToAdd = ['status:needs-more-info'];
+            const currentLabels = new Set((issue.labels || []).map((label) => label.name));
+            const missingLabels = labelsToAdd.filter((label) => !currentLabels.has(label));
+            if (missingLabels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: missingLabels,
+              });
+            }
+
             if (isGithubActions) {
               core.setFailed(
                 `Issue #${issue.number} was opened by github-actions[bot] and is missing required template sections: ${missing.join(', ')}`,
               );
               return;
-            }
-
-            if (issue.state !== 'closed') {
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issue.number,
-                state: 'closed',
-                state_reason: 'not_planned'
-              });
             }
 
             core.setFailed(`Issue #${issue.number} is missing required template sections: ${missing.join(', ')}`);

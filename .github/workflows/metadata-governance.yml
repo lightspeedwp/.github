@@ -1,0 +1,61 @@
+name: Metadata • Issues & PRs
+
+on:
+  issues:
+    types: [opened, reopened, edited, labeled, unlabeled]
+  pull_request_target:
+    types: [opened, reopened, edited, synchronize, ready_for_review, labeled, unlabeled]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: metadata-governance-${{ github.event_name }}-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  sync-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.22.1"
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Sync issue and PR metadata
+        id: metadata
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_FIELDS_CONFIG: .github/issue-fields.yml
+        run: node scripts/agents/includes/issue-pr-metadata.cjs
+
+      - name: Summarise metadata sync
+        env:
+          METADATA_ASSIGNEE: ${{ steps.metadata.outputs.metadata_assignee }}
+          METADATA_MILESTONE: ${{ steps.metadata.outputs.metadata_milestone }}
+          METADATA_LINKED_REFS: ${{ steps.metadata.outputs.metadata_linked_refs }}
+          METADATA_PARENT_REFS: ${{ steps.metadata.outputs.metadata_parent_refs }}
+          METADATA_CHILD_REFS: ${{ steps.metadata.outputs.metadata_child_refs }}
+          METADATA_BLOCKS_REFS: ${{ steps.metadata.outputs.metadata_blocks_refs }}
+          METADATA_BLOCKED_BY_REFS: ${{ steps.metadata.outputs.metadata_blocked_by_refs }}
+          METADATA_SECURITY_REFS: ${{ steps.metadata.outputs.metadata_security_refs }}
+        run: |
+          {
+            echo "### Metadata governance"
+            echo "- Assignee: ${METADATA_ASSIGNEE:-none}"
+            echo "- Milestone: ${METADATA_MILESTONE:-none}"
+            echo "- Linked refs: ${METADATA_LINKED_REFS:-none}"
+            echo "- Parent refs: ${METADATA_PARENT_REFS:-none}"
+            echo "- Child refs: ${METADATA_CHILD_REFS:-none}"
+            echo "- Blocks refs: ${METADATA_BLOCKS_REFS:-none}"
+            echo "- Blocked-by refs: ${METADATA_BLOCKED_BY_REFS:-none}"
+            echo "- Security refs: ${METADATA_SECURITY_REFS:-none}"
+          } >> "$GITHUB_STEP_SUMMARY"

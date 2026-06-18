@@ -45,6 +45,7 @@ This directory contains the GitHub Actions workflows that power CI/CD, automatio
 | Workflow | File | Trigger |
 |---|---|---|
 | Meta Agent (Frontmatter, Badges, Metrics) | `meta.yml` | PR/push → develop (md/yml paths), schedule (Mon 03:00) |
+| Metadata Governance | `metadata-governance.yml` | issues, pull_request_target |
 | Planner Agent | `planner.yml` | issues (opened), workflow_dispatch |
 | Reviewer Agent | `reviewer.yml` | pull_request |
 | Project Meta Sync | `project-meta-sync.yml` | issues, pull_request |
@@ -80,10 +81,10 @@ This directory contains the GitHub Actions workflows that power CI/CD, automatio
 
 | Trigger type | Workflows |
 |---|---|
-| `pull_request` / `pull_request_target` | checks, linting, testing, validate-pr-template, labeling, reviewer, dependabot-security-label, readme-regen, changelog-validate |
+| `pull_request` / `pull_request_target` | checks, linting, testing, validate-pr-template, labeling, reviewer, dependabot-security-label, readme-regen, changelog-validate, metadata-governance |
 | `push → develop` | checks, linting, testing, meta, labeling, readme-regen, readme-update, template-enforcement |
 | `push → main` | main-branch-guard, release, awesome-github-site |
-| `issues` | labeling, planner, issues, template-enforcement, issue-close-label-hygiene, project-meta-sync, checklist-finalisation |
+| `issues` | labeling, planner, issues, template-enforcement, issue-close-label-hygiene, project-meta-sync, metadata-governance, checklist-finalisation |
 | `schedule` | meta (Mon 03:00), metrics (Mon 06:00), metrics-summary (Mon 09:00), reporting, readme-audit, project-archival |
 | `workflow_dispatch` | most workflows (manual trigger) |
 

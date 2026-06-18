@@ -13,6 +13,7 @@ Keep contributor docs lean and current by describing operational rules while tre
 - `.github/issue-types.yml` (issue-type mappings)
 - `.github/issue-fields.yml` (project field mappings and defaults)
 - `.github/workflows/labeling.yml` (label automation)
+- `.github/workflows/metadata-governance.yml` (assignee, milestone, and relationship metadata)
 - `.github/workflows/project-meta-sync.yml` (project field sync)
 
 ## Unified Project Template Model
@@ -80,13 +81,14 @@ Template labels must remain canonical and pass:
 - `Priority`
 - `Type`
 - `Effort`
-- `Start date`
+- `Start date` and `Target date` only when `status:ready` or `status:in-progress` is present
 
 Derivation source notes:
 
 - `Status`, `Priority`, and `Type` are mapped from labels via `.github/issue-fields.yml` mappings.
 - `Effort` uses the configured default from canonical issue-fields configuration.
-- `Start date` is derived from item creation date for opened/reopened items that are not done.
+- `Start date` and `Target date` stay empty at creation time and are only populated after kickoff-ready metadata is present (`status:ready` or `status:in-progress`).
+- Metadata governance for assignees, milestones, and relationships is handled separately by `.github/workflows/metadata-governance.yml`.
 
 Current preflight conditions must be satisfied before sync runs:
 
@@ -96,8 +98,7 @@ Current preflight conditions must be satisfied before sync runs:
 
 Safe automation boundary:
 
-- Active write path is limited to the five fields above.
-- `Target date` remains defined in canonical config but is not currently written by the active workflow path.
+- Active write path is limited to the five core derived fields plus kickoff-aware date handling.
 - Additional direct issue-field writes are out of scope until a dedicated follow-up verification approves extension.
 
 Verification reference: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.

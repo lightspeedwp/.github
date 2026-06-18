@@ -53,8 +53,8 @@ This document defines a comprehensive color strategy for the 150 canonical label
 | **Green (Ready/Done)** | `#0DBA3D`, `#34B71C`, `#6BB71C` | Positive completion, resolution, readiness | status:done, status:ready, type:enhancement (✓merged), design:approved | 18 |
 | **Blue (Planning/Review)** | `#0969DA`, `#4986E8`, `#C5DEF5` | Discussion, collaboration, needs input | type:documentation, type:discussion, status:needs-review, lang:* | 52 |
 | **Yellow (Testing/Audit)** | `#D29922`, `#FCE2B7`, `#F2D06D` | Validation, testing, audit workflows | status:testing, type:bug (when testing), type:audit, priority:medium | 24 |
-| **Red (Blocked/Impediment)** | `#EF3B39`, `#F85149`, `#FCE2E2` | Blockers, duplicates, critical issues | status:blocked, type:duplicate, priority:urgent, type:security | 18 |
-| **Orange (On-Hold/Deferred)** | `#FB8500`, `#D5A87B`, `#FDBF7C` | Delayed, deferred, rejected, wontfix | status:wontfix, status:on-hold, type:epic (when deferred), priority:low | 16 |
+| **Red (Blocked/Impediment)** | `#EF3B39`, `#F85149`, `#FCE2E2` | Blockers, duplicates, critical issues | status:blocked, type:duplicate, priority:critical, type:security | 18 |
+| **Orange (On-Hold/Deferred)** | `#FB8500`, `#D5A87B`, `#FDBF7C` | Delayed, deferred, rejected, wontfix | status:wontfix, status:on-hold, type:epic (when deferred), priority:minor | 16 |
 | **Purple (Design Workflows)** | `#8957E5`, `#D89AF6`, `#B4A7E8` | Design, UX, accessibility | type:design, type:ui, type:accessibility, design:* | 14 |
 | **Gray (Meta/Infrastructure)** | `#57606A`, `#B1BAC4`, `#D0D7DE` | Process, meta, automation, infrastructure | meta:*, area:ci-cd, type:internal, domain:* | 12 |
 | **Teal (Integration/External)** | `#2DA39D`, `#2DBFA3`, `#9FE1E3` | External systems, integrations, dependencies | area:integration, area:external, type:dependency, platform:* | 16 |
@@ -168,7 +168,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 - All `status:blocked*` labels → `#EF3B39`
 - All `type:duplicate` labels → `#EF3B39`
-- All `priority:urgent` labels → `#EF3B39`
+- All `priority:critical` labels → `#EF3B39`
 - All `type:security*` labels → `#EF3B39`
 - Bug labels with critical impact → `#F85149`
 
@@ -176,7 +176,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 - status:blocked
 - type:duplicate
-- priority:urgent
+- priority:critical
 - type:security
 - type:bug (critical variants)
 
@@ -312,7 +312,7 @@ Some labels span multiple categories. Use these rules when a label fits multiple
 | Bug found during testing | Use Yellow (testing context takes precedence) | type:bug + status:testing → Yellow |
 | Documentation needs review | Use Blue (review/discussion takes precedence) | type:documentation + status:needs-review → Blue |
 | Security vulnerability | Use Red (urgency/severity takes precedence) | type:security + type:bug → Red |
-| Accessibility issue | Use Purple (type takes precedence over urgency) | type:accessibility + priority:urgent → Purple |
+| Accessibility issue | Use Purple (type takes precedence over urgency) | type:a11y + priority:critical → Purple |
 
 ### 3.2 Creating New Labels
 

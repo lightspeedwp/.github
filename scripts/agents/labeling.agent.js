@@ -20,8 +20,8 @@
 
 import fs from "fs";
 import yaml from "js-yaml";
-import core from "@actions/core";
-import github from "@actions/github";
+import * as core from "@actions/core";
+import * as github from "@actions/github";
 import {
   fetchCanonicalLabels,
   buildLabelAliasMap,
@@ -592,16 +592,6 @@ async function runLabelingAgent(opts = {}) {
     core.setFailed(error.message);
     return report;
   }
-}
-
-// Check if this module is being run directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  runLabelingAgent().catch((error) => {
-    core.error(`[labeling.agent] Unhandled error: ${error.message}`);
-    core.error(error.stack);
-    core.setFailed(error.message);
-    process.exit(1);
-  });
 }
 
 export {

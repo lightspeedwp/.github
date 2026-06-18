@@ -281,7 +281,7 @@ Automatically apply, validate, and manage labels on issues and pull requests bas
 | ------------- | ------------ | -------------------- | ------------------------------------------- |
 | **Status**    | `status:*`   | Issue/PR lifecycle   | `status:needs-triage`, `status:in-progress` |
 | **Type**      | `type:*`     | Work classification  | `type:bug`, `type:feature`                  |
-| **Priority**  | `priority:*` | Urgency              | `priority:high`, `priority:low`             |
+| **Priority**  | `priority:*` | Urgency              | `priority:critical`, `priority:minor`       |
 | **Area**      | `area:*`     | Repository section   | `area:docs`, `area:workflows`               |
 | **Component** | `comp:*`     | Specific component   | `comp:ci-cd`, `comp:automation`             |
 | **Language**  | `lang:*`     | Programming language | `lang:javascript`, `lang:yaml`              |
@@ -545,8 +545,10 @@ Sync GitHub Project board fields with issue/PR metadata and labels.
 | `status:needs-triage` | Status        | Triage      |
 | `status:in-progress`  | Status        | In Progress |
 | `status:needs-review` | Status        | Review      |
-| `priority:high`       | Priority      | High        |
+| `priority:critical`    | Priority      | Critical    |
+| `priority:important`   | Priority      | Important   |
 | `priority:normal`     | Priority      | Normal      |
+| `priority:minor`      | Priority      | Minor       |
 | `type:bug`            | Type          | Bug         |
 | `type:feature`        | Type          | Feature     |
 
@@ -565,7 +567,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: node ../scripts/agents/project-meta-sync.agent.js
+      - run: node ../scripts/agents/includes/derive-project-fields.cjs
         env:
           GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
 ```

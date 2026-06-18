@@ -215,7 +215,7 @@ Monitor logs for errors with `event: "error"`:
 
 ```
 Title: Design new caching layer
-Labels: type:architecture, priority:high
+Labels: type:architecture, priority:important
 Body: We need a distributed cache for session management.
       See #100 for context.
 ```

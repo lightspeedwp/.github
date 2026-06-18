@@ -60,10 +60,10 @@ Indicate the current progress or state of an issue or PR:
 
 Indicate urgency and scheduling priority:
 
-- `priority:urgent` — Security issue, critical bug, or blocker
-- `priority:high` — High-impact, affecting multiple users
+- `priority:critical` — Production or launch-blocking work
+- `priority:important` — High-impact work that should be prioritised soon
 - `priority:normal` — Standard feature or improvement (default)
-- `priority:low` — Nice-to-have, deferred work
+- `priority:minor` — Nice-to-have, deferred work
 
 **Rule:** Each issue and PR has exactly one `priority:*` label.
 
@@ -75,7 +75,7 @@ Classify the nature of the work:
 - `type:feature` — New functionality
 - `type:improvement` — Enhancement to existing functionality
 - `type:chore` — Maintenance, cleanup, tooling, or refactoring
-- `type:docs` — Documentation improvements
+- `type:documentation` — Documentation improvements
 - `type:test` — Test suite additions or fixes
 - `type:refactor` — Code quality improvements, no behaviour change
 - `type:performance` — Performance optimisation
@@ -208,7 +208,7 @@ PR branch names automatically assign `type:*` labels:
 - `hotfix/` → `type:bug` + `release:hotfix`
 - `refactor/` → `type:refactor`
 - `perf/` → `type:performance`
-- `docs/` → `type:docs`
+- `docs/` → `type:documentation`
 - `test/` → `type:test`
 - `chore/` → `type:chore`
 - `ci/` → `type:chore` + `area:ci`

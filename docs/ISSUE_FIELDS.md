@@ -454,6 +454,7 @@ Status mappings:
 - In QA: status:needs-qa
 - Blocked: status:blocked
 - On hold: status:on-hold
+- Needs more info: status:needs-more-info
 - Closed: status:done
 
 Priority mappings:
@@ -466,7 +467,7 @@ Priority mappings:
 Default priority: priority:normal
 
 - Default type: type:task
-- Status workflow values: status:needs-triage, status:needs-planning
+- Status workflow values: status:needs-triage, status:needs-planning, status:needs-more-info
 
 ---
 
