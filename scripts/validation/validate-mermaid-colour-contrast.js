@@ -33,16 +33,18 @@ const MERMAID_THEME_TEXT_DEFAULTS = {
   "high-contrast": "#000000",
 };
 
-const MD_FILES = globSync("**/*.md", {
-  cwd: ROOT,
-  ignore: [
-    "**/node_modules/**",
-    "**/.git/**",
-    "**/coverage/**",
-    "**/logs/**",
-    "**/.github/projects/**",
-  ],
-}).sort();
+const getMarkdownFiles = () =>
+  globSync("**/*.{md,mdx}", {
+    cwd: ROOT,
+    ignore: [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/coverage/**",
+      "**/logs/**",
+      "**/.github/projects/**",
+      "**/.claude/**",
+    ],
+  }).sort();
 
 // ---------------------------------------------------------------------------
 // Colour utilities
@@ -325,7 +327,7 @@ async function main() {
   const changedFilesArg = args.find((a) => a.startsWith("--changed-files="));
   const targetFiles = changedFilesArg
     ? changedFilesArg.replace("--changed-files=", "").split(",").filter(Boolean)
-    : MD_FILES;
+    : getMarkdownFiles();
 
   console.log("🎨 Validating Mermaid colour contrast (WCAG 2.2 AA)...\n");
   console.log(`Scanning ${targetFiles.length} file(s)\n`);

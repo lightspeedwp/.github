@@ -3,7 +3,7 @@ file_type: documentation
 title: Agent Specification Authoring Guide
 description: Comprehensive guide for creating, documenting, and maintaining agent
   specification files following LightSpeed standards
-version: 'v1.4'
+version: 'v1.3'
 created_date: '2025-01-15'
 last_updated: '2026-06-18'
 author: LightSpeed Team
@@ -108,8 +108,6 @@ agents/{agent-name}.agent.md
 ## Agent Specification Architecture
 
 ```mermaid
-accTitle: Agent specification architecture
-accDescr: Shows the relationship between agent specifications, implementation code, tests, and the surrounding automation layer.
 graph TB
     subgraph "📝 Agent Specification"
         A[YAML Frontmatter]
@@ -182,8 +180,6 @@ Create a new agent when:
 ### Mermaid: Should You Create a New Agent?
 
 ```mermaid
-accTitle: New agent decision flow
-accDescr: Shows the decision path for determining whether a new agent should be created, extended, or rejected based on determinism, scope overlap, guardrails, and ownership.
 flowchart TD
     A([New Workflow Identified]) --> B{Is it deterministic?}
     B -->|No| N1[Do NOT create agent]
@@ -194,7 +190,7 @@ flowchart TD
     D -->|Yes| E{Is a maintainer willing<br/>to own the lifecycle?}
     E -->|No| N4[Do NOT create agent]
     E -->|Yes| F([Proceed with Spec Draft])
-```
+````
 
 ---
 
@@ -215,8 +211,6 @@ Before drafting a spec:
 ### Mermaid: Pre-Creation Review Path
 
 ```mermaid
-accTitle: Agent pre-creation review path
-accDescr: Shows the human review path for defining the problem, assessing overlap, documenting permissions, and assigning an owner before drafting the spec.
 flowchart LR
     Start([Start]) --> Check1[Define Problem]
     Check1 --> Check2[Assess Overlap]
@@ -305,8 +299,6 @@ Frontmatter `owners:` must map to a team or individual who is responsible for:
 ### Mermaid: Approval Workflow
 
 ```mermaid
-accTitle: Agent approval workflow
-accDescr: Shows how a drafted agent spec moves through frontmatter validation, index updates, maintainer review, governance review, and publication.
 flowchart TD
     A([Spec Drafted]) --> B[Frontmatter Validation]
     B --> C[Add to Agent Index]
@@ -350,8 +342,6 @@ Frontmatter is **machine-validated**. Errors break CI.
 ### Mermaid: Frontmatter Scope Map
 
 ```mermaid
-accTitle: Frontmatter scope map
-accDescr: Shows the frontmatter fields grouped into required, recommended, agent-specific, and validation categories for agent specification files.
 mindmap
   root((Frontmatter))
     Required
@@ -402,8 +392,6 @@ mindmap
 ### Mermaid: Full Publishing Pipeline
 
 ```mermaid
-accTitle: Agent publishing pipeline
-accDescr: Shows the publishing sequence from drafting the spec through validation, implementation, testing, and readiness to merge.
 sequenceDiagram
     participant H as Human Author
     participant CI as CI Validation
@@ -475,8 +463,6 @@ CI quality gates:
 To avoid premature complexity, agents evolve through stages:
 
 ```mermaid
-accTitle: Agent lifecycle maturity model
-accDescr: Shows the agent lifecycle from draft through prototype, active use, mature stability, and eventual deprecation.
 flowchart LR
     Draft --> Prototype --> Active --> Mature --> Deprecated
 ```
@@ -525,8 +511,6 @@ Example patterns:
 #### Mermaid: Handoff Example
 
 ```mermaid
-accTitle: Agent handoff example
-accDescr: Shows how the labeling agent evaluates conditions before handing work to the reviewer agent or stopping the transfer.
 flowchart TD
     A[Labeling Agent] --> B{Conditions Met?}
     B -->|Yes| C[Reviewer Agent]
