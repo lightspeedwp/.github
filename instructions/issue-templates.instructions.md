@@ -4,8 +4,8 @@ title: Issue Template Selection and Usage
 description: Portable guidance for selecting and completing issue templates across repositories.
 scope: organization-wide
 applyTo: '**'
-version: v1.0
-last_updated: '2026-06-08'
+version: v1.1
+last_updated: "2026-06-18"
 owners:
   - LightSpeedWP Team
 tags:
@@ -43,7 +43,7 @@ repositories with structured issue-type governance and automation.
 - Quality and defects: Bug, Testing, Performance, Accessibility, Security, Compatibility.
 - Engineering operations: Build/CI, Automation, Refactor, Maintenance, Integration.
 - Knowledge work: Documentation, Research, Audit, Review.
-- Specialised intake: AI Ops, Content Modelling, User Experience Feedback, Help.
+- Specialised intake: AI Ops, Content Modelling, Chore.
 
 ### Required content baseline
 
