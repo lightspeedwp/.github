@@ -3,7 +3,7 @@ file_type: "issue-template"
 name: "🏠 Chore"
 about: "Small housekeeping tasks: label hygiene, repo/settings tweaks, file moves, or minor non-functional clean-ups."
 description: "Small housekeeping tasks: label hygiene, repo/settings tweaks, file moves, or minor non-functional clean-ups."
-version: "1.0.1"
+version: "1.0.2"
 last_updated: "2026-06-18"
 category: "github-templates"
 ---
@@ -33,12 +33,10 @@ label hygiene, repo/settings tweaks, file moves, documentation clean-ups, minor 
 
 ## Acceptance Criteria
 
-<!-- List requirements for completion. Use checkboxes. -->
+<!-- Did the task achieve its intended outcome? Focus on results, not process. -->
 
-- [ ] Task completed and verified
+- [ ] Task completed and verified in the affected areas
 - [ ] No regressions introduced
-- [ ] PR uses correct branch prefix (chore/)
-- [ ] Approved by at least one maintainer
 
 ## Additional Context
 
@@ -55,8 +53,7 @@ label hygiene, repo/settings tweaks, file moves, documentation clean-ups, minor 
 
 ## Definition of Done (DoD)
 
-- [ ] Task completed and documented
-- [ ] No regressions introduced
+- [ ] Affected files, labels, or settings updated and documented
 - [ ] PR uses correct branch prefix (chore/)
 - [ ] Approved by at least one maintainer
 
