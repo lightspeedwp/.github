@@ -3,7 +3,7 @@ file_type: custom-instructions
 title: Repo-local Copilot Instructions
 description: Repo-local Copilot and agent instructions for maintaining the LightSpeed .github control-plane repository.
 mode: agent
-version: v1.2
+version: v1.3
 last_updated: '2026-06-18'
 owners:
   - LightSpeed Team
