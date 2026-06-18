@@ -31,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Repository-wide Mermaid diagram WCAG 2.2 AA colour-contrast sweep** — Applied the approved 7-role semantic palette (`fill`/`color`/`stroke` triples, all ≥ 4.5:1 in light and dark mode) to all Mermaid diagrams across 47 Markdown files. Eliminates the dark-mode white-text-on-pastel contrast failures identified by the new `validate-mermaid-colour-contrast` validator introduced in [#977](https://github.com/lightspeedwp/.github/pull/977). ([#982](https://github.com/lightspeedwp/.github/pull/982))
+
 - **Template enforcement now skips Dependabot merged PRs** — Updated the push-side template guardrail so Dependabot-authored merged pull requests are not blocked by standard PR template enforcement, matching the PR-side skip already in place. ([#972](https://github.com/lightspeedwp/.github/pull/972))
 
 - **Issue template alignment: add `about` field, align with 25 org issue types, and polish** — Added the required GitHub `about` frontmatter field to all issue templates, resolving the "About can't be blank" critical error in the new-issue chooser. Replaced the non-standard `User Experience Feedback` template with a `Chore` template to match the organisation's 25 canonical issue types; removed the `Help / Support` template (not an org type). Standardised `about` field punctuation across all templates. Bumped `version` and `last_updated` frontmatter on all changed files per freshness policy. Updated `config.yml` inventory note. ([#965](https://github.com/lightspeedwp/.github/issues/965), [#966](https://github.com/lightspeedwp/.github/pull/966))
