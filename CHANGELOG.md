@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Metadata governance automation for issues and pull requests** — Added and hardened the GitHub automation that assigns project items, milestones, assignees, issue/PR relationships, project field values, and labelling behaviour for new issues and pull requests. Also updated the related docs, workflow guards, and test coverage to match the current codebase. ([#974](https://github.com/lightspeedwp/.github/pull/974))
+
 - **Community health audit — PR templates, governance docs, and README alignment** — Completed a comprehensive audit of all community health files: updated WCAG version references from 2.1 to 2.2 AA in `pr_bug.md`, `pr_chore.md`, `pr_ci.md`, and `pr_dep_update.md`; added 15 missing branch-prefix rows to the default `pull_request_template.md` quick-selector table to align with `PULL_REQUEST_TEMPLATE/config.yml`; expanded `AGENTS.md` issue template list from 10 to 23 entries and added Saved Replies section; expanded `CLAUDE.md` issue template list to match; fixed template count, range, and parity note in `.github/custom-instructions.md`; completely rewrote `.github/workflows/README.md` with an accurate inventory of all 27 real workflows (removed 4 phantom workflow references); updated `.github/README.md` version date; added 20 missing files to `.github/SAVED_REPLIES/README.md`; added template index table to `.github/ISSUE_TEMPLATE/README.md`; replaced generic category list with the 9 actual YAML file inventory in `.github/DISCUSSION_TEMPLATE/README.md`; updated `docs/ISSUE_CREATION_GUIDE.md` to 25-template parity and corrected label values. ([#966](https://github.com/lightspeedwp/.github/pull/966))
 
 ### Fixed
