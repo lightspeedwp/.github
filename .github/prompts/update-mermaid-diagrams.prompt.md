@@ -4,7 +4,7 @@ title: "Update Mermaid Diagrams"
 description: "Refresh Mermaid diagrams across the repository or targeted paths with WCAG 2.2 AA colour contrast, updated content, and current standards."
 mode: "agent"
 tools: ["read", "edit", "search", "shell"]
-tags: ["mermaid", "documentation", "a11y", "wcag", "colour-contrast", "readme"]
+tags: ["mermaid", "documentation", "a11y", "wcag", "colour-contrast", "readme", "automation"]
 last_updated: "2026-06-18"
 ---
 

@@ -118,6 +118,7 @@ jobs:
           EVENT_ACTION: ${{ github.event.action }}
           PR_MERGED: ${{ github.event.pull_request.merged }}
           ITEM_CREATED_AT: ${{ github.event.issue.created_at || github.event.pull_request.created_at }}
+          ITEM_MILESTONE_DUE_ON: ${{ github.event.issue.milestone.due_on || github.event.pull_request.milestone.due_on }}
           ISSUE_FIELDS_CONFIG: .github/issue-fields.yml
 
       - name: Update project fields
@@ -127,8 +128,18 @@ jobs:
           project-url: ${{ env.PROJECT_URL }}
           github-token: ${{ steps.app-token.outputs.token }}
           item-id: ${{ steps.addp.outputs.itemId }}
-          field-keys: Status,Priority,Type,Effort,Start date
-          field-values: ${{ steps.derive.outputs.status }},${{ steps.derive.outputs.priority }},${{ steps.derive.outputs.type }},${{ steps.derive.outputs.effort }},${{ steps.derive.outputs.start_date }}
+          field-keys: Status,Priority,Type,Effort
+          field-values: ${{ steps.derive.outputs.status }},${{ steps.derive.outputs.priority }},${{ steps.derive.outputs.type }},${{ steps.derive.outputs.effort }}
+
+      - name: Update kickoff dates
+        if: steps.preflight.outputs.enabled == 'true' && steps.addp.outputs.itemId != '' && (steps.derive.outputs.start_date != '' || steps.derive.outputs.target_date != '')
+        uses: titoportas/update-project-fields@v0.1.0
+        with:
+          project-url: ${{ env.PROJECT_URL }}
+          github-token: ${{ steps.app-token.outputs.token }}
+          item-id: ${{ steps.addp.outputs.itemId }}
+          field-keys: Start date,Target date
+          field-values: ${{ steps.derive.outputs.start_date }},${{ steps.derive.outputs.target_date }}
 
       - name: Add or update aging and SLA annotation
         if: steps.preflight.outputs.enabled == 'true' && github.event.action != 'closed'

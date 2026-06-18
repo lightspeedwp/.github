@@ -1,10 +1,10 @@
 ---
 title: Label Strategy & Governance
-description: Comprehensive label strategy defining the taxonomy, color families, assignment rules, and maintenance processes for 150 canonical labels
+description: Comprehensive label strategy defining the taxonomy, colour families, assignment rules, and maintenance processes for 158 canonical labels
 file_type: documentation
-version: v1.0.1
+version: v1.0.2
 created_date: '2026-05-31'
-last_updated: '2026-06-01'
+last_updated: '2026-06-18'
 authors:
   - Claude Code
   - LightSpeed Team
@@ -24,7 +24,7 @@ stability: stable
 
 # Label Strategy & Governance
 
-**Version**: v1.0.0
+**Version**: v1.0.2
 **Created**: 2026-05-31
 **Owner**: LightSpeed Team
 **Reference Config**: `.github/labels.yml`, `.github/labeler.yml`
@@ -33,7 +33,7 @@ stability: stable
 
 ## Executive Summary
 
-This document establishes the comprehensive label strategy for the LightSpeed `.github` repository. It defines the taxonomy of 150 canonical labels, their organization into semantic families, color assignments, and the rules for applying labels to issues and PRs.
+This document establishes the comprehensive label strategy for the LightSpeed `.github` repository. It defines the taxonomy of 158 canonical labels, their organization into semantic families, colour assignments, and the rules for applying labels to issues and PRs.
 
 **Strategic Goals**:
 
@@ -47,9 +47,9 @@ This document establishes the comprehensive label strategy for the LightSpeed `.
 
 ## 1. Label Taxonomy
 
-### 1.1 Primary Categories (7 Families, 150 Labels)
+### 1.1 Primary Categories (7 Core Families, 158 Labels)
 
-The 150 canonical labels are organized into 7 primary families:
+The canonical labels are organized into seven core families, with supporting cross-cutting families documented in the inventory:
 
 | Family | Count | Purpose | Key Labels |
 | --- | --- | --- | --- |
@@ -61,7 +61,7 @@ The 150 canonical labels are organized into 7 primary families:
 | **Discussion** | 7 | Discussion/meta categories | announcement, showcase, community, feedback, support |
 | **Meta** | 16 | Automation & process markers | has-pr, needs-changelog, blocked-by, duplicate |
 
-**Total**: 150 labels across 7 families
+**Total**: 158 labels across 7 core families
 
 ---
 
@@ -194,13 +194,13 @@ The 150 canonical labels are organized into 7 primary families:
 
 ---
 
-## 3. Color Strategy
+## 3. Colour Strategy
 
 The complete color strategy is documented in [`docs/LABEL_COLOR_STRATEGY.md`](./LABEL_COLOR_STRATEGY.md). Key principles:
 
 - **8 colour families** reduce cognitive load whilst maintaining semantic clarity
 - Each family serves a specific semantic purpose (ready/done, blocked/urgent, testing, etc.)
-- Colours are chosen for accessibility (WCAG AA contrast minimum)
+- Colours are chosen for accessibility (WCAG 2.2 AA contrast minimum)
 - Related labels within a family use consistent colours
 - New labels default to established family colours, not ad-hoc selections
 
@@ -284,7 +284,7 @@ All labels meet WCAG 2.2 AA contrast requirements:
 ## 7. Related Documentation
 
 - [`docs/LABEL_COLOR_STRATEGY.md`](./LABEL_COLOR_STRATEGY.md) — Detailed colour assignments and justifications
-- [`docs/LABEL_INVENTORY.md`](./LABEL_INVENTORY.md) — Complete inventory of all 150 labels by family
+- [`docs/LABEL_INVENTORY.md`](./LABEL_INVENTORY.md) — Complete inventory of all 158 labels by family
 - [`docs/ISSUE_TYPES.md`](./ISSUE_TYPES.md) — Type definitions and decision tree
 - [`docs/ISSUE_FIELDS.md`](./ISSUE_FIELDS.md) — Project field mappings and rationale
 - [`.github/labels.yml`](../.github/labels.yml) — Canonical label definitions

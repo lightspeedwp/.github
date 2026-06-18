@@ -2,9 +2,9 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.4
+version: v1.0.5
 created_date: '2026-05-31'
-last_updated: '2026-06-07'
+last_updated: '2026-06-18'
 authors:
   - Claude Code
   - LightSpeed Team
@@ -454,6 +454,7 @@ Status mappings:
 - In QA: status:needs-qa
 - Blocked: status:blocked
 - On hold: status:on-hold
+- Needs more info: status:needs-more-info
 - Closed: status:done
 
 Priority mappings:
@@ -466,7 +467,7 @@ Priority mappings:
 Default priority: priority:normal
 
 - Default type: type:task
-- Status workflow values: status:needs-triage, status:needs-planning
+- Status workflow values: status:needs-triage, status:needs-planning, status:needs-more-info
 
 ---
 

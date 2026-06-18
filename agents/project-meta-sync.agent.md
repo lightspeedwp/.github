@@ -1,7 +1,8 @@
 ---
 title: Project Meta Sync
-description: Syncs GitHub Project board meta fields (Status, Priority, Type) from
-  issue/PR labels and branch names, automating project management and triage workflows.
+description: Deprecated compatibility spec for the legacy project meta sync entrypoint.
+  The active automation now lives in the project-meta-sync and metadata-governance
+  workflows plus their helper scripts.
 target: github-copilot
 handoffs:
 - label: Update Project Fields
@@ -66,7 +67,6 @@ permissions:
 - github:repo
 - github:issues
 metadata:
-  guardrails: Only update fields based on canonical label mappings. Notify maintainers
-    on mapping conflicts. Support rollback and audit logging. Never remove items from
-    project without warning.
+  guardrails: Compatibility only. Do not treat this spec as the active contract;
+    use the workflow and helper scripts referenced above.
 ---

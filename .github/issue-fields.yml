@@ -26,6 +26,7 @@ project_field_mappings:
   Status:
     status:needs-triage: Triage
     status:needs-planning: Triage
+    status:needs-more-info: Triage
     status:ready: Ready
     status:in-progress: In progress
     status:needs-review: In review

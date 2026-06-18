@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: "Automation & Workflows"
 description: "Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories."
-version: "v1.0.3"
+version: "v1.0.4"
 last_updated: "2026-06-18"
 owners: ["LightSpeedWP Team"]
 tags: ["automation", "workflows", "governance", "agents"]
@@ -72,9 +72,10 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | --- | --- | --- | --- |
 | **labeling.yml** | develop | Unified labelling, status/priority, and type automation | labeling.agent.js |
 | **changelog-validate.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
+| **metadata-governance.yml** | issues / pull_request_target | Apply assignee, milestone, and relationship metadata | issue-pr-metadata.cjs |
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
-| **project-meta-sync.yml** | develop | Sync project board with PR/issue labels, status, priority, type, and supported project fields | project-meta-sync.agent.js |
+| **project-meta-sync.yml** | push / issues / pull_request | Sync project board fields from labels and kickoff metadata | derive-project-fields.cjs |
 | **checklist-finalisation.yml** | issues.closed / pull_request_target.closed | Final checklist sync for completed issues and merged PRs | workflow backstop |
 | **release.yml** | main | Versioning, changelog generation, tagging, and release notes | release.agent.js |
 | **reporting.yml** | develop | Generate metrics and activity reports | reporting.agent.js |
@@ -151,6 +152,13 @@ Issue types are defined once in `.github/issue-types.yml` and used by both:
 - **Labelling agent:** Auto-applies `type:*` labels based on issue type field and content heuristics
 
 **Enforcement:** One type per issue (one-hot principle); issue type field mirrors `type:*` label for consistency.
+
+### Metadata Governance
+
+- Issues and PRs are assigned to the repository project automatically on create.
+- New issues and PRs should receive an assignee, milestone, and relationship metadata where relevant.
+- `Start date` and `Target date` remain empty until the item is explicitly marked `status:ready` or `status:in-progress`.
+- Template enforcement must flag incomplete issues, apply `status:needs-more-info`, and keep the item open.
 
 ---
 

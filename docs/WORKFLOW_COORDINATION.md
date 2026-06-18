@@ -2,8 +2,8 @@
 title: "Workflow Coordination Patterns"
 description: "Canonical reference for GitHub Actions workflow patterns: always-run vs. agent-triggered, coordination between agents and workflows, and orchestration strategies."
 created_date: "2026-05-28"
-last_updated: "2026-06-08"
-version: "v1.1.1"
+last_updated: "2026-06-18"
+version: "v1.1.2"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 tags: ["workflows", "automation", "agents", "coordination", "ci-cd"]
@@ -48,6 +48,8 @@ Always-run workflows trigger automatically on push/PR events without agent invol
 | `labeling.yml` | issue/PR/discussion events | Auto-apply canonical labels | ❌ No (metadata only) |
 | `issues.yml` | issue opened/edited | Validate issue templates | ❌ No (validation only) |
 | `meta.yml` | PR opened/issues | Apply frontmatter validation | ❌ No (metadata only) |
+| `metadata-governance.yml` | issues / pull_request_target | Assign assignees, milestones, and relationship metadata | ❌ No (metadata only) |
+| `project-meta-sync.yml` | push / issues / pull_request | Sync GitHub Project board fields | ❌ No (metadata only) |
 | `readme-regen.yml` | push/PR on `.md` files | Validate/regenerate README indices | ❌ No (informational) |
 
 ### When to Use
@@ -87,7 +89,6 @@ Agent-triggered workflows are invoked **on demand** via `workflow_dispatch` or c
 | `reporting.yml` | workflow_dispatch | Reporting Agent | Generate audit/metric reports |
 | `reviewer.yml` | workflow_dispatch (manual) | Reviewer Agent | Post PR review summaries |
 | `metrics.yml` | workflow_dispatch ± scheduled | Metrics Agent | Collect repo health metrics |
-| `project-meta-sync.yml` | workflow_dispatch | Project Meta Sync Agent | Sync GitHub Project board fields |
 | `readme-update.yml` | workflow_dispatch + workflow_call | Release Agent (post-release) | Apply README & Mermaid diagram fixes |
 | `issue-create-from-template.yml` | workflow_dispatch | Issue Agent / LLM caller | Create issues from canonical templates before the issue exists |
 | `checklist-finalisation.yml` | issues.closed / pull_request_target.closed | Workflow backstop | Finalise checklists in closed issues and merged PRs |
@@ -443,10 +444,10 @@ with:
 
 ## References
 
-- [Next Issues Execution Plan](../projects/active/next-issues-execution-plan.md) — Overall roadmap
+- [Next Issues Execution Plan](../.github/projects/active/next-issues-execution-plan.md) — Overall roadmap
 - [Workflow Instructions](../instructions/workflows.instructions.md) — Workflow authoring standards
 - [GitHub Actions Documentation](https://docs.github.com/en/actions) — Official reference
-- [Release Agent Specification](../../agents/release.agent.md) — Release orchestration contract
+- [Release Agent Specification](../agents/release.agent.md) — Release orchestration contract
 - [Workflow Files](../workflows/) — Repository workflow implementations
 
 ---

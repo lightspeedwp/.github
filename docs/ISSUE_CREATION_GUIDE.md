@@ -2,7 +2,7 @@
 title: GitHub Issue Creation Guide
 description: How to create well-formed issues, select templates, and trigger automation
 file_type: documentation
-version: "1.0.4"
+version: "1.0.5"
 created_date: "2026-05-31"
 last_updated: "2026-06-18"
 author: Claude Code
@@ -99,7 +99,7 @@ Review these checkboxes to ensure they align with your scope.
 
 ### 4. Add Labels and Metadata
 
-Issue templates currently do not pre-populate labels. Add labels manually:
+Issue templates do not pre-populate labels in the form, but automation adds the canonical set after creation. Add labels manually only when the workflow cannot infer them:
 
 - Add the appropriate `type:*` label (e.g., `type:bug`, `type:feature`)
 - Add exactly one `status:*` label
@@ -121,11 +121,14 @@ Click **Submit new issue**. Your issue is now visible to the team and ready for 
 - `labeling.yml` runs on issue events (`opened`, `edited`, `reopened`, `labeled`, `unlabeled`, `transferred`)
 - Unified labeling agent applies canonicalization, one-hot enforcement, defaults, and content-based type detection
 - PR automation remains stronger due to branch/file signals available in PR context
+- `metadata-governance.yml` automatically adds new issues and PRs to the configured project, assigns the requester when possible, attaches or creates an appropriate milestone, and records relationships when they are present in the body
+- `project-meta-sync.yml` keeps the project fields in sync and leaves `Start date` and `Target date` empty until work is explicitly marked `status:ready` or `status:in-progress`
 
 ### ⚠️ Practical Implication
 
-- Issue outcomes are not yet fully deterministic from template choice alone.
-- Include clear issue text and apply canonical labels explicitly for reliable triage.
+- Issue outcomes are still driven by the body content and canonical labels, so keep the template complete and specific.
+- Incomplete templates are flagged and labelled for correction rather than closed.
+- Metadata governance now handles the project item, assignee, milestone, and relationship metadata automatically when it can infer them safely.
 
 ### AI / Automation Issue Creation
 
