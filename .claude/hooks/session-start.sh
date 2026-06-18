@@ -23,7 +23,12 @@ CURRENT_BRANCH="$(git branch --show-current 2>/dev/null || true)"
 if [[ "$CURRENT_BRANCH" == claude/* ]]; then
   # Extract the short hash from the end of the auto-generated branch name.
   # e.g. "claude/admiring-mendel-nqdk8j" → "nqdk8j"
-  HASH_SUFFIX="${CURRENT_BRANCH##*-}"
+  # Falls back to stripping the "claude/" prefix if the name has no hyphen.
+  if [[ "$CURRENT_BRANCH" == *-* ]]; then
+    HASH_SUFFIX="${CURRENT_BRANCH##*-}"
+  else
+    HASH_SUFFIX="${CURRENT_BRANCH#claude/}"
+  fi
   NEW_BRANCH="chore/session-${HASH_SUFFIX}"
 
   echo ""
@@ -44,9 +49,9 @@ if [[ "$CURRENT_BRANCH" == claude/* ]]; then
   # Rename locally
   git branch -m "${CURRENT_BRANCH}" "${NEW_BRANCH}"
 
-  # Push the new branch name to origin and delete the old remote branch.
-  # Use || true on the delete so a pre-deleted remote branch doesn't fail the hook.
-  git push -u origin "${NEW_BRANCH}"
+  # Push the new branch name to origin; non-fatal so network issues don't block the session.
+  git push -u origin "${NEW_BRANCH}" || echo "==> Warning: Could not push the renamed branch to origin."
+  # Delete the old remote branch; non-fatal (may already be gone or push may have failed).
   git push origin --delete "${CURRENT_BRANCH}" 2>/dev/null || true
 
   echo "==> Branch renamed: ${CURRENT_BRANCH} → ${NEW_BRANCH}"
