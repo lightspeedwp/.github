@@ -22,7 +22,7 @@
   "dependencies": {
     "@astrojs/svelte": "^8.1.2",
     "@phosphor-icons/core": "^2.1.1",
-    "astro": "^6.4.6",
+    "astro": "^6.4.8",
     "gray-matter": "^4.0.3",
     "marked": "^18.0.5",
     "svelte": "^5.56.3"
