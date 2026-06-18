@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Mermaid WCAG 2.2 AA colour contrast validation** — Added `scripts/validation/validate-mermaid-colour-contrast.js` which checks every `style` declaration in Mermaid diagrams against a pre-verified WCAG 2.2 AA palette (minimum 4.5:1 contrast ratio). The validator supports `--changed-files` scoping for CI efficiency, flags unparseable hex values as errors, strips inline `%%` comments before parsing, and generates a dated markdown report under `.github/reports/mermaid/`. Added `npm run validate:mermaid-contrast` script. Updated `.github/workflows/validate-mermaid-pr.yml` to run all three diagram checks (syntax, accessibility, contrast) on every PR that modifies `.md`/`.mdx` files, posting a consolidated status comment. Updated `instructions/mermaid.instructions.md` with the approved seven-role WCAG AA palette and required structure. Fixed all existing diagram `style` declarations across `README.md`, `docs/AGENT_CREATION.md`, `profile/README.md`, `scripts/README.md`, `tests/README.md`, and `.github/ISSUE_TEMPLATE/README.md` to use the approved palette triples (`fill`, `color`, `stroke`). ([#977](https://github.com/lightspeedwp/.github/pull/977))
+
 ### Changed
 
 - **Metadata governance automation for issues and pull requests** — Added and hardened the GitHub automation that assigns project items, milestones, assignees, issue/PR relationships, project field values, and labelling behaviour for new issues and pull requests. Also updated the related docs, workflow guards, and test coverage to match the current codebase. ([#974](https://github.com/lightspeedwp/.github/pull/974))
