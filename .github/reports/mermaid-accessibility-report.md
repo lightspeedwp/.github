@@ -1,9 +1,9 @@
 ---
 title: Mermaid Diagram Accessibility Compliance Report — Issue #669
 description: Accessibility compliance audit of all 24 Mermaid diagrams for accTitle and accDescr attributes
-version: 1.0.0
+version: 1.1.0
 created_date: "2026-05-31"
-last_updated: "2026-05-31"
+last_updated: "2026-06-18"
 file_type: documentation
 maintainer: Claude Code
 owners:
@@ -371,7 +371,7 @@ Supported formats:
 2. Add comprehensive `accDescr` blocks describing diagram purpose and key relationships
 3. Test with screen readers to verify readability
 4. Re-run validation after fixes
-5. Consult [Mermaid Accessibility Docs](https://mermaid.js.org/syntax/diagram-type-mermaid.html#diagram-types)
+5. Consult [Mermaid Accessibility Docs](https://mermaid.js.org/config/accessibility.html)
 
 ---
 
