@@ -316,7 +316,7 @@ async function main() {
   const changedFilesArg = args.find((a) => a.startsWith("--changed-files="));
   const targetFiles = changedFilesArg
     ? changedFilesArg.replace("--changed-files=", "").split(",").filter(Boolean)
-    : MD_FILES;
+    : getMarkdownFiles();
 
   console.log("🎨 Validating Mermaid colour contrast (WCAG 2.2 AA)...\n");
   console.log(`Scanning ${targetFiles.length} file(s)\n`);
