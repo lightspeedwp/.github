@@ -44,7 +44,7 @@ This guide helps contributors, team members, and AI agents create high-quality G
 | Create a **large, multi-part project** | 📦 Epic | `type:epic` |
 | Write a **user-centric story** (Agile) | 📑 Story | `type:story` |
 | Suggest **improvements** | 🔧 Improvement | `type:improve` |
-| Perform housekeeping tasks | 📝 Task (Label-only) | type:chore |
+| Perform **housekeeping tasks** | 🏠 Chore | `type:chore` |
 | Request **code cleanup** | ♻️ Code Refactor | `type:refactor` |
 | Discuss **build/CI/CD** | ⚙️ Build & CI | `type:build` |
 | Propose **automation** | 🤖 Automation | `type:automation` |
@@ -57,7 +57,7 @@ This guide helps contributors, team members, and AI agents create high-quality G
 
 - Numbered issue templates available: 25 (`01-task.md` through `25-content-modelling.md`)
 - Canonical issue types: 25 numbered templates plus label-only types
-- Label-only types without dedicated templates: type:question, type:support, type:chore
+- Label-only types without dedicated templates: `type:question`, `type:support`
 
 For label-only types, use the nearest template and state the intended canonical type in the issue body.
 

@@ -131,8 +131,7 @@ Use [.github/PULL_REQUEST_TEMPLATE/config.yml](.github/PULL_REQUEST_TEMPLATE/con
 Use [.github/ISSUE_TEMPLATE/config.yml](.github/ISSUE_TEMPLATE/config.yml) and [.github/issue-types.yml](.github/issue-types.yml) as the canonical issue intake source.
 
 - `task` for scoped work, config updates, and small delivery items.
-- task for scoped work, config updates, and small delivery items.
-- bug for reproducible defects with environment and reproduction details.
+- `bug` for reproducible defects with environment and reproduction details.
 - `feature` for new capabilities or user-visible enhancements.
 - `design` for UI/UX, token, or accessibility design work.
 - `epic` for large, multi-part initiatives grouping stories, features, and tasks.

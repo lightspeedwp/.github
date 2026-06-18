@@ -63,7 +63,7 @@ Current parity note:
 
 - Canonical issue types = 25 (aligned with `.github/issue-types.yml`).
 - Numbered templates = 25 (one per canonical type).
-- Label-only types without dedicated templates: type:question, type:support, type:chore.
+- Label-only types without dedicated templates: `type:question`, `type:support`.
 
 For label-only types, use the nearest template (Task or Improvement) and explicitly state the target type in the opening section.
 
