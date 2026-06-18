@@ -72,3 +72,4 @@ merge_queue:
   max_parallel_checks: 3
 merge_protections_settings:
   reporting_method: check-runs
+  auto_merge_conditions: true
