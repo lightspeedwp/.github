@@ -1,9 +1,10 @@
 ---
 file_type: "issue-template"
 name: "⚙️ Build & CI"
+about: "Propose changes, fixes, or improvements to build tools, CI/CD pipelines, or automation."
 description: "Propose changes, fixes, or improvements to build tools, CI/CD pipelines, or automation."
-version: "1.0.1"
-last_updated: "2026-06-03"
+version: "1.0.2"
+last_updated: "2026-06-18"
 category: "github-templates"
 ---
 

@@ -6,7 +6,7 @@
 # - document template governance notes for maintainers and automation operators
 #
 # Inventory notes:
-# - Repository currently ships 26 numbered issue templates in `.github/ISSUE_TEMPLATE/` (`01-task.md` through `26-help.md`)
+# - Repository currently ships 25 numbered issue templates in `.github/ISSUE_TEMPLATE/` (`01-task.md` through `25-content-modelling.md`), one per canonical org issue type
 # - Canonical issue type registry lives in `.github/issue-types.yml`
 # - Label/issue-type parity validation is enforced via repository validation scripts
 
