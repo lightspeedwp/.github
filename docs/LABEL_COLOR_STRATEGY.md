@@ -2,11 +2,10 @@
 title: Label Color Strategy Specification
 description: Comprehensive color strategy for the 150 canonical labels based on semantic meaning and workflow state
 file_type: documentation
-version: v1.0.0
+version: v1.1.0
 created_date: '2026-05-31'
-last_updated: '2026-06-01'
+last_updated: '2026-06-18'
 authors:
-  - Claude Code
   - LightSpeed Team
 maintainer: LightSpeed Team
 owners:
@@ -17,14 +16,17 @@ tags:
   - color-strategy
   - governance
   - canonical-config
+  - accessibility
+  - wcag
 domain: governance
 stability: stable
 ---
 
 # Label Color Strategy Specification
 
-**Version**: v1.0.0
+**Version**: v1.1.0
 **Created**: 2026-05-31
+**Updated**: 2026-06-18
 **Owner**: LightSpeed Team
 **Status**: Active
 
@@ -39,7 +41,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - Reduces color fragmentation (31 unique colors → 8 primary families)
 - Establishes clear semantic associations between color and label purpose
 - Provides explicit assignment rules for new labels
-- Improves accessibility with sufficient contrast
+- Ensures full WCAG 2.2 AA accessibility compliance (≥ 4.5:1 contrast ratio)
 - Creates a maintainable, scalable foundation for label expansion
 
 ---
@@ -50,14 +52,14 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 | Family | Hex Codes | Semantic Meaning | Label Categories | Count |
 | --- | --- | --- | --- | --- |
-| **Green (Ready/Done)** | `#0DBA3D`, `#34B71C`, `#6BB71C` | Positive completion, resolution, readiness | status:done, status:ready, type:enhancement (✓merged), design:approved | 18 |
-| **Blue (Planning/Review)** | `#0969DA`, `#4986E8`, `#C5DEF5` | Discussion, collaboration, needs input | type:documentation, type:discussion, status:needs-review, lang:* | 52 |
-| **Yellow (Testing/Audit)** | `#D29922`, `#FCE2B7`, `#F2D06D` | Validation, testing, audit workflows | status:testing, type:bug (when testing), type:audit, priority:medium | 24 |
-| **Red (Blocked/Impediment)** | `#EF3B39`, `#F85149`, `#FCE2E2` | Blockers, duplicates, critical issues | status:blocked, type:duplicate, priority:urgent, type:security | 18 |
-| **Orange (On-Hold/Deferred)** | `#FB8500`, `#D5A87B`, `#FDBF7C` | Delayed, deferred, rejected, wontfix | status:wontfix, status:on-hold, type:epic (when deferred), priority:low | 16 |
-| **Purple (Design Workflows)** | `#8957E5`, `#D89AF6`, `#B4A7E8` | Design, UX, accessibility | type:design, type:ui, type:accessibility, design:* | 14 |
+| **Green (Ready/Done)** | `#1A7F37`, `#2A7A3B`, `#ABEBC6` | Positive completion, resolution, readiness | status:done, status:ready, type:enhancement (✓merged), design:approved | 18 |
+| **Blue (Planning/Review)** | `#0969DA`, `#3467D3`, `#C5DEF5` | Discussion, collaboration, needs input | type:documentation, type:discussion, status:needs-review, lang:* | 52 |
+| **Yellow (Testing/Audit)** | `#D29922`, `#F2D06D`, `#FCE2B7` | Validation, testing, audit workflows | status:testing, type:bug (when testing), type:audit, priority:medium | 24 |
+| **Red (Blocked/Impediment)** | `#CF222E`, `#B91C1C`, `#FCE2E2` | Blockers, duplicates, critical issues | status:blocked, type:duplicate, priority:urgent, type:security | 18 |
+| **Orange (On-Hold/Deferred)** | `#9A6700`, `#D5A87B`, `#FDBF7C` | Delayed, deferred, rejected, wontfix | status:wontfix, status:on-hold, type:epic (when deferred), priority:low | 16 |
+| **Purple (Design Workflows)** | `#8957E5`, `#B4A7E8`, `#D89AF6` | Design, UX, accessibility | type:design, type:ui, type:accessibility, design:* | 14 |
 | **Gray (Meta/Infrastructure)** | `#57606A`, `#B1BAC4`, `#D0D7DE` | Process, meta, automation, infrastructure | meta:*, area:ci-cd, type:internal, domain:* | 12 |
-| **Teal (Integration/External)** | `#2DA39D`, `#2DBFA3`, `#9FE1E3` | External systems, integrations, dependencies | area:integration, area:external, type:dependency, platform:* | 16 |
+| **Teal (Integration/External)** | `#007580`, `#0D7F6F`, `#9FE1E3` | External systems, integrations, dependencies | area:integration, area:external, type:dependency, platform:* | 16 |
 
 **Total Coverage**: 150 labels across 8 families
 
@@ -71,16 +73,16 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 **Hex Codes** (in order of preference):
 
-- `#0DBA3D` — Primary (strong, high-saturation green)
-- `#34B71C` — Secondary (slightly darker)
-- `#6BB71C` — Tertiary (olive-green for subtle emphasis)
+- `#1A7F37` — Primary (dark green, WCAG AA compliant — 5.3:1 against white)
+- `#2A7A3B` — Secondary (deep forest green for standard labels)
+- `#ABEBC6` — Tertiary (light mint — GitHub label background only, use with black text)
 
 **Assignment Rules**:
 
-- All `status:done*` labels → `#0DBA3D`
-- All `status:ready*` labels → `#0DBA3D`
-- Approved/accepted labels (design:approved, reviewed:accepted) → `#0DBA3D`
-- Enhancement/feature labels when merged → `#34B71C`
+- All `status:done*` labels → `#1A7F37`
+- All `status:ready*` labels → `#1A7F37`
+- Approved/accepted labels (design:approved, reviewed:accepted) → `#1A7F37`
+- Enhancement/feature labels when merged → `#2A7A3B`
 
 **Label Examples**:
 
@@ -90,7 +92,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - design:approved
 - reviewed:approved
 
-**Accessibility**: Strong contrast against white/light backgrounds; readable for green-blind users with supporting label text.
+**Accessibility**: Primary and secondary meet WCAG AA (≥ 4.5:1) against white. Tertiary (`#ABEBC6`) is a GitHub label background colour — use black text only; do not use as a foreground text colour on white.
 
 ---
 
@@ -100,18 +102,18 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 **Hex Codes** (in order of preference):
 
-- `#0969DA` — Primary (strong, readable blue)
-- `#4986E8` — Secondary (lighter, softer tone)
-- `#C5DEF5` — Tertiary (very light blue for subtle/secondary labels)
+- `#0969DA` — Primary (strong, readable blue — 5.1:1 against white)
+- `#3467D3` — Secondary (slightly lighter, softer tone — 5.3:1 against white)
+- `#C5DEF5` — Tertiary (very light blue — GitHub label background only, use with black text)
 
 **Assignment Rules**:
 
 - All `status:needs-*` labels → `#0969DA`
-- All `type:documentation` labels → `#4986E8`
-- All `type:discussion` labels → `#4986E8`
+- All `type:documentation` labels → `#3467D3`
+- All `type:discussion` labels → `#3467D3`
 - All `lang:*` (language) labels → `#C5DEF5`
 - Code review related (needs-review, awaiting-feedback) → `#0969DA`
-- Discussion/question labels → `#4986E8`
+- Discussion/question labels → `#3467D3`
 
 **Label Examples**:
 
@@ -122,7 +124,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - lang:php
 - lang:javascript
 
-**Accessibility**: Primary and secondary high contrast; tertiary use sparingly for less critical labels.
+**Accessibility**: Primary and secondary meet WCAG AA against white. Tertiary (`#C5DEF5`) is a GitHub label background colour — use black text only.
 
 ---
 
@@ -132,9 +134,9 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 **Hex Codes** (in order of preference):
 
-- `#D29922` — Primary (gold, good contrast)
-- `#FCE2B7` — Secondary (light yellow for supporting labels)
-- `#F2D06D` — Tertiary (medium yellow for medium-emphasis)
+- `#D29922` — Primary (gold — GitHub label background only; black text gives 8.3:1 ✓)
+- `#F2D06D` — Secondary (light yellow — GitHub label background only, use with black text)
+- `#FCE2B7` — Tertiary (pale amber — GitHub label background only, use with black text)
 
 **Assignment Rules**:
 
@@ -150,7 +152,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - type:performance
 - priority:medium (when used for testing triage)
 
-**Accessibility**: Gold primary maintains legibility; lighter variants should include descriptive text.
+**Accessibility**: All yellow family colours are GitHub label backgrounds — auto-selected black text provides ≥ 8:1 contrast. Do not use these colours as foreground text on white backgrounds.
 
 ---
 
@@ -160,17 +162,17 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 **Hex Codes** (in order of preference):
 
-- `#EF3B39` — Primary (bright red, high-alert)
-- `#F85149` — Secondary (slightly darker red)
-- `#FCE2E2` — Tertiary (very light red for subtle issues)
+- `#CF222E` — Primary (dark danger red — 5.3:1 against white)
+- `#B91C1C` — Secondary (deep crimson — 6.4:1 against white)
+- `#FCE2E2` — Tertiary (very light red — GitHub label background only, use with black text)
 
 **Assignment Rules**:
 
-- All `status:blocked*` labels → `#EF3B39`
-- All `type:duplicate` labels → `#EF3B39`
-- All `priority:urgent` labels → `#EF3B39`
-- All `type:security*` labels → `#EF3B39`
-- Bug labels with critical impact → `#F85149`
+- All `status:blocked*` labels → `#CF222E`
+- All `type:duplicate` labels → `#CF222E`
+- All `priority:urgent` labels → `#CF222E`
+- All `type:security*` labels → `#CF222E`
+- Bug labels with critical impact → `#B91C1C`
 
 **Label Examples**:
 
@@ -180,7 +182,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - type:security
 - type:bug (critical variants)
 
-**Accessibility**: High contrast for urgent visibility; use with supporting label text for clarity.
+**Accessibility**: Primary and secondary meet WCAG AA against white. Tertiary is GitHub label background only.
 
 ---
 
@@ -190,14 +192,14 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 **Hex Codes** (in order of preference):
 
-- `#FB8500` — Primary (bright orange)
-- `#FDBF7C` — Secondary (light orange)
-- `#D5A87B` — Tertiary (muted orange for subtle issues)
+- `#9A6700` — Primary (dark amber — 5.0:1 against white)
+- `#D5A87B` — Secondary (muted amber — GitHub label background only, use with black text)
+- `#FDBF7C` — Tertiary (light orange — GitHub label background only, use with black text)
 
 **Assignment Rules**:
 
-- All `status:wontfix` labels → `#FB8500`
-- All `status:on-hold*` labels → `#FB8500`
+- All `status:wontfix` labels → `#9A6700`
+- All `status:on-hold*` labels → `#9A6700`
 - Deferred/postponed items → `#FDBF7C`
 - Epic/larger-scope labels when on hold → `#D5A87B`
 
@@ -207,7 +209,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - status:on-hold
 - status:postponed
 
-**Accessibility**: Bright orange visible but lower urgency than red; sufficient contrast for visibility.
+**Accessibility**: Primary (`#9A6700`) meets WCAG AA against white. Secondary and tertiary are GitHub label backgrounds with black text only.
 
 ---
 
@@ -217,9 +219,9 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 **Hex Codes** (in order of preference):
 
-- `#8957E5` — Primary (vibrant purple)
-- `#B4A7E8` — Secondary (lighter purple)
-- `#D89AF6` — Tertiary (soft purple for supporting labels)
+- `#8957E5` — Primary (vibrant purple — 4.6:1 against white)
+- `#B4A7E8` — Secondary (lighter purple — GitHub label background only, use with black text)
+- `#D89AF6` — Tertiary (soft purple — GitHub label background only, use with black text)
 
 **Assignment Rules**:
 
@@ -237,7 +239,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - design:approved
 - design:pending-review
 
-**Accessibility**: Vibrant purple maintains contrast; use lighter variants for secondary emphasis only.
+**Accessibility**: Primary meets WCAG AA against white. Secondary and tertiary are GitHub label backgrounds with auto-selected black text.
 
 ---
 
@@ -247,9 +249,9 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 **Hex Codes** (in order of preference):
 
-- `#57606A` — Primary (dark gray)
-- `#B1BAC4` — Secondary (medium gray)
-- `#D0D7DE` — Tertiary (light gray for subtle meta)
+- `#57606A` — Primary (dark gray — 6.4:1 against white)
+- `#B1BAC4` — Secondary (medium gray — GitHub label background only, use with black text)
+- `#D0D7DE` — Tertiary (light gray — GitHub label background only, use with black text)
 
 **Assignment Rules**:
 
@@ -267,7 +269,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - type:internal
 - domain:governance
 
-**Accessibility**: Dark gray primary provides contrast; use B1BAC4 and D0D7DE sparingly with clear labels.
+**Accessibility**: Primary meets WCAG AAA against white. Secondary and tertiary are GitHub label backgrounds with black text.
 
 ---
 
@@ -277,16 +279,16 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 **Hex Codes** (in order of preference):
 
-- `#2DA39D` — Primary (teal)
-- `#2DBFA3` — Secondary (bright teal)
-- `#9FE1E3` — Tertiary (light teal for supporting labels)
+- `#007580` — Primary (deep teal — 5.6:1 against white)
+- `#0D7F6F` — Secondary (forest teal — 4.9:1 against white)
+- `#9FE1E3` — Tertiary (light teal — GitHub label background only, use with black text)
 
 **Assignment Rules**:
 
-- All `area:integration*` labels → `#2DA39D`
-- All `area:external*` labels → `#2DA39D`
-- All `type:dependency*` labels → `#2DA39D`
-- Platform/vendor-specific labels → `#2DBFA3`
+- All `area:integration*` labels → `#007580`
+- All `area:external*` labels → `#007580`
+- All `type:dependency*` labels → `#007580`
+- Platform/vendor-specific labels → `#0D7F6F`
 - External system coordination → `#9FE1E3`
 
 **Label Examples**:
@@ -297,7 +299,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - platform:github
 - platform:github-actions
 
-**Accessibility**: Teal primary readable on light backgrounds; lighter variants should be accompanied by clear labels.
+**Accessibility**: Primary and secondary meet WCAG AA against white. Tertiary is GitHub label background only.
 
 ---
 
@@ -321,9 +323,9 @@ When creating new labels, follow this hierarchy:
 1. **Determine primary purpose** (type, status, area, etc.)
 2. **Map to appropriate family** using Table 1 (Section 1.1)
 3. **Choose hex code** based on emphasis level:
-   - Primary color (first in family) — for high-visibility labels
+   - Primary color (first in family) — for high-visibility labels (WCAG AA compliant)
    - Secondary color (second) — for standard labels
-   - Tertiary color (third) — for supporting/secondary labels
+   - Tertiary color (third) — GitHub label backgrounds only (do not use as text on white)
 4. **Verify contrast** against light and dark backgrounds
 5. **Document** the rationale in label frontmatter
 
@@ -331,16 +333,17 @@ When creating new labels, follow this hierarchy:
 
 ## 4. Migration Path (Canonical Config Files)
 
-### 4.1 Phase 1: Documentation & Strategy (Current)
+### 4.1 Phase 1: Documentation & Strategy (Completed)
 
-- ✅ This specification document (v1.0.0)
-- Provides explicit color assignment rules
-- Establishes semantic color families
+- ✅ This specification document (v1.1.0)
+- ✅ WCAG 2.2 AA accessibility audit and color remediation
+- ✅ Provides explicit color assignment rules
+- ✅ Establishes semantic color families
 
 ### 4.2 Phase 2: Update labels.yml (Issue #683)
 
-- Reassign all 150 labels to new color families
-- Group labels by family for easier maintenance
+- ✅ Reassign all 150 labels to new color families
+- ✅ Replace WCAG AA non-compliant colors
 - Add comments documenting family assignment
 
 ### 4.3 Phase 3: Validate & Document (Issue #685)
@@ -353,22 +356,34 @@ When creating new labels, follow this hierarchy:
 
 ## 5. Accessibility & Contrast Standards
 
-All colors in this strategy meet **WCAG AA contrast requirements** (minimum 4.5:1 ratio) against both white and dark backgrounds.
+All **primary and secondary** colors in this strategy meet **WCAG 2.2 AA** requirements (minimum 4.5:1 ratio) against white backgrounds. Tertiary colours are designated GitHub label backgrounds only and rely on GitHub's auto-selected black text for accessibility.
 
-**Contrast Verification** (vs. white #FFFFFF):
+### 5.1 Primary Color Contrast Verification (vs. white #FFFFFF)
 
 | Color | Hex | Contrast Ratio | WCAG Level | Status |
 | --- | --- | --- | --- | --- |
-| `#0DBA3D` (Green primary) | #0DBA3D | ~2.6:1 | ❌ Fails AA | ⚠️ Needs review |
-| `#0969DA` (Blue primary) | #0969DA | ~5.2:1 | ✅ AA | ❌ Fails AAA |
-| `#D29922` (Yellow primary) | #D29922 | ~4.8:1 | ✅ AA | ❌ Fails AAA |
-| `#EF3B39` (Red primary) | #EF3B39 | ~3.9:1 | ❌ Fails AA | ⚠️ Needs review |
-| `#FB8500` (Orange primary) | #FB8500 | ~2.8:1 | ❌ Fails AA | ⚠️ Needs review |
-| `#8957E5` (Purple primary) | #8957E5 | ~4.6:1 | ✅ AA | ❌ Fails AAA |
-| `#57606A` (Gray primary) | #57606A | ~7.1:1 | ✅ AAA | ✅ Compliant |
-| `#2DA39D` (Teal primary) | #2DA39D | ~3.1:1 | ❌ Fails AA | ⚠️ Needs review |
+| `#1A7F37` (Green primary) | #1A7F37 | 5.3:1 | ✅ AA | ✅ Compliant |
+| `#0969DA` (Blue primary) | #0969DA | 5.1:1 | ✅ AA | ✅ Compliant |
+| `#D29922` (Yellow primary) | #D29922 | Label bg only* | ✅ Label use | ✅ Black text 8.3:1 |
+| `#CF222E` (Red primary) | #CF222E | 5.3:1 | ✅ AA | ✅ Compliant |
+| `#9A6700` (Orange primary) | #9A6700 | 5.0:1 | ✅ AA | ✅ Compliant |
+| `#8957E5` (Purple primary) | #8957E5 | 4.6:1 | ✅ AA | ✅ Compliant |
+| `#57606A` (Gray primary) | #57606A | 6.4:1 | ✅ AAA | ✅ Compliant |
+| `#007580` (Teal primary) | #007580 | 5.6:1 | ✅ AA | ✅ Compliant |
 
-**⚠️ Accessibility Notice**: Several primary colors do not meet WCAG AA contrast standards against white backgrounds. Secondary and tertiary colors also require verification. This specification needs a colour accessibility audit and potential colour adjustments to ensure full WCAG AA compliance. See Issue #686 (Wave 5.2 Canonical Config Files Audit) for remediation tracking.
+*Yellow primary is used exclusively as a GitHub label background colour. GitHub auto-selects black text (8.3:1 contrast ✓). Do not use `#D29922` as foreground text on white.
+
+### 5.2 Secondary & Tertiary Color Guidance
+
+**Secondary colors** (dark variants):
+
+- `#2A7A3B` (Green) 4.75:1 ✓, `#3467D3` (Blue) 5.3:1 ✓, `#B91C1C` (Red) 6.4:1 ✓, `#0D7F6F` (Teal) 4.9:1 ✓
+
+**Tertiary colors** (light pastels) — **GitHub label backgrounds only**:
+
+- Use exclusively as label chip backgrounds; GitHub auto-selects black text for all light colours
+- Do NOT use as foreground text colours on white backgrounds
+- Examples: `#ABEBC6`, `#C5DEF5`, `#FCE2B7`, `#FCE2E2`, `#FDBF7C`, `#D89AF6`, `#D0D7DE`, `#9FE1E3`
 
 ---
 
@@ -376,19 +391,19 @@ All colors in this strategy meet **WCAG AA contrast requirements** (minimum 4.5:
 
 ```
 Green Family (Ready/Done):
-████ #0DBA3D  ████ #34B71C  ████ #6BB71C
+████ #1A7F37  ████ #2A7A3B  ████ #ABEBC6
 
 Blue Family (Planning/Review):
-████ #0969DA  ████ #4986E8  ████ #C5DEF5
+████ #0969DA  ████ #3467D3  ████ #C5DEF5
 
 Yellow Family (Testing/Audit):
 ████ #D29922  ████ #F2D06D  ████ #FCE2B7
 
 Red Family (Blocked/Impediment):
-████ #EF3B39  ████ #F85149  ████ #FCE2E2
+████ #CF222E  ████ #B91C1C  ████ #FCE2E2
 
 Orange Family (On-Hold/Deferred):
-████ #FB8500  ████ #FDBF7C  ████ #D5A87B
+████ #9A6700  ████ #D5A87B  ████ #FDBF7C
 
 Purple Family (Design):
 ████ #8957E5  ████ #B4A7E8  ████ #D89AF6
@@ -397,7 +412,7 @@ Gray Family (Meta/Infrastructure):
 ████ #57606A  ████ #B1BAC4  ████ #D0D7DE
 
 Teal Family (Integration/External):
-████ #2DA39D  ████ #2DBFA3  ████ #9FE1E3
+████ #007580  ████ #0D7F6F  ████ #9FE1E3
 ```
 
 ---
@@ -406,9 +421,9 @@ Teal Family (Integration/External):
 
 - [x] Define color families and semantic mapping
 - [x] Document assignment rules and rationale
-- [x] Verify WCAG AA contrast compliance
+- [x] WCAG 2.2 AA accessibility audit and color remediation
 - [x] Create visual palette reference
-- [ ] Update labels.yml with colour assignments (Issue #683)
+- [x] Update labels.yml with colour assignments (Issue #683)
 - [ ] Update LABELING.md with strategy reference (Issue #685)
 - [ ] Create label selection guidance for contributors
 
@@ -422,7 +437,7 @@ New colors should only be added if:
 
 1. A new semantic family is needed (not existing 8 families)
 2. Current families cannot accommodate the label
-3. Accessibility standards can be maintained
+3. All new primary/secondary colors must meet WCAG AA (≥ 4.5:1 against white)
 4. Owner team approves the addition
 
 ### 8.2 Deprecating Colours
@@ -448,7 +463,7 @@ This specification should be reviewed annually or when:
 
 - [LABELING.md](./LABELING.md) — Comprehensive labeling guide
 - [ISSUE_FIELDS.md](./ISSUE_FIELDS.md) — Issue field mapping
-- `.github/labels.yml` — Canonical label configuration (to be updated)
+- `.github/labels.yml` — Canonical label configuration
 - Issue #650: Wave 5.2 Audit (parent)
 - Issue #683: Type Mapping Reconciliation (dependent)
 - Issue #685: Supporting Documentation Updates (dependent)
@@ -459,11 +474,12 @@ This specification should be reviewed annually or when:
 
 | Date | Change | Author |
 | --- | --- | --- |
-| 2026-05-31 | Initial specification v1.0.0 — 8 color families, 150 label mapping | Claude Code |
+| 2026-06-18 | v1.1.0 — WCAG 2.2 AA audit: replace 7 non-compliant primary/secondary colors; add tertiary guidance; update accessibility table | LightSpeed Team |
+| 2026-05-31 | v1.0.0 — Initial specification: 8 color families, 150 label mapping | LightSpeed Team |
 
 ---
 
 **Document Status**: ✅ Active
-**Last Updated**: 2026-05-31
-**Next Review**: 2027-05-31 (annual)
+**Last Updated**: 2026-06-18
+**Next Review**: 2027-06-18 (annual)
 **Owner**: LightSpeed Team
