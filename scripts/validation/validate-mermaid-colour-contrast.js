@@ -20,18 +20,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "../../");
 
 const WCAG_AA_NORMAL_TEXT = 4.5;
-const WCAG_AA_LARGE_TEXT = 3.0;
-
-// Mermaid default text colours per theme (approximations).
-// When no explicit `color` is set, the renderer uses these.
-const MERMAID_THEME_TEXT_DEFAULTS = {
-  default: "#333333",
-  base: "#333333",
-  neutral: "#333333",
-  dark: "#ffffff", // dark mode renders white text — this is the failure case
-  forest: "#333333",
-  "high-contrast": "#000000",
-};
 
 const getMarkdownFiles = () =>
   globSync("**/*.{md,mdx}", {

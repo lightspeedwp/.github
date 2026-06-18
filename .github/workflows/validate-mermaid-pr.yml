@@ -109,8 +109,10 @@ jobs:
       - name: Validate colour contrast (WCAG 2.2 AA)
         id: contrast
         if: steps.has_diagrams.outputs.result == 'true'
+        env:
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
-          CHANGED="${{ steps.changed.outputs.files }}"
+          CHANGED="$CHANGED_FILES"
           CHANGED_CSV=$(echo "$CHANGED" | tr '\n' ',' | sed 's/,$//')
           node scripts/validation/validate-mermaid-colour-contrast.js --changed-files="$CHANGED_CSV"
         continue-on-error: true

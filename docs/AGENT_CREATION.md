@@ -3,7 +3,7 @@ file_type: documentation
 title: Agent Specification Authoring Guide
 description: Comprehensive guide for creating, documenting, and maintaining agent
   specification files following LightSpeed standards
-version: 'v1.3'
+version: 'v1.4'
 created_date: '2025-01-15'
 last_updated: '2026-06-18'
 author: LightSpeed Team
@@ -108,6 +108,12 @@ agents/{agent-name}.agent.md
 ## Agent Specification Architecture
 
 ```mermaid
+---
+accTitle: Agent specification architecture
+accDescr {
+  Three-layer architecture showing Agent Specification (YAML frontmatter, purpose, responsibilities, process flow, guardrails, integration, references), Implementation (agent code, utilities, tests), and Automation (workflows, triggers, validation) with their interconnections.
+}
+---
 graph TB
     subgraph "📝 Agent Specification"
         A[YAML Frontmatter]
@@ -180,6 +186,12 @@ Create a new agent when:
 ### Mermaid: Should You Create a New Agent?
 
 ```mermaid
+---
+accTitle: Decision flow for creating a new agent
+accDescr {
+  Decision tree that checks whether a workflow is deterministic, whether an existing agent covers the scope, whether guardrails can prevent harm, and whether a maintainer will own the lifecycle. Each no branch stops agent creation; all yes branches proceed to a spec draft.
+}
+---
 flowchart TD
     A([New Workflow Identified]) --> B{Is it deterministic?}
     B -->|No| N1[Do NOT create agent]
@@ -211,6 +223,10 @@ Before drafting a spec:
 ### Mermaid: Pre-Creation Review Path
 
 ```mermaid
+---
+accTitle: Pre-creation review checklist path
+accDescr: Left-to-right pipeline from Start through Define Problem, Assess Overlap, Define Tools and Permissions, Define Guardrails, Assign Owner, then a decision — either Stop to Revise Concept or proceed to Write Spec File.
+---
 flowchart LR
     Start([Start]) --> Check1[Define Problem]
     Check1 --> Check2[Assess Overlap]
@@ -299,6 +315,10 @@ Frontmatter `owners:` must map to a team or individual who is responsible for:
 ### Mermaid: Approval Workflow
 
 ```mermaid
+---
+accTitle: Agent approval workflow
+accDescr: Top-down flow from Spec Drafted through Frontmatter Validation, Add to Agent Index, Maintainer Review, Governance Review, to an Approved decision — yes leads to Merge and Begin Implementation, no returns the spec to the author.
+---
 flowchart TD
     A([Spec Drafted]) --> B[Frontmatter Validation]
     B --> C[Add to Agent Index]
@@ -342,6 +362,12 @@ Frontmatter is **machine-validated**. Errors break CI.
 ### Mermaid: Frontmatter Scope Map
 
 ```mermaid
+---
+accTitle: Agent frontmatter fields scope map
+accDescr {
+  Mind map centred on Frontmatter with four branches: Required fields (file_type, name, description, version, last_updated, owners), Recommended fields (category, status, visibility, tools), Agent-Specific fields (handoffs, references, metadata.guardrails), and Validation rules (semantic versioning, ISO date, unique naming).
+}
+---
 mindmap
   root((Frontmatter))
     Required
@@ -392,6 +418,12 @@ mindmap
 ### Mermaid: Full Publishing Pipeline
 
 ```mermaid
+---
+accTitle: Agent publishing pipeline sequence
+accDescr {
+  Sequence diagram showing interactions between Human Author, CI Validation, GitHub Repo, and Governance Reviewer — from drafting the spec through validation, commit, PR, governance review, implementation, CI validation, to merge readiness.
+}
+---
 sequenceDiagram
     participant H as Human Author
     participant CI as CI Validation
@@ -463,6 +495,10 @@ CI quality gates:
 To avoid premature complexity, agents evolve through stages:
 
 ```mermaid
+---
+accTitle: Agent lifecycle maturity stages
+accDescr: Linear left-to-right progression through five lifecycle stages — Draft, Prototype, Active, Mature, and Deprecated.
+---
 flowchart LR
     Draft --> Prototype --> Active --> Mature --> Deprecated
 ```
@@ -511,6 +547,10 @@ Example patterns:
 #### Mermaid: Handoff Example
 
 ```mermaid
+---
+accTitle: Agent handoff example
+accDescr: Top-down flow showing the Labeling Agent reaching a Conditions Met decision — yes routes to the Reviewer Agent, no results in No Handoff.
+---
 flowchart TD
     A[Labeling Agent] --> B{Conditions Met?}
     B -->|Yes| C[Reviewer Agent]
