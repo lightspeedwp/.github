@@ -84,7 +84,7 @@ function resolveBranchName() {
       stdio: ["ignore", "pipe", "ignore"],
       encoding: "utf8",
     }).trim();
-  } catch {
+  } catch (_err) {
     return "";
   }
 }

@@ -4,7 +4,7 @@ title: Repo-local Copilot Instructions
 description: Repo-local Copilot and agent instructions for maintaining the LightSpeed .github control-plane repository.
 mode: agent
 version: v1.2
-last_updated: '2026-06-09'
+last_updated: '2026-06-18'
 owners:
   - LightSpeed Team
 tags:
