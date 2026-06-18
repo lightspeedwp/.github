@@ -63,6 +63,7 @@ module.exports = {
         '<rootDir>/logs/',
         '<rootDir>/tmp/',
         '<rootDir>/.cache/',
+        '<rootDir>/.claude/',
         '<rootDir>/.husky/',
         '<rootDir>/.vercel/',
         '<rootDir>/.netlify/',

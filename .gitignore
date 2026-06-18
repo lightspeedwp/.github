@@ -20,6 +20,9 @@ metrics/out/
 .env.*
 !.env.example
 
+# Claude Code internal directory (worktrees, session data)
+.claude/
+
 # IDE and editor files
 # .vscode/*
 # .vscode/extensions.json

@@ -2,7 +2,7 @@
 title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
 file_type: documentation
-version: "2.8"
+version: "2.7"
 last_updated: "2026-06-18"
 created_date: "2025-12-04"
 owners:
@@ -420,7 +420,7 @@ accDescr: "Detailed flowchart showing script execution lifecycle from dependency
 
     style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
     style I fill:#dcfce7,color:#14532d,stroke:#14532d
-    style O fill:#dcfce7,color:#14532d,stroke:#14532d
+    style O fill:#ecfdf5,color:#064e3b,stroke:#059669
     style N fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 ```
 
@@ -450,7 +450,7 @@ When contributing new scripts or modifications:
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../schema/)
-- [Test Coverage Reports](../docs/TESTING.md#coverage-requirements)
+- [Test Coverage Reports](../tests/README.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References
