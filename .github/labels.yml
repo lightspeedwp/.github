@@ -31,7 +31,7 @@
   description: "Work in progress"
 
 - name: status:on-hold
-  color: FDBF7C
+  color: 9A6700
   description: "Work on hold"
 
 - name: status:needs-design
