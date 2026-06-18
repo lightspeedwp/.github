@@ -31,7 +31,9 @@ This directory contains version-controlled JSON definitions of the GitHub reposi
   - Deletion blocked
   - Non-fast-forward merges (force pushes) blocked
   - Pull request required before merging (1 approval, dismiss stale approvals, resolve conversations, respect Code Owners)
-  - Required status check: `All Checks Passed`
+  - Required status checks:
+    - `Validate PR Template / validate-pr-template`
+    - `CI • Unified Checks (Lint, Test, Validate) / All Checks Passed`
 
 ### 2. `main` Branch Ruleset ([main.ruleset.json](./main.ruleset.json))
 
