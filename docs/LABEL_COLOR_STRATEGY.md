@@ -53,10 +53,10 @@ The current label set uses eight accessible colour families:
 ## 2. Assignment Rules
 
 1. Keep one primary colour family per label family.
-1. Use the same family for related labels so the taxonomy is easy to scan.
-1. Prefer the canonical palette above when creating or updating labels.
-1. Do not introduce ad hoc colours for one-off labels unless a new governance decision is logged.
-1. If a new family is genuinely required, document the rationale and add it through the normal label governance flow.
+2. Use the same family for related labels so the taxonomy is easy to scan.
+3. Prefer the canonical palette above when creating or updating labels.
+4. Do not introduce ad hoc colours for one-off labels unless a new governance decision is logged.
+5. If a new family is genuinely required, document the rationale and add it through the normal label governance flow.
 
 ### 2.1 Family Guidance
 

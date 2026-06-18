@@ -2,7 +2,7 @@
 title: Label Strategy & Governance
 description: Comprehensive label strategy defining the taxonomy, colour families, assignment rules, and maintenance processes for 158 canonical labels
 file_type: documentation
-version: v1.0.1
+version: v1.0.2
 created_date: '2026-05-31'
 last_updated: '2026-06-18'
 authors:
@@ -24,7 +24,7 @@ stability: stable
 
 # Label Strategy & Governance
 
-**Version**: v1.0.1
+**Version**: v1.0.2
 **Created**: 2026-05-31
 **Owner**: LightSpeed Team
 **Reference Config**: `.github/labels.yml`, `.github/labeler.yml`

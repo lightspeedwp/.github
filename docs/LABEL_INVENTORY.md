@@ -2,7 +2,7 @@
 title: Label Inventory — Complete Reference
 description: Complete inventory of all 158 canonical labels organized by semantic family, with color codes, descriptions, and usage guidance
 file_type: documentation
-version: v1.1.1
+version: v1.1.2
 created_date: '2026-05-31'
 last_updated: '2026-06-18'
 authors:
@@ -24,7 +24,7 @@ stability: stable
 
 # Label Inventory — Complete Reference
 
-**Version**: v1.1.1
+**Version**: v1.1.2
 **Created**: 2026-05-31
 **Last Updated**: 2026-06-18
 **Total Labels**: 158

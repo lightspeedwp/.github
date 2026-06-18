@@ -396,7 +396,7 @@
   description: "Analytics & tracking"
 
 - name: area:infrastructure
-  color: 147169
+  color: "147169"
   description: "Infrastructure / hosting / platform"
 
 - name: area:automation
@@ -438,7 +438,7 @@
     - ci
 
 - name: area:deployment
-  color: 147169
+  color: "147169"
   description: "Deploy/release operations"
 
 - name: area:dependencies
