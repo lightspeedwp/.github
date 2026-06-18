@@ -46,8 +46,10 @@ For advanced usage, see the [Issue Template Index](./README.md) and individual t
 ## 🗂️ Issue Template Workflow
 
 ```mermaid
+---
 accTitle: Issue template workflow
-accDescr: Shows how users select an issue template, auto-populated fields flow into issue creation, and automation routes the issue to labelling, project, and notification steps.
+accDescr: Shows the flow from user selecting a template through auto-labeling, agent processing, and routing to project boards.
+---
 flowchart TD
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]
@@ -61,15 +63,15 @@ flowchart TD
     F --> G
 
     G --> H[Issue Creation]
-    H --> I[Agent Processing]
+    H --> I[⚙️ Agent Processing]
 
-    I --> J[Auto-labeling]
+    I --> J[🏷️ Auto-labeling]
     I --> K[Issue Type Assignment]
-    I --> L[Project Board Assignment]
+    I --> L[📊 Project Board]
     I --> M[Notification Routing]
 
     N[Template Sync] --> O[All Org Repos]
-    P[Automation Agents] --> I
+    P[🤖 Automation Agents] --> I
     Q[Label System] --> J
     R[Project Management] --> L
 

@@ -2,8 +2,8 @@
 file_type: documentation
 title: LightSpeed Community Health & Automation Repository
 description: Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution.
-version: '3.1'
-last_updated: '2026-06-18'
+version: '2.9'
+last_updated: '2026-06-03'
 owners:
   - LightSpeed Team
 tags:
@@ -125,11 +125,9 @@ tests/ # Test suites
 The diagram below highlights how the key .github directories (community health, automation, labeling, AI, documentation, and testing) interconnect to uphold LightSpeed governance, automation, and quality practices.
 
 ```mermaid
----
+graph TD
 accTitle: Repository architecture overview
 accDescr: High-level view of the .github repository structure, showing community health files, automation workflows, canonical labels, AI/collaboration resources, supporting documentation, and testing artefacts.
----
-flowchart TD
     A[🏠 LightSpeed .github Repository] --> B[📁 Community Health Files]
     A --> C[🤖 Automation & Workflows]
     A --> D[🏷️ Labels & Issue Types]
@@ -169,17 +167,17 @@ flowchart TD
     G --> Q[E2E Tests]
     G --> R[Coverage Reports]
 
-    classDef core fill:#f1f5f9,color:#0f172a,stroke:#334155
-    classDef docs fill:#dcfce7,color:#14532d,stroke:#14532d
-    classDef automation fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
-    classDef automation-sub fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
-    classDef label fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
-    classDef label-sub fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
-    classDef ai fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
-    classDef ai-sub fill:#fef3c7,color:#4a2c00,stroke:#b45309
-    classDef docs-sub fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
-    classDef testing fill:#dcfce7,color:#14532d,stroke:#14532d
-    classDef testing-sub fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    classDef core fill:#e2e8f0,stroke:#0f172a,color:#0f172a
+    classDef docs fill:#d1fae5,stroke:#0f172a,color:#0f172a
+    classDef automation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
+    classDef automation-sub fill:#c7d2fe,stroke:#0f172a,color:#0f172a
+    classDef label fill:#fee2e2,stroke:#0f172a,color:#0f172a
+    classDef label-sub fill:#ffe4e6,stroke:#0f172a,color:#0f172a
+    classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a
+    classDef ai-sub fill:#fef3c7,stroke:#0f172a,color:#0f172a
+    classDef docs-sub fill:#e0f2fe,stroke:#0f172a,color:#0f172a
+    classDef testing fill:#ecfccb,stroke:#0f172a,color:#0f172a
+    classDef testing-sub fill:#bae6fd,stroke:#0f172a,color:#0f172a
 
     class A core
     class B core
@@ -226,11 +224,9 @@ flowchart TD
 The next diagram tracks how repository inheritance feeds automation and AI integration phases to uphold consistent governance across LightSpeed repositories.
 
 ```mermaid
----
+flowchart LR
 accTitle: Inheritance and automation flow
 accDescr: Shows how canonical community health files propagate through automation workflows and AI integration to enforce labels, standards, and governance.
----
-flowchart LR
   subgraph "Repository Inheritance"
     A[LightSpeed Repo] --> B[Inherits Health Files]
     B --> C[Applies Labels & Types]
@@ -251,11 +247,11 @@ flowchart LR
     M --> N[Quality Assurance]
   end
 
-  classDef repo fill:#f1f5f9,color:#0f172a,stroke:#334155
-  classDef automation fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
-  classDef ai fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
-  classDef development fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
-  classDef review fill:#fef3c7,color:#4a2c00,stroke:#b45309
+  classDef repo fill:#e2e8f0,stroke:#0f172a,color:#0f172a
+  classDef automation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
+  classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a
+  classDef development fill:#c7d2fe,stroke:#0f172a,color:#0f172a
+  classDef review fill:#fef3c7,stroke:#0f172a,color:#0f172a
 
   class A repo
   class B repo
@@ -280,11 +276,9 @@ flowchart LR
 This flowchart walks through the development workflow (lint, test, coverage, deployment) and shows how failures redirect engineers back to fix issues before progressing.
 
 ```mermaid
----
+flowchart TD
 accTitle: Development workflow process
 accDescr: The diagram shows code changes entering pre-commit hooks, passing lint/test stages, generating coverage, and finally pushing through CI/CD and deployment.
----
-flowchart TD
     A[📝 Code Change] --> B[🔍 Pre-commit Hooks]
     B --> C{🎯 Linting Pass?}
     C -->|❌ No| D[🛠️ Fix Issues]
@@ -299,11 +293,11 @@ flowchart TD
     J --> K[🚀 CI/CD Pipeline]
     K --> L[🌐 Deploy/Merge]
 
-    classDef change fill:#f1f5f9,color:#0f172a,stroke:#334155
-    classDef hook fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
-    classDef test fill:#dcfce7,color:#14532d,stroke:#14532d
-    classDef check fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
-    classDef deployment fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    classDef change fill:#e2e8f0,stroke:#0f172a,color:#0f172a
+    classDef hook fill:#d9f2ff,stroke:#0f172a,color:#0f172a
+    classDef test fill:#d1fae5,stroke:#0f172a,color:#0f172a
+    classDef check fill:#c7d2fe,stroke:#0f172a,color:#0f172a
+    classDef deployment fill:#f3e8ff,stroke:#0f172a,color:#0f172a
 
     class A change
     class B hook
@@ -326,11 +320,9 @@ flowchart TD
 The sequence diagram below traces how a developer push triggers AI agents, workflows, and validation gates that close the loop with repository feedback.
 
 ```mermaid
----
+sequenceDiagram
 accTitle: AI and automation integration pipeline
 accDescr: Visualizes how developer pushes trigger AI automation, workflow execution, validation checks, and status updates back to the repository.
----
-sequenceDiagram
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Repository
     participant AI as 🤖 AI Agent
@@ -355,11 +347,9 @@ This comprehensive workflow diagram illustrates the complete ecosystem of the Li
 ### Complete Repository Ecosystem Flow
 
 ```mermaid
----
-accTitle: Repository ecosystem overview
-accDescr: Comprehensive view of the .github repository ecosystem, showing core structure, automation pipelines, quality gates, and organization-wide impact across all component areas.
----
-flowchart TD
+flowchart TB
+accTitle: "Repository ecosystem overview"
+accDescr: "Comprehensive view of the .github repository ecosystem, showing core structure, automation pipelines, quality gates, and organization-wide impact across all component areas."
     subgraph "📁 Core Repository Structure"
         A[🏠 .github Repository]
         B[📋 Community Health Files]
@@ -420,18 +410,16 @@ flowchart TD
 
     style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
     style C fill:#dcfce7,color:#14532d,stroke:#14532d
-    style E fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style E fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
     style S fill:#fef3c7,color:#4a2c00,stroke:#b45309
 ```
 
 ### Repository Maintenance & Update Cycle
 
 ```mermaid
----
-accTitle: Repository maintenance and update state machine
-accDescr: State diagram showing the content update lifecycle from initial content updates through validation, testing, quality checks, review, approval, and deployment with org-wide synchronization.
----
 stateDiagram-v2
+accTitle: "Repository maintenance and update state machine"
+accDescr: "State diagram showing the content update lifecycle from initial content updates through validation, testing, quality checks, review, approval, and deployment with org-wide synchronization."
     [*] --> ContentUpdate
     ContentUpdate --> ValidationPending
     ValidationPending --> TestsRunning
@@ -477,11 +465,9 @@ All code quality, formatting, and automation standards are documented and enforc
 ### Testing Architecture & Flow
 
 ```mermaid
----
-accTitle: Testing architecture and quality gates
-accDescr: Testing architecture showing test types, tools, and quality gates with relationships between unit tests, integration tests, end-to-end tests, and coverage reporting through Jest, Playwright, Bats, and coverage tools.
----
 flowchart LR
+accTitle: "Testing architecture and quality gates"
+accDescr: "Testing architecture showing test types, tools, and quality gates with relationships between unit tests, integration tests, end-to-end tests, and coverage reporting through Jest, Playwright, Bats, and coverage tools."
     subgraph "🧪 Test Types"
         A[Unit Tests]
         B[Integration Tests]

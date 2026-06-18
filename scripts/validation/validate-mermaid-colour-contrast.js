@@ -210,7 +210,7 @@ function parseStyleDeclarations(diagramRaw) {
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    // Strip inline comments to avoid false positives
+    // Strip inline %% comments before parsing to avoid false positives
     const cleanLine = line.split("%%")[0];
     // Match `style <NodeId> <properties>`
     const styleMatch = cleanLine.match(/^\s*style\s+(\S+)\s+(.+)/);
@@ -251,7 +251,10 @@ function validateStyleContrast(styleDecl, theme) {
 
   const fillHex = parseColour(fill);
   if (!fillHex) {
-    // Cannot validate non-hex / CSS variable fills — skip silently
+    issues.push({
+      level: "error",
+      message: `Node "${nodeId}": fill "${fill}" could not be parsed as a valid colour. Use a 3 or 6-digit hex value from the approved palette.`,
+    });
     return issues;
   }
 
@@ -292,7 +295,13 @@ function validateStyleContrast(styleDecl, theme) {
   }
 
   const colorHex = parseColour(color);
-  if (!colorHex) return issues;
+  if (!colorHex) {
+    issues.push({
+      level: "error",
+      message: `Node "${nodeId}": color "${color}" could not be parsed as a valid colour. Use a 3 or 6-digit hex value from the approved palette.`,
+    });
+    return issues;
+  }
 
   const ratio = contrastRatio(fillHex, colorHex);
   if (ratio < WCAG_AA_NORMAL_TEXT) {
