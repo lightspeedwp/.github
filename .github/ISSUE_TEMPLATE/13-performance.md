@@ -1,9 +1,10 @@
 ---
 file_type: "issue-template"
 name: "⚡ Performance"
-description: "Report performance-related issues (speed, efficiency, resource usage) or propose optimizations."
-version: "1.0.0"
-last_updated: "2026-05-29"
+about: "Report performance-related issues (speed, efficiency, resource usage) or propose optimisations."
+description: "Report performance-related issues (speed, efficiency, resource usage) or propose optimisations."
+version: "1.0.2"
+last_updated: "2026-06-18"
 category: "github-templates"
 ---
 
