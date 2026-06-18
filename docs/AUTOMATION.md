@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Automation & Workflows"
 description: "Strategy, governance, and workflow documentation for GitHub automation in LightSpeed repositories."
-version: "v1.0.2"
-last_updated: "2026-06-08"
+version: "v1.0.3"
+last_updated: "2026-06-18"
 owners: ["LightSpeedWP Team"]
 tags: ["automation", "workflows", "governance", "agents"]
 status: "active"
@@ -74,7 +74,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | **changelog-validate.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
-| **project-meta-sync.yml** | develop | Sync project board with PR/issue status | project-meta-sync.agent.js |
+| **project-meta-sync.yml** | develop | Sync project board with PR/issue labels, status, priority, type, and supported project fields | project-meta-sync.agent.js |
 | **checklist-finalisation.yml** | issues.closed / pull_request_target.closed | Final checklist sync for completed issues and merged PRs | workflow backstop |
 | **release.yml** | main | Versioning, changelog generation, tagging, and release notes | release.agent.js |
 | **reporting.yml** | develop | Generate metrics and activity reports | reporting.agent.js |
@@ -147,7 +147,7 @@ The labelling agent enforces canonical label usage:
 
 Issue types are defined once in `.github/issue-types.yml` and used by both:
 
-- **Issue templates:** Pre-populate the `type` field (maps to `type:*` labels)
+- **Issue templates:** Provide the canonical template selection and body guidance for the intended `type:*`
 - **Labelling agent:** Auto-applies `type:*` labels based on issue type field and content heuristics
 
 **Enforcement:** One type per issue (one-hot principle); issue type field mirrors `type:*` label for consistency.
