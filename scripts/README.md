@@ -2,8 +2,8 @@
 title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
 file_type: documentation
-version: "2.6"
-last_updated: "2026-06-01"
+version: "2.7"
+last_updated: "2026-06-18"
 created_date: "2025-12-04"
 owners:
   - LightSpeedWP Team
@@ -29,9 +29,11 @@ This directory contains all automation, utility, and maintenance scripts for the
 ## Scripts Architecture
 
 ```mermaid
-graph TB
-accTitle: "Scripts and automation directory architecture"
-accDescr: "Shows the hierarchical structure of scripts directory including awesome-copilot, includes, validation, maintenance, and projects folders with their core utilities, test helpers, and integrations with GitHub Actions and CI/CD pipeline."
+---
+accTitle: Scripts and automation directory architecture
+accDescr: Shows the hierarchical structure of scripts directory including awesome-copilot, includes, validation, maintenance, and projects folders with their core utilities, test helpers, and integrations with GitHub Actions and CI/CD pipeline.
+---
+flowchart TD
     A[Scripts Directory] --> B[awesome-copilot/]
     A --> V[audit/]
     A --> C[includes/]
@@ -58,17 +60,19 @@ accDescr: "Shows the hierarchical structure of scripts directory including aweso
     T[Pre-commit Hooks] --> A
     U[CI/CD Pipeline] --> A
 
-    style A fill:#e1f5fe
-    style C fill:#f3e5f5
-    style S fill:#e8f5e8
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style C fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style S fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ## Automation Workflow
 
 ```mermaid
+---
+accTitle: Scripts and automation workflow sequence
+accDescr: Sequential flow showing developer executing scripts, loading utilities, validating inputs, performing operations, running tests, triggering CI/CD workflows, and deployment with completion notification.
+---
 sequenceDiagram
-accTitle: "Scripts and automation workflow sequence"
-accDescr: "Sequential flow showing developer executing scripts, loading utilities, validating inputs, performing operations, running tests, triggering CI/CD workflows, and deployment with completion notification."
     participant Dev as Developer
     participant Scripts as Scripts System
     participant Tests as Test Suite
@@ -399,9 +403,11 @@ Refer to `../CHANGELOG.md` for release context and automation evolution.
 ## Script Execution Flow
 
 ```mermaid
+---
+accTitle: Script execution flow and lifecycle
+accDescr: Detailed flowchart showing script execution lifecycle from dependency checking, includes loading, CLI argument parsing, input validation, main logic execution, test running, and exit handling with error and success paths.
+---
 flowchart TD
-accTitle: "Script execution flow and lifecycle"
-accDescr: "Detailed flowchart showing script execution lifecycle from dependency checking, includes loading, CLI argument parsing, input validation, main logic execution, test running, and exit handling with error and success paths."
     A[Script Execution] --> B{Check Dependencies}
     B -->|Missing| C[Install Dependencies]
     B -->|Available| D[Load Includes]
@@ -418,10 +424,10 @@ accDescr: "Detailed flowchart showing script execution lifecycle from dependency
     L --> N[Exit with Error]
     M --> O[Exit Successfully]
 
-    style A fill:#e1f5fe
-    style I fill:#e8f5e8
-    style O fill:#c8e6c9
-    style N fill:#ffcdd2
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style I fill:#dcfce7,color:#14532d,stroke:#14532d
+    style O fill:#ecfdf5,color:#064e3b,stroke:#059669
+    style N fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 ```
 
 ## Contributing
@@ -450,7 +456,7 @@ When contributing new scripts or modifications:
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../schema/)
-- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
+- [Test Coverage Reports](../tests/README.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References

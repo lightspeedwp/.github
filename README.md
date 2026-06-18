@@ -2,8 +2,8 @@
 file_type: documentation
 title: LightSpeed Community Health & Automation Repository
 description: Central hub for LightSpeed organization's community health files, automation standards, label management, governance documentation, and org-wide resources for GitHub usage and contribution.
-version: '2.9'
-last_updated: '2026-06-03'
+version: '3.0'
+last_updated: '2026-06-18'
 owners:
   - LightSpeed Team
 tags:
@@ -125,9 +125,11 @@ tests/ # Test suites
 The diagram below highlights how the key .github directories (community health, automation, labeling, AI, documentation, and testing) interconnect to uphold LightSpeed governance, automation, and quality practices.
 
 ```mermaid
-graph TD
+---
 accTitle: Repository architecture overview
 accDescr: High-level view of the .github repository structure, showing community health files, automation workflows, canonical labels, AI/collaboration resources, supporting documentation, and testing artefacts.
+---
+flowchart TD
     A[🏠 LightSpeed .github Repository] --> B[📁 Community Health Files]
     A --> C[🤖 Automation & Workflows]
     A --> D[🏷️ Labels & Issue Types]
@@ -224,9 +226,11 @@ accDescr: High-level view of the .github repository structure, showing community
 The next diagram tracks how repository inheritance feeds automation and AI integration phases to uphold consistent governance across LightSpeed repositories.
 
 ```mermaid
-flowchart LR
+---
 accTitle: Inheritance and automation flow
 accDescr: Shows how canonical community health files propagate through automation workflows and AI integration to enforce labels, standards, and governance.
+---
+flowchart LR
   subgraph "Repository Inheritance"
     A[LightSpeed Repo] --> B[Inherits Health Files]
     B --> C[Applies Labels & Types]
@@ -276,9 +280,11 @@ accDescr: Shows how canonical community health files propagate through automatio
 This flowchart walks through the development workflow (lint, test, coverage, deployment) and shows how failures redirect engineers back to fix issues before progressing.
 
 ```mermaid
-flowchart TD
+---
 accTitle: Development workflow process
 accDescr: The diagram shows code changes entering pre-commit hooks, passing lint/test stages, generating coverage, and finally pushing through CI/CD and deployment.
+---
+flowchart TD
     A[📝 Code Change] --> B[🔍 Pre-commit Hooks]
     B --> C{🎯 Linting Pass?}
     C -->|❌ No| D[🛠️ Fix Issues]
@@ -320,9 +326,11 @@ accDescr: The diagram shows code changes entering pre-commit hooks, passing lint
 The sequence diagram below traces how a developer push triggers AI agents, workflows, and validation gates that close the loop with repository feedback.
 
 ```mermaid
-sequenceDiagram
+---
 accTitle: AI and automation integration pipeline
 accDescr: Visualizes how developer pushes trigger AI automation, workflow execution, validation checks, and status updates back to the repository.
+---
+sequenceDiagram
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Repository
     participant AI as 🤖 AI Agent
@@ -347,9 +355,11 @@ This comprehensive workflow diagram illustrates the complete ecosystem of the Li
 ### Complete Repository Ecosystem Flow
 
 ```mermaid
-flowchart TB
-accTitle: "Repository ecosystem overview"
-accDescr: "Comprehensive view of the .github repository ecosystem, showing core structure, automation pipelines, quality gates, and organization-wide impact across all component areas."
+---
+accTitle: Repository ecosystem overview
+accDescr: Comprehensive view of the .github repository ecosystem, showing core structure, automation pipelines, quality gates, and organization-wide impact across all component areas.
+---
+flowchart TD
     subgraph "📁 Core Repository Structure"
         A[🏠 .github Repository]
         B[📋 Community Health Files]
@@ -408,18 +418,20 @@ accDescr: "Comprehensive view of the .github repository ecosystem, showing core 
     D --> U
     G --> V
 
-    style A fill:#e1f5fe
-    style C fill:#e8f5e8
-    style E fill:#fce4ec
-    style S fill:#fff3e0
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style C fill:#dcfce7,color:#14532d,stroke:#14532d
+    style E fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style S fill:#fef3c7,color:#4a2c00,stroke:#b45309
 ```
 
 ### Repository Maintenance & Update Cycle
 
 ```mermaid
+---
+accTitle: Repository maintenance and update state machine
+accDescr: State diagram showing the content update lifecycle from initial content updates through validation, testing, quality checks, review, approval, and deployment with org-wide synchronization.
+---
 stateDiagram-v2
-accTitle: "Repository maintenance and update state machine"
-accDescr: "State diagram showing the content update lifecycle from initial content updates through validation, testing, quality checks, review, approval, and deployment with org-wide synchronization."
     [*] --> ContentUpdate
     ContentUpdate --> ValidationPending
     ValidationPending --> TestsRunning
@@ -465,9 +477,11 @@ All code quality, formatting, and automation standards are documented and enforc
 ### Testing Architecture & Flow
 
 ```mermaid
+---
+accTitle: Testing architecture and quality gates
+accDescr: Testing architecture showing test types, tools, and quality gates with relationships between unit tests, integration tests, end-to-end tests, and coverage reporting through Jest, Playwright, Bats, and coverage tools.
+---
 flowchart LR
-accTitle: "Testing architecture and quality gates"
-accDescr: "Testing architecture showing test types, tools, and quality gates with relationships between unit tests, integration tests, end-to-end tests, and coverage reporting through Jest, Playwright, Bats, and coverage tools."
     subgraph "🧪 Test Types"
         A[Unit Tests]
         B[Integration Tests]
@@ -499,9 +513,9 @@ accDescr: "Testing architecture showing test types, tools, and quality gates wit
     F --> K
     G --> L
 
-    style A fill:#e8f5e8
-    style C fill:#f3e5f5
-    style I fill:#e1f5fe
+    style A fill:#dcfce7,color:#14532d,stroke:#14532d
+    style C fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style I fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
 ```
 
 **Test Commands:**
