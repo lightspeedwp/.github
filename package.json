@@ -138,7 +138,7 @@
     "@babel/runtime": "^7.29.7",
     "@stoplight/spectral-cli": "^6.16.0",
     "@stoplight/spectral-core": "^1.23.0",
-    "@stoplight/spectral-functions": "^1.10.2",
+    "@stoplight/spectral-functions": "^1.10.3",
     "@typescript-eslint/eslint-plugin": "^8.60.1",
     "@typescript-eslint/parser": "^8.60.1",
     "ajv": "^8.17.1",
