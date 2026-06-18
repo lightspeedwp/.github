@@ -51,8 +51,9 @@ const TEMPLATE_TYPE_MAP = {
     primaryType: "type:improve",
     secondaryTypes: ["type:enhancement"],
   },
-  "08-user-experience-feedback.md": {
-    primaryType: "type:ux-feedback",
+  "08-chore.md": {
+    primaryType: "type:chore",
+    secondaryTypes: ["type:maintenance"],
   },
   "09-code-refactor.md": {
     primaryType: "type:refactor",
@@ -110,10 +111,6 @@ const TEMPLATE_TYPE_MAP = {
   },
   "25-content-modelling.md": {
     primaryType: "type:content-modelling",
-  },
-  "26-help.md": {
-    primaryType: "type:help",
-    secondaryTypes: ["type:question", "type:support"],
   },
 };
 
@@ -203,14 +200,19 @@ function normaliseTemplateLabels(labelsValue) {
   if (typeof labelsValue === "string") {
     return labelsValue
       .split(",")
-      .map((label) => label.replace(/['"\][]]/gu, "").trim())
+      .map((label) => label.replace(/['"[\]]/gu, "").trim())
       .filter(Boolean);
   }
 
   return [];
 }
 
-function validateTemplateFrontmatter(file, frontmatter, canonicalLabels, issueTypeLabels) {
+function validateTemplateFrontmatter(
+  file,
+  frontmatter,
+  canonicalLabels,
+  issueTypeLabels,
+) {
   const requiredKeys = [
     "file_type",
     "name",
@@ -225,7 +227,9 @@ function validateTemplateFrontmatter(file, frontmatter, canonicalLabels, issueTy
   }
 
   if (frontmatter.__error) {
-    throw new Error(`Invalid YAML frontmatter in ${file}: ${frontmatter.__error}`);
+    throw new Error(
+      `Invalid YAML frontmatter in ${file}: ${frontmatter.__error}`,
+    );
   }
 
   for (const key of requiredKeys) {
@@ -241,8 +245,8 @@ function validateTemplateFrontmatter(file, frontmatter, canonicalLabels, issueTy
   }
 
   const declaredLabels = normaliseTemplateLabels(frontmatter.labels);
-  const declaredTypes = normaliseTemplateLabels(frontmatter.type).filter((label) =>
-    label.startsWith("type:"),
+  const declaredTypes = normaliseTemplateLabels(frontmatter.type).filter(
+    (label) => label.startsWith("type:"),
   );
 
   for (const label of declaredLabels) {
@@ -253,7 +257,9 @@ function validateTemplateFrontmatter(file, frontmatter, canonicalLabels, issueTy
 
   for (const typeLabel of declaredTypes) {
     if (!issueTypeLabels.has(typeLabel)) {
-      throw new Error(`Unknown issue type "${typeLabel}" referenced in ${file}`);
+      throw new Error(
+        `Unknown issue type "${typeLabel}" referenced in ${file}`,
+      );
     }
   }
 }
@@ -290,7 +296,10 @@ function main() {
       mappedTypes.add(secondaryType);
     }
 
-    const content = fs.readFileSync(path.join(ISSUE_TEMPLATE_DIR, file), "utf8");
+    const content = fs.readFileSync(
+      path.join(ISSUE_TEMPLATE_DIR, file),
+      "utf8",
+    );
     const frontmatter = extractFrontmatter(content);
     validateTemplateFrontmatter(file, frontmatter, canonical, issueTypeLabels);
 
@@ -309,7 +318,9 @@ function main() {
         ...(mapping.secondaryTypes || []),
       ]);
 
-      const invalidTypes = declaredTypes.filter((typeLabel) => !allowedTypes.has(typeLabel));
+      const invalidTypes = declaredTypes.filter(
+        (typeLabel) => !allowedTypes.has(typeLabel),
+      );
       if (invalidTypes.length > 0) {
         console.error(`Unexpected template-to-type mapping in ${file}:`);
         for (const typeLabel of invalidTypes) console.error(`  - ${typeLabel}`);
@@ -318,10 +329,13 @@ function main() {
     }
   }
 
-  const unknownMappedTypes = [...mappedTypes].filter((typeLabel) => !issueTypeLabels.has(typeLabel));
+  const unknownMappedTypes = [...mappedTypes].filter(
+    (typeLabel) => !issueTypeLabels.has(typeLabel),
+  );
   if (unknownMappedTypes.length > 0) {
     console.error("Template map references unknown issue types:");
-    for (const typeLabel of unknownMappedTypes) console.error(`  - ${typeLabel}`);
+    for (const typeLabel of unknownMappedTypes)
+      console.error(`  - ${typeLabel}`);
     process.exit(1);
   }
 
