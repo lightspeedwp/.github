@@ -60,7 +60,13 @@ jobs:
           fi
 
           CHANGED=$(git diff --name-only "$BASE" "$HEAD" -- '*.md' '*.mdx' 2>/dev/null || git diff --name-only HEAD~1 HEAD -- '*.md' '*.mdx')
-          echo "files=$CHANGED" >> "$GITHUB_OUTPUT"
+
+          # Use heredoc syntax — plain `echo "files=..."` breaks on multi-line values
+          {
+            echo "files<<CHANGED_EOF"
+            echo "$CHANGED"
+            echo "CHANGED_EOF"
+          } >> "$GITHUB_OUTPUT"
 
           if [ -z "$CHANGED" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
