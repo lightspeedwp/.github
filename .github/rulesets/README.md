@@ -2,10 +2,10 @@
 file_type: documentation
 title: GitHub Branch Rulesets Configuration
 description: Overview and instructions for importing/updating the repository branch rulesets.
-last_updated: '2026-06-08'
+last_updated: '2026-06-18'
 owners:
   - LightSpeed Team
-version: v1.0
+version: v1.1
 status: active
 stability: stable
 domain: governance
