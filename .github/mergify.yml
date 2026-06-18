@@ -69,3 +69,5 @@ queue_rules:
     batch_size: 1
 merge_queue:
   max_parallel_checks: 3
+merge_protections_settings:
+  reporting_method: check-runs
