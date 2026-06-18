@@ -35,7 +35,7 @@ Do **not** force a diagram into a file where a simple list or paragraph is clear
 
 Every Mermaid block **must** include an accessibility header block placed immediately after the opening ` ```mermaid ` fence and before the diagram type declaration:
 
-```text
+````text
 ```mermaid
 ---
 accTitle: Short accessible title (max 80 chars)
@@ -44,11 +44,11 @@ accDescr: Single-sentence description for simple diagrams
 flowchart LR
     ...
 ```
-```
+````
 
 For complex diagrams, use the block form:
 
-```text
+````text
 ```mermaid
 ---
 accTitle: Complex workflow title
@@ -61,7 +61,7 @@ accDescr {
 flowchart TD
     ...
 ```
-```
+````
 
 **Rules:**
 
