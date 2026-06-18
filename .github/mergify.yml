@@ -65,5 +65,7 @@ queue_rules:
     merge_conditions:
       - check-success=All Checks Passed
     merge_method: squash
+  - name: Merge queue
+    batch_size: 1
 merge_queue:
   max_parallel_checks: 3
