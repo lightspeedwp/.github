@@ -144,6 +144,14 @@ jobs:
               mergedPr.labels || [],
               mergedPr.head?.ref || ''
             );
+            const author = mergedPr.user?.login || '';
+            const isDependabot = author === 'dependabot[bot]' || author === 'app/dependabot';
+
+            if (isDependabot) {
+              core.info(`Skipping template enforcement for Dependabot merged PR #${mergedPr.number}.`);
+              return;
+            }
+
             if (validation.missing.length === 0) {
               core.info(`Merged PR #${mergedPr.number} satisfies template enforcement.`);
               return;
