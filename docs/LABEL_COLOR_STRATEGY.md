@@ -54,11 +54,11 @@ This document defines a comprehensive color strategy for the 150 canonical label
 | --- | --- | --- | --- | --- |
 | **Green (Ready/Done)** | `#1A7F37`, `#2A7A3B`, `#ABEBC6` | Positive completion, resolution, readiness | status:done, status:ready, type:enhancement (✓merged), design:approved | 18 |
 | **Blue (Planning/Review)** | `#0969DA`, `#3467D3`, `#C5DEF5` | Discussion, collaboration, needs input | type:documentation, type:discussion, status:needs-review, lang:* | 52 |
-| **Yellow (Testing/Audit)** | `#D29922`, `#F2D06D`, `#FCE2B7` | Validation, testing, audit workflows | status:testing, type:bug (when testing), type:audit, priority:medium | 24 |
-| **Red (Blocked/Impediment)** | `#CF222E`, `#B91C1C`, `#FCE2E2` | Blockers, duplicates, critical issues | status:blocked, type:duplicate, priority:urgent, type:security | 18 |
-| **Orange (On-Hold/Deferred)** | `#9A6700`, `#D5A87B`, `#FDBF7C` | Delayed, deferred, rejected, wontfix | status:wontfix, status:on-hold, type:epic (when deferred), priority:low | 16 |
-| **Purple (Design Workflows)** | `#8957E5`, `#B4A7E8`, `#D89AF6` | Design, UX, accessibility | type:design, type:ui, type:accessibility, design:* | 14 |
-| **Gray (Meta/Infrastructure)** | `#57606A`, `#B1BAC4`, `#D0D7DE` | Process, meta, automation, infrastructure | meta:*, area:ci-cd, type:internal, domain:* | 12 |
+| **Yellow (Testing/Audit)** | `#D29922`, `#F2D06D`, `#FCE2B7` | Validation, testing, audit workflows | status:needs-testing, type:bug (when testing), type:audit | 24 |
+| **Red (Blocked/Impediment)** | `#CF222E`, `#B91C1C`, `#FCE2E2` | Blockers, duplicates, critical issues | status:blocked, status:duplicate, priority:critical, type:security | 18 |
+| **Orange (On-Hold/Deferred)** | `#9A6700`, `#D5A87B`, `#FDBF7C` | Delayed, deferred, rejected, wontfix | status:wontfix, status:on-hold, type:epic (when deferred), priority:minor | 16 |
+| **Purple (Design Workflows)** | `#8957E5`, `#B4A7E8`, `#D89AF6` | Design, UX, accessibility | type:design, type:ui, type:a11y, design:* | 14 |
+| **Gray (Meta/Infrastructure)** | `#57606A`, `#B1BAC4`, `#D0D7DE` | Process, meta, automation, infrastructure | meta:*, area:ci, type:chore, domain:* | 12 |
 | **Teal (Integration/External)** | `#007580`, `#0D7F6F`, `#9FE1E3` | External systems, integrations, dependencies | area:integration, area:external, type:dependency, platform:* | 16 |
 
 **Total Coverage**: 150 labels across 8 families
@@ -150,7 +150,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - status:testing
 - type:audit
 - type:performance
-- priority:medium (when used for testing triage)
+- priority:normal (when used for testing triage)
 
 **Accessibility**: All yellow family colours are GitHub label backgrounds — auto-selected black text provides ≥ 8:1 contrast. Do not use these colours as foreground text on white backgrounds.
 
@@ -169,16 +169,16 @@ This document defines a comprehensive color strategy for the 150 canonical label
 **Assignment Rules**:
 
 - All `status:blocked*` labels → `#CF222E`
-- All `type:duplicate` labels → `#CF222E`
-- All `priority:urgent` labels → `#CF222E`
+- All `status:duplicate` labels → `#CF222E`
+- All `priority:critical` labels → `#CF222E`
 - All `type:security*` labels → `#CF222E`
 - Bug labels with critical impact → `#B91C1C`
 
 **Label Examples**:
 
 - status:blocked
-- type:duplicate
-- priority:urgent
+- status:duplicate
+- priority:critical
 - type:security
 - type:bug (critical variants)
 
@@ -256,18 +256,18 @@ This document defines a comprehensive color strategy for the 150 canonical label
 **Assignment Rules**:
 
 - All `meta:*` labels → `#57606A`
-- All `area:ci-cd` labels → `#57606A`
-- All `type:internal` labels → `#57606A`
+- All `area:ci` labels → `#C5DEF5` (Blue tertiary — CI is in the Blue family)
+- All `type:chore` labels → `#57606A`
 - Domain/organisation labels → `#B1BAC4`
 - Infrastructure/automation supporting labels → `#D0D7DE`
 
 **Label Examples**:
 
 - meta:needs-changelog
-- meta:needs-review
-- area:ci-cd
-- type:internal
-- domain:governance
+- meta:stale
+- area:ci
+- type:chore
+- area:maintenance
 
 **Accessibility**: Primary meets WCAG AAA against white. Secondary and tertiary are GitHub label backgrounds with black text.
 
@@ -314,7 +314,7 @@ Some labels span multiple categories. Use these rules when a label fits multiple
 | Bug found during testing | Use Yellow (testing context takes precedence) | type:bug + status:testing → Yellow |
 | Documentation needs review | Use Blue (review/discussion takes precedence) | type:documentation + status:needs-review → Blue |
 | Security vulnerability | Use Red (urgency/severity takes precedence) | type:security + type:bug → Red |
-| Accessibility issue | Use Purple (type takes precedence over urgency) | type:accessibility + priority:urgent → Purple |
+| Accessibility issue | Use Purple (type takes precedence over urgency) | type:a11y + priority:critical → Purple |
 
 ### 3.2 Creating New Labels
 
