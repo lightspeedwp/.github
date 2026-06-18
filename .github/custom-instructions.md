@@ -3,8 +3,8 @@ file_type: custom-instructions
 title: Repo-local Copilot Instructions
 description: Repo-local Copilot and agent instructions for maintaining the LightSpeed .github control-plane repository.
 mode: agent
-version: v1.1
-last_updated: '2026-06-05'
+version: v1.2
+last_updated: '2026-06-18'
 owners:
   - LightSpeed Team
 tags:
@@ -31,10 +31,12 @@ These instructions apply to work performed inside the LightSpeed `.github` contr
 3. The branch name must follow [docs/BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md) (for example `fix/nl-postcode-validation` or `release/v1.6.0`).
 4. Do not continue unrelated work on `claude/*`, issue-specific, or other in-flight branches.
 5. If the working tree is already dirty with unrelated changes, stop editing that checkout and use a clean worktree or separate branch.
+6. **Branch reuse is forbidden.** If a branch name has previously been merged, create a new branch with a unique slug. The validation script detects reused names automatically.
+7. **Run the validation script before the first edit:** `npm run validate:branch-name -- --branch <branch>`. If it fails, fix the branch name before proceeding.
 
 ## Validation
 
-- Run `npm run validate:branch-name -- --branch <branch>` for local checks.
+- Run `npm run validate:branch-name -- --branch <branch>` for local checks (naming, base-branch policy, and reuse prevention).
 - Pull requests targeting `develop` must pass the `Validation` job, which now includes branch-name enforcement.
 
 ## LightSpeed .github Custom Instructions
