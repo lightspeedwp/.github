@@ -67,3 +67,5 @@ queue_rules:
     merge_method: squash
 merge_queue:
   max_parallel_checks: 3
+merge_protections_settings:
+  reporting_method: check-runs
