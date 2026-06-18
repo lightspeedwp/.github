@@ -7,7 +7,7 @@ last_updated: '2026-06-18'
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp"]
-tags: ["labels", "automation", "governance"]
+tags: ["labels", "automation", "governance", "colours", "accessibility"]
 ---
 
 # GitHub Labelling & Automation
@@ -39,6 +39,25 @@ This document describes how LightSpeed uses GitHub labels to power automation, s
 
 ---
 
+## Colour Strategy
+
+All label colours derive from the canonical 8-family palette defined in [`docs/LABEL_COLOR_STRATEGY.md`](./LABEL_COLOR_STRATEGY.md). Each family has a primary (WCAG AA ≥ 4.5:1 against white), a secondary, and a light tertiary for label backgrounds.
+
+| Family | Semantic use | Primary | Secondary | Tertiary |
+| --- | --- | --- | --- | --- |
+| **Green** | Ready / Done | `#1A7F37` | `#2A7A3B` | `#ABEBC6` |
+| **Blue** | Planning / Review | `#0969DA` | `#3467D3` | `#C5DEF5` |
+| **Yellow** | Testing / Audit | `#D29922` | `#F2D06D` | `#FCE2B7` |
+| **Red** | Blocked / Impediment | `#CF222E` | `#B91C1C` | `#FCE2E2` |
+| **Orange** | On-Hold / Deferred | `#9A6700` | `#D5A87B` | `#FDBF7C` |
+| **Purple** | Design / UX | `#8957E5` | `#B4A7E8` | `#D89AF6` |
+| **Gray** | Meta / Infrastructure | `#57606A` | `#B1BAC4` | `#D0D7DE` |
+| **Teal** | Integration / Deps | `#007580` | `#0D7F6F` | `#9FE1E3` |
+
+Tertiary pastels are used as GitHub label backgrounds only (GitHub renders black text on light backgrounds automatically). Primary and secondary colours pass WCAG 2.2 AA (≥ 4.5:1) for use as foreground text on white.
+
+---
+
 ## Label Categories & Families
 
 All canonical labels use a family prefix. The organisation recognises the following label families:
@@ -61,8 +80,8 @@ Indicate the current progress or state of an issue or PR:
 
 Indicate urgency and scheduling priority:
 
-- `priority:critical` — Production or launch-blocking work
-- `priority:important` — High-impact work that should be prioritised soon
+- `priority:critical` — Production/launch-blocking issue or severe defect
+- `priority:important` — Must-do, high-impact work
 - `priority:normal` — Standard feature or improvement (default)
 - `priority:minor` — Nice-to-have, deferred work
 
@@ -72,9 +91,10 @@ Indicate urgency and scheduling priority:
 
 Classify the nature of the work:
 
-- `type:bug` — Unexpected behavior or error
+- `type:bug` — Unexpected behaviour or error
 - `type:feature` — New functionality
-- `type:improvement` — Enhancement to existing functionality
+- `type:improve` — Enhancement to existing functionality or UX
+- `type:enhancement` — Enhancement to existing capability
 - `type:chore` — Maintenance, cleanup, tooling, or refactoring
 - `type:documentation` — Documentation improvements
 - `type:test` — Test suite additions or fixes
@@ -84,8 +104,11 @@ Classify the nature of the work:
 - `type:a11y` — Accessibility improvements
 - `type:design` — Design-related work
 - `type:release` — Release-related tasks
+- `type:ci` — CI/CD pipeline work
+- `type:automation` — Workflow automation and tooling
+- `type:dependency` — Dependency management and updates
 
-**Rule:** Each issue and PR has exactly one `type:*` label. For PRs, it's automatically assigned from the branch prefix; for issues, it's assigned from issue templates or manually.
+**Rule:** Each issue and PR has exactly one `type:*` label. For PRs, it's automatically assigned from the branch prefix; for issues, it's assigned from issue templates or manually. See `.github/labels.yml` for the full list of canonical type values.
 
 ### Area & Component Labels
 
@@ -114,11 +137,9 @@ Classify the nature of the work:
 
 Provide additional context:
 
-- **Environment:** `env:production`, `env:staging`, `env:development`
-- **Compatibility:** `compat:php7`, `compat:wp6.0`, `compat:js-es6`
-- **Phase:** `phase:1`, `phase:2`, etc. (for multi-phase projects)
-- **Device/Platform:** `device:mobile`, `device:desktop`
-- **Language/Locale:** `lang:en`, `lang:de`, etc.
+- **Environment:** `env:live` (production), `env:staging`, `env:prototype` (sandbox/dev)
+- **Compatibility:** `compat:wordpress`, `compat:php`, `compat:woocommerce`, `compat:gutenberg`, `compat:rtl`, `compat:multisite`
+- **Language/Format:** `lang:php`, `lang:js`, `lang:css`, `lang:html`, `lang:md`, `lang:json`, `lang:yaml`
 - Others as defined per project
 
 ### Meta & Release Labels (`meta:*`, `release:*`)
@@ -212,11 +233,11 @@ PR branch names automatically assign `type:*` labels:
 - `docs/` → `type:documentation`
 - `test/` → `type:test`
 - `chore/` → `type:chore`
-- `ci/` → `type:chore` + `area:ci`
-- `deps/` → `type:chore` + `area:dependencies`
+- `ci/` → `type:ci` + `area:ci`
+- `deps/` → `type:dependency` + `area:dependencies`
 - `security/` → `type:security`
 - `a11y/` → `type:a11y`
-- `build/` → `type:chore`
+- `build/` → `type:build`
 
 **Optional prefixes** (as needed for your projects):
 
@@ -351,6 +372,7 @@ All automation reads from these files; there is no hardcoded label logic in agen
 ## References
 
 - [Canonical Labels Config](../.github/labels.yml)
+- [Label Colour Strategy](./LABEL_COLOR_STRATEGY.md)
 - [Labeler Rules](../.github/labeler.yml)
 - [Issue Types Config](../.github/issue-types.yml)
 - [Labelling Workflow](../.github/workflows/labeling.yml)
