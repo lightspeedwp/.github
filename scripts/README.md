@@ -2,8 +2,8 @@
 title: "LightSpeedWP Scripts & Automation"
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
 file_type: documentation
-version: "2.6"
-last_updated: "2026-06-01"
+version: "2.7"
+last_updated: "2026-06-18"
 created_date: "2025-12-04"
 owners:
   - LightSpeedWP Team
@@ -456,7 +456,7 @@ When contributing new scripts or modifications:
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../schema/)
-- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
+- [Test Coverage Reports](../tests/README.md)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References

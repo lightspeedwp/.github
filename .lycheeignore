@@ -2,8 +2,11 @@
 
 # Social platforms that block automated HTTP clients
 <https://twitter.com>
+https://twitter.com
 <https://x.com>
+https://x.com
 <https://www.linkedin.com>
+https://www.linkedin.com
 
 # LightSpeed organisation websites — external, may have transient availability
 
@@ -18,6 +21,8 @@
 
 # External licence URL occasionally times out in CI link checks
 <https://www.gnu.org/licenses/gpl-3.0>
+https://www.gnu.org/licenses/gpl-3.0
 
 # W3C WCAG specification — reference link, occasionally times out in CI
 <https://www.w3.org/WAI/WCAG22/quickref/>
+https://www.w3.org/WAI/WCAG22/quickref/

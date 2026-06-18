@@ -2,8 +2,8 @@
 title: "LightSpeedWP Testing Framework"
 description: "Unified testing framework for LightSpeedWP automation: shell (Bats), JavaScript (Jest), Python validation, and coverage quality gates."
 file_type: documentation
-version: 2.2.0
-last_updated: "2026-05-31"
+version: 2.3.0
+last_updated: "2026-06-18"
 created_date: "2025-10-25"
 owners:
   - Ash Shaw
@@ -54,7 +54,7 @@ stability: stable
 | Version        | 2.2.0                                                                                                                                                                                                                                                                                                                                      |
 | Last Updated   | 2025-10-25                                                                                                                                                                                                                                                                                                                                 |
 | Owners         | Ash Shaw; LightSpeedWP QA                                                                                                                                                                                                                                                                                                                  |
-| Key References | [`run-all-tests.sh`](../run-all-tests.sh), [`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md), [`test-helper.bash`](./test-helper.bash), [`coverage/README.md`](../coverage/README.md), [`scripts/README.md`](../scripts/README.md), [`../schema/README.md`](../schema/README.md), [`tests workflow`](../.github/workflows/tests.yml) |
+| Key References | [`scripts/README.md`](../scripts/README.md), [`schema/README.md`](../schema/README.md), [`tests workflow`](../.github/workflows/testing.yml) |
 
 ![Testing Badge](https://img.shields.io/badge/testing-comprehensive-brightgreen?style=flat-square)
 ![Coverage Badge](https://img.shields.io/badge/coverage-tracked-blue?style=flat-square)
@@ -142,7 +142,7 @@ Each subfolder includes comprehensive documentation and specialized test coverag
 
 - **`test-helper.bash`** — Shared Bats test helpers for setup/teardown and environment isolation
 - **`tests-run-all-tests.bats`** — Bats test for the test runner script
-- **[`TEST_COVERAGE_SUMMARY.md`](./TEST_COVERAGE_SUMMARY.md)** — Detailed documentation of test coverage, structure, and best practices
+- `TEST_COVERAGE_SUMMARY.md` — Detailed documentation of test coverage, structure, and best practices
 
 ## Usage & Quickstart
 
@@ -327,9 +327,7 @@ npm ci
 
 #### Core Testing Documentation
 
-- [Test Coverage Summary](./TEST_COVERAGE_SUMMARY.md) — Comprehensive coverage analysis and test details
-- [Jest Configuration](../jest.config.js) — JavaScript testing framework configuration
-- [Test Runner Script](../run-all-tests.sh) — Automated test execution script
+- [Jest Configuration](../.jest.config.cjs) — JavaScript testing framework configuration
 - [Quality Assurance](../instructions/quality-assurance.instructions.md) — Testing standards and best practices
 
 #### Test Folder Documentation
@@ -352,17 +350,13 @@ npm ci
 
 - [Bats Testing Framework](https://github.com/bats-core/bats-core) — Bash Automated Testing System
 - [Jest Testing Documentation](https://jestjs.io/docs/getting-started) — JavaScript testing framework
-- [Shared Test Helpers](./test-helper.bash) — Common Bats testing utilities
-- [GitHub Actions Tests Workflow](../.github/workflows/tests.yml) — CI/CD testing automation
+- [GitHub Actions Tests Workflow](../.github/workflows/testing.yml) — CI/CD testing automation
 
 #### Related Project Documentation
 
 - [Scripts Directory](../scripts/README.md) — Main automation scripts documentation
 - [Schema Validation](../schema/README.md) — JSON schema validation and configuration
 - [CodeRabbit Configuration](../.coderabbit.yml) — AI code review configuration
-- [WordPress Automation Schemas](../schema/header-footer-agent/README.md) — WordPress theme automation schemas
-- [Coverage Reports](../coverage/README.md) — Test coverage reporting and analysis
-- [HTML Coverage Reports](../coverage/lcov-report/README.md) — Interactive coverage visualization
 
 #### 🎯 AI & Automation
 
