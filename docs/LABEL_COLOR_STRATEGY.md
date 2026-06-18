@@ -2,7 +2,7 @@
 title: Label Color Strategy Specification
 description: Comprehensive color strategy for the 150 canonical labels based on semantic meaning and workflow state
 file_type: documentation
-version: v1.1.0
+version: v1.1.1
 created_date: '2026-05-31'
 last_updated: '2026-06-18'
 authors:
@@ -24,7 +24,7 @@ stability: stable
 
 # Label Color Strategy Specification
 
-**Version**: v1.1.0
+**Version**: v1.1.1
 **Created**: 2026-05-31
 **Updated**: 2026-06-18
 **Owner**: LightSpeed Team
@@ -53,12 +53,12 @@ This document defines a comprehensive color strategy for the 150 canonical label
 | Family | Hex Codes | Semantic Meaning | Label Categories | Count |
 | --- | --- | --- | --- | --- |
 | **Green (Ready/Done)** | `#1A7F37`, `#2A7A3B`, `#ABEBC6` | Positive completion, resolution, readiness | status:done, status:ready, type:enhancement (✓merged), design:approved | 18 |
-| **Blue (Planning/Review)** | `#0969DA`, `#3467D3`, `#C5DEF5` | Discussion, collaboration, needs input | type:documentation, type:discussion, status:needs-review, lang:* | 52 |
+| **Blue (Planning/Review)** | `#0969DA`, `#3467D3`, `#C5DEF5` | Discussion, collaboration, needs input | type:documentation, type:discussion, status:needs-review, area:ci, lang:* | 52 |
 | **Yellow (Testing/Audit)** | `#D29922`, `#F2D06D`, `#FCE2B7` | Validation, testing, audit workflows | status:needs-testing, type:bug (when testing), type:audit | 24 |
 | **Red (Blocked/Impediment)** | `#CF222E`, `#B91C1C`, `#FCE2E2` | Blockers, duplicates, critical issues | status:blocked, status:duplicate, priority:critical, type:security | 18 |
 | **Orange (On-Hold/Deferred)** | `#9A6700`, `#D5A87B`, `#FDBF7C` | Delayed, deferred, rejected, wontfix | status:wontfix, status:on-hold, type:epic (when deferred), priority:minor | 16 |
 | **Purple (Design Workflows)** | `#8957E5`, `#B4A7E8`, `#D89AF6` | Design, UX, accessibility | type:design, type:ui, type:a11y, design:* | 14 |
-| **Gray (Meta/Infrastructure)** | `#57606A`, `#B1BAC4`, `#D0D7DE` | Process, meta, automation, infrastructure | meta:*, area:ci, type:chore, domain:* | 12 |
+| **Gray (Meta/Infrastructure)** | `#57606A`, `#B1BAC4`, `#D0D7DE` | Process, meta, automation, infrastructure | meta:*, type:chore, domain:* | 12 |
 | **Teal (Integration/External)** | `#007580`, `#0D7F6F`, `#9FE1E3` | External systems, integrations, dependencies | area:integration, area:external, type:dependency, platform:* | 16 |
 
 **Total Coverage**: 150 labels across 8 families
@@ -112,6 +112,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - All `type:documentation` labels → `#3467D3`
 - All `type:discussion` labels → `#3467D3`
 - All `lang:*` (language) labels → `#C5DEF5`
+- All `area:ci` labels → `#C5DEF5` (Blue tertiary — CI is a planning/infrastructure workflow)
 - Code review related (needs-review, awaiting-feedback) → `#0969DA`
 - Discussion/question labels → `#3467D3`
 
@@ -121,6 +122,7 @@ This document defines a comprehensive color strategy for the 150 canonical label
 - status:needs-feedback
 - type:discussion
 - type:documentation
+- area:ci
 - lang:php
 - lang:javascript
 
@@ -265,7 +267,6 @@ This document defines a comprehensive color strategy for the 150 canonical label
 
 - meta:needs-changelog
 - meta:stale
-- area:ci
 - type:chore
 - area:maintenance
 
@@ -474,6 +475,7 @@ This specification should be reviewed annually or when:
 
 | Date | Change | Author |
 | --- | --- | --- |
+| 2026-06-18 | v1.1.1 — Correct `area:ci` classification: moved from Gray family to Blue family in Table 1 and Section 2.2; removed from Gray family label examples in Section 2.7 (Gemini review follow-up #992) | LightSpeed Team |
 | 2026-06-18 | v1.1.0 — WCAG 2.2 AA audit: replace 7 non-compliant primary/secondary colors; add tertiary guidance; update accessibility table | LightSpeed Team |
 | 2026-05-31 | v1.0.0 — Initial specification: 8 color families, 150 label mapping | LightSpeed Team |
 
