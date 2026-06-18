@@ -1,6 +1,6 @@
 ---
 title: Mermaid Diagram Accessibility Compliance Report — Issue #669
-description: Accessibility compliance audit of all Mermaid diagrams for accTitle and accDescr attributes
+description: Accessibility compliance audit of all 24 Mermaid diagrams for accTitle and accDescr attributes
 version: 1.0.0
 created_date: "2026-05-31"
 last_updated: "2026-05-31"
@@ -27,8 +27,8 @@ stability: stable
 
 ## Summary
 
-- **Total diagrams**: 24
-- **Accessible diagrams**: 24
+- **Total diagrams**: 23
+- **Accessible diagrams**: 23
 - **Non-compliant diagrams**: 0
 - **Compliance rate**: 100.0%
 
@@ -44,20 +44,51 @@ stability: stable
 - .github/instructions/README.md
 - .github/metrics/README.md
 - .github/projects/README.md
-- .github/projects/archived/adoption-workstream-2026-05-26/README.md
-- .github/projects/archived/agent-skill-memory-platform/issues/README.md
-- .github/projects/archived/label-governance-stabilisation-2026-05-27/README.md
-- .github/projects/archived/label-governance-stabilisation-2026-05-27/issues/README.md
-- .github/projects/archived/portable-ai-plugin-restructure/issues/README.md
+- .github/projects/active/openspec/README.md
+- .github/projects/active/openspec/changes/test-coverage-implementation/README.md
+- .github/projects/active/template-enforcement-governance/README.md
+- .github/projects/active/template-enforcement-governance/openspec-strict/README.md
+- .github/projects/active/test-coverage-implementation/README.md
+- .github/projects/active/test-coverage-implementation/openspec-strict/README.md
+- .github/projects/active/wave-5-documentation-audit/execution/issue-seed-2026-06-08/README.md
+- .github/projects/archived/awesome-github-site/README.md
+- .github/projects/archived/awesome-github-site/openspec/README.md
+- .github/projects/archived/awesome-github-site/phase-1/README.md
+- .github/projects/archived/awesome-github-site/phase-2/README.md
+- .github/projects/completed/adoption-workstream-2026-05-26/README.md
+- .github/projects/completed/agent-skill-memory-platform/issues/README.md
+- .github/projects/completed/awesome-github-site/README.md
+- .github/projects/completed/awesome-github-site/openspec/README.md
+- .github/projects/completed/awesome-github-site/phase-1/README.md
+- .github/projects/completed/awesome-github-site/phase-2/README.md
+- .github/projects/completed/branch-governance-hardening-2026-06-08/README.md
+- .github/projects/completed/branch-governance-hardening-2026-06-08/openspec-strict/README.md
 - .github/projects/completed/github-workflow-consolidation-2026-05-28/README.md
 - .github/projects/completed/github-workflow-consolidation-2026-05-28/issues/README.md
+- .github/projects/completed/issue-35-instruction-audit/README.md
+- .github/projects/completed/issue-670-readme-refresh/README.md
+- .github/projects/completed/label-governance-stabilisation-2026-05-27/README.md
+- .github/projects/completed/label-governance-stabilisation-2026-05-27/issues/README.md
+- .github/projects/completed/plugin-pack-waves/README.md
+- .github/projects/completed/plugin-pack-waves/issues/README.md
+- .github/projects/completed/plugin-pack-waves/openspec-strict/README.md
+- .github/projects/completed/portable-ai-plugin-restructure/issues/README.md
+- .github/projects/completed/refactor-migrate-prompts/openspec-strict/README.md
+- .github/projects/completed/refactor-migrate-prompts/openspec/README.md
+- .github/projects/completed/root-cleanup-dependency-audit-closed-2026-06-08/README.md
+- .github/projects/completed/root-cleanup-dependency-audit-closed-2026-06-08/openspec-strict/README.md
+- .github/projects/completed/wave-5-documentation-audit-closed-2026-06-01/README.md
 - .github/prompts/README.md
 - .github/reports/README.md
+- .github/rulesets/README.md
 - .github/schemas/README.md
+- .github/tests/fixtures/pr-templates/README.md
 - .github/workflows/README.md
+- .schemas/README.md
 - .vscode/README.md
 - README.md
 - agents/README.md
+- ai/README.md
 - cookbook/README.md
 - docs/README.md
 - hooks/README.md
@@ -77,16 +108,15 @@ stability: stable
 - prompts/README.md
 - schema/README.md
 - scripts/README.md
-- `scripts/agents/__tests__/README.md`
+- scripts/agents/**tests**/README.md
 - scripts/agents/includes/README.md
-- `scripts/agents/includes/__tests__/README.md`
+- scripts/agents/includes/**tests**/README.md
 - scripts/validation/README.md
 - skills/README.md
 - skills/design-md-agent/markdown-content-validator/README.md
 - skills/design-md-agent/slides/artifact_tool/README.md
 - tests/README.md
-- wceu-2026/README.md
-- wceu-2026/agent-slides/README.md
+- website/README.md
 - workflows/README.md
 - workflows/memory/README.md
 

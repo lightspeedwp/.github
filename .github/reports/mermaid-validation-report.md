@@ -1,20 +1,11 @@
 ---
-title: Mermaid Diagram Syntax Validation Report — Issue #668
-description: Comprehensive syntax validation of all 24 Mermaid diagrams across 8 README files
-version: 1.0.0
-created_date: "2026-05-31"
-last_updated: '2026-06-01'
+title: Mermaid Diagram Syntax Validation Report
+description: Mermaid diagram syntax validation results for repository README files
+version: "1.0.0"
+created_date: "2026-06-18"
+last_updated: "2026-06-18"
 file_type: documentation
-maintainer: Claude Code
-owners:
-  - Claude Code
-license: GPL-3.0
-tags:
-  - audit
-  - mermaid
-  - validation
-  - diagrams
-  - wave-5
+tags: ["mermaid", "validation", "diagrams"]
 domain: generic
 status: active
 stability: stable
@@ -22,25 +13,50 @@ stability: stable
 
 # Mermaid Diagram Syntax Validation Report
 
-**Generated**: 2026-05-31T17:39:27.899Z
+**Generated**: 2026-06-18T12:07:27.486Z
 
 ## Summary
 
-- **Total diagrams**: 24
-- **Valid diagrams**: 24
+- **Total diagrams**: 17
+- **Valid diagrams**: 17
 - **Error diagrams**: 0
 - **Success rate**: 100.0%
 
 ## Files Analyzed
 
 - README.md
+- agents/README.md
+- ai/README.md
+- cookbook/README.md
+- docs/README.md
+- hooks/README.md
+- hooks/secrets-scanner/README.md
+- hooks/session-logger/README.md
+- hooks/tool-guardian/README.md
+- instructions/README.md
+- plugins/README.md
+- plugins/lightspeed-github-ops/README.md
+- plugins/lightspeed-github-ops/hooks/README.md
+- plugins/lightspeed-metrics-and-reporting/README.md
+- plugins/lightspeed-quality-assurance/README.md
+- plugins/lightspeed-release-ops/README.md
+- plugins/lightspeed-wordpress-governance/README.md
+- plugins/lightspeed-wordpress-planning/README.md
 - profile/README.md
+- prompts/README.md
+- schema/README.md
 - scripts/README.md
+- scripts/agents/**tests**/README.md
+- scripts/agents/includes/README.md
+- scripts/agents/includes/**tests**/README.md
+- scripts/validation/README.md
+- skills/README.md
+- skills/design-md-agent/markdown-content-validator/README.md
+- skills/design-md-agent/slides/artifact_tool/README.md
 - tests/README.md
-- .github/README.md
-- .github/ISSUE_TEMPLATE/README.md
-- .github/projects/README.md
-- .vscode/README.md
+- website/README.md
+- workflows/README.md
+- workflows/memory/README.md
 
 ## Detailed Results
 
