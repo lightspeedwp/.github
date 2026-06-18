@@ -3,7 +3,7 @@ file_type: custom-instructions
 title: Repo-local Copilot Instructions
 description: Repo-local Copilot and agent instructions for maintaining the LightSpeed .github control-plane repository.
 mode: agent
-version: v1.2
+version: v1.3
 last_updated: '2026-06-18'
 owners:
   - LightSpeed Team
@@ -61,11 +61,11 @@ Pick from `.github/ISSUE_TEMPLATE/01-*.md` to `.github/ISSUE_TEMPLATE/26-*.md`.
 
 Current parity note:
 
-- Canonical issue types = 29 (from `.github/issue-types.yml`).
+- Canonical issue types = 35 (from `.github/issue-types.yml`).
 - Numbered templates = 26.
-- Types currently without dedicated templates: `type:chore`, `type:question`, `type:support`.
+- Several canonical types intentionally share broader templates.
 
-For these three missing-template types, use the nearest template and explicitly state the target type in the opening section.
+When the selected template is broader than the request, use the nearest numbered template and explicitly state the target canonical type in the opening section.
 
 ### 3. Fill structured sections completely
 
