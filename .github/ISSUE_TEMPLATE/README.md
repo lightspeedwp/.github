@@ -46,9 +46,10 @@ For advanced usage, see the [Issue Template Index](./README.md) and individual t
 ## 🗂️ Issue Template Workflow
 
 ```mermaid
-accTitle: Issue template workflow
-accDescr: Shows how users select an issue template, auto-populated fields flow into issue creation, and automation routes the issue to labelling, project, and notification steps.
 flowchart TD
+    accTitle: Issue template workflow
+    accDescr: Shows how users select an issue template, auto-populated fields flow into issue creation, and automation routes the issue to labelling, project, and notification steps.
+
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]
     B -->|Feature Request| D[Feature Template]
