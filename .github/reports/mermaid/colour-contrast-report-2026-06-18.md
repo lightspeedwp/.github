@@ -11,15 +11,15 @@ stability: stable
 
 # Mermaid Colour Contrast Report
 
-**Generated**: 2026-06-18T15:39:39.965Z
+**Generated**: 2026-06-18T12:08:35.683Z
 
 ## Summary
 
 | Metric | Value |
 |--------|-------|
-| Files scanned | 22 |
-| Diagrams scanned | 60 |
-| Declarations checked | 85 |
+| Files scanned | 13 |
+| Diagrams scanned | 44 |
+| Style declarations checked | 39 |
 | Errors (contrast failures) | 0 |
 | Warnings (missing explicit color) | 0 |
 
