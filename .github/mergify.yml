@@ -9,7 +9,6 @@ pull_request_rules:
       - "#commits-behind > 0"
     actions:
       update:
-
   - name: Auto-merge Dependabot dependency updates on develop
     conditions:
       - author~=^(dependabot\[bot\]|app/dependabot)$
@@ -22,7 +21,6 @@ pull_request_rules:
     actions:
       merge:
         method: squash
-
   - name: Auto-merge Dependabot security updates on develop
     conditions:
       - author~=^(dependabot\[bot\]|app/dependabot)$
@@ -35,10 +33,8 @@ pull_request_rules:
     actions:
       merge:
         method: squash
-
   - name: Keep imgbot image optimizations current on develop
     conditions:
-      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge.
       - author~=^(imgbot\[bot\]|app/imgbot)$
       - base=develop
       - -draft
@@ -46,10 +42,8 @@ pull_request_rules:
       - "#commits-behind > 0"
     actions:
       update:
-
   - name: Auto-merge imgbot image optimizations on develop
     conditions:
-      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge.
       - author~=^(imgbot\[bot\]|app/imgbot)$
       - base=develop
       - check-success=All Checks Passed
@@ -58,3 +52,6 @@ pull_request_rules:
     actions:
       merge:
         method: squash
+queue_rules: []
+merge_queue:
+  max_parallel_checks: 3
