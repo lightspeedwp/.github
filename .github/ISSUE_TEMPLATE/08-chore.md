@@ -3,13 +3,13 @@ file_type: "issue-template"
 name: "🏠 Chore"
 about: "Small housekeeping tasks: label hygiene, repo/settings tweaks, file moves, or minor non-functional clean-ups."
 description: "Small housekeeping tasks: label hygiene, repo/settings tweaks, file moves, or minor non-functional clean-ups."
-version: "1.0.0"
+version: "1.0.1"
 last_updated: "2026-06-18"
 category: "github-templates"
 ---
 
 <!--
-Use this template for small housekeeping tasks that do not fit the refactor/ or maintenance/ buckets:
+Use this template for small housekeeping tasks that do not fit the Code Refactor or Maintenance templates:
 label hygiene, repo/settings tweaks, file moves, documentation clean-ups, minor non-functional changes.
 -->
 
@@ -26,7 +26,7 @@ label hygiene, repo/settings tweaks, file moves, documentation clean-ups, minor 
 <!-- List any steps or checklist items for completion. Use checkboxes. -->
 
 - [ ] Task is clearly defined and actionable
-- [ ] Does not fit the refactor/ or maintenance/ buckets
+- [ ] Does not fit the Code Refactor or Maintenance templates
 - [ ] Documentation updated if affected
 - [ ] PR uses correct branch prefix (chore/)
 - [ ] Approved by at least one maintainer
@@ -49,7 +49,7 @@ label hygiene, repo/settings tweaks, file moves, documentation clean-ups, minor 
 ## Definition of Ready (DoR)
 
 - [ ] Task/goal described and scoped
-- [ ] Confirms it does not fit refactor/ or maintenance/ buckets
+- [ ] Confirms it does not fit the Code Refactor or Maintenance templates
 - [ ] Acceptance criteria listed
 - [ ] Estimate added (if applicable)
 
