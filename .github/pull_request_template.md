@@ -31,8 +31,23 @@ replace this body with that template.
 | `security/` | `pr_bug.md` |
 | `design/` | `pr_feature.md` |
 | `a11y/` | `pr_feature.md` |
+| `ux/` | `pr_feature.md` |
 | `release/` | `pr_release.md` |
 | `research/` | `pr_feature.md` |
+| `revert/` | `pr_chore.md` |
+| `i18n/` | `pr_feature.md` |
+| `ops/` | `pr_chore.md` |
+| `proto/` | `pr_feature.md` |
+| `ds/` | `pr_feature.md` |
+| `api/` | `pr_feature.md` |
+| `schema/` | `pr_feature.md` |
+| `telemetry/` | `pr_feature.md` |
+| `content/` | `pr_docs.md` |
+| `seo/` | `pr_docs.md` |
+| `config/` | `pr_chore.md` |
+| `migrate/` | `pr_chore.md` |
+| `qa/` | `pr_chore.md` |
+| `uat/` | `pr_chore.md` |
 
 ## Template links
 

@@ -1,7 +1,7 @@
 ---
 title: "LightSpeed .github — Claude Instructions"
 description: "Claude-specific project instructions for the LightSpeed .github repository."
-version: "v1.7"
+version: "v1.8"
 last_updated: "2026-06-18"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
@@ -183,12 +183,25 @@ For issue intake, use [.github/ISSUE_TEMPLATE/config.yml](./.github/ISSUE_TEMPLA
 - `bug` for reproducible defects with environment and reproduction details.
 - `feature` for new capabilities or user-visible enhancements.
 - `design` for UI/UX, token, or accessibility design work.
+- `epic` for large, multi-part initiatives grouping stories, features, and tasks.
+- `story` for user-centric narratives with acceptance criteria and business value.
+- `improvement` for suggested enhancements to existing functionality.
+- `chore` for small housekeeping tasks: label hygiene, repo tweaks, file moves.
+- `code-refactor` for structured code cleanup without changing external behaviour.
+- `build-ci` for build system, CI/CD, and pipeline changes.
+- `automation` for workflow automation and tooling.
 - `testing-coverage` for new or refactored automated tests.
 - `performance` for speed, resource, or latency work.
+- `a11y` for accessibility compliance and WCAG 2.2 AA improvements.
 - `security` for vulnerabilities or security hardening.
+- `compatibility` for cross-version, browser, or platform compatibility issues.
+- `integration-issue` for third-party system integration problems.
+- `release` for release planning, coordination, and delivery.
+- `maintenance` for system maintenance, dependency updates, and housekeeping.
 - `documentation` for docs and content updates.
 - `research` and `audit` for exploratory or assessment work.
-- `automation`, `build-ci`, `ai-ops`, and `content-modelling` for specialist workflows.
+- `code-review` for code quality discussions and review standards.
+- `ai-ops` and `content-modelling` for specialist AI and content workflows.
 
 ### Before Every Push
 
