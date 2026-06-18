@@ -143,7 +143,7 @@ function namedColourToHex(name) {
 function parseColour(colour) {
   if (!colour) return null;
   const trimmed = colour.trim().toLowerCase();
-  if (/^#[0-9a-f]{3,6}$/.test(trimmed)) return trimmed;
+  if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/.test(trimmed)) return trimmed;
   return namedColourToHex(trimmed);
 }
 
@@ -217,12 +217,12 @@ function parseStyleDeclarations(diagramRaw) {
     const nodeId = styleMatch[1];
     const props = styleMatch[2];
 
-    // Extract fill colour
-    const fillMatch = props.match(/\bfill\s*:\s*([^,;\s]+)/i);
+    // Extract fill colour — negative lookbehind avoids matching stop-fill or similar
+    const fillMatch = props.match(/(?<!-)\bfill\s*:\s*([^,;\s]+)/i);
     const fill = fillMatch ? fillMatch[1].trim() : null;
 
-    // Extract text colour
-    const colorMatch = props.match(/\bcolor\s*:\s*([^,;\s]+)/i);
+    // Extract text colour — negative lookbehind avoids matching stroke-color etc.
+    const colorMatch = props.match(/(?<!-)\bcolor\s*:\s*([^,;\s]+)/i);
     const color = colorMatch ? colorMatch[1].trim() : null;
 
     results.push({ nodeId, fill, color, raw: line.trim(), line: i });
@@ -254,30 +254,35 @@ function validateStyleContrast(styleDecl, theme) {
   }
 
   if (!color) {
-    // No explicit text colour — determine the theme default
-    const defaultTextHex =
-      MERMAID_THEME_TEXT_DEFAULTS[theme] ?? MERMAID_THEME_TEXT_DEFAULTS.default;
-    const ratio = contrastRatio(fillHex, defaultTextHex);
-
-    issues.push({
-      level: "warning",
-      message:
-        `Node "${nodeId}": fill ${fill} has no explicit color. ` +
-        `Against the "${theme}" theme default text (${defaultTextHex}) ` +
-        `the contrast ratio is ${ratio.toFixed(2)}:1 — ` +
-        (ratio >= WCAG_AA_NORMAL_TEXT
-          ? `passes AA for the "${theme}" theme, but will FAIL in dark mode. Add color: explicitly.`
-          : `FAILS WCAG AA (${WCAG_AA_NORMAL_TEXT}:1 required). Add color: explicitly.`),
-    });
-
-    // Also check against dark-mode text (white) for the "missing color" case
+    // Check both Mermaid light default (#333333) and dark mode (white #ffffff)
+    const lightRatio = contrastRatio(fillHex, "#333333");
     const darkRatio = contrastRatio(fillHex, "#ffffff");
-    if (darkRatio < WCAG_AA_NORMAL_TEXT) {
+    const failsLight = lightRatio < WCAG_AA_NORMAL_TEXT;
+    const failsDark = darkRatio < WCAG_AA_NORMAL_TEXT;
+
+    if (failsLight || failsDark) {
+      let failMode;
+      if (failsLight && failsDark) {
+        failMode = "both light and dark modes";
+      } else if (failsLight) {
+        failMode = "light mode (dark text)";
+      } else {
+        failMode = "dark mode (white text)";
+      }
       issues.push({
         level: "error",
         message:
-          `Node "${nodeId}": fill ${fill} without explicit color FAILS in dark mode ` +
-          `(white text contrast: ${darkRatio.toFixed(2)}:1, minimum 4.5:1).`,
+          `Node "${nodeId}": fill ${fill} without explicit color FAILS in ${failMode} ` +
+          `(light contrast: ${lightRatio.toFixed(2)}:1, dark contrast: ${darkRatio.toFixed(2)}:1). ` +
+          `Add an explicit color: to guarantee contrast.`,
+      });
+    } else {
+      issues.push({
+        level: "warning",
+        message:
+          `Node "${nodeId}": fill ${fill} has no explicit color. ` +
+          `Passes contrast in both modes (light: ${lightRatio.toFixed(2)}:1, dark: ${darkRatio.toFixed(2)}:1) ` +
+          `but adding an explicit color: is strongly recommended.`,
       });
     }
 
@@ -351,9 +356,11 @@ async function main() {
           if (issue.level === "error") report.errors++;
           else report.warnings++;
 
+          const fileLine = diagram.startLine + style.line + 1;
           report.findings.push({
             file: relPath,
             diagramIndex: di + 1,
+            line: fileLine,
             theme,
             level: issue.level,
             message: issue.message,
@@ -366,7 +373,9 @@ async function main() {
           }
 
           const icon = issue.level === "error" ? "❌" : "⚠️ ";
-          console.log(`   ${icon} Diagram ${di + 1}: ${issue.message}`);
+          console.log(
+            `   ${icon} Diagram ${di + 1} (line ${fileLine}): ${issue.message}`,
+          );
         }
       }
     }
@@ -451,7 +460,7 @@ ${
     : report.findings
         .map(
           (f) =>
-            `### ${f.level.toUpperCase()}: \`${f.file}\` — Diagram #${f.diagramIndex}\n\n` +
+            `### ${f.level.toUpperCase()}: \`${f.file}\` — Diagram #${f.diagramIndex} (line ${f.line})\n\n` +
             `- **Theme**: ${f.theme}\n` +
             `- **Style**: \`${f.rawStyle}\`\n` +
             `- **Issue**: ${f.message}\n`,
