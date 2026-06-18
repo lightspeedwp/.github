@@ -2,7 +2,7 @@
 title: GitHub Issue Creation Guide
 description: How to create well-formed issues, select templates, and trigger automation
 file_type: documentation
-version: "1.0.2"
+version: "1.0.3"
 created_date: "2026-05-31"
 last_updated: "2026-06-18"
 author: Claude Code
@@ -59,6 +59,8 @@ This guide helps contributors, team members, and AI agents create high-quality G
 - Label-only types (no dedicated template): `type:ux-feedback`, `type:question`, `type:support`, `type:help`
 
 For UX feedback or improvement suggestions that do not fit an existing template, use **🔧 Improvement** and apply `type:ux-feedback` in the issue body. For help or support requests, use the **LightSpeedWP Support** contact link in the issue chooser.
+
+Where a template is broader than the request, use the nearest numbered template and state the intended canonical type in the issue body.
 
 ---
 
