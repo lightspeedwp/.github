@@ -6,7 +6,6 @@ version: v1.0.4
 created_date: '2026-05-31'
 last_updated: '2026-06-07'
 authors:
-  - Claude Code
   - LightSpeed Team
 maintainer: LightSpeed Team
 owners:
@@ -401,7 +400,7 @@ Why both exist:
 
 | Date | Change | Author |
 | --- | --- | --- |
-| 2026-05-31 | Initial specification v1.0.0 — 32 type → 10 project field mapping | Claude Code |
+| 2026-05-31 | Initial specification v1.0.0 — 32 type → 10 project field mapping | LightSpeed Team |
 
 ---
 
