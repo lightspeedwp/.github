@@ -14,7 +14,6 @@ jobs:
       matrix:
         run_number: [1, 2, 3, 4, 5]
     env:
-      MERGIFY_JOB_NAME: check
       HUSKY: '0'
     steps:
       - uses: actions/checkout@v4
@@ -29,7 +28,9 @@ jobs:
       - run: npm install --no-save jest-junit
 
       - name: Run unit tests
-        run: npx jest --config .jest.config.cjs --reporters=jest-junit --outputFile=junit-unit-${{ matrix.run_number }}.xml || true
+        env:
+          JEST_JUNIT_OUTPUT_FILE: junit-unit-${{ matrix.run_number }}.xml
+        run: npx jest --config .jest.config.cjs --reporters=jest-junit || true
 
       - name: Upload test results to Mergify
         if: success() || failure()
@@ -38,3 +39,4 @@ jobs:
           token: ${{ secrets.MERGIFY_TOKEN }}
           flaky_test_detection: true
           report_path: 'junit-unit-${{ matrix.run_number }}.xml'
+          job_name: check
