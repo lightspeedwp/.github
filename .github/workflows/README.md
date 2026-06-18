@@ -2,7 +2,7 @@
 file_type: "documentation"
 title: ".github Workflows Directory"
 description: "GitHub Actions workflows for CI, automation, labeling, metrics, and community health across the LightSpeed organisation"
-version: "v2.0"
+version: "v2.0.1"
 last_updated: "2026-06-18"
 maintainer: "LightSpeed Team"
 tags: ["workflows", "github-actions", "automation", "ci-cd"]

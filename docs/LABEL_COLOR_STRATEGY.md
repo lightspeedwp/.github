@@ -2,9 +2,9 @@
 title: Label Color Strategy Specification
 description: Comprehensive color strategy for the 150 canonical labels based on semantic meaning and workflow state
 file_type: documentation
-version: v1.0.0
+version: v1.0.1
 created_date: '2026-05-31'
-last_updated: '2026-06-01'
+last_updated: '2026-06-18'
 authors:
   - Claude Code
   - LightSpeed Team

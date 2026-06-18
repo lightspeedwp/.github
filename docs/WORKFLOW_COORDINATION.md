@@ -2,8 +2,8 @@
 title: "Workflow Coordination Patterns"
 description: "Canonical reference for GitHub Actions workflow patterns: always-run vs. agent-triggered, coordination between agents and workflows, and orchestration strategies."
 created_date: "2026-05-28"
-last_updated: "2026-06-08"
-version: "v1.1.1"
+last_updated: "2026-06-18"
+version: "v1.1.2"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 tags: ["workflows", "automation", "agents", "coordination", "ci-cd"]
@@ -444,10 +444,10 @@ with:
 
 ## References
 
-- [Next Issues Execution Plan](../projects/active/next-issues-execution-plan.md) — Overall roadmap
+- [Next Issues Execution Plan](../.github/projects/active/next-issues-execution-plan.md) — Overall roadmap
 - [Workflow Instructions](../instructions/workflows.instructions.md) — Workflow authoring standards
 - [GitHub Actions Documentation](https://docs.github.com/en/actions) — Official reference
-- [Release Agent Specification](../../agents/release.agent.md) — Release orchestration contract
+- [Release Agent Specification](../agents/release.agent.md) — Release orchestration contract
 - [Workflow Files](../workflows/) — Repository workflow implementations
 
 ---

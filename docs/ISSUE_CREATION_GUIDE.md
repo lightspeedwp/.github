@@ -2,7 +2,7 @@
 title: GitHub Issue Creation Guide
 description: How to create well-formed issues, select templates, and trigger automation
 file_type: documentation
-version: "1.0.4"
+version: "1.0.5"
 created_date: "2026-05-31"
 last_updated: "2026-06-18"
 author: Claude Code
@@ -99,7 +99,7 @@ Review these checkboxes to ensure they align with your scope.
 
 ### 4. Add Labels and Metadata
 
-Issue templates currently do not pre-populate labels. Add labels manually:
+Issue templates do not pre-populate labels in the form, but automation adds the canonical set after creation. Add labels manually only when the workflow cannot infer them:
 
 - Add the appropriate `type:*` label (e.g., `type:bug`, `type:feature`)
 - Add exactly one `status:*` label
