@@ -91,7 +91,7 @@ The issue templates in this directory are automatically synchronised across all 
 | 05 | `05-epic.md` | `type:epic` | Large multi-part initiatives grouping stories, features, and tasks |
 | 06 | `06-story.md` | `type:story` | User-centric narratives with acceptance criteria and business value |
 | 07 | `07-improvement.md` | `type:improvement` | Suggested enhancements to existing functionality |
-| 08 | `08-user-experience-feedback.md` | `type:ux-feedback` | UX feedback and user experience improvements |
+| 08 | `08-chore.md` | `type:chore` | Small housekeeping tasks: label hygiene, repo tweaks, file moves |
 | 09 | `09-code-refactor.md` | `type:code-refactor` | Structured code cleanup without changing external behaviour |
 | 10 | `10-build-ci.md` | `type:build-ci` | Build system, CI/CD, and pipeline changes |
 | 11 | `11-automation.md` | `type:automation` | Workflow automation and tooling |
@@ -109,9 +109,8 @@ The issue templates in this directory are automatically synchronised across all 
 | 23 | `23-code-review.md` | `type:code-review` | Code quality discussions and review standards |
 | 24 | `24-ai-ops.md` | `type:ai-ops` | Specialist AI operations workflows |
 | 25 | `25-content-modelling.md` | `type:content-modelling` | Content modelling and data structure design |
-| 26 | `26-help.md` | `type:help` | Help requests and general questions |
 
-> **Label-only types** (no dedicated numbered template): `type:question`, `type:support`, `type:chore`. Use the nearest template and state the intended canonical type in the opening section.
+> **Label-only types** (no dedicated numbered template): `type:question`, `type:support`. Use the nearest template and state the intended canonical type in the opening section.
 
 ### 🔗 Template Integration
 
