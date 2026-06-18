@@ -11,15 +11,16 @@ if [ "${CLAUDE_CODE_REMOTE:-}" != "true" ]; then
   exit 0
 fi
 
-# Skip on clear/compact — only needed at startup and resume
+# Skip on clear/compact — branch rename and dep install are only needed at startup/resume
 HOOK_INPUT="$(cat)"
-SOURCE="$(printf '%s' "$HOOK_INPUT" | grep -oE '"source"\s*:\s*"[^"]+"' | grep -oE '"[^"]+"$' | tr -d '"' || true)"
-if [[ "$SOURCE" == "clear" || "$SOURCE" == "compact" ]]; then
+if echo "$HOOK_INPUT" | grep -qE '"source"\s*:\s*"(clear|compact)"'; then
   exit 0
 fi
 
+cd "${CLAUDE_PROJECT_DIR:-.}"
+
 # ── 1. Enforce branch naming — rename claude/ branches ───────────────────────
-# Done first so a failing npm install never leaves us on a forbidden branch.
+# Runs before npm install so a failing install can't prevent the rename.
 CURRENT_BRANCH="$(git branch --show-current 2>/dev/null || true)"
 
 if [[ "$CURRENT_BRANCH" == claude/* ]]; then
@@ -62,6 +63,5 @@ fi
 
 # ── 2. Install npm dependencies ──────────────────────────────────────────────
 echo "==> Installing npm dependencies..."
-cd "${CLAUDE_PROJECT_DIR:-.}"
 npm install --prefer-offline --no-fund --no-audit 2>&1
 echo "==> npm install complete."
