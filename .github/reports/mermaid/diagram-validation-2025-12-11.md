@@ -280,6 +280,8 @@ tags: ["mermaid", "validation", "accessibility", "documentation", "diagrams"]
    - **Example**:
 
      ```mermaid
+     accTitle: Mermaid validation scope overview
+     accDescr: Shows how the validation report groups README files into a simple top-level flowchart for the scan scope.
      flowchart TB
          A[LightSpeed Org] --> B[Community Health]
          A --> C[Documentation]

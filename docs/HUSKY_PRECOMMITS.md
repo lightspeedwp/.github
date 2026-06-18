@@ -116,6 +116,8 @@ If tests fail, the push is aborted and you must fix the issues before trying aga
 ## Workflow Overview
 
 ```mermaid
+accTitle: Husky workflow overview
+accDescr: Shows how staged files trigger lint-staged during pre-commit, then tests run during pre-push before code reaches the remote repository.
 flowchart LR
     A[Stage Files] --> B[git commit]
     B --> C{Pre-commit Hook}

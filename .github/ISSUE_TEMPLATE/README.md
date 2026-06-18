@@ -3,7 +3,7 @@ title: "Issue Templates Directory"
 description: "Standardized issue templates for the LightSpeedWP organization. Templates for bugs, features, documentation, and custom issues with automation integration."
 name: "Issue Templates"
 file_type: documentation
-version: v1.6
+version: v1.5
 last_updated: "2026-06-18"
 created_date: "2025-10-20"
 authors: ["LightSpeed Team"]
@@ -46,10 +46,8 @@ For advanced usage, see the [Issue Template Index](./README.md) and individual t
 ## 🗂️ Issue Template Workflow
 
 ```mermaid
----
 accTitle: Issue template workflow
-accDescr: Shows the issue creation workflow from template selection through auto-population, agent processing, auto-labeling, issue type assignment, project board assignment, and notification routing, with template sync feeding all organisation repositories.
----
+accDescr: Shows how users select an issue template, auto-populated fields flow into issue creation, and automation routes the issue to labelling, project, and notification steps.
 flowchart TD
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]

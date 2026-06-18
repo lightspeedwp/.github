@@ -85,6 +85,8 @@ You are the test style and quality enforcer for LightSpeed projects. Maintain co
 ## 🧪 Testing Pyramid
 
 ```mermaid
+accTitle: Testing pyramid overview
+accDescr: Shows how end-to-end, integration, unit, and static analysis layers stack within the testing strategy.
 graph TD
     A[E2E Tests<br/>Playwright] --> B[Integration Tests<br/>Jest + PHPUnit]
     B --> C[Unit Tests<br/>Jest + PHPUnit + pytest]
@@ -94,6 +96,8 @@ graph TD
 ## 🔄 Test Execution Flow
 
 ```mermaid
+accTitle: Test execution flow
+accDescr: Shows how a developer runs local tests, receives coverage feedback, and then CI repeats the test stages and quality gate checks.
 sequenceDiagram
     participant Dev as Developer
     participant Local as Local Tests
@@ -173,6 +177,8 @@ sequenceDiagram
 ## 📊 Test Coverage Matrix
 
 ```mermaid
+accTitle: Test coverage matrix
+accDescr: Shows how code changes branch into unit, integration, and end-to-end tests before reaching the quality gate.
 graph LR
     A[Code Changes] --> B{Test Type}
     B --> C[Unit Tests<br/>Fast & Isolated]

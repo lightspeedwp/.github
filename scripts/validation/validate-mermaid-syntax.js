@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Validate Mermaid diagram syntax in all README files
+ * Validate Mermaid diagram syntax in all markdown files
  * Using pattern-based validation (no DOM required)
  * @module scripts/validation/validate-mermaid-syntax.js
  */
@@ -13,9 +13,15 @@ import { globSync } from "glob";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "../../");
 
-const README_FILES = globSync("**/README.md", {
+const MARKDOWN_FILES = globSync("**/*.{md,mdx}", {
   cwd: ROOT,
-  ignore: ["**/node_modules/**", "**/.git/**", "**/coverage/**", "**/logs/**"],
+  ignore: [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/coverage/**",
+    "**/logs/**",
+    "**/.github/projects/**",
+  ],
 }).sort();
 
 // Mermaid syntax validation patterns
@@ -27,6 +33,7 @@ const DIAGRAM_TYPES = {
   erDiagram: /^\s*erDiagram\b/m,
   gantt: /^\s*gantt\b/m,
   pie: /^\s*pie\b/m,
+  mindmap: /^\s*mindmap\b/m,
 };
 
 function extractMermaidDiagrams(content) {
@@ -51,6 +58,7 @@ function getDiagramType(content) {
     "erDiagram",
     "gantt",
     "pie",
+    "mindmap",
   ];
   const lines = content.split("\n");
 
@@ -179,7 +187,7 @@ async function main() {
     errors: [],
   };
 
-  for (const file of README_FILES) {
+  for (const file of MARKDOWN_FILES) {
     const filePath = path.join(ROOT, file);
 
     if (!fs.existsSync(filePath)) {
@@ -269,7 +277,7 @@ stability: stable
 - **Success rate**: ${(report.totalDiagrams === 0 ? 100 : (report.validDiagrams / report.totalDiagrams) * 100).toFixed(1)}%
 ## Files Analyzed
 
-${README_FILES.map((f) => `- ${f}`).join("\n")}
+${MARKDOWN_FILES.map((f) => `- ${f}`).join("\n")}
 
 ## Detailed Results
 

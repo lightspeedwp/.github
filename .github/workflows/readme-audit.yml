@@ -11,6 +11,7 @@ on:
           - all
           - syntax
           - accessibility
+          - contrast
           - staleness
       output_format:
         description: "Output format"
@@ -97,14 +98,7 @@ jobs:
         run: npm install -g @mermaid-js/mermaid-cli
 
       - name: Validate Mermaid diagrams
-        run: |
-          find . -name "*.md" -type f | while read file; do
-            grep -q '```mermaid' "$file" && {
-              echo "Validating diagrams in $file..."
-              # Extract Mermaid blocks and validate
-              # This is a placeholder for actual validation logic
-            }
-          done
+        run: npm run validate:mermaid-syntax
 
   check-accessibility:
     name: Check WCAG Compliance
@@ -122,12 +116,25 @@ jobs:
           cache: "npm"
 
       - name: Check accessibility attributes
-        run: |
-          echo "Checking for accessibility attributes in Mermaid diagrams..."
-          # Scan for accTitle and accDescr in diagrams
-          find . -name "*.md" -type f -exec grep -l '```mermaid' {} \; | while read file; do
-            echo "Checking $file for accessibility attributes..."
-          done
+        run: npm run validate:mermaid-accessibility
+
+  check-contrast:
+    name: Check Mermaid Colour Contrast
+    runs-on: ubuntu-latest
+    if: contains(fromJson('["all", "contrast"]'), inputs.scope)
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Check Mermaid colour contrast
+        run: npm run validate:mermaid-contrast
 
   check-staleness:
     name: Identify Stale Documents

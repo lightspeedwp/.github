@@ -102,6 +102,8 @@ Validate and enforce linting standards for all supported file types (JS, TS, She
 ## 🔄 Linting Process Flow
 
 ```mermaid
+accTitle: Linting process flow
+accDescr: Shows the linting workflow from code change through pre-commit hooks, local linting, CI/CD pipeline checks, and merge approval.
 graph TD
     A[Code Change] --> B[Pre-commit Hooks]
     B --> C[Local Linting]
@@ -136,6 +138,8 @@ graph TD
 ## 🛠️ Linting Toolchain
 
 ```mermaid
+accTitle: Linting toolchain overview
+accDescr: Shows how source code feeds into ESLint, PHPCS, Prettier, Stylelint, and Markdownlint before reaching the CI/CD pipeline.
 graph LR
     A[Source Code] --> B[ESLint]
     A --> C[PHPCS]

@@ -401,6 +401,8 @@ Mermaid diagrams enhance documentation by visualizing complex relationships, pro
 #### **Flowchart (Most Common)**
 
 ```mermaid
+accTitle: Flowchart diagram example
+accDescr: Shows a simple decision flowchart with yes and no branches ending in separate actions.
 flowchart TD
     A[Start] --> B{Decision?}
     B -->|Yes| C[Action 1]
@@ -414,6 +416,8 @@ flowchart TD
 #### **Graph (Relationships)**
 
 ```mermaid
+accTitle: Graph diagram example
+accDescr: Shows a relationship graph connecting issues, pull requests, discussions, and releases.
 graph TB
     A[Issues] --> B[Pull Requests]
     A --> C[Discussions]
@@ -426,6 +430,8 @@ graph TB
 #### **Architecture Diagram**
 
 ```mermaid
+accTitle: Architecture diagram example
+accDescr: Shows a repository architecture split into internal repository components and external integration points.
 graph LR
     subgraph "Repository"
         A[Code] --> B[Tests]
@@ -446,6 +452,8 @@ graph LR
 #### **Sequence Diagram**
 
 ```mermaid
+accTitle: Sequence diagram example
+accDescr: Shows a simple request flow from user through GitHub and CI to deployment and back to the user.
 sequenceDiagram
     participant User
     participant GitHub
@@ -465,6 +473,8 @@ sequenceDiagram
 #### **State Diagram**
 
 ```mermaid
+accTitle: State diagram example
+accDescr: Shows a linear issue lifecycle from draft to review, approval, and merge.
 stateDiagram-v2
     [*] --> Draft
     Draft --> Review: Submit
@@ -489,15 +499,19 @@ stateDiagram-v2
 
 **Color Coding:**
 
+Use the approved Mermaid palette for any `style` or `classDef` declaration. Keep fill, text, and stroke colours together so GitHub light and dark rendering stay readable.
+
 ```mermaid
+accTitle: Mermaid colour coding example
+accDescr: Shows the approved Mermaid palette with explicit fill, text, and stroke values applied to success and error classes.
 flowchart TD
     A[Input] --> B[Process]
     B --> C{Decision}
     C -->|Success| D[Output]
     C -->|Error| E[Error Handler]
 
-    classDef success fill:#e8f5e8
-    classDef error fill:#ffebee
+    classDef success fill:#dcfce7,color:#14532d,stroke:#14532d
+    classDef error fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 
     class D success
     class E error
@@ -530,6 +544,8 @@ flowchart TD
 The following diagram shows the issue lifecycle:
 
 ```mermaid
+accTitle: Issue lifecycle example
+accDescr: Shows the issue lifecycle from open through in-progress, review, and closed states.
 stateDiagram-v2
     [*] --> Open
     Open --> InProgress
