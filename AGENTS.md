@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed Global AI Rules"
 description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
-version: 'v1.6'
-last_updated: '2026-06-08'
+version: 'v1.7'
+last_updated: '2026-06-18'
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -41,6 +41,20 @@ stability: "stable"
 | *TBD* | ⏳    | Awaiting test implementation |
 
 > **Note:** As agents are developed and tested, this table will be updated with their status. ✅ indicates passing tests, ❌ indicates failing tests, and ⏳ indicates tests pending implementation.
+
+---
+
+## Branch Governance
+
+All AI agents **must** follow these branching rules before editing files:
+
+1. **Validate the branch name** — run `npm run validate:branch-name -- --branch <name>` before the first edit. The branch must match `{type}/{scope}-{short-title}` format.
+2. **Check for branch reuse** — the validation script automatically detects branches that have already been merged. If flagged, create a new branch with a distinct name.
+3. **Verify the merge target** — feature/fix/chore branches target `develop`. Only `release/*` and `hotfix/*` may target `main`.
+4. **Never use `claude/` as a branch prefix** — this prefix is explicitly forbidden.
+5. **Delete branches after merge** — remote and local branches must be cleaned up immediately after a successful squash merge.
+
+See [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md) and [CLAUDE.md](CLAUDE.md) for the full policy.
 
 ---
 
