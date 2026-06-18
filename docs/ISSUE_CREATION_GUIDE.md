@@ -2,9 +2,9 @@
 title: GitHub Issue Creation Guide
 description: How to create well-formed issues, select templates, and trigger automation
 file_type: documentation
-version: "1.0.1"
+version: "1.0.2"
 created_date: "2026-05-31"
-last_updated: '2026-06-03'
+last_updated: "2026-06-18"
 author: Claude Code
 maintainer: Ash Shaw
 owners:
@@ -44,7 +44,6 @@ This guide helps contributors, team members, and AI agents create high-quality G
 | Create a **large, multi-part project** | 📦 Epic | `type:epic` |
 | Write a **user-centric story** (Agile) | 📑 Story | `type:story` |
 | Suggest **improvements** | 🔧 Improvement | `type:improve` |
-| Share **user feedback** | 💡 User Experience | `type:ux-feedback` |
 | Request **code cleanup** | ♻️ Code Refactor | `type:refactor` |
 | Discuss **build/CI/CD** | ⚙️ Build & CI | `type:build` |
 | Propose **automation** | 🤖 Automation | `type:automation` |
@@ -52,14 +51,14 @@ This guide helps contributors, team members, and AI agents create high-quality G
 | Report **performance** | ⚡ Performance | `type:performance` |
 | Report **accessibility** | ♿ Accessibility | `type:a11y` |
 | Report **security** | 🔐 Security | `type:security` |
+| Small **housekeeping tasks** | 🏠 Chore | `type:chore` |
 
 ### Current Template Parity Note
 
-- Numbered issue templates available: 26 (`01`-`26`)
-- Canonical issue types available: 29
-- Types currently without dedicated templates: `type:chore`, `type:question`, `type:support`
+- Numbered issue templates available: 25 (`01`-`25`), one per canonical org issue type
+- Label-only types (no dedicated template): `type:ux-feedback`, `type:question`, `type:support`, `type:help`
 
-For these three, use the nearest template and state the intended canonical type in the issue body.
+For UX feedback or improvement suggestions that do not fit an existing template, use **🔧 Improvement** and apply `type:ux-feedback` in the issue body. For help or support requests, use the **LightSpeedWP Support** contact link in the issue chooser.
 
 ---
 

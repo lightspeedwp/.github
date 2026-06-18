@@ -1,9 +1,10 @@
 ---
 file_type: "issue-template"
 name: "🧠 AI Ops"
+about: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
 description: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
-version: "1.0.0"
-last_updated: "2026-05-29"
+version: "1.0.1"
+last_updated: "2026-06-18"
 category: "github-templates"
 ---
 
