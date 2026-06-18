@@ -3,8 +3,8 @@ file_type: "issue-template"
 name: "📑 Story"
 about: "Propose a user-centric story as part of an Epic or milestone."
 description: "Propose a user-centric story as part of an Epic or milestone."
-version: "1.0.0"
-last_updated: "2026-05-29"
+version: "1.0.1"
+last_updated: "2026-06-18"
 category: "github-templates"
 ---
 

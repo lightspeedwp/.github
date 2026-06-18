@@ -3,8 +3,8 @@ file_type: "issue-template"
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 description: "Request new documentation or propose updates/clarifications to existing docs."
-version: "1.0.0"
-last_updated: "2026-05-29"
+version: "1.0.1"
+last_updated: "2026-06-18"
 category: "github-templates"
 ---
 
