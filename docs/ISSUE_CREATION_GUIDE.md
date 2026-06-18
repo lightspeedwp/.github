@@ -43,10 +43,10 @@ This guide helps contributors, team members, and AI agents create high-quality G
 | Request **design/UX work** | 🎨 Design | `type:design` |
 | Create a **large, multi-part project** | 📦 Epic | `type:epic` |
 | Write a **user-centric story** (Agile) | 📑 Story | `type:story` |
-| Suggest **improvements** | 🔧 Improvement | `type:improvement` |
+| Suggest **improvements** | 🔧 Improvement | `type:improve` |
 | Perform **housekeeping tasks** | 🏠 Chore | `type:chore` |
-| Request **code cleanup** | ♻️ Code Refactor | `type:code-refactor` |
-| Discuss **build/CI/CD** | ⚙️ Build & CI | `type:build-ci` |
+| Request **code cleanup** | ♻️ Code Refactor | `type:refactor` |
+| Discuss **build/CI/CD** | ⚙️ Build & CI | `type:build` |
 | Propose **automation** | 🤖 Automation | `type:automation` |
 | Request **tests** | 🧪 Test Coverage | `type:test` |
 | Report **performance** | ⚡ Performance | `type:performance` |

@@ -3,7 +3,7 @@ title: "Issue Templates Directory"
 description: "Standardized issue templates for the LightSpeedWP organization. Templates for bugs, features, documentation, and custom issues with automation integration."
 name: "Issue Templates"
 file_type: documentation
-version: v1.4
+version: v1.5
 last_updated: "2026-06-18"
 created_date: "2025-10-20"
 authors: ["LightSpeed Team"]
@@ -90,10 +90,10 @@ The issue templates in this directory are automatically synchronised across all 
 | 04 | `04-design.md` | `type:design` | UI/UX, token, or accessibility design work |
 | 05 | `05-epic.md` | `type:epic` | Large multi-part initiatives grouping stories, features, and tasks |
 | 06 | `06-story.md` | `type:story` | User-centric narratives with acceptance criteria and business value |
-| 07 | `07-improvement.md` | `type:improvement` | Suggested enhancements to existing functionality |
+| 07 | `07-improvement.md` | `type:improve` | Suggested enhancements to existing functionality |
 | 08 | `08-chore.md` | `type:chore` | Small housekeeping tasks: label hygiene, repo tweaks, file moves |
-| 09 | `09-code-refactor.md` | `type:code-refactor` | Structured code cleanup without changing external behaviour |
-| 10 | `10-build-ci.md` | `type:build-ci` | Build system, CI/CD, and pipeline changes |
+| 09 | `09-code-refactor.md` | `type:refactor` | Structured code cleanup without changing external behaviour |
+| 10 | `10-build-ci.md` | `type:build` | Build system, CI/CD, and pipeline changes |
 | 11 | `11-automation.md` | `type:automation` | Workflow automation and tooling |
 | 12 | `12-testing-coverage.md` | `type:testing-coverage` | New or refactored automated tests |
 | 13 | `13-performance.md` | `type:performance` | Speed, resource, or latency work |
