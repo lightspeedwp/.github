@@ -450,7 +450,7 @@ When contributing new scripts or modifications:
 
 - [GitHub Actions Workflows](../.github/workflows/)
 - [Schema Definitions](../schema/)
-- [Test Coverage Reports](../tests/TEST_COVERAGE_SUMMARY.md)
+- [Test Coverage Reports](../docs/TESTING.md#coverage-requirements)
 - [Contributing Guidelines](../CONTRIBUTING.md)
 
 ## AI & Automation References

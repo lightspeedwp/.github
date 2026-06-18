@@ -118,7 +118,9 @@ jobs:
             exit 0
           fi
 
-          CHANGED_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx')
+          CHANGED_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | \
+            grep -v '^\.github/instructions/\.archive/' | \
+            grep -v '^\.github/reports/')
           if [ -z "$CHANGED_FILES" ]; then
             echo "files=" >> "$GITHUB_OUTPUT"
             exit 0

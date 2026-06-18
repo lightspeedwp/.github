@@ -121,7 +121,7 @@ graph TD
 
 **Config Files:**
 
-- Main config: [`jest.config.js`](../jest.config.js) or [`jest.config.cjs`](../jest.config.cjs)
+- Main config: `jest.config.js` or `jest.config.cjs`
 - Setup: `jest.setup.js` for global test setup
 - Helpers: `tests/test-helpers.js` for shared utilities
 

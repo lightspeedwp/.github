@@ -129,7 +129,7 @@ graph TD
 
 ### ⚙️ Tool Integration
 
-- **[Lint Workflow](../.github/workflows/lint.yml)** - GitHub Actions linting
+- **[Lint Workflow](../.github/workflows/linting.yml)** - GitHub Actions linting
 - **[Linting Agent](agent-spec.instructions.md)** - Automated code review
 - **Pre-commit Hooks** - Local validation setup
 
