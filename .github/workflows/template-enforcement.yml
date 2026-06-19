@@ -2,7 +2,7 @@ name: Template Enforcement
 
 on:
   issues:
-    types: [opened, edited, reopened]
+    types: [opened, edited, reopened, closed]
   push:
     branches: [develop]
 
@@ -149,6 +149,101 @@ jobs:
             }
 
             core.setFailed(`Issue #${issue.number} is missing required template sections: ${missing.join(', ')}`);
+
+  enforce-close-guard:
+    if: github.event_name == 'issues' && github.event.action == 'closed' && github.event.issue.state_reason != 'not_planned'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Guard against closing incomplete issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '<!-- template-enforcement -->';
+            const issue = context.payload.issue;
+            const author = issue.user?.login || '';
+            const isBot = issue.user?.type === 'Bot' ||
+              author === 'dependabot[bot]' ||
+              author === 'app/dependabot' ||
+              author === 'github-actions[bot]';
+
+            if (isBot) {
+              core.info(`Skipping close guard for bot-authored issue #${issue.number}.`);
+              return;
+            }
+
+            const body = (issue.body || '').trim();
+
+            const required = [
+              { name: 'Definition of Ready (DoR)', regex: /definition of ready \(dor\)/i },
+              { name: 'Definition of Done (DoD)', regex: /definition of done \(dod\)/i }
+            ];
+
+            const missingSections = required
+              .filter((entry) => !entry.regex.test(body))
+              .map((entry) => entry.name);
+
+            const hasNeedsMoreInfo = (issue.labels || []).some(
+              (label) => label.name === 'status:needs-more-info'
+            );
+
+            if (missingSections.length === 0 && !hasNeedsMoreInfo) {
+              core.info(`Issue #${issue.number} meets close requirements.`);
+              return;
+            }
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              state: 'open',
+            });
+
+            const reasons = [];
+            if (missingSections.length > 0) {
+              reasons.push(`Missing required section(s): ${missingSections.join(', ')}`);
+            }
+            if (hasNeedsMoreInfo) {
+              reasons.push('Issue is flagged `status:needs-more-info` — resolve outstanding feedback first');
+            }
+
+            const message = [
+              marker,
+              '🔄 This issue was automatically re-opened because it does not meet the close requirements.',
+              '',
+              ...reasons.map((r) => `- ${r}`),
+              '',
+              'Please resolve the above, update the issue body with the correct template, then close again.',
+              '- Template guide: https://github.com/lightspeedwp/.github/issues/new/choose',
+            ].join('\n');
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              per_page: 100,
+            });
+
+            const existing = comments.find(
+              (comment) => comment.user?.type === 'Bot' && comment.body?.includes(marker)
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: message,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: message,
+              });
+            }
+
+            core.setFailed(`Issue #${issue.number} re-opened: does not meet close requirements (${reasons.join('; ')}).`);
 
   validate-push-guardrail:
     if: github.event_name == 'push'
