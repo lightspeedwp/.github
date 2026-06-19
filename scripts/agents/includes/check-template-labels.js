@@ -216,7 +216,7 @@ function validateTemplateFrontmatter(
   const requiredKeys = [
     "file_type",
     "name",
-    "description",
+    "about",
     "version",
     "last_updated",
     "category",
@@ -241,6 +241,12 @@ function validateTemplateFrontmatter(
   if (frontmatter.file_type !== "issue-template") {
     throw new Error(
       `Unexpected file_type in ${file}: expected "issue-template", found "${frontmatter.file_type}"`,
+    );
+  }
+
+  if (Object.prototype.hasOwnProperty.call(frontmatter, "description")) {
+    throw new Error(
+      `Issue template frontmatter in ${file} must use "about" instead of "description"`,
     );
   }
 

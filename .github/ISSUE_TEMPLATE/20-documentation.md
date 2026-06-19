@@ -2,9 +2,8 @@
 file_type: "issue-template"
 name: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
-description: "Request new documentation or propose updates/clarifications to existing docs."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 
@@ -76,3 +75,7 @@ Checklist items to ensure the documentation update is complete and actionable.
 - [ ] PR uses correct branch prefix (docs/)
 
 ---
+
+---
+
+Related issues: {related_issues}
