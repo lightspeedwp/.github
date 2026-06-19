@@ -2,9 +2,8 @@
 file_type: "issue-template"
 name: "📑 Story"
 about: "Propose a user-centric story as part of an Epic or milestone."
-description: "Propose a user-centric story as part of an Epic or milestone."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 
@@ -77,3 +76,7 @@ Use correct branch prefix (story/) for PRs.
 - [ ] QA verified/UAT approved (if applicable)
 
 ---
+
+---
+
+Related issues: {related_issues}

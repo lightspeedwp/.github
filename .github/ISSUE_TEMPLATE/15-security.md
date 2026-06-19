@@ -2,9 +2,8 @@
 file_type: "issue-template"
 name: "🔐 Security"
 about: "Report vulnerabilities, security improvements, or compliance requirements."
-description: "Report vulnerabilities, security improvements, or compliance requirements."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 
@@ -76,3 +75,7 @@ Add any other context, related issues, compliance docs, or references.
 - [ ] Approved by at least one maintainer
 
 ---
+
+---
+
+Related issues: {related_issues}
