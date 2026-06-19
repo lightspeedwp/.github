@@ -33,6 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Frontmatter standardisation across issue templates, docs, and validation** — Normalised markdown issue templates to use `name` + `about`, aligned the frontmatter schema and validation scripts with the GitHub-supported template contract, and updated the issue-creation workflow plus related docs, instructions, and prompts to match the canonical template layout. ([#1016](https://github.com/lightspeedwp/.github/pull/1016), [#1012](https://github.com/lightspeedwp/.github/issues/1012), [#1015](https://github.com/lightspeedwp/.github/issues/1015))
+
 - **Automation governance for Dependabot PRs and branding footers** — Stopped the metadata sync flow from auto-creating a milestone for each Dependabot PR, switched footer detection to the canonical branding config with tail-aware matching, and backfilled branded markdown footers across the repository. Updated the related CI, workflow, and documentation surfaces to keep the behaviour durable. ([#1010](https://github.com/lightspeedwp/.github/issues/1010), [#1013](https://github.com/lightspeedwp/.github/pull/1013))
 
 - **Metadata governance automation for issues and pull requests** — Added and hardened the GitHub automation that assigns project items, milestones, assignees, issue/PR relationships, project field values, and labelling behaviour for new issues and pull requests. Also updated the related docs, workflow guards, and test coverage to match the current codebase. ([#974](https://github.com/lightspeedwp/.github/pull/974))
