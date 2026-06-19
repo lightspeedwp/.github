@@ -1,9 +1,9 @@
 ---
 title: Mermaid Diagram Accessibility Compliance Report — Issue #669
 description: Accessibility compliance audit of all 24 Mermaid diagrams for accTitle and accDescr attributes
-version: 1.0.1
+version: 1.0.0
 created_date: "2026-05-31"
-last_updated: "2026-06-18"
+last_updated: "2026-06-19"
 file_type: documentation
 maintainer: Claude Code
 owners:
@@ -525,9 +525,9 @@ stability: stable
 - schema/README.md
 - schema/agent-config.example.md
 - scripts/README.md
-- scripts/agents/__tests__/README.md
+- scripts/agents/**tests**/README.md
 - scripts/agents/includes/README.md
-- scripts/agents/includes/__tests__/README.md
+- scripts/agents/includes/**tests**/README.md
 - scripts/validation/README.md
 - skills/README.md
 - skills/design-md-agent/INDEX.md
@@ -1239,10 +1239,12 @@ stability: stable
 ## Compliance Criteria
 
 All diagrams must include:
+
 - ✅ **accTitle attribute** — Brief accessible title for screen readers
 - ✅ **accDescr attribute** — Detailed accessible description of diagram content
 
 Supported formats:
+
 - Single-line: `accTitle Title text` or `accDescr: "Description text"`
 - Block format: `accDescr { ... }`
 

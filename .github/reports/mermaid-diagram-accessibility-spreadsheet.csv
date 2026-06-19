@@ -15,7 +15,7 @@ File,Diagram Number,Diagram Type,Has accTitle,Has accDescr,Missing Attributes,Co
 .github/reports/wave-5-completion-summary.md,1,graph,Yes,Yes,"—",✅ Accessible
 .vscode/README.md,1,flowchart,Yes,Yes,"—",✅ Accessible
 CONTRIBUTING.md,1,flowchart,Yes,Yes,"—",✅ Accessible
-README.md,1,flowchart,Yes,Yes,"—",✅ Accessible
+README.md,1,graph,Yes,Yes,"—",✅ Accessible
 README.md,2,flowchart,Yes,Yes,"—",✅ Accessible
 README.md,3,flowchart,Yes,Yes,"—",✅ Accessible
 README.md,4,sequenceDiagram,Yes,Yes,"—",✅ Accessible
@@ -45,7 +45,7 @@ instructions/documentation-formats.instructions.md,7,stateDiagram,Yes,Yes,"—",
 instructions/linting.instructions.md,1,graph,Yes,Yes,"—",✅ Accessible
 instructions/linting.instructions.md,2,graph,Yes,Yes,"—",✅ Accessible
 instructions/mermaid.instructions.md,1,flowchart,Yes,Yes,"—",✅ Accessible
-instructions/mermaid.instructions.md,2,Multi,Yes,Yes,"—",✅ Accessible
+instructions/mermaid.instructions.md,2,flowchart,Yes,Yes,"—",✅ Accessible
 instructions/mermaid.instructions.md,3,flowchart,Yes,Yes,"—",✅ Accessible
 instructions/quality-assurance.instructions.md,1,graph,Yes,Yes,"—",✅ Accessible
 instructions/quality-assurance.instructions.md,2,sequenceDiagram,Yes,Yes,"—",✅ Accessible
@@ -56,6 +56,6 @@ profile/README.md,4,stateDiagram,Yes,Yes,"—",✅ Accessible
 scripts/README.md,1,graph,Yes,Yes,"—",✅ Accessible
 scripts/README.md,2,sequenceDiagram,Yes,Yes,"—",✅ Accessible
 scripts/README.md,3,flowchart,Yes,Yes,"—",✅ Accessible
-tests/README.md,1,flowchart,Yes,Yes,"—",✅ Accessible
+tests/README.md,1,graph,Yes,Yes,"—",✅ Accessible
 tests/README.md,2,sequenceDiagram,Yes,Yes,"—",✅ Accessible
 tests/README.md,3,flowchart,Yes,Yes,"—",✅ Accessible

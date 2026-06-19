@@ -2,9 +2,8 @@
 file_type: "issue-template"
 name: "🧠 AI Ops"
 about: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
-description: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 
@@ -50,3 +49,7 @@ category: "github-templates"
 - [ ] PR uses correct branch prefix (ai/)
 
 ---
+
+---
+
+Related issues: {related_issues}

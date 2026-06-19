@@ -25,11 +25,6 @@ function normaliseTitle(title) {
     .trim();
 }
 
-function deriveMilestoneTitle(title) {
-  const cleaned = normaliseTitle(title);
-  return cleaned.slice(0, 80) || "Untriaged";
-}
-
 function getActorLogin(event) {
   return (
     event?.sender?.login ||
@@ -192,33 +187,6 @@ function buildAssigneeCandidates(item, defaultAssignee) {
   return candidates;
 }
 
-async function findOpenOrRecentMilestone(github, owner, repo, title) {
-  const milestones = await github.paginate(github.rest.issues.listMilestones, {
-    owner,
-    repo,
-    state: "all",
-    per_page: 100,
-  });
-
-  return milestones.find((milestone) => milestone.title === title) || null;
-}
-
-async function ensureMilestone(github, owner, repo, title) {
-  const existing = await findOpenOrRecentMilestone(github, owner, repo, title);
-  if (existing) {
-    return existing;
-  }
-
-  const created = await github.rest.issues.createMilestone({
-    owner,
-    repo,
-    title,
-    state: "open",
-  });
-
-  return created.data;
-}
-
 async function assignIssue(github, owner, repo, number, candidates) {
   for (const candidate of candidates) {
     if (!candidate) continue;
@@ -248,6 +216,13 @@ async function updateIssueMilestone(github, owner, repo, number, milestoneNumber
     issue_number: number,
     milestone: milestoneNumber,
   });
+}
+
+function isDependabotPullRequest(item) {
+  return (
+    item.kind === "pull_request" &&
+    /^(dependabot\[bot\]|app\/dependabot)$/.test(item.author || "")
+  );
 }
 
 async function resolveLinkedIssueMilestone(github, owner, repo, references) {
@@ -362,19 +337,19 @@ async function syncItemMetadata({ github, owner, repo, event, config }) {
 
   let milestoneSummary = item.milestone?.title || "";
   if (!milestoneSummary) {
-    const linkedMilestone =
-      item.kind === "pull_request"
-        ? await resolveLinkedIssueMilestone(
-            github,
-            owner,
-            repo,
-            [...new Set([...hints.linkedRefs, ...extractIssueRefs(item.body)])],
-          )
-        : null;
-    const milestoneTitle = linkedMilestone?.title || deriveMilestoneTitle(item.title);
-    const milestone = linkedMilestone || (await ensureMilestone(github, owner, repo, milestoneTitle));
-    await updateIssueMilestone(github, owner, repo, item.number, milestone.number);
-    milestoneSummary = milestone.title;
+    const linkedMilestone = await resolveLinkedIssueMilestone(
+      github,
+      owner,
+      repo,
+      [...new Set([...hints.linkedRefs, ...extractIssueRefs(item.body)])],
+    );
+
+    if (linkedMilestone) {
+      await updateIssueMilestone(github, owner, repo, item.number, linkedMilestone.number);
+      milestoneSummary = linkedMilestone.title;
+    } else if (isDependabotPullRequest(item)) {
+      milestoneSummary = "";
+    }
   }
 
   const hasRelationshipMetadata =
@@ -472,7 +447,6 @@ module.exports = {
   addSubIssueRelationship,
   assignIssue,
   buildAssigneeCandidates,
-  deriveMilestoneTitle,
   extractIssueRefs,
   formatRelationshipComment,
   getActorLogin,

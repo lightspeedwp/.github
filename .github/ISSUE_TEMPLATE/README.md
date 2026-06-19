@@ -3,8 +3,8 @@ title: "Issue Templates Directory"
 description: "Standardized issue templates for the LightSpeedWP organization. Templates for bugs, features, documentation, and custom issues with automation integration."
 name: "Issue Templates"
 file_type: documentation
-version: v1.5
-last_updated: "2026-06-18"
+version: v1.8.1
+last_updated: "2026-06-19"
 created_date: "2025-10-20"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -20,6 +20,8 @@ stability: "stable"
 ![Automation Badge](https://img.shields.io/badge/automation-enabled-blue?style=flat-square)
 
 This directory contains standardized issue templates used across all LightSpeedWP repositories to ensure consistent issue creation and proper automation triggering.
+
+Markdown issue templates in this directory use `name` and `about` in front matter. Do not duplicate the picker summary into `description`.
 
 ## 🚀 Quick Start
 
@@ -46,9 +48,9 @@ For advanced usage, see the [Issue Template Index](./README.md) and individual t
 ## 🗂️ Issue Template Workflow
 
 ```mermaid
-accTitle: Issue template workflow
-accDescr: Shows how users select an issue template, auto-populated fields flow into issue creation, and automation routes the issue to labelling, project, and notification steps.
 flowchart TD
+    accTitle: Issue template workflow
+    accDescr: Shows the flow from user selecting a template through auto-labeling, agent processing, and routing to project boards.
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]
     B -->|Feature Request| D[Feature Template]
@@ -61,15 +63,15 @@ flowchart TD
     F --> G
 
     G --> H[Issue Creation]
-    H --> I[Agent Processing]
+    H --> I[⚙️ Agent Processing]
 
-    I --> J[Auto-labeling]
+    I --> J[🏷️ Auto-labeling]
     I --> K[Issue Type Assignment]
-    I --> L[Project Board Assignment]
+    I --> L[📊 Project Board]
     I --> M[Notification Routing]
 
     N[Template Sync] --> O[All Org Repos]
-    P[Automation Agents] --> I
+    P[🤖 Automation Agents] --> I
     Q[Label System] --> J
     R[Project Management] --> L
 
@@ -148,6 +150,4 @@ These templates integrate with:
 
 *This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION.md) for complete automation standards.*
 
----
-
-<!-- RANDOM FOOTER: 🚀 Consistent templates, efficient workflows! -->
+Related issues: {related_issues}

@@ -2,7 +2,7 @@
 file_type: documentation
 title: LightSpeed WordPress Development Agency - GitHub Profile
 description: Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003
-version: v2.3
+version: v2.2
 created_date: '2025-10-20'
 last_updated: '2026-06-18'
 maintainer: LightSpeed Team
@@ -198,7 +198,7 @@ accDescr: "Comprehensive architecture showing frontend solutions with LSX Design
     style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style G fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style J fill:#dcfce7,color:#14532d,stroke:#14532d
-    style M fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style M fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 ```
 
 ### [LSX Design](https://lsx.design)

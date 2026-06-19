@@ -2,11 +2,10 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.5
+version: v1.0.6
 created_date: '2026-05-31'
-last_updated: '2026-06-18'
+last_updated: '2026-06-19'
 authors:
-  - Claude Code
   - LightSpeed Team
 maintainer: LightSpeed Team
 owners:
@@ -401,7 +400,7 @@ Why both exist:
 
 | Date | Change | Author |
 | --- | --- | --- |
-| 2026-05-31 | Initial specification v1.0.0 — 32 type → 10 project field mapping | Claude Code |
+| 2026-05-31 | Initial specification v1.0.0 — 32 type → 10 project field mapping | LightSpeed Team |
 
 ---
 
@@ -437,10 +436,13 @@ The following project field features are enabled across all LightSpeed repositor
 
 Managed via `.github/workflows/project-meta-sync.yml` automation.
 
-Current live write boundary (verified 2026-06-07):
+Current workflow contract:
 
-- Workflow writes `Status`, `Priority`, `Type`, `Effort`, and `Start date`.
-- `Target date` remains part of canonical config and governance but is currently deferred from automated writes.
+- Workflow writes `Status`, `Priority`, `Type`, `Effort`, `Start date`, and `Target date`.
+- `Start date` and `Target date` are only populated when kickoff metadata is present.
+- If labels arrive after creation, the sync workflow reprocesses the item and backfills
+  `Type` and `Priority` from canonical labels, issue type intent, or safe content
+  fallbacks.
 
 Verification record: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
 

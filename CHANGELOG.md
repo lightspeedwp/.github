@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-06-18"
+last_updated: "2026-06-19"
 owners:
   - LightSpeed Team
 tags:
@@ -25,13 +25,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Issue automation hardening** — Expanded `checklist-finalisation.yml` to auto-tick `Steps / Checklist` and `Acceptance Criteria` sections on issue close (previously only DoR/DoD were covered). Added `enforce-close-guard` job to `template-enforcement.yml`: issues closed as "completed" that are missing DoR/DoD sections or still carry `status:needs-more-info` are automatically re-opened with an explanation comment. Activated `issues.agent.js` apply mode — the workflow now writes `status:needs-triage`, `priority:normal`, and a detected `type:*` label to newly opened issues when those label categories are not already present; updated `issues.yml` permissions from `issues: read` to `issues: write`. ([#1014](https://github.com/lightspeedwp/.github/issues/1014))
+
+- **GitHub Merge Queue support** — Added `merge_group: types: [checks_requested]` trigger to `checks.yml`, `validate-pr-template.yml`, and `main-branch-guard.yml` so required status checks fire correctly inside GitHub's Merge Queue. Skipped branch-name validation for `merge_group` runs and updated the changed-files comparison to use merge-queue SHAs. Added `merge_queue` rule (ALLGREEN grouping, 60-minute check timeout) to both `develop` and `main` branch rulesets. ([PR #1008](https://github.com/lightspeedwp/.github/pull/1008), [Issue #1008](https://github.com/lightspeedwp/.github/issues/1008))
+
+- **Mermaid WCAG 2.2 AA colour contrast validation** — Added `scripts/validation/validate-mermaid-colour-contrast.js` which checks every `style` declaration in Mermaid diagrams against a pre-verified WCAG 2.2 AA palette (minimum 4.5:1 contrast ratio). The validator supports `--changed-files` scoping for CI efficiency, flags unparseable hex values as errors, strips inline `%%` comments before parsing, and generates a dated markdown report under `.github/reports/mermaid/`. Added `npm run validate:mermaid-contrast` script. Updated `.github/workflows/validate-mermaid-pr.yml` to run all three diagram checks (syntax, accessibility, contrast) on every PR that modifies `.md`/`.mdx` files, posting a consolidated status comment. Updated `instructions/mermaid.instructions.md` with the approved seven-role WCAG AA palette and required structure. Fixed all existing diagram `style` declarations across `README.md`, `docs/AGENT_CREATION.md`, `profile/README.md`, `scripts/README.md`, `tests/README.md`, and `.github/ISSUE_TEMPLATE/README.md` to use the approved palette triples (`fill`, `color`, `stroke`). ([#977](https://github.com/lightspeedwp/.github/pull/977), [#976](https://github.com/lightspeedwp/.github/issues/976))
+
+### Fixed
+
+- **Release agent hardening** — Fixed four bugs in `scripts/agents/release.agent.js`: (1) regex escape `\\d+` → `\d+` in `getMergedPRs` so PR numbers are correctly extracted from `git log`; (2) automated release PR body now includes all three sections (`## Linked issues & merged PRs`, `## Changelog`, `### Checklist (Global DoD / PR)`) required by the main-branch-guard; (3) `createReleasePR` (shell provider) now writes the body to a temp file and uses `--body-file` to avoid shell injection from backtick-containing markdown; (4) corrected Husky v9 command from `npx husky run pre-commit` to `npx lint-staged`. Added full test suites for `changelogUtils.cjs`, `validate-main-branch-pr.cjs`, and `release.agent.js` (ESM subprocess pattern); rewrote the stub in `validate-changelog.test.js` with real CLI and integration tests. Clarified the `develop → release/vX.Y.Z → main` flow in the release issue template. ([#1018](https://github.com/lightspeedwp/.github/pull/1018), [#968](https://github.com/lightspeedwp/.github/issues/968))
+
 ### Changed
+
+- **Frontmatter standardisation across issue templates, docs, and validation** — Normalised markdown issue templates to use `name` + `about`, aligned the frontmatter schema and validation scripts with the GitHub-supported template contract, and updated the issue-creation workflow plus related docs, instructions, and prompts to match the canonical template layout. ([#1016](https://github.com/lightspeedwp/.github/pull/1016), [#1012](https://github.com/lightspeedwp/.github/issues/1012), [#1015](https://github.com/lightspeedwp/.github/issues/1015))
+
+- **Automation governance for Dependabot PRs and branding footers** — Stopped the metadata sync flow from auto-creating a milestone for each Dependabot PR, switched footer detection to the canonical branding config with tail-aware matching, and backfilled branded markdown footers across the repository. Updated the related CI, workflow, and documentation surfaces to keep the behaviour durable. ([#1010](https://github.com/lightspeedwp/.github/issues/1010), [#1013](https://github.com/lightspeedwp/.github/pull/1013))
 
 - **Metadata governance automation for issues and pull requests** — Added and hardened the GitHub automation that assigns project items, milestones, assignees, issue/PR relationships, project field values, and labelling behaviour for new issues and pull requests. Also updated the related docs, workflow guards, and test coverage to match the current codebase. ([#974](https://github.com/lightspeedwp/.github/pull/974))
 
 - **Community health audit — PR templates, governance docs, and README alignment** — Completed a comprehensive audit of all community health files: updated WCAG version references from 2.1 to 2.2 AA in `pr_bug.md`, `pr_chore.md`, `pr_ci.md`, and `pr_dep_update.md`; added 15 missing branch-prefix rows to the default `pull_request_template.md` quick-selector table to align with `PULL_REQUEST_TEMPLATE/config.yml`; expanded `AGENTS.md` issue template list from 10 to 23 entries and added Saved Replies section; expanded `CLAUDE.md` issue template list to match; fixed template count, range, and parity note in `.github/custom-instructions.md`; completely rewrote `.github/workflows/README.md` with an accurate inventory of all 27 real workflows (removed 4 phantom workflow references); updated `.github/README.md` version date; added 20 missing files to `.github/SAVED_REPLIES/README.md`; added template index table to `.github/ISSUE_TEMPLATE/README.md`; replaced generic category list with the 9 actual YAML file inventory in `.github/DISCUSSION_TEMPLATE/README.md`; updated `docs/ISSUE_CREATION_GUIDE.md` to 25-template parity and corrected label values. ([#966](https://github.com/lightspeedwp/.github/pull/966))
 
 ### Fixed
+
+- **Mermaid validator hardened to reject `accTitle`/`accDescr` placed before diagram type** — Added a guard in `scripts/validation/validate-mermaid-accessibility.js` that rejects any Mermaid block where `accTitle` or `accDescr` appears before the diagram type declaration (e.g. `flowchart TD`). Corrected all 20 affected diagrams across 9 files (`.github/instructions/.archive/frontmatter.instructions.md`, `.github/instructions/.archive/tests.instructions.md`, `.github/reports/mermaid/diagram-validation-2025-12-11.md`, `CONTRIBUTING.md`, `docs/HUSKY_PRECOMMITS.md`, `instructions/automation.instructions.md`, `instructions/documentation-formats.instructions.md`, `instructions/linting.instructions.md`, `instructions/quality-assurance.instructions.md`) to place the diagram type first. 60/60 diagrams are now compliant.
+
+- **Mermaid YAML front-matter converted to inline accessibility syntax** — Replaced all Mermaid `---` YAML front-matter blocks (unsupported by GitHub's renderer) with inline `accTitle` and `accDescr` attributes placed directly after the diagram type declaration. Affected files: `.github/ISSUE_TEMPLATE/README.md`, `.github/README.md`, `.github/prompts/update-mermaid-diagrams.prompt.md`, `.github/reports/audits/2026-06-03-file-organisation-migration-plan-673.md`, `.vscode/README.md`, `docs/AGENT_CREATION.md`, `docs/CANONICAL_CONFIGS_GUIDE.md`. Updated `scripts/validation/validate-mermaid-accessibility.js` to ignore `.claude/**` worktree directories and use a regex for `accDescr {` block detection. Updated `instructions/mermaid.instructions.md` to explicitly forbid YAML front-matter syntax. Closes [#991](https://github.com/lightspeedwp/.github/issues/991). ([#995](https://github.com/lightspeedwp/.github/pull/995))
+
+- **`label-sync.js` crash on YAML-ambiguous hex color values** — YAML parses bare hex strings such as `8957E5` (parsed as scientific notation `895700000`) and `007580` (parsed as integer `7580`) as numbers, causing `labelObj.color.replace is not a function` in the Unified Labeling workflow. Quoted all affected `color:` values in `.github/labels.yml` and added `String()` coercion in `scripts/agents/includes/label-sync.js` as defence-in-depth. ([#995](https://github.com/lightspeedwp/.github/pull/995))
 
 - **Repository-wide Mermaid accessibility and contrast coverage** — Added `accTitle` and `accDescr` to every Mermaid diagram in the repository, updated the Mermaid prompt/instructions/workflows to enforce the approved contrast-safe palette, and added repository-wide syntax, accessibility, and colour-contrast validators. Closes [#986](https://github.com/lightspeedwp/.github/issues/986). ([#987](https://github.com/lightspeedwp/.github/pull/987))
 
@@ -112,7 +134,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Onboarding page: Wapuu-Yoduu for wisdom and guidance
   - Glossary page: Wapuu-Astropuu for reference and learning
   - References page: Wapuu-Rocket for navigation and discovery
-  All Wapuus feature responsive sizing (clamp 100-200px), drop-shadow filters for visual depth, proper accessibility attributes (aria-hidden), and fluid flexbox layouts for hero sections that adapt across mobile, tablet, and desktop viewports.
+    All Wapuus feature responsive sizing (clamp 100-200px), drop-shadow filters for visual depth, proper accessibility attributes (aria-hidden), and fluid flexbox layouts for hero sections that adapt across mobile, tablet, and desktop viewports.
 
 ### Fixed
 

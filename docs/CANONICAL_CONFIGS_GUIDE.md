@@ -2,9 +2,9 @@
 file_type: documentation
 title: Canonical Config File Interdependencies Guide
 description: Canonical reference for how labels.yml, issue-types.yml, labeler.yml, and issue-fields.yml interact from issue creation through automation completion.
-version: v1.0.2
+version: v1.0.4
 created_date: "2026-06-03"
-last_updated: "2026-06-05"
+last_updated: "2026-06-19"
 authors:
   - GitHub Copilot
 owners:
@@ -34,6 +34,10 @@ This guide documents the canonical relationship between:
 
 It also maps end-to-end data flow from issue/PR creation to automation completion.
 
+Project metadata sync is label-driven, but it also treats issue type selection
+and safe content/branch fallbacks as first-class signals so project fields can
+catch up when labels are added after creation.
+
 ## Canonical Roles
 
 | File | Canonical Role | Primary Consumers |
@@ -46,11 +50,9 @@ It also maps end-to-end data flow from issue/PR creation to automation completio
 ## Interdependency Diagram
 
 ```mermaid
----
-accTitle: Canonical config interdependency map
-accDescr: Flowchart showing the four canonical config files and how labeling workflows and project metadata sync consume them. labels.yml is shared vocabulary, issue-types.yml defines type mapping, labeler.yml applies rules, and issue-fields.yml maps labels to project fields.
----
 flowchart LR
+    accTitle: Canonical config interdependency map
+    accDescr: Flowchart showing the four canonical config files and how labeling workflows and project metadata sync consume them. labels.yml is shared vocabulary, issue-types.yml defines type mapping, labeler.yml applies rules, and issue-fields.yml maps labels to project fields.
     A[labels.yml\nCanonical label vocabulary] --> E[Labeling agent and workflows]
     B[issue-types.yml\nIssue Type to type label map] --> E
     C[labeler.yml\nBranch and file match rules] --> E
@@ -63,11 +65,9 @@ flowchart LR
 ## Data Flow: Issue Creation to Automation Completion
 
 ```mermaid
----
-accTitle: Issue and PR automation data flow
-accDescr: Sequence diagram showing how issue templates and pull request branches trigger labeling automation, which reads canonical config files and then updates labels and project fields.
----
 sequenceDiagram
+    accTitle: Issue and PR automation data flow
+    accDescr: Sequence diagram showing how issue templates and pull request branches trigger labeling automation, which reads canonical config files and then updates labels and project fields.
     participant U as Contributor
     participant GH as GitHub Event
     participant LA as Labeling Agent and Workflow
@@ -93,6 +93,7 @@ sequenceDiagram
 2. `status:*` and `priority:*` mappings in `.github/issue-fields.yml` must resolve to labels defined in `.github/labels.yml`.
 3. `.github/labeler.yml` may only emit canonical labels defined in `.github/labels.yml`.
 4. `.github/issue-types.yml` display types should map to canonical `type:*` labels that can be projected into project field Type values.
+5. `project-meta-sync.yml` should reprocess label changes so late `type:*` labels or corrected issue types update the project field projection.
 
 ## Current Risks Observed
 

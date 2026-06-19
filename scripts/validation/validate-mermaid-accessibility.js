@@ -18,6 +18,7 @@ const MARKDOWN_FILES = globSync("**/*.{md,mdx}", {
   ignore: [
     "**/node_modules/**",
     "**/.git/**",
+    "**/.claude/**",
     "**/coverage/**",
     "**/logs/**",
     "**/.github/projects/**",
@@ -83,30 +84,65 @@ function getDiagramType(content) {
 
 function validateAccessibility(content) {
   const issues = [];
-
-  // Check for accTitle
-  const hasAccTitle =
-    /accTitle\s*[:=]|accTitle\s*{/.test(content) ||
-    /^\s*accTitle\s+/m.test(content);
-  if (!hasAccTitle) {
-    issues.push("Missing accTitle attribute");
-  }
-
-  // Check for accDescr
-  const hasAccDescr =
-    /accDescr\s*[:=]|accDescr\s*{/.test(content) ||
-    /^\s*accDescr\s+/m.test(content);
-  if (!hasAccDescr) {
-    issues.push("Missing accDescr attribute");
-  }
-
-  // Validate accDescr block format if present
-  let inAccDescrBlock = false;
   const lines = content.split("\n");
+
+  // Check for YAML front-matter header (--- blocks) — NOT supported by GitHub's renderer.
+  // The first non-blank, non-comment line of a Mermaid block must be the diagram type,
+  // not a YAML front-matter delimiter.
+  const firstMeaningfulLine = lines.find(
+    (l) => l.trim() !== "" && !l.trim().startsWith("%%"),
+  );
+  if (firstMeaningfulLine && firstMeaningfulLine.trim() === "---") {
+    issues.push(
+      "YAML front-matter (---) syntax is not supported by GitHub's Mermaid renderer. " +
+        "Move accTitle and accDescr inline, after the diagram type declaration.",
+    );
+    // Return early — remaining checks are meaningless if the block uses the unsupported format
+    return issues;
+  }
+
+  // Reject accessibility attributes placed before the diagram type declaration.
+  // The diagram type (e.g. flowchart TD) must be the very first line; accTitle/accDescr
+  // that precede it are invisible to screen readers and indicate a mis-ordered block.
+  if (
+    firstMeaningfulLine &&
+    /^\s*(accTitle|accDescr)\s*[:{\s]/.test(firstMeaningfulLine)
+  ) {
+    issues.push(
+      "accTitle/accDescr must appear after the diagram type declaration, not before it. " +
+        "Move the diagram type (e.g. `flowchart TD`) to the first line.",
+    );
+    return issues;
+  }
+
+  // Check for accTitle as an inline statement after the diagram type line.
+  // Supported forms: "accTitle: text" or (rarely) "accTitle text"
+  const hasAccTitle =
+    /^\s*accTitle\s*:/m.test(content) || /^\s*accTitle\s+\S/m.test(content);
+  if (!hasAccTitle) {
+    issues.push(
+      "Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)",
+    );
+  }
+
+  // Check for accDescr as an inline statement after the diagram type line.
+  // Supported forms: "accDescr: text" or block "accDescr { ... }"
+  const hasAccDescr =
+    /^\s*accDescr\s*:/m.test(content) ||
+    /^\s*accDescr\s*\{/m.test(content) ||
+    /^\s*accDescr\s+\S/m.test(content);
+  if (!hasAccDescr) {
+    issues.push(
+      "Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)",
+    );
+  }
+
+  // Validate accDescr block format if present — ensure closing brace exists
+  let inAccDescrBlock = false;
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
 
-    if (line.startsWith("accDescr {")) {
+    if (/^accDescr\s*\{/.test(line)) {
       inAccDescrBlock = true;
     }
 
@@ -116,7 +152,7 @@ function validateAccessibility(content) {
   }
 
   if (inAccDescrBlock) {
-    issues.push("Unclosed accDescr block");
+    issues.push("Unclosed accDescr block — add a closing `}` on its own line");
   }
 
   return issues;

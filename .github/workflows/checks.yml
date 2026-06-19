@@ -5,6 +5,8 @@ on:
     branches: [develop]
   push:
     branches: [develop]
+  merge_group:
+    types: [checks_requested]
 
 permissions:
   contents: read
@@ -53,13 +55,15 @@ jobs:
           node-version: "22.22.1"
       - run: npm ci
       - name: Validate branch name
+        if: github.event_name != 'merge_group'
         env:
-          BRANCH_NAME: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          BRANCH_NAME: ${{ github.event.merge_group.head_ref || github.event.pull_request.head.ref || github.ref_name }}
         run: npm run validate:branch-name
       - run: npm run validate:json
       - run: npm run validate:issue-fields
       - run: npm run validate:retired-doc-links
-      - run: npm run validate:frontmatter:changed -- --base ${{ github.event.pull_request.base.sha || github.event.before }} --head ${{ github.event.pull_request.head.sha || github.sha }}
+      - run: npm run validate:footers -- --changed-only
+      - run: npm run validate:frontmatter:changed -- --base ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }} --head ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
 
   # Composite status check: ensures all checks pass before merge
   all-checks:
