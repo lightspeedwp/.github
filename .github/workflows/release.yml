@@ -68,6 +68,7 @@ jobs:
       unauthorized_attempts: ${{ steps.telemetry.outputs.unauthorized_attempts }}
       is_authorized: ${{ steps.telemetry.outputs.is_authorized }}
     steps:
+      - uses: actions/checkout@v7
       - id: telemetry
         name: Validate trigger authorization
         env:
@@ -76,11 +77,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/workflows/release/trigger-telemetry.cjs
       - name: Upload telemetry artefact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: trigger-telemetry
           path: trigger-telemetry.json
+          if-no-files-found: ignore
 
   lint:
     needs: [trigger-telemetry]
@@ -159,7 +161,7 @@ jobs:
         run: node scripts/workflows/release/build-notes-preview.cjs
       - name: Upload dry-run artefacts
         if: inputs.dry_run == true
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: release-dry-run-artefacts
           path: |
