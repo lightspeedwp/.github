@@ -20,6 +20,7 @@
 
 import fs from "fs";
 import path from "path";
+import { execSync } from "child_process";
 import yaml from "js-yaml";
 import { fileURLToPath } from "url";
 
@@ -51,6 +52,7 @@ const reportFile = args
   .find((arg) => arg.startsWith("--report="))
   ?.split("=")[1];
 const verbose = args.includes("--verbose");
+const changedOnly = args.includes("--changed-only");
 
 // Track violations
 const violations = {
@@ -150,19 +152,31 @@ function replaceFooterTail(content, footerTemplate) {
   }
 
   const lastSeparatorIdx = separators[separators.length - 1];
-  const contentWithoutTail = lines.slice(0, lastSeparatorIdx).join("\n").replace(/\s+$/, "");
+  const contentWithoutTail = lines
+    .slice(0, lastSeparatorIdx)
+    .join("\n")
+    .replace(/\s+$/, "");
   return `${contentWithoutTail}${footerBlock}`;
 }
 
 function inferCategory(filePath, frontmatter) {
-  if (frontmatter?.category && footerConfig.categories?.[frontmatter.category]) {
+  if (
+    frontmatter?.category &&
+    footerConfig.categories?.[frontmatter.category]
+  ) {
     return frontmatter.category;
   }
 
   const normalizedPath = filePath.replace(/\\/g, "/");
   const pathPatterns = [
-    { pattern: /^\.github\/ISSUE_TEMPLATE\/.*\.md$/i, category: "issue-template" },
-    { pattern: /^\.github\/PULL_REQUEST_TEMPLATE\/.*\.md$/i, category: "pull-request-template" },
+    {
+      pattern: /^\.github\/ISSUE_TEMPLATE\/.*\.md$/i,
+      category: "issue-template",
+    },
+    {
+      pattern: /^\.github\/PULL_REQUEST_TEMPLATE\/.*\.md$/i,
+      category: "pull-request-template",
+    },
     { pattern: /^agents\/.*\.(?:md|agent\.md)$/i, category: "agents" },
     {
       pattern: /^instructions\/.*\.md$|.*\.instructions\.md$/i,
@@ -190,7 +204,9 @@ function inferCategory(filePath, frontmatter) {
     { pattern: /^(?:.*\/)?README\.md$/i, category: "readme" },
   ];
 
-  const match = pathPatterns.find(({ pattern }) => pattern.test(normalizedPath));
+  const match = pathPatterns.find(({ pattern }) =>
+    pattern.test(normalizedPath),
+  );
   return match?.category || "";
 }
 
@@ -215,6 +231,48 @@ function findMarkdownFiles(dir = ".") {
   }
 
   return files;
+}
+
+function readGitEventContext() {
+  const eventPath = process.env.GITHUB_EVENT_PATH;
+
+  if (!eventPath || !fs.existsSync(eventPath)) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(fs.readFileSync(eventPath, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function getChangedMarkdownFiles() {
+  let baseRef = "";
+  let headRef = "";
+  const event = readGitEventContext();
+  const eventName = process.env.GITHUB_EVENT_NAME || "";
+
+  if (eventName === "pull_request" || eventName === "pull_request_target") {
+    baseRef = event?.pull_request?.base?.sha || "";
+    headRef = event?.pull_request?.head?.sha || "";
+  } else if (eventName === "push") {
+    baseRef = event?.before || "";
+    headRef = event?.after || "";
+  }
+
+  const diffRange =
+    baseRef && headRef ? `${baseRef} ${headRef}` : "HEAD~1 HEAD";
+
+  try {
+    const output = execSync(`git diff --name-only ${diffRange} -- '*.md'`, {
+      encoding: "utf8",
+    }).trim();
+
+    return output ? output.split("\n").filter(Boolean) : [];
+  } catch {
+    return findMarkdownFiles();
+  }
 }
 
 /**
@@ -317,8 +375,10 @@ function removeDuplicateFooters(content) {
 function main() {
   console.log("🔍 Scanning for Markdown files...\n");
 
-  const files = findMarkdownFiles();
-  console.log(`📄 Found ${files.length} Markdown files\n`);
+  const files = changedOnly ? getChangedMarkdownFiles() : findMarkdownFiles();
+  console.log(
+    `📄 Found ${files.length} ${changedOnly ? "changed " : ""}Markdown files\n`,
+  );
 
   let totalViolations = 0;
 
