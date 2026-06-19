@@ -2,9 +2,9 @@
 file_type: documentation
 title: Canonical Config File Interdependencies Guide
 description: Canonical reference for how labels.yml, issue-types.yml, labeler.yml, and issue-fields.yml interact from issue creation through automation completion.
-version: v1.0.2
+version: v1.0.3
 created_date: "2026-06-03"
-last_updated: "2026-06-05"
+last_updated: "2026-06-19"
 authors:
   - GitHub Copilot
 owners:

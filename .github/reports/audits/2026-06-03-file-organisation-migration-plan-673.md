@@ -4,8 +4,8 @@ title: "#673 Plan - File Organisation Refactoring Migration and Validation"
 description: "Phase 1 migration plan derived from #671 and #672 findings, including dependency graph, phased timeline, validation checklist, and rollback procedures."
 category: audits
 created_date: "2026-06-03"
-last_updated: "2026-06-03"
-version: "v1.0.0"
+last_updated: "2026-06-19"
+version: "v1.0.1"
 owners:
   - LightSpeed Team
 authors:

@@ -18,6 +18,7 @@ const MARKDOWN_FILES = globSync("**/*.{md,mdx}", {
   ignore: [
     "**/node_modules/**",
     "**/.git/**",
+    "**/.claude/**",
     "**/coverage/**",
     "**/logs/**",
     "**/.github/projects/**",
@@ -127,7 +128,7 @@ function validateAccessibility(content) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
 
-    if (line.startsWith("accDescr {")) {
+    if (/^accDescr\s*\{/.test(line)) {
       inAccDescrBlock = true;
     }
 

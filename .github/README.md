@@ -4,9 +4,9 @@ title: LightSpeed .github Community Health Repository
 description: Central hub for all shared GitHub templates, Copilot instructions, workflow
   automation, labeling systems, and community health files across the LightSpeed WordPress
   organisation
-version: '3.6'
+version: '3.7'
 created_date: '2025-01-15'
-last_updated: '2026-06-18'
+last_updated: '2026-06-19'
 authors:
 - LightSpeed Team
 maintainer: LightSpeed Team

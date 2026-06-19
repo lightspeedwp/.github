@@ -5,7 +5,7 @@ description: "Refresh Mermaid diagrams across the repository or targeted paths w
 mode: "agent"
 tools: ["read", "edit", "search", "shell"]
 tags: ["mermaid", "documentation", "a11y", "wcag", "colour-contrast", "readme"]
-last_updated: "2026-06-18"
+last_updated: "2026-06-19"
 ---
 
 # Update Mermaid Diagrams

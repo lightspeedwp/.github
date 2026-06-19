@@ -3,8 +3,8 @@ file_type: "instructions"
 title: "Mermaid Diagram Instructions"
 description: "Design, accessibility, colour contrast, and validation standards for all Mermaid diagrams across LightSpeed repositories"
 scope: "repo-local"
-version: "v2.2"
-last_updated: "2026-06-18"
+version: "v2.3"
+last_updated: "2026-06-19"
 owners: ["LightSpeed Team"]
 tags: ["mermaid", "diagrams", "documentation", "a11y", "wcag", "colour-contrast", "visuals", "architecture"]
 applyTo: ["**/*.md"]

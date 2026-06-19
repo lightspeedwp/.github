@@ -3,9 +3,9 @@ file_type: documentation
 title: Agent Specification Authoring Guide
 description: Comprehensive guide for creating, documenting, and maintaining agent
   specification files following LightSpeed standards
-version: 'v1.5'
+version: 'v1.6'
 created_date: '2025-01-15'
-last_updated: '2026-06-18'
+last_updated: '2026-06-19'
 author: LightSpeed Team
 maintainer: LightSpeed Team
 license: GPL-3.0
