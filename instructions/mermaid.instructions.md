@@ -37,11 +37,9 @@ Every Mermaid block **must** include an accessibility header block placed immedi
 
 ````text
 ```mermaid
----
-accTitle: Short accessible title (max 80 chars)
-accDescr: Single-sentence description for simple diagrams
----
 flowchart LR
+    accTitle: Short accessible title (max 80 chars)
+    accDescr: Single-sentence description for simple diagrams
     ...
 ```
 ````
@@ -50,15 +48,13 @@ For complex diagrams use the block form:
 
 ````text
 ```mermaid
----
-accTitle: Complex workflow title
-accDescr {
-  Multi-sentence description explaining what the diagram shows, the key
-  relationships, and the direction of flow. Write for screen-reader users
-  who cannot see the visual diagram.
-}
----
 flowchart TD
+    accTitle: Complex workflow title
+    accDescr {
+      Multi-sentence description explaining what the diagram shows, the key
+      relationships, and the direction of flow. Write for screen-reader users
+      who cannot see the visual diagram.
+    }
     ...
 ```
 ````
@@ -110,11 +106,9 @@ All pairs below are pre-verified to meet **WCAG 2.2 AA 4.5:1** normal-text contr
 **Usage:**
 
 ```mermaid
----
-accTitle: Example colour usage
-accDescr: Shows the correct way to apply the approved colour palette with explicit fill, color, and stroke.
----
 flowchart LR
+    accTitle: Example colour usage
+    accDescr: Shows the correct way to apply the approved colour palette with explicit fill, color, and stroke.
     A[Entry Point] --> B[Automation Step] --> C[Output]
     style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
     style B fill:#ecfdf5,color:#064e3b,stroke:#059669

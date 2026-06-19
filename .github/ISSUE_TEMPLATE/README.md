@@ -46,11 +46,9 @@ For advanced usage, see the [Issue Template Index](./README.md) and individual t
 ## 🗂️ Issue Template Workflow
 
 ```mermaid
----
-accTitle: Issue template workflow
-accDescr: Shows the flow from user selecting a template through auto-labeling, agent processing, and routing to project boards.
----
 flowchart TD
+    accTitle: Issue template workflow
+    accDescr: Shows the flow from user selecting a template through auto-labeling, agent processing, and routing to project boards.
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]
     B -->|Feature Request| D[Feature Template]
