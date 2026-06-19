@@ -84,9 +84,9 @@ async function syncLabelsWithCanonical(
         }
         report.created.push(labelName);
       } else {
+        const colorStr = labelObj.color != null ? String(labelObj.color) : null;
         const needsUpdate =
-          (labelObj.color &&
-            existingLabel.color !== labelObj.color.replace("#", "")) ||
+          (colorStr && existingLabel.color !== colorStr.replace("#", "")) ||
           (labelObj.description &&
             existingLabel.description !== labelObj.description);
 
@@ -97,8 +97,8 @@ async function syncLabelsWithCanonical(
                 owner,
                 repo,
                 name: labelName,
-                color: labelObj.color
-                  ? labelObj.color.replace("#", "")
+                color: colorStr
+                  ? colorStr.replace("#", "")
                   : existingLabel.color,
                 description:
                   labelObj.description !== undefined
@@ -238,12 +238,14 @@ async function validateRepoLabels(
       const canonicalLabel = canonicalMap.get(repoLabel.name);
       if (canonicalLabel) {
         const issues = [];
+        const canonicalColorStr =
+          canonicalLabel.color != null ? String(canonicalLabel.color) : null;
         if (
-          canonicalLabel.color &&
-          repoLabel.color !== canonicalLabel.color.replace("#", "")
+          canonicalColorStr &&
+          repoLabel.color !== canonicalColorStr.replace("#", "")
         ) {
           issues.push(
-            `color: expected ${canonicalLabel.color}, got ${repoLabel.color}`,
+            `color: expected ${canonicalColorStr}, got ${repoLabel.color}`,
           );
         }
         if (
