@@ -2,9 +2,9 @@
 title: Label Color Strategy Specification
 description: Comprehensive color strategy for the 150 canonical labels based on semantic meaning and workflow state
 file_type: documentation
-version: v1.1.1
+version: v1.1.2
 created_date: '2026-05-31'
-last_updated: '2026-06-18'
+last_updated: '2026-06-19'
 authors:
   - LightSpeed Team
 maintainer: LightSpeed Team
@@ -24,9 +24,9 @@ stability: stable
 
 # Label Color Strategy Specification
 
-**Version**: v1.1.1
+**Version**: v1.1.2
 **Created**: 2026-05-31
-**Updated**: 2026-06-18
+**Updated**: 2026-06-19
 **Owner**: LightSpeed Team
 **Status**: Active
 
@@ -475,6 +475,7 @@ This specification should be reviewed annually or when:
 
 | Date | Change | Author |
 | --- | --- | --- |
+| 2026-06-19 | v1.1.2 — Correct Blue and Gray label family count totals: Blue 52→53, Gray 12→11 (Gemini review follow-up #994) | LightSpeed Team |
 | 2026-06-18 | v1.1.1 — Correct `area:ci` classification: moved from Gray family to Blue family in Table 1 and Section 2.2; removed from Gray family label examples in Section 2.7 (Gemini review follow-up #992) | LightSpeed Team |
 | 2026-06-18 | v1.1.0 — WCAG 2.2 AA audit: replace 7 non-compliant primary/secondary colors; add tertiary guidance; update accessibility table | LightSpeed Team |
 | 2026-05-31 | v1.0.0 — Initial specification: 8 color families, 150 label mapping | LightSpeed Team |
