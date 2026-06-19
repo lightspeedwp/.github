@@ -41,9 +41,9 @@ describe("labeling.agent", () => {
         "",
       ),
     ).toBe("type:documentation");
-    expect(agent.detectIssueTypeFromContent("Fix workflow regression", "")).toBe(
-      "type:bug",
-    );
+    expect(
+      agent.detectIssueTypeFromContent("Fix workflow regression", ""),
+    ).toBe("type:bug");
   });
 
   it("returns a no-op report when no issue or PR is in context", async () => {
