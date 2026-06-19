@@ -2,9 +2,8 @@
 file_type: "issue-template"
 name: "👀 Code Review"
 about: "Request or conduct code review, peer validation, or QA."
-description: "Request or conduct code review, peer validation, or QA."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 
@@ -51,3 +50,7 @@ category: "github-templates"
 - [ ] PR merged/closed
 
 ---
+
+---
+
+Related issues: {related_issues}
