@@ -42,8 +42,6 @@ const hotfixRequiredSections = [
     regex: /^###\s+Checklist\s+\(Global DoD\s*\/\s*PR\)$/im,
   },
 ];
- * branches.
- */
 
 const allowedPrefixes = ["release/", "hotfix/"];
 
