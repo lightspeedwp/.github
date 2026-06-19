@@ -2,9 +2,8 @@
 file_type: "issue-template"
 name: "🤖 Automation"
 about: "Propose, fix, or improve automation (actions, scripts, bots)."
-description: "Propose, fix, or improve automation (actions, scripts, bots)."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 
@@ -49,3 +48,7 @@ category: "github-templates"
 - [ ] Approved by maintainer
 
 ---
+
+---
+
+Related issues: {related_issues}
