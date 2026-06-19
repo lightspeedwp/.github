@@ -46,5 +46,8 @@ category: "github-templates"
 - [ ] Documentation/changelog updated if needed
 - [ ] PR uses correct branch prefix (maintenance/ or chore/)
 - [ ] Approved by at least one maintainer
+---
 
 ---
+
+Related issues: {related_issues}

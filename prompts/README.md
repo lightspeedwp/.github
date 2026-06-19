@@ -77,5 +77,10 @@ To add or improve prompts:
 3. Include real examples where helpful
 4. Document any dependencies or prerequisites
 5. Create a PR with rationale for the new prompt
+---
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -73,5 +73,8 @@ Add any other context, references, diagrams, or docs.
 - [ ] Documentation/changelog updated
 - [ ] QA and testing complete
 - [ ] Milestone closed and release notes prepared
+---
 
 ---
+
+Related issues: {related_issues}
