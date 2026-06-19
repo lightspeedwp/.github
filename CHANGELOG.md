@@ -35,6 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Dependabot auto-merge unblocked** — Fixed Mergify configuration that prevented all dependabot PRs from being automatically merged: consolidated the redundant security/non-security rules into one, replaced the invalid `approve:` action with `review: type: APPROVE` (which satisfies branch-protection review requirements), and added a `dependabot-automerge.yml` GitHub Actions backup workflow that approves and enables squash auto-merge via `workflow_run` when CI passes on a dependabot PR. ([#1020](https://github.com/lightspeedwp/.github/pull/1020), relates to [#968](https://github.com/lightspeedwp/.github/issues/968))
+
 - **Release agent hardening** — Fixed four bugs in `scripts/agents/release.agent.js`: (1) regex escape `\\d+` → `\d+` in `getMergedPRs` so PR numbers are correctly extracted from `git log`; (2) automated release PR body now includes all three sections (`## Linked issues & merged PRs`, `## Changelog`, `### Checklist (Global DoD / PR)`) required by the main-branch-guard; (3) `createReleasePR` (shell provider) now writes the body to a temp file and uses `--body-file` to avoid shell injection from backtick-containing markdown; (4) corrected Husky v9 command from `npx husky run pre-commit` to `npx lint-staged`. Added full test suites for `changelogUtils.cjs`, `validate-main-branch-pr.cjs`, and `release.agent.js` (ESM subprocess pattern); rewrote the stub in `validate-changelog.test.js` with real CLI and integration tests. Clarified the `develop → release/vX.Y.Z → main` flow in the release issue template. ([#1018](https://github.com/lightspeedwp/.github/pull/1018), [#968](https://github.com/lightspeedwp/.github/issues/968))
 
 ### Changed
