@@ -81,13 +81,14 @@ Template labels must remain canonical and pass:
 - `Priority`
 - `Type`
 - `Effort`
-- `Start date` and `Target date` only when `status:ready` or `status:in-progress` is present
+- `Start date` and `Target date` when `status:ready` or `status:in-progress` is present
 
 Derivation source notes:
 
 - `Status`, `Priority`, and `Type` are mapped from labels via `.github/issue-fields.yml` mappings.
 - `Effort` uses the configured default from canonical issue-fields configuration.
-- `Start date` and `Target date` stay empty at creation time and are only populated after kickoff-ready metadata is present (`status:ready` or `status:in-progress`).
+- `Type` and `Priority` now fall back to safe content-based inference when labels are missing or late.
+- `Start date` and `Target date` are populated when kickoff-ready metadata is present (`status:ready` or `status:in-progress`) and the workflow reprocesses label changes so fields can catch up after triage.
 - Metadata governance for assignees, milestones, and relationships is handled separately by `.github/workflows/metadata-governance.yml`.
 
 Current preflight conditions must be satisfied before sync runs:
@@ -98,7 +99,7 @@ Current preflight conditions must be satisfied before sync runs:
 
 Safe automation boundary:
 
-- Active write path is limited to the five core derived fields plus kickoff-aware date handling.
+- Active write path covers the five core derived fields plus kickoff-aware date handling.
 - Additional direct issue-field writes are out of scope until a dedicated follow-up verification approves extension.
 
 Verification reference: `.github/reports/audits/2026-06-07-private-project-issue-field-write-verification-879.md`.
