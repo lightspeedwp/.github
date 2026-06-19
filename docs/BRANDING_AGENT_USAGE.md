@@ -2,17 +2,17 @@
 title: "Unified Branding Agent — Usage Guide"
 description: "Complete guide for using the unified branding agent to apply category-aware branding to documents"
 file_type: "documentation"
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-05-29"
-last_updated: "2026-06-03"
+last_updated: "2026-06-19"
 category: "docs"
 owners: ["LightSpeedWP Automation Team"]
 ---
 
 # Unified Branding Agent — Usage Guide
 
-**Document Version**: 1.0.0
-**Last Updated**: 2026-05-29
+**Document Version**: 1.0.1
+**Last Updated**: 2026-06-19
 **Related Issues**: #555 (Wave 4E Implementation)
 
 ---

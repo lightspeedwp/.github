@@ -2,10 +2,10 @@
 file_type: documentation
 title: Org-wide Git Branching Strategy
 description: Canonical branch naming, protection, merge discipline, and automation rules for LightSpeedWP repositories.
-last_updated: '2026-06-09'
+last_updated: '2026-06-19'
 owners:
   - LightSpeed Team
-version: v1.5
+version: v1.5.1
 status: active
 stability: stable
 domain: governance
