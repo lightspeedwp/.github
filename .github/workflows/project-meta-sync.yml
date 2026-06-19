@@ -1,8 +1,6 @@
 name: Projects • Add & Sync meta from labels
 
 on:
-  push:
-    branches: [develop]
   issues:
     types: [opened, edited, labeled, unlabeled, reopened, closed]
   pull_request:
@@ -11,11 +9,11 @@ on:
       [
         opened,
         edited,
+        synchronize,
         labeled,
         unlabeled,
         reopened,
         ready_for_review,
-        synchronize,
         closed,
       ]
 
@@ -91,22 +89,13 @@ jobs:
       - name: Collect labels from item
         id: collect-labels
         if: steps.preflight.outputs.enabled == 'true'
-        run: |
-          set -euo pipefail
-          if [ "${{ github.event_name }}" = "issues" ]; then
-            NUMBER=${{ github.event.issue.number }}
-            gh issue view "$NUMBER" --json labels --jq '.labels[].name' > /tmp/labels.txt
-          else
-            NUMBER=${{ github.event.pull_request.number }}
-            gh pr view "$NUMBER" --json labels --jq '.labels[].name' > /tmp/labels.txt
-          fi
-          {
-            echo 'labels<<EOF'
-            cat /tmp/labels.txt
-            echo EOF
-          } >> "$GITHUB_OUTPUT"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const labels = context.payload.issue?.labels || context.payload.pull_request?.labels || [];
+            const labelNames = labels.map((label) => label.name).filter(Boolean).join('\n');
+            core.setOutput('labels', labelNames);
 
       - name: Derive Status/Priority/Type from canonical issue fields
         id: derive
@@ -119,6 +108,9 @@ jobs:
           PR_MERGED: ${{ github.event.pull_request.merged }}
           ITEM_CREATED_AT: ${{ github.event.issue.created_at || github.event.pull_request.created_at }}
           ITEM_MILESTONE_DUE_ON: ${{ github.event.issue.milestone.due_on || github.event.pull_request.milestone.due_on }}
+          ITEM_TITLE: ${{ github.event.issue.title || github.event.pull_request.title }}
+          ITEM_BODY: ${{ github.event.issue.body || github.event.pull_request.body }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref || '' }}
           ISSUE_FIELDS_CONFIG: .github/issue-fields.yml
 
       - name: Update project fields
