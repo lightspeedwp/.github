@@ -222,7 +222,6 @@ When creating an issue:
 - [Automation Governance](./AUTOMATION.md)
 - [Issue Templates README](../.github/ISSUE_TEMPLATE/README.md)
 - [Issue Types](./ISSUE_TYPES.md)
----
 
 ---
 

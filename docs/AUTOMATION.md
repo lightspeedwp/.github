@@ -264,7 +264,6 @@ All configuration files are validated:
 - [Portable Automation Instructions](../instructions/automation.instructions.md)
 - [Workflow Specifications](../.github/workflows/)
 - [Agent Specifications](../.github/agents/)
----
 
 ---
 

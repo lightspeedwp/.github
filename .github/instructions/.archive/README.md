@@ -109,10 +109,7 @@ For current documentation, always reference:
 
 - **Migration Guide:** `/docs/MIGRATION.md` (canonical version)
 - **All Instructions:** `.github/instructions/*.instructions.md` (consolidated files)
----
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+*This archive was created as part of Phase 5 context reduction efforts (December 2025) to reduce repository token count from ~922K to <500K target.*

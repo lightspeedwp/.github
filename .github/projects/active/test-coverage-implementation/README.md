@@ -1829,10 +1829,13 @@ jest.mock("child_process", () => ({
 *Created: 2025-12-10*
 *Target: v1.0.0 Release*
 *Status: ⏳ READY TO START*
----
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+## Issue Tracking
 
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+- [Issue execution plan](ISSUE_EXECUTION_PLAN.md)
+- [Issue register](ISSUE_REGISTER.md)
+- [Run log](RUN_LOG.md)
+- [OpenSpec strict inputs](openspec-strict/README.md)
+- [OpenSpec change stub](../../../openspec/changes/test-coverage-implementation/)

@@ -192,10 +192,9 @@ Before creating issues in GitHub, verify:
 ✅ All acceptance criteria specified
 
 **Status:** Issues ready for execution — see GitHub links in tables above
----
 
 ---
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+**Last Updated:** 2026-06-08
+**Created By:** Claude Code
+**For:** LightSpeed Team

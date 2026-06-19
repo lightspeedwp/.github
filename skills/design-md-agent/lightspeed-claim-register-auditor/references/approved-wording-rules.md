@@ -32,10 +32,3 @@
 | 100% brand accuracy | Human-reviewed output aligned to approved brand and source material |
 | 89% chatbot resolution rate | Pilot success metric to measure once approved source content and escalation rules are in place |
 | 400% more featured snippets | Improves eligibility for answer-led search experiences when content and schema are approved |
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

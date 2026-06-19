@@ -23,12 +23,3 @@ Check default, hover, focus, active, disabled, error, success and selected/curre
 ## Launch blockers
 
 Treat missing keyboard access, invisible focus, inaccessible navigation, unlabeled forms and severe contrast failures as launch blockers.
----
----
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

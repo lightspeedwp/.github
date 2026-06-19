@@ -7,8 +7,10 @@ last_updated: '2026-06-01'
 file_type: documentation
 ---
 
----
+## OPSX Parent Spec
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+Issue [#35](https://github.com/lightspeedwp/.github/issues/35) is closed and mostly complete. Residual work should only be reopened if a new drift audit finds:
 
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+- broken canonical references,
+- conflicting scope rules between `.github/instructions/` and `instructions/`,
+- unresolved migration mappings.

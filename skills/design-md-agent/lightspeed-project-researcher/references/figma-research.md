@@ -26,10 +26,3 @@ When Figma evidence is supplied, extract or request:
 | Pages | Templates/page types |  |  |
 | Modes | Light/dark styles |  |  |
 | Interactions | Interactivity/API or JS needs |  |  |
----
-
----
-
-📚 *Research conducted {research_date} · Evidence-based analysis by LightSpeedWP*
-
-[🔗 Sources](https://github.com/lightspeedwp/.github/tree/develop) · [💬 Discuss](https://github.com/lightspeedwp/.github/discussions)

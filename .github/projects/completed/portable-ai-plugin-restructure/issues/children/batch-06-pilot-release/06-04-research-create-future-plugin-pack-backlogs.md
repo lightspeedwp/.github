@@ -8,9 +8,3 @@ labels: [status:needs-review, priority:normal, type:ai-ops]
 github_issue: "https://github.com/lightspeedwp/.github/issues/320"
 github_parent: "https://github.com/lightspeedwp/.github/issues/285"
 ---
-
----
-
-📚 *Research conducted {research_date} · Evidence-based analysis by LightSpeedWP*
-
-[🔗 Sources](https://github.com/lightspeedwp/.github/tree/develop) · [💬 Discuss](https://github.com/lightspeedwp/.github/discussions)

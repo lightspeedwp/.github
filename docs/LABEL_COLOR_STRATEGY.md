@@ -479,10 +479,10 @@ This specification should be reviewed annually or when:
 | 2026-06-18 | v1.1.1 — Correct `area:ci` classification: moved from Gray family to Blue family in Table 1 and Section 2.2; removed from Gray family label examples in Section 2.7 (Gemini review follow-up #992) | LightSpeed Team |
 | 2026-06-18 | v1.1.0 — WCAG 2.2 AA audit: replace 7 non-compliant primary/secondary colors; add tertiary guidance; update accessibility table | LightSpeed Team |
 | 2026-05-31 | v1.0.0 — Initial specification: 8 color families, 150 label mapping | LightSpeed Team |
----
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+**Document Status**: ✅ Active
+**Last Updated**: 2026-06-19
+**Next Review**: 2027-06-18 (annual)
+**Owner**: LightSpeed Team

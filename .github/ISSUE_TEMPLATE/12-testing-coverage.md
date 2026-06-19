@@ -73,8 +73,5 @@ Define where and how this test will be used.
 - [ ] Documentation updated (if needed)
 - [ ] PR uses correct branch prefix (test/)
 - [ ] Approved by at least one maintainer
----
 
 ---
-
-Related issues: {related_issues}

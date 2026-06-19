@@ -26,12 +26,3 @@ Create a migration plan to align repository file organisation with `CLAUDE.md` b
 
 - `CLAUDE.md`
 - `instructions/file-organisation.instructions.md`
----
----
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -70,9 +70,3 @@ metadata:
   guardrails: Compatibility only. Do not treat this spec as the active contract;
     use the workflow and helper scripts referenced above.
 ---
-
----
-
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -19,10 +19,3 @@ Go / Conditional Go / No-Go
 ## Launch-day actions
 
 ## Post-launch monitoring
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

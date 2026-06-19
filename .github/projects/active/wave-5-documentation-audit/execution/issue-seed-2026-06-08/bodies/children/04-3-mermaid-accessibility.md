@@ -23,12 +23,3 @@ Audit Mermaid accessibility in README diagrams against WCAG AA-aligned expectati
 
 - README files containing Mermaid diagrams
 - `instructions/a11y.instructions.md`
----
----
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

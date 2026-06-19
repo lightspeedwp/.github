@@ -105,8 +105,5 @@ Use correct branch prefix (fix/) for any related PR.
 - [ ] Security: no XSS, SQL injection, or other [OWASP Top 10](https://owasp.org/www-project-top-ten/) vulnerabilities introduced
 - [ ] Performance: no adverse impact introduced
 - [ ] Linked issue closed
----
 
 ---
-
-Related issues: {related_issues}

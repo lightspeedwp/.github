@@ -707,7 +707,6 @@ For issues, questions, or feature requests:
 1. Check this documentation
 2. Review [BRANDING_CONFIG_SPEC.md](./BRANDING_CONFIG_SPEC.md)
 3. Open an issue on GitHub: <https://github.com/lightspeedwp/.github/issues>
----
 
 ---
 

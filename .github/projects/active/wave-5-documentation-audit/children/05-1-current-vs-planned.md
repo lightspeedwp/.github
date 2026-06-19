@@ -11,8 +11,42 @@ status: active
 effort: "M"
 ---
 
----
+## Overview
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+Audit current repository file organization against the planned structure defined in CLAUDE.md to identify misalignments.
 
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+## Scope
+
+- Map current structure of `.github/`, root folders, and all major directories
+- Compare against CLAUDE.md definitions for reusable vs. GitHub-native assets
+- Identify misplacements of files/folders
+- Document what's in the wrong location according to CLAUDE.md
+
+## Audit Checklist
+
+- [ ] Extract current directory structure
+- [ ] Review CLAUDE.md repository boundaries section (source of truth)
+- [ ] Create mapping: Current Location | Expected Location (per CLAUDE.md) | Status
+- [ ] Identify items in wrong location
+- [ ] Identify missing expected folders
+- [ ] Identify unexpected items in `.github/`
+- [ ] Document rationale for any current misplacements
+
+## Deliverables
+
+- Current state audit report
+- Mapping document: Path | Current Location | Expected Location | Status
+- List of misaligned items
+- Impact assessment (what needs to move, what's OK as is)
+
+## Related Files
+
+- All folders and major files across repository
+- `.github/` (entire folder)
+- Root level folders: `agents/`, `scripts/`, `schemas/`, `docs/`, `workflows/`, etc.
+
+## Related Documentation
+
+- [CLAUDE.md - Repository Boundaries](https://github.com/lightspeedwp/.github/blob/develop/CLAUDE.md#repository-boundaries)
+- [File Organisation Instructions](https://github.com/lightspeedwp/.github/blob/develop/.github/instructions/file-organisation.instructions.md)
+- [Organization Overview](https://github.com/lightspeedwp/.github/blob/develop/docs/ORGANIZATION.md)

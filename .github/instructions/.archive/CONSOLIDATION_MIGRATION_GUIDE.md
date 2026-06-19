@@ -380,10 +380,7 @@ For questions about this consolidation:
 - Check the **File References Update Guide** section
 - Consult the new consolidated instruction files directly
 - Refer to the archived files for historical context
----
 
 ---
 
-⚖️ *Governance policy maintained by LightSpeedWP*
-
-[📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)
+*Consolidation completed December 7, 2025 by LightSpeed Team*

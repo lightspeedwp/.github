@@ -442,10 +442,5 @@ jobs:
 - **[coding-standards.instructions.md](./coding-standards.instructions.md)** — General coding standards applicable across all languages
 - **[linting.instructions.md](./linting.instructions.md)** — Tool-specific linting configurations and rules
 - **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing and code quality standards
----
 
 ---
-
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

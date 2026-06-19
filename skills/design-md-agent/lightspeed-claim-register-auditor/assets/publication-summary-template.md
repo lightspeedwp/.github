@@ -11,12 +11,3 @@
 ## Go/no-go recommendation
 
 [Ready / ready after changes / not ready]
----
----
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

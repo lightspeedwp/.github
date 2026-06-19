@@ -18,12 +18,3 @@ For live or staging sites, review or request evidence for:
 ## Do not overclaim
 
 If the site cannot be crawled or audited, mark implementation evidence as pending and create an audit task.
----
----
----
-
----
-
-📚 *Research conducted {research_date} · Evidence-based analysis by LightSpeedWP*
-
-[🔗 Sources](https://github.com/lightspeedwp/.github/tree/develop) · [💬 Discuss](https://github.com/lightspeedwp/.github/discussions)

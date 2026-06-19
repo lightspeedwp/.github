@@ -49,8 +49,5 @@ category: "github-templates"
 - [ ] Feedback/action applied
 - [ ] Documentation updated
 - [ ] PR merged/closed
----
 
 ---
-
-Related issues: {related_issues}

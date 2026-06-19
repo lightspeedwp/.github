@@ -19,9 +19,3 @@ metadata:
   guardrails: Announce each action before executing, research thoroughly before editing,
     and never finish until the problem is resolved with documented validation.
 ---
-
----
-
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

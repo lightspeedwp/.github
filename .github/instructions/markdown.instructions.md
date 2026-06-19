@@ -220,10 +220,8 @@ status: "active"
 - [`../../instructions/quality-assurance.instructions.md`](../../instructions/quality-assurance.instructions.md) — QA and review criteria
 - [`../../instructions/mermaid.instructions.md`](../../instructions/mermaid.instructions.md) — Mermaid diagram standards
 - [`./file-organisation.instructions.md`](./file-organisation.instructions.md) — file placement rules
----
 
 ---
 
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+*Maintained by the LightSpeedWP automation and governance maintainers.*
+*Licence: [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) · Support: <support@lightspeedwp.agency>*

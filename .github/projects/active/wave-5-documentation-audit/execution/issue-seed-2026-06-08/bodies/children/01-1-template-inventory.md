@@ -25,12 +25,3 @@ Inventory all issue templates and standardise status, purpose, and mapping signa
 
 - `.github/ISSUE_TEMPLATE/`
 - `.github/issue-types.yml`
----
----
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

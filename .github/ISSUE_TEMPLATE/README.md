@@ -147,8 +147,7 @@ These templates integrate with:
 ---
 
 *This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION.md) for complete automation standards.*
----
 
 ---
 
-Related issues: {related_issues}
+<!-- RANDOM FOOTER: 🚀 Consistent templates, efficient workflows! -->

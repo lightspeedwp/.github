@@ -376,10 +376,7 @@ To contribute new metrics or improvements:
 3. Add tests for new metrics scripts
 4. Document configuration changes
 5. Submit PR with rationale and examples
----
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+Made with ❤️ by the LightSpeed team.

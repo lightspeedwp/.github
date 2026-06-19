@@ -579,10 +579,9 @@ Create these GitHub issues to track remediation:
 4. **[MEDIUM] Restore agent test coverage** - Label: `priority:normal`, `type:test`
 5. **[MEDIUM] Implement issues agent automation** - Label: `priority:normal`, `type:feature`
 6. **[LOW] Create reviewer.agent.md documentation** - Label: `priority:minor`, `type:documentation`
----
 
 ---
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+**Report Generated**: 2025-12-10
+**Audit Tool**: Claude Code Agent SDK
+**Report Location**: `.github/reports/audits/agent-infrastructure-audit-2025-12-10.md`

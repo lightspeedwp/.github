@@ -366,10 +366,7 @@ using the weekly template:
 - [Reporting Agent](../agents/reporting.agent.md)
 - [Reporting Prompt](../prompts/reporting.prompt.md)
 - [File Management Guidelines](../instructions/file-management-guidelines.instructions.md)
----
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Reporting Agent - Your guide to well-organised documentation.*

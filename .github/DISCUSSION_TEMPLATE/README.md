@@ -88,10 +88,7 @@ Discussion templates work with:
 ---
 
 *This directory supports the LightSpeedWP community engagement strategy. See [Community Guidelines](../SAVED_REPLIES/community/guidelines.md) for interaction standards.*
----
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+<!-- RANDOM FOOTER: 💭 Great discussions build great software! -->

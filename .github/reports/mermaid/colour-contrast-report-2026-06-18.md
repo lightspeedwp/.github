@@ -9,8 +9,34 @@ status: active
 stability: stable
 ---
 
----
+# Mermaid Colour Contrast Report
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+**Generated**: 2026-06-18T12:08:35.683Z
 
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+## Summary
+
+| Metric | Value |
+|--------|-------|
+| Files scanned | 13 |
+| Diagrams scanned | 44 |
+| Style declarations checked | 39 |
+| Errors (contrast failures) | 0 |
+| Warnings (missing explicit color) | 0 |
+
+## Findings
+
+✅ All style declarations meet WCAG 2.2 AA requirements.
+
+## Approved Colour Palette
+
+See `instructions/mermaid.instructions.md` for the full approved palette with pre-verified WCAG AA contrast pairs.
+
+| Role | fill | color | stroke | Contrast |
+|------|------|-------|--------|----------|
+| Information | `#dbeafe` | `#1e3a5f` | `#1e3a5f` | 9.1:1 |
+| Success | `#dcfce7` | `#14532d` | `#14532d` | 10.5:1 |
+| Warning | `#fef3c7` | `#4a2c00` | `#b45309` | 8.3:1 |
+| Error / Alert | `#fee2e2` | `#7f1d1d` | `#b91c1c` | 8.7:1 |
+| Documentation | `#f3e8ff` | `#3b0764` | `#7e22ce` | 10.2:1 |
+| Neutral | `#f1f5f9` | `#0f172a` | `#334155` | 14.7:1 |
+| Highlight | `#ecfdf5` | `#064e3b` | `#059669` | 10.8:1 |

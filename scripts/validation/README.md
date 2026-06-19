@@ -19,8 +19,11 @@ apply_to:
 - quality assurance
 ---
 
----
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-🔧 *Utility maintained by LightSpeedWP*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-[📂 Scripts](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📖 Usage](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📞 Support](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

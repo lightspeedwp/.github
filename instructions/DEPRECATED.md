@@ -86,10 +86,5 @@ Documentation consolidation improves:
 - [Labeling Guide](../docs/LABELING.md) — Consolidated labeling strategy and automation
 - [Automation Guide](../docs/AUTOMATION.md) — Consolidated automation governance and workflows
 - [Repository Boundaries](../CLAUDE.md#repository-boundaries) — File organisation conventions
----
 
 ---
-
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

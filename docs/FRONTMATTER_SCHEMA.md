@@ -812,10 +812,5 @@ npm run validate:frontmatter
 | Too many tags           | Reduce to 8, remove redundant ones |
 | Uppercase tags          | Convert to lowercase kebab-case    |
 | Old field names         | Update `apply_to` → `applyTo`      |
----
 
 ---
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

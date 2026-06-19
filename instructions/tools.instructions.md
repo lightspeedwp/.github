@@ -65,10 +65,5 @@ For tools with config files (`.eslintrc.json`, `prettier.config.js`, etc.):
 
 - [automation.instructions.md](./automation.instructions.md) — Tool automation and workflow integration
 - [coding-standards.instructions.md](./coding-standards.instructions.md) — Standards that tools enforce
----
 
 ---
-
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

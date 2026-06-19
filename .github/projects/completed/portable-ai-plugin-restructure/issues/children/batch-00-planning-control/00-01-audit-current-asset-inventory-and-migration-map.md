@@ -8,9 +8,3 @@ labels: [status:needs-audit, priority:important, type:ai-ops, area:core]
 github_issue: "https://github.com/lightspeedwp/.github/issues/286"
 github_parent: "https://github.com/lightspeedwp/.github/issues/282"
 ---
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

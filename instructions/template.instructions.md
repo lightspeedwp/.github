@@ -76,10 +76,5 @@ status: "active" or "draft"
 - [instructions.instructions.md](./instructions.instructions.md) — Detailed authoring guidance
 - [documentation-formats.instructions.md](./documentation-formats.instructions.md) — Markdown and frontmatter standards
 - [coding-standards.instructions.md](./coding-standards.instructions.md) — Code examples and conventions
----
 
 ---
-
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

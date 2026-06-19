@@ -224,10 +224,5 @@ See `.github/workflows/` for workflow definitions.
 - Check error output and logs.
 - Review [GitHub Discussions](https://github.com/orgs/lightspeedwp/discussions) for community support.
 - Tag a maintainer, or open a support issue if you are stuck.
----
 
 ---
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

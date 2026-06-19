@@ -162,9 +162,13 @@ examples:
         repo: "github"
       });
 ---
+```
 
----
+## Best Practices
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+1. **Version Control**: Use semantic versioning
+2. **Documentation**: Provide clear examples
+3. **Permissions**: Request minimal permissions
+4. **Validation**: Validate all inputs
+5. **Error Handling**: Graceful failure messages
+6. **Testing**: Include test examples

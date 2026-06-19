@@ -47,8 +47,112 @@ examples:
 - [usage scenarios]
 ---
 
----
+# [Agent Name]
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+## Role & Responsibilities
 
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+Brief summary of what this agent does and when it should be invoked.
+
+## Capabilities
+
+- **Primary:** List primary capabilities
+- **Secondary:** List secondary capabilities
+
+## Required Inputs
+
+- Input format and constraints
+
+## Expected Outputs
+
+- Output format and examples
+
+## Tools & Permissions
+
+- Required GitHub tools
+- File system access
+- External API integrations
+
+## Safety Constraints
+
+- Guardrails and limits
+- What the agent must NOT do
+- Error handling approach
+
+## Failure & Rollback
+
+- How the agent handles failures
+- Rollback procedures and recovery steps
+- Partial failure scenarios and mitigation
+
+## Observability & Logging
+
+- Logging strategy and levels
+- Traceability requirements
+- Metrics and monitoring points
+
+## Validation & Testing
+
+### Normal Case
+- Expected behaviour with valid inputs
+- Success criteria and assertions
+
+### Edge Cases
+- Boundary conditions and limits
+- Non-standard but valid inputs
+- Resource constraints
+
+### Failure Cases
+- Invalid input handling
+- Service dependency failures
+- Recovery and retry logic
+
+## Configuration
+
+- Required environment variables
+- Optional settings with defaults
+- Performance tuning parameters
+
+## Examples
+
+### Example 1: [Scenario]
+
+Input → Agent Action → Output
+
+## Related Agents
+
+- Links to related agent specifications
+- Handoff patterns if applicable
+```
+
+## Key Sections Explained
+
+### Role & Responsibilities
+
+Clearly state what this agent is responsible for. Include the primary use cases and scenarios where the agent should be invoked.
+
+### Capabilities
+
+List both primary and secondary capabilities. Be specific about what the agent can and cannot do.
+
+### Tools & Permissions
+
+Document all tools the agent needs access to. Include GitHub tools, file system permissions, and any external APIs.
+
+### Safety Constraints
+
+Define guardrails and constraints that protect against misuse. Include specific prohibitions and error handling behaviour.
+
+## Best Practices
+
+1. **Be Specific:** Avoid vague descriptions; include concrete examples
+2. **Document Constraints:** Explicitly state what the agent will NOT do
+3. **Define Inputs/Outputs:** Be precise about expected formats and constraints
+4. **Include Examples:** Show realistic usage scenarios
+5. **Keep Updated:** Review and update specs as agent capabilities evolve
+6. **Link Related:** Cross-reference related agents and workflows
+
+## See Also
+
+- [Agents Directory](./agent.md) – Directory of all agent specifications
+- [Agent Creation Guide](../docs/AGENT_CREATION.md) – Building and testing new agents
+- [AGENTS.md](../AGENTS.md) – Organization-wide agent guidelines

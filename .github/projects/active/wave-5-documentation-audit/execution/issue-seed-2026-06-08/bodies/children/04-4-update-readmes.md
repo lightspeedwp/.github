@@ -24,12 +24,3 @@ Implementation issue to fix and refresh in-scope README content and Mermaid diag
 ## Related Files
 
 - In-scope README files from audit inventory
----
----
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

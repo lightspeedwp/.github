@@ -129,10 +129,7 @@ The workflow accepts these inputs:
 - [Pull Request Process](../instructions/pull-requests.instructions.md)
 - [Coding Standards](../instructions/coding-standards.instructions.md)
 - [GitHub Actions Workflows](../../docs/WORKFLOWS.md)
----
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
-[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Reviewer Agent - Automated PR quality gates and review assistance*

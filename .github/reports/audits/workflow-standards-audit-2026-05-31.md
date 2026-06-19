@@ -238,10 +238,16 @@ This audit identifies 6 priority improvements and a roadmap for streamlined, sta
 | **Total** | 6 | **23 hours** | **5–8 days** |
 
 **Fast-track option:** Run Phase 1 + Phase 2 in parallel with careful concurrency management → 3–5 days.
----
 
 ---
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+## References
 
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+- Release workflow: `.github/workflows/release.yml`
+- Changelog validation: `.github/workflows/changelog-validate.yml`
+- Labeling system: `.github/workflows/labeling.yml`
+- Project sync: `.github/workflows/project-meta-sync.yml`
+- Planner (disabled): `.github/workflows/planner.yml`
+- Active projects: `.github/projects/active/`
+- Archived projects: `.github/projects/archived/`
+- CONTRIBUTING guide: `CONTRIBUTING.md`

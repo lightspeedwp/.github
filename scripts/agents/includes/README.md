@@ -110,10 +110,14 @@ includes/
 - [Coding Standards](../../../instructions/coding-standards.instructions.md)
 - [Quality Assurance](../../../instructions/quality-assurance.instructions.md)
 - [Automation & Workflows](../../../docs/AUTOMATION.md)
----
 
 ---
 
-🔧 *Utility maintained by LightSpeedWP*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
-[📂 Scripts](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📖 Usage](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📞 Support](https://lightspeedwp.agency/contact)
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

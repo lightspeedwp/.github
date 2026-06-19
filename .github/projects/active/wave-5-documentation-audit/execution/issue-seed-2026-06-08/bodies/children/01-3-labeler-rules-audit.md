@@ -24,12 +24,3 @@ Audit issue-specific labelling rules in `.github/labeler.yml` and compare agains
 
 - `.github/labeler.yml`
 - `docs/LABELING.md`
----
----
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

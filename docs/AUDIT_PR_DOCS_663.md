@@ -538,10 +538,5 @@ instructions/ (portable, canonical standards)
 - FRONTMATTER_SCHEMA.md — Frontmatter requirements
 - instructions/documentation-formats.instructions.md — Markdown standards
 - Phase 2 PR (commit 88345a3) — Consolidation example
----
 
 ---
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

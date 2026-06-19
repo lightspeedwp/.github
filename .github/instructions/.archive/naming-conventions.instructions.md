@@ -7,9 +7,3 @@ owners: ["lightspeedwp/maintainers"]
 category: "governance"
 status: "archived"
 ---
-
----
-
-⚖️ *Governance policy maintained by LightSpeedWP*
-
-[📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)

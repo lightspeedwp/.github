@@ -93,10 +93,9 @@ phase6-planning-suite-consolidation.md
 - [Community Standards](../instructions/community-standards.instructions.md)
 - [Reports Directory](../reports/README.md) — Generated reports and audit outputs
 - [Roadmap](../../docs/ROADMAP.md)
----
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*For questions about project file organisation, see [file-organisation.instructions.md](../instructions/file-organisation.instructions.md)*
 
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+*This directory is managed by project teams. Please follow the guidelines when creating new project tracking files.*

@@ -8,9 +8,3 @@ last_updated: "2025-12-15"
 author: "automation"
 tags: ["weekly", "summary", "automated"]
 ---
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

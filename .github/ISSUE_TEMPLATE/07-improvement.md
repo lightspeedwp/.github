@@ -86,8 +86,5 @@ Use correct branch prefix (feat/ or enhancement/) for PRs.
 - [ ] Tests added/updated
 - [ ] Correct labels/types applied
 - [ ] PR uses correct branch prefix
----
 
 ---
-
-Related issues: {related_issues}

@@ -13,8 +13,19 @@ domain: "governance"
 stability: "experimental"
 ---
 
----
+# lightspeed-github-ops
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+Pilot plugin for reusable governance operations in LightSpeed repositories.
 
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+## Contents
+
+- `agents/` packaged governance agent specs.
+- `skills/` packaged P0 governance skills.
+- `hooks/` optional plugin-local guardrails.
+- `.codex-plugin/plugin.json` Codex manifest.
+- `.claude-plugin/plugin.json` Claude Code manifest.
+- `copilot-plugin.json` Copilot metadata manifest.
+
+## Scope
+
+This pilot excludes block theme and block plugin guidance.

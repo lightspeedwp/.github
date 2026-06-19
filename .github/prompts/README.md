@@ -53,10 +53,7 @@ This folder contains scripts and templates for automation, including:
 - [Agents Directory](../agents/README.md) — Agent specifications and implementations
 - [Instructions Directory](../instructions/README.md) — Comprehensive instruction sets
 - [Automation Governance](../../docs/AUTOMATION.md) — Governance policies for automation
----
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+*Prompts are a critical component of LightSpeed's AI automation strategy. See [AGENTS.md](../../AGENTS.md) for complete AI governance guidance.*

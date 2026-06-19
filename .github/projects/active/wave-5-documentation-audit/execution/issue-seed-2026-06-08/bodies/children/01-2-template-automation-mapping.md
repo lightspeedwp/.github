@@ -24,12 +24,3 @@ Map each issue template to expected automation behaviour and identify missing tr
 
 - `.github/ISSUE_TEMPLATE/`
 - `.github/labeler.yml`
----
----
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

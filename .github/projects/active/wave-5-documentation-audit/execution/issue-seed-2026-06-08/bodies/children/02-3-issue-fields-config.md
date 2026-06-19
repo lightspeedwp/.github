@@ -24,12 +24,3 @@ Audit issue field configuration compatibility and usage expectations.
 
 - `.github/issue-fields.yml`
 - `docs/ISSUE_FIELDS.md`
----
----
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

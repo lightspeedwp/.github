@@ -44,8 +44,5 @@ category: "github-templates"
 - [ ] Task completed and documented
 - [ ] Changelog entry prepared for PR
 - [ ] PR uses correct branch prefix
----
 
 ---
-
-Related issues: {related_issues}

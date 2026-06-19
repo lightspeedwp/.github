@@ -528,7 +528,6 @@ governance-footer:
 **Last Reviewed**: 2026-05-29
 **Next Review**: 2026-06-29
 **Maintained by**: LightSpeedWP Automation Team
----
 
 ---
 

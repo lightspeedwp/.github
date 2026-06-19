@@ -87,10 +87,5 @@ See our [PR Label Reference](../../PR_LABELS.md) for label meanings.
 - [Saved Replies Index](../SAVED_REPLIES.md)
 - [Contribution Guidelines](../CONTRIBUTING.md)
 - [Custom Instructions](../custom-instructions.md)
----
 
 ---
-
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

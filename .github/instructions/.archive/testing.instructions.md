@@ -266,10 +266,7 @@ Before merging, ensure:
 - [ ] E2E tests validate critical user flows
 - [ ] Test failures investigated and resolved
 - [ ] New code has corresponding tests
----
 
 ---
 
-📐 *Schema validated by LightSpeedWP — always compliant.*
-
-[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+*For detailed framework-specific standards, see [tests.instructions.md](./tests.instructions.md)*

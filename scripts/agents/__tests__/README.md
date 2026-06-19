@@ -362,10 +362,14 @@ All agent tests run automatically on:
 - **Pre-commit**: Local hook runs affected tests
 
 View CI status in GitHub Actions: `.github/workflows/jest-test-audit.yml`
----
 
 ---
 
-🔧 *Utility maintained by LightSpeedWP*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-[📂 Scripts](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📖 Usage](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📞 Support](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

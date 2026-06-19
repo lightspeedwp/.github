@@ -85,10 +85,7 @@ Over time, these metrics will tell us if our efforts are paying off. For example
 - [docs/LINTING.md](./LINTING.md) — Linting strategy and tools
 - [.github/workflows/ci-metrics.yml](../.github/workflows/ci-metrics.yml) — Metrics collection workflow
 - [scripts/gather-metrics.js](../scripts/gather-metrics.js) — Metrics gathering script
----
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -21,12 +21,3 @@ Validate Mermaid syntax in all in-scope README diagrams.
 ## Related Files
 
 - README files containing Mermaid diagrams
----
----
----
-
----
-
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

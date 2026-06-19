@@ -348,10 +348,8 @@ A: Rebase your branch: `git rebase develop`. Resolve conflicts. Push with `git p
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | v1.0 | 2026-05-31 | Claude Code | Initial audit and issue creation |
----
 
 ---
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Last updated: 2026-05-31*
+*Audit Documents: [`ai/audit-planner-reviewer-agents.md`](./audit-planner-reviewer-agents.md), [`ai/improvement-plan-planner-reviewer.md`](./improvement-plan-planner-reviewer.md)*

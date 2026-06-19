@@ -469,10 +469,28 @@ Once this specification is approved:
 3. **Merge**: Integrate audit results into develop branch
 4. **Implementation**: Begin remediation execution using scripts and roadmap
 5. **Agent Development**: Proceed with Issue [#555](https://github.com/lightspeedwp/.github/issues/555) (agent merge/refactor)
----
 
 ---
 
-⚖️ *Governance policy maintained by LightSpeedWP*
+## References
 
-[📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)
+**Related Issues**:
+
+- [#33](https://github.com/lightspeedwp/.github/issues/33) — Unified branding agent parent specification
+- [#46](https://github.com/lightspeedwp/.github/issues/46) — Template design specification
+- [#49](https://github.com/lightspeedwp/.github/issues/49) — Schema/config implementation specification
+
+**Related Files** (will be created/updated):
+
+- `BRANDING_AUDIT_RESULTS.md` — Detailed audit metrics
+- `BRANDING_REMEDIATION_LOG.md` — Progress tracking
+- `BRANDING_COMPLIANCE_GUIDE.md` — Contributor guidance
+- `CATEGORY_MAPPING_REFERENCE.md` — Quick reference guide
+- `.github/scripts/remediate-*.js` — Remediation scripts
+
+**Standards and References**:
+
+- Issue [#33](https://github.com/lightspeedwp/.github/issues/33): Branding agent parent specification
+- Issue [#46](https://github.com/lightspeedwp/.github/issues/46): Template design
+- Issue [#49](https://github.com/lightspeedwp/.github/issues/49): Schema/config model
+- [WCAG 2.2 AA quick reference](https://www.w3.org/WAI/WCAG22/quickref/)

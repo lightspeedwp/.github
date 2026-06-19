@@ -166,10 +166,10 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for documentation contribution guideli
 - Review [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution process
 - Browse this index to find relevant documentation
 - Check related issue templates in [.github/ISSUE_TEMPLATE/](../.github/ISSUE_TEMPLATE/)
----
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Last updated: 2026-05-31*
+*Maintained by: LightSpeed Team*
 
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

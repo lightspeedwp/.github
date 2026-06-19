@@ -243,10 +243,7 @@ progress/weekly-summary-2025-w50.md
 - [File Organisation Instructions](../instructions/file-organisation.instructions.md)
 - [Community Standards](../instructions/community-standards.instructions.md)
 - [Agent Development Standards](../instructions/automation.instructions.md)
----
 
 ---
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+*For questions about report organisation, see [file-organisation.instructions.md](../instructions/file-organisation.instructions.md)*

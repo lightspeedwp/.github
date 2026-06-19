@@ -75,8 +75,5 @@ Use correct branch prefix (story/) for PRs.
 - [ ] Tests added/updated
 - [ ] PR uses correct branch prefix (story/)
 - [ ] QA verified/UAT approved (if applicable)
----
 
 ---
-
-Related issues: {related_issues}

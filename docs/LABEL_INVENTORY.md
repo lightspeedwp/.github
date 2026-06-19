@@ -368,10 +368,13 @@ Labels with minimal usage should be periodically reviewed for retirement:
 - Last used >6 months ago
 - No active issues with label
 - Can be consolidated into broader category
----
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+## Related Documentation
 
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+- [`docs/LABEL_STRATEGY.md`](./LABEL_STRATEGY.md) — High-level strategy and governance
+- [`docs/LABEL_COLOR_STRATEGY.md`](./LABEL_COLOR_STRATEGY.md) — Detailed colour specifications
+- [`docs/ISSUE_TYPES.md`](./ISSUE_TYPES.md) — Type definitions and decision tree
+- [`docs/ISSUE_FIELDS.md`](./ISSUE_FIELDS.md) — Project field mappings
+- [`.github/labels.yml`](../.github/labels.yml) — Canonical label definitions

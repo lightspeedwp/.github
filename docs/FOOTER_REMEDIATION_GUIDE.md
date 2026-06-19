@@ -454,7 +454,6 @@ Action: Replace and note in commit
 5. ⬜ **Commit & push** — Create PR with fixes
 6. ⬜ **Set up CI validation** — Add footer-validation.yml workflow
 7. ⬜ **Plan automation** — Implement branding meta agent and footer validation hardening (issue #33)
----
 
 ---
 

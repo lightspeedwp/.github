@@ -172,10 +172,8 @@ The following changes were made to `CLAUDE.md`:
 - Issue [#47](https://github.com/lightspeedwp/.github/issues/47) (Meta Agent) — Branding and metadata standardization
 - Issue [#33](https://github.com/lightspeedwp/.github/issues/33) (Branding Agent) — Unified branding strategy
 - Issue [#46](https://github.com/lightspeedwp/.github/issues/46) (Template Design) — Template standardization
----
 
 ---
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Audit completed: 2026-05-29*
+*Branch: ai/audit-instruction-files-35*

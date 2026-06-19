@@ -130,10 +130,8 @@ ls .github/projects/*.md 2>/dev/null | wc -l
 - [Community Standards](.github/instructions/community-standards.instructions.md)
 - [AGENTS.md](../AGENTS.md)
 - [Custom Instructions](.github/custom-instructions.md)
----
 
 ---
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Migration completed: 2025-12-09*
+*Maintainer: Ash Shaw*

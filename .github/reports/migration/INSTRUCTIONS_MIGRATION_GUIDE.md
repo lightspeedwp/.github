@@ -251,10 +251,9 @@ If you encounter any problems during migration:
 - [Coding Standards Instructions](./coding-standards.instructions.md)
 - [Custom Instructions](../.github/custom-instructions.md)
 - [Global AI Rules](../../AGENTS.md)
----
 
 ---
 
-🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
-
-[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)
+*Last Updated: 2025-12-07*
+*Version: 1.0*
+*Consolidation by: LightSpeed Team*
