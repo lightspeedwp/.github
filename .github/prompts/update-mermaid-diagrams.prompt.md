@@ -5,7 +5,7 @@ description: "Refresh Mermaid diagrams across the repository or targeted paths w
 mode: "agent"
 tools: ["read", "edit", "search", "shell"]
 tags: ["mermaid", "documentation", "a11y", "wcag", "colour-contrast", "readme"]
-last_updated: "2026-06-18"
+last_updated: "2026-06-19"
 ---
 
 # Update Mermaid Diagrams
@@ -20,31 +20,43 @@ Refresh Mermaid diagrams across the repository to conform with the v2.0 standard
 
 ## What to Fix in Every Diagram
 
-### 1. Required accessibility header block
+### 1. Required accessibility attributes — inline format only
 
-Every `\`\`\`mermaid` block must open with a YAML header before the diagram type:
+Every ` ```mermaid ` block must have `accTitle` and `accDescr` placed **inline**, immediately after the diagram type and before any nodes. GitHub's Mermaid renderer does **not** support the YAML `---` front-matter syntax — diagrams using it will show an error instead of rendering.
+
+**Correct format:**
 
 ```text
----
-accTitle: Short accessible title (max 80 chars)
-accDescr: One-sentence description of what the diagram shows.
----
 flowchart LR
+    accTitle: Short accessible title (max 80 chars)
+    accDescr: One-sentence description of what the diagram shows.
     ...
 ```
 
 Use the block form for complex diagrams:
 
 ```text
----
-accTitle: Title here
-accDescr {
-  Multi-sentence description for screen readers.
-}
----
+flowchart TD
+    accTitle: Title here
+    accDescr {
+      Multi-sentence description for screen readers.
+    }
+    ...
 ```
 
-Remove any legacy inline `accTitle` / `accDescr` attributes that appear after the diagram type line.
+**Do NOT use** the YAML front-matter form (it breaks GitHub rendering):
+
+```text
+❌ WRONG — GitHub cannot render this:
+---
+accTitle: Title
+accDescr: Description
+---
+flowchart LR
+    ...
+```
+
+Remove any YAML `---` header blocks and replace them with inline attributes as shown above.
 
 ### 2. Approved colour palette — replace ALL old `style` declarations
 
