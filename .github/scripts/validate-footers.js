@@ -20,6 +20,7 @@
 
 import fs from "fs";
 import path from "path";
+import { execSync } from "child_process";
 import yaml from "js-yaml";
 import { fileURLToPath } from "url";
 
@@ -51,14 +52,163 @@ const reportFile = args
   .find((arg) => arg.startsWith("--report="))
   ?.split("=")[1];
 const verbose = args.includes("--verbose");
+const changedOnly = args.includes("--changed-only");
 
 // Track violations
 const violations = {
   duplicateFooters: [],
   multipleFooersPerDoc: [],
   invalidFooterId: [],
-  missingCategory: [],
+  missingFooters: [],
 };
+
+const DEFAULT_FOOTER_SIGNATURES = [
+  "_Maintained with",
+  "_Built by",
+  "_Have questions?",
+  "_This page brought to you by",
+  "_Docs signed by",
+  "Made with 💚 by LightSpeedWP",
+];
+
+function extractFooterSignatures(config) {
+  const canonicalFooters = Object.values(config?.footers || {})
+    .map((footer) => footer?.template)
+    .filter((template) => typeof template === "string")
+    .map((template) =>
+      template
+        .trim()
+        .split("\n")
+        .map((line) => line.trim())
+        .find((line) => line && line !== "---"),
+    )
+    .filter(Boolean);
+
+  return [...new Set([...DEFAULT_FOOTER_SIGNATURES, ...canonicalFooters])];
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function extractFooterTail(content) {
+  const lines = content.split("\n");
+  const separators = [];
+
+  lines.forEach((line, idx) => {
+    if (line.trim() === "---") {
+      separators.push(idx);
+    }
+  });
+
+  if (separators.length === 0) {
+    return "";
+  }
+
+  const tailStart = separators[separators.length - 1] + 1;
+  return lines.slice(tailStart).join("\n").trim();
+}
+
+function countFooterSignatureMatches(content, config) {
+  const tail = extractFooterTail(content);
+  const signatures = extractFooterSignatures(config);
+
+  return signatures.map((signature) => {
+    const escaped = escapeRegExp(signature);
+    const matches = tail.match(new RegExp(escaped, "g")) || [];
+    return { signature, count: matches.length };
+  });
+}
+
+function getDefaultFooterForCategory(category) {
+  const categoryConfig = footerConfig.categories?.[category];
+  const footerId = categoryConfig?.default_footer;
+  const footerTemplate = footerId && footerConfig.footers?.[footerId]?.template;
+
+  if (typeof footerTemplate === "string") {
+    return footerTemplate.trimEnd();
+  }
+
+  return null;
+}
+
+function replaceFooterTail(content, footerTemplate) {
+  const footerBlock = `\n---\n\n${footerTemplate.trimEnd()}\n`;
+  const separators = [];
+  const lines = content.split("\n");
+
+  lines.forEach((line, idx) => {
+    if (line.trim() === "---") {
+      separators.push(idx);
+    }
+  });
+
+  if (separators.length === 0) {
+    if (content.endsWith("\n")) {
+      return `${content}${footerBlock.trimStart()}`;
+    }
+
+    return `${content}\n${footerBlock.trimStart()}`;
+  }
+
+  const lastSeparatorIdx = separators[separators.length - 1];
+  const contentWithoutTail = lines
+    .slice(0, lastSeparatorIdx)
+    .join("\n")
+    .replace(/\s+$/, "");
+  return `${contentWithoutTail}${footerBlock}`;
+}
+
+function inferCategory(filePath, frontmatter) {
+  if (
+    frontmatter?.category &&
+    footerConfig.categories?.[frontmatter.category]
+  ) {
+    return frontmatter.category;
+  }
+
+  const normalizedPath = filePath.replace(/\\/g, "/");
+  const pathPatterns = [
+    {
+      pattern: /^\.github\/ISSUE_TEMPLATE\/.*\.md$/i,
+      category: "issue-template",
+    },
+    {
+      pattern: /^\.github\/PULL_REQUEST_TEMPLATE\/.*\.md$/i,
+      category: "pull-request-template",
+    },
+    { pattern: /^agents\/.*\.(?:md|agent\.md)$/i, category: "agents" },
+    {
+      pattern: /^instructions\/.*\.md$|.*\.instructions\.md$/i,
+      category: "instructions",
+    },
+    { pattern: /^schema\/.*\.md$|.*\.schema\.md$/i, category: "schema" },
+    {
+      pattern: /^\.github\/reports\/.*\.md$|.*audit.*\.md$/i,
+      category: "audit",
+    },
+    { pattern: /.*research.*\.md$/i, category: "research" },
+    {
+      pattern: /^scripts\/.*\.md$|^utils\/.*\.md$|.*utility.*\.md$/i,
+      category: "utility",
+    },
+    {
+      pattern: /^docs\/.*governance.*\.md$|^governance\/.*\.md$/i,
+      category: "governance",
+    },
+    {
+      pattern: /^docs\/.*(?:automation|ai-ops).*\.md$/i,
+      category: "ai-ops",
+    },
+    { pattern: /^docs\/.*\.md$/i, category: "docs" },
+    { pattern: /^(?:.*\/)?README\.md$/i, category: "readme" },
+  ];
+
+  const match = pathPatterns.find(({ pattern }) =>
+    pattern.test(normalizedPath),
+  );
+  return match?.category || "";
+}
 
 /**
  * Find all Markdown files in the repository
@@ -83,6 +233,48 @@ function findMarkdownFiles(dir = ".") {
   return files;
 }
 
+function readGitEventContext() {
+  const eventPath = process.env.GITHUB_EVENT_PATH;
+
+  if (!eventPath || !fs.existsSync(eventPath)) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(fs.readFileSync(eventPath, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function getChangedMarkdownFiles() {
+  let baseRef = "";
+  let headRef = "";
+  const event = readGitEventContext();
+  const eventName = process.env.GITHUB_EVENT_NAME || "";
+
+  if (eventName === "pull_request" || eventName === "pull_request_target") {
+    baseRef = event?.pull_request?.base?.sha || "";
+    headRef = event?.pull_request?.head?.sha || "";
+  } else if (eventName === "push") {
+    baseRef = event?.before || "";
+    headRef = event?.after || "";
+  }
+
+  const diffRange =
+    baseRef && headRef ? `${baseRef} ${headRef}` : "HEAD~1 HEAD";
+
+  try {
+    const output = execSync(`git diff --name-only ${diffRange} -- '*.md'`, {
+      encoding: "utf8",
+    }).trim();
+
+    return output ? output.split("\n").filter(Boolean) : [];
+  } catch {
+    return findMarkdownFiles();
+  }
+}
+
 /**
  * Extract YAML frontmatter from a Markdown file
  */
@@ -100,90 +292,56 @@ function extractFrontmatter(content) {
 }
 
 /**
- * Extract all footer blocks from content
- * A footer block is content after the last "---" separator
- */
-function extractFooters(content) {
-  const separators = [];
-  const lines = content.split("\n");
-
-  // Find all "---" separators
-  lines.forEach((line, idx) => {
-    if (line.trim() === "---") {
-      separators.push(idx);
-    }
-  });
-
-  // If less than 2 separators, no footer
-  if (separators.length < 2) return [];
-
-  // Content after the last separator is the footer
-  const lastSeparatorIdx = separators[separators.length - 1];
-  const footerContent = lines
-    .slice(lastSeparatorIdx + 1)
-    .join("\n")
-    .trim();
-
-  if (!footerContent) return [];
-
-  // Split footer into blocks (separated by blank lines)
-  const footerBlocks = footerContent
-    .split("\n\n")
-    .map((block) => block.trim())
-    .filter((block) => block.length > 0);
-
-  return footerBlocks;
-}
-
-/**
  * Validate a single file
  */
 function validateFile(filePath) {
   const content = fs.readFileSync(filePath, "utf8");
   const frontmatter = extractFrontmatter(content);
-  const footers = extractFooters(content);
+  const category = inferCategory(filePath, frontmatter);
+  const footerMatches = countFooterSignatureMatches(content, footerConfig);
+  const footerHitCounts = footerMatches.filter(({ count }) => count > 0);
 
   const fileViolations = [];
 
-  // Check category requirement
-  if (
-    footerConfig.validation_rules.require_category_in_frontmatter &&
-    !frontmatter?.category
-  ) {
-    fileViolations.push({
-      type: "missingCategory",
-      file: filePath,
-      message: 'Document missing "category" field in frontmatter',
-    });
+  if (!category) {
+    return fileViolations;
   }
 
   // Check for duplicate footers
-  if (footers.length > 1) {
-    const seen = new Set();
-    for (const footer of footers) {
-      if (seen.has(footer)) {
-        fileViolations.push({
-          type: "duplicateFooters",
-          file: filePath,
-          message: `Found ${footers.length} footer blocks; ${footers.filter((f) => f === footer).length} are duplicates`,
-          count: footers.length,
-        });
-        break;
-      }
-      seen.add(footer);
-    }
+  const duplicateMatch = footerMatches.find(({ count }) => count > 1);
+  if (duplicateMatch) {
+    fileViolations.push({
+      type: "duplicateFooters",
+      file: filePath,
+      message: `Found repeated footer signature: ${duplicateMatch.signature}`,
+      count: duplicateMatch.count,
+    });
+  }
+
+  // Check for missing footer
+  if (
+    footerConfig.validation_rules.require_footer_in_document &&
+    category &&
+    footerHitCounts.length === 0
+  ) {
+    fileViolations.push({
+      type: "missingFooters",
+      file: filePath,
+      message: `Document is missing a branded footer for category '${category}'`,
+      category,
+    });
   }
 
   // Check for multiple footers per document
   if (
     !footerConfig.validation_rules.allow_multiple_footers_per_document &&
-    footers.length > 1
+    footerHitCounts.length > 1
   ) {
     fileViolations.push({
       type: "multipleFootersPerDoc",
       file: filePath,
-      message: `Document has ${footers.length} footers; only 1 allowed`,
-      count: footers.length,
+      message: `Document has ${footerHitCounts.length} footer signatures; only 1 allowed`,
+      count: footerHitCounts.length,
     });
   }
 
@@ -217,8 +375,10 @@ function removeDuplicateFooters(content) {
 function main() {
   console.log("🔍 Scanning for Markdown files...\n");
 
-  const files = findMarkdownFiles();
-  console.log(`📄 Found ${files.length} Markdown files\n`);
+  const files = changedOnly ? getChangedMarkdownFiles() : findMarkdownFiles();
+  console.log(
+    `📄 Found ${files.length} ${changedOnly ? "changed " : ""}Markdown files\n`,
+  );
 
   let totalViolations = 0;
 
@@ -241,8 +401,8 @@ function main() {
           violations.duplicateFooters.push({ file, ...v });
         } else if (v.type === "multipleFootersPerDoc") {
           violations.multipleFooersPerDoc.push({ file, ...v });
-        } else if (v.type === "missingCategory") {
-          violations.missingCategory.push({ file, ...v });
+        } else if (v.type === "missingFooters") {
+          violations.missingFooters.push({ file, ...v });
         }
       });
     }
@@ -253,7 +413,7 @@ function main() {
   console.log(
     `Multiple footers:        ${violations.multipleFooersPerDoc.length}`,
   );
-  console.log(`Missing category:        ${violations.missingCategory.length}`);
+  console.log(`Missing footers:         ${violations.missingFooters.length}`);
   console.log(`Total violations:        ${totalViolations}\n`);
 
   // Report to file if requested
@@ -269,13 +429,24 @@ function main() {
     const filesToFix = [
       ...violations.duplicateFooters,
       ...violations.multipleFooersPerDoc,
+      ...violations.missingFooters,
     ].map((v) => v.file);
 
     const uniqueFiles = [...new Set(filesToFix)];
 
     for (const file of uniqueFiles) {
       const content = fs.readFileSync(file, "utf8");
-      const fixed = removeDuplicateFooters(content);
+      let fixed = removeDuplicateFooters(content);
+
+      const frontmatter = extractFrontmatter(fixed);
+      const footerCategory = inferCategory(file, frontmatter);
+      const footerTemplate = footerCategory
+        ? getDefaultFooterForCategory(footerCategory)
+        : null;
+
+      if (footerTemplate) {
+        fixed = replaceFooterTail(fixed, footerTemplate);
+      }
 
       // Create backup
       const backupFile = `${file}.backup`;
