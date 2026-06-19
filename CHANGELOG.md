@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-06-18"
+last_updated: "2026-06-19"
 owners:
   - LightSpeed Team
 tags:
@@ -36,6 +36,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Community health audit — PR templates, governance docs, and README alignment** — Completed a comprehensive audit of all community health files: updated WCAG version references from 2.1 to 2.2 AA in `pr_bug.md`, `pr_chore.md`, `pr_ci.md`, and `pr_dep_update.md`; added 15 missing branch-prefix rows to the default `pull_request_template.md` quick-selector table to align with `PULL_REQUEST_TEMPLATE/config.yml`; expanded `AGENTS.md` issue template list from 10 to 23 entries and added Saved Replies section; expanded `CLAUDE.md` issue template list to match; fixed template count, range, and parity note in `.github/custom-instructions.md`; completely rewrote `.github/workflows/README.md` with an accurate inventory of all 27 real workflows (removed 4 phantom workflow references); updated `.github/README.md` version date; added 20 missing files to `.github/SAVED_REPLIES/README.md`; added template index table to `.github/ISSUE_TEMPLATE/README.md`; replaced generic category list with the 9 actual YAML file inventory in `.github/DISCUSSION_TEMPLATE/README.md`; updated `docs/ISSUE_CREATION_GUIDE.md` to 25-template parity and corrected label values. ([#966](https://github.com/lightspeedwp/.github/pull/966))
 
 ### Fixed
+
+- **Mermaid YAML front-matter converted to inline accessibility syntax** — Replaced all Mermaid `---` YAML front-matter blocks (unsupported by GitHub's renderer) with inline `accTitle` and `accDescr` attributes placed directly after the diagram type declaration. Affected files: `.github/ISSUE_TEMPLATE/README.md`, `.github/README.md`, `.github/prompts/update-mermaid-diagrams.prompt.md`, `.github/reports/audits/2026-06-03-file-organisation-migration-plan-673.md`, `.vscode/README.md`, `docs/AGENT_CREATION.md`, `docs/CANONICAL_CONFIGS_GUIDE.md`. Updated `scripts/validation/validate-mermaid-accessibility.js` to ignore `.claude/**` worktree directories and use a regex for `accDescr {` block detection. Updated `instructions/mermaid.instructions.md` to explicitly forbid YAML front-matter syntax. Closes [#991](https://github.com/lightspeedwp/.github/issues/991). ([#995](https://github.com/lightspeedwp/.github/pull/995))
+
+- **`label-sync.js` crash on YAML-ambiguous hex color values** — YAML parses bare hex strings such as `8957E5` (parsed as scientific notation `895700000`) and `007580` (parsed as integer `7580`) as numbers, causing `labelObj.color.replace is not a function` in the Unified Labeling workflow. Quoted all affected `color:` values in `.github/labels.yml` and added `String()` coercion in `scripts/agents/includes/label-sync.js` as defence-in-depth. ([#995](https://github.com/lightspeedwp/.github/pull/995))
 
 - **Repository-wide Mermaid accessibility and contrast coverage** — Added `accTitle` and `accDescr` to every Mermaid diagram in the repository, updated the Mermaid prompt/instructions/workflows to enforce the approved contrast-safe palette, and added repository-wide syntax, accessibility, and colour-contrast validators. Closes [#986](https://github.com/lightspeedwp/.github/issues/986). ([#987](https://github.com/lightspeedwp/.github/pull/987))
 

@@ -2,9 +2,9 @@
 file_type: documentation
 title: Canonical Config File Interdependencies Guide
 description: Canonical reference for how labels.yml, issue-types.yml, labeler.yml, and issue-fields.yml interact from issue creation through automation completion.
-version: v1.0.2
+version: v1.0.3
 created_date: "2026-06-03"
-last_updated: "2026-06-05"
+last_updated: "2026-06-19"
 authors:
   - GitHub Copilot
 owners:
@@ -46,11 +46,9 @@ It also maps end-to-end data flow from issue/PR creation to automation completio
 ## Interdependency Diagram
 
 ```mermaid
----
-accTitle: Canonical config interdependency map
-accDescr: Flowchart showing the four canonical config files and how labeling workflows and project metadata sync consume them. labels.yml is shared vocabulary, issue-types.yml defines type mapping, labeler.yml applies rules, and issue-fields.yml maps labels to project fields.
----
 flowchart LR
+    accTitle: Canonical config interdependency map
+    accDescr: Flowchart showing the four canonical config files and how labeling workflows and project metadata sync consume them. labels.yml is shared vocabulary, issue-types.yml defines type mapping, labeler.yml applies rules, and issue-fields.yml maps labels to project fields.
     A[labels.yml\nCanonical label vocabulary] --> E[Labeling agent and workflows]
     B[issue-types.yml\nIssue Type to type label map] --> E
     C[labeler.yml\nBranch and file match rules] --> E
@@ -63,11 +61,9 @@ flowchart LR
 ## Data Flow: Issue Creation to Automation Completion
 
 ```mermaid
----
-accTitle: Issue and PR automation data flow
-accDescr: Sequence diagram showing how issue templates and pull request branches trigger labeling automation, which reads canonical config files and then updates labels and project fields.
----
 sequenceDiagram
+    accTitle: Issue and PR automation data flow
+    accDescr: Sequence diagram showing how issue templates and pull request branches trigger labeling automation, which reads canonical config files and then updates labels and project fields.
     participant U as Contributor
     participant GH as GitHub Event
     participant LA as Labeling Agent and Workflow
