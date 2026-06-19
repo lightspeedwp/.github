@@ -2,7 +2,6 @@
 file_type: "issue-template"
 name: "🚀 Release"
 about: "Track and coordinate a versioned release: changelog, tagging, GitHub Release publication, and post-merge verification."
-description: "Track and coordinate a versioned release: changelog, tagging, GitHub Release publication, and post-merge verification."
 version: "2.0.0"
 last_updated: "2026-06-19"
 category: "github-templates"
