@@ -25,6 +25,8 @@ jobs:
             const body = issue.body || '';
 
             const updated = finaliseChecklistSections(body, [
+              /^##\s+Steps\s*\/\s*Checklist\s*$/im,
+              /^##\s+Acceptance Criteria\s*$/im,
               /^##\s+Definition of Ready \(DoR\)\s*$/im,
               /^##\s+Definition of Done \(DoD\)\s*$/im,
             ]);

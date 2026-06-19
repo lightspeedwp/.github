@@ -101,6 +101,20 @@ function validateAccessibility(content) {
     return issues;
   }
 
+  // Reject accessibility attributes placed before the diagram type declaration.
+  // The diagram type (e.g. flowchart TD) must be the very first line; accTitle/accDescr
+  // that precede it are invisible to screen readers and indicate a mis-ordered block.
+  if (
+    firstMeaningfulLine &&
+    /^\s*(accTitle|accDescr)\s*[:{\s]/.test(firstMeaningfulLine)
+  ) {
+    issues.push(
+      "accTitle/accDescr must appear after the diagram type declaration, not before it. " +
+        "Move the diagram type (e.g. `flowchart TD`) to the first line.",
+    );
+    return issues;
+  }
+
   // Check for accTitle as an inline statement after the diagram type line.
   // Supported forms: "accTitle: text" or (rarely) "accTitle text"
   const hasAccTitle =
