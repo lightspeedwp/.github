@@ -62,7 +62,7 @@ function loadIssuePayload() {
 function detectTypeLabel(title = "", body = "") {
   const content = `${title} ${body}`.toLowerCase();
   for (const keyword of Object.keys(KEYWORD_TYPE_MAP)) {
-    if (content.includes(keyword)) {
+    if (new RegExp(`\\b${keyword}\\b`).test(content)) {
       return KEYWORD_TYPE_MAP[keyword];
     }
   }
@@ -70,7 +70,9 @@ function detectTypeLabel(title = "", body = "") {
 }
 
 function buildLabelsToApply(payload) {
-  const existingLabels = (payload?.issue?.labels || []).map((l) => l.name);
+  const existingLabels = (payload?.issue?.labels || [])
+    .map((l) => (typeof l === "string" ? l : l?.name))
+    .filter((name) => typeof name === "string");
   const hasStatus = existingLabels.some((l) => l.startsWith("status:"));
   const hasPriority = existingLabels.some((l) => l.startsWith("priority:"));
   const hasType = existingLabels.some((l) => l.startsWith("type:"));
@@ -109,14 +111,17 @@ async function applyLabels(payload, labelsToAdd) {
   const [owner, repoName] = repo.split("/");
   const issueNumber = payload.issue.number;
 
-  await octokit.rest.issues.addLabels({
-    owner,
-    repo: repoName,
-    issue_number: issueNumber,
-    labels: labelsToAdd,
-  });
-
-  log(`Applied labels to issue #${issueNumber}: ${labelsToAdd.join(", ")}`);
+  try {
+    await octokit.rest.issues.addLabels({
+      owner,
+      repo: repoName,
+      issue_number: issueNumber,
+      labels: labelsToAdd,
+    });
+    log(`Applied labels to issue #${issueNumber}: ${labelsToAdd.join(", ")}`);
+  } catch (error) {
+    log(`Failed to apply labels to issue #${issueNumber}: ${error.message}`);
+  }
 }
 
 async function runIssuesAgent(options = {}) {
