@@ -331,7 +331,11 @@ describe("label-utils.js", () => {
 
     test("handles perfect alignment (no diff)", () => {
       const current = ["type:bug", "status:in-progress", "priority:important"];
-      const canonical = ["type:bug", "status:in-progress", "priority:important"];
+      const canonical = [
+        "type:bug",
+        "status:in-progress",
+        "priority:important",
+      ];
 
       const diff = diffLabels(current, canonical);
 
