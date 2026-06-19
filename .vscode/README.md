@@ -1,8 +1,8 @@
 ---
 title: "VS Code Workspace Configuration"
 description: "Visual Studio Code workspace settings, tasks, extensions, and AI integration for LightSpeedWP development environment"
-version: "v1.3"
-last_updated: '2026-06-18'
+version: "v1.4"
+last_updated: '2026-06-19'
 maintainer: "LightSpeed Engineering"
 tags: ["vscode", "configuration", "extensions", "tasks", "ai", "development"]
 file_type: "configuration"
@@ -21,11 +21,9 @@ It ensures a consistent, automated, and standards-driven development experience 
 ## 📊 VS Code Configuration Architecture
 
 ```mermaid
----
-accTitle: VS Code Workspace Configuration Architecture
-accDescr: Flowchart showing the VS Code workspace hierarchy with three main branches (Extensions, Tasks, Settings) that lead to development tools including AI Agents, Linting tools (ESLint, Stylelint, Markdownlint), Testing (Jest), Build automation, EditorConfig, and Keybindings configuration
----
 flowchart TD
+    accTitle: VS Code Workspace Configuration Architecture
+    accDescr: Flowchart showing the VS Code workspace hierarchy with three main branches (Extensions, Tasks, Settings) that lead to development tools including AI Agents, Linting tools (ESLint, Stylelint, Markdownlint), Testing (Jest), Build automation, EditorConfig, and Keybindings configuration
     A[VS Code Workspace] --> B[Extensions]
     A --> C[Tasks]
     A --> D[Settings]
