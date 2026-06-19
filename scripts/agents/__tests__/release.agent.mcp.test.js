@@ -39,51 +39,36 @@ describe("release.agent MCP provider", () => {
           text: async () => JSON.stringify({ message: 'Not Found' }),
         };
       };
-        const FAKE_CHANGELOG = [
-          '# Changelog',
-          '',
-          '## [Unreleased]',
-          '',
-          '### Added',
-          '',
-          '- Fake unreleased entry for test fixture',
-          '',
-          '## [0.4.0] - 2026-01-01',
-          '',
-          '### Fixed',
-          '',
-          '- Previous release entry',
-        ].join('\\n');
-          const FAKE_CHANGELOG = [
-            '# Changelog',
-            '',
-            '## [Unreleased]',
-            '',
-            '### Added',
-            '',
-            '- Fake unreleased entry for test fixture',
-            '',
-            '## [0.5.0] - 2026-06-19',
-            '',
-            '### Added',
-            '',
-            '- Fixture release entry for test',
-            '',
-            '## [0.4.0] - 2026-01-01',
-            '',
-            '### Fixed',
-            '',
-            '- Previous release entry',
-          ].join('\\n');
-        fs.readFileSync = (filePath, ...args) => {
-          if (String(filePath).endsWith('VERSION')) {
-            return '0.4.0\\n';
-          }
-          if (String(filePath).endsWith('CHANGELOG.md')) {
-            return FAKE_CHANGELOG;
-          }
-          return originalReadFileSync.call(fs, filePath, ...args);
-        };
+      const FAKE_CHANGELOG = [
+        '# Changelog',
+        '',
+        '## [Unreleased]',
+        '',
+        '### Added',
+        '',
+        '- Fake unreleased entry for test fixture',
+        '',
+        '## [0.5.0] - 2026-06-19',
+        '',
+        '### Added',
+        '',
+        '- Fixture release entry for test',
+        '',
+        '## [0.4.0] - 2026-01-01',
+        '',
+        '### Fixed',
+        '',
+        '- Previous release entry',
+      ].join('\\n');
+      fs.readFileSync = (filePath, ...args) => {
+        if (String(filePath).endsWith('VERSION')) {
+          return '0.4.0\\n';
+        }
+        if (String(filePath).endsWith('CHANGELOG.md')) {
+          return FAKE_CHANGELOG;
+        }
+        return originalReadFileSync.call(fs, filePath, ...args);
+      };
 
       const { run } = await import('./scripts/agents/release.agent.js');
       const logs = [];
@@ -97,24 +82,70 @@ describe("release.agent MCP provider", () => {
       await run();
 
       console.log = originalLog;
-        // FAKE_CHANGELOG defined below
-        // placeholder removed — see FAKE_CHANGELOG declaration below
-        const _UNUSED = [
-          '## [0.4.0] - 2026-01-01',
-        ].join('\\n');
-          calls.push({ url, method: options.method, body: options.body });
-          return {
-            ok: true,
-            status: 201,
-            statusText: 'Created',
-            text: async () => JSON.stringify({}),
-          };
+      console.warn = originalWarn;
+      fs.readFileSync = originalReadFileSync;
+      console.log(JSON.stringify({ fetchCalls, logs, warnings }));
+    `);
+
+    const result = JSON.parse(output);
+    const joinedLogs = result.logs.join("\n");
+
+    expect(result.fetchCalls).toBe(2);
+    expect(joinedLogs).toMatch(
+      /\[DRY-RUN\] \[MCP\] Preflight passed for v\d+\.\d+\.\d+/,
+    );
+    expect(joinedLogs).toContain("[DRY-RUN] [MCP] Would create tag ref v");
+    expect(joinedLogs).toContain("[DRY-RUN] [MCP] Would create release PR");
+    expect(joinedLogs).toContain("[DRY-RUN] [MCP] Would publish release v");
+    expect(joinedLogs).not.toContain("✓ [MCP] Tag");
+    expect(joinedLogs).not.toContain("✓ [MCP] Release PR created");
+    expect(joinedLogs).not.toContain("✓ [MCP] GitHub Release");
+  });
+
+  test("preflight rejects when tag already exists", () => {
+    const output = runNodeEsm(`
+      process.env.GITHUB_TOKEN = 'token';
+      process.env.GITHUB_REPOSITORY = 'lightspeedwp/.github';
+      globalThis.fetch = async () => ({
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        text: async () => JSON.stringify({ ref: 'x' }),
+      });
+      const { createMcpReleaseProvider } = await import('./scripts/agents/release.agent.js');
+      const provider = createMcpReleaseProvider();
+      try {
+        await provider.preflight('9.9.9', { dryRun: false });
+        console.log(JSON.stringify({ ok: true }));
+      } catch (error) {
+        console.log(JSON.stringify({ ok: false, message: error.message }));
+      }
+    `);
+
+    const result = JSON.parse(output);
+    expect(result.ok).toBe(false);
+    expect(result.message).toMatch(/already exists/i);
+  });
+
+  test("createTag mutation calls refs endpoint", () => {
+    const output = runNodeEsm(`
+      process.env.GITHUB_TOKEN = 'token';
+      process.env.GITHUB_REPOSITORY = 'lightspeedwp/.github';
+      const calls = [];
+      globalThis.fetch = async (url, options) => {
+        calls.push({ url, method: options.method, body: options.body });
+        return {
+          ok: true,
+          status: 201,
+          statusText: 'Created',
+          text: async () => JSON.stringify({}),
         };
-        const { createMcpReleaseProvider } = await import('./scripts/agents/release.agent.js');
-        const provider = createMcpReleaseProvider();
-        await provider.createTag('9.9.9', { dryRun: false });
-        console.log(JSON.stringify(calls[0]));
-      `);
+      };
+      const { createMcpReleaseProvider } = await import('./scripts/agents/release.agent.js');
+      const provider = createMcpReleaseProvider();
+      await provider.createTag('9.9.9', { dryRun: false });
+      console.log(JSON.stringify(calls[0]));
+    `);
 
     const call = JSON.parse(output);
     expect(call.url).toContain("/repos/lightspeedwp/.github/git/refs");
