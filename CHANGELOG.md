@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **GitHub Merge Queue support** — Added `merge_group: types: [checks_requested]` trigger to `checks.yml`, `validate-pr-template.yml`, and `main-branch-guard.yml` so required status checks fire correctly inside GitHub's Merge Queue. Fixed `BRANCH_NAME` resolution in `checks.yml` to use `github.event.merge_group.head_ref` in queue context. Added `merge_queue` rule (ALLGREEN grouping, 60-minute check timeout) to both `develop` and `main` branch rulesets. ([#1008](https://github.com/lightspeedwp/.github/pull/1008))
+- **GitHub Merge Queue support** — Added `merge_group: types: [checks_requested]` trigger to `checks.yml`, `validate-pr-template.yml`, and `main-branch-guard.yml` so required status checks fire correctly inside GitHub's Merge Queue. Skipped branch-name validation for `merge_group` runs and updated the changed-files comparison to use merge-queue SHAs. Added `merge_queue` rule (ALLGREEN grouping, 60-minute check timeout) to both `develop` and `main` branch rulesets. ([PR #1008](https://github.com/lightspeedwp/.github/pull/1008), [Issue #1008](https://github.com/lightspeedwp/.github/issues/1008))
 
 - **Mermaid WCAG 2.2 AA colour contrast validation** — Added `scripts/validation/validate-mermaid-colour-contrast.js` which checks every `style` declaration in Mermaid diagrams against a pre-verified WCAG 2.2 AA palette (minimum 4.5:1 contrast ratio). The validator supports `--changed-files` scoping for CI efficiency, flags unparseable hex values as errors, strips inline `%%` comments before parsing, and generates a dated markdown report under `.github/reports/mermaid/`. Added `npm run validate:mermaid-contrast` script. Updated `.github/workflows/validate-mermaid-pr.yml` to run all three diagram checks (syntax, accessibility, contrast) on every PR that modifies `.md`/`.mdx` files, posting a consolidated status comment. Updated `instructions/mermaid.instructions.md` with the approved seven-role WCAG AA palette and required structure. Fixed all existing diagram `style` declarations across `README.md`, `docs/AGENT_CREATION.md`, `profile/README.md`, `scripts/README.md`, `tests/README.md`, and `.github/ISSUE_TEMPLATE/README.md` to use the approved palette triples (`fill`, `color`, `stroke`). ([#977](https://github.com/lightspeedwp/.github/pull/977), [#976](https://github.com/lightspeedwp/.github/issues/976))
 
@@ -122,7 +122,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Onboarding page: Wapuu-Yoduu for wisdom and guidance
   - Glossary page: Wapuu-Astropuu for reference and learning
   - References page: Wapuu-Rocket for navigation and discovery
-  All Wapuus feature responsive sizing (clamp 100-200px), drop-shadow filters for visual depth, proper accessibility attributes (aria-hidden), and fluid flexbox layouts for hero sections that adapt across mobile, tablet, and desktop viewports.
+    All Wapuus feature responsive sizing (clamp 100-200px), drop-shadow filters for visual depth, proper accessibility attributes (aria-hidden), and fluid flexbox layouts for hero sections that adapt across mobile, tablet, and desktop viewports.
 
 ### Fixed
 
