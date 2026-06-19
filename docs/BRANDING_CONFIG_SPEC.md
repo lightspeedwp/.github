@@ -2,17 +2,17 @@
 title: "Branding Configuration Specification"
 description: "Complete specification for category-aware branding, frontmatter validation, and header/footer management"
 file_type: "documentation"
-version: "1.0.0"
+version: "1.0.1"
 created_date: "2026-05-29"
-last_updated: "2026-06-03"
+last_updated: "2026-06-19"
 category: "governance"
 owners: ["LightSpeedWP Automation Team"]
 ---
 
 # Branding Configuration Specification
 
-**Document Version**: 1.0.0
-**Last Updated**: 2026-05-29
+**Document Version**: 1.0.1
+**Last Updated**: 2026-06-19
 **Related Issues**: #33 (Parent Spec), #554 (Schema Implementation), #555 (Agent Implementation), #556 (Remediation)
 
 ---
@@ -413,6 +413,8 @@ The configuration is used in:
 - CodeRabbit configuration
 - Linting and validation scripts
 
+Missing branded footers are now treated as a validation failure via `npm run validate:footers`, which can also backfill the category default when run with `--fix`.
+
 ### 9.3 For Documentation Generation
 
 Category-aware tools use configuration to:
@@ -529,6 +531,6 @@ governance-footer:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+⚖️ *Governance policy maintained by LightSpeedWP*
 
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+[📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)
