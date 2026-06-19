@@ -2,9 +2,9 @@
 file_type: "documentation"
 title: "Mermaid Diagram Validation Report"
 description: "Comprehensive validation of all Mermaid diagrams across top-level folders with WCAG AA accessibility and structural checks"
-version: "1.1"
+version: "1.2"
 created_date: "2025-12-11"
-last_updated: "2026-06-18"
+last_updated: "2026-06-19"
 author: "GitHub Copilot"
 maintainer: "LightSpeed Team"
 category: "mermaid"
@@ -280,9 +280,9 @@ tags: ["mermaid", "validation", "accessibility", "documentation", "diagrams"]
    - **Example**:
 
      ```mermaid
+     flowchart TB
      accTitle: Mermaid validation scope overview
      accDescr: Shows how the validation report groups README files into a simple top-level flowchart for the scan scope.
-     flowchart TB
          A[LightSpeed Org] --> B[Community Health]
          A --> C[Documentation]
          A --> D[Scripts & Automation]

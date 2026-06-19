@@ -3,8 +3,8 @@ file_type: "instructions"
 title: "Documentation Formats Standards"
 description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams across all GitHub community health documentation"
 scope: "organization-wide"
-version: "v1.1.2"
-last_updated: "2026-06-18"
+version: "v1.1.3"
+last_updated: "2026-06-19"
 owners: ["GitHub Community Health Team"]
 tags:
 - markdown
@@ -401,9 +401,9 @@ Mermaid diagrams enhance documentation by visualizing complex relationships, pro
 #### **Flowchart (Most Common)**
 
 ```mermaid
+flowchart TD
 accTitle: Flowchart diagram example
 accDescr: Shows a simple decision flowchart with yes and no branches ending in separate actions.
-flowchart TD
     A[Start] --> B{Decision?}
     B -->|Yes| C[Action 1]
     B -->|No| D[Action 2]
@@ -416,9 +416,9 @@ flowchart TD
 #### **Graph (Relationships)**
 
 ```mermaid
+graph TB
 accTitle: Graph diagram example
 accDescr: Shows a relationship graph connecting issues, pull requests, discussions, and releases.
-graph TB
     A[Issues] --> B[Pull Requests]
     A --> C[Discussions]
     B --> D[Releases]
@@ -430,9 +430,9 @@ graph TB
 #### **Architecture Diagram**
 
 ```mermaid
+graph LR
 accTitle: Architecture diagram example
 accDescr: Shows a repository architecture split into internal repository components and external integration points.
-graph LR
     subgraph "Repository"
         A[Code] --> B[Tests]
         C[Docs] --> D[Automation]
@@ -452,9 +452,9 @@ graph LR
 #### **Sequence Diagram**
 
 ```mermaid
+sequenceDiagram
 accTitle: Sequence diagram example
 accDescr: Shows a simple request flow from user through GitHub and CI to deployment and back to the user.
-sequenceDiagram
     participant User
     participant GitHub
     participant CI
@@ -473,9 +473,9 @@ sequenceDiagram
 #### **State Diagram**
 
 ```mermaid
+stateDiagram-v2
 accTitle: State diagram example
 accDescr: Shows a linear issue lifecycle from draft to review, approval, and merge.
-stateDiagram-v2
     [*] --> Draft
     Draft --> Review: Submit
     Review --> Approved: Accept
@@ -502,9 +502,9 @@ stateDiagram-v2
 Use the approved Mermaid palette for any `style` or `classDef` declaration. Keep fill, text, and stroke colours together so GitHub light and dark rendering stay readable.
 
 ```mermaid
+flowchart TD
 accTitle: Mermaid colour coding example
 accDescr: Shows the approved Mermaid palette with explicit fill, text, and stroke values applied to success and error classes.
-flowchart TD
     A[Input] --> B[Process]
     B --> C{Decision}
     C -->|Success| D[Output]
@@ -544,9 +544,9 @@ flowchart TD
 The following diagram shows the issue lifecycle:
 
 ```mermaid
+stateDiagram-v2
 accTitle: Issue lifecycle example
 accDescr: Shows the issue lifecycle from open through in-progress, review, and closed states.
-stateDiagram-v2
     [*] --> Open
     Open --> InProgress
     InProgress --> Review

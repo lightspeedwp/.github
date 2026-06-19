@@ -1,8 +1,8 @@
 ---
 file_type: "instructions"
 title: "Frontmatter Instructions"
-version: "v1.1"
-last_updated: "2025-12-04"
+version: "v1.2"
+last_updated: "2026-06-19"
 author: "LightSpeedWP"
 maintainer: "Ash Shaw"
 description: "Instructions for creating and validating YAML frontmatter for all LightSpeedWP documentation and code files."
@@ -83,9 +83,9 @@ references:
 - VS Code and Copilot validate automatically if configured (see `.vscode/settings.json`).
 
 ```mermaid
+graph TD
 accTitle: Frontmatter validation flow
 accDescr: Shows how a file with frontmatter moves through schema validation and either passes or returns for correction before automation uses it.
-graph TD
     A[File with Frontmatter] --> B[Schema Validation]
     B -->|Valid| C[Accepted]
     B -->|Invalid| D[Error: Fix Required]
