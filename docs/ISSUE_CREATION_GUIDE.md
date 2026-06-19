@@ -2,7 +2,7 @@
 title: GitHub Issue Creation Guide
 description: How to create well-formed issues, select templates, and trigger automation
 file_type: documentation
-version: "1.0.6"
+version: "1.0.7"
 created_date: "2026-05-31"
 last_updated: "2026-06-19"
 author: Claude Code
@@ -128,7 +128,8 @@ Click **Submit new issue**. Your issue is now visible to the team and ready for 
 
 - Issue outcomes are still driven by the body content and canonical labels, so keep the template complete and specific.
 - Incomplete templates are flagged and labelled for correction rather than closed.
-- Metadata governance now handles the project item, assignee, milestone, and relationship metadata automatically when it can infer them safely.
+- Metadata governance now handles the project item, assignee, and relationship metadata automatically when it can infer them safely.
+- Milestones are no longer created per issue or PR by default; use a shared milestone deliberately when batching related work.
 
 ### AI / Automation Issue Creation
 
@@ -222,3 +223,7 @@ When creating an issue:
 - [Issue Types](./ISSUE_TYPES.md)
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
