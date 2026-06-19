@@ -2,9 +2,9 @@
 title: GitHub Issue Creation Guide
 description: How to create well-formed issues, select templates, and trigger automation
 file_type: documentation
-version: "1.0.5"
+version: "1.0.6"
 created_date: "2026-05-31"
-last_updated: "2026-06-18"
+last_updated: "2026-06-19"
 author: Claude Code
 maintainer: Ash Shaw
 owners:
@@ -122,7 +122,7 @@ Click **Submit new issue**. Your issue is now visible to the team and ready for 
 - Unified labeling agent applies canonicalization, one-hot enforcement, defaults, and content-based type detection
 - PR automation remains stronger due to branch/file signals available in PR context
 - `metadata-governance.yml` automatically adds new issues and PRs to the configured project, assigns the requester when possible, attaches or creates an appropriate milestone, and records relationships when they are present in the body
-- `project-meta-sync.yml` keeps the project fields in sync and leaves `Start date` and `Target date` empty until work is explicitly marked `status:ready` or `status:in-progress`
+- `project-meta-sync.yml` keeps the project fields in sync, re-runs on label changes, and backfills `Status`, `Priority`, `Type`, `Effort`, `Start date`, and `Target date` from canonical labels plus safe fallbacks
 
 ### ⚠️ Practical Implication
 
