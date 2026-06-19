@@ -59,7 +59,8 @@ describe("issue-pr-metadata helpers", () => {
       issue: {
         number: 968,
         node_id: "MDU6SXNzdWU5Njg=",
-        title: "Release v0.6.0 — Community Health, Governance Docs, and Meta Agent Foundations",
+        title:
+          "Release v0.6.0 — Community Health, Governance Docs, and Meta Agent Foundations",
         body: "## Release Summary",
         labels: [],
         milestone: null,
@@ -79,7 +80,8 @@ describe("issue-pr-metadata helpers", () => {
       pull_request: {
         number: 966,
         node_id: "MDExOlB1bGxSZXF1ZXN0",
-        title: "fix(issue-templates): add `about` field, align with 25 org issue types, and polish",
+        title:
+          "fix(issue-templates): add `about` field, align with 25 org issue types, and polish",
         body: "Fixes #965",
         labels: [],
         milestone: null,
@@ -138,7 +140,8 @@ describe("issue-pr-metadata helpers", () => {
         issue: {
           number: 968,
           node_id: "MDU6SXNzdWU5Njg=",
-          title: "Release v0.6.0 — Community Health, Governance Docs, and Meta Agent Foundations",
+          title:
+            "Release v0.6.0 — Community Health, Governance Docs, and Meta Agent Foundations",
           body: "Fixes #965",
           labels: [],
           milestone: null,
@@ -279,7 +282,8 @@ describe("issue-pr-metadata helpers", () => {
         pull_request: {
           number: 966,
           node_id: "MDExOlB1bGxSZXF1ZXN0",
-          title: "fix(issue-templates): add `about` field, align with 25 org issue types, and polish",
+          title:
+            "fix(issue-templates): add `about` field, align with 25 org issue types, and polish",
           body: "Fixes #965",
           labels: [],
           milestone: null,

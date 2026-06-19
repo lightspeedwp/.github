@@ -22,7 +22,9 @@ function resolveFooterConfigPath() {
     path.join(projectRoot, ".github/automation/footers.yml"),
   ].filter(Boolean);
 
-  return candidatePaths.find((candidatePath) => fs.existsSync(candidatePath)) || null;
+  return (
+    candidatePaths.find((candidatePath) => fs.existsSync(candidatePath)) || null
+  );
 }
 
 /**
@@ -73,7 +75,12 @@ function getCanonicalFooterTemplates() {
 function getFooterSignatures() {
   const canonicalTemplates = getCanonicalFooterTemplates();
   const canonicalSignatures = canonicalTemplates
-    .map((template) => template.split("\n").map((line) => line.trim()).find(Boolean))
+    .map((template) =>
+      template
+        .split("\n")
+        .map((line) => line.trim())
+        .find(Boolean),
+    )
     .filter(Boolean);
 
   return [...new Set([...DEFAULT_FOOTER_SIGNATURES, ...canonicalSignatures])];
@@ -129,7 +136,8 @@ function getFooterPhrases(category = "default") {
 
   // Fall back to a known default if the config is partial or missing the category mapping.
   if (categoryConfig?.allowed_footers?.length) {
-    const fallbackFooter = config.footers[categoryConfig.allowed_footers[0]]?.template;
+    const fallbackFooter =
+      config.footers[categoryConfig.allowed_footers[0]]?.template;
     if (typeof fallbackFooter === "string") {
       return [fallbackFooter.trimEnd()];
     }
@@ -244,8 +252,14 @@ function ensureFooter(file, options = {}) {
     const lastSeparatorIndex = frontmatterStripped.lastIndexOf("\n---\n");
 
     if (lastSeparatorIndex !== -1) {
-      const prefix = content.slice(0, content.length - frontmatterStripped.length);
-      const bodyWithoutFooter = frontmatterStripped.slice(0, lastSeparatorIndex);
+      const prefix = content.slice(
+        0,
+        content.length - frontmatterStripped.length,
+      );
+      const bodyWithoutFooter = frontmatterStripped.slice(
+        0,
+        lastSeparatorIndex,
+      );
       content = `${prefix}${bodyWithoutFooter.replace(/\s+$/, "")}${footerBlock}`;
     } else {
       content = `${content.replace(/\s+$/, "")}${footerBlock}`;

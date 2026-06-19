@@ -27,13 +27,17 @@ describe("header-footer", () => {
     expect(ensureFooter(filePath, { category: "docs" })).toBe(true);
 
     const output = fs.readFileSync(filePath, "utf8");
-    expect(output).toContain("Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!");
+    expect(output).toContain(
+      "Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!",
+    );
     expect(output).toContain("https://lightspeedwp.agency/contact");
   });
 
   test("ensureFooter ignores footer text mentioned in the body", async () => {
     const { ensureFooter } = await import("../header-footer.js");
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "branding-footer-body-"));
+    const tmpDir = fs.mkdtempSync(
+      path.join(os.tmpdir(), "branding-footer-body-"),
+    );
     const filePath = path.join(tmpDir, "branding-note.md");
 
     fs.writeFileSync(
@@ -53,7 +57,10 @@ describe("header-footer", () => {
     expect(ensureFooter(filePath, { category: "docs" })).toBe(true);
 
     const output = fs.readFileSync(filePath, "utf8");
-    const footerMatches = output.match(/Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!/g) || [];
+    const footerMatches =
+      output.match(
+        /Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!/g,
+      ) || [];
     expect(footerMatches).toHaveLength(2);
   });
 });
