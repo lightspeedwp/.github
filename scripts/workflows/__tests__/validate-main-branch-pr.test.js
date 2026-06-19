@@ -5,7 +5,6 @@ const {
   isHotfixBranch,
   normaliseBranchName,
   validatePullRequestMetadata,
-  normaliseBranchName,
 } = require("../branch-policy/validate-main-branch-pr.cjs");
 
 describe("validate-main-branch-pr", () => {

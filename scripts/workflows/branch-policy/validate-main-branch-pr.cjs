@@ -154,14 +154,6 @@ function main() {
     pullRequest?.head?.ref || process.env.GITHUB_HEAD_REF || process.env.HEAD_REF || "";
   const baseRef =
     pullRequest?.base?.ref || process.env.GITHUB_BASE_REF || process.env.BASE_REF || "";
-function isAllowedBranch(branchName) {
-  const normalised = normaliseBranchName(branchName);
-  return allowedPrefixes.some((prefix) => normalised.startsWith(prefix));
-}
-
-function main() {
-  const headRef = process.env.GITHUB_HEAD_REF || process.env.HEAD_REF || "";
-  const baseRef = process.env.GITHUB_BASE_REF || process.env.BASE_REF || "";
   const eventName = process.env.GITHUB_EVENT_NAME || "";
 
   if (eventName !== "pull_request") {
@@ -180,11 +172,6 @@ function main() {
     process.exit(1);
   }
 
-  const normalisedBranch = normaliseBranchName(branchName);
-  if (
-    !normalisedBranch.startsWith("release/") &&
-    !normalisedBranch.startsWith("hotfix/")
-  ) {
   if (!isAllowedBranch(branchName)) {
     console.error(
       `Only release/* or hotfix/* branches may merge into main. Received '${branchName}'.`,
@@ -216,4 +203,3 @@ module.exports = {
   isHotfixBranch,
   validatePullRequestMetadata,
 };
-module.exports = { main, isAllowedBranch, normaliseBranchName };
