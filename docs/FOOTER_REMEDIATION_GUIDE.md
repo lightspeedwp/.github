@@ -342,7 +342,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: node .github/scripts/validate-footers.js
+      - run: npm run validate:footers -- --changed-only
 ```
 
 This ensures every PR is validated before merge.

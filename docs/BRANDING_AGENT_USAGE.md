@@ -286,9 +286,9 @@ footers:
 
 ### Validation
 
-The repository validator now treats missing branded footers as a failure and can backfill them from the category default via `npm run validate:footers -- --fix`.
+The repository validator now treats missing branded footers in changed Markdown as a failure and can backfill them from the category default via `npm run validate:footers -- --fix`.
 
-Run the validator after bulk edits or agent changes to make sure new docs are not left unbranded:
+Run the validator after bulk edits or agent changes to make sure changed docs are not left unbranded:
 
 ```bash
 npm run validate:footers
