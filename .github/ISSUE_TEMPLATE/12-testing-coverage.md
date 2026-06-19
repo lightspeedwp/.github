@@ -2,9 +2,8 @@
 file_type: "issue-template"
 name: "🧪 Test Coverage"
 about: "Propose, add, or expand tests (unit, integration, E2E)."
-description: "Propose, add, or expand tests (unit, integration, E2E)."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 
@@ -75,3 +74,7 @@ Define where and how this test will be used.
 - [ ] Approved by at least one maintainer
 
 ---
+
+---
+
+Related issues: {related_issues}
