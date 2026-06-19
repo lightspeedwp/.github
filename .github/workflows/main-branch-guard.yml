@@ -112,3 +112,11 @@ jobs:
             }
 
             core.info(`Branch guard passed for '${headRef}'.`);
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - name: Validate release branch name
+        run: node scripts/workflows/branch-policy/validate-main-branch-pr.cjs
