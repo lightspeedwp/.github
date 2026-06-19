@@ -18,7 +18,8 @@ pull_request_rules:
       - -draft
       - -conflict
     actions:
-      approve:
+      review:
+        type: APPROVE
       queue:
         name: dependabot
   - name: Keep imgbot image optimizations current on develop
@@ -54,7 +55,6 @@ queue_rules:
       - check-success=All Checks Passed
     merge_method: squash
     batch_size: 1
-    allow_checks_interruption: false
   - name: Merge queue
     batch_size: 1
 merge_queue:
