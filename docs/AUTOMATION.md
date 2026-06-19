@@ -76,7 +76,7 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | **validate-footers** | validation step | Enforce branded footers on changed Markdown and catch missing footer drift | `.github/scripts/validate-footers.js` |
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
-| **project-meta-sync.yml** | push / issues / pull_request | Sync project board fields from labels and kickoff metadata | derive-project-fields.cjs |
+| **project-meta-sync.yml** | issues / pull_request | Sync project board fields from labels, title/body fallbacks, and kickoff metadata | derive-project-fields.cjs |
 | **checklist-finalisation.yml** | issues.closed / pull_request_target.closed | Final checklist sync for completed issues and merged PRs | workflow backstop |
 | **release.yml** | main | Versioning, changelog generation, tagging, and release notes | release.agent.js |
 | **reporting.yml** | develop | Generate metrics and activity reports | reporting.agent.js |
