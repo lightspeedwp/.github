@@ -2,9 +2,8 @@
 file_type: "issue-template"
 name: "🛡️ Audit"
 about: "Propose, conduct, or document a security, accessibility, code, or process audit."
-description: "Propose, conduct, or document a security, accessibility, code, or process audit."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 
@@ -74,3 +73,7 @@ Add links, standards, references, or related issues.
 - [ ] PR uses correct branch prefix (audit/)
 
 ---
+
+---
+
+Related issues: {related_issues}

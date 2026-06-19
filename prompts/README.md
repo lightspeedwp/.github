@@ -2,8 +2,8 @@
 file_type: "prompt"
 title: "Standardised Prompts Directory"
 description: "Reusable prompt templates for agents and AI scenarios across LightSpeed projects"
-version: "1.1.0"
-last_updated: "2026-06-01"
+version: "1.1.1"
+last_updated: "2026-06-19"
 owners: ["ashley@lightspeedwp.agency"]
 tags: ["prompts", "ai", "templates", "agents"]
 status: "active"
@@ -34,6 +34,7 @@ This directory contains reusable prompt templates for agents and AI scenarios ac
 - **[code-review.prompt](./code-review.prompt)** — Code review, quality feedback, and standards enforcement
 - **[debugging.prompt](./debugging.prompt)** — Problem diagnosis, root cause analysis, and resolution
 - **[documentation.prompt](./documentation.prompt)** — Documentation creation, updates, and refinement
+- **[update-frontmatter.prompt](./update-frontmatter.prompt)** — Front matter migration, schema alignment, and validation updates
 - **[testing.prompt](./testing.prompt)** — Test suite creation, debugging, and coverage improvements
 - **[refactoring.prompt](./refactoring.prompt)** — Code refactoring, optimisation, and modernisation
 
@@ -78,3 +79,9 @@ To add or improve prompts:
 5. Create a PR with rationale for the new prompt
 
 ---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

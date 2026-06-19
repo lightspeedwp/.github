@@ -2,9 +2,8 @@
 file_type: "issue-template"
 name: "🧩 Compatibility"
 about: "Track browser/device/WordPress/plugin compatibility issues."
-description: "Track browser/device/WordPress/plugin compatibility issues."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 
@@ -75,3 +74,7 @@ Add any other context, related issues, references, or docs.
 - [ ] Approved by at least one maintainer
 
 ---
+
+---
+
+Related issues: {related_issues}

@@ -15,7 +15,6 @@ on:
           - epic
           - story
           - improvement
-          - ux-feedback
           - code-refactor
           - build-ci
           - automation
@@ -33,7 +32,6 @@ on:
           - code-review
           - ai-ops
           - content-modelling
-          - help
       canonical_type:
         description: "Optional canonical type label to apply if it matches the template"
         required: false
@@ -135,11 +133,6 @@ jobs:
                 defaultType: 'type:improve',
                 allowedTypes: ['type:improve', 'type:enhancement'],
               },
-              'ux-feedback': {
-                file: '.github/ISSUE_TEMPLATE/08-user-experience-feedback.md',
-                defaultType: 'type:ux-feedback',
-                allowedTypes: ['type:ux-feedback'],
-              },
               'code-refactor': {
                 file: '.github/ISSUE_TEMPLATE/09-code-refactor.md',
                 defaultType: 'type:refactor',
@@ -224,11 +217,6 @@ jobs:
                 file: '.github/ISSUE_TEMPLATE/25-content-modelling.md',
                 defaultType: 'type:content-modelling',
                 allowedTypes: ['type:content-modelling'],
-              },
-              help: {
-                file: '.github/ISSUE_TEMPLATE/26-help.md',
-                defaultType: 'type:help',
-                allowedTypes: ['type:help', 'type:question', 'type:support'],
               },
             };
 
