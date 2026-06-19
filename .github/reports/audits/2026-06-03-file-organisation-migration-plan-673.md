@@ -4,8 +4,8 @@ title: "#673 Plan - File Organisation Refactoring Migration and Validation"
 description: "Phase 1 migration plan derived from #671 and #672 findings, including dependency graph, phased timeline, validation checklist, and rollback procedures."
 category: audits
 created_date: "2026-06-03"
-last_updated: "2026-06-03"
-version: "v1.0.0"
+last_updated: "2026-06-19"
+version: "v1.0.1"
 owners:
   - LightSpeed Team
 authors:
@@ -53,11 +53,9 @@ This plan is based on:
 ## Dependency Graph
 
 ```mermaid
----
-accTitle: Migration dependency graph for file-organisation refactor
-accDescr: Flowchart showing that reference remediation and boundary decisions feed script migration and then CI guardrails and final validation. Rollback checkpoints are attached after each major phase.
----
 flowchart TD
+    accTitle: Migration dependency graph for file-organisation refactor
+    accDescr: Flowchart showing that reference remediation and boundary decisions feed script migration and then CI guardrails and final validation. Rollback checkpoints are attached after each major phase.
     A[Phase 0 Baseline inventory] --> B[Phase 1 Reference remediation]
     A --> C[Phase 2 Boundary decision for .github or root]
     B --> D[Phase 3 Move or formalise .github scripts and agents remnants]
@@ -72,11 +70,9 @@ flowchart TD
 ## Timeline
 
 ```mermaid
----
-accTitle: Migration timeline
-accDescr: Gantt chart with six short phases across one working week from baseline to sign-off.
----
 gantt
+    accTitle: Migration timeline
+    accDescr: Gantt chart with six short phases across one working week from baseline to sign-off.
     title File Organisation Migration Timeline (Issue #673)
     dateFormat  YYYY-MM-DD
     section Planning
