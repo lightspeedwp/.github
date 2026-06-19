@@ -2,7 +2,7 @@
 title: GitHub Issue Creation Guide
 description: How to create well-formed issues, select templates, and trigger automation
 file_type: documentation
-version: "1.0.7"
+version: "1.0.8"
 created_date: "2026-05-31"
 last_updated: "2026-06-19"
 author: Claude Code
@@ -58,6 +58,8 @@ This guide helps contributors, team members, and AI agents create high-quality G
 - Numbered issue templates available: 25 (`01-task.md` through `25-content-modelling.md`)
 - Canonical issue types: 25 numbered templates plus label-only types
 - Label-only types without dedicated templates: `type:question`, `type:support`
+- Markdown issue templates use `name` + `about` in front matter.
+- PR templates use `title` + `description` in front matter and do not reuse the issue-template `about` field.
 
 For label-only types, use the nearest template and state the intended canonical type in the issue body.
 
@@ -97,6 +99,8 @@ Fill in the primary sections for your template with structured information.
 
 Review these checkboxes to ensure they align with your scope.
 
+Issue template front matter is also part of the contract: `about` belongs in Markdown issue templates, while `description` belongs in PR templates and other repository docs.
+
 ### 4. Add Labels and Metadata
 
 Issue templates do not pre-populate labels in the form, but automation adds the canonical set after creation. Add labels manually only when the workflow cannot infer them:
@@ -123,6 +127,7 @@ Click **Submit new issue**. Your issue is now visible to the team and ready for 
 - PR automation remains stronger due to branch/file signals available in PR context
 - `metadata-governance.yml` automatically adds new issues and PRs to the configured project, assigns the requester when possible, attaches or creates an appropriate milestone, and records relationships when they are present in the body
 - `project-meta-sync.yml` keeps the project fields in sync, re-runs on label changes, and backfills `Status`, `Priority`, `Type`, `Effort`, `Start date`, and `Target date` from canonical labels plus safe fallbacks
+- `issue-create-from-template.yml` only exposes template keys that map to actual files in `.github/ISSUE_TEMPLATE/`; it keeps new issues aligned with the canonical template body before creation
 
 ### ⚠️ Practical Implication
 
