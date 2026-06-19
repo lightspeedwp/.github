@@ -68,5 +68,6 @@ permissions:
 - github:issues
 metadata:
   guardrails: Compatibility only. Do not treat this spec as the active contract;
-    use the workflow and helper scripts referenced above.
+    use the workflow and helper scripts referenced above. The live contract keeps
+    issue labels, issue types, and project fields in sync via project-meta sync.
 ---
