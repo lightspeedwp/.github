@@ -248,6 +248,7 @@ class FrontmatterValidator {
   }
 
   getFileType(filePath) {
+    if (filePath.endsWith("README.md")) return "readme";
     if (filePath.includes("/agents/") || filePath.includes("/.github/agents/"))
       return "agent";
     if (filePath.includes("/.github/chatmodes/")) return "chatmode";
@@ -260,7 +261,6 @@ class FrontmatterValidator {
     if (filePath.includes("/DISCUSSION_TEMPLATE/"))
       return "discussion_template";
     if (filePath.includes("/SAVED_REPLIES/")) return "saved_reply";
-    if (filePath.endsWith("README.md")) return "readme";
     if (filePath.includes("/docs/") && filePath.endsWith(".md"))
       return "documentation";
     if (filePath.includes("/.github/") && filePath.endsWith(".md"))
@@ -278,6 +278,28 @@ class FrontmatterValidator {
     ) {
       this.logger.error(
         "The frontmatter 'references' field has been removed; convert any links to inline citations instead.",
+        filePath,
+      );
+      this.stats.errors++;
+    }
+
+    if (
+      fileType === "issue_template" &&
+      Object.prototype.hasOwnProperty.call(frontmatter, "description")
+    ) {
+      this.logger.error(
+        "Issue template frontmatter must use `about` instead of `description` to match GitHub's Markdown issue template contract.",
+        filePath,
+      );
+      this.stats.errors++;
+    }
+
+    if (
+      fileType === "pull_request_template" &&
+      Object.prototype.hasOwnProperty.call(frontmatter, "about")
+    ) {
+      this.logger.error(
+        "Pull request template frontmatter must use `description` instead of `about` to keep repo-local template metadata consistent.",
         filePath,
       );
       this.stats.errors++;
@@ -324,8 +346,8 @@ class FrontmatterValidator {
       instruction: ["file_type", "description"], // apply_to/applyTo verified separately if present
       prompt: ["file_type", "description"],
       collection: ["file_type", "name", "description"],
-      issue_template: ["file_type", "name", "description"],
-      pull_request_template: ["file_type", "title"],
+      issue_template: ["file_type", "name", "about"],
+      pull_request_template: ["file_type", "title", "description"],
       discussion_template: ["file_type", "name", "description"],
       saved_reply: ["file_type", "title"],
       readme: ["file_type", "title", "description"],

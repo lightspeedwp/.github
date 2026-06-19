@@ -3,7 +3,7 @@ title: "Issue Templates Directory"
 description: "Standardized issue templates for the LightSpeedWP organization. Templates for bugs, features, documentation, and custom issues with automation integration."
 name: "Issue Templates"
 file_type: documentation
-version: v1.8
+version: v1.8.1
 last_updated: "2026-06-19"
 created_date: "2025-10-20"
 authors: ["LightSpeed Team"]
@@ -20,6 +20,8 @@ stability: "stable"
 ![Automation Badge](https://img.shields.io/badge/automation-enabled-blue?style=flat-square)
 
 This directory contains standardized issue templates used across all LightSpeedWP repositories to ensure consistent issue creation and proper automation triggering.
+
+Markdown issue templates in this directory use `name` and `about` in front matter. Do not duplicate the picker summary into `description`.
 
 ## 🚀 Quick Start
 
@@ -148,6 +150,4 @@ These templates integrate with:
 
 *This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION.md) for complete automation standards.*
 
----
-
-<!-- RANDOM FOOTER: 🚀 Consistent templates, efficient workflows! -->
+Related issues: {related_issues}
