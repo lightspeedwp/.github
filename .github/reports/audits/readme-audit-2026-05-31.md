@@ -102,11 +102,9 @@ All README files have been updated recently or were created in the current year,
 **Applied Fix:**
 
 ```mermaid
----
-accTitle: VS Code Workspace Configuration Architecture
-accDescr: Flowchart showing the VS Code configuration hierarchy with three main branches (Extensions, Tasks, Settings) that lead to development tools including AI Agents, Linting tools (ESLint, Stylelint, Markdownlint), Testing (Jest), Build automation, EditorConfig, and Keybindings configuration
----
 flowchart TD
+    accTitle: VS Code Workspace Configuration Architecture
+    accDescr: Flowchart showing the VS Code configuration hierarchy with three main branches (Extensions, Tasks, Settings) that lead to development tools including AI Agents, Linting tools (ESLint, Stylelint, Markdownlint), Testing (Jest), Build automation, EditorConfig, and Keybindings configuration
     A[VS Code Workspace] --> B[Extensions]
     A --> C[Tasks]
     A --> D[Settings]
