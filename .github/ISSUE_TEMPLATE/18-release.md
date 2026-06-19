@@ -66,7 +66,7 @@ The agent will automatically: create `release/vX.Y.Z` branch → bump `VERSION` 
 After the agent creates the `release/vX.Y.Z → main` PR:
 
 - Confirm CI is green
-- Merge to `main`
+- Merge to `main` (use a standard merge commit; **do not squash-merge** to ensure the tag remains reachable on `main`)
 - Verify tag `vX.Y.Z` exists on the repository
 
 ### Rollback (if needed)
