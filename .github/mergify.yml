@@ -9,28 +9,16 @@ pull_request_rules:
       - "#commits-behind > 0"
     actions:
       update:
-  - name: Auto-merge Dependabot dependency updates on develop
+  - name: Auto-approve and merge Dependabot dependency updates on develop
     conditions:
       - author~=^(dependabot\[bot\]|app/dependabot)$
       - base=develop
       - label=area:dependencies
-      - -label=meta:dependabot-security
       - check-success=All Checks Passed
       - -draft
       - -conflict
     actions:
-      queue:
-        name: dependabot
-  - name: Auto-merge Dependabot security updates on develop
-    conditions:
-      - author~=^(dependabot\[bot\]|app/dependabot)$
-      - base=develop
-      - label=area:dependencies
-      - label=meta:dependabot-security
-      - check-success=All Checks Passed
-      - -draft
-      - -conflict
-    actions:
+      approve:
       queue:
         name: dependabot
   - name: Keep imgbot image optimizations current on develop
@@ -66,6 +54,7 @@ queue_rules:
       - check-success=All Checks Passed
     merge_method: squash
     batch_size: 1
+    allow_checks_interruption: false
   - name: Merge queue
     batch_size: 1
 merge_queue:
