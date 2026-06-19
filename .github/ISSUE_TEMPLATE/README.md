@@ -3,8 +3,8 @@ title: "Issue Templates Directory"
 description: "Standardized issue templates for the LightSpeedWP organization. Templates for bugs, features, documentation, and custom issues with automation integration."
 name: "Issue Templates"
 file_type: documentation
-version: v1.6
-last_updated: "2026-06-18"
+version: v1.7
+last_updated: "2026-06-19"
 created_date: "2025-10-20"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
