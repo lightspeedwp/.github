@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Contributing Guidelines"
 description: "Comprehensive contribution guidelines for LightSpeed community health repository including setup, standards, and workflow"
-version: '1.5'
-last_updated: '2026-06-18'
+version: '1.6'
+last_updated: '2026-06-19'
 owners: ["LightSpeed Team"]
 tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
 ---
@@ -30,9 +30,9 @@ For details, see the full guidelines below and the [Documentation Index](./docs/
 ---
 
 ```mermaid
+flowchart TD
 accTitle: Contribution workflow
 accDescr: Shows the end-to-end contribution path from issue discussion through branch creation, implementation, validation, pull request review, and merge.
-flowchart TD
   A[Open Issue or Feature Request] --> B[Discuss & Plan]
   B --> C[Create Branch]
   C --> D[Write Code & Tests]
