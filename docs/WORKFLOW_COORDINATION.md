@@ -457,6 +457,7 @@ with:
 | Version | Date | Author | Changes |
 | --- | --- | --- | --- |
 | v1.0.0 | 2026-05-28 | Codex | Initial release: Always-run, agent-triggered, and orchestrated patterns |
+
 ---
 
 ---

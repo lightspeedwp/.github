@@ -47,6 +47,7 @@ category: "github-templates"
 - [ ] Solution/automation verified
 - [ ] Documentation updated
 - [ ] PR uses correct branch prefix (ai/)
+
 ---
 
 ---

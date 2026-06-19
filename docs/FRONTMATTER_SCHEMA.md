@@ -830,6 +830,7 @@ npm run validate:frontmatter
 | Too many tags           | Reduce to 8, remove redundant ones |
 | Uppercase tags          | Convert to lowercase kebab-case    |
 | Old field names         | Update `apply_to` → `applyTo`      |
+
 ---
 
 ---
