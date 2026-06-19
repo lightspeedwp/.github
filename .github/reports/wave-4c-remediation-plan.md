@@ -317,9 +317,10 @@ Phases:
 2. **Issue #554 (Wave 4D)**: Implement schema & config
 3. **Issue #555 (Wave 4E)**: Merge/refactor agent
 4. **Issue #556 (Wave 4F)**: Execute remediation & validation
+---
 
 ---
 
-*Report generated: 2026-05-29*
-*Wave 4C: Current-State Audit*
-*Related: Issue #553, #554, #555, #556*
+⚖️ *Governance policy maintained by LightSpeedWP*
+
+[📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)

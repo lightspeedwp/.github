@@ -141,3 +141,10 @@ If adoption causes problems:
 - `.github/custom-instructions.md`
 - `instructions/file-organisation.instructions.md`
 - `README.md` (consumer examples)
+---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

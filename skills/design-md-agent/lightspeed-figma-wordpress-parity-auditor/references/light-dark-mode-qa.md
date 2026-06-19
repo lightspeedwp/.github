@@ -22,3 +22,12 @@
 - icons relying only on colour
 - untested images or SVGs
 - dark mode implemented with ad-hoc CSS instead of tokens
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

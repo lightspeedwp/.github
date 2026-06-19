@@ -21,3 +21,12 @@ This variant is tailored for strict `/opsx:propose` parsing and uses frontmatter
 3. `/opsx:propose .github/projects/active/refactor-migrate-prompts/openspec-strict/children/01-2-task-refactor-org-wide-prompts-to-root-standard.md`
 4. `/opsx:propose .github/projects/active/refactor-migrate-prompts/openspec-strict/children/01-3-task-migrate-files-update-references-and-deprecations.md`
 5. `/opsx:propose .github/projects/active/refactor-migrate-prompts/openspec-strict/children/01-4-task-validation-and-rollout-controls.md`
+---
+---
+---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

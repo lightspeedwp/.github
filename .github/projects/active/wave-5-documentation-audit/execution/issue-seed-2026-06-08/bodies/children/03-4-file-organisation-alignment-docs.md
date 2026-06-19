@@ -24,3 +24,12 @@ Audit documentation folder placement against `CLAUDE.md` boundaries.
 - `docs/`
 - `.github/`
 - `instructions/`
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

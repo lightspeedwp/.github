@@ -377,18 +377,10 @@ This audit prompt should be used as:
 2. **Improvement Planning**: Answer all questions to surface gaps before implementation
 3. **Test Design**: Use test coverage questions to write comprehensive test cases
 4. **Rollout Checklist**: Work through Phase 1, 2, 3 improvements in order
+---
 
 ---
 
-## References
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
 
-- **Planner Agent Spec**: `agents/task-planner.agent.md`
-- **Planner Implementation**: `scripts/agents/planner.agent.js`
-- **Planner Workflow**: `.github/workflows/planner.yml`
-- **Planner Instructions**: `instructions/planner.instructions.md`
-- **Reviewer Agent Spec**: `agents/reviewer.agent.md`
-- **Reviewer Implementation**: `scripts/agents/reviewer.agent.js`
-- **Reviewer Workflow**: `.github/workflows/reviewer.yml`
-- **Test File Helpers**: `tests/test-helpers.js` (verify content)
-- **Coding Standards**: `instructions/coding-standards.instructions.md`
-- **Quality Assurance**: `instructions/quality-assurance.instructions.md`
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

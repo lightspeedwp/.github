@@ -204,5 +204,10 @@ Linting instructions should evolve with our standards and requirements. When upd
 - **[coding-standards.instructions.md](./coding-standards.instructions.md)** — General coding standards that linting tools enforce
 - **[languages.instructions.md](./languages.instructions.md)** — Language-specific linting configurations and rules
 - **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing standards that complement linting
+---
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

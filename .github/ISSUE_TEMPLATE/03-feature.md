@@ -87,5 +87,8 @@ Use correct branch prefix (feat/) for any PR.
 - [ ] Feature toggles/rollout considered
 - [ ] QA verified/UAT approved (if applicable)
 - [ ] Release notes prepared; monitoring/alerts set
+---
 
 ---
+
+Related issues: {related_issues}

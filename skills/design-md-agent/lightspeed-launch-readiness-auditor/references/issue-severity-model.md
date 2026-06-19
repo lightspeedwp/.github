@@ -19,3 +19,10 @@ Escalate severity when the issue affects:
 - privacy or personal data
 - high-traffic pages
 - brand-critical pages
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

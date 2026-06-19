@@ -26,3 +26,12 @@ Audit and consolidate labelling documentation into a coherent source-of-truth mo
 - `docs/LABEL_INVENTORY.md`
 - `docs/LABEL_COLOR_STRATEGY.md`
 - `docs/AUTOMATION.md`
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

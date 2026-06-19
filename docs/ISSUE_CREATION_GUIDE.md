@@ -122,13 +122,15 @@ Click **Submit new issue**. Your issue is now visible to the team and ready for 
 - Unified labeling agent applies canonicalization, one-hot enforcement, defaults, and content-based type detection
 - PR automation remains stronger due to branch/file signals available in PR context
 - `metadata-governance.yml` automatically adds new issues and PRs to the configured project, assigns the requester when possible, attaches or creates an appropriate milestone, and records relationships when they are present in the body
+- `metadata-governance.yml` automatically adds new issues and PRs to the configured project, assigns the requester when possible, records relationships when they are present in the body, and only inherits milestones that already exist on linked work
 - `project-meta-sync.yml` keeps the project fields in sync and leaves `Start date` and `Target date` empty until work is explicitly marked `status:ready` or `status:in-progress`
 
 ### ⚠️ Practical Implication
 
 - Issue outcomes are still driven by the body content and canonical labels, so keep the template complete and specific.
 - Incomplete templates are flagged and labelled for correction rather than closed.
-- Metadata governance now handles the project item, assignee, milestone, and relationship metadata automatically when it can infer them safely.
+- Metadata governance now handles the project item, assignee, and relationship metadata automatically when it can infer them safely.
+- Milestones are no longer created per issue or PR by default; use a shared milestone deliberately when batching related work.
 
 ### AI / Automation Issue Creation
 
@@ -220,5 +222,10 @@ When creating an issue:
 - [Automation Governance](./AUTOMATION.md)
 - [Issue Templates README](../.github/ISSUE_TEMPLATE/README.md)
 - [Issue Types](./ISSUE_TYPES.md)
+---
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

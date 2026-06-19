@@ -46,5 +46,8 @@ category: "github-templates"
 - [ ] Research performed and findings documented
 - [ ] Recommendations/next steps proposed
 - [ ] Documentation updated (if applicable)
+---
 
 ---
+
+Related issues: {related_issues}

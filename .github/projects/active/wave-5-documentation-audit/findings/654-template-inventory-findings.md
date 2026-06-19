@@ -102,9 +102,10 @@ Address the duplicate `07` prefix:
 - **[#655](https://github.com/lightspeedwp/.github/issues/655):** Template → Automation Trigger Mapping (depends on numbering fixes)
 - **[#656](https://github.com/lightspeedwp/.github/issues/656):** Issue Labeling Rules in labeler.yml (depends on type clarification)
 - **[#657](https://github.com/lightspeedwp/.github/issues/657):** Clear AI Agent Instructions for Issue Creation (uses template standards)
+---
 
 ---
 
-**Audit Date:** 2026-05-31
-**Audit Status:** ✅ Complete
-**Full Details:** [GitHub Issue [#654](https://github.com/lightspeedwp/.github/issues/654)](<https://github.com/lightspeedwp/.github/issues/654#issuecomment-4587414901>)
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

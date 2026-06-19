@@ -74,5 +74,8 @@ Add any other context, related issues, compliance docs, or references.
 - [ ] Documentation/changelog updated
 - [ ] PR uses correct branch prefix (security/)
 - [ ] Approved by at least one maintainer
+---
 
 ---
+
+Related issues: {related_issues}

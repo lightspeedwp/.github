@@ -130,3 +130,9 @@ tools: ["GitHub API", "Release workflows"]
 metadata:
   guardrails: "Never publish or tag without human confirmation."
 ---
+
+---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

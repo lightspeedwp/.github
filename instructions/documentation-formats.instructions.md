@@ -631,5 +631,10 @@ jobs:
 - **[issues.instructions.md](./issues.instructions.md)** — Issue documentation and templates
 - **[pull-requests.instructions.md](./pull-requests.instructions.md)** — PR documentation and templates
 - **[community-standards.instructions.md](./community-standards.instructions.md)** — Community health documentation standards
+---
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

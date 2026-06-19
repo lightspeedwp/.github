@@ -65,5 +65,10 @@ README.md
 - Automation and label definitions are under \`.github/\`
 - Contributor and governance docs are at repo root
 - Link between docs to ensure discoverability (see cross-references in each file)
+---
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

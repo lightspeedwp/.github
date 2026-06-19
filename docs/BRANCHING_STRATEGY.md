@@ -387,5 +387,10 @@ reused so automation stays predictable.
 - New contributors must review this document and complete onboarding modules.
 - Include branch naming and merge training in onboarding sessions.
 - Add cheat sheets and workflow diagrams to internal wiki.
+---
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

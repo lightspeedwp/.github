@@ -108,5 +108,8 @@ If no user-facing changelog entry is needed, apply the `meta:no-changelog` label
   - [ ] No secrets/sensitive data introduced; OWASP risks reviewed
 - [ ] Code/design reviews approved
 - [ ] CI green; linked issues closed; release notes prepared (if shipping)
+---
 
 ---
+
+Closes: {closes_issues}

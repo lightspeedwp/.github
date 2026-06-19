@@ -44,3 +44,12 @@ Comprehensive audit of issue templates, their relationship to the automated labe
 - `.github/issue-types.yml`
 - `docs/ISSUE_CREATION_GUIDE.md`
 - `.github/custom-instructions.md`
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

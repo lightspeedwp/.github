@@ -25,3 +25,12 @@ Update `docs/index.md` so it is complete, current, and grouped by topic.
 
 - `docs/index.md`
 - `docs/`
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

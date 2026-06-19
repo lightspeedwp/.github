@@ -413,6 +413,8 @@ The configuration is used in:
 - CodeRabbit configuration
 - Linting and validation scripts
 
+Missing branded footers are now treated as a validation failure via `npm run validate:footers`, which can also backfill the category default when run with `--fix`.
+
 ### 9.3 For Documentation Generation
 
 Category-aware tools use configuration to:
@@ -526,9 +528,10 @@ governance-footer:
 **Last Reviewed**: 2026-05-29
 **Next Review**: 2026-06-29
 **Maintained by**: LightSpeedWP Automation Team
+---
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+⚖️ *Governance policy maintained by LightSpeedWP*
 
-[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+[📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)

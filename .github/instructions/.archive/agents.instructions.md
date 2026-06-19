@@ -473,8 +473,10 @@ If a temporary file needs version control:
 - [Repository Organization Guide](.././ORGANIZATION.md)
 - [File Naming Conventions](../naming-conventions.instructions.md)
 - [Workspace Architecture](../README.md)
+---
 
 ---
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

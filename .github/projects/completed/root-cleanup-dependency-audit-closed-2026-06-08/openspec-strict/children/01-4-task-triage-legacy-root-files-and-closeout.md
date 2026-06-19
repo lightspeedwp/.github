@@ -8,21 +8,8 @@ last_updated: "2026-06-03"
 status: active
 ---
 
-# [Task] Triage legacy root files and complete cleanup closeout
+---
 
-## template-map
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
 
-- template_file: .github/ISSUE_TEMPLATE/19-maintenance.md
-
-## Deliverables
-
-1. Decision record for audit_script.rb and github.code-workspace (keep, move, or remove).
-2. Applied change for approved disposition.
-3. Final cleanup summary with before/after root file list.
-
-## Acceptance Criteria
-
-- [ ] Each remaining legacy root file has a documented disposition rationale.
-- [ ] Any moves/removals are reflected in references and validation checks.
-- [ ] Final root listing contains only intentional governance/configuration files.
-- [ ] Closeout notes include rollback-safe guidance.
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

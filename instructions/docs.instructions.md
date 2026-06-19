@@ -118,5 +118,10 @@ Every documentation file should start with YAML frontmatter including:
 ## 13. Footer
 
 - Add a consistent footer with contact info and license; the `references` block is retired.
+---
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

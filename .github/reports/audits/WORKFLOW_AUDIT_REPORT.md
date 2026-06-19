@@ -437,5 +437,10 @@ The audit revealed that **45% of workflows (5/11) are currently broken** due to 
 The root cause is a mismatch between where workflows expect scripts (`.github/agents/`) and where they actually exist (`scripts/agents/`). This can be resolved by updating 5 workflow files and creating 4 missing scripts.
 
 **Recommendation**: Prioritize fixing the path issues in Priority 1 workflows before the next release cycle to prevent workflow failures.
+---
 
 ---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -187,8 +187,10 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines. Key points:
 - Include real examples
 - Get peer review
 - Update references when moving files
+---
 
 ---
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-[Documentation](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

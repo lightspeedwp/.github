@@ -27,3 +27,12 @@ Use the project's breakpoint system. If unknown, check at least:
 ## Output
 
 Record page, viewport, issue, severity, expected behaviour and fix owner.
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

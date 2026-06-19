@@ -387,9 +387,10 @@ Instead of creating a new `PR_LABELS.md`, investigate whether PR labels should b
    - [#664](https://github.com/lightspeedwp/.github/issues/664) (Labeling docs consolidation)
    - [#665](https://github.com/lightspeedwp/.github/issues/665) (File organization alignment)
    - [#666](https://github.com/lightspeedwp/.github/issues/666) (Update documentation index)
+---
 
 ---
 
-**Audit Completed:** 2026-05-31
-**Auditor:** Claude Code
-**Status:** Ready for implementation
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

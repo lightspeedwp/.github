@@ -76,11 +76,10 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution guidelines and standa
 ## Cookbook YAML Configuration
 
 See [cookbook.yml](./cookbook.yml) for metadata about all recipes, including version history and relationships.
+---
 
 ---
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

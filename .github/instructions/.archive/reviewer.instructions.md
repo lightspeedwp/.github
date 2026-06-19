@@ -76,5 +76,10 @@ Automate Pull Request (PR) review summaries to standardize feedback, reduce revi
 - [Reviewer Agent Spec](../../agents/reviewer.agent.md)
 - [Workflows Instructions](../workflows.instructions.md)
 - [Automation Governance](../../AUTOMATION_GOVERNANCE.md)
+---
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

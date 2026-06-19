@@ -48,5 +48,8 @@ category: "github-templates"
 - [ ] Solution/automation verified
 - [ ] Documentation updated
 - [ ] PR uses correct branch prefix (ai/)
+---
 
 ---
+
+Related issues: {related_issues}

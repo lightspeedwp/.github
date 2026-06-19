@@ -61,3 +61,10 @@ Produce a structured report with:
 - launch blockers
 - checklist tables
 - post-launch monitoring tasks
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

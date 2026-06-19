@@ -462,8 +462,10 @@ When contributing new scripts or modifications:
 - [Workflow Coordination](../docs/WORKFLOW_COORDINATION.md)
 - [Testing Standards](../docs/TESTING.md)
 - [Linting Standards](../docs/LINTING.md)
+---
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+🔧 *Utility maintained by LightSpeedWP*
+
+[📂 Scripts](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📖 Usage](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📞 Support](https://lightspeedwp.agency/contact)

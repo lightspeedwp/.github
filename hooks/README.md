@@ -91,10 +91,10 @@ To add a new hook:
 5. Submit a PR for review
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for full contribution guidelines.
+---
 
 ---
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

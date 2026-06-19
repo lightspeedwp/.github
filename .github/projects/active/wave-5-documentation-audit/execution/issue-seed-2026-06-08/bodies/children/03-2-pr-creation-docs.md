@@ -24,3 +24,12 @@ Audit overlap and divergence in PR creation documentation.
 - `.github/PULL_REQUEST_TEMPLATE/README.md`
 - `instructions/pull-requests.instructions.md`
 - `docs/BRANCHING_STRATEGY.md`
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -21,7 +21,7 @@ owners: ["LightSpeedWP Automation Team"]
 
 The **Unified Branding Agent** automates the application of category-aware branding (headers, footers, and badges) to Markdown documents across the repository.
 
-It reads from the Wave 4D configuration (`config/footers.config.yaml` and `.schemas/branding-schema.json`) and applies consistent branding rules based on:
+It reads from the canonical branding configuration (`config/footers.config.yaml` and `.schemas/branding-schema.json`) with a legacy fallback for older automation paths, and applies consistent branding rules based on:
 
 - **Document category** (explicitly in frontmatter or inferred from file path)
 - **Predefined footer templates** per category
@@ -282,6 +282,16 @@ footers:
     template: |
       ---
       *Built by 🧱 LightSpeedWP*
+```
+
+### Validation
+
+The repository validator now treats missing branded footers as a failure and can backfill them from the category default via `npm run validate:footers -- --fix`.
+
+Run the validator after bulk edits or agent changes to make sure new docs are not left unbranded:
+
+```bash
+npm run validate:footers
 ```
 
 ### `.schemas/branding-schema.json`
@@ -697,6 +707,7 @@ For issues, questions, or feature requests:
 1. Check this documentation
 2. Review [BRANDING_CONFIG_SPEC.md](./BRANDING_CONFIG_SPEC.md)
 3. Open an issue on GitHub: <https://github.com/lightspeedwp/.github/issues>
+---
 
 ---
 

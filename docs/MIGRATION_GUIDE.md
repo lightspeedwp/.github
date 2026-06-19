@@ -326,5 +326,10 @@ cp -r .github/instructions/.archive/* .github/instructions/
 | Date       | Changes                                                        |
 | ---------- | -------------------------------------------------------------- |
 | 2025-12-07 | Initial migration guide created. 22 files consolidated into 5. |
+---
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

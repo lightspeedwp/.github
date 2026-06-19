@@ -9,7 +9,8 @@ maintainer: "LightSpeed Engineering"
 tags: [testing, jest, utilities, labelling]
 ---
 
-# Utility Module Test Suite
+---
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+🔧 *Utility maintained by LightSpeedWP*
+
+[📂 Scripts](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📖 Usage](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📞 Support](https://lightspeedwp.agency/contact)

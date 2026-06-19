@@ -11,35 +11,8 @@ authors:
 tags: ["weekly", "summary", "automated"]
 ---
 
-# Weekly Reports Summary - Week 23
+---
 
-## Summary
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
 
-Automated summary of reports generated for week 23 of 2026.
-
-## Key Metrics
-
-| Category | Count | Status |
-|----------|-------|--------|
-| Agents | 2 | ✅ |
-| Linting | 0 | ✅ |
-| Labeling | 0 | ✅ |
-| Frontmatter | 0 | ✅ |
-| **Total** | **58** | ✅ |
-
-## Details
-
-Reports are organised in the following structure:
-
-- `.github/reports/agents/` - Agent-related reports
-- `.github/reports/linting/` - Code quality reports
-- `.github/reports/labeling/` - Label automation reports
-- `.github/reports/frontmatter/` - Schema validation reports
-- `.github/reports/coverage/` - Test coverage reports
-- `.github/reports/meta/` - Metadata application metrics
-- `.github/reports/issue-metrics/` - GitHub analytics
-
-## References
-
-- [Reports Directory](.github/reports/README.md)
-- [Reporting Instructions](.github/instructions/reporting.instructions.md)
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

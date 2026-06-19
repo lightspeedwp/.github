@@ -555,8 +555,10 @@ This repository and all its contents are licensed under the GNU General Public L
 - [💻 Coding Standards](../instructions/coding-standards.instructions.md) - Unified development guidelines
 - [🎨 Linting Instructions](../instructions/linting.instructions.md) - Code quality and formatting
 - [🏗️ Plugin Structure](../instructions/plugin-structure.instructions.md) - WordPress block plugin development
+---
 
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

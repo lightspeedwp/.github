@@ -72,7 +72,8 @@ If your project allows hotfixes directly to `main`, ensure validation workflows 
 | --- | --- | --- | --- |
 | **labeling.yml** | develop | Unified labelling, status/priority, and type automation | labeling.agent.js |
 | **changelog-validate.yml** | develop | Enforce changelog requirements and PR labelling standards | changelog validation |
-| **metadata-governance.yml** | issues / pull_request_target | Apply assignee, milestone, and relationship metadata | issue-pr-metadata.cjs |
+| **metadata-governance.yml** | issues / pull_request_target | Apply assignee and relationship metadata; inherit milestones only when explicitly linked | issue-pr-metadata.cjs |
+| **validate-footers** | validation step | Enforce branded footers and catch missing footer drift | `.github/scripts/validate-footers.js` |
 | **planner.yml** | develop | Post merge-readiness checklists and exit criteria to PRs | planner.agent.js |
 | **reviewer.yml** | develop | Automated PR review and quality feedback | reviewer.agent.js |
 | **project-meta-sync.yml** | push / issues / pull_request | Sync project board fields from labels and kickoff metadata | derive-project-fields.cjs |
@@ -156,7 +157,8 @@ Issue types are defined once in `.github/issue-types.yml` and used by both:
 ### Metadata Governance
 
 - Issues and PRs are assigned to the repository project automatically on create.
-- New issues and PRs should receive an assignee, milestone, and relationship metadata where relevant.
+- New issues and PRs should receive an assignee and relationship metadata where relevant.
+- Milestones are only applied when explicitly inherited from linked work or already present; the automation no longer invents a milestone per issue or PR.
 - `Start date` and `Target date` remain empty until the item is explicitly marked `status:ready` or `status:in-progress`.
 - Template enforcement must flag incomplete issues, apply `status:needs-more-info`, and keep the item open.
 
@@ -262,5 +264,10 @@ All configuration files are validated:
 - [Portable Automation Instructions](../instructions/automation.instructions.md)
 - [Workflow Specifications](../.github/workflows/)
 - [Agent Specifications](../.github/agents/)
+---
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -76,5 +76,10 @@ Applies to TaskSync V4 behaviour for continuous task cycling via terminal input.
 2. IF INCOMPLETE: Continue current task until completion criteria met
 3. THEN: Request new task through terminal input ONLY
 4. EXCEPTION: Urgent override commands ("stop current task", "correction", "fix") take immediate priority
+---
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

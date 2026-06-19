@@ -78,3 +78,12 @@ jobs:
 - [yamllint docs](https://yamllint.readthedocs.io/en/stable/)
 - [Spectral docs](https://github.com/stoplightio/spectral)
 - [actionlint docs](https://github.com/rhysd/actionlint)
+---
+---
+---
+
+---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

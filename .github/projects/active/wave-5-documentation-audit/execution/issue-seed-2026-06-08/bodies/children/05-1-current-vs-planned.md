@@ -24,3 +24,12 @@ Map current repository structure against `CLAUDE.md` boundary rules and identify
 - `CLAUDE.md`
 - `.github/`
 - `agents/`, `scripts/`, `schema/`, `instructions/`, `workflows/`
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

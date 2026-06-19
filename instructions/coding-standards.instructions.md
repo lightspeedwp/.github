@@ -121,5 +121,10 @@ All documentation links to files within the same repository should use `/blob/HE
 - **[linting.instructions.md](./linting.instructions.md)** — Tool-specific linting rules and configurations
 - **[languages.instructions.md](./languages.instructions.md)** — Language-specific coding standards and formatting
 - **[quality-assurance.instructions.md](./quality-assurance.instructions.md)** — Testing and QA standards
+---
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

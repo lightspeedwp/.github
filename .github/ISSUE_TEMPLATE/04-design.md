@@ -78,5 +78,8 @@ Add links, screenshots, references, or other design docs.
 - [ ] Documentation/changelog updated
 - [ ] Design reviewed and approved
 - [ ] PR uses correct branch prefix (design/)
+---
 
 ---
+
+Related issues: {related_issues}

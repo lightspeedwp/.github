@@ -490,7 +490,10 @@ Before proceeding to v1.0.0 release, confirm:
 - `.github/labeler.yml`
 - `.github/issue-types.yml`
 - `.github/workflows/*.yml`
+---
 
 ---
 
-*Last Updated: 2025-12-10 | Maintainer: Ash Shaw | Status: Active*
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

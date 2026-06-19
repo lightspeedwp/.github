@@ -62,3 +62,10 @@ Produce a one-page brief with:
 - Highlights the highest-priority risks
 - Names important sources
 - Includes confidence level and review checklist
+---
+
+---
+
+📚 *Research conducted {research_date} · Evidence-based analysis by LightSpeedWP*
+
+[🔗 Sources](https://github.com/lightspeedwp/.github/tree/develop) · [💬 Discuss](https://github.com/lightspeedwp/.github/discussions)

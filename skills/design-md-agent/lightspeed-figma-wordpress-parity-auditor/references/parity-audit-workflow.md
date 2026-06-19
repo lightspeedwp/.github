@@ -62,3 +62,12 @@ Check contrast, keyboard access, visible focus, headings, landmarks, labels, tar
 ## 7. Report
 
 Classify issues by severity and produce a go/no-go recommendation.
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -42,3 +42,12 @@ Audit and consolidate overlapping documentation across `docs/`, `.github/`, and 
 - `.github/README.md`
 - `README.md`
 - `instructions/`
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

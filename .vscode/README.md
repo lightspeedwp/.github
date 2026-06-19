@@ -124,10 +124,10 @@ flowchart TD
 - [Testing Framework](../tests/README.md) - Test suites and coverage documentation
 - [JSON Schemas](../schema/README.md) - Schema validation and IDE integration
 - [Main Repository](../README.md) - LightSpeed community health repository
+---
 
 ---
 
-*Maintained by the LightSpeedWP team for a seamless contributor experience.*
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

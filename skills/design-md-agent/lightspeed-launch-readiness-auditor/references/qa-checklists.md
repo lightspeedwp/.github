@@ -84,3 +84,12 @@
 - Email/phone clicks tracked if relevant.
 - Chatbot handoff events planned if not live.
 - DebugView/Tag Assistant tested.
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

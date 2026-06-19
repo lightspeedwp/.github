@@ -22,3 +22,12 @@ Discover all README files using reproducible commands and produce a metadata inv
 ## Related Files
 
 - `**/README.md`
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

@@ -309,5 +309,10 @@ Good separation by language family.
 | Findings Count | 12+ issues identified |
 | Recommendation Count | 5 (3 high, 2 medium) |
 | Child Issues | 4 implementation tasks planned |
+---
 
 ---
+
+⚖️ *Governance policy maintained by LightSpeedWP*
+
+[📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)

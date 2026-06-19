@@ -8,7 +8,8 @@ version: "v1.0.0"
 status: completed
 ---
 
-# Archived Closed Specs
+---
 
-This snapshot contains Wave 5 parent/child spec files whose linked issues are closed.
-Open-issue specs remain in `active/wave-5-documentation-audit/`.
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

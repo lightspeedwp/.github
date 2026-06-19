@@ -72,8 +72,10 @@ The following instruction files provide detailed standards for agent development
 - Reference all relevant standards and workflow documents above.
 - Update this index whenever new agent files or templates are added.
 - Always consult the corresponding instruction file before implementing or modifying an agent.
+---
 
 ---
 
-> For up-to-date standards, always start with the main indexes above.
-> For new agent work, fork an existing template and document its purpose in this directory.
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

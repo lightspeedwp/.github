@@ -183,8 +183,10 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for full contribution guidelines. Key 
 - [Cross-Platform Skill YAML Spec](../docs/CROSS_PLATFORM_SKILL_YAML_SPEC.md) – Technical specification for skill YAML
 - [Automation Documentation](../instructions/automation.instructions.md) – Automation standards
 - [AGENTS.md](../AGENTS.md) – Global AI rules
+---
 
 ---
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/develop/instructions)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

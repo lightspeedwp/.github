@@ -645,5 +645,10 @@ After identifying problems, always provide clear paths forward:
 - Recognition of what IS working well
 
 **Remember:** Being honest about failures helps authors create genuinely valuable educational content. Sugar-coating serves no one.
+---
 
 ---
+
+*Maintained by the 🤖 LightSpeedWP Automation Team*
+
+[📋 AI Governance](https://github.com/lightspeedwp/.github/blob/develop/docs/AUTOMATION_GOVERNANCE.md) · [🧠 Agents](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [📞 Contact](https://lightspeedwp.agency/contact)

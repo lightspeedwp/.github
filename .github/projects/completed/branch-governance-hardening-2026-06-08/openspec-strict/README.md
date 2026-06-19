@@ -14,27 +14,8 @@ stability: "experimental"
 status: archived
 ---
 
-# Branch Governance Hardening - Strict Proposal Pack
+---
 
-Use this pack to drive the `/opsx:propose` sequence for the branch governance
-batch.
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
-## Proposal Order
-
-1. `parents/01-epic-branch-governance-hardening.md`
-2. `children/01-1-task-github-rulesets-and-branch-protection.md`
-3. `children/01-2-task-workflow-branch-validation-and-reuse-prevention.md`
-4. `children/01-3-task-ai-branch-selection-guardrails.md`
-5. `children/01-4-task-validation-tests-and-rollout-controls.md`
-
-## Validation Expectation
-
-Run the repo checks after each proposed issue lands:
-
-- `npm run validate:frontmatter`
-- `npm run validate:links`
-- `npm run lint:md`
-- `npm run validate:workflows`
-
-If the enforcement design changes any workflow or instruction file, extend the
-relevant tests before moving to the next issue.
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

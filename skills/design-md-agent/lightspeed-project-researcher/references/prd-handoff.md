@@ -24,3 +24,12 @@ Convert research into these PRD-ready fields:
 - `lightspeed-figma-wordpress-technical-brief` for technical mapping.
 - `lightspeed-task-breakdown-planner` for implementation planning.
 - `lightspeed-prd-task-manager` for a full project pack.
+---
+---
+---
+
+---
+
+📚 *Research conducted {research_date} · Evidence-based analysis by LightSpeedWP*
+
+[🔗 Sources](https://github.com/lightspeedwp/.github/tree/develop) · [💬 Discuss](https://github.com/lightspeedwp/.github/discussions)

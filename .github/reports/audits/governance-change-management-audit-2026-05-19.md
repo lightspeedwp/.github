@@ -7,3 +7,9 @@ last_updated: "2026-05-19"
 owners: ["LightSpeed Maintainers"]
 tags: ["audit", "governance", "change-management", "documentation"]
 ---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

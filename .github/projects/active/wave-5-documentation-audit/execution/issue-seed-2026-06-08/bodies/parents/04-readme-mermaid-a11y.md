@@ -41,3 +41,12 @@ Comprehensive audit of README files across the repository for Mermaid syntax val
 - `docs/`
 - `instructions/mermaid.instructions.md`
 - `instructions/a11y.instructions.md`
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

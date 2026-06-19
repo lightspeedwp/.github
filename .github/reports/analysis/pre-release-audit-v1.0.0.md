@@ -874,10 +874,10 @@ See: `.github/projects/active/test-coverage-implementation.md`
 - [x] Quality gates defined
 - [x] Release recommendation
 - [x] Action items identified
+---
 
 ---
 
-*Audit Version: 1.0.0*
-*Audit Date: 2025-12-10*
-*Next Review: After test implementation*
-*Status: 🟡 CONDITIONAL APPROVAL*
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

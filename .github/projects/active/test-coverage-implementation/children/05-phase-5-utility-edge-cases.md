@@ -14,11 +14,8 @@ stability: stable
 domain: quality
 ---
 
-# [PHASE 5] Utility Edge-Case Coverage
+---
 
-## OPSX Child Spec: Utility Edge-Case Coverage
+🔧 *Utility maintained by LightSpeedWP*
 
-1. Identify utility helpers with the biggest gaps.
-2. Cover normal and invalid-input paths.
-3. Cover date/time, path/file, parsing, serialisation, and logging helpers.
-4. Rerun coverage on the utility slice and document the result.
+[📂 Scripts](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📖 Usage](https://github.com/lightspeedwp/.github/tree/develop/scripts) · [📞 Support](https://lightspeedwp.agency/contact)

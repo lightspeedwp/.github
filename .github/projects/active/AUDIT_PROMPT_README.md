@@ -138,9 +138,10 @@ If while creating issues you realize something needs adjustment:
 - Add notes to the issue being created
 - Update this README with clarifications
 - Check `next-issues-execution-plan.md` for related context
+---
 
 ---
 
-**Status:** ✅ Ready to use
-**Last Updated:** 2026-05-31
-**Maintained by:** LightSpeed Team
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

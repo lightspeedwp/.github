@@ -779,5 +779,10 @@ echo $?
 - Check label definitions in `.github/labels.yml`
 - Verify file path patterns match
 - Test with dry-run mode
+---
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

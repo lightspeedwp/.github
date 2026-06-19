@@ -1255,9 +1255,10 @@ Supported formats:
 ## Recommendations
 
 ✅ All Mermaid diagrams meet WCAG 2.2 AA accessibility requirements. Proceed to Issue #670 (Fix & Refresh README Files).
+---
 
 ---
 
-**Audit Conducted By**: Claude Code
-**Date**: 2026-05-31
-**Related Issues**: #667, #668, #669, #670
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

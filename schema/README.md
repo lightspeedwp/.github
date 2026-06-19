@@ -16,11 +16,8 @@ domain: governance
 stability: stable
 ---
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+---
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+*Schema validation provided by LightSpeedWP*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
+[📊 Schema Registry](https://github.com/lightspeedwp/.github/tree/develop/schema) · [✅ Validation Rules](https://github.com/lightspeedwp/.github/blob/develop/schema/footer-config.schema.json)

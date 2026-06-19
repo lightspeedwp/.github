@@ -355,5 +355,10 @@ Collections already use `tags:`. Add optional `stability:` and `domain:` keys al
 - [ ] Provides `replacement` path
 - [ ] Updates references in other files
 - [ ] Plans removal after one release cycle
+---
 
 ---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

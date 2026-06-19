@@ -100,5 +100,8 @@ Checklist items to ensure the integration fix/update is complete.
 - [ ] Automated tests added/updated (if relevant)
 - [ ] PR uses correct branch prefix (fix/ or integration/)
 - [ ] No adverse impact on other integrations or core functionality
+---
 
 ---
+
+Related issues: {related_issues}

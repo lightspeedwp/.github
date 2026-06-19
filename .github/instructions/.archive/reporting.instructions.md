@@ -203,3 +203,9 @@ category: "{category}"
 created_date: "YYYY-MM-DD"
 last_updated: "YYYY-MM-DD"
 ---
+
+---
+
+📐 *Schema validated by LightSpeedWP — always compliant.*
+
+[📋 Coding Standards](https://github.com/lightspeedwp/.github/blob/develop/instructions/coding-standards.instructions.md) · [🔗 Related Files](https://github.com/lightspeedwp/.github/tree/develop/instructions)

@@ -182,5 +182,10 @@ Current state:
 Recommended action:
 
 - Either close as superseded by consolidated instructions model, or retarget this issue to the active markdown standards file(s) explicitly.
+---
 
 ---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

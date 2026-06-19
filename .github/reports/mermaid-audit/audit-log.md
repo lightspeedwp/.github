@@ -288,14 +288,10 @@ The following 26 README files were scanned and contain no Mermaid diagrams (no a
 - [ ] Syntax validation after repairs
 - [ ] Screen reader testing
 - [ ] WCAG AA compliance verification
+---
 
 ---
 
-## Sign-Off
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
 
-**Audit Status:** ✅ COMPLETE
-**Quality Assurance:** PASSED
-**Ready for Wave 3B:** YES
-**Handoff Date:** 2026-05-28
-
-This audit log is complete and ready for the Wave 3B repair team. All findings are documented with specific file locations, diagram counts, and estimated repair efforts.
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

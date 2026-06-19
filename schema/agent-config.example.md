@@ -292,6 +292,10 @@ v1.0    ❌ Invalid (no 'v' prefix)
 3. Include badges for skills, instructions, and agent specifications
 4. Validate all frontmatter against the JSON schema
 5. Run remediation scripts to bulk-apply patterns across 932 files
+---
 
 ---
-*Last updated: 2026-05-29 • Version 1.0 • Stability: stable*
+
+*Schema validation provided by LightSpeedWP*
+
+[📊 Schema Registry](https://github.com/lightspeedwp/.github/tree/develop/schema) · [✅ Validation Rules](https://github.com/lightspeedwp/.github/blob/develop/schema/footer-config.schema.json)

@@ -17,3 +17,12 @@ This set is prepared for strict /opsx:propose parsing and execution.
 3. /opsx:propose .github/projects/active/root-cleanup-dependency-audit-2026-06-03/openspec-strict/children/01-2-task-complete-root-document-relocation.md
 4. /opsx:propose .github/projects/active/root-cleanup-dependency-audit-2026-06-03/openspec-strict/children/01-3-task-finalise-report-artifact-and-script-paths.md
 5. /opsx:propose .github/projects/active/root-cleanup-dependency-audit-2026-06-03/openspec-strict/children/01-4-task-triage-legacy-root-files-and-closeout.md
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

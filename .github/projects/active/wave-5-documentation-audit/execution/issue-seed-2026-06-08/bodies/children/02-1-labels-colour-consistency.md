@@ -25,3 +25,12 @@ Audit label colour consistency and family alignment in `.github/labels.yml`.
 - `.github/labels.yml`
 - `docs/LABEL_STRATEGY.md`
 - `docs/LABEL_COLOR_STRATEGY.md`
+---
+---
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

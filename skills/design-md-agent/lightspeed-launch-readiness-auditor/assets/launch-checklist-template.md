@@ -12,3 +12,10 @@
 | Mobile | Mobile and tablet QA completed | Pending |  |  |
 | SEO | Sitemap, robots and indexing checked | Pending |  |  |
 | Governance | Privacy/cookie/accessibility pages present | Pending |  |  |
+---
+
+---
+
+🔍 *Audit report generated {audit_date} by the LightSpeedWP team.*
+
+[📋 Reports Index](https://github.com/lightspeedwp/.github/tree/develop/.github/reports) · [📞 Contact](https://lightspeedwp.agency/contact)

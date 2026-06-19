@@ -323,5 +323,10 @@ AI agents should be taught:
 | Effort | 2 hours |
 | Recommendation Count | 6 (3 high, 2 medium, 1 low) |
 | Child Issues | 3 implementation tasks planned |
+---
 
 ---
+
+⚖️ *Governance policy maintained by LightSpeedWP*
+
+[📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)

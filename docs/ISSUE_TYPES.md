@@ -297,5 +297,10 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 - [ ] A11y/perf/security impacts considered
 - [ ] Docs/changelog updated (if user-facing)
 - [ ] Reviews approved; CI green; linked issues closed
+---
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

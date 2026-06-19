@@ -310,8 +310,10 @@ Consider adding these scripts to GitHub Actions workflows for:
 - Pre-commit hooks (validate versions before commit)
 - Pull request checks (ensure references are valid)
 - Release automation (bulk bump versions on release)
+---
 
 ---
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
