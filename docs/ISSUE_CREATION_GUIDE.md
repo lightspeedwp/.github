@@ -2,9 +2,9 @@
 title: GitHub Issue Creation Guide
 description: How to create well-formed issues, select templates, and trigger automation
 file_type: documentation
-version: "1.0.5"
+version: "1.0.7"
 created_date: "2026-05-31"
-last_updated: "2026-06-18"
+last_updated: "2026-06-19"
 author: Claude Code
 maintainer: Ash Shaw
 owners:
@@ -126,14 +126,15 @@ Click **Submit new issue**. Your issue is now visible to the team and ready for 
 - Unified labeling agent applies canonicalization, one-hot enforcement, defaults, and content-based type detection
 - PR automation remains stronger due to branch/file signals available in PR context
 - `metadata-governance.yml` automatically adds new issues and PRs to the configured project, assigns the requester when possible, attaches or creates an appropriate milestone, and records relationships when they are present in the body
-- `project-meta-sync.yml` keeps the project fields in sync and leaves `Start date` and `Target date` empty until work is explicitly marked `status:ready` or `status:in-progress`
-- `issue-create-from-template.yml` only exposes template keys that map to actual files in `.github/ISSUE_TEMPLATE/`
+- `project-meta-sync.yml` keeps the project fields in sync, re-runs on label changes, and backfills `Status`, `Priority`, `Type`, `Effort`, `Start date`, and `Target date` from canonical labels plus safe fallbacks
+- `issue-create-from-template.yml` only exposes template keys that map to actual files in `.github/ISSUE_TEMPLATE/`; it keeps new issues aligned with the canonical template body before creation
 
 ### ⚠️ Practical Implication
 
 - Issue outcomes are still driven by the body content and canonical labels, so keep the template complete and specific.
 - Incomplete templates are flagged and labelled for correction rather than closed.
-- Metadata governance now handles the project item, assignee, milestone, and relationship metadata automatically when it can infer them safely.
+- Metadata governance now handles the project item, assignee, and relationship metadata automatically when it can infer them safely.
+- Milestones are no longer created per issue or PR by default; use a shared milestone deliberately when batching related work.
 
 ### AI / Automation Issue Creation
 
@@ -227,3 +228,7 @@ When creating an issue:
 - [Issue Types](./ISSUE_TYPES.md)
 
 ---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
