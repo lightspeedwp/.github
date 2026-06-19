@@ -7,6 +7,8 @@ on:
   # - any future step that executes repository code must preserve this trust boundary
   pull_request_target:
     types: [opened, edited, reopened, synchronize, ready_for_review]
+  merge_group:
+    types: [checks_requested]
 
 permissions:
   contents: read
@@ -17,7 +19,11 @@ jobs:
   validate-pr-template:
     runs-on: ubuntu-latest
     steps:
+      - name: Pass in merge queue context
+        if: github.event_name == 'merge_group'
+        run: echo "✅ PR template already validated at PR open/edit time. Skipping re-validation in merge queue."
       - name: Validate pull request body against required template sections
+        if: github.event_name != 'merge_group'
         uses: actions/github-script@v7
         with:
           script: |
