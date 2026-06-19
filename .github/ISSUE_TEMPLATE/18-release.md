@@ -38,7 +38,6 @@ All commands must exit 0 before proceeding.
 
 ```bash
 node scripts/validation/validate-changelog.cjs CHANGELOG.md
-node scripts/agents/includes/changelogUtils.cjs --validate
 node scripts/agents/includes/changelogUtils.cjs --unreleased
 ```
 
