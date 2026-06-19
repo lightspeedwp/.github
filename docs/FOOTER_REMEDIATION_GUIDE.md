@@ -1,7 +1,7 @@
 ---
 title: "Footer Remediation Guide"
 description: "How to identify, fix, and prevent duplicate footers in Markdown files"
-version: "v1.0.1"
+version: "v1.0.2"
 created_date: "2026-05-28"
 type: "guide"
 category: "governance"
@@ -54,13 +54,13 @@ Currently, footers are:
 
 1. **`schema/footer-config.schema.json`** — JSON Schema defining valid footer structure
 2. **`config/footers.config.yaml`** — Predefined footer library with 13 category-specific templates
-3. **`.github/scripts/validate-footers.js`** — Validation script to detect and fix violations
+3. **`.github/scripts/validate-footers.js`** — Validation script to detect, fix, and backfill violations
 
 ### Key Principles
 
 ✅ **One footer per document** — Validation enforces this
 ✅ **Predefined templates** — Choose from validated, category-specific footers
-✅ **Schema validation** — Prevent duplicates and invalid footers
+✅ **Schema validation** — Prevent duplicates, missing footers, and invalid footers
 ✅ **Automation-ready** — Footer insertion can be automated via agent
 
 ---
@@ -342,7 +342,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: node .github/scripts/validate-footers.js
+      - run: npm run validate:footers -- --changed-only
 ```
 
 This ensures every PR is validated before merge.
@@ -453,10 +453,10 @@ Action: Replace and note in commit
 4. ⬜ **Validate changes** — Confirm no violations remain
 5. ⬜ **Commit & push** — Create PR with fixes
 6. ⬜ **Set up CI validation** — Add footer-validation.yml workflow
-7. ⬜ **Plan automation** — Implement branding meta agent (issue #33)
+7. ⬜ **Plan automation** — Implement branding meta agent and footer validation hardening (issue #33)
 
 ---
 
-**Created**: 2026-05-28
-**Status**: Active guidance for footer remediation
-**Related issues**: #33 (branding meta agent), #46 (templates), #49 (schema)
+⚖️ *Governance policy maintained by LightSpeedWP*
+
+[📋 Full Governance Docs](https://github.com/lightspeedwp/.github/blob/develop/AGENTS.md) · [🔒 Security](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md)
