@@ -49,7 +49,7 @@ Always-run workflows trigger automatically on push/PR events without agent invol
 | `issues.yml` | issue opened/edited | Validate issue templates | ❌ No (validation only) |
 | `meta.yml` | PR opened/issues | Apply frontmatter validation | ❌ No (metadata only) |
 | `metadata-governance.yml` | issues / pull_request_target | Assign assignees, milestones, and relationship metadata | ❌ No (metadata only) |
-| `project-meta-sync.yml` | push / issues / pull_request | Sync GitHub Project board fields | ❌ No (metadata only) |
+| `project-meta-sync.yml` | issues / pull_request | Sync GitHub Project board fields | ❌ No (metadata only) |
 | `readme-regen.yml` | push/PR on `.md` files | Validate/regenerate README indices | ❌ No (informational) |
 
 ### When to Use

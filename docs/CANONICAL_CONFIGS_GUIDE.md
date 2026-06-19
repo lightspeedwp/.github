@@ -34,6 +34,10 @@ This guide documents the canonical relationship between:
 
 It also maps end-to-end data flow from issue/PR creation to automation completion.
 
+Project metadata sync is label-driven, but it also treats issue type selection
+and safe content/branch fallbacks as first-class signals so project fields can
+catch up when labels are added after creation.
+
 ## Canonical Roles
 
 | File | Canonical Role | Primary Consumers |
@@ -89,6 +93,7 @@ sequenceDiagram
 2. `status:*` and `priority:*` mappings in `.github/issue-fields.yml` must resolve to labels defined in `.github/labels.yml`.
 3. `.github/labeler.yml` may only emit canonical labels defined in `.github/labels.yml`.
 4. `.github/issue-types.yml` display types should map to canonical `type:*` labels that can be projected into project field Type values.
+5. `project-meta-sync.yml` should reprocess label changes so late `type:*` labels or corrected issue types update the project field projection.
 
 ## Current Risks Observed
 
