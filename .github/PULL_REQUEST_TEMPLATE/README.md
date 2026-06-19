@@ -20,6 +20,8 @@ stability: "stable"
 
 This directory contains standardized pull request templates used across all LightSpeedWP repositories to ensure consistent PR creation and proper automation triggering.
 
+PR templates in this repository use `title` and `description` in front matter. Keep those repo-local metadata fields aligned with the template body and do not mirror the issue-template `about` field here.
+
 ## 📁 Available Templates
 
 | Template           | Purpose                       | Automation Triggers                    |

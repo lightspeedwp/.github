@@ -21,6 +21,8 @@ stability: "stable"
 
 This directory contains standardized issue templates used across all LightSpeedWP repositories to ensure consistent issue creation and proper automation triggering.
 
+Markdown issue templates in this directory use `name` and `about` in front matter. Do not duplicate the picker summary into `description`.
+
 ## 🚀 Quick Start
 
 Get started with LightSpeedWP issue templates in three steps:

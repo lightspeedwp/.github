@@ -34,6 +34,7 @@ This directory contains reusable prompt templates for agents and AI scenarios ac
 - **[code-review.prompt](./code-review.prompt)** — Code review, quality feedback, and standards enforcement
 - **[debugging.prompt](./debugging.prompt)** — Problem diagnosis, root cause analysis, and resolution
 - **[documentation.prompt](./documentation.prompt)** — Documentation creation, updates, and refinement
+- **[update-frontmatter.prompt](./update-frontmatter.prompt)** — Front matter migration, schema alignment, and validation updates
 - **[testing.prompt](./testing.prompt)** — Test suite creation, debugging, and coverage improvements
 - **[refactoring.prompt](./refactoring.prompt)** — Code refactoring, optimisation, and modernisation
 

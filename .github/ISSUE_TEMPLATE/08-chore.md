@@ -2,7 +2,6 @@
 file_type: "issue-template"
 name: "🏠 Chore"
 about: "Small housekeeping tasks: label hygiene, repo/settings tweaks, file moves, or minor non-functional clean-ups."
-description: "Small housekeeping tasks: label hygiene, repo/settings tweaks, file moves, or minor non-functional clean-ups."
 version: "1.0.2"
 last_updated: "2026-06-18"
 category: "github-templates"

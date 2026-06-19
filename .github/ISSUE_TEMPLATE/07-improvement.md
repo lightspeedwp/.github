@@ -2,7 +2,6 @@
 file_type: "issue-template"
 name: "🔧 Improvement"
 about: "Propose enhancements, polish, or usability improvements."
-description: "Propose enhancements, polish, or usability improvements."
 version: "1.0.1"
 last_updated: "2026-06-18"
 category: "github-templates"

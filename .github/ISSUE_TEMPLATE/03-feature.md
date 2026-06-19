@@ -2,7 +2,6 @@
 file_type: "issue-template"
 name: "🚀 Feature"
 about: "Propose a net-new capability, enhancement, or workflow improvement."
-description: "Propose a net-new capability, enhancement, or workflow improvement."
 version: "1.0.1"
 last_updated: "2026-06-18"
 category: "github-templates"

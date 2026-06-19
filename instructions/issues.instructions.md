@@ -67,7 +67,7 @@ Every issue template **must** begin with a YAML frontmatter block, for example:
 ---
 file_type: "issue-template"
 name: "🐛 Bug"
-description: "Report a reproducible defect"
+about: "Report a reproducible defect"
 version: "1.0.0"
 last_updated: "YYYY-MM-DD"
 category: "github-templates"
@@ -77,8 +77,10 @@ category: "github-templates"
 **Required fields:**
 
 - `name`: Visible in template selector
-- `description`: Description for the template chooser
+- `about`: Description for the template chooser
 - `file_type`, `version`, `last_updated`, `category`: template governance metadata
+
+GitHub Markdown issue templates use `about` for the chooser metadata. Do not duplicate that summary into `description`.
 
 **Optional fields:**
 

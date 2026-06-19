@@ -64,24 +64,24 @@ Each PR template **must** begin with a YAML frontmatter block, for example:
 
 ```yaml
 ---
-name: "Feature PR"
-about: "New features or enhancements"
 title: "feat: {short summary}"
+description: "New features or enhancements"
 labels: ["type:feature", "status:needs-review", "area:feature"]
 ---
 ```
 
 **Required fields:**
 
-- `name`: Short label for the template selector.
-- `about`: Short description of template purpose.
 - `title`: Default PR title (use `{short summary}` or similar).
+- `description`: Short description of template purpose.
 - `labels`: Array of default labels for new PRs.
 
 **Optional fields:**
 
 - `assignees`: Default assignees.
 - `projects`: Default project boards.
+
+PR templates in this repository use repo-local frontmatter metadata. Keep the `description` field for PR template summaries and do not mirror the issue-template `about` field into PR templates.
 
 See [frontmatter instructions](./documentation-formats.instructions.md) and [frontmatter schema](../schema/frontmatter.schema.json) for validation.
 
