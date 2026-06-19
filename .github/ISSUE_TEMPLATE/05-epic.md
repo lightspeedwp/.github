@@ -2,8 +2,8 @@
 file_type: "issue-template"
 name: "📦 Epic"
 about: "Propose or manage a large, multi-part initiative or project grouping stories/features/tasks."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 

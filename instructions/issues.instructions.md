@@ -3,8 +3,8 @@ file_type: "instructions"
 title: "Issue Creation Instructions"
 description: "Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy."
 scope: "organization-wide"
-version: '1.4'
-last_updated: '2026-06-03'
+version: '1.4.1'
+last_updated: '2026-06-19'
 owners: ["lightspeedwp/maintainers"]
 tags: ["issues", "templates", "frontmatter", "automation", "labels", "issue types", "triage", "branching"]
 ---
@@ -92,7 +92,7 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 
 ## 3. Choosing the Right Issue Template
 
-- Use the [GitHub Issues page](../../issues/new/choose) and select the template matching your intent:
+- Use the [GitHub Issues page](https://github.com/lightspeedwp/.github/issues/new/choose) and select the template matching your intent:
   - Bug report, Feature request, Documentation, Task, Design, Epic, Story, Improvement, Maintenance, Security, Integration, Compatibility, Performance, Test Coverage, Automation, AI Ops, and more.
 - Each template is tailored for its use case and includes relevant fields, checklists, and references.
 - See all templates in [.github/ISSUE_TEMPLATE/](../.github/ISSUE_TEMPLATE/)
@@ -164,7 +164,7 @@ See [FRONTMATTER_SCHEMA.md](../docs/FRONTMATTER_SCHEMA.md) and [frontmatter.sche
 ## Related Files
 
 - **[pull-requests.instructions.md](./pull-requests.instructions.md)** — Companion guide for PR creation and labeling; mirrors issue workflow patterns
-- **[labeling.instructions.md](../docs/LABELING.md)** — Labeling guide and label naming conventions
+- **[labeling.instructions.md](./labeling.instructions.md)** — Labeling guide and label naming conventions
 - **[coding-standards.instructions.md](./coding-standards.instructions.md)** — Code quality standards referenced in issue templates
 
 ---

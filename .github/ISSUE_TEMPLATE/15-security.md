@@ -2,8 +2,8 @@
 file_type: "issue-template"
 name: "🔐 Security"
 about: "Report vulnerabilities, security improvements, or compliance requirements."
-version: "1.0.1"
-last_updated: "2026-06-18"
+version: "1.0.2"
+last_updated: "2026-06-19"
 category: "github-templates"
 ---
 

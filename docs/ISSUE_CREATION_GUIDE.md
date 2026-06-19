@@ -2,7 +2,7 @@
 title: GitHub Issue Creation Guide
 description: How to create well-formed issues, select templates, and trigger automation
 file_type: documentation
-version: "1.0.7"
+version: "1.0.8"
 created_date: "2026-05-31"
 last_updated: "2026-06-19"
 author: Claude Code
