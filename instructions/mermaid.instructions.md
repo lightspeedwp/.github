@@ -3,8 +3,8 @@ file_type: "instructions"
 title: "Mermaid Diagram Instructions"
 description: "Design, accessibility, colour contrast, and validation standards for all Mermaid diagrams across LightSpeed repositories"
 scope: "repo-local"
-version: "v2.2"
-last_updated: "2026-06-18"
+version: "v2.3"
+last_updated: "2026-06-19"
 owners: ["LightSpeed Team"]
 tags: ["mermaid", "diagrams", "documentation", "a11y", "wcag", "colour-contrast", "visuals", "architecture"]
 applyTo: ["**/*.md"]
@@ -33,15 +33,13 @@ Do **not** force a diagram into a file where a simple list or paragraph is clear
 
 ## Required Structure
 
-Every Mermaid block **must** include an accessibility header block placed immediately after the opening ` ```mermaid ` fence and before the diagram type declaration:
+Every Mermaid block **must** include accessibility attributes placed inline, immediately after the diagram type declaration and before any nodes:
 
 ````text
 ```mermaid
----
-accTitle: Short accessible title (max 80 chars)
-accDescr: Single-sentence description for simple diagrams
----
 flowchart LR
+    accTitle: Short accessible title (max 80 chars)
+    accDescr: Single-sentence description for simple diagrams
     ...
 ```
 ````
@@ -50,15 +48,13 @@ For complex diagrams use the block form:
 
 ````text
 ```mermaid
----
-accTitle: Complex workflow title
-accDescr {
-  Multi-sentence description explaining what the diagram shows, the key
-  relationships, and the direction of flow. Write for screen-reader users
-  who cannot see the visual diagram.
-}
----
 flowchart TD
+    accTitle: Complex workflow title
+    accDescr {
+      Multi-sentence description explaining what the diagram shows, the key
+      relationships, and the direction of flow. Write for screen-reader users
+      who cannot see the visual diagram.
+    }
     ...
 ```
 ````
@@ -67,8 +63,9 @@ flowchart TD
 
 - `accTitle` is mandatory on every diagram — no exceptions.
 - `accDescr` is mandatory on every diagram — no exceptions.
-- Place the `---` header block first, before `flowchart`, `graph`, `sequenceDiagram`, etc.
-- Do not duplicate `accTitle` / `accDescr` as inline attributes after the diagram type line (older style). Use only the header block.
+- The diagram type (e.g. `flowchart`, `graph`, `sequenceDiagram`) **must** be the first line after the opening ` ```mermaid ` fence.
+- Place `accTitle` and `accDescr` inline, directly after the diagram type and before any node definitions.
+- **Do NOT use the YAML `---` front-matter syntax** before the diagram type — GitHub's Mermaid renderer does not support it and will display an error instead of the diagram.
 
 ---
 
@@ -110,11 +107,9 @@ All pairs below are pre-verified to meet **WCAG 2.2 AA 4.5:1** normal-text contr
 **Usage:**
 
 ```mermaid
----
-accTitle: Example colour usage
-accDescr: Shows the correct way to apply the approved colour palette with explicit fill, color, and stroke.
----
 flowchart LR
+    accTitle: Example colour usage
+    accDescr: Shows the correct way to apply the approved colour palette with explicit fill, color, and stroke.
     A[Entry Point] --> B[Automation Step] --> C[Output]
     style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
     style B fill:#ecfdf5,color:#064e3b,stroke:#059669
