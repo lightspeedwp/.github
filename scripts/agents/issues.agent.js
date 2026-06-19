@@ -1,16 +1,10 @@
 /**
  * issues.agent.js
  *
- * Advisory implementation for the Issues agent. Provides lightweight
- * recommendations without mutating GitHub state. Extend with API calls when
- * ready to automate labelling and enrichment.
+ * Applies default triage labels (status, priority, type) to newly opened issues
+ * when those label categories are not already present. Runs in advisory mode by
+ * default; pass --apply to write labels to GitHub.
  *
- * Wave 2A kickoff (#465):
- * - canonical spec path confirmed: agents/issues.agent.md
- * - runtime path confirmed: scripts/agents/issues.agent.js
- * - current gap: apply-mode mutation is still intentionally deferred
- * - next concrete action: implement guarded apply mode with canonical config
- *   validation and test coverage for issue payload handling
  * @module scripts/agents/issues.agent.js
  * @see ../../agents/issues.agent.md
  */
@@ -22,7 +16,14 @@ import { fileURLToPath, pathToFileURL } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DEFAULT_LABELS = ["status:needs-triage", "priority:normal"];
+const BOT_LOGINS = new Set([
+  "dependabot[bot]",
+  "app/dependabot",
+  "github-actions[bot]",
+  "imgbot[bot]",
+  "app/imgbot",
+]);
+
 const KEYWORD_TYPE_MAP = {
   bug: "type:bug",
   fix: "type:bug",
@@ -68,26 +69,59 @@ function detectTypeLabel(title = "", body = "") {
   return null;
 }
 
-function buildRecommendations(payload) {
-  const labels = new Set(DEFAULT_LABELS);
-  const title = payload?.issue?.title || "";
-  const body = payload?.issue?.body || "";
-  const detectedType = detectTypeLabel(title, body);
+function buildLabelsToApply(payload) {
+  const existingLabels = (payload?.issue?.labels || []).map((l) => l.name);
+  const hasStatus = existingLabels.some((l) => l.startsWith("status:"));
+  const hasPriority = existingLabels.some((l) => l.startsWith("priority:"));
+  const hasType = existingLabels.some((l) => l.startsWith("type:"));
 
-  if (detectedType) {
-    labels.add(detectedType);
+  const toAdd = [];
+
+  if (!hasStatus) toAdd.push("status:needs-triage");
+  if (!hasPriority) toAdd.push("priority:normal");
+
+  if (!hasType) {
+    const detected = detectTypeLabel(
+      payload?.issue?.title || "",
+      payload?.issue?.body || "",
+    );
+    if (detected) toAdd.push(detected);
   }
 
-  return {
-    labels: Array.from(labels),
-    detectedType,
-  };
+  return toAdd;
+}
+
+async function applyLabels(payload, labelsToAdd) {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) {
+    log("GITHUB_TOKEN not set; cannot apply labels.");
+    return;
+  }
+
+  const repo = process.env.GITHUB_REPOSITORY || "";
+  if (!repo.includes("/")) {
+    log("GITHUB_REPOSITORY not set; cannot apply labels.");
+    return;
+  }
+
+  const { getOctokit } = await import("@actions/github");
+  const octokit = getOctokit(token);
+  const [owner, repoName] = repo.split("/");
+  const issueNumber = payload.issue.number;
+
+  await octokit.rest.issues.addLabels({
+    owner,
+    repo: repoName,
+    issue_number: issueNumber,
+    labels: labelsToAdd,
+  });
+
+  log(`Applied labels to issue #${issueNumber}: ${labelsToAdd.join(", ")}`);
 }
 
 async function runIssuesAgent(options = {}) {
   const dryRun = options.dryRun ?? true;
   const payload = loadIssuePayload();
-  const repoRoot = path.resolve(__dirname, "..", "..");
 
   log(
     `Running issues agent in ${dryRun ? "advisory" : "apply"} mode for ${
@@ -96,25 +130,38 @@ async function runIssuesAgent(options = {}) {
   );
 
   if (!payload?.issue) {
-    log("No issue payload available; exiting after advisory run.");
+    log("No issue payload available; skipping.");
     return;
   }
 
-  const recommendations = buildRecommendations(payload);
+  const author = payload.issue.user?.login || "";
+  const isBot = payload.issue.user?.type === "Bot" || BOT_LOGINS.has(author);
+
+  if (isBot) {
+    log(`Skipping bot-authored issue #${payload.issue.number} (${author}).`);
+    return;
+  }
+
+  const labelsToAdd = buildLabelsToApply(payload);
+
+  if (labelsToAdd.length === 0) {
+    log(
+      `Issue #${payload.issue.number} already has status, priority, and type labels; nothing to apply.`,
+    );
+    return;
+  }
 
   log(
-    `Issue #${payload.issue.number}: "${payload.issue.title}" — recommended labels: ${recommendations.labels.join(
-      ", ",
-    )}`,
+    `Issue #${payload.issue.number}: "${payload.issue.title}" — labels to apply: ${labelsToAdd.join(", ")}`,
   );
 
   if (!dryRun) {
-    // TODO: Implement apply mode automation (labels/comments) once the full agent workflow is ready.
-    log("Apply mode requested but automation is not implemented yet.");
+    await applyLabels(payload, labelsToAdd);
+  } else {
+    log("Advisory mode: no labels written.");
   }
 
-  log(`Working directory: ${repoRoot}`);
-  log("Issues agent finished without errors.");
+  log("Issues agent finished.");
 }
 
 export { runIssuesAgent };
