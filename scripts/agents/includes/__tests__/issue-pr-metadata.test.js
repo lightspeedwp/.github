@@ -1,5 +1,4 @@
 const {
-  deriveMilestoneTitle,
   extractIssueRefs,
   formatRelationshipComment,
   getItemFromEvent,
@@ -8,19 +7,6 @@ const {
 } = require("../issue-pr-metadata.cjs");
 
 describe("issue-pr-metadata helpers", () => {
-  test("derives an assignee-ready milestone title from a release issue", () => {
-    expect(
-      deriveMilestoneTitle(
-        "Release v0.6.0 — Community Health, Governance Docs, and Meta Agent Foundations",
-      ),
-    ).toBe(
-      "Release v0.6.0 — Community Health, Governance Docs, and Meta Agent Foundations".slice(
-        0,
-        80,
-      ),
-    );
-  });
-
   test("extracts linked issue references from PR wording", () => {
     expect(extractIssueRefs("Fixes #965\nRelated to #42")).toEqual([965, 42]);
   });
@@ -109,8 +95,7 @@ describe("issue-pr-metadata helpers", () => {
     expect(extractIssueRefs(item.body)).toEqual([965]);
   });
 
-  test("syncs issue metadata with requester assignee and milestone fallback", async () => {
-    const createdMilestones = [];
+  test("syncs issue metadata with requester assignee and leaves milestone unset when no grouped milestone exists", async () => {
     const updatedIssues = [];
     const addedAssignees = [];
     const createdComments = [];
@@ -127,11 +112,6 @@ describe("issue-pr-metadata helpers", () => {
       rest: {
         issues: {
           listMilestones: jest.fn(),
-          createMilestone: jest.fn().mockImplementation(async ({ title }) => {
-            const milestone = { number: 77, title };
-            createdMilestones.push(milestone);
-            return { data: milestone };
-          }),
           addAssignees: jest.fn().mockImplementation(async (args) => {
             addedAssignees.push(args);
           }),
@@ -176,20 +156,76 @@ describe("issue-pr-metadata helpers", () => {
 
     expect(result).toMatchObject({
       assignee: "ashleyshaw",
-      milestone: "Release v0.6.0 — Community Health, Governance Docs, and Meta Agent Foundations".slice(
-        0,
-        80,
-      ),
+      milestone: "",
     });
     expect(addedAssignees).toHaveLength(1);
     expect(addedAssignees[0]).toMatchObject({
       issue_number: 968,
       assignees: ["ashleyshaw"],
     });
-    expect(createdMilestones).toHaveLength(1);
-    expect(updatedIssues).toHaveLength(1);
+    expect(updatedIssues).toHaveLength(0);
     expect(createdComments).toHaveLength(1);
     expect(createdComments[0].body).toContain("Linked issues/PRs: #965");
+  });
+
+  test("skips milestone assignment for Dependabot pull requests", async () => {
+    const updatedIssues = [];
+
+    const github = {
+      paginate: jest.fn().mockResolvedValue([]),
+      graphql: jest.fn().mockResolvedValue({
+        repository: {
+          issue: {
+            id: "ISSUE-ID",
+          },
+        },
+      }),
+      rest: {
+        issues: {
+          listMilestones: jest.fn(),
+          addAssignees: jest.fn(),
+          update: jest.fn().mockImplementation(async (args) => {
+            updatedIssues.push(args);
+          }),
+          listComments: jest.fn().mockResolvedValue([]),
+          createComment: jest.fn(),
+          updateComment: jest.fn(),
+          get: jest.fn().mockResolvedValue({
+            data: { milestone: null },
+          }),
+        },
+      },
+    };
+
+    const result = await syncItemMetadata({
+      github,
+      owner: "lightspeedwp",
+      repo: ".github",
+      event: {
+        pull_request: {
+          number: 101,
+          node_id: "MDExOlB1bGxSZXF1ZXN0",
+          title: "Bump lodash from 4.17.20 to 4.17.21",
+          body: "",
+          labels: [],
+          milestone: null,
+          user: { login: "dependabot[bot]" },
+        },
+      },
+      config: {
+        defaults: {
+          issue: {
+            assignee: "ashleyshaw",
+          },
+        },
+      },
+    });
+
+    expect(result).toMatchObject({
+      assignee: "dependabot[bot]",
+      milestone: "",
+    });
+    expect(updatedIssues).toHaveLength(0);
   });
 
   test("syncs pull request metadata and inherits milestone from linked issue", async () => {
