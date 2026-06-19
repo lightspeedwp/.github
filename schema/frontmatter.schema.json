@@ -543,11 +543,14 @@
         "name": {
           "type": "string"
         },
-        "description": {
+        "about": {
           "type": "string"
         }
       },
-      "required": ["file_type", "name", "description"],
+      "required": ["file_type", "name", "about"],
+      "not": {
+        "required": ["description"]
+      },
       "additionalProperties": true
     },
     {
@@ -559,9 +562,15 @@
         },
         "title": {
           "type": "string"
+        },
+        "description": {
+          "type": "string"
         }
       },
-      "required": ["file_type", "title"],
+      "required": ["file_type", "title", "description"],
+      "not": {
+        "required": ["about"]
+      },
       "additionalProperties": true
     },
     {

@@ -2,8 +2,8 @@
 title: "Pull Request Templates Directory"
 description: "Standardized pull request templates for the LightSpeedWP organization. Templates for bugs, features, chores, documentation, releases, and refactoring with automation integration."
 file_type: documentation
-version: v1.3
-last_updated: "2026-06-03"
+version: v1.3.1
+last_updated: "2026-06-19"
 created_date: "2025-10-20"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -19,6 +19,8 @@ stability: "stable"
 ![Automation Badge](https://img.shields.io/badge/automation-enabled-blue?style=flat-square)
 
 This directory contains standardized pull request templates used across all LightSpeedWP repositories to ensure consistent PR creation and proper automation triggering.
+
+PR templates in this repository use `title` and `description` in front matter. Keep those repo-local metadata fields aligned with the template body and do not mirror the issue-template `about` field here.
 
 ## 📁 Available Templates
 
@@ -77,6 +79,4 @@ These templates integrate with:
 
 *This directory is part of the LightSpeedWP automation ecosystem. See [Automation Governance](../../docs/AUTOMATION.md) for complete automation standards.*
 
----
-
-<!-- RANDOM FOOTER: 🔀 Streamlined PRs, seamless integration! -->
+Closes: {closes_issues}
