@@ -33,7 +33,7 @@ Do **not** force a diagram into a file where a simple list or paragraph is clear
 
 ## Required Structure
 
-Every Mermaid block **must** include an accessibility header block placed immediately after the opening ` ```mermaid ` fence and before the diagram type declaration:
+Every Mermaid block **must** include accessibility attributes placed inline, immediately after the diagram type declaration and before any nodes:
 
 ````text
 ```mermaid
@@ -63,8 +63,9 @@ flowchart TD
 
 - `accTitle` is mandatory on every diagram — no exceptions.
 - `accDescr` is mandatory on every diagram — no exceptions.
-- Place the `---` header block first, before `flowchart`, `graph`, `sequenceDiagram`, etc.
-- Do not duplicate `accTitle` / `accDescr` as inline attributes after the diagram type line (older style). Use only the header block.
+- The diagram type (e.g. `flowchart`, `graph`, `sequenceDiagram`) **must** be the first line after the opening ` ```mermaid ` fence.
+- Place `accTitle` and `accDescr` inline, directly after the diagram type and before any node definitions.
+- **Do NOT use the YAML `---` front-matter syntax** before the diagram type — GitHub's Mermaid renderer does not support it and will display an error instead of the diagram.
 
 ---
 
