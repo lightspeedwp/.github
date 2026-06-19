@@ -129,15 +129,15 @@
   description: "Feature or enhancement"
 
 - name: type:design
-  color: 8957E5
+  color: "8957E5"
   description: "Design work"
 
 - name: type:ui
-  color: 8957E5
+  color: "8957E5"
   description: "UI implementation and consistency"
 
 - name: type:epic
-  color: 8957E5
+  color: "8957E5"
   description: "Large multi-scope initiative"
 
 - name: type:story
@@ -185,7 +185,7 @@
   description: "Performance improvement"
 
 - name: type:a11y
-  color: 8957E5
+  color: "8957E5"
   description: "Accessibility"
   aliases:
     - a11y
@@ -197,15 +197,15 @@
     - security
 
 - name: type:compatibility
-  color: 007580
+  color: "007580"
   description: "Compatibility"
 
 - name: type:dependency
-  color: 007580
+  color: "007580"
   description: "Dependency management and updates"
 
 - name: type:integration
-  color: 007580
+  color: "007580"
   description: "Integration"
 
 - name: type:release
@@ -251,7 +251,7 @@
   description: "AI Ops"
 
 - name: type:content-modelling
-  color: 8957E5
+  color: "8957E5"
   description: "Content Modelling"
 
 - name: type:question
@@ -406,7 +406,7 @@
   description: "Analytics & tracking"
 
 - name: area:infrastructure
-  color: 007580
+  color: "007580"
   description: "Infrastructure / hosting / platform"
 
 - name: area:automation
@@ -418,7 +418,7 @@
   description: "Performance-focused work"
 
 - name: area:a11y
-  color: 8957E5
+  color: "8957E5"
   description: "Accessibility-focused work"
 
 - name: area:security
@@ -426,7 +426,7 @@
   description: "Security-focused work"
 
 - name: area:compatibility
-  color: 007580
+  color: "007580"
   description: "Compatibility and cross-environment concerns"
 
 - name: area:release
@@ -448,11 +448,11 @@
     - ci
 
 - name: area:deployment
-  color: 007580
+  color: "007580"
   description: "Deploy/release operations"
 
 - name: area:dependencies
-  color: 007580
+  color: "007580"
   description: "Composer/npm dependency work"
   aliases:
     - dependencies
@@ -462,7 +462,7 @@
   description: "Dependabot update appears security-related and eligible for guarded automation"
 
 - name: area:integration
-  color: 007580
+  color: "007580"
   description: "3rd-party integrations / ecosystem"
 
 # --- Components (comp:*) ---
@@ -598,23 +598,23 @@
 # --- Compatibility matrix ---
 
 - name: compat:wordpress
-  color: 007580
+  color: "007580"
   description: "WordPress core/Gutenberg compatibility"
 
 - name: compat:php
-  color: 007580
+  color: "007580"
   description: "PHP version compatibility"
 
 - name: compat:woocommerce
-  color: 007580
+  color: "007580"
   description: "WooCommerce versions"
 
 - name: compat:gutenberg
-  color: 007580
+  color: "007580"
   description: "Gutenberg package compatibility"
 
 - name: compat:rtl
-  color: 007580
+  color: "007580"
   description: "RTL languages support"
 
 - name: compat:multisite
@@ -686,7 +686,7 @@
   description: "Show & Tell"
 
 - name: discussion:community
-  color: 8957E5
+  color: "8957E5"
   description: "Community/general"
 
 - name: discussion:feedback
