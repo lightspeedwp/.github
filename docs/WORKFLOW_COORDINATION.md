@@ -3,7 +3,7 @@ title: "Workflow Coordination Patterns"
 description: "Canonical reference for GitHub Actions workflow patterns: always-run vs. agent-triggered, coordination between agents and workflows, and orchestration strategies."
 created_date: "2026-05-28"
 last_updated: "2026-06-19"
-version: "v1.1.3"
+version: "v1.1.4"
 file_type: "documentation"
 maintainer: "LightSpeed Team"
 tags: ["workflows", "automation", "agents", "coordination", "ci-cd"]
@@ -90,7 +90,7 @@ Agent-triggered workflows are invoked **on demand** via `workflow_dispatch` or c
 | `reviewer.yml` | workflow_dispatch (manual) | Reviewer Agent | Post PR review summaries |
 | `metrics.yml` | workflow_dispatch ± scheduled | Metrics Agent | Collect repo health metrics |
 | `readme-update.yml` | workflow_dispatch + workflow_call | Release Agent (post-release) | Apply README & Mermaid diagram fixes |
-| `issue-create-from-template.yml` | workflow_dispatch | Issue Agent / LLM caller | Create issues from canonical templates before the issue exists |
+| `issue-create-from-template.yml` | workflow_dispatch | Issue Agent / LLM caller | Create issues from canonical numbered templates before the issue exists |
 | `checklist-finalisation.yml` | issues.closed / pull_request_target.closed | Workflow backstop | Finalise checklists in closed issues and merged PRs |
 
 ### When to Use
@@ -460,4 +460,8 @@ with:
 
 ---
 
-*Last updated: 2026-05-28*
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
