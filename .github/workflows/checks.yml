@@ -5,6 +5,8 @@ on:
     branches: [develop]
   push:
     branches: [develop]
+  merge_group:
+    types: [checks_requested]
 
 permissions:
   contents: read
@@ -54,7 +56,7 @@ jobs:
       - run: npm ci
       - name: Validate branch name
         env:
-          BRANCH_NAME: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          BRANCH_NAME: ${{ github.event.merge_group.head_ref || github.event.pull_request.head.ref || github.ref_name }}
         run: npm run validate:branch-name
       - run: npm run validate:json
       - run: npm run validate:issue-fields
