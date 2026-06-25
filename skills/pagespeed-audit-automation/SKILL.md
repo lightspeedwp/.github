@@ -5,6 +5,7 @@ argument-hint: 'Provide a URL, multiple URLs, sitemap URL, or PSI report link.'
 user-invocable: true
 ---
 
+
 # PageSpeed Audit Automation
 
 ## What This Skill Produces
