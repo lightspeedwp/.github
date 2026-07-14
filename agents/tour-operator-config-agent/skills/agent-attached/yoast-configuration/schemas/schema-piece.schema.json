@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yoast schema piece",
+  "type": "object",
+  "required": [
+    "schema_piece_name",
+    "source_url",
+    "plugin_scope",
+    "when_output",
+    "qa_method",
+    "risks_or_limitations"
+  ],
+  "properties": {
+    "schema_piece_name": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "plugin_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "when_output": {
+      "type": "string"
+    },
+    "required_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "optional_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_wordpress_or_woocommerce_data": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "configuration_dependency": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "customisation_route": {
+      "type": "string"
+    },
+    "qa_method": {
+      "type": "string"
+    },
+    "risks_or_limitations": {
+      "type": "string"
+    }
+  }
+}
