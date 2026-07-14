@@ -1,0 +1,5 @@
+# Approval test cases
+
+1. Unresolved blockers should prevent a clean go decision.
+2. Conditional approval should remain visibly conditional.
+3. Decision logs should capture follow-up actions.
