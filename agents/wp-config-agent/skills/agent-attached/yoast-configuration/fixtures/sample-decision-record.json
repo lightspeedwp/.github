@@ -1,0 +1,36 @@
+{
+  "decision_id": "YOAST-DEC-001",
+  "date": "2026-07-03",
+  "site_or_client": "Example WooCommerce Store",
+  "decision_type": "woocommerce-archive-strategy",
+  "state": "proposed",
+  "decision": "Keep primary product categories indexable and treat product tags and filtered URLs as review-required before indexation.",
+  "rationale": "The site has commercial category pages but weak tag and filtered URL content. Final handling depends on rendered canonical, robots and sitemap output.",
+  "confirmed_evidence": [
+    "User-provided WooCommerce taxonomy list fixture",
+    "Source-register rows queued for Yoast WooCommerce SEO verification"
+  ],
+  "assumptions": [
+    "Product categories have unique copy and internal links",
+    "Product tags are currently thin or duplicated"
+  ],
+  "risks": [
+    "Indexing weak product tags can create low-value duplicate archive URLs",
+    "Changing archive visibility without QA can create sitemap/noindex conflicts"
+  ],
+  "owner": "SEO lead",
+  "approval_needed_from": "Client ecommerce owner",
+  "implementation_notes": "Confirm taxonomy quality before making indexation changes in Yoast settings or filters.",
+  "qa_required": [
+    "Check rendered canonical and meta robots on product categories and tags",
+    "Check XML sitemap inclusion for product and product taxonomy URLs",
+    "Check a representative filtered URL for crawl/index behaviour"
+  ],
+  "review_trigger": "Review after WooCommerce taxonomy changes, product import, or Yoast WooCommerce SEO upgrade.",
+  "supersedes": "",
+  "related_files": [
+    "references/woocommerce-seo-reference.md",
+    "references/audit-triage-model.md",
+    "templates/yoast-decision-log.md"
+  ]
+}

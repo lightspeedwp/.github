@@ -1,0 +1,4 @@
+interface:
+  display_name: "WordPress Site Onboarding"
+  short_description: "Collect site defaults and reuse them later"
+  default_prompt: "Use $wordpress-site-onboarding to collect missing WordPress site defaults, save them in Memory, and resume the request."
