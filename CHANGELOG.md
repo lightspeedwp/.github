@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-06-19
+
 ### Added
 
 - **Issue automation hardening** — Expanded `checklist-finalisation.yml` to auto-tick `Steps / Checklist` and `Acceptance Criteria` sections on issue close (previously only DoR/DoD were covered). Added `enforce-close-guard` job to `template-enforcement.yml`: issues closed as "completed" that are missing DoR/DoD sections or still carry `status:needs-more-info` are automatically re-opened with an explanation comment. Activated `issues.agent.js` apply mode — the workflow now writes `status:needs-triage`, `priority:normal`, and a detected `type:*` label to newly opened issues when those label categories are not already present; updated `issues.yml` permissions from `issues: read` to `issues: write`. ([#1014](https://github.com/lightspeedwp/.github/issues/1014))
