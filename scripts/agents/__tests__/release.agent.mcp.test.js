@@ -39,9 +39,33 @@ describe("release.agent MCP provider", () => {
           text: async () => JSON.stringify({ message: 'Not Found' }),
         };
       };
+      const FAKE_CHANGELOG = [
+        '# Changelog',
+        '',
+        '## [Unreleased]',
+        '',
+        '### Added',
+        '',
+        '- Fake unreleased entry for test fixture',
+        '',
+        '## [0.5.0] - 2026-06-19',
+        '',
+        '### Added',
+        '',
+        '- Fixture release entry for test',
+        '',
+        '## [0.4.0] - 2026-01-01',
+        '',
+        '### Fixed',
+        '',
+        '- Previous release entry',
+      ].join('\\n');
       fs.readFileSync = (filePath, ...args) => {
         if (String(filePath).endsWith('VERSION')) {
           return '0.4.0\\n';
+        }
+        if (String(filePath).endsWith('CHANGELOG.md')) {
+          return FAKE_CHANGELOG;
         }
         return originalReadFileSync.call(fs, filePath, ...args);
       };
