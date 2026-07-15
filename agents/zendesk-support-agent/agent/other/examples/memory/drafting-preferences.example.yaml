@@ -1,0 +1,7 @@
+empathy_level: calm_and_human
+brevity_preference: concise_with_needed_context
+escalation_style: direct_and_action_oriented
+handoff_style: compact_but_complete
+documentation_style: stable_reusable_and_scannable
+avoid_long_apologies: true
+include_recommended_next_step: true
