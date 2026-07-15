@@ -19,7 +19,7 @@
  *   removedIds: string[]
  * }>}
  */
-async function cleanupOrphans(runId) {
+export async function cleanupOrphans(runId) {
   if (!runId) {
     throw new Error('cleanupOrphans: runId is required.')
   }

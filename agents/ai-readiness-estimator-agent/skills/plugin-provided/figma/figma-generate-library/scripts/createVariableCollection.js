@@ -17,7 +17,7 @@
  * }>}
  *   `modeIds` maps each mode name to its modeId string.
  */
-async function createVariableCollection(name, modeNames, runId) {
+export async function createVariableCollection(name, modeNames, runId) {
   if (!modeNames || modeNames.length === 0) {
     throw new Error('createVariableCollection: modeNames must have at least one entry.')
   }
