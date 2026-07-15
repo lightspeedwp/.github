@@ -1,0 +1,9 @@
+version: number
+projects:
+  - project_key: string
+    sources:
+      - source_type: drive | gmail | github | figma | web | file | memory
+        reference: string
+        description: string
+        approval_status: approved | provisional | unapproved
+        last_checked_at: YYYY-MM-DD

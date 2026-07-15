@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lightspeedwp.agency/schemas/zendesk-handoff.schema.json",
+  "title": "Zendesk-first internal support handoff",
+  "description": "Optional structured representation of a Zendesk-first internal handoff. Use only when the user asks for structured output, validation, automation handoff, or downstream conversion support.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "handoff_type",
+    "problem",
+    "impact",
+    "target_team",
+    "exact_ask",
+    "urgency_risk",
+    "evidence",
+    "attempted_steps",
+    "blockers",
+    "assumptions",
+    "missing_evidence",
+    "sensitivity",
+    "handoff_brief"
+  ],
+  "properties": {
+    "handoff_type": {
+      "type": "string",
+      "enum": [
+        "specialist_support",
+        "engineering_review",
+        "product_judgement",
+        "operations_admin",
+        "security_sensitive",
+        "account_owner",
+        "support_manager",
+        "general_internal",
+        "unknown"
+      ]
+    },
+    "problem": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Concise support-first problem statement. Separate observed behaviour from suspected cause."
+    },
+    "impact": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Who or what is affected, what is blocked, and what customer/business risk is known. Use unknown where evidence is missing."
+    },
+    "target_team": {
+      "type": "string",
+      "enum": [
+        "specialist_support",
+        "engineering",
+        "product",
+        "operations",
+        "security",
+        "account_owner",
+        "support_manager",
+        "general_internal_support",
+        "unknown"
+      ]
+    },
+    "exact_ask": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Specific action or decision needed from the receiving person or team. Avoid FYI-only asks."
+    },
+    "urgency_risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "reason"],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "urgent", "unknown"]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "description": "Confirmed Zendesk, Help Centre, or supplied evidence only. Do not include unsupported assumptions here.",
+      "items": {
+        "$ref": "#/$defs/evidence_item"
+      },
+      "minItems": 1
+    },
+    "attempted_steps": {
+      "type": "array",
+      "description": "What support, the customer, or internal teammates have already tried, asked, answered, tested, or ruled out.",
+      "items": {"type": "string"}
+    },
+    "blockers": {
+      "type": "array",
+      "description": "Missing evidence, access, owner, decision, reproduction, or customer response blocking progress.",
+      "items": {"type": "string"}
+    },
+    "assumptions": {
+      "type": "array",
+      "description": "Clearly labelled assumptions or inferred context. Keep empty if there are no assumptions.",
+      "items": {"type": "string"}
+    },
+    "missing_evidence": {
+      "type": "array",
+      "description": "Smallest missing facts that would materially improve the handoff or unblock the receiving team.",
+      "items": {"type": "string"}
+    },
+    "sensitivity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contains_sensitive_details",
+        "sensitive_details_omitted",
+        "approved_audience",
+        "do_not_share_with",
+        "notes"
+      ],
+      "properties": {
+        "contains_sensitive_details": {"type": "boolean"},
+        "sensitive_details_omitted": {"type": "boolean"},
+        "approved_audience": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "do_not_share_with": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "notes": {"type": "string"}
+      }
+    },
+    "downstream_conversion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requested", "target_system", "notes"],
+      "properties": {
+        "requested": {"type": "boolean"},
+        "target_system": {
+          "type": ["string", "null"],
+          "enum": ["linear", "github", "asana", "bugherd", "slack", "zendesk_private_note", "other", null]
+        },
+        "notes": {"type": "string"}
+      },
+      "default": {
+        "requested": false,
+        "target_system": null,
+        "notes": "No downstream conversion requested."
+      }
+    },
+    "handoff_brief": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Concise internal-ready brief suitable for Zendesk, Slack, or an internal note."
+    }
+  },
+  "$defs": {
+    "evidence_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_type", "summary", "confidence"],
+      "properties": {
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "zendesk_ticket",
+            "zendesk_comment",
+            "zendesk_internal_note",
+            "zendesk_field",
+            "zendesk_attachment",
+            "help_centre",
+            "pasted_user_context",
+            "secondary_system",
+            "unknown"
+          ]
+        },
+        "source_reference": {
+          "type": "string",
+          "description": "Ticket ID, timestamp, article title, attachment name, link, or other non-sensitive reference where available."
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["confirmed", "likely", "unclear"]
+        }
+      }
+    }
+  }
+}

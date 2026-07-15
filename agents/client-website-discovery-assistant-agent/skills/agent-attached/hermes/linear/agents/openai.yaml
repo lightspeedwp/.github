@@ -1,0 +1,19 @@
+interface:
+  display_name: linear
+  short_description:
+    manage linear issues, projects, teams, cycles, comments and documents
+    using the linear mcp server. use when the user asks to read, search, create, update,
+    label, comment on, report on, or organise real linear workspace work. act as the
+    lightspeed front door for linear workflows and route analysis, triage, issue rewriting,
+    gap checks, duplicate handling, sub-issue splitting, project pulse, decision logging,
+    voice-of-customer, sop, unplanned-work, skill creation, prd, qa, launch and delivery-planning
+    requests to the most specific related shared-team skill before making linear changes.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true

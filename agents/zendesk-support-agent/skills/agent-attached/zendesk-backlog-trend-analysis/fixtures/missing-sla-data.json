@@ -1,0 +1,47 @@
+{
+  "report_type": "queue_risk_check",
+  "scope": "current open backlog with unavailable SLA",
+  "current_window": null,
+  "comparison_window": null,
+  "filters": {
+    "status": ["open", "pending"]
+  },
+  "capabilities": {
+    "ticket_counts": true,
+    "ticket_metadata": true,
+    "ticket_details": false,
+    "ticket_conversations": false,
+    "sla_visible": false,
+    "csat_visible": false,
+    "help_centre_visible": false
+  },
+  "counts": {
+    "open_backlog": 2
+  },
+  "tickets": [
+    {
+      "ticket_id": "ZD-40001",
+      "subject": "Urgent login issue",
+      "status": "open",
+      "priority": "urgent",
+      "created_at": "2026-06-19T08:00:00Z",
+      "updated_at": "2026-06-24T09:00:00Z",
+      "group": "Support",
+      "assignee": null,
+      "organisation": "Example Organisation",
+      "brand": "Example Brand",
+      "tags": ["login"],
+      "channel": "email",
+      "form": "Support request",
+      "custom_fields": {},
+      "comment_count": 2,
+      "sla_status": "unavailable",
+      "age_days": 6,
+      "latest_customer_reply_at": "2026-06-24T08:30:00Z",
+      "latest_agent_reply_at": null,
+      "blocked_reason": null,
+      "evidence_class": "confirmed"
+    }
+  ],
+  "missing_evidence": ["SLA fields were not visible in the active environment"]
+}

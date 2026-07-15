@@ -1,0 +1,4 @@
+interface:
+  display_name: "LS Project Pack Exporter"
+  short_description: "Export LightSpeed planning artefacts into a clean markdown project pack."
+  default_prompt: "Use $lightspeed-project-pack-exporter to assemble a LightSpeed markdown project pack with source notes, index, and validation status."

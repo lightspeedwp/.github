@@ -1,0 +1,37 @@
+intake_fields:
+  required_for_confident_estimate:
+    - site_goal
+    - rebuild_scope
+    - key_functionality
+  helpful_if_available:
+    - current_site_url
+    - approximate_page_or_template_count
+    - content_migration_status
+    - seo_or_redirect_requirements
+    - integrations
+    - timeline
+    - stakeholder_count
+    - analytics_or_tracking_requirements
+    - hosting_or_platform_constraints
+
+figma_audit_focus:
+  - page types and reusable templates
+  - component consistency and design system maturity
+  - navigation complexity
+  - forms, calculators, search, filters, or gated content
+  - ecommerce, membership, booking, or account features
+  - accessibility or responsive design concerns visible in the source
+
+estimate_sections:
+  - Project summary
+  - Assumptions
+  - Proposed scope of work
+  - Workstreams
+  - Risks and unknowns
+  - Follow-up questions
+
+default_assumptions_when_missing:
+  rebuild_scope: full website rebuild
+  cms: WordPress
+  pricing_mode: estimate-ready scope, not final fixed price
+  content_format: structured bullets with clear assumptions

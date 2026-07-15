@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Weekly Operations Summary",
+  "type": "object",
+  "required": ["generated_at", "week_start", "week_end", "top_budget_risks", "invoice_opportunities", "retainer_risks", "stale_projects", "approval_blockers", "pm_action_queue", "finance_action_queue", "management_decisions", "confidence", "data_gaps"],
+  "properties": {
+    "generated_at": {"type": "string"},
+    "week_start": {"type": "string"},
+    "week_end": {"type": "string"},
+    "top_budget_risks": {"type": ["array", "string"]},
+    "invoice_opportunities": {"type": ["array", "string"]},
+    "retainer_risks": {"type": ["array", "string"]},
+    "stale_projects": {"type": ["array", "string"]},
+    "approval_blockers": {"type": ["array", "string"]},
+    "pm_action_queue": {"type": ["array", "string"]},
+    "finance_action_queue": {"type": ["array", "string"]},
+    "management_decisions": {"type": ["array", "string"]},
+    "confidence": {"type": "string"},
+    "data_gaps": {"type": ["array", "string"]}
+  },
+  "additionalProperties": true
+}

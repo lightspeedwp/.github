@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yoast AI Metadata Item",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "page_or_object",
+    "wordpress_scope",
+    "metadata_type",
+    "proposed_value",
+    "source_evidence",
+    "evidence_state",
+    "risk_level",
+    "review_state",
+    "qa_checks"
+  ],
+  "properties": {
+    "page_or_object": {"type": "string", "minLength": 1},
+    "wordpress_scope": {
+      "type": "string",
+      "enum": ["site", "content_type", "taxonomy", "post", "term", "product", "archive", "social"]
+    },
+    "metadata_type": {
+      "type": "string",
+      "enum": ["title", "meta_description", "social_title", "social_description", "template_pattern", "positioning_note"]
+    },
+    "current_value": {"type": "string"},
+    "proposed_value": {"type": "string", "minLength": 1},
+    "source_evidence": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "evidence_state": {
+      "type": "string",
+      "enum": ["approved_page_copy", "partial_page_copy", "settings_template_only", "product_data_only", "unverified_claim_source", "ai_generated_source", "current_product_packaging_claim"]
+    },
+    "risk_level": {"type": "string", "enum": ["low", "medium", "high", "blocked"]},
+    "review_state": {
+      "type": "string",
+      "enum": ["draft", "needs_source_evidence", "needs_content_edit", "needs_client_approval", "approved_for_admin_entry", "approved_as_template_pattern", "rejected", "live_verified"]
+    },
+    "reasoning": {"type": "string"},
+    "required_approval": {"type": "string"},
+    "qa_checks": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
+    "decision_record_needed": {"type": "boolean"}
+  }
+}

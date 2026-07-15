@@ -1,0 +1,550 @@
+version: 1
+name: questionnaire_field_library
+purpose: reusable intake field library derived from the questionnaire set for website-content workflows
+notes:
+  - Use this library to compose concise wizard-driven intake flows.
+  - Select only fields relevant to the current workflow, stage, and project type.
+  - Do not dump full questionnaires into chat.
+  - Mark questionnaire-derived values as inferred unless explicitly confirmed.
+  - Do not save inferred or defaulted values to durable Memory without confirmation.
+allowed_statuses:
+  - confirmed
+  - inferred
+  - defaulted
+  - missing
+field_groups:
+  routing_and_scope:
+    description: fields that classify the request and decide which workflow should run next
+    fields:
+      - key: project_type
+        label: Project type
+        description: the overall project category or site type
+        common_sources:
+          - website-briefing-questionnaire
+          - ecommerce-briefing-form
+          - basic-website-package-questionnaire
+          - standard-website-package-questionnaire
+          - tour-operator-website-planning-checklists
+        examples:
+          - brochure website
+          - ecommerce website
+          - tour-operator website
+          - policy page update
+          - chatbot planning
+        default_blocking: true
+        memory_candidate: true
+      - key: task_type
+        label: Task type
+        description: the immediate workflow the user wants to complete
+        common_sources:
+          - website-briefing-questionnaire
+          - content-collection-questionnaire
+          - design-briefing-questionnaire
+        examples:
+          - website planning
+          - page drafting
+          - content collection
+          - governance review
+          - launch QA
+        default_blocking: true
+        memory_candidate: true
+      - key: workflow_context
+        label: Workflow context
+        description: the current stage or specialist workflow context
+        common_sources:
+          - website-briefing-questionnaire
+          - website-content-collection-questionnaire
+          - tour-operator-website-planning-checklists
+        examples:
+          - new initiative
+          - active project continuation
+          - one-off page request
+          - pre-launch review
+        default_blocking: true
+        memory_candidate: true
+      - key: project_stage
+        label: Project stage
+        description: where the project currently sits in planning, drafting, review, or launch
+        common_sources:
+          - website-briefing-questionnaire
+          - standard-website-package-questionnaire
+          - tour-operator-website-planning-checklists
+        examples:
+          - discovery
+          - content collection
+          - drafting
+          - approval
+          - launch readiness
+        default_blocking: false
+        memory_candidate: true
+      - key: relevant_questionnaire_source
+        label: Relevant questionnaire source
+        description: the questionnaire files selected for the current task
+        common_sources:
+          - questionnaire-source-map
+        examples:
+          - website briefing
+          - tone of voice
+          - ecommerce briefing
+        default_blocking: false
+        memory_candidate: false
+  goals_and_audience:
+    description: fields that define purpose, audience, and desired outcome
+    fields:
+      - key: primary_goal
+        label: Primary goal
+        description: the main objective for the page, workflow, or project
+        common_sources:
+          - website-briefing-questionnaire
+          - content-collection-questionnaire
+          - ecommerce-briefing-form
+        examples:
+          - generate qualified leads
+          - explain a service clearly
+          - support bookings
+          - reduce support friction
+        default_blocking: true
+        memory_candidate: true
+      - key: secondary_goal
+        label: Secondary goal
+        description: a lower-priority but still useful outcome
+        common_sources:
+          - website-briefing-questionnaire
+          - conversion-goal-intake-template
+        examples:
+          - build trust
+          - route visitors to FAQs
+          - collect newsletter signups
+        default_blocking: false
+        memory_candidate: true
+      - key: audience
+        label: Audience or user group
+        description: the primary people the output is meant to serve
+        common_sources:
+          - website-briefing-questionnaire
+          - tone-of-voice-questionnaire
+          - tour-operator-blog-questionnaire
+        examples:
+          - first-time buyers
+          - prospective clients
+          - existing customers
+          - travellers comparing itineraries
+        default_blocking: true
+        memory_candidate: true
+      - key: user_intent
+        label: User intent
+        description: what the audience wants or needs at this point
+        common_sources:
+          - website-briefing-questionnaire
+          - website-content-collection-questionnaire
+          - ecommerce-briefing-form
+        examples:
+          - compare options
+          - request a quote
+          - book a consultation
+          - understand pricing
+        default_blocking: false
+        memory_candidate: true
+      - key: conversion_goal
+        label: Conversion goal
+        description: the action the page or workflow should encourage
+        common_sources:
+          - website-briefing-questionnaire
+          - ecommerce-briefing-form
+          - standard-website-package-questionnaire
+        examples:
+          - book a consultation
+          - purchase a product
+          - submit an enquiry
+          - download a guide
+        default_blocking: false
+        memory_candidate: true
+  brand_and_messaging:
+    description: fields that capture offer, positioning, tone, and messaging direction
+    fields:
+      - key: brand
+        label: Brand
+        description: the brand, business, or project identity
+        common_sources:
+          - website-briefing-questionnaire
+          - tone-of-voice-questionnaire
+          - design-briefing-questionnaire
+        examples:
+          - LightSpeed
+          - client brand name
+        default_blocking: false
+        memory_candidate: true
+      - key: offer
+        label: Offer
+        description: the main service, product, or proposition being promoted
+        common_sources:
+          - website-briefing-questionnaire
+          - ecommerce-briefing-form
+          - content-collection-questionnaire
+        examples:
+          - website strategy
+          - managed hosting
+          - safari itinerary packages
+        default_blocking: false
+        memory_candidate: true
+      - key: services_or_products
+        label: Services or products
+        description: the named services, products, categories, or packages in scope
+        common_sources:
+          - ecommerce-briefing-form
+          - website-briefing-questionnaire
+          - standard-website-package-questionnaire
+        default_blocking: false
+        memory_candidate: true
+      - key: voice_and_tone
+        label: Voice and tone direction
+        description: the preferred communication style and brand personality
+        common_sources:
+          - tone-of-voice-questionnaire
+          - design-briefing-questionnaire
+          - website-content-collection-questionnaire
+        examples:
+          - confident and clear
+          - warm and expert
+          - premium but accessible
+        default_blocking: false
+        memory_candidate: true
+      - key: messaging_priorities
+        label: Messaging priorities
+        description: the most important themes, differentiators, or proof angles
+        common_sources:
+          - website-briefing-questionnaire
+          - tone-of-voice-questionnaire
+          - content-collection-questionnaire
+        default_blocking: false
+        memory_candidate: true
+  content_and_assets:
+    description: fields that identify source material, required content, and supporting assets
+    fields:
+      - key: reference_assets
+        label: Reference asset or source material
+        description: the main supporting source files, links, docs, designs, or repositories
+        common_sources:
+          - content-collection-questionnaire
+          - website-content-collection-questionnaire
+          - design-briefing-questionnaire
+        examples:
+          - Figma file
+          - Google Doc brief
+          - approved website copy
+          - GitHub repository
+        default_blocking: true
+        memory_candidate: true
+      - key: approved_sources
+        label: Approved sources
+        description: the sources that are safe and approved to rely on
+        common_sources:
+          - content-collection-questionnaire
+          - governance workflows
+          - chatbot planning inputs
+        default_blocking: false
+        memory_candidate: true
+      - key: source_assets
+        label: Source assets
+        description: the specific materials available for extraction or reuse
+        common_sources:
+          - website-content-collection-questionnaire
+          - content-collection-questionnaire
+          - tour-operator-blog-questionnaire
+        default_blocking: false
+        memory_candidate: true
+      - key: content_types
+        label: Content types
+        description: the kinds of outputs needed for this workflow
+        common_sources:
+          - content-collection-questionnaire
+          - website-content-collection-questionnaire
+          - tour-operator-blog-questionnaire
+        examples:
+          - homepage copy
+          - FAQ set
+          - blog posts
+          - policy page
+          - autoresponder email
+        default_blocking: false
+        memory_candidate: true
+      - key: required_output_format
+        label: Required output format
+        description: the structure or deliverable format expected next
+        common_sources:
+          - website-content-collection-questionnaire
+          - package questionnaires
+          - workflow templates
+        examples:
+          - review summary
+          - page draft
+          - checklist
+          - claim register
+          - handoff pack
+        default_blocking: false
+        memory_candidate: true
+  design_and_technical:
+    description: fields that define design direction, technical constraints, and implementation dependencies
+    fields:
+      - key: design_direction
+        label: Design direction
+        description: the intended look, feel, hierarchy, or visual cues
+        common_sources:
+          - website-design-questionnaire
+          - design-briefing-questionnaire
+          - tone-of-voice-questionnaire
+        default_blocking: false
+        memory_candidate: true
+      - key: technical_requirements
+        label: Technical requirements
+        description: platform, build, integration, or delivery constraints
+        common_sources:
+          - website-briefing-questionnaire
+          - ecommerce-briefing-form
+          - tour-operator-website-planning-checklists
+        examples:
+          - WordPress block theme
+          - WooCommerce
+          - multilingual support
+          - booking integration
+        default_blocking: false
+        memory_candidate: true
+      - key: integrations
+        label: Integrations
+        description: external systems or tools the workflow depends on
+        common_sources:
+          - ecommerce-briefing-form
+          - website-briefing-questionnaire
+          - tour-operator-website-planning-checklists
+        examples:
+          - CRM
+          - payment gateway
+          - booking platform
+          - analytics tools
+        default_blocking: false
+        memory_candidate: true
+  scope_and_constraints:
+    description: fields that narrow scope and prevent unsupported work
+    fields:
+      - key: scope_boundaries
+        label: Scope boundaries
+        description: what is in scope and what is not
+        common_sources:
+          - website-briefing-questionnaire
+          - package questionnaires
+          - content-collection-questionnaire
+        default_blocking: false
+        memory_candidate: true
+      - key: exclusions
+        label: Exclusions or must-not-do rules
+        description: prohibited topics, unsupported claims, or explicit boundaries
+        common_sources:
+          - governance inputs
+          - chatbot planning inputs
+          - content-collection-questionnaire
+        default_blocking: false
+        memory_candidate: true
+      - key: privacy_or_legal_requirements
+        label: Legal or privacy requirements
+        description: requirements that affect claims, data handling, or publication safety
+        common_sources:
+          - governance workflows
+          - ecommerce-briefing-form
+          - policy-related inputs
+        default_blocking: false
+        memory_candidate: true
+  risk_claims_and_approvals:
+    description: fields that govern evidence, approvals, and safe publication
+    fields:
+      - key: claims
+        label: Claims
+        description: factual, comparative, quantified, or sensitive statements requiring validation
+        common_sources:
+          - stats evidence intake
+          - FAQ intake
+          - content-collection-questionnaire
+          - ecommerce-briefing-form
+        default_blocking: false
+        memory_candidate: false
+      - key: risk_flags
+        label: Risks
+        description: regulated, reputational, safety, privacy, or factual risks
+        common_sources:
+          - governance workflows
+          - chatbot planning inputs
+          - ecommerce-briefing-form
+        default_blocking: false
+        memory_candidate: false
+      - key: approval_owners
+        label: Approval owners
+        description: who must approve content, claims, policy, or launch decisions
+        common_sources:
+          - website-briefing-questionnaire
+          - governance workflows
+          - launch QA planning
+        default_blocking: false
+        memory_candidate: true
+      - key: claim_register_required
+        label: Claim register required
+        description: whether a claim register is needed before drafting or publication
+        common_sources:
+          - claim triggers
+          - stats evidence intake
+          - FAQ intake
+        default_blocking: false
+        memory_candidate: true
+      - key: approval_requirements
+        label: Approval requirements
+        description: the gates, reviews, or sign-offs needed before proceeding
+        common_sources:
+          - launch QA planning
+          - governance workflows
+          - package questionnaires
+        default_blocking: false
+        memory_candidate: true
+  delivery_and_timing:
+    description: fields that affect delivery expectations, urgency, and handoff
+    fields:
+      - key: timeline
+        label: Timeline or urgency
+        description: delivery timing, urgency, or milestone expectations
+        common_sources:
+          - website-briefing-questionnaire
+          - package questionnaires
+          - tour-operator-website-planning-checklists
+        default_blocking: false
+        memory_candidate: true
+      - key: launch_requirements
+        label: Launch or handoff requirements
+        description: requirements for launch readiness, handoff quality, or downstream teams
+        common_sources:
+          - launch QA planning
+          - tour-operator-website-planning-checklists
+          - ecommerce-briefing-form
+        default_blocking: false
+        memory_candidate: true
+      - key: handoff_destination
+        label: Handoff destination
+        description: where the next approved output should be passed or packaged
+        common_sources:
+          - workflow context
+          - user request
+        examples:
+          - content strategist
+          - copywriter
+          - designer
+          - governance reviewer
+          - launch QA owner
+        default_blocking: false
+        memory_candidate: true
+selection_profiles:
+  website_planning:
+    recommended_fields:
+      - project_type
+      - task_type
+      - workflow_context
+      - primary_goal
+      - audience
+      - reference_assets
+      - scope_boundaries
+      - design_direction
+      - technical_requirements
+      - timeline
+  website_content:
+    recommended_fields:
+      - task_type
+      - workflow_context
+      - primary_goal
+      - audience
+      - voice_and_tone
+      - reference_assets
+      - approved_sources
+      - content_types
+      - required_output_format
+      - exclusions
+  design:
+    recommended_fields:
+      - project_type
+      - task_type
+      - audience
+      - design_direction
+      - voice_and_tone
+      - reference_assets
+      - scope_boundaries
+      - technical_requirements
+      - approval_owners
+      - timeline
+  ecommerce:
+    recommended_fields:
+      - project_type
+      - primary_goal
+      - audience
+      - services_or_products
+      - conversion_goal
+      - technical_requirements
+      - integrations
+      - privacy_or_legal_requirements
+      - claims
+      - launch_requirements
+  tour_operator:
+    recommended_fields:
+      - project_type
+      - primary_goal
+      - audience
+      - services_or_products
+      - content_types
+      - reference_assets
+      - approved_sources
+      - claims
+      - risk_flags
+      - launch_requirements
+  governance_or_chatbot:
+    recommended_fields:
+      - project_type
+      - task_type
+      - audience
+      - approved_sources
+      - exclusions
+      - privacy_or_legal_requirements
+      - claims
+      - risk_flags
+      - approval_owners
+      - approval_requirements
+extraction_tokens:
+  - brand
+  - audience
+  - offer
+  - services_or_products
+  - content_types
+  - design_direction
+  - technical_requirements
+  - integrations
+  - source_assets
+  - exclusions
+  - legal_or_privacy_requirements
+  - claims
+  - approval_owners
+  - launch_or_handoff_requirements
+  - risks
+  - missing_blockers
+memory_buckets:
+  - current_run_context
+  - project_memory_candidates
+  - confirmed_project_memory
+  - unsafe_or_unverified_memory
+claim_register_triggers:
+  - medical_or_health_content
+  - legal_or_financial_content
+  - safety_or_regulated_content
+  - pricing_or_roi_claims
+  - conversion_or_ranking_claims
+  - performance_or_outcome_claims
+  - testimonials
+  - case_studies
+  - statistics
+  - guarantees
+  - comparisons
+  - awards
+  - externally_published_factual_claims
+  - compliance_or_suitability_defaults
+  - ai_generated_recommendations_affecting_decisions
