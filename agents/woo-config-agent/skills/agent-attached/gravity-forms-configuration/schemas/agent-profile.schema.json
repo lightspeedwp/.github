@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lsdev.biz/schemas/gravity-forms/agent-profile.schema.json",
+  "title": "Gravity Forms Agent Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "agent_name",
+    "supported_workflows",
+    "default_form_types",
+    "required_references",
+    "high_risk_operations",
+    "route_away_rules",
+    "output_templates"
+  ],
+  "properties": {
+    "agent_name": {
+      "type": "string"
+    },
+    "supported_workflows": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "default_form_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "high_risk_operations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "route_away_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "output_templates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+display_name: Markdown Format Validator
+short_description: Validate polished Markdown documents and wrappers
+default_prompt: Use $markdown-format-validator to check substantial Markdown deliverables, wrapper text, and file-link handoffs for structure and formatting issues before finalizing.

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Release handoff",
+  "type": "object",
+  "required": ["release_summary", "qa_status", "known_issues"],
+  "properties": {
+    "release_summary": { "type": "string" },
+    "scope_delivered": { "type": "array", "items": { "type": "string" } },
+    "deployment_notes": { "type": "array", "items": { "type": "string" } },
+    "qa_status": { "type": "string" },
+    "known_issues": { "type": "array", "items": { "type": "string" } },
+    "support_notes": { "type": "array", "items": { "type": "string" } },
+    "monitoring_plan": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

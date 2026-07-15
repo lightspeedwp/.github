@@ -1,0 +1,15 @@
+interface:
+  display_name: Zendesk Duplicate Pattern Review
+  short_description: Classify whether Zendesk tickets are duplicates, related cases,
+    repeated pain patterns, broader incidents, or inconclusive.
+  icon: search-check
+  accent_color: '#174EA6'
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

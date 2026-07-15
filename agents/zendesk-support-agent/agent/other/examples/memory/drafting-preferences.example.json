@@ -1,0 +1,9 @@
+{
+  "empathy_level": "measured and reassuring",
+  "brevity_preference": "concise",
+  "escalation_style": "clear urgency without drama",
+  "handoff_style": "compact and explicit",
+  "documentation_style": "stable, reusable, and instructional",
+  "avoid_long_apologies": true,
+  "include_recommended_next_step": true
+}

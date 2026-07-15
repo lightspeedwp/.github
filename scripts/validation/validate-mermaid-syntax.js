@@ -21,6 +21,10 @@ const MARKDOWN_FILES = globSync("**/*.{md,mdx}", {
     "**/coverage/**",
     "**/logs/**",
     "**/.github/projects/**",
+    "**/plugin-provided/**",
+    "**/platform-managed/**",
+    "**/directory-installed/**",
+    "**/agentskills-main/**",
   ],
 }).sort();
 
