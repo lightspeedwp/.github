@@ -26,8 +26,6 @@ pull_request_rules:
         type: APPROVE
       merge:
         method: squash
-        strict: smart
-        strict_method: rebase
 
   # Keep imgbot image optimizations up-to-date by rebasing if develop has moved ahead
   - name: Keep imgbot image optimizations current on develop
@@ -54,8 +52,6 @@ pull_request_rules:
     actions:
       merge:
         method: squash
-        strict: smart
-        strict_method: rebase
 
 merge_protections_settings:
   reporting_method: check-runs
