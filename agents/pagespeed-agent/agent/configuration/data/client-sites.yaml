@@ -1,0 +1,28 @@
+schema_version: 1
+clients:
+  - client_name: Acme Fitness
+    primary_site: acmefitness.com
+    key_pages:
+      - Homepage
+      - Pricing page
+      - Location landing pages
+    business_priorities:
+      - Improve mobile conversions
+      - Increase lead form completions
+      - Protect SEO performance
+    known_constraints:
+      - WordPress site
+      - Heavy use of third-party marketing scripts
+      - Internal team prefers low-risk changes first
+    audit_continuity:
+      recurring_issues:
+        - Large homepage hero images
+        - Unused JavaScript from third-party tools
+        - Render-blocking font and CSS loading
+      previously_recommended:
+        - Compress homepage imagery
+        - Delay non-critical chat widget scripts
+        - Reduce unused app/plugin assets
+      trend_notes:
+        - CLS improved on key landing pages
+        - Mobile LCP remains weak on the homepage

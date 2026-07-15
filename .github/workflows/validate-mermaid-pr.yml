@@ -109,12 +109,17 @@ jobs:
       - name: Validate colour contrast (WCAG 2.2 AA)
         id: contrast
         if: steps.has_diagrams.outputs.result == 'true'
-        env:
-          CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
-          CHANGED="$CHANGED_FILES"
-          CHANGED_CSV=$(echo "$CHANGED" | tr '\n' ',' | sed 's/,$//')
-          node scripts/validation/validate-mermaid-colour-contrast.js --changed-files="$CHANGED_CSV"
+          # Write the changed-file list to disk rather than an env var or CLI
+          # arg — with this many changed files, either would exceed the
+          # runner's argv/environment size limit (E2BIG) before the process
+          # even starts. ${{ }} is substituted directly into this script's
+          # body at compile time, not passed through process creation, so it
+          # isn't subject to that limit here.
+          cat > "$RUNNER_TEMP/changed-md-files.txt" << 'CHANGED_FILES_EOF'
+          ${{ steps.changed.outputs.files }}
+          CHANGED_FILES_EOF
+          node scripts/validation/validate-mermaid-colour-contrast.js --changed-files-list="$RUNNER_TEMP/changed-md-files.txt"
         continue-on-error: true
 
       - name: Collect results

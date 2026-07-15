@@ -1,0 +1,14 @@
+interface:
+  display_name: PageSpeed Onboarding
+  short_description: Collect reusable audit preferences and client context.
+  default_prompt: Use $pagespeed-audit-onboarding to collect missing audit defaults
+    and client context before continuing.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,94 @@
+fields:
+  project_type:
+    description: The kind of project or workflow being scoped.
+    status_default: missing
+    common_sources: [website briefing, ecommerce briefing, package qualification, tour operator planning]
+  primary_goal:
+    description: The main business, delivery, or decision outcome.
+    status_default: missing
+    common_sources: [website briefing, tone of voice, ecommerce briefing, blog planning]
+  audience:
+    description: Intended user group, buyer, stakeholder, or reader audience.
+    status_default: missing
+    common_sources: [website briefing, tone of voice, content collection, tour operator]
+  workflow_context:
+    description: Whether this is briefing, proposal, content planning, design discovery, governance review, drafting, or handoff.
+    status_default: missing
+  questionnaire_source:
+    description: The best-fit questionnaire or checklist file used to support intake.
+    status_default: inferred
+  reference_assets:
+    description: Uploaded files, URLs, docs, screenshots, designs, repos, notes, or source content.
+    status_default: missing
+  output_format:
+    description: Required response shape, template, document, or handoff format.
+    status_default: missing
+  scope_boundaries:
+    description: In-scope items, delivery limits, constraints, and scope assumptions.
+    status_default: missing
+  exclusions:
+    description: Must-not-do rules, excluded work, unsupported assumptions, or non-goals.
+    status_default: missing
+  timeline_risk_approval:
+    description: Timing, urgency, risk sensitivity, dependencies, approval needs, and review checkpoints.
+    status_default: missing
+  design_direction:
+    description: Visual style, references, inspiration, UX emphasis, and brand-expression direction.
+    status_default: inferred
+  content_requirements:
+    description: Content types, page needs, asset gaps, editorial workflow, and source-content readiness.
+    status_default: inferred
+  technical_requirements:
+    description: Integrations, platform constraints, performance, launch, governance, privacy, or compliance requirements.
+    status_default: inferred
+  approved_sources:
+    description: Sources that are approved for use in drafting or public-facing output.
+    status_default: missing
+  approval_owners:
+    description: People or functions responsible for review, sign-off, or escalation.
+    status_default: inferred
+  risk_flags:
+    description: High-risk claims, regulated content, unsupported defaults, or uncertainty that needs review.
+    status_default: inferred
+  claim_register_required:
+    description: Whether a structured claim register should be created before public-facing output.
+    status_default: inferred
+
+token_library:
+  brand:
+    source_examples: [website briefing, tone of voice, content collection]
+  audience:
+    source_examples: [website briefing, tone of voice, tour operator blog]
+  offer:
+    source_examples: [website briefing, ecommerce briefing, standard website package]
+  services_or_products:
+    source_examples: [website briefing, ecommerce briefing, content collection]
+  content_types:
+    source_examples: [website content collection, content collection, tour operator blog]
+  design_direction:
+    source_examples: [website design, design briefing]
+  technical_requirements:
+    source_examples: [website briefing, ecommerce briefing, tour operator planning]
+  integrations:
+    source_examples: [ecommerce briefing, tour operator planning]
+  source_assets:
+    source_examples: [content collection, website content collection, design briefing]
+  exclusions:
+    source_examples: [package qualification, governance review, project scoping]
+  legal_or_privacy_requirements:
+    source_examples: [ecommerce briefing, governance review]
+  claims:
+    source_examples: [case studies, pricing statements, statistics, performance promises]
+  approval_owners:
+    source_examples: [design briefing, website briefing, project planning]
+  launch_or_handoff_requirements:
+    source_examples: [tour operator planning, ecommerce briefing, website briefing]
+  risks:
+    source_examples: [claim review, compliance, delivery dependencies]
+  missing_blockers:
+    source_examples: [source gaps, unanswered approvals, missing technical details]
+
+selection_policy:
+  default_action: choose_one_best_fit_source_first
+  combine_only_when: the task clearly spans multiple discovery domains
+  ignore_when: the file does not materially improve the current workflow

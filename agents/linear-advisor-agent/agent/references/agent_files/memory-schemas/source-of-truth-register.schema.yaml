@@ -1,0 +1,51 @@
+schema:
+  type: object
+  additionalProperties: false
+  required:
+    - source_priority
+  properties:
+    source_priority:
+      type: array
+      minItems: 1
+      maxItems: 10
+      items:
+        type: object
+        additionalProperties: false
+        required:
+          - rank
+          - source_type
+          - use_for
+        properties:
+          rank:
+            type: integer
+            minimum: 1
+            maximum: 10
+          source_type:
+            type: string
+            enum:
+              - user-request
+              - agent-files
+              - attached-skills
+              - connected-apps
+              - memory
+              - official-docs
+              - public-web
+              - assumptions
+          use_for:
+            type: string
+            maxLength: 200
+          notes:
+            type: string
+            maxLength: 240
+validation:
+  update_rules:
+    - Keep ranks unique.
+    - Prefer durable source hierarchies, not one-off source mentions.
+example:
+  source_priority:
+    - rank: 1
+      source_type: user-request
+      use_for: task framing, requested output, and current constraints
+    - rank: 2
+      source_type: agent-files
+      use_for: routing references, memory schemas, and attached documentation

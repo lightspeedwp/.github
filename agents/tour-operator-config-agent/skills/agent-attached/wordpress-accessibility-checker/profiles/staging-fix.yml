@@ -1,0 +1,17 @@
+mode: fix
+name: staging-fix
+use_when: user explicitly asks to apply supported fixes on local or staging
+allowed_actions:
+  - read first
+  - apply clear content-level fixes in small batches
+  - re-read changed content
+  - record exact changes
+blocked_actions:
+  - unsafe theme/plugin/code changes
+  - legal or policy wording changes without approval
+  - broad bulk edits without review
+verification:
+  - content re-read
+  - plugin re-scan when supported
+  - fix log completed
+  - manual qa list returned

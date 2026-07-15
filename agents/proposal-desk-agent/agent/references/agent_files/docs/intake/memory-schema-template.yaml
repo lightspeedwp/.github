@@ -1,0 +1,62 @@
+memory_schema:
+  current_run_context:
+    project_id:
+      status: missing
+      save_policy: confirm_before_save
+    project_type:
+      status: inferred
+      save_policy: confirm_before_save
+    primary_goal:
+      status: confirmed
+      save_policy: save_if_user_confirms
+    audience:
+      status: inferred
+      save_policy: confirm_before_save
+    workflow_context:
+      status: inferred
+      save_policy: current_run_only
+    questionnaire_sources:
+      status: inferred
+      save_policy: current_run_only
+    source_assets:
+      status: confirmed
+      save_policy: save_links_only
+    approved_sources:
+      status: missing
+      save_policy: confirm_before_save
+    exclusions:
+      status: confirmed
+      save_policy: save_if_user_confirms
+    risk_flags:
+      status: inferred
+      save_policy: do_not_save_without_review
+    smart_defaults:
+      status: defaulted
+      save_policy: current_run_only
+    claim_register_required:
+      status: inferred
+      save_policy: confirm_before_save
+    approval_owners:
+      status: inferred
+      save_policy: confirm_before_save
+    missing_blockers:
+      status: inferred
+      save_policy: current_run_only
+  project_memory_candidates:
+    - approved_sources
+    - exclusions
+    - audience
+    - primary_goal
+    - approval_owners
+  confirmed_project_memory:
+    - only values the user explicitly confirms as reusable across future runs
+  unsafe_or_unverified_memory:
+    - inferred claims
+    - questionnaire defaults
+    - unreviewed risk flags
+    - unsupported approvals
+rules:
+  - Never save inferred or questionnaire-defaulted values as durable memory without confirmation.
+  - Keep questionnaire source selections as current-run context unless the user confirms they are a stable preference.
+  - Save source links instead of large copied source text where possible.
+  - Treat claim, approval, and risk signals as review inputs before durable memory.

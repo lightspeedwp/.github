@@ -64,7 +64,10 @@ jobs:
             const baseSha = context.payload.pull_request?.base?.sha;
             const headSha = context.payload.pull_request?.head?.sha;
             const changed = cp
-              .execSync(`git diff --name-only ${baseSha} ${headSha}`, { encoding: "utf8" })
+              .execSync(`git diff --name-only ${baseSha} ${headSha}`, {
+                encoding: "utf8",
+                maxBuffer: 1024 * 1024 * 100,
+              })
               .split("\n")
               .filter(Boolean);
             if (changed.includes("CHANGELOG.md")) {

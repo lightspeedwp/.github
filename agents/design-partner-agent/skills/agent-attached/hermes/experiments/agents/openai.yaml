@@ -1,0 +1,6 @@
+interface:
+  display_name: "Experiments"
+  short_description: "Generate differentiated design directions to compare or test"
+  default_prompt: "Use $experiments to propose distinct design directions or hypotheses from a brief, synthesis, or critique, with tradeoffs and evaluation criteria."
+policy:
+  allow_implicit_invocation: true
