@@ -26,7 +26,7 @@
  * @returns {Promise<{variables: Record<string, Variable>}>}
  *   `variables` maps each token name to its created Variable object.
  */
-async function createSemanticTokens(collection, modeIds, tokenMap, runId) {
+export async function createSemanticTokens(collection, modeIds, tokenMap, runId) {
   const variables = {}
 
   for (const token of tokenMap) {
