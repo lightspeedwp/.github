@@ -15,7 +15,7 @@ import fs from "fs";
 import path from "path";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import { fileURLToPath } from "url";
 import { globSync } from "glob";
 

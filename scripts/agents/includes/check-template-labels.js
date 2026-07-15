@@ -5,7 +5,7 @@
  */
 
 import fs from "fs";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import path from "path";
 
 function resolveFromRoot(inputPath, fallbackPath) {
