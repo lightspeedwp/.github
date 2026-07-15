@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Babel toolchain upgraded to 8.x** — Bumped `@babel/core`, `@babel/preset-env`, `@babel/preset-react`, `@babel/preset-typescript`, `@babel/plugin-transform-runtime`, and `@babel/runtime` to their 8.x releases together (they peer-require each other at `^8.0.0`, so they couldn't land as separate Dependabot PRs — see [#1002](https://github.com/lightspeedwp/.github/pull/1002), [#1004](https://github.com/lightspeedwp/.github/pull/1004), [#1007](https://github.com/lightspeedwp/.github/pull/1007), [#1026](https://github.com/lightspeedwp/.github/pull/1026)). Removed `@babel/plugin-proposal-class-properties`, `@babel/plugin-proposal-object-rest-spread`, and `@babel/plugin-syntax-import-meta` (no 8.x release exists; their proposals are natively handled by `preset-env` now) and bumped `babel-jest` to `30.4.1` for babel 8 compatibility. Set Jest's `coverageProvider` to `v8` to avoid a circular-require bug in Jest's Istanbul-based coverage instrumentation exposed by babel 8. ([PR #1044](https://github.com/lightspeedwp/.github/pull/1044))
+
 ### Added
 
 - **16 new specialist agents** — Added `ai-readiness-estimator-agent`, `client-website-discovery-assistant-agent`, `design-partner-agent`, `harvest-analytical-agent`, `linear-advisor-agent`, `pagespeed-agent`, `playwright-testing-agent`, `prd-agent`, `prd-factory-planner-agent`, `proposal-desk-agent`, `tour-operator-config-agent`, `website-content-strategist-agent`, `website-scope-estimator-agent`, `woo-config-agent`, `wp-config-agent`, and `zendesk-support-agent` to `agents/`, each with full documentation, configuration, and reference materials following the LightSpeed agent template standards. ([PR #1040](https://github.com/lightspeedwp/.github/pull/1040))
