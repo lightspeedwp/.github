@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms configuration handoff",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "handoff_title",
+    "source_audit",
+    "findings_included",
+    "target_form_page_addon",
+    "proposed_remediation",
+    "required_mcp_capabilities",
+    "approval_requirements",
+    "risk_level",
+    "validation_steps",
+    "rollback_notes",
+    "suggested_configuration_prompt"
+  ],
+  "properties": {
+    "handoff_title": {
+      "type": "string"
+    },
+    "source_audit": {
+      "type": "string"
+    },
+    "findings_included": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "target_form_page_addon": {
+      "type": "string"
+    },
+    "proposed_remediation": {
+      "type": "string"
+    },
+    "required_mcp_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_addons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approval_requirements": {
+      "type": "string"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "Blocker",
+        "High",
+        "Medium",
+        "Low",
+        "Info"
+      ]
+    },
+    "validation_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "rollback_notes": {
+      "type": "string"
+    },
+    "suggested_configuration_prompt": {
+      "type": "string"
+    }
+  }
+}

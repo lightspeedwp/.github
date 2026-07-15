@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yoast setting reference",
+  "type": "object",
+  "required": [
+    "setting_group",
+    "setting_name",
+    "plugin_scope",
+    "wordpress_scope",
+    "default_behaviour",
+    "recommended_default",
+    "when_to_change",
+    "risk_if_wrong",
+    "dependencies",
+    "related_settings",
+    "evidence_sources"
+  ],
+  "properties": {
+    "setting_group": {
+      "type": "string"
+    },
+    "setting_name": {
+      "type": "string"
+    },
+    "plugin_scope": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "free",
+          "premium",
+          "woocommerce",
+          "ai_plus"
+        ]
+      }
+    },
+    "wordpress_scope": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "site",
+          "content_type",
+          "taxonomy",
+          "post",
+          "term",
+          "product",
+          "archive"
+        ]
+      }
+    },
+    "default_behaviour": {
+      "type": "string"
+    },
+    "recommended_default": {
+      "type": "string"
+    },
+    "when_to_change": {
+      "type": "string"
+    },
+    "risk_if_wrong": {
+      "type": "string"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_settings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

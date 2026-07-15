@@ -1,0 +1,234 @@
+statuses:
+  - confirmed
+  - inferred
+  - defaulted
+  - missing
+
+wizard_fields:
+  - key: project_anchor
+    label: Project anchor
+    examples:
+      - client plus project name
+      - website domain
+      - GitHub repository
+      - Figma file
+      - Google Doc or Drive folder
+    status_default: missing
+    required_for:
+      - durable_memory
+      - ambiguous_project_context
+    save_policy: confirm_before_save
+  - key: project_type
+    label: Project or task type
+    status_default: inferred
+    required_for:
+      - intake_heavy_workflows
+      - routing
+    save_policy: confirm_before_save
+  - key: primary_goal
+    label: Primary goal
+    status_default: inferred
+    required_for:
+      - intake_heavy_workflows
+    save_policy: save_if_user_confirms
+  - key: audience
+    label: Audience or user group
+    status_default: inferred
+    required_for:
+      - most_workflows
+    save_policy: confirm_before_save
+  - key: workflow_context
+    label: Agent or workflow context
+    status_default: inferred
+    required_for:
+      - routing
+      - intake_heavy_workflows
+    save_policy: current_run_only
+  - key: source_assets
+    label: Reference asset or source material
+    status_default: inferred
+    required_for:
+      - source_driven_workflows
+    save_policy: save_links_only_if_confirmed
+  - key: source_status
+    label: Source status
+    allowed:
+      - approved
+      - candidate
+      - unverified
+      - conflicting
+      - missing
+    status_default: inferred
+    required_for:
+      - source_driven_workflows
+      - client_facing_outputs
+      - chatbot_or_ai_grounding
+    save_policy: confirm_before_save
+  - key: output_format
+    label: Required output format
+    status_default: defaulted
+    required_for:
+      - deliverable_workflows
+    save_policy: confirm_before_save
+  - key: scope_boundaries
+    label: Scope boundaries
+    status_default: inferred
+    required_for:
+      - scoped_workflows
+    save_policy: save_if_user_confirms
+  - key: exclusions
+    label: Exclusions or must-not-do rules
+    status_default: inferred
+    required_for:
+      - risk_sensitive_workflows
+    save_policy: save_if_user_confirms
+  - key: timeline_risk_approval
+    label: Timeline, urgency, risk, or approval requirements
+    status_default: inferred
+    required_for:
+      - delivery_sensitive_workflows
+    save_policy: confirm_before_save
+  - key: recommended_skill
+    label: Recommended related skill
+    status_default: inferred
+    required_for:
+      - routing
+    save_policy: current_run_only
+
+input_families:
+  - freeform_brief
+  - client_or_project_name
+  - website_or_staging_url
+  - figma_link
+  - github_repo_issue_pr_or_branch
+  - google_doc_sheet_slide_or_drive_folder
+  - asana_task_or_project
+  - linear_issue_project_or_initiative
+  - gmail_thread
+  - slack_thread_or_channel
+  - zendesk_ticket
+  - recording_or_transcript
+  - uploaded_file_or_screenshot
+  - questionnaire_or_checklist
+  - qa_notes_or_launch_findings
+  - customer_feedback_or_support_signal
+  - pricing_estimate_or_proposal_notes
+
+routing_modes:
+  - onboard_only
+  - route_only
+  - onboard_then_route
+  - direct_execution
+
+token_extraction:
+  - brand
+  - client
+  - project_name
+  - website_domain
+  - repository
+  - design_file
+  - audience
+  - offer
+  - services_products
+  - content_types
+  - design_direction
+  - technical_requirements
+  - integrations
+  - source_assets
+  - approved_sources
+  - candidate_sources
+  - exclusions
+  - legal_privacy_requirements
+  - claims
+  - approval_owners
+  - launch_handoff_requirements
+  - risks
+  - missing_blockers
+  - requested_output
+  - downstream_skill_hint
+
+source_register_item:
+  source_name:
+  source_type:
+  location:
+  evidence_status: confirmed | inferred | defaulted | missing | unsupported
+  approval_status: approved | candidate | unverified | rejected | needs_review
+  owner:
+  notes:
+
+claim_register_item:
+  claim:
+  claim_type:
+  source:
+  evidence_status: confirmed | inferred | defaulted | missing | unsupported
+  risk_level: low | medium | high
+  approved_for_use: yes | no | needs_review
+  reviewer:
+  notes:
+
+claim_register_triggers:
+  - regulated_content
+  - pricing_or_roi_claims
+  - conversion_or_ranking_claims
+  - testimonials_or_case_studies
+  - externally_published_factual_claims
+  - compliance_or_suitability_defaults
+  - ai_generated_recommendations_with_decision_impact
+  - performance_security_or_accessibility_claims
+  - comparative_or_competitor_claims
+
+approval_dimensions:
+  - approved_sources
+  - exclusions
+  - reviewer_ownership
+  - approval_gate
+  - handoff_requirements
+  - client_safe_boundary
+  - internal_only_boundary
+
+memory_buckets:
+  - current_run_context
+  - project_memory_candidates
+  - confirmed_project_memory
+  - unsafe_or_unverified_memory
+
+memory_schema:
+  project_anchor:
+    status: missing
+    save_policy: confirm_before_save
+  project_type:
+    status: inferred
+    save_policy: confirm_before_save
+  primary_goal:
+    status: confirmed
+    save_policy: save_if_user_confirms
+  audience:
+    status: inferred
+    save_policy: confirm_before_save
+  source_assets:
+    status: confirmed
+    save_policy: save_links_only_if_confirmed
+  approved_sources:
+    status: missing
+    save_policy: confirm_before_save
+  exclusions:
+    status: confirmed
+    save_policy: save_if_user_confirms
+  approval_requirements:
+    status: inferred
+    save_policy: confirm_before_save
+  preferred_source_priority:
+    status: defaulted
+    save_policy: confirm_before_save
+  risk_flags:
+    status: inferred
+    save_policy: do_not_save_without_review
+  smart_defaults:
+    status: defaulted
+    save_policy: current_run_only
+  claim_register_required:
+    status: inferred
+    save_policy: confirm_before_save
+  recommended_skill:
+    status: inferred
+    save_policy: current_run_only

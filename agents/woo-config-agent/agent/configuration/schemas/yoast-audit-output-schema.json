@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yoast Audit Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "environment_reviewed",
+    "scope",
+    "findings",
+    "risks",
+    "priority_actions"
+  ],
+  "properties": {
+    "environment_reviewed": {"type": "string", "minLength": 1},
+    "scope": {"type": "string", "minLength": 1},
+    "findings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["priority", "issue", "impact"],
+        "properties": {
+          "priority": {"type": "string", "enum": ["critical", "high", "medium", "low"]},
+          "issue": {"type": "string", "minLength": 1},
+          "impact": {"type": "string", "minLength": 1},
+          "proposed_edit": {"type": "string"}
+        }
+      }
+    },
+    "risks": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "priority_actions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "scope_reviewed": {"type": "string", "minLength": 1},
+    "overall_summary": {"type": "string", "minLength": 1},
+    "recommended_next_actions": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  }
+}

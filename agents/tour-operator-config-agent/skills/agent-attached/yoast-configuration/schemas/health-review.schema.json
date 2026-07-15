@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yoast Health Review",
+  "type": "object",
+  "required": ["site", "review_date", "review_type", "evidence_level", "overall_status", "confidence", "deeper_audit_required"],
+  "properties": {
+    "site": {"type": "string"},
+    "review_date": {"type": "string"},
+    "review_type": {"type": "string", "enum": ["monthly", "quarterly", "post_launch", "post_update", "portfolio", "ad_hoc"]},
+    "evidence_level": {"type": "string", "enum": ["none", "partial", "settings_export", "rendered_output", "crawl_export", "live_verified", "mixed"]},
+    "overall_status": {"type": "string", "enum": ["green", "light_amber", "amber", "red", "critical", "unscored"]},
+    "configuration_health_score": {"type": ["integer", "null"], "minimum": 0, "maximum": 100},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low", "insufficient"]},
+    "top_risks": {"type": "array", "items": {"type": "string"}},
+    "changed_since_last_review": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_actions": {"type": "array", "items": {"type": "string"}},
+    "deeper_audit_required": {"type": "boolean"}
+  },
+  "additionalProperties": false
+}
