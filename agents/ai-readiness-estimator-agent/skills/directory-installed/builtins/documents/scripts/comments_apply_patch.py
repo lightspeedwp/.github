@@ -77,7 +77,8 @@ def _set_comment_text(comment: etree._Element, text: str) -> None:
 
 
 def apply_patch(in_docx: str, patch_path: str, out_docx: str) -> None:
-    patch = json.loads(open(patch_path, "r", encoding="utf-8").read())
+    with open(patch_path, "r", encoding="utf-8") as patch_file:
+        patch = json.loads(patch_file.read())
     ops = patch.get("ops") or []
 
     with zipfile.ZipFile(in_docx, "r") as zin:
