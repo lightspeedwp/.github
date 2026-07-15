@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { glob } from "glob";
 import matter from "gray-matter";
 import micromatch from "micromatch";
-import YAML from "js-yaml";
+import * as YAML from "js-yaml";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 

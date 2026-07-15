@@ -19,7 +19,7 @@
  */
 
 import fs from "fs";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import {
