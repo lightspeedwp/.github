@@ -33,4 +33,6 @@ exclude = [
   # External reference links that occasionally time out in CI
   "^https?://www\\.gnu\\.org/licenses/gpl-3\\.0",
   "^https?://www\\.w3\\.org/WAI/WCAG22/quickref/",
+  "^https?://semver\\.org",
+  "^https?://keepachangelog\\.com",
 ]
