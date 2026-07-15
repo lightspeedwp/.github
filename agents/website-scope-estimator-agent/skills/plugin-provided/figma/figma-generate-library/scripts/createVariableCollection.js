@@ -19,33 +19,31 @@
  */
 async function createVariableCollection(name, modeNames, runId) {
   if (!modeNames || modeNames.length === 0) {
-    throw new Error(
-      "createVariableCollection: modeNames must have at least one entry.",
-    );
+    throw new Error('createVariableCollection: modeNames must have at least one entry.')
   }
 
   // Create the collection — Figma always creates it with one mode named "Mode 1".
-  const collection = figma.variables.createVariableCollection(name);
+  const collection = figma.variables.createVariableCollection(name)
 
   // Tag for idempotent cleanup
-  collection.setPluginData("dsb_key", `collection/${name}`);
+  collection.setPluginData('dsb_key', `collection/${name}`)
   if (runId) {
-    collection.setPluginData("dsb_run_id", runId);
+    collection.setPluginData('dsb_run_id', runId)
   }
 
   // modeIds accumulator
-  const modeIds = {};
+  const modeIds = {}
 
   // Rename the default first mode
-  const defaultMode = collection.modes[0];
-  collection.renameMode(defaultMode.modeId, modeNames[0]);
-  modeIds[modeNames[0]] = defaultMode.modeId;
+  const defaultMode = collection.modes[0]
+  collection.renameMode(defaultMode.modeId, modeNames[0])
+  modeIds[modeNames[0]] = defaultMode.modeId
 
   // Add additional modes
   for (let i = 1; i < modeNames.length; i++) {
-    const newModeId = collection.addMode(modeNames[i]);
-    modeIds[modeNames[i]] = newModeId;
+    const newModeId = collection.addMode(modeNames[i])
+    modeIds[modeNames[i]] = newModeId
   }
 
-  return { collection, modeIds };
+  return { collection, modeIds }
 }
