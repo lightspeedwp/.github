@@ -37,6 +37,7 @@ Use the master runner after meaningful changes to:
 ## What the current validators cover
 
 ### File-tree and reference checks
+
 - file naming
 - reference-link integrity
 - instruction-to-file consistency
@@ -44,11 +45,13 @@ Use the master runner after meaningful changes to:
 - required file presence for the current validation pack
 
 ### Agent presentation checks
+
 - app-usage consistency
 - starter-prompt consistency
 - short-description consistency
 
 ### File-quality checks
+
 - folder schema validation
 - memory file validation
 - reusable file schema validation

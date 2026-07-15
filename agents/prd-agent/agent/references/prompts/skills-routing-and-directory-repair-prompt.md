@@ -7,12 +7,14 @@ Use this prompt after running the skills-routing and directory validation prompt
 Run a focused repair pass over this agent’s skills-routing and skills-directory layer using the findings from the most recent validation pass.
 
 Goals:
+
 - repair the concrete skills-routing and skills-directory issues found by validation
 - preserve the accepted routing model, attached-skill layer, and parity decisions unless a validated inconsistency requires a correction
 - tighten discoverability, inventory accuracy, naming consistency, routing clarity, and repair auditability
 - leave the agent easier to rebuild, hand off, promote, and validate again
 
 Repair priorities:
+
 1. repair any mismatch between the real attached-skill layer and the skill-routing language in the agent instructions
 2. repair stale, missing, or misleading skill names in prompts, references, rollout docs, inventories, README-style files, examples, fixtures, or validation notes
 3. repair any skills-directory or inventory drift so the documented skill layer matches the real attached skills and current parity state
@@ -21,6 +23,7 @@ Repair priorities:
 6. repair validation-oriented wording where it no longer matches the current attached skills, current routing model, or current directory structure
 
 Scope guidance:
+
 - update the agent instructions only where the validation findings show concrete routing drift
 - update prompts in `prompts/` that contain stale or misleading skill-routing or skills-directory guidance
 - update references, inventories, rollout notes, and README-style inventory files where skill drift is visible
@@ -28,6 +31,7 @@ Scope guidance:
 - improve cross-links where the repair materially improves discoverability of routing, validation, parity, promotion, or manual-resolution flows
 
 Constraints:
+
 - do not invent replacement skills
 - do not silently rename parity-tracked or already-attached skills
 - do not claim full parity if exact-name or exact-role gaps still remain unresolved
@@ -36,6 +40,7 @@ Constraints:
 - do not make speculative cleanup edits that are not tied to an actual validation finding
 
 Repair standard:
+
 - make only high-signal repairs
 - preserve accepted product decisions where possible
 - prefer the smallest safe edit that resolves the documented mismatch
@@ -46,6 +51,7 @@ Repair standard:
   - which remaining gaps require manual resolution or a later parity decision
 
 ## When to use it
+
 - immediately after a skills-routing and directory validation pass
 - after attaching a new batch of skills and finding documentation drift
 - before promotion when the attached-skill layer and documented inventory need to be brought back into sync

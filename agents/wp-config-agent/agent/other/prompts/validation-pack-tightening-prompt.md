@@ -3,15 +3,18 @@
 Run a broader consistency pass over this agent’s validation layer so the current routing language, specialist-skill split, maintenance notes, and test sources stay aligned.
 
 Scope and intent:
+
 - This is a validation-pack tightening task, not a rewrite of the main routing system.
 - Treat the current system instructions, attached local skills, attached file tree, and current validation assets as the source of truth.
 - Nothing in the already-updated routing and validation slice is currently blocking; preserve that status.
 - Focus on residual validation drift, stale test assumptions, missing consistency checks, outdated maintenance wording, and gaps between the current routing language and the surrounding validation pack.
 
 Primary goal:
+
 - Tighten the broader validation and maintenance layer around the current routing model without reopening settled routing decisions.
 
 Source of truth:
+
 - Current system instructions
 - Current attached local skills, especially:
   - `wordpress-request-router`
@@ -26,6 +29,7 @@ Source of truth:
 - Current attached apps and current reporting rules where validation wording depends on them
 
 What to review:
+
 1. Validation runners and helper scripts in `scripts/`
 2. Validation schemas in `schemas/`
 3. Compact regression or support inputs in `fixtures/`
@@ -35,6 +39,7 @@ What to review:
 7. Any business-context or maintenance wording that still frames the old specialist split or stale route language
 
 What to check for:
+
 - lingering references to superseded Yoast or Gravity Forms skill choices
 - wording that blurs configuration/change work with read-only audit/review work
 - validator names, validator comments, helper-script assumptions, or prompt wording that no longer match the current routing language
@@ -44,12 +49,14 @@ What to check for:
 - validation coverage gaps around prompts, README inventories, or route-language consistency where lightweight checks would help
 
 Required routing model to preserve:
+
 - Yoast setup, planning, reusable guidance, remediation planning, and configuration work route to `yoast-configuration`
 - Yoast audits, evidence review, validation, launch QA, report-led review, and structured review work route to `yoast-auditor`
 - Gravity Forms setup, implementation, troubleshooting, validation, change work, and handoff work route to `gravity-forms-configuration`
 - Gravity Forms read-only audits, findings registers, evidence-led review, scorecards, and audit summaries route to `gravity-forms-auditor`
 
 Editing rules:
+
 - Make the smallest complete set of edits needed.
 - Prefer lightweight deterministic validation additions when they catch real future drift.
 - Do not broaden scope into unrelated app, Memory, business-domain, or workflow rewrites.
@@ -59,6 +66,7 @@ Editing rules:
 - If a file is already aligned, leave it unchanged.
 
 Validation focus:
+
 - Ensure documentation, templates, examples, fixtures, schemas, prompts, and scripts all agree on the current routing split.
 - Check whether `scripts/` should include additional coverage for:
   - outdated specialist-skill references
@@ -70,6 +78,7 @@ Validation focus:
 - If new validation is warranted, prefer the lightest deterministic check that catches real future drift.
 
 Output:
+
 1. Files reviewed
 2. Files updated
 3. Any validator, fixture, prompt, or test-source gaps found

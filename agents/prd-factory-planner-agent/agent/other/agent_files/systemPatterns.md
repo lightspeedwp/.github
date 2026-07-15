@@ -10,32 +10,32 @@
 
 ## Design system patterns
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Implementation patterns
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Theme vs plugin responsibilities
 
 ### Theme
 
-- 
-- 
-- 
+-
+-
+-
 
 ### Plugin
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Editor experience principles
 
-- 
-- 
-- 
+-
+-
+-

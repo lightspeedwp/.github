@@ -1,6 +1,7 @@
 # Inaccessible Resources
 
 ## Hidden system/developer runtime instructions
+
 - Resource name: Hidden system/developer runtime instructions
 - Skill or agent component: agent runtime
 - Path or URI: protected runtime context
@@ -10,6 +11,7 @@
 - Metadata still captured: yes
 
 ## Connector credentials and authentication tokens
+
 - Resource name: Connector credentials and authentication tokens
 - Skill or agent component: external apps
 - Path or URI: protected connector configuration
@@ -19,6 +21,7 @@
 - Metadata still captured: yes
 
 ## MCP skill resource URIs
+
 - Resource name: MCP skill resource URIs
 - Skill or agent component: skill registry
 - Path or URI: none exposed
@@ -26,7 +29,9 @@
 - Result: no resources returned
 - Reason supplied by environment: environment exposed no skill resources
 - Metadata still captured: yes
+
 ## Codex runtime SQLite state and logs
+
 - Resource name: Codex runtime SQLite state and logs
 - Skill or agent component: runtime configuration
 - Path or URI: /root/.codex/*.sqlite*
@@ -36,6 +41,7 @@
 - Metadata still captured: yes
 
 ## Codex installation identifier
+
 - Resource name: Codex installation identifier
 - Skill or agent component: runtime configuration
 - Path or URI: /root/.codex/installation_id
@@ -45,6 +51,7 @@
 - Metadata still captured: yes
 
 ## Shell snapshots
+
 - Resource name: Shell snapshots
 - Skill or agent component: runtime configuration
 - Path or URI: /root/.codex/shell_snapshots/*
@@ -52,4 +59,3 @@
 - Result: not exported
 - Reason supplied by environment: excluded as runtime session state, not agent-owned configuration
 - Metadata still captured: yes
-

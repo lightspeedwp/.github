@@ -1,6 +1,7 @@
 # Audit, Docs, and Validation Workflow
 
 Grounded note from the current file set:
+
 - `memory/` currently contains the agent’s active Markdown memory files directly
 - there is **no `memory/defaults/` folder** in the current file set
 - schema and validation assets currently live under `schemas/` and `scripts/`
@@ -251,6 +252,7 @@ Acceptance criteria:
 ```
 
 ## Recommended order
+
 1. **Prompt 1** — audit and deletion decisions
 2. **Prompt 2** — instructions, README files, `CONNECTORS.md`
 3. **Prompt 3** — validator implementation

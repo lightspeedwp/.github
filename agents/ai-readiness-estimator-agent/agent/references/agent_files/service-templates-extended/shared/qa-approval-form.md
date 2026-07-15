@@ -18,6 +18,7 @@ Use this form to document quality assurance checks and formal sign‑off before 
 ## Acceptance Criteria
 
 {{#acceptance_criteria}}
+
 - [ ] {{.}}
 {{/acceptance_criteria}}
 
@@ -35,6 +36,7 @@ Use this form to document quality assurance checks and formal sign‑off before 
 ## Package‑Specific QA
 
 {{#package_qa_checks}}
+
 - [ ] {{.}}
 {{/package_qa_checks}}
 

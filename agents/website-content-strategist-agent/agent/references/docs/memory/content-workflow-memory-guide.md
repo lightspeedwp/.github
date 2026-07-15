@@ -3,6 +3,7 @@
 Use this guide for page, policy, newsletter, form, responder, and chatbot-intake workflows.
 
 ## Save in Memory
+
 - confirmed page type or content type
 - template family that should normally be used
 - approved CTA model or destination pattern
@@ -13,6 +14,7 @@ Use this guide for page, policy, newsletter, form, responder, and chatbot-intake
 - recurring claim sensitivity or approval sensitivity that affects future related work
 
 ## Do not save in Memory
+
 - temporary draft variants
 - unapproved claims
 - raw source copy pasted from documents

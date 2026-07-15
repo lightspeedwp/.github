@@ -15,16 +15,19 @@ tab_handling: "single-page output from the provided source link"
 ## Client and project details
 
 ### Client / organisation name
+>
 > Guidance: Confirm spelling and legal suffix.
 
 **Answer:** Use the registered business name.
 
 ### Primary contact
+>
 > Guidance: Use one accountable decision-maker where possible.
 
 **Answer:** Name, role, email and phone number.
 
 ### Website or project name
+>
 > Guidance: This may differ from the legal entity.
 
 **Answer:** Use the public brand name.
@@ -36,8 +39,8 @@ tab_handling: "single-page output from the provided source link"
 ### Decision makers and contributors
 
 **Answer:** Primary approver; content owner; technical contact.
-> 
-> 
+>
+>
 
 ## Brand and visual identity
 
@@ -48,10 +51,10 @@ tab_handling: "single-page output from the provided source link"
 ### Brand colours
 
 **Answer:** Use existing brand palette; confirm primary, secondary, neutral and CTA colours.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Typography preferences
 
@@ -60,44 +63,44 @@ tab_handling: "single-page output from the provided source link"
 ### Brand personality
 
 **Answer:** Choose 3-5 adjectives that should guide design decisions.
-> 
-> 
-> 
+>
+>
+>
 
 ## Design references
 
 ### Websites you like
 
 **Answer:** List URLs and what you like about each: layout, colour, typography, imagery, flow.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Websites you dislike
 
 **Answer:** List URLs and what to avoid.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Competitor sites
 
 **Answer:** List competitor URLs and useful observations.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Moodboard notes
 
 **Answer:** Describe the desired look and feel in plain language.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ## Layout and UX preferences
 
@@ -115,11 +118,11 @@ tab_handling: "single-page output from the provided source link"
 ### Page structure notes
 
 **Answer:** List any required page sections and preferred ordering.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Accessibility requirements
 
@@ -128,6 +131,6 @@ tab_handling: "single-page output from the provided source link"
 ### Files to supply
 
 **Answer:** Logo, brand guide, imagery, icon examples, existing PDFs, design references.
-> 
-> 
+>
+>
 >

@@ -7,6 +7,7 @@ This is a maintenance implementation task. Do not just review. Update the stale 
 ## Scope
 
 Inspect and update, where relevant:
+
 - the current saved agent instructions
 - `tests/app-usage-consistency-source.md`
 - `tests/validation-readme.md`
@@ -16,6 +17,7 @@ Inspect and update, where relevant:
 ## Source of truth
 
 Use these as the source of truth:
+
 - the apps currently attached to the draft
 - the current saved agent instructions
 - the current attached file tree

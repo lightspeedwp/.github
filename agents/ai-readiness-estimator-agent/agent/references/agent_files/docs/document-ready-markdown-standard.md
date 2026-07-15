@@ -5,6 +5,7 @@
 Use this file as the formatting standard for polished outputs created by the **AI Readiness Estimator**.
 
 Apply these rules whenever the user wants a document-ready result, including:
+
 - AI readiness estimates
 - proposal-ready briefs
 - structured audit outputs
@@ -17,6 +18,7 @@ The goal is to produce Markdown that is clean, consistent, easy to scan, and rea
 ## Core Output Goal
 
 Create a professional, highly structured Markdown document that:
+
 - reads like a finished deliverable rather than a chat reply
 - uses consistent formatting from top to bottom
 - makes key information easy to find quickly
@@ -26,6 +28,7 @@ Create a professional, highly structured Markdown document that:
 ## When To Use This Standard
 
 Use this standard when the user asks for output such as:
+
 - a polished brief
 - a structured working document
 - a client-ready Markdown document
@@ -55,6 +58,7 @@ Do not include more than one H1.
 Always place valid YAML frontmatter at the top of the document using triple-dashed lines.
 
 Required fields:
+
 - `version`
 - `title`
 - `date`
@@ -76,6 +80,7 @@ status: "draft"
 ### Frontmatter Defaults
 
 Unless the user specifies otherwise:
+
 - use timezone `Africa/Johannesburg`
 - use status `draft`
 - use a title that matches the actual document purpose closely
@@ -109,6 +114,7 @@ Use heading levels consistently.
 Use `---` as the section divider.
 
 Requirements:
+
 - place one standalone divider immediately after the closing frontmatter fence and before the H1
 - place one divider between every major H2 section
 - place one final divider at the very bottom of the document
@@ -127,6 +133,7 @@ Use Markdown deliberately and only where it improves readability.
 ### Use emphasis carefully
 
 Use **bold** for:
+
 - key labels
 - key decisions
 - important takeaways
@@ -137,11 +144,13 @@ Use *italics* sparingly for nuance or light emphasis.
 ### Use special formatting only when justified
 
 Use blockquotes only for:
+
 - quoted instructions
 - source statements
 - notable framing lines
 
 Use code blocks only for:
+
 - literal text to reuse
 - templates
 - commands
@@ -175,6 +184,7 @@ Every document should feel deliberate and publication-ready.
 When the work happened across multiple stages, make that progression visible in the document.
 
 For example, use sections such as:
+
 - **Initial Brief**
 - **Clarifications Requested**
 - **Revised Brief**
@@ -185,6 +195,7 @@ For example, use sections such as:
 If different stage names are more appropriate, keep the progression explicit, logical, and easy to follow.
 
 Reflect the evolution of the brief when:
+
 - additional information was requested
 - earlier assumptions were corrected
 - the recommendation changed after review
@@ -197,6 +208,7 @@ Because this agent produces AI readiness estimates, package recommendations, aud
 ### For estimates and proposal-ready documents
 
 Prioritise clear separation between:
+
 - **Assessment Summary**
 - **Recommended Base Package**
 - **Included Scope**
@@ -215,6 +227,7 @@ If the estimate or brief evolved over several interactions, make that progressio
 Use polished, practical language that reads well in a formal LightSpeed working document.
 
 Keep the output structured and clean enough to paste into:
+
 - a proposal draft
 - an internal scoping document
 - an audit summary
@@ -239,6 +252,7 @@ Before finalising a document, silently confirm that:
 ## Failure Conditions To Avoid
 
 Do not:
+
 - omit the YAML frontmatter
 - forget to update the version
 - place text above the frontmatter

@@ -27,14 +27,17 @@ Use this template for internal LightSpeed AI-readiness estimates where the recom
 This estimate is based on the evidence currently available and should be treated as a grounded internal recommendation rather than a final commercial commitment.
 
 **Verified facts**
+
 - [Insert evidence-backed fact]
 - [Insert evidence-backed fact]
 - [Insert evidence-backed fact]
 
 **Working assumption**
+
 - [Insert the minimum assumption needed to proceed]
 
 **What this means**
+
 - [Summarise the current package-routing position]
 - [Summarise what remains provisional]
 
@@ -45,15 +48,18 @@ This estimate is based on the evidence currently available and should be treated
 The recommended base package is **[Insert base package]**.
 
 **Why this package fits**
+
 - [Explain why the chosen base package is the best fit]
 - [Explain why the client appears to need this stage first]
 - [Explain why the current evidence supports this route]
 
 **Why the alternatives fit less well right now**
+
 - [Name the main alternative and why it is not preferred]
 - [Name another alternative and why it is not preferred]
 
 **Commercial position**
+
 - **Status:** [Provisional / Audit-first / Approval-dependent / Custom-scope]
 - **Fixed-fee confidence:** [Low / Medium / High / Not yet confirmed]
 - **Reason:** [Explain the main blocker or confidence factor]
@@ -70,6 +76,7 @@ If this route is confirmed, the estimate should assume the following included sc
 - [Included scope item]
 
 **Expected internal deliverables**
+
 - [Deliverable]
 - [Deliverable]
 - [Deliverable]
@@ -86,6 +93,7 @@ This estimate does not currently assume inclusion of:
 - [Excluded scope item]
 
 **Boundary note**
+
 - [Explain the main scope boundary or approval dependency]
 
 ---
@@ -95,10 +103,12 @@ This estimate does not currently assume inclusion of:
 [State whether add-ons are recommended yet. Default to none until the base package is confirmed and evidence supports follow-on scope.]
 
 **Current position**
+
 - [Recommended now / Not recommended yet]
 - [Short reason]
 
 **Add-ons to review later if justified by evidence**
+
 - [Add-on name]: [Why it may become relevant]
 - [Add-on name]: [Why it may become relevant]
 
@@ -117,6 +127,7 @@ The estimate cannot move beyond a provisional audit-first position until these v
 - [Any major technical or governance dependency]
 
 **Evidence quality note**
+
 - [Explain what is still missing, stale, contradictory, or unverified]
 
 ---
@@ -131,6 +142,7 @@ The recommendation should move out of standard fixed-fee handling if later evide
 - [Risk or custom-scope trigger]
 
 **Risk stance**
+
 - [Summarise the current risk position honestly]
 
 ---
@@ -140,6 +152,7 @@ The recommendation should move out of standard fixed-fee handling if later evide
 The immediate next step is to gather the missing routing inputs and complete the baseline review needed to confirm package fit.
 
 **Recommended immediate action**
+
 1. [Action]
 2. [Action]
 3. [Action]

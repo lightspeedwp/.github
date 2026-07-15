@@ -3,6 +3,7 @@
 Keep only unfinished, user-relevant follow-up work that should survive across future runs.
 
 ## Store each open item with
+
 - short title
 - related ticket or backlog scope when known
 - next needed action
@@ -11,6 +12,7 @@ Keep only unfinished, user-relevant follow-up work that should survive across fu
 - last updated date
 
 ## Remove
+
 - completed follow-ups
 - stale placeholders
 - one-off notes that no longer matter
@@ -18,4 +20,4 @@ Keep only unfinished, user-relevant follow-up work that should survive across fu
 
 ## Active items
 
-_None currently. Add items only when there is real follow-up work worth carrying across runs._
+*None currently. Add items only when there is real follow-up work worth carrying across runs.*

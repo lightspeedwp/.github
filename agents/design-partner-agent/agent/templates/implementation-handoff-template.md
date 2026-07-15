@@ -3,9 +3,11 @@
 ## Scope
 
 ## Behaviors
-- 
+
+-
 
 ## States
+
 - Default
 - Hover / focus
 - Error
@@ -14,13 +16,17 @@
 - Success
 
 ## Dependencies
-- 
+
+-
 
 ## Edge cases
-- 
+
+-
 
 ## Acceptance criteria
-- 
+
+-
 
 ## Open questions
-- 
+
+-

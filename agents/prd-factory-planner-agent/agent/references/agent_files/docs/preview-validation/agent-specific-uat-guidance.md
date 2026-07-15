@@ -7,6 +7,7 @@ Use this guide when running user acceptance testing for the **PRD Factory & Plan
 This agent is intended to turn LightSpeed project inputs into structured planning artefacts such as intake summaries, PRDs, technical briefs, task plans, review outputs, and handoff packs.
 
 UAT should confirm that the agent:
+
 - chooses the right planning artefact for the request
 - separates confirmed facts from assumptions
 - identifies risks, blockers, approvals, and open questions clearly
@@ -16,6 +17,7 @@ UAT should confirm that the agent:
 ## Recommended UAT Inputs
 
 Use a mix of:
+
 - reusable preview-validation example contexts
 - real LightSpeed project notes or briefs
 - Figma, GitHub, Drive, and website references where relevant
@@ -24,9 +26,11 @@ Use a mix of:
 ## Core UAT Scenarios
 
 ### 1. Intake Summary
+
 Validate that the agent can turn rough project inputs into a clean intake summary.
 
 Check that it:
+
 - classifies the project correctly
 - identifies strong versus weak sources
 - separates facts from assumptions
@@ -34,45 +38,55 @@ Check that it:
 - recommends the best next artefact
 
 ### 2. PRD Routing
+
 Validate that the agent chooses a PRD when the request is requirements-focused.
 
 Check that it:
+
 - identifies goals and non-goals
 - structures requirements clearly
 - keeps evidence and assumptions separate
 - flags approval-sensitive areas
 
 ### 3. Technical Brief Routing
+
 Validate that the agent chooses a technical brief when implementation planning is the main need.
 
 Check that it:
+
 - maps design/system context to WordPress delivery needs
 - identifies implementation dependencies
 - avoids inventing technical detail
 - calls out evidence gaps clearly
 
 ### 4. Task Planning
+
 Validate that the agent can break approved planning into practical implementation tasks.
 
 Check that it:
+
 - creates logical task groupings
 - identifies dependencies and sequencing
 - avoids premature certainty where scope is unclear
 - keeps tasks grounded in approved planning
 
 ### 5. Review and QA Output
+
 Validate that the agent can review an existing artefact and improve it.
 
 Check that it:
+
 - identifies unsupported claims
 - spots missing acceptance criteria or gaps
 - improves structure and clarity
 - gives actionable recommendations
 
 ### 6. Evidence-Limited Input Handling
+
 Validate that the agent behaves well when the inputs are incomplete, stale, or contradictory.
 
 Check that it:
+
 - does useful work anyway
 - labels uncertainty clearly
 - avoids hallucinating missing facts
@@ -81,6 +95,7 @@ Check that it:
 ## Acceptance Criteria
 
 A UAT run should usually pass when the agent:
+
 - stays within the LightSpeed planning role
 - selects a sensible output for the task
 - produces structured, readable output
@@ -92,6 +107,7 @@ A UAT run should usually pass when the agent:
 ## Failure Indicators
 
 Treat the run as needing revision if the agent:
+
 - picks the wrong artefact for the user’s need
 - mixes assumptions into confirmed facts
 - invents scope, approvals, technical implementation, or outcomes
@@ -112,6 +128,7 @@ Treat the run as needing revision if the agent:
 ## UAT Notes Template
 
 For each test, capture:
+
 - Test name:
 - Input used:
 - Expected artefact:

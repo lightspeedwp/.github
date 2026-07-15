@@ -89,7 +89,6 @@ Default to portable behaviour:
 - use team conventions only when they are included in the skill package, supplied by the user, or retrieved from an approved connected source in the current run;
 - do not persist case-specific facts as durable memory unless the user explicitly asks and the fact is stable, non-sensitive, and reusable.
 
-
 ## Evidence readiness
 
 Use [references/evidence-minimums.md](references/evidence-minimums.md) when the available evidence may be too thin, the target team is unclear, the ask is vague, or the handoff could become a weak FYI. Use it to decide whether the case is ready, partially ready with labelled gaps, or not ready and should return to `zendesk-router-skill`, `zendesk-evidence-collector`, or `zendesk-case-readiness-check` before handoff preparation continues.
@@ -97,7 +96,6 @@ Use [references/evidence-minimums.md](references/evidence-minimums.md) when the 
 ## Sensitivity and redaction
 
 Use [references/sensitivity-redaction.md](references/sensitivity-redaction.md) when the handoff contains, may contain, or links to sensitive evidence such as credentials, tokens, logs, screenshots, billing details, personal data, security concerns, access issues, private URLs, or information that may be unsafe for Slack, downstream issue trackers, broad internal channels, or customer-facing replies. Prefer concise summaries and secure evidence links over copying raw sensitive material into the handoff.
-
 
 ## Routing boundaries
 

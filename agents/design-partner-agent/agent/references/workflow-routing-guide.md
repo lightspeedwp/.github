@@ -1,6 +1,7 @@
 # Workflow Routing Guide
 
 Use this order:
+
 1. Classify the job.
 2. If context is contradictory, synthesize first.
 3. If context is fragmented, create an execution packet.

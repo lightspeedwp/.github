@@ -5,6 +5,7 @@ Use this manifest to adapt the attached local `yoast-configuration` skill so it 
 ## Purpose
 
 This manifest classifies the current `yoast-configuration` skill-package files into four groups:
+
 - **Keep** — retain as-is or with only light spot-checking
 - **Rewrite** — keep the file, but remove WooCommerce-specific or other out-of-scope assumptions
 - **Split** — move to a separate WooCommerce-focused companion skill/package if you want to preserve that capability
@@ -15,6 +16,7 @@ This manifest classifies the current `yoast-configuration` skill-package files i
 This agent is currently treated as a **purely WordPress-focused agent**.
 
 That means:
+
 - no WooCommerce-specific defaults should remain in the core `yoast-configuration` package for this agent
 - no `tour operator configuration agent` assumptions should remain
 - WordPress-relevant Yoast planning, configuration, migration, multilingual, taxonomy, schema, metadata, and launch-readiness guidance should remain
@@ -26,6 +28,7 @@ That means:
 These files appear broadly reusable for a WordPress-only Yoast configuration skill. They should still be spot-checked for stray WooCommerce wording, but they do not look structurally tied to WooCommerce.
 
 ### Core docs and examples
+
 - `docs/current-verification-playbook.md`
 - `docs/research-workflow.md`
 - `examples/migration-audit-example.md`
@@ -33,12 +36,14 @@ These files appear broadly reusable for a WordPress-only Yoast configuration ski
 - `examples/standard-business-site-example.md`
 
 ### Memory defaults and schemas likely worth keeping
+
 - `memory/defaults/agency-defaults.md`
 - `memory/defaults/schema-defaults.md`
 - `memory/defaults/standard-yoast-defaults.md`
 - `memory/schemas/configuration-memory.schema.json`
 
 ### WordPress-oriented profiles
+
 - `profiles/business-website.md`
 - `profiles/local-business.md`
 - `profiles/migration-rebuild.md`
@@ -46,6 +51,7 @@ These files appear broadly reusable for a WordPress-only Yoast configuration ski
 - `profiles/publisher-blog.md`
 
 ### Templates likely worth keeping
+
 - `templates/ai-metadata-approval-pack.md`
 - `templates/client-safe-summary.md`
 - `templates/content-structure-remediation-plan.md`
@@ -78,6 +84,7 @@ These files appear broadly reusable for a WordPress-only Yoast configuration ski
 - `templates/yoast-troubleshooting-note.md`
 
 ### Keep rule
+
 - Keep these files in the package.
 - Spot-check for stray WooCommerce wording before final release.
 
@@ -88,10 +95,12 @@ These files appear broadly reusable for a WordPress-only Yoast configuration ski
 These files should remain in the package, but they currently include WooCommerce-specific assumptions, wording, enums, routes, or examples that should be removed or rewritten.
 
 ### Identity and routing
+
 - `SKILL.md`
 - `agents/openai.yaml`
 
 ### Docs
+
 - `docs/changelog.md`
 - `docs/evidence-policy.md`
 - `docs/maintenance-guide.md`
@@ -99,6 +108,7 @@ These files should remain in the package, but they currently include WooCommerce
 - `docs/usage-guide.md`
 
 ### Examples and fixtures with mixed scope
+
 - `examples/memory/example-client-site-profile.md`
 - `examples/templates/qa-report-template.md`
 - `fixtures/sample-ai-metadata-item.json`
@@ -112,11 +122,13 @@ These files should remain in the package, but they currently include WooCommerce
 - `fixtures/sample-yoast-settings-export.json`
 
 ### Intake and memory schemas
+
 - `intake/client-site-intake.md`
 - `intake/wordpress-site-intake.md`
 - `memory/schemas/client-site-profile.schema.json`
 
 ### References
+
 - `references/agency-defaults-drift-model.md`
 - `references/ai-assisted-seo-workflow.md`
 - `references/ai-metadata-review-model.md`
@@ -151,6 +163,7 @@ These files should remain in the package, but they currently include WooCommerce
 - `references/yoast-health-score-model.md`
 
 ### Schemas
+
 - `schemas/ai-metadata-item.schema.json`
 - `schemas/audit-finding.schema.json`
 - `schemas/bulk-metadata-change.schema.json`
@@ -163,6 +176,7 @@ These files should remain in the package, but they currently include WooCommerce
 - `schemas/yoast-setting.schema.json`
 
 ### Scripts
+
 - `scripts/generate_qa_checklist.py`
 - `scripts/validate_reference_data.py`
 - `scripts/validate_skill_structure.py`
@@ -170,6 +184,7 @@ These files should remain in the package, but they currently include WooCommerce
 - `scripts/validate_taxonomy_pack.py`
 
 ### Tests
+
 - `tests/ai-assisted-seo-scenario-tests.md`
 - `tests/artefact-review-scenario-tests.md`
 - `tests/audit-triage-scenario-tests.md`
@@ -185,6 +200,7 @@ These files should remain in the package, but they currently include WooCommerce
 - `tests/research-pack-scenario-tests.md`
 
 ### Rewrite rule
+
 - Keep these files in the package.
 - Remove WooCommerce-specific wording, references, enums, scenarios, routes, and examples.
 - Replace them with WordPress-only Yoast equivalents where needed.
@@ -196,6 +212,7 @@ These files should remain in the package, but they currently include WooCommerce
 These files are structurally WooCommerce-focused. If you want to preserve WooCommerce capability, move them into a separate WooCommerce-specific companion skill/package.
 
 ### Clear WooCommerce-focused assets
+
 - `examples/woocommerce-store-example.md`
 - `fixtures/sample-woocommerce-taxonomies.json`
 - `intake/woocommerce-intake.md`
@@ -207,6 +224,7 @@ These files are structurally WooCommerce-focused. If you want to preserve WooCom
 - `tests/woocommerce-scenario-tests.md`
 
 ### Split rule
+
 - Prefer **split** over delete if WooCommerce support may be useful later.
 - Group these into a future skill such as a WooCommerce-specific Yoast configuration package.
 
@@ -217,6 +235,7 @@ These files are structurally WooCommerce-focused. If you want to preserve WooCom
 Use **Remove** only if you are certain you do not want a separate WooCommerce-focused companion package.
 
 ### Remove only if not splitting
+
 - `examples/woocommerce-store-example.md`
 - `fixtures/sample-woocommerce-taxonomies.json`
 - `intake/woocommerce-intake.md`
@@ -228,6 +247,7 @@ Use **Remove** only if you are certain you do not want a separate WooCommerce-fo
 - `tests/woocommerce-scenario-tests.md`
 
 ### Remove rule
+
 - Do not remove mixed-scope files unless you first decide they are not worth rewriting.
 - Only remove files that are clearly WooCommerce-specific and not needed for this agent.
 
@@ -236,12 +256,14 @@ Use **Remove** only if you are certain you do not want a separate WooCommerce-fo
 ## Recommended path
 
 ### Safest path
+
 1. **Rewrite** `SKILL.md` and `agents/openai.yaml` first.
 2. **Split** the clearly WooCommerce-only assets into a separate package.
 3. **Rewrite** the mixed-scope docs, references, schemas, fixtures, scripts, and tests.
 4. Re-run the package validation.
 
 ### Fastest WordPress-only path
+
 1. Rewrite `SKILL.md`.
 2. Remove all files in the **Split / Remove** list.
 3. Rewrite the mixed-scope files to remove WooCommerce assumptions.
@@ -252,6 +274,7 @@ Use **Remove** only if you are certain you do not want a separate WooCommerce-fo
 ## Final acceptance standard
 
 The package is adapted for this agent only when:
+
 - `yoast-configuration` no longer describes itself as a WordPress + WooCommerce skill
 - no WooCommerce-specific intake, examples, templates, defaults, profiles, or references remain in the WordPress-only package unless intentionally split out
 - the remaining docs, schemas, scripts, fixtures, and tests all support WordPress-only Yoast configuration work

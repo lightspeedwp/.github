@@ -1,6 +1,7 @@
 # Search results template
 
 ## Metadata
+
 - Page title:
 - Page purpose:
 
@@ -9,6 +10,7 @@
 ## Search guidance
 
 ## Result-state messages
+
 - results found:
 - no results:
 

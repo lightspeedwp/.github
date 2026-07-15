@@ -1,6 +1,7 @@
 # Validation Guide
 
 Validate this agent by checking:
+
 - Zendesk remains the main workflow anchor
 - all attached apps are represented in the instructions with the right role boundaries
 - the instructions point to real files and current validation assets
@@ -10,7 +11,9 @@ Validate this agent by checking:
 - output templates and examples stay aligned
 
 ## Validation inventory
+
 Use these files as the primary validation inventory:
+
 - `tests/schema-validation-smoke-tests.md`
 - `tests/schema-validation-tests.md`
 - `tests/skill-routing-tests.md`
@@ -21,6 +24,7 @@ Use these files as the primary validation inventory:
 - `tests/zendesk-support-agent-smoke-tests.md`
 
 ## Suggested run order
+
 1. `python scripts/run_agent_file_checks.py`
 2. `python scripts/validate_templates.py`
 3. `python scripts/validate_memory.py`
@@ -34,6 +38,7 @@ Use these files as the primary validation inventory:
 11. `bash scripts/validate-folder-schemas.sh`
 
 ## Pass criteria
+
 - no stale file references in the instructions snapshot
 - no missing attached-app coverage in the instructions snapshot
 - every attached Zendesk skill is represented correctly in the routing inventory
@@ -43,6 +48,7 @@ Use these files as the primary validation inventory:
 - templates and paired examples stay structurally aligned
 
 ## Common failure patterns
+
 - a material instruction rewrite was made without refreshing `references/instructions.snapshot.md`
 - a new or renamed validation file was not added to the inventory
 - a memory file includes case-specific detail or suspicious copied evidence

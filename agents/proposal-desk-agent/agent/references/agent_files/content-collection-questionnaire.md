@@ -12,8 +12,7 @@ tab_handling: "single-page output from the provided source link"
 
 > **How to use this file:** Complete the answer fields directly in Markdown. Tick any relevant checkbox with `[x]`. Defaults are suggested starting points only; replace them where the project needs something more specific.
 
-
-### Required before design/build
+## Required before design/build
 
 - [x] Logo files in vector format
 - [x] Optimised business images
@@ -21,7 +20,7 @@ tab_handling: "single-page output from the provided source link"
 - [x] Complete site content in document form
 - [ ] Brand guide if available
 
-### Asset folder link
+## Asset folder link
 
 **Answer:** Add Drive/Dropbox/SharePoint folder link here.
 
@@ -46,53 +45,53 @@ tab_handling: "single-page output from the provided source link"
 ### Vision, mission and values
 
 **Answer:** One short paragraph per item.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ## Audience and design
 
 ### Target audience profile
 
 **Answer:** Age, location, gender where relevant, industry, knowledge level and motivations.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Website goals
 
 **Answer:** What the website must help the business achieve.
-> 
-> 
-> 
+>
+>
+>
 
 ### Design likes
 
 **Answer:** Example sites and what you like: colour, typography, menu, images, UX, features.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Design dislikes
 
 **Answer:** Example sites and what to avoid.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Competitors
 
 **Answer:** List competitors and what you like or dislike about their sites.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ## Pages and features
 
@@ -117,43 +116,43 @@ tab_handling: "single-page output from the provided source link"
 ### Home page sections
 
 **Answer:** Hero, intro, services/products, proof, CTA and any extras.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### About page content
 
 **Answer:** Company story, motivation, differentiators, problems solved and imagery.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Services/products content
 
 **Answer:** Describe each offer in detail and note required images.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Team content
 
 **Answer:** Name, job title, short bio and image for each person.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Contact page content
 
 **Answer:** Contact details, form recipient, map/location and other useful info.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Feature requirements
 

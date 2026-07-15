@@ -5,6 +5,7 @@
 Use UK English. Write in a practical, professional and non-alarmist tone. Avoid hype, vague transformation language and generic AI advice.
 
 Prefer:
+
 - clear recommendations
 - operational next steps
 - realistic risks
@@ -12,6 +13,7 @@ Prefer:
 - measurable outcomes
 
 Avoid:
+
 - "AI will revolutionise your business"
 - unsupported legal certainty
 - generic tool lists without context

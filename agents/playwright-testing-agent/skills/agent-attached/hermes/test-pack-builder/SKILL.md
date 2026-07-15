@@ -30,6 +30,7 @@ Do not use this skill for generic repo analysis, ad hoc bug triage, or one-off c
 ## Input Types
 
 The skill can work from any combination of:
+
 - PRDs or acceptance criteria
 - Figma notes or design evidence
 - repository structure or existing test patterns
@@ -45,6 +46,7 @@ When multiple inputs are present, treat user instructions as highest priority, t
 List the sources that are actually present and usable for this request.
 
 For each source, note:
+
 - what it covers
 - whether it is authoritative or only supporting context
 - any obvious gaps or contradictions
@@ -56,6 +58,7 @@ If a source is mentioned but not actually provided, do not act as though it was 
 Extract only requirements that are explicit or clearly evidenced.
 
 For each requirement:
+
 - assign a requirement ID
 - write one short requirement statement
 - classify it as one of: functional flow, content rule, visual rule, accessibility rule, analytics/conversion rule, integration rule, or error/empty state
@@ -66,6 +69,7 @@ Do not split one criterion into many IDs unless the evidence clearly supports se
 ### 3. Separate non-requirements
 
 Keep these in their own sections instead of mixing them into confirmed requirements:
+
 - assumptions
 - open questions
 - gaps in source material
@@ -79,6 +83,7 @@ Never label these as confirmed requirements.
 Create test cases before code unless the user explicitly asks to skip that step.
 
 Each test case should include:
+
 - test case ID
 - source requirement ID or IDs
 - requirement type
@@ -99,6 +104,7 @@ When repeated context is unchanged across many cases, keep the structure but avo
 ### 5. Add a traceability matrix
 
 Map:
+
 - requirement ID -> source evidence
 - requirement ID -> test case ID
 - test case ID -> planned Playwright spec or coverage area
@@ -108,6 +114,7 @@ If code has not been authorised yet, mark the planned Playwright output as propo
 ### 6. Enforce review-before-code
 
 Unless the user already authorised code generation in the current request:
+
 - stop after the review-ready pack
 - ask for review or approval before generating Playwright tests
 - clearly state that the next step is code generation only after approval
@@ -117,6 +124,7 @@ Skip this gate only when the user explicitly asks for direct code generation or 
 ### 7. Generate Playwright code only when authorised
 
 If the user has authorised continuing:
+
 - convert approved test cases into maintainable Playwright specs
 - preserve requirement IDs and test case IDs in comments or traceability notes
 - keep the code aligned with the approved pack instead of expanding scope silently
@@ -140,33 +148,38 @@ When creating a test pack, use this section order unless the user asks for a dif
 Use this compact template shape:
 
 ### Scope Summary
+
 - objective
 - in-scope flows
 - out-of-scope items when needed
 
 ### Sources Used
+
 - source name
 - status: reviewed / mentioned but unavailable
 - notes
 
 ### Confirmed Requirements
-- RQ-001: <requirement statement>
-  - type: <classification>
-  - evidence: <source references>
+
+- RQ-001: `<requirement statement>`
+  - type: `<classification>`
+  - evidence: `<source references>`
 
 ### Assumptions and Gaps
+
 - assumptions
 - open questions
 - missing evidence
 - suggested extra coverage
 
 ### Human-Readable Test Cases
-- TC-001: <test case title>
-  - requirement IDs: <IDs>
-  - page/flow: <value>
-  - actor: <value>
-  - preconditions: <value>
-  - viewport/device: <value if needed>
+
+- TC-001: `<test case title>`
+  - requirement IDs: `<IDs>`
+  - page/flow: `<value>`
+  - actor: `<value>`
+  - preconditions: `<value>`
+  - viewport/device: `<value if needed>`
   - steps:
     1. ...
     2. ...
@@ -176,11 +189,13 @@ Use this compact template shape:
   - notes: ...
 
 ### Traceability Matrix
+
 | Requirement ID | Evidence | Test Case IDs | Planned Playwright Coverage |
 |---|---|---|---|
 | RQ-001 | ... | TC-001 | proposed spec/module |
 
 ### Review Gate / Next Step
+
 - If code is not yet authorised: ask for review approval before Playwright generation.
 - If code is authorised: state that the approved pack will now be converted into Playwright specs.
 
@@ -196,6 +211,7 @@ Use this compact template shape:
 ## Quality Bar
 
 Before finishing, check that:
+
 - every confirmed requirement has evidence
 - every test case maps to at least one requirement
 - assumptions are not mixed into confirmed requirements

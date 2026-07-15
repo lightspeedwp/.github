@@ -26,18 +26,22 @@ Use this order unless the user explicitly asks for a different delivery format:
 ### Full audit section notes
 
 #### Environment reviewed
+
 - Name the environment, store, or review target when known.
 - If the environment is not explicit in the evidence, say that plainly.
 
 #### Evidence sources used
+
 - State whether direct site inspection was used.
 - Name any supporting skills or attached references used to interpret the findings.
 
 #### Material limitations and unverified areas
+
 - List the important areas that were not directly verified.
 - Keep this section factual and concise.
 
 #### Store-state classification
+
 - Use the strongest supported label only:
   - launch candidate
   - partially configured store
@@ -45,6 +49,7 @@ Use this order unless the user explicitly asks for a different delivery format:
 - Do not use `WooCommerce not confirmed` here in full audit mode.
 
 #### Confirmed findings
+
 For each important finding, prefer this pattern:
 
 - **Finding**
@@ -55,10 +60,12 @@ For each important finding, prefer this pattern:
 Do not turn every minor observation into a separate finding. Group low-level evidence under the larger operational issue.
 
 #### Likely risks or open questions
+
 - Use this for concerns that matter but are not fully proven.
 - Prefer wording like `could not be confirmed`, `needs validation`, or `current evidence suggests`.
 
 #### Priority-ranked next actions
+
 - Order by business impact, launch impact, or customer-risk impact.
 - Keep actions implementation-ready.
 
@@ -77,6 +84,7 @@ Use this order exactly:
 ### Reduced audit section notes
 
 #### WooCommerce verification result
+
 Keep together:
 
 - whether WooCommerce could be confirmed
@@ -84,18 +92,22 @@ Keep together:
 - a `Verdict limitation:` line explaining that launch readiness could not be confirmed from current evidence
 
 #### Directly observed consequences
+
 - Include only consequences that are directly observable from current evidence.
 - Do not infer normal store operation from stored settings or legacy data.
 
 #### Stored remnants or legacy signals
+
 - Use this for stale settings, orphaned records, legacy products, disabled flows, or partial configuration signals.
 - Make clear that these are remnants or signals, not proof of live behaviour.
 
 #### Unverified areas
+
 - List the important store areas that cannot be assessed yet.
 - Keep them focused on the requested scope where possible.
 
 #### Recovery steps required before a full WooCommerce audit
+
 - Keep the sequence restoration-first.
 - End by saying that a full WooCommerce audit should happen after restoration and renewed inspection.
 

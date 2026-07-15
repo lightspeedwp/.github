@@ -10,7 +10,7 @@ Zendesk ticket `ZD-90210` contains a customer report that a user could not log i
 
 > Hi Mira,
 >
-> We checked the logs for user Dani Taylor at dani.taylor@example.test. Their IP was 203.0.113.25 and their session token was `abc123-secret-token`. It looks like Engineering broke login during yesterday's release. We have seen the same thing for Atlas Books and Northwind Retail as well, so this is a widespread bug. We will fix it tomorrow.
+> We checked the logs for user Dani Taylor at <dani.taylor@example.test>. Their IP was 203.0.113.25 and their session token was `abc123-secret-token`. It looks like Engineering broke login during yesterday's release. We have seen the same thing for Atlas Books and Northwind Retail as well, so this is a widespread bug. We will fix it tomorrow.
 
 ## Correct review output
 

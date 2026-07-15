@@ -30,6 +30,7 @@ Do **not** invoke a skill when the user only needs:
 ### `linear-skill-intake-onboarding`
 
 **Use when**
+
 - the user wants a reusable template, skill, audit pack, or packaged workflow; and
 - important reusable defaults are missing.
 
@@ -39,6 +40,7 @@ Collect missing reusable defaults, then return to the substantive task. Do not u
 ### `linear-app-skill-creator`
 
 **Use when**
+
 - creating or revising a reusable skill or template;
 - converting a workflow into a reusable package;
 - writing Builder instructions or a broader operating asset; or
@@ -50,6 +52,7 @@ This is the broad packaging fallback, not the first-choice route for clearly spe
 ### `markdown-output-formatter`
 
 **Use when**
+
 - the substance already exists; and
 - the remaining task is clearer structure, packaging, or polish.
 

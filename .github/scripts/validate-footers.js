@@ -267,6 +267,7 @@ function getChangedMarkdownFiles() {
   try {
     const output = execSync(`git diff --name-only ${diffRange} -- '*.md'`, {
       encoding: "utf8",
+      maxBuffer: 1024 * 1024 * 100,
     }).trim();
 
     return output ? output.split("\n").filter(Boolean) : [];

@@ -1,6 +1,7 @@
 # Pricing page template
 
 ## Metadata
+
 - Page title:
 - Page purpose:
 - Audience:

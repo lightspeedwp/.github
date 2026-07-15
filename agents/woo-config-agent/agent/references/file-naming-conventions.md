@@ -3,6 +3,7 @@
 Use short, descriptive, lowercase file names with hyphens.
 
 ## Core rules
+
 - Use lowercase letters and hyphens only where practical.
 - Keep names descriptive but compact.
 - Prefer singular nouns for one entity and plural only for collections.
@@ -10,6 +11,7 @@ Use short, descriptive, lowercase file names with hyphens.
 - Add dates as `YYYY-MM-DD` only when versioning by day matters.
 
 ## Patterns
+
 - References: `<topic>-reference.md`
 - Standards: `<topic>-standard.md`
 - Policies: `<topic>-policy.md`
@@ -21,6 +23,7 @@ Use short, descriptive, lowercase file names with hyphens.
 - Examples: `example-<scenario>.md`
 
 ## Good examples
+
 - `gravity-forms-reference.md`
 - `pre-launch-summary-template.md`
 - `tour-schema.json`
@@ -28,6 +31,7 @@ Use short, descriptive, lowercase file names with hyphens.
 - `example-enquiry-flow.md`
 
 ## Avoid
+
 - Spaces in file names
 - Vague names like `misc.md` or `notes2.md`
 - Unclear versioning like `final-final.md`

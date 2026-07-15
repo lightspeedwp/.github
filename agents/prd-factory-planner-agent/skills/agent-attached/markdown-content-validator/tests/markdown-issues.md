@@ -11,6 +11,6 @@ version: "1.0.0"
 #### Skipped heading level
 
 - first bullet
-+ second bullet
+- second bullet
 
 ```

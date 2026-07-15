@@ -1,6 +1,7 @@
 # Validation Standards
 
 Validation should catch:
+
 - missing required files or sections
 - wrong file placement
 - invalid Markdown or schema structure

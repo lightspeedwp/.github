@@ -66,7 +66,7 @@ Return to `zendesk-router-skill` when:
 Prefer wording like:
 
 > This is ready for the requested customer reply. Recommend `zendesk-draft-response` if that companion is attached and the user asked for a draft.
-
+>
 > This is not ready for an engineering/product handoff. The blocker is the missing reproduction context. Recommend `zendesk-evidence-collector` to collect the checkout URL, timestamp, observed behaviour, expected behaviour, and one screenshot before routing further.
-
+>
 > The next workflow is broader than readiness. Return this to `zendesk-router-skill` for routing rather than choosing a specialist here.

@@ -1,11 +1,13 @@
 # About page template
 
 ## Metadata
+
 - Page title:
 - Page purpose:
 - Primary audience:
 
 ## Hero
+
 - Eyebrow:
 - Title:
 - Intro:
@@ -16,6 +18,7 @@
 ## Mission
 
 ## Values
+
 - Value 1:
 - Value 2:
 - Value 3:

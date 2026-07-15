@@ -1,15 +1,19 @@
 # Bugherd Failure Template
 
 ## Purpose
+
 Provide a consistent package for Playwright failures that may be logged to BugHerd after approval.
 
 ## Inputs
+
 Failure output, requirement traceability, environment context, browser and viewport details, and any captured artefact paths.
 
 ## Output
+
 A BugHerd-ready failure summary with reproducible evidence and privacy checks.
 
 ## Required Fields
+
 - BugHerd title
 - Summary
 - Requirement ID
@@ -29,6 +33,7 @@ A BugHerd-ready failure summary with reproducible evidence and privacy checks.
 - Privacy check
 
 ## Template
+
 - BugHerd title:
 - Summary:
 - Requirement ID:
@@ -48,4 +53,5 @@ A BugHerd-ready failure summary with reproducible evidence and privacy checks.
 - Privacy check:
 
 ## Quality Checks
+
 Ensure the package is actionable, concise, reproducible, and free from secrets or private account credentials.

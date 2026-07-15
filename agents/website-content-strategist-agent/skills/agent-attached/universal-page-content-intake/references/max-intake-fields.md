@@ -3,6 +3,7 @@
 Use the smallest useful subset for the current task.
 
 ## Core fields
+
 - content type
 - page type
 - business goal
@@ -35,6 +36,7 @@ Use the smallest useful subset for the current task.
 ## Typical value sets
 
 ### Funnel stage
+
 - awareness
 - consideration
 - decision
@@ -43,6 +45,7 @@ Use the smallest useful subset for the current task.
 - support
 
 ### Content type
+
 - website page
 - section
 - newsletter
@@ -54,6 +57,7 @@ Use the smallest useful subset for the current task.
 - resource page
 
 ### Proof sensitivity
+
 - low
 - medium
 - high

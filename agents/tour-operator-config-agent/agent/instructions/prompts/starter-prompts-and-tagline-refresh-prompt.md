@@ -7,6 +7,7 @@ This is a maintenance implementation task. Do not just review. Tighten stale pre
 ## Scope
 
 Inspect and update, where relevant:
+
 - the current starter prompts
 - the current short description
 - `tests/starter-prompt-consistency-source.md`
@@ -16,6 +17,7 @@ Inspect and update, where relevant:
 ## Source of truth
 
 Use these as the source of truth:
+
 - the current saved agent instructions
 - the current attached apps and skills
 - the current agent role and routing behaviour

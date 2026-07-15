@@ -1,12 +1,14 @@
 # Service page template
 
 ## Metadata
+
 - Service name:
 - Audience:
 - Page goal:
 - CTA route:
 
 ## Hero
+
 - Eyebrow:
 - Title:
 - Intro:
@@ -17,14 +19,16 @@
 ## Service overview
 
 ## What is included
-- 
-- 
-- 
+
+-
+-
+-
 
 ## Process
-1. 
-2. 
-3. 
+
+1.
+2.
+3.
 
 ## Proof or outcomes
 

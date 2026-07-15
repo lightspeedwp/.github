@@ -9,6 +9,7 @@ Remove or isolate WooCommerce-specific scope, preserve WordPress-relevant Yoast 
 ## Outcome rule
 
 By the end of this cleanup:
+
 - the skill should no longer present WooCommerce as part of its default identity
 - WooCommerce-specific references should either be removed or split into a separate skill/package
 - the remaining skill should clearly fit a WordPress-only Yoast configuration workflow
@@ -18,6 +19,7 @@ By the end of this cleanup:
 ## 1. Core identity and routing
 
 ### `SKILL.md`
+
 - [ ] Rewrite the frontmatter description to remove `woocommerce sites`, `product schema`, and other WooCommerce-specific claims.
 - [ ] Rewrite the opening skill description so it refers to **WordPress sites** only.
 - [ ] Remove WooCommerce from the mandatory output structure where it appears as a standard QA or reporting dimension.
@@ -28,6 +30,7 @@ By the end of this cleanup:
 - [ ] Keep WordPress-relevant Yoast coverage such as metadata, canonicals, sitemaps, robots, breadcrumbs, schema, multilingual, migration, rendered-output QA, and launch-readiness.
 
 ### `agents/openai.yaml`
+
 - [ ] Review the skill display name, short description, and default prompt.
 - [ ] Remove WooCommerce-specific phrasing if present.
 - [ ] Align the skill metadata with a WordPress-only Yoast configuration role.
@@ -39,27 +42,35 @@ By the end of this cleanup:
 These files should not remain in a WordPress-only Yoast configuration skill unless they are moved into a separate WooCommerce-focused companion skill.
 
 ### Examples
+
 - [ ] Remove or split `examples/woocommerce-store-example.md`
 
 ### Intake
+
 - [ ] Remove or split `intake/woocommerce-intake.md`
 
 ### Memory defaults
+
 - [ ] Remove or split `memory/defaults/woocommerce-defaults.md`
 
 ### References
+
 - [ ] Remove or split `references/woocommerce-seo-reference.md`
 
 ### Templates
+
 - [ ] Remove or split `templates/yoast-woocommerce-report.md`
 
 ### Tests
+
 - [ ] Remove or split `tests/woocommerce-scenario-tests.md`
 
 ### Fixtures
+
 - [ ] Remove or split `fixtures/sample-woocommerce-taxonomies.json`
 
 ### Profiles
+
 - [ ] Remove or split `profiles/ecommerce-catalogue.md`
 - [ ] Remove or split `profiles/ecommerce-transactional.md`
 
@@ -68,64 +79,84 @@ These files should not remain in a WordPress-only Yoast configuration skill unle
 ## 3. Rewrite mixed-scope docs so they become WordPress-only
 
 ### `docs/usage-guide.md`
+
 - [ ] Replace WooCommerce-specific usage rows with WordPress-only Yoast use cases.
 
 ### `docs/maintenance-guide.md`
+
 - [ ] Remove WooCommerce-specific maintenance expectations.
 - [ ] Replace WooCommerce QA generator examples with WordPress-only profile examples.
 
 ### `docs/reference-refresh-protocol.md`
+
 - [ ] Replace WooCommerce-specific examples with WordPress-only examples.
 
 ### `docs/evidence-policy.md`
+
 - [ ] Remove WooCommerce-specific evidence categories unless they are deliberately retained in a split package.
 
 ### `references/configuration-playbooks.md`
+
 - [ ] Remove WooCommerce transactional store playbook content.
 
 ### `references/configuration-reference.md`
+
 - [ ] Remove WooCommerce-specific plugin-scope rows and settings rows.
 
 ### `references/file-routing-index.md`
+
 - [ ] Remove WooCommerce-specific request routes and validation routes.
 
 ### `references/feature-behaviour-reference.md`
+
 - [ ] Remove WooCommerce product-schema behaviour sections.
 
 ### `references/schema-reference.md`
+
 - [ ] Remove WooCommerce-specific plugin-scope entries.
 
 ### `references/product-capability-matrix.md`
+
 - [ ] Remove WooCommerce capability rows.
 
 ### `references/research-pack-output-spec.md`
+
 - [ ] Remove WooCommerce-specific required coverage and WooCommerce-specific feature expectations.
 
 ### `references/source-register.md`
+
 - [ ] Remove or archive WooCommerce-only source rows.
 
 ### `references/decision-register-model.md`
+
 - [ ] Remove WooCommerce-specific decision types such as product-schema and archive-strategy decisions.
 
 ### `references/conflict-resolution-playbook.md`
+
 - [ ] Remove WooCommerce-specific conflict cases.
 
 ### `references/evidence-state-model.md`
+
 - [ ] Remove WooCommerce-specific evidence-state rules.
 
 ### `references/portfolio-audit-playbook.md`
+
 - [ ] Remove ecommerce and WooCommerce portfolio comparisons.
 
 ### `references/periodic-health-review-playbook.md`
+
 - [ ] Remove WooCommerce-specific health-review expectations.
 
 ### `references/settings-export-review-playbook.md`
+
 - [ ] Remove WooCommerce product-schema review requirements.
 
 ### `references/multilingual-hreflang-playbook.md`
+
 - [ ] Remove WooCommerce-specific multilingual routing unless the package is split instead.
 
 ### `references/future-skill-architecture.md`
+
 - [ ] Rewrite the architecture assumptions so the skill is WordPress-only.
 
 ---
@@ -133,30 +164,39 @@ These files should not remain in a WordPress-only Yoast configuration skill unle
 ## 4. Narrow schemas to WordPress-only scope
 
 ### `schemas/audit-finding.schema.json`
+
 - [ ] Remove WooCommerce-specific categories if they are no longer valid.
 
 ### `schemas/decision-record.schema.json`
+
 - [ ] Remove WooCommerce-specific decision enums.
 
 ### `schemas/product-capability.schema.json`
+
 - [ ] Remove entirely or split into a WooCommerce-specific package.
 
 ### `schemas/yoast-setting.schema.json`
+
 - [ ] Remove WooCommerce plugin-scope values.
 
 ### `schemas/schema-piece.schema.json`
+
 - [ ] Remove WooCommerce-specific related-data assumptions.
 
 ### `schemas/research-pack.schema.json`
+
 - [ ] Remove WooCommerce-specific reference requirements.
 
 ### `schemas/bulk-metadata-change.schema.json`
+
 - [ ] Remove WooCommerce-specific ownership or data-source assumptions.
 
 ### `schemas/portfolio-site-summary.schema.json`
+
 - [ ] Remove WooCommerce-specific assumptions if present.
 
 ### `memory/schemas/client-site-profile.schema.json`
+
 - [ ] Remove WooCommerce object fields from the site profile schema.
 
 ---
@@ -164,6 +204,7 @@ These files should not remain in a WordPress-only Yoast configuration skill unle
 ## 5. Rewrite or replace fixtures
 
 ### Review these fixtures and remove WooCommerce assumptions
+
 - [ ] `fixtures/sample-decision-record.json`
 - [ ] `fixtures/sample-regression-check.json`
 - [ ] `fixtures/sample-portfolio-site-summary.json`
@@ -171,6 +212,7 @@ These files should not remain in a WordPress-only Yoast configuration skill unle
 - [ ] `fixtures/sample-bulk-metadata-change.json`
 
 ### Replace with WordPress-only fixture themes such as
+
 - [ ] archive strategy
 - [ ] sitemap visibility
 - [ ] canonical issues
@@ -183,6 +225,7 @@ These files should not remain in a WordPress-only Yoast configuration skill unle
 ## 6. Narrow scripts and validation expectations
 
 ### Scripts to update
+
 - [ ] `scripts/generate_qa_checklist.py`
 - [ ] `scripts/validate_reference_data.py`
 - [ ] `scripts/validate_skill_structure.py`
@@ -190,6 +233,7 @@ These files should not remain in a WordPress-only Yoast configuration skill unle
 - [ ] `scripts/validate_taxonomy_pack.py`
 
 ### Update each script so it
+
 - [ ] stops requiring WooCommerce files
 - [ ] stops requiring WooCommerce templates or tests
 - [ ] stops expecting WooCommerce profiles
@@ -200,6 +244,7 @@ These files should not remain in a WordPress-only Yoast configuration skill unle
 ## 7. Rewrite or remove WooCommerce-oriented tests
 
 ### Tests to review
+
 - [ ] `tests/woocommerce-scenario-tests.md`
 - [ ] `tests/research-pack-scenario-tests.md`
 - [ ] `tests/related-skills-routing-scenario-tests.md`
@@ -210,6 +255,7 @@ These files should not remain in a WordPress-only Yoast configuration skill unle
 - [ ] `tests/ai-assisted-seo-scenario-tests.md`
 
 ### Replace WooCommerce scenarios with WordPress-only scenarios such as
+
 - [ ] standard business site Yoast setup
 - [ ] blog or publisher site metadata review
 - [ ] multilingual WordPress Yoast review
@@ -224,6 +270,7 @@ These files should not remain in a WordPress-only Yoast configuration skill unle
 These look broadly reusable for a WordPress-only Yoast skill, but still deserve a quick spot-check for stray WooCommerce wording.
 
 ### Likely keep
+
 - [ ] `examples/standard-business-site-example.md`
 - [ ] `examples/migration-audit-example.md`
 - [ ] `examples/schema-customisation-example.md`
@@ -242,6 +289,7 @@ These look broadly reusable for a WordPress-only Yoast skill, but still deserve 
   - `templates/wordpress-admin-change-plan.md`
 
 ### Spot-check rule
+
 - [ ] Confirm these files do not still contain WooCommerce assumptions before finalising the package.
 
 ---
@@ -261,6 +309,7 @@ These look broadly reusable for a WordPress-only Yoast skill, but still deserve 
 ## 10. Final acceptance checks
 
 Before calling the skill adapted for this agent:
+
 - [ ] The skill no longer describes itself as serving WooCommerce sites.
 - [ ] No WooCommerce-specific intake, example, template, reference, fixture, schema, script, or test remains unless intentionally split out.
 - [ ] The package reads as a WordPress-only Yoast configuration skill.

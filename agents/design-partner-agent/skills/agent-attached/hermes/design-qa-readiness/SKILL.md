@@ -160,22 +160,27 @@ Say the most appropriate next move:
 **Good response shape:**
 
 ### Verdict
+
 **Ready with minor fixes**
 
 ### What holds up
+
 - Hero goal and CTA are clear.
 - Section order supports the user journey.
 - The structure is compatible with a block-based homepage build.
 
 ### Gaps and risks
+
 - **Missing input:** Social proof content is referenced but not defined.
 - **Weak decision:** The comparison section does not identify the primary decision criteria.
 - **Implementation risk:** Two custom interactive states are implied but not described well enough to estimate build effort.
 
 ### Minimum fixes
+
 - Define the testimonial source and fallback content plan.
 - Clarify the comparison criteria used in the pricing or feature section.
 - Note whether the interactive states should be standard block behavior or custom code.
 
 ### Next step
+
 Refine the layout direction, then proceed to Figma.

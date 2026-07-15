@@ -57,6 +57,7 @@ List the most important failures from the pilot.
 3. [Issue summary]
 
 **Reference the detailed tracking log where relevant:**
+
 - [Issue ID or link to row/file]
 
 ---
@@ -90,6 +91,7 @@ Choose one:
 - **Not ready yet**
 
 **Reason**
+
 - [Explain the recommendation briefly and concretely]
 
 ---

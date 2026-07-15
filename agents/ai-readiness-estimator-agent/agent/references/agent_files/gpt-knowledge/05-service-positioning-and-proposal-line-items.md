@@ -1,9 +1,11 @@
 # LightSpeed Service Positioning and Proposal Line Items
 
 ## Purpose
+
 Use this file to recommend appropriate LightSpeed service categories and produce proposal-ready line items without inventing pricing.
 
 ## Service categories
+
 Recommend these service categories where relevant:
 
 - AI Website Readiness Assessment
@@ -27,9 +29,11 @@ Recommend these service categories where relevant:
 - Chatbot Review and Optimisation Retainer
 
 ## Pricing rule
+
 Do not include pricing unless explicitly asked.
 
 ## Effort bands
+
 Use effort bands instead of prices:
 
 | Band | Effort |
@@ -42,6 +46,7 @@ Use effort bands instead of prices:
 | Custom | needs scoping |
 
 ## Proposal line item structure
+
 When asked for proposal-ready output, use:
 
 1. Line item title
@@ -58,9 +63,11 @@ When asked for proposal-ready output, use:
 ## Default package suggestions
 
 ### AI Website Readiness Assessment
+
 Purpose: assess website, content, governance and chatbot readiness.
 
 Typical deliverables:
+
 - readiness report
 - scoring summary
 - red flags
@@ -69,9 +76,11 @@ Typical deliverables:
 - recommended next step
 
 ### AI Governance Workshop
+
 Purpose: define approved AI use cases, restrictions, ownership and review rules.
 
 Typical deliverables:
+
 - workshop agenda
 - discovery summary
 - governance matrix
@@ -79,9 +88,11 @@ Typical deliverables:
 - risk notes
 
 ### Content Collection Sprint
+
 Purpose: gather and structure source material for website, governance and chatbot work.
 
 Typical deliverables:
+
 - content collection checklist
 - folder structure
 - content gap report
@@ -89,9 +100,11 @@ Typical deliverables:
 - client request email
 
 ### AI Chatbot Planning
+
 Purpose: define safe chatbot scope before implementation.
 
 Typical deliverables:
+
 - chatbot planning brief
 - source list
 - exclusion list
@@ -101,9 +114,11 @@ Typical deliverables:
 - first-draft system prompt
 
 ### AI Governance Retainer
+
 Purpose: ongoing review of AI-assisted content, chatbot logs, source materials and governance updates.
 
 Typical deliverables:
+
 - monthly/quarterly governance review
 - content performance review
 - chatbot transcript review

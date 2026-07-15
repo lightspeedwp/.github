@@ -15,16 +15,19 @@ tab_handling: "single-page output from the provided source link"
 ## Client and project details
 
 ### Client / organisation name
+>
 > Guidance: Confirm spelling and legal suffix.
 
 **Answer:** Use the registered business name.
 
 ### Primary contact
+>
 > Guidance: Use one accountable decision-maker where possible.
 
 **Answer:** Name, role, email and phone number.
 
 ### Website or project name
+>
 > Guidance: This may differ from the legal entity.
 
 **Answer:** Use the public brand name.
@@ -36,8 +39,8 @@ tab_handling: "single-page output from the provided source link"
 ### Decision makers and contributors
 
 **Answer:** Primary approver; content owner; technical contact.
-> 
-> 
+>
+>
 
 ## Store overview
 
@@ -48,15 +51,15 @@ tab_handling: "single-page output from the provided source link"
 ### Product range
 
 **Answer:** Approximate number of products, categories, variations and attributes.
-> 
-> 
-> 
+>
+>
+>
 
 ### Average order value and priority products
 
 **Answer:** Use best-selling or highest-margin products as defaults.
-> 
-> 
+>
+>
 
 ### Primary store goal
 
@@ -71,10 +74,10 @@ tab_handling: "single-page output from the provided source link"
 ### Required product fields
 
 **Answer:** Title, SKU, price, description, categories, images, stock, variations.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Product image requirements
 
@@ -100,10 +103,10 @@ tab_handling: "single-page output from the provided source link"
 ### Shipping zones and methods
 
 **Answer:** Flat rate, free shipping threshold, local pickup, courier integration.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Tax rules
 
@@ -137,7 +140,7 @@ tab_handling: "single-page output from the provided source link"
 ### Launch readiness notes
 
 **Answer:** Test checkout, emails, shipping rates, taxes, coupons and refunds before launch.
-> 
-> 
-> 
+>
+>
+>
 >

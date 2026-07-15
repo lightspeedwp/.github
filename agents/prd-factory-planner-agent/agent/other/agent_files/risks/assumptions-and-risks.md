@@ -6,24 +6,24 @@
 
 ## Assumptions
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Risks
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Evidence gaps
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Mitigation notes
 
-- 
-- 
-- 
+-
+-
+-

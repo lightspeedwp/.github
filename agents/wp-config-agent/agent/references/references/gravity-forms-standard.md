@@ -3,11 +3,13 @@
 Use this reference for the default form expectations on a tour operator site.
 
 ## Core forms
+
 - Contact form
 - Tour enquiry form
 - Newsletter signup form
 
 ## Standard expectations
+
 - Required fields are kept concise and relevant
 - Notification routing is defined
 - Confirmation messaging is clear
@@ -15,6 +17,7 @@ Use this reference for the default form expectations on a tour operator site.
 - Consent and privacy requirements are included where needed
 
 ## QA reminders
+
 - Test in incognito mode
 - Test on mobile
 - Confirm notification delivery

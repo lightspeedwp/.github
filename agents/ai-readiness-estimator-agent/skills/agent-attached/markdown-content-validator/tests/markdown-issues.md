@@ -10,10 +10,9 @@ version: "1.2.0"
 #### Skipped heading level
 
 - first item
-* mixed style item
+- mixed style item
 
-
-Trailing whitespace here.   
+Trailing whitespace here.
 
 | Col A | Col B |
 |---|---|

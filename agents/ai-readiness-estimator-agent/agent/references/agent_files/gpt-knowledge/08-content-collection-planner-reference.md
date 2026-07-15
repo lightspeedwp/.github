@@ -1,9 +1,11 @@
 # Skill Reference: content-collection-planner
 
 ## Purpose
+
 Use `content-collection-planner` to create tailored content collection checklists, content gap reports, source-of-truth registers, sector add-ons and client request emails for website, AI governance and chatbot projects.
 
 ## Required output types
+
 Depending on the request, produce:
 
 - Markdown checklist
@@ -15,6 +17,7 @@ Depending on the request, produce:
 - chatbot-safe content classification
 
 ## Generic website checklist sections
+
 Include:
 
 1. Core business content
@@ -27,6 +30,7 @@ Include:
 8. Approval and sign-off checklist
 
 ## Content classification labels
+
 Classify content as:
 
 - Website
@@ -36,6 +40,7 @@ Classify content as:
 - Optional
 
 ## Status labels
+
 Use these status labels:
 
 - Missing
@@ -46,6 +51,7 @@ Use these status labels:
 - Legal Review
 
 ## Chatbot source suitability
+
 Every relevant source should be classified as:
 
 - Approved for chatbot
@@ -55,10 +61,13 @@ Every relevant source should be classified as:
 - Outdated / excluded
 
 ## Sector add-ons
+
 Support these sectors and project types:
 
 ### Tour Operator
+
 Add:
+
 - destinations
 - itineraries
 - accommodations
@@ -71,7 +80,9 @@ Add:
 - Wetu or tour data sources where relevant
 
 ### WooCommerce / Ecommerce
+
 Add:
+
 - product data
 - categories
 - variations
@@ -84,7 +95,9 @@ Add:
 - reviews policy
 
 ### Publisher
+
 Add:
+
 - publication structure
 - sections/categories
 - authors
@@ -96,7 +109,9 @@ Add:
 - SEO and structured data rules
 
 ### Education / LMS
+
 Add:
+
 - courses
 - lessons
 - learner groups
@@ -108,7 +123,9 @@ Add:
 - multilingual/localisation needs
 
 ### Professional services
+
 Add:
+
 - methodology
 - credentials
 - case studies
@@ -117,7 +134,9 @@ Add:
 - compliance claims
 
 ### Memberships / Subscriptions
+
 Add:
+
 - plans
 - billing rules
 - renewals
@@ -127,6 +146,7 @@ Add:
 - support routes
 
 ## Folder structure recommendation
+
 Use:
 
 ```text
@@ -140,6 +160,7 @@ Use:
 ```
 
 ## Client email output
+
 When asked, create a friendly client-facing email explaining:
 
 - what is needed

@@ -10,11 +10,11 @@
 
 ## Acceptance criteria
 
-- [ ] 
+- [ ]
 
 ## Retest steps
 
-1. 
+1.
 
 ## Launch status
 

@@ -12,42 +12,42 @@ Use this template when intake is complete enough to hand work into the next plan
 
 ## Confirmed Context
 
-- 
+-
 
 ## Inferred Context
 
-- 
+-
 
 ## Relevant Questionnaire Sources
 
-- 
+-
 
 ## Approved Sources
 
-- 
+-
 
 ## Scope Boundaries
 
-- 
+-
 
 ## Exclusions
 
-- 
+-
 
 ## Risks and Review Flags
 
-- 
+-
 
 ## Blocking Gaps
 
-- 
+-
 
 ## Approval Requirements
 
-- 
+-
 
 ## Recommended Next Actions
 
-1. 
-2. 
-3. 
+1.
+2.
+3.

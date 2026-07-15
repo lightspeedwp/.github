@@ -1,22 +1,37 @@
 # Review History Entry Template
 
-### Review
+## Review
+
 - Date:
 - Work type:
 - Client or project:
 - Surface or artifact:
 - Goal:
-- Key findings:
+
+- Key findings
+
   -
-- Recommendations:
+
+- Recommendations
+
   -
-- Approved directions:
+
+- Approved directions
+
   -
-- Rejected directions:
+
+- Rejected directions
+
   -
-- Accessibility notes:
+
+- Accessibility notes
+
   -
-- Open questions:
+
+- Open questions
+
   -
-- Follow-up actions:
+
+- Follow-up actions
+
   -

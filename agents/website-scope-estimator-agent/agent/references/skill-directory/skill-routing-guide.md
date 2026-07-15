@@ -31,15 +31,18 @@ Route the current request into one of these phases before selecting a skill:
 Use this skill only when the current request is blocked by missing reusable user defaults that should be remembered across future estimate or proposal runs.
 
 Use when:
+
 - the agent needs durable cross-run defaults such as preferred deliverable, default detail level, ambiguity handling, or standing output preferences
 - the missing information should be saved in Memory for future runs
 
 Do not use when:
+
 - the missing information is specific to the current website project
 - the agent needs page counts, integrations, migration scope, multilingual scope, ecommerce details, booking logic, or package-fit details for the current estimate
 - the user already supplied enough reusable defaults
 
 Boundary:
+
 - onboarding is for reusable user defaults
 - onboarding is not discovery intake
 
@@ -48,16 +51,19 @@ Boundary:
 Use this skill when the user provides a live website, screenshots, notes, documents, Figma references, or other source material and the first job is to separate confirmed facts from assumptions before intake or routing.
 
 Use when:
+
 - the agent must inspect provided materials before deciding package fit
 - the request starts with a website, design file, notes, screenshots, or supporting documents
 - the current estimate depends on building a reliable audit summary first
 
 Do not use when:
+
 - the main blocker is missing project answers that are not available in source material
 - package selection is already clear from confirmed intake and evidence
 - the agent is already at readiness review
 
 Boundary:
+
 - evidence pass gathers and organizes source-backed facts
 - evidence pass does not run full intake, full routing, or final commercial validation
 
@@ -66,16 +72,19 @@ Boundary:
 Use this skill when important project-specific values are still missing after available evidence has been reviewed, or when the job begins as a discovery-led estimate rather than an evidence-led audit.
 
 Use when:
+
 - the agent needs missing scope details that materially affect package routing, pricing, thresholds, approvals, or confidence
 - the request is to gather only the missing estimate inputs
 - source material alone cannot answer the important routing questions
 
 Do not use when:
+
 - the only missing information is reusable cross-run defaults
 - the agent still needs a first-pass audit from provided materials
 - the base package is already clear and the next step is routing or readiness review
 
 Boundary:
+
 - intake collects project-specific facts for the current job
 - intake is not reusable onboarding
 - intake should ask only for missing values that materially matter
@@ -86,16 +95,19 @@ Boundary:
 Use this skill once enough confirmed evidence or intake detail exists to choose the best-fit base package, check only the relevant add-ons, and review commercial thresholds or custom-scope triggers.
 
 Use when:
+
 - the agent can make a responsible package decision from confirmed facts
 - the next step is selecting the base package and reviewing applicable add-ons
 - the agent needs a concise routing handoff using the shared phase language
 
 Do not use when:
+
 - the agent is still missing core routing facts
 - the request is still in raw evidence gathering or project intake
 - the user only wants a final readiness check on an already drafted estimate or proposal
 
 Boundary:
+
 - package routing is the decision step between intake/evidence and downstream drafting or validation
 - package routing should not be used as a substitute for discovery
 - add-ons are reviewed only after the base package is selected
@@ -105,16 +117,19 @@ Boundary:
 Use this skill immediately before treating an estimate or proposal as final, or when the user asks whether the current quote, estimate, scope, or proposal is ready to send.
 
 Use when:
+
 - a draft estimate or proposal already exists
 - the agent must verify package fit, add-ons, commercial status, missing values, approvals, and template compliance
 - the user asks whether the quote is ready, provisional, or not ready
 
 Do not use when:
+
 - the agent still needs first-pass evidence gathering
 - project intake is still incomplete
 - package routing has not been performed well enough to support final validation
 
 Boundary:
+
 - quote readiness is the final validation gate
 - quote readiness does not replace intake, audit, or package routing
 
@@ -123,6 +138,7 @@ Boundary:
 Use no skill when the current request can be handled correctly from the main instructions, installed files, existing context, and ordinary reasoning without entering a specialized phase workflow.
 
 Examples:
+
 - small follow-up clarifications
 - lightweight revisions that do not reopen audit, intake, routing, or readiness review
 - direct answers about the current estimate state

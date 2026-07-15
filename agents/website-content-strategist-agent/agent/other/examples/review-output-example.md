@@ -1,13 +1,17 @@
 # Example name
+
 Review output example
 
 ## Purpose
+
 Show the expected structure for a workflow audit or source review.
 
 ## Matched template
+
 `templates/review-output-template.md`
 
 ## Example output
+
 - **Confirmed context:** The project has approved source files for homepage messaging but lacks approved proof points.
 - **Key findings:** The workflow can move into page briefing, but not into final publication-ready drafting.
 - **Gaps and risks:** Several claims still need approval and the FAQ plan is incomplete.
@@ -16,4 +20,5 @@ Show the expected structure for a workflow audit or source review.
 - **Best next step:** Confirm the approved proof points for this page.
 
 ## Validation notes
+
 This example demonstrates structure only and should not be reused as live project copy.

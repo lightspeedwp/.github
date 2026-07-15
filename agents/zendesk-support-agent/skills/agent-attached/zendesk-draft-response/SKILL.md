@@ -224,7 +224,6 @@ When the user asks to install, configure, share, or audit this skill for a works
 - Keep connector guidance logical and role-based; never add user-specific connector IDs, file IDs, private mailbox details, credentials, or ticket-specific evidence to the skill package.
 - Recommend testing Zendesk, pasted-context, Gmail, Slack-context, and missing-evidence scenarios before the team relies on the shared agent.
 
-
 ## Shared Agent Regression Testing
 
 When the user asks to test, validate, smoke test, regression check, or build confidence in a shared-agent installation:
@@ -240,7 +239,6 @@ Run the package check from the skill root:
 ```bash
 python scripts/run_skill_checks.py .
 ```
-
 
 ## Evidence and Data Redaction
 

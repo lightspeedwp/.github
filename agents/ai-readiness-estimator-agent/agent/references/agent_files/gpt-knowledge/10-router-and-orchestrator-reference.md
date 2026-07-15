@@ -1,9 +1,11 @@
 # Router and Orchestrator Reference
 
 ## Purpose
+
 Use this file to distinguish the router from the orchestrator.
 
 ## Router role
+
 The router decides which workflow should run next.
 
 It should:
@@ -17,6 +19,7 @@ It should:
 - avoid running unnecessary workflows
 
 ## Orchestrator role
+
 The orchestrator coordinates the complete client project flow.
 
 It should:
@@ -33,6 +36,7 @@ It should:
 - maintain LightSpeed tone and positioning
 
 ## Installed skills to coordinate
+
 The orchestrator assumes these are available:
 
 - `ai-readiness-assessor`
@@ -43,6 +47,7 @@ The orchestrator assumes these are available:
 - `lightspeed-ai-readiness-orchestrator`
 
 ## Combined project pack rule
+
 By default, create a combined project pack at the end of every client project.
 
 If file generation is available, package Markdown files into a ZIP.
@@ -50,6 +55,7 @@ If file generation is available, package Markdown files into a ZIP.
 If file generation is not available, provide the file list and full Markdown content in separate sections.
 
 ## Combined pack contents
+
 Include only relevant files:
 
 - README.md
@@ -68,6 +74,7 @@ Include only relevant files:
 - internal-lightspeed-notes.md
 
 ## Rules for broad requests
+
 When a user asks for something broad like “prepare this client for AI” or “run the AI readiness process”, do not jump straight into one deliverable.
 
 Instead:
@@ -80,6 +87,7 @@ Instead:
 6. Proceed with the best default where the path is obvious.
 
 ## Rules for uploaded files
+
 If uploaded files are provided:
 
 - list them
@@ -90,6 +98,7 @@ If uploaded files are provided:
 - do not treat all files as approved by default
 
 ## Rules for missing files
+
 If key files are missing:
 
 - name the missing file/content type

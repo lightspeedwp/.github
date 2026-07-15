@@ -37,7 +37,9 @@ Use questionnaire files as selective intake resources, not mandatory forms.
 ## Workflow fit guidance
 
 ### Website workflows
+
 Likely sources:
+
 - `website-briefing-questionnaire.md`
 - `website-design-questionnaire.md`
 - `website-content-collection-questionnaire.md`
@@ -45,27 +47,35 @@ Likely sources:
 - `ecommerce-briefing-form.md` when ecommerce is in scope
 
 ### Content workflows
+
 Likely sources:
+
 - `content-collection-questionnaire.md`
 - `website-content-collection-questionnaire.md`
 - `tone-of-voice-questionnaire.md`
 - `tour-operator-blog-questionnaire.md` for travel-sector blog work
 
 ### Design workflows
+
 Likely sources:
+
 - `website-design-questionnaire.md`
 - `design-briefing-questionnaire.md`
 - `tone-of-voice-questionnaire.md`
 
 ### Ecommerce workflows
+
 Likely sources:
+
 - `ecommerce-briefing-form.md`
 - `website-briefing-questionnaire.md`
 - `website-content-collection-questionnaire.md`
 - `standard-website-package-questionnaire.md`
 
 ### Tour-operator workflows
+
 Likely sources:
+
 - `tour-operator-website-planning-checklists.md`
 - `tour-operator-blog-questionnaire.md`
 - `website-briefing-questionnaire.md`
@@ -73,7 +83,9 @@ Likely sources:
 - `tone-of-voice-questionnaire.md`
 
 ### Governance, chatbot, or approval-heavy workflows
+
 Use only the sections that help clarify:
+
 - audience
 - approved sources
 - exclusions

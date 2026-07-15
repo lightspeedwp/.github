@@ -7,11 +7,13 @@ Use this recurring prompt when the scaffold has evolved and you want the validat
 Run a focused validation-pack tightening pass over the current scaffold.
 
 Goals:
+
 - verify that validation docs, fixtures, and scripts still match the current scaffold
 - verify that README coverage, schema alignment, template/example separation, and memory hygiene checks are documented clearly
 - identify missing validation scripts, missing test definitions, or stale fixture assumptions
 
 Check:
+
 - scripts/
 - tests/
 - fixtures/
@@ -23,6 +25,7 @@ Check:
 - rollout and rebuild docs that reference validation behaviour
 
 Priority validation concerns:
+
 - required folder and file presence
 - nested-folder README coverage
 - README/file inventory alignment
@@ -37,11 +40,13 @@ Priority validation concerns:
 - test coverage visibility
 
 Constraints:
+
 - do not claim automated checks that do not exist
 - do not invent validators without documenting them clearly as pending
 - keep negative fixtures distinct from worked examples
 
 Output:
+
 - list validation-layer mismatches
 - list stale validation assumptions
 - list missing or weak validation assets

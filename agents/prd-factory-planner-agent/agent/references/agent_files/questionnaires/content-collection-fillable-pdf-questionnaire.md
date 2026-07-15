@@ -47,53 +47,53 @@ tab_handling: "single-page output from the provided source link"
 ### Vision, mission and values
 
 **Answer:** One short paragraph per item.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ## Audience and design
 
 ### Target audience profile
 
 **Answer:** Age, location, gender where relevant, industry, knowledge level and motivations.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Website goals
 
 **Answer:** What the website must help the business achieve.
-> 
-> 
-> 
+>
+>
+>
 
 ### Design likes
 
 **Answer:** Example sites and what you like: colour, typography, menu, images, UX, features.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Design dislikes
 
 **Answer:** Example sites and what to avoid.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Competitors
 
 **Answer:** List competitors and what you like or dislike about their sites.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ## Pages and features
 
@@ -118,43 +118,43 @@ tab_handling: "single-page output from the provided source link"
 ### Home page sections
 
 **Answer:** Hero, intro, services/products, proof, CTA and any extras.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### About page content
 
 **Answer:** Company story, motivation, differentiators, problems solved and imagery.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Services/products content
 
 **Answer:** Describe each offer in detail and note required images.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Team content
 
 **Answer:** Name, job title, short bio and image for each person.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Contact page content
 
 **Answer:** Contact details, form recipient, map/location and other useful info.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Feature requirements
 

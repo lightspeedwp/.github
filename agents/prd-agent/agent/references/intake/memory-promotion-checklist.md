@@ -1,6 +1,7 @@
 # Memory promotion checklist
 
 Promote information to durable memory only when it is:
+
 - approved or stable
 - likely to matter in future runs
 - not transient working noise

@@ -30,7 +30,7 @@ State what the draft metadata is based on and what has not been verified.
 
 | Page/object | Reason | Safer next action |
 |---|---|---|
-|  |  |
+|  |  |  |
 
 ## Decision records needed
 

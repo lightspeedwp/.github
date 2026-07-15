@@ -6,24 +6,24 @@
 
 ## Current priorities
 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
+- [ ]
 
 ## Waiting on input
 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
 
 ## Blocked
 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
 
 ## Completed
 
-- [x] 
+- [x]
 
 ## Next recommended action
 
-- 
+-

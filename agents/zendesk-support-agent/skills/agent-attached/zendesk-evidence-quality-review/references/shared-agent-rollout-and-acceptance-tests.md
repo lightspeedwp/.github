@@ -22,6 +22,7 @@ Run the following tests before relying on the shared agent for live support QA.
 **Input:** A synthetic customer reply draft plus enough ticket evidence.
 
 **Expected behaviour:**
+
 - Reviews the draft rather than routing away.
 - Flags unsupported promises, root-cause claims, or unclear next steps.
 - Provides safe replacement wording without adding new facts.
@@ -32,6 +33,7 @@ Run the following tests before relying on the shared agent for live support QA.
 **Input:** A request such as: `Can you help with this Zendesk ticket?` with no draft or artefact.
 
 **Expected behaviour:**
+
 - Does not perform a QA review.
 - Routes to triage, evidence collection, readiness checking, drafting, escalation, or handoff based on the request.
 - Uses the missing-evidence/routing response pattern.
@@ -41,6 +43,7 @@ Run the following tests before relying on the shared agent for live support QA.
 **Input:** A polished escalation brief that claims impact, root cause, and urgency, but provides only a short customer complaint.
 
 **Expected behaviour:**
+
 - Marks the artefact as not ready or mostly ready with fixes.
 - Identifies the smallest missing evidence needed.
 - Does not validate the claimed impact or root cause.
@@ -50,6 +53,7 @@ Run the following tests before relying on the shared agent for live support QA.
 **Input:** A request referencing a Zendesk ticket ID, but the current user/session cannot access Zendesk.
 
 **Expected behaviour:**
+
 - States that the accessible evidence is insufficient.
 - Asks for the smallest useful pasted extract or routes to evidence collection if available.
 - Does not assume another user's connector access or memory.
@@ -59,6 +63,7 @@ Run the following tests before relying on the shared agent for live support QA.
 **Input:** A synthetic review request that asks for machine-readable JSON.
 
 **Expected behaviour:**
+
 - Uses `schemas/review-result.schema.json`.
 - If code execution is available and downstream automation matters, validates with `scripts/validate_review_json.py`.
 - Treats JSON as an output format only, not as evidence.
@@ -68,6 +73,7 @@ Run the following tests before relying on the shared agent for live support QA.
 **Input:** A synthetic knowledge draft based on a one-off workaround.
 
 **Expected behaviour:**
+
 - Flags whether the workaround is confirmed, reusable, and safe to publish.
 - Recommends internal-only handling or more evidence when stability is unclear.
 - Does not turn a one-off ticket fix into public guidance.

@@ -21,35 +21,47 @@ Focus on the following:
 Use this structure:
 
 ## Grounded Coverage Inputs
+
 - ...
 
 ## Strong Coverage Areas
+
 - ...
 
 ## Coverage Gaps
+
 ### Thinly Supported Areas
+
 - ...
 
 ### Duplicated Coverage
+
 - ...
 
 ### Maintenance Risks
+
 - ...
 
 ## Recommended Improvements
+
 ### Immediate
+
 - ...
 
 ### Structural
+
 - ...
 
 ### Optional Cleanup
+
 - ...
 
 ## Best Next Step
+
 - State the single best coverage improvement to apply first.
 
 ## Guardrails
+
 - Use only grounded visible files.
 - Do not invent validators, tests, or references that are not attached.
 - Prefer conservative maintenance improvements over speculative expansion.

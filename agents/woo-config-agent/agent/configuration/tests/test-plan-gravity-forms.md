@@ -1,9 +1,11 @@
 # Gravity Forms Test Plan
 
 ## Objective
+
 Validate that the contact, enquiry, and newsletter forms work correctly for a tour operator site.
 
 ## Test scenarios
+
 1. Standard contact submission
 2. Enquiry with travel dates and group size
 3. Newsletter signup
@@ -13,6 +15,7 @@ Validate that the contact, enquiry, and newsletter forms work correctly for a to
 7. Mobile submission test
 
 ## Expected outcomes
+
 - Each required field validates correctly
 - Notifications reach the intended recipients
 - Confirmation messages match the approved wording

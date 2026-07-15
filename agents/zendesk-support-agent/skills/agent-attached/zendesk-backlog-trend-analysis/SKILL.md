@@ -234,7 +234,6 @@ The report must be safe to reuse across support agents.
 - Omit empty sections.
 - Keep Markdown clean and copy-paste-ready.
 
-
 ## Bundled examples and smoke prompts
 
 Use `examples/prompt-cookbook.md`, `examples/smoke-test-results-template.md`, and `evaluations/report-scenarios.json` when testing the skill in a shared agent or demonstrating expected prompt patterns. Use the good-output examples to calibrate structure and the anti-pattern examples to avoid unsupported claims, product drift, or personal-view assumptions. Do not load examples or evaluation scenarios during normal reporting unless the current task is QA, training, rollout, or skill maintenance.

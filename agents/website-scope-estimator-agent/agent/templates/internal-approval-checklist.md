@@ -32,7 +32,7 @@
 ## Readiness Decision
 
 - **Status:** ready | provisional | not ready
-- **Blocking issue(s):** 
-- **Next action:** 
+- **Blocking issue(s):**
+- **Next action:**
 
 ---

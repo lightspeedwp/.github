@@ -1,6 +1,7 @@
 # Formatting rules by output type
 
 ## Global default
+
 - YAML frontmatter above the main heading when the output is substantial enough to benefit from metadata
 - One `#` main heading immediately after frontmatter
 - `##` for main sections
@@ -9,6 +10,7 @@
 - A final divider line `---` at the bottom of the document
 
 ## Review or audit output
+
 - YAML frontmatter
 - One `#` main heading
 - `## Confirmed context`
@@ -20,6 +22,7 @@
 - `## Best next step`
 
 ### Intake-style review specifics
+
 - Do not insert extra peer `##` sections before `## Approval and readiness state`
 - Put added detail under `###` subsections inside the required parent section
 - In `## Missing intake`, every material gap must use this exact bullet pattern:
@@ -40,6 +43,7 @@
 - Do not expose internal runtime paths, workspace paths, or memory file paths in final user-facing review copy
 
 ## Page draft
+
 - YAML frontmatter
 - One `#` main heading
 - `## Hero`
@@ -48,6 +52,7 @@
 - `## Final CTA`
 
 ## Newsletter
+
 - YAML frontmatter
 - One `#` main heading
 - `## Objective`
@@ -58,6 +63,7 @@
 - `## CTA`
 
 ## Claim register
+
 - YAML frontmatter
 - One `#` main heading
 - `## Claim register`
@@ -66,6 +72,7 @@
 - `## Recommended next step`
 
 ## Form specification
+
 - YAML frontmatter
 - One `#` main heading
 - `## Form purpose`

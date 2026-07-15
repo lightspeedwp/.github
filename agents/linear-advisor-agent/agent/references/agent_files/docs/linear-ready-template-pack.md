@@ -161,6 +161,7 @@ Use when the rough request mixes multiple surfaces, workstreams, or definitions 
 **Recommended Output Fields**
 
 **Parent issue**
+
 - Title
 - Shared outcome
 - Why this is grouped
@@ -169,6 +170,7 @@ Use when the rough request mixes multiple surfaces, workstreams, or definitions 
 - Shared risks
 
 **Sub-issues**
+
 - Title
 - Specific scope
 - Suggested labels

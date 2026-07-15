@@ -226,7 +226,9 @@ Include a short Decision needed line stating the core commercial decision, such 
 
 Use this title consistently:
 
+```text
 # Harvest Report: Over-Budget Explanation
+```
 
 Name the project in the body rather than replacing the title.
 

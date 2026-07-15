@@ -90,10 +90,16 @@ jobs:
           fi
 
           # Get changed markdown files, excluding files with deferred formatting
+          # and bundled/vendored skill reference material (not repo-authored)
           FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' | \
                   sed '/^AWESOME_GITHUB_MAPPING_STRATEGY\.md$/d' | \
                   sed '/^docs\/MIGRATION\.md$/d' | \
                   sed '/^\.github\/reports\//d' | \
+                  sed '/\/plugin-provided\//d' | \
+                  sed '/\/platform-managed\//d' | \
+                  sed '/\/directory-installed\//d' | \
+                  sed '/\/tests\/markdown-issues\.md$/d' | \
+                  sed '/\/agentskills-main\//d' | \
                   tr '\n' ' ')
 
           if [ -z "$FILES" ]; then

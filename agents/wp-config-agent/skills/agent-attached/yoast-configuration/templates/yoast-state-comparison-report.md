@@ -39,7 +39,7 @@
 
 ## Open evidence gaps
 
-- 
+-
 
 ## QA checklist
 
@@ -51,5 +51,3 @@
 - [ ] Confirm decisions are logged where risky changes are accepted.
 
 ## Next action
-
-

@@ -1,11 +1,13 @@
 # Skill routing specification
 
 ## Current routing rule
+
 Use the attached LightSpeed lifecycle suite as the primary routing layer for LightSpeed project work. Use the older helper skills only when the request is generic, cross-cutting, clearly outside the newer LightSpeed lifecycle routes, or genuinely better served by a helper fallback.
 
 Do not force every request through every skill.
 
 ## Primary LightSpeed routing layer
+
 1. Use `lightspeed-prd-agent-orchestrator` for lifecycle-stage decisions, messy project context, and choosing the next LightSpeed specialist.
 2. Use `lightspeed-project-intake` when project inputs are rough, mixed, incomplete, or need a structured intake first.
 3. Use `lightspeed-project-research` when source understanding is weak and a grounded research brief should come before drafting, estimating, or change assessment.
@@ -23,7 +25,9 @@ Do not force every request through every skill.
 15. Use `lightspeed-project-memory-manager` when durable project state, assumptions, decisions, open loops, or stale-state cleanup should be handled explicitly.
 
 ## Legacy helper layer still attached
+
 These skills are still attached and may be used deliberately when they are the better fit, but they should not override a clearer LightSpeed specialist route:
+
 - `intake-routing`
 - `evidence-locking`
 - `prd-generation`
@@ -36,6 +40,7 @@ These skills are still attached and may be used deliberately when they are the b
 - `technical-brief-deep-dive`
 
 ### When the helper layer is still appropriate
+
 - Use `intake-routing` only as a legacy fallback when a narrower LightSpeed intake or orchestration route is unavailable or clearly inferior for the current request.
 - Use `evidence-locking` only as a legacy evidence-discipline fallback when the request is more about evidence discipline than a specific LightSpeed lifecycle deliverable.
 - Use `prd-generation` only as a legacy fallback outside the preferred `lightspeed-prd-writer` path.
@@ -48,7 +53,9 @@ These skills are still attached and may be used deliberately when they are the b
 - Use `validation-support` for generic validation tasks where the request is about file quality or validation structure rather than a LightSpeed lifecycle stage.
 
 ## Uploaded but unattached support-layer drafts
+
 These support-layer skill packages have been drafted and uploaded, but they are not attached and must not be treated as active routes yet:
+
 - `wordpress-plugin-packaging-review`
 - `content-file-validator`
 - `markdown-content-validator`
@@ -56,20 +63,24 @@ These support-layer skill packages have been drafted and uploaded, but they are 
 - `design-qa-readiness`
 
 ## Current documentation rule
+
 - Treat the attached uploaded Builder skill layer as the source of truth for this agent’s current routing.
 - Do not describe uploaded-but-unattached support drafts as active routes.
 - Do not describe older workspace-shared exact-name parity docs as if those exact shared skills are attached now.
 - Do not silently substitute historical parity targets for the current attached routing layer.
 
 ## Historical parity note
+
 A previous parity effort tracked a different exact-name workspace-shared skill set. That historical parity target is not the current operative routing layer.
 
 If exact shared-skill parity is still needed later:
+
 - use `references/skill-parity-audit.md` to review the current parity-state note
 - use `rollout/skill-parity-manual-resolution-checklist.md` for preserved unresolved manual-resolution paths
 - do not claim full parity until that separate target is deliberately re-audited and resolved
 
 ## Repair-path references
+
 - `references/SKILL_INVENTORY.md` — current attached skill inventory, helper layer, and uploaded-but-unattached support drafts.
 - `references/skill-parity-audit.md` — current parity-state note and known unresolved historical parity questions.
 - `references/skills-routing-and-directory-validation-report.md` — latest validation outcome.

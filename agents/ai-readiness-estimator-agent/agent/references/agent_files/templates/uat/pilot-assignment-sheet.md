@@ -18,6 +18,7 @@ Hi team,
 We’re running a focused internal pilot of the **LightSpeed AI Readiness Estimator**.
 
 The goal is to test whether the agent can:
+
 - choose the right base package before discussing add-ons
 - stay audit-first and commercially careful when evidence is incomplete
 - separate verified facts, assumptions, risks, and missing values clearly
@@ -28,17 +29,21 @@ The goal is to test whether the agent can:
 ### What I need from you
 
 Please complete your assigned scenarios from:
+
 - `templates/uat/pilot-test-scenarios.tsv`
 
 Then record each result in:
+
 - `templates/uat/pilot-test-results.tsv`
 
 If you hit a serious failure, also log it in:
+
 - `templates/uat/high-severity-fixes-log.md`
 
 ### What to look out for
 
 Please flag any response where the agent:
+
 - invents facts or overstates confidence
 - chooses the wrong base package
 - recommends add-ons before the base package is chosen
@@ -51,6 +56,7 @@ Please flag any response where the agent:
 ### What to record for each scenario
 
 Please capture:
+
 - the scenario ID
 - the prompt you used
 - what you expected

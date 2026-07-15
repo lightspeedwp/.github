@@ -70,12 +70,14 @@ Also exclude any claim that the current source tree is already a complete skill 
 ## 5. Open gaps that block safe packaging
 
 **Critical blockers**
+
 - canonical `SKILL.md` is unverified
 - canonical `agents/` entry layer is unverified
 - canonical skill name is unverified
 - canonical metadata layer is unverified
 
 **High blockers**
+
 - referenced validation material is unverified:
   - `references/validation/anti-drift-tests.md`
   - `references/outputs/client-safe-language.md`
@@ -83,12 +85,14 @@ Also exclude any claim that the current source tree is already a complete skill 
   - `scripts/validate_content_model.py`
 
 **Medium blockers**
+
 - `scripts/`
 - `schemas/`
 - `assets/`
 - `examples/`
 
 **Current safe packaging status**
+
 - This is a verified reference/source tree
 - This is not yet a verified local skill package
 - Safe verdict: **not yet packageable**
@@ -98,6 +102,7 @@ Also exclude any claim that the current source tree is already a complete skill 
 **No assembly-safe next phase yet.**
 
 The safest next move is a phase-03 blocker-verification pass to determine whether the source tree already contains:
+
 - `SKILL.md`
 - `agents/`
 - any canonical entry metadata

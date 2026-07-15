@@ -1,6 +1,7 @@
 # Harvest Weekly Operations Summary
 
 ## Headline
+
 This week’s biggest issues are two projects nearing or exceeding budget, one strong billing opportunity for old approved work, and a support retainer that is likely to need a scope review before month end.
 
 ## Top risks
@@ -19,19 +20,23 @@ This week’s biggest issues are two projects nearing or exceeding budget, one s
 | Northwind Home | Analytics Support | £1,420 | None | Finance to prepare invoice-ready review |
 
 ## PM action queue
+
 - Review the overspend driver on Checkout Rebuild.
 - Approve submitted time for Migration Phase 2.
 - Confirm whether CRO Sprint needs a scope change request.
 
 ## Finance action queue
+
 - Prepare billing review for Northwind Home.
 - Recheck old unbilled work once PM approvals land.
 
 ## Decisions needed
+
 - Decide whether to pause non-essential work on Checkout Rebuild.
 - Decide whether Oakwell Support needs a package review.
 
 ## Notes and assumptions
+
 - Week reviewed: 2026-06-22 to 2026-06-28.
 - Filters: Active projects and current-month retainer activity.
 - Missing data: Full cost-rate data was not available.

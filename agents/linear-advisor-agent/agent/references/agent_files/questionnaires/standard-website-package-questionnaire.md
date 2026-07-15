@@ -15,16 +15,19 @@ tab_handling: "single-page output from the provided source link"
 ## Client and project details
 
 ### Client / organisation name
+>
 > Guidance: Confirm spelling and legal suffix.
 
 **Answer:** Use the registered business name.
 
 ### Primary contact
+>
 > Guidance: Use one accountable decision-maker where possible.
 
 **Answer:** Name, role, email and phone number.
 
 ### Website or project name
+>
 > Guidance: This may differ from the legal entity.
 
 **Answer:** Use the public brand name.
@@ -36,8 +39,8 @@ tab_handling: "single-page output from the provided source link"
 ### Decision makers and contributors
 
 **Answer:** Primary approver; content owner; technical contact.
-> 
-> 
+>
+>
 
 ## Business basics
 
@@ -60,17 +63,17 @@ tab_handling: "single-page output from the provided source link"
 ### Target audience
 
 **Answer:** Primary buyers, secondary influencers, location, needs, and objections.
-> 
-> 
-> 
+>
+>
+>
 
 ### Business overview
 
 **Answer:** Summarise who you are, what you do, what you offer, and why customers choose you.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ## Global layout and navigation
 
@@ -108,15 +111,17 @@ tab_handling: "single-page output from the provided source link"
 - [ ] Other
 
 ### Main navigation structure
+>
 > Guidance: Indent subpages under parent items.
 
 **Answer:** Home; About; Services; Products; Projects; Blog; FAQ; Contact.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Primary CTA
+>
 > Guidance: Examples: Book a consult, Request a quote, Enquire today.
 
 **Answer:** Contact us
@@ -142,20 +147,20 @@ tab_handling: "single-page output from the provided source link"
 ### Key benefit statements
 
 **Answer:** Benefit title + short supporting sentence for 3-4 benefits.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Featured services or products
 
 **Answer:** List 1-5 priority offers to feature on the homepage.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Social proof
 
@@ -170,68 +175,68 @@ tab_handling: "single-page output from the provided source link"
 ### About page content
 
 **Answer:** Company story, mission, vision, values, founder/team notes and supporting media.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Services page content
 
 **Answer:** For each service: title, audience, pain point, outcome, description and image/icon.
-> 
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
+>
 
 ### Products page content
 
 **Answer:** For each product: title, description, price if relevant, SKU/code and images.
-> 
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
+>
 
 ### Projects / testimonials content
 
 **Answer:** Testimonials, case studies, client logos, review links and supporting images.
-> 
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
+>
 
 ### Blog page content
 
 **Answer:** Blog title, intro, categories and first posts if included.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### FAQ content
 
 **Answer:** Add one question and answer per entry.
-> 
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
+>
 
 ### Contact page content
 
 **Answer:** Email, phone, address, service area, social profiles, form recipient and map link.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ## Technical, SEO and launch inputs
 
@@ -242,29 +247,29 @@ tab_handling: "single-page output from the provided source link"
 ### Priority keywords
 
 **Answer:** List at least 5 priority search terms.
-> 
-> 
-> 
+>
+>
+>
 
 ### Tracking codes
 
 **Answer:** GA4, GTM, Meta Pixel, email marketing or live chat scripts.
-> 
-> 
-> 
+>
+>
+>
 
 ### Legal content
 
 **Answer:** Privacy policy, cookie policy, terms and conditions, website disclaimer.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Extra requests and files
 
 **Answer:** List additional features and upload supporting assets.
-> 
-> 
-> 
+>
+>
+>
 >

@@ -1,6 +1,7 @@
 # Wizard Prompts
 
 ## Universal client project kickoff
+
 ```markdown
 Start a new LightSpeed AI Readiness project.
 
@@ -25,6 +26,7 @@ Then create a source material inventory, route the project through the correct s
 ```
 
 ## Readiness assessment wizard
+
 ```markdown
 Use the AI Readiness Assessor workflow.
 
@@ -44,6 +46,7 @@ Produce a Markdown readiness report with red flags, quick wins, foundation work,
 ```
 
 ## Governance discovery wizard
+
 ```markdown
 Use the AI Governance Documentor workflow.
 
@@ -67,6 +70,7 @@ Produce a governance discovery summary, lightweight policy, operational governan
 ```
 
 ## Content collection wizard
+
 ```markdown
 Use the Content Collection Planner workflow.
 
@@ -87,6 +91,7 @@ Use Markdown.
 ```
 
 ## Chatbot planning wizard
+
 ```markdown
 Use the AI Chatbot Planner workflow.
 
@@ -114,6 +119,7 @@ Produce:
 ```
 
 ## Combined client pack wizard
+
 ```markdown
 Use the LightSpeed AI Readiness Orchestrator.
 
@@ -139,6 +145,7 @@ Use Markdown and package as a ZIP if file generation is available.
 ```
 
 ## Proposal / roadmap wizard
+
 ```markdown
 Use the LightSpeed AI Readiness Orchestrator.
 

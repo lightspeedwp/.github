@@ -3,6 +3,7 @@
 Use these prompts when testing the agent in preview.
 
 ## Prompt types
+
 - Turn scattered stakeholder notes into an execution packet.
 - Turn a product request into a design brief.
 - Critique a WooCommerce product page using business and accessibility goals.

@@ -7,12 +7,14 @@
 ## Top issues
 
 ### Issue 1
+
 - Issue:
 - Severity: high
 - Evidence:
 - Impact:
 
 ### Issue 2
+
 - Issue:
 - Severity: medium
 - Evidence:
@@ -21,17 +23,21 @@
 ## Recommendations
 
 ### Recommendation 1
+
 - Recommendation:
 - Priority: high
 - Tradeoffs:
 
 ### Recommendation 2
+
 - Recommendation:
 - Priority: medium
 - Tradeoffs:
 
 ## Accessibility notes
-- 
+
+-
 
 ## Open questions
-- 
+
+-

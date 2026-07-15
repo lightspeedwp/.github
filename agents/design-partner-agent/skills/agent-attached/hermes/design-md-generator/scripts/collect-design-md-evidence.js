@@ -5,19 +5,9 @@ const path = require("path");
 
 const root = process.argv[2] ? path.resolve(process.argv[2]) : process.cwd();
 
-const includeNames = new Set([
-  "DESIGN.md",
-  "theme.json",
-  "block.json",
-]);
+const includeNames = new Set(["DESIGN.md", "theme.json", "block.json"]);
 
-const includeExtensions = new Set([
-  ".css",
-  ".scss",
-  ".sass",
-  ".json",
-  ".md",
-]);
+const includeExtensions = new Set([".css", ".scss", ".sass", ".json", ".md"]);
 
 const includePathFragments = [
   `${path.sep}styles${path.sep}`,
@@ -79,8 +69,14 @@ function walk(currentDir) {
 walk(root);
 results.sort((a, b) => a.path.localeCompare(b.path));
 
-process.stdout.write(JSON.stringify({
-  root,
-  files: results,
-}, null, 2));
+process.stdout.write(
+  JSON.stringify(
+    {
+      root,
+      files: results,
+    },
+    null,
+    2,
+  ),
+);
 process.stdout.write("\n");

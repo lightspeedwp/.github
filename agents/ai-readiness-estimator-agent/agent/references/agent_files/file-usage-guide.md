@@ -13,7 +13,9 @@ Use this file as the top-level map for the agent's attached files.
 ## Top-Level Files
 
 ### `package-template-system.md`
+
 Use for the shared service-package framework:
+
 - audit-first workflow
 - batched onboarding logic
 - source priority
@@ -22,50 +24,63 @@ Use for the shared service-package framework:
 Use it when the task concerns overall package workflow, onboarding logic, sourcing order, or how estimates should be assembled.
 
 ### `ai-readiness-assessment-report-template.md`
+
 Use when the task is to draft or format an AI readiness assessment report.
 
 Use it as the output structure guide for readiness-report deliverables.
 
 ### `CONNECTORS.md`
+
 Use as the top-level guide for connected source roles and connector usage rules.
 
 ### `business-context.md`
+
 Use for the durable LightSpeed business context and the high-level intent behind the attached file system.
 
 ### `skill-directory/skill-routing-guide.md`
+
 Use when deciding which attached skill should handle the current request.
 
 ## Folder Control Files
 
 ### `docs/README.md`
+
 Use as the control file for reusable operating docs in `docs/`.
 
 ### `references/README.md`
+
 Use as the control file for supporting reference material in `references/`.
 
 ### `packages/package-index.md`
+
 Use as the routing map for selecting the primary base package.
 
 Then open only the relevant `packages/*/package-spec.md` file for the chosen package.
 
 ### `packages/assessment-values.md`
+
 Use before routing or pricing to know which values must be sourced, confirmed, or still requested.
 
 ### `package-addons/addon-index.md`
+
 Use only after the base package is chosen.
 
 Then open only the relevant `package-addons/*/addon-spec.md` file for any add-on that genuinely applies.
 
 ### `commercial-rules/README.md`
+
 Use as the control file for pricing, add-on, approval, threshold, and custom-scope rule files.
 
 ### `templates/README.md`
+
 Use as the control file for reusable client-facing and internal communication templates.
 
 ### `tests/README.md`
+
 Use as the control file for validation examples and test usage.
 
 ### `memory-schemas/README.md`
+
 Use as the control file for runtime memory schema expectations.
 
 Open the relevant `memory-schemas/*.schema.yaml` file before creating, validating, or updating a durable Memory file.

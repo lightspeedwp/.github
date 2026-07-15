@@ -1,6 +1,7 @@
 # Our guarantees template
 
 ## Metadata
+
 - Page title:
 - Page purpose:
 - Audience:

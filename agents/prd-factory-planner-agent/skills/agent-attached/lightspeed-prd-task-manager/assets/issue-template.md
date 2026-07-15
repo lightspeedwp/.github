@@ -12,7 +12,7 @@
 
 ## Acceptance criteria
 
-- [ ] 
+- [ ]
 
 ## QA notes
 

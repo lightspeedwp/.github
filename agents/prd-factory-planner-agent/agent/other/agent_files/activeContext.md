@@ -14,26 +14,26 @@
 
 ## What is known
 
-- 
-- 
-- 
+-
+-
+-
 
 ## What still needs confirmation
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Current blockers
 
-- 
-- 
+-
+-
 
 ## Immediate next steps
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Recommended output mode
 
@@ -41,5 +41,5 @@
 
 ## Notes for the next run
 
-- 
-- 
+-
+-

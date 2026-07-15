@@ -5,6 +5,7 @@ Use this reference when a handoff may be too thin, when the target team is uncle
 ## Readiness levels
 
 ### Ready
+
 Proceed with the handoff when the brief includes:
 
 - the customer-facing problem in plain language;
@@ -16,6 +17,7 @@ Proceed with the handoff when the brief includes:
 - urgency or risk with evidence, not guesswork.
 
 ### Partially ready
+
 Prepare the handoff only if it is useful to unblock the case, and label gaps clearly. Use when some evidence is missing but the receiver can still act on a narrow ask.
 
 Required handling:
@@ -26,6 +28,7 @@ Required handling:
 - do not convert to Linear, GitHub, Asana, or BugHerd unless explicitly requested and the missing evidence is not blocking that conversion.
 
 ### Not ready
+
 Do not prepare a full handoff when the receiver would have to rediscover the case from scratch.
 
 Route to `zendesk-evidence-collector` when a handoff lacks reliable case evidence or needs investigation, reproduction, proof, or root-cause context first. Route to `zendesk-case-readiness-check` when the main question is whether the case is ready for a handoff. Use `zendesk-router-skill` when the right next workflow is unclear.

@@ -16,6 +16,7 @@ description: audit technical SEO readiness for lightspeed website projects using
 Use this skill when the work is specifically about technical SEO health rather than broader content strategy, schema planning, or general launch QA.
 
 This skill is for audits such as:
+
 - crawlability and indexation review
 - robots.txt and XML sitemap review
 - canonical and duplicate-content risk review
@@ -29,6 +30,7 @@ This skill is for audits such as:
 Use this skill when the user wants diagnosis, prioritisation, and implementation-ready recommendations.
 
 Do not use this skill as the primary workflow for:
+
 - writing final website copy
 - general schema strategy when no technical audit is requested
 - redirect mapping itself when the task is mainly URL mapping
@@ -39,6 +41,7 @@ In those cases, coordinate with the more specific attached workflow instead.
 ## Required Inputs
 
 Use whatever evidence the user provides. Typical inputs include:
+
 - live or staging website URL
 - crawl export or page inventory
 - XML sitemap URLs or sitemap exports
@@ -97,6 +100,7 @@ If evidence is incomplete, do not block unnecessarily. Run the strongest audit p
 ### Crawlability and indexation
 
 Check for issues such as:
+
 - pages blocked unintentionally by robots.txt
 - noindex usage on pages that should rank
 - staging protections or accidental carryover to live
@@ -107,6 +111,7 @@ Check for issues such as:
 ### Canonicals and duplication
 
 Check for issues such as:
+
 - self-referencing canonicals missing where expected
 - canonicals pointing to the wrong destination
 - cross-template duplication risks
@@ -117,6 +122,7 @@ Check for issues such as:
 ### Metadata and template consistency
 
 Check for issues such as:
+
 - duplicate title tags or meta descriptions
 - missing or weak page titles on important templates
 - titles or descriptions that are too generic for key commercial pages
@@ -128,6 +134,7 @@ Do not turn this into a copywriting exercise. Focus on technical consistency and
 ### Sitemaps and robots
 
 Check for issues such as:
+
 - sitemaps containing non-canonical, redirected, noindex, or broken URLs
 - missing important content types from sitemaps
 - poor sitemap segmentation for large sites
@@ -136,6 +143,7 @@ Check for issues such as:
 ### Internal linking and crawl depth
 
 Check for issues such as:
+
 - orphan or weakly linked high-value pages
 - important pages too deep in the architecture
 - navigation or contextual linking gaps
@@ -145,6 +153,7 @@ Check for issues such as:
 ### Redirect and migration risk
 
 When the request involves a redesign, rebuild, migration, or restructure, review:
+
 - redirect coverage quality
 - redirect-chain risk
 - missing mappings for valuable legacy URLs
@@ -157,6 +166,7 @@ When the request involves a redesign, rebuild, migration, or restructure, review
 Review implementation quality at a practical level.
 
 Focus on:
+
 - missing schema on templates that clearly need it
 - schema-output mismatch with page content
 - duplicated or conflicting structured data sources
@@ -171,17 +181,21 @@ Default to Markdown.
 Use this structure unless the user asks for a lighter format:
 
 ### 1. Executive summary
+
 - audit context
 - overall risk level
 - top 3 technical SEO concerns
 
 ### 2. Evidence reviewed
+
 - source list
 - coverage limitations
 - assumptions
 
 ### 3. Findings table
+
 Use columns:
+
 - Area
 - Issue
 - Severity
@@ -191,20 +205,26 @@ Use columns:
 - Verification step
 
 ### 4. Priority actions
+
 Group into:
+
 - Launch blockers
 - Pre-launch fixes
 - Post-launch improvements
 
 ### 5. Additional notes
+
 Use for:
+
 - migration warnings
 - WordPress-specific implementation notes
 - tooling caveats
 - unclear evidence that needs confirmation
 
 ### 6. Internal LightSpeed notes
+
 Include:
+
 - delivery risk
 - likely specialist involvement needed
 - whether the issue is developer-led, SEO-led, content-led, or mixed
@@ -221,6 +241,7 @@ Include:
 ## LightSpeed Standards
 
 Prioritise recommendations that are:
+
 - practical for WordPress and block-theme delivery teams
 - maintainable after launch
 - understandable by developers, content editors, and project leads
@@ -229,7 +250,9 @@ Prioritise recommendations that are:
 Prefer fix-ready wording over generic SEO commentary.
 
 Good example:
+
 - "XML sitemap includes redirected legacy URLs from the pre-migration structure. Remove redirected URLs, keep only canonical 200-status destinations, then resubmit the cleaned sitemap after launch."
 
 Weak example:
+
 - "Improve the sitemap for SEO."

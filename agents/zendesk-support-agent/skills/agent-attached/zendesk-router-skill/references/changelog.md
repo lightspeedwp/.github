@@ -2,13 +2,11 @@
 
 Track behaviourally meaningful changes to this shared-agent router package. Keep entries short, dated, and anonymised.
 
-
 ## 1.11.0 - 2026-06-25
 
 - Removed misplaced package-specific capability/profile assets from the router package.
 - Restored the router package to router-only references and companion-skill routing assets.
 - Preserved router behaviour and the 12-skill companion manifest.
-
 
 ## 1.7.0 - 2026-06-25
 

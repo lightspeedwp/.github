@@ -10,18 +10,18 @@
 
 ## Milestones
 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
+- [ ]
 
 ## Recent updates
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Pending approvals
 
-- 
-- 
-- 
+-
+-
+-

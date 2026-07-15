@@ -86,6 +86,7 @@ If the downstream destination is not explicit, infer the most likely immediate u
 Default to this structure unless the user explicitly asks for another format:
 
 ### Reference Site Analysis
+
 - **Target**
 - **Likely use in current workflow**
 - **High-level positioning signal**
@@ -120,6 +121,7 @@ For comparisons, add:
 ## Example Request Shapes
 
 ### Request shape 1
+
 "Analyze this competitor homepage and pull out the best structural ideas for a service-page brief."
 
 Success criteria:
@@ -129,6 +131,7 @@ Success criteria:
 - converts findings into inputs usable in a page brief
 
 ### Request shape 2
+
 "Compare these three reference sites and tell me what patterns we should borrow for a WordPress handoff."
 
 Success criteria:
@@ -138,6 +141,7 @@ Success criteria:
 - distinguishes strong ideas from ideas that only fit one site's context
 
 ### Request shape 3
+
 "Use this inspiration site to guide a Figma-ready handoff for our new landing page."
 
 Success criteria:

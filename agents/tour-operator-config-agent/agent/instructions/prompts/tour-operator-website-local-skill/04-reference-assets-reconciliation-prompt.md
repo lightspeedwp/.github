@@ -11,6 +11,7 @@ Determine which references, scripts, assets, schemas, examples, memory files, an
 ## Inputs
 
 Use only:
+
 - `prompts/tour-operator-website` as the single source of truth
 - the verified inventory from `01-source-audit-prompt.md`
 - the package contract from `02-package-contract-prompt.md`
@@ -19,6 +20,7 @@ Use only:
 ## Scope
 
 Inspect and reconcile, where present and relevant:
+
 - `references/`
 - `assets/`
 - `scripts/`
@@ -50,6 +52,7 @@ Inspect and reconcile, where present and relevant:
 ## Validation expectations
 
 After support-layer edits:
+
 - verify referenced relative paths resolve inside the source folder
 - verify index files do not list files that are absent from the source folder
 - verify the package contract still matches the support layer

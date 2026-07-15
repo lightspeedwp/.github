@@ -73,28 +73,36 @@ Do not use this skill for general discovery, pure plugin implementation, or a na
 When delivering the result, use this exact section order:
 
 ### Scope Reviewed
+
 - State what was reviewed and the site or environment targeted.
 
 ### Evidence Used
+
 - List the main evidence sources actually used.
 
 ### Launch-Blocking Findings
+
 - Include only issues that would reasonably block launch.
 - If none were confirmed, say `No confirmed launch-blocking findings.`
 
 ### Important But Not Blocking
+
 - Include material issues that should be addressed soon but do not necessarily block launch.
 
 ### Improvement Opportunities
+
 - Include lower-priority polish or optimisation work.
 
 ### Not Verified
+
 - List anything that still needs confirmation.
 
 ### Recommended Next Actions
+
 - Give a short, prioritised action list.
 
 ### Handoff Summary
+
 - End with a concise plain-English summary suitable for a project manager, client, or implementation handoff.
 
 ## Quality Rules

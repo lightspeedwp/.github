@@ -1,16 +1,19 @@
 # Assembly worksheet
 
 ## A. Preconditions
+
 - [ ] Source remains classified as **reference/source tree**
 - [ ] Assembly scope is limited to **minimum entry layer + verified copies only**
 - [ ] Unverified files stay **excluded/unverified**
 
 ## B. Create
+
 - [ ] Create `SKILL.md`
 - [ ] Create `agents/`
 - [ ] Keep `agents/` to **minimum metadata only**
 
 ## C. Copy
+
 - [ ] `memory/project-context.md`
 - [ ] `references/evidence/evidence-model.md`
 - [ ] `references/evidence/source-links.md`
@@ -32,6 +35,7 @@
 - [ ] `references/outputs/output-contracts.md`
 
 ## D. Leave unverified
+
 - [ ] `scripts/`
 - [ ] `schemas/`
 - [ ] `assets/`
@@ -42,17 +46,20 @@
 - [ ] `scripts/validate_content_model.py`
 
 ## E. Coherence checks
+
 - [ ] `SKILL.md` references only included files
 - [ ] `agents/` metadata references only included files
 - [ ] No invented tools, assets, scripts, or validation claims
 - [ ] Role stays narrow: Tour Operator WordPress audit/configuration specialist
 
 ## F. Verdict
+
 - [ ] **Complete enough to package**
 - [ ] **Packageable with repairs**
 - [ ] **Not yet packageable**
 
 ## G. Final report
+
 - [ ] List created files
 - [ ] List copied files
 - [ ] List excluded unverified files

@@ -57,12 +57,14 @@ If the plan may need to continue later, end with this section so a user can past
 Use this short policy during the pilot:
 
 **Approved by default**
+
 - low-risk internal examples
 - sanitised client examples
 - approved briefs, questionnaires, and discovery notes
 - non-sensitive real work needed for proposal and review testing
 
 **Excluded unless Ash explicitly approves them for pilot use**
+
 - live client proposals with confidential pricing or commercial terms
 - NDA-bound or client-confidential documents
 - security questionnaires with sensitive controls, architecture, or vendor details
@@ -79,6 +81,7 @@ If uncertain, treat the material as excluded and ask for owner confirmation.
 Identify the current visible facts first.
 
 Check for:
+
 - mission and intended workflow
 - instruction quality and boundaries
 - attached files and test materials
@@ -89,12 +92,14 @@ Check for:
 - live versus draft state when visible
 
 Output:
+
 - a short list of verified status facts
 - a short list of obvious gaps or unknowns
 
 ### Step 2. Classify readiness by area
 
 Assess these areas conservatively:
+
 - Mission clarity
 - Instructions
 - Knowledge files
@@ -107,6 +112,7 @@ Assess these areas conservatively:
 - Human approval gates
 
 For each area, label:
+
 - Status: Ready / Needs work / Unknown
 - Evidence level: Verified / Inferred / Owner must confirm
 - Notes
@@ -124,6 +130,7 @@ Do not imply full rollout readiness unless the evidence supports it.
 List only the items Ash or the owner must confirm manually.
 
 Typical examples:
+
 - sharing model
 - teammate access
 - whether the latest live version is the intended one, when not directly visible
@@ -135,6 +142,7 @@ Typical examples:
 ### Step 5. Build the pilot model
 
 Recommend a controlled pilot with:
+
 - 3 to 5 testers
 - 1 to 2 weeks
 - real but low-risk tasks
@@ -142,6 +150,7 @@ Recommend a controlled pilot with:
 - one shared feedback tracker
 
 Include:
+
 - who should test
 - what each tester should try
 - what inputs or evidence they should provide
@@ -152,6 +161,7 @@ Include:
 Write short instructions Ash can send to teammates.
 
 Include:
+
 - what the agent is for
 - what testers should paste into the agent
 - what files or links they should provide
@@ -164,6 +174,7 @@ Include:
 Provide 8 to 12 realistic prompts.
 
 For each prompt include:
+
 - Prompt text
 - Best input type
 - What the tester should check
@@ -172,6 +183,7 @@ For each prompt include:
 ### Step 8. Create compact pilot test cases
 
 Create a compact test-case table with these columns:
+
 - Test ID
 - Tester role
 - Scenario
@@ -187,6 +199,7 @@ Create a compact test-case table with these columns:
 State the practical guardrails clearly.
 
 Include:
+
 - no sending, publishing, updating, deleting, ticket creation, task updates, or client contact without explicit approval
 - escalate when source evidence is missing, contradictory, stale, sensitive, privacy-related, legal, pricing-related, security-related, or otherwise risky
 - label assumptions clearly
@@ -195,11 +208,13 @@ Include:
 ### Step 10. Recommend improvements and final rollout status
 
 Group improvements into:
+
 - Must fix before pilot
 - Should improve during pilot
 - Later enhancements
 
 Then choose one final recommendation:
+
 - Ready for owner testing
 - Ready for small team pilot
 - Needs hardening before pilot

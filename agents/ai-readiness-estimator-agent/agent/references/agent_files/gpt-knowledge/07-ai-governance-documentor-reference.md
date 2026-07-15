@@ -1,9 +1,11 @@
 # Skill Reference: ai-governance-documentor
 
 ## Purpose
+
 Use `ai-governance-documentor` to turn discovery answers, risk context, business notes and website evidence into AI governance outputs.
 
 ## Core outputs
+
 - governance discovery summary
 - lightweight AI policy
 - operational AI governance guide
@@ -16,11 +18,13 @@ Use `ai-governance-documentor` to turn discovery answers, risk context, business
 - incident and review workflow
 
 ## Workflow
+
 Combine discovery and final documentation.
 
 Use the discovery process first. Then produce the final governance documentation based on the answers.
 
 ## Minimum recommended inputs
+
 Before generating a full governance guide, collect:
 
 - client name
@@ -40,6 +44,7 @@ Before generating a full governance guide, collect:
 - incident contact
 
 ## Output style by deliverable
+
 Use different tones depending on the output:
 
 - Policy outputs: formal policy style
@@ -47,6 +52,7 @@ Use different tones depending on the output:
 - Reports and assessment summaries: workshop summary style
 
 ## Required governance roles
+
 Define these roles where relevant:
 
 - Governance Owner
@@ -68,6 +74,7 @@ Group roles under umbrella responsibilities where useful:
 - Continuous Improvement Ownership
 
 ## Required governance matrix columns
+
 - AI activity
 - Owner
 - Risk level
@@ -80,6 +87,7 @@ Group roles under umbrella responsibilities where useful:
 - Notes
 
 ## Framework references
+
 Reference these where useful, without overloading the client:
 
 - NIST AI Risk Management Framework
@@ -93,6 +101,7 @@ Reference these where useful, without overloading the client:
 - WordPress governance, performance and security best practice
 
 ## Disclaimer
+
 Always include:
 
 > This document supports operational planning and governance. It is not legal, regulatory or privacy advice. Requirements should be confirmed with a qualified legal or privacy adviser, especially where personal data, regulated sectors, vulnerable users or public-facing AI systems are involved.

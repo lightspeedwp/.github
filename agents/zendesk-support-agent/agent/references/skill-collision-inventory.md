@@ -3,6 +3,7 @@
 Keep Zendesk workflows separated by deliverable. Choose the smallest matching skill, default to one primary skill, and add at most one supporting skill only when it materially improves evidence quality, readiness, documentation grounding, or output safety.
 
 ## Default routing standard
+
 - Pick one primary skill by default.
 - Add at most one supporting skill only when it fills a clear gap.
 - Keep Zendesk-first routing intact unless the user explicitly asks for a downstream product, engineering, document, or delivery artifact.
@@ -12,26 +13,31 @@ Keep Zendesk workflows separated by deliverable. Choose the smallest matching sk
 ## Primary-skill directory
 
 ### Routing skills
+
 - `zendesk-router-skill`: use as the primary skill for unclear intake, what-should-happen-next questions, or when the best next workflow is not obvious.
 - `zendesk-triage-router`: use as the primary skill for first-pass triage, severity, priority, owner direction, queue guidance, duplicate risk, and next-workflow selection.
 
 ### Evidence and readiness skills
+
 - `zendesk-evidence-collector`: use as the primary skill for minimum reliable Zendesk evidence and deeper single-case investigation.
 - `zendesk-case-readiness-check`: use as the primary skill when the question is whether the case is ready for the next concrete deliverable.
 - `zendesk-evidence-quality-review`: use only as a supporting or final-pass skill after a draft already exists.
 
 ### Delivery skills
+
 - `zendesk-draft-response`: use as the primary skill for customer-facing reply drafting only.
 - `zendesk-handoff-prep`: use as the primary skill for internal support handoffs only.
 - `zendesk-customer-escalation`: use as the primary skill for true escalations with urgency, risk ownership, or a cross-functional ask.
 - `zendesk-backlog-trend-analysis`: use as the primary skill for backlog, queue-health, repeated-theme, and trend reporting.
 
 ### Knowledge and pattern skills
+
 - `zendesk-duplicate-pattern-review`: use as the primary skill for duplicates, related cases, and broader support patterns.
 - `zendesk-knowledge-candidate-review`: use as the primary skill for deciding whether an issue should become documentation.
 - `zendesk-create-knowledge`: use as the primary skill for documentation drafting only after documentation-worthiness is clear.
 
 ### Specialist skills
+
 - `zendesk-customer-research`: use as the primary skill when customer or account context is the main missing input before another deliverable.
 - `zendesk-refund-assessment`: use as the primary skill for internal decision support on refund, credit, goodwill, or policy-exception cases.
 - `zendesk-bug-report-package`: use as the primary skill for engineering-ready internal bug packages.
@@ -39,12 +45,14 @@ Keep Zendesk workflows separated by deliverable. Choose the smallest matching sk
 - `zendesk-help-center-grounding`: use as the primary skill only when Help Center, policy, or approved-documentation grounding is the main deliverable.
 
 ## Approved supporting-skill pairings
+
 - Pair `zendesk-evidence-collector` with a delivery or specialist skill when the case lacks enough grounded evidence.
 - Pair `zendesk-case-readiness-check` with a delivery or knowledge skill when the question is whether the case is ready.
 - Pair `zendesk-help-center-grounding` with `zendesk-draft-response`, `zendesk-refund-assessment`, or `zendesk-knowledge-candidate-review` when documented wording or policy grounding matters.
 - Pair `zendesk-evidence-quality-review` only after a draft already exists and needs a final QA pass.
 
 ## Pairings that should not be default chains
+
 - Do not chain `zendesk-router-skill` into `zendesk-triage-router` by default unless the routing question is genuinely unresolved first.
 - Do not chain `zendesk-draft-response` with `zendesk-handoff-prep`; replies and internal handoffs are separate deliverables.
 - Do not chain `zendesk-handoff-prep` with `zendesk-customer-escalation`; ordinary transfers and true escalations must stay distinct.
@@ -53,6 +61,7 @@ Keep Zendesk workflows separated by deliverable. Choose the smallest matching sk
 - Do not chain `zendesk-ticket-triage` with `zendesk-triage-router`; the legacy package path is an exception path, not the default router.
 
 ## Routing sequence
+
 1. Confirm the requested deliverable.
 2. Decide whether the task is unclear intake, triage, investigation, readiness, delivery, knowledge, pattern review, or specialist work.
 3. Choose one primary skill that matches that deliverable.
@@ -61,6 +70,7 @@ Keep Zendesk workflows separated by deliverable. Choose the smallest matching sk
 6. Stop once the deliverable is complete instead of cascading into adjacent workflows.
 
 ## Separation rules
+
 - Do not use `zendesk-draft-response` for escalation or handoff work.
 - Do not use `zendesk-customer-escalation` for ordinary support handoffs.
 - Do not use `zendesk-create-knowledge` before documentation-worthiness is established.
@@ -70,6 +80,7 @@ Keep Zendesk workflows separated by deliverable. Choose the smallest matching sk
 - Use secondary apps only after the Zendesk support task is clear and only when that app materially improves the requested deliverable.
 
 ## Alignment expectations
+
 - Routing guidance in the main instructions must agree with this file.
 - Output rules in `references/output-standards.md` should match the repeated deliverables named here.
 - Boundaries in `references/qa-standards.md` should reinforce the non-overlap and non-chaining rules in this file.

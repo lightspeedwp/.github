@@ -1,6 +1,7 @@
 # Launch QA Conventions
 
 Launch QA plans should prioritize:
+
 - broken core journeys
 - content or claim errors
 - missing states

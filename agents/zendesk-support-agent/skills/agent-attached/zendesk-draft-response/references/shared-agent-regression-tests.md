@@ -126,7 +126,6 @@ python scripts/redact_context.py draft-context.md --output redacted-context.md -
 
 Pass if the redacted prompt is useful for testing but no longer identifies a real customer, staff member, account, private URL, or live ticket.
 
-
 ## Router Boundary Smoke Test
 
 Include a prompt that asks `zendesk-draft-response` to choose between multiple Zendesk workflows. Expected behaviour: return to `zendesk-router-skill`, do not draft a reply, and do not present a broad Zendesk skill menu.

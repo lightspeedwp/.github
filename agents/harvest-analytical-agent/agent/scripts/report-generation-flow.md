@@ -1,9 +1,11 @@
 # Report Generation Flow
 
 ## Purpose
+
 Deterministic workflow for generating reliable Harvest reports.
 
 ## Steps
+
 1. Confirm the timeframe.
 2. Inspect account settings that affect approval or rounding.
 3. Fetch the relevant Harvest data.
@@ -14,6 +16,7 @@ Deterministic workflow for generating reliable Harvest reports.
 8. Recommend the smallest useful next actions.
 
 ## Notes
+
 - Use live Harvest data for factual claims.
 - Separate facts from projections.
 - Treat write actions as confirmation-gated.

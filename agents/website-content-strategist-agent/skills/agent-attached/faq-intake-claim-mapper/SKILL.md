@@ -10,6 +10,7 @@ description: Collect FAQ intake for website pages, define exactly five useful FA
 Use this skill when a website page, page family, or section needs structured FAQ planning before drafting or publication.
 
 Use it especially when:
+
 - the page needs visitor-objection handling
 - the page depends on decision-stage questions
 - the answers may include trust, proof, policy, guarantee, comparative, or performance language
@@ -35,6 +36,7 @@ Use it especially when:
 Ask the smallest useful question set based on page type.
 
 Examples:
+
 - homepage: objections, trust questions, route-selection questions
 - service page: process, proof, timeline, fit, next-step questions
 - pricing page: inclusions, exclusions, fit, commitment, trust questions
@@ -42,6 +44,7 @@ Examples:
 - getting started page: onboarding expectations, inputs needed, support route questions
 
 ## FAQ rules
+
 - Every page should support exactly five FAQ planning slots.
 - If the page should not visibly publish FAQs, still define the five most useful questions in the planning layer and mark them as hidden, deferred, or answered elsewhere.
 - Avoid generic filler questions.
@@ -51,6 +54,7 @@ Examples:
 ## Output
 
 Return:
+
 - FAQ planning summary
 - Five FAQ entries
 - Claim-sensitive FAQ list

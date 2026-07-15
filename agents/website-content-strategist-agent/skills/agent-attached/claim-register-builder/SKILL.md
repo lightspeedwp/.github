@@ -25,6 +25,7 @@ Treat these as claim-bearing content by default when they include factual, trust
 ### FAQ-specific rules
 
 For FAQ-derived claims, also capture:
+
 - originating page or page family
 - originating FAQ question
 - whether the answer is safe to publish now
@@ -33,6 +34,7 @@ For FAQ-derived claims, also capture:
 ### Stats-specific rules
 
 For stats-derived claims, also capture:
+
 - figure
 - evidence source
 - whether the number is approved

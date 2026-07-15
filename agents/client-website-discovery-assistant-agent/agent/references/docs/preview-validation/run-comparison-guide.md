@@ -13,6 +13,7 @@ status: reusable_test_reference
 ## Purpose
 
 Use this guide to compare two preview runs side by side, especially when testing the difference between:
+
 - **context-only QA** runs
 - **multi-source validation** runs
 
@@ -68,6 +69,7 @@ If these change, the difference may reflect a formatting or instruction issue ra
 ### Context-only QA run
 
 This run should:
+
 - stay inside the attached example-context file
 - avoid connected-app lookups unless explicitly allowed
 - avoid live verification unless explicitly allowed
@@ -75,6 +77,7 @@ This run should:
 - behave conservatively and maximize repeatability
 
 Expected signals:
+
 - explicit wording that the run is grounded in the attached file only
 - explicit wording that no broader lookups or verification were added
 - fewer confirmed details beyond what is named in the example-context file
@@ -83,12 +86,14 @@ Expected signals:
 ### Multi-source validation run
 
 This run may:
+
 - verify or enrich against accessible live pages
 - use connected evidence such as Drive, GitHub, or Figma when relevant
 - compare sources against each other
 - produce richer findings where evidence is accessible
 
 Expected signals:
+
 - explicit mention of reviewed or verified external sources
 - more specific confirmed facts
 - more detailed findings in areas like content, technical implementation, design, or source-of-truth conflicts
@@ -99,33 +104,43 @@ Expected signals:
 ## Side-By-Side Review Checklist
 
 ### 1. Evidence scope
+
 Check:
+
 - Did the context-only run stay inside the attached example file?
 - Did the multi-source run broaden only when the prompt allowed it?
 - Did each run behave according to its intended scope?
 
 ### 2. Evidence labeling
+
 Check:
+
 - Are confirmed facts clearly separated from assumptions?
 - Are inferred observations clearly labeled?
 - Are open questions present where evidence is thin?
 - Are internal notes clearly separated?
 
 ### 3. Formatting consistency
+
 Check:
+
 - Do both runs use a real Markdown heading before any fenced block?
 - Do both runs explain that the fenced block is the copyable Markdown artifact?
 - Do both runs include `## Next steps` after the fenced block?
 - Do both runs preserve YAML frontmatter and clean Markdown structure?
 
 ### 4. Delivery behavior
+
 Check:
+
 - Are both runs delivered as Markdown rather than DOCX?
 - Are both runs presented inline unless a real download was explicitly requested?
 - Are fake file links, local paths, and sandbox paths fully absent?
 
 ### 5. Repeatability control
+
 Check:
+
 - Would the context-only run remain stable if repeated later?
 - Is the multi-source run reasonably allowed to vary over time because its external evidence can change?
 - Is that difference visible and understandable rather than accidental?
@@ -137,39 +152,47 @@ Check:
 Use this short structure when recording a comparison:
 
 ### Compared context
+
 - Example file used:
 - Context-only run date:
 - Multi-source run date:
 
 ### Same across both runs
-- 
-- 
-- 
+
+-
+-
+-
 
 ### Context-only QA behavior observed
-- 
-- 
-- 
+
+-
+-
+-
 
 ### Multi-source validation behavior observed
-- 
-- 
-- 
+
+-
+-
+-
 
 ### Key difference that proves the prompt split worked
-- 
+
+-
 
 ### Problems or drift still observed
-- 
+
+-
 
 ### Recommended next action
-- 
+
+-
 
 ---
 
 ## Pass Criteria For Prompt-Split Testing
 
 Treat the prompt split as working when:
+
 - the **context-only** run stays inside the file-bounded evidence scope
 - the **multi-source** run clearly broadens only when allowed
 - both runs still follow the same formatting and safety rules
@@ -180,6 +203,7 @@ Treat the prompt split as working when:
 ## Failure Signs
 
 Treat these as prompt-split failures or drift signals:
+
 - the context-only run performs broader evidence lookups without permission
 - the multi-source run stays artificially shallow when broader evidence is accessible and clearly requested
 - one mode changes formatting behavior unexpectedly
@@ -192,6 +216,7 @@ Treat these as prompt-split failures or drift signals:
 ## Recommended Related Files
 
 Use this guide together with:
+
 - `docs/preview-validation/example-contexts-index.md`
 - `docs/preview-validation/repeatable-preview-test-prompts.md`
 - `docs/preview-validation/master-preview-qa-checklist.md`

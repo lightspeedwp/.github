@@ -3,12 +3,15 @@
 Run a broader consistency cleanup pass across this agent package.
 
 ## Goal
+
 Tighten remaining consistency notes, package references, and validation-layer coverage around the current routing language and visible file structure without reopening already-resolved blocking issues.
 
 ## Current guidance
+
 Nothing in the requested routing and validation slice is currently blocking. Focus on non-blocking cleanup, consistency tightening, and validation follow-through.
 
 ## Required workflow
+
 1. Refresh your understanding of the current visible agent file tree.
 2. Review the current templates, examples, schemas, scripts, prompts, and README files that are relevant to routing and validation consistency.
 3. Check for drift between:
@@ -24,6 +27,7 @@ Nothing in the requested routing and validation slice is currently blocking. Foc
 6. If test sources are not visible or staged, do not invent them; note only grounded gaps.
 
 ## What to look for
+
 - template, example, and schema naming mismatches
 - validators that check only part of a workflow family and leave obvious drift uncaught
 - README notes that overclaim validation coverage
@@ -32,6 +36,7 @@ Nothing in the requested routing and validation slice is currently blocking. Foc
 - references to files or folders that no longer exist or are no longer the best canonical source
 
 ## Editing rules
+
 - Keep fixes conservative and grounded in the visible package.
 - Do not invent hidden folders, tests, or validators.
 - Preserve useful folder-local guidance unless it is stale or contradicted by the current package.
@@ -39,4 +44,5 @@ Nothing in the requested routing and validation slice is currently blocking. Foc
 - Separate confirmed gaps from speculative cleanup ideas.
 
 ## Deliverable
+
 Apply the smallest useful set of file updates needed to improve consistency across prompts, READMEs, templates, examples, schemas, and validation notes so the package better matches the current routing language and visible structure.

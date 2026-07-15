@@ -35,35 +35,35 @@ tab_handling: "single-page output from the provided source link"
 ### Business details
 
 **Answer:** Age, size, products, services, market position and important context.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Desired brand perception
 
 **Answer:** How should people feel after visiting the site?
-> 
-> 
-> 
+>
+>
+>
 
 ### Ideal customers
 
 **Answer:** Describe personas, buying triggers and common objections.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Visitor goals
 
 **Answer:** What visitors are trying to do on the site.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Average sale value and lifetime value
 
@@ -74,18 +74,18 @@ tab_handling: "single-page output from the provided source link"
 ### Website objectives
 
 **Answer:** Primary and secondary goals.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Current website feedback
 
 **Answer:** What works, what fails, and what must change.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Main action visitors should take
 
@@ -94,11 +94,11 @@ tab_handling: "single-page output from the provided source link"
 ### Design inspiration
 
 **Answer:** URLs, notes and specific likes/dislikes.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Brand guidelines and logo files
 
@@ -107,7 +107,7 @@ tab_handling: "single-page output from the provided source link"
 ### Concerns, budget and timeline
 
 **Answer:** Be clear about blockers and fixed constraints.
-> 
-> 
-> 
+>
+>
+>
 >

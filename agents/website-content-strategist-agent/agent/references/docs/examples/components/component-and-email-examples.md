@@ -5,9 +5,11 @@
 ## Admin form email notification example
 
 ### Subject
+
 New strategy enquiry submitted: Alder & Stone website refresh
 
 ### Body
+
 A new strategy enquiry has been submitted.
 
 - Contact: Jane Smith
@@ -21,9 +23,11 @@ A new strategy enquiry has been submitted.
 ## User form email notification example
 
 ### Subject
+
 Thanks for contacting LightSpeed
 
 ### Body
+
 Thanks for getting in touch. Your enquiry has been received and the team will review it shortly.
 
 In the meantime, you can explore our services or read more about how we approach website strategy and content systems.
@@ -35,6 +39,7 @@ CTA: Explore our services
 ## Mega menu example
 
 ### Menu groups
+
 | Group | Purpose | Links included | CTA if any |
 |---|---|---|---|
 | Services | Help visitors choose a service path | Website strategy, Content systems, WordPress delivery | Book a consultation |
@@ -46,6 +51,7 @@ CTA: Explore our services
 ## Header section example
 
 ### Structure
+
 - Logo
 - Primary navigation
 - Secondary trust link
@@ -56,6 +62,7 @@ CTA: Explore our services
 ## Footer section example
 
 ### Structure
+
 - Short company summary
 - Key navigation links
 - Policy links
@@ -67,6 +74,7 @@ CTA: Explore our services
 ## Sidebar section example
 
 ### Structure
+
 - Context summary
 - Related links
 - Sticky CTA
@@ -77,9 +85,11 @@ CTA: Explore our services
 ## Modal or popup example
 
 ### Purpose
+
 Capture checklist signups for visitors interested in AI-readiness planning.
 
 ### Content
+
 - Title: Get the AI Readiness Checklist
 - Intro: Receive a practical checklist for reviewing your current website before chatbot or AI content work starts.
 - Fields: name, email, consent
@@ -90,11 +100,14 @@ Capture checklist signups for visitors interested in AI-readiness planning.
 ## CTA section example
 
 ### Title
+
 Need a clearer route from strategy to implementation?
 
 ### Description
+
 Start with a focused review so we can identify your strongest next move.
 
 ### CTA
+
 - Label: Book your consultation
 - Link: /book-a-consultation

@@ -46,4 +46,3 @@ Overall status: pass / pass with notes / blocked / failed
 - Recommendation:
 - Conditions before release:
 - Post-release monitoring:
-

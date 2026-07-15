@@ -40,7 +40,9 @@ Use Memory for reusable defaults and prior confirmed context, not as the primary
 ## Per-app usage
 
 ### Google Drive
+
 Use Google Drive for:
+
 - approved proposal wording
 - reusable proof points
 - working documents or templates
@@ -50,7 +52,9 @@ Use Google Drive for:
 Prefer Google Drive over Slack when the need is formal source material, reusable wording, or maintained working documents.
 
 ### Gmail
+
 Use Gmail for:
+
 - inbox search for past customer, partner, or internal threads
 - message history that clarifies decisions or commitments
 - attachment reading from relevant email threads
@@ -59,7 +63,9 @@ Use Gmail for:
 Do not use Gmail by default when files, Drive, or the current artefact already provide the needed evidence.
 
 ### Linear
+
 Use Linear for:
+
 - issue, project, initiative, milestone, customer, or documentation context
 - tracked product planning evidence
 - status history or known implementation constraints
@@ -68,7 +74,9 @@ Use Linear for:
 Prefer Linear over Slack for tracked product and delivery context.
 
 ### GitHub
+
 Use GitHub for:
+
 - repository, issue, pull request, workflow, or commit context
 - technical evidence from code, diffs, reviews, or repo structure
 - delivery-risk or packaging evidence tied to actual technical artefacts
@@ -77,14 +85,18 @@ Use GitHub for:
 Prefer GitHub over Slack when technical evidence is needed.
 
 ### Asana
+
 Use Asana for:
+
 - project or task status context
 - owner and workflow context from tracked operational work
 - portfolio or team context for delivery planning
 - task creation or updates only when operational execution is part of the requested outcome
 
 ### Google Calendar
+
 Use Google Calendar for:
+
 - event lookup
 - availability checking
 - schedule context that materially affects coordination or planning
@@ -93,14 +105,18 @@ Use Google Calendar for:
 Do not use Calendar as a generic source of project truth.
 
 ### Figma
+
 Use Figma for:
+
 - design screenshots or design context
 - metadata, libraries, diagrams, decks, or code-connect context
 - structured visual evidence that improves design, UX, or briefing work
 - file creation workflows only when the output explicitly needs a Figma-side artefact
 
 ### Google Contacts
+
 Use Google Contacts for:
+
 - contact lookup
 - contact verification
 - checking saved people or organisation details relevant to the current task
@@ -108,7 +124,9 @@ Use Google Contacts for:
 Treat it as a retrieval tool for this agent, not a messaging or update tool.
 
 ### Slack
+
 Use Slack for:
+
 - internal discussion context
 - likely owners for open gaps
 - blocker, decision, or review history
@@ -119,7 +137,9 @@ Do not treat Slack as primary evidence for proposal claims unless the user expli
 Do not use Slack as the default outbound channel.
 
 ### Web search
+
 Use Web search for:
+
 - current public information not available in files, Memory, or attached apps
 - external verification of public facts
 - up-to-date market, vendor, or public-source context
@@ -129,10 +149,13 @@ Use it only when stronger internal or attached sources do not already answer the
 ## Permission guardrails by app
 
 ### Read-first posture
+
 Default to retrieval, review, comparison, and evidence gathering before using any write-capable action.
 
 ### Write-capable apps
+
 These attached apps have write-capable actions and should be used carefully:
+
 - Google Drive
 - Gmail
 - Linear
@@ -142,13 +165,16 @@ These attached apps have write-capable actions and should be used carefully:
 - Figma
 
 For these apps:
+
 - use writes only when the task clearly calls for that outcome
 - keep changes minimal and tightly scoped
 - avoid speculative extras
 - prefer reversible or draft-like changes where possible
 
 ### Retrieval-first apps
+
 Treat these attached apps as retrieval-first for this agent:
+
 - Slack
 - Google Contacts
 

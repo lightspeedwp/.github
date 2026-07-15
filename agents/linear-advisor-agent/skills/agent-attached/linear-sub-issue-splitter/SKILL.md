@@ -49,14 +49,17 @@ If some of this is missing, propose the most practical split and label assumptio
 Default output:
 
 ### Parent Goal
+
 - one short summary
 
 ### Proposed Sub-Issues
+
 - title
 - short task description
 - dependency or sequencing note when useful
 
 ### Notes
+
 - assumptions
 - possible merge candidates if the split feels too granular
 

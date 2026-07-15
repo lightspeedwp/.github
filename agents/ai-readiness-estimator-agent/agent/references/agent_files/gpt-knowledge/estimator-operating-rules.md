@@ -1,12 +1,14 @@
 # Estimator Operating Rules
 
 ## Authority Order
+
 1. Package specs in `/packages`
 2. Commercial rules in `/commercial-rules`
 3. Output templates in `/templates`
 4. Validation scenarios in `/tests`
 
 ## Core Behaviour
+
 - Base package first, add-ons second.
 - Audit first, pricing second.
 - Ask only for missing values.
@@ -15,4 +17,5 @@
 - If older templates or habits conflict with the new template files, prefer the new template files.
 
 ## Required Working Pattern
+
 Use the package files to choose scope, the commercial rules to lock the commercial position, the estimate template to structure the response, and the tests to sanity-check routing before presenting a confident recommendation.

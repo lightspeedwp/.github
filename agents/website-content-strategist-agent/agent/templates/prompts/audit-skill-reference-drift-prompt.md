@@ -22,28 +22,37 @@ Focus on the following:
 Produce the output using this structure:
 
 ## Grounded Inputs
+
 - List the attached skills and files you relied on.
 
 ## Confirmed Drift
+
 - ...
 
 ## Possible Drift
+
 - ...
 
 ## Missing Evidence
+
 - ...
 
 ## Recommended Fixes
+
 ### Immediate
+
 - ...
 
 ### Optional Cleanup
+
 - ...
 
 ## Best Next Step
+
 - State the single best next repair action.
 
 ## Guardrails
+
 - Use only grounded attached skills and grounded attached files.
 - Treat missing references as drift, not hidden context.
 - Do not invent unseen skills, files, or routing layers.

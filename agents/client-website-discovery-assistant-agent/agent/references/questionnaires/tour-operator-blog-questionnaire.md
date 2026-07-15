@@ -21,9 +21,9 @@ tab_handling: "single-page output from the provided source link"
 ### Primary audience
 
 **Answer:** Independent travellers, travel agents, families, luxury travellers, adventure travellers or other.
-> 
-> 
-> 
+>
+>
+>
 
 ### Blog goal
 
@@ -49,29 +49,29 @@ tab_handling: "single-page output from the provided source link"
 ### Priority destinations
 
 **Answer:** List countries, regions, parks, towns or routes.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Priority tours or packages
 
 **Answer:** List tours to support with blog content.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Common traveller questions
 
 **Answer:** Turn these into FAQ or blog topics.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ## Individual blog post brief
 
@@ -86,32 +86,32 @@ tab_handling: "single-page output from the provided source link"
 ### Reader intent
 
 **Answer:** What is the reader trying to decide, learn or compare?
-> 
-> 
-> 
+>
+>
+>
 
 ### Outline
 
 **Answer:** Intro, key sections, practical tips, related tours, CTA.
-> 
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
+>
 
 ### Images and media
 
 **Answer:** Hero image, gallery images, map, video or downloadable guide.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Related tours / destinations
 
 **Answer:** Link to relevant website content.
-> 
-> 
-> 
+>
+>
+>
 >

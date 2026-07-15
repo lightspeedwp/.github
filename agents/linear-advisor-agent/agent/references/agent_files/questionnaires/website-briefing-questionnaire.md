@@ -15,16 +15,19 @@ tab_handling: "single-page output from the provided source link"
 ## Client and project details
 
 ### Client / organisation name
+>
 > Guidance: Confirm spelling and legal suffix.
 
 **Answer:** Use the registered business name.
 
 ### Primary contact
+>
 > Guidance: Use one accountable decision-maker where possible.
 
 **Answer:** Name, role, email and phone number.
 
 ### Website or project name
+>
 > Guidance: This may differ from the legal entity.
 
 **Answer:** Use the public brand name.
@@ -36,33 +39,33 @@ tab_handling: "single-page output from the provided source link"
 ### Decision makers and contributors
 
 **Answer:** Primary approver; content owner; technical contact.
-> 
-> 
+>
+>
 
 ## Project overview
 
 ### Why do you need this website?
 
 **Answer:** New website, redesign, performance improvement, lead generation or ecommerce growth.
-> 
-> 
-> 
+>
+>
+>
 
 ### What would make the project successful?
 
 **Answer:** Clear business outcome, measurable goal and client approval criteria.
-> 
-> 
-> 
+>
+>
+>
 
 ### Top 3 project goals
 
 **Answer:** 1. Generate enquiries
 2. Improve trust
 3. Make content easier to manage
-> 
-> 
-> 
+>
+>
+>
 
 ### Primary action for visitors
 
@@ -73,54 +76,54 @@ tab_handling: "single-page output from the provided source link"
 ### Business description
 
 **Answer:** Short overview of the organisation, offer and differentiators.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Ideal customers
 
 **Answer:** Who they are, what they need, objections, motivations and decision drivers.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Competitors
 
 **Answer:** List 3 competitors with URLs and notes.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### What makes you different?
 
 **Answer:** Focus on credible, specific differences rather than generic claims.
-> 
-> 
-> 
+>
+>
+>
 
 ## Scope, logistics and constraints
 
 ### Required pages and features
 
 **Answer:** List all pages, forms, integrations and content types.
-> 
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
+>
 
 ### Existing assets
 
 **Answer:** Logo, images, copy, brand guide, videos, downloads, product data.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Budget range
 
@@ -133,6 +136,6 @@ tab_handling: "single-page output from the provided source link"
 ### Ongoing maintenance needs
 
 **Answer:** Hosting, support, updates, content help, reporting or training.
-> 
-> 
+>
+>
 >

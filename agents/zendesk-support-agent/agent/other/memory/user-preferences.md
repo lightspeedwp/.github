@@ -3,6 +3,7 @@
 Store only durable user or team preferences that should carry across future support runs.
 
 ## Save here
+
 - preferred reply tone
 - preferred date or time formatting
 - preferred timezone for recurring reports
@@ -13,6 +14,7 @@ Store only durable user or team preferences that should carry across future supp
 - preferred example-ticket inclusion rule
 
 ## Do not save here
+
 - ticket-specific facts
 - copied customer threads
 - one-off investigation findings
@@ -20,6 +22,7 @@ Store only durable user or team preferences that should carry across future supp
 - undocumented policy assumptions
 
 ## Current preferences
+
 - preferred reply tone: clear, calm, and empathetic without sounding overly apologetic
 - preferred report sections: backlog health, issue themes, SLA risk, escalation-ready cases, next actions
 - preferred timezone or date formatting: Europe/Berlin with concise absolute dates when useful

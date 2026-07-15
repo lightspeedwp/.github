@@ -67,6 +67,7 @@ Use this checklist before an internal AI-readiness estimate is reused, approved,
 - [ ] Needs revision before reuse
 
 **Reviewer notes**
+
 - [Insert notes]
 
 ---

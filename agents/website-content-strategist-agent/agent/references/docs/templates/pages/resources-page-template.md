@@ -1,6 +1,7 @@
 # Resources page template
 
 ## Metadata
+
 - Page title:
 - Page purpose:
 - Audience:

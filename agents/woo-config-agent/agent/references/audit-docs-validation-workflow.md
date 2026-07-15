@@ -1,6 +1,7 @@
 # Audit / Docs / Validation Workflow for the WooCommerce Configuration Agent
 
 Grounded note from the current file set:
+
 - the current attached file tree is canonical for maintenance work unless newer attached file evidence is added
 - local `memory/` guidance may or may not be attached in the current asset set
 - the current structured validation layer is centered in `schemas/*.json`

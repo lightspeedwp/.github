@@ -3,6 +3,7 @@
 Use this file as the source snapshot for validating file references used by the current instructions and the maintained validation pack.
 
 ## Maintained folder guides
+
 - {{label:tests/README.md,id:6a43bf045ad8819198e72fea7a3785e3,type:file}}
 - {{label:scripts/README.md,id:6a43bf045a988191827fec6295e4ce19,type:file}}
 - {{label:schemas/README.md,id:6a43bf045a5c8191bdb394c173e2ec74,type:file}}
@@ -13,6 +14,7 @@ Use this file as the source snapshot for validating file references used by the 
 - {{label:references/audit-docs-validation-workflow.md,id:6a452d4632d88191b4fab874080b7bcd,type:file}}
 
 ## Routed local skills snapshot
+
 - `woocommerce-site-discovery`
 - `woocommerce-audit-orchestrator`
 - `woocommerce-implementation-planner`
@@ -24,6 +26,7 @@ Use this file as the source snapshot for validating file references used by the 
 - `wordpress-accessibility-checker`
 
 ## Required route markers in the current instructions
+
 - `### Site Discovery`
 - `### WooCommerce Audits and Reviews`
 - `### Advisory Planning`
@@ -33,6 +36,7 @@ Use this file as the source snapshot for validating file references used by the 
 - `## Agent Asset Maintenance Workflow`
 
 ## Validation runner and focused validators
+
 - `scripts/run-master-validation.sh`
 - `scripts/validate-memory-files.py`
 - `scripts/validate-source-priority-consistency.py`
@@ -42,6 +46,7 @@ Use this file as the source snapshot for validating file references used by the 
 - `scripts/validate-instruction-file-consistency.py`
 
 ## QA and validation companions
+
 - `tests/schema-validation-tests.md`
 - `tests/validation-readme.md`
 - `tests/master-qa-checklist.md`
@@ -51,6 +56,7 @@ Use this file as the source snapshot for validating file references used by the 
 - `tests/scenario-validation-workflows.md`
 
 ## Structure rules
+
 - Use the current attached file tree as source of truth for maintained assets.
 - Use the current attached local skills as source of truth for routed skill names.
 - Do not reference retired or absent folder names unless those structures are explicitly attached later.

@@ -1,6 +1,7 @@
 # Claim register
 
 ## Purpose
+
 Track material claims and their evidence status.
 
 | Claim | Status | Supporting source | Risk if wrong | Follow-up needed |
@@ -8,6 +9,7 @@ Track material claims and their evidence status.
 |  |  |  |  |  |
 
 ## Status values
+
 - confirmed
 - assumed
 - conflicting

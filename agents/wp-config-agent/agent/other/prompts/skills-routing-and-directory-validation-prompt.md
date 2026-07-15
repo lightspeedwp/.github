@@ -3,15 +3,18 @@
 Run a comprehensive validation pass over this agent’s skill-routing logic and skill-inventory references so the current attached skills, routing rules, and maintenance documentation stay aligned.
 
 Scope and intent:
+
 - This is a validation and consistency task, not a broad rewrite of the agent.
 - Treat the current system instructions, current attached skills, current attached file tree, and current maintenance documentation as the source of truth.
 - Focus on routing correctness, specialist-skill separation, attached-skill references, and any maintenance docs that act like a skill directory or skill inventory.
 - Do not reopen settled routing decisions unless a real inconsistency, stale reference, or ambiguity is found.
 
 Primary goal:
+
 - Ensure the agent’s skill-routing model, attached-skill inventory, and surrounding documentation all agree on which attached skills exist, what each one is for, and how requests should route between them.
 
 Source of truth:
+
 - Current system instructions
 - Current attached local skills, especially:
   - `wordpress-site-onboarding`
@@ -29,6 +32,7 @@ Source of truth:
 - Current prompt library and validation docs where they mention skills, routing, or maintenance checks
 
 What to review:
+
 1. System-instruction sections that route requests or describe specialist skills
 2. Any prompt files in `prompts/` that refer to routing, specialist skills, maintenance cleanup, or validation-pack work
 3. Root and folder README files that mention skills, routing, or maintenance responsibilities
@@ -37,6 +41,7 @@ What to review:
 6. Any file that functions as a skill inventory, skill directory, or attached-skill reference layer for maintainers
 
 What to validate:
+
 - every mentioned skill is actually attached in the current agent state
 - no stale references remain to shared skills, workspace skills, directory skills, or superseded skill names where attached local skills are the source of truth
 - request-routing wording is explicit enough to choose the right attached skill without overlap
@@ -46,6 +51,7 @@ What to validate:
 - prompts and validation docs do not preserve outdated attached-skill assumptions
 
 Required routing model to preserve:
+
 - Yoast setup, planning, reusable guidance, remediation planning, and configuration work route to `yoast-configuration`
 - Yoast audits, evidence review, validation, launch QA, report-led review, and structured review work route to `yoast-auditor`
 - Gravity Forms setup, implementation, troubleshooting, validation, change work, and handoff work route to `gravity-forms-configuration`
@@ -53,6 +59,7 @@ Required routing model to preserve:
 - routing classification and dev-versus-live clarification before site-specific inspection remain owned by `wordpress-request-router`
 
 Skill-directory validation rules:
+
 - Treat the current attached skills as the only valid skill inventory.
 - If a maintenance document lists skills, that list must match the current attached skills it claims to cover.
 - If a file implies a broader skill directory than the current attached state supports, tighten it or remove the conflicting claim.
@@ -60,6 +67,7 @@ Skill-directory validation rules:
 - If a file uses “skill directory” loosely, rewrite it so it clearly means attached skills, specialist-skill inventory, or maintenance reference layer.
 
 Editing rules:
+
 - Make the smallest complete set of edits needed.
 - Preserve still-correct routing, reporting, and maintenance wording.
 - Remove conflicting references instead of leaving soft contradictions behind.
@@ -67,6 +75,7 @@ Editing rules:
 - If a file is already aligned, leave it unchanged.
 
 Validation focus:
+
 - Ensure system instructions, prompt files, README files, reference guides, and validation docs all agree on the current attached skill set.
 - Check whether validation docs should explicitly catch:
   - stale skill-inventory references
@@ -77,6 +86,7 @@ Validation focus:
 - If new validation is warranted, prefer lightweight deterministic checks over broad speculative additions.
 
 Output:
+
 1. Files reviewed
 2. Files updated
 3. Any stale skill or routing references removed

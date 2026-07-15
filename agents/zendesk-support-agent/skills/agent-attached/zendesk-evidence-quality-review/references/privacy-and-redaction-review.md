@@ -70,7 +70,7 @@ Prefer paraphrase over heavy redaction when a sentence can be made safer and cle
 
 Avoid:
 
-> Jane Smith at jane@example.com saw this error from IP 203.0.113.10 at 14:03.
+> Jane Smith at <jane@example.com> saw this error from IP 203.0.113.10 at 14:03.
 
 Use:
 

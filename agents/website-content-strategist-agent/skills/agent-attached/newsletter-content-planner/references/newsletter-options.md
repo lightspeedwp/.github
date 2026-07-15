@@ -1,6 +1,7 @@
 # Newsletter options
 
 ## Campaign role
+
 - warm nurture
 - launch announcement
 - educational follow-up
@@ -8,6 +9,7 @@
 - re-engagement
 
 ## Primary CTA options
+
 - book a consultation
 - request a review
 - explore services
@@ -15,6 +17,7 @@
 - access a resource
 
 ## Fallback CTA options
+
 - read a case study
 - review FAQs
 - reply directly
@@ -22,6 +25,7 @@
 - save this for later and return
 
 ## Friction options
+
 - unclear fit
 - unclear next step
 - trust still forming
@@ -29,6 +33,7 @@
 - too much perceived complexity
 
 ## Offer angle options
+
 - interpret what the reader already has
 - reduce confusion and prioritise next steps
 - show the cost of staying unclear

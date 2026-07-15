@@ -1,22 +1,26 @@
 # AI chatbot intake page template
 
 ## Metadata
+
 - Page title:
 - Page purpose:
 - Primary audience:
 
 ## Hero
+
 - Eyebrow:
 - Title:
 - Intro:
 - Primary CTA:
 
 ## Intake flow overview
+
 - Total steps:
 - Primary outcome:
 - Approval owner:
 
 ## Step structure
+
 | Step | Purpose | Key fields | Output |
 |---|---|---|---|
 

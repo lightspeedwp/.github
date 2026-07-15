@@ -38,7 +38,6 @@ Review the last 7 days of open and newly created Zendesk tickets for repeated cu
 Try to produce a backlog health report. If the active agent cannot see counts, metadata, SLA, or ticket details, explain the limitation without inventing data.
 ```
 
-
 ## Shared-agent capability profile prompt
 
 Use this when installing the skill into a new shared agent or when reports are inconsistent across teammates:

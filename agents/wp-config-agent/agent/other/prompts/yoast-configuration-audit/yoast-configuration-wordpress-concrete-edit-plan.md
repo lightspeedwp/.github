@@ -11,9 +11,11 @@ Convert `yoast-configuration` from a mixed **WordPress + WooCommerce** Yoast ski
 ### Phase 1 — Reframe the skill identity
 
 #### 1. Rewrite `SKILL.md`
+
 Edit first.
 
 Goals:
+
 - remove WooCommerce from the skill description and routing identity
 - keep WordPress-only Yoast configuration, migration, multilingual, taxonomy, metadata, schema, and launch-readiness scope
 - remove WooCommerce-specific:
@@ -26,16 +28,20 @@ Goals:
   - dedicated WooCommerce rules
 
 Deliverable:
+
 - a WordPress-only `SKILL.md` that no longer presents WooCommerce as part of the default skill role
 
 #### 2. Rewrite `agents/openai.yaml`
+
 Edit immediately after `SKILL.md`.
 
 Goals:
+
 - align display name, short description, and default prompt with the rewritten WordPress-only identity
 - remove WooCommerce wording if present
 
 Deliverable:
+
 - WordPress-only skill metadata that matches the rewritten `SKILL.md`
 
 ---
@@ -45,9 +51,11 @@ Deliverable:
 Choose one path before editing the rest of the package.
 
 #### Option A — Preferred: split WooCommerce assets out
+
 Use this if WooCommerce support might still be useful later.
 
 Split these files into a future WooCommerce-specific companion skill:
+
 - `examples/woocommerce-store-example.md`
 - `fixtures/sample-woocommerce-taxonomies.json`
 - `intake/woocommerce-intake.md`
@@ -59,11 +67,13 @@ Split these files into a future WooCommerce-specific companion skill:
 - `tests/woocommerce-scenario-tests.md`
 
 #### Option B — Faster: remove WooCommerce assets now
+
 Use this if the skill should become WordPress-only immediately and no split package is needed.
 
 Remove the same files listed above from this package.
 
 Decision output:
+
 - record whether this cleanup is following **Split** or **Remove**
 
 ---
@@ -73,7 +83,9 @@ Decision output:
 After package-boundary decisions are made, rewrite the mixed-scope docs so they stop assuming WooCommerce support.
 
 #### 3. Docs
+
 Rewrite:
+
 - `docs/changelog.md`
 - `docs/evidence-policy.md`
 - `docs/maintenance-guide.md`
@@ -81,17 +93,21 @@ Rewrite:
 - `docs/usage-guide.md`
 
 Goals:
+
 - remove WooCommerce-specific examples, profile names, QA commands, and maintenance assumptions
 - replace with WordPress-only equivalents
 
 #### 4. Intake and profile-support docs
+
 Rewrite:
+
 - `intake/client-site-intake.md`
 - `intake/wordpress-site-intake.md`
 - `examples/memory/example-client-site-profile.md`
 - `examples/templates/qa-report-template.md`
 
 Goals:
+
 - remove WooCommerce-specific fields, examples, and assumptions
 - preserve WordPress-only Yoast planning fields
 
@@ -102,7 +118,9 @@ Goals:
 Rewrite the mixed-scope reference files so the package no longer depends on WooCommerce workflows.
 
 #### 5. High-priority references
+
 Rewrite first:
+
 - `references/configuration-playbooks.md`
 - `references/configuration-reference.md`
 - `references/file-routing-index.md`
@@ -114,11 +132,14 @@ Rewrite first:
 - `references/decision-register-model.md`
 
 Goals:
+
 - remove WooCommerce-specific routes, capability rows, decision types, and required research coverage
 - preserve WordPress-only Yoast guidance
 
 #### 6. Secondary references
+
 Then rewrite:
+
 - `references/agency-defaults-drift-model.md`
 - `references/ai-assisted-seo-workflow.md`
 - `references/ai-metadata-review-model.md`
@@ -144,6 +165,7 @@ Then rewrite:
 - `references/future-skill-architecture.md`
 
 Goals:
+
 - remove WooCommerce assumptions while preserving WordPress-only Yoast guidance
 
 ---
@@ -151,7 +173,9 @@ Goals:
 ### Phase 5 — Rewrite schemas and fixtures
 
 #### 7. Schemas
+
 Rewrite:
+
 - `memory/schemas/client-site-profile.schema.json`
 - `schemas/ai-metadata-item.schema.json`
 - `schemas/audit-finding.schema.json`
@@ -165,10 +189,13 @@ Rewrite:
 - `schemas/yoast-setting.schema.json`
 
 Goals:
+
 - remove WooCommerce enums, object fields, plugin-scope values, and data assumptions
 
 #### 8. Fixtures
+
 Rewrite or replace:
+
 - `fixtures/sample-ai-metadata-item.json`
 - `fixtures/sample-bulk-metadata-change.json`
 - `fixtures/sample-decision-record.json`
@@ -180,6 +207,7 @@ Rewrite or replace:
 - `fixtures/sample-yoast-settings-export.json`
 
 Goals:
+
 - replace WooCommerce-oriented examples with WordPress-only Yoast examples such as:
   - archive strategy
   - metadata template drift
@@ -192,7 +220,9 @@ Goals:
 ### Phase 6 — Rewrite validation scripts and tests
 
 #### 9. Scripts
+
 Rewrite:
+
 - `scripts/generate_qa_checklist.py`
 - `scripts/validate_reference_data.py`
 - `scripts/validate_skill_structure.py`
@@ -200,11 +230,14 @@ Rewrite:
 - `scripts/validate_taxonomy_pack.py`
 
 Goals:
+
 - stop requiring WooCommerce files, templates, tests, or profile names
 - align validation expectations with the WordPress-only package
 
 #### 10. Tests
+
 Rewrite:
+
 - `tests/ai-assisted-seo-scenario-tests.md`
 - `tests/artefact-review-scenario-tests.md`
 - `tests/audit-triage-scenario-tests.md`
@@ -220,6 +253,7 @@ Rewrite:
 - `tests/research-pack-scenario-tests.md`
 
 Goals:
+
 - replace WooCommerce scenarios with WordPress-only Yoast scenarios
 - keep realistic WordPress SEO, migration, multilingual, taxonomy, and QA coverage
 
@@ -228,9 +262,11 @@ Goals:
 ### Phase 7 — Spot-check keep files
 
 #### 11. Keep files spot-check
+
 Spot-check the Keep-set files from the manifest for stray WooCommerce wording.
 
 At minimum review:
+
 - `docs/current-verification-playbook.md`
 - `docs/research-workflow.md`
 - `examples/migration-audit-example.md`
@@ -240,6 +276,7 @@ At minimum review:
 - all retained WordPress-oriented templates
 
 Goal:
+
 - confirm they are safe to keep unchanged or with only tiny wording cleanup
 
 ---
@@ -247,6 +284,7 @@ Goal:
 ## Validation pass after cleanup
 
 After all edits:
+
 - run the skill’s structure and reference validators
 - confirm no required file still assumes WooCommerce
 - confirm the package no longer describes itself as a WordPress + WooCommerce skill
@@ -255,6 +293,7 @@ After all edits:
 ## Acceptance standard
 
 The cleanup is complete only when:
+
 - `SKILL.md` and `agents/openai.yaml` are WordPress-only
 - all WooCommerce-only assets are either split out or removed
 - mixed-scope docs, references, schemas, fixtures, scripts, and tests have been rewritten

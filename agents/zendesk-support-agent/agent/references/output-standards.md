@@ -3,6 +3,7 @@
 Use these standards for substantive Zendesk-first deliverables unless the user explicitly asks for a different format.
 
 ## Global output rules
+
 - Produce clean, copy-paste-ready Markdown.
 - Start with a single H1 title that matches the deliverable.
 - Use short H2 sections only when they materially improve scanability.
@@ -12,6 +13,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - Never expose raw tool payloads, internal wrappers, hidden metadata, entity-tag syntax, or validator internals in visible output.
 
 ## Template usage rules
+
 - Use the paired template for repeated deliverables unless the user explicitly asks for a custom format.
 - Check the paired example before changing a template.
 - If a repeated deliverable changes structurally, update the template, its example, and the relevant validation tests together.
@@ -21,6 +23,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 ## Repeated deliverable contracts
 
 ### Triage summary
+
 - Template: `templates/agent-triage-summary-template.md`
 - Example: `examples/templates/agent-triage-summary.example.md`
 - Required sections: issue classification, severity, business impact, likely owner or team, missing details, duplicate or pattern risk, recommended next action.
@@ -28,6 +31,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - Supporting skills allowed: `zendesk-evidence-collector`, `zendesk-case-readiness-check`
 
 ### Investigation
+
 - Template: `templates/agent-investigation-template.md`
 - Example: `examples/templates/agent-investigation.example.md`
 - Required sections: what happened, confirmed facts, informed inferences, open unknowns, blockers, recommended next step.
@@ -35,6 +39,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - Supporting skills allowed: `zendesk-case-readiness-check`, `zendesk-evidence-quality-review`
 
 ### Customer reply
+
 - Template: `templates/agent-customer-reply-template.md`
 - Example: `examples/templates/agent-customer-reply.example.md`
 - Required rules: grounded in confirmed facts only, empathetic but controlled tone, no invented commitments, website briefing form only when the customer is clearly asking for website estimate or project-pricing guidance.
@@ -42,6 +47,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - Supporting skills allowed: `zendesk-help-center-grounding`, `zendesk-refund-assessment`, `zendesk-evidence-quality-review`
 
 ### Support handoff
+
 - Template: `templates/agent-handoff-template.md`
 - Example: `examples/templates/agent-handoff.example.md`
 - Required sections: case summary, customer impact, evidence checked, attempted steps, current blockers, target owner or team, exact ask, urgency or risk.
@@ -49,6 +55,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - Supporting skills allowed: `zendesk-evidence-collector`, `zendesk-case-readiness-check`, `zendesk-customer-research`
 
 ### Escalation brief
+
 - Template: `templates/agent-escalation-template.md`
 - Example: `examples/templates/agent-escalation.example.md`
 - Required sections: problem statement, customer impact, severity or urgency, supporting evidence, attempted steps, blockers or risks, target owner or team, exact action or decision needed.
@@ -56,6 +63,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - Supporting skills allowed: `zendesk-evidence-collector`, `zendesk-customer-research`, `zendesk-evidence-quality-review`
 
 ### Backlog report
+
 - Template: `templates/agent-backlog-report-template.md`
 - Example: `examples/templates/agent-backlog-report.example.md`
 - Required sections: scope and timeframe, backlog health, issue themes, SLA risk, escalation-ready cases, recommended next actions.
@@ -63,6 +71,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - Supporting skills allowed: `zendesk-duplicate-pattern-review`, `zendesk-case-readiness-check`
 
 ### Documentation-worthiness review
+
 - Template: `templates/agent-documentation-review-template.md`
 - Example: `examples/templates/agent-documentation-review.example.md`
 - Required sections: recommendation, readiness level, target, evidence summary, overlap check, rationale, smallest next action.
@@ -70,6 +79,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - Supporting skills allowed: `zendesk-help-center-grounding`, `zendesk-duplicate-pattern-review`
 
 ### Bug package
+
 - Template: `templates/agent-bug-package-template.md`
 - Example: `examples/templates/agent-bug-package.example.md`
 - Required sections: problem summary, impact, reproduction clues, evidence, attempted troubleshooting, confidence, gaps, next action.
@@ -77,6 +87,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - Supporting skills allowed: `zendesk-evidence-collector`, `zendesk-customer-research`
 
 ## Output consistency rules
+
 - Keep templates, examples, fixtures, profiles, and validators aligned with the current instructions.
 - Keep each repeated deliverable tied to one primary skill by default.
 - Supporting skills may improve evidence quality or grounding, but should not change the output contract into a different deliverable.
@@ -84,6 +95,7 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 - Use examples as quality references, not as text to copy verbatim.
 
 ## Validation expectations
+
 - `scripts/validate_templates.py` and `scripts/validate_template_example_parity.py` should continue to pass.
 - `tests/reply-safety-tests.md` should still match the customer-reply contract.
 - `tests/schema-validation-tests.md` should still reflect the current template and example structure.

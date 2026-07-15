@@ -30,6 +30,7 @@ Summarise the scope of testing, who performed it, and key outcomes.
 List the criteria that must be met for acceptance, drawn from the project scope and QA checklist.
 
 {{#acceptance_criteria}}
+
 - [ ] {{.}}
 {{/acceptance_criteria}}
 

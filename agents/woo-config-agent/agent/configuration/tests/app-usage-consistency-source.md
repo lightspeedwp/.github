@@ -3,6 +3,7 @@
 Use this file as the source snapshot for app-usage consistency validation.
 
 ## Attached apps snapshot used in the current instructions
+
 - `KWV-Dev-Site`
 - `Google Drive`
 - `GitHub`
@@ -10,17 +11,20 @@ Use this file as the source snapshot for app-usage consistency validation.
 - `Linear`
 
 ## Runtime/tool reference snapshot used in the current instructions
+
 - `references/CONNECTORS.md`
 - `Memory`
 - `Web search`
 
 ## Required instruction markers
+
 - `For any real site, store, or environment evaluation, always start with`
 - `## Other Connected Apps`
 - `## Agent Asset Maintenance Workflow`
 - `## Memory`
 
 ## Forbidden app-guidance drift
+
 - `### Slack usage`
 - `Use Slack`
 - `Send to Slack`
@@ -29,6 +33,7 @@ Use this file as the source snapshot for app-usage consistency validation.
 - `Email triage`
 
 ## Instruction excerpt snapshot
+
 The current app guidance should remain consistent with these rules:
 
 - `KWV-Dev-Site` is the primary connected site app for real site, store, or environment inspection when available.
@@ -42,6 +47,7 @@ The current app guidance should remain consistent with these rules:
 - The instructions should not suggest unsupported app workflows that are not currently attached unless the user explicitly asks to add them.
 
 ## Consistency rules
+
 - App guidance must stay WooCommerce-first and task-relevant.
 - Connected site evidence should stay ahead of generic advice when the site app is available.
 - Maintenance guidance about apps belongs in the maintenance workflow and in `references/CONNECTORS.md`, not in ad hoc app-routing notes.

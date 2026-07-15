@@ -5,6 +5,7 @@ Use this guide to validate that instruction app references still match the curre
 ## Goal
 
 Catch instruction drift when attached apps change, especially when:
+
 - an app was removed but is still mentioned in instructions
 - a required attached app is missing from instructions
 - an app tag label no longer matches the attached app label
@@ -12,13 +13,16 @@ Catch instruction drift when attached apps change, especially when:
 ## Snapshot workflow
 
 ### 1. Export or save an instructions snapshot
+
 Create a markdown snapshot of the current instructions as one of:
+
 - `instructions.snapshot.md`
 - `references/instructions.snapshot.md`
 
 Or pass a custom file path to the validator with `--instructions-file`.
 
 ### 2. Run the validator
+
 Default snapshot locations:
 
 ```bash
@@ -39,6 +43,7 @@ python scripts/validate_app_usage_consistency.py --instructions-file path/to/ins
 - optional or removed apps are not still referenced as active workflow apps
 
 ## Current expected attached apps
+
 - `LightSpeed Zendesk`
 - `Google Drive`
 

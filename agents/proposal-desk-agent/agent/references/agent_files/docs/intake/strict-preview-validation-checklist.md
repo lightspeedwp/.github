@@ -135,14 +135,18 @@ If a question does not meet one of those tests, move it to non-blocking follow-u
 ## Scoring Guide
 
 ### Ready
+
 Use **ready** only if:
+
 - all critical rules pass
 - the wizard is concise and structurally sound
 - blocker questions are minimal and necessary
 - source, claim, exclusion, and approval handling is appropriate for the scenario
 
 ### Needs refinement
+
 Use **needs refinement** if:
+
 - critical rules pass, but one or more of these are weak:
   - too many fields
   - too many blocking questions
@@ -151,7 +155,9 @@ Use **needs refinement** if:
   - no clear source or claim controls where they would help
 
 ### Needs revision
+
 Use **needs revision** if:
+
 - any critical rule fails
 - the agent dumps or mirrors full questionnaires
 - the run treats inferred values as confirmed

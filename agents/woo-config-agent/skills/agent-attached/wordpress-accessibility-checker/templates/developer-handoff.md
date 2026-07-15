@@ -15,13 +15,13 @@
 
 ## Reproduction Notes
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Acceptance Checks
 
-- 
+-
 
 ## Out of Scope
 

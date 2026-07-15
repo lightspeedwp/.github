@@ -16,6 +16,7 @@ Use this template when LightSpeed needs to request the minimum evidence required
 Use the shortest version that still captures the blockers.
 
 Ask only for information that materially affects:
+
 - package routing
 - scope confidence
 - fixed-fee confidence
@@ -75,6 +76,7 @@ Thanks,
 ## Internal Notes
 
 Before sending:
+
 - remove anything already confirmed
 - keep only the true blockers
 - avoid asking for technical detail that does not affect the current recommendation

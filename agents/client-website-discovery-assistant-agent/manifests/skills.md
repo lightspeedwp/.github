@@ -76,22 +76,22 @@
 
 | Skill | Source type | Path or URI | Entrypoint readable | Files exportable | Export status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| _None detected_ |  |  |  |  |  |  |
+| *None detected* |  |  |  |  |  |  |
 
 ## Metadata-only external skills
 
 | Skill | Source type | Path or URI | Entrypoint readable | Files exportable | Export status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| _None detected_ |  |  |  |  |  |  |
+| *None detected* |  |  |  |  |  |  |
 
 ## Skills detected but not readable
 
 | Skill | Source type | Path or URI | Entrypoint readable | Files exportable | Export status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| _None detected_ |  |  |  |  |  |  |
+| *None detected* |  |  |  |  |  |  |
 
 ## Skills with unknown provenance
 
 | Skill | Source type | Path or URI | Entrypoint readable | Files exportable | Export status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| _None detected_ |  |  |  |  |  |  |
+| *None detected* |  |  |  |  |  |  |

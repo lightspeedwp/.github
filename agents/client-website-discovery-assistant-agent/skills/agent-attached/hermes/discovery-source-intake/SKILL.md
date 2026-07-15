@@ -10,6 +10,7 @@ description: gather and normalise current-project evidence for lightspeed websit
 Create a clean working intake from messy, run-specific LightSpeed discovery evidence before drafting or routing the final output.
 
 Use this skill to:
+
 1. identify the smallest useful set of available sources
 2. extract only evidence that materially affects the requested discovery outcome
 3. separate source-backed facts, assumptions, inferred observations, open questions, and internal LightSpeed notes
@@ -39,6 +40,7 @@ If multiple related skills apply, run intake first only when messy evidence must
 ### Acceptable inputs
 
 Handle any mix of:
+
 - pasted notes, rough briefs, meeting notes, transcripts, or call summaries
 - uploaded documents, PDFs, screenshots, spreadsheets, decks, or exported notes
 - Google Drive docs, Asana tasks, Gmail threads, GitHub issues/PRs, repo notes, Figma links, website URLs, and support or feedback exports when the connector or source is available
@@ -98,6 +100,7 @@ Read this file when the request needs anything more than a very small cleanup.
 Choose the smallest source set that can support a reliable draft.
 
 Prioritise in this order unless the request clearly points elsewhere:
+
 1. user-pasted notes and current attachments
 2. directly named project files, briefs, docs, decks, sheets, or exports
 3. directly relevant email threads, Asana tasks, GitHub issues/PRs, or repo files
@@ -113,6 +116,7 @@ For dated or long-running documents, check the content date and section context 
 ### Step 1: classify the evidence
 
 For each source, identify which categories it supports:
+
 - business background
 - website goals
 - audience or positioning clues
@@ -128,6 +132,7 @@ For each source, identify which categories it supports:
 ### Step 2: extract with attribution
 
 For each meaningful point, preserve practical source attribution, such as:
+
 - user notes
 - attached brief
 - Google Doc
@@ -147,6 +152,7 @@ Use formal citations when the final answer references connector or web sources t
 Convert messy evidence into the normalised structure from `references/intake-schema.md`.
 
 While normalising:
+
 - merge duplicates
 - keep contradictions visible
 - separate stakeholder requests from confirmed project decisions
@@ -157,6 +163,7 @@ While normalising:
 ### Step 4: separate evidence classes
 
 Always distinguish:
+
 - **source-backed facts** — directly supported by reviewed evidence in the current run
 - **assumptions** — plausible but not directly evidenced
 - **inferred observations** — reasoned conclusions drawn from multiple clues
@@ -170,6 +177,7 @@ If a source contains a stakeholder opinion, keep it as stakeholder input rather 
 Create a compact intake handoff before or within the final response when intake materially affects the output.
 
 Default handoff structure:
+
 1. **Sources reviewed**
 2. **Normalised intake**
 3. **Evidence classes**
@@ -185,6 +193,7 @@ After the intake is clear enough, continue into the requested discovery output o
 ## Missing source handling
 
 If key sources are unavailable or only partially available:
+
 - state which evidence was actually used
 - note the missing source category briefly
 - continue with the best structured draft possible
@@ -196,6 +205,7 @@ If key sources are unavailable or only partially available:
 Match the output to the user's request.
 
 Use a fuller intake layer for:
+
 - multi-source discovery packs
 - client-facing summaries based on messy evidence
 - follow-up lists where source provenance matters
@@ -203,6 +213,7 @@ Use a fuller intake layer for:
 - source triage or approval-sensitive work
 
 Use a compressed intake layer for:
+
 - small note cleanups
 - one-source summaries
 - minor section drafting
@@ -213,6 +224,7 @@ When client-facing output is requested, keep internal LightSpeed notes separate 
 ## Quality bar
 
 A good intake result:
+
 - reduces ambiguity before drafting
 - makes the evidence trail clear enough for the LightSpeed team to trust
 - prevents facts, assumptions, inferences, and stakeholder opinions from being blended together
@@ -229,6 +241,7 @@ User request:
 > Pull together everything we know about this client from the kickoff notes, recent emails, Asana tasks, and feedback exports, then build an internal discovery pack.
 
 Expected behaviour:
+
 - identify which sources are actually available
 - gather only high-signal project evidence
 - normalise the evidence into the intake schema
@@ -241,6 +254,7 @@ User request:
 > Use this discovery call transcript and these follow-up notes to draft a cleaner project summary and list the biggest unanswered questions.
 
 Expected behaviour:
+
 - treat transcript and notes as current-project evidence
 - extract goals, constraints, audience clues, requirements, and open questions
 - avoid storing transcript details as reusable defaults
@@ -252,6 +266,7 @@ User request:
 > Review these pages, policy notes, and internal FAQs before we estimate a chatbot for this site.
 
 Expected behaviour:
+
 - use this skill only if broad discovery evidence must first be cleaned up
 - otherwise route to `project-intake-evidence-normaliser` or `project-evidence-harvester`
 - separate approved, unconfirmed, excluded, and missing source evidence
@@ -263,6 +278,7 @@ User request:
 > Check whether this discovery pack is ready to share with the client.
 
 Expected behaviour:
+
 - route to `discovery-pack-review`
 - do not rerun intake unless the draft depends on missing or unclear source evidence
 
@@ -272,6 +288,7 @@ User request:
 > Clean up these discovery notes into a clearer internal summary.
 
 Expected behaviour:
+
 - skip extra source searching
 - normalise the notes directly
 - preserve evidence classes and continue to the requested summary

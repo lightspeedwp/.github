@@ -40,7 +40,6 @@ Use this skill to summarize activity from one Slack channel, using a requested t
 - For a concise Slack or chat summary, you MUST use exactly this structure unless the user explicitly requests a different format.
 - If you use `../slack-outgoing-message/SKILL.md` to draft or send the final message, this output contract remains binding. The downstream skill does not relax or rename these sections.
 
-
 ```md
 **Channel Summary - <channel>**
 **Overview**

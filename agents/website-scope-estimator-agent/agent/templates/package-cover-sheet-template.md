@@ -10,38 +10,38 @@ package: <package name>
 
 ## Package Snapshot
 
-- **Package:** 
-- **Best fit for:** 
+- **Package:**
+- **Best fit for:**
 - **Status:** *Draft | Confirmed*
 
 ---
 
 ## Included Scope Anchors
 
-- 
+-
 
 ---
 
 ## Excluded Scope Anchors
 
-- 
+-
 
 ---
 
 ## Common Add-ons
 
-- 
+-
 
 ---
 
 ## Commercial Notes
 
-- 
+-
 
 ---
 
 ## Usage Notes
 
-- 
+-
 
 ---

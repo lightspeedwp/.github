@@ -27,11 +27,13 @@ Use this template for client-ready AI-readiness estimates where the recommendati
 This estimate reflects the information currently available and is intended to recommend the most suitable next step for the project.
 
 **What we know so far**
+
 - [Insert confirmed fact]
 - [Insert confirmed fact]
 - [Insert confirmed fact]
 
 **Current view**
+
 - [Summarise the recommendation in client-friendly language]
 - [Summarise what still needs to be confirmed]
 
@@ -42,11 +44,13 @@ This estimate reflects the information currently available and is intended to re
 The recommended package is **[Insert package]**.
 
 **Why this package is the best fit at this stage**
+
 - [Explain why this package fits the current project need]
 - [Explain why this is the right starting point]
 - [Explain how the current evidence supports the recommendation]
 
 **What this recommendation depends on**
+
 - [State the main dependency or caveat clearly]
 
 ---
@@ -78,6 +82,7 @@ This estimate does not currently assume inclusion of:
 [State whether any follow-on options are worth considering later. Default to no immediate add-ons unless the evidence supports them.]
 
 **Possible next-phase options**
+
 - [Option]: [Why it may become relevant later]
 - [Option]: [Why it may become relevant later]
 
@@ -111,6 +116,7 @@ The following points may affect package fit, delivery scope, or estimate confide
 The immediate next step is to confirm the missing inputs and complete the baseline review needed to validate package fit.
 
 **Suggested actions**
+
 1. [Action]
 2. [Action]
 3. [Action]

@@ -76,6 +76,7 @@ Use confidence separately from priority.
 | Low | Single audit signal, unclear affected URLs, unknown implementation path, or possible false positive | Recommend investigation or retesting before implementation |
 
 Always mention confidence when:
+
 - the report is lab-only without field data
 - the URL/page importance is unknown
 - the fix may require plugin/theme/hosting changes not yet inspected
@@ -181,12 +182,14 @@ For very small audits, collapse the grouped sections and provide only the summar
 ## Audience adaptation
 
 For non-technical users:
+
 - explain the user/business effect first
 - avoid implementation jargon unless needed
 - use phrases like this may make the page feel slower or this can delay the first visible content
 - keep next steps action-oriented
 
 For technical users:
+
 - include metric names such as LCP, INP, CLS, TTFB, TBT, render-blocking resources, critical CSS, enqueue strategy, caching, CDN, image pipeline, and main-thread work where relevant
 - identify likely code, theme, plugin, CDN, or hosting ownership
 - include QA and regression notes for medium and larger work
@@ -194,6 +197,7 @@ For technical users:
 ## Quality checks
 
 Before finalising, verify that:
+
 - every item has a priority, effort band, confidence level, and reason
 - quick wins are genuinely low-risk and not hidden engineering projects
 - high-priority items connect to user impact or business importance, not just tool severity

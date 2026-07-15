@@ -157,7 +157,7 @@ Skip onboarding when:
 
 User request:
 
-> Assess AI readiness for african safaris using the website https://www.africansafaris.com/ and any connected project evidence.
+> Assess AI readiness for african safaris using the website <https://www.africansafaris.com/> and any connected project evidence.
 
 Action:
 

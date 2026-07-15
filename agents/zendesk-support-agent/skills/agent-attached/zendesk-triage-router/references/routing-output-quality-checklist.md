@@ -2,7 +2,6 @@
 
 Use this checklist when reviewing a route or embedded triage output before giving it to the user, especially in shared agents or ambiguous Zendesk cases.
 
-
 ## Optional lint check
 
 For saved or pasted router responses, run the output linter during package maintenance:

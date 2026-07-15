@@ -84,19 +84,25 @@ When using this skill, produce a **Website Evidence Pass** with this exact secti
 ### Section rules
 
 #### Sources Reviewed
+
 List only the sources actually reviewed.
 
 #### Confirmed Facts
+
 Use concise bullets. Include only facts that are supported by the available evidence.
 
 #### Assumptions
+
 Include reasonable inferences, but label them clearly as assumptions rather than confirmed facts.
 
 #### Current Phase
+
 State `Audit` unless the user explicitly asked for a different phase outcome.
 
 #### Route Decision
+
 State the strongest supported routing posture after the audit:
+
 - no final package decision yet
 - provisional lean toward a specific base package
 - enough evidence to proceed to routing
@@ -105,10 +111,13 @@ State the strongest supported routing posture after the audit:
 Keep this short and evidence-tied. Do not perform full package routing inside the audit unless the user explicitly asked for a combined audit-and-routing result.
 
 #### Missing Material Inputs
+
 Repeat only the values that still materially affect package routing, pricing, thresholds, approvals, or estimate confidence. Keep this list tight and non-duplicative.
 
 #### Next Handoff
+
 State the next step that logically follows the audit that was just completed:
+
 - move to intake when material routing inputs are still missing
 - move to routing when the evidence is already sufficient
 
@@ -141,36 +150,45 @@ Do not store full transcripts or one-off chatter.
 ## Example
 
 ### Example request
+
 Review this live website and the attached project notes, then tell me what we already know before estimating the rebuild.
 
 ### Example response shape
+
 **Website Evidence Pass**
 
 **Sources Reviewed**
+
 - Live website homepage and core navigation
 - Attached project notes
 - Figma homepage concept
 
 **Confirmed Facts**
+
 - Current site is a WordPress marketing website
 - Navigation suggests 14 primary content pages
 - Site includes a blog and lead-generation forms
 - Figma evidence shows a bespoke homepage redesign direction
 
 **Assumptions**
+
 - Existing content migration appears moderate rather than light
 - Some reusable marketing sections are likely shared across service pages
 
 **Current Phase**
+
 - Audit
 
 **Route Decision**
+
 - No final package decision yet. The evidence supports continuing toward routing, with a provisional lean toward WordPress Foundations if the missing scope details stay within standard package bounds.
 
 **Missing Material Inputs**
+
 - Confirm page count in scope
 - Confirm whether legacy blog content must be migrated
 - Confirm CRM / form integrations
 
 **Next Handoff**
+
 - Intake for the missing routing values above, then package routing once they are confirmed.

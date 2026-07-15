@@ -3,6 +3,7 @@
 Track durable drafting preferences that should affect repeated support deliverables.
 
 ## Save here
+
 - customer-reply tone defaults
 - brevity or detail preferences
 - escalation-brief style preferences
@@ -11,12 +12,14 @@ Track durable drafting preferences that should affect repeated support deliverab
 - reply-style constraints that should apply across repeated runs
 
 ## Do not save here
+
 - customer-specific wording tied to one case
 - temporary promises or expectations
 - unsupported legal, refund, or policy language
 - one-off phrasing experiments that should not become defaults
 
 ## Current preferences
+
 - empathy_level: moderate
 - brevity_preference: concise
 - escalation_style: clear, evidence-backed, and action-oriented

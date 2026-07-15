@@ -7,6 +7,7 @@ When to read: local `.ppt`, `.pptx`, or `.odp` input.
 1. Confirm the input file is a supported presentation file.
 2. Before import, confirm the Google Drive plugin exposes `mcp__codex_apps__google_drive_import_presentation`. If the Google Drive plugin is not installed or unavailable, use the plugin-install/user-elicitation flow to ask the user to install `google-drive@openai-curated`. If the plugin is available but the import action is missing, ask the user to reinstall or refresh the Google Drive plugin.
 3. Use `mcp__codex_apps__google_drive_import_presentation` with `upload_mode: "native_google_slides"` to create a native Google Slides deck:
+
    ```json
    {
      "source_file": "/absolute/path/to/deck.pptx",
@@ -14,6 +15,7 @@ When to read: local `.ppt`, `.pptx`, or `.odp` input.
      "upload_mode": "native_google_slides"
    }
    ```
+
 4. Read the imported deck and record presentation id, title, URL when available, slide count, and major slide titles.
 5. Read Drive metadata for the imported file and confirm MIME type is `application/vnd.google-apps.presentation`.
 6. Confirm the Google Slides URL or presentation id you will return was observed in the completed import response, connector readback, or Drive metadata readback. Do not synthesize or predict a Google Slides URL, and do not return any URL before readback verification succeeds.

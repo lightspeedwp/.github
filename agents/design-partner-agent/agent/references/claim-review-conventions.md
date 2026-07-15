@@ -1,6 +1,7 @@
 # Claim Review Conventions
 
 For each claim, record:
+
 - claim text
 - claimed source
 - verified source

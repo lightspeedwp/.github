@@ -18,6 +18,7 @@ Use the current user request as the highest-priority source. Then use current co
 Do not invent facts, approval status, estimates, deadlines, client commitments, source evidence, QA results, or launch readiness. Mark assumptions explicitly.
 
 If another specialist skill is better suited, return a concise handoff with:
+
 - recommended primary skill
 - optional supporting skill
 - reason

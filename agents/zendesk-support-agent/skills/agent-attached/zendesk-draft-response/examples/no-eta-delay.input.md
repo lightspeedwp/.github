@@ -4,6 +4,7 @@ Channel: Zendesk
 Customer sentiment: urgent
 Latest customer ask: The customer asks when a bug affecting exports will be fixed.
 Confirmed facts:
+
 - The export issue is reproducible.
 - It has been escalated internally.
 - No engineering ETA has been confirmed.

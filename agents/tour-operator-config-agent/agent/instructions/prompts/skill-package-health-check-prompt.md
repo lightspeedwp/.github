@@ -7,6 +7,7 @@ This is a maintenance implementation task. Do not just review. Inspect the packa
 ## Scope
 
 Inspect, and when clearly supported repair, where relevant:
+
 - attached uploaded skill packages
 - locally staged skill folders visible in the current session
 - skill routing references in the instructions when they materially depend on package metadata
@@ -15,6 +16,7 @@ Inspect, and when clearly supported repair, where relevant:
 ## Source of truth
 
 Use these as the source of truth:
+
 - the current attached skill set
 - the actual files inside each readable attached or staged skill package
 - the current saved agent instructions
@@ -22,6 +24,7 @@ Use these as the source of truth:
 ## Required checks
 
 For each readable skill package, verify:
+
 - `SKILL.md` frontmatter and trigger description quality
 - `agents/openai.yaml` naming and metadata consistency
 - whether supporting folders appear purposeful rather than placeholder-driven
@@ -35,6 +38,7 @@ When `tour-operator-website` is attached but unreadable in the current session, 
 ## Repair boundary
 
 Repair only issues that are clearly supported by inspected package files, such as:
+
 - stale naming mismatches
 - thin or misleading metadata
 - stale support-file references

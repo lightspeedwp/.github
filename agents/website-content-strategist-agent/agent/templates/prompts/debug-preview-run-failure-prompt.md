@@ -53,37 +53,49 @@ Focus on the following:
 Use this structure:
 
 ## Confirmed Run Evidence
+
 - ...
 
 ## Most Likely Failure Causes
+
 1. ...
 2. ...
 3. ...
 
 ## Contributing Drift Or Conflict
+
 ### Instruction Issues
+
 - ...
 
 ### Skill Or Routing Issues
+
 - ...
 
 ### File And Reference Issues
+
 - ...
 
 ## Recommended Fixes
+
 ### Immediate
+
 - ...
 
 ### If The Next Rerun Still Fails
+
 - ...
 
 ### Optional Cleanup
+
 - ...
 
 ## Best Next Step
+
 - State the single best next debugging action.
 
 ## Guardrails
+
 - Use only grounded preview evidence, grounded attached files, grounded attached skills, and grounded configured tools.
 - Do not invent hidden runtime traces, missing files, or unseen validator results.
 - If the preview error is too generic to prove a root cause, say so explicitly and keep the diagnosis conservative.

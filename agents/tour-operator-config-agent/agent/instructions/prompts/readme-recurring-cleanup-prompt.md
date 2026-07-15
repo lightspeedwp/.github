@@ -73,6 +73,7 @@ This is a maintenance implementation task. Do not just review. Make the edits an
   - current reference standards
 
 After editing, run the relevant validation checks for the updated README and documentation state. At minimum, run the validation checks that verify:
+
 - instruction/file consistency
 - folder/schema consistency where relevant
 - agent structure or documentation consistency if applicable

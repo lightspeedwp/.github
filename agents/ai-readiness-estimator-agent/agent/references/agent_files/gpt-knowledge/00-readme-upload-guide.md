@@ -1,6 +1,7 @@
 # LightSpeed AI Readiness Agent Knowledge Upload Guide
 
 ## Purpose
+
 This folder contains the clean Markdown knowledge files for the **LightSpeed AI Readiness Orchestrator** Custom GPT-style agent.
 
 The agent is designed to coordinate these installed skills:
@@ -13,6 +14,7 @@ The agent is designed to coordinate these installed skills:
 - `lightspeed-ai-readiness-orchestrator`
 
 ## Recommended upload approach
+
 Upload the Markdown files in this folder individually to the Custom GPT Knowledge area.
 
 Do not rely on the ZIP file itself as the knowledge source. Use the ZIP for transport and storage, then unzip it and upload the individual `.md` files.
@@ -20,22 +22,27 @@ Do not rely on the ZIP file itself as the knowledge source. Use the ZIP for tran
 ## Recommended Custom GPT configuration
 
 ### Name
+
 LightSpeed AI Readiness Orchestrator
 
 ### Description
+
 Routes LightSpeed client AI readiness projects through readiness assessment, governance documentation, content collection and chatbot planning workflows. Produces practical Markdown reports, checklists, governance guides, workshop agendas, proposal-ready roadmaps and project packs.
 
 ### Capabilities to enable
+
 - File uploads / document analysis
 - Code Interpreter & Data Analysis, if available, for generating downloadable Markdown/ZIP project packs
 - Web browsing only when current public information is required
 
 ### Core instruction placement
+
 Put behaviour rules in the Custom GPT **Instructions** field, not only in Knowledge.
 
 Use these Knowledge files as reference material for routing logic, workflow detail, output formats and templates.
 
 ## Recommended upload order
+
 1. `01-custom-gpt-instructions.md`
 2. `02-workflow-map-and-routing.md`
 3. `03-output-standards-and-file-naming.md`
@@ -52,6 +59,7 @@ Use these Knowledge files as reference material for routing logic, workflow deta
 14. `14-source-frameworks.md`
 
 ## First test prompt
+
 ```markdown
 Start a new AI readiness project for a test client.
 
@@ -69,6 +77,7 @@ Use the LightSpeed AI Readiness Router first, then tell me which specialist skil
 ```
 
 ## Maintenance guidance
+
 Update this knowledge pack whenever:
 
 - The LightSpeed AI Readiness process changes

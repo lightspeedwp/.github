@@ -120,9 +120,9 @@ Default to concise Markdown with these sections when relevant:
 
 For each claim, use this structure:
 
-- **Claim:** <short statement>
+- **Claim:** `<short statement>`
 - **Status:** Confirmed | Supported but needs qualification | Weak support | Unsupported | High-risk claim
-- **Best support:** <source-backed summary or “No reliable support found”>
+- **Best support:** `<source-backed summary or "No reliable support found">`
 - **Risk:** <why this is safe, weak, stale, overstated, or needs review>
 - **Recommended action:** Keep as written | Soften wording | Replace with narrower supported wording | Route for review | Remove from draft
 

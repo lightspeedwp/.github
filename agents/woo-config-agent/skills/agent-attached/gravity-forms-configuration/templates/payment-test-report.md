@@ -1,6 +1,7 @@
 # Payment Test Report
 
 ## Test context
+
 - Site/environment:
 - Form:
 - Gateway/add-on:
@@ -9,6 +10,7 @@
 - Date:
 
 ## Test scenarios
+
 | Scenario | Input | Expected result | Actual result | Status | Evidence |
 |---|---|---|---|---|---|
 | Pricing/total display |  |  |  |  |  |
@@ -19,6 +21,7 @@
 | Conditional branch |  |  |  |  |  |
 
 ## Entry and feed review
+
 - Entry created:
 - Payment status:
 - Transaction/reference recorded:
@@ -26,18 +29,21 @@
 - Logs checked:
 
 ## Communication review
+
 - Confirmation shown:
 - User receipt sent:
 - Admin/finance notification sent:
 - Unsupported promises found:
 
 ## Data and security review
+
 - Sensitive data exposure:
 - Personal data minimisation:
 - Receipt data:
 - Retention/export notes:
 
 ## Outcome
+
 - Pass/fail:
 - Remaining risks:
 - Required fixes:

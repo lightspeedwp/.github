@@ -1,6 +1,7 @@
 # Single team profile template
 
 ## Metadata
+
 - Profile name:
 - Role:
 - Audience:

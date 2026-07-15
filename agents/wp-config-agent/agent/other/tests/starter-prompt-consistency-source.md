@@ -3,6 +3,7 @@
 Use this file as the source snapshot for starter-prompt consistency validation.
 
 ## Required starter prompt titles
+
 - `Start site discovery`
 - `Audit my website`
 - `Map site structure`
@@ -11,6 +12,7 @@ Use this file as the source snapshot for starter-prompt consistency validation.
 - `Create launch summary`
 
 ## Required starter prompt themes
+
 - `WordPress`
 - `Gravity Forms`
 - `Yoast SEO`
@@ -18,12 +20,14 @@ Use this file as the source snapshot for starter-prompt consistency validation.
 - `site structure`
 
 ## Forbidden starter prompt references
+
 - `WooCommerce`
 - `tour operator`
 - `Slack`
 - `newsletter platform`
 
 ## Starter prompts snapshot
+
 - Title: `Start site discovery`
   - Description: `Capture the core website inputs.`
   - Prompt: `Help me run a WordPress site discovery for this project, including business goals, homepage focus, content structure, forms, and SEO priorities.`

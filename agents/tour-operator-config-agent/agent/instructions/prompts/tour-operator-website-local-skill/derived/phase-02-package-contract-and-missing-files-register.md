@@ -34,6 +34,7 @@ Based on currently verified files, the following source material is supported as
 - `prompts/tour-operator-website/references/outputs/output-contracts.md`
 
 Package-critical entry and metadata files remain unverified:
+
 - `prompts/tour-operator-website/SKILL.md`
 - `prompts/tour-operator-website/agents/`
 
@@ -47,6 +48,7 @@ The verified files explicitly support these as intended package support material
 - `prompts/tour-operator-website/scripts/validate_content_model.py`
 
 The following folders are also supported as possible package structure, but are unverified:
+
 - `prompts/tour-operator-website/scripts/`
 - `prompts/tour-operator-website/schemas/`
 - `prompts/tour-operator-website/assets/`
@@ -68,12 +70,14 @@ Also exclude any claim that the current source tree is already a complete skill 
 ## 5. Open gaps that block safe packaging
 
 **Critical blockers**
+
 - canonical `SKILL.md` is unverified
 - canonical `agents/` entry layer is unverified
 - canonical skill name is unverified
 - canonical metadata layer is unverified
 
 **High blockers**
+
 - referenced validation material is unverified:
   - `references/validation/anti-drift-tests.md`
   - `references/outputs/client-safe-language.md`
@@ -81,12 +85,14 @@ Also exclude any claim that the current source tree is already a complete skill 
   - `scripts/validate_content_model.py`
 
 **Medium blockers**
+
 - `scripts/`
 - `schemas/`
 - `assets/`
 - `examples/`
 
 **Current safe packaging status**
+
 - This is a **verified reference/source tree**
 - This is **not yet a verified local skill package**
 - Safe verdict: **not yet packageable**
@@ -111,6 +117,7 @@ These remain safer to mark as **unverified**, not definitively missing:
 No assembly-safe next phase yet.
 
 The safest next move is a **phase-03 blocker-verification pass** to determine whether the source tree already contains:
+
 - `SKILL.md`
 - `agents/`
 - any canonical entry metadata

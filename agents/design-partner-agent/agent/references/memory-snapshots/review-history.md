@@ -3,6 +3,7 @@
 Use this file to store **compressed continuity entries for completed work** so future runs can build on prior findings without redoing the same reasoning.
 
 ## What belongs here
+
 - completed briefs
 - completed critiques
 - completed audits
@@ -17,29 +18,45 @@ Use this file to store **compressed continuity entries for completed work** so f
 ## Entry template
 
 ### Review
+
 - Date:
 - Work type:
 - Client or project:
 - Surface or artifact:
 - Goal:
-- Key findings:
+
+- Key findings
+
   -
-- Recommendations:
+
+- Recommendations
+
   -
-- Approved directions:
+
+- Approved directions
+
   -
-- Rejected directions:
+
+- Rejected directions
+
   -
-- Accessibility notes:
+
+- Accessibility notes
+
   -
-- Open questions:
+
+- Open questions
+
   -
-- Follow-up actions:
+
+- Follow-up actions
+
   -
 
 ## Starter baseline entry
 
 ### Review
+
 - Date: 2026-06-30
 - Work type: Agent memory and instruction refinement
 - Client or project: Design Partner
@@ -69,6 +86,7 @@ Use this file to store **compressed continuity entries for completed work** so f
   - Add real client-specific follow-ups once active work accumulates.
 
 ## Notes
+
 - Keep entries short and decision-oriented.
 - Summarize the durable outcome of the work, not the full work process.
 - Put unfinished tasks in `memory/todos.md` instead of leaving them here.

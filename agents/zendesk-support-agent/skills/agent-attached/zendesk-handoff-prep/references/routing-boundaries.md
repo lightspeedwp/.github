@@ -75,4 +75,3 @@ When this skill should not continue and the next step is not obvious, use wordin
 When the next step is obvious and local to the handoff, use wording like:
 
 > This handoff is partially ready, but the smallest missing evidence is [specific item]. Collect that before sending it to [target].
-

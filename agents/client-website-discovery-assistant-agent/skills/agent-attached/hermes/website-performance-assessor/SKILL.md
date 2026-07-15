@@ -14,6 +14,7 @@ This skill supports discovery and triage, not definitive engineering root-cause 
 ## Request Shapes
 
 Use `$website-performance-assessor` for requests like:
+
 - "Assess this site's performance issues from the evidence we have."
 - "Turn these speed notes, exports, and observations into a performance assessment."
 - "What are the likely blockers to good website performance before redesign or launch?"
@@ -41,6 +42,7 @@ Use `$website-performance-assessor` for requests like:
 ## Output Contract
 
 The default output should include:
+
 - current performance situation
 - major observed issues or signals
 - likely contributing factors

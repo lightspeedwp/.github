@@ -21,26 +21,33 @@ Focus on the following:
 Use this structure:
 
 ## Grounded Inputs
+
 - ...
 
 ## Highest-Priority Issues
+
 - ...
 
 ## Secondary Issues
+
 - ...
 
 ## Sequencing Risks
+
 - ...
 
 ## Recommended Order
+
 1. ...
 2. ...
 3. ...
 
 ## Best Next Step
+
 - State the single best maintenance task to do first.
 
 ## Guardrails
+
 - Use only grounded visible files.
 - Keep recommendations conservative and practical.
 - Do not invent missing maintenance layers.

@@ -6,30 +6,30 @@
 
 ## Target users
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Business goals
 
-- 
-- 
-- 
+-
+-
+-
 
 ## User needs
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Success measures
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Editorial context
 
-- 
-- 
-- 
+-
+-
+-

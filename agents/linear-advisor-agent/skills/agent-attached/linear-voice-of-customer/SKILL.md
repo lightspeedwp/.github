@@ -165,26 +165,31 @@ When evidence is mixed, use the lower confidence label and explain what would ra
 Use this structure by default. Compress it for small inputs and expand it only when the evidence set requires it.
 
 ### 3-Bullet Summary
+
 - **Value:** what the customer signal helps the team understand or decide.
 - **Risk:** what could be overstated, missing, urgent, commercially sensitive, or likely to cause rework.
 - **Next step:** the most practical Linear, support, or LightSpeed follow-up.
 
 ### Core Customer Signals
+
 | Signal | Evidence strength | Customer impact | Evidence basis | Suggested Linear framing |
 |---|---:|---|---|---|
 | [theme] | Strong / Medium / Weak | [impact] | [tickets, quotes, notes, accounts, docs] | [problem statement or planning signal] |
 
 ### Representative Evidence
+
 - **Direct quote:** keep quotes short and clearly marked.
 - **Paraphrase:** label paraphrased evidence clearly.
 - **Source note:** identify where the evidence came from when available.
 
 ### Linear-Ready Problem Statement
+
 Use this pattern when helpful:
 
 > Customers who [context/workflow] are struggling to [job/outcome] because [observed pain or blocker]. This causes [customer/business impact]. Evidence currently suggests [strong/medium/weak] confidence based on [basis]. The team should [investigate/route/plan/solve] [recommended outcome] while preserving [constraints or guardrails].
 
 ### Recommended Follow-Up Route
+
 State the best next action and the related shared team skill when useful:
 
 - `linear-triage-router` for team, priority, ownership, or routing;
@@ -196,6 +201,7 @@ State the best next action and the related shared team skill when useful:
 - another route from the routing tables above.
 
 ### Assumptions, Gaps And Open Questions
+
 Only include this section when evidence is incomplete, ambiguous, outdated, or not directly customer-facing. Prefer a short set of high-value questions over broad discovery.
 
 ## Linear Framing Rules

@@ -11,48 +11,48 @@ project: <project name>
 
 ## Summary Recommendation
 
-- **Recommended package:** 
+- **Recommended package:**
 - **Status:** *Draft | Provisional | Ready*
-- **Project intent:** 
+- **Project intent:**
 
 ---
 
 ## Proposed Scope
 
-- 
+-
 
 ---
 
 ## Excluded or Deferred Scope
 
-- 
+-
 
 ---
 
 ## Add-ons
 
-- **Add-on:** 
+- **Add-on:**
   - **Status:** *Provisional | Confirmed | Not applicable*
-  - **Reason:** 
+  - **Reason:**
 
 ---
 
 ## Assumptions and Dependencies
 
-- 
+-
 
 ---
 
 ## Commercial Status
 
-- **Fixed-fee status:** 
-- **Approvals:** 
-- **Notes:** 
+- **Fixed-fee status:**
+- **Approvals:**
+- **Notes:**
 
 ---
 
 ## Next Step
 
-- 
+-
 
 ---

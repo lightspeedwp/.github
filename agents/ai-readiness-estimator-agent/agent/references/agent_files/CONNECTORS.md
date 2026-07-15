@@ -9,15 +9,19 @@ This file explains how connected sources should support the estimator's evidence
 ## Current Source Roles
 
 ### Google Drive
+
 Use for briefs, proposals, spreadsheets, audits, and shared client documents.
 
 ### GitHub
+
 Use for implementation evidence, plugin or codebase clues, and technical scope signals.
 
 ### Figma
+
 Use for design-system, component, and UI evidence when design references matter to scope.
 
 ### Gmail
+
 Use for discovery notes, prior estimate context, approvals, and historical client communication when relevant.
 
 ## Usage Rules

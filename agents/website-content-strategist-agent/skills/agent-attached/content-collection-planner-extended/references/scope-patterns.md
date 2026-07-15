@@ -1,6 +1,7 @@
 # Scope patterns
 
 ## Full website
+
 - positioning and offer narrative
 - page inventory
 - approved source docs
@@ -12,6 +13,7 @@
 ## Standard pages
 
 ### About page
+
 - vision
 - mission
 - values
@@ -21,6 +23,7 @@
 - CTA destination
 
 ### Service page
+
 - service definition
 - target audience
 - key pain points
@@ -30,6 +33,7 @@
 - CTA route
 
 ### Solution page
+
 - problem framing
 - solution narrative
 - audience fit
@@ -39,6 +43,7 @@
 - CTA route
 
 ### Product page
+
 - product summary
 - features
 - benefits
@@ -48,6 +53,7 @@
 - CTA route
 
 ### Contact or enquiry page
+
 - contact routes
 - form purpose
 - response expectation
@@ -55,6 +61,7 @@
 - CTA wording
 
 ## Single sections
+
 - hero
 - intro
 - value proposition grid

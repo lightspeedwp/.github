@@ -10,13 +10,13 @@
 
 ## Acceptance criteria
 
-- [ ] 
+- [ ]
 
 ## Technical notes
 
 ## QA checks
 
-- [ ] 
+- [ ]
 
 ## Dependencies / blockers
 

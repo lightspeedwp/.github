@@ -1,9 +1,11 @@
 # AI Package Assessment Values
 
 ## Purpose
+
 Use this file to drive intake before package routing or pricing.
 
 ## Operating Rules
+
 - Gather values in batches.
 - Try to source each value automatically first.
 - Show the client what was found.
@@ -14,7 +16,9 @@ Use this file to drive intake before package routing or pricing.
 ## Intake Batches
 
 ### 1. Reference Sources
+
 Ask for or inspect:
+
 - primary website URL
 - staging site URL if available
 - Google Docs or Drive links
@@ -27,7 +31,9 @@ Ask for or inspect:
 - chatbot or AI strategy notes if they already exist
 
 ### 2. Live Website / Platform Discovery
+
 Try to identify from the live site or references:
+
 - platform
 - WooCommerce status
 - blog, FAQ, and policy-page presence
@@ -39,7 +45,9 @@ Try to identify from the live site or references:
 - multilingual or multi-brand status
 
 ### 3. Business Goals / Package Intent
+
 Confirm:
+
 - project goal
 - requested services or package intent
 - delivery type
@@ -48,7 +56,9 @@ Confirm:
 - whether a chatbot is already live, planned, or exploratory
 
 ### 4. Scope Confirmation / Commercial Routing
+
 Confirm:
+
 - whether the audit findings fit a standard package
 - whether any fixed-fee disqualifiers are present
 - whether add-ons are needed after the primary base package is chosen
@@ -80,7 +90,9 @@ Confirm:
 | `internal_owner` | client-side owner | docs, client input | name and role |
 
 ## Client Confirmation Questions
+
 Ask these after the first scan:
+
 - What is the main AI-related outcome you want to achieve first?
 - Are you looking for audit only, implementation, or implementation plus chatbot?
 - Do you already have internal rules for AI content or chatbot governance?
@@ -88,7 +100,9 @@ Ask these after the first scan:
 - Is a chatbot already live, planned, or only exploratory?
 
 ## Output Rule
+
 Do not finalise package recommendation until:
+
 1. website findings are confirmed
 2. missing business-goal fields are supplied
 3. any sensitive or regulated use cases are disclosed

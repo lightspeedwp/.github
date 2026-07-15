@@ -7,6 +7,7 @@ This is a maintenance implementation task. Do not just review. Make the needed e
 ## Goal
 
 Bring the agent’s skill layer back into a coherent state by repairing:
+
 - stale skill references in instructions or docs
 - outdated attached-skill inventories
 - mismatches between attached skills and routing notes
@@ -17,6 +18,7 @@ Bring the agent’s skill layer back into a coherent state by repairing:
 ## Scope
 
 Inspect and update, where relevant:
+
 - the current saved agent instructions
 - `prompts/`
 - `tests/`
@@ -30,6 +32,7 @@ Inspect and update, where relevant:
 ## Source of truth
 
 Use these as the source of truth, in order:
+
 - the current attached skill set in the draft
 - the current saved agent instructions
 - the current attached file tree
@@ -41,6 +44,7 @@ Use these as the source of truth, in order:
 ### 1. Fix instruction routing drift
 
 Repair the instructions so they:
+
 - reference only currently attached skills
 - use exact attached skill names consistently
 - preserve the current role and routing behaviour as closely as possible
@@ -49,6 +53,7 @@ Repair the instructions so they:
 ### 2. Fix maintenance-doc and snapshot drift
 
 Update any stale attached-skill lists or routing references in:
+
 - `prompts/`
 - `tests/`
 - README files
@@ -60,6 +65,7 @@ Make only the smallest coherent edits needed.
 ### 3. Fix skill package follow-through when required
 
 When a locally staged or draft skill clearly represents the intended current version:
+
 - update the attached skill in place when it is the same skill
 - attach the skill when it is a new intended addition
 - keep the existing attached skill id when updating an already attached uploaded skill
@@ -69,6 +75,7 @@ If the draft then needs to be made live for users outside preview to get the cha
 ### 4. Repair package-level issues when in scope
 
 If an inspected attached or staged uploaded skill has obvious package issues, repair only issues that are clearly supported by the current evidence, such as:
+
 - stale canonical naming or description mismatches
 - stale examples or support-file references that no longer match the skill’s role
 - thin or misleading trigger descriptions
@@ -80,6 +87,7 @@ Do not redesign the skill unless the issue requires it.
 ## Anti-drift rules
 
 Do not leave behind:
+
 - unattached skill references in instructions or docs
 - stale old skill names
 - workspace-only or shared-directory dependencies presented as attached routes
@@ -101,6 +109,7 @@ Do not leave behind:
 After repairing issues, run the relevant checks for the files or skills you touched.
 
 At minimum, run the checks relevant to:
+
 - instruction/file consistency
 - routing snapshot and consistency-source alignment
 - agent structure or documentation consistency where applicable

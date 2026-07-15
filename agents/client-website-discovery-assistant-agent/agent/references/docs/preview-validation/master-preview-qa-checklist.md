@@ -13,6 +13,7 @@ status: reusable_test_reference
 ## Purpose
 
 Use this file as the main QA reference for repeatable preview testing. It brings together:
+
 - example context selection
 - prompt selection
 - output validation criteria
@@ -24,12 +25,15 @@ Use this file as the main QA reference for repeatable preview testing. It brings
 ## Core Reference Files
 
 ### Example contexts index
+
 `docs/preview-validation/example-contexts-index.md`
 
 ### Prompt library
+
 `docs/preview-validation/repeatable-preview-test-prompts.md`
 
 ### Existing validation checklist
+
 `docs/preview-validation-checklist.md`
 
 ---
@@ -37,6 +41,7 @@ Use this file as the main QA reference for repeatable preview testing. It brings
 ## Test Setup Checklist
 
 Before running a preview:
+
 - choose the correct example context
 - confirm the context matches the type of test you want to run
 - choose a matching prompt from the prompt library or write a narrowly scoped equivalent
@@ -48,16 +53,19 @@ Before running a preview:
 ## Context Selection Guide
 
 ### Use LightSpeedWP.Agency when
+
 - you want the richest cross-source test case
 - you need live, prototype, dev, GitHub, Drive, and Figma references together
 - you want a broad discovery-pack or source-intake test
 
 ### Use TourOperator.solutions when
+
 - you want a product and tourism-oriented example
 - you want live, demo, and dev comparisons
 - you want a project with a single main repo and design-system reference
 
 ### Use LSX Design System when
+
 - you want a design-system-led example
 - you want live/demo/repo/Drive/Figma comparison without a dev-site dependency
 - you want to test design-system discovery and governance outputs
@@ -69,6 +77,7 @@ Before running a preview:
 Use the prompt library for repeatable tests.
 
 Choose:
+
 - **General Discovery Pack Prompt** for baseline structured discovery output
 - **Internal Discovery Pack With Formatting Check** for Markdown framing and formatting validation
 - **Follow-Up Questions Prompt** for gap and blocker extraction
@@ -83,6 +92,7 @@ Choose:
 ## Output Validation Checklist
 
 ### Evidence quality
+
 - Are confirmed facts clearly separated from assumptions?
 - Are inferred observations clearly labeled?
 - Are open questions present where key information is missing?
@@ -90,6 +100,7 @@ Choose:
 - Did the output avoid inventing missing facts?
 
 ### Structure quality
+
 - Did the output choose the right type of deliverable for the request?
 - If a fenced Markdown block was used, was there a proper Markdown heading before it?
 - Was there a short intro before the fenced block?
@@ -98,6 +109,7 @@ Choose:
 - Did `## Next steps` contain 2 to 3 concise bullets?
 
 ### Formatting quality
+
 - Did the Markdown content begin with YAML frontmatter?
 - Was there exactly one empty line after frontmatter before the document title?
 - Were divider lines used between main sections?
@@ -106,12 +118,14 @@ Choose:
 - Were unresolved fields left visibly unresolved instead of guessed?
 
 ### Delivery behavior
+
 - Did the output use Markdown only rather than DOCX?
 - Did it default to an inline Markdown copy block unless the user explicitly asked for a download?
 - If the user explicitly used the word `download`, did the response switch to download-style behavior only when a real user-usable control was available?
 - If no real download control was available, did the response avoid pretending there was one?
 
 ### Link and file safety
+
 - Were local workspace paths fully hidden?
 - Were sandbox or runtime paths fully hidden?
 - Were there no fake file links?
@@ -123,6 +137,7 @@ Choose:
 ## Failure Conditions
 
 Treat these as preview failures:
+
 - invented facts presented as confirmed
 - mixed evidence categories without labels
 - missing title or intro before a fenced Markdown block

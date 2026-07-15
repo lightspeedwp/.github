@@ -1,6 +1,7 @@
 # Conversion goal options
 
 ## Audience options
+
 - first-time high-intent buyer
 - comparison-stage evaluator
 - returning customer or client
@@ -8,6 +9,7 @@
 - existing contact needing the next step
 
 ## User intent options
+
 - understand whether this is relevant
 - compare options
 - build trust before action
@@ -15,6 +17,7 @@
 - take a direct next step now
 
 ## Primary conversion goal options
+
 - book a consultation
 - request a quote or proposal
 - submit an enquiry
@@ -22,6 +25,7 @@
 - access a resource or lead magnet
 
 ## Fallback action options
+
 - explore services
 - review FAQs
 - read a case study
@@ -29,6 +33,7 @@
 - contact support or sales
 
 ## Friction options
+
 - lack of trust
 - unclear offer fit
 - unclear process

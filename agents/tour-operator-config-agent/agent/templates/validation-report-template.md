@@ -1,11 +1,13 @@
 # Validation Report Template
 
 ## Validation Scope
+
 - Files or folders reviewed
 - Validation runner used
 - Schemas or rules applied
 
 ## Checks Run
+
 - Structure validation
 - Schema validation
 - Memory validation
@@ -14,14 +16,17 @@
 - Naming validation
 
 ## Passed Checks
+
 - Passed item
 
 ## Failed Checks
+
 - Failed item
 - Reason
 - Affected file
 
 ## Recommended Fixes
-1. 
-2. 
-3. 
+
+1.
+2.
+3.

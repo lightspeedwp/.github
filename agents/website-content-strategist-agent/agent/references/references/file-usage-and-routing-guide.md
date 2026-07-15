@@ -5,6 +5,7 @@
 Explain what belongs in the current maintenance file set and when to use each reference.
 
 ## Current maintenance references
+
 - `references/audit-docs-validation-workflow.md`: use for maintenance audits, drift review, prompt-status review, and conservative repair sequencing.
 - `references/validation-standards.md`: use for the quality bar for maintenance and review outputs.
 - `references/naming-conventions.md`: use when creating or renaming maintenance reference files.
@@ -19,6 +20,7 @@ Explain what belongs in the current maintenance file set and when to use each re
 - Preview-validation checklists, repeatable preview prompts, and example-context indexes: use only when those files are actually attached in the current draft.
 
 ## Routing rules
+
 - If the task is about drift, missing references, or maintenance scope, start with the audit workflow.
 - If the task is about whether an output is acceptable, use the validation standards.
 - If the task is about naming or whether to create a new file, use the naming conventions.
@@ -29,6 +31,7 @@ Explain what belongs in the current maintenance file set and when to use each re
 - If the task is about durable memory structure, use `memory/README.md` first.
 
 ## Guardrails
+
 - Only treat attached files as available references.
 - If a file is mentioned in older outputs but is not attached, treat it as drift.
 - Prefer one clear file per purpose.

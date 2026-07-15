@@ -3,6 +3,7 @@
 Use this file to track which artifact types have templates, examples, schemas, validators, and tests.
 
 ## Workflow coverage
+
 - Design critique
 - Design brief
 - Design audit
@@ -17,6 +18,7 @@ Use this file to track which artifact types have templates, examples, schemas, v
 - Validation report
 
 ## Checkpoints
+
 - Template exists
 - Example exists
 - Schema exists

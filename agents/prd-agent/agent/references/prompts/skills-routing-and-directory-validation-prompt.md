@@ -7,12 +7,14 @@ Use this prompt when you want a comprehensive audit of how this agent routes thr
 Run a comprehensive validation pass over this agent’s skills-routing and skills-directory layer.
 
 Goals:
+
 - verify that the real attached-skill layer matches the routing language in the agent instructions, prompts, references, rollout notes, inventories, and related validation docs
 - verify that the agent’s skills directory and skill-inventory materials still match the actual attached skills, intended routing model, and current parity state
 - identify drift, stale names, missing cross-links, broken handoff assumptions, duplicate routing guidance, and inventory mismatches
 - produce a precise issue list that can be repaired without reopening already-settled product decisions unless a concrete inconsistency requires it
 
 Priority checks:
+
 1. verify that the current attached skills exactly match the skill names, roles, and routing expectations referenced in the agent instructions
 2. verify that the skills directory or inventory layer reflects the real attached skills, including exact names, purpose boundaries, and any known parity gaps
 3. verify that routing references across prompts, references, rollout notes, templates, examples, fixtures, and validation docs use the current skill names and current routing model
@@ -23,6 +25,7 @@ Priority checks:
 8. verify that attached-skill references in the instructions do not force every request through every skill and do not omit a skill that the routing layer clearly depends on
 
 Scope guidance:
+
 - review the agent instructions for skill-routing language, routing order, exclusions, and attached-skill references
 - review skills-related prompt files in `prompts/`
 - review skills-related references, inventories, rollout docs, and parity docs
@@ -32,6 +35,7 @@ Scope guidance:
 - review whether the documented skill boundaries still match the actual specialist roles now attached to the agent
 
 Constraints:
+
 - do not invent replacement skills
 - do not silently rename parity-tracked or already-attached skills
 - do not claim full parity if exact-name or exact-role gaps still remain unresolved
@@ -40,6 +44,7 @@ Constraints:
 - do not repair issues during this pass; identify and explain them cleanly for a follow-up repair pass
 
 Output standard:
+
 - report only high-signal routing and directory findings
 - group findings by severity: blocking, important, cleanup-only
 - for each finding, include:
@@ -51,6 +56,7 @@ Output standard:
 - keep the result auditable, rebuild-friendly, and repair-friendly
 
 ## When to use it
+
 - after attaching or detaching skills
 - after promoting local skills into attached skills
 - after rewriting routing instructions

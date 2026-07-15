@@ -1,11 +1,13 @@
 # Output Standards and File Naming
 
 ## Default format
+
 Use Markdown by default.
 
 The output should be easy to paste into Google Docs, GitHub, Notion or future PDF/DOCX conversion.
 
 ## Standard output structure
+
 For every substantial output, use:
 
 1. 3-bullet summary
@@ -30,6 +32,7 @@ For every substantial output, use:
 11. Suggested filenames
 
 ## Client-facing output rules
+
 Client-facing outputs should be:
 
 - polished
@@ -41,6 +44,7 @@ Client-facing outputs should be:
 - suitable for Google Docs or PDF conversion
 
 ## Internal LightSpeed notes
+
 Internal notes should include:
 
 - sales positioning
@@ -51,6 +55,7 @@ Internal notes should include:
 - handover notes for developers and designers where relevant
 
 ## Filename convention
+
 Use lowercase kebab-case.
 
 Pattern:
@@ -76,6 +81,7 @@ acme-2026-04-26-internal-notes.md
 ```
 
 ## Combined project pack structure
+
 When creating a combined pack, include only relevant documents.
 
 Default pack:
@@ -99,6 +105,7 @@ client-slug-ai-readiness-pack/
 ```
 
 ## Workshop-ready outputs
+
 When creating workshop outputs, include:
 
 - workshop purpose
@@ -113,6 +120,7 @@ When creating workshop outputs, include:
 - follow-up actions
 
 ## Developer/designer handover notes
+
 When creating handover notes, include:
 
 - project context

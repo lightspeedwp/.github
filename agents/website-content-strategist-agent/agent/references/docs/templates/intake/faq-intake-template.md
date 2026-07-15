@@ -1,12 +1,14 @@
 # FAQ intake template
 
 ## Context
+
 - Site type:
 - Page type:
 - Conversion stage:
 - FAQ visibility default: visible / hidden / deferred / answered elsewhere
 
 ## Required FAQ slots (exactly 5)
+
 1. Question:
    - Why this question matters:
    - Answer summary:
@@ -39,5 +41,6 @@
    - Claim-register action:
 
 ## Notes
+
 - Questions that should stay off-page:
 - Evidence or approval blockers:

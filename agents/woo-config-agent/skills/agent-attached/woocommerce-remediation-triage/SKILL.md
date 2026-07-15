@@ -155,12 +155,14 @@ End with the shortest sensible ordered next actions.
 Stabilise the store for reliable launch-readiness validation by restoring the core purchase path and resolving the highest-risk operational gaps first.
 
 **Evidence Base**
+
 - Connected site inspection
 - Stored WooCommerce configuration
 - Product and shipping configuration review
 - Limitation: end-to-end checkout behaviour was not directly validated
 
 **Priority Triage**
+
 - Restore and confirm the checkout path
   - Why it matters: launch readiness cannot be assessed without a working purchase flow
   - Priority: restoration blocker
@@ -181,6 +183,7 @@ Stabilise the store for reliable launch-readiness validation by restoring the co
   - Validation needed: shipping-rate test by region
 
 **Immediate Next Steps**
+
 1. Restore and confirm the checkout path.
 2. Validate payment behaviour in a safe test flow.
 3. Align shipping-zone logic to selling regions.

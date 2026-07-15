@@ -1,6 +1,7 @@
 # Schema Validation Tests
 
 Use this file as the canonical validation checklist for reusable files in:
+
 - `examples/` when example files are attached
 - `schemas/`
 - `memory/` when memory files are attached
@@ -10,6 +11,7 @@ Run the helper script first:
 `bash scripts/validate-folder-schemas.sh`
 
 ## Validation goals
+
 - keep reusable files in the correct folders
 - enforce filename and structure conventions
 - require expected headings for attached example files when examples are present
@@ -22,14 +24,18 @@ Run the helper script first:
 This section describes the folder families the current schema validator is responsible for checking.
 
 ### `examples/`
+
 Validate:
+
 - filename follows the example naming convention when example files are attached
 - file starts with a level-1 example title
 - required headings are present for attached example files
 - files contain filled example content instead of blank example stubs
 
 ### `schemas/`
+
 Validate:
+
 - filename ends with `-schema.json`
 - file parses as valid JSON
 - schema has a non-empty `title`
@@ -37,6 +43,7 @@ Validate:
 - `properties` exists and is not empty
 
 Schema files currently in scope:
+
 - `schemas/enquiry-form-schema.json`
 - `schemas/site-discovery-schema.json`
 - `schemas/template-file-validation-schema.json`
@@ -47,6 +54,7 @@ Schema files currently in scope:
 - `schemas/yoast-audit-output-schema.json`
 
 Current route-to-schema notes:
+
 - `woocommerce-site-discovery` currently has `schemas/site-discovery-schema.json`
 - `gravity-forms-configuration` currently has `schemas/gravity-forms-plan-schema.json`
 - `yoast-auditor` currently has `schemas/yoast-audit-output-schema.json`
@@ -54,13 +62,16 @@ Current route-to-schema notes:
 - do not treat the absence of a dedicated accessibility schema as drift unless such a schema is later attached or explicitly added
 
 ### `memory/`
+
 Validate:
+
 - filename is lowercase markdown when memory files are attached
 - file starts with a level-1 title
 - required headings are present for attached memory files
 - durable preferences stay separate from active working notes
 
 ## Pass criteria
+
 - The helper script exits successfully.
 - No required heading is missing from attached example or memory files.
 - No schema file fails JSON parsing.
@@ -69,7 +80,9 @@ Validate:
 - Validation docs do not imply schema coverage that the current attached file tree does not provide.
 
 ## Failure handling
+
 If a check fails:
+
 - restore or add missing headings
 - fix stale or mismatched example structure
 - fix invalid JSON in schema files

@@ -24,13 +24,11 @@
 
 [Score]/100 - [Excellent/Good/Needs attention/High risk]. This score applies only to [reviewed scope].
 
-
 If scoring is not justified, replace this section with:
 
 ## Score status
 
 A score is not provided because [evidence limitation]. The minimum evidence needed before scoring is [specific evidence].
-
 
 ## Findings by priority
 

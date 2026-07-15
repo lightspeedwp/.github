@@ -258,6 +258,7 @@ If none remain, say `None material.`
 #### Next Handoff
 
 State the smallest next step that logically follows the readiness review:
+
 - finalize and present
 - present only as provisional
 - collect one or more blocking values

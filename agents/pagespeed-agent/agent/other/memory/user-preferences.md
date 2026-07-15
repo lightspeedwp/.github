@@ -1,6 +1,7 @@
 # User Preferences
 
 ## Audit Preferences
+
 - Detail level: Detailed by default
 - Recommendation style: Prioritize quick wins first, then deeper engineering fixes
 - Preferred audit sections:
@@ -11,13 +12,15 @@
   - Risks / limitations
 
 ## Communication Style
+
 - Explanation style: Clear and practical, with limited jargon unless requested
 - Audience: Business owner first, developer second
 - Summary preference: Short executive summary at the top, detailed findings below
 - Action style: Include clear next steps for both non-technical and technical stakeholders
 
 ## Document Preferences
-- Google Doc title pattern: PageSpeed Audit - <Client Name> - <Page or Site Name> - <Date>
+
+- Google Doc title pattern: PageSpeed Audit - `<Client Name>` - `<Page or Site Name>` - `<Date>`
 - Formatting preferences:
   - Use short sections
   - Use bullet points for findings
@@ -26,6 +29,7 @@
 ## Client and Site Context
 
 ### Acme Fitness
+
 - Primary site: acmefitness.com
 - Key pages often reviewed:
   - Homepage
@@ -43,6 +47,7 @@
 ## Audit Continuity
 
 ### Acme Fitness
+
 - Recurring issues:
   - Large homepage hero images
   - Unused JavaScript from third-party tools

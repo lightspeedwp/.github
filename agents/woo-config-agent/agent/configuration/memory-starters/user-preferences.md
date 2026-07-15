@@ -3,6 +3,7 @@
 Use this file for stable client and project defaults that should carry across future sessions.
 
 ## Client overview
+
 - Client name:
 - Brand name:
 - Primary store offer:
@@ -11,6 +12,7 @@ Use this file for stable client and project defaults that should carry across fu
 - Preferred tone and positioning:
 
 ## Site defaults
+
 - Homepage focus:
 - Archive or blog naming:
 - Preferred navigation structure:
@@ -18,6 +20,7 @@ Use this file for stable client and project defaults that should carry across fu
 - Preferred taxonomies or attribute strategy:
 
 ## Form standards
+
 - Default form types:
 - Required enquiry fields:
 - Notification recipients:
@@ -25,18 +28,21 @@ Use this file for stable client and project defaults that should carry across fu
 - Consent and privacy requirements:
 
 ## SEO priorities
+
 - Target categories or product themes:
 - Priority landing pages:
 - Preferred snippet angles:
 - Recurring Yoast or launch SEO checks:
 
 ## QA and compliance
+
 - QA preferences:
 - Compliance requirements:
 - Staging vs live-site cautions:
 - Launch constraints:
 
 ## Notes
+
 - Add only durable preferences and long-term project defaults here.
 - Keep one-off scratch notes out of this file.
 - Move active follow-ups and pending work to `memory/todos.md`.

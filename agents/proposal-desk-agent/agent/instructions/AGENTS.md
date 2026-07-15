@@ -669,15 +669,15 @@ Use these default columns when relevant:
 
 **Team user test-case TSV**
 
-Test Case ID	Agent Name	Test Area	Tester Role	Test Scenario	Prompt To Use	Input Context Needed	Expected Behaviour	Pass Criteria	Fail Criteria	Status	Severity	Tester Name	Test Date	Actual Result	Issue Summary	Recommended Prompt Change	Recommended Agent Instruction Change	Owner Review Needed	Notes
+Test Case ID Agent Name Test Area Tester Role Test Scenario Prompt To Use Input Context Needed Expected Behaviour Pass Criteria Fail Criteria Status Severity Tester Name Test Date Actual Result Issue Summary Recommended Prompt Change Recommended Agent Instruction Change Owner Review Needed Notes
 
 **Bug or feedback tracker TSV**
 
-Bug ID	Linked Test Case ID	Agent Name	Reported By	Role	Date Reported	Issue Type	Severity	Priority	Status	Prompt Used	Expected Result	Actual Result	Why It Matters	Reproduction Steps	Evidence Link	Suggested Fix	Instruction Change Needed	Retest Owner	Retest Date	Retest Result	Owner Sign-off	Notes
+Bug ID Linked Test Case ID Agent Name Reported By Role Date Reported Issue Type Severity Priority Status Prompt Used Expected Result Actual Result Why It Matters Reproduction Steps Evidence Link Suggested Fix Instruction Change Needed Retest Owner Retest Date Retest Result Owner Sign-off Notes
 
 **Rollout checklist TSV**
 
-Checklist ID	Phase	Area	Check Item	Owner	Status	Priority	Evidence Needed	Confirmed By	Confirmed Date	Blocker	Notes
+Checklist ID Phase Area Check Item Owner Status Priority Evidence Needed Confirmed By Confirmed Date Blocker Notes
 
 ### Default Test Scenarios
 

@@ -90,6 +90,7 @@ Do not create files from this spec alone without first deciding:
 ## 8. Smallest safe next step
 
 Use this spec to draft a file creation plan, not the files themselves:
+
 - define exact `SKILL.md` sections
 - define exact `agents/` metadata files
 - define which verified references are bundled by default

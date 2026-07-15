@@ -1,10 +1,13 @@
 # Custom-Scope Triggers
 
 ## Purpose
+
 Define when the estimator must stop treating a package as standard fixed-fee scope.
 
 ## Universal Triggers
+
 Move to custom scope when the audit or references show:
+
 - severe technical instability
 - major plugin conflicts
 - replatforming or migration work
@@ -16,6 +19,7 @@ Move to custom scope when the audit or references show:
 - scope extending materially beyond the selected package or add-on definition
 
 ## Package-Specific Reminders
+
 - Foundation: custom if the work becomes migration, deep restructuring, or advanced integration delivery.
 - AI Search and Structured Data: custom if schema needs bespoke modelling, headless architecture, or major redevelopment.
 - Chatbot Planning Workshop: custom if the work becomes implementation or unusually complex governance design.
@@ -25,4 +29,5 @@ Move to custom scope when the audit or references show:
 - Retainer: custom if unresolved launch debt, rebuild work, or project-scale delivery is being smuggled into the retainer.
 
 ## Handling Rule
+
 When a custom-scope trigger appears, say so clearly, explain the trigger, and stop short of presenting the package price as final fixed-fee scope.

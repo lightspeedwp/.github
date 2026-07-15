@@ -14,6 +14,7 @@ Use these prompts with the example contexts in `example-contexts-index.md` for c
 Use the selected indexed example context and produce a clean project summary.
 
 Include:
+
 - project type
 - confirmed reference sources
 - likely implementation context
@@ -26,6 +27,7 @@ Include:
 Using only the selected indexed example context, create a structured source inventory.
 
 Group the sources into:
+
 - live or production references
 - demo, prototype, or design references
 - development references
@@ -39,6 +41,7 @@ Then explain what each source is most useful for in future planning or QA work.
 Using the selected indexed example context, create the smallest useful planning kickoff output.
 
 The output should:
+
 - identify the likely project shape
 - separate confirmed facts from assumptions
 - list blockers or unanswered questions
@@ -49,6 +52,7 @@ The output should:
 Review the selected indexed example context and assess whether it is strong enough to start a technical brief.
 
 Return:
+
 - what is already sufficient
 - what is missing
 - what should be verified first
@@ -59,6 +63,7 @@ Return:
 Using the selected indexed example context, prepare a QA-oriented review summary.
 
 Focus on:
+
 - what can be validated from the available sources
 - what cannot be validated yet
 - which references are best for design parity checks
@@ -70,6 +75,7 @@ Focus on:
 Using the selected indexed example context, compare the available references and identify likely consistency risks.
 
 Look for possible mismatches across:
+
 - live site versus demo/prototype
 - design references versus implementation references
 - repository references versus public-facing references
@@ -82,6 +88,7 @@ Flag anything that should be reviewed before planning or QA continues.
 Using the selected indexed example context, write a short stakeholder-friendly summary of the project setup.
 
 Keep it concise and cover:
+
 - what the project appears to be
 - what source references are available
 - what the current evidence supports
@@ -92,6 +99,7 @@ Keep it concise and cover:
 Using the selected indexed example context, create a stronger follow-up prompt that would be suitable for the next preview run.
 
 The follow-up prompt should:
+
 - stay grounded in the selected context only
 - define one clear planning or QA objective
 - avoid requiring invented details

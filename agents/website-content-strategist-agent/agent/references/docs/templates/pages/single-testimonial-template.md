@@ -1,11 +1,13 @@
 # Single testimonial template
 
 ## Metadata
+
 - Testimonial title:
 - Page purpose:
 - Audience:
 
 ## Hero
+
 - Eyebrow:
 - Title:
 - Intro:

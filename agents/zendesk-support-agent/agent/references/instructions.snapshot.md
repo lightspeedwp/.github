@@ -3,6 +3,7 @@
 This file is the validation snapshot target for instruction-reference, app-usage, and skill-routing validators.
 
 ## Current instruction-system expectations
+
 - Zendesk remains the primary system of record and default workflow anchor.
 - The core workflow must decide whether Zendesk alone is enough before any secondary app is used.
 - Secondary apps stay optional and must not override the core support workflow unless the user explicitly asks for downstream context or a downstream artifact.
@@ -14,6 +15,7 @@ This file is the validation snapshot target for instruction-reference, app-usage
 - Memory rules must stay aligned across the main instructions, `references/agent-memory-policy.md`, the memory schemas, and `tests/memory-validation-tests.md`.
 
 ## Referenced files that must stay aligned
+
 - `references/default-operating-mode.md`
 - `references/app-usage-matrix.md`
 - `references/CONNECTORS.md`
@@ -27,4 +29,5 @@ This file is the validation snapshot target for instruction-reference, app-usage
 - `profiles/default-support-profile.yaml`
 
 ## Validation expectation
+
 Update this snapshot whenever the main instructions are materially rewritten so validators can check the current file references, skill inventory, attached-app coverage, and audit-workflow references against a stable markdown copy.

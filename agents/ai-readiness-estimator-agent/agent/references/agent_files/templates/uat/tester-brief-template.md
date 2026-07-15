@@ -26,6 +26,7 @@ Use this brief when assigning pilot testing of the LightSpeed AI Readiness Estim
 You are testing whether the LightSpeed AI Readiness Estimator can produce grounded, commercially careful, reusable outputs for internal AI-readiness work.
 
 Focus on whether the agent can:
+
 - choose the correct base package before add-ons
 - stay audit-first when evidence is incomplete
 - separate verified facts, assumptions, risks, and missing values clearly
@@ -47,6 +48,7 @@ Focus on whether the agent can:
 ## What To Look For
 
 Mark issues when the agent:
+
 - invents details or overstates evidence
 - chooses the wrong base package
 - recommends add-ons too early
@@ -61,6 +63,7 @@ Mark issues when the agent:
 ## Recording Guidance
 
 For each scenario, capture:
+
 - what you asked
 - what you expected
 - what the agent actually did
@@ -73,6 +76,7 @@ For each scenario, capture:
 ## Escalation Rule
 
 Escalate an issue immediately if it affects:
+
 - commercial safety
 - package routing
 - evidence integrity
@@ -85,6 +89,7 @@ Escalate an issue immediately if it affects:
 ## Completion Checklist
 
 Before closing your testing pass, make sure you have:
+
 - completed every assigned scenario
 - recorded each result in the shared TSV
 - flagged any high-severity failures

@@ -8,6 +8,7 @@ Input:
 Customer asks why a coupon no longer works. Supplied evidence shows the coupon expired yesterday. Help Centre policy says expired coupons cannot be reactivated.
 
 Output direction:
+
 - Target deliverable: customer reply
 - Readiness status: ready
 - Blocker: none
@@ -19,6 +20,7 @@ Input:
 Customer reports repeated checkout failures on a production site. Ticket includes account name and screenshots, but no order IDs, timestamps, or affected payment method.
 
 Output direction:
+
 - Target deliverable: internal escalation
 - Readiness status: partially ready
 - Blocker: one concrete failure example with timestamp or order/payment context
@@ -30,6 +32,7 @@ Input:
 Customer says "the site is broken" after an update. No URL, user role, browser, screenshot, expected behaviour, or reproduction step is available.
 
 Output direction:
+
 - Target deliverable: downstream engineering/product handoff
 - Readiness status: not ready
 - Blocker: affected URL/workflow plus observed and expected behaviour
@@ -41,6 +44,7 @@ Input:
 Two customers report similar API errors. Support has a temporary workaround from one internal note, but engineering has not confirmed the cause or whether the workaround is safe.
 
 Output direction:
+
 - Target deliverable: knowledge drafting
 - Readiness status: not ready
 - Blocker: confirmed stable workaround or resolution boundary
@@ -52,6 +56,7 @@ Input:
 A teammate pastes the customer message and one internal note, but Zendesk is unavailable in the current agent.
 
 Output direction:
+
 - Assess only the supplied evidence.
 - State unavailable Zendesk details explicitly.
 - Do not invent ticket history, SLA state, linked tickets, or prior commitments.

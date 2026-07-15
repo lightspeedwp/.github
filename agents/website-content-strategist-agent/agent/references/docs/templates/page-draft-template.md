@@ -12,18 +12,17 @@
 
 ### Core message
 
-
 ### Supporting messages
 
-- 
-- 
-- 
+-
+-
+-
 
 ### Proof points
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Page structure
 
@@ -53,9 +52,9 @@
 
 ## FAQ or objection handling
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Metadata
 
@@ -65,5 +64,5 @@
 
 ## Open questions or assumptions
 
-- 
-- 
+-
+-

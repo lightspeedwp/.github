@@ -37,7 +37,6 @@ Stay in `gravity-forms-configuration` for:
 
 When an auditor handoff is supplied, use `references/auditor-handoff-contract.md`; verify the current site state where possible, preserve finding IDs, and produce a change plan before any write operation. Accept canonical `gravity-forms-auditor` v0.2.1+ handoff packets as well as legacy normalised handoffs; missing canonical fields are readiness gaps, not approval to infer or execute changes.
 
-
 ## Standalone use
 
 When invoked directly, this skill owns Gravity Forms configuration, audit, validation, troubleshooting, testing, and handoff. It should collect only blocking missing details, run preflight where live tools exist, and produce the smallest useful output: report, plan, change summary, test report, or handoff.

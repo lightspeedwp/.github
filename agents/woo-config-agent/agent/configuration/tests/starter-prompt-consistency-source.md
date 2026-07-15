@@ -3,6 +3,7 @@
 Use this file as the source snapshot for starter-prompt consistency validation.
 
 ## Required starter prompt titles
+
 - `Audit store setup`
 - `Plan Woo setup`
 - `Design product structure`
@@ -11,6 +12,7 @@ Use this file as the source snapshot for starter-prompt consistency validation.
 - `Audit Gravity Forms`
 
 ## Required starter prompt themes
+
 - `WooCommerce`
 - `audit`
 - `product structure`
@@ -19,6 +21,7 @@ Use this file as the source snapshot for starter-prompt consistency validation.
 - `Gravity Forms audit`
 
 ## Forbidden starter prompt references
+
 - `Slack`
 - `Teams`
 - `calendar`
@@ -26,6 +29,7 @@ Use this file as the source snapshot for starter-prompt consistency validation.
 - `general productivity`
 
 ## Starter prompts snapshot
+
 - Title: `Audit store setup`
   - Description: `Find setup and launch gaps.`
   - Prompt: `Audit my WooCommerce store setup and identify evidence-backed gaps across catalogue structure, payments, shipping, tax, checkout flow, emails, and launch readiness.`
@@ -46,6 +50,7 @@ Use this file as the source snapshot for starter-prompt consistency validation.
   - Prompt: `Audit the current Gravity Forms setup for this site and identify issues or risks across fields, confirmations, notifications, feeds, file uploads, accessibility, spam protection, and validation.`
 
 ## Consistency notes
+
 - Starter prompts should stay WooCommerce-first and grounded in the current attached role.
 - Gravity Forms starter prompts are in scope because Gravity Forms is an attached routed workflow that directly supports WooCommerce outcomes.
 - Starter prompts do not need to enumerate Yoast or accessibility work unless the starter set is intentionally expanded later.

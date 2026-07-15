@@ -1,6 +1,7 @@
 # WordPress Handoff Conventions
 
 WordPress handoffs should separate:
+
 - confirmed design intent
 - reusable pattern guidance
 - token and style dependencies

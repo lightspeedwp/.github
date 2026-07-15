@@ -1,11 +1,13 @@
 # Client Sites Registry
 
 ## Purpose
+
 Use this file as the cleaner multi-client registry for recurring audit context.
 
 ## Entry Format
 
-### <Client Name>
+### `<Client Name>`
+
 - Primary site:
 - Related sites or subdomains:
 - Priority pages:
@@ -17,6 +19,7 @@ Use this file as the cleaner multi-client registry for recurring audit context.
 ## Example Entry
 
 ### Acme Fitness
+
 - Primary site: acmefitness.com
 - Related sites or subdomains:
 - Priority pages:

@@ -1,11 +1,13 @@
 # Testimonials landing page template
 
 ## Metadata
+
 - Page title:
 - Page purpose:
 - Primary audience:
 
 ## Hero
+
 - Eyebrow:
 - Title:
 - Intro:

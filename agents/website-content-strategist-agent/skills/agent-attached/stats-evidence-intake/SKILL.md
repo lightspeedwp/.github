@@ -26,30 +26,38 @@ Use this skill when a website page, page family, or section depends on statistic
 ## Site-type questioning rules
 
 ### Standard brochure site
+
 Ask about:
+
 - trust signals
 - years of experience if approved
 - project or client counts if approved
 - process or delivery proof if approved
 
 ### WooCommerce site
+
 Ask about:
+
 - product review volume or rating if approved
 - shipping, fulfilment, or support stats if approved
 - order, category, or customer trust figures if approved
 - product-proof numbers that directly support conversion
 
 ### Tour operator site
+
 Ask about:
+
 - traveller, itinerary, or destination proof that is approved
 - experience or review signals that are approved
 - trust indicators that support booking confidence
 - any numbers that risk implying unsupported guarantees
 
 ### One-off page
+
 Ask only for the stats that directly support that page's conversion goal.
 
 ## Page-role guidance
+
 - homepage: prioritize broad trust and authority signals
 - service page: prioritize proof of capability, process confidence, or fit
 - pricing page: prioritize clarity and decision-support stats only when approved
@@ -59,6 +67,7 @@ Ask only for the stats that directly support that page's conversion goal.
 ## Output
 
 Return:
+
 - Stats intake summary
 - Approved stats list
 - Unsupported or risky stats

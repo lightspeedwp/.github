@@ -229,8 +229,8 @@ Use this short review format after each preview:
 **Instruction compliance:** strong / mixed / weak  
 **Formatting compliance:** strong / mixed / weak  
 **Linear-readiness:** strong / mixed / weak  
-**Main issue exposed:** <one sentence>  
-**Next recommended fix or test:** <one sentence>
+**Main issue exposed:** `<one sentence>`  
+**Next recommended fix or test:** `<one sentence>`
 
 ---
 

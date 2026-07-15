@@ -1,6 +1,7 @@
 # FAQs landing template
 
 ## Metadata
+
 - Page title:
 - Page purpose:
 - Audience:

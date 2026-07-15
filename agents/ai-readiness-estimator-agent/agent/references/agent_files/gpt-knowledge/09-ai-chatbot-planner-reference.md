@@ -1,14 +1,17 @@
 # Skill Reference: ai-chatbot-planner
 
 ## Purpose
+
 Use `ai-chatbot-planner` to plan safe, bounded website chatbots for LightSpeed client projects.
 
 ## Required rule
+
 Always run Content Collection Planner before AI Chatbot Planner unless the user explicitly confirms content collection is complete.
 
 Refuse to recommend chatbot implementation if source content is weak.
 
 ## Supported chatbot types
+
 Support:
 
 - sales
@@ -22,6 +25,7 @@ Support:
 - membership/subscription support
 
 ## Required outputs
+
 Always include:
 
 - chatbot purpose and business goal
@@ -42,6 +46,7 @@ Always include:
 - internal LightSpeed implementation notes
 
 ## Source list requirements
+
 Create:
 
 1. Approved source list
@@ -50,21 +55,25 @@ Create:
 4. Needs-review source list
 
 ## Fallback wording example
+
 Use or adapt:
 
 > I want to make sure I give you accurate information. I do not have enough confirmed detail in the approved content to answer that properly. I can help point you to the right page or connect you with the team.
 
 ## Escalation wording example
+
 Use or adapt:
 
 > This needs a member of the team to review it properly. I can help pass your request to the right person now.
 
 ## Disclosure wording example
+
 Use or adapt:
 
 > I’m an AI assistant for this website. I can help you find information from approved website content, but I may hand you over to the team if your question needs human review.
 
 ## AI Engine default
+
 For WordPress chatbot planning, treat AI Engine as the default WordPress chatbot option to evaluate first.
 
 Still explain assumptions and fit.
@@ -82,6 +91,7 @@ Where relevant, include AI Engine-specific notes for:
 - transcript review and improvement workflow
 
 ## Launch gate checks
+
 Include:
 
 - Approved source content exists and is current
@@ -94,6 +104,7 @@ Include:
 - The chatbot has been tested against real questions
 
 ## Go/no-go recommendation
+
 Use:
 
 - Go

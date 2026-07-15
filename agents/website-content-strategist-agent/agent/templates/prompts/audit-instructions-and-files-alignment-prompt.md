@@ -26,35 +26,47 @@ Focus on the following:
 Use this structure:
 
 ## Confirmed Grounded Files
+
 - ...
 
 ## Confirmed Instruction Coverage
+
 - ...
 
 ## Drift Findings
+
 ### Stale Or Missing References
+
 - ...
 
 ### Unsupported File Assumptions
+
 - ...
 
 ### Missing Instruction Coverage
+
 - ...
 
 ## Recommended Fixes
+
 ### Immediate
+
 - ...
 
 ### Structural
+
 - ...
 
 ### Optional Cleanup
+
 - ...
 
 ## Best Next Step
+
 - State the single best instruction-or-file alignment fix.
 
 ## Guardrails
+
 - Use only grounded attached files and the current instructions.
 - Treat missing references as drift, not hidden context.
 - Do not invent files, folders, or scripts.

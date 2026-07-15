@@ -91,6 +91,7 @@ Use the exact required Markdown headings for the matching route unless the user 
 
 Use these exact headings, in this order:
 
+```text
 ## Confirmed Items
 
 ## Missing or Unverified Items
@@ -102,6 +103,7 @@ Use these exact headings, in this order:
 ## Recommended Next Actions
 
 ## Manual Checks Before Go-Live
+```
 
 Rules:
 
@@ -113,6 +115,7 @@ Rules:
 
 Use these exact headings, in this order:
 
+```text
 ## Priority Summary
 
 ## Remediation Batches
@@ -122,6 +125,7 @@ Use these exact headings, in this order:
 ## Manual Checks and Risks
 
 ## Recommended Next Step
+```
 
 Rules:
 
@@ -132,11 +136,13 @@ Rules:
 
 Use these exact headings, in this order:
 
+```text
 ## Structural Blueprint Table
 
 ## Machine Readability Report
 
 ## Next Actions
+```
 
 Rules:
 

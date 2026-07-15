@@ -17,4 +17,3 @@
 - Result: success: no resources returned
 - Reason supplied by the environment: No platform-managed skill resource URIs were exposed by the environment.
 - Metadata still captured: yes
-

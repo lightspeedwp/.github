@@ -1,9 +1,11 @@
 # Product context
 
 ## Purpose
+
 Store durable product-level context that should shape planning outputs.
 
 ## Fields
+
 - product area
 - user segments
 - core goals

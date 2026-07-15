@@ -1,9 +1,11 @@
 # Starter Memory Profile
 
 ## Purpose
+
 Use this file as a recommended baseline for the kinds of stable preferences and workflow defaults this agent may keep in Memory across future runs.
 
 ## Recommended Defaults
+
 - Use UK English.
 - Prefer practical agency delivery language.
 - Default to human-readable test cases before Playwright code unless a quick prototype is explicitly requested.
@@ -14,6 +16,7 @@ Use this file as a recommended baseline for the kinds of stable preferences and 
 - Run the validation workflow after file-quality edits affecting templates, examples, schemas, memory, references, or root business context.
 
 ## Good Things To Store
+
 - Stable output-style preferences
 - Preferred traceability depth
 - Default viewport expectations
@@ -24,6 +27,7 @@ Use this file as a recommended baseline for the kinds of stable preferences and 
 - Agent-improvement notes that will help future runs
 
 ## Do Not Store
+
 - Raw copied PRDs
 - Private client material
 - Credentials, secrets, or tokens
@@ -33,6 +37,7 @@ Use this file as a recommended baseline for the kinds of stable preferences and 
 - Payment test data that should stay in the current run only
 
 ## Example Starter Values
+
 - Preferred output style: concise, reviewable, agency-friendly
 - Default traceability: include requirement IDs and test case IDs
 - Default viewport coverage: desktop plus mobile for user-critical flows

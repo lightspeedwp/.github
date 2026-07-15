@@ -46,7 +46,7 @@ version: 1.0.0
 
 ## Passed Files
 
-* `valid-example.md`
+- `valid-example.md`
 
 ## Recommended next actions
 

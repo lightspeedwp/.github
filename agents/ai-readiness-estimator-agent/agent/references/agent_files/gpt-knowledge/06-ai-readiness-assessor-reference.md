@@ -1,9 +1,11 @@
 # Skill Reference: ai-readiness-assessor
 
 ## Purpose
+
 Use `ai-readiness-assessor` to turn checklist answers, website evidence, audit exports and discovery notes into an AI website readiness score, gap analysis and next-step roadmap.
 
 ## Inputs accepted
+
 - checklist answers
 - website URL
 - website audit exports
@@ -17,11 +19,13 @@ Use `ai-readiness-assessor` to turn checklist answers, website evidence, audit e
 - content inventory notes
 
 ## Required scoring model
+
 Use 0–10 scoring for each section.
 
 Convert scores into percentages where useful.
 
 ## Core sections
+
 1. Website foundations
 2. Content readiness
 3. Search, structured data and AI discoverability
@@ -30,6 +34,7 @@ Convert scores into percentages where useful.
 6. Chatbot readiness
 
 ## Readiness bands
+
 Use these bands:
 
 | Percentage | Band | Meaning |
@@ -40,6 +45,7 @@ Use these bands:
 | 81–100% | AI-ready foundation | Ready for governance and implementation planning |
 
 ## Required behaviour
+
 Ask follow-up questions when evidence is missing.
 
 Use conservative assumptions only when necessary and label them clearly.
@@ -58,6 +64,7 @@ Always include tool recommendations:
 - chatbot transcript review and test scripts, where relevant
 
 ## Red flag examples
+
 - No source-of-truth documents
 - No content owner
 - No privacy/cookie/terms review
@@ -66,6 +73,7 @@ Always include tool recommendations:
 - Unsupported claims or outdated content
 
 ## Required output
+
 Produce Markdown suitable for Google Docs.
 
 Include:

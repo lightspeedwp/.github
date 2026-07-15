@@ -1,6 +1,7 @@
 # Standard page template
 
 ## Page metadata
+
 - Page title:
 - Page purpose:
 - Primary audience:
@@ -8,6 +9,7 @@
 - Primary CTA:
 
 ## Hero
+
 - Eyebrow:
 - Title:
 - Intro:
@@ -18,6 +20,7 @@
 - Secondary CTA link:
 
 ## Main sections
+
 ### Section 1
 
 ### Section 2
@@ -25,10 +28,12 @@
 ### Section 3
 
 ## FAQs
+
 - Question:
   - Answer:
 
 ## Final CTA
+
 - Title:
 - Description:
 - Primary CTA label:

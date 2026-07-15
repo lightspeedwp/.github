@@ -10,12 +10,14 @@ Use these validation checks when reviewing file quality in:
 ## Folder coverage
 
 ### `templates/`
+
 - required template files exist
 - every template starts with the expected H1 heading
 - every template includes its required section headings or required placeholder lines
 - the backlog report template includes scope, backlog health, issue themes, SLA risk, escalation-ready cases, and recommended next actions sections
 
 ### `examples/`
+
 - required example files exist
 - every markdown example starts with the expected H1 heading
 - every template example includes the same required section headings as its paired template
@@ -24,6 +26,7 @@ Use these validation checks when reviewing file quality in:
 - the backlog report example matches the backlog report template section structure
 
 ### `schemas/`
+
 - every schema file parses as valid JSON
 - every schema root is an object
 - every schema declares `$schema`
@@ -33,6 +36,7 @@ Use these validation checks when reviewing file quality in:
 - `required` is an array of strings when present
 
 ### `memory/`
+
 - only the expected memory files are present
 - each markdown memory file starts with the expected H1 heading
 - each markdown memory file includes its required structural headings

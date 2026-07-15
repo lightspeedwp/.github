@@ -3,6 +3,7 @@
 Use this reference for the default recommended structure and operating baseline of a WooCommerce store.
 
 ## Core defaults
+
 - Clear store proposition and trust signals
 - Well-structured catalogue with usable categories and attributes
 - Checkout-ready pages and policies
@@ -10,6 +11,7 @@ Use this reference for the default recommended structure and operating baseline 
 - Mobile-friendly launch QA before go-live
 
 ## Recommended focus areas
+
 - Product-page clarity and merchandising
 - Checkout flow and conversion friction
 - Shipping, tax, and payment readiness
@@ -17,12 +19,14 @@ Use this reference for the default recommended structure and operating baseline 
 - Launch and post-launch operational confidence
 
 ## Store foundation expectations
+
 - Shop, Cart, Checkout, My Account, Privacy Policy, Terms, and Refunds or returns pages are present and visible where needed
 - Store address, currency, selling regions, and customer locations are defined
 - Tax posture is agreed and reflected in WooCommerce settings
 - Email sender identity is clear and on-brand
 
 ## Catalogue expectations
+
 - Categories are customer-friendly and not overly fragmented
 - Global attributes are defined where filtering or variations matter
 - Variable products use clear options and consistent naming
@@ -30,6 +34,7 @@ Use this reference for the default recommended structure and operating baseline 
 - Upsells, cross-sells, and related-product opportunities are used where they support conversion
 
 ## Operations expectations
+
 - Payment methods are ready for the intended regions and order flow
 - Shipping zones, methods, rates, thresholds, and exceptions are documented
 - Tax classes and display behaviour are understood
@@ -37,6 +42,7 @@ Use this reference for the default recommended structure and operating baseline 
 - Transactional emails are reviewed before launch
 
 ## QA priorities
+
 - Product pages are tested on desktop and mobile
 - Cart and checkout flow are tested end to end
 - Order confirmation emails are received and readable

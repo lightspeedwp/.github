@@ -11,6 +11,7 @@ Produce a verified inventory of what the source folder actually contains and wha
 ## Scope
 
 Inspect, where present and readable:
+
 - `prompts/tour-operator-website/agents/`
 - `prompts/tour-operator-website/references/`
 - `prompts/tour-operator-website/memory/`
@@ -24,6 +25,7 @@ Inspect, where present and readable:
 ## Source of truth
 
 Use only:
+
 - the actual files present in `prompts/tour-operator-website`
 - current readable file contents
 - exact current paths

@@ -12,6 +12,7 @@ Use this skill when the work is primarily about understanding whether the curren
 ## Request Shapes
 
 Use `$website-hosting-reviewer` for requests like:
+
 - "Review this website's hosting setup and risks."
 - "Turn these hosting notes into a structured assessment."
 - "What hosting concerns should we flag before migration, launch, or performance planning?"
@@ -38,6 +39,7 @@ Use `$website-hosting-reviewer` for requests like:
 ## Output Contract
 
 The default output should include:
+
 - current hosting arrangement summary
 - key strengths and constraints
 - operational or technical risks

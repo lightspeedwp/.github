@@ -7,6 +7,7 @@ Use this guide alongside the Google Sheets Canvas prompt to create and run a tes
 This workbook is meant to help LightSpeed teammates test Proposal Desk consistently without needing to understand the editor setup.
 
 It should give testers:
+
 - a plain-English explanation of the agent
 - the agent's main capabilities and limits
 - starter prompts and when to use them
@@ -18,6 +19,7 @@ It should give testers:
 ## What the workbook should achieve
 
 A good workbook should help a tester:
+
 1. understand what Proposal Desk is for
 2. know what kinds of tasks are in scope
 3. know what materials are allowed during the pilot
@@ -28,7 +30,9 @@ A good workbook should help a tester:
 ## Required workbook tabs
 
 ### Overview
+
 Must explain:
+
 - what Proposal Desk does
 - what it is best at
 - what it should not do
@@ -38,9 +42,11 @@ Must explain:
 - quick test-start steps
 
 ### Starter Prompts
+
 Must help testers use the agent's existing starter prompts correctly.
 
 Include:
+
 - prompt title
 - use case
 - when to use it
@@ -49,7 +55,9 @@ Include:
 - what good output looks like
 
 ### How To Test
+
 Must show:
+
 - how to write a good prompt
 - what supporting context to provide
 - what to attach or paste
@@ -59,7 +67,9 @@ Must show:
 - when to escalate to Ash
 
 ### Test Cases
+
 Should include realistic scenarios for:
+
 - intake review
 - evidence gathering
 - executive-summary drafting
@@ -70,8 +80,10 @@ Should include realistic scenarios for:
 - excluded-material handling
 
 ### Testing Criteria
+
 Must act as the tester rubric.
 It should score output on:
+
 - task understanding
 - evidence use
 - handling of gaps
@@ -83,7 +95,9 @@ It should score output on:
 - overall usefulness
 
 ### Feedback Log
+
 Should capture:
+
 - what was tested
 - what was expected
 - what happened
@@ -94,13 +108,16 @@ Should capture:
 - retest status
 
 ### Approved Materials
+
 Should separate:
+
 - approved by default
 - excluded unless Ash explicitly approves
 
 ## Practical guidance for Ash
 
 When using the workbook:
+
 - give each tester 2 to 4 scenarios first
 - start with approved, low-risk materials
 - keep all testing read-only
@@ -110,6 +127,7 @@ When using the workbook:
 ## Recommended success signs
 
 The workbook is doing its job if testers can:
+
 - understand the agent quickly
 - choose the right starter prompt
 - run tests with enough context
@@ -119,6 +137,7 @@ The workbook is doing its job if testers can:
 ## Recommended warning signs
 
 The workbook needs improvement if testers:
+
 - still do not understand what the agent is for
 - use excluded materials by mistake
 - run vague prompts repeatedly

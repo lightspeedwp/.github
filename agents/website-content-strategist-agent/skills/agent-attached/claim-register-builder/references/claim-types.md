@@ -1,4 +1,5 @@
 # Claim types
+
 - factual claim
 - comparative claim
 - performance claim

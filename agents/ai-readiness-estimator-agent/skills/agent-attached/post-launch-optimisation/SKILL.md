@@ -10,6 +10,7 @@ description: review post-launch website performance and optimisation opportuniti
 Use this skill when the website is already live and the work is about improving performance after launch.
 
 This skill is for optimisation work such as:
+
 - post-launch performance review
 - analytics-led prioritisation
 - CRO observations and improvement backlog
@@ -22,6 +23,7 @@ This skill is for optimisation work such as:
 Use this skill when the user wants a practical improvement plan, not just raw analysis.
 
 Do not use this skill as the primary workflow for:
+
 - pre-launch QA or launch gating
 - initial GA4 or GTM planning before launch
 - pure technical SEO audits with no post-launch optimisation objective
@@ -32,6 +34,7 @@ In those cases, coordinate with the more specific attached workflow instead.
 ## Typical Inputs
 
 Use whatever evidence the user provides. Typical inputs include:
+
 - GA4 summaries or key metrics
 - Search Console observations
 - landing-page or page-group performance notes
@@ -85,6 +88,7 @@ If evidence is incomplete, do not block unnecessarily. Produce the strongest opt
 ### Conversion and CTA performance
 
 Look for issues such as:
+
 - strong traffic with weak enquiry or conversion rates
 - unclear or overly weak calls to action
 - CTA mismatch with visitor intent
@@ -94,6 +98,7 @@ Look for issues such as:
 ### Content and messaging improvement
 
 Look for issues such as:
+
 - high-value pages with weak engagement or unclear messaging
 - content gaps that block the user journey
 - FAQ gaps exposed by real user behaviour
@@ -105,6 +110,7 @@ Do not turn this into a full content-rewrite workflow unless the user asks for t
 ### Chatbot optimisation
 
 When chatbot evidence is available, review:
+
 - repeated unanswered or poorly answered questions
 - weak escalation handling
 - unclear source coverage
@@ -115,6 +121,7 @@ When chatbot evidence is available, review:
 ### Discoverability and SEO follow-up
 
 When post-launch discoverability matters, review:
+
 - pages not earning expected visibility
 - internal-linking opportunities from live usage patterns
 - thin or overlapping content that weakens discoverability
@@ -126,6 +133,7 @@ If the core need is a deeper technical SEO audit, coordinate with that specialis
 ### Measurement quality
 
 Check whether optimisation is being limited by weak measurement, such as:
+
 - unclear conversion definitions
 - missing event tracking
 - no clean segmentation for key journeys
@@ -139,17 +147,21 @@ Default to Markdown.
 Use this structure unless the user asks for a lighter format:
 
 ### 1. Executive summary
+
 - optimisation context
 - main opportunity areas
 - top 3 recommended next actions
 
 ### 2. Evidence reviewed
+
 - source list
 - confidence notes
 - assumptions and missing data
 
 ### 3. Findings and opportunities
+
 Use sections or a table with:
+
 - Area
 - Observation
 - Likely cause
@@ -159,19 +171,25 @@ Use sections or a table with:
 - Priority
 
 ### 4. Prioritised roadmap
+
 Group into:
+
 - Quick wins
 - Next sprint priorities
 - Longer-term optimisation opportunities
 
 ### 5. Measurement and validation
+
 For each priority change, say:
+
 - what success should look like
 - what should be measured
 - when to review the outcome
 
 ### 6. Internal LightSpeed notes
+
 Include:
+
 - delivery risk
 - likely specialist involvement needed
 - whether the work is content-led, dev-led, SEO-led, CRO-led, analytics-led, or mixed
@@ -182,6 +200,7 @@ Include:
 When the agent has an attached stage-specific deliverable template pack, use its post-launch optimisation structure as the default outer shape for the final deliverable.
 
 Keep this skill's evidence review, findings, roadmap, and measurement guidance, but package the result so it lands as:
+
 - performance summary
 - optimisation backlog
 - recommended next step
@@ -199,6 +218,7 @@ Only use a different structure when the user explicitly asks for a lighter memo 
 ## LightSpeed Standards
 
 Prioritise recommendations that are:
+
 - practical for WordPress and block-theme delivery teams
 - maintainable after launch
 - measurable where possible
@@ -208,7 +228,9 @@ Prioritise recommendations that are:
 Prefer fix-ready or test-ready wording over abstract advice.
 
 Good example:
+
 - "The pricing page has strong entry traffic but weak progression to consultation requests. Add a clearer primary CTA above the fold, reduce competing CTA variants, and test one trust-focused proof block near the form. Review consultation CTR and form-start rate after two weeks."
 
 Weak example:
+
 - "Improve the pricing page experience."

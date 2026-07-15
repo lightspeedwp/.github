@@ -46,10 +46,15 @@ Look for:
 Default output:
 
 ### Duplicate Risk Summary
+
 ### How To Identify Likely Duplicates
+
 ### Canonical Issue Selection Rules
+
 ### What To Preserve From Duplicate Reports
+
 ### Communication And Resolution Follow-Through
+
 ### Edge Cases And Review Triggers
 
 ## Quality Bar

@@ -60,6 +60,7 @@ Use the smallest relevant template as the standard. Do not force every draft to 
 Check whether the draft is missing required or clearly expected sections for its template type.
 
 Flag:
+
 - omitted core sections
 - thin placeholder sections with no meaningful content
 - sections that were implied elsewhere but never surfaced directly
@@ -72,6 +73,7 @@ Do not flag intentionally omitted sections when the user clearly requested a par
 Check each substantive claim for the correct label or treatment.
 
 Use these rules strictly:
+
 - confirmed facts must be directly supported by the user's notes or source material
 - assumptions must remain explicitly uncertain
 - inferred observations must read as reasoned conclusions, not direct evidence
@@ -79,6 +81,7 @@ Use these rules strictly:
 - internal LightSpeed notes must stay separate from client-shareable content
 
 Flag:
+
 - assumptions presented as facts
 - inferred conclusions presented as confirmed decisions
 - unanswered questions hidden inside declarative statements
@@ -90,6 +93,7 @@ Flag:
 When the draft is client-facing or could plausibly be shared externally, check for internal-only content leakage.
 
 Flag:
+
 - internal strategy commentary
 - delivery-risk language that should stay internal unless intentionally rewritten for the client
 - shorthand, blunt internal phrasing, or team-only notes
@@ -105,6 +109,7 @@ Check whether the draft actually covers the template-ready fields that appear ne
 Use {{label:field-definitions.md,id:6a021b19fb748191b5d83a8a45b6dfb3,type:file}} to verify field intent.
 
 Flag:
+
 - important fields with no supported value in the draft
 - values that appear invented just to fill a placeholder
 - fields whose meaning was misunderstood or mapped to the wrong content
@@ -118,9 +123,11 @@ Do not require every field to be fully known. It is acceptable for a field to re
 Default to a concise review report with these sections in order:
 
 ### Review Status
+
 - Give a one-line verdict such as `Ready`, `Needs minor fixes`, or `Needs substantial revision`.
 
 ### Key Issues
+
 - List the highest-impact issues first.
 - Group issues under these headings when relevant:
   - Missing sections
@@ -129,12 +136,14 @@ Default to a concise review report with these sections in order:
   - Template field coverage gaps
 
 ### Recommended Fixes
+
 - Give concrete corrections.
 - Keep each fix tied to a specific issue.
 - If the user asked for review only, describe the fix without rewriting the full document.
 - If the user asked for fixes, apply the correction directly after the review summary or rewrite only the affected sections.
 
 ### Safe-to-Share Notes
+
 - Include this only for client-facing drafts.
 - State whether the draft is safe to share externally as-is, safe after minor fixes, or not safe to share yet.
 

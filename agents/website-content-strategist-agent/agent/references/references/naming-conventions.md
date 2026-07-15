@@ -5,11 +5,13 @@
 Keep new maintenance and reference files consistent, easy to find, and low-drift.
 
 ## File naming rules
+
 - Use lowercase kebab-case.
 - Use concise descriptive names based on file purpose.
 - Prefer stable names that describe the file’s role, not a temporary task.
 
 ## Preferred patterns
+
 - `*-workflow.md` for reusable maintenance or operating workflows
 - `*-standards.md` for quality bars and rules
 - `*-conventions.md` for naming or structural rules
@@ -19,6 +21,7 @@ Keep new maintenance and reference files consistent, easy to find, and low-drift
 - `*-index.md` for overview or lookup files
 
 ## Creation rules
+
 - Update an existing file if it already owns the purpose.
 - Do not create near-duplicate files with overlapping roles.
 - Do not label a file as canonical unless it is actually attached and in use.

@@ -36,7 +36,7 @@
 
 ## Risks and dependencies
 
-- 
+-
 
 ## Validation plan
 

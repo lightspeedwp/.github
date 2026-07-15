@@ -131,22 +131,28 @@ When relevant, separate:
 Use this structure for the final response:
 
 ### Confirmed Items
+
 - ...
 
 ### Missing or Unverified Items
+
 - ...
 
 ### Risks
+
 - ...
 
 ### Blockers
+
 - ...
 
 ### Recommended Next Actions
+
 1. ...
 2. ...
 
 ### Manual Checks Before Go-Live
+
 - ...
 
 ## Example Request Shapes
@@ -157,6 +163,7 @@ Use this structure for the final response:
 Create a pre-launch summary for this WordPress website based on the findings so far.
 
 **Expected behavior:**
+
 - produce the six required sections
 - emphasize launch-sensitive findings first
 - separate confirmed findings from assumptions
@@ -168,6 +175,7 @@ Create a pre-launch summary for this WordPress website based on the findings so 
 Turn these WordPress audit notes into a client-ready summary.
 
 **Expected behavior:**
+
 - clean up raw notes without inventing evidence
 - soften jargon where possible
 - keep blockers and risks separate
@@ -179,6 +187,7 @@ Turn these WordPress audit notes into a client-ready summary.
 Summarize the implementation work completed on the staging site and what still needs manual QA.
 
 **Expected behavior:**
+
 - focus on completed versus pending work
 - retain the same section structure where it still fits
 - treat remaining QA as manual checks or next actions, not as completed work

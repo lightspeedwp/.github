@@ -1,4 +1,5 @@
 # Validation checklist
+
 - Correct output type chosen
 - YAML frontmatter present when required by the output type
 - One `#` main heading present

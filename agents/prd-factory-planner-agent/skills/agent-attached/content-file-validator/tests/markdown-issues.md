@@ -9,6 +9,6 @@ version: 1.0.0
 
 #### Jumped heading
 
-## 
+##
 
 See [broken](missing

@@ -29,27 +29,27 @@ tab_handling: "single-page output from the provided source link"
 ### Project objectives and success criteria
 
 **Answer:** Define launch goals, content coverage, conversion goals and handover criteria.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Timeline and milestones
 
 **Answer:** Planning, design, development, content, QA, deployment and post-launch support.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Roles and responsibilities
 
 **Answer:** Project manager, designer, developer, content owner, client approver and technical contact.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ## Technical setup checklist
 
@@ -68,18 +68,18 @@ tab_handling: "single-page output from the provided source link"
 ### API key register
 
 **Answer:** Record Wetu, Google Maps, payment gateway and other API ownership/renewal notes.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Version control and deployment
 
 **Answer:** Repository, branches, deployment steps and rollback plan.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ## Content collection checklist
 
@@ -98,19 +98,19 @@ tab_handling: "single-page output from the provided source link"
 ### Content source notes
 
 **Answer:** Existing website, brochures, Wetu data, client docs, image folders and manual additions.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Customisation rules
 
 **Answer:** Fields that may be locally edited and protected from sync overwrite.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ## Design, development and QA checklist
 
@@ -130,25 +130,25 @@ tab_handling: "single-page output from the provided source link"
 ### Pre-launch go/no-go notes
 
 **Answer:** Content review, SEO, analytics, security, form testing, backup and deployment plan.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Post-launch checks
 
 **Answer:** Monitor traffic, Wetu sync, forms, payment/enquiry flows, client feedback and support tickets.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Training and handover
 
 **Answer:** Client training session, documentation, support plan and maintenance schedule.
-> 
-> 
-> 
+>
+>
+>
 >

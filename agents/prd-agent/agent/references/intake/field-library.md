@@ -1,9 +1,11 @@
 # Field library
 
 ## Purpose
+
 Define the standard intake fields used across summaries, briefs, PRDs, reviews, and handoff work.
 
 ## Core fields
+
 - project-name
 - request-summary
 - business-goal
@@ -17,4 +19,5 @@ Define the standard intake fields used across summaries, briefs, PRDs, reviews, 
 - estimate-readiness-status
 
 ## Notes
+
 Use these field names consistently when structuring intake and planning artefacts.

@@ -3,6 +3,7 @@
 Purpose: generate and update LightSpeed project lifecycle skills one by one, without coupling them to a single PRD Agent. The skills should remain independently useful, while sharing naming, routing, project-state, evidence, validation, and handoff conventions.
 
 Recommended path:
+
 1. Build and test skills locally first.
 2. Keep each skill independently attachable.
 3. Promote stable versions to workspace skills after scenario tests pass.

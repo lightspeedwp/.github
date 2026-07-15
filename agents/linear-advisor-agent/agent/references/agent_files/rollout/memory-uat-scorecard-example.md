@@ -5,6 +5,7 @@
 **Tester:** Ash Shaw
 
 ## Test 1 — `user-preferences.md`
+
 **Goal:** Agent remembers reusable preferences
 
 - [x] Saved preferred response format
@@ -18,6 +19,7 @@
 ---
 
 ## Test 2 — `todos.md`
+
 **Goal:** Agent remembers ongoing work
 
 - [x] Saved ongoing rollout or follow-up work
@@ -31,6 +33,7 @@
 ---
 
 ## Test 3 — `source-of-truth-register.yaml`
+
 **Goal:** Agent applies source precedence consistently
 
 - [x] Treated Linear as the default source of truth
@@ -44,6 +47,7 @@
 ---
 
 ## Test 4 — Memory judgment
+
 **Goal:** Agent stores only durable information
 
 - [x] Saved a durable preference, rule, or ongoing work item
@@ -66,6 +70,7 @@
 **Overall result:** Pass
 
 **Follow-up actions:**  
+
 - Re-run this scorecard after the next instruction or skill-routing change  
 - Add teammate tester notes during the next live validation pass  
 - Confirm the same Memory judgment holds across several distinct request types

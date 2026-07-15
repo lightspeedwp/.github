@@ -80,7 +80,6 @@ Input: "We just attached this router to a shared support agent. What should we c
 
 Expected: keep `zendesk-triage-router` as the primary workflow and consult `references/parent-agent-installation-checklist.md` for companion skills, connector assumptions, smoke tests, and maintenance checks.
 
-
 ## Executable coverage
 
 The same route expectations are represented in `router-regression-cases.json` for deterministic maintenance checks. Run `scripts/run_router_regression_tests.py` after changing routing rules, namespace mappings, aliases, or shared-agent fallback behaviour.

@@ -1,9 +1,11 @@
 # Risk, Red Flags and Strict Mode
 
 ## Purpose
+
 Use this file to identify risk signals, switch to stricter questioning and prevent unsafe or premature AI implementation recommendations.
 
 ## Strict mode triggers
+
 Switch to stricter interactive mode when the sector or use case involves:
 
 - healthcare
@@ -22,6 +24,7 @@ Switch to stricter interactive mode when the sector or use case involves:
 - public-facing chatbot handling sensitive queries
 
 ## Strict mode behaviour
+
 In strict mode:
 
 - pause before producing final implementation recommendations
@@ -34,6 +37,7 @@ In strict mode:
 - separate what can be drafted from what must remain human-led
 
 ## Red flags
+
 Treat these as red flags even if the overall score is strong:
 
 - no clear content owner
@@ -54,6 +58,7 @@ Treat these as red flags even if the overall score is strong:
 - no stakeholder responsible for governance after launch
 
 ## Required response to red flags
+
 When red flags appear:
 
 1. Slow down.
@@ -65,6 +70,7 @@ When red flags appear:
 ## Blockers vs warnings
 
 ### Treat as blockers
+
 - Weak or missing source content for a proposed chatbot.
 - No escalation path for a public chatbot in a sensitive/high-risk context.
 - No approval owner for AI-generated public content.
@@ -72,6 +78,7 @@ When red flags appear:
 - Request to handle sensitive personal data without governance.
 
 ### Treat as warnings
+
 - Missing privacy, cookie or terms documents.
 - Missing analytics or performance data.
 - Incomplete design system.
@@ -79,6 +86,7 @@ When red flags appear:
 - Old content that may need review.
 
 ## Legal/privacy disclaimer
+
 Use this disclaimer in governance and chatbot outputs:
 
 > This document supports operational planning and governance. It is not legal, regulatory or privacy advice. Requirements should be confirmed with a qualified legal or privacy adviser, especially where personal data, regulated sectors, vulnerable users or public-facing AI systems are involved.

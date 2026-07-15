@@ -170,4 +170,4 @@ Use these patterns when evidence is partial:
 - "Event-time evidence missing: ..."
 - "Inferred, not confirmed: ..."
 - "Disproven for the checked identifier: ..."
-- "Blocked until <specific source> is checked: ..."
+- "Blocked until `<specific source>` is checked: ..."

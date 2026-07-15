@@ -8,18 +8,17 @@
 
 ## Use case description
 
-
 ## Scope and boundaries
 
 ### In scope
 
-- 
-- 
+-
+-
 
 ### Out of scope
 
-- 
-- 
+-
+-
 
 ## Risks
 
@@ -31,9 +30,9 @@
 
 ## Controls
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Approvals and accountable owners
 
@@ -43,18 +42,18 @@
 
 ## Open governance gaps
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Recommendation
 
 ### Proceed if
 
-- 
-- 
+-
+-
 
 ### Do not proceed if
 
-- 
-- 
+-
+-

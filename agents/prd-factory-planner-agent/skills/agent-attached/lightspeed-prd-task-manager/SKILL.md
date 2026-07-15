@@ -218,4 +218,3 @@ Use these references as needed:
 - `references/memory-bank.md` for project memory files.
 - `references/qa-and-launch-routing.md` for launch and specialist skill routing.
 - `references/wordpress-standards.md` for WordPress delivery standards.
-

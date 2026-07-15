@@ -16,6 +16,7 @@ status: reusable_test_reference
 Use this file as a stable reference context for future previews, validation checks, and repeatable test prompts for the LightSpeedWP.Agency project.
 
 This file can support two test modes:
+
 - **context-only QA** when the run should stay inside this attached file
 - **multi-source validation** when the run may verify or enrich against the live, repo, Drive, and Figma references named here
 
@@ -24,31 +25,40 @@ This file can support two test modes:
 ## Core References
 
 ### Project name
+
 LightSpeedWP.Agency
 
 ### Live agency site
-https://lightspeedwp.agency
+
+<https://lightspeedwp.agency>
 
 ### Figma prototype site
-https://lightspeedwp.figma.site
+
+<https://lightspeedwp.figma.site>
 
 ### Dev site
-https://ls-agency.lightspeedwp.dev/
+
+<https://ls-agency.lightspeedwp.dev/>
 
 ### GitHub theme repo
-https://github.com/lightspeedwp/ls-theme
+
+<https://github.com/lightspeedwp/ls-theme>
 
 ### GitHub plugin repo
-https://github.com/lightspeedwp/ls-plugin
+
+<https://github.com/lightspeedwp/ls-plugin>
 
 ### Drive folder for specs, content, and project documentation
-https://drive.google.com/drive/folders/1GqKn_lys_AfPnwI-m3k00C5j0Um6TKAz?usp=drive_link
+
+<https://drive.google.com/drive/folders/1GqKn_lys_AfPnwI-m3k00C5j0Um6TKAz?usp=drive_link>
 
 ### Figma design system
-https://www.figma.com/design/OTqchq3sRBzUy6TICruzc3/LightSpeedWP-Design-System?m=auto&t=CTYQGLlYaOao2LYR-6
+
+<https://www.figma.com/design/OTqchq3sRBzUy6TICruzc3/LightSpeedWP-Design-System?m=auto&t=CTYQGLlYaOao2LYR-6>
 
 ### Figma Make prototype
-https://www.figma.com/make/xAYHN3wsPM4TR2JppUr8sp/LightSpeedWP.Agency?t=CTYQGLlYaOao2LYR-6
+
+<https://www.figma.com/make/xAYHN3wsPM4TR2JppUr8sp/LightSpeedWP.Agency?t=CTYQGLlYaOao2LYR-6>
 
 ---
 
@@ -64,18 +74,22 @@ https://www.figma.com/make/xAYHN3wsPM4TR2JppUr8sp/LightSpeedWP.Agency?t=CTYQGLlY
 ## Recommended Test Modes
 
 ### Context-only QA
+
 Use this mode when you want strict repeatability.
 
 In this mode:
+
 - stay inside this attached file
 - treat the listed URLs and systems as named references only
 - keep unsupported fields unresolved
 - do not broaden into external verification
 
 ### Multi-source validation
+
 Use this mode when you want richer discovery grounded in accessible external evidence.
 
 In this mode:
+
 - use this file as the starting context
 - verify or enrich against the live site, prototype site, dev site, GitHub repos, Drive folder, and Figma references where accessible
 - keep confirmed facts, assumptions, and inferred observations clearly separated
@@ -104,9 +118,11 @@ In this mode:
 ## Example Prompt Seeds
 
 ### Context-only QA seed
+
 Use `docs/preview-validation/lightspeedwp-agency-example.md` as the grounded source for this preview. Build a structured internal discovery pack from that file only. Separate confirmed facts, assumptions, inferred observations, open questions, and internal LightSpeed notes. Do not invent missing facts. Do not broaden the evidence scope in this run.
 
 ### Multi-source validation seed
+
 Use `docs/preview-validation/lightspeedwp-agency-example.md` as the starting context for this preview. Build a structured internal discovery pack from the live site, Figma prototype site, dev site, GitHub repositories, Drive folder, and Figma references named in that file. Verify or enrich with accessible evidence where possible. Separate confirmed facts, assumptions, inferred observations, open questions, and internal LightSpeed notes. Do not invent missing facts.
 
 ---

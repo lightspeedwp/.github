@@ -49,29 +49,39 @@ Focus on the following:
 Produce the output using this structure:
 
 ## Grounded Inputs Used
+
 - List the validation findings, attached skills, and visible files you relied on.
 
 ## Repair Plan
+
 ### Immediate Repairs
+
 - ...
 
 ### File Updates
+
 - ...
 
 ### Deferred Items
+
 - ...
 
 ## Proposed Changes
+
 ### Instruction Repairs
+
 - ...
 
 ### Routing Repairs
+
 - ...
 
 ### Directory And Reference Repairs
+
 - ...
 
 ## Guardrails
+
 - Use only grounded attached skills and grounded attached files.
 - Prefer updating existing files over creating overlapping new files.
 - Treat missing assets as drift or future work, not hidden context.
@@ -80,4 +90,5 @@ Produce the output using this structure:
 - Preserve working behaviour unless a grounded issue requires change.
 
 ## Best Next Step
+
 - State the single best next repair action to apply first.

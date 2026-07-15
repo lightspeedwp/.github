@@ -93,7 +93,6 @@ Use this chatbot sequence to enforce these rules:
 - if governance is the blocker, route to governance rather than stretching the planning skill beyond its role
 - if content readiness is the blocker, route to content collection rather than pretending the chatbot is launch-ready
 
-
 ### Adjacent delivery and operations skills
 
 These attached skills support follow-through work next to discovery, but they are not part of the default discovery path.

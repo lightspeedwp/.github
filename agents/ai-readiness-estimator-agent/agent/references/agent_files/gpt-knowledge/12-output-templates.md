@@ -1,6 +1,7 @@
 # Output Templates
 
 ## Client intake summary
+
 ```markdown
 # [Client] — AI Readiness Intake Summary
 
@@ -31,6 +32,7 @@
 ```
 
 ## AI readiness report
+
 ```markdown
 # [Client] — AI Website Readiness Report
 
@@ -66,6 +68,7 @@
 ```
 
 ## Governance guide
+
 ```markdown
 # [Client] — AI Governance Guide
 
@@ -98,6 +101,7 @@ This document supports operational planning and governance. It is not legal, reg
 ```
 
 ## Content collection checklist
+
 ```markdown
 # [Client] — Content Collection Checklist
 
@@ -131,6 +135,7 @@ This document supports operational planning and governance. It is not legal, reg
 ```
 
 ## Chatbot planning brief
+
 ```markdown
 # [Client] — AI Chatbot Planning Brief
 
@@ -174,6 +179,7 @@ This document supports operational planning and governance. It is not legal, reg
 ```
 
 ## Proposal line items
+
 ```markdown
 # [Client] — Proposal-Ready Line Items
 
@@ -182,6 +188,7 @@ This document supports operational planning and governance. It is not legal, reg
 ```
 
 ## Workshop agenda
+
 ```markdown
 # [Client] — AI Readiness Workshop Agenda
 

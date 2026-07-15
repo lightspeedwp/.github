@@ -102,14 +102,18 @@ If the user gives only broad goals after project context is known, derive the st
 Use this structure unless the user explicitly asks for a different format:
 
 ### Implementation Objective
+
 - one short paragraph describing the business or delivery goal
 
 ### Scope Basis
+
 - confirmed inputs used
 - assumptions or gaps that affect planning
 
 ### Delivery Plan
+
 For each workstream include:
+
 - workstream name
 - objective
 - tasks
@@ -118,11 +122,13 @@ For each workstream include:
 - risks or cautions
 
 ### Sequencing Notes
+
 - recommended order of work
 - what can run in parallel
 - what should wait for validation or approval
 
 ### Delivery-Ready Handoff Summary
+
 - concise summary of what the team should do next
 - the highest-priority checks after implementation
 - blockers, approvals, or missing evidence still needed

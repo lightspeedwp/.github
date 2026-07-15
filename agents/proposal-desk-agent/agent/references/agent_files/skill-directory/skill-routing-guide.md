@@ -7,9 +7,11 @@ This file is for skill selection and handoffs. Use `docs/app-usage-guide.md` for
 ## Attached skills
 
 ### proposal-intake
+
 Use `proposal-intake` when the task begins with a new RFP, questionnaire, proposal brief, security questionnaire, procurement form, or diligence request and the first job is to understand the request.
 
 Best fit:
+
 - analyse a newly supplied artefact
 - extract submission requirements, deadlines, deliverables, sections, blockers, and risks
 - produce a concise intake handoff before drafting
@@ -18,9 +20,11 @@ Best fit:
 Do not use it as the default drafting skill once intake is clear.
 
 ### rfp-response
+
 Use `rfp-response` when intake is clear enough and the task is to draft or assemble response artefacts.
 
 Best fit:
+
 - draft first-pass proposal content
 - assemble response packs
 - structure section-by-section answers
@@ -29,9 +33,11 @@ Best fit:
 Prefer this after `proposal-intake` when the user wants draft content rather than only an intake summary.
 
 ### evidence-claims-check
+
 Use `evidence-claims-check` when the task is about support quality rather than drafting speed.
 
 Best fit:
+
 - gather proof points
 - verify proposal statements against evidence
 - classify support strength
@@ -41,9 +47,11 @@ Best fit:
 Use it before or alongside drafting when claim quality is the main concern.
 
 ### proposal-defaults-onboarding
+
 Use `proposal-defaults-onboarding` only when the task depends on missing reusable user defaults that should be remembered for future runs.
 
 Best fit:
+
 - missing evidence-lookup defaults
 - missing output-routing defaults
 - missing intake-handling defaults
@@ -52,9 +60,11 @@ Best fit:
 Do not use it for one-off facts that belong in the current request.
 
 ### markdown-format-validator
+
 Use `markdown-format-validator` near the end of substantial Markdown deliverables.
 
 Best fit:
+
 - validate a substantial Markdown document before finalising it
 - repair heading structure, spacing, dividers, or wrapper quality
 - standardise a Markdown deliverable against the agent's formatting rules
@@ -63,9 +73,11 @@ Best fit:
 Do not use it as the main drafting skill.
 
 ### wordpress-plugin-packaging-review
+
 Use `wordpress-plugin-packaging-review` when plugin assessment is the primary job.
 
 Best fit:
+
 - plugin packaging reviews
 - plugin due diligence
 - tiering and upsell analysis

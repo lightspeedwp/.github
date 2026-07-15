@@ -4,6 +4,7 @@ Channel: Zendesk
 Customer sentiment: neutral
 Latest customer ask: The customer says their contact form submissions are not arriving in their inbox.
 Confirmed facts:
+
 - The customer confirmed the form was submitted twice from the website.
 - No delivery logs have been checked yet.
 - The customer has not provided the exact submission time.

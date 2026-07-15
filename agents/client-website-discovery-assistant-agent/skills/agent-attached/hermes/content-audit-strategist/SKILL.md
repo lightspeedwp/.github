@@ -14,6 +14,7 @@ This skill is for discovery and assessment, not for writing the final website co
 ## Request Shapes
 
 Use `$content-audit-strategist` for requests like:
+
 - "Audit this website's content and show what is outdated, duplicated, missing, or weak."
 - "Turn these content notes, page exports, or questionnaires into a content audit summary."
 - "Assess the current content situation and recommend content strategy priorities before redesign or AI work."
@@ -47,6 +48,7 @@ Use `$content-audit-strategist` for requests like:
 ## Output Contract
 
 The default output should:
+
 - state the audit or strategy scope
 - summarize the current content condition
 - identify the biggest content risks or blockers

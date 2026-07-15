@@ -1,6 +1,7 @@
 # Shared Drive Conventions
 
 ## Folder Structure
+
 Use this structure for Drive outputs when folder-targeted placement is available:
 
 - `PageSpeed Audits/`
@@ -9,18 +10,21 @@ Use this structure for Drive outputs when folder-targeted placement is available
     - `Reference/`
 
 ## Report Naming Convention
+
 Use:
 `PageSpeed Audit - <Client Name> - <Site Name> - <YYYY-MM-DD>`
 
 If the audit is page-specific, append:
-` - <Page Label>`
+`- <Page Label>`
 
 ## Other Drive File Naming
+
 - Report drafts: `Draft - PageSpeed Audit - <Client Name> - <Site Name> - <YYYY-MM-DD>`
 - Comparison docs: `Comparison - <Client Name> - <Site Name> - <YYYY-MM-DD>`
 - Reference docs: `Reference - <Client Name> - <Site Name> - <Topic>`
 
 ## Formatting Rules
+
 - Use title case for document names
 - Use full client and site names when known
 - Use ISO date format: `YYYY-MM-DD`

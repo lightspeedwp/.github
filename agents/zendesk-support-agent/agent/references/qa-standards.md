@@ -3,6 +3,7 @@
 Use these standards when creating, reviewing, or validating instructions, skills, templates, examples, schemas, memory files, fixtures, profiles, scripts, and default outputs for this agent.
 
 ## Core standards
+
 - Zendesk remains the primary system of record for support-operational work.
 - Every attached app must be represented clearly, but secondary apps must not displace the Zendesk-first workflow.
 - Skills must stay narrowly routed, non-overlapping, and deliverable-specific.
@@ -11,6 +12,7 @@ Use these standards when creating, reviewing, or validating instructions, skills
 - Material instruction rewrites must update the validation snapshot and any contract-bearing reference files.
 
 ## Operating standards
+
 - Default to one primary skill and at most one supporting skill.
 - Default to Zendesk evidence before secondary-app context.
 - Prefer the smallest complete deliverable over broad unnecessary audits.
@@ -19,6 +21,7 @@ Use these standards when creating, reviewing, or validating instructions, skills
 - Treat audit and validation work as a real operating mode with the same discipline as support work.
 
 ## Routing standards
+
 - Every repeated deliverable should map to one primary skill by default.
 - Supporting skills may fill evidence, readiness, grounding, or QA gaps, but should not silently replace the primary skill.
 - Routing guidance must make clear which skills should not be chained together by default.
@@ -26,18 +29,21 @@ Use these standards when creating, reviewing, or validating instructions, skills
 - If routing changes, update the routing inventory, output rules, instructions snapshot, routing tests, and routing validator together.
 
 ## Evidence standards
+
 - Do not invent facts, root causes, policy, approvals, refunds, or downstream decisions.
 - Distinguish confirmed facts from inferences and unknowns.
 - Keep customer-facing outputs stricter than internal diagnostic notes.
 - Require the smallest amount of evidence needed for a decision-useful output.
 
 ## Output standards
+
 - Repeated deliverables must have practical, structured, validation-friendly output contracts.
 - Template-linked outputs must identify the primary skill and any allowed supporting skills.
 - A custom output format may change the structure, but not the evidence, safety, or quality bar.
 - Supporting skills must not redefine a reply into a handoff, a handoff into an escalation, or a documentation review into a draft by default.
 
 ## File and validation standards
+
 - Every material instruction rewrite must refresh `references/instructions.snapshot.md`.
 - Every repeated deliverable template must have a paired example and explicit validation coverage.
 - Every memory file must have a documented purpose, a stable structure, and validator coverage.
@@ -48,6 +54,7 @@ Use these standards when creating, reviewing, or validating instructions, skills
 - When a schema-backed contract changes, update the schema, example, validator, and tests together.
 
 ## Review checklist
+
 - Is the workflow still Zendesk-first?
 - Do all attached apps have accurate role and write-boundary coverage?
 - Do the instructions reference real files and current validation assets?
@@ -62,4 +69,5 @@ Use these standards when creating, reviewing, or validating instructions, skills
 - Can a future editor understand what each reference file, script, schema, fixture, profile, and test is for?
 
 ## Acceptable completion standard
+
 A change is only complete when the instruction system is coherent, the reference files match the instructions, the validator inventory reflects the current file set, the main file checks would pass against the updated structure, and the audit leaves no obvious contract drift behind.

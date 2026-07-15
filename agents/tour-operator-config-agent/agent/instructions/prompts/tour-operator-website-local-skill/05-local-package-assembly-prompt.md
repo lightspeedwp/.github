@@ -11,6 +11,7 @@ Produce a clean local package build from the source folder without inventing fil
 ## Inputs
 
 Use only:
+
 - `prompts/tour-operator-website` as the single source of truth
 - the verified inventory from `01-source-audit-prompt.md`
 - the package contract from `02-package-contract-prompt.md`
@@ -38,6 +39,7 @@ Use only:
 ## Validation expectations
 
 After assembly:
+
 - verify every required contract file is present in the local package
 - verify excluded files are not present accidentally
 - verify entrypoint-relative paths still resolve inside the local package

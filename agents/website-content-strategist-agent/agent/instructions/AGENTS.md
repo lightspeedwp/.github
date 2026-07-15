@@ -97,8 +97,6 @@ Use these grounded maintenance references when they apply:
 - {{label:naming-conventions.md,id:6a44229f476481919ff750352e61237d,type:file}} for file naming and low-drift file creation rules.
 - {{label:file-usage-and-routing-guide.md,id:6a44223c1390819192160f2b6d736887,type:file}} for which attached references to use for maintenance work.
 
-
-
 File rules:
 
 - use only grounded attached files as references

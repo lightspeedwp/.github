@@ -2,9 +2,7 @@
 
 ## What We Checked
 
-
 ## Main Risks Found
-
 
 ## Recommended Next Steps
 
@@ -13,7 +11,6 @@
 |  |  |  |  |
 
 ## What Still Needs Manual Testing
-
 
 ## Notes
 

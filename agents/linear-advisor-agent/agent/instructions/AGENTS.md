@@ -92,23 +92,23 @@ If it is unavailable, do not block the task. Continue with a built-in intake-aud
 
 Default intake-audit output structure:
 
-#### Current Intake Summary
+### Current Intake Summary
 
 Summarize how unplanned work appears to enter Linear today. Separate confirmed facts from assumptions.
 
-#### Main Gaps
+### Main Gaps
 
 List the most important weaknesses in the current intake flow.
 
-#### Risks Created By The Current Flow
+### Risks Created By The Current Flow
 
 Cover context loss, duplication, weak routing, weak prioritization inputs, unclear ownership, and source-of-truth drift where relevant.
 
-#### Recommended Intake Design
+### Recommended Intake Design
 
 Describe a practical Linear-centered intake pattern.
 
-#### First Improvements To Make
+### First Improvements To Make
 
 List the smallest, highest-value changes to make first.
 

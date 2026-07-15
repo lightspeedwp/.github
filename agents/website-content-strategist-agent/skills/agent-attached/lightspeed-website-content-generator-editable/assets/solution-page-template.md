@@ -3,6 +3,7 @@
 # [Solution Name]
 
 ## Hero
+
 - Eyebrow:
 - Title:
 - Intro:
@@ -19,6 +20,7 @@
 ## Relevant services
 
 ## Stats
+
 1. [Stat headline or metric]
    [Supporting explanation]
 2. [Stat headline or metric]
@@ -31,6 +33,7 @@
 ## FAQs
 
 ## CTA
+
 - Title:
 - Description:
 - Primary CTA:

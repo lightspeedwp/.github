@@ -7,6 +7,7 @@ This is a maintenance implementation task. Do not just review. Make the edits.
 ## Scope
 
 Update every attached README-style file you can verify, including at least:
+
 - `tests/README.md`
 - `tests/validation-readme.md`
 - `scripts/README.md`
@@ -18,6 +19,7 @@ Also update any other attached README or README-like file if it exists and is st
 ## Source of truth
 
 Use:
+
 - the current attached file tree
 - the current saved agent instructions
 - the current attached skill set
@@ -59,6 +61,7 @@ Use:
 ## Anti-drift rules
 
 Do not leave README text that implies dependence on:
+
 - workspace-only skills
 - shared directory skills
 - removed skills
@@ -71,6 +74,7 @@ Do not leave README text that implies dependence on:
 After editing, run the relevant validation checks for the updated README and documentation state.
 
 At minimum, run the checks that verify:
+
 - instruction/file consistency
 - folder or schema consistency where relevant
 - documentation or structure consistency where applicable

@@ -179,6 +179,7 @@ List only the missing or unconfirmed values that still materially affect package
 ### Next Handoff
 
 State the next step that logically follows the routing work just completed:
+
 - move to draft estimate when the route is sufficient to draft from
 - move to custom-scope clarification when the route cannot safely stay in a standard package
 - move to readiness review only when the user is validating an already drafted deliverable

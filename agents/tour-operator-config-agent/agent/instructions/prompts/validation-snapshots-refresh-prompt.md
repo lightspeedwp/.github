@@ -7,6 +7,7 @@ This is a maintenance implementation task. Do not just review. Update the stale 
 ## Scope
 
 Inspect and update, where relevant:
+
 - `tests/skill-routing-snapshot.md`
 - `tests/instruction-file-consistency-source.md`
 - `tests/app-usage-consistency-source.md`
@@ -18,6 +19,7 @@ Inspect and update, where relevant:
 ## Source of truth
 
 Use these as the source of truth:
+
 - the current saved agent instructions
 - the current attached apps and skills
 - the current starter prompts and short description

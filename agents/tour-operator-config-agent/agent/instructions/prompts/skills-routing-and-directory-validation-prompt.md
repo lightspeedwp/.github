@@ -7,6 +7,7 @@ This is a maintenance implementation task. Do not just review. Inspect the curre
 ## Goal
 
 Validate that:
+
 - the current attached skill set is coherent
 - the instructions route to currently attached skills only
 - skill names, descriptions, routing notes, snapshots, and maintenance docs stay aligned
@@ -17,6 +18,7 @@ Validate that:
 ## Scope
 
 Inspect and validate, where relevant:
+
 - the current attached skill set
 - the current saved agent instructions
 - `prompts/`
@@ -30,6 +32,7 @@ Inspect and validate, where relevant:
 ## Source of truth
 
 Use these as the source of truth, in order:
+
 - the current attached skill set in the draft
 - the current saved agent instructions
 - the current attached file tree
@@ -41,6 +44,7 @@ Use these as the source of truth, in order:
 ### 1. Attached skill inventory check
 
 Confirm:
+
 - every attached skill is still intentional and relevant
 - no current maintenance docs still depend on removed or unattached skills
 - the skill-routing sections in the instructions match the actual attached skill set
@@ -50,6 +54,7 @@ Confirm:
 ### 2. Instruction-to-skill routing check
 
 Check that the instructions:
+
 - reference only currently attached skills
 - use exact attached skill names consistently
 - route narrowly and correctly between broad workflows and specialist skills
@@ -59,6 +64,7 @@ Check that the instructions:
 ### 3. Skill package health check
 
 For each attached uploaded skill you can inspect directly, validate:
+
 - `SKILL.md` frontmatter and trigger description quality
 - `agents/openai.yaml` consistency with the canonical skill name and job
 - whether example, reference, schema, script, or template folders appear purposeful rather than placeholder-driven
@@ -70,6 +76,7 @@ For locally staged but unattached Tour Operator skill material, assess it as sta
 ### 4. Local draft or staged skill check
 
 When locally staged skill folders are visible, check whether they:
+
 - are valid skill packages
 - correspond to already attached skills or clearly intended new skills
 - need same-id upload follow-through
@@ -82,6 +89,7 @@ Do not invent a publish step for skills themselves. Treat skill upload or attach
 ### 5. Anti-drift checks
 
 Flag any:
+
 - unattached skill references in instructions
 - attached skills missing from routing or maintenance docs where they materially matter
 - stale references in `prompts/`, `tests/`, `scripts/`, or README files
@@ -92,6 +100,7 @@ Flag any:
 ## Repair boundary
 
 This prompt is primarily for validation, but you may perform small direct fixes that are obviously required for consistency, such as:
+
 - correcting attached-skill lists
 - replacing stale skill names with the exact attached names
 - updating consistency-source snapshots
@@ -114,6 +123,7 @@ For broader repair work, use `prompts/skills-routing-and-directory-repair-prompt
 After any edits, run the relevant checks for what changed.
 
 At minimum, run the checks relevant to:
+
 - instruction/file consistency
 - routing snapshot and consistency-source alignment
 - agent structure or documentation consistency where applicable

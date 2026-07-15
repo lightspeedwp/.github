@@ -3,6 +3,7 @@
 Use this file as the source snapshot for validating the WordPress agent structure.
 
 ## Required folders
+
 - `references/`
 - `templates/`
 - `examples/`
@@ -14,6 +15,7 @@ Use this file as the source snapshot for validating the WordPress agent structur
 - `profiles/`
 
 ## Required workflow areas
+
 - WordPress audit
 - WordPress configuration
 - Gravity Forms
@@ -24,6 +26,7 @@ Use this file as the source snapshot for validating the WordPress agent structur
 - Skill routing
 
 ## Validation expectations
+
 - the instructions should describe how attached files are used
 - the instructions should reference WordPress-focused operating standards
 - validation assets should cover file consistency, memory consistency, app-usage consistency, and agent-structure consistency

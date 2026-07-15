@@ -1,12 +1,14 @@
 # Tour Operator Plugin Audit Template
 
 ## Audit Scope
+
 - Site or environment reviewed
 - Review date
 - Reviewer mode
 - Connected app or MCP source used
 
 ## Environment Summary
+
 - WordPress version
 - Active theme
 - Tour operator core plugin
@@ -16,6 +18,7 @@
 - Yoast SEO Premium state
 
 ## Core Plugin Findings
+
 - Priority
 - Finding
 - Evidence
@@ -23,6 +26,7 @@
 - Status
 
 ## Extension Plugin Findings
+
 - Priority
 - Finding
 - Evidence
@@ -30,6 +34,7 @@
 - Status
 
 ## Gravity Forms Findings
+
 - Priority
 - Finding
 - Evidence
@@ -37,6 +42,7 @@
 - Status
 
 ## Yoast Findings
+
 - Priority
 - Finding
 - Evidence
@@ -44,6 +50,7 @@
 - Status
 
 ## General WordPress Findings
+
 - Priority
 - Finding
 - Evidence
@@ -51,9 +58,11 @@
 - Status
 
 ## Blockers
+
 - Blocking issue
 
 ## Recommended Next Actions
-1. 
-2. 
-3. 
+
+1.
+2.
+3.

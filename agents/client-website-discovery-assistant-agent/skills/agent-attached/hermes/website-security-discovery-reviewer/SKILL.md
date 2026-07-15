@@ -12,6 +12,7 @@ Use this skill for security discovery and triage work. The aim is to create a cl
 ## Request Shapes
 
 Use `$website-security-discovery-reviewer` for requests like:
+
 - "Assess the website security concerns from these notes or findings."
 - "Turn these security observations into a structured internal review."
 - "What risks, gaps, and validation steps should we highlight before launch or remediation planning?"
@@ -38,6 +39,7 @@ Use `$website-security-discovery-reviewer` for requests like:
 ## Output Contract
 
 The default output should include:
+
 - current security situation from available evidence
 - major observed findings or risk signals
 - evidence gaps and unverified concerns

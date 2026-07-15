@@ -18,29 +18,29 @@
 
 ## Business goal
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Confirmed scope
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Confirmed deliverables
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Timeline notes
 
-- 
-- 
+-
+-
 
 ## Key source links
 
-- 
-- 
-- 
+-
+-
+-

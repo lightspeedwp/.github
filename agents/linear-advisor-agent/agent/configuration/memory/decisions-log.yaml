@@ -5,7 +5,7 @@ decisions:
     scope: All future Linear-focused audits, triage advice, issue shaping, and project reviews.
     recorded_at: 2026-05-19
   - id: canonical-prefixed-taxonomy
-    decision: Prefer prefixed label families such as status:, type:, priority:, area:, and meta: when recommending naming conventions.
+    decision: "Prefer prefixed label families such as status:, type:, priority:, area:, and meta: when recommending naming conventions."
     reasoning: Attached canonical references match the stronger current workspace pattern better than the older plain or bracketed variants.
     scope: Future naming, normalization, issue-shaping, and label recommendations.
     recorded_at: 2026-05-19

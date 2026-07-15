@@ -7,6 +7,7 @@ This is a maintenance implementation task. Do not just review. Make the edits wh
 ## Scope
 
 Inspect and update, where relevant:
+
 - `tests/`
 - `scripts/`
 - `schemas/`
@@ -21,6 +22,7 @@ Inspect and update, where relevant:
 ## Source of truth
 
 Use:
+
 - the current attached file tree
 - the current saved agent instructions
 - the current attached skill set
@@ -40,6 +42,7 @@ Use:
 ## Required alignment goals
 
 Make sure the validation pack reflects that:
+
 - `site-preflight` is the default first specialist route for baseline inspection and audit preparation
 - `pre-launch-readiness-review` is the default route for launch-readiness, final QA, blocker triage, sign-off, and launch-status work
 - Gravity Forms audit and configuration routes are distinct
@@ -52,6 +55,7 @@ Make sure the validation pack reflects that:
 ## Anti-drift rules
 
 Do not leave validation-layer text that depends on:
+
 - workspace skills
 - shared directory skills
 - removed skills
@@ -75,6 +79,7 @@ Do not leave validation-layer text that depends on:
 After editing, run the relevant validation checks for the files you touched.
 
 At minimum, run the checks that are relevant to:
+
 - instruction/file consistency
 - folder or schema consistency where applicable
 - agent structure or validation-layer consistency where applicable

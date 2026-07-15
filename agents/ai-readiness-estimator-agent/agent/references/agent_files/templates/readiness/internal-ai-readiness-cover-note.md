@@ -26,6 +26,7 @@ Use this note to accompany an internal AI-readiness estimate, findings pack, or 
 The current recommended base package is **[Insert package]**.
 
 **Working position**
+
 - [Summarise the current recommendation]
 - [Summarise why this route is the most defensible right now]
 - [Summarise what is still provisional]
@@ -41,6 +42,7 @@ The recommendation currently relies on the following evidence:
 - [Evidence source or file]
 
 **Evidence quality note**
+
 - [State whether evidence is complete, partial, stale, contradictory, or still unverified]
 
 ---
@@ -71,6 +73,7 @@ The following items should be reviewed before external use or commercial commitm
 Use this section to guide the next reviewer.
 
 **Check the following before approving or reusing the attached material:**
+
 - package fit still matches the latest evidence
 - exclusions are still accurate
 - assumptions are clearly labelled

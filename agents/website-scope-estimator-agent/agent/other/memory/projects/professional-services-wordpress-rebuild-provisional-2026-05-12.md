@@ -1,14 +1,17 @@
 # Professional Services WordPress Rebuild
 
 ## Date
+
 - 2026-05-12
 
 ## Source Reviewed
+
 - User-provided project context only
 - No live website URL reviewed yet
 - No staging site, repo, Figma, or reference docs reviewed yet
 
 ## Confirmed Inputs
+
 - Small professional-services firm
 - Brochure-style marketing site
 - Roughly 12 to 15 pages
@@ -24,12 +27,14 @@
 - Third-party integrations appear limited to newsletter signup and embedded video
 
 ## Provisional Scope Signals
+
 - Best-fit package is likely WordPress Foundations Package
 - Content migration may be needed, but volume and complexity are still unconfirmed
 - Performance Optimisation add-on is likely relevant because improved performance is an explicit goal
 - Content Migration add-on may be relevant if migration exceeds the standard package allowance
 
 ## Open Questions
+
 - Live website URL
 - Exact page count and template count
 - Current platform and plugin stack

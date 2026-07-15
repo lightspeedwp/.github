@@ -67,12 +67,14 @@ Good test inputs usually include:
 ## Approved vs excluded materials policy
 
 **Approved by default**
+
 - low-risk internal examples
 - sanitised client examples
 - approved briefs, questionnaires, and discovery notes
 - non-sensitive real work needed for proposal and review testing
 
 **Excluded unless Ash explicitly approves them for pilot use**
+
 - live client proposals with confidential pricing or commercial terms
 - NDA-bound or client-confidential documents
 - security questionnaires with sensitive controls, architecture, or vendor details

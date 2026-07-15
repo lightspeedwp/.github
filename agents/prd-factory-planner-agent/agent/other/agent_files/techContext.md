@@ -10,36 +10,36 @@
 
 ## Likely implementation model
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Repository notes
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Integrations
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Technical constraints
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Environment notes
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Additional delivery considerations
 
-- 
-- 
-- 
+-
+-
+-

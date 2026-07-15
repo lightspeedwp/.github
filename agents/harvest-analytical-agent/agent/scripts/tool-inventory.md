@@ -1,9 +1,11 @@
 # Tool Inventory
 
 ## Purpose
+
 Checklist for inspecting available Harvest MCP tools at runtime.
 
 ## Required columns
+
 - Tool name
 - Read or write
 - Required parameters
@@ -14,9 +16,11 @@ Checklist for inspecting available Harvest MCP tools at runtime.
 - Gap notes
 
 ## Usage
+
 Before using Harvest tools in a report workflow, inspect the available tool set and map each usable tool to the report type it supports.
 
 ## Notes
+
 - Do not invent unsupported tools.
 - Record permission-related gaps.
 - Track draft-invoice capability separately from invoice review and sending.

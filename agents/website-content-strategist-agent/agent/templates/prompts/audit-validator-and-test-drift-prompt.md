@@ -21,36 +21,48 @@ Focus on the following:
 Use this structure:
 
 ## Grounded Validation Assets Reviewed
+
 - List only exact grounded filenames that are visible in the current attached file tree.
 - If the visible file list is partial, say so explicitly and keep the inventory conservative.
 
 ## Confirmed Alignment
+
 - ...
 
 ## Drift Findings
+
 ### Script And Test Drift
+
 - ...
 
 ### Documentation Drift
+
 - ...
 
 ### Coverage Risks
+
 - ...
 
 ## Recommended Fixes
+
 ### Immediate
+
 - ...
 
 ### Secondary
+
 - ...
 
 ### Optional Cleanup
+
 - ...
 
 ## Best Next Step
+
 - State the single best validator-or-test drift fix to apply first.
 
 ## Guardrails
+
 - Use only grounded visible validation assets.
 - Do not invent unseen scripts, tests, schemas, YAML specs, or companion validation files.
 - Do not infer filenames from folder conventions, README expectations, or naming patterns alone.

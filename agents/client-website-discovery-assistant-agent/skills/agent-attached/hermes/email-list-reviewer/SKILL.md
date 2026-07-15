@@ -12,6 +12,7 @@ Use this skill for email marketing list discovery work. The goal is to turn part
 ## Request Shapes
 
 Use `$email-list-reviewer` for requests like:
+
 - "Review this email list situation and highlight the main risks."
 - "Turn these list notes or exports into an email list assessment."
 - "What should be cleaned up or validated before campaign, automation, or migration work?"
@@ -38,6 +39,7 @@ Use `$email-list-reviewer` for requests like:
 ## Output Contract
 
 The default output should include:
+
 - current list situation from the available evidence
 - major hygiene, consent, segmentation, or governance concerns
 - evidence gaps that block stronger conclusions

@@ -11,6 +11,7 @@ Produce the minimum valid entrypoint layer needed for a local Builder skill whil
 ## Inputs
 
 Use only:
+
 - `prompts/tour-operator-website` as the single source of truth
 - the verified inventory from `01-source-audit-prompt.md`
 - the locked decisions from `02-package-contract-prompt.md`
@@ -19,6 +20,7 @@ Use only:
 ## Scope
 
 Work only on package entrypoint files such as:
+
 - `SKILL.md`
 - `agents/openai.yaml`
 - package-level icon references only when the source folder already contains the exact referenced asset
@@ -44,6 +46,7 @@ Work only on package entrypoint files such as:
 ## Validation expectations
 
 After any entrypoint edits:
+
 - verify name consistency between `SKILL.md` and `agents/openai.yaml`
 - verify any referenced asset path is actually present in the source folder
 - verify the default prompt references the canonical skill name consistently

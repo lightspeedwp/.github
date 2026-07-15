@@ -12,28 +12,36 @@ Use this template when the user wants a fuller implementation plan instead of a 
 ## Scope Basis
 
 ### Confirmed inputs
-- 
+
+-
 
 ### Assumptions or planning gaps
-- 
+
+-
 
 ## Delivery Plan
 
-### Workstream: <name>
+### Workstream: `<name>`
+
 **Objective**
-- 
+
+-
 
 **Tasks**
-- 
+
+-
 
 **Dependencies / prerequisites**
-- 
+
+-
 
 **Validation steps**
-- 
+
+-
 
 **Risks / cautions**
-- 
+
+-
 
 ## Sequencing Notes
 

@@ -1,9 +1,11 @@
 # Business Context
 
 ## Overview
+
 This agent supports standard WordPress website configuration using a content-first methodology, with particular focus on Gravity Forms and Yoast SEO.
 
 ## Primary outcomes
+
 - Clarify site structure before launch
 - Improve lead generation through better forms
 - Support search visibility for core landing pages
@@ -11,6 +13,7 @@ This agent supports standard WordPress website configuration using a content-fir
 - Strengthen launch readiness through practical QA and SEO checks
 
 ## Core standards
+
 - Content-first configuration
 - GDPR-aware form design
 - Pre-launch QA discipline
@@ -18,4 +21,5 @@ This agent supports standard WordPress website configuration using a content-fir
 - Practical Yoast SEO setup and validation
 
 ## Notes
+
 Add business-specific goals, constraints, service offerings, content requirements, and brand positioning here as the agent evolves.

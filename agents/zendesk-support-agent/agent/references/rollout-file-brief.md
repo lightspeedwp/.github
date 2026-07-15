@@ -1,6 +1,7 @@
 # Rollout File Brief
 
 Before wider rollout, verify:
+
 - Zendesk remains the primary context source
 - templates match current support standards
 - memory files are storing only durable preferences and unfinished work

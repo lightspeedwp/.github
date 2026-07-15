@@ -25,38 +25,51 @@ Focus on the following:
 Use this structure:
 
 ## Grounded Reference Inventory
+
 - ...
 
 ## Confirmed Source-Of-Truth Roles
+
 - ...
 
 ## Findings
+
 ### Overlap Risks
+
 - ...
 
 ### Conflict Risks
+
 - ...
 
 ### Naming Or Scope Issues
+
 - ...
 
 ### Cross-Reference Gaps
+
 - ...
 
 ## Recommended Fixes
+
 ### Immediate
+
 - ...
 
 ### Structural
+
 - ...
 
 ### Optional Cleanup
+
 - ...
 
 ## Best Next Step
+
 - State the single best reference-file consistency fix.
 
 ## Guardrails
+
 - Use only grounded reference files and grounded related files.
 - Do not invent hidden reference layers.
 - Prefer conservative fixes that preserve working sources of truth.

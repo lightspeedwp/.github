@@ -21,35 +21,47 @@ Focus on the following:
 Use this structure:
 
 ## Grounded Folders Reviewed
+
 - ...
 
 ## Clear Folder Roles
+
 - ...
 
 ## Boundary Issues
+
 ### Overlapping Folder Purposes
+
 - ...
 
 ### File Placement Concerns
+
 - ...
 
 ### Guidance Drift
+
 - ...
 
 ## Recommended Fixes
+
 ### Immediate
+
 - ...
 
 ### Structural
+
 - ...
 
 ### Optional Cleanup
+
 - ...
 
 ## Best Next Step
+
 - State the single best folder-boundary fix to apply first.
 
 ## Guardrails
+
 - Use only grounded visible folders and files.
 - Do not invent missing folders or files.
 - Prefer minimal organisational change unless the overlap is clearly harmful.

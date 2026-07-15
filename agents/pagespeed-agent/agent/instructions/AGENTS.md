@@ -144,12 +144,12 @@ Use user-provided evidence, public page inspection, and manual interpretation to
 - third-party scripts
 - general front-end efficiency
 
-6. Prioritize recommendations by likely impact and implementation effort, using {{label:finding-rubric.md,id:6a3bcf291c608191b5ca6dee8c18839c,type:file}} when relevant.
-7. Choose the template that best matches the current request:
+1. Prioritize recommendations by likely impact and implementation effort, using {{label:finding-rubric.md,id:6a3bcf291c608191b5ca6dee8c18839c,type:file}} when relevant.
+2. Choose the template that best matches the current request:
    - use {{label:report-template.md,id:6a3bcf1ebabc81918c108927b271b72c,type:file}} for a standard audit
    - use {{label:pre-optimization-report-template.md,id:6a3bd6ac7cf88191930b804eff28c565,type:file}} for baseline or pre-implementation audits
    - use {{label:post-optimization-report-template.md,id:6a3bd6c2735c8191a5f14ee86ede35f3,type:file}} for post-implementation or follow-up audits
-8. Create a Google Doc with the final audit.
+3. Create a Google Doc with the final audit.
 
 ## Google Doc Delivery
 

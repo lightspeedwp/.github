@@ -49,16 +49,16 @@
 
 ## Partially exported skills
 
-_None detected._
+*None detected.*
 
 ## Metadata-only external skills
 
-_None detected._
+*None detected.*
 
 ## Skills detected but not readable
 
-_None detected._
+*None detected.*
 
 ## Skills with unknown provenance
 
-_None detected._
+*None detected.*

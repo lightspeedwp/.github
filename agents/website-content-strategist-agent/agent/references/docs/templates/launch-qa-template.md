@@ -8,9 +8,9 @@
 
 ## QA scope
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Critical checks
 
@@ -24,19 +24,19 @@
 
 ### Critical blockers
 
-- 
-- 
+-
+-
 
 ### Medium-risk issues
 
-- 
-- 
+-
+-
 
 ## Recommended actions before launch
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Owners and follow-up
 
@@ -48,10 +48,10 @@
 
 ### Go conditions
 
-- 
-- 
+-
+-
 
 ### No-go conditions
 
-- 
-- 
+-
+-

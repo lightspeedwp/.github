@@ -37,86 +37,86 @@ tab_handling: "single-page output from the provided source link"
 ### Company information
 
 **Answer:** Business name, DBA, address, phone, email, abbreviations, background info.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Vision, mission and values
 
 **Answer:** Add approved wording or rough notes.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Target audience profile
 
 **Answer:** Age, gender where relevant, location, industry, expertise level, device use, motivations.
-> 
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
+>
 
 ## Page content collection
 
 ### Home page
 
 **Answer:** Headline, subheading, CTA button text, page sections and key images.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### About Us
 
 **Answer:** Company history, motivation, differentiators, problems solved and image notes.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Products and/or Services
 
 **Answer:** Describe what the company does and each offer in detail.
-> 
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
+>
 
 ### Team
 
 **Answer:** Team member names, titles, bios and image notes.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Contact
 
 **Answer:** Information to list, contact form requirements, recipient email and image notes.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Footer, legal and other pages
 
 **Answer:** Footer links, terms, privacy policy and any extra page copy.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ## Feature selection
 

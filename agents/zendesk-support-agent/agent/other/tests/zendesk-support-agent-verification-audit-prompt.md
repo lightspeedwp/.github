@@ -1,6 +1,7 @@
 # Verification Audit Prompt
 
 Review the Zendesk Support Agent and confirm:
+
 - Zendesk is the primary operating context
 - deliverables stay separated by workflow
 - evidence is distinguished from inference and unknowns

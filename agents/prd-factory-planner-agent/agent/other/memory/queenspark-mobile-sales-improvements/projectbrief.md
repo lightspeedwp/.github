@@ -9,7 +9,7 @@ status: "draft"
 
 ## Summary
 
-Queenspark is a LightSpeed client with a live ecommerce website at https://queenspark.com/. The active opportunity is now an RFP response for a modern ecommerce platform, with mobile conversion improvements folded into a broader rebuild and integration proposal.
+Queenspark is a LightSpeed client with a live ecommerce website at <https://queenspark.com/>. The active opportunity is now an RFP response for a modern ecommerce platform, with mobile conversion improvements folded into a broader rebuild and integration proposal.
 
 The RFP asks vendors to propose design, build, integration, hosting where applicable, support and maintenance for a modern ecommerce platform. It specifically includes Microsoft Dynamics 365 Finance and Operations integration, real-time store-level stock visibility, Click & Collect, multi-store fulfilment, improved customer journey, AI-ready search/product discovery, security/POPIA controls, SLA commitments, implementation planning and detailed commercial pricing.
 
@@ -17,7 +17,7 @@ Queenspark has asked LightSpeed to submit the final proposal on 2026-07-01 after
 
 ## Confirmed Sources
 
-- Live site: https://queenspark.com/
+- Live site: <https://queenspark.com/>
 - RFP: `Queenspark_RFP_E-Commerce_June 2026.pdf`
 - Theme repo: `lightspeedwp/QueensparkTheme`
 - Product/navigation sync repo: `lightspeedwp/QueensPark-Nav-Sync`

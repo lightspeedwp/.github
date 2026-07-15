@@ -90,6 +90,7 @@ For every website page output:
 When a page includes structured sections, use explicit section fields instead of loose paragraph blocks.
 
 ### Hero sections
+
 - `Eyebrow:`
 - `Title:`
 - `Intro:`
@@ -98,7 +99,9 @@ When a page includes structured sections, use explicit section fields instead of
 - `Secondary CTA:`
 
 ### Stats sections
+
 For each stat item use:
+
 - figure
 - title
 - short explanation
@@ -106,7 +109,9 @@ For each stat item use:
 - evidence source
 
 ### FAQ sections
+
 For each FAQ slot use:
+
 - question
 - answer
 - internal link when useful
@@ -115,6 +120,7 @@ For each FAQ slot use:
 - claim-register action
 
 ### CTA sections
+
 - `Title:`
 - `Description:`
 - `Primary CTA:`

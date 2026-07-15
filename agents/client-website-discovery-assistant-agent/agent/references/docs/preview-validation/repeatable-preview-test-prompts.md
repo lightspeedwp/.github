@@ -15,6 +15,7 @@ status: reusable_test_reference
 Use this file as a reusable prompt library for preview runs. These prompts are designed to work with the indexed example contexts in `docs/preview-validation/example-contexts-index.md` and the individual example files in the same folder.
 
 This library is split into two test modes:
+
 - **context-only QA tests** for controlled, repeatable runs grounded primarily in the attached example-context files
 - **broader multi-source validation tests** for runs that are allowed to verify, enrich, or compare against live and connected sources
 
@@ -146,25 +147,31 @@ These are quick-copy project-specific seeds. The example files also contain the 
 ### LightSpeedWP.Agency
 
 #### Context-only
+
 Use `docs/preview-validation/lightspeedwp-agency-example.md` as the grounded source for this preview. Build a structured internal discovery pack from that file only. Separate confirmed facts, assumptions, inferred observations, open questions, and internal LightSpeed notes. Do not invent missing facts. Do not broaden the evidence scope in this run.
 
 #### Multi-source
+
 Use `docs/preview-validation/lightspeedwp-agency-example.md` as the starting context for this preview. Build a structured internal discovery pack from the live site, Figma prototype site, dev site, GitHub repositories, Drive folder, and Figma references named in that file. Verify or enrich with accessible evidence where possible. Separate confirmed facts, assumptions, inferred observations, open questions, and internal LightSpeed notes. Do not invent missing facts.
 
 ### TourOperator.solutions
 
 #### Context-only
+
 Use `docs/preview-validation/touroperator-solutions-example.md` as the grounded source for this preview. Build a structured internal discovery pack from that file only. Separate confirmed facts, assumptions, inferred observations, open questions, and internal notes. Do not invent missing facts. Do not broaden the evidence scope in this run.
 
 #### Multi-source
+
 Use `docs/preview-validation/touroperator-solutions-example.md` as the starting context for this preview. Build a structured internal discovery pack from the live site, demo site, dev site, GitHub repository, Drive folder, and Figma design system named in that file. Verify or enrich with accessible evidence where possible. Separate confirmed facts, assumptions, inferred observations, open questions, and internal notes. Do not invent missing facts.
 
 ### LSX Design System
 
 #### Context-only
+
 Use `docs/preview-validation/lsx-design-system-example.md` as the grounded source for this preview. Build a structured internal discovery pack from that file only. Separate confirmed facts, assumptions, inferred observations, open questions, and internal notes. Do not invent missing facts. Do not broaden the evidence scope in this run.
 
 #### Multi-source
+
 Use `docs/preview-validation/lsx-design-system-example.md` as the starting context for this preview. Build a structured internal discovery pack from the live site, demo site, GitHub repository, Drive folder, and Figma design system named in that file. Verify or enrich with accessible evidence where possible. Separate confirmed facts, assumptions, inferred observations, open questions, and internal notes. Do not invent missing facts.
 
 ---

@@ -3,6 +3,7 @@
 Use this file as the source snapshot for starter-prompt consistency validation.
 
 ## Required starter prompt titles
+
 - `Run site discovery`
 - `Audit site setup`
 - `Plan enquiry forms`
@@ -11,6 +12,7 @@ Use this file as the source snapshot for starter-prompt consistency validation.
 - `Create launch summary`
 
 ## Required starter prompt themes
+
 - `site discovery`
 - `audit`
 - `content model`
@@ -19,12 +21,14 @@ Use this file as the source snapshot for starter-prompt consistency validation.
 - `launch summary`
 
 ## Forbidden starter prompt references
+
 - `Slack`
 - `Teams`
 - `calendar`
 - `email triage`
 
 ## Starter prompts snapshot
+
 - Title: `Run site discovery`
   - Description: `Capture goals, structure, and setup.`
   - Prompt: `Help me run a site discovery for this tour operator WordPress project, including business goals, homepage priorities, content structure, forms, and SEO requirements.`

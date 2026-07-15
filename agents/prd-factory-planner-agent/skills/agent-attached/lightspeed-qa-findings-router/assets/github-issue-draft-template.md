@@ -16,11 +16,11 @@
 
 ## Acceptance criteria
 
-- [ ] 
+- [ ]
 
 ## Retest steps
 
-- [ ] 
+- [ ]
 
 ## Suggested labels
 

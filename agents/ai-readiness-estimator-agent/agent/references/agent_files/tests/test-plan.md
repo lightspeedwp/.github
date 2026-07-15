@@ -3,6 +3,7 @@
 Use these examples to validate package routing, add-on routing, estimate structure, proposal structure, and commercial safeguards.
 
 For each example, check:
+
 - base package chosen first
 - add-ons chosen second
 - audit-first position maintained

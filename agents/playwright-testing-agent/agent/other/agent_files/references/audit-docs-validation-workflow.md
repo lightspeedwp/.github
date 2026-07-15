@@ -1,4 +1,5 @@
 Grounded note from the current file set:
+
 - `memory/defaults/` currently contains **Markdown starter files only**
 - there are **no `memory/defaults/*.yaml` files** right now
 - the likely validation expansion should treat `memory/defaults/*.md` as canonical starters and `memory/schemas/*.schema.yaml` as the structured validation layer
@@ -226,6 +227,7 @@ Acceptance criteria:
 ```
 
 ## Recommended order
+
 1. **Prompt 1** — audit and deletion decisions  
 2. **Prompt 2** — instructions, README files, `CONNECTORS.md`  
 3. **Prompt 3** — validator implementation  

@@ -1,24 +1,29 @@
 # Skills Routing Validation Prompt
 
 ## Purpose
+
 Use this recurring prompt to validate the skills routing and skills-related structure of this agent.
 
 ## Prompt
+
 Audit this agent's skills routing and skills-directory layer so the current instructions, attached skills, starter prompts, validation-facing docs, and skills-related references all agree with each other and with the real agent setup.
 
 Primary goal:
+
 - verify that every skill-routing rule points to a real attached skill or grounded skills-related asset
 - verify that mandatory routes invoke the correct skill workflow and do not allow weak generic fallbacks
 - verify that any skills-directory or skills-structure wording matches the real current setup instead of an assumed folder layout
 - leave no blocking ambiguity in the skills-routing slice
 
 Scope priorities:
+
 1. agent instructions and route-defining language for attached skills
 2. attached skill inventory, skill metadata, and skills-related files when available
 3. starter prompts and validation-facing docs that describe or depend on skill routing
 4. README or prompt-library wording only where it materially affects skills-routing accuracy
 
 Required working rules:
+
 - Treat the current agent configuration, attached skill list, and real file tree as source of truth.
 - Prefer inspecting the actual attached skill or grounded skill metadata before deciding a route is correct.
 - Keep route names, trigger phrases, mandatory-skill wording, and follow-on workflow expectations consistent.
@@ -27,6 +32,7 @@ Required working rules:
 - Preserve the existing Playwright Testing Agent role and the mandatory PRD-to-test-pack route.
 
 During the pass:
+
 - compare agent instructions against the actual attached skills and their intended purpose
 - verify that mandatory skill routes are explicit where they need to be explicit
 - check for stale skill names, stale route labels, missing skill references, duplicate routing language, or weak generic fallback wording
@@ -35,6 +41,7 @@ During the pass:
 - distinguish between blocking routing issues and non-blocking cleanup opportunities
 
 Checks to perform:
+
 - attached skills named in instructions are actually attached
 - required skill-first routes are clear about when they are mandatory
 - no route silently bypasses the intended skill workflow for the same request type
@@ -44,11 +51,13 @@ Checks to perform:
 - validation-facing docs describe current skills-routing expectations accurately
 
 Output requirements:
+
 1. short skills-routing audit summary
 2. exact files or agent fields that are inconsistent
 3. blocking issues versus non-blocking follow-up opportunities
 4. explicit confirmation of whether anything in the skills-routing or skills-directory slice remains blocking
 
 Validation expectation:
+
 - Run the documented validation entry point when file-quality or validation-facing docs change.
 - Keep the pass focused on skills routing and skills-structure truthfulness, not a general rewrite.

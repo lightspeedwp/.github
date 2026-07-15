@@ -16,6 +16,7 @@ Use this skill for page-level and site-level re-audits. Do not use it for a firs
 Ask for missing required inputs only when the task cannot be completed from the conversation or attached/source material.
 
 Required:
+
 - **Current audit evidence:** current findings, screenshots, reports, exports, page URLs with supplied results, Core Web Vitals notes, Lighthouse/PageSpeed findings, or manually pasted results.
 - **Previous audit context:** prior findings, previous report, old issue list, historic metrics, baseline notes, earlier recommendations, or implementation notes that explain what was meant to be fixed.
 - **Comparison scope:** page-level, multi-page, template-level, or site-level comparison.
@@ -23,6 +24,7 @@ Required:
 ## Optional Inputs
 
 Use optional inputs when available, but do not block the comparison if they are missing:
+
 - Previous and current test dates.
 - Tested URLs, device mode, network/profile, location, tool version, or lab/field data source.
 - Priority labels from either audit.
@@ -110,6 +112,7 @@ Use this structure unless the user requests another format.
 ```
 
 For very small comparisons, condense the output into:
+
 - **Improved**
 - **Regressed/new**
 - **Persistent**
@@ -132,12 +135,14 @@ For very small comparisons, condense the output into:
 ## Comparison Language Rules
 
 Use cautious, clear wording:
+
 - Say “improved from the previous audit evidence” instead of “fixed” unless resolution is proven.
 - Say “regressed in the current audit evidence” instead of “got worse” when test conditions differ.
 - Say “top priority appears unchanged” when the same issue remains highest-impact.
 - Say “priority changed because…” only when the evidence supports the reason.
 
 Avoid:
+
 - Unavailable percentage changes.
 - Unsupported score deltas.
 - Overstating causality.
@@ -147,6 +152,7 @@ Avoid:
 ## Quality Checklist
 
 Before responding, verify that the comparison:
+
 - Separates improved, regressed, persistent, resolved, new, and unclear items.
 - States whether top priorities changed.
 - Distinguishes newly observed issues from persistent issues.

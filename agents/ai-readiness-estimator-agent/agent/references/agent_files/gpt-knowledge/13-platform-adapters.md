@@ -1,6 +1,7 @@
 # Platform Adapters
 
 ## ChatGPT Custom GPT
+
 Use the Custom GPT for the orchestrator/front-door experience.
 
 Recommended setup:
@@ -14,6 +15,7 @@ Recommended setup:
 7. Test with the starter prompts.
 
 ## ChatGPT Skills
+
 Use Skills for specialist workflows:
 
 - `ai-readiness-assessor`
@@ -26,6 +28,7 @@ Use Skills for specialist workflows:
 Install skills before relying on the orchestrator to route to them.
 
 ## Claude Code
+
 Use `.claude/skills/` for skill-like workflows and `CLAUDE.md` for project memory.
 
 Recommended structure:
@@ -45,6 +48,7 @@ CLAUDE.md
 Put LightSpeed-wide behaviour in `CLAUDE.md`.
 
 ## GitHub Copilot / VS Code
+
 Use repository instructions plus agent skills.
 
 Recommended structure:
@@ -63,6 +67,7 @@ Recommended structure:
 Use `.github/copilot-instructions.md` for always-on LightSpeed conventions.
 
 ## Gemini Gem
+
 Gemini does not use the same skill folder structure.
 
 Create a custom Gem with:
@@ -75,6 +80,7 @@ Create a custom Gem with:
 Use Gemini for advisory/writing workflows, not as the canonical skill source.
 
 ## Source-of-truth rule
+
 Maintain one canonical Markdown source.
 
 Update this source first, then adapt to:

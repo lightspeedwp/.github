@@ -1,9 +1,11 @@
 # Workflow Map and Routing Rules
 
 ## Purpose
+
 Use this file to decide which specialist skill or workflow should run next during a client AI readiness project.
 
 ## Default sequence
+
 1. Start with `lightspeed-ai-readiness-router`.
 2. Run `ai-readiness-assessor` if the client has not yet been assessed.
 3. Run `ai-governance-documentor` when governance, approval, AI use cases or policy questions are relevant.
@@ -27,33 +29,42 @@ Use this file to decide which specialist skill or workflow should run next durin
 ## Stage-based routing
 
 ### New lead
+
 Start with:
+
 1. Router
 2. Readiness assessor
 3. Light content/governance summary
 4. Proposal-ready next step
 
 ### Existing client
+
 Start with:
+
 1. Router
 2. Source inventory
 3. Readiness or governance workflow depending on immediate need
 
 ### Retainer client
+
 Start with:
+
 1. Router
 2. Current-state review
 3. Governance/documentation or chatbot review
 4. Monthly/quarterly improvement plan
 
 ### Internal LightSpeed initiative
+
 Start with:
+
 1. Router
 2. Define internal target output
 3. Use specialist workflows as needed
 4. Produce reusable templates or team guidance
 
 ## Minimum project intake
+
 Collect:
 
 - Client name
@@ -74,6 +85,7 @@ Collect:
 - High-risk or regulated context
 
 ## Source material inventory rules
+
 Before running a specialist workflow, ask what source material exists.
 
 When files or links are provided, create an inventory with:

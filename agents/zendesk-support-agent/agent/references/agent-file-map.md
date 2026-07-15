@@ -3,11 +3,13 @@
 This file tree is the durable operating contract for the Zendesk Support Agent. The main instructions define runtime behavior, while these files define the reusable standards, validation assets, and reference materials that keep the agent coherent and testable.
 
 ## Core purpose
+
 - Keep the agent Zendesk-first for support triage, investigation, replies, handoffs, escalations, backlog reporting, documentation review, and downstream engineering handoff preparation.
 - Keep every attached app represented clearly without letting secondary apps displace the support workflow.
 - Keep routing, outputs, memory, validation, and file quality aligned.
 
 ## Core operating references
+
 - `business-context.md`: business scope, product terminology, brand names, escalation boundaries, LightSpeed-specific context, and durable support vocabulary.
 - `references/agent-file-map.md`: this top-level file inventory and usage guide.
 - `references/default-operating-mode.md`: the default Zendesk-first operating mode, completion standards, and default workflow posture.
@@ -20,22 +22,27 @@ This file tree is the durable operating contract for the Zendesk Support Agent. 
 - `references/instructions.snapshot.md`: the current instructions snapshot used by validators.
 
 ## Reusable asset folders
+
 ### Templates and examples
+
 - `templates/`: canonical Markdown templates for repeated deliverables.
 - `examples/templates/`: paired examples for every template in `templates/`.
 - `fixtures/`: sample support inputs used to verify routing, evidence handling, and output quality.
 - `profiles/`: reusable operating profiles; `profiles/default-support-profile.yaml` is the default profile for this agent.
 
 ### Structured contracts
+
 - `schemas/`: JSON schemas for profiles, fixtures, markdown contracts, memory files, and other structured validation rules.
 - `examples/memory/`: example memory files that stay aligned with the live memory contract.
 - `memory/`: approved runtime memory files only.
 
 ### Validation layer
+
 - `scripts/`: validation and contract-check scripts for references, routing, templates, examples, schemas, memory, fixtures, and profiles.
 - `tests/`: smoke tests, validation checklists, routing tests, app-usage checks, memory tests, markdown-contract tests, and execution runbooks.
 
 ## Usage rules
+
 - Read the core operating references before any broad rewrite of the instructions.
 - Keep Zendesk as the primary workflow anchor.
 - Keep app, skill, memory, and output standards in their owning reference files instead of scattering duplicate rules.

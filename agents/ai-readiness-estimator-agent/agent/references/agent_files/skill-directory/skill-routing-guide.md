@@ -26,164 +26,209 @@ Use these stages to break ties between overlapping skills:
 ## Primary Skill Directory
 
 ### lightspeed-ai-readiness-orchestrator
+
 **Use when:**
+
 - the user is starting a new client-specific AI readiness project
 - the request spans multiple deliverables or workstreams
 - the user asks what should happen next
 - the correct specialist route is still unclear
 
 **Do not use when:**
+
 - the user already asked for one clearly scoped deliverable that matches a more specific skill
 - the request is only to remember project defaults
 
 **Boundary:** This is the front door for broad, multi-step work. It should route to specialist skills, not duplicate them.
 
 ### lightspeed-project-onboarding
+
 **Use when:**
+
 - durable project defaults needed across future runs are missing
 - the agent needs a stable project anchor, recurring source location, or standing delivery preference
 - the user would otherwise need to repeat the same basic project context later
 
 **Do not use when:**
+
 - the current request already contains enough project identity to proceed
 - the missing information is only estimate-specific and matters only to the current run
 
 **Boundary:** Use this only for reusable project memory, not for ordinary intake.
 
 ### ai-readiness-assessor
+
 **Use when:**
+
 - the user wants AI-readiness scoring, gap analysis, red flags, or a readiness report
 - the main question is whether the website or project is ready for AI-related work
 - the output should recommend next steps from readiness evidence
 
 **Do not use when:**
+
 - the task is mainly governance documentation, chatbot planning, content collection, or policy drafting
 
 **Boundary:** Use this for readiness diagnosis, not for drafting public-facing content or governance docs.
 
 ### ai-governance-documentor
+
 **Use when:**
+
 - the user wants AI governance decisions documented
 - the task is to define approval flows, review rules, roles, guardrails, or policy logic
 - the output is an internal governance summary, matrix, or operating guide
 
 **Do not use when:**
+
 - the user wants public-facing policy page wording rather than internal governance structure
 
 **Boundary:** Use this for internal governance logic. Hand off to `lightspeed-policy-page-generator` only when the user wants public-facing wording.
 
 ### content-collection-planner
+
 **Use when:**
+
 - the user needs a content request checklist or content gap report
 - the task is to identify missing source-of-truth material
 - the user needs client request emails or source collection planning
 
 **Do not use when:**
+
 - the content is already approved and the task is now to curate FAQs or draft publishable copy
 
 **Boundary:** Use this before content drafting. It gathers and organises source material rather than writing final website copy.
 
 ### ai-chatbot-planner
+
 **Use when:**
+
 - the user wants to decide whether a chatbot is appropriate
 - the task is to scope chatbot behaviour, boundaries, escalation, launch rules, or first-draft chatbot planning
 - the output is a chatbot planning brief, source-policy plan, or first-phase prompt direction
 
 **Do not use when:**
+
 - the task is only to curate FAQ material or draft public chatbot disclosure wording
 
 **Boundary:** Use this for chatbot strategy and operating rules. Hand off to FAQ curation or policy drafting when the work narrows to those outputs.
 
 ### lightspeed-policy-page-generator
+
 **Use when:**
+
 - the user wants public-facing policy, trust-page, disclosure, privacy, cookie, accessibility, or AI-governance wording
 - the task is to turn approved governance decisions into public copy
 
 **Do not use when:**
+
 - the governance decisions themselves are still being worked out
 - the user wants broader website marketing copy rather than policy or trust wording
 
 **Boundary:** This is a drafting skill. Use `ai-governance-documentor` first when the rules are not yet settled, and use `lightspeed-website-content-generator` for non-policy website copy.
 
 ### lightspeed-launch-qa-planner
+
 **Use when:**
+
 - the user needs a launch QA plan before final audits begin
 - the task is to define QA scope, matrices, launch gates, or specialist routing
 - the user is planning how launch QA should be run
 
 **Do not use when:**
+
 - the task is to run the final launch audit itself
 
 **Boundary:** Planner first, auditor later.
 
 ### lightspeed-launch-readiness-auditor
+
 **Use when:**
+
 - the user wants final pre-launch QA, launch checklists, or a go/no-go summary
 - the task is to review real launch readiness evidence such as links, forms, accessibility, responsiveness, or launch gates
 
 **Do not use when:**
+
 - the user is still defining QA scope or framework
 - the request is only for a deep technical SEO diagnosis rather than a broad launch-readiness view
 
 **Boundary:** This is the final audit stage after planning is done. Use `technical-seo-audit` when technical SEO is the core question rather than one launch gate among several.
 
 ### lightspeed-redirect-map-planner
+
 **Use when:**
+
 - the user needs redirect planning for a redesign, migration, or IA change
 - the output is a redirect map, redirect QA plan, or migration-risk view
 
 **Do not use when:**
+
 - there is no URL-change or migration context
 
 **Boundary:** Use this for redirect-specific migration work, not for broad technical SEO diagnosis.
 
 ### lightspeed-ga4-conversion-tracking-planner
+
 **Use when:**
+
 - the user needs GA4, GTM, event, conversion, or reporting planning
 - the output is a measurement brief, dashboard requirement list, or tracking governance plan
 
 **Do not use when:**
+
 - the task is broader analytics optimisation after launch rather than measurement setup
 
 **Boundary:** Use this for instrumentation planning, not post-launch performance review.
 
 ### lightspeed-schema-and-ai-discoverability-planner
+
 **Use when:**
+
 - the user wants schema markup or AI discoverability planning
 - the task is to recommend page-level schema, FAQ schema, internal linking, or answer-engine optimisation direction
 
 **Do not use when:**
+
 - the user wants a full technical SEO audit of crawlability, canonicals, indexation, or migration SEO risk
 
 **Boundary:** This is forward planning for discoverability, not a full technical SEO audit.
 
 ### lightspeed-faq-and-chatbot-source-curator
+
 **Use when:**
+
 - the user wants FAQs consolidated or deduplicated
 - the task is to prepare chatbot-safe source material
 - the user needs unsupported questions, exclusions, or escalation cases identified
 
 **Do not use when:**
+
 - the task is still to collect missing source material or to write full website copy
 
 **Boundary:** Use this after content collection and before chatbot implementation or FAQ publishing.
 
 ### lightspeed-figma-wordpress-parity-auditor
+
 **Use when:**
+
 - the user wants Figma-to-WordPress parity review
 - the task is to compare tokens, components, responsive states, or accessibility states between design intent and implementation
 
 **Do not use when:**
+
 - the request is for broad launch QA without a design-system parity question
 
 **Boundary:** Use this only when design intent versus implementation parity is the core issue.
 
 ### lightspeed-website-content-generator
+
 **Use when:**
+
 - the user wants publishable website-ready copy from approved planning artefacts
 - the task is to draft service pages, FAQs, CTAs, meta descriptions, case studies, or other website copy
 
 **Do not use when:**
+
 - source material is still weak, unapproved, or incomplete
 - the task is to collect content rather than draft it
 - the user specifically needs policy, privacy, accessibility, disclosure, or trust-page wording
@@ -191,43 +236,55 @@ Use these stages to break ties between overlapping skills:
 **Boundary:** Draft only from approved inputs. Use `content-collection-planner` first if source material is missing, and use `lightspeed-policy-page-generator` for policy or trust-page content.
 
 ### lightspeed-claim-register-auditor
+
 **Use when:**
+
 - the user wants claims audited before publication
 - the task is to classify claims by evidence strength, identify risky wording, or prepare claim review notes
 
 **Do not use when:**
+
 - the task is general content drafting without a claim-risk focus
 
 **Boundary:** This is a risk and evidence audit, not a general copywriting skill.
 
 ### technical-seo-audit
+
 **Use when:**
+
 - the user wants a technical SEO audit
 - the task is to review crawlability, indexation, canonicals, metadata, sitemap health, or migration SEO risk
 
 **Do not use when:**
+
 - the task is specifically about schema planning or answer-engine discoverability strategy
 - the request is for a broader pre-launch go/no-go audit that happens to include SEO among several checks
 
 **Boundary:** Use this for technical diagnosis. Use the schema planner for structured-data recommendations, and use the launch-readiness auditor for broader launch QA.
 
 ### post-launch-optimisation
+
 **Use when:**
+
 - the user wants a post-launch optimisation roadmap
 - the task is to prioritise improvements using analytics, SEO, CRO, content, or chatbot performance evidence
 
 **Do not use when:**
+
 - the project is still pre-launch or in launch QA
 
 **Boundary:** This starts after launch, not during launch planning or pre-launch QA.
 
 ### markdown-content-validator
+
 **Use when:**
+
 - the user wants to create, update, run, or review a reusable markdown validation workflow
 - the task is to validate markdown deliverables against frontmatter, schema, version, or structure rules
 - the output is a validation report or validator behaviour change
 
 **Do not use when:**
+
 - the task is ordinary estimate drafting, document writing, or quality review that does not specifically require markdown validation logic
 
 **Boundary:** This validates markdown structure and metadata. It is not the default quality-control route for normal estimating work.

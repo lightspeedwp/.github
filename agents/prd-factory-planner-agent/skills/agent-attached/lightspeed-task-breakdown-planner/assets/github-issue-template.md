@@ -12,11 +12,11 @@
 
 ## Acceptance criteria
 
-- [ ] 
+- [ ]
 
 ## QA checks
 
-- [ ] 
+- [ ]
 
 ## Dependencies
 

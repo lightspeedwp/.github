@@ -1,9 +1,11 @@
 # Reference Site Analysis Quality Check
 
 ## Scope
+
 Validate the reference-site-analysis package assets for structural completeness, evidence labelling, open-question quality, and token-mode guidance.
 
 ## Validation rules
+
 - The output should distinguish verified observations from likely but unconfirmed interpretation.
 - Open questions should focus on unresolved evidence, not generic discovery resets.
 - Recommendation labels should be used consistently where the workflow expects them.

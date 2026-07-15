@@ -55,38 +55,51 @@ Focus on the following:
 Produce the output using this structure:
 
 ## Confirmed Attached Skills
+
 - List the grounded attached skills and their apparent role in the agent.
 
 ## Confirmed Routing References
+
 - List the grounded instruction sections or attached files that govern skills routing.
 
 ## Findings
+
 ### Alignment Issues
+
 - ...
 
 ### Routing Issues
+
 - ...
 
 ### Directory And Reference Hygiene Issues
+
 - ...
 
 ### Drift Risks
+
 - ...
 
 ## Recommended Fixes
+
 ### Immediate
+
 - ...
 
 ### Structural
+
 - ...
 
 ### Optional Cleanup
+
 - ...
 
 ## Best Next Step
+
 - State the single best next maintenance step.
 
 ## Guardrails
+
 - Use only grounded attached skills and grounded attached files.
 - Treat missing skill references as drift, not hidden context.
 - Do not invent skill capabilities from the skill name alone when the routing or file evidence is weak.

@@ -48,15 +48,18 @@ Look for:
 Default output:
 
 ### Momentum Risks
+
 - blocked work
 - stale work
 - weak ownership
 - resolved blockers not reflected downstream
 
 ### Highest-Value Next Moves
+
 - smallest actions that would unblock progress
 
 ### Notes
+
 - assumptions or evidence gaps
 
 ## Quality Bar

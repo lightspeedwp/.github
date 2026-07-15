@@ -1,4 +1,5 @@
 # FAQ claim actions
+
 - safe to draft
 - evidence required
 - approval required

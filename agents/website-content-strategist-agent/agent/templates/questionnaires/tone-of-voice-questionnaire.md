@@ -21,25 +21,25 @@ tab_handling: "single-page output from the provided source link"
 ### Company goals
 
 **Answer:** Business growth, customer trust, clear communication and measurable outcomes.
-> 
-> 
-> 
+>
+>
+>
 
 ### Core values
 
 **Answer:** List 3-7 values and explain what each means in practice.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### What should the brand be known for?
 
 **Answer:** Use specific customer-facing qualities, not internal slogans.
-> 
-> 
-> 
+>
+>
+>
 
 ## Voice dimensions
 
@@ -64,41 +64,41 @@ tab_handling: "single-page output from the provided source link"
 ### Tone summary
 
 **Answer:** Professional, clear, helpful and confident, with warmth where appropriate.
-> 
-> 
+>
+>
 
 ## Audience language
 
 ### Primary audience
 
 **Answer:** Who they are, what they know already and what they need explained.
-> 
-> 
-> 
+>
+>
+>
 
 ### Words and phrases the audience uses
 
 **Answer:** Add real customer language from calls, reviews, emails or social comments.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Words to use
 
 **Answer:** Clear, concrete, benefit-led language.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Words to avoid
 
 **Answer:** Jargon, hype, vague claims, fear-based language and unsupported promises.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ## Writing rules and examples
 
@@ -117,6 +117,6 @@ tab_handling: "single-page output from the provided source link"
 ### Example short bio / intro
 
 **Answer:** We help [audience] solve [problem] with [service/product].
-> 
-> 
+>
+>
 >

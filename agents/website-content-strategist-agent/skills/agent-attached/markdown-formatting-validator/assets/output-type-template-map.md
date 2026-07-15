@@ -1,4 +1,5 @@
 # Output type template map
+
 - review -> exact intake-review structure when the output is intake-led, otherwise review structure
 - page draft -> page draft structure
 - newsletter -> newsletter structure

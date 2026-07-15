@@ -1,9 +1,11 @@
 # FAQ planning summary
+
 - Page type:
 - Site type:
 - Conversion stage:
 
 ## FAQ slots
+
 1. Question:
    - Answer summary:
    - Internal link:

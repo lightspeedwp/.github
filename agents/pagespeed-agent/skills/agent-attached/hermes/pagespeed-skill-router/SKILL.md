@@ -12,6 +12,7 @@ Act as the central coordinator for PageSpeed audit work. Classify the request, c
 Use this skill when the user asks for PageSpeed, Lighthouse, Core Web Vitals, PSI, website speed, or performance-audit help and the task may need routing across multiple specialist skills.
 
 Use especially for:
+
 - new PageSpeed audits where the scope, input quality, output format, or client context needs interpretation
 - multi-page or client-ready audit reports
 - PSI, Lighthouse, CrUX, WebPageTest, GTmetrix-style, or pasted performance evidence that must become a report
@@ -23,6 +24,7 @@ Use especially for:
 ## 2. When Not To Use This Routing Skill
 
 Do not use this skill for:
+
 - non-performance website audits unless the user explicitly connects them to speed, Lighthouse, or Core Web Vitals
 - standalone accessibility, technical SEO, security, hosting, content, analytics, or launch QA requests that do not involve performance routing
 - simple factual questions that can be answered directly without specialist audit workflow
@@ -99,30 +101,37 @@ For report-only rewrites, do not rerun diagnosis, comparison, onboarding, or con
 ## 6. Rules For Skipping Unnecessary Skills
 
 Skip onboarding when:
+
 - the current request already includes enough client, site, page, platform, and output context
 - the user asks a quick question, narrow follow-up, rewrite, QA check, comparison, or Drive naming task
 - collecting reusable defaults would slow down a clearly actionable request
 
 Skip intake normalisation when:
+
 - the input is already structured and clearly separates URLs, metrics, findings, pages, and prior/current evidence
 - the user asks only for naming, QA, wording, or one specific recommendation
 
 Skip WordPress diagnosis when:
+
 - the site platform is unknown and no evidence suggests WordPress-specific causes
 - the user only asks for generic Lighthouse interpretation, report formatting, naming, or comparison
 
 Skip comparison when:
+
 - there is no prior audit, baseline, historical metric set, before screenshot, or previous findings list
 - the user only asks for a new audit or a generic rewrite
 
 Skip prioritisation when:
+
 - the user asks only to QA a report, rename a document, update client context, or answer one factual question
 - the supplied findings are already ranked and the user only wants copy-editing
 
 Skip report writing when:
+
 - the user asks only for diagnosis, prioritisation, QA validation, Drive organisation, or context maintenance
 
 Skip QA validation when:
+
 - the response is a quick answer, small rewrite, routing recommendation, or internal working note
 - no full report or client/developer-ready handoff is being produced
 
@@ -131,17 +140,20 @@ Skip QA validation when:
 Do not block on perfect information. Ask only for the smallest missing detail when it is truly blocking.
 
 Proceed with explicit assumptions when:
+
 - the user supplied enough evidence to produce a partial audit, triage, priority list, or rewrite
 - missing details can be labelled as assumptions, limitations, or follow-up evidence
 - the user clearly wants progress rather than intake questions
 
 Ask a focused question when:
+
 - no URL, page, pasted finding, or audit evidence is supplied for an audit request
 - the user asks for a comparison but provides no previous audit or baseline evidence
 - the user asks for WordPress diagnosis but provides no platform evidence, no plugin/theme clues, and no performance findings
 - the intended deliverable is unclear enough that the wrong workflow could produce wasted work
 
 Never invent:
+
 - PSI, Lighthouse, CrUX, Core Web Vitals, timing, score, page-weight, request-count, or metric values
 - before/after deltas not present in the supplied evidence
 - plugin/theme causes not supported by evidence; label likely causes as likely, not confirmed
@@ -152,6 +164,7 @@ Never invent:
 When `pagespeed-audit-onboarding` is used, treat onboarding as a temporary setup step, not the deliverable.
 
 After onboarding:
+
 1. Restate the resolved defaults only briefly if needed.
 2. Resume the user’s original request immediately using the appropriate next specialist skill.
 3. Do not ask the user to repeat the audit request.

@@ -1,9 +1,11 @@
 # Schema validation tests
 
 ## Purpose
+
 These tests define the canonical validation rules for the current attached file system.
 
 ## Required folders
+
 - `prompts/`
 - `templates/`
 - `examples/`
@@ -15,6 +17,7 @@ These tests define the canonical validation rules for the current attached file 
 - `questionnaires/`
 
 ## Core validation checks
+
 1. Required-folder presence
 2. Required-file naming conventions from `references/naming-conventions.md`
 3. JSON parsing for every `.json` file in `schemas/`
@@ -28,8 +31,11 @@ These tests define the canonical validation rules for the current attached file 
 11. Business-context completeness checks for placeholder or weak sections
 
 ## Required heading rules
+
 ### Template files
+
 Every file in `templates/` must contain these headings in order:
+
 - `# Template name`
 - `## Purpose`
 - `## Required inputs`
@@ -38,7 +44,9 @@ Every file in `templates/` must contain these headings in order:
 - `## Validation notes`
 
 ### Example files
+
 Every file in `examples/` must contain these headings in order:
+
 - `# Example name`
 - `## Purpose`
 - `## Matched template`
@@ -48,7 +56,9 @@ Every file in `examples/` must contain these headings in order:
 Only attached example files count as canonical examples. Do not treat workspace-only or historical example references as attached examples unless they are present in the current file tree.
 
 ## Placeholder rules
+
 Validation fails if a checked file contains unresolved placeholder markers such as:
+
 - `TODO`
 - `TBD`
 - `FIXME`
@@ -56,14 +66,19 @@ Validation fails if a checked file contains unresolved placeholder markers such 
 - `[insert ...]`
 
 ## Memory rules
+
 ### `memory/todos.md`
+
 Must contain:
+
 - `# Memory todos`
 - `## Current`
 - `## Completed`
 
 ### `memory/user-preferences.md`
+
 Must contain:
+
 - `# User preferences`
 - `## Stable defaults`
 - `## Formatting preferences`
@@ -71,7 +86,9 @@ Must contain:
 - `## Do not store`
 
 ## Pass criteria
+
 A validation run passes only when:
+
 - every required folder exists
 - every schema file parses correctly
 - required headings are present and ordered correctly
@@ -82,7 +99,9 @@ A validation run passes only when:
 - attached example, questionnaire, and prompt references are grounded in the current file tree when they are treated as canonical
 
 ## Failure handling
+
 If validation fails, the validator must:
+
 - report the exact file
 - report the failed rule
 - report the minimal corrective action

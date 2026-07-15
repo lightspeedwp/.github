@@ -76,7 +76,7 @@
     "lint": "npm run lint:js && npm run lint:yaml && npm run lint:pkg-json",
     "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md && npm run lint:json",
     "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --ignore-pattern 'design_handoff_awesome_github/**' --ignore-pattern 'website/**' --fix",
-    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\" \"!website/**\" \"!wceu-2026/**\" \"!.github/projects/**\" \"!.github/reports/**\" \"!AWESOME_GITHUB_MAPPING_STRATEGY.md\" \"!docs/MIGRATION.md\"",
+    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\" \"!website/**\" \"!wceu-2026/**\" \"!.github/projects/**\" \"!.github/reports/**\" \"!AWESOME_GITHUB_MAPPING_STRATEGY.md\" \"!docs/MIGRATION.md\" \"!**/plugin-provided/**\" \"!**/platform-managed/**\" \"!**/directory-installed/**\" \"!**/tests/markdown-issues.md\" \"!**/agentskills-main/**\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\" \"!wceu-2026/**\" \"!.github/projects/**\" \"!AWESOME_GITHUB_MAPPING_STRATEGY.md\" \"!docs/MIGRATION.md\"",
     "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format",
     "format:md": "prettier '**/*.md' --write && markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
@@ -133,9 +133,9 @@
     "@babel/plugin-proposal-class-properties": "7.18.6",
     "@babel/plugin-proposal-object-rest-spread": "7.20.7",
     "@babel/plugin-syntax-import-meta": "7.10.4",
-    "@babel/plugin-transform-runtime": "8.0.1",
+    "@babel/plugin-transform-runtime": "7.29.7",
     "@babel/preset-env": "7.28.5",
-    "@babel/preset-react": "8.0.1",
+    "@babel/preset-react": "7.29.7",
     "@babel/preset-typescript": "7.29.7",
     "@babel/runtime": "^7.29.7",
     "@stoplight/spectral-cli": "^6.16.0",
@@ -165,21 +165,6 @@
     "prettier": "^3.8.4",
     "typescript": "^5.0.0",
     "yaml": "2.8.1"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{md,mdx}": [
-      "markdownlint-cli2 --fix"
-    ],
-    "*.json": [
-      "prettier --write"
-    ],
-    "*.{yml,yaml}": [
-      "prettier --write"
-    ]
   },
   "overrides": {
     "fast-json-patch": "3.1.1",

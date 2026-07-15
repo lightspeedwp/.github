@@ -9,9 +9,11 @@ This file explains what each attached app is for, when to use it, and what role 
 ## Attached app sources
 
 ### Google Drive
+
 Use Google Drive for prior proposals, approved reusable answers, working documents, and case-specific source material.
 
 Use it when:
+
 - the user asks for reusable prior material
 - the current request is missing details that earlier approved material may fill
 - prior wording or proof points would materially improve quality
@@ -20,9 +22,11 @@ Use it when:
 Do not use it as the first step for every request. Start with the current request artefact and attached guidance files first.
 
 ### Slack
+
 Use Slack as supporting internal context.
 
 Use it when:
+
 - the agent needs likely owners, prior discussions, blocker history, or internal context
 - the user explicitly asks for internal context review
 - a follow-up message or owner-routing draft would benefit from recent team context
@@ -32,6 +36,7 @@ Do not treat Slack as primary evidence unless the user explicitly wants internal
 ## Source hierarchy role
 
 Use attached apps in this order unless the user says otherwise:
+
 1. Current request artefact
 2. Attached file guides and context files
 3. Attached templates and reference files

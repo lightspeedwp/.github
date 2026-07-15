@@ -1,5 +1,38 @@
 # WordPress Configuration Agent File Map
 
+<!-- BADGES-START -->
+[![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
+[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
+[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
+[![checklist-finalisation](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml)
+[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
+[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
+[![flaky-test-detection](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml)
+[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
+[![issue-create-from-template](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-from-template.yml)
+[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
+[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
+[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
+[![main-branch-guard](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml)
+[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
+[![metadata-governance](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml)
+[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
+[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
+[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
+[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
+[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
+[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
+[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
+[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
+[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
+[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
+[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
+[![template-enforcement](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml)
+[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
+[![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
+[![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
+<!-- BADGES-END -->
+
 This file explains the current attached file structure for the WordPress Configuration Agent and how each folder fits into the broader maintenance, reporting, and validation workflow.
 
 ## Structure overview
@@ -28,6 +61,7 @@ This file explains the current attached file structure for the WordPress Configu
 Use `memory/` for durable working continuity.
 
 It holds files such as:
+
 - `user-preferences.md`
 - `todos.md`
 - `project-history.md`
@@ -40,6 +74,7 @@ This folder stores live continuity, approved defaults, short milestone history, 
 Use `templates/` for reusable structures for recurring outputs.
 
 Current templates include:
+
 - `pre-launch-summary-template.md`
 - `site-discovery-template.md`
 - `gravity-forms-plan-template.md`
@@ -51,6 +86,7 @@ Templates define output structure and repeatable section order. They should stay
 Use `examples/` for worked sample outputs.
 
 Current examples include:
+
 - `example-pre-launch-summary.md`
 - `example-site-discovery.md`
 
@@ -61,6 +97,7 @@ This folder demonstrates how outputs from `templates/` should look in practice. 
 Use `references/` for stable guidance the agent should rely on across runs.
 
 Current references include:
+
 - `gravity-forms-standard.md`
 - `file-naming-conventions.md`
 - `audit-docs-validation-workflow.md`
@@ -73,6 +110,7 @@ This folder holds standing rules, conventions, and maintenance guidance rather t
 Use `schemas/` for JSON schemas and validation-rule assets.
 
 Current schema coverage includes:
+
 - workflow schemas such as `site-discovery-schema.json` and `enquiry-form-schema.json`
 - file-validation schemas for `templates/`, `examples/`, `schemas/`, and `memory/`
 - memory consistency assets such as `memory-entry-schema.json`
@@ -84,6 +122,7 @@ This folder defines the structured rules used by the validation layer. `scripts/
 Use `scripts/` for deterministic validation runners and helper scripts.
 
 Current scripts include:
+
 - `validate-agent-structure.py`
 - `validate-memory-contents.py`
 - `validate-markdown-structure.py`
@@ -113,6 +152,7 @@ This folder complements `scripts/` and `schemas/` by providing small safe test i
 Use `prompts/` for recurring maintenance and cleanup prompts.
 
 The current prompt library covers:
+
 - routing audits
 - README refreshes
 - validation-pack tightening
@@ -123,6 +163,7 @@ The current prompt library covers:
 - library hygiene
 
 Current prompt files include:
+
 - `README.md`
 - `accessibility-checker-assets-alignment-prompt.md`
 - `app-and-connectors-consistency-prompt.md`
@@ -167,3 +208,11 @@ For maintenance work, use this structure in order:
 - Update inventories when files are added, renamed, or removed.
 - Keep responsibilities separated: memory is for continuity, templates are for structure, examples are for samples, references are for standing guidance, schemas are for rules, scripts are for validation, fixtures are for compact test inputs, profiles are for reusable operating patterns, and prompts are for recurring maintenance instructions.
 - Do not invent folders or responsibilities that are not present in the current attached file tree.
+
+---
+
+---
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+[🔗 Website](https://lightspeedwp.agency) · [📧 Contact](https://lightspeedwp.agency/contact) · [👥 Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

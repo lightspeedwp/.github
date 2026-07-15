@@ -1,6 +1,7 @@
 # Brief Document Standard
 
 A substantial brief should include:
+
 - Objective
 - Audience
 - Scope

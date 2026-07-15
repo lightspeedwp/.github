@@ -16,6 +16,7 @@ status: reusable_test_reference
 Use this file as a stable reference context for future previews, validation checks, and repeatable test prompts for the LSX Design System project.
 
 This file can support two test modes:
+
 - **context-only QA** when the run should stay inside this attached file
 - **multi-source validation** when the run may verify or enrich against the live, demo, repo, Drive, and Figma references named here
 
@@ -24,22 +25,28 @@ This file can support two test modes:
 ## Core References
 
 ### Project name
+
 LSX Design System
 
 ### Live product site
-https://lsx.design/
+
+<https://lsx.design/>
 
 ### Demo site
-https://demo.lsx.design/
+
+<https://demo.lsx.design/>
 
 ### GitHub repo
-https://github.com/lightspeedwp/lsx-design-2025
+
+<https://github.com/lightspeedwp/lsx-design-2025>
 
 ### Drive folder for specs, content, and project documentation
-https://drive.google.com/drive/folders/1UTTSaKxs8qc0mgrNyq2_Wt2c18pqSIA_?usp=drive_link
+
+<https://drive.google.com/drive/folders/1UTTSaKxs8qc0mgrNyq2_Wt2c18pqSIA_?usp=drive_link>
 
 ### LSX Figma design system
-https://www.figma.com/design/U3MB5DRLxHpQDoDs2Pi2jG/-Library--LSX-DS?m=auto&node-id=0-1&t=zNuowvH4BvNuGS3i-1
+
+<https://www.figma.com/design/U3MB5DRLxHpQDoDs2Pi2jG/-Library--LSX-DS?m=auto&node-id=0-1&t=zNuowvH4BvNuGS3i-1>
 
 ---
 
@@ -55,18 +62,22 @@ https://www.figma.com/design/U3MB5DRLxHpQDoDs2Pi2jG/-Library--LSX-DS?m=auto&node
 ## Recommended Test Modes
 
 ### Context-only QA
+
 Use this mode when you want strict repeatability.
 
 In this mode:
+
 - stay inside this attached file
 - treat the listed URLs and systems as named references only
 - keep unsupported fields unresolved
 - do not broaden into external verification
 
 ### Multi-source validation
+
 Use this mode when you want richer discovery grounded in accessible external evidence.
 
 In this mode:
+
 - use this file as the starting context
 - verify or enrich against the live site, demo site, repo, Drive folder, and Figma design system where accessible
 - keep confirmed facts, assumptions, and inferred observations clearly separated
@@ -95,9 +106,11 @@ In this mode:
 ## Example Prompt Seeds
 
 ### Context-only QA seed
+
 Use `docs/preview-validation/lsx-design-system-example.md` as the grounded source for this preview. Build a structured internal discovery pack from that file only. Separate confirmed facts, assumptions, inferred observations, open questions, and internal notes. Do not invent missing facts. Do not broaden the evidence scope in this run.
 
 ### Multi-source validation seed
+
 Use `docs/preview-validation/lsx-design-system-example.md` as the starting context for this preview. Build a structured internal discovery pack from the live site, demo site, GitHub repository, Drive folder, and Figma design system named in that file. Verify or enrich with accessible evidence where possible. Separate confirmed facts, assumptions, inferred observations, open questions, and internal notes. Do not invent missing facts.
 
 ---

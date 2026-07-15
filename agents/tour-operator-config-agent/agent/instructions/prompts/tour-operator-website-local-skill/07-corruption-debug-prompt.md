@@ -11,6 +11,7 @@ Identify whether the failure comes from package integrity, upload behaviour, att
 ## Inputs
 
 Use only:
+
 - `prompts/tour-operator-website` as the single source of truth for the intended skill package
 - the local package build from `05-local-package-assembly-prompt.md`, when available
 - the upload and attach results from `06-upload-attach-alignment-prompt.md`, when available
@@ -22,6 +23,7 @@ Use only:
 ## Required diagnostic questions
 
 Answer these in order:
+
 1. Was the source package itself complete enough to upload safely?
 2. Did the uploaded package preserve the expected canonical skill name, entrypoints, and support paths?
 3. Did attachment succeed, partially succeed, or fail cleanly?
@@ -50,6 +52,7 @@ Answer these in order:
 ## Output format
 
 Report under these headings:
+
 1. `Observed failure`
 2. `Earliest failing phase`
 3. `Verified facts`

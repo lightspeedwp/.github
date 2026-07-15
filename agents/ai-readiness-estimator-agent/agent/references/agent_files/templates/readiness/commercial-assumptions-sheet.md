@@ -31,6 +31,7 @@ Record the minimum assumptions currently supporting the estimate.
 - [Assumption]
 
 **Assumption quality note**
+
 - [State whether these are confirmed, partially confirmed, or still provisional]
 
 ---
@@ -64,6 +65,7 @@ Document the assumptions behind what is currently excluded from the estimate.
 - **Main blocker to stronger confidence:** [Insert blocker]
 
 **Confidence drivers**
+
 - [Driver]
 - [Driver]
 - [Driver]
@@ -78,6 +80,7 @@ Record whether any add-ons are being considered and what assumptions would justi
 - **Why:** [Explain briefly]
 
 **Potential later add-ons if evidence supports them**
+
 - [Add-on]: [Condition or trigger]
 - [Add-on]: [Condition or trigger]
 

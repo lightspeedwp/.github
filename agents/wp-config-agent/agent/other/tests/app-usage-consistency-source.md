@@ -3,6 +3,7 @@
 Use this file as the source snapshot for app-usage consistency validation.
 
 ## Attached apps snapshot
+
 - Google Drive
 - LS Agency Dev Site
 - GitHub
@@ -10,6 +11,7 @@ Use this file as the source snapshot for app-usage consistency validation.
 - Bugherd
 
 ## Required instruction markers
+
 - `## App Usage`
 - `### WordPress app usage`
 - `### Google Drive usage`
@@ -18,6 +20,7 @@ Use this file as the source snapshot for app-usage consistency validation.
 - `### Bugherd usage`
 
 ## Forbidden app references
+
 - `### Slack usage`
 - `Use Slack`
 - `Send to Slack`
@@ -25,7 +28,9 @@ Use this file as the source snapshot for app-usage consistency validation.
 - `Gmail workflow`
 
 ## Instruction excerpt
+
 The current instruction excerpt includes these required markers:
+
 - `## App Usage`
 - `### WordPress app usage`
 - `### Google Drive usage`
@@ -34,6 +39,7 @@ The current instruction excerpt includes these required markers:
 - `### Bugherd usage`
 
 Representative guidance captured from the current instructions:
+
 - `### WordPress app usage` says `LS Agency Dev Site` should be used for MCP-connected WordPress inspection, plugin review, supported configuration work, and direct changes only when the user explicitly wants implementation.
 - `### Google Drive usage` says `Google Drive` should be used when discovery notes, planning documents, templates, or project documents materially help the WordPress task.
 - `### GitHub usage` says GitHub is read-only in the current setup and should be used for repository-backed WordPress review and troubleshooting.

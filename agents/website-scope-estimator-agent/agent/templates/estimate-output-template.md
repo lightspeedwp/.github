@@ -12,54 +12,57 @@ project: <project name>
 ## Assessment Summary
 
 - **Confirmed facts**
-  - 
+
+  -
+
 - **Assumptions / provisional inferences**
-  - 
+
+  -
 
 ---
 
 ## Recommended Base Package
 
-- **Package:** 
+- **Package:**
 - **Status:** *Provisional | Estimate-ready | Custom scope*
-- **Why it fits:** 
+- **Why it fits:**
 
 ---
 
 ## Included Scope
 
-- 
+-
 
 ---
 
 ## Excluded Scope
 
-- 
+-
 
 ---
 
 ## Recommended Add-ons
 
-- **Add-on:** 
+- **Add-on:**
   - **Status:** *Provisional | Confirmed | Not applicable*
-  - **Why it applies:** 
+  - **Why it applies:**
 
 ---
 
 ## Values Still Needed
 
-- 
+-
 
 ---
 
 ## Scope Risks / Custom-Scope Triggers
 
-- 
+-
 
 ---
 
 ## Next Step
 
-- 
+-
 
 ---

@@ -11,6 +11,7 @@ Lock the package shape before assembly so later phases can build safely without 
 ## Inputs
 
 Use:
+
 - the verified inventory from `01-source-audit-prompt.md`
 - the readable contents of `prompts/tour-operator-website`
 - any already verified package metadata inside the source folder
@@ -18,6 +19,7 @@ Use:
 ## Required contract decisions
 
 Define, only when supported by source evidence:
+
 - canonical skill name
 - package root
 - required entry files
@@ -38,6 +40,7 @@ Define, only when supported by source evidence:
 ## Output format
 
 Report the contract under these headings:
+
 1. `Verified package identity`
 2. `Required files and folders`
 3. `Optional but supported files and folders`

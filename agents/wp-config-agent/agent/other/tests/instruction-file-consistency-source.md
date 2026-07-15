@@ -3,6 +3,7 @@
 Use this snapshot to validate that the WordPress instructions still point to the right supporting files.
 
 ## Core instruction-linked files
+
 - `references/gravity-forms-standard.md`
 - `references/file-naming-conventions.md`
 - `templates/pre-launch-summary-template.md`
@@ -20,6 +21,7 @@ Use this snapshot to validate that the WordPress instructions still point to the
 - `tests/agent-structure-validation-source.md`
 
 ## Required validation references
+
 - `tests/README.md`
 - `tests/master-qa-checklist.md`
 - `tests/schema-validation-tests.md`
@@ -29,6 +31,7 @@ Use this snapshot to validate that the WordPress instructions still point to the
 - `scripts/validate-folder-schemas.sh`
 
 ## Validation expectations
+
 - the instructions should reference the WordPress file set that supports audits, discovery, Gravity Forms, Yoast SEO, memory, and structure validation
 - instruction-linked files should stay WordPress-specific
 - validation references should remain stable as the support structure evolves

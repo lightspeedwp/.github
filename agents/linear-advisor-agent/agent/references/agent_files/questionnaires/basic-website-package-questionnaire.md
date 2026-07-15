@@ -15,16 +15,19 @@ tab_handling: "single-page output from the provided source link"
 ## Client and project details
 
 ### Client / organisation name
+>
 > Guidance: Confirm spelling and legal suffix.
 
 **Answer:** Use the registered business name.
 
 ### Primary contact
+>
 > Guidance: Use one accountable decision-maker where possible.
 
 **Answer:** Name, role, email and phone number.
 
 ### Website or project name
+>
 > Guidance: This may differ from the legal entity.
 
 **Answer:** Use the public brand name.
@@ -36,8 +39,8 @@ tab_handling: "single-page output from the provided source link"
 ### Decision makers and contributors
 
 **Answer:** Primary approver; content owner; technical contact.
-> 
-> 
+>
+>
 
 ## Basic website scope
 
@@ -69,26 +72,26 @@ tab_handling: "single-page output from the provided source link"
 ### Homepage hero
 
 **Answer:** Benefit-led headline, short intro, CTA and one strong image.
-> 
-> 
-> 
+>
+>
+>
 
 ### About summary
 
 **Answer:** Who you are, what you do, where you work and why customers should trust you.
-> 
-> 
-> 
-> 
+>
+>
+>
+>
 
 ### Services or products summary
 
 **Answer:** List up to 3 core offers with short descriptions.
-> 
-> 
-> 
-> 
-> 
+>
+>
+>
+>
+>
 
 ### Contact information
 
@@ -122,6 +125,6 @@ tab_handling: "single-page output from the provided source link"
 ### Out-of-scope notes
 
 **Answer:** Anything beyond the agreed starter package should be quoted separately.
-> 
-> 
+>
+>
 >

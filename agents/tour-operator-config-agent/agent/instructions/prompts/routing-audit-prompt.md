@@ -7,6 +7,7 @@ This is a maintenance implementation task. Do not just review. Make the edits wh
 ## Scope
 
 Inspect and update, where relevant:
+
 - the agent instructions
 - instruction-linked routing notes
 - routing snapshots
@@ -17,6 +18,7 @@ Inspect and update, where relevant:
 ## Source of truth
 
 Use only:
+
 - the current attached skill set
 - the current saved agent instructions
 - the current attached file tree
@@ -35,6 +37,7 @@ Use only:
 ## Routing goals
 
 Make sure the current routing logic reflects that:
+
 - `site-preflight` is the default first specialist route for baseline inspection, environment verification, plugin-stack snapshotting, confirmed facts, assumption tracking, audit preparation, and clean handoff into deeper specialist work
 - `pre-launch-readiness-review` is the default route for launch-readiness, final QA, blocker triage, sign-off, client-safe handoff, and launch-status reporting
 - general Tour Operator website planning, audits, content-structure interpretation, plugin-stack coherence checks, WordPress Tour Operator plugin and extension workflows, and broader handoff work stay in the main agent workflow unless a narrower attached specialist route clearly applies
@@ -48,6 +51,7 @@ Make sure the current routing logic reflects that:
 ## Anti-drift rules
 
 Do not leave text that depends on:
+
 - workspace-only skills
 - shared directory skills
 - removed skills
@@ -72,6 +76,7 @@ Do not leave text that depends on:
 After editing, run the relevant validation checks for the files you touched.
 
 At minimum, run the checks that are relevant to:
+
 - instruction/file consistency
 - routing snapshot or validation-note consistency
 - documentation consistency where applicable

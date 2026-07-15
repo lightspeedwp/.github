@@ -3,6 +3,7 @@
 Use this test when checking whether files in `memory/` still follow the intended separation of concerns.
 
 ## Scope
+
 - `memory/user-preferences.md`
 - `memory/project-defaults.md`
 - `memory/todos.md`
@@ -13,6 +14,7 @@ Use this test when checking whether files in `memory/` still follow the intended
 ## Validation rules
 
 ### Separation of concerns
+
 - `user-preferences.md` must contain standing working preferences, not client-specific active tasks.
 - `project-defaults.md` must contain stable LightSpeed defaults and reusable client patterns, not unfinished work.
 - `todos.md` must contain active follow-ups only, not reusable defaults or completed review summaries.
@@ -20,11 +22,13 @@ Use this test when checking whether files in `memory/` still follow the intended
 - `client-engagement-template.md` must remain a reusable starter rather than turning into a permanent default record.
 
 ### Content quality checks
+
 - Memory files must prefer concise summaries over raw note dumps.
 - Stable facts should be explicit; uncertain items should be marked as gaps or unconfirmed.
 - Entries should be written so future runs can reuse them without reinterpreting vague notes.
 
 ## Failure signals
+
 - Open tasks saved in review history
 - Completed findings saved in todos
 - Reusable client patterns mixed into user preferences

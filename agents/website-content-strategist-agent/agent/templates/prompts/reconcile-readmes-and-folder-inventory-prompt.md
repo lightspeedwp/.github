@@ -21,25 +21,33 @@ Focus on the following:
 Produce the output using this structure:
 
 ## Grounded README Files Reviewed
+
 - ...
 
 ## Inventory Mismatches
+
 - ...
 
 ## Description Mismatches
+
 - ...
 
 ## Recommended README Updates
+
 ### Immediate
+
 - ...
 
 ### Optional Cleanup
+
 - ...
 
 ## Best Next Step
+
 - State the single best README update to apply first.
 
 ## Guardrails
+
 - Use only grounded attached README files and the visible file tree.
 - Do not describe hidden or inferred files as present.
 - Prefer updating existing README files over creating overlapping new inventories.

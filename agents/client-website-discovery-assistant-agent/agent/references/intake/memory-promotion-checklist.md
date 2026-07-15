@@ -11,6 +11,7 @@ Promote a value to durable memory only when all checks pass:
 - The value belongs in project defaults rather than current-run context.
 
 Do not save:
+
 - one-off project notes
 - speculative assumptions
 - temporary smart defaults

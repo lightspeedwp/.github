@@ -7,6 +7,7 @@ This is a maintenance debugging task. Do not assume the skill package is healthy
 ## Scope
 
 Inspect and reason about, where available:
+
 - the current attached skill inventory in the draft
 - the named skill's attached metadata
 - whether the skill package can be opened in the current session
@@ -17,6 +18,7 @@ Inspect and reason about, where available:
 ## Source of truth
 
 Use these as the source of truth:
+
 - the current attached skill set in the draft
 - any direct result from opening the attached skill package
 - the actual staged package files when they are readable
@@ -25,6 +27,7 @@ Use these as the source of truth:
 ## Required checks
 
 For the named attached skill, verify and report separately:
+
 1. whether the skill is attached in the draft
 2. whether the skill package can be opened in the current session
 3. whether `SKILL.md` and `agents/openai.yaml` are directly readable
@@ -39,6 +42,7 @@ For the named attached skill, verify and report separately:
 6. whether the package metadata and the agent's routing claims still match
 
 For `tour-operator-website`, explicitly distinguish:
+
 - attachment to the Tour Operator Configuration Agent
 - package readability in the current session
 - whether the blocker is a real attach failure or an access failure after attachment
@@ -56,6 +60,7 @@ For `tour-operator-website`, explicitly distinguish:
 ## Recovery guidance
 
 If the skill is attached but unreadable, prioritise these interpretations in order:
+
 1. editor-side access or staging failure
 2. attachment record versus package snapshot mismatch
 3. same-id skill update path needing a fresh staged source

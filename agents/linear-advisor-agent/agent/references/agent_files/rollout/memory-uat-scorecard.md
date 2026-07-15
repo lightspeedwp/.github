@@ -5,6 +5,7 @@
 **Tester:** ________
 
 ## Test 1 — `user-preferences.md`
+
 **Goal:** Agent remembers reusable preferences
 
 - [ ] Saved preferred response format
@@ -18,6 +19,7 @@
 ---
 
 ## Test 2 — `todos.md`
+
 **Goal:** Agent remembers ongoing work
 
 - [ ] Saved ongoing rollout or follow-up work
@@ -31,6 +33,7 @@
 ---
 
 ## Test 3 — `source-of-truth-register.yaml`
+
 **Goal:** Agent applies source precedence consistently
 
 - [ ] Treated Linear as the default source of truth
@@ -44,6 +47,7 @@
 ---
 
 ## Test 4 — Memory judgment
+
 **Goal:** Agent stores only durable information
 
 - [ ] Saved a durable preference, rule, or ongoing work item
@@ -66,6 +70,7 @@
 **Overall result:** Pass / Fail
 
 **Follow-up actions:**  
-- __________________________________  
-- __________________________________  
-- __________________________________
+
+- \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
+- \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
+- \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_

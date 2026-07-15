@@ -56,6 +56,7 @@ Do not treat Memory as a transcript. Save only durable project facts and unresol
 ## Source review during intake
 
 When Figma files or source documents are available:
+
 - review them only to extract project-specific intake answers already visible in the materials
 - identify likely templates, shared components, navigation patterns, interactive elements, integrations, and content-heavy sections when those details materially affect routing
 - flag anything that suggests custom functionality beyond a standard package
@@ -66,6 +67,7 @@ Do not turn this skill into a full evidence-pass audit. Use it to harvest intake
 ## Intake question order
 
 When questions are needed, prioritize them in this order:
+
 1. site goal and primary success outcome
 2. rebuild scope and site type
 3. page or template count and complexity
@@ -87,16 +89,21 @@ When using this skill, produce one compact intake response with this exact secti
 ### Section rules
 
 #### Confirmed Intake Inputs
+
 List only the project-specific intake facts already supported by the user's materials or prior confirmed context.
 
 #### Missing Material Inputs
+
 List only the unresolved project-specific values that still materially affect routing, pricing, thresholds, approvals, or estimate confidence.
 
 #### Questions To Ask Now
+
 List only the smallest set of questions needed next. If no further questions are needed, say `None right now.`
 
 #### Next Handoff
+
 State the next step that logically follows the intake work just completed:
+
 - continue intake if blocking inputs are still missing
 - move to routing when the intake is sufficient
 

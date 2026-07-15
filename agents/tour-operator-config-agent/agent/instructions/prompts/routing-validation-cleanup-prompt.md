@@ -9,6 +9,7 @@ This is a maintenance implementation task. Do not just review. Make the edits wh
 The requested routing and validation slice is already corrected and is not currently blocking.
 
 Your goal here is follow-up cleanup:
+
 - inspect the wider validation layer
 - find consistency notes, source snapshots, validation notes, and test-source files that still lag behind the current routing language
 - make only the additional surgical edits needed to align them
@@ -16,6 +17,7 @@ Your goal here is follow-up cleanup:
 ## Scope
 
 Inspect and update, where relevant:
+
 - `tests/`
 - `scripts/`
 - validation source files
@@ -28,6 +30,7 @@ Inspect and update, where relevant:
 ## Source of truth
 
 Use these as the source of truth:
+
 - the current attached skill set
 - the current saved agent instructions
 - the current attached file tree
@@ -47,6 +50,7 @@ Use these as the source of truth:
 ## Required alignment goals
 
 Make sure the wider validation layer reflects that:
+
 - `site-preflight` is the default first specialist route for baseline inspection and audit preparation
 - `pre-launch-readiness-review` is the default route for launch-readiness, final QA, blocker triage, sign-off, and launch-status work
 - Gravity Forms audit and configuration routes are distinct
@@ -58,6 +62,7 @@ Make sure the wider validation layer reflects that:
 ## Anti-drift rules
 
 Do not leave validation-layer text that depends on:
+
 - workspace skills
 - shared directory skills
 - removed skills
@@ -81,6 +86,7 @@ Do not leave validation-layer text that depends on:
 After editing, run the relevant validation checks for the files you touched.
 
 At minimum, run the checks that are relevant to:
+
 - instruction/file consistency
 - folder/schema consistency where applicable
 - agent structure or validation-layer consistency where applicable

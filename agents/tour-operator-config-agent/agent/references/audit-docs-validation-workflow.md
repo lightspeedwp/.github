@@ -5,6 +5,7 @@ Use this workflow when the request is to audit, document, refine, or validate th
 Use UK English only in all outputs, audit notes, implementation plans, validation reports, and final summaries produced while following this workflow.
 
 Grounded note from the current file set:
+
 - `memory/` currently contains root-level Markdown files such as `README.md`, `user-preferences.md`, `todos.md`, `project-history.md`, and `session-handoff.md`
 - there is **no `memory/defaults/` folder** in the current attached file set
 - there is **no `memory/schemas/` folder** in the current attached file set
@@ -237,6 +238,7 @@ Acceptance criteria:
 ```
 
 ## Recommended order
+
 1. **Prompt 1** — audit and deletion decisions  
 2. **Prompt 2** — instructions, README files, `CONNECTORS.md`  
 3. **Prompt 3** — validator implementation  

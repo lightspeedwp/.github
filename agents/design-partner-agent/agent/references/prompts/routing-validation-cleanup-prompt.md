@@ -3,9 +3,11 @@
 Use this prompt as the entry point for routing and validation cleanup work in this agent package.
 
 ## Goal
+
 Choose the narrowest useful cleanup prompt for the task in front of you so the package can be tightened without over-editing unrelated files.
 
 ## Prompt library
+
 Use the specialized prompt that best matches the requested cleanup:
 
 - `prompts/routing-audit-pass.md` — use for workflow naming, routing language, artifact-boundary, and escalation cleanup.
@@ -24,6 +26,7 @@ Use the specialized prompt that best matches the requested cleanup:
 - `prompts/prompt-library-consistency-pass.md` — use when the prompt library itself needs index, router, or coverage cleanup.
 
 ## Selection rules
+
 - Choose the routing audit prompt when the main issue is workflow names, routing guidance, artifact choice, or specialist escalation language.
 - Choose the skills-routing validation prompt when the main issue is whether the current attached skills, visible skill references, and skill-routing notes still line up cleanly.
 - Choose the instruction-reference audit prompt when the main issue is stale or broken instruction references to visible files, apps, skills, or memory lanes.
@@ -38,9 +41,11 @@ Use the specialized prompt that best matches the requested cleanup:
 - If the request clearly spans more than one of those areas, you may use the specialized prompts in sequence, starting with the narrowest high-impact pass first.
 
 ## Guardrails
+
 - Ground all edits in the current visible package.
 - Do not invent hidden files, tests, validators, prompt files, or skill-package files.
 - Keep fixes conservative and focused on the requested cleanup surface.
 
 ## Deliverable
+
 Use this library entry point to choose the right specialized cleanup prompt, then apply the smallest useful set of updates for that cleanup pass.

@@ -2,10 +2,9 @@
 
 ## Scope
 
-
 ## Approved Fix Types
 
-- 
+-
 
 ## Planned Fixes
 

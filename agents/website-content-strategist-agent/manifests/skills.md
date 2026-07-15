@@ -1,6 +1,7 @@
 # Skills Inventory
 
 ## Fully Exported Skills
+
 | Skill | Source type | Path or URI | Entrypoint readable | Files exportable | Export status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | ai-chatbot-planner | agent-attached | `/root/.codex/skills/hermes/ai-chatbot-planner` | yes | yes | fully exported | source files readable and copied |
@@ -72,21 +73,25 @@
 | yeet | plugin-provided | `/root/.codex/plugins/cache/openai-marketplace/github/local/skills/yeet` | yes | yes | fully exported | source files readable and copied |
 
 ## Partially Exported Skills
+
 | Skill | Source type | Path or URI | Entrypoint readable | Files exportable | Export status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | None detected |  |  |  |  |  |  |
 
 ## Metadata-only External Skills
+
 | Skill | Source type | Path or URI | Entrypoint readable | Files exportable | Export status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | None detected |  |  |  |  |  |  |
 
 ## Skills Detected But Not Readable
+
 | Skill | Source type | Path or URI | Entrypoint readable | Files exportable | Export status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | None detected |  |  |  |  |  |  |
 
 ## Skills With Unknown Provenance
+
 | Skill | Source type | Path or URI | Entrypoint readable | Files exportable | Export status | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | None detected |  |  |  |  |  |  |

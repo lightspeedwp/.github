@@ -11,6 +11,7 @@ Move from a verified local package build to a safely attached draft skill with t
 ## Inputs
 
 Use only:
+
 - `prompts/tour-operator-website` as the single source of truth for the skill package
 - the local package produced by `05-local-package-assembly-prompt.md`
 - the current attached skill set in the draft
@@ -20,6 +21,7 @@ Use only:
 ## Preconditions
 
 Do not proceed with upload or attach unless all of these are true:
+
 - the earlier phases reported the package as ready for upload
 - the canonical entrypoints are present and verified
 - required referenced support files are present in the local package
@@ -54,6 +56,7 @@ If any precondition fails, stop and report the blocker instead of pushing ahead.
 ## Validation expectations
 
 After attach and alignment:
+
 - verify the skill is attached in the draft
 - verify the instructions reference the exact attached skill name consistently
 - verify the instructions no longer contain conflicting ownership language for routes the attached skill now owns

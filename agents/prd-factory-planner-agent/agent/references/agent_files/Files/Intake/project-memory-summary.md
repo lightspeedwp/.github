@@ -2,19 +2,19 @@
 
 ## Current Run Context
 
-- 
+-
 
 ## Project Memory Candidates
 
-- 
+-
 
 ## Confirmed Project Memory
 
-- 
+-
 
 ## Unsafe or Unverified Memory
 
-- 
+-
 
 ## Save Decisions
 

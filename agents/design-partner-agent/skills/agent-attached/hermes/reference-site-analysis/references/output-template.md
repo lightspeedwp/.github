@@ -5,6 +5,7 @@ Use this template when the request calls for a structured extraction from one or
 ## Single Reference
 
 ### Reference Site Analysis
+
 - **Target:**
 - **Likely use in current workflow:**
 - **High-level positioning signal:**
@@ -31,6 +32,7 @@ Use this template when the request calls for a structured extraction from one or
 ## Multi-Reference Comparison
 
 ### Reference Comparison
+
 - **References analyzed:**
 - **Shared structural patterns:**
 - **Differences in hierarchy or offer framing:**

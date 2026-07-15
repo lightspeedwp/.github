@@ -59,10 +59,12 @@ When the user wants reusable Markdown source:
 Use the non-fenced fallback when fenced Markdown output would render with visible attributes or other non-compliant wrapper behaviour.
 
 Fallback order:
+
 1. Plain-text copied source section
 2. Indented code-style text without language-tag fences
 
 Fallback requirements:
+
 - Preserve the full Markdown source cleanly.
 - Keep YAML frontmatter at the top of the source.
 - Do not introduce fake file links or file-download claims.
@@ -97,6 +99,7 @@ For AI-readiness estimates, use this section order:
 8. Next Step
 
 Additional estimate rules:
+
 - Choose the base package before evaluating add-ons.
 - Default to **AI Readiness Foundation** when the evidence supports a baseline review route.
 - Label assumptions, open questions, and risks clearly.

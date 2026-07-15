@@ -49,16 +49,24 @@ If parts are missing, define a simple, realistic default and label it as an assu
 Default output:
 
 ### SOP Purpose
+
 ### Scope
+
 ### Roles And Ownership
+
 ### Daily Or Weekly Triage Workflow
+
 ### Decision Rules
+
 - Accept
 - Duplicate
 - Decline
 - Snooze
+
 ### Escalation Rules
+
 ### Exceptions
+
 ### Expected End State
 
 ## Quality Bar

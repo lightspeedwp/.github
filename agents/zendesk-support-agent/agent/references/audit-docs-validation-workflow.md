@@ -3,6 +3,7 @@
 Use this reference when the user asks to audit, rewrite, harden, or validate this agent’s instructions, files, schemas, templates, examples, fixtures, profiles, scripts, or tests.
 
 ## Core rules
+
 - Keep Zendesk as the main focus and primary system of record.
 - Do not detach attached apps unless the user explicitly asks for that change.
 - Audit first, then update.
@@ -18,6 +19,7 @@ Apply **phase 1** of a full audit and rewrite to the current agent.
 Keep **Zendesk** as the main focus and primary system of record. Do **not detach any attached apps**. Preserve the agent’s overall purpose unless a change is clearly needed for coherence.
 
 In this phase, focus only on:
+
 - auditing and rewriting the **system instructions**
 - reviewing and updating **file references**
 - clearly explaining how referenced files should be used
@@ -26,9 +28,11 @@ In this phase, focus only on:
 - making the Zendesk-first workflow explicit, including when secondary apps should and should not be used
 
 Also add a new file:
+
 - `references/CONNECTORS.md`
 
 That file should:
+
 - map all attached apps
 - explain each app’s role
 - define Zendesk as the default source and primary workflow
@@ -37,12 +41,14 @@ That file should:
 - align with the system instructions
 
 Execution rules:
+
 - audit first, then update
 - reuse and improve existing files where possible
 - avoid duplicating guidance across multiple files unless necessary
 - keep this phase limited to instructions, file references, operating model, and app usage mapping
 
 What I want back:
+
 - a summary of instruction changes
 - the file-reference changes
 - what was added to `references/CONNECTORS.md`
@@ -57,6 +63,7 @@ Apply **phase 2** of the audit and rewrite to the current agent.
 Keep **Zendesk** as the main focus and do **not detach any attached apps**.
 
 In this phase, focus only on:
+
 - the **skill directory**
 - **skill usage rules**
 - **routing logic**
@@ -67,6 +74,7 @@ In this phase, focus only on:
 - clear **boundaries**, **quality standards**, and **evidence standards**
 
 Tasks:
+
 1. Audit the current skill directory and make it clearly defined.
 2. Refine skill routing so it is obvious:
    - which skill is primary for each request type
@@ -78,12 +86,14 @@ Tasks:
 6. Tighten operational boundaries and guard rails so standards are explicit and enforceable.
 
 Execution rules:
+
 - improve existing routing and standards files before creating duplicates
 - keep Zendesk-first behavior central
 - ensure secondary apps do not override the support workflow
 - make the output contract practical, structured, and validation-friendly
 
 What I want back:
+
 - a summary of skill-routing changes
 - output-rule changes
 - standards and boundary updates
@@ -99,6 +109,7 @@ Apply **phase 3** of the audit and rewrite to the current agent.
 Keep **Zendesk** as the main focus and do **not detach any attached apps**.
 
 In this phase, focus only on:
+
 - **memory usage guidance**
 - memory schemas and validation
 - **templates**
@@ -108,6 +119,7 @@ In this phase, focus only on:
 - related reference files that define these contracts
 
 Tasks:
+
 1. Expand memory usage guidance so it is explicit, robust, and aligned with the agent’s purpose.
 2. Define clearly:
    - what may be saved in memory
@@ -120,6 +132,7 @@ Tasks:
 6. Prefer validator-friendly structured contracts over loose prose where appropriate.
 
 Review and improve files in areas like:
+
 - `memory/`
 - `examples/`
 - `examples/memory/`
@@ -130,12 +143,14 @@ Review and improve files in areas like:
 - `references/`
 
 Execution rules:
+
 - reuse and improve existing artifacts where possible
 - avoid duplicate contracts
 - keep templates and examples paired and consistent
 - keep memory practical, durable, and schema-valid
 
 What I want back:
+
 - a summary of memory changes
 - schemas added or improved
 - templates/examples/fixtures/profiles added or improved
@@ -151,6 +166,7 @@ Apply **phase 4** of the audit and rewrite to the current agent.
 Keep **Zendesk** as the main focus and do **not detach any attached apps**.
 
 In this phase, focus only on:
+
 - **scripts**
 - **tests**
 - validation coverage
@@ -159,6 +175,7 @@ In this phase, focus only on:
 - final consistency across instructions, references, skills, templates, examples, memory, and profiles
 
 Tasks:
+
 1. Add or improve scripts that validate:
    - the agent instructions
    - file reference integrity
@@ -181,12 +198,14 @@ Tasks:
 5. Clean up stale or conflicting validation artifacts if needed.
 
 Execution rules:
+
 - prefer improving existing scripts and tests over duplicating them
 - keep the validation stack maintainable and practical
 - ensure all attached apps remain represented accurately
 - ensure Zendesk remains the primary operating focus
 
 What I want back:
+
 - a concise summary of all validation and test changes
 - scripts added or improved
 - tests added or improved

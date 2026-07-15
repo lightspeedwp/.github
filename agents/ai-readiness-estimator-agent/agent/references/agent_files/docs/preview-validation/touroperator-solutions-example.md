@@ -6,12 +6,12 @@ Reusable grounded test context for future previews, estimates, audits, routing c
 
 ## Core references
 
-- Live product site: https://touroperator.solutions/
-- Demo site: https://tourpress.pro/
-- Dev site: https://touroperator-solutions.lightspeedwp.dev/
-- GitHub repo: https://github.com/lightspeedwp/touroperator-solutions-2025
-- Google Drive folder: https://drive.google.com/drive/folders/1rygt8TXj0-26u9yi3j_suf5PdsC37XPH?usp=drive_link
-- Figma design system: https://www.figma.com/design/1wiwltz5a0og0YIoKsuPmn/-Library--TO-DS?node-id=0-1&t=H5LKavfymr9XzKa8-1
+- Live product site: <https://touroperator.solutions/>
+- Demo site: <https://tourpress.pro/>
+- Dev site: <https://touroperator-solutions.lightspeedwp.dev/>
+- GitHub repo: <https://github.com/lightspeedwp/touroperator-solutions-2025>
+- Google Drive folder: <https://drive.google.com/drive/folders/1rygt8TXj0-26u9yi3j_suf5PdsC37XPH?usp=drive_link>
+- Figma design system: <https://www.figma.com/design/1wiwltz5a0og0YIoKsuPmn/-Library--TO-DS?node-id=0-1&t=H5LKavfymr9XzKa8-1>
 
 ## Suggested test uses
 
@@ -24,6 +24,7 @@ Reusable grounded test context for future previews, estimates, audits, routing c
 ## Source-priority notes
 
 When using this context for future tests, prefer sources in this order:
+
 1. Google Drive folder for current specs, briefs, and project documentation
 2. Live site and demo site for product and messaging validation
 3. Dev site for implementation-state checks

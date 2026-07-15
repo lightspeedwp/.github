@@ -47,9 +47,11 @@ Look for:
 Default output:
 
 ### Project Pulse
+
 - one sentence or short paragraph
 
 ### Key Signals
+
 - progress
 - blockers or risks
 - next focus

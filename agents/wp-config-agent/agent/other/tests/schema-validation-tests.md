@@ -3,6 +3,7 @@
 Use this file as the human-readable checklist for schema and structure validation across the WordPress agent support files.
 
 ## Covered schema files
+
 - `schemas/enquiry-form-schema.json`
 - `schemas/site-discovery-schema.json`
 - `schemas/template-file-validation-schema.json`
@@ -12,6 +13,7 @@ Use this file as the human-readable checklist for schema and structure validatio
 - `schemas/memory-entry-schema.json`
 
 ## Covered folders
+
 - `templates/`
 - `examples/`
 - `schemas/`
@@ -20,6 +22,7 @@ Use this file as the human-readable checklist for schema and structure validatio
 - `profiles/`
 
 ## Required checks
+
 - filenames match the expected conventions
 - required headings remain present in reusable Markdown files
 - example files stay populated, not blank templates
@@ -28,12 +31,14 @@ Use this file as the human-readable checklist for schema and structure validatio
 - support folders needed by the WordPress operating model still exist
 
 ## Validation runners
+
 - `bash scripts/validate-folder-schemas.sh`
 - `python3 scripts/file-schema-validator.py`
 - `python3 scripts/validate-memory-contents.py`
 - `python3 scripts/validate-agent-structure.py`
 
 ## WordPress-specific drift checks
+
 - no WooCommerce-only or tour-operator language should appear unless the agent scope is intentionally expanded later
 - Gravity Forms and Yoast SEO support assets should remain represented in the validation model
 - memory validation should stay aligned with WordPress project continuity rather than generic task storage

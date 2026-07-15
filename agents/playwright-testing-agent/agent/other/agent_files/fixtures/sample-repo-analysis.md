@@ -1,9 +1,11 @@
 # Sample Repo Analysis
 
 ## Repository
+
 lightspeed-refill-store
 
 ## Findings
+
 - Package manager: pnpm
 - Playwright config present at `playwright.config.ts`
 - Existing tests in `tests/e2e/`

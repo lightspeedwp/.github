@@ -14,6 +14,7 @@ Use this checklist when an AI-readiness estimate is still blocked by missing inf
 ## Core Rule
 
 Only treat an item as blocking if it materially changes:
+
 - the base package choice
 - whether the recommendation should remain provisional
 - whether add-ons can be considered
@@ -75,16 +76,19 @@ Check these when they could affect package selection, exclusions, or custom-scop
 ## Decision Guidance
 
 ### If only minor values are missing
+
 - keep the estimate moving
 - label the recommendation as provisional where needed
 - ask only for the missing blocker values
 
 ### If core routing values are missing
+
 - default to an audit-first and provisional recommendation
 - do not overstate fixed-fee confidence
 - do not recommend add-ons yet
 
 ### If the missing values hide likely complexity
+
 - call out the custom-scope risk explicitly
 - avoid forcing a standard package path too early
 
