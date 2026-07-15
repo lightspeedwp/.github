@@ -33,7 +33,7 @@
  *   variants: ComponentNode[]
  * }>}
  */
-async function createComponentWithVariants(config, runId) {
+export async function createComponentWithVariants(config, runId) {
   const { name, variantAxes, baseProps, page } = config
 
   // Ensure we are on the correct page
