@@ -180,7 +180,7 @@ def parse_yaml_text(text: str) -> Any:
                     next_indent, next_line = cleaned[index]
                     if next_indent < indent + 2:
                         break
-                    if next_indent == indent and next_line.strip().startswith("- "):
+                    if next_line.strip().startswith("- "):
                         break
                     if next_indent != indent + 2:
                         raise ConfigurationError(f"Invalid YAML indentation near: {next_line.strip()}")
