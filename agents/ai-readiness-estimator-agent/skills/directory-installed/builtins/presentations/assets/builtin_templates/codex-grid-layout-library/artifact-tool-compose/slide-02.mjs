@@ -1,4 +1,4 @@
-import { image, layers, shape, table, text } from "@oai/artifact-tool";
+import { layers, text } from "@oai/artifact-tool";
 import { contentTokens } from "./runtime.mjs";
 
 export const slide02Tokens = contentTokens["slide-02"];
